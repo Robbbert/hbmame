@@ -1,0 +1,511 @@
+0.152
+-------
+
+
+MAMETesters Bugs Fixed
+----------------------
+- 04424: [Graphics] (seta.c) thunderlbl: [debug] Severe 
+  graphic issues (Osso)
+- 05357: [Crash/Freeze] (taitogn.c) nightrai: fails to boot 
+  into the game (smf)
+- 05236: [Graphics] multiple monitor support doesn't work with d3d
+- 05391: [Misc.] (cave.c) ppsatan: manufacturer info for ppsatan
+- 05383: [Graphics] (twin16.c) hpuncher: Screen is split and 
+  graphics are offset (Alex Jackson)
+- 00785: [Sound] (omegrace.c) omegrace: Corrupted music after 
+  completing first several levels. (hap)
+- 05214: [Color/Palette] vector games: Vector games with color overlay 
+  show in b&w on Windows D3D render when HLSL is disabled. (hap)
+- 05384: [DIP/Input] (lethal.c) lethaleneab, lethaleneae: Language DIP 
+  Switch not changing the language (Tafoid)
+- 05355: [DIP/Input] (cps1.c) sf2m3 ; sf2m8: Kick inputs are not working 
+  LK MK HK (Osso)
+- 05375: [Documentation] (sderby.c) sderby, sderby2: 1 set name and 1 
+  full name need changed
+- 05373: [Crash/Freeze] (capbowl.c) capbowl3, capbowl4: Black screen 
+  after starting game (Phil Bennett)
+- 05366: [Core] (harddriv.c) harddriv and clones, racedriv and clones: RTC 
+  Day and Month error and fails to start
+- 05365: [Documentation] (namcos21.c) driveyes: The correct description 
+  is "Driver's Eyes (Japan)"
+- 05364: [Compiling] Error when compiling with NO_USE_QTDEBUG
+- 05356: [Color/Palette] (midvunit.c) offroadc: Off Road Challenge and 
+  clones have wrong color in some textures (Phil Bennett)
+- 05207: [Graphics] All vector games: In the vector games, graphics 
+  remains imprinted even when exit the game. (hap)
+- 04947: [Graphics] (midvunit.c) offroadc: Missing selection indicator 
+  within service mode. (Phil Bennett)
+
+Source Changes
+--------------
+-vsnes.c: Verified second half roms for vs baseball usa e-1 set, fix
+ one mislabeled rom [Dead_Body]
+
+-midvunit.c - Fixed polygon pixel color selection [Phil Bennett]
+
+-peplus.c: Corrected a couple of color CAP sizes. Added the CG graphics 
+ roms for Ace$ Bonus Poker. [BrianT]
+
+-scsi: Fixed hard disk images with 256-byte sectors. [Curt Coder]
+
+-Added a simple DC blocker filter to the speaker toggle device [R. Belmont]
+
+-konendev.c: Corrected CPU type (PPC403) and added some hardware notes [Phil Bennett]
+
+-sf.c: update prom names for Street Fighter (World, Analog buttons) set.[Porchy]
+
+-exidy440.c:  Replaced prom dump for all games in driver located at 3K.  
+ It is unique to all the other proms and different in size.  [Joe Magiera, Tafoid]
+
+-nss.c: update bios rom locations and update inst rom label for smw;
+ marked nss v3 bios as possible hack [Kiddcade, Porchy]
+
+-CPS-1 update [Artemio Urbina]:
+ * Redumped CDU_22A.7F in dinou to match real pcb, verified on two
+   different sources
+
+-Tweaks to the idehd timing, which are still based on complete fiction. [smf]
+
+-Added a new macro MCFG_DEVICE_CARD_DEFAULT_BIOS, which can be used in
+ the machine config to set the default BIOS for a slot card device.
+ [Curt Coder]
+
+-SDL: fix non-Qt non-Windows build (MT #5364) [R. Belmont]
+
+-Added SCSI status code & set it in all command handlers. It is sent
+ over the bus when in status phase. In case of an error further
+ information should be set in m_sense_key/m_sense_asc/m_sense_ascq &
+ m_sense_information so that it can be returned by executing a request
+ sense command [smf]
+
+-Set the error bit in the IDE status register if the command causes a
+ check condition [smf]
+
+-vsnes.c: update labels of vs. Super Mario Bros roms to match physical
+ chips exactly. [Dead_Body]
+
+-z80dma: Implemented Auto Restart. [Curt Coder]
+
+-TMS57002 fixes and improvements: [Phil Bennett]
+ * Moved CA/ID post-increment outside of execution. Fixes case where
+    dual instructions post-increment, also reduces number of generated
+    instructions.
+ * Fixed data ordering of external memory accesses.
+ * Don't generate redundant instructions for undefined rounding modes;
+    remap them in decode.
+ * Set XOA to 0 on reset.
+ * Use [READ|WRITE]LINE_MEMBER for I/O lines.
+ * Added PC0 line.
+ * Added registers to debugger state.
+
+-wd_fdc: Fixed ready interrupt polarity. Added a soft_reset() function
+ which resets only the FDC and not the floppy image devices, thus
+ preserving the correct ready states. [Curt Coder]
+
+-Rewrote Konami 056800 (MIRAC): [Phil Bennett]
+ * Implemented as an 8-bit device
+ * Fixed address mapping
+ * Removed bogus timer interrupt
+ * Fixed interrupt handling
+
+-054539.c: Fixed input clock rate and implemented programmable timer
+ based on hardware measurements [Phil Bennett, Stefan Lindberg]
+
+-lethal.c, mystwarr,c, tmnt.c: Hooked up 054539 timer interrupt. Fixes
+ music tempo in some games [Phil Bennett]
+
+-qdrmfgp.c: Hooked up 054539 timer interrupt for qdrmfgp, fixed IRQ
+ acknowledge handling [Phil Bennett]
+
+-plygonet.c: Hooked up 054539 timer interrupt, removed non-existent
+ second 054539 and fixed EEPROM regression [Phil Bennett]
+
+-hornet.c, gticlub.c: Implemented sound interrupt timer [Phil Bennett]
+
+-konamigx.c improvements: [Phil Bennett]
+ * Hooked up 056800 device
+ * Hooked up 054539 timer interrupt
+ * Removed sound hacks
+ * All DSP RAM tests now pass, winspike sound now works
+
+-konamigq.c improvements: [Phil Bennett]
+ * Hooked up 056800 device
+ * Hooked up 054539 timer interrupt
+ * Added TMS57002 DASP
+
+-ultrsprt.c improvements: [Phil Bennett]
+ * Hooked up 054539 timer interrupt
+ * Implemented VRAM double buffering
+ * Improved trackball inputs
+ * Fixed sound
+
+-zr107.c improvements: [Phil Bennett]
+ * Hooked up 054539 timer interrupt
+ * Fixed sound in all games
+
+-rungun.c improvements: [Phil Bennett]
+ * Hooked up 054539 timer interrupt. Fixes music tempo
+ * Implemented sound CPU NMI control
+ * Fixed 054539 #2 regression
+
+-Saves the race driving DSK zram [smf]
+
+-Added all the available beatmania IIDX hard drives and Video CD's/DVD's, 
+ updated the hard drive labels from pictures online.  [smf]
+
+-mcs96: Misc. fixes [O. Galibert]
+
+-diserial: Remove defines, cleanup clocks/timers, add sync support [O. Galibert]
+
+-verified The Gladiator internal ROM on an Overseas cart [Artemio Urbina]
+
+-wd_fdc: Set CRC error bit if CRC error found during Read Address
+ command. Tiki 100 determines whether the disk is in FM or MFM format
+ by checking this. [Curt Coder]
+
+-CPS-1 update:
+ * Dumped and added IOB2.11D to sf2ee and sf2ue [Porchy], S9263B.1A to
+    sf2ce and sf2hf sets and clones [Porchy], CP1B9KA.9K to pang3
+    [Zabanitu]
+
+-snk6502.c:  Adjusted Nibbler board clock rate to use actual known
+ master clock and a logical divisor.  [Tafoid]
+
+-jedutil.c:  [Kevin Eshbach]
+ * Corrected the output of the PAL20X4, PAL20X8, PAL20X10 to show the
+    XOR on the relevant sum of products.
+ * When viewing a device the size of the JED file is verified to match
+    the size of the device.
+ * Replaced hard-coded symbol strings with constants.
+ * Started experimental work for supporting RICOH PAL’s.  (Currently
+    ifdef'ed out.)
+ * Added support for viewing the following devices and the
+    corresponding regression test data. (PALCE16V8, PAL10P8, PAL12P6,
+    PAL14P4, PAL16P2, PAL16P8, PAL16RP4, PAL16RP6, PAL16RP8, PAL6L16,
+    PAL8L14, PAL12H10, PAL12L10, PAL14H8, PAL14L8, PAL16H6, PAL16L6,
+    PAL18H4, PAL18L4, PAL20C1 and PAL20L2)
+
+-Added flip screen support to Royal Mahjong and brothers [Angelo Salese]
+
+ V9958: Added preliminary screen modes 10/11/12, used by Puzzle
+ Star/Sexy Boom [Angelo Salese, Wilbert Pol]
+
+-vsnes.c: Corrected rom labels and fixed set description for vspinbal
+ set [Dead_Body]
+
+-cinemat.c: Correct dipswitches for Vectorbeam's Warrior. [Timothy Shiels]
+
+-vsnes.c: More updated ROM labels, for vs top gun and vs gradius [Dead_Body]
+
+-i386: Fixed P6 CMOVcc instructions, and added CMOV feature flag to
+ Pentium Pro and Pentium II CPUs.  Added MMX feature flag to Pentium
+ MMX. [Barry Rodewald]
+
+-Fixed a complement by two bug in V9958 YJK table, fixes for good
+ colors in Puzzle Star / Sexy Boom / some MSX2+ games. [Angelo Salese]
+
+-Kludged Puzzle Star (Sang Ho Soft) hang at title screen [Angelo Salese]
+
+-Added the SHA1 for System 573 700B01 now that we have a dump. It
+ currently expects a different response from the H8 at bootup than the
+ other BIOS versions, so the data is stored in a fake rom until it's
+ HLE'd better of we get a dump of the H8 internal rom
+ [smf, innocent2k, anthonyoftga]
+
+-document that ketsui roms exist with different fill in the unused
+ areas [Artemio Urbina]
+
+-upd765: Fixed sense drive status command, and allow floppy connectors
+ without drives. [Curt Coder]
+
+-fixed scudsp & ssp1601 entries [Vito]
+
+-Reduce smearing on hlsl prescale [MooglyGuy]
+
+-Corrected 7486 description in head file [MASH]
+
+-various PGM protection cleanups / fixes (orlegend, olds, svgpcb) [iq_132]
+
+-finished modernising i2cmem [smf]
+
+-remodernised x76f041/x76f100 & zs01 so that logging becomes easy again
+ & uses READ_LINE_MEMBER/WRITE_LINE_MEMBER so the pins can be bound to
+ directly. Hooked up x76f041 to the early beatmania IIDX games. They
+ all pass the security check eventually but it takes a long time as it
+ repeatedly reads the first byte, it's possible that the contents
+ aren't correct as the game says the security is OK even when the data
+ returned is not what it's checking for. [smf]
+
+-Added a work round so that CR589 firmware updating works again, either
+ from the separate CD's or as part of the game install (for example DDR
+ MAX). [smf]
+
+-playch10: update Playchoice-10 BIOS ROM names to match exact chip
+ labels and types [Dead_Body]
+
+-naomi/dc: Sanitize screen format, fixes MT5349 [O. Galibert]
+
+-redumped some System 573 CD's [Guru]
+
+-CPS-1 update: Added S222B.1A PAL to ffightj and clones. 
+ [Charles MacDonald, Porchy, Smitdogg, The Dumping Union]
+
+-Created DS1204 device & switched megatouch to use it instead of it's
+ own local version (driver could do with some more tidying up as not
+ all games use a key but currently it is hooked up to all games).
+ Default data comes from a region instead of coded in driver, commands
+ & security match are now compared, data is clocked on the correct
+ edge, key can be written to and is saved to nvram. [smf]
+
+-redumped bad roms for First Funky Fighter [Yohji, Smitdogg, The Dumping Union]
+
+-Merged othldrby.c with toaplan2.c driver [Angelo Salese]
+
+-Converted Toaplan 2 to use SCREEN_RAW_PARAMS [Angelo Salese]
+
+-Added a core for uPD4992 RTC, used by Othello Derby and Power Kick [Angelo Salese]
+
+-Hooked up ds1204, but haven't found what it checks for yet. Change
+ PATCH_PROTECTION to 0 in tmaster.c and VERBOSE_LEVEL to 2 in ds1204.c
+ then look for "-> command" in error.log to find the subsequent read
+ from the dq pin for reading the identification and secure memory. For
+ tm4k the first two bytes of the nvram need to be  0x00, 0xa0. From
+ scratch you'll need to play a game before it will complain about the
+ protection, but after that it will complain on every boot. It tries
+ five different contents for the compare register at various points
+ during the bootup, this may be for obfuscation as the real chip will
+ return random results if the key is wrong. If the keys are available
+ it might be easier to dump them than figure out exactly what it wants.
+ [smf]
+
+-svgpcb: added igs027a rom, runs intro, dies trying to go in game, not
+ sure why yet [rtw, David Haywood]
+
+-Created a skeleton for the Konami 573 Multi Session Unit, renamed
+ digital io board source file to match and moved pcb layout from
+ driver. [smf]
+
+-Added skeleton for konami 573 memory card reader and network pcb unit
+ devices [smf]
+
+-redumped keyboard mania 3 [Guru]
+
+-Updated konam80s atapi dma kludge so that Guitar Freaks 7th Mix (and
+ alot of others) load again [smf] 
+
+-Mambo A GO-GO CD redump in raw mode + raw subcode. [any]
+
+-Improved Sega Bloxeed dipswitches. [Zaphod]
+
+-Added basic 3d FIFO understanding and hooked up FIFO irq processed to
+ Hyper Neo Geo 64, meaning a far better 3d display in all games
+ [Angelo Salese]
+
+-mc2661: Added various transmission and reception logic to help make
+ the above possible [Barry Rodewald]
+
+-twin16.c: [Alex Jackson]
+ * Use the correct gfx ROMs for all the vulcan/gradius2 sets
+ * Load gfx ROMs using standard macros instead of custom postprocessing
+ * Replace custom read/write handlers with AM_REGION, AM_SHARE, or banks as appropriate
+ * Fix Extra Life dipswitches in vulcana and vulcanb
+ * Fix cuebrick NVRAM size
+ * Fix audio cpu RAM size
+ * Use XTALs for clocks
+
+-Windows: Fixed D3D multimonitor support. [GroovyMAME]
+
+-Slot options can now be configured inline without creating an array.
+ Legacy support for old configuration uses MCFG_FRAGMENT_ADD, which
+ required changing so the current device could be updated by the
+ fragment. [smf]
+
+-converted cassette, pccard1 & pccard2 slots to use new MCFG macros [smf]
+
+-Uses MCFG_SLOT_DEFAULT_OPTION instead of MCFG_DEVICE_SLOT_INTERFACE
+ where only the default option is changed. [smf]
+
+-m68k: add ability for externally-thrown bus errors to have proper
+ details [R. Belmont]
+
+-uses device_mconfig_additions() to add ata slots, which allows you to
+ just add the device and configure it rather than using the
+ MCFG_ATA_INTERFACE_ADD #define. [smf]
+
+-allow building with ICL on Windows if you have it installed into MSVC [Dean London]
+ The ICL compiler on Windows installs over MSVC and piggybacks onto the
+ build tools Microsoft provide.  To enable compilation use USE_ICL=1
+ when compiling with MSVC_BUILD=1 (from the ICL enabled command prompt)
+ + gives a more stable build than the MSVC compiler + more informative
+ compile errors when using ICL compared to MSVC compiler + can still
+ use MSVC debugging tools (better than GCC) + can use additional intel
+ tools etc.
+ build is still slower than GCC one
+
+-aristmk4.c:  [Lord-Data]
+ * Option to raise outputs for physical meters to be used
+ * Option to disable making sound effects for emulated meters
+ * Option to disable virtual emulation of hopper/coin release system
+
+-k005289.c: refactored, removed redundant state variables and
+ unneccessary floating point math, added savestate support
+ [Alex Jackson]
+
+-Removed support for static config from slots and converted the two
+ devices using it to machine config fragments [smf]
+
+-Pong update: [couriersud]
+ * based on feedback from IRC hopefully fixed issues like "jumping"
+ * adjusted VR1 and VR2 to 50%
+ * disabled all printf output.
+
+-converted serial & rs232 devices to devcb2 [smf]
+
+-diimage: Added load_software_region() function that loads a software
+ list region into a shared_ptr. [Curt Coder]
+
+-Added preliminary sound to ghosteo.c by borrowing code from vegaeo.c. [Osso]
+
+-z8.c: Modernized cpu core.  [Wilbert Pol]
+
+-midyunit.c  [Andy Welsh] 
+ Fixed inputs and DIP Switches for hiimpact,
+ shimpact and clones which were all imported from TROG and mostly
+ incorrect.
+
+-Added Signetics 8X300 microcontroller core, updated Wicat driver to
+ use it.  [Barry Rodewald]
+
+-replaced read rx/cts/dcd callbacks in ACIA6850 write write handlers,
+ which allows multiple chips to be connected together without using
+ glue methods. [smf]
+
+-Changed Guitar Freaks 7m onwards to use a 32mb PCMCIA card [smf]
+
+-Redumped some beatmania IIDX CD's [Guru]
+
+-Redumped several Konami GV CD's [Guru]
+
+-Redumped several Konami M2 CD's [Guru]
+
+-Redumped various System 573 CD's [Guru]
+
+-i8089: implement remaining instructions and support execution from
+ "io" space. [Carl] 
+
+-replaced read callbacks in I8251/Z80DART (and clones)/MC2661/
+ MC68901/IM6402/MOS6551/Z80STI/MC6852/MC6854/ZX8302 with
+ write handlers, which allows multiple chips to be connected
+ together without using glue methods. [smf]
+
+-Removed a load of unused code from MC68901, probably left
+ over when it was converted to use diserial. [smf]
+
+-Removed dependency clutter in c64 expansion port, c128 driver,
+ ecbbus & econet [smf]
+ 
+-nemesis.c: added PORT_TOGGLE and PORT_NAMEs to Konami GT.
+ [baritonomarchetto]
+
+-Rom locations added for Battles (Xevious bootleg), G.I. Joe,
+ Ghosts'n Goblins (US), Victory Road and Guerilla War (Version
+ 1) as well as nvram location to The Simpsons.  [Kevin Eshbach]
+
+-Added readmes for gijoe, moo, xexex, lethal, mystwarr also
+ updating simpsons.  [Guru]
+
+
+New games added or promoted from NOT_WORKING status
+---------------------------------------------------
+Long Beach [any, hap]
+The Gladiator / Road of the Sword / Shen Jian [David Haywood, rtw]
+Blastaball (Arcadia, V 2.1) [Unigame]
+Pharaohs Match (Arcadia) [Unigame]
+Delta Command (Arcadia) [Unigame]
+Wave shark/Jet Wave [Phil Bennett]
+Puzzle Star (Sang Ho Soft) [Angelo Salese, Wilbert Pol]
+Dancing Stage - Internet Ranking Ver (GC845 VER. EBA) [smf, skype]
+Player's Edge Plus (XM00007P+XMP00006) Multi-Poker [BrianT, Ken]
+Player's Edge Plus (X000838S+XS000002) Five Times Pay Slots [BrianT, Kevin]
+Player's Edge Plus (X000841S+XS000002) Five Times Pay Slots [BrianT, Kevin]
+Player's Edge Plus (X001087S+XS000006) Double Double Diamond Slots [BrianT, Kevin]
+Player's Edge Plus (IP0079) Standard Draw Poker - French [BrianT, Ken]
+Player's Edge Plus (X002420P+XP000064) Deuces Wild Bonus Poker - French [BrianT, Ken]
+Power Kick  [bodger319, Yohji, Smitdogg, The Dumping Union, Angelo Salese]
+S.V.G. - Spectral vs Generation (M68k label V100JP) 
+  (ARM label V100JP ROM 05/12/05  S.V.G V100) (Japan, JAMMA PCB) [rtw, David Haywood]
+
+
+New clones added
+----------------
+Scramble (Recreativos Franco, Spanish bootleg) [Basilio Garcia]
+The Gladiator / Road of the Sword / Shen Jian (M68k label V100)
+   (ARM label V101, ROM 03/13/03 SHEN JIAN) [Artemio Urbina]
+Super Chase - Criminal Termination (1992/10/26 20:24:29 CHASE 3 VER 1.1, prototype) [Unigame]
+Brick Zone (v1.1) [Unigame]
+Cadash (World, prototype) [Unigame]
+1942 (prototype?) [Unigame]
+4 En Raya (set 2) [Unigame]
+Gallop Racer (English Ver 10.17.K) [Arzeno Fabrice, The Dumping Union]
+Chase Bombers (prototype) [Unigame]
+The First Funky Fighter (set 2) [Unigame]
+Cobra Command (Data East LD, set 2) [Unigame] (not working)
+Spy Hunter (prototype) [Unigame] (not working, needs more work)
+U.N. Defense Force: Earth Joker (Japan, prototype?) [Unigame]
+Syvalion (World, prototype) [Unigame]
+Donkey Kong Junior (P kit) [Chris Psaros]
+Who Dunit (version 9.0)  [Joe Magiera]
+Commando (US set 2) [Kevin Eshbach]
+Bucky O'Hare (ver EA) [caius]
+Player's Edge Plus (PP0055) Deuces Wild Poker (set 2) [BrianT]
+Player's Edge Plus (PP0171) Joker Poker [BrianT]
+Player's Edge Plus (X000054P+XP000038) Deuces Wild Poker [BrianT]
+Player's Edge Plus (PP0002) Standard Draw Poker [BrianT, Ken]
+Player's Edge Plus (PP0045) 10's or Better [BrianT, Ken]
+Player's Edge Plus (PP0455) Joker Poker [BrianT, Ken]
+Player's Edge Plus (PP0458) Joker Poker [BrianT, Ken]
+Player's Edge Plus (PP0536) Joker Poker [BrianT, Ken]
+Player's Edge Plus (PP0726) Double Bonus Poker [BrianT, Ken]
+Player's Edge Plus (IP0074) Joker Poker - French [BrianT, Ken]
+Player's Edge Plus (X000045P+XP000038) 10's or Better [BrianT, Ken]
+Player's Edge Plus (XMP00017) 5-in-1 Wingboard (CG2426) [BrianT, Ken]
+Player's Edge Plus (PP0417) Deuces Wild Poker (set 2) [BrianT, Kevin]
+Player's Edge Plus (PP0002) Standard Draw Poker (set 2) [BrianT, Ken]
+Player's Edge Plus (XMP00017) 5-in-1 Wingboard (CG2352) [BrianT, Ken]
+Player's Edge Plus (PP0046) 10's or Better [BrianT, Ken]
+Player's Edge Plus (X000002P+XP000038) Standard Draw Poker [BrianT, Ken]
+Player's Edge Plus (X000060P+XP000038) Standard Draw Poker [BrianT, Ken]
+Player's Edge Plus (X000171P+XP000038) Joker Poker [BrianT, Ken]
+Player's Edge Plus (X000417P+XP000053) Deuces Wild Poker [BrianT, Ken]
+Player's Edge Plus (X000459P+XP000038) Joker Poker [BrianT, Ken]
+Player's Edge Plus (X002043P+XP000038) Triple Bonus Poker [BrianT, Ken]
+Player's Edge Plus (X002066P+XP000038) Double Double Bonus Poker [BrianT, Ken]
+Player's Edge Plus (X002121P+XP000037) Standard Draw Poker [BrianT, Ken]
+Player's Edge Plus (X002150P+XP000038) 4 of a Kind Bonus Poker [BrianT, Ken]
+Player's Edge Plus (X002180P+XP000038) Double Bonus Poker [BrianT, Ken]
+Touchmaster 4000 (v6.03 New Jersey) [Brian Troha, The Dumping Union]
+Touchmaster 4000 (v6.01 Minnesota) [Brian Troha, The Dumping Union]
+Touchmaster 5000 (v7.10 Minnesota) [Brian Troha, The Dumping Union]
+Touchmaster 7000 (v8.05 New Jersey) [Brian Troha, The Dumping Union]
+Touchmaster 7000 (v8.04 Minnesota) [Brian Troha, The Dumping Union]
+Touchmaster 7000 (v8.00 Minnesota) [Brian Troha, The Dumping Union]
+World Kicks (WK3 Ver. A) [Guru]
+Wivern Wings [Brian Troha, Tormod, Smitdogg, The Dumping Union]
+Invasion - The Abductors (version 3.0) [Brian Troha, Smitdogg, The Dumping Union]
+Street Fighter III: New Generation (Euro 970204) [Layne, Smitdogg, The Dumping Union]
+
+
+New games marked as GAME_NOT_WORKING
+------------------------------------
+beatmania IIDX Substream (983 JAA) [smf]
+beatmania IIDX 5th style (GCA17 JA) [smf]
+beatmania IIDX (863 JAB) [Guru]
+beatmania IIDX 3rd style (GC992 JAC) [smf]
+beatmania IIDX 6th style (GCB4U JAB) [smf]
+Tokimeki Memorial Oshiete Your Heart (GQ673 JAA) [Guru]
+Total Vice (ver AAB) [Guru]
+Super Six Plus II English Mark Darts  [Jim Stolis]
+Tokimeki Memorial Oshiete Your Heart Seal Version Plus (GE756 JAA) [Guru]
+Submarine (Midway) [John Robertson, hap]
+Mambo A Go-Go e-Amusement (GQA40 VER. JRB) [smf]
+Touch de Uno! [R. Belmont, bodger319, gamerfan, f205v, Yohji, Smitdogg, rtw, The Dumping Union]

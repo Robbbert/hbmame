@@ -154,6 +154,14 @@ static ADDRESS_MAP_START( main_map, AS_PROGRAM, 8, jrpacman_state )
 	AM_RANGE(0x5080, 0x5080) AM_WRITE(jrpacman_scroll_w)
 	AM_RANGE(0x50c0, 0x50c0) AM_WRITENOP
 	AM_RANGE(0x8000, 0xdfff) AM_ROM
+// HBMAME extras
+	AM_RANGE(0x5002, 0x5002) AM_WRITENOP
+	AM_RANGE(0x5004, 0x5005) AM_WRITE(pacman_leds_w)
+	AM_RANGE(0x5006, 0x5006) AM_WRITENOP
+	AM_RANGE(0x5007, 0x5007) AM_WRITENOP
+	AM_RANGE(0x5072, 0x5072) AM_WRITENOP
+	AM_RANGE(0x5076, 0x507f) AM_WRITENOP
+	AM_RANGE(0xfffc, 0xffff) AM_RAM		/* for jrfast and fastjr */
 ADDRESS_MAP_END
 
 
@@ -176,9 +184,8 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_4WAY
-	PORT_DIPNAME( 0x10, 0x10, "Rack Test (Cheat)" ) PORT_CODE(KEYCODE_F1)
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	/* Press this to instantly finish the level - HBMAME */
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Finish Level (Cheat)") PORT_CODE(KEYCODE_8)
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN3 )
@@ -217,6 +224,21 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )          PORT_DIPLOCATION("SW1:8")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+// HBMAME extras
+	PORT_START ("FAKE")
+	/* This fake input port is used to get the status of the fire button */
+	/* and activate the speedup cheat. */
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
+	PORT_DIPSETTING(    0x00, "Disabled" )
+	PORT_DIPSETTING(    0x02, "Enabled with Button" )
+	PORT_DIPSETTING(    0x04, "Enabled Always" )
+
+	PORT_START ("CONFIG")
+	PORT_CONFNAME( 0x01, 0x01, "Level" )
+	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
+	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
@@ -276,7 +298,8 @@ static MACHINE_CONFIG_START( jrpacman, jrpacman_state )
 	MCFG_CPU_ADD("maincpu", Z80, 18432000/6)    /* 3.072 MHz */
 	MCFG_CPU_PROGRAM_MAP(main_map)
 	MCFG_CPU_IO_MAP(port_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", jrpacman_state,  vblank_irq)
+//	MCFG_CPU_VBLANK_INT_DRIVER("screen", jrpacman_state,  vblank_irq)
+	MCFG_CPU_VBLANK_INT_DRIVER("screen", pacman_state,  pacman_interrupt) // HBMAME
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)

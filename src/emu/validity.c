@@ -681,7 +681,7 @@ void validity_checker::validate_roms()
 			}
 
 			// for any non-region ending entries, make sure they don't extend past the end
-			if (!ROMENTRY_ISREGIONEND(romp) && current_length > 0)
+			if (!ROMENTRY_ISREGIONEND(romp) && current_length > 0 && !ROMENTRY_ISIGNORE(romp)) // HBMAME
 			{
 				items_since_region++;
 				if (ROM_GETOFFSET(romp) + ROM_GETLENGTH(romp) > current_length)

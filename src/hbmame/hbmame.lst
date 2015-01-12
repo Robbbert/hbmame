@@ -1,0 +1,1731 @@
+/******************************************************************************
+
+    hbmame.lst
+
+    List of all enabled drivers in the system. This file is parsed by
+    makelist.exe, sorted, and output as C code describing the drivers.
+
+****************************************************************************
+
+    Copyright Aaron Giles
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in
+          the documentation and/or other materials provided with the
+          distribution.
+        * Neither the name 'MAME' nor the names of its contributors may be
+          used to endorse or promote products derived from this software
+          without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY AARON GILES ''AS IS'' AND ANY EXPRESS OR
+    IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL AARON GILES BE LIABLE FOR ANY DIRECT,
+    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+    HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+    IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGE.
+
+******************************************************************************/
+
+
+	/* 1942.c */
+1942		//parent
+1942h
+galagax 	/* Jerky - Chris Moore hack of 1942 */
+
+	/* 1943.c */
+1943		//parent
+1943h		/* Hacked to have the vendor name and phone number */
+
+	/* arkanoid.c */
+arkanoid	/* A75 (c) 1986 Taito Corporation Japan (World) */
+akblc2dx 	/* hack */
+akgcdx	 	/* hack */
+aktaytdx 	/* hack */
+arkll32 	/* LLMAME 32 */
+
+	/* asteroid.c */
+asteroid
+asteroid6	/* Clay Cowgill Bullet Hack */
+astdelux4
+starslayer	// star destroyer, hack of asteroid2
+//amg		// test only
+
+	/* astrocde.c */
+tst_gorf	/* Gorf test rom */
+tst_gor1	/* Gorf test rom */
+tst_wow2	/* Wow test rom */
+tst_wow3	/* Wow test rom */
+
+	/* astrof.c */
+astrf_bl	/* Black Background */
+
+	/* atari_s1.c */
+atarians	// parent
+atarianb	/* hack for emulators */
+
+	/* bagman.c */
+bagturbo
+pickinpi	/* Color Hack by Pi */
+
+	/* blktiger.c */
+blkdrgnk	/* Korean Translation */
+
+	/* bombjack.c */
+bombjack	/* (c) 1984 Tehkan */
+bmbjckgr	/* Vag @ GreekRoms */
+bombjckb	/* bootleg */
+bombjred	/* hack by unknown French person */
+
+	/* btime.c */
+btime		/* (c) 1982 */
+bnjr		/* Bump N Jump Reverse Mod */
+pnc		/* Pac N Chase */
+stictime	/* Marks Hack of btime */
+vecbtime	/* T-Bone hack of Burgertime */
+
+	/* bublbobl.c */
+bublbobl	/* A78 (c) 1986 Taito Corporation */
+bb2bmh		/* Overclocked Bubblebobble Memories Hack */
+bbhackv1 	/* OVerclocked Level Hack */ 
+bbredux		/* Punji - Bubble Bobble Redux */
+bbredux1	/* Punji - Bubble Bobble Redux with Level Skip */
+bbredux2	/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
+bbredux3	/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
+bublbobf 	/* Arkatrad */ 
+bublcave
+bublcave10
+bublcave11
+sboblboblh 	/* level select hack */ 
+
+	/* bwidow.c */
+//spacwarp	/* Jeff Hendrix - Proto on Space Duel HW - removed - not working */
+
+	/* cave.c */
+ddonpach
+ddonpacha
+pwrinst2
+pwrinst2h	/* 2013 Hack by TT */
+
+	/* cclimber.c */
+ckong		/* (c) 1981 Falcon */
+tongypac
+ckongfix	/* Graphics Fix */
+ckonga2
+ckonga3
+cclimbrm	/* Tim Arcadecollecting Modded Version */
+
+	/* centiped.c */
+centiped	/* 136001           (c) 1980 */
+milliped	/* 136013           (c) 1982 */
+astroped	/* Twisty Hack of Centipede */
+astropd2	/* Twisty Hack of Centipede */
+cemescry	/* NoSync hack of Centipede */
+killiped	/* The Dog hack of Centipede */
+pacipede	/* Jeff Coleburn hack of Centiped */
+silliped	/* Andy hack of Millipede */
+vectiped	/* The Dog hack of Centipede */
+vectrped	/* T-Bone hack of Centipede */
+centipb		/* bootleg of centipdb */
+magworm2	/* bootleg of magworm */
+
+	/* cinemat.c */
+bbugtest	/* Test Rom */
+
+	/* commando.c */
+commando	/*  5/1985 (c) 1985 (World) */
+comdelux	/* Twisty Hack */
+comdlux1	/* Twisty Hack */
+
+	/* cps1.c */
+captcomm	/* 14/10/1991 (c) 1991 (World) */
+cawing		/* 12/10/1990 (c) 1990 (World) */
+dino		/* 01/02/1993 (c) 1993 (World) (CPS1 + QSound) */
+ffight
+ghouls		/* 12/1988 (c) 1988 (World) */
+kod		/* 11/07/1991 (c) 1991 (World) */
+knights		/* 27/11/1991 (c) 1991 (World) */
+megaman		/* 13/03/1992 (c) 1992 (World) */
+punisher	/* 22/04/1993 (c) 1993 (World) (CPS1 + QSound) */
+sf2ce		/* 13/03/1992 (c) 1992 (World) */
+wof		/* 02/10/1992 (c) 1992 (World) (CPS1 + QSound) */
+
+	/* cps1mis.c */
+captcomh	/* Found in neht build */
+captcommb	/* Mame */
+cawingb
+cps1demo	/* Charles Doty */
+cps1frog	/* Charles Doty */
+cps1test	/* Cal2 */
+cps1testa	/* Cal2 */
+daimakb		/* Found in Mame Plus */
+dinob		/* 1993 Cadillacs and Dinosaurs (bootleg) */
+dinoeh
+dinoex
+dinoh		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinoha		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinoz		/* Boss Hack */
+knightsb2
+knightsh	/* 1991 Knights of the Round (Hack) */
+knightsha	/* 1991 Knights of the Round (Hack) */
+kodh
+pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
+punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
+punisherjh	/* Found in neht build */
+punisherb	/* Found in neht build */
+sf2cebr		/* hack, Brasil   920313 */
+sf2ced		/* hack, Hispanic 990804 */
+sf2ceda		/* hack, Hispanic 990804 */
+sf2ceh		/* hack, Hispanic 990804 */
+sf2koryuh	/* Hack by TT */
+sf2m9		/* Found in Mame Plus */
+sf2m10		/* Found in Mame Plus */
+sf2m11		/* Found in Mame Plus */
+sf2m12		/* Found in Mame Plus */
+sf2m13		/* hack */
+sf2pun		/* Drakon, Punishment Edition v1 Final */
+sf2sl73a	/* Drakon, Sheng Long v7.3a */
+sf2tlona	/* hack, Tu Long set 1 */
+sf2tlonb	/* hack, Tu Long set 2 */
+sf2turyu	/* hack, Tu Long prototype */
+wof3js		/* 1997  Three Sword Masters / San Jian Sheng */
+wof3sj		/* 1997  Three Holy Swords / San Sheng Jian */
+wof3sja		/* 1997  Three Holy Swords / San Sheng Jian */
+wofah		/* 1992 Sangokushi II (Hack 1) */
+wofaha		/* 1992 Sangokushi II (Hack 2) */
+wofahb		/* 1992 Sangokushi II (Hack 3) */
+wofb
+wofchs		/* Chinese language */
+wofch
+wofch_v3
+wofchdx
+woffr		/* Neo-Arc French Trans */
+wofh 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+wofha		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+wofjh
+wofjhb		/* was dynwarjh by mistake - from Neht */
+wofjhc		/* was dynwarj2 by mistake - from Neht */
+wofjm
+wofr1h
+wofsj		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+wofsja		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+wofsjb		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+wofzero
+
+	/* cps2.c */
+ddsom
+ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
+suicide		/* Razoola */
+
+	/* dec0.c */
+baddudes
+baddudef	/* Arkatrad */
+decodemo	/* Charles Doty */
+
+	/* dkong.c */
+dkong		/* (c) 1981 Nintendo of America */
+dkongex		/* Jeff's Hack with Foundry Level */
+dkongp		/* Fix for level 22 kill screen by Don Hodges */
+dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
+kong2600	/* Vic Twenty George hack of Donkey Kong */
+nadkong
+dkong2m
+pauline		/* Clay Cowgill */
+
+	/* docastle.c */
+dorunrun	/* (c) 1984 */
+sdreturn
+
+	/* ertictac.c */
+//armdemo		/* Charles Doty */  // removed due to compilation problems
+
+	/* exidy.c */
+targ		/* needed parent */
+targtest	/* Targ Test Rom */
+
+	/* exerion.c */
+exerionj	/* Japanese version */
+exriongr	/* Vag @ GreekRoms 2004 */
+
+	/* fcrash.c */
+fcrash
+kodb
+
+	/* galaga.c */
+galaga
+xevious
+galagads	
+galagab2	
+galaga84	
+nebulbee	
+galaga99	/* Jerky and Sil hack of Galaga */
+galagabl 	/* Namco 1982 version of Gallag */
+galagaf 	/* Fast Shoot Hack */
+galagap 	/* Patch to fix level 0 crash, by Don Hodges */
+galagix		/* Galaga Meets Phoenix */
+galagost	/* Twisty Hack of Galaga */
+galagosb	/* Twisty Hack of Galaga 20021128 */
+galaped		/* Cary Barnhard hack of Galaga */
+galgaxin	/* T-Bone hack of Galaga */
+terror		/* Galaga Terrorist Hack */
+galagaef	/* Galaga Terrorist Hack */
+vgalaga		/* Galaga Vector Hack */
+vgalagam
+vgalagaf
+battlesh	/* Battles 2002 */
+gaous		/* Xevious Hack */
+mrdonm		/* Mr Do Nightmare */
+sxvioush	/* Super Xevious 2002 */
+xevioush	/* Xevious 2002 */
+xviousah
+xeviousp	/* Xevious Plus! */
+xevious3	/* Xevious 2003 */
+xevious4	/* Xevious 2004 */
+xevious5	/* Xevious 2005 */
+xeviblk		/* Xevious Black */
+
+	/* galaxian.c */
+amidar		/* GX337 (c) 1981 Konami */
+mooncrst	/* (c) 1980 Nichibutsu */
+pisces		/* Subelectro */
+scramble	/* GX387 (c) 1981 Konami */
+frogger		/* GX392 (c) 1981 Konami */
+amidarf		/* ArkaMAME */
+amidargr	/* GreekRoms 2004 */
+andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
+buglaxn		/* The Dog hack of Galaxian */
+fourplay
+galaxiab	/* unknown hack of Galaxian */
+galaxkyo	/* unknown hack of Galaxian Part X */
+galaxni		/* Petaco bootleg of Galaxian Part X */
+galinvad	/* T-Bone hack of Galaxian */
+galnamco	/* The Original Namco */
+gaylaxn		/* The Dog hack of Galaxian Part X */
+jumpbugx	/* jumpbug with extra sounds */
+kazzy
+monstrz
+mooncmst
+mooncrs5	/* clone of fantazia */
+offender	/* Chris Henry hack of scramble */
+starfgh2	/* Bootleg of Pisces */
+superdog	/* Jerky Hack Hack of scramble */
+supergs		/* Silver Systems Super Galaxian */
+trukker		/* Grimlick hack of Frogger */
+tst_frog	/* JROK */
+vectrgal	/* T-Bone hack of Galaxian */
+videight	/* 8in1 multigame */
+wbeast		/* Bootleg of War-of-Bug */
+
+	/* gauntlet.c */
+gaunt2		/* 136043           (c) 1986 */
+gaunt2s		/* Speed Hack */
+
+	/* gottlieb.c */
+qbert		/* GV-103 (c) 1982 Gottlieb */
+711qbert	/* Hack of Mello Yellow QBert */
+pbert
+qbertb		/*  */
+vbert
+
+	/* ir.c */
+invrvnge
+
+	/* itech8.c */
+itecdemo	/* Charles Doty */
+
+	/* jrpacman.c */
+jrpacman	/* (c) 1983 Midway */
+jr1000		/* Blue Justice */
+jr1000_2	/* Blue Justice */
+jr2000		/* Blue Justice */
+jr2001		/* Blue Justice */
+jr2001p		/* Blue Justice */
+jr2002		/* Blue Justice */
+jr2002p		/* Blue Justice */
+jr2003		/* Blue Justice */
+jr2003p		/* Blue Justice */
+jr2004		/* Blue Justice */
+jr2004p		/* Blue Justice */
+jr2005		/* Blue Justice */
+jr2005p		/* Blue Justice */
+jr3000p		/* Blue Justice */
+jr4000p		/* Blue Justice */
+jr5000p		/* Blue Justice */
+jr6000		/* Blue Justice */
+jr7000		/* Blue Justice */
+jr7000p		/* Blue Justice */
+jr8000		/* Blue Justice */
+jr8000p		/* Blue Justice */
+jr9000p		/* Blue Justice */
+jrdeluxe	/* Blue Justice */
+jrhearts
+jrpacad
+jrpacjr		/* Blue Justice */
+jrpacjrp	/* Blue Justice */
+jrpacp		/* Blue Justice */
+jrvectr		/* T-Bone hack of Jr. Pac-Man */
+jrfast
+jrcheat
+jrspeed
+jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
+
+	/* kof96 */
+kof96b
+kof96c
+kof96ckvs
+kof96cr
+kof96chj
+kof96seh
+kof96eh
+kof96ep
+kof96evo
+kof96evoo
+kof96ey
+kof96hp
+kof96hpr
+kof96k
+kof96k3
+kof96k3o
+kof96lx
+kof96pjc
+kof96rcw
+kof96ri
+kof96ri1
+kof96ri2
+kof96ri3
+kof96ri4
+kof96ri5
+kof96ru
+kof96rw
+
+	/* kof97 */
+kof97bh
+kof97cr
+kof97chl
+kof97chl2
+kof97eh
+kof97eh2
+kof97eho
+kof97hxd
+kof97ice
+kof97kp
+kof97lc
+kof97lr
+kof97mit
+kof97ne
+kof97pj
+kof97pjc
+kof97saw
+kof97sed
+kof97sw
+kof97wh
+kof97wpls
+kof97xp
+kof97xxx
+kof97y
+kof97ya
+kof97yb
+kof97ye
+kof97yg
+kof97yh
+kof97yk
+kof97yl
+kof97yl2
+
+	/* kof98 */
+//kof98ae reboots during attract mode
+kof98cd
+kof98ch
+kof98chl
+kof98co20070720
+kof98co20130311
+kof98co20130509
+kof98co20130528
+kof98co20130617
+kof98co20130808
+kof98co20130820
+kof98dc
+kof98ehr
+kof98fr
+kof98fro
+kof98fro2
+kof98ice
+kof98ico
+kof98jh
+kof98mix	/* KOF98 mix 2011-10-01 */
+kof98pjc
+kof98rh
+kof98rm
+kof98seh
+kof98seho
+kof98wh
+kof98wh2
+kof98y
+kof98yh
+//kof98co2014 //test
+
+	/* kof99 */
+kof99ab
+kof99ae		/* Aniversary Edition */
+//kof99ae20140208 crashes during demo
+kof99bh
+kof99btr
+kof99ch
+kof99chf
+kof99d
+kof99eh
+kof99ehr
+kof99fc
+kof99hp
+kof99iori
+kof99jh
+kof99jho
+kof99kp
+kof99lb
+kof99m
+kof99pjc1
+kof99pjc2
+kof99pjc3
+kof99pjco
+kof99pk
+kof99pko
+kof99pm
+kof99pt
+kof99py
+kof99r
+kof99revo
+kof99rp
+kof99rp1
+kof99rp2
+kof99rp3
+kof99rp4
+kof99rp5
+kof99rp6
+kof99rp7
+kof99rp8
+kof99rp9
+kof99rpa
+kof99rpb
+kof99rpc
+kof99rpp
+kof99rr
+kof99rs
+kof99rsm
+kof99rsp
+kof99seh
+kof99sp
+kof99wh1
+kof99wh2
+kof99wh3
+kof99wh4
+kof99xpsa
+kof99xpsf
+kof99xpsp
+kof99y
+kof99yb
+kof99yd	
+
+	/* kof2000 */
+kof2000d
+kof2kbh
+kof2kbj
+kof2kce
+kof2kch
+kof2kcp
+kof2keh
+kof2kehr
+kof2kevo
+kof2kevo1
+kof2kevo2
+kof2kgbh
+kof2kgold
+kof2kice
+kof2kjlc
+kof2kkf1
+kof2kkvs
+kof2kkzs
+kof2kpjc
+kof2kpjc1
+kof2kpjc2
+kof2kpjc3
+kof2krm
+kof2krp
+kof2kseh
+kof2kst
+kof2kwh
+kof2kwh2
+kof2ky
+kof2kyd
+kof2kyg
+kof2kz
+kof2kzs
+
+	/* kof2001 */
+cthd2k3b
+ct2k3eh
+ct2k3k3
+ct2k3k3o
+kof2001d
+kof2k1ay
+kof2k1b
+kof2k1b3
+kof2k1bd2
+kof2k1bh
+kof2k1ce
+kof2k1cfc
+kof2k1cf1
+kof2k1ch
+kof2k1clr
+kof2k1cp
+kof2k1cp1
+kof2k1cp2
+kof2k1cp3
+kof2k1cp4
+kof2k1cp5
+kof2k1cp6
+kof2k1cp7
+kof2k1cr
+kof2k1eh
+kof2k1ehc
+kof2k1ehr
+kof2k1gm
+kof2k1ha
+kof2k1ha2
+kof2k1hao
+kof2k1hb
+kof2k1hgm
+kof2k1ice
+kof2k1ic2
+kof2k1k3o
+kof2k1k32
+kof2k1k33
+kof2k1k34
+kof2k1k35
+kof2k1k36
+kof2k1k37
+kof2k1k38
+kof2k1k39
+kof2k1k3a
+kof2k1k3b
+kof2k1k3c
+kof2k1k3d
+kof2k1k3e
+kof2k1k3f
+kof2k1k3g
+kof2k1k3h
+kof2k1lse
+kof2k1mk2
+kof2k1mk
+kof2k1mke
+kof2k1pa
+kof2k1pjc
+kof2k1pjo
+kof2k1pj1
+kof2k1pj2
+kof2k1pj3
+kof2k1pls
+kof2k1rm
+kof2k1rp
+kof2k1rpo
+kof2k1rp1
+kof2k1ru
+kof2k1seh
+kof2k1sob
+kof2k1wh
+kof2k1z1
+kof2k1z2
+
+	/* kof2002 */
+kof2002d
+kof2k2b // no sound in attract mode
+kof2k2b1
+kof2k2bh
+kof2k2bjh
+kof2k2bjo
+kof2k2br
+kof2k2br1
+kof2k2br2
+kof2k2cf1
+kof2k2cf2
+kof2k2cf3
+kof2k2cfc
+kof2k2ch
+kof2k2chl
+kof2k2cl2
+kof2k2cl3
+kof2k2dbh
+kof2k2e1
+kof2k2e2
+kof2k2e3
+kof2k2ehr
+kof2k2er2
+kof2k2er3
+kof2k2er4
+kof2k2erx
+kof2k2evo
+kof2k2fy
+kof2k2gc
+kof2k2gc2
+kof2k2gf
+kof2k2ht
+kof2k2ibp
+kof2k2ic1
+kof2k2ic2
+kof2k2ice
+kof2k2jc
+kof2k2js
+kof2k2kc
+kof2k2k3o
+kof2k2k32
+kof2k2k33
+kof2k2k34
+kof2k2k35
+kof2k2k36
+kof2k2k37
+kof2k2k38
+kof2k2k39
+kof2k2k3a
+kof2k2k3b
+kof2k2k3c
+kof2k2k3d
+kof2k2k3e
+kof2k2k3f
+kof2k2k3g
+kof2k2mp1	/* Magic Plus */
+kof2k2mp3	/* Magic Plus III - Ismamj */
+kof2k2nu
+kof2k2omg8
+kof2k2omg9
+kof2k2omg9b
+kof2k2ori
+kof2k2pjw // no sound in attract mode
+kof2k2plb
+kof2k2pr
+kof2k2pro
+kof2k2ps2
+kof2k2ra
+kof2k2rm
+kof2k2rma
+kof2k2rm1
+kof2k2rm2
+kof2k2rm3
+kof2k2rm13 // no sound in attract mode
+kof2k2rr // no sound in attract mode
+kof2k2rr1
+kof2k2rr2 // no sound in attract mode
+kof2k2rr3
+kof2k2rr4
+kof2k2rr5
+kof2k2rr6
+kof2k2rr7
+kof2k2rr8 // no sound in attract mode
+kof2k2rs
+kof2k2ru
+kof2k2rw
+kof2k2sb
+kof2k2seh
+kof2k2se2
+kof2k2smg
+kof2k2sp
+kof2k2spo
+kof2k2tc
+kof2k2ul
+kof2k2ule
+kof2k2wuk // no sound in attract mode
+kof2k2xxx
+kof2k4ru // no sound in attract mode
+kof2k8uni
+
+	/* kof2003.c */
+kof2k3b
+kof2k3gc
+kof2k3sc
+kof2k3tc
+kof2k3zgf
+
+	/* m52.c */
+mpatrol		/* M52 (c) 1982 */
+spatrol		/* Sponge Patrol - Gatinho 2008 */
+
+	/* maketrax.c */
+eyes		/* (c) 1982 Digitrex Techstar + "Rockola presents" */
+aa		/* Widel's Games */
+absurd		/* scott - nonworking alpha ver 3 */
+//alpaca7		/* Jerronimo (useless) */
+//alpaca8		/* Jerronimo (useless) */
+bace		/* Widel's Games */
+crashh		/* PacMAME Hacks */
+dderby		/* Widel's Games */
+eyesb
+kangaroh	/* Widel's Games */
+lazybug
+lazybug1
+mtturbo		/* Tim - Make Trax Turbo Hack */
+pachello	/* Jerronimo */
+pacmatri	/* Jerronimo */
+pactest		/* Widel's Games */
+ppong		/* Widel's Games */
+ppong2		/* Widel's Games */
+rainboh		/* Widel's Games */
+seq1		/* Jerronimo */
+seq2		/* Jerronimo */
+tst_pacm
+wavybug
+zap		/* Widel's Games */
+
+	/* mappy.c */
+mappy		/* (c) 1983 */
+superpac	/* (c) 1982 */
+crackhea 	/* Cary Barnhard hack of Mappy */
+housepty 	/* Jerky hack of Mappy */
+marpy
+superpc1	/* Paul Smith */
+superpcn 	/* Blue Justice */
+superpcp	/* Blue Justice */
+superpcs	/* Paul Smith */
+vectrsup	/* T-Bone hack of Super Pac-Man */
+
+	/* mario.c */
+cenmario 
+
+	/* mcr.c */
+handiman	/* Bobby Tribble hack of Tron */
+shtron		/* Jerronimo */
+stapper		/* Tapper Simpsons Hack */
+stapper1	/* Tapper Simpsons Hack ver .81 */
+
+	/* mcr3.c */
+sarge		/* (c) 1985 */
+sargex		/* Gatinho Sarge x-rated */
+
+	/* mgd2.c */
+bstarsd		/* 0002 (c) 1990 SNK */
+tpgolfd		/* 0003 (c) 1990 SNK */
+maglordd	/* 0005 (c) 1990 Alpha Denshi Co. */
+ridherod	/* 0006 (c) 1990 SNK */
+alpham2d	/* 0007 (c) 1991 SNK */
+ncombatd	/* 0009 (c) 1990 Alpha Denshi Co. */
+cyberlid	/* 0010 (c) 1990 SNK */
+superspd	/* 0011 (c) 1990 SNK */
+mutnatd		/* 0014 (c) 1992 SNK */
+kotmd		/* 0016 (c) 1991 SNK */
+sengokud	/* 0017 (c) 1991 SNK */
+burningd	/* 0018 (c) 1991 SNK */
+lbowlind	/* 0019 (c) 1990 SNK */
+gpilotsd	/* 0020 (c) 1991 SNK */
+joyjoyd		/* 0021 (c) 1990 SNK */
+lresortd	/* 0024 (c) 1992 SNK */
+eightmad	/* 0025 (c) 1991 SNK / Pallas */
+minasand	/* 0027 (c) 1990 Monolith Corp. */
+2020bbd		/* 0030 (c) 1991 SNK / Pallas */
+socbrawd	/* 0031 (c) 1991 SNK */
+roboarmd	/* 0032 (c) 1991 SNK */
+fatfuryd	/* 0033 (c) 1991 SNK */
+fbfrenzd	/* 0034 (c) 1992 SNK */
+bakatond	/* 0036 (c) 1991 Monolith Corp. */
+crswordd	/* 0037 (c) 1991 Alpha Denshi Co. */
+trallyd		/* 0038 (c) 1991 Alpha Denshi Co. */
+sengok2d	/* 0040 (c) 1993 SNK */
+3countbd	/* 0043 (c) 1993 SNK */
+aofd		/* 0044 (c) 1992 SNK */
+androdud	/* 0049 (c) 1992 Visco */
+ncommndd	/* 0050 (c) 1992 Alpha Denshi Co. */
+wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
+
+	/* mineswp.c */
+mineswp		/* Minesweeper */
+
+	/* midtunit.c */
+mk		/* (c) 1992 Midway */
+mkturbod	/* MK protection hack */
+mktturboen	// Zenomorp 2012 Turbo Endurance
+mktturbopi	// Zenomorp 2012 Turbo Projectile Insanity
+mk2		// Mortal Kombat II r3.1
+mk2r33		// Mortal Kombat II r3.3
+umk2te50	// Ultimate MKII Tournament Edition r5.0.050
+umk2te51	// Ultimate MKII Tournament Edition r5.0.051
+umk2te52	// Ultimate MKII Tournament Edition r5.0.052
+
+	/* midwunit.c */
+mk3		/* (c) 1994 Midway */
+umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
+umk3z		/* UMK3 1.2 Zeus hack */
+
+	/* midyunit.c */
+mkla4d		/* MK protection hack */
+
+	/* mitchell.c */
+mitcdemo	/* Charles Doty */
+
+	/* monaco.c */
+monaco
+
+	/* mrdo.c */
+mrdo		/* (c) 1982 */
+mrdigdo		/* Justin Clark hack of Mr. Do! */
+mrdofast	/* Speedup hack from Evil Exidy*/
+mrpac		/* Twist Hack 20020813 */
+mrpacb
+newdigdo	/* Vic 20 George and Jerky hack of... */
+stickydo	/* Marck's Hacks */
+
+	/* mslug */
+mslug
+mslug2		/* 0241 (c) 1998 SNK */
+mslugx		/* 0250 (c) 1999 SNK */
+mslug3		/* 0256 (c) 2000 SNK */
+mslug4		/* 0263 (c) 2002 Mega Enterprise */
+mslug5		/* 0268 (c) 2003 Playmore */
+
+mslugeh
+mslugxfr
+mslugxfro
+mslugxit
+mslugxeh
+mslug2eh
+mslug2eh1
+mslug2eh2
+mslug2eh3
+mslug2eh4
+mslug2fr
+mslug2fro
+mslug3d
+mslug3eha
+mslug3ehs
+mslug3e02
+mslug3e03
+mslug3e04
+mslug3e05
+mslug3e06
+mslug3e07
+mslug3e08
+mslug3e09
+mslug3e10
+mslug3e11
+mslug3e12
+mslug3e13
+mslug3e14
+mslug3e15
+mslug3e16
+mslug3e17
+mslug3e18
+mslug3e19
+mslug3e20
+mslug3e21
+mslug3e22
+mslug3fr
+mslug3fro
+mslug3kh
+//mslug3kho // crashes on high score screen - use mslug3kh
+mslug3v		/* EEZEZY Violence Edition */
+mslug4d
+mslug4dh	/* Super D version */
+mslug4eh
+mslug4eh2
+mslug4eh3
+mslug4eh4
+mslug4eh5
+mslug4eh6
+mslug4eho
+mslug4fr
+mslug4i
+mslug4kh
+mslug5d
+mslug5fr
+
+	/* mspacman.c */
+mspacman	/* (c) 1981 Midway */ /* made by Gencomp */
+chtmsatk	/* PacMAME Hacks */
+chtmspa		/* PacMAME Hacks */
+cookiem
+cottoh		/* Gatinho hack of mspacman, to simulate what Crazy Otto might have been like */
+cottoh2		/* Gatinho hack of mspacman, to simulate what Crazy Otto might have been like */
+fasthang
+fastpuck
+fasthear	/* PacMAME Hacks */
+fastmspa	/* PacMAME Hacks */
+fastpop
+faststrm	/* PacMAME Hacks */
+fstmsatk	/* PacMAME Hacks */
+fstpman2
+heartbn2	/* PacMAME Hacks */
+heartbrn	/* unknown hack of Ms. Pac-Man */
+horizpab	/* Jerronimo v1.0 2004 */
+horizpac	/* Jerronimo */
+mrmrspac
+mrpacman
+ms1000		/* Blue Justice */
+ms2000		/* Blue Justice */
+ms2600		/* T-Bone hack of Ms. Pac-Man */
+ms3000		/* Blue Justice */
+ms4000p		/* Blue Justice */
+ms5000		/* Blue Justice */
+ms5000p		/* Blue Justice */
+msatk2ad	/* PacMAME Hacks */
+msatkad
+msbaby		/* T-Bone hack */
+msberzk		/* Bobby Tribble hack of Ms. Pac-Man */
+mscrzyma	/* Blue Justice */
+mscrzymp	/* Blue Justice */
+msdroid		/* Grendal74 */
+msdstorm	/* Mike Naylor hack of Ms. Pac-Man */
+mselton		/* Sil hack of Ms. Pac-Man */
+msextra		/* Blue Justice */
+msextrap	/* Blue Justice */
+msf1pac		/* Sil hack of Ms. Pac-Man */
+msgrkatk	/* Grendal74 */
+msgrkb		/* Grendal74 */
+mshangly	/* PacMAME Hacks */
+mshearts	/* PacMAME Hacks */
+msheartb
+msindy		/* Sil hack of Ms. Pac-Man */
+msmini		/* T-Bone hack of Ms. Pac-Man */
+msminia		/* T-Bone hack of Ms. Pac-Man */
+msmspac		/* Blue Justice */
+msnes4a		/* T-Bone hack of Ms. Pac-Man */
+msnes62		/* T-Bone hack of Ms. Pac-Man */
+msnes63		/* T-Bone hack of Ms. Pac-Man */
+msnes6m		/* T-Bone hack of Ms. Pac-Man */
+msnes6m2	/* T-Bone hack of Ms. Pac-Man */
+msnes6m3	/* T-Bone hack of Ms. Pac-Man */
+msnes6m4	/* T-Bone hack of Ms. Pac-Man */
+mspac1		/* from Greekmame 0.87 */
+mspac6m		/* Sil hack of Ms. Pac-Man */
+mspac6m2	/* Sil hack of Ms. Pac-Man (fixed) */
+mspacad		/* Sil hack of Ms. Pac-Man */
+mspacat2	/* Sil hack of Miss Pac Plus */
+mspacatb
+mspacde
+mspacdel	/* Blue Justice */
+mspacfnt
+mspachi
+mspacii
+mspacit
+mspacit2
+mspacj
+mspacmap	/* Don Hodges patch to fix various bugs in mspacmab */
+mspacmbg
+mspacnes	/* T-Bone hack of Ms. Pac-Man */
+mspacp		/* Blue Justice */
+mspacpbl	/* Dav/PMP bootleg */
+mspacren	/* T-Bone hack of Ms. Pac-Man */
+mspacrip	/* R3mer hack of Ms. Pac-Man */
+mspacsup	/* Super Ms. Pac-Man */
+mspacwf		/* Tim Appleton - Ms. PacMan Weird Fruit */
+mspamsba	/* Blue Justice */
+mspc6mad	/* T-Bone hack of Ms. Pac-Man */
+msplus		/* Blue Justice 20010824 */
+msrumble
+mssilad		/* PacMAME Hacks */
+msstrmaz	/* Blue Justice */
+msultra
+msvctr6m	/* T-Bone hack of Ms. Pac-Man */
+msvectr		/* PacMAME Hacks */
+msyakman	/* PacMAME Hacks */
+pacatk		/* Widel's Games */
+pacgalu
+pacgent
+pacrab
+pacsnoop	/* Jerronimo */
+petshop
+pheartb
+piranha2
+ramsnoop	/* Jerronimo */
+sueworlb
+sueworld
+supmspac	/* Spedic Vending bootleg */
+vectratk	/* Sil and T-Bone hack of Ms. Pac-Man */
+zolamaze
+zolaad		/* PacMAME Hacks */
+zolaatk		/* PacMAME Hacks */
+zolapac		/* PacMAME Hacks */
+zolaslow	/* PacMAME Hacks */
+zolatunl	/* PacMAME Hacks */
+zolavect	/* PacMAME Hacks */
+	/* "Pacman hardware" games (hires hacks) */
+mschampx 	/* hack */
+mspacmnx 	/* (c) 1981 Midway */ /* made by Gencomp */
+mspacmfx 	/* hack */
+mspacatx 	/* hack */
+mspacmbx 	/* bootleg */
+mspacplx 	/* hack */
+pacgalx 	/* hack */
+
+	/* multipac.c */
+96in1		/* Widel's Games */
+96in1a		/* Widel's Games */
+96in1b		/* Widel's Games */
+96in1c		/* Widel's Games */
+hackypac	/* Widel's Games */
+madpac		/* Widel's Games */
+multi10		/* bootleg */
+multi11		/* bootleg */
+multi13		/* bootleg */
+multi14		/* bootleg */
+multi15		/* bootleg */
+mspaceur
+pm4n1
+pm4n1a
+pm4n1b
+pm4n1c
+pm4n1d
+pm4n1e
+
+	/* nemesis.c */
+spclone
+
+	/* neogeo.c */
+neogeo
+aof2		/* 0056 (c) 1994 SNK */
+doubledr	/* 0082 (c) 1995 Technos */
+fatfury3	/* 0069 (c) 1995 SNK */
+ganryu		/* 0252 (c) 1999 Visco */
+ironclad
+kabukikl	/* 0092 (c) 1995 Hudson */
+kof94		/* 0055 (c) 1994 SNK */
+kof95		/* 0084 (c) 1995 SNK */
+kof96		/* 0214 (c) 1996 SNK */
+kof97		/* 0232 (c) 1997 SNK */
+kof98		/* 0242 (c) 1998 SNK */
+kof99		/* 0251 (c) 1999 SNK */
+kof2000		/* 0257 (c) 2000 SNK */
+kof2001		/* 0262 (c) 2001 Eolith / SNK */
+kof2002		/* 0265 (c) 2002 Eolith / Playmore */
+lastblad	/* 0234 (c) 1997 SNK */
+lastbld2	/* 0243 (c) 1998 SNK */
+nam1975		/* 0001 (c) 1990 SNK */
+matrim		/* 0266 (c) 2002 Atlus */
+ninjamas	/* 0217 (c) 1996 ADK / SNK */
+nitd		/* 0260 (c) 2000 Eleven / Gavaking */
+pbobblen	/* 0083 (c) 1994 Taito */
+preisle2	/* 0255 (c) 1999 Yumekobo */
+rbff2		/* 0240 (c) 1998 SNK */
+rbffspec	/* 0223 (c) 1996 SNK */
+roboarmy
+rotd		/* 0264 (c) 2002 Evoga */
+s1945p		/* 0254 (c) 1999 Psikyo */
+samsho		/* 0045 (c) 1993 SNK */
+samsho2		/* 0063 (c) 1994 SNK */
+samsho3		/* 0087 (c) 1995 SNK */
+samsho4		/* 0222 (c) 1996 SNK */
+samsho5		/* 0270 (c) 2003 Playmore */
+samsh5sp	/* 0272 (c) 2003 Playmore */
+sengoku3	/* 0261 (c) 2001 SNK */
+svc		/* 0269 (c) 2003 Playmore / Capcom */
+whp		/* 0090 (c) 1995 ADK / SNK */
+zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
+				/* 0054 Crossed Swords 2  (CD only? not confirmed, MVS might exist) */
+
+	/* neogeohb.c */
+b2b		// 071 Bang Bang Busters
+fr2		// 098 Idol Mahjong - final romance 2
+fr2cd		/* 098 (c) 1995 Video Systems Co. */
+fr2ch		/* 098 (c) 1995 Video Systems Co. */
+zintrkcd	/* 211 (c) 1996 ADK / SNK */
+totc		// 316 Treasure of the Caribbean
+beast		/* 2002 (c) 1989 Psygnosis */
+cndi		/* Chip n Dale Intro */
+cnbe
+cphd
+columnsn	/* 2000 (c) 1990 Sega */
+//csw2 not working at all & roms missing
+dwi		/* DarkWing Duck Intro */
+ffeast
+ffeastd
+gbi		/* Ghostbusters Intro */
+iocero		// BEY
+knacki		// KnackiBalls by Furrtek
+lhcdb		/* 2007 (c) Last Hope CD beta */
+ltorb
+neo2500		/* Blastar */
+neo3d		// Oxygene
+neocstlv	// BarfHappy
+neodemo		/* Charles Doty */
+neogal1		// BEY
+neogal1d	// BEY
+neogal1t	// BEY
+neogal2		// BEY
+neonopon	/* (c) 2002-10-05 Blastar */
+neopong		/* (c) 2002 Neodev */
+neoponga	/* (c) 2002 Neodev */
+neoromjb	// CeL
+neotest		// BEY
+neothund	// Sebastian Mihai
+ngem2k
+ngftdemo	// CeL
+ngtetris
+nyan
+poknight	/* 2003 (c) 200? JMK */
+rci		/* Robocop intro */
+smi		/* Spiderman intro */
+syscheck
+test01		// MVS Test 01 by Furrtek
+timesupd	// CeL
+tmnti		/* TMNT intro */
+ww2demo
+
+	/* neogeo1.c */
+ganryud
+garoud
+matrimd
+matrimdh
+nitdd
+preisl2d
+rotdd
+s1945pd
+samsh5sd
+samsho5d
+sengok3d
+svcd
+zupapad
+	/* translation */
+fightfek
+flipshok
+mdrop3fr	/* Neo-Arc French Trans */
+miexchfr	/* Neo-Arc French Trans */
+necup98k
+nitdfr		/* Neo-Arc French Trans */
+nitdfro		/* Neo-Arc French Trans */
+nitdsp
+rotdbr
+rotdbr1
+rotdbr2
+wjammerk
+	/* other hacks */
+aof2b
+aof2br2
+aof3b
+bangbedp	/* 2000 Visco - Prototype ? */
+breaksp	
+dbdehy
+dbdy
+dbdeh
+dbdq
+dbdqb
+dbdqp
+dbdqeh
+ffur3b
+ffur3bd
+ffur3eh
+ffspeh
+garopamu
+garoupeh
+garopehc
+garoupy
+garoupf
+garoupfu
+garoupfp
+ironcladb	/* 1996 Saurus */
+joyjoycd
+kabukleh
+kabuklyc
+kabukgmc
+kabuklgm
+kabuklmc
+karnvreh
+kizunaeh
+kof94b
+kof94seh
+kof94eh
+kof94ru
+kof95b
+kof95d
+kof95seh
+kof95eh
+kof95hp
+kof95pjc
+kof95ru
+kof95y
+labld2pl
+lastbl2b
+lastbldb
+lastblde
+lbboss
+lbeh
+lbeh2
+lbseh
+lbeho
+lby
+lb2a
+lb2bhd
+lb2easy
+lb2ed
+lb2ebd
+lb2eh
+lb2eh2
+lb2eho
+lb2ehu
+lb2wh
+lb2yd
+matrmehc
+nam1975g
+nam1975h
+njmeh
+njmehc
+njmehyc
+pbobblnb
+pbobbldx
+rbff1ud
+rbffsehd
+rbffsb
+rbffseh
+rbffspy
+rbffsud
+rbff2b
+rbff2bh
+rbff2eh
+rbff2ehc
+rbff2eh2
+rbff2eho
+rbff2fc
+rbff2ud
+rbff2y
+rageh
+roboarma
+rotdb
+rotdeh
+rotdehc
+rotdcre
+rotdcreb
+rotdh2b
+rotdhab
+rotdhar
+rotdhfw
+rotdhfwb
+rotdfw
+rotdfy
+rotdyc
+s1945pwe
+samshob
+samshoeh
+samsheh2
+samsh2eh
+samsh2yc
+samsh3eh
+samsh3yc
+samsh3se
+samsh4bh
+samsh4cz
+samsh4eh
+samsh4es
+samsh4ew
+samsh4fc
+samsh4kw
+samsh4kz
+samsh4wh
+savagedb
+senkucd
+senku3kc
+senku3k
+senku3c
+senku3b
+senku3ha
+senku3yk
+senku3ya
+shockt2w
+tpgolfcd
+viewpntr
+wakuw7bh
+wh2ey
+whpb
+whpb2
+whpbh
+whpbho
+whpbho2
+whpeh
+whpeho
+
+	/* pacland.c */
+pacland		/* (c) 1984 */
+mariopac
+paclandb
+paclandd	/* Blue Justice */
+
+	/* pacman.c */
+abortman 	/* Paul C Copeland hack of Puckman */
+baby2		/* T-Bone hack */
+baby3		/* T-Bone hack */
+baby4		/* T-Bone hack */
+brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
+bucaneer	/* PacMAME Hacks */
+caterpil
+chtpac
+chtpac3d
+chtpman2
+chtpop
+chtpuck
+crazypac
+dizzy
+eltonpac	/* Sil hack of Pac-Man (Midway) */
+europac		/* Stefano 'Jojo' Priore hack of Pac-Man (Midway) */
+fpnleash
+hanglyad
+hmhearts	/* hack */
+hearts
+hm1000		/* Blue Justice */
+hm2000		/* Blue Justice */
+hmba5000	/* Blue Justice */
+hmba7000	/* Blue Justice */
+hmbabymz	/* Blue Justice */
+hmbluep		/* Blue Justice */
+hmgrenp		/* Blue Justice */
+hmpopey		/*  */
+hmplus		/* Blue Justice */
+homercid	/* David Widel */
+jacman
+jpmmunch	/* JPM bootleg */
+mazeman		/* Sil hack of Pac-Man */
+namcosil	/* Sil hack of Pac-Man (Namco) */
+newpuck2	/* Scotty hack of Pac-Man */
+newpuck3
+nwpuc2b
+pac2600		/* Bobby Tribble hack of Pac-Man (Midway) */
+pac2600a
+pacbaby
+pacbaby2
+pacbaby3
+pacbell
+pacelec
+pacfnt
+pacinvis
+pacjail
+pacjr1
+pacjr2
+pacjr3
+pacjr4
+pacm255		/* Mark Spaeth patch for level 256 */
+pacman25	/* Jerronimo v1.0 2004 */
+pacman3d	/* Sil hack of Pac-Man (Midway) */
+pacman6
+pacmanp		/* Don Hodges patch for level 256 */
+pacmar		/* PacMAME Hacks */
+pacminer
+pacmini		/* Bobby Tribble hack of Pac-Man (Midway) */
+pacmini2	/* Bobby Tribble hack of Pac-Man (Midway) */
+pacmn6m2
+pacms1
+pacms2
+pacms3
+pacms4
+pacmsa1
+pacmsa2
+pacmsa3
+pacmsa4
+pacmulti
+puck255
+pacplusc
+pacpopey	/* unknown hack of Pac-Man (Namco) */
+pacshuf
+pacspeed
+pacweird
+pacwf		/* Tim Appleton - Weird Fruit */
+pcrunchy
+pengman		/* Jerry Lawrence hack of Pac-Man (Midway) */
+pm1000		/* Blue Justice */
+pm2000		/* Blue Justice */
+pm3000		/* Blue Justice */
+pm4000p		/* Blue Justice */
+pm5000p		/* Blue Justice */
+pm6000		/* Blue Justice */
+pm7000		/* Blue Justice */
+pm7000p		/* Blue Justice */
+pmad		/* SirScotty and Sil hack of Pac-Man (Midway) */
+pmad00
+pmad6m		/* T-Bone hack */
+pmada
+pmba2000	/* Blue Justice */
+pmba3000	/* Blue Justice */
+pmba4000	/* Blue Justice */
+pmba6000	/* Blue Justice */
+pmba8000	/* Blue Justice */
+pmbamaz		/* Blue Justice */
+pmbaplus	/* Blue Justice */
+pmbluep		/* Blue Justice */
+pmdeluxe	/* Blue Justice */
+pmextra		/* Blue Justice */
+pmextrap	/* Blue Justice */
+pmfever		/* Blue Justice */
+pmgrenp		/* Blue Justice */
+pmheart
+newpuc1		/* Italian dump */
+pplusad
+puckman		/* (c) 1980 Namco */
+puckmano
+puckmoti
+puckmot1
+puckren
+puckrenc
+punleash
+roboman
+snakeyes	/* T-Bone hack */
+snowpac		/* T-Bone hack */
+spuckman
+sumeltob
+sumelton
+tbone		/* T-Bone hack */
+ultra2		/* PacMAME Hacks */
+ultrapac
+vcrunchy
+vecbaby
+vecbaby2
+vecbaby3
+vecpac		/* T-Bone hack of Pac-Man (Midway) */
+vectplus
+vectr6m		/* T-Bone hack */
+vectr6tb	/* T-Bone hack */
+vectxens
+vhangly
+vhangly3
+vpacbell
+vpacelec
+vpacjail
+vpacms1
+vpacms2
+vpacms3
+vpacms4
+vpacmsa1
+vpacmsa2
+vpacmsa3
+vpacmsa4
+vpacshuf
+vpspeed
+xensad
+xensrev
+	/* "Pacman hardware" games (hires hacks) */
+puckmanx 	/* (c) 1980 Namco */
+puckmnax 	/* (c) 1980 Namco */
+puckmnfx 	/* hack */
+puckmnhx 	/* hack */
+pacmanx 	/* (c) 1980 Midway */
+pacmanfx 	/* hack */
+puckmodx 	/* (c) 1981 Namco */
+pacmodx 	/* (c) 1981 Midway */
+newpuc2x 	/* hack */
+nwpuc2bx 	/* hack */
+nwpuckxx 	/* hack */
+hanglyx 	/* hack */
+hangly2x 	/* hack */
+hangly3x 	/* hack */
+pacplusx
+pheartx 	/* hack */
+
+	/* pcktgal.c */
+pcktgal		/* (c) 1987 Data East Corporation (Japan) */
+pckgalgr	/* Vag @ GreekRoms */
+pcktgalk	/* Korean Translation */
+
+	/* pengo.c */
+pengo		/* 834-0386 (c) 1982 Sega */
+pengopop
+vecpengo	/* T-Bone hack of Pengo */
+//alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
+//alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
+
+	/* pgm.c */
+pgm		/* (c) 1997 */
+ket
+//kov
+kovplus
+kovsh
+//kov2
+pgemeni		/* Blastar */
+pgmdemo		/* Charles Doty */
+pgmfrog		/* Rastersoft */
+ketarr		/* trap15 */
+ketarrb
+ketarrf
+ketarr15
+ketarrs15
+ketarr151
+ketarrs151
+kovp2k7
+kovpl116
+kovpl948
+kovpls06
+kovpls93
+kovpls97
+kovpluslb
+kovpluslw
+kovpluspj
+kovplusq
+kovpluss8
+kovplusx
+kovplusbe
+kovplusdz
+kovplusti
+kovplusup
+kovshhack
+//kovshpa
+kovshre
+
+	/* phoenix.c */
+phoenix		/* (c) 1980 Amstar */
+//phoenix4	/* rom missing */
+phoenixd
+phoenixg	/* Vag @ GreekRoms */
+phoenixr	/* CYBERYOGI =CO= Windler hack of Phoenix */
+pleiads2
+
+	/* playch10.c */
+playch10
+pc_bb2		/* NES->PC-10 */
+pc_ctfrc	/* NES->PC-10 */
+pc_digdg	/* NES->PC-10 */
+pc_krsty	/* NES->PC-10 */
+pc_mman5	/* NES->PC-10 */
+pc_parsl	/* NES->PC-10 */
+pc_ark		/* NES->PC-10 */
+pc_dk3		/* NES->PC-10 */
+pc_galag	/* NES->PC-10 */
+pc_cch		/* NES->PC-10 */
+pc_dk		/* NES->PC-10 */
+pc_pacm		/* NES->PC-10 */
+pc_gyrus	/* NES->PC-10 */
+pc_skykd	/* NES->PC-10 */
+
+	/* psikyosh.c */
+s1945ii
+s1945iiex
+
+	/* rallyx.c */
+rxtron		/* Jerky and Sil hack of Rally-X */
+nrallyv		/* New Rally-X (vertical) */
+
+	/* rastan.c */
+rastan		/* B04 (c) 1987 Taito Corporation Japan (World) */
+rastandh	/* Neil Pearce Hack */	
+rastand2	/* Neil Pearce Hack */
+rastaneh	/* Neil Pearce Hack */
+rastane2	/* Neil Pearce Hack */
+rastwack	/* Vogel Hack */
+
+	/* retofinv.c */
+retofin4	/* Paul Smith hack */
+
+	/* schaser.c */
+schasrcv
+
+	/* segac2.c */
+c2frog
+
+	/* segaorun.c */
+outrun
+outrunen
+outrunen0
+outrunen1
+outrunen2
+
+	/* segar.c */
+astrob2h
+
+	/* shaolins.c */
+kfjohnny	/* hack by Smitdogg*/
+
+	/* snk6502.c */
+vantris		/* (c) 1998 Norbert Kehrer */
+
+	/* spacmiss.c */
+spacmiss
+
+	/* st0016.c */
+renjuk		/* Korean Translation */
+
+	/* system1.c */
+wbml		/* bootleg (S2) */
+wbmlbit		/* Italian Translation */
+wbmlkb		/* Korean Translation */
+
+	/* system16.c */
+//sys16dem	/* Charles Doty */ freezes
+
+	/* taito_b.c */
+bubbleb 	/* pbobble USA Region Hack */
+
+	/* taito_f2.c */
+f2demo		/* Charles Doty */
+
+	/* taito_f3.c */
+dariusg		/* D87 (c) 1994 Taito Corporation Japan (World) */
+arkretrh
+cleopath
+driusgxh
+f3demo		/* Charles Doty - removed - not working */
+gekiridh
+landmakh
+pbobl2xh
+
+	/* tecmo.c */
+geminit		/* Twisty Hack */
+rygark		/* Korean Translation */
+
+	/* tehkanwc.c */
+tehkanwc	/* (c) 1985 Tehkan */
+ballonwc
+tehkangc
+tankwc
+twc_gr		/* Vag @ GreekRoms */
+
+	/* tempest.c */
+tempest		/* 136002           (c) 1980 */
+tempall
+temped		/* Tempest TempEd Hack */
+tempestm
+temptwst	/* Twisty Hack */
+tmptwsta	/* Twisty Hack 2000 */
+tmptwst2	/* Twisty Hack */
+tmptwst3	/* Twisty Hack */
+tmptwst4	/* Twisty Hack */
+vbrakout	/* Clay Cowgill */
+tempmg		/* Clay Cowgill Multi-Tempest */
+temptlm
+vortex		/* Tempest Prototype */
+vortexa		/* Tempest Prototype */
+aliensv		/* Tempest Prototype */
+aliensva	/* Tempest Prototype */
+
+	/* terracre.c */
+terracre	/* (c) 1985 */
+terracrc
+	
+	/* tmnt.c */
+ssriders
+ssridersaex
+	/* toaplan2.c */
+kgpe		/* Neill Corlett hack */
+
+	/* trackfld.c */
+athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
+
+	/* twincobr.c */
+twincobr	/* TP-011 (c) 1987 Taito Corporation (World) */
+twincbu2
+twintwst
+
+	/* volfied.c */
+volfiedg	/* Vag @ GreekRoms 2005 */
+
+	/* vsnes.c */
+suprmrio	/* (c) 1986 Nintendo */
+mrio2002	/* Vs. Super Mario Bros. 2002 */
+suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
+
+	/* williams.c */
+defender
+defender2
+splatsc1
+
+	/* yiear.c */
+yiear		/* GX407 (c) 1985 */
+nacho		/* Gatinho - Nacho Libre */

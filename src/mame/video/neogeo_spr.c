@@ -271,7 +271,10 @@ inline void neosprite_base_device::draw_fixed_layer_2pixels(UINT32*&pixel_addr, 
  *************************************/
 
 #define MAX_SPRITES_PER_SCREEN    (381)
-#define MAX_SPRITES_PER_LINE      (96)
+// HBMAME
+//#define MAX_SPRITES_PER_LINE      (96)
+// beast requires 236 sprites, also fixes neopong and lhcdb
+#define MAX_SPRITES_PER_LINE      (236)
 
 
 /* horizontal zoom table - verified on real hardware */
