@@ -55,6 +55,7 @@ WINOSDOBJS = \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
 	$(WINOBJ)/../modules/sound/direct_sound.o \
+	$(WINOBJ)/../modules/lib/osdlib_win32.o \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
 	$(WINOBJ)/../modules/debugger/debugwin.o \
