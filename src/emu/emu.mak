@@ -55,6 +55,7 @@ EMUOBJS = \
 	$(EMUOBJ)/audit.o \
 	$(EMUOBJ)/cheat.o \
 	$(EMUOBJ)/clifront.o \
+	$(EMUOBJ)/cliopts.o \
 	$(EMUOBJ)/config.o \
 	$(EMUOBJ)/crsshair.o \
 	$(EMUOBJ)/debugger.o \
@@ -115,16 +116,18 @@ EMUOBJS = \
 	$(EMUOBJ)/timer.o \
 	$(EMUOBJ)/uiinput.o \
 	$(EMUOBJ)/ui/ui.o \
-	$(EMUOBJ)/ui/swlist.o \
 	$(EMUOBJ)/ui/menu.o \
 	$(EMUOBJ)/ui/mainmenu.o \
 	$(EMUOBJ)/ui/miscmenu.o \
-	$(EMUOBJ)/ui/selgame.o \
+	$(EMUOBJ)/ui/barcode.o \
 	$(EMUOBJ)/ui/filemngr.o \
 	$(EMUOBJ)/ui/filesel.o \
 	$(EMUOBJ)/ui/imgcntrl.o \
 	$(EMUOBJ)/ui/imginfo.o \
-	$(EMUOBJ)/ui/barcode.o \
+	$(EMUOBJ)/ui/inputmap.o \
+	$(EMUOBJ)/ui/selgame.o \
+	$(EMUOBJ)/ui/slotopt.o \
+	$(EMUOBJ)/ui/swlist.o \
 	$(EMUOBJ)/ui/tapectrl.o \
 	$(EMUOBJ)/ui/viewgfx.o \
 	$(EMUOBJ)/validity.o \
@@ -145,7 +148,6 @@ EMUOBJS = \
 	$(EMUOBJ)/profiler.o \
 	$(EMUOBJ)/webengine.o \
 	$(OSDOBJ)/osdcore.o \
-	$(OSDOBJ)/osdepend.o \
 	$(OSDOBJ)/osdnet.o \
 	$(OSDOBJ)/modules/sound/none.o \
 	$(OSDOBJ)/modules/debugger/none.o \
