@@ -52,6 +52,7 @@
 #include "dialogs.h"
 #include "winutf8.h"
 #include "strconv.h"
+#include "drivenum.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf

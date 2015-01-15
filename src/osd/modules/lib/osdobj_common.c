@@ -14,6 +14,9 @@
 #include "modules/sound/none.h"
 #include "modules/debugger/none.h"
 #include "modules/debugger/debugint.h"
+#include "modules/midi/portmidi.c"
+#include "netdev.c"
+#include "netdev_pcap.c"
 #include "modules/lib/osdobj_common.h"
 
 extern bool g_print_verbose;

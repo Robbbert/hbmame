@@ -26,6 +26,7 @@
 #include "emu.h"
 #include "mui_util.h"
 #include "strconv.h"
+#include "drivenum.h"
 
 
 #ifdef __GNUC__

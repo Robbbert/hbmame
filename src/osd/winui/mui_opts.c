@@ -47,6 +47,7 @@
 #include "winutf8.h"
 #include "strconv.h"
 #include "game_opts.h"
+#include "drivenum.h"
 
 
 #ifdef _MSC_VER

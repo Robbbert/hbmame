@@ -51,6 +51,7 @@
 // MAME headers
 #include "strconv.h"
 #include "winutf8.h"
+#include "drivenum.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf

@@ -32,6 +32,7 @@
 #include "datafile.h"
 #include "mui_opts.h" // For MameUIGlobal()
 #include "sound/samples.h"
+#include "drivenum.h"
 
 #define MAX_TOKEN_LENGTH        256
 #define DATAFILE_TAG '$'

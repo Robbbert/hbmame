@@ -19,7 +19,7 @@
 // MAME headers
 #include "emu.h"
 #include "osdepend.h"
-#include "modules/lib/osdobj_common.h"
+//#include "modules/lib/osdobj_common.h"
 #include "emuopts.h"
 
 // MAMEOS headers

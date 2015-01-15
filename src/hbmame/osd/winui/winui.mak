@@ -16,6 +16,7 @@ HBMAME_WINUISRC = $(SRC)/hbmame/osd/winui
 HBMAME_WINUIOBJ = $(OBJ)/hbmame/osd/winui
 WINUISRC = $(SRC)/osd/winui
 WINUIOBJ = $(OBJ)/osd/winui
+OSDOBJ = $(OBJ)/osd
 
 RESFILE = $(HBMAME_WINUIOBJ)/hbmameui.res
 
@@ -54,11 +55,12 @@ WINOSDOBJS = \
 	$(WINOBJ)/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
-	$(WINOBJ)/../modules/sound/direct_sound.o \
-	$(WINOBJ)/../modules/lib/osdlib_win32.o \
+	$(OSDOBJ)/modules/sound/direct_sound.o \
+	$(OSDOBJ)/modules/lib/osdlib_win32.o \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
-	$(WINOBJ)/../modules/debugger/debugwin.o \
+	$(OSDOBJ)/modules/debugger/debugwin.o \
+	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	$(WINOBJ)/winmain.o \
 	$(WINOBJ)/winmenu.o \
 

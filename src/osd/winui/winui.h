@@ -20,6 +20,7 @@
 #include "emu.h"
 #include "pool.h"
 #include "screenshot.h"
+#include "drivenum.h"
 
 
 #ifdef PTR64

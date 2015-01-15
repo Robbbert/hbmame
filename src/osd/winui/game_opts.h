@@ -16,6 +16,7 @@
 
 #include <vector>
 #include "win_options.h"
+#include "drivenum.h"
 
 class string_iterator
 {

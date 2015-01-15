@@ -64,6 +64,9 @@ EMULATOR = $(PREFIX)$(NAME)ui$(SUFFIX)$(SUFFIX64)$(SUFFIXDEBUG)$(EXE)
 WINSRC = $(SRC)/osd/windows
 WINOBJ = $(OBJ)/osd/windows
 
+OSDSRC = $(SRC)/osd
+OSDOBJ = $(OBJ)/osd
+
 OBJDIRS += $(WINOBJ) \
 	$(OSDOBJ)/modules/sync \
 	$(OSDOBJ)/modules/lib \
@@ -255,9 +258,10 @@ OSDCOREOBJS = \
 	$(WINOBJ)/winutil.o \
 	$(WINOBJ)/winptty.o \
 	$(WINOBJ)/winsocket.o \
-	$(WINOBJ)/../modules/sync/sync_windows.o \
-	$(WINOBJ)/../modules/sync/work_osd.o \
-	$(WINOBJ)/../modules/lib/osdlib_win32.o \
+	$(OSDOBJ)/modules/sync/sync_windows.o \
+	$(OSDOBJ)/modules/sync/work_osd.o \
+	$(OSDOBJ)/modules/lib/osdlib_win32.o \
+	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	
 # if malloc debugging is enabled, include the necessary code
 ifneq ($(findstring MALLOC_DEBUG,$(DEFS)),)
@@ -282,13 +286,13 @@ OSDOBJS = \
 	$(WINOBJ)/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
-	$(WINOBJ)/../modules/sound/direct_sound.o \
+	$(OSDOBJ)/modules/sound/direct_sound.o \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
 	$(WINOBJ)/winmenu.o \
 	$(WINOBJ)/winmainui.o \
-	$(WINOBJ)/../modules/midi/portmidi.o \
-	$(WINOBJ)/../modules/lib/osdobj_common.o \
+	$(OSDOBJ)/modules/midi/portmidi.o \
+	$(OSDOBJ)/modules/lib/osdobj_common.o \
 
 
 # add UI objs
