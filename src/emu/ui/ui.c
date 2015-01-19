@@ -20,6 +20,7 @@
 #include "uiinput.h"
 #include "ui/mainmenu.h"
 #include "ui/miscmenu.h"
+#include "ui/filemngr.h"
 #include "ui/viewgfx.h"
 #include "imagedev/cassette.h"
 #include <ctype.h>
@@ -306,16 +307,16 @@ UINT32 ui_manager::set_handler(ui_callback callback, UINT32 param)
 
 void ui_manager::display_startup_screens(bool first_time, bool show_disclaimer)
 {
-	const int maxstate = 3;
+	const int maxstate = 4;
 	int str = machine().options().seconds_to_run();
 	bool show_gameinfo = !machine().options().skip_gameinfo();
-	bool show_warnings = true;
+	bool show_warnings = true, show_mandatory_fileman = true;
 	int state;
 
 	// disable everything if we are using -str for 300 or fewer seconds, or if we're the empty driver,
 	// or if we are debugging
 	if (!first_time || (str > 0 && str < 60*5) || &machine().system() == &GAME_NAME(___empty) || (machine().debug_flags & DEBUG_FLAG_ENABLED) != 0)
-		show_gameinfo = show_warnings = show_disclaimer = FALSE;
+		show_gameinfo = show_warnings = show_disclaimer = show_mandatory_fileman = FALSE;
 
 	#ifdef SDLMAME_EMSCRIPTEN
 	// also disable for the JavaScript port since the startup screens do not run asynchronously
@@ -351,6 +352,15 @@ void ui_manager::display_startup_screens(bool first_time, bool show_disclaimer)
 			case 2:
 				if (show_gameinfo && game_info_astring(messagebox_text).len() > 0)
 					set_handler(handler_messagebox_anykey, 0);
+				break;
+
+			case 3:
+				if (show_mandatory_fileman && image_mandatory_scan(machine(), messagebox_text).len() > 0)
+				{
+					astring warning;
+					warning.cpy("This driver requires images to be loaded in the following device(s): ").cat(messagebox_text.substr(0, messagebox_text.len() - 2));
+					ui_menu_file_manager::force_file_manager(machine(), &machine().render().ui_container(), warning.cstr());
+				}
 				break;
 		}
 
