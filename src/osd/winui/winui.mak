@@ -261,7 +261,6 @@ OSDCOREOBJS = \
 	$(OSDOBJ)/modules/sync/sync_windows.o \
 	$(OSDOBJ)/modules/sync/work_osd.o \
 	$(OSDOBJ)/modules/lib/osdlib_win32.o \
-	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	
 # if malloc debugging is enabled, include the necessary code
 ifneq ($(findstring MALLOC_DEBUG,$(DEFS)),)
@@ -324,6 +323,12 @@ OSDOBJS += \
 	$(UIOBJ)/winui.o \
 	$(UIOBJ)/helpids.o \
 
+ifndef DONT_USE_NETWORK
+OSDOBJS += \
+	$(WINOBJ)/netdev.o \
+	$(WINOBJ)/netdev_pcap.o
+endif
+
 # extra dependencies
 $(WINOBJ)/drawdd.o :	$(SRC)/emu/rendersw.inc
 $(WINOBJ)/drawgdi.o :	$(SRC)/emu/rendersw.inc
@@ -331,7 +336,7 @@ $(WINOBJ)/drawgdi.o :	$(SRC)/emu/rendersw.inc
 # add debug-specific files
 
 OSDOBJS += \
-	$(WINOBJ)/../modules/debugger/debugwin.o
+	$(OSDOBJ)/modules/debugger/debugwin.o
 
 $(WINOBJ)/winmainui.o : $(WINSRC)/winmain.c
 	@echo Compiling $<...
