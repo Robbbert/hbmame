@@ -60,6 +60,7 @@ WINOSDOBJS = \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
 	$(OSDOBJ)/modules/debugger/debugwin.o \
+	$(OSDOBJ)/modules/font/font_windows.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	$(OSDOBJ)/modules/midi/portmidi.o \
 	$(WINOBJ)/winmain.o \

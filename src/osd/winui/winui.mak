@@ -71,6 +71,7 @@ OBJDIRS += $(WINOBJ) \
 	$(OSDOBJ)/modules/sync \
 	$(OSDOBJ)/modules/lib \
 	$(OSDOBJ)/modules/midi \
+	$(OSDOBJ)/modules/font \
 
 # add ui specific src/objs
 UISRC = $(SRC)/osd/$(OSD)
@@ -229,10 +230,10 @@ LIBS += -luser32 -lgdi32 -ldsound -ldxguid -lwinmm -ladvapi32 -lcomctl32 -lshlwa
 
 ifeq ($(DIRECTINPUT),8)
 LIBS += -ldinput8
-CCOMFLAGS += -DDIRECTINPUT_VERSION=0x0800
+CFLAGS += -DDIRECTINPUT_VERSION=0x0800
 else
 LIBS += -ldinput
-CCOMFLAGS += -DDIRECTINPUT_VERSION=0x0700
+CFLAGS += -DDIRECTINPUT_VERSION=0x0700
 endif
 
 # add -mwindows for UI
@@ -258,10 +259,11 @@ OSDCOREOBJS = \
 	$(WINOBJ)/winutil.o \
 	$(WINOBJ)/winptty.o \
 	$(WINOBJ)/winsocket.o \
+	$(OSDOBJ)/modules/font/font_windows.o \
+	$(OSDOBJ)/modules/lib/osdlib_win32.o \
 	$(OSDOBJ)/modules/sync/sync_windows.o \
 	$(OSDOBJ)/modules/sync/work_osd.o \
-	$(OSDOBJ)/modules/lib/osdlib_win32.o \
-	
+
 # if malloc debugging is enabled, include the necessary code
 ifneq ($(findstring MALLOC_DEBUG,$(DEFS)),)
 OSDCOREOBJS += \
@@ -286,6 +288,7 @@ OSDOBJS = \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
 	$(OSDOBJ)/modules/sound/direct_sound.o \
+	$(OSDOBJ)/modules/debugger/debugwin.o \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
 	$(WINOBJ)/winmenu.o \
@@ -293,6 +296,13 @@ OSDOBJS = \
 	$(OSDOBJ)/modules/midi/portmidi.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o \
 
+ifndef DONT_USE_NETWORK
+OSDOBJS += \
+	$(WINOBJ)/netdev.o \
+	$(WINOBJ)/netdev_pcap.o
+endif
+
+CFLAGS += -DDIRECT3D_VERSION=0x0900
 
 # add UI objs
 OSDOBJS += \
@@ -323,20 +333,9 @@ OSDOBJS += \
 	$(UIOBJ)/winui.o \
 	$(UIOBJ)/helpids.o \
 
-ifndef DONT_USE_NETWORK
-OSDOBJS += \
-	$(WINOBJ)/netdev.o \
-	$(WINOBJ)/netdev_pcap.o
-endif
-
 # extra dependencies
 $(WINOBJ)/drawdd.o :	$(SRC)/emu/rendersw.inc
 $(WINOBJ)/drawgdi.o :	$(SRC)/emu/rendersw.inc
-
-# add debug-specific files
-
-OSDOBJS += \
-	$(OSDOBJ)/modules/debugger/debugwin.o
 
 $(WINOBJ)/winmainui.o : $(WINSRC)/winmain.c
 	@echo Compiling $<...
