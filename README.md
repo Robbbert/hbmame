@@ -14,7 +14,7 @@ If you're on a *nix system, it could be as easy as typing
 make
 ```
 
-for a MAME build, or
+for a HBMAME build, or
 
 ```
 make TARGET=hbmame
