@@ -12,11 +12,6 @@
 
 #ifdef SDLMAME_UNIX
 #if (!defined(SDLMAME_MACOSX)) && (!defined(SDLMAME_EMSCRIPTEN))
-#if (SDLMAME_SDL2)
-#include <SDL2/SDL_ttf.h>
-#else
-#include <SDL/SDL_ttf.h>
-#endif
 #ifndef SDLMAME_HAIKU
 #include <fontconfig/fontconfig.h>
 #endif
@@ -61,20 +56,7 @@
 #include "input.h"
 #include "osdsdl.h"
 #include "modules/lib/osdlib.h"
-#include "modules/sound/sdl_sound.h"
-#if defined(SDLMAME_EMSCRIPTEN)
-#include "modules/sound/js_sound.h"
-#endif
-#if defined(SDLMAME_WIN32)
-#include "modules/sound/direct_sound.h"
-#endif
-#if !defined(NO_DEBUGGER)
-#include "modules/debugger/debugqt.h"
-#endif
-#include "modules/debugger/none.h"
-#if defined(SDLMAME_MACOSX)
-#include "modules/debugger/debugosx.h"
-#endif
+
 // we override SDL's normal startup on Win32
 // please see sdlprefix.h as well
 
@@ -269,7 +251,6 @@ sdl_options::sdl_options()
 	set_default_value(SDLOPTION_INIPATH, ini_path.cstr());
 }
 
-
 //============================================================
 //  main
 //============================================================
@@ -301,14 +282,11 @@ int main(int argc, char *argv[])
 	setvbuf(stdout, (char *) NULL, _IONBF, 0);
 	setvbuf(stderr, (char *) NULL, _IONBF, 0);
 
-	//FIXME: move to font module
+	// FIXME: this should be done differently
+
 	#ifdef SDLMAME_UNIX
 	sdl_entered_debugger = 0;
 	#if (!defined(SDLMAME_MACOSX)) && (!defined(SDLMAME_HAIKU)) && (!defined(SDLMAME_EMSCRIPTEN))
-	if (TTF_Init() == -1)
-	{
-		printf("SDL_ttf failed: %s\n", TTF_GetError());
-	}
 	FcInit();
 	#endif
 	#endif
@@ -355,12 +333,8 @@ int main(int argc, char *argv[])
 	}
 #endif
 
-	// already called...
-	//SDL_Quit();
-
 	#ifdef SDLMAME_UNIX
 	#if (!defined(SDLMAME_MACOSX)) && (!defined(SDLMAME_HAIKU)) && (!defined(SDLMAME_EMSCRIPTEN))
-	TTF_Quit();
 	if (!sdl_entered_debugger)
 	{
 		FcFini();
@@ -550,46 +524,9 @@ void sdl_osd_interface::video_register()
 }
 
 //============================================================
-//  sound_register
-//============================================================
-
-void sdl_osd_interface::sound_register()
-{
-	sound_options_add("sdl", OSD_SOUND_SDL);
-#if defined(SDLMAME_WIN32)
-	sound_options_add("dsound", OSD_SOUND_DIRECT_SOUND);
-#endif
-
-#if defined(SDLMAME_EMSCRIPTEN)
-	sound_options_add("js", OSD_SOUND_JS);
-	sound_options_add("auto", OSD_SOUND_JS); // making JS audio default one
-#else
-	sound_options_add("auto", OSD_SOUND_SDL); // making SDL audio default one
-#endif
-}
-
-//============================================================
-//  debugger_register
-//============================================================
-
-void sdl_osd_interface::debugger_register()
-{
-#if defined(NO_DEBUGGER)
-	debugger_options_add("auto", OSD_DEBUGGER_NONE);
-#else
-#if defined(SDLMAME_MACOSX)
-	debugger_options_add("osx", OSD_DEBUGGER_OSX);
-	debugger_options_add("auto", OSD_DEBUGGER_OSX); // making OSX debugger default one
-#else
-	debugger_options_add("qt", OSD_DEBUGGER_QT);
-	debugger_options_add("auto", OSD_DEBUGGER_QT); // making QT debugger default one
-#endif // SDLMAME_MACOSX
-#endif // NO_DEBUGGER
-}
-
-//============================================================
 //  init
 //============================================================
+
 
 void sdl_osd_interface::init(running_machine &machine)
 {

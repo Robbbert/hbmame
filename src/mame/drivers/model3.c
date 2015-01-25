@@ -664,6 +664,12 @@ ALL VROM ROMs are 16M MASK
 #include "machine/nvram.h"
 #include "includes/model3.h"
 
+//#define DECRYPT_ANALYSIS_HACKS
+
+#ifdef DECRYPT_ANALYSIS_HACKS
+int readcount = 0;
+int segcount = 0;
+#endif
 
 void model3_state::update_irq_state()
 {
@@ -1673,34 +1679,7 @@ WRITE64_MEMBER(model3_state::network_w)
 }
 
 
-static const UINT16 vs299_prot_data[] =
-{
-	0xc800, 0x4a20, 0x5041, 0x4e41, 0x4920, 0x4154, 0x594c, 0x4220,
-	0x4152, 0x4953, 0x204c, 0x5241, 0x4547, 0x544e, 0x4e49, 0x2041,
-	0x4547, 0x4d52, 0x4e41, 0x2059, 0x4e45, 0x4c47, 0x4e41, 0x2044,
-	0x454e, 0x4854, 0x5245, 0x414c, 0x444e, 0x2053, 0x5246, 0x4e41,
-	0x4543, 0x4320, 0x4c4f, 0x4d4f, 0x4942, 0x2041, 0x4150, 0x4152,
-	0x5547, 0x5941, 0x4220, 0x4c55, 0x4147, 0x4952, 0x2041, 0x5053,
-	0x4941, 0x204e, 0x5243, 0x414f, 0x4954, 0x2041, 0x4542, 0x474c,
-	0x5549, 0x204d, 0x494e, 0x4547, 0x4952, 0x2041, 0x4153, 0x4455,
-	0x2049, 0x4f4b, 0x4552, 0x2041, 0x4544, 0x4d4e, 0x5241, 0x204b,
-	0x4f52, 0x414d, 0x494e, 0x2041, 0x4353, 0x544f, 0x414c, 0x444e,
-	0x5520, 0x4153, 0x5320, 0x554f, 0x4854, 0x4641, 0x4952, 0x4143,
-	0x4d20, 0x5845, 0x4349, 0x204f, 0x5559, 0x4f47, 0x4c53, 0x5641,
-	0x4149, 0x4620, 0x5f43, 0x4553, 0x4147
-};
 
-static const UINT16 swt_prot_data[] =
-{
-	0xffff,
-	0x3d3d, 0x3d3d, 0x203d, 0x5453, 0x5241, 0x5720, 0x5241, 0x2053,
-	0x3d3d, 0x3d3d, 0x0a3d, 0x6f43, 0x7970, 0x6952, 0x6867, 0x2074,
-	0x4553, 0x4147, 0x4520, 0x746e, 0x7265, 0x7270, 0x7369, 0x7365,
-	0x202c, 0x744c, 0x2e64, 0x410a, 0x756d, 0x6573, 0x656d, 0x746e,
-	0x5220, 0x4426, 0x4420, 0x7065, 0x2e74, 0x2320, 0x3231, 0x4b0a,
-	0x7461, 0x7573, 0x6179, 0x7573, 0x4120, 0x646e, 0x206f, 0x2026,
-	0x614b, 0x6f79, 0x6f6b, 0x5920, 0x6d61, 0x6d61, 0x746f, 0x0a6f,
-};
 
 static const UINT16 fvipers2_prot_data[] =
 {
@@ -1715,112 +1694,151 @@ static const UINT16 fvipers2_prot_data[] =
 	0x2e64, 0x2a20, 0x2a2a, 0x2a2a, 0x2a2a, 0x2a2a, 0x2a2a, 0x2a2a,
 };
 
-static const UINT16 spikeout_prot_data[] =
-{
-	0x0000,
-	0x4f4d, 0x4544, 0x2d4c, 0x2033, 0x7953, 0x7473, 0x6d65, 0x5020,
-	0x6f72, 0x7267, 0x6d61, 0x4320, 0x706f, 0x7279, 0x6769, 0x7468,
-	0x2820, 0x2943, 0x3120, 0x3939, 0x2035, 0x4553, 0x4147, 0x4520,
-	0x746e, 0x7265, 0x7270, 0x7369, 0x7365, 0x4c2c, 0x4454, 0x202e,
-	0x6c41, 0x206c, 0x6972, 0x6867, 0x2074, 0x6572, 0x6573, 0x7672,
-	0x6465, 0x202e, 0x2020, 0x0020
-};
 
-static const UINT16 eca_prot_data[] =
-{
-	0x0000,
-	0x2d2f, 0x202d, 0x4d45, 0x5245, 0x4547, 0x434e, 0x2059, 0x4143,
-	0x4c4c, 0x4120, 0x424d, 0x4c55, 0x4e41, 0x4543, 0x2d20, 0x0a2d,
-	0x6f43, 0x7970, 0x6952, 0x6867, 0x2074, 0x4553, 0x4147, 0x4520,
-	0x746e, 0x7265, 0x7270, 0x7369, 0x7365, 0x202c, 0x744c, 0x2e64,
-	0x530a, 0x666f, 0x7774, 0x7261, 0x2065, 0x2652, 0x2044, 0x6544,
-	0x7470, 0x202e, 0x3123, 0x660a, 0x726f, 0x7420, 0x7365, 0x0a74,
-};
 
-static const UINT16 oceanhun_prot_data[] =
-{
-	0x0000,    // dummy read
-	0x3d3d, 0x203d, 0x434f, 0x4145, 0x204e, 0x5548, 0x544e, 0x5245,
-	0x3d20, 0x3d3d, 0x430a, 0x706f, 0x5279, 0x6769, 0x7468, 0x5320,
-	0x4745, 0x2041, 0x6e45, 0x6574, 0x7072, 0x6972, 0x6573, 0x2c73,
-	0x4c20, 0x6474, 0x0a2e, 0x6d41, 0x7375, 0x6d65, 0x6e65, 0x2074,
-	0x2652, 0x2044, 0x6544, 0x7470, 0x202e, 0x3123, 0x4b0a, 0x7a61,
-	0x6e75, 0x7261, 0x2069, 0x7354, 0x6b75, 0x6d61, 0x746f, 0x206f,
-	0x6553, 0x7463, 0x6f69, 0x206e, 0x614d, 0x616e, 0x6567, 0x0a72
-};
-/*
-   dirtdvls: first 2 words read are discarded, then every other word
-   is written to char RAM starting at f1013400 (in between words are
-   discarded).
-*/
 
 READ64_MEMBER(model3_state::model3_security_r)
 {
+	UINT64 retvalue = U64(0xffffffffffffffff);
+
 	switch(offset)
 	{
-		case 0x00/8:    return 0;       /* status */
+		case 0x00 / 8:    retvalue = 0; break;       /* status */
 		case 0x1c/8:                    /* security board data read */
 		{
-			if (core_stricmp(machine().system().name, "vs299") == 0 ||
-				core_stricmp(machine().system().name, "vs2v991") == 0)
-			{
-				return (UINT64)vs299_prot_data[m_prot_data_ptr++] << 48;
-			}
-			else if (core_stricmp(machine().system().name, "swtrilgy") == 0 ||
-						core_stricmp(machine().system().name, "swtrilgya") == 0)
-			{
-				UINT64 data = (UINT64)swt_prot_data[m_prot_data_ptr++] << 16;
-				if (m_prot_data_ptr > 0x38)
-				{
-					m_prot_data_ptr = 0;
-				}
-				return data;
-			}
-			else if (core_stricmp(machine().system().name, "fvipers2") == 0)
+			#ifdef DECRYPT_ANALYSIS_HACKS
+			readcount += 2;
+			printf("model3_security_r offset %08x : %08x%08x (%08x%08x) count %08x\n", offset * 8, (UINT32)(retvalue >> 32), (UINT32)(retvalue & 0xffffffff), (UINT32)(mem_mask >> 32), (UINT32)(mem_mask & 0xffffffff), readcount);
+			#endif
+			
+			if (core_stricmp(machine().system().name, "fvipers2") == 0)
 			{
 				UINT64 data = (UINT64)fvipers2_prot_data[m_prot_data_ptr++] << 16;
 				if (m_prot_data_ptr >= 0x41)
 				{
 					m_prot_data_ptr = 0;
 				}
-				return data;
-			}
-			else if (core_stricmp(machine().system().name, "spikeout") == 0 ||
-						core_stricmp(machine().system().name, "spikeofe") == 0)
-			{
-				UINT64 data = (UINT64)spikeout_prot_data[m_prot_data_ptr++] << 16;
-				if (m_prot_data_ptr >= 0x55)
-				{
-					m_prot_data_ptr = 0;
-				}
-				return data;
-			}
-			else if (core_stricmp(machine().system().name, "eca") == 0 ||
-						core_stricmp(machine().system().name, "ecax") == 0)
-			{
-				UINT64 data = (UINT64)eca_prot_data[m_prot_data_ptr++] << 16;
-				if (m_prot_data_ptr >= 0x31)
-				{
-					m_prot_data_ptr = 0;
-				}
-				return data;
-			}
-			else if (core_stricmp(machine().system().name, "oceanhun") == 0)
-			{
-				UINT64 data = (UINT64)oceanhun_prot_data[m_prot_data_ptr++] << 16;
-				if (m_prot_data_ptr >= 58)
-				{
-					m_prot_data_ptr = 0;
-				}
-				return data;
+				retvalue = data;
 			}
 			else
 			{
-				return 0;
+				retvalue = 0;
 			}
+			break;
 		}
 	}
-	return U64(0xffffffffffffffff);
+
+	return retvalue;
+}
+
+
+
+WRITE64_MEMBER(model3_state::model3_security_w)
+{
+	if (offset == 0x10 / 8)
+	{
+		if (data != 0)
+			printf("model3_security_w address isn't 0?\n");
+
+		first_read = 1;
+
+		printf("setting base %08x%08x\n",  (UINT32)(data >> 32), (UINT32)(data & 0xffffffff));
+	}
+	else if (offset == 0x18 / 8)
+	{
+		UINT16 subkey = data >> (32 + 16);
+		subkey = ((subkey & 0xff00) >> 8) | ((subkey & 0x00ff) << 8); // endian swap the sub-key for this hardware
+		printf("model3_5881prot_w setting subkey %04x\n", subkey);
+
+#ifdef DECRYPT_ANALYSIS_HACKS // dump out a copy of protection RAM
+		FILE* fp2;
+		char filename[256];
+		sprintf(filename,"xxxencrypted_%s_part%d", machine().system().name, segcount);
+		segcount++;
+		readcount = 0;
+		fp2 = fopen(filename, "w+b");
+
+		{
+			for (int i = 0; i < 0x8000; i++)
+			{
+				UINT16 dat = m_maincpu->space().read_word((0xf0180000 + 4 * i));
+				UINT8* dst2 = (UINT8*)&dat;
+				fwrite(&dst2[1], 1, 1, fp2);
+				fwrite(&dst2[0], 1, 1, fp2);
+			}
+
+		}
+		fclose(fp2);
+#endif 
+
+	}
+	else
+	{
+		printf("model3_5881prot_w offset %08x : %08x%08x (%08x%08x)\n", offset * 8, (UINT32)(data >> 32), (UINT32)(data & 0xffffffff), (UINT32)(mem_mask >> 32), (UINT32)(mem_mask & 0xffffffff));
+	}
+}
+
+READ64_MEMBER(model3_state::model3_5881prot_r)
+{
+	UINT64 retvalue = U64(0xffffffffffffffff);
+
+	if (offset == 0x00 / 8)
+	{
+		retvalue = 0;
+	}
+	else if (offset == 0x18 / 8)
+	{
+		if (first_read == 1)
+		{
+			// the RAM based schemes expect a dummy value before the start of the stream
+			// to match the previous simulation I use 0xffff here
+			first_read = 0;
+			retvalue = 0xffff << 16;
+		}
+		else
+		{
+			UINT8* base;
+			retvalue = m_cryptdevice->do_decrypt(base);
+			//	retvalue = ((retvalue & 0xff00) >> 8) | ((retvalue & 0x00ff) << 8); // don't endian swap the return value on this hardware
+			retvalue <<= 16;
+		}
+
+	//	printf("model3_5881prot_r offset %08x : %08x%08x (%08x%08x)\n", offset * 8, (UINT32)(retvalue >> 32), (UINT32)(retvalue & 0xffffffff), (UINT32)(mem_mask >> 32), (UINT32)(mem_mask & 0xffffffff));
+	}
+	else
+	{
+		printf("model3_5881prot_r offset %08x : %08x%08x (%08x%08x)\n", offset * 8, (UINT32)(retvalue >> 32), (UINT32)(retvalue & 0xffffffff), (UINT32)(mem_mask >> 32), (UINT32)(mem_mask & 0xffffffff));
+	}
+
+	return retvalue;
+
+
+}
+
+WRITE64_MEMBER(model3_state::model3_5881prot_w)
+{
+	if (offset == 0x10 / 8)
+	{
+		// code is copied to RAM first, so base address is always 0
+		m_cryptdevice->set_addr_low(0);
+		m_cryptdevice->set_addr_high(0);
+
+		if (data != 0)
+			printf("model3_5881prot_w address isn't 0?\n");
+
+		first_read = 1;
+	}
+	else if (offset == 0x18 / 8)
+	{
+		UINT16 subkey = data >> (32 + 16);
+		subkey = ((subkey & 0xff00) >> 8) | ((subkey & 0x00ff) << 8); // endian swap the sub-key for this hardware
+		printf("model3_5881prot_w setting subkey %04x\n", subkey);
+		m_cryptdevice->set_subkey(subkey);
+	}
+	else
+	{
+		printf("model3_5881prot_w offset %08x : %08x%08x (%08x%08x)\n", offset * 8, (UINT32)(data >> 32), (UINT32)(data & 0xffffffff), (UINT32)(mem_mask >> 32), (UINT32)(mem_mask & 0xffffffff));
+	}
 }
 
 WRITE64_MEMBER(model3_state::daytona2_rombank_w)
@@ -1847,8 +1865,6 @@ static ADDRESS_MAP_START( model3_mem, AS_PROGRAM, 64, model3_state )
 	AM_RANGE(0xf00c0000, 0xf00dffff) AM_MIRROR(0x0e000000) AM_RAM AM_SHARE("backup")    /* backup SRAM */
 	AM_RANGE(0xf0100000, 0xf010003f) AM_MIRROR(0x0e000000) AM_READWRITE(model3_sys_r, model3_sys_w )
 	AM_RANGE(0xf0140000, 0xf014003f) AM_MIRROR(0x0e000000) AM_READWRITE(model3_rtc_r, model3_rtc_w )
-	AM_RANGE(0xf0180000, 0xf019ffff) AM_MIRROR(0x0e000000) AM_RAM                           /* Security Board RAM */
-	AM_RANGE(0xf01a0000, 0xf01a003f) AM_MIRROR(0x0e000000) AM_READ(model3_security_r )  /* Security board */
 
 	AM_RANGE(0xf1000000, 0xf10f7fff) AM_READWRITE(model3_char_r, model3_char_w )    /* character RAM */
 	AM_RANGE(0xf10f8000, 0xf10fffff) AM_READWRITE(model3_tile_r, model3_tile_w )    /* tilemaps */
@@ -3421,6 +3437,9 @@ ROM_START( vs298 )  /* Step 2.0, Sega ID# 833-13346, ROM board ID# 834-13347 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0237-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09234e96" )
 ROM_END
 
 ROM_START( vs29815 )    /* Step 1.5, ROM board ID# 834-13495 VS2 VER98 STEP 1.5 */
@@ -3571,6 +3590,9 @@ ROM_START( vs2v991 )    /* Step 2.0 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0245-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09222ac8" )
 ROM_END
 
 ROM_START( vs299b ) /* Step 2.0 */
@@ -3646,6 +3668,9 @@ ROM_START( vs299b ) /* Step 2.0 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0245-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09222ac8" )
 ROM_END
 
 ROM_START( vs299a ) /* Step 2.0 */
@@ -3721,6 +3746,9 @@ ROM_START( vs299a ) /* Step 2.0 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0245-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09222ac8" )
 ROM_END
 
 ROM_START( vs299 )  /* Step 2.0 */
@@ -3796,6 +3824,9 @@ ROM_START( vs299 )  /* Step 2.0 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0245-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09222ac8" )
 ROM_END
 
 ROM_START( von2 )   /* Step 2.0 */
@@ -3872,6 +3903,9 @@ ROM_START( von2 )   /* Step 2.0 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0234-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "092a0e97" )
 ROM_END
 
 ROM_START( von254g )    /* Step 2.0, Sega game ID# is 833-13789 */
@@ -3948,6 +3982,9 @@ ROM_START( von254g )    /* Step 2.0, Sega game ID# is 833-13789 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0234-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "092a0e97" )
 ROM_END
 
 ROM_START( skichamp )   /* Step 2.0 */
@@ -4092,6 +4129,9 @@ ROM_START( swtrilgy )   /* Step 2.1, Sega game ID# is 833-13586, ROM board ID# 8
 
 	ROM_REGION( 0x10000, "ffcpu", 0 )   /* force feedback controller prg */
 	ROM_LOAD( "epr21119.ic8",  0x00000, 0x10000, CRC(65082b14) SHA1(6c3c192dd6ef3780c6202dd63fc6086328928818) )
+
+	//             ????     317-0241-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "11272a01" )
 ROM_END
 
 ROM_START( swtrilgya )  /* Step 2.1, Sega game ID# is 833-13586, ROM board ID# 834-13587 STAR WARS TRILOGY, Security board ID# 837-13588-COM */
@@ -4161,6 +4201,9 @@ ROM_START( swtrilgya )  /* Step 2.1, Sega game ID# is 833-13586, ROM board ID# 8
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0241-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "11272a01" )
 ROM_END
 
 ROM_START( dirtdvls )   /* Step 2.1, Sega game ID# is 833-13427, ROM board ID# 834-13528 DRT */
@@ -4222,6 +4265,9 @@ ROM_START( dirtdvls )   /* Step 2.1, Sega game ID# is 833-13427, ROM board ID# 8
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0238-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09290f17" )
 ROM_END
 
 ROM_START( dirtdvlsa )  /* Step 2.1 */
@@ -4283,6 +4329,9 @@ ROM_START( dirtdvlsa )  /* Step 2.1 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0238-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09290f17" )
 ROM_END
 
 ROM_START( daytona2 )   /* Step 2.1, ROM board ID# 834-13428 DAYTONA USA2, Security board ID# 837-13507-COM */
@@ -4363,6 +4412,9 @@ ROM_START( daytona2 )   /* Step 2.1, ROM board ID# 834-13428 DAYTONA USA2, Secur
 
 	ROM_REGION( 0x10000, "drivebd", 0 ) /* drive board ROM */
 	ROM_LOAD( "epr-20985.bin", 0x000000, 0x010000, CRC(b139481d) SHA1(05fca7db7c8b084c53bd157ba3e8296f1a961a99) )
+
+	//             ????     317-0239-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09250e16" )
 ROM_END
 
 ROM_START( dayto2pe )   /* Step 2.1, Sega game ID# is 833-13610 DAYTONA USA2 SP, ROM board ID# 834-13609 DAYTONA USA2 SP, Security board ID# 837-13645-COM */
@@ -4443,6 +4495,9 @@ ROM_START( dayto2pe )   /* Step 2.1, Sega game ID# is 833-13610 DAYTONA USA2 SP,
 
 	ROM_REGION( 0x10000, "drivebd", 0 ) /* drive board ROM */
 	ROM_LOAD( "epr-20985.bin", 0x000000, 0x010000, CRC(b139481d) SHA1(05fca7db7c8b084c53bd157ba3e8296f1a961a99) )
+
+	//             ????     317-5045-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "0" ) // unknown
 ROM_END
 
 ROM_START( srally2 )    /* Step 2.0, Sega game ID# is 833-13373, ROM board ID# 834-13374 SRT TWIN */
@@ -4795,6 +4850,9 @@ ROM_START( fvipers2 )   /* Step 2.0 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0235-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09260e96" )
 ROM_END
 
 ROM_START( spikeout )   /* Step 2.1 */
@@ -4872,6 +4930,9 @@ ROM_START( spikeout )   /* Step 2.1 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0240-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "092f2b04" )
 ROM_END
 
 ROM_START( spikeofe )   /* Step 2.1, Sega game ID# is 833-13746, ROM board ID# 834-13747 SPK F/E, Security board ID# 837-13726-COM */
@@ -4949,6 +5010,9 @@ ROM_START( spikeofe )   /* Step 2.1, Sega game ID# is 833-13746, ROM board ID# 8
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0247-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09236fc8" )
 ROM_END
 
 ROM_START( eca )    /* Step 2.1, ROM board ID# 834-13946-01 ECA */
@@ -5017,6 +5081,9 @@ ROM_START( eca )    /* Step 2.1, ROM board ID# 834-13946-01 ECA */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0265-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "0923aa91" )
 ROM_END
 
 ROM_START( ecax )   /* Step 2.1 */
@@ -5085,6 +5152,9 @@ ROM_START( ecax )   /* Step 2.1 */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0265-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "0923aa91" )
 ROM_END
 
 ROM_START( ecap )   /* Step 2.1 - Proto or Location test - No security dongle */
@@ -5156,6 +5226,9 @@ ROM_START( ecap )   /* Step 2.1 - Proto or Location test - No security dongle */
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0265-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "0923aa91" )
 ROM_END
 
 ROM_START( magtruck )   /* Step 2.1, Sega game ID# is 833-13601-01 (Export), ROM board ID# 834-13600-01 RCS EXP (Export), Security board ID# 837-13599-COM */
@@ -5212,6 +5285,9 @@ ROM_START( magtruck )   /* Step 2.1, Sega game ID# is 833-13601-01 (Export), ROM
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0243-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "09266e45" )
 ROM_END
 
 ROM_START( oceanhun )   /* Step 2.0, Sega game ID# is 833-13571, ROM board ID# 834-13572 THE OCEAN HUNTER, 317-0242-COM security chip (837-13576-COM security board) */
@@ -5280,6 +5356,9 @@ ROM_START( oceanhun )   /* Step 2.0, Sega game ID# is 833-13571, ROM board ID# 8
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0242-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "092b6a01" )
 ROM_END
 
 ROM_START( lamachin )   /* Step 2.0, Sega game ID# is 833-13664, ROM board ID# 834-13665 L.A.MACHINEGUNS, 317-0244-COM security chip (837-13666-COM security board) */
@@ -5349,6 +5428,9 @@ ROM_START( lamachin )   /* Step 2.0, Sega game ID# is 833-13664, ROM board ID# 8
 
 	ROM_REGION( 0x80000, "scsp2", 0 )   /* second SCSP's RAM */
 	ROM_FILL( 0x000000, 0x80000, 0 )
+
+	//             ????     317-0244-COM   Model 3
+	ROM_PARAMETER( ":315_5881:key", "092a2bc5" )
 ROM_END
 
 /* Model 3 sound board emulation */
@@ -5517,7 +5599,7 @@ static MACHINE_CONFIG_DERIVED(scud, model3_15)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( model3_20, model3_state )
+static MACHINE_CONFIG_START(model3_20, model3_state)
 	MCFG_CPU_ADD("maincpu", PPC603R, 166000000)
 	MCFG_PPC_BUS_FREQUENCY(66000000)    /* Multiplier 2.5, Bus = 66MHz, Core = 166MHz */
 	MCFG_CPU_PROGRAM_MAP(model3_mem)
@@ -5526,8 +5608,8 @@ static MACHINE_CONFIG_START( model3_20, model3_state )
 	MCFG_CPU_ADD("audiocpu", M68000, 12000000)
 	MCFG_CPU_PROGRAM_MAP(model3_snd)
 
-	MCFG_MACHINE_START_OVERRIDE(model3_state,model3_20)
-	MCFG_MACHINE_RESET_OVERRIDE(model3_state,model3_20)
+	MCFG_MACHINE_START_OVERRIDE(model3_state, model3_20)
+	MCFG_MACHINE_RESET_OVERRIDE(model3_state, model3_20)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 	MCFG_NVRAM_ADD_1FILL("backup")
@@ -5554,7 +5636,12 @@ static MACHINE_CONFIG_START( model3_20, model3_state )
 	MCFG_SOUND_ROUTE(0, "rspeaker", 2.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( model3_21, model3_state )
+static MACHINE_CONFIG_DERIVED(model3_20_5881, model3_20)
+	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
+	MCFG_SET_READ_CALLBACK(model3_state, crypt_read_callback)
+MACHINE_CONFIG_END
+
+static MACHINE_CONFIG_START(model3_21, model3_state)
 	MCFG_CPU_ADD("maincpu", PPC603R, 166000000)
 	MCFG_PPC_BUS_FREQUENCY(66000000)    /* Multiplier 2.5, Bus = 66MHz, Core = 166MHz */
 	MCFG_CPU_PROGRAM_MAP(model3_mem)
@@ -5563,8 +5650,8 @@ static MACHINE_CONFIG_START( model3_21, model3_state )
 	MCFG_CPU_ADD("audiocpu", M68000, 12000000)
 	MCFG_CPU_PROGRAM_MAP(model3_snd)
 
-	MCFG_MACHINE_START_OVERRIDE(model3_state,model3_21)
-	MCFG_MACHINE_RESET_OVERRIDE(model3_state,model3_21)
+	MCFG_MACHINE_START_OVERRIDE(model3_state, model3_21)
+	MCFG_MACHINE_RESET_OVERRIDE(model3_state, model3_21)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 	MCFG_NVRAM_ADD_1FILL("backup")
@@ -5590,6 +5677,27 @@ static MACHINE_CONFIG_START( model3_21, model3_state )
 	MCFG_SOUND_ROUTE(0, "lspeaker", 2.0)
 	MCFG_SOUND_ROUTE(0, "rspeaker", 2.0)
 MACHINE_CONFIG_END
+
+
+UINT16 model3_state::crypt_read_callback(UINT32 addr)
+{
+	UINT16 dat = 0;
+	if (addr < 0x8000)
+	{
+		dat = m_maincpu->space().read_word((0xf0180000 + 4 * addr)); // every other word is unused in this RAM, probably 32-bit ram on 64-bit bus?
+	}
+
+//	dat = ((dat & 0xff00) >> 8) | ((dat & 0x00ff) << 8);
+//	printf("reading %04x\n", dat);
+
+	return dat;
+}
+
+static MACHINE_CONFIG_DERIVED( model3_21_5881, model3_21 )
+	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
+	MCFG_SET_READ_CALLBACK(model3_state, crypt_read_callback)
+MACHINE_CONFIG_END
+
 
 static void interleave_vroms(running_machine &machine)
 {
@@ -5619,6 +5727,22 @@ static void interleave_vroms(running_machine &machine)
 			vrom[i+x+8] = vrom2[(j+x)^1];
 		}
 		j+=8;
+	}
+}
+
+DRIVER_INIT_MEMBER(model3_state, genprot)
+{
+	astring key = parameter(":315_5881:key");
+
+	m_maincpu->space(AS_PROGRAM).install_ram(0xf0180000, 0xf019ffff, 0, 0x0e000000);
+
+	if (key)
+	{
+		m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xf01a0000, 0xf01a003f, 0, 0x0e000000, read64_delegate(FUNC(model3_state::model3_5881prot_r), this), write64_delegate(FUNC(model3_state::model3_5881prot_w), this) );                    
+	}
+	else
+	{
+		m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xf01a0000, 0xf01a003f, 0, 0x0e000000, read64_delegate(FUNC(model3_state::model3_security_r), this), write64_delegate(FUNC(model3_state::model3_security_w), this) );                    
 	}
 }
 
@@ -5785,27 +5909,16 @@ DRIVER_INIT_MEMBER(model3_state,vs2)
 DRIVER_INIT_MEMBER(model3_state,vs298)
 {
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 
-DRIVER_INIT_MEMBER(model3_state,vs2v991)
-{
-	DRIVER_INIT_CALL(model3_20);
-}
 
-DRIVER_INIT_MEMBER(model3_state,vs299b)
-{
-	DRIVER_INIT_CALL(model3_20);
-}
-
-DRIVER_INIT_MEMBER(model3_state,vs299a)
-{
-	DRIVER_INIT_CALL(model3_20);
-}
 
 DRIVER_INIT_MEMBER(model3_state,vs299)
 {
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,harley)
@@ -5842,6 +5955,7 @@ DRIVER_INIT_MEMBER(model3_state,srally2)
 
 DRIVER_INIT_MEMBER(model3_state,swtrilgy)
 {
+
 	UINT32 *rom = (UINT32*)memregion("user1")->base();
 	DRIVER_INIT_CALL(model3_20);
 
@@ -5852,12 +5966,17 @@ DRIVER_INIT_MEMBER(model3_state,swtrilgy)
 
 	rom[(0x043dc^4)/4] = 0x48000090;        // skip force feedback setup
 	rom[(0xf6e44^4)/4] = 0x60000000;
+
+
+	DRIVER_INIT_CALL(genprot);
+
 }
 
 DRIVER_INIT_MEMBER(model3_state,swtrilga)
 {
 	//UINT32 *rom = (UINT32*)memregion("user1")->base();
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 
 	//rom[(0xf6dd0^4)/4] = 0x60000000;
 }
@@ -5867,6 +5986,7 @@ DRIVER_INIT_MEMBER(model3_state,von2)
 	m_step20_with_old_real3d = true;
 
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,dirtdvls)
@@ -5874,35 +5994,40 @@ DRIVER_INIT_MEMBER(model3_state,dirtdvls)
 	m_step20_with_old_real3d = true;
 
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,daytona2)
 {
-	UINT32 *rom = (UINT32*)memregion("user1")->base();
+//	UINT32 *rom = (UINT32*)memregion("user1")->base();
 	DRIVER_INIT_CALL(model3_20);
 
 	m_maincpu->space(AS_PROGRAM).install_write_handler(0xc3800000, 0xc3800007, write64_delegate(FUNC(model3_state::daytona2_rombank_w),this));
 	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc3000000, 0xc37fffff, "bank2" );
 
 	//rom[(0x68468c^4)/4] = 0x60000000;
-	rom[(0x6063c4^4)/4] = 0x60000000;
-	rom[(0x616434^4)/4] = 0x60000000;
-	rom[(0x69f4e4^4)/4] = 0x60000000;
+	//rom[(0x6063c4^4)/4] = 0x60000000;
+	//rom[(0x616434^4)/4] = 0x60000000;
+	//rom[(0x69f4e4^4)/4] = 0x60000000;
+
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,dayto2pe)
 {
-	UINT32 *rom = (UINT32*)memregion("user1")->base();
+//	UINT32 *rom = (UINT32*)memregion("user1")->base();
 	DRIVER_INIT_CALL(model3_20);
 
 	m_maincpu->space(AS_PROGRAM).install_write_handler(0xc3800000, 0xc3800007, write64_delegate(FUNC(model3_state::daytona2_rombank_w),this));
 	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc3000000, 0xc37fffff, "bank2" );
 
-	rom[(0x606784^4)/4] = 0x60000000;
-	rom[(0x69a3fc^4)/4] = 0x60000000;       // jump to encrypted code
-	rom[(0x618b28^4)/4] = 0x60000000;       // jump to encrypted code
+//	rom[(0x606784^4)/4] = 0x60000000;
+//	rom[(0x69a3fc^4)/4] = 0x60000000;       // jump to encrypted code
+//	rom[(0x618b28^4)/4] = 0x60000000;       // jump to encrypted code
 
-	rom[(0x64ca34^4)/4] = 0x60000000;       // dec
+//	rom[(0x64ca34^4)/4] = 0x60000000;       // dec
+
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,spikeout)
@@ -5912,6 +6037,7 @@ DRIVER_INIT_MEMBER(model3_state,spikeout)
 
 	rom[(0x6059cc^4)/4] = 0x60000000;
 	rom[(0x6059ec^4)/4] = 0x60000000;
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,spikeofe)
@@ -5921,11 +6047,13 @@ DRIVER_INIT_MEMBER(model3_state,spikeofe)
 
 	rom[(0x6059cc^4)/4] = 0x60000000;
 	rom[(0x6059ec^4)/4] = 0x60000000;
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,eca)
 {
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,skichamp)
@@ -5947,6 +6075,8 @@ DRIVER_INIT_MEMBER(model3_state,oceanhun)
 	DRIVER_INIT_CALL(model3_20);
 
 	rom[(0x57995c^4)/4] = 0x60000000;   // decrementer
+
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,magtruck)
@@ -5954,6 +6084,7 @@ DRIVER_INIT_MEMBER(model3_state,magtruck)
 	m_step20_with_old_real3d = true;
 
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 DRIVER_INIT_MEMBER(model3_state,lamachin)
@@ -5961,6 +6092,7 @@ DRIVER_INIT_MEMBER(model3_state,lamachin)
 	m_step20_with_old_real3d = true;
 
 	DRIVER_INIT_CALL(model3_20);
+	DRIVER_INIT_CALL(genprot);
 }
 
 
@@ -5985,33 +6117,33 @@ GAME( 1997, lemans24,       0, model3_15, scud, model3_state,     lemans24, ROT0
 GAME( 1998, vs29815,    vs298, model3_15, model3, model3_state,    vs29815, ROT0, "Sega", "Virtua Striker 2 '98 (Step 1.5)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
 
 /* Model 3 Step 2.0 */
-GAME( 1997, vs2,            0, model3_20, model3, model3_state,        vs2, ROT0, "Sega", "Virtua Striker 2 (Step 2.0)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1997, harley,         0, model3_20, harley, model3_state,     harley, ROT0, "Sega", "Harley-Davidson and L.A. Riders (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1997, harleya,   harley, model3_20, harley, model3_state,     harleya, ROT0, "Sega", "Harley-Davidson and L.A. Riders (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, lamachin,       0, model3_20, model3, model3_state,   lamachin, ROT0, "Sega", "L.A. Machineguns", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, oceanhun,       0, model3_20, model3, model3_state,   oceanhun, ROT0, "Sega", "The Ocean Hunter", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, skichamp,       0, model3_20, skichamp, model3_state, skichamp, ROT0, "Sega", "Ski Champ", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, srally2,        0, model3_20, scud, model3_state,      srally2, ROT0, "Sega", "Sega Rally 2", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, srally2x,       0, model3_20, scud, model3_state,      srally2, ROT0, "Sega", "Sega Rally 2 DX", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, von2,           0, model3_20, model3, model3_state,       von2, ROT0, "Sega", "Virtual On 2: Oratorio Tangram (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, von254g,     von2, model3_20, model3, model3_state,       von2, ROT0, "Sega", "Virtual On 2: Oratorio Tangram (ver 5.4g)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, fvipers2,       0, model3_20, model3, model3_state,  model3_20, ROT0, "Sega", "Fighting Vipers 2 (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, vs298,          0, model3_20, model3, model3_state,      vs298, ROT0, "Sega", "Virtua Striker 2 '98 (Step 2.0)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, vs2v991,        0, model3_20, model3, model3_state,    vs2v991, ROT0, "Sega", "Virtua Striker 2 '99.1 (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, vs299b,   vs2v991, model3_20, model3, model3_state,     vs299b, ROT0, "Sega", "Virtua Striker 2 '99 (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, vs299a,   vs2v991, model3_20, model3, model3_state,     vs299a, ROT0, "Sega", "Virtua Striker 2 '99 (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, vs299,    vs2v991, model3_20, model3, model3_state,      vs299, ROT0, "Sega", "Virtua Striker 2 '99", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1997, vs2,            0, model3_20,      model3, model3_state,        vs2, ROT0, "Sega", "Virtua Striker 2 (Step 2.0)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1997, harley,         0, model3_20,      harley, model3_state,     harley, ROT0, "Sega", "Harley-Davidson and L.A. Riders (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1997, harleya,   harley, model3_20,      harley, model3_state,     harleya, ROT0, "Sega", "Harley-Davidson and L.A. Riders (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, lamachin,       0, model3_20_5881, model3, model3_state,   lamachin, ROT0, "Sega", "L.A. Machineguns", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, oceanhun,       0, model3_20_5881, model3, model3_state,   oceanhun, ROT0, "Sega", "The Ocean Hunter", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, skichamp,       0, model3_20,      skichamp, model3_state, skichamp, ROT0, "Sega", "Ski Champ", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, srally2,        0, model3_20,      scud, model3_state,      srally2, ROT0, "Sega", "Sega Rally 2", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, srally2x,       0, model3_20,      scud, model3_state,      srally2, ROT0, "Sega", "Sega Rally 2 DX", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, von2,           0, model3_20_5881, model3, model3_state,       von2, ROT0, "Sega", "Virtual On 2: Oratorio Tangram (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, von254g,     von2, model3_20_5881, model3, model3_state,       von2, ROT0, "Sega", "Virtual On 2: Oratorio Tangram (ver 5.4g)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, fvipers2,       0, model3_20_5881, model3, model3_state,      vs299, ROT0, "Sega", "Fighting Vipers 2 (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, vs298,          0, model3_20_5881, model3, model3_state,      vs298, ROT0, "Sega", "Virtua Striker 2 '98 (Step 2.0)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, vs2v991,        0, model3_20_5881, model3, model3_state,      vs299, ROT0, "Sega", "Virtua Striker 2 '99.1 (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, vs299b,   vs2v991, model3_20_5881, model3, model3_state,      vs299, ROT0, "Sega", "Virtua Striker 2 '99 (Revision B)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, vs299a,   vs2v991, model3_20_5881, model3, model3_state,      vs299, ROT0, "Sega", "Virtua Striker 2 '99 (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, vs299,    vs2v991, model3_20_5881, model3, model3_state,      vs299, ROT0, "Sega", "Virtua Striker 2 '99", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
 
 /* Model 3 Step 2.1 */
-GAME( 1998, daytona2,         0, model3_21, daytona2, model3_state, daytona2, ROT0, "Sega", "Daytona USA 2 (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, dayto2pe,         0, model3_21, daytona2, model3_state, dayto2pe, ROT0, "Sega", "Daytona USA 2 Power Edition", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, dirtdvls,         0, model3_21, scud, model3_state,     dirtdvls, ROT0, "Sega", "Dirt Devils (set 1) (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, dirtdvlsa, dirtdvls, model3_21, scud, model3_state,     dirtdvls, ROT0, "Sega", "Dirt Devils (set 2) (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, swtrilgy,         0, model3_21, swtrilgy, model3_state, swtrilgy, ROT0, "Sega / LucasArts", "Star Wars Trilogy (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, swtrilgya, swtrilgy, model3_21, swtrilgy, model3_state, swtrilga, ROT0, "Sega / LucasArts", "Star Wars Trilogy", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, spikeout,         0, model3_21, model3, model3_state,   spikeout, ROT0, "Sega", "Spikeout (Revision C)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, spikeofe,         0, model3_21, model3, model3_state,   spikeofe, ROT0, "Sega", "Spikeout Final Edition", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1998, magtruck,         0, model3_21, eca, model3_state,      magtruck, ROT0, "Sega", "Magical Truck Adventure", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, eca,              0, model3_21, eca, model3_state,           eca, ROT0, "Sega", "Emergency Call Ambulance", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, ecax,           eca, model3_21, eca, model3_state,           eca, ROT0, "Sega", "Emergency Call Ambulance (Export)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
-GAME( 1999, ecap,           eca, model3_21, eca, model3_state,           eca, ROT0, "Sega", "Emergency Call Ambulance (US location test?)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, daytona2,         0, model3_21_5881, daytona2, model3_state, daytona2, ROT0, "Sega", "Daytona USA 2 (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, dayto2pe,         0, model3_21_5881, daytona2, model3_state, dayto2pe, ROT0, "Sega", "Daytona USA 2 Power Edition", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, dirtdvls,         0, model3_21_5881, scud,     model3_state, dirtdvls, ROT0, "Sega", "Dirt Devils (set 1) (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, dirtdvlsa, dirtdvls, model3_21_5881, scud,     model3_state, dirtdvls, ROT0, "Sega", "Dirt Devils (set 2) (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, swtrilgy,         0, model3_21_5881, swtrilgy, model3_state, swtrilgy, ROT0, "Sega / LucasArts", "Star Wars Trilogy (Revision A)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, swtrilgya, swtrilgy, model3_21_5881, swtrilgy, model3_state, swtrilga, ROT0, "Sega / LucasArts", "Star Wars Trilogy", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, spikeout,         0, model3_21_5881, model3,   model3_state, spikeout, ROT0, "Sega", "Spikeout (Revision C)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, spikeofe,         0, model3_21_5881, model3,   model3_state, spikeofe, ROT0, "Sega", "Spikeout Final Edition", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1998, magtruck,         0, model3_21_5881, eca,      model3_state, magtruck, ROT0, "Sega", "Magical Truck Adventure", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, eca,              0, model3_21_5881, eca,      model3_state, eca,      ROT0, "Sega", "Emergency Call Ambulance", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, ecax,           eca, model3_21_5881, eca,      model3_state, eca,      ROT0, "Sega", "Emergency Call Ambulance (Export)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )
+GAME( 1999, ecap,           eca, model3_21_5881, eca,      model3_state, eca,      ROT0, "Sega", "Emergency Call Ambulance (US location test?)", GAME_NOT_WORKING | GAME_IMPERFECT_GRAPHICS | GAME_IMPERFECT_SOUND )

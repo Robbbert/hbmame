@@ -11,15 +11,15 @@
 
 #include "emu.h"
 #include "osdepend.h"
-#include "modules/sound/none.h"
-#include "modules/debugger/none.h"
-#include "modules/debugger/debugint.h"
 #include "modules/lib/osdobj_common.h"
 
 extern bool g_print_verbose;
 
 const options_entry osd_options::s_option_entries[] =
 {
+    { NULL,                                   NULL,       OPTION_HEADER,     "OSD FONT OPTIONS" },
+    { OSD_FONT_PROVIDER,                      "auto",     OPTION_STRING,     "provider for ui font: " },
+
     { NULL,                                   NULL,       OPTION_HEADER,     "OSD CLI OPTIONS" },
     { OSDCOMMAND_LIST_MIDI_DEVICES ";mlist",  "0",        OPTION_COMMAND,    "list available MIDI I/O devices" },
     { OSDCOMMAND_LIST_NETWORK_ADAPTERS ";nlist", "0",     OPTION_COMMAND,    "list available network adapters" },
@@ -106,24 +106,56 @@ osd_common_t::osd_common_t(osd_options &options)
 {
 }
 
+#define REGISTER_MODULE(_O, _X ) { extern const module_type _X; _O . register_module( _X ); }
 
 void osd_common_t::register_options()
 {
+
+    REGISTER_MODULE(m_mod_man, FONT_OSX);
+    REGISTER_MODULE(m_mod_man, FONT_WINDOWS);
+    REGISTER_MODULE(m_mod_man, FONT_SDL);
+    REGISTER_MODULE(m_mod_man, FONT_NONE);
+
+    REGISTER_MODULE(m_mod_man, SOUND_DSOUND);
+    REGISTER_MODULE(m_mod_man, SOUND_JS);
+    REGISTER_MODULE(m_mod_man, SOUND_SDL);
+    REGISTER_MODULE(m_mod_man, SOUND_NONE);
+
+#ifdef SDLMAME_MACOSX
+    REGISTER_MODULE(m_mod_man, DEBUG_OSX);
+#endif
+    REGISTER_MODULE(m_mod_man, DEBUG_WINDOWS);
+    REGISTER_MODULE(m_mod_man, DEBUG_QT);
+    REGISTER_MODULE(m_mod_man, DEBUG_INTERNAL);
+    REGISTER_MODULE(m_mod_man, DEBUG_NONE);
+
+    // after initialization we know which modules are supported
+
+    const char *names[20];
+    int num;
+    m_mod_man.get_module_names(OSD_FONT_PROVIDER, 20, &num, names);
+    dynamic_array<const char *> dnames;
+    for (int i = 0; i < num; i++)
+        dnames.append(names[i]);
+    update_option(OSD_FONT_PROVIDER, dnames);
+
+    m_mod_man.get_module_names(OSD_SOUND_PROVIDER, 20, &num, names);
+    dnames.reset();
+    for (int i = 0; i < num; i++)
+        dnames.append(names[i]);
+    update_option(OSD_SOUND_PROVIDER, dnames);
+
+    // Register debugger options and update options
+    m_mod_man.get_module_names(OSD_DEBUG_PROVIDER, 20, &num, names);
+    dnames.reset();
+    for (int i = 0; i < num; i++)
+        dnames.append(names[i]);
+    update_option(OSD_DEBUG_PROVIDER, dnames);
+
     // Register video options and update options
     video_options_add("none", NULL);
     video_register();
     update_option(OSDOPTION_VIDEO, m_video_names);
-
-    // Register sound options and update options
-    sound_options_add("none", OSD_SOUND_NONE);
-    sound_register();
-    update_option(OSDOPTION_SOUND, m_sound_names);
-
-    // Register debugger options and update options
-    debugger_options_add("none", OSD_DEBUGGER_NONE);
-    debugger_options_add("internal", OSD_DEBUGGER_INTERNAL);
-    debugger_register();
-    update_option(OSDOPTION_DEBUGGER, m_debugger_names);
 }
 
 void osd_common_t::update_option(const char * key, dynamic_array<const char *> &values)
@@ -155,14 +187,6 @@ osd_common_t::~osd_common_t()
 	for(int i= 0; i < m_video_names.count(); ++i)
 		osd_free(const_cast<char*>(m_video_names[i]));
 	//m_video_options,reset();
-
-	for(int i= 0; i < m_sound_names.count(); ++i)
-		osd_free(const_cast<char*>(m_sound_names[i]));
-	m_sound_options.reset();
-
-	for(int i= 0; i < m_debugger_names.count(); ++i)
-		osd_free(const_cast<char*>(m_debugger_names[i]));
-	m_debugger_options.reset();
 }
 
 
@@ -243,14 +267,6 @@ void osd_common_t::init_debugger()
 	// is active. This gives any OSD debugger interface a chance to
 	// create all of its structures.
 	//
-	osd_debugger_type debugger = m_debugger_options.find(options().debugger());
-	if (debugger==NULL)
-	{
-		osd_printf_warning("debugger_init: option %s not found switching to auto\n",options().debugger());
-		debugger = m_debugger_options.find("auto");
-	}
-	m_debugger = (*debugger)(*this);
-
 	m_debugger->init_debugger(machine());
 }
 
@@ -276,15 +292,6 @@ void osd_common_t::debugger_update()
 	if (m_debugger) m_debugger->debugger_update();
 }
 
-void osd_common_t::debugger_exit()
-{
-	if (m_debugger)
-	{
-		m_debugger->debugger_exit();
-		global_free(m_debugger);
-		m_debugger = NULL;
-	}
-}
 
 //-------------------------------------------------
 //  update_audio_stream - update the stereo audio
@@ -298,8 +305,7 @@ void osd_common_t::update_audio_stream(const INT16 *buffer, int samples_this_fra
 	// It provides an array of stereo samples in L-R order which should be
 	// output at the configured sample_rate.
 	//
-    if (m_sound != NULL)
-        m_sound->update_audio_stream(buffer,samples_this_frame);
+    m_sound->update_audio_stream(m_machine->video().throttled(), buffer,samples_this_frame);
 }
 
 
@@ -420,7 +426,6 @@ void osd_common_t::init_subsystems()
 		exit(-1);
 	}
 
-	sound_init();
 	input_init();
 	// we need pause callbacks
 	machine().add_notifier(MACHINE_NOTIFY_PAUSE, machine_notify_delegate(FUNC(osd_common_t::input_pause), this));
@@ -431,6 +436,17 @@ void osd_common_t::init_subsystems()
 	network_init();
 #endif
 	midi_init();
+
+    m_font_module = select_module_options<font_module *>(options(), OSD_FONT_PROVIDER);
+
+    m_sound = select_module_options<sound_module *>(options(), OSD_SOUND_PROVIDER);
+    m_sound->m_sample_rate = options().sample_rate();
+    m_sound->m_audio_latency = options().audio_latency();
+
+    m_debugger = select_module_options<debug_module *>(options(), OSD_DEBUG_PROVIDER);
+
+    m_mod_man.init();
+
 }
 
 bool osd_common_t::video_init()
@@ -443,35 +459,12 @@ bool osd_common_t::window_init()
 	return true;
 }
 
-bool osd_common_t::sound_init()
-{
-	osd_sound_type sound = m_sound_options.find(options().sound());
-	if (sound==NULL)
-	{
-		osd_printf_warning("sound_init: option %s not found switching to auto\n",options().sound());
-		sound = m_sound_options.find("auto");
-	}
-	if (sound != NULL)
-	    m_sound = (*sound)(*this, machine());
-	else
-	    m_sound = NULL;
-	return true;
-}
-
 bool osd_common_t::no_sound()
 {
 	return (strcmp(options().sound(),"none")==0) ? true : false;
 }
 
 void osd_common_t::video_register()
-{
-}
-
-void osd_common_t::sound_register()
-{
-}
-
-void osd_common_t::debugger_register()
 {
 }
 
@@ -501,14 +494,12 @@ bool osd_common_t::network_init()
 void osd_common_t::exit_subsystems()
 {
 	video_exit();
-	sound_exit();
 	input_exit();
 	output_exit();
 	#ifdef USE_NETWORK
 	network_exit();
 	#endif
 	midi_exit();
-	debugger_exit();
 }
 
 void osd_common_t::video_exit()
@@ -517,12 +508,6 @@ void osd_common_t::video_exit()
 
 void osd_common_t::window_exit()
 {
-}
-
-void osd_common_t::sound_exit()
-{
-    if (m_sound != NULL)
-        global_free(m_sound);
 }
 
 void osd_common_t::input_exit()
@@ -539,25 +524,15 @@ void osd_common_t::network_exit()
 
 void osd_common_t::osd_exit()
 {
-	exit_subsystems();
+    m_mod_man.exit();
+
+    exit_subsystems();
 }
 
 void osd_common_t::video_options_add(const char *name, void *type)
 {
 	//m_video_options.add(name, type, false);
 	m_video_names.append(core_strdup(name));
-}
-
-void osd_common_t::sound_options_add(const char *name, osd_sound_type type)
-{
-	m_sound_options.add(name, type, false);
-	m_sound_names.append(core_strdup(name));
-}
-
-void osd_common_t::debugger_options_add(const char *name, osd_debugger_type type)
-{
-	m_debugger_options.add(name, type, false);
-	m_debugger_names.append(core_strdup(name));
 }
 
 bool osd_common_t::midi_init()
@@ -571,37 +546,4 @@ void osd_common_t::midi_exit()
     osd_midi_exit();
 }
 
-//-------------------------------------------------
-//  osd_sound_interface - constructor
-//-------------------------------------------------
-
-osd_sound_interface::osd_sound_interface(const osd_interface &osd, running_machine &machine)
-    : m_osd(osd), m_machine(machine)
-{
-}
-
-//-------------------------------------------------
-//  osd_sound_interface - destructor
-//-------------------------------------------------
-
-osd_sound_interface::~osd_sound_interface()
-{
-}
-
-//-------------------------------------------------
-//  osd_debugger_interface - constructor
-//-------------------------------------------------
-
-osd_debugger_interface::osd_debugger_interface(const osd_interface &osd)
-    : m_osd(osd)
-{
-}
-
-//-------------------------------------------------
-//  osd_debugger_interface - destructor
-//-------------------------------------------------
-
-osd_debugger_interface::~osd_debugger_interface()
-{
-}
 

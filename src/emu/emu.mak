@@ -99,6 +99,7 @@ EMUOBJS = \
 	$(EMUOBJ)/memarray.o \
 	$(EMUOBJ)/memory.o \
 	$(EMUOBJ)/network.o \
+	$(EMUOBJ)/parameters.o \
 	$(EMUOBJ)/output.o \
 	$(EMUOBJ)/render.o \
 	$(EMUOBJ)/rendfont.o \
@@ -152,9 +153,6 @@ EMUOBJS = \
 	$(EMUOBJ)/profiler.o \
 	$(EMUOBJ)/webengine.o \
 	$(OSDOBJ)/osdnet.o \
-	$(OSDOBJ)/modules/sound/none.o \
-	$(OSDOBJ)/modules/debugger/none.o \
-	$(OSDOBJ)/modules/debugger/debugint.o \
 
 EMUSOUNDOBJS = \
 	$(EMUOBJ)/sound/filter.o \

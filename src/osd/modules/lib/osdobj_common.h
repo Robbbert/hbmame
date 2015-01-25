@@ -14,6 +14,10 @@
 #define __OSDOBJ_COMMON__
 
 #include "osdepend.h"
+#include "modules/osdmodule.h"
+#include "modules/font/font_module.h"
+#include "modules/sound/sound_module.h"
+#include "modules/debugger/debug_module.h"
 #include "cliopts.h"
 
 //============================================================
@@ -54,18 +58,6 @@
 //============================================================
 //  TYPE DEFINITIONS
 //============================================================
-
-/* FIXME: core_options inherits from osd_options. This will force any
- * future osd implementation to use the options below. Actually, these
- * options are *private* to the osd_core. This object should actually be an
- * accessor object. Later ...
- */
-
-/* FIXME: core_options inherits from osd_options. This will force any
- * future osd implementation to use the options below. Actually, these
- * options are *private* to the osd_core. This object should actually be an
- * accessor object. Later ...
- */
 
 class osd_options : public cli_options
 {
@@ -113,16 +105,6 @@ private:
     static const options_entry s_option_entries[];
 };
 
-class osd_sound_interface;
-class osd_debugger_interface;
-
-// a osd_sound_type is simply a pointer to its alloc function
-typedef osd_sound_interface *(*osd_sound_type)(const osd_interface &osd, running_machine &machine);
-
-// a osd_sound_type is simply a pointer to its alloc function
-typedef osd_debugger_interface *(*osd_debugger_type)(const osd_interface &osd);
-
-
 // ======================> osd_interface
 
 // description of the currently-running machine
@@ -163,6 +145,8 @@ public:
     // command option overrides
     virtual bool execute_command(const char *command);
 
+    osd_font *font_alloc() { return m_font_module->font_alloc(); }
+
 	// FIXME: everything below seems to be osd specific and not part of
 	//        this INTERFACE but part of the osd IMPLEMENTATION
 
@@ -171,17 +155,12 @@ public:
 
 
     virtual void debugger_update();
-    virtual void debugger_exit();
-    virtual void debugger_register();
 
     virtual void init_subsystems();
 
     virtual bool video_init();
     virtual void video_register();
     virtual bool window_init();
-
-    virtual bool sound_init();
-    virtual void sound_register();
 
     virtual void input_resume();
     virtual bool output_init();
@@ -191,7 +170,6 @@ public:
     virtual void exit_subsystems();
     virtual void video_exit();
     virtual void window_exit();
-    virtual void sound_exit();
     virtual void input_exit();
     virtual void output_exit();
     virtual void network_exit();
@@ -200,8 +178,6 @@ public:
     virtual void osd_exit();
 
     virtual void video_options_add(const char *name, void *type);
-    virtual void sound_options_add(const char *name, osd_sound_type type);
-    virtual void debugger_options_add(const char *name, osd_debugger_type type);
 
     osd_options &options() { return m_options; }
 
@@ -214,63 +190,44 @@ private:
 	running_machine *   m_machine;
 	osd_options& m_options;
 
+    osd_module_manager m_mod_man;
+    font_module *m_font_module;
+
 	void update_option(const char * key, dynamic_array<const char *> &values);
+    // FIXME: should be elsewhere
+    osd_module *select_module_options(const core_options &opts, const astring &opt_name)
+    {
+        astring opt_val = opts.value(opt_name);
+        if (opt_val == "auto")
+            opt_val = "";
+        else if (!m_mod_man.type_has_name(opt_name, opt_val))
+        {
+            osd_printf_warning("Value %s not supported for option %s - falling back to auto\n", opt_val.cstr(), opt_name.cstr());
+            opt_val = "";
+        }
+        return m_mod_man.select_module(opt_name, opt_val);
+    }
+
+    template<class C>
+    C select_module_options(const core_options &opts, const astring &opt_name)
+    {
+        return dynamic_cast<C>(select_module_options(opts, opt_name));
+    }
 
 protected:
-	osd_sound_interface* m_sound;
-	osd_debugger_interface* m_debugger;
+	sound_module* m_sound;
+	debug_module* m_debugger;
 private:
 	//tagmap_t<osd_video_type>  m_video_options;
 	dynamic_array<const char *> m_video_names;
-	tagmap_t<osd_sound_type>  m_sound_options;
-	dynamic_array<const char *> m_sound_names;
-	tagmap_t<osd_debugger_type>  m_debugger_options;
-	dynamic_array<const char *> m_debugger_names;
 };
 
-
-class osd_sound_interface
-{
-public:
-	// construction/destruction
-	osd_sound_interface(const osd_interface &osd, running_machine &machine);
-	virtual ~osd_sound_interface();
-
-	virtual void update_audio_stream(const INT16 *buffer, int samples_this_frame) = 0;
-	virtual void set_mastervolume(int attenuation) = 0;
-protected:
-	const osd_interface& m_osd;
-	running_machine& m_machine;
-};
-
-// this template function creates a stub which constructs a sound subsystem
-template<class _DeviceClass>
-osd_sound_interface *osd_sound_creator(const osd_interface &osd, running_machine &machine)
-{
-	return global_alloc(_DeviceClass(osd, machine));
-}
-
-class osd_debugger_interface
-{
-public:
-	// construction/destruction
-	osd_debugger_interface(const osd_interface &osd);
-	virtual ~osd_debugger_interface();
-
-	virtual void init_debugger(running_machine &machine) = 0;
-	virtual void wait_for_debugger(device_t &device, bool firststop) = 0;
-	virtual void debugger_update() = 0;
-	virtual void debugger_exit() = 0;
-
-protected:
-	const osd_interface& m_osd;
-};
 
 // this template function creates a stub which constructs a debugger
 template<class _DeviceClass>
-osd_debugger_interface *osd_debugger_creator(const osd_interface &osd)
+debug_module *osd_debugger_creator()
 {
-	return global_alloc(_DeviceClass(osd));
+	return global_alloc(_DeviceClass());
 }
 
 #endif  /* __OSDOBJ_COMMON_H__ */
