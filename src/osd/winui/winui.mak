@@ -254,15 +254,14 @@ OSDCOREOBJS = \
 	$(WINOBJ)/windir.o  \
 	$(WINOBJ)/winfile.o \
 	$(WINOBJ)/winclip.o \
-	$(WINOBJ)/winmisc.o \
 	$(WINOBJ)/winutf8.o \
 	$(WINOBJ)/winutil.o \
 	$(WINOBJ)/winptty.o \
 	$(WINOBJ)/winsocket.o \
-	$(OSDOBJ)/modules/font/font_windows.o \
 	$(OSDOBJ)/modules/lib/osdlib_win32.o \
 	$(OSDOBJ)/modules/sync/sync_windows.o \
 	$(OSDOBJ)/modules/sync/work_osd.o \
+	$(OSDOBJ)/modules/osdmodule.o \
 
 # if malloc debugging is enabled, include the necessary code
 ifneq ($(findstring MALLOC_DEBUG,$(DEFS)),)
@@ -287,14 +286,24 @@ OSDOBJS = \
 	$(WINOBJ)/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
-	$(OSDOBJ)/modules/sound/direct_sound.o \
-	$(OSDOBJ)/modules/debugger/debugwin.o \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
 	$(WINOBJ)/winmenu.o \
 	$(WINOBJ)/winmainui.o \
 	$(OSDOBJ)/modules/midi/portmidi.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o \
+	$(OSDOBJ)/modules/sound/js_sound.o  \
+	$(OSDOBJ)/modules/sound/direct_sound.o  \
+	$(OSDOBJ)/modules/sound/sdl_sound.o  \
+	$(OSDOBJ)/modules/sound/none.o  \
+	$(OSDOBJ)/modules/font/font_sdl.o \
+	$(OSDOBJ)/modules/font/font_windows.o \
+	$(OSDOBJ)/modules/font/font_osx.o \
+	$(OSDOBJ)/modules/font/font_none.o \
+	$(OSDOBJ)/modules/debugger/debugwin.o \
+	$(OSDOBJ)/modules/debugger/debugint.o \
+	$(OSDOBJ)/modules/debugger/debugqt.o \
+	$(OSDOBJ)/modules/debugger/none.o \
 
 ifndef DONT_USE_NETWORK
 OSDOBJS += \

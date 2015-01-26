@@ -55,14 +55,26 @@ WINOSDOBJS = \
 	$(WINOBJ)/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
-	$(OSDOBJ)/modules/sound/direct_sound.o \
 	$(OSDOBJ)/modules/lib/osdlib_win32.o \
 	$(WINOBJ)/video.o \
 	$(WINOBJ)/window.o \
 	$(OSDOBJ)/modules/debugger/debugwin.o \
-	$(OSDOBJ)/modules/font/font_windows.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	$(OSDOBJ)/modules/midi/portmidi.o \
+	$(OSDOBJ)/modules/sync/work_osd.o \
+	$(OSDOBJ)/modules/osdmodule.o \
+	$(OSDOBJ)/modules/sound/js_sound.o  \
+	$(OSDOBJ)/modules/sound/direct_sound.o  \
+	$(OSDOBJ)/modules/sound/sdl_sound.o  \
+	$(OSDOBJ)/modules/sound/none.o  \
+	$(OSDOBJ)/modules/font/font_sdl.o \
+	$(OSDOBJ)/modules/font/font_windows.o \
+	$(OSDOBJ)/modules/font/font_osx.o \
+	$(OSDOBJ)/modules/font/font_none.o \
+	$(OSDOBJ)/modules/debugger/debugwin.o \
+	$(OSDOBJ)/modules/debugger/debugint.o \
+	$(OSDOBJ)/modules/debugger/debugqt.o \
+	$(OSDOBJ)/modules/debugger/none.o \
 	$(WINOBJ)/winmain.o \
 	$(WINOBJ)/winmenu.o \
 
