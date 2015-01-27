@@ -1,10 +1,51 @@
-/* The Decathlete 'protection' seems to be some kind of Huffman style compression on the graphics,
-  the game uploads 2 dictionary tables (for different areas of the ROM) as well as an additional
-  table with each one.  The secondary table doesn't initially appear to be the data needed to
-  build the trees required for decompression */
+/* Sega Compression (and possibly encryption) device
+
+	315-5838 - Decathlete (ST-V)
+	317-0229 - Dead or Alive (Model 2A)
+
+	Package Type: TQFP100
+
+	This appears to be a dual channel compression chip, used in 1996, predating the 5881.
+	Decathlete uses it to compress ALL the game graphics, Dead or Alive uses it for a
+	dumb security check, decompressing a single string.
+
+	Dead of Alive only uses a single channel, and has the source data in RAM, not ROM.
+	This is similar to how some 5881 games were set up, with the ST-V versions decrypting
+	data directly from ROM and the Model 2 ones using a RAM source buffer.
+
+*/
 
 #include "emu.h"
-#include "includes/stv.h"
+#include "machine/315-5838_317-0229_comp.h"
+
+extern const device_type SEGA315_5838_COMP = &device_creator<sega_315_5838_comp_device>;
+
+
+sega_315_5838_comp_device::sega_315_5838_comp_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+	: device_t(mconfig, SEGA315_5838_COMP, "Sega 315-5838 / 317-0029 Compression (Encryption?)", tag, owner, clock, "SEGA315_5838", __FILE__)
+{
+}
+
+
+
+void sega_315_5838_comp_device::device_start()
+{
+	m_decathlt_lastcount = 0;
+	m_decathlt_prot_uploadmode = 0;
+	m_decathlt_prot_uploadoffset = 0;
+}
+
+void sega_315_5838_comp_device::device_reset()
+{
+	memset(m_decathlt_protregs, 0, sizeof(m_decathlt_protregs));
+	m_decathlt_lastcount = 0;
+	m_decathlt_prot_uploadmode = 0;
+	m_decathlt_prot_uploadoffset = 0;
+	m_decathlt_part = 1;
+
+	m_protstate = 0;
+}
+
 
 /**************************
 *
@@ -12,12 +53,12 @@
 *
 **************************/
 
-READ32_MEMBER( stv_state::decathlt_prot_r )
+READ32_MEMBER( sega_315_5838_comp_device::decathlt_prot_r )
 {
 	// the offsets written to the protection device definitely only refer to 2 of the roms
 	//  it's a fair assumption to say that only those 2 are connected to the protection device
-	UINT8 *ROM = (UINT8 *)memregion("abus")->base()+0x1000000;
-	UINT32 *fake0 = (UINT32*)memregion( "fake0" )->base();
+	UINT8 *ROM = (UINT8 *)memregion(":abus")->base()+0x1000000;
+	UINT32 *fake0 = (UINT32*)memregion( ":fake0" )->base();
 
 	if (offset==2)
 	{
@@ -100,12 +141,15 @@ READ32_MEMBER( stv_state::decathlt_prot_r )
 }
 
 
-void stv_state::write_prot_data(UINT32 data, UINT32 mem_mask, int offset, int which)
+void sega_315_5838_comp_device::write_prot_data(UINT32 data, UINT32 mem_mask, int offset, int which)
 {
+
+	printf("write_prot_data %08x %08x %08x\n", offset, data, mem_mask);
+
 	m_decathlt_protregs[offset] = (data&mem_mask)|(m_decathlt_protregs[offset]&~mem_mask);
 //  m_decathlt_protregs[0] = 0x0c00000/4;
 
-	if (offset==0) // seems to set a (scrambled?) source address
+	if (offset==0) // seems to set a source address
 	{
 		m_decathlt_part ^=1;
 
@@ -153,9 +197,11 @@ void stv_state::write_prot_data(UINT32 data, UINT32 mem_mask, int offset, int wh
 				m_decathlt_prottable1[m_decathlt_prot_uploadoffset]=data&0xffff;
 				m_decathlt_prot_uploadoffset++;
 
+				printf("table 1 %04x\n", data & 0xffff);
+
 				{
 					/* 0x18 (24) values in this table, rom data is 0x1800000 long, maybe it has
-					   something to do with that? or 24-address bits?
+					   something to do with that? or 24-address b	 its?
 
 					   uploaded values appear to be 12-bit, some are repeated
 					*/
@@ -184,6 +230,9 @@ void stv_state::write_prot_data(UINT32 data, UINT32 mem_mask, int offset, int wh
 				//logerror("uploading table 2 %04x %04x\n",m_decathlt_prot_uploadoffset, data&0xffff);
 				m_decathlt_prottable2[m_decathlt_prot_uploadoffset]=data&0xffff;
 				m_decathlt_prot_uploadoffset++;
+
+				printf("dictionary %04x\n", data & 0xffff);
+
 
 				{
 					/* the table uploaded here is a 256 byte table with 256 unique values, remaps something? */
@@ -214,29 +263,81 @@ void stv_state::write_prot_data(UINT32 data, UINT32 mem_mask, int offset, int wh
 
 }
 
-WRITE32_MEMBER( stv_state::decathlt_prot1_w )
+WRITE32_MEMBER( sega_315_5838_comp_device::decathlt_prot1_w )
 {
 	write_prot_data(data,mem_mask, offset, 0);
 
 }
 
-WRITE32_MEMBER( stv_state::decathlt_prot2_w )
+WRITE32_MEMBER( sega_315_5838_comp_device::decathlt_prot2_w )
 {
 	write_prot_data(data,mem_mask, offset, 1);
 
 
 }
 
-void stv_state::install_decathlt_protection()
+void sega_315_5838_comp_device::install_decathlt_protection()
 {
 	/* It uploads 2 tables here, then performs what looks like a number of transfers, setting
 	   a source address of some kind (scrambled?) and then making many reads from a single address */
-	memset(m_decathlt_protregs, 0, sizeof(m_decathlt_protregs));
-	m_decathlt_lastcount = 0;
-	m_decathlt_prot_uploadmode = 0;
-	m_decathlt_prot_uploadoffset = 0;
-	m_decathlt_part = 1;
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x37FFFF0, 0x37FFFFF, read32_delegate(FUNC(stv_state::decathlt_prot_r), this), write32_delegate(FUNC(stv_state::decathlt_prot1_w), this));
+
+	//todo, install these in the driver, they differ between games
+	cpu_device* cpu = (cpu_device*)machine().device(":maincpu");
+
+
+	cpu->space(AS_PROGRAM).install_readwrite_handler(0x37FFFF0, 0x37FFFFF, read32_delegate(FUNC(sega_315_5838_comp_device::decathlt_prot_r), this), write32_delegate(FUNC(sega_315_5838_comp_device::decathlt_prot1_w), this));
 	/* It accesses the device at this address too, with different tables, for the game textures, should it just act like a mirror, or a secondary device? */
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x27FFFF0, 0x27FFFFF, read32_delegate(FUNC(stv_state::decathlt_prot_r), this), write32_delegate(FUNC(stv_state::decathlt_prot2_w), this));
+	cpu->space(AS_PROGRAM).install_readwrite_handler(0x27FFFF0, 0x27FFFFF, read32_delegate(FUNC(sega_315_5838_comp_device::decathlt_prot_r), this), write32_delegate(FUNC(sega_315_5838_comp_device::decathlt_prot2_w), this));
+}
+
+
+READ32_MEMBER(sega_315_5838_comp_device::doa_prot_r)
+{
+	UINT32 retval = 0;
+
+	if (offset == 0x7ff8/4)
+	{
+		retval = m_protram[m_protstate+1] | m_protram[m_protstate]<<8;
+		m_protstate+=2;
+		printf("doa_prot_read %08x %08x %08x\n", offset*4, retval, mem_mask);
+	}
+	else if (offset == 0x400c/4) // todo, is this actually part of the protection? it's in the address range, but decathlete doesn't have it afaik.
+	{
+		m_prot_a = !m_prot_a;
+		if (m_prot_a)
+			retval = 0xffff;
+		else
+			retval = 0xfff0;
+	}
+	else
+	{
+		printf("doa_prot_read %08x %08x %08x\n", offset*4, retval, mem_mask);
+		logerror("Unhandled Protection READ @ %x mask %x (PC=%x)\n", offset, mem_mask, space.device().safe_pc());
+	}
+
+	return retval;
+}
+
+
+WRITE32_MEMBER(sega_315_5838_comp_device::doa_prot_w)
+{
+	printf("doa_prot_w %08x %08x %08x\n", offset*4, data, mem_mask);
+
+	if (offset == 0x7ff2 / 4)
+	{
+		if (data == 0)
+		{
+			m_protstate = 0;
+			strcpy((char *)m_protram, "  TECMO LTD.  DEAD OR ALIVE  1996.10.22  VER. 1.00"); // this is the single decompressed string DOA needs
+		}
+	}
+	else logerror("Unhandled Protection WRITE %x @ %x mask %x (PC=%x)\n", data, offset, mem_mask, space.device().safe_pc());
+}
+
+
+void sega_315_5838_comp_device::install_doa_protection()
+{
+	//todo, install these in the driver, they differ between games
+	cpu_device* cpu = (cpu_device*)machine().device(":maincpu");
+	cpu->space(AS_PROGRAM).install_readwrite_handler(0x01d80000, 0x01dfffff, read32_delegate(FUNC(sega_315_5838_comp_device::doa_prot_r), this), write32_delegate(FUNC(sega_315_5838_comp_device::doa_prot_w), this));
 }
