@@ -1335,3 +1335,4 @@ INTERRUPT_GEN_MEMBER(c65_state::c65_frame_interrupt)
 	value &= ~ioport("FUNCT")->read();
 	m_keyline = value;
 }
+
