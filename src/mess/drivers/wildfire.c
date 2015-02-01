@@ -14,7 +14,8 @@
 
 #include "wildfire.lh"
 
-// master clock is MCU internal, default frequency of 850kHz
+// master clock is a single stage RC oscillator: R=?K, C=?pf,
+// S2150 default frequency is 850kHz
 #define MASTER_CLOCK (850000)
 
 
@@ -30,6 +31,9 @@ public:
 	required_device<cpu_device> m_maincpu;
 	required_device<speaker_sound_device> m_speaker;
 
+	DECLARE_WRITE8_MEMBER(write_d);
+	DECLARE_WRITE16_MEMBER(write_a);
+
 	virtual void machine_start();
 };
 
@@ -40,7 +44,13 @@ public:
 
 ***************************************************************************/
 
-//..
+WRITE8_MEMBER(wildfire_state::write_d)
+{
+}
+
+WRITE16_MEMBER(wildfire_state::write_a)
+{
+}
 
 
 
@@ -51,6 +61,11 @@ public:
 ***************************************************************************/
 
 static INPUT_PORTS_START( wildfire )
+	PORT_START("IN1") // I
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Shooter Button")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Left Flipper")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Right Flipper")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
 
@@ -70,6 +85,9 @@ static MACHINE_CONFIG_START( wildfire, wildfire_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", AMI_S2150, MASTER_CLOCK)
+	MCFG_AMI_S2000_READ_I_CB(IOPORT("IN1"))
+	MCFG_AMI_S2000_WRITE_D_CB(WRITE8(wildfire_state, write_d))
+	MCFG_AMI_S2000_WRITE_A_CB(WRITE16(wildfire_state, write_a))
 
 	MCFG_DEFAULT_LAYOUT(layout_wildfire)
 
@@ -91,7 +109,7 @@ MACHINE_CONFIG_END
 
 ROM_START( wildfire )
 	ROM_REGION( 0x0600, "maincpu", 0 )
-	ROM_LOAD( "us4341385", 0x0000, 0x0600, CRC(46877cef) SHA1(fc84c893cf0bdb12a5a002b921ce3120263e0081) ) // from patent US4334679, data should be correct (it included checksums)
+	ROM_LOAD( "us4341385", 0x0000, 0x0600, CRC(84ac0f1f) SHA1(1e00ddd402acfc2cc267c34eed4b89d863e2144f) ) // from patent US4334679, data should be correct (it included checksums)
 ROM_END
 
 

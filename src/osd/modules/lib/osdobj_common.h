@@ -18,6 +18,8 @@
 #include "modules/font/font_module.h"
 #include "modules/sound/sound_module.h"
 #include "modules/debugger/debug_module.h"
+#include "modules/netdev/netdev_module.h"
+#include "modules/midi/midi_module.h"
 #include "cliopts.h"
 
 //============================================================
@@ -147,6 +149,8 @@ public:
 
 	osd_font *font_alloc() { return m_font_module->font_alloc(); }
 
+	osd_midi_device *create_midi_device() { return m_midi->create_midi_device(); }
+
 	// FIXME: everything below seems to be osd specific and not part of
 	//        this INTERFACE but part of the osd IMPLEMENTATION
 
@@ -164,16 +168,12 @@ public:
 
 	virtual void input_resume();
 	virtual bool output_init();
-	virtual bool network_init();
-	virtual bool midi_init();
 
 	virtual void exit_subsystems();
 	virtual void video_exit();
 	virtual void window_exit();
 	virtual void input_exit();
 	virtual void output_exit();
-	virtual void network_exit();
-	virtual void midi_exit();
 
 	virtual void osd_exit();
 
@@ -217,6 +217,7 @@ private:
 protected:
 	sound_module* m_sound;
 	debug_module* m_debugger;
+	midi_module* m_midi;
 private:
 	//tagmap_t<osd_video_type>  m_video_options;
 	dynamic_array<const char *> m_video_names;

@@ -92,6 +92,7 @@ OBJDIRS += $(WINOBJ) \
 	$(OSDOBJ)/modules/lib \
 	$(OSDOBJ)/modules/midi \
 	$(OSDOBJ)/modules/font \
+	$(OSDOBJ)/modules/netdev \
 
 ifdef USE_QTDEBUG
 OBJDIRS += $(OSDOBJ)/modules/debugger/qt
@@ -382,21 +383,21 @@ OSDOBJS = \
 	$(WINOBJ)/winmenu.o \
 	$(WINOBJ)/winmain.o \
 	$(OSDOBJ)/modules/midi/portmidi.o \
+	$(OSDOBJ)/modules/midi/none.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o  \
 	$(OSDOBJ)/modules/font/font_sdl.o \
 	$(OSDOBJ)/modules/font/font_windows.o \
 	$(OSDOBJ)/modules/font/font_osx.o \
 	$(OSDOBJ)/modules/font/font_none.o \
+	$(OSDOBJ)/modules/netdev/pcap.o \
+	$(OSDOBJ)/modules/netdev/taptun.o \
 
 ifdef USE_SDL
-OSDOBJS += \
-	$(OSDOBJ)/modules/sound/sdl_sound.o
+DEFS += -DUSE_SDL_SOUND
 endif
 
 ifndef DONT_USE_NETWORK
-OSDOBJS += \
-	$(WINOBJ)/netdev.o \
-	$(WINOBJ)/netdev_pcap.o
+DEFS +=	-DSDLMAME_NET_PCAP
 endif
 
 CCOMFLAGS += -DDIRECT3D_VERSION=0x0900
