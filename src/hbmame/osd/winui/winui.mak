@@ -61,6 +61,7 @@ WINOSDOBJS = \
 	$(OSDOBJ)/modules/debugger/debugwin.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	$(OSDOBJ)/modules/midi/portmidi.o \
+	$(OSDOBJ)/modules/midi/none.o \
 	$(OSDOBJ)/modules/sync/work_osd.o \
 	$(OSDOBJ)/modules/osdmodule.o \
 	$(OSDOBJ)/modules/sound/js_sound.o  \
@@ -75,13 +76,13 @@ WINOSDOBJS = \
 	$(OSDOBJ)/modules/debugger/debugint.o \
 	$(OSDOBJ)/modules/debugger/debugqt.o \
 	$(OSDOBJ)/modules/debugger/none.o \
+	$(OSDOBJ)/modules/netdev/pcap.o \
+	$(OSDOBJ)/modules/netdev/taptun.o \
 	$(WINOBJ)/winmain.o \
 	$(WINOBJ)/winmenu.o \
 
 ifndef DONT_USE_NETWORK
-WINOSDOBJS += \
-	$(WINOBJ)/netdev.o \
-	$(WINOBJ)/netdev_pcap.o
+DEFS +=	-DSDLMAME_NET_PCAP
 endif
 
 $(EMU_EXE): $(VERSIONOBJ) $(EMUINFOOBJ) $(DRIVLISTOBJ) $(DRVLIBS) $(WINOSDOBJS) $(LIBBUS) $(LIBOPTIONAL) $(LIBEMU) $(LIBDASM) $(LIBUTIL) $(EXPAT) $(SOFTFLOAT) $(JPEG_LIB) $(FLAC_LIB) $(7Z_LIB) $(FORMATS_LIB) $(LUA_LIB) $(SQLITE3_LIB) $(WEB_LIB) $(ZLIB) $(LIBOCORE) $(MIDI_LIB) $(RESFILE)

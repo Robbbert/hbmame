@@ -72,6 +72,7 @@ OBJDIRS += $(WINOBJ) \
 	$(OSDOBJ)/modules/lib \
 	$(OSDOBJ)/modules/midi \
 	$(OSDOBJ)/modules/font \
+	$(OSDOBJ)/modules/netdev \
 
 # add ui specific src/objs
 UISRC = $(SRC)/osd/$(OSD)
@@ -291,6 +292,7 @@ OSDOBJS = \
 	$(WINOBJ)/winmenu.o \
 	$(WINOBJ)/winmainui.o \
 	$(OSDOBJ)/modules/midi/portmidi.o \
+	$(OSDOBJ)/modules/midi/none.o \
 	$(OSDOBJ)/modules/lib/osdobj_common.o \
 	$(OSDOBJ)/modules/sound/js_sound.o  \
 	$(OSDOBJ)/modules/sound/direct_sound.o  \
@@ -303,12 +305,12 @@ OSDOBJS = \
 	$(OSDOBJ)/modules/debugger/debugwin.o \
 	$(OSDOBJ)/modules/debugger/debugint.o \
 	$(OSDOBJ)/modules/debugger/debugqt.o \
+	$(OSDOBJ)/modules/netdev/pcap.o \
+	$(OSDOBJ)/modules/netdev/taptun.o \
 	$(OSDOBJ)/modules/debugger/none.o \
 
 ifndef DONT_USE_NETWORK
-OSDOBJS += \
-	$(WINOBJ)/netdev.o \
-	$(WINOBJ)/netdev_pcap.o
+DEFS +=	-DSDLMAME_NET_PCAP
 endif
 
 CFLAGS += -DDIRECT3D_VERSION=0x0900
