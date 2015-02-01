@@ -371,6 +371,7 @@ OSDOBJS = \
 	$(WINOBJ)/d3dhlsl.o \
 	$(WINOBJ)/drawdd.o \
 	$(WINOBJ)/drawgdi.o \
+	$(WINOBJ)/drawbgfx.o \
 	$(WINOBJ)/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
@@ -415,6 +416,9 @@ OSDOBJS += \
 
 # add a stub resource file
 RESFILE = $(WINOBJ)/mame.res
+
+BGFX_LIB = $(OBJ)/libbgfx.a
+INCPATH += -I$(3RDPARTY)/bgfx/include -I$(3RDPARTY)/bx/include
 
 #-------------------------------------------------
 # QT Debug library
@@ -469,7 +473,7 @@ $(LIBOSD): $(OSDOBJS)
 # rule for making the ledutil sample
 #-------------------------------------------------
 
-LEDUTIL = ledutil$(EXE)
+LEDUTIL = $(BIN)ledutil$(EXE)
 TOOLS += $(LEDUTIL)
 
 LEDUTILOBJS = \
