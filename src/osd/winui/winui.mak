@@ -284,6 +284,7 @@ OSDOBJS = \
 	$(WINOBJ)/d3dhlsl.o \
 	$(WINOBJ)/drawdd.o \
 	$(WINOBJ)/drawgdi.o \
+	$(WINOBJ)/drawbgfx.o \
 	$(WINOBJ)/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
@@ -347,6 +348,8 @@ OSDOBJS += \
 # extra dependencies
 $(WINOBJ)/drawdd.o :	$(SRC)/emu/rendersw.inc
 $(WINOBJ)/drawgdi.o :	$(SRC)/emu/rendersw.inc
+BGFX_LIB = $(OBJ)/libbgfx.a
+INCPATH += -I$(3RDPARTY)/bgfx/include -I$(3RDPARTY)/bx/include
 
 $(WINOBJ)/winmainui.o : $(WINSRC)/winmain.c
 	@echo Compiling $<...
