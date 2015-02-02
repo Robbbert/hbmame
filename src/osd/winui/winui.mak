@@ -308,6 +308,7 @@ OSDOBJS = \
 	$(OSDOBJ)/modules/debugger/debugqt.o \
 	$(OSDOBJ)/modules/netdev/pcap.o \
 	$(OSDOBJ)/modules/netdev/taptun.o \
+	$(OSDOBJ)/modules/netdev/none.o \
 	$(OSDOBJ)/modules/debugger/none.o \
 
 ifndef DONT_USE_NETWORK

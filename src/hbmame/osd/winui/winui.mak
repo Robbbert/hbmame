@@ -79,6 +79,7 @@ WINOSDOBJS = \
 	$(OSDOBJ)/modules/debugger/none.o \
 	$(OSDOBJ)/modules/netdev/pcap.o \
 	$(OSDOBJ)/modules/netdev/taptun.o \
+	$(OSDOBJ)/modules/netdev/none.o \
 	$(WINOBJ)/winmain.o \
 	$(WINOBJ)/winmenu.o \
 
