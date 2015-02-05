@@ -50,33 +50,28 @@ class sdl_info : public osd_renderer
 {
 public:
 
-	sdl_info(sdl_window_info *w)
-	: osd_renderer(w),
-	m_blittimer(0),
-	m_extra_flags(0),
-
+	sdl_info(sdl_window_info *w, int extra_flags)
+	: osd_renderer(w, extra_flags),
 	#if (SDLMAME_SDL2)
 	m_sdl_renderer(NULL),
 	m_texture_id(NULL),
 	#else
-	m_sdlsurf(NULL),
 	m_yuvsurf(NULL),
 	#endif
 	m_yuv_lookup(NULL),
 	m_yuv_bitmap(NULL),
-	m_hw_scale_width(0),
-	m_hw_scale_height(0),
+	//m_hw_scale_width(0),
+	//m_hw_scale_height(0),
 	m_last_hofs(0),
 	m_last_vofs(0),
 	m_old_blitwidth(0),
 	m_old_blitheight(0)
 	{ }
 
-	/* virtual */ int create(int width, int height);
-	/* virtual */ void resize(int width, int height);
-	/* virtual */ int draw(UINT32 dc, int update);
-	/* virtual */ void set_target_bounds();
-	/* virtual */ int xy_to_render_target(int x, int y, int *xt, int *yt);
+	/* virtual */ int create(const int width, const int height);
+	/* virtual */ void resize(const int width, const int height);
+	/* virtual */ int draw(const UINT32 dc, const int update);
+	/* virtual */ int xy_to_render_target(const int x, const int y, int *xt, int *yt);
 	/* virtual */ void destroy_all_textures();
 	/* virtual */ void destroy();
 	/* virtual */ void clear();
@@ -93,17 +88,11 @@ public:
 #endif
 
 	INT32               m_blittimer;
-	UINT32              m_extra_flags;
 
 #if (SDLMAME_SDL2)
-	// Original display_mode
-	SDL_DisplayMode 	m_original_mode;
-
 	SDL_Renderer        *m_sdl_renderer;
 	SDL_Texture         *m_texture_id;
 #else
-	// SDL surface
-	SDL_Surface         *m_sdlsurf;
 	SDL_Overlay         *m_yuvsurf;
 #endif
 
@@ -114,8 +103,6 @@ public:
 	// if we leave scaling to SDL and the underlying driver, this
 	// is the render_target_width/height to use
 
-	int                 m_hw_scale_width;
-	int                 m_hw_scale_height;
 	int                 m_last_hofs;
 	int                 m_last_vofs;
 	int                 m_old_blitwidth;
@@ -135,7 +122,7 @@ struct sdl_scale_mode
 	const char      *sdl_scale_mode;        /* what to use as a hint ? */
 #endif
 	int             pixel_format;       /* Pixel/Overlay format  */
-	void            (*yuv_blit)(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch);
+	void            (*yuv_blit)(const UINT16 *bitmap, UINT8 *ptr, const int pitch, const UINT32 *lookup, const int width, const int height);
 };
 
 //============================================================
@@ -151,10 +138,14 @@ static void drawsdl_exit(void);
 
 // YUV overlays
 
-static void yuv_RGB_to_YV12(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch);
-static void yuv_RGB_to_YV12X2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch);
-static void yuv_RGB_to_YUY2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch);
-static void yuv_RGB_to_YUY2X2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch);
+static void yuv_RGB_to_YV12(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height);
+static void yuv_RGB_to_YV12X2(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height);
+static void yuv_RGB_to_YUY2(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height);
+static void yuv_RGB_to_YUY2X2(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height);
 
 // Static declarations
 
@@ -163,8 +154,8 @@ static int shown_video_info = 0;
 
 static const sdl_scale_mode scale_modes[] =
 {
-		{ "none",    0, 0, 0, 0, SDL_DOUBLEBUF, 0, 0 },
-		{ "async",   0, 0, 0, 0, SDL_DOUBLEBUF | SDL_ASYNCBLIT, 0, 0 },
+		{ "none",    0, 0, 1, 1, osd_renderer::FLAG_NEEDS_DOUBLEBUF, 0, 0 },
+		{ "async",   0, 0, 1, 1, osd_renderer::FLAG_NEEDS_DOUBLEBUF | osd_renderer::FLAG_NEEDS_ASYNCBLIT, 0, 0 },
 		{ "yv12",    1, 1, 1, 1, 0,              SDL_YV12_OVERLAY, yuv_RGB_to_YV12 },
 		{ "yv12x2",  1, 1, 2, 2, 0,              SDL_YV12_OVERLAY, yuv_RGB_to_YV12X2 },
 		{ "yuy2",    1, 1, 1, 1, 0,              SDL_YUY2_OVERLAY, yuv_RGB_to_YUY2 },
@@ -174,13 +165,14 @@ static const sdl_scale_mode scale_modes[] =
 #else
 static const sdl_scale_mode scale_modes[] =
 {
-		{ "none",    0, 0, 0, 0, DRAW2_SCALEMODE_NEAREST, 0, 0 },
+		{ "none",    0, 0, 1, 1, DRAW2_SCALEMODE_NEAREST, 0, 0 },
 		{ "hwblit",  1, 0, 1, 1, DRAW2_SCALEMODE_LINEAR, 0, 0 },
 		{ "hwbest",  1, 0, 1, 1, DRAW2_SCALEMODE_BEST, 0, 0 },
-		{ "yv12",    1, 1, 1, 1, DRAW2_SCALEMODE_NEAREST, SDL_PIXELFORMAT_YV12, yuv_RGB_to_YV12 },
-		{ "yv12x2",  1, 1, 2, 2, DRAW2_SCALEMODE_NEAREST, SDL_PIXELFORMAT_YV12, yuv_RGB_to_YV12X2 },
-		{ "yuy2",    1, 1, 1, 1, DRAW2_SCALEMODE_NEAREST, SDL_PIXELFORMAT_YUY2, yuv_RGB_to_YUY2 },
-		{ "yuy2x2",  1, 1, 2, 1, DRAW2_SCALEMODE_NEAREST, SDL_PIXELFORMAT_YUY2, yuv_RGB_to_YUY2X2 },
+		/* SDL1.2 uses interpolation as well */
+		{ "yv12",    1, 1, 1, 1, DRAW2_SCALEMODE_BEST, SDL_PIXELFORMAT_YV12, yuv_RGB_to_YV12 },
+		{ "yv12x2",  1, 1, 2, 2, DRAW2_SCALEMODE_BEST, SDL_PIXELFORMAT_YV12, yuv_RGB_to_YV12X2 },
+		{ "yuy2",    1, 1, 1, 1, DRAW2_SCALEMODE_BEST, SDL_PIXELFORMAT_YUY2, yuv_RGB_to_YUY2 },
+		{ "yuy2x2",  1, 1, 2, 1, DRAW2_SCALEMODE_BEST, SDL_PIXELFORMAT_YUY2, yuv_RGB_to_YUY2X2 },
 		{ NULL }
 };
 #endif
@@ -219,15 +211,21 @@ int drawsdl_scale_mode(const char *s)
 	return -1;
 }
 
-//============================================================
-//  drawsdl_init
-//============================================================
 
 static osd_renderer *drawsdl_create(sdl_window_info *window)
 {
-	return global_alloc(sdl_info(window));
+	// FIXME: QUALITY HINTS
+#if (SDLMAME_SDL2)
+	return global_alloc(sdl_info(window, osd_renderer::FLAG_NONE));
+#else
+	const sdl_scale_mode *sm = &scale_modes[video_config.scale_mode];
+	return global_alloc(sdl_info(window, sm->m_extra_flags));
+#endif
 }
 
+//============================================================
+//  drawsdl_init
+//============================================================
 
 int drawsdl_init(sdl_draw_info *callbacks)
 {
@@ -252,15 +250,6 @@ static void drawsdl_exit(void)
 }
 
 //============================================================
-//  drawsdl_destroy_all_textures
-//============================================================
-
-void sdl_info::destroy_all_textures()
-{
-	/* nothing to be done in soft mode */
-}
-
-//============================================================
 //  setup_texture for window
 //============================================================
 
@@ -280,9 +269,14 @@ void sdl_info::setup_texture(int tempwidth, int tempheight)
 		m_yuv_bitmap = NULL;
 	}
 
+	fmt = (sdl_sm->pixel_format ? sdl_sm->pixel_format : mode.format);
+
 	if (sdl_sm->is_scale)
 	{
-		window().m_target->compute_minimum_size(m_hw_scale_width, m_hw_scale_height);
+		int m_hw_scale_width =0;
+		int m_hw_scale_height = 0;
+
+		window().target()->compute_minimum_size(m_hw_scale_width, m_hw_scale_height);
 		if (video_config.prescale)
 		{
 			m_hw_scale_width *= video_config.prescale;
@@ -291,15 +285,9 @@ void sdl_info::setup_texture(int tempwidth, int tempheight)
 			/* This must be a multiple of 2 */
 			m_hw_scale_width = (m_hw_scale_width + 1) & ~1;
 		}
-	}
+		if (sdl_sm->is_yuv)
+			m_yuv_bitmap = global_alloc_array(UINT16, m_hw_scale_width * m_hw_scale_height);
 
-	if (sdl_sm->is_yuv)
-		m_yuv_bitmap = global_alloc_array(UINT16, m_hw_scale_width * m_hw_scale_height);
-
-	fmt = (sdl_sm->pixel_format ? sdl_sm->pixel_format : mode.format);
-
-	if (sdl_sm->is_scale)
-	{
 		int w = m_hw_scale_width * sdl_sm->mult_w;
 		int h = m_hw_scale_height * sdl_sm->mult_h;
 
@@ -324,7 +312,7 @@ void sdl_info::yuv_overlay_init()
 	const sdl_scale_mode *sdl_sm = &scale_modes[video_config.scale_mode];
 	int minimum_width, minimum_height;
 
-	window().m_target->compute_minimum_size(minimum_width, minimum_height);
+	window().target()->compute_minimum_size(minimum_width, minimum_height);
 
 	if (video_config.prescale)
 	{
@@ -348,15 +336,12 @@ void sdl_info::yuv_overlay_init()
 	m_yuv_bitmap = global_alloc_array(UINT16, minimum_width*minimum_height);
 
 	m_yuvsurf = SDL_CreateYUVOverlay(minimum_width * sdl_sm->mult_w, minimum_height * sdl_sm->mult_h,
-			sdl_sm->pixel_format, m_sdlsurf);
+			sdl_sm->pixel_format, window().sdl_surface());
 
 	if ( m_yuvsurf == NULL ) {
 		osd_printf_error("SDL: Couldn't create SDL_yuv_overlay: %s\n", SDL_GetError());
 		//return 1;
 	}
-
-	m_hw_scale_width = minimum_width;
-	m_hw_scale_height = minimum_height;
 
 	if (!shown_video_info)
 	{
@@ -433,83 +418,25 @@ static void drawsdl_show_info(struct SDL_RendererInfo *render_info)
 
 int sdl_info::create(int width, int height)
 {
-	const sdl_scale_mode *sm = &scale_modes[video_config.scale_mode];
 
 #if (SDLMAME_SDL2)
+	const sdl_scale_mode *sm = &scale_modes[video_config.scale_mode];
 
-	osd_printf_verbose("Enter sdl_info::create\n");
+	// create renderer 
 
 	/* set hints ... */
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, sm->sdl_scale_mode);
 
-	// create the SDL window
-	// soft driver also used | SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_MOUSE_FOCUS
-	m_extra_flags = (window().fullscreen() ?
-			SDL_WINDOW_BORDERLESS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE);
-
-#if defined(SDLMAME_WIN32)
-	SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
-#endif
-	window().m_sdl_window = SDL_CreateWindow(window().m_title,
-			window().monitor()->position_size().x, window().monitor()->position_size().y,
-			width, height, m_extra_flags);
-	//window().m_sdl_window = SDL_CreateWindow(window().m_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-	//		width, height, m_extra_flags);
-
-	if  (!window().m_sdl_window )
-	{
-		osd_printf_error("Unable to create window: %s\n", SDL_GetError());
-		return 1;
-	}
-
-	if (window().fullscreen() && video_config.switchres)
-	{
-		SDL_DisplayMode mode;
-		//SDL_GetCurrentDisplayMode(window().monitor()->handle, &mode);
-		SDL_GetWindowDisplayMode(window().m_sdl_window, &mode);
-		m_original_mode = mode;
-		mode.w = width;
-		mode.h = height;
-		if (window().m_refresh)
-			mode.refresh_rate = window().m_refresh;
-
-		SDL_SetWindowDisplayMode(window().m_sdl_window, &mode);    // Try to set mode
-#ifndef SDLMAME_WIN32
-		/* FIXME: Warp the mouse to 0,0 in case a virtual desktop resolution
-		 * is in place after the mode switch - which will most likely be the case
-		 * This is a hack to work around a deficiency in SDL2
-		 */
-		SDL_WarpMouseInWindow(window().m_sdl_window, 1, 1);
-#endif
-	}
-	else
-	{
-		//SDL_SetWindowDisplayMode(window().m_sdl_window, NULL); // Use desktop
-	}
-	// create renderer
-
-	//SDL_SelectRenderer(window().sdl_window);
-
-	// show window
-
-	SDL_ShowWindow(window().m_sdl_window);
-	//SDL_SetWindowFullscreen(window().m_sdl_window, window().fullscreen);
-	SDL_RaiseWindow(window().m_sdl_window);
-
-	SDL_GetWindowSize(window().m_sdl_window, &window().m_width, &window().m_height);
-
-	/* FIXME: Bug in SDL 1.3 */
-	if (window().fullscreen())
-		SDL_SetWindowGrab(window().m_sdl_window, SDL_TRUE);
-
-	// create a texture
 
 	if (video_config.waitvsync)
-		m_sdl_renderer = SDL_CreateRenderer(window().m_sdl_window, -1, /*SDL_RENDERER_PRESENTFLIP2 | SDL_RENDERER_PRESENTDISCARD |*/ SDL_RENDERER_PRESENTVSYNC);
+		m_sdl_renderer = SDL_CreateRenderer(window().sdl_window(), -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	else
-		m_sdl_renderer = SDL_CreateRenderer(window().m_sdl_window, -1, /*SDL_RENDERER_PRESENTFLIP2 | SDL_RENDERER_PRESENTDISCARD*/ 0);
+		m_sdl_renderer = SDL_CreateRenderer(window().sdl_window(), -1, SDL_RENDERER_ACCELERATED);
 
-	//SDL_SelectRenderer(window().sdl_window);
+	if (!m_sdl_renderer)
+	{
+		fatalerror("Error on creating renderer: %s\n", SDL_GetError());
+	}
 
 	{
 		struct SDL_RendererInfo render_info;
@@ -537,25 +464,6 @@ int sdl_info::create(int width, int height)
 
 	setup_texture(width, height);
 #else
-	m_extra_flags = (window().fullscreen() ?  SDL_FULLSCREEN : SDL_RESIZABLE);
-
-	m_extra_flags |= sm->m_extra_flags;
-
-	m_sdlsurf = SDL_SetVideoMode(width, height,
-					0, SDL_SWSURFACE | SDL_ANYFORMAT | m_extra_flags);
-
-	if (!m_sdlsurf)
-		return 1;
-
-	window().m_width = m_sdlsurf->w;
-	window().m_height = m_sdlsurf->h;
-
-	if (sm->is_yuv)
-		yuv_overlay_init();
-
-	// set the window title
-	SDL_WM_SetCaption(window().m_title, "SDLMAME");
-
 #endif
 
 	m_yuv_lookup = NULL;
@@ -572,31 +480,14 @@ int sdl_info::create(int width, int height)
 
 void sdl_info::resize(int width, int height)
 {
-#if (!SDLMAME_SDL2)
-	const sdl_scale_mode *sdl_sm = &scale_modes[video_config.scale_mode];
-#endif
 #if (SDLMAME_SDL2)
-	SDL_SetWindowSize(window().m_sdl_window, width, height);
-	SDL_GetWindowSize(window().m_sdl_window, &window().m_width, &window().m_height);
-
+	SDL_RenderSetViewport(m_sdl_renderer, NULL);
 #else
-	if (m_yuvsurf != NULL)
-	{
-		SDL_FreeYUVOverlay(m_yuvsurf);
-		m_yuvsurf = NULL;
-	}
-	SDL_FreeSurface(m_sdlsurf);
-	
-	m_sdlsurf = SDL_SetVideoMode(width, height, 0,
-			SDL_SWSURFACE | SDL_ANYFORMAT | m_extra_flags);
-	window().m_width = m_sdlsurf->w;
-	window().m_height = m_sdlsurf->h;
-
+	const sdl_scale_mode *sdl_sm = &scale_modes[video_config.scale_mode];
 	if (sdl_sm->is_yuv)
 	{
 		yuv_overlay_init();
 	}
-
 #endif
 }
 
@@ -608,32 +499,9 @@ void sdl_info::resize(int width, int height)
 void sdl_info::destroy()
 {
 
-#if (SDLMAME_SDL2)
-	//SDL_SelectRenderer(window().sdl_window);
-	SDL_DestroyTexture(m_texture_id);
-	//SDL_DestroyRenderer(window().sdl_window);
-	if (window().fullscreen() && video_config.switchres)
-	{
-		SDL_SetWindowFullscreen(window().m_sdl_window, 0);    // Try to set mode
-		SDL_SetWindowDisplayMode(window().m_sdl_window, &m_original_mode);    // Try to set mode
-		SDL_SetWindowFullscreen(window().m_sdl_window, SDL_WINDOW_FULLSCREEN);    // Try to set mode
-	}
-
-	SDL_DestroyWindow(window().m_sdl_window);
-#else
-	if (m_yuvsurf != NULL)
-	{
-		SDL_FreeYUVOverlay(m_yuvsurf);
-		m_yuvsurf = NULL;
-	}
-
-	if (m_sdlsurf)
-	{
-		SDL_FreeSurface(m_sdlsurf);
-		m_sdlsurf = NULL;
-	}
-#endif
 	// free the memory in the window
+
+	destroy_all_textures();
 
 	if (m_yuv_lookup != NULL)
 	{
@@ -648,11 +516,12 @@ void sdl_info::destroy()
 }
 
 //============================================================
-//  sdl_info::draw
+//  sdl_info::clear
 //============================================================
 
 void sdl_info::clear()
 {
+	//FIXME: Handled in sdl_info::draw as well
 	m_blittimer = 3;
 }
 
@@ -662,40 +531,36 @@ void sdl_info::clear()
 
 int sdl_info::xy_to_render_target(int x, int y, int *xt, int *yt)
 {
-	const sdl_scale_mode *sm = &scale_modes[video_config.scale_mode];
-
 	*xt = x - m_last_hofs;
 	*yt = y - m_last_vofs;
-	if (*xt<0 || *xt >= window().m_blitwidth)
+	if (*xt<0 || *xt >= window().blitwidth())
 		return 0;
-	if (*yt<0 || *xt >= window().m_blitheight)
+	if (*yt<0 || *yt >= window().blitheight())
 		return 0;
-	if (!sm->is_scale)
-	{
-		return 1;
-	}
-	/* Rescale */
-	*xt = (*xt * m_hw_scale_width) / window().m_blitwidth;
-	*yt = (*yt * m_hw_scale_height) / window().m_blitheight;
 	return 1;
 }
 
 //============================================================
-//  drawsdl_window_get_primitives
+//  drawsdl_destroy_all_textures
 //============================================================
 
-void sdl_info::set_target_bounds()
+void sdl_info::destroy_all_textures()
 {
-	const sdl_scale_mode *sm = &scale_modes[video_config.scale_mode];
-
-	if (!sm->is_scale)
-		window().m_target->set_bounds(window().m_blitwidth, window().m_blitheight, window().monitor()->aspect());
-	else
-		window().m_target->set_bounds(m_hw_scale_width, m_hw_scale_height);
+#if (SDLMAME_SDL2)
+	SDL_DestroyTexture(m_texture_id);
+	m_texture_id = NULL;
+#else
+	if (m_yuvsurf != NULL)
+	{
+		SDL_FreeYUVOverlay(m_yuvsurf);
+		m_yuvsurf = NULL;
+	}
+#endif
 }
 
+
 //============================================================
-//  drawsdl_window_draw
+//  sdl_info::draw
 //============================================================
 
 int sdl_info::draw(UINT32 dc, int update)
@@ -703,12 +568,12 @@ int sdl_info::draw(UINT32 dc, int update)
 	const sdl_scale_mode *sm = &scale_modes[video_config.scale_mode];
 	UINT8 *surfptr;
 	INT32 pitch;
-	int bpp;
 	Uint32 rmask, gmask, bmask;
 #if (SDLMAME_SDL2)
 	Uint32 amask;
 #endif
 	INT32 vofs, hofs, blitwidth, blitheight, ch, cw;
+	int bpp;
 
 	if (video_config.novideo)
 	{
@@ -718,29 +583,29 @@ int sdl_info::draw(UINT32 dc, int update)
 	// lock it if we need it
 #if (!SDLMAME_SDL2)
 
-	pitch = m_sdlsurf->pitch;
-	bpp = m_sdlsurf->format->BytesPerPixel;
-	rmask = m_sdlsurf->format->Rmask;
-	gmask = m_sdlsurf->format->Gmask;
-	bmask = m_sdlsurf->format->Bmask;
+	pitch = window().sdl_surface()->pitch;
+	bpp = window().sdl_surface()->format->BytesPerPixel;
+	rmask = window().sdl_surface()->format->Rmask;
+	gmask = window().sdl_surface()->format->Gmask;
+	bmask = window().sdl_surface()->format->Bmask;
 //  amask = sdlsurf->format->Amask;
 
-	if (window().m_blitwidth != m_old_blitwidth || window().m_blitheight != m_old_blitheight)
+	if (window().blitwidth() != m_old_blitwidth || window().blitheight() != m_old_blitheight)
 	{
 		if (sm->is_yuv)
 			yuv_overlay_init();
-		m_old_blitwidth = window().m_blitwidth;
-		m_old_blitheight = window().m_blitheight;
+		m_old_blitwidth = window().blitwidth();
+		m_old_blitheight = window().blitheight();
 		m_blittimer = 3;
 	}
 
-	if (SDL_MUSTLOCK(m_sdlsurf))
-		SDL_LockSurface(m_sdlsurf);
+	if (SDL_MUSTLOCK(window().sdl_surface()))
+		SDL_LockSurface(window().sdl_surface());
 
 	// Clear if necessary
 	if (m_blittimer > 0)
 	{
-		memset(m_sdlsurf->pixels, 0, window().m_height * m_sdlsurf->pitch);
+		memset(window().sdl_surface()->pixels, 0, window().height() * window().sdl_surface()->pitch);
 		m_blittimer--;
 	}
 
@@ -750,20 +615,27 @@ int sdl_info::draw(UINT32 dc, int update)
 		SDL_LockYUVOverlay(m_yuvsurf);
 		surfptr = m_yuvsurf->pixels[0]; // (UINT8 *) m_yuv_bitmap;
 		pitch = m_yuvsurf->pitches[0]; // (UINT8 *) m_yuv_bitmap;
+#if 0
+		printf("abcd %d\n", m_yuvsurf->h);
+		printf("abcd %d %d %d\n", m_yuvsurf->pitches[0], m_yuvsurf->pitches[1], m_yuvsurf->pitches[2]);
+		printf("abcd %p %p %p\n", m_yuvsurf->pixels[0], m_yuvsurf->pixels[1], m_yuvsurf->pixels[2]);
+		printf("abcd %ld %ld\n", m_yuvsurf->pixels[1] - m_yuvsurf->pixels[0], m_yuvsurf->pixels[2] - m_yuvsurf->pixels[1]);
+#endif
 	}
 	else
-		surfptr = (UINT8 *)m_sdlsurf->pixels;
+		surfptr = (UINT8 *)window().sdl_surface()->pixels;
 #else
 	//SDL_SelectRenderer(window().sdl_window);
 
-	if (window().m_blitwidth != m_old_blitwidth || window().m_blitheight != m_old_blitheight)
+	if (window().blitwidth() != m_old_blitwidth || window().blitheight() != m_old_blitheight)
 	{
-		SDL_RenderSetViewport(m_sdl_renderer, NULL);
+		//SDL_RenderSetViewport(m_sdl_renderer, NULL);
 
-		SDL_DestroyTexture(m_texture_id);
-		setup_texture(window().m_blitwidth, window().m_blitheight);
-		m_old_blitwidth = window().m_blitwidth;
-		m_old_blitheight = window().m_blitheight;
+		if (m_texture_id != NULL)
+			SDL_DestroyTexture(m_texture_id);
+		setup_texture(window().blitwidth(), window().blitheight());
+		m_old_blitwidth = window().blitwidth();
+		m_old_blitheight = window().blitheight();
 		m_blittimer = 3;
 	}
 
@@ -791,8 +663,8 @@ int sdl_info::draw(UINT32 dc, int update)
 #endif
 	// get ready to center the image
 	vofs = hofs = 0;
-	blitwidth = window().m_blitwidth;
-	blitheight = window().m_blitheight;
+	blitwidth = window().blitwidth();
+	blitheight = window().blitheight();
 
 	// figure out what coordinate system to use for centering - in window mode it's always the
 	// SDL surface size.  in fullscreen the surface covers all monitors, so center according to
@@ -804,8 +676,8 @@ int sdl_info::draw(UINT32 dc, int update)
 	}
 	else
 	{
-		ch = window().m_height;
-		cw = window().m_width;
+		ch = window().height();
+		cw = window().width();
 	}
 
 	// do not crash if the window's smaller than the blit area
@@ -815,7 +687,7 @@ int sdl_info::draw(UINT32 dc, int update)
 	}
 	else if (video_config.centerv)
 	{
-		vofs = (ch - window().m_blitheight) / 2;
+		vofs = (ch - window().blitheight()) / 2;
 	}
 
 	if (blitwidth > cw)
@@ -824,7 +696,7 @@ int sdl_info::draw(UINT32 dc, int update)
 	}
 	else if (video_config.centerh)
 	{
-		hofs = (cw - window().m_blitwidth) / 2;
+		hofs = (cw - window().blitwidth()) / 2;
 	}
 
 	m_last_hofs = hofs;
@@ -832,24 +704,47 @@ int sdl_info::draw(UINT32 dc, int update)
 
 	window().m_primlist->acquire_lock();
 
-	// render to it
-	if (!sm->is_yuv)
-	{
-		int mamewidth, mameheight;
+	int mamewidth, mameheight;
 
-		if (!sm->is_scale)
-		{
-			mamewidth = blitwidth;
-			mameheight = blitheight;
 #if !SDLMAME_SDL2
+		if (!sm->is_yuv)
+		{
 			surfptr += ((vofs * pitch) + (hofs * bpp));
-#endif
+			mamewidth = blitwidth; //sdl_surface()->w;
+			mameheight = blitheight; //sdl_surface()->h;
 		}
 		else
 		{
-			mamewidth = m_hw_scale_width;
-			mameheight = m_hw_scale_height;
+			mamewidth = m_yuvsurf->w / sm->mult_w;
+			mameheight = m_yuvsurf->h / sm->mult_h;
 		}
+#else
+		Uint32 fmt = 0;
+		int access = 0;
+		SDL_QueryTexture(m_texture_id, &fmt, &access, &mamewidth, &mameheight);
+		mamewidth /= sm->mult_w;
+		mameheight /= sm->mult_h;
+#endif
+	//printf("w h %d %d %d %d\n", mamewidth, mameheight, blitwidth, blitheight);
+
+	// rescale bounds
+	float fw = (float) mamewidth / (float) blitwidth;
+	float fh = (float) mameheight / (float) blitheight;
+
+	// FIXME: this could be a lot easier if we get the primlist here!
+	//			Bounds would be set fit for purpose and done!
+
+	for (render_primitive *prim = window().m_primlist->first(); prim != NULL; prim = prim->next())
+	{
+		prim->bounds.x0 = floor(fw * prim->bounds.x0 + 0.5f);
+		prim->bounds.x1 = floor(fw * prim->bounds.x1 + 0.5f);
+		prim->bounds.y0 = floor(fh * prim->bounds.y0 + 0.5f);
+		prim->bounds.y1 = floor(fh * prim->bounds.y1 + 0.5f);
+	}
+
+	// render to it
+	if (!sm->is_yuv)
+	{
 		switch (rmask)
 		{
 			case 0x0000ff00:
@@ -881,18 +776,18 @@ int sdl_info::draw(UINT32 dc, int update)
 	{
 		assert (m_yuv_bitmap != NULL);
 		assert (surfptr != NULL);
-		software_renderer<UINT16, 3,3,3, 10,5,0>::draw_primitives(*window().m_primlist, m_yuv_bitmap, m_hw_scale_width, m_hw_scale_height, m_hw_scale_width);
-		sm->yuv_blit((UINT16 *)m_yuv_bitmap, this, surfptr, pitch);
+		software_renderer<UINT16, 3,3,3, 10,5,0>::draw_primitives(*window().m_primlist, m_yuv_bitmap, mamewidth, mameheight, mamewidth);
+		sm->yuv_blit((UINT16 *)m_yuv_bitmap, surfptr, pitch, m_yuv_lookup, mamewidth, mameheight);
 	}
 
 	window().m_primlist->release_lock();
 
 	// unlock and flip
 #if (!SDLMAME_SDL2)
-	if (SDL_MUSTLOCK(m_sdlsurf)) SDL_UnlockSurface(m_sdlsurf);
+	if (SDL_MUSTLOCK(window().sdl_surface())) SDL_UnlockSurface(window().sdl_surface());
 	if (!sm->is_yuv)
 	{
-		SDL_Flip(m_sdlsurf);
+		SDL_Flip(window().sdl_surface());
 	}
 	else
 	{
@@ -992,32 +887,29 @@ void sdl_info::yuv_init()
 			}
 }
 
-static void yuv_RGB_to_YV12(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch)
+//UINT32 *lookup = sdl->m_yuv_lookup;
+
+static void yuv_RGB_to_YV12(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height)
 {
 	int x, y;
-	UINT8 *dest_y;
-	UINT8 *dest_u;
-	UINT8 *dest_v;
-	UINT16 *src;
-	UINT16 *src2;
-	UINT32 *lookup = sdl->m_yuv_lookup;
 	UINT8 *pixels[3];
 	int u1,v1,y1,u2,v2,y2,u3,v3,y3,u4,v4,y4;      /* 12 */
 
 	pixels[0] = ptr;
-	pixels[1] = ptr + pitch * sdl->m_hw_scale_height;
-	pixels[2] = pixels[1] + pitch * sdl->m_hw_scale_height / 4;
+	pixels[1] = ptr + pitch * height;
+	pixels[2] = pixels[1] + pitch * height / 4;
 
-	for(y=0;y<sdl->m_hw_scale_height;y+=2)
+	for(y=0;y<height;y+=2)
 	{
-		src=bitmap + (y * sdl->m_hw_scale_width) ;
-		src2=src + sdl->m_hw_scale_width;
+		const UINT16 *src=bitmap + (y * width) ;
+		const UINT16 *src2=src + width;
 
-		dest_y = pixels[0] + y * pitch;
-		dest_v = pixels[1] + (y>>1) * pitch / 2;
-		dest_u = pixels[2] + (y>>1) * pitch / 2;
+		UINT8 *dest_y = pixels[0] + y * pitch;
+		UINT8 *dest_v = pixels[1] + (y>>1) * pitch / 2;
+		UINT8 *dest_u = pixels[2] + (y>>1) * pitch / 2;
 
-		for(x=0;x<sdl->m_hw_scale_width;x+=2)
+		for(x=0;x<width;x+=2)
 		{
 			v1 = lookup[src[x]];
 			y1 = (v1>>Y1SHIFT) & 0xff;
@@ -1051,31 +943,34 @@ static void yuv_RGB_to_YV12(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch
 	}
 }
 
-static void yuv_RGB_to_YV12X2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch)
+static void yuv_RGB_to_YV12X2(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height)
 {
 	/* this one is used when scale==2 */
 	unsigned int x,y;
-	UINT16 *dest_y;
-	UINT8 *dest_u;
-	UINT8 *dest_v;
-	UINT16 *src;
 	int u1,v1,y1;
 	UINT8 *pixels[3];
 
 	pixels[0] = ptr;
-	pixels[1] = ptr + pitch * sdl->m_hw_scale_height * 2;
-	pixels[2] = pixels[1] + pitch * sdl->m_hw_scale_height / 2;
+	pixels[1] = ptr + pitch * height * 2;
+#if (SDLMAME_SDL2)
+	int p2 = (pitch >> 1);
+#else
+	int p2 = (pitch + 7) & ~ 7;;
+	p2 = (p2 >> 1);
+#endif
+	pixels[2] = pixels[1] + p2 * height;
 
-	for(y=0;y<sdl->m_hw_scale_height;y++)
+	for(y=0;y<height;y++)
 	{
-		src = bitmap + (y * sdl->m_hw_scale_width) ;
+		const UINT16 *src = bitmap + (y * width) ;
 
-		dest_y = (UINT16 *)(pixels[0] + 2 * y * pitch);
-		dest_v = pixels[1] + y * pitch / 2;
-		dest_u = pixels[2] + y * pitch / 2;
-		for(x=0;x<sdl->m_hw_scale_width;x++)
+		UINT16 *dest_y = (UINT16 *)(pixels[0] + 2 * y * pitch);
+		UINT8 *dest_v = pixels[1] + y * p2;
+		UINT8 *dest_u = pixels[2] + y * p2;
+		for(x=0;x<width;x++)
 		{
-			v1 = sdl->m_yuv_lookup[src[x]];
+			v1 = lookup[src[x]];
 			y1 = (v1 >> Y1SHIFT) & 0xff;
 			u1 = (v1 >> USHIFT)  & 0xff;
 			v1 = (v1 >> VSHIFT)  & 0xff;
@@ -1088,23 +983,20 @@ static void yuv_RGB_to_YV12X2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pit
 	}
 }
 
-static void yuv_RGB_to_YUY2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch)
+static void yuv_RGB_to_YUY2(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height)
 {
 	/* this one is used when scale==2 */
 	unsigned int y;
-	UINT32 *dest;
-	UINT16 *src;
-	UINT16 *end;
 	UINT32 p1,p2,uv;
-	UINT32 *lookup = sdl->m_yuv_lookup;
-	int yuv_pitch = pitch/4;
+	const int yuv_pitch = pitch/4;
 
-	for(y=0;y<sdl->m_hw_scale_height;y++)
+	for(y=0;y<height;y++)
 	{
-		src=bitmap + (y * sdl->m_hw_scale_width) ;
-		end=src+sdl->m_hw_scale_width;
+		const UINT16 *src=bitmap + (y * width) ;
+		const UINT16 *end=src+width;
 
-		dest = (UINT32 *) ptr;
+		UINT32 *dest = (UINT32 *) ptr;
 		dest += y * yuv_pitch;
 		for(; src<end; src+=2)
 		{
@@ -1117,22 +1009,19 @@ static void yuv_RGB_to_YUY2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch
 	}
 }
 
-static void yuv_RGB_to_YUY2X2(UINT16 *bitmap, sdl_info *sdl, UINT8 *ptr, int pitch)
+static void yuv_RGB_to_YUY2X2(const UINT16 *bitmap, UINT8 *ptr, const int pitch, \
+		const UINT32 *lookup, const int width, const int height)
 {
 	/* this one is used when scale==2 */
 	unsigned int y;
-	UINT32 *dest;
-	UINT16 *src;
-	UINT16 *end;
-	UINT32 *lookup = sdl->m_yuv_lookup;
 	int yuv_pitch = pitch / 4;
 
-	for(y=0;y<sdl->m_hw_scale_height;y++)
+	for(y=0;y<height;y++)
 	{
-		src=bitmap + (y * sdl->m_hw_scale_width) ;
-		end=src+sdl->m_hw_scale_width;
+		const UINT16 *src=bitmap + (y * width) ;
+		const UINT16 *end=src+width;
 
-		dest = (UINT32 *) ptr;
+		UINT32 *dest = (UINT32 *) ptr;
 		dest += (y * yuv_pitch);
 		for(; src<end; src++)
 		{

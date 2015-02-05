@@ -1473,7 +1473,7 @@ void sdl_osd_interface::input_exit()
 //  sdlinput_get_focus_window
 //============================================================
 
-sdl_window_info *sdlinput_get_focus_window(running_machine &machine)
+sdl_window_info *sdlinput_get_focus_window()
 {
 	if (focus_window)  // only be set on SDL >= 1.3
 		return focus_window;
@@ -1547,7 +1547,7 @@ INLINE sdl_window_info * window_from_id(Uint32 windowID)
 	for (w = sdl_window_list; w != NULL; w = w->m_next)
 	{
 		//printf("w->window_id: %d\n", w->window_id);
-		if (w->m_sdl_window == window)
+		if (w->sdl_window() == window)
 		{
 			return w;
 		}
@@ -1566,7 +1566,7 @@ INLINE void resize_all_windows(void)
 		{
 			if (w->m_resize_width && w->m_resize_height && ((now - w->m_last_resize) > osd_ticks_per_second() / 10))
 			{
-				w->window_resize(w->m_resize_width, w->m_resize_height);
+				w->resize(w->m_resize_width, w->m_resize_height);
 				w->m_resize_width = 0;
 				w->m_resize_height = 0;
 			}
@@ -1576,7 +1576,7 @@ INLINE void resize_all_windows(void)
 
 #endif
 
-void sdlinput_process_events_buf(running_machine &machine)
+void sdlinput_process_events_buf()
 {
 	SDL_Event event;
 
@@ -1758,8 +1758,11 @@ void sdlinput_poll(running_machine &machine)
 			devinfo = generic_device_find_index( keyboard_list, keyboard_map.logical[0]);
 #endif
 			devinfo->keyboard.state[OSD_SDL_INDEX_KEYSYM(&event.key.keysym)] = 0x80;
-#if (!SDLMAME_SDL2)
-			ui_input_push_char_event(machine, sdl_window_list->m_target, (unicode_char) event.key.keysym.unicode);
+#if (SDLMAME_SDL2)
+			if (event.key.keysym.sym < 0x20)
+				ui_input_push_char_event(machine, sdl_window_list->target(), event.key.keysym.sym);
+#else
+			ui_input_push_char_event(machine, sdl_window_list->target(), (unicode_char) event.key.keysym.unicode);
 #endif
 			break;
 		case SDL_KEYUP:
@@ -1859,16 +1862,16 @@ void sdlinput_poll(running_machine &machine)
 				int cx, cy;
 				osd_ticks_t click = osd_ticks() * 1000 / osd_ticks_per_second();
 				sdl_window_info *window = GET_FOCUS_WINDOW(&event.button);
-				if (window != NULL && window->renderer().xy_to_render_target(event.button.x,event.button.y, &cx, &cy) )
+				if (window != NULL && window->xy_to_render_target(event.button.x,event.button.y, &cx, &cy) )
 				{
-					ui_input_push_mouse_down_event(machine, window->m_target, cx, cy);
+					ui_input_push_mouse_down_event(machine, window->target(), cx, cy);
 					// FIXME Parameter ?
 					if ((click-last_click < 250)
 							&& (cx >= last_x - 4 && cx <= last_x  + 4)
 							&& (cy >= last_y - 4 && cy <= last_y  + 4) )
 					{
 						last_click = 0;
-						ui_input_push_mouse_double_click_event(machine, window->m_target, cx, cy);
+						ui_input_push_mouse_double_click_event(machine, window->target(), cx, cy);
 					}
 					else
 					{
@@ -1893,9 +1896,9 @@ void sdlinput_poll(running_machine &machine)
 				int cx, cy;
 				sdl_window_info *window = GET_FOCUS_WINDOW(&event.button);
 
-				if (window != NULL && window->renderer().xy_to_render_target(event.button.x,event.button.y, &cx, &cy) )
+				if (window != NULL && window->xy_to_render_target(event.button.x,event.button.y, &cx, &cy) )
 				{
-					ui_input_push_mouse_up_event(machine, window->m_target, cx, cy);
+					ui_input_push_mouse_up_event(machine, window->target(), cx, cy);
 				}
 			}
 			break;
@@ -1918,8 +1921,8 @@ void sdlinput_poll(running_machine &machine)
 				int cx=-1, cy=-1;
 				sdl_window_info *window = GET_FOCUS_WINDOW(&event.motion);
 
-				if (window != NULL && window->renderer().xy_to_render_target(event.motion.x, event.motion.y, &cx, &cy) )
-					ui_input_push_mouse_move_event(machine, window->m_target, cx, cy);
+				if (window != NULL && window->xy_to_render_target(event.motion.x, event.motion.y, &cx, &cy) )
+					ui_input_push_mouse_move_event(machine, window->target(), cx, cy);
 			}
 			break;
 		case SDL_JOYBALLMOTION:
@@ -1934,25 +1937,26 @@ void sdlinput_poll(running_machine &machine)
 			if (!event.active.gain)
 			{
 				sdl_window_info *window = GET_FOCUS_WINDOW(&event.motion);
-				ui_input_push_mouse_leave_event(machine, window->m_target);
+				ui_input_push_mouse_leave_event(machine, window->target());
 			}
 			break;
 		case SDL_QUIT:
 			machine.schedule_exit();
 			break;
 		case SDL_VIDEORESIZE:
-			sdl_window_list->window_resize(event.resize.w, event.resize.h);
+			sdl_window_list->resize(event.resize.w, event.resize.h);
 			break;
 #else
 		case SDL_TEXTINPUT:
 			if (*event.text.text)
 			{
+				printf("char %c\n", *event.text.text);
 				sdl_window_info *window = GET_FOCUS_WINDOW(&event.text);
 				unicode_char result;
 				if (window != NULL )
 				{
 					osd_uchar_from_osdchar(&result, event.text.text, 1);
-					ui_input_push_char_event(machine, window->m_target, result);
+					ui_input_push_char_event(machine, window->target(), result);
 				}
 			}
 			break;
@@ -1969,11 +1973,11 @@ void sdlinput_poll(running_machine &machine)
 				machine.schedule_exit();
 				break;
 			case  SDL_WINDOWEVENT_LEAVE:
-				ui_input_push_mouse_leave_event(machine, window->m_target);
+				ui_input_push_mouse_leave_event(machine, window->target());
 				app_has_mouse_focus = 0;
 				break;
 			case SDL_WINDOWEVENT_MOVED:
-				window->window_clear();
+				window->clear();
 				focus_window = window;
 				break;
 			case SDL_WINDOWEVENT_RESIZED:
@@ -1993,8 +1997,8 @@ void sdlinput_poll(running_machine &machine)
 #endif
 					{
 						//printf("event data1,data2 %d x %d %ld\n", event.window.data1, event.window.data2, sizeof(SDL_Event));
-						if (event.window.data1 != window->m_width || event.window.data2 != window->m_height)
-							window->window_resize(event.window.data1, event.window.data2);
+						if (event.window.data1 != window->width() || event.window.data2 != window->height())
+							window->resize(event.window.data1, event.window.data2);
 					}
 				}
 				focus_window = window;
@@ -2025,7 +2029,7 @@ void sdlinput_poll(running_machine &machine)
 //============================================================
 
 
-void  sdlinput_release_keys(running_machine &machine)
+void  sdlinput_release_keys()
 {
 	// FIXME: SDL >= 1.3 will nuke the window event buffer when
 	// a window is closed. This will leave keys in a pressed
@@ -2049,7 +2053,7 @@ void  sdlinput_release_keys(running_machine &machine)
 //  sdlinput_should_hide_mouse
 //============================================================
 
-int sdlinput_should_hide_mouse(running_machine &machine)
+int sdlinput_should_hide_mouse()
 {
 	// if we are paused, no
 	if (input_paused)
