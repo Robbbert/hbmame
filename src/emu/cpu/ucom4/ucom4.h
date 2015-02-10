@@ -45,17 +45,32 @@
 	ucom4_cpu_device::set_write_i_callback(*device, DEVCB_##_devcb);
 
 
+enum
+{
+	NEC_UCOM4_PORTA = 0,
+	NEC_UCOM4_PORTB,
+	NEC_UCOM4_PORTC,
+	NEC_UCOM4_PORTD,
+	NEC_UCOM4_PORTE,
+	NEC_UCOM4_PORTF,
+	NEC_UCOM4_PORTG,
+	NEC_UCOM4_PORTH,
+	NEC_UCOM4_PORTI
+};
+
+
 
 class ucom4_cpu_device : public cpu_device
 {
 public:
 	// construction/destruction
-	ucom4_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source)
+	ucom4_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, int family, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source)
 		: cpu_device(mconfig, type, name, tag, owner, clock, shortname, source)
 		, m_program_config("program", ENDIANNESS_BIG, 8, prgwidth, 0, program)
 		, m_data_config("data", ENDIANNESS_BIG, 8, datawidth, 0, data)
 		, m_prgwidth(prgwidth)
 		, m_datawidth(datawidth)
+		, m_family(family)
 		, m_stack_levels(stack_levels)
 		, m_read_a(*this)
 		, m_read_b(*this)
@@ -94,7 +109,7 @@ protected:
 	virtual UINT32 execute_max_cycles() const { return 2; }
 	virtual UINT32 execute_input_lines() const { return 1; }
 	virtual void execute_run();
-
+	
 	// device_memory_interface overrides
 	virtual const address_space_config *memory_space_config(address_spacenum spacenum = AS_0) const { return(spacenum == AS_PROGRAM) ? &m_program_config :((spacenum == AS_DATA) ? &m_data_config : NULL); }
 
@@ -102,6 +117,7 @@ protected:
 	virtual UINT32 disasm_min_opcode_bytes() const { return 1; }
 	virtual UINT32 disasm_max_opcode_bytes() const { return 2; }
 	virtual offs_t disasm_disassemble(char *buffer, offs_t pc, const UINT8 *oprom, const UINT8 *opram, UINT32 options);
+
 	void state_string_export(const device_state_entry &entry, astring &string);
 
 	address_space_config m_program_config;
@@ -113,21 +129,27 @@ protected:
 	int m_datawidth;
 	int m_prgmask;
 	int m_datamask;
-	int m_stack_levels; // number of callstack levels
-	UINT16 m_stack[3];  // max 3
-	
+	int m_family;           // MCU family (43/44/45)
+	int m_stack_levels;     // number of callstack levels
+	UINT16 m_stack[3+1];    // max 3
+	UINT8 m_port_out[0x10]; // last value written to output port
 	UINT8 m_op;
-	UINT8 m_prev_op;
+	UINT8 m_prev_op;        // previous opcode
+	UINT8 m_arg;            // opcode argument for 2-byte opcodes
+	UINT8 m_bitmask;        // opcode bit argument
+	bool m_skip;            // skip next opcode
 	int m_icount;
 	
-	UINT16 m_pc;        // program counter
-	UINT8 m_acc;        // 4-bit accumulator
-	UINT8 m_dpl;        // 4-bit data pointer low (RAM x)
-	UINT8 m_dph;        // 1/2/3-bit data pointer high (RAM y)
-	UINT8 m_carry_f;    // carry flag
-	UINT8 m_timer_f;    // timer out flag
-	UINT8 m_int_f;      // interrupt flag
-	UINT8 m_inte_f;     // interrupt enable flag
+	UINT16 m_pc;            // program counter
+	UINT8 m_acc;            // 4-bit accumulator
+	UINT8 m_dpl;            // 4-bit data pointer low (RAM x)
+	UINT8 m_dph;            // 4-bit(?) data pointer high (RAM y)
+	UINT8 m_dph_mask;
+	UINT8 m_carry_f;        // carry flag
+	UINT8 m_carry_s_f;      // carry save flag
+	UINT8 m_timer_f;        // timer out flag
+	UINT8 m_int_f;          // interrupt flag
+	UINT8 m_inte_f;         // interrupt enable flag
 
 	// i/o handlers
 	devcb_read8 m_read_a;
@@ -142,6 +164,106 @@ protected:
 	devcb_write8 m_write_g;
 	devcb_write8 m_write_h;
 	devcb_write8 m_write_i;
+	
+	// misc internal helpers
+	void increment_pc();
+	void fetch_arg();
+
+	UINT8 ram_r();
+	void ram_w(UINT8 data);
+	void pop_stack();
+	void push_stack();
+	UINT8 input_r(int index);
+	void output_w(int index, UINT8 data);
+
+	bool check_op_43();
+	UINT8 ucom43_reg_r(int index);
+	void ucom43_reg_w(int index, UINT8 data);
+
+	// opcode handlers
+	void op_illegal();
+
+	void op_li();
+	void op_lm();
+	void op_ldi();
+	void op_ldz();
+	void op_s();
+	void op_tal();
+	void op_tla();
+
+	void op_xm();
+	void op_xmi();
+	void op_xmd();
+	void op_ad();
+	void op_adc();
+	void op_ads();
+	void op_daa();
+	void op_das();
+
+	void op_exl();
+	void op_cma();
+	void op_cia();
+	void op_clc();
+	void op_stc();
+	void op_tc();
+	void op_inc();
+	void op_dec();
+	void op_ind();
+	void op_ded();
+
+	void op_rmb();
+	void op_smb();
+	void op_reb();
+	void op_seb();
+	void op_rpb();
+	void op_spb();
+	void op_jmpcal();
+	void op_jcp();
+	void op_jpa();
+	void op_czp();
+	void op_rt();
+	void op_rts();
+
+	void op_ci();
+	void op_cm();
+	void op_cmb();
+	void op_tab();
+	void op_cli();
+	void op_tmb();
+	void op_tpa();
+	void op_tpb();
+
+	void op_tit();
+	void op_ia();
+	void op_ip();
+	void op_oe();
+	void op_op();
+	void op_ocd();
+	void op_nop();
+
+	void op_taw();
+	void op_taz();
+	void op_thx();
+	void op_tly();
+	void op_xaw();
+	void op_xaz();
+	void op_xhr();
+	void op_xhx();
+	void op_xls();
+	void op_xly();
+	void op_xc();
+
+	void op_sfb();
+	void op_rfb();
+	void op_fbt();
+	void op_fbf();
+	void op_rar();
+	void op_inm();
+	void op_dem();
+	void op_stm();
+	void op_ttm();
+	void op_ei();
+	void op_di();
 };
 
 
