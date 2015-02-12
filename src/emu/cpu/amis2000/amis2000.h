@@ -51,6 +51,8 @@ protected:
 	virtual void device_reset();
 
 	// device_execute_interface overrides
+	virtual UINT64 execute_clocks_to_cycles(UINT64 clocks) const { return (clocks + 4 - 1) / 4; } // 4 cycles per machine cycle
+	virtual UINT64 execute_cycles_to_clocks(UINT64 cycles) const { return (cycles * 4); } // "
 	virtual UINT32 execute_min_cycles() const { return 1; }
 	virtual UINT32 execute_max_cycles() const { return 2; }
 	virtual UINT32 execute_input_lines() const { return 1; }
@@ -76,7 +78,7 @@ protected:
 	UINT16 m_callstack_mask;
 	UINT8 m_callstack_depth;    // callstack levels: 3 on 2000/2150, 5 on 2200/2400
 	UINT16 m_callstack[5+1];    // max 5
-
+	int m_icount;
 	UINT16 m_pc;                // 13-bit program counter
 	UINT8 m_ppr;                // prepared page register (PP 1)
 	UINT8 m_pbr;                // prepared bank register (PP 2)
@@ -96,20 +98,21 @@ protected:
 	UINT8 m_d_polarity;         // invert d-latch output
 	UINT16 m_a;                 // 13-bit a-pins latch (master strobe latch)
 
+	// i/o handlers
 	devcb_read8 m_read_k;
 	devcb_read8 m_read_i;
 	devcb_read8 m_read_d;
 	devcb_write8 m_write_d;
 	devcb_write16 m_write_a;
-
-	int m_icount;
 	
+	// misc internal helpers
 	UINT8 ram_r();
 	void ram_w(UINT8 data);
 	void pop_callstack();
 	void push_callstack();
 	void d_latch_out(bool active);
 	
+	// opcode handlers
 	void op_lai();
 	void op_lab();
 	void op_lae();
