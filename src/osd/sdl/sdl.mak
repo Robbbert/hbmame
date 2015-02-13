@@ -81,6 +81,7 @@ SDL_FRAMEWORK_PATH = /Library/Frameworks/
 # SDL_LIBVER = sdl
 
 # uncomment to use BGFX
+
 # USE_BGFX = 1
 
 ###########################################################################
