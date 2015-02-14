@@ -32,9 +32,9 @@ $(HBMAME_WINUIOBJ)/hbmameui.res: $(WINUISRC)/mameui.rc $(HBMAME_WINUISRC)/messui
 	@echo Compiling resources $<...
 	$(RC) $(RCDEFS) $(RCFLAGS) --include-dir $(WINUISRC) --include-dir $(HBMAME_WINUISRC) --include-dir $(WINUIOBJ) -o $@ -i $(HBMAME_WINUISRC)/messui.rc
 
-$(WINUIOBJ)/mamevers.rc: $(OBJ)/build/verinfo$(EXE) $(SRC)/version.c
+$(WINUIOBJ)/mamevers.rc: $(SRC)/build/verinfo.py $(SRC)/version.c
 	@echo Emitting $@...
-	@"$(VERINFO)" -b mame $(SRC)/version.c  > $@
+	$(PYTHON) $(SRC)/build/verinfo.py -b mame $(SRC)/version.c > $@
 
 $(LIBOSD): $(OSDOBJS)
 
