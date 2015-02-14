@@ -163,7 +163,7 @@ public:
 			m_blitwidth = nw; m_blitheight = nh;
 			notify_changed();
 		}
-		window().target()->set_bounds(m_blitwidth, m_blitheight, window().monitor()->aspect());
+		window().target()->set_bounds(m_blitwidth, m_blitheight, window().aspect());
 		return &window().target()->get_primitives();
 	}
 
@@ -178,7 +178,7 @@ private:
 	INT32           m_blittimer;
 
 #if (SDLMAME_SDL2)
-	SDL_GLContext   m_gl_context_id;
+	//SDL_GLContext   m_gl_context_id;
 #else
 	// SDL surface
 	SDL_Surface         *m_sdlsurf;

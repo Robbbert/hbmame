@@ -265,7 +265,7 @@ public:
 			m_blitwidth = nw; m_blitheight = nh;
 			notify_changed();
 		}
-		window().target()->set_bounds(m_blitwidth, m_blitheight, window().monitor()->aspect());
+		window().target()->set_bounds(m_blitwidth, m_blitheight, window().aspect());
 		return &window().target()->get_primitives();
 	}
 
@@ -2858,15 +2858,9 @@ void sdl_info_ogl::texture_shader_update(texture_info *texture, render_container
 		 * how to set shader variables. gamma, contrast and brightness are
 		 * handled already by the core
 		 */
-#if 1
-		vid_attributes[0] = window().machine().options().gamma();
-		vid_attributes[1] = window().machine().options().contrast();
-		vid_attributes[2] = window().machine().options().brightness();
-#else
-		vid_attributes[0] = settings.gamma;
-		vid_attributes[1] = settings.contrast;
-		vid_attributes[2] = settings.brightness;
-#endif
+		vid_attributes[0] = settings.m_gamma;
+		vid_attributes[1] = settings.m_contrast;
+		vid_attributes[2] = settings.m_brightness;
 		vid_attributes[3] = 0.0f;
 		uniform_location = pfn_glGetUniformLocationARB(m_glsl_program[shaderIdx], "vid_attributes");
 		pfn_glUniform4fvARB(uniform_location, 1, &(vid_attributes[shaderIdx]));
