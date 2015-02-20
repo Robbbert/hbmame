@@ -102,8 +102,7 @@
     - Sorcerian, Twilight Zone 3: Fails initial booting, issue with 2dd irq?
     - The Incredible Machine: hangs at main menu (YM mis-fires irq?)
     - Uchiyama Aki no Chou Bangai: keyboard irq is fussy (sometimes it doesn't register a key press);
-    - Uno: uses EGC
-    - Viper V16 Demo: moans with a JP message;
+    - Uno: has minor EGC gfx bugs;
     - Windows 2: EGC drawing issue (byte wide writes?)
 
     per-game TODO (PC-9821):
@@ -882,18 +881,22 @@ UPD7220_DRAW_TEXT_LINE_MEMBER( pc9801_state::hgdc_draw_text )
 		else
 			x_step = 1;
 
-		attr = (m_video_ram_1[(tile_addr & 0xfff) | 0x1000] & 0xff);
 
-		secret = (attr & 1) ^ 1;
-		blink = attr & 2;
-		reverse = attr & 4;
-		u_line = attr & 8;
-		v_line = (m_video_ff[ATTRSEL_REG]) ? 0 : attr & 0x10;
-		gfx_mode = (m_video_ff[ATTRSEL_REG]) ? attr & 0x10 : 0;
-		color = (attr & 0xe0) >> 5;
 
 		for(kanji_lr=0;kanji_lr<x_step;kanji_lr++)
 		{
+			/* Rori Rori Rolling definitely uses different colors for brake stop PCG elements,
+  			   assume that all attributes are recalculated on different strips */
+			attr = (m_video_ram_1[((tile_addr+kanji_lr) & 0xfff) | 0x1000] & 0xff);
+
+			secret = (attr & 1) ^ 1;
+			blink = attr & 2;
+			reverse = attr & 4;
+			u_line = attr & 8;
+			v_line = (m_video_ff[ATTRSEL_REG]) ? 0 : attr & 0x10;
+			gfx_mode = (m_video_ff[ATTRSEL_REG]) ? attr & 0x10 : 0;
+			color = (attr & 0xe0) >> 5;
+		
 			for(yi=0;yi<lr;yi++)
 			{
 				for(xi=0;xi<8;xi++)
@@ -1565,10 +1568,11 @@ WRITE16_MEMBER(pc9801_state::upd7220_grcg_w)
 			{
 				if((m_grcg.mode & (1 << i)) == 0)
 				{
+
 					if(mem_mask & 0xff)
 					{
-						vram[offset | (((i + 1) & 3) * 0x8000)] &= ~data;
-						vram[offset | (((i + 1) & 3) * 0x8000)] |= m_grcg.tile[i] & data;
+						vram[offset | (((i + 1) & 3) * 0x8000)] &= ~(data >> 0);
+						vram[offset | (((i + 1) & 3) * 0x8000)] |= m_grcg.tile[i] & (data >> 0);
 					}
 					if(mem_mask & 0xff00)
 					{
@@ -1892,7 +1896,7 @@ WRITE8_MEMBER(pc9801_state::grcg_w)
 	else if(offset == 7)
 	{
 //      logerror("%02x GRCG TILE %02x\n",data,m_grcg.tile_index);
-		m_grcg.tile[m_grcg.tile_index] = data;
+		m_grcg.tile[m_grcg.tile_index] = BITSWAP16((UINT16) data,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7);
 		m_grcg.tile_index ++;
 		m_grcg.tile_index &= 3;
 		return;
