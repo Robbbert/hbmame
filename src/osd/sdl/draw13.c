@@ -151,7 +151,7 @@ public:
     {}
 
 	/* virtual */ int create();
-	/* virtual */ int draw(const UINT32 dc, const int update);
+	/* virtual */ int draw(const int update);
 	/* virtual */ int xy_to_render_target(const int x, const int y, int *xt, int *yt);
 	/* virtual */ void destroy();
 	/* virtual */ render_primitive_list *get_primitives()
@@ -525,7 +525,7 @@ int drawsdl2_init(running_machine &machine, osd_draw_callbacks *callbacks)
 #else
 	stemp = NULL;
 #endif
-	if (stemp != NULL && strcmp(stemp, SDLOPTVAL_AUTO) == 0)
+	if (stemp != NULL && strcmp(stemp, OSDOPTVAL_AUTO) == 0)
 		stemp = NULL;
 
 	// No fatalerror here since not all video drivers support GL !
@@ -677,7 +677,7 @@ void sdl_info13::destroy_all_textures()
 //  sdl_info::draw
 //============================================================
 
-int sdl_info13::draw(UINT32 dc, int update)
+int sdl_info13::draw(int update)
 {
 	render_primitive *prim;
 	texture_info *texture=NULL;
@@ -874,7 +874,7 @@ texture_info::texture_info(SDL_Renderer *renderer, const render_texinfo &texsour
 			m_format = SDL_TEXFORMAT_ARGB32;
 			break;
 		case TEXFORMAT_RGB32:
-			m_format = texsource.palette() ? SDL_TEXFORMAT_RGB32_PALETTED : SDL_TEXFORMAT_RGB32;
+			m_format = texsource.palette ? SDL_TEXFORMAT_RGB32_PALETTED : SDL_TEXFORMAT_RGB32;
 			break;
 		case TEXFORMAT_PALETTE16:
 			m_format = SDL_TEXFORMAT_PALETTE16;
@@ -883,7 +883,7 @@ texture_info::texture_info(SDL_Renderer *renderer, const render_texinfo &texsour
 			m_format = SDL_TEXFORMAT_PALETTE16A;
 			break;
 		case TEXFORMAT_YUY16:
-			m_format = texsource.palette() ? SDL_TEXFORMAT_YUY16_PALETTED : SDL_TEXFORMAT_YUY16;
+			m_format = texsource.palette ? SDL_TEXFORMAT_YUY16_PALETTED : SDL_TEXFORMAT_YUY16;
 			break;
 
 		default:

@@ -561,7 +561,12 @@ OSDWORK_CALLBACK( sdl_window_info::sdlwindow_toggle_full_screen_wt )
 	window->renderer().destroy();
 
 #if (SDLMAME_SDL2)
-	if (window->fullscreen() && video_config.switchres)
+	bool is_osx = false;
+#ifdef SDLMAME_MACOSX
+	// FIXME: This is weird behaviour and certainly a bug in SDL
+	is_osx = true;
+#endif
+	if (window->fullscreen() && (video_config.switchres || is_osx))
 	{
 		SDL_SetWindowFullscreen(window->sdl_window(), 0);    // Try to set mode
 		SDL_SetWindowDisplayMode(window->sdl_window(), &window->m_original_mode);    // Try to set mode
@@ -894,12 +899,12 @@ void sdl_window_info::pick_best_mode(int *fswidth, int *fsheight)
 				size_score *= 0.1f;
 
 			// if we're looking for a particular mode, that's a winner
-			if (mode.w == m_maxwidth && mode.h == m_maxheight)
+			if (mode.w == m_win_config.width && mode.h == m_win_config.height)
 				size_score = 2.0f;
 
 			// refresh adds some points
-			if (m_refresh)
-				size_score *= 1.0f / (1.0f + fabsf(m_refresh - mode.refresh_rate) / 10.0f);
+			if (m_win_config.refresh)
+				size_score *= 1.0f / (1.0f + fabsf(m_win_config.refresh - mode.refresh_rate) / 10.0f);
 
 			osd_printf_verbose("%4dx%4d@%2d -> %f\n", (int)mode.w, (int)mode.h, (int) mode.refresh_rate, size_score);
 
@@ -953,8 +958,8 @@ void sdl_window_info::pick_best_mode(int *fswidth, int *fsheight)
 	}
 	else if (modes == (SDL_Rect **)-1)  // all modes are possible
 	{
-		*fswidth = m_maxwidth;
-		*fsheight = m_maxheight;
+		*fswidth = m_win_config.width;
+		*fsheight = m_win_config.height;
 	}
 	else
 	{
@@ -972,7 +977,7 @@ void sdl_window_info::pick_best_mode(int *fswidth, int *fsheight)
 				size_score *= 0.1f;
 
 			// if we're looking for a particular mode, that's a winner
-			if (modes[i]->w == m_maxwidth && modes[i]->h == m_maxheight)
+			if (modes[i]->w == m_win_config.width && modes[i]->h == m_win_config.height)
 				size_score = 2.0f;
 
 			osd_printf_verbose("%4dx%4d -> %f\n", (int)modes[i]->w, (int)modes[i]->h, size_score);
@@ -1120,8 +1125,8 @@ OSDWORK_CALLBACK( sdl_window_info::complete_create_wt )
 			   instead of letting sdlwindow_blit_surface_size() resize it
 			   this stops the window from "flashing" from the wrong aspect
 			   size to the right one at startup. */
-			tempwidth = (window->m_maxwidth != 0) ? window->m_maxwidth : 640;
-			tempheight = (window->m_maxheight != 0) ? window->m_maxheight : 480;
+			tempwidth = (window->m_win_config.width != 0) ? window->m_win_config.width : 640;
+			tempheight = (window->m_win_config.height != 0) ? window->m_win_config.height : 480;
 
 			window->get_min_bounds(&tempwidth, &tempheight, video_config.keepaspect );
 		}
@@ -1187,8 +1192,8 @@ OSDWORK_CALLBACK( sdl_window_info::complete_create_wt )
 		window->m_original_mode = mode;
 		mode.w = tempwidth;
 		mode.h = tempheight;
-		if (window->m_refresh)
-			mode.refresh_rate = window->m_refresh;
+		if (window->m_win_config.refresh)
+			mode.refresh_rate = window->m_win_config.refresh;
 
 		SDL_SetWindowDisplayMode(window->sdl_window(), &mode);    // Try to set mode
 #ifndef SDLMAME_WIN32
@@ -1224,27 +1229,35 @@ OSDWORK_CALLBACK( sdl_window_info::complete_create_wt )
 		window->m_extra_flags |= SDL_ASYNCBLIT;
 
 	if (window->renderer().has_flags(osd_renderer::FLAG_NEEDS_OPENGL))
- {
+	{
 		window->m_extra_flags |= SDL_DOUBLEBUF | SDL_OPENGL;
 		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 		#if (SDL_VERSION_ATLEAST(1,2,10)) && (!defined(SDLMAME_EMSCRIPTEN))
 		SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, video_config.waitvsync ? 1 : 0);
 		#endif
-			//load_gl_lib(window->machine());
- }
+		//	load_gl_lib(window->machine());
+	}
 
 	// create the SDL surface (which creates the window in windowed mode)
+#if 0
+	window->m_sdlsurf = SDL_SetVideoMode(tempwidth, tempheight,
+							0, SDL_OPENGL | SDL_FULLSCREEN);// | window->m_extra_flags);
+	if (!window->m_sdlsurf)
+		printf("completely failed\n");
+#endif
 	window->m_sdlsurf = SDL_SetVideoMode(tempwidth, tempheight,
 							0, SDL_SWSURFACE  | SDL_ANYFORMAT | window->m_extra_flags);
 
 	if (!window->m_sdlsurf)
+	{
+		osd_printf_error("SDL Error: %s\n", SDL_GetError());
 		return (void *) &result[1];
+	}
 	if ( (video_config.mode  == VIDEO_MODE_OPENGL) && !(window->m_sdlsurf->flags & SDL_OPENGL) )
 	{
 		osd_printf_error("OpenGL not supported on this driver!\n");
 		return (void *) &result[1];
 	}
-
 	// set the window title
 	SDL_WM_SetCaption(window->m_title, "SDLMAME");
 #endif
@@ -1266,7 +1279,7 @@ OSDWORK_CALLBACK( sdl_window_info::complete_create_wt )
 //  (window thread)
 //============================================================
 
-void sdl_window_info::measure_fps(UINT32 dc, int update)
+void sdl_window_info::measure_fps(int update)
 {
 	const unsigned long frames_skip4fps = 100;
 	static int64_t lastTime=0, sumdt=0, startTime=0;
@@ -1281,7 +1294,7 @@ void sdl_window_info::measure_fps(UINT32 dc, int update)
 
 	t0 = osd_ticks();
 
-	renderer().draw(dc, update);
+	renderer().draw(update);
 
 	frames++;
 	currentTime = osd_ticks();
@@ -1310,7 +1323,6 @@ void sdl_window_info::measure_fps(UINT32 dc, int update)
 
 OSDWORK_CALLBACK( sdl_window_info::draw_video_contents_wt )
 {
-	UINT32  dc =        0;
 	int     update =    1;
 	worker_param *wp = (worker_param *) param;
 	sdl_window_info *window = wp->window();
@@ -1357,9 +1369,9 @@ OSDWORK_CALLBACK( sdl_window_info::draw_video_contents_wt )
 	else
 	{
 		if( video_config.perftest )
-			window->measure_fps(dc, update);
+			window->measure_fps(update);
 		else
-			window->renderer().draw(dc, update);
+			window->renderer().draw(update);
 	}
 
 	/* all done, ready for next */
@@ -1432,10 +1444,10 @@ void sdl_window_info::constrain_to_aspect_ratio(int *window_width, int *window_h
 	else
 	{
 		// further clamp to the maximum width/height in the window
-		if (this->m_maxwidth != 0)
-			maxwidth = MIN(maxwidth, this->m_maxwidth + extrawidth);
-		if (this->m_maxheight != 0)
-			maxheight = MIN(maxheight, this->m_maxheight + extraheight);
+		if (this->m_win_config.width != 0)
+			maxwidth = MIN(maxwidth, this->m_win_config.width + extrawidth);
+		if (this->m_win_config.height != 0)
+			maxheight = MIN(maxheight, this->m_win_config.height + extraheight);
 	}
 
 	// clamp to the maximum
@@ -1514,15 +1526,15 @@ void sdl_window_info::get_max_bounds(int *window_width, int *window_height, int 
 	maxheight = m_monitor->position_size().h;
 
 	// clamp to the window's max
-	if (this->m_maxwidth != 0)
+	if (this->m_win_config.width != 0)
 	{
-		int temp = this->m_maxwidth + WINDOW_DECORATION_WIDTH;
+		int temp = this->m_win_config.width + WINDOW_DECORATION_WIDTH;
 		if (temp < maxwidth)
 			maxwidth = temp;
 	}
-	if (this->m_maxheight != 0)
+	if (this->m_win_config.height != 0)
 	{
-		int temp = this->m_maxheight + WINDOW_DECORATION_HEIGHT;
+		int temp = this->m_win_config.height + WINDOW_DECORATION_HEIGHT;
 		if (temp < maxheight)
 			maxheight = temp;
 	}
