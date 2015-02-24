@@ -77,6 +77,19 @@ WINOSDOBJS = \
 	$(OSDOBJ)/modules/debugger/debugint.o \
 	$(OSDOBJ)/modules/debugger/debugqt.o \
 	$(OSDOBJ)/modules/debugger/none.o \
+	$(OSDOBJ)/modules/debugger/win/consolewininfo.o \
+	$(OSDOBJ)/modules/debugger/win/debugbaseinfo.o \
+	$(OSDOBJ)/modules/debugger/win/debugviewinfo.o \
+	$(OSDOBJ)/modules/debugger/win/debugwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/disasmbasewininfo.o \
+	$(OSDOBJ)/modules/debugger/win/disasmviewinfo.o \
+	$(OSDOBJ)/modules/debugger/win/disasmwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/editwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/logwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/memoryviewinfo.o \
+	$(OSDOBJ)/modules/debugger/win/memorywininfo.o \
+	$(OSDOBJ)/modules/debugger/win/pointswininfo.o \
+	$(OSDOBJ)/modules/debugger/win/uimetrics.o \
 	$(OSDOBJ)/modules/netdev/pcap.o \
 	$(OSDOBJ)/modules/netdev/taptun.o \
 	$(OSDOBJ)/modules/netdev/none.o \

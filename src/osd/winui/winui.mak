@@ -23,8 +23,26 @@
 # uncomment next line to enable a build using Microsoft tools
 # MSVC_BUILD = 1
 
+# uncomment next line to use ICL with MSVC
+# USE_ICL = 1
+
+# uncomment next line to enable code analysis using Microsoft tools
+# MSVC_ANALYSIS = 1
+
 # uncomment next line to use cygwin compiler
 # CYGWIN_BUILD = 1
+
+# set this to the minimum DirectInput version to support (7 or 8)
+# DIRECTINPUT = 8
+
+# uncomment next line to use SDL library for sound and video output
+# USE_SDL = 1
+
+# uncomment next line to compile OpenGL video renderer
+# USE_OPENGL = 1
+
+# uncomment next line to use QT debugger
+# USE_QTDEBUG = 1
 
 # uncomment next line to enable multi-monitor stubs on Windows 95/NT
 # you will need to find multimon.h and put it into your include
@@ -33,14 +51,6 @@
 
 # uncomment next line to enable a Unicode build
 UNICODE = 1
-
-# set this to the minimum Direct3D version to support (8 or 9)
-
-# set this to the minimum DirectInput version to support (7 or 8)
-# ifndef DIRECTINPUT
-# DIRECTINPUT = 8
-# endif
-
 
 
 ###########################################################################
@@ -73,6 +83,7 @@ OBJDIRS += $(WINOBJ) \
 	$(OSDOBJ)/modules/midi \
 	$(OSDOBJ)/modules/font \
 	$(OSDOBJ)/modules/netdev \
+	$(OSDOBJ)/modules/debugger/win
 
 # add ui specific src/objs
 UISRC = $(SRC)/osd/$(OSD)
@@ -81,8 +92,22 @@ UIOBJ = $(OBJ)/osd/$(OSD)
 OBJDIRS += $(UIOBJ)
 
 DEFS += -DWINUI
-DEFS += -DUSE_SDL=0
+
+ifdef USE_QTDEBUG
+OBJDIRS += $(OSDOBJ)/modules/debugger/qt
+DEFS += -DUSE_QTDEBUG=1
+else
 DEFS += -DUSE_QTDEBUG=0
+endif
+
+ifdef USE_SDL
+DEFS += -DSDLMAME_SDL2=0
+DEFS += -DUSE_XINPUT=0
+DEFS += -DUSE_OPENGL=0
+DEFS += -DUSE_SDL=1
+else
+DEFS += -DUSE_SDL=0
+endif
 
 #-------------------------------------------------
 # configure the resource compiler
@@ -306,10 +331,38 @@ OSDOBJS = \
 	$(OSDOBJ)/modules/debugger/debugwin.o \
 	$(OSDOBJ)/modules/debugger/debugint.o \
 	$(OSDOBJ)/modules/debugger/debugqt.o \
+	$(OSDOBJ)/modules/debugger/none.o \
+	$(OSDOBJ)/modules/debugger/win/consolewininfo.o \
+	$(OSDOBJ)/modules/debugger/win/debugbaseinfo.o \
+	$(OSDOBJ)/modules/debugger/win/debugviewinfo.o \
+	$(OSDOBJ)/modules/debugger/win/debugwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/disasmbasewininfo.o \
+	$(OSDOBJ)/modules/debugger/win/disasmviewinfo.o \
+	$(OSDOBJ)/modules/debugger/win/disasmwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/editwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/logwininfo.o \
+	$(OSDOBJ)/modules/debugger/win/memoryviewinfo.o \
+	$(OSDOBJ)/modules/debugger/win/memorywininfo.o \
+	$(OSDOBJ)/modules/debugger/win/pointswininfo.o \
+	$(OSDOBJ)/modules/debugger/win/uimetrics.o \
 	$(OSDOBJ)/modules/netdev/pcap.o \
 	$(OSDOBJ)/modules/netdev/taptun.o \
 	$(OSDOBJ)/modules/netdev/none.o \
-	$(OSDOBJ)/modules/debugger/none.o \
+
+ifdef USE_OPENGL
+OSDOBJS += $(WINOBJ)/../sdl/drawogl.o $(WINOBJ)/../sdl/gl_shader_tool.o $(WINOBJ)/../sdl/gl_shader_mgr.o
+OBJDIRS += $(WINOBJ)/../sdl
+
+DEFS += -DUSE_OPENGL=1
+LIBS += -lopengl32
+
+else
+DEFS += -DUSE_OPENGL=0
+endif
+
+ifdef USE_SDL
+DEFS += -DUSE_SDL_SOUND
+endif
 
 ifndef DONT_USE_NETWORK
 DEFS +=	-DSDLMAME_NET_PCAP
@@ -435,7 +488,7 @@ $(RESFILE): $(UISRC)/mameui.rc $(UIOBJ)/mamevers.rc
 ifeq ($(TARGET),mame)
 $(UIOBJ)/mamevers.rc: $(SRC)/build/verinfo.py $(SRC)/version.c
 	@echo Emitting $@...
-	$(PYTHON) $(SRC)/build/verinfo.py -b mame $(SRC)/version.c > $@
+	$(PYTHON) $(SRC)/build/verinfo.py -b mame -o $@ $(SRC)/version.c
 endif
 
 
