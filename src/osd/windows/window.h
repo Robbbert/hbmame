@@ -46,7 +46,7 @@ public:
 
 	void update();
 
-	win_monitor_info *winwindow_video_window_monitor(const RECT *proposed);
+	win_monitor_info *winwindow_video_window_monitor(const osd_rect *proposed);
 
 	bool win_has_menu()
 	{
@@ -63,9 +63,16 @@ public:
 
 	win_monitor_info *monitor() const { return m_monitor; }
 
+	void destroy();
+
+	// static
+
+	static void create(running_machine &machine, int index, win_monitor_info *monitor, const osd_window_config *config);
+
 	// static callbacks
 
 	static LRESULT CALLBACK video_window_proc(HWND wnd, UINT message, WPARAM wparam, LPARAM lparam);
+	static unsigned __stdcall thread_entry(void *param);
 
 	// member variables
 
@@ -102,6 +109,18 @@ public:
 
 private:
 	void draw_video_contents(HDC dc, int update);
+	int complete_create();
+	void set_starting_view(int index, const char *view);
+	int wnd_extra_width();
+	int wnd_extra_height();
+	osd_rect constrain_to_aspect_ratio(const osd_rect &rect, int adjustment);
+	osd_dim get_min_bounds(int constrain);
+	osd_dim get_max_bounds(int constrain);
+	void update_minmax_state();
+	void minimize_window();
+	void maximize_window();
+	void adjust_window_position_after_major_change();
+	void set_fullscreen(int fullscreen);
 
 	running_machine &   m_machine;
 };
@@ -124,9 +143,6 @@ extern win_window_info *win_window_list;
 //============================================================
 //  PROTOTYPES
 //============================================================
-
-// creation/deletion of windows
-void winwindow_video_window_create(running_machine &machine, int index, win_monitor_info *monitor, const osd_window_config *config);
 
 BOOL winwindow_has_focus(void);
 void winwindow_update_cursor_state(running_machine &machine);
