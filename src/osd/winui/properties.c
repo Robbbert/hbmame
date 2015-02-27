@@ -254,7 +254,7 @@ static struct ComboBoxVideo
 	{ TEXT("GDI"),                  "gdi"     },
 	{ TEXT("DirectDraw"),           "ddraw"   },
 	{ TEXT("Direct3D"),             "d3d"     },
-	{ TEXT("BGFX"),                 "bgfx"    },
+//	{ TEXT("BGFX"),                 "bgfx"    },
 #if (USE_OPENGL)
 	{ TEXT("OpenGL"),               "opengl"  },
 #endif
