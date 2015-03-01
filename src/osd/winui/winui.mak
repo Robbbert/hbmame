@@ -39,7 +39,10 @@
 # USE_SDL = 1
 
 # uncomment next line to compile OpenGL video renderer
-# USE_OPENGL = 1
+USE_OPENGL = 1
+
+# uncomment the next line to build a binary using GL-dispatching.
+USE_DISPATCH_GL = 1
 
 # uncomment next line to use QT debugger
 # USE_QTDEBUG = 1
@@ -83,6 +86,8 @@ OBJDIRS += $(WINOBJ) \
 	$(OSDOBJ)/modules/midi \
 	$(OSDOBJ)/modules/font \
 	$(OSDOBJ)/modules/netdev \
+	$(OSDOBJ)/modules/render \
+	$(OSDOBJ)/modules/render/d3d \
 	$(OSDOBJ)/modules/debugger/win
 
 # add ui specific src/objs
@@ -304,13 +309,13 @@ $(LIBOCORE): $(OSDCOREOBJS)
 #-------------------------------------------------
 
 OSDOBJS = \
-	$(WINOBJ)/d3d9intf.o \
-	$(WINOBJ)/drawd3d.o \
-	$(WINOBJ)/d3dhlsl.o \
-	$(WINOBJ)/drawdd.o \
-	$(WINOBJ)/drawgdi.o \
-	$(WINOBJ)/drawbgfx.o \
-	$(WINOBJ)/drawnone.o \
+	$(OSDOBJ)/modules/render/drawd3d.o \
+	$(OSDOBJ)/modules/render/d3d/d3d9intf.o \
+	$(OSDOBJ)/modules/render/d3d/d3dhlsl.o \
+	$(OSDOBJ)/modules/render/drawdd.o \
+	$(OSDOBJ)/modules/render/drawgdi.o \
+	$(OSDOBJ)/modules/render/drawbgfx.o \
+	$(OSDOBJ)/modules/render/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
 	$(WINOBJ)/video.o \
@@ -350,11 +355,21 @@ OSDOBJS = \
 	$(OSDOBJ)/modules/netdev/none.o \
 
 ifdef USE_OPENGL
-OSDOBJS += $(WINOBJ)/../sdl/drawogl.o $(WINOBJ)/../sdl/gl_shader_tool.o $(WINOBJ)/../sdl/gl_shader_mgr.o
-OBJDIRS += $(WINOBJ)/../sdl
+OSDOBJS += \
+	$(OSDOBJ)/modules/render/drawogl.o \
+	$(OSDOBJ)/modules/opengl/gl_shader_tool.o \
+	$(OSDOBJ)/modules/opengl/gl_shader_mgr.o
+
+OBJDIRS += \
+	$(OSDOBJ)/modules/opengl
 
 DEFS += -DUSE_OPENGL=1
+
+ifdef USE_DISPATCH_GL
+DEFS += -DUSE_DISPATCH_GL=1
+else
 LIBS += -lopengl32
+endif
 
 else
 DEFS += -DUSE_OPENGL=0

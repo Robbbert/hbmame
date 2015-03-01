@@ -47,13 +47,13 @@ $(LIBOCORE_NOMAIN): $(OSDCOREOBJS:$(WINOBJ)/main.o=)
 #-------------------------------------------------
 
 WINOSDOBJS = \
-	$(WINOBJ)/d3d9intf.o \
-	$(WINOBJ)/drawd3d.o \
-	$(WINOBJ)/drawdd.o \
-	$(WINOBJ)/d3dhlsl.o \
-	$(WINOBJ)/drawgdi.o \
-	$(WINOBJ)/drawbgfx.o \
-	$(WINOBJ)/drawnone.o \
+	$(OSDOBJ)/modules/render/drawd3d.o \
+	$(OSDOBJ)/modules/render/d3d/d3d9intf.o \
+	$(OSDOBJ)/modules/render/d3d/d3dhlsl.o \
+	$(OSDOBJ)/modules/render/drawdd.o \
+	$(OSDOBJ)/modules/render/drawgdi.o \
+	$(OSDOBJ)/modules/render/drawbgfx.o \
+	$(OSDOBJ)/modules/render/drawnone.o \
 	$(WINOBJ)/input.o \
 	$(WINOBJ)/output.o \
 	$(OSDOBJ)/modules/lib/osdlib_win32.o \
@@ -95,6 +95,13 @@ WINOSDOBJS = \
 	$(OSDOBJ)/modules/netdev/none.o \
 	$(WINOBJ)/winmain.o \
 	$(WINOBJ)/winmenu.o \
+
+ifdef USE_OPENGL
+WINOSDOBJS += \
+	$(OSDOBJ)/modules/render/drawogl.o \
+	$(OSDOBJ)/modules/opengl/gl_shader_tool.o \
+	$(OSDOBJ)/modules/opengl/gl_shader_mgr.o
+endif
 
 ifndef DONT_USE_NETWORK
 DEFS +=	-DSDLMAME_NET_PCAP
