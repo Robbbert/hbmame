@@ -2,12 +2,13 @@
 // copyright-holders:hap
 /***************************************************************************
 
-  NEC uCOM4 MCU handhelds
+  NEC uCOM4 MCU tabletops/handhelds or other simple devices.
 
 
-
-  serial  device  etc
-------------------------------------------
+  known chips:
+  
+  serial  device  etc.
+-----------------------------------------------
  @048     uPD552  1980, Tomy Tennis
  *085     uPD650  1980, Roland TR-808
   102     uPD553  1981, Bandai Block Out
@@ -86,6 +87,11 @@ public:
 	void tmtennis_set_clock();
 	DECLARE_INPUT_CHANGED_MEMBER(tmtennis_difficulty_switch);
 	DECLARE_MACHINE_RESET(tmtennis);
+
+	void tmpacman_display();
+	DECLARE_WRITE8_MEMBER(tmpacman_grid_w);
+	DECLARE_WRITE8_MEMBER(tmpacman_plate_w);
+	DECLARE_WRITE8_MEMBER(tmpacman_port_e_w);
 	
 	DECLARE_READ8_MEMBER(alnchase_input_r);
 	DECLARE_WRITE8_MEMBER(alnchase_display_w);
@@ -128,11 +134,8 @@ void hh_ucom4_state::machine_start()
 
 ***************************************************************************/
 
-
-
-// The device strobes the outputs very fast, it is unnoticeable to the user.
+// The device may strobe the outputs very fast, it is unnoticeable to the user.
 // To prevent flickering here, we need to simulate a decay.
-
 
 void hh_ucom4_state::display_update()
 {
@@ -186,8 +189,9 @@ void hh_ucom4_state::display_matrix(int maxx, int maxy, UINT32 setx, UINT32 sety
 	m_display_maxy = maxy;
 
 	// update current state
+	UINT32 mask = (1 << maxx) - 1;
 	for (int y = 0; y < maxy; y++)
-		m_display_state[y] = (sety >> y & 1) ? setx : 0;
+		m_display_state[y] = (sety >> y & 1) ? (setx & mask) : 0;
 	
 	display_update();
 }
@@ -204,6 +208,7 @@ UINT8 hh_ucom4_state::read_inputs(int columns)
 
 	return ret;
 }
+
 
 
 /***************************************************************************
@@ -226,12 +231,11 @@ UINT8 hh_ucom4_state::read_inputs(int columns)
 
   NOTE!: MESS external artwork is recommended
 
-
 ***************************************************************************/
 
 WRITE8_MEMBER(hh_ucom4_state::edracula_grid_w)
 {
-	// port C/D: vfd matrix grid
+	// C,D: vfd matrix grid
 	int shift = (offset - NEC_UCOM4_PORTC) * 4;
 	m_grid = (m_grid & ~(0xf << shift)) | (data << shift);
 
@@ -240,7 +244,7 @@ WRITE8_MEMBER(hh_ucom4_state::edracula_grid_w)
 
 WRITE8_MEMBER(hh_ucom4_state::edracula_plate_w)
 {
-	// port E/F/G/H/I01: vfd matrix plate
+	// E-H,I01: vfd matrix plate
 	int shift = (offset - NEC_UCOM4_PORTE) * 4;
 	m_plate = (m_plate & ~(0xf << shift)) | (data << shift);
 
@@ -257,13 +261,13 @@ WRITE8_MEMBER(hh_ucom4_state::edracula_port_i_w)
 
 
 static INPUT_PORTS_START( edracula )
-	PORT_START("IN.0")
+	PORT_START("IN.0") // port A
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_SELECT )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON1 )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-	PORT_START("IN.1")
+	PORT_START("IN.1") // port B
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
@@ -299,6 +303,7 @@ MACHINE_CONFIG_END
 
 
 
+
 /***************************************************************************
 
   Tomy(tronic) Tennis (manufactured in Japan)
@@ -317,25 +322,24 @@ MACHINE_CONFIG_END
 
 ***************************************************************************/
 
-
 READ8_MEMBER(hh_ucom4_state::tmtennis_input_r)
 {
-	// port A/B: buttons
+	// A,B: buttons
 	return ~read_inputs(2) >> (offset*4);
 }
 
-WRITE8_MEMBER(hh_ucom4_state::tmtennis_port_e_w)
+WRITE8_MEMBER(hh_ucom4_state::tmtennis_grid_w)
 {
-	// E0/E1: input mux
-	// E2: speaker out
-	// E3: N/C
-	m_inp_mux = data & 3;
-	m_speaker->level_w(data >> 2 & 1);
+	// G-I: vfd matrix grid
+	int shift = (offset - NEC_UCOM4_PORTG) * 4;
+	m_grid = (m_grid & ~(0xf << shift)) | (data << shift);
+
+	display_matrix(12, 12, m_plate, m_grid);
 }
 
 WRITE8_MEMBER(hh_ucom4_state::tmtennis_plate_w)
 {
-	// port C/D/F: vfd matrix plate
+	// C-F: vfd matrix plate
 	if (offset == NEC_UCOM4_PORTF) offset--;
 	int shift = (offset - NEC_UCOM4_PORTC) * 4;
 	m_plate = (m_plate & ~(0xf << shift)) | (data << shift);
@@ -343,15 +347,14 @@ WRITE8_MEMBER(hh_ucom4_state::tmtennis_plate_w)
 	display_matrix(12, 12, m_plate, m_grid);
 }
 
-WRITE8_MEMBER(hh_ucom4_state::tmtennis_grid_w)
+WRITE8_MEMBER(hh_ucom4_state::tmtennis_port_e_w)
 {
-	// port G/H/I: vfd matrix grid
-	int shift = (offset - NEC_UCOM4_PORTG) * 4;
-	m_grid = (m_grid & ~(0xf << shift)) | (data << shift);
-
-	display_matrix(12, 12, m_plate, m_grid);
+	// E0,E1: input mux
+	// E2: speaker out
+	// E3: N/C
+	m_inp_mux = data & 3;
+	m_speaker->level_w(data >> 2 & 1);
 }
-
 
 
 /* Pro-Tennis physical button layout and labels is like this:
@@ -389,6 +392,7 @@ static INPUT_PORTS_START( tmtennis )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_PLAYER(2)
 INPUT_PORTS_END
 
+
 void hh_ucom4_state::tmtennis_set_clock()
 {
 	// MCU clock is from an LC circuit oscillating by default at ~360kHz,
@@ -406,7 +410,6 @@ MACHINE_RESET_MEMBER(hh_ucom4_state, tmtennis)
 {
 	tmtennis_set_clock();
 }
-
 
 static MACHINE_CONFIG_START( tmtennis, hh_ucom4_state )
 
@@ -435,6 +438,10 @@ static MACHINE_CONFIG_START( tmtennis, hh_ucom4_state )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
+
+
+
+
 /***************************************************************************
 
   Tomy(tronic) Pac-Man (manufactured in Japan)
@@ -446,14 +453,63 @@ MACHINE_CONFIG_END
   known releases:
   - Japan: Puck Man
   - USA: Pac Man
-  - UK: Puckman (Tomy), and also as Munchman, published by Grandstand
+  - UK: Puckman (Tomy), and also published by Grandstand as Munchman
   - Australia: Pac Man-1, published by Futuretronics
+  
+  The game will start automatically after turning it on. This Pac Man refuses
+  to eat dots with his butt, you can only eat them going right-to-left.
 
   NOTE!: MESS external artwork is recommended
 
 ***************************************************************************/
 
+void hh_ucom4_state::tmpacman_display()
+{
+	UINT8 grid = BITSWAP8((UINT8)m_grid,0,1,2,3,4,5,6,7);
+	UINT32 plate = BITSWAP24(m_plate,23,22,21,20,19,16,17,18,11,10,9,8,0,2,3,1,4,5,6,7,12,13,14,15);
+	
+	display_matrix(19, 8, plate | 0x100, grid);
+}
+
+WRITE8_MEMBER(hh_ucom4_state::tmpacman_grid_w)
+{
+	// C,D: vfd matrix grid
+	int shift = (offset - NEC_UCOM4_PORTC) * 4;
+	m_grid = (m_grid & ~(0xf << shift)) | (data << shift);
+
+	tmpacman_display();
+}
+
+WRITE8_MEMBER(hh_ucom4_state::tmpacman_plate_w)
+{
+	// E023,F-I: vfd matrix plate
+	int shift = (offset - NEC_UCOM4_PORTE) * 4;
+	m_plate = (m_plate & ~(0xf << shift)) | (data << shift);
+
+	tmpacman_display();
+}
+
+WRITE8_MEMBER(hh_ucom4_state::tmpacman_port_e_w)
+{
+	// E1: speaker out
+	m_speaker->level_w(data >> 1 & 1);
+
+	tmpacman_plate_w(space, offset, data);
+}
+
+
 static INPUT_PORTS_START( tmpacman )
+	PORT_START("IN.0") // port A
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY // 4 separate directional buttons, hence 16way
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_16WAY
+
+	PORT_START("IN.1") // port B
+	PORT_CONFNAME( 0x01, 0x00, DEF_STR( Difficulty ) )
+	PORT_CONFSETTING(    0x00, "Amateur" )
+	PORT_CONFSETTING(    0x01, "Professional" )
+	PORT_BIT( 0x0e, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
 
@@ -461,7 +517,17 @@ static MACHINE_CONFIG_START( tmpacman, hh_ucom4_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", NEC_D553, XTAL_430kHz)
+	MCFG_UCOM4_READ_A_CB(IOPORT("IN.0"))
+	MCFG_UCOM4_READ_B_CB(IOPORT("IN.1"))
+	MCFG_UCOM4_WRITE_C_CB(WRITE8(hh_ucom4_state, tmpacman_grid_w))
+	MCFG_UCOM4_WRITE_D_CB(WRITE8(hh_ucom4_state, tmpacman_grid_w))
+	MCFG_UCOM4_WRITE_E_CB(WRITE8(hh_ucom4_state, tmpacman_port_e_w))
+	MCFG_UCOM4_WRITE_F_CB(WRITE8(hh_ucom4_state, tmpacman_plate_w))
+	MCFG_UCOM4_WRITE_G_CB(WRITE8(hh_ucom4_state, tmpacman_plate_w))
+	MCFG_UCOM4_WRITE_H_CB(WRITE8(hh_ucom4_state, tmpacman_plate_w))
+	MCFG_UCOM4_WRITE_I_CB(WRITE8(hh_ucom4_state, tmpacman_plate_w))
 
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_ucom4_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_tmpacman)
 
 	/* no video! */
@@ -471,6 +537,8 @@ static MACHINE_CONFIG_START( tmpacman, hh_ucom4_state )
 	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
+
+
 
 
 
@@ -492,11 +560,9 @@ MACHINE_CONFIG_END
 
 ***************************************************************************/
 
-
-
 READ8_MEMBER(hh_ucom4_state::alnchase_input_r)
 {
-	// port A: buttons
+	// A: buttons
 	return read_inputs(2);
 }
 
@@ -504,7 +570,7 @@ WRITE8_MEMBER(hh_ucom4_state::alnchase_display_w)
 {
 	if (offset <= NEC_UCOM4_PORTE)
 	{
-		// C/D/E0: vfd matrix grid
+		// C,D,E0: vfd matrix grid
 		int shift = (offset - NEC_UCOM4_PORTC) * 4;
 		m_grid = (m_grid & ~(0xf << shift)) | (data << shift);
 
@@ -515,7 +581,7 @@ WRITE8_MEMBER(hh_ucom4_state::alnchase_display_w)
 
 	if (offset >= NEC_UCOM4_PORTE)
 	{
-		// E23/F/G/H/I: vfd matrix plate
+		// E23,F-I: vfd matrix plate
 		int shift = (offset - NEC_UCOM4_PORTE) * 4;
 		m_plate = ((m_plate << 2 & ~(0xf << shift)) | (data << shift)) >> 2;
 	}
@@ -525,11 +591,12 @@ WRITE8_MEMBER(hh_ucom4_state::alnchase_display_w)
 
 WRITE8_MEMBER(hh_ucom4_state::alnchase_port_e_w)
 {
-	alnchase_display_w(space, offset, data);
-
 	// E1: speaker out
 	m_speaker->level_w(data >> 1 & 1);
+
+	alnchase_display_w(space, offset, data);
 }
+
 
 /* physical button layout and labels is like this:
 
@@ -567,6 +634,7 @@ static INPUT_PORTS_START( alnchase )
 	PORT_CONFSETTING(    0x02, "Professional" )
 	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
+
 
 static MACHINE_CONFIG_START( alnchase, hh_ucom4_state )
 
@@ -615,7 +683,6 @@ ROM_START( tmtennis )
 ROM_END
 
 
-
 ROM_START( tmpacman )
 	ROM_REGION( 0x0800, "maincpu", 0 )
 	ROM_LOAD( "d553c-160", 0x0000, 0x0800, CRC(b21a8af7) SHA1(e3122be1873ce76a4067386bf250802776f0c2f9) )
@@ -629,8 +696,9 @@ ROM_END
 
 
 
-CONS( 1982, edracula, 0, 0, edracula, edracula, driver_device, 0, "Epoch", "Dracula (Epoch)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
+/*    YEAR  NAME       PARENT COMPAT MACHINE  INPUT     INIT              COMPANY, FULLNAME, FLAGS */
+CONS( 1982, edracula,  0,        0, edracula, edracula, driver_device, 0, "Epoch", "Dracula (Epoch)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
 
-CONS( 1980, tmtennis, 0, 0, tmtennis, tmtennis, driver_device, 0, "Tomy", "Tennis (Tomy)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
-CONS( 1982, tmpacman, 0, 0, tmpacman, tmpacman, driver_device, 0, "Tomy", "Pac Man (Tomy)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK | GAME_NOT_WORKING )
-CONS( 1984, alnchase, 0, 0, alnchase, alnchase, driver_device, 0, "Tomy", "Alien Chase", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
+CONS( 1980, tmtennis,  0,        0, tmtennis, tmtennis, driver_device, 0, "Tomy", "Tennis (Tomy)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
+CONS( 1982, tmpacman,  0,        0, tmpacman, tmpacman, driver_device, 0, "Tomy", "Pac Man (Tomy)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
+CONS( 1984, alnchase,  0,        0, alnchase, alnchase, driver_device, 0, "Tomy", "Alien Chase", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )

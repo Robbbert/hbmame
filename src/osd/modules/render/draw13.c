@@ -136,14 +136,31 @@ private:
 //  TEXCOPY FUNCS
 //============================================================
 
+enum SDL_TEXFORMAT_E
+{
+	SDL_TEXFORMAT_ARGB32 = 0,
+	SDL_TEXFORMAT_RGB32,
+	SDL_TEXFORMAT_RGB32_PALETTED,
+	SDL_TEXFORMAT_YUY16,
+	SDL_TEXFORMAT_YUY16_PALETTED,
+	SDL_TEXFORMAT_PALETTE16,
+	SDL_TEXFORMAT_RGB15,
+	SDL_TEXFORMAT_RGB15_PALETTED,
+	SDL_TEXFORMAT_PALETTE16A,
+	SDL_TEXFORMAT_PALETTE16_ARGB1555,
+	SDL_TEXFORMAT_RGB15_ARGB1555,
+	SDL_TEXFORMAT_RGB15_PALETTED_ARGB1555,
+	SDL_TEXFORMAT_LAST = SDL_TEXFORMAT_RGB15_PALETTED_ARGB1555
+};
+
 #include "blit13.h"
 
 /* sdl_info is the information about SDL for the current screen */
 class sdl_info13 : public osd_renderer
 {
 public:
-	sdl_info13(osd_window *w)
-	: osd_renderer(w, FLAG_NONE), m_sdl_renderer(NULL), m_blittimer(0),
+	sdl_info13(osd_window *w, int extra_flags)
+	: osd_renderer(w, extra_flags), m_sdl_renderer(NULL), m_blittimer(0),
 		m_last_hofs(0), m_last_vofs(0),
 		m_width(0), m_height(0),
 		m_blit_dim(0,0),
@@ -242,7 +259,6 @@ static void drawsdl2_exit(void);
 //  STATIC VARIABLES
 //============================================================
 
-#define SDL_TEXFORMAT_LAST SDL_TEXFORMAT_PALETTE16A
 #define BM_ALL (-1)
 //( SDL_BLENDMODE_MASK | SDL_BLENDMODE_BLEND | SDL_BLENDMODE_ADD | SDL_BLENDMODE_MOD)
 
@@ -329,7 +345,8 @@ static copy_info_t blit_info_default[] =
 { -1 },
 };
 
-static copy_info_t *blit_info[SDL_TEXFORMAT_LAST+1];
+static copy_info_t *blit_info[SDL_TEXFORMAT_LAST+1] = { NULL };
+static bool blit_info_initialized = false;
 
 //============================================================
 //  INLINES
@@ -402,12 +419,16 @@ void texture_info::render_quad(const render_primitive *prim, const int x, const 
 
 	target_rect.x = x;
 	target_rect.y = y;
-	target_rect.w = round_nearest(prim->bounds.x1 - prim->bounds.x0);
-	target_rect.h = round_nearest(prim->bounds.y1 - prim->bounds.y0);
+	target_rect.w = round_nearest(prim->bounds.x1) - round_nearest(prim->bounds.x0);
+	target_rect.h = round_nearest(prim->bounds.y1) - round_nearest(prim->bounds.y0);
 
 	SDL_SetTextureBlendMode(m_texture_id, m_sdl_blendmode);
 	set_coloralphamode(m_texture_id, &prim->color);
+	//printf("%d %d %d %d\n", target_rect.x, target_rect.y, target_rect.w, target_rect.h);
+	// Arghhh .. Just another bug. SDL_RenderCopy has severe issues with scaling ...
 	SDL_RenderCopy(m_renderer->m_sdl_renderer,  m_texture_id, NULL, &target_rect);
+	//SDL_RenderCopyEx(m_renderer->m_sdl_renderer,  m_texture_id, NULL, &target_rect, 0, NULL, SDL_FLIP_NONE);
+	//SDL_RenderCopyEx(m_renderer->m_sdl_renderer,  m_texture_id, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
 }
 
 void sdl_info13::render_quad(texture_info *texture, const render_primitive *prim, const int x, const int y)
@@ -508,27 +529,33 @@ static void expand_copy_info(copy_info_t *list)
 
 static osd_renderer *drawsdl2_create(osd_window *window)
 {
-	return global_alloc(sdl_info13(window));
+	if (!blit_info_initialized)
+	{
+		/* On OSX, calling this from drawsdl2_init will
+		 * prohibit fullscreen toggling. It is than not possible
+		 * to toggle from fullscreen to window mode.
+		 */
+		expand_copy_info(blit_info_default);
+		blit_info_initialized = true;
+
+	}
+	return global_alloc(sdl_info13(window, osd_renderer::FLAG_NONE));
 }
 
 // FIXME: machine only used to access options.
 int drawsdl2_init(running_machine &machine, osd_draw_callbacks *callbacks)
 {
-	const char *stemp;
-
 	// fill in the callbacks
 	callbacks->exit = drawsdl2_exit;
 	callbacks->create = drawsdl2_create;
 
 	osd_printf_verbose("Using SDL native texturing driver (SDL 2.0+)\n");
 
-	expand_copy_info(blit_info_default);
-
 #if USE_OPENGL
 	// Load the GL library now - else MT will fail
-	stemp = downcast<sdl_options &>(machine.options()).gl_lib();
+	const char *stemp = downcast<sdl_options &>(machine.options()).gl_lib();
 #else
-	stemp = NULL;
+	const char *stemp = NULL;
 #endif
 	if (stemp != NULL && strcmp(stemp, OSDOPTVAL_AUTO) == 0)
 		stemp = NULL;
@@ -551,19 +578,23 @@ static void drawsdl2_exit(void)
 {
 	int i;
 	copy_info_t *bi, *freeme;
-	for (i = 0; i <= SDL_TEXFORMAT_LAST; i++)
+	if (blit_info_initialized)
 	{
-		for (bi = blit_info[i]; bi != NULL; )
+		for (i = 0; i <= SDL_TEXFORMAT_LAST; i++)
 		{
-			if (bi->pixel_count)
-				osd_printf_verbose("%s -> %s %s blendmode 0x%02x, %d samples: %d KPixel/sec\n", bi->srcname, bi->dstname,
-						bi->blitter->m_is_rot ? "rot" : "norot", bi->bm_mask, bi->samples,
-						(int) bi->perf);
-			freeme = bi;
-			bi = bi->next;
-			global_free(freeme);
+			for (bi = blit_info[i]; bi != NULL; )
+			{
+				if (bi->pixel_count)
+					osd_printf_verbose("%s -> %s %s blendmode 0x%02x, %d samples: %d KPixel/sec\n", bi->srcname, bi->dstname,
+							bi->blitter->m_is_rot ? "rot" : "norot", bi->bm_mask, bi->samples,
+							(int) bi->perf);
+				freeme = bi;
+				bi = bi->next;
+				global_free(freeme);
+			}
+			blit_info[i] = NULL;
 		}
-		blit_info[i] = NULL;
+		blit_info_initialized = false;
 	}
 }
 
@@ -597,6 +628,36 @@ static void drawsdl2_exit(void)
 // a
 //============================================================
 
+static void drawsdl_show_info(struct SDL_RendererInfo *render_info)
+{
+#define RF_ENTRY(x) {x, #x }
+	static struct {
+		int flag;
+		const char *name;
+	} rflist[] =
+		{
+#if 0
+			RF_ENTRY(SDL_RENDERER_SINGLEBUFFER),
+			RF_ENTRY(SDL_RENDERER_PRESENTCOPY),
+			RF_ENTRY(SDL_RENDERER_PRESENTFLIP2),
+			RF_ENTRY(SDL_RENDERER_PRESENTFLIP3),
+			RF_ENTRY(SDL_RENDERER_PRESENTDISCARD),
+#endif
+			RF_ENTRY(SDL_RENDERER_SOFTWARE),
+			RF_ENTRY(SDL_RENDERER_PRESENTVSYNC),
+			RF_ENTRY(SDL_RENDERER_ACCELERATED),
+			RF_ENTRY(SDL_RENDERER_TARGETTEXTURE),
+			{-1, NULL}
+		};
+	int i;
+
+	osd_printf_verbose("window: using renderer %s\n", render_info->name ? render_info->name : "<unknown>");
+	for (i = 0; rflist[i].name != NULL; i++)
+		if (render_info->flags & rflist[i].flag)
+			osd_printf_verbose("renderer: flag %s\n", rflist[i].name);
+}
+
+
 int sdl_info13::create()
 {
 #if (SDLMAME_SDL2)
@@ -629,8 +690,13 @@ int sdl_info13::create()
 
 	m_blittimer = 3;
 
-	SDL_RenderPresent(m_sdl_renderer);
+	//SDL_RenderPresent(m_sdl_renderer);
 	osd_printf_verbose("Leave sdl_info13::create\n");
+
+	struct SDL_RendererInfo render_info;
+
+	SDL_GetRendererInfo(m_sdl_renderer, &render_info);
+	drawsdl_show_info(&render_info);
 
 #else
 
@@ -646,6 +712,8 @@ int sdl_info13::create()
 void sdl_info13::destroy()
 {
 	destroy_all_textures();
+	SDL_DestroyRenderer(m_sdl_renderer);
+	m_sdl_renderer = NULL;
 }
 
 
@@ -854,6 +922,8 @@ bool texture_info::matches(const render_primitive &prim, const quad_setup_data &
 			m_setup.dvdx == setup.dvdx &&
 			m_setup.dudy == setup.dudy &&
 			m_setup.dvdy == setup.dvdy &&
+			m_setup.startu == setup.startu &&
+			m_setup.startv == setup.startv &&
 			((flags() ^ prim.flags) & (PRIMFLAG_BLENDMODE_MASK | PRIMFLAG_TEXFORMAT_MASK)) == 0;
 }
 
@@ -986,6 +1056,11 @@ void texture_info::set_data(const render_texinfo &texsource, const UINT32 flags)
 //  compute rotation setup
 //============================================================
 
+inline float signf(const float a)
+{
+	return (0.0f < a) - (a < 0.0f);
+}
+
 void quad_setup_data::compute(const render_primitive &prim, const int prescale)
 {
 	const render_quad_texuv *texcoords = &prim.texcoords;
@@ -1000,10 +1075,18 @@ void quad_setup_data::compute(const render_primitive &prim, const int prescale)
 	else
 		fscale = 1.0f;
 
-	fdudx = (texcoords->tr.u - texcoords->tl.u) / fscale; // a a11
-	fdvdx = (texcoords->tr.v - texcoords->tl.v) / fscale; // c a21
-	fdudy = (texcoords->bl.u - texcoords->tl.u) / fscale; // b a12
-	fdvdy = (texcoords->bl.v - texcoords->tl.v) / fscale; // d a22
+	fdudx = (texcoords->tr.u - texcoords->tl.u); // a a11
+	fdvdx = (texcoords->tr.v - texcoords->tl.v); // c a21
+	fdudy = (texcoords->bl.u - texcoords->tl.u); // b a12
+	fdvdy = (texcoords->bl.v - texcoords->tl.v); // d a22
+
+	width = fabs(( fdudx * (float) (texwidth) + fdvdx * (float) (texheight)) ) * fscale;
+	height = fabs((fdudy * (float) (texwidth) + fdvdy * (float) (texheight)) ) * fscale;
+
+	fdudx = signf(fdudx) / fscale;
+	fdvdy = signf(fdvdy) / fscale;
+	fdvdx = signf(fdvdx) / fscale;
+	fdudy = signf(fdudy) / fscale;
 
 #if 0
 	printf("tl.u %f tl.v %f\n", texcoords->tl.u, texcoords->tl.v);
@@ -1022,11 +1105,10 @@ void quad_setup_data::compute(const render_primitive &prim, const int prescale)
 
 	/* clamp to integers */
 
-	width = fabs((fdudx * (float) (texwidth) + fdvdx * (float) (texheight)) * fscale * fscale);
-	height = fabs((fdudy * (float)(texwidth) + fdvdy * (float) (texheight)) * fscale * fscale);
+	rotwidth = round_nearest(width);
+	rotheight = round_nearest(height);
 
-	rotwidth = width;
-	rotheight = height;
+	//printf("%d %d rot %d %d\n", texwidth, texheight, rotwidth, rotheight);
 
 	startu += (dudx + dudy) / 2;
 	startv += (dvdx + dvdy) / 2;
@@ -1089,7 +1171,6 @@ texture_info * sdl_info13::texture_update(const render_primitive &prim)
 		texture = global_alloc(texture_info(this, prim.texture, setup, prim.flags));
 		/* add us to the texture list */
 		m_texlist.prepend(*texture);
-
 	}
 
 	if (texture != NULL)

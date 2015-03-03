@@ -7900,7 +7900,8 @@ darktowr        // Game Room
 tstrike         // East Coast Coin Company (Melbourne)
 tstrikea        // Game Room
 ctribe          // TA-0028 (c) 1990 (US)
-ctribe1         // TA-0028 (c) 1990 (US) - Set 1?
+ctribe1         // TA-0028 (c) 1990 (US)
+ctribeo			// TA-0028 (c) 1990 (US)
 ctribej         // TA-0028 (c) 1990 (Japan)
 ctribeb         // bootleg
 ctribeb2        // bootleg
@@ -8443,6 +8444,7 @@ raiden2ea       // (c) 1993 Seibu Kaihatsu
 raiden2eu       // (c) 1993 Seibu Kaihatsu + Fabtek license
 raiden2eua      // (c) 1993 Seibu Kaihatsu + Fabtek license
 raiden2nl       // (c) 1993 Seibu Kaihatsu
+raiden2f		// (c) 1993 Seibu Kaihatsu
 raiden2g        // (c) 1993 Seibu Kaihatsu + Tuning license
 raiden2dx       // (c) 1993 Seibu Kaihatsu
 
@@ -9255,6 +9257,7 @@ sparkmana       // (c) 1989 SunA
 starfigh        // (c) 1990 SunA
 hardhea2        // (c) 1991 SunA
 brickzn         // (c) 1992 SunA
+brickznv5       // (c) 1992 SunA
 brickznv4       // (c) 1992 SunA
 brickzn11       // (c) 1992 SunA
 bestbest        // (c) 1994 SunA
@@ -11121,6 +11124,7 @@ pepp0158        // (c) 1987 IGT - International Game Technology
 pepp0158a       // (c) 1987 IGT - International Game Technology
 pepp0158b       // (c) 1987 IGT - International Game Technology
 pepp0158c       // (c) 1987 IGT - International Game Technology
+pepp0158d       // (c) 1987 IGT - International Game Technology
 pepp0159        // (c) 1987 IGT - International Game Technology
 pepp0171        // (c) 1987 IGT - International Game Technology
 pepp0171a       // (c) 1987 IGT - International Game Technology
@@ -11129,6 +11133,7 @@ pepp0188        // (c) 1987 IGT - International Game Technology
 pepp0188a       // (c) 1987 IGT - International Game Technology
 pepp0190        // (c) 1987 IGT - International Game Technology
 pepp0190a       // (c) 1987 IGT - International Game Technology
+pepp0190b       // (c) 1987 IGT - International Game Technology
 pepp0197        // (c) 1987 IGT - International Game Technology
 pepp0197a       // (c) 1987 IGT - International Game Technology
 pepp0197b       // (c) 1987 IGT - International Game Technology
@@ -11136,6 +11141,7 @@ pepp0203        // (c) 1987 IGT - International Game Technology
 pepp0203a       // (c) 1987 IGT - International Game Technology
 pepp0203b       // (c) 1987 IGT - International Game Technology
 pepp0203c       // (c) 1987 IGT - International Game Technology
+pepp0203d       // (c) 1987 IGT - International Game Technology
 pepp0219        // (c) 1987 IGT - International Game Technology
 pepp0221        // (c) 1987 IGT - International Game Technology
 pepp0221a       // (c) 1987 IGT - International Game Technology
@@ -11182,6 +11188,7 @@ pepp0514a       // (c) 1987 IGT - International Game Technology
 pepp0514b       // (c) 1987 IGT - International Game Technology
 pepp0515        // (c) 1987 IGT - International Game Technology
 pepp0515a       // (c) 1987 IGT - International Game Technology
+pepp0515b       // (c) 1987 IGT - International Game Technology
 pepp0516        // (c) 1987 IGT - International Game Technology
 pepp0516a       // (c) 1987 IGT - International Game Technology
 pepp0516b       // (c) 1987 IGT - International Game Technology
@@ -11334,6 +11341,7 @@ pex2067p        // (c) 1995 IGT - International Game Technology
 pex2068p        // (c) 1995 IGT - International Game Technology
 pex2069p        // (c) 1995 IGT - International Game Technology
 pex2070p        // (c) 1995 IGT - International Game Technology
+pex2111p        // (c) 1995 IGT - International Game Technology
 pex2121p        // (c) 1995 IGT - International Game Technology
 pex2121pa       // (c) 1995 IGT - International Game Technology
 pex2150p        // (c) 1995 IGT - International Game Technology

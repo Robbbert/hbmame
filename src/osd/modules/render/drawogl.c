@@ -29,19 +29,15 @@
 #include "sdlinc.h"
 #endif
 
-// OpenGL headers
-#include "modules/opengl/osd_opengl.h"
-
-#ifdef OSD_WINDOWS
-#define SDLMAME_SDL2 1
-#ifndef USE_DISPATCH_GL
-#include "GL/wglext.h"
-#endif
-#endif
-
 #include "modules/lib/osdlib.h"
 #include "modules/lib/osdobj_common.h"
 
+#ifdef OSD_WINDOWS
+#define SDLMAME_SDL2 1
+#endif
+
+// OpenGL headers
+#include "modules/opengl/osd_opengl.h"
 
 #include "modules/opengl/gl_shader_tool.h"
 #include "modules/opengl/gl_shader_mgr.h"
@@ -166,7 +162,6 @@ enum
 //  MACROS
 //============================================================
 
-#ifdef OSD_WINDOWS
 // texture formats
 // This used to be an enum, but these are now defines so we can use them as
 // preprocessor conditionals
@@ -179,6 +174,7 @@ enum
 #define SDL_TEXFORMAT_RGB15             (6)
 #define SDL_TEXFORMAT_RGB15_PALETTED    (7)
 #define SDL_TEXFORMAT_PALETTE16A        (8)
+#if 0
 // special texture formats for 16bpp texture destination support, do not use
 // to address the tex properties / tex functions arrays!
 #define SDL_TEXFORMAT_PALETTE16_ARGB1555    (16)
@@ -203,33 +199,33 @@ public:
 	{
 		m_error[0] = 0;
 
-		this->wglGetProcAddress = (PROC WINAPI (*)(LPCSTR lpszProc)) GetProcAddress(m_module, "wglGetProcAddress");
-		this->wglCreateContext = (HGLRC WINAPI (*)(HDC hdc)) GetProcAddress(m_module, "wglCreateContext");
-		this->wglDeleteContext = (BOOL WINAPI (*)(HGLRC hglrc)) GetProcAddress(m_module, "wglDeleteContext");
-		this->wglMakeCurrent = (BOOL WINAPI (*)(HDC hdc, HGLRC hglrc)) GetProcAddress(m_module, "wglMakeCurrent");
+		this->pfn_wglGetProcAddress = (PROC (WINAPI *)(LPCSTR lpszProc)) GetProcAddress(m_module, "wglGetProcAddress");
+		this->pfn_wglCreateContext = (HGLRC (WINAPI *)(HDC hdc)) GetProcAddress(m_module, "wglCreateContext");
+		this->pfn_wglDeleteContext = (BOOL (WINAPI *)(HGLRC hglrc)) GetProcAddress(m_module, "wglDeleteContext");
+		this->pfn_wglMakeCurrent = (BOOL (WINAPI *)(HDC hdc, HGLRC hglrc)) GetProcAddress(m_module, "wglMakeCurrent");
 
 		m_hdc = GetDC(window);
 		if (!setupPixelFormat(m_hdc))
 		{
-			m_context = wglCreateContext(m_hdc);
+			m_context = this->pfn_wglCreateContext(m_hdc);
 			if  (!m_context)
 			{
 				FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, GetLastError(), 0, m_error, 255, NULL);
 				return;
 			}
-			wglMakeCurrent(m_hdc, m_context);
+			this->pfn_wglMakeCurrent(m_hdc, m_context);
 		}
 	}
 
 	virtual ~win_gl_context()
 	{
-		wglDeleteContext(m_context);
+		this->pfn_wglDeleteContext(m_context);
 		ReleaseDC(m_window, m_hdc);
 	}
 
 	virtual void MakeCurrent()
 	{
-		wglMakeCurrent(m_hdc, m_context);
+		this->pfn_wglMakeCurrent(m_hdc, m_context);
 	}
 
 	virtual const char *LastErrorMsg()
@@ -244,7 +240,7 @@ public:
 	{
 		void *ret = (void *) GetProcAddress(m_module, proc);
 		if (ret == NULL)
-			ret = (void *) wglGetProcAddress(proc);
+			ret = (void *) this->pfn_wglGetProcAddress(proc);
 		return ret;
 	}
 
@@ -310,10 +306,10 @@ private:
 	HDC m_hdc;
 	char m_error[256];
 
-	PROC WINAPI (*wglGetProcAddress)(LPCSTR lpszProc);
-	HGLRC WINAPI (*wglCreateContext)(HDC hdc);
-	BOOL WINAPI (*wglDeleteContext)(HGLRC hglrc);
-	BOOL WINAPI (*wglMakeCurrent)(HDC hdc, HGLRC hglrc);
+	PROC (WINAPI *pfn_wglGetProcAddress)(LPCSTR lpszProc);
+	HGLRC (WINAPI *pfn_wglCreateContext)(HDC hdc);
+	BOOL (WINAPI *pfn_wglDeleteContext)(HGLRC hglrc);
+	BOOL (WINAPI *pfn_wglMakeCurrent)(HDC hdc, HGLRC hglrc);
 
 	static HMODULE m_module;
 };
