@@ -136,6 +136,7 @@ CPUS += ARC
 CPUS += ARCOMPACT
 CPUS += AMIS2000
 CPUS += UCOM4
+CPUS += HMCS40
 
 #-------------------------------------------------
 # specify available sound cores; some of these are
@@ -2130,6 +2131,7 @@ $(MESS_DRIVERS)/hh_tms1k.o: $(MESS_LAYOUT)/amaztron.lh \
                             $(MESS_LAYOUT)/cnsector.lh \
                             $(MESS_LAYOUT)/comp4.lh \
                             $(MESS_LAYOUT)/ebball.lh \
+                            $(MESS_LAYOUT)/elecbowl.lh \
                             $(MESS_LAYOUT)/elecdet.lh \
                             $(MESS_LAYOUT)/mathmagi.lh \
                             $(MESS_LAYOUT)/merlin.lh \
