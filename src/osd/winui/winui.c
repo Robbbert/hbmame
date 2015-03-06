@@ -906,7 +906,6 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 		Picker_ClearIdle(GetDlgItem(hMain, s_nPickers[i]));
 
 	// run the emulation
-	//mame_opts.set_value(OPTION_SYSTEMNAME, driver_list::driver(nGameIndex).name, OPTION_PRIORITY_CMDLINE,error_string);
 	// Time the game run.
 	time(&start);
 	windows_osd_interface osd(mame_opts);
@@ -1637,23 +1636,36 @@ static void SetMainTitle(void)
 	win_set_window_text_utf8(hMain,buffer);
 }
 
-static void winui_output_error(delegate_late_bind *param, const char *format, va_list argptr)
-{
-	char buffer[1024];
-
-	// if we are in fullscreen mode, go to windowed mode
-	if ((video_config.windowed == 0) && (win_window_list != NULL))
-		winwindow_toggle_full_screen();
-
-	vsnprintf(buffer, ARRAY_LENGTH(buffer), format, argptr);
-	win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : NULL, buffer, emulator_info::get_appname(), MB_OK);
-}
-
 static void memory_error(const char *message)
 {
 	win_message_box_utf8(hMain, message, emulator_info::get_appname(), MB_OK);
 	exit(-1);
 }
+
+//============================================================
+//  winui_output_error
+//============================================================
+
+class winui_output_error : public osd_output
+{
+public:
+	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args)
+	{
+		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
+		{
+			char buffer[1024];
+
+			// if we are in fullscreen mode, go to windowed mode
+			if ((video_config.windowed == 0) && (win_window_list != NULL))
+				winwindow_toggle_full_screen();
+
+			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
+			win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : NULL, buffer, emulator_info::get_appname(), MB_OK);
+		}
+		else
+			chain_output(channel, msg, args);
+	}
+};
 
 static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
@@ -1676,7 +1688,8 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	srand((unsigned)time(NULL));
 
 	// output errors to message boxes
-	osd_set_output_channel(OSD_OUTPUT_CHANNEL_ERROR, output_delegate(FUNC(winui_output_error), (delegate_late_bind *)0));
+	winui_output_error winerror;
+	osd_output::push(&winerror);
 
 	// create the memory pool
 	mameui_pool = pool_alloc_lib(memory_error);
@@ -2075,6 +2088,8 @@ static void Win32UI_exit()
 	OptionsExit();
 
 	HelpExit();
+	winui_output_error winerror;
+	osd_output::pop(&winerror);
 
 	osd_free(g_mameinfo_filename);
 	osd_free(g_history_filename);
