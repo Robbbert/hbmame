@@ -860,6 +860,32 @@ extern const LPCTSTR column_names[COLUMN_MAX] =
     SendMessage(hWnd, TB_CHECKBUTTON, (WPARAM)idButton, (LPARAM)MAKELONG(fCheck, 0))
 #endif
 
+//============================================================
+//  winui_output_error
+//============================================================
+
+
+class mameui_output_error : public osd_output
+{
+public:
+	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args)
+	{
+		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
+		{
+			char buffer[1024];
+
+			// if we are in fullscreen mode, go to windowed mode
+			if ((video_config.windowed == 0) && (win_window_list != NULL))
+				winwindow_toggle_full_screen();
+
+			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
+			win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : hMain, buffer, emulator_info::get_appname(), MB_OK);
+		}
+		else
+			chain_output(channel, msg, args);
+	}
+};
+
 /***************************************************************************
     External functions
  ***************************************************************************/
@@ -909,9 +935,13 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	// Time the game run.
 	time(&start);
 	windows_osd_interface osd(mame_opts);
+	// output errors to message boxes
+	mameui_output_error winerror;
+	osd_output::push(&winerror);
 	osd.register_options();
 	machine_manager *manager = machine_manager::instance(mame_opts, osd);
 	manager->execute();
+	osd_output::pop(&winerror);
 	global_free(manager);
 	// Calc the duration
 	time(&end);
@@ -1642,31 +1672,6 @@ static void memory_error(const char *message)
 	exit(-1);
 }
 
-//============================================================
-//  winui_output_error
-//============================================================
-
-class winui_output_error : public osd_output
-{
-public:
-	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args)
-	{
-		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
-		{
-			char buffer[1024];
-
-			// if we are in fullscreen mode, go to windowed mode
-			if ((video_config.windowed == 0) && (win_window_list != NULL))
-				winwindow_toggle_full_screen();
-
-			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
-			win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : NULL, buffer, emulator_info::get_appname(), MB_OK);
-		}
-		else
-			chain_output(channel, msg, args);
-	}
-};
-
 static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	extern int mame_validitychecks(int game);
@@ -1686,10 +1691,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	dprintf("options loaded\n");
 
 	srand((unsigned)time(NULL));
-
-	// output errors to message boxes
-	winui_output_error winerror;
-	osd_output::push(&winerror);
 
 	// create the memory pool
 	mameui_pool = pool_alloc_lib(memory_error);
@@ -2088,8 +2089,6 @@ static void Win32UI_exit()
 	OptionsExit();
 
 	HelpExit();
-	winui_output_error winerror;
-	osd_output::pop(&winerror);
 
 	osd_free(g_mameinfo_filename);
 	osd_free(g_history_filename);
