@@ -77,7 +77,7 @@
 #include "dialogs.h"
 #include "directdraw.h"
 #include "directinput.h"
-#include "dijoystick.h"     /* For DIJoystick avalibility. */
+#include "dijoystick.h"     /* For DIJoystick availability. */
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
@@ -879,7 +879,7 @@ public:
 				winwindow_toggle_full_screen();
 
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
-			win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : hMain, buffer, emulator_info::get_appname(), MB_OK);
+			win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
 		}
 		else
 			chain_output(channel, msg, args);
