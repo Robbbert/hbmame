@@ -2173,7 +2173,17 @@ ngenb38     // 1991
 386i        // 199?
 
 // Dedicated handhelds/tabletops
+bambball    // Bambino
+packmon     // Bandai
+zackman     // Bandai
 alnattck    // Coleco
+cdkong      // Coleco
+cgalaxn     // Coleco
+cpacman     // Coleco
+cpacmanr1   //
+egalaxn2    // Entex
+epacman2    // Entex
+pbqbert     // Parker Brothers
 tmtron      // Tomy
 
 maniac      // Ideal
@@ -2182,6 +2192,7 @@ mathmagi    // APF
 amaztron    // Coleco
 tc4         // Coleco
 ebball      // Entex
+ebball3     // Entex
 elecdet     // Ideal
 starwbc     // Kenner
 starwbcp    // Kenner (prototype)
@@ -2195,6 +2206,8 @@ bankshot    // Parker Bros
 splitsec    // Parker Bros
 tandy12     // Tandy Radio Shack
 
+ssfball     // Bambino
+splasfgt    // Bambino
 edracula    // Epoch
 tmpacman    // Tomy
 tmtennis    // Tomy

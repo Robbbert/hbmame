@@ -551,7 +551,7 @@ MACHINES += UPD1990A
 MACHINES += UPD4992
 MACHINES += UPD4701
 MACHINES += UPD7002
-#MACHINES += UPD71071
+MACHINES += UPD71071
 MACHINES += UPD765
 MACHINES += V3021
 MACHINES += WD_FDC
@@ -578,6 +578,7 @@ MACHINES += STEPPERS
 #MACHINES += CORVUSHD
 #MACHINES += WOZFDC
 #MACHINES += DIABLO_HD
+
 
 #-------------------------------------------------
 # specify available bus cores
@@ -1828,7 +1829,7 @@ $(MAMEOBJ)/sigma.a: \
 $(MAMEOBJ)/snk.a: \
 	$(DRIVERS)/bbusters.o $(VIDEO)/bbusters.o \
 	$(DRIVERS)/dmndrby.o \
-	$(DRIVERS)/hng64.o $(VIDEO)/hng64.o $(VIDEO)/hng64_3d.o $(VIDEO)/hng64_sprite.o \
+	$(DRIVERS)/hng64.o $(VIDEO)/hng64.o $(AUDIO)/hng64.o $(MACHINE)/hng64_net.o $(VIDEO)/hng64_3d.o $(VIDEO)/hng64_sprite.o \
 	$(DRIVERS)/lasso.o $(VIDEO)/lasso.o \
 	$(DRIVERS)/mainsnk.o $(VIDEO)/mainsnk.o \
 	$(DRIVERS)/munchmo.o $(VIDEO)/munchmo.o \

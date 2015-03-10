@@ -32,7 +32,7 @@ class hmcs40_cpu_device : public cpu_device
 {
 public:
 	// construction/destruction
-	hmcs40_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, int family, bool is_cmos, int stack_levels, int pcwidth, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source)
+	hmcs40_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, int family, UINT16 polarity, int stack_levels, int pcwidth, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source)
 		: cpu_device(mconfig, type, name, tag, owner, clock, shortname, source)
 		, m_program_config("program", ENDIANNESS_LITTLE, 16, prgwidth, -1, program)
 		, m_data_config("data", ENDIANNESS_LITTLE, 8, datawidth, 0, data)
@@ -40,7 +40,7 @@ public:
 		, m_prgwidth(prgwidth)
 		, m_datawidth(datawidth)
 		, m_family(family)
-		, m_is_cmos(is_cmos)
+		, m_polarity(polarity)
 		, m_stack_levels(stack_levels)
 		, m_read_r0(*this), m_read_r1(*this), m_read_r2(*this), m_read_r3(*this), m_read_r4(*this), m_read_r5(*this), m_read_r6(*this), m_read_r7(*this)
 		, m_write_r0(*this), m_write_r1(*this), m_write_r2(*this), m_write_r3(*this), m_write_r4(*this), m_write_r5(*this), m_write_r6(*this), m_write_r7(*this)
@@ -86,7 +86,7 @@ protected:
 
 	// device_disasm_interface overrides
 	virtual UINT32 disasm_min_opcode_bytes() const { return 2; }
-	virtual UINT32 disasm_max_opcode_bytes() const { return 2; }
+	virtual UINT32 disasm_max_opcode_bytes() const { return 2+1; }
 	virtual offs_t disasm_disassemble(char *buffer, offs_t pc, const UINT8 *oprom, const UINT8 *opram, UINT32 options);
 	void state_string_export(const device_state_entry &entry, astring &string);
 
@@ -102,7 +102,7 @@ protected:
 	int m_prgmask;
 	int m_datamask;
 	int m_family;       // MCU family (42-47)
-	bool m_is_cmos;
+	UINT16 m_polarity;  // i/o polarity (pmos vs cmos)
 	int m_stack_levels; // number of callstack levels
 	UINT16 m_stack[4];  // max 4
 	UINT16 m_op;        // current opcode
@@ -244,7 +244,7 @@ protected:
 class hmcs43_cpu_device : public hmcs40_cpu_device
 {
 public:
-	hmcs43_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, bool is_cmos, const char *shortname);
+	hmcs43_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, UINT16 polarity, const char *shortname);
 
 protected:
 	// overrides
@@ -281,7 +281,7 @@ public:
 class hmcs44_cpu_device : public hmcs40_cpu_device
 {
 public:
-	hmcs44_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, bool is_cmos, const char *shortname);
+	hmcs44_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, UINT16 polarity, const char *shortname);
 
 protected:
 	// overrides
@@ -317,7 +317,7 @@ public:
 class hmcs45_cpu_device : public hmcs40_cpu_device
 {
 public:
-	hmcs45_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, bool is_cmos, const char *shortname);
+	hmcs45_cpu_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, UINT16 polarity, const char *shortname);
 
 protected:
 	// overrides
