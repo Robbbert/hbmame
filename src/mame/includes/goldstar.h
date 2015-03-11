@@ -26,6 +26,7 @@ public:
 	DECLARE_WRITE8_MEMBER(goldstar_lamps_w);
 	DECLARE_WRITE8_MEMBER(cb3_lamps_w);
 	DECLARE_WRITE8_MEMBER(pkrmast_lamps_w);
+	DECLARE_WRITE8_MEMBER(pkrmast_coincount_w);
 	DECLARE_WRITE8_MEMBER(ladylinr_outport_w);
 	DECLARE_WRITE8_MEMBER(goldstar_fg_vidram_w);
 	DECLARE_WRITE8_MEMBER(goldstar_fg_atrram_w);
@@ -53,9 +54,6 @@ protected:
 	TILE_GET_INFO_MEMBER(get_goldstar_reel1_tile_info);
 	TILE_GET_INFO_MEMBER(get_goldstar_reel2_tile_info);
 	TILE_GET_INFO_MEMBER(get_goldstar_reel3_tile_info);
-
-	void do_blockswaps(UINT8* ROM);
-	void dump_to_file(UINT8* ROM);
 
 	int m_dataoffset;
 
@@ -195,24 +193,14 @@ public:
 	DECLARE_DRIVER_INIT(cb3);
 	DECLARE_DRIVER_INIT(cb3e);
 	DECLARE_DRIVER_INIT(cherrys);
-
-protected:
-	UINT8 decrypt(UINT8 cipherText, UINT16 address);
-};
-
-
-class chrygld_state : public goldstar_state
-{
-public:
-	chrygld_state(const machine_config &mconfig, device_type type, const char *tag) :
-		goldstar_state(mconfig, type, tag)
-	{
-	}
-
 	DECLARE_DRIVER_INIT(chrygld);
 	DECLARE_DRIVER_INIT(chry10);
 
 protected:
+	void do_blockswaps(UINT8* ROM);
+	void dump_to_file(UINT8* ROM);
+
+	UINT8 cb3_decrypt(UINT8 cipherText, UINT16 address);
 	UINT8 chry10_decrypt(UINT8 cipherText);
 };
 
