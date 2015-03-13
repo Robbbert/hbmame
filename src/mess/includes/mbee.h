@@ -72,9 +72,7 @@ public:
 	DECLARE_READ8_MEMBER(telcom_high_r);
 	DECLARE_READ8_MEMBER(speed_low_r);
 	DECLARE_READ8_MEMBER(speed_high_r);
-	DECLARE_READ8_MEMBER(m6545_status_r);
 	DECLARE_WRITE8_MEMBER(m6545_index_w);
-	DECLARE_READ8_MEMBER(m6545_data_r);
 	DECLARE_WRITE8_MEMBER(m6545_data_w);
 	DECLARE_READ8_MEMBER(video_low_r);
 	DECLARE_READ8_MEMBER(video_high_r);
@@ -107,14 +105,12 @@ public:
 	DECLARE_MACHINE_RESET(mbeett);
 	UINT32 screen_update_mbee(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(timer_newkb);
-	TIMER_CALLBACK_MEMBER(timer_boot);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(mbee);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(mbee_z80bin);
 	WRITE_LINE_MEMBER(rtc_irq_w);
 	WRITE_LINE_MEMBER(fdc_intrq_w);
 	WRITE_LINE_MEMBER(fdc_drq_w);
-	MC6845_UPDATE_ROW(mono_update_row);
-	MC6845_UPDATE_ROW(colour_update_row);
+	MC6845_UPDATE_ROW(crtc_update_row);
 	MC6845_ON_UPDATE_ADDR_CHANGED(crtc_update_addr);
 
 	required_device<palette_device> m_palette;
@@ -138,7 +134,6 @@ private:
 	UINT8 m_mbee256_was_pressed[15];
 	UINT8 m_mbee256_q[20];
 	UINT8 m_mbee256_q_pos;
-	UINT8 m_sy6545_status;
 	UINT8 m_sy6545_reg[32];
 	UINT8 m_sy6545_ind;
 	UINT8 m_fdc_rq;

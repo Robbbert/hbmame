@@ -21,12 +21,11 @@ public:
 
 	DECLARE_WRITE8_MEMBER(protection_w);
 	DECLARE_READ8_MEMBER(protection_r);
-	DECLARE_WRITE8_MEMBER(lucky8_outport_w);
+	DECLARE_WRITE8_MEMBER(lucky8_lamps_w);
 	DECLARE_WRITE8_MEMBER(ncb3_port81_w);
 	DECLARE_WRITE8_MEMBER(goldstar_lamps_w);
 	DECLARE_WRITE8_MEMBER(cb3_lamps_w);
-	DECLARE_WRITE8_MEMBER(pkrmast_lamps_w);
-	DECLARE_WRITE8_MEMBER(pkrmast_coincount_w);
+	DECLARE_WRITE8_MEMBER(cm_coincount_w);
 	DECLARE_WRITE8_MEMBER(ladylinr_outport_w);
 	DECLARE_WRITE8_MEMBER(goldstar_fg_vidram_w);
 	DECLARE_WRITE8_MEMBER(goldstar_fg_atrram_w);
@@ -98,7 +97,6 @@ public:
 	}
 
 	DECLARE_WRITE8_MEMBER(outport0_w);
-	DECLARE_WRITE8_MEMBER(outport1_w);
 	DECLARE_WRITE8_MEMBER(girl_scroll_w);
 	DECLARE_WRITE8_MEMBER(background_col_w);
 
