@@ -1515,6 +1515,30 @@ ROM_START( kof2k2omg9b ) // omega v9 beta
 	ROM_LOAD16_BYTE( "265omg9b.c8", 0x3000001, 0x800000, CRC(3e394883) SHA1(03e92267bdef8651bac6278c8068892dadba3ad8) )
 ROM_END
 
+ROM_START( kof2k2or ) /* The King of Fighters 2002 - Third Strike of Orochi */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265or.p1", 0x000000, 0x100000, CRC(eb84d68f) SHA1(8dccf250cf04e129529793abcc655f5fc7fb6629) )
+	ROM_LOAD16_WORD_SWAP( "265or.p2", 0x100000, 0x400000, CRC(293bbf78) SHA1(647eea522d0a163675205aeab9b0b9ebb3a47eea) )
+
+	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
+
+	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1c661a4b) SHA1(4e5aa862a0a182a806d538996ddc68d9f2dffaf7) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265d.c1",    0x0000000, 0x800000, CRC(7efa6ef7) SHA1(71345A4202E7CC9239538FB978638141416C8893) )
+	ROM_LOAD16_BYTE( "265d.c2",    0x0000001, 0x800000, CRC(aa82948b) SHA1(B2A40797F68BDEB80BC54DCCC5495BE68934BF0E) )
+	ROM_LOAD16_BYTE( "265d.c3",    0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265rm13.c4", 0x1000001, 0x800000, CRC(2558972F) SHA1(2e0627fc5d689bf64fe36f02a489408d103c4499) )
+	ROM_LOAD16_BYTE( "265d.c5",    0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6",    0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265or.c7",   0x3000000, 0x800000, CRC(201e75e0) SHA1(7805d7a753df4d97bd73e05f22f31fe6440eaf6c) )
+	ROM_LOAD16_BYTE( "265or.c8",   0x3000001, 0x800000, CRC(ff0fd53b) SHA1(68289ab3f808b9c067a948948f48d5a3f1787e6c) )
+ROM_END
+
 ROM_START( kof2k2ori )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265ori.p1", 0x000000, 0x100000, CRC(081406DB) SHA1(3fbf24c222ebb5e4d6084f3664ab00caae24e156) )
@@ -2508,6 +2532,7 @@ GAME( 2012, kof2k2nu,    kof2002,  neogeo, neogeo, neogeo_state, neogeo,   ROT0,
 GAME( 2010, kof2k2omg8,  kof2002,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KOF-ON Team", "The King of Fighters 2002 (Omega v0.8)", GAME_SUPPORTS_SAVE )
 GAME( 2012, kof2k2omg9,  kof2002,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KOF-ON Team", "The King of Fighters 2002 (Omega v0.9)", GAME_SUPPORTS_SAVE )
 GAME( 2011, kof2k2omg9b, kof2002,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KOF-ON Team", "The King of Fighters 2002 (Omega v0.9 beta)", GAME_SUPPORTS_SAVE )
+GAME( 2007, kof2k2or,    kof2002,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "EGCG-EGHT", "The King of Fighters 2002 (3rd strike of Orochi)", GAME_SUPPORTS_SAVE )
 GAME( 2002, kof2k2ori,   kof2002,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters 2002 (Orochi's Iori Remixed)", GAME_SUPPORTS_SAVE )
 GAME( 2002, kof2k2pjw,   kof2002,  neogeo, neogeo, neogeo_state, kof2002m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2002 Plus (Jason/K3 and Wesker)", GAME_SUPPORTS_SAVE )
 GAME( 2002, kof2k2plb,   kof2002,  neogeo, neogeo, neogeo_state, kof2k2dbh,ROT0, "bootleg", "The King of Fighters 2002 Plus (set 3, bootleg)" , GAME_SUPPORTS_SAVE ) /* Encrypted GFX */
