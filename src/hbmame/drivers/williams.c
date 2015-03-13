@@ -46,6 +46,28 @@ ROM_START( splatsc1 )
 	ROM_LOAD( "decoder.6",   0x0200, 0x0200, CRC(83faf25e) SHA1(30002643d08ed983a6701a7c4b5ee74a2f4a1adb) )
 ROM_END
 
+ROM_START( robotronp )
+	ROM_REGION( 0x19000, "maincpu", 0 )
+	ROM_LOAD( "robotron.sba", 0x0d000, 0x1000, CRC(13797024) SHA1(d426a50e75dabe936de643c83a548da5e399331c) )
+	ROM_LOAD( "robotron.sbb", 0x0e000, 0x1000, CRC(e83a2eda) SHA1(4a62fcd2f91dfb609c3d2c300bd9e6cb60edf52e) )
+	ROM_LOAD( "robotron.sbc", 0x0f000, 0x1000, CRC(645d543e) SHA1(fad7cea868ebf17347c4bc5193d647bbd8f9517b) )
+	ROM_LOAD( "robotron.sb1", 0x10000, 0x1000, CRC(66c7d3ef) SHA1(f6d60e26c209c1df2cc01ac07ad5559daa1b7118) )
+	ROM_LOAD( "robotron.sb2", 0x11000, 0x1000, CRC(5bc6c614) SHA1(4d6e82bc29f49100f7751ccfc6a9ff35695b84b3) )
+	ROM_LOAD( "robotron.sb3", 0x12000, 0x1000, CRC(e99a82be) SHA1(06a8c8dd0b4726eb7f0bb0e89c8533931d75fc1c) )
+	ROM_LOAD( "robotron.sb4", 0x13000, 0x1000, CRC(afb1c561) SHA1(aaf89c19fd8f4e8750717169eb1af476aef38a5e) )
+	ROM_LOAD( "robotron.sb5", 0x14000, 0x1000, CRC(827cb5c9) SHA1(1732d16cd88e0662f1cffce1aeda5c8aa8c31338) )
+	ROM_LOAD( "robotron.sb6", 0x15000, 0x1000, CRC(bd2c853d) SHA1(f76ec5432a7939b33a27be1c6855e2dbe6d9fdc8) )
+	ROM_LOAD( "robotron.sb7", 0x16000, 0x1000, CRC(49ac400c) SHA1(06eae5138254723819a5e93cfd9e9f3285fcddf5) )
+	ROM_LOAD( "robotron.sb8", 0x17000, 0x1000, CRC(3a96e88c) SHA1(7ae38a609ed9a6f62ca003cab719740ed7651b7c) )
+	ROM_LOAD( "robotron.sb9", 0x18000, 0x1000, CRC(b124367b) SHA1(fd9d75b866f0ebbb723f84889337e6814496a103) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 )
+	ROM_LOAD( "robotron.snd", 0xf000, 0x1000, CRC(c56c1d28) SHA1(15afefef11bfc3ab78f61ab046701db78d160ec3) )
+
+	ROM_REGION( 0x0400, "proms", 0 )
+	ROM_LOAD( "decoder.4",   0x0000, 0x0200, CRC(e6631c23) SHA1(9988723269367fb44ef83f627186a1c88cf7877e) )
+	ROM_LOAD( "decoder.6",   0x0200, 0x0200, CRC(83faf25e) SHA1(30002643d08ed983a6701a7c4b5ee74a2f4a1adb) )
+ROM_END
 
 /*******************************************************
  *
@@ -53,5 +75,6 @@ ROM_END
  *
  *******************************************************/
 
-GAME( 1981, defender2, defender, williams, stargate, williams_state, stargate, ROT0, "Williams", "Defender II", GAME_SUPPORTS_SAVE )
-GAME( 1982, splatsc1, 0, williams, splat,    williams_state, joust,    ROT0, "Williams", "Splat! (sc1 hardware)", GAME_SUPPORTS_SAVE )
+GAME( 1981, defender2, defender, williams, stargate, williams_state, stargate, ROT0, "Jeff Vavasour", "Defender II", GAME_SUPPORTS_SAVE )
+GAME( 1982, splatsc1,  0,        williams, splat,    williams_state, joust,    ROT0, "Williams", "Splat! (sc1 hardware)", GAME_SUPPORTS_SAVE )
+GAME( 2014, robotronp, robotron, williams, robotron, williams_state, robotron, ROT0, "Christian Gingras / Sean Riddle", "Robotron: 2084 (patched)", GAME_SUPPORTS_SAVE )
