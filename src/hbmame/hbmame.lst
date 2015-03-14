@@ -383,6 +383,7 @@ jrspeed
 jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
 	/* kof96 */
+kof96ae
 kof96b
 kof96c
 kof96ckvs
@@ -748,6 +749,7 @@ kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
 kof2k4ru // no sound in attract mode
+kof2k4se1
 kof2k8uni
 
 	/* kof2003.c */
@@ -1142,7 +1144,7 @@ cndi		/* Chip n Dale Intro */
 cnbe
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
-//csw2 not working at all & roms missing
+//csw2 //not working at all & roms missing
 dwi		/* DarkWing Duck Intro */
 ffeast
 ffeastd

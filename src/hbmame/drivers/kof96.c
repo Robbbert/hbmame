@@ -1,4 +1,33 @@
 
+ROM_START( kof96ae ) /* EGHT similar to kof96lx */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "214ae.p1", 0x000000, 0x100000, CRC(c038e932) SHA1(ad9cbe9d82a07378d901323eb721ab171164286b) )
+	ROM_LOAD16_WORD_SWAP( "214ae.p2", 0x100000, 0x400000, CRC(66da868f) SHA1(8bada399828d0c55c82a00bfe605de95b8ca07f6) )
+
+	NEO_SFIX_128K( "214ae.s1", CRC(0f902790) SHA1(9f7d95299f828af7bd62cb18680c8127e0e10ecc) )
+
+	NEO_BIOS_AUDIO_128K( "214lx.m1", CRC(c9dd0348) SHA1(6b1003bb7ec01295c71d025c464f922bd555ba55) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "214-v1.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
+	ROM_LOAD( "214-v2.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
+	ROM_LOAD( "214ea.v3",  0x800000, 0x400000, CRC(3cfd1295) SHA1(cfc6ed642ab736592673e96652232534b0e88080) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "214ae.c1",  0x0000000, 0x400000, CRC(b308c1f9) SHA1(0c026b49ef45065c0691255a538921b0b4ad11dd) )
+	ROM_LOAD16_BYTE( "214ae.c2",  0x0000001, 0x400000, CRC(220a92b2) SHA1(4f33fc76a199aef2880b3ba1760f92973315edfa) )
+	ROM_LOAD16_BYTE( "214-c3.c3", 0x0800000, 0x400000, CRC(64989a65) SHA1(e6f3749d43be0afa9dad7b085cb782ba694252ca) )
+	ROM_LOAD16_BYTE( "214-c4.c4", 0x0800001, 0x400000, CRC(afbea515) SHA1(ae875052728de33174827705646bd14cf3937b5c) )
+	ROM_LOAD16_BYTE( "214ae.c5",  0x1000000, 0x400000, CRC(41dbd677) SHA1(447d081bd8c390df63b9800ef302d2ada660796a) )
+	ROM_LOAD16_BYTE( "214ae.c6",  0x1000001, 0x400000, CRC(1e6a3961) SHA1(ac09dc3e38209033e7797ec6896dd176f3ce6272) )
+	ROM_LOAD16_BYTE( "214ae.c7",  0x1800000, 0x400000, CRC(08021fd6) SHA1(77c8fed7ac39e6a1a24a294f95c095c098a85c11) )
+	ROM_LOAD16_BYTE( "214ae.c8",  0x1800001, 0x400000, CRC(bbd21b08) SHA1(4e060195b632e99634ca9c67fb2398c5a91c3341) )
+	ROM_LOAD16_BYTE( "214ae.c9",  0x2000000, 0x400000, CRC(2efceab8) SHA1(e38c4d2be4d1101d9463cb7c7295f42676cbedb9) )
+	ROM_LOAD16_BYTE( "214ae.c10", 0x2000001, 0x400000, CRC(9f7e1492) SHA1(11315f6ef47210b56004036162767d2e1f7b39b2) )
+	ROM_LOAD16_BYTE( "214ae.c11", 0x2800000, 0x400000, CRC(183cd8fd) SHA1(bd4d47780bf80e382759fd4bbe25fefd4a180610) )
+	ROM_LOAD16_BYTE( "214ae.c12", 0x2800001, 0x400000, CRC(b3d30499) SHA1(34e8009e05cdc8a2fc41e8551df4a5f681a329c1) )
+ROM_END
+
 ROM_START( kof96b ) /* The King of Fighters '96 - Hack by UNKNOWN - (Can choose Chizuru Kagura and Goenitz) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214b.p1", 0x000000, 0x100000, CRC(0b385fab) SHA1(ea544d95438b373e3f5f530528413ff583d2b329) )
@@ -655,6 +684,7 @@ ROM_END
 
 /* Hacks */
 
+GAME( 2009, kof96ae,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary set 2)", GAME_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
 GAME( 1996, kof96b,    kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Unk", "The King of Fighters '96 (Add Char)", GAME_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
 GAME( 1998, kof96c,    kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Guangzhou Game Team", "The King of Fighters '96 (Chinese Ver.1.0)", GAME_SUPPORTS_SAVE )
 GAME( 1996, kof96ckvs, kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "KVS", "The King of Fighters '96 (Chinese ver)", GAME_SUPPORTS_SAVE )
@@ -670,7 +700,7 @@ GAME( 1996, kof96hpr,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, 
 GAME( 1998, kof96k,    kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Guangzhou Game Team", "The King of Fighters '96 (Add Char - Pow hack ABC set 2)", GAME_SUPPORTS_SAVE )
 GAME( 1996, kof96k3,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Jason/K3", "The King of Fighters '96 Remix (Kof98 Moves 030725)", GAME_SUPPORTS_SAVE )
 GAME( 1996, kof96k3o,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Jason/K3", "The King of Fighters '96 Remix (Kof98 Moves 030710)", GAME_SUPPORTS_SAVE )
-GAME( 2007, kof96lx,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary)", GAME_SUPPORTS_SAVE )
+GAME( 2007, kof96lx,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary set 1)", GAME_SUPPORTS_SAVE )
 GAME( 1996, kof96pjc,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "TcwLee", "The King of Fighters '96 (Char color changed)", GAME_SUPPORTS_SAVE )
 GAME( 2004, kof96rcw,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 (Diff Moves - Ultra kill style changed set 1)", GAME_SUPPORTS_SAVE )
 GAME( 1996, kof96ri,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 1)", GAME_SUPPORTS_SAVE )
