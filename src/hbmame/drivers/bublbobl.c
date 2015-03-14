@@ -69,7 +69,7 @@ ROM_START( bbredux )
 	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(d51de9f3) SHA1(dc6bc93692145563a88c146eeb1d0361e25af840) )
 	/* ROMs banked at 8000-bfff */
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(bd5f6206) SHA1(106d5e174f6fad8ee96fdda19f5367eee18cebe8) )
+	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(984149bd) SHA1(9a0f96eee038712277f652545a343587f711b9aa) )
 
 	ROM_REGION( 0x10000, "slave", 0 )   /* 64k for the second CPU */
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
@@ -108,7 +108,7 @@ ROM_START( bbredux1 )
 	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(b802046d) SHA1(93dba2507c67f3f61eca80908a7a4409d2cd1b75) )
 	/* ROMs banked at 8000-bfff */
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(3cbb8b41) SHA1(78c6c26e585699b34e47a69dfd63dd2feec0e483) )
+	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(19a5a0fa) SHA1(e7fff3643d7922a494ad8118d1a0f74e52443f9f) )
 
 	ROM_REGION( 0x10000, "slave", 0 )   /* 64k for the second CPU */
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
@@ -147,7 +147,7 @@ ROM_START( bbredux2 )
 	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(198dc44e) SHA1(de9538b47703c468f85ba318deb8aa0b65174a26) )
 	/* ROMs banked at 8000-bfff */
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(be9fb0d9) SHA1(411be7f4e243315e6b280b48219f6e5f48281510) )
+	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(9b819b62) SHA1(79d7208cb81fa36ed317f4776b1eda3082b1a21c) )
 
 	ROM_REGION( 0x10000, "slave", 0 )   /* 64k for the second CPU */
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
@@ -186,7 +186,7 @@ ROM_START( bbredux3 )
 	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(959cafca) SHA1(9c541e45326d27f4d25a1fd9d66f234ce7f969c9) )
 	/* ROMs banked at 8000-bfff */
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(1a2b2bfc) SHA1(60495234d5ae33ded5c082f467b66947cf05d134) )
+	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(3f350047) SHA1(7e23d1c9b1a29760d96dcc7f7784ae610ac860d9) )
 
 	ROM_REGION( 0x10000, "slave", 0 )   /* 64k for the second CPU */
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
