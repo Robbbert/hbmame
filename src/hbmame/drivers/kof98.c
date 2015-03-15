@@ -289,9 +289,9 @@ ROM_START( kof98co20130820 ) // no idea what other roms go with this, using ones
 ROM_END
 
 ROM_START( kof98co2014 ) // test of the combo roms, all revisions later than the set above do not work
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "242coxx.p1", 0x000000, 0x100000, CRC(d965cbf5) SHA1(e87ceb1ffe9b0757d2d9a5af970ea0f5f416767a) )
-	ROM_LOAD16_WORD_SWAP( "242coxx.p2", 0x100000, 0x400000, CRC(6e96ab13) SHA1(19800094015ed659023d49dfd8b63c0578ea2952) )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242coxx.p1", 0x000000, 0x100000, CRC(23a80b3e) SHA1(e87ceb1ffe9b0757d2d9a5af970ea0f5f416767a) )
+	ROM_LOAD16_WORD_SWAP( "242coxx.p2", 0x100000, 0x600000, CRC(609fac6b) SHA1(19800094015ed659023d49dfd8b63c0578ea2952) )
 
 	NEO_SFIX_128K( "242co.s1", CRC(6017cf97) SHA1(6cb5267f3c4ea99f56154e2f5b6d961f1f7f58f6) )
 

@@ -480,8 +480,7 @@ kof98yh
 
 	/* kof99 */
 kof99ab
-kof99ae		/* Aniversary Edition */
-//kof99ae20140208 crashes during demo
+kof99ae		/* Anniversary Edition */
 kof99bh
 kof99btr
 kof99ch
@@ -537,7 +536,7 @@ kof99xpsf
 kof99xpsp
 kof99y
 kof99yb
-kof99yd	
+kof99yd
 
 	/* kof2000 */
 kof2000d
@@ -707,6 +706,7 @@ kof2k2k3f
 kof2k2k3g
 kof2k2mp1	/* Magic Plus */
 kof2k2mp3	/* Magic Plus III - Ismamj */
+kof2k2mpu
 kof2k2nu
 kof2k2omg8
 kof2k2omg9
@@ -740,6 +740,7 @@ kof2k2rw
 kof2k2sb
 kof2k2seh
 kof2k2se2
+kof2k2sm // bad gfx on train scene
 kof2k2smg
 kof2k2sp
 kof2k2spo
