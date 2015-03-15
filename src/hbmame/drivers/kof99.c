@@ -41,7 +41,7 @@ ROM_START( kof99ab ) /* The King of Fighters '99 - Hack by Marcochen/PPX Hack Te
 ROM_END
 
 ROM_START( kof99ae ) /* The King of Fighters '99 - Anniversary Edition */
-	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ae.p1", 0x000000, 0x100000, CRC(67f52d45) SHA1(cadf1c5c8c3e234204c8b32677f347e66d0373e5) )
 	ROM_LOAD16_WORD_SWAP( "251ae.p2", 0x100000, 0x400000, CRC(67134a67) SHA1(c853f67ec66b0f01273c3ce1e1003262cbca0a60) )
 	// These crash during the demo
