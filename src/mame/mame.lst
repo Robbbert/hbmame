@@ -3237,6 +3237,7 @@ sf2mdtb         // bootleg
 sf2b            // bootleg
 cworld2j        // 11/06/1992 (c) 1992 (Japan)
 cworld2ja       // 11/06/1992 (c) 1992 (Japan)
+cworld2jb       // 11/06/1992 (c) 1992 (Japan)
 varth           // 14/07/1992 (c) 1992 (World)
 varthr1         // 12/06/1992 (c) 1992 (World)
 varthu          // 12/06/1992 (c) 1992 (USA)
@@ -8773,6 +8774,7 @@ gunbird         // (c) 1994
 gunbirdk        // (c) 1994
 gunbirdj        // (c) 1994
 btlkroad        // (c) 1994
+btlkroadk		// (c) 1994
 s1945           // (c) 1995
 s1945a          // (c) 1995
 s1945j          // (c) 1995
@@ -9603,6 +9605,7 @@ inca            // (c) 199? ????
 blktouch        // (c) Yang Gi Co Ltd.
 mcnpshnt        // "33" Mahjong Campus Hunting 1990 Dynax
 7jigen          // "37" 7jigen no Youseitachi 1990 Dynax
+mjembase        // "38" Mahjong Electromagnetic Base 1989 Dynax
 neruton         // "45" Mahjong Neruton Haikujiradan 1990 Dynax
 nerutona        // "45" Mahjong Neruton Haikujiradan 1990 Dynax
 mjcomv1         // 1991 Dynax
@@ -9611,8 +9614,9 @@ tenkai          // 1991 Dynax
 tenkai2b        // 1991 Dynax
 tenkaibb        // 1991 Dynax
 tenkaicb        // 1991 Dynax
-tenkaid         // 1991 Dynax
 tenkaie         // 1991 Dynax
+ougonpai        // 1991 Dynax
+ougonpaib       // bootleg
 htengoku        // 1992 Dynax
 mjreach         // 1994 Dynax
 mjdialq2        // "52" (c) 1991 Dynax

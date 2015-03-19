@@ -17,10 +17,11 @@
  *102     uPD553C  1981, Bandai Block Out
  *127     uPD650C  198?  Sony OA-S1100 Typecorder (subcpu, have dump)
  *128     uPD650C  1982, Roland TR-606
-  133     uPD650C  1982, Roland TB-303
+  133     uPD650C  1982, Roland TB-303 -> tb303.c
  @160     uPD553C  1982, Tomy Pac Man (TN-08)
  @202     uPD553C  1982, Epoch Astro Command
  @206     uPD553C  1982, Epoch Dracula
+ *209     uPD553C  1982, Tomy Caveman (TN-12)
  @258     uPD553C  1984, Tomy Alien Chase (TN-16)
 
   (* denotes not yet emulated by MESS, @ denotes it's in this driver)
@@ -69,7 +70,7 @@ public:
 	UINT32 m_plate;                     // VFD current column data
 	
 	UINT32 m_display_state[0x20];	    // display matrix rows data
-	UINT16 m_7seg_mask[0x20];           // if not 0, display matrix row is a 7seg, mask indicates connected segments
+	UINT16 m_display_segmask[0x20];     // if not 0, display matrix row is a digit, mask indicates connected segments
 	UINT32 m_display_cache[0x20];       // (internal use)
 	UINT8 m_display_decay[0x20][0x20];  // (internal use)
 
@@ -79,14 +80,14 @@ public:
 
 	// game-specific handlers
 	void ssfball_display();
-	DECLARE_READ8_MEMBER(ssfball_input_b_r);
 	DECLARE_WRITE8_MEMBER(ssfball_grid_w);
 	DECLARE_WRITE8_MEMBER(ssfball_plate_w);
+	DECLARE_READ8_MEMBER(ssfball_input_b_r);
 
 	void splasfgt_display();
-	DECLARE_READ8_MEMBER(splasfgt_input_b_r);
 	DECLARE_WRITE8_MEMBER(splasfgt_grid_w);
 	DECLARE_WRITE8_MEMBER(splasfgt_plate_w);
+	DECLARE_READ8_MEMBER(splasfgt_input_b_r);
 
 	void astrocmd_display();
 	DECLARE_WRITE8_MEMBER(astrocmd_grid_w);
@@ -95,10 +96,10 @@ public:
 	DECLARE_WRITE8_MEMBER(edracula_grid_w);
 	DECLARE_WRITE8_MEMBER(edracula_plate_w);
 	
-	DECLARE_READ8_MEMBER(tmtennis_input_r);
 	DECLARE_WRITE8_MEMBER(tmtennis_grid_w);
 	DECLARE_WRITE8_MEMBER(tmtennis_plate_w);
 	DECLARE_WRITE8_MEMBER(tmtennis_port_e_w);
+	DECLARE_READ8_MEMBER(tmtennis_input_r);
 	void tmtennis_set_clock();
 	DECLARE_INPUT_CHANGED_MEMBER(tmtennis_difficulty_switch);
 	DECLARE_MACHINE_RESET(tmtennis);
@@ -107,8 +108,8 @@ public:
 	DECLARE_WRITE8_MEMBER(tmpacman_grid_w);
 	DECLARE_WRITE8_MEMBER(tmpacman_plate_w);
 	
-	DECLARE_READ8_MEMBER(alnchase_input_r);
 	DECLARE_WRITE8_MEMBER(alnchase_output_w);
+	DECLARE_READ8_MEMBER(alnchase_input_r);
 };
 
 
@@ -118,7 +119,7 @@ void hh_ucom4_state::machine_start()
 	memset(m_display_state, 0, sizeof(m_display_state));
 	memset(m_display_cache, 0, sizeof(m_display_cache));
 	memset(m_display_decay, 0, sizeof(m_display_decay));
-	memset(m_7seg_mask, 0, sizeof(m_7seg_mask));
+	memset(m_display_segmask, 0, sizeof(m_display_segmask));
 	
 	memset(m_port, 0, sizeof(m_port));
 	m_inp_mux = 0;
@@ -131,9 +132,9 @@ void hh_ucom4_state::machine_start()
 	save_item(NAME(m_display_wait));
 
 	save_item(NAME(m_display_state));
-	save_item(NAME(m_display_cache));
+	/* save_item(NAME(m_display_cache)); */ // don't save!
 	save_item(NAME(m_display_decay));
-	save_item(NAME(m_7seg_mask));
+	save_item(NAME(m_display_segmask));
 
 	save_item(NAME(m_port));
 	save_item(NAME(m_inp_mux));
@@ -176,8 +177,8 @@ void hh_ucom4_state::display_update()
 	for (int y = 0; y < m_display_maxy; y++)
 		if (m_display_cache[y] != active_state[y])
 		{
-			if (m_7seg_mask[y] != 0)
-				output_set_digit_value(y, active_state[y] & m_7seg_mask[y]);
+			if (m_display_segmask[y] != 0)
+				output_set_digit_value(y, active_state[y] & m_display_segmask[y]);
 
 			const int mul = (m_display_maxx <= 10) ? 10 : 100;
 			for (int x = 0; x < m_display_maxx; x++)
@@ -192,7 +193,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(hh_ucom4_state::display_decay_tick)
 	// slowly turn off unpowered segments
 	for (int y = 0; y < m_display_maxy; y++)
 		for (int x = 0; x < m_display_maxx; x++)
-			if (!(m_display_state[y] >> x & 1) && m_display_decay[y][x] != 0)
+			if (m_display_decay[y][x] != 0)
 				m_display_decay[y][x]--;
 	
 	display_update();
@@ -253,12 +254,6 @@ void hh_ucom4_state::ssfball_display()
 	display_matrix(16, 9, plate, m_grid);
 }
 
-READ8_MEMBER(hh_ucom4_state::ssfball_input_b_r)
-{
-	// B: input port 2, where B3 is multiplexed
-	return m_inp_matrix[2]->read() | read_inputs(2);
-}
-
 WRITE8_MEMBER(hh_ucom4_state::ssfball_grid_w)
 {
 	// C,D(,E): vfd matrix grid 0-7(,8)
@@ -285,6 +280,12 @@ WRITE8_MEMBER(hh_ucom4_state::ssfball_plate_w)
 		ssfball_grid_w(space, offset, data >> 3 & 1);
 	else
 		ssfball_display();
+}
+
+READ8_MEMBER(hh_ucom4_state::ssfball_input_b_r)
+{
+	// B: input port 2, where B3 is multiplexed
+	return m_inp_matrix[2]->read() | read_inputs(2);
 }
 
 
@@ -362,12 +363,6 @@ void hh_ucom4_state::splasfgt_display()
 	display_matrix(16, 9, plate, m_grid);
 }
 
-READ8_MEMBER(hh_ucom4_state::splasfgt_input_b_r)
-{
-	// B: multiplexed buttons
-	return read_inputs(4);
-}
-
 WRITE8_MEMBER(hh_ucom4_state::splasfgt_grid_w)
 {
 	// G,H,I0: vfd matrix grid
@@ -395,6 +390,12 @@ WRITE8_MEMBER(hh_ucom4_state::splasfgt_plate_w)
 		m_speaker->level_w(data & 3);
 	
 	ssfball_display();
+}
+
+READ8_MEMBER(hh_ucom4_state::splasfgt_input_b_r)
+{
+	// B: multiplexed buttons
+	return read_inputs(4);
 }
 
 
@@ -674,12 +675,6 @@ MACHINE_CONFIG_END
 
 ***************************************************************************/
 
-READ8_MEMBER(hh_ucom4_state::tmtennis_input_r)
-{
-	// A,B: multiplexed buttons
-	return ~read_inputs(2) >> (offset*4);
-}
-
 WRITE8_MEMBER(hh_ucom4_state::tmtennis_grid_w)
 {
 	// G,H,I: vfd matrix grid
@@ -706,6 +701,12 @@ WRITE8_MEMBER(hh_ucom4_state::tmtennis_port_e_w)
 	// E3: N/C
 	m_inp_mux = data & 3;
 	m_speaker->level_w(data >> 2 & 1);
+}
+
+READ8_MEMBER(hh_ucom4_state::tmtennis_input_r)
+{
+	// A,B: multiplexed buttons
+	return ~read_inputs(2) >> (offset*4);
 }
 
 
@@ -850,10 +851,10 @@ WRITE8_MEMBER(hh_ucom4_state::tmpacman_plate_w)
 
 static INPUT_PORTS_START( tmpacman )
 	PORT_START("IN.0") // port A
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY // 4 separate directional buttons, hence 16way
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_16WAY
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_16WAY
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT  ) PORT_16WAY // separate directional buttons, hence 16way
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN  ) PORT_16WAY // "
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY // "
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP    ) PORT_16WAY // "
 
 	PORT_START("IN.1") // port B
 	PORT_CONFNAME( 0x01, 0x00, DEF_STR( Difficulty ) )
@@ -910,12 +911,6 @@ MACHINE_CONFIG_END
 
 ***************************************************************************/
 
-READ8_MEMBER(hh_ucom4_state::alnchase_input_r)
-{
-	// A: buttons
-	return read_inputs(2);
-}
-
 WRITE8_MEMBER(hh_ucom4_state::alnchase_output_w)
 {
 	if (offset <= NEC_UCOM4_PORTE)
@@ -943,6 +938,12 @@ WRITE8_MEMBER(hh_ucom4_state::alnchase_output_w)
 	display_matrix(17, 9, m_plate, m_grid);
 }
 
+READ8_MEMBER(hh_ucom4_state::alnchase_input_r)
+{
+	// A: buttons
+	return read_inputs(2);
+}
+
 
 /* physical button layout and labels is like this:
 
@@ -967,9 +968,9 @@ static INPUT_PORTS_START( alnchase )
 
 	PORT_START("IN.1") // D0 port A
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2) // on non-mirrored view, swap P2 left/right
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2) // "
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_PLAYER(2)
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_PLAYER(2)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT  ) PORT_PLAYER(2) // "
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN  ) PORT_PLAYER(2)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP    ) PORT_PLAYER(2)
 
 	PORT_START("IN.2") // port B
 	PORT_CONFNAME( 0x01, 0x01, "Players" )

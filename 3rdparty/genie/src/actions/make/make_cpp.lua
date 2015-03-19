@@ -90,7 +90,8 @@
 				_p('\t$(SILENT) $(LINKCMD) $(OBJECTS)')
 			else
 				_p('\t@$(call max_args,$(LINKCMD),'.. prj.archivesplit_size ..',$(OBJECTS))')
-		end
+				_p('\t$(SILENT) $(LINKCMD_NDX)')
+			end
 		else
 			if prj.msglinking then
 				_p('\t@echo ' .. prj.msglinking)
@@ -238,7 +239,7 @@
 		cpp.flags(cfg, cc)
 
 		-- write out libraries, linker flags, and the link command
-		cpp.linker(cfg, cc)
+		cpp.linker(prj, cfg, cc)
 
 		-- add objects for compilation, and remove any that are excluded per config.
 		_p('  OBJECTS := \\')
@@ -326,8 +327,8 @@
 		_p('  ALL_CPPFLAGS  += $(CPPFLAGS) %s $(DEFINES) $(INCLUDES)', table.concat(cc.getcppflags(cfg), " "))
 
 		_p('  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcflags(cfg), cfg.buildoptions, cfg.buildoptions_c)))
-		_p('  ALL_CXXFLAGS  += $(CXXFLAGS) $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcxxflags(cfg), cfg.buildoptions, cfg.buildoptions_cpp)))
-		_p('  ALL_OBJCFLAGS += $(CXXFLAGS) $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcxxflags(cfg), cfg.buildoptions, cfg.buildoptions_objc)))
+		_p('  ALL_CXXFLAGS  += $(CXXFLAGS) $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcflags(cfg), cc.getcxxflags(cfg), cfg.buildoptions, cfg.buildoptions_cpp)))
+		_p('  ALL_OBJCFLAGS += $(CXXFLAGS) $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcflags(cfg), cc.getcxxflags(cfg), cfg.buildoptions, cfg.buildoptions_objc)))
 
 		_p('  ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)%s',
 		        make.list(table.join(cc.getdefines(cfg.resdefines),
@@ -340,7 +341,7 @@
 -- and the linker command.
 --
 
-	function cpp.linker(cfg, cc)
+	function cpp.linker(prj, cfg, cc)
 		-- Patch #3401184 changed the order
 		_p('  ALL_LDFLAGS   += $(LDFLAGS)%s', make.list(table.join(cc.getlibdirflags(cfg), cc.getldflags(cfg), cfg.linkoptions)))
 
@@ -351,10 +352,20 @@
 			if cfg.platform:startswith("Universal") then
 				_p('  LINKCMD    = libtool -o $(TARGET)')
 			else
-				if cc.llvm then
-					_p('  LINKCMD    = $(AR) rcs $(TARGET)')
+				if (not prj.options.ArchiveSplit) then
+					if cc.llvm then
+						_p('  LINKCMD    = $(AR) rcs $(TARGET)')
+					else
+						_p('  LINKCMD    = $(AR) -rcs $(TARGET)')
+					end
 				else
-					_p('  LINKCMD    = $(AR) -rcs $(TARGET)')
+					if cc.llvm then
+						_p('  LINKCMD    = $(AR) qc $(TARGET)')
+						_p('  LINKCMD_NDX= $(AR) cs $(TARGET)')
+					else
+						_p('  LINKCMD    = $(AR) -qc $(TARGET)')
+						_p('  LINKCMD_NDX= $(AR) -cs $(TARGET)')
+					end
 				end
 			end
 		else
