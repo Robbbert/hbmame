@@ -184,6 +184,7 @@ NUM YEAR COMPANY                 TITLE
 462*2009 Elrayzeur               Puzzle Bobble Crazy
 463*     NGD                     NGD::ARK (Arkanoid port)
 464*     NGD                     Unknown Fighter-pilot game (ngdevgroup.com)
+465*2015 NG:DEV.Team             Kraut Buster
 
 
 *********************************************************************************************************/
