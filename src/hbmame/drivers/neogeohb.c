@@ -185,6 +185,8 @@ NUM YEAR COMPANY                 TITLE
 463*     NGD                     NGD::ARK (Arkanoid port)
 464*     NGD                     Unknown Fighter-pilot game (ngdevgroup.com)
 465*2015 NG:DEV.Team             Kraut Buster
+466*                             4-player input test
+467 2011 Furrtek                 Sprite Experimenter
 
 
 *********************************************************************************************************/
@@ -1241,6 +1243,26 @@ ROM_START( knacki )
 	ROM_CONTINUE( 0x400001, 0x100000 )
 ROM_END
 
+// 467 : Sprite Experimenter by Furrtek.
+// Bugs: Insert Coin causes reboot
+ROM_START( spriteex )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "467.p1", 0x000000, 0x080000, CRC(9bce0611) SHA1(5fcb0fa6a434baf20972819484430faf44ffa21d) )
+
+	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	NEO_BIOS_AUDIO_128K( "467.m1", CRC(78bd1a39) SHA1(11963ee5d01a54e5f7e1b8973adb10960308a091) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "467.v1", 0x000000, 0x10000, CRC(48077f32) SHA1(97784ee122aec09f72b62387796726c3f3e9be5e) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "467.c1", 0x000000, 0x200000, CRC(dcda2ca8) SHA1(b37714532d36608eb7b819396a6796d0d49dbf92) )
+	ROM_CONTINUE( 0x400000, 0x200000 )
+	ROM_LOAD16_BYTE( "467.c2", 0x000001, 0x200000, CRC(c8a4d037) SHA1(6541074be8493bf2c7b869e8dbdb39f3309dcaf7) )
+	ROM_CONTINUE( 0x400001, 0x200000 )
+ROM_END
+
 
 // GAME MACROS
 
@@ -1291,3 +1313,4 @@ GAME( 20??, test01,   neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0,
 GAME( 2012, timesupd, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "Time's Up! (Demo)", GAME_SUPPORTS_SAVE )
 GAME( 2009, tmnti,    neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles Intro", GAME_SUPPORTS_SAVE )
 GAME( 2001, ww2demo,  neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", GAME_SUPPORTS_SAVE )
+GAME( 2011, spriteex, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", GAME_SUPPORTS_SAVE )
