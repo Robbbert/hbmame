@@ -36,6 +36,6 @@ $(HBMAME_WINOBJ)/%.res: $(HBMAME_WINSRC)/%.rc
 
 $(RESFILE): $(HBMAME_WINSRC)/hbmame.rc $(HBMAME_WINOBJ)/hbmamevers.rc
 
-$(HBMAME_WINOBJ)/hbmamevers.rc: $(BUILDOUT)/verinfo$(BUILD_EXE) $(SRC)/version.c
+$(HBMAME_WINOBJ)/hbmamevers.rc: $(SRC)/build/verinfo.py $(SRC)/version.c
 	@echo Emitting $@...
-	@"$(BUILDOUT)/verinfo$(BUILD_EXE)" -b mame $(SRC)/version.c > $@
+	$(PYTHON) $(SRC)/build/verinfo.py -b mame $(SRC)/version.c > $@
