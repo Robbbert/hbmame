@@ -92,7 +92,8 @@ INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 	UINT8 cheat_exist = ioport("FAKE")->read_safe(120);
 
 	/* always signal a normal VBLANK */
-	device.execute().set_input_line(0, HOLD_LINE);
+	if(m_irq_mask)
+		device.execute().set_input_line(0, HOLD_LINE);
 
 	if (cheat_exist != 120)
 	{

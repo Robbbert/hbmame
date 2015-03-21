@@ -1982,6 +1982,70 @@ ROM_START( msyakman )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( ottop1 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ottop1.1",     0x0000, 0x1000, CRC(00340fb8) SHA1(60337395c35085c32fc4450a649cf629e4ae32da) )
+	ROM_LOAD( "ottop1.2",     0x1000, 0x1000, CRC(f6c05582) SHA1(3803f1a9546ff6293e3fad1984300eb1c2835ff6) )
+	ROM_LOAD( "ottop1.3",     0x2000, 0x1000, CRC(08381b15) SHA1(8727ddb990668acd0288ee9ec9de4922a505c7d1) )
+	ROM_LOAD( "ottop1.4",     0x3000, 0x1000, CRC(0d20edf6) SHA1(11ec227cb5ee030bfed9aaa0b624fd2c0e47b6f5) )
+	ROM_LOAD( "ottop1.5",     0x8000, 0x1000, CRC(3bb6cea7) SHA1(cf629f478f14fb392bc71b6453364b58c3544b0a) )
+	ROM_LOAD( "ottop1.6",     0x9000, 0x1000, CRC(1e1357bf) SHA1(4fd6074cc971bfe8d233714ae88ec295840c7d9b) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "ottop1.5e",    0x0000, 0x1000, CRC(2ba71471) SHA1(69f111cee7c1228636ee38b065b2d5486a18749d) )
+	ROM_LOAD( "ottop1.5f",    0x1000, 0x1000, CRC(ad353000) SHA1(8ec0c31dc4e9da5bd8cc8087abb3a9936759b39d) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( ottop2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ottop2.1",     0x0000, 0x1000, CRC(a9c0c5fc) SHA1(4631b6260b88c5dc23503ea420a62f946f5bb978) )
+	ROM_LOAD( "ottop1.2",     0x1000, 0x1000, CRC(f6c05582) SHA1(3803f1a9546ff6293e3fad1984300eb1c2835ff6) )
+	ROM_LOAD( "ottop1.3",     0x2000, 0x1000, CRC(08381b15) SHA1(8727ddb990668acd0288ee9ec9de4922a505c7d1) )
+	ROM_LOAD( "ottop2.4",     0x3000, 0x1000, CRC(c8517a08) SHA1(ab6ed1004e6a66dfce426ad5db0bfc0cd4e6eabc) )
+	ROM_LOAD( "ottop2.5",     0x8000, 0x1000, CRC(d8d8ceec) SHA1(b3ea6f35118b04281c568806127fe1a97c22ed42) )
+	ROM_LOAD( "ottop2.6",     0x9000, 0x1000, CRC(184f877a) SHA1(473b47566fce1b53d6b885b54562c4ae82ed9ae1) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "ottop2.5e",    0x0000, 0x1000, CRC(54a743f7) SHA1(9406b856edf3f6a7979926295663cabdf53bb0d4) )
+	ROM_LOAD( "ottop1.5f",    0x1000, 0x1000, CRC(ad353000) SHA1(8ec0c31dc4e9da5bd8cc8087abb3a9936759b39d) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( ottop3 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ottop3.1",     0x0000, 0x1000, CRC(2df1dc0d) SHA1(93846a2affedda0ab1047b2927198fc2c24c7f72) )
+	ROM_LOAD( "ottop1.2",     0x1000, 0x1000, CRC(f6c05582) SHA1(3803f1a9546ff6293e3fad1984300eb1c2835ff6) )
+	ROM_LOAD( "ottop1.3",     0x2000, 0x1000, CRC(08381b15) SHA1(8727ddb990668acd0288ee9ec9de4922a505c7d1) )
+	ROM_LOAD( "ottop3.4",     0x3000, 0x1000, CRC(0eb1ad52) SHA1(d533d06d3aab14ab7726d449269782d663da1180) )
+	ROM_LOAD( "ottop3.5",     0x8000, 0x1000, CRC(3e2e62bb) SHA1(8dcbc2170214e538fcf092c54a9d6994b5157278) )
+	ROM_LOAD( "boot6",        0x9000, 0x1000, CRC(368cb165) SHA1(387010a0c76319a1eab61b54c9bcb5c66c4b67a1) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "ottop2.5e",    0x0000, 0x1000, CRC(54a743f7) SHA1(9406b856edf3f6a7979926295663cabdf53bb0d4) )
+	ROM_LOAD( "ottop1.5f",    0x1000, 0x1000, CRC(ad353000) SHA1(8ec0c31dc4e9da5bd8cc8087abb3a9936759b39d) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( ottopz )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ottopz.1",     0x0000, 0x1000, CRC(35b94585) SHA1(6a8350efbd6fab30b22365c6a2ed7e23f47af0e6) )
+	ROM_LOAD( "ottopz.2",     0x1000, 0x1000, CRC(298dbd3d) SHA1(302c82562c66c267dedcc7e7d5e3ab8234b5e20c) )
+	ROM_LOAD( "ottopz.3",     0x2000, 0x1000, CRC(6f0c25bd) SHA1(f4cabdb7462310c14ecde5db9f586360ac1829f4) )
+	ROM_LOAD( "ottopz.4",     0x3000, 0x1000, CRC(3af7ef8c) SHA1(bf340f3fa275950c0eda4fbf3eb3115edd039bd6) )
+	ROM_LOAD( "ottopz.5",     0x8000, 0x1000, CRC(098c2a09) SHA1(cf0e69c891dbc8b448c359abf3e869d0aaba02df) )
+	ROM_LOAD( "ottopz.6",     0x9000, 0x1000, CRC(367e5c05) SHA1(15bed84c6480fab5e7bcbbd1dbb2b8919ac1dca5) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "ottopz.5e",    0x0000, 0x1000, CRC(046d76fb) SHA1(44f607dbed727a0ae5152da67b6953ba9619566f) )
+	ROM_LOAD( "ottopz.5f",    0x1000, 0x1000, CRC(402e194d) SHA1(01867241edd28f25aa7be1d4004bb2c73979d8d0) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( pacatk )
 	ROM_REGION( 0x20000, "maincpu", 0 ) /* 64k for code+64k for decrypted code */
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -2149,6 +2213,38 @@ ROM_START( sueworld )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( superp4g )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "superp4g.1",   0x0000, 0x1000, CRC(f88c992f) SHA1(b6e2ec74dcc87aa097b6360f9fd19cfb11227efb) )
+	ROM_LOAD( "superp4g.2",   0x1000, 0x1000, CRC(e6886710) SHA1(63207a2487a334e8de51ccede03b6d50e84e071a) )
+	ROM_LOAD( "superp4g.3",   0x2000, 0x1000, CRC(c76dd2e6) SHA1(3172733cab013945de5f1c79e0a829cacad224ab) )
+	ROM_LOAD( "superp4g.4",   0x3000, 0x1000, CRC(ba5b054e) SHA1(b7bb14167167c59ab9035539d5cf6338a10f00e0) )
+	ROM_LOAD( "superp4g.5",   0x8000, 0x1000, CRC(c701506b) SHA1(31c96d13f290248c63143e22b052adb698a45687) )
+	ROM_LOAD( "boot6",        0x9000, 0x1000, CRC(368cb165) SHA1(387010a0c76319a1eab61b54c9bcb5c66c4b67a1) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "superp4g.5e",  0x0000, 0x1000, CRC(593576fe) SHA1(238006f0d4fe6d478521a8d116f8d0679b502f6d) )
+	ROM_LOAD( "superp4g.5f",  0x1000, 0x1000, CRC(e64e0f6d) SHA1(b87405ef0f90fc0a3afda1a4265ba6b0a074a21d) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( superp4m )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "superp4m.1",   0x0000, 0x1000, CRC(9caaac56) SHA1(8858e4e9d7e3b9a1cd55f6bff1b9766b13fd9b8b) )
+	ROM_LOAD( "superp4g.2",   0x1000, 0x1000, CRC(e6886710) SHA1(63207a2487a334e8de51ccede03b6d50e84e071a) )
+	ROM_LOAD( "superp4g.3",   0x2000, 0x1000, CRC(c76dd2e6) SHA1(3172733cab013945de5f1c79e0a829cacad224ab) )
+	ROM_LOAD( "superp4g.4",   0x3000, 0x1000, CRC(ba5b054e) SHA1(b7bb14167167c59ab9035539d5cf6338a10f00e0) )
+	ROM_LOAD( "superp4m.5",   0x8000, 0x1000, CRC(c4b3240c) SHA1(7839463d69c24d15ac4c4de199f2ba6ce1cfaad7) )
+	ROM_LOAD( "boot6",        0x9000, 0x1000, CRC(368cb165) SHA1(387010a0c76319a1eab61b54c9bcb5c66c4b67a1) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "superp4g.5e",  0x0000, 0x1000, CRC(593576fe) SHA1(238006f0d4fe6d478521a8d116f8d0679b502f6d) )
+	ROM_LOAD( "superp4m.5f",  0x1000, 0x1000, CRC(9142e698) SHA1(229cc0f45ef4dcc60f1e449d24881a0a13720972) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( supmspac )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
@@ -2179,6 +2275,22 @@ ROM_START( vectratk )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "msvectr.5e",   0x0000, 0x1000, CRC(56560aef) SHA1(1eac2b242328ec4d6ba9faac2fd972c8cb6c3e55) )
 	ROM_LOAD( "msvectr.5f",   0x1000, 0x1000, CRC(57cb31e3) SHA1(dc9278cee7f7ce341087760654bf0a1bcdeb2f7c) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( womanp5 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "womanp5.1",    0x0000, 0x1000, CRC(0afeef14) SHA1(39d7d8ce9ba3c166c0bef7f46e71520d50e00c32) )
+	ROM_LOAD( "superp4g.2",   0x1000, 0x1000, CRC(e6886710) SHA1(63207a2487a334e8de51ccede03b6d50e84e071a) )
+	ROM_LOAD( "womanp5.3",    0x2000, 0x1000, CRC(835ebcc2) SHA1(951ec2e88f4d47b0dcdcac28f964860ea21a5726) )
+	ROM_LOAD( "womanp5.4",    0x3000, 0x1000, CRC(b85c5572) SHA1(9eb397b24a783292d9a5ce9b866b19e9fdf2d1f8) )
+	ROM_LOAD( "womanp5.5",    0x8000, 0x1000, CRC(ce7459ac) SHA1(16df266e465d6673448f85e8834c4f0031ede671) )
+	ROM_LOAD( "womanp5.6",    0x9000, 0x1000, CRC(368cb165) SHA1(387010a0c76319a1eab61b54c9bcb5c66c4b67a1) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "womanp5.5e",   0x0000, 0x1000, CRC(83613632) SHA1(1a47ef4d336baa3ba63cf0aceededec4bea35aaa) )
+	ROM_LOAD( "womanp5.5f",   0x1000, 0x1000, CRC(f2c4195e) SHA1(54446e6d1b74623410b67d303c3ab8eaee69f392) )
 
 	PACMAN_PROMS
 ROM_END
@@ -2302,28 +2414,28 @@ GAME( 1981, pacgal,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2003, mrmrspac, mspacman, widel,    mspacpls, driver_device, 0,        ROT90, "David Widel", "Mr and Mrs Pacman [c]", GAME_SUPPORTS_SAVE )
-GAME( 1998, mspachi,  mspacman, mspachi,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Ms. Pacman [h]", GAME_SUPPORTS_SAVE )
+GAME( 2003, mrmrspac, mspacman, widel,    mspacpls, driver_device, 0,        ROT90, "David Widel", "Mr and Mrs Pacman (MR MRS PAC-MAN)[c]", GAME_SUPPORTS_SAVE )
+GAME( 1998, mspachi,  mspacman, mspachi,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Ms. Pacman[h]", GAME_SUPPORTS_SAVE )
 GAME( 2000, pacatk,   mspacman, mspacman, mspacpls, pacman_state,  mspacman, ROT90, "David Widel", "Ms. Pacman Plus (Fruit)", GAME_SUPPORTS_SAVE )
 
 /* Blue Justice's Hacks */
 
-GAME( 2001, ms1000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 1000", GAME_SUPPORTS_SAVE )
-GAME( 2001, ms2000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 2000", GAME_SUPPORTS_SAVE )
-GAME( 2001, ms3000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 3000", GAME_SUPPORTS_SAVE )
-GAME( 2001, ms4000p,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 4000 Plus", GAME_SUPPORTS_SAVE )
-GAME( 2001, ms5000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 5000", GAME_SUPPORTS_SAVE )
-GAME( 2001, ms5000p,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 5000 Plus", GAME_SUPPORTS_SAVE )
-GAME( 2001, mscrzyma, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes", GAME_SUPPORTS_SAVE )
-GAME( 2001, mscrzymp, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes Plus", GAME_SUPPORTS_SAVE )
-GAME( 2001, msextra,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Extra", GAME_SUPPORTS_SAVE )
-GAME( 2001, msextrap, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Extra Plus", GAME_SUPPORTS_SAVE )
-GAME( 2001, msmspac,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Ms. Pac", GAME_SUPPORTS_SAVE )
-GAME( 2001, mspacdel, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Deluxe", GAME_SUPPORTS_SAVE )
-GAME( 2001, mspamsba, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Ms. Babies", GAME_SUPPORTS_SAVE )
-GAME( 2001, mspacp,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Plus", GAME_SUPPORTS_SAVE )
-GAME( 2001, msplus,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Ms Plus", GAME_SUPPORTS_SAVE )
-GAME( 2001, msstrmaz, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Strange Mazes", GAME_SUPPORTS_SAVE )
+GAME( 2001, ms1000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 1000 (MS PAC-MAN 1000)", GAME_SUPPORTS_SAVE )
+GAME( 2001, ms2000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 2000 (MS PAC-MAN 2000)", GAME_SUPPORTS_SAVE )
+GAME( 2001, ms3000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 3000 (MS PAC-MAN 3000)", GAME_SUPPORTS_SAVE )
+GAME( 2001, ms4000p,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 4000 Plus (MSPAC-MAN 4000PLUS)", GAME_SUPPORTS_SAVE )
+GAME( 2001, ms5000,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 5000 (MS PAC-MAN 5000)", GAME_SUPPORTS_SAVE )
+GAME( 2001, ms5000p,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman 5000 Plus (MSPAC-MAN 5000PLUS)", GAME_SUPPORTS_SAVE )
+GAME( 2001, mscrzyma, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes (MS PAC CRAZY MAZES)", GAME_SUPPORTS_SAVE )
+GAME( 2001, mscrzymp, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes Plus (MS PAC-MAN CRAZYPLUS)", GAME_SUPPORTS_SAVE )
+GAME( 2001, msextra,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Extra (MS PAC-MAN EXTRA)", GAME_SUPPORTS_SAVE )
+GAME( 2001, msextrap, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Extra Plus (MS PAC-MAN EXTRAPLUS)", GAME_SUPPORTS_SAVE )
+GAME( 2001, msmspac,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Ms. Pac (MS PAC-MAN MS PAC)", GAME_SUPPORTS_SAVE )
+GAME( 2001, mspacdel, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Deluxe (MS PAC-MAN DELUXE)", GAME_SUPPORTS_SAVE )
+GAME( 2001, mspamsba, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Ms. Babies (MS PAC-MAN MS BABIES)", GAME_SUPPORTS_SAVE )
+GAME( 2001, mspacp,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Plus (MS PAC-MAN PLUS)", GAME_SUPPORTS_SAVE )
+GAME( 2001, msplus,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Ms Plus (MS PAC-MAN MS PLUS)", GAME_SUPPORTS_SAVE )
+GAME( 2001, msstrmaz, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Blue Justice", "Ms. Pacman Strange Mazes (MS PAC STRANGE MAZES)", GAME_SUPPORTS_SAVE )
 
 /* T-Bone Hacks */
 
@@ -2349,6 +2461,13 @@ GAME( 2004, horizpab, mspacman, woodpek,  mspacman, driver_device, 0,        ROT
 GAME( 2004, horizpac, mspacman, woodpek,  mspacman, driver_device, 0,        ROT0,  "Scott Lawrence", "Horiz Pac", GAME_SUPPORTS_SAVE )
 GAME( 2007, pacgent,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Pac Gentleman [f]", GAME_SUPPORTS_SAVE )
 GAME( 2004, ramsnoop, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Miss Snoop v1.3 [f]", GAME_SUPPORTS_SAVE )
+GAME( 2014, ottop1,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P1", GAME_SUPPORTS_SAVE )
+GAME( 2014, ottop2,   mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P2", GAME_SUPPORTS_SAVE )
+GAME( 2014, ottop3,   mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P3", GAME_SUPPORTS_SAVE )
+GAME( 2014, ottopz,   mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project PZ", GAME_SUPPORTS_SAVE )
+GAME( 2014, superp4g, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P4G", GAME_SUPPORTS_SAVE )
+GAME( 2014, superp4m, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P4M", GAME_SUPPORTS_SAVE )
+GAME( 2014, womanp5,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P5", GAME_SUPPORTS_SAVE )
 
 /* Grendal74's Hacks */
 
@@ -2390,7 +2509,7 @@ GAME( 1981, pacgalx,  mspacmnx, woodpekx, mspacman, driver_device, 0,        ROT
 
 GAME( 2000, chtmsatk, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "[Midway]", "Ms. Pacman Plus [c]", GAME_SUPPORTS_SAVE )
 GAME( 2000, chtmspa,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "[Midway]", "Ms. Pacman [c]", GAME_SUPPORTS_SAVE )
-GAME( 2001, cookiem,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Nic", "Cookie-Mon! [c]", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )
+GAME( 2001, cookiem,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Nic", "Cookie-Mon! [c]", GAME_SUPPORTS_SAVE )
 GAME( 2008, cottoh,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Gatinho", "Crazy Otto simulation", GAME_SUPPORTS_SAVE )
 GAME( 2010, cottoh2,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Gatinho", "Crazy Otto simulation Ver 2", GAME_SUPPORTS_SAVE )
 GAME( 2000, fasthear, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "PacHack", "Ms. Heart Burn [f]", GAME_SUPPORTS_SAVE )

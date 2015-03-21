@@ -1039,6 +1039,10 @@ msultra
 msvctr6m	/* T-Bone hack of Ms. Pac-Man */
 msvectr		/* PacMAME Hacks */
 msyakman	/* PacMAME Hacks */
+ottop1
+ottop2
+ottop3
+ottopz
 pacatk		/* Widel's Games */
 pacgalu
 pacgent
@@ -1050,8 +1054,11 @@ piranha2
 ramsnoop	/* Jerronimo */
 sueworlb
 sueworld
+superp4g
+superp4m
 supmspac	/* Spedic Vending bootleg */
 vectratk	/* Sil and T-Bone hack of Ms. Pac-Man */
+womanp5
 zolamaze
 zolaad		/* PacMAME Hacks */
 zolaatk		/* PacMAME Hacks */
