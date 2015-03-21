@@ -40,6 +40,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <assert.h>
 #include "win_options.h"
 #include "astring.h"
 
