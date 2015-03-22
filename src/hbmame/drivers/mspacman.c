@@ -2462,12 +2462,12 @@ GAME( 2004, horizpac, mspacman, woodpek,  mspacman, driver_device, 0,        ROT
 GAME( 2007, pacgent,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Pac Gentleman [f]", GAME_SUPPORTS_SAVE )
 GAME( 2004, ramsnoop, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Miss Snoop v1.3 [f]", GAME_SUPPORTS_SAVE )
 GAME( 2014, ottop1,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P1", GAME_SUPPORTS_SAVE )
-GAME( 2014, ottop2,   mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P2", GAME_SUPPORTS_SAVE )
-GAME( 2014, ottop3,   mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P3", GAME_SUPPORTS_SAVE )
+GAME( 2014, ottop2,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P2", GAME_SUPPORTS_SAVE )
+GAME( 2014, ottop3,   mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P3", GAME_SUPPORTS_SAVE )
 GAME( 2014, ottopz,   mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project PZ", GAME_SUPPORTS_SAVE )
-GAME( 2014, superp4g, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P4G", GAME_SUPPORTS_SAVE )
-GAME( 2014, superp4m, mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P4M", GAME_SUPPORTS_SAVE )
-GAME( 2014, womanp5,  mspacman, woodpek,  mspacpls, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P5", GAME_SUPPORTS_SAVE )
+GAME( 2014, superp4g, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P4G", GAME_SUPPORTS_SAVE )
+GAME( 2014, superp4m, mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P4M", GAME_SUPPORTS_SAVE )
+GAME( 2014, womanp5,  mspacman, woodpek,  mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Otto Project P5", GAME_SUPPORTS_SAVE )
 
 /* Grendal74's Hacks */
 
