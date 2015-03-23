@@ -153,13 +153,14 @@ comdlux1	/* Twisty Hack */
 captcomm	/* 14/10/1991 (c) 1991 (World) */
 cawing		/* 12/10/1990 (c) 1990 (World) */
 dino		/* 01/02/1993 (c) 1993 (World) (CPS1 + QSound) */
-ffight
+ffight		// patched to fix transitions
 ghouls		/* 12/1988 (c) 1988 (World) */
 kod		/* 11/07/1991 (c) 1991 (World) */
 knights		/* 27/11/1991 (c) 1991 (World) */
 megaman		/* 13/03/1992 (c) 1992 (World) */
 punisher	/* 22/04/1993 (c) 1993 (World) (CPS1 + QSound) */
 sf2ce		/* 13/03/1992 (c) 1992 (World) */
+strider		//  3/1989
 wof		/* 02/10/1992 (c) 1992 (World) (CPS1 + QSound) */
 
 	/* cps1mis.c */
@@ -201,6 +202,8 @@ sf2sl73a	/* Drakon, Sheng Long v7.3a */
 sf2tlona	/* hack, Tu Long set 1 */
 sf2tlonb	/* hack, Tu Long set 2 */
 sf2turyu	/* hack, Tu Long prototype */
+stridergf	// fix unwanted black specks
+stridergh	// as above, and uncensored
 wof3js		/* 1997  Three Sword Masters / San Jian Sheng */
 wof3sj		/* 1997  Three Holy Swords / San Sheng Jian */
 wof3sja		/* 1997  Three Holy Swords / San Sheng Jian */

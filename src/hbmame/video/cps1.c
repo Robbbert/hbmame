@@ -1515,7 +1515,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },				//works
 	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },				//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 5 },		//works (some sprites not cleared on time)
-	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },
+	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },				//works
 	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
@@ -1531,6 +1531,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
 	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
 	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"stridergf",   CPS_B_01,     mapper_ST24M1 },				//works
+	{"stridergh",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"wof3js",      CPS_B_21_DEF, mapper_TK263B, 0x36 },			//works
 	{"wof3sj",      HACK_B_2,     mapper_TK263B, 0, 0, 0, 0x85 },		//works
 	{"wof3sja",     HACK_B_2,     mapper_TK263B, 0, 0, 0, 0x85 },		//works
