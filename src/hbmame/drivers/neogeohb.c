@@ -11,9 +11,12 @@ It is possible that a game is already known under another title, or perhaps it w
 prototype of another title. Corrected info is welcome.
 
 400-499 are mostly confirmed as having existed at some time. A few of them seem unobtainable now.
+800-899 highly-priced limited edition homebrew carts, and are not to be emulated until after the maker
+        has discontinued the item.
 
-Any game with * after the number is a wanted game for the purposes of MVS CART emulation. 
+We want the MVS or AES roms for any game marked with * after the number. 
 
+Please note: It is planned to move this list to the HBMAME website sometime this year.
 
 ******* CD-only titles that may possibly exist as roms *************
 
@@ -116,6 +119,7 @@ NUM YEAR COMPANY          TITLE
 
 
 ********************** 400 to 499 **********************************
+(n/r) = not released (yet)
 
 NUM YEAR COMPANY                 TITLE
 --- ---- ----------------------- -------------------------------------------
@@ -142,7 +146,7 @@ NUM YEAR COMPANY                 TITLE
 420 2004 BarfHappy               Neo Castlevania demo
 421 2012 Oxygene                 Neo 3D demo
 422 2012 NeoGeoFreak             Time's Up! demo
-423*2012 NeoGeoFreak             Time's Up!
+423
 424 2012 NeoGeoFreak             Transparency demo
 425 2009 Raregame                Chip n Dale intro
 426 2009 Raregame                Darkwing Duck intro
@@ -157,18 +161,18 @@ NUM YEAR COMPANY                 TITLE
 435 2010 CeL                     Neorom Jukebox
 436*2010 CeL                     Neo Pang
 437 2013 Le Cortex               Crouching Pony Hidden Dragon demo
-438*2013 Le Cortex               Crouching Pony Hidden Dragon
+438
 439 2013 Cristiano Bei           Primo demo
 440 2013 Cristiano Bei           Neo Geo Galaga demo
 441 2013 Cristiano Bei           Neo Geo Sound Test
 442 2007 NG:DEV.Team             Last Hope CD Beta
-443*2006 NG:DEV.Team             Last Hope
-444*2010 NG:DEV.Team             Fast Striker
-445*2011 NG:DEV.Team             Last Hope Pink Bullets
-446*2012 NG:DEV.Team             Gunlord
-447*2013 NG:DEV.Team             NEO XYX
-448*2013 Neobitz                 Knight's Chance
-449*2014 NG:DEV.Team             Razion
+443
+444
+445
+446
+447
+448
+449
 450*2012 RKGAMES                 Neo-sprite demo (CD only)
 451*2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
 452*2011 Furrtek                 VUmeter (CD only) [nebula]
@@ -178,15 +182,36 @@ NUM YEAR COMPANY                 TITLE
 456*2013 Jeff Ferrier            Neo Geo Manic Panic
 457      Furrtek                 MVSTest01
 458      Furrtek                 KnackiBalls
-459*     Furrtek                 Unleashed
-460*     Furrtek                 Astrosmash
-461*2014 RiKo                    Cosmic Tower
+459*n/r  Furrtek                 Unleashed (in development or cancelled)
+460*n/r  Furrtek                 Astrosmash (in development or cancelled)
+461*n/r  RiKo                    Cosmic Tower (in development or cancelled)
 462*2009 Elrayzeur               Puzzle Bobble Crazy
 463*     NGD                     NGD::ARK (Arkanoid port)
-464*     NGD                     Unknown Fighter-pilot game (ngdevgroup.com)
-465*2015 NG:DEV.Team             Kraut Buster
+464*     NGD                     NGD::AIR (ngdevgroup.com [dead])
+465*     NGD                     NGD::FIGHT
 466*                             4-player input test
 467 2011 Furrtek                 Sprite Experimenter
+468*n/r  Neobitz                 Submarine Shooter (in development)
+469 2014 Neobitz                 Monitor Test
+470 2015 freem                   ADPCM-B Playback Demo
+471*n/r  tcdev                   Donkey Kong (in development or cancelled)
+
+
+
+********************** 800 to 899 **********************************
+
+NUM YEAR COMPANY                 TITLE
+--- ---- ----------------------- -------------------------------------------
+800*2012 NeoGeoFreak             Time's Up!
+801*2013 Le Cortex               Crouching Pony Hidden Dragon
+802*2006 NG:DEV.Team             Last Hope
+803*2010 NG:DEV.Team             Fast Striker
+804*2011 NG:DEV.Team             Last Hope Pink Bullets
+805*2012 NG:DEV.Team             Gunlord
+806*2013 NG:DEV.Team             NEO XYX
+807*2013 Neobitz                 Knight's Chance
+808*2014 NG:DEV.Team             Razion
+809*2015 NG:DEV.Team             Kraut Buster
 
 
 *********************************************************************************************************/
@@ -1263,6 +1288,41 @@ ROM_START( spriteex )
 	ROM_CONTINUE( 0x400001, 0x200000 )
 ROM_END
 
+// 469 : Monitor Test by Neobitz.
+// No sound.
+ROM_START( ngmontst )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "469.p1", 0x000000, 0x100000, CRC(17a4ad61) SHA1(38c0f2022947043f30a27ccda06cc709fe980fed) )
+
+	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	NEO_BIOS_AUDIO_128K( "052-m1.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "052-v1.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "469.c1", 0x000000, 0x100000, CRC(715df715) SHA1(74534eb9bb48a04f25d0044b1f2b57e59f49b06f) )
+	ROM_LOAD16_BYTE( "469.c2", 0x000001, 0x100000, CRC(d8ee3c9b) SHA1(c731eaffae34b4394e290e68ca8c3700e1c6dc2b) )
+ROM_END
+
+// 470 : ADPCM-B Playback Demo by freem.
+// Bugs: No sound. The Z80 code is horribly buggy, and jumps into the weeds on the 2nd NMI.
+ROM_START( pcmbdemo )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "470.p1", 0x000000, 0x080000, CRC(6d719183) SHA1(e1e064bb785823a1f20f4a931bd7961515de2a98) )
+
+	NEO_SFIX_128K( "470.s1", CRC(9647ff8a) SHA1(ecfaa4649d490fae1697e34cc5bbbc386ffa5ef6) )
+
+	NEO_BIOS_AUDIO_128K( "470.m1", CRC(7b8abba4) SHA1(c492c468b34f0a7d57e2abd54d6057f3e470ee27) )
+
+	ROM_REGION( 0x80000, "ymsnd", 0 )
+	ROM_LOAD( "470.v1", 0x000000, 0x80000, CRC(baffec3e) SHA1(58ec4b684220ea558ed7dea99dfed1d24c57e662) )
+
+	ROM_REGION( 0x200000, "sprites", ROMREGION_ERASEFF )
+	// no sprites
+ROM_END
+
 
 // GAME MACROS
 
@@ -1303,8 +1363,10 @@ GAME( 2013, neotest,  neogal1,  neogeo,   neogeo,  neogeo_state, neogeo,   ROT0,
 GAME( 2012, neothund, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", GAME_SUPPORTS_SAVE )
 GAME( 2006, ngem2k,   neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NGEM2K", GAME_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "NGF Transparency Demo", GAME_SUPPORTS_SAVE )
+GAME( 2014, ngmontst, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "NeoGeo Monitor Test", GAME_SUPPORTS_SAVE )
 GAME( 2008, ngtetris, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", GAME_SUPPORTS_SAVE )
 GAME( 2011, nyan,     neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", GAME_SUPPORTS_SAVE )
+GAME( 2015, pcmbdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", GAME_NO_SOUND | GAME_SUPPORTS_SAVE )
 GAME( 2003, poknight, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", GAME_SUPPORTS_SAVE )
 GAME( 2009, rci,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", GAME_SUPPORTS_SAVE )
 GAME( 2009, smi,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", GAME_SUPPORTS_SAVE )
