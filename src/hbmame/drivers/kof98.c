@@ -1,6 +1,7 @@
 ROM_START( kof98ae ) // crashes during the fight demo
 	ROM_REGION( 0x700000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "242ae.p1", 0x000000, 0x100000, CRC(c9188c66) SHA1(9b248df5438cd555314ec71e52e7da6cfb192219) )
+	//ROM_LOAD16_WORD_SWAP( "242ae.p1", 0x000000, 0x100000, CRC(c9188c66) SHA1(9b248df5438cd555314ec71e52e7da6cfb192219) )
+	ROM_LOAD16_WORD_SWAP( "242ae.p1", 0x000000, 0x100000, CRC(74e20ae9) SHA1(84d17fb0ee462fe491e3220e935cb588f8121611) )
 	ROM_LOAD16_WORD_SWAP( "242ae.p2", 0x100000, 0x600000, CRC(609fac6b) SHA1(8010f4f5bd70308d027c1c5ae672117ab76f8d89) )
 
 	NEO_SFIX_128K( "242ae.s1", CRC(f1fee5c0) SHA1(e0d7b6c3c4a1c24003f25de6a5238e0a8ad32269) )
@@ -16,7 +17,7 @@ ROM_START( kof98ae ) // crashes during the fight demo
 	ROM_REGION( 0x6000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "242ae.c1",  0x0000000, 0x800000, CRC(0319cfc9) SHA1(f275015d6bddf392936b35cd7399f929a6d63d29) )
 	ROM_LOAD16_BYTE( "242ae.c2",  0x0000001, 0x800000, CRC(553f6714) SHA1(9c14963ce9ac0cfd125defe2fe80206deb1bc896) )
-	ROM_LOAD16_BYTE( "242ae.c3",  0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242-c3.c3", 0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
 	ROM_LOAD16_BYTE( "242-c4.c4", 0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
 	ROM_LOAD16_BYTE( "242ae.c5",  0x2000000, 0x800000, CRC(71641718) SHA1(b88a00aca2fc34230d2d2da0b235195a5eb1ecf0) )
 	ROM_LOAD16_BYTE( "242ae.c6",  0x2000001, 0x800000, CRC(982ba2b3) SHA1(232ce3be7beaad13b35865da770157ef4b29a7a9) )
@@ -106,7 +107,7 @@ ROM_START( kof98chl ) /* [OLD] The King of Fighters '98 - Revise by CHL - (Chara
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20070720 )
+ROM_START( kof98c20070720 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co.p1", 0x000000, 0x100000, CRC(549b46bf) SHA1(bbed5b2a131ba4ed9161aa5c246cf7d324aacf3d) )
 	ROM_LOAD16_WORD_SWAP( "242co.p2", 0x100000, 0x400000, CRC(d256446d) SHA1(821365a7e7fe65488171633b8218207b70dcd0f6) )
@@ -132,7 +133,7 @@ ROM_START( kof98co20070720 )
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20130311 ) // no idea what other roms go with this, using ones from kof98co
+ROM_START( kof98c20130311 ) // no idea what other roms go with this, using ones from kof98co
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co00.p1", 0x000000, 0x100000, CRC(a840d48e) SHA1(f95246ea20174bfb6ffa1421d5e3691d5a4d57ac) )
 	ROM_LOAD16_WORD_SWAP( "242co00.p2", 0x100000, 0x400000, CRC(a125307b) SHA1(fea9a7d945d51bdc137a7a5cc47009f77d1b2f11) )
@@ -158,7 +159,7 @@ ROM_START( kof98co20130311 ) // no idea what other roms go with this, using ones
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20130509 ) // no idea what other roms go with this, using ones from kof98co
+ROM_START( kof98c20130509 ) // no idea what other roms go with this, using ones from kof98co
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co01.p1", 0x000000, 0x100000, CRC(04f0ee1b) SHA1(6b0c61bf769e3a1f8e16bf80f998a16231b1d37f) )
 	ROM_LOAD16_WORD_SWAP( "242co01.p2", 0x100000, 0x400000, CRC(7a3d7339) SHA1(68e6d693e1010c75e235cb732c186edfcf5ee121) )
@@ -184,7 +185,7 @@ ROM_START( kof98co20130509 ) // no idea what other roms go with this, using ones
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20130528 ) // no idea what other roms go with this, using ones from kof98co
+ROM_START( kof98c20130528 ) // no idea what other roms go with this, using ones from kof98co
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co02.p1", 0x000000, 0x100000, CRC(3a2c9ecf) SHA1(f18534a4332d6162d1d7c0797c2aabafe9b3ae8d) )
 	ROM_LOAD16_WORD_SWAP( "242co02.p2", 0x100000, 0x400000, CRC(d1f608a3) SHA1(20f0ac8a696f47fc122a876b5892b7982f643101) )
@@ -210,7 +211,7 @@ ROM_START( kof98co20130528 ) // no idea what other roms go with this, using ones
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20130617 ) // no idea what other roms go with this, using ones from kof98co
+ROM_START( kof98c20130617 ) // no idea what other roms go with this, using ones from kof98co
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co03.p1", 0x000000, 0x100000, CRC(871c1400) SHA1(7c543dfe62151eea0479b0d6685ff99a79d7b99d) )
 	ROM_LOAD16_WORD_SWAP( "242co03.p2", 0x100000, 0x400000, CRC(5f6a6827) SHA1(df507f8367bb03bb404a7c978123fccf2cfee2bf) )
@@ -236,7 +237,7 @@ ROM_START( kof98co20130617 ) // no idea what other roms go with this, using ones
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20130808 ) // no idea what other roms go with this, using ones from kof98co
+ROM_START( kof98c20130808 ) // no idea what other roms go with this, using ones from kof98co
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co04.p1", 0x000000, 0x100000, CRC(5c45d223) SHA1(04617aaea513e5c7e8cf014e89945aa2eb5948e2) )
 	ROM_LOAD16_WORD_SWAP( "242co04.p2", 0x100000, 0x400000, CRC(ae323e72) SHA1(fe204f78faef8be01e8664a57f4cec380457cea6) )
@@ -262,7 +263,7 @@ ROM_START( kof98co20130808 ) // no idea what other roms go with this, using ones
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co20130820 ) // no idea what other roms go with this, using ones from kof98co
+ROM_START( kof98c20130820 ) // no idea what other roms go with this, using ones from kof98co
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242co05.p1", 0x000000, 0x100000, CRC(f17061ad) SHA1(2b99224bc32526e811fa46b934531ecc25bb5f48) )
 	ROM_LOAD16_WORD_SWAP( "242co05.p2", 0x100000, 0x400000, CRC(8b7afee8) SHA1(88080f59588b2e8360af126519e547bbf55f80fb) )
@@ -288,7 +289,7 @@ ROM_START( kof98co20130820 ) // no idea what other roms go with this, using ones
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
-ROM_START( kof98co2014 ) // test of the combo roms, all revisions later than the set above do not work
+ROM_START( kof98c2014 ) // test of the combo roms, all revisions later than the set above do not work
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242coxx.p1", 0x000000, 0x100000, CRC(23a80b3e) SHA1(e87ceb1ffe9b0757d2d9a5af970ea0f5f416767a) )
 	ROM_LOAD16_WORD_SWAP( "242coxx.p2", 0x100000, 0x600000, CRC(609fac6b) SHA1(19800094015ed659023d49dfd8b63c0578ea2952) )
@@ -789,14 +790,14 @@ GAME( 2009, kof98ae,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "
 GAME( 1998, kof98cd,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "SNK", "The King of Fighters '98 (CD conversion)", GAME_SUPPORTS_SAVE ) // kof98n hack
 GAME( 1998, kof98ch,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Chase", "The King of Fighters '98 (Diff Moves 030503)", GAME_SUPPORTS_SAVE ) // kof98n hack
 GAME( 1998, kof98chl,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL", "The King of Fighters '98 (Diff Moves 030320)", GAME_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2007, kof98co20070720, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2007-07-20)", GAME_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2013, kof98co20130311, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-03-19)", GAME_SUPPORTS_SAVE )
-GAME( 2013, kof98co20130509, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-09)", GAME_SUPPORTS_SAVE )
-GAME( 2013, kof98co20130528, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-30)", GAME_SUPPORTS_SAVE )
-GAME( 2013, kof98co20130617, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-06-17)", GAME_SUPPORTS_SAVE )
-GAME( 2013, kof98co20130808, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-08)", GAME_SUPPORTS_SAVE )
-GAME( 2013, kof98co20130820, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-20)", GAME_SUPPORTS_SAVE )
-GAME( 2013, kof98co2014, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (test)", GAME_SUPPORTS_SAVE )
+GAME( 2007, kof98c20070720, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2007-07-20)", GAME_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2013, kof98c20130311, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-03-19)", GAME_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130509, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-09)", GAME_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130528, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-30)", GAME_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130617, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-06-17)", GAME_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130808, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-08)", GAME_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130820, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-20)", GAME_SUPPORTS_SAVE )
+GAME( 2013, kof98c2014, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (test)", GAME_SUPPORTS_SAVE )
 GAME( 1998, kof98dc,   kof98,    neogeo, neogeo, neogeo_state, kof98,    ROT0, "Dodowang", "The King of Fighters '98 (Char color changed - Negative style)", GAME_SUPPORTS_SAVE )
 GAME( 1998, kof98ehr,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Diff Moves - Ultra kill start max in Adv Mode - Ultra pow hack ABC)", GAME_SUPPORTS_SAVE ) // kof98n hack
 GAME( 2004, kof98fr,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2004)", GAME_SUPPORTS_SAVE ) // kof98n hack
