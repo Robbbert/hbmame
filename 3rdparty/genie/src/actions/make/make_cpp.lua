@@ -73,20 +73,20 @@
 			_p('endef')
 			_p('')
 		end
-		
+
 		-- target build rule
 		_p('$(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)')
-		
-		if prj.kind == "StaticLib" then		
+
+		if prj.kind == "StaticLib" then
 			if prj.msgarchiving then
 				_p('\t@echo ' .. prj.msgarchiving)
 			else
 				_p('\t@echo Archiving %s', prj.name)
-			end		
-			if (not prj.archivesplit_size) then 
+			end
+			if (not prj.archivesplit_size) then
 				prj.archivesplit_size=200
 			end
-			if (not prj.options.ArchiveSplit) then		
+			if (not prj.options.ArchiveSplit) then
 				_p('\t$(SILENT) $(LINKCMD) $(OBJECTS)')
 			else
 				_p('\t$(call RM,$(TARGET))')
@@ -98,7 +98,7 @@
 				_p('\t@echo ' .. prj.msglinking)
 			else
 				_p('\t@echo Linking %s', prj.name)
-			end		
+			end
 			_p('\t$(SILENT) $(LINKCMD)')
 		end
 		_p('\t$(POSTBUILDCMDS)')
@@ -109,9 +109,16 @@
 		_p('$(TARGETDIR):')
 		premake.make_mkdirrule("$(TARGETDIR)")
 
-		_p('$(OBJDIRS):')
 		if (not prj.solution.messageskip) or (not table.contains(prj.solution.messageskip, "SkipCreatingMessage")) then
-			_p('\t@echo Creating $(OBJDIR)')
+		_p('objdirmessage:')
+		_p('\t@echo Creating $(OBJDIR)')
+		_p('')
+		end
+
+		if (not prj.solution.messageskip) or (not table.contains(prj.solution.messageskip, "SkipCreatingMessage")) then
+		_p('$(OBJDIRS): objdirmessage')
+		else
+		_p('$(OBJDIRS):')
 		end
 		_p('\t-$(call MKDIR,$@)')
 		_p('')
@@ -236,7 +243,7 @@
 		cpp.pchconfig(cfg)
 
 		-- CPPFLAGS, CFLAGS, CXXFLAGS, and RESFLAGS
-		cpp.flags(cfg, cc)
+		cpp.flags(prj, cfg, cc)
 
 		-- write out libraries, linker flags, and the link command
 		cpp.linker(prj, cfg, cc)
@@ -246,14 +253,8 @@
 		for _, file in ipairs(prj.files) do
 			if path.iscppfile(file) then
 				-- check if file is excluded.
-				local excluded = false
-				for _, exclude in ipairs(cfg.excludes) do
-					excluded = (exclude == file)
-					if (excluded) then break end
-				end
-				
-				-- if not excluded, add it.
-				if excluded == false then
+				if not table.icontains(cfg.excludes, file) then
+					-- if not excluded, add it.
 					_p('\t$(OBJDIR)/%s.o \\'
 						, _MAKE.esc(path.trimdots(path.removeext(file)))
 						)
@@ -313,7 +314,7 @@
 -- Configurations
 --
 
-	function cpp.flags(cfg, cc)
+	function cpp.flags(prj, cfg, cc)
 
 		if cfg.pchheader and not cfg.flags.NoPCH then
 			_p('  FORCE_INCLUDE += -include $(OBJDIR)/$(notdir $(PCH))')
@@ -324,7 +325,11 @@
 					,premake.esc(table.concat(cfg.forcedincludes, ";")))
 		end
 
-		_p('  ALL_CPPFLAGS  += $(CPPFLAGS) %s $(DEFINES) $(INCLUDES)', table.concat(cc.getcppflags(cfg), " "))
+		if (not prj.options.NoDependency) then 
+			_p('  ALL_CPPFLAGS  += $(CPPFLAGS) %s $(DEFINES) $(INCLUDES)', table.concat(cc.getcppflags(cfg), " "))
+		else
+			_p('  ALL_CPPFLAGS  += $(CPPFLAGS) $(DEFINES) $(INCLUDES)')
+		end
 
 		_p('  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcflags(cfg), cfg.buildoptions, cfg.buildoptions_c)))
 		_p('  ALL_CXXFLAGS  += $(CXXFLAGS) $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH)%s', make.list(table.join(cc.getcflags(cfg), cc.getcxxflags(cfg), cfg.buildoptions, cfg.buildoptions_cpp)))
@@ -456,9 +461,16 @@
 					_p('\t@echo $(notdir $<)')
 				end
 				if (path.isobjcfile(file)) then
-					_p('\t$(SILENT) $(CXX) $(ALL_OBJCFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%%.o=%%.d) -c "$<"')
+					if (not prj.options.NoDependency) then 
+						_p('\t$(SILENT) $(CXX) $(ALL_OBJCFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%%.o=%%.d) -c "$<"')
+						if prj.aftercompilefile then
+							_p('%s',prj.aftercompilefile)
+						end						
+					else
+						_p('\t$(SILENT) $(CXX) $(ALL_OBJCFLAGS) $(FORCE_INCLUDE) -o "$@" -c "$<"')
+					end
 				else
-					cpp.buildcommand(path.iscfile(file) and not prj.options.ForceCPP, "o")
+					cpp.buildcommand(prj, path.iscfile(file) and not prj.options.ForceCPP, "o")
 				end
 				_p('')
 			elseif (path.getextension(file) == ".rc") then
@@ -474,7 +486,14 @@
 		end
 	end
 
-	function cpp.buildcommand(iscfile, objext)
+	function cpp.buildcommand(prj, iscfile, objext)
 		local flags = iif(iscfile, '$(CC) $(ALL_CFLAGS)', '$(CXX) $(ALL_CXXFLAGS)')
-		_p('\t$(SILENT) %s $(FORCE_INCLUDE) -o "$@" -MF $(@:%%.%s=%%.d) -c "$<"', flags, objext)
+		if (not prj.options.NoDependency) then 
+			_p('\t$(SILENT) %s $(FORCE_INCLUDE) -o "$@" -MF $(@:%%.%s=%%.d) -c "$<"', flags, objext)
+			if prj.aftercompilefile then
+				_p('%s',prj.aftercompilefile)
+			end
+		else
+			_p('\t$(SILENT) %s $(FORCE_INCLUDE) -o "$@" -c "$<"', flags)
+		end
 	end

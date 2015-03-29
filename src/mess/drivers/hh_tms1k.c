@@ -7,7 +7,7 @@
   part of a series is (or will be) in its own driver.
 
   Let's use this driver for a list of known devices and their serials,
-  excluding TI's own products (see for example ticalc1x.c, tispeak.c)
+  excluding TI's own products (see ticalc1x.c, tispeak.c)
 
   serial   device   etc.
 --------------------------------------------------------------------
@@ -21,8 +21,8 @@
  @MP1204   TMS1100  1980, Entex Baseball 3
  *MP1221   TMS1100  1980, Entex Raise The Devil
  *MP1312   TMS1100  198?, Tandy/RadioShack Science Fair Microcomputer Trainer
- *MP2139   ?        1982, Gakken Galaxy Invader 1000
- *MP2788   ?        1980, Bandai Flight Time
+ *MP2139   ?        1982, Gakken Galaxy Invader 1000 (? note: VFD-capable)
+ *MP2788   ?        1980, Bandai Flight Time (? note: VFD-capable)
  @MP3226   TMS1000  1978, Milton Bradley Simon
  *MP3301   TMS1000  1979, Milton Bradley Bigtrak
  *MP3320A  TMS1000  1979, Coleco Head to Head Basketball
@@ -45,12 +45,14 @@
   M34047   TMS1100  1982, MicroVision cartridge: Super Blockbuster
  @MP6100A  TMS0980  1979, Ideal Electronic Detective
  @MP6101B  TMS0980  1979, Parker Brothers Stop Thief
- *MP6361   ?        1983, Defender Strikes
+ *MP6361   ?        1983, Defender Strikes (? note: VFD-capable)
  *MP7303   TMS1400? 19??, Tiger 7-in-1 Sports Stadium
  @MP7313   TMS1400  1980, Parker Brothers Bank Shot
  @MP7314   TMS1400  1980, Parker Brothers Split Second
   MP7332   TMS1400  1981, Milton Bradley Dark Tower -> mbdtower.c
  @MP7334   TMS1400  1981, Coleco Total Control 4
+ *MP7573   ?        1981, Entex Select-a-Game cartridge: Football (? note: 40-pin, VFD-capable)
+ *M95041   ?        1983, Tsukuda Game Pachinko (? note: 40-pin, VFD-capable)
 
   inconsistent:
 
@@ -194,10 +196,15 @@ TIMER_DEVICE_CALLBACK_MEMBER(hh_tms1k_state::display_decay_tick)
 	display_update();
 }
 
-void hh_tms1k_state::display_matrix(int maxx, int maxy, UINT32 setx, UINT32 sety)
+void hh_tms1k_state::set_display_size(int maxx, int maxy)
 {
 	m_display_maxx = maxx;
 	m_display_maxy = maxy;
+}
+
+void hh_tms1k_state::display_matrix(int maxx, int maxy, UINT32 setx, UINT32 sety)
+{
+	set_display_size(maxx, maxy);
 
 	// update current state
 	UINT32 mask = (1 << maxx) - 1;
@@ -270,9 +277,6 @@ INPUT_CHANGED_MEMBER(hh_tms1k_state::power_button)
 
 void hh_tms1k_state::mathmagi_display()
 {
-	m_display_maxx = 8;
-	m_display_maxy = 11;
-
 	// R0-R7: 7seg leds
 	for (int y = 0; y < 8; y++)
 	{
@@ -286,6 +290,7 @@ void hh_tms1k_state::mathmagi_display()
 	for (int y = 8; y < 11; y++)
 		m_display_state[y] = (m_r >> y & 1) ? m_o : 0;
 
+	set_display_size(8, 11);
 	display_update();
 }
 
@@ -433,9 +438,6 @@ MACHINE_CONFIG_END
 
 void hh_tms1k_state::amaztron_display()
 {
-	m_display_maxx = 8;
-	m_display_maxy = 3;
-
 	// R8,R9: select digit
 	for (int y = 0; y < 2; y++)
 	{
@@ -446,6 +448,7 @@ void hh_tms1k_state::amaztron_display()
 	// R6,R7: lamps (-> lamp20,21)
 	m_display_state[2] = m_r >> 6 & 3;
 
+	set_display_size(8, 3);
 	display_update();
 }
 
@@ -960,9 +963,6 @@ MACHINE_CONFIG_END
 
 void hh_tms1k_state::ebball3_display()
 {
-	m_display_maxx = 7;
-	m_display_maxy = 10+2;
-
 	// update current state
 	for (int y = 0; y < 10; y++)
 		m_display_state[y] = (m_r >> y & 1) ? m_o : 0;
@@ -975,6 +975,7 @@ void hh_tms1k_state::ebball3_display()
 	m_display_state[11] = ((m_display_state[4] & 0x10) | (m_display_state[7] & 0x01)) << 1;
 	m_display_segmask[10] = m_display_segmask[11] = 0x22;
 
+	set_display_size(7, 10+2);
 	display_update();
 }
 
@@ -1050,7 +1051,7 @@ void hh_tms1k_state::ebball3_set_clock()
 	// MCU clock is from an RC circuit(R=47K, C=33pf) oscillating by default at ~340kHz,
 	// but on PRO, the difficulty switch adds an extra 150K resistor to Vdd to speed
 	// it up to around ~440kHz.
-	m_maincpu->set_unscaled_clock(m_inp_matrix[3]->read() & 1 ? 440000 : 340000);
+	m_maincpu->set_unscaled_clock((m_inp_matrix[3]->read() & 1) ? 440000 : 340000);
 }
 
 INPUT_CHANGED_MEMBER(hh_tms1k_state::ebball3_difficulty_switch)
@@ -1569,23 +1570,46 @@ static INPUT_PORTS_START( ssimon )
 	PORT_BIT( 0x0d, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN.6") // fake
-	PORT_CONFNAME( 0x03, 0x00, "Speed" ) //PORT_CHANGED_MEMBER(DEVICE_SELF, hh_tms1k_state, ssimon_speed_switch, NULL)
+	PORT_CONFNAME( 0x03, 0x01, "Speed" ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_tms1k_state, ssimon_speed_switch, NULL)
 	PORT_CONFSETTING(    0x00, "Simple" )
 	PORT_CONFSETTING(    0x01, "Normal" )
 	PORT_CONFSETTING(    0x02, "Super" )
 INPUT_PORTS_END
 
 
+void hh_tms1k_state::ssimon_set_clock()
+{
+	// MCU clock is from an RC circuit with C=100pf, R=x depending on speed switch:
+	// 0 Simple: R=51K -> ~200kHz
+	// 1 Normal: R=37K -> ~275kHz
+	// 2 Super:  R=22K -> ~400kHz
+	UINT8 inp = m_inp_matrix[6]->read();
+	m_maincpu->set_unscaled_clock((inp & 2) ? 400000 : ((inp & 1) ? 275000 : 200000));
+}
+
+INPUT_CHANGED_MEMBER(hh_tms1k_state::ssimon_speed_switch)
+{
+	ssimon_set_clock();
+}
+
+MACHINE_RESET_MEMBER(hh_tms1k_state, ssimon)
+{
+	machine_reset();
+	ssimon_set_clock();
+}
+
 static MACHINE_CONFIG_START( ssimon, hh_tms1k_state )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", TMS1100, 350000) // x
+	MCFG_CPU_ADD("maincpu", TMS1100, 275000) // see ssimon_set_clock
 	MCFG_TMS1XXX_READ_K_CB(READ8(hh_tms1k_state, ssimon_read_k))
 	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(hh_tms1k_state, ssimon_write_r))
 	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(hh_tms1k_state, ssimon_write_o))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_ssimon)
+
+	MCFG_MACHINE_RESET_OVERRIDE(hh_tms1k_state, ssimon)
 
 	/* no video! */
 
@@ -1612,9 +1636,6 @@ MACHINE_CONFIG_END
 
 WRITE16_MEMBER(hh_tms1k_state::cnsector_write_r)
 {
-	m_display_maxx = 8;
-	m_display_maxy = 7;
-
 	// R0-R5: select digit (right-to-left)
 	for (int y = 0; y < 6; y++)
 	{
@@ -1625,6 +1646,7 @@ WRITE16_MEMBER(hh_tms1k_state::cnsector_write_r)
 	// R6-R9: direction leds (-> lamp60-63)
 	m_display_state[6] = data >> 6 & 0xf;
 
+	set_display_size(8, 7);
 	display_update();
 }
 
@@ -1814,17 +1836,15 @@ MACHINE_CONFIG_END
 
 WRITE16_MEMBER(hh_tms1k_state::stopthief_write_r)
 {
-	m_display_maxx = 7;
-	m_display_maxy = 3;
-
 	// R0-R2: select digit
 	UINT8 o = BITSWAP8(m_o,3,5,2,1,4,0,6,7) & 0x7f;
-	for (int y = 0; y < m_display_maxy; y++)
+	for (int y = 0; y < 3; y++)
 	{
 		m_display_segmask[y] = 0x7f;
 		m_display_state[y] = (data >> y & 1) ? o : 0;
 	}
 
+	set_display_size(7, 3);
 	display_update();
 
 	// R3-R8: speaker on

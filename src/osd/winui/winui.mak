@@ -281,7 +281,7 @@ LDFLAGSEMULATOR += \
 # still not sure what to do about main.
 
 OSDCOREOBJS = \
-	$(WINOBJ)/strconv.o \
+	$(OSDOBJ)/strconv.o \
 	$(WINOBJ)/windir.o  \
 	$(WINOBJ)/winfile.o \
 	$(WINOBJ)/winclip.o \
