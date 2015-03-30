@@ -1,32 +1,38 @@
 function maintargetosdoptions(_target)
 	if _OPTIONS["targetos"]=="windows" then
 		linkoptions{
-			"-L$(shell qmake -query QT_INSTALL_LIBS)",
+			"-municode",
 		}
-
-		links {
-			"qtmain",
-			"QtGui4",
-			"QtCore4",
-		}
+		if (USE_QT == 1) then
+			linkoptions{
+				"-L$(shell qmake -query QT_INSTALL_LIBS)",
+			}
+			links {
+				"qtmain",
+				"QtGui4",
+				"QtCore4",
+			}
+		end
 	end
-
 	if _OPTIONS["targetos"]=="linux" then
-		links {
-			'QtGui',
-			'QtCore',
-		}
+		if (USE_QT == 1) then
+			links {
+				"QtGui",
+				"QtCore",
+			}
 
-		linkoptions {
-			'$(shell pkg-config --libs QtGui)',
-		}
+			linkoptions {
+				"$(shell pkg-config --libs QtGui)",
+			}
+		end
 	end
-
+	
 	configuration { "mingw*" or "vs*" }
 		targetprefix "sdl"
 
 	configuration { }
 end
+
 
 configuration { "mingw*" }
 		linkoptions {
@@ -114,7 +120,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/opengl/gl_shader_mgr.c",
 	}
 
-	if not (_OPTIONS["targetos"]=="macosx") then
+	if (USE_QT == 1) then
 		files {
 			MAME_DIR .. "src/osd/modules/debugger/qt/debuggerview.c",
 			MAME_DIR .. "src/osd/modules/debugger/qt/windowqt.c",

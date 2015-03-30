@@ -11,7 +11,9 @@ if _OPTIONS["targetos"]=="windows" then
 		"SDLMAME_SDL2=1",
 		"USE_XINPUT=0",
 		"USE_OPENGL=1",
-		"USE_QTDEBUG=1",
+		"USE_QTDEBUG=" .. USE_QT,
+		"SDLMAME_NET_PCAP",
+		"main=utf8_main",
 	}
 
 	buildoptions {
@@ -29,7 +31,8 @@ if _OPTIONS["targetos"]=="linux" then
 		"SDLMAME_SDL2=1",
 		"USE_XINPUT=0",
 		"USE_OPENGL=1",
-		"USE_QTDEBUG=1",
+		"USE_QTDEBUG=" .. USE_QT,
+		"SDLMAME_NET_TAPTUN",
 	}
 
 	if (USE_BGFX == 1) then
@@ -53,6 +56,7 @@ if _OPTIONS["targetos"]=="macosx" then
 		"USE_XINPUT=0",
 		"USE_OPENGL=1",
 		"USE_QTDEBUG=0",
+		"SDLMAME_NET_PCAP",
 	}
 
 	if (USE_BGFX == 1) then

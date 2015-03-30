@@ -61,14 +61,19 @@ newoption {
 	trigger = "targetos",
 	description = "Choose target OS",
 	allowed = {
-		{ "android",   "Android"          		},
-		{ "asmjs",     "Emscripten/asm.js"      },
-		{ "freebsd",   "FreeBSD"                },
-		{ "linux",     "Linux"   				},
-		{ "ios",       "iOS"              		},
-		{ "nacl",      "Native Client"          },
-		{ "macosx",    "OSX"                    },
-		{ "windows",   "Windows"                },
+		{ "android-arm",   "Android - ARM"          },
+		{ "android-mips",  "Android - MIPS"         },
+		{ "android-x86",   "Android - x86"          },
+		{ "asmjs",         "Emscripten/asm.js"      },
+		{ "freebsd",       "FreeBSD"                },
+		{ "nacl",          "Native Client"          },
+		{ "nacl-arm",      "Native Client - ARM"    },
+		{ "pnacl",         "Native Client - PNaCl"  },
+		{ "linux",     	   "Linux"   				},
+		{ "ios",           "iOS"              		},
+		{ "macosx",        "OSX"                    },
+		{ "windows",       "Windows"                },
+
 	},
 }
 
@@ -153,6 +158,11 @@ newoption {
 } 
 
 newoption {
+	trigger = "LDOPTS",
+	description = "Additional linker options",
+} 
+
+newoption {
 	trigger = "MAP",
 	description = "Generate a link map.",
 } 
@@ -176,6 +186,14 @@ newoption {
 	}
 } 
 
+newoption {
+	trigger = "USE_QT",
+	description = "Use of QT.",
+	allowed = {
+		{ "0",   "Disabled" 	},
+		{ "1",   "Enabled"      },
+	}
+} 
 
 local os_version = str_to_version(_OPTIONS["os_version"])
 
@@ -185,6 +203,11 @@ if (_OPTIONS["targetos"]=="macosx" and  os_version < 100700) then
 end
 if(_OPTIONS["USE_BGFX"]~=nil) then
 	USE_BGFX = tonumber(_OPTIONS["USE_BGFX"])
+end
+
+USE_QT = 1
+if(_OPTIONS["USE_QT"]~=nil) then
+	USE_QT = tonumber(_OPTIONS["USE_QT"])
 end
 
 GEN_DIR = MAME_BUILD_DIR .. "generated/"
@@ -509,6 +532,12 @@ end
 --CCOMFLAGS += -Wno-unknown-pragmas
 --endif
 
+if _OPTIONS["LDOPTS"] then
+		linkoptions {
+			_OPTIONS["LDOPTS"]
+		}
+end
+
 if _OPTIONS["MAP"] then
 	if (_OPTIONS["target"] == _OPTIONS["subtarget"]) then
 		linkoptions {
@@ -697,29 +726,31 @@ configuration { "linux-*" }
 
 configuration { "osx*" }
 		links {
+			"SDL2.framework",
 			"Cocoa.framework",
 			"OpenGL.framework",
 			"CoreAudio.framework",
 			"CoreMIDI.framework",
-			"SDL2.framework",
 			"pthread",
+		}
+		buildoptions {
+			"-F/Library/Frameworks/",
+		}
+		linkoptions {
+			"-F/Library/Frameworks/",
 		}
 
 
 configuration { "mingw*" }
-		defines {
-			"main=utf8_main",
-		}
 		linkoptions {
 			"-static-libgcc",
 			"-static-libstdc++",
-			"-municode",
 		}
 if _OPTIONS["osd"]=="sdl" then
 		links {
 			"opengl32",
 			"SDL2",
-			"Imm32",
+			"imm32",
 			"version",
 			"ole32",
 			"oleaut32",
@@ -740,9 +771,6 @@ end
 		}
 
 configuration { "vs*" }
-		defines {
-			"main=utf8_main",
-		}
 		defines {
 			"XML_STATIC",
 			"WIN32",
