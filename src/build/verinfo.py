@@ -24,7 +24,7 @@ def parse_args():
             format = 'plist'
         elif flags and (sys.argv[i] == '-b'):
             i += 1
-            if (i >= len(sys.argv)) or (sys.argv[i] not in ('mame', 'mess', 'ume', 'ldplayer')):
+            if (i >= len(sys.argv)) or (sys.argv[i] not in ('mame', 'mess', 'ume', 'hbmame', 'ldplayer')):
                 usage()
             else:
                 target = sys.argv[i]

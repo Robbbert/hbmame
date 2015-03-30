@@ -141,6 +141,11 @@ MACHINES["Z80PIO"] = true
 -- specify available bus cores
 --------------------------------------------------
 
+--------------------------------------------------
+-- specify available bus cores
+--------------------------------------------------
+
+BUSES["GENERIC"] = true
 
 --------------------------------------------------
 -- this is the list of driver libraries that
@@ -161,7 +166,6 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"irem",
 		"itech",
 		"jaleco",
-		"kaneko",
 		"konami",
 		"midway",
 		"namco",
@@ -180,7 +184,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"univers",
 		"valadon",
 		"shared",
-		"hbmame",
+		"misc",
 	}
 end
 
@@ -196,12 +200,15 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 	
 	includedirs {
 		MAME_DIR .. "src/emu",
+		MAME_DIR .. "src/hbmame/includes",
 		MAME_DIR .. "src/hbmame",
+		MAME_DIR .. "src/mame",
 		MAME_DIR .. "src/lib",
 		MAME_DIR .. "src/lib/util",
 		MAME_DIR .. "3rdparty",
 		MAME_DIR .. "3rdparty/zlib",
 		GEN_DIR  .. "mame/layout",
+		GEN_DIR  .. "hbmame/layout",
 	}
 
 	includeosd()
@@ -215,7 +222,7 @@ function createProjects_hbmame_hbmame(_target, _subtarget)
 
 createHBMAMEProjects(_target, _subtarget, "shared")
 files {
-	MAME_DIR .. "src/hbmame/machine/ticket.c",
+	MAME_DIR .. "src/mame/machine/ticket.c",
 }
 
 --------------------------------------------------
@@ -261,7 +268,7 @@ files {
 	MAME_DIR .. "src/mame/machine/kabuki.c",
 }
 
-createHBMAMEProjects(_target, _subtarget, "capcom")
+createHBMAMEProjects(_target, _subtarget, "cave")
 files {
 	MAME_DIR .. "src/hbmame/drivers/cave.c",
 	MAME_DIR .. "src/mame/video/cave.c",
@@ -284,12 +291,12 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/dec0.c",
 	MAME_DIR .. "src/mame/machine/dec0.c",
 	MAME_DIR .. "src/mame/video/dec0.c",
-	MAME_DIR .. "src/hbmame/machine/deco222.c",
-	MAME_DIR .. "src/hbmame/machine/decocpu7.c",
+	MAME_DIR .. "src/mame/machine/deco222.c",
+	MAME_DIR .. "src/mame/machine/decocpu7.c",
 	MAME_DIR .. "src/hbmame/drivers/pcktgal.c",
-	MAME_DIR .. "src/hbmame/video/pcktgal.c",
-	MAME_DIR .. "src/hbmame/video/decbac06.c",
-	MAME_DIR .. "src/hbmame/video/decmxc06.c",
+	MAME_DIR .. "src/mame/video/pcktgal.c",
+	MAME_DIR .. "src/mame/video/decbac06.c",
+	MAME_DIR .. "src/mame/video/decmxc06.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
@@ -360,7 +367,6 @@ files {
 	MAME_DIR .. "src/mame/machine/konami1.c",
 	MAME_DIR .. "src/mame/audio/trackfld.c",
 	MAME_DIR .. "src/mame/video/trackfld.c",
-	MAME_DIR .. "src/hbmame/drivers/tutankhm.c",
 	MAME_DIR .. "src/mame/video/tutankhm.c",
 	MAME_DIR .. "src/hbmame/drivers/yiear.c",
 	MAME_DIR .. "src/mame/video/yiear.c",
@@ -384,7 +390,7 @@ files {
 	MAME_DIR .. "src/mame/video/mcr.c",
 	MAME_DIR .. "src/hbmame/drivers/mcr3.c",
 	MAME_DIR .. "src/mame/video/mcr3.c",
-	MAME_DIR .. "src/hbmame/drivers/mcr68.c",
+	MAME_DIR .. "src/mame/drivers/mcr68.c",
 	MAME_DIR .. "src/mame/machine/mcr68.c",
 	MAME_DIR .. "src/mame/video/mcr68.c",
 	MAME_DIR .. "src/hbmame/drivers/midtunit.c",
@@ -416,12 +422,12 @@ files {
 	MAME_DIR .. "src/mame/video/xevious.c",
 	MAME_DIR .. "src/hbmame/drivers/galaxian.c",
 	MAME_DIR .. "src/mame/audio/galaxian.c",
-	MAME_DIR .. "src/mame/video/galaxian.c",
+	MAME_DIR .. "src/hbmame/video/galaxian.c",
 	MAME_DIR .. "src/hbmame/drivers/mappy.c",
 	MAME_DIR .. "src/mame/video/mappy.c",
 	MAME_DIR .. "src/hbmame/drivers/pacland.c",
 	MAME_DIR .. "src/mame/video/pacland.c",
-	MAME_DIR .. "src/hbmame/drivers/polepos.c",
+	MAME_DIR .. "src/mame/drivers/polepos.c",
 	MAME_DIR .. "src/mame/audio/polepos.c",
 	MAME_DIR .. "src/mame/video/polepos.c",
 	MAME_DIR .. "src/hbmame/drivers/rallyx.c",
@@ -433,6 +439,7 @@ files {
 	MAME_DIR .. "src/mame/machine/namco53.c",
 	MAME_DIR .. "src/mame/audio/namco52.c",
 	MAME_DIR .. "src/mame/audio/namco54.c",
+	MAME_DIR .. "src/mame/audio/timeplt.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "neogeo")
@@ -501,8 +508,8 @@ files {
 createHBMAMEProjects(_target, _subtarget, "sega")
 files {
 	MAME_DIR .. "src/mame/machine/megadriv.c",
-	MAME_DIR .. "src/hbmame/drivers/megaplay.c",
-	MAME_DIR .. "src/hbmame/drivers/megatech.c",
+	MAME_DIR .. "src/mame/drivers/megaplay.c",
+	MAME_DIR .. "src/mame/drivers/megatech.c",
 	MAME_DIR .. "src/hbmame/drivers/segac2.c",
 	MAME_DIR .. "src/mame/drivers/segae.c",
 	MAME_DIR .. "src/hbmame/drivers/segag80r.c",
@@ -520,6 +527,8 @@ files {
 	MAME_DIR .. "src/mame/machine/fd1094.c",
 	MAME_DIR .. "src/mame/machine/mc8123.c",
 	MAME_DIR .. "src/mame/machine/segaic16.c",
+	MAME_DIR .. "src/mame/machine/segacrpt.c",
+	MAME_DIR .. "src/mame/machine/segacrp2.c",
 	MAME_DIR .. "src/mame/audio/segasnd.c",
 	MAME_DIR .. "src/mame/video/segaic16.c",
 	MAME_DIR .. "src/mame/video/segaic16_road.c",
@@ -616,7 +625,7 @@ files {
 	MAME_DIR .. "src/mame/video/bagman.c",
 }
 
-createHBMAMEProjects(_target, _subtarget, "hbmame")
+createHBMAMEProjects(_target, _subtarget, "misc")
 files {
 	MAME_DIR .. "src/hbmame/drivers/mineswp.c",
 	MAME_DIR .. "src/hbmame/drivers/ir.c",

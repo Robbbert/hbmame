@@ -5,17 +5,18 @@ function maintargetosdoptions(_target)
 		"-municode",
 	}
 
-	local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/" .. _target .."ui.rc"
+	--local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/" .. _target .."ui.rc"
+	--local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/wini.rc"
 
-	if os.isfile(rcfile) then
-		files {
-			rcfile,
-		}
-	else
+	--if os.isfile(rcfile) then
+	--	files {
+	--		rcfile,
+	--	}
+	--else
 		files {
 			MAME_DIR .. "src/osd/winui/mameui.rc",
 		}
-	end
+	--end
 
 	targetsuffix "ui"
 
@@ -62,6 +63,7 @@ project ("osd_" .. _OPTIONS["osd"])
 
 	includedirs {
 		MAME_DIR .. "src/osd/windows",
+		MAME_DIR .. "src/osd/winui",
 	}
 
 	files {

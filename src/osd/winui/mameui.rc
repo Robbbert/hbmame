@@ -251,7 +251,7 @@ END
 
 3 TEXTINCLUDE MOVEABLE PURE
 BEGIN
-    "#include ""mamevers.rc"" // Version block\r\n"
+    "#include ""hbmamevers.rc"" // Version block\r\n"
     "\r\n"
     "\0"
 END
@@ -1392,7 +1392,7 @@ END
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
-#include "mamevers.rc" // Version block
+#include "hbmamevers.rc" // Version block
 
 
 /////////////////////////////////////////////////////////////////////////////
