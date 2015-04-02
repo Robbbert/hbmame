@@ -5,7 +5,11 @@ local MAME_BUILD_DIR = (MAME_DIR .. "build/")
 local naclToolchain = ""
 
 
-function str_to_version (str)
+function backtick(cmd)
+	return string.gsub(string.gsub(os.outputof(cmd), "\r?\n$", ""), "\r?\n", " ")
+end
+
+function str_to_version(str)
 	local val = 0
 	if (str == nil or str == '') then
 		return val
@@ -173,6 +177,15 @@ newoption {
 }
 
 newoption {
+	trigger = "BIGENDIAN",
+	description = "Build for big endian target",
+	allowed = {
+		{ "0",  "Little endian target"   },
+		{ "1",  "Big endian target"  },
+	},
+}
+
+newoption {
 	trigger = "FORCE_DRC_C_BACKEND",
 	description = "Force DRC C backend.",
 } 
@@ -193,6 +206,10 @@ newoption {
 
 local os_version = str_to_version(_OPTIONS["os_version"])
 
+if not _OPTIONS["BIGENDIAN"] then
+	_OPTIONS["BIGENDIAN"] = "0"
+end
+
 if not _OPTIONS["NOASM"] then
 	if _OPTIONS["targetos"]=="emscripten" then
 		_OPTIONS["NOASM"] = "1"
@@ -206,7 +223,7 @@ if _OPTIONS["NOASM"]=="1" and not _OPTIONS["FORCE_DRC_C_BACKEND"] then
 end
 
 USE_BGFX = 1
-if (_OPTIONS["targetos"]=="macosx" and  os_version < 100700) then
+if (_OPTIONS["targetos"]=="macosx" and  os_version < 100600) then
 	USE_BGFX = 0
 end
 if(_OPTIONS["USE_BGFX"]~=nil) then
@@ -384,10 +401,56 @@ else
 end
 
 
--- define LSB_FIRST if we are a little-endian target
-defines {
-	"LSB_FIRST",
-}
+if _OPTIONS["BIGENDIAN"]=="1" then
+	if _OPTIONS["targetos"]=="macosx" then
+		defines {
+			"OSX_PPC",
+		}
+		buildoptions {
+			"-Wno-unused-label",
+		}
+		if _OPTIONS["SYMBOLS"] then
+			buildoptions {
+				"-mlong-branch",
+			}
+		end
+		configuration { "x64" }
+			buildoptions {
+				"-arch ppc64",
+			}
+			linkoptions {
+				"-arch ppc64",
+			}
+		configuration { "x32" }
+			buildoptions {
+				"-arch ppc",
+			}
+			linkoptions {
+				"-arch ppc",
+			}
+		configuration { }
+	end
+else
+	defines {
+		"LSB_FIRST",
+	}
+	if _OPTIONS["targetos"]=="macosx" then
+		configuration { "x64" }
+			buildoptions {
+				"-arch x86_64",
+			}
+			linkoptions {
+				"-arch x86_64",
+			}
+		configuration { "x32" }
+			buildoptions {
+				"-arch i386",
+			}
+			linkoptions {
+				"-arch i386",
+			}
+	end
+end
 
 -- need to ensure FLAC functions are statically linked
 defines {
@@ -400,17 +463,18 @@ if _OPTIONS["NOASM"]=="1" then
 	}
 end
 
--- fixme -- need to make this work for other target architectures (PPC)
 if not _OPTIONS["FORCE_DRC_C_BACKEND"] then
-	configuration { "x64" }
-		defines {
-			"NATIVE_DRC=drcbe_x64",
-		}
-	configuration { "x32" }
-		defines {
-			"NATIVE_DRC=drcbe_x86",
-		}
-	configuration {  }
+	if _OPTIONS["BIGENDIAN"]~="1" then
+		configuration { "x64" }
+			defines {
+				"NATIVE_DRC=drcbe_x64",
+			}
+		configuration { "x32" }
+			defines {
+				"NATIVE_DRC=drcbe_x86",
+			}
+		configuration {  }
+	end
 end
 	
 -- define USE_SYSTEM_JPEGLIB if library shipped with MAME is not used

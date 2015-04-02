@@ -38,7 +38,7 @@ function maintargetosdoptions(_target)
 			}
 		end
 		linkoptions {
-			string.gsub(os.outputof("pkg-config --libs fontconfig"), '[\r\n]+', ' '),
+			backtick("pkg-config --libs fontconfig"),
 		}
 	end
 
@@ -210,6 +210,10 @@ elseif _OPTIONS["targetos"]=="os2" then
 	SYNC_IMPLEMENTATION = "os2"
 end
 
+if _OPTIONS["SDL_LIBVER"]=="sdl" then
+	USE_BGFX = 0
+end
+
 if BASE_TARGETOS=="unix" then
 	if _OPTIONS["targetos"]=="macosx" then
 		links {
@@ -230,7 +234,7 @@ if BASE_TARGETOS=="unix" then
 			end
 		else
 			linkoptions {
-				string.gsub(os.outputof(sdlconfigcmd() .. " --libs | sed 's/-lSDLmain//'"), '[\r\n]+', ' '),
+				backtick(sdlconfigcmd() .. " --libs | sed 's/-lSDLmain//'"),
 			}
 		end
 	else
@@ -250,7 +254,7 @@ if BASE_TARGETOS=="unix" then
 			end
 		end
 		linkoptions {
-			string.gsub(os.outputof(sdlconfigcmd() .. " --libs"), '[\r\n]+', ' '),
+			backtick(sdlconfigcmd() .. " --libs"),
 		}
 		if _OPTIONS["targetos"]~="haiku" then
 			links {
@@ -271,7 +275,7 @@ if BASE_TARGETOS=="unix" then
 	end
 elseif BASE_TARGETOS=="os2" then
 	linkoptions {
-		string.gsub(os.outputof(sdlconfigcmd() .. " --libs"), '[\r\n]+', ' '),
+		backtick(sdlconfigcmd() .. " --libs"),
 	}
 	links {
 		"pthread"
