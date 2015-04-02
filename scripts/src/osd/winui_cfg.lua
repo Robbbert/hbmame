@@ -1,17 +1,24 @@
-forcedincludes {
-	MAME_DIR .. "src/osd/windows/winprefix.h"
-}
-
 defines {
 	"UNICODE",
 	"_UNICODE",
 	"OSD_WINDOWS",
 	"USE_SDL=0",
-	"USE_QTDEBUG=0",
-	"USE_OPENGL=1",
-	"USE_DISPATCH_GL=1",
-	"DIRECTINPUT_VERSION=0x0800",
-	"SDLMAME_NET_PCAP",
 	--"WIN95_MULTIMON"
 	"main=utf8_main",
+	"_WIN32_WINNT=0x0501",
 }
+
+configuration { "vs*" }
+	flags {
+		"Unicode",
+	}
+
+configuration { }
+
+if not _OPTIONS["DONT_USE_NETWORK"] then
+	defines {
+		"USE_NETWORK",
+		"OSD_NET_USE_PCAP",
+	}
+end
+

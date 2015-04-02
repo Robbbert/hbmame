@@ -1,32 +1,58 @@
+dofile("modules.lua")
+
+
 function maintargetosdoptions(_target)
 	kind "WindowedApp"
 
-	linkoptions {
-		"-municode",
-	}
+	osdmodulestargetconf()
 
-	--local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/" .. _target .."ui.rc"
-	--local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/wini.rc"
+	configuration { "mingw*" }
+		linkoptions {
+			"-municode",
+			"-lmingw32",
+			"-Wl,--allow-multiple-definition",
+		}
 
-	--if os.isfile(rcfile) then
-	--	files {
-	--		rcfile,
-	--	}
-	--else
+	configuration { }
+
+	if _OPTIONS["DIRECTINPUT"] == "8" then
+		links {
+			"dinput8",
+		}
+	else
+		links {
+			"dinput",
+		}
+	end
+
+--	local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/" .. _target .."ui.rc"
+
+--	if os.isfile(rcfile) then
+--		files {
+--			rcfile,
+--		}
+--	else
 		files {
 			MAME_DIR .. "src/osd/winui/mameui.rc",
 		}
-	--end
+--	end
 
 	targetsuffix "ui"
 
-	configuration { "mingw*" }
-			linkoptions {
-				"-lmingw32",
-				"-Wl,--allow-multiple-definition",
-			}
+end
 
-	configuration { }
+
+newoption {
+	trigger = "DIRECTINPUT",
+	description = "Minimum DirectInput version to support",
+	allowed = {
+		{ "7",  "Support DirectInput 7 or later"  },
+		{ "8",  "Support DirectInput 8 or later" },
+	},
+}
+
+if not _OPTIONS["DIRECTINPUT"] then
+	_OPTIONS["DIRECTINPUT"] = "8"
 end
 
 
@@ -34,20 +60,22 @@ project ("osd_" .. _OPTIONS["osd"])
 	uuid (os.uuid("osd_" .. _OPTIONS["osd"]))
 	kind "StaticLib"
 
-	removeflags {
-		"SingleOutputDir",
-	}
-	
-	options {
-		"ForceCPP",
-	}
-
 	dofile("winui_cfg.lua")
-	
+	osdmodulesbuild()
+
 	defines {
-		"DIRECTINPUT_VERSION=0x0800",
 		"DIRECT3D_VERSION=0x0900",
 	}
+
+	if _OPTIONS["DIRECTINPUT"] == "8" then
+		defines {
+			"DIRECTINPUT_VERSION=0x0800",
+		}
+	else
+		defines {
+			"DIRECTINPUT_VERSION=0x0700",
+		}
+	end
 
 	includedirs {
 		MAME_DIR .. "src/emu",
@@ -56,14 +84,10 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/lib/util",
 		MAME_DIR .. "src/osd/modules/render",
 		MAME_DIR .. "3rdparty",
-		MAME_DIR .. "3rdparty/winpcap/Include",
-		MAME_DIR .. "3rdparty/bgfx/include",
-		MAME_DIR .. "3rdparty/bx/include",
 	}
 
 	includedirs {
 		MAME_DIR .. "src/osd/windows",
-		MAME_DIR .. "src/osd/winui",
 	}
 
 	files {
@@ -72,7 +96,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.c",
 		MAME_DIR .. "src/osd/modules/render/drawdd.c",
 		MAME_DIR .. "src/osd/modules/render/drawgdi.c",
-		MAME_DIR .. "src/osd/modules/render/drawbgfx.c",
 		MAME_DIR .. "src/osd/modules/render/drawnone.c",
 		MAME_DIR .. "src/osd/windows/input.c",
 		MAME_DIR .. "src/osd/windows/output.c",
@@ -80,10 +103,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/windows/window.c",
 		MAME_DIR .. "src/osd/windows/winmenu.c",
 		MAME_DIR .. "src/osd/windows/winmain.c",
-		MAME_DIR .. "src/osd/modules/debugger/none.c",
-		MAME_DIR .. "src/osd/modules/debugger/debugint.c",
-		MAME_DIR .. "src/osd/modules/debugger/debugwin.c",
-		MAME_DIR .. "src/osd/modules/debugger/debugqt.c",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.c",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugbaseinfo.c",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugviewinfo.c",
@@ -97,23 +116,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/debugger/win/memorywininfo.c",
 		MAME_DIR .. "src/osd/modules/debugger/win/pointswininfo.c",
 		MAME_DIR .. "src/osd/modules/debugger/win/uimetrics.c",
-		MAME_DIR .. "src/osd/modules/render/drawogl.c",
-		MAME_DIR .. "src/osd/modules/opengl/gl_shader_tool.c",
-		MAME_DIR .. "src/osd/modules/opengl/gl_shader_mgr.c",
-		MAME_DIR .. "src/osd/modules/lib/osdobj_common.c",
-		MAME_DIR .. "src/osd/modules/font/font_sdl.c",
-		MAME_DIR .. "src/osd/modules/font/font_windows.c",
-		MAME_DIR .. "src/osd/modules/font/font_osx.c",
-		MAME_DIR .. "src/osd/modules/font/font_none.c",
-		MAME_DIR .. "src/osd/modules/netdev/taptun.c",
-		MAME_DIR .. "src/osd/modules/netdev/pcap.c",
-		MAME_DIR .. "src/osd/modules/netdev/none.c",
-		MAME_DIR .. "src/osd/modules/midi/portmidi.c",
-		MAME_DIR .. "src/osd/modules/midi/none.c",
-		MAME_DIR .. "src/osd/modules/sound/js_sound.c",
-		MAME_DIR .. "src/osd/modules/sound/direct_sound.c",
-		MAME_DIR .. "src/osd/modules/sound/sdl_sound.c",
-		MAME_DIR .. "src/osd/modules/sound/none.c",
 		MAME_DIR .. "src/osd/winui/win_options.c",
 		MAME_DIR .. "src/osd/winui/mui_util.c",
 		MAME_DIR .. "src/osd/winui/directinput.c",
@@ -173,6 +175,7 @@ project ("ocore_" .. _OPTIONS["osd"])
 	}
 
 	files {
+		MAME_DIR .. "src/osd/osdcore.c",
 		MAME_DIR .. "src/osd/strconv.c",
 		MAME_DIR .. "src/osd/windows/windir.c",
 		MAME_DIR .. "src/osd/windows/winfile.c",
@@ -186,3 +189,31 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/sync/work_osd.c",
 		MAME_DIR .. "src/osd/modules/lib/osdlib_win32.c",
 	}
+
+
+--------------------------------------------------
+-- ledutil
+--------------------------------------------------
+
+if _OPTIONS["with-tools"] then
+	project("ledutil")
+		uuid ("061293ca-7290-44ac-b2b5-5913ae8dc9c0")
+		kind "ConsoleApp"
+
+		options {
+			"ForceCPP",
+		}
+
+		targetdir(MAME_DIR)
+
+		links {
+			"ocore_" .. _OPTIONS["osd"],
+		}
+
+		includeosd()
+
+		files {
+			MAME_DIR .. "src/osd/windows/ledutil.c",
+		}
+end
+
