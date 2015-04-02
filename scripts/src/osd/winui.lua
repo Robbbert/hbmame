@@ -13,6 +13,24 @@ function maintargetosdoptions(_target)
 			"-Wl,--allow-multiple-definition",
 		}
 
+	configuration { "x64", "Release" }
+		targetsuffix "ui64"
+
+	configuration { "x64", "Debug" }
+		targetsuffix "ui64d"
+
+	configuration { "x32", "Release" }
+		targetsuffix "ui"
+
+	configuration { "x32", "Debug" }
+		targetsuffix "uid"
+
+	configuration { "Native", "Release" }
+		targetsuffix "ui"
+
+	configuration { "Native", "Debug" }
+		targetsuffix "uid"
+
 	configuration { }
 
 	if _OPTIONS["DIRECTINPUT"] == "8" then
@@ -25,19 +43,20 @@ function maintargetosdoptions(_target)
 		}
 	end
 
---	local rcfile = MAME_DIR .. "src/" .. _target .. "/osd/winui/" .. _target .."ui.rc"
+-- Local file gives correct icon in mame instance inside of mameui
+-- Local file must #include mameui.rc
+	local rcfile = MAME_DIR .. "src/osd/winui/" .. _target .. ".rc"
 
---	if os.isfile(rcfile) then
---		files {
---			rcfile,
---		}
---	else
+	if os.isfile(rcfile) then
+		files {
+			rcfile,
+		}
+	else
 		files {
 			MAME_DIR .. "src/osd/winui/mameui.rc",
 		}
---	end
+	end
 
-	targetsuffix "ui"
 
 end
 

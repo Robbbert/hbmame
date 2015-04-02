@@ -22,7 +22,6 @@ LAYOUTS += \
 	$(SRC)/mame/layout/tenpindx.lay \
 	$(SRC)/mame/layout/spacezap.lay \
 	$(SRC)/mame/layout/seawolf2.lay \
-	$(SRC)/mame/layout/megacd.lay \
 	$(SRC)/mame/layout/gridiron.lay \
 	$(SRC)/mame/layout/turbotag.lay \
 	$(SRC)/mame/layout/spyhunt.lay \

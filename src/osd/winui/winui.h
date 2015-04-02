@@ -24,9 +24,9 @@
 
 
 #ifdef PTR64
-#define MAMEUINAME	"HBMAMEUI"
+#define MAMEUINAME	"HBMAMEUI64"
 #else
-#define MAMEUINAME	"HBMAMEUI"
+#define MAMEUINAME	"HBMAMEUI32"
 #endif
 #define MAMENAME		"HBMAME"
 
