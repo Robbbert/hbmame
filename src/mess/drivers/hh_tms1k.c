@@ -17,11 +17,12 @@
  @MP0914   TMS1000  1979, Entex Baseball 1
  @MP0923   TMS1000  1979, Entex Baseball 2
  @MP1030   TMS1100  1980, APF Mathemagician
- *MP1133   TMS1470  1979, Kosmos Astro
+ @MP1133   TMS1470  1979, Kosmos Astro
  @MP1204   TMS1100  1980, Entex Baseball 3
  *MP1221   TMS1100  1980, Entex Raise The Devil
  *MP1312   TMS1100  198?, Tandy/RadioShack Science Fair Microcomputer Trainer
- *MP2139   ?        1982, Gakken Galaxy Invader 1000 (? note: VFD-capable)
+ *MP2105   TMS1370  1979, Gakken Poker, Entex Electronic Poker
+ *MP2139   TMS1370? 1982, Gakken Galaxy Invader 1000
  *MP2788   ?        1980, Bandai Flight Time (? note: VFD-capable)
  @MP3226   TMS1000  1978, Milton Bradley Simon
  *MP3301   TMS1000  1979, Milton Bradley Bigtrak
@@ -49,13 +50,15 @@
  *MP7303   TMS1400? 19??, Tiger 7-in-1 Sports Stadium
  @MP7313   TMS1400  1980, Parker Brothers Bank Shot
  @MP7314   TMS1400  1980, Parker Brothers Split Second
+ *MP7324   TMS1400? 1985, Coleco Talking Teacher
   MP7332   TMS1400  1981, Milton Bradley Dark Tower -> mbdtower.c
  @MP7334   TMS1400  1981, Coleco Total Control 4
  *MP7573   ?        1981, Entex Select-a-Game cartridge: Football (? note: 40-pin, VFD-capable)
- *M95041   ?        1983, Tsukuda Game Pachinko (? note: 40-pin, VFD-capable)
 
   inconsistent:
 
+ *MPF553   TMS1670  1980, Entex Jackpot Gin Rummy Black Jack
+ *M95041   ?        1983, Tsukuda Game Pachinko (? note: 40-pin, VFD-capable)
  @CD7282SL TMS1100  1981, Tandy/RadioShack Tandy-12 (serial is similar to TI Speak & Spell series?)
 
   (* denotes not yet emulated by MESS, @ denotes it's in this driver)
@@ -77,6 +80,7 @@
 
 // internal artwork
 #include "amaztron.lh"
+#include "astro.lh"
 #include "bankshot.lh"
 #include "cnsector.lh"
 #include "ebball.lh"
@@ -87,7 +91,7 @@
 #include "mathmagi.lh"
 #include "merlin.lh" // clickable
 #include "simon.lh" // clickable
-#include "ssimon.lh"
+#include "ssimon.lh" // clickable
 #include "splitsec.lh"
 #include "starwbc.lh"
 #include "stopthie.lh"
@@ -150,7 +154,7 @@ void hh_tms1k_state::display_update()
 	{
 		active_state[y] = 0;
 
-		for (int x = 0; x < m_display_maxx; x++)
+		for (int x = 0; x <= m_display_maxx; x++)
 		{
 			// turn on powered segments
 			if (m_power_on && m_display_state[y] >> x & 1)
@@ -170,15 +174,25 @@ void hh_tms1k_state::display_update()
 				output_set_digit_value(y, active_state[y] & m_display_segmask[y]);
 
 			const int mul = (m_display_maxx <= 10) ? 10 : 100;
-			for (int x = 0; x < m_display_maxx; x++)
+			for (int x = 0; x <= m_display_maxx; x++)
 			{
 				int state = active_state[y] >> x & 1;
-				output_set_lamp_value(y * mul + x, state);
-
-				// bit coords for svg2lay
-				char buf[10];
-				sprintf(buf, "%d.%d", y, x);
-				output_set_value(buf, state);
+				char buf1[0x10]; // lampyx
+				char buf2[0x10]; // y.x
+				
+				if (x == m_display_maxx)
+				{
+					// always-on if selected
+					sprintf(buf1, "lamp%da", y);
+					sprintf(buf2, "%d.a", y);
+				}
+				else
+				{
+					sprintf(buf1, "lamp%d", y * mul + x);
+					sprintf(buf2, "%d.%d", y, x);
+				}
+				output_set_value(buf1, state);
+				output_set_value(buf2, state);
 			}
 		}
 
@@ -189,7 +203,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(hh_tms1k_state::display_decay_tick)
 {
 	// slowly turn off unpowered segments
 	for (int y = 0; y < m_display_maxy; y++)
-		for (int x = 0; x < m_display_maxx; x++)
+		for (int x = 0; x <= m_display_maxx; x++)
 			if (m_display_decay[y][x] != 0)
 				m_display_decay[y][x]--;
 
@@ -209,7 +223,7 @@ void hh_tms1k_state::display_matrix(int maxx, int maxy, UINT32 setx, UINT32 sety
 	// update current state
 	UINT32 mask = (1 << maxx) - 1;
 	for (int y = 0; y < maxy; y++)
-		m_display_state[y] = (sety >> y & 1) ? (setx & mask) : 0;
+		m_display_state[y] = (sety >> y & 1) ? ((setx & mask) | (1 << maxx)) : 0;
 
 	display_update();
 }
@@ -259,6 +273,7 @@ INPUT_CHANGED_MEMBER(hh_tms1k_state::power_button)
   * TMS1100 MCU, labeled MP1030
   * 2 x DS8870N - Hex LED Digit Driver
   * 2 x DS8861N - MOS-to-LED 5-Segment Driver
+  * 10-digit 7seg LED display(2 custom ones) + 4 LEDs, no sound
 
   This is a tabletop educational calculator. It came with plastic overlays
   for playing different kind of games. Refer to the manual on how to use it.
@@ -429,6 +444,8 @@ MACHINE_CONFIG_END
 
   Coleco Amaze-A-Tron, by Ralph Baer
   * TMS1100 MCU, labeled MP3405(die label too)
+  * 2-digit 7seg LED display + 2 LEDs(one red, one green), 1bit sound
+  * 5x5 pressure-sensitive playing board
 
   This is an electronic board game with a selection of 8 maze games,
   most of them for 2 players. A 5x5 playing grid and four markers are
@@ -555,6 +572,7 @@ MACHINE_CONFIG_END
 
   Coleco Total Control 4
   * TMS1400NLL MP7334-N2 (die labeled MP7334)
+  * 2x2-digit 7seg LED display + 4 LEDs, LED grid display, 1bit sound
 
   This is a head to head electronic tabletop LED-display sports console.
   One cartridge(Football) was included with the console, the other three were
@@ -702,6 +720,7 @@ MACHINE_CONFIG_END
 
   Entex Electronic Baseball (1)
   * TMS1000NLP MP0914 (die labeled MP0914A)
+  * 1 7seg LED, and other LEDs behind bezel, 1bit sound
 
   This is a handheld LED baseball game. One player controls the batter, the CPU
   or other player controls the pitcher. Pitcher throw buttons are on a 'joypad'
@@ -824,6 +843,7 @@ MACHINE_CONFIG_END
   Entex Electronic Baseball 2
   * boards are labeled: ZENY
   * TMS1000 MCU, MP0923 (die labeled MP0923)
+  * 3 7seg LEDs, and other LEDs behind bezel, 1bit sound
 
   The Japanese version was published by Gakken, black casing instead of white.
 
@@ -935,6 +955,7 @@ MACHINE_CONFIG_END
   * boards are labeled: ZENY
   * TMS1100NLL 6007 MP1204 (die labeled MP1204)
   * 2*SN75492N LED display driver
+  * 4 7seg LEDs, and other LEDs behind bezel, 1bit sound
 
   This is another improvement over Entex Baseball, where gameplay is a bit more
   varied. Like the others, the pitcher controls are on a separate joypad.
@@ -1094,6 +1115,8 @@ MACHINE_CONFIG_END
 
   Ideal Electronic Detective
   * TMS0980NLL MP6100A (die labeled 0980B-00)
+  * 10-digit 7seg LED display, 1bit sound
+  
   hardware (and concept) is very similar to Parker Bros Stop Thief
 
   This is an electronic board game. It requires game cards with suspect info,
@@ -1208,6 +1231,7 @@ MACHINE_CONFIG_END
 
   Kenner Star Wars - Electronic Battle Command
   * TMS1100 MCU, labeled MP3438A
+  * 4x4 LED grid display + 2 separate LEDs and 2-digit 7segs, 1bit sound
 
   This is a small tabletop space-dogfighting game. To start the game,
   press BASIC/INTER/ADV and enter P#(number of players), then
@@ -1316,8 +1340,121 @@ MACHINE_CONFIG_END
 
 /***************************************************************************
 
+  Kosmos Astro
+  * TMS1470NLHL MP1133 (die labeled TMS1400 MP1133)
+  * 9digit 7seg VFD display + 8 LEDs(4 green, 4 yellow), no sound
+
+  This is an astrological calculator, and also supports 4-function
+  calculations. Refer to the official manual on how to use this device.
+
+***************************************************************************/
+
+void hh_tms1k_state::astro_display()
+{
+	// declare 7segs
+	for (int y = 0; y < 9; y++)
+		m_display_segmask[y] = 0xff;
+
+	display_matrix(8, 10, m_o, m_r);
+}
+
+WRITE16_MEMBER(hh_tms1k_state::astro_write_r)
+{
+	// R0-R7: input mux
+	m_inp_mux = data & 0xff;
+	
+	// R0-R9: select digit/leds
+	m_r = data;
+	astro_display();
+}
+
+WRITE16_MEMBER(hh_tms1k_state::astro_write_o)
+{
+	// O0-O7: digit segments/leds
+	m_o = data;
+	astro_display();
+}
+
+READ8_MEMBER(hh_tms1k_state::astro_read_k)
+{
+	return read_inputs(8);
+}
+
+
+static INPUT_PORTS_START( astro )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_0) PORT_CODE(KEYCODE_0_PAD) PORT_NAME("0")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("5")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_SLASH_PAD) PORT_NAME(UTF8_DIVIDE"/Sun")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("1")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("6")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_ASTERISK) PORT_NAME(UTF8_MULTIPLY"/Mercury")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.2") // R2
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD) PORT_NAME("2")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_7) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("7")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_MINUS_PAD) PORT_NAME("-/Venus")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.3") // R3
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD) PORT_NAME("3")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_8) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("8")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_PLUS_PAD) PORT_NAME("+/Mars")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.4") // R4
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD) PORT_NAME("4")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_9) PORT_CODE(KEYCODE_9_PAD) PORT_NAME("9")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_ENTER) PORT_CODE(KEYCODE_ENTER_PAD) PORT_NAME("=/Astro")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.5") // R5
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_Z) PORT_NAME("B1")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_X) PORT_NAME("B2")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_STOP) PORT_CODE(KEYCODE_DEL_PAD) PORT_NAME(".")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.6") // R6
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_DEL) PORT_NAME("C")
+	PORT_BIT( 0x0e, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.7") // R7
+	PORT_BIT( 0x07, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_CONFNAME( 0x08, 0x08, "Mode" )
+	PORT_CONFSETTING(    0x00, "Calculator" )
+	PORT_CONFSETTING(    0x08, "Astro" )
+INPUT_PORTS_END
+
+
+static MACHINE_CONFIG_START( astro, hh_tms1k_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1470, 450000) // approximation - RC osc. R=4.7K, C=33pf, but unknown RC curve
+	MCFG_TMS1XXX_READ_K_CB(READ8(hh_tms1k_state, astro_read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(hh_tms1k_state, astro_write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(hh_tms1k_state, astro_write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_astro)
+
+	/* no video! */
+
+	/* no sound! */
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
   Milton Bradley Comp IV
   * TMC0904NL CP0904A (die labeled 4A0970D-04A)
+  * 10 LEDs behind bezel, no sound
 
   This is small tabletop Mastermind game; a code-breaking game where the player
   needs to find out the correct sequence of colours (numbers in our case).
@@ -1325,7 +1462,6 @@ MACHINE_CONFIG_END
 
   Press the R key to start, followed by a set of unique numbers and E.
   Refer to the official manual for more information.
-
 
 ***************************************************************************/
 
@@ -1404,7 +1540,7 @@ MACHINE_CONFIG_END
 
   Revision A hardware:
   * TMS1000 (die labeled MP3226)
-  * DS75494 lamp driver
+  * DS75494 lamp driver, 4 big lamps, 1bit sound
 
   Newer revisions (also Pocket Simon) have a smaller 16-pin MB4850 chip
   instead of the TMS1000. This one has been decapped too, but we couldn't
@@ -1498,8 +1634,10 @@ MACHINE_CONFIG_END
 
   Milton Bradley Super Simon
   * TMS1100 MP3476NLL (die labeled MP3476)
+  * 8 big lamps(2 turn on at same time), 1bit sound
 
-  x
+  The semi-squel to Simon, not as popular. It includes more game variations
+  and a 2-player head-to-head mode.
 
 ***************************************************************************/
 
@@ -1627,6 +1765,7 @@ MACHINE_CONFIG_END
 
   Parker Brothers Code Name: Sector, by Bob Doyle
   * TMS0970 MCU, MP0905BNL ZA0379 (die labeled 0970F-05B)
+  * 6-digit 7seg LED display + 4 LEDs for compass, no sound
 
   This is a tabletop submarine pursuit game. A grid board and small toy
   boats are used to remember your locations (a Paint app should be ok too).
@@ -1722,7 +1861,7 @@ MACHINE_CONFIG_END
 
   Parker Bros Merlin handheld game, by Bob Doyle
   * TMS1100NLL MP3404A-N2
-  * red LEDs and 1-bit sound
+  * 11 LEDs behind buttons, 1bit sound
 
   Also published in Japan by Tomy as "Dr. Smith", white case instead of red.
   The one with dark-blue case is the rare sequel Master Merlin. More sequels
@@ -1827,6 +1966,7 @@ MACHINE_CONFIG_END
 
   Parker Brothers Stop Thief, by Bob Doyle
   * TMS0980NLL MP6101B (die labeled 0980B-01A)
+  * 3-digit 7seg LED display, 1bit sound
 
   Stop Thief is actually a board game, the electronic device emulated here
   (called Electronic Crime Scanner) is an accessory. To start a game, press
@@ -1929,6 +2069,7 @@ MACHINE_CONFIG_END
 
   Parker Brothers Bank Shot (known as Cue Ball in the UK), by Garry Kitchen
   * TMS1400NLL MP7313-N2 (die labeled MP7313)
+  * LED grid display, 1bit sound
 
   Bank Shot is an electronic pool game. To select a game, repeatedly press
   the [SELECT] button, then press [CUE UP] to start. Refer to the official
@@ -2020,6 +2161,7 @@ MACHINE_CONFIG_END
 
   Parker Brothers Split Second
   * TMS1400NLL MP7314-N2 (die labeled MP7314)
+  * LED grid display(default round LEDs, and rectangular shape ones), 1bit sound
 
   This is an electronic handheld reflex gaming device, it's straightforward
   to use. The included mini-games are:
@@ -2115,6 +2257,7 @@ MACHINE_CONFIG_END
 
   Tandy Radio Shack Computerized Arcade (1981, 1982, 1995)
   * TMS1100 MCU, labeled CD7282SL
+  * 12 lamps behind buttons, 1bit sound
 
   This handheld contains 12 minigames. It looks and plays like "Fabulous Fred"
   by the Japanese company Mego Corp. in 1980, which in turn is a mix of Merlin
@@ -2361,6 +2504,17 @@ ROM_START( starwbcp )
 ROM_END
 
 
+ROM_START( astro )
+	ROM_REGION( 0x1000, "maincpu", 0 )
+	ROM_LOAD( "mp1133", 0x0000, 0x1000, CRC(bc21109c) SHA1(05a433cce587d5c0c2d28b5fda5f0853ea6726bf) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1400_astro_mpla.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
+	ROM_REGION( 557, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1400_astro_opla.pla", 0, 557, CRC(eb08957e) SHA1(62ae0d13a1eaafb34f1b27d7df51441b400ccd56) )
+ROM_END
+
+
 ROM_START( comp4 )
 	ROM_REGION( 0x0400, "maincpu", 0 )
 	ROM_LOAD( "tmc0904nl_cp0904a", 0x0000, 0x0400, CRC(6233ee1b) SHA1(738e109b38c97804b4ec52bed80b00a8634ad453) )
@@ -2488,7 +2642,7 @@ ROM_END
 
 
 /*    YEAR  NAME       PARENT COMPAT MACHINE   INPUT      INIT              COMPANY, FULLNAME, FLAGS */
-CONS( 1980, mathmagi,  0,        0, mathmagi,  mathmagi,  driver_device, 0, "APF Electronics Inc.", "Mathemagician", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW )
+COMP( 1980, mathmagi,  0,        0, mathmagi,  mathmagi,  driver_device, 0, "APF Electronics Inc.", "Mathemagician", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW )
 
 CONS( 1979, amaztron,  0,        0, amaztron,  amaztron,  driver_device, 0, "Coleco", "Amaze-A-Tron", GAME_SUPPORTS_SAVE )
 CONS( 1981, tc4,       0,        0, tc4,       tc4,       driver_device, 0, "Coleco", "Total Control 4", GAME_SUPPORTS_SAVE )
@@ -2502,9 +2656,11 @@ CONS( 1979, elecdet,   0,        0, elecdet,   elecdet,   driver_device, 0, "Ide
 CONS( 1979, starwbc,   0,        0, starwbc,   starwbc,   driver_device, 0, "Kenner", "Star Wars - Electronic Battle Command", GAME_SUPPORTS_SAVE )
 CONS( 1979, starwbcp,  starwbc,  0, starwbc,   starwbc,   driver_device, 0, "Kenner", "Star Wars - Electronic Battle Command (prototype)", GAME_SUPPORTS_SAVE )
 
+COMP( 1979, astro,     0,        0, astro,     astro,     driver_device, 0, "Kosmos", "Astro", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW )
+
 CONS( 1977, comp4,     0,        0, comp4,     comp4,     driver_device, 0, "Milton Bradley", "Comp IV", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW )
 CONS( 1978, simon,     0,        0, simon,     simon,     driver_device, 0, "Milton Bradley", "Simon (Rev. A)", GAME_SUPPORTS_SAVE )
-CONS( 1979, ssimon,    0,        0, ssimon,    ssimon,    driver_device, 0, "Milton Bradley", "Super Simon", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
+CONS( 1979, ssimon,    0,        0, ssimon,    ssimon,    driver_device, 0, "Milton Bradley", "Super Simon", GAME_SUPPORTS_SAVE )
 
 CONS( 1977, cnsector,  0,        0, cnsector,  cnsector,  driver_device, 0, "Parker Brothers", "Code Name: Sector", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW ) // ***
 CONS( 1978, merlin,    0,        0, merlin,    merlin,    driver_device, 0, "Parker Brothers", "Merlin - The Electronic Wizard", GAME_SUPPORTS_SAVE )

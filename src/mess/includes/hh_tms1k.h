@@ -46,9 +46,9 @@ public:
 	// display common
 	int m_display_wait;                 // led/lamp off-delay in microseconds (default 33ms)
 	int m_display_maxy;                 // display matrix number of rows
-	int m_display_maxx;                 // display matrix number of columns
+	int m_display_maxx;                 // display matrix number of columns (max 31 for now)
 
-	UINT32 m_display_state[0x20];       // display matrix rows data
+	UINT32 m_display_state[0x20];       // display matrix rows data (last bit is used for always-on)
 	UINT16 m_display_segmask[0x20];     // if not 0, display matrix row is a digit, mask indicates connected segments
 	UINT32 m_display_cache[0x20];       // (internal use)
 	UINT8 m_display_decay[0x20][0x20];  // (internal use)
@@ -100,6 +100,11 @@ public:
 	DECLARE_WRITE16_MEMBER(starwbc_write_r);
 	DECLARE_WRITE16_MEMBER(starwbc_write_o);
 	DECLARE_READ8_MEMBER(starwbc_read_k);
+
+	void astro_display();
+	DECLARE_WRITE16_MEMBER(astro_write_r);
+	DECLARE_WRITE16_MEMBER(astro_write_o);
+	DECLARE_READ8_MEMBER(astro_read_k);
 
 	DECLARE_WRITE16_MEMBER(comp4_write_r);
 	DECLARE_WRITE16_MEMBER(comp4_write_o);

@@ -405,8 +405,7 @@ project "portmidi"
 	files {
 		MAME_DIR .. "3rdparty/portmidi/pm_common/portmidi.c",
 		MAME_DIR .. "3rdparty/portmidi/pm_common/pmutil.c",
-		MAME_DIR .. "3rdparty/portmidi/porttime/porttime.c",
-		}
+	}
 
 	if _OPTIONS["targetos"]=="windows" then
 		files {
@@ -450,13 +449,13 @@ project "bgfx"
 		MAME_DIR .. "3rdparty/bgfx/3rdparty",
 		MAME_DIR .. "3rdparty/bx/include",
 		MAME_DIR .. "3rdparty/bgfx/3rdparty/khronos",
-		MAME_DIR .. "3rdparty/dxsdk/Include",
 	}
 
 	includeosd()
 
 	configuration { "vs*" }
 		includedirs {
+			MAME_DIR .. "3rdparty/dxsdk/Include",
 			MAME_DIR .. "3rdparty/bx/include/compat/msvc",
 		}
 	configuration { "mingw*" }

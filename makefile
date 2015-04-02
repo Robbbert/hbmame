@@ -20,36 +20,36 @@
 #
 
 ifeq ($(OS),Windows_NT)
-OS=windows
-GENIEOS=windows
+OS := windows
+GENIEOS := windows
 else
-UNAME = $(shell uname -mps)
-GENIEOS=linux
+UNAME := $(shell uname -mps)
+GENIEOS := linux
 ifeq ($(firstword $(filter Linux,$(UNAME))),Linux)
-OS = linux
+OS := linux
 endif
 ifeq ($(firstword $(filter Solaris,$(UNAME))),Solaris)
-OS = solaris
+OS := solaris
 endif
 ifeq ($(firstword $(filter FreeBSD,$(UNAME))),FreeBSD)
-OS = freebsd
+OS := freebsd
 endif
 ifeq ($(firstword $(filter GNU/kFreeBSD,$(UNAME))),GNU/kFreeBSD)
-OS = freebsd
+OS := freebsd
 endif
 ifeq ($(firstword $(filter NetBSD,$(UNAME))),NetBSD)
-OS = netbsd
+OS := netbsd
 endif
 ifeq ($(firstword $(filter OpenBSD,$(UNAME))),OpenBSD)
-OS = openbsd
+OS := openbsd
 endif
 ifeq ($(firstword $(filter Darwin,$(UNAME))),Darwin)
-OS=macosx
-GENIEOS=darwin
-DARWIN_VERSION = $(shell sw_vers -productVersion)
+OS := macosx
+GENIEOS := darwin
+DARWIN_VERSION := $(shell sw_vers -productVersion)
 endif
 ifeq ($(firstword $(filter Haiku,$(UNAME))),Haiku)
-OS = haiku
+OS := haiku
 endif
 ifndef OS
 $(error Unable to detect OS from uname -a: $(UNAME))
@@ -64,20 +64,20 @@ endif
 #-------------------------------------------------
 
 ifndef TARGET
-TARGET = mame
+TARGET := mame
 endif
 
 ifndef SUBTARGET
-SUBTARGET = $(TARGET)
+SUBTARGET := $(TARGET)
 endif
 
 CONFIG = release
 ifdef DEBUG
-CONFIG = debug
+CONFIG := debug
 endif
 
-ifndef verbose
-  SILENT = @
+ifndef VERBOSE
+  SILENT := @
 endif
 
 #-------------------------------------------------
@@ -89,52 +89,59 @@ endif
 ifndef TARGETOS
 
 ifeq ($(OS),windows)
-TARGETOS = windows
-WINDRES = windres
+TARGETOS := windows
+WINDRES := windres
 ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-ARCHITECTURE =_x64
+ARCHITECTURE := _x64
 endif
 ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-ARCHITECTURE =_x64
+ARCHITECTURE := _x64
 ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
 else
-ARCHITECTURE =_x86
+ARCHITECTURE := _x86
 endif
 endif
 else
-WINDRES  = x86_64-w64-mingw32-windres
-UNAME    = $(shell uname -mps)
-TARGETOS = $(OS)
+WINDRES  := x86_64-w64-mingw32-windres
+UNAME    := $(shell uname -mps)
+TARGETOS := $(OS)
 
-ARCHITECTURE =_x86
+ARCHITECTURE := _x86
 
 ifeq ($(firstword $(filter x86_64,$(UNAME))),x86_64)
-ARCHITECTURE =_x64
+ARCHITECTURE := _x64
 endif
 ifeq ($(firstword $(filter amd64,$(UNAME))),amd64)
-ARCHITECTURE =_x64
+ARCHITECTURE := _x64
 endif
 ifeq ($(firstword $(filter ppc64,$(UNAME))),ppc64)
-ARCHITECTURE =_x64
+ARCHITECTURE := _x64
 endif
 endif
 
 else
-CROSS_BUILD = 1
+CROSS_BUILD := 1
 endif # TARGET_OS
 
 ifdef PTR64
 ifeq ($(PTR64),1)
-ARCHITECTURE =_x64
+ARCHITECTURE := _x64
 else
-ARCHITECTURE =_x86
+ARCHITECTURE := _x86
 endif
 endif
 
 
-PYTHON = @python
-CC = @gcc
-LD = @g++
+ifeq ($(findstring arm,$(UNAME)),arm)
+ifndef NOASM
+	NOASM := 1
+endif
+endif
+
+
+PYTHON := $(SILENT)python
+CC := $(SILENT)gcc
+LD := $(SILENT)g++
 
 #-------------------------------------------------
 # specify OSD layer: windows, sdl, etc.
@@ -144,18 +151,18 @@ LD = @g++
 
 ifndef OSD
 
-OSD = osdmini
+OSD := osdmini
 
 ifeq ($(TARGETOS),windows)
-OSD = windows
+OSD := windows
 endif
 
 ifeq ($(TARGETOS),linux)
-OSD = sdl
+OSD := sdl
 endif
 
 ifeq ($(TARGETOS),macosx)
-OSD = sdl
+OSD := sdl
 endif
 endif
 
@@ -165,58 +172,32 @@ endif
 #-------------------------------------------------
 
 ifeq ($(DISTRO),)
-DISTRO = generic
+DISTRO := generic
 else
 ifeq ($(DISTRO),debian-stable)
 else
-ifeq ($(DISTRO),ubuntu-intrepid)
-# Force gcc-4.2 on ubuntu-intrepid
-CC = @gcc -V 4.2
-LD = @g++-4.2
-else
-ifeq ($(DISTRO),gcc44-generic)
-CC = @gcc-4.4
-LD = @g++-4.4
-else
-ifeq ($(DISTRO),gcc45-generic)
-CC = @gcc-4.5
-LD = @g++-4.5
-else
-ifeq ($(DISTRO),gcc46-generic)
-CC = @gcc-4.6
-LD = @g++-4.6
-else
-ifeq ($(DISTRO),gcc47-generic)
-CC = @gcc-4.7
-LD = @g++-4.7
-else
 $(error DISTRO $(DISTRO) unknown)
-endif
-endif
-endif
-endif
-endif
 endif
 endif
 
 PARAMS+= --distro=$(DISTRO)
 
 ifdef OVERRIDE_CC
-PARAMS+= --CC='$(OVERRIDE_CC)'
+PARAMS += --CC='$(OVERRIDE_CC)'
 ifndef CROSS_BUILD
-CC = $(OVERRIDE_CC)
+CC := $(OVERRIDE_CC)
 endif
 endif
 ifdef OVERRIDE_CXX
-PARAMS+= --CXX='$(OVERRIDE_CXX)'
+PARAMS += --CXX='$(OVERRIDE_CXX)'
 ifndef CROSS_BUILD
-CXX = $(OVERRIDE_CXX)
+CXX := $(OVERRIDE_CXX)
 endif
 endif
 ifdef OVERRIDE_LD
-PARAMS+= --LD='$(OVERRIDE_LD)'
+PARAMS += --LD='$(OVERRIDE_LD)'
 ifndef CROSS_BUILD
-LD = $(OVERRIDE_LD)
+LD := $(OVERRIDE_LD)
 endif
 endif
 
@@ -264,72 +245,127 @@ endif
 endif
 
 ifdef TOOLS
-PARAMS+= --with-tools
+PARAMS += --with-tools
 endif
 
 ifdef SYMBOLS
-PARAMS+= --SYMBOLS=$(SYMBOLS)
+PARAMS += --SYMBOLS=$(SYMBOLS)
 endif
 
 ifdef SYMLEVEL
-PARAMS+= --SYMLEVEL=$(SYMLEVEL)
+PARAMS += --SYMLEVEL=$(SYMLEVEL)
 endif
 
 ifdef PROFILER
-PARAMS+= --PROFILER=$(PROFILER)
+PARAMS += --PROFILER=$(PROFILER)
 endif
 
 ifdef PROFILE
-PARAMS+= --PROFILE=$(PROFILE)
+PARAMS += --PROFILE=$(PROFILE)
 endif
 
 ifdef OPTIMIZE
-PARAMS+= --OPTIMIZE=$(OPTIMIZE)
+PARAMS += --OPTIMIZE=$(OPTIMIZE)
 endif
 
 ifdef ARCHOPTS
-PARAMS+= --ARCHOPTS='$(ARCHOPTS)'
+PARAMS += --ARCHOPTS='$(ARCHOPTS)'
 endif
 
 ifdef MAP
-PARAMS+= --MAP=$(MAP)
+PARAMS += --MAP='$(MAP)'
 endif
 
 ifdef USE_BGFX
-PARAMS+= --USE_BGFX=$(USE_BGFX)
+PARAMS += --USE_BGFX='$(USE_BGFX)'
+endif
+
+ifdef NOASM
+PARAMS += --NOASM='$(NOASM)'
+endif
+
+ifdef FORCE_DRC_C_BACKEND
+PARAMS += --FORCE_DRC_C_BACKEND='$(FORCE_DRC_C_BACKEND)'
 endif
 
 ifdef NOWERROR
-PARAMS+= --NOWERROR=$(NOWERROR)
+PARAMS += --NOWERROR=$(NOWERROR)
 endif
 
 ifdef TARGET
-PARAMS+= --target=$(TARGET)
+PARAMS += --target=$(TARGET)
 endif
 
 ifdef SUBTARGET
-PARAMS+= --subtarget=$(SUBTARGET)
+PARAMS += --subtarget=$(SUBTARGET)
 endif
 
 ifdef OSD
-PARAMS+= --osd=$(OSD)
+PARAMS += --osd=$(OSD)
 endif
 
 ifdef TARGETOS
-PARAMS+= --targetos=$(TARGETOS)
+PARAMS += --targetos=$(TARGETOS)
 endif
 
-ifndef USE_QT
-ifneq ($(TARGETOS),macosx)
-USE_QT = 1
-else
-USE_QT = 0
+ifdef DONT_USE_NETWORK
+PARAMS += --DONT_USE_NETWORK='$(DONT_USE_NETWORK)'
 endif
+
+ifdef NO_OPENGL
+PARAMS += --NO_OPENGL='$(NO_OPENGL)'
 endif
-PARAMS+= --USE_QT=$(USE_QT)
+
+ifdef USE_DISPATCH_GL
+PARAMS += --USE_DISPATCH_GL='$(USE_DISPATCH_GL)'
+endif
+
+ifdef NO_USE_MIDI
+PARAMS += --NO_USE_MIDI='$(NO_USE_MIDI)'
+endif
+
+ifdef USE_QTDEBUG
+PARAMS += --USE_QTDEBUG='$(USE_QTDEBUG)'
+endif
+
+ifdef DIRECTINPUT
+PARAMS += --DIRECTINPUT='$(DIRECTINPUT)'
+endif
+
+ifdef MESA_INSTALL_ROOT
+PARAMS += --MESA_INSTALL_ROOT='$(MESA_INSTALL_ROOT)'
+endif
+
+ifdef NO_X11
+PARAMS += --NO_X11='$(NO_X11)'
+endif
+
+ifdef NO_USE_XINPUT
+PARAMS += --NO_USE_XINPUT='$(NO_USE_XINPUT)'
+endif
+
+ifdef SDL_LIBVER
+PARAMS += --SDL_LIBVER='$(SDL_LIBVER)'
+endif
+
+ifdef SDL2_MULTIAPI
+PARAMS += --SDL2_MULTIAPI='$(SDL2_MULTIAPI)'
+endif
+
+ifdef SDL_INSTALL_ROOT
+PARAMS += --SDL_INSTALL_ROOT='$(SDL_INSTALL_ROOT)'
+endif
+
+ifdef SDL_FRAMEWORK_PATH
+PARAMS += --SDL_FRAMEWORK_PATH='$(SDL_FRAMEWORK_PATH)'
+endif
+
+ifdef MACOSX_USE_LIBSDL
+PARAMS += --MACOSX_USE_LIBSDL='$(MACOSX_USE_LIBSDL)'
+endif
 
 ifdef LDOPTS
-PARAMS+= --LDOPTS='$(LDOPTS)'
+PARAMS += --LDOPTS='$(LDOPTS)'
 endif
 
 #-------------------------------------------------
@@ -363,13 +399,13 @@ endif
 #-------------------------------------------------
 
 # extension for executables
-EXE =
+EXE :=
 
 ifeq ($(OS),windows)
-EXE = .exe
+EXE := .exe
 endif
 ifeq ($(OS),os2)
-EXE = .exe
+EXE := .exe
 endif
 
 SHELLTYPE := msdos
@@ -389,7 +425,6 @@ else
 endif
 
 GENDIR = build/generated
-PROJECTDIR = build/projects/$(SUBDIR)
 
 # all sources are under the src/ directory
 SRC = src
@@ -398,23 +433,23 @@ SRC = src
 3RDPARTY = 3rdparty
 
 ifeq ($(OS),windows)
-GCC_VERSION:=$(shell gcc -dumpversion 2> NUL)
-CLANG_VERSION:=$(shell %CLANG%\bin\clang --version 2> NUL| head -n 1 | sed "s/[^0-9,.]//g")
-PYTHON_AVAILABLE:=$(shell python --version > NUL 2>&1 && echo python)
-CHECK_CLANG:=
+GCC_VERSION      := $(shell gcc -dumpversion 2> NUL)
+CLANG_VERSION    := $(shell %CLANG%\bin\clang --version 2> NUL| head -n 1 | sed "s/[^0-9,.]//g")
+PYTHON_AVAILABLE := $(shell python --version > NUL 2>&1 && echo python)
+CHECK_CLANG      :=
 else
-GCC_VERSION:=$(shell $(subst @,,$(CC)) -dumpversion 2> /dev/null)
-CLANG_VERSION:=$(shell clang --version  2> /dev/null | grep 'LLVM [0-9]\.[0-9]' -o | grep '[0-9]\.[0-9]' -o | head -n 1)
-PYTHON_AVAILABLE:=$(shell python --version > /dev/null 2>&1 && echo python)
-CHECK_CLANG:=$(shell gcc --version  2> /dev/null | grep 'clang' | head -n 1)
+GCC_VERSION      := $(shell $(subst @,,$(CC)) -dumpversion 2> /dev/null)
+CLANG_VERSION    := $(shell clang --version  2> /dev/null | grep 'LLVM [0-9]\.[0-9]' -o | grep '[0-9]\.[0-9]' -o | head -n 1)
+PYTHON_AVAILABLE := $(shell python --version > /dev/null 2>&1 && echo python)
+CHECK_CLANG      := $(shell gcc --version  2> /dev/null | grep 'clang' | head -n 1)
 endif
 
 ifeq ($(TARGETOS),macosx)
 ifneq (,$(findstring 3.,$(CLANG_VERSION)))
 ifeq ($(ARCHITECTURE),_x64)
-ARCHITECTURE=_x64_clang
+ARCHITECTURE := _x64_clang
 else
-ARCHITECTURE=_x86_clang
+ARCHITECTURE := _x86_clang
 endif
 endif
 endif
@@ -423,15 +458,14 @@ ifneq ($(PYTHON_AVAILABLE),python)
 $(error Python is not available in path)
 endif
 
-GENIE=3rdparty/genie/bin/$(GENIEOS)/genie
-
-SILENT?=@
+GENIE := 3rdparty/genie/bin/$(GENIEOS)/genie$(EXE)
 
 ifeq ($(TARGET),$(SUBTARGET))
-SUBDIR = $(OSD)/$(TARGET)
+SUBDIR := $(OSD)/$(TARGET)
 else
-SUBDIR = $(OSD)/$(TARGET)$(SUBTARGET)
+SUBDIR := $(OSD)/$(TARGET)$(SUBTARGET)
 endif
+PROJECTDIR := build/projects/$(SUBDIR)
 
 .PHONY: all clean regenie generate
 all: $(GENIE) $(TARGETOS)$(ARCHITECTURE)
@@ -441,7 +475,7 @@ regenie:
 # gmake-mingw64-gcc
 #-------------------------------------------------
 
-$(PROJECTDIR)/gmake-mingw64-gcc/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-mingw64-gcc/Makefile: makefile $(SCRIPTS) $(GENIE)
 ifndef MINGW64
 	$(error MINGW64 is not set)
 endif
@@ -458,7 +492,7 @@ windows_x64: generate $(PROJECTDIR)/gmake-mingw64-gcc/Makefile
 .PHONY: windows
 windows: windows_x86
 
-$(PROJECTDIR)/gmake-mingw32-gcc/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-mingw32-gcc/Makefile: makefile $(SCRIPTS) $(GENIE)
 ifndef MINGW32
 	$(error MINGW32 is not set)
 endif
@@ -472,7 +506,7 @@ windows_x86: generate $(PROJECTDIR)/gmake-mingw32-gcc/Makefile
 # gmake-mingw-clang
 #-------------------------------------------------
 
-$(PROJECTDIR)/gmake-mingw-clang/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-mingw-clang/Makefile: makefile $(SCRIPTS) $(GENIE)
 ifndef CLANG
 	$(error CLANG is not set)
 endif
@@ -598,7 +632,7 @@ endif
 # gmake-linux
 #-------------------------------------------------
 
-$(PROJECTDIR)/gmake-linux/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-linux/Makefile: makefile $(SCRIPTS) $(GENIE)
 	$(SILENT) $(GENIE) $(PARAMS) --gcc=linux-gcc --gcc_version=$(GCC_VERSION) gmake
 
 .PHONY: linux_x64
@@ -616,7 +650,7 @@ linux_x86: generate $(PROJECTDIR)/gmake-linux/Makefile
 # gmake-linux-clang
 #-------------------------------------------------
 
-$(PROJECTDIR)/gmake-linux-clang/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-linux-clang/Makefile: makefile $(SCRIPTS) $(GENIE)
 	$(SILENT) $(GENIE) $(PARAMS) --gcc=linux-clang --gcc_version=$(CLANG_VERSION) gmake
 
 .PHONY: linux_x64_clang
@@ -631,7 +665,7 @@ linux_x86_clang: generate $(PROJECTDIR)/gmake-linux-clang/Makefile
 # gmake-osx
 #-------------------------------------------------
 
-$(PROJECTDIR)/gmake-osx/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-osx/Makefile: makefile $(SCRIPTS) $(GENIE)
 	$(SILENT) $(GENIE) $(PARAMS) --gcc=osx --os_version=$(DARWIN_VERSION) --gcc_version=$(GCC_VERSION) gmake
 
 .PHONY: macosx_x64
@@ -649,7 +683,7 @@ macosx_x86: generate $(PROJECTDIR)/gmake-osx/Makefile
 # gmake-osx-clang
 #-------------------------------------------------
 
-$(PROJECTDIR)/gmake-osx-clang/Makefile: makefile $(SCRIPTS)
+$(PROJECTDIR)/gmake-osx-clang/Makefile: makefile $(SCRIPTS) $(GENIE)
 	$(SILENT) $(GENIE) $(PARAMS) --gcc=osx-clang --os_version=$(DARWIN_VERSION) --gcc_version=$(CLANG_VERSION) gmake
 
 .PHONY: macosx_x64_clang
@@ -690,22 +724,35 @@ GEN_FOLDERS :=  \
 
 LAYOUTS=$(wildcard $(SRC)/emu/layout/*.lay) $(wildcard $(SRC)/$(TARGET)/layout/*.lay)
 
-ifeq ($(USE_QT),0)
-MOC_FILES=
-else
 MOC_FILES=$(wildcard $(SRC)/osd/modules/debugger/qt/*.h)
+ifneq ($(USE_QTDEBUG),1)
+ifeq ($(TARGETOS),macosx)
+MOC_FILES=
+endif
+ifeq ($(TARGETOS),solaris)
+MOC_FILES=
+endif
+ifeq ($(TARGETOS),haiku)
+MOC_FILES=
+endif
+ifeq ($(TARGETOS),emscripten)
+MOC_FILES=
+endif
+ifeq ($(TARGETOS),os2)
+MOC_FILES=
+endif
+endif
 
 ifeq ($(OS),windows)
 MOC = moc
-ifneq ($(OSD),sdl)
-MOC_FILES=
-endif
 else
 MOCTST = $(shell which moc-qt4 2>/dev/null)
 ifeq '$(MOCTST)' ''
 MOCTST = $(shell which moc 2>/dev/null)
 ifeq '$(MOCTST)' ''
+ifneq '$(MOC_FILES)' ''
 $(error Qt's Meta Object Compiler (moc) wasn't found!)
+endif
 else
 MOC = $(MOCTST)
 endif
@@ -714,7 +761,6 @@ MOC = $(MOCTST)
 endif
 endif
 
-endif
 
 ifneq (,$(wildcard src/osd/$(OSD)/$(OSD).max))
 include src/osd/$(OSD)/$(OSD).max
