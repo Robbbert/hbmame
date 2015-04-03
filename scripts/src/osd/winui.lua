@@ -46,6 +46,7 @@ function maintargetosdoptions(_target)
 -- Local file gives correct icon in mame instance inside of mameui
 -- Local file must #include mameui.rc
 	local rcfile = MAME_DIR .. "src/osd/winui/" .. _target .. ".rc"
+	local uifile = MAME_DIR .. "src/osd/winui/" .. _target .. "ui.rc"
 
 	if os.isfile(rcfile) then
 		files {
@@ -53,7 +54,7 @@ function maintargetosdoptions(_target)
 		}
 	else
 		files {
-			MAME_DIR .. "src/osd/winui/mameui.rc",
+			uifile,
 		}
 	end
 

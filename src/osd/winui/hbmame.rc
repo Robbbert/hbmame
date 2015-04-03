@@ -17,4 +17,4 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 2           ICON    DISCARDABLE     "res\\hbmame.ico"
 #endif    // English (U.S.) resources
 
-#include "mameui.rc"
+#include "hbmameui.rc"
