@@ -199,6 +199,7 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 	}
 	
 	includedirs {
+		MAME_DIR .. "src/osd",
 		MAME_DIR .. "src/emu",
 		MAME_DIR .. "src/hbmame/includes",
 		MAME_DIR .. "src/hbmame",
@@ -210,8 +211,6 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 		GEN_DIR  .. "mame/layout",
 		GEN_DIR  .. "hbmame/layout",
 	}
-
-	includeosd()
 end
 	
 function createProjects_hbmame_hbmame(_target, _subtarget)

@@ -229,7 +229,9 @@ if _OPTIONS["with-tools"] then
 			"ocore_" .. _OPTIONS["osd"],
 		}
 
-		includeosd()
+		includedirs {
+			MAME_DIR .. "src/osd",
+		}
 
 		files {
 			MAME_DIR .. "src/osd/windows/ledutil.c",
