@@ -272,6 +272,26 @@ ROM_START( mslug2fro ) /* [OLD] Metal Slug 2 - (mslug2fro) - Translation Hack by
 	ROM_LOAD16_BYTE( "241-c3.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
 	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
+
+ROM_START( mslug2t ) /* Trap15 - Metal Slug 2 Turbo - hack to remove slowdowns in gameplay */
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241t.p1",    0x000000, 0x100000, CRC(df5d6fbc) SHA1(b9cc3e29afc12dc98daac9afb4f94e2cdd8b455c) )
+	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) ) /* TC5316200 */
+
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) ) /* TC531000 */
+
+	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) ) /* TC531001 */
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "241-v1.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) ) /* TC5332204 */
+	ROM_LOAD( "241-v2.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) ) /* TC5332204 */
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241-c1.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) ) /* Plane 0,1 */ /* TC5364205 */
+	ROM_LOAD16_BYTE( "241-c2.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) ) /* Plane 2,3 */ /* TC5364205 */
+	ROM_LOAD16_BYTE( "241-c3.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) ) /* Plane 0,1 */ /* TC5364205 */
+	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) ) /* Plane 2,3 */ /* TC5364205 */
+ROM_END
 #if 0
 ROM_START( mslugx ) /* MVS AND AES VERSION */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -1638,6 +1658,7 @@ GAME( 1998, mslug2eh1, mslug2,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "
 GAME( 1998, mslug2eh2, mslug2,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", GAME_SUPPORTS_SAVE )
 GAME( 1998, mslug2eh3, mslug2,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", GAME_SUPPORTS_SAVE )
 GAME( 1998, mslug2eh4, mslug2,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", GAME_SUPPORTS_SAVE )
+GAME( 2015, mslug2t,   mslug2,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Trap15", "Metal Slug 2 Turbo", GAME_SUPPORTS_SAVE )
 
 //GAME( 2000, mslug3,   neogeo,   neogeo, neogeo, neogeo_state, mslug3,   ROT0, "SNK", "Metal Slug 3" , 0) /* Encrypted Code & GFX */
 GAME( 2000, mslug3eha, mslug3,   neogeo, neogeo, neogeo_state, mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", GAME_SUPPORTS_SAVE ) // mslug3n hack

@@ -195,6 +195,7 @@ NUM YEAR COMPANY                 TITLE
 469 2014 Neobitz                 Monitor Test
 470 2015 freem                   ADPCM-B Playback Demo
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
+472 2015 freem                   ADPCM-A Playback Demo
 
 
 
@@ -1323,6 +1324,23 @@ ROM_START( pcmbdemo )
 	// no sprites
 ROM_END
 
+// 472 : ADPCM-A Playback Demo by freem.
+// Screen is covered by white horizontal stripes. Press 5 to remove them. Not sure if this is intentional or a bug.
+ROM_START( pcmademo )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "472.p1", 0x000000, 0x080000, CRC(a198ce30) SHA1(17b9ad5fe5136c0425823f49a65d428c544170c5) )
+
+	NEO_SFIX_128K( "472.s1", CRC(c3dddf6e) SHA1(cce290e869ecbd52b7a7ed1e35c2c825450cc24c) )
+
+	NEO_BIOS_AUDIO_128K( "472.m1", CRC(1c667c87) SHA1(3bc2cb708aa9c4618d901da1f627ae719dee445d) )
+
+	ROM_REGION( 0x80000, "ymsnd", 0 )
+	ROM_LOAD( "472.v1", 0x000000, 0x80000, CRC(e7ef9bd8) SHA1(d5de1f63189b3a18382da81f02b20af68996ad7e) )
+
+	ROM_REGION( 0x200000, "sprites", ROMREGION_ERASEFF )
+	// no sprites
+ROM_END
+
 
 // GAME MACROS
 
@@ -1366,6 +1384,7 @@ GAME( 2012, ngftdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0,
 GAME( 2014, ngmontst, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "NeoGeo Monitor Test", GAME_SUPPORTS_SAVE )
 GAME( 2008, ngtetris, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", GAME_SUPPORTS_SAVE )
 GAME( 2011, nyan,     neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", GAME_SUPPORTS_SAVE )
+GAME( 2015, pcmademo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", GAME_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", GAME_NO_SOUND | GAME_SUPPORTS_SAVE )
 GAME( 2003, poknight, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", GAME_SUPPORTS_SAVE )
 GAME( 2009, rci,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", GAME_SUPPORTS_SAVE )

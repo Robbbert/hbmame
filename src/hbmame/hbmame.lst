@@ -909,6 +909,7 @@ mslug2eh3
 mslug2eh4
 mslug2fr
 mslug2fro
+mslug2t		// 2015 trap15 - remove slowdowns that plague gameplay
 mslug3d
 mslug3eha
 mslug3ehs
@@ -1183,6 +1184,7 @@ ngftdemo	// CeL
 ngmontst
 ngtetris
 nyan
+pcmademo	// 2015 freem
 pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 rci		/* Robocop intro */
