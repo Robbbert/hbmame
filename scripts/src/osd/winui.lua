@@ -43,6 +43,11 @@ function maintargetosdoptions(_target)
 		}
 	end
 
+	links {
+		"comctl32",
+		"comdlg32",
+	}
+
 -- Local file gives correct icon in mame instance inside of mameui
 -- Local file must #include mameui.rc
 	local rcfile = MAME_DIR .. "src/osd/winui/" .. _target .. ".rc"
