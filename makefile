@@ -102,7 +102,6 @@ endif
 ifeq ($(firstword $(filter Darwin,$(UNAME))),Darwin)
 OS := macosx
 GENIEOS := darwin
-DARWIN_VERSION := $(shell sw_vers -productVersion)
 endif
 ifeq ($(firstword $(filter Haiku,$(UNAME))),Haiku)
 OS := haiku
@@ -463,8 +462,8 @@ SCRIPTS = scripts/genie.lua \
 	scripts/src/netlist.lua \
 	scripts/toolchain.lua \
 	scripts/target/$(TARGET)/$(SUBTARGET).lua \
-	$(wildcard src/osd/$(OSD)/$(OSD).max) \
-	$(wildcard src/$(TARGET)/$(SUBTARGET).max)
+	$(wildcard src/osd/$(OSD)/$(OSD).mak) \
+	$(wildcard src/$(TARGET)/$(SUBTARGET).mak)
 ifdef REGENIE
 SCRIPTS+= regenie
 endif
@@ -741,7 +740,7 @@ linux_x86_clang: generate $(PROJECTDIR)/gmake-linux-clang/Makefile
 #-------------------------------------------------
 
 $(PROJECTDIR)/gmake-osx/Makefile: makefile $(SCRIPTS) $(GENIE)
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=osx --os_version=$(DARWIN_VERSION) --gcc_version=$(GCC_VERSION) gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=osx --gcc_version=$(GCC_VERSION) gmake
 
 .PHONY: macosx_x64
 macosx_x64: generate $(PROJECTDIR)/gmake-osx/Makefile
@@ -759,7 +758,7 @@ macosx_x86: generate $(PROJECTDIR)/gmake-osx/Makefile
 #-------------------------------------------------
 
 $(PROJECTDIR)/gmake-osx-clang/Makefile: makefile $(SCRIPTS) $(GENIE)
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=osx-clang --os_version=$(DARWIN_VERSION) --gcc_version=$(CLANG_VERSION) gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=osx-clang --gcc_version=$(CLANG_VERSION) gmake
 
 .PHONY: macosx_x64_clang
 macosx_x64_clang: generate $(PROJECTDIR)/gmake-osx-clang/Makefile
@@ -799,7 +798,6 @@ GEN_FOLDERS :=  \
 	$(GENDIR)/emu/cpu/mcs96/ \
 	$(GENDIR)/emu/cpu/m6502/ \
 	$(GENDIR)/emu/cpu/m6809/ \
-	$(GENDIR)/emu/cpu/m68000/ \
 	$(GENDIR)/emu/cpu/tms57002/ \
 	$(GENDIR)/osd/modules/debugger/qt/ \
 	$(GENDIR)/resource/
@@ -844,12 +842,12 @@ endif
 endif
 
 
-ifneq (,$(wildcard src/osd/$(OSD)/$(OSD).max))
-include src/osd/$(OSD)/$(OSD).max
+ifneq (,$(wildcard src/osd/$(OSD)/$(OSD).mak))
+include src/osd/$(OSD)/$(OSD).mak
 endif
 
-ifneq (,$(wildcard src/$(TARGET)/$(SUBTARGET).max))
-include src/$(TARGET)/$(SUBTARGET).max
+ifneq (,$(wildcard src/$(TARGET)/$(SUBTARGET).mak))
+include src/$(TARGET)/$(SUBTARGET).mak
 endif
 
 $(GEN_FOLDERS):
@@ -870,8 +868,7 @@ generate: \
 		$(GENDIR)/emu/cpu/mcs96/mcs96.inc $(GENDIR)/emu/cpu/mcs96/i8x9x.inc $(GENDIR)/emu/cpu/mcs96/i8xc196.inc \
 		$(GENDIR)/emu/cpu/m6502/deco16.inc $(GENDIR)/emu/cpu/m6502/m4510.inc $(GENDIR)/emu/cpu/m6502/m6502.inc $(GENDIR)/emu/cpu/m6502/m65c02.inc $(GENDIR)/emu/cpu/m6502/m65ce02.inc $(GENDIR)/emu/cpu/m6502/m6509.inc $(GENDIR)/emu/cpu/m6502/m6510.inc $(GENDIR)/emu/cpu/m6502/n2a03.inc $(GENDIR)/emu/cpu/m6502/r65c02.inc $(GENDIR)/emu/cpu/m6502/m740.inc \
 		$(GENDIR)/emu/cpu/m6809/m6809.inc $(GENDIR)/emu/cpu/m6809/hd6309.inc $(GENDIR)/emu/cpu/m6809/konami.inc \
-		$(GENDIR)/emu/cpu/tms57002/tms57002.inc \
-		$(GENDIR)/m68kmake$(EXE) $(GENDIR)/emu/cpu/m68000/m68kops.c
+		$(GENDIR)/emu/cpu/tms57002/tms57002.inc 
 
 $(GENDIR)/%.lh: $(SRC)/%.lay $(SRC)/build/file2str.py
 	@echo Converting $<...
@@ -982,18 +979,6 @@ $(GENDIR)/emu/cpu/m6809/konami.inc: $(SRC)/emu/cpu/m6809/m6809make.py $(SRC)/emu
 $(GENDIR)/emu/cpu/tms57002/tms57002.inc: $(SRC)/emu/cpu/tms57002/tmsmake.py $(SRC)/emu/cpu/tms57002/tmsinstr.lst
 	@echo Generating TMS57002 source file...
 	$(PYTHON) $(SRC)/emu/cpu/tms57002/tmsmake.py $(SRC)/emu/cpu/tms57002/tmsinstr.lst $@
-
-$(GENDIR)/m68kmake.o: src/emu/cpu/m68000/m68kmake.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) -x c++ -std=gnu++98 -o "$@" -c "$<"
-
-$(GENDIR)/m68kmake$(EXE) : $(GENDIR)/m68kmake.o
-	@echo Linking $@...
-	$(LD) -lstdc++ $^ -o $@
-
-$(GENDIR)/emu/cpu/m68000/m68kops.c: $(GENDIR)/m68kmake$(EXE) $(SRC)/emu/cpu/m68000/m68k_in.c
-	@echo Generating M68K source files...
-	$(SILENT) $(GENDIR)/m68kmake $(GENDIR)/emu/cpu/m68000 $(SRC)/emu/cpu/m68000/m68k_in.c
 
 $(GENDIR)/mess/drivers/ymmu100.inc: $(SRC)/mess/drivers/ymmu100.ppm $(SRC)/build/file2str.py
 	@echo Converting $<...
