@@ -22,13 +22,12 @@
 #include "screenshot.h"
 #include "drivenum.h"
 
-
+#define MAMENAME "HBMAME"
 #ifdef PTR64
-#define MAMEUINAME	"HBMAMEUI64"
+#define MAMEUINAME MAMENAME "UI64"
 #else
-#define MAMEUINAME	"HBMAMEUI32"
+#define MAMEUINAME MAMENAME "UI32"
 #endif
-#define MAMENAME		"HBMAME"
 
 #define SEARCH_PROMPT ""
 

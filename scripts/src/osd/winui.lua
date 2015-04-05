@@ -57,9 +57,15 @@ function maintargetosdoptions(_target)
 		files {
 			rcfile,
 		}
+		dependency {
+			{ "$(OBJDIR)/".._target ..".res" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc", true  },
+		}
 	else
 		files {
 			uifile,
+		}
+		dependency {
+			{ "$(OBJDIR)/mame.res" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc", true  },
 		}
 	end
 
