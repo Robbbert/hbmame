@@ -26,6 +26,7 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/modules/midi/none.c",
 		MAME_DIR .. "src/osd/modules/sound/js_sound.c",
 		MAME_DIR .. "src/osd/modules/sound/direct_sound.c",
+		MAME_DIR .. "src/osd/modules/sound/coreaudio_sound.c",
 		MAME_DIR .. "src/osd/modules/sound/sdl_sound.c",
 		MAME_DIR .. "src/osd/modules/sound/none.c",
 	}
@@ -99,6 +100,36 @@ function osdmodulesbuild()
 		defines {
 			"USE_QTDEBUG=1",
 		}
+		
+		local MOC = ""
+		if (os.is("windows")) then
+			MOC = "moc"
+		else
+			MOCTST = backtick("which moc-qt4 2>/dev/null")			
+			if (MOCTST=='') then
+				MOCTST = backtick("which moc 2>/dev/null")
+			end
+			if (MOCTST=='') then
+				print("Qt's Meta Object Compiler (moc) wasn't found!")
+				os.exit(1)
+			end	
+			MOC = MOCTST
+		end
+		
+		
+		custombuildtask {
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/debuggerview.h", 			GEN_DIR .. "osd/modules/debugger/qt/debuggerview.moc.c", { },			{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/windowqt.h", 				GEN_DIR .. "osd/modules/debugger/qt/windowqt.moc.c", { }, 				{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/logwindow.h", 				GEN_DIR .. "osd/modules/debugger/qt/logwindow.moc.c", { }, 				{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/dasmwindow.h", 				GEN_DIR .. "osd/modules/debugger/qt/dasmwindow.moc.c", { }, 			{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/mainwindow.h", 				GEN_DIR .. "osd/modules/debugger/qt/mainwindow.moc.c", { }, 			{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/memorywindow.h",				GEN_DIR .. "osd/modules/debugger/qt/memorywindow.moc.c", { }, 			{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/breakpointswindow.h",		GEN_DIR .. "osd/modules/debugger/qt/breakpointswindow.moc.c", { }, 		{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/deviceswindow.h", 			GEN_DIR .. "osd/modules/debugger/qt/deviceswindow.moc.c", { }, 			{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			{ MAME_DIR .. "src/osd/modules/debugger/qt/deviceinformationwindow.h",  GEN_DIR .. "osd/modules/debugger/qt/deviceinformationwindow.moc.c", { },{ MOC .. "$(MOCINCPATH) $(<) -o $(@)" }},
+			
+		}
+		
 		if _OPTIONS["targetos"]=="windows" then
 			configuration { "mingw*" }
 				buildoptions {
@@ -150,7 +181,6 @@ function osdmodulestargetconf()
 			}
 		elseif _OPTIONS["targetos"]=="macosx" then
 			links {
-				"CoreAudio.framework",
 				"CoreMIDI.framework",
 			}
 		end
@@ -186,6 +216,12 @@ function osdmodulestargetconf()
 			"gdi32",
 			"dsound",
 			"dxguid",
+		}
+	elseif _OPTIONS["targetos"]=="macosx" then
+		links {
+			"AudioUnit.framework",
+			"CoreAudio.framework",
+			"CoreServices.framework",
 		}
 	end
 

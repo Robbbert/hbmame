@@ -81,8 +81,15 @@ function mainProject(_target, _subtarget)
 
 	if _OPTIONS["targetos"]=="macosx" then
 		linkoptions {
-			"-sectcreate __TEXT __info_plist " .. GEN_DIR .. "/resource/" .. _OPTIONS["target"] .. "-Info.plist"
+			"-sectcreate __TEXT __info_plist " .. GEN_DIR .. "/resource/" .. _target .. "-Info.plist"
 		}
+		custombuildtask {	
+			{ MAME_DIR .. "src/version.c" ,  GEN_DIR  .. "/resource/" .. _target .. "-Info.plist",    {  MAME_DIR .. "src/build/verinfo.py" }, {"@echo Emitting " .. _target .. "-Info.plist" .. "...",    "python $(1)  -p -b " .. _target .. " $(<) > $(@)" }},
+		}
+		dependency {
+			{ "$(TARGET)" ,  GEN_DIR  .. "/resource/" .. _target .. "-Info.plist", true  },
+		}
+
 	end
 
 	if _OPTIONS["targetos"]=="windows" then
@@ -93,6 +100,26 @@ function mainProject(_target, _subtarget)
 		MAME_DIR .. "src/version.c",
 		GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.c",
 	}
+
+	custombuildtask {
+		{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.c",    {  MAME_DIR .. "src/build/makelist.py" }, {"@echo Building driver list...",    "python $(1) $(<) > $(@)" }},
+	}
+	
+	configuration { "mingw*" }
+		custombuildtask {	
+			{ MAME_DIR .. "src/version.c" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc",    {  MAME_DIR .. "src/build/verinfo.py" }, {"@echo Emitting " .. _target .. "vers.rc" .. "...",    "python $(1)  -r -b " .. _target .. " $(<) > $(@)" }},
+		}	
+	
+	configuration { "vs*" }
+		prebuildcommands {	
+			"mkdir " .. path.translate(GEN_DIR  .. "/resource/","\\") .. " 2>NUL",
+			"@echo Emitting ".. _target .. "vers.rc...",
+			"python " .. path.translate(MAME_DIR .. "src/build/verinfo.py","\\") .. " -r -b " .. _target .. " " .. path.translate(MAME_DIR .. "src/version.c","\\") .. " > " .. path.translate(GEN_DIR  .. "/resource/" .. _target .. "vers.rc", "\\") ,
+		}	
+	
+	 
+	configuration { }
+
 	debugdir (MAME_DIR)
 	debugargs ("-window")
 end
