@@ -1,5 +1,6 @@
 dofile("modules.lua")
 
+premake.make.linkoptions_after = false;
 
 function maintargetosdoptions(_target)
 	kind "WindowedApp"
@@ -50,26 +51,26 @@ function maintargetosdoptions(_target)
 
 -- Local file gives correct icon in mame instance inside of mameui
 -- Local file must #include mameui.rc
+	override_resources = true;
 	local rcfile = MAME_DIR .. "src/osd/winui/" .. _target .. ".rc"
 	local uifile = MAME_DIR .. "src/osd/winui/" .. _target .. "ui.rc"
 
-	if os.isfile(rcfile) then
-		files {
-			rcfile,
-		}
-		dependency {
-			{ "$(OBJDIR)/".._target ..".res" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc", true  },
-		}
-	else
-		files {
-			uifile,
-		}
-		dependency {
-			{ "$(OBJDIR)/mame.res" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc", true  },
-		}
+	if not os.isfile(rcfile) then
+		print(string.format("***** %s not found *****",rcfile))
+		os.exit();
 	end
 
+	if not os.isfile(uifile) then
+		print(string.format("***** %s not found *****",uifile))
+		os.exit();
+	end
 
+	files {
+		rcfile,
+	}
+	dependency {
+		{ "$(OBJDIR)/".._target ..".res" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc", true  },
+	}
 end
 
 
