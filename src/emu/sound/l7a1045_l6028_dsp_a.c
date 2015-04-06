@@ -1,6 +1,6 @@
 /***************************************************************************
 
-    L7A1045 L6028 DSP-A 
+    L7A1045 L6028 DSP-A
 	(QFP120 package)
 
 	this is the audio chip used on the following
@@ -44,7 +44,7 @@
 
 	7  ----------------   ----------------   llllllllrrrrrrrr left/right volume
 
-	8  ----------------   ----------------   ---------------- (read only?)                                                        
+	8  ----------------   ----------------   ---------------- (read only?)
 
 	9  ----------------   ----------------   ---------------- (read only?)
 
@@ -149,14 +149,14 @@ void l7a1045_sound_device::sound_stream_update(sound_stream &stream, stream_samp
 				if ((start + pos) >= end)
 				{
 					m_key &= ~(1 << i);
-				
+
 				}
 
 				sample = (INT8)m_rom[(start + pos) & (m_rom_size-1)];
 				frac += step;
 
-				outputs[0][j] += ((sample * 0x8000) >> 8);
-				outputs[1][j] += ((sample * 0x8000) >> 8);
+				outputs[0][j] += ((sample * vptr->l_volume) >> 8);
+				outputs[1][j] += ((sample * vptr->r_volume) >> 8);
 			}
 
 			vptr->pos = pos;
@@ -165,19 +165,17 @@ void l7a1045_sound_device::sound_stream_update(sound_stream &stream, stream_samp
 	}
 }
 
-
+// TODO: needs proper memory map
 WRITE16_MEMBER( l7a1045_sound_device::l7a1045_sound_w )
 {
-	m_stream->update();
+	m_stream->update(); // TODO
 
-	switch (offset)
-	{
-	case 0x00:l7a1045_sound_select_w(space, offset, data, mem_mask); break;
-	case 0x01:l7a1045_sound_data_02_w(space, offset, data, mem_mask); break;
-	case 0x02:l7a1045_sound_data_04_w(space, offset, data, mem_mask); break;
-	case 0x03:l7a1045_sound_data_06_w(space, offset, data, mem_mask); break;
-	}
-
+	if(offset == 0)
+		sound_select_w(space, offset, data, mem_mask);
+	else if(offset == 8/2)
+		sound_status_w(space, offset, data, mem_mask);
+	else
+		sound_data_w(space,offset - 1,data,mem_mask);
 }
 
 
@@ -199,7 +197,7 @@ READ16_MEMBER( l7a1045_sound_device::l7a1045_sound_r )
 }
 
 
-WRITE16_MEMBER(l7a1045_sound_device::l7a1045_sound_select_w)
+WRITE16_MEMBER(l7a1045_sound_device::sound_select_w)
 {
 	// I'm guessing these addresses are the sound chip / DSP?
 
@@ -222,132 +220,52 @@ WRITE16_MEMBER(l7a1045_sound_device::l7a1045_sound_select_w)
 
 }
 
-WRITE16_MEMBER(l7a1045_sound_device::l7a1045_sound_data_02_w) // upper? word of various registers?
+WRITE16_MEMBER(l7a1045_sound_device::sound_data_w)
 {
-	m_audiodat[m_audioregister][m_audiochannel].dat[2] = data;
+	l7a1045_voice *vptr = &m_voice[m_audiochannel];
 
-	// write with registers 00, 01, 04, 06, 05, 03, 07, 02 on startup
-	// groups writes of register 0a per channel
+	if(m_audioregister != 0)
+		printf("%04x %04x (%04x %04x)\n",offset,data,m_audioregister,m_audiochannel);
 
-	// register 08 / 09 not written?
+	m_audiodat[m_audioregister][m_audiochannel].dat[offset] = data;
+
 	switch (m_audioregister)
 	{
-	default:
+		case 0x00:
 
-	case 0x08:
-	case 0x09:
-		printf("%08x: unexpected write port 0x0002 register %02x chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audioregister, m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
+			vptr->start = (m_audiodat[0][m_audiochannel].dat[2] & 0x000f) << (16 + 4);
+			vptr->start |= (m_audiodat[0][m_audiochannel].dat[1] & 0xffff) << (4);
+			vptr->start |= (m_audiodat[0][m_audiochannel].dat[0] & 0xf000) >> (12);
 
-//	case 0x00:
-	case 0x01:
-	case 0x04:
-	case 0x06:
-	case 0x05:
-	case 0x03:
-	case 0x02:
-	case 0x07:
+			vptr->start &= m_rom_size - 1;
 
-	case 0x0a:
-	//	printf("%08x: write port 0x0002 register %02x chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audioregister, m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
+			//printf("%08x: REGISTER 00 write port 0x0002 chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
+			break;
 
-	case 0x00:
-		// hack
-		l7a1045_voice *vptr = &m_voice[m_audiochannel];	
+		case 0x07:
 
-		m_key |= 1 << m_audiochannel;
+			vptr->r_volume = (m_audiodat[m_audioregister][m_audiochannel].dat[0] & 0xff);
+			/* TODO: volume tables, linear? */
+			vptr->r_volume = (vptr->r_volume) | (vptr->r_volume << 8);
+			vptr->l_volume = (m_audiodat[m_audioregister][m_audiochannel].dat[0] >> 8) & 0xff;
+			vptr->l_volume = (vptr->l_volume) | (vptr->l_volume << 8);
+			//printf("%04x %02x %02x\n",m_audiodat[m_audioregister][m_audiochannel].dat[0],vptr->l_volume,vptr->r_volume);
+
+			break;
+	}
+}
+
+WRITE16_MEMBER(l7a1045_sound_device::sound_status_w)
+{
+	if(data & 0x100) // keyin
+	{
+		l7a1045_voice *vptr = &m_voice[m_audiochannel];
 
 		vptr->frac = 0;
 		vptr->pos = 0;
-
-		vptr->start = (m_audiodat[0][m_audiochannel].dat[0] & 0x000f) << (16 + 4);
-		vptr->start |=   (m_audiodat[0][m_audiochannel].dat[1] & 0xffff) << (4);
-		vptr->start |=   (m_audiodat[0][m_audiochannel].dat[2] & 0xf000) >> (12);
-
-		vptr->start &= m_rom_size - 1;
-
-		//printf("%08x: REGISTER 00 write port 0x0002 chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-	}
-
-}
-
-WRITE16_MEMBER(l7a1045_sound_device::l7a1045_sound_data_04_w) // lower? word of various registers?
-{
-	m_audiodat[m_audioregister][m_audiochannel].dat[1] = data;
-
-	// write with registers 00, 04, 06, 05, 03, 07, 02, 01 on startup
-	// groups writes of register 0a per channel
-
-	// register 08 / 09 not written?
-
-	switch (m_audioregister)
-	{
-	default:
-
-	case 0x08:
-	case 0x09:
-		printf("%08x: unexpected write port 0x0004 register %02x chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audioregister, m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-
-//	case 0x00:
-	case 0x04:
-	case 0x06:
-	case 0x05:
-	case 0x03:
-	case 0x07:
-	case 0x01:
-	case 0x02:
-
-	case 0x0a:
-		//printf("%08x: write port 0x0004 register %02x chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audioregister, m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-
-	case 0x00:
-		//printf("%08x: REGISTER 00 write port 0x0004 chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-	}
-
-}
-WRITE16_MEMBER(l7a1045_sound_device::l7a1045_sound_data_06_w) // other part? of various registers.. less used than 02/04, maybe flags?
-{
-	// 00 / 01 written at startup
-	// nothing else used?
-
-	m_audiodat[m_audioregister][m_audiochannel].dat[0] = data;
-	switch (m_audioregister)
-	{
-	default:
-
-	case 0x02:
-	case 0x03:
-	case 0x04:
-	case 0x05:
-	case 0x06:
-	case 0x07:
-	case 0x08:
-	case 0x09:
-	case 0x0a:
-		printf("%08x: unexpected write port 0x0006 register %02x chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audioregister, m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-
-//	case 0x00:
-	case 0x01:
-		//printf("%08x: unexpected write port 0x0006 register %02x chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audioregister, m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-
-	case 0x00:
-
-		// it writes 2 values here for each sample
-		// the 2nd one seems to contain the upper 4 bits of the sample address
-		// so why does it write different data first?
-		//printf("%08x: REGISTER 00 write port 0x0006 chansel %02x data %04x (%04x%04x%04x)\n", space.device().safe_pc(), m_audiochannel, data, m_audiodat[m_audioregister][m_audiochannel].dat[0], m_audiodat[m_audioregister][m_audiochannel].dat[1], m_audiodat[m_audioregister][m_audiochannel].dat[2]);
-		break;
-
+		m_key |= 1 << m_audiochannel;
 	}
 }
-
 
 READ16_MEMBER(l7a1045_sound_device::l7a1045_sound_port_0004_r)
 {

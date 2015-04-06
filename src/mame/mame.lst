@@ -4333,6 +4333,7 @@ nsub            // 268-275 (c) 1980 Sega
 samurai         // 289-302 + upgrades (c) 1980 Sega
 invinco         // 310-318 (c) 1979 Sega
 invds           // 367-382 (c) 1979 Sega
+carhntds		//
 tranqgun        // 413-428 (c) 1980 Sega
 				// 450-465  Tranquilizer Gun (different version?)
 				// ???-??? Car Hunt / Deep Scan
@@ -6030,6 +6031,7 @@ supbtimej       // MAE (c) 1990 Data East Corporation (Japan)
 mutantf         // MAF (c) 1992 Data East Corporation (World)
 mutantf4        // MAF (c) 1992 Data East Corporation (World)
 mutantf3        // MAF (c) 1992 Data East Corporation (World)
+mutantf2        // MAF (c) 1992 Data East Corporation (World)
 deathbrd        // MAF (c) 1992 Data East Corporation (Japan)
 cninja          // MAG (c) 1991 Data East Corporation (World)
 cninja1         // MAG (c) 1991 Data East Corporation (World)
@@ -6804,6 +6806,7 @@ jetwavej        // GX678 (c)1996 Japan JAB
 // Konami M2 games
 polystar        // GX623 (c)1997
 totlvice        // GX639 (c)1997
+totlvicu        // GX639 (c)1997
 totlvica        // GX639 (c)1997
 totlvicj        // GX639 (c)1997
 btltryst        // GX636 (c)1998
@@ -7845,6 +7848,7 @@ gangwarsj       // Alpha-68K96V       (c) 1989 Alpha Denshi Co.
 gangwarsu       // Alpha-68K96V       (c) 1989 Alpha Denshi Co.
 gangwarsb       // bootleg
 sbasebal        // Alpha-68K96V       (c) 1989 SNK of America licensed from Alpha
+sbasebalj		// Alpha-68K96V
 tnextspc        // A8003 'NS' (c) 1989 - MASKROM
 tnextspc2       // A8003 'NS' (c) 1989 - EPROMs
 tnextspcj       // A8003 'NS' (c) 1989 - Japan
@@ -11382,6 +11386,7 @@ pex2121p        // (c) 1995 IGT - International Game Technology
 pex2121pa       // (c) 1995 IGT - International Game Technology
 pex2150p        // (c) 1995 IGT - International Game Technology
 pex2172p        // (c) 1995 IGT - International Game Technology
+pex2172pa       // (c) 1995 IGT - International Game Technology
 pex2173p        // (c) 1995 IGT - International Game Technology
 pex2180p        // (c) 1995 IGT - International Game Technology
 pex2241p        // (c) 1995 IGT - International Game Technology
