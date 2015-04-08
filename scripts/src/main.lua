@@ -26,6 +26,11 @@ function mainProject(_target, _subtarget)
 	flags {
 		"Unicode",
 	}
+
+	if _OPTIONS["SEPARATE_BIN"]~="1" then 
+		targetdir(MAME_DIR)
+	end
+	
 	configuration { "mingw*" or "vs*" }
 		targetextension ".exe"
 
@@ -33,7 +38,6 @@ function mainProject(_target, _subtarget)
 		targetextension ".bc"  
 
 	configuration { }
-		targetdir(MAME_DIR)
 
 	findfunction("linkProjects_" .. _OPTIONS["target"] .. "_" .. _OPTIONS["subtarget"])(_OPTIONS["target"], _OPTIONS["subtarget"])
 	links {
@@ -86,7 +90,7 @@ function mainProject(_target, _subtarget)
 		linkoptions {
 			"-sectcreate __TEXT __info_plist " .. GEN_DIR .. "/resource/" .. _target .. "-Info.plist"
 		}
-		custombuildtask {	
+		custombuildtask {
 			{ MAME_DIR .. "src/version.c" ,  GEN_DIR  .. "/resource/" .. _target .. "-Info.plist",    {  MAME_DIR .. "src/build/verinfo.py" }, {"@echo Emitting " .. _target .. "-Info.plist" .. "...",    "python $(1)  -p -b " .. _target .. " $(<) > $(@)" }},
 		}
 		dependency {

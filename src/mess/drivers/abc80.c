@@ -65,7 +65,6 @@ Notes:
 
     TODO:
 
-	- 8KB RAM card
     - proper keyboard controller emulation
     - MyAB TKN80 80-column card
     - GeJo 80-column card
@@ -355,9 +354,10 @@ WRITE8_MEMBER( abc80_state::pio_pb_w )
 
 		m_tape_in_latch = 1;
 
-		m_pio->port_b_write(m_tape_in_latch << 7);
+		m_pio->pb7_w(m_tape_in_latch);
 	}
 };
+
 
 //-------------------------------------------------
 //  Z80 Daisy Chain
@@ -481,7 +481,8 @@ QUICKLOAD_LOAD_MEMBER( abc80_state, bac )
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 
-	offs_t address = 0xc000;
+	offs_t address = space.read_byte(BOFA + 1) << 8 | space.read_byte(BOFA);
+	if (LOG) logerror("BOFA %04x\n",address);
 
 	dynamic_buffer data;
 	data.resize(quickload_size);
@@ -492,10 +493,12 @@ QUICKLOAD_LOAD_MEMBER( abc80_state, bac )
 	offs_t eofa = address;
 	space.write_byte(EOFA, eofa & 0xff);
 	space.write_byte(EOFA + 1, eofa >> 8);
+	if (LOG) logerror("EOFA %04x\n",address);
 
 	offs_t head = address + 1;
 	space.write_byte(HEAD, head & 0xff);
 	space.write_byte(HEAD + 1, head >> 8);
+	if (LOG) logerror("HEAD %04x\n",address);
 
 	return IMAGE_INIT_PASS;
 }

@@ -66,6 +66,17 @@
 # OVERRIDE_CXX = c++
 # OVERRIDE_LD = ld
 
+# DEPRECATED = 1
+# LTO = 1
+# SSE2 = 1
+# OPENMP = 1
+# CPP11 = 1
+# FASTDEBUG = 1
+
+# FILTER_DEPS = 1
+# SEPARATE_BIN = 1
+
+-include useroptions.mak
 
 ###########################################################################
 ##################   END USER-CONFIGURABLE OPTIONS   ######################
@@ -452,6 +463,38 @@ ifdef LDOPTS
 PARAMS += --LDOPTS='$(LDOPTS)'
 endif
 
+ifdef LTO
+PARAMS += --LTO='$(LTO)'
+endif
+
+ifdef DEPRECATED
+PARAMS += --DEPRECATED='$(DEPRECATED)'
+endif
+
+ifdef SSE2
+PARAMS += --SSE2='$(SSE2)'
+endif
+
+ifdef OPENMP
+PARAMS += --OPENMP='$(OPENMP)'
+endif
+
+ifdef CPP11
+PARAMS += --CPP11='$(CPP11)'
+endif
+
+ifdef FASTDEBUG
+PARAMS += --FASTDEBUG='$(FASTDEBUG)'
+endif
+
+ifdef FILTER_DEPS
+PARAMS += --FILTER_DEPS='$(FILTER_DEPS)'
+endif
+
+ifdef SEPARATE_BIN
+PARAMS += --SEPARATE_BIN='$(SEPARATE_BIN)'
+endif
+
 #-------------------------------------------------
 # All scripts
 #-------------------------------------------------
@@ -626,6 +669,9 @@ vs2013_intel: generate
 
 vs2013_xp: generate
 	$(SILENT) $(GENIE) $(PARAMS) --vs=vs2013-xp vs2013
+
+vs2013_clang: generate
+	$(SILENT) $(GENIE) $(PARAMS) --vs=vs2013-clang vs2013
 
 vs2015: generate
 	$(SILENT) $(GENIE) $(PARAMS) vs2015

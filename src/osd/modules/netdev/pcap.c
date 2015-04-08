@@ -1,7 +1,13 @@
 #if defined(OSD_NET_USE_PCAP)
 
 #if defined(SDLMAME_WIN32) || defined(OSD_WINDOWS)
-
+#ifdef UNICODE
+#define LIB_NAME        L"wpcap.dll"
+#define LoadDynamicLibrary LoadLibraryW
+#else
+#define LIB_NAME        "wpcap.dll"
+#define LoadDynamicLibrary LoadLibraryA
+#endif
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
@@ -15,7 +21,6 @@
 
 #if defined(SDLMAME_WIN32) || defined(OSD_WINDOWS)
 
-#define LIB_NAME        L"wpcap.dll"
 #define LIB_ERROR_STR   "Unable to load winpcap: %lx\n"
 typedef DWORD except_type;
 
@@ -39,7 +44,7 @@ typedef const char *except_type;
 #define FreeLibrary(x) dlclose(x)
 #define GetLastError() dlerror()
 #define GetProcAddress(x, y) dlsym(x, y)
-#define LoadLibrary(x) dlopen(x, RTLD_LAZY)
+#define LoadDynamicLibrary(x) dlopen(x, RTLD_LAZY)
 
 #endif
 
@@ -53,7 +58,7 @@ public:
 	}
 	virtual ~pcap_module() { }
 
-	virtual int init();
+	virtual int init(const osd_options &options);
 	virtual void exit();
 
 	virtual bool probe();
@@ -239,14 +244,14 @@ bool pcap_module::probe()
 {
 	if (handle == NULL)
 	{
-		handle = LoadLibrary(LIB_NAME);
+		handle = LoadDynamicLibrary(LIB_NAME);
 		return (handle != NULL);
 	}
 	return true;
 }
 
 
-int pcap_module::init()
+int pcap_module::init(const osd_options &options)
 {
 	pcap_if_t *devs;
 	char errbuf[PCAP_ERRBUF_SIZE];
