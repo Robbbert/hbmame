@@ -81,11 +81,11 @@ static volatile BOOL bCancel = FALSE;
 void AuditDialog(HWND hParent)
 {
 	HMODULE hModule = NULL;
-	rom_index         = -1; // do not include the empty game
-	roms_correct      = 0;
+	rom_index         = 0;
+	roms_correct      = -1; // ___empty must not be counted
 	roms_incorrect    = 0;
 	sample_index      = 0;
-	samples_correct   = 0;
+	samples_correct   = -1; // ___empty must not be counted
 	samples_incorrect = 0;
 
 	//RS use Riched32.dll
@@ -98,8 +98,7 @@ void AuditDialog(HWND hParent)
 	}
 	else
 	{
-	    MessageBox(GetMainWindow(),TEXT("Unable to Load Riched32.dll"),TEXT("Error"),
-				   MB_OK | MB_ICONERROR);
+		MessageBox(GetMainWindow(),TEXT("Unable to Load Riched32.dll"),TEXT("Error"), MB_OK | MB_ICONERROR);
 	}
 }
 
@@ -114,14 +113,12 @@ const char * GetAuditString(int audit_result)
 	{
 	case media_auditor::CORRECT :
 	case media_auditor::BEST_AVAILABLE :
+	case media_auditor::NONE_NEEDED :
 		return "Yes";
 
 	case media_auditor::NOTFOUND :
 	case media_auditor::INCORRECT :
 		return "No";
-
-	//case UNKNOWN :
-//      return "?";
 
 	default:
 		dprintf("unknown audit value %i\n",audit_result);
@@ -132,7 +129,7 @@ const char * GetAuditString(int audit_result)
 
 BOOL IsAuditResultKnown(int audit_result)
 {
-	return TRUE;//audit_result != UNKNOWN;
+	return TRUE;
 }
 
 BOOL IsAuditResultYes(int audit_result)
@@ -150,16 +147,24 @@ BOOL IsAuditResultNo(int audit_result)
     Internal functions
  ***************************************************************************/
 // Verifies the ROM set while calling SetRomAuditResults
-int MameUIVerifyRomSet(int game)
+int MameUIVerifyRomSet(int game, bool choice)
 {
 	driver_enumerator enumerator(MameUIGlobal(), driver_list::driver(game));
 	enumerator.next();
 	media_auditor auditor(enumerator);
 	media_auditor::summary summary = auditor.audit_media(AUDIT_VALIDATE_FAST);
 
+	astring summary_string = "";
+
+	if (summary == media_auditor::NOTFOUND)
+		summary_string.catprintf("%s: Romset NOT FOUND\n", driver_list::driver(game).name);
+	else
+	if (choice)
+		auditor.winui_summarize(driver_list::driver(game).name, &summary_string); // audit all games
+	else
+		auditor.summarize(driver_list::driver(game).name, &summary_string); // audit one game
+
 	// output the summary of the audit
-	astring summary_string;
-	auditor.summarize(driver_list::driver(game).name, &summary_string);
 	DetailsPrintf("%s", summary_string.cstr());
 
 	SetRomAuditResults(game, summary);
@@ -174,9 +179,14 @@ int MameUIVerifySampleSet(int game)
 	media_auditor auditor(enumerator);
 	media_auditor::summary summary = auditor.audit_samples();
 
+	astring summary_string = "";
+
+	if (summary == media_auditor::NOTFOUND)
+		summary_string.catprintf("%s: Sampleset NOT FOUND\n", driver_list::driver(game).name);
+	else
+		auditor.summarize(driver_list::driver(game).name, &summary_string);
+
 	// output the summary of the audit
-	astring summary_string;
-	auditor.summarize(driver_list::driver(game).name, &summary_string);
 	DetailsPrintf("%s", summary_string.cstr());
 
 	SetSampleAuditResults(game, summary);
@@ -300,12 +310,20 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 			int iStatus;
 			LPCSTR lpStatus;
 
-			iStatus = MameUIVerifyRomSet(rom_index);
+			iStatus = MameUIVerifyRomSet(rom_index, 0);
 			lpStatus = DriverUsesRoms(rom_index) ? StatusString(iStatus) : "None required";
 			win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_ROMS), lpStatus);
 
-			iStatus = MameUIVerifySampleSet(rom_index);
-			lpStatus = DriverUsesSamples(rom_index) ? StatusString(iStatus) : "None required";
+			if (DriverUsesSamples(rom_index))
+			{
+				iStatus = MameUIVerifySampleSet(rom_index);
+				lpStatus = StatusString(iStatus);
+			}
+			else
+			{
+				lpStatus = "None Required";
+			}
+
 			win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_SAMPLES), lpStatus);
 		}
 		ShowWindow(hDlg, SW_SHOW);
@@ -319,11 +337,12 @@ static void ProcessNextRom()
 	int retval;
 	TCHAR buffer[200];
 
-	retval = MameUIVerifyRomSet(rom_index);
+	retval = MameUIVerifyRomSet(rom_index, 1);
 	switch (retval)
 	{
 	case media_auditor::BEST_AVAILABLE: /* correct, incorrect or separate count? */
 	case media_auditor::CORRECT:
+	case media_auditor::NONE_NEEDED:
 		roms_correct++;
 		_stprintf(buffer, TEXT("%i"), roms_correct);
 		SendDlgItemMessage(hAudit, IDC_ROMS_CORRECT, WM_SETTEXT, 0, (LPARAM)buffer);
@@ -332,8 +351,6 @@ static void ProcessNextRom()
 		break;
 
 	case media_auditor::NOTFOUND:
-		break;
-
 	case media_auditor::INCORRECT:
 		roms_incorrect++;
 		_stprintf(buffer, TEXT("%i"), roms_incorrect);
@@ -362,8 +379,18 @@ static void ProcessNextSample()
 
 	switch (retval)
 	{
-	case media_auditor::CORRECT:
+	case media_auditor::NOTFOUND:
+	case media_auditor::INCORRECT:
 		if (DriverUsesSamples(sample_index))
+		{
+			samples_incorrect++;
+			_stprintf(buffer, TEXT("%i"), samples_incorrect);
+			SendDlgItemMessage(hAudit, IDC_SAMPLES_INCORRECT, WM_SETTEXT, 0, (LPARAM)buffer);
+			_stprintf(buffer, TEXT("%i"), samples_correct + samples_incorrect);
+			SendDlgItemMessage(hAudit, IDC_SAMPLES_TOTAL, WM_SETTEXT, 0, (LPARAM)buffer);
+			break;
+		}
+	default:
 		{
 			samples_correct++;
 			_stprintf(buffer, TEXT("%i"), samples_correct);
@@ -372,18 +399,6 @@ static void ProcessNextSample()
 			SendDlgItemMessage(hAudit, IDC_SAMPLES_TOTAL, WM_SETTEXT, 0, (LPARAM)buffer);
 			break;
 		}
-
-	case media_auditor::NOTFOUND:
-		break;
-
-	case media_auditor::INCORRECT:
-		samples_incorrect++;
-		_stprintf(buffer, TEXT("%i"), samples_incorrect);
-		SendDlgItemMessage(hAudit, IDC_SAMPLES_INCORRECT, WM_SETTEXT, 0, (LPARAM)buffer);
-		_stprintf(buffer, TEXT("%i"), samples_correct + samples_incorrect);
-		SendDlgItemMessage(hAudit, IDC_SAMPLES_TOTAL, WM_SETTEXT, 0, (LPARAM)buffer);
-
-		break;
 	}
 
 	sample_index++;

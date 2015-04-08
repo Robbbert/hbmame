@@ -405,6 +405,84 @@ media_auditor::summary media_auditor::summarize(const char *name, astring *strin
 	return overall_status;
 }
 
+// MESSUI - only report problems that the user can fix
+media_auditor::summary media_auditor::winui_summarize(const char *name, astring *string)
+{
+	if (m_record_list.count() == 0)
+	{
+		return NONE_NEEDED;
+	}
+
+	// loop over records
+	summary overall_status = CORRECT;
+	for (audit_record *record = m_record_list.first(); record != NULL; record = record->next())
+	{
+		summary best_new_status = INCORRECT;
+
+		// skip anything that's fine
+		if ( (record->substatus() == audit_record::SUBSTATUS_GOOD)
+			|| (record->substatus() == audit_record::SUBSTATUS_GOOD_NEEDS_REDUMP)
+			|| (record->substatus() == audit_record::SUBSTATUS_NOT_FOUND_NODUMP)
+			|| (record->substatus() == audit_record::SUBSTATUS_FOUND_NODUMP)
+			)
+			continue;
+
+		// output the game name, file name, and length (if applicable)
+		//if (string != NULL)
+		{
+			string->catprintf("%-12s: %s", name, record->name());
+			if (record->expected_length() > 0)
+				string->catprintf(" (%" I64FMT "d bytes)", record->expected_length());
+			string->catprintf(" - ");
+		}
+
+		// use the substatus for finer details
+		switch (record->substatus())
+		{
+			case audit_record::SUBSTATUS_FOUND_NODUMP:
+				if (string != NULL) string->catprintf("NO GOOD DUMP KNOWN\n");
+				best_new_status = BEST_AVAILABLE;
+				break;
+
+			case audit_record::SUBSTATUS_FOUND_BAD_CHECKSUM:
+				if (string != NULL)
+				{
+					astring tempstr;
+					string->catprintf("INCORRECT CHECKSUM:\n");
+					string->catprintf("EXPECTED: %s\n", record->expected_hashes().macro_string(tempstr));
+					string->catprintf("   FOUND: %s\n", record->actual_hashes().macro_string(tempstr));
+				}
+				break;
+
+			case audit_record::SUBSTATUS_FOUND_WRONG_LENGTH:
+				if (string != NULL) string->catprintf("INCORRECT LENGTH: %" I64FMT "d bytes\n", record->actual_length());
+				break;
+
+			case audit_record::SUBSTATUS_NOT_FOUND:
+				if (string != NULL)
+				{
+					device_t *shared_device = record->shared_device();
+					if (shared_device == NULL)
+						string->catprintf("NOT FOUND\n");
+					else
+						string->catprintf("NOT FOUND (%s)\n", shared_device->shortname());
+				}
+				break;
+
+			case audit_record::SUBSTATUS_NOT_FOUND_OPTIONAL:
+				if (string != NULL) string->catprintf("NOT FOUND BUT OPTIONAL\n");
+				best_new_status = BEST_AVAILABLE;
+				break;
+
+			default:
+				assert(false);
+		}
+
+		// downgrade the overall status if necessary
+		overall_status = MAX(overall_status, best_new_status);
+	}
+	return overall_status;
+}
 
 //-------------------------------------------------
 //  audit_one_rom - validate a single ROM entry
