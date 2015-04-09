@@ -75,6 +75,7 @@
 
 # FILTER_DEPS = 1
 # SEPARATE_BIN = 1
+# PYTHON_EXECUTABLE = python3
 
 -include useroptions.mak
 
@@ -221,8 +222,11 @@ BIGENDIAN := 1
 endif
 endif # BIGENDIAN
 
-
-PYTHON := $(SILENT)python
+ifndef PYTHON_EXECUTABLE
+PYTHON := python
+else
+PYTHON := $(PYTHON_EXECUTABLE)
+endif
 CC := $(SILENT)gcc
 LD := $(SILENT)g++
 
@@ -495,6 +499,10 @@ ifdef SEPARATE_BIN
 PARAMS += --SEPARATE_BIN='$(SEPARATE_BIN)'
 endif
 
+ifdef PYTHON_EXECUTABLE
+PARAMS += --PYTHON_EXECUTABLE='$(PYTHON_EXECUTABLE)'
+endif
+
 #-------------------------------------------------
 # All scripts
 #-------------------------------------------------
@@ -564,12 +572,12 @@ SRC = src
 ifeq ($(OS),windows)
 GCC_VERSION      := $(shell gcc -dumpversion 2> NUL)
 CLANG_VERSION    := $(shell %CLANG%\bin\clang --version 2> NUL| head -n 1 | sed "s/[^0-9,.]//g")
-PYTHON_AVAILABLE := $(shell python --version > NUL 2>&1 && echo python)
+PYTHON_AVAILABLE := $(shell $(PYTHON) --version > NUL 2>&1 && echo python)
 CHECK_CLANG      :=
 else
 GCC_VERSION      := $(shell $(subst @,,$(CC)) -dumpversion 2> /dev/null)
 CLANG_VERSION    := $(shell clang --version  2> /dev/null | grep 'LLVM [0-9]\.[0-9]' -o | grep '[0-9]\.[0-9]' -o | head -n 1)
-PYTHON_AVAILABLE := $(shell python --version > /dev/null 2>&1 && echo python)
+PYTHON_AVAILABLE := $(shell $(PYTHON) --version > /dev/null 2>&1 && echo python)
 CHECK_CLANG      := $(shell gcc --version  2> /dev/null | grep 'clang' | head -n 1)
 endif
 
@@ -608,7 +616,7 @@ $(PROJECTDIR)/gmake-mingw64-gcc/Makefile: makefile $(SCRIPTS) $(GENIE)
 ifndef MINGW64
 	$(error MINGW64 is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=mingw64-gcc --gcc_version=$(GCC_VERSION) gmake 
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=mingw64-gcc --gcc_version=$(GCC_VERSION) gmake
 
 .PHONY: windows_x64
 windows_x64: generate $(PROJECTDIR)/gmake-mingw64-gcc/Makefile
@@ -644,7 +652,7 @@ endif
 .PHONY: windows_x64_clang
 windows_x64_clang: generate $(PROJECTDIR)/gmake-mingw-clang/Makefile
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/gmake-mingw-clang config=$(CONFIG)64 WINDRES=$(WINDRES)
-	
+
 .PHONY: windows_x86_clang
 windows_x86_clang: generate $(PROJECTDIR)/gmake-mingw-clang/Makefile
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/gmake-mingw-clang config=$(CONFIG)32 WINDRES=$(WINDRES)
@@ -849,7 +857,7 @@ clean:
 	-@rm -rf build
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C 3rdparty/genie/build/gmake.$(GENIEOS) -f genie.make clean
 
-GEN_FOLDERS := $(GENDIR)/$(TARGET)/layout/
+GEN_FOLDERS := $(GENDIR)/$(TARGET)/layout/ $(GENDIR)/$(TARGET)/$(SUBTARGET)/
 
 LAYOUTS=$(wildcard $(SRC)/$(TARGET)/layout/*.lay)
 
@@ -871,5 +879,4 @@ generate: \
 
 $(GENDIR)/%.lh: $(SRC)/%.lay $(SRC)/build/file2str.py
 	@echo Converting $<...
-	$(PYTHON) $(SRC)/build/file2str.py $< $@ layout_$(basename $(notdir $<))
-
+	$(SILENT)$(PYTHON) $(SRC)/build/file2str.py $< $@ layout_$(basename $(notdir $<))
