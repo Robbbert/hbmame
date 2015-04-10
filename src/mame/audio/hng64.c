@@ -350,7 +350,10 @@ WRITE_LINE_MEMBER(hng64_state::tcu_tm2_cb)
 {
 	// these are very active, maybe they feed back into the v53 via one of the IRQ pins?  TM2 toggles more rapidly than TM1
 //  logerror("tcu_tm2_cb %02x\n", state);
+	//m_audiocpu->set_input_line(1, state? ASSERT_LINE :CLEAR_LINE);
+	//m_audiocpu->set_input_line(2, state? ASSERT_LINE :CLEAR_LINE);
 
+	
 	// NOT ACCURATE, just so that all the interrupts get triggered for now.
 	#if 0
 	static int i;
@@ -379,7 +382,7 @@ WRITE_LINE_MEMBER(hng64_state::tcu_tm2_cb)
 
 
 MACHINE_CONFIG_FRAGMENT( hng64_audio )
-	MCFG_CPU_ADD("audiocpu", V53A, 32000000*2)              // V53A, 16? mhz!
+	MCFG_CPU_ADD("audiocpu", V53A, 32000000/2)              // V53A, 16? mhz!
 	MCFG_CPU_PROGRAM_MAP(hng_sound_map)
 	MCFG_CPU_IO_MAP(hng_sound_io)
 	MCFG_V53_DMAU_OUT_HREQ_CB(WRITELINE(hng64_state, dma_hreq_cb))

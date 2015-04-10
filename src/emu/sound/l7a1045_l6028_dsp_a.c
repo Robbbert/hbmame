@@ -73,6 +73,12 @@
 
 	Sample data format TBA
 
+	TODO:
+	- Sample format needs to be double checked;
+	- Octave Control/BPM/Pitch, right now XRally Network BGM wants 66150 Hz which is definitely too fast for Terry Bogard speech;
+	- Key Off;
+	- ADSR (registers 2 & 4?);
+	
 ***************************************************************************/
 
 #include "emu.h"
@@ -110,7 +116,7 @@ l7a1045_sound_device::l7a1045_sound_device(const machine_config &mconfig, const 
 void l7a1045_sound_device::device_start()
 {
 	/* Allocate the stream */
-	m_stream = stream_alloc(0, 2, 44100/4); //clock() / 384);
+	m_stream = stream_alloc(0, 2, 66150); //clock() / 384);
 
 	m_rom = m_region->base();
 	m_rom_size = m_region->bytes();
@@ -126,7 +132,7 @@ void l7a1045_sound_device::sound_stream_update(sound_stream &stream, stream_samp
 	/* Clear the buffers */
 	memset(outputs[0], 0, samples*sizeof(*outputs[0]));
 	memset(outputs[1], 0, samples*sizeof(*outputs[1]));
-
+	
 	for (int i = 0; i < 32; i++)
 	{
 		if (m_key & (1 << i))
@@ -135,29 +141,40 @@ void l7a1045_sound_device::sound_stream_update(sound_stream &stream, stream_samp
 
 			UINT32 start = vptr->start;
 			UINT32 end = vptr->end;
-			UINT32 step  = 0x0400;
-
+			UINT32 step  = 0x400;
+			
 			UINT32 pos = vptr->pos;
 			UINT32 frac = vptr->frac;
 
 			for (int j = 0; j < samples; j++)
 			{
 				INT32 sample;
-
-				pos += 1;//(frac >> 12);
+				UINT8 data;
+				
+				pos += (frac >> 12);
 				frac &= 0xfff;
 
 				if ((start + pos) >= end)
 				{
-					m_key &= ~(1 << i);
-
+					if(vptr->mode == true) // loop
+					{
+						pos = vptr->pos = 0;
+						frac = vptr->frac = 0;
+					}
+					else // no loop, keyoff
+					{
+						m_key &= ~(1 << i);
+						break;
+					}
 				}
 
-				sample = (INT8)m_rom[(start + pos) & (m_rom_size-1)];
+
+				data = m_rom[(start + pos) & (m_rom_size-1)];
+				sample = ((INT8)(data & 0xfc)) << (3 - (data & 3));
 				frac += step;
 
-				outputs[0][j] += ((sample * vptr->l_volume) >> 8);
-				outputs[1][j] += ((sample * vptr->r_volume) >> 8);
+				outputs[0][j] += ((sample * vptr->l_volume) >> 9);
+				outputs[1][j] += ((sample * vptr->r_volume) >> 9);
 			}
 
 			vptr->pos = pos;
@@ -220,8 +237,7 @@ WRITE16_MEMBER(l7a1045_sound_device::sound_data_w)
 {
 	l7a1045_voice *vptr = &m_voice[m_audiochannel];
 
-	//if(m_audioregister != 0 && m_audioregister != 7)
-	//if(m_audioregister == 6)
+	//if(m_audioregister != 0 && m_audioregister != 1 && m_audioregister != 7)
 	//	printf("%04x %04x (%04x %04x)\n",offset,data,m_audioregister,m_audiochannel);
 
 	m_audiodat[m_audioregister][m_audiochannel].dat[offset] = data;
@@ -247,6 +263,7 @@ WRITE16_MEMBER(l7a1045_sound_device::sound_data_w)
 			{
 				vptr->end = (m_audiodat[m_audioregister][m_audiochannel].dat[0] & 0xffff) << 2;
 				vptr->end += vptr->start;
+				vptr->mode = false;
 				// hopefully it'll never happen? Maybe assert here?
 				vptr->end &= m_rom_size - 1;
 
@@ -256,6 +273,7 @@ WRITE16_MEMBER(l7a1045_sound_device::sound_data_w)
 				vptr->end = (m_audiodat[m_audioregister][m_audiochannel].dat[2] & 0x000f) << (16 + 4);
 				vptr->end |= (m_audiodat[m_audioregister][m_audiochannel].dat[1] & 0xffff) << (4);
 				vptr->end |= (m_audiodat[m_audioregister][m_audiochannel].dat[0] & 0xf000) >> (12);
+				vptr->mode = true;
 
 				vptr->end &= m_rom_size - 1;
 			}
