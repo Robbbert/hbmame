@@ -8,17 +8,7 @@ HBMAME's purpose is to preserve homebrew games written for arcade machines or ar
 How to compile
 ==============
 
-If you're on a *nix system, it could be as easy as typing
-
-```
-make
-```
-
-for a HBMAME build, or
-
-```
-make TARGET=hbmame
-```
+Please read compile instructions at docs/compile.zip/compile.doc
 
 For Windows users, we provide a ready-made [build environment](http://mamedev.org/tools/) based on MinGW-w64. [Visual Studio builds](http://wiki.mamedev.org/index.php?title=Building_MAME_using_Microsoft_Visual_Studio_compilers) are also possible.
 
