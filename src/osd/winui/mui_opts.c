@@ -110,79 +110,73 @@ static void remove_all_source_options(void);
     Internal defines
  ***************************************************************************/
 
-#define UI_INI_FILENAME							MAMEUINAME ".ini"
+#define UI_INI_FILENAME					MAMENAME "UI.ini"
 #define DEFAULT_OPTIONS_INI_FILENAME			CONFIGNAME ".ini"
-
-#ifdef PTR64
-#define GAMEINFO_INI_FILENAME					"GameInfo64.ini"
-#else
-#define GAMEINFO_INI_FILENAME					"GameInfo32.ini"
-#endif
+#define GAMEINFO_INI_FILENAME				"GAMEINFO.ini"
 
 
-
-#define MUIOPTION_LIST_MODE						"list_mode"
-#define MUIOPTION_CHECK_GAME					"check_game"
+#define MUIOPTION_LIST_MODE				"list_mode"
+#define MUIOPTION_CHECK_GAME				"check_game"
 #define MUIOPTION_JOYSTICK_IN_INTERFACE			"joystick_in_interface"
 #define MUIOPTION_KEYBOARD_IN_INTERFACE			"keyboard_in_interface"
-#define MUIOPTION_CYCLE_SCREENSHOT				"cycle_screenshot"
+#define MUIOPTION_CYCLE_SCREENSHOT			"cycle_screenshot"
 #define MUIOPTION_STRETCH_SCREENSHOT_LARGER		"stretch_screenshot_larger"
 #define MUIOPTION_SCREENSHOT_BORDER_SIZE		"screenshot_bordersize"
 #define MUIOPTION_SCREENSHOT_BORDER_COLOR		"screenshot_bordercolor"
-#define MUIOPTION_INHERIT_FILTER				"inherit_filter"
-#define MUIOPTION_OFFSET_CLONES					"offset_clones"
+#define MUIOPTION_INHERIT_FILTER			"inherit_filter"
+#define MUIOPTION_OFFSET_CLONES				"offset_clones"
 #define MUIOPTION_BROADCAST_GAME_NAME			"broadcast_game_name"
-#define MUIOPTION_RANDOM_BACKGROUND				"random_background"
-#define MUIOPTION_DEFAULT_FOLDER_ID				"default_folder_id"
+#define MUIOPTION_RANDOM_BACKGROUND			"random_background"
+#define MUIOPTION_DEFAULT_FOLDER_ID			"default_folder_id"
 #define MUIOPTION_SHOW_IMAGE_SECTION			"show_image_section"
 #define MUIOPTION_SHOW_FOLDER_SECTION			"show_folder_section"
-#define MUIOPTION_HIDE_FOLDERS					"hide_folders"
-#define MUIOPTION_SHOW_STATUS_BAR				"show_status_bar"
-#define MUIOPTION_SHOW_TABS						"show_tabs"
-#define MUIOPTION_SHOW_TOOLBAR					"show_tool_bar"
-#define MUIOPTION_CURRENT_TAB					"current_tab"
-#define MUIOPTION_WINDOW_X						"window_x"
-#define MUIOPTION_WINDOW_Y						"window_y"
-#define MUIOPTION_WINDOW_WIDTH					"window_width"
-#define MUIOPTION_WINDOW_HEIGHT					"window_height"
-#define MUIOPTION_WINDOW_STATE					"window_state"
-#define MUIOPTION_CUSTOM_COLOR					"custom_color"
-#define MUIOPTION_LIST_FONT						"list_font"
-#define MUIOPTION_TEXT_COLOR					"text_color"
-#define MUIOPTION_CLONE_COLOR					"clone_color"
-#define MUIOPTION_HIDE_TABS						"hide_tabs"
-#define MUIOPTION_HISTORY_TAB					"history_tab"
-#define MUIOPTION_COLUMN_WIDTHS					"column_widths"
-#define MUIOPTION_COLUMN_ORDER					"column_order"
-#define MUIOPTION_COLUMN_SHOWN					"column_shown"
-#define MUIOPTION_SPLITTERS						"splitters"
-#define MUIOPTION_SORT_COLUMN					"sort_column"
-#define MUIOPTION_SORT_REVERSED					"sort_reversed"
-#define MUIOPTION_LANGUAGE						"language"
-#define MUIOPTION_FLYER_DIRECTORY				"flyer_directory"
-#define MUIOPTION_CABINET_DIRECTORY				"cabinet_directory"
-#define MUIOPTION_MARQUEE_DIRECTORY				"marquee_directory"
-#define MUIOPTION_TITLE_DIRECTORY				"title_directory"
-#define MUIOPTION_CPANEL_DIRECTORY				"cpanel_directory"
-#define MUIOPTION_PCB_DIRECTORY					"pcb_directory"
-#define MUIOPTION_ICONS_DIRECTORY				"icons_directory"
+#define MUIOPTION_HIDE_FOLDERS				"hide_folders"
+#define MUIOPTION_SHOW_STATUS_BAR			"show_status_bar"
+#define MUIOPTION_SHOW_TABS				"show_tabs"
+#define MUIOPTION_SHOW_TOOLBAR				"show_tool_bar"
+#define MUIOPTION_CURRENT_TAB				"current_tab"
+#define MUIOPTION_WINDOW_X				"window_x"
+#define MUIOPTION_WINDOW_Y				"window_y"
+#define MUIOPTION_WINDOW_WIDTH				"window_width"
+#define MUIOPTION_WINDOW_HEIGHT				"window_height"
+#define MUIOPTION_WINDOW_STATE				"window_state"
+#define MUIOPTION_CUSTOM_COLOR				"custom_color"
+#define MUIOPTION_LIST_FONT				"list_font"
+#define MUIOPTION_TEXT_COLOR				"text_color"
+#define MUIOPTION_CLONE_COLOR				"clone_color"
+#define MUIOPTION_HIDE_TABS				"hide_tabs"
+#define MUIOPTION_HISTORY_TAB				"history_tab"
+#define MUIOPTION_COLUMN_WIDTHS				"column_widths"
+#define MUIOPTION_COLUMN_ORDER				"column_order"
+#define MUIOPTION_COLUMN_SHOWN				"column_shown"
+#define MUIOPTION_SPLITTERS				"splitters"
+#define MUIOPTION_SORT_COLUMN				"sort_column"
+#define MUIOPTION_SORT_REVERSED				"sort_reversed"
+#define MUIOPTION_LANGUAGE				"language"
+#define MUIOPTION_FLYER_DIRECTORY			"flyer_directory"
+#define MUIOPTION_CABINET_DIRECTORY			"cabinet_directory"
+#define MUIOPTION_MARQUEE_DIRECTORY			"marquee_directory"
+#define MUIOPTION_TITLE_DIRECTORY			"title_directory"
+#define MUIOPTION_CPANEL_DIRECTORY			"cpanel_directory"
+#define MUIOPTION_PCB_DIRECTORY				"pcb_directory"
+#define MUIOPTION_ICONS_DIRECTORY			"icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY			"background_directory"
-#define MUIOPTION_FOLDER_DIRECTORY				"folder_directory"
-#define MUIOPTION_UI_KEY_UP						"ui_key_up"
-#define MUIOPTION_UI_KEY_DOWN					"ui_key_down"
-#define MUIOPTION_UI_KEY_LEFT					"ui_key_left"
-#define MUIOPTION_UI_KEY_RIGHT					"ui_key_right"
-#define MUIOPTION_UI_KEY_START					"ui_key_start"
-#define MUIOPTION_UI_KEY_PGUP					"ui_key_pgup"
-#define MUIOPTION_UI_KEY_PGDWN					"ui_key_pgdwn"
-#define MUIOPTION_UI_KEY_HOME					"ui_key_home"
-#define MUIOPTION_UI_KEY_END					"ui_key_end"
-#define MUIOPTION_UI_KEY_SS_CHANGE				"ui_key_ss_change"
-#define MUIOPTION_UI_KEY_HISTORY_UP				"ui_key_history_up"
+#define MUIOPTION_FOLDER_DIRECTORY			"folder_directory"
+#define MUIOPTION_UI_KEY_UP				"ui_key_up"
+#define MUIOPTION_UI_KEY_DOWN				"ui_key_down"
+#define MUIOPTION_UI_KEY_LEFT				"ui_key_left"
+#define MUIOPTION_UI_KEY_RIGHT				"ui_key_right"
+#define MUIOPTION_UI_KEY_START				"ui_key_start"
+#define MUIOPTION_UI_KEY_PGUP				"ui_key_pgup"
+#define MUIOPTION_UI_KEY_PGDWN				"ui_key_pgdwn"
+#define MUIOPTION_UI_KEY_HOME				"ui_key_home"
+#define MUIOPTION_UI_KEY_END				"ui_key_end"
+#define MUIOPTION_UI_KEY_SS_CHANGE			"ui_key_ss_change"
+#define MUIOPTION_UI_KEY_HISTORY_UP			"ui_key_history_up"
 #define MUIOPTION_UI_KEY_HISTORY_DOWN			"ui_key_history_down"
 #define MUIOPTION_UI_KEY_CONTEXT_FILTERS		"ui_key_context_filters"
 #define MUIOPTION_UI_KEY_SELECT_RANDOM			"ui_key_select_random"
-#define MUIOPTION_UI_KEY_GAME_AUDIT				"ui_key_game_audit"
+#define MUIOPTION_UI_KEY_GAME_AUDIT			"ui_key_game_audit"
 #define MUIOPTION_UI_KEY_GAME_PROPERTIES		"ui_key_game_properties"
 #define MUIOPTION_UI_KEY_HELP_CONTENTS			"ui_key_help_contents"
 #define MUIOPTION_UI_KEY_UPDATE_GAMELIST		"ui_key_update_gamelist"
@@ -197,51 +191,51 @@ static void remove_all_source_options(void);
 #define MUIOPTION_UI_KEY_VIEW_TAB_FLYER			"ui_key_view_tab_flyer"
 #define MUIOPTION_UI_KEY_VIEW_TAB_HISTORY		"ui_key_view_tab_history"
 #define MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE		"ui_key_view_tab_marquee"
-#define MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT	"ui_key_view_tab_screenshot"
+#define MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT		"ui_key_view_tab_screenshot"
 #define MUIOPTION_UI_KEY_VIEW_TAB_TITLE			"ui_key_view_tab_title"
 #define MUIOPTION_UI_KEY_VIEW_TAB_PCB			"ui_key_view_tab_pcb"
-#define MUIOPTION_UI_KEY_QUIT					"ui_key_quit"
-#define MUIOPTION_UI_JOY_UP						"ui_joy_up"
-#define MUIOPTION_UI_JOY_DOWN					"ui_joy_down"
-#define MUIOPTION_UI_JOY_LEFT					"ui_joy_left"
-#define MUIOPTION_UI_JOY_RIGHT					"ui_joy_right"
-#define MUIOPTION_UI_JOY_START					"ui_joy_start"
-#define MUIOPTION_UI_JOY_PGUP					"ui_joy_pgup"
-#define MUIOPTION_UI_JOY_PGDWN					"ui_joy_pgdwn"
-#define MUIOPTION_UI_JOY_HOME					"ui_joy_home"
-#define MUIOPTION_UI_JOY_END					"ui_joy_end"
-#define MUIOPTION_UI_JOY_SS_CHANGE				"ui_joy_ss_change"
-#define MUIOPTION_UI_JOY_HISTORY_UP				"ui_joy_history_up"
+#define MUIOPTION_UI_KEY_QUIT				"ui_key_quit"
+#define MUIOPTION_UI_JOY_UP				"ui_joy_up"
+#define MUIOPTION_UI_JOY_DOWN				"ui_joy_down"
+#define MUIOPTION_UI_JOY_LEFT				"ui_joy_left"
+#define MUIOPTION_UI_JOY_RIGHT				"ui_joy_right"
+#define MUIOPTION_UI_JOY_START				"ui_joy_start"
+#define MUIOPTION_UI_JOY_PGUP				"ui_joy_pgup"
+#define MUIOPTION_UI_JOY_PGDWN				"ui_joy_pgdwn"
+#define MUIOPTION_UI_JOY_HOME				"ui_joy_home"
+#define MUIOPTION_UI_JOY_END				"ui_joy_end"
+#define MUIOPTION_UI_JOY_SS_CHANGE			"ui_joy_ss_change"
+#define MUIOPTION_UI_JOY_HISTORY_UP			"ui_joy_history_up"
 #define MUIOPTION_UI_JOY_HISTORY_DOWN			"ui_joy_history_down"
-#define MUIOPTION_UI_JOY_EXEC					"ui_joy_exec"
-#define MUIOPTION_EXEC_COMMAND					"exec_command"
-#define MUIOPTION_EXEC_WAIT						"exec_wait"
-#define MUIOPTION_HIDE_MOUSE					"hide_mouse"
-#define MUIOPTION_FULL_SCREEN					"full_screen"
+#define MUIOPTION_UI_JOY_EXEC				"ui_joy_exec"
+#define MUIOPTION_EXEC_COMMAND				"exec_command"
+#define MUIOPTION_EXEC_WAIT				"exec_wait"
+#define MUIOPTION_HIDE_MOUSE				"hide_mouse"
+#define MUIOPTION_FULL_SCREEN				"full_screen"
 
 #ifdef MESS
 // Options names
-#define MUIOPTION_DEFAULT_GAME					"default_system"
-#define MUIOPTION_HISTORY_FILE					"sysinfo_file"
-#define MUIOPTION_MAMEINFO_FILE					"messinfo_file"
+#define MUIOPTION_DEFAULT_GAME				"default_system"
+#define MUIOPTION_HISTORY_FILE				"sysinfo_file"
+#define MUIOPTION_MAMEINFO_FILE				"messinfo_file"
 // Option values
-#define MUIDEFAULT_SELECTION					"nes"
-#define MUIDEFAULT_SPLITTERS					"152,310,468"
-#define MUIHISTORY_FILE							"sysinfo.dat"
-#define MUIMAMEINFO_FILE						"messinfo.dat"
+#define MUIDEFAULT_SELECTION				"nes"
+#define MUIDEFAULT_SPLITTERS				"152,310,468"
+#define MUIHISTORY_FILE					"sysinfo.dat"
+#define MUIMAMEINFO_FILE				"messinfo.dat"
 #else
 // Options names
-#define MUIOPTION_DEFAULT_GAME					"default_game"
-#define MUIOPTION_HISTORY_FILE					"history_file"
-#define MUIOPTION_MAMEINFO_FILE					"mameinfo_file"
+#define MUIOPTION_DEFAULT_GAME				"default_game"
+#define MUIOPTION_HISTORY_FILE				"history_file"
+#define MUIOPTION_MAMEINFO_FILE				"mameinfo_file"
 // Options values
-#define MUIDEFAULT_SELECTION					"puckman"
-#define MUIDEFAULT_SPLITTERS					"152,362"
-#define MUIHISTORY_FILE							"history.dat"
-#define MUIMAMEINFO_FILE						"mameinfo.dat"
+#define MUIDEFAULT_SELECTION				"puckman"
+#define MUIDEFAULT_SPLITTERS				"152,362"
+#define MUIHISTORY_FILE					"history.dat"
+#define MUIMAMEINFO_FILE				"mameinfo.dat"
 #endif
 
-#define MUIOPTION_VERSION						"version"
+#define MUIOPTION_VERSION				"version"
 
 
 /***************************************************************************
@@ -264,91 +258,81 @@ static game_options game_opts;
 const options_entry winui_options::s_option_entries[] =
 {
 	// UI options
-	{ NULL,									NULL,       OPTION_HEADER,     "APPLICATION OPTIONS" },
-	{ MUIOPTION_VERSION,					"",         OPTION_STRING,                 NULL },
-
-	{ NULL,									NULL,       OPTION_HEADER,     "DISPLAY STATE OPTIONS" },
-	{ MUIOPTION_DEFAULT_GAME,				MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
-	{ MUIOPTION_DEFAULT_GAME,				"puckman",  OPTION_STRING,                 NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "APPLICATION OPTIONS" },
+	{ MUIOPTION_VERSION,				"",         OPTION_STRING,                 NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "DISPLAY STATE OPTIONS" },
+	{ MUIOPTION_DEFAULT_GAME,			MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
+	{ MUIOPTION_DEFAULT_GAME,			"puckman",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_DEFAULT_FOLDER_ID,			"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SHOW_IMAGE_SECTION,			"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_FULL_SCREEN,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_CURRENT_TAB,				"0",        OPTION_STRING,                 NULL },
-	{ MUIOPTION_SHOW_TOOLBAR,				"1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_FULL_SCREEN,			"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_CURRENT_TAB,			"0",        OPTION_STRING,                 NULL },
+	{ MUIOPTION_SHOW_TOOLBAR,			"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_SHOW_STATUS_BAR,			"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_FOLDERS,				"",         OPTION_STRING,                 NULL },
-
+	{ MUIOPTION_HIDE_FOLDERS,			"",         OPTION_STRING,                 NULL },
 	{ MUIOPTION_SHOW_FOLDER_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_TABS,					"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_TABS,					"marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
-	{ MUIOPTION_HISTORY_TAB,				"0",        OPTION_INTEGER,                 NULL },
-
-	{ MUIOPTION_SORT_COLUMN,				"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SORT_REVERSED,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_WINDOW_X,					"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_Y,					"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_WIDTH,				"800",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_HEIGHT,				"600",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_STATE,				"1",        OPTION_INTEGER,                 NULL },
-
-	{ MUIOPTION_TEXT_COLOR,					"-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_CLONE_COLOR,				"-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_CUSTOM_COLOR,				"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", OPTION_STRING, NULL },
+	{ MUIOPTION_SHOW_TABS,				"1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_TABS,				"marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
+	{ MUIOPTION_HISTORY_TAB,			"0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SORT_COLUMN,			"0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SORT_REVERSED,			"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_WINDOW_X,				"0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_Y,				"0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_WIDTH,			"800",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_HEIGHT,			"600",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_STATE,			"1",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_TEXT_COLOR,				"-1",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_CLONE_COLOR,			"-1",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_CUSTOM_COLOR,			"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", OPTION_STRING, NULL },
 	/* ListMode needs to be before ColumnWidths settings */
-	{ MUIOPTION_LIST_MODE,					"5",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SPLITTERS,					MUIDEFAULT_SPLITTERS, OPTION_STRING,       NULL },
-	{ MUIOPTION_LIST_FONT,					"-8,0,0,0,400,0,0,0,0,0,0,0,0,MS Sans Serif", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_WIDTHS,				"185,78,84,84,64,88,74,108,60,144,84,60", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_ORDER,				"0,2,3,4,5,6,7,8,9,1,10,11", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_SHOWN,				"1,0,1,1,1,1,1,1,1,1,0,0", OPTION_STRING,  NULL },
-
-	{ NULL,									NULL,       OPTION_HEADER,     "INTERFACE OPTIONS" },
-	{ MUIOPTION_LANGUAGE,					"english",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_CHECK_GAME,					"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_LIST_MODE,				"5",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SPLITTERS,				MUIDEFAULT_SPLITTERS, OPTION_STRING,       NULL },
+	{ MUIOPTION_LIST_FONT,				"-8,0,0,0,400,0,0,0,0,0,0,0,0,MS Sans Serif", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_WIDTHS,			"185,78,84,84,64,88,74,108,60,144,84,60", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_ORDER,			"0,2,3,4,5,6,7,8,9,1,10,11", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_SHOWN,			"1,0,1,1,1,1,1,1,1,1,0,0", OPTION_STRING,  NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "INTERFACE OPTIONS" },
+	{ MUIOPTION_LANGUAGE,				"english",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_CHECK_GAME,				"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_JOYSTICK_IN_INTERFACE,		"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_KEYBOARD_IN_INTERFACE,		"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_RANDOM_BACKGROUND,			"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_BROADCAST_GAME_NAME,		"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_MOUSE,					"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_INHERIT_FILTER,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_OFFSET_CLONES,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_STRETCH_SCREENSHOT_LARGER,	"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_MOUSE,				"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_INHERIT_FILTER,			"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_OFFSET_CLONES,			"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_STRETCH_SCREENSHOT_LARGER,		"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_CYCLE_SCREENSHOT,			"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SCREENSHOT_BORDER_SIZE,		"11",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SCREENSHOT_BORDER_COLOR,	"-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_EXEC_COMMAND,				"",         OPTION_STRING,                 NULL },
-	{ MUIOPTION_EXEC_WAIT,					"0",        OPTION_INTEGER,                 NULL },
-
-	{ NULL,									NULL,       OPTION_HEADER,     "SEARCH PATH OPTIONS" },
+	{ MUIOPTION_SCREENSHOT_BORDER_COLOR,		"-1",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_EXEC_COMMAND,			"",         OPTION_STRING,                 NULL },
+	{ MUIOPTION_EXEC_WAIT,				"0",        OPTION_INTEGER,                 NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "SEARCH PATH OPTIONS" },
 	{ MUIOPTION_FLYER_DIRECTORY,			"flyers",   OPTION_STRING,                 NULL },
 	{ MUIOPTION_CABINET_DIRECTORY,			"cabinets", OPTION_STRING,                 NULL },
 	{ MUIOPTION_MARQUEE_DIRECTORY,			"marquees", OPTION_STRING,                 NULL },
 	{ MUIOPTION_TITLE_DIRECTORY,			"titles",   OPTION_STRING,                 NULL },
 	{ MUIOPTION_CPANEL_DIRECTORY,			"cpanel",   OPTION_STRING,                 NULL },
-	{ MUIOPTION_PCB_DIRECTORY,				"pcb",      OPTION_STRING,                 NULL },
+	{ MUIOPTION_PCB_DIRECTORY,			"pcb",      OPTION_STRING,                 NULL },
 	{ MUIOPTION_BACKGROUND_DIRECTORY,		"bkground", OPTION_STRING,                 NULL },
 	{ MUIOPTION_FOLDER_DIRECTORY,			"folders",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,			"icons",    OPTION_STRING,                 NULL },
-
-
-	{ NULL,									NULL,       OPTION_HEADER,     "FILENAME OPTIONS" },
-	{ MUIOPTION_HISTORY_FILE,				MUIHISTORY_FILE,  OPTION_STRING,              NULL },
-	{ MUIOPTION_MAMEINFO_FILE,				MUIMAMEINFO_FILE, OPTION_STRING,             NULL },
-
-	{ NULL,									NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
-	{ MUIOPTION_UI_KEY_UP,					"KEYCODE_UP",						OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_DOWN,				"KEYCODE_DOWN", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_LEFT,				"KEYCODE_LEFT", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_RIGHT,				"KEYCODE_RIGHT",					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_START,				"KEYCODE_ENTER NOT KEYCODE_LALT",	OPTION_STRING,			NULL },
-	{ MUIOPTION_UI_KEY_PGUP,				"KEYCODE_PGUP", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_PGDWN,				"KEYCODE_PGDN", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_HOME,				"KEYCODE_HOME", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_END,					"KEYCODE_END",						OPTION_STRING,          NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "FILENAME OPTIONS" },
+	{ MUIOPTION_HISTORY_FILE,			MUIHISTORY_FILE,  OPTION_STRING,              NULL },
+	{ MUIOPTION_MAMEINFO_FILE,			MUIMAMEINFO_FILE, OPTION_STRING,             NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
+	{ MUIOPTION_UI_KEY_UP,				"KEYCODE_UP",						OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_DOWN,			"KEYCODE_DOWN", 					OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_LEFT,			"KEYCODE_LEFT", 					OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_RIGHT,			"KEYCODE_RIGHT",					OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_START,			"KEYCODE_ENTER NOT KEYCODE_LALT",	OPTION_STRING,			NULL },
+	{ MUIOPTION_UI_KEY_PGUP,			"KEYCODE_PGUP", 					OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_PGDWN,			"KEYCODE_PGDN", 					OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_HOME,			"KEYCODE_HOME", 					OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_END,				"KEYCODE_END",						OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_SS_CHANGE,			"KEYCODE_INSERT",					OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_HISTORY_UP,			"KEYCODE_DEL",						OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_HISTORY_DOWN,		"KEYCODE_LALT KEYCODE_0",			OPTION_STRING,  		NULL },
-
 	{ MUIOPTION_UI_KEY_CONTEXT_FILTERS,		"KEYCODE_LCONTROL KEYCODE_F", OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_SELECT_RANDOM,		"KEYCODE_LCONTROL KEYCODE_R", OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_GAME_AUDIT,			"KEYCODE_LALT KEYCODE_A",     OPTION_STRING, NULL },
@@ -358,34 +342,32 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_UI_KEY_VIEW_FOLDERS,		"KEYCODE_LALT KEYCODE_D",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_FULLSCREEN,		"KEYCODE_F11",                OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PAGETAB,		"KEYCODE_LALT KEYCODE_B",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,	"KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,		"KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_STATUS,			"KEYCODE_LALT KEYCODE_S",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TOOLBARS,		"KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
-
-	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,	"KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_CPANEL,		"KEYCODE_LALT KEYCODE_6",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_FLYER,		"KEYCODE_LALT KEYCODE_2",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_HISTORY,	"KEYCODE_LALT KEYCODE_8",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE,	"KEYCODE_LALT KEYCODE_4",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT,	"KEYCODE_LALT KEYCODE_1",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_TITLE,		"KEYCODE_LALT KEYCODE_5",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_VIEW_TAB_PCB,		"KEYCODE_LALT KEYCODE_7",     OPTION_STRING, NULL },
-    { MUIOPTION_UI_KEY_QUIT,				"KEYCODE_LALT KEYCODE_Q",     OPTION_STRING, NULL },
-
-	{ NULL,									NULL,       OPTION_HEADER,     "NAVIGATION JOYSTICK CODES" },
-	{ MUIOPTION_UI_JOY_UP,					"1,1,1,1",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_DOWN,				"1,1,1,2",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_LEFT,				"1,1,2,1",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_RIGHT,				"1,1,2,2",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_START,				"1,0,1,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_PGUP,				"2,1,2,1",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_PGDWN,				"2,1,2,2",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_HOME,				"0,0,0,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_END,					"0,0,0,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TOOLBARS,		"KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,		"KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_CPANEL,		"KEYCODE_LALT KEYCODE_6",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_FLYER,		"KEYCODE_LALT KEYCODE_2",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_HISTORY,		"KEYCODE_LALT KEYCODE_8",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE,		"KEYCODE_LALT KEYCODE_4",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT,		"KEYCODE_LALT KEYCODE_1",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_TITLE,		"KEYCODE_LALT KEYCODE_5",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_PCB,		"KEYCODE_LALT KEYCODE_7",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_QUIT,			"KEYCODE_LALT KEYCODE_Q",     OPTION_STRING, NULL },
+	{ NULL,						NULL,       OPTION_HEADER,     "NAVIGATION JOYSTICK CODES" },
+	{ MUIOPTION_UI_JOY_UP,				"1,1,1,1",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_DOWN,			"1,1,1,2",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_LEFT,			"1,1,2,1",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_RIGHT,			"1,1,2,2",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_START,			"1,0,1,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_PGUP,			"2,1,2,1",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_PGDWN,			"2,1,2,2",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_HOME,			"0,0,0,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_END,				"0,0,0,0",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_UI_JOY_SS_CHANGE,			"2,0,3,0",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_UI_JOY_HISTORY_UP,			"2,0,4,0",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_UI_JOY_HISTORY_DOWN,		"2,0,1,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_EXEC,				"0,0,0,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_EXEC,			"0,0,0,0",  OPTION_STRING,                 NULL },
 	{ NULL }
 };
 
