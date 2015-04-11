@@ -279,6 +279,16 @@ newoption {
 	description = "Python executable.",
 }
 
+newoption {
+	trigger = "SHADOW_CHECK",
+	description = "Shadow checks.",
+	allowed = {
+		{ "0",   "Disabled" 	},
+		{ "1",   "Enabled"      },
+	}
+}
+
+
 PYTHON = "python"
 
 if _OPTIONS["PYTHON_EXECUTABLE"]~=nil then
@@ -832,6 +842,11 @@ end
 				}
 			end
 		else
+			if (_OPTIONS["SHADOW_CHECK"]=="1") then
+				buildoptions {
+					"-Wshadow"
+				}			
+			end
 			if (version == 40201) then
 				buildoptions {
 					"-Wno-cast-align"
@@ -1072,7 +1087,11 @@ configuration { "vs2015" }
 			"/wd4463", -- warning C4463: overflow; assigning 1 to bit-field that can only hold values from -1 to 0
 			"/wd4297", -- warning C4297: 'xxx::~xxx': function assumed not to throw an exception but does
 		}
-		
+configuration { "vs2010" }
+		buildoptions {
+			"/wd4481", -- warning C4481: nonstandard extension used: override specifier 'override'
+		}
+
 configuration { "x32", "vs*" }
 		libdirs {
 			MAME_DIR .. "3rdparty/dxsdk/lib/x86",
