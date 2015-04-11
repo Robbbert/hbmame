@@ -40,21 +40,30 @@ ROM_START( baddudef )
 	ROM_LOAD( "ei08.2c",   0x0000, 0x10000, CRC(3c87463e) SHA1(f17c98507b562e91e9b27599614b3249fe68ff7a) )
 ROM_END
 
-// was working in 0.128, but now the text doesn't work
+// There are 3 screens. Press 1 very lightly to advance.
+// On first screen, press Left & Right to move 'CHAOS' around.
 ROM_START( decodemo )
-	ROM_REGION( 0x60000, "maincpu", 0 )	/* 6*64k for 68000 code, middle 0x20000 unused */
+	ROM_REGION( 0x60000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "decodemo.4",   0x00000, 0x10000, CRC(7cb53ab2) SHA1(c06f8173f5b27b647b186e1c3a198ec22dab4950) )
 	ROM_LOAD16_BYTE( "decodemo.1",   0x00001, 0x10000, CRC(920dd0bf) SHA1(e69e60121812716b55f4e9c4b3f4993171c5296a) )
 	ROM_LOAD16_BYTE( "decodemo.6",   0x40000, 0x10000, CRC(d7978eeb) SHA1(1adc95bebe9eea8c112d40cd04ab7a8d75c4f961) )
 	ROM_LOAD16_BYTE( "decodemo.3",   0x40001, 0x10000, CRC(d7978eeb) SHA1(1adc95bebe9eea8c112d40cd04ab7a8d75c4f961) )
 
-	/* The instruction [33C0 0030 C003] [move.w D0, $30C003.l] is apparently illegal, we need to patch out all 3 occurences */
-	ROM_FILL( 0x04ba, 1, 0x4e )
-	ROM_FILL( 0x04bb, 1, 0x71 )			/* write a nop instruction [4e71] */
-	ROM_COPY( "maincpu", 0x04ba, 0x04bc, 2 )	/* The faulty instruction is 6 bytes long, so we need 3 nops */
-	ROM_COPY( "maincpu", 0x04ba, 0x04be, 2 )
-	ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 )	/* copy the 3 nops to 0x4e8 */
-	ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 )	/* and 0x96e */
+	// The instruction [33C0 0030 C003] [move.w D0, $30C003.l] is considered illegal, we need to patch out all 3 occurrences
+	//ROM_FILL( 0x04ba, 1, 0x4e )
+	//ROM_FILL( 0x04bb, 1, 0x71 )			/* write a nop instruction [4e71] */
+	//ROM_COPY( "maincpu", 0x04ba, 0x04bc, 2 )	/* The faulty instruction is 6 bytes long, so we need 3 nops */
+	//ROM_COPY( "maincpu", 0x04ba, 0x04be, 2 )
+	//ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 )	/* copy the 3 nops to 0x4e8 */
+	//ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 )	/* and 0x96e */
+
+	// Text stopped working when bac06 device was rewritten. We send a 1 to pf_control_0 to fix it.
+	ROM_FILL( 0x04d8, 1, 0x33 )
+	ROM_FILL( 0x04d9, 1, 0xfc )
+	ROM_FILL( 0x04da, 6, 0x00 )
+	ROM_FILL( 0x04db, 1, 0x01 )
+	ROM_FILL( 0x04dd, 1, 0x24 )
+	ROM_FILL( 0x04e0, 1, 0x67 )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )	/* Sound CPU */
 	ROM_LOAD( "ei07.8a",   0x8000, 0x8000, CRC(9fb1ef4b) SHA1(f4dd0773be93c2ad8b0faacd12939c531b5aa130) )
@@ -90,4 +99,4 @@ ROM_START( decodemo )
 ROM_END
 
 GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", GAME_SUPPORTS_SAVE )
-GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Charles Doty", "Demo - Data East", GAME_NOT_WORKING )
+GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Charles Doty", "Demo - Data East", GAME_SUPPORTS_SAVE )
