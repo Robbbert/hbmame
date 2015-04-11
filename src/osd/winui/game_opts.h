@@ -70,8 +70,8 @@ public:
 	}
 
 	// C string conversion operators and helpers
-	operator const char *() const { return m_str.cstr(); }
-	const char *cstr() const { return m_str.cstr(); }
+	operator const char *() const { return m_str.c_str(); }
+	const char *c_str() const { return m_str.c_str(); }
 
 private:
 	astring			m_str;
@@ -178,7 +178,7 @@ public:
 		{
 			if ( value_str.next(',') )
 			{
-				if ( value_str and (sscanf(value_str.cstr(), "%d", &value_int) == 1) )
+				if ( value_str and (sscanf(value_str.c_str(), "%d", &value_int) == 1) )
 				{
 					switch (i)
 					{
@@ -213,7 +213,7 @@ public:
 					value_str.catprintf(",%d", m_list[i].play_count);
 			}
 
-			m_info.set_value(driver_list::driver(i).name, value_str.cstr(), OPTION_PRIORITY_CMDLINE, error_string);
+			m_info.set_value(driver_list::driver(i).name, value_str.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
 		}
 	}
 

@@ -165,7 +165,7 @@ int MameUIVerifyRomSet(int game, bool choice)
 		auditor.summarize(driver_list::driver(game).name, &summary_string); // audit one game
 
 	// output the summary of the audit
-	DetailsPrintf("%s", summary_string.cstr());
+	DetailsPrintf("%s", summary_string.c_str());
 
 	SetRomAuditResults(game, summary);
 	return summary;
@@ -187,7 +187,7 @@ int MameUIVerifySampleSet(int game)
 		auditor.summarize(driver_list::driver(game).name, &summary_string);
 
 	// output the summary of the audit
-	DetailsPrintf("%s", summary_string.cstr());
+	DetailsPrintf("%s", summary_string.c_str());
 
 	SetSampleAuditResults(game, summary);
 	return summary;

@@ -65,7 +65,7 @@ public:
 	public:
 		// getters
 		entry *next() const { return m_next; }
-		const char *name() const { return m_name[0] ? m_name[0].cstr() : NULL; }
+		const char *name() const { return m_name[0] ? m_name[0].c_str() : NULL; }
 		const char *description() const { return m_description; }
 		const char *value() const { return m_data; }
 		const char *default_value() const { return m_defdata; }
