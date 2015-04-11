@@ -260,8 +260,6 @@ victor_9000_fdc_t::victor_9000_fdc_t(const machine_config &mconfig, const char *
 	cur_live.tm = attotime::never;
 	cur_live.state = IDLE;
 	cur_live.next_state = -1;
-	cur_live.write_position = 0;
-	cur_live.write_start_time = attotime::never;
 }
 
 
@@ -271,6 +269,11 @@ victor_9000_fdc_t::victor_9000_fdc_t(const machine_config &mconfig, const char *
 
 void victor_9000_fdc_t::device_start()
 {
+	// resolve callbacks
+	m_irq_cb.resolve_safe();
+	m_syn_cb.resolve_safe();
+	m_lbrdy_cb.resolve_safe();
+
 	// allocate timer
 	t_gen = timer_alloc(TM_GEN);
 	t_tach0 = timer_alloc(TM_TACH0);
@@ -313,11 +316,6 @@ void victor_9000_fdc_t::device_start()
 void victor_9000_fdc_t::device_reset()
 {
 	live_abort();
-
-	// resolve callbacks
-	m_irq_cb.resolve_safe();
-	m_syn_cb.resolve_safe();
-	m_lbrdy_cb.resolve_safe();
 
 	// reset devices
 	m_via4->reset();
@@ -1176,8 +1174,6 @@ void victor_9000_fdc_t::live_abort()
 	cur_live.tm = attotime::never;
 	cur_live.state = IDLE;
 	cur_live.next_state = -1;
-	cur_live.write_position = 0;
-	cur_live.write_start_time = attotime::never;
 
 	cur_live.brdy = 1;
 	cur_live.lbrdy_changed = true;
@@ -1249,12 +1245,12 @@ void victor_9000_fdc_t::live_run(const attotime &limit)
 
 			// GCR decoder
 			if (cur_live.drw) {
-				cur_live.i = cur_live.shift_reg;
+				cur_live.i = cur_live.drw << 10 | cur_live.shift_reg;
 			} else {
-				cur_live.i = 0x200 | ((cur_live.wd & 0xf0) << 1) | cur_live.wrsync << 4 | (cur_live.wd & 0x0f);
+				cur_live.i = cur_live.drw << 10 | 0x200 | ((cur_live.wd & 0xf0) << 1) | cur_live.wrsync << 4 | (cur_live.wd & 0x0f);
 			}
 
-			cur_live.e = m_gcr_rom->base()[cur_live.drw << 10 | cur_live.i];
+			cur_live.e = m_gcr_rom->base()[cur_live.i];
 
 			attotime next = cur_live.tm + m_period;
 			if (LOG) logerror("%s:%s cyl %u bit %u sync %u bc %u sr %03x sbc %u sBC %u syn %u i %03x e %02x\n",cur_live.tm.as_string(),next.as_string(),get_floppy()->get_cyl(),bit,sync,cur_live.bit_counter,cur_live.shift_reg,cur_live.sync_bit_counter,cur_live.sync_byte_counter,syn,cur_live.i,cur_live.e);
