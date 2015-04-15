@@ -431,16 +431,17 @@ void device_image_interface::run_hash(void (*partialhash)(hash_collection &, con
 	hashes.reset();
 	size = (UINT32) length();
 
-	buf.resize_and_clear(size);
+	buf.resize(size);
+	memset(&buf[0], 0, size);
 
 	/* read the file */
 	fseek(0, SEEK_SET);
-	fread(buf, size);
+	fread(&buf[0], size);
 
 	if (partialhash)
-		partialhash(hashes, buf, size, types);
+		partialhash(hashes, &buf[0], size, types);
 	else
-		hashes.compute(buf, size, types);
+		hashes.compute(&buf[0], size, types);
 
 	/* cleanup */
 	fseek(0, SEEK_SET);
@@ -499,13 +500,13 @@ UINT32 device_image_interface::crc()
 -------------------------------------------------*/
 void device_image_interface::battery_load(void *buffer, int length, int fill)
 {
-	astring fname(device().machine().system().name, PATH_SEPARATOR, m_basename_noext.c_str(), ".nv");
+	astring fname = astring(device().machine().system().name).cat(PATH_SEPARATOR).cat(m_basename_noext.c_str()).cat(".nv");
 	image_battery_load_by_name(device().machine().options(), fname.c_str(), buffer, length, fill);
 }
 
 void device_image_interface::battery_load(void *buffer, int length, void *def_buffer)
 {
-	astring fname(device().machine().system().name, PATH_SEPARATOR, m_basename_noext.c_str(), ".nv");
+	astring fname = astring(device().machine().system().name).cat(PATH_SEPARATOR).cat(m_basename_noext.c_str()).cat(".nv");
 	image_battery_load_by_name(device().machine().options(), fname.c_str(), buffer, length, def_buffer);
 }
 
@@ -517,7 +518,7 @@ void device_image_interface::battery_load(void *buffer, int length, void *def_bu
 -------------------------------------------------*/
 void device_image_interface::battery_save(const void *buffer, int length)
 {
-	astring fname(device().machine().system().name, PATH_SEPARATOR, m_basename_noext.c_str(), ".nv");
+	astring fname = astring(device().machine().system().name).cat(PATH_SEPARATOR).cat(m_basename_noext.c_str()).cat(".nv");
 
 	image_battery_save_by_name(device().machine().options(), fname.c_str(), buffer, length);
 }

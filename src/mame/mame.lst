@@ -926,7 +926,8 @@ metlhawkj       // (c) 1988
 ordyne          // (c) 1988
 ordynej         // (c) 1988
 mirninja        // (c) 1988 (Japan)
-phelios         // (c) 1988 (Japan)
+phelios         // (c) 1988
+pheliosj        // (c) 1988 (Japan)
 dirtfoxj        // (c) 1989 (Japan)
 fourtrax        // 89.11
 valkyrie        // (c) 1989 (Japan)
@@ -2289,6 +2290,7 @@ puzznic         // C20 (c) 1989 Taito Corporation (Japan)
 puzznicj        // C20 (c) 1989 Taito Corporation (Japan)
 puzznici        // bootleg
 puzznicb        // bootleg
+puzznicba		// bootleg
 horshoes        // C47 (c) 1990 Taito America Corporation (US)
 palamed         // C63 (c) 1990 Taito Corporation (Japan)
 cachat          // ??? (c) 1993 Taito Corporation (Japan)
@@ -2703,10 +2705,11 @@ cookbib2        // (c) 1996 SemiCom
 cookbib3        // (c) 1997 SemiCom
 twinkle         // (c) 1997 SemiCom
 pzlbreak        // (c) 1997 SemiCom
+suhosong        // (c) 1997 SemiCom
 3in1semi        // (c) 1998 SemiCom
+mcheonru        // (c) 1999 SemiCom
 moremore        // (c) 1999 SemiCom + Exit
 moremorp        // (c) 1999 SemiCom + Exit
-suhosong        // (c) 199? SemiCom
 4in1boot        // (c) 2002 KISoft (includes hacks of Semicom games + Snowbros)
 
 // More Toaplan Games
@@ -7947,8 +7950,9 @@ shadfrcejv2     // TA-0032 (c) 1993 (Japan)
 // Stern "Berzerk hardware" games
 berzerk         // (c) 1980
 berzerk1        // (c) 1980
-berzerkf        // (c) 1980
-berzerkg        // (c) 1980
+berzerkf        // (c) 1980 (French speech)
+berzerkg        // (c) 1980 (German speech)
+berzerks        // (c) 1980 Sonic license(Spanish speech)
 frenzy          // (c) 1982
 moonwarp        // (c) 1982 - prototype
 
@@ -9538,6 +9542,7 @@ redhawk         // (c) 1997 New Vision Ent. license
 redhawke        // (c) 1997 Excellent Co., Ltd license
 redhawki        // (c) 1997 Haedong Corp. license
 redhawkb        // (c) 1997
+redhawkk		// (c) 1997
 grdnstrm        // (c) 1998 Apples Industries license
 grdnstrmv       // (c) 1998 Apples Industries license
 grdnstrmk       // (c) 1998 (Korea)
@@ -11347,6 +11352,7 @@ pex0449p        // (c) 1995 IGT - International Game Technology
 pex0451p        // (c) 1995 IGT - International Game Technology
 pex0452p        // (c) 1995 IGT - International Game Technology
 pex0454p        // (c) 1995 IGT - International Game Technology
+pex0455p        // (c) 1995 IGT - International Game Technology
 pex0458p        // (c) 1995 IGT - International Game Technology
 pex0459p        // (c) 1995 IGT - International Game Technology
 pex0459pa       // (c) 1995 IGT - International Game Technology
@@ -11372,6 +11378,7 @@ pex2018p        // (c) 1995 IGT - International Game Technology
 pex2025p        // (c) 1995 IGT - International Game Technology
 pex2026p        // (c) 1995 IGT - International Game Technology
 pex2027p        // (c) 1995 IGT - International Game Technology
+pex2028p        // (c) 1995 IGT - International Game Technology
 pex2029p        // (c) 1995 IGT - International Game Technology
 pex2031p        // (c) 1995 IGT - International Game Technology
 pex2035p        // (c) 1995 IGT - International Game Technology

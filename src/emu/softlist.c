@@ -149,8 +149,8 @@ bool software_part::is_compatible(const software_list_device &swlistdev) const
 		return true;
 
 	// copy the comma-delimited strings and ensure they end with a final comma
-	astring comp(compatibility, ",");
-	astring filt(filter, ",");
+	astring comp = astring(compatibility).cat(",");
+	astring filt = astring(filter).cat(",");
 
 	// iterate over filter items and see if they exist in the compatibility list; if so, return true
 	for (int start = 0, end = filt.chr(start, ','); end != -1; start = end + 1, end = filt.chr(start, ','))
@@ -175,10 +175,10 @@ bool software_part::matches_interface(const char *interface_list) const
 		return true;
 
 	// copy the comma-delimited interface list and ensure it ends with a final comma
-	astring interfaces(interface_list, ",");
+	astring interfaces = astring(interface_list).cat(",");
 
 	// then add a comma to the end of our interface and return true if we find it in the list string
-	astring our_interface(m_interface, ",");
+	astring our_interface = astring(m_interface).cat(",");
 	return (interfaces.find(0, our_interface.c_str()) != -1);
 }
 
@@ -328,7 +328,7 @@ void software_list_device::find_approx_matches(const char *name, int matches, so
 		return;
 
 	// initialize everyone's states
-	dynamic_array<int> penalty(matches);
+	std::vector<int> penalty(matches);
 	for (int matchnum = 0; matchnum < matches; matchnum++)
 	{
 		penalty[matchnum] = 9999;
@@ -500,7 +500,7 @@ void software_list_device::device_validity_check(validity_checker &valid) const
 {
 	// add to the global map whenever we check a list so we don't re-check
 	// it in the future
-	if (valid.already_checked(astring("softlist/", m_list_name.c_str()).c_str()))
+	if (valid.already_checked(astring("softlist/").cat(m_list_name.c_str()).c_str()))
 		return;
 
 	// do device validation only in case of validate command
@@ -781,17 +781,19 @@ void softlist_parser::add_rom_entry(const char *name, const char *hashdata, UINT
 
 	// make sure we don't add duplicate regions
 	if (name != NULL && (flags & ROMENTRY_TYPEMASK) == ROMENTRYTYPE_REGION)
-		for (int romentry = 0; romentry < m_current_part->m_romdata.count(); romentry++)
+		for (unsigned int romentry = 0; romentry < m_current_part->m_romdata.size(); romentry++)
 			if (m_current_part->m_romdata[romentry]._name != NULL && strcmp(m_current_part->m_romdata[romentry]._name, name) == 0)
 				parse_error("Duplicated dataarea %s in software %s", name, infoname());
 
 	// create the new entry and append it
-	rom_entry &entry = m_current_part->m_romdata.append();
+	rom_entry entry;
 	entry._name = m_list.add_string(name);
 	entry._hashdata = m_list.add_string(hashdata);
 	entry._offset = offset;
 	entry._length = length;
 	entry._flags = flags;
+
+	m_current_part->m_romdata.push_back(entry);
 }
 
 

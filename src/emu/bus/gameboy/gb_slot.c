@@ -209,8 +209,11 @@ static const gb_slot slot_list[] =
 	{ GB_MBC_MBC7, "rom_mbc7" },
 	{ GB_MBC_TAMA5, "rom_tama5" },
 	{ GB_MBC_MMM01, "rom_mmm01" },
+	{ GB_MBC_M161, "rom_m161_m12" },
 	{ GB_MBC_MBC3, "rom_huc1" },    // for now treat this as alias for MBC3
 	{ GB_MBC_MBC3, "rom_huc3" },    // for now treat this as alias for MBC3
+	{ GB_MBC_SACHEN1, "rom_sachen1" },
+	{ GB_MBC_SACHEN2, "rom_sachen2" },
 	{ GB_MBC_WISDOM, "rom_wisdom" },
 	{ GB_MBC_YONGYONG, "rom_yong" },
 	{ GB_MBC_LASAMA, "rom_lasama" },
@@ -606,15 +609,15 @@ void base_gb_cart_slot_device::get_default_card_software(astring &result)
 		dynamic_buffer rom(len);
 		int type;
 
-		core_fread(m_file, rom, len);
+		core_fread(m_file, &rom[0], len);
 
 		if ((len % 0x4000) == 512)
 			offset = 512;
 
-		if (get_mmm01_candidate(rom + offset, len - offset))
+		if (get_mmm01_candidate(&rom[offset], len - offset))
 			offset += (len - 0x8000);
 
-		type = get_cart_type(rom + offset, len - offset);
+		type = get_cart_type(&rom[offset], len - offset);
 		slot_string = gb_get_slot(type);
 
 		//printf("type: %s\n", slot_string);

@@ -129,7 +129,7 @@ drcuml_state::drcuml_state(device_t &device, drc_cache &cache, UINT32 flags, int
 	// if we're to log, create the logfile
 	if (device.machine().options().drc_log_uml())
 	{
-		astring filename("drcuml_", m_device.shortname(), ".asm");
+		astring filename = astring("drcuml_").cat(m_device.shortname()).cat(".asm");
 		m_umllog = fopen(filename.c_str(), "w");
 	}
 }
@@ -340,7 +340,7 @@ void drcuml_block::end()
 		disassemble();
 
 	// generate the code via the back-end
-	m_drcuml.generate(*this, m_inst, m_nextinst);
+	m_drcuml.generate(*this, &m_inst[0], m_nextinst);
 
 	// block is no longer in use
 	m_inuse = false;

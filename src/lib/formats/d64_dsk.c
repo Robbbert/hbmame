@@ -180,6 +180,13 @@ void d64_format::build_sector_description(const format &f, UINT8 *sectdata, UINT
 	}
 }
 
+void d64_format::fix_end_gap(floppy_image_format_t::desc_e* desc, int remaining_size)
+{
+	desc[21].p2 = remaining_size / 8;
+	desc[22].p2 = remaining_size & 7;
+	desc[22].p1 >>= remaining_size & 0x01;
+}
+
 bool d64_format::load(io_generic *io, UINT32 form_factor, floppy_image *image)
 {
 	int type = find_size(io, form_factor);
@@ -192,13 +199,14 @@ bool d64_format::load(io_generic *io, UINT32 form_factor, floppy_image *image)
 	dynamic_buffer img;
 
 	if(size == (UINT32)f.sector_count*f.sector_base_size) {
-		img.resize_and_clear(size + f.sector_count, ERROR_00);
+		img.resize(size + f.sector_count);
+		memset(&img[0], ERROR_00, size + f.sector_count);
 	}
 	else {
 		img.resize(size);
 	}
 
-	io_generic_read(io, img, 0, size);
+	io_generic_read(io, &img[0], 0, size);
 
 	int track_offset = 0, error_offset = f.sector_count*f.sector_base_size;
 
@@ -219,14 +227,11 @@ bool d64_format::load(io_generic *io, UINT32 form_factor, floppy_image *image)
 			if(remaining_size < 0)
 				throw emu_fatalerror("d64_format: Incorrect track layout, max_size=%d, current_size=%d", total_size, current_size);
 
-			// Fixup the end gap
-			desc[21].p2 = remaining_size / 8;
-			desc[22].p2 = remaining_size & 7;
-			desc[22].p1 >>= remaining_size & 0x01;
+			this->fix_end_gap(desc, remaining_size);
 
 			desc_s sectors[40];
 
-			build_sector_description(f, img, track_offset, error_offset, sectors, sector_count);
+			build_sector_description(f, &img[0], track_offset, error_offset, sectors, sector_count);
 			generate_track(desc, physical_track, head, sectors, sector_count, total_size, image);
 
 			track_offset += track_size;

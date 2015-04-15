@@ -729,7 +729,7 @@ const rgb_t *render_container::bcg_lookup_table(int texformat, palette_t *palett
 				recompute_lookups();
 			}
 			assert (palette == &m_palclient->palette());
-			return m_bcglookup;
+			return &m_bcglookup[0];
 
 		case TEXFORMAT_RGB32:
 		case TEXFORMAT_ARGB32:
@@ -1571,7 +1571,7 @@ bool render_target::load_layout_file(const char *dirname, const char *filename)
 	else
 	{
 		// build the path and optionally prepend the directory
-		astring fname(filename, ".lay");
+		astring fname = astring(filename).cat(".lay");
 		if (dirname != NULL)
 			fname.ins(0, PATH_SEPARATOR).ins(0, dirname);
 
