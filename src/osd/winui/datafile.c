@@ -152,7 +152,7 @@ static int GetSrcDriverIndex(const char *srcdriver)
 		sorted_srcdrivers = (srcdriver_data_type *)malloc(sizeof(srcdriver_data_type) * num_games);
 		for (i=0;i<num_games;i++)
 		{
-			sorted_srcdrivers[i].srcdriver = driver_list::driver(i).source_file+17;
+			sorted_srcdrivers[i].srcdriver = driver_list::driver(i).source_file+32;
 			sorted_srcdrivers[i].index = i;
 		}
 		qsort(sorted_srcdrivers,num_games,sizeof(srcdriver_data_type),SrcDriverDataCompareFunc);
@@ -813,7 +813,7 @@ int load_driver_drivinfo (const game_driver *drv, char *buffer, int bufsize)
 	*buffer = 0;
 
 	/* Print source code file */
-	sprintf (buffer, "\n\nSOURCE: %s\n", drv->source_file+17);
+	sprintf (buffer, "\n\nSOURCE: %s\n", drv->source_file+32);
 
 	if (!g_mameinfo_filename || !*g_mameinfo_filename)
 		g_mameinfo_filename = core_strdup("mameinfo.dat");
@@ -841,7 +841,7 @@ int load_driver_drivinfo (const game_driver *drv, char *buffer, int bufsize)
 	strcat(buffer,"\nGAMES SUPPORTED:\n");
 	for (i = 0; i < driver_list::total(); i++)
 	{
-		if (!strcmp (drv->source_file+17, driver_list::driver(i).source_file+17) && !(driver_list::driver(i).flags & GAME_IS_BIOS_ROOT)) 
+		if (!strcmp (drv->source_file+32, driver_list::driver(i).source_file+32) && !(driver_list::driver(i).flags & GAME_IS_BIOS_ROOT)) 
 		{
 			strcat(buffer, driver_list::driver(i).description);
 			strcat(buffer,"\n");

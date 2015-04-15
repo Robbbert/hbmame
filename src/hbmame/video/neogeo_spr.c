@@ -717,7 +717,7 @@ void neosprite_optimized_device::optimize_sprite_data()
 	m_sprite_gfx_address_mask = mask;
 
 	src = m_region_sprites->base();
-	dest = m_sprite_gfx;
+	dest = &m_sprite_gfx[0];
 
 	for (unsigned i = 0; i < m_region_sprites->bytes(); i += 0x80, src += 0x80)
 	{

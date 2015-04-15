@@ -27,27 +27,27 @@ void neogeo_state::create_rgb_lookups()
 	   ensuring that we use the same scaler for all */
 	double weights_normal[5];
 	double scaler = compute_resistor_weights(0, 255, -1,
-											5, resistances, weights_normal, 0, 0,
-											0, NULL, NULL, 0, 0,
-											0, NULL, NULL, 0, 0);
+				5, resistances, weights_normal, 0, 0,
+				0, NULL, NULL, 0, 0,
+				0, NULL, NULL, 0, 0);
 
 	double weights_dark[5];
 	compute_resistor_weights(0, 255, scaler,
-							5, resistances, weights_dark, 8200, 0,
-							0, NULL, NULL, 0, 0,
-							0, NULL, NULL, 0, 0);
+				5, resistances, weights_dark, 8200, 0,
+				0, NULL, NULL, 0, 0,
+				0, NULL, NULL, 0, 0);
 
 	double weights_shadow[5];
 	compute_resistor_weights(0, 255, scaler,
-							5, resistances, weights_shadow, 150, 0,
-							0, NULL, NULL, 0, 0,
-							0, NULL, NULL, 0, 0);
+				5, resistances, weights_shadow, 150, 0,
+				0, NULL, NULL, 0, 0,
+				0, NULL, NULL, 0, 0);
 
 	double weights_dark_shadow[5];
 	compute_resistor_weights(0, 255, scaler,
-							5, resistances, weights_dark_shadow, 1.0 / ((1.0 / 8200) + (1.0 / 150)), 0,
-							0, NULL, NULL, 0, 0,
-							0, NULL, NULL, 0, 0);
+				5, resistances, weights_dark_shadow, 1.0 / ((1.0 / 8200) + (1.0 / 150)), 0,
+				0, NULL, NULL, 0, 0,
+				0, NULL, NULL, 0, 0);
 
 	for (int i = 0; i < 32; i++)
 	{
@@ -102,14 +102,14 @@ WRITE16_MEMBER(neogeo_state::neogeo_paletteram_w)
 	int b = ((data >> 12) & 0x1) | ((data << 1) & 0x1e);
 
 	m_palette->set_pen_color(offset,
-								m_palette_lookup[r][dark],
-								m_palette_lookup[g][dark],
-								m_palette_lookup[b][dark]);	// normal
+				m_palette_lookup[r][dark],
+				m_palette_lookup[g][dark],
+				m_palette_lookup[b][dark]);	// normal
 
 	m_palette->set_pen_color(offset + 0x2000,
-								m_palette_lookup[r][dark+2],
-								m_palette_lookup[g][dark+2],
-								m_palette_lookup[b][dark+2]); // shadow
+				m_palette_lookup[r][dark+2],
+				m_palette_lookup[g][dark+2],
+				m_palette_lookup[b][dark+2]); // shadow
 }
 
 
@@ -124,7 +124,8 @@ void neogeo_state::video_start()
 {
 	create_rgb_lookups();
 
-	m_paletteram.resize_and_clear(0x1000 * 2);
+	m_paletteram.resize(0x1000 * 2);
+	memset(&m_paletteram[0], 0, 0x1000 * 2);
 
 	m_screen_shadow = 0;
 	m_palette_bank = 0;

@@ -110,7 +110,7 @@ public:
 	neosprite_optimized_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 	virtual void optimize_sprite_data();
 	virtual void draw_pixel(int romaddr, UINT32* dst, const pen_t *line_pens);
-	dynamic_array<UINT8> m_sprite_gfx;
+	std::vector<UINT8> m_sprite_gfx;
 
 };
 
