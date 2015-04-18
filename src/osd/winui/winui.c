@@ -4454,7 +4454,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			OpenFileName.lStructSize       = sizeof(OPENFILENAME);
 			OpenFileName.hwndOwner         = hMain;
 			OpenFileName.hInstance         = 0;
-			OpenFileName.lpstrFilter       = TEXT("Image Files (*.png, *.bmp)\0*.PNG;*.BMP\0");
+			OpenFileName.lpstrFilter       = TEXT("Image Files (*.png)\0*.PNG\0");
 			OpenFileName.lpstrCustomFilter = NULL;
 			OpenFileName.nMaxCustFilter    = 0;
 			OpenFileName.nFilterIndex      = 1;
