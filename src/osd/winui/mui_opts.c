@@ -2511,7 +2511,7 @@ void LoadFolderFlags(void)
 
 			astring option_name (folder_name); option_name.cat("_filters");
 			// create entry
-			entries[0].name = option_name;
+			entries[0].name = option_name.c_str();
 			opts.add_entries(entries);
 		}
 	}
@@ -2686,7 +2686,7 @@ static void ui_parse_ini_file(windows_options &opts, const char *name)
 {
 	/* open the file; if we fail, that's ok */
 	astring fname (GetIniDir()); fname.cat(PATH_SEPARATOR); fname.cat(".ini");
-	LoadSettingsFile(opts, fname);
+	LoadSettingsFile(opts, fname.c_str());
 }
 
 
@@ -2759,7 +2759,7 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 		// then parse "<sourcefile>.ini"
 		core_filename_extract_base(basename, driver->source_file, TRUE);
 		astring srcname ("source"); srcname.cat(PATH_SEPARATOR); srcname.cat(basename);
-		ui_parse_ini_file(opts, srcname);
+		ui_parse_ini_file(opts, srcname.c_str());
 
 		if (opt_type == OPTIONS_SOURCE)
 		{
@@ -2851,7 +2851,7 @@ void save_options(OPTIONS_TYPE opt_type, windows_options &opts, int game_num)
 	{
 		astring filepath (GetIniDir()); filepath.cat(PATH_SEPARATOR); filepath.cat(".ini");
 
-		SaveSettingsFile(opts, baseopts, filepath);
+		SaveSettingsFile(opts, baseopts, filepath.c_str());
 	}
 }
 
@@ -2867,19 +2867,19 @@ static void remove_all_source_options(void) {
      */
 	astring pathname (GetIniDir()); pathname.cat(PATH_SEPARATOR); pathname.cat("source");
 	astring match (pathname); match.cat(PATH_SEPARATOR); match.cat("*.ini");
-	if ((hFindFile = win_find_first_file_utf8(match, &findFileData)) != INVALID_HANDLE_VALUE)
+	if ((hFindFile = win_find_first_file_utf8(match.c_str(), &findFileData)) != INVALID_HANDLE_VALUE)
 	{
 		utf8_filename = utf8_from_tstring(findFileData.cFileName);
 		astring match (pathname); match.cat(PATH_SEPARATOR); match.cat(utf8_filename);
 		osd_free(utf8_filename);
-		osd_rmfile(match);
+		osd_rmfile(match.c_str());
 
 		while (0 != FindNextFile(hFindFile, &findFileData))
 		{
 			utf8_filename = utf8_from_tstring(findFileData.cFileName);
 			astring match (pathname); match.cat(PATH_SEPARATOR); match.cat(utf8_filename);
 			osd_free(utf8_filename);
-			osd_rmfile(match);
+			osd_rmfile(match.c_str());
 		}
 
 		FindClose(hFindFile);

@@ -9,6 +9,9 @@
   By continuing to use, modify or distribute this file you indicate
   that you have read the license and understand and accept it fully.
 
+  This handles the display of all images: background picture, snaps, cabinets,
+  etc.  The only image type supported is 'png'.
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -29,13 +32,11 @@
 // MAME/MAMEUI headers
 #include "emu.h"
 #include "png.h"
-#include "osdepend.h"
 #include "unzip.h"
 #include "mui_opts.h"
 #include "mui_util.h"
 #include "winui.h"
 #include "drivenum.h"
-
 
 /***************************************************************************
     function prototypes
@@ -193,19 +194,26 @@ static file_error OpenDIBFile(const char *dir_name, const char *zip_name, const 
 	*file = NULL;
 
 	// look for the raw file
-	astring fname (dir_name); fname.cat(PATH_SEPARATOR); fname.cat(filename);
-	filerr = core_fopen(fname, OPEN_FLAG_READ, file);
-
+	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(filename) + ".png";
+	filerr = core_fopen(fname.c_str(), OPEN_FLAG_READ, file);
 	// did the raw file not exist?
 	if (filerr != FILERR_NONE)
 	{
 		// look into zip file
-		astring fname (dir_name); fname.cat(PATH_SEPARATOR); fname.cat(".zip");
-		ziperr = zip_file_open(fname, &zip);
+		fname = std::string(dir_name) + PATH_SEPARATOR + std::string(filename) + ".zip";
+		ziperr = zip_file_open(fname.c_str(), &zip);
+		// zip not found, try generic zip name
+		if (ziperr != ZIPERR_NONE)
+		{
+			fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".zip";
+			ziperr = zip_file_open(fname.c_str(), &zip);
+		}
+		// if found, look for 'game.png' inside the zipfile
 		if (ziperr == ZIPERR_NONE)
 		{
-			zip_header = zip_file_seek_file(zip, filename);
-			if (zip_header != NULL)
+			fname = std::string(filename) + ".png";
+			zip_header = zip_file_seek_file(zip, fname.c_str());
+			if (zip_header)
 			{
 				*buffer = malloc(zip_header->uncompressed_length);
 				ziperr = zip_file_decompress(zip, *buffer, zip_header->uncompressed_length);
@@ -258,7 +266,7 @@ BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 			dir_name = GetControlPanelDir();
 			zip_name = "cpanel";
 			break;
-        case TAB_PCB :
+		case TAB_PCB :
 			dir_name = GetPcbDir();
 		    zip_name = "pcb";
 			break;
@@ -270,42 +278,42 @@ BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 			// in case a non-image tab gets here, which can happen
 			return FALSE;
 	}
-	//Add handling for the displaying of all the different supported snapshot patterntypes
-	//%g
-	astring fname (filename); fname.cat(".png");
-	filerr = OpenDIBFile(dir_name, zip_name, fname, &file, &buffer);
+	//Add handling for the displaying of all the different supported snapshot pattern types
+	//%g ( snaps/game.png )
+	std::string fname = std::string(filename);
+	filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 
-	if (filerr != FILERR_NONE) 
+	if (filerr != FILERR_NONE)
 	{
-		//%g/%i
-		astring fname (filename); fname.cat(PATH_SEPARATOR); fname.cat("0000.png");
-		filerr = OpenDIBFile(dir_name, zip_name, fname, &file, &buffer);
+		//%g%i ( snaps/game0000.png )
+		std::string fname = std::string(filename) + "0000";
+		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
-	if (filerr != FILERR_NONE) 
+	if (filerr != FILERR_NONE)
 	{
-		//%g%i
-		astring fname (filename); fname.cat("0000.png");
-		filerr = OpenDIBFile(dir_name, zip_name, fname, &file, &buffer);
+		//%g/%i ( snaps/game/0000.png )
+		std::string fname = std::string(filename) + PATH_SEPARATOR + "0000";
+		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
-	if (filerr != FILERR_NONE) 
+	if (filerr != FILERR_NONE)
 	{
-		//%g/%g
-		astring fname (filename); fname.cat(PATH_SEPARATOR); fname.cat(filename); fname.cat(".png");
-		filerr = OpenDIBFile(dir_name, zip_name, fname, &file, &buffer);
+		//%g/%g ( snaps/game/game.png )
+		std::string fname = std::string(filename) + PATH_SEPARATOR + std::string(filename);
+		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
-	if (filerr != FILERR_NONE) 
+	if (filerr != FILERR_NONE)
 	{
-		//%g/%g%i
-		astring fname (filename); fname.cat(PATH_SEPARATOR); fname.cat(filename); fname.cat("0000.png");
-		filerr = OpenDIBFile(dir_name, zip_name, fname, &file, &buffer);
+		//%g/%g%/%i ( snaps/game/game/0000.png )
+		std::string fname = std::string(filename) + PATH_SEPARATOR + std::string(filename) + PATH_SEPARATOR + "0000";
+		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
-	if (filerr == FILERR_NONE) 
+	if (filerr == FILERR_NONE)
 	{
 		success = png_read_bitmap_gui(file, phDIB, pPal);
 		core_fclose(file);
 	}
 	// free the buffer if we have to
-	if (buffer != NULL) 
+	if (buffer != NULL)
 	{
 		free(buffer);
 	}
