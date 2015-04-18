@@ -182,6 +182,20 @@ static const zip_file_header *zip_file_seek_file(zip_file *zip, const char *file
 	return header;
 }
 
+static file_error OpenBkgroundFile(const char *filename, core_file **file)
+{
+	file_error filerr;
+
+	// clear out result
+	*file = NULL;
+
+	// look for the raw file
+	astring fname (filename);
+	filerr = core_fopen(fname, OPEN_FLAG_READ, file);
+
+	return filerr;
+}
+
 static file_error OpenDIBFile(const char *dir_name, const char *zip_name, const char *filename,
 	core_file **file, void **buffer)
 {
@@ -236,8 +250,17 @@ BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 	const char *dir_name;
 	const char *zip_name;
 	void *buffer = NULL;
-	if (pPal != NULL ) {
+	std::string fname;
+
+	if (pPal)
 		DeletePalette(pPal);
+
+	if (pic_type == BACKGROUND)
+	{
+		dir_name = GetBgDir();
+		filerr = OpenBkgroundFile(dir_name, &file);
+		zip_name = "bkground";
+		goto done;
 	}
 
 	switch (pic_type)
@@ -268,11 +291,7 @@ BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 			break;
 		case TAB_PCB :
 			dir_name = GetPcbDir();
-		    zip_name = "pcb";
-			break;
-		case BACKGROUND:
-			dir_name = GetBgDir();
-			zip_name = "bkground";
+			zip_name = "pcb";
 			break;
 		default :
 			// in case a non-image tab gets here, which can happen
@@ -280,33 +299,35 @@ BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 	}
 	//Add handling for the displaying of all the different supported snapshot pattern types
 	//%g ( snaps/game.png )
-	std::string fname = std::string(filename);
+	fname = std::string(filename);
 	filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 
 	if (filerr != FILERR_NONE)
 	{
 		//%g%i ( snaps/game0000.png )
-		std::string fname = std::string(filename) + "0000";
+		fname = std::string(filename) + "0000";
 		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
 	if (filerr != FILERR_NONE)
 	{
 		//%g/%i ( snaps/game/0000.png )
-		std::string fname = std::string(filename) + PATH_SEPARATOR + "0000";
+		fname = std::string(filename) + PATH_SEPARATOR + "0000";
 		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
 	if (filerr != FILERR_NONE)
 	{
 		//%g/%g ( snaps/game/game.png )
-		std::string fname = std::string(filename) + PATH_SEPARATOR + std::string(filename);
+		fname = std::string(filename) + PATH_SEPARATOR + std::string(filename);
 		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
 	if (filerr != FILERR_NONE)
 	{
 		//%g/%g%/%i ( snaps/game/game/0000.png )
-		std::string fname = std::string(filename) + PATH_SEPARATOR + std::string(filename) + PATH_SEPARATOR + "0000";
+		fname = std::string(filename) + PATH_SEPARATOR + std::string(filename) + PATH_SEPARATOR + "0000";
 		filerr = OpenDIBFile(dir_name, zip_name, fname.c_str(), &file, &buffer);
 	}
+
+done:
 	if (filerr == FILERR_NONE)
 	{
 		success = png_read_bitmap_gui(file, phDIB, pPal);

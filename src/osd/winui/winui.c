@@ -4447,7 +4447,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		{
 			OPENFILENAME OpenFileName;
 			static TCHAR szFile[MAX_PATH] = TEXT("\0");
-			TCHAR*       t_bgdir = tstring_from_utf8(GetBgDir());
+			TCHAR* t_bgdir = tstring_from_utf8(GetBgDir());
 			if( !t_bgdir )
 				return FALSE;
 
@@ -4477,7 +4477,11 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				utf8_szFile = utf8_from_tstring(szFile);
 				if( !utf8_szFile )
 					return FALSE;
-				ResetBackground(utf8_szFile);
+
+				// Make this file as the new default
+				SetBgDir(utf8_szFile);
+
+				// Display new background
 				LoadBackgroundBitmap();
 				InvalidateRect(hMain, NULL, TRUE);
 				osd_free(t_bgdir);
@@ -4646,7 +4650,6 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 static void LoadBackgroundBitmap()
 {
 	HGLOBAL hDIBbg;
-	char*	pFileName = 0;
 
 	if (hBackground)
 	{
@@ -4660,19 +4663,16 @@ static void LoadBackgroundBitmap()
 		hPALbg = 0;
 	}
 
-	/* Pick images based on number of colors avaliable. */
-	if (GetDepth(hwndList) <= 8)
-	{
-		pFileName = (char *)"bkgnd16";
-		/*nResource = IDB_BKGROUND16;*/
-	}
-	else
-	{
-		pFileName = (char *)"bkground";
-		/*nResource = IDB_BKGROUND;*/
-	}
+	const char* pPath = GetBgDir(); // get full path of bitmap
 
-	if (LoadDIB(pFileName, &hDIBbg, &hPALbg, BACKGROUND))
+	char drive[_MAX_DRIVE];
+	char dir[_MAX_DIR];
+	char fname[_MAX_FNAME];
+	char ext[_MAX_EXT];
+
+	_splitpath(pPath, drive, dir, fname, ext);
+
+	if (LoadDIB(fname, &hDIBbg, &hPALbg, BACKGROUND))
 	{
 		HDC hDC = GetDC(hwndList);
 		hBackground = DIBToDDB(hDC, hDIBbg, &bmDesc);
@@ -4876,9 +4876,9 @@ static void InitListView()
 	t_bgdir = tstring_from_utf8(GetBgDir());
 	if( !t_bgdir )
 		return;
-	_stprintf(path, TEXT("%s\\bkground.png"), t_bgdir);
+
 	bki.ulFlags = LVBKIF_SOURCE_URL | LVBKIF_STYLE_TILE;
-	bki.pszImage = path;
+	bki.pszImage = t_bgdir;
 	if( hBackground )
 		res = ListView_SetBkImage(hwndList, &bki);
 

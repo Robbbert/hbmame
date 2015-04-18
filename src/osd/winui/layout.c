@@ -121,7 +121,7 @@ extern const DIRECTORYINFO g_directoryInfo[] =
 	{ "Controller Files",      GetCtrlrDir,     SetCtrlrDir,     FALSE, DIRDLG_CTRLR },
 	{ "Hard Drive Difference", GetDiffDir,      SetDiffDir,      FALSE, 0 },
 	{ "Icons",                 GetIconsDir,     SetIconsDir,     FALSE, 0 },
-	{ "Background Images",     GetBgDir,        SetBgDir,        FALSE, 0 },
+//	{ "Background Images",     GetBgDir,        SetBgDir,        FALSE, 0 },
 	{ "Comment Files",         GetCommentDir,   SetCommentDir,   FALSE, DIRDLG_COMMENT },
 	{ "Fonts",                 GetFontDir,      SetFontDir,      FALSE, 0 },
 	{ "Crosshairs",            GetCrosshairDir, SetCrosshairDir, FALSE, 0 },
