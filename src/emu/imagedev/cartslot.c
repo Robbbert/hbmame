@@ -67,7 +67,7 @@ int cartslot_image_device::load_cartridge(const rom_entry *romrgn, const rom_ent
 	int datawidth, littleendian, i, j;
 	device_t *cpu;
 
-	astring regiontag;
+	std::string regiontag;
 	device().siblingtag(regiontag, ROMREGION_GETTAG(romrgn));
 	region = regiontag.c_str();
 	offset = ROM_GETOFFSET(roment);
@@ -178,7 +178,7 @@ int cartslot_image_device::process_cartridge(bool load)
 			{
 				if (ROMENTRY_GETTYPE(roment) == ROMENTRYTYPE_CARTRIDGE)
 				{
-					astring regiontag;
+					std::string regiontag;
 					this->device().siblingtag(regiontag, roment->_hashdata);
 
 					if (strcmp(regiontag.c_str(),this->device().tag())==0)

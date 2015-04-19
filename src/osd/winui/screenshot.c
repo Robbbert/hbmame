@@ -191,7 +191,7 @@ static file_error OpenBkgroundFile(const char *filename, core_file **file)
 
 	// look for the raw file
 	astring fname (filename);
-	filerr = core_fopen(fname, OPEN_FLAG_READ, file);
+	filerr = core_fopen(fname.c_str(), OPEN_FLAG_READ, file);
 
 	return filerr;
 }
