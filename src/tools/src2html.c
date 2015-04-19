@@ -423,7 +423,7 @@ static int recurse_dir(int srcrootlen, int dstrootlen, astring &srcdir, astring 
 					dstfile.printf("%s%c%s.html", dstdir.c_str(), PATH_SEPARATOR[0], curlist->name.c_str());
 					if (indexfile != NULL)
 						core_fprintf(indexfile, "\t<li><a href=\"%s.html\">%s</a></li>\n", curlist->name.c_str(), curlist->name.c_str());
-					result = output_file(type, srcrootlen, dstrootlen, srcfile, dstfile, srcdir == dstdir, tempheader, tempfooter);
+					result = output_file(type, srcrootlen, dstrootlen, srcfile, dstfile, srcdir.cmp(dstdir)==0, tempheader, tempfooter);
 				}
 			}
 
@@ -833,7 +833,7 @@ static bool find_include_file(astring &srcincpath, int srcrootlen, int dstrootle
 	for (include_path *curpath = incpaths; curpath != NULL; curpath = curpath->next)
 	{
 		// a '.' include path is specially treated
-		if (curpath->path == ".")
+		if (curpath->path.cmp(".")==0)
 			srcincpath.cpysubstr(srcfile, 0, srcfile.rchr(0, PATH_SEPARATOR[0]));
 		else
 			srcincpath.cpysubstr(srcfile, 0, srcrootlen + 1).cat(curpath->path);
@@ -845,7 +845,7 @@ static bool find_include_file(astring &srcincpath, int srcrootlen, int dstrootle
 		{
 			// handle .. by removing a chunk from the incpath
 			astring pathpart(filename, lastsepindex, sepindex - lastsepindex);
-			if (pathpart == "..")
+			if (pathpart.cmp("..")==0)
 			{
 				sepindex = srcincpath.rchr(0, PATH_SEPARATOR[0]);
 				if (sepindex != -1)
@@ -879,7 +879,7 @@ static bool find_include_file(astring &srcincpath, int srcrootlen, int dstrootle
 				astring tempinc(srcincpath, 0, sepindex);
 
 				// if we don't match, stop
-				if (tempfile != tempinc)
+				if (tempfile.cmp(tempinc)!=0)
 					break;
 				lastsepindex = sepindex + 1;
 			}
