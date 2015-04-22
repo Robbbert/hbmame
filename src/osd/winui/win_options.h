@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Aaron Giles
 /***************************************************************************
 
     win_options.h
@@ -6,42 +8,16 @@
 
 ****************************************************************************
 
-    Copyright Aaron Giles
-    All rights reserved.
 
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are
-    met:
-
-        * Redistributions of source code must retain the above copyright
-          notice, this list of conditions and the following disclaimer.
-        * Redistributions in binary form must reproduce the above copyright
-          notice, this list of conditions and the following disclaimer in
-          the documentation and/or other materials provided with the
-          distribution.
-        * Neither the name 'MAME' nor the names of its contributors may be
-          used to endorse or promote products derived from this software
-          without specific prior written permission.
-
-    THIS SOFTWARE IS PROVIDED BY AARON GILES ''AS IS'' AND ANY EXPRESS OR
-    IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    DISCLAIMED. IN NO EVENT SHALL AARON GILES BE LIABLE FOR ANY DIRECT,
-    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-    HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-    IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
 
 ***************************************************************************/
+
+#pragma once
 
 #ifndef __WIN_OPTIONS_H__
 #define __WIN_OPTIONS_H__
 
 #include "options.h"
-
 
 
 //**************************************************************************
@@ -58,45 +34,49 @@ public:
 	class entry
 	{
 		friend class win_options;
+		friend class simple_list<entry>;
 
 		// construction/destruction
-		entry(const options_entry &entry);
+		entry(const char *name, const char *description, UINT32 flags = 0, const char *defvalue = NULL);
 
 	public:
 		// getters
 		entry *next() const { return m_next; }
-		const char *name() const { return m_name[0] ? m_name[0].c_str() : NULL; }
+		const char *name(int index = 0) const { return (index < ARRAY_LENGTH(m_name) && !m_name[index].empty()) ? m_name[index].c_str() : NULL; }
 		const char *description() const { return m_description; }
-		const char *value() const { return m_data; }
-		const char *default_value() const { return m_defdata; }
-		const char *minimum() const { return m_minimum; }
-		const char *maximum() const { return m_maximum; }
+		const char *value() const { return m_data.c_str(); }
+		const char *default_value() const { return m_defdata.c_str(); }
+		const char *minimum() const { return m_minimum.c_str(); }
+		const char *maximum() const { return m_maximum.c_str(); }
 		UINT32 seqid() const { return m_seqid; }
 		int type() const { return (m_flags & OPTION_TYPE_MASK); }
 		UINT32 flags() const { return m_flags; }
 		bool is_header() const { return type() == OPTION_HEADER; }
 		bool is_command() const { return type() == OPTION_COMMAND; }
-		bool has_range() const { return (m_minimum && m_maximum); }
+		bool is_internal() const { return m_flags & OPTION_FLAG_INTERNAL; }
+		bool has_range() const { return (!m_minimum.empty() && !m_maximum.empty()); }
 		int priority() const { return m_priority; }
 
 		// setters
 		void set_value(const char *newvalue, int priority);
 		void set_default_value(const char *defvalue);
+		void set_description(const char *description);
+		void set_flag(UINT32 mask, UINT32 flag);
 		void revert(int priority);
 
 	private:
 		// internal state
-		entry *					m_next;				// link to the next data
-		UINT32					m_flags;			// flags from the entry
-		UINT32					m_seqid;			// sequence ID; bumped on each change
-		bool					m_error_reported;	// have we reported an error on this option yet?
-		int						m_priority;			// priority of the data set
-		const char *			m_description;		// description for this item
-		astring					m_name[4];			// up to 4 names for the item
-		astring					m_data;				// data for this item
-		astring					m_defdata;			// default data for this item
-		astring					m_minimum;			// minimum value
-		astring					m_maximum;			// maximum value
+		entry *                 m_next;             // link to the next data
+		UINT32                  m_flags;            // flags from the entry
+		UINT32                  m_seqid;            // sequence ID; bumped on each change
+		bool                    m_error_reported;   // have we reported an error on this option yet?
+		int                     m_priority;         // priority of the data set
+		const char *            m_description;      // description for this item
+		astring                 m_name[4];          // up to 4 names for the item
+		astring                 m_data;             // data for this item
+		astring                 m_defdata;          // default data for this item
+		astring                 m_minimum;          // minimum value
+		astring                 m_maximum;          // maximum value
 	};
 
 	// construction/destruction
@@ -113,12 +93,15 @@ public:
 	bool operator!=(const win_options &rhs);
 
 	// getters
-	entry *first() const { return m_entrylist; }
-	const char *command() const { return m_command; }
+	entry *first() const { return m_entrylist.first(); }
+	const char *command() const { return m_command.c_str(); }
 
 	// configuration
+	void add_entry(const char *name, const char *description, UINT32 flags = 0, const char *defvalue = NULL, bool override_existing = false);
+	void add_entry(const options_entry &data, bool override_existing = false) { add_entry(data.name, data.description, data.flags, data.defvalue, override_existing); }
 	void add_entries(const options_entry *entrylist, bool override_existing = false);
 	void set_default_value(const char *name, const char *defvalue);
+	void set_description(const char *name, const char *description);
 	void remove_entry(entry &delentry);
 
 	// parsing/input
@@ -134,6 +117,7 @@ public:
 
 	// reading
 	const char *value(const char *option) const;
+	const char *description(const char *option) const;
 	int priority(const char *option) const;
 	bool bool_value(const char *name) const { return (atoi(value(name)) != 0); }
 	int int_value(const char *name) const { return atoi(value(name)); }
@@ -146,9 +130,11 @@ public:
 	bool set_value(const char *name, const char *value, int priority, astring &error_string);
 	bool set_value(const char *name, int value, int priority, astring &error_string);
 	bool set_value(const char *name, float value, int priority, astring &error_string);
+	void set_flag(const char *name, UINT32 mask, UINT32 flags);
 
 	// misc
 	static const char *unadorned(int x = 0) { return s_option_unadorned[MIN(x, MAX_UNADORNED_OPTIONS)]; }
+	int options_count() const { return m_entrylist.count(); }
 
 private:
 	// internal helpers
@@ -158,15 +144,10 @@ private:
 	bool validate_and_set_data(entry &curentry, const char *newdata, int priority, astring &error_string);
 
 	// internal state
-	entry *					m_entrylist;			// head of list of entries
-	entry **				m_entrylist_tailptr;	// pointer to tail of entry list
-	// generally used for small tables, though the hash size can be increased
-	// as necessary; good primes are: 53, 97, 193, 389, 769, 1543, 3079, 6151, etc
+	simple_list<entry>		m_entrylist;            // head of list of entries
 	tagmap_t<entry *, 6151>	m_entrymap;				// map for fast lookup
-	astring					m_command;				// command found
-	static const char *const s_option_unadorned[];	// array of unadorned option "names"
+	astring                 m_command;              // command found
+	static const char *const s_option_unadorned[];  // array of unadorned option "names"
 };
 
-
-
-#endif /* __WIN_OPTIONS_H__ */
+#endif

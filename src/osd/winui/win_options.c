@@ -4,37 +4,6 @@
 
     Core options code code
 
-****************************************************************************
-
-    Copyright Aaron Giles
-    All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are
-    met:
-
-        * Redistributions of source code must retain the above copyright
-          notice, this list of conditions and the following disclaimer.
-        * Redistributions in binary form must reproduce the above copyright
-          notice, this list of conditions and the following disclaimer in
-          the documentation and/or other materials provided with the
-          distribution.
-        * Neither the name 'MAME' nor the names of its contributors may be
-          used to endorse or promote products derived from this software
-          without specific prior written permission.
-
-    THIS SOFTWARE IS PROVIDED BY AARON GILES ''AS IS'' AND ANY EXPRESS OR
-    IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    DISCLAIMED. IN NO EVENT SHALL AARON GILES BE LIABLE FOR ANY DIRECT,
-    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-    HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-    IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-
 ***************************************************************************/
 
 #include <stdarg.h>
@@ -50,7 +19,6 @@
 //**************************************************************************
 
 #define options win_options
-
 
 
 //**************************************************************************
@@ -87,19 +55,19 @@ const char *const options::s_option_unadorned[MAX_UNADORNED_OPTIONS] =
 //  entry - constructor
 //-------------------------------------------------
 
-options::entry::entry(const options_entry &entrylist)
+options::entry::entry(const char *name, const char *description, UINT32 flags, const char *defvalue)
 	: m_next(NULL),
-	  m_flags(entrylist.flags),
-	  m_seqid(0),
-	  m_error_reported(false),
-	  m_priority(OPTION_PRIORITY_DEFAULT),
-	  m_description(entrylist.description)
+		m_flags(flags),
+		m_seqid(0),
+		m_error_reported(false),
+		m_priority(OPTION_PRIORITY_DEFAULT),
+		m_description(description)
 {
 	// copy in the name(s) as appropriate
-	if (entrylist.name != NULL)
+	if (name != NULL)
 	{
 		// first extract any range
-		astring namestr(entrylist.name);
+		astring namestr(name);
 		int lparen = namestr.chr(0, '(');
 		int dash = namestr.chr(lparen + 1, '-');
 		int rparen = namestr.chr(dash + 1, ')');
@@ -125,8 +93,8 @@ options::entry::entry(const options_entry &entrylist)
 	}
 
 	// set the default value
-	if (entrylist.defvalue != NULL)
-		m_defdata = entrylist.defvalue;
+	if (defvalue != NULL)
+		m_defdata = defvalue;
 	m_data = m_defdata;
 }
 
@@ -162,6 +130,23 @@ void options::entry::set_default_value(const char *defvalue)
 
 
 //-------------------------------------------------
+//  set_description - set the description of
+//  an option
+//-------------------------------------------------
+
+void options::entry::set_description(const char *description)
+{
+	m_description = description;
+}
+
+
+void options::entry::set_flag(UINT32 mask, UINT32 flag)
+{
+	m_flags = ( m_flags & mask ) | flag;
+}
+
+
+//-------------------------------------------------
 //  revert - revert back to our default if we are
 //  at or below the given priority
 //-------------------------------------------------
@@ -187,29 +172,21 @@ void options::entry::revert(int priority)
 //-------------------------------------------------
 
 options::options()
-	: m_entrylist(NULL),
-	  m_entrylist_tailptr(&m_entrylist)
 {
 }
 
 options::options(const options_entry *entrylist)
-	: m_entrylist(NULL),
-	  m_entrylist_tailptr(&m_entrylist)
 {
 	add_entries(entrylist);
 }
 
 options::options(const options_entry *entrylist1, const options_entry *entrylist2)
-	: m_entrylist(NULL),
-	  m_entrylist_tailptr(&m_entrylist)
 {
 	add_entries(entrylist1);
 	add_entries(entrylist2);
 }
 
 options::options(const options_entry *entrylist1, const options_entry *entrylist2, const options_entry *entrylist3)
-	: m_entrylist(NULL),
-	  m_entrylist_tailptr(&m_entrylist)
 {
 	add_entries(entrylist1);
 	add_entries(entrylist2);
@@ -217,8 +194,6 @@ options::options(const options_entry *entrylist1, const options_entry *entrylist
 }
 
 options::options(const options &src)
-	: m_entrylist(NULL),
-	  m_entrylist_tailptr(&m_entrylist)
 {
 	copyfrom(src);
 }
@@ -230,13 +205,6 @@ options::options(const options &src)
 
 options::~options()
 {
-	// delete all entries from the list
-	while (m_entrylist != NULL)
-	{
-		options::entry *e = m_entrylist;
-		remove_entry(*m_entrylist);
-		delete e;
-	}
 }
 
 
@@ -260,11 +228,11 @@ options &options::operator=(const options &rhs)
 bool options::operator==(const options &rhs)
 {
 	// iterate over options in the first list
-	for (entry *curentry = m_entrylist; curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
 		if (!curentry->is_header())
 		{
 			// if the values differ, return false
-			if (strcmp(curentry->m_data, rhs.value(curentry->name())) != 0)
+			if (strcmp(curentry->value(), rhs.value(curentry->name())) != 0)
 				return false;
 		}
 
@@ -283,6 +251,40 @@ bool options::operator!=(const options &rhs)
 
 
 //-------------------------------------------------
+//  add_entry - add an entry to the current
+//  options set
+//-------------------------------------------------
+
+void options::add_entry(const char *name, const char *description, UINT32 flags, const char *defvalue, bool override_existing)
+{
+	// allocate a new entry
+	entry *newentry = global_alloc(entry(name, description, flags, defvalue));
+	if (newentry->name() != NULL)
+	{
+		// see if we match an existing entry
+		entry *existing = m_entrymap.find(newentry->name());
+		if (existing != NULL)
+		{
+			// if we're overriding existing entries, then remove the old one
+			if (override_existing)
+				m_entrylist.remove(*existing);
+
+			// otherwise, just override the default and current values and throw out the new entry
+			else
+			{
+				existing->set_default_value(newentry->value());
+				global_free(newentry);
+				return;
+			}
+		}
+	}
+
+	// add us to the list and maps
+	append_entry(*newentry);
+}
+
+
+//-------------------------------------------------
 //  add_entries - add entries to the current
 //  options sets
 //-------------------------------------------------
@@ -291,36 +293,7 @@ void options::add_entries(const options_entry *entrylist, bool override_existing
 {
 	// loop over entries until we hit a NULL name
 	for ( ; entrylist->name != NULL || (entrylist->flags & OPTION_HEADER) != 0; entrylist++)
-	{
-		// allocate a new entry
-		entry *newentry = new entry(*entrylist);
-		if (newentry->name() != NULL)
-		{
-			// see if we match an existing entry
-			entry *existing = m_entrymap.find(newentry->name());
-			if (existing != NULL)
-			{
-				// if we're overriding existing entries, then remove the old one
-				if (override_existing)
-				{
-					options::entry *e = m_entrylist;
-					remove_entry(*existing);
-					delete e;
-				}
-
-				// otherwise, just override the default and current values and throw out the new entry
-				else
-				{
-					existing->set_default_value(newentry->value());
-					delete newentry;
-					continue;
-				}
-			}
-		}
-
-		// add us to the list and maps
-		append_entry(*newentry);
-	}
+		add_entry(*entrylist, override_existing);
 }
 
 
@@ -342,6 +315,23 @@ void options::set_default_value(const char *name, const char *defvalue)
 
 
 //-------------------------------------------------
+//  set_description - change the description
+//  of an option
+//-------------------------------------------------
+
+void options::set_description(const char *name, const char *description)
+{
+	// find the entry and bail if we can't
+	entry *curentry = m_entrymap.find(name);
+	if (curentry == NULL)
+		return;
+
+	// update the data and default data
+	curentry->set_description(description);
+}
+
+
+//-------------------------------------------------
 //  parse_command_line - parse a series of
 //  command line arguments
 //-------------------------------------------------
@@ -354,7 +344,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 
 	// iterate through arguments
 	int unadorned_index = 0;
-	bool retVal = true;
+	bool retval = true;
 	for (int arg = 1; arg < argc; arg++)
 	{
 		// determine the entry name to search for
@@ -367,7 +357,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 		if (curentry == NULL)
 		{
 			error_string.catprintf("Error: unknown option: %s\n", curarg);
-			retVal = false;
+			retval = false;
 			if (!is_unadorned) arg++;
 			continue;
 		}
@@ -376,7 +366,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 		if (curentry->type() == OPTION_COMMAND)
 		{
 			// can only have one command
-			if (m_command)
+			if (!m_command.empty())
 			{
 				error_string.catprintf("Error: multiple commands specified -%s and %s\n", m_command.c_str(), curarg);
 				return false;
@@ -402,7 +392,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 		// set the new data
 		validate_and_set_data(*curentry, newdata, priority, error_string);
 	}
-	return retVal;
+	return retval;
 }
 
 
@@ -479,7 +469,7 @@ bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priori
 void options::revert(int priority)
 {
 	// iterate over options and revert to defaults if below the given priority
-	for (entry *curentry = m_entrylist; curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
 		curentry->revert(priority);
 }
 
@@ -500,7 +490,7 @@ const char *options::output_ini(astring &buffer, const options *diff)
 	const char *last_header = NULL;
 
 	// loop over all items
-	for (entry *curentry = m_entrylist; curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
 	{
 		const char *name = curentry->name();
 		const char *value = curentry->value();
@@ -520,30 +510,33 @@ const char *options::output_ini(astring &buffer, const options *diff)
 		// otherwise, output entries for all non-command items
 		else if (!curentry->is_command())
 		{
-			// look up counterpart in diff, if diff is specified
-			if (diff == NULL || strcmp(value, diff->value(name)) != 0)
+			if ( !curentry->is_internal() )
 			{
-				// output header, if we have one
-				if (last_header != NULL)
+				// look up counterpart in diff, if diff is specified
+				if (diff == NULL || strcmp(value, diff->value(name)) != 0)
 				{
-					if (num_valid_headers++)
-						buffer.catprintf("\n");
-					buffer.catprintf("#\n# %s\n#\n", last_header);
-					last_header = NULL;
-				}
+					// output header, if we have one
+					if (last_header != NULL)
+					{
+						if (num_valid_headers++)
+							buffer.catprintf("\n");
+						buffer.catprintf("#\n# %s\n#\n", last_header);
+						last_header = NULL;
+					}
 
-				// and finally output the data, skip if unadorned
-				if (!is_unadorned)
-				{
-					if (strchr(value, ' ') != NULL)
-						buffer.catprintf("%-25s \"%s\"\n", name, value);
-					else
-						buffer.catprintf("%-25s %s\n", name, value);
+					// and finally output the data, skip if unadorned
+					if (!is_unadorned)
+					{
+						if (strchr(value, ' ') != NULL)
+							buffer.catprintf("%-25s \"%s\"\n", name, value);
+						else
+							buffer.catprintf("%-25s %s\n", name, value);
+					}
 				}
 			}
 		}
 	}
-	return buffer;
+	return buffer.c_str();
 }
 
 
@@ -557,7 +550,7 @@ const char *options::output_help(astring &buffer)
 	buffer.reset();
 
 	// loop over all items
-	for (entry *curentry = m_entrylist; curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
 	{
 		// header: just print
 		if (curentry->is_header())
@@ -567,7 +560,7 @@ const char *options::output_help(astring &buffer)
 		else if (curentry->description() != NULL)
 			buffer.catprintf("-%-20s%s\n", curentry->name(), curentry->description());
 	}
-	return buffer;
+	return buffer.c_str();
 }
 
 
@@ -579,6 +572,17 @@ const char *options::value(const char *name) const
 {
 	entry *curentry = m_entrymap.find(name);
 	return (curentry != NULL) ? curentry->value() : "";
+}
+
+
+//-------------------------------------------------
+//  description - return description of option
+//-------------------------------------------------
+
+const char *options::description(const char *name) const
+{
+	entry *curentry = m_entrymap.find(name);
+	return (curentry != NULL) ? curentry->description() : "";
 }
 
 
@@ -646,6 +650,18 @@ bool options::set_value(const char *name, float value, int priority, astring &er
 }
 
 
+void options::set_flag(const char *name, UINT32 mask, UINT32 flag)
+{
+	// find the entry first
+	entry *curentry = m_entrymap.find(name);
+	if ( curentry == NULL )
+	{
+		return;
+	}
+	curentry->set_flag(mask, flag);
+}
+
+
 //-------------------------------------------------
 //  reset - reset the options state, removing
 //  everything
@@ -653,15 +669,7 @@ bool options::set_value(const char *name, float value, int priority, astring &er
 
 void options::reset()
 {
-	// remove all entries from the list
-	while (m_entrylist != NULL)
-	{
-		options::entry *e = m_entrylist;
-		remove_entry(*m_entrylist);
-		delete e;
-	}
-
-	// reset the map
+	m_entrylist.reset();
 	m_entrymap.reset();
 }
 
@@ -673,20 +681,17 @@ void options::reset()
 
 void options::append_entry(options::entry &newentry)
 {
-	// append to the list
-	*m_entrylist_tailptr = &newentry;
-	m_entrylist_tailptr = &newentry.m_next;
+	m_entrylist.append(newentry);
 
 	// if we have names, add them to the map
-	astring tempstr;
 	for (int name = 0; name < ARRAY_LENGTH(newentry.m_name); name++)
-		if (newentry.m_name[name])
+		if (newentry.name(name) != NULL)
 		{
-			m_entrymap.add(newentry.m_name[name], &newentry);
+			m_entrymap.add(newentry.name(name), &newentry);
 
 			// for boolean options add a "no" variant as well
 			if (newentry.type() == OPTION_BOOLEAN)
-				m_entrymap.add(tempstr.cpy("no").cat(newentry.m_name[name]), &newentry);
+				m_entrymap.add(astring("no").cat(newentry.name(name)).c_str(), &newentry);
 		}
 }
 
@@ -698,32 +703,13 @@ void options::append_entry(options::entry &newentry)
 
 void options::remove_entry(options::entry &delentry)
 {
-	// remove us from the list
-	entry *preventry = NULL;
-	for (entry *curentry = m_entrylist; curentry != NULL; curentry = curentry->next())
-		if (curentry == &delentry)
-		{
-			// update link from previous to us
-			if (preventry != NULL)
-				preventry->m_next = delentry.m_next;
-			else
-				m_entrylist = delentry.m_next;
+	// remove all names from the map
+	for (int name = 0; name < ARRAY_LENGTH(delentry.m_name); name++)
+		if (!delentry.m_name[name].empty())
+			m_entrymap.remove(delentry.m_name[name].c_str());
 
-			// if we're the last item, update the next pointer
-			if (delentry.m_next == NULL)
-			{
-				if (preventry != NULL)
-					m_entrylist_tailptr = &preventry->m_next;
-				else
-					m_entrylist_tailptr = &m_entrylist;
-			}
-
-			// remove all entries from the map
-			for (int name = 0; name < ARRAY_LENGTH(delentry.m_name); name++)
-				if (delentry.m_name[name])
-					m_entrymap.remove(delentry.m_name[name]);
-			break;
-		}
+	// remove the entry from the list
+	m_entrylist.remove(delentry);
 }
 
 
@@ -737,8 +723,8 @@ void options::copyfrom(const options &src)
 	reset();
 
 	// iterate through the src options and make our own
-	for (entry *curentry = src.m_entrylist; curentry != NULL; curentry = curentry->next())
-		append_entry(*new entry(*curentry));
+	for (entry *curentry = src.m_entrylist.first(); curentry != NULL; curentry = curentry->next())
+		append_entry(*global_alloc(entry(curentry->name(), curentry->description(), curentry->flags(), curentry->default_value())));
 }
 
 
@@ -768,7 +754,7 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 	{
 		// booleans must be 0 or 1
 		case OPTION_BOOLEAN:
-			if (sscanf(data, "%d", &ival) != 1 || ival < 0 || ival > 1)
+			if (sscanf(data.c_str(), "%d", &ival) != 1 || ival < 0 || ival > 1)
 			{
 				error_string.catprintf("Illegal boolean value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
 				return false;
@@ -777,7 +763,7 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 
 		// integers must be integral
 		case OPTION_INTEGER:
-			if (sscanf(data, "%d", &ival) != 1)
+			if (sscanf(data.c_str(), "%d", &ival) != 1)
 			{
 				error_string.catprintf("Illegal integer value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
 				return false;
@@ -791,7 +777,7 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 
 		// floating-point values must be numeric
 		case OPTION_FLOAT:
-			if (sscanf(data, "%f", &fval) != 1)
+			if (sscanf(data.c_str(), "%f", &fval) != 1)
 			{
 				error_string.catprintf("Illegal float value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
 				return false;
@@ -816,6 +802,6 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 	}
 
 	// set the data
-	curentry.set_value(data, priority);
+	curentry.set_value(data.c_str(), priority);
 	return true;
 }
