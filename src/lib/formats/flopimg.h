@@ -471,6 +471,7 @@ protected:
 	 C1541 tr 18-24   3.50    300    3500
 	 C1541 tr 25-30   3.75    300    3750
 	 C1541 tr 31+     4.00    300    4000
+	 8" DD            1       360    1200
 	 5.25" SD         4       300    4000
 	 5.25" DD         2       300    2000
 	 5.25" HD         1       360    1200
@@ -521,6 +522,8 @@ protected:
 	void extract_sectors_from_bitstream_fm_pc(const UINT8 *bitstream, int track_size, desc_xs *sectors, UINT8 *sectdata, int sectdata_size);
 	//! Commodore type sectors with GCR5 encoding
 	void extract_sectors_from_bitstream_gcr5(const UINT8 *bitstream, int track_size, desc_xs *sectors, UINT8 *sectdata, int sectdata_size, int head, int tracks);
+	//! Victor 9000 type sectors with GCR5 encoding
+	void extract_sectors_from_bitstream_victor_gcr5(const UINT8 *bitstream, int track_size, desc_xs *sectors, UINT8 *sectdata, int sectdata_size);
 
 
 	//! @brief Get a geometry (including sectors) from an image.
