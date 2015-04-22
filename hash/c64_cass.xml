@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!-- based on c64tapes.org dumps -->
+<softwarelist name="c64_cass" description="Commodore 64 cassettes">
+
+	<software name="jacknip2">
+		<description>Jack the Nipper II: In Coconut Capers</description>
+		<year>1987</year>
+		<publisher>Gremlin Graphics</publisher>
+
+		<part name="cass1" interface="cbm_cass">
+			<dataarea name="cass" size="522098">
+				<rom name="jack the nipper ii_0373.tap" size="522098" crc="faf6a08e" sha1="677b11ef5dc04b4d20f2db62c4f284c3455888a4" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="cmk49">
+		<description>CMK 49 Computer Musical Keyboard</description>
+		<year>198?</year>
+		<publisher>Siel</publisher>
+		<sharedfeat name="requirement" value="c64_cart:music64"/>
+
+		<part name="cass1" interface="cbm_cass">
+			<dataarea name="cass" size="1549572">
+				<rom name="cmk49.tap" size="1549572" crc="8327b982" sha1="99d31d813fba9f9f8d60e101b64741159fcf6ce9" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mono64">
+		<description>Mono-64</description>
+		<year>198?</year>
+		<publisher>Novel International</publisher>
+		<sharedfeat name="requirement" value="c64_cart:music64"/>
+
+		<part name="cass1" interface="cbm_cass">
+			<dataarea name="cass" size="398242">
+				<rom name="mono64.tap" size="398242" crc="805c0c1c" sha1="caa44fb66de7fac9b88105bdbe6d56465206ddc0" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="poly64">
+		<description>Poly-64</description>
+		<year>198?</year>
+		<publisher>Novel International</publisher>
+		<sharedfeat name="requirement" value="c64_cart:music64"/>
+
+		<part name="cass1" interface="cbm_cass">
+			<dataarea name="cass" size="339731">
+				<rom name="poly64.tap" size="339731" crc="62b6ba45" sha1="5bfd8c63babbf44f8d7d2c81909a1e630b10bea3" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="getrdyrd">
+		<description>Get Ready to Read with BJ Bear</description>
+		<year>1984</year>
+		<publisher>Commodore</publisher>
+		<sharedfeat name="requirement" value="c64_cart:magicvce"/>
+
+		<part name="cass1" interface="cbm_cass">
+			<feature name="part_id" value="Level 1"/>
+			<dataarea name="cass" size="970430">
+				<rom name="get_ready_to_read_with_bj_bear_level_1.tap" size="970430" crc="a7d4dd62" sha1="f0f6812903bc4dd5911bb539bbe4f2f8cd7587b1" offset="0" />
+			</dataarea>
+		</part>
+
+		<part name="cass2" interface="cbm_cass">
+			<feature name="part_id" value="Level 2"/>
+			<dataarea name="cass" size="1011790">
+				<rom name="get_ready_to_read_with_bj_bear_level_2.tap" size="1011790" crc="1eefb4bc" sha1="02ec52cab63fa236acc44f43de51edad496a438a" offset="0" />
+			</dataarea>
+		</part>
+
+		<part name="cass3" interface="cbm_cass">
+			<feature name="part_id" value="Level 3"/>
+			<dataarea name="cass" size="1117066">
+				<rom name="get_ready_to_read_with_bj_bear_level_3.tap" size="1117066" crc="edb07330" sha1="6fed14fc5cc3e27ce658bf1d26713257d4b8a5f0" offset="0" />
+			</dataarea>
+		</part>
+
+		<part name="cass4" interface="cbm_cass">
+			<feature name="part_id" value="Level 4"/>
+			<dataarea name="cass" size="1165314">
+				<rom name="get_ready_to_read_with_bj_bear_level_4.tap" size="1165314" crc="411da83e" sha1="ba7f2c3b5e7e77064a208ca89f78284ec35f6787" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>
