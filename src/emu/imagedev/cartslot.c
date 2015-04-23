@@ -19,12 +19,12 @@ const device_type CARTSLOT = &device_creator<cartslot_image_device>;
 //-------------------------------------------------
 
 cartslot_image_device::cartslot_image_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
-	: device_t(mconfig, CARTSLOT, "Cartslot", tag, owner, clock, "cartslot_image", __FILE__),
-		device_image_interface(mconfig, *this),
-		m_extensions("bin"),
-		m_interface(NULL),
-		m_must_be_loaded(0),
-		m_device_image_partialhash(NULL)
+	: device_t(mconfig, CARTSLOT, "Cartslot", tag, owner, clock, "cartslot_image", __FILE__)
+	, device_image_interface(mconfig, *this)
+	, m_extensions("bin")
+	, m_interface(NULL)
+	, m_must_be_loaded(0)
+	, m_device_image_partialhash(NULL)
 {
 }
 
@@ -67,8 +67,7 @@ int cartslot_image_device::load_cartridge(const rom_entry *romrgn, const rom_ent
 	int datawidth, littleendian, i, j;
 	device_t *cpu;
 
-	std::string regiontag;
-	device().siblingtag(regiontag, ROMREGION_GETTAG(romrgn));
+	std::string regiontag = device().siblingtag(ROMREGION_GETTAG(romrgn));
 	region = regiontag.c_str();
 	offset = ROM_GETOFFSET(roment);
 	size = ROM_GETLENGTH(roment);
@@ -170,16 +169,15 @@ int cartslot_image_device::process_cartridge(bool load)
 	int result = 0;
 
 	device_iterator deviter(device().mconfig().root_device());
-	for (device_t *device = deviter.first(); device != NULL; device = deviter.next())
-		for (romrgn = rom_first_region(*device); romrgn != NULL; romrgn = rom_next_region(romrgn))
+	for (device_t *device = deviter.first(); device; device = deviter.next())
+		for (romrgn = rom_first_region(*device); romrgn; romrgn = rom_next_region(romrgn))
 		{
 			roment = romrgn + 1;
 			while(!ROMENTRY_ISREGIONEND(roment))
 			{
 				if (ROMENTRY_GETTYPE(roment) == ROMENTRYTYPE_CARTRIDGE)
 				{
-					std::string regiontag;
-					this->device().siblingtag(regiontag, roment->_hashdata);
+					std::string regiontag = this->device().siblingtag(roment->_hashdata);
 
 					if (strcmp(regiontag.c_str(),this->device().tag())==0)
 					{

@@ -1,6 +1,6 @@
 /***************************************************************************
 
-    Cartrige loading
+    Cartridge loading for Neogeo
 
 ***************************************************************************/
 
@@ -27,8 +27,7 @@
 
 // ======================> cartslot_image_device
 
-class cartslot_image_device :   public device_t,
-								public device_image_interface
+class cartslot_image_device :   public device_t, public device_image_interface
 {
 public:
 	// construction/destruction
