@@ -449,7 +449,7 @@ static void InitDriversInfo(void)
 		{
 			ioport_port *port;
 			ioport_list portlist;
-			astring errors;
+			std::string errors;
 			device_iterator iter(config.root_device());
 			for (device_t *cfg = iter.first(); cfg; cfg = iter.next())
 				if (cfg->input_ports())

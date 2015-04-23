@@ -29,7 +29,7 @@ public:
 	void copy(const char *str)
 	{
 		/* reset the structure */
-		m_str.reset();
+		m_str.clear();
 		m_base = (str != NULL) ? str : "";
 		m_cur = m_base;
 	}
@@ -56,7 +56,7 @@ public:
 		if (semi == NULL)
 			semi = m_cur + strlen(m_cur);
 
-		m_str.cpy(m_cur, semi - m_cur);
+		m_str.assign(m_cur, semi - m_cur);
 		m_cur = (*semi == 0) ? semi : semi + 1;
 
 		/* ignore duplicates of the separator */
@@ -74,10 +74,10 @@ public:
 	const char *c_str() const { return m_str.c_str(); }
 
 private:
-	astring			m_str;
-	const char *	m_base;
-	const char *	m_cur;
-	int				m_index;
+	std::string m_str;
+	const char * m_base;
+	const char * m_cur;
+	int m_index;
 };
 
 class game_options
@@ -133,7 +133,7 @@ public:
 		file_error filerr = file.open(filename);
 		if (filerr == FILERR_NONE)
 		{
-			astring error_string;
+			std::string error_string;
 			m_info.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
 		}
 
@@ -142,30 +142,30 @@ public:
 		return filerr;
 	}
 
-	void output_ini(astring &buffer, const char *header = NULL)
+	void output_ini(std::string &buffer, const char *header = NULL)
 	{
-		astring inibuffer;
-		inibuffer.expand(768*1024);
+		std::string inibuffer;
+		//inibuffer.expand(768*1024);
 
 		m_info.output_ini(inibuffer);
 
-		if (header != NULL && inibuffer)
+		if (header != NULL && (!inibuffer.empty()))
 		{
-			buffer.catprintf("#\n# %s\n#\n", header);
-			buffer.cat(inibuffer);
+			strcatprintf(buffer, "#\n# %s\n#\n", header);
+			buffer.append(inibuffer);
 		}
 	}
 
 	void load_settings(void)
 	{
-		astring value_str;
+		std::string value_str;
 
 		for (int i = 0; i < m_total; i++)
 		{
-			value_str.cpy(m_info.value(driver_list::driver(i).name));
+			value_str.assign(m_info.value(driver_list::driver(i).name));
 
-			if (value_str)
-				load_settings(value_str, i);
+			if (!value_str.empty())
+				load_settings(value_str.c_str(), i);
 		}
 	}
 
@@ -199,18 +199,18 @@ public:
 
 	void save_settings(void)
 	{
-		astring value_str;
-		astring error_string;
+		std::string value_str;
+		std::string error_string;
 
 		for (int i = 0; i < m_total; i++)
 		{
-			value_str.printf("%d,%d,%d", m_list[i].rom, m_list[i].sample, m_list[i].cache);
+			strprintf(value_str, "%d,%d,%d", m_list[i].rom, m_list[i].sample, m_list[i].cache);
 			if ((m_list[i].play_count > 0) or (m_list[i].play_time > 0))
 			{
 				if (m_list[i].play_time > 0)
-					value_str.catprintf(",%d,%d", m_list[i].play_count, m_list[i].play_time);
+					strcatprintf(value_str, ",%d,%d", m_list[i].play_count, m_list[i].play_time);
 				else
-					value_str.catprintf(",%d", m_list[i].play_count);
+					strcatprintf(value_str, ",%d", m_list[i].play_count);
 			}
 
 			m_info.set_value(driver_list::driver(i).name, value_str.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
@@ -220,7 +220,7 @@ public:
 	file_error save_file(const char *filename)
 	{
 		file_error filerr;
-		astring inistring;
+		std::string inistring;
 
 		save_settings();
 
@@ -230,7 +230,7 @@ public:
 		filerr = file.open(filename);
 		if (filerr == FILERR_NONE)
 		{
-			file.puts(inistring);
+			file.puts(inistring.c_str());
 		}
 
 		return filerr;

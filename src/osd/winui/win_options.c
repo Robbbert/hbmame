@@ -11,7 +11,6 @@
 #include <ctype.h>
 #include <assert.h>
 #include "win_options.h"
-#include "astring.h"
 
 
 //**************************************************************************
@@ -67,24 +66,26 @@ options::entry::entry(const char *name, const char *description, UINT32 flags, c
 	if (name != NULL)
 	{
 		// first extract any range
-		astring namestr(name);
-		int lparen = namestr.chr(0, '(');
-		int dash = namestr.chr(lparen + 1, '-');
-		int rparen = namestr.chr(dash + 1, ')');
+		std::string namestr(name);
+		int lparen = namestr.find('(');
+		int dash = namestr.find(lparen + 1, '-');
+		int rparen = namestr.find(dash + 1, ')');
 		if (lparen != -1 && dash != -1 && rparen != -1)
 		{
-			m_minimum.cpysubstr(namestr, lparen + 1, dash - (lparen + 1)).trimspace();
-			m_maximum.cpysubstr(namestr, dash + 1, rparen - (dash + 1)).trimspace();
-			namestr.del(lparen, rparen + 1 - lparen);
+			m_minimum.assign(namestr.substr(lparen + 1, dash - (lparen + 1)));
+			strtrimspace(m_minimum);
+			m_maximum.assign(namestr.substr(dash + 1, rparen - (dash + 1)));
+			strtrimspace(m_maximum);
+			namestr.erase(lparen, rparen + 1 - lparen);
 		}
 
 		// then chop up any semicolon-separated names
 		int semi;
 		int nameindex = 0;
-		while ((semi = namestr.chr(0, ';')) != -1 && nameindex < ARRAY_LENGTH(m_name))
+		while ((semi = namestr.find(';')) != -1 && nameindex < ARRAY_LENGTH(m_name))
 		{
-			m_name[nameindex++].cpysubstr(namestr, 0, semi);
-			namestr.del(0, semi + 1);
+			m_name[nameindex++].assign(namestr.substr(0, semi));
+			namestr.erase(0, semi + 1);
 		}
 
 		// finally add the last item
@@ -336,11 +337,11 @@ void options::set_description(const char *name, const char *description)
 //  command line arguments
 //-------------------------------------------------
 
-bool options::parse_command_line(int argc, char **argv, int priority, astring &error_string)
+bool options::parse_command_line(int argc, char **argv, int priority, std::string &error_string)
 {
 	// reset the errors and the command
-	error_string.reset();
-	m_command.reset();
+	error_string.clear();
+	m_command.clear();
 
 	// iterate through arguments
 	int unadorned_index = 0;
@@ -356,7 +357,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 		entry *curentry = m_entrymap.find(optionname);
 		if (curentry == NULL)
 		{
-			error_string.catprintf("Error: unknown option: %s\n", curarg);
+			strcatprintf(error_string, "Error: unknown option: %s\n", curarg);
 			retval = false;
 			if (!is_unadorned) arg++;
 			continue;
@@ -368,7 +369,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 			// can only have one command
 			if (!m_command.empty())
 			{
-				error_string.catprintf("Error: multiple commands specified -%s and %s\n", m_command.c_str(), curarg);
+				strcatprintf(error_string, "Error: multiple commands specified -%s and %s\n", m_command.c_str(), curarg);
 				return false;
 			}
 			m_command = curentry->name();
@@ -385,7 +386,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 			newdata = argv[++arg];
 		else
 		{
-			error_string.catprintf("Error: option %s expected a parameter\n", curarg);
+			strcatprintf(error_string, "Error: option %s expected a parameter\n", curarg);
 			return false;
 		}
 
@@ -401,7 +402,7 @@ bool options::parse_command_line(int argc, char **argv, int priority, astring &e
 //  an INI file
 //-------------------------------------------------
 
-bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priority, astring &error_string)
+bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priority, std::string &error_string)
 {
 	// loop over lines in the file
 	char buffer[4096];
@@ -426,7 +427,7 @@ bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priori
 		// if we hit the end early, print a warning and continue
 		if (*temp == 0)
 		{
-			error_string.catprintf("Warning: invalid line in INI: %s", buffer);
+			strcatprintf(error_string, "Warning: invalid line in INI: %s", buffer);
 			continue;
 		}
 
@@ -450,7 +451,7 @@ bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priori
 		if (curentry == NULL)
 		{
 			if (priority >= ignore_priority)
-				error_string.catprintf("Warning: unknown option in INI: %s\n", optionname);
+				strcatprintf(error_string, "Warning: unknown option in INI: %s\n", optionname);
 			continue;
 		}
 
@@ -480,10 +481,10 @@ void options::revert(int priority)
 //  the optional diff
 //-------------------------------------------------
 
-const char *options::output_ini(astring &buffer, const options *diff)
+const char *options::output_ini(std::string &buffer, const options *diff)
 {
 	// INI files are complete, so always start with a blank buffer
-	buffer.reset();
+	buffer.clear();
 
 	int num_valid_headers = 0;
 	int unadorned_index = 0;
@@ -519,8 +520,8 @@ const char *options::output_ini(astring &buffer, const options *diff)
 					if (last_header != NULL)
 					{
 						if (num_valid_headers++)
-							buffer.catprintf("\n");
-						buffer.catprintf("#\n# %s\n#\n", last_header);
+							strcatprintf(buffer, "\n");
+						strcatprintf(buffer, "#\n# %s\n#\n", last_header);
 						last_header = NULL;
 					}
 
@@ -528,9 +529,9 @@ const char *options::output_ini(astring &buffer, const options *diff)
 					if (!is_unadorned)
 					{
 						if (strchr(value, ' ') != NULL)
-							buffer.catprintf("%-25s \"%s\"\n", name, value);
+							strcatprintf(buffer, "%-25s \"%s\"\n", name, value);
 						else
-							buffer.catprintf("%-25s %s\n", name, value);
+							strcatprintf(buffer, "%-25s %s\n", name, value);
 					}
 				}
 			}
@@ -544,21 +545,21 @@ const char *options::output_ini(astring &buffer, const options *diff)
 //  output_help - output option help to a string
 //-------------------------------------------------
 
-const char *options::output_help(astring &buffer)
+const char *options::output_help(std::string &buffer)
 {
 	// start empty
-	buffer.reset();
+	buffer.clear();
 
 	// loop over all items
 	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
 	{
 		// header: just print
 		if (curentry->is_header())
-			buffer.catprintf("\n#\n# %s\n#\n", curentry->description());
+			strcatprintf(buffer, "\n#\n# %s\n#\n", curentry->description());
 
 		// otherwise, output entries for all non-deprecated items
 		else if (curentry->description() != NULL)
-			buffer.catprintf("-%-20s%s\n", curentry->name(), curentry->description());
+			strcatprintf(buffer, "-%-20s%s\n", curentry->name(), curentry->description());
 	}
 	return buffer.c_str();
 }
@@ -621,13 +622,13 @@ bool options::exists(const char *name) const
 //  set_value - set the raw option value
 //-------------------------------------------------
 
-bool options::set_value(const char *name, const char *value, int priority, astring &error_string)
+bool options::set_value(const char *name, const char *value, int priority, std::string &error_string)
 {
 	// find the entry first
 	entry *curentry = m_entrymap.find(name);
 	if (curentry == NULL)
 	{
-		error_string.catprintf("Attempted to set unknown option %s\n", name);
+		strcatprintf(error_string, "Attempted to set unknown option %s\n", name);
 		return false;
 	}
 
@@ -635,17 +636,17 @@ bool options::set_value(const char *name, const char *value, int priority, astri
 	return validate_and_set_data(*curentry, value, priority, error_string);
 }
 
-bool options::set_value(const char *name, int value, int priority, astring &error_string)
+bool options::set_value(const char *name, int value, int priority, std::string &error_string)
 {
-	astring tempstr;
-	tempstr.printf("%d", value);
+	std::string tempstr;
+	strprintf(tempstr, "%d", value);
 	return set_value(name, tempstr.c_str(), priority, error_string);
 }
 
-bool options::set_value(const char *name, float value, int priority, astring &error_string)
+bool options::set_value(const char *name, float value, int priority, std::string &error_string)
 {
-	astring tempstr;
-	tempstr.printf("%f", value);
+	std::string tempstr;
+	strprintf(tempstr, "%f", value);
 	return set_value(name, tempstr.c_str(), priority, error_string);
 }
 
@@ -691,7 +692,7 @@ void options::append_entry(options::entry &newentry)
 
 			// for boolean options add a "no" variant as well
 			if (newentry.type() == OPTION_BOOLEAN)
-				m_entrymap.add(astring("no").cat(newentry.name(name)).c_str(), &newentry);
+				m_entrymap.add(std::string("no").append(newentry.name(name)).c_str(), &newentry);
 		}
 }
 
@@ -734,17 +735,17 @@ void options::copyfrom(const options &src)
 //  then set it
 //-------------------------------------------------
 
-bool options::validate_and_set_data(options::entry &curentry, const char *newdata, int priority, astring &error_string)
+bool options::validate_and_set_data(options::entry &curentry, const char *newdata, int priority, std::string &error_string)
 {
 	// trim any whitespace
-	astring data(newdata);
-	data.trimspace();
+	std::string data(newdata);
+	strtrimspace(data);
 
 	// trim quotes
-	if (data.chr(0, '"') == 0 && data.rchr(0, '"') == data.len() - 1)
+	if (data.find('"') == 0 && data.find_last_of('"') == data.length() - 1)
 	{
-		data.del(0, 1);
-		data.del(data.len() - 1, 1);
+		data.erase(0, 1);
+		data.erase(data.length() - 1, 1);
 	}
 
 	// validate the type of data and optionally the range
@@ -756,7 +757,7 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 		case OPTION_BOOLEAN:
 			if (sscanf(data.c_str(), "%d", &ival) != 1 || ival < 0 || ival > 1)
 			{
-				error_string.catprintf("Illegal boolean value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
+				strcatprintf(error_string, "Illegal boolean value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
 				return false;
 			}
 			break;
@@ -765,12 +766,12 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 		case OPTION_INTEGER:
 			if (sscanf(data.c_str(), "%d", &ival) != 1)
 			{
-				error_string.catprintf("Illegal integer value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
+				strcatprintf(error_string, "Illegal integer value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
 				return false;
 			}
 			if (curentry.has_range() && (ival < atoi(curentry.minimum()) || ival > atoi(curentry.maximum())))
 			{
-				error_string.catprintf("Out-of-range integer value for %s: \"%s\" (must be between %s and %s); reverting to %s\n", curentry.name(), data.c_str(), curentry.minimum(), curentry.maximum(), curentry.value());
+				strcatprintf(error_string, "Out-of-range integer value for %s: \"%s\" (must be between %s and %s); reverting to %s\n", curentry.name(), data.c_str(), curentry.minimum(), curentry.maximum(), curentry.value());
 				return false;
 			}
 			break;
@@ -779,12 +780,12 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 		case OPTION_FLOAT:
 			if (sscanf(data.c_str(), "%f", &fval) != 1)
 			{
-				error_string.catprintf("Illegal float value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
+				strcatprintf(error_string, "Illegal float value for %s: \"%s\"; reverting to %s\n", curentry.name(), data.c_str(), curentry.value());
 				return false;
 			}
 			if (curentry.has_range() && (fval < atof(curentry.minimum()) || fval > atof(curentry.maximum())))
 			{
-				error_string.catprintf("Out-of-range float value for %s: \"%s\" (must be between %s and %s); reverting to %s\n", curentry.name(), data.c_str(), curentry.minimum(), curentry.maximum(), curentry.value());
+				strcatprintf(error_string, "Out-of-range float value for %s: \"%s\" (must be between %s and %s); reverting to %s\n", curentry.name(), data.c_str(), curentry.minimum(), curentry.maximum(), curentry.value());
 				return false;
 			}
 			break;
@@ -797,7 +798,7 @@ bool options::validate_and_set_data(options::entry &curentry, const char *newdat
 		case OPTION_INVALID:
 		case OPTION_HEADER:
 		default:
-			error_string.catprintf("Attempted to set invalid option %s\n", curentry.name());
+			strcatprintf(error_string, "Attempted to set invalid option %s\n", curentry.name());
 			return false;
 	}
 

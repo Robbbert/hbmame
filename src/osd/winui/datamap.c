@@ -552,7 +552,7 @@ static void read_control(datamap *map, HWND control, windows_options *opts, data
 	const char *string_value;
 	int selected_index;
 	int trackbar_pos;
-	astring error;
+	std::string error;
 	// use default read value behavior
 	switch(get_control_type(control))
 	{

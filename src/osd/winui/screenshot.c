@@ -190,7 +190,7 @@ static file_error OpenBkgroundFile(const char *filename, core_file **file)
 	*file = NULL;
 
 	// look for the raw file
-	astring fname (filename);
+	std::string fname (filename);
 	filerr = core_fopen(fname.c_str(), OPEN_FLAG_READ, file);
 
 	return filerr;

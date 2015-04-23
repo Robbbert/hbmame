@@ -1377,7 +1377,7 @@ static void PropToOptions(HWND hWnd, windows_options &o)
 	HWND hCtrl;
 	HWND hCtrl2;
 	HWND hCtrl3;
-	astring error_string;
+	std::string error_string;
 
 	// It appears these are here to clear the global struct we are removing!
 	// FIXME
@@ -1575,7 +1575,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		const char* effect = o.value(OPTION_EFFECT);
 		if (effect == NULL) {
 			effect = "none";
-			astring error_string;
+			std::string error_string;
 			o.set_value(OPTION_EFFECT, effect, OPTION_PRIORITY_CMDLINE,error_string);
 		}
 		win_set_window_text_utf8(hCtrl, effect);
@@ -1811,13 +1811,12 @@ static BOOL RotateReadControl(datamap *map, HWND dialog, HWND control, windows_o
 	if (selected_index != original_selection)
 	{
 		// Set the options based on the new selection.
-		astring error_string;
-		opts->set_value(OPTION_ROR,		selected_index == 1, OPTION_PRIORITY_CMDLINE,error_string);
-		opts->set_value(OPTION_ROL,		selected_index == 2, OPTION_PRIORITY_CMDLINE,error_string);
-		opts->set_value(OPTION_ROTATE,	selected_index != 3, OPTION_PRIORITY_CMDLINE,error_string);
-		opts->set_value(OPTION_AUTOROR,	selected_index == 4, OPTION_PRIORITY_CMDLINE,error_string);
-		opts->set_value(OPTION_AUTOROL,	selected_index == 5, OPTION_PRIORITY_CMDLINE,error_string);
-		assert(!error_string);
+		std::string error_string;
+		opts->set_value(OPTION_ROR, selected_index == 1, OPTION_PRIORITY_CMDLINE,error_string);
+		opts->set_value(OPTION_ROL, selected_index == 2, OPTION_PRIORITY_CMDLINE,error_string);
+		opts->set_value(OPTION_ROTATE, selected_index != 3, OPTION_PRIORITY_CMDLINE,error_string);
+		opts->set_value(OPTION_AUTOROR, selected_index == 4, OPTION_PRIORITY_CMDLINE,error_string);
+		opts->set_value(OPTION_AUTOROL, selected_index == 5, OPTION_PRIORITY_CMDLINE,error_string);
 		return TRUE;
 	}
 
@@ -1854,7 +1853,7 @@ static BOOL ScreenReadControl(datamap *map, HWND dialog, HWND control, windows_o
 	int selected_screen;
 	int screen_option_index;
 	char *op_val;
-	astring error_string;
+	std::string error_string;
 
 	selected_screen = GetSelectedScreen(dialog);
 	screen_option_index = ComboBox_GetCurSel(control);
@@ -1862,7 +1861,6 @@ static BOOL ScreenReadControl(datamap *map, HWND dialog, HWND control, windows_o
 	snprintf(screen_option_name, ARRAY_LENGTH(screen_option_name), "screen%d", selected_screen);
 	op_val = utf8_from_tstring(screen_option_value);
 	opts->set_value(screen_option_name, op_val, OPTION_PRIORITY_CMDLINE,error_string);
-	assert(!error_string);
 	osd_free(op_val);
 	return FALSE;
 }
@@ -1967,13 +1965,12 @@ static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, win
 	TCHAR *input_option_value;
 	int input_option_index;
 	char *op_val = NULL;
-	astring error_string;
+	std::string error_string;
 
 	input_option_index = ComboBox_GetCurSel(control);
 	input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
 	op_val = utf8_from_tstring(input_option_value);
 	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE,error_string);
-	assert(!error_string);
 	osd_free(op_val);
 	return FALSE;
 }
@@ -2082,7 +2079,7 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 	int refresh_index, refresh_value, width, height;
 	char option_value[256];
 	TCHAR buffer[256];
-	astring error_string;
+	std::string error_string;
 
 	if (refresh_control && sizes_control)
 	{
@@ -2098,7 +2095,6 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 			snprintf(option_value, ARRAY_LENGTH(option_value), "auto");
 		}
 		opts->set_value(option_name, option_value, OPTION_PRIORITY_CMDLINE,error_string);
-		assert(!error_string);
 	}
 	return FALSE;
 }
@@ -2215,9 +2211,8 @@ static void ResetDataMap(HWND hWnd)
 		|| (core_stricmp(pCurrentOpts.value(screen_option), "") == 0 )
 		|| (core_stricmp(pCurrentOpts.value(screen_option), "auto") == 0 ) )
 	{
-		astring error_string;
+		std::string error_string;
 		pCurrentOpts.set_value(screen_option, "auto", OPTION_PRIORITY_CMDLINE,error_string);
-		assert(!error_string);
 	}
 }
 
@@ -2229,193 +2224,193 @@ static void BuildDataMap(void)
 
 	// core state options
 	datamap_add(properties_datamap, IDC_ENABLE_AUTOSAVE,		DM_BOOL,	OPTION_AUTOSAVE);
-	datamap_add(properties_datamap, IDC_SNAPVIEW,				DM_STRING,	OPTION_SNAPVIEW);
-	datamap_add(properties_datamap, IDC_SNAPSIZEWIDTH,			DM_STRING,	NULL);
-	datamap_add(properties_datamap, IDC_SNAPSIZEHEIGHT,			DM_STRING,	NULL);
+	datamap_add(properties_datamap, IDC_SNAPVIEW,			DM_STRING,	OPTION_SNAPVIEW);
+	datamap_add(properties_datamap, IDC_SNAPSIZEWIDTH,		DM_STRING,	NULL);
+	datamap_add(properties_datamap, IDC_SNAPSIZEHEIGHT,		DM_STRING,	NULL);
 
 	// core performance options
-	datamap_add(properties_datamap, IDC_AUTOFRAMESKIP,			DM_BOOL,	OPTION_AUTOFRAMESKIP);
-	datamap_add(properties_datamap, IDC_FRAMESKIP,				DM_INT,		OPTION_FRAMESKIP);
-	datamap_add(properties_datamap, IDC_SECONDSTORUN,			DM_INT,		OPTION_SECONDS_TO_RUN);
+	datamap_add(properties_datamap, IDC_AUTOFRAMESKIP,		DM_BOOL,	OPTION_AUTOFRAMESKIP);
+	datamap_add(properties_datamap, IDC_FRAMESKIP,			DM_INT,		OPTION_FRAMESKIP);
+	datamap_add(properties_datamap, IDC_SECONDSTORUN,		DM_INT,		OPTION_SECONDS_TO_RUN);
 	datamap_add(properties_datamap, IDC_SECONDSTORUNDISP,		DM_INT,		OPTION_SECONDS_TO_RUN);
-	datamap_add(properties_datamap, IDC_THROTTLE,				DM_BOOL,	OPTION_THROTTLE);
-	datamap_add(properties_datamap, IDC_SLEEP,					DM_BOOL,	OPTION_SLEEP);
-	datamap_add(properties_datamap, IDC_SPEED,				    DM_FLOAT,	OPTION_SPEED);
-	datamap_add(properties_datamap, IDC_SPEEDDISP,				DM_FLOAT,	OPTION_SPEED);
-	datamap_add(properties_datamap, IDC_REFRESHSPEED,			DM_BOOL,	OPTION_REFRESHSPEED);
+	datamap_add(properties_datamap, IDC_THROTTLE,			DM_BOOL,	OPTION_THROTTLE);
+	datamap_add(properties_datamap, IDC_SLEEP,			DM_BOOL,	OPTION_SLEEP);
+	datamap_add(properties_datamap, IDC_SPEED,			DM_FLOAT,	OPTION_SPEED);
+	datamap_add(properties_datamap, IDC_SPEEDDISP,			DM_FLOAT,	OPTION_SPEED);
+	datamap_add(properties_datamap, IDC_REFRESHSPEED,		DM_BOOL,	OPTION_REFRESHSPEED);
 
 	// core retation options
-	datamap_add(properties_datamap, IDC_ROTATE,					DM_INT,		NULL);
+	datamap_add(properties_datamap, IDC_ROTATE,			DM_INT,		NULL);
 	// ror, rol, autoror, autorol handled by callback
-	datamap_add(properties_datamap, IDC_FLIPX,					DM_BOOL,	OPTION_FLIPX);
-	datamap_add(properties_datamap, IDC_FLIPY,					DM_BOOL,	OPTION_FLIPY);
+	datamap_add(properties_datamap, IDC_FLIPX,			DM_BOOL,	OPTION_FLIPX);
+	datamap_add(properties_datamap, IDC_FLIPY,			DM_BOOL,	OPTION_FLIPY);
 
 	// core artwork options
-	datamap_add(properties_datamap, IDC_ARTWORK_CROP,			DM_BOOL,	OPTION_ARTWORK_CROP);
-	datamap_add(properties_datamap, IDC_BACKDROPS,				DM_BOOL,	OPTION_USE_BACKDROPS);
-	datamap_add(properties_datamap, IDC_OVERLAYS,				DM_BOOL,	OPTION_USE_OVERLAYS);
-	datamap_add(properties_datamap, IDC_BEZELS,				DM_BOOL,	OPTION_USE_BEZELS);
-	datamap_add(properties_datamap, IDC_CPANELS,				DM_BOOL,	OPTION_USE_CPANELS);
-	datamap_add(properties_datamap, IDC_MARQUEES,				DM_BOOL,	OPTION_USE_MARQUEES);
+	datamap_add(properties_datamap, IDC_ARTWORK_CROP,		DM_BOOL,	OPTION_ARTWORK_CROP);
+	datamap_add(properties_datamap, IDC_BACKDROPS,			DM_BOOL,	OPTION_USE_BACKDROPS);
+	datamap_add(properties_datamap, IDC_OVERLAYS,			DM_BOOL,	OPTION_USE_OVERLAYS);
+	datamap_add(properties_datamap, IDC_BEZELS,			DM_BOOL,	OPTION_USE_BEZELS);
+	datamap_add(properties_datamap, IDC_CPANELS,			DM_BOOL,	OPTION_USE_CPANELS);
+	datamap_add(properties_datamap, IDC_MARQUEES,			DM_BOOL,	OPTION_USE_MARQUEES);
 
 	// core screen options
-	datamap_add(properties_datamap, IDC_BRIGHTCORRECT,			DM_FLOAT,	OPTION_BRIGHTNESS);
+	datamap_add(properties_datamap, IDC_BRIGHTCORRECT,		DM_FLOAT,	OPTION_BRIGHTNESS);
 	datamap_add(properties_datamap, IDC_BRIGHTCORRECTDISP,		DM_FLOAT,	OPTION_BRIGHTNESS);
-	datamap_add(properties_datamap, IDC_CONTRAST,				DM_FLOAT,	OPTION_CONTRAST);
-	datamap_add(properties_datamap, IDC_CONTRASTDISP,			DM_FLOAT,	OPTION_CONTRAST);
-	datamap_add(properties_datamap, IDC_GAMMA,					DM_FLOAT,	OPTION_GAMMA);
-	datamap_add(properties_datamap, IDC_GAMMADISP,				DM_FLOAT,	OPTION_GAMMA);
-	datamap_add(properties_datamap, IDC_PAUSEBRIGHT,			DM_FLOAT,	OPTION_PAUSE_BRIGHTNESS);
+	datamap_add(properties_datamap, IDC_CONTRAST,			DM_FLOAT,	OPTION_CONTRAST);
+	datamap_add(properties_datamap, IDC_CONTRASTDISP,		DM_FLOAT,	OPTION_CONTRAST);
+	datamap_add(properties_datamap, IDC_GAMMA,			DM_FLOAT,	OPTION_GAMMA);
+	datamap_add(properties_datamap, IDC_GAMMADISP,			DM_FLOAT,	OPTION_GAMMA);
+	datamap_add(properties_datamap, IDC_PAUSEBRIGHT,		DM_FLOAT,	OPTION_PAUSE_BRIGHTNESS);
 	datamap_add(properties_datamap, IDC_PAUSEBRIGHTDISP,		DM_FLOAT,	OPTION_PAUSE_BRIGHTNESS);
 
 	// core vector options
-	datamap_add(properties_datamap, IDC_ANTIALIAS,				DM_BOOL,	OPTION_ANTIALIAS);
-	datamap_add(properties_datamap, IDC_BEAM,					DM_FLOAT,	OPTION_BEAM);
-	datamap_add(properties_datamap, IDC_BEAMDISP,				DM_FLOAT,	OPTION_BEAM);
-	datamap_add(properties_datamap, IDC_FLICKER,				DM_FLOAT,	OPTION_FLICKER);
-	datamap_add(properties_datamap, IDC_FLICKERDISP,			DM_FLOAT,	OPTION_FLICKER);
+	datamap_add(properties_datamap, IDC_ANTIALIAS,			DM_BOOL,	OPTION_ANTIALIAS);
+	datamap_add(properties_datamap, IDC_BEAM,			DM_FLOAT,	OPTION_BEAM);
+	datamap_add(properties_datamap, IDC_BEAMDISP,			DM_FLOAT,	OPTION_BEAM);
+	datamap_add(properties_datamap, IDC_FLICKER,			DM_FLOAT,	OPTION_FLICKER);
+	datamap_add(properties_datamap, IDC_FLICKERDISP,		DM_FLOAT,	OPTION_FLICKER);
 
 	// core sound options
-	datamap_add(properties_datamap, IDC_SAMPLERATE,				DM_INT,		OPTION_SAMPLERATE);
-	datamap_add(properties_datamap, IDC_SAMPLES,				DM_BOOL,	OPTION_SAMPLES);
-	datamap_add(properties_datamap, IDC_SOUND_MODE,				DM_STRING,	OSDOPTION_SOUND);
-	datamap_add(properties_datamap, IDC_VOLUME,					DM_INT,		OPTION_VOLUME);
-	datamap_add(properties_datamap, IDC_VOLUMEDISP,				DM_INT,		OPTION_VOLUME);
+	datamap_add(properties_datamap, IDC_SAMPLERATE,			DM_INT,		OPTION_SAMPLERATE);
+	datamap_add(properties_datamap, IDC_SAMPLES,			DM_BOOL,	OPTION_SAMPLES);
+	datamap_add(properties_datamap, IDC_SOUND_MODE,			DM_STRING,	OSDOPTION_SOUND);
+	datamap_add(properties_datamap, IDC_VOLUME,			DM_INT,		OPTION_VOLUME);
+	datamap_add(properties_datamap, IDC_VOLUMEDISP,			DM_INT,		OPTION_VOLUME);
 
 	// core input options
-	datamap_add(properties_datamap, IDC_COINLOCKOUT,			DM_BOOL,	OPTION_COIN_LOCKOUT);
-	datamap_add(properties_datamap, IDC_DEFAULT_INPUT,			DM_STRING,	OPTION_CTRLR);
-	datamap_add(properties_datamap, IDC_USE_MOUSE,				DM_BOOL,	OPTION_MOUSE);
-	datamap_add(properties_datamap, IDC_JOYSTICK,				DM_BOOL,	OPTION_JOYSTICK);
-	datamap_add(properties_datamap, IDC_LIGHTGUN,				DM_BOOL,	OPTION_LIGHTGUN);
-	datamap_add(properties_datamap, IDC_STEADYKEY,				DM_BOOL,	OPTION_STEADYKEY);
-	datamap_add(properties_datamap, IDC_MULTIKEYBOARD,			DM_BOOL,	OPTION_MULTIKEYBOARD);
-	datamap_add(properties_datamap, IDC_MULTIMOUSE,				DM_BOOL,	OPTION_MULTIMOUSE);
-	datamap_add(properties_datamap, IDC_RELOAD,					DM_BOOL,	OPTION_OFFSCREEN_RELOAD);
+	datamap_add(properties_datamap, IDC_COINLOCKOUT,		DM_BOOL,	OPTION_COIN_LOCKOUT);
+	datamap_add(properties_datamap, IDC_DEFAULT_INPUT,		DM_STRING,	OPTION_CTRLR);
+	datamap_add(properties_datamap, IDC_USE_MOUSE,			DM_BOOL,	OPTION_MOUSE);
+	datamap_add(properties_datamap, IDC_JOYSTICK,			DM_BOOL,	OPTION_JOYSTICK);
+	datamap_add(properties_datamap, IDC_LIGHTGUN,			DM_BOOL,	OPTION_LIGHTGUN);
+	datamap_add(properties_datamap, IDC_STEADYKEY,			DM_BOOL,	OPTION_STEADYKEY);
+	datamap_add(properties_datamap, IDC_MULTIKEYBOARD,		DM_BOOL,	OPTION_MULTIKEYBOARD);
+	datamap_add(properties_datamap, IDC_MULTIMOUSE,			DM_BOOL,	OPTION_MULTIMOUSE);
+	datamap_add(properties_datamap, IDC_RELOAD,			DM_BOOL,	OPTION_OFFSCREEN_RELOAD);
 
-	datamap_add(properties_datamap, IDC_JDZ,					DM_FLOAT,	OPTION_JOYSTICK_DEADZONE);
-	datamap_add(properties_datamap, IDC_JDZDISP,				DM_FLOAT,	OPTION_JOYSTICK_DEADZONE);
-	datamap_add(properties_datamap, IDC_JSAT,					DM_FLOAT,	OPTION_JOYSTICK_SATURATION);
-	datamap_add(properties_datamap, IDC_JSATDISP,				DM_FLOAT,	OPTION_JOYSTICK_SATURATION);
-	datamap_add(properties_datamap, IDC_JOYSTICKMAP,			DM_STRING,	OPTION_JOYSTICK_MAP);
+	datamap_add(properties_datamap, IDC_JDZ,			DM_FLOAT,	OPTION_JOYSTICK_DEADZONE);
+	datamap_add(properties_datamap, IDC_JDZDISP,			DM_FLOAT,	OPTION_JOYSTICK_DEADZONE);
+	datamap_add(properties_datamap, IDC_JSAT,			DM_FLOAT,	OPTION_JOYSTICK_SATURATION);
+	datamap_add(properties_datamap, IDC_JSATDISP,			DM_FLOAT,	OPTION_JOYSTICK_SATURATION);
+	datamap_add(properties_datamap, IDC_JOYSTICKMAP,		DM_STRING,	OPTION_JOYSTICK_MAP);
 
 	// core input automatic enable options
-	datamap_add(properties_datamap, IDC_PADDLE,					DM_STRING,	OPTION_PADDLE_DEVICE);
-	datamap_add(properties_datamap, IDC_ADSTICK,				DM_STRING,	OPTION_ADSTICK_DEVICE);
-	datamap_add(properties_datamap, IDC_PEDAL,					DM_STRING,	OPTION_PEDAL_DEVICE);
-	datamap_add(properties_datamap, IDC_DIAL,					DM_STRING,	OPTION_DIAL_DEVICE);
-	datamap_add(properties_datamap, IDC_TRACKBALL,				DM_STRING,	OPTION_TRACKBALL_DEVICE);
-	datamap_add(properties_datamap, IDC_LIGHTGUNDEVICE,			DM_STRING,	OPTION_LIGHTGUN_DEVICE);
-	datamap_add(properties_datamap, IDC_POSITIONAL,				DM_STRING,	OPTION_POSITIONAL_DEVICE);
-	datamap_add(properties_datamap, IDC_MOUSE,					DM_STRING,	OPTION_MOUSE_DEVICE);
+	datamap_add(properties_datamap, IDC_PADDLE,			DM_STRING,	OPTION_PADDLE_DEVICE);
+	datamap_add(properties_datamap, IDC_ADSTICK,			DM_STRING,	OPTION_ADSTICK_DEVICE);
+	datamap_add(properties_datamap, IDC_PEDAL,			DM_STRING,	OPTION_PEDAL_DEVICE);
+	datamap_add(properties_datamap, IDC_DIAL,			DM_STRING,	OPTION_DIAL_DEVICE);
+	datamap_add(properties_datamap, IDC_TRACKBALL,			DM_STRING,	OPTION_TRACKBALL_DEVICE);
+	datamap_add(properties_datamap, IDC_LIGHTGUNDEVICE,		DM_STRING,	OPTION_LIGHTGUN_DEVICE);
+	datamap_add(properties_datamap, IDC_POSITIONAL,			DM_STRING,	OPTION_POSITIONAL_DEVICE);
+	datamap_add(properties_datamap, IDC_MOUSE,			DM_STRING,	OPTION_MOUSE_DEVICE);
 
 	// core debugging options
-	datamap_add(properties_datamap, IDC_LOG,					DM_BOOL,	OPTION_LOG);
-	datamap_add(properties_datamap, IDC_DEBUG,					DM_BOOL,	OPTION_DEBUG);
-	datamap_add(properties_datamap, IDC_VERBOSE,				DM_BOOL,	OPTION_VERBOSE);
-	datamap_add(properties_datamap, IDC_UPDATEINPAUSE,			DM_BOOL,	OPTION_UPDATEINPAUSE);
-	datamap_add(properties_datamap, IDC_DEBUGSCRIPT,			DM_STRING,	OPTION_DEBUGSCRIPT);
+	datamap_add(properties_datamap, IDC_LOG,			DM_BOOL,	OPTION_LOG);
+	datamap_add(properties_datamap, IDC_DEBUG,			DM_BOOL,	OPTION_DEBUG);
+	datamap_add(properties_datamap, IDC_VERBOSE,			DM_BOOL,	OPTION_VERBOSE);
+	datamap_add(properties_datamap, IDC_UPDATEINPAUSE,		DM_BOOL,	OPTION_UPDATEINPAUSE);
+	datamap_add(properties_datamap, IDC_DEBUGSCRIPT,		DM_STRING,	OPTION_DEBUGSCRIPT);
 
 	// core misc options
-	datamap_add(properties_datamap, IDC_BIOS,					DM_STRING,	OPTION_BIOS);
-	datamap_add(properties_datamap, IDC_CHEAT,					DM_BOOL,	OPTION_CHEAT);
-	datamap_add(properties_datamap, IDC_SKIP_GAME_INFO,			DM_BOOL,	OPTION_SKIP_GAMEINFO);
+	datamap_add(properties_datamap, IDC_BIOS,			DM_STRING,	OPTION_BIOS);
+	datamap_add(properties_datamap, IDC_CHEAT,			DM_BOOL,	OPTION_CHEAT);
+	datamap_add(properties_datamap, IDC_SKIP_GAME_INFO,		DM_BOOL,	OPTION_SKIP_GAMEINFO);
 
 	// windows debugging options
-	datamap_add(properties_datamap, IDC_OSLOG,					DM_BOOL,	OPTION_OSLOG);
+	datamap_add(properties_datamap, IDC_OSLOG,			DM_BOOL,	OPTION_OSLOG);
 
 	// windows performance options
-	datamap_add(properties_datamap, IDC_HIGH_PRIORITY,			DM_INT,		WINOPTION_PRIORITY);
+	datamap_add(properties_datamap, IDC_HIGH_PRIORITY,		DM_INT,		WINOPTION_PRIORITY);
 	datamap_add(properties_datamap, IDC_HIGH_PRIORITYTXT,		DM_INT,		WINOPTION_PRIORITY);
 	datamap_add(properties_datamap, IDC_MULTITHREAD_RENDERING,	DM_BOOL,	OSDOPTION_MULTITHREADING);
 
 	// windows video options
-	datamap_add(properties_datamap, IDC_VIDEO_MODE,				DM_STRING,	OSDOPTION_VIDEO);
-	datamap_add(properties_datamap, IDC_NUMSCREENS,				DM_INT,		OSDOPTION_NUMSCREENS);
-	datamap_add(properties_datamap, IDC_NUMSCREENSDISP,			DM_INT,		OSDOPTION_NUMSCREENS);
-	datamap_add(properties_datamap, IDC_WINDOWED,				DM_BOOL,	OSDOPTION_WINDOW);
-	datamap_add(properties_datamap, IDC_MAXIMIZE,				DM_BOOL,	OSDOPTION_MAXIMIZE);
-	datamap_add(properties_datamap, IDC_KEEPASPECT,				DM_BOOL,	OSDOPTION_KEEPASPECT);
-	datamap_add(properties_datamap, IDC_PRESCALE,				DM_INT,		OSDOPTION_PRESCALE);
-	datamap_add(properties_datamap, IDC_PRESCALEDISP,			DM_INT,		OSDOPTION_PRESCALE);
+	datamap_add(properties_datamap, IDC_VIDEO_MODE,			DM_STRING,	OSDOPTION_VIDEO);
+	datamap_add(properties_datamap, IDC_NUMSCREENS,			DM_INT,		OSDOPTION_NUMSCREENS);
+	datamap_add(properties_datamap, IDC_NUMSCREENSDISP,		DM_INT,		OSDOPTION_NUMSCREENS);
+	datamap_add(properties_datamap, IDC_WINDOWED,			DM_BOOL,	OSDOPTION_WINDOW);
+	datamap_add(properties_datamap, IDC_MAXIMIZE,			DM_BOOL,	OSDOPTION_MAXIMIZE);
+	datamap_add(properties_datamap, IDC_KEEPASPECT,			DM_BOOL,	OSDOPTION_KEEPASPECT);
+	datamap_add(properties_datamap, IDC_PRESCALE,			DM_INT,		OSDOPTION_PRESCALE);
+	datamap_add(properties_datamap, IDC_PRESCALEDISP,		DM_INT,		OSDOPTION_PRESCALE);
 	// datamap_add(properties_datamap, IDC_EFFECT,                  DM_STRING,  OPTION_EFFECT);
-	datamap_add(properties_datamap, IDC_WAITVSYNC,				DM_BOOL,	OSDOPTION_WAITVSYNC);
-	datamap_add(properties_datamap, IDC_SYNCREFRESH,			DM_BOOL,	OSDOPTION_SYNCREFRESH);
+	datamap_add(properties_datamap, IDC_WAITVSYNC,			DM_BOOL,	OSDOPTION_WAITVSYNC);
+	datamap_add(properties_datamap, IDC_SYNCREFRESH,		DM_BOOL,	OSDOPTION_SYNCREFRESH);
 
 	// DirectDraw specific options
-	datamap_add(properties_datamap, IDC_HWSTRETCH,				DM_BOOL,	WINOPTION_HWSTRETCH);
+	datamap_add(properties_datamap, IDC_HWSTRETCH,			DM_BOOL,	WINOPTION_HWSTRETCH);
 
 	// Direct3D specific options
-//	datamap_add(properties_datamap, IDC_D3D_VERSION,			DM_INT,		WINOPTION_D3DVERSION);
-	datamap_add(properties_datamap, IDC_D3D_FILTER,				DM_BOOL,	OSDOPTION_FILTER);
+//	datamap_add(properties_datamap, IDC_D3D_VERSION,		DM_INT,		WINOPTION_D3DVERSION);
+	datamap_add(properties_datamap, IDC_D3D_FILTER,			DM_BOOL,	OSDOPTION_FILTER);
 
 	// per window video options
-	datamap_add(properties_datamap, IDC_SCREEN,					DM_STRING,	NULL);
-	datamap_add(properties_datamap, IDC_SCREENSELECT,			DM_STRING,	NULL);
-	datamap_add(properties_datamap, IDC_VIEW,					DM_STRING,	NULL);
-	datamap_add(properties_datamap, IDC_ASPECTRATIOD,			DM_STRING,  NULL);
-	datamap_add(properties_datamap, IDC_ASPECTRATION,			DM_STRING,  NULL);
-	datamap_add(properties_datamap, IDC_REFRESH,				DM_STRING,  NULL);
-	datamap_add(properties_datamap, IDC_SIZES,					DM_STRING,  NULL);
+	datamap_add(properties_datamap, IDC_SCREEN,			DM_STRING,	NULL);
+	datamap_add(properties_datamap, IDC_SCREENSELECT,		DM_STRING,	NULL);
+	datamap_add(properties_datamap, IDC_VIEW,			DM_STRING,	NULL);
+	datamap_add(properties_datamap, IDC_ASPECTRATIOD,		DM_STRING,  NULL);
+	datamap_add(properties_datamap, IDC_ASPECTRATION,		DM_STRING,  NULL);
+	datamap_add(properties_datamap, IDC_REFRESH,			DM_STRING,  NULL);
+	datamap_add(properties_datamap, IDC_SIZES,			DM_STRING,  NULL);
 
 	// full screen options
-	datamap_add(properties_datamap, IDC_TRIPLE_BUFFER,			DM_BOOL,	WINOPTION_TRIPLEBUFFER);
-	datamap_add(properties_datamap, IDC_SWITCHRES,				DM_BOOL,	OSDOPTION_SWITCHRES);
-	datamap_add(properties_datamap, IDC_FSBRIGHTNESS,			DM_FLOAT,	WINOPTION_FULLSCREENBRIGHTNESS);
+	datamap_add(properties_datamap, IDC_TRIPLE_BUFFER,		DM_BOOL,	WINOPTION_TRIPLEBUFFER);
+	datamap_add(properties_datamap, IDC_SWITCHRES,			DM_BOOL,	OSDOPTION_SWITCHRES);
+	datamap_add(properties_datamap, IDC_FSBRIGHTNESS,		DM_FLOAT,	WINOPTION_FULLSCREENBRIGHTNESS);
 	datamap_add(properties_datamap, IDC_FSBRIGHTNESSDISP,		DM_FLOAT,	WINOPTION_FULLSCREENBRIGHTNESS);
-	datamap_add(properties_datamap, IDC_FSCONTRAST,				DM_FLOAT,	WINOPTION_FULLSCREENCONTRAST);
-	datamap_add(properties_datamap, IDC_FSCONTRASTDISP,			DM_FLOAT,	WINOPTION_FULLSCREENCONTRAST);
-	datamap_add(properties_datamap, IDC_FSGAMMA,				DM_FLOAT,	WINOPTION_FULLSCREENGAMMA);
-	datamap_add(properties_datamap, IDC_FSGAMMADISP,			DM_FLOAT,	WINOPTION_FULLSCREENGAMMA);
+	datamap_add(properties_datamap, IDC_FSCONTRAST,			DM_FLOAT,	WINOPTION_FULLSCREENCONTRAST);
+	datamap_add(properties_datamap, IDC_FSCONTRASTDISP,		DM_FLOAT,	WINOPTION_FULLSCREENCONTRAST);
+	datamap_add(properties_datamap, IDC_FSGAMMA,			DM_FLOAT,	WINOPTION_FULLSCREENGAMMA);
+	datamap_add(properties_datamap, IDC_FSGAMMADISP,		DM_FLOAT,	WINOPTION_FULLSCREENGAMMA);
 
 	// windows sound options
-	datamap_add(properties_datamap, IDC_AUDIO_LATENCY,			DM_INT,		OSDOPTION_AUDIO_LATENCY);
+	datamap_add(properties_datamap, IDC_AUDIO_LATENCY,		DM_INT,		OSDOPTION_AUDIO_LATENCY);
 	datamap_add(properties_datamap, IDC_AUDIO_LATENCY_DISP,		DM_INT,		OSDOPTION_AUDIO_LATENCY);
 
 	// input device options
-	datamap_add(properties_datamap, IDC_DUAL_LIGHTGUN,			DM_BOOL,	WINOPTION_DUAL_LIGHTGUN);
+	datamap_add(properties_datamap, IDC_DUAL_LIGHTGUN,		DM_BOOL,	WINOPTION_DUAL_LIGHTGUN);
 
 	// show menu
-	//datamap_add(properties_datamap, IDC_SHOW_MENU,				DM_BOOL,	WINOPTION_MENU);
+	//datamap_add(properties_datamap, IDC_SHOW_MENU,		DM_BOOL,	WINOPTION_MENU);
 
 	// hlsl
-	datamap_add(properties_datamap, IDC_HLSL_ON,				DM_BOOL,	WINOPTION_HLSL_ENABLE);
+	datamap_add(properties_datamap, IDC_HLSL_ON,			DM_BOOL,	WINOPTION_HLSL_ENABLE);
 
 	// set up callbacks
 	datamap_set_callback(properties_datamap, IDC_ROTATE,		DCT_READ_CONTROL,		RotateReadControl);
 	datamap_set_callback(properties_datamap, IDC_ROTATE,		DCT_POPULATE_CONTROL,	RotatePopulateControl);
 	datamap_set_callback(properties_datamap, IDC_SCREEN,		DCT_READ_CONTROL,		ScreenReadControl);
 	datamap_set_callback(properties_datamap, IDC_SCREEN,		DCT_POPULATE_CONTROL,	ScreenPopulateControl);
-	datamap_set_callback(properties_datamap, IDC_VIEW,			DCT_POPULATE_CONTROL,	ViewPopulateControl);
+	datamap_set_callback(properties_datamap, IDC_VIEW,		DCT_POPULATE_CONTROL,	ViewPopulateControl);
 	datamap_set_callback(properties_datamap, IDC_REFRESH,		DCT_READ_CONTROL,		ResolutionReadControl);
 	datamap_set_callback(properties_datamap, IDC_REFRESH,		DCT_POPULATE_CONTROL,	ResolutionPopulateControl);
-	datamap_set_callback(properties_datamap, IDC_SIZES,			DCT_READ_CONTROL,		ResolutionReadControl);
-	datamap_set_callback(properties_datamap, IDC_SIZES,			DCT_POPULATE_CONTROL,	ResolutionPopulateControl);
+	datamap_set_callback(properties_datamap, IDC_SIZES,		DCT_READ_CONTROL,		ResolutionReadControl);
+	datamap_set_callback(properties_datamap, IDC_SIZES,		DCT_POPULATE_CONTROL,	ResolutionPopulateControl);
 	datamap_set_callback(properties_datamap, IDC_DEFAULT_INPUT,	DCT_READ_CONTROL,		DefaultInputReadControl);
 	datamap_set_callback(properties_datamap, IDC_DEFAULT_INPUT,	DCT_POPULATE_CONTROL,	DefaultInputPopulateControl);
 	datamap_set_callback(properties_datamap, IDC_SNAPVIEW,		DCT_POPULATE_CONTROL,	SnapViewPopulateControl);
 
-	datamap_set_option_name_callback(properties_datamap, IDC_VIEW,		ViewSetOptionName);
+	datamap_set_option_name_callback(properties_datamap, IDC_VIEW, ViewSetOptionName);
 	//missing population of views with per game defined additional views
-	datamap_set_option_name_callback(properties_datamap, IDC_REFRESH,	ResolutionSetOptionName);
-	datamap_set_option_name_callback(properties_datamap, IDC_SIZES,		ResolutionSetOptionName);
+	datamap_set_option_name_callback(properties_datamap, IDC_REFRESH, ResolutionSetOptionName);
+	datamap_set_option_name_callback(properties_datamap, IDC_SIZES, ResolutionSetOptionName);
 
 
 	// formats
-	datamap_set_int_format(properties_datamap, IDC_VOLUMEDISP,			"%ddB");
-	datamap_set_int_format(properties_datamap, IDC_AUDIO_LATENCY_DISP,	"%d/5");
-	datamap_set_float_format(properties_datamap, IDC_BEAMDISP,			"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_FLICKERDISP,		"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_GAMMADISP,			"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_BRIGHTCORRECTDISP,	"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_CONTRASTDISP,		"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_PAUSEBRIGHTDISP,	"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_FSGAMMADISP,		"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_FSBRIGHTNESSDISP,	"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_FSCONTRASTDISP,	"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_JDZDISP,		"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_JSATDISP,		"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_SPEEDDISP,		"%03.2f");
+	datamap_set_int_format(properties_datamap, IDC_VOLUMEDISP, "%ddB");
+	datamap_set_int_format(properties_datamap, IDC_AUDIO_LATENCY_DISP, "%d/5");
+	datamap_set_float_format(properties_datamap, IDC_BEAMDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_FLICKERDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_GAMMADISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_BRIGHTCORRECTDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_CONTRASTDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_PAUSEBRIGHTDISP,"%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_FSGAMMADISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_FSBRIGHTNESSDISP,"%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_FSCONTRASTDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_JDZDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_JSATDISP, "%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_SPEEDDISP, "%03.2f");
 
 	// trackbar ranges - slider-name,start,end,step
 	datamap_set_trackbar_range(properties_datamap, IDC_JDZ,         0.00, 1.00,  (float)0.05);
@@ -2834,9 +2829,8 @@ static BOOL SelectEffect(HWND hWnd)
 		if (strcmp(buff, pCurrentOpts.value(OPTION_EFFECT)))
 		{
 			HWND control = GetDlgItem(hWnd, IDC_EFFECT);
-			astring error_string;
+			std::string error_string;
 			pCurrentOpts.set_value(OPTION_EFFECT, buff, OPTION_PRIORITY_CMDLINE,error_string);
-			assert(!error_string);
 			win_set_window_text_utf8(control, buff);
 			// datamap_populate_control(properties_datamap, hWnd, pCurrentOpts, IDC_EFFECT);
 			changed = TRUE;
@@ -2853,9 +2847,8 @@ static BOOL ResetEffect(HWND hWnd)
 	if (strcmp(new_value, pCurrentOpts.value(OPTION_EFFECT)))
 	{
 		HWND control = GetDlgItem(hWnd, IDC_EFFECT);
-		astring error_string;
+		std::string error_string;
 		pCurrentOpts.set_value(OPTION_EFFECT, new_value, OPTION_PRIORITY_CMDLINE,error_string);
-		assert(!error_string);
 		win_set_window_text_utf8(control, new_value);
 		// datamap_populate_control(properties_datamap, hWnd, pCurrentOpts, IDC_EFFECT);
 		changed = TRUE;
@@ -2874,7 +2867,7 @@ static BOOL SelectJoystickMap(HWND hWnd)
 		if (strcmp(filename, pCurrentOpts.value(OPTION_JOYSTICK_MAP)))
 		{
 			HWND control = GetDlgItem(hWnd, IDC_JOYSTICKMAP);
-			astring error_string;
+			std::string error_string;
 			pCurrentOpts.set_value(OPTION_JOYSTICK_MAP, filename, OPTION_PRIORITY_CMDLINE,error_string);
 			win_set_window_text_utf8(control, filename);
 			changed = TRUE;
@@ -2891,9 +2884,8 @@ static BOOL ResetJoystickMap(HWND hWnd)
 	if (strcmp(new_value, pCurrentOpts.value(OPTION_JOYSTICK_MAP)))
 	{
 		HWND control = GetDlgItem(hWnd, IDC_JOYSTICKMAP);
-		astring error_string;
+		std::string error_string;
 		pCurrentOpts.set_value(OPTION_JOYSTICK_MAP, new_value, OPTION_PRIORITY_CMDLINE,error_string);
-		assert(!error_string);
 		win_set_window_text_utf8(control, new_value);
 		changed = TRUE;
 	}
@@ -2911,9 +2903,8 @@ static BOOL SelectDebugscript(HWND hWnd)
 		if (strcmp(filename, pCurrentOpts.value(OPTION_DEBUGSCRIPT)))
 		{
 			HWND control = GetDlgItem(hWnd, IDC_DEBUGSCRIPT);
-			astring error_string;
+			std::string error_string;
 			pCurrentOpts.set_value(OPTION_DEBUGSCRIPT, filename, OPTION_PRIORITY_CMDLINE,error_string);
-			assert(!error_string);
 			win_set_window_text_utf8(control, filename);
 			changed = TRUE;
 		}
@@ -2929,9 +2920,8 @@ static BOOL ResetDebugscript(HWND hWnd)
 	if (strcmp(new_value, pCurrentOpts.value(OPTION_DEBUGSCRIPT)))
 	{
 		HWND control = GetDlgItem(hWnd, IDC_DEBUGSCRIPT);
-		astring error_string;
+		std::string error_string;
 		pCurrentOpts.set_value(OPTION_DEBUGSCRIPT, new_value, OPTION_PRIORITY_CMDLINE,error_string);
-		assert(!error_string);
 		win_set_window_text_utf8(control, new_value);
 		changed = TRUE;
 	}
@@ -2940,45 +2930,45 @@ static BOOL ResetDebugscript(HWND hWnd)
 
 void UpdateBackgroundBrush(HWND hwndTab)
 {
-    // Destroy old brush
-    if (hBkBrush)
-        DeleteBrush(hBkBrush);
+	// Destroy old brush
+	if (hBkBrush)
+		DeleteBrush(hBkBrush);
 
-    hBkBrush = NULL;
+	hBkBrush = NULL;
 
-    // Only do this if the theme is active
-    if (SafeIsAppThemed())
-    {
-        RECT rc;
-        HDC hDC, hDCMem;
+	// Only do this if the theme is active
+	if (SafeIsAppThemed())
+	{
+		RECT rc;
+		HDC hDC, hDCMem;
 		HBITMAP hBmp, hBmpOld;
-        // Get tab control dimensions
-        GetWindowRect( hwndTab, &rc);
+		// Get tab control dimensions
+		GetWindowRect( hwndTab, &rc);
 
-        // Get the tab control DC
+		// Get the tab control DC
 		hDC = GetDC(hwndTab);
 
-        // Create a compatible DC
-        hDCMem = CreateCompatibleDC(hDC);
-        hBmp = CreateCompatibleBitmap(hDC,
-               rc.right - rc.left, rc.bottom - rc.top);
-        hBmpOld = (HBITMAP)(SelectObject(hDCMem, hBmp));
+		// Create a compatible DC
+		hDCMem = CreateCompatibleDC(hDC);
+		hBmp = CreateCompatibleBitmap(hDC,
+		rc.right - rc.left, rc.bottom - rc.top);
+		hBmpOld = (HBITMAP)(SelectObject(hDCMem, hBmp));
 
-        // Tell the tab control to paint in our DC
-        SendMessage(hwndTab, WM_PRINTCLIENT, (WPARAM)(hDCMem),
-           (LPARAM)(PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT));
+		// Tell the tab control to paint in our DC
+		SendMessage(hwndTab, WM_PRINTCLIENT, (WPARAM)(hDCMem),
+			(LPARAM)(PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT));
 
-        // Create a pattern brush from the bitmap selected in our DC
-        hBkBrush = CreatePatternBrush(hBmp);
+		// Create a pattern brush from the bitmap selected in our DC
+		hBkBrush = CreatePatternBrush(hBmp);
 
-        // Restore the bitmap
-        SelectObject(hDCMem, hBmpOld);
+		// Restore the bitmap
+		SelectObject(hDCMem, hBmpOld);
 
-        // Cleanup
-        DeleteBitmap(hBmp);
-        DeleteDC(hDCMem);
-        ReleaseDC(hwndTab, hDC);
-    }
+		// Cleanup
+		DeleteBitmap(hBmp);
+		DeleteDC(hDCMem);
+		ReleaseDC(hwndTab, hDC);
+	}
 }
 
 
