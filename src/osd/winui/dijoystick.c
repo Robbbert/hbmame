@@ -22,7 +22,6 @@
 #include <windows.h>
 
 // standard C headers
-#include <assert.h>
 #include <stdio.h>
 #include <math.h>
 #include <tchar.h>

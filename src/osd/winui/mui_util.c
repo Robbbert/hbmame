@@ -23,7 +23,6 @@
 #include <shellapi.h>
 
 // standard C headers
-#include <assert.h>
 #include <stdio.h>
 #include <tchar.h>
 

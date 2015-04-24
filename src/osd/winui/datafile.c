@@ -23,7 +23,6 @@
 #include <windows.h>
 
 // standard C headers
-#include <assert.h>
 #include <ctype.h>
 
 // MAME/MAMEUI headers
