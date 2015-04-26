@@ -103,9 +103,7 @@ BOOL LoadScreenShot(int nGame, int nType)
 
 	/* MSH 20071029 - If driver is broken and no images exists, look for nonworking.png */
 	if (!loaded && DriverIsBroken(nGame))
-	{
 		loaded = LoadDIB("nonworking", &m_hDIB, &m_hPal, nType);
-	}
 
 	if (loaded)
 	{
@@ -210,6 +208,7 @@ static file_error OpenDIBFile(const char *dir_name, const char *zip_name, const 
 	// look for the raw file
 	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(filename) + ".png";
 	filerr = core_fopen(fname.c_str(), OPEN_FLAG_READ, file);
+
 	// did the raw file not exist?
 	if (filerr != FILERR_NONE)
 	{
@@ -289,7 +288,7 @@ BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 			dir_name = GetControlPanelDir();
 			zip_name = "cpanel";
 			break;
-		case TAB_PCB :
+		case TAB_PCB:
 			dir_name = GetPcbDir();
 			zip_name = "pcb";
 			break;
@@ -335,9 +334,8 @@ done:
 	}
 	// free the buffer if we have to
 	if (buffer != NULL)
-	{
 		free(buffer);
-	}
+
 	return success;
 }
 
@@ -408,7 +406,7 @@ BOOL AllocatePNG(png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
 	RGBQUAD*		pRgb;
 	copy_size = 0;
 	pixel_ptr = 0;
-	row 	  = p->height - 1;
+	row       = p->height - 1;
 	lineWidth = p->width;
 
 	if (p->color_type != 2 && p->num_palette <= 256)
@@ -432,9 +430,7 @@ BOOL AllocatePNG(png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
 	hDIB = GlobalAlloc(GMEM_FIXED, bi.biSize + (nColors * sizeof(RGBQUAD)) + dibSize);
 
 	if (!hDIB)
-	{
 		return FALSE;
-	}
 
 	lpbi = (LPBITMAPINFOHEADER)hDIB;
 	memcpy(lpbi, &bi, sizeof(BITMAPINFOHEADER));
