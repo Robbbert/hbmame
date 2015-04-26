@@ -75,7 +75,7 @@
   - unknown MCU clocks for some: TMS1000 RC curve is documented in the data manual,
     but not for newer ones (rev. E or TMS1400 MCUs). TMS0970/0980 osc. is on-die.
   - some of the games rely on the fact that faster/longer strobed leds appear
-    brighter: tc4(offensive players), bankshot(cue ball), ...
+    brighter: tc4/h2hfootb(offense), bankshot(cue ball), ...
   - add softwarelist for tc4 cartridges?
   - stopthiep: unable to start a game (may be intentional?)
 
@@ -97,6 +97,7 @@
 #include "elecdet.lh"
 #include "gjackpot.lh"
 #include "gpoker.lh"
+#include "h2hfootb.lh"
 #include "mathmagi.lh"
 #include "merlin.lh" // clickable
 #include "mmerlin.lh" // clickable
@@ -773,7 +774,8 @@ MACHINE_CONFIG_END
   * TMS1100NLLE (rev. E!) MP3460 (die labeled MP3460)
   * 2*SN75492N LED display drivers, 9-digit LED grid, 1bit sound
 
-  x
+  To distinguish between offense and defense, offense blips (should)
+  appear brighter.
 
 ***************************************************************************/
 
@@ -795,7 +797,7 @@ public:
 void h2hfootb_state::prepare_display()
 {
 	memset(m_display_segmask, ~0, sizeof(m_display_segmask));
-	display_matrix_seg(9, 9, m_o | (m_r >> 1 & 0x100), (m_r & 0x1ff), 0xff);
+	display_matrix_seg(9, 9, m_o | (m_r >> 1 & 0x100), (m_r & 0x1ff), 0x7f);
 }
 
 WRITE16_MEMBER(h2hfootb_state::write_r)
@@ -842,9 +844,8 @@ static INPUT_PORTS_START( h2hfootb )
 	PORT_CONFSETTING(    0x02, "2" )
 
 	PORT_START("IN.1") // K2
-	PORT_CONFNAME( 0x03, 0x02, "Play Selector" )
-	PORT_CONFSETTING(    0x01, "Pass" )
-	PORT_CONFSETTING(    0x02, "Run-Kick" )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_SELECT ) PORT_TOGGLE PORT_NAME("P1 Play Selector") // pass
+	PORT_BIT( 0x02, 0x02, IPT_SPECIAL ) PORT_CONDITION("IN.1", 0x01, EQUALS, 0x00) // run/kick
 
 	PORT_START("IN.2") // K4
 	PORT_CONFNAME( 0x03, 0x01, "Skill Level" )
@@ -872,7 +873,7 @@ static MACHINE_CONFIG_START( h2hfootb, h2hfootb_state )
 	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(h2hfootb_state, write_o))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_tms1k_test)
+	MCFG_DEFAULT_LAYOUT(layout_h2hfootb)
 
 	/* no video! */
 
@@ -1933,42 +1934,55 @@ WRITE16_MEMBER(gjackpot_state::write_r)
 
 // config
 
+/* physical button layout and labels is like this:
+  (note: on dual-function buttons, upper label=Gin, lower label=Black Jack)
+
+                       BJ --o GIN
+                          OFF
+    [7]    [8]    [9]    [DL]
+
+    [4]    [5]    [6]    [      [KN
+                          DB]    SP]
+    [1]    [2]    [3]    [DS]   [DR]
+                          BT]    HT]
+    [10/1] [T]    [MD    [CH    [AC]
+                   GO]    ST]
+*/
+
 static INPUT_PORTS_START( gjackpot )
 	PORT_START("IN.0") // R0
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_0) PORT_CODE(KEYCODE_0_PAD) PORT_NAME("10/0")
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("6")
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_H) PORT_NAME("Draw/Hit") // DR/HT
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_D) PORT_NAME("Deal") // DL
 
 	PORT_START("IN.1") // R1
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("1")
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_7) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("7")
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_K) PORT_NAME("Knock/Split") // KN/SP
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_T) PORT_NAME("Total") // T
 
 	PORT_START("IN.2") // R2
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD) PORT_NAME("2")
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_8) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("8")
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_B) PORT_NAME("Display/Bet") // DS/BT
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN.3") // R3
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD) PORT_NAME("3")
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_9) PORT_CODE(KEYCODE_9_PAD) PORT_NAME("9")
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_M) PORT_NAME("Meld/Go") // MD/GO
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_X) PORT_NAME("Double") // DB
 
 	PORT_START("IN.4") // R4
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD) PORT_NAME("4")
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_C) PORT_NAME("Change/Stand") // CH/ST
+	PORT_BIT( 0x0a, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN.5") // R5
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("5")
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_BACKSPACE) PORT_NAME("Clear Entry") // CE
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x0a, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN.6") // R10
 	PORT_CONFNAME( 0x06, 0x04, "Game Select" )
@@ -2680,7 +2694,6 @@ static INPUT_PORTS_START( ssimon )
 
 	PORT_START("IN.5") // R10
 	PORT_BIT( 0x02, 0x02, IPT_SPECIAL ) PORT_CONDITION("IN.4", 0x0f, EQUALS, 0x00)
-	PORT_BIT( 0x02, 0x00, IPT_SPECIAL ) PORT_CONDITION("IN.4", 0x0f, NOTEQUALS, 0x00)
 	PORT_BIT( 0x0d, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN.6") // fake
@@ -4072,7 +4085,7 @@ COMP( 1980, mathmagi,  0,        0, mathmagi,  mathmagi,  driver_device, 0, "APF
 
 CONS( 1979, amaztron,  0,        0, amaztron,  amaztron,  driver_device, 0, "Coleco", "Amaze-A-Tron", GAME_SUPPORTS_SAVE )
 CONS( 1980, h2hbaseb,  0,        0, h2hbaseb,  h2hbaseb,  driver_device, 0, "Coleco", "Head to Head Baseball", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
-CONS( 1980, h2hfootb,  0,        0, h2hfootb,  h2hfootb,  driver_device, 0, "Coleco", "Head to Head Football", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
+CONS( 1980, h2hfootb,  0,        0, h2hfootb,  h2hfootb,  driver_device, 0, "Coleco", "Head to Head Football", GAME_SUPPORTS_SAVE )
 CONS( 1981, tc4,       0,        0, tc4,       tc4,       driver_device, 0, "Coleco", "Total Control 4", GAME_SUPPORTS_SAVE )
 
 CONS( 1979, ebball,    0,        0, ebball,    ebball,    driver_device, 0, "Entex", "Electronic Baseball (Entex)", GAME_SUPPORTS_SAVE )
@@ -4082,7 +4095,7 @@ CONS( 1980, einvader,  0,        0, einvader,  einvader,  driver_device, 0, "Ent
 CONS( 1980, raisedvl,  0,        0, raisedvl,  raisedvl,  driver_device, 0, "Entex", "Raise The Devil", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK )
 
 CONS( 1979, gpoker,    0,        0, gpoker,    gpoker,    driver_device, 0, "Gakken", "Poker (Gakken, 1979 version)", GAME_SUPPORTS_SAVE )
-CONS( 1980, gjackpot,  0,        0, gjackpot,  gjackpot,  driver_device, 0, "Gakken", "Jackpot: Gin Rummy & Black Jack", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
+CONS( 1980, gjackpot,  0,        0, gjackpot,  gjackpot,  driver_device, 0, "Gakken", "Jackpot: Gin Rummy & Black Jack", GAME_SUPPORTS_SAVE )
 
 CONS( 1979, elecdet,   0,        0, elecdet,   elecdet,   driver_device, 0, "Ideal", "Electronic Detective", GAME_SUPPORTS_SAVE ) // ***
 
@@ -4094,7 +4107,7 @@ COMP( 1979, astro,     0,        0, astro,     astro,     driver_device, 0, "Kos
 CONS( 1977, comp4,     0,        0, comp4,     comp4,     driver_device, 0, "Milton Bradley", "Comp IV", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW )
 CONS( 1978, simon,     0,        0, simon,     simon,     driver_device, 0, "Milton Bradley", "Simon (Rev. A)", GAME_SUPPORTS_SAVE )
 CONS( 1979, ssimon,    0,        0, ssimon,    ssimon,    driver_device, 0, "Milton Bradley", "Super Simon", GAME_SUPPORTS_SAVE )
-CONS( 1979, bigtrak,   0,        0, bigtrak,   bigtrak,   driver_device, 0, "Milton Bradley", "Big Trak", GAME_SUPPORTS_SAVE | GAME_MECHANICAL | GAME_NOT_WORKING ) // ***
+CONS( 1979, bigtrak,   0,        0, bigtrak,   bigtrak,   driver_device, 0, "Milton Bradley", "Big Trak", GAME_SUPPORTS_SAVE | GAME_MECHANICAL ) // ***
 
 CONS( 1977, cnsector,  0,        0, cnsector,  cnsector,  driver_device, 0, "Parker Brothers", "Code Name: Sector", GAME_SUPPORTS_SAVE | GAME_NO_SOUND_HW ) // ***
 CONS( 1978, merlin,    0,        0, merlin,    merlin,    driver_device, 0, "Parker Brothers", "Merlin - The Electronic Wizard", GAME_SUPPORTS_SAVE )
