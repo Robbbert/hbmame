@@ -510,13 +510,11 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,181,178,1
     LTEXT           "Screen:",IDC_STATIC,18,186,47,8
     LTEXT           "Static\nStatic\nStatic",IDC_PROP_SCREEN,65,186,155,27
-    LTEXT           "Colors:",IDC_STATIC,18,223,47,8
-    LTEXT           "Static",IDC_PROP_COLORS,65,223,155,8
-    LTEXT           "Clone of:",IDC_PROP_CLONEOF_TEXT,18,243,50,8
-    LTEXT           "Static",IDC_PROP_CLONEOF,65,243,155,28
-    LTEXT           "Source:",IDC_STATIC,18,233,47,8
-    LTEXT           "Static",IDC_PROP_SOURCE,65,233,155,8
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,218,178,1
+    LTEXT           "Source:",IDC_STATIC,16,223,47,8
+    LTEXT           "Static",IDC_PROP_SOURCE,65,223,139,8
+    LTEXT           "Clone of:",IDC_PROP_CLONEOF_TEXT,16,232,50,8
+    LTEXT           "Static",IDC_PROP_CLONEOF,65,232,130,33
 END
 
 IDD_PROP_AUDIT DIALOG DISCARDABLE 0, 0, 220, 240
