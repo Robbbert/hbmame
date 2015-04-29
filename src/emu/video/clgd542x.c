@@ -123,6 +123,7 @@ void cirrus_gd5428_device::device_reset()
 	m_vclk_denom[0] = 0x2b;
 	m_vclk_num[1] = 0x5b;
 	m_vclk_denom[1] = 0x2f;
+	m_blt_source = m_blt_dest = m_blt_source_current = m_blt_dest_current = 0;
 	memset(m_ext_palette, 0, sizeof(m_ext_palette));
 	m_ext_palette_enabled = false;
 //	m_ext_palette[15].red = m_ext_palette[15].green = m_ext_palette[15].blue = 0xff;  // default?  Win3.1 doesn't seem to touch the extended DAC, or at least, it enables it, then immediately disables it then sets a palette...
@@ -147,8 +148,8 @@ UINT32 cirrus_gd5428_device::screen_update(screen_device &screen, bitmap_rgb32 &
 				{
 					for(bit=0;bit<8;bit++)
 					{
-						UINT8 pixel1 = vga.memory[ptr] >> (7-bit);
-						UINT8 pixel2 = vga.memory[ptr+512] >> (7-bit);
+						UINT8 pixel1 = vga.memory[ptr % vga.svga_intf.vram_size] >> (7-bit);
+						UINT8 pixel2 = vga.memory[(ptr+512) % vga.svga_intf.vram_size] >> (7-bit);
 						UINT8 output = ((pixel1 & 0x01) << 1) | (pixel2 & 0x01);
 						switch(output)
 						{
@@ -177,8 +178,8 @@ UINT32 cirrus_gd5428_device::screen_update(screen_device &screen, bitmap_rgb32 &
 				{
 					for(bit=0;bit<8;bit++)
 					{
-						UINT8 pixel1 = vga.memory[ptr] >> (7-bit);
-						UINT8 pixel2 = vga.memory[ptr+128] >> (7-bit);
+						UINT8 pixel1 = vga.memory[ptr % vga.svga_intf.vram_size] >> (7-bit);
+						UINT8 pixel2 = vga.memory[(ptr+128) % vga.svga_intf.vram_size] >> (7-bit);
 						UINT8 output = ((pixel1 & 0x01) << 1) | (pixel2 & 0x01);
 						switch(output)
 						{
@@ -286,28 +287,31 @@ void cirrus_gd5428_device::start_bitblt()
 
 void cirrus_gd5428_device::copy_pixel()
 {
-	UINT8 src = vga.memory[m_blt_source_current];
-	UINT8 dst = vga.memory[m_blt_dest_current];
+	UINT8 src = vga.memory[m_blt_source_current % vga.svga_intf.vram_size];
+	UINT8 dst = vga.memory[m_blt_dest_current % vga.svga_intf.vram_size];
 	
 	if(m_blt_mode & 0x40)  // enable 8x8 pattern
 	{
 		if(m_blt_mode & 0x80)  // colour expand
-			src = (vga.memory[m_blt_source] >> (abs((int)(m_blt_source_current - m_blt_source)) % 8)) & 0x01 ? 0xff : 0x00;
+			src = (vga.memory[m_blt_source % vga.svga_intf.vram_size] >> (abs((int)(m_blt_source_current - m_blt_source)) % 8)) & 0x01 ? 0xff : 0x00;
 	}
 	
 	switch(m_blt_rop)
 	{
 	case 0x00:  // BLACK
-		vga.memory[m_blt_dest_current] = 0x00;
+		vga.memory[m_blt_dest_current % vga.svga_intf.vram_size] = 0x00;
+		break;
+	case 0x0b:  // NOT DST
+		vga.memory[m_blt_dest_current % vga.svga_intf.vram_size] = ~dst;
 		break;
 	case 0x0d:  // SRC
-		vga.memory[m_blt_dest_current] = src;
+		vga.memory[m_blt_dest_current % vga.svga_intf.vram_size] = src;
 		break;
 	case 0x0e:  // WHITE
-		vga.memory[m_blt_dest_current] = 0xff;
+		vga.memory[m_blt_dest_current % vga.svga_intf.vram_size] = 0xff;
 		break;
 	case 0x59:  // SRCINVERT
-		vga.memory[m_blt_dest_current] = dst ^ src;
+		vga.memory[m_blt_dest_current % vga.svga_intf.vram_size] = dst ^ src;
 		break;
 	default:
 		popmessage("CL: Unsupported BitBLT ROP mode %02x",m_blt_rop);
@@ -485,10 +489,10 @@ UINT8 cirrus_gd5428_device::cirrus_gc_reg_read(UINT8 index)
 		break;
 	case 0x05:
 		res  = (vga.gc.shift256 & 1) << 6;
-		res |= (vga.gc.shift_reg & 1) << 5;;
+		res |= (vga.gc.shift_reg & 1) << 5;
 		res |= (vga.gc.host_oe & 1) << 4;
 		res |= (vga.gc.read_mode & 1) << 3;
-		if(gc_mode_ext & 0x02)
+		if(gc_mode_ext & 0x04)
 			res |= (vga.gc.write_mode & 7);
 		else
 			res |= (vga.gc.write_mode & 3);
@@ -579,13 +583,13 @@ void cirrus_gd5428_device::cirrus_gc_reg_write(UINT8 index, UINT8 data)
 	switch(index)
 	{
 	case 0x00:  // if extended writes are enabled (bit 2 of index 0bh), then index 0 and 1 are extended to 8 bits
-		if(gc_mode_ext & 0x02)
+		if(gc_mode_ext & 0x04)
 			vga.gc.set_reset = data & 0xff;
 		else
 			vga.gc.set_reset = data & 0x0f;
 		break;
 	case 0x01:
-		if(gc_mode_ext & 0x02)
+		if(gc_mode_ext & 0x04)
 			vga.gc.enable_set_reset = data & 0xff;
 		else
 			vga.gc.enable_set_reset = data & 0x0f;
@@ -595,7 +599,7 @@ void cirrus_gd5428_device::cirrus_gc_reg_write(UINT8 index, UINT8 data)
 		vga.gc.shift_reg = (data & 0x20) >> 5;
 		vga.gc.host_oe = (data & 0x10) >> 4;
 		vga.gc.read_mode = (data & 8) >> 3;
-		if(gc_mode_ext & 0x02)
+		if(gc_mode_ext & 0x04)
 			vga.gc.write_mode = data & 7;
 		else
 			vga.gc.write_mode = data & 3;
@@ -861,11 +865,11 @@ UINT8 cirrus_gd5428_device::cirrus_crtc_reg_read(UINT8 index)
 {
 	UINT8 res = 0xff;
 
-	if(index <= 0x18)
-		return crtc_reg_read(index);
-
 	switch(index)
 	{
+	case 0x16:  // VGA Vertical Blank end - some SVGA chipsets use all 8 bits, and this is one of them (according to MFGTST CRTC tests)
+		res = vga.crtc.vert_blank_end & 0x00ff;
+		break;
 	case 0x19:
 		res = m_cr19;
 		break;
@@ -879,7 +883,8 @@ UINT8 cirrus_gd5428_device::cirrus_crtc_reg_read(UINT8 index)
 		res = m_chip_id;
 		break;
 	default:
-		logerror("CL: Unhandled extended CRTC register CR%02x read\n",index);
+		res = crtc_reg_read(index);
+		break;
 	}
 
 	return res;
@@ -888,13 +893,12 @@ UINT8 cirrus_gd5428_device::cirrus_crtc_reg_read(UINT8 index)
 void cirrus_gd5428_device::cirrus_crtc_reg_write(UINT8 index, UINT8 data)
 {
 	logerror("CL: CRTC write %02x to CR%02x\n",data,index);
-	if(index <= 0x18)
-	{
-		crtc_reg_write(index,data);
-		return;
-	}
 	switch(index)
 	{
+	case 0x16:  // VGA Vertical Blank end - some SVGA chipsets use all 8 bits, and this is one of them (according to MFGTST CRTC tests)
+		vga.crtc.vert_blank_end &= ~0x00ff;
+		vga.crtc.vert_blank_end |= data;
+		break;
 	case 0x19:
 		m_cr19 = data;
 		break;
@@ -918,7 +922,8 @@ void cirrus_gd5428_device::cirrus_crtc_reg_write(UINT8 index, UINT8 data)
 		// Do nothing, read only
 		break;
 	default:
-		logerror("CL: Unhandled extended CRTC register CR%02x write %02x\n",index,data);
+		crtc_reg_write(index,data);
+		break;
 	}
 
 }
@@ -926,8 +931,9 @@ void cirrus_gd5428_device::cirrus_crtc_reg_write(UINT8 index, UINT8 data)
 inline UINT8 cirrus_gd5428_device::cirrus_vga_latch_write(int offs, UINT8 data)
 {
 	UINT8 res = 0;
+	UINT8 mode_mask = (gc_mode_ext & 0x04) ? 0x07 : 0x03;
 
-	switch (vga.gc.write_mode & 3) {
+	switch (vga.gc.write_mode & mode_mask) {
 	case 0:
 		data = rotate_right(data);
 		if(vga.gc.enable_set_reset & 1<<offs)
@@ -946,9 +952,11 @@ inline UINT8 cirrus_gd5428_device::cirrus_vga_latch_write(int offs, UINT8 data)
 		res = vga_logical_op((vga.gc.set_reset & 1<<offs) ? 0xff : 0x00,offs,data&vga.gc.bit_mask);
 		break;
 	case 4:
+		res = vga.gc.latch[offs];
 		popmessage("CL: Unimplemented VGA write mode 4 enabled");
 		break;
 	case 5:
+		res = vga.gc.latch[offs];
 		popmessage("CL: Unimplemented VGA write mode 5 enabled");
 		break;
 	}
@@ -975,7 +983,7 @@ READ8_MEMBER(cirrus_gd5428_device::mem_r)
 	else  // 4kB bank granularity
 		addr = bank * 0x1000;
 
-	// Is the display address adjusted automatically when using Chain-4 addressing?  The GD542x BIOS doesn't do it, but Virtual Pool expects it.
+	// Is the display address adjusted automatically when not using Chain-4 addressing?  The GD542x BIOS doesn't do it, but Virtual Pool expects it.
 	if(!(vga.sequencer.data[4] & 0x8))
 		addr <<= 2;	
 
@@ -996,21 +1004,11 @@ READ8_MEMBER(cirrus_gd5428_device::mem_r)
 		}
 		else
 			offset &= 0xffff;
+
 		if(vga.sequencer.data[4] & 0x8)
 			data = vga.memory[(offset+addr) % vga.svga_intf.vram_size];
 		else
 		{
-			if(vga.gc.write_mode == 4 || vga.gc.write_mode == 5 || (vga.gc.write_mode == 1 && gc_mode_ext & 0x02))
-			{
-				int i;
-
-				for(i=0;i<8;i++)
-				{
-					if(vga.sequencer.map_mask & 1 << i)
-						data |= vga.memory[((offset*8+i)+addr) % vga.svga_intf.vram_size];
-				}
-			}
-			else
 			{
 				int i;
 
@@ -1037,10 +1035,10 @@ READ8_MEMBER(cirrus_gd5428_device::mem_r)
 		int data;
 		if (!space.debugger_access())
 		{
-			vga.gc.latch[0]=vga.memory[(offset+addr)];
-			vga.gc.latch[1]=vga.memory[(offset+addr)+0x10000];
-			vga.gc.latch[2]=vga.memory[(offset+addr)+0x20000];
-			vga.gc.latch[3]=vga.memory[(offset+addr)+0x30000];
+			vga.gc.latch[0]=vga.memory[(offset+addr) % vga.svga_intf.vram_size];
+			vga.gc.latch[1]=vga.memory[((offset+addr)+0x10000) % vga.svga_intf.vram_size];
+			vga.gc.latch[2]=vga.memory[((offset+addr)+0x20000) % vga.svga_intf.vram_size];
+			vga.gc.latch[3]=vga.memory[((offset+addr)+0x30000) % vga.svga_intf.vram_size];
 		}
 
 		if (vga.gc.read_mode)
@@ -1081,7 +1079,7 @@ READ8_MEMBER(cirrus_gd5428_device::mem_r)
 			for(i=0;i<8;i++)
 			{
 				if(vga.sequencer.map_mask & 1 << i)
-					data |= vga.memory[((offset+addr))+i*0x10000];
+					data |= vga.memory[(((offset+addr))+i*0x10000) % vga.svga_intf.vram_size];
 			}
 		}
 		else
@@ -1089,7 +1087,7 @@ READ8_MEMBER(cirrus_gd5428_device::mem_r)
 			for(i=0;i<4;i++)
 			{
 				if(vga.sequencer.map_mask & 1 << i)
-					data |= vga.memory[((offset+addr))+i*0x10000];
+					data |= vga.memory[(((offset+addr))+i*0x10000) % vga.svga_intf.vram_size];
 			}
 		}
 
@@ -1139,26 +1137,42 @@ WRITE8_MEMBER(cirrus_gd5428_device::mem_w)
 		}
 		else
 			offset &= 0xffff;
+
+		if(vga.gc.write_mode == 4)
+		{
+			int i;
+
+			for(i=0;i<8;i++)
+			{
+				if(data & (0x01 << (7-i)))
+					vga.memory[((addr+offset)*8+i) % vga.svga_intf.vram_size] = vga.gc.enable_set_reset;  // GR1 (and GR11 in 16bpp modes) = foreground colour in write modes 4 or 5
+			}
+			return;
+		}
+
+		if(vga.gc.write_mode == 5)
+		{
+			int i;
+
+			for(i=0;i<8;i++)
+			{
+				if(data & (0x01 << (7-i)))
+					vga.memory[((addr+offset)*8+i) % vga.svga_intf.vram_size] = vga.gc.enable_set_reset;  // GR1 (and GR11 in 16bpp modes) = foreground colour in write modes 4 or 5
+				else
+					vga.memory[((addr+offset)*8+i) % vga.svga_intf.vram_size] = vga.gc.set_reset;  // GR0 (and GR10 in 16bpp modes) = background colour in write mode 5
+			}
+			return;
+		}
+		
 		if(vga.sequencer.data[4] & 0x8)
 			vga.memory[(offset+addr) % vga.svga_intf.vram_size] = data;
 		else
 		{
 			int i;
-			if(vga.gc.write_mode == 4 || vga.gc.write_mode == 5 || (vga.gc.write_mode == 1 && gc_mode_ext & 0x02))
+			for(i=0;i<4;i++)
 			{
-				for(i=0;i<8;i++)
-				{
-					if(vga.sequencer.map_mask & 1 << i)
-						vga.memory[((offset*8+i)+addr) % vga.svga_intf.vram_size] = data;
-				}
-			}
-			else
-			{
-				for(i=0;i<4;i++)
-				{
-					if(vga.sequencer.map_mask & 1 << i)
-						vga.memory[((offset*4+i)+addr) % vga.svga_intf.vram_size] = data;
-				}
+				if(vga.sequencer.map_mask & 1 << i)
+					vga.memory[((offset*4+i)+addr) % vga.svga_intf.vram_size] = data;
 			}
 		}
 	}
@@ -1202,11 +1216,11 @@ WRITE8_MEMBER(cirrus_gd5428_device::mem_w)
 				{
 					if(gc_mode_ext & 0x02)
 					{
-						vga.memory[((offset+addr) << 1)+i*0x10000] = (vga.sequencer.data[4] & 4) ? cirrus_vga_latch_write(i,data) : data;
-						vga.memory[((offset+addr) << 1)+i*0x10000+1] = (vga.sequencer.data[4] & 4) ? cirrus_vga_latch_write(i,data) : data;
+						vga.memory[(((offset+addr) << 1)+i*0x10000) % vga.svga_intf.vram_size] = (vga.sequencer.data[4] & 4) ? cirrus_vga_latch_write(i,data) : data;
+						vga.memory[(((offset+addr) << 1)+i*0x10000+1) % vga.svga_intf.vram_size] = (vga.sequencer.data[4] & 4) ? cirrus_vga_latch_write(i,data) : data;
 					}
 					else
-						vga.memory[((offset+addr))+i*0x10000] = (vga.sequencer.data[4] & 4) ? cirrus_vga_latch_write(i,data) : data;
+						vga.memory[(((offset+addr))+i*0x10000) % vga.svga_intf.vram_size] = (vga.sequencer.data[4] & 4) ? cirrus_vga_latch_write(i,data) : data;
 				}
 			}
 			return;
