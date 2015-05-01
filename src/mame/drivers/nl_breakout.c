@@ -65,6 +65,13 @@
  *
  */
 
+/*
+ * Notes
+ * FIXME: breakout generates some spurious hsync in the middle of line 27
+ *
+ */
+
+
 // identify unknown devices in IDE
 
 #if 1
@@ -73,6 +80,8 @@
 #include "netlist/nl_dice_compat.h"
 #include "netlist/devices/net_lib.h"
 #include "netlist/analog/nld_twoterm.h"
+
+#define SLOW_BUT_ACCURATE 0
 
 //2 555 timers
 static Astable555Desc b2_555_desc(OHM(560.0), M_OHM(1.8), U_FARAD(0.1));
@@ -122,7 +131,7 @@ static AUDIO_DESC( breakout )
 VIDEO_DESC_END
 #endif
 
-static Mono9602Desc n8_desc(K_OHM(33.0), U_FARAD(100.0), K_OHM(5.6), P_FARAD(1)); // No capacitor on 2nd 9602, assume very low internal capacitance
+static Mono9602Desc n8_desc(K_OHM(33.0), U_FARAD(100.0), K_OHM(5.6), P_FARAD(0)); // No capacitor on 2nd 9602
 static Mono9602Desc f3_desc(K_OHM(47.0), U_FARAD(1.0), K_OHM(47.0), U_FARAD(1.0));
 
 static Mono9602Desc a7_desc(K_OHM(68.0), U_FARAD(1.0), K_OHM(22.0), U_FARAD(10.0));
@@ -144,6 +153,16 @@ CIRCUIT_LAYOUT( breakout )
 	CHIP("S4", DIPSWITCH, &dipswitch4_desc)
 #endif
 
+#if (SLOW_BUT_ACCURATE)
+    SOLVER(Solver, 48000)
+    PARAM(Solver.ACCURACY, 1e-8) // less accuracy and diode will not work
+#else
+    SOLVER(Solver, 48000)
+    PARAM(Solver.ACCURACY, 1e-6) // less accuracy and diode will not work
+#endif
+    //CHIP("CLOCK", CLOCK_14_318_MHZ)
+    MAINCLOCK(Y1, 14318000.0)
+
 	// DIPSWITCH - Free game
 	SWITCH(S1_1)
 	SWITCH(S1_2)
@@ -153,11 +172,6 @@ CIRCUIT_LAYOUT( breakout )
 	SWITCH(S2)  // Cocktail
 	SWITCH(S3)  // 2 Plays / 25c
 	SWITCH2(S4) // Three Balls / 5 Balls
-
-	SOLVER(Solver, 48000)
-	PARAM(Solver.ACCURACY, 1e-8) // less accuracy and diode will not work
-	//CHIP("CLOCK", CLOCK_14_318_MHZ)
-	MAINCLOCK(Y1, 14318000.0)
 
 	ANALOG_INPUT(V5, 5)
 	ALIAS(VCC, V5)
@@ -311,16 +325,7 @@ CIRCUIT_LAYOUT( breakout )
 	//CHIP("SERVE", BUTTONS1_INPUT)
 	CHIP_INPUT_ACTIVE_LOW(SERVE)    // Active low?
 
-
-	//TODO: coin2 and start 2
-#if 0
-	VIDEO(breakout)
-	AUDIO(breakout)
-#endif
-
-#ifdef DEBUG
-	CHIP("LOG1", VCD_LOG, &vcd_log_desc)
-#endif
+    //TODO: start 2
 
 	//HSYNC and VSYNC
 	#define H1_d        "L1", 14
@@ -442,31 +447,31 @@ CIRCUIT_LAYOUT( breakout )
 	#define EGL     "C37" , 2
 	#define EGL_n   "C5", 2
 
-	#define RAM_PLAYER1     "E7", 4
-	#define A1      "H6", 14
-	#define B1      "H6", 13
-	#define C1      "H6", 12
-	#define D1      "H6", 11
-	#define E1      "J6", 14
-	#define F1      "J6", 13
-	#define G1      "J6", 12
-	#define H01         "J6", 11
-	#define I1      "K6", 14
-	#define J1      "K6", 13
-	#define K1      "K6", 12
-	#define L1      "K6", 11
-	#define A2      "N6", 14
-	#define B2      "N6", 13
-	#define C2      "N6", 12
-	#define D2      "N6", 11
-	#define E2      "M6", 14
-	#define F2      "M6", 13
-	#define G2      "M6", 12
-	#define H02         "M6", 11    //TODO: better name for these signals
-	#define I2      "L6", 14
-	#define J2      "L6", 13
-	#define K2      "L6", 12
-	#define L2      "L6", 11
+   #define RAM_PLAYER1 	"E7", 4
+   #define A1 		"H6", 14
+   #define B1 		"H6", 13
+   #define C1 		"H6", 12
+   #define D1 		"H6", 11
+   #define E1 		"J6", 14
+   #define F1 		"J6", 13
+   #define G1 		"J6", 12
+   #define H01 		"J6", 11
+   #define I1 		"K6", 14
+   #define J1 		"K6", 13
+   #define K1 		"K6", 12
+   #define L1 		"K6", 11
+   #define A2 		"N6", 14
+   #define B2 		"N6", 13
+   #define C2 		"N6", 12
+   #define D2 		"N6", 11
+   #define E2s 		"M6", 14
+   #define F2 		"M6", 13
+   #define G2 		"M6", 12
+   #define H02 		"M6", 11	//TODO: better name for these signals
+   #define I2 		"L6", 14
+   #define J2 		"L6", 13
+   #define K2 		"L6", 12
+   #define L2 		"L6", 11
 
 	#define CX0         "C6", 11
 	#define CX1         "C6", 6
@@ -788,18 +793,18 @@ CIRCUIT_LAYOUT( breakout )
 	CONNECTION(BALL_C, "C4", 10)
 	CONNECTION("A4", 11, "C4", 9)
 
-	CONNECTION(A2, "N5", 1)
-	CONNECTION(E2, "N5", 2)
-	CONNECTION(I2, "N5", 3)
-	CONNECTION("C5", 6, "N5", 4)
-	CONNECTION(A1, "N5", 5)
-	CONNECTION(E1, "N5", 6)
-	CONNECTION(I1, "N5", 7)
-	CONNECTION(PLAYER_2_n, "N5", 9)
-	CONNECTION(H32_n, "N5", 10)
-	CONNECTION(V16, "N5", 11)
-	CONNECTION(V64, "N5", 12)
-	CONNECTION(V128, "N5", 13)
+   CONNECTION(A2, "N5", 1)
+   CONNECTION(E2s, "N5", 2)
+   CONNECTION(I2, "N5", 3)
+   CONNECTION("C5", 6, "N5", 4)
+   CONNECTION(A1, "N5", 5)
+   CONNECTION(E1, "N5", 6)
+   CONNECTION(I1, "N5", 7)
+   CONNECTION(PLAYER_2_n, "N5", 9)
+   CONNECTION(H32_n, "N5", 10)
+   CONNECTION(V16, "N5", 11)
+   CONNECTION(V64, "N5", 12)
+   CONNECTION(V128, "N5", 13)
 
 	CONNECTION(B2, "M5", 1)
 	CONNECTION(F2, "M5", 2)
@@ -1595,22 +1600,30 @@ CIRCUIT_LAYOUT( breakout )
 	CONNECTION("VIDEO", Video::HBLANK_PIN, HSYNC)
 	CONNECTION("VIDEO", Video::VBLANK_PIN, "E3", 10)
 #else
+   	// VIDEO SUMMING
 	RES(R41, RES_K(3.9))
 	//RES(R42, RES_K(3.9))
 	RES(R42, RES_K(3.9))
 	RES(R43, RES_K(3.9))
 	RES(R51, RES_K(3.9))
 	RES(R52, RES_K(3.9))
+
+#if (SLOW_BUT_ACCURATE)
 	DIODE(CR6, "1N914")
+	NET_C(E2.11, CR6.K)
 
 	NET_C(CR6.A, R41.1, R42.1, R43.1, R51.1, R52.1)
+#else
+	RES_SWITCH(CR6, E2.11, R41.1, GND)
+	PARAM(CR6.RON, 1e20)
+	PARAM(CR6.ROFF, 1)
+	NET_C(R41.1, R42.1, R43.1, R51.1, R52.1)
+#endif
 	CONNECTION("R51", 2, PLAYFIELD)
 	CONNECTION("R43", 2, BSYNC)
 	CONNECTION("R52", 2, SCORE)
 	NET_C(R41.2, B9.3)
 	NET_C(R42.2, V5)
-
-	NET_C(E2.11, CR6.K)
 
 	ALIAS(videomix, R41.1)
 
