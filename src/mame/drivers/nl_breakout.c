@@ -2,12 +2,16 @@
 // copyright-holders:DICE Team,couriersud
 /*
  * Changelog:
+ *
+ *      - Added led and lamp components (couriersud)
+ *      - Start2 works (couriersud)
  *      - Added discrete paddle potentiometers (couriersud)
  *      - Changes made to run in MAME (couriersud)
  *      - Original version imported from DICE
  *
  * TODO:
- *      - implement trimmers
+ *      - implement discrete startup latch
+ *      - implement bonus game dip switch
  *
  * The MAME team has asked for and received written confirmation from the
  * author of DICE to use, modify and redistribute code under
@@ -74,7 +78,6 @@
 
 // identify unknown devices in IDE
 
-#if 1
 #define NETLIST_DEVELOPMENT 0
 
 #include "netlist/nl_dice_compat.h"
@@ -168,6 +171,14 @@ CIRCUIT_LAYOUT( breakout )
 	SWITCH(S1_2)
 	SWITCH(S1_3)
 	SWITCH(S1_4)
+
+	SWITCH2(COIN1)  // Coin 1
+	SWITCH2(COIN2)  // Coin 2
+
+	SWITCH(START1)  // Start 1
+	SWITCH(START2)  // Start 2
+
+	SWITCH(SERVE)  // Start 2
 
 	SWITCH(S2)  // Cocktail
 	SWITCH(S3)  // 2 Plays / 25c
@@ -302,30 +313,12 @@ CIRCUIT_LAYOUT( breakout )
 	//LM380         //speaker amplifier
 	//LM323         //regulator
 
-//    CHIP("CREDIT_LIGHT1", LAMP)
-//    CHIP("CREDIT_LIGHT2", LAMP)
-//    CHIP("SERVE_LIGHT", LAMP)
-
 #if 0
 	CHIP("PAD1", PADDLE1_HORIZONTAL_INPUT, &pad1_desc)
 	PADDLE_CONNECTION("PAD1", "C9")
 #endif
 
 	CHIP_LATCH(LATCH)
-	//CHIP("COIN1", COIN_INPUT)
-	CHIP_INPUT_ACTIVE_LOW(COIN1)
-
-	//CHIP("COIN2", COIN_INPUT)
-	CHIP_INPUT_ACTIVE_LOW(COIN2)
-
-	//CHIP("START", START_INPUT)
-	CHIP_INPUT_ACTIVE_LOW(START1)
-	CHIP_INPUT_ACTIVE_HIGH(START2)
-
-	//CHIP("SERVE", BUTTONS1_INPUT)
-	CHIP_INPUT_ACTIVE_LOW(SERVE)    // Active low?
-
-    //TODO: start 2
 
 	//HSYNC and VSYNC
 	#define H1_d        "L1", 14
@@ -1186,10 +1179,15 @@ CIRCUIT_LAYOUT( breakout )
 	//Cabinet type
 
 	// Coin Circuit
-	CONNECTION("COIN1", 1, "F9", 13)
+	CONNECTION("COIN1", 2, "F9", 13)
+	CONNECTION("COIN1", 1, "F9", 11)
+	NET_C(COIN1.Q, GND)
 
-	CONNECTION(CSW1, "F9", 11)
+	//CONNECTION(CSW1, "F9", 11)
+	CONNECTION(CSW1, "COIN1", 1)
+
 	//CONNECTION("F9", 10, "F9", 13) //TODO: causes lots of bouncing, commented out since this trace is not implemented in gotcha
+	CONNECTION("F9", 10, "COIN1", 2) //TODO: causes lots of bouncing, commented out since this trace is not implemented in gotcha
 
 	CONNECTION(V64, "H7", 12)
 	CONNECTION(V64, "H7", 13)
@@ -1228,12 +1226,17 @@ CIRCUIT_LAYOUT( breakout )
 	CONNECTION("J9", 6, "L9", 4)
 
 	//COIN2 circuit
-	CONNECTION("COIN2", 1, "F9", 1)
+	//CONNECTION("COIN2", 1, "F9", 1)
 	//CONNECTION(GNDD, "F9", 1)     //TODO: coin2 not implemented
 
-	CONNECTION(CSW2, "F9", 3)
+	CONNECTION("COIN2", 2, "F9", 1)
+	CONNECTION("COIN2", 1, "F9", 3)
+	NET_C(COIN2.Q, GND)
+
+	CONNECTION(CSW2, "COIN2", 1)
 	CONNECTION(CSW2, "H9", 10)
 	CONNECTION("F9", 4, "H9", 12)
+	CONNECTION("F9", 4, "COIN2", 2)
 	CONNECTION(V64_n, "H9", 11)
 	CONNECTION(V64_n, "H9", 3)
 	CONNECTION(P, "H9", 13)
@@ -1256,8 +1259,13 @@ CIRCUIT_LAYOUT( breakout )
 	CONNECTION("E9", 8, "H1", 2)
 
 	//Start2 Input
+	//Start1 Input
+	RES(R58, RES_K(1))
 	//CONNECTION("START", 2, "E9", 11)
-	CONNECTION("START2", 1, "E9", 11)
+	NET_C(START2.2, GND)
+	NET_C(R58.1, V5)
+	NET_C(START2.1, R58.2, E9.11)
+
 	CONNECTION("E9", 10, "E8", 12)
 	CONNECTION(P, "E8", 10)
 	CONNECTION(V64I, "E8", 11)
@@ -1270,8 +1278,11 @@ CIRCUIT_LAYOUT( breakout )
 	CONNECTION("E7", 13, "E8", 13)
 
 	//Start1 Input
+	RES(R57, RES_K(1))
 	//CONNECTION("START", 1, "E9", 3)
-	CONNECTION("START1", 1, "E9", 3)
+	NET_C(START1.2, GND)
+	NET_C(R57.1, V5)
+	NET_C(START1.1, R57.2, E9.3)
 	CONNECTION("E9", 4, "E8", 2)
 	CONNECTION(P, "E8", 4)
 	CONNECTION(V64_d, "E8", 3)
@@ -1308,6 +1319,12 @@ CIRCUIT_LAYOUT( breakout )
 	CONNECTION(EGL_n, "D6", 2)
 
 	//Serve
+
+	RES(R30, RES_K(1))
+	NET_C(SERVE.2, GND)
+	NET_C(SERVE.1, R30.2)
+	NET_C(R30.1, V5)
+
 	CONNECTION(H64, "J3", 6)
 	CONNECTION(H32, "J3", 5)
 	CONNECTION("J3", 4, "L4", 13)
@@ -1649,20 +1666,6 @@ CIRCUIT_LAYOUT( breakout )
 
 #endif
 
-	/* Not connected pins */
-
-	NET_C(ttlhigh, B4.3, B4.4, B4.5, B4.6)
-	NET_C(ttlhigh, N6.3, N6.4, N6.5, N6.6)
-	NET_C(ttlhigh, M6.3, M6.4, M6.5, M6.6)
-	NET_C(ttlhigh, L6.3, L6.4, L6.5, L6.6)
-
-	NET_C(ttlhigh, H6.3, H6.4, H6.5, H6.6)
-	NET_C(ttlhigh, K6.3, K6.4, K6.5, K6.6)
-	NET_C(ttlhigh, J6.3, J6.4, J6.5, J6.6)
-
-	NET_C(ttlhigh, E1.9, E1.11)
-	NET_C(ttlhigh, E2.1, E2.2)
-
 #ifdef DEBUG
 	// RAM access
 	/*CONNECTION("LOG1", 3, H4)     //A
@@ -1682,15 +1685,101 @@ CIRCUIT_LAYOUT( breakout )
 #endif
 
 	// POTS
-	POT2(POTP1, RES_K(6))     // 5k
-	PARAM(POTP1, 0)  // Log Dial ...
+	POT2(POTP1, RES_K(5))     // 5k
+	PARAM(POTP1.DIALLOG, 1)  // Log Dial ...
+	PARAM(POTP1.REVERSE, 1)  // Log Dial ...
+	NET_C(POTP1.1, V5)
+
+	POT2(POTP2, RES_K(5))     // 5k
+	PARAM(POTP2.DIALLOG, 1)  // Log Dial ...
+	PARAM(POTP2.REVERSE, 1)  // Log Dial ...
+	NET_C(POTP2.1, V5)
+
 	RES(R33, 47)
 
-	NET_C(POTP1.1, V5)
-	//NET_C(POTP1.3, GND)
-	NET_C(POTP1.2, R33.1)
+	CD_4016_DIP(D9)
+	NET_C(D9.7, GND)
+	NET_C(D9.14, V5)
+
+	CONNECTION(P2_CONDITIONAL_dash, "D9", 6)
+	NET_C(D9.12, E9.8)
+	NET_C(D9.8, POTP2.2) // Connect P2 dial here
+	NET_C(D9.11, POTP1.2)
+	NET_C(D9.9, D9.10, R33.1)
 	NET_C(R33.2, C9.6)
+
+	//----------------------------------------------------------------
+	// Serve Leds
+	//----------------------------------------------------------------
+
+	RES(R40, 150)
+	RES(R21, 150)
+	DIODE(LED1, "LedRed")
+
+	/* Below is the upright cabinet configuration
+	 * cocktail has two leds connected to R40.1 */
+	CONNECTION(SERVE_WAIT_n, "R21", 2)
+	NET_C(R21.1, R40.2)
+	NET_C(LED1.K, R40.1)
+	NET_C(LED1.A, V5)
+	ALIAS(CON_P, R40.1)
+
+	//----------------------------------------------------------------
+	// Credit lamps
+	//----------------------------------------------------------------
+
+	/* The credit lamp circuit uses thyristors and 6VAC. This is
+	 * currently not modeled and instead the CREDIT_1_OR_2 and CREDIT2
+	 * signals are used.
+	 */
+
+	ALIAS(CON_CREDIT1, L9.3) // CREDIT_1_OR_2
+	ALIAS(CON_CREDIT2, F9.6) // CREDIT2
+
+	//----------------------------------------------------------------
+	// Not connected pins
+	//----------------------------------------------------------------
+
+	NET_C(ttlhigh, B4.3, B4.4, B4.5, B4.6)
+	NET_C(ttlhigh, N6.3, N6.4, N6.5, N6.6)
+	NET_C(ttlhigh, M6.3, M6.4, M6.5, M6.6)
+	NET_C(ttlhigh, L6.3, L6.4, L6.5, L6.6)
+
+	NET_C(ttlhigh, H6.3, H6.4, H6.5, H6.6)
+	NET_C(ttlhigh, K6.3, K6.4, K6.5, K6.6)
+	NET_C(ttlhigh, J6.3, J6.4, J6.5, J6.6)
+
+	NET_C(ttlhigh, E1.9, E1.11)
+	NET_C(ttlhigh, E2.1, E2.2)
+
+	NET_C(GND, D9.1, D9.2, D9.13, D9.3, D9.4, D9.5)
 
 CIRCUIT_LAYOUT_END
 
-#endif
+/*
+ * MCR106-2 model from http://www.duncanamps.com/
+ * MCR106-1 are used to drive lamps for player 1 and player 2
+ * These have a BV of 30 ("-2" has 60, see comments below
+ * Not yet modeled.
+ *
+* MCR106-2  SCR  A G K  MCE  7-17-95
+*MCE MCR106-2  60V  4A  pkg:TO-225AA
+.SUBCKT XMCR1062 1 2 3
+QP  6 4 1  POUT OFF
+QN  4 6 5  NOUT OFF
+RF  6 4    15MEG
+RR  1 4    10MEG
+RGK 6 5    6.25K
+RG  2 6    46.2
+RK  3 5    16.2M
+DF  6 4    ZF
+DR  1 4    ZR
+DGK 6 5    ZGK
+.MODEL ZF   D (IS=1.6F IBV=800N BV=60 RS=2.25MEG) // BV=30
+.MODEL ZR   D (IS=1.6F IBV=800N BV=80) // BV=80/60*30
+.MODEL ZGK  D (IS=1.6F IBV=800N BV=6)
+.MODEL POUT PNP (IS=1.6P BF=1 CJE=60.3P)
+.MODEL NOUT NPN (IS=1.6P BF=100 RC=65M
++ CJE=60.3P CJC=12P TF=126N TR=18U)
+.ENDS XMCR1062
+ */

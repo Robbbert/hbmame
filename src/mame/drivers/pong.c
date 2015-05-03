@@ -155,8 +155,29 @@ class breakout_state : public ttl_mono_state
 {
 public:
 	breakout_state(const machine_config &mconfig, device_type type, const char *tag)
-		: ttl_mono_state(mconfig, type, tag)
+		: ttl_mono_state(mconfig, type, tag),
+		m_led_serve(*this, "maincpu:led_serve"),
+		m_lamp_credit1(*this, "maincpu:lamp_credit1"),
+		m_lamp_credit2(*this, "maincpu:lamp_credit2")
 	{
+	}
+	required_device<netlist_mame_analog_output_t> m_led_serve;
+	required_device<netlist_mame_analog_output_t> m_lamp_credit1;
+	required_device<netlist_mame_analog_output_t> m_lamp_credit2;
+
+	NETDEV_ANALOG_CALLBACK_MEMBER(serve_cb)
+	{
+		output_set_value("serve_led", (data < 3.5) ? 1 : 0);
+	}
+
+	NETDEV_ANALOG_CALLBACK_MEMBER(credit1_cb)
+	{
+		output_set_value("lamp_credit1", (data < 2.0) ? 0 : 1);
+	}
+
+	NETDEV_ANALOG_CALLBACK_MEMBER(credit2_cb)
+	{
+		output_set_value("lamp_credit2", (data < 2.0) ? 0 : 1);
 	}
 
 protected:
@@ -244,16 +265,12 @@ static INPUT_PORTS_START( pongd )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( breakout )
-#if 0
+
 	PORT_START( "PADDLE0" ) /* fake input port for player 1 paddle */
-	PORT_BIT( 0xff, 0x00, IPT_PADDLE ) PORT_SENSITIVITY(2) PORT_KEYDELTA(100) PORT_CENTERDELTA(0)   NETLIST_ANALOG_PORT_CHANGED("maincpu", "pot0")
+	PORT_BIT( 0xff, 0x00, IPT_PADDLE ) PORT_SENSITIVITY(1) PORT_KEYDELTA(200) PORT_CENTERDELTA(0)   NETLIST_ANALOG_PORT_CHANGED("maincpu", "pot1")
 
 	PORT_START( "PADDLE1" ) /* fake input port for player 2 paddle */
-	PORT_BIT( 0xff, 0x00, IPT_PADDLE ) PORT_SENSITIVITY(2) PORT_KEYDELTA(100) PORT_CENTERDELTA(0) PORT_PLAYER(2) NETLIST_ANALOG_PORT_CHANGED("maincpu", "pot1")
-#endif
-
-	PORT_START( "PADDLE0" ) /* fake input port for player 1 paddle */
-	PORT_BIT( 0xff, 0x00, IPT_PADDLE ) PORT_SENSITIVITY(2) PORT_KEYDELTA(100) PORT_CENTERDELTA(0)   NETLIST_ANALOG_PORT_CHANGED("maincpu", "pot0")
+	PORT_BIT( 0xff, 0x00, IPT_PADDLE ) PORT_SENSITIVITY(1) PORT_KEYDELTA(200) PORT_CENTERDELTA(0) PORT_PLAYER(2) NETLIST_ANALOG_PORT_CHANGED("maincpu", "pot2")
 
 	PORT_START("IN0") /* fake as well */
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_COIN1 )     NETLIST_LOGIC_PORT_CHANGED("maincpu", "coinsw1")
@@ -262,11 +279,18 @@ static INPUT_PORTS_START( breakout )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_START2 )     NETLIST_LOGIC_PORT_CHANGED("maincpu", "startsw2")
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 )     NETLIST_LOGIC_PORT_CHANGED("maincpu", "servesw")
 
-#if 0
-	PORT_DIPNAME( 0x06, 0x00, "Game Won" )          PORT_DIPLOCATION("SW1A:1,SW1B:1") PORT_CHANGED_MEMBER(DEVICE_SELF, pong_state, input_changed, IC_SWITCH)
-	PORT_DIPSETTING(    0x00, "11" )
-	PORT_DIPSETTING(    0x06, "15" )
+	PORT_START("DIPS")
+	PORT_DIPNAME( 0x01, 0x00, "Balls" )          PORT_DIPLOCATION("SW4:1") NETLIST_LOGIC_PORT_CHANGED("maincpu", "sw4")
+	PORT_DIPSETTING(    0x00, "3" )
+	PORT_DIPSETTING(    0x01, "5" )
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Coinage ) )      PORT_DIPLOCATION("SW3:1") NETLIST_LOGIC_PORT_CHANGED("maincpu", "sw3")
+	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( 1C_2C ) )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Cabinet ) )      PORT_DIPLOCATION("SW2:1") NETLIST_LOGIC_PORT_CHANGED("maincpu", "sw2")
+	PORT_DIPSETTING(    0x00, DEF_STR( Cocktail ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( Upright ) )
 
+#if 0
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_SERVICE )  PORT_NAME("Antenna") NETLIST_LOGIC_PORT_CHANGED("maincpu", "antenna")
 
 	PORT_START("VR1")
@@ -326,17 +350,27 @@ static MACHINE_CONFIG_START( breakout, breakout_state )
 	MCFG_NETLIST_LOGIC_INPUT("maincpu", "sw1a", "sw1a.POS", 0, 0x01)
 	MCFG_NETLIST_LOGIC_INPUT("maincpu", "sw1b", "sw1b.POS", 0, 0x01)
 #endif
-	MCFG_NETLIST_ANALOG_INPUT("maincpu", "pot0", "POTP1.DIAL")
-	MCFG_NETLIST_LOGIC_INPUT("maincpu", "coinsw1", "COIN1_SW.POS", 0, 0x01)
-	MCFG_NETLIST_LOGIC_INPUT("maincpu", "coinsw2", "COIN2_SW.POS", 0, 0x01)
-	MCFG_NETLIST_LOGIC_INPUT("maincpu", "startsw1", "START1_SW.POS", 0, 0x01)
-	MCFG_NETLIST_LOGIC_INPUT("maincpu", "startsw2", "START2_SW.POS", 0, 0x01)
-	MCFG_NETLIST_LOGIC_INPUT("maincpu", "servesw", "SERVE_SW.POS", 0, 0x01)
+	MCFG_NETLIST_ANALOG_INPUT("maincpu", "pot1", "POTP1.DIAL")
+	MCFG_NETLIST_ANALOG_INPUT("maincpu", "pot2", "POTP2.DIAL")
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "coinsw1", "COIN1.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "coinsw2", "COIN2.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "startsw1", "START1.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "startsw2", "START2.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "servesw", "SERVE.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "sw4", "S4.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "sw3", "S3.POS", 0, 0x01)
+	MCFG_NETLIST_LOGIC_INPUT("maincpu", "sw2", "S2.POS", 0, 0x01)
 #if 0
 	MCFG_NETLIST_LOGIC_INPUT("maincpu", "antenna", "antenna.IN", 0, 0x01)
 #endif
 	MCFG_NETLIST_ANALOG_OUTPUT("maincpu", "snd0", "sound", breakout_state, sound_cb, "")
 	MCFG_NETLIST_ANALOG_OUTPUT("maincpu", "vid0", "videomix", fixedfreq_device, update_vid, "fixfreq")
+
+	// Leds and lamps
+
+	MCFG_NETLIST_ANALOG_OUTPUT("maincpu", "led_serve", "CON_P", breakout_state, serve_cb, "")
+	MCFG_NETLIST_ANALOG_OUTPUT("maincpu", "lamp_credit1", "CON_CREDIT1", breakout_state, credit1_cb, "")
+	MCFG_NETLIST_ANALOG_OUTPUT("maincpu", "lamp_credit2", "CON_CREDIT2", breakout_state, credit2_cb, "")
 
 	/* video hardware */
 	MCFG_FIXFREQ_ADD("fixfreq", "screen")
@@ -430,4 +464,4 @@ ROM_END
 GAME( 1972, pong,      0, pong,     pong,      driver_device,  0, ROT0,  "Atari", "Pong (Rev E) external [TTL]", GAME_SUPPORTS_SAVE)
 GAME( 1972, pongf,     0, pongf,    pong,      driver_device,  0, ROT0,  "Atari", "Pong (Rev E) [TTL]", GAME_SUPPORTS_SAVE )
 GAME( 1974, pongd,     0, pongd,    pongd,     driver_device,  0, ROT0,  "Atari", "Pong Doubles [TTL]", GAME_SUPPORTS_SAVE )
-GAMEL( 1976, breakout,  0, breakout, breakout,  driver_device,  0, ROT90, "Atari", "Breakout [TTL]", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING, layout_breakout)
+GAMEL( 1976, breakout,  0, breakout, breakout,  driver_device,  0, ROT90, "Atari", "Breakout [TTL]", GAME_SUPPORTS_SAVE, layout_breakout)
