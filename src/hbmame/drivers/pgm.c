@@ -248,6 +248,32 @@ ROM_START( ketarrs151 )
 	ROM_REGION( 0x20000, "sram", 0 ) /* default settings */
 	ROM_LOAD( "ket_defaults.nv", 0x0000000, 0x020000, CRC(3ca892d8) SHA1(67430df5217e453ae8140c5653deeadfad8fa684) )
 ROM_END
+
+ROM_START( ketarr17 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "ketarr17_v100.u38", 0x000000, 0x200000, CRC(2cb80b89) SHA1(e1aa072b8344890486e11795e02703aa2d234bb1) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "ket_igs027a.bin", 0x000000, 0x04000, CRC(ab54d286) SHA1(897256b6709e1a4da9daba92b6bde39ccfccd8c1) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t04701w064.u19", 0x180000, 0x800000, CRC(2665b041) SHA1(fb1107778b66f2af0de77ac82e1ee2902f53a959) ) //text-1
+
+	ROM_REGION( 0x1000000, "sprcol", 0 )
+	ROM_LOAD( "a04701w064.u7", 0x0000000, 0x0800000, CRC(5ef1b94b) SHA1(f10dfa46e0a4d297c3a856aea5b49d648f98935c) ) //image-1
+	ROM_LOAD( "a04702w064.u8", 0x0800000, 0x0800000, CRC(26d6da7f) SHA1(f20e07a7994f41b5ed917f8b0119dc5542f3541c) ) //image-2
+
+	ROM_REGION( 0x0800000, "sprmask", 0 )
+	ROM_LOAD( "b04701w064.u1", 0x0000000, 0x0800000, CRC(1bec008d) SHA1(07d117dc2eebb35727fb18a7c563acbaf25a8d36) ) //bitmap-1
+
+	ROM_REGION( 0x800000, "ics", ROMREGION_ERASE00 )
+	ROM_LOAD( "m04701b032.u17", 0x400000, 0x400000, CRC(b46e22d1) SHA1(670853dc485942fb96380568494bdf3235f446ee) ) //music-1
+
+	ROM_REGION( 0x20000, "sram", 0 ) /* default settings */
+	ROM_LOAD( "ket_defaults.nv", 0x0000000, 0x020000, CRC(3ca892d8) SHA1(67430df5217e453ae8140c5653deeadfad8fa684) )
+ROM_END
+
 #if 0
 ROM_START( kov )
 	ROM_REGION( 0x600000, "maincpu", 0 ) /* 68000 Code */
@@ -809,6 +835,7 @@ GAME( 2002, ketarr15,   ket,       pgm_arm_type1_cave, pgm,   pgm_arm_type1_stat
 GAME( 2002, ketarrs15,  ket,       pgm_arm_type1_cave, pgm,   pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012/06/27 MR.STOIC 1.5 VER)", GAME_IMPERFECT_SOUND | GAME_SUPPORTS_SAVE )
 GAME( 2002, ketarr151,  ket,       pgm_arm_type1_cave, pgm,   pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012/06/26 ARRANGE 1.51 VER)", GAME_IMPERFECT_SOUND | GAME_SUPPORTS_SAVE )
 GAME( 2002, ketarrs151, ket,       pgm_arm_type1_cave, pgm,   pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012/06/27 MR.STOIC 1.51 VER)", GAME_IMPERFECT_SOUND | GAME_SUPPORTS_SAVE )
+GAME( 2014, ketarr17,   ket,       pgm_arm_type1_cave, pgm,   pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2014/07/16 ARRANGE 1.7 VER)", GAME_IMPERFECT_SOUND | GAME_SUPPORTS_SAVE )
 GAME( 2006, pgemeni,    pgm,       pgm_asic3,          pgm,   pgm_asic3_state,     orlegend,   ROT0,   "Blastar", "P-Gemeni", 0 )	// has no sound
 GAME( 1997, pgmdemo,    pgm,       pgm_asic3,          pgm,   pgm_asic3_state,     orlegend,   ROT0,   "Charles Doty", "Demo - PGM", 0 )	// has no sound
 GAME( 2006, pgmfrog,    pgm,       pgm_asic3,          pgm,   pgm_asic3_state,     orlegend,   ROT0,   "Rastersoft", "Frog Feast (PGM)", 0 )

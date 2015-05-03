@@ -1792,25 +1792,17 @@ ROM_START( pacmanfx )
 	PACMAN_PROMS
 ROM_END
 
-/* This set has the fixes proposed by Don Hodges at the page:
-	http://donhodges.com/how_high_can_you_get2.htm */
+/* This set has the fixes proposed by Don Hodges at the pages:
+	http://donhodges.com/how_high_can_you_get2.htm
+	http://donhodges.com/pacman_pinky_explanation.htm
+	These are: AI fixes for Pinky and Inky; fix for the kill screen on level 256.
+	Patches invented by Don Hodges; coded into a ROM by Krick. */
 ROM_START( pacmanp )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
-	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacmanp.6h",   0x2000, 0x1000, CRC(65625778) SHA1(8d29d46cff897a4d89367a3cc02627bcee1ef38e) )
 	ROM_LOAD( "pacman.6j",    0x3000, 0x1000, CRC(817d94e3) SHA1(d4a70d56bb01d27d094d73db8667ffb00ca69cb9) )
-	ROM_FILL( 0x2bf3,1,0xfe)
-	ROM_FILL( 0x2bf4,1,0x07)
-	ROM_FILL( 0x2bf5,1,0xd2)
-	ROM_FILL( 0x2bf6,1,0x2e)
-	ROM_FILL( 0x2bf7,1,0x2c)
-	ROM_FILL( 0x2bf8,1,0x3c)
-	ROM_FILL( 0x2c2f,1,0x12)
-	ROM_FILL( 0x2c33,1,0x12)
-	ROM_FILL( 0x2c35,1,0x06)
-	ROM_FILL( 0x2ffc,1,0x8b)
-	ROM_FILL( 0x2ffd,1,0x79)
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
