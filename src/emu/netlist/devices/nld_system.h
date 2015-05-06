@@ -230,17 +230,17 @@ private:
 class nld_a_to_d_proxy : public netlist_device_t
 {
 public:
-	ATTR_COLD nld_a_to_d_proxy(netlist_input_t &in_proxied)
+	ATTR_COLD nld_a_to_d_proxy(netlist_logic_input_t &in_proxied)
 			: netlist_device_t()
 	{
 		nl_assert(in_proxied.family() == LOGIC);
-		m_I.m_logic_family = in_proxied.m_logic_family;
+		m_logic_family = in_proxied.logic_family();
 	}
 
 	ATTR_COLD virtual ~nld_a_to_d_proxy() {}
 
 	netlist_analog_input_t m_I;
-	netlist_ttl_output_t m_Q;
+	netlist_logic_output_t m_Q;
 
 protected:
 	ATTR_COLD void start()
@@ -255,14 +255,15 @@ protected:
 
 	ATTR_HOT ATTR_ALIGN void update()
 	{
-		if (m_I.Q_Analog() > m_I.m_logic_family->m_high_thresh_V)
+		if (m_I.Q_Analog() > m_logic_family->m_high_thresh_V)
 			OUTLOGIC(m_Q, 1, NLTIME_FROM_NS(1));
-		else if (m_I.Q_Analog() < m_I.m_logic_family->m_low_thresh_V)
+		else if (m_I.Q_Analog() < m_logic_family->m_low_thresh_V)
 			OUTLOGIC(m_Q, 0, NLTIME_FROM_NS(1));
 		//else
 		//  OUTLOGIC(m_Q, m_Q.net().last_Q(), NLTIME_FROM_NS(1));
 	}
-
+private:
+	const netlist_logic_family_desc_t *m_logic_family;
 };
 
 // -----------------------------------------------------------------------------
@@ -272,21 +273,20 @@ protected:
 class nld_base_d_to_a_proxy : public netlist_device_t
 {
 public:
-	ATTR_COLD nld_base_d_to_a_proxy(netlist_output_t &out_proxied)
+	ATTR_COLD nld_base_d_to_a_proxy(netlist_logic_output_t &out_proxied)
 			: netlist_device_t()
 	{
 		nl_assert(out_proxied.family() == LOGIC);
-		m_logic_family = out_proxied.m_logic_family;
+		m_logic_family = out_proxied.logic_family();
 	}
 
 	ATTR_COLD virtual ~nld_base_d_to_a_proxy() {}
 
 	ATTR_COLD virtual netlist_core_terminal_t &out() = 0;
-
-	netlist_ttl_input_t m_I;
+	ATTR_COLD virtual netlist_logic_input_t &in() { return m_I; }
 
 protected:
-	ATTR_COLD void start()
+	ATTR_COLD virtual void start()
 	{
 		register_input("I", m_I);
 	}
@@ -297,6 +297,9 @@ protected:
 	}
 
 	const netlist_logic_family_desc_t *m_logic_family;
+
+	netlist_ttl_input_t m_I;
+
 private:
 };
 
@@ -340,10 +343,11 @@ private:
 class nld_d_to_a_proxy : public nld_base_d_to_a_proxy
 {
 public:
-	ATTR_COLD nld_d_to_a_proxy(netlist_output_t &out_proxied)
+	ATTR_COLD nld_d_to_a_proxy(netlist_logic_output_t &out_proxied)
 	: nld_base_d_to_a_proxy(out_proxied)
 	, m_RV(TWOTERM)
 	, m_last_state(-1)
+	, m_is_timestep(false)
 	{
 	}
 
@@ -362,6 +366,7 @@ private:
 	netlist_analog_output_t m_Q;
 	nld_twoterm m_RV;
 	int m_last_state;
+	bool m_is_timestep;
 };
 #endif
 
