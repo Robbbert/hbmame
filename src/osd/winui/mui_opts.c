@@ -27,17 +27,17 @@
 #include <commctrl.h>
 
 // standard C headers
-#include <assert.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <math.h>
 #include <direct.h>
-#include <emu.h>
-#include <emuopts.h>
 #include <stddef.h>
 #include <tchar.h>
+#include <assert.h>
 
 // MAME/MAMEUI headers
+#include "emu.h"
+#include "emuopts.h"
 #include "bitmask.h"
 #include "winui.h"
 #include "mui_util.h"
@@ -47,7 +47,6 @@
 #include "winutf8.h"
 #include "strconv.h"
 #include "game_opts.h"
-#include "drivenum.h"
 
 
 #ifdef _MSC_VER
@@ -111,7 +110,7 @@ static void remove_all_source_options(void);
  ***************************************************************************/
 
 #define UI_INI_FILENAME					MAMENAME "UI.ini"
-#define DEFAULT_OPTIONS_INI_FILENAME			CONFIGNAME ".ini"
+#define CORE_INI_FILENAME				"DIRECTORIES.ini"
 #define GAMEINFO_INI_FILENAME				"GAMEINFO.ini"
 
 
@@ -408,9 +407,6 @@ static const char *const image_tabs_short_name[MAX_TAB_TYPES] =
 };
 
 
-static BOOL save_gui_settings = TRUE;
-static BOOL save_default_options = TRUE;
-
 /***************************************************************************
     External functions
  ***************************************************************************/
@@ -544,7 +540,6 @@ void ResetGUI(void)
 	settings.revert(OPTION_PRIORITY_NORMAL);
 	// Save the new MAME32ui.ini
 	SaveOptions();
-	save_gui_settings = FALSE;
 }
 
 const char * GetImageTabLongName(int tab_index)
@@ -1515,7 +1510,6 @@ void ResetGameDefaults(void)
 	// Walk the global settings and reset everything to defaults;
 	ResetToDefaults(global, OPTION_PRIORITY_CMDLINE);
 	save_options(OPTIONS_GLOBAL, global, 1);
-	save_default_options = FALSE;
 }
 
 /*
@@ -2256,11 +2250,7 @@ static file_error SaveSettingsFile(winui_options &opts, winui_options *baseopts,
 		std::string inistring;
 		//inistring.expand(8 * 1024);
 
-		#ifdef MESS
-		opts.output_ini(inistring);
-		#else
 		opts.output_ini(inistring,baseopts);
-		#endif
 
 		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 		filerr = file.open(filename);
@@ -2285,11 +2275,7 @@ static file_error SaveSettingsFile(windows_options &opts, windows_options *baseo
 		std::string inistring;
 		//inistring.expand(8 * 1024);
 
-		#ifdef MESS
-		opts.output_ini(inistring);
-		#else
 		opts.output_ini(inistring,baseopts);
-		#endif
 
 		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 		filerr = file.open(filename);
@@ -2308,17 +2294,9 @@ static file_error SaveSettingsFile(windows_options &opts, windows_options *baseo
 
 
 
-static void GetGlobalOptionsFileName(char *filename, size_t filename_size)
-{
-	// copy INI directory
-	snprintf(filename, filename_size, "%s\\%s.ini", GetIniDir(), emulator_info::get_configname());
-}
-
 /* Register access functions below */
 static void LoadOptionsAndSettings(void)
 {
-	char buffer[MAX_PATH];
-
 	// parse MAME32ui.ini - always in the current directory.
 	LoadSettingsFile(settings, UI_INI_FILENAME);
 
@@ -2326,8 +2304,27 @@ static void LoadOptionsAndSettings(void)
 	game_opts.load_file(GAMEINFO_INI_FILENAME);
 
 	// parse global options ini/mame32.ini
-	GetGlobalOptionsFileName(buffer, ARRAY_LENGTH(buffer));
-	LoadSettingsFile(global, buffer);
+	LoadSettingsFile(global, CORE_INI_FILENAME);
+}
+
+void SetDirectories(windows_options &opts)
+{
+	std::string error_string;
+	opts.set_value(OPTION_MEDIAPATH, GetRomDirs(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_SAMPLEPATH, GetSampleDirs(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_INIPATH, GetIniDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_CFG_DIRECTORY, GetCfgDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_SNAPSHOT_DIRECTORY, GetImgDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_INPUT_DIRECTORY, GetInpDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_STATE_DIRECTORY, GetStateDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_ARTPATH, GetArtDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_NVRAM_DIRECTORY, GetNvramDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_CTRLRPATH, GetCtrlrDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_CHEATPATH, GetCheatDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_CROSSHAIRPATH, GetCrosshairDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_FONTPATH, GetFontDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_DIFF_DIRECTORY, GetDiffDir(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_SNAPNAME, GetSnapName(), OPTION_PRIORITY_CMDLINE, error_string);
 }
 
 const char * GetFolderNameByID(UINT nID)
@@ -2440,7 +2437,7 @@ void LoadFolderFlags(void)
 				ptr++;
 			}
 
-			std::string option_name = std::string(folder_name) + "_filters";
+			std::string option_name = std::string(folder_name).append("_filters");
 			// create entry
 			entries[0].name = option_name.c_str();
 			opts.add_entries(entries);
@@ -2473,7 +2470,8 @@ void LoadFolderFlags(void)
 				}
 				ptr++;
 			}
-			std::string option_name = std::string(folder_name) + "_filters";
+			
+			std::string option_name = std::string(folder_name).append("_filters");
 			// get entry and decode it
 			value = opts.value(option_name.c_str());
 
@@ -2526,15 +2524,14 @@ static void AddFolderFlags(winui_options &opts)
 				ptr++;
 			}
 
-			std::string option_name = std::string(folder_name) + "_filters";
-
+			std::string option_name = std::string(folder_name).append("_filters");
 			// create entry
 			entries[0].name = option_name.c_str();
 			opts.add_entries(entries);
 
 			// store entry
 			std::string error_string;
-			opts.set_value(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags), OPTION_PRIORITY_CMDLINE,error_string);
+			opts.set_value(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags), OPTION_PRIORITY_CMDLINE, error_string);
 
 			// increment counter
 			num_entries++;
@@ -2545,25 +2542,22 @@ static void AddFolderFlags(winui_options &opts)
 // Save the UI ini
 void SaveOptions(void)
 {
-	if (save_gui_settings)
-	{
-		// Add the folder flag to settings.
-		AddFolderFlags(settings);
-		// Save opts if it is non-null, else save settings.
-		// It will be null if there are no filters set.
-		SaveSettingsFile(settings, NULL, UI_INI_FILENAME);
-
-		// Save GameInfo.ini - game options.
-		game_opts.save_file(GAMEINFO_INI_FILENAME);
-	}
+	// Add the folder flag to settings.
+	AddFolderFlags(settings);
+	// Save opts if it is non-null, else save settings.
+	// It will be null if there are no filters set.
+	SaveSettingsFile(settings, NULL, UI_INI_FILENAME);
 }
 
+void SaveGameListOptions(void)
+{
+	// Save GameInfo.ini - game options.
+	game_opts.save_file(GAMEINFO_INI_FILENAME);
+}
 
 void SaveDefaultOptions(void)
 {
-	char buffer[MAX_PATH];
-	GetGlobalOptionsFileName(buffer, ARRAY_LENGTH(buffer));
-	SaveSettingsFile(global, NULL, buffer);
+	SaveSettingsFile(global, NULL, CORE_INI_FILENAME);
 }
 
 const char * GetVersionString(void)
@@ -2577,7 +2571,6 @@ BOOL IsGlobalOption(const char *option_name)
 /*  static const char *global_options[] =
     {
         OPTION_ROMPATH,
-        OPTION_HASHPATH,
         OPTION_SAMPLEPATH,
         OPTION_ARTPATH,
         OPTION_CTRLRPATH,
@@ -2614,8 +2607,9 @@ BOOL IsGlobalOption(const char *option_name)
 static void ui_parse_ini_file(windows_options &opts, const char *name)
 {
 	/* open the file; if we fail, that's ok */
-	std::string fname = std::string(GetIniDir()) + PATH_SEPARATOR + ".ini";
+	std::string fname = std::string(GetIniDir()).append(PATH_SEPARATOR).append(name).append(".ini");
 	LoadSettingsFile(opts, fname.c_str());
+	SetDirectories(opts);
 }
 
 
@@ -2687,7 +2681,7 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 
 		// then parse "<sourcefile>.ini"
 		core_filename_extract_base(basename, driver->source_file, TRUE);
-		std::string srcname = "source" + std::string(PATH_SEPARATOR) + std::string(basename);
+		std::string srcname = std::string("source").append(PATH_SEPARATOR).append(basename.c_str());
 		ui_parse_ini_file(opts, srcname.c_str());
 
 		if (opt_type == OPTIONS_SOURCE)
@@ -2752,7 +2746,7 @@ void save_options(OPTIONS_TYPE opt_type, windows_options &opts, int game_num)
 		// Don't try to save a null global options file,  or it will be erased.
 		//if (NULL == opts)
 			//return;
-		global = opts;
+//		global = opts;
 		filename.assign(emulator_info::get_configname());
 	} else if (opt_type == OPTIONS_VECTOR)
 	{
@@ -2769,16 +2763,17 @@ void save_options(OPTIONS_TYPE opt_type, windows_options &opts, int game_num)
 		{
 			// determine the <sourcefile>
 			core_filename_extract_base(basename, driver->source_file, TRUE);
-			std::string srcname = "source" + std::string(PATH_SEPARATOR) + std::string(basename);
-			filename.assign(srcname);
+			std::string srcname = std::string("source").append(PATH_SEPARATOR).append(basename.c_str());
+			filename.assign(srcname.c_str());
 		}
 		else
 		if (opt_type == OPTIONS_GAME)
 			filename.assign(driver->name);
 	}
-	if (filename.empty())
+	if (!filename.empty())
 	{
-		std::string filepath = std::string(GetIniDir()) + PATH_SEPARATOR + ".ini";
+		std::string filepath = std::string(GetIniDir()).append(PATH_SEPARATOR).append(filename.c_str()).append(".ini");
+		SetDirectories(opts);
 		SaveSettingsFile(opts, baseopts, filepath.c_str());
 	}
 }
@@ -2790,22 +2785,23 @@ static void remove_all_source_options(void) {
 	char* utf8_filename;
 
 	/*
-     * Easiest to just open the ini/source folder if it exists,
-     * then remove all the files in it that end in ini.
-     */
-	std::string pathname = std::string(GetIniDir()) + PATH_SEPARATOR + "source";
-	std::string match = pathname + PATH_SEPARATOR + "*.ini";
+    * Easiest to just open the ini/source folder if it exists,
+    * then remove all the files in it that end in ini.
+    */
+	std::string pathname = std::string(GetIniDir()).append(PATH_SEPARATOR).append("source");
+	std::string match = std::string(pathname.c_str()).append(PATH_SEPARATOR).append("*.ini");
+	
 	if ((hFindFile = win_find_first_file_utf8(match.c_str(), &findFileData)) != INVALID_HANDLE_VALUE)
 	{
 		utf8_filename = utf8_from_tstring(findFileData.cFileName);
-		std::string match = pathname + PATH_SEPARATOR + std::string(utf8_filename);
+		std::string match = std::string(pathname.c_str()).append(PATH_SEPARATOR).append(utf8_filename);
 		osd_free(utf8_filename);
 		osd_rmfile(match.c_str());
 
 		while (0 != FindNextFile(hFindFile, &findFileData))
 		{
 			utf8_filename = utf8_from_tstring(findFileData.cFileName);
-			std::string match = pathname + PATH_SEPARATOR + std::string(utf8_filename);
+			std::string match = std::string(pathname.c_str()).append(PATH_SEPARATOR).append(utf8_filename);
 			osd_free(utf8_filename);
 			osd_rmfile(match.c_str());
 		}
@@ -2841,6 +2837,7 @@ BOOL RequiredDriverCache(void)
 
 	std::string error_string;
 	settings.set_value(MUIOPTION_VERSION, GetVersionString(), OPTION_PRIORITY_CMDLINE,error_string);
+
 	return ret;
 }
 

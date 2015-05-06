@@ -16,6 +16,7 @@
 
 #include "osdcomm.h"
 #include "emu.h" /* for input_seq definition */
+#include "drivenum.h"
 #include <video.h> /* for MAX_SCREENS Definition*/
 #include "winmain.h"
 
@@ -142,6 +143,8 @@ void OptionsExit(void);
 #define OPTIONS_TYPE_GLOBAL		-1
 #define OPTIONS_TYPE_FOLDER		-2
 
+void SetDirectories(windows_options &opts);
+
 void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 void save_options(OPTIONS_TYPE opt_type, windows_options &opts, int game_num);
 
@@ -155,6 +158,8 @@ void LoadFolderFlags(void);
 const char* GetFolderNameByID(UINT nID);
 
 void SaveOptions(void);
+void SaveDefaultOptions(void);
+void SaveGameListOptions(void);
 
 void ResetGUI(void);
 void ResetGameDefaults(void);
@@ -376,8 +381,6 @@ void GetTextPlayTime(int driver_index,char *buf);
 void ResetPlayTime(int driver_index);
 
 const char * GetVersionString(void);
-
-void SaveDefaultOptions(void);
 
 BOOL IsGlobalOption(const char *option_name);
 
