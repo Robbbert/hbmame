@@ -1746,7 +1746,9 @@ suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 defender
 defender2
 robotron
+robotron201	// start at level 201 (Sean Riddle)
 robotronp	/* Patched to remove the 'in the corner' crash */
+robotrontie	// Tie Die set (Vid Kidz)
 splatsc1
 
 	/* yiear.c */
