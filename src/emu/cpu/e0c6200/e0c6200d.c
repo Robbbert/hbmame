@@ -562,7 +562,7 @@ CPU_DISASSEMBLE(e0c6200)
 			break;
 
 		// AND r,i
-		case 0xc80: case 0xc90: case 0xca0 : case 0xcb0:
+		case 0xc80: case 0xc90: case 0xca0: case 0xcb0:
 			m = em_AND; p1 = ep_R4; p2 = ep_I;
 			break;
 
@@ -681,7 +681,6 @@ CPU_DISASSEMBLE(e0c6200)
 		default:
 			m = em_ILL;
 			break;
-
 
 			} // 0xff0
 			break;

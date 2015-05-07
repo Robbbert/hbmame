@@ -34,6 +34,7 @@ protected:
 	virtual UINT32 execute_max_cycles() const { return 12; }
 	virtual UINT32 execute_input_lines() const { return 1; }
 	virtual void execute_run();
+	virtual void execute_one();
 
 	// device_memory_interface overrides
 	virtual const address_space_config *memory_space_config(address_spacenum spacenum = AS_0) const { return(spacenum == AS_PROGRAM) ? &m_program_config : ((spacenum == AS_DATA) ? &m_data_config : NULL); }
@@ -55,7 +56,57 @@ protected:
 	int m_prgmask;
 	int m_datamask;
 	
+	UINT16 m_op;
+	UINT16 m_prev_op;
 	int m_icount;
+
+	UINT16 m_pc;            // 13-bit programcounter: 1-bit bank, 4-bit page, 8-bit 'step'
+	UINT16 m_prev_pc;
+	UINT16 m_npc;           // new bank/page prepared by pset
+	UINT16 m_jpc;           // actual bank/page destination for jumps
+	
+	// all work registers are 4-bit
+	UINT8 m_a;              // accumulator
+	UINT8 m_b;              // generic
+	UINT8 m_xp, m_xh, m_xl; // 12-bit index register when combined
+	UINT8 m_yp, m_yh, m_yl; // "
+	UINT8 m_sp;             // stackpointer (SPH, SPL)
+	UINT8 m_f;              // flags
+
+	// internal data memory read/write
+	inline UINT8 read_mx();
+	inline UINT8 read_my();
+	inline UINT8 read_mn();
+	inline void write_mx(UINT8 data);
+	inline void write_my(UINT8 data);
+	inline void write_mn(UINT8 data);
+
+	// common stack ops
+	inline void push(UINT8 data);
+	inline UINT8 pop();
+	inline void push_pc();
+	inline void pop_pc();
+
+	// misc internal helpers
+	inline void set_cf(UINT8 data);
+	inline void set_zf(UINT8 data);
+	inline void inc_x();
+	inline void inc_y();
+	void do_branch(int condition = 0);
+	
+	// opcode handlers
+	UINT8 op_inc(UINT8 x);
+	UINT8 op_dec(UINT8 x);
+	UINT8 op_add(UINT8 x, UINT8 y, int decimal = 0);
+	UINT8 op_adc(UINT8 x, UINT8 y, int decimal = 0);
+	UINT8 op_sub(UINT8 x, UINT8 y, int decimal = 0);
+	UINT8 op_sbc(UINT8 x, UINT8 y, int decimal = 0);
+
+	UINT8 op_and(UINT8 x, UINT8 y);
+	UINT8 op_or(UINT8 x, UINT8 y);
+	UINT8 op_xor(UINT8 x, UINT8 y);
+	UINT8 op_rlc(UINT8 x);
+	UINT8 op_rrc(UINT8 x);
 };
 
 
