@@ -2076,7 +2076,7 @@ static void Win32UI_exit()
 	DirectDraw_Close();
 
 	SetSavedFolderID(GetCurrentFolderID());
-	//SaveGameListOptions();
+	SaveGameListOptions();
 	SaveDefaultOptions();
 	SaveOptions();
 
