@@ -1307,14 +1307,16 @@ ROM_START( ngmontst )
 ROM_END
 
 // 470 : ADPCM-B Playback Demo by freem.
-// Bugs: No sound. The Z80 code is horribly buggy, and jumps into the weeds on the 2nd NMI.
+// Note that these 2 old roms are buggy and should be discarded: (use only the 'v3' set)
+// CRC(6d719183) SHA1(e1e064bb785823a1f20f4a931bd7961515de2a98) )
+// CRC(7b8abba4) SHA1(c492c468b34f0a7d57e2abd54d6057f3e470ee27) )
 ROM_START( pcmbdemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "470.p1", 0x000000, 0x080000, CRC(6d719183) SHA1(e1e064bb785823a1f20f4a931bd7961515de2a98) )
+	ROM_LOAD16_WORD_SWAP( "470.p1", 0x000000, 0x080000, CRC(904e90ad) SHA1(1e13a81a2e0b1926d1745288e81dc51cd1ade5ac) )
 
 	NEO_SFIX_128K( "470.s1", CRC(9647ff8a) SHA1(ecfaa4649d490fae1697e34cc5bbbc386ffa5ef6) )
 
-	NEO_BIOS_AUDIO_128K( "470.m1", CRC(7b8abba4) SHA1(c492c468b34f0a7d57e2abd54d6057f3e470ee27) )
+	NEO_BIOS_AUDIO_128K( "470.m1", CRC(df4acc0c) SHA1(9c2999312ede7a1a415fa151a9acc6c98e510bf0) )
 
 	ROM_REGION( 0x80000, "ymsnd", 0 )
 	ROM_LOAD( "470.v1", 0x000000, 0x80000, CRC(baffec3e) SHA1(58ec4b684220ea558ed7dea99dfed1d24c57e662) )
@@ -1384,7 +1386,7 @@ GAME( 2014, ngmontst, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0,
 GAME( 2008, ngtetris, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", GAME_SUPPORTS_SAVE )
 GAME( 2011, nyan,     neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", GAME_SUPPORTS_SAVE )
 GAME( 2015, pcmademo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", GAME_SUPPORTS_SAVE )
-GAME( 2015, pcmbdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", GAME_NO_SOUND | GAME_SUPPORTS_SAVE )
+GAME( 2015, pcmbdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", GAME_SUPPORTS_SAVE )
 GAME( 2003, poknight, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", GAME_SUPPORTS_SAVE )
 GAME( 2009, rci,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", GAME_SUPPORTS_SAVE )
 GAME( 2009, smi,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", GAME_SUPPORTS_SAVE )
