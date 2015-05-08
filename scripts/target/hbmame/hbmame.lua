@@ -582,6 +582,8 @@ files {
 	MAME_DIR .. "src/mame/video/tc0480scp.c",
 	MAME_DIR .. "src/mame/video/tc0110pcr.c",
 	MAME_DIR .. "src/mame/video/tc0180vcu.c",
+	MAME_DIR .. "src/hbmame/drivers/taito_l.c",
+	MAME_DIR .. "src/mame/video/taito_l.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")

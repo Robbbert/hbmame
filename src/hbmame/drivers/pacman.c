@@ -1039,6 +1039,17 @@ ROM_START( hearts )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( hellowp )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "hellowp.6e",   0x0000, 0x00f3, CRC(699152c6) SHA1(cf8ec6a969177146ccc6155d896b693afbb70dd8) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( hm1000 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly.6e",    0x0000, 0x1000, CRC(5fe8610a) SHA1(d63eaebd85e10aa6c27bb7f47642dd403eeb6934) )
@@ -3566,6 +3577,7 @@ GAME( 2000, fpnleash, puckman,  woodpek,  pacman,   driver_device, 0,        ROT
 GAME( 2000, fstpman2, puckman,  pacman,   pacman0,  driver_device, 0,        ROT90, "[Namco]", "New Puck2 [f]", GAME_SUPPORTS_SAVE )
 GAME( 2000, hanglyad, puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "[Nittoh]", "Hangly-Man (set 1) After Dark", GAME_SUPPORTS_SAVE )
 GAME( 2000, hearts,   puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "[Midway]", "Pacman (Hearts)", GAME_SUPPORTS_SAVE )
+GAME( 2014, hellowp,  puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "cmonkey", "Hello World (Pacman HW)", GAME_SUPPORTS_SAVE )
 GAME( 1981, hmhearts, puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "[Nittoh]", "Hangly-Man (Hearts)", GAME_SUPPORTS_SAVE )
 GAME( 1981, hmpopey,  puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "[Nittoh]", "Hangly-Man (Popeye)", GAME_SUPPORTS_SAVE )
 GAME( 2005, homercid, puckman,  pacman,   mspacpls, driver_device, 0,        ROT90, "David Widel", "Homercide", GAME_SUPPORTS_SAVE )

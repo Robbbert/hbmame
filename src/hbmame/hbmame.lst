@@ -1394,6 +1394,7 @@ fpnleash
 hanglyad
 hmhearts	/* hack */
 hearts
+hellowp		// cmonkey UKVAC
 hm1000		/* Blue Justice */
 hm2000		/* Blue Justice */
 hmba5000	/* Blue Justice */
@@ -1686,6 +1687,9 @@ f3demo		/* Charles Doty - removed - not working */
 gekiridh
 landmakh
 pbobl2xh
+
+	/* taito_l.c */
+tldemo		// cmonkey
 
 	/* tecmo.c */
 geminit		/* Twisty Hack */
