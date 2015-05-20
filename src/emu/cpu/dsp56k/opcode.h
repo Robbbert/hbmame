@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Andrew Gardner
 #ifndef __DSP56K_OPCODE_H__
 #define __DSP56K_OPCODE_H__
 
@@ -31,7 +31,7 @@ public:
 	// Peek through to the instruction
 	const reg_id& instSource() const;
 	const reg_id& instDestination() const;
-	const size_t instAccumulatorBitsModified() const;
+	size_t instAccumulatorBitsModified() const;
 
 private:
 	auto_pointer<Instruction> m_instruction;

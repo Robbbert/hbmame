@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood, Roberto Fresca
 /***************************************************************************
 
   Slot Carnival, (1985, Wing Co,Ltd)

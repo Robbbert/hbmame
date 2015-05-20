@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /*
     Jackie Chan The Kung-Fu Master
     Jackie Chan in Fists of Fire

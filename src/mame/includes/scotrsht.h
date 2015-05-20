@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood, ???
 class scotrsht_state : public driver_device
 {
 public:

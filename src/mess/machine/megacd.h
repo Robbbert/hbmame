@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /* Sega CD / Mega CD */
 
 #include "cpu/m68000/m68000.h"

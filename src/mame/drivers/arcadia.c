@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Ernesto Corvi, Mariusz Wojcieszek
 /***************************************************************************
 
     Arcadia System - (c) 1988 Arcadia Systems

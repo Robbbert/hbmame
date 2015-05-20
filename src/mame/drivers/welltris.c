@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /*******************************************************************************
  Welltris (c)1991 Video System
 

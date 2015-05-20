@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Roberto Fresca, David Haywood
 /***************************************************************************************************
 
   Sky Lancer / Butterfly / Mad Zoo / Super Star 97

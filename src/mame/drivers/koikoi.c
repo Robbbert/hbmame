@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Tomasz Slanina, David Haywood
 /***************************************************************************
 
 Koi Koi Part 2

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Tomasz Slanina
 /*******************************************
 
   Seta custom ST-0016 chip based games.

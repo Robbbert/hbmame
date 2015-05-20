@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Ernesto Corvi, Nicola Salmoria
 /***************************************************************************
 
 Buggy Challenge - (c) 1984 Taito Corporation

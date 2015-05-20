@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Mark McDougall
 /*****************************          (by Mark McDougall)
  *** STREET FIGHT hardware ***  This has been adapted from the excellent
  *****************************  Psychic 5 description (by Roberto Ventura)

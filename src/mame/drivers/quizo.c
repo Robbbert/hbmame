@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Tomasz Slanina
 /*********************************************
  Quiz Olympic (c)1985 Seoul Coin Corp.
 

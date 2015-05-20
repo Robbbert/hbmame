@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /* Jaleco MegaSystem 32 Video Hardware */
 
 /* The Video Hardware is Similar to the Non-MS32 Version of Tetris Plus 2 */

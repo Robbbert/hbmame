@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /***************************************************************************
 
     Gomoku sound driver (quick hack of the Wiping sound driver)

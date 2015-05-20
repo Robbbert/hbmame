@@ -1,11 +1,11 @@
+-- license:BSD-3-Clause
+-- copyright-holders:MAMEdev Team
+
 ---------------------------------------------------------------------------
 --
 --   cpu.lua
 --
 --   Rules for building CPU cores
---
---   Copyright Nicola Salmoria and the MAME Team.
---   Visit http://mamedev.org for licensing and usage restrictions.
 --
 ---------------------------------------------------------------------------
 
@@ -368,6 +368,8 @@ if (CPUS["E0C6200"]~=null) then
 	files {
 		MAME_DIR .. "src/emu/cpu/e0c6200/e0c6200.c",
 		MAME_DIR .. "src/emu/cpu/e0c6200/e0c6200.h",
+		MAME_DIR .. "src/emu/cpu/e0c6200/e0c6s46.c",
+		MAME_DIR .. "src/emu/cpu/e0c6200/e0c6s46.h",
 	}
 end
 
@@ -1047,6 +1049,24 @@ end
 
 if (CPUS["PSX"]~=null or _OPTIONS["with-tools"]) then
 	table.insert(disasm_files , MAME_DIR .. "src/emu/cpu/psx/psxdasm.c")
+end
+
+--------------------------------------------------
+-- Mitsubishi MELPS 4 series
+---@src/emu/cpu/melps4/melps4.h,CPUS += MELPS4
+--------------------------------------------------
+
+if (CPUS["MELPS4"]~=null) then
+	files {
+		MAME_DIR .. "src/emu/cpu/melps4/melps4.c",
+		MAME_DIR .. "src/emu/cpu/melps4/melps4.h",
+		MAME_DIR .. "src/emu/cpu/melps4/m58846.c",
+		MAME_DIR .. "src/emu/cpu/melps4/m58846.h",
+	}
+end
+
+if (CPUS["MELPS4"]~=null or _OPTIONS["with-tools"]) then
+	table.insert(disasm_files , MAME_DIR .. "src/emu/cpu/melps4/melps4d.c")
 end
 
 --------------------------------------------------

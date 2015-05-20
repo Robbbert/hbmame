@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:smf
 /***************************************************************************
 
   Namco System 10 - Arcade PSX Hardware

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Pierpaolo Prazzoli
 /*
 
     Laser Battle / Lazarian (c) 1981 Zaccaria

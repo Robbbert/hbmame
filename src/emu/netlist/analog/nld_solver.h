@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nld_solver.h
  *
@@ -13,13 +13,6 @@
 
 //#define ATTR_ALIGNED(N) __attribute__((aligned(N)))
 #define ATTR_ALIGNED(N) ATTR_ALIGN
-
-#define USE_PIVOT_SEARCH (0)
-#define VECTALT 1
-#define USE_GABS 1
-#define USE_MATRIX_GS 0
-// savings are eaten up by effort
-#define USE_LINEAR_PREDICTION (0)
 
 // ----------------------------------------------------------------------------------------
 // Macros
@@ -82,18 +75,18 @@ class ATTR_ALIGNED(64) terms_t
 	int m_railstart;
 
 private:
-	plinearlist_t<netlist_terminal_t *> m_term;
-	plinearlist_t<int> m_net_other;
-	plinearlist_t<nl_double> m_go;
-	plinearlist_t<nl_double> m_gt;
-	plinearlist_t<nl_double> m_Idr;
-	plinearlist_t<nl_double *> m_other_curanalog;
+	plist_t<netlist_terminal_t *> m_term;
+	plist_t<int> m_net_other;
+	plist_t<nl_double> m_go;
+	plist_t<nl_double> m_gt;
+	plist_t<nl_double> m_Idr;
+	plist_t<nl_double *> m_other_curanalog;
 };
 
 class netlist_matrix_solver_t : public netlist_device_t
 {
 public:
-	typedef plinearlist_t<netlist_matrix_solver_t *> list_t;
+	typedef plist_t<netlist_matrix_solver_t *> list_t;
 	typedef netlist_core_device_t::list_t dev_list_t;
 
 	enum eSolverType
@@ -129,7 +122,7 @@ public:
 	ATTR_COLD int get_net_idx(netlist_net_t *net);
 	ATTR_COLD virtual void log_stats() {};
 
-	inline const eSolverType type() const { return m_type; }
+	inline eSolverType type() const { return m_type; }
 
 protected:
 
@@ -141,8 +134,8 @@ protected:
 
 	ATTR_COLD virtual void  add_term(int net_idx, netlist_terminal_t *term) = 0;
 
-	plinearlist_t<netlist_analog_net_t *> m_nets;
-	plinearlist_t<netlist_analog_output_t *> m_inps;
+	plist_t<netlist_analog_net_t *> m_nets;
+	plist_t<netlist_analog_output_t *> m_inps;
 
 	int m_stat_calculations;
 	int m_stat_newton_raphson;
@@ -150,7 +143,7 @@ protected:
 
 	const netlist_solver_parameters_t &m_params;
 
-	ATTR_HOT inline const nl_double current_timestep() { return m_cur_ts; }
+	ATTR_HOT inline nl_double current_timestep() { return m_cur_ts; }
 private:
 
 	netlist_time m_last_step;
@@ -158,8 +151,8 @@ private:
 	dev_list_t m_step_devices;
 	dev_list_t m_dynamic_devices;
 
-	netlist_ttl_input_t m_fb_sync;
-	netlist_ttl_output_t m_Q_sync;
+	netlist_logic_input_t m_fb_sync;
+	netlist_logic_output_t m_Q_sync;
 
 	ATTR_HOT void step(const netlist_time delta);
 
@@ -188,8 +181,8 @@ protected:
 	ATTR_HOT void reset();
 	ATTR_HOT void update_param();
 
-	netlist_ttl_input_t m_fb_step;
-	netlist_ttl_output_t m_Q_step;
+	netlist_logic_input_t m_fb_step;
+	netlist_logic_output_t m_Q_step;
 
 	netlist_param_double_t m_freq;
 	netlist_param_double_t m_sync_delay;

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 
 #include "sound/cdda.h"
 #include "imagedev/chd_cd.h"

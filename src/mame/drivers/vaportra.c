@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Bryan McPhail
 /***************************************************************************
 
   Vapor Trail (World version)  (c) 1989 Data East Corporation

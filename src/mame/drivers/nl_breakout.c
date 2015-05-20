@@ -1,4 +1,4 @@
-// license:MAME,GPL-2.0+
+// license:GPL-2.0+
 // copyright-holders:DICE Team,couriersud
 /*
  * Changelog:
@@ -81,8 +81,6 @@
 #define NETLIST_DEVELOPMENT 0
 
 #include "netlist/nl_dice_compat.h"
-#include "netlist/devices/net_lib.h"
-#include "netlist/analog/nld_twoterm.h"
 
 #define SLOW_BUT_ACCURATE 0
 
@@ -111,9 +109,10 @@ CIRCUIT_LAYOUT( breakout )
     SOLVER(Solver, 48000)
     PARAM(Solver.ACCURACY, 1e-6)
     PARAM(Solver.GS_THRESHOLD, 6)
-    // FIXME: PARALLEL Doesn't work in breakout!
+    // FIXME: PARALLEL Doesn't work in breakout.
     PARAM(Solver.PARALLEL, 0)
 #endif
+    PARAM(NETLIST.USE_DEACTIVATE, 1)
 
 	// DIPSWITCH - Free game
 	SWITCH(S1_1)

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Sean Young,Tomas Karlsson
 /*****************************************************************************
  *
  * includes/svi318.h

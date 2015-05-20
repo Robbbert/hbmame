@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Tomasz Slanina
 /*
  Moero!! Pro Yakyuu Homerun Kyousou - (c) 1988 Jaleco
  Dynamic Shoot Kyousou - (c) 1988 Jaleco

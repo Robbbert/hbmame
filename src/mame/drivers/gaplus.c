@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Manuel Abadia, Ernesto Corvi, Nicola Salmoria
 /***************************************************************************
 
 Galaga 3 / Gaplus (c) 1984 Namco

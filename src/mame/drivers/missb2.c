@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /* Miss Bubble 2 / Bubble Pong Pong
 
 A rather odd bootleg of Bubble Bobble with level select, redesigned levels,

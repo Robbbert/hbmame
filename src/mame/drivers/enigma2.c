@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Pierpaolo Prazzoli, Tomasz Slanina
 /********************************************************************
 
 Enigma 2 (c) Zilec Electronics

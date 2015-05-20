@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Phill Harvey-Smith
 /*
     mbc55x.h
     Includes for the Sanyo MBC-550, MBC-555.

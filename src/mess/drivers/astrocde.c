@@ -1,4 +1,4 @@
-// license:MAME
+// license:BSD-3-Clause
 // copyright-holders:Nicola Salmoria, Mike Coates, Frank Palazzolo, Aaron Giles, Dirk Best
 /****************************************************************************
 

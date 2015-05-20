@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Phill Harvey-Smith,Carl
 /*
     rmnimbus.c
     Machine driver for the Research Machines Nimbus.

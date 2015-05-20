@@ -1,4 +1,4 @@
-// license:MAME,GPL-2.0+
+// license:GPL-2.0+
 // copyright-holders:DICE Team,couriersud
 /*
  * Changelog:
@@ -70,8 +70,6 @@
 //#define NETLIST_DEVELOPMENT 1
 
 #include "netlist/nl_dice_compat.h"
-#include "netlist/devices/net_lib.h"
-#include "netlist/analog/nld_twoterm.h"
 
 static Mono555Desc a3_555_desc(K_OHM(100.0), U_FARAD(0.1));
 

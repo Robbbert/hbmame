@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nld_solver.c
  *
@@ -11,6 +11,7 @@
 
 #if 0
 #pragma GCC optimize "-ffast-math"
+#pragma GCC optimize "-ftree-parallelize-loops=4"
 //#pragma GCC optimize "-funroll-loops"
 #pragma GCC optimize "-funswitch-loops"
 #pragma GCC optimize "-fvariable-expansion-in-unroller"
@@ -22,7 +23,6 @@
 #pragma GCC optimize "-ftree-loop-im"
 #pragma GCC optimize "-ftree-loop-ivcanon"
 #pragma GCC optimize "-fivopts"
-#pragma GCC optimize "-ftree-parallelize-loops=4"
 #endif
 
 #define SOLVER_VERBOSE_OUT(x) do {} while (0)
@@ -33,7 +33,8 @@
 #include "nld_ms_direct.h"
 #include "nld_ms_direct1.h"
 #include "nld_ms_direct2.h"
-#include "nld_ms_gauss_seidel.h"
+#include "nld_ms_sor.h"
+#include "nld_ms_sor_mat.h"
 #include "nld_twoterm.h"
 #include "../nl_lists.h"
 
@@ -235,7 +236,7 @@ void netlist_matrix_solver_t::solve_base(C *p)
 		{
 			update_dynamic();
 			// Gauss-Seidel will revert to Gaussian elemination if steps exceeded.
-			this_resched = p->vsolve_non_dynamic();
+			this_resched = p->vsolve_non_dynamic(true);
 			newton_loops++;
 		} while (this_resched > 1 && newton_loops < m_params.m_nr_loops);
 
@@ -249,7 +250,7 @@ void netlist_matrix_solver_t::solve_base(C *p)
 	}
 	else
 	{
-		p->vsolve_non_dynamic();
+		p->vsolve_non_dynamic(false);
 	}
 }
 
@@ -310,7 +311,7 @@ NETLIB_START(solver)
 
 	register_param("ACCURACY", m_accuracy, 1e-7);
 	register_param("GS_LOOPS", m_gs_loops, 9);              // Gauss-Seidel loops
-	register_param("GS_THRESHOLD", m_gs_threshold, 2);      // below this value, gaussian elimination is used
+	register_param("GS_THRESHOLD", m_gs_threshold, 6);      // below this value, gaussian elimination is used
 	register_param("NR_LOOPS", m_nr_loops, 25);             // Newton-Raphson loops
 	register_param("PARALLEL", m_parallel, 0);
 	register_param("SOR_FACTOR", m_sor, 1.059);
@@ -367,7 +368,7 @@ NETLIB_UPDATE(solver)
 		omp_set_dynamic(0);
 		#pragma omp parallel
 		{
-			#pragma omp for nowait
+			#pragma omp for
 			for (int i = 0; i <  t_cnt; i++)
 				if (m_mat_solvers[i]->is_timestep())
 				{
@@ -412,8 +413,16 @@ netlist_matrix_solver_t * NETLIB_NAME(solver)::create_solver(int size, const int
 	{
 		if (size >= gs_threshold)
 		{
-			typedef netlist_matrix_solver_gauss_seidel_t<m_N,_storage_N> solver_GS;
-			return nl_alloc(solver_GS, m_params, size);
+			if (USE_MATRIX_GS)
+			{
+				typedef netlist_matrix_solver_SOR_mat_t<m_N,_storage_N> solver_mat;
+				return nl_alloc(solver_mat, m_params, size);
+			}
+			else
+			{
+				typedef netlist_matrix_solver_SOR_t<m_N,_storage_N> solver_GS;
+				return nl_alloc(solver_GS, m_params, size);
+			}
 		}
 		else
 		{
@@ -443,7 +452,7 @@ ATTR_COLD void NETLIB_NAME(solver)::post_start()
 
 	if (m_params.m_dynamic)
 	{
-		m_params.m_max_timestep *= 1000.0;
+		m_params.m_max_timestep *= NL_FCONST(1000.0);
 	}
 	else
 	{
@@ -525,7 +534,7 @@ ATTR_COLD void NETLIB_NAME(solver)::post_start()
 				break;
 		}
 
-		register_sub(*ms, pstring::sprintf("Solver_%d",m_mat_solvers.count()));
+		register_sub(pstring::sprintf("Solver_%d",m_mat_solvers.count()), *ms);
 
 		ms->vsetup(groups[i]);
 

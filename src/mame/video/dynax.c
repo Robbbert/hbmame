@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Luca Elia, Nicola Salmoria
 /***************************************************************************
 
     The CPU controls a video blitter that can read data from the ROMs

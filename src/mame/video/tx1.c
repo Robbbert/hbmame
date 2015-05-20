@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Philip Bennett
 /***************************************************************************
 
     Tatsumi TX-1/Buggy Boy video hardware

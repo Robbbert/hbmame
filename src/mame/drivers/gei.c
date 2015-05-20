@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Nicola Salmoria,Pierpaolo Prazzoli,Tomasz Slanina,Mariusz Wojcieszek
 /*
 
   Greyhound Electronics Inc. hardware

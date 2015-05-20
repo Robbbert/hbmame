@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /*** Tecmo Bowl (c)1987 Tecmo
 
 driver by David Haywood

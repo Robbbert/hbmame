@@ -1,7 +1,11 @@
+-- license:BSD-3-Clause
+-- copyright-holders:MAMEdev Team
+
 --------------------------------------------------
 -- expat library objects
 --------------------------------------------------
 
+if _OPTIONS["with-bundled-expat"] then
 project "expat"
 	uuid "f4cd40b1-c37c-452d-9785-640f26f0bf54"
 	kind "StaticLib"
@@ -20,6 +24,11 @@ project "expat"
 			"-Wshadow"
 		}
 	end
+else
+links {
+	"expat",
+}
+end
 
 --------------------------------------------------
 -- zlib library objects
@@ -81,8 +90,12 @@ project "softfloat"
 		MAME_DIR .. "src/lib",
 		MAME_DIR .. "src/lib/util",
 		MAME_DIR .. "3rdparty",
-		MAME_DIR .. "3rdparty/expat/lib/",
 	}
+	if _OPTIONS["with-bundled-expat"] then
+	    includedirs {
+			MAME_DIR .. "3rdparty/expat/lib/",
+		}
+	end
 	
 	files {
 		MAME_DIR .. "3rdparty/softfloat/softfloat.c",
@@ -259,6 +272,15 @@ project "lua"
 	uuid "d9e2eed1-f1ab-4737-a6ac-863700b1a5a9"
 	kind "StaticLib"
 
+	-- uncomment the options below to
+	-- compile using c++. Do the same 
+	-- in lsqlite3.
+	-- In addition comment out the "extern "C""
+	-- in lua.hpp and do the same in luaengine.c line 47
+	--options {
+	--	"ForceCPP",
+	--}
+
 	configuration { }
 		defines {
 			"LUA_COMPAT_ALL",
@@ -328,6 +350,10 @@ project "lua"
 project "lsqlite3"
 	uuid "1d84edab-94cf-48fb-83ee-b75bc697660e"
 	kind "StaticLib"
+
+	-- options {
+	--	"ForceCPP",
+	-- }
 
 	configuration { }
 		defines {
@@ -433,7 +459,7 @@ project "sqllite3"
 --------------------------------------------------
 -- portmidi library objects
 --------------------------------------------------
-if _OPTIONS["NO_USE_MIDI"]=="0" then
+if _OPTIONS["NO_USE_MIDI"]~="1" then
 project "portmidi"
 	uuid "587f2da6-3274-4a65-86a2-f13ea315bb98"
 	kind "StaticLib"

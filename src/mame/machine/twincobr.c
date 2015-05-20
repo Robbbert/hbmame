@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Quench
 /****************************************************************************
  *  Twin Cobra                                                              *
  *  Communications and memory functions between shared CPU memory spaces    *

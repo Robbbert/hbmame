@@ -1,3 +1,6 @@
+-- license:BSD-3-Clause
+-- copyright-holders:MAMEdev Team
+
 premake.check_paths = true
 premake.make.override = { "TARGET" }
 MAME_DIR = (path.getabsolute("..") .. "/")
@@ -83,6 +86,11 @@ newoption {
 		{ "haiku",         "Haiku"                  },
 		{ "solaris",       "Solaris SunOS"          },
 	},
+}
+
+newoption {
+    trigger = 'with-bundled-expat',
+    description = 'Build bundled Expat library',
 }
 
 newoption {
@@ -333,7 +341,11 @@ if (_OPTIONS["subtarget"] == nil) then return false end
 if (_OPTIONS["target"] == _OPTIONS["subtarget"]) then
 	solution (_OPTIONS["target"])
 else
-	solution (_OPTIONS["target"] .. _OPTIONS["subtarget"])
+	if (_OPTIONS["subtarget"]=="mess") then
+		solution (_OPTIONS["subtarget"])
+	else
+		solution (_OPTIONS["target"] .. _OPTIONS["subtarget"])
+	end	
 end
 
 configurations {
@@ -357,6 +369,8 @@ flags {
 configuration { "vs*" }
 	flags {
 		"ExtraWarnings",
+		"NoEditAndContinue",
+		"EnableMinimalRebuild",
 	}
 	if not _OPTIONS["NOWERROR"] then
 		flags{
@@ -652,6 +666,13 @@ if _OPTIONS["VERBOSE"] then
 	}
 end
 
+-- only show shadow warnings when enabled
+if (_OPTIONS["SHADOW_CHECK"]=="1") then
+	buildoptions {
+		"-Wshadow"
+	}
+end
+
 -- only show deprecation warnings when enabled
 if _OPTIONS["DEPRECATED"]~="1" then
 	buildoptions {
@@ -799,7 +820,6 @@ end
 				"-Wno-cast-align",
 				"-Wno-tautological-compare",
 				"-Wno-dynamic-class-memaccess",
-				"-Wno-self-assign-field",
 			}
 			if (version >= 30200) then
 				buildoptions {
@@ -808,7 +828,6 @@ end
 			end
 			if (version >= 30400) then
 				buildoptions {
-					"-Wno-inline-new-delete",
 					"-Wno-constant-logical-operand",
 				}
 			end
@@ -820,11 +839,6 @@ end
 				}
 			end
 		else
-			if (_OPTIONS["SHADOW_CHECK"]=="1") then
-				buildoptions {
-					"-Wshadow"
-				}			
-			end
 			if (version == 40201) then
 				buildoptions {
 					"-Wno-cast-align"
@@ -1107,7 +1121,11 @@ dofile(path.join("src", "main.lua"))
 if (_OPTIONS["target"] == _OPTIONS["subtarget"]) then
 	startproject (_OPTIONS["target"])
 else
-	startproject (_OPTIONS["target"] .. _OPTIONS["subtarget"])
+	if (_OPTIONS["subtarget"]=="mess") then
+		startproject (_OPTIONS["subtarget"])
+	else
+		startproject (_OPTIONS["target"] .. _OPTIONS["subtarget"])
+	end
 end
 mainProject(_OPTIONS["target"],_OPTIONS["subtarget"])
 

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Ville Linde
 #pragma once
 
 #ifndef __TMS32082_H__

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Luca Elia, Mariusz Wojcieszek, Peter Ferrie
 /***************************************************************************
 
                       -= Touch Master / Galaxy Games =-

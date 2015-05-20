@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood, Farfetch'd
 /* Speed Spin video, see driver file for notes */
 
 #include "emu.h"

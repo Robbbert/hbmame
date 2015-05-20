@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:R. Belmont, Olivier Galibert, ElSemi
 #include "video/polylgcy.h"
 #include "audio/dsbz80.h"
 #include "audio/segam1audio.h"

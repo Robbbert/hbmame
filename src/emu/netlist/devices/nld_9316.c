@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nld_9316.c
  *
@@ -11,9 +11,9 @@
 
 NETLIB_START(9316)
 {
-	register_sub(subABCD, "subABCD");
+	register_sub("subABCD", subABCD);
 	sub.m_ABCD = &subABCD;
-	register_sub(sub, "sub");
+	register_sub("sub", sub);
 
 	register_subalias("CLK", sub.m_CLK);
 
@@ -123,7 +123,7 @@ NETLIB_UPDATE(9316)
 	sub.m_ent = INPLOGIC(m_ENT);
 	const netlist_sig_t clrq = INPLOGIC(m_CLRQ);
 
-	if ((!sub.m_loadq | (sub.m_ent & INPLOGIC(m_ENP))) & clrq)
+	if (((sub.m_loadq ^ 1) | (sub.m_ent & INPLOGIC(m_ENP))) & clrq)
 	{
 		sub.m_CLK.activate_lh();
 		OUTLOGIC(sub.m_RC, sub.m_ent & (sub.m_cnt == MAXCNT), NLTIME_FROM_NS(27));

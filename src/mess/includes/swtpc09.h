@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Robert Justice
 /***************************************************************************
     swtpc09 include file
     Robert Justice ,2009-2014

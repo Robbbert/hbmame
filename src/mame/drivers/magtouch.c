@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Mariusz Wojcieszek
 /*
 Magical Touch by Micro MFG
 

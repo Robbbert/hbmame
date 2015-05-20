@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Chris Hardy, Angelo Salese
 /*******************************************************************************************
 
 Royal Casino (c) 1984 Dyna

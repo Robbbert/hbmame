@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Olivier Galibert, David Haywood, ???
 /*
 
 Raiden 2 / DX V33 Version

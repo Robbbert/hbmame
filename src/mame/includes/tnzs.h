@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Luca Elia, Mirko Buffoni, Takahiro Nogi
 #include "sound/dac.h"
 #include "sound/samples.h"
 #include "video/seta001.h"

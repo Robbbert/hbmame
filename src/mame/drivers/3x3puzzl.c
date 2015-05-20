@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Mariusz Wojcieszek, David Haywood, Stephh
 /***************************************************************************
 
 3x3 Puzzle

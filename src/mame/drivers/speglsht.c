@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Tomasz Slanina
 /*
 Super Eagle Shot
 (c)1994 Seta (distributed by Visco)

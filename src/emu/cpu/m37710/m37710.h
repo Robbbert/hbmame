@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:R. Belmont, Karl Stenerud, hap
 #ifndef __M37710_H__
 #define __M37710_H__
 

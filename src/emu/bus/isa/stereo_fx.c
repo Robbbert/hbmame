@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Carl
 // ATI Stereo F/X
 //
 // TODO: UART is connected to MIDI port

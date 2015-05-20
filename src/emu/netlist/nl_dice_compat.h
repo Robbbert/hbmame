@@ -1,14 +1,33 @@
-// license:MAME,GPL-2.0+
-// copyright-holders:couriersud
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nl_dice_compat.h
+ *
+ * The follwoing script will convert a circuit using dice syntax into netlist
+ * syntax. It's not fail proof, but eases the manual work involved significantly.
+
+sed -e 's/#define \(.*\)"\(.*\)"[ \t]*,[ \t]*\(.*\)/NET_ALIAS(\1,\2.\3)/' src/mame/drivers/nl_breakout.c   \
+| sed -e 's/^[ \t]*$/NL_EMPTY /' \
+| cpp -I src/emu -I src/osd/ -DNL_CONVERT_CPP -P -CC - \
+| sed -e 's/\(TTL_.*\)("\(.*\)")/\1(\2)/' \
+| sed -e 's/CONNECTION(\(.*\),[ \t]*"\(.*\)", \(.*\))/NET_C(\1, \2.\3)/' \
+| sed -e 's/CONNECTION("\(.*\)",[ \t]*\(.*\), \(.*\))/NET_C(\1.\2, \3)/' \
+| sed -e 's/NET_C("\(.*\)", \(.*\), \(.*\))/NET_C(\1.\2, \3)/' \
+| sed -e 's/) RES(/)\n    RES(/g' \
+| sed -e 's/) CAP(/)\n    CAP(/g' \
+| sed -e 's/) NET_C(/)\n    NET_C(/g' \
+| sed -e 's/NL_EMPTY//' \
+
  *
  */
 
 #ifndef NL_DICE_COMPAT_H_
 #define NL_DICE_COMPAT_H_
 
+#ifndef NL_CONVERT_CPP
 #include "netlist/devices/net_lib.h"
+#include "netlist/analog/nld_twoterm.h"
+#endif
 
 /* --------------------------------------------------------------------
  * Compatibility macros for DICE netlists ...
@@ -20,6 +39,7 @@
  * a temporary support and not be used in commits.
  */
 
+#ifndef NL_CONVERT_CPP
 #ifdef NETLIST_DEVELOPMENT
 #define CHIP(_n, _t) setup.register_dev( nl_alloc(nld_ ## _t ## _dip), _n);
 #else
@@ -30,10 +50,6 @@
 #define CONNECTIONY(_a) _a
 #define CONNECTIONX(_a, _b, _c, _d) setup.register_link(_a "." # _b, _c "." # _d);
 #define NET_CSTR(_a, _b) setup.register_link( _a, _b);
-
-#define CIRCUIT_LAYOUT(x) NETLIST_START(x)
-#define CIRCUIT_LAYOUT_END NETLIST_END()
-
 
 #define OHM(x) (x)
 #define K_OHM(x) ((x) * 1000.0)
@@ -80,6 +96,22 @@ struct CapacitorDesc : public SeriesRCDesc
 public:
 	CapacitorDesc(nl_double cap) : SeriesRCDesc(0.0, cap) { }
 };
+
+#else
+#define CHIP(_n, _t) TTL_ ## _t ## _DIP(_n)
+
+#define OHM(x) x
+#define K_OHM(x) RES_K(X)
+#define M_OHM(x) RES_M(X)
+#define U_FARAD(x) CAP_U(x)
+#define N_FARAD(x) CAP_N(x)
+#define P_FARAD(x) CAP_P(x)
+
+#endif
+
+
+#define CIRCUIT_LAYOUT(x) NETLIST_START(x)
+#define CIRCUIT_LAYOUT_END NETLIST_END()
 
 #define CHIP_555_Mono(_name,  _pdesc)   \
 	CHIP(# _name, NE555) \
@@ -155,16 +187,31 @@ public:
  *        This is a transitional implementation
  */
 
-inline int CAPACITOR_tc(const double c, const double r)
+inline int CAPACITOR_tc_hl(const double c, const double r)
 {
-	static const double TIME_CONSTANT = -log((3.4 - 2.0) / 3.4);
-	int ret = (int) (TIME_CONSTANT * (130.0 + r) * c * 1e9 * 0.1); // 0.1 avoids bricks with shadow
+	/*
+	 * Vt = (VH-VL)*exp(-t/RC)
+	 * ln(Vt/(VH-VL))*RC = -t
+	 */
+	static const double TIME_CONSTANT = -nl_math::log(2.0 / (3.7-0.3));
+	int ret = (int) (TIME_CONSTANT * (130.0 + r) * c * 1e9);
+	return ret;
+}
+
+inline int CAPACITOR_tc_lh(const double c, const double r)
+{
+	/*
+	 * Vt = (VH-VL)*(1-exp(-t/RC))
+	 * -t=ln(1-Vt/(VH-VL))*RC
+	 */
+	static const double TIME_CONSTANT = -nl_math::log(1.0 - 0.8 / (3.7-0.3));
+	int ret = (int) (TIME_CONSTANT * (1.0 + r) * c * 1e9);
 	return ret;
 }
 
 #define CHIP_CAPACITOR(_name, _pdesc) \
 	NETDEV_DELAY(_name) \
-	NETDEV_PARAMI(_name, L_TO_H, CAPACITOR_tc((_pdesc)->c, (_pdesc)->r)) \
-	NETDEV_PARAMI(_name, H_TO_HL, CAPACITOR_tc((_pdesc)->c, (_pdesc)->r))
+	NETDEV_PARAMI(_name, L_TO_H, CAPACITOR_tc_lh((_pdesc)->c, (_pdesc)->r)) \
+	NETDEV_PARAMI(_name, H_TO_L, CAPACITOR_tc_hl((_pdesc)->c, (_pdesc)->r))
 
 #endif /* NL_DICE_COMPAT_H_ */

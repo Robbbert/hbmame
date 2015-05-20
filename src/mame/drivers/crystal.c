@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:ElSemi
 /*
     CRYSTAL SYSTEM by Brezzasoft (2001)
     using VRender0 System on a Chip

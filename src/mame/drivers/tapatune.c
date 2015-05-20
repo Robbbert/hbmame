@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Mariusz Wojcieszek, Philip Bennett
 /***************************************************************************
 
     Tap a Tune

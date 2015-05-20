@@ -1,4 +1,4 @@
-// license:MAME
+// license:BSD-3-Clause
 // copyright-holders:(Original Author?), Dirk Best, Curt Coder
 /*************************************************************************
 
@@ -18,8 +18,8 @@
     - CBM (all RAM) mode
     - "Silicon" disks
     - Multi Effect Video Wall
-
-*/
+ 
+ */
 
 #include "emu.h"
 #include "includes/mtx.h"

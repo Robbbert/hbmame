@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Andrew Gardner
 /*
 Funai / Gakken Esh's Aurunmilla laserdisc hardware
 Driver by Andrew Gardner with help from Daphne Source

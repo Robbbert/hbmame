@@ -1,6 +1,5 @@
-// license:???
-// copyright-holders:???
-// License: BSD-3-Clause
+// license:BSD-3-Clause
+// copyright-holders:Carl
 
 // Soundblaster 16 - LLE
 //

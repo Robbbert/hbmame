@@ -1,3 +1,6 @@
+-- license:BSD-3-Clause
+-- copyright-holders:MAMEdev Team
+
 files {
 	MAME_DIR .. "src/emu/netlist/nl_config.h",
 	MAME_DIR .. "src/emu/netlist/nl_dice_compat.h",
@@ -113,5 +116,6 @@ files {
 	MAME_DIR .. "src/emu/netlist/devices/nld_system.h",
 	MAME_DIR .. "src/emu/netlist/devices/nld_cmos.h",
 	MAME_DIR .. "src/emu/netlist/devices/nld_signal.h",
+	MAME_DIR .. "src/emu/netlist/devices/nld_truthtable.c",
 	MAME_DIR .. "src/emu/netlist/devices/nld_truthtable.h",
 }

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
 /*
 "CGA" Amcoe HW (c) 1999-2004 Amcoe
 

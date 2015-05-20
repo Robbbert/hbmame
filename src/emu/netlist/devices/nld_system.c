@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nld_system.c
  *
@@ -7,6 +7,28 @@
 
 #include "nld_system.h"
 #include "../analog/nld_solver.h"
+
+// ----------------------------------------------------------------------------------------
+// netlistparams
+// ----------------------------------------------------------------------------------------
+
+NETLIB_START(netlistparams)
+{
+	register_param("USE_DEACTIVATE", m_use_deactivate, 0);
+}
+
+NETLIB_RESET(netlistparams)
+{
+}
+
+NETLIB_UPDATE_PARAM(netlistparams)
+{
+}
+
+NETLIB_UPDATE(netlistparams)
+{
+}
+
 
 // ----------------------------------------------------------------------------------------
 // clock
@@ -90,10 +112,17 @@ NETLIB_UPDATE_PARAM(extclock)
 
 NETLIB_UPDATE(extclock)
 {
-	//static UINT8 pattern[6] = { 4, 4, 4, 4, 4, 8 };
-	OUTLOGIC(m_Q, (m_cnt & 1) ^ 1, m_inc[m_cnt] + m_off);
-	m_cnt = (m_cnt + 1) % m_size;
-	m_off = netlist_time::zero;
+	if (m_cnt != 0)
+	{
+		OUTLOGIC(m_Q, (m_cnt & 1) ^ 1, m_inc[m_cnt]);
+		m_cnt = (m_cnt + 1) % m_size;
+	}
+	else
+	{
+		OUTLOGIC(m_Q, (m_cnt & 1) ^ 1, m_inc[0] + m_off);
+		m_cnt = 1;
+		m_off = netlist_time::zero;
+	}
 }
 
 // ----------------------------------------------------------------------------------------
@@ -152,7 +181,7 @@ ATTR_COLD void nld_d_to_a_proxy::start()
 {
 	nld_base_d_to_a_proxy::start();
 
-	register_sub(m_RV, "RV");
+	register_sub("RV", m_RV);
 	register_terminal("1", m_RV.m_P);
 	register_terminal("2", m_RV.m_N);
 
@@ -188,7 +217,7 @@ ATTR_HOT ATTR_ALIGN void nld_d_to_a_proxy::update()
 		{
 			m_RV.update_dev();
 		}
-		m_RV.set(1.0 / R, V, 0.0);
+		m_RV.set(NL_FCONST(1.0) / R, V, 0.0);
 		m_RV.m_P.schedule_after(NLTIME_FROM_NS(1));
 	}
 }
@@ -200,7 +229,7 @@ ATTR_HOT ATTR_ALIGN void nld_d_to_a_proxy::update()
 
 NETLIB_START(res_sw)
 {
-	register_sub(m_R, "R");
+	register_sub("R", m_R);
 	register_input("I", m_I);
 	register_param("RON", m_RON, 1.0);
 	register_param("ROFF", m_ROFF, 1.0E20);

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Andrew Gardiner, R. Belmont, Ville Linde
 #include "video/poly.h"
 #include "bus/scsi/scsi.h"
 #include "machine/53c810.h"

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Bryan McPhail, Manuel Abadia
 /***************************************************************************
 
     Super Contra  (GX775) (c) 1988 Konami

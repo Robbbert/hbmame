@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Tomasz Slanina
 /***************************************
 Attack ufo / Ryoto Electric Co. 1980(?)
  driver  by Tomasz Slanina

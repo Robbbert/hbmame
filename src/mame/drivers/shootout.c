@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Ernesto Corvi, Phil Stroffolino, Bryan McPhail
 /*******************************************************************************
 
     Shoot Out (USA)             (c) 1985 Data East USA      DE-0219

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Andrew Gardner
 #ifndef __DSP56K_PARALLEL_MOVE_H__
 #define __DSP56K_PARALLEL_MOVE_H__
 
@@ -26,12 +26,12 @@ public:
 
 	static ParallelMove* decodeParallelMove(const Opcode* opc, const UINT16 word0, const UINT16 word1);
 
-	const bool valid() const { return m_valid; }
+	bool valid() const { return m_valid; }
 
 	// Peek through the opcode to see the instruction
 	const reg_id& opSource() const;
 	const reg_id& opDestination() const;
-	const size_t opAccumulatorBitsModified() const;
+	size_t opAccumulatorBitsModified() const;
 
 protected:
 	bool m_valid;

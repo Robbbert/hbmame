@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:Andrew Gardner
 #include <stdio.h>
 
 #include "opcode.h"
@@ -68,7 +68,7 @@ size_t Opcode::evalSize() const
 
 const reg_id& Opcode::instSource() const { return m_instruction->source(); }
 const reg_id& Opcode::instDestination() const { return m_instruction->destination(); }
-const size_t Opcode::instAccumulatorBitsModified() const { return m_instruction->accumulatorBitsModified(); }
+size_t Opcode::instAccumulatorBitsModified() const { return m_instruction->accumulatorBitsModified(); }
 
 std::string Opcode::dcString() const
 {

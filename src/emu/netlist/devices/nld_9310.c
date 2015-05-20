@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nld_9310.c
  *
@@ -11,9 +11,9 @@
 
 NETLIB_START(9310)
 {
-	register_sub(subABCD, "subABCD");
+	register_sub("subABCD", subABCD);
 	sub.m_ABCD = &subABCD;
-	register_sub(sub, "sub");
+	register_sub("sub", sub);
 
 	register_subalias("CLK", sub.m_CLK);
 

@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:GPL-2.0+
+// copyright-holders:Couriersud
 /*
  * nld_7474.c
  *
@@ -10,7 +10,7 @@
 ATTR_HOT inline void NETLIB_NAME(7474sub)::newstate(const UINT8 stateQ, const UINT8 stateQQ)
 {
 	// 0: High-to-low 40 ns, 1: Low-to-high 25 ns
-	static const netlist_time delay[2] = { NLTIME_FROM_NS(40), NLTIME_FROM_NS(25) };
+	const netlist_time delay[2] = { NLTIME_FROM_NS(40), NLTIME_FROM_NS(25) };
 	OUTLOGIC(m_Q, stateQ, delay[stateQ]);
 	OUTLOGIC(m_QQ, stateQQ, delay[stateQQ]);
 }
@@ -54,7 +54,7 @@ NETLIB_UPDATE(7474)
 
 NETLIB_START(7474)
 {
-	register_sub(sub, "sub");
+	register_sub("sub", sub);
 
 	register_subalias("CLK",    sub.m_CLK);
 	register_input("D",         m_D);
@@ -93,8 +93,8 @@ NETLIB_RESET(7474sub)
 
 NETLIB_START(7474_dip)
 {
-	register_sub(m_1, "1");
-	register_sub(m_2, "2");
+	register_sub("1", m_1);
+	register_sub("2", m_2);
 
 	register_subalias("1", m_1.m_CLRQ);
 	register_subalias("2", m_1.m_D);

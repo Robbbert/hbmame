@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:LGPL-2.1+
+// copyright-holders:Jarek Burczynski, Tomasz Slanina
 /***************************************************************************
 
 Driver by Jarek Burczynski, started by Tomasz Slanina  dox@space.pl

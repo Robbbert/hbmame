@@ -1,5 +1,5 @@
-// license:MAME
-// copyright-holders:Angelo Salese
+// license:BSD-3-Clause
+// copyright-holders:Angelo Salese,Carl
 /***************************************************************************************************
 
     PC-9801 (c) 1981 NEC

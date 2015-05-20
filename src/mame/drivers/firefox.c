@@ -1,5 +1,5 @@
-// license:???
-// copyright-holders:???
+// license:BSD-3-Clause
+// copyright-holders:smf, Aaron Giles, Chris Hardy, Scott Waye
 /***************************************************************************
 
     Atari Fire Fox hardware
