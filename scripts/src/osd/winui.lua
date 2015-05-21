@@ -2,7 +2,7 @@ dofile("modules.lua")
 
 premake.make.linkoptions_after = false;
 
-function maintargetosdoptions(_target)
+function maintargetosdoptions(_target,_subtarget)
 	kind "WindowedApp"
 
 	osdmodulestargetconf()
