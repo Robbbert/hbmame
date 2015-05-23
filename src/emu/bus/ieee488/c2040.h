@@ -17,7 +17,6 @@
 #include "cpu/m6502/m6502.h"
 #include "cpu/m6502/m6504.h"
 #include "machine/6522via.h"
-#include "machine/6532riot.h"
 #include "machine/mos6530n.h"
 
 
@@ -26,15 +25,15 @@
 //  TYPE DEFINITIONS
 //**************************************************************************
 
-// ======================> c2040_device
+// ======================> c2040_t
 
-class c2040_device :  public device_t,
-					  public device_ieee488_interface
+class c2040_t :  public device_t,
+				 public device_ieee488_interface
 {
 public:
 	// construction/destruction
-	c2040_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
-	c2040_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c2040_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	c2040_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 
 	// optional information overrides
 	virtual const rom_entry *device_rom_region() const;
@@ -74,8 +73,8 @@ protected:
 
 	required_device<m6502_device> m_maincpu;
 	required_device<m6504_device> m_fdccpu;
-	required_device<riot6532_device> m_riot0;
-	required_device<riot6532_device> m_riot1;
+	required_device<mos6532_t> m_riot0;
+	required_device<mos6532_t> m_riot1;
 	required_device<mos6530_t> m_miot;
 	required_device<via6522_device> m_via;
 	required_device<floppy_image_device> m_floppy0;
@@ -92,13 +91,13 @@ protected:
 };
 
 
-// ======================> c3040_device
+// ======================> c3040_t
 
-class c3040_device :  public c2040_device
+class c3040_t :  public c2040_t
 {
 public:
 	// construction/destruction
-	c3040_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c3040_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 
 	// optional information overrides
 	virtual const rom_entry *device_rom_region() const;
@@ -108,13 +107,13 @@ public:
 };
 
 
-// ======================> c4040_device
+// ======================> c4040_t
 
-class c4040_device :  public c2040_device
+class c4040_t :  public c2040_t
 {
 public:
 	// construction/destruction
-	c4040_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c4040_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 
 	// optional information overrides
 	virtual const rom_entry *device_rom_region() const;
