@@ -10,6 +10,7 @@
 #define NLFACTORY_H_
 
 #include "nl_config.h"
+#include "palloc.h"
 #include "plists.h"
 #include "nl_base.h"
 #include "pstring.h"
@@ -27,9 +28,9 @@ public:
 	: m_name(name), m_classname(classname), m_def_param(def_param)
 	{}
 
-	ATTR_COLD virtual ~net_device_t_base_factory() {}
+	/* ATTR_COLD */ virtual ~net_device_t_base_factory() {}
 
-	ATTR_COLD virtual netlist_device_t *Create() const = 0;
+	/* ATTR_COLD */ virtual netlist_device_t *Create() const = 0;
 
 	ATTR_COLD const pstring &name() const { return m_name; }
 	ATTR_COLD const pstring &classname() const { return m_classname; }
@@ -54,7 +55,7 @@ public:
 
 	ATTR_COLD netlist_device_t *Create() const
 	{
-		netlist_device_t *r = nl_alloc(C);
+		netlist_device_t *r = palloc(C);
 		//r->init(setup, name);
 		return r;
 	}
@@ -65,14 +66,14 @@ class netlist_factory_t
 public:
 	typedef plist_t<net_device_t_base_factory *> list_t;
 
-	ATTR_COLD netlist_factory_t();
-	ATTR_COLD ~netlist_factory_t();
+	netlist_factory_t();
+	~netlist_factory_t();
 
 	template<class _C>
 	ATTR_COLD void register_device(const pstring &name, const pstring &classname,
 			const pstring &def_param)
 	{
-		m_list.add(nl_alloc(net_device_t_factory< _C >, name, classname, def_param));
+		m_list.add(palloc(net_device_t_factory< _C >, name, classname, def_param));
 	}
 
 	ATTR_COLD netlist_device_t *new_device_by_classname(const pstring &classname) const;

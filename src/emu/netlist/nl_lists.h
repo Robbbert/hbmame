@@ -26,13 +26,13 @@ public:
 	class entry_t
 	{
 	public:
-		ATTR_HOT inline entry_t()
+		ATTR_HOT /* inline */ entry_t()
 		: m_object(), m_exec_time() {}
-		ATTR_HOT inline entry_t(const _Time &atime, const _Element &elem) : m_object(elem), m_exec_time(atime)  {}
-		ATTR_HOT inline const _Time exec_time() const { return m_exec_time; }
-		ATTR_HOT inline const _Element object() const { return m_object; }
+		ATTR_HOT /* inline */ entry_t(const _Time &atime, const _Element &elem) : m_object(elem), m_exec_time(atime)  {}
+		ATTR_HOT /* inline */ const _Time exec_time() const { return m_exec_time; }
+		ATTR_HOT /* inline */ const _Element object() const { return m_object; }
 
-		ATTR_HOT inline entry_t &operator=(const entry_t &right) {
+		ATTR_HOT /* inline */ entry_t &operator=(const entry_t &right) {
 			m_object = right.m_object;
 			m_exec_time = right.m_exec_time;
 			return *this;
@@ -45,15 +45,14 @@ public:
 
 	netlist_timed_queue()
 	{
-		//m_list = global_alloc_array(entry_t, SIZE);
 		clear();
 	}
 
-	ATTR_HOT inline int capacity() const { return _Size; }
-	ATTR_HOT inline bool is_empty() const { return (m_end == &m_list[0]); }
-	ATTR_HOT inline bool is_not_empty() const { return (m_end > &m_list[0]); }
+	ATTR_HOT /* inline */ int capacity() const { return _Size; }
+	ATTR_HOT /* inline */ bool is_empty() const { return (m_end == &m_list[0]); }
+	ATTR_HOT /* inline */ bool is_not_empty() const { return (m_end > &m_list[0]); }
 
-	ATTR_HOT /*ATTR_ALIGN*/ void push(const entry_t &e)
+	ATTR_HOT void push(const entry_t &e)
 	{
 		entry_t * i = m_end++;
 		while ((i > &m_list[0]) && (e.exec_time() > (i - 1)->exec_time()) )
@@ -64,20 +63,20 @@ public:
 		}
 		*i = e;
 		inc_stat(m_prof_sort);
-		nl_assert(m_end - m_list < _Size);
+		//nl_assert(m_end - m_list < _Size);
 	}
 
-	ATTR_HOT inline const entry_t *pop()
+	ATTR_HOT /* inline */ const entry_t *pop()
 	{
 		return --m_end;
 	}
 
-	ATTR_HOT inline const entry_t *peek() const
+	ATTR_HOT /* inline */ const entry_t *peek() const
 	{
 		return (m_end-1);
 	}
 
-	ATTR_HOT /*inline*/ void remove(const _Element &elem)
+	ATTR_HOT /* inline */ void remove(const _Element &elem)
 	{
 		entry_t * i = m_end - 1;
 		while (i > &m_list[0])
@@ -103,9 +102,9 @@ public:
 
 	// save state support & mame disasm
 
-	ATTR_COLD inline const entry_t *listptr() const { return &m_list[0]; }
-	ATTR_HOT inline int count() const { return m_end - m_list; }
-	ATTR_HOT inline const entry_t & operator[](const int & index) const { return m_list[index]; }
+	ATTR_COLD /* inline */ const entry_t *listptr() const { return &m_list[0]; }
+	ATTR_HOT /* inline */ int count() const { return m_end - m_list; }
+	ATTR_HOT /* inline */ const entry_t & operator[](const int & index) const { return m_list[index]; }
 
 #if (NL_KEEP_STATISTICS)
 	// profiling
