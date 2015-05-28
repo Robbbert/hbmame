@@ -621,7 +621,6 @@ project "portaudio"
 			"-Wno-missing-braces",
 			"-Wno-unused-but-set-variable",
 			"-Wno-maybe-uninitialized",
-			"-Wno-unused-variable",
 			"-Wno-unused-value",
 			"-Wno-unused-function",
 			"-Wno-unknown-pragmas",
@@ -629,7 +628,7 @@ project "portaudio"
 		}
 
 	local version = str_to_version(_OPTIONS["gcc_version"])
-	if string.find(_OPTIONS["gcc"], "clang") then
+	if (_OPTIONS["gcc"]~=nil) and string.find(_OPTIONS["gcc"], "clang") then
 		buildoptions_c {
 			"-Wno-unknown-warning-option",
 			"-Wno-absolute-value",

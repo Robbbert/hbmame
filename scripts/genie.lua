@@ -728,9 +728,23 @@ if _OPTIONS["OPTIMIZE"] then
 		buildoptions {
 			"-flto",
 		}
+--		buildoptions {
+--			"-ffat-lto-objects",
+--		}
+--		buildoptions {
+--			"-flto-partition=1to1",
+--		}
 		linkoptions {
 			"-flto",
 		}
+--		linkoptions {
+--			"-flto-partition=1to1",
+--		}
+--		linkoptions {
+--			"-ffat-lto-objects",
+--		}
+		
+		
 	end
 end
 
@@ -864,9 +878,16 @@ end
 			if (version >= 40800) then
 				-- array bounds checking seems to be buggy in 4.8.1 (try it on video/stvvdp1.c and video/model1.c without -Wno-array-bounds)
 				buildoptions {
+					"-Wno-unused-variable",
 					"-Wno-array-bounds"
 				}
 			end
+			if (version >= 50000) then
+				buildoptions {
+					"-D__USE_MINGW_ANSI_STDIO=1",							
+				}
+			end
+			
 		end
 	end
 --ifeq ($(findstring arm,$(UNAME)),arm)
@@ -1096,6 +1117,21 @@ configuration { "x64", "vs*" }
 		libdirs {
 			MAME_DIR .. "3rdparty/dxsdk/lib/x64",
 		}
+
+configuration { "winphone8* or winstore8*" }
+	removelinks {
+		"DelayImp",
+		"gdi32",
+		"psapi"
+	}
+	links {
+		"d3d11",
+		"dxgi"
+	}
+	linkoptions {
+		"/ignore:4264" -- LNK4264: archiving object file compiled with /ZW into a static library; note that when authoring Windows Runtime types it is not recommended to link with a static library that contains Windows Runtime metadata
+	}
+
 
 configuration { }
 
