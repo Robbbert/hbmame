@@ -4829,7 +4829,7 @@ static int GamePicker_FindItemParent(HWND hwndPicker, int nItem)
 static void InitListView()
 {
 	LVBKIMAGE bki;
-	TCHAR path[MAX_PATH];
+	//TCHAR path[MAX_PATH];
 	TCHAR* t_bgdir;
 	BOOL res;
 
