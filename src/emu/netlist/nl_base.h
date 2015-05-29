@@ -482,7 +482,7 @@ public:
 	}
 
 	/* inline only intended to be called from nl_base.c */
-	ATTR_HOT /* inline */ void update_dev(const UINT32 mask);
+	ATTR_HOT inline void update_dev(const UINT32 mask);
 
 protected:
 	/* ATTR_COLD */ virtual void save_register()
@@ -1417,6 +1417,16 @@ ATTR_HOT inline void netlist_analog_output_t::set_Q(const nl_double newQ)
 		net().as_analog().m_cur_Analog = newQ;
 		net().push_to_queue(NLTIME_FROM_NS(1));
 	}
+}
+
+ATTR_HOT inline void netlist_base_t::push_to_queue(netlist_net_t &out, const netlist_time &attime)
+{
+	m_queue.push(netlist_queue_t::entry_t(attime, &out));
+}
+
+ATTR_HOT inline void netlist_base_t::remove_from_queue(netlist_net_t &out)
+{
+	m_queue.remove(&out);
 }
 
 #endif /* NLBASE_H_ */
