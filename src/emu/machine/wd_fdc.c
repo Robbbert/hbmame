@@ -747,6 +747,7 @@ void wd_fdc_t::write_track_continue()
 			if (TRACE_STATE) logerror("%s: DATA_LOAD_WAIT_DONE\n", tag());
 			if(drq) {
 				status |= S_LOST;
+				drop_drq();
 				command_end();
 				return;
 			}
@@ -904,11 +905,13 @@ void wd_fdc_t::interrupt_start()
 
 	if(!(command & 0x0f)) {
 		intrq_cond = 0;
+	} else if ((command & 0x0f) > 8) {	// assume I_IMM is set only if condition equal to 8 but not more than, Spectrum's BetaDisk require this
+		intrq_cond = 0;
 	} else {
 		intrq_cond = (intrq_cond & I_IMM) | (command & 0x0f);
 	}
 
-	if(intrq_cond & I_IMM) {
+	if(command & I_IMM) {
 		intrq = true;
 		if(!intrq_cb.isnull())
 			intrq_cb(intrq);
@@ -1232,6 +1235,10 @@ void wd_fdc_t::spinup()
 
 void wd_fdc_t::ready_callback(floppy_image_device *floppy, int state)
 {
+	// why is this even possible?
+	if (!floppy)
+		return;
+
 	live_sync();
 	if(!ready_hooked)
 		return;
@@ -1260,12 +1267,23 @@ void wd_fdc_t::index_callback(floppy_image_device *floppy, int state)
 
 	switch(sub_state) {
 	case IDLE:
-		if(motor_control) {
+		if(motor_control || head_control) {
 			motor_timeout ++;
-			if(motor_timeout >= 5) {
+			if(motor_control && motor_timeout >= 5) {
 				status &= ~S_MON;
 				if(floppy)
 					floppy->mon_w(1);
+			}
+
+			if (head_control && motor_timeout >= 3)
+			{
+				hld = false;
+
+				// signal drive to unload head
+				if (!hld_cb.isnull())
+					hld_cb(hld);
+
+				status &= ~S_HLD; // todo: should get this value from the drive
 			}
 		}
 		break;
