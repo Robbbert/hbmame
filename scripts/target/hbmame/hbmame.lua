@@ -4,8 +4,7 @@
 --
 --   HBMAME target makefile
 --
---   Copyright Nicola Salmoria and the MAME Team.
---   Visit http://mamedev.org for licensing and usage restrictions.
+--   Copyright Robbbert 2015
 --
 ---------------------------------------------------------------------------
 
@@ -126,6 +125,7 @@ MACHINES["LDPR8210"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
 MACHINES["MIOT6530"] = true
+MACHINES["NETLIST"] = true
 MACHINES["RP5H01"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMS6100"] = true
@@ -135,7 +135,6 @@ MACHINES["V3021"] = true
 MACHINES["Z80CTC"] = true
 MACHINES["Z80DART"] = true
 MACHINES["Z80PIO"] = true
---MACHINES["Z80SIO"] = true
 
 --------------------------------------------------
 -- specify available bus cores
