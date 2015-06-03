@@ -114,6 +114,8 @@ project "formats"
 	}
 
 	files {
+		MAME_DIR .. "src/lib/formats/2d_dsk.c",
+		MAME_DIR .. "src/lib/formats/2d_dsk.h",
 		MAME_DIR .. "src/lib/formats/cassimg.c",
 		MAME_DIR .. "src/lib/formats/cassimg.h",
 		MAME_DIR .. "src/lib/formats/flopimg.c",
@@ -255,6 +257,8 @@ project "formats"
 		MAME_DIR .. "src/lib/formats/hect_dsk.h",
 		MAME_DIR .. "src/lib/formats/hect_tap.c",
 		MAME_DIR .. "src/lib/formats/hect_tap.h",
+		MAME_DIR .. "src/lib/formats/hector_minidisc.c",
+		MAME_DIR .. "src/lib/formats/hector_minidisc.h",
 		MAME_DIR .. "src/lib/formats/iq151_dsk.c",
 		MAME_DIR .. "src/lib/formats/iq151_dsk.h",
 		MAME_DIR .. "src/lib/formats/imd_dsk.c",
@@ -379,6 +383,8 @@ project "formats"
 		MAME_DIR .. "src/lib/formats/upd765_dsk.h",
 		MAME_DIR .. "src/lib/formats/vdk_dsk.c",
 		MAME_DIR .. "src/lib/formats/vdk_dsk.h",
+		MAME_DIR .. "src/lib/formats/vector06_dsk.c",
+		MAME_DIR .. "src/lib/formats/vector06_dsk.h",
 		MAME_DIR .. "src/lib/formats/victor9k_dsk.c",
 		MAME_DIR .. "src/lib/formats/victor9k_dsk.h",
 		MAME_DIR .. "src/lib/formats/vg5k_cas.c",
@@ -395,8 +401,6 @@ project "formats"
 		MAME_DIR .. "src/lib/formats/wd177x_dsk.h",
 		MAME_DIR .. "src/lib/formats/x07_cas.c",
 		MAME_DIR .. "src/lib/formats/x07_cas.h",
-		MAME_DIR .. "src/lib/formats/x1_dsk.c",
-		MAME_DIR .. "src/lib/formats/x1_dsk.h",
 		MAME_DIR .. "src/lib/formats/x1_tap.c",
 		MAME_DIR .. "src/lib/formats/x1_tap.h",
 		MAME_DIR .. "src/lib/formats/xdf_dsk.c",
