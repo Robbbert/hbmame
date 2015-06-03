@@ -1,3 +1,6 @@
+// For licensing and usage information, read docs/winui_license.txt
+// Author: MAMESICK
+//****************************************************************************
 /***************************************************************************
 
     win_options.c

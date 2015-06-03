@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// copyright-holders:Aaron Giles
+// For licensing and usage information, read docs/winui_license.txt
+//****************************************************************************
 /***************************************************************************
 
     win_options.h

@@ -1,0 +1,71 @@
+This document is best read with Notepad.
+
+The purpose of this document is to state the names of WINUI authors, disclaimers, and licence conditions.
+
+WINUI is a set of codes which add a 'front-end' facility to the MAME emulator (and certain derivatives).
+It is not maintained or supported by MAMEdev, but by the efforts of dedicated individuals.
+The files are normally found in the src/osd/winui folder(s) of a source package.
+
+WINUI was originally written around 1997, and has had contributions from many authors, both known and unknown.
+Due to the lack of historical records, it is unknown who exactly contributed what.
+
+Here is the list of known authors, and the known licence for them:
+
+Michael Soderstrom                ???
+Christopher Kirmse                ???
+MSH (Mike Haarland)               ???
+Jeff Miller                       ???
+Robbbert                          BSD-3-Clause
+etabeta (Fabio Priuli)            BSD-3-Clause
+Bletch (Nathan Woods)             BSD-3-Clause
+Mamesick                          ???
+
+
+Copyright exists from 1997 to the present day, and beyond. The project is hereby covered by the BSD-3-Clause,
+with the following additional provisos.
+
+1. Original authors may lay claim to their particular works.
+
+2. Original authors may specify a different licence.
+
+3. Original authors may place additional restrictions on usage.
+
+4. Redistributions must include this file, and the file BSD3Clause.txt .
+
+
+
+5. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+
+POSSIBILITY OF SUCH DAMAGE.
+
+In other words, we (authors, contributors, repository holders, official websites)
+are not liable or responsible for anything.
+
+6. Distribution of binaries MUST NOT INCLUDE DOWNLOAD MANAGERS, INSTALLERS, ADWARE or anything
+   that might be considered harmful.
+
+7. Usage: WINUI can be modified and used as you see fit, including commercially, however you
+   cannot claim ownership or copyright of the works. See BSD3Clause.txt for more information.
+
+8. If you are unable to comply with these conditions, you must delete any winui code in your
+   possession, along with any binaries that contain winui code, immediately.
+
+Written by Robbbert on 2015-06-03.
