@@ -63,7 +63,7 @@ ATTR_COLD void NETLIST_NAME(_name)(netlist_setup_t &setup)                      
 #define INCLUDE(_name)                                                              \
 		setup.include(# _name);
 
-#define SUBMODEL(_name, _model)                                                     \
+#define SUBMODEL(_model, _name)                                                     \
 		setup.namespace_push(# _name);                                              \
 		NETLIST_NAME(_model)(setup);                                                \
 		setup.namespace_pop();
@@ -151,6 +151,7 @@ public:
 	void register_link(const pstring &sin, const pstring &sout);
 	void register_param(const pstring &param, const pstring &value);
 	void register_param(const pstring &param, const double value);
+	void register_frontier(const pstring attach, const double r_IN, const double r_OUT);
 
 	void register_object(netlist_device_t &dev, const pstring &name, netlist_object_t &obj);
 	bool connect(netlist_core_terminal_t &t1, netlist_core_terminal_t &t2);
