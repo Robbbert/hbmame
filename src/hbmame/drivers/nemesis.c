@@ -17,4 +17,4 @@ ROM_START( spclone )
 	ROM_LOAD(      "10a.bin",      0x00000, 0x20000, CRC(09fe0632) SHA1(4c3b29c623d70bbe8a938a0beb4638912c46fb6a) ) /* Mask rom */
 ROM_END
 
-GAME( 2007, spclone, 0, salamand, salamand, driver_device, 0, ROT0, "Konami", "Salamander (version YY)", GAME_NO_COCKTAIL | GAME_SUPPORTS_SAVE )
+GAME( 2007, spclone, 0, salamand, lifefrcj, driver_device, 0, ROT0, "Konami", "Salamander (version YY)", GAME_NO_COCKTAIL | GAME_SUPPORTS_SAVE )

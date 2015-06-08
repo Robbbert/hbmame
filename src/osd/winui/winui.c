@@ -2006,8 +2006,8 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 	if (validity_failed)
 	{
-		win_message_box_utf8(hMain, MAMENAME " has failed its validity checks.  The GUI will "
-			"still work, but emulations will fail to execute", MAMENAME, MB_OK);
+		win_message_box_utf8(hMain, MAMEUINAME " has failed its validity checks.  The GUI will "
+			"still work, but emulations will fail to execute", MAMEUINAME, MB_OK | MB_ICONERROR);
 	}
 
 	return TRUE;
@@ -5286,10 +5286,10 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	switch (filetype)
 	{
 	case FILETYPE_INPUT_FILES :
-		of.lpstrFilter   = TEXT(MAMENAME) TEXT(" input files (*.inp,*.zip)\0*.inp;*.zip\0All files (*.*)\0*.*\0");
+		of.lpstrFilter   = TEXT("input files (*.inp,*.zip)\0*.inp;*.zip\0All files (*.*)\0*.*\0");
 		break;
 	case FILETYPE_SAVESTATE_FILES :
-		of.lpstrFilter   = TEXT(MAMENAME) TEXT(" savestate files (*.sta)\0*.sta;\0All files (*.*)\0*.*\0");
+		of.lpstrFilter   = TEXT("savestate files (*.sta)\0*.sta;\0All files (*.*)\0*.*\0");
 		break;
 	case FILETYPE_WAVE_FILES :
 		of.lpstrFilter   = TEXT("sounds (*.wav)\0*.wav;\0All files (*.*)\0*.*\0");
@@ -6638,14 +6638,14 @@ void UpdateListView(void)
 
 	if( (GetViewMode() == VIEW_GROUPED) || (GetViewMode() == VIEW_DETAILS ) )
 		res = ListView_RedrawItems(hwndList,ListView_GetTopIndex(hwndList),
-							 ListView_GetTopIndex(hwndList)+ ListView_GetCountPerPage(hwndList) );
+			ListView_GetTopIndex(hwndList)+ ListView_GetCountPerPage(hwndList) );
 }
 
 static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_height)
 {
 	int 	destX, destY;
 	int 	destW, destH;
-	int		nBorder;
+	int	nBorder;
 	RECT	rect;
 	/* for scaling */
 	int x, y;
