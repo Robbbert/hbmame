@@ -899,7 +899,7 @@ BEGIN
     CONTROL         "&Vertical",IDC_FILTER_VERTICAL,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,100,58,47,10,0,HIDC_FILTER_VERTICAL
     CONTROL         "&Mechanical",IDC_FILTER_MECHANICAL,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,100,72,47,10,0,HIDC_FILTER_MECHANICAL
+                    WS_TABSTOP,100,72,58,10,0,HIDC_FILTER_MECHANICAL
     LTEXT           "(*) = inherited from parent folder",IDC_INHERITED,14,72,
                     99,10
     CTEXT           "Game filters allow customizing the games that are displayed in each folder by hiding games that match the filters applied.",
