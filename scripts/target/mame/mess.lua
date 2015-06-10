@@ -572,6 +572,7 @@ BUSES["ABCKB"] = true
 BUSES["ADAM"] = true
 BUSES["ADAMNET"] = true
 BUSES["APF"] = true
+BUSES["APRICOT_EXPANSION"] = true
 BUSES["ARCADIA"] = true
 BUSES["ASTROCADE"] = true
 BUSES["BML3"] = true
@@ -1020,6 +1021,7 @@ files {
 	MAME_DIR .. "src/mess/drivers/apricotf.c",  
 	MAME_DIR .. "src/mess/drivers/apricotp.c",  
 	MAME_DIR .. "src/mess/machine/apricotkb.c", 
+	MAME_DIR .. "src/mess/machine/apricotkb_hle.c", 
 	MAME_DIR .. "src/mess/drivers/victor9k.c",
 	MAME_DIR .. "src/mess/machine/victor9kb.c",
 	MAME_DIR .. "src/mess/machine/victor9k_fdc.c", 

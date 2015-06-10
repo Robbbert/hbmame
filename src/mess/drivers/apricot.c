@@ -9,8 +9,6 @@
 
 ***************************************************************************/
 
-#include "bus/centronics/ctronics.h"
-#include "bus/rs232/rs232.h"
 #include "cpu/i86/i86.h"
 #include "cpu/i8089/i8089.h"
 #include "machine/ram.h"
@@ -21,8 +19,12 @@
 #include "machine/wd_fdc.h"
 #include "video/mc6845.h"
 #include "sound/sn76496.h"
+#include "machine/apricotkb_hle.h"
 #include "imagedev/flopdrv.h"
 #include "formats/apridisk.h"
+#include "bus/centronics/ctronics.h"
+#include "bus/rs232/rs232.h"
+#include "bus/apricot/expansion.h"
 
 
 //**************************************************************************
@@ -35,8 +37,8 @@ public:
 	apricot_state(const machine_config &mconfig, device_type type, const char *tag) :
 	driver_device(mconfig, type, tag),
 	m_cpu(*this, "ic91"),
-	m_ram(*this, RAM_TAG),
 	m_iop(*this, "ic71"),
+	m_ram(*this, RAM_TAG),
 	m_sn(*this, "ic7"),
 	m_crtc(*this, "ic30"),
 	m_ppi(*this, "ic17"),
@@ -57,11 +59,12 @@ public:
 	m_display_enabled(0),
 	m_centronics_fault(1),
 	m_centronics_perror(1),
-	m_sio_irq(0)
+	m_bus_locked(0)
 	{ }
 
 	DECLARE_FLOPPY_FORMATS(floppy_formats);
 
+	DECLARE_WRITE_LINE_MEMBER(i8086_lock_w);
 	DECLARE_WRITE8_MEMBER(i8089_ca1_w);
 	DECLARE_WRITE8_MEMBER(i8089_ca2_w);
 	DECLARE_WRITE8_MEMBER(i8255_portb_w);
@@ -70,8 +73,8 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(timer_out1);
 	DECLARE_WRITE_LINE_MEMBER(timer_out2);
 	DECLARE_WRITE_LINE_MEMBER(fdc_intrq_w);
-	DECLARE_WRITE_LINE_MEMBER(sio_int_w);
-	IRQ_CALLBACK_MEMBER(irq_callback);
+	DECLARE_READ8_MEMBER(sio_ca_r);
+	DECLARE_READ8_MEMBER(sio_cb_r);
 
 	DECLARE_WRITE_LINE_MEMBER(write_centronics_fault);
 	DECLARE_WRITE_LINE_MEMBER(write_centronics_perror);
@@ -89,8 +92,8 @@ protected:
 
 private:
 	required_device<i8086_cpu_device> m_cpu;
-	required_device<ram_device> m_ram;
 	required_device<i8089_device> m_iop;
+	required_device<ram_device> m_ram;
 	required_device<sn76489_device> m_sn;
 	required_device<mc6845_device> m_crtc;
 	required_device<i8255_device> m_ppi;
@@ -116,7 +119,7 @@ private:
 	int m_centronics_fault;
 	int m_centronics_perror;
 
-	int m_sio_irq;
+	int m_bus_locked;
 };
 
 
@@ -219,10 +222,20 @@ WRITE_LINE_MEMBER( apricot_state::timer_out2 )
 	}
 }
 
-WRITE_LINE_MEMBER( apricot_state::sio_int_w )
+READ8_MEMBER( apricot_state::sio_ca_r )
 {
-	m_sio_irq = state;
-	m_pic->ir5_w(state);
+	if (m_bus_locked)
+		return m_sio->m1_r();
+
+	return m_sio->ca_r(space, offset);
+}
+
+READ8_MEMBER( apricot_state::sio_cb_r )
+{
+	if (m_bus_locked)
+		return m_sio->m1_r();
+
+	return m_sio->cb_r(space, offset);
 }
 
 
@@ -262,14 +275,13 @@ UINT32 apricot_state::screen_update_apricot(screen_device &screen, bitmap_rgb32 
 
 MC6845_UPDATE_ROW( apricot_state::crtc_update_row )
 {
-	UINT8 *ram = m_ram->pointer();
 	const pen_t *pen = m_palette->pens();
 
 	for (int i = 0; i < x_count; i++)
 	{
 		UINT16 code = m_screen_buffer[(ma + i) & 0x7ff];
 		UINT16 offset = ((code & 0x7ff) << 5) | (ra << 1);
-		UINT16 data = ram[offset + 1] << 8 | ram[offset];
+		UINT16 data = m_cpu->space(AS_PROGRAM).read_word(offset);
 
 		if (m_video_mode)
 		{
@@ -302,18 +314,12 @@ MC6845_UPDATE_ROW( apricot_state::crtc_update_row )
 
 void apricot_state::machine_start()
 {
-	// install shared memory to the main cpu and the iop
-	m_cpu->space(AS_PROGRAM).install_ram(0x00000, m_ram->size() - 1, m_ram->pointer());
-	m_iop->space(AS_PROGRAM).install_ram(0x00000, m_ram->size() - 1, m_ram->pointer());
+	membank("ram")->set_base(m_ram->pointer());
 }
 
-IRQ_CALLBACK_MEMBER( apricot_state::irq_callback )
+WRITE_LINE_MEMBER( apricot_state::i8086_lock_w )
 {
-	// i86 lock is connected to the sio m1 input, simulate this
-	if (m_sio_irq)
-		m_sio->m1_r();
-
-	return m_pic->acknowledge();
+	m_bus_locked = state;
 }
 
 
@@ -322,8 +328,7 @@ IRQ_CALLBACK_MEMBER( apricot_state::irq_callback )
 //**************************************************************************
 
 static ADDRESS_MAP_START( apricot_mem, AS_PROGRAM, 16, apricot_state )
-//  AM_RANGE(0x00000, 0x3ffff) AM_RAMBANK("standard_ram")
-//  AM_RANGE(0x40000, 0xeffff) AM_RAMBANK("expansion_ram")
+	AM_RANGE(0x00000, 0x3ffff) AM_RAMBANK("ram")
 	AM_RANGE(0xf0000, 0xf0fff) AM_MIRROR(0x7000) AM_RAM AM_SHARE("screen_buffer")
 	AM_RANGE(0xfc000, 0xfffff) AM_MIRROR(0x4000) AM_ROM AM_REGION("bootstrap", 0)
 ADDRESS_MAP_END
@@ -334,7 +339,10 @@ static ADDRESS_MAP_START( apricot_io, AS_IO, 16, apricot_state )
 	AM_RANGE(0x48, 0x4f) AM_DEVREADWRITE8("ic17", i8255_device, read, write, 0x00ff)
 	AM_RANGE(0x50, 0x51) AM_MIRROR(0x06) AM_DEVWRITE8("ic7", sn76489_device, write, 0x00ff)
 	AM_RANGE(0x58, 0x5f) AM_DEVREADWRITE8("ic16", pit8253_device, read, write, 0x00ff)
-	AM_RANGE(0x60, 0x67) AM_DEVREADWRITE8("ic15", z80sio0_device, ba_cd_r, ba_cd_w, 0x00ff)
+	AM_RANGE(0x60, 0x61) AM_DEVREADWRITE8("ic15", z80sio0_device, da_r, da_w, 0x00ff)
+	AM_RANGE(0x62, 0x63) AM_READ8(sio_ca_r, 0x00ff) AM_DEVWRITE8("ic15", z80sio0_device, ca_w, 0x00ff)
+	AM_RANGE(0x64, 0x65) AM_DEVREADWRITE8("ic15", z80sio0_device, db_r, db_w, 0x00ff)
+	AM_RANGE(0x66, 0x67) AM_READ8(sio_cb_r, 0x00ff) AM_DEVWRITE8("ic15", z80sio0_device, cb_w, 0x00ff)
 	AM_RANGE(0x68, 0x69) AM_MIRROR(0x04) AM_DEVWRITE8("ic30", mc6845_device, address_w, 0x00ff)
 	AM_RANGE(0x6a, 0x6b) AM_MIRROR(0x04) AM_DEVREADWRITE8("ic30", mc6845_device, register_r, register_w, 0x00ff)
 	AM_RANGE(0x70, 0x71) AM_MIRROR(0x04) AM_WRITE8(i8089_ca1_w, 0x00ff)
@@ -352,7 +360,8 @@ static MACHINE_CONFIG_START( apricot, apricot_state )
 	MCFG_CPU_ADD("ic91", I8086, XTAL_15MHz / 3)
 	MCFG_CPU_PROGRAM_MAP(apricot_mem)
 	MCFG_CPU_IO_MAP(apricot_io)
-	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(apricot_state, irq_callback)
+	MCFG_CPU_IRQ_ACKNOWLEDGE_DEVICE("ic31", pic8259_device, inta_cb)
+	MCFG_I8086_LOCK_HANDLER(WRITELINE(apricot_state, i8086_lock_w))
 
 	// i/o cpu
 	MCFG_CPU_ADD("ic71", I8089, XTAL_15MHz / 3)
@@ -361,6 +370,10 @@ static MACHINE_CONFIG_START( apricot, apricot_state )
 	MCFG_I8089_DATABUS_WIDTH(16)
 	MCFG_I8089_SINTR1(DEVWRITELINE("ic31", pic8259_device, ir0_w))
 	MCFG_I8089_SINTR2(DEVWRITELINE("ic31", pic8259_device, ir1_w))
+
+	// ram
+	MCFG_RAM_ADD(RAM_TAG)
+	MCFG_RAM_DEFAULT_SIZE("256k")
 
 	// video hardware
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -381,11 +394,6 @@ static MACHINE_CONFIG_START( apricot, apricot_state )
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_SOUND_ADD("ic7", SN76489, XTAL_4MHz / 2)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-
-	// internal ram
-	MCFG_RAM_ADD(RAM_TAG)
-	MCFG_RAM_DEFAULT_SIZE("256k")
-	MCFG_RAM_EXTRA_OPTIONS("384k,512k") // with 1 or 2 128k expansion boards
 
 	// devices
 	MCFG_DEVICE_ADD("ic17", I8255A, 0)
@@ -410,18 +418,23 @@ static MACHINE_CONFIG_START( apricot, apricot_state )
 	MCFG_Z80DART_OUT_DTRA_CB(DEVWRITELINE("rs232", rs232_port_device, write_dtr))
 	MCFG_Z80DART_OUT_RTSA_CB(DEVWRITELINE("rs232", rs232_port_device, write_rts))
 	MCFG_Z80DART_OUT_WRDYA_CB(DEVWRITELINE("ic71", i8089_device, drq2_w))
+	MCFG_Z80DART_OUT_TXDB_CB(DEVWRITELINE("keyboard", apricot_keyboard_hle_device, rxd_w))
 	MCFG_Z80DART_OUT_DTRB_CB(WRITELINE(apricot_state, data_selector_dtr_w))
 	MCFG_Z80DART_OUT_RTSB_CB(WRITELINE(apricot_state, data_selector_rts_w))
-	MCFG_Z80DART_OUT_INT_CB(WRITELINE(apricot_state, sio_int_w))
+	MCFG_Z80DART_OUT_INT_CB(DEVWRITELINE("ic31", pic8259_device, ir5_w))
 
 	// rs232 port
 	MCFG_RS232_PORT_ADD("rs232", default_rs232_devices, NULL)
 // note: missing a receive clock callback to support external clock mode
 // (m_data_selector_rts == 1 and m_data_selector_dtr == 0)
-	MCFG_RS232_RXD_HANDLER(DEVWRITELINE("ic15", z80dart_device, rxa_w))
-	MCFG_RS232_DCD_HANDLER(DEVWRITELINE("ic15", z80dart_device, dcda_w))
-	MCFG_RS232_DSR_HANDLER(DEVWRITELINE("ic15", z80dart_device, synca_w))
-	MCFG_RS232_CTS_HANDLER(DEVWRITELINE("ic15", z80dart_device, ctsa_w))
+	MCFG_RS232_RXD_HANDLER(DEVWRITELINE("ic15", z80sio0_device, rxa_w))
+	MCFG_RS232_DCD_HANDLER(DEVWRITELINE("ic15", z80sio0_device, dcda_w))
+	MCFG_RS232_DSR_HANDLER(DEVWRITELINE("ic15", z80sio0_device, synca_w))
+	MCFG_RS232_CTS_HANDLER(DEVWRITELINE("ic15", z80sio0_device, ctsa_w))
+
+	// keyboard (hle)
+	MCFG_APRICOT_KEYBOARD_ADD("keyboard")
+	MCFG_APRICOT_KEYBOARD_TXD_HANDLER(DEVWRITELINE("ic15", z80sio0_device, rxb_w))
 
 	// centronics printer
 	MCFG_CENTRONICS_ADD("centronics", centronics_devices, "printer")
@@ -441,6 +454,11 @@ static MACHINE_CONFIG_START( apricot, apricot_state )
 	MCFG_WD_FDC_DRQ_CALLBACK(DEVWRITELINE("ic71", i8089_device, drq1_w))
 	MCFG_FLOPPY_DRIVE_ADD("ic68:0", apricot_floppies, "d32w", apricot_state::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD("ic68:1", apricot_floppies, "d32w", apricot_state::floppy_formats)
+
+	// expansion bus
+	MCFG_EXPANSION_ADD("exp", "ic91")
+	MCFG_EXPANSION_SLOT_ADD("exp:1", apricot_expansion_cards, NULL)
+	MCFG_EXPANSION_SLOT_ADD("exp:2", apricot_expansion_cards, NULL)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( apricotxi, apricot )
