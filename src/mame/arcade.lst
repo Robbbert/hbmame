@@ -1901,6 +1901,7 @@ geostorm        // (c) 1994 Irem (Japan)
 airass          // (c) 1993 Irem (World)
 firebarr        // (c) 1993 Irem (Japan)
 dsoccr94        // (c) 1994 Irem (Data East Corporation license)
+dsoccr94k		//
 kftgoal         // (c) 1994 Jaleco
 wpksoc          // (c) 1995 Jaleco
 
@@ -4608,8 +4609,9 @@ cottonja        // (c) 1990 (FD1094)
 ddux            // (c) 1989 (FD1094)
 dduxj           // (c) 1989 (FD1094)
 ddux1           // (c) 1989 (8751)
-dunkshot        // (c) 1986 (FD1094)
-dunkshoto       // (c) 1986 (FD1094)
+dunkshot        // (c) 1986 (FD1089A)
+dunkshota       // (c) 1986 (FD1089A)
+dunkshoto       // (c) 1986 (FD1089A)
 eswat           // (c) 1989 (FD1094)
 eswatu          // (c) 1989 (FD1094)
 eswatj          // (c) 1989 (FD1094)
@@ -4841,6 +4843,9 @@ mahmajn         // 1992.12 Tokorosan no Mahmahjong (Japan)
 quizmeku        // 1993.05 Quiz Mekurumeku Story (Japan)
 mahmajn2        // 1994.05 Tokorosan no Mahmahjong 2 (Japan)
 qgh             // 1994.09 Quiz Ghost Hunter
+
+// M1 board
+bingpty			// ?
 
 // Sega System 32 games
 radm            // 1991.?? Rad Mobile (World)
@@ -7504,7 +7509,7 @@ mechattu        // A8002 'MA' (c) 1989
 mechattu1       // A8002 'MA' (c) 1989
 bbusters        // A9003 'BB' (c) 1989
 bbustersu       // A9003 'BB' (c) 1989
-bbustersu3      // A9003 'BB' (c) 1989
+bbustersua      // A9003 'BB' (c) 1989
 
 // Electrocoin on early SNK hardware
 dmndrby         // G4001 'DD' (c) 1986
@@ -9663,6 +9668,7 @@ htengoku        // 1992 Dynax
 cdracula        // 1994 Y.S.E.
 mjreach         // 1994 Dynax
 mjdialq2        // "52" (c) 1991 Dynax
+mjdialq2a       // "52" (c) 1991 Dynax
 yarunara        // "55" Mahjong Yarunara 1991 Dynax
 mjangels        // "61" Mahjong Angels 1991 Dynax
 quiztvqq        // "64" Quiz TV Gassyuukoku Q&Q 1992 Dynax
@@ -9724,6 +9730,7 @@ pkgnsh          // "505" Pachinko Gindama Shoubu 1998 (Japan)
 pkgnshdx        // "522" Pachinko Gindama Shoubu DX 1998 (Japan)
 
 hjingi          // "???" 1990 Dynax
+hjingia         // "???" 1990 Dynax
 hanayara        // "???"
 mjelctrn        // "???" Mahjong Electron Base parts 2 & 4
 mjelct3         // "???" Mahjong Electron Base parts 2 & 3
