@@ -570,6 +570,7 @@ static MACHINE_CONFIG_DERIVED( wofh, cps1frog )
 
 	MCFG_CPU_REPLACE("audiocpu", Z80, XTAL_8MHz)  /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(qsound_s_map)
+	MCFG_CPU_DECRYPTED_OPCODES_MAP(qsound_decrypted_opcodes_map)
 	MCFG_CPU_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250)    /* ?? */
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
@@ -2541,7 +2542,7 @@ GAME( 2012, wofzero,   wof,      qsound,     wof,      cps_state, wof,      ROT0
 DRIVER_INIT_MEMBER( cps_state, dinoeh )
 {
 	machine().device("maincpu")->memory().space(AS_PROGRAM).install_write_handler(0x800180, 0x800181, write16_delegate(FUNC(cps_state::dinoh_sound_command_w),this));	
-	dino_decode(machine());	
+	kabuki_setup(dino_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 
@@ -2639,7 +2640,7 @@ DRIVER_INIT_MEMBER( cps_state, dinohb )
 	mem8[0xaaa6c] = 0xD8;
 	mem8[0xaaa6d] = 0x00;
 
-	dino_decode(machine());
+	kabuki_setup(dino_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 
@@ -2845,7 +2846,7 @@ DRIVER_INIT_MEMBER( cps_state, punishrb )
 	mem8[0x14F6A] = 0x0;
 	mem8[0x14F6D] = 0x1;
 
-	punisher_decode(machine());
+	kabuki_setup(punisher_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 #if 0
@@ -2970,7 +2971,7 @@ DRIVER_INIT_MEMBER( cps_state, wofb )
 	mem8[0x5D238] = 0x0;
 	mem8[0x5D23B] = 0x1;
 
-	wof_decode(machine());
+	kabuki_setup(wof_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 
@@ -3040,7 +3041,7 @@ DRIVER_INIT_MEMBER( cps_state, wofsjb )
 	mem8[0x72B9] = 0x0C;
 	/* enable coin slots 1 and 2 */
 	mem8[0x71bc] = 0x0c;
-	wof_decode(machine());
+	kabuki_setup(wof_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 
@@ -3061,7 +3062,7 @@ DRIVER_INIT_MEMBER( cps_state, wof3js )
 	mem8[0x5A59] = 0x11;
 	mem8[0x5A5A] = 0x11;
 	mem8[0x5A5B] = 0x00;
-	wof_decode(machine());
+	kabuki_setup(wof_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 
@@ -3186,7 +3187,7 @@ DRIVER_INIT_MEMBER( cps_state, wofh )
 	mem8[0x5E828] = 0x00;
 	mem8[0x5E82A] = 0x20;
 	mem8[0x5E82B] = 0x5A;
-	wof_decode(machine());
+	kabuki_setup(wof_decode);
 	DRIVER_INIT_CALL(cps1);
 }
 
@@ -3304,6 +3305,6 @@ DRIVER_INIT_MEMBER( cps_state, wof3sj )
 	mem8[0x5EE66] = 0x00;
 	mem8[0x5EE68] = 0x20;
 	mem8[0x5EE69] = 0x5A;
-	wof_decode(machine());
+	kabuki_setup(wof_decode);
 	DRIVER_INIT_CALL(cps1);
 }

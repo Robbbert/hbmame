@@ -1,11 +1,11 @@
 #include "../mame/drivers/cps2.c"
 
 static ADDRESS_MAP_START( suicide_map, AS_PROGRAM, 16, cps_state )
-	AM_IMPORT_FROM(cps2_map)
+	AM_IMPORT_FROM(dead_cps2_map)
 	AM_RANGE(0x700000, 0x701fff) AM_READ(cps2_objram1_r)		/* Object RAM, used by Razoola Suicide tester */
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( suicide, cps2 )
+static MACHINE_CONFIG_DERIVED( suicide, dead_cps2 )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(suicide_map)
 MACHINE_CONFIG_END

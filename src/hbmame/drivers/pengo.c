@@ -1,7 +1,7 @@
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "machine/segacrpt.h"
-#include "pacman.h"
+#include "includes/pacman.h"
 #include "sound/namco.h"
 
 
@@ -18,17 +18,31 @@
 #define VBEND				(0)		/*(16)*/
 #define VBSTART				(224)	/*(224+16)*/
 
+class pengo_state : public pacman_state
+{
+public:
+	pengo_state(const machine_config &mconfig, device_type type, const char *tag)
+		: pacman_state(mconfig, type, tag), m_decrypted_opcodes(*this, "decrypted_opcodes") { }
+	//DECLARE_WRITE8_MEMBER(pengo_coin_counter_w);
+	//DECLARE_WRITE8_MEMBER(irq_mask_w);
+	//DECLARE_DRIVER_INIT(penta);
+	DECLARE_DRIVER_INIT(pengo);
+	//INTERRUPT_GEN_MEMBER(vblank_irq);
+
+	optional_shared_ptr<UINT8> m_decrypted_opcodes;
+};
+
 /*************************************
  *
  *  Main CPU memory handlers
  *
  *************************************/
 
-static ADDRESS_MAP_START( pengo_map, AS_PROGRAM, 8, pacman_state )
+static ADDRESS_MAP_START( pengo_map, AS_PROGRAM, 8, pengo_state )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0x83ff) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram") /* video and color RAM, scratchpad RAM, sprite codes */
 	AM_RANGE(0x8400, 0x87ff) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x8800, 0x8fef) AM_RAM
+	AM_RANGE(0x8800, 0x8fef) AM_RAM AM_SHARE("mainram")
 	AM_RANGE(0x8ff0, 0x8fff) AM_RAM AM_SHARE("spriteram")
 	AM_RANGE(0x9000, 0x901f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x9020, 0x902f) AM_WRITEONLY AM_SHARE("spriteram2")
@@ -46,6 +60,11 @@ static ADDRESS_MAP_START( pengo_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x90c0, 0x90ff) AM_READ_PORT("IN0")
 ADDRESS_MAP_END
 
+static ADDRESS_MAP_START( decrypted_opcodes_map, AS_DECRYPTED_OPCODES, 8, pengo_state )
+	AM_RANGE(0x0000, 0x7fff) AM_ROM AM_SHARE("decrypted_opcodes")
+	AM_RANGE(0x8800, 0x8fef) AM_RAM AM_SHARE("mainram")
+	AM_RANGE(0x8ff0, 0x8fff) AM_RAM AM_SHARE("spriteram")
+ADDRESS_MAP_END
 
 /*************************************
  *
@@ -188,11 +207,12 @@ GFXDECODE_END
  *
  *************************************/
 
-static MACHINE_CONFIG_START( pengo, pacman_state )
+static MACHINE_CONFIG_START( pengo, pengo_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD ("maincpu", Z80, MASTER_CLOCK/6)
 	MCFG_CPU_PROGRAM_MAP(pengo_map)
+	MCFG_CPU_DECRYPTED_OPCODES_MAP(decrypted_opcodes_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", pacman_state, irq0_line_hold)
 
 	/* video hardware */
@@ -213,6 +233,10 @@ static MACHINE_CONFIG_START( pengo, pacman_state )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
+static MACHINE_CONFIG_DERIVED( pengou, pengo )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_DEVICE_REMOVE_ADDRESS_MAP(AS_DECRYPTED_OPCODES)
+MACHINE_CONFIG_END
 
 /*************************************
  *
@@ -254,9 +278,31 @@ ROM_END
  *
  *************************************/
 
-DRIVER_INIT_MEMBER( pacman_state, pengo )
+DRIVER_INIT_MEMBER(pengo_state,pengo)
 {
-	pengo_decode(machine(), "maincpu");
+	static const UINT8 convtable[32][4] =
+	{
+		/*       opcode                   data                     address      */
+		/*  A    B    C    D         A    B    C    D                           */
+		{ 0xa0,0x80,0xa8,0x88 }, { 0x28,0xa8,0x08,0x88 },   /* ...0...0...0...0 */
+		{ 0x28,0xa8,0x08,0x88 }, { 0xa0,0x80,0xa8,0x88 },   /* ...0...0...0...1 */
+		{ 0xa0,0x80,0x20,0x00 }, { 0xa0,0x80,0x20,0x00 },   /* ...0...0...1...0 */
+		{ 0x08,0x28,0x88,0xa8 }, { 0xa0,0x80,0xa8,0x88 },   /* ...0...0...1...1 */
+		{ 0x08,0x00,0x88,0x80 }, { 0x28,0xa8,0x08,0x88 },   /* ...0...1...0...0 */
+		{ 0xa0,0x80,0x20,0x00 }, { 0x08,0x00,0x88,0x80 },   /* ...0...1...0...1 */
+		{ 0xa0,0x80,0x20,0x00 }, { 0xa0,0x80,0x20,0x00 },   /* ...0...1...1...0 */
+		{ 0xa0,0x80,0x20,0x00 }, { 0x00,0x08,0x20,0x28 },   /* ...0...1...1...1 */
+		{ 0x88,0x80,0x08,0x00 }, { 0xa0,0x80,0x20,0x00 },   /* ...1...0...0...0 */
+		{ 0x88,0x80,0x08,0x00 }, { 0x00,0x08,0x20,0x28 },   /* ...1...0...0...1 */
+		{ 0x08,0x28,0x88,0xa8 }, { 0x08,0x28,0x88,0xa8 },   /* ...1...0...1...0 */
+		{ 0xa0,0x80,0xa8,0x88 }, { 0xa0,0x80,0x20,0x00 },   /* ...1...0...1...1 */
+		{ 0x08,0x00,0x88,0x80 }, { 0x88,0x80,0x08,0x00 },   /* ...1...1...0...0 */
+		{ 0x00,0x08,0x20,0x28 }, { 0x88,0x80,0x08,0x00 },   /* ...1...1...0...1 */
+		{ 0x08,0x28,0x88,0xa8 }, { 0x08,0x28,0x88,0xa8 },   /* ...1...1...1...0 */
+		{ 0x08,0x00,0x88,0x80 }, { 0xa0,0x80,0x20,0x00 }    /* ...1...1...1...1 */
+	};
+
+	sega_decode(memregion("maincpu")->base(), m_decrypted_opcodes, 0x8000, convtable);
 }
 
 
@@ -267,7 +313,7 @@ DRIVER_INIT_MEMBER( pacman_state, pengo )
  *
  *************************************/
 
-GAME( 1982, pengo, 0, pengo, pengo, pacman_state, pengo, ROT90, "Sega", "Pengo (set 1 rev c)", 0 )
+GAME( 1982, pengo, 0, pengo, pengo, pengo_state, pengo, ROT90, "Sega", "Pengo (set 1 rev c)", 0 )
 
 
 /* The colours for alpacap7 and alpacap8 are completely wrong, but we are using the roms specified by
@@ -363,7 +409,7 @@ ROM_START( vecpengo )
 ROM_END
 
 
-GAME( 2003, alpacap7, alpaca8, pengo, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", GAME_IMPERFECT_COLORS )
-GAME( 2003, alpacap8, alpaca8, pengo, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", GAME_IMPERFECT_COLORS )
-GAME( 1997, pengopop, pengo,   pengo, pengo, driver_device, 0,     ROT90, "Sega", "Pengo (Popcorn Music)", 0 )
-GAME( 2000, vecpengo, pengo,   pengo, pengo, pacman_state,  pengo, ROT90, "T-Bone", "Pengo (Vector sim)", 0 )
+GAME( 2003, alpacap7, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", GAME_IMPERFECT_COLORS )
+GAME( 2003, alpacap8, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", GAME_IMPERFECT_COLORS )
+GAME( 1997, pengopop, pengo,   pengou, pengo, driver_device, 0,     ROT90, "Sega", "Pengo (Popcorn Music)", 0 )
+GAME( 2000, vecpengo, pengo,   pengo,  pengo, pengo_state,   pengo, ROT90, "T-Bone", "Pengo (Vector sim)", 0 )

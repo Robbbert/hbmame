@@ -200,25 +200,22 @@ MACHINE_CONFIG_END
 
 void pacman_state::maketrax_rom_decode()
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	UINT8 *decrypted = auto_alloc_array(machine(), UINT8, 0x4000);
 	UINT8 *rom = memregion("maincpu")->base();
 
 	/* patch protection using a copy of the opcodes so ROM checksum */
 	/* tests will not fail */
-	space.set_decrypted_region(0x0000, 0x3fff, decrypted);
 
-	memcpy(decrypted,rom,0x4000);
+	memcpy(m_patched_opcodes,rom,0x4000);
 
-	decrypted[0x0415] = 0xc9;
-	decrypted[0x1978] = 0x18;
-	decrypted[0x238e] = 0xc9;
-	decrypted[0x3ae5] = 0xe6;
-	decrypted[0x3ae7] = 0x00;
-	decrypted[0x3ae8] = 0xc9;
-	decrypted[0x3aed] = 0x86;
-	decrypted[0x3aee] = 0xc0;
-	decrypted[0x3aef] = 0xb0;
+	m_patched_opcodes[0x0415] = 0xc9;
+	m_patched_opcodes[0x1978] = 0x18;
+	m_patched_opcodes[0x238e] = 0xc9;
+	m_patched_opcodes[0x3ae5] = 0xe6;
+	m_patched_opcodes[0x3ae7] = 0x00;
+	m_patched_opcodes[0x3ae8] = 0xc9;
+	m_patched_opcodes[0x3aed] = 0x86;
+	m_patched_opcodes[0x3aee] = 0xc0;
+	m_patched_opcodes[0x3aef] = 0xb0;
 }
 
 DRIVER_INIT_MEMBER(pacman_state,maketrax)
@@ -747,7 +744,7 @@ GAME( 2003, seq2,     seq1, 	pachack,  pacman0,  driver_device, 0,        ROT90,
 /* Other Misc Hacks */
 
 GAME( 2002, crashh,   0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "hack", "Crash", GAME_SUPPORTS_SAVE )
-GAME( 1981, mtturbo,  0,	pacman,   maketrax, pacman_state,  maketrax, ROT270,"Tim Arcadecollecting", "Make Trax (Turbo Hack)", GAME_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
+GAME( 1981, mtturbo,  0,	pacmanp,  maketrax, pacman_state,  maketrax, ROT270,"Tim Arcadecollecting", "Make Trax (Turbo Hack)", GAME_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
 GAME( 1999, tst_pacm, 0,        pacman,   mspacpls, driver_device, 0,        ROT90, "David Caldwell", "Test - Pacman Hardware", GAME_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
 
 /* Other misc unemulated dumps */
