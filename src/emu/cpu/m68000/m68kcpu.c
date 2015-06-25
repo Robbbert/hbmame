@@ -958,6 +958,7 @@ void m68000_base_device::init_cpu_common(void)
 
 	//this = device;//deviceparam;
 	program = &space(AS_PROGRAM);
+	oprogram = has_space(AS_DECRYPTED_OPCODES) ? &space(AS_DECRYPTED_OPCODES) : program;
 	int_ack_callback = device_irq_acknowledge_delegate(FUNC(m68000_base_device::standard_irq_callback_member), this);
 
 	/* disable all MMUs */
@@ -1232,12 +1233,6 @@ void m68000_base_device::state_string_export(const device_state_entry &entry, st
 
 /* global access */
 
-void m68000_base_device::set_encrypted_opcode_range(offs_t start, offs_t end)
-{
-	encrypted_start = start;
-	encrypted_end = end;
-}
-
 void m68000_base_device::set_hmmu_enable(int enable)
 {
 	hmmu_enabled = enable;
@@ -1254,13 +1249,15 @@ void m68000_base_device::set_instruction_hook(read32_delegate ihook)
 
 UINT16 m68000_base_device::m68008_read_immediate_16(offs_t address)
 {
-	return (m_direct->read_decrypted_byte(address) << 8) | (m_direct->read_decrypted_byte(address + 1));
+	return (m_odirect->read_byte(address) << 8) | (m_odirect->read_byte(address + 1));
 }
 
-void m68000_base_device::init8(address_space &space)
+void m68000_base_device::init8(address_space &space, address_space &ospace)
 {
 	m_space = &space;
 	m_direct = &space.direct();
+	m_ospace = &ospace;
+	m_odirect = &ospace.direct();
 //  m_cpustate = this;
 	opcode_xor = 0;
 
@@ -1279,12 +1276,12 @@ void m68000_base_device::init8(address_space &space)
 
 UINT16 m68000_base_device::read_immediate_16(offs_t address)
 {
-	return m_direct->read_decrypted_word((address), opcode_xor);
+	return m_odirect->read_word((address), opcode_xor);
 }
 
 UINT16 m68000_base_device::simple_read_immediate_16(offs_t address)
 {
-	return m_direct->read_decrypted_word(address);
+	return m_odirect->read_word(address);
 }
 
 void m68000_base_device::m68000_write_byte(offs_t address, UINT8 data)
@@ -1294,10 +1291,13 @@ void m68000_base_device::m68000_write_byte(offs_t address, UINT8 data)
 	m_space->write_word(address & ~1, data | (data << 8), masks[address & 1]);
 }
 
-void m68000_base_device::init16(address_space &space)
+void m68000_base_device::init16(address_space &space, address_space &ospace)
 {
 	m_space = &space;
 	m_direct = &space.direct();
+	m_ospace = &ospace;
+	m_odirect = &ospace.direct();
+
 	opcode_xor = 0;
 
 	readimm16 = m68k_readimm16_delegate(FUNC(m68000_base_device::simple_read_immediate_16), this);
@@ -1318,10 +1318,12 @@ void m68000_base_device::init16(address_space &space)
  ****************************************************************************/
 
 /* interface for 32-bit data bus (68EC020, 68020) */
-void m68000_base_device::init32(address_space &space)
+void m68000_base_device::init32(address_space &space, address_space &ospace)
 {
 	m_space = &space;
 	m_direct = &space.direct();
+	m_ospace = &ospace;
+	m_odirect = &ospace.direct();
 	opcode_xor = WORD_XOR_BE(0);
 
 	readimm16 = m68k_readimm16_delegate(FUNC(m68000_base_device::read_immediate_16), this);
@@ -1370,7 +1372,7 @@ UINT16 m68000_base_device::read_immediate_16_mmu(offs_t address)
 		}
 	}
 
-	return m_direct->read_decrypted_word((address), opcode_xor);
+	return m_odirect->read_word((address), opcode_xor);
 }
 
 /* potentially misaligned 16-bit reads with a 32-bit data bus (and 24-bit address bus) */
@@ -1535,10 +1537,12 @@ void m68000_base_device::writelong_d32_mmu(offs_t address, UINT32 data)
 	m_space->write_byte(address + 3, data);
 }
 
-void m68000_base_device::init32mmu(address_space &space)
+void m68000_base_device::init32mmu(address_space &space, address_space &ospace)
 {
 	m_space = &space;
 	m_direct = &space.direct();
+	m_ospace = &ospace;
+	m_odirect = &ospace.direct();
 	opcode_xor = WORD_XOR_BE(0);
 
 	readimm16 = m68k_readimm16_delegate(FUNC(m68000_base_device::read_immediate_16_mmu), this);
@@ -1579,7 +1583,7 @@ UINT16 m68000_base_device::read_immediate_16_hmmu(offs_t address)
 		address = hmmu_translate_addr(this, address);
 	}
 
-	return m_direct->read_decrypted_word((address), opcode_xor);
+	return m_odirect->read_word((address), opcode_xor);
 }
 
 /* potentially misaligned 16-bit reads with a 32-bit data bus (and 24-bit address bus) */
@@ -1661,10 +1665,12 @@ void m68000_base_device::writelong_d32_hmmu(offs_t address, UINT32 data)
 	m_space->write_byte(address + 3, data);
 }
 
-void m68000_base_device::init32hmmu(address_space &space)
+void m68000_base_device::init32hmmu(address_space &space, address_space &ospace)
 {
 	m_space = &space;
 	m_direct = &space.direct();
+	m_ospace = &ospace;
+	m_odirect = &ospace.direct();
 	opcode_xor = WORD_XOR_BE(0);
 
 	readimm16 = m68k_readimm16_delegate(FUNC(m68000_base_device::read_immediate_16_hmmu), this);
@@ -1782,7 +1788,7 @@ void m68000_base_device::init_cpu_m68000(void)
 	cpu_type         = CPU_TYPE_000;
 //  dasm_type        = M68K_CPU_TYPE_68000;
 
-	init16(*program);
+	init16(*program, *oprogram);
 	sr_mask          = 0xa71f; /* T1 -- S  -- -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[0];
 	cyc_instruction  = m68ki_cycles[0];
@@ -1812,7 +1818,7 @@ void m68000_base_device::init_cpu_m68008(void)
 	cpu_type         = CPU_TYPE_008;
 //  dasm_type        = M68K_CPU_TYPE_68008;
 
-	init8(*program);
+	init8(*program, *oprogram);
 	sr_mask          = 0xa71f; /* T1 -- S  -- -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[0];
 	cyc_instruction  = m68ki_cycles[0];
@@ -1840,7 +1846,7 @@ void m68000_base_device::init_cpu_m68010(void)
 	cpu_type         = CPU_TYPE_010;
 //  dasm_type        = M68K_CPU_TYPE_68010;
 
-	init16(*program);
+	init16(*program, *oprogram);
 	sr_mask          = 0xa71f; /* T1 -- S  -- -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[1];
 	cyc_instruction  = m68ki_cycles[1];
@@ -1867,7 +1873,7 @@ void m68000_base_device::init_cpu_m68020(void)
 	cpu_type         = CPU_TYPE_020;
 //  dasm_type        = M68K_CPU_TYPE_68020;
 
-	init32(*program);
+	init32(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[2];
 	cyc_instruction  = m68ki_cycles[2];
@@ -1900,7 +1906,7 @@ void m68000_base_device::init_cpu_m68020pmmu(void)
 	has_fpu          = 1;
 
 
-	init32mmu(*program);
+	init32mmu(*program, *oprogram);
 }
 
 
@@ -1913,7 +1919,7 @@ void m68000_base_device::init_cpu_m68020hmmu(void)
 	has_fpu  = 1;
 
 
-	init32hmmu(*program);
+	init32hmmu(*program, *oprogram);
 }
 
 void m68000_base_device::init_cpu_m68ec020(void)
@@ -1924,7 +1930,7 @@ void m68000_base_device::init_cpu_m68ec020(void)
 //  dasm_type        = M68K_CPU_TYPE_68EC020;
 
 
-	init32(*program);
+	init32(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[2];
 	cyc_instruction  = m68ki_cycles[2];
@@ -1953,7 +1959,7 @@ void m68000_base_device::init_cpu_m68030(void)
 //  dasm_type        = M68K_CPU_TYPE_68030;
 
 
-	init32mmu(*program);
+	init32mmu(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[3];
 	cyc_instruction  = m68ki_cycles[3];
@@ -1983,7 +1989,7 @@ void m68000_base_device::init_cpu_m68ec030(void)
 //  dasm_type        = M68K_CPU_TYPE_68EC030;
 
 
-	init32(*program);
+	init32(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[3];
 	cyc_instruction  = m68ki_cycles[3];
@@ -2013,7 +2019,7 @@ void m68000_base_device::init_cpu_m68040(void)
 //  dasm_type        = M68K_CPU_TYPE_68040;
 
 
-	init32mmu(*program);
+	init32mmu(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[4];
 	cyc_instruction  = m68ki_cycles[4];
@@ -2042,7 +2048,7 @@ void m68000_base_device::init_cpu_m68ec040(void)
 //  dasm_type        = M68K_CPU_TYPE_68EC040;
 
 
-	init32(*program);
+	init32(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[4];
 	cyc_instruction  = m68ki_cycles[4];
@@ -2071,7 +2077,7 @@ void m68000_base_device::init_cpu_m68lc040(void)
 //  dasm_type        = M68K_CPU_TYPE_68LC040;
 
 
-	init32mmu(*program);
+	init32mmu(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[4];
 	cyc_instruction  = m68ki_cycles[4];
@@ -2107,7 +2113,7 @@ void m68000_base_device::init_cpu_fscpu32(void)
 //  dasm_type        = M68K_CPU_TYPE_FSCPU32;
 
 
-	init32(*program);
+	init32(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[5];
 	cyc_instruction  = m68ki_cycles[5];
@@ -2135,7 +2141,7 @@ void m68000_base_device::init_cpu_coldfire(void)
 //  dasm_type        = M68K_CPU_TYPE_COLDFIRE;
 
 
-	init32(*program);
+	init32(*program, *oprogram);
 	sr_mask          = 0xf71f; /* T1 T0 S  M  -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	jump_table       = m68ki_instruction_jump_table[6];
 	cyc_instruction  = m68ki_cycles[6];
@@ -2332,7 +2338,8 @@ const device_type M68K = &device_creator<m68000_base_device>;
 
 m68000_base_device::m68000_base_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
 	: cpu_device(mconfig, M68K, "M68K", tag, owner, clock, "m68k", __FILE__),
-	m_program_config("program", ENDIANNESS_BIG, 16, 24)
+	  m_program_config("program", ENDIANNESS_BIG, 16, 24),
+	  m_oprogram_config("decrypted_opcodes", ENDIANNESS_BIG, 16, 24)
 {
 	clear_all();
 }
@@ -2343,7 +2350,8 @@ m68000_base_device::m68000_base_device(const machine_config &mconfig, const char
 m68000_base_device::m68000_base_device(const machine_config &mconfig, const char *name, const char *tag, device_t *owner, UINT32 clock,
 										const device_type type, UINT32 prg_data_width, UINT32 prg_address_bits, address_map_constructor internal_map, const char *shortname, const char *source)
 	: cpu_device(mconfig, type, name, tag, owner, clock, shortname, source),
-		m_program_config("program", ENDIANNESS_BIG, prg_data_width, prg_address_bits, 0, internal_map)
+	  m_program_config("program", ENDIANNESS_BIG, prg_data_width, prg_address_bits, 0, internal_map),
+	  m_oprogram_config("decrypted_opcodes", ENDIANNESS_BIG, prg_data_width, prg_address_bits, 0, internal_map)
 {
 	clear_all();
 }
@@ -2352,7 +2360,8 @@ m68000_base_device::m68000_base_device(const machine_config &mconfig, const char
 m68000_base_device::m68000_base_device(const machine_config &mconfig, const char *name, const char *tag, device_t *owner, UINT32 clock,
 										const device_type type, UINT32 prg_data_width, UINT32 prg_address_bits, const char *shortname, const char *source)
 	: cpu_device(mconfig, type, name, tag, owner, clock, shortname, source),
-		m_program_config("program", ENDIANNESS_BIG, prg_data_width, prg_address_bits)
+	  m_program_config("program", ENDIANNESS_BIG, prg_data_width, prg_address_bits),
+	  m_oprogram_config("decrypted_opcodes", ENDIANNESS_BIG, prg_data_width, prg_address_bits)
 {
 	clear_all();
 }
@@ -2445,9 +2454,6 @@ void m68000_base_device::clear_all()
 	m_direct = 0;
 
 
-	encrypted_start = 0;
-	encrypted_end = 0;
-
 	iotemp = 0;
 
 	save_sr = 0;
@@ -2538,12 +2544,12 @@ void m68000_base_device::execute_set_input(int inputnum, int state)
 
 const address_space_config *m68000_base_device::memory_space_config(address_spacenum spacenum) const
 {
-	if (spacenum == AS_PROGRAM)
+	switch(spacenum)
 	{
-		return &m_program_config;
+	case AS_PROGRAM:           return &m_program_config;
+	case AS_DECRYPTED_OPCODES: return has_configured_map(AS_DECRYPTED_OPCODES) ? &m_oprogram_config : NULL;
+	default:                   return NULL;
 	}
-
-	return NULL;
 }
 
 
