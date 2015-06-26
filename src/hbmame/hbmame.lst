@@ -161,11 +161,11 @@ sf2ced		/* hack, Hispanic 990804 */
 sf2ceda		/* hack, Hispanic 990804 */
 sf2ceh		/* hack, Hispanic 990804 */
 sf2koryuh	/* Hack by TT */
-sf2m9		/* Found in Mame Plus */
-sf2m10		/* Found in Mame Plus */
-sf2m11		/* Found in Mame Plus */
-sf2m12		/* Found in Mame Plus */
-sf2m13		/* hack */
+sf2h9		/* Found in Mame Plus */
+sf2h10		/* Found in Mame Plus */
+sf2h11		/* Found in Mame Plus */
+sf2h12		/* Found in Mame Plus */
+sf2h13		/* hack */
 sf2pun		/* Drakon, Punishment Edition v1 Final */
 sf2sl73a	/* Drakon, Sheng Long v7.3a */
 sf2tlona	/* hack, Tu Long set 1 */

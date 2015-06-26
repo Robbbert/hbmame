@@ -470,7 +470,7 @@ The games seem to use them to mark platforms, kill zones and no-go areas.
 // HBMAME extras (from Mameplus then modified)
 
 #define HACK_B_2      -1,   -1,    -1,  -1,  -1,  -1,  0x08, -1,  -1,   0x20,{0x28,0x2a,0x2c,0x2e},0x2a, {0x02,0x04,0x08,0x00,0x00} // wofh etc
-#define HACK_B_3      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x04,{0x12,0x10,0x0e,0x0c},0x0a, {0x02,0x02,0x02,0x00,0x00} // sf2m3, sf2m8, sf2m14
+#define HACK_B_3      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x04,{0x12,0x10,0x0e,0x0c},0x0a, {0x02,0x02,0x02,0x00,0x00} // sf2m3, sf2m8
 #define HACK_B_4      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x30,{0x2e,0x2c,0x2a,0x28},0x26, {0x02,0x04,0x08,0x00,0x00} // not used
 
 // HBMAME extras
@@ -1521,11 +1521,11 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2m9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2m10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2m11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2m12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2m13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"sf2h11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"sf2h12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"sf2h13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
 	{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2sl73a",    CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works

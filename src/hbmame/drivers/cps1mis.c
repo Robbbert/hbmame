@@ -13,7 +13,7 @@ Issues:
 
 - punisherb - transitions
 
-- sf2m14 - same as sf2m3/8 but one rom is a bad dump so the set has been removed. Rom has bit 6 stuck high.
+- sf2h14 - same as sf2m3/8 but one rom is a bad dump so the set has been removed. Rom has bit 6 stuck high.
      ROM_LOAD16_BYTE( "u221.epr", 0x100000, 0x20000, CRC(d8276822) SHA1(8fe5205f21a0243f66582c03ca54d6b079cbd000) )
 
 - wofjhb, wofjhc - not working - could be incorrect roms
@@ -1411,7 +1411,7 @@ ROM_START( sf2koryuh )
 	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
-ROM_START( sf2m9 )
+ROM_START( sf2h9 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_BYTE( "sf3a-1.040", 0x000000, 0x80000, CRC(9e6d058a) SHA1(8c9adca7b65dc929c325c0a62304d24dc0902c08) )
 	ROM_LOAD16_BYTE( "sf3a-3.040", 0x000001, 0x80000, CRC(518d8404) SHA1(635d8ac07126caf3c623d1f28aad38c5bc4c4bae) )
@@ -1441,7 +1441,7 @@ ROM_START( sf2m9 )
 	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
-ROM_START( sf2m10 )
+ROM_START( sf2h10 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_BYTE( "sfu9-1.040", 0x000000, 0x80000, CRC(95306baf) SHA1(471d1578607ae1090aa46cb111a8c2745d1fd47b) )
 	ROM_LOAD16_BYTE( "sfu9-3.040", 0x000001, 0x80000, CRC(21024d5f) SHA1(986b3910ce749f4ad42e1f86537a8fc3f0f3f867) )
@@ -1471,7 +1471,7 @@ ROM_START( sf2m10 )
 	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
-ROM_START( sf2m11 )
+ROM_START( sf2h11 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_BYTE( "sfu7-1.040", 0x000000, 0x80000, CRC(866a9b31) SHA1(92f89084293b69a9d5cd8d282ffaaca0739f1b03) )
 	ROM_LOAD16_BYTE( "sfu7-3.040", 0x000001, 0x80000, CRC(f3a45593) SHA1(0ba0d05f904ac17cd34c0a7c9dd0a20759ff4e78) )
@@ -1501,7 +1501,7 @@ ROM_START( sf2m11 )
 	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
-ROM_START( sf2m12 )
+ROM_START( sf2h12 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_BYTE( "sfu8-1.040", 0x000000, 0x80000, CRC(10ec67fe) SHA1(9eb30a0f64bf29028f89f9af74cb9d840ed197e2) )
 	ROM_LOAD16_BYTE( "sfu8-3.040", 0x000001, 0x80000, CRC(92eb3a1c) SHA1(0ee294c8b82b100f98da697562f9644b71cabcdd) )
@@ -1531,7 +1531,7 @@ ROM_START( sf2m12 )
 	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
-ROM_START( sf2m13 )
+ROM_START( sf2h13 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_BYTE( "222-040.13",   0x000000, 0x80000, CRC(ec6f5cb3) SHA1(24b3fc88a08a721985b053120997090bc394bc8e) )
 	ROM_LOAD16_BYTE( "196-040.13",   0x000001, 0x80000, CRC(0e9ac52b) SHA1(2c5faf7d8b598f2110f389aefa1a02e2281382ee) )
@@ -2494,11 +2494,11 @@ GAME( 2012, sf2ced,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0
 GAME( 2012, sf2ceda,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Hack)", GAME_SUPPORTS_SAVE )   // "ETC"
 GAME( 1999, sf2ceh,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Hispanic 990804)", GAME_SUPPORTS_SAVE )
 GAME( 2013, sf2koryuh, sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Hack by TT)", GAME_SUPPORTS_SAVE )       // 811102 !!! - based on World version
-GAME( 1992, sf2m9,     sf2ce,    cps1_12MHz, sf2,      cps_state, sf2m9,    ROT0,   "Mega Co", "Street Fighter II - Champion Edition (M9, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2m10,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (M10, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2m11,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (M11, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2m12,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (M12, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2m13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2m13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (M13, bootleg)", GAME_SUPPORTS_SAVE )	// bad tile on Blanka
+GAME( 1992, sf2h9,     sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II - Champion Edition (H9, bootleg)", GAME_SUPPORTS_SAVE )
+GAME( 1992, sf2h10,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H10, bootleg)", GAME_SUPPORTS_SAVE )
+GAME( 1992, sf2h11,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H11, bootleg)", GAME_SUPPORTS_SAVE )
+GAME( 1992, sf2h12,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H12, bootleg)", GAME_SUPPORTS_SAVE )
+GAME( 1992, sf2h13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (H13, bootleg)", GAME_SUPPORTS_SAVE )	// bad tile on Blanka
 GAME( 2012, sf2pun,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition v1 Final)", GAME_SUPPORTS_SAVE )         // 920313 - based on World version
 GAME( 2013, sf2sl73a,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", GAME_SUPPORTS_SAVE )         // 920313 - based on World version
 GAME( 1992, sf2tlona,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 1)", GAME_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
@@ -2912,7 +2912,7 @@ DRIVER_INIT_MEMBER( cps_state, sf2m1 )
 	DRIVER_INIT_CALL(cps1);
 }
 #endif
-DRIVER_INIT_MEMBER( cps_state, sf2m9 )
+DRIVER_INIT_MEMBER( cps_state, sf2h9 )
 {
 	/* Patch out protection check */
 	UINT16 *rom = (UINT16 *)memregion("maincpu")->base();	
@@ -2920,7 +2920,7 @@ DRIVER_INIT_MEMBER( cps_state, sf2m9 )
 	DRIVER_INIT_CALL(cps1);
 }
 
-DRIVER_INIT_MEMBER( cps_state, sf2m13 )
+DRIVER_INIT_MEMBER( cps_state, sf2h13 )
 {
 	UINT16 *rom = (UINT16 *)memregion("maincpu")->base();
 
