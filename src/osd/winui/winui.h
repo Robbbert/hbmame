@@ -32,16 +32,16 @@ enum
 enum
 {
 	FILETYPE_INPUT_FILES = 1,
-	FILETYPE_SAVESTATE_FILES = 2,
-	FILETYPE_WAVE_FILES = 3,
-	FILETYPE_AVI_FILES = 4,
-	FILETYPE_MNG_FILES = 5,
-	FILETYPE_EFFECT_FILES = 6,
-	FILETYPE_JOYMAP_FILES = 7,
-	FILETYPE_DEBUGSCRIPT_FILES = 8,
-	FILETYPE_CHEAT_FILE = 9,
-	FILETYPE_HISTORY_FILE = 10,
-	FILETYPE_MAMEINFO_FILE = 11
+	FILETYPE_SAVESTATE_FILES,
+	FILETYPE_WAVE_FILES,
+	FILETYPE_AVI_FILES,
+	FILETYPE_MNG_FILES,
+	FILETYPE_EFFECT_FILES,
+	FILETYPE_JOYMAP_FILES,
+	FILETYPE_DEBUGSCRIPT_FILES,
+	FILETYPE_CHEAT_FILE,
+	FILETYPE_HISTORY_FILE,
+	FILETYPE_MAMEINFO_FILE
 };
 
 
@@ -58,9 +58,6 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd,char *filename, int filetype);
 
 HWND GetMainWindow(void);
 HWND GetTreeView(void);
-HIMAGELIST GetLargeImageList(void);
-HIMAGELIST GetSmallImageList(void);
-int GetNumOptionFolders(void);
 void SetNumOptionFolders(int count);
 void GetRealColumnOrder(int order[]);
 HICON LoadIconFromFile(const char *iconname);
@@ -90,11 +87,9 @@ BOOL GetUseXPControl(void);
 int GetMinimumScreenShotWindowWidth(void);
 
 // we maintain an array of drivers sorted by name, useful all around
-int GetDriverIndex(const game_driver *driver);
 int GetParentIndex(const game_driver *driver);
 int GetParentRomSetIndex(const game_driver *driver);
 int GetGameNameIndex(const char *name);
-int GetIndexFromSortedIndex(int sorted_index);
 
 // sets text in part of the status bar on the main window
 void SetStatusBarText(int part_index, const char *message);

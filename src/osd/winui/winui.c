@@ -273,7 +273,6 @@ static void             RandomSelectBackground(void);
 static void             LoadBackgroundBitmap(void);
 static void             PaintBackgroundImage(HWND hWnd, HRGN hRgn, int x, int y);
 
-static int CLIB_DECL    DriverDataCompareFunc(const void *arg1,const void *arg2);
 static int              GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_subitem);
 
 static void             DisableSelection(void);
@@ -797,13 +796,6 @@ static HTREEITEM prev_drag_drop_target; /* which tree view item we're currently 
 
 static BOOL g_in_treeview_edit = FALSE;
 
-typedef struct
-{
-    const char *name;
-    int index;
-} driver_data_type;
-static driver_data_type *sorted_drivers;
-
 /***************************************************************************
     Global variables
  ***************************************************************************/
@@ -1004,16 +996,6 @@ HWND GetTreeView(void)
 	return hTreeView;
 }
 
-HIMAGELIST GetLargeImageList(void)
-{
-	return hLarge;
-}
-
-HIMAGELIST GetSmallImageList(void)
-{
-	return hSmall;
-}
-
 object_pool *GetMameUIMemoryPool(void)
 {
 	return mameui_pool;
@@ -1191,12 +1173,6 @@ HICON LoadIconFromFile(const char *iconname)
 		}
 	}
 	return hIcon;
-}
-
-/* Return the number of folders with options */
-int GetNumOptionFolders()
-{
-	return optionfolder_count;
 }
 
 /* Return the number of folders with options */
@@ -1527,11 +1503,6 @@ int GetMinimumScreenShotWindowWidth(void)
 }
 
 
-int GetDriverIndex(const game_driver *driver)
-{
-	return GetGameNameIndex(driver->name);
-}
-
 int GetParentIndex(const game_driver *driver)
 {
 	return GetGameNameIndex(driver->parent);
@@ -1552,35 +1523,12 @@ int GetParentRomSetIndex(const game_driver *driver)
 
 int GetGameNameIndex(const char *name)
 {
-	driver_data_type *driver_index_info;
-	driver_data_type key;
-	key.name = name;
-
-	// uses our sorted array of driver names to get the index in log time
-	driver_index_info = (driver_data_type*)bsearch(&key,sorted_drivers,driver_list::total(),sizeof(driver_data_type),
-								DriverDataCompareFunc);
-
-	if (driver_index_info == NULL)
-		return -1;
-
-	return driver_index_info->index;
-
-}
-
-int GetIndexFromSortedIndex(int sorted_index)
-{
-	return sorted_drivers[sorted_index].index;
+	return driver_list::find(name);
 }
 
 /***************************************************************************
     Internal functions
  ***************************************************************************/
-
-// used for our sorted array of game names
-int CLIB_DECL DriverDataCompareFunc(const void *arg1,const void *arg2)
-{
-    return strcmp( ((driver_data_type *)arg1)->name, ((driver_data_type *)arg2)->name );
-}
 
 static void ResetBackground(char *szFile)
 {
@@ -1687,16 +1635,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	// custom per-game icons
 	icon_index = (int*)pool_malloc_lib(mameui_pool, sizeof(int) * driver_list::total());
 	memset(icon_index, '\0', sizeof(int) * driver_list::total());
-
-	// sorted list of drivers by name
-	sorted_drivers = (driver_data_type *) pool_malloc_lib(mameui_pool, sizeof(driver_data_type) * driver_list::total());
-	memset(sorted_drivers, '\0', sizeof(driver_data_type) * driver_list::total());
-	for (i = 0; i < driver_list::total(); i++)
-	{
-		sorted_drivers[i].name = driver_list::driver(i).name;
-		sorted_drivers[i].index = i;
-	}
-	qsort(sorted_drivers, driver_list::total(), sizeof(driver_data_type), DriverDataCompareFunc);
 
 	// set up window class
 	wndclass.style		   = CS_HREDRAW | CS_VREDRAW;
@@ -4702,7 +4640,7 @@ static const TCHAR *GamePicker_GetItemString(HWND hwndPicker, int nItem, int nCo
 			/* Driver description */
 			utf8_s = ModifyThe(driver_list::driver(nItem).description);
 			break;
-		
+
 		case COLUMN_ORIENTATION:
 			utf8_s = DriverIsVertical(nItem) ? "Vertical" : "Horizontal";
 			break;
