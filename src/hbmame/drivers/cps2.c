@@ -33,6 +33,8 @@ ROM_START( ddsomchs )
 	ROM_REGION( 0x400000, "qsound", 0 ) /* QSound samples */
 	ROM_LOAD16_WORD_SWAP( "dd2.11m",   0x000000, 0x200000, CRC(98d0c325) SHA1(7406e8d943d77c468eb418c4113261f4ab973bbf) )
 	ROM_LOAD16_WORD_SWAP( "dd2.12m",   0x200000, 0x200000, CRC(5ea2e7fa) SHA1(0e6a9fd007f637adcb2226c902394f07de45e803) )
+
+	DDSOM_JAPAN_KEY
 ROM_END
 
 ROM_START( suicide )
@@ -54,6 +56,8 @@ ROM_START( suicide )
 	ROM_REGION( 0x400000, "qsound", 0 ) /* QSound samples */
 	ROM_LOAD16_WORD_SWAP( "pzf.11m",   0x000000, 0x200000, CRC(78442743) SHA1(b61190bb586871de6d54af580e3e1d9cc0de0acb) )
 	ROM_LOAD16_WORD_SWAP( "pzf.12m",   0x200000, 0x200000, CRC(399d2c7b) SHA1(e849dea97b8d16540415c0d9bbc4f9f4eb755ec4) )
+
+	CPS2_DEAD_KEY
 ROM_END
 
 GAME( 2014, ddsomchs, ddsom,    cps2,    cps2_4p4b, cps_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (chinese)", GAME_SUPPORTS_SAVE )
