@@ -30,27 +30,37 @@ private:
 };
 #endif
 
-inline void vec_set (const unsigned n, const double &scalar, double * RESTRICT result)
+#ifndef __clang__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
+
+inline void vec_set (const std::size_t n, const double &scalar, double * RESTRICT result)
 {
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 		result[i] = scalar;
 }
+<<<<<<< Upstream, based on branch 'master' of https://github.com/mamedev/mame.git
+#if HAS_OPENMP
+#include "omp.h"
+#endif
+=======
 
-inline double vecmult (const unsigned n, const double * RESTRICT a1, const double * RESTRICT a2 )
+>>>>>>> 96a5dc9 Hopefully fix more "maybes" which maybe popup sometime in the future. Maybe. (nw)
+inline double vecmult (const std::size_t n, const double * RESTRICT a1, const double * RESTRICT a2 )
 {
-	double value = 0.0;
 
-	for ( unsigned i = 0; i < n; i++ )
+	double value = 0.0;
+	for ( std::size_t i = 0; i < n; i++ )
 		value = value + a1[i] * a2[i];
 	return value;
 }
 
 
-inline double vecmult2 (const unsigned n, const double *a1)
+inline double vecmult2 (const std::size_t n, const double *a1)
 {
 	double value = 0.0;
-
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 	{
 		const double temp = a1[i];
 		value = value + temp * temp;
@@ -58,47 +68,48 @@ inline double vecmult2 (const unsigned n, const double *a1)
 	return value;
 }
 
-inline void vec_mult_scalar (const int n, const double * RESTRICT v, const double scalar, double * RESTRICT result)
+inline void vec_mult_scalar (const std::size_t n, const double * RESTRICT v, const double scalar, double * RESTRICT result)
 {
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 	{
 		result[i] = scalar * v[i];
 	}
 }
 
-inline void vec_add_mult_scalar (const int n, const double * RESTRICT v, const double scalar, double * RESTRICT result)
+inline void vec_add_mult_scalar (const std::size_t n, const double * RESTRICT v, const double scalar, double * RESTRICT result)
 {
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 		result[i] += scalar * v[i];
 }
 
-inline void vec_add_ip(const int n, const double * RESTRICT v, double * RESTRICT result)
+inline void vec_add_ip(const std::size_t n, const double * RESTRICT v, double * RESTRICT result)
 {
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 		result[i] += v[i];
 }
 
-inline void vec_sub(const int n, const double * RESTRICT v1, const double * RESTRICT v2, double * RESTRICT result)
+inline void vec_sub(const std::size_t n, const double * RESTRICT v1, const double * RESTRICT v2, double * RESTRICT result)
 {
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 		result[i] = v1[i] - v2[i];
 }
 
-inline void vec_scale (const int n, double * RESTRICT v, const double scalar)
+inline void vec_scale (const std::size_t n, double * RESTRICT v, const double scalar)
 {
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 		v[i] = scalar * v[i];
 }
 
-inline double vec_maxabs(const int n, const double * RESTRICT v)
+inline double vec_maxabs(const std::size_t n, const double * RESTRICT v)
 {
 	double ret = 0.0;
-	for ( unsigned i = 0; i < n; i++ )
+	for ( std::size_t i = 0; i < n; i++ )
 		ret = std::max(ret, std::abs(v[i]));
 
 	return ret;
 }
-
-
+#ifndef __clang__
+#pragma GCC diagnostic pop
+#endif
 
 #endif /* MAT_CR_H_ */
