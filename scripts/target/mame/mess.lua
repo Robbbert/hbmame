@@ -129,6 +129,7 @@ CPUS["HMCS40"] = true
 CPUS["E0C6200"] = true
 CPUS["MELPS4"] = true
 CPUS["HPHYBRID"] = true
+CPUS["SM510"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -2112,6 +2113,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "sharp")
 files {             
+	MAME_DIR .. "src/mess/drivers/hh_sm510.c",
 	MAME_DIR .. "src/mess/video/mz700.c",       
 	MAME_DIR .. "src/mess/drivers/mz700.c",     
 	MAME_DIR .. "src/mess/drivers/pc1500.c",    
