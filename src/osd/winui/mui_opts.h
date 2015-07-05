@@ -275,6 +275,9 @@ void SetLanguage(const char* lang);
 const char* GetRomDirs(void);
 void SetRomDirs(const char* paths);
 
+const char* GetHashDirs(void);
+void SetHashDirs(const char* paths);
+
 const char* GetSampleDirs(void);
 void  SetSampleDirs(const char* paths);
 

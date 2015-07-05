@@ -4591,16 +4591,7 @@ static void LoadBackgroundBitmap()
 		hPALbg = 0;
 	}
 
-	const char* pPath = GetBgDir(); // get full path of bitmap
-
-	char drive[_MAX_DRIVE];
-	char dir[_MAX_DIR];
-	char fname[_MAX_FNAME];
-	char ext[_MAX_EXT];
-
-	_splitpath(pPath, drive, dir, fname, ext);
-
-	if (LoadDIB(fname, &hDIBbg, &hPALbg, BACKGROUND))
+	if (LoadDIBBG(&hDIBbg, &hPALbg))
 	{
 		HDC hDC = GetDC(hwndList);
 		hBackground = DIBToDDB(hDC, hDIBbg, &bmDesc);

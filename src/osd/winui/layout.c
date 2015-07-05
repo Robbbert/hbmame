@@ -90,34 +90,6 @@ extern const FILTER_ITEM g_filterList[] =
 	{ 0 }
 };
 
-extern const DIRECTORYINFO g_directoryInfo[] =
-{
-	{ "ROMs",                  GetRomDirs,      SetRomDirs,      TRUE,  DIRDLG_ROMS },
-	{ "Samples",               GetSampleDirs,   SetSampleDirs,   TRUE,  DIRDLG_SAMPLES },
-	{ "Artwork",               GetArtDir,       SetArtDir,       FALSE, 0 },
-//	{ "Background Images",     GetBgDir,        SetBgDir,        FALSE, 0 },
-	{ "Cabinets",              GetCabinetDir,   SetCabinetDir,   FALSE, 0 },
-	{ "Cheats",                GetCheatDir,     SetCheatDir,     FALSE, DIRDLG_CHEAT },
-	{ "Comment Files",         GetCommentDir,   SetCommentDir,   FALSE, DIRDLG_COMMENT },
-	{ "Config",                GetCfgDir,       SetCfgDir,       FALSE, DIRDLG_CFG },
-	{ "Control Panels",        GetControlPanelDir,SetControlPanelDir, FALSE, 0 },
-	{ "Controller Files",      GetCtrlrDir,     SetCtrlrDir,     FALSE, DIRDLG_CTRLR },
-	{ "Crosshairs",            GetCrosshairDir, SetCrosshairDir, FALSE, 0 },
-	{ "Flyers",                GetFlyerDir,     SetFlyerDir,     FALSE, 0 },
-	{ "Fonts",                 GetFontDir,      SetFontDir,      FALSE, 0 },
-	{ "Hard Drive Difference", GetDiffDir,      SetDiffDir,      FALSE, 0 },
-	{ "Icons",                 GetIconsDir,     SetIconsDir,     FALSE, 0 },
-	{ "Ini Files",             GetIniDir,       SetIniDir,       FALSE, DIRDLG_INI },
-	{ "Input files",           GetInpDir,       SetInpDir,       FALSE, DIRDLG_INP },
-	{ "Marquees",              GetMarqueeDir,   SetMarqueeDir,   FALSE, 0 },
-	{ "NVRAM",                 GetNvramDir,     SetNvramDir,     FALSE, 0 },
-	{ "PCBs",                  GetPcbDir,       SetPcbDir,       FALSE, 0 },
-	{ "Snapshots",             GetImgDir,       SetImgDir,       FALSE, DIRDLG_IMG },
-	{ "State",                 GetStateDir,     SetStateDir,     FALSE, 0 },
-	{ "Titles",                GetTitlesDir,    SetTitlesDir,    FALSE, 0 },
-	{ NULL }
-};
-
 extern const SPLITTERINFO g_splitterInfo[] =
 {
 	{ 0.25,	IDC_SPLITTER,	IDC_TREE,	IDC_LIST,		AdjustSplitter1Rect },

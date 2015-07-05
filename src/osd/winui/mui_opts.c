@@ -1192,6 +1192,17 @@ void SetRomDirs(const char* paths)
 	global.set_value(OPTION_MEDIAPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
+const char* GetHashDirs(void)
+{
+	return global.hash_path();
+}
+
+void SetHashDirs(const char* paths)
+{
+	std::string error_string;
+	global.set_value(OPTION_HASHPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
 const char* GetSampleDirs(void)
 {
 	return global.value(OPTION_SAMPLEPATH);
