@@ -283,6 +283,9 @@ odyssey3  // Magnavox Odyssey 3 / Command Center (prototype)
 // Makerbot
 replica1  // Makerbot Replicator 1 desktop 3d printer
 
+// Metamaquina
+metamaq2  // Metamaquina 2 desktop 3d printer
+
 // Hartung, Watara, ...
 gmaster   // Hartung Gamemaster
 
@@ -2192,6 +2195,7 @@ maniac      // Ideal
 
 // hh_sm510
 ktopgun     // Konami
+gnwmndon    // Nintendo
 
 // hh_tms1k
 mathmagi    // APF
