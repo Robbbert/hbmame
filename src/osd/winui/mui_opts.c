@@ -17,17 +17,17 @@
 #include <commctrl.h>
 
 // standard C headers
+#include <assert.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <math.h>
 #include <direct.h>
+#include <emu.h>
+#include <emuopts.h>
 #include <stddef.h>
 #include <tchar.h>
-#include <assert.h>
 
 // MAME/MAMEUI headers
-#include "emu.h"
-#include "emuopts.h"
 #include "bitmask.h"
 #include "winui.h"
 #include "mui_util.h"
@@ -36,26 +36,15 @@
 #include "mui_opts.h"
 #include "winutf8.h"
 #include "strconv.h"
+#ifdef MESS
+#include "optionsms.h"
+#endif
+#include "drivenum.h"
 #include "game_opts.h"
-
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
 #endif
-
-#undef malloc
-#undef realloc
-#undef free
-
-class winui_options : public core_options
-{
-public:
-	// construction/destruction
-	winui_options();
-
-private:
-	static const options_entry s_option_entries[];
-};
 
 /***************************************************************************
     Internal function prototypes
@@ -63,10 +52,10 @@ private:
 
 // static void LoadFolderFilter(int folder_index,int filters);
 
-static file_error LoadSettingsFile(winui_options &opts, const char *filename);
-static file_error SaveSettingsFile(winui_options &opts, winui_options *baseopts, const char *filename);
-static file_error LoadSettingsFile(windows_options &opts, const char *filename);
-static file_error SaveSettingsFile(windows_options &opts, windows_options *baseopts, const char *filename);
+static void LoadSettingsFile(winui_options &opts, const char *filename);
+static void SaveSettingsFile(winui_options &opts, const char *filename);
+static void LoadSettingsFile(windows_options &opts, const char *filename);
+static void SaveSettingsFile(windows_options &opts, const char *filename);
 
 static void LoadOptionsAndSettings(void);
 
@@ -87,8 +76,7 @@ static const char * EncodeFolderFlags(DWORD value);
 
 static void ResetToDefaults(windows_options &opts, int priority);
 
-static void ui_parse_ini_file(windows_options &opts, const char *name);
-static void remove_all_source_options(void);
+//static void ui_parse_ini_file(windows_options &opts, const char *name);
 
 
 #ifdef _MSC_VER
@@ -99,10 +87,7 @@ static void remove_all_source_options(void);
     Internal defines
  ***************************************************************************/
 
-#define UI_INI_FILENAME					MAMENAME "UI.ini"
-#define CORE_INI_FILENAME				"DIRECTORIES.ini"
-#define GAMEINFO_INI_FILENAME				"GAMEINFO.ini"
-
+#define GAMEINFO_INI_FILENAME				MAMENAME "_g.ini"
 
 #define MUIOPTION_LIST_MODE				"list_mode"
 #define MUIOPTION_CHECK_GAME				"check_game"
@@ -114,10 +99,9 @@ static void remove_all_source_options(void);
 #define MUIOPTION_SCREENSHOT_BORDER_COLOR		"screenshot_bordercolor"
 #define MUIOPTION_INHERIT_FILTER			"inherit_filter"
 #define MUIOPTION_OFFSET_CLONES				"offset_clones"
-#define MUIOPTION_BROADCAST_GAME_NAME			"broadcast_game_name"
-#define MUIOPTION_RANDOM_BACKGROUND			"random_background"
 #define MUIOPTION_DEFAULT_FOLDER_ID			"default_folder_id"
 #define MUIOPTION_SHOW_IMAGE_SECTION			"show_image_section"
+#define MUIOPTION_SHOW_SOFTWARE_SECTION			"show_software_section"
 #define MUIOPTION_SHOW_FOLDER_SECTION			"show_folder_section"
 #define MUIOPTION_HIDE_FOLDERS				"hide_folders"
 #define MUIOPTION_SHOW_STATUS_BAR			"show_status_bar"
@@ -173,6 +157,7 @@ static void remove_all_source_options(void);
 #define MUIOPTION_UI_KEY_VIEW_FULLSCREEN		"ui_key_view_fullscreen"
 #define MUIOPTION_UI_KEY_VIEW_PAGETAB			"ui_key_view_pagetab"
 #define MUIOPTION_UI_KEY_VIEW_PICTURE_AREA		"ui_key_view_picture_area"
+#define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA		"ui_key_view_software_area"
 #define MUIOPTION_UI_KEY_VIEW_STATUS			"ui_key_view_status"
 #define MUIOPTION_UI_KEY_VIEW_TOOLBARS			"ui_key_view_toolbars"
 #define MUIOPTION_UI_KEY_VIEW_TAB_CABINET		"ui_key_view_tab_cabinet"
@@ -182,7 +167,7 @@ static void remove_all_source_options(void);
 #define MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE		"ui_key_view_tab_marquee"
 #define MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT		"ui_key_view_tab_screenshot"
 #define MUIOPTION_UI_KEY_VIEW_TAB_TITLE			"ui_key_view_tab_title"
-#define MUIOPTION_UI_KEY_VIEW_TAB_PCB			"ui_key_view_tab_pcb"
+#define MUIOPTION_UI_KEY_VIEW_TAB_PCB   		"ui_key_view_tab_pcb"
 #define MUIOPTION_UI_KEY_QUIT				"ui_key_quit"
 #define MUIOPTION_UI_JOY_UP				"ui_joy_up"
 #define MUIOPTION_UI_JOY_DOWN				"ui_joy_down"
@@ -202,29 +187,18 @@ static void remove_all_source_options(void);
 #define MUIOPTION_HIDE_MOUSE				"hide_mouse"
 #define MUIOPTION_FULL_SCREEN				"full_screen"
 
-#ifdef MESS
 // Options names
 #define MUIOPTION_DEFAULT_GAME				"default_system"
 #define MUIOPTION_HISTORY_FILE				"sysinfo_file"
 #define MUIOPTION_MAMEINFO_FILE				"messinfo_file"
 // Option values
-#define MUIDEFAULT_SELECTION				"nes"
+#define MUIDEFAULT_SELECTION				"sms"
 #define MUIDEFAULT_SPLITTERS				"152,310,468"
-#define MUIHISTORY_FILE					"sysinfo.dat"
-#define MUIMAMEINFO_FILE				"messinfo.dat"
-#else
-// Options names
-#define MUIOPTION_DEFAULT_GAME				"default_game"
-#define MUIOPTION_HISTORY_FILE				"history_file"
-#define MUIOPTION_MAMEINFO_FILE				"mameinfo_file"
-// Options values
-#define MUIDEFAULT_SELECTION				"puckman"
-#define MUIDEFAULT_SPLITTERS				"152,362"
 #define MUIHISTORY_FILE					"history.dat"
-#define MUIMAMEINFO_FILE				"mameinfo.dat"
-#endif
+#define MUIMAMEINFO_FILE				"messinfo.dat"
 
 #define MUIOPTION_VERSION				"version"
+
 
 
 /***************************************************************************
@@ -243,7 +217,7 @@ static windows_options global;			// Global 'default' options
 
 static game_options game_opts;
 
-// UI options in mameui.ini
+// UI options in MESSui.ini
 const options_entry winui_options::s_option_entries[] =
 {
 	// UI options
@@ -251,7 +225,6 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_VERSION,				"",         OPTION_STRING,                 NULL },
 	{ NULL,						NULL,       OPTION_HEADER,     "DISPLAY STATE OPTIONS" },
 	{ MUIOPTION_DEFAULT_GAME,			MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
-	{ MUIOPTION_DEFAULT_GAME,			"puckman",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_DEFAULT_FOLDER_ID,			"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SHOW_IMAGE_SECTION,			"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_FULL_SCREEN,			"0",        OPTION_BOOLEAN,    NULL },
@@ -259,16 +232,17 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_SHOW_TOOLBAR,			"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_SHOW_STATUS_BAR,			"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_HIDE_FOLDERS,			"",         OPTION_STRING,                 NULL },
-	{ MUIOPTION_SHOW_FOLDER_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_TABS,				"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_TABS,				"marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
-	{ MUIOPTION_HISTORY_TAB,			"0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SHOW_FOLDER_SECTION,		"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_SHOW_TABS,				"0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_TABS,				"flyer, cabinet, marquee, title, cpanel, pcb", OPTION_STRING, NULL },
+	{ MUIOPTION_HISTORY_TAB,			"1",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SHOW_SOFTWARE_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_SORT_COLUMN,			"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SORT_REVERSED,			"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_WINDOW_X,				"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_WINDOW_Y,				"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_WIDTH,			"800",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_HEIGHT,			"600",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_WIDTH,			"640",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_HEIGHT,			"400",      OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_WINDOW_STATE,			"1",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_TEXT_COLOR,				"-1",       OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_CLONE_COLOR,			"-1",       OPTION_INTEGER,                 NULL },
@@ -276,17 +250,15 @@ const options_entry winui_options::s_option_entries[] =
 	/* ListMode needs to be before ColumnWidths settings */
 	{ MUIOPTION_LIST_MODE,				"5",       OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SPLITTERS,				MUIDEFAULT_SPLITTERS, OPTION_STRING,       NULL },
-	{ MUIOPTION_LIST_FONT,				"-8,0,0,0,400,0,0,0,0,0,0,0,0,MS Sans Serif", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_WIDTHS,			"185,78,84,84,64,88,74,108,60,144,84,60", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_ORDER,			"0,2,3,4,5,6,7,8,9,1,10,11", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_SHOWN,			"1,0,1,1,1,1,1,1,1,1,0,0", OPTION_STRING,  NULL },
+	{ MUIOPTION_LIST_FONT,				"-8,0,0,0,400,0,0,0,0,0,0,0,MS Sans Serif", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_WIDTHS,			"185,78,84,84,64,88,74,108,60,144,84,40,40", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_ORDER,			"0,1,2,3,4,5,6,7,8,9,10,11,12", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_SHOWN,			"1,1,1,1,1,1,1,1,1,1,1,1,0", OPTION_STRING,  NULL },
 	{ NULL,						NULL,       OPTION_HEADER,     "INTERFACE OPTIONS" },
 	{ MUIOPTION_LANGUAGE,				"english",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_CHECK_GAME,				"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_JOYSTICK_IN_INTERFACE,		"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_KEYBOARD_IN_INTERFACE,		"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_RANDOM_BACKGROUND,			"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_BROADCAST_GAME_NAME,		"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_HIDE_MOUSE,				"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_INHERIT_FILTER,			"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_OFFSET_CLONES,			"0",        OPTION_BOOLEAN,    NULL },
@@ -332,6 +304,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_UI_KEY_VIEW_FULLSCREEN,		"KEYCODE_F11",                OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PAGETAB,		"KEYCODE_LALT KEYCODE_B",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,		"KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA,		"KEYCODE_LALT KEYCODE_W",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_STATUS,			"KEYCODE_LALT KEYCODE_S",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_TOOLBARS,		"KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,		"KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
@@ -360,6 +333,15 @@ const options_entry winui_options::s_option_entries[] =
 	{ NULL }
 };
 
+#ifdef MESS
+static const options_entry perGameOptions[] =
+{
+	// per game options in messui.ini - to transfer to commentpath
+	{ "_extra_software",         "",         OPTION_STRING,  NULL },
+	{ NULL }
+};
+#endif
+
 static const options_entry filterOptions[] =
 {
 	// filters
@@ -374,14 +356,14 @@ static const options_entry filterOptions[] =
 // (TAB_...)
 static const char *const image_tabs_long_name[MAX_TAB_TYPES] =
 {
-	"Snapshot ",
-	"Flyer ",
-	"Cabinet ",
+	"Snapshot",
+	"Flyer",
+	"Cabinet",
 	"Marquee",
 	"Title",
 	"Control Panel",
 	"PCB",
-	"History ",
+	"History",
 };
 
 static const char *const image_tabs_short_name[MAX_TAB_TYPES] =
@@ -405,93 +387,50 @@ winui_options::winui_options()
 	add_entries(s_option_entries);
 }
 
-/*static void memory_error(const char *message)
-{
-    win_message_box_utf8(NULL, message, NULL, MB_OK);
-    exit(-1);
-}
-*/
-/*
-
-void AddOptions(winui_options *opts, const options_entry *entrylist, BOOL is_global)
-{
-    static const char *blacklist[] =
-    {
-        WINOPTION_SCREEN,
-        WINOPTION_ASPECT,
-        WINOPTION_RESOLUTION,
-        WINOPTION_VIEW
-    };
-    options_entry entries[2];
-    BOOL good_option;
-    int i;
-
-    for ( ; entrylist->name != NULL || (entrylist->flags & OPTION_HEADER); entrylist++)
-    {
-        good_option = TRUE;
-
-        // check blacklist
-        if (entrylist->name != NULL)
-        {
-            for (i = 0; i < ARRAY_LENGTH(blacklist); i++)
-            {
-                if (!strcmp(entrylist->name, blacklist[i]))
-                {
-                    good_option = FALSE;
-                    break;
-                }
-            }
-        }
-#ifndef MESS
-        // if is_global is FALSE, blacklist global options
-        if (entrylist->name && !is_global && IsGlobalOption(entrylist->name))
-            good_option = FALSE;
-#endif
-        if (good_option)
-        {
-            memcpy(entries, entrylist, sizeof(options_entry));
-            memset(&entries[1], 0, sizeof(entries[1]));
-            //options_add_entries(opts, entries);
-        }
-    }
-}
-
-*/
-
 void CreateGameOptions(windows_options &opts, int driver_index)
 {
-	BOOL is_global = (driver_index == OPTIONS_TYPE_GLOBAL);
-	// create the options
-	//opts = options_create(memory_error);
-
-	// add the options
-	//AddOptions(opts, mame_winui_options, is_global);
-	//AddOptions(opts, mame_win_options, is_global);
-
-	// customize certain options
-	if (is_global)
-		opts.set_default_value(OPTION_INIPATH, "ini");
+#ifdef MESS
+	MessSetupGameOptions(opts, driver_index);
+#endif
 }
 
 
 
 BOOL OptionsInit()
 {
-	// create a memory pool for our data
-	//options_memory_pool = pool_alloc_lib(memory_error);
-	//if (!options_memory_pool)
-//      return FALSE;
-
-	// set up the MAME32 settings (these get placed in MAME32ui.ini
-	//settings = options_create(memory_error);
-	//options_add_entries(settings, regSettings);
-
+#ifdef MESS
+	MessSetupSettings(settings);
 
 	// set up per game options
-	game_opts.add_entries();
+	{
+		char buffer[128];
+		int i, j;
+		int game_option_count = 0;
 
+		while(perGameOptions[game_option_count].name)
+			game_option_count++;
+
+		for (i = 0; i < driver_list::total(); i++)
+		{
+			for (j = 0; j < game_option_count; j++)
+			{
+				options_entry entry[2] = { { 0 }, { 0 } };
+				snprintf(buffer, ARRAY_LENGTH(buffer), "%s%s", driver_list::driver(i).name, perGameOptions[j].name);
+
+				entry[0].name = core_strdup(buffer);
+				entry[0].defvalue = perGameOptions[j].defvalue;
+				entry[0].flags = perGameOptions[j].flags;
+				entry[0].description = perGameOptions[j].description;
+				settings.add_entries(entry);
+			}
+		}
+	}
+#endif
+
+	game_opts.add_entries();
 	// set up global options
-	CreateGameOptions(global,OPTIONS_TYPE_GLOBAL);
+//	CreateGameOptions(global,OPTIONS_TYPE_GLOBAL);
+	CreateGameOptions(global, GLOBAL_OPTIONS);
 	// now load the options and settings
 	LoadOptionsAndSettings();
 
@@ -603,11 +542,11 @@ static void options_set_color_default(winui_options &opts, const char *name, COL
 static input_seq *options_get_input_seq(winui_options &opts, const char *name)
 {
 /*  static input_seq seq;
-    const char *seq_string;
+	const char *seq_string;
 
-    seq_string = opts.value( name);
-    input_seq_from_tokens(NULL, seq_string, &seq);  // HACK
-    return &seq;*/
+	seq_string = opts.value( name);
+	input_seq_from_tokens(NULL, seq_string, &seq);  // HACK
+	return &seq;*/
 	return NULL;
 }
 
@@ -726,28 +665,6 @@ BOOL GetOffsetClones(void)
 	return settings.bool_value( MUIOPTION_OFFSET_CLONES);
 }
 
-void SetBroadcast(BOOL broadcast)
-{
-	std::string error_string;
-	settings.set_value(MUIOPTION_BROADCAST_GAME_NAME, broadcast, OPTION_PRIORITY_CMDLINE,error_string);
-}
-
-BOOL GetBroadcast(void)
-{
-	return settings.bool_value( MUIOPTION_BROADCAST_GAME_NAME);
-}
-
-void SetRandomBackground(BOOL random_bg)
-{
-	std::string error_string;
-	settings.set_value(MUIOPTION_RANDOM_BACKGROUND, random_bg, OPTION_PRIORITY_CMDLINE,error_string);
-}
-
-BOOL GetRandomBackground(void)
-{
-	return settings.bool_value( MUIOPTION_RANDOM_BACKGROUND);
-}
-
 void SetSavedFolderID(UINT val)
 {
 	std::string error_string;
@@ -768,6 +685,17 @@ void SetShowScreenShot(BOOL val)
 BOOL GetShowScreenShot(void)
 {
 	return settings.bool_value(MUIOPTION_SHOW_IMAGE_SECTION);
+}
+
+void SetShowSoftware(BOOL val)
+{
+	std::string error_string;
+	settings.set_value(MUIOPTION_SHOW_SOFTWARE_SECTION, val, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+BOOL GetShowSoftware(void)
+{
+	return settings.bool_value(MUIOPTION_SHOW_SOFTWARE_SECTION);
 }
 
 void SetShowFolderList(BOOL val)
@@ -928,8 +856,8 @@ void SetWindowArea(const AREA *area)
 
 void GetWindowArea(AREA *area)
 {
-	area->x      = settings.int_value(MUIOPTION_WINDOW_X);
-	area->y      = settings.int_value(MUIOPTION_WINDOW_Y);
+	area->x = settings.int_value(MUIOPTION_WINDOW_X);
+	area->y = settings.int_value(MUIOPTION_WINDOW_Y);
 	area->width  = settings.int_value(MUIOPTION_WINDOW_WIDTH);
 	area->height = settings.int_value(MUIOPTION_WINDOW_HEIGHT);
 }
@@ -949,7 +877,7 @@ void SetCustomColor(int iIndex, COLORREF uColor)
 {
 	const char *custom_color_string;
 	COLORREF custom_color[256];
-	char buffer[10000];
+	char buffer[80];
 
 	custom_color_string = settings.value( MUIOPTION_CUSTOM_COLOR);
 	CusColorDecodeString(custom_color_string, custom_color);
@@ -1070,7 +998,7 @@ void SetHistoryTab(int tab, BOOL show)
 
 void SetColumnWidths(int width[])
 {
-	char column_width_string[10000];
+	char column_width_string[80];
 	ColumnEncodeStringWithCount(width, column_width_string, COLUMN_MAX);
 	std::string error_string;
 	settings.set_value(MUIOPTION_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
@@ -1079,7 +1007,7 @@ void SetColumnWidths(int width[])
 void GetColumnWidths(int width[])
 {
 	const char *column_width_string;
-	column_width_string = settings.value( MUIOPTION_COLUMN_WIDTHS);
+	column_width_string = settings.value(MUIOPTION_COLUMN_WIDTHS);
 	ColumnDecodeStringWithCount(column_width_string, width, COLUMN_MAX);
 }
 
@@ -1087,11 +1015,11 @@ void SetSplitterPos(int splitterId, int pos)
 {
 	const char *splitter_string;
 	int *splitter;
-	char buffer[10000];
+	char buffer[80];
 
 	if (splitterId < GetSplitterCount())
 	{
-		splitter_string = settings.value( MUIOPTION_SPLITTERS);
+		splitter_string = settings.value(MUIOPTION_SPLITTERS);
 		splitter = (int *) alloca(GetSplitterCount() * sizeof(*splitter));
 		SplitterDecodeString(splitter_string, splitter);
 
@@ -1120,7 +1048,7 @@ int  GetSplitterPos(int splitterId)
 
 void SetColumnOrder(int order[])
 {
-	char column_order_string[10000];
+	char column_order_string[80];
 	ColumnEncodeStringWithCount(order, column_order_string, COLUMN_MAX);
 	std::string error_string;
 	settings.set_value(MUIOPTION_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
@@ -1135,7 +1063,7 @@ void GetColumnOrder(int order[])
 
 void SetColumnShown(int shown[])
 {
-	char column_shown_string[10000];
+	char column_shown_string[80];
 	ColumnEncodeStringWithCount(shown, column_shown_string, COLUMN_MAX);
 	std::string error_string;
 	settings.set_value(MUIOPTION_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
@@ -1503,14 +1431,15 @@ void ResetGameOptions(int driver_index)
 {
 	assert(0 <= driver_index && driver_index < driver_list::total());
 
-	//save_options(OPTIONS_GAME, NULL, driver_index);
+	//save_options(NULL, OPTIONS_GAME, driver_index);
 }
 
 void ResetGameDefaults(void)
 {
 	// Walk the global settings and reset everything to defaults;
 	ResetToDefaults(global, OPTION_PRIORITY_CMDLINE);
-	save_options(OPTIONS_GLOBAL, global, 1);
+	save_options(global, GLOBAL_OPTIONS);
+	//save_default_options = FALSE;
 }
 
 /*
@@ -1522,20 +1451,29 @@ void ResetAllGameOptions(void)
 	int i;
 
 	for (i = 0; i < driver_list::total(); i++)
-	{
 		ResetGameOptions(i);
-	}
-
-	/* Walk the ini/source folder deleting all ini's. */
-	remove_all_source_options();
-
-	/* finally vector.ini */
-	//save_options(OPTIONS_VECTOR, NULL, 0);
-	/* finally horizont.ini */
-	//save_options(OPTIONS_HORIZONTAL, NULL, 0);
-	/* finally vertical.ini */
-	//save_options(OPTIONS_VERTICAL, NULL, 0);
 }
+
+//static void GetDriverOptionName(int driver_index, const char *option_name, char *buffer, size_t buffer_len)
+//{
+//	assert(0 <= driver_index && driver_index < driver_list::total());
+//	snprintf(buffer, buffer_len, "%s_%s", driver_list::driver(driver_index).name, option_name);
+//}
+
+//int GetRomAuditResults(int driver_index)
+//{
+//	char buffer[256];
+//	GetDriverOptionName(driver_index, "rom_audit", buffer, ARRAY_LENGTH(buffer));
+//	return settings.int_value(buffer);
+//}
+
+//void SetRomAuditResults(int driver_index, int audit_results)
+//{
+//	char buffer[256];
+//	GetDriverOptionName(driver_index, "rom_audit", buffer, ARRAY_LENGTH(buffer));
+//	std::string error_string;
+//	settings.set_value(buffer, audit_results, OPTION_PRIORITY_CMDLINE,error_string);
+//}
 
 int GetRomAuditResults(int driver_index)
 {
@@ -1556,6 +1494,17 @@ void SetSampleAuditResults(int driver_index, int audit_results)
 {
 	game_opts.sample(driver_index, audit_results);
 }
+
+//static void IncrementPlayVariable(int driver_index, const char *play_variable, int increment)
+//{
+//	char buffer[256];
+//	int count;
+
+//	GetDriverOptionName(driver_index, play_variable, buffer, ARRAY_LENGTH(buffer));
+//	count = settings.int_value(buffer);
+//	std::string error_string;
+//	settings.set_value(buffer, count + increment, OPTION_PRIORITY_CMDLINE,error_string);
+//}
 
 static void IncrementPlayVariable(int driver_index, const char *play_variable, int increment)
 {
@@ -1582,6 +1531,31 @@ int GetPlayCount(int driver_index)
 {
 	return game_opts.play_count(driver_index);
 }
+
+//int GetPlayCount(int driver_index)
+//{
+//	char buffer[80];
+//	GetDriverOptionName(driver_index, "play_count", buffer, ARRAY_LENGTH(buffer));
+//	return settings.int_value(buffer);
+//}
+
+//static void ResetPlayVariable(int driver_index, const char *play_variable)
+//{
+//	int i;
+//	if (driver_index < 0)
+//	{
+//		/* all games */
+//		for (i = 0; i< driver_list::total(); i++)
+//			ResetPlayVariable(i, play_variable);
+//	}
+//	else
+//	{
+//		char buffer[80];
+//		GetDriverOptionName(driver_index, play_variable, buffer, ARRAY_LENGTH(buffer));
+//		std::string error_string;
+//		settings.set_value(buffer, 0, OPTION_PRIORITY_CMDLINE,error_string);
+//	}
+//}
 
 static void ResetPlayVariable(int driver_index, const char *play_variable)
 {
@@ -1617,6 +1591,9 @@ void ResetPlayTime(int driver_index)
 int GetPlayTime(int driver_index)
 {
 	return game_opts.play_time(driver_index);
+//	char buffer[80];
+//	GetDriverOptionName(driver_index, "play_time", buffer, ARRAY_LENGTH(buffer));
+//	return settings.int_value(buffer);
 }
 
 void IncrementPlayTime(int driver_index,int playtime)
@@ -1646,96 +1623,122 @@ input_seq* Get_ui_key_up(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_UP);
 }
+
 input_seq* Get_ui_key_down(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_DOWN);
 }
+
 input_seq* Get_ui_key_left(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_LEFT);
 }
+
 input_seq* Get_ui_key_right(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_RIGHT);
 }
+
 input_seq* Get_ui_key_start(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_START);
 }
+
 input_seq* Get_ui_key_pgup(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_PGUP);
 }
+
 input_seq* Get_ui_key_pgdwn(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_PGDWN);
 }
+
 input_seq* Get_ui_key_home(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_HOME);
 }
+
 input_seq* Get_ui_key_end(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_END);
 }
+
 input_seq* Get_ui_key_ss_change(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_SS_CHANGE);
 }
+
 input_seq* Get_ui_key_history_up(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_HISTORY_UP);
 }
+
 input_seq* Get_ui_key_history_down(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_HISTORY_DOWN);
 }
 
-
 input_seq* Get_ui_key_context_filters(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_CONTEXT_FILTERS);
 }
+
 input_seq* Get_ui_key_select_random(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_SELECT_RANDOM);
 }
+
 input_seq* Get_ui_key_game_audit(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_GAME_AUDIT);
 }
+
 input_seq* Get_ui_key_game_properties(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_GAME_PROPERTIES);
 }
+
 input_seq* Get_ui_key_help_contents(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_HELP_CONTENTS);
 }
+
 input_seq* Get_ui_key_update_gamelist(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_UPDATE_GAMELIST);
 }
+
 input_seq* Get_ui_key_view_folders(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_FOLDERS);
 }
+
 input_seq* Get_ui_key_view_fullscreen(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_FULLSCREEN);
 }
+
 input_seq* Get_ui_key_view_pagetab(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_PAGETAB);
 }
+
 input_seq* Get_ui_key_view_picture_area(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_PICTURE_AREA);
 }
+
+input_seq* Get_ui_key_view_software_area(void)
+{
+	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA);
+}
+
 input_seq* Get_ui_key_view_status(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_STATUS);
 }
+
 input_seq* Get_ui_key_view_toolbars(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TOOLBARS);
@@ -1745,40 +1748,46 @@ input_seq* Get_ui_key_view_tab_cabinet(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_CABINET);
 }
+
 input_seq* Get_ui_key_view_tab_cpanel(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_CPANEL);
 }
+
 input_seq* Get_ui_key_view_tab_flyer(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_FLYER);
 }
+
 input_seq* Get_ui_key_view_tab_history(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_HISTORY);
 }
+
 input_seq* Get_ui_key_view_tab_marquee(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE);
 }
+
 input_seq* Get_ui_key_view_tab_screenshot(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT);
 }
+
 input_seq* Get_ui_key_view_tab_title(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_TITLE);
 }
+
 input_seq* Get_ui_key_view_tab_pcb(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_TAB_PCB);
 }
+
 input_seq* Get_ui_key_quit(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_QUIT);
 }
-
-
 
 static int GetUIJoy(const char *option_name, int joycodeIndex)
 {
@@ -2027,13 +2036,13 @@ static void CusColorDecodeString(const char* str, COLORREF *value)
 void ColumnEncodeStringWithCount(const int *value, char *str, int count)
 {
 	int  i;
-	char buffer[100];
+	char buffer[256];
 
 	snprintf(buffer,sizeof(buffer),"%d",value[0]);
 
 	strcpy(str,buffer);
 
-    for (i = 1; i < count; i++)
+	for (i = 1; i < count; i++)
 	{
 		snprintf(buffer,sizeof(buffer),",%d",value[i]);
 		strcat(str,buffer);
@@ -2044,7 +2053,7 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 {
 	int  i;
 	char *s, *p;
-	char tmpStr[100];
+	char tmpStr[256];
 
 	if (str == NULL)
 		return;
@@ -2052,7 +2061,7 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 	strcpy(tmpStr, str);
 	p = tmpStr;
 
-    for (i = 0; p && i < count; i++)
+	for (i = 0; p && i < count; i++)
 	{
 		s = p;
 
@@ -2062,13 +2071,13 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 			p++;
 		}
 		value[i] = atoi(s);
-    }
 	}
+}
 
 static void SplitterEncodeString(const int *value, char* str)
 {
 	int  i;
-	char tmpStr[100];
+	char tmpStr[256];
 
 	sprintf(tmpStr, "%d", value[0]);
 
@@ -2085,7 +2094,7 @@ static void SplitterDecodeString(const char *str, int *value)
 {
 	int  i;
 	char *s, *p;
-	char tmpStr[100];
+	char tmpStr[256];
 
 	strcpy(tmpStr, str);
 	p = tmpStr;
@@ -2161,14 +2170,13 @@ static void FontEncodeString(const LOGFONT *f, char *str)
 
 static void TabFlagsEncodeString(int data, char *str)
 {
-	int i;
 	int num_saved = 0;
 
 	strcpy(str,"");
 
 	// we save the ones that are NOT displayed, so we can add new ones
 	// and upgraders will see them
-	for (i=0;i<MAX_TAB_TYPES;i++)
+	for ( int i=0;i<MAX_TAB_TYPES;i++)
 	{
 		if (((data & (1 << i)) == 0) && GetImageTabShortName(i))
 		{
@@ -2215,82 +2223,69 @@ static void TabFlagsDecodeString(const char *str, int *data)
 	}
 }
 
-static file_error LoadSettingsFile(winui_options &opts, const char *filename)
+static void LoadSettingsFile(winui_options &opts, const char *filename)
 {
-	emu_file file(OPEN_FLAG_READ);
+	file_error filerr;
+	core_file *file;
 
-	file_error filerr = file.open(filename);
+	filerr = core_fopen(filename, OPEN_FLAG_READ, &file);
 	if (filerr == FILERR_NONE)
 	{
 		std::string error_string;
-		opts.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		core_fclose(file);
 	}
-	return filerr;
 }
 
-static file_error LoadSettingsFile(windows_options &opts, const char *filename)
+static void LoadSettingsFile(windows_options &opts, const char *filename)
 {
-	emu_file file(OPEN_FLAG_READ);
+	file_error filerr;
+	core_file *file;
 
-	file_error filerr = file.open(filename);
+	filerr = core_fopen(filename, OPEN_FLAG_READ, &file);
 	if (filerr == FILERR_NONE)
 	{
 		std::string error_string;
-		opts.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		core_fclose(file);
 	}
-	return filerr;
+}
+
+// This saves changes to MESSUI.INI only
+static void SaveSettingsFile(winui_options &opts, const char *filename)
+{
+	file_error filerr = FILERR_NONE;
+	core_file *file;
+
+	filerr = core_fopen(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, &file);
+
+	if (filerr == FILERR_NONE)
+	{
+		std::string inistring;
+		opts.output_ini(inistring);
+		core_fputs(file,inistring.c_str());
+		core_fclose(file);
+	}
 }
 
 
-static file_error SaveSettingsFile(winui_options &opts, winui_options *baseopts, const char *filename)
-{
-	file_error filerr;
 
-	//if ((opts != NULL) && ((baseopts == NULL) || !options_equal(opts, baseopts)))
+// This saves changes to <game>.INI or MESS.INI only
+static void SaveSettingsFile(windows_options &opts, const char *filename)
+{
+	file_error filerr = FILERR_NONE;
+	core_file *file;
+
+	filerr = core_fopen(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, &file);
+
+	if (filerr == FILERR_NONE)
 	{
 		std::string inistring;
-		//inistring.expand(8 * 1024);
-
-		opts.output_ini(inistring,baseopts);
-
-		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-		filerr = file.open(filename);
-		if (filerr == FILERR_NONE)
-		{
-			file.puts(inistring.c_str());
-		}
+		opts.output_ini(inistring);
+		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
+		core_fputs(file,inistring.c_str());
+		core_fclose(file);
 	}
-	/*else
-    {
-        filerr = osd_rmfile(filename);
-    }*/
-
-	return filerr;
-}
-static file_error SaveSettingsFile(windows_options &opts, windows_options *baseopts, const char *filename)
-{
-	file_error filerr;
-
-	//if ((opts != NULL) && ((baseopts == NULL) || !options_equal(opts, baseopts)))
-	{
-		std::string inistring;
-		//inistring.expand(8 * 1024);
-
-		opts.output_ini(inistring,baseopts);
-
-		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-		filerr = file.open(filename);
-		if (filerr == FILERR_NONE)
-		{
-			file.puts(inistring.c_str());
-		}
-	}
-	/*else
-    {
-        filerr = osd_rmfile(filename);
-    }*/
-
-	return filerr;
 }
 
 
@@ -2298,14 +2293,19 @@ static file_error SaveSettingsFile(windows_options &opts, windows_options *baseo
 /* Register access functions below */
 static void LoadOptionsAndSettings(void)
 {
-	// parse MAME32ui.ini - always in the current directory.
+//	char buffer[MAX_PATH];
+
+	// parse MESSui.ini - always in the current directory.
 	LoadSettingsFile(settings, UI_INI_FILENAME);
 
 	// parse GameInfo.ini - game options.
 	game_opts.load_file(GAMEINFO_INI_FILENAME);
 
 	// parse global options ini/mame32.ini
-	LoadSettingsFile(global, CORE_INI_FILENAME);
+//	GetGlobalOptionsFileName(buffer, ARRAY_LENGTH(buffer));
+//	LoadSettingsFile(global, buffer);
+//	LoadSettingsFile(global, CORE_INI_FILENAME);
+	load_options(global, GLOBAL_OPTIONS);
 }
 
 void SetDirectories(windows_options &opts)
@@ -2335,23 +2335,14 @@ const char * GetFolderNameByID(UINT nID)
 	extern LPEXFOLDERDATA ExtraFolderData[];
 
 	for (i = 0; i < MAX_EXTRA_FOLDERS * MAX_EXTRA_SUBFOLDERS; i++)
-	{
 		if( ExtraFolderData[i] )
-		{
 			if (ExtraFolderData[i]->m_nFolderId == nID)
-			{
 				return ExtraFolderData[i]->m_szTitle;
-			}
-		}
-	}
-	for( i = 0; i < MAX_FOLDERS; i++)
-	{
-		if (g_folderData[i].m_nFolderId == nID)
-		{
 
+	for( i = 0; i < MAX_FOLDERS; i++)
+		if (g_folderData[i].m_nFolderId == nID)
 			return g_folderData[i].m_lpTitle;
-		}
-	}
+
 	return NULL;
 }
 
@@ -2402,7 +2393,7 @@ static const char * EncodeFolderFlags(DWORD value)
 }
 
 /* MSH 20080813
- * Read the folder filters from MAME32ui.ini.  This must only
+ * Read the folder filters from MESSui.ini.  This must only
  * be called AFTER the folders have all been created.
  */
 void LoadFolderFlags(void)
@@ -2423,7 +2414,7 @@ void LoadFolderFlags(void)
 
 		if (lpFolder)
 		{
-			char folder_name[80];
+			char folder_name[256];
 			char *ptr;
 
 			// Convert spaces to underscores
@@ -2438,7 +2429,8 @@ void LoadFolderFlags(void)
 				ptr++;
 			}
 
-			std::string option_name = std::string(folder_name).append("_filters");
+			//std::string option_name (folder_name); option_name.cat("_filters");
+			std::string option_name = std::string(folder_name) + "_filters";
 			// create entry
 			entries[0].name = option_name.c_str();
 			opts.add_entries(entries);
@@ -2447,7 +2439,7 @@ void LoadFolderFlags(void)
 
 	// These are overlayed at the end of our UI ini
 	// The normal read will skip them.
-    LoadSettingsFile(opts, UI_INI_FILENAME);
+	LoadSettingsFile(opts, UI_INI_FILENAME);
 
 	// retrive the stored values
 	for (i = 0; i < numFolders; i++)
@@ -2456,7 +2448,7 @@ void LoadFolderFlags(void)
 
 		if (lpFolder)
 		{
-			char folder_name[80];
+			char folder_name[256];
 			char *ptr;
 			const char *value;
 
@@ -2471,8 +2463,7 @@ void LoadFolderFlags(void)
 				}
 				ptr++;
 			}
-			
-			std::string option_name = std::string(folder_name).append("_filters");
+			std::string option_name = std::string(folder_name) + "_filters";
 			// get entry and decode it
 			value = opts.value(option_name.c_str());
 
@@ -2486,7 +2477,7 @@ void LoadFolderFlags(void)
 
 
 
-// Adds our folder flags to a temporarty winui_options, for saving.
+// Adds our folder flags to a temporary winui_options, for saving.
 static void AddFolderFlags(winui_options &opts)
 {
 	int numFolders;
@@ -2525,14 +2516,15 @@ static void AddFolderFlags(winui_options &opts)
 				ptr++;
 			}
 
-			std::string option_name = std::string(folder_name).append("_filters");
+			std::string option_name = std::string(folder_name) + "_filters";
+
 			// create entry
 			entries[0].name = option_name.c_str();
 			opts.add_entries(entries);
 
 			// store entry
 			std::string error_string;
-			opts.set_value(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags), OPTION_PRIORITY_CMDLINE, error_string);
+			opts.set_value(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags), OPTION_PRIORITY_CMDLINE,error_string);
 
 			// increment counter
 			num_entries++;
@@ -2540,14 +2532,14 @@ static void AddFolderFlags(winui_options &opts)
 	}
 }
 
-// Save the UI ini
+// Save MESSUI.ini
 void SaveOptions(void)
 {
 	// Add the folder flag to settings.
 	AddFolderFlags(settings);
 	// Save opts if it is non-null, else save settings.
 	// It will be null if there are no filters set.
-	SaveSettingsFile(settings, NULL, UI_INI_FILENAME);
+	SaveSettingsFile(settings, UI_INI_FILENAME);
 }
 
 void SaveGameListOptions(void)
@@ -2558,7 +2550,8 @@ void SaveGameListOptions(void)
 
 void SaveDefaultOptions(void)
 {
-	SaveSettingsFile(global, NULL, CORE_INI_FILENAME);
+	std::string fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(emulator_info::get_configname()).append(".ini");
+	SaveSettingsFile(global, fname.c_str());
 }
 
 const char * GetVersionString(void)
@@ -2566,251 +2559,134 @@ const char * GetVersionString(void)
 	return build_version;
 }
 
-
-BOOL IsGlobalOption(const char *option_name)
+// NOT USED
+/*
+static BOOL IsGlobalOption(const char *option_name)
 {
-/*  static const char *global_options[] =
-    {
-        OPTION_ROMPATH,
-        OPTION_SAMPLEPATH,
-        OPTION_ARTPATH,
-        OPTION_CTRLRPATH,
-        OPTION_INIPATH,
-        OPTION_FONTPATH,
-        OPTION_CFG_DIRECTORY,
-        OPTION_NVRAM_DIRECTORY,
-        OPTION_INPUT_DIRECTORY,
-        OPTION_STATE_DIRECTORY,
-        OPTION_SNAPSHOT_DIRECTORY,
-        OPTION_DIFF_DIRECTORY,
-        OPTION_COMMENT_DIRECTORY
-    };
-    int i;
-    char command_name[128];
-    char *s;
+	static const char *global_options[] =
+	{
+		OPTION_ROMPATH,
+		OPTION_HASHPATH,
+		OPTION_SAMPLEPATH,
+		OPTION_ARTPATH,
+		OPTION_CTRLRPATH,
+		OPTION_INIPATH,
+		OPTION_FONTPATH,
+		OPTION_CFG_DIRECTORY,
+		OPTION_NVRAM_DIRECTORY,
+		OPTION_INPUT_DIRECTORY,
+		OPTION_STATE_DIRECTORY,
+		OPTION_SNAPSHOT_DIRECTORY,
+		OPTION_DIFF_DIRECTORY,
+		OPTION_COMMENT_DIRECTORY
+	};
 
-    // determine command name
-    snprintf(command_name, ARRAY_LENGTH(command_name), "%s", option_name);
-    s = strchr(command_name, ';');
-    if (s)
-        *s = '\0';
+	char command_name[128];
+	char *s;
 
-    for (i = 0; i < ARRAY_LENGTH(global_options); i++)
-    {
-        if (!strcmp(command_name, global_options[i]))
-            return TRUE;
-    }*/
+	// determine command name
+	snprintf(command_name, ARRAY_LENGTH(command_name), "%s", option_name);
+	s = strchr(command_name, ';');
+	if (s)
+		*s = '\0';
+
+	for (int i = 0; i < ARRAY_LENGTH(global_options); i++)
+	{
+		if (!strcmp(command_name, global_options[i]))
+			return TRUE;
+	}
 	return FALSE;
 }
+*/
 
 
 /* ui_parse_ini_file - parse a single INI file */
-static void ui_parse_ini_file(windows_options &opts, const char *name)
-{
-	/* open the file; if we fail, that's ok */
-	std::string fname = std::string(GetIniDir()).append(PATH_SEPARATOR).append(name).append(".ini");
-	LoadSettingsFile(opts, fname.c_str());
-	SetDirectories(opts);
-}
+//static void ui_parse_ini_file(windows_options &opts, const char *name)
+//{
+//	/* open the file; if we fail, that's ok */
+//	std::string fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(name) + ".ini";
+//	LoadSettingsFile(opts, fname.c_str());
+//	SetDirectories(opts);
+//}
 
 
-/*  get options, based on passed in option level. */
-void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
+/*  get options, based on passed in game number. */
+void load_options(windows_options &opts, int game_num)
 {
 	const game_driver *driver = NULL;
-	std::string basename;
-
 	CreateGameOptions(opts, game_num);
-	// Copy over the defaults
-	ui_parse_ini_file(opts, emulator_info::get_configname());
 
-	if (opt_type == OPTIONS_GLOBAL)
-	{
-		return;
-	}
+	// Try base ini first
+	std::string fname = std::string(emulator_info::get_configname()).append(".ini");
+	LoadSettingsFile(opts, fname.c_str());
 
-	// debug builds: parse "debug.ini" as well
-#ifdef MAME_DEBUG
-	ui_parse_ini_file(opts, "debug");
-#endif
-	if (game_num >= 0)
+	if (game_num > -2)
 	{
 		driver = &driver_list::driver(game_num);
-	}
+		// Now try global ini
+		fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(emulator_info::get_configname()).append(".ini");
+		LoadSettingsFile(opts, fname.c_str());
 
-	// if we have a valid game driver, parse game-specific INI files
-	if (driver != NULL)
-	{
-		const game_driver *parent = NULL;
-		int cl = driver_list::clone(*driver);
-		if (cl!=-1) parent = &driver_list::driver(cl);
-		int gp = -1;
-		if (parent!=NULL) gp = driver_list::clone(*parent);
-		const game_driver *gparent = NULL;
-		if (parent != NULL) {
-			if (gp!=-1) gparent= &driver_list::driver(gp);
-		}
-
-		// parse "vector.ini" for vector games
-		if (DriverIsVector(game_num))
+		if (game_num > -1)
 		{
-			ui_parse_ini_file(opts, "vector");
-		}
-		if (opt_type == OPTIONS_VECTOR)
-		{
-			return;
-		}
-		// parse "horizont.ini" for horizontal games
-		if (!DriverIsVertical(game_num))
-		{
-			ui_parse_ini_file(opts, "horizont");
-		}
-		if (opt_type == OPTIONS_HORIZONTAL)
-		{
-			return;
-		}
-		// parse "vertical.ini" for vertical games
-		if (DriverIsVertical(game_num))
-		{
-			ui_parse_ini_file(opts, "vertical");
-		}
-		if (opt_type == OPTIONS_VERTICAL)
-		{
-			return;
-		}
-
-
-		// then parse "<sourcefile>.ini"
-		core_filename_extract_base(basename, driver->source_file, TRUE);
-		std::string srcname = std::string("source").append(PATH_SEPARATOR).append(basename.c_str());
-		ui_parse_ini_file(opts, srcname.c_str());
-
-		if (opt_type == OPTIONS_SOURCE)
-		{
-			return;
-		}
-
-		// then parent the grandparent, parent, and game-specific INIs
-		if (gparent != NULL)
-			ui_parse_ini_file(opts, gparent->name);
-		if (parent != NULL)
-			ui_parse_ini_file(opts, parent->name);
-
-		if (opt_type == OPTIONS_PARENT)
-		{
-			return;
-		}
-
-		ui_parse_ini_file(opts, driver->name);
-
-		if (opt_type == OPTIONS_GAME)
-		{
-			return;
+			// global comment_dir serves a different purpose than for games, so blank it out
+			std::string error_string;
+			opts.set_value(OPTION_COMMENT_DIRECTORY, "", OPTION_PRIORITY_CMDLINE,error_string);
+			// Lastly, gamename.ini
+			driver = &driver_list::driver(game_num);
+			if (driver != NULL)
+			{
+				fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(driver->name).append(".ini");
+				LoadSettingsFile(opts, fname.c_str());
+			}
 		}
 	}
+	SetDirectories(opts);
+
+//		CreateGameOptions(opts, game_num);
+//	// Copy over the defaults
+//	ui_parse_ini_file(opts, emulator_info::get_configname());
+//
+//	if (game_num >= 0)
+//	{
+//		driver = &driver_list::driver(game_num);
+//		if (driver != NULL)
+//			ui_parse_ini_file(opts, driver->name);
+//	}
 }
 
-
-
-/*
- * Save ini file based on game_num and passed in opt_type.  If opts are
- * NULL, the ini will be removed.
- *
- * game_num must be valid or the driver cannot be expanded and anything
- * with a higher priority than OPTIONS_VECTOR will not be saved.
- */
-void save_options(OPTIONS_TYPE opt_type, windows_options &opts, int game_num)
+/* Save ini file based on game_number. */
+void save_options(windows_options &opts, int game_num)
 {
-	windows_options *baseopts = NULL;
 	const game_driver *driver = NULL;
-	std::string filename, basename;
-
-/*  if (OPTIONS_GLOBAL != opt_type) // && NULL != opts && !options_equal(opts, global))
-    {
-        if (OPTIONS_VERTICAL == opt_type) {
-            //since VERTICAL and HORIZONTAL are equally ranked
-            //we need to subtract 2 from vertical to also get to global
-            load_options(baseopts,(OPTIONS_TYPE)(opt_type - 2), game_num);
-        }
-        else {
-            load_options(baseopts,(OPTIONS_TYPE)(opt_type - 1), game_num);
-        }
-    }*/
+	std::string filename, filepath;
 
 	if (game_num >= 0)
 	{
 		driver = &driver_list::driver(game_num);
-	}
-
-	if (opt_type == OPTIONS_GLOBAL)
-	{
-		// Don't try to save a null global options file,  or it will be erased.
-		//if (NULL == opts)
-			//return;
-//		global = opts;
-		filename.assign(emulator_info::get_configname());
-	} else if (opt_type == OPTIONS_VECTOR)
-	{
-		filename.assign("vector");
-	} else if (opt_type == OPTIONS_VERTICAL)
-	{
-		filename.assign("vertical");
-	} else if (opt_type == OPTIONS_HORIZONTAL)
-	{
-		filename.assign("horizont");
-	} else if (driver != NULL)
-	{
-		if (opt_type == OPTIONS_SOURCE)
-		{
-			// determine the <sourcefile>
-			core_filename_extract_base(basename, driver->source_file, TRUE);
-			std::string srcname = std::string("source").append(PATH_SEPARATOR).append(basename.c_str());
-			filename.assign(srcname.c_str());
-		}
-		else
-		if (opt_type == OPTIONS_GAME)
+		if (driver != NULL)
 			filename.assign(driver->name);
 	}
+	else
+	if (game_num == -1)
+		filename = std::string(emulator_info::get_configname());
+
 	if (!filename.empty())
+		filepath = std::string(GetIniDir()).append(PATH_SEPARATOR).append(filename.c_str()).append(".ini");
+
+	if (game_num == -2)
+		filepath = std::string(emulator_info::get_configname()).append(".ini");
+
+	if (!filepath.empty())
 	{
-		std::string filepath = std::string(GetIniDir()).append(PATH_SEPARATOR).append(filename.c_str()).append(".ini");
 		SetDirectories(opts);
-		SaveSettingsFile(opts, baseopts, filepath.c_str());
+		SaveSettingsFile(opts, filepath.c_str());
+		//printf("Settings saved to %s\n",filepath.c_str());
 	}
+	else
+		printf("Unable to save settings\n");
 }
 
-/* Remove all the srcname.ini files from inipath/source directory. */
-static void remove_all_source_options(void) {
-	WIN32_FIND_DATA findFileData;
-	HANDLE hFindFile;
-	char* utf8_filename;
-
-	/*
-    * Easiest to just open the ini/source folder if it exists,
-    * then remove all the files in it that end in ini.
-    */
-	std::string pathname = std::string(GetIniDir()).append(PATH_SEPARATOR).append("source");
-	std::string match = std::string(pathname.c_str()).append(PATH_SEPARATOR).append("*.ini");
-	
-	if ((hFindFile = win_find_first_file_utf8(match.c_str(), &findFileData)) != INVALID_HANDLE_VALUE)
-	{
-		utf8_filename = utf8_from_tstring(findFileData.cFileName);
-		std::string match = std::string(pathname.c_str()).append(PATH_SEPARATOR).append(utf8_filename);
-		osd_free(utf8_filename);
-		osd_rmfile(match.c_str());
-
-		while (0 != FindNextFile(hFindFile, &findFileData))
-		{
-			utf8_filename = utf8_from_tstring(findFileData.cFileName);
-			std::string match = std::string(pathname.c_str()).append(PATH_SEPARATOR).append(utf8_filename);
-			osd_free(utf8_filename);
-			osd_rmfile(match.c_str());
-		}
-
-		FindClose(hFindFile);
-
-	}
-}
 
 // Reset the given windows_options to their default settings.
 static void ResetToDefaults(windows_options &opts, int priority)

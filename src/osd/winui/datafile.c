@@ -46,24 +46,6 @@ static emu_file *fp = NULL;                  /* Our file pointer */
 static UINT64 dwFilePos;                     /* file position */
 static int num_games;
 
-/**************************************************************************
- **************************************************************************
- *
- *              Parsing functions
- *
- **************************************************************************
- **************************************************************************/
-
-
-/*
- * GetGameNameIndex -- given a driver name (in lowercase), return
- * its index in the main drivers[] array, or -1 if it's not found.
- */
-static int GetGameNameIndex(const char *name)
-{
-	return driver_list::find(name);
-}
-
 
 /****************************************************************************
  *      Create an array with sorted sourcedrivers for the function

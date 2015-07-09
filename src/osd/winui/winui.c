@@ -268,8 +268,8 @@ static void             UpdateStatusBar(void);
 //static BOOL             PickerHitTest(HWND hWnd);
 static BOOL             TreeViewNotify(NMHDR *nm);
 
-static void             ResetBackground(char *szFile);
-static void             RandomSelectBackground(void);
+//static void             ResetBackground(char *szFile);
+//static void             RandomSelectBackground(void);
 static void             LoadBackgroundBitmap(void);
 static void             PaintBackgroundImage(HWND hWnd, HRGN hRgn, int x, int y);
 
@@ -808,23 +808,23 @@ static MYBITMAPINFO     bmDesc;
 /* List view Column text */
 extern const LPCTSTR column_names[COLUMN_MAX] =
 {
-#ifdef MESS
-	TEXT("System"),
-#else
-	TEXT("Game"),
-#endif
-	TEXT("Screen"),
-	//TEXT("ROMs"),
-	TEXT("Samples"),
+	TEXT("Machine"),
+	TEXT("Source"),
 	TEXT("Directory"),
 	TEXT("Type"),
-	TEXT("Trackball"),
-	TEXT("Played"),
+	TEXT("Screen"),
 	TEXT("Manufacturer"),
 	TEXT("Year"),
+	TEXT("Played"),
+	TEXT("Play Time"),
 	TEXT("Clone Of"),
-	TEXT("Source"),
-	TEXT("Play Time")
+	TEXT("Trackball"),
+#ifdef SHOW_COLUMN_SAMPLES
+	TEXT("Samples"),
+#endif
+#ifdef SHOW_COLUMN_ROMS
+	TEXT("ROMs"),
+#endif
 };
 
 /***************************************************************************
@@ -1530,6 +1530,7 @@ int GetGameNameIndex(const char *name)
     Internal functions
  ***************************************************************************/
 
+#if 0
 static void ResetBackground(char *szFile)
 {
 	char szDestFile[MAX_PATH];
@@ -1592,6 +1593,7 @@ static void RandomSelectBackground(void)
 
 	free(buf);
 }
+#endif
 
 static void SetMainTitle(void)
 {
@@ -1672,7 +1674,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	}
 
 	g_mame32_message = RegisterWindowMessage(TEXT("MAME32"));
-	g_bDoBroadcast = GetBroadcast();
+	//g_bDoBroadcast = GetBroadcast();
 
 	HelpInit();
 
@@ -1825,8 +1827,8 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 		return FALSE;
 	}
 
-	if (GetRandomBackground())
-		RandomSelectBackground();
+//	if (GetRandomBackground())
+//		RandomSelectBackground();
 
 	LoadBackgroundBitmap();
 
@@ -4205,7 +4207,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	case ID_CUSTOMIZE_FIELDS:
 		if (DialogBox(GetModuleHandle(NULL),
 			MAKEINTRESOURCE(IDD_COLUMNS), hMain, ColumnDialogProc) == TRUE)
-			ResetColumnDisplay(FALSE);
+			ResetColumnDisplay(TRUE);
 		SetFocus(hwndList);
 		return TRUE;
 
@@ -4245,12 +4247,12 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			if(folder->m_nFolderId == FOLDER_VECTOR) {
 				curOptType = OPTIONS_VECTOR;
 			}
-			else if(folder->m_nFolderId == FOLDER_HORIZONTAL) {
-				curOptType = OPTIONS_HORIZONTAL;
-			}
-			else if(folder->m_nFolderId == FOLDER_VERTICAL) {
-				curOptType = OPTIONS_VERTICAL;
-			}
+//			else if(folder->m_nFolderId == FOLDER_HORIZONTAL) {
+//				curOptType = OPTIONS_HORIZONTAL;
+//			}
+//			else if(folder->m_nFolderId == FOLDER_VERTICAL) {
+//				curOptType = OPTIONS_VERTICAL;
+//			}
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), curOptType, folder->m_nFolderId, Picker_GetSelectedItem(hwndList));
 			//SaveFolderOptions(folder->m_nFolderId, Picker_GetSelectedItem(hwndList) );
 		}
@@ -4636,14 +4638,20 @@ static const TCHAR *GamePicker_GetItemString(HWND hwndPicker, int nItem, int nCo
 			utf8_s = DriverIsVertical(nItem) ? "Vertical" : "Horizontal";
 			break;
 
+#ifdef SHOW_COLUMN_ROMS
+		case COLUMN_ROMS:
+			utf8_s = GetAuditString(GetRomAuditResults(nItem));
+			break;
+#endif
+#ifdef SHOW_COLUMN_SAMPLES
 		case COLUMN_SAMPLES:
 			/* Samples */
 			if (DriverUsesSamples(nItem))
-				s = TEXT("Yes");
+				utf8_s = GetAuditString(GetSampleAuditResults(nItem));
 			else
-				s = TEXT("No");
+				s = TEXT("-");
 			break;
-
+#endif
 		case COLUMN_DIRECTORY:
 			/* Driver name (directory) */
 			utf8_s = driver_list::driver(nItem).name;
@@ -5055,6 +5063,7 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		nTemp2 = DriverIsVertical(index2) ? 1 : 0;
 		value = nTemp1 - nTemp2;
 		break;
+#ifdef SHOW_COLUMN_SAMPLES
 	case COLUMN_SAMPLES:
 		nTemp1 = -1;
 		if (DriverUsesSamples(index1))
@@ -5087,7 +5096,7 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		}
 		value = nTemp2 - nTemp1;
 		break;
-
+#endif
 	case COLUMN_DIRECTORY:
 		value = core_stricmp(driver_list::driver(index1).name, driver_list::driver(index2).name);
 		break;

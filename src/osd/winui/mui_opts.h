@@ -4,88 +4,43 @@
 #ifndef MUI_OPTS_H
 #define MUI_OPTS_H
 
-#include "osdcomm.h"
-#include "emu.h" /* for input_seq definition */
-#include "drivenum.h"
-#include <video.h> /* for MAX_SCREENS Definition*/
 #include "winmain.h"
+#include "winui.h"
 
-// Various levels of ini's we can edit.
+// These help categorise the folders on the left side
 typedef enum {
 	OPTIONS_GLOBAL = 0,
-	OPTIONS_HORIZONTAL,
-	OPTIONS_VERTICAL,
 	OPTIONS_VECTOR,
 	OPTIONS_SOURCE,
 	OPTIONS_PARENT,
-	OPTIONS_GAME,
-	OPTIONS_MAX
+	OPTIONS_GAME
 } OPTIONS_TYPE;
 
 
 enum
 {
 	COLUMN_GAMES = 0,
-	COLUMN_ORIENTATION,
-	//COLUMN_ROMS,
-	COLUMN_SAMPLES,
+	COLUMN_SRCDRIVERS,
 	COLUMN_DIRECTORY,
 	COLUMN_TYPE,
-	COLUMN_TRACKBALL,
-	COLUMN_PLAYED,
+	COLUMN_ORIENTATION,
 	COLUMN_MANUFACTURER,
 	COLUMN_YEAR,
-	COLUMN_CLONE,
-	COLUMN_SRCDRIVERS,
+	COLUMN_PLAYED,
 	COLUMN_PLAYTIME,
+	COLUMN_CLONE,
+	COLUMN_TRACKBALL,
+#ifdef SHOW_COLUMN_SAMPLES
+	COLUMN_SAMPLES,
+#endif
+#ifdef SHOW_COLUMN_ROMS
+	COLUMN_ROMS,
+#endif
 	COLUMN_MAX
-};
-
-
-// can't be the same as the VerifyRomSet() results, listed in audit.h
-enum
-{
-	UNKNOWN	= -1
-};
-
-/* Default input */
-enum
-{
-	INPUT_LAYOUT_STD,
-	INPUT_LAYOUT_HR,
-	INPUT_LAYOUT_HRSE
-};
-
-// clean stretch types
-enum
-{
-	// these must match array of strings clean_stretch_long_name in options.c
-	CLEAN_STRETCH_NONE = 0,
-	CLEAN_STRETCH_AUTO = 1,
-
-	MAX_CLEAN_STRETCH = 5,
 };
 
 #define FOLDER_OPTIONS	-2
 #define GLOBAL_OPTIONS	-1
-
-// d3d effect types
-enum
-{
-	// these must match array of strings d3d_effects_long_name in options.c
-	D3D_EFFECT_NONE = 0,
-	D3D_EFFECT_AUTO = 1,
-
-	MAX_D3D_EFFECTS = 17,
-};
-
-// d3d prescale types
-enum
-{
-	D3D_PRESCALE_NONE = 0,
-	D3D_PRESCALE_AUTO = 1,
-	MAX_D3D_PRESCALE = 10,
-};
 
 typedef struct
 {
@@ -99,8 +54,6 @@ typedef struct
 	char* resolution;
 	char* view;
 } ScreenParams;
-
-
 
 // List of artwork types to display in the screen shot area
 enum
@@ -125,7 +78,15 @@ enum
 // (that's how many options we have after MAX_TAB_TYPES)
 #define TAB_SUBTRACT 3
 
-class winui_options;
+class winui_options : public core_options
+{
+public:
+	// construction/destruction
+	winui_options();
+
+private:
+	static const options_entry s_option_entries[];
+};
 
 BOOL OptionsInit(void);
 void OptionsExit(void);
@@ -135,8 +96,8 @@ void OptionsExit(void);
 
 void SetDirectories(windows_options &opts);
 
-void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
-void save_options(OPTIONS_TYPE opt_type, windows_options &opts, int game_num);
+void load_options(windows_options &opts, int game_num);
+void save_options(windows_options &opts, int game_num);
 
 //void AddOptions(winui_options *opts, const options_entry *entrylist, BOOL is_global);
 void CreateGameOptions(windows_options &opts, int driver_index);
@@ -202,6 +163,9 @@ UINT GetSavedFolderID(void);
 
 void SetShowScreenShot(BOOL val);
 BOOL GetShowScreenShot(void);
+
+void SetShowSoftware(BOOL val);
+BOOL GetShowSoftware(void);
 
 void SetShowFolderList(BOOL val);
 BOOL GetShowFolderList(void);
@@ -305,6 +269,9 @@ void SetArtDir(const char* path);
 const char* GetFlyerDir(void);
 void SetFlyerDir(const char* path);
 
+const char* GetFolderDir(void);
+void SetFolderDir(const char* path);
+
 const char* GetCabinetDir(void);
 void SetCabinetDir(const char* path);
 
@@ -375,6 +342,8 @@ void ResetPlayTime(int driver_index);
 
 const char * GetVersionString(void);
 
+void SaveDefaultOptions(void);
+
 BOOL IsGlobalOption(const char *option_name);
 
 
@@ -403,6 +372,7 @@ input_seq* Get_ui_key_view_folders(void);
 input_seq* Get_ui_key_view_fullscreen(void);
 input_seq* Get_ui_key_view_pagetab(void);
 input_seq* Get_ui_key_view_picture_area(void);
+input_seq* Get_ui_key_view_software_area(void);
 input_seq* Get_ui_key_view_status(void);
 input_seq* Get_ui_key_view_toolbars(void);
 
@@ -474,7 +444,6 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count);
 int GetDriverCache(int driver_index);
 void SetDriverCache(int driver_index, int val);
 BOOL RequiredDriverCache(void);
-
 
 #endif
 

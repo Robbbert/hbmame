@@ -13,6 +13,8 @@
 #include "drivenum.h"
 
 #define MAMENAME "HBMAME"
+#define UI_INI_FILENAME MAMENAME "UI.ini"
+
 #ifdef PTR64
 #define MAMEUINAME MAMENAME "UI64"
 #else
@@ -20,9 +22,12 @@
 #endif
 
 #define SEARCH_PROMPT ""
+#define SHOW_COLUMN_ROMS
+#define SHOW_COLUMN_SAMPLES
 
 enum
 {
+	UNKNOWN = -1,
 	TAB_PICKER = 0,
 	TAB_DISPLAY,
 	TAB_MISC,

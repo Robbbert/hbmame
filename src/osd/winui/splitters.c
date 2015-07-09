@@ -18,6 +18,7 @@
 #include <windowsx.h>
 #include <commctrl.h>
 #include <stdlib.h>
+#include <assert.h>
 
 // MAME/MAMEUI headers
 #include "splitters.h"
