@@ -44,6 +44,7 @@
 #include "strconv.h"
 #include "window.h"
 #include "../osdcore.h"
+#include "zippath.h"
 
 #include "resource.h"
 #include "resource.hm"
@@ -863,6 +864,20 @@ public:
 			chain_output(channel, msg, args);
 	}
 };
+
+#if 0
+static std::wstring s2ws(const std::string& s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0); 
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+}
+#endif
 
 /***************************************************************************
     External functions
@@ -4295,35 +4310,47 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_OPTIONS_BG:
 		{
-			OPENFILENAME OpenFileName;
+			// More c++ stupidity with strings
+			// Get the path from the existing filename; if no filename go to root
+			TCHAR* t_bgdir = TEXT(".");
+			const char *s = GetBgDir();
+			std::string as;
+			zippath_parent(as, s);
+			size_t t1 = as.length()-1;
+			if (as[t1] == '\\') as[t1]='\0';
+			t1 = as.find(':');
+			if (t1 > 0)
+				t_bgdir = tstring_from_utf8(as.c_str());
+
+			OPENFILENAME OFN;
 			static TCHAR szFile[MAX_PATH] = TEXT("\0");
-			TCHAR* t_bgdir = tstring_from_utf8(GetBgDir());
 			if( !t_bgdir )
 				return FALSE;
 
-			OpenFileName.lStructSize       = sizeof(OPENFILENAME);
-			OpenFileName.hwndOwner         = hMain;
-			OpenFileName.hInstance         = 0;
-			OpenFileName.lpstrFilter       = TEXT("Image Files (*.png)\0*.PNG\0");
-			OpenFileName.lpstrCustomFilter = NULL;
-			OpenFileName.nMaxCustFilter    = 0;
-			OpenFileName.nFilterIndex      = 1;
-			OpenFileName.lpstrFile         = szFile;
-			OpenFileName.nMaxFile          = sizeof(szFile);
-			OpenFileName.lpstrFileTitle    = NULL;
-			OpenFileName.nMaxFileTitle     = 0;
-			OpenFileName.lpstrInitialDir   = t_bgdir;
-			OpenFileName.lpstrTitle        = TEXT("Select a Background Image");
-			OpenFileName.nFileOffset       = 0;
-			OpenFileName.nFileExtension    = 0;
-			OpenFileName.lpstrDefExt       = NULL;
-			OpenFileName.lCustData         = 0;
-			OpenFileName.lpfnHook          = NULL;
-			OpenFileName.lpTemplateName    = NULL;
-			OpenFileName.Flags             = OFN_NOCHANGEDIR | OFN_SHOWHELP | OFN_EXPLORER;
+			OFN.lStructSize       = sizeof(OPENFILENAME);
+			OFN.hwndOwner         = hMain;
+			OFN.hInstance         = 0;
+			OFN.lpstrFilter       = TEXT("Image Files (*.png)\0*.PNG\0");
+			OFN.lpstrCustomFilter = NULL;
+			OFN.nMaxCustFilter    = 0;
+			OFN.nFilterIndex      = 1;
+			OFN.lpstrFile         = szFile;
+			OFN.nMaxFile          = sizeof(szFile);
+			OFN.lpstrFileTitle    = NULL;
+			OFN.nMaxFileTitle     = 0;
+			OFN.lpstrInitialDir   = t_bgdir;
+			OFN.lpstrTitle        = TEXT("Select a Background Image");
+			OFN.nFileOffset       = 0;
+			OFN.nFileExtension    = 0;
+			OFN.lpstrDefExt       = NULL;
+			OFN.lCustData         = 0;
+			OFN.lpfnHook          = NULL;
+			OFN.lpTemplateName    = NULL;
+			OFN.Flags             = OFN_NOCHANGEDIR | OFN_SHOWHELP | OFN_EXPLORER;
 
-			if (GetOpenFileName(&OpenFileName))
+			if (GetOpenFileName(&OFN))
 			{
+				osd_free(t_bgdir);
 				utf8_szFile = utf8_from_tstring(szFile);
 				if( !utf8_szFile )
 					return FALSE;
@@ -4334,7 +4361,6 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// Display new background
 				LoadBackgroundBitmap();
 				InvalidateRect(hMain, NULL, TRUE);
-				osd_free(t_bgdir);
 				osd_free(utf8_szFile);
 				return TRUE;
 			}
