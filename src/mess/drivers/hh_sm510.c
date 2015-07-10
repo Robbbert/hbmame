@@ -13,8 +13,7 @@
 #include "cpu/sm510/sm510.h"
 #include "sound/speaker.h"
 
-// internal artwork
-//..
+#include "hh_sm510_test.lh" // common test-layout - use external artwork
 
 
 class hh_sm510_state : public driver_device
@@ -24,7 +23,8 @@ public:
 		: driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_inp_matrix(*this, "IN"),
-		m_speaker(*this, "speaker")
+		m_speaker(*this, "speaker"),
+		m_inp_lines(0)
 	{ }
 
 	// devices
@@ -34,11 +34,16 @@ public:
 
 	// misc common
 	UINT16 m_inp_mux;                   // multiplexed inputs mask
+	int m_inp_lines;                    // number of input mux columns
+	UINT8 m_lcd_output_cache[3*4*0x10];
 
 	UINT8 read_inputs(int columns);
 
-	// display common
-	//..
+	virtual void update_k_line();
+	virtual DECLARE_INPUT_CHANGED_MEMBER(input_changed);
+	virtual DECLARE_READ8_MEMBER(input_r);
+	virtual DECLARE_WRITE8_MEMBER(input_w);
+	virtual DECLARE_WRITE16_MEMBER(lcd_segment_w);
 
 protected:
 	virtual void machine_start();
@@ -52,9 +57,13 @@ void hh_sm510_state::machine_start()
 {
 	// zerofill
 	m_inp_mux = 0;
+//	m_inp_lines = 0;
+	memset(m_lcd_output_cache, ~0, sizeof(m_lcd_output_cache));
 
 	// register for savestates
 	save_item(NAME(m_inp_mux));
+	save_item(NAME(m_inp_lines));
+	/* save_item(NAME(m_lcd_output_cache)); */ // don't save!
 }
 
 void hh_sm510_state::machine_reset()
@@ -69,6 +78,30 @@ void hh_sm510_state::machine_reset()
 
 ***************************************************************************/
 
+// lcd panel - on lcd handhelds, usually not a generic x/y screen device
+
+WRITE16_MEMBER(hh_sm510_state::lcd_segment_w)
+{
+	for (int seg = 0; seg < 0x10; seg++)
+	{
+		int state = data >> seg & 1;
+		int index = offset << 4 | seg;
+
+		if (state != m_lcd_output_cache[index])
+		{
+			// output to x.y, where x = row a/b/c*4 + H1-4, y = seg1-16
+			char buf[0x10];
+			sprintf(buf, "%d.%d", offset, seg);
+			output_set_value(buf, state);
+
+			m_lcd_output_cache[index] = state;
+		}
+	}
+}
+
+
+// generic input handlers - usually S output is input mux, and K input for buttons
+
 UINT8 hh_sm510_state::read_inputs(int columns)
 {
 	UINT8 ret = 0;
@@ -79,6 +112,28 @@ UINT8 hh_sm510_state::read_inputs(int columns)
 			ret |= m_inp_matrix[i]->read();
 
 	return ret;
+}
+
+void hh_sm510_state::update_k_line()
+{
+	// this is necessary because the MCU can wake up on K input activity
+	m_maincpu->set_input_line(SM510_INPUT_LINE_K, read_inputs(m_inp_lines) ? ASSERT_LINE : CLEAR_LINE);
+}
+
+INPUT_CHANGED_MEMBER(hh_sm510_state::input_changed)
+{
+	update_k_line();
+}
+
+WRITE8_MEMBER(hh_sm510_state::input_w)
+{
+	m_inp_mux = data;
+	update_k_line();
+}
+
+READ8_MEMBER(hh_sm510_state::input_r)
+{
+	return read_inputs(m_inp_lines);
 }
 
 
@@ -102,24 +157,18 @@ class ktopgun_state : public hh_sm510_state
 public:
 	ktopgun_state(const machine_config &mconfig, device_type type, const char *tag)
 		: hh_sm510_state(mconfig, type, tag)
-	{ }
+	{
+		m_inp_lines = 3;
+	}
 
-	DECLARE_WRITE8_MEMBER(input_w);
-	DECLARE_READ8_MEMBER(input_r);
+	DECLARE_WRITE8_MEMBER(speaker_w);
 };
 
 // handlers
 
-WRITE8_MEMBER(ktopgun_state::input_w)
+WRITE8_MEMBER(ktopgun_state::speaker_w)
 {
-	// S1-S3: input mux
-	m_inp_mux = data;
-}
-
-READ8_MEMBER(ktopgun_state::input_r)
-{
-	//printf("%02X ",m_inp_mux);
-	return read_inputs(3);
+	m_speaker->level_w(data >> 0 & 1);
 }
 
 
@@ -127,30 +176,33 @@ READ8_MEMBER(ktopgun_state::input_r)
 
 static INPUT_PORTS_START( ktopgun )
 	PORT_START("IN.0")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
 
 	PORT_START("IN.1")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // sel
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // sound on/off
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // off
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // fire
 
 	PORT_START("IN.2")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON6 )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON7 )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON8 )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // on
+	PORT_BIT( 0x0e, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
 static MACHINE_CONFIG_START( ktopgun, ktopgun_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", SM510, XTAL_32_768kHz)
-	MCFG_SM510_READ_K_CB(READ8(ktopgun_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(ktopgun_state, input_w))
+	MCFG_SM510_WRITE_SEGA_CB(WRITE16(hh_sm510_state, lcd_segment_w))
+	MCFG_SM510_WRITE_SEGB_CB(WRITE16(hh_sm510_state, lcd_segment_w))
+	MCFG_SM510_READ_K_CB(READ8(hh_sm510_state, input_r))
+	MCFG_SM510_WRITE_S_CB(WRITE8(hh_sm510_state, input_w))
+	MCFG_SM510_WRITE_R_CB(WRITE8(ktopgun_state, speaker_w))
+
+	MCFG_DEFAULT_LAYOUT(layout_hh_sm510_test)
 
 	/* no video! */
 
@@ -177,23 +229,18 @@ class gnwmndon_state : public hh_sm510_state
 public:
 	gnwmndon_state(const machine_config &mconfig, device_type type, const char *tag)
 		: hh_sm510_state(mconfig, type, tag)
-	{ }
+	{
+		m_inp_lines = 2;
+	}
 
-	DECLARE_WRITE8_MEMBER(input_w);
-	DECLARE_READ8_MEMBER(input_r);
+	DECLARE_WRITE8_MEMBER(speaker_w);
 };
 
 // handlers
 
-WRITE8_MEMBER(gnwmndon_state::input_w)
+WRITE8_MEMBER(gnwmndon_state::speaker_w)
 {
-	// S1,S2: input mux
-	m_inp_mux = data;
-}
-
-READ8_MEMBER(gnwmndon_state::input_r)
-{
-	return read_inputs(2);
+	m_speaker->level_w(data >> 1 & 1);
 }
 
 
@@ -201,24 +248,29 @@ READ8_MEMBER(gnwmndon_state::input_r)
 
 static INPUT_PORTS_START( gnwmndon )
 	PORT_START("IN.0")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_4WAY
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_4WAY
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_4WAY
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_4WAY
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_4WAY PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_4WAY PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL)
 
 	PORT_START("IN.1")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) // time
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) // b
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) // a
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) // alarm
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // time
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // b
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // a
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_sm510_state, input_changed, NULL) // alarm
 INPUT_PORTS_END
 
 static MACHINE_CONFIG_START( gnwmndon, gnwmndon_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", SM510, XTAL_32_768kHz)
-	MCFG_SM510_READ_K_CB(READ8(gnwmndon_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(gnwmndon_state, input_w))
+	MCFG_SM510_WRITE_SEGA_CB(WRITE16(hh_sm510_state, lcd_segment_w))
+	MCFG_SM510_WRITE_SEGB_CB(WRITE16(hh_sm510_state, lcd_segment_w))
+	MCFG_SM510_READ_K_CB(READ8(hh_sm510_state, input_r))
+	MCFG_SM510_WRITE_S_CB(WRITE8(hh_sm510_state, input_w))
+	MCFG_SM510_WRITE_R_CB(WRITE8(gnwmndon_state, speaker_w))
+
+	MCFG_DEFAULT_LAYOUT(layout_hh_sm510_test)
 
 	/* no video! */
 
@@ -252,6 +304,6 @@ ROM_END
 
 
 /*    YEAR  NAME       PARENT COMPAT MACHINE   INPUT      INIT              COMPANY, FULLNAME, FLAGS */
-CONS( 1989, ktopgun,   0,        0, ktopgun,   ktopgun,   driver_device, 0, "Konami", "Top Gun (Konami)", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
+CONS( 1989, ktopgun,   0,        0, ktopgun,   ktopgun,   driver_device, 0, "Konami", "Top Gun (Konami)", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK | GAME_NOT_WORKING )
 
-CONS( 1982, gnwmndon,  0,        0, gnwmndon,  gnwmndon,  driver_device, 0, "Nintendo", "Game & Watch: Mickey & Donald", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
+CONS( 1982, gnwmndon,  0,        0, gnwmndon,  gnwmndon,  driver_device, 0, "Nintendo", "Game & Watch: Mickey & Donald", GAME_SUPPORTS_SAVE | GAME_REQUIRES_ARTWORK | GAME_NOT_WORKING )
