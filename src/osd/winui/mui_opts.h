@@ -152,9 +152,6 @@ BOOL GetFilterInherit(void);
 void SetOffsetClones(BOOL offset);
 BOOL GetOffsetClones(void);
 
-void SetBroadcast(BOOL broadcast);
-BOOL GetBroadcast(void);
-
 void SetSavedFolderID(UINT val);
 UINT GetSavedFolderID(void);
 

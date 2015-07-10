@@ -783,7 +783,6 @@ TCHAR last_directory[MAX_PATH];
 /* system-wide window message sent out with an ATOM of the current game name
    each time it changes */
 static UINT g_mame32_message = 0;
-static BOOL g_bDoBroadcast   = FALSE;
 
 static BOOL use_gui_romloading = FALSE;
 
@@ -1608,7 +1607,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	}
 
 	g_mame32_message = RegisterWindowMessage(TEXT("MAME32"));
-	//g_bDoBroadcast = GetBroadcast();
 
 	HelpInit();
 
@@ -1887,15 +1885,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 static void Win32UI_exit()
 {
-
-
-    if (g_bDoBroadcast == TRUE)
-    {
-        ATOM a = GlobalAddAtom(TEXT(""));
-        SendMessage(HWND_BROADCAST, g_mame32_message, a, a);
-        GlobalDeleteAtom(a);
-    }
-
 	if (g_pJoyGUI != NULL)
 		g_pJoyGUI->exit();
 
@@ -4329,7 +4318,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			OpenFileName.nFileExtension    = 0;
 			OpenFileName.lpstrDefExt       = NULL;
 			OpenFileName.lCustData         = 0;
-			OpenFileName.lpfnHook		   = NULL;
+			OpenFileName.lpfnHook          = NULL;
 			OpenFileName.lpTemplateName    = NULL;
 			OpenFileName.Flags             = OFN_NOCHANGEDIR | OFN_SHOWHELP | OFN_EXPLORER;
 
@@ -4661,20 +4650,6 @@ static void GamePicker_LeavingItem(HWND hwndPicker, int nItem)
 
 static void GamePicker_EnteringItem(HWND hwndPicker, int nItem)
 {
-	TCHAR* t_description;
-	ATOM a;
-	// printf("entering %s\n",driver_list::driver(nItem).name);
-	if (g_bDoBroadcast == TRUE)
-	{
-		t_description = tstring_from_utf8(driver_list::driver(nItem).description);
-		if( !t_description )
-			return;
-		a = GlobalAddAtom(t_description);
-		SendMessage(HWND_BROADCAST, g_mame32_message, a, a);
-		GlobalDeleteAtom(a);
-		osd_free(t_description);
-	}
-
 	EnableSelection(nItem);
 }
 

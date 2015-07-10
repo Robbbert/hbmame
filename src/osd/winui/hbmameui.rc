@@ -953,9 +953,6 @@ BEGIN
     CONTROL         "Allow game selection by custom &key sequences",
                     IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,
                     166,10
-    CONTROL         "&Broadcast selected game to all windows",IDC_BROADCAST,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,72,141,10,0,
-                    HIDC_BROADCAST
     CONTROL         "Hide &mouse cursor (requires restart)",IDC_HIDE_MOUSE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,126,10,0,
                     HIDC_HIDE_MOUSE

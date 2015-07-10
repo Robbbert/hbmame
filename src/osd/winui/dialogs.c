@@ -190,25 +190,18 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 		Button_SetCheck(GetDlgItem(hDlg,IDC_START_GAME_CHECK),GetGameCheck());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_JOY_GUI),GetJoyGUI());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_KEY_GUI),GetKeyGUI());
-		//Button_SetCheck(GetDlgItem(hDlg,IDC_BROADCAST),GetBroadcast());
-
 		Button_SetCheck(GetDlgItem(hDlg,IDC_HIDE_MOUSE),GetHideMouseOnStartup());
 
 		// Get the current value of the control
-		SendDlgItemMessage(hDlg, IDC_CYCLETIMESEC, TBM_SETRANGE,
-					(WPARAM)FALSE,
-					(LPARAM)MAKELONG(0, 60)); /* [0, 60] */
+		SendDlgItemMessage(hDlg, IDC_CYCLETIMESEC, TBM_SETRANGE, (WPARAM)FALSE, (LPARAM)MAKELONG(0, 60)); /* [0, 60] */
 		value = GetCycleScreenshot();
 		SendDlgItemMessage(hDlg,IDC_CYCLETIMESEC, TBM_SETPOS, TRUE, value);
 		_itot(value,tmp,10);
 		SendDlgItemMessage(hDlg,IDC_CYCLETIMESECTXT,WM_SETTEXT,0, (WPARAM)tmp);
 
-		Button_SetCheck(GetDlgItem(hDlg,IDC_STRETCH_SCREENSHOT_LARGER),
-						GetStretchScreenShotLarger());
-		Button_SetCheck(GetDlgItem(hDlg,IDC_FILTER_INHERIT),
-						GetFilterInherit());
-		Button_SetCheck(GetDlgItem(hDlg,IDC_NOOFFSET_CLONES),
-						GetOffsetClones());
+		Button_SetCheck(GetDlgItem(hDlg,IDC_STRETCH_SCREENSHOT_LARGER), GetStretchScreenShotLarger());
+		Button_SetCheck(GetDlgItem(hDlg,IDC_FILTER_INHERIT), GetFilterInherit());
+		Button_SetCheck(GetDlgItem(hDlg,IDC_NOOFFSET_CLONES), GetOffsetClones());
 		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Snapshot"));
 		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_SCREENSHOT);
 		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Flyer"));
@@ -312,8 +305,6 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 			SetGameCheck(Button_GetCheck(GetDlgItem(hDlg, IDC_START_GAME_CHECK)));
 			SetJoyGUI(Button_GetCheck(GetDlgItem(hDlg, IDC_JOY_GUI)));
 			SetKeyGUI(Button_GetCheck(GetDlgItem(hDlg, IDC_KEY_GUI)));
-			//SetBroadcast(Button_GetCheck(GetDlgItem(hDlg, IDC_BROADCAST)));
-
 			SetHideMouseOnStartup(Button_GetCheck(GetDlgItem(hDlg,IDC_HIDE_MOUSE)));
 
 			if( Button_GetCheck(GetDlgItem(hDlg,IDC_RESET_PLAYCOUNT ) ) )
