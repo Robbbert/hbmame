@@ -943,7 +943,7 @@ EXSTYLE WS_EX_CONTEXTHELP
 CAPTION "Interface Options"
 FONT 8, "MS Shell Dlg"
 BEGIN
-    GROUPBOX        "Game Selection",IDC_STATIC,6,4,189,208
+    GROUPBOX        "Game Selection",IDC_STATIC,6,4,189,194
     CONTROL         "&Search for new games on start",IDC_START_GAME_CHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,16,111,10,0,
                     HIDC_START_GAME_CHECK
@@ -953,9 +953,6 @@ BEGIN
     CONTROL         "Allow game selection by custom &key sequences",
                     IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,
                     166,10
-    CONTROL         "Select &random background image",IDC_RANDOM_BG,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,58,122,10,0,
-                    HIDC_RANDOM_BG
     CONTROL         "&Broadcast selected game to all windows",IDC_BROADCAST,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,72,141,10,0,
                     HIDC_BROADCAST

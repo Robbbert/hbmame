@@ -268,8 +268,6 @@ static void             UpdateStatusBar(void);
 //static BOOL             PickerHitTest(HWND hWnd);
 static BOOL             TreeViewNotify(NMHDR *nm);
 
-//static void             ResetBackground(char *szFile);
-//static void             RandomSelectBackground(void);
 static void             LoadBackgroundBitmap(void);
 static void             PaintBackgroundImage(HWND hWnd, HRGN hRgn, int x, int y);
 
@@ -1530,70 +1528,6 @@ int GetGameNameIndex(const char *name)
     Internal functions
  ***************************************************************************/
 
-#if 0
-static void ResetBackground(char *szFile)
-{
-	char szDestFile[MAX_PATH];
-
-	/* The MAME core load the .png file first, so we only need replace this file */
-	sprintf(szDestFile, "%s\\bkground.png", GetBgDir());
-	win_set_file_attributes_utf8(szDestFile, FILE_ATTRIBUTE_NORMAL);
-	win_copy_file_utf8(szFile, szDestFile, FALSE);
-}
-
-static void RandomSelectBackground(void)
-{
-	struct _finddata_t c_file;
-	long hFile;
-	char szFile[MAX_PATH];
-	int count=0;
-	const char *szDir=GetBgDir();
-	char *buf=(char *)malloc(_MAX_FNAME * MAX_BGFILES);
-
-	if (buf == NULL)
-		return;
-
-	sprintf(szFile, "%s\\*.bmp", szDir);
-	hFile = _findfirst(szFile, &c_file);
-	if (hFile != -1L)
-	{
-		int Done = 0;
-		while (!Done && count < MAX_BGFILES)
-		{
-			memcpy(buf + count * _MAX_FNAME, c_file.name, _MAX_FNAME);
-			count++;
-			Done = _findnext(hFile, &c_file);
-		}
-		_findclose(hFile);
-	}
-	sprintf(szFile, "%s\\*.png", szDir);
-	hFile = _findfirst(szFile, &c_file);
-	if (hFile != -1L)
-	{
-		int Done = 0;
-		while (!Done && count < MAX_BGFILES)
-		{
-			memcpy(buf + count * _MAX_FNAME, c_file.name, _MAX_FNAME);
-			count++;
-			Done = _findnext(hFile, &c_file);
-		}
-		_findclose(hFile);
-	}
-
-	if (count)
-	{
-#ifdef rand
-#undef rand
-#endif
-
-		srand( (unsigned)time( NULL ) );
-		sprintf(szFile, "%s\\%s", szDir, buf + (rand() % count) * _MAX_FNAME);
-		ResetBackground(szFile);
-	}
-
-	free(buf);
-}
-#endif
 
 static void SetMainTitle(void)
 {
@@ -1826,9 +1760,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 		DialogBox(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_DIRECTX), NULL, DirectXDialogProc);
 		return FALSE;
 	}
-
-//	if (GetRandomBackground())
-//		RandomSelectBackground();
 
 	LoadBackgroundBitmap();
 

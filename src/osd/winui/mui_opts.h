@@ -155,9 +155,6 @@ BOOL GetOffsetClones(void);
 void SetBroadcast(BOOL broadcast);
 BOOL GetBroadcast(void);
 
-void SetRandomBackground(BOOL random_bg);
-BOOL GetRandomBackground(void);
-
 void SetSavedFolderID(UINT val);
 UINT GetSavedFolderID(void);
 
