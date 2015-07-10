@@ -3845,10 +3845,10 @@ static void PickCloneColor(void)
 
 static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 {
-	int i;
+	int i = 0;
 	LPTREEFOLDER folder;
 	char* utf8_szFile;
-	BOOL res;
+	BOOL res = 0;
 
 	switch (id)
 	{
@@ -4045,17 +4045,15 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	/* ListView Context Menu */
 	case ID_CONTEXT_ADD_CUSTOM:
 	{
-	    int  nResult;
-
-		nResult = DialogBoxParam(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_CUSTOM_FILE),
-								 hMain,AddCustomFileDialogProc,Picker_GetSelectedItem(hwndList));
+		DialogBoxParam(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_CUSTOM_FILE),
+			hMain,AddCustomFileDialogProc,Picker_GetSelectedItem(hwndList));
 		SetFocus(hwndList);
 		break;
 	}
 
 	case ID_CONTEXT_REMOVE_CUSTOM:
 	{
-	    RemoveCurrentGameCustomFolder();
+		RemoveCurrentGameCustomFolder();
 		break;
 	}
 
@@ -4179,17 +4177,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		{
 			OPTIONS_TYPE curOptType = OPTIONS_SOURCE;
 			folder = GetSelectedFolder();
-			if(folder->m_nFolderId == FOLDER_VECTOR) {
+			if(folder->m_nFolderId == FOLDER_VECTOR)
 				curOptType = OPTIONS_VECTOR;
-			}
-//			else if(folder->m_nFolderId == FOLDER_HORIZONTAL) {
-//				curOptType = OPTIONS_HORIZONTAL;
-//			}
-//			else if(folder->m_nFolderId == FOLDER_VERTICAL) {
-//				curOptType = OPTIONS_VERTICAL;
-//			}
+
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), curOptType, folder->m_nFolderId, Picker_GetSelectedItem(hwndList));
-			//SaveFolderOptions(folder->m_nFolderId, Picker_GetSelectedItem(hwndList) );
 		}
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
@@ -4200,7 +4191,6 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		{
 			folder = GetFolderByName(FOLDER_SOURCE, GetDriverFilename(Picker_GetSelectedItem(hwndList)) );
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), (folder->m_nFolderId == FOLDER_VECTOR) ? OPTIONS_VECTOR : OPTIONS_SOURCE , folder->m_nFolderId, Picker_GetSelectedItem(hwndList));
-			//SaveFolderOptions(folder->m_nFolderId, Picker_GetSelectedItem(hwndList) );
 		}
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
@@ -4211,7 +4201,6 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		{
 			folder = GetFolderByID( FOLDER_VECTOR );
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), OPTIONS_VECTOR, folder->m_nFolderId, Picker_GetSelectedItem(hwndList));
-			//SaveFolderOptions(folder->m_nFolderId, Picker_GetSelectedItem(hwndList) );
 		}
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
@@ -4244,26 +4233,22 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		if (!oldControl)
 		{
 			InitDefaultPropertyPage(hInst, hwnd);
-			// DO NOT SaveDefaultOptions();
 		}
 		SetFocus(hwndList);
 		return TRUE;
 
 	case ID_OPTIONS_DIR:
 		{
-			int  nResult;
-			BOOL bUpdateRoms;
-			BOOL bUpdateSamples;
+			int nResult = DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_DIRECTORIES),
+					hMain,
+					DirectoriesDialogProc);
 
-			nResult = DialogBox(GetModuleHandle(NULL),
-								MAKEINTRESOURCE(IDD_DIRECTORIES),
-								hMain,
-								DirectoriesDialogProc);
+			SaveDefaultOptions();
+			SaveOptions();
 
-			// DO NOT SaveDefaultOptions();
-
-			bUpdateRoms    = ((nResult & DIRDLG_ROMS)	 == DIRDLG_ROMS)	? TRUE : FALSE;
-			bUpdateSamples = ((nResult & DIRDLG_SAMPLES) == DIRDLG_SAMPLES) ? TRUE : FALSE;
+			BOOL bUpdateRoms    = ((nResult & DIRDLG_ROMS)	 == DIRDLG_ROMS)	? TRUE : FALSE;
+			BOOL bUpdateSamples = ((nResult & DIRDLG_SAMPLES) == DIRDLG_SAMPLES) ? TRUE : FALSE;
 
 			if (s_pWatcher)
 			{
@@ -4282,14 +4267,16 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		return TRUE;
 
 	case ID_OPTIONS_RESET_DEFAULTS:
-		if (DialogBox(GetModuleHandle(NULL),
-					  MAKEINTRESOURCE(IDD_RESET), hMain, ResetDialogProc) == TRUE)
-        {
+		if (DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_RESET), hMain, ResetDialogProc) == TRUE)
+		{
 			// these may have been changed
 			SaveDefaultOptions();
+			SaveOptions();
 			DestroyWindow(hwnd);
 			PostQuitMessage(0);
-		} else {
+		}
+		else
+		{
 			ResetListView();
 			SetFocus(hwndList);
 		}
@@ -4298,7 +4285,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	case ID_OPTIONS_INTERFACE:
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INTERFACE_OPTIONS),
 				  hMain, InterfaceDialogProc);
-		// DO NOT SaveDefaultOptions();
+		SaveOptions();
 
 		KillTimer(hMain, SCREENSHOT_TIMER);
 		if( GetCycleScreenshot() > 0)
@@ -5221,7 +5208,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 		of.lpstrInitialDir = t_snapdir;
 	}
 	else {
-		of.lpstrInitialDir = last_directory;
+		of.lpstrInitialDir = TEXT(".");
 	}
 	of.lpstrTitle        = NULL;
 	of.Flags             = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY;

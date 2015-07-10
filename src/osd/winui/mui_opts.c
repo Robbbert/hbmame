@@ -187,15 +187,23 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_HIDE_MOUSE				"hide_mouse"
 #define MUIOPTION_FULL_SCREEN				"full_screen"
 
-// Options names
+#ifdef MESS
 #define MUIOPTION_DEFAULT_GAME				"default_system"
 #define MUIOPTION_HISTORY_FILE				"sysinfo_file"
 #define MUIOPTION_MAMEINFO_FILE				"messinfo_file"
-// Option values
-#define MUIDEFAULT_SELECTION				"sms"
+#define MUIDEFAULT_SELECTION				"3do"
 #define MUIDEFAULT_SPLITTERS				"152,310,468"
 #define MUIHISTORY_FILE					"history.dat"
 #define MUIMAMEINFO_FILE				"messinfo.dat"
+#else
+#define MUIOPTION_DEFAULT_GAME				"default_machine"
+#define MUIOPTION_HISTORY_FILE				"sysinfo_file"
+#define MUIOPTION_MAMEINFO_FILE				"mameinfo_file"
+#define MUIDEFAULT_SELECTION				"pacman"
+#define MUIDEFAULT_SPLITTERS				"152,310,468"
+#define MUIHISTORY_FILE					"history.dat"
+#define MUIMAMEINFO_FILE				"mameinfo.dat"
+#endif
 
 #define MUIOPTION_VERSION				"version"
 
