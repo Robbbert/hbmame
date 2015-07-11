@@ -352,6 +352,7 @@
 #define ID_HELP_RELEASE                 40028
 #define ID_HELP_WHATS_NEW               40029
 #define ID_HELP_CHEATS                  40030
+#define ID_FILE_AUDIT_X                 40031
 #define ID_VIEW_BYGAME                  40034
 #define ID_VIEW_BYDIRECTORY             40035
 #define ID_VIEW_BYMANUFACTURER          40036

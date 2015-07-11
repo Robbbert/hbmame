@@ -4,7 +4,7 @@
 #ifndef MUI_AUDIT_H
 #define MUI_AUDIT_H
 
-void AuditDialog(HWND hParent);
+void AuditDialog(HWND hParent, int choice);
 
 // For property sheet Game Audit tab
 void InitGameAudit(int gameIndex);

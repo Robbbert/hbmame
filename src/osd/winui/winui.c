@@ -894,7 +894,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 //  mame_opts = mame_options_init(mame_win_options);
 
 	// Tell mame were to get the INIs
-	mame_opts.set_value(OPTION_INIPATH, GetIniDir(), OPTION_PRIORITY_CMDLINE,error_string);
+	SetDirectories(mame_opts);
 
 	// add image specific device options
 	mame_opts.set_system_name(driver_list::driver(nGameIndex).name);
@@ -2336,8 +2336,7 @@ static BOOL PumpMessage()
 	{
 		BOOL absorbed_key = FALSE;
 		if (GetKeyGUI())
-			absorbed_key = HandleKeyboardGUIMessage(msg.hwnd, msg.message,
-													msg.wParam, msg.lParam);
+			absorbed_key = HandleKeyboardGUIMessage(msg.hwnd, msg.message, msg.wParam, msg.lParam);
 		else
 			absorbed_key = TranslateAccelerator(hMain, hAccel, &msg);
 
@@ -3881,7 +3880,14 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		return TRUE;
 
 	case ID_FILE_AUDIT:
-		AuditDialog(hMain);
+		AuditDialog(hMain, 1);
+		ResetWhichGamesInFolders();
+		ResetListView();
+		SetFocus(hwndList);
+		return TRUE;
+
+	case ID_FILE_AUDIT_X:
+		AuditDialog(hMain, 2);
 		ResetWhichGamesInFolders();
 		ResetListView();
 		SetFocus(hwndList);
@@ -4247,7 +4253,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			SaveDefaultOptions();
 			SaveOptions();
 
-			BOOL bUpdateRoms    = ((nResult & DIRDLG_ROMS)	 == DIRDLG_ROMS)	? TRUE : FALSE;
+			BOOL bUpdateRoms    = ((nResult & DIRDLG_ROMS) == DIRDLG_ROMS) ? TRUE : FALSE;
 			BOOL bUpdateSamples = ((nResult & DIRDLG_SAMPLES) == DIRDLG_SAMPLES) ? TRUE : FALSE;
 
 			if (s_pWatcher)
@@ -5041,8 +5047,8 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		break;
 
 	case COLUMN_PLAYED:
-	   value = GetPlayCount(index1) - GetPlayCount(index2);
-	   break;
+		value = GetPlayCount(index1) - GetPlayCount(index2);
+		break;
 
 	case COLUMN_MANUFACTURER:
 		value = core_stricmp(driver_list::driver(index1).manufacturer, driver_list::driver(index2).manufacturer);
@@ -5077,11 +5083,6 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 	{
 		value = GamePicker_Compare(hwndPicker, index1, index2, COLUMN_GAMES);
 	}
-#ifdef DEBUG
-	if ((strcmp(driver_list::driver(index1).name,"1941") == 0 && strcmp(driver_list::driver(index2).name,"1942") == 0) ||
-		(strcmp(driver_list::driver(index1).name,"1942") == 0 && strcmp(driver_list::driver(index2).name,"1941") == 0))
-		dprintf("result: %i\n",value);
-#endif
 
 	return value;
 }
@@ -6500,10 +6501,10 @@ void UpdateListView(void)
 
 static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_height)
 {
-	int 	destX, destY;
-	int 	destW, destH;
-	int	nBorder;
-	RECT	rect;
+	int destX, destY;
+	int destW, destH;
+	int nBorder;
+	RECT rect;
 	/* for scaling */
 	int x, y;
 	int rWidth, rHeight;
@@ -6570,9 +6571,9 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 	{
 		if (GetStretchScreenShotLarger())
 		{
-			rect.right	-= 10;
+			rect.right -= 10;
 			rect.bottom -= 10;
-			rWidth	-= 10;
+			rWidth -= 10;
 			rHeight -= 10;
 			bReduce = TRUE;
 			// Try to scale it properly
@@ -6617,17 +6618,17 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 	}
 	nBorder = GetScreenshotBorderSize();
 	if( destX > nBorder+1)
-		pRect->left   = destX - nBorder;
+		pRect->left = destX - nBorder;
 	else
-		pRect->left   = 2;
+		pRect->left = 2;
 	if( destY > nBorder+1)
-		pRect->top	  = destY - nBorder;
+		pRect->top = destY - nBorder;
 	else
-		pRect->top	  = 2;
+		pRect->top = 2;
 	if( rWidth >= destX + destW + nBorder)
-		pRect->right  = destX + destW + nBorder;
+		pRect->right = destX + destW + nBorder;
 	else
-		pRect->right  = rWidth - pRect->left;
+		pRect->right = rWidth - pRect->left;
 	if( rHeight >= destY + destH + nBorder)
 		pRect->bottom = destY + destH + nBorder;
 	else

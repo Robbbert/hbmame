@@ -65,6 +65,7 @@ BEGIN
 
         MENUITEM "Pr&operties",                 ID_GAME_PROPERTIES
         MENUITEM SEPARATOR
+        MENUITEM "Audi&t existing sets",        ID_FILE_AUDIT_X
         MENUITEM "&Audit all games",            ID_FILE_AUDIT
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_FILE_EXIT

@@ -50,7 +50,6 @@ static const char * StatusString(int iStatus);
     Internal variables
  ***************************************************************************/
 
-#define SAMPLES_NOT_USED    3
 #define MAX_AUDITBOX_TEXT	0x7FFFFFFE
 
 static volatile HWND hAudit;
@@ -60,15 +59,15 @@ static volatile int roms_incorrect;
 static volatile int sample_index;
 static volatile int samples_correct;
 static volatile int samples_incorrect;
-
 static volatile BOOL bPaused = FALSE;
 static volatile BOOL bCancel = FALSE;
+static int m_choice = 0;
 
 /***************************************************************************
     External functions
  ***************************************************************************/
 
-void AuditDialog(HWND hParent)
+void AuditDialog(HWND hParent, int choice)
 {
 	HMODULE hModule = NULL;
 	rom_index         = 0;
@@ -77,6 +76,7 @@ void AuditDialog(HWND hParent)
 	sample_index      = 0;
 	samples_correct   = -1; // ___empty must not be counted
 	samples_incorrect = 0;
+	m_choice = choice;
 
 	//RS use Riched32.dll
 	hModule = LoadLibrary(TEXT("Riched32.dll"));
@@ -124,12 +124,15 @@ BOOL IsAuditResultKnown(int audit_result)
 
 BOOL IsAuditResultYes(int audit_result)
 {
-	return audit_result == media_auditor::CORRECT || audit_result == media_auditor::BEST_AVAILABLE;
+	return audit_result == media_auditor::CORRECT
+		|| audit_result == media_auditor::BEST_AVAILABLE
+		|| audit_result == media_auditor::NONE_NEEDED;
 }
 
 BOOL IsAuditResultNo(int audit_result)
 {
-	return audit_result == media_auditor::NOTFOUND || audit_result == media_auditor::INCORRECT;
+	return audit_result == media_auditor::NOTFOUND
+		|| audit_result == media_auditor::INCORRECT;
 }
 
 
@@ -147,7 +150,10 @@ int MameUIVerifyRomSet(int game, bool choice)
 	std::string summary_string;
 
 	if (summary == media_auditor::NOTFOUND)
-		strcatprintf(summary_string, "%s: Romset NOT FOUND\n", driver_list::driver(game).name);
+	{
+		if (m_choice < 2)
+			strcatprintf(summary_string, "%s: Romset NOT FOUND\n", driver_list::driver(game).name);
+	}
 	else
 	if (choice)
 		auditor.winui_summarize(driver_list::driver(game).name, &summary_string); // audit all games
@@ -193,26 +199,24 @@ static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 		{
 			if (rom_index != -1)
 			{
-				sprintf(buffer, "Checking Game %s - %s",
+				sprintf(buffer, "Checking Set %s - %s",
 					driver_list::driver(rom_index).name, driver_list::driver(rom_index).description);
 				win_set_window_text_utf8((HWND)hDlg, buffer);
 				ProcessNextRom();
 			}
 			else
+			if (sample_index != -1)
 			{
-				if (sample_index != -1)
-				{
-					sprintf(buffer, "Checking Game %s - %s",
-						driver_list::driver(sample_index).name, driver_list::driver(sample_index).description);
-					win_set_window_text_utf8((HWND)hDlg, buffer);
-					ProcessNextSample();
-				}
-				else
-				{
-					win_set_window_text_utf8((HWND)hDlg, "File Audit");
-					EnableWindow(GetDlgItem((HWND)hDlg, IDPAUSE), FALSE);
-					ExitThread(1);
-				}
+				sprintf(buffer, "Checking Set %s - %s",
+					driver_list::driver(sample_index).name, driver_list::driver(sample_index).description);
+				win_set_window_text_utf8((HWND)hDlg, buffer);
+				ProcessNextSample();
+			}
+			else
+			{
+				win_set_window_text_utf8((HWND)hDlg, "File Audit");
+				EnableWindow(GetDlgItem((HWND)hDlg, IDPAUSE), FALSE);
+				ExitThread(1);
 			}
 		}
 	}
@@ -250,7 +254,7 @@ static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPAR
 		switch (LOWORD(wParam))
 		{
 		case IDCANCEL:
-            bPaused = FALSE;
+			bPaused = FALSE;
 			if (hThread)
 			{
 				bCancel = TRUE;
@@ -262,6 +266,7 @@ static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPAR
 				CloseHandle(hThread);
 			}
 			EndDialog(hDlg,0);
+			m_choice = 0;
 			break;
 
 		case IDPAUSE:
@@ -381,6 +386,7 @@ static void ProcessNextSample()
 			break;
 		}
 	default:
+		if ((DriverUsesSamples(sample_index)) || (m_choice == 1))
 		{
 			samples_correct++;
 			_stprintf(buffer, TEXT("%i"), samples_correct);
@@ -453,6 +459,10 @@ static const char * StatusString(int iStatus)
 
 	case media_auditor::BEST_AVAILABLE:
 		ptr = "Best available";
+		break;
+
+	case media_auditor::NONE_NEEDED:
+		ptr = "None Required";
 		break;
 
 	case media_auditor::NOTFOUND:
