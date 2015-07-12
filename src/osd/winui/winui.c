@@ -5122,11 +5122,10 @@ static void SetRandomPickItem()
 BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 {
 	BOOL success;
-	OPENFILENAME of;
+	UINT16 i;
+	OPENFILENAME ofn;
+	std::string dirname;
 	TCHAR* t_filename;
-	TCHAR* t_statedir = 0;
-	TCHAR* t_artdir = 0;
-	TCHAR* t_snapdir = 0;
 	TCHAR t_filename_buffer[MAX_PATH]  = {0, };
 	char *utf8_filename;
 
@@ -5138,132 +5137,97 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 		osd_free(t_filename);
 	}
 
-	of.lStructSize       = sizeof(of);
-	of.hwndOwner         = hMain;
-	of.hInstance         = NULL;
+	ofn.lStructSize       = sizeof(ofn);
+	ofn.hwndOwner         = hMain;
+	ofn.hInstance         = NULL;
 	switch (filetype)
 	{
 	case FILETYPE_INPUT_FILES :
-		of.lpstrFilter   = TEXT("input files (*.inp,*.zip)\0*.inp;*.zip\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip)\0*.inp;*.zip\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("inp");
+		dirname = GetInpDir();
 		break;
 	case FILETYPE_SAVESTATE_FILES :
-		of.lpstrFilter   = TEXT("savestate files (*.sta)\0*.sta;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("savestate files (*.sta)\0*.sta;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("sta");
+		dirname = GetStateDir();
 		break;
 	case FILETYPE_WAVE_FILES :
-		of.lpstrFilter   = TEXT("sounds (*.wav)\0*.wav;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("sounds (*.wav)\0*.wav;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("wav");
+		dirname = GetInpDir();
 		break;
 	case FILETYPE_MNG_FILES :
-		of.lpstrFilter   = TEXT("videos (*.mng)\0*.mng;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("videos (*.mng)\0*.mng;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("mng");
+		dirname = GetInpDir();
 		break;
 	case FILETYPE_AVI_FILES :
-		of.lpstrFilter   = TEXT("videos (*.avi)\0*.avi;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("videos (*.avi)\0*.avi;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("avi");
+		dirname = GetInpDir();
 		break;
 	case FILETYPE_EFFECT_FILES :
-		of.lpstrFilter   = TEXT("effects (*.png)\0*.png;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("effects (*.png)\0*.png;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("png");
+		dirname = GetArtDir();
 		break;
 	case FILETYPE_JOYMAP_FILES :
-		of.lpstrFilter   = TEXT("maps (*.map,*.txt)\0*.map;*.txt;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("maps (*.map,*.txt)\0*.map;*.txt;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("map");
+		dirname = GetCtrlrDir();
 		break;
 	case FILETYPE_DEBUGSCRIPT_FILES :
-		of.lpstrFilter   = TEXT("scripts (*.txt,*.dat)\0*.txt;*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("scripts (*.txt,*.dat)\0*.txt;*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("txt");
+		dirname = GetInpDir();
 		break;
 	case FILETYPE_CHEAT_FILE :
-		of.lpstrFilter   = TEXT("cheats (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("cheats (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("dat");
+		dirname = ".";
 		break;
 	case FILETYPE_HISTORY_FILE :
-		of.lpstrFilter   = TEXT("history (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("history (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("dat");
+		dirname = ".";
 		break;
 	case FILETYPE_MAMEINFO_FILE :
-		of.lpstrFilter   = TEXT("mameinfo (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("mameinfo (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("dat");
+		dirname = ".";
 		break;
 	}
-	of.lpstrCustomFilter = NULL;
-	of.nMaxCustFilter    = 0;
-	of.nFilterIndex      = 1;
-	of.lpstrFile         = t_filename_buffer;
-	of.nMaxFile          = ARRAY_LENGTH(t_filename_buffer);
-	of.lpstrFileTitle    = NULL;
-	of.nMaxFileTitle     = 0;
-	if (filetype == FILETYPE_SAVESTATE_FILES)
-	{
-		t_statedir = tstring_from_utf8(GetStateDir());
-		if( !t_statedir )
-			return FALSE;
+	ofn.lpstrCustomFilter = NULL;
+	ofn.nMaxCustFilter    = 0;
+	ofn.nFilterIndex      = 1;
+	ofn.lpstrFile         = t_filename_buffer;
+	ofn.nMaxFile          = ARRAY_LENGTH(t_filename_buffer);
+	ofn.lpstrFileTitle    = NULL;
+	ofn.nMaxFileTitle     = 0;
 
-		of.lpstrInitialDir = t_statedir;
-	}
-	else if (filetype == FILETYPE_EFFECT_FILES)
-	{
-		t_artdir = tstring_from_utf8(GetArtDir());
-		if( !t_artdir )
-			return FALSE;
+	// Only want first directory
+	i = dirname.find(";");
+	if (i > 0)
+		dirname.resize(i);
+	if (dirname.empty())
+		dirname = ".";
+	ofn.lpstrInitialDir   = tstring_from_utf8(dirname.c_str());
 
-		of.lpstrInitialDir = t_artdir;
-	}
-	else if (filetype == FILETYPE_MNG_FILES || filetype == FILETYPE_AVI_FILES)
-	{
-		t_snapdir = tstring_from_utf8(GetImgDir());
-		if( !t_snapdir )
-			return FALSE;
+	ofn.lpstrTitle        = NULL;
+	ofn.Flags             = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY;
+	ofn.nFileOffset       = 0;
+	ofn.nFileExtension    = 0;
+	ofn.lCustData         = 0;
+	ofn.lpfnHook          = NULL;
+	ofn.lpTemplateName    = NULL;
 
-		of.lpstrInitialDir = t_snapdir;
-	}
-	else {
-		of.lpstrInitialDir = TEXT(".");
-	}
-	of.lpstrTitle        = NULL;
-	of.Flags             = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY;
-	of.nFileOffset       = 0;
-	of.nFileExtension    = 0;
-	switch (filetype)
-	{
-	case FILETYPE_INPUT_FILES :
-		of.lpstrDefExt       = TEXT("inp");
-		break;
-	case FILETYPE_SAVESTATE_FILES :
-		of.lpstrDefExt       = TEXT("sta");
-		break;
-	case FILETYPE_WAVE_FILES :
-		of.lpstrDefExt       = TEXT("wav");
-		break;
-	case FILETYPE_MNG_FILES :
-		of.lpstrDefExt       = TEXT("mng");
-		break;
-	case FILETYPE_AVI_FILES :
-		of.lpstrDefExt       = TEXT("avi");
-		break;
-	case FILETYPE_EFFECT_FILES :
-		of.lpstrDefExt       = TEXT("png");
-		break;
-	case FILETYPE_JOYMAP_FILES :
-		of.lpstrDefExt       = TEXT("map");
-		break;
-	case FILETYPE_DEBUGSCRIPT_FILES :
-		of.lpstrDefExt       = TEXT("txt");
-		break;
-	case FILETYPE_CHEAT_FILE :
-	case FILETYPE_HISTORY_FILE :
-	case FILETYPE_MAMEINFO_FILE :
-		of.lpstrDefExt       = TEXT("dat");
-		break;
-	}
-	of.lCustData         = 0;
-	of.lpfnHook          = NULL;
-	of.lpTemplateName    = NULL;
-
-	success = cfd(&of);
+	success = cfd(&ofn);
 	if (success)
 	{
-		//dprintf("got filename %s nFileExtension %u\n",filename,of.nFileExtension);
+		//dprintf("got filename %s nFileExtension %u\n",filename,ofn.nFileExtension);
 		/*GetDirectory(filename,last_directory,sizeof(last_directory));*/
 	}
-
-	if( t_artdir )
-		osd_free(t_artdir);
-	if( t_statedir )
-		osd_free(t_statedir);
-	if( t_snapdir )
-		osd_free(t_snapdir);
 
 	utf8_filename = utf8_from_tstring(t_filename_buffer);
 	if (utf8_filename != NULL)
