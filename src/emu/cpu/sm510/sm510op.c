@@ -42,7 +42,7 @@ void sm510_base_device::do_branch(UINT8 pu, UINT8 pm, UINT8 pl)
 	m_pc = ((pu << 10 & 0xc00) | (pm << 6 & 0x3c0) | (pl & 0x03f)) & m_prgmask;
 }
 
-inline UINT8 sm510_base_device::bitmask(UINT8 param)
+inline UINT8 sm510_base_device::bitmask(UINT16 param)
 {
 	// bitmask from immediate opcode param
 	return 1 << (param & 3);
@@ -57,7 +57,10 @@ inline UINT8 sm510_base_device::bitmask(UINT8 param)
 void sm510_base_device::op_lb()
 {
 	// LB x: load BM/BL with 4-bit immediate value (partial)
-	op_illegal();
+	m_bm = (m_bm & 4) | (m_op & 3);
+	m_bl = m_op >> 2 & 3;
+	if (m_bl == 3)
+		m_bl |= 0xc;
 }
 
 void sm510_base_device::op_lbl()
@@ -192,18 +195,24 @@ void sm510_base_device::op_lax()
 		m_acc = m_op & 0xf;
 }
 
+void sm510_base_device::op_ptw()
+{
+	// PTW: output W latch
+	m_write_s(0, m_w, 0xff);
+}
+
 void sm510_base_device::op_wr()
 {
 	// WR: shift 0 into W
 	m_w = m_w << 1 | 0;
-	m_write_s(0, m_w, 0xff);
+	update_w_latch();
 }
 
 void sm510_base_device::op_ws()
 {
 	// WR: shift 1 into W
 	m_w = m_w << 1 | 1;
-	m_write_s(0, m_w, 0xff);
+	update_w_latch();
 }
 
 
@@ -221,6 +230,12 @@ void sm510_base_device::op_atbp()
 	m_bp = ((m_acc & 1) != 0);
 }
 
+void sm510_base_device::op_atx()
+{
+	// ATX: output ACC to X
+	m_x = m_acc;
+}
+
 void sm510_base_device::op_atl()
 {
 	// ATL: output ACC to L
@@ -236,7 +251,11 @@ void sm510_base_device::op_atfc()
 void sm510_base_device::op_atr()
 {
 	// ATR: output ACC to R
-	m_write_r(0, m_acc & 3, 0xff);
+	if (m_r != (m_acc & 3))
+	{
+		m_r = m_acc & 3;
+		m_write_r(0, m_r, 0xff);
+	}
 }
 
 
@@ -371,6 +390,35 @@ void sm510_base_device::op_sm()
 }
 
 
+// Melody control instructions
+
+void sm510_base_device::op_pre()
+{
+	// PRE x: melody ROM pointer preset
+	m_melody_address = m_param;
+	m_melody_step_count = 0;
+}
+
+void sm510_base_device::op_sme()
+{
+	// SME: set melody enable
+	m_melody_rd |= 1;
+}
+
+void sm510_base_device::op_rme()
+{
+	// RME: reset melody enable
+	m_melody_rd &= ~1;
+}
+
+void sm510_base_device::op_tmel()
+{
+	// TMEL: skip next if rest signal is set, reset it
+	m_skip = ((m_melody_rd & 2) != 0);
+	m_melody_rd &= ~2;
+}
+
+
 // Special instructions
 
 void sm510_base_device::op_skip()
@@ -387,10 +435,10 @@ void sm510_base_device::op_cend()
 void sm510_base_device::op_idiv()
 {
 	// IDIV: reset divider
-	reset_divider();
+	m_div = 0;
 }
 
 void sm510_base_device::op_illegal()
 {
-	logerror("%s unknown opcode $%03X at $%04X\n", tag(), m_op, m_prev_pc);
+	logerror("%s unknown opcode $%02X at $%04X\n", tag(), m_op, m_prev_pc);
 }
