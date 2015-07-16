@@ -1163,6 +1163,7 @@ syscheck
 test01		// MVS Test 01 by Furrtek
 timesupd	// CeL
 tmnti		/* TMNT intro */
+twister		// Blastar 2015
 ww2demo
 
 	/* neogeo1.c */

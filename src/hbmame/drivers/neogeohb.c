@@ -196,6 +196,7 @@ NUM YEAR COMPANY                 TITLE
 470 2015 freem                   ADPCM-B Playback Demo
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
 472 2015 freem                   ADPCM-A Playback Demo
+473 2015 blastar                 Twister in a mirror intro
 
 
 ********************** 800 to 899 **********************************
@@ -1342,6 +1343,23 @@ ROM_START( pcmademo )
 	// no sprites
 ROM_END
 
+// 473 : Twister in a mirror intro by Blastar.
+ROM_START( twister )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "473.p1", 0x000000, 0x080000, CRC(514bf0fd) SHA1(d7d084b83ae5ae776d6cc7b7d183bd79b2ab114a) )
+
+	NEO_SFIX_128K( "473.s1", CRC(111ea86c) SHA1(1251d7ef30493b76b15ddc8975a0278ad4a48434) )
+
+	NEO_BIOS_AUDIO_128K( "473.m1", CRC(c1c27b33) SHA1(655c1b01deacacbdbfe3a89196d4b0d9d3aae1eb) )
+
+	ROM_REGION( 0x80000, "ymsnd", 0 )
+	ROM_LOAD( "473.v1", 0x000000, 0x80000, CRC(0c5e044c) SHA1(e5717ea0e6daaf7c529f1e8cf5e4e73ee4a3f26f) )
+
+	ROM_REGION( 0x200000, "sprites", ROMREGION_ERASEFF )
+	ROM_LOAD( "202-c1.c1",    0x000000, 0x100000, CRC(72ceed51) SHA1(aa5ead993db739cf34917287988aeb43afa7f7d5) )
+	ROM_LOAD( "202-c2.c2",    0x000001, 0x100000, CRC(27da57ee) SHA1(323fcd0893aec82cc3c78687834920e2eeedb67b) )
+ROM_END
+
 
 // GAME MACROS
 
@@ -1390,9 +1408,10 @@ GAME( 2015, pcmbdemo, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0,
 GAME( 2003, poknight, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", GAME_SUPPORTS_SAVE )
 GAME( 2009, rci,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", GAME_SUPPORTS_SAVE )
 GAME( 2009, smi,      neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", GAME_SUPPORTS_SAVE )
+GAME( 2011, spriteex, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", GAME_SUPPORTS_SAVE )
 GAME( 2000, syscheck, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", GAME_SUPPORTS_SAVE )
 GAME( 20??, test01,   neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "MVS Test 01", GAME_SUPPORTS_SAVE )
 GAME( 2012, timesupd, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "Time's Up! (Demo)", GAME_SUPPORTS_SAVE )
 GAME( 2009, tmnti,    neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles Intro", GAME_SUPPORTS_SAVE )
+GAME( 2015, twister,  neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
 GAME( 2001, ww2demo,  neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", GAME_SUPPORTS_SAVE )
-GAME( 2011, spriteex, neogeo,   neogeo,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", GAME_SUPPORTS_SAVE )
