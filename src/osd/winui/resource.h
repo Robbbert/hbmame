@@ -196,6 +196,8 @@
 #define IDC_FILTER_ORIGINALS            1115
 #define IDC_FILTER_WORKING              1116
 #define IDC_FILTER_AVAILABLE            1117
+#define IDC_FILTER_ARCADE               1118
+#define IDC_FILTER_MESS                 1119
 #define IDC_START_GAME_CHECK            1120
 #define IDC_VOLUME                      1121
 #define IDC_VOLUMEDISP                  1122

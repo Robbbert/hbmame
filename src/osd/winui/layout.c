@@ -87,6 +87,8 @@ extern const FILTER_ITEM g_filterList[] =
 	{ F_HORIZONTAL,   IDC_FILTER_HORIZONTAL,  DriverIsVertical, FALSE },
 	{ F_VERTICAL,     IDC_FILTER_VERTICAL,    DriverIsVertical, TRUE },
 	{ F_MECHANICAL,   IDC_FILTER_MECHANICAL,  DriverIsMechanical, TRUE },
+	{ F_ARCADE,       IDC_FILTER_ARCADE,      DriverIsArcade, TRUE },
+	{ F_MESS,         IDC_FILTER_MESS,        DriverIsArcade, FALSE },
 	{ 0 }
 };
 

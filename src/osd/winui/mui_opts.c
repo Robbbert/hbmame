@@ -101,7 +101,9 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_OFFSET_CLONES				"offset_clones"
 #define MUIOPTION_DEFAULT_FOLDER_ID			"default_folder_id"
 #define MUIOPTION_SHOW_IMAGE_SECTION			"show_image_section"
+#ifdef MESS
 #define MUIOPTION_SHOW_SOFTWARE_SECTION			"show_software_section"
+#endif
 #define MUIOPTION_SHOW_FOLDER_SECTION			"show_folder_section"
 #define MUIOPTION_HIDE_FOLDERS				"hide_folders"
 #define MUIOPTION_SHOW_STATUS_BAR			"show_status_bar"
@@ -157,7 +159,9 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_UI_KEY_VIEW_FULLSCREEN		"ui_key_view_fullscreen"
 #define MUIOPTION_UI_KEY_VIEW_PAGETAB			"ui_key_view_pagetab"
 #define MUIOPTION_UI_KEY_VIEW_PICTURE_AREA		"ui_key_view_picture_area"
+#ifdef MESS
 #define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA		"ui_key_view_software_area"
+#endif
 #define MUIOPTION_UI_KEY_VIEW_STATUS			"ui_key_view_status"
 #define MUIOPTION_UI_KEY_VIEW_TOOLBARS			"ui_key_view_toolbars"
 #define MUIOPTION_UI_KEY_VIEW_TAB_CABINET		"ui_key_view_tab_cabinet"
@@ -199,8 +203,8 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_DEFAULT_GAME				"default_machine"
 #define MUIOPTION_HISTORY_FILE				"sysinfo_file"
 #define MUIOPTION_MAMEINFO_FILE				"mameinfo_file"
-#define MUIDEFAULT_SELECTION				"pacman"
-#define MUIDEFAULT_SPLITTERS				"152,310,468"
+#define MUIDEFAULT_SELECTION				"puckman"
+#define MUIDEFAULT_SPLITTERS				"152,362"
 #define MUIHISTORY_FILE					"history.dat"
 #define MUIMAMEINFO_FILE				"mameinfo.dat"
 #endif
@@ -240,17 +244,19 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_SHOW_TOOLBAR,			"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_SHOW_STATUS_BAR,			"1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_HIDE_FOLDERS,			"",         OPTION_STRING,                 NULL },
-	{ MUIOPTION_SHOW_FOLDER_SECTION,		"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_TABS,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_TABS,				"flyer, cabinet, marquee, title, cpanel, pcb", OPTION_STRING, NULL },
-	{ MUIOPTION_HISTORY_TAB,			"1",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SHOW_FOLDER_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_SHOW_TABS,				"1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_TABS,				"marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
+	{ MUIOPTION_HISTORY_TAB,			"0",        OPTION_INTEGER,                 NULL },
+#ifdef MESS
 	{ MUIOPTION_SHOW_SOFTWARE_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
+#endif
 	{ MUIOPTION_SORT_COLUMN,			"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SORT_REVERSED,			"0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_WINDOW_X,				"0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_WINDOW_Y,				"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_WIDTH,			"640",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_HEIGHT,			"400",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_WIDTH,			"800",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_HEIGHT,			"600",      OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_WINDOW_STATE,			"1",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_TEXT_COLOR,				"-1",       OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_CLONE_COLOR,			"-1",       OPTION_INTEGER,                 NULL },
@@ -312,7 +318,9 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_UI_KEY_VIEW_FULLSCREEN,		"KEYCODE_F11",                OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PAGETAB,		"KEYCODE_LALT KEYCODE_B",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,		"KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
+#ifdef MESS
 	{ MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA,		"KEYCODE_LALT KEYCODE_W",     OPTION_STRING, NULL },
+#endif
 	{ MUIOPTION_UI_KEY_VIEW_STATUS,			"KEYCODE_LALT KEYCODE_S",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_TOOLBARS,		"KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,		"KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
@@ -448,17 +456,6 @@ BOOL OptionsInit()
 
 void OptionsExit(void)
 {
-	// free global options
-	//options_free(global);
-	//global = NULL;
-
-	// free settings
-	//options_free(settings);
-	//settings = NULL;
-
-	// free the memory pool
-	//pool_free_lib(options_memory_pool);
-	//options_memory_pool = NULL;
 }
 
 winui_options & MameUISettings(void)
@@ -475,7 +472,7 @@ windows_options & MameUIGlobal(void)
 void ResetGUI(void)
 {
 	settings.revert(OPTION_PRIORITY_NORMAL);
-	// Save the new MAME32ui.ini
+	// Save the new MAMEui.ini
 	SaveOptions();
 }
 
@@ -695,6 +692,7 @@ BOOL GetShowScreenShot(void)
 	return settings.bool_value(MUIOPTION_SHOW_IMAGE_SECTION);
 }
 
+#ifdef MESS
 void SetShowSoftware(BOOL val)
 {
 	std::string error_string;
@@ -705,6 +703,7 @@ BOOL GetShowSoftware(void)
 {
 	return settings.bool_value(MUIOPTION_SHOW_SOFTWARE_SECTION);
 }
+#endif
 
 void SetShowFolderList(BOOL val)
 {
@@ -1462,27 +1461,6 @@ void ResetAllGameOptions(void)
 		ResetGameOptions(i);
 }
 
-//static void GetDriverOptionName(int driver_index, const char *option_name, char *buffer, size_t buffer_len)
-//{
-//	assert(0 <= driver_index && driver_index < driver_list::total());
-//	snprintf(buffer, buffer_len, "%s_%s", driver_list::driver(driver_index).name, option_name);
-//}
-
-//int GetRomAuditResults(int driver_index)
-//{
-//	char buffer[256];
-//	GetDriverOptionName(driver_index, "rom_audit", buffer, ARRAY_LENGTH(buffer));
-//	return settings.int_value(buffer);
-//}
-
-//void SetRomAuditResults(int driver_index, int audit_results)
-//{
-//	char buffer[256];
-//	GetDriverOptionName(driver_index, "rom_audit", buffer, ARRAY_LENGTH(buffer));
-//	std::string error_string;
-//	settings.set_value(buffer, audit_results, OPTION_PRIORITY_CMDLINE,error_string);
-//}
-
 int GetRomAuditResults(int driver_index)
 {
 	return game_opts.rom(driver_index);
@@ -1502,17 +1480,6 @@ void SetSampleAuditResults(int driver_index, int audit_results)
 {
 	game_opts.sample(driver_index, audit_results);
 }
-
-//static void IncrementPlayVariable(int driver_index, const char *play_variable, int increment)
-//{
-//	char buffer[256];
-//	int count;
-
-//	GetDriverOptionName(driver_index, play_variable, buffer, ARRAY_LENGTH(buffer));
-//	count = settings.int_value(buffer);
-//	std::string error_string;
-//	settings.set_value(buffer, count + increment, OPTION_PRIORITY_CMDLINE,error_string);
-//}
 
 static void IncrementPlayVariable(int driver_index, const char *play_variable, int increment)
 {
@@ -1539,31 +1506,6 @@ int GetPlayCount(int driver_index)
 {
 	return game_opts.play_count(driver_index);
 }
-
-//int GetPlayCount(int driver_index)
-//{
-//	char buffer[80];
-//	GetDriverOptionName(driver_index, "play_count", buffer, ARRAY_LENGTH(buffer));
-//	return settings.int_value(buffer);
-//}
-
-//static void ResetPlayVariable(int driver_index, const char *play_variable)
-//{
-//	int i;
-//	if (driver_index < 0)
-//	{
-//		/* all games */
-//		for (i = 0; i< driver_list::total(); i++)
-//			ResetPlayVariable(i, play_variable);
-//	}
-//	else
-//	{
-//		char buffer[80];
-//		GetDriverOptionName(driver_index, play_variable, buffer, ARRAY_LENGTH(buffer));
-//		std::string error_string;
-//		settings.set_value(buffer, 0, OPTION_PRIORITY_CMDLINE,error_string);
-//	}
-//}
 
 static void ResetPlayVariable(int driver_index, const char *play_variable)
 {
@@ -1599,9 +1541,6 @@ void ResetPlayTime(int driver_index)
 int GetPlayTime(int driver_index)
 {
 	return game_opts.play_time(driver_index);
-//	char buffer[80];
-//	GetDriverOptionName(driver_index, "play_time", buffer, ARRAY_LENGTH(buffer));
-//	return settings.int_value(buffer);
 }
 
 void IncrementPlayTime(int driver_index,int playtime)
@@ -1737,10 +1676,12 @@ input_seq* Get_ui_key_view_picture_area(void)
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_PICTURE_AREA);
 }
 
+#ifdef MESS
 input_seq* Get_ui_key_view_software_area(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA);
 }
+#endif
 
 input_seq* Get_ui_key_view_status(void)
 {
@@ -2567,56 +2508,6 @@ const char * GetVersionString(void)
 	return build_version;
 }
 
-// NOT USED
-/*
-static BOOL IsGlobalOption(const char *option_name)
-{
-	static const char *global_options[] =
-	{
-		OPTION_ROMPATH,
-		OPTION_HASHPATH,
-		OPTION_SAMPLEPATH,
-		OPTION_ARTPATH,
-		OPTION_CTRLRPATH,
-		OPTION_INIPATH,
-		OPTION_FONTPATH,
-		OPTION_CFG_DIRECTORY,
-		OPTION_NVRAM_DIRECTORY,
-		OPTION_INPUT_DIRECTORY,
-		OPTION_STATE_DIRECTORY,
-		OPTION_SNAPSHOT_DIRECTORY,
-		OPTION_DIFF_DIRECTORY,
-		OPTION_COMMENT_DIRECTORY
-	};
-
-	char command_name[128];
-	char *s;
-
-	// determine command name
-	snprintf(command_name, ARRAY_LENGTH(command_name), "%s", option_name);
-	s = strchr(command_name, ';');
-	if (s)
-		*s = '\0';
-
-	for (int i = 0; i < ARRAY_LENGTH(global_options); i++)
-	{
-		if (!strcmp(command_name, global_options[i]))
-			return TRUE;
-	}
-	return FALSE;
-}
-*/
-
-
-/* ui_parse_ini_file - parse a single INI file */
-//static void ui_parse_ini_file(windows_options &opts, const char *name)
-//{
-//	/* open the file; if we fail, that's ok */
-//	std::string fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(name) + ".ini";
-//	LoadSettingsFile(opts, fname.c_str());
-//	SetDirectories(opts);
-//}
-
 
 /*  get options, based on passed in game number. */
 void load_options(windows_options &opts, int game_num)
@@ -2650,17 +2541,6 @@ void load_options(windows_options &opts, int game_num)
 		}
 	}
 	SetDirectories(opts);
-
-//		CreateGameOptions(opts, game_num);
-//	// Copy over the defaults
-//	ui_parse_ini_file(opts, emulator_info::get_configname());
-//
-//	if (game_num >= 0)
-//	{
-//		driver = &driver_list::driver(game_num);
-//		if (driver != NULL)
-//			ui_parse_ini_file(opts, driver->name);
-//	}
 }
 
 /* Save ini file based on game_number. */

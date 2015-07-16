@@ -8,12 +8,9 @@
 ***************************************************************************/
 
 // standard windows headers
-#define CINTERFACE
-#define COBJMACROS
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <windowsx.h>
-#undef CINTERFACE
 
 // standard C headers
 #include <sys/stat.h>
@@ -26,11 +23,11 @@
 #include "resource.h"
 #include "strconv.h"
 #include "mui_util.h"
-#define CINTERFACE
-#include <shlobj.h>
-#undef CINTERFACE
 
-#define MAX_DIRS 128
+// SHELL DIR header
+#include <shlobj.h>
+
+#define MAX_DIRS 256
 
 /***************************************************************************
     Internal structures
@@ -722,22 +719,18 @@ static int CALLBACK BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPAR
 
 BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult)
 {
-	BOOL		bResult = FALSE;
-	IMalloc*	piMalloc = 0;
-	BROWSEINFO	Info;
+	BOOL bResult = FALSE;
+	BROWSEINFO Info;
 	LPITEMIDLIST pItemIDList = NULL;
-	TCHAR		buf[MAX_PATH];
+	TCHAR buf[MAX_PATH];
 
-	if (!SUCCEEDED(SHGetMalloc(&piMalloc)))
-		return FALSE;
-
-	Info.hwndOwner		= hwnd;
-	Info.pidlRoot		= NULL;
+	Info.hwndOwner = hwnd;
+	Info.pidlRoot = NULL;
 	Info.pszDisplayName = buf;
-	Info.lpszTitle		= TEXT("Directory name:");
-	Info.ulFlags		= BIF_RETURNONLYFSDIRS;
-	Info.lpfn			= BrowseCallbackProc;
-	Info.lParam 		= (LPARAM)pStartDir;
+	Info.lpszTitle = TEXT("Select a directory:");
+	Info.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI;
+	Info.lpfn = BrowseCallbackProc;
+	Info.lParam = (LPARAM)pStartDir;
 
 	pItemIDList = SHBrowseForFolder(&Info);
 
@@ -748,14 +741,10 @@ BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult)
 			_sntprintf(pResult, MAX_PATH, TEXT("%s"), buf);
 			bResult = TRUE;
 		}
-		IMalloc_Free(piMalloc, pItemIDList);
 	}
 	else
-	{
 		bResult = FALSE;
-	}
 
-	IMalloc_Release(piMalloc);
 	return bResult;
 }
 

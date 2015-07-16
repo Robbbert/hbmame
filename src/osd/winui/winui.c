@@ -4670,6 +4670,12 @@ static void GamePicker_LeavingItem(HWND hwndPicker, int nItem)
 static void GamePicker_EnteringItem(HWND hwndPicker, int nItem)
 {
 	EnableSelection(nItem);
+
+	// decide if it is valid to load a savestate
+	if (DriverSupportsSaveState(nItem))
+		EnableMenuItem(GetMenu(hMain), ID_FILE_LOADSTATE, MFS_ENABLED);
+	else
+		EnableMenuItem(GetMenu(hMain), ID_FILE_LOADSTATE, MFS_GRAYED);
 }
 
 static int GamePicker_FindItemParent(HWND hwndPicker, int nItem)

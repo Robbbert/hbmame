@@ -867,14 +867,14 @@ BEGIN
                     HIDC_HISTORY
 END
 
-IDD_FILTERS DIALOGEX 0, 0, 190, 182
+IDD_FILTERS DIALOGEX 0, 0, 190, 196
 STYLE DS_MODALFRAME | DS_CENTER | DS_3DLOOK | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
 EXSTYLE WS_EX_CONTEXTHELP
 CAPTION "Game Filters"
 FONT 8, "MS Shell Dlg"
 BEGIN
-    GROUPBOX        "Game filters",IDC_STATIC,6,4,178,85
+    GROUPBOX        "Game filters",IDC_STATIC,6,4,178,99
     CONTROL         "&Vector Graphics",IDC_FILTER_VECTOR,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,16,70,10,0,
                     HIDC_FILTER_VECTOR
@@ -889,6 +889,8 @@ BEGIN
     CONTROL         "&Unavailable",IDC_FILTER_UNAVAILABLE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,72,57,10,0,
                     HIDC_FILTER_UNAVAILABLE
+    CONTROL         "Arcade",IDC_FILTER_ARCADE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,86,57,10,0
     CONTROL         "&Raster Graphics",IDC_FILTER_RASTER,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,100,16,70,10,0,
                     HIDC_FILTER_RASTER
@@ -901,15 +903,17 @@ BEGIN
                     WS_TABSTOP,100,58,47,10,0,HIDC_FILTER_VERTICAL
     CONTROL         "&Mechanical",IDC_FILTER_MECHANICAL,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,100,72,58,10,0,HIDC_FILTER_MECHANICAL
+    CONTROL         "MESS",IDC_FILTER_MESS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,100,86,58,10,0,HIDC_FILTER_MECHANICAL
     LTEXT           "(*) = inherited from parent folder",IDC_INHERITED,14,72,
                     99,10
     CTEXT           "Game filters allow customizing the games that are displayed in each folder by hiding games that match the filters applied.",
-                    IDC_STATIC,6,94,178,27
-    GROUPBOX        "&Description filter",IDC_STATIC,6,122,178,33
-    EDITTEXT        IDC_FILTER_EDIT,14,134,162,13,ES_AUTOHSCROLL,0,
+                    IDC_STATIC,6,108,178,27
+    GROUPBOX        "&Description filter",IDC_STATIC,6,136,178,33
+    EDITTEXT        IDC_FILTER_EDIT,14,148,162,13,ES_AUTOHSCROLL,0,
                     HIDC_FILTER_EDIT
-    DEFPUSHBUTTON   "&OK",IDOK,42,161,50,14
-    PUSHBUTTON      "&Cancel",IDCANCEL,98,161,50,14
+    DEFPUSHBUTTON   "&OK",IDOK,42,175,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,98,175,50,14
 END
 
 IDD_RESET DIALOGEX 0, 0, 190, 122

@@ -56,7 +56,7 @@
 
 static char g_FilterText[FILTERTEXT_LEN];
 
-#define NUM_EXCLUSIONS  10
+#define NUM_EXCLUSIONS  12
 
 /* Pairs of filters that exclude each other */
 static DWORD filterExclusion[NUM_EXCLUSIONS] =
@@ -65,11 +65,11 @@ static DWORD filterExclusion[NUM_EXCLUSIONS] =
 	IDC_FILTER_NONWORKING,  IDC_FILTER_WORKING,
 	IDC_FILTER_UNAVAILABLE, IDC_FILTER_AVAILABLE,
 	IDC_FILTER_RASTER,      IDC_FILTER_VECTOR,
-	IDC_FILTER_HORIZONTAL,  IDC_FILTER_VERTICAL
+	IDC_FILTER_HORIZONTAL,  IDC_FILTER_VERTICAL,
+	IDC_FILTER_ARCADE,      IDC_FILTER_MESS,
 };
 
-static void DisableFilterControls(HWND hWnd, LPCFOLDERDATA lpFilterRecord,
-								  LPCFILTER_ITEM lpFilterItem, DWORD dwFlags);
+static void DisableFilterControls(HWND hWnd, LPCFOLDERDATA lpFilterRecord, LPCFILTER_ITEM lpFilterItem, DWORD dwFlags);
 static void EnableFilterExclusions(HWND hWnd, DWORD dwCtrlID);
 static DWORD ValidateFilters(LPCFOLDERDATA lpFilterRecord, DWORD dwFlags);
 static void OnHScroll(HWND hWnd, HWND hwndCtl, UINT code, int pos);
@@ -500,6 +500,22 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 						win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_VERTICAL), strText, 250);
 						strcat(strText, " (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_VERTICAL), strText);
+						bShowExplanation = TRUE;
+					}
+					if( (dwpFilters & F_ARCADE) && !(dwFilters & F_ARCADE) )
+					{
+						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
+						win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_ARCADE), strText, 250);
+						strcat(strText, " (*)");
+						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_ARCADE), strText);
+						bShowExplanation = TRUE;
+					}
+					if( (dwpFilters & F_MESS) && !(dwFilters & F_MESS) )
+					{
+						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
+						win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_MESS), strText, 250);
+						strcat(strText, " (*)");
+						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_MESS), strText);
 						bShowExplanation = TRUE;
 					}
 					/*Do not or in the Values of the parent, so that the values of the folder still can be set*/
