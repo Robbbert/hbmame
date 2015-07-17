@@ -43,8 +43,8 @@ char *g_mameinfo_filename = NULL;
  *      private data for parsing functions
  ****************************************************************************/
 static emu_file *fp = NULL;                  /* Our file pointer */
-static UINT64 dwFilePos;                     /* file position */
-static int num_games;
+static UINT64 dwFilePos = 0;                     /* file position */
+static int num_games = 0;
 
 
 /****************************************************************************
@@ -187,7 +187,7 @@ static int index_datafile (struct tDatafileIndex **_index)
 		/* DATAFILE_TAG_KEY identifies the driver */
 		if (!core_strnicmp(DATAFILE_TAG_KEY, readbuf, strlen(DATAFILE_TAG_KEY)))
 		{
-			int game_index;
+			int game_index = 0;
 			char *curpoint = &readbuf[strlen(DATAFILE_TAG_KEY) + 1];
 			char *pch;
 			char *ends = &readbuf[strlen(readbuf) - 1];
@@ -269,7 +269,7 @@ static int index_datafile_drivinfo (struct tDatafileIndex **_index)
 		/* DATAFILE_TAG_KEY identifies the driver */
 		if (!core_strnicmp(DATAFILE_TAG_KEY, readbuf, strlen(DATAFILE_TAG_KEY)))
 		{
-			int game_index;
+			int game_index = 0;
 			char *curpoint = &readbuf[strlen(DATAFILE_TAG_KEY) + 1];
 			char *pch;
 			char *ends = &readbuf[strlen(readbuf) - 1];
@@ -469,8 +469,8 @@ int load_driver_mameinfo (const game_driver *drv, char *buffer, int bufsize)
 	char name[300];
 	int mameinfo = 0;
 	int err = 0;
-	int i;
-	int has_sound;
+	int i = 0;
+	int has_sound = 0;
 	int is_bios = 0;
 
 	*buffer = 0;
@@ -569,7 +569,7 @@ int load_driver_mameinfo (const game_driver *drv, char *buffer, int bufsize)
 	const device_sound_interface *sound = sounditer.first();
 	while(sound)
 	{
-		int clock, count;
+		int clock, count = 0;
 		device_type sound_type_;
 		char tmpname[1024];
 
@@ -728,8 +728,8 @@ int load_driver_drivinfo (const game_driver *drv, char *buffer, int bufsize)
 {
 	static struct tDatafileIndex *driv_idx = 0;
 	int drivinfo = 0;
-	int err;
-	int i;
+	int err = 0;
+	int i = 0;
 
 	*buffer = 0;
 

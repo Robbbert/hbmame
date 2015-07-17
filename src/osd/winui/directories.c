@@ -195,12 +195,12 @@ static TCHAR * FixSlash(TCHAR *s)
 
 static void UpdateDirectoryList(HWND hDlg)
 {
-	bool b_res;
-	int 	i = 0;
-	int 	nType = 0;
+	bool b_res = 0;
+	int i = 0;
+	int nType = 0;
 	LV_ITEM Item;
-	HWND	hList  = GetDlgItem(hDlg, IDC_DIR_LIST);
-	HWND	hCombo = GetDlgItem(hDlg, IDC_DIR_COMBO);
+	HWND hList  = GetDlgItem(hDlg, IDC_DIR_LIST);
+	HWND hCombo = GetDlgItem(hDlg, IDC_DIR_COMBO);
 
 	/* Remove previous */
 	b_res = ListView_DeleteAllItems(hList);
@@ -254,15 +254,15 @@ static void Directories_OnSelChange(HWND hDlg)
 
 static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 {
-	RECT		rectClient;
-	LVCOLUMN	LVCol;
-	int 		i = 0;
-	int			nDirInfoCount = 0;
-	LPCSTR		s;
-	TCHAR       *token;
-	TCHAR       buf[MAX_PATH * MAX_DIRS];
-	TCHAR*      t_s = NULL;
-	HRESULT 	res = 0;
+	RECT rectClient;
+	LVCOLUMN LVCol;
+	int i = 0;
+	int nDirInfoCount = 0;
+	LPCSTR s;
+	TCHAR *token;
+	TCHAR buf[MAX_PATH * MAX_DIRS];
+	TCHAR* t_s = NULL;
+	HRESULT res = 0;
 
 	/* count how many dirinfos there are */
 	nDirInfoCount = 0;
@@ -289,8 +289,8 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	GetClientRect(GetDlgItem(hDlg, IDC_DIR_LIST), &rectClient);
 
 	memset(&LVCol, 0, sizeof(LVCOLUMN));
-	LVCol.mask	  = LVCF_WIDTH;
-	LVCol.cx	  = rectClient.right - rectClient.left - GetSystemMetrics(SM_CXHSCROLL);
+	LVCol.mask = LVCF_WIDTH;
+	LVCol.cx = rectClient.right - rectClient.left - GetSystemMetrics(SM_CXHSCROLL);
 
 	res = ListView_InsertColumn(GetDlgItem(hDlg, IDC_DIR_LIST), 0, &LVCol);
 	res++;
@@ -427,9 +427,9 @@ static void Directories_OnCancel(HWND hDlg)
 
 static void Directories_OnInsert(HWND hDlg)
 {
-	int 	nItem = 0;
-	TCHAR	buf[MAX_PATH];
-	HWND	hList = 0;
+	int nItem = 0;
+	TCHAR buf[MAX_PATH];
+	HWND hList = 0;
 
 	hList = GetDlgItem(hDlg, IDC_DIR_LIST);
 	nItem = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
@@ -466,11 +466,11 @@ static void Directories_OnInsert(HWND hDlg)
 
 static void Directories_OnBrowse(HWND hDlg)
 {
-	int 	nType = 0;
-	int 	nItem = 0;
-	TCHAR	inbuf[MAX_PATH];
-	TCHAR	outbuf[MAX_PATH];
-	HWND	hList = 0;
+	int nType = 0;
+	int nItem = 0;
+	TCHAR inbuf[MAX_PATH];
+	TCHAR outbuf[MAX_PATH];
+	HWND hList = 0;
 
 	hList = GetDlgItem(hDlg, IDC_DIR_LIST);
 	nItem = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
@@ -501,12 +501,12 @@ static void Directories_OnBrowse(HWND hDlg)
 
 static void Directories_OnDelete(HWND hDlg)
 {
-	int 	nType = 0;
-	int 	nCount = 0;
-	int 	nSelect = 0;
-	int 	i = 0;
-	int 	nItem = 0;
-	HWND	hList = GetDlgItem(hDlg, IDC_DIR_LIST);
+	int nType = 0;
+	int nCount = 0;
+	int nSelect = 0;
+	int i = 0;
+	int nItem = 0;
+	HWND hList = GetDlgItem(hDlg, IDC_DIR_LIST);
 
 	nItem = ListView_GetNextItem(hList, -1, LVNI_SELECTED | LVNI_ALL);
 
@@ -548,10 +548,10 @@ static void Directories_OnDelete(HWND hDlg)
 
 static BOOL Directories_OnBeginLabelEdit(HWND hDlg, NMHDR* pNMHDR)
 {
-	int 		  nType = 0;
-	BOOL		  bResult = FALSE;
+	int nType = 0;
+	BOOL bResult = FALSE;
 	NMLVDISPINFO* pDispInfo = (NMLVDISPINFO*)pNMHDR;
-	LVITEM* 	  pItem = &pDispInfo->item;
+	LVITEM* pItem = &pDispInfo->item;
 
 	nType = ComboBox_GetCurSel(GetDlgItem(hDlg, IDC_DIR_COMBO));
 	if (IsMultiDir(nType))
@@ -615,7 +615,7 @@ static BOOL Directories_OnEndLabelEdit(HWND hDlg, NMHDR* pNMHDR)
 
 				for (i = DirInfo_NumDir(g_pDirInfo, nType); pItem->iItem < i; i--)
 					_tcscpy(DirInfo_Path(g_pDirInfo, nType, i),
-						   DirInfo_Path(g_pDirInfo, nType, i - 1));
+						DirInfo_Path(g_pDirInfo, nType, i - 1));
 
 				_tcscpy(DirInfo_Path(g_pDirInfo, nType, pItem->iItem), pItem->pszText);
 
@@ -632,7 +632,7 @@ static BOOL Directories_OnEndLabelEdit(HWND hDlg, NMHDR* pNMHDR)
 
 		UpdateDirectoryList(hDlg);
 		ListView_SetItemState(GetDlgItem(hDlg, IDC_DIR_LIST), pItem->iItem,
-							  LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
+			LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
 
 	}
 
@@ -747,6 +747,4 @@ BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult)
 
 	return bResult;
 }
-
-/**************************************************************************/
 

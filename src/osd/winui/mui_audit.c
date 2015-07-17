@@ -53,12 +53,12 @@ static const char * StatusString(int iStatus);
 #define MAX_AUDITBOX_TEXT	0x7FFFFFFE
 
 static volatile HWND hAudit;
-static volatile int rom_index;
-static volatile int roms_correct;
-static volatile int roms_incorrect;
-static volatile int sample_index;
-static volatile int samples_correct;
-static volatile int samples_incorrect;
+static volatile int rom_index = 0;
+static volatile int roms_correct = 0;
+static volatile int roms_incorrect = 0;
+static volatile int sample_index = 0;
+static volatile int samples_correct = 0;
+static volatile int samples_incorrect = 0;
 static volatile BOOL bPaused = FALSE;
 static volatile BOOL bCancel = FALSE;
 static int m_choice = 0;
@@ -226,8 +226,8 @@ static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	static HANDLE hThread;
-	static DWORD dwThreadID;
-	DWORD dwExitCode;
+	static DWORD dwThreadID = 0;
+	DWORD dwExitCode = 0;
 	HWND hEdit;
 
 	switch (Msg)
@@ -329,7 +329,7 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 
 static void ProcessNextRom()
 {
-	int retval;
+	int retval = 0;
 	TCHAR buffer[200];
 
 	retval = MameUIVerifyRomSet(rom_index, 1);
@@ -367,7 +367,7 @@ static void ProcessNextRom()
 
 static void ProcessNextSample()
 {
-	int  retval;
+	int retval = 0;
 	TCHAR buffer[200];
 
 	retval = MameUIVerifySampleSet(sample_index);
@@ -410,11 +410,11 @@ static void ProcessNextSample()
 
 static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 {
-	HWND	hEdit;
+	HWND hEdit;
 	va_list marker;
-	char	buffer[8000];
-	TCHAR*  t_s;
-	int		textLength;
+	char buffer[8000];
+	TCHAR* t_s;
+	int textLength = 0;
 
 	//RS 20030613 Different Ids for Property Page and Dialog
 	// so see which one's currently instantiated

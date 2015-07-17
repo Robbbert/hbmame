@@ -27,16 +27,11 @@
     function prototypes
  ***************************************************************************/
 
-static BOOL WINAPI DDEnumInfo(GUID FAR *lpGUID,
-							  LPTSTR	lpDriverDescription,
-							  LPTSTR	lpDriverName,
-							  LPVOID	lpContext,
-							  HMONITOR	hm);
+static BOOL WINAPI DDEnumInfo(GUID FAR *lpGUID, LPTSTR lpDriverDescription,
+	LPTSTR lpDriverName, LPVOID lpContext, HMONITOR hm);
 
-static BOOL WINAPI DDEnumOldInfo(GUID FAR *lpGUID,
-								 LPTSTR	   lpDriverDescription,
-								 LPTSTR	   lpDriverName,
-								 LPVOID    lpContext);
+static BOOL WINAPI DDEnumOldInfo(GUID FAR *lpGUID, LPTSTR lpDriverDescription,
+	LPTSTR lpDriverName, LPVOID lpContext);
 
 static void CalculateDisplayModes(void);
 static HRESULT CALLBACK EnumDisplayModesCallback(LPDDSURFACEDESC pddsd, LPVOID Context);
@@ -52,27 +47,26 @@ static HRESULT CALLBACK EnumDisplayModesCallback2(DDSURFACEDESC2* pddsd, LPVOID 
 
 typedef struct
 {
-   TCHAR* name;
-   GUID* lpguid;
+	TCHAR* name;
+	GUID* lpguid;
 } display_type;
 
-typedef HRESULT (WINAPI *ddc_proc)(GUID FAR *lpGUID, LPDIRECTDRAW FAR *lplpDD,
-								   IUnknown FAR *pUnkOuter);
+typedef HRESULT (WINAPI *ddc_proc)(GUID FAR *lpGUID, LPDIRECTDRAW FAR *lplpDD, IUnknown FAR *pUnkOuter);
 
 /***************************************************************************
     Internal variables
  ***************************************************************************/
 
 #define MAX_DISPLAYS 100
-static int					g_nNumDisplays;
-static display_type 		g_Displays[MAX_DISPLAYS];
+static int g_nNumDisplays = 0;
+static display_type g_Displays[MAX_DISPLAYS];
 
-static HANDLE				g_hDLL;
-static BOOL 				g_bHWStretch;
-static BOOL 				g_bRefresh;
+static HANDLE g_hDLL;
+static BOOL g_bHWStretch = 0;
+static BOOL g_bRefresh = 0;
 static struct tDisplayModes g_DisplayModes;
-static IDirectDraw2*		g_pDirectDraw2;
-static IDirectDraw4*		g_pDirectDraw4;
+static IDirectDraw2* g_pDirectDraw2;
+static IDirectDraw4* g_pDirectDraw4;
 
 /***************************************************************************
     External functions
@@ -115,11 +109,11 @@ typedef HRESULT (WINAPI* LPDIRECTDRAWENUMERATEA)(LPDDENUMCALLBACKA lpCallback, L
 
 BOOL DirectDraw_Initialize(void)
 {
-	HRESULT  hr;
-	UINT	 error_mode;
+	HRESULT hr;
+	UINT error_mode = 0;
 	ddc_proc ddc;
-	DDCAPS	 ddCaps;
-	DDCAPS	 ddHelCaps;
+	DDCAPS ddCaps;
+	DDCAPS ddHelCaps;
 	IDirectDraw* pDirectDraw1;
 	LPDIRECTDRAWENUMERATEEX pDDEnumEx;
 
@@ -127,9 +121,9 @@ BOOL DirectDraw_Initialize(void)
 		return TRUE;
 
 	g_nNumDisplays = 0;
-	g_hDLL		   = NULL;
+	g_hDLL         = NULL;
 	g_bHWStretch   = FALSE;
-	g_bRefresh	   = FALSE;
+	g_bRefresh     = FALSE;
 	g_pDirectDraw2 = NULL;
 	g_pDirectDraw4 = NULL;
 
@@ -196,8 +190,7 @@ BOOL DirectDraw_Initialize(void)
      */
 	if (pDDEnumEx)
 	{
-		pDDEnumEx(DDEnumInfo, NULL,
-				  DDENUM_ATTACHEDSECONDARYDEVICES | DDENUM_DETACHEDSECONDARYDEVICES);
+		pDDEnumEx(DDEnumInfo, NULL, DDENUM_ATTACHEDSECONDARYDEVICES | DDENUM_DETACHEDSECONDARYDEVICES);
 	}
 	else
 	{
@@ -306,11 +299,8 @@ LPCTSTR DirectDraw_GetDisplayName(int num_display)
 /* internal functions */
 /****************************************************************************/
 
-static BOOL WINAPI DDEnumInfo(GUID FAR *lpGUID,
-							  LPTSTR	lpDriverDescription,
-							  LPTSTR	lpDriverName,
-							  LPVOID	lpContext,
-							  HMONITOR	hm)
+static BOOL WINAPI DDEnumInfo(GUID FAR *lpGUID, LPTSTR lpDriverDescription,
+	LPTSTR lpDriverName, LPVOID lpContext, HMONITOR hm)
 {
 	g_Displays[g_nNumDisplays].name = (TCHAR*)malloc((_tcslen(lpDriverDescription) + 1) * sizeof(TCHAR));
 	_tcscpy(g_Displays[g_nNumDisplays].name, lpDriverDescription);
@@ -330,10 +320,7 @@ static BOOL WINAPI DDEnumInfo(GUID FAR *lpGUID,
 		return DDENUMRET_OK;
 }
 
-static BOOL WINAPI DDEnumOldInfo(GUID FAR *lpGUID,
-								 LPTSTR	   lpDriverDescription,
-								 LPTSTR	   lpDriverName,
-								 LPVOID    lpContext)
+static BOOL WINAPI DDEnumOldInfo(GUID FAR *lpGUID, LPTSTR lpDriverDescription, LPTSTR lpDriverName, LPVOID lpContext)
 {
 	return DDEnumInfo(lpGUID, lpDriverDescription, lpDriverName, lpContext, NULL);
 }
@@ -343,13 +330,11 @@ static HRESULT CALLBACK EnumDisplayModesCallback(LPDDSURFACEDESC pddsd, LPVOID C
 	DWORD dwDepth = pddsd->ddpfPixelFormat.dwRGBBitCount;
 
 	struct tDisplayModes* pDisplayModes = (struct tDisplayModes*)Context;
-	if (dwDepth == 16
-	||	dwDepth == 24
-	||	dwDepth == 32)
+	if (dwDepth == 16 || dwDepth == 24 || dwDepth == 32)
 	{
 		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwWidth   = pddsd->dwWidth;
 		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwHeight  = pddsd->dwHeight;
-		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwBPP	   = dwDepth;
+		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwBPP     = dwDepth;
 		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwRefresh = 0;
 		pDisplayModes->m_nNumModes++;
 	}
@@ -366,13 +351,11 @@ static HRESULT CALLBACK EnumDisplayModesCallback2(DDSURFACEDESC2* pddsd2, LPVOID
 
 	DWORD dwDepth = pddsd2->ddpfPixelFormat.dwRGBBitCount;
 
-	if (dwDepth == 16
-	||	dwDepth == 24
-	||	dwDepth == 32)
+	if (dwDepth == 16 || dwDepth == 24 || dwDepth == 32)
 	{
 		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwWidth   = pddsd2->dwWidth;
 		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwHeight  = pddsd2->dwHeight;
-		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwBPP	   = dwDepth;
+		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwBPP     = dwDepth;
 		pDisplayModes->m_Modes[pDisplayModes->m_nNumModes].m_dwRefresh = pddsd2->dwRefreshRate;
 		pDisplayModes->m_nNumModes++;
 

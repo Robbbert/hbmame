@@ -100,9 +100,11 @@ static datamap_entry *find_entry(datamap *map, int dlgitem);
 static control_type get_control_type(HWND control);
 static int control_operation(datamap *map, HWND dialog, windows_options *opts,
 	datamap_entry *entry, datamap_callback_type callback_type);
-static void read_control(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name);
-static void populate_control(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name);
-static	char *tztrim(float float_value);
+static void read_control(datamap *map, HWND control, windows_options *opts,
+	datamap_entry *entry, const char *option_name);
+static void populate_control(datamap *map, HWND control, windows_options *opts,
+	datamap_entry *entry, const char *option_name);
+static char *tztrim(float float_value);
 
 
 //============================================================
@@ -255,8 +257,7 @@ BOOL datamap_read_control(datamap *map, HWND dialog, windows_options &opts, int 
 
 void datamap_read_all_controls(datamap *map, HWND dialog, windows_options &opts)
 {
-	int i;
-	for (i = 0; i < map->entry_count; i++)
+	for (int i = 0; i < map->entry_count; i++)
 		control_operation(map, dialog, &opts, &map->entries[i], DCT_READ_CONTROL);
 }
 
@@ -280,8 +281,7 @@ void datamap_populate_control(datamap *map, HWND dialog, windows_options &opts, 
 
 void datamap_populate_all_controls(datamap *map, HWND dialog, windows_options &opts)
 {
-	int i;
-	for (i = 0; i < map->entry_count; i++)
+	for (int i = 0; i < map->entry_count; i++)
 		control_operation(map, dialog, &opts, &map->entries[i], DCT_POPULATE_CONTROL);
 }
 
@@ -305,8 +305,7 @@ void datamap_update_control(datamap *map, HWND dialog, windows_options &opts, in
 
 void datamap_update_all_controls(datamap *map, HWND dialog, windows_options *opts)
 {
-	int i;
-	for (i = 0; i < map->entry_count; i++)
+	for (int i = 0; i < map->entry_count; i++)
 		control_operation(map, dialog, opts, &map->entries[i], DCT_UPDATE_STATUS);
 }
 
@@ -318,8 +317,7 @@ void datamap_update_all_controls(datamap *map, HWND dialog, windows_options *opt
 
 static datamap_entry *find_entry(datamap *map, int dlgitem)
 {
-	int i;
-	for (i = 0; i < map->entry_count; i++)
+	for (int i = 0; i < map->entry_count; i++)
 	{
 		if (map->entries[i].dlgitem == dlgitem)
 			return &map->entries[i];
@@ -369,7 +367,7 @@ static control_type get_control_type(HWND control)
 
 static BOOL is_control_displayonly(HWND control)
 {
-	BOOL displayonly;
+	BOOL displayonly = 0;
 	switch(get_control_type(control))
 	{
 		case CT_STATIC:
@@ -536,12 +534,12 @@ static int trackbar_position_from_value(datamap_entry *entry, float value)
 
 static void read_control(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name)
 {
-	BOOL bool_value;
-	int int_value;
-	float float_value;
+	BOOL bool_value = 0;
+	int int_value = 0;
+	float float_value = 0;
 	const char *string_value;
-	int selected_index;
-	int trackbar_pos;
+	int selected_index = 0;
+	int trackbar_pos = 0;
 	std::string error;
 	// use default read value behavior
 	switch(get_control_type(control))
@@ -618,19 +616,17 @@ static void read_control(datamap *map, HWND control, windows_options *opts, data
 
 static void populate_control(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name)
 {
-	int i;
-	BOOL bool_value;
-	int int_value;
-	float float_value;
+	int i = 0;
+	BOOL bool_value = 0;
+	int int_value = 0;
+	float float_value = 0;
 	const char *string_value;
 	const char *item_string;
-	int selected_index;
+	int selected_index = 0;
 	char buffer[128];
-	int trackbar_range;
-	int trackbar_pos;
-	double trackbar_range_d;
-	//int minval_int, maxval_int;
-	//float minval_float, maxval_float;
+	int trackbar_range = 0;
+	int trackbar_pos = 0;
+	double trackbar_range_d = 0;
 
 	// use default populate control value
 	switch(get_control_type(control))
@@ -778,7 +774,8 @@ static void populate_control(datamap *map, HWND control, windows_options *opts, 
 }
 
 // Return a string from a float value with trailing zeros removed.
-static	char *tztrim(float float_value) {
+static char *tztrim(float float_value)
+{
 	static char tz_string[20];
 	char float_string[20];
 	char *ptr;

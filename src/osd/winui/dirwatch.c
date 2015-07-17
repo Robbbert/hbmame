@@ -136,9 +136,9 @@ static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEnt
 {
 	LPSTR pszFileName;
 	LPSTR pszFullFileName;
-	BOOL bPause;
+	BOOL bPause = 0;
 	HANDLE hFile;
-	int nTries;
+	int nTries = 0;
 	TCHAR* t_filename;
 
 	{
@@ -193,7 +193,7 @@ static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 {
 	LPSTR pszPathList;
 	LPSTR s;
-	int nSubIndex;
+	int nSubIndex = 0;
 	PDIRWATCHER pWatcher = (PDIRWATCHER) lpParameter;
 	struct DirWatcherEntry *pEntry;
 	struct DirWatcherEntry **ppEntry;
@@ -267,7 +267,7 @@ static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 PDIRWATCHER DirWatcher_Init(HWND hwndTarget, UINT nMessage)
 {
 	struct DirWatcher *pWatcher = NULL;
-	DWORD nThreadID;
+	DWORD nThreadID = 0;
 
 	// This feature does not exist on Win9x
 	if (GetVersion() >= 0x80000000)
@@ -360,6 +360,4 @@ void DirWatcher_Free(PDIRWATCHER pWatcher)
 		CloseHandle(pWatcher->hResponseEvent);
 	free(pWatcher);
 }
-
-
 

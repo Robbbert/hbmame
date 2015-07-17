@@ -42,7 +42,7 @@ static void Help_Load(void);
 
 static HtmlHelpProc g_pHtmlHelp;
 static HMODULE      g_hHelpLib;
-static DWORD        g_dwCookie;
+static DWORD        g_dwCookie = 0;
 
 /**************************************************************************
  External functions

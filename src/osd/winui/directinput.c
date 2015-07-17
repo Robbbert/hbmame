@@ -52,14 +52,13 @@ static HANDLE hDLL = NULL;
  *
  ****************************************************************************/
 
-typedef HRESULT (WINAPI *dic_proc)(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUT *ppDI,
-									LPUNKNOWN punkOuter);
+typedef HRESULT (WINAPI *dic_proc)(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUT *ppDI, LPUNKNOWN punkOuter);
 
 BOOL DirectInputInitialize()
 {
-	HRESULT   hr;
-	UINT	  error_mode;
-	dic_proc  dic;
+	HRESULT hr;
+	UINT error_mode = 0;
+	dic_proc dic;
 
 	if (hDLL != NULL)
 		return TRUE;
@@ -108,9 +107,7 @@ BOOL DirectInputInitialize()
 
 void DirectInputClose()
 {
-	/*
-        Release any lingering IDirectInput object.
-    */
+	/* Release any lingering IDirectInput object. */
 	if (di)
 	{
 		IDirectInput_Release(di);
@@ -133,16 +130,15 @@ BOOL CALLBACK inputEnumDeviceProc(LPCDIDEVICEINSTANCE pdidi, LPVOID pv)
 	return DIENUM_STOP;
 }
 
-HRESULT SetDIDwordProperty(LPDIRECTINPUTDEVICE2 pdev, REFGUID guidProperty,
-						   DWORD dwObject, DWORD dwHow, DWORD dwValue)
+HRESULT SetDIDwordProperty(LPDIRECTINPUTDEVICE2 pdev, REFGUID guidProperty, DWORD dwObject, DWORD dwHow, DWORD dwValue)
 {
 	DIPROPDWORD dipdw;
 
-	dipdw.diph.dwSize		= sizeof(dipdw);
+	dipdw.diph.dwSize       = sizeof(dipdw);
 	dipdw.diph.dwHeaderSize = sizeof(dipdw.diph);
-	dipdw.diph.dwObj		= dwObject;
-	dipdw.diph.dwHow		= dwHow;
-	dipdw.dwData			= dwValue;
+	dipdw.diph.dwObj        = dwObject;
+	dipdw.diph.dwHow        = dwHow;
+	dipdw.dwData            = dwValue;
 
 	return IDirectInputDevice2_SetProperty(pdev, guidProperty, &dipdw.diph);
 }
@@ -151,6 +147,3 @@ LPDIRECTINPUT GetDirectInput(void)
 {
 	return di;
 }
-/***************************************************************************
-    Internal functions
- ***************************************************************************/

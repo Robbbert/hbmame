@@ -16,10 +16,7 @@
 #include "winui.h"
 
 
-int WINAPI wWinMain(HINSTANCE    hInstance,
-                   HINSTANCE    hPrevInstance,
-                   LPWSTR       lpCmdLine,
-                   int          nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	return MameUIMain(hInstance, lpCmdLine, nCmdShow);
 }

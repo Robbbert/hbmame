@@ -59,14 +59,14 @@ static void SaveSettingsFile(windows_options &opts, const char *filename);
 
 static void LoadOptionsAndSettings(void);
 
-static void  CusColorEncodeString(const COLORREF *value, char* str);
-static void  CusColorDecodeString(const char* str, COLORREF *value);
+static void CusColorEncodeString(const COLORREF *value, char* str);
+static void CusColorDecodeString(const char* str, COLORREF *value);
 
-static void  SplitterEncodeString(const int *value, char* str);
-static void  SplitterDecodeString(const char *str, int *value);
+static void SplitterEncodeString(const int *value, char* str);
+static void SplitterDecodeString(const char *str, int *value);
 
-static void  FontEncodeString(const LOGFONT *f, char *str);
-static void  FontDecodeString(const char* str, LOGFONT *f);
+static void FontEncodeString(const LOGFONT *f, char *str);
+static void FontDecodeString(const char* str, LOGFONT *f);
 
 static void TabFlagsEncodeString(int data, char *str);
 static void TabFlagsDecodeString(const char *str, int *data);
@@ -101,9 +101,6 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_OFFSET_CLONES				"offset_clones"
 #define MUIOPTION_DEFAULT_FOLDER_ID			"default_folder_id"
 #define MUIOPTION_SHOW_IMAGE_SECTION			"show_image_section"
-#ifdef MESS
-#define MUIOPTION_SHOW_SOFTWARE_SECTION			"show_software_section"
-#endif
 #define MUIOPTION_SHOW_FOLDER_SECTION			"show_folder_section"
 #define MUIOPTION_HIDE_FOLDERS				"hide_folders"
 #define MUIOPTION_SHOW_STATUS_BAR			"show_status_bar"
@@ -159,9 +156,6 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_UI_KEY_VIEW_FULLSCREEN		"ui_key_view_fullscreen"
 #define MUIOPTION_UI_KEY_VIEW_PAGETAB			"ui_key_view_pagetab"
 #define MUIOPTION_UI_KEY_VIEW_PICTURE_AREA		"ui_key_view_picture_area"
-#ifdef MESS
-#define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA		"ui_key_view_software_area"
-#endif
 #define MUIOPTION_UI_KEY_VIEW_STATUS			"ui_key_view_status"
 #define MUIOPTION_UI_KEY_VIEW_TOOLBARS			"ui_key_view_toolbars"
 #define MUIOPTION_UI_KEY_VIEW_TAB_CABINET		"ui_key_view_tab_cabinet"
@@ -192,6 +186,8 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_FULL_SCREEN				"full_screen"
 
 #ifdef MESS
+#define MUIOPTION_SHOW_SOFTWARE_SECTION			"show_software_section"
+#define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA		"ui_key_view_software_area"
 #define MUIOPTION_DEFAULT_GAME				"default_system"
 #define MUIOPTION_HISTORY_FILE				"sysinfo_file"
 #define MUIOPTION_MAMEINFO_FILE				"messinfo_file"
@@ -445,7 +441,6 @@ BOOL OptionsInit()
 
 	game_opts.add_entries();
 	// set up global options
-//	CreateGameOptions(global,OPTIONS_TYPE_GLOBAL);
 	CreateGameOptions(global, GLOBAL_OPTIONS);
 	// now load the options and settings
 	LoadOptionsAndSettings();
@@ -497,10 +492,10 @@ const char * GetImageTabShortName(int tab_index)
 static COLORREF options_get_color(winui_options &opts, const char *name)
 {
 	const char *value_str;
-	unsigned int r, g, b;
+	unsigned int r, g, b = 0;
 	COLORREF value;
 
-	value_str = opts.value( name);
+	value_str = opts.value(name);
 
 	if (sscanf(value_str, "%u,%u,%u", &r, &g, &b) == 3)
 		value = RGB(r,g,b);
@@ -745,10 +740,9 @@ static void GetsShowFolderFlags(LPBITS bits)
 
 BOOL GetShowFolder(int folder)
 {
-	BOOL result;
 	LPBITS show_folder_flags = NewBits(MAX_FOLDERS);
 	GetsShowFolderFlags(show_folder_flags);
-	result = TestBit(show_folder_flags, folder);
+	BOOL result = TestBit(show_folder_flags, folder);
 	DeleteBits(show_folder_flags);
 	return result;
 }
@@ -756,7 +750,7 @@ BOOL GetShowFolder(int folder)
 void SetShowFolder(int folder,BOOL show)
 {
 	LPBITS show_folder_flags = NewBits(MAX_FOLDERS);
-	int i;
+	int i = 0;
 	int num_saved = 0;
 	char str[10000];
 	extern const FOLDERDATA g_folderData[];
@@ -772,7 +766,7 @@ void SetShowFolder(int folder,BOOL show)
 
 	// we save the ones that are NOT displayed, so we can add new ones
 	// and upgraders will see them
-	for (i=0;i<MAX_FOLDERS;i++)
+	for (i=0; i<MAX_FOLDERS; i++)
 	{
 		if (TestBit(show_folder_flags, i) == FALSE)
 		{
@@ -855,10 +849,10 @@ const char *GetDefaultGame(void)
 void SetWindowArea(const AREA *area)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_WINDOW_X,		area->x, OPTION_PRIORITY_CMDLINE,error_string);
-	settings.set_value(MUIOPTION_WINDOW_Y,		area->y, OPTION_PRIORITY_CMDLINE,error_string);
-	settings.set_value(MUIOPTION_WINDOW_WIDTH,	area->width, OPTION_PRIORITY_CMDLINE,error_string);
-	settings.set_value(MUIOPTION_WINDOW_HEIGHT,	area->height, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_WINDOW_X, area->x, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_WINDOW_Y, area->y, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_WINDOW_WIDTH, area->width, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_WINDOW_HEIGHT, area->height, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 void GetWindowArea(AREA *area)
@@ -947,7 +941,7 @@ COLORREF GetListCloneColor(void)
 int GetShowTab(int tab)
 {
 	const char *show_tabs_string;
-	int show_tab_flags;
+	int show_tab_flags = 0;
 
 	show_tabs_string = settings.value( MUIOPTION_HIDE_TABS);
 	TabFlagsDecodeString(show_tabs_string, &show_tab_flags);
@@ -957,7 +951,7 @@ int GetShowTab(int tab)
 void SetShowTab(int tab,BOOL show)
 {
 	const char *show_tabs_string;
-	int show_tab_flags;
+	int show_tab_flags = 0;
 	char buffer[10000];
 
 	show_tabs_string = settings.value( MUIOPTION_HIDE_TABS);
@@ -977,7 +971,7 @@ void SetShowTab(int tab,BOOL show)
 BOOL AllowedToSetShowTab(int tab,BOOL show)
 {
 	const char *show_tabs_string;
-	int show_tab_flags;
+	int show_tab_flags = 0;
 
 	if (show == TRUE)
 		return TRUE;
@@ -1446,7 +1440,6 @@ void ResetGameDefaults(void)
 	// Walk the global settings and reset everything to defaults;
 	ResetToDefaults(global, OPTION_PRIORITY_CMDLINE);
 	save_options(global, GLOBAL_OPTIONS);
-	//save_default_options = FALSE;
 }
 
 /*
@@ -1455,9 +1448,7 @@ void ResetGameDefaults(void)
  */
 void ResetAllGameOptions(void)
 {
-	int i;
-
-	for (i = 0; i < driver_list::total(); i++)
+	for (int i = 0; i < driver_list::total(); i++)
 		ResetGameOptions(i);
 }
 
@@ -1483,7 +1474,7 @@ void SetSampleAuditResults(int driver_index, int audit_results)
 
 static void IncrementPlayVariable(int driver_index, const char *play_variable, int increment)
 {
-	int count;
+	int count = 0;
 
 	if (strcmp(play_variable, "count") == 0)
 	{
@@ -1509,7 +1500,7 @@ int GetPlayCount(int driver_index)
 
 static void ResetPlayVariable(int driver_index, const char *play_variable)
 {
-	int i;
+	int i = 0;
 	if (driver_index < 0)
 	{
 		/* all games */
@@ -1550,7 +1541,7 @@ void IncrementPlayTime(int driver_index,int playtime)
 
 void GetTextPlayTime(int driver_index,char *buf)
 {
-	int hour, minute, second;
+	int hour, minute, second = 0;
 	int temp = GetPlayTime(driver_index);
 
 	assert(0 <= driver_index && driver_index < driver_list::total());
@@ -1945,7 +1936,7 @@ void SetRunFullScreen(BOOL fullScreen)
 
 static void  CusColorEncodeString(const COLORREF *value, char* str)
 {
-	int  i;
+	int i = 0;
 	char tmpStr[256];
 
 	sprintf(tmpStr, "%u", (int) value[0]);
@@ -1961,7 +1952,7 @@ static void  CusColorEncodeString(const COLORREF *value, char* str)
 
 static void CusColorDecodeString(const char* str, COLORREF *value)
 {
-	int  i;
+	int i = 0;
 	char *s, *p;
 	char tmpStr[256];
 
@@ -1984,7 +1975,7 @@ static void CusColorDecodeString(const char* str, COLORREF *value)
 
 void ColumnEncodeStringWithCount(const int *value, char *str, int count)
 {
-	int  i;
+	int i = 0;
 	char buffer[256];
 
 	snprintf(buffer,sizeof(buffer),"%d",value[0]);
@@ -2000,7 +1991,7 @@ void ColumnEncodeStringWithCount(const int *value, char *str, int count)
 
 void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 {
-	int  i;
+	int i = 0;
 	char *s, *p;
 	char tmpStr[256];
 
@@ -2025,7 +2016,7 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 
 static void SplitterEncodeString(const int *value, char* str)
 {
-	int  i;
+	int i = 0;
 	char tmpStr[256];
 
 	sprintf(tmpStr, "%d", value[0]);
@@ -2041,7 +2032,7 @@ static void SplitterEncodeString(const int *value, char* str)
 
 static void SplitterDecodeString(const char *str, int *value)
 {
-	int  i;
+	int i = 0;
 	char *s, *p;
 	char tmpStr[256];
 
@@ -2064,23 +2055,23 @@ static void SplitterDecodeString(const char *str, int *value)
 /* Parse the given comma-delimited string into a LOGFONT structure */
 static void FontDecodeString(const char* str, LOGFONT *f)
 {
-	const char*	ptr;
-	TCHAR*		t_ptr;
+	const char* ptr;
+	TCHAR* t_ptr;
 
 	sscanf(str, "%li,%li,%li,%li,%li,%i,%i,%i,%i,%i,%i,%i,%i",
-		   &f->lfHeight,
-		   &f->lfWidth,
-		   &f->lfEscapement,
-		   &f->lfOrientation,
-		   &f->lfWeight,
-		   (int*)&f->lfItalic,
-		   (int*)&f->lfUnderline,
-		   (int*)&f->lfStrikeOut,
-		   (int*)&f->lfCharSet,
-		   (int*)&f->lfOutPrecision,
-		   (int*)&f->lfClipPrecision,
-		   (int*)&f->lfQuality,
-		   (int*)&f->lfPitchAndFamily);
+		&f->lfHeight,
+		&f->lfWidth,
+		&f->lfEscapement,
+		&f->lfOrientation,
+		&f->lfWeight,
+		(int*)&f->lfItalic,
+		(int*)&f->lfUnderline,
+		(int*)&f->lfStrikeOut,
+		(int*)&f->lfCharSet,
+		(int*)&f->lfOutPrecision,
+		(int*)&f->lfClipPrecision,
+		(int*)&f->lfQuality,
+		(int*)&f->lfPitchAndFamily);
 	ptr = strrchr(str, ',');
 	if (ptr != NULL) {
 		t_ptr = tstring_from_utf8(ptr + 1);
@@ -2125,7 +2116,7 @@ static void TabFlagsEncodeString(int data, char *str)
 
 	// we save the ones that are NOT displayed, so we can add new ones
 	// and upgraders will see them
-	for ( int i=0;i<MAX_TAB_TYPES;i++)
+	for ( int i=0; i<MAX_TAB_TYPES; i++)
 	{
 		if (((data & (1 << i)) == 0) && GetImageTabShortName(i))
 		{
@@ -2251,9 +2242,6 @@ static void LoadOptionsAndSettings(void)
 	game_opts.load_file(GAMEINFO_INI_FILENAME);
 
 	// parse global options ini/mame32.ini
-//	GetGlobalOptionsFileName(buffer, ARRAY_LENGTH(buffer));
-//	LoadSettingsFile(global, buffer);
-//	LoadSettingsFile(global, CORE_INI_FILENAME);
 	load_options(global, GLOBAL_OPTIONS);
 }
 
@@ -2333,7 +2321,8 @@ static const char * EncodeFolderFlags(DWORD value)
 
 	memset(buf,'\0', sizeof(buf));
 
-	while ((1 << shift) & F_MASK) {
+	while ((1 << shift) & F_MASK)
+	{
 		buf[shift] = (value & (1 << shift)) ? '1' : '0';
 		shift++;
 	}
@@ -2348,9 +2337,9 @@ static const char * EncodeFolderFlags(DWORD value)
 void LoadFolderFlags(void)
 {
 	winui_options opts;
-	int numFolders;
+	int numFolders = 0;
 	LPTREEFOLDER lpFolder;
-	int i;
+	int i = 0;
 	options_entry entries[2] = { { 0 }, { 0 } };
 
 	memcpy(entries, filterOptions, sizeof(filterOptions));
@@ -2378,7 +2367,6 @@ void LoadFolderFlags(void)
 				ptr++;
 			}
 
-			//std::string option_name (folder_name); option_name.cat("_filters");
 			std::string option_name = std::string(folder_name) + "_filters";
 			// create entry
 			entries[0].name = option_name.c_str();
@@ -2386,11 +2374,11 @@ void LoadFolderFlags(void)
 		}
 	}
 
-	// These are overlayed at the end of our UI ini
+	// These are overlaid at the end of our UI ini
 	// The normal read will skip them.
 	LoadSettingsFile(opts, UI_INI_FILENAME);
 
-	// retrive the stored values
+	// retrieve the stored values
 	for (i = 0; i < numFolders; i++)
 	{
 		lpFolder = GetFolder(i);
@@ -2417,9 +2405,7 @@ void LoadFolderFlags(void)
 			value = opts.value(option_name.c_str());
 
 			if (value)
-			{
 				lpFolder->m_dwFlags |= DecodeFolderFlags(value) & F_MASK;
-			}
 		}
 	}
 }
@@ -2429,8 +2415,8 @@ void LoadFolderFlags(void)
 // Adds our folder flags to a temporary winui_options, for saving.
 static void AddFolderFlags(winui_options &opts)
 {
-	int numFolders;
-	int i;
+	int numFolders = 0;
+	int i = 0;
 	LPTREEFOLDER lpFolder;
 	int num_entries = 0;
 	options_entry entries[2] = { { 0 }, { 0 } };

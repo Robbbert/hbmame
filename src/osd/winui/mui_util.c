@@ -85,11 +85,11 @@ enum
 */
 void __cdecl ErrorMsg(const char* fmt, ...)
 {
-	static FILE*	pFile = NULL;
-	DWORD			dwWritten;
-	char			buf[5000];
-	char			buf2[5000];
-	va_list 		va;
+	static FILE* pFile = NULL;
+	DWORD dwWritten;
+	char buf[5000];
+	char buf2[5000];
+	va_list va;
 
 	va_start(va, fmt);
 
@@ -131,8 +131,8 @@ void __cdecl dprintf(const char* fmt, ...)
 
 UINT GetDepth(HWND hWnd)
 {
-	UINT	nBPP;
-	HDC 	hDC;
+	UINT nBPP;
+	HDC hDC;
 
 	hDC = GetDC(hWnd);
 
@@ -201,8 +201,8 @@ LONG GetCommonControlVersion()
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
 	HINSTANCE hErr;
-	LPCTSTR	  msg = 0;
-	LPTSTR    tName;
+	LPCTSTR msg = 0;
+	LPTSTR tName;
 
 	tName = tstring_from_utf8(cName);
 	if( !tName )
@@ -364,7 +364,7 @@ static void SetDriversInfo(void)
 static void InitDriversInfo(void)
 {
 	int ndriver;
-	int num_speakers;
+	int num_speakers = 0;
 	int total = driver_list::total();
 	const game_driver *gamedrv = NULL;
 	struct DriversInfo *gameinfo = NULL;

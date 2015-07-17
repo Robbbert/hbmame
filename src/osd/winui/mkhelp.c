@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	const char *resourcefile, *varname, *type;
 	FILE *src, *dst;
 	char *buffer;
-	int bytes;
+	int bytes = 0;
 
 	varname = "dwHelpIDs";
 	type = "DWORD";
