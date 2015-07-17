@@ -25,11 +25,19 @@ typedef struct
 extern const MAMEHELPINFO g_helpInfo[];
 
 #if !defined(MAMEUIHELP)
+#ifdef MESS
+#define MAMEUIHELP "messui.chm"
+#else
 #define MAMEUIHELP "mameui.chm"
+#endif
 #endif
 
 #if !defined(MAMEUICONTEXTHELP)
+#ifdef MESS
+#define MAMEUICONTEXTHELP "messui.chm::/cntx_help.txt"
+#else
 #define MAMEUICONTEXTHELP "mameui.chm::/cntx_help.txt"
+#endif
 #endif
 
 extern int HelpInit(void);
