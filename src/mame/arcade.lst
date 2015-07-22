@@ -4688,6 +4688,7 @@ passht4b        // bootleg
 passshtb        // bootleg
 shinoblb        // (c) 1987 (but bootleg)
 shinobld        // (c) 1987 (but bootleg)
+shinoblda		//
 tetrisbl        // (c) 1988 (but bootleg)
 beautyb         // (c) 1991 AMT
 iqpipe          // (c) 1991 AMT
@@ -6020,7 +6021,8 @@ secretab        // bootleg
 midres          // (c) 1989 Data East Corporation (World)
 midresu         // (c) 1989 Data East USA (US)
 midresj         // (c) 1989 Data East Corporation (Japan)
-midresb         // (c) 1989 Data East Corporation (Japan)
+midresb         // bootleg
+midresbj		// bootleg
 bouldash        // (c) 1990 Data East Corporation (World)
 bouldashj       // (c) 1990 Data East Corporation (Japan)
 // end of similar hardware
@@ -6480,6 +6482,7 @@ mogura          // GX141 (c) 1991
 wecleman        // GX602 (c) 1986
 wecleman2       // GX602?(c) 1988
 hotchase        // GX763 (c) 1988
+hotchasea
 chqflag         // GX717 (c) 1988
 chqflagj        // GX717 (c) 1988 (Japan)
 ultraman        // GX910 (c) 1991 Banpresto/Bandai
@@ -9722,6 +9725,7 @@ mjdchuka        // "111" (c) 1995 Nakanihon
 ddenlovj        // "112" (c) 1995 Dynax (Japan)
 ddenlovrk       // "113" (c) 1995 Dynax (Korea)
 ddenlovr        // "113" (c) 1996 Dynax (Hong Kong)
+mjschuka        // "115" (c) 1995 Dynax
 mjchuuka        // "121" (c) 1998 Dynax
 ddenlovrb       // bootleg
 mjflove         // "500" 1996 Dynax
