@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Aaron Giles
+// copyright-holders:Aaron Giles, Couriersud
 /***************************************************************************
 
     Galaxian hardware family
@@ -242,6 +242,7 @@ public:
 	DECLARE_DRIVER_INIT(sfx);
 	DECLARE_DRIVER_INIT(atlantis);
 	DECLARE_DRIVER_INIT(scobra);
+	DECLARE_DRIVER_INIT(scobrae);
 	DECLARE_DRIVER_INIT(losttomb);
 	DECLARE_DRIVER_INIT(frogger);
 	DECLARE_DRIVER_INIT(froggrmc);
