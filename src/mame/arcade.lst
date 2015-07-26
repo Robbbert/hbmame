@@ -8179,6 +8179,7 @@ mkla4           // (c) 1992 Midway
 mkyawdim        // bootleg
 mkyawdim2       // bootleg
 mkyawdim3       // bootleg
+mkyawdim4       // bootleg
 term2           // (c) 1992 Midway
 term2la3        // (c) 1992 Midway
 term2la2        // (c) 1992 Midway
@@ -8476,7 +8477,8 @@ panicr          // Seibu / Taito
 panicrg         // Seibu / TV-Tuning (Germany)
 deadang         // (c) 1988 Seibu Kaihatsu
 leadang         // (c) 1988 Seibu Kaihatsu
-ghunter         // (c) 1988 Seibu Kaihatsu + Segasa/Sonic license
+ghunter         // (c) 1988 Seibu Kaihatsu
+ghunters        // (c) 1988 Seibu Kaihatsu + Segasa/Sonic license
 dynduke         // (c) 1989 Seibu Kaihatsu
 dyndukea        // (c) 1989 Seibu Kaihatsu
 dyndukej        // (c) 1989 Seibu Kaihatsu
