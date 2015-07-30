@@ -1,11 +1,10 @@
+# license:BSD-3-Clause
+# copyright-holders:Robbbert
 ###########################################################################
 #
 #   makefile
 #
 #   Additional makefile for building HBMAME
-#
-#   Copyright (c) Nicola Salmoria and the MAME Team.
-#   Visit http://mamedev.org for licensing and usage restrictions.
 #
 ###########################################################################
 

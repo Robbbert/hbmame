@@ -1,10 +1,10 @@
+-- license:BSD-3-Clause
+-- copyright-holders:Robbbert
 ---------------------------------------------------------------------------
 --
 --   hbmame.lua
 --
 --   HBMAME target makefile
---
---   Copyright Robbbert 2015
 --
 ---------------------------------------------------------------------------
 
