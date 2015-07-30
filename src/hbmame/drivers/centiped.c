@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/centiped.c"
 
 ROM_START( astropd2 )
@@ -151,13 +153,13 @@ ROM_START( vectrped )
 	ROM_LOAD( "136001-213.p4",   0x0000, 0x0100, CRC(6fa3093a) SHA1(2b7aeca74c1ae4156bf1878453a047330f96f0a8) )
 ROM_END
 
-GAME( 2002, astropd2, centiped, centiped, centiped, driver_device, 0, ROT270, "Twisty", "Astropede II", GAME_SUPPORTS_SAVE )
-GAME( 2002, astroped, centiped, centiped, centiped, driver_device, 0, ROT270, "Twisty", "Astropede", GAME_SUPPORTS_SAVE )
-GAME( 1998, cemescry, centiped, centiped, centiped, driver_device, 0, ROT270, "NoSync", "Cemescary", GAME_SUPPORTS_SAVE )
-GAME( 1980, centipb,  centiped, centipdb, centiped, driver_device, 0, ROT270, "bootleg", "Centipede", GAME_SUPPORTS_SAVE )
-GAME( 1998, killiped, centiped, centiped, centiped, driver_device, 0, ROT270, "The Dog", "Killipede", GAME_SUPPORTS_SAVE )
-GAME( 1980, magworm2, centiped, magworm,  magworm,  driver_device, 0, ROT270, "bootleg", "Magic Worm", GAME_SUPPORTS_SAVE )
-GAME( 2000, pacipede, centiped, centiped, centiped, driver_device, 0, ROT270, "Jeff Coleburn", "Pacipede", GAME_SUPPORTS_SAVE )
-GAME( 1998, silliped, milliped, milliped, milliped, driver_device, 0, ROT270, "Andy", "Sillipede", GAME_SUPPORTS_SAVE )
-GAME( 1998, vectiped, centiped, centiped, centiped, driver_device, 0, ROT270, "The Dog", "Vectipede", GAME_SUPPORTS_SAVE )
-GAME( 1998, vectrped, centiped, centiped, centiped, driver_device, 0, ROT270, "T-Bone", "Vectorpede", GAME_SUPPORTS_SAVE )
+GAME( 2002, astropd2, centiped, centiped, centiped, driver_device, 0, ROT270, "Twisty", "Astropede II", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, astroped, centiped, centiped, centiped, driver_device, 0, ROT270, "Twisty", "Astropede", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, cemescry, centiped, centiped, centiped, driver_device, 0, ROT270, "NoSync", "Cemescary", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, centipb,  centiped, centipdb, centiped, driver_device, 0, ROT270, "bootleg", "Centipede", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, killiped, centiped, centiped, centiped, driver_device, 0, ROT270, "The Dog", "Killipede", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, magworm2, centiped, magworm,  magworm,  driver_device, 0, ROT270, "bootleg", "Magic Worm", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, pacipede, centiped, centiped, centiped, driver_device, 0, ROT270, "Jeff Coleburn", "Pacipede", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, silliped, milliped, milliped, milliped, driver_device, 0, ROT270, "Andy", "Sillipede", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, vectiped, centiped, centiped, centiped, driver_device, 0, ROT270, "The Dog", "Vectipede", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, vectrped, centiped, centiped, centiped, driver_device, 0, ROT270, "T-Bone", "Vectorpede", MACHINE_SUPPORTS_SAVE )

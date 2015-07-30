@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 
 ROM_START( kof97bh ) /* The King of Fighters '97 - Hack by Dodowang - (Can choose Orochi + add. Iori, Yashiro, Shermie, Chris and Leona - Orochi has icon in menue - extra stage select) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -737,35 +739,35 @@ ROM_END
 
 /* Hacks */
 
-GAME( 1997, kof97bh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Dodowang", "The King of Fighters '97 (Add Char - Orochi icon - Extra stage select)", GAME_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
-GAME( 1997, kof97cr,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL and Leather", "The King of Fighters '97 (Moves and Style changed - Extra stage select)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97chl,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL", "The King of Fighters '97 (Diff Moves - 030325)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97chl2, kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL", "The King of Fighters '97 (Diff Moves rev.2 - 030409)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97eh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Creamymami, Leather and Ydmis", "The King of Fighters '97 (Add Char - Ultra kill start max in Adv Mode - Ultra pow hack ABC - Extra stage select)", GAME_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
-GAME( 1997, kof97eh2,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "The King of Fighters '97 (Add Char - Ultra kill start max in Adv Mode - Pow hack ABC - Extra stage select)", GAME_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
-GAME( 1997, kof97eho,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - Ultra kill start max in Adv Mode - Pow hack ABC)", GAME_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
-GAME( 1997, kof97hxd,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Hxdhome", "The King of Fighters '97 (Add Char)", GAME_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
-GAME( 1997, kof97ice,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Cz-Kyo97", "The King of Fighters '97 Ice", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97kp,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KofPerfect", "The King of Fighters '97 (Add Orochi set 3)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97lc,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Liuzheng0131", "The King of Fighters '97 (Color changed)", GAME_SUPPORTS_SAVE )
-GAME( 2007, kof97lr,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '97 (Lover Red)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97mit,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "MIT", "The King of Fighters '97 (Char style enhanced 050324)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97ne,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "NeHt", "The King of Fighters '97 (Remixed)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97pj,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "TcwLee", "The King of Fighters '97 (hxd fixed ver - Add Char)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97pjc,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "TcwLee", "The King of Fighters '97 (Char color changed)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97saw,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '97 (Kill red flame special effect)", GAME_SUPPORTS_SAVE )
-GAME( 2011, kof97sed,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '97 (hack 1)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97sw,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker","The King of Fighters '97 (26a-c and 623a-c red flame special effect)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97wh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '97 (Style Kyo to 95' Kyo)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97wpls, kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '97 Plus", GAME_SUPPORTS_SAVE )
-GAME( 2007, kof97xp,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Xuhui", "The King of Fighters '97 (Xuhui plus)", GAME_SUPPORTS_SAVE )
-GAME( 200?, kof97xxx,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '97 (Nude mix)", GAME_SUPPORTS_SAVE ) // no nudes here??
-GAME( 1997, kof97y,    kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - no Orochi)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97ya,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Orochi set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97yb,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Orochi set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97ye,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - no Orochi - Pow hack ABC in Extra Mode set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97yg,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - Pow hack ABC in Extra Mode)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97yh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - no Orochi - Pow hack ABC in Extra Mode set 2)", GAME_SUPPORTS_SAVE )
-GAME( 2007, kof97yk,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura","The King of Fighters '97 (Hack)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97yl,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "The King of Fighters '97 (Add Char - Extra stage select set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1997, kof97yl2,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "The King of Fighters '97 (Add Char - Extra stage select set 2)", GAME_SUPPORTS_SAVE ) // Based on kof97eh/eh2
+GAME( 1997, kof97bh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Dodowang", "The King of Fighters '97 (Add Char - Orochi icon - Extra stage select)", MACHINE_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
+GAME( 1997, kof97cr,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL and Leather", "The King of Fighters '97 (Moves and Style changed - Extra stage select)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97chl,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL", "The King of Fighters '97 (Diff Moves - 030325)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97chl2, kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL", "The King of Fighters '97 (Diff Moves rev.2 - 030409)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97eh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Creamymami, Leather and Ydmis", "The King of Fighters '97 (Add Char - Ultra kill start max in Adv Mode - Ultra pow hack ABC - Extra stage select)", MACHINE_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
+GAME( 1997, kof97eh2,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "The King of Fighters '97 (Add Char - Ultra kill start max in Adv Mode - Pow hack ABC - Extra stage select)", MACHINE_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
+GAME( 1997, kof97eho,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - Ultra kill start max in Adv Mode - Pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
+GAME( 1997, kof97hxd,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Hxdhome", "The King of Fighters '97 (Add Char)", MACHINE_SUPPORTS_SAVE ) // Orochi + Iori, Yashiro, Shermie, Chris and Leona
+GAME( 1997, kof97ice,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Cz-Kyo97", "The King of Fighters '97 Ice", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97kp,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KofPerfect", "The King of Fighters '97 (Add Orochi set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97lc,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Liuzheng0131", "The King of Fighters '97 (Color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof97lr,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '97 (Lover Red)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97mit,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "MIT", "The King of Fighters '97 (Char style enhanced 050324)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97ne,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "NeHt", "The King of Fighters '97 (Remixed)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97pj,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "TcwLee", "The King of Fighters '97 (hxd fixed ver - Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97pjc,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "TcwLee", "The King of Fighters '97 (Char color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97saw,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '97 (Kill red flame special effect)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, kof97sed,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '97 (hack 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97sw,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker","The King of Fighters '97 (26a-c and 623a-c red flame special effect)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97wh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '97 (Style Kyo to 95' Kyo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97wpls, kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '97 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof97xp,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Xuhui", "The King of Fighters '97 (Xuhui plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, kof97xxx,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '97 (Nude mix)", MACHINE_SUPPORTS_SAVE ) // no nudes here??
+GAME( 1997, kof97y,    kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - no Orochi)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97ya,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Orochi set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yb,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Orochi set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97ye,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - no Orochi - Pow hack ABC in Extra Mode set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yg,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - Pow hack ABC in Extra Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yh,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '97 (Add Char - no Orochi - Pow hack ABC in Extra Mode set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof97yk,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura","The King of Fighters '97 (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yl,   kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "The King of Fighters '97 (Add Char - Extra stage select set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yl2,  kof97,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "The King of Fighters '97 (Add Char - Extra stage select set 2)", MACHINE_SUPPORTS_SAVE ) // Based on kof97eh/eh2

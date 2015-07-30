@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/cps2.c"
 
 static ADDRESS_MAP_START( suicide_map, AS_PROGRAM, 16, cps_state )
@@ -60,5 +62,5 @@ ROM_START( suicide )
 	CPS2_DEAD_KEY
 ROM_END
 
-GAME( 2014, ddsomchs, ddsom,    cps2,    cps2_4p4b, cps_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (chinese)", GAME_SUPPORTS_SAVE )
-GAME( 1996, suicide,  0,        suicide, cps2_2p2b, cps_state, cps2, ROT0, "Razoola", "Suicide Test", GAME_SUPPORTS_SAVE )
+GAME( 2014, ddsomchs, ddsom,    cps2,    cps2_4p4b, cps_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, suicide,  0,        suicide, cps2_2p2b, cps_state, cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )

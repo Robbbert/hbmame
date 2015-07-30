@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "machine/segacrpt.h"
@@ -409,7 +411,7 @@ ROM_START( vecpengo )
 ROM_END
 
 
-GAME( 2003, alpacap7, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", GAME_IMPERFECT_COLORS )
-GAME( 2003, alpacap8, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", GAME_IMPERFECT_COLORS )
+GAME( 2003, alpacap7, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_IMPERFECT_COLORS )
+GAME( 2003, alpacap8, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_IMPERFECT_COLORS )
 GAME( 1997, pengopop, pengo,   pengou, pengo, driver_device, 0,     ROT90, "Sega", "Pengo (Popcorn Music)", 0 )
 GAME( 2000, vecpengo, pengo,   pengo,  pengo, pengo_state,   pengo, ROT90, "T-Bone", "Pengo (Vector sim)", 0 )

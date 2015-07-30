@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/rallyx.c"
 
 INPUT_PORTS_START( nrallyv )

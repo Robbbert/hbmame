@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/tmnt.c"
 
 ROM_START( ssridersaex )
@@ -28,4 +30,4 @@ ROM_END
 
 
 //    YEAR, NAME,        PARENT,   MACHINE,  INPUT,     INIT,                    MONITOR,COMPANY,FULLNAME,FLAGS
-GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Pipi899","Sunset Riders (2 Players ver ABD EX Super Version)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE )
+GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Pipi899","Sunset Riders (2 Players ver ABD EX Super Version)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

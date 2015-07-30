@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/pacland.c"
 
 ROM_START( mariopac )
@@ -102,6 +104,6 @@ ROM_START( paclandd )
 	ROM_LOAD( "pl1-3.bin",    0x1000, 0x0400, CRC(80558da8) SHA1(7e1483467817295f36d1e2bdb32934c4f2617d52) )	/* sprites lookup table */
 ROM_END
 
-GAME( 2001, mariopac, pacland, pacland, pacland, driver_device, 0, ROT0, "Mark", "Mario in Pac-Land", GAME_SUPPORTS_SAVE )
-GAME( 1984, paclandb, pacland, pacland, pacland, driver_device, 0, ROT0, "Namco", "Pac-Land (Benelux Edition)", GAME_SUPPORTS_SAVE )
-GAME( 2000, paclandd, pacland, pacland, pacland, driver_device, 0, ROT0, "Blue Justice", "Pac-Land", GAME_SUPPORTS_SAVE )
+GAME( 2001, mariopac, pacland, pacland, pacland, driver_device, 0, ROT0, "Mark", "Mario in Pac-Land", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, paclandb, pacland, pacland, pacland, driver_device, 0, ROT0, "Namco", "Pac-Land (Benelux Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, paclandd, pacland, pacland, pacland, driver_device, 0, ROT0, "Blue Justice", "Pac-Land", MACHINE_SUPPORTS_SAVE )

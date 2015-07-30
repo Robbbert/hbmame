@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/mcr.c"
 
 ROM_START( handiman )
@@ -118,7 +120,7 @@ ROM_START( stapper1 )
 	ROM_LOAD( "5784",         0x0000, 0x0020, CRC(e1281ee9) SHA1(9ac9b01d24affc0ee9227a4364c4fd8f8290343a) )
 ROM_END
 
-GAME( 1998, handiman, 0,       mcr_90010, tron,   mcr_state, mcr_90010, ROT90, "Bobby Tribble", "Handi-Man in Cyberworld", GAME_SUPPORTS_SAVE )
-GAME( 2004, shtron,   0,       mcr_90010, tron,   mcr_state, mcr_90010, ROT90, "Scott Lawrence", "Satan's Hollow (Tron Hardware)", GAME_SUPPORTS_SAVE )
-GAME( 2002, stapper,  0,       mcr_91490, tapper, mcr_state, mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack)", GAME_SUPPORTS_SAVE )
-GAME( 2002, stapper1, stapper, mcr_91490, tapper, mcr_state, mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack ver.81)", GAME_SUPPORTS_SAVE )
+GAME( 1998, handiman, 0,       mcr_90010, tron,   mcr_state, mcr_90010, ROT90, "Bobby Tribble", "Handi-Man in Cyberworld", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, shtron,   0,       mcr_90010, tron,   mcr_state, mcr_90010, ROT90, "Scott Lawrence", "Satan's Hollow (Tron Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, stapper,  0,       mcr_91490, tapper, mcr_state, mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, stapper1, stapper, mcr_91490, tapper, mcr_state, mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack ver.81)", MACHINE_SUPPORTS_SAVE )

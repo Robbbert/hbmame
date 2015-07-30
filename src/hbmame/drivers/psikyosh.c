@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/psikyosh.c"
 
 ROM_START( s1945iiex )
@@ -25,4 +27,4 @@ ROM_END
 
 
 /*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
-GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii, psikyosh_state,  ps3,  ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)", GAME_SUPPORTS_SAVE )
+GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii, psikyosh_state,  ps3,  ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)", MACHINE_SUPPORTS_SAVE )

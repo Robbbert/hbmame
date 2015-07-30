@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 /*************************************
  *
  *  Make Trax input handlers
@@ -708,48 +710,48 @@ ROM_END
 /* Official MAME */
 
 /*          rom       parent    machine   inp       init */
-GAME( 1981, abscam,   puckman,  piranha,  mspacman, pacman_state,  eyes,     ROT90,  "GL (US Billiards License)", "Abscam", GAME_SUPPORTS_SAVE )
-GAME( 1982, eyes,     0,        pacman,   eyes,     pacman_state,  eyes,     ROT90,  "Digitrex Techstar (Rock-ola license)", "Eyes (Digitrex Techstar)", GAME_SUPPORTS_SAVE )
-GAME( 1981, piranha,  puckman,  piranha,  mspacman, pacman_state,  eyes,     ROT90,  "GL (US Billiards License)", "Piranha", GAME_SUPPORTS_SAVE )
-GAME( 1981, piranhah, puckman,  pacman,   mspacman, driver_device, 0,        ROT90,  "hack", "Piranha (hack)", GAME_SUPPORTS_SAVE )
-GAME( 1981, piranhao, puckman,  piranha,  mspacman, pacman_state,  eyes,     ROT90,  "GL (US Billiards License)", "Piranha (older)", GAME_SUPPORTS_SAVE )
+GAME( 1981, abscam,   puckman,  piranha,  mspacman, pacman_state,  eyes,     ROT90,  "GL (US Billiards License)", "Abscam", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, eyes,     0,        pacman,   eyes,     pacman_state,  eyes,     ROT90,  "Digitrex Techstar (Rock-ola license)", "Eyes (Digitrex Techstar)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, piranha,  puckman,  piranha,  mspacman, pacman_state,  eyes,     ROT90,  "GL (US Billiards License)", "Piranha", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, piranhah, puckman,  pacman,   mspacman, driver_device, 0,        ROT90,  "hack", "Piranha (hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, piranhao, puckman,  piranha,  mspacman, pacman_state,  eyes,     ROT90,  "GL (US Billiards License)", "Piranha (older)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2003, aa,       0, 	widel,    mspacpls, driver_device, 0,        ROT90, "David Widel", "Alien Armada", GAME_SUPPORTS_SAVE )
-GAME( 2003, bace,     0, 	widel,    mspacpls, driver_device, 0,        ROT90, "David Widel", "Balloon Ace", GAME_SUPPORTS_SAVE )
-GAME( 2003, dderby,   0, 	widel,    mspacpls, driver_device, 0,	     ROT90, "David Widel", "Death Derby", GAME_SUPPORTS_SAVE )
-GAME( 2003, kangaroh, 0,        woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Kagaroo (Qbertish) (incomplete)", GAME_SUPPORTS_SAVE )
-GAME( 2003, ladybugh, lazybug,  woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Ladybug on Pacman Hardware", GAME_SUPPORTS_SAVE )
-GAME( 1981, lazybug,  0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Lazy Bug", GAME_SUPPORTS_SAVE )
-GAME( 1981, lazybug1, lazybug,  woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Lazy Bug (Slower)", GAME_SUPPORTS_SAVE )
-GAME( 19??, pactest,  0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Test - Pacman board test", GAME_SUPPORTS_SAVE )
-GAME( 2003, ppong,    0,        woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Pong (Pacman Hardware)", GAME_SUPPORTS_SAVE )
-GAME( 2003, ppong2,   ppong,    woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Pong (Pacman Hardware) v2", GAME_SUPPORTS_SAVE )
-GAME( 2003, rainboh,  0,        pacman,   mspacpls, driver_device, 0,	     ROT90, "David Widel", "Rainbow (Incomplete)", GAME_SUPPORTS_SAVE )
-GAME( 1981, wavybug,  lazybug,  woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Wavy Bug", GAME_SUPPORTS_SAVE )
-GAME( 2003, zap,      0,        woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Space Zap Tribute", GAME_SUPPORTS_SAVE )
+GAME( 2003, aa,       0, 	widel,    mspacpls, driver_device, 0,        ROT90, "David Widel", "Alien Armada", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, bace,     0, 	widel,    mspacpls, driver_device, 0,        ROT90, "David Widel", "Balloon Ace", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, dderby,   0, 	widel,    mspacpls, driver_device, 0,	     ROT90, "David Widel", "Death Derby", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kangaroh, 0,        woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Kagaroo (Qbertish) (incomplete)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ladybugh, lazybug,  woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Ladybug on Pacman Hardware", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, lazybug,  0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Lazy Bug", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, lazybug1, lazybug,  woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Lazy Bug (Slower)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, pactest,  0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Test - Pacman board test", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ppong,    0,        woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Pong (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ppong2,   ppong,    woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Pong (Pacman Hardware) v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, rainboh,  0,        pacman,   mspacpls, driver_device, 0,	     ROT90, "David Widel", "Rainbow (Incomplete)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, wavybug,  lazybug,  woodpek,  mspacpls, driver_device, 0,        ROT90, "David Widel", "Wavy Bug", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, zap,      0,        woodpek,  mspacpls, driver_device, 0,	     ROT90, "David Widel", "Space Zap Tribute", MACHINE_SUPPORTS_SAVE )
 
 /* Jerronimo's Progs - www.umlautllama.com */
 
-GAME( 2006, absurd,   0,        pacman,   mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Absurd!/QuadBlok (non-working alpha ver 3)", GAME_SUPPORTS_SAVE )
-GAME( 2003, alpaca7,  alpaca8, 	pacman,   pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Alpaca v0.7 (Pacman Hardware)", GAME_SUPPORTS_SAVE )
-GAME( 2003, alpaca8,  0,        pacman,   pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Alpaca v0.8 (Pacman Hardware)", GAME_SUPPORTS_SAVE )
-GAME( 2001, pachello, 0, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Hello, World!", GAME_SUPPORTS_SAVE )
-GAME( 2001, pacmatri, 0, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Matrix Effect", GAME_SUPPORTS_SAVE )
-GAME( 2003, seq1,     0, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "16 Step Simple Sequencer", GAME_SUPPORTS_SAVE )
-GAME( 2003, seq2,     seq1, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Sequencer and Music Player", GAME_SUPPORTS_SAVE )
+GAME( 2006, absurd,   0,        pacman,   mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Absurd!/QuadBlok (non-working alpha ver 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, alpaca7,  alpaca8, 	pacman,   pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Alpaca v0.7 (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, alpaca8,  0,        pacman,   pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Alpaca v0.8 (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, pachello, 0, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Hello, World!", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, pacmatri, 0, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Matrix Effect", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, seq1,     0, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "16 Step Simple Sequencer", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, seq2,     seq1, 	pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Sequencer and Music Player", MACHINE_SUPPORTS_SAVE )
 
 /* Other Misc Hacks */
 
-GAME( 2002, crashh,   0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "hack", "Crash", GAME_SUPPORTS_SAVE )
-GAME( 1981, mtturbo,  0,	pacmanp,  maketrax, pacman_state,  maketrax, ROT270,"Tim Arcadecollecting", "Make Trax (Turbo Hack)", GAME_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
-GAME( 1999, tst_pacm, 0,        pacman,   mspacpls, driver_device, 0,        ROT90, "David Caldwell", "Test - Pacman Hardware", GAME_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
+GAME( 2002, crashh,   0,        woodpek,  mspacpls, driver_device, 0,        ROT90, "hack", "Crash", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mtturbo,  0,	pacmanp,  maketrax, pacman_state,  maketrax, ROT270,"Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
+GAME( 1999, tst_pacm, 0,        pacman,   mspacpls, driver_device, 0,        ROT90, "David Caldwell", "Test - Pacman Hardware", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
 
 /* Other misc unemulated dumps */
 
-GAME( 1982, eyesb,    eyes,     pacman,   eyes,     pacman_state,  eyes,     ROT90,  "bootleg", "Eyes (unknown bootleg)", GAME_SUPPORTS_SAVE )
+GAME( 1982, eyesb,    eyes,     pacman,   eyes,     pacman_state,  eyes,     ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/

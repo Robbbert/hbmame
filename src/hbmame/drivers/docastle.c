@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/docastle.c"
 
 ROM_START( sdreturn )
@@ -26,5 +28,5 @@ ROM_START( sdreturn )
 	ROM_LOAD( "dorunrun.clr", 0x0000, 0x0100, CRC(d5bab5d5) SHA1(7a465fe30b6008793d33f6e07086c89111e1e407) )
 ROM_END
 
-GAME( 2002, sdreturn, dorunrun, dorunrun, dorunrun, driver_device, 0, ROT0, "Hack", "Sticky Do Returns", GAME_SUPPORTS_SAVE )
+GAME( 2002, sdreturn, dorunrun, dorunrun, dorunrun, driver_device, 0, ROT0, "Hack", "Sticky Do Returns", MACHINE_SUPPORTS_SAVE )
 

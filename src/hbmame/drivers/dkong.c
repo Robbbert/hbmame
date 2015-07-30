@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/dkong.c"
 
 INPUT_PORTS_START( dkongex )
@@ -232,10 +234,10 @@ ROM_START( dkongpac )
 	ROM_LOAD( "k2600.5f",     0x0200, 0x0100, CRC(44988665) SHA1(68c474fc81aff46eae6c9a7ac6ab80288303e291) )
 ROM_END
 
-GAME( 2005, dkongex,  dkong, dkong2b, dkongex, driver_device, 0, ROT90, "Jeff Kulczycki", "Donkey Kong Foundry", GAME_SUPPORTS_SAVE )
-GAME( 2007, dkongp,   dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Don Hodges", "Donkey Kong (patched)", GAME_SUPPORTS_SAVE )
-GAME( 1999, kong2600, dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Vic Twenty George", "Donkey Kong (2600 graphics)", GAME_SUPPORTS_SAVE )
-GAME( 2004, nadkong,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Naked Donkey Kong", GAME_SUPPORTS_SAVE )
-GAME( 2013, dkong2m,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Donkey Kong (2 marios)", GAME_SUPPORTS_SAVE )
-GAME( 2013, pauline,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Clay Cowgill and Mike Mika", "Donkey Kong: Pauline Edition Rev 5 (2013-04-22)", GAME_SUPPORTS_SAVE )
-GAME( 2001, dkongpac, dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Tim Appleton", "Donkey Kong (Pacman graphics)", GAME_SUPPORTS_SAVE )
+GAME( 2005, dkongex,  dkong, dkong2b, dkongex, driver_device, 0, ROT90, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, dkongp,   dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kong2600, dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, nadkong,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, dkong2m,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, pauline,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Clay Cowgill and Mike Mika", "Donkey Kong: Pauline Edition Rev 5 (2013-04-22)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, dkongpac, dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )

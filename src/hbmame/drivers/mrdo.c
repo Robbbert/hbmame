@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/mrdo.c"
 
 ROM_START( mrdigdo )
@@ -156,9 +158,9 @@ ROM_START( stickydo )
 	ROM_LOAD( "j10--4.bin",   0x0060, 0x0020, CRC(ff7fe284) SHA1(3ac8e30011c1fcba0ee8f4dc932f82296c3ba143) )	/* timing (not used) */
 ROM_END
 
-GAME( 1998, mrdigdo,  mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Justin Clark", "Mr. Do! (Dig Dug sprites)", GAME_SUPPORTS_SAVE )
-GAME( 1982, mrdofast, mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Evil Exidy Dump", "Mr. Do! (Speedup Hack)", GAME_SUPPORTS_SAVE )
-GAME( 2002, mrpac,    mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Twisty", "Mr. Pac! (Set 1)", GAME_SUPPORTS_SAVE )
-GAME( 2002, mrpacb,   mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Twisty", "Mr. Pac! (Set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1999, newdigdo, mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Vic Twenty George, Jerky, Justin Clark", "Mr. Do! (Dig Dug sprites, new version)", GAME_SUPPORTS_SAVE )
-GAME( 2001, stickydo, mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Marcks Hacks", "Mr. Sticky Do!", GAME_SUPPORTS_SAVE )
+GAME( 1998, mrdigdo,  mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Justin Clark", "Mr. Do! (Dig Dug sprites)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, mrdofast, mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Evil Exidy Dump", "Mr. Do! (Speedup Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mrpac,    mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Twisty", "Mr. Pac! (Set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mrpacb,   mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Twisty", "Mr. Pac! (Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, newdigdo, mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Vic Twenty George, Jerky, Justin Clark", "Mr. Do! (Dig Dug sprites, new version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, stickydo, mrdo, mrdo,   mrdo, driver_device, 0, ROT270, "Marcks Hacks", "Mr. Sticky Do!", MACHINE_SUPPORTS_SAVE )

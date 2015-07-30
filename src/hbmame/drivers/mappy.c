@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/mappy.c"
 
 ROM_START( crackhea )
@@ -190,11 +192,11 @@ ROM_START( vectrsup )
 	ROM_LOAD( "superpac.3m",  0x0000, 0x0100, CRC(ad43688f) SHA1(072f427453efb1dda8147da61804fff06e1bc4d5) )
 ROM_END
 
-GAME( 1998, crackhea, mappy, 	mappy, 	  mappy,    mappy_state,   mappy,    ROT90, "Cary Barnhard", "Crackhead", GAME_SUPPORTS_SAVE ) // transparency error
-GAME( 1998, housepty, mappy, 	mappy, 	  mappy,    mappy_state,   mappy,    ROT90, "Jerky", "House Party", GAME_SUPPORTS_SAVE )
-GAME( 2001, marpy,    mappy, 	mappy,    mappy,    mappy_state,   mappy,    ROT90, "Mark", "Marpy", GAME_SUPPORTS_SAVE ) // transparency error
-GAME( 2011, superpc1, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Paul Smith", "Super Pac-Man (Super Locksmith sound and gfx hack)", GAME_SUPPORTS_SAVE )
-GAME( 1999, superpcn, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Namco", "Super Pac-Man (Namco)", GAME_SUPPORTS_SAVE )
-GAME( 2000, superpcp, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Blue Justice", "Super Pac-Man Plus", GAME_SUPPORTS_SAVE )
-GAME( 2011, superpcs, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Paul Smith", "Super Pac-Man (always small)", GAME_SUPPORTS_SAVE )
-GAME( 2000, vectrsup, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "T-Bone", "Super Pac-Man (Vector sim)", GAME_SUPPORTS_SAVE )
+GAME( 1998, crackhea, mappy, 	mappy, 	  mappy,    mappy_state,   mappy,    ROT90, "Cary Barnhard", "Crackhead", MACHINE_SUPPORTS_SAVE ) // transparency error
+GAME( 1998, housepty, mappy, 	mappy, 	  mappy,    mappy_state,   mappy,    ROT90, "Jerky", "House Party", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, marpy,    mappy, 	mappy,    mappy,    mappy_state,   mappy,    ROT90, "Mark", "Marpy", MACHINE_SUPPORTS_SAVE ) // transparency error
+GAME( 2011, superpc1, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Paul Smith", "Super Pac-Man (Super Locksmith sound and gfx hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superpcn, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Namco", "Super Pac-Man (Namco)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, superpcp, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Blue Justice", "Super Pac-Man Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, superpcs, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Paul Smith", "Super Pac-Man (always small)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, vectrsup, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "T-Bone", "Super Pac-Man (Vector sim)", MACHINE_SUPPORTS_SAVE )

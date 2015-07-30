@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/tehkanwc.c"
 
 ROM_START( ballonwc )
@@ -108,10 +110,10 @@ ROM_START( twc_gr )
 	ROM_LOAD( "twc-5.bin",    0x0000, 0x4000, CRC(444b5544) SHA1(0786d6d9ada7fe49c8ab9751b049095474d2e598) )
 ROM_END
 
-GAME( 1985, ballonwc, tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "Grand Master Peter", "Ballon World Cup", GAME_SUPPORTS_SAVE )
-GAME( 1985, tehkangc, tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "Grand Master Peter", "Tehkan Greek Cup", GAME_SUPPORTS_SAVE )
-GAME( 2003, tankwc,   tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "Kazzy", "Tank World Cup", GAME_SUPPORTS_SAVE )
-GAME( 2004, twc_gr,   tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "GreekRoms", "Tehkan World Cup (Greek)", GAME_SUPPORTS_SAVE )
+GAME( 1985, ballonwc, tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "Grand Master Peter", "Ballon World Cup", MACHINE_SUPPORTS_SAVE )
+GAME( 1985, tehkangc, tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "Grand Master Peter", "Tehkan Greek Cup", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, tankwc,   tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "Kazzy", "Tank World Cup", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, twc_gr,   tehkanwc, tehkanwc, tehkanwc, driver_device, 0, ROT0,  "GreekRoms", "Tehkan World Cup (Greek)", MACHINE_SUPPORTS_SAVE )
 
 /* Notes on E602 - Tehkan World Cup (set 3 bootleg) (1986)
 	- Year is 1986 instead of 1985 - seems this is possibly the Spanish version

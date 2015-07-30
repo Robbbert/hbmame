@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/playch10.c"
 
 ROM_START( pc_ark )	/* Arkanoid (1942) */
@@ -219,17 +221,17 @@ ROM_START( pc_skykd )	/* Sky Kid (Ninja Gaiden) */
 	ROM_LOAD( "ec5641d6.prm", 0x00000, 0x10, CRC(ec5641d6) SHA1(05f546aec5a9db167688a9abbac922f5ced7f7c5) )
 ROM_END
 
-GAME( 2002, pc_ark,   playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Arkanoid (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_bb2,   playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Bubble Bobble 2 (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_cch,   playch10, playch10, playch10, playch10_state, playch10, ROT0, "NES->PC-10", "Circus Charlie (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_ctfrc, playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Contra Force (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_digdg, playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Dig Dug (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_dk,    playch10, playch10, playch10, playch10_state, playch10, ROT0, "NES->PC-10", "Donkey Kong (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_dk3,   playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Donkey Kong 3 (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_galag, playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Galaga (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_gyrus, playch10, playch10, playch10, playch10_state, pcfboard, ROT0, "NES->PC-10", "Gyruss (PlayChoice-10)", GAME_SUPPORTS_SAVE | GAME_IMPERFECT_GRAPHICS )
-GAME( 2002, pc_krsty, playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Krusty's Funhouse (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_mman5, playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Megaman 5 (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_pacm,  playch10, playch10, playch10, playch10_state, playch10, ROT0, "NES->PC-10", "Pacman (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_parsl, playch10, playch10, playch10, playch10_state, pcfboard, ROT0, "NES->PC-10", "Parasol Stars-The Story of Bubble Bobble 3 (PlayChoice-10)", GAME_SUPPORTS_SAVE )
-GAME( 2002, pc_skykd, playch10, playch10, playch10, playch10_state, pcfboard, ROT0, "NES->PC-10", "Sky Kid (PlayChoice-10)", GAME_SUPPORTS_SAVE )
+GAME( 2002, pc_ark,   playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Arkanoid (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_bb2,   playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Bubble Bobble 2 (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_cch,   playch10, playch10, playch10, playch10_state, playch10, ROT0, "NES->PC-10", "Circus Charlie (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_ctfrc, playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Contra Force (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_digdg, playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Dig Dug (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_dk,    playch10, playch10, playch10, playch10_state, playch10, ROT0, "NES->PC-10", "Donkey Kong (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_dk3,   playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Donkey Kong 3 (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_galag, playch10, playch10, playch10, playch10_state, pc_hrz,   ROT0, "NES->PC-10", "Galaga (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_gyrus, playch10, playch10, playch10, playch10_state, pcfboard, ROT0, "NES->PC-10", "Gyruss (PlayChoice-10)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2002, pc_krsty, playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Krusty's Funhouse (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_mman5, playch10, playch10, playch10, playch10_state, pcgboard, ROT0, "NES->PC-10", "Megaman 5 (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_pacm,  playch10, playch10, playch10, playch10_state, playch10, ROT0, "NES->PC-10", "Pacman (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_parsl, playch10, playch10, playch10, playch10_state, pcfboard, ROT0, "NES->PC-10", "Parasol Stars-The Story of Bubble Bobble 3 (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pc_skykd, playch10, playch10, playch10, playch10_state, pcfboard, ROT0, "NES->PC-10", "Sky Kid (PlayChoice-10)", MACHINE_SUPPORTS_SAVE )

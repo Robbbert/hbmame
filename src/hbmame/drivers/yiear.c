@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/yiear.c"
 
 ROM_START( nacho )
@@ -22,4 +24,4 @@ ROM_START( nacho )
 	ROM_LOAD( "a12_9.bin",    0x00000, 0x2000, CRC(f75a1539) SHA1(f139f6cb41351eb81ee47d777db03012aa5fadb1) )
 ROM_END
 
-GAME( 2009, nacho, yiear, yiear, yiear, driver_device, 0, ROT0, "Gatinho", "Nacho Libre", GAME_SUPPORTS_SAVE )
+GAME( 2009, nacho, yiear, yiear, yiear, driver_device, 0, ROT0, "Gatinho", "Nacho Libre", MACHINE_SUPPORTS_SAVE )

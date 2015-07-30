@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/1942.c"
 
 ROM_START( 1942c64 )
@@ -119,6 +121,6 @@ ROM_START( galagax )
 	ROM_LOAD( "sb-8.k3",     0x0500, 0x0100, CRC(f6fad943) SHA1(b0a24ea7805272e8ebf72a99b08907bc00d5f82f) )
 ROM_END
 
-GAME( 2015, 1942c64, 1942, 1942, 1942, _1942_state, 1942, ROT270, "Minwah", "1942 with C64 music", GAME_SUPPORTS_SAVE )
-GAME( 2015, 1942fpa, 1942, 1942, 1942, _1942_state, 1942, ROT270, "cmonkey", "1942 with attract mode in free play", GAME_SUPPORTS_SAVE )
-GAME( 1984, galagax, 1942, 1942, 1942, _1942_state, 1942, ROT270, "Jerky and Chris Moore", "Galaga X (1942 hack)", GAME_SUPPORTS_SAVE )
+GAME( 2015, 1942c64, 1942, 1942, 1942, _1942_state, 1942, ROT270, "Minwah", "1942 with C64 music", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, 1942fpa, 1942, 1942, 1942, _1942_state, 1942, ROT270, "cmonkey", "1942 with attract mode in free play", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, galagax, 1942, 1942, 1942, _1942_state, 1942, ROT270, "Jerky and Chris Moore", "Galaga X (1942 hack)", MACHINE_SUPPORTS_SAVE )

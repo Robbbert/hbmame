@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/terracre.c"
 
 ROM_START( terracrc )
@@ -45,4 +47,4 @@ ROM_START( terracrc )
 	ROM_LOAD( "tc2a_4e.bin",  0x0000, 0x0100, CRC(2c43991f) SHA1(312112832bee511b0545524295aa9bc2e756db0f) )	/* sprite palette bank */
 ROM_END
 
-GAME( 1985, terracrc, terracre, ym3526, terracre, driver_device, 0, ROT270,  "Nichibutsu", "Terra Cresta (alt)", GAME_SUPPORTS_SAVE )
+GAME( 1985, terracrc, terracre, ym3526, terracre, driver_device, 0, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )

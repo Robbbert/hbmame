@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/midwunit.c"
 
 ROM_START( umk3j )
@@ -115,6 +117,6 @@ ROM_START( umk3te )
 ROM_END
 
 
-GAME( 2010, umk3j,  mk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Juggernauts Hack v1.0", GAME_SUPPORTS_SAVE )
-GAME( 2009, umk3z,  mk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Zeus hack", GAME_SUPPORTS_SAVE )
-GAME( 2014, umk3te, mk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 Tournament Edition (2.0.032b8)", GAME_SUPPORTS_SAVE )
+GAME( 2010, umk3j,  mk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Juggernauts Hack v1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, umk3z,  mk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Zeus hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk3te, mk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 Tournament Edition (2.0.032b8)", MACHINE_SUPPORTS_SAVE )

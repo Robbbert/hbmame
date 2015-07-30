@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/snk6502.c"
 
 ROM_START( vantris )
@@ -31,4 +33,4 @@ ROM_START( vantris )
 	ROM_LOAD_OPTIONAL( "sk6_ic11.bin", 0x5000, 0x0800, CRC(c36df041) SHA1(8b51934229b961180d1edb99be3a4d337d37f66f) )
 ROM_END
 
-GAME( 1998, vantris, 0, vanguard, vanguard, driver_device, 0, ROT90, "Norbert Kehrer", "Vantris 98", GAME_SUPPORTS_SAVE ) // http://web.utanet.at/nkehrer/vantris.html
+GAME( 1998, vantris, 0, vanguard, vanguard, driver_device, 0, ROT90, "Norbert Kehrer", "Vantris 98", MACHINE_SUPPORTS_SAVE ) // http://web.utanet.at/nkehrer/vantris.html

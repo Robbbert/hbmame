@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/astrof.c"
 
 ROM_START( astrf_bl )
@@ -14,4 +16,4 @@ ROM_START( astrf_bl )
 ROM_END
 
 
-GAME( 1979, astrf_bl, 0, astrof, astrof, driver_device, 0, ROT90, "Hack", "Astro Fighter (Black Background)", GAME_SUPPORTS_SAVE )
+GAME( 1979, astrf_bl, 0, astrof, astrof, driver_device, 0, ROT90, "Hack", "Astro Fighter (Black Background)", MACHINE_SUPPORTS_SAVE )

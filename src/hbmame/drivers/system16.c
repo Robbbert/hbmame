@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/system16.c"
 
 
@@ -21,4 +23,4 @@ ROM_START( sys16dem )
 	ROM_LOAD( "epr12168.a7", 0x0000, 0x8000, CRC(bd9ba01b) SHA1(fafa7dc36cc057a50ae4cdf7a35f3594292336f4) )
 ROM_END
 
-GAME( 1988, sys16dem, 0, tetrisbl, tetris, segas1x_bootleg_state, dduxbl, ROT0, "Charles Doty", "Demo - Sega System 16", GAME_NOT_WORKING )
+GAME( 1988, sys16dem, 0, tetrisbl, tetris, segas1x_bootleg_state, dduxbl, ROT0, "Charles Doty", "Demo - Sega System 16", MACHINE_NOT_WORKING )

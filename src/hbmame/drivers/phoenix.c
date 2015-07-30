@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/phoenix.c"
 
 ROM_START( phoenixr )
@@ -125,8 +127,8 @@ ROM_START( pleiads2 )
 ROM_END
 
 
-GAME( 2000, phoenixr, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "CYBERYOGI =CO= Windler", "PhoenixR (GDR hack)", GAME_SUPPORTS_SAVE )
-GAME( 1980, phoenixg, phoenix, phoenix,  phoenixt, driver_device, 0, ROT90, "GreekRoms", "Phoenix (Greek)", GAME_SUPPORTS_SAVE )
-GAME( 1981, phoenixd, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "G.G.I. Corporation", "Phoenix (GGI)", GAME_SUPPORTS_SAVE )
-GAME( 1981, phoenix4, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "unknown", "Phoenix", GAME_SUPPORTS_SAVE )
-GAME( 1981, pleiads2, 0,       pleiads,  pleiads,  driver_device, 0, ROT90, "ESG", "Pleiads", GAME_SUPPORTS_SAVE )
+GAME( 2000, phoenixr, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "CYBERYOGI =CO= Windler", "PhoenixR (GDR hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, phoenixg, phoenix, phoenix,  phoenixt, driver_device, 0, ROT90, "GreekRoms", "Phoenix (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, phoenixd, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "G.G.I. Corporation", "Phoenix (GGI)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, phoenix4, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "unknown", "Phoenix", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, pleiads2, 0,       pleiads,  pleiads,  driver_device, 0, ROT90, "ESG", "Pleiads", MACHINE_SUPPORTS_SAVE )

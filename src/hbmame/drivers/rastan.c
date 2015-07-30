@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/rastan.c"
 
 ROM_START( rastwack )
@@ -146,8 +148,8 @@ ROM_START( rastane2 )
 ROM_END
 
 
-GAME( 2000, rastwack, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Vogel", "Wacky Rastan", GAME_SUPPORTS_SAVE )
-GAME( 2001, rastandh, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Dragon Hack", GAME_SUPPORTS_SAVE )
-GAME( 2001, rastand2, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Dragon Hack (set 2)", GAME_SUPPORTS_SAVE )
-GAME( 2001, rastaneh, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Enemy Hack", GAME_SUPPORTS_SAVE )
-GAME( 2001, rastane2, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Enemy Hack (set 2)", GAME_SUPPORTS_SAVE )
+GAME( 2000, rastwack, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Vogel", "Wacky Rastan", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastandh, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Dragon Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastand2, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Dragon Hack (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastaneh, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Enemy Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastane2, rastan, rastan, rastsaga, driver_device, 0, ROT0, "Neil Pearce", "Rastan Enemy Hack (set 2)", MACHINE_SUPPORTS_SAVE )

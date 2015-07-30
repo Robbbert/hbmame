@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 /* BBUGTEST NOTES
 
 With no documentation whatsoever, I have compiled what I know to share with you all.
@@ -42,4 +44,4 @@ ROM_START( bbugtest )
 	ROM_LOAD("prom.e8",  0x180, 0x020, CRC(791ec9e1) SHA1(6f7fcce4aa3be9020595235568381588adaab88e) )
 ROM_END
 
-GAME(1981, bbugtest, 0, bbugtest, boxingb, cinemat_state, boxingb, ORIENTATION_FLIP_Y, "Test Rom", "Test Rom - Boxing Bugs", GAME_NO_SOUND_HW | GAME_SUPPORTS_SAVE )
+GAME(1981, bbugtest, 0, bbugtest, boxingb, cinemat_state, boxingb, ORIENTATION_FLIP_Y, "Test Rom", "Test Rom - Boxing Bugs", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 /* Final Crash & other CPS1 bootlegs */
 
 /*
@@ -2738,25 +2740,25 @@ ROM_END
 
 // ************************************************************************* DRIVER MACROS
 
-GAME( 1990, cawingbl,  cawing,   cawingbl,  cawingbl, cps_state, cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 1)", GAME_SUPPORTS_SAVE ) // 901012 ETC
-GAME( 1990, cawingb2,  cawing,   cawingbl,  cawingbl, cps_state, cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 2)", GAME_SUPPORTS_SAVE ) // 901012 ETC
-GAME( 1993, dinopic,   dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 1)", GAME_NO_SOUND | GAME_SUPPORTS_SAVE ) // 930201 ETC
-GAME( 1993, dinopic2,  dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 2)", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE ) // 930201 ETC
-GAME( 1990, fcrash,    ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg (Playmark)", "Final Crash (bootleg of Final Fight)", GAME_SUPPORTS_SAVE )
-GAME( 1990, ffightbl,  ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg", "Final Fight (bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1991, kodb,      kod,      kodb,      kodb,     cps_state, kodb,     ROT0,   "bootleg (Playmark)", "The King of Dragons (bootleg)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE ) // 910731  "ETC"
-GAME( 1991, knightsb,  knights,  knightsb,  knights,  cps_state, dinopic,  ROT0,   "bootleg", "Knights of the Round (bootleg)", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )    // 911127 - based on World version
-GAME( 1993, punipic,   punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 1)", GAME_NO_SOUND | GAME_SUPPORTS_SAVE ) // 930422 ETC
-GAME( 1993, punipic2,  punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 2)", GAME_NO_SOUND | GAME_SUPPORTS_SAVE ) // 930422 ETC
-GAME( 1993, punipic3,  punisher, punipic,   punisher, cps_state, punipic3, ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 3)", GAME_IMPERFECT_GRAPHICS | GAME_NO_SOUND | GAME_SUPPORTS_SAVE ) // 930422 ETC
-GAME( 1992, sf2m1,     sf2ce,    sf2m1,     sf2,      cps_state, sf2m1,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (M1, bootleg)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE ) // 920313 ETC
-GAME( 1992, sf2mdt,    sf2ce,    sf2mdt,    sf2mdt,   cps_state, sf2mdt,   ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 1)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE )   // 920313 - based on (heavily modified) World version
-GAME( 1992, sf2mdta,   sf2ce,    sf2mdt,    sf2mdt,   cps_state, sf2mdta,  ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 2)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE )   // 920313 - based on World version
-GAME( 1993, slampic,   slammast, slampic,   slammast, cps_state, dinopic,  ROT0,   "bootleg", "Saturday Night Slam Masters (bootleg with PIC16c57)", GAME_IMPERFECT_GRAPHICS | GAME_NO_SOUND | GAME_SUPPORTS_SAVE ) // 930713 ETC
-GAME( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, cps1,     ROT0,   "bootleg (All-In Electronic)", "Warriors of Fate ('sgyxz' bootleg)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE )   // 921005 - Sangokushi 2
+GAME( 1990, cawingbl,  cawing,   cawingbl,  cawingbl, cps_state, cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 1)", MACHINE_SUPPORTS_SAVE ) // 901012 ETC
+GAME( 1990, cawingb2,  cawing,   cawingbl,  cawingbl, cps_state, cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 2)", MACHINE_SUPPORTS_SAVE ) // 901012 ETC
+GAME( 1993, dinopic,   dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
+GAME( 1993, dinopic2,  dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
+GAME( 1990, fcrash,    ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg (Playmark)", "Final Crash (bootleg of Final Fight)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ffightbl,  ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg", "Final Fight (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, kodb,      kod,      kodb,      kodb,     cps_state, kodb,     ROT0,   "bootleg (Playmark)", "The King of Dragons (bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 910731  "ETC"
+GAME( 1991, knightsb,  knights,  knightsb,  knights,  cps_state, dinopic,  ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )    // 911127 - based on World version
+GAME( 1993, punipic,   punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
+GAME( 1993, punipic2,  punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 2)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
+GAME( 1993, punipic3,  punisher, punipic,   punisher, cps_state, punipic3, ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
+GAME( 1992, sf2m1,     sf2ce,    sf2m1,     sf2,      cps_state, sf2m1,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (M1, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 920313 ETC
+GAME( 1992, sf2mdt,    sf2ce,    sf2mdt,    sf2mdt,   cps_state, sf2mdt,   ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on (heavily modified) World version
+GAME( 1992, sf2mdta,   sf2ce,    sf2mdt,    sf2mdt,   cps_state, sf2mdta,  ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on World version
+GAME( 1993, slampic,   slammast, slampic,   slammast, cps_state, dinopic,  ROT0,   "bootleg", "Saturday Night Slam Masters (bootleg with PIC16c57)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930713 ETC
+GAME( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, cps1,     ROT0,   "bootleg (All-In Electronic)", "Warriors of Fate ('sgyxz' bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 921005 - Sangokushi 2
 
 
 // HBMAME **********************************************/
 
 
-GAME( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", GAME_SUPPORTS_SAVE )
+GAME( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", MACHINE_SUPPORTS_SAVE )

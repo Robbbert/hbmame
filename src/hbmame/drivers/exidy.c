@@ -1,4 +1,5 @@
-
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/exidy.c"
 
 
@@ -39,4 +40,4 @@ ROM_END
  *
  *************************************/
 
-GAME( 2008, targtest, targ, targ, targ, exidy_state, targ, ROT0, "Timothy Shiels", "Targ Test Rom V1.0", GAME_SUPPORTS_SAVE )
+GAME( 2008, targtest, targ, targ, targ, exidy_state, targ, ROT0, "Timothy Shiels", "Targ Test Rom V1.0", MACHINE_SUPPORTS_SAVE )

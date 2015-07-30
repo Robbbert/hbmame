@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/cclimber.c"
 
 INPUT_PORTS_START( ckonga2 )	/* one less life than normal */
@@ -173,8 +175,8 @@ ROM_START( tongypac )
 	ROM_LOAD( "ck12.bin",     0x1000, 0x1000, CRC(2eb23b60) SHA1(c9e7dc584562aceb374193655fbacb7df6c9c731) )
 ROM_END
 
-GAME( 1980, cclimbrm, 0,     cclimber, cclimber, cclimber_state, cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", GAME_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
-GAME( 1981, ckonga2,  ckong, cclimber, ckonga2,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -1", GAME_SUPPORTS_SAVE )
-GAME( 1981, ckonga3,  ckong, cclimber, ckonga4,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -2", GAME_SUPPORTS_SAVE )
-GAME( 1981, ckongfix, ckong, cclimber, ckong,    driver_device,  0,        ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", GAME_SUPPORTS_SAVE )
-GAME( 1981, tongypac, ckong, cclimber, ckong,    driver_device,  0,        ROT270, "Grand Master Peter", "Tongy Paccy", GAME_IMPERFECT_COLORS | GAME_SUPPORTS_SAVE )
+GAME( 1980, cclimbrm, 0,     cclimber, cclimber, cclimber_state, cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
+GAME( 1981, ckonga2,  ckong, cclimber, ckonga2,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -1", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, ckonga3,  ckong, cclimber, ckonga4,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -2", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, ckongfix, ckong, cclimber, ckong,    driver_device,  0,        ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, tongypac, ckong, cclimber, ckong,    driver_device,  0,        ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )

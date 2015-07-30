@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/mitchell.c"
 
 ROM_START( mitcdemo )
@@ -21,4 +23,4 @@ ROM_START( mitcdemo )
 	ROM_LOAD_OPTIONAL( "bb1.bin",      0x00000, 0x20000, CRC(c52e5b8e) SHA1(933b954bfdd2d67e28b032ffabde192531249c1f) )
 ROM_END
 
-GAME( 1989, mitcdemo, 0, pang, pang, mitchell_state, pangb, ROT0, "Charles Doty", "Demo - Mitchell", GAME_SUPPORTS_SAVE )
+GAME( 1989, mitcdemo, 0, pang, pang, mitchell_state, pangb, ROT0, "Charles Doty", "Demo - Mitchell", MACHINE_SUPPORTS_SAVE )

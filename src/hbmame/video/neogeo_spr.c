@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 /* NeoGeo sprites (and fixed text layer) */
 
 #include "emu.h"

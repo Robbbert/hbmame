@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/taito_f3.c"
 
 ROM_START( arkretrh )
@@ -191,10 +193,10 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-GAME( 1997, arkretrh, 0,       f3,      f3, taito_f3_state, arkretrn, ROT0,   "hack",     "Arkanoid Returns (World Hack)", GAME_SUPPORTS_SAVE )
-GAME( 1996, cleopath, 0,       f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", GAME_SUPPORTS_SAVE )
-GAME( 1994, driusgxh, dariusg, f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", GAME_SUPPORTS_SAVE )
-GAME( 2000, f3demo,   0,       f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )
-GAME( 1995, gekiridh, 0,       f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", GAME_SUPPORTS_SAVE )
-GAME( 1998, landmakh, 0,       f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", GAME_SUPPORTS_SAVE )
-GAME( 1995, pbobl2xh, 0,       f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", GAME_SUPPORTS_SAVE )
+GAME( 1997, arkretrh, 0,       f3,      f3, taito_f3_state, arkretrn, ROT0,   "hack",     "Arkanoid Returns (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, cleopath, 0,       f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, driusgxh, dariusg, f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, f3demo,   0,       f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1995, gekiridh, 0,       f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, landmakh, 0,       f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, pbobl2xh, 0,       f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )

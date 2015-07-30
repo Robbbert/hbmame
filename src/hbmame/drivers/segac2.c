@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/segac2.c"
 
 /* http://frogfeast.rastersoft.net/SegaC2.html
@@ -10,4 +12,4 @@ ROM_START( c2frog )
 	ROM_LOAD16_BYTE( "epr13113.31", 0x000001, 0x020000, CRC(754b111a) SHA1(5542fc3b955df843e15e7c98aebc4f80c7d44b69) )
 ROM_END
 
-GAME( 2007, c2frog, 0, segac, columns, segac2_state, columns, ROT0, "Rastersoft", "Frog Feast (Sega C2 hardware)", GAME_NO_SOUND | GAME_SUPPORTS_SAVE )
+GAME( 2007, c2frog, 0, segac, columns, segac2_state, columns, ROT0, "Rastersoft", "Frog Feast (Sega C2 hardware)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/shaolins.c"
 
 ROM_START( kfjohnny )
@@ -22,4 +24,4 @@ ROM_START( kfjohnny )
 	ROM_LOAD( "kicker.f16",   0x0400, 0x0100, CRC(80009cf5) SHA1(a367f3f55d75a9d5bf4d43f9d77272eb910a1344) ) /* sprite lookup table */
 ROM_END
 
-GAME( 2002, kfjohnny, 0, shaolins, shaolins, driver_device, 0, ROT90, "Smitdogg", "Kung-Fu Johnny", GAME_SUPPORTS_SAVE )
+GAME( 2002, kfjohnny, 0, shaolins, shaolins, driver_device, 0, ROT90, "Smitdogg", "Kung-Fu Johnny", MACHINE_SUPPORTS_SAVE )

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/tempest.c"
 
 // The Clay Cowgill games (vbrakout and tempmg) show no video due to a regression somewhere in avgdvg
@@ -766,18 +768,18 @@ ROM_START( tempmg )
 ROM_END
 
 
-GAME( 2000, temped,   tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "TempEd", GAME_SUPPORTS_SAVE )
-GAME( 2000, tempall,  tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest All Levels", GAME_SUPPORTS_SAVE )
-GAME( 2000, temptwst, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted", GAME_SUPPORTS_SAVE )
-GAME( 2000, tmptwsta, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted (Alt)", GAME_SUPPORTS_SAVE )
-GAME( 2000, tmptwst2, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisty's Revenge", GAME_SUPPORTS_SAVE )
-GAME( 2000, tmptwst3, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Psycho Twist", GAME_SUPPORTS_SAVE )
-GAME( 2000, tmptwst4, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted Maniac", GAME_SUPPORTS_SAVE )
-GAME( 2000, tempestm, tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Mark's Hacks", GAME_SUPPORTS_SAVE )
-GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,  tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )
-GAME( 1999, vbrakout, tempest, tempest, tempest, driver_device, 0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )
-GAME( 2000, temptlm,  tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Level Man", GAME_SUPPORTS_SAVE )
-GAME( 1980, vortex,   tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex", GAME_SUPPORTS_SAVE )
-GAME( 1980, vortexa,  tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex alt version", GAME_SUPPORTS_SAVE )
-GAME( 1980, aliensv,  tempest, tempest, aliensv, driver_device, 0,      ROT270, "Atari", "Aliens", GAME_SUPPORTS_SAVE )
-GAME( 1980, aliensva, tempest, tempest, aliensv, driver_device, 0,      ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", GAME_SUPPORTS_SAVE )
+GAME( 2000, temped,   tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tempall,  tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptwst, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tmptwsta, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted (Alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tmptwst2, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisty's Revenge", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tmptwst3, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tmptwst4, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tempestm, tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,  tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1999, vbrakout, tempest, tempest, tempest, driver_device, 0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptlm,  tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, vortex,   tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, vortexa,  tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, aliensv,  tempest, tempest, aliensv, driver_device, 0,      ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, aliensva, tempest, tempest, aliensv, driver_device, 0,      ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )

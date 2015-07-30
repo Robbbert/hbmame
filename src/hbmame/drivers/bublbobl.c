@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/bublbobl.c"
 
 ROM_START( bbaladar )
@@ -420,15 +422,15 @@ ROM_START( bublcave10 )
 ROM_END
 
 
-GAME( 2012, bbaladar,   bublbobl, boblbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Aladar", "Bubble Bobble Bootleg", GAME_SUPPORTS_SAVE | GAME_NOT_WORKING )
-GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "Taito", "Bubble Bobble (Memories Hack)", GAME_SUPPORTS_SAVE )
-GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "[Taito]", "Bubble Bobble (Level Hack)", GAME_SUPPORTS_SAVE )
-GAME( 2013, bbredux,    bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux", GAME_SUPPORTS_SAVE )
-GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", GAME_SUPPORTS_SAVE )
-GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", GAME_SUPPORTS_SAVE )
-GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (High Score)", GAME_SUPPORTS_SAVE )
-GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "hack", "Super Bobble Bobble (Level Select)", GAME_SUPPORTS_SAVE )
-GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Arkatrad", "Bubble Bobble (French)", GAME_SUPPORTS_SAVE )
-GAME( 2013, bublcave,   bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Bisboch and Aladar", "Bubble Bobble: Lost Cave V1.2", GAME_SUPPORTS_SAVE )
-GAME( 2012, bublcave11, bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Bisboch and Aladar", "Bubble Bobble: Lost Cave V1.1", GAME_SUPPORTS_SAVE )
-GAME( 2012, bublcave10, bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Bisboch and Aladar", "Bubble Bobble: Lost Cave V1.0", GAME_SUPPORTS_SAVE )
+GAME( 2012, bbaladar,   bublbobl, boblbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
+GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "Taito", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "[Taito]", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux,    bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bublcave,   bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Bisboch and Aladar", "Bubble Bobble: Lost Cave V1.2", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, bublcave11, bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Bisboch and Aladar", "Bubble Bobble: Lost Cave V1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, bublcave10, bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Bisboch and Aladar", "Bubble Bobble: Lost Cave V1.0", MACHINE_SUPPORTS_SAVE )

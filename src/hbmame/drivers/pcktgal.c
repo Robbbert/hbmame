@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/pcktgal.c"
 
 ROM_START( pckgalgr )
@@ -47,5 +49,5 @@ ROM_START( pcktgalk )
 ROM_END
 
 
-GAME( 1987, pckgalgr, pcktgal,	pcktgal, pcktgal, pcktgal_state, pcktgal,  ROT0, "GreekRoms", 	"Pocket Gal (Greek)", GAME_SUPPORTS_SAVE )
-GAME( 1987, pcktgalk, pcktgal,	pcktgal, pcktgal, pcktgal_state, pcktgal,  ROT0, "Hack", 	"Pocket Gal (Korean)", GAME_SUPPORTS_SAVE )
+GAME( 1987, pckgalgr, pcktgal,	pcktgal, pcktgal, pcktgal_state, pcktgal,  ROT0, "GreekRoms", 	"Pocket Gal (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, pcktgalk, pcktgal,	pcktgal, pcktgal, pcktgal_state, pcktgal,  ROT0, "Hack", 	"Pocket Gal (Korean)", MACHINE_SUPPORTS_SAVE )

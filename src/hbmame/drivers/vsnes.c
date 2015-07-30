@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/vsnes.c"
 
 ROM_START( mrio2002 )
@@ -28,5 +30,5 @@ ROM_START( suprsktr )
 	PALETTE_2C04_0004
 ROM_END
 
-GAME( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", GAME_SUPPORTS_SAVE )
-GAME( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", GAME_SUPPORTS_SAVE )
+GAME( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", MACHINE_SUPPORTS_SAVE )

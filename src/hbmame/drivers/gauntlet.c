@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/gauntlet.c"
 
 ROM_START( gaunt2s )
@@ -42,4 +44,4 @@ ROM_START( gaunt2s )
 	ROM_LOAD( "74s287-136037-103.4r", 0x400, 0x100, CRC(6c5ccf08) SHA1(ff5dbadd85aa2e07b383a302fa399e875db8f84f) ) /* MO position/size */
 ROM_END
 
-GAME( 1987, gaunt2s,  gaunt2,   gauntlet, gauntlet, gauntlet_state, gauntlet2, ROT0, "Todd Bordelon", "Gauntlet II Speed Hack", GAME_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
+GAME( 1987, gaunt2s,  gaunt2,   gauntlet, gauntlet, gauntlet_state, gauntlet2, ROT0, "Todd Bordelon", "Gauntlet II Speed Hack", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html

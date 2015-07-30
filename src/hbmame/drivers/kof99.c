@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 
 // encrypted gfx and has s1 rom
 DRIVER_INIT_MEMBER( neogeo_state, kof99bh )
@@ -1544,63 +1546,63 @@ ROM_START( kof99yb ) /* The King of Fighters '99 PROTOTYPE - Hack by Ydmis - (Ca
 ROM_END
 
 
-GAME( 1999, kof99ab,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Marcochen/PPX Hack Team", "The King of Fighters '99 (Rolls moves sideways ver)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2013, kof99ae,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition", GAME_SUPPORTS_SAVE ) // kof99nd hack
-GAME( 1999, kof99bh,    kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "Dodowang", "The King of Fighters '99 (2 Add Char with Icons)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 1999, kof99btr,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 1)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99ch,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99chf,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3 - Fixed)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99d,     kof99,    neogeo, neogeo, neogeo_state, kof99d,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (decrypted C)", GAME_SUPPORTS_SAVE )
-GAME( 1999, kof99eh,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max set 1)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 1999, kof99ehr,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 2006, kof99fc,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "FCHT", "The King of Fighters '99 (Remix Pro200 Final)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 2006, kof99iori,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "hack", "The King of Fighters '99 (hack 1)", GAME_SUPPORTS_SAVE )
-GAME( 1999, kof99jh,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 031018)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Kyo and Iori
-GAME( 1999, kof99jho,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 030924)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Kyo and Iori
-GAME( 2007, kof99lb,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "lb70", "The King of Fighters '99 (Hack by lb70)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 1999, kof99m,     kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "MasakiAnton", "The King of Fighters '99 (2 Add Char)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 1999, kof99pjc1,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 1 0209xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pjc2,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 2 030302)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pjc3,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 3 030720)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pjco,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed old)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pt,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami", "The King of Fighters '99 (Ultra kill hack)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99revo,  kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Okuhoshi", "The King of Fighters '99 (Christmas Revolution v1.2)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2004, kof99rp,    kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.07a 041224)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rp1,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.02 final1 031010)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp2,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01c 0309xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp3,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01b 0309xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp4,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a2 0309xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp5,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a 0309xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp6,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01 0309xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rp7,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rp8,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp9,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rpa,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rpb,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rpc,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rpp,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO PLUS (Diff Moves v1.02 final 040327)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99r,     kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Moves changed 0310xx)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rr,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 2)", GAME_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99seh,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami and Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack)", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 1999, kof99sp,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "ZKW", "The King of Fighters '99 (Super Plus)", GAME_SUPPORTS_SAVE )
-GAME( 1999, kof99y,     kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char", GAME_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 1999, kof99yd,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (Ultra kill start max)", GAME_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99ab,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Marcochen/PPX Hack Team", "The King of Fighters '99 (Rolls moves sideways ver)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2013, kof99ae,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition", MACHINE_SUPPORTS_SAVE ) // kof99nd hack
+GAME( 1999, kof99bh,    kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "Dodowang", "The King of Fighters '99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
+GAME( 1999, kof99btr,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 1)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99ch,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99chf,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3 - Fixed)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99d,     kof99,    neogeo, neogeo, neogeo_state, kof99d,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99eh,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max set 1)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
+GAME( 1999, kof99ehr,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
+GAME( 2006, kof99fc,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "FCHT", "The King of Fighters '99 (Remix Pro200 Final)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
+GAME( 2006, kof99iori,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "hack", "The King of Fighters '99 (hack 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99jh,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 031018)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Kyo and Iori
+GAME( 1999, kof99jho,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 030924)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Kyo and Iori
+GAME( 2007, kof99lb,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "lb70", "The King of Fighters '99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
+GAME( 1999, kof99m,     kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "MasakiAnton", "The King of Fighters '99 (2 Add Char)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
+GAME( 1999, kof99pjc1,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 1 0209xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99pjc2,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 2 030302)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99pjc3,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 3 030720)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99pjco,  kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed old)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99pt,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami", "The King of Fighters '99 (Ultra kill hack)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99revo,  kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Okuhoshi", "The King of Fighters '99 (Christmas Revolution v1.2)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2004, kof99rp,    kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.07a 041224)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99rp1,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.02 final1 031010)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rp2,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01c 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rp3,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01b 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rp4,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a2 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rp5,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rp6,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99rp7,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99rp8,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rp9,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rpa,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rpb,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 2003, kof99rpc,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99rpp,   kof99,    neogeo, neogeo, neogeo_state, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO PLUS (Diff Moves v1.02 final 040327)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99r,     kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Moves changed 0310xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99rr,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99seh,   kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami and Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
+GAME( 1999, kof99sp,    kof99,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "ZKW", "The King of Fighters '99 (Super Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99y,     kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
+GAME( 1999, kof99yd,    kof99,    neogeo, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
 
 /* Hacks of the Prototype */
-GAME( 1999, kof99hp,    neogeo,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "HackPlus", "The King of Fighters '99 (proto) (2 Add Char set 2)", GAME_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
-GAME( 1999, kof99kp,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Fighters Kim", "The King of Fighters '99 (proto) (Color changed - 10%)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99pk,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KrysoFun", "The King of Fighters '99 (proto) (2 Add Char - Based on RS - ver + Fix? data)", GAME_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
-GAME( 1999, kof99pko,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KrysoFun", "The King of Fighters '99 (proto) (2 Add Char - Based on RS - ver without Fix? data)", GAME_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
-GAME( 1999, kof99pm,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Unk", "The King of Fighters '99 (proto) (Mengele Fix)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99py,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis","The King of Fighters '99 (proto) (2 Add Char - Ultra kill start max)", GAME_SUPPORTS_SAVE ) // kof99p hack - Kyo and Iori
-GAME( 1999, kof99rs,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Hack?", "The King of Fighters '99 (proto) (Proto RS-ver)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99rsm,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Unk", "The King of Fighters '99 (proto) (Mengele Fix for RS-ver)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99rsp,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Unk", "The King of Fighters '99 (proto) (Bug Fix for RS-ver)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99wh1,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99wh2,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves - v.02)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99wh3,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves - v.03)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99wh4,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves - v.04)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99xpsa,  kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "XPS", "The King of Fighters '99 (proto) (00409 XPSLibrary alternate Andy striker voice Fix)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99xpsf,  kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "XPS", "The King of Fighters '99 (proto) (00731 XPSLibrary final Fix 000409 - RS-ver)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99xpsp,  kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "XPS", "The King of Fighters '99 (proto) (00731 XPSLibrary final Fix 000409)", GAME_SUPPORTS_SAVE ) // kof99p hack
-GAME( 1999, kof99yb,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '99 (proto) (2 Add Char set 1)", GAME_SUPPORTS_SAVE ) // kof99p hack - Kyo and Iori
+GAME( 1999, kof99hp,    neogeo,   neogeo, neogeo, neogeo_state, neogeo,   ROT0, "HackPlus", "The King of Fighters '99 (proto) (2 Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
+GAME( 1999, kof99kp,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Fighters Kim", "The King of Fighters '99 (proto) (Color changed - 10%)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99pk,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KrysoFun", "The King of Fighters '99 (proto) (2 Add Char - Based on RS - ver + Fix? data)", MACHINE_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
+GAME( 1999, kof99pko,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "KrysoFun", "The King of Fighters '99 (proto) (2 Add Char - Based on RS - ver without Fix? data)", MACHINE_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
+GAME( 1999, kof99pm,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Unk", "The King of Fighters '99 (proto) (Mengele Fix)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99py,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis","The King of Fighters '99 (proto) (2 Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof99p hack - Kyo and Iori
+GAME( 1999, kof99rs,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Hack?", "The King of Fighters '99 (proto) (Proto RS-ver)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99rsm,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Unk", "The King of Fighters '99 (proto) (Mengele Fix for RS-ver)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99rsp,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Unk", "The King of Fighters '99 (proto) (Bug Fix for RS-ver)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99wh1,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99wh2,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves - v.02)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99wh3,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves - v.03)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99wh4,   kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '99 (proto) (Diff Moves - v.04)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99xpsa,  kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "XPS", "The King of Fighters '99 (proto) (00409 XPSLibrary alternate Andy striker voice Fix)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99xpsf,  kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "XPS", "The King of Fighters '99 (proto) (00731 XPSLibrary final Fix 000409 - RS-ver)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99xpsp,  kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "XPS", "The King of Fighters '99 (proto) (00731 XPSLibrary final Fix 000409)", MACHINE_SUPPORTS_SAVE ) // kof99p hack
+GAME( 1999, kof99yb,    kof99hp,  neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '99 (proto) (2 Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // kof99p hack - Kyo and Iori

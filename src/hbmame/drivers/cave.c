@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/cave.c"
 
 ROM_START( ddonpacha )
@@ -73,5 +75,5 @@ ROM_START( pwrinst2h )
 	ROM_LOAD( "g02.u56", 0x240000, 0x200000, CRC(9ff50dda) SHA1(1121685e387c20e228032f2b0f5cbb606376fc15) )
 ROM_END
 
-GAME( 2012, ddonpacha,  ddonpach, ddonpach, cave,     cave_state, ddonpach, ROT270, "trap15", "DoDonPachi Arrange (v1.1)", GAME_SUPPORTS_SAVE )
-GAME( 2013, pwrinst2h,  pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j,ROT0,   "TT", "Power Instinct 2 (hack)", GAME_SUPPORTS_SAVE )
+GAME( 2012, ddonpacha,  ddonpach, ddonpach, cave,     cave_state, ddonpach, ROT270, "trap15", "DoDonPachi Arrange (v1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, pwrinst2h,  pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j,ROT0,   "TT", "Power Instinct 2 (hack)", MACHINE_SUPPORTS_SAVE )

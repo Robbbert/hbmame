@@ -1526,7 +1526,7 @@ int GetParentRomSetIndex(const game_driver *driver)
 
 	if( nParentIndex >= 0)
 	{
-		if ((driver_list::driver(nParentIndex).flags & GAME_IS_BIOS_ROOT) == 0)
+		if ((driver_list::driver(nParentIndex).flags & MACHINE_IS_BIOS_ROOT) == 0)
 			return nParentIndex;
 	}
 

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/arkanoid.c"
 
 ROM_START( akblc2dx )

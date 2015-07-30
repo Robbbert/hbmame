@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/dec0.c"
 
 ROM_START( baddudef )
@@ -98,5 +100,5 @@ ROM_START( decodemo )
 	ROM_LOAD( "ei08.2c",   0x0000, 0x10000, CRC(3c87463e) SHA1(f17c98507b562e91e9b27599614b3249fe68ff7a) )
 ROM_END
 
-GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", GAME_SUPPORTS_SAVE )
-GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Charles Doty", "Demo - Data East", GAME_SUPPORTS_SAVE )
+GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )

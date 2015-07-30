@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/tecmo.c"
 
 ROM_START( geminit )
@@ -67,5 +69,5 @@ ROM_START( rygark )
 	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
 ROM_END
 
-GAME( 2002, geminit, 0, gemini, gemini, tecmo_state, gemini, ROT90, "Twisty", "Gemini Wing Hack", GAME_SUPPORTS_SAVE )
-GAME( 1986, rygark,  0, rygar,  rygar,  tecmo_state, rygar,  ROT0,  "Hack", "Rygar (Korean)", GAME_SUPPORTS_SAVE )
+GAME( 2002, geminit, 0, gemini, gemini, tecmo_state, gemini, ROT90, "Twisty", "Gemini Wing Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygark,  0, rygar,  rygar,  tecmo_state, rygar,  ROT0,  "Hack", "Rygar (Korean)", MACHINE_SUPPORTS_SAVE )

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 /*******************************************************************************************************************
 
         CPS-1 driver for hacks and bootlegs
@@ -2468,66 +2470,66 @@ ROM_END
 
 ***************************************************************************/
 
-GAME( 1991, captcomh,  captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Capcom", "Captain Commando (Shinwa Hack, World 911014)" , GAME_SUPPORTS_SAVE )
-GAME( 2000, cps1demo,  0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Charles Doty", "Demo - CPS1", GAME_SUPPORTS_SAVE ) // no sound
-GAME( 2006, cps1frog,  0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Rastersoft", "Frog Feast (CPS1)", GAME_SUPPORTS_SAVE )
-GAME( 2012, cps1test,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnotic (for sf2ce)", GAME_SUPPORTS_SAVE )
-GAME( 2012, cps1testa, megaman,  cps1_12MHz, megaman,  cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnotic (for megaman)", GAME_SUPPORTS_SAVE )
-GAME( 1993, daimakb,   ghouls,   daimakb,    daimakai, cps_state, cps1,     ROT0,   "bootleg", "Dai Makai-Mura (Japan, bootleg)" , GAME_SUPPORTS_SAVE )
-GAME( 1993, dinob,     dino,     qsound,     dino,     cps_state, dinohb,   ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, dinoeh,    dino,     qsound,     dinohz,   cps_state, dinoeh,   ROT0,   "hack", "Cadillacs and Dinosaurs (unknown hack)", GAME_SUPPORTS_SAVE )
-GAME( 1993, dinoex,    dino,     qsound,     dinohz,   cps_state, dinoeh,   ROT0,   "hack", "Cadillacs and Dinosaurs (unknown hack2)", GAME_SUPPORTS_SAVE )
-GAME( 1993, dinoh,     dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 1)" , GAME_SUPPORTS_SAVE )
-GAME( 1997, dinoha,    dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1997, dinohb,    dino,     qsound,     dinohz,   cps_state, dinohb,   ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 3)", GAME_SUPPORTS_SAVE )
-GAME( 2012, dinoz,     dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0,   "hack","Cadillacs and Dinosaurs Z (Boss Hack)", GAME_SUPPORTS_SAVE )
-GAME( 1991, knightsb2, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "bootleg", "Knights of the Round (bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1991, knightsh,  knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (hack)" , GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE )
-GAME( 1991, knightsha, knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Hack set 2)", GAME_SUPPORTS_SAVE )
-GAME( 2002, kodh,      kod,      cps1_10MHz, kodh,     cps_state, cps1,     ROT0,   "Wangy2", "The King of Dragons (hack)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE )
-GAME( 1994, pnicku,    0,        cps1_10MHz, pnicku,   cps_state, cps1,     ROT0,   "Compile (Capcom licence)", "Pnickies (USA)", GAME_SUPPORTS_SAVE )
-GAME( 1993, punisherjh,punisher, qsound,     punisher, cps_state, punisher, ROT0,   "Capcom", "The Punisher (Shinwa Hack, Japan 930422)", GAME_SUPPORTS_SAVE )
-GAME( 1993, punisherb, punisher, qsound,     punisher, cps_state, punishrb, ROT0,   "bootleg","The Punisher (Bootleg)", GAME_IMPERFECT_GRAPHICS | GAME_SUPPORTS_SAVE)
-GAME( 2007, punisherf, punisher, qsound,     punisher, cps_state, punishrb, ROT0,   "Zhyxxxx","The Punisher (Flash version) 2007-09-24", GAME_SUPPORTS_SAVE)
-GAME( 1999, sf2cebr,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Brasil 920313)", GAME_SUPPORTS_SAVE )
-GAME( 2012, sf2ced,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long Hack v7.1)", GAME_SUPPORTS_SAVE )   // "ETC"
-GAME( 2012, sf2ceda,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Hack)", GAME_SUPPORTS_SAVE )   // "ETC"
-GAME( 1999, sf2ceh,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Hispanic 990804)", GAME_SUPPORTS_SAVE )
-GAME( 2013, sf2koryuh, sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Hack by TT)", GAME_SUPPORTS_SAVE )       // 811102 !!! - based on World version
-GAME( 1992, sf2h9,     sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II - Champion Edition (H9, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2h10,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H10, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2h11,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H11, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2h12,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H12, bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2h13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (H13, bootleg)", GAME_SUPPORTS_SAVE )	// bad tile on Blanka
-GAME( 2012, sf2pun,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition v1 Final)", GAME_SUPPORTS_SAVE )         // 920313 - based on World version
-GAME( 2013, sf2sl73a,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", GAME_SUPPORTS_SAVE )         // 920313 - based on World version
-GAME( 1992, sf2tlona,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 1)", GAME_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
-GAME( 1992, sf2tlonb,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1992, sf2turyu,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II - Champion Edition (Tu Long prototype)", GAME_SUPPORTS_SAVE )
-GAME( 2014, stridergf, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Capcom", "Strider (Gfx fix)", GAME_SUPPORTS_SAVE )
-GAME( 2014, stridergh, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Capcom", "Strider (gfx fix, uncensored)", GAME_SUPPORTS_SAVE )
-GAME( 1997, wof3js,    wof,      qsound,     wof3js,   cps_state, wof3js,   ROT0,   "bootleg", "Sangokushi II: San Jian Sheng (Chinese bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1997, wof3sj,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Three Holy Swords / San Sheng Jian (set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1997, wof3sja,   wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Three Holy Swords / San Sheng Jian (set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofah,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia) (Hack set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofaha,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia) (Hack set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofahb,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia) (Hack set 3)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofb,      wof,      qsound,     wof,      cps_state, wofb,     ROT0,   "bootleg", "Warriors of Fate (bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofchs,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (Chinese)", GAME_SUPPORTS_SAVE )
-GAME( 1994, wofch_v3,  wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Capcom", "Tenchi wo Kurau II: Sekiheki no Tatakai (CPS Changer, Japan 921031) (Set 2)", GAME_SUPPORTS_SAVE )
-GAME( 2010, wofchdx,   wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "hack", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010", GAME_SUPPORTS_SAVE )
-GAME( 1992, woffr,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Arkatrad", "Warriors of Fate (France 030728)", GAME_SUPPORTS_SAVE )
-GAME( 1999, wofh,      wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "Hack", "Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan (set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1999, wofha,     wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "Hack", "Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan (set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofjh,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Tenchi wo Kurau II (Japan)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofjhb,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Tenchi wo Kurau II (Japan) (Hack set 3)", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )
-GAME( 1992, wofjhc,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Tenchi wo Kurau II (Japan 921031) (Hack set 4)", GAME_NOT_WORKING | GAME_SUPPORTS_SAVE )
-GAME( 2013, wofjm,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "AXDX", "Tenchi wo Kurau 2 (Japan 921031)", GAME_SUPPORTS_SAVE )
-GAME( 1992, wofr1h,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hack", "Warriors of Fate (ETC 921002) hack", GAME_SUPPORTS_SAVE )
-GAME( 1995, wofsj,     wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Holy Sword Three Kingdoms / Sheng Jian San Guo (set 1)", GAME_SUPPORTS_SAVE )
-GAME( 1995, wofsja,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Holy Sword Three Kingdoms / Sheng Jian San Guo (set 2)", GAME_SUPPORTS_SAVE )
-GAME( 1995, wofsjb,    wof,      wofsjb,     wof,      cps_state, wofsjb,   ROT0,   "bootleg", "Sangokushi II: Sheng Jian Sanguo (set 3, Chinese bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 2012, wofzero,   wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hack by Zero", "Tenchi wo Kurau II (Power edition)(Japan 921031)", GAME_SUPPORTS_SAVE )
+GAME( 1991, captcomh,  captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Capcom", "Captain Commando (Shinwa Hack, World 911014)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2000, cps1demo,  0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Charles Doty", "Demo - CPS1", MACHINE_SUPPORTS_SAVE ) // no sound
+GAME( 2006, cps1frog,  0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Rastersoft", "Frog Feast (CPS1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, cps1test,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnotic (for sf2ce)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, cps1testa, megaman,  cps1_12MHz, megaman,  cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnotic (for megaman)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, daimakb,   ghouls,   daimakb,    daimakai, cps_state, cps1,     ROT0,   "bootleg", "Dai Makai-Mura (Japan, bootleg)" , MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinob,     dino,     qsound,     dino,     cps_state, dinohb,   ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, dinoeh,    dino,     qsound,     dinohz,   cps_state, dinoeh,   ROT0,   "hack", "Cadillacs and Dinosaurs (unknown hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinoex,    dino,     qsound,     dinohz,   cps_state, dinoeh,   ROT0,   "hack", "Cadillacs and Dinosaurs (unknown hack2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinoh,     dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 1)" , MACHINE_SUPPORTS_SAVE )
+GAME( 1997, dinoha,    dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, dinohb,    dino,     qsound,     dinohz,   cps_state, dinohb,   ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, dinoz,     dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0,   "hack","Cadillacs and Dinosaurs Z (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, knightsb2, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, knightsh,  knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (hack)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1991, knightsha, knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Hack set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kodh,      kod,      cps1_10MHz, kodh,     cps_state, cps1,     ROT0,   "Wangy2", "The King of Dragons (hack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pnicku,    0,        cps1_10MHz, pnicku,   cps_state, cps1,     ROT0,   "Compile (Capcom licence)", "Pnickies (USA)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, punisherjh,punisher, qsound,     punisher, cps_state, punisher, ROT0,   "Capcom", "The Punisher (Shinwa Hack, Japan 930422)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, punisherb, punisher, qsound,     punisher, cps_state, punishrb, ROT0,   "bootleg","The Punisher (Bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE)
+GAME( 2007, punisherf, punisher, qsound,     punisher, cps_state, punishrb, ROT0,   "Zhyxxxx","The Punisher (Flash version) 2007-09-24", MACHINE_SUPPORTS_SAVE)
+GAME( 1999, sf2cebr,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Brasil 920313)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, sf2ced,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long Hack v7.1)", MACHINE_SUPPORTS_SAVE )   // "ETC"
+GAME( 2012, sf2ceda,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Hack)", MACHINE_SUPPORTS_SAVE )   // "ETC"
+GAME( 1999, sf2ceh,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Hispanic 990804)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, sf2koryuh, sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Hack by TT)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
+GAME( 1992, sf2h9,     sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II - Champion Edition (H9, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2h10,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H10, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2h11,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H11, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2h12,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H12, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2h13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (H13, bootleg)", MACHINE_SUPPORTS_SAVE )	// bad tile on Blanka
+GAME( 2012, sf2pun,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition v1 Final)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version
+GAME( 2013, sf2sl73a,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version
+GAME( 1992, sf2tlona,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 1)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
+GAME( 1992, sf2tlonb,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2turyu,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II - Champion Edition (Tu Long prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, stridergf, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Capcom", "Strider (Gfx fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, stridergh, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Capcom", "Strider (gfx fix, uncensored)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, wof3js,    wof,      qsound,     wof3js,   cps_state, wof3js,   ROT0,   "bootleg", "Sangokushi II: San Jian Sheng (Chinese bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, wof3sj,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Three Holy Swords / San Sheng Jian (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, wof3sja,   wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Three Holy Swords / San Sheng Jian (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofah,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia) (Hack set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofaha,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia) (Hack set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofahb,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia) (Hack set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofb,      wof,      qsound,     wof,      cps_state, wofb,     ROT0,   "bootleg", "Warriors of Fate (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofchs,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wofch_v3,  wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Capcom", "Tenchi wo Kurau II: Sekiheki no Tatakai (CPS Changer, Japan 921031) (Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, wofchdx,   wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "hack", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, woffr,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Arkatrad", "Warriors of Fate (France 030728)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, wofh,      wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "Hack", "Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, wofha,     wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "Hack", "Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofjh,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Tenchi wo Kurau II (Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofjhb,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Tenchi wo Kurau II (Japan) (Hack set 3)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofjhc,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Tenchi wo Kurau II (Japan 921031) (Hack set 4)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2013, wofjm,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "AXDX", "Tenchi wo Kurau 2 (Japan 921031)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofr1h,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hack", "Warriors of Fate (ETC 921002) hack", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, wofsj,     wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Holy Sword Three Kingdoms / Sheng Jian San Guo (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, wofsja,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Holy Sword Three Kingdoms / Sheng Jian San Guo (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, wofsjb,    wof,      wofsjb,     wof,      cps_state, wofsjb,   ROT0,   "bootleg", "Sangokushi II: Sheng Jian Sanguo (set 3, Chinese bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, wofzero,   wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hack by Zero", "Tenchi wo Kurau II (Power edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 
 /*************************************************************************************************************************/
 

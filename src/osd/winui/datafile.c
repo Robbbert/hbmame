@@ -478,28 +478,28 @@ int load_driver_mameinfo (const game_driver *drv, char *buffer, int bufsize)
 	strcat(buffer, "\nMAMEINFO:\n");
 
 	/* List the game info 'flags' */
-	if (drv->flags & GAME_NOT_WORKING)
+	if (drv->flags & MACHINE_NOT_WORKING)
 		strcat(buffer, "THIS GAME DOESN'T WORK PROPERLY\n");
-	if (drv->flags & GAME_UNEMULATED_PROTECTION)
+	if (drv->flags & MACHINE_UNEMULATED_PROTECTION)
 		strcat(buffer, "The game has protection which isn't fully emulated.\n");
-	if (drv->flags & GAME_IMPERFECT_GRAPHICS)
+	if (drv->flags & MACHINE_IMPERFECT_GRAPHICS)
 		strcat(buffer, "The video emulation isn't 100% accurate.\n");
-	if (drv->flags & GAME_WRONG_COLORS)
+	if (drv->flags & MACHINE_WRONG_COLORS)
 		strcat(buffer, "The colors are completely wrong.\n");
-	if (drv->flags & GAME_IMPERFECT_COLORS)
+	if (drv->flags & MACHINE_IMPERFECT_COLORS)
 		strcat(buffer, "The colors aren't 100% accurate.\n");
-	if (drv->flags & GAME_NO_SOUND)
+	if (drv->flags & MACHINE_NO_SOUND)
 		strcat(buffer, "The game lacks sound.\n");
-	if (drv->flags & GAME_IMPERFECT_SOUND)
+	if (drv->flags & MACHINE_IMPERFECT_SOUND)
 		strcat(buffer, "The sound emulation isn't 100% accurate.\n");
-	if (drv->flags & GAME_SUPPORTS_SAVE)
+	if (drv->flags & MACHINE_SUPPORTS_SAVE)
 		strcat(buffer, "Save state support.\n");
-//	if (drv->flags & GAME_NO_COCKTAIL)
+//	if (drv->flags & MACHINE_NO_COCKTAIL)
 //		strcat(buffer, "Screen flipping in cocktail mode is not supported.\n");
-	if (drv->flags & GAME_MECHANICAL)
+	if (drv->flags & MACHINE_MECHANICAL)
 		strcat(buffer, "The game contains mechanical parts.\n");
 		strcat(buffer, "\n");
-	if (drv->flags & GAME_IS_BIOS_ROOT)
+	if (drv->flags & MACHINE_IS_BIOS_ROOT)
 		is_bios = 1;
 
 	if (!g_mameinfo_filename || !*g_mameinfo_filename)
@@ -762,7 +762,7 @@ int load_driver_drivinfo (const game_driver *drv, char *buffer, int bufsize)
 	strcat(buffer,"\nGAMES SUPPORTED:\n");
 	for (i = 0; i < driver_list::total(); i++)
 	{
-		if (!strcmp (drv->source_file+32, driver_list::driver(i).source_file+32) && !(driver_list::driver(i).flags & GAME_IS_BIOS_ROOT))
+		if (!strcmp (drv->source_file+32, driver_list::driver(i).source_file+32) && !(driver_list::driver(i).flags & MACHINE_IS_BIOS_ROOT))
 		{
 			strcat(buffer, driver_list::driver(i).description);
 			strcat(buffer,"\n");

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/toaplan2.c"
 
 ROM_START( kgpe )
@@ -19,7 +21,7 @@ ROM_START( kgpe )
 	ROM_LOAD( "ma02rom6.bin", 0x00000, 0x80000, CRC(199e7cae) SHA1(0f5e13cc8ec42c80bb4bbff90aba29cdb15213d4) )
 ROM_END
 
-GAME( 1994, kgpe, 0, shippumd, kingdmgp, driver_device, 0, ROT270, "Neil Corlett", "Kingdom Grand Prix" , GAME_SUPPORTS_SAVE )
+GAME( 1994, kgpe, 0, shippumd, kingdmgp, driver_device, 0, ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
 
 /* This game can be obtained from the Raine site, use a hex editor to zero out the last 4 bytes,
      and rename the result to "kgpe.05". Thanks goes to the Raine devs for the idea and the rom,

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/taito_f2.c"
 
 ROM_START( f2demo )
@@ -22,4 +24,4 @@ ROM_START( f2demo )
 	/* no Delta-T samples */
 ROM_END
 
-GAME( 1990, f2demo, 0, liquidk, liquidk, driver_device, 0, ROT180, "Charles Doty", "Demo - Taito F2", GAME_SUPPORTS_SAVE )
+GAME( 1990, f2demo, 0, liquidk, liquidk, driver_device, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )

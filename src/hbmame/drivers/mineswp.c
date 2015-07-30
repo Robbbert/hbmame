@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 /***************************************************************************
 
 Minesweeper driver, originally for Dotrikun hardware
@@ -252,5 +254,5 @@ ROM_START( mineswp )
 	ROM_LOAD( "14479b.mpr", 0x0000, 0x4000, CRC(1cece483) SHA1(c425a09b640721c9a5b499cdb79848dc18ee66b9) )
 ROM_END
 
-GAME( 1998, mineswp, 0, mineswp, mineswp, driver_device, 0, ROT0, "J-Rom", "Mine Sweeper [h]", GAME_SUPPORTS_SAVE )
+GAME( 1998, mineswp, 0, mineswp, mineswp, driver_device, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE )
 

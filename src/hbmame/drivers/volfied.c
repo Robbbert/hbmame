@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/volfied.c"
 
 ROM_START( volfiedg )
@@ -25,4 +27,4 @@ ROM_START( volfiedg )
 	ROM_LOAD( "c04-06.71", 0x0000, 0x8000, CRC(b70106b2) SHA1(d71062f9d9b11492e13fc93982b95883f564f902) )
 ROM_END
 
-GAME( 2005, volfiedg, 0, volfied, volfied, driver_device, 0, ROT270, "GreekRoms", "Volfied (Greek)", GAME_SUPPORTS_SAVE )
+GAME( 2005, volfiedg, 0, volfied, volfied, driver_device, 0, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )

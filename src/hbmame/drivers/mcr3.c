@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/mcr3.c"
 
 ROM_START( sargex )
@@ -21,4 +23,4 @@ ROM_START( sargex )
 	ROM_LOAD( "sargex.4",     0x18000, 0x8000, CRC(66149219) SHA1(2dcd43de7fa674add94b2584e6795460f486a943) )
 ROM_END
 
-GAME( 2009, sargex, sarge, mono_tcs, sarge, mcr3_state, sarge, ROT0, "Gatinho", "Sarge Exposed", GAME_SUPPORTS_SAVE )
+GAME( 2009, sargex, sarge, mono_tcs, sarge, mcr3_state, sarge, ROT0, "Gatinho", "Sarge Exposed", MACHINE_SUPPORTS_SAVE )

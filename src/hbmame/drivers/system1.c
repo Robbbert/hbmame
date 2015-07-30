@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/system1.c"
 
 ROM_START( wbmlbit )
@@ -64,5 +66,5 @@ ROM_START( wbmlkb )
 	ROM_LOAD( "pr5317.37",    0x0000, 0x0100, CRC(648350b8) SHA1(c7986aa9127ef5b50b845434cb4e81dff9861cd2) )
 ROM_END
 
-GAME( 1987, wbmlbit, wbml, sys2, wbml, system1_state, bootsys2, ROT0, "Michele", "Wonder Boy in Monster Land (Italian - v0.99)", GAME_NO_COCKTAIL | GAME_SUPPORTS_SAVE )
-GAME( 1987, wbmlkb,  wbml, sys2, wbml, system1_state, bootsys2, ROT0, "hack", "Wonder Boy in Monster Land (Korean)", GAME_NO_COCKTAIL | GAME_SUPPORTS_SAVE )
+GAME( 1987, wbmlbit, wbml, sys2, wbml, system1_state, bootsys2, ROT0, "Michele", "Wonder Boy in Monster Land (Italian - v0.99)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1987, wbmlkb,  wbml, sys2, wbml, system1_state, bootsys2, ROT0, "hack", "Wonder Boy in Monster Land (Korean)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/bombjack.c"
 
 ROM_START( bmbjckgr )
@@ -89,6 +91,6 @@ ROM_START( bombjred )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
 ROM_END
 
-GAME( 1984, bmbjckgr, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "Hack", "Bomb Jack (Greek)", GAME_SUPPORTS_SAVE )
-GAME( 1984, bombjckb, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "bootleg", "Bomb Jack (Bootleg)", GAME_SUPPORTS_SAVE )
-GAME( 2008, bombjred, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "hack", "Bomb Jack Red", GAME_SUPPORTS_SAVE )
+GAME( 1984, bmbjckgr, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "Hack", "Bomb Jack (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bombjckb, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "bootleg", "Bomb Jack (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, bombjred, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "hack", "Bomb Jack Red", MACHINE_SUPPORTS_SAVE )

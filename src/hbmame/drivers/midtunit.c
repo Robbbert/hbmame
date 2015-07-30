@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/midtunit.c"
 
 ROM_START( mkturbod )
@@ -248,10 +250,10 @@ ROM_START( umk2te52 )
 	ROM_LOAD32_BYTE( "uj22-vid", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
 ROM_END
 
-GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", GAME_SUPPORTS_SAVE )
-GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", GAME_SUPPORTS_SAVE )
-GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", GAME_SUPPORTS_SAVE )
-GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (rev L3.3 (prototype))", GAME_SUPPORTS_SAVE )
-GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.050)", GAME_SUPPORTS_SAVE )
-GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.051)", GAME_SUPPORTS_SAVE )
-GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.052)", GAME_SUPPORTS_SAVE )
+GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (rev L3.3 (prototype))", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )

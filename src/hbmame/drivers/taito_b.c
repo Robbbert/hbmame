@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/taito_b.c"
 
 ROM_START( bubbleb )
@@ -16,4 +18,4 @@ ROM_START( bubbleb )
 	ROM_LOAD( "083-v3.bin", 0x000000, 0x100000, CRC(0840cbc4) SHA1(1adbd7aef44fa80832f63dfb8efdf69fd7256a57) )
 ROM_END
 
-GAME( 1994, bubbleb, 0, pbobble, pbobble, taitob_state, taito_b, ROT0, "Taito Corporation", "Bubble Buster (PBobble USA Region Hack)", GAME_SUPPORTS_SAVE )
+GAME( 1994, bubbleb, 0, pbobble, pbobble, taitob_state, taito_b, ROT0, "Taito Corporation", "Bubble Buster (PBobble USA Region Hack)", MACHINE_SUPPORTS_SAVE )

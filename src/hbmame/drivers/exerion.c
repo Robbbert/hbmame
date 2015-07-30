@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/exerion.c"
 
 ROM_START( exriongr )
@@ -60,5 +62,5 @@ ROM_START( exerionj )
 	ROM_LOAD( "exerion.k4",   0x0320, 0x0100, CRC(ffc2ba43) SHA1(03be1c41d6ac3fc11439caef04ef5ffa60d6aec4) ) /* bg char mixer */
 ROM_END
 
-GAME( 2004, exriongr, exerionj, exerion, exerion, exerion_state, exerion,  ROT90, "GreekRoms", "Exerion (Greek)", GAME_SUPPORTS_SAVE )
-GAME( 1983, exerionj, 0,        exerion, exerion, exerion_state, exerion,  ROT90, "Jaleco", "Exerion (Japan)", GAME_SUPPORTS_SAVE )
+GAME( 2004, exriongr, exerionj, exerion, exerion, exerion_state, exerion,  ROT90, "GreekRoms", "Exerion (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, exerionj, 0,        exerion, exerion, exerion_state, exerion,  ROT90, "Jaleco", "Exerion (Japan)", MACHINE_SUPPORTS_SAVE )

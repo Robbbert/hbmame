@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/asteroid.c"
 
 static INPUT_PORTS_START( astdelu4 )
@@ -61,9 +63,9 @@ ROM_START( astdelux4 )
 ROM_END
 
 
-GAME( 1979, asteroid6,  asteroid, asteroid, asteroid, driver_device, 0, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", GAME_SUPPORTS_SAVE )
-GAMEL(1980, astdelux4,  asteroid, astdelux, astdelu4, driver_device, 0, ROT0, "Atari", "Asteroids Deluxe (Unknown Revision) [h]", GAME_SUPPORTS_SAVE, layout_astdelux )
-GAME( 1979, starslayer, asteroid, asteroid, asteroid, driver_device, 0, ROT0, "Nufekop", "Starslayer (hack of Asteroids (rev 2))", GAME_SUPPORTS_SAVE )
+GAME( 1979, asteroid6,  asteroid, asteroid, asteroid, driver_device, 0, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", MACHINE_SUPPORTS_SAVE )
+GAMEL(1980, astdelux4,  asteroid, astdelux, astdelu4, driver_device, 0, ROT0, "Atari", "Asteroids Deluxe (Unknown Revision) [h]", MACHINE_SUPPORTS_SAVE, layout_astdelux )
+GAME( 1979, starslayer, asteroid, asteroid, asteroid, driver_device, 0, ROT0, "Nufekop", "Starslayer (hack of Asteroids (rev 2))", MACHINE_SUPPORTS_SAVE )
 
 
 /*********************************************************************************************************************/

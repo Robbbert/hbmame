@@ -1,3 +1,5 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 #include "../mame/drivers/bwidow.c"
 
 /*************************************
@@ -32,4 +34,4 @@ ROM_START( spacwarp )
 	ROM_LOAD( "136002-125.n4",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
 ROM_END
 
-GAME( 1999, spacwarp, 0, spacduel, spacduel, driver_device, 0, ROT0, "Jeff Hendrix", "Space War (Proto on Space Duel HW)", GAME_NOT_WORKING )
+GAME( 1999, spacwarp, 0, spacduel, spacduel, driver_device, 0, ROT0, "Jeff Hendrix", "Space War (Proto on Space Duel HW)", MACHINE_NOT_WORKING )
