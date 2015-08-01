@@ -1763,7 +1763,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (oldControl)
 	{
 		EnableMenuItem(GetMenu(hMain), ID_CUSTOMIZE_FIELDS, MF_GRAYED);
-		EnableMenuItem(GetMenu(hMain), ID_GAME_PROPERTIES,	MF_GRAYED);
+		EnableMenuItem(GetMenu(hMain), ID_GAME_PROPERTIES, MF_GRAYED);
 		EnableMenuItem(GetMenu(hMain), ID_OPTIONS_DEFAULTS, MF_GRAYED);
 	}
 
@@ -4146,7 +4146,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	case ID_CUSTOMIZE_FIELDS:
 		if (DialogBox(GetModuleHandle(NULL),
 			MAKEINTRESOURCE(IDD_COLUMNS), hMain, ColumnDialogProc) == TRUE)
-			ResetColumnDisplay(TRUE);
+			ResetColumnDisplay(FALSE);
 		SetFocus(hwndList);
 		return TRUE;
 
