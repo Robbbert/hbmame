@@ -59,7 +59,7 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "Marquees",              GetMarqueeDir,      SetMarqueeDir,      TRUE, 0 },
 	{ "NVRAM",                 GetNvramDir,        SetNvramDir,        TRUE, 0 },
 	{ "PCBs",                  GetPcbDir,          SetPcbDir,          TRUE, 0 },
-	{ "Snapshots",             GetImgDir,          SetImgDir,          FALSE, DIRDLG_IMG },
+	{ "Snapshots",             GetImgDir,          SetImgDir,          TRUE, DIRDLG_IMG },
 	{ "State",                 GetStateDir,        SetStateDir,        TRUE, 0 },
 	{ "Titles",                GetTitlesDir,       SetTitlesDir,       TRUE, 0 },
 	{ NULL }
