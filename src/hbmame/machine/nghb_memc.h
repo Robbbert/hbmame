@@ -13,28 +13,28 @@
 
 #pragma once
 
-#ifndef __NG_MEMCARD_H__
-#define __NG_MEMCARD_H__
+#ifndef __NGHB_MEMCARD_H__
+#define __NGHB_MEMCARD_H__
 
 //**************************************************************************
 //  INTERFACE CONFIGURATION MACROS
 //**************************************************************************
 
-#define MCFG_NEOGEO_MEMCARD_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, NG_MEMCARD, 0)
+#define MCFG_XNEOGEO_MEMCARD_ADD(_tag) \
+	MCFG_DEVICE_ADD(_tag, XNG_MEMCARD, 0)
 
 /***************************************************************************
     FUNCTION PROTOTYPES
 ***************************************************************************/
 
-// ======================> ng_memcard_device
+// ======================> ng_memcard_class
 
-class ng_memcard_device :  public device_t,
+class ng_memcard_class :  public device_t,
 						   public device_image_interface
 {
 public:
 	// construction/destruction
-	ng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ng_memcard_class(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 	
 	virtual iodevice_t image_type() const { return IO_MEMCARD; }
 
@@ -65,7 +65,7 @@ private:
 
 
 // device type definition
-extern const device_type NG_MEMCARD;
+extern const device_type XNG_MEMCARD;
 
 
 #endif  /* __NG_MEMCARD_H__ */

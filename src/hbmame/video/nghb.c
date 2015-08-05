@@ -7,7 +7,7 @@
 ****************************************************************************/
 
 #include "emu.h"
-#include "includes/neogeo.h"
+#include "includes/nghb.h"
 #include "video/resnet.h"
 
 #define NUM_PENS    (0x1000)
@@ -21,7 +21,7 @@
  *
  *************************************/
 
-void neogeo_state::create_rgb_lookups()
+void neogeo_class::create_rgb_lookups()
 {
 	static const int resistances[] = {3900, 2200, 1000, 470, 220};
 
@@ -65,7 +65,7 @@ void neogeo_state::create_rgb_lookups()
 	}
 }
 
-void neogeo_state::set_pens()
+void neogeo_class::set_pens()
 {
 	const pen_t *pen_base = m_palette->pens() + m_palette_bank + (m_screen_shadow ? 0x2000 : 0);
 	m_sprgen->set_pens(pen_base);
@@ -73,27 +73,27 @@ void neogeo_state::set_pens()
 }
 
 
-void neogeo_state::neogeo_set_screen_shadow( int data )
+void neogeo_class::neogeo_set_screen_shadow( int data )
 {
 	m_screen_shadow = data;
 	set_pens();
 }
 
 
-void neogeo_state::neogeo_set_palette_bank( int data )
+void neogeo_class::neogeo_set_palette_bank( int data )
 {
 	m_palette_bank = data ? 0x1000 : 0;
 	set_pens();
 }
 
 
-READ16_MEMBER(neogeo_state::neogeo_paletteram_r)
+READ16_MEMBER(neogeo_class::neogeo_paletteram_r)
 {
 	return m_paletteram[m_palette_bank + offset];
 }
 
 
-WRITE16_MEMBER(neogeo_state::neogeo_paletteram_w)
+WRITE16_MEMBER(neogeo_class::neogeo_paletteram_w)
 {
 	offset += m_palette_bank;
 	data = COMBINE_DATA(&m_paletteram[offset]);
@@ -122,7 +122,7 @@ WRITE16_MEMBER(neogeo_state::neogeo_paletteram_w)
  *
  *************************************/
 
-void neogeo_state::video_start()
+void neogeo_class::video_start()
 {
 	create_rgb_lookups();
 
@@ -135,7 +135,7 @@ void neogeo_state::video_start()
 	save_item(NAME(m_paletteram));
 	save_item(NAME(m_screen_shadow));
 	save_item(NAME(m_palette_bank));
-	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_state::set_pens), this));
+	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_class::set_pens), this));
 
 	set_pens();
 }
@@ -148,7 +148,7 @@ void neogeo_state::video_start()
  *
  *************************************/
 
-void neogeo_state::video_reset()
+void neogeo_class::video_reset()
 {
 
 }
@@ -161,7 +161,7 @@ void neogeo_state::video_reset()
  *
  *************************************/
 
-UINT32 neogeo_state::screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+UINT32 neogeo_class::screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	// fill with background color first
 	bitmap.fill(*m_bg_pen, cliprect);
@@ -181,7 +181,7 @@ UINT32 neogeo_state::screen_update_neogeo(screen_device &screen, bitmap_rgb32 &b
  *
  *************************************/
 
-UINT16 neogeo_state::get_video_control(  )
+UINT16 neogeo_class::get_video_control(  )
 {
 	UINT16 ret;
 	UINT16 v_counter;
@@ -221,7 +221,7 @@ UINT16 neogeo_state::get_video_control(  )
 }
 
 
-void neogeo_state::set_video_control( UINT16 data )
+void neogeo_class::set_video_control( UINT16 data )
 {
 	if (VERBOSE) logerror("%s: video control write %04x\n", machine().describe_context(), data);
 
@@ -232,7 +232,7 @@ void neogeo_state::set_video_control( UINT16 data )
 }
 
 
-READ16_MEMBER(neogeo_state::neogeo_video_register_r)
+READ16_MEMBER(neogeo_class::neogeo_video_register_r)
 {
 	UINT16 ret;
 
@@ -255,7 +255,7 @@ READ16_MEMBER(neogeo_state::neogeo_video_register_r)
 }
 
 
-WRITE16_MEMBER(neogeo_state::neogeo_video_register_w)
+WRITE16_MEMBER(neogeo_class::neogeo_video_register_w)
 {
 	/* accessing the LSB only is not mapped */
 	if (mem_mask != 0x00ff)

@@ -788,33 +788,33 @@ ROM_START( kof98yh ) /* The King of Fighters '98 - Enhance by Ydmis - (Secret ch
 ROM_END
 
 
-GAME( 2009, kof98ae,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "SNK", "The King of Fighters '98 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98cd,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "SNK", "The King of Fighters '98 (CD conversion)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98ch,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Chase", "The King of Fighters '98 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98chl,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "CHL", "The King of Fighters '98 (Diff Moves 030320)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2007, kof98c20070720, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2007-07-20)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2013, kof98c20130311, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-03-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof98c20130509, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-09)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof98c20130528, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-30)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof98c20130617, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-06-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof98c20130808, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-08)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof98c20130820, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof98c2014, kof98, neogeo, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (test)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98dc,   kof98,    neogeo, neogeo, neogeo_state, kof98,    ROT0, "Dodowang", "The King of Fighters '98 (Char color changed - Negative style)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98ehr,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Diff Moves - Ultra kill start max in Adv Mode - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2004, kof98fr,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2004)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2003, kof98fro,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2003)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 2002, kof98fro2, kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2002)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98ice,  kof98,    neogeo, neogeo, neogeo_state, kof98,    ROT0, "Diablo_Hu", "The King of Fighters '98 Ice", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98ico,  kof98,    neogeo, neogeo, neogeo_state, kof98,    ROT0, "Diablo_Hu", "The King of Fighters '98 Ice (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98jh,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Jason/K3 and Ydmis", "The King of Fighters '98 (Add Rugal - Athena style changed)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98mix,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "hack", "The King of Fighters '98 Mix (2011-10-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98pjc,  kof98,    neogeo, neogeo, neogeo_state, kof98,    ROT0, "TcwLee", "The King of Fighters '98 (Char color changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98rh,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Style changed)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98rm,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98seh,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Creamymami and Ydmis", "The King of Fighters '98 (Ultra kill start max in Adv Mode - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98seho, kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '98 (Ultra kill start max in Adv Mode - Pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98wh,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '98 (Style changes for Kyo to 95' Kyo)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98wh2,  kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "The King of Fighters '98 (Style changes for Kyo to 95' Kyo, Iori and Rugal)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98y,    kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '98 (Add Rugal)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
-GAME( 1998, kof98yh,   kof98,    neogeo, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "The King of Fighters '98 (Add Rugal - Pow hack ABC in Extra Mode)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2009, kof98ae,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "SNK", "The King of Fighters '98 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98cd,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "SNK", "The King of Fighters '98 (CD conversion)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98ch,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Chase", "The King of Fighters '98 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98chl,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "CHL", "The King of Fighters '98 (Diff Moves 030320)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2007, kof98c20070720, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2007-07-20)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2013, kof98c20130311, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-03-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130509, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130528, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-05-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130617, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-06-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130808, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof98c20130820, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2013-08-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof98c2014, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (test)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98dc,   kof98,    neogeo, neogeo, neogeo_class, kof98,    ROT0, "Dodowang", "The King of Fighters '98 (Char color changed - Negative style)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98ehr,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Diff Moves - Ultra kill start max in Adv Mode - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2004, kof98fr,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2004)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2003, kof98fro,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2003)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 2002, kof98fro2, kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2002)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98ice,  kof98,    neogeo, neogeo, neogeo_class, kof98,    ROT0, "Diablo_Hu", "The King of Fighters '98 Ice", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98ico,  kof98,    neogeo, neogeo, neogeo_class, kof98,    ROT0, "Diablo_Hu", "The King of Fighters '98 Ice (Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98jh,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Jason/K3 and Ydmis", "The King of Fighters '98 (Add Rugal - Athena style changed)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98mix,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "hack", "The King of Fighters '98 Mix (2011-10-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98pjc,  kof98,    neogeo, neogeo, neogeo_class, kof98,    ROT0, "TcwLee", "The King of Fighters '98 (Char color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98rh,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Style changed)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98rm,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Raymonose", "The King of Fighters '98 (Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98seh,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Creamymami and Ydmis", "The King of Fighters '98 (Ultra kill start max in Adv Mode - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98seho, kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Ydmis", "The King of Fighters '98 (Ultra kill start max in Adv Mode - Pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98wh,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Wesker", "The King of Fighters '98 (Style changes for Kyo to 95' Kyo)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98wh2,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Wesker", "The King of Fighters '98 (Style changes for Kyo to 95' Kyo, Iori and Rugal)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98y,    kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Ydmis", "The King of Fighters '98 (Add Rugal)", MACHINE_SUPPORTS_SAVE ) // kof98n hack
+GAME( 1998, kof98yh,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Ydmis", "The King of Fighters '98 (Add Rugal - Pow hack ABC in Extra Mode)", MACHINE_SUPPORTS_SAVE ) // kof98n hack

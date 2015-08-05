@@ -1,13 +1,13 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2001d )
+DRIVER_INIT_MEMBER( neogeo_class, kof2001d )
 {
 	DRIVER_INIT_CALL(neogeo);
 	neogeo_sfix_decrypt();
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2001m )
+DRIVER_INIT_MEMBER( neogeo_class, kof2001m )
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x1e);
@@ -15,13 +15,13 @@ DRIVER_INIT_MEMBER( neogeo_state, kof2001m )
 }
 
 // use this if the set has a s1 rom
-DRIVER_INIT_MEMBER( neogeo_state, kf2k1pls )
+DRIVER_INIT_MEMBER( neogeo_class, kf2k1pls )
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x1e);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kf2k1pa )
+DRIVER_INIT_MEMBER( neogeo_class, kf2k1pa )
 {
 	int i, sx_size = memregion("fixed")->bytes();
 	UINT8 *rom = memregion("fixed")->base();
@@ -1934,77 +1934,77 @@ ROM_START( kof2k1z2 ) /* The King of Fighters 2001 - Hack by Zhangshee - (Can ch
 ROM_END
 
 
-GAME( 2003, cthd2k3b,  neogeo,   neogeo,  neogeo, neogeo_state, cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
-GAME( 2003, ct2k3eh,   cthd2k3b, neogeo,  neogeo, neogeo_state, cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
-GAME( 2003, ct2k3k3,   cthd2k3b, neogeo,  neogeo, neogeo_state, cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix v1.2 (Diff Move - 030823)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3k3o,  cthd2k3b, neogeo,  neogeo, neogeo_state, cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, cthd2k3b,  neogeo,   neogeo,  neogeo, neogeo_class, cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2003, ct2k3eh,   cthd2k3b, neogeo,  neogeo, neogeo_class, cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2003, ct2k3k3,   cthd2k3b, neogeo,  neogeo, neogeo_class, cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix v1.2 (Diff Move - 030823)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3k3o,  cthd2k3b, neogeo,  neogeo, neogeo_class, cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2001, kof2001d,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001d,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1ay,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Kurouri and Ydmis", "The King of Fighters 2001 (Revised set 1)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2001, kof2k1b,   kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
-GAME( 2001, kof2k1b3,  kof2001,  neogeo,  neogeo, neogeo_state, neogeo,    ROT0, "NeHt", "The King of Fighters 2001 (Bloodlust)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1bd2, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Ayane", "The King of Fighters 2001 (Char color changed - Attack cremation scarlet)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1bh,  kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pls,  ROT0, "Dodowang", "The King of Fighters 2001 (Add Char set 3)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
-GAME( 2001, kof2k1ce,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 9)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cfc, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "C6F8", "The King of Fighters 2001 (Char color changed set 9 - rel 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cf1, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "C6F8", "The King of Fighters 2001 (Iori p1 and p2 Color Changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1ch,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Chase", "The King of Fighters 2001 (Add Char - Diff Moves)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
-GAME( 2001, kof2k1clr, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 8)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp1, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp2, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp3, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp4, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp5, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 6)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp6, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 7)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cp7, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed - Attack cremation ice blue set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1cr,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "CrUmp", "The King of Fighters 2001 (Revised set 2)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2001, kof2k1eh,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Ydmis", "The King of Fighters 2001 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack - Zero and Igniz
-GAME( 2001, kof2k1ehc, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Ydmis", "The King of Fighters 2001 (Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2001, kof2k1ehr, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Raymonose", "The King of Fighters 2001 (Ultra kill start max - Ultra pow hack - Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2001, kof2k1gm,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Color style remix set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1ha,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Alternate home ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1ha2, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Alternate home ver rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1hao, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Alternate home ver old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1hb,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Kurouri", "The King of Fighters 2001 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack - Zero and Igniz
-GAME( 2001, kof2k1hgm, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Color style remix set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1ice, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Char color changed - Attack cremation ice blue set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1ic2, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Char color changed - Attack cremation ice blue set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3o, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030629)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k32, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030714)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k33, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030725)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k34, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030730)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k35, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030806)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k36, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030815)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k37, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030817)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k38, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030823)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k39, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030826)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3a, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030907)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3b, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031005)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3c, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031011)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3d, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031013)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3e, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031018)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3f, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031019)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3g, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - Ultra rev - 031120)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1k3h, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - Add Igniz - 031202)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1lse, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "CRC-LSE", "The King of Fighters 2001 (Char color changed for whip 2P, k'2P, VANESSA 2P, Angel 2P)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1mk,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "MasakiAnton", "The King of Fighters 2001 (Revised set 3 Old)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2001, kof2k1mk2, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "MasakiAnton", "The King of Fighters 2001 (Revised set 3 v2.0)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2001, kof2k1mke, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "MasakiAnton", "The King of Fighters 2001 (Revised set 4)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2002, kof2k1pa,  kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pa,   ROT0, "bootleg", "The King of Fighters 2001 Plus (set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1pjc, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Color Fix 030302)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1pjo, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Color Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1pj1, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Char color changed ?? rev.2 ??  1508)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1pj2, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Char color changed - Machine repair menu col changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1pj3, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k1pls, kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pls,  ROT0, "bootleg", "The King of Fighters 2001 Plus (set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1rm,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Raymonose", "The King of Fighters 2001 (Diff Moves set 1)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
-GAME( 2004, kof2k1rp,  kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pls,  ROT0, "Fighters Kim, Jason/K3 and Raymonose", "The King of Fighters 2001 Remix Pro (v1.02 final 040311)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1rpo, kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pls,  ROT0, "Fighters Kim, Jason/K3 and Raymonose", "The King of Fighters 2001 Remix Pro (V1.0a 0311xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k1rp1, kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pls,  ROT0, "Fighters Kim, Jason/K3 and Raymonose", "The King of Fighters 2001 Remix Pro (V1.01 final1 031206)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k1ru,  kof2001,  neogeo,  neogeo, neogeo_state, kf2k1pls,  ROT0, "Jason/K3", "The King of Fighters 2001 Remix Ultra (Diff Moves ultra rev - Add Igniz - 20040507 - v2.3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1seh, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Ydmis", "The King of Fighters 2001 (Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack - Zero and Igniz
-GAME( 2001, kof2k1sob, kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Ayane", "The King of Fighters 2001 (Char color changed - 1P char corpse-style remix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1wh,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Wesker", "The King of Fighters 2001 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, kof2k1z1,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Add Char set 4)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
-GAME( 2001, kof2k1z2,  kof2001,  neogeo,  neogeo, neogeo_state, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Add Char set 5)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2001, kof2001d,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001d,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1ay,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Kurouri and Ydmis", "The King of Fighters 2001 (Revised set 1)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2001, kof2k1b,   kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2001, kof2k1b3,  kof2001,  neogeo,  neogeo, neogeo_class, neogeo,    ROT0, "NeHt", "The King of Fighters 2001 (Bloodlust)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1bd2, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Ayane", "The King of Fighters 2001 (Char color changed - Attack cremation scarlet)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1bh,  kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pls,  ROT0, "Dodowang", "The King of Fighters 2001 (Add Char set 3)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2001, kof2k1ce,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 9)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cfc, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "C6F8", "The King of Fighters 2001 (Char color changed set 9 - rel 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cf1, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "C6F8", "The King of Fighters 2001 (Iori p1 and p2 Color Changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1ch,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Chase", "The King of Fighters 2001 (Add Char - Diff Moves)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2001, kof2k1clr, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 8)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp1, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp2, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp3, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp4, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp5, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp6, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed set 7)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cp7, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Char color changed - Attack cremation ice blue set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1cr,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "CrUmp", "The King of Fighters 2001 (Revised set 2)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2001, kof2k1eh,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Ydmis", "The King of Fighters 2001 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack - Zero and Igniz
+GAME( 2001, kof2k1ehc, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Ydmis", "The King of Fighters 2001 (Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2001, kof2k1ehr, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Raymonose", "The King of Fighters 2001 (Ultra kill start max - Ultra pow hack - Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2001, kof2k1gm,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Color style remix set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1ha,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Alternate home ver)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1ha2, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Alternate home ver rev.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1hao, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Alternate home ver old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1hb,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Kurouri", "The King of Fighters 2001 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack - Zero and Igniz
+GAME( 2001, kof2k1hgm, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Unk", "The King of Fighters 2001 (Color style remix set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1ice, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Char color changed - Attack cremation ice blue set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1ic2, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Char color changed - Attack cremation ice blue set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3o, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030629)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k32, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030714)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k33, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030725)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k34, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030730)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k35, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030806)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k36, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030815)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k37, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030817)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k38, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030823)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k39, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030826)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3a, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 030907)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3b, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031005)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3c, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031011)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3d, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031013)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3e, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031018)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3f, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - 031019)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3g, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - Ultra rev - 031120)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1k3h, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Jason/K3", "The King of Fighters 2001 (Moves KOF 98 style - Add Igniz - 031202)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1lse, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "CRC-LSE", "The King of Fighters 2001 (Char color changed for whip 2P, k'2P, VANESSA 2P, Angel 2P)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1mk,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "MasakiAnton", "The King of Fighters 2001 (Revised set 3 Old)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2001, kof2k1mk2, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "MasakiAnton", "The King of Fighters 2001 (Revised set 3 v2.0)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2001, kof2k1mke, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "MasakiAnton", "The King of Fighters 2001 (Revised set 4)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2002, kof2k1pa,  kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pa,   ROT0, "bootleg", "The King of Fighters 2001 Plus (set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1pjc, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Color Fix 030302)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1pjo, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Color Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1pj1, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Char color changed ?? rev.2 ??  1508)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1pj2, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Char color changed - Machine repair menu col changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1pj3, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "TcwLee", "The King of Fighters 2001 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k1pls, kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pls,  ROT0, "bootleg", "The King of Fighters 2001 Plus (set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1rm,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Raymonose", "The King of Fighters 2001 (Diff Moves set 1)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack
+GAME( 2004, kof2k1rp,  kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pls,  ROT0, "Fighters Kim, Jason/K3 and Raymonose", "The King of Fighters 2001 Remix Pro (v1.02 final 040311)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1rpo, kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pls,  ROT0, "Fighters Kim, Jason/K3 and Raymonose", "The King of Fighters 2001 Remix Pro (V1.0a 0311xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k1rp1, kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pls,  ROT0, "Fighters Kim, Jason/K3 and Raymonose", "The King of Fighters 2001 Remix Pro (V1.01 final1 031206)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k1ru,  kof2001,  neogeo,  neogeo, neogeo_class, kf2k1pls,  ROT0, "Jason/K3", "The King of Fighters 2001 Remix Ultra (Diff Moves ultra rev - Add Igniz - 20040507 - v2.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1seh, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Ydmis", "The King of Fighters 2001 (Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2001h hack - Zero and Igniz
+GAME( 2001, kof2k1sob, kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Ayane", "The King of Fighters 2001 (Char color changed - 1P char corpse-style remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1wh,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Wesker", "The King of Fighters 2001 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, kof2k1z1,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Add Char set 4)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz
+GAME( 2001, kof2k1z2,  kof2001,  neogeo,  neogeo, neogeo_class, kof2001m,  ROT0, "Zhangshee", "The King of Fighters 2001 (Add Char set 5)", MACHINE_SUPPORTS_SAVE ) // Zero and Igniz

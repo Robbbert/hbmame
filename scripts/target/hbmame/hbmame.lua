@@ -141,11 +141,8 @@ MACHINES["Z80PIO"] = true
 -- specify available bus cores
 --------------------------------------------------
 
---------------------------------------------------
--- specify available bus cores
---------------------------------------------------
-
 BUSES["GENERIC"] = true
+BUSES["NEOGEO"] = true
 
 --------------------------------------------------
 -- this is the list of driver libraries that
@@ -170,6 +167,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"midway",
 		"namco",
 		"neogeo",
+		"nghb",
 		"nichibut",
 		"nintendo",
 		"pacman",
@@ -444,13 +442,23 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "neogeo")
 files {
-	MAME_DIR .. "src/hbmame/drivers/neogeo.c",
-	MAME_DIR .. "src/hbmame/video/neogeo.c",
-	MAME_DIR .. "src/hbmame/video/neogeo_spr.c",
-	MAME_DIR .. "src/hbmame/machine/neoboot.c",
-	MAME_DIR .. "src/hbmame/machine/neocrypt.c",
-	MAME_DIR .. "src/hbmame/machine/neoprot.c",
-	MAME_DIR .. "src/hbmame/machine/ng_memcard.c",
+	MAME_DIR .. "src/mame/drivers/neogeo.c",
+	MAME_DIR .. "src/mame/video/neogeo.c",
+	MAME_DIR .. "src/mame/drivers/neogeo_noslot.c",
+	MAME_DIR .. "src/mame/video/neogeo_spr.c",
+	MAME_DIR .. "src/mame/machine/neocrypt.c",
+	MAME_DIR .. "src/mame/machine/ng_memcard.c",
+}
+
+createHBMAMEProjects(_target, _subtarget, "nghb")
+files {
+	MAME_DIR .. "src/hbmame/drivers/nghb.c",
+	MAME_DIR .. "src/hbmame/video/nghb.c",
+	MAME_DIR .. "src/hbmame/video/nghb_spr.c",
+	MAME_DIR .. "src/hbmame/machine/nghb_boot.c",
+	MAME_DIR .. "src/hbmame/machine/nghb_crypt.c",
+	MAME_DIR .. "src/hbmame/machine/nghb_prot.c",
+	MAME_DIR .. "src/hbmame/machine/nghb_memc.c",
 	MAME_DIR .. "src/emu/imagedev/cartslot.c",
 }
 

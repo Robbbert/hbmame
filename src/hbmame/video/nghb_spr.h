@@ -18,11 +18,11 @@
 #define NEOGEO_VSSTART                          (0x100)
 
 // todo, sort out what needs to be public and make the rest private/protected
-class neosprite_base_device : public device_t
+class neosprite_base_class : public device_t
 {
 public:
-	neosprite_base_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock,  device_type type);
-//	neosprite_base_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	neosprite_base_class(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock,  device_type type);
+//	neosprite_base_class(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 
 	virtual void optimize_sprite_data();
 	virtual void draw_fixed_layer_2pixels(UINT32*&pixel_addr, int offset, UINT8* gfx_base, const pen_t* char_pens);
@@ -94,38 +94,38 @@ private:
 //extern const device_type NEOGEO_SPRITE_BASE;
 
 
-class neosprite_regular_device : public neosprite_base_device
+class neosprite_regular_class : public neosprite_base_class
 {
 public:
-	neosprite_regular_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	neosprite_regular_class(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 	virtual void draw_pixel(int romaddr, UINT32* dst, const pen_t *line_pens);
 	virtual void set_sprite_region(memory_region* region_sprites);
 
 };
 
-extern const device_type NEOGEO_SPRITE_REGULAR;
+extern const device_type XNEOGEO_SPRITE_REGULAR;
 
 
-class neosprite_optimized_device : public neosprite_base_device
+class neosprite_optimized_class : public neosprite_base_class
 {
 public:
-	neosprite_optimized_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	neosprite_optimized_class(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 	virtual void optimize_sprite_data();
 	virtual void draw_pixel(int romaddr, UINT32* dst, const pen_t *line_pens);
 	std::vector<UINT8> m_sprite_gfx;
 
 };
 
-extern const device_type NEOGEO_SPRITE_OPTIMZIED;
+extern const device_type XNEOGEO_SPRITE_OPTIMZIED;
 
 
 
 
 
-class neosprite_midas_device : public neosprite_base_device
+class neosprite_midas_class : public neosprite_base_class
 {
 public:
-	neosprite_midas_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	neosprite_midas_class(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 	
 	virtual void draw_pixel(int romaddr, UINT32* dst, const pen_t *line_pens);
 
@@ -139,6 +139,6 @@ public:
 
 };
 
-extern const device_type NEOGEO_SPRITE_MIDAS;
+extern const device_type XNEOGEO_SPRITE_MIDAS;
 
 

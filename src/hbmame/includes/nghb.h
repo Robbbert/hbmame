@@ -7,18 +7,18 @@
 *************************************************************************/
 
 #include "machine/upd1990a.h"
-#include "machine/ng_memcard.h"
-#include "video/neogeo_spr.h"
+#include "machine/nghb_memc.h"
+#include "video/nghb_spr.h"
 
 // On scanline 224, /VBLANK goes low 56 mclks (14 pixels) from the rising edge of /HSYNC.
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.
 #define NEOGEO_VBLANK_IRQ_HTIM (attotime::from_ticks(56+2, NEOGEO_MASTER_CLOCK))
 
 
-class neogeo_state : public driver_device
+class neogeo_class : public driver_device
 {
 public:
-	neogeo_state(const machine_config &mconfig, device_type type, const char *tag)
+	neogeo_class(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_audiocpu(*this, "audiocpu"),
@@ -345,7 +345,7 @@ protected:
 
 	required_device<screen_device> m_screen;
 	optional_device<palette_device> m_palette;
-	optional_device<ng_memcard_device> m_memcard;
+	optional_device<ng_memcard_class> m_memcard;
 	
 	// configuration
 	enum {NEOGEO_MVS, NEOGEO_AES, NEOGEO_CD} m_type;
@@ -381,7 +381,7 @@ protected:
 	UINT8      m_vblank_level;
 	UINT8      m_raster_level;
 
-	required_device<neosprite_optimized_device> m_sprgen;
+	required_device<neosprite_optimized_class> m_sprgen;
 	UINT16 get_video_control(  );
 
 	// color/palette related

@@ -1,6 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-DRIVER_INIT_MEMBER( neogeo_state, kof2003b )
+DRIVER_INIT_MEMBER( neogeo_class, kof2003b )
 {
 	DRIVER_INIT_CALL(neogeo);
 	kf2k3bl_install_protection();
@@ -148,8 +148,8 @@ ROM_START( kof2k3zgf ) /* The King of Fighters 2003 BOOTLEG - (kof2k3zgf) - Colo
 ROM_END
 
 
-GAME( 2003, kof2k3b,   neogeo,   neogeo, neogeo, neogeo_state, kof2003b, ROT0, "Gledson01", "The King of Fighters 2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3gc,  kof2k3b,  neogeo, neogeo, neogeo_state, kof2003b, ROT0, "Gledson01", "The King of Fighters 2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3sc,  kof2k3b,  neogeo, neogeo, neogeo_state, kof2003b, ROT0, "SHIPDS", "The King of Fighters 2003 (Color changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3tc,  kof2k3b,  neogeo, neogeo, neogeo_state, kof2003b, ROT0, "T.Com", "The King of Fighters 2003 (Char color changed for Kyo (2P/4P), DUOLON (4P), K' (4P) )", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3zgf, kof2k3b,  neogeo, neogeo, neogeo_state, kof2003b, ROT0, "Zhaolu94", "The King of Fighters 2003 (Attack cremation green)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3b,   neogeo,   neogeo, neogeo, neogeo_class, kof2003b, ROT0, "Gledson01", "The King of Fighters 2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3gc,  kof2k3b,  neogeo, neogeo, neogeo_class, kof2003b, ROT0, "Gledson01", "The King of Fighters 2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3sc,  kof2k3b,  neogeo, neogeo, neogeo_class, kof2003b, ROT0, "SHIPDS", "The King of Fighters 2003 (Color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3tc,  kof2k3b,  neogeo, neogeo, neogeo_class, kof2003b, ROT0, "T.Com", "The King of Fighters 2003 (Char color changed for Kyo (2P/4P), DUOLON (4P), K' (4P) )", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3zgf, kof2k3b,  neogeo, neogeo, neogeo_class, kof2003b, ROT0, "Zhaolu94", "The King of Fighters 2003 (Attack cremation green)", MACHINE_SUPPORTS_SAVE )

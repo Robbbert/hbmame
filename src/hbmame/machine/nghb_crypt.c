@@ -41,7 +41,7 @@
 ***************************************************************************/
 
 #include "emu.h"
-#include "includes/neogeo.h"
+#include "includes/nghb.h"
 
 
 /***************************************************************************
@@ -484,7 +484,7 @@ static const UINT8 kof2000_address_0_7_xor[256] =
 
 
 
-void neogeo_state::decrypt(UINT8 *r0, UINT8 *r1,
+void neogeo_class::decrypt(UINT8 *r0, UINT8 *r1,
 					UINT8 c0,  UINT8 c1,
 					const UINT8 *table0hi,
 					const UINT8 *table0lo,
@@ -511,7 +511,7 @@ void neogeo_state::decrypt(UINT8 *r0, UINT8 *r1,
 }
 
 
-void neogeo_state::neogeo_gfx_decrypt(int extra_xor)
+void neogeo_class::neogeo_gfx_decrypt(int extra_xor)
 {
 	int rom_size;
 	UINT8 *rom;
@@ -572,7 +572,7 @@ void neogeo_state::neogeo_gfx_decrypt(int extra_xor)
 
 
 /* the S data comes from the end of the C data */
-void neogeo_state::neogeo_sfix_decrypt()
+void neogeo_class::neogeo_sfix_decrypt()
 {
 	int i;
 	int rom_size = memregion("sprites")->bytes();
@@ -586,7 +586,7 @@ void neogeo_state::neogeo_sfix_decrypt()
 
 
 /* CMC42 protection chip */
-void neogeo_state::kof99_neogeo_gfx_decrypt(int extra_xor)
+void neogeo_class::kof99_neogeo_gfx_decrypt(int extra_xor)
 {
 	type0_t03 =          kof99_type0_t03;
 	type0_t12 =          kof99_type0_t12;
@@ -603,7 +603,7 @@ void neogeo_state::kof99_neogeo_gfx_decrypt(int extra_xor)
 
 
 /* CMC50 protection chip */
-void neogeo_state::kof2000_neogeo_gfx_decrypt(int extra_xor)
+void neogeo_class::kof2000_neogeo_gfx_decrypt(int extra_xor)
 {
 	type0_t03 =          kof2000_type0_t03;
 	type0_t12 =          kof2000_type0_t12;
@@ -620,7 +620,7 @@ void neogeo_state::kof2000_neogeo_gfx_decrypt(int extra_xor)
 
 
 /* CMC42 protection chip */
-void neogeo_state::cmc42_neogeo_gfx_decrypt(int extra_xor)
+void neogeo_class::cmc42_neogeo_gfx_decrypt(int extra_xor)
 {
 	type0_t03 =          kof99_type0_t03;
 	type0_t12 =          kof99_type0_t12;
@@ -636,7 +636,7 @@ void neogeo_state::cmc42_neogeo_gfx_decrypt(int extra_xor)
 
 
 /* CMC50 protection chip */
-void neogeo_state::cmc50_neogeo_gfx_decrypt(int extra_xor)
+void neogeo_class::cmc50_neogeo_gfx_decrypt(int extra_xor)
 {
 	type0_t03 =          kof2000_type0_t03;
 	type0_t12 =          kof2000_type0_t12;
@@ -652,7 +652,7 @@ void neogeo_state::cmc50_neogeo_gfx_decrypt(int extra_xor)
 
 
 /* ms5pcb and svcpcb have an additional scramble on top of the standard CMC scrambling */
-void neogeo_state::svcpcb_gfx_decrypt()
+void neogeo_class::svcpcb_gfx_decrypt()
 {
 	static const UINT8 xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
 	int i;
@@ -685,7 +685,7 @@ void neogeo_state::svcpcb_gfx_decrypt()
 
 
 /* and a further swap on the s1 data */
-void neogeo_state::svcpcb_s1data_decrypt()
+void neogeo_class::svcpcb_s1data_decrypt()
 {
 	int i;
 	UINT8 *s1 = memregion( "fixed" )->base();
@@ -700,7 +700,7 @@ void neogeo_state::svcpcb_s1data_decrypt()
 
 /* kf2k3pcb has an additional scramble on top of the standard CMC scrambling */
 /* Thanks to Razoola & Halrin for the info */
-void neogeo_state::kf2k3pcb_gfx_decrypt()
+void neogeo_class::kf2k3pcb_gfx_decrypt()
 {
 	static const UINT8 xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
 	int i;
@@ -733,7 +733,7 @@ void neogeo_state::kf2k3pcb_gfx_decrypt()
 
 
 /* and a further swap on the s1 data */
-void neogeo_state::kf2k3pcb_decrypt_s1data()
+void neogeo_class::kf2k3pcb_decrypt_s1data()
 {
 	UINT8 *src;
 	UINT8 *dst;
@@ -819,7 +819,7 @@ static const UINT8 m1_address_0_7_xor[256] =
    ,and uses this checksum as the basis of the key with which to decrypt
    the rom */
 
-UINT16 neogeo_state::generate_cs16(UINT8 *rom, int size)
+UINT16 neogeo_class::generate_cs16(UINT8 *rom, int size)
 {
 	UINT16 cs16;
 	int i;
@@ -832,7 +832,7 @@ UINT16 neogeo_state::generate_cs16(UINT8 *rom, int size)
 }
 
 
-int neogeo_state::m1_address_scramble(int address, UINT16 key)
+int neogeo_class::m1_address_scramble(int address, UINT16 key)
 {
 	int block;
 	int aux;
@@ -865,7 +865,7 @@ int neogeo_state::m1_address_scramble(int address, UINT16 key)
 }
 
 
-void neogeo_state::neogeo_cmc50_m1_decrypt()
+void neogeo_class::neogeo_cmc50_m1_decrypt()
 {
 	UINT8* rom = memregion("audiocrypt")->base();
 	size_t rom_size = 0x80000;
@@ -932,7 +932,7 @@ NeoGeo 'P' ROM encryption
 
 
 /* Kof98 uses an early encryption, quite different from the others */
-void neogeo_state::kof98_decrypt_68k()
+void neogeo_class::kof98_decrypt_68k()
 {
 	UINT8 *src = memregion("maincpu")->base();
 	dynamic_buffer dst(0x200000);
@@ -977,7 +977,7 @@ void neogeo_state::kof98_decrypt_68k()
 
 
 /* kof99, garou, garouh, mslug3 and kof2000 have and SMA chip which contains program code and decrypts the 68k roms */
-void neogeo_state::kof99_decrypt_68k()
+void neogeo_class::kof99_decrypt_68k()
 {
 	UINT16 *rom;
 	int i,j;
@@ -1009,7 +1009,7 @@ void neogeo_state::kof99_decrypt_68k()
 }
 
 
-void neogeo_state::garou_decrypt_68k()
+void neogeo_class::garou_decrypt_68k()
 {
 	UINT16 *rom;
 	int i,j;
@@ -1043,7 +1043,7 @@ void neogeo_state::garou_decrypt_68k()
 }
 
 
-void neogeo_state::garouh_decrypt_68k()
+void neogeo_class::garouh_decrypt_68k()
 {
 	UINT16 *rom;
 	int i,j;
@@ -1077,7 +1077,7 @@ void neogeo_state::garouh_decrypt_68k()
 }
 
 
-void neogeo_state::mslug3_decrypt_68k()
+void neogeo_class::mslug3_decrypt_68k()
 {
 	UINT16 *rom;
 	int i,j;
@@ -1111,7 +1111,7 @@ void neogeo_state::mslug3_decrypt_68k()
 }
 
 
-void neogeo_state::kof2000_decrypt_68k()
+void neogeo_class::kof2000_decrypt_68k()
 {
 	UINT16 *rom;
 	int i,j;
@@ -1145,7 +1145,7 @@ void neogeo_state::kof2000_decrypt_68k()
 
 
 /* kof2002, matrim, samsho5, samsh5sp have some simple block swapping */
-void neogeo_state::kof2002_decrypt_68k()
+void neogeo_class::kof2002_decrypt_68k()
 {
 	int i;
 	static const int sec[]={0x100000,0x280000,0x300000,0x180000,0x000000,0x380000,0x200000,0x080000};
@@ -1159,7 +1159,7 @@ void neogeo_state::kof2002_decrypt_68k()
 }
 
 
-void neogeo_state::matrim_decrypt_68k()
+void neogeo_class::matrim_decrypt_68k()
 {
 	int i;
 	static const int sec[]={0x100000,0x280000,0x300000,0x180000,0x000000,0x380000,0x200000,0x080000};
@@ -1173,7 +1173,7 @@ void neogeo_state::matrim_decrypt_68k()
 }
 
 
-void neogeo_state::samsho5_decrypt_68k()
+void neogeo_class::samsho5_decrypt_68k()
 {
 	int i;
 	static const int sec[]={0x000000,0x080000,0x700000,0x680000,0x500000,0x180000,0x200000,0x480000,0x300000,0x780000,0x600000,0x280000,0x100000,0x580000,0x400000,0x380000};
@@ -1188,7 +1188,7 @@ void neogeo_state::samsho5_decrypt_68k()
 }
 
 
-void neogeo_state::samsh5sp_decrypt_68k()
+void neogeo_class::samsh5sp_decrypt_68k()
 {
 	int i;
 	static const int sec[]={0x000000,0x080000,0x500000,0x480000,0x600000,0x580000,0x700000,0x280000,0x100000,0x680000,0x400000,0x780000,0x200000,0x380000,0x300000,0x180000};
@@ -1204,7 +1204,7 @@ void neogeo_state::samsh5sp_decrypt_68k()
 
 
 /* kf2k3pcb, kof2003, kof2003h, mslug5 and svc have updated P rom scramble */
-void neogeo_state::mslug5_decrypt_68k()
+void neogeo_class::mslug5_decrypt_68k()
 {
 	static const UINT8 xor1[ 0x20 ] = { 0xc2, 0x4b, 0x74, 0xfd, 0x0b, 0x34, 0xeb, 0xd7, 0x10, 0x6d, 0xf9, 0xce, 0x5d, 0xd5, 0x61, 0x29, 0xf5, 0xbe, 0x0d, 0x82, 0x72, 0x45, 0x0f, 0x24, 0xb3, 0x34, 0x1b, 0x99, 0xea, 0x09, 0xf3, 0x03 };
 	static const UINT8 xor2[ 0x20 ] = { 0x36, 0x09, 0xb0, 0x64, 0x95, 0x0f, 0x90, 0x42, 0x6e, 0x0f, 0x30, 0xf6, 0xe5, 0x08, 0x30, 0x64, 0x08, 0x04, 0x00, 0x2f, 0x72, 0x09, 0xa0, 0x13, 0xc9, 0x0b, 0xa0, 0x3e, 0xc2, 0x00, 0x40, 0x2b };
@@ -1248,7 +1248,7 @@ void neogeo_state::mslug5_decrypt_68k()
 }
 
 
-void neogeo_state::svc_px_decrypt()
+void neogeo_class::svc_px_decrypt()
 {
 	static const UINT8 xor1[ 0x20 ] = { 0x3b, 0x6a, 0xf7, 0xb7, 0xe8, 0xa9, 0x20, 0x99, 0x9f, 0x39, 0x34, 0x0c, 0xc3, 0x9a, 0xa5, 0xc8, 0xb8, 0x18, 0xce, 0x56, 0x94, 0x44, 0xe3, 0x7a, 0xf7, 0xdd, 0x42, 0xf0, 0x18, 0x60, 0x92, 0x9f };
 	static const UINT8 xor2[ 0x20 ] = { 0x69, 0x0b, 0x60, 0xd6, 0x4f, 0x01, 0x40, 0x1a, 0x9f, 0x0b, 0xf0, 0x75, 0x58, 0x0e, 0x60, 0xb4, 0x14, 0x04, 0x20, 0xe4, 0xb9, 0x0d, 0x10, 0x89, 0xeb, 0x07, 0x30, 0x90, 0x50, 0x0e, 0x20, 0x26 };
@@ -1292,7 +1292,7 @@ void neogeo_state::svc_px_decrypt()
 }
 
 
-void neogeo_state::kf2k3pcb_decrypt_68k()
+void neogeo_class::kf2k3pcb_decrypt_68k()
 {
 	static const UINT8 xor2[ 0x20 ] = { 0xb4, 0x0f, 0x40, 0x6c, 0x38, 0x07, 0xd0, 0x3f, 0x53, 0x08, 0x80, 0xaa, 0xbe, 0x07, 0xc0, 0xfa, 0xd0, 0x08, 0x10, 0xd2, 0xf1, 0x03, 0x70, 0x7e, 0x87, 0x0b, 0x40, 0xf6, 0x2a, 0x0a, 0xe0, 0xf9 };
 	int i;
@@ -1333,7 +1333,7 @@ void neogeo_state::kf2k3pcb_decrypt_68k()
 }
 
 
-void neogeo_state::kof2003_decrypt_68k()
+void neogeo_class::kof2003_decrypt_68k()
 {
 	static const UINT8 xor1[0x20] = { 0x3b, 0x6a, 0xf7, 0xb7, 0xe8, 0xa9, 0x20, 0x99, 0x9f, 0x39, 0x34, 0x0c, 0xc3, 0x9a, 0xa5, 0xc8, 0xb8, 0x18, 0xce, 0x56, 0x94, 0x44, 0xe3, 0x7a, 0xf7, 0xdd, 0x42, 0xf0, 0x18, 0x60, 0x92, 0x9f };
 	static const UINT8 xor2[0x20] = { 0x2f, 0x02, 0x60, 0xbb, 0x77, 0x01, 0x30, 0x08, 0xd8, 0x01, 0xa0, 0xdf, 0x37, 0x0a, 0xf0, 0x65, 0x28, 0x03, 0xd0, 0x23, 0xd3, 0x03, 0x70, 0x42, 0xbb, 0x06, 0xf0, 0x28, 0xba, 0x0f, 0xf0, 0x7a };
@@ -1379,7 +1379,7 @@ void neogeo_state::kof2003_decrypt_68k()
 }
 
 
-void neogeo_state::kof2003h_decrypt_68k()
+void neogeo_class::kof2003h_decrypt_68k()
 {
 	static const UINT8 xor1[0x20] = { 0xc2, 0x4b, 0x74, 0xfd, 0x0b, 0x34, 0xeb, 0xd7, 0x10, 0x6d, 0xf9, 0xce, 0x5d, 0xd5, 0x61, 0x29, 0xf5, 0xbe, 0x0d, 0x82, 0x72, 0x45, 0x0f, 0x24, 0xb3, 0x34, 0x1b, 0x99, 0xea, 0x09, 0xf3, 0x03 };
 	static const UINT8 xor2[0x20] = { 0x2b, 0x09, 0xd0, 0x7f, 0x51, 0x0b, 0x10, 0x4c, 0x5b, 0x07, 0x70, 0x9d, 0x3e, 0x0b, 0xb0, 0xb6, 0x54, 0x09, 0xe0, 0xcc, 0x3d, 0x0d, 0x80, 0x99, 0x87, 0x03, 0x90, 0x82, 0xfe, 0x04, 0x20, 0x18 };
@@ -1433,7 +1433,7 @@ NeoGeo 'V' (PCM) ROM encryption
 ***************************************************************************/
 
 /* Neo-Pcm2 Drivers for Encrypted V Roms */
-void neogeo_state::neo_pcm2_snk_1999(int value)
+void neogeo_class::neo_pcm2_snk_1999(int value)
 {   /* thanks to Elsemi for the NEO-PCM2 info */
 	UINT16 *rom = (UINT16 *)memregion("ymsnd")->base();
 	int size = memregion("ymsnd")->bytes();
@@ -1456,7 +1456,7 @@ void neogeo_state::neo_pcm2_snk_1999(int value)
 
 
 /* the later PCM2 games have additional scrambling */
-void neogeo_state::neo_pcm2_swap(int value)
+void neogeo_class::neo_pcm2_swap(int value)
 {
 	static const UINT32 addrs[7][2]={
 		{0x000000,0xa5000},
@@ -1497,7 +1497,7 @@ NeoGeo 'SP1' (BIOS) ROM encryption
 
 
 /* only found on kf2k3pcb */
-void neogeo_state::kf2k3pcb_sp1_decrypt()
+void neogeo_class::kf2k3pcb_sp1_decrypt()
 {
 	static const UINT8 address[0x40] = {
 		0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,

@@ -3,449 +3,18 @@
 /***************************************************************************
 
     Neo-Geo hardware
-
-    Credits:
-        * This driver was made possible by the research done by
-          Charles MacDonald.  For a detailed description of the Neo-Geo
-          hardware, please visit his page at:
-          http://cgfm2.emuviews.com/txt/mvstech.txt
-        * Presented to you by the Shin Emu Keikaku team.
-        * The following people have all spent probably far
-          too much time on this:
-          AVDB
-          Bryan McPhail
-          Fuzz
-          Ernesto Corvi
-          Andrew Prime
-          Zsolt Vasvari
-
-
-    Known driver issues/to-do's:
-    ============================
-
-        * Fatal Fury 3 crashes during the ending - this doesn't occur if
-          the language is set to Japanese, maybe the English endings
-          are incomplete / buggy?
-        * Graphical Glitches caused by incorrect timing?
-          - Some raster effects are imperfect (off by a couple of lines)
-        * Multi-cart support not implemented - the MVS can take up to
-          6 cartridges depending on the board being used
-        * 68000 waitstates on ROM region access, determined by jumpers on cart
-          (garou train stage 3 background bug is probably related to this)
-
-
-    Confirmed non-bugs:
-
-        * Bad zooming in the Kof2003 bootlegs - this is what happens
-          if you try and use the normal bios with a pcb set, it
-          looks like the bootleggers didn't care.
-        * Glitches at the edges of the screen - the real hardware
-          can display 320x224 but most of the games seem designed
-          to work with a width of 304, some less.
-        * Distorted jumping sound in Nightmare in the Dark
-        * Ninja Combat sometimes glitches
-
-
-*****************************************************************************
-
-    The Neo-Geo Multi Video System (MVS), is an arcade system board, being
-    the first product in the Neo-Geo family, designed by Alpha Denshi(ADK)
-    and released in 1990 by SNK. It was known to the coin-op industry, and
-    offered arcade operators the ability to put up to 6 different arcade
-    titles into a single cabinet, a key economic consideration for operators
-    with limited floorspace (games for the Neo-Geo are cartridge based and are
-    easily exchangeable). It comes in many different cabinets but basically
-    consists of an add on board that can be linked to a standard Jamma system.
-    The system was discontinued in 2004.
-    Source (modified): http://en.wikipedia.org/wiki/Neo_Geo
-
-
-    MVS motherboards were produced in 1 / 2 / 4 and 6 Slot versions.
-
-    Known motherboards:
-    ===================
-
-    1 Slot:
-    NEO-MVH MV1
-    NEO-MVH MV1-1
-    NEO-MVH MV1A
-     . NEO-MVH MV1A CHX ??
-    NEO-MVH MV1B (1996.1.19)
-     . NEO-MVH MV1B CHX (1996.1.19) ??
-    NEO-MVH MV1B1 (1998.6.17)
-    NEO-MVH MV1C (1999.4.30)
-    NEO-MVH MV1F
-    NEO-MVH MV1FS
-    NEO-MVH MV1FT
-    NEO-MVH MV1FZ
-    NEO-MVH MV1FZS
-
-    2 Slot:
-    NEO-MVH MV2
-    NEO-MVH MV2F
-    NEO-MVH MV2F-01
-
-    4 Slot:
-    NEO-MVH MV4
-    NEO-MVH MV4F
-    NEO-MVH MV4FS
-    NEO-MVH MV4FT
-    NEO-MVH MV4FT2
-
-    6 Slot:
-    NEO-MVH MV6
-    NEO-MVH MV6F
-
-
-    Neo-Geo Motherboard (info - courtesy of Guru):
-
-          NEO-MVH MV1
-          |---------------------------------------------------------------------|
-          |       4558                                                          |
-          |                                          HC04  HC32                 |
-          |                      SP-S2.SP1  NEO-E0   000-L0.L0   LS244  AS04    |
-          |             YM2610                                                  |
-          | 4558                                                                |
-          |       4558                        5814  HC259   SFIX.SFIX           |
-          |                                                             NEO-I0  |
-          | HA13001 YM3016                    5814                              |
-          --|                                                                   |
-            |     4558                                                          |
-          --|                                                 SM1.SM1   LS32    |
-          |                                                                     |
-          |                           LSPC-A0         PRO-C0            LS244   |
-          |                                                                     |
-          |J              68000                                                 |
-          |A                                                                    |
-          |M                                                                    |
-          |M                                                      NEO-ZMC2      |
-          |A                                                                    |
-          |   LS273  NEO-G0                          58256  58256     Z80A      |
-          |                           58256  58256   58256  58256     6116      |
-          |   LS273 5864                                                        |
-          --| LS05  5864  PRO-B0                                                |
-            |                                                                   |
-          --|             LS06   HC32           D4990A    NEO-F0   24.000MHz    |
-          |                      DSW1    BATT3.6V 32.768kHz       NEO-D0        |
-          |                                           2003  2003                |
-          |---------------------------------------------------------------------|
-
-
-*****************************************************************************
-
-    Neo-Geo game PCB infos:
-    =======================
-
-    The Neo-Geo games for AES (home) and MVS (arcade) systems are cartridge based.
-
-    Each cartridge consists of two PCBs: CHA and PROG.
-    .CHA PCB contains gfx data ('C' - rom), text layer data ('S' - rom) and sound driver ('M' - rom).
-    .PROG PCB contains sample data ('V' - rom) and program code ('P' - rom).
-
-    On most PCBs various custom/protection chips can also be found:
-    (Custom chip detail information (modified) from: http://wiki.neogeodev.org)
-
-    CHA:
-    . NEO-273  (C and S-ROM address latch)
-    . NEO-CMC 90G06CF7042 (NEO-273 logic / NEO-ZMC logic / C-ROM decryption / C and S-ROM multiplexer / S-ROM bankswitching)
-    . NEO-CMC 90G06CF7050 (NEO-273 logic / NEO-ZMC logic / C-ROM decryption / M-ROM decryption / C and S-ROM multiplexer / S-ROM bankswitching)
-    . NEO-ZMC  (Z80 memory controller)
-    . NEO-ZMC2 (Z80 memory controller / Tile serializer)
-    . PRO-CT0  (C-ROM serializer and multiplexer?; used on early AES-CHA boards)
-    . SNK-9201 (C-ROM serializer and multiplexer?; used on early AES-CHA boards)
-
-    PROG:
-    . 0103 (QFP144) (Only found on Metal Slug X NEO-MVS PROGEOP board; function unknown)
-    . ALTERA   (EPM7128SQC100-15) (P-ROM protection chip used for KOF98 NEO-MVS PROGSF1 board and Metal Slug X NEO-MVS PROGEOP board)
-    . NEO-COMA (Microcontroller; used for MULTI PLAY MODE, boards and sets see below)
-    . NEO-PCM2 (SNK 1999) (PCM functionality / V-ROM decryption / P-ROM decoding and bankswitching)
-    . NEO-PCM2 (PLAYMORE 2002) (PCM functionality / V-ROM decryption / P-ROM decoding and bankswitching)
-    . NEO-PVC  (P-ROM decryption and bankswitching) / RAM
-    . NEO-SMA  (P-ROM decryption and bankswitching / RNG / Storage of 256kb game data)
-    . PCM      (ADPCM bus latches / V-ROM multiplexer)
-    . PRO-CT0  (On PROG board used for P-ROM protection -> Fatal Fury 2)
-    . SNK-9201 (On PROG board used for P-ROM protection -> Fatal Fury 2)
-
-
-
-    Known PCBs:
-    ============
-
-    MVS CHA:
-    -- SNK --
-    . NEO-MVS CHA-32
-    . NEO-MVS CHA-8M
-    . NEO-MVS CHA42G
-    . NEO-MVS CHA42G-1
-    . NEO-MVS CHA 42G-2
-    . NEO-MVS CHA 42G-3
-    . NEO-MVS CHA42G-3B
-    . NEO-MVS CHA256
-    . NEO-MVS CHA256B
-    . NEO-MVS CHA512Y
-    . NEO-MVS CHAFIO (1999.6.14) - used with NEO-CMC 90G06C7042 or NEO-CMC 90G06C7050
-    . MVS CHAFIO REV1.0 (KOF-2001)
-    . NEO-MVS CHAFIO (SNK 2002) - MADE IN KOREA
-    -- SNKPLAYMORE --
-    . NEO-MVS CHAFIO (2003.7.24) - used only with NEO-CMC 90G06C7050
-
-    -- SNK development boards --
-    . NEO-MVS CHAMC2
-
-    MVS PROG:
-    -- SNK --
-    . NEO-MVS PROG-NAM
-    . NEO-MVS PROG-HERO
-    . NEO-MVS PROG-EP
-    . NEO-MVS PROG-8MB
-    . NEO-MVS PROGEP8M
-    . NEO-MVS PROG8M42
-    . NEO-MVS PROG16
-    . NEO-MVS PROG42G
-    . NEO-MVS PROG42G-COM
-    . NEO-MVS PROG42G-1
-    . NEO-MVS PROG-G2
-    . NEO-MVS PROG 4096
-    . NEO-MVS PROG 4096 B
-    . NEO-MVS PROGGSC
-    . NEO-MVS PROGSM
-    . NEO-MVS PROGSS3
-    . NEO-MVS PROGTOP
-    . NEO-MVS PROGSF1 (1998.6.17)
-    . NEO-MVS PROGSF1E (1998.6.18)
-    . NEO-MVS PROGEOP (1999.2.2)
-    . NEO-MVS PROGLBA (1999.4.12) - LBA-SUB (2000.2.24)
-    . NEO-MVS PROGBK1 (1994)
-    . NEO-MVS PROGBK1 (2001)
-    . NEO-MVS PROGBK2 (2000.3.21) - used with NEO-PCM2 (1999 SNK) or NEO-PCM2 (2002 PLAYMORE)
-    . MVS PROGBK2 REV1.0 (KOF-2001)
-    . NEO-MVS PROGBK2 (SNK 2002) - MADE IN KOREA
-    -- SNKPLAYMORE --
-    . NEO-MVS PROGBK2R (2003.8.26) - NEO-HYCS (2003.9.29)
-    . NEO-MVS PROGBK3R (2003.9.2) - NEO-HYCS (2003.9.29)
-    . NEO-MVS PROGBK3S (2003.10.1)
-    . NEO-MVS PROGBK2S (2003.10.18)
-
-    -- SNK development boards --
-    . NEO-MVS PROGMC2
-
-
-    AES CHA:
-    -- SNK --
-    . NEO-AEG CHA-32
-    . NEO-AEG CHA-8M
-    . NEO-AEG CHA42G
-    . NEO-AEG CHA42G-1
-    . NEO-AEG CHA42G-2B
-    . NEO-AEG CHA42G-3
-    . NEO-AEG CHA42G-4
-    . NEO-AEG CHA256
-    . NEO-AEG CHA256[B]
-    . NEO-AEG CHA256RY
-    . NEO-AEG CHA512Y
-    . NEO-AEG CHAFIO (1999.8.10) - used with NEO-CMC 90G06C7042 or NEO-CMC 90G06C7050
-    -- SNKPLAYMORE --
-    . NEO-AEG CHAFIO (2003.7.24) - used only with NEO-CMC 90G06C7050
-
-    AES PROG:
-    -- SNK --
-    . NEO-AEG PROG-NAM
-    . NEO-AEG PROG-HERO
-    . NEO-AEG PROG-4A
-    . NEO-AEG PROG-4B
-    . NEO-AEG PROG 8M42
-    . NEO-AEG PROG B
-    . NEO-AEG PROG16
-    . NEO-AEG PROG42G
-    . NEO-AEG PROG42G-COM
-    . NEO-AEG PROG42G-1
-    . NEO-AEG PROG-G2
-    . NEO-AEG PROG4096 B
-    . NEO-AEG PROGGS
-    . NEO-AEG PROGTOP2
-    . NEO-AEG PROGEOP (1999.4.2)
-    . NEO-AEG PROGLBA (1999.7.6)
-    . NEO-AEG PROGRK
-    . NEO-AEG PROGRKB
-    . NEO-AEG PROGBK1Y
-    . NEO-AEG PROGBK1F
-    -- PLAYMORE --
-    . NEO-AEG PROGBK2 (2002.4.1) - used with NEO-PCM2 (1999 SNK) or NEO-PCM2 (2002 PLAYMORE)
-    -- SNKPLAYMORE --
-    . NEO-AEG PROGBK3R (2003.8.29) - NEO-HYCS (2003.9.29)
-    . NEO-AEG PROGBK3S (2003.10.6)
-    . NEO-AEG PROGBK2S (2003.10.16)
-
-
-
-    Cartridge colours:
-    ==================
-
-    MVS cartridges were produced in different colours.
-
-    Known cartridge colours:
-    . Black
-    . Blue
-    . Green
-    . Grey
-    . Red
-    . Transparent
-    . Transparent Blue
-    . Transparent Green
-    . White
-    . Yellow
-
-    The above listed only covers SNK / PLAYMORE / SNKPLAYMORE PCBs. There also exists a
-    wide range of 'bootleg' PCBs.
-
-
-    Unofficial pcb's from NG:DEV.TEAM:
-
-    MVS CHA:
-    GIGA CHAR Board 1.0
-    GIGA CHAR Board 1.5
-
-    MVS PROG:
-    GIGA PROG Board 1.0
-    GIGA PROG Board 1.5
-
-
-    Neo-Geo game PCB infos by Johnboy
-
-
-
-    MVS cart pinout:
-    ================
-
-    Kindly submitted by Apollo69 (apollo69@columbus.rr.com)
-    =================================================================
-                CTRG1                            CTRG2
-    =================================================================
-         GND = 01A | 01B = GND            GND = 01A | 01B = GND
-         GND = 02A | 02B = GND            GND = 02A | 02B = GND
-          P0 = 03A | 03B = P1             GND = 03A | 03B = GND
-          P2 = 04A | 04B = P3             GND = 04A | 04B = GND
-          P4 = 05A | 05B = P5              D0 = 05A | 05B = A1
-          P6 = 06A | 06B = P7              D1 = 06A | 06B = A2
-          P8 = 07A | 07B = P9              D2 = 07A | 07B = A3
-         P10 = 08A | 08B = P11             D3 = 08A | 08B = A4
-         P12 = 09A | 09B = P13             D4 = 09A | 09B = A5
-         P14 = 10A | 10B = P15             D5 = 10A | 10B = A6
-         P16 = 11A | 11B = P17             D6 = 11A | 11B = A7
-         P18 = 12A | 12B = P19             D7 = 12A | 12B = A8
-         P20 = 13A | 13B = P21             D8 = 13A | 13B = A9
-         P22 = 14A | 14B = P23             D9 = 14A | 14B = A10
-       PCK1B = 15A | 15B = 24M            D10 = 15A | 15B = A11
-       PCK2B = 16A | 16B = 12M            D11 = 16A | 16B = A12
-         2H1 = 17A | 17B = 8M             D12 = 17A | 17B = A13
-         CA4 = 18A | 18B = RESET          D13 = 18A | 18B = A14
-         CR0 = 19A | 19B = CR1            D14 = 19A | 19B = A15
-         CR2 = 20A | 20B = CR3            D15 = 20A | 20B = A16
-         CR4 = 21A | 21B = CR5            R/W = 21A | 21B = A17
-         CR6 = 22A | 22B = CR7             AS = 22A | 22B = A18
-         CR8 = 23A | 23B = CR9         ROMOEU = 23A | 23B = A19
-        CR10 = 24A | 24B = CR11        ROMOEL = 24A | 24B = 68KCLKB
-        CR12 = 25A | 25B = CR13       PORTOEU = 25A | 25B = ROMWAIT
-        CR14 = 26A | 26B = CR15       PORTOEL = 26A | 26B = PWAIT0
-        CR16 = 27A | 27B = CR17       PORTWEU = 27A | 27B = PWAIT1
-        CR18 = 28A | 28B = CR19       PORTWEL = 28A | 28B = PDTACT
-         VCC = 29A | 29B = VCC            VCC = 29A | 29B = VCC
-         VCC = 30A | 30B = VCC            VCC = 30A | 30B = VCC
-         VCC = 31A | 31B = VCC            VCC = 31A | 31B = VCC
-         VCC = 32A | 32B = VCC            VCC = 32A | 32B = VCC
-        CR20 = 33A | 33B = CR21      PORTADRS = 33A | 33B = 4MB
-        CR22 = 34A | 34B = CR23            NC = 34A | 34B = ROMOE
-        CR24 = 35A | 35B = CR25            NC = 35A | 35B = RESET
-        CR26 = 36A | 36B = CR27            NC = 36A | 36B = NC
-        CR28 = 37A | 37B = CR29            NC = 37A | 37B = NC
-        CR30 = 38A | 38B = CR31            NC = 38A | 38B = NC
-          NC = 39A | 39B = FIX00           NC = 39A | 39B = NC
-          NC = 40A | 40B = FIX01           NC = 40A | 40B = NC
-          NC = 41A | 41B = FIX02           NC = 41A | 41B = SDPAD0
-     SYSTEMB = 42A | 42B = FIX03      SYSTEMB = 42A | 42B = SDPAD1
-        SDA0 = 43A | 43B = FIX04        SDPA8 = 43A | 43B = SDPAD2
-        SDA1 = 44A | 44B = FIX05        SDPA9 = 44A | 44B = SDPAD3
-        SDA2 = 45A | 45B = FIX06       SDPA10 = 45A | 45B = SDPAD4
-        SDA3 = 46A | 46B = FIX07       SDPA11 = 46A | 46B = SDPAD5
-        SDA4 = 47A | 47B = SDRD0       SDPMPX = 47A | 47B = SDPAD6
-        SDA5 = 48A | 48B = SDRD1        SDPOE = 48A | 48B = SDPAD7
-        SDA6 = 49A | 49B = SDROM        SDRA8 = 49A | 49B = SDRA00
-        SDA7 = 50A | 50B = SDMRD        SDRA9 = 50A | 50B = SDRA01
-        SDA8 = 51A | 51B = SDDO        SDRA20 = 51A | 51B = SDRA02
-        SDA9 = 52A | 52B = SDD1        SDRA21 = 52A | 52B = SDRA03
-       SDA10 = 53A | 53B = SDD2        SDRA22 = 53A | 53B = SDRA04
-       SDA11 = 54A | 54B = SDD3        SDRA23 = 54A | 54B = SDRA05
-       SDA12 = 55A | 55B = SDD4        SDRMPX = 55A | 55B = SDRA06
-       SDA13 = 56A | 56B = SDD5         SDROE = 56A | 56B = SDRA07
-       SDA14 = 57A | 57B = SDD6           GND = 57A | 57B = GND
-       SDA15 = 58A | 58B = SDD7           GND = 58A | 58B = GND
-         GND = 59A | 59B = GND            GND = 59A | 59B = GND
-         GND = 60A | 60B = GND            GND = 60A | 60B = GND
-
-    CTRG1 (CHA)  = Contains gfx data ('C' - rom), text layer data ('S' - rom) and sound driver ('M' - rom)
-    CTRG2 (PROG) = Contains sample data ('V' - rom) and program code ('P' - rom)
-
-    NOTE: On CTRG2-B, The "A" lines start at "A1". If you trace this on an
-    actual cart, you will see that this is actually "A0" (A0 - A18).
-
-    These are from a very hard to read copy of the schematics, so
-    I hope that I got the pin names correct.
-
-    Apollo69 10/19/99
-
-
-*****************************************************************************
-
-    Watchdog:
-    =========
-
-    The watchdog timer will reset the system after ~0.13 seconds.
-    By cgfm's research, exactly 3,244,030 cycles (based on 24MHz clock).
-
-    Newer games force a reset using the following code (this from kof99):
-        009CDA  203C 0003 0D40             MOVE.L   #0x30D40,D0
-        009CE0  5380                       SUBQ.L   #1,D0
-        009CE2  64FC                       BCC.S    *-0x2 [0x9CE0]
-    Note however that there is a valid code path after this loop.
-
-    The watchdog is used as a form of protection on a number of games,
-    previously this was implemented as a specific hack which locked a single
-    address of SRAM.
-
-    What actually happens is if the game doesn't find valid data in the
-    backup ram it will initialize it, then sit in a loop.  The watchdog
-    should then reset the system while it is in this loop.  If the watchdog
-    fails to reset the system the code will continue and set a value in
-    backup ram to indiate that the protection check has failed.
-
-
-    Mahjong Panel notes (2009-03 FP):
-    =================================
-
-    * In Service Mode menu with mahjong panel active, controls are as
-      follows:
-
-        A = select / up (for options)
-        B = down (for options)
-        C = go to previous menu
-        E = up (for menu entries)
-        F = down (for menu entries)
-        G = left (for options)
-        H = right (for options)
-
-    * These only work with Japanese BIOS, but I think it's not a bug: I
-      doubt other BIOS were programmed to be compatible with mahjong panels
+    Old version for HBMAME. Will be converted to current MAME version as
+    time permits.
 
 ****************************************************************************/
-
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
-#include "includes/neogeo.h"
+#include "includes/nghb.h"
 #include "machine/nvram.h"
 #include "cpu/z80/z80.h"
 #include "sound/2610intf.h"
 #include "imagedev/cartslot.h"
-#include "neogeo.lh"
+#include "nghb.lh"
 
 
 #define LOG_VIDEO_SYSTEM         (0)
@@ -471,7 +40,7 @@
 #define IRQ2CTRL_AUTOLOAD_REPEAT    (0x80)
 
 
-void neogeo_state::adjust_display_position_interrupt_timer()
+void neogeo_class::adjust_display_position_interrupt_timer()
 {
 	attotime period = attotime::from_ticks((UINT64)m_display_counter + 1, NEOGEO_PIXEL_CLOCK);
 	if (LOG_VIDEO_SYSTEM) logerror("adjust_display_position_interrupt_timer  current y: %02x  current x: %02x   target y: %x  target x: %x\n", m_screen->vpos(), m_screen->hpos(), (m_display_counter + 1) / NEOGEO_HTOTAL, (m_display_counter + 1) % NEOGEO_HTOTAL);
@@ -480,13 +49,13 @@ void neogeo_state::adjust_display_position_interrupt_timer()
 }
 
 
-void neogeo_state::neogeo_set_display_position_interrupt_control( UINT16 data )
+void neogeo_class::neogeo_set_display_position_interrupt_control( UINT16 data )
 {
 	m_display_position_interrupt_control = data;
 }
 
 
-void neogeo_state::neogeo_set_display_counter_msb( UINT16 data )
+void neogeo_class::neogeo_set_display_counter_msb( UINT16 data )
 {
 	m_display_counter = (m_display_counter & 0x0000ffff) | ((UINT32)data << 16);
 
@@ -494,7 +63,7 @@ void neogeo_state::neogeo_set_display_counter_msb( UINT16 data )
 }
 
 
-void neogeo_state::neogeo_set_display_counter_lsb( UINT16 data )
+void neogeo_class::neogeo_set_display_counter_lsb( UINT16 data )
 {
 	m_display_counter = (m_display_counter & 0xffff0000) | data;
 
@@ -508,7 +77,7 @@ void neogeo_state::neogeo_set_display_counter_lsb( UINT16 data )
 }
 
 
-void neogeo_state::update_interrupts()
+void neogeo_class::update_interrupts()
 {
 	m_maincpu->set_input_line(3, m_irq3_pending ? ASSERT_LINE : CLEAR_LINE);
 	m_maincpu->set_input_line(m_raster_level, m_display_position_interrupt_pending ? ASSERT_LINE : CLEAR_LINE);
@@ -516,7 +85,7 @@ void neogeo_state::update_interrupts()
 }
 
 
-void neogeo_state::neogeo_acknowledge_interrupt( UINT16 data )
+void neogeo_class::neogeo_acknowledge_interrupt( UINT16 data )
 {
 	if (data & 0x01)
 		m_irq3_pending = 0;
@@ -529,7 +98,7 @@ void neogeo_state::neogeo_acknowledge_interrupt( UINT16 data )
 }
 
 
-TIMER_CALLBACK_MEMBER(neogeo_state::display_position_interrupt_callback)
+TIMER_CALLBACK_MEMBER(neogeo_class::display_position_interrupt_callback)
 {
 	if (LOG_VIDEO_SYSTEM) logerror("--- Scanline @ %d,%d\n", m_screen->vpos(), m_screen->hpos());
 
@@ -549,7 +118,7 @@ TIMER_CALLBACK_MEMBER(neogeo_state::display_position_interrupt_callback)
 }
 
 
-TIMER_CALLBACK_MEMBER(neogeo_state::display_position_vblank_callback)
+TIMER_CALLBACK_MEMBER(neogeo_class::display_position_vblank_callback)
 {
 	if (m_display_position_interrupt_control & IRQ2CTRL_AUTOLOAD_VBLANK)
 	{
@@ -562,7 +131,7 @@ TIMER_CALLBACK_MEMBER(neogeo_state::display_position_vblank_callback)
 }
 
 
-TIMER_CALLBACK_MEMBER(neogeo_state::vblank_interrupt_callback)
+TIMER_CALLBACK_MEMBER(neogeo_class::vblank_interrupt_callback)
 {
 	if (LOG_VIDEO_SYSTEM) logerror("+++ VBLANK @ %d,%d\n", m_screen->vpos(), m_screen->hpos());
 
@@ -574,15 +143,15 @@ TIMER_CALLBACK_MEMBER(neogeo_state::vblank_interrupt_callback)
 }
 
 
-void neogeo_state::create_interrupt_timers()
+void neogeo_class::create_interrupt_timers()
 {
-	m_display_position_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_state::display_position_interrupt_callback),this));
-	m_display_position_vblank_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_state::display_position_vblank_callback),this));
-	m_vblank_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_state::vblank_interrupt_callback),this));
+	m_display_position_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_class::display_position_interrupt_callback),this));
+	m_display_position_vblank_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_class::display_position_vblank_callback),this));
+	m_vblank_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_class::vblank_interrupt_callback),this));
 }
 
 
-void neogeo_state::start_interrupt_timers()
+void neogeo_class::start_interrupt_timers()
 {
 	m_vblank_interrupt_timer->adjust(m_screen->time_until_pos(NEOGEO_VBSTART) + NEOGEO_VBLANK_IRQ_HTIM);
 	m_display_position_vblank_timer->adjust(m_screen->time_until_pos(NEOGEO_VBSTART) + NEOGEO_VBLANK_RELOAD_HTIM);
@@ -596,12 +165,12 @@ void neogeo_state::start_interrupt_timers()
  *
  *************************************/
 
-void neogeo_state::audio_cpu_check_nmi()
+void neogeo_class::audio_cpu_check_nmi()
 {
 	m_audiocpu->set_input_line(INPUT_LINE_NMI, (m_audio_cpu_nmi_enabled && m_audio_cpu_nmi_pending) ? ASSERT_LINE : CLEAR_LINE);
 }
 
-WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
+WRITE8_MEMBER(neogeo_class::audio_cpu_enable_nmi_w)
 {
 	// out ($08) enables the nmi, out ($18) disables it
 	m_audio_cpu_nmi_enabled = !(offset & 0x10);
@@ -616,13 +185,13 @@ WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
  *
  *************************************/
 
-void neogeo_state::select_controller( UINT8 data )
+void neogeo_class::select_controller( UINT8 data )
 {
 	m_controller_select = data;
 }
 
 
-CUSTOM_INPUT_MEMBER(neogeo_state::multiplexed_controller_r)
+CUSTOM_INPUT_MEMBER(neogeo_class::multiplexed_controller_r)
 {
 	int port = (FPTR)param;
 
@@ -634,7 +203,7 @@ CUSTOM_INPUT_MEMBER(neogeo_state::multiplexed_controller_r)
 	return ioport(cntrl[port][m_controller_select & 0x01])->read_safe(0x00);
 }
 
-CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_controller_r)
+CUSTOM_INPUT_MEMBER(neogeo_class::kizuna4p_controller_r)
 {
 	int port = (FPTR)param;
 
@@ -649,13 +218,13 @@ CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_controller_r)
 	return ret;
 }
 
-CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_start_r)
+CUSTOM_INPUT_MEMBER(neogeo_class::kizuna4p_start_r)
 {
 	return (ioport("START")->read() >> (m_controller_select & 0x01)) | ~0x05;
 }
 
 #if 1 // this needs to be added dynamically somehow
-CUSTOM_INPUT_MEMBER(neogeo_state::mahjong_controller_r)
+CUSTOM_INPUT_MEMBER(neogeo_class::mahjong_controller_r)
 {
 	UINT32 ret;
 
@@ -680,7 +249,7 @@ cpu #0 (PC=00C18C40): unmapped memory word write to 00380000 = 0000 & 00FF
 }
 #endif
 
-WRITE8_MEMBER(neogeo_state::io_control_w)
+WRITE8_MEMBER(neogeo_class::io_control_w)
 {
 	switch (offset)
 	{
@@ -725,7 +294,7 @@ WRITE8_MEMBER(neogeo_state::io_control_w)
  *
  *************************************/
 
-READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
+READ16_MEMBER(neogeo_class::neogeo_unmapped_r)
 {
 	UINT16 ret;
 
@@ -752,13 +321,13 @@ READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
  *
  *************************************/
 
-void neogeo_state::set_save_ram_unlock( UINT8 data )
+void neogeo_class::set_save_ram_unlock( UINT8 data )
 {
 	m_save_ram_unlocked = data;
 }
 
 
-WRITE16_MEMBER(neogeo_state::save_ram_w)
+WRITE16_MEMBER(neogeo_class::save_ram_w)
 {
 	if (m_save_ram_unlocked)
 		COMBINE_DATA(&m_save_ram[offset]);
@@ -772,7 +341,7 @@ WRITE16_MEMBER(neogeo_state::save_ram_w)
  *
  *************************************/
 
-CUSTOM_INPUT_MEMBER(neogeo_state::get_memcard_status)
+CUSTOM_INPUT_MEMBER(neogeo_class::get_memcard_status)
 {
 	// D0 and D1 are memcard 1 and 2 presence indicators, D2 indicates memcard
 	// write protect status (we are always write enabled)
@@ -780,7 +349,7 @@ CUSTOM_INPUT_MEMBER(neogeo_state::get_memcard_status)
 }
 
 
-READ16_MEMBER(neogeo_state::memcard_r)
+READ16_MEMBER(neogeo_class::memcard_r)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
@@ -795,7 +364,7 @@ READ16_MEMBER(neogeo_state::memcard_r)
 }
 
 
-WRITE16_MEMBER(neogeo_state::memcard_w)
+WRITE16_MEMBER(neogeo_class::memcard_w)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
@@ -812,7 +381,7 @@ WRITE16_MEMBER(neogeo_state::memcard_w)
  *
  *************************************/
 
-WRITE8_MEMBER(neogeo_state::audio_command_w)
+WRITE8_MEMBER(neogeo_class::audio_command_w)
 {
 	soundlatch_write(data);
 
@@ -824,7 +393,7 @@ WRITE8_MEMBER(neogeo_state::audio_command_w)
 }
 
 
-READ8_MEMBER(neogeo_state::audio_command_r)
+READ8_MEMBER(neogeo_class::audio_command_r)
 {
 	UINT8 ret = soundlatch_read();
 
@@ -835,7 +404,7 @@ READ8_MEMBER(neogeo_state::audio_command_r)
 }
 
 
-CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
+CUSTOM_INPUT_MEMBER(neogeo_class::get_audio_result)
 {
 	UINT8 ret = soundlatch_read(1); // soundlatch2_byte_r
 
@@ -850,7 +419,7 @@ CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
  *
  *************************************/
 
-void neogeo_state::_set_main_cpu_bank_address()
+void neogeo_class::_set_main_cpu_bank_address()
 {
 	if (m_type == NEOGEO_CD) return;
 
@@ -858,7 +427,7 @@ void neogeo_state::_set_main_cpu_bank_address()
 }
 
 
-void neogeo_state::neogeo_set_main_cpu_bank_address( UINT32 bank_address )
+void neogeo_class::neogeo_set_main_cpu_bank_address( UINT32 bank_address )
 {
 	if (LOG_MAIN_CPU_BANKING) logerror("MAIN CPU PC %06x: neogeo_set_main_cpu_bank_address %06x\n", m_maincpu->pc(), bank_address);
 
@@ -868,7 +437,7 @@ void neogeo_state::neogeo_set_main_cpu_bank_address( UINT32 bank_address )
 }
 
 
-WRITE16_MEMBER(neogeo_state::main_cpu_bank_select_w)
+WRITE16_MEMBER(neogeo_class::main_cpu_bank_select_w)
 {
 	UINT32 bank_address;
 	UINT32 len = m_region_maincpu->bytes();
@@ -890,7 +459,7 @@ WRITE16_MEMBER(neogeo_state::main_cpu_bank_select_w)
 }
 
 
-void neogeo_state::neogeo_main_cpu_banking_init()
+void neogeo_class::neogeo_main_cpu_banking_init()
 {
 	/* create vector banks */
 	m_bank_vectors->configure_entry(1, m_region_maincpu->base());
@@ -914,7 +483,7 @@ void neogeo_state::neogeo_main_cpu_banking_init()
  *
  *************************************/
 
-READ8_MEMBER(neogeo_state::audio_cpu_bank_select_r)
+READ8_MEMBER(neogeo_class::audio_cpu_bank_select_r)
 {
 	m_bank_audio_cart[offset & 3]->set_entry(offset >> 8);
 
@@ -922,7 +491,7 @@ READ8_MEMBER(neogeo_state::audio_cpu_bank_select_r)
 }
 
 
-void neogeo_state::neogeo_audio_cpu_banking_init()
+void neogeo_class::neogeo_audio_cpu_banking_init()
 {
 	if (m_type == NEOGEO_CD) return;
 
@@ -978,7 +547,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init()
  *
  *************************************/
 
-WRITE8_MEMBER(neogeo_state::system_control_w)
+WRITE8_MEMBER(neogeo_class::system_control_w)
 {
 	UINT8 bit = (offset >> 3) & 0x01;
 
@@ -1031,7 +600,7 @@ WRITE8_MEMBER(neogeo_state::system_control_w)
  *
  *************************************/
 
-void neogeo_state::set_outputs(  )
+void neogeo_class::set_outputs(  )
 {
 	static const UINT8 led_map[0x10] =
 		{ 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x58,0x4c,0x62,0x69,0x78,0x00 };
@@ -1049,7 +618,7 @@ void neogeo_state::set_outputs(  )
 }
 
 
-void neogeo_state::set_output_latch( UINT8 data )
+void neogeo_class::set_output_latch( UINT8 data )
 {
 	/* looks like the LEDs are set on the
 	   falling edge */
@@ -1073,7 +642,7 @@ void neogeo_state::set_output_latch( UINT8 data )
 }
 
 
-void neogeo_state::set_output_data( UINT8 data )
+void neogeo_class::set_output_data( UINT8 data )
 {
 	m_output_data = data;
 }
@@ -1086,20 +655,20 @@ void neogeo_state::set_output_data( UINT8 data )
  *
  *************************************/
 
-DRIVER_INIT_MEMBER(neogeo_state,neogeo)
+DRIVER_INIT_MEMBER(neogeo_class,neogeo)
 {
 	m_sprgen->m_fixed_layer_bank_type = 0;
 }
 
 
-void neogeo_state::neogeo_postload()
+void neogeo_class::neogeo_postload()
 {
 	_set_main_cpu_bank_address();
 	if (m_type == NEOGEO_MVS) set_outputs();
 }
 
 
-void neogeo_state::machine_start()
+void neogeo_class::machine_start()
 {
 	m_type = NEOGEO_MVS;
 
@@ -1142,7 +711,7 @@ void neogeo_state::machine_start()
 	save_item(NAME(m_led1_value));
 	save_item(NAME(m_led2_value));
 
-	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_state::neogeo_postload), this));
+	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_class::neogeo_postload), this));
 
 	
 	m_sprgen->set_screen(m_screen);
@@ -1159,7 +728,7 @@ void neogeo_state::machine_start()
  *
  *************************************/
 
-void neogeo_state::machine_reset()
+void neogeo_class::machine_reset()
 {
 	offs_t offs;
 	address_space &space = m_maincpu->space(AS_PROGRAM);
@@ -1194,7 +763,7 @@ void neogeo_state::machine_reset()
  *
  *************************************/
 
-static ADDRESS_MAP_START( main_map, AS_PROGRAM, 16, neogeo_state )
+static ADDRESS_MAP_START( main_map, AS_PROGRAM, 16, neogeo_class )
 	AM_RANGE(0x000000, 0x00007f) AM_ROMBANK("vectors")
 	AM_RANGE(0x000080, 0x0fffff) AM_ROM
 	AM_RANGE(0x100000, 0x10ffff) AM_MIRROR(0x0f0000) AM_RAM
@@ -1229,7 +798,7 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( audio_map, AS_PROGRAM, 8, neogeo_state )
+static ADDRESS_MAP_START( audio_map, AS_PROGRAM, 8, neogeo_class )
 	AM_RANGE(0x0000, 0x7fff) AM_ROMBANK("audio_main")
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("audio_8000")
 	AM_RANGE(0xc000, 0xdfff) AM_ROMBANK("audio_c000")
@@ -1246,7 +815,7 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( audio_io_map, AS_IO, 8, neogeo_state )
+static ADDRESS_MAP_START( audio_io_map, AS_IO, 8, neogeo_class )
 	AM_RANGE(0x00, 0x00) AM_MIRROR(0xff00) AM_READWRITE(audio_command_r, soundlatch_clear_byte_w)
 	AM_RANGE(0x04, 0x07) AM_MIRROR(0xff00) AM_DEVREADWRITE("ymsnd", ym2610_device, read, write)
 	AM_RANGE(0x08, 0x08) AM_MIRROR(0xff10) AM_MASK(0x0010) AM_WRITE(audio_cpu_enable_nmi_w)
@@ -1314,7 +883,7 @@ static INPUT_PORTS_START( neogeo )
 	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Next Game") PORT_CODE(KEYCODE_3)
 	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Previous Game") PORT_CODE(KEYCODE_4)
-	PORT_BIT( 0x7000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state, get_memcard_status, NULL)
+	PORT_BIT( 0x7000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class, get_memcard_status, NULL)
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_SPECIAL ) /* Hardware type (AES=0, MVS=1). Some games check this and show a piracy warning screen if the hardware and BIOS don't match */
 
 	PORT_START("AUDIO/COIN")
@@ -1326,7 +895,7 @@ static INPUT_PORTS_START( neogeo )
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_SPECIAL ) /* what is this? When ACTIVE_HIGH + IN4 bit 6 ACTIVE_LOW MVS-4 slot is detected */
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("upd4990a", upd1990a_device, tp_r)
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("upd4990a", upd1990a_device, data_out_r)
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,get_audio_result, NULL)
+	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class,get_audio_result, NULL)
 
 	PORT_START("TEST")
 	PORT_BIT( 0x003f, IP_ACTIVE_HIGH, IPT_UNUSED )
@@ -1338,254 +907,254 @@ INPUT_PORTS_END
 
 // Game specific input definitions
 
-static INPUT_PORTS_START( dualbios )
-	PORT_INCLUDE( neogeo )
+//static INPUT_PORTS_START( dualbios )
+//	PORT_INCLUDE( neogeo )
 
 	/* the rom banking seems to be tied directly to the dipswitch */
-	PORT_MODIFY("P1/DSW")
-	PORT_DIPNAME( 0x0004, 0x0000, DEF_STR( Region ) ) PORT_DIPLOCATION("SW:3") PORT_CHANGED_MEMBER(DEVICE_SELF, neogeo_state, select_bios, 0)
-	PORT_DIPSETTING(    0x0000, DEF_STR( Asia ) )
-	PORT_DIPSETTING(    0x0004, DEF_STR( Japan ) )
-INPUT_PORTS_END
+//	PORT_MODIFY("P1/DSW")
+//	PORT_DIPNAME( 0x0004, 0x0000, DEF_STR( Region ) ) PORT_DIPLOCATION("SW:3") PORT_CHANGED_MEMBER(DEVICE_SELF, neogeo_class, select_bios, 0)
+//	PORT_DIPSETTING(    0x0000, DEF_STR( Asia ) )
+//	PORT_DIPSETTING(    0x0004, DEF_STR( Japan ) )
+//INPUT_PORTS_END
 
 
-static INPUT_PORTS_START( kog )
-	PORT_INCLUDE( neogeo )
+//static INPUT_PORTS_START( kog )
+//	PORT_INCLUDE( neogeo )
 
 	/* a jumper on the pcb overlays a ROM address, very strange but that's how it works. */
-	PORT_START("JUMPER")
-	PORT_DIPNAME( 0x0001, 0x0001, "Title Language" ) PORT_DIPLOCATION("CART-JUMPER:1")
-	PORT_DIPSETTING(      0x0001, DEF_STR( English ) )
-	PORT_DIPSETTING(      0x0000, "Non-English" )
-	PORT_BIT( 0x00fe, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNUSED )
-INPUT_PORTS_END
+//	PORT_START("JUMPER")
+//	PORT_DIPNAME( 0x0001, 0x0001, "Title Language" ) PORT_DIPLOCATION("CART-JUMPER:1")
+//	PORT_DIPSETTING(      0x0001, DEF_STR( English ) )
+//	PORT_DIPSETTING(      0x0000, "Non-English" )
+//	PORT_BIT( 0x00fe, IP_ACTIVE_HIGH, IPT_UNUSED )
+//	PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNUSED )
+//INPUT_PORTS_END
 
 
-static INPUT_PORTS_START( mjneogeo )
-	PORT_INCLUDE( neogeo )
+//static INPUT_PORTS_START( mjneogeo )
+//	PORT_INCLUDE( neogeo )
 
-	PORT_MODIFY("P1/DSW")
-	PORT_DIPNAME( 0x0004, 0x0000, DEF_STR( Controller ) ) PORT_DIPLOCATION("SW:3")
-	PORT_DIPSETTING(      0x0004, DEF_STR( Joystick ) )
-	PORT_DIPSETTING(      0x0000, "Mahjong Panel" )
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,mahjong_controller_r, NULL)
+//	PORT_MODIFY("P1/DSW")
+//	PORT_DIPNAME( 0x0004, 0x0000, DEF_STR( Controller ) ) PORT_DIPLOCATION("SW:3")
+//	PORT_DIPSETTING(      0x0004, DEF_STR( Joystick ) )
+//	PORT_DIPSETTING(      0x0000, "Mahjong Panel" )
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class,mahjong_controller_r, NULL)
 
-	PORT_START("MAHJONG1")
-	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_MAHJONG_A )
-	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_MAHJONG_B )
-	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_MAHJONG_C )
-	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_MAHJONG_D )
-	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_MAHJONG_E )
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_MAHJONG_F )
-	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_MAHJONG_G )
-	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
+//	PORT_START("MAHJONG1")
+//	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_MAHJONG_A )
+//	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_MAHJONG_B )
+//	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_MAHJONG_C )
+//	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_MAHJONG_D )
+//	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_MAHJONG_E )
+//	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_MAHJONG_F )
+//	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_MAHJONG_G )
+//	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-	PORT_START("MAHJONG2")
-	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_MAHJONG_H )
-	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_MAHJONG_I )
-	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_MAHJONG_J )
-	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_MAHJONG_K )
-	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_MAHJONG_L )
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_MAHJONG_M )
-	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_MAHJONG_N )
-	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
+//	PORT_START("MAHJONG2")
+//	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_MAHJONG_H )
+//	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_MAHJONG_I )
+//	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_MAHJONG_J )
+//	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_MAHJONG_K )
+//	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_MAHJONG_L )
+//	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_MAHJONG_M )
+//	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_MAHJONG_N )
+//	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-	PORT_START("MAHJONG3")
-	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_JOYSTICK_UP )
-	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN )
-	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT )
-	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT )
-	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_BUTTON1 )
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON2 )
-	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_BUTTON3 )
-	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_BUTTON4 )
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
+//	PORT_START("MAHJONG3")
+//	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_JOYSTICK_UP )
+//	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN )
+//	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT )
+//	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT )
+//	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_BUTTON1 )
+//	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON2 )
+//	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_BUTTON3 )
+//	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_BUTTON4 )
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-	PORT_START("MAHJONG4")
-	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_MAHJONG_PON )
-	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_MAHJONG_CHI )
-	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_MAHJONG_KAN )
-	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_MAHJONG_RON )
-	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_MAHJONG_REACH )
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
+//	PORT_START("MAHJONG4")
+//	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_MAHJONG_PON )
+//	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_MAHJONG_CHI )
+//	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_MAHJONG_KAN )
+//	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_MAHJONG_RON )
+//	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_MAHJONG_REACH )
+//	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_UNUSED )
+//INPUT_PORTS_END
 
-static INPUT_PORTS_START( kizuna4p )
-	PORT_INCLUDE( neogeo )
+//static INPUT_PORTS_START( kizuna4p )
+//	PORT_INCLUDE( neogeo )
 
-	PORT_MODIFY("P1/DSW")
-	PORT_DIPNAME( 0x0002, 0x0000, DEF_STR( Players ) ) PORT_DIPLOCATION("SW:2")
-	PORT_DIPSETTING(      0x0002, "2" )
-	PORT_DIPSETTING(      0x0000, "4" )
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state, kizuna4p_controller_r, (void *)0)
+//	PORT_MODIFY("P1/DSW")
+//	PORT_DIPNAME( 0x0002, 0x0000, DEF_STR( Players ) ) PORT_DIPLOCATION("SW:2")
+//	PORT_DIPSETTING(      0x0002, "2" )
+//	PORT_DIPSETTING(      0x0000, "4" )
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class, kizuna4p_controller_r, (void *)0)
 
-	PORT_MODIFY("P2")
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state, kizuna4p_controller_r, (void *)1)
+//	PORT_MODIFY("P2")
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class, kizuna4p_controller_r, (void *)1)
 
-	PORT_MODIFY("SYSTEM")
-	PORT_BIT( 0x0f00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state, kizuna4p_start_r, NULL)
-
-	/* Fake inputs read by CUSTOM_INPUT handlers */
-	PORT_START("IN0-0")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(1)
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(1)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(1)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(1)
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(1)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(1)
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(1)
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(1)
-
-	PORT_START("IN0-1")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(3)
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(3)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(3)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(3)
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(3)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(3)
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(3)
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(3)
-
-	PORT_START("IN1-0")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(2)
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(2)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2)
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2)
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(2)
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(2)
-
-	PORT_START("IN1-1")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(4)
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(4)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(4)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(4)
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(4)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(4)
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(4)
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(4)
-
-	PORT_START("START")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_START1 )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_START3 )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_START2 )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_START4 )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( irrmaze )
-	PORT_INCLUDE( neogeo )
-
-	PORT_MODIFY("P1/DSW")
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,multiplexed_controller_r, (void *)0)
-
-	PORT_MODIFY("P2")
-	PORT_BIT( 0x0fff, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(1)
-	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(1)
-	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2)
-	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2)
-
-	PORT_MODIFY("SYSTEM")
-	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_UNUSED )
-
-	PORT_START("IN0-0")
-	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_X ) PORT_SENSITIVITY(10) PORT_KEYDELTA(20) PORT_REVERSE
-
-	PORT_START("IN0-1")
-	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(10) PORT_KEYDELTA(20) PORT_REVERSE
-INPUT_PORTS_END
-
-
-static INPUT_PORTS_START( popbounc )
-	PORT_INCLUDE( neogeo )
-
-	PORT_MODIFY("P1/DSW")
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,multiplexed_controller_r, (void *)0)
-
-	PORT_MODIFY("P2")
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,multiplexed_controller_r, (void *)1)
+//	PORT_MODIFY("SYSTEM")
+//	PORT_BIT( 0x0f00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class, kizuna4p_start_r, NULL)
 
 	/* Fake inputs read by CUSTOM_INPUT handlers */
-	PORT_START("IN0-0")
-	PORT_BIT( 0xff, 0x00, IPT_DIAL ) PORT_SENSITIVITY(25) PORT_KEYDELTA(20)
+//	PORT_START("IN0-0")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(1)
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(1)
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(1)
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(1)
+//	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(1)
+//	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(1)
+//	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(1)
+//	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(1)
 
-	PORT_START("IN0-1")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT )
-	PORT_BIT( 0x90, IP_ACTIVE_LOW, IPT_BUTTON1 ) /* note it needs it from 0x80 when using paddle */
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 )
+//	PORT_START("IN0-1")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(3)
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(3)
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(3)
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(3)
+//	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(3)
+//	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(3)
+//	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(3)
+//	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(3)
 
-	PORT_START("IN1-0")
-	PORT_BIT( 0xff, 0x00, IPT_DIAL  ) PORT_SENSITIVITY(25) PORT_KEYDELTA(20) PORT_PLAYER(2)
+//	PORT_START("IN1-0")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(2)
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(2)
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2)
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2)
+//	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2)
+//	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2)
+//	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(2)
+//	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(2)
 
-	PORT_START("IN1-1")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(2)
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(2)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2)
-	PORT_BIT( 0x90, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2) /* note it needs it from 0x80 when using paddle */
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2)
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(2)
-INPUT_PORTS_END
+//	PORT_START("IN1-1")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(4)
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(4)
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(4)
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(4)
+//	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(4)
+//	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(4)
+//	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(4)
+//	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(4)
+
+//	PORT_START("START")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_START1 )
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_START3 )
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_START2 )
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_START4 )
+//INPUT_PORTS_END
+
+//static INPUT_PORTS_START( irrmaze )
+//	PORT_INCLUDE( neogeo )
+
+//	PORT_MODIFY("P1/DSW")
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class,multiplexed_controller_r, (void *)0)
+
+//	PORT_MODIFY("P2")
+//	PORT_BIT( 0x0fff, IP_ACTIVE_LOW, IPT_UNUSED )
+//	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(1)
+//	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(1)
+//	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2)
+//	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2)
+
+//	PORT_MODIFY("SYSTEM")
+//	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_UNUSED )
+//	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_UNUSED )
+
+//	PORT_START("IN0-0")
+//	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_X ) PORT_SENSITIVITY(10) PORT_KEYDELTA(20) PORT_REVERSE
+
+//	PORT_START("IN0-1")
+//	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(10) PORT_KEYDELTA(20) PORT_REVERSE
+//INPUT_PORTS_END
 
 
-static INPUT_PORTS_START( vliner )
-	PORT_INCLUDE( neogeo )
+//static INPUT_PORTS_START( popbounc )
+//	PORT_INCLUDE( neogeo )
 
-	PORT_MODIFY("P1/DSW")
-	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_NAME("View Payout Table/Big")
-	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_NAME("Bet/Small")
-	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_NAME("Stop/Double Up")
-	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("Start/Collect")
+//	PORT_MODIFY("P1/DSW")
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class,multiplexed_controller_r, (void *)0)
 
-	PORT_MODIFY("P2")
-	PORT_BIT( 0xffff, IP_ACTIVE_LOW, IPT_UNUSED )
+//	PORT_MODIFY("P2")
+//	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_class,multiplexed_controller_r, (void *)1)
 
-	PORT_MODIFY("SYSTEM")
-	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* this bit is used.. */
-	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* this bit is used.. */
+	/* Fake inputs read by CUSTOM_INPUT handlers */
+//	PORT_START("IN0-0")
+//	PORT_BIT( 0xff, 0x00, IPT_DIAL ) PORT_SENSITIVITY(25) PORT_KEYDELTA(20)
 
-	PORT_MODIFY("AUDIO/COIN")
-	PORT_BIT( 0x003f, IP_ACTIVE_LOW, IPT_UNUSED )
+//	PORT_START("IN0-1")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP )
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN )
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT )
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT )
+//	PORT_BIT( 0x90, IP_ACTIVE_LOW, IPT_BUTTON1 ) /* note it needs it from 0x80 when using paddle */
+//	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 )
+//	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 )
 
-	PORT_START("IN5")
-	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_COIN1 )
-	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_COIN2 )
-	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Operator Menu") PORT_CODE(KEYCODE_F1)
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("Clear Credit")
-	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("Hopper Out")
-	PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_START("IN1-0")
+//	PORT_BIT( 0xff, 0x00, IPT_DIAL  ) PORT_SENSITIVITY(25) PORT_KEYDELTA(20) PORT_PLAYER(2)
+
+//	PORT_START("IN1-1")
+//	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(2)
+//	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_PLAYER(2)
+//	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2)
+//	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2)
+//	PORT_BIT( 0x90, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2) /* note it needs it from 0x80 when using paddle */
+//	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2)
+//	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(2)
+//INPUT_PORTS_END
+
+
+//static INPUT_PORTS_START( vliner )
+//	PORT_INCLUDE( neogeo )
+
+//	PORT_MODIFY("P1/DSW")
+//	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_NAME("View Payout Table/Big")
+//	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_NAME("Bet/Small")
+//	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_NAME("Stop/Double Up")
+//	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("Start/Collect")
+
+//	PORT_MODIFY("P2")
+//	PORT_BIT( 0xffff, IP_ACTIVE_LOW, IPT_UNUSED )
+
+//	PORT_MODIFY("SYSTEM")
+//	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_UNUSED )
+//	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* this bit is used.. */
+//	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_UNUSED )
+//	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* this bit is used.. */
+
+//	PORT_MODIFY("AUDIO/COIN")
+//	PORT_BIT( 0x003f, IP_ACTIVE_LOW, IPT_UNUSED )
+
+//	PORT_START("IN5")
+//	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_COIN1 )
+//	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_COIN2 )
+//	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Operator Menu") PORT_CODE(KEYCODE_F1)
+//	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("Clear Credit")
+//	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("Hopper Out")
+//	PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
 	/* not sure what any of these bits are */
-	PORT_START("IN6")
-	PORT_BIT( 0x0003, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0xffc0, IP_ACTIVE_HIGH, IPT_UNKNOWN )
-INPUT_PORTS_END
+//	PORT_START("IN6")
+//	PORT_BIT( 0x0003, IP_ACTIVE_LOW, IPT_UNKNOWN )
+//	PORT_BIT( 0xffc0, IP_ACTIVE_HIGH, IPT_UNKNOWN )
+//INPUT_PORTS_END
 
 
-static INPUT_PORTS_START( jockeygp )
-	PORT_INCLUDE( neogeo )
+//static INPUT_PORTS_START( jockeygp )
+//	PORT_INCLUDE( neogeo )
 
-	PORT_MODIFY("SYSTEM")
-	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* game freezes with this bit enabled */
-	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* game freezes with this bit enabled */
-INPUT_PORTS_END
+//	PORT_MODIFY("SYSTEM")
+//	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* game freezes with this bit enabled */
+//	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_UNKNOWN ) /* game freezes with this bit enabled */
+//INPUT_PORTS_END
 
 
 
@@ -1595,7 +1164,7 @@ INPUT_PORTS_END
  *
  *************************************/
 
-DEVICE_IMAGE_LOAD_MEMBER( neogeo_state, neo_cartridge )
+DEVICE_IMAGE_LOAD_MEMBER( neogeo_class, neo_cartridge )
 {
 	UINT32 size;
 	device_t* ym = machine().device("ymsnd");
@@ -1687,14 +1256,14 @@ DEVICE_IMAGE_LOAD_MEMBER( neogeo_state, neo_cartridge )
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,mvs)
+DRIVER_INIT_MEMBER(neogeo_class,mvs)
 {
 	DRIVER_INIT_CALL(neogeo);
 }
 
 
 // handle protected carts
-void neogeo_state::mvs_install_protection(device_image_interface& image)
+void neogeo_class::mvs_install_protection(device_image_interface& image)
 {
 	const char *crypt_feature = image.get_feature( "crypt" );
 
@@ -1776,7 +1345,7 @@ void neogeo_state::mvs_install_protection(device_image_interface& image)
  *
  *************************************/
 
-MACHINE_CONFIG_START( neogeo_base, neogeo_state )
+MACHINE_CONFIG_START( nghb_base, neogeo_class )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
@@ -1787,16 +1356,16 @@ MACHINE_CONFIG_START( neogeo_base, neogeo_state )
 	MCFG_CPU_IO_MAP(audio_io_map)
 
 	/* video hardware */
-	MCFG_DEFAULT_LAYOUT(layout_neogeo)
+	MCFG_DEFAULT_LAYOUT(layout_nghb)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(neogeo_state, screen_update_neogeo)
+	MCFG_SCREEN_UPDATE_DRIVER(neogeo_class, screen_update_neogeo)
 
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
 
-	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE_OPTIMZIED, 0)
+	MCFG_DEVICE_ADD("spritegen", XNEOGEO_SPRITE_OPTIMZIED, 0)
 	
 	/* audio hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
@@ -1809,22 +1378,22 @@ MACHINE_CONFIG_START( neogeo_base, neogeo_state )
 	MCFG_SOUND_ROUTE(2, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( neogeo, neogeo_base )
+static MACHINE_CONFIG_DERIVED( neogeo, nghb_base )
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK))
 
 	MCFG_UPD4990A_ADD("upd4990a", XTAL_32_768kHz, NULL, NULL)
 
 	MCFG_NVRAM_ADD_0FILL("saveram")
-	MCFG_NEOGEO_MEMCARD_ADD("memcard")
+	MCFG_XNEOGEO_MEMCARD_ADD("memcard")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mvs, neogeo )
-	MCFG_CARTSLOT_ADD("cart")
-	MCFG_CARTSLOT_LOAD(neogeo_state,neo_cartridge)
-	MCFG_CARTSLOT_INTERFACE("neo_cart")
+//static MACHINE_CONFIG_DERIVED( mvs, neogeo )
+//	MCFG_CARTSLOT_ADD("cart")
+//	MCFG_CARTSLOT_LOAD(neogeo_class,neo_cartridge)
+//	MCFG_CARTSLOT_INTERFACE("neo_cart")
 
-	MCFG_SOFTWARE_LIST_ADD("cart_list","neogeo")
-MACHINE_CONFIG_END
+//	MCFG_SOFTWARE_LIST_ADD("cart_list","neogeo")
+//MACHINE_CONFIG_END
 
 
 
@@ -10210,33 +9779,33 @@ ROM_END
  *
  *************************************/
 
-DRIVER_INIT_MEMBER(neogeo_state,fatfury2)
+DRIVER_INIT_MEMBER(neogeo_class,fatfury2)
 {
 	DRIVER_INIT_CALL(neogeo);
 	fatfury2_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,zupapa)
+DRIVER_INIT_MEMBER(neogeo_class,zupapa)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0xbd);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof98)
+DRIVER_INIT_MEMBER(neogeo_class,kof98)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof98_decrypt_68k();
 	install_kof98_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslugx)
+DRIVER_INIT_MEMBER(neogeo_class,mslugx)
 {
 	DRIVER_INIT_CALL(neogeo);
 	mslugx_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof99)
+DRIVER_INIT_MEMBER(neogeo_class,kof99)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof99_decrypt_68k();
@@ -10245,14 +9814,14 @@ DRIVER_INIT_MEMBER(neogeo_state,kof99)
 	kof99_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof99k)
+DRIVER_INIT_MEMBER(neogeo_class,kof99k)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0x00);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,garou)
+DRIVER_INIT_MEMBER(neogeo_class,garou)
 {
 	DRIVER_INIT_CALL(neogeo);
 	garou_decrypt_68k();
@@ -10261,7 +9830,7 @@ DRIVER_INIT_MEMBER(neogeo_state,garou)
 	garou_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,garouh)
+DRIVER_INIT_MEMBER(neogeo_class,garouh)
 {
 	DRIVER_INIT_CALL(neogeo);
 	garouh_decrypt_68k();
@@ -10270,14 +9839,14 @@ DRIVER_INIT_MEMBER(neogeo_state,garouh)
 	garouh_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,garoubl)
+DRIVER_INIT_MEMBER(neogeo_class,garoubl)
 {
 	DRIVER_INIT_CALL(neogeo);
 	neogeo_bootleg_sx_decrypt(2);
 	neogeo_bootleg_cx_decrypt();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug3)
+DRIVER_INIT_MEMBER(neogeo_class,mslug3)
 {
 	DRIVER_INIT_CALL(neogeo);
 	mslug3_decrypt_68k();
@@ -10286,21 +9855,21 @@ DRIVER_INIT_MEMBER(neogeo_state,mslug3)
 	mslug3_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug3h)
+DRIVER_INIT_MEMBER(neogeo_class,mslug3h)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0xad);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug3b6)
+DRIVER_INIT_MEMBER(neogeo_class,mslug3b6)
 {
 	DRIVER_INIT_CALL(neogeo);
 	neogeo_bootleg_sx_decrypt(2);
 	cmc42_neogeo_gfx_decrypt(0xad);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2000)
+DRIVER_INIT_MEMBER(neogeo_class,kof2000)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof2000_decrypt_68k();
@@ -10310,7 +9879,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2000)
 	kof2000_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2000n)
+DRIVER_INIT_MEMBER(neogeo_class,kof2000n)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -10318,7 +9887,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2000n)
 	kof2000_neogeo_gfx_decrypt(0x00);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2001)
+DRIVER_INIT_MEMBER(neogeo_class,kof2001)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -10326,28 +9895,28 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2001)
 	neogeo_cmc50_m1_decrypt();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,cthd2003)
+DRIVER_INIT_MEMBER(neogeo_class,cthd2003)
 {
 	DRIVER_INIT_CALL(neogeo);
 	decrypt_cthd2003();
 	patch_cthd2003();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ct2k3sp)
+DRIVER_INIT_MEMBER(neogeo_class,ct2k3sp)
 {
 	DRIVER_INIT_CALL(neogeo);
 	decrypt_ct2k3sp();
 	patch_cthd2003();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ct2k3sa)
+DRIVER_INIT_MEMBER(neogeo_class,ct2k3sa)
 {
 	DRIVER_INIT_CALL(neogeo);
 	decrypt_ct2k3sa();
 	patch_ct2k3sa();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug4)
+DRIVER_INIT_MEMBER(neogeo_class,mslug4)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1; /* USA violent content screen is wrong -- not a bug, confirmed on real hardware! */
@@ -10356,7 +9925,7 @@ DRIVER_INIT_MEMBER(neogeo_state,mslug4)
 	neo_pcm2_snk_1999(8);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ms4plus)
+DRIVER_INIT_MEMBER(neogeo_class,ms4plus)
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x31);
@@ -10364,49 +9933,49 @@ DRIVER_INIT_MEMBER(neogeo_state,ms4plus)
 	neogeo_cmc50_m1_decrypt();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ganryu)
+DRIVER_INIT_MEMBER(neogeo_class,ganryu)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0x07);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,s1945p)
+DRIVER_INIT_MEMBER(neogeo_class,s1945p)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0x05);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,preisle2)
+DRIVER_INIT_MEMBER(neogeo_class,preisle2)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0x9f);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,bangbead)
+DRIVER_INIT_MEMBER(neogeo_class,bangbead)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0xf8);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,nitd)
+DRIVER_INIT_MEMBER(neogeo_class,nitd)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0xff);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,sengoku3)
+DRIVER_INIT_MEMBER(neogeo_class,sengoku3)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	kof99_neogeo_gfx_decrypt(0xfe);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,rotd)
+DRIVER_INIT_MEMBER(neogeo_class,rotd)
 {
 	DRIVER_INIT_CALL(neogeo);
 	neo_pcm2_snk_1999(16);
@@ -10415,7 +9984,7 @@ DRIVER_INIT_MEMBER(neogeo_state,rotd)
 	kof2000_neogeo_gfx_decrypt(0x3f);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2002)
+DRIVER_INIT_MEMBER(neogeo_class,kof2002)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof2002_decrypt_68k();
@@ -10424,7 +9993,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2002)
 	kof2000_neogeo_gfx_decrypt(0xec);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2002b)
+DRIVER_INIT_MEMBER(neogeo_class,kof2002b)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof2002_decrypt_68k();
@@ -10434,7 +10003,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2002b)
 	kof2002b_gfx_decrypt(memregion("fixed")->base(),0x20000);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k2pls)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k2pls)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof2002_decrypt_68k();
@@ -10443,7 +10012,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k2pls)
 	cmc50_neogeo_gfx_decrypt(0xec);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k2mp)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kf2k2mp_decrypt();
@@ -10453,7 +10022,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp)
 	cmc50_neogeo_gfx_decrypt(0xec);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp2)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k2mp2)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kf2k2mp2_px_decrypt();
@@ -10463,33 +10032,33 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp2)
 	cmc50_neogeo_gfx_decrypt(0xec);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof10th)
+DRIVER_INIT_MEMBER(neogeo_class,kof10th)
 {
 	DRIVER_INIT_CALL(neogeo);
 	decrypt_kof10th();
 	install_kof10th_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf10thep)
+DRIVER_INIT_MEMBER(neogeo_class,kf10thep)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kf10thep_px_decrypt();
 	neogeo_bootleg_sx_decrypt(1);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k5uni)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k5uni)
 {
 	DRIVER_INIT_CALL(neogeo);
 	decrypt_kf2k5uni();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2k4se)
+DRIVER_INIT_MEMBER(neogeo_class,kof2k4se)
 {
 	DRIVER_INIT_CALL(neogeo);
 	decrypt_kof2k4se_68k();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,matrim)
+DRIVER_INIT_MEMBER(neogeo_class,matrim)
 {
 	DRIVER_INIT_CALL(neogeo);
 	matrim_decrypt_68k();
@@ -10499,7 +10068,7 @@ DRIVER_INIT_MEMBER(neogeo_state,matrim)
 	kof2000_neogeo_gfx_decrypt(0x6a);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,matrimbl)
+DRIVER_INIT_MEMBER(neogeo_class,matrimbl)
 {
 	DRIVER_INIT_CALL(neogeo);
 	matrim_decrypt_68k();
@@ -10508,7 +10077,7 @@ DRIVER_INIT_MEMBER(neogeo_state,matrimbl)
 	neogeo_sfix_decrypt(); /* required for text layer */
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,pnyaa)
+DRIVER_INIT_MEMBER(neogeo_class,pnyaa)
 {
 	DRIVER_INIT_CALL(neogeo);
 	neo_pcm2_snk_1999(4);
@@ -10517,7 +10086,7 @@ DRIVER_INIT_MEMBER(neogeo_state,pnyaa)
 	kof2000_neogeo_gfx_decrypt(0x2e);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug5)
+DRIVER_INIT_MEMBER(neogeo_class,mslug5)
 {
 	DRIVER_INIT_CALL(neogeo);
 	mslug5_decrypt_68k();
@@ -10528,19 +10097,19 @@ DRIVER_INIT_MEMBER(neogeo_state,mslug5)
 	install_pvc_protection();
 }
 
-void neogeo_state::install_banked_bios()
+void neogeo_class::install_banked_bios()
 {
 	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc00000, 0xc1ffff, 0, 0x0e0000, "bankedbios");
 	membank("bankedbios")->configure_entries(0, 2, memregion("mainbios")->base(), 0x20000);
 	membank("bankedbios")->set_entry(1);
 }
 
-INPUT_CHANGED_MEMBER(neogeo_state::select_bios)
+INPUT_CHANGED_MEMBER(neogeo_class::select_bios)
 {
 	membank("bankedbios")->set_entry(newval ? 0 : 1);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ms5pcb)
+DRIVER_INIT_MEMBER(neogeo_class,ms5pcb)
 {
 	DRIVER_INIT_CALL(neogeo);
 
@@ -10555,7 +10124,7 @@ DRIVER_INIT_MEMBER(neogeo_state,ms5pcb)
 	install_banked_bios();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ms5plus)
+DRIVER_INIT_MEMBER(neogeo_class,ms5plus)
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x19);
@@ -10566,7 +10135,7 @@ DRIVER_INIT_MEMBER(neogeo_state,ms5plus)
 	install_ms5plus_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcpcb)
+DRIVER_INIT_MEMBER(neogeo_class,svcpcb)
 {
 	DRIVER_INIT_CALL(neogeo);
 
@@ -10581,7 +10150,7 @@ DRIVER_INIT_MEMBER(neogeo_state,svcpcb)
 	install_banked_bios();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svc)
+DRIVER_INIT_MEMBER(neogeo_class,svc)
 {
 	DRIVER_INIT_CALL(neogeo);
 	svc_px_decrypt();
@@ -10592,7 +10161,7 @@ DRIVER_INIT_MEMBER(neogeo_state,svc)
 	install_pvc_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcboot)
+DRIVER_INIT_MEMBER(neogeo_class,svcboot)
 {
 	DRIVER_INIT_CALL(neogeo);
 	svcboot_px_decrypt();
@@ -10600,7 +10169,7 @@ DRIVER_INIT_MEMBER(neogeo_state,svcboot)
 	install_pvc_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcplus)
+DRIVER_INIT_MEMBER(neogeo_class,svcplus)
 {
 	DRIVER_INIT_CALL(neogeo);
 	svcplus_px_decrypt();
@@ -10609,7 +10178,7 @@ DRIVER_INIT_MEMBER(neogeo_state,svcplus)
 	svcplus_px_hack();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcplusa)
+DRIVER_INIT_MEMBER(neogeo_class,svcplusa)
 {
 	DRIVER_INIT_CALL(neogeo);
 	svcplusa_px_decrypt();
@@ -10617,7 +10186,7 @@ DRIVER_INIT_MEMBER(neogeo_state,svcplusa)
 	svcplus_px_hack();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcsplus)
+DRIVER_INIT_MEMBER(neogeo_class,svcsplus)
 {
 	DRIVER_INIT_CALL(neogeo);
 	svcsplus_px_decrypt();
@@ -10627,7 +10196,7 @@ DRIVER_INIT_MEMBER(neogeo_state,svcsplus)
 	install_pvc_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,samsho5)
+DRIVER_INIT_MEMBER(neogeo_class,samsho5)
 {
 	DRIVER_INIT_CALL(neogeo);
 	samsho5_decrypt_68k();
@@ -10637,7 +10206,7 @@ DRIVER_INIT_MEMBER(neogeo_state,samsho5)
 	kof2000_neogeo_gfx_decrypt(0x0f);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,samsho5b)
+DRIVER_INIT_MEMBER(neogeo_class,samsho5b)
 {
 	DRIVER_INIT_CALL(neogeo);
 	samsho5b_px_decrypt();
@@ -10646,7 +10215,7 @@ DRIVER_INIT_MEMBER(neogeo_state,samsho5b)
 	neogeo_bootleg_cx_decrypt();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3pcb)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k3pcb)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kf2k3pcb_decrypt_68k();
@@ -10674,7 +10243,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3pcb)
 	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0, 0x080000, memregion("mainbios")->base());  // 512k bios
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2003)
+DRIVER_INIT_MEMBER(neogeo_class,kof2003)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof2003_decrypt_68k();
@@ -10685,7 +10254,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2003)
 	install_pvc_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2003h)
+DRIVER_INIT_MEMBER(neogeo_class,kof2003h)
 {
 	DRIVER_INIT_CALL(neogeo);
 	kof2003h_decrypt_68k();
@@ -10696,7 +10265,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2003h)
 	install_pvc_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3bl)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k3bl)
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x9d);
@@ -10705,7 +10274,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3bl)
 	kf2k3bl_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3pl)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k3pl)
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x9d);
@@ -10715,7 +10284,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3pl)
 	kf2k3pl_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3upl)
+DRIVER_INIT_MEMBER(neogeo_class,kf2k3upl)
 {
 	DRIVER_INIT_CALL(neogeo);
 	cmc50_neogeo_gfx_decrypt(0x9d);
@@ -10725,7 +10294,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3upl)
 	kf2k3bl_install_protection();
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,samsh5sp)
+DRIVER_INIT_MEMBER(neogeo_class,samsh5sp)
 {
 	DRIVER_INIT_CALL(neogeo);
 	samsh5sp_decrypt_68k();
@@ -10735,7 +10304,7 @@ DRIVER_INIT_MEMBER(neogeo_state,samsh5sp)
 	kof2000_neogeo_gfx_decrypt(0x0d);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,jockeygp)
+DRIVER_INIT_MEMBER(neogeo_class,jockeygp)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -10749,7 +10318,7 @@ DRIVER_INIT_MEMBER(neogeo_state,jockeygp)
 //  m_maincpu->space(AS_PROGRAM).install_read_port(0x2c0000, 0x2c0001, "IN6");
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,vliner)
+DRIVER_INIT_MEMBER(neogeo_class,vliner)
 {
 	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
 
@@ -10759,7 +10328,7 @@ DRIVER_INIT_MEMBER(neogeo_state,vliner)
 	DRIVER_INIT_CALL(neogeo);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof97oro)
+DRIVER_INIT_MEMBER(neogeo_class,kof97oro)
 {
 	kof97oro_px_decode();
 	neogeo_bootleg_sx_decrypt(1);
@@ -10767,7 +10336,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kof97oro)
 	DRIVER_INIT_CALL(neogeo);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kog)
+DRIVER_INIT_MEMBER(neogeo_class,kog)
 {
 	/* overlay cartridge ROM */
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x0ffffe, 0x0fffff, "JUMPER");
@@ -10778,7 +10347,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kog)
 	DRIVER_INIT_CALL(neogeo);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,lans2004)
+DRIVER_INIT_MEMBER(neogeo_class,lans2004)
 {
 	lans2004_decrypt_68k();
 	lans2004_vx_decrypt();
@@ -10787,7 +10356,7 @@ DRIVER_INIT_MEMBER(neogeo_state,lans2004)
 	DRIVER_INIT_CALL(neogeo);
 }
 
-READ16_MEMBER( neogeo_state::sbp_lowerrom_r )
+READ16_MEMBER( neogeo_class::sbp_lowerrom_r )
 {
 	UINT16* rom = (UINT16*)memregion("maincpu")->base();
 	UINT16 origdata = rom[(offset+(0x200/2))];
@@ -10801,7 +10370,7 @@ READ16_MEMBER( neogeo_state::sbp_lowerrom_r )
 	return data;
 }
 
-WRITE16_MEMBER( neogeo_state::sbp_lowerrom_w )
+WRITE16_MEMBER( neogeo_class::sbp_lowerrom_w )
 {
 	int realoffset = 0x200+(offset*2);
 
@@ -10823,15 +10392,15 @@ WRITE16_MEMBER( neogeo_state::sbp_lowerrom_w )
 	printf("sbp_lowerrom_w offset %08x data %04x\n", realoffset, data );
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,sbp)
+DRIVER_INIT_MEMBER(neogeo_class,sbp)
 {
 	// there seems to be a protection device living around here..
 	// if you nibble swap the data in the rom the game will boot
 	// there are also writes to 0x1080..
 	//
 	// other stuff going on as well tho, the main overlay is still missing, and p1 inputs don't work
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x00200, 0x001fff, read16_delegate(FUNC(neogeo_state::sbp_lowerrom_r),this));
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x00200, 0x001fff, write16_delegate(FUNC(neogeo_state::sbp_lowerrom_w),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x00200, 0x001fff, read16_delegate(FUNC(neogeo_class::sbp_lowerrom_r),this));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x00200, 0x001fff, write16_delegate(FUNC(neogeo_class::sbp_lowerrom_w),this));
 
 	/* the game code clears the text overlay used ingame immediately after writing it.. why? protection? sloppy code that the hw ignores? imperfect emulation? */
 	{
@@ -11217,316 +10786,316 @@ DRIVER_INIT_MEMBER(neogeo_state,sbp)
 ****************************************************************************/
 
 /*    YEAR  NAME        PARENT    COMPAT    MACHINE   INPUT     INIT    */
-CONS( 1990, neogeo,     0,        0,        mvs,      neogeo,   neogeo_state, mvs,  "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+//CONS( 1990, neogeo,     0,        0,        mvs,      neogeo,   neogeo_class, mvs,  "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
 
 /*    YEAR  NAME        PARENT    MACHINE   INPUT     INIT      MONITOR */
 /* SNK */
-GAME( 1990, nam1975,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "NAM-1975 (NGM-001)(NGH-001)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, bstars,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Baseball Stars Professional (NGM-002)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, bstarsh,    bstars,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Baseball Stars Professional (NGH-002)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, tpgolf,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Top Player's Golf (NGM-003)(NGH-003)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, mahretsu,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Mahjong Kyo Retsuden (NGM-004)(NGH-004)", MACHINE_SUPPORTS_SAVE ) // does not support mahjong panel in MVS mode
-GAME( 1990, ridhero,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Riding Hero (NGM-006)(NGH-006)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ridheroh,   ridhero,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Riding Hero (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, alpham2,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian (NGM-007)(NGH-007)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, alpham2p,   alpham2,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, cyberlip,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Cyber-Lip (NGM-010)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, superspy,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Super Spy (NGM-011)(NGH-011)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, mutnat,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Mutation Nation (NGM-014)(NGH-014)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, kotm,       neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "King of the Monsters (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, kotmh,      kotm,     neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "King of the Monsters (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, sengoku,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou (NGM-017)(NGH-017)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, sengokuh,   sengoku,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou (NGH-017)(US)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, burningf,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Burning Fight (NGM-018)(NGH-018)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, burningfh,  burningf, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Burning Fight (NGH-018)(US)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, burningfp,  burningf, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Burning Fight (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, lbowling,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "League Bowling (NGM-019)(NGH-019)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, gpilots,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Ghost Pilots (NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, gpilotsh,   gpilots,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Ghost Pilots (NGH-020)(US)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, joyjoy,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Puzzled / Joy Joy Kid (NGM-021)(NGH-021)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, quizdais,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down (NGM-023)(NGH-023)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, quizdaisk,  quizdais, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down (Korean release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, lresort,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Last Resort", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, eightman,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK / Pallas", "Eight Man (NGM-025)(NGH-025)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, legendos,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Legend of Success Joe / Ashita no Joe Densetsu", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, 2020bb,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, 2020bba,    2020bb,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, 2020bbh,    2020bb,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, socbrawl,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Soccer Brawl (NGM-031)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, socbrawlh,  socbrawl, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Soccer Brawl (NGH-031)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, fatfury1,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Fatal Fury - King of Fighters / Garou Densetsu - shukumei no tatakai (NGM-033)(NGH-033)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, roboarmy,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Robo Army", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, fbfrenzy,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Football Frenzy (NGM-034)(NGH-034)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, kotm2,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing (NGM-039)(NGH-039)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, kotm2p,     kotm2,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, sengoku2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Sengoku 2 / Sengoku Denshou 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, bstars2,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Baseball Stars 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, quizdai2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Quiz Meitantei Neo & Geo - Quiz Daisousa Sen part 2 (NGM-042)(NGH-042)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, 3countb,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex (NGM-043)(NGH-043)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, aof,        neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Art of Fighting / Ryuuko no Ken (NGM-044)(NGH-044)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, samsho,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (NGM-045)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, samshoh,    samsho,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (NGH-045)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, tophuntr,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (NGM-046)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, tophuntrh,  tophuntr, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (NGH-046)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, fatfury2,   neogeo,   neogeo,   neogeo, neogeo_state,   fatfury2, ROT0, "SNK", "Fatal Fury 2 / Garou Densetsu 2 - arata-naru tatakai (NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, ssideki,    neogeo,   neogeo,   neogeo, neogeo_state,   fatfury2, ROT0, "SNK", "Super Sidekicks / Tokuten Ou", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '94 (NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aof2,       neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (NGM-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aof2a,      aof2,     neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfursp,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfurspa,  fatfursp, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, savagere,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Savage Reign / Fu'un Mokushiroku - kakutou sousei", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, ssideki2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Super Sidekicks 2 - The World Championship / Tokuten Ou 2 - real fight football (NGM-061)(NGH-061)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Samurai Shodown II / Shin Samurai Spirits - Haohmaru jigokuhen (NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2k,   samsho2,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II)", MACHINE_SUPPORTS_SAVE ) // official or hack?
-GAME( 1995, fatfury3,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - haruka-naru tatakai (NGM-069)(NGH-069)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, ssideki3,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - eikou e no michi", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '95 (NGM-084)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95a,     kof95,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '95 (NGM-084), alternate board", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95h,     kof95,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '95 (NGH-084)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, samsho3,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGM-087)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, samsho3h,   samsho3,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGH-087)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fswords,    samsho3,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Fighters Swords (Korean release of Samurai Shodown III)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, rbff1,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu (NGM-095)(NGH-095)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, rbff1a,     rbff1,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu (bug fix revision)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, aof3,       neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, aof3k,      aof3,     neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior (Korean release)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
-GAME( 1996, kof96,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '96 (NGM-214)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96h,     kof96,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '96 (NGH-214)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ssideki4,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Ultimate 11 - The SNK Football Championship / Tokuten Ou - Honoo no Libero", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kizuna,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle / Fu'un Super Tag Battle", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kizuna4p,   kizuna,   neogeo,   kizuna4p, neogeo_state, neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle 4 Way Battle Version / Fu'un Super Tag Battle Special Version", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Samurai Shodown IV - Amakusa's Revenge / Samurai Spirits - Amakusa Kourin (NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4k,   samsho4,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Pae Wang Jeon Seol / Legend of a Warrior (Korean censored Samurai Shodown IV)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffspec,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffspeck,  rbffspec, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Korean release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97h,     kof97,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (NGH-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97k,     kof97,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (Korean release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97pls,   kof97,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "bootleg", "The King of Fighters '97 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97oro,   kof97,    neogeo,   neogeo, neogeo_state,   kof97oro, ROT0, "bootleg", "The King of Fighters '97 Oroshi Plus 2003 (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kog,        kof97,    neogeo,   kog,    neogeo_state,   kog,      ROT0, "bootleg", "King of Gladiator (The King of Fighters '97 bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // protected bootleg
-GAME( 1997, lastblad,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastbladh,  lastblad, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGH-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastsold,   lastblad, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Soldier (Korean release of The Last Blade)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, irrmaze,    neogeo,   neogeo,   irrmaze, neogeo_state,  neogeo,   ROT0, "SNK / Saurus", "The Irritating Maze / Ultra Denryu Iraira Bou", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2h,     rbff2,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (NGH-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2k,     rbff2,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers (Korean release)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
-GAME( 1998, mslug2,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Metal Slug 2 - Super Vehicle-001/II (NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98,      neogeo,   neogeo,   neogeo, neogeo_state,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (NGM-2420)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98a,     kof98,    neogeo,   neogeo, neogeo_state,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (NGM-2420, alternate board)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98k,     kof98,    neogeo,   neogeo, neogeo_state,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (Korean board)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98ka,    kof98,    neogeo,   neogeo, neogeo_state,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (Korean board 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98h,     kof98,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (NGH-2420)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, lastbld2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, neocup98,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Neo-Geo Cup '98 - The Road to the Victory", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, mslugx,     neogeo,   neogeo,   neogeo, neogeo_state,   mslugx,   ROT0, "SNK", "Metal Slug X - Super Vehicle-001 (NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99,      neogeo,   neogeo,   neogeo, neogeo_state,   kof99,    ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (NGM-2510)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, kof99h,     kof99,    neogeo,   neogeo, neogeo_state,   kof99,    ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (NGH-2510)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX, crashes going into attract demo */
-GAME( 1999, kof99e,     kof99,    neogeo,   neogeo, neogeo_state,   kof99,    ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (earlier)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, kof99k,     kof99,    neogeo,   neogeo, neogeo_state,   kof99k,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (Korean release)" , MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
-GAME( 1999, kof99p,     kof99,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garou,      neogeo,   neogeo,   neogeo, neogeo_state,   garou,    ROT0, "SNK", "Garou - Mark of the Wolves (NGM-2530)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, garouh,     garou,    neogeo,   neogeo, neogeo_state,   garouh,   ROT0, "SNK", "Garou - Mark of the Wolves (NGM-2530)(NGH-2530)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, garoup,     garou,    neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Garou - Mark of the Wolves (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoubl,    garou,    neogeo,   neogeo, neogeo_state,   garoubl,  ROT0, "bootleg", "Garou - Mark of the Wolves (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Bootleg of garoup */
-GAME( 2000, mslug3,     neogeo,   neogeo,   neogeo, neogeo_state,   mslug3,   ROT0, "SNK", "Metal Slug 3 (NGM-2560)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 2000, mslug3h,    mslug3,   neogeo,   neogeo, neogeo_state,   mslug3h,  ROT0, "SNK", "Metal Slug 3 (NGH-2560)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2000, mslug3b6,   mslug3,   neogeo,   neogeo, neogeo_state,   mslug3b6, ROT0, "bootleg", "Metal Slug 6 (Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE ) /* real Metal Slug 6 is an Atomiswave HW game, see naomi.c ;-) */
-GAME( 2000, kof2000,    neogeo,   neogeo,   neogeo, neogeo_state,   kof2000,  ROT0, "SNK", "The King of Fighters 2000 (NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 2000, kof2000n,   kof2000,  neogeo,   neogeo, neogeo_state,   kof2000n, ROT0, "SNK", "The King of Fighters 2000 (not encrypted)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, zupapa,     neogeo,   neogeo,   neogeo, neogeo_state,   zupapa,   ROT0, "SNK", "Zupapa!" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, sengoku3,   neogeo,   neogeo,   neogeo, neogeo_state,   sengoku3, ROT0, "Noise Factory / SNK", "Sengoku 3 / Sengoku Densho 2001" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, kof2001,    neogeo,   neogeo,   neogeo, neogeo_state,   kof2001,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (NGM-262?)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, kof2001h,   kof2001,  neogeo,   neogeo, neogeo_state,   kof2001,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (NGH-2621)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2003, cthd2003,   kof2001,  neogeo,   neogeo, neogeo_state,   cthd2003, ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
-GAME( 2003, ct2k3sp,    kof2001,  neogeo,   neogeo, neogeo_state,   ct2k3sp,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus (The King of Fighters 2001 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
-GAME( 2003, ct2k3sa,    kof2001,  neogeo,   neogeo, neogeo_state,   ct2k3sa,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus alternate (The King of Fighters 2001 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2001 */
-GAME( 2002, kof2002,    neogeo,   neogeo,   neogeo, neogeo_state,   kof2002,  ROT0, "Eolith / Playmore", "The King of Fighters 2002 (NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kof2002b,   kof2002,  neogeo,   neogeo, neogeo_state,   kof2002b, ROT0, "bootleg", "The King of Fighters 2002 (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kf2k2pls,   kof2002,  neogeo,   neogeo, neogeo_state,   kf2k2pls, ROT0, "bootleg", "The King of Fighters 2002 Plus (bootleg set 1)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kf2k2pla,   kof2002,  neogeo,   neogeo, neogeo_state,   kf2k2pls, ROT0, "bootleg", "The King of Fighters 2002 Plus (bootleg set 2)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kf2k2mp,    kof2002,  neogeo,   neogeo, neogeo_state,   kf2k2mp,  ROT0, "bootleg", "The King of Fighters 2002 Magic Plus (bootleg)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kf2k2mp2,   kof2002,  neogeo,   neogeo, neogeo_state,   kf2k2mp2, ROT0, "bootleg", "The King of Fighters 2002 Magic Plus II (bootleg)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kof10th,    kof2002,  neogeo,   neogeo, neogeo_state,   kof10th,  ROT0, "bootleg", "The King of Fighters 10th Anniversary (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-GAME( 2005, kf10thep,   kof2002,  neogeo,   neogeo, neogeo_state,   kf10thep, ROT0, "bootleg", "The King of Fighters 10th Anniversary Extra Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-GAME( 2004, kf2k5uni,   kof2002,  neogeo,   neogeo, neogeo_state,   kf2k5uni, ROT0, "bootleg", "The King of Fighters 10th Anniversary 2005 Unique (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-GAME( 2004, kof2k4se,   kof2002,  neogeo,   neogeo, neogeo_state,   kof2k4se, ROT0, "bootleg", "The King of Fighters Special Edition 2004 (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2002 */
-GAME( 2003, mslug5,     neogeo,   neogeo,   neogeo, neogeo_state,   mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (NGM-2680)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5h,    mslug5,   neogeo,   neogeo, neogeo_state,   mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (NGH-2680)", MACHINE_SUPPORTS_SAVE ) /* Also found in later MVS carts */
-GAME( 2003, ms5pcb,     0,        neogeo,   dualbios, neogeo_state, ms5pcb,   ROT0, "SNK Playmore", "Metal Slug 5 (JAMMA PCB)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5plus,    mslug5,   neogeo,   neogeo, neogeo_state,   ms5plus,  ROT0, "bootleg", "Metal Slug 5 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcpcb,     0,        neogeo,   dualbios, neogeo_state, svcpcb,   ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 1)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
-GAME( 2003, svcpcba,    svcpcb,   neogeo,   dualbios, neogeo_state, svcpcb,   ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 2)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code */
-GAME( 2003, svc,        neogeo,   neogeo,   neogeo, neogeo_state,   svc,      ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcboot,    svc,      neogeo,   neogeo, neogeo_state,   svcboot,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplus,    svc,      neogeo,   neogeo, neogeo_state,   svcplus,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplusa,   svc,      neogeo,   neogeo, neogeo_state,   svcplusa, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcsplus,   svc,      neogeo,   neogeo, neogeo_state,   svcsplus, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Super Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5,    neogeo,   neogeo,   neogeo, neogeo_state,   samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGM-2700)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5h,   samsho5,  neogeo,   neogeo, neogeo_state,   samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGH-2700)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5b,   samsho5,  neogeo,   neogeo, neogeo_state,   samsho5b, ROT0, "bootleg", "Samurai Shodown V / Samurai Spirits Zero (bootleg)", MACHINE_SUPPORTS_SAVE ) // different program scrambling
-GAME( 2003, kf2k3pcb,   0,        neogeo,   neogeo, neogeo_state,   kf2k3pcb, ROT0, "SNK Playmore", "The King of Fighters 2003 (Japan, JAMMA PCB)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
-GAME( 2003, kof2003,    neogeo,   neogeo,   neogeo, neogeo_state,   kof2003,  ROT0, "SNK Playmore", "The King of Fighters 2003 (NGM-2710)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2003h,   kof2003,  neogeo,   neogeo, neogeo_state,   kof2003h, ROT0, "SNK Playmore", "The King of Fighters 2003 (NGH-2710)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kf2k3bl,    kof2003,  neogeo,   neogeo, neogeo_state,   kf2k3bl , ROT0, "bootleg", "The King of Fighters 2003 (bootleg set 1)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart (unless it was a bootleg pcb with the new bios?)
-GAME( 2003, kf2k3bla,   kof2003,  neogeo,   neogeo, neogeo_state,   kf2k3pl,  ROT0, "bootleg", "The King of Fighters 2003 (bootleg set 2)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
-GAME( 2003, kf2k3pl,    kof2003,  neogeo,   neogeo, neogeo_state,   kf2k3pl,  ROT0, "bootleg", "The King of Fighters 2004 Plus / Hero (The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
-GAME( 2003, kf2k3upl,   kof2003,  neogeo,   neogeo, neogeo_state,   kf2k3upl, ROT0, "bootleg", "The King of Fighters 2004 Ultra Plus (The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
-GAME( 2004, samsh5sp,   neogeo,   neogeo,   neogeo, neogeo_state,   samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGM-2720)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sph,  samsh5sp, neogeo,   neogeo, neogeo_state,   samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720) (2nd release, less censored)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spho, samsh5sp, neogeo,   neogeo, neogeo_state,   samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720) (1st release, censored)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, nam1975,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "NAM-1975 (NGM-001)(NGH-001)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, bstars,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Baseball Stars Professional (NGM-002)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, bstarsh,    bstars,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Baseball Stars Professional (NGH-002)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, tpgolf,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Top Player's Golf (NGM-003)(NGH-003)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, mahretsu,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Mahjong Kyo Retsuden (NGM-004)(NGH-004)", MACHINE_SUPPORTS_SAVE ) // does not support mahjong panel in MVS mode
+//GAME( 1990, ridhero,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Riding Hero (NGM-006)(NGH-006)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, ridheroh,   ridhero,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Riding Hero (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, alpham2,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian (NGM-007)(NGH-007)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, alpham2p,   alpham2,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, cyberlip,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Cyber-Lip (NGM-010)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, superspy,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The Super Spy (NGM-011)(NGH-011)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, mutnat,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Mutation Nation (NGM-014)(NGH-014)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, kotm,       neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "King of the Monsters (set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, kotmh,      kotm,     neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "King of the Monsters (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, sengoku,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou (NGM-017)(NGH-017)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, sengokuh,   sengoku,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou (NGH-017)(US)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, burningf,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Burning Fight (NGM-018)(NGH-018)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, burningfh,  burningf, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Burning Fight (NGH-018)(US)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, burningfp,  burningf, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Burning Fight (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, lbowling,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "League Bowling (NGM-019)(NGH-019)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, gpilots,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Ghost Pilots (NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, gpilotsh,   gpilots,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Ghost Pilots (NGH-020)(US)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, joyjoy,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Puzzled / Joy Joy Kid (NGM-021)(NGH-021)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, quizdais,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down (NGM-023)(NGH-023)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, quizdaisk,  quizdais, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down (Korean release)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, lresort,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Last Resort", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, eightman,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK / Pallas", "Eight Man (NGM-025)(NGH-025)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, legendos,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Legend of Success Joe / Ashita no Joe Densetsu", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, 2020bb,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, 2020bba,    2020bb,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, 2020bbh,    2020bb,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 3)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, socbrawl,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Soccer Brawl (NGM-031)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, socbrawlh,  socbrawl, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Soccer Brawl (NGH-031)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, fatfury1,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Fatal Fury - King of Fighters / Garou Densetsu - shukumei no tatakai (NGM-033)(NGH-033)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, roboarmy,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Robo Army", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, fbfrenzy,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Football Frenzy (NGM-034)(NGH-034)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, kotm2,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing (NGM-039)(NGH-039)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, kotm2p,     kotm2,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, sengoku2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Sengoku 2 / Sengoku Denshou 2", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, bstars2,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Baseball Stars 2", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, quizdai2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Quiz Meitantei Neo & Geo - Quiz Daisousa Sen part 2 (NGM-042)(NGH-042)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, 3countb,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex (NGM-043)(NGH-043)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, aof,        neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Art of Fighting / Ryuuko no Ken (NGM-044)(NGH-044)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, samsho,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (NGM-045)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, samshoh,    samsho,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (NGH-045)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, tophuntr,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (NGM-046)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, tophuntrh,  tophuntr, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (NGH-046)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, fatfury2,   neogeo,   neogeo,   neogeo, neogeo_class,   fatfury2, ROT0, "SNK", "Fatal Fury 2 / Garou Densetsu 2 - arata-naru tatakai (NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, ssideki,    neogeo,   neogeo,   neogeo, neogeo_class,   fatfury2, ROT0, "SNK", "Super Sidekicks / Tokuten Ou", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, kof94,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '94 (NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, aof2,       neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (NGM-056)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, aof2a,      aof2,     neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (NGH-056)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, fatfursp,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, fatfurspa,  fatfursp, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, savagere,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Savage Reign / Fu'un Mokushiroku - kakutou sousei", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, ssideki2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Super Sidekicks 2 - The World Championship / Tokuten Ou 2 - real fight football (NGM-061)(NGH-061)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, samsho2,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Samurai Shodown II / Shin Samurai Spirits - Haohmaru jigokuhen (NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, samsho2k,   samsho2,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II)", MACHINE_SUPPORTS_SAVE ) // official or hack?
+//GAME( 1995, fatfury3,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - haruka-naru tatakai (NGM-069)(NGH-069)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, ssideki3,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - eikou e no michi", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, kof95,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '95 (NGM-084)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, kof95a,     kof95,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '95 (NGM-084), alternate board", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, kof95h,     kof95,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '95 (NGH-084)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, samsho3,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGM-087)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, samsho3h,   samsho3,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGH-087)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, fswords,    samsho3,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Fighters Swords (Korean release of Samurai Shodown III)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, rbff1,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu (NGM-095)(NGH-095)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, rbff1a,     rbff1,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu (bug fix revision)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, aof3,       neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, aof3k,      aof3,     neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior (Korean release)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
+//GAME( 1996, kof96,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '96 (NGM-214)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, kof96h,     kof96,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '96 (NGH-214)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, ssideki4,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The Ultimate 11 - The SNK Football Championship / Tokuten Ou - Honoo no Libero", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, kizuna,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle / Fu'un Super Tag Battle", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, kizuna4p,   kizuna,   neogeo,   kizuna4p, neogeo_class, neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle 4 Way Battle Version / Fu'un Super Tag Battle Special Version", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, samsho4,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Samurai Shodown IV - Amakusa's Revenge / Samurai Spirits - Amakusa Kourin (NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, samsho4k,   samsho4,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Pae Wang Jeon Seol / Legend of a Warrior (Korean censored Samurai Shodown IV)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, rbffspec,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, rbffspeck,  rbffspec, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Korean release)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, kof97,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (NGM-2320)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, kof97h,     kof97,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (NGH-2320)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, kof97k,     kof97,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (Korean release)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, kof97pls,   kof97,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "bootleg", "The King of Fighters '97 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, kof97oro,   kof97,    neogeo,   neogeo, neogeo_class,   kof97oro, ROT0, "bootleg", "The King of Fighters '97 Oroshi Plus 2003 (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, kog,        kof97,    neogeo,   kog,    neogeo_class,   kog,      ROT0, "bootleg", "King of Gladiator (The King of Fighters '97 bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // protected bootleg
+//GAME( 1997, lastblad,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGM-2340)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, lastbladh,  lastblad, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGH-2340)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, lastsold,   lastblad, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The Last Soldier (Korean release of The Last Blade)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, irrmaze,    neogeo,   neogeo,   irrmaze, neogeo_class,  neogeo,   ROT0, "SNK / Saurus", "The Irritating Maze / Ultra Denryu Iraira Bou", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, rbff2,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (NGM-2400)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, rbff2h,     rbff2,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (NGH-2400)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, rbff2k,     rbff2,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers (Korean release)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
+//GAME( 1998, mslug2,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Metal Slug 2 - Super Vehicle-001/II (NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, kof98,      neogeo,   neogeo,   neogeo, neogeo_class,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (NGM-2420)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, kof98a,     kof98,    neogeo,   neogeo, neogeo_class,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (NGM-2420, alternate board)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, kof98k,     kof98,    neogeo,   neogeo, neogeo_class,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (Korean board)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, kof98ka,    kof98,    neogeo,   neogeo, neogeo_class,   kof98,    ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (Korean board 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, kof98h,     kof98,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends (NGH-2420)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, lastbld2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, neocup98,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Neo-Geo Cup '98 - The Road to the Victory", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, mslugx,     neogeo,   neogeo,   neogeo, neogeo_class,   mslugx,   ROT0, "SNK", "Metal Slug X - Super Vehicle-001 (NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, kof99,      neogeo,   neogeo,   neogeo, neogeo_class,   kof99,    ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (NGM-2510)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+//GAME( 1999, kof99h,     kof99,    neogeo,   neogeo, neogeo_class,   kof99,    ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (NGH-2510)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX, crashes going into attract demo */
+//GAME( 1999, kof99e,     kof99,    neogeo,   neogeo, neogeo_class,   kof99,    ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (earlier)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+//GAME( 1999, kof99k,     kof99,    neogeo,   neogeo, neogeo_class,   kof99k,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (Korean release)" , MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
+//GAME( 1999, kof99p,     kof99,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, garou,      neogeo,   neogeo,   neogeo, neogeo_class,   garou,    ROT0, "SNK", "Garou - Mark of the Wolves (NGM-2530)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+//GAME( 1999, garouh,     garou,    neogeo,   neogeo, neogeo_class,   garouh,   ROT0, "SNK", "Garou - Mark of the Wolves (NGM-2530)(NGH-2530)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+//GAME( 1999, garoup,     garou,    neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "SNK", "Garou - Mark of the Wolves (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, garoubl,    garou,    neogeo,   neogeo, neogeo_class,   garoubl,  ROT0, "bootleg", "Garou - Mark of the Wolves (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Bootleg of garoup */
+//GAME( 2000, mslug3,     neogeo,   neogeo,   neogeo, neogeo_class,   mslug3,   ROT0, "SNK", "Metal Slug 3 (NGM-2560)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+//GAME( 2000, mslug3h,    mslug3,   neogeo,   neogeo, neogeo_class,   mslug3h,  ROT0, "SNK", "Metal Slug 3 (NGH-2560)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2000, mslug3b6,   mslug3,   neogeo,   neogeo, neogeo_class,   mslug3b6, ROT0, "bootleg", "Metal Slug 6 (Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE ) /* real Metal Slug 6 is an Atomiswave HW game, see naomi.c ;-) */
+//GAME( 2000, kof2000,    neogeo,   neogeo,   neogeo, neogeo_class,   kof2000,  ROT0, "SNK", "The King of Fighters 2000 (NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+//GAME( 2000, kof2000n,   kof2000,  neogeo,   neogeo, neogeo_class,   kof2000n, ROT0, "SNK", "The King of Fighters 2000 (not encrypted)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2001, zupapa,     neogeo,   neogeo,   neogeo, neogeo_class,   zupapa,   ROT0, "SNK", "Zupapa!" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2001, sengoku3,   neogeo,   neogeo,   neogeo, neogeo_class,   sengoku3, ROT0, "Noise Factory / SNK", "Sengoku 3 / Sengoku Densho 2001" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2001, kof2001,    neogeo,   neogeo,   neogeo, neogeo_class,   kof2001,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (NGM-262?)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2001, kof2001h,   kof2001,  neogeo,   neogeo, neogeo_class,   kof2001,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (NGH-2621)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2003, cthd2003,   kof2001,  neogeo,   neogeo, neogeo_class,   cthd2003, ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
+//GAME( 2003, ct2k3sp,    kof2001,  neogeo,   neogeo, neogeo_class,   ct2k3sp,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus (The King of Fighters 2001 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
+//GAME( 2003, ct2k3sa,    kof2001,  neogeo,   neogeo, neogeo_class,   ct2k3sa,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus alternate (The King of Fighters 2001 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2001 */
+//GAME( 2002, kof2002,    neogeo,   neogeo,   neogeo, neogeo_class,   kof2002,  ROT0, "Eolith / Playmore", "The King of Fighters 2002 (NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2002, kof2002b,   kof2002,  neogeo,   neogeo, neogeo_class,   kof2002b, ROT0, "bootleg", "The King of Fighters 2002 (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, kf2k2pls,   kof2002,  neogeo,   neogeo, neogeo_class,   kf2k2pls, ROT0, "bootleg", "The King of Fighters 2002 Plus (bootleg set 1)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2002, kf2k2pla,   kof2002,  neogeo,   neogeo, neogeo_class,   kf2k2pls, ROT0, "bootleg", "The King of Fighters 2002 Plus (bootleg set 2)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2002, kf2k2mp,    kof2002,  neogeo,   neogeo, neogeo_class,   kf2k2mp,  ROT0, "bootleg", "The King of Fighters 2002 Magic Plus (bootleg)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2002, kf2k2mp2,   kof2002,  neogeo,   neogeo, neogeo_class,   kf2k2mp2, ROT0, "bootleg", "The King of Fighters 2002 Magic Plus II (bootleg)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2002, kof10th,    kof2002,  neogeo,   neogeo, neogeo_class,   kof10th,  ROT0, "bootleg", "The King of Fighters 10th Anniversary (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
+//GAME( 2005, kf10thep,   kof2002,  neogeo,   neogeo, neogeo_class,   kf10thep, ROT0, "bootleg", "The King of Fighters 10th Anniversary Extra Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
+//GAME( 2004, kf2k5uni,   kof2002,  neogeo,   neogeo, neogeo_class,   kf2k5uni, ROT0, "bootleg", "The King of Fighters 10th Anniversary 2005 Unique (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
+//GAME( 2004, kof2k4se,   kof2002,  neogeo,   neogeo, neogeo_class,   kof2k4se, ROT0, "bootleg", "The King of Fighters Special Edition 2004 (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2002 */
+//GAME( 2003, mslug5,     neogeo,   neogeo,   neogeo, neogeo_class,   mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (NGM-2680)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, mslug5h,    mslug5,   neogeo,   neogeo, neogeo_class,   mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (NGH-2680)", MACHINE_SUPPORTS_SAVE ) /* Also found in later MVS carts */
+//GAME( 2003, ms5pcb,     0,        neogeo,   dualbios, neogeo_class, ms5pcb,   ROT0, "SNK Playmore", "Metal Slug 5 (JAMMA PCB)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, ms5plus,    mslug5,   neogeo,   neogeo, neogeo_class,   ms5plus,  ROT0, "bootleg", "Metal Slug 5 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, svcpcb,     0,        neogeo,   dualbios, neogeo_class, svcpcb,   ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 1)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
+//GAME( 2003, svcpcba,    svcpcb,   neogeo,   dualbios, neogeo_class, svcpcb,   ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 2)" , MACHINE_SUPPORTS_SAVE ) /* Encrypted Code */
+//GAME( 2003, svc,        neogeo,   neogeo,   neogeo, neogeo_class,   svc,      ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, svcboot,    svc,      neogeo,   neogeo, neogeo_class,   svcboot,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, svcplus,    svc,      neogeo,   neogeo, neogeo_class,   svcplus,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, svcplusa,   svc,      neogeo,   neogeo, neogeo_class,   svcplusa, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, svcsplus,   svc,      neogeo,   neogeo, neogeo_class,   svcsplus, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Super Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, samsho5,    neogeo,   neogeo,   neogeo, neogeo_class,   samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGM-2700)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, samsho5h,   samsho5,  neogeo,   neogeo, neogeo_class,   samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGH-2700)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, samsho5b,   samsho5,  neogeo,   neogeo, neogeo_class,   samsho5b, ROT0, "bootleg", "Samurai Shodown V / Samurai Spirits Zero (bootleg)", MACHINE_SUPPORTS_SAVE ) // different program scrambling
+//GAME( 2003, kf2k3pcb,   0,        neogeo,   neogeo, neogeo_class,   kf2k3pcb, ROT0, "SNK Playmore", "The King of Fighters 2003 (Japan, JAMMA PCB)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
+//GAME( 2003, kof2003,    neogeo,   neogeo,   neogeo, neogeo_class,   kof2003,  ROT0, "SNK Playmore", "The King of Fighters 2003 (NGM-2710)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, kof2003h,   kof2003,  neogeo,   neogeo, neogeo_class,   kof2003h, ROT0, "SNK Playmore", "The King of Fighters 2003 (NGH-2710)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, kf2k3bl,    kof2003,  neogeo,   neogeo, neogeo_class,   kf2k3bl , ROT0, "bootleg", "The King of Fighters 2003 (bootleg set 1)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart (unless it was a bootleg pcb with the new bios?)
+//GAME( 2003, kf2k3bla,   kof2003,  neogeo,   neogeo, neogeo_class,   kf2k3pl,  ROT0, "bootleg", "The King of Fighters 2003 (bootleg set 2)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
+//GAME( 2003, kf2k3pl,    kof2003,  neogeo,   neogeo, neogeo_class,   kf2k3pl,  ROT0, "bootleg", "The King of Fighters 2004 Plus / Hero (The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
+//GAME( 2003, kf2k3upl,   kof2003,  neogeo,   neogeo, neogeo_class,   kf2k3upl, ROT0, "bootleg", "The King of Fighters 2004 Ultra Plus (The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
+//GAME( 2004, samsh5sp,   neogeo,   neogeo,   neogeo, neogeo_class,   samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGM-2720)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2004, samsh5sph,  samsh5sp, neogeo,   neogeo, neogeo_class,   samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720) (2nd release, less censored)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2004, samsh5spho, samsh5sp, neogeo,   neogeo, neogeo_class,   samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720) (1st release, censored)", MACHINE_SUPPORTS_SAVE )
 
 /* Alpha Denshi Co. / ADK (changed name in 1993) */
-GAME( 1990, maglord,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (NGM-005)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, maglordh,   maglord,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (NGH-005)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ncombat,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (NGM-009)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ncombath,   ncombat,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (NGH-009)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, bjourney,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Blue's Journey / Raguy (ALM-001)(ALH-001)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, crsword,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Crossed Swords (ALM-002)(ALH-002)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, trally,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Thrash Rally (ALM-003)(ALH-003)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, ncommand,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Commando", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wh1,        neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (ALM-005)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wh1h,       wh1,      neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (ALH-005)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wh1ha,      wh1,      neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, wh2,        neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK",              "World Heroes 2 (ALM-006)(ALH-006)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wh2j,       neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "World Heroes 2 Jet (ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aodk,       neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "Aggressors of Dark Kombat / Tsuukai GANGAN Koushinkyoku (ADM-008)(ADH-008)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whp,        neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "World Heroes Perfect", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, mosyougi,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "Syougi No Tatsujin - Master of Syougi", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, overtop,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK",              "Over Top", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ninjamas,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "Ninja Master's - haoh-ninpo-cho", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, twinspri,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "Twinkle Star Sprites", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, zintrckb,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "hack",             "Zintrick / Oshidashi Zentrix (hack)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, maglord,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (NGM-005)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, maglordh,   maglord,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (NGH-005)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, ncombat,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (NGM-009)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, ncombath,   ncombat,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (NGH-009)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, bjourney,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Blue's Journey / Raguy (ALM-001)(ALH-001)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, crsword,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Crossed Swords (ALM-002)(ALH-002)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, trally,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Thrash Rally (ALM-003)(ALH-003)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, ncommand,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Commando", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, wh1,        neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (ALM-005)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, wh1h,       wh1,      neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (ALH-005)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, wh1ha,      wh1,      neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 3)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, wh2,        neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK",              "World Heroes 2 (ALM-006)(ALH-006)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, wh2j,       neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK / SNK",        "World Heroes 2 Jet (ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, aodk,       neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK / SNK",        "Aggressors of Dark Kombat / Tsuukai GANGAN Koushinkyoku (ADM-008)(ADH-008)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, whp,        neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK / SNK",        "World Heroes Perfect", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, mosyougi,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK / SNK",        "Syougi No Tatsujin - Master of Syougi", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, overtop,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK",              "Over Top", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, ninjamas,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK / SNK",        "Ninja Master's - haoh-ninpo-cho", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, twinspri,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "ADK / SNK",        "Twinkle Star Sprites", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, zintrckb,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "hack",             "Zintrick / Oshidashi Zentrix (hack)", MACHINE_SUPPORTS_SAVE )
 
 /* Aicom (was a part of Sammy) / Yumekobo (changed name in 1996) */
-GAME( 1992, viewpoin,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Sammy / Aicom", "Viewpoint", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, janshin,    neogeo,   neogeo,   mjneogeo, neogeo_state, neogeo,   ROT0, "Aicom", "Jyanshin Densetsu - Quest of Jongmaster", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, pulstar,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Aicom", "Pulstar", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, blazstar,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Yumekobo", "Blazing Star", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, preisle2,   neogeo,   neogeo,   neogeo, neogeo_state,   preisle2, ROT0, "Yumekobo", "Prehistoric Isle 2" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 1992, viewpoin,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Sammy / Aicom", "Viewpoint", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, janshin,    neogeo,   neogeo,   mjneogeo, neogeo_class, neogeo,   ROT0, "Aicom", "Jyanshin Densetsu - Quest of Jongmaster", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, pulstar,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Aicom", "Pulstar", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, blazstar,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Yumekobo", "Blazing Star", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, preisle2,   neogeo,   neogeo,   neogeo, neogeo_class,   preisle2, ROT0, "Yumekobo", "Prehistoric Isle 2" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
 
 /* Data East Corporation */
-GAME( 1993, spinmast,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Spin Master / Miracle Adventure", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wjammers,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Windjammers / Flying Power Disc", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, karnovr,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, strhoop,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Street Hoop / Street Slam / Dunk Dream (DEM-004)(DEH-004)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ghostlop,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Ghostlop (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, magdrop2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Magical Drop II", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, magdrop3,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Data East Corporation", "Magical Drop III", MACHINE_SUPPORTS_SAVE )
+//GAME( 1993, spinmast,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Spin Master / Miracle Adventure", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, wjammers,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Windjammers / Flying Power Disc", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, karnovr,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, strhoop,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Street Hoop / Street Slam / Dunk Dream (DEM-004)(DEH-004)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, ghostlop,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Ghostlop (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, magdrop2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Magical Drop II", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, magdrop3,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Data East Corporation", "Magical Drop III", MACHINE_SUPPORTS_SAVE )
 
 /* Eleven */
-GAME( 2000, nitd,       neogeo,   neogeo,   neogeo, neogeo_state,   nitd,     ROT0, "Eleven / Gavaking", "Nightmare in the Dark" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, nitdbl,     nitd,     neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "bootleg", "Nightmare in the Dark (bootleg)" , MACHINE_SUPPORTS_SAVE )
+//GAME( 2000, nitd,       neogeo,   neogeo,   neogeo, neogeo_class,   nitd,     ROT0, "Eleven / Gavaking", "Nightmare in the Dark" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2001, nitdbl,     nitd,     neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "bootleg", "Nightmare in the Dark (bootleg)" , MACHINE_SUPPORTS_SAVE )
 
 /* Face */
-GAME( 1994, gururin,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Face", "Gururin", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, miexchng,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Face", "Money Puzzle Exchanger / Money Idol Exchanger", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, gururin,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Face", "Gururin", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, miexchng,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Face", "Money Puzzle Exchanger / Money Idol Exchanger", MACHINE_SUPPORTS_SAVE )
 
 /* Hudson Soft */
-GAME( 1994, panicbom,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Eighting / Hudson", "Panic Bomber", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kabukikl,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Hudson", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, neobombe,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Hudson", "Neo Bomberman", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, panicbom,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Eighting / Hudson", "Panic Bomber", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, kabukikl,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Hudson", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, neobombe,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Hudson", "Neo Bomberman", MACHINE_SUPPORTS_SAVE )
 
 /* Monolith Corp. */
-GAME( 1990, minasan,    neogeo,   neogeo,   mjneogeo, neogeo_state, neogeo,   ROT0, "Monolith Corp.", "Minasanno Okagesamadesu! Daisugorokutaikai (MOM-001)(MOH-001)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, bakatono,   neogeo,   neogeo,   mjneogeo, neogeo_state, neogeo,   ROT0, "Monolith Corp.", "Bakatonosama Mahjong Manyuuki (MOM-002)(MOH-002)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1990, minasan,    neogeo,   neogeo,   mjneogeo, neogeo_class, neogeo,   ROT0, "Monolith Corp.", "Minasanno Okagesamadesu! Daisugorokutaikai (MOM-001)(MOH-001)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1991, bakatono,   neogeo,   neogeo,   mjneogeo, neogeo_class, neogeo,   ROT0, "Monolith Corp.", "Bakatonosama Mahjong Manyuuki (MOM-002)(MOH-002)", MACHINE_SUPPORTS_SAVE )
 
 /* Nazca (later acquired by SNK) */
-GAME( 1996, turfmast,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Nazca", "Neo Turf Masters / Big Tournament Golf", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, mslug,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Nazca", "Metal Slug - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, turfmast,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Nazca", "Neo Turf Masters / Big Tournament Golf", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, mslug,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Nazca", "Metal Slug - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
 
 /* NMK */
-GAME( 1994, zedblade,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "NMK", "Zed Blade / Operation Ragnarok", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, zedblade,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "NMK", "Zed Blade / Operation Ragnarok", MACHINE_SUPPORTS_SAVE )
 
 /* Psikyo */
-GAME( 1999, s1945p,     neogeo,   neogeo,   neogeo, neogeo_state,   s1945p,   ROT0, "Psikyo", "Strikers 1945 Plus" , MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
+//GAME( 1999, s1945p,     neogeo,   neogeo,   neogeo, neogeo_class,   s1945p,   ROT0, "Psikyo", "Strikers 1945 Plus" , MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
 
 /* Saurus */
-GAME( 1995, quizkof,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Quiz King of Fighters (SAM-080)(SAH-080)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, quizkofk,   quizkof,  neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Quiz King of Fighters (Korean release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, stakwin,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Stakes Winner / Stakes Winner - GI kinzen seiha e no michi", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ragnagrd,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Ragnagard / Shin-Oh-Ken", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, pgoal,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Pleasure Goal / Futsal - 5 on 5 Mini Soccer (NGM-219)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ironclad,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Choutetsu Brikin'ger - Iron clad (Prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ironclado,  ironclad, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "bootleg", "Choutetsu Brikin'ger - Iron clad (Prototype, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, stakwin2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Stakes Winner 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, shocktro,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Shock Troopers (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, shocktroa,  shocktro, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Shock Troopers (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, shocktr2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Saurus", "Shock Troopers - 2nd Squad", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, lans2004,   shocktr2, neogeo,   neogeo, neogeo_state,   lans2004, ROT0, "bootleg", "Lansquenet 2004 (Shock Troopers - 2nd Squad bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, quizkof,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Quiz King of Fighters (SAM-080)(SAH-080)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, quizkofk,   quizkof,  neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Quiz King of Fighters (Korean release)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, stakwin,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Stakes Winner / Stakes Winner - GI kinzen seiha e no michi", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, ragnagrd,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Ragnagard / Shin-Oh-Ken", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, pgoal,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Pleasure Goal / Futsal - 5 on 5 Mini Soccer (NGM-219)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, ironclad,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Choutetsu Brikin'ger - Iron clad (Prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, ironclado,  ironclad, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "bootleg", "Choutetsu Brikin'ger - Iron clad (Prototype, bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, stakwin2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Stakes Winner 2", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, shocktro,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Shock Troopers (set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, shocktroa,  shocktro, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Shock Troopers (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, shocktr2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Saurus", "Shock Troopers - 2nd Squad", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, lans2004,   shocktr2, neogeo,   neogeo, neogeo_class,   lans2004, ROT0, "bootleg", "Lansquenet 2004 (Shock Troopers - 2nd Squad bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /* Sunsoft */
-GAME( 1995, galaxyfg,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Sunsoft", "Galaxy Fight - Universal Warriors", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, wakuwak7,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Sunsoft", "Waku Waku 7", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, galaxyfg,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Sunsoft", "Galaxy Fight - Universal Warriors", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, wakuwak7,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Sunsoft", "Waku Waku 7", MACHINE_SUPPORTS_SAVE )
 
 /* Taito */
-GAME( 1994, pbobblen,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Taito", "Puzzle Bobble / Bust-A-Move (Neo-Geo) (NGM-083)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, pbobblenb,  pbobblen, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, pbobbl2n,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Taito (SNK license)", "Puzzle Bobble 2 / Bust-A-Move Again (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, pnyaa,      neogeo,   neogeo,   neogeo, neogeo_state,   pnyaa,    ROT0, "Aiky / Taito", "Pochi and Nyaa", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, pbobblen,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Taito", "Puzzle Bobble / Bust-A-Move (Neo-Geo) (NGM-083)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, pbobblenb,  pbobblen, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, pbobbl2n,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Taito (SNK license)", "Puzzle Bobble 2 / Bust-A-Move Again (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2003, pnyaa,      neogeo,   neogeo,   neogeo, neogeo_class,   pnyaa,    ROT0, "Aiky / Taito", "Pochi and Nyaa", MACHINE_SUPPORTS_SAVE )
 
 /* Takara */
-GAME( 1995, marukodq,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Takara", "Chibi Marukochan Deluxe Quiz", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, marukodq,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Takara", "Chibi Marukochan Deluxe Quiz", MACHINE_SUPPORTS_SAVE )
 
 /* Technos Japan */
-GAME( 1995, doubledr,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Technos Japan", "Double Dragon (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, gowcaizr,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Technos Japan", "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, sdodgeb,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Technos Japan", "Super Dodge Ball / Kunio no Nekketsu Toukyuu Densetsu", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, doubledr,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Technos Japan", "Double Dragon (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, gowcaizr,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Technos Japan", "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, sdodgeb,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Technos Japan", "Super Dodge Ball / Kunio no Nekketsu Toukyuu Densetsu", MACHINE_SUPPORTS_SAVE )
 
 /* Tecmo */
-GAME( 1996, tws96,      neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Tecmo", "Tecmo World Soccer '96", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, tws96,      neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Tecmo", "Tecmo World Soccer '96", MACHINE_SUPPORTS_SAVE )
 
 /* Viccom */
-GAME( 1994, fightfev,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Viccom", "Fight Fever (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, fightfeva,  fightfev, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Viccom", "Fight Fever (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, fightfev,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Viccom", "Fight Fever (set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, fightfeva,  fightfev, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Viccom", "Fight Fever (set 2)", MACHINE_SUPPORTS_SAVE )
 
 /* Video System Co. */
-GAME( 1994, pspikes2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Video System Co.", "Power Spikes II (NGM-068)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, sonicwi2,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Video System Co.", "Aero Fighters 2 / Sonic Wings 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sonicwi3,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Video System Co.", "Aero Fighters 3 / Sonic Wings 3", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, popbounc,   neogeo,   neogeo,   popbounc, neogeo_state, neogeo,   ROT0, "Video System Co.", "Pop 'n Bounce / Gapporin", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, pspikes2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Video System Co.", "Power Spikes II (NGM-068)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1994, sonicwi2,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Video System Co.", "Aero Fighters 2 / Sonic Wings 2", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, sonicwi3,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Video System Co.", "Aero Fighters 3 / Sonic Wings 3", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, popbounc,   neogeo,   neogeo,   popbounc, neogeo_class, neogeo,   ROT0, "Video System Co.", "Pop 'n Bounce / Gapporin", MACHINE_SUPPORTS_SAVE )
 
 /* Visco */
-GAME( 1992, androdun,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Andro Dunos (NGM-049)(NGH-049)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, puzzledp,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon!", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, neomrdo,    neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Neo Mr. Do!", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, goalx3,     neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Goal! Goal! Goal!", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, neodrift,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Neo Drift Out - New Technology", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, breakers,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Breakers", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, puzzldpr,   puzzledp, neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon! R!", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, breakrev,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Breakers Revenge", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, flipshot,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Battle Flip Shot", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, ctomaday,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Captain Tomaday", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, ganryu,     neogeo,   neogeo,   neogeo, neogeo_state,   ganryu,   ROT0, "Visco", "Ganryu / Musashi Ganryuki" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2000, bangbead,   neogeo,   neogeo,   neogeo, neogeo_state,   bangbead, ROT0, "Visco", "Bang Bead", MACHINE_SUPPORTS_SAVE )
+//GAME( 1992, androdun,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Andro Dunos (NGM-049)(NGH-049)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, puzzledp,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon!", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, neomrdo,    neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Neo Mr. Do!", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, goalx3,     neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Goal! Goal! Goal!", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, neodrift,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Neo Drift Out - New Technology", MACHINE_SUPPORTS_SAVE )
+//GAME( 1996, breakers,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Breakers", MACHINE_SUPPORTS_SAVE )
+//GAME( 1997, puzzldpr,   puzzledp, neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon! R!", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, breakrev,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Breakers Revenge", MACHINE_SUPPORTS_SAVE )
+//GAME( 1998, flipshot,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Battle Flip Shot", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, ctomaday,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Visco", "Captain Tomaday", MACHINE_SUPPORTS_SAVE )
+//GAME( 1999, ganryu,     neogeo,   neogeo,   neogeo, neogeo_class,   ganryu,   ROT0, "Visco", "Ganryu / Musashi Ganryuki" , MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+//GAME( 2000, bangbead,   neogeo,   neogeo,   neogeo, neogeo_class,   bangbead, ROT0, "Visco", "Bang Bead", MACHINE_SUPPORTS_SAVE )
 
 /* Mega Enterprise */
-GAME( 2002, mslug4,     neogeo,   neogeo,   neogeo, neogeo_state,   mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4h,    mslug4,   neogeo,   neogeo, neogeo_state,   mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (NGH-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, ms4plus,    mslug4,   neogeo,   neogeo, neogeo_state,   ms4plus,  ROT0, "bootleg", "Metal Slug 4 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, mslug4,     neogeo,   neogeo,   neogeo, neogeo_class,   mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (NGM-2630)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, mslug4h,    mslug4,   neogeo,   neogeo, neogeo_class,   mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (NGH-2630)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, ms4plus,    mslug4,   neogeo,   neogeo, neogeo_class,   ms4plus,  ROT0, "bootleg", "Metal Slug 4 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /* Evoga */
-GAME( 2002, rotd,       neogeo,   neogeo,   neogeo, neogeo_state,   rotd,     ROT0, "Evoga / Playmore", "Rage of the Dragons (NGM-264?)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, rotd,       neogeo,   neogeo,   neogeo, neogeo_class,   rotd,     ROT0, "Evoga / Playmore", "Rage of the Dragons (NGM-264?)", MACHINE_SUPPORTS_SAVE )
 
 /* Atlus */
-GAME( 2002, matrim,     neogeo,   neogeo,   neogeo, neogeo_state,   matrim,   ROT0, "Noise Factory / Atlus", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, matrimbl,   matrim,   neogeo,   neogeo, neogeo_state,   matrimbl, ROT0, "bootleg", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, matrim,     neogeo,   neogeo,   neogeo, neogeo_class,   matrim,   ROT0, "Noise Factory / Atlus", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2002, matrimbl,   matrim,   neogeo,   neogeo, neogeo_class,   matrimbl, ROT0, "bootleg", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /***** Unlicensed commercial releases *****/
 
 /* BrezzaSoft */
-GAME( 2001, jockeygp,   neogeo,   neogeo,   jockeygp, neogeo_state, jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, jockeygpa,  jockeygp, neogeo,   jockeygp, neogeo_state, jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, vliner,     neogeo,   neogeo,   vliner, neogeo_state,   vliner,   ROT0, "Dyna / BrezzaSoft", "V-Liner (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, vlinero,    vliner,   neogeo,   vliner, neogeo_state,   vliner,   ROT0, "Dyna / BrezzaSoft", "V-Liner (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2001, jockeygp,   neogeo,   neogeo,   jockeygp, neogeo_class, jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2001, jockeygpa,  jockeygp, neogeo,   jockeygp, neogeo_class, jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 2)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2001, vliner,     neogeo,   neogeo,   vliner, neogeo_class,   vliner,   ROT0, "Dyna / BrezzaSoft", "V-Liner (set 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2001, vlinero,    vliner,   neogeo,   vliner, neogeo_class,   vliner,   ROT0, "Dyna / BrezzaSoft", "V-Liner (set 2)", MACHINE_SUPPORTS_SAVE )
 
 /* Kyle Hodgetts */
-GAME( 2000, diggerma,   neogeo,   neogeo,   neogeo, neogeo_state,   neogeo,   ROT0, "Kyle Hodgetts", "Digger Man (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2000, diggerma,   neogeo,   neogeo,   neogeo, neogeo_class,   neogeo,   ROT0, "Kyle Hodgetts", "Digger Man (prototype)", MACHINE_SUPPORTS_SAVE )
 
 /* Vektorlogic */
-GAME( 2004, sbp,        neogeo,   neogeo,   neogeo, neogeo_state,   sbp,      ROT0, "Vektorlogic", "Super Bubble Pop", MACHINE_NOT_WORKING )
+//GAME( 2004, sbp,        neogeo,   neogeo,   neogeo, neogeo_class,   sbp,      ROT0, "Vektorlogic", "Super Bubble Pop", MACHINE_NOT_WORKING )
 
 /* NG:DEV.TEAM */
 // Last Hope (c)2006 - AES/NEOCD (has no MVS mode)
@@ -11578,15 +11147,15 @@ GAME( 2004, sbp,        neogeo,   neogeo,   neogeo, neogeo_state,   sbp,      RO
 /******************************************************************************/
 
 
-#include "neogeohb.c"
-#include "neogeo1.c"
-#include "kof96.c"
-#include "kof97.c"
-#include "kof98.c"
-#include "kof99.c"
-#include "kof2000.c"
-#include "kof2001.c"
-#include "kof2002.c"
-#include "kof2003.c"
-#include "mslug.c"
-#include "mgd2.c"
+#include "nghbhb.c"
+#include "nghb1.c"
+#include "ngkof96.c"
+#include "ngkof97.c"
+#include "ngkof98.c"
+#include "ngkof99.c"
+#include "ngkof2000.c"
+#include "ngkof2001.c"
+#include "ngkof2002.c"
+#include "ngkof2003.c"
+#include "ngmslug.c"
+#include "ngmgd2.c"

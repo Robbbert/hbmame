@@ -686,31 +686,31 @@ ROM_END
 
 /* Hacks */
 
-GAME( 2009, kof96ae,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary set 2)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1996, kof96b,    kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Unk", "The King of Fighters '96 (Add Char)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1998, kof96c,    kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Guangzhou Game Team", "The King of Fighters '96 (Chinese Ver.1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ckvs, kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "KVS", "The King of Fighters '96 (Chinese ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96chj,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "CHL and Jason/K3", "The King of Fighters '96 (Diff Moves - Ultra kill style changed set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96cr,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "CHL", "The King of Fighters '96 (Diff Moves and Style)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96eh,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "The King of Fighters '96 (Add Char - Pow hack ABC set 1)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1996, kof96ep,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "The King of Fighters '96 (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof96evo,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 Evolution", MACHINE_SUPPORTS_SAVE ) // Moves and style rev
-GAME( 2004, kof96evoo, kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 Evolution (Old)", MACHINE_SUPPORTS_SAVE ) // Moves and style rev Old
-GAME( 1996, kof96ey,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "The King of Fighters '96 (Pow hack ABC)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96hp,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "HackPlus", "The King of Fighters '96 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1996, kof96hpr,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "HackPlus", "The King of Fighters '96 (Add Char set 2 - revised)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1998, kof96k,    kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Guangzhou Game Team", "The King of Fighters '96 (Add Char - Pow hack ABC set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96k3,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Jason/K3", "The King of Fighters '96 Remix (Kof98 Moves 030725)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96k3o,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Jason/K3", "The King of Fighters '96 Remix (Kof98 Moves 030710)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, kof96lx,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96pjc,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "TcwLee", "The King of Fighters '96 (Char color changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof96rcw,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 (Diff Moves - Ultra kill style changed set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ri,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ri1,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ri2,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ri3,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ri4,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030527 set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ri5,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz","The King of Fighters '96 (Igniz rev 030527 set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ru,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "CHL and Jason/K3", "The King of Fighters '96 Remix Ultra (Diff Moves - Ultra kill style changed - Add Char 031203)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1996, kof96rw,   kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "The King of Fighters '96 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96seh,  kof96,    neogeo, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "The King of Fighters '96 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 2009, kof96ae,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary set 2)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 1996, kof96b,    kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Unk", "The King of Fighters '96 (Add Char)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 1998, kof96c,    kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Guangzhou Game Team", "The King of Fighters '96 (Chinese Ver.1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ckvs, kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "KVS", "The King of Fighters '96 (Chinese ver)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96chj,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "CHL and Jason/K3", "The King of Fighters '96 (Diff Moves - Ultra kill style changed set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96cr,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "CHL", "The King of Fighters '96 (Diff Moves and Style)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96eh,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Ydmis", "The King of Fighters '96 (Add Char - Pow hack ABC set 1)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 1996, kof96ep,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "bootleg", "The King of Fighters '96 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof96evo,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 Evolution", MACHINE_SUPPORTS_SAVE ) // Moves and style rev
+GAME( 2004, kof96evoo, kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 Evolution (Old)", MACHINE_SUPPORTS_SAVE ) // Moves and style rev Old
+GAME( 1996, kof96ey,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Ydmis", "The King of Fighters '96 (Pow hack ABC)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96hp,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "HackPlus", "The King of Fighters '96 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 1996, kof96hpr,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "HackPlus", "The King of Fighters '96 (Add Char set 2 - revised)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 1998, kof96k,    kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Guangzhou Game Team", "The King of Fighters '96 (Add Char - Pow hack ABC set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96k3,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Jason/K3", "The King of Fighters '96 Remix (Kof98 Moves 030725)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96k3o,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Jason/K3", "The King of Fighters '96 Remix (Kof98 Moves 030710)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof96lx,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "EGHT", "The King of Fighters '96 (10th Anniversary set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96pjc,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "TcwLee", "The King of Fighters '96 (Char color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof96rcw,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Wesker/Fight China", "The King of Fighters '96 (Diff Moves - Ultra kill style changed set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ri,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ri1,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ri2,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ri3,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030601 set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ri4,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Igniz", "The King of Fighters '96 (Igniz rev 030527 set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ri5,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Igniz","The King of Fighters '96 (Igniz rev 030527 set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ru,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "CHL and Jason/K3", "The King of Fighters '96 Remix Ultra (Diff Moves - Ultra kill style changed - Add Char 031203)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
+GAME( 1996, kof96rw,   kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Wesker", "The King of Fighters '96 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96seh,  kof96,    neogeo, neogeo, neogeo_class,  neogeo,   ROT0, "Ydmis", "The King of Fighters '96 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
