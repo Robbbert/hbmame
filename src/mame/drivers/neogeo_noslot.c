@@ -9915,3 +9915,8 @@ GAME( 2004, sbp,        neogeo,   neogeo_noslot,   neogeo, neogeo_noslot_state, 
 
 /* NEOBITZ */
 // Knight's Chance (c)2014 - MVS/AES
+
+
+
+#include "../hbmame/drivers/neogeo0.c"
+

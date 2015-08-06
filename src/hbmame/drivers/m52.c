@@ -9,7 +9,7 @@ ROM_START( spatrol )
 	ROM_LOAD( "mpa-3.3k",      0x2000, 0x1000, CRC(2e1a598c) SHA1(112c3c9678db8a8540a8df3708020c87fd10c91b) )
 	ROM_LOAD( "mpa-4.3j",      0x3000, 0x1000, CRC(dd05b587) SHA1(727961b0dafa4a96b580d51013336db2a18aff1e) )
 
-	ROM_REGION( 0x8000, "iremsound", 0 )
+	ROM_REGION( 0x8000, "irem_audio:iremsound", 0 )
 	ROM_LOAD( "mp-s1.1a",     0x7000, 0x1000, CRC(561d3108) SHA1(4998c68a9e9a8002251fa8f07aa1082444a9dc80) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
@@ -36,5 +36,5 @@ ROM_START( spatrol )
 	ROM_LOAD( "mpc-2.2h",     0x0240, 0x0100, CRC(7ae4cd97) SHA1(bc0662fac82ffe65f02092d912b2c2b0c7a8ac2b) ) /* sprite lookup table */
 ROM_END
 
-GAME( 2008, spatrol,  mpatrol, m52, mpatrol, driver_device, 0, ROT0, "Gatinho", "Sponge Patrol", 0 )
+GAME( 2008, spatrol,  mpatrol, m52, mpatrol, driver_device, 0, ROT0, "Gatinho", "Sponge Patrol", MACHINE_SUPPORTS_SAVE )
 

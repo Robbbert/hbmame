@@ -222,11 +222,12 @@ NUM YEAR COMPANY                 TITLE
 
 // MACHINE
 
-static MACHINE_CONFIG_DERIVED( npong10, neogeo )
+static MACHINE_CONFIG_DERIVED( npong10, neogeo_noslot )
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
 MACHINE_CONFIG_END
 
-void neogeo_class::fr2ch_patches()
+#if 0
+void neogeo_state::fr2ch_patches()
 {
 //// Fix rebooting at start
 
@@ -275,7 +276,7 @@ void neogeo_class::fr2ch_patches()
 	src[0x80008 /2] = 0x4E75;
 }
 
-DRIVER_INIT_MEMBER( neogeo_class, fr2ch )
+DRIVER_INIT_MEMBER( neogeo_state, fr2ch )
 {
 	fr2ch_patches();
 	DRIVER_INIT_CALL(neogeo);
@@ -287,7 +288,7 @@ DRIVER_INIT_MEMBER( neogeo_class, fr2ch )
 	mem16[0x1BF4/2] = 0x4E71;
 	mem16[0x1BF6/2] = 0x4E71;
 	DRIVER_INIT_CALL(neogeo);  */
-
+#endif
 
 
 
@@ -310,7 +311,7 @@ ROM_START( csw2 )
 ROM_END
 
 // 071 : Bang Bang Busters
-ROM_START( b2b )
+ROM_START( bbbuster )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "071.p1", 0x000000, 0x80000, CRC(7687197d) SHA1(4bb9cb7819807f7a7e1f85f1c4faac4a2f8761e8) )
 
@@ -326,6 +327,7 @@ ROM_START( b2b )
 	ROM_LOAD16_BYTE( "071.c2", 0x000001, 0x200000, CRC(ce7b6248) SHA1(ad1cd5adae5c151e183ff88b68afe10f7009f48e) )
 ROM_END
 
+#if 0
 // 098 : Idol Mahjong Final Romance 2
 ROM_START( fr2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -379,6 +381,7 @@ ROM_START( fr2ch ) /* CD to MVS Conversion */
 	ROM_LOAD16_BYTE( "098ch.c5", 0x400000, 0x100000, CRC(EEAAA818) SHA1(434c13852153d7bebe138611a836d9bf07d1d4cf) )
 	ROM_LOAD16_BYTE( "098ch.c6", 0x400001, 0x100000, CRC(F3D9A190) SHA1(44932122e044d23234235cb3899f6e1e63970983) )
 ROM_END
+#endif
 
 // 211 : Zintrick
 ROM_START( zintrkcd )
@@ -642,7 +645,7 @@ ROM_START( ngem2k )
 ROM_END
 
 // 412 : Neo Pong by Neodev (c) 2002
-// MAME bug : There's a vertical blank area that slowly moves from left to right
+// MAME bug : On the title screen, there's a vertical blank area that slowly moves from left to right
 ROM_START( neopong ) // v1.1
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "412.p1", 0x000000, 0x020000, CRC(9f35e29d) SHA1(261ce9305950debbc2fe088a45ab0fa83d6cf10d) )
@@ -679,6 +682,7 @@ ROM_END
 // No sound
 // The supplied m1 gives a Z80 ERROR, so it has been replaced.
 // If the game doesn't work, read the FAQ.
+// Bugs: Insert Coin freezes HBMAME.
 ROM_START( ww2demo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "413.p1", 0x000000, 0x80000, CRC(d53762ff) SHA1(231174363266ec1d5a028295f36bddfbf0a54235) )
@@ -753,7 +757,7 @@ ROM_END
 
 // 417 : Nyan Cat demo by Furrtek
 // Movement keys will move nyancat around
-// Bugs: Insert Coin causes reboot.
+// Bugs: Insert Coin freezes HBMAME.
 ROM_START( nyan )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD( "417.p1", 0x000000, 0x20000, CRC(1c9e076f) SHA1(95361da308bf8f946fa218424c991ace872fd374) )
@@ -876,7 +880,7 @@ ROM_START( ngftdemo )
 ROM_END
 
 // 425 : Chip n Dale intro from Raregame
-ROM_START( cndi )	/* you must use unibios to select Japan AES */
+ROM_START( cndi )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "425.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
 
@@ -907,7 +911,7 @@ ROM_START( cndi )	/* you must use unibios to select Japan AES */
 ROM_END
 
 // 426 : Darkwing Duck intro from Raregame
-ROM_START( dwi )	/* you must use unibios to select Japan AES */
+ROM_START( dwi )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "426.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
 
@@ -938,7 +942,7 @@ ROM_START( dwi )	/* you must use unibios to select Japan AES */
 ROM_END
 
 // 427 : Ghostbusters intro from Raregame
-ROM_START( gbi )	/* you must use unibios to select Japan AES */
+ROM_START( gbi )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "427.p1", 0x000000, 0x100000, CRC(af69ef5f) SHA1(e218d1c99e491afcf1887ef9f5bed3e7a5e53fe4) )
 	ROM_LOAD16_WORD_SWAP( "427.p2", 0x100000, 0x400000, CRC(f57e393f) SHA1(4e4ac08db6cc28bcc47808854b1ceb407a486fe5) )
@@ -968,7 +972,7 @@ ROM_START( gbi )	/* you must use unibios to select Japan AES */
 ROM_END
 
 // 428 : Robocop intro from Raregame
-ROM_START( rci )	/* you must use unibios to select Japan AES */
+ROM_START( rci )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "428.p1", 0x000000, 0x800000, CRC(adcb4fe0) SHA1(596242e344d1e171eed7ef242c10aec1a0090acf) )
 
@@ -999,7 +1003,7 @@ ROM_START( rci )	/* you must use unibios to select Japan AES */
 ROM_END
 
 // 429 : Spiderman intro from Raregame
-ROM_START( smi )	/* you must use unibios to select Japan AES */
+ROM_START( smi )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "429.p1", 0x000000, 0x100000, CRC(66b5cfe8) SHA1(65754292a085fce07a04fbe8b91a62c42a9695b1) )
 	ROM_LOAD16_WORD_SWAP( "429.p2", 0x100000, 0x400000, CRC(72082aea) SHA1(a56a8d9196c7d6cc5d66204623cce964e1feda05) )
@@ -1029,7 +1033,7 @@ ROM_START( smi )	/* you must use unibios to select Japan AES */
 ROM_END
 
 // 430 : Teenage Mutant Ninja Turtles intro from Raregame
-ROM_START( tmnti )	/* you must use unibios to select Japan AES */
+ROM_START( tmnti )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "430.p1", 0x000000, 0x800000, CRC(2d5066ff) SHA1(e1109c1e7532fa167ba5c9c90648d019740efd8e) )
 
@@ -1272,7 +1276,7 @@ ROM_START( knacki )
 ROM_END
 
 // 467 : Sprite Experimenter by Furrtek.
-// Bugs: Insert Coin causes reboot
+// Bugs: Insert Coin freezes HBMAME
 ROM_START( spriteex )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "467.p1", 0x000000, 0x080000, CRC(9bce0611) SHA1(5fcb0fa6a434baf20972819484430faf44ffa21d) )
@@ -1329,7 +1333,6 @@ ROM_START( pcmbdemo )
 ROM_END
 
 // 472 : ADPCM-A Playback Demo by freem.
-// Screen is covered by white horizontal stripes. Press 5 to remove them. Not sure if this is intentional or a bug.
 ROM_START( pcmademo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "472.p1", 0x000000, 0x080000, CRC(a198ce30) SHA1(17b9ad5fe5136c0425823f49a65d428c544170c5) )
@@ -1365,55 +1368,55 @@ ROM_END
 
 // GAME MACROS
 
-GAME( 1995, csw2,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ADK", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-//GAME( 2011, b2b,      neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Visco / NCI", "Bang Bang Busters (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2,      neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2cd,    fr2,      neogeo,   neogeo,  neogeo_class, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2ch,    fr2,      neogeo,   neogeo,  neogeo_class, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, zintrkcd, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Razoola", "ZinTricK / Oshidashi Zentrix (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, totc,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Face / NCI", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, csw2,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "ADK", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2011, bbbuster, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Visco / NCI", "Bang Bang Busters (prototype)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, fr2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, fr2cd,    fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
+//GAME( 1995, fr2ch,    fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, zintrkcd, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK / Oshidashi Zentrix (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, totc,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Face / NCI", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2002, beast,    neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2006, cnbe,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "Codename: Blut Engel", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, cndi,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Raregame]", "Chip n Dale Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, cphd,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, columnsn, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dwi,      neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Raregame]", "DarkWing Duck Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, ffeast,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ffeastd,  ffeast,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, gbi,      neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Raregame]", "GhostBusters Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, iocero,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BEY", "Primo Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhcdb,    neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ltorb,    neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta - 20050717)", MACHINE_SUPPORTS_SAVE )
-GAME( 20??, knacki,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, neo2500,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, neo3d,    neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, neocstlv, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, neodemo,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal1,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal1d, neogal1,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (debug)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal1t, neogal1,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (text)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal2,  neogal1,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R002", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neonopon, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "Neo No Panepon V0.2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neopong,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Neodev", "Neo Pong (v1.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neoponga, neopong,  npong10,  neogeo,  neogeo_class, neogeo,   ROT0, "Neodev", "Neo Pong (v1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, neoromjb, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "CeL", "Neo Rom Jukebox", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neotest,  neogal1,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "BEY", "Neo Geo Sound Test", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, neothund, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, ngem2k,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "NGEM2K", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, ngftdemo, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "NGF", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ngmontst, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Jeff Kurtz", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, ngtetris, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, nyan,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pcmademo, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pcmbdemo, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, poknight, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, rci,      neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Raregame]", "Robocop Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, smi,      neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, spriteex, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, syscheck, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
-GAME( 20??, test01,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, timesupd, neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "NGF", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, tmnti,    neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, twister,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
-GAME( 2001, ww2demo,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, beast,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2006, cnbe,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, cndi,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Chip n Dale Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, cphd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, columnsn, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dwi,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, ffeast,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ffeastd,  ffeast,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, gbi,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "GhostBusters Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, iocero,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Primo Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, lhcdb,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ltorb,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta - 20050717)", MACHINE_SUPPORTS_SAVE )
+GAME( 20??, knacki,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, neo2500,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, neo3d,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, neocstlv, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, neodemo,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal1,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal1d, neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (debug)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal1t, neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (text)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal2,  neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R002", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neonopon, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo No Panepon V0.2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neopong,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Neodev", "Neo Pong (v1.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neoponga, neopong,  npong10,         neogeo,  neogeo_state, neogeo,   ROT0, "Neodev", "Neo Pong (v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, neoromjb, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "CeL", "Neo Rom Jukebox", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neotest,  neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Sound Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, neothund, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, ngem2k,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NGEM2K", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, ngftdemo, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ngmontst, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, ngtetris, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, nyan,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pcmademo, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pcmbdemo, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, poknight, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, rci,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, smi,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, spriteex, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, syscheck, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
+GAME( 20??, test01,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, timesupd, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tmnti,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, twister,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ww2demo,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_SUPPORTS_SAVE )

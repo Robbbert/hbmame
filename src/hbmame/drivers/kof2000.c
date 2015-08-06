@@ -1,7 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
-DRIVER_INIT_MEMBER( neogeo_class, kof2000d )
+DRIVER_INIT_MEMBER( neogeo_state, kof2000d )
 {
 	kof2000_decrypt_68k();
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -9,13 +9,13 @@ DRIVER_INIT_MEMBER( neogeo_class, kof2000d )
 	neogeo_sfix_decrypt();
 }
 
-DRIVER_INIT_MEMBER( neogeo_class, kof2000h )
+DRIVER_INIT_MEMBER( neogeo_state, kof2000h )
 {
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	kof2000_install_protection();
 }
 
-DRIVER_INIT_MEMBER( neogeo_class, kof2000m )
+DRIVER_INIT_MEMBER( neogeo_state, kof2000m )
 {
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	kof2000_neogeo_gfx_decrypt(0x00);
@@ -46,33 +46,6 @@ ROM_START( kof2000d )
 	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
 	ROM_LOAD16_BYTE( "257d.c7", 0x3000000, 0x800000, CRC(71dfc3e2) SHA1(1889a8dc88993e35f9fd93ce2bee1de52995932d) )
 	ROM_LOAD16_BYTE( "257d.c8", 0x3000001, 0x800000, CRC(0fa30e5f) SHA1(0cb7fa6b0219e1af2df9b97786c677651a78f37a) )
-ROM_END
-
-ROM_START( kof2000r )
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257r.p3", 0x0c0000, 0x040000, CRC(11b98ae2) SHA1(fd901690334ccc26f0680427b05b5c4aad8b7e1a) )
-	ROM_LOAD16_WORD_SWAP( "257r.p1", 0x100000, 0x400000, CRC(a9f1fb34) SHA1(a09f2bac40f91fc6910edef9699b10197f08f589) )
-	ROM_LOAD16_WORD_SWAP( "257r.p2", 0x500000, 0x400000, CRC(9d26d55d) SHA1(ecb3b0bb98a24553d04c04c30f72f250ea86afeb) )
-
-	NEO_SFIX_MT_512K
-
-	NEO_BIOS_AUDIO_ENCRYPTED_256K( "257-m1.m1", CRC(4b749113) SHA1(2af2361146edd0ce3966614d90165a5c1afb8de4) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "257-v1.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
-	ROM_LOAD( "257-v2.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
-	ROM_LOAD( "257-v3.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
-	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "257-c1.c1", 0x0000000, 0x800000, CRC(cef1cdfa) SHA1(6135080f3a6b4712b76cc217edcc58e72b55c2b9) )
-	ROM_LOAD16_BYTE( "257-c2.c2", 0x0000001, 0x800000, CRC(f7bf0003) SHA1(9f7b19a2100cf7d12867e742f440dd5277b4f895) )
-	ROM_LOAD16_BYTE( "257-c3.c3", 0x1000000, 0x800000, CRC(101e6560) SHA1(8073ae1139e215d1167f8d32c14079a46ce3ee1c) )
-	ROM_LOAD16_BYTE( "257-c4.c4", 0x1000001, 0x800000, CRC(bd2fc1b1) SHA1(da0006761923ad49b404a08d7a151193ee307a69) )
-	ROM_LOAD16_BYTE( "257-c5.c5", 0x2000000, 0x800000, CRC(89775412) SHA1(b221b30224bc4239f1b3c2d2fd1cd4fa84e3523c) )
-	ROM_LOAD16_BYTE( "257-c6.c6", 0x2000001, 0x800000, CRC(fa7200d5) SHA1(6f2b0d38af34e280d56a58955400e5c679906871) )
-	ROM_LOAD16_BYTE( "257-c7.c7", 0x3000000, 0x800000, CRC(7da11fe4) SHA1(065336cf166807acb6c8569d59d3bf37a19b0a42) )
-	ROM_LOAD16_BYTE( "257-c8.c8", 0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) )
 ROM_END
 
 ROM_START( kof2kbh ) /* The King of Fighters 2000 - Hack by Dodowang - (AES mode: can choose Zero; Practice-can choose Zero - MVS mode: can choose Kula and Zero - Zero has icon) */
@@ -913,37 +886,36 @@ ROM_START( kof2kzs ) /* The King of Fighters 2000 - Hack by UNKNOWN - (MVS prote
 ROM_END
 
 
-GAME( 2000, kof2000d,   kof2000,  neogeo, neogeo, neogeo_class, kof2000d, ROT0, "SNK", "The King of Fighters 2000 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2000r,   kof2000,  neogeo, neogeo, neogeo_class, kof2000,  ROT0, "Unk", "The King of Fighters 2000 (KOF REMIX PRO)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kbh,    kof2000,  neogeo, neogeo, neogeo_class, kof2000h, ROT0, "Dodowang","The King of Fighters 2000 (Add Char - Zero has icon)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kbj,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Jason/K3", "The King of Fighters 2000 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kce,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kch,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Chase", "The King of Fighters 2000 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kcp,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2keh,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kehr,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Raymonose", "The King of Fighters 2000 (Add Char - Diff Moves - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kevo,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2000 Evolution (v1.2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kevo1,  kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2000 Evolution (v1.01)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kevo2,  kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2000 Evolution (v1.0)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kgold,  kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Anndy", "The King of Fighters 2000 (Char color changed - Gold)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kgbh,   kof2000,  neogeo, neogeo, neogeo_class, gfxdec50, ROT0, "hack", "The King of Fighters 2000 (Boss Hack - Gold Color Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kice,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Zhangshee", "The King of Fighters 2000 (Char color changed - Ice blue)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kjlc,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Jui Lee", "The King of Fighters 2000 (Char color changed for Athena 2P and Kula 2P)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kkf1,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char - MVS protection rem set 1)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kkvs,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "KVS", "The King of Fighters 2000 (Add Char - MVS protection rem set 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kkzs,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Add Char - MVS protection rem set 3)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kpjc,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kpjc1,  kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color Fix - Entire role change)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kpjc2,  kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color Fix v. 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kpjc3,  kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color changed - Striker not Perfect 030302)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2krm,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Raymonose", "The King of Fighters 2000 (Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2krp,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "FCHT", "The King of Fighters 2000 Remix Pro (Diff Moves v1.0a 031103 - Beta)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kseh,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char - Ultra kill start max - Super pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kst,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "KOF1995", "The King of Fighters 2000 (Add Char - Boss striker moves changed - Similar to kof2kevo from FGCH)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kwh,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Wesker", "The King of Fighters 2000 (Diff Moves for Takuma)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kwh2,   kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Wesker", "The King of Fighters 2000 (Diff Moves for Jhun)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2ky,     kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Ydmis", "The King of Fighters 2000 (Add Kula)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kyd,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Dodowang and Ydmis", "The King of Fighters 2000 (Style change - Select 2 Add Char)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kyg,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
-GAME( 2000, kof2kz,     kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Ydmis", "The King of Fighters 2000 (Add Zero)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
-GAME( 2000, kof2kzs,    kof2000,  neogeo, neogeo, neogeo_class, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Add Char - MVS protection rem set 4)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2000d,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000d, ROT0, "SNK", "The King of Fighters 2000 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kbh,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000h, ROT0, "Dodowang","The King of Fighters 2000 (Add Char - Zero has icon)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kbj,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Jason/K3", "The King of Fighters 2000 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kce,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kch,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Chase", "The King of Fighters 2000 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kcp,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2keh,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kehr,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Raymonose", "The King of Fighters 2000 (Add Char - Diff Moves - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kevo,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2000 Evolution (v1.2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kevo1,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2000 Evolution (v1.01)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kevo2,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Jason/K3 and Wesker", "The King of Fighters 2000 Evolution (v1.0)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kgold,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Anndy", "The King of Fighters 2000 (Char color changed - Gold)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kgbh,   kof2000,  neogeo_noslot, neogeo, neogeo_state, gfxdec50, ROT0, "hack", "The King of Fighters 2000 (Boss Hack - Gold Color Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kice,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Zhangshee", "The King of Fighters 2000 (Char color changed - Ice blue)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kjlc,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Jui Lee", "The King of Fighters 2000 (Char color changed for Athena 2P and Kula 2P)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kkf1,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char - MVS protection rem set 1)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kkvs,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "KVS", "The King of Fighters 2000 (Add Char - MVS protection rem set 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kkzs,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Add Char - MVS protection rem set 3)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kpjc,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kpjc1,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color Fix - Entire role change)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kpjc2,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color Fix v. 2)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kpjc3,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "TcwLee", "The King of Fighters 2000 (Color changed - Striker not Perfect 030302)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2krm,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Raymonose", "The King of Fighters 2000 (Diff Moves)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2krp,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "FCHT", "The King of Fighters 2000 Remix Pro (Diff Moves v1.0a 031103 - Beta)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kseh,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char - Ultra kill start max - Super pow hack)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kst,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "KOF1995", "The King of Fighters 2000 (Add Char - Boss striker moves changed - Similar to kof2kevo from FGCH)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kwh,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Wesker", "The King of Fighters 2000 (Diff Moves for Takuma)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kwh2,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Wesker", "The King of Fighters 2000 (Diff Moves for Jhun)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2ky,     kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Ydmis", "The King of Fighters 2000 (Add Kula)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kyd,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Dodowang and Ydmis", "The King of Fighters 2000 (Style change - Select 2 Add Char)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kyg,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Guangzhou Game Team", "The King of Fighters 2000 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack - Kula and Zero
+GAME( 2000, kof2kz,     kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Ydmis", "The King of Fighters 2000 (Add Zero)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack
+GAME( 2000, kof2kzs,    kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000m, ROT0, "Unk", "The King of Fighters 2000 (Add Char - MVS protection rem set 4)", MACHINE_SUPPORTS_SAVE ) // kof2000n hack

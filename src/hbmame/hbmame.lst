@@ -153,6 +153,7 @@ dinoz		/* Boss Hack */
 knightsb2
 knightsh	/* 1991 Knights of the Round (Hack) */
 knightsha	/* 1991 Knights of the Round (Hack) */
+knightsro	// Sebastian Mihai - Romanian translation 2015
 kodh
 pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
@@ -514,6 +515,7 @@ kof99yd
 
 	/* kof2000 */
 kof2000d
+kof2000r
 kof2kbh
 kof2kbj
 kof2kce
@@ -1191,6 +1193,7 @@ necup98k
 nitdfr		/* Neo-Arc French Trans */
 nitdfro		/* Neo-Arc French Trans */
 nitdsp
+nitdsp1		// Spanish.Rev2
 rotdbr
 rotdbr1
 rotdbr2

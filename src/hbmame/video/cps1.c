@@ -1511,9 +1511,10 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinohc",      CPS_B_21_DEF, mapper_CD63B },				//works (no sound)
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },				//works
 	{"knightsb2",   HACK_B_6,     mapper_KR63B, 0x36, 0, 0x34, 4 }, 	//works
-	{"knightsh",    CPS_B_21_DEF, mapper_KR63B,  0x36, 0, 0x34 },		//works
-	{"knightsha",   CPS_B_21_DEF, mapper_KR63B,  0x36, 0, 0x34 },		//works (priority issue on high score screen)
-	{"kodh",        CPS_B_21_DEF, mapper_KD29B,  0x36, 0, 0x34 },		//works
+	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works
+	{"knightsha",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works (priority issue on high score screen)
+	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },		//works
+	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },		//works
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },				//works
 	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },				//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 5 },		//works (some sprites not cleared on time)

@@ -11147,10 +11147,11 @@ DRIVER_INIT_MEMBER(neogeo_class,sbp)
 /******************************************************************************/
 
 
-#include "nghbhb.c"
+//#include "nghb0.c" - do not use
+//#include "nghbhb.c"
 #include "nghb1.c"
-#include "ngkof96.c"
-#include "ngkof97.c"
+//#include "ngkof96.c"
+//#include "ngkof97.c"
 #include "ngkof98.c"
 #include "ngkof99.c"
 #include "ngkof2000.c"
@@ -11158,4 +11159,4 @@ DRIVER_INIT_MEMBER(neogeo_class,sbp)
 #include "ngkof2002.c"
 #include "ngkof2003.c"
 #include "ngmslug.c"
-#include "ngmgd2.c"
+//#include "ngmgd2.c"
