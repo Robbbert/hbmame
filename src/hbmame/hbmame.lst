@@ -456,6 +456,7 @@ kof98yh
 	/* kof99 */
 kof99ab
 kof99ae		/* Anniversary Edition */
+kof99ae20150520
 kof99bh
 kof99btr
 kof99ch
@@ -1112,7 +1113,9 @@ samsho4		/* 0222 (c) 1996 SNK */
 samsho5		/* 0270 (c) 2003 Playmore */
 samsh5sp	/* 0272 (c) 2003 Playmore */
 sengoku3	/* 0261 (c) 2001 SNK */
+strhoop		// 079
 svc		/* 0269 (c) 2003 Playmore / Capcom */
+wh2j		// 064
 whp		/* 0090 (c) 1995 ADK / SNK */
 zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
 				/* 0054 Crossed Swords 2  (CD only? not confirmed, MVS might exist) */
@@ -1131,8 +1134,8 @@ cphd
 columnsn	/* 2000 (c) 1990 Sega */
 //csw2 //not working at all & roms missing
 dwi		/* DarkWing Duck Intro */
-ffeast
-ffeastd
+ffeast		// Frog Feast
+ffeastd		// Frog Feast demo
 gbi		/* Ghostbusters Intro */
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
@@ -1330,10 +1333,12 @@ senku3ha
 senku3yk
 senku3ya
 shockt2w
+strhoopcd
 tpgolfcd
 viewpntr
 wakuw7bh
 wh2ey
+wh2ja
 whpb
 whpb2
 whpbh

@@ -3754,6 +3754,25 @@ ROM_START( shockt2w )	/* you must use unibios to select AES */ /* Shock Troopers
 	ROM_LOAD16_BYTE( "246-c6.c6", 0x2000001, 0x800000, CRC(7e2caae1) SHA1(d9de14e3e323664a8c5b7f1df1ba9ec7dd0e6a46) )
 ROM_END
 
+ROM_START( strhoopcd ) // CD conversion - sometimes can have bad background gfx
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "079cd.p1", 0x000000, 0x100000, CRC(16795f7f) SHA1(977a6c31ca6553e1cfa3402a5e541bab4c2244be) )
+
+	NEO_SFIX_128K( "079cd.s1", CRC(c65a5fe8) SHA1(ec8e8c49994ce9286ea5160c2450912da0746fb0) )
+
+	NEO_BIOS_AUDIO_128K( "079-m1.m1", CRC(bee3455a) SHA1(fd5345d9847982085a9b364fff542580889bf02f) )
+
+	ROM_REGION( 0x300000, "ymsnd", 0 )
+	ROM_LOAD( "079-v1.v1", 0x000000, 0x200000, CRC(718a2400) SHA1(cefc5d0b302bd4a87ab1fa244ade4482c23c6806) )
+	ROM_LOAD( "079-v2.v2", 0x200000, 0x100000, CRC(720774eb) SHA1(e4926f01322d0a15e700fb150b368152f2091146) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "079cd.c1", 0x000000, 0x200000, CRC(c3ebd902) SHA1(daae0ae972ecc0c19b2e6a439e5f2547286f190a) )
+	ROM_LOAD16_BYTE( "079cd.c2", 0x000001, 0x200000, CRC(1a471f80) SHA1(725864d734ec9ab2933a46a6dc4d18dbc31fe2c7) )
+	ROM_LOAD16_BYTE( "079cd.c3", 0x680000, 0x080000, CRC(4d490ecc) SHA1(8ced8f547799b613edd95acabd6f8cb28c41eab5) )
+	ROM_LOAD16_BYTE( "079cd.c4", 0x680001, 0x080000, CRC(e223d27c) SHA1(2e195fea0d5808e90f154412b5e80b430e6341e2) )
+ROM_END
+
 ROM_START( tpgolfcd )
 	ROM_REGION( 0x180000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "003ch.p1",  0x000000, 0x100000, CRC(87f2a8ce) SHA1(ad903d7711ac4af47f1dee64ba7c6bb247029407) )
@@ -3844,6 +3863,26 @@ ROM_START( wh2ey )
 	ROM_LOAD16_BYTE( "057-c4.c4", 0x400001, 0x200000, CRC(8d96425e) SHA1(0f79c868a6a33ad25e38d842f30ec4440d809033) )
 	ROM_LOAD16_BYTE( "057-c5.c5", 0x800000, 0x200000, CRC(b20354af) SHA1(da7609fd467f2f4d71d92970f438a04d11ab1cc1) )
 	ROM_LOAD16_BYTE( "057-c6.c6", 0x800001, 0x200000, CRC(b13d1de3) SHA1(7d749c23a33d90fe50279e884540d71cf1aaaa6b) )
+ROM_END
+
+ROM_START( wh2ja ) // World Heroes 2 Jet old set that was in MAME
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "064-p1.p1", 0x100000, 0x100000, CRC(385a2e86) SHA1(cfde4a1aeae038a3d6ca9946065624f097682d3d) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "064-s1.s1", CRC(2a03998a) SHA1(5e33f469982f12d4622a06d323a345f192bf88e6) )
+
+	NEO_BIOS_AUDIO_128K( "064-m1.m1", CRC(d2eec9d3) SHA1(09478787045f1448d19d064dd3d540d1741fd619) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "064-v1.v1", 0x000000, 0x200000, CRC(aa277109) SHA1(35c22b15bb0a4d0ab118cb22a2d450d03995a17c) )
+	ROM_LOAD( "064-v2.v2", 0x200000, 0x200000, CRC(b6527edd) SHA1(2bcf5bfa6e117cf4a3728a5e5f5771313c93f22a) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "064a-c13.c1", 0x000000, 0x400000, CRC(771a6365) SHA1(646bdf3a79819fbca98f513c172b9e9500c073be) )
+	ROM_LOAD16_BYTE( "064a-c24.c2", 0x000001, 0x400000, CRC(e7863a05) SHA1(39d34119137216f914b8b8b7b3e622a6c210f130) )
+	ROM_LOAD16_BYTE( "064a-c57.c3", 0x800000, 0x400000, CRC(64594ed4) SHA1(982dbb932c0cb2eb9292bf19c463fd618c8180f3) )
+	ROM_LOAD16_BYTE( "064a-c68.c4", 0x800001, 0x400000, CRC(6e385398) SHA1(e74a0e72876bff8766152b76e5d94f2958b03cf2) )
 ROM_END
 
 ROM_START( whpb ) /* World Heroes Perfect - Hack by Creamymami and Dodowang - (Can choose Gokuu, Neo-Dio and Zeus) */
@@ -4216,6 +4255,7 @@ GAME( 2001, senku3yk,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0
 GAME( 2001, senku3ya,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE ) // Byakki and Okuni
 
 GAME( 1998, shockt2w,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Wesker","Shock Troopers - 2nd Squad (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, strhoopcd, strhoop,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Data East Corporation", "Street Hoop (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2007, tpgolfcd,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
@@ -4223,7 +4263,8 @@ GAME( 1992, viewpntr,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 
 GAME( 1996, wakuw7bh,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Waku Waku 7 (Add Char - 2 players only)", MACHINE_SUPPORTS_SAVE ) // Fernandez and Bonus Kun
 
-GAME( 1993, wh2ey,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ZKW",              "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, wh2ey,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wh2ja,     wh2j,     neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ADK / SNK", "World Heroes 2 Jet (ADM-007)(ADH-007)(old set)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, whpb,      whp,      neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami and Dodowang","World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
 GAME( 1995, whpb2,     whp,      neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami and Dodowang","World Heroes Perfect (Add Char - 2 with Icons)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
