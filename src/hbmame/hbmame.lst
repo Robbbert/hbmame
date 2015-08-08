@@ -203,6 +203,8 @@ wofzero
 	/* cps2.c */
 ddsom
 ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
+ssf2
+ssf2r1d
 suicide		/* Razoola */
 
 	/* dec0.c */
@@ -427,12 +429,46 @@ kof98cd
 kof98ch
 kof98chl
 kof98c20070720
+kof98c20070923 // sometimes reboots itself
+kof98c20080524 // sometimes reboots itself
+kof98c20080616 // sometimes reboots itself
+kof98c20080712 // sometimes reboots itself
+kof98c20090620 // sometimes reboots itself
+kof98c20100214
+kof98c20120116
+kof98c20120915
+kof98c20130213
 kof98c20130311
 kof98c20130509
 kof98c20130528
 kof98c20130617
 kof98c20130808
 kof98c20130820
+kof98c20140101
+kof98c20140110
+kof98c20140118
+kof98c20140204
+kof98c20140213
+kof98c20140217
+kof98c20140228
+kof98c20140302
+kof98c20140310
+kof98c20140317
+kof98c20140403
+kof98c20140412
+kof98c20140416
+kof98c20140419
+kof98c20140428
+kof98c20140504
+kof98c20140524
+kof98c20140606
+kof98c20140620
+kof98c20140717
+kof98c20140824
+kof98c20140924
+kof98c20141002
+kof98c20150302
+kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
 kof98ehr
 kof98fr
@@ -451,7 +487,7 @@ kof98wh
 kof98wh2
 kof98y
 kof98yh
-//kof98co2014 //test
+
 
 	/* kof99 */
 kof99ab
