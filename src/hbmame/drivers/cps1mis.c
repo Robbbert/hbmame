@@ -104,6 +104,24 @@ static ADDRESS_MAP_START( daimakb_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
+static ADDRESS_MAP_START( sf2h14_map, AS_PROGRAM, 16, cps_state )
+/* some gfx in wrong horizontal positions */
+	AM_RANGE(0x000000, 0x3fffff) AM_ROM
+	AM_RANGE(0x800000, 0x800007) AM_READ_PORT("IN1")
+	AM_RANGE(0x800018, 0x80001f) AM_READ(cps1_hack_dsw_r)
+	AM_RANGE(0x800020, 0x800021) AM_READNOP
+	AM_RANGE(0x800030, 0x800037) AM_WRITE(cps1_coinctrl_w)
+	AM_RANGE(0x800100, 0x80013f) AM_WRITE(cps1_cps_a_w) AM_SHARE("cps_a_regs")
+	AM_RANGE(0x800140, 0x80017f) AM_READWRITE(cps1_cps_b_r, cps1_cps_b_w) AM_SHARE("cps_b_regs")
+	AM_RANGE(0x800180, 0x800187) AM_WRITE(cps1_soundlatch_w)
+	AM_RANGE(0x800188, 0x80018f) AM_WRITE(cps1_soundlatch2_w)
+	AM_RANGE(0x8001a0, 0x8001c3) AM_WRITE(cps1_cps_a_w)
+	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram")
+	AM_RANGE(0xe00000, 0xefffff) AM_RAM
+	AM_RANGE(0xf1c000, 0xf1c001) AM_READ(cps1_in2_r)
+	AM_RANGE(0xff0000, 0xffffff) AM_RAM AM_SHARE("mainram")
+ADDRESS_MAP_END
+
 static ADDRESS_MAP_START( wofsjb_map, AS_PROGRAM, 16, cps_state )
 /* unknown addresses (all write): 930008-930807. No 3rd player controls. NVRAM doesn't work */
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
@@ -519,6 +537,11 @@ INPUT_PORTS_END
 *
 ********************************************************************/
 
+
+static MACHINE_CONFIG_DERIVED( sf2h14, cps1_12MHz)
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(sf2h14_map)
+MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( daimakb, cps1_10MHz)
 	MCFG_CPU_MODIFY("maincpu")
@@ -1603,6 +1626,50 @@ ROM_START( sf2h13 )
 	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
+ROM_START( sf2h14 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
+	ROM_LOAD16_BYTE( "sf2h14.7", 0x000000, 0x80000, CRC(74803532) SHA1(c1f774bbc4c7b18fcac15417711a86eb852b9957) )
+	ROM_LOAD16_BYTE( "sf2h14.5", 0x000001, 0x80000, CRC(66c91972) SHA1(219aecad1feb60bb758190ea82223171075c858e) )
+	// same as sf2m8
+	ROM_LOAD16_BYTE( "yyc-4.1", 0x100000, 0x20000, CRC(1073b7b6) SHA1(81ca1eab65ceac69520584bb23a684ccb9d92f89) )
+	ROM_LOAD16_BYTE( "yyc-5.3", 0x100001, 0x20000, CRC(924c6ce2) SHA1(676a912652bd75da5087f0c7eae047b7681a993c) )
+
+	// not supplied... assuming they are there, using ones from sf2ebbl2
+	ROM_REGION( 0x600000, "gfx", 0 )
+	/* 5 MASK roms on this PCB match the original roms exactly, */
+	ROMX_LOAD( "a-se235.bin", 0x000000, 0x80000, CRC(a258de13) SHA1(2e477948c4c8a2fb7cfdc4a739766bc4a4e01c49) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x000004, 0x80000)
+	ROMX_LOAD( "c-se005.bin", 0x000002, 0x80000, CRC(c781bf87) SHA1(034baa9807c2ce8dc800200963a38cd9262b21fb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x000006, 0x80000)
+	ROMX_LOAD( "b-se194.bin", 0x200000, 0x80000, CRC(5726cab8) SHA1(0b2243a9a7184d53d42ddab7a8c51b63001c2f56) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x200004, 0x80000)
+	ROMX_LOAD( "d-se064.bin", 0x200002, 0x80000, CRC(4dd24197) SHA1(548beaa0a6f1c3c88f4fc83169d1a3c86e0755d4) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x200006, 0x80000)
+	ROMX_LOAD( "e-sf004.bin", 0x400000, 0x80000, CRC(187667cc) SHA1(fae65bf23f49a32903fda8080659ccf8d42b911f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x400004, 0x80000)
+	ROMX_LOAD( "f-sf001.bin", 0x400002, 0x80000, CRC(5b585071) SHA1(ad3371b1ba0441c67d9fcbb23b09464710e4e28a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x400006, 0x80000)
+
+	// all the rest are same as sf2ebbl2
+	// These map over the MASK roms on this bootleg why? isn't it a waste of eprom?
+	ROMX_LOAD( "27c1024.10", 0x400000, 0x20000, CRC(84427d1b) SHA1(f988a2b53c8cc46eeb8032084f24966a539b3734) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "27c1024.12", 0x400002, 0x20000, CRC(55bc790c) SHA1(a1114b89f6fa4487210477676984c77ad94b5ef8) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "27c1024.9",  0x400004, 0x20000, CRC(f8725add) SHA1(fa3fcf6637ee4dd7667bd89766074b3c6ba4f166) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "27c1024.11", 0x400006, 0x20000, CRC(c2a5373e) SHA1(602b32e5ecc7007efe9ad30751040ee52b81f59a) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+
+	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_LOAD( "27c512.3",    0x00000, 0x08000, CRC(a4823a1b) SHA1(7b6bf59dfd578bfbbdb64c27988796783442d659) )
+	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x20000, "user1", 0 ) /* unknown (bootleg priority?) */
+	ROM_LOAD( "27c512.8",    0x00000, 0x10000, CRC(13ea1c44) SHA1(5b05fe4c3920e33d94fac5f59e09ff14b3e427fe) )
+
+	ROM_REGION( 0x40000, "oki", 0 ) /* Samples */
+	ROM_LOAD( "27c010.2",    0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
+	ROM_LOAD( "27c010.1",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
+ROM_END
+
 ROM_START( sf2pun )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "sf2pun.23",    0x000000, 0x80000, CRC(8c3bb8f8) SHA1(756ae3980c15d037ff6e70d0c309d9caed6bac4f) )
@@ -2542,13 +2609,14 @@ GAME( 1992, sf2h10,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0
 GAME( 1992, sf2h11,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H11, bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2h12,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H12, bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2h13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (H13, bootleg)", MACHINE_SUPPORTS_SAVE )	// bad tile on Blanka
+GAME( 1992, sf2h14,    sf2ce,    sf2h14,     sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (H14, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )               // 920313 - based on USA version
 GAME( 2012, sf2pun,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition v1 Final)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version
 GAME( 2013, sf2sl73a,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version
 GAME( 1992, sf2tlona,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 1)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
 GAME( 1992, sf2tlonb,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2turyu,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II - Champion Edition (Tu Long prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, stridergf, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Capcom", "Strider (Gfx fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, stridergh, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Capcom", "Strider (gfx fix, uncensored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, stridergf, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Willkaotix", "Strider (Gfx fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, stridergh, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Willkaotix", "Strider (gfx fix, uncensored)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, wof3js,    wof,      qsound,     wof3js,   cps_state, wof3js,   ROT0,   "bootleg", "Sangokushi II: San Jian Sheng (Chinese bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, wof3sj,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Three Holy Swords / San Sheng Jian (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, wof3sja,   wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Hack", "Three Holy Swords / San Sheng Jian (set 2)", MACHINE_SUPPORTS_SAVE )
