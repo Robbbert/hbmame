@@ -427,7 +427,7 @@ MACHINES["LDV1000"] = true
 MACHINES["LDVP931"] = true
 MACHINES["LH5810"] = true
 MACHINES["LINFLASH"] = true
---MACHINES["LPCI"] = true
+MACHINES["LPCI"] = true
 MACHINES["LSI53C810"] = true
 MACHINES["M68307"] = true
 MACHINES["M68340"] = true
@@ -641,6 +641,7 @@ BUSES["SNES"] = true
 BUSES["SNES_CTRL"] = true
 BUSES["SPC1000"] = true
 BUSES["TI99PEB"] = true
+BUSES["TI99X"] = true
 BUSES["TVC"] = true
 BUSES["VBOY"] = true
 BUSES["VC4000"] = true
@@ -984,6 +985,8 @@ files {
 	MAME_DIR .. "src/mame/video/vectrex.c",     
 	MAME_DIR .. "src/mame/drivers/cps1.c",      
 	MAME_DIR .. "src/mame/video/cps1.c",        
+	MAME_DIR .. "src/mame/video/chihiro.c",        
+	MAME_DIR .. "src/mame/machine/xbox.c",
 }
 end
 --------------------------------------------------
@@ -2374,19 +2377,6 @@ files {
 	MAME_DIR .. "src/mess/drivers/ti990_4.c",   
 	MAME_DIR .. "src/mess/drivers/ti990_10.c",  
 	MAME_DIR .. "src/mess/drivers/tm990189.c",  
-	MAME_DIR .. "src/mess/machine/ti99/990_dk.c", 
-	MAME_DIR .. "src/mess/machine/ti99/990_hd.c", 
-	MAME_DIR .. "src/mess/machine/ti99/990_tap.c", 
-	MAME_DIR .. "src/mess/machine/ti99/datamux.c", 
-	MAME_DIR .. "src/mess/machine/ti99/genboard.c", 
-	MAME_DIR .. "src/mess/machine/ti99/grom.c", 
-	MAME_DIR .. "src/mess/machine/ti99/gromport.c", 
-	MAME_DIR .. "src/mess/machine/ti99/handset.c", 
-	MAME_DIR .. "src/mess/machine/ti99/joyport.c", 
-	MAME_DIR .. "src/mess/machine/ti99/mapper8.c", 
-	MAME_DIR .. "src/mess/machine/ti99/mecmouse.c", 
-	MAME_DIR .. "src/mess/machine/ti99/speech8.c", 
-	MAME_DIR .. "src/mess/machine/ti99/videowrp.c", 
 	MAME_DIR .. "src/mess/video/733_asr.c",     
 	MAME_DIR .. "src/mess/video/911_vdt.c",     
 	MAME_DIR .. "src/mess/drivers/hh_tms1k.c",  

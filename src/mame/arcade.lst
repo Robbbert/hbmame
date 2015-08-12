@@ -6142,6 +6142,7 @@ ragtime         // MBD (c) 1992 (Japan, v1.5)
 ragtimea        // MBD (c) 1992 (Japan, v1.3)
 dblewing        // MBE (c) 1993 Mitchell
 fghthist        // MBF (c) 1993 Data East Corporation (World) DE-0380-2 PCB
+fghthista       // MBF (c) 1993 Data East Corporation (World) DE-0380-2 PCB
 fghthistu       // MBF (c) 1993 Data East Corporation (US)    DE-0395-1 PCB
 fghthistua      // MBF (c) 1993 Data East Corporation (US)    DE-0395-1 PCB
 fghthistj       // MBF (c) 1993 Data East Corporation (Japan) DE-0395-1 PCB
@@ -10398,9 +10399,9 @@ taxidriv        // [1984 Graphic Techno]
 xyonix          // [1989 Philko]
 gt507uk         // (c) 1986 Grayhound Electronics
 gtsers8         // (c) 1984 Greyhound Electronics
+gtsers8a        // (c) 1984 Greyhound Electronics
 gtsers9         // (c) 1984 Greyhound Electronics
 gtsers10        // (c) 1984 Greyhound Electronics
-gtsers10a       // (c) 1984 Greyhound Electronics
 gtsers11        // (c) 1984 Greyhound Electronics
 gtsers11a       // (c) 1984 Greyhound Electronics
 gtsers12        // (c) 1984 Greyhound Electronics
@@ -10717,6 +10718,7 @@ riviera         // (c) 1987 Merit
 rivieraa        // (c) 1986 Merit
 rivierab        // (c) 1986 Merit
 americna        // (c) 1987 Merit
+meritjp         // (c) 1987 Merit
 dodgecty        // (c) 1988 Merit
 dodgectya       // (c) 1986 Merit
 dodgectyb       // (c) 1986 Merit
