@@ -1577,7 +1577,7 @@ ket
 //kov
 kovplus
 kovsh
-//kov2
+kov2p
 pgemeni		/* Blastar */
 pgmdemo		/* Charles Doty */
 pgmfrog		/* Rastersoft */
@@ -1589,25 +1589,51 @@ ketarrs15
 ketarr151
 ketarrs151
 ketarr17
-kovp2k7
-kovpl116
-kovpl948
-kovpls06
-kovpls93
-kovpls97
-kovpluslb
-kovpluslw
-kovpluspj
-kovplusq
-kovpluss8
-kovplusx
-kovplusbe
-kovplusdz
-kovplusti
-kovplusup
-kovshhack
-//kovshpa
-kovshre
+//kovassg
+//kovdf
+kov2h1
+kov2h2
+kov2h3
+kov2h4
+kovph1
+kovph2
+kovph3
+kovph4
+kovph5
+kovph6
+//kovph7
+kovph8
+//kovph9
+//kovph10
+kovph11
+kovph12
+kovph13
+kovph14
+kovph15
+//kovph16
+kovph17
+kovph18
+//kovph19
+//kovph20
+//kovph21
+//kovph22
+//kovph23
+kovsh1
+kovsh2
+//kovsh3		// all of these are encrypted, not working
+//kovsh4
+//kovsh5
+//kovsh6
+//kovsh7
+//kovsh8
+//kovsh9
+//kovsh10
+//kovsh11
+//kovsh12
+//kovsh13
+//kovsh14
+//kovsh15
+//kovsh16
 
 	/* phoenix.c */
 phoenix		/* (c) 1980 Amstar */
