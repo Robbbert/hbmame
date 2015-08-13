@@ -1707,6 +1707,7 @@ pbobl2xh
 
 	/* taito_l.c */
 tldemo		// cmonkey
+tldemo2		// cmonkey
 
 	/* tecmo.c */
 geminit		/* Twisty Hack */
