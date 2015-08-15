@@ -1509,6 +1509,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },			//works
 	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 5 },		//works
 	{"dinohc",      CPS_B_21_DEF, mapper_CD63B },				//works (no sound)
+	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },				//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },				//works
 	{"knightsb2",   HACK_B_6,     mapper_KR63B, 0x36, 0, 0x34, 4 }, 	//works
 	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works

@@ -149,6 +149,7 @@ dinoex
 dinoh		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinoha		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinoslice
 dinoz		/* Boss Hack */
 knightsb2
 knightsh	/* 1991 Knights of the Round (Hack) */
@@ -398,6 +399,7 @@ kof97chl2
 kof97eh
 kof97eh2
 kof97eho
+kof97evo
 kof97hxd
 kof97ice
 kof97kp
@@ -468,7 +470,15 @@ kof98c20140717
 kof98c20140824
 kof98c20140924
 kof98c20141002
+kof98c20141020
+kof98c20150201
+kof98c20150228
 kof98c20150302
+kof98c20150310
+kof98c20150330
+kof98c20150528
+kof98c20150614
+kof98c20150705
 kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
 kof98ehr
@@ -493,11 +503,15 @@ kof98yh
 	/* kof99 */
 kof99ab
 kof99ae		/* Anniversary Edition */
+kof99ae20140624
+kof99ae20150121
 kof99ae20150520
+kof99ae20150711
 kof99bh
 kof99btr
 kof99ch
 kof99chf
+kof99co
 kof99d
 kof99eh
 kof99ehr

@@ -42,7 +42,11 @@ ROM_START( kof99ab ) /* The King of Fighters '99 - Hack by Marcochen/PPX Hack Te
 	ROM_LOAD16_BYTE( "251-c8.c8",   0x3000001, 0x800000, CRC(8d921c68) SHA1(42acf1d27d52a8e3b6262eb7df50693c0b135565) )
 ROM_END
 
-ROM_START( kof99ae ) /* The King of Fighters '99 - Anniversary Edition */
+/* The King of Fighters '99 - Anniversary Edition.
+   Unfortunately Yashional does not put revision dates in his games,
+   so we've had to guess which roms to use.
+   For the name, we go by the date on the zipfile (if provided). */
+ROM_START( kof99ae )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ae.p1", 0x000000, 0x100000, CRC(67f52d45) SHA1(cadf1c5c8c3e234204c8b32677f347e66d0373e5) )
 	ROM_LOAD16_WORD_SWAP( "251ae.p2", 0x100000, 0x400000, CRC(67134a67) SHA1(c853f67ec66b0f01273c3ce1e1003262cbca0a60) )
@@ -72,11 +76,73 @@ ROM_START( kof99ae ) /* The King of Fighters '99 - Anniversary Edition */
 	ROM_LOAD16_BYTE( "251ae.c12",  0x5000001, 0x800000, CRC(49cfed23) SHA1(63fa8682b86802967b36489c7483c59039f35aa5) )
 ROM_END
 
+ROM_START( kof99ae20140624 ) /* The King of Fighters '99 - Anniversary Edition */
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251aenj.p1", 0x000000, 0x100000, CRC(924122bc) SHA1(5240c2317e79ee27abcdb484800c569e78a1172f) )
+	ROM_LOAD16_WORD_SWAP( "251aenj.p2", 0x100000, 0x400000, CRC(6ba36969) SHA1(18cb69260f5592a4279f07bfd0d3af2f3e7ff288) )
+	ROM_LOAD16_WORD_SWAP( "251aenj.p3", 0x500000, 0x400000, CRC(99697d6e) SHA1(c505afdfb7ea506c30d2d581d166f49f7fd7c88c) )
+
+	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
+
+	NEO_SFIX_128K( "251aenj.s1", CRC(18c1562d) SHA1(afeaa541998a3c23a0ecb87da0231370f08213f2) )
+
+	ROM_REGION( 0xe00000, "ymsnd", 0 )
+	ROM_LOAD( "251ae.v1",  0x000000, 0x400000, CRC(4ae46226) SHA1(77dbd53772e1e5000a091b9ff4b3cdc14b62ab0b) )
+	ROM_LOAD( "251ae.v2",  0x400000, 0x400000, CRC(07d70650) SHA1(70d274771c07215268292f91517ec61634e32611) )
+	ROM_LOAD( "251-v3.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251-v4.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251aex.c1.bin", 0x000000, 0x800000, CRC(497c2e83) SHA1(379887e839dd4e33b41ab634a54789621bdfea98) )
+	ROM_LOAD16_BYTE( "251aex.c2.bin", 0x000001, 0x800000, CRC(0a13eeb7) SHA1(2cb196a955a3472f922d0085cee2ddc0111fdbd3) )
+	ROM_LOAD16_BYTE( "251d.c3",    0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4",    0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5",    0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6",    0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251ae.c7",   0x3000000, 0x800000, CRC(f22760ad) SHA1(a503898d9b6141c76f63b7c505ac78d3575530b2) )
+	ROM_LOAD16_BYTE( "251ae.c8",   0x3000001, 0x800000, CRC(396c3a70) SHA1(6cd0acd05c138ac85ad63a04dfc015a3e70fa572) )
+	ROM_LOAD16_BYTE( "251aenj.c9",  0x4000000, 0x800000, CRC(53d028c0) SHA1(be59fc381e3b9c3bc42a5ca691b3dfa05e1f2b1c) )
+	ROM_LOAD16_BYTE( "251aenj.c10", 0x4000001, 0x800000, CRC(707ce1a7) SHA1(afc41c9ee37eca8f2a77b2b40a120bb01d8eb4bd) )
+	ROM_LOAD16_BYTE( "251ae.c11",  0x5000000, 0x800000, CRC(90016920) SHA1(6686e98a25d906131f73ed83c712096a6946c62e) )
+	ROM_LOAD16_BYTE( "251ae.c12",  0x5000001, 0x800000, CRC(49cfed23) SHA1(63fa8682b86802967b36489c7483c59039f35aa5) )
+ROM_END
+
+ROM_START( kof99ae20150121 ) /* The King of Fighters '99 - Anniversary Edition */
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251aeoa.p1", 0x000000, 0x100000, CRC(110a01b4) SHA1(df16c7c0e79717d939f594e80469a525eed62b07) )
+	ROM_LOAD16_WORD_SWAP( "251aeoa.p2", 0x100000, 0x400000, CRC(0f8e548a) SHA1(f195d02793f3f139975bc8789ec288438622abdb) )
+	ROM_LOAD16_WORD_SWAP( "251aeoa.p3", 0x500000, 0x400000, CRC(84280fed) SHA1(06f8afac0dcaff5b9ec7d5fd36a88760f329c482) )
+
+	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
+
+	NEO_SFIX_128K( "251aenj.s1", CRC(18c1562d) SHA1(afeaa541998a3c23a0ecb87da0231370f08213f2) )
+
+	ROM_REGION( 0xe00000, "ymsnd", 0 )
+	ROM_LOAD( "251aex.v1", 0x000000, 0x400000, CRC(ceaa3bae) SHA1(ec598f92e7d3b41f38448fee2dd2ee599a482f8f) )
+	ROM_LOAD( "251ae.v2",  0x400000, 0x400000, CRC(07d70650) SHA1(70d274771c07215268292f91517ec61634e32611) )
+	ROM_LOAD( "251-v3.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251-v4.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251aex.c1.bin", 0x000000, 0x800000, CRC(497c2e83) SHA1(379887e839dd4e33b41ab634a54789621bdfea98) )
+	ROM_LOAD16_BYTE( "251aex.c2.bin", 0x000001, 0x800000, CRC(0a13eeb7) SHA1(2cb196a955a3472f922d0085cee2ddc0111fdbd3) )
+	ROM_LOAD16_BYTE( "251d.c3",    0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4",    0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5",    0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6",    0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251ae.c7",   0x3000000, 0x800000, CRC(f22760ad) SHA1(a503898d9b6141c76f63b7c505ac78d3575530b2) )
+	ROM_LOAD16_BYTE( "251ae.c8",   0x3000001, 0x800000, CRC(396c3a70) SHA1(6cd0acd05c138ac85ad63a04dfc015a3e70fa572) )
+	ROM_LOAD16_BYTE( "251aeoa.c9",  0x4000000, 0x800000, CRC(cd0911ba) SHA1(01a2e644532bc483ce8ee2f9ea7cba2fa7492cd1) )
+	ROM_LOAD16_BYTE( "251aeoa.c10", 0x4000001, 0x800000, CRC(a910b5bb) SHA1(976686caec9727fd0e028bd7007806d2962af2cd) )
+	ROM_LOAD16_BYTE( "251aex.c11", 0x5000000, 0x800000, CRC(7fe785c2) SHA1(b49c3ab1ebf89090388c4757f24d1c02c730cc99) )
+	ROM_LOAD16_BYTE( "251aex.c12", 0x5000001, 0x800000, CRC(a7541483) SHA1(3b3f0e67acfae1c3b6c5549ac350d855482f285f) )
+ROM_END
+
 ROM_START( kof99ae20150520 ) /* The King of Fighters '99 - Anniversary Edition */
 	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251aex.p1", 0x000000, 0x100000, CRC(149bd289) SHA1(c1818ce416c7036b8cc51d6ec752b2a612b7d2b1) )
-	ROM_LOAD16_WORD_SWAP( "251aex.p2", 0x100000, 0x400000, CRC(86658d87) SHA1(d3d8a2f596b145a1bc98d65fcf3715d86b7a6dd6) )
-	ROM_LOAD16_WORD_SWAP( "251aex.p3", 0x500000, 0x400000, CRC(e66a79c0) SHA1(a13bf66ceb15a4d42855c539a658427845c7d148) )
+	ROM_LOAD16_WORD_SWAP( "251aeoe.p1", 0x000000, 0x100000, CRC(149bd289) SHA1(c1818ce416c7036b8cc51d6ec752b2a612b7d2b1) )
+	ROM_LOAD16_WORD_SWAP( "251aeoe.p2", 0x100000, 0x400000, CRC(86658d87) SHA1(d3d8a2f596b145a1bc98d65fcf3715d86b7a6dd6) )
+	ROM_LOAD16_WORD_SWAP( "251aeoe.p3", 0x500000, 0x400000, CRC(e66a79c0) SHA1(a13bf66ceb15a4d42855c539a658427845c7d148) )
 
 	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
 
@@ -99,6 +165,36 @@ ROM_START( kof99ae20150520 ) /* The King of Fighters '99 - Anniversary Edition *
 	ROM_LOAD16_BYTE( "251ae.c8",   0x3000001, 0x800000, CRC(396c3a70) SHA1(6cd0acd05c138ac85ad63a04dfc015a3e70fa572) )
 	ROM_LOAD16_BYTE( "251aex.c9",  0x4000000, 0x800000, CRC(f33d51d5) SHA1(b7d95afc0e85fec3c3279a766e22227cce91f3f4) )
 	ROM_LOAD16_BYTE( "251aex.c10", 0x4000001, 0x800000, CRC(852770d7) SHA1(734520728d7e8162021fd1cc93f2fe2f8bd02e75) )
+	ROM_LOAD16_BYTE( "251aex.c11", 0x5000000, 0x800000, CRC(7fe785c2) SHA1(b49c3ab1ebf89090388c4757f24d1c02c730cc99) )
+	ROM_LOAD16_BYTE( "251aex.c12", 0x5000001, 0x800000, CRC(a7541483) SHA1(3b3f0e67acfae1c3b6c5549ac350d855482f285f) )
+ROM_END
+
+ROM_START( kof99ae20150711 ) /* The King of Fighters '99 - Anniversary Edition */
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251aeog.p1", 0x000000, 0x100000, CRC(78057e71) SHA1(f027654620c2490ef834713265deec1ada542e9b) )
+	ROM_LOAD16_WORD_SWAP( "251aeog.p2", 0x100000, 0x800000, CRC(b7e50e35) SHA1(9706fe6bce816d75893ee8882eb4e9cd0590daac) )
+
+	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
+
+	NEO_SFIX_128K( "251aex.s1", CRC(3c31ee43) SHA1(f3bf265ad41037c2317702818136eb08e3ade3a2) )
+
+	ROM_REGION( 0xe00000, "ymsnd", 0 )
+	ROM_LOAD( "251aex.v1", 0x000000, 0x400000, CRC(ceaa3bae) SHA1(ec598f92e7d3b41f38448fee2dd2ee599a482f8f) )
+	ROM_LOAD( "251ae.v2",  0x400000, 0x400000, CRC(07d70650) SHA1(70d274771c07215268292f91517ec61634e32611) )
+	ROM_LOAD( "251-v3.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251-v4.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251aex.c1.bin", 0x000000, 0x800000, CRC(497c2e83) SHA1(379887e839dd4e33b41ab634a54789621bdfea98) )
+	ROM_LOAD16_BYTE( "251aex.c2.bin", 0x000001, 0x800000, CRC(0a13eeb7) SHA1(2cb196a955a3472f922d0085cee2ddc0111fdbd3) )
+	ROM_LOAD16_BYTE( "251d.c3",    0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4",    0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5",    0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6",    0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251ae.c7",   0x3000000, 0x800000, CRC(f22760ad) SHA1(a503898d9b6141c76f63b7c505ac78d3575530b2) )
+	ROM_LOAD16_BYTE( "251ae.c8",   0x3000001, 0x800000, CRC(396c3a70) SHA1(6cd0acd05c138ac85ad63a04dfc015a3e70fa572) )
+	ROM_LOAD16_BYTE( "251aeog.c9",  0x4000000, 0x800000, CRC(86a3550d) SHA1(ec74bcadb315a004297dc9e02c72efe5f2e2c5b0) )
+	ROM_LOAD16_BYTE( "251aeog.c10", 0x4000001, 0x800000, CRC(986bb897) SHA1(14572621122e97c3ae96a3b85069b9cde062ef19) )
 	ROM_LOAD16_BYTE( "251aex.c11", 0x5000000, 0x800000, CRC(7fe785c2) SHA1(b49c3ab1ebf89090388c4757f24d1c02c730cc99) )
 	ROM_LOAD16_BYTE( "251aex.c12", 0x5000001, 0x800000, CRC(a7541483) SHA1(3b3f0e67acfae1c3b6c5549ac350d855482f285f) )
 ROM_END
@@ -205,6 +301,32 @@ ROM_START( kof99chf ) /* The King of Fighters '99 - Remix by Chase - (Character 
 	ROM_LOAD16_BYTE( "251-c6.c6",   0x2000001, 0x800000, CRC(65bbf281) SHA1(79ae174667a23dabcfe865b6cd6133c86098452e) )
 	ROM_LOAD16_BYTE( "251-c7.c7",   0x3000000, 0x800000, CRC(ff65f62e) SHA1(7cd335fede05b56e15db90ce407c1183a78da4e9) )
 	ROM_LOAD16_BYTE( "251-c8.c8",   0x3000001, 0x800000, CRC(8d921c68) SHA1(42acf1d27d52a8e3b6262eb7df50693c0b135565) )
+ROM_END
+
+ROM_START( kof99co ) // combo
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251co.p1", 0x000000, 0x100000, CRC(99242c0c) SHA1(11d9d52783e4958a53f12469a75a784846d7ba49) )
+	ROM_LOAD16_WORD_SWAP( "251co.p2", 0x100000, 0x400000, CRC(c3ddba7b) SHA1(1890a3cbf33b76d532b4d31eb602698dbff840ea) )
+
+	NEO_SFIX_128K( "251co.s1", CRC(6c36e84f) SHA1(80052ce8e9f09c4e2f7edf5c6423f3b5588eb33b) )
+
+	NEO_BIOS_AUDIO_128K( "251-m1.m1", CRC(5e74539c) SHA1(6f49a9343cbd026b2c6720ff3fa2e5b1f85e80da) )
+
+	ROM_REGION( 0x0e00000, "ymsnd", 0 )
+	ROM_LOAD( "251-v1.v1", 0x000000, 0x400000, CRC(ef2eecc8) SHA1(8ed13b9db92dba3124bc5ba66e3e275885ece24a) )
+	ROM_LOAD( "251-v2.v2", 0x400000, 0x400000, CRC(73e211ca) SHA1(0e60fa64cab6255d9721e2b4bc22e3de64c874c5) )
+	ROM_LOAD( "251-v3.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251-v4.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251d.c1", 0x0000000, 0x800000, CRC(b3d88546) SHA1(c277525f3db5b4cb07e9842605c7c40e6c203ad9) )
+	ROM_LOAD16_BYTE( "251d.c2", 0x0000001, 0x800000, CRC(915c8634) SHA1(685ecb4271edf61f6a28a2235de11dd219b999d6) )
+	ROM_LOAD16_BYTE( "251d.c3", 0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4", 0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5", 0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6", 0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251d.c7", 0x3000000, 0x800000, CRC(2f68fdeb) SHA1(37167c84a39141c179f94800f207dac3aabc5478) )
+	ROM_LOAD16_BYTE( "251d.c8", 0x3000001, 0x800000, CRC(4c2fad1e) SHA1(26779e79296eb1988a8c4d60d2e1baf041f2c0cf) )
 ROM_END
 
 ROM_START( kof99d )
@@ -1563,48 +1685,52 @@ ROM_START( kof99yb ) /* The King of Fighters '99 PROTOTYPE - Hack by Ydmis - (Ca
 ROM_END
 
 
-GAME( 1999, kof99ab,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Marcochen/PPX Hack Team", "The King of Fighters '99 (Rolls moves sideways ver)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2013, kof99ae,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition", MACHINE_SUPPORTS_SAVE ) // kof99nd hack
-GAME( 2015, kof99ae20150520,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 15th Anniversary Edition (2015-05-20)", MACHINE_SUPPORTS_SAVE ) // kof99nd hack
-GAME( 1999, kof99bh,    kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "Dodowang", "The King of Fighters '99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 1999, kof99btr,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 1)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99ch,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99chf,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3 - Fixed)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99ab,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Marcochen/PPX Hack Team", "The King of Fighters '99 (Rolls moves sideways ver)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, kof99ae,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, kof99ae20140624,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition (2014-06-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kof99ae20150121,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition (2015-01-21)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kof99ae20150520,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition (2015-05-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kof99ae20150711,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Yashional", "The King of Fighters '99 Anniversary Edition (2015-07-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99bh,    kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "Dodowang", "The King of Fighters '99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE ) // Krizalid and Krizalid'
+GAME( 1999, kof99btr,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99ch,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99chf,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Chase", "The King of Fighters '99 (Diff Moves set 3 - Fixed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, kof99co,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Ivex", "The King of Fighters '99 Combo", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99d,     kof99,    neogeo, neogeo, neogeo_class, kof99d,   ROT0, "SNK", "The King of Fighters '99 - Millennium Battle (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99eh,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max set 1)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 1999, kof99ehr,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 2006, kof99fc,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "FCHT", "The King of Fighters '99 (Remix Pro200 Final)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
+GAME( 1999, kof99eh,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max set 1)", MACHINE_SUPPORTS_SAVE ) // Krizalid, Krizalid', Kyo and Iori
+GAME( 1999, kof99ehr,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE ) // Krizalid, Krizalid', Kyo and Iori
+GAME( 2006, kof99fc,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "FCHT", "The King of Fighters '99 (Remix Pro200 Final)", MACHINE_SUPPORTS_SAVE ) // Krizalid and Krizalid'
 GAME( 2006, kof99iori,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "hack", "The King of Fighters '99 (hack 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99jh,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 031018)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Kyo and Iori
-GAME( 1999, kof99jho,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 030924)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Kyo and Iori
-GAME( 2007, kof99lb,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "lb70", "The King of Fighters '99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 1999, kof99m,     kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "MasakiAnton", "The King of Fighters '99 (2 Add Char)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid and Krizalid'
-GAME( 1999, kof99pjc1,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 1 0209xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pjc2,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 2 030302)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pjc3,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 3 030720)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pjco,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed old)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99pt,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Creamymami", "The King of Fighters '99 (Ultra kill hack)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99revo,  kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Okuhoshi", "The King of Fighters '99 (Christmas Revolution v1.2)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2004, kof99rp,    kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.07a 041224)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rp1,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.02 final1 031010)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp2,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01c 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp3,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01b 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp4,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a2 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp5,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp6,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01 0309xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rp7,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rp8,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rp9,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rpa,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rpb,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 2003, kof99rpc,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rpp,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO PLUS (Diff Moves v1.02 final 040327)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99r,     kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Moves changed 0310xx)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99rr,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
-GAME( 1999, kof99seh,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Creamymami and Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
+GAME( 1999, kof99jh,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 031018)", MACHINE_SUPPORTS_SAVE ) // Krizalid, Kyo and Iori
+GAME( 1999, kof99jho,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Jason/K3", "The King of Fighters '99 (3 Add Char - Simple moves rev - Athena style changed 030924)", MACHINE_SUPPORTS_SAVE ) // Krizalid, Kyo and Iori
+GAME( 2007, kof99lb,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "lb70", "The King of Fighters '99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE ) // Krizalid and Krizalid'
+GAME( 1999, kof99m,     kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "MasakiAnton", "The King of Fighters '99 (2 Add Char)", MACHINE_SUPPORTS_SAVE ) // Krizalid and Krizalid'
+GAME( 1999, kof99pjc1,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 1 0209xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99pjc2,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 2 030302)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99pjc3,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed rev 3 030720)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99pjco,  kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "TcwLee", "The King of Fighters '99 (Char color changed old)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99pt,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Creamymami", "The King of Fighters '99 (Ultra kill hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99revo,  kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Okuhoshi", "The King of Fighters '99 (Christmas Revolution v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof99rp,    kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.07a 041224)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99rp1,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - v1.02 final1 031010)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp2,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01c 0309xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp3,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01b 0309xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp4,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a2 0309xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp5,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01a 0309xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp6,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.01 0309xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99rp7,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99rp8,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp9,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rpa,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rpb,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rpc,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99rpp,   kof99,    neogeo, neogeo, neogeo_class, kof99bh,  ROT0, "FCHT", "The King of Fighters '99 Remix PRO PLUS (Diff Moves v1.02 final 040327)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99r,     kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Moves changed 0310xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99rr,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Raymonose", "The King of Fighters '99 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99seh,   kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Creamymami and Ydmis", "The King of Fighters '99 (4 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // Krizalid, Krizalid', Kyo and Iori
 GAME( 1999, kof99sp,    kof99,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "ZKW", "The King of Fighters '99 (Super Plus)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99y,     kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char", MACHINE_SUPPORTS_SAVE ) // kof99n hack - Krizalid, Krizalid', Kyo and Iori
-GAME( 1999, kof99yd,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // kof99n hack
+GAME( 1999, kof99y,     kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (4 Add Char", MACHINE_SUPPORTS_SAVE ) // Krizalid, Krizalid', Kyo and Iori
+GAME( 1999, kof99yd,    kof99,    neogeo, neogeo, neogeo_class, kof99k,   ROT0, "Ydmis", "The King of Fighters '99 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
 
 /* Hacks of the Prototype */
 GAME( 1999, kof99hp,    neogeo,   neogeo, neogeo, neogeo_class, neogeo,   ROT0, "HackPlus", "The King of Fighters '99 (proto) (2 Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // kof99p hack - Krizalid and Krizalid'
