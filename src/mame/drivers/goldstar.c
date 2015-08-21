@@ -260,6 +260,7 @@ WRITE8_MEMBER(goldstar_state::p1_lamps_w)
   x--- ----
 
   all cm/cmaster use the same scheme
+  cmv4, cmv801 and crazybon don't light the Take button when it's available for hold pair
   tonypok uses lamps to indicate current button functions rather than active buttons
   skill98 is like schery97 but doesn't activate bit 0 for stop
   nfb96, roypok96 and nc96 sets are like schery97 but they don't activate bit 2 for select
@@ -1221,7 +1222,7 @@ INPUT_PORTS_END
 
 static INPUT_PORTS_START( cmv4_dsw1 )
 	PORT_START("DSW1")
-	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Unused ) )           PORT_DIPLOCATION("DSW1:1")
+	PORT_DIPNAME( 0x01, 0x00, "Hold Pair" )                 PORT_DIPLOCATION("DSW1:1")
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
 	PORT_DIPNAME( 0x02, 0x00, "Hopper Out Switch" )         PORT_DIPLOCATION("DSW1:2")
@@ -1456,7 +1457,7 @@ static INPUT_PORTS_START( cmv801 )
 
 	PORT_INCLUDE( cmv4_dsw1 )
 	PORT_MODIFY("DSW1")
-	/* DSW1-1 unused */
+	/* Hold Pair OK - use Take button */
 	/* Hopper Out Switch not checked */
 	/* Payout Mode not checked */
 	/* '7' In Double Up Game OK */
@@ -1491,11 +1492,14 @@ static INPUT_PORTS_START( cmv801 )
 	PORT_INCLUDE( cmv4_dsw4 )   /* Display Of Payout Limit not working; all others OK */
 
 	PORT_INCLUDE( cmv4_dsw5 )
+	PORT_MODIFY("DSW5")
 	/* Display of Doll On Demo only affects payout table screen */
 	/* Coin In Limit OK */
 	/* Condition For 3 Kind Of Bonus not checked */
 	/* Display Of Doll At All Fr. Bonus not checked */
-	/* DSW5-7 listed as unused */
+	PORT_DIPNAME( 0x40, 0x40, "Card Shuffle Animation" )    PORT_DIPLOCATION("DSW5:7")  /* OK */
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	/* Test Mode For Disp. Of Doll not working */
 INPUT_PORTS_END
 
@@ -1508,7 +1512,7 @@ static INPUT_PORTS_START( cmv4 )
 
 	PORT_INCLUDE( cmv4_dsw1 )
 	PORT_MODIFY("DSW1")
-	/* DSW1-1 unused */
+	/* Hold Pair OK - use Take button */
 	/* Hopper Out Switch not checked */
 	/* Payout Mode not checked */
 	/* '7' In Double Up Game OK */
@@ -1564,7 +1568,9 @@ static INPUT_PORTS_START( cmaster )
 
 	PORT_INCLUDE( cmv4_dsw1 )
 	PORT_MODIFY("DSW1")
-	/* DSW1-1 unused */
+	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unused ) )           PORT_DIPLOCATION("DSW1:1")
+	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	/* Hopper Out Switch not checked */
 	/* Payout Mode not checked */
 	/* '7' In Double Up Game OK */
@@ -1620,7 +1626,9 @@ static INPUT_PORTS_START( cmasterb )
 
 	PORT_INCLUDE( cmv4_dsw1 )
 	PORT_MODIFY("DSW1")
-	/* DSW1-1 unused */
+	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unused ) )           PORT_DIPLOCATION("DSW1:1")
+	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	/* Hopper Out Switch not checked */
 	/* Payout Mode not checked */
 	/* '7' In Double Up Game OK */
@@ -1676,7 +1684,9 @@ static INPUT_PORTS_START( cmasterc )
 
 	PORT_INCLUDE( cmv4_dsw1 )
 	PORT_MODIFY("DSW1")
-	/* DSW1-1 unused */
+	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unused ) )           PORT_DIPLOCATION("DSW1:1")
+	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	/* Hopper Out Switch not checked */
 	/* Payout Mode not checked */
 	/* '7' In Double Up Game OK */
@@ -6006,7 +6016,7 @@ static INPUT_PORTS_START( crazybon )
 	PORT_INCLUDE( cmv4_service )
 
 	PORT_START("DSW1")
-	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Unknown ) )          PORT_DIPLOCATION("DSW1:1")
+	PORT_DIPNAME( 0x01, 0x00, "Hold Pair" )                 PORT_DIPLOCATION("DSW1:1")      /* OK - use Take button */
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_DIPNAME( 0x02, 0x00, "Hopper Out Switch" )         PORT_DIPLOCATION("DSW1:2")      /* not checked */
@@ -6096,9 +6106,9 @@ static INPUT_PORTS_START( crazybon )
 	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )          PORT_DIPLOCATION("DSW4:4")
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )          PORT_DIPLOCATION("DSW4:5")
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x10, "Fast Take" )                 PORT_DIPLOCATION("DSW4:5")      /* OK */
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
 	PORT_DIPNAME( 0x20, 0x20, "Bonus Min Bet" )             PORT_DIPLOCATION("DSW4:6")      /* OK */
 	PORT_DIPSETTING(    0x20, "16" )
 	PORT_DIPSETTING(    0x00, "32" )
