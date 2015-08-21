@@ -15,8 +15,7 @@ Issues:
 
 - punisherb - transitions
 
-- sf2h14 - same as sf2m3/8 but one rom is a bad dump so the set has been removed. Rom has bit 6 stuck high.
-     ROM_LOAD16_BYTE( "u221.epr", 0x100000, 0x20000, CRC(d8276822) SHA1(8fe5205f21a0243f66582c03ca54d6b079cbd000) )
+- sf2h14 - horizontal placements are off, investigation in progress
 
 - wofjhb, wofjhc - not working - could be incorrect roms
 
