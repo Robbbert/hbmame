@@ -1362,9 +1362,9 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2",         CPS_B_11,     mapper_STF29,  0x36 },
 	{"sf2eb",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2ee",       CPS_B_18,     mapper_STF29,  0x3c },
-	{"sf2ebbl",     CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"sf2stt",      CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"sf2rk",       CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
+	{"sf2ebbl",     CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
+	{"sf2stt",      CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
+	{"sf2rk",       CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
 	{"sf2ua",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2ub",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2uc",       CPS_B_12,     mapper_STF29,  0x36 },
@@ -1421,21 +1421,21 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2acc",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2acca",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2accp2",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2amf",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 }, // probably wrong but this set is not completely dumped anyway
+	{"sf2amf",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 }, // probably wrong but this set is not completely dumped anyway
 	{"sf2dkot2",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2m1",       CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2m2",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
+	{"sf2m2",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
 	{"sf2m3",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 2 },
-	{"sf2m4",       HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m5",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m6",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m7",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
+	{"sf2m4",       HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m5",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m6",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m7",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
 	{"sf2m8",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 2 },
 	{"sf2dongb",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2yyc",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2koryu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2mdt",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2mdta",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
+	{"sf2yyc",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2koryu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2mdt",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2mdta",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
 	{"varth",       CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */  // wrong, this set uses VA24B, dumped but equations still not added
 	{"varthr1",     CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */  // wrong, this set uses VA24B, dumped but equations still not added
 	{"varthu",      CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
@@ -1508,10 +1508,9 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoh",       CPS_B_21_DEF, mapper_CD63B, 0x36 },			//works
 	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },			//works
 	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 5 },		//works
-	{"dinohc",      CPS_B_21_DEF, mapper_CD63B },				//works (no sound)
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },				//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },				//works
-	{"knightsb2",   HACK_B_6,     mapper_KR63B, 0x36, 0, 0x34, 4 }, 	//works
+	{"knightsb2",   HACK_B_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 	//works
 	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works
 	{"knightsha",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works (priority issue on high score screen)
 	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },		//works
@@ -1524,18 +1523,18 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
-	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2h11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2h12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2h13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2h14",      HACK_B_1,     mapper_S9263B, 0,    0, 0, 4 },
+	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2h11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2h12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2h13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2h14",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },	//works (4 bad tiles on player select screen)
 	{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2sl73a",    CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
-	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
-	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },		//works
+	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"stridergf",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"stridergh",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"wof3js",      CPS_B_21_DEF, mapper_TK263B, 0x36 },			//works
@@ -1731,7 +1730,7 @@ READ16_MEMBER(cps_state::cps1_cps_b_r)
 	{
 		if (offset == 0x10/2)
 		{
-			// UNKNOWN--only mmatrix appears to read this, and I'm not sure if the result is actuallyused
+			// UNKNOWN--only mmatrix appears to read this, and I'm not sure if the result is actually used
 			return m_cps_b_regs[0x10 / 2];
 		}
 		if (offset == 0x12/2)
@@ -2386,7 +2385,7 @@ void cps_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 	UINT16 *base = m_buffered_obj;
 
 	/* some sf2 hacks draw the sprites in reverse order */
-	if (m_game_config->bootleg_kludge == 1 || m_game_config->bootleg_kludge == 4) // HBMAME
+	if BIT(m_game_config->bootleg_kludge, 6) // HBMAME
 	{
 		base += m_last_sprite_offset;
 		baseadd = -4;

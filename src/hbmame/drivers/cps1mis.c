@@ -15,8 +15,6 @@ Issues:
 
 - punisherb - transitions
 
-- sf2h14 - horizontal placements are off, investigation in progress
-
 - wofjhb, wofjhc - not working - could be incorrect roms
 
 *******************************************************************************************************************/
@@ -114,10 +112,12 @@ static ADDRESS_MAP_START( sf2h14_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0x800140, 0x80017f) AM_READWRITE(cps1_cps_b_r, cps1_cps_b_w) AM_SHARE("cps_b_regs")
 	AM_RANGE(0x800180, 0x800187) AM_WRITE(cps1_soundlatch_w)
 	AM_RANGE(0x800188, 0x80018f) AM_WRITE(cps1_soundlatch2_w)
-	AM_RANGE(0x8001a0, 0x8001c3) AM_WRITE(cps1_cps_a_w)
+	AM_RANGE(0x8001a2, 0x8001b3) AM_WRITE(cps1_cps_a_w) // make 8001b2 point at 800110
+	AM_RANGE(0x8001fe, 0x8001ff) AM_WRITENOP // writes FFFF here a lot
 	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram")
-	AM_RANGE(0xe00000, 0xefffff) AM_RAM
+	AM_RANGE(0xe00000, 0xefffff) AM_RAM // it writes to the whole range at start
 	AM_RANGE(0xf1c000, 0xf1c001) AM_READ(cps1_in2_r)
+	AM_RANGE(0xfeff00, 0xfeffff) AM_RAM // fix stack crash at start
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM AM_SHARE("mainram")
 ADDRESS_MAP_END
 
@@ -2653,10 +2653,10 @@ GAME( 1992, sf2h9,     sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0
 GAME( 1992, sf2h10,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H10, bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2h11,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H11, bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2h12,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (H12, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2h13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (H13, bootleg)", MACHINE_SUPPORTS_SAVE )	// bad tile on Blanka
-GAME( 1992, sf2h14,    sf2ce,    sf2h14,     sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (H14, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )               // 920313 - based on USA version
-GAME( 2012, sf2pun,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition v1 Final)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version
-GAME( 2013, sf2sl73a,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version
+GAME( 1992, sf2h13,    sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "bootleg", "Street Fighter II' Turbo - Hyper Fighting (H13, bootleg)", MACHINE_SUPPORTS_SAVE ) // bad tile for Blanka on player select screen
+GAME( 1992, sf2h14,    sf2ce,    sf2h14,     sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (H14, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 4 bad tiles on player select screen
+GAME( 2012, sf2pun,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition v1 Final)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, sf2sl73a,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2tlona,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 1)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
 GAME( 1992, sf2tlonb,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II' - Champion Edition (Slay the Dragon set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2turyu,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II - Champion Edition (Tu Long prototype)", MACHINE_SUPPORTS_SAVE )
