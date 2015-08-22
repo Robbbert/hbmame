@@ -1513,6 +1513,34 @@ ROM_START( kof98fro2 ) /* [OLD] The King of Fighters '98 - Translation Hack by N
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
+ROM_START( kof98frp ) // The Slutfest: French satire by Cigarette Patch
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242frp.p1",  0x000000, 0x100000, CRC(b9d5d3a5) SHA1(f58e1bae237c271e9f3e0c081b89118e5f910f94) )
+	ROM_LOAD16_WORD_SWAP( "242frp.sp2", 0x100000, 0x400000, CRC(dccb944f) SHA1(9bd4fe01c44ddfd74583f9f46dd3342aef1bae68) )
+
+	NEO_SFIX_128K( "242frp.s1", CRC(6db59470) SHA1(e4333cd4dac667779958a72249202082df74b00f) )
+
+	NEO_BIOS_AUDIO_256K( "242-m1.m1", CRC(4ef7016b) SHA1(4182235e963bd70d398a79abeb54ab4d62887c48) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "242-v1.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242-v2.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242-v3.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242-v4.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+
+	NO_DELTAT_REGION
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242frp.c1", 0x0000000, 0x800000, CRC(3833c1aa) SHA1(4e4f1c3c932b0da708d48af0ce0473ac51d0908d) )
+	ROM_LOAD16_BYTE( "242frp.c2", 0x0000001, 0x800000, CRC(c3a8234f) SHA1(ba55e5c0cc61e828a71f9dcdba4c4b6ea40beab2) )
+	ROM_LOAD16_BYTE( "242-c3.c3", 0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242-c4.c4", 0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
+	ROM_LOAD16_BYTE( "242-c5.c5", 0x2000000, 0x800000, CRC(9d10bed3) SHA1(4d44addc7c808649bfb03ec45fb9529da413adff) )
+	ROM_LOAD16_BYTE( "242-c6.c6", 0x2000001, 0x800000, CRC(da07b6a2) SHA1(9c3f0da7cde1ffa8feca89efc88f07096e502acf) )
+	ROM_LOAD16_BYTE( "242-c7.c7", 0x3000000, 0x800000, CRC(f6d7a38a) SHA1(dd295d974dd4a7e5cb26a3ef3febcd03f28d522b) )
+	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
+ROM_END
+
 ROM_START( kof98ice ) /* The King of Fighters '98 - Colour fix by Diablo_Hu - (Colour change - ice) */
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242-p1.p1", 0x000000, 0x200000, CRC(8893df89) SHA1(0452828785110601c65f667209fc2d2926cd3751) )
@@ -1912,6 +1940,7 @@ GAME( 1998, kof98ehr,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "
 GAME( 2004, kof98fr,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2004)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof98fro,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2003)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof98fro2, kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "The King of Fighters '98 (French 2002)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, kof98frp,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Cigarette Patch", "The King of Fighters '98 Slutfest (French parody)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ice,  kof98,    neogeo, neogeo, neogeo_class, kof98,    ROT0, "Diablo_Hu", "The King of Fighters '98 Ice", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ico,  kof98,    neogeo, neogeo, neogeo_class, kof98,    ROT0, "Diablo_Hu", "The King of Fighters '98 Ice (Old)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98jh,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Jason/K3 and Ydmis", "The King of Fighters '98 (Add Rugal - Athena style changed)", MACHINE_SUPPORTS_SAVE )
