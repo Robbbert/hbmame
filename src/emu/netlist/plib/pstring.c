@@ -118,7 +118,7 @@ template<typename F>
 const pstring_t<F> pstring_t<F>::substr(int start, int count) const
 {
 	pstring_t ret;
-	unsigned alen = len();
+	int alen = (int) len();
 	if (start < 0)
 		start = 0;
 	if (start >= alen)
@@ -148,7 +148,7 @@ const pstring_t<F> pstring_t<F>::ucase() const
 {
 	pstring_t ret = *this;
 	ret.pcopy(cstr(), blen());
-	for (int i=0; i<ret.len(); i++)
+	for (unsigned i=0; i<ret.len(); i++)
 		ret.m_ptr->str()[i] = toupper((unsigned) ret.m_ptr->str()[i]);
 	return ret;
 }
@@ -159,11 +159,11 @@ int pstring_t<F>::find_first_not_of(const pstring_t &no) const
 	char *t = m_ptr->str();
 	unsigned nolen = no.len();
 	unsigned tlen = len();
-	for (int i=0; i < tlen; i++)
+	for (unsigned i=0; i < tlen; i++)
 	{
 		char *n = no.m_ptr->str();
 		bool f = true;
-		for (int j=0; j < nolen; j++)
+		for (unsigned j=0; j < nolen; j++)
 		{
 			if (F::code(t) == F::code(n))
 				f = false;
@@ -183,11 +183,11 @@ int pstring_t<F>::find_last_not_of(const pstring_t &no) const
 	unsigned nolen = no.len();
 	unsigned tlen = len();
 	int last_found = -1;
-	for (int i=0; i < tlen; i++)
+	for (unsigned i=0; i < tlen; i++)
 	{
 		char *n = no.m_ptr->str();
 		bool f = true;
-		for (int j=0; j < nolen; j++)
+		for (unsigned j=0; j < nolen; j++)
 		{
 			if (F::code(t) == F::code(n))
 				f = false;
@@ -251,7 +251,7 @@ const pstring_t<F> pstring_t<F>::rtrim(const pstring_t &ws) const
 }
 
 template<typename F>
-const pstring_t<F> pstring_t<F>::rpad(const pstring_t &ws, const int cnt) const
+const pstring_t<F> pstring_t<F>::rpad(const pstring_t &ws, const unsigned cnt) const
 {
 	// FIXME: pstringbuffer ret(*this);
 
@@ -363,7 +363,7 @@ int pstring_t<F>::find(const pstring_t &search, unsigned start) const
 	const char *s = search.cstr();
 	const unsigned startt = std::min(start, tlen);
 	const char *t = cstr();
-	for (int i=0; i<startt; i++)
+	for (unsigned i=0; i<startt; i++)
 		t += F::codelen(t);
 	for (int i=0; i <= (int) tlen - (int) startt - (int) slen; i++)
 	{
@@ -392,7 +392,7 @@ int pstring_t<F>::find(const mem_t *search, unsigned start) const
 	const char *s = search;
 	const unsigned startt = std::min(start, tlen);
 	const char *t = cstr();
-	for (int i=0; i<startt; i++)
+	for (unsigned i=0; i<startt; i++)
 		t += F::codelen(t);
 	for (int i=0; i <= (int) tlen - (int) startt - (int) slen; i++)
 	{
@@ -426,7 +426,7 @@ bool pstring_t<F>::endsWith(const pstring_t &arg) const
 template<typename F>
 bool pstring_t<F>::startsWith(const mem_t *arg) const
 {
-	int alen = strlen(arg);
+	unsigned alen = strlen(arg);
 	if (alen > blen())
 		return false;
 	else
@@ -494,6 +494,15 @@ void pstringbuffer::pcat(const char *s)
 	m_len += slen;
 }
 
+void pstringbuffer::pcat(const void *m, unsigned l)
+{
+	const std::size_t nl = m_len + l + 1;
+	resize(nl);
+	std::memcpy(m_ptr + m_len, m, l);
+	m_len += l;
+	*(m_ptr + m_len) = 0;
+}
+
 void pstringbuffer::pcat(const pstring &s)
 {
 	const std::size_t slen = s.blen();
@@ -504,19 +513,20 @@ void pstringbuffer::pcat(const pstring &s)
 	m_ptr[m_len] = 0;
 }
 
-pformat::pformat(const pstring &fmt)
+pfmt::pfmt(const pstring &fmt)
 : m_arg(0)
 {
 	memcpy(m_str, fmt.cstr(), fmt.blen() + 1);
 }
 
-pformat::pformat(const char *fmt)
+pfmt::pfmt(const char *fmt)
 : m_arg(0)
 {
 	strncpy(m_str, fmt, sizeof(m_str) - 1);
 	m_str[sizeof(m_str) - 1] = 0;
 }
 
+#if 0
 void pformat::format_element(const char *f, const char *l, const char *fmt_spec,  ...)
 {
 	va_list ap;
@@ -539,7 +549,54 @@ void pformat::format_element(const char *f, const char *l, const char *fmt_spec,
 	}
 	va_end(ap);
 }
-
+#else
+void pfmt::format_element(const char *f, const char *l, const char *fmt_spec,  ...)
+{
+	va_list ap;
+	va_start(ap, fmt_spec);
+	char fmt[30] = "%";
+	char search[10] = "";
+	char buf[1024];
+	m_arg++;
+	int sl = sprintf(search, "{%d:", m_arg);
+	char *p = strstr(m_str, search);
+	if (p == NULL)
+	{
+		sl = sprintf(search, "{%d}", m_arg);
+		p = strstr(m_str, search);
+		if (p == NULL)
+		{
+			sl = 2;
+			p = strstr(m_str, "{}");
+		}
+		strcat(fmt, f);
+	}
+	else
+	{
+		char *p1 = strstr(p, "}");
+		if (p1 != NULL)
+		{
+			sl = p1 - p + 1;
+			if (m_arg>=10)
+				strncat(fmt, p+4, p1 - p - 4);
+			else
+				strncat(fmt, p+3, p1 - p - 3);
+		}
+		else
+			strcat(fmt, f);
+	}
+	strcat(fmt, l);
+	strcat(fmt, fmt_spec);
+	int nl = vsprintf(buf, fmt, ap);
+	if (p != NULL)
+	{
+		// Make room
+		memmove(p+nl, p+sl, strlen(p) + 1 - sl);
+		memcpy(p, buf, nl);
+	}
+	va_end(ap);
+}
+#endif
 
 template struct pstring_t<pu8_traits>;
 template struct pstring_t<putf8_traits>;

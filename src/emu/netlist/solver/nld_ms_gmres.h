@@ -190,7 +190,9 @@ ATTR_HOT inline int matrix_solver_GMRES_t<m_N, _storage_N>::vsolve_non_dynamic(c
 
 	const nl_double accuracy = this->m_params.m_accuracy;
 #if 1
-	int mr = std::min((int) iN-1,(int) sqrt(iN));
+	int mr = _storage_N;
+	if (_storage_N > 3 )
+		mr = (int) sqrt(iN);
 	mr = std::min(mr, this->m_params.m_gs_loops);
 	int iter = 4;
 	int gsl = solve_ilu_gmres(new_V, RHS, iter, mr, accuracy);
@@ -218,7 +220,6 @@ ATTR_HOT inline int matrix_solver_GMRES_t<m_N, _storage_N>::vsolve_non_dynamic(c
 		for (unsigned k = 0; k < iN; k++)
 			err = std::max(nl_math::abs(l_V[k] - new_V[k]), err);
 
-		//printf("here %s\n", this->name().cstr());
 		for (unsigned k = 0; k < iN; k++)
 			this->m_nets[k]->m_cur_Analog += 1.0 * (new_V[k] - this->m_nets[k]->m_cur_Analog);
 		if (err > accuracy)
@@ -296,8 +297,6 @@ int matrix_solver_GMRES_t<m_N, _storage_N>::solve_ilu_gmres (nl_double * RESTRIC
 		mat.solveLUx(m_LU, Ax);
 
 		const nl_double rho_to_accuracy = std::sqrt(vecmult2(n, Ax)) / accuracy;
-
-		//printf("rho/accuracy = %f\n", rho_to_accuracy);
 
 		rho_delta = accuracy * rho_to_accuracy;
 	}
