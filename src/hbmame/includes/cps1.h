@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// copyright-holders:Robbbert
+// license:???
+// copyright-holders:Paul Leaman
 /***************************************************************************
 
    Capcom CPS1/2 hardware
@@ -19,6 +19,14 @@
 // measured clocks:
 // CPS2(Guru): V = 59.6376Hz, H = 15,4445kHz *H is probably measured too low!
 // CPS1 GNG: V = 59.61Hz
+/* CPS1(Charles MacDonald):
+    Pixel clock: 8.00 MHz
+    Total pixel clocks per scanline: 512 clocks
+    Horizontal sync pulse width : 36 clocks
+    Horizontal display and blanking period: 476 clocks
+    Frame size: 262 scanlines
+    Refresh rate: 59.63 MHz.
+*/
 #define CPS_PIXEL_CLOCK  (XTAL_16MHz/2)
 
 #define CPS_HTOTAL       (512)
@@ -132,7 +140,7 @@ public:
 	UINT16 *     m_cps2_buffered_obj;
 	// game-specific
 	UINT16 *     m_gigaman2_dummyqsound_ram;
-	UINT16	sf2ceblp_prot;
+	UINT16  sf2ceblp_prot;
 
 	/* video-related */
 	tilemap_t      *m_bg_tilemap[3];
@@ -309,6 +317,7 @@ public:
 	DECLARE_DRIVER_INIT(sf2mdt);
 	DECLARE_DRIVER_INIT(sf2mdta);
 	DECLARE_DRIVER_INIT(sf2mdtb);
+	DECLARE_DRIVER_INIT(sf2b);
 	DECLARE_DRIVER_INIT(slampic);
 	DECLARE_MACHINE_START(fcrash);
 	DECLARE_MACHINE_RESET(fcrash);
@@ -344,6 +353,7 @@ public:
 
 
 	/* cps video */
+	inline UINT16 *cps1_base( int offset, int boundary );
 	void cps1_get_video_base();
 	void unshuffle(UINT64 *buf, int len);
 	void cps2_gfx_decode();
@@ -397,6 +407,8 @@ public:
 };
 
 /*----------- defined in drivers/cps1.c -----------*/
+
+MACHINE_CONFIG_EXTERN(cps1_12MHz);
 
 ADDRESS_MAP_EXTERN( qsound_sub_map, 8 );
 

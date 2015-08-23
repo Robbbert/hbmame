@@ -7,13 +7,11 @@
 Issues:
 - knightsh - the title screen is garbage
 
-- knightsha - B28 is used for 2 different tasks, so the high scores has
-              the wrong priority
-
 - kodh - title, problem with placement of the letters
        - player preview flickers instead of wriggling
 
 - punisherb - transitions
+            - needs all the patches removed, and then investigate from the start.
 
 - wofjhb, wofjhc - not working - could be incorrect roms
 
@@ -1132,6 +1130,7 @@ ROM_START( knightsha )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "krha_23.rom",  0x00000, 0x80000, CRC(a7fd309a) SHA1(b4f163d9588e9d8dd6f2ba6d6ae520efb620c1ac) )
 	ROM_LOAD16_WORD_SWAP( "krh_22.rom",   0x80000, 0x80000, CRC(1438d070) SHA1(4f6fad844c3e8eb960bb6cb85ac570979c0ae973) )
+	ROM_FILL(0xb7d,1,0x66)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "kr_gfx1.rom",  0x000000, 0x80000, CRC(9e36c1a4) SHA1(772daae74e119371dfb76fde9775bda78a8ba125) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -2799,6 +2798,7 @@ DRIVER_INIT_MEMBER( cps_state, dinohb )
 
 DRIVER_INIT_MEMBER( cps_state, punishrb )
 {
+
 	UINT8 *mem8 = memregion("maincpu")->base();
 	mem8[0xAB3] = 0x33;
 	mem8[0xAB4] = 0x30;
@@ -3002,69 +3002,7 @@ DRIVER_INIT_MEMBER( cps_state, punishrb )
 	kabuki_setup(punisher_decode);
 	DRIVER_INIT_CALL(cps1);
 }
-#if 0
-DRIVER_INIT_MEMBER( cps_state, sf2m1 )
-{
-	UINT16 *mem16 = (UINT16 *)memregion("maincpu")->base();
-	UINT16 data0[0x85] = {
-		0x33ed, 0x0026, 0x0080, 0x0100,	// 26 -> A00
-		0x33ed, 0x002e, 0x0080, 0x0108,	// 2E -> A04
-		0x33ed, 0x002a, 0x0080, 0x0104,	// 2A -> A02
-		0x33ed, 0x0028, 0x0080, 0x0102,	// 28 -> A01
-		0x33ed, 0x002c, 0x0080, 0x0106,	// 2C -> A03
-		0x33ed, 0x0064, 0x0080, 0x0114,	// 64 -> A0A
-		0x33ed, 0x005c, 0x0080, 0x010c,	// 5C -> A06
-		0x33ed, 0x0060, 0x0080, 0x0110,	// 60 -> A08
-		0x33ed, 0x0062, 0x0080, 0x0112,	// 62 -> A09
-		0x33ed, 0x005e, 0x0080, 0x010e,	// 5E -> A07
-		0x33ed, 0x0066, 0x0080, 0x0116,	// 66 -> A0B
-		0x33ed, 0x0070, 0x0080, 0x0120,	// 70 -> A10
-		0x102d, 0x02ce,
-		0x122d, 0x02db,
-		0xb300,
-		0x1b40, 0x0089,
-		0xe148,
-		0x806d, 0x0048,
-		0x33c0, 0x0080, 0x0122,		// -> A11
-		0x33ed, 0x004e, 0x0080, 0x0166,	// 4E -> B13
-		0x13ed, 0x02d7, 0x0080, 0x0030,	// 2D7 -> A18
-		0x33ed, 0x0050, 0x0080, 0x0168,	// 50 -> B14
-		0x33ed, 0x0052, 0x0080, 0x016a, // 52 -> B15
-		0x33ed, 0x0054, 0x0080, 0x016c,	// 54 -> B16
-		0x33ed, 0x0056, 0x0080, 0x016e,	// 56 -> B17
-		0x6100, 0x0e78,			// call 14FE
-		0x33ed, 0x0058, 0x0080, 0x0170,	// 58 -> B18
-		0x33ed, 0x0030, 0x0080, 0x010a,	// 30 -> A05
-		0x4eb8, 0x1468,			// call 1468
-		0x4eb8, 0x6302,			// call 6302
-		0x6100, 0x1132,			// call 17D4
-		0x6100, 0x1240,			// call 18E6
-		0x6100, 0x0fbc,			// call 1666
-		0x522d, 0x001c,
-		0x50ed, 0x820e,
-		0x422d, 0x02de,
-		0x41ed, 0x8000,
-		0x303c, 0x000f,
-		0x0c28, 0x0001, 0x0000,
-		0x660c,
-		0x5328, 0x0001,
-		0x6606,
-		0x117c, 0x0004, 0x0000,
-		0x41e8, 0x0020,
-		0x51c8, 0xffe6,
-		0x303c, 0x0050,
-		0x51c8, 0xfffe		// black screen
-	};
 
-	for (int i = 0; i < 0x85; i++)
-		mem16[0x5DA/2+i] = data0[i];
-
-//	mem16[0x15A4/2] = 0xFFC0; // Alignment
-	mem16[0x6322/2] = 0x0181; // set sound port to 800181
-
-	DRIVER_INIT_CALL(cps1);
-}
-#endif
 DRIVER_INIT_MEMBER( cps_state, sf2h9 )
 {
 	/* Patch out protection check */

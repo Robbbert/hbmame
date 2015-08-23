@@ -136,7 +136,6 @@ wof		/* 02/10/1992 (c) 1992 (World) (CPS1 + QSound) */
 
 	/* cps1mis.c */
 captcomh	/* Found in neht build */
-captcommb	/* Mame */
 cawingb
 cps1demo	/* Charles Doty */
 cps1frog	/* Charles Doty */
