@@ -480,6 +480,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/mario.c",
 	MAME_DIR .. "src/mame/audio/mario.c",
 	MAME_DIR .. "src/mame/video/mario.c",
+	MAME_DIR .. "src/hbmame/drivers/mmagic.c",
 	MAME_DIR .. "src/hbmame/drivers/playch10.c",
 	MAME_DIR .. "src/mame/machine/playch10.c",
 	MAME_DIR .. "src/mame/video/playch10.c",

@@ -904,6 +904,9 @@ mkla4d		/* MK protection hack */
 	/* mitchell.c */
 mitcdemo	/* Charles Doty */
 
+	/* mmagic.c */
+mmagic
+
 	/* monaco.c */
 monaco
 
