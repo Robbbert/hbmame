@@ -82,7 +82,7 @@ bublcave11
 sboblboblh 	/* level select hack */ 
 
 	/* bwidow.c */
-//spacwarp	/* Jeff Hendrix - Proto on Space Duel HW - removed - not working */
+spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
 
 	/* cave.c */
 ddonpach

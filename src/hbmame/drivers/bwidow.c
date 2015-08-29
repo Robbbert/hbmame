@@ -28,10 +28,18 @@ ROM_START( spacwarp )
 	ROM_RELOAD(              0xd000, 0x1000 )
 	ROM_RELOAD(              0xe000, 0x1000 )
 	ROM_RELOAD(              0xf000, 0x1000 )   /* for reset/interrupt vectors */
+	// patch irq code to acknowledge the interrupt
+	ROM_COPY( "maincpu", 0x4003, 0x5353, 3 )  // move jump
+	ROM_FILL(0x4004, 1, 0x50) // new jump
+	ROM_FILL(0x4005, 1, 0x53)
+	ROM_FILL(0x5350, 1, 0x8D) // ack irq
+	ROM_FILL(0x5351, 1, 0x00)
+	ROM_FILL(0x5352, 1, 0x0E)
+
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "user1", 0 )
 	ROM_LOAD( "136002-125.n4",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
 ROM_END
 
-GAME( 1999, spacwarp, 0, spacduel, spacduel, driver_device, 0, ROT0, "Jeff Hendrix", "Space War (Proto on Space Duel HW)", MACHINE_NOT_WORKING )
+GAME( 1999, spacwarp, 0, spacduel, spacduel, driver_device, 0, ROT0, "Jeff Hendrix", "Space War (Proto on Space Duel HW)", MACHINE_SUPPORTS_SAVE )
