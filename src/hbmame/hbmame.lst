@@ -900,6 +900,7 @@ mk3		/* (c) 1994 Midway */
 umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3z		/* UMK3 1.2 Zeus hack */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
+
 	/* midyunit.c */
 mkla4d		/* MK protection hack */
 
@@ -969,7 +970,7 @@ mslug3e22
 mslug3fr
 mslug3fro
 mslug3kh
-//mslug3kho // crashes on high score screen - use mslug3kh
+mslug3kho
 mslug3v		/* EEZEZY Violence Edition */
 mslug4d
 mslug4dh	/* Super D version */
@@ -1734,7 +1735,7 @@ wbmlbit		/* Italian Translation */
 wbmlkb		/* Korean Translation */
 
 	/* system16.c */
-//sys16dem	/* Charles Doty */ freezes
+sys16dem	// Charles Doty
 
 	/* taito_b.c */
 bubbleb 	/* pbobble USA Region Hack */
@@ -1747,7 +1748,7 @@ dariusg		/* D87 (c) 1994 Taito Corporation Japan (World) */
 arkretrh
 cleopath
 driusgxh
-f3demo		/* Charles Doty - removed - not working */
+//f3demo		/* Charles Doty - not working */
 gekiridh
 landmakh
 pbobl2xh
@@ -1788,10 +1789,11 @@ aliensva	/* Tempest Prototype */
 	/* terracre.c */
 terracre	/* (c) 1985 */
 terracrc
-	
+
 	/* tmnt.c */
 ssriders
 ssridersaex
+
 	/* toaplan2.c */
 kgpe		/* Neill Corlett hack */
 
