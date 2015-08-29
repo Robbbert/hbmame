@@ -2,6 +2,13 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/bublbobl.c"
 
+static INPUT_PORTS_START( bbaladar )
+	PORT_INCLUDE( boblbobl )
+
+	PORT_MODIFY( "DSW1" )
+	PORT_BIT( 0xc0, IP_ACTIVE_LOW, IPT_UNKNOWN )
+INPUT_PORTS_END
+
 ROM_START( bbaladar )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bbaladar.3",   0x00000, 0x8000, CRC(31bfc6fb) SHA1(6a72086d415a69b9e5c003ec6cf7858e8c4b346f) )
@@ -422,7 +429,7 @@ ROM_START( bublcave10 )
 ROM_END
 
 
-GAME( 2012, bbaladar,   bublbobl, boblbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
+GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, bublbobl, ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "Taito", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "[Taito]", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux,    bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux", MACHINE_SUPPORTS_SAVE )
