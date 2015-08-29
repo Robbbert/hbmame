@@ -133,6 +133,7 @@ MACHINES["TMS6100"] = true
 MACHINES["UPD1990A"] = true
 MACHINES["UPD4992"] = true
 MACHINES["V3021"] = true
+MACHINES["WD_FDC"] = true
 MACHINES["Z80CTC"] = true
 MACHINES["Z80DART"] = true
 MACHINES["Z80PIO"] = true
@@ -152,6 +153,7 @@ BUSES["NEOGEO"] = true
 
 function linkProjects_hbmame_hbmame(_target, _subtarget)
 	links {
+		"acorn",
 		"atari",
 		"capcom",
 		"cave",
@@ -226,6 +228,13 @@ files {
 --------------------------------------------------
 -- manufacturer-specific groupings for drivers
 --------------------------------------------------
+
+createHBMAMEProjects(_target, _subtarget, "acorn")
+files {
+	MAME_DIR .. "src/hbmame/drivers/ertictac.c",
+	MAME_DIR .. "src/mame/machine/archimds.c",
+	MAME_DIR .. "src/mame/video/archimds.c",
+}
 
 createHBMAMEProjects(_target, _subtarget, "atari")
 files {

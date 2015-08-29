@@ -228,7 +228,7 @@ dorunrun	/* (c) 1984 */
 sdreturn
 
 	/* ertictac.c */
-//armdemo		/* Charles Doty */  // removed due to compilation problems
+//armdemo		/* Charles Doty */  // totally broken
 
 	/* exidy.c */
 targ		/* needed parent */
@@ -243,7 +243,6 @@ fcrash
 ffightbl
 ffightbla
 kodb
-sf2m9
 
 	/* galaga.c */
 galaga
