@@ -614,6 +614,8 @@ files {
 	MAME_DIR .. "src/mame/video/tecmo.c",
 	MAME_DIR .. "src/hbmame/drivers/tehkanwc.c",
 	MAME_DIR .. "src/mame/video/tehkanwc.c",
+	MAME_DIR .. "src/hbmame/drivers/wc90.c",
+	MAME_DIR .. "src/mame/video/wc90.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
