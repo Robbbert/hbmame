@@ -90,6 +90,10 @@ ddonpacha
 pwrinst2
 pwrinst2h	/* 2013 Hack by TT */
 
+	/* cball.c */
+cball		// parent
+cballfix	// With MASH 'fixed' gfx rom
+
 	/* cclimber.c */
 ckong		/* (c) 1981 Falcon */
 tongypac

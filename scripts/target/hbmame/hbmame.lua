@@ -243,6 +243,7 @@ files {
 	MAME_DIR .. "src/mame/audio/asteroid.c",
 	MAME_DIR .. "src/hbmame/drivers/bwidow.c",
 	MAME_DIR .. "src/mame/audio/bwidow.c",
+	MAME_DIR .. "src/hbmame/drivers/cball.c",
 	MAME_DIR .. "src/hbmame/drivers/centiped.c",
 	MAME_DIR .. "src/mame/video/centiped.c",
 	MAME_DIR .. "src/hbmame/drivers/gauntlet.c",
