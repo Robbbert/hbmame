@@ -1649,8 +1649,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },				//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },				//works
 	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 	//works
-	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works
-	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },		//works (priority issue on high score screen)
+	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works (intro screen is crap)
+	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },		//works
 	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },		//works
 	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },		//works
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },				//works
@@ -1685,6 +1685,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofchs",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofchdx",     CPS_B_21_DEF, mapper_sfzch },				//works
+	{"wofcn",       CPS_B_21_QS1, mapper_TK263B },				// problem with chinese language roms
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofh",        HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
 	{"wofha",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works

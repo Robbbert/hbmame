@@ -13,6 +13,8 @@ Issues:
 - punisherb - transitions
             - needs all the patches removed, and then investigate from the start.
 
+- wofcn - chinese language rom isn't working. Whatever is tried breaks stuff.
+
 - wofjhb, wofjhc - not working - could be incorrect roms
 
 *******************************************************************************************************************/
@@ -2215,6 +2217,58 @@ ROM_START( wofchdx )
 	ROM_LOAD( "tk2-q4.4k",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 ROM_END
 
+ROM_START( wofcn )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
+	ROM_LOAD16_WORD_SWAP( "wofcn_23c.8f", 0x000000, 0x80000, CRC(e1dd01d8) SHA1(2d243fa39c784ce5164c7a58ffd4884a60eac81c) )
+	ROM_LOAD16_WORD_SWAP( "tk2j_22c.7f", 0x080000, 0x80000, CRC(b74b09ac) SHA1(3a44d6db5f51e1b5d2b43ef0ad1191da21e48427) )
+
+	ROM_REGION( 0x480000, "gfx", 0 )
+	ROMX_LOAD( "tk2_01.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_02.4a",  0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_03.5a",  0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_04.6a",  0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_05.7a",  0x200000, 0x80000, CRC(e4a44d53) SHA1(b747679f4d63e5e62d9fd81b3120fba0401fadfb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_06.8a",  0x200002, 0x80000, CRC(58066ba8) SHA1(c93af968e21094d020e4b2002e0c6fc0d746af0b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_07.9a",  0x200004, 0x80000, CRC(d706568e) SHA1(7886414dc86c42e35d24b85c4bfa41a9f0c167ac) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_08.10a", 0x200006, 0x80000, CRC(d4a19a02) SHA1(ff396b1d33d9b4842140f2c6d085fe05748e3244) , ROM_GROUPWORD | ROM_SKIP(6) )
+	/// The load procedure for the chinese language is unknown
+	// These 2 roms have 0x10000 blank, then 0x9c00 data (chinese), then the remainder is blank
+	ROM_LOAD64_WORD( "wofcn.gfx5", 0x400000, 0x10000, CRC(ec6e8689) SHA1(8e722292bfb5a4e8658bbd411a0ccce0956f9ad4))//, ROM_SKIP(1))// , ROM_GROUPWORD | ROM_SKIP(2) )
+	ROM_CONTINUE( 0x400000, 0x8000 )
+	ROM_CONTINUE( 0x400002, 0x8000 )
+	ROM_IGNORE(0x60000)
+	ROM_LOAD64_WORD( "wofcn.gfx6", 0x400004, 0x10000, CRC(722787df) SHA1(31720e94195055a494bc923c75e20882b8b05f4a))//, ROM_SKIP(1))// , ROM_GROUPWORD | ROM_SKIP(2) )
+	ROM_CONTINUE( 0x400004, 0x8000 )
+	ROM_CONTINUE( 0x400006, 0x8000 )
+	ROM_IGNORE(0x60000)
+	//ROM_COPY( "gfx", 0x400000, 0x040000, 0x20000 ) // text on 3 intro screens
+	//ROM_COPY( "gfx", 0x400000, 0x380000, 0x20000 ) // text on actor descriptions
+
+	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code */
+	ROM_LOAD( "tk2_qa.5k",   0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(            0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 ) /* QSound samples */
+	ROM_LOAD( "tk2-q1.1k",   0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "tk2-q2.2k",   0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "tk2-q3.3k",   0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "tk2-q4.4k",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x0200, "aboardplds", 0 )
+	ROM_LOAD( "buf1",         0x0000, 0x0117, CRC(eb122de7) SHA1(b26b5bfe258e3e184f069719f9fd008d6b8f6b9b) )
+	ROM_LOAD( "ioa1",         0x0000, 0x0117, CRC(59c7ee3b) SHA1(fbb887c5b4f5cb8df77cec710eaac2985bc482a6) )
+	ROM_LOAD( "prg2",         0x0000, 0x0117, CRC(4386879a) SHA1(c36896d169d8c78393609acbbe4397931292a033) )
+	ROM_LOAD( "rom1",         0x0000, 0x0117, CRC(41dc73b9) SHA1(7d4c9f1693c821fbf84e32dd6ef62ddf14967845) )
+
+	ROM_REGION( 0x0200, "bboardplds", 0 )
+	ROM_LOAD( "tk263b.1a",    0x0000, 0x0117, CRC(c4b0349b) SHA1(b4873dd5ad8735048deb3475222dde3c0b67eaaf) )
+	ROM_LOAD( "iob1.12d",     0x0000, 0x0117, CRC(3abc0700) SHA1(973043aa46ec6d5d1db20dc9d5937005a0f9f6ae) )
+	ROM_LOAD( "bprg1.11d",    0x0000, 0x0117, CRC(31793da7) SHA1(400fa7ac517421c978c1ee7773c30b9ed0c5d3f3) )
+
+	ROM_REGION( 0x0200, "cboardplds", 0 )
+	ROM_LOAD( "ioc1.ic1",     0x0000, 0x0117, CRC(0d182081) SHA1(475b3d417785da4bc512cce2b274bb00d4cc6792) )
+ROM_END
+
 ROM_START( woffr )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "tk2e_23bfr.rom",  0x000000, 0x80000, CRC(e006e81e) SHA1(dad6cd3a1175b6f366e8bf02d1af35af5f1b50cc) )
@@ -2634,7 +2688,7 @@ GAME( 2012, dinoz,     dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0
 GAME( 1991, knightsb2, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knightsh,  knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (hack)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knightsha, knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Hack set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, knightsro, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Sebastian Mihai", "Knights of the Round (Hungarian)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, knightsro, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Sebastian Mihai", "Knights of the Round (Romanian)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodh,      kod,      cps1_10MHz, kodh,     cps_state, cps1,     ROT0,   "Wangy2", "The King of Dragons (hack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pnicku,    0,        cps1_10MHz, pnicku,   cps_state, cps1,     ROT0,   "Compile (Capcom licence)", "Pnickies (USA)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjh,punisher, qsound,     punisher, cps_state, punisher, ROT0,   "Capcom", "The Punisher (Shinwa Hack, Japan 930422)", MACHINE_SUPPORTS_SAVE )
@@ -2668,6 +2722,7 @@ GAME( 1992, wofb,      wof,      qsound,     wof,      cps_state, wofb,     ROT0
 GAME( 1992, wofchs,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (Chinese)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wofch_v3,  wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Capcom", "Tenchi wo Kurau II: Sekiheki no Tatakai (CPS Changer, Japan 921031) (Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, wofchdx,   wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "hack", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofcn,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Capcom", "Tenchi wo Kurau II (Japan 921031) (Chinese)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1992, woffr,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Arkatrad", "Warriors of Fate (France 030728)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, wofh,      wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "Hack", "Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, wofha,     wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "Hack", "Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan (set 2)", MACHINE_SUPPORTS_SAVE )
