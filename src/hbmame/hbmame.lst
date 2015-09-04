@@ -181,30 +181,32 @@ sf2tlonb	/* hack, Tu Long set 2 */
 sf2turyu	/* hack, Tu Long prototype */
 stridergf	// fix unwanted black specks
 stridergh	// as above, and uncensored
-wof3js		/* 1997  Three Sword Masters / San Jian Sheng */
-wof3sj		/* 1997  Three Holy Swords / San Sheng Jian */
-wof3sja		/* 1997  Three Holy Swords / San Sheng Jian */
-wofah		/* 1992 Sangokushi II (Hack 1) */
-wofaha		/* 1992 Sangokushi II (Hack 2) */
-wofahb		/* 1992 Sangokushi II (Hack 3) */
+sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h2		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h3		// mame sgyxz for testing
+sk2h11		/* 1992 Sangokushi II (Hack 1) */
+sk2h12		/* 1992 Sangokushi II (Hack 2) */
+sk2h13		/* 1992 Sangokushi II (Hack 3) */
+sk2h14		/* Chinese language */
+sk2h21		/* 1997  Three Sword Masters / San Jian Sheng */
+sk2h31		/* 1997  Three Holy Swords / San Sheng Jian */
+sk2h32		/* 1997  Three Holy Swords / San Sheng Jian */
+sk2h33		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+sk2h34		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+sk2h35		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 wofb
-wofchs		/* Chinese language */
 wofch
 wofch_v3
 wofchdx
-wofcn		// chinese language
+wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
-wofh 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
-wofha		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
 wofjh
 wofjhb		/* was dynwarjh by mistake - from Neht */
 wofjhc		/* was dynwarj2 by mistake - from Neht */
 wofjm
+wofjzero
 wofr1h
-wofsj		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-wofsja		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-wofsjb		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-wofzero
+wofsf2
 
 	/* cps2.c */
 ddsom

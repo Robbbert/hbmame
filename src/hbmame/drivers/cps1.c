@@ -602,6 +602,8 @@ static ADDRESS_MAP_START( qsound_main_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0x800030, 0x800037) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_WRITE(cps1_cps_a_w) AM_SHARE("cps_a_regs")  /* CPS-A custom */
 	AM_RANGE(0x800140, 0x80017f) AM_READWRITE(cps1_cps_b_r, cps1_cps_b_w) AM_SHARE("cps_b_regs")    /* CPS-B custom (mapped by LWIO/IOB1 PAL on B-board) */
+	AM_RANGE(0x800180, 0x800187) AM_WRITE(cps1_soundlatch_w)    /* Sound command HBMAME */
+	AM_RANGE(0x800188, 0x80018f) AM_WRITE(cps1_soundlatch2_w)   /* Sound timer fade HBMAME */
 	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram") /* SF2CE executes code from here */
 	AM_RANGE(0xf00000, 0xf0ffff) AM_READ(qsound_rom_r)          /* Slammasters protection */
 	AM_RANGE(0xf18000, 0xf19fff) AM_READWRITE(qsound_sharedram1_r, qsound_sharedram1_w)  /* Q RAM */

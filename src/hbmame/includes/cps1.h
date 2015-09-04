@@ -389,6 +389,7 @@ public:
 	DECLARE_WRITE16_MEMBER(dinoh_sound_command_w);
 	DECLARE_WRITE16_MEMBER(daimakb_layer_w);
 	DECLARE_WRITE16_MEMBER(daimakb_palctrl_w);
+	DECLARE_MACHINE_START(sk2h3);
 	DECLARE_DRIVER_INIT(dinoeh);
 	DECLARE_DRIVER_INIT(dinoh);
 	DECLARE_DRIVER_INIT(dinoz);

@@ -487,6 +487,7 @@ The games seem to use them to mark platforms, kill zones and no-go areas.
 #define HACK_H_5      -1, 0x0000,          __not_applicable__,          0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x40,0x40,0x40,0x00,0x00} // daimakb
 #define HACK_H_6      -1,   -1,   0x06,0x04,0x02,0x00, 0x1e,0x1c,0x1a,  0x28,{0x26,0x24,0x22,0x20},0x30, {0x40,0x10,0x02,0x00,0x00} // knightsb2
 #define HACK_H_7      -1,   -1,   0x06,0x04,0x02,0x00, 0x1e,0x1c,0x1a,  0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x20,0x10,0x02,0x00,0x00} // knightsha
+#define HACK_H_8      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x20,{0x00,0x00,0x00,0x00},0x00, {0x80,0x80,0x80,0x00,0x00}
 
 
 /*
@@ -1675,29 +1676,31 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"stridergf",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"stridergh",   CPS_B_01,     mapper_ST24M1 },				//works
-	{"wof3js",      CPS_B_21_DEF, mapper_TK263B, 0x36 },			//works
-	{"wof3sj",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"wof3sja",     HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"wofah",       CPS_B_21_DEF, mapper_TK263B },				//works
-	{"wofaha",      CPS_B_21_DEF, mapper_TK263B },				//works
-	{"wofahb",      CPS_B_21_DEF, mapper_TK263B },				//works
+	{"sk2h1",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	{"sk2h2",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	//{"sk2h3",       HACK_H_8,     mapper_TK263B, 0, 0, 0, 0x8F },
+	{"sk2h11",      CPS_B_21_DEF, mapper_TK263B },				//works
+	{"sk2h12",      CPS_B_21_DEF, mapper_TK263B },				//works
+	{"sk2h13",      CPS_B_21_DEF, mapper_TK263B },				//works
+	{"sk2h14",      CPS_B_21_DEF, mapper_TK263B },				//works
+	{"sk2h21",      CPS_B_21_DEF, mapper_TK263B, 0x36 },			//works
+	{"sk2h31",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	{"sk2h32",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	{"sk2h33",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	{"sk2h34",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	{"sk2h35",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofb",        CPS_B_21_DEF, mapper_TK263B },				//works
-	{"wofchs",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofchdx",     CPS_B_21_DEF, mapper_sfzch },				//works
-	{"wofcn",       CPS_B_21_QS1, mapper_TK263B },				// problem with chinese language roms
+	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },				// problem with chinese language roms
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },				//works
-	{"wofh",        HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"wofha",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },				//works
 	{"wofjhb",      CPS_B_21_QS1, mapper_TK263B },
 	{"wofjhc",      CPS_B_21_QS1, mapper_TK263B },
 	{"wofjm",       CPS_B_21_QS1, mapper_TK263B },				//works
+	{"wofjzero",    CPS_B_21_QS1, mapper_TK263B },				//works
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },				//works
-	{"wofsj",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"wofsja",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"wofsjb",      CPS_B_21_DEF, mapper_TK263B },				//works
-	{"wofzero",     CPS_B_21_QS1, mapper_TK263B },				//works
+	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },			//works
 // HBMAME end
 
 	{0}     /* End of table */
