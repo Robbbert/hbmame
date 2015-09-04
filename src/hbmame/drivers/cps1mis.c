@@ -131,7 +131,7 @@ static ADDRESS_MAP_START( sf2h14_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM AM_SHARE("mainram")
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( wofsjb_map, AS_PROGRAM, 16, cps_state )
+static ADDRESS_MAP_START( sk2h35_map, AS_PROGRAM, 16, cps_state )
 /* unknown addresses (all write): 930008-930807. No 3rd player controls. NVRAM doesn't work */
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800001) AM_READ_PORT("IN1")            /* Player input ports */
@@ -162,66 +162,16 @@ static ADDRESS_MAP_START( cps1frog_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( s_map, AS_PROGRAM, 8, cps_state )
-	AM_RANGE(0x0000, 0x7fff) AM_ROM
-	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
-	AM_RANGE(0xd000, 0xd7ff) AM_RAM
-	AM_RANGE(0xf000, 0xf001) AM_DEVREADWRITE("2151", ym2151_device, read, write)
-	AM_RANGE(0xf002, 0xf002) AM_DEVREADWRITE("oki", okim6295_device, read, write)
-	AM_RANGE(0xf004, 0xf004) AM_WRITE(cps1_snd_bankswitch_w)
-	AM_RANGE(0xf006, 0xf006) AM_WRITE(cps1_oki_pin7_w) /* controls pin 7 of OKI chip */
-	AM_RANGE(0xf008, 0xf008) AM_READ(soundlatch_byte_r) /* Sound command */
-	AM_RANGE(0xf00a, 0xf00a) AM_READ(soundlatch2_byte_r) /* Sound timer fade */
-ADDRESS_MAP_END
-
-ADDRESS_MAP_START( qsound_s_map, AS_PROGRAM, 8, cps_state )
-	AM_RANGE(0x0000, 0x7fff) AM_ROM
-	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")    /* banked (contains music data) */
-	AM_RANGE(0xc000, 0xcfff) AM_RAM AM_SHARE("qsound_ram1")
-	AM_RANGE(0xd000, 0xd002) AM_DEVWRITE("qsound", qsound_device, qsound_w)
-	AM_RANGE(0xd003, 0xd003) AM_WRITE(qsound_banksw_w)
-	AM_RANGE(0xd007, 0xd007) AM_DEVREAD("qsound", qsound_device, qsound_r)
-	AM_RANGE(0xf000, 0xffff) AM_RAM AM_SHARE("qsound_ram2")
-ADDRESS_MAP_END
-
-static ADDRESS_MAP_START( sk2h3_map, AS_PROGRAM, 16, cps_state )
+static ADDRESS_MAP_START( sk2h1_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_RAM AM_SHARE("cps_a_regs")  /* CPS-A custom */
-	AM_RANGE(0x800140, 0x80017f) AM_RAM AM_SHARE("cps_b_regs")  /* CPS-B custom */
-	AM_RANGE(0x880000, 0x880001) AM_READ_PORT("IN1")            /* Player input ports */
-	AM_RANGE(0x880006, 0x88000d) AM_READ(cps1_dsw_r)            /* System input ports / Dip Switches */
-	AM_RANGE(0x88000e, 0x88000f) AM_WRITE(cps1_soundlatch_w)
-	AM_RANGE(0x880e78, 0x880e79) AM_READ(cps1_in2_r)            /* Player 3 controls (later games) */
-	AM_RANGE(0x890000, 0x890001) AM_WRITE(cps1_soundlatch2_w)
-	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram")
-	AM_RANGE(0xf1c004, 0xf1c005) AM_WRITE(cpsq_coinctrl2_w)     /* Coin control2 (later games) */
-	AM_RANGE(0xf1c006, 0xf1c007) AM_READ_PORT("EEPROMIN") AM_WRITE_PORT("EEPROMOUT")
-	AM_RANGE(0xff0000, 0xffffff) AM_RAM
-ADDRESS_MAP_END
-
-static ADDRESS_MAP_START( sk2h3_sound_map, AS_PROGRAM, 8, cps_state )
-	AM_RANGE(0x0000, 0x7fff) AM_ROM
-	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
-	AM_RANGE(0xd000, 0xd7ff) AM_RAM
-	AM_RANGE(0xf000, 0xf001) AM_DEVREADWRITE("2151", ym2151_device, read, write)
-	AM_RANGE(0xf002, 0xf002) AM_DEVREADWRITE("oki", okim6295_device, read, write)
-	AM_RANGE(0xf004, 0xf004) AM_WRITE(cps1_snd_bankswitch_w)
-	AM_RANGE(0xf006, 0xf006) AM_WRITE(cps1_oki_pin7_w) /* controls pin 7 of OKI chip */
-	AM_RANGE(0xf008, 0xf008) AM_READ(soundlatch_byte_r) /* Sound command */
-	AM_RANGE(0xf00a, 0xf00a) AM_READ(soundlatch2_byte_r) /* Sound timer fade */
-ADDRESS_MAP_END
-
-static ADDRESS_MAP_START( wofh_map, AS_PROGRAM, 16, cps_state )
-	AM_RANGE(0x000000, 0x3fffff) AM_ROM
-	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
-	AM_RANGE(0x800100, 0x80013f) AM_WRITE(cps1_cps_a_w) AM_SHARE("cps_a_regs")  /* Output ports */
 	AM_RANGE(0x800140, 0x80017f) AM_READWRITE(cps1_cps_b_r, cps1_cps_b_w) AM_SHARE("cps_b_regs")
 	AM_RANGE(0x880000, 0x880001) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x880006, 0x88000d) AM_READ(cps1_dsw_r)            /* System input ports / Dip Switches */
-	AM_RANGE(0x88000e, 0x88000f) AM_WRITENOP		/* unknown */
+	AM_RANGE(0x88000e, 0x88000f) AM_WRITENOP//AM_WRITE(cps1_soundlatch_w)
 	AM_RANGE(0x880e78, 0x880e79) AM_READ(cps1_in2_r)            /* Player 3 controls (later games) */
-	AM_RANGE(0x890000, 0x890001) AM_WRITENOP		/* unknown */
+	AM_RANGE(0x890000, 0x890001) AM_WRITENOP//AM_WRITE(cps1_soundlatch2_w)
 	AM_RANGE(0x8bfff6, 0x8bfff9) AM_READNOP			/* unknown */
 	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram")
 	AM_RANGE(0xf18000, 0xf19fff) AM_READWRITE(qsound_sharedram1_r, qsound_sharedram1_w)  /* Q RAM */
@@ -231,16 +181,33 @@ static ADDRESS_MAP_START( wofh_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( wof3sj_map, AS_PROGRAM, 16, cps_state )
+static ADDRESS_MAP_START( sk2h3_map, AS_PROGRAM, 16, cps_state )
+	AM_RANGE(0x000000, 0x3fffff) AM_ROM
+	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
+	AM_RANGE(0x800100, 0x80013f) AM_RAM AM_SHARE("cps_a_regs")  /* CPS-A custom */
+	AM_RANGE(0x800140, 0x80017f) AM_READWRITE(cps1_cps_b_r, cps1_cps_b_w) AM_SHARE("cps_b_regs")
+	AM_RANGE(0x880000, 0x880001) AM_READ_PORT("IN1")            /* Player input ports */
+	AM_RANGE(0x880006, 0x88000d) AM_READ(cps1_dsw_r)            /* System input ports / Dip Switches */
+	AM_RANGE(0x88000e, 0x88000f) AM_WRITE(cps1_soundlatch_w)
+	AM_RANGE(0x880e78, 0x880e79) AM_READ(cps1_in2_r)            /* Player 3 controls (later games) */
+	AM_RANGE(0x890000, 0x890001) AM_WRITE(cps1_soundlatch2_w)
+	AM_RANGE(0x8bfff6, 0x8bfff9) AM_READNOP			/* unknown */
+	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram")
+	AM_RANGE(0xf1c004, 0xf1c005) AM_WRITE(cpsq_coinctrl2_w)     /* Coin control2 (later games) */
+	AM_RANGE(0xf1c006, 0xf1c007) AM_READ_PORT("EEPROMIN") AM_WRITE_PORT("EEPROMOUT")
+	AM_RANGE(0xff0000, 0xffffff) AM_RAM
+ADDRESS_MAP_END
+
+static ADDRESS_MAP_START( sk2h31_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_WRITE(cps1_cps_a_w) AM_SHARE("cps_a_regs")  /* Output ports */
 	AM_RANGE(0x800140, 0x80017f) AM_READWRITE(cps1_cps_b_r, cps1_cps_b_w) AM_SHARE("cps_b_regs")
 	AM_RANGE(0x880000, 0x880001) AM_READ_PORT("IN1")            /* Player input ports */
-	AM_RANGE(0x880006, 0x880007) AM_WRITENOP		/* unknown */
+	//AM_RANGE(0x880006, 0x880007) AM_WRITENOP		/* unknown */
 	AM_RANGE(0x880008, 0x88000f) AM_READ(cps1_dsw_r)            /* System input ports / Dip Switches */
 	AM_RANGE(0x880e7e, 0x880e7f) AM_READ(cps1_in2_r)            /* Player 3 controls (later games) */
-	AM_RANGE(0x890000, 0x890001) AM_WRITENOP		/* unknown */
+	AM_RANGE(0x890000, 0x890001) AM_WRITENOP//AM_WRITE(cps1_soundlatch2_w)
 	AM_RANGE(0x8bfff6, 0x8bfff9) AM_READNOP			/* unknown */
 	AM_RANGE(0x900000, 0x92ffff) AM_RAM_WRITE(cps1_gfxram_w) AM_SHARE("gfxram")
 	AM_RANGE(0xf18000, 0xf19fff) AM_READWRITE(qsound_sharedram1_r, qsound_sharedram1_w)  /* Q RAM */
@@ -448,7 +415,7 @@ static INPUT_PORTS_START( sk2h3 )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, cs_write)
 INPUT_PORTS_END
 
-static INPUT_PORTS_START( wof3js )
+static INPUT_PORTS_START( sk2h21 )
 	PORT_INCLUDE( wof )
 
 	PORT_MODIFY("IN1")
@@ -518,7 +485,7 @@ static INPUT_PORTS_START( cps1frog )
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 INPUT_PORTS_END
 
-static INPUT_PORTS_START( wofh )
+static INPUT_PORTS_START( sk2h1 )
 	PORT_START ("IN0")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN2 )
@@ -583,7 +550,7 @@ static INPUT_PORTS_START( wofh )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, cs_write)
 INPUT_PORTS_END
 
-static INPUT_PORTS_START( wof3sj )
+static INPUT_PORTS_START( sk2h31 )
 	PORT_START ("IN0")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN2 )
@@ -656,17 +623,6 @@ INPUT_PORTS_END
 ********************************************************************/
 
 
-MACHINE_START_MEMBER(cps_state, sk2h3)
-{
-	m_layer_enable_reg = 0x20;
-	m_sprite_base = 0x1000;
-	m_sprite_list_end_marker = 0xffff;
-	m_layer_scroll1x_offset = 0x40;
-	m_layer_scroll2x_offset = 0x40;
-	m_layer_scroll3x_offset = 0x40;
-	membank("bank1")->configure_entries(0, 2, memregion("audiocpu")->base() + 0x10000, 0x4000);
-}
-
 static MACHINE_CONFIG_DERIVED( wofsf2, wofhfh )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(wofsf2_map)
@@ -682,9 +638,14 @@ static MACHINE_CONFIG_DERIVED( daimakb, cps1_10MHz)
 	MCFG_CPU_PROGRAM_MAP(daimakb_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( wofsjb, qsound)
+static MACHINE_CONFIG_DERIVED( sk2h3, wofhfh)
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(wofsjb_map)
+	MCFG_CPU_PROGRAM_MAP(sk2h3_map)
+MACHINE_CONFIG_END
+
+static MACHINE_CONFIG_DERIVED( sk2h35, qsound)
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(sk2h35_map)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START( cps1frog, cps_state )
@@ -696,7 +657,7 @@ static MACHINE_CONFIG_START( cps1frog, cps_state )
 
 	/* audio CPU */
 	MCFG_CPU_ADD("audiocpu", Z80, XTAL_3_579545MHz)  /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(s_map)
+	MCFG_CPU_PROGRAM_MAP(sub_map)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, cps1)
 
@@ -720,54 +681,15 @@ static MACHINE_CONFIG_START( cps1frog, cps_state )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( sk2h3, cps_state )
-	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)
-	MCFG_CPU_PROGRAM_MAP(sk2h3_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state,  cps1_interrupt)
-
-	MCFG_CPU_ADD("audiocpu", Z80, 3579545)
-	MCFG_CPU_PROGRAM_MAP(sk2h3_sound_map)
-
-	MCFG_MACHINE_START_OVERRIDE(cps_state, sk2h3)
-
-	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
-	MCFG_SCREEN_SIZE(64*8, 32*8)
-	MCFG_SCREEN_VISIBLE_AREA(8*8, (64-8)*8-1, 2*8, 30*8-1 )
-	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_fcrash)
-	MCFG_SCREEN_VBLANK_DRIVER(cps_state, screen_eof_cps1)
-	MCFG_SCREEN_PALETTE("palette")
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", cps1)
-	MCFG_PALETTE_ADD("palette", 0xc00)
-	MCFG_VIDEO_START_OVERRIDE(cps_state,cps1)
-
-	MCFG_EEPROM_SERIAL_93C46_8BIT_ADD("eeprom")
-
-	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
-
-	MCFG_YM2151_ADD("2151", XTAL_3_579545MHz)  /* verified on pcb */
-	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
-	MCFG_SOUND_ROUTE(0, "mono", 0.35)
-	MCFG_SOUND_ROUTE(1, "mono", 0.35)
-
-	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, OKIM6295_PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
-MACHINE_CONFIG_END
-
-static MACHINE_CONFIG_DERIVED( wofh, cps1frog )
+static MACHINE_CONFIG_DERIVED( sk2h1, cps1frog )
 
 	/* basic machine hardware */
 	MCFG_CPU_REPLACE("maincpu", M68000, XTAL_12MHz )    /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(wofh_map)
+	MCFG_CPU_PROGRAM_MAP(sk2h1_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
 
 	MCFG_CPU_REPLACE("audiocpu", Z80, XTAL_8MHz)  /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(qsound_s_map)
+	MCFG_CPU_PROGRAM_MAP(qsound_sub_map)
 	MCFG_CPU_DECRYPTED_OPCODES_MAP(qsound_decrypted_opcodes_map)
 	MCFG_CPU_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250)    /* ?? */
 
@@ -787,9 +709,9 @@ static MACHINE_CONFIG_DERIVED( wofh, cps1frog )
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( wof3sj, wofh )
+static MACHINE_CONFIG_DERIVED( sk2h31, sk2h1 )
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(wof3sj_map)
+	MCFG_CPU_PROGRAM_MAP(sk2h31_map)
 MACHINE_CONFIG_END
 
 
@@ -2352,7 +2274,7 @@ ROM_START( sk2h31 )
 	ROM_CONTINUE(              0x200002, 0x80000 )
 	ROM_CONTINUE(              0x200006, 0x80000 )
 
-	ROM_REGION( 2*0x28000, "audiocpu", 0 ) /* QSound Z80 code + space for decrypted opcodes */
+	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code */
 	ROM_LOAD( "tk2_qa.rom",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
 	ROM_CONTINUE(               0x10000, 0x18000 )
 
@@ -2377,7 +2299,7 @@ ROM_START( sk2h32 )
 	ROM_CONTINUE(              0x200002, 0x80000 )
 	ROM_CONTINUE(              0x200006, 0x80000 )
 
-	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code + space for decrypted opcodes */
+	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code */
 	ROM_LOAD( "tk2_qa.rom",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
 	ROM_CONTINUE(               0x10000, 0x18000 )
 
@@ -2403,7 +2325,7 @@ ROM_START( sk2h33 )
 	ROMX_LOAD( "tk2_gfx6.rom",   0x200004, 0x80000, CRC(1abd14d6) SHA1(dffff3126f102b4ec028a81405fc5b9bd7bb65b3) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2_gfx8.rom",   0x200006, 0x80000, CRC(b27948e3) SHA1(870d5d23f56798831c641e877ea94217058b2ddc) , ROM_GROUPWORD | ROM_SKIP(6) )
 
-	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code + space for decrypted opcodes */
+	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code */
 	ROM_LOAD( "tk2_qa.rom",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
 	ROM_CONTINUE(               0x10000, 0x18000 )
 
@@ -2428,7 +2350,7 @@ ROM_START( sk2h34 )
 	ROMX_LOAD( "tk2_gfx6.rom",   0x200004, 0x80000, CRC(1abd14d6) SHA1(dffff3126f102b4ec028a81405fc5b9bd7bb65b3) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2_gfx8.rom",   0x200006, 0x80000, CRC(b27948e3) SHA1(870d5d23f56798831c641e877ea94217058b2ddc) , ROM_GROUPWORD | ROM_SKIP(6) )
 
-	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code + space for decrypted opcodes */
+	ROM_REGION( 0x28000, "audiocpu", 0 ) /* QSound Z80 code */
 	ROM_LOAD( "tk2_qa.rom",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
 	ROM_CONTINUE(               0x10000, 0x18000 )
 
@@ -2960,19 +2882,19 @@ GAME( 1992, sf2tlonb,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0
 GAME( 1992, sf2turyu,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II - Champion Edition (Tu Long prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, stridergf, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Willkaotix", "Strider (Gfx fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, stridergh, strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Willkaotix", "Strider (gfx fix, uncensored)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, sk2h1,     wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "All-In Co Ltd", "Sangokushi II (Asia 921005) (set H1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1999, sk2h2,     wof,      wofh,       wofh,     cps_state, wofh,     ROT0,   "All-In Co Ltd", "Sangokushi II (Asia 921005) (set H2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1999, sk2h3,     wof,      sk2h3,      sk2h3,    cps_state, cps1,     ROT0,   "All-In Co Ltd", "Sangokushi II (Asia 921005) (set H3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1999, sk2h1,     wof,      sk2h1,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Asia 921005) (set H1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1999, sk2h2,     wof,      sk2h1,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Asia 921005) (set H2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1999, sk2h3,     wof,      sk2h3,      sk2h3,    cps_state, sk2h3,    ROT0,   "All-In Co Ltd", "Sangokushi II (Asia 921005) (set H3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2h11,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (set H11)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2h12,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (set H12)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2h13,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (set H13)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2h14,    wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Sangokushi II (Asia 921005) (set H14)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, sk2h21,    wof,      qsound,     wof3js,   cps_state, wof3js,   ROT0,   "bootleg", "Sangokushi II (Asia 921005) (set H21)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, sk2h31,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H31)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1997, sk2h32,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H32)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sk2h33,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H33)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sk2h34,    wof,      wof3sj,     wof3sj,   cps_state, wof3sj,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H34)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sk2h35,    wof,      wofsjb,     wof,      cps_state, wofsjb,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H35)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, sk2h21,    wof,      qsound,     sk2h21,   cps_state, sk2h21,   ROT0,   "bootleg", "Sangokushi II (Asia 921005) (set H21)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, sk2h31,    wof,      sk2h31,     sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H31)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, sk2h32,    wof,      sk2h31,     sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H32)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sk2h33,    wof,      sk2h31,     sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H33)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sk2h34,    wof,      sk2h31,     sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H34)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sk2h35,    wof,      sk2h35,     wof,      cps_state, sk2h35,   ROT0,   "Gen Gan San Go", "Sangokushi II (Asia 921005) (set H35)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofb,      wof,      qsound,     wof,      cps_state, wofb,     ROT0,   "bootleg", "Warriors of Fate (ETC 921002) (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wofch_v3,  wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Capcom", "Tenchi wo Kurau II: Sekiheki no Tatakai (CPS Changer, Japan 921031) (Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, wofchdx,   wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "hack", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010", MACHINE_SUPPORTS_SAVE )
@@ -3103,7 +3025,7 @@ DRIVER_INIT_MEMBER( cps_state, dinohb )
 
 DRIVER_INIT_MEMBER( cps_state, punishrb )
 {
-
+#if 0
 	UINT8 *mem8 = memregion("maincpu")->base();
 	mem8[0xAB3] = 0x33;
 	mem8[0xAB4] = 0x30;
@@ -3303,7 +3225,7 @@ DRIVER_INIT_MEMBER( cps_state, punishrb )
 	mem8[0x14F69] = 0x28;
 	mem8[0x14F6A] = 0x0;
 	mem8[0x14F6D] = 0x1;
-
+#endif
 	kabuki_setup(punisher_decode);
 	DRIVER_INIT_CALL(cps1);
 }
@@ -3371,7 +3293,7 @@ DRIVER_INIT_MEMBER( cps_state, wofb )
 	DRIVER_INIT_CALL(cps1);
 }
 
-DRIVER_INIT_MEMBER( cps_state, wofsjb )
+DRIVER_INIT_MEMBER( cps_state, sk2h35 )
 {
 	UINT8 *mem8 = memregion("maincpu")->base();
 	// Patch Q sound protection? check
@@ -3441,7 +3363,7 @@ DRIVER_INIT_MEMBER( cps_state, wofsjb )
 	DRIVER_INIT_CALL(cps1);
 }
 
-DRIVER_INIT_MEMBER( cps_state, wof3js )
+DRIVER_INIT_MEMBER( cps_state, sk2h21 )
 {
 	UINT8 *mem8 = memregion("maincpu")->base();
 	// Patch Q sound protection? check
@@ -3462,7 +3384,7 @@ DRIVER_INIT_MEMBER( cps_state, wof3js )
 	DRIVER_INIT_CALL(cps1);
 }
 
-DRIVER_INIT_MEMBER( cps_state, wofh )
+DRIVER_INIT_MEMBER( cps_state, sk2h1 )
 {
 	UINT8 *mem8 = memregion("maincpu")->base();
 	// Stage Order
@@ -3587,28 +3509,48 @@ DRIVER_INIT_MEMBER( cps_state, wofh )
 	DRIVER_INIT_CALL(cps1);
 }
 
-DRIVER_INIT_MEMBER( cps_state, wof3sj )
+DRIVER_INIT_MEMBER( cps_state, sk2h3 )
 {
 	UINT8 *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
+	mem8[0x5d8e8] = 0x90;
+	mem8[0x5d8eb] = 0x00;
+	mem8[0x5d8f8] = 0x90;
+
+	mem8[0x5d858] = 0x00;
+	mem8[0x5d859] = 0x61;
+	mem8[0x5d85a] = 0xe6;
+	mem8[0x5d85b] = 0x01;
+
+	mem8[0x5d890] = 0x6d;
+	mem8[0x5d891] = 0x0c;
+	mem8[0x5d892] = 0x00;
+	mem8[0x5d893] = 0x90;
+	mem8[0x5d894] = 0xd2;
+	mem8[0x5d895] = 0xe3;
+	DRIVER_INIT_CALL(cps1);
+}
+
+DRIVER_INIT_MEMBER( cps_state, sk2h31 )
+{
+	UINT8 *mem8 = memregion("maincpu")->base();
+	// Disable Sprite Recoding
+	mem8[0x5df26] = 0x90;
+	mem8[0x5df29] = 0x00;
+	mem8[0x5df36] = 0x90;
+
 	mem8[0x5de96] = 0x00;
 	mem8[0x5de97] = 0x61;
 	mem8[0x5de98] = 0xe6;
 	mem8[0x5de99] = 0x01;
+
 	mem8[0x5dece] = 0x6d;
 	mem8[0x5decf] = 0x0c;
 	mem8[0x5ded0] = 0x00;
 	mem8[0x5ded1] = 0x90;
 	mem8[0x5ded2] = 0xd2;
 	mem8[0x5ded3] = 0xe3;
-	mem8[0x5df26] = 0x90;
-	mem8[0x5df27] = 0x00;
-	mem8[0x5df28] = 0x00;
-	mem8[0x5df29] = 0x00;
-	mem8[0x5df36] = 0x90;
-	mem8[0x5df37] = 0x00;
-	mem8[0x5df38] = 0x00;
-	mem8[0x5df39] = 0x40;
+
 	// Patch Q sound protection? check
 	mem8[0x5A0E] = 0x39;
 	mem8[0x5A0F] = 0x30;

@@ -1676,18 +1676,18 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"stridergf",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"stridergh",   CPS_B_01,     mapper_ST24M1 },				//works
-	{"sk2h1",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"sk2h2",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	//{"sk2h3",       HACK_H_8,     mapper_TK263B, 0, 0, 0, 0x8F },
+	{"sk2h1",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
+	{"sk2h2",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
+	{"sk2h3",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
 	{"sk2h11",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"sk2h12",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"sk2h13",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"sk2h14",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"sk2h21",      CPS_B_21_DEF, mapper_TK263B, 0x36 },			//works
-	{"sk2h31",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"sk2h32",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"sk2h33",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
-	{"sk2h34",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works
+	{"sk2h31",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
+	{"sk2h32",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
+	{"sk2h33",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
+	{"sk2h34",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
 	{"sk2h35",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofb",        CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },				//works
