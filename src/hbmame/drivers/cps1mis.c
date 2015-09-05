@@ -11,11 +11,6 @@ Issues:
 
 - kodh
 	title, problem with placement of the letters
-	player preview flickers instead of wriggling
-
-- punisherb
-	transitions
-	needs all the patches removed, and then investigate from the start.
 
 - sk2h1, sk2h2, sk2h3, sk2h31, sk2h32, sk2h33, sk2h34
 	setup screen is blank
@@ -1290,6 +1285,9 @@ ROM_START( knightsro )
 	ROM_LOAD( "c632.ic1",     0x0000, 0x0117, CRC(0fbd9270) SHA1(d7e737b20c44d41e29ca94be56114b31934dde81) )
 ROM_END
 
+// Hack of kodr1. The following are typical of that revision:
+// - Actor preview flickers instead of wriggling
+// - No music in attract mode
 ROM_START( kodh )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "23.096",  0x00000, 0x80000, CRC(daf89cfb) SHA1(de0944884d0e64c6b0410294d25308201508afbe) )
@@ -1379,6 +1377,10 @@ ROM_START( punisherf )
 	ROM_LOAD16_WORD_SWAP( "punisherf.23", 0x000000, 0x80000, CRC(ebab7576) SHA1(2a1664ebaf813a21986c97c16142ffd7c93c7a3b) )
 	ROM_LOAD16_WORD_SWAP( "psj22h.bin",   0x080000, 0x80000, CRC(84c5783e) SHA1(19571cdc4bf4cc1e59694fc8064cc88a49656449) )
 	ROM_LOAD16_WORD_SWAP( "punisherf.21", 0x100000, 0x80000, CRC(2bccb0ed) SHA1(44f45431d7ecca6eb8942be3d44b99cf856d12ab) )
+	ROM_FILL(0x9042A, 5, 0x4E) // remove jsr into the weeds (caused illegal instruction on stage 1)
+	ROM_FILL(0x9042B, 1, 0x71)
+	ROM_FILL(0x9042D, 1, 0x71)
+	ROM_FILL(0x9042F, 1, 0x71)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "ps_gfx1.rom",   0x000000, 0x80000, CRC(77b7ccab) SHA1(e08e5d55a79e4c0c8ca819d6d7d2a14f753c6ec3) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -1407,7 +1409,6 @@ ROM_START( punisherb )	// punipic in mame
 	ROM_LOAD16_BYTE( "5.bin",  0x000000, 0x80000, CRC(c3151563) SHA1(61d3a20c25fea8a94ae6e473a87c21968867cba0) )
 	ROM_LOAD16_BYTE( "2.bin",  0x100001, 0x80000, CRC(d7b13f39) SHA1(eb7cd92b44fdef3b72672b0be6786c526421b627) )
 	ROM_LOAD16_BYTE( "4.bin",  0x100000, 0x80000, CRC(665a5485) SHA1(c07920d110ca9c35f6cbff94a6a889c17300f994) )
-	ROM_FILL(0x4300, 1, 0x90) // transitions
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "9.bin",   0x000000, 0x40000, CRC(9b9a887a) SHA1(8805b36fc18837bd7c64c751b435d72b763b2235), ROM_GROUPBYTE | ROM_SKIP(7) )
@@ -2859,11 +2860,11 @@ GAME( 1991, knightsb2, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0
 GAME( 1991, knightsh,  knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (hack)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knightsha, knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, knightsro, knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Sebastian Mihai", "Knights of the Round (Romanian)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kodh,      kod,      cps1_10MHz, kodh,     cps_state, cps1,     ROT0,   "Wangy2", "The King of Dragons (hack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kodh,      kod,      cps1_10MHz, kodh,     cps_state, cps1,     ROT0,   "Wangy2", "The King of Dragons (ETC 910711 hack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pnicku,    0,        cps1_10MHz, pnicku,   cps_state, cps1,     ROT0,   "Compile (Capcom licence)", "Pnickies (USA)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjh,punisher, qsound,     punisher, cps_state, punisher, ROT0,   "Capcom", "The Punisher (Shinwa Hack, Japan 930422)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, punisherb, punisher, qsound,     punisher, cps_state, punishrb, ROT0,   "bootleg","The Punisher (Bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE)
-GAME( 2007, punisherf, punisher, qsound,     punisher, cps_state, punishrb, ROT0,   "Zhyxxxx","The Punisher (Flash version) 2007-09-24", MACHINE_SUPPORTS_SAVE)
+GAME( 1993, punisherb, punisher, qsound,     punisher, cps_state, punisherb,ROT0,   "bootleg","The Punisher (Bootleg)", MACHINE_SUPPORTS_SAVE)
+GAME( 2007, punisherf, punisher, qsound,     punisher, cps_state, punisherb,ROT0,   "Zhyxxxx","The Punisher (Flash version) 2007-09-24", MACHINE_SUPPORTS_SAVE)
 GAME( 1999, sf2cebr,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Brasil 920313)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, sf2ced,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long Hack v7.1)", MACHINE_SUPPORTS_SAVE )   // "ETC"
 GAME( 2012, sf2ceda,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Hack)", MACHINE_SUPPORTS_SAVE )   // "ETC"
@@ -3023,10 +3024,11 @@ DRIVER_INIT_MEMBER( cps_state, dinohb )
 	DRIVER_INIT_CALL(cps1);
 }
 
-DRIVER_INIT_MEMBER( cps_state, punishrb )
+DRIVER_INIT_MEMBER( cps_state, punisherb )
 {
-#if 0
+	// note: bytes are swapped around compared to rom_fill.
 	UINT8 *mem8 = memregion("maincpu")->base();
+	// Use standard ports
 	mem8[0xAB3] = 0x33;
 	mem8[0xAB4] = 0x30;
 	mem8[0xAB6] = 0x80;
@@ -3132,6 +3134,9 @@ DRIVER_INIT_MEMBER( cps_state, punishrb )
 	mem8[0xC02] = 0x80;
 	mem8[0xC04] = 0x16;
 	mem8[0xC05] = 0x1;
+	// Transitions
+	mem8[0x42b5] = 0;
+	// Q sound
 	mem8[0x4DBC] = 0x0;
 	mem8[0x4DBE] = 0x58;
 	mem8[0x4DBF] = 0x0;
@@ -3217,6 +3222,7 @@ DRIVER_INIT_MEMBER( cps_state, punishrb )
 	mem8[0x4E14] = 0x1F;
 	mem8[0x4E16] = 0x75;
 	mem8[0x4E17] = 0x4E;
+	// Sprites
 	mem8[0x14CA0] = 0x90;
 	mem8[0x14CA3] = 0x0;
 	mem8[0x14CB0] = 0x90;
@@ -3225,7 +3231,7 @@ DRIVER_INIT_MEMBER( cps_state, punishrb )
 	mem8[0x14F69] = 0x28;
 	mem8[0x14F6A] = 0x0;
 	mem8[0x14F6D] = 0x1;
-#endif
+
 	kabuki_setup(punisher_decode);
 	DRIVER_INIT_CALL(cps1);
 }

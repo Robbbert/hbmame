@@ -1656,7 +1656,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },		//works
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },				//works
 	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },				//works
-	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },		//works (some sprites not cleared on time)
+	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },		//works
 	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },				//works
 	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
