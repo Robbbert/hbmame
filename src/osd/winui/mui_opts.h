@@ -308,11 +308,8 @@ void  SetCrosshairDir(const char* paths);
 const char* GetCheatDir(void);
 void SetCheatDir(const char* path);
 
-const char* GetHistoryFileName(void);
-void SetHistoryFileName(const char* path);
-
-const char* GetMAMEInfoFileName(void);
-void SetMAMEInfoFileName(const char* path);
+const char* GetDatsDir(void);
+void SetDatsDir(const char *path);
 
 const char* GetSnapName(void);
 void SetSnapName(const char* pattern);

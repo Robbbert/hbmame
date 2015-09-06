@@ -48,6 +48,7 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "Control Panels",        GetControlPanelDir, SetControlPanelDir, TRUE, 0 },
 	{ "Controller Files",      GetCtrlrDir,        SetCtrlrDir,        TRUE, DIRDLG_CTRLR },
 	{ "Crosshairs",            GetCrosshairDir,    SetCrosshairDir,    TRUE, 0 },
+	{ "DAT files",             GetDatsDir,         SetDatsDir,         FALSE, 0 },
 	{ "Folders",               GetFolderDir,       SetFolderDir,       FALSE, 0 },
 	{ "Fonts",                 GetFontDir,         SetFontDir,         TRUE, 0 },
 	{ "Flyers",                GetFlyerDir,        SetFlyerDir,        TRUE, 0 },

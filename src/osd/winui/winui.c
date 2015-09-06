@@ -227,15 +227,13 @@ static int MIN_HEIGHT = DBU_MIN_HEIGHT;
 extern const ICONDATA g_iconData[];
 extern const TCHAR g_szPlayGameString[];
 extern const char g_szGameCountString[];
-extern char *g_history_filename;
-extern char *g_mameinfo_filename;
 
 typedef struct _play_options play_options;
 struct _play_options
 {
-	const char *record;			// OPTION_RECORD
+	const char *record;		// OPTION_RECORD
 	const char *playback;		// OPTION_PLAYBACK
-	const char *state;			// OPTION_STATE
+	const char *state;		// OPTION_STATE
 	const char *wavwrite;		// OPTION_WAVWRITE
 	const char *mngwrite;		// OPTION_MNGWRITE
 	const char *aviwrite;		// OPTION_AVIWRITE
@@ -1718,9 +1716,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	hTreeView = GetDlgItem(hMain, IDC_TREE);
 	hwndList  = GetDlgItem(hMain, IDC_LIST);
 
-	g_history_filename = core_strdup(GetHistoryFileName());
-	g_mameinfo_filename = core_strdup(GetMAMEInfoFileName());
-
 	if (!InitSplitters())
 		return FALSE;
 
@@ -1947,16 +1942,13 @@ static void Win32UI_exit()
 
 	FreeFolders();
 
-    /* DestroyTree(hTreeView); */
+	/* DestroyTree(hTreeView); */
 
 	FreeScreenShot();
 
 	OptionsExit();
 
 	HelpExit();
-
-	osd_free(g_mameinfo_filename);
-	osd_free(g_history_filename);
 
 	pool_free_lib(mameui_pool);
 	mameui_pool = NULL;
@@ -4360,6 +4352,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			osd_free(t_bgdir);
 		}
 		break;
+#if 0
 	case ID_OPTIONS_HISTORY:
 		{
 			char filename[MAX_PATH];
@@ -4380,7 +4373,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			}
 			return TRUE;
 		}
-
+#endif
 	case ID_HELP_ABOUT:
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUT),
 				  hMain, AboutDialogProc);

@@ -134,6 +134,7 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_ICONS_DIRECTORY			"icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY			"background_directory"
 #define MUIOPTION_FOLDER_DIRECTORY			"folder_directory"
+#define MUIOPTION_DATS_DIRECTORY			"datafile_directory"
 #define MUIOPTION_UI_KEY_UP				"ui_key_up"
 #define MUIOPTION_UI_KEY_DOWN				"ui_key_down"
 #define MUIOPTION_UI_KEY_LEFT				"ui_key_left"
@@ -189,20 +190,12 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_SHOW_SOFTWARE_SECTION			"show_software_section"
 #define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA		"ui_key_view_software_area"
 #define MUIOPTION_DEFAULT_GAME				"default_system"
-#define MUIOPTION_HISTORY_FILE				"sysinfo_file"
-#define MUIOPTION_MAMEINFO_FILE				"messinfo_file"
 #define MUIDEFAULT_SELECTION				"3do"
 #define MUIDEFAULT_SPLITTERS				"152,310,468"
-#define MUIHISTORY_FILE					"history.dat"
-#define MUIMAMEINFO_FILE				"messinfo.dat"
 #else
 #define MUIOPTION_DEFAULT_GAME				"default_machine"
-#define MUIOPTION_HISTORY_FILE				"sysinfo_file"
-#define MUIOPTION_MAMEINFO_FILE				"mameinfo_file"
 #define MUIDEFAULT_SELECTION				"puckman"
 #define MUIDEFAULT_SPLITTERS				"152,362"
-#define MUIHISTORY_FILE					"history.dat"
-#define MUIMAMEINFO_FILE				"mameinfo.dat"
 #endif
 
 #define MUIOPTION_VERSION				"version"
@@ -288,9 +281,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_BACKGROUND_DIRECTORY,		"bkground", OPTION_STRING,                 NULL },
 	{ MUIOPTION_FOLDER_DIRECTORY,			"folders",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,			"icons",    OPTION_STRING,                 NULL },
-	{ NULL,						NULL,       OPTION_HEADER,     "FILENAME OPTIONS" },
-	{ MUIOPTION_HISTORY_FILE,			MUIHISTORY_FILE,  OPTION_STRING,              NULL },
-	{ MUIOPTION_MAMEINFO_FILE,			MUIMAMEINFO_FILE, OPTION_STRING,             NULL },
+	{ MUIOPTION_DATS_DIRECTORY,			"dats",     OPTION_STRING,                 NULL },
 	{ NULL,						NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
 	{ MUIOPTION_UI_KEY_UP,				"KEYCODE_UP",						OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,			"KEYCODE_DOWN", 					OPTION_STRING,          NULL },
@@ -1372,6 +1363,17 @@ void SetBgDir (const char* path)
 	settings.set_value(MUIOPTION_BACKGROUND_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
+const char * GetDatsDir(void)
+{
+	return settings.value(MUIOPTION_DATS_DIRECTORY);
+}
+
+void SetDatsDir(const char *path)
+{
+	std::string error_string;
+	settings.set_value(MUIOPTION_DATS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE, error_string);
+}
+
 const char* GetFolderDir(void)
 {
 	return settings.value( MUIOPTION_FOLDER_DIRECTORY);
@@ -1392,29 +1394,6 @@ void SetCheatDir(const char* path)
 {
 	std::string error_string;
 	global.set_value(OPTION_CHEATPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
-}
-
-const char* GetHistoryFileName(void)
-{
-	return settings.value( MUIOPTION_HISTORY_FILE);
-}
-
-void SetHistoryFileName(const char* path)
-{
-	std::string error_string;
-	settings.set_value(MUIOPTION_HISTORY_FILE, path, OPTION_PRIORITY_CMDLINE,error_string);
-}
-
-
-const char* GetMAMEInfoFileName(void)
-{
-	return settings.value( MUIOPTION_MAMEINFO_FILE);
-}
-
-void SetMAMEInfoFileName(const char* path)
-{
-	std::string error_string;
-	settings.set_value(MUIOPTION_MAMEINFO_FILE, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetSnapName(void)
