@@ -324,9 +324,6 @@ void tecmo_spr_device::draw_wc90_sprites(bitmap_ind16 &bitmap, const rectangle &
 
 				int xpos = spriteram[offs + 8] + ( (spriteram[offs + 9] & 3 ) << 8 );
 				int ypos = spriteram[offs + 6] + ( (spriteram[offs + 7] & 1 ) << 8 );
-// HBMAME hack
-				if (strcmp(machine().system().name, "pacwc90") == 0)
-					ypos += 16;;
 
 				if (xpos >= 0x0300) xpos -= 0x0400;
 

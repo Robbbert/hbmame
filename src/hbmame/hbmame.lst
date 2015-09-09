@@ -1820,10 +1820,6 @@ suprmrio	/* (c) 1986 Nintendo */
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 
-	/* wc90.c */
-wc90
-pacwc90
-
 	/* williams.c */
 defender
 defender2
