@@ -10,6 +10,34 @@ Sprites are out by 16 pixels, so used a horrible hack.
 
 ****************************************************************************************************/
 
+static INPUT_PORTS_START( pacwc90 )
+	PORT_INCLUDE( wc90 )
+
+	PORT_MODIFY("DSW1")
+	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Players ) )      PORT_DIPLOCATION("SW1:7")
+	PORT_DIPSETTING(    0x02, "1" )
+	PORT_DIPSETTING(    0x00, "2" )
+	PORT_DIPNAME( 0x0d, 0x09, DEF_STR( Lives ) )        PORT_DIPLOCATION("SW1:8,6,5")
+	PORT_DIPSETTING(    0x01, "1" )
+	PORT_DIPSETTING(    0x05, "2" )
+	PORT_DIPSETTING(    0x09, "3" )
+	PORT_DIPSETTING(    0x0d, "5" )
+	PORT_DIPNAME( 0x30, 0x00, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW1:4,3")
+	PORT_DIPSETTING(    0x00, "10000" )
+	PORT_DIPSETTING(    0x10, "15000" )
+	PORT_DIPSETTING(    0x20, "20000" )
+	PORT_DIPSETTING(    0x30, DEF_STR( None ) )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Difficulty ) )   PORT_DIPLOCATION("SW1:2")
+	PORT_DIPSETTING(    0x40, DEF_STR( Normal ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Hard ) )
+	PORT_DIPNAME( 0x80, 0x80, "Ghost Names" )           PORT_DIPLOCATION("SW1:1")
+	PORT_DIPSETTING(    0x80, DEF_STR( Normal ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Alternate ) )
+
+	PORT_MODIFY("DSW2")
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNUSED )
+INPUT_PORTS_END
+
 ROM_START( pacwc90 )
 	ROM_REGION( 0x20000, "maincpu", 0 )
 	//ROM_LOAD( "ic87_01.bin",  0x00000, 0x08000, CRC(4a1affbc) SHA1(bc531e97ca31c66fdac194e2d79d5c6ba1300556) )  /* c000-ffff is not used */
@@ -52,4 +80,4 @@ ROM_START( pacwc90 )
 ROM_END
 
 
-GAME( 1990, pacwc90, wc90, wc90, wc90, driver_device, 0, ROT90, "Macro (Mike Coates)", "Pacman on World Cup 90 HW", MACHINE_IMPERFECT_SOUND | MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1990, pacwc90, wc90, wc90, pacwc90, driver_device, 0, ROT90, "Macro (Mike Coates)", "Pacman on World Cup 90 HW", MACHINE_IMPERFECT_SOUND | MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
