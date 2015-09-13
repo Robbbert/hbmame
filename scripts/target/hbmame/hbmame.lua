@@ -201,6 +201,7 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 	includedirs {
 		MAME_DIR .. "src/osd",
 		MAME_DIR .. "src/emu",
+		MAME_DIR .. "src/devices",
 		MAME_DIR .. "src/hbmame/includes",
 		MAME_DIR .. "src/hbmame",
 		MAME_DIR .. "src/mame",
@@ -498,7 +499,7 @@ files {
 	MAME_DIR .. "src/mame/machine/vsnes.c",
 	MAME_DIR .. "src/mame/video/vsnes.c",
 	MAME_DIR .. "src/mame/video/ppu2c0x.c",
-	MAME_DIR .. "src/emu/machine/z80dma.c",
+	MAME_DIR .. "src/devices/machine/z80dma.c",
 
 }
 
