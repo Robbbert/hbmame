@@ -749,7 +749,7 @@ ROM_START( wbeast )
 	ROM_LOAD( "warofbug.clr", 0x0000, 0x0020, CRC(8688e64b) SHA1(ed13414257f580b98b50c9892a14159c55e7838d) )
 ROM_END
 
-/* This is sort of playable - no sound, wrong colours. */
+/* This is sort of playable - no sound, wrong colours. Reboots after defeating the boss. */
 ROM_START( monstrz )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "b-1e.a1",      0x0000, 0x1000, CRC(97886542) SHA1(01f4f9bd55f9eae28162cbb22a26f7cda22cd3f3) )
@@ -765,8 +765,6 @@ ROM_START( monstrz )
 	ROM_FILL(0xc63c,1,0)
 	// fill the protection ram with RET so we don't run into the weeds.
 	ROM_FILL(0x3800,0x800,0xc9)
-	// enter a missing byte
-	ROM_FILL(0x3800, 1, 0x42)
 	// enable attract mode
 	ROM_FILL(0x3918, 1, 0xC5)
 	ROM_FILL(0x3919, 1, 0xE5)

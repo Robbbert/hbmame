@@ -206,7 +206,7 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 		MAME_DIR .. "src/mame",
 		MAME_DIR .. "src/lib",
 		MAME_DIR .. "src/lib/util",
-		MAME_DIR .. "src/emu/netlist",
+		MAME_DIR .. "src/lib/netlist",
 		MAME_DIR .. "3rdparty",
 		MAME_DIR .. "3rdparty/zlib",
 		GEN_DIR  .. "mame/layout",
@@ -615,8 +615,6 @@ files {
 	MAME_DIR .. "src/mame/video/tecmo.c",
 	MAME_DIR .. "src/hbmame/drivers/tehkanwc.c",
 	MAME_DIR .. "src/mame/video/tehkanwc.c",
-	MAME_DIR .. "src/hbmame/drivers/wc90.c",
-	MAME_DIR .. "src/mame/video/wc90.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")

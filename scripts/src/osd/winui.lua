@@ -47,6 +47,7 @@ function maintargetosdoptions(_target,_subtarget)
 	links {
 		"comctl32",
 		"comdlg32",
+		"psapi",
 	}
 
 -- Local file gives correct icon in mame instance inside of mameui
