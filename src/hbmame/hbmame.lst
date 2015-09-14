@@ -128,14 +128,17 @@ comdlux1	/* Twisty Hack */
 captcomm	/* 14/10/1991 (c) 1991 (World) */
 cawing		/* 12/10/1990 (c) 1990 (World) */
 dino		/* 01/02/1993 (c) 1993 (World) (CPS1 + QSound) */
+dynwar		// parent
 ffight		// patched to fix transitions
 ghouls		/* 12/1988 (c) 1988 (World) */
 kod		/* 11/07/1991 (c) 1991 (World) */
 knights		/* 27/11/1991 (c) 1991 (World) */
 megaman		/* 13/03/1992 (c) 1992 (World) */
 punisher	/* 22/04/1993 (c) 1993 (World) (CPS1 + QSound) */
+sf2		// parent
 sf2ce		/* 13/03/1992 (c) 1992 (World) */
 strider		//  3/1989
+varth		// parent
 wof		/* 02/10/1992 (c) 1992 (World) (CPS1 + QSound) */
 
 	/* cps1mis.c */
@@ -207,6 +210,37 @@ wofjm
 wofjzero
 wofr1h
 wofsf2
+// mame+ to be checked
+hwofa
+knights2
+dynwarjh
+dynwrj2
+punisrjh
+punishrb
+punishjh
+sf2yyc3d5
+sf2yyc3g
+sf2yyc6
+dinojp
+captcomc
+sf2c
+//knightsa - rom missing
+//knight21 - rom missing
+sf2slr73
+wofjexpl
+knightsjb
+sf2m9a
+sf2m10
+sf2m11
+sf2m12
+sf2m13
+sf2m14
+sf2m15
+sf2tha
+sf2tlonc
+sf2hfjb
+wofchdx1
+
 
 	/* cps2.c */
 ddsom
@@ -214,6 +248,21 @@ ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's nam
 ssf2
 ssf2r1d
 suicide		/* Razoola */
+1944		//parent
+mpang		//parent
+sfa		//parent
+sfa2		//parent
+spf2t		//parent
+ssf2t		//parent
+// mame+ to be checked
+1944da
+1944fp
+mpangjd
+sfa2h
+sfaud
+ssf2td
+spf2tb
+sfz2abr
 
 	/* dec0.c */
 baddudes
@@ -250,6 +299,16 @@ fcrash
 ffightbl
 ffightbla
 kodb
+varthb		// from mame+
+// from mame+ to be checked
+captcommb2
+wofsj
+wofsja
+wofh
+wofha
+wof3sj
+wof3sja
+wof3jsa
 
 	/* galaga.c */
 galaga
@@ -1140,7 +1199,9 @@ pm4n1d
 pm4n1e
 
 	/* nemesis.c */
-spclone
+salamand	// parent
+spclone		// v0.7.3
+spcloneo	// v0.7.2.2
 
 	/* neogeo.c */
 neogeo

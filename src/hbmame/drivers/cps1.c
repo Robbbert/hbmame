@@ -2018,7 +2018,7 @@ static INPUT_PORTS_START( kodr1 )
 INPUT_PORTS_END
 
 
-static INPUT_PORTS_START( captcomm )
+INPUT_PORTS_START( captcomm )
 	PORT_INCLUDE( cps1_4players )
 
 	PORT_MODIFY("IN0")
@@ -2150,7 +2150,7 @@ INPUT_PORTS_START( knights )
 	PORT_DIPSETTING(    0x00, DEF_STR( Test ) )
 INPUT_PORTS_END
 
-static INPUT_PORTS_START( varth )
+INPUT_PORTS_START( varth ) // HBMAME
 	PORT_INCLUDE( cps1_3b )
 
 	PORT_MODIFY("IN0")
