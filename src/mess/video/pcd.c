@@ -112,6 +112,7 @@ static ADDRESS_MAP_START( pcx_vid_io, AS_IO, 8, pcx_video_device )
 	AM_RANGE(0xa000, 0xa001) AM_READWRITE(vram_latch_r, vram_latch_w)
 	AM_RANGE(0xa002, 0xa003) AM_READWRITE(term_mcu_r, term_mcu_w)
 	AM_RANGE(0xc000, 0xc7ff) AM_RAM
+	AM_RANGE(MCS51_PORT_P1, MCS51_PORT_P1) AM_WRITE(p1_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( pcx_vram, AS_0, 8, pcx_video_device )
@@ -173,6 +174,8 @@ SCN2674_DRAW_CHARACTER_MEMBER(pcx_video_device::display_pixels)
 	data = m_charrom[m_vram[address] * 16 + linecount + (m_vram[address + 1] & 0x20 ? 4096 : 0)];
 	if(cursor && blink)
 		data = 0xff;
+	if(m_p1 & 0x20)
+		data = ~data;
 	for(int i = 0; i < 8; i++)
 		bitmap.pix32(y, x + i) = m_palette->pen((data & (1 << (7 - i))) ? 1 : 0);
 }
@@ -298,10 +301,13 @@ READ8_MEMBER(pcx_video_device::unk_r)
 	return 0x80;
 }
 
+WRITE8_MEMBER(pcx_video_device::p1_w)
+{
+	m_p1 = data;
+}
+
 void pcd_video_device::device_start()
 {
-	m_maincpu->space(AS_IO).install_write_handler(0xf9a0, 0xf9a1, 0, 0, write8_delegate(FUNC(pcd_video_device::vram_sw_w), this), 0x00ff);
-	m_maincpu->space(AS_IO).install_readwrite_handler(0xf9b0, 0xf9b3, 0, 0, read8_delegate(FUNC(pcd_video_device::mcu_r), this), write8_delegate(FUNC(pcd_video_device::mcu_w), this), 0x00ff);
 	m_maincpu->space(AS_IO).install_readwrite_handler(0xfb00, 0xfb01, 0, 0, read8_delegate(FUNC(pcdx_video_device::detect_r), this), write8_delegate(FUNC(pcdx_video_device::detect_w), this), 0xff00);
 	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xf0000, 0xf7fff, 0, 0, read8_delegate(FUNC(pcd_video_device::vram_r), this), write8_delegate(FUNC(pcd_video_device::vram_w), this), 0xffff);
 	m_gfxdecode->set_gfx(0, global_alloc(gfx_element(machine().device<palette_device>("palette"), pcd_charlayout, &m_charram[0], 0, 1, 0)));
@@ -312,10 +318,11 @@ void pcd_video_device::device_reset()
 	m_vram_sw = 1;
 }
 
-
 DEVICE_ADDRESS_MAP_START(map, 16, pcd_video_device)
-	AM_RANGE(0x0, 0xf) AM_DEVWRITE8("crtc", scn2674_device, write, 0x00ff)
-	AM_RANGE(0x0, 0xf) AM_DEVREAD8("crtc", scn2674_device, read, 0xff00)
+	AM_RANGE(0x00, 0x0f) AM_DEVWRITE8("crtc", scn2674_device, write, 0x00ff)
+	AM_RANGE(0x00, 0x0f) AM_DEVREAD8("crtc", scn2674_device, read, 0xff00)
+	AM_RANGE(0x20, 0x21) AM_WRITE8(vram_sw_w, 0x00ff)
+	AM_RANGE(0x30, 0x33) AM_READWRITE8(mcu_r, mcu_w, 0x00ff)
 ADDRESS_MAP_END
 
 void pcx_video_device::device_start()
