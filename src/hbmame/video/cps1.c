@@ -1658,6 +1658,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },				//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },		//works
 	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },				//works
+	{"sf2acc2",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
+	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },			//works
 	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
@@ -1671,9 +1673,15 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2h14",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2sl73a",    CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
+	{"sf2th",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2tha",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2tlonc",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2yyc3d5",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2yyc3g",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
+	{"sf2yyc6",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },	//works
 	{"stridergf",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"stridergh",   CPS_B_01,     mapper_ST24M1 },				//works
 	{"sk2h1",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },		//works, priorities
@@ -1699,6 +1707,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofb",        CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofchdx",     CPS_B_21_DEF, mapper_sfzch },				//works
+	{"wofchdx1",    CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },				// problem with chinese language roms
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },				//works
@@ -1711,43 +1720,19 @@ static const struct CPS1config cps1_config_table[]=
 
 //mame+ to be checked
 	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B,  0x36, 0, 0x34 },
-	{"sf2m9a",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2m10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2m11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2m12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2m13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2m14",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2m15",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2tha",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2tlonc",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"sf2hfjb",     HACK_H_4,     mapper_S9263B, 0x36, 0, 0, 0x41 },
-	{"wofchdx1",     CPS_B_21_DEF, mapper_TK263B },
 //{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },
 {"knights2",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 {"knight21",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 {"knightsa",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 {"dynwarjh",    CPS_B_02,     mapper_TK22B },
 {"dynwrj2 ",    CPS_B_02,     mapper_TK22B },
-//{"wofjh",       CPS_B_21_DEF, mapper_TK263B },
-//{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
-//{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
-//{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
 {"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
 {"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
 {"punisrjh",    CPS_B_21_QS3, mapper_PS63B },
 {"punishjh",    CPS_B_21_QS3, mapper_PS63B },
 {"punishrb",    CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },
 {"punishrh",    CPS_B_21_DEF, mapper_PS63B },
-{"sf2yyc3d5",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-{"sf2yyc3g",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
-{"sf2yyc6",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
 {"dinojp",      CPS_B_21_QS2, mapper_CD63B },
-{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },
-{"hwofa",       CPS_B_21_DEF, mapper_TK263B, 0x36 },
-{"hwofah",      CPS_B_21_DEF, mapper_TK263B, 0x36 },
-{"sf2slr73",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
-//{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
-{"wofjexpl",    CPS_B_21_QS1, mapper_TK263B },
 
 	// HBMAME end
 

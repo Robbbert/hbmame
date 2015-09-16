@@ -166,6 +166,8 @@ pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's 
 punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
 punisherjh	/* Found in neht build */
 punisherb	/* Found in neht build */
+sf2acc2
+sf2c		// sf2, chinese
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
 sf2ceda		/* hack, Hispanic 990804 */
@@ -179,9 +181,15 @@ sf2h13		/* hack */
 sf2h14		// bootleg, gfx same as sf2ebbl2, program similar to sf2m8
 sf2pun		/* Drakon, Punishment Edition v1 Final */
 sf2sl73a	/* Drakon, Sheng Long v7.3a */
+sf2th
+sf2tha
 sf2tlona	/* hack, Tu Long set 1 */
 sf2tlonb	/* hack, Tu Long set 2 */
+sf2tlonc	/* hack, Tu Long set 3 */
 sf2turyu	/* hack, Tu Long prototype */
+sf2yyc3d5
+sf2yyc3g
+sf2yyc6
 stridergf	// fix unwanted black specks
 stridergh	// as above, and uncensored
 sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
@@ -198,7 +206,7 @@ sk2h32		/* 1997  Three Holy Swords / San Sheng Jian */
 sk2h33		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h34		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h35		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-sk2h1q
+sk2h1q		// qsound version of sk2h1
 sk2h2q
 sk2h31q
 sk2h32q
@@ -225,49 +233,32 @@ dynwrj2
 punisrjh
 punishrb
 punishjh
-sf2yyc3d5
-sf2yyc3g
-sf2yyc6
 dinojp
 captcomc
-sf2c
 //knightsa - rom missing
 //knight21 - rom missing
-sf2slr73
 knightsjb
-sf2m9a
-sf2m10
-sf2m11
-sf2m12
-sf2m13
-sf2m14
-sf2m15
-sf2tha
-sf2tlonc
-sf2hfjb
-
 
 	/* cps2.c */
-ddsom
-ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
-ssf2
-ssf2r1d
-suicide		/* Razoola */
 1944		//parent
-mpang		//parent
-sfa		//parent
-sfa2		//parent
-spf2t		//parent
-ssf2t		//parent
-// mame+ to be checked
 1944da
 1944fp
+ddsom
+ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
+mpang		//parent
 mpangjd
+suicide		/* Razoola */
+sfa		//parent
+sfa2		//parent
 sfa2h
 sfaud
-ssf2td
-spf2tb
 sfz2abr
+ssf2
+ssf2r1d
+ssf2t		//parent
+ssf2td
+spf2t		//parent
+spf2tb	//not working
 
 	/* dec0.c */
 baddudes
