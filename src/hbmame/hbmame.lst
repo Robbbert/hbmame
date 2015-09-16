@@ -192,15 +192,23 @@ sk2h12		/* 1992 Sangokushi II (Hack 2) */
 sk2h13		/* 1992 Sangokushi II (Hack 3) */
 sk2h14		/* Chinese language */
 sk2h21		/* 1997  Three Sword Masters / San Jian Sheng */
+sk2h22		// San Jian Sheng (Chinese bootleg of Sangokushi II
 sk2h31		/* 1997  Three Holy Swords / San Sheng Jian */
 sk2h32		/* 1997  Three Holy Swords / San Sheng Jian */
 sk2h33		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h34		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h35		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+sk2h1q
+sk2h2q
+sk2h31q
+sk2h32q
+sk2h33q
+sk2h34q
 wofb
 wofch
 wofch_v3
 wofchdx
+wofchdx1
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh
@@ -211,7 +219,6 @@ wofjzero
 wofr1h
 wofsf2
 // mame+ to be checked
-hwofa
 knights2
 dynwarjh
 dynwrj2
@@ -227,7 +234,6 @@ sf2c
 //knightsa - rom missing
 //knight21 - rom missing
 sf2slr73
-wofjexpl
 knightsjb
 sf2m9a
 sf2m10
@@ -239,7 +245,6 @@ sf2m15
 sf2tha
 sf2tlonc
 sf2hfjb
-wofchdx1
 
 
 	/* cps2.c */
@@ -302,13 +307,6 @@ kodb
 varthb		// from mame+
 // from mame+ to be checked
 captcommb2
-wofsj
-wofsja
-wofh
-wofha
-wof3sj
-wof3sja
-wof3jsa
 
 	/* galaga.c */
 galaga
