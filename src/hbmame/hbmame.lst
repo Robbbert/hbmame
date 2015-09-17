@@ -158,9 +158,12 @@ dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
 dinoslice
 dinoz		/* Boss Hack */
+knight21	// debug
+//knightsa - rom missing
 knightsb2
 knightsh	/* 1991 Knights of the Round (Hack) */
 knightsha	/* 1991 Knights of the Round (Hack) */
+knightsjb
 knightsro	// Sebastian Mihai - Romanian translation 2015
 kodh
 pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
@@ -228,16 +231,12 @@ wofjzero
 wofr1h
 wofsf2
 // mame+ to be checked
-knights2
 dynwarjh
 dynwrj2
 punisrjh
 punishrb
 punishjh
 captcomc
-//knightsa - rom missing
-knight21
-knightsjb
 
 	/* cps2.c */
 1944		//parent
