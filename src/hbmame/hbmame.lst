@@ -155,6 +155,7 @@ dinoex
 dinoh		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinoha		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
 dinoslice
 dinoz		/* Boss Hack */
 knightsb2
@@ -233,10 +234,9 @@ dynwrj2
 punisrjh
 punishrb
 punishjh
-dinojp
 captcomc
 //knightsa - rom missing
-//knight21 - rom missing
+knight21
 knightsjb
 
 	/* cps2.c */

@@ -1647,6 +1647,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoh",       CPS_B_21_DEF, mapper_CD63B, 0x36 },			//works
 	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },			//works
 	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },		//works
+	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },				//works
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },				//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },				//works
 	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 	//works
@@ -1720,7 +1721,6 @@ static const struct CPS1config cps1_config_table[]=
 
 //mame+ to be checked
 	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B,  0x36, 0, 0x34 },
-//{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },
 {"knights2",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 {"knight21",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 {"knightsa",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
@@ -1732,7 +1732,6 @@ static const struct CPS1config cps1_config_table[]=
 {"punishjh",    CPS_B_21_QS3, mapper_PS63B },
 {"punishrb",    CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },
 {"punishrh",    CPS_B_21_DEF, mapper_PS63B },
-{"dinojp",      CPS_B_21_QS2, mapper_CD63B },
 
 	// HBMAME end
 
