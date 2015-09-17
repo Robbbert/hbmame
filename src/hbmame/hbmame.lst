@@ -142,6 +142,7 @@ varth		// parent
 wof		/* 02/10/1992 (c) 1992 (World) (CPS1 + QSound) */
 
 	/* cps1mis.c */
+captcomc	// chinese
 captcomh	/* Found in neht build */
 cawingb
 cps1demo	/* Charles Doty */
@@ -159,7 +160,7 @@ dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
 dinoslice
 dinoz		/* Boss Hack */
 knight21	// debug
-//knightsa - rom missing
+//knightsa	// - rom missing
 knightsb2
 knightsh	/* 1991 Knights of the Round (Hack) */
 knightsha	/* 1991 Knights of the Round (Hack) */
@@ -167,9 +168,10 @@ knightsjb
 knightsro	// Sebastian Mihai - Romanian translation 2015
 kodh
 pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
+punisherb	/* Found in neht build */
 punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
 punisherjh	/* Found in neht build */
-punisherb	/* Found in neht build */
+punisherjha
 sf2acc2
 sf2c		// sf2, chinese
 sf2cebr		/* hack, Brasil   920313 */
@@ -224,19 +226,12 @@ wofchdx1
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh
-wofjhb		/* was dynwarjh by mistake - from Neht */
-wofjhc		/* was dynwarj2 by mistake - from Neht */
+//wofjhb	// was dynwarjh in error - unknown rom missing - not working
+//wofjhc	// was dynwarj2 in error - unknown rom missing - not working
 wofjm
 wofjzero
 wofr1h
 wofsf2
-// mame+ to be checked
-dynwarjh
-dynwrj2
-punisrjh
-punishrb
-punishjh
-captcomc
 
 	/* cps2.c */
 1944		//parent

@@ -1660,9 +1660,10 @@ static const struct CPS1config cps1_config_table[]=
 	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },		//works
 	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },		//works
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },				//works
-	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },				//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },		//works
 	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },				//works
+	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },				//works
+	{"punisherjha", CPS_B_21_QS3, mapper_PS63B },				//works
 	{"sf2acc2",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
 	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },			//works
 	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
@@ -1723,15 +1724,9 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },			//works
 
-//mame+ to be checked
-{"dynwarjh",    CPS_B_02,     mapper_TK22B },
-{"dynwrj2 ",    CPS_B_02,     mapper_TK22B },
-{"punisrjh",    CPS_B_21_QS3, mapper_PS63B },
-{"punishjh",    CPS_B_21_QS3, mapper_PS63B },
-{"punishrb",    CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },
-{"punishrh",    CPS_B_21_DEF, mapper_PS63B },
-
 	// HBMAME end
+	//{"wofjhb",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
+	//{"wofjhc",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
 
 	{0}     /* End of table */
 };
