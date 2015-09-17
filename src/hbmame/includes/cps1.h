@@ -405,21 +405,7 @@ public:
 	DECLARE_DRIVER_INIT(sk2h35);
 	DECLARE_DRIVER_INIT(wofb);
 	DECLARE_WRITE16_MEMBER(varthb_layer_w);
-	DECLARE_MACHINE_START(varthb);
-// to be checked
 	DECLARE_MACHINE_START(captcommb2);
-	DECLARE_DRIVER_INIT(kodh);
-	DECLARE_DRIVER_INIT(wofsjb);
-	DECLARE_DRIVER_INIT(wofjs);
-	DECLARE_DRIVER_INIT(punishrb);
-	DECLARE_DRIVER_INIT(daimakb);
-	DECLARE_DRIVER_INIT(wofh);
-	DECLARE_DRIVER_INIT(sf2hfjb);
-	DECLARE_DRIVER_INIT(wof3js);
-	DECLARE_DRIVER_INIT(wof3jsa);
-	DECLARE_READ16_MEMBER(wof_hack_dsw_r);
-	DECLARE_READ16_MEMBER(dinoh_r);
-	DECLARE_WRITE16_MEMBER(sf2hfjb_layer_w);
 
 // HBMAME end
 
@@ -441,7 +427,6 @@ INPUT_PORTS_EXTERN( slammast );
 
 // HBMAME start
 INPUT_PORTS_EXTERN( varth );
-// to be checked
 INPUT_PORTS_EXTERN( captcomm );
 // HBMAME end
 

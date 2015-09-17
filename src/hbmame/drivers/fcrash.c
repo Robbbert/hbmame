@@ -1651,8 +1651,7 @@ static MACHINE_CONFIG_START( cawingb, cps_state )
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
-	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, OKIM6295_PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, OKIM6295_PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 // HBMAME end
@@ -3041,8 +3040,6 @@ GAME( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, cps1,     ROT0,
 
 GAME( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", MACHINE_SUPPORTS_SAVE )
 
-// from here is stuff from mame plus and ash-build, to be checked out.
-
 WRITE16_MEMBER(cps_state::varthb_layer_w)
 {
 	if (data > 0x9000)
@@ -3063,25 +3060,6 @@ static ADDRESS_MAP_START( varthb_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM AM_SHARE("mainram")
 ADDRESS_MAP_END
 
-MACHINE_START_MEMBER(cps_state, varthb)
-{
-	UINT8 *ROM = memregion("audiocpu")->base();
-
-	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
-
-	m_layer_enable_reg = 0x2e;
-	m_layer_mask_reg[0] = 0x26;
-	m_layer_mask_reg[1] = 0x30;
-	m_layer_mask_reg[2] = 0x28;
-	m_layer_mask_reg[3] = 0x32;
-	m_layer_scroll1x_offset = 0x40;
-	m_layer_scroll2x_offset = 0x40;
-	m_layer_scroll3x_offset = 0x40;
-	m_sprite_base = 0x1000;
-	m_sprite_list_end_marker = 0x8000;
-	m_sprite_x_offset = 0;
-}
-
 static MACHINE_CONFIG_START( varthb, cps_state )
 
 	/* basic machine hardware */
@@ -3092,7 +3070,7 @@ static MACHINE_CONFIG_START( varthb, cps_state )
 	MCFG_CPU_ADD("audiocpu", Z80, 3579545)
 	MCFG_CPU_PROGRAM_MAP(sgyxz_sound_map)
 
-	MCFG_MACHINE_START_OVERRIDE(cps_state,varthb)
+	MCFG_MACHINE_START_OVERRIDE(cps_state,cps1)
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -3100,7 +3078,7 @@ static MACHINE_CONFIG_START( varthb, cps_state )
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
 	MCFG_SCREEN_SIZE(64*8, 32*8)
 	MCFG_SCREEN_VISIBLE_AREA(8*8, (64-8)*8-1, 2*8, 30*8-1 )
-	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_fcrash)
+	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_cps1)
 	MCFG_SCREEN_VBLANK_DRIVER(cps_state, screen_eof_cps1)
 	MCFG_SCREEN_PALETTE("palette")
 
@@ -3117,8 +3095,7 @@ static MACHINE_CONFIG_START( varthb, cps_state )
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
-	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, OKIM6295_PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, OKIM6295_PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
@@ -3220,14 +3197,6 @@ static MACHINE_CONFIG_START( captcommb2, cps_state )
 MACHINE_CONFIG_END
 
 
-//DRIVER_INIT_MEMBER(cps_state, dinohb)
-//{
-//	UINT8 *mem8 = (UINT8 *)memregion("maincpu")->base();
-//	mem8[0x1900DA] = 0x18;
-//	mem8[0x1900F8] = 0x18;
-//	DRIVER_INIT_CALL(dinopic2);
-//}
-
 ROM_START( captcommb2 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_BYTE( "5.bin",   0x000000, 0x80000, CRC(c3a6ed28) SHA1(f79fed35f7b0dc383837a2ead846acc686dd3487) )
@@ -3251,6 +3220,5 @@ ROM_START( captcommb2 )
 ROM_END
 
 
-GAME( 1992, varthb,    varth,    varthb,    varth,    cps_state, dinopic,  ROT270, "bootleg", "Varth: Operation Thunderstorm (bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 1991, captcommb2,captcomm, captcommb2,captcomm, cps_state, cps1,     ROT0,   "bootleg", "Captain Commando (bootleg with YM2151 + 2xMSM5205)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-//GAME( 1997, dinohb,    dino,     dinopic,   dinohb,   cps_state, dinohb,   ROT0,   "bootleg", "Cadillacs and Dinosaurs (hack set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, varthb,    varth,    varthb,    varth,    cps_state, dinopic,  ROT270, "bootleg", "Varth: Operation Thunderstorm (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, captcommb2,captcomm, captcommb2,captcomm, cps_state, cps1,     ROT0,   "bootleg", "Captain Commando (bootleg with YM2151 + 2xMSM5205)", MACHINE_SUPPORTS_SAVE )

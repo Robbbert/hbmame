@@ -1636,7 +1636,8 @@ static const struct CPS1config cps1_config_table[]=
 // HBMAME
 	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },	//works
 	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },	//works
-	{"cawingb",     CPS_B_16,     mapper_CA24B },				//works
+	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },	//works
+	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },// no sprites here, ok in fcrash.c
 	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },		//works
 	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },		//works
 	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },			//works
@@ -1652,7 +1653,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },				//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },				//works
 	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },		//works
-	{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },
+	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },		// a rom is unobtainable
 	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 	//works
 	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },		//works (intro screen is crap)
 	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },		//works
@@ -1710,6 +1711,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"sk2h34",      HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },	//works, priorities
 	{"sk2h34q",     HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },	//works, priorities
 	{"sk2h35",      CPS_B_21_DEF, mapper_TK263B, 0x36 },			//works
+	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },		//works
 	{"wofb",        CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofchdx",     CPS_B_21_DEF, mapper_sfzch },				//works
@@ -1717,16 +1719,14 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },				// problem with chinese language roms
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },				//works
-	{"wofjhb",      CPS_B_21_QS1, mapper_TK263B },
-	{"wofjhc",      CPS_B_21_QS1, mapper_TK263B },
+	//{"wofjhb",      CPS_B_21_QS1, mapper_TK263B }, // unknown rom is missing
+	//{"wofjhc",      CPS_B_21_QS1, mapper_TK263B }, // unknown rom is missing
 	{"wofjm",       CPS_B_21_QS1, mapper_TK263B },				//works
 	{"wofjzero",    CPS_B_21_QS1, mapper_TK263B },				//works
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },			//works
 
 	// HBMAME end
-	//{"wofjhb",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
-	//{"wofjhc",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
 
 	{0}     /* End of table */
 };
