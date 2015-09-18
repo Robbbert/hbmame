@@ -38,5 +38,6 @@ LAYOUTS += \
 	$(SRC)/mame/layout/tailg.lay \
 	$(SRC)/mame/layout/wotw.lay \
 	$(SRC)/mame/layout/ppsatan.lay \
-	$(SRC)/mame/layout/konamigt.lay
+	$(SRC)/mame/layout/konamigt.lay \
+	$(SRC)/mame/layout/sfiii2.lay
 

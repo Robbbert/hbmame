@@ -125,25 +125,24 @@ comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
 	/* cps1.c */
-captcomm	/* 14/10/1991 (c) 1991 (World) */
-cawing		/* 12/10/1990 (c) 1990 (World) */
-dino		/* 01/02/1993 (c) 1993 (World) (CPS1 + QSound) */
-dynwar		// parent
-ffight		// patched to fix transitions
-ghouls		/* 12/1988 (c) 1988 (World) */
-kod		/* 11/07/1991 (c) 1991 (World) */
-knights		/* 27/11/1991 (c) 1991 (World) */
-megaman		/* 13/03/1992 (c) 1992 (World) */
-punisher	/* 22/04/1993 (c) 1993 (World) (CPS1 + QSound) */
+captcomm	// parent
+cawing		// parent
+dino		// parent
+ffight		// parent
+ghouls		// parent
+kod		// parent
+knights		// parent
+megaman		// parent
+punisher	// parent
 sf2		// parent
-sf2ce		/* 13/03/1992 (c) 1992 (World) */
-strider		//  3/1989
+sf2ce		// parent
+strider		// parent
 varth		// parent
-wof		/* 02/10/1992 (c) 1992 (World) (CPS1 + QSound) */
+wof		// parent
 
 	/* cps1mis.c */
 captcomc	// chinese
-captcomh	/* Found in neht build */
+captcomh
 cawingb
 cps1demo	/* Charles Doty */
 cps1frog	/* Charles Doty */
@@ -252,10 +251,16 @@ ssf2r1d
 ssf2t		//parent
 ssf2td
 spf2t		//parent
-spf2tb	//not working
+spf2tb		// boss hack
+
+	/* cps3.c */
+redearth	// parent
+redeartn	// no-cd version - needs correct bios
+sfiii3		// parent
+sfiii4rd	// hack
 
 	/* dec0.c */
-baddudes
+baddudes	// parent
 baddudef	/* Arkatrad */
 decodemo	/* Charles Doty */
 

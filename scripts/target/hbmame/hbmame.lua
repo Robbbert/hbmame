@@ -121,6 +121,7 @@ MACHINES["ER2055"] = true
 MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8255"] = true
+MACHINES["INTELFLASH"] = true
 MACHINES["LATCH8"] = true
 MACHINES["LDPR8210"] = true
 MACHINES["MB14241"] = true
@@ -133,6 +134,7 @@ MACHINES["TMS6100"] = true
 MACHINES["UPD1990A"] = true
 MACHINES["UPD4992"] = true
 MACHINES["V3021"] = true
+MACHINES["WD33C93"] = true
 MACHINES["WD_FDC"] = true
 MACHINES["Z80CTC"] = true
 MACHINES["Z80DART"] = true
@@ -144,10 +146,11 @@ MACHINES["Z80PIO"] = true
 
 BUSES["GENERIC"] = true
 BUSES["NEOGEO"] = true
+BUSES["SCSI"] = true
 
 --------------------------------------------------
 -- this is the list of driver libraries that
--- comprise MAME plus mamedriv.o which contains
+-- comprise MAME plus hbmame.lst which contains
 -- the list of drivers
 --------------------------------------------------
 
@@ -271,6 +274,8 @@ files {
 	MAME_DIR .. "src/hbmame/video/cps1.c",
 	MAME_DIR .. "src/hbmame/drivers/cps2.c",
 	MAME_DIR .. "src/mame/machine/cps2crpt.c",
+	MAME_DIR .. "src/hbmame/drivers/cps3.c",
+	MAME_DIR .. "src/mame/audio/cps3.c",
 	MAME_DIR .. "src/hbmame/drivers/fcrash.c",
 	MAME_DIR .. "src/hbmame/drivers/mitchell.c",
 	MAME_DIR .. "src/mame/video/mitchell.c",
