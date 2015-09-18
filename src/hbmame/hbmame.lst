@@ -1738,6 +1738,10 @@ pc_pacm		/* NES->PC-10 */
 pc_gyrus	/* NES->PC-10 */
 pc_skykd	/* NES->PC-10 */
 
+	/* powerins.c */
+powerins	// parent
+powernbr	// Brazil translation
+
 	/* psikyosh.c */
 s1945ii
 s1945iiex

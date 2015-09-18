@@ -158,6 +158,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 	links {
 		"acorn",
 		"atari",
+		"atlus",
 		"capcom",
 		"cave",
 		"cinemat",
@@ -260,6 +261,12 @@ files {
 	MAME_DIR .. "src/mame/audio/llander.c",
 	MAME_DIR .. "src/mame/video/atarimo.c",
 	MAME_DIR .. "src/mame/video/avgdvg.c",
+}
+
+createHBMAMEProjects(_target, _subtarget, "atlus")
+files {
+	MAME_DIR .. "src/hbmame/drivers/powerins.c",
+	MAME_DIR .. "src/mame/video/powerins.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "capcom")
