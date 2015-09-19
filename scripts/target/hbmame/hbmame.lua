@@ -576,6 +576,8 @@ files {
 	MAME_DIR .. "src/mame/video/segaic16.c",
 	MAME_DIR .. "src/mame/video/segaic16_road.c",
 	MAME_DIR .. "src/mame/video/sega16sp.c",
+	MAME_DIR .. "src/hbmame/drivers/segas16b.c",
+	MAME_DIR .. "src/mame/video/segas16b.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")
@@ -682,6 +684,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/monaco.c",
 	MAME_DIR .. "src/hbmame/drivers/atari_s1.c",
 	MAME_DIR .. "src/mame/machine/genpin.c",
+	MAME_DIR .. "src/hbmame/drivers/kyugo.c",
+	MAME_DIR .. "src/mame/video/kyugo.c",
 }
 
 end

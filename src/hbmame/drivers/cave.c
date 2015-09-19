@@ -27,7 +27,8 @@ ROM_START( ddonpacha )
 	ROM_LOAD( "u7.bin", 0x200000, 0x200000, CRC(795b17d5) SHA1(cbfc29f1df9600c82e0fdae00edd00da5b73e14c) )
 
 	ROM_REGION16_BE( 0x80, "eeprom", 0 )
-	ROM_LOAD16_WORD( "eeprom-ddonpach.bin", 0x0000, 0x0080, CRC(315fb546) SHA1(7f597107d1610fc286413e0e93c794c80c0c554f) )
+//	ROM_LOAD16_WORD( "eeprom-ddonpach.bin", 0x0000, 0x0080, CRC(315fb546) SHA1(7f597107d1610fc286413e0e93c794c80c0c554f) )
+	ROM_LOAD16_WORD( "eeprom-ddonpacha.bin", 0x0000, 0x0080, CRC(2df16438) SHA1(4881b70589a97e2420feb6d6e6737273beeff303) )
 ROM_END
 
 ROM_START( pwrinst2h )

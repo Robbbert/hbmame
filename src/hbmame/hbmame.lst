@@ -47,8 +47,8 @@ asuka		// parent
 asukac		// chinese
 
 	/* atari_s1.c */
-atarians	// parent
-atarianb	/* hack for emulators */
+//atarians	// parent
+//atarianb	/* hack for emulators */
 
 	/* bagman.c */
 bagturbo
@@ -849,6 +849,10 @@ kof2k3gc
 kof2k3sc
 kof2k3tc
 kof2k3zgf
+
+	/* kyugo.c */
+airwolf		//parent
+airwolffr	// french
 
 	/* m52.c */
 mpatrol		/* M52 (c) 1982 */
@@ -1787,6 +1791,10 @@ outrunen2
 	/* segar.c */
 astrob2h
 
+	/* segas16b.c */
+//altbeast	// parent
+//altbeastfr	// french - Arkatrad - not working
+
 	/* shaolins.c */
 kfjohnny	/* hack by Smitdogg*/
 
@@ -1824,6 +1832,8 @@ landmakh
 pbobl2xh
 
 	/* taito_l.c */
+evilston	//parent
+evilstonfr	// French
 tldemo		// cmonkey
 tldemo2		// cmonkey
 
