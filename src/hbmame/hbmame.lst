@@ -42,6 +42,10 @@ tst_wow3	/* Wow test rom */
 	/* astrof.c */
 astrf_bl	/* Black Background */
 
+	/* asuka.c */
+asuka		// parent
+asukac		// chinese
+
 	/* atari_s1.c */
 atarians	// parent
 atarianb	/* hack for emulators */

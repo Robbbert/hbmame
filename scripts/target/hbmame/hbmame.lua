@@ -40,6 +40,7 @@ CPUS["TMS32031"] = true
 CPUS["TMS340X0"] = true
 CPUS["PIC16C5X"] = true
 CPUS["V810"] = true
+CPUS["Z180"] = true
 CPUS["Z80"] = true
 
 --------------------------------------------------
@@ -595,6 +596,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/arkanoid.c",
 	MAME_DIR .. "src/mame/machine/arkanoid.c",
 	MAME_DIR .. "src/mame/video/arkanoid.c",
+	MAME_DIR .. "src/hbmame/drivers/asuka.c",
+	MAME_DIR .. "src/mame/machine/bonzeadv.c",
+	MAME_DIR .. "src/mame/video/asuka.c",
 	MAME_DIR .. "src/hbmame/drivers/bublbobl.c",
 	MAME_DIR .. "src/mame/machine/bublbobl.c",
 	MAME_DIR .. "src/mame/video/bublbobl.c",
