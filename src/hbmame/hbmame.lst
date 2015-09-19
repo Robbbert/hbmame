@@ -1462,6 +1462,12 @@ whpbho2
 whpeh
 whpeho
 
+	/* nmk16.c */
+//tdragon			//parent
+//tdragonp		// trap15 - not working
+tdragon2		//parent
+tdragon2p		// trap15
+
 	/* pacland.c */
 pacland		/* (c) 1984 */
 mariopac

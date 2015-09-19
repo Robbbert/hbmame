@@ -12,34 +12,35 @@
 -- specify available CPU cores
 ---------------------------------------------------
 
-CPUS["Z80"] = true
-CPUS["I8085"] = true
-CPUS["I8089"] = true
-CPUS["M6502"] = true
-CPUS["H6280"] = true
-CPUS["I86"] = true
-CPUS["NEC"] = true
-CPUS["MCS48"] = true
-CPUS["MCS51"] = true
-CPUS["M6800"] = true
-CPUS["M6805"] = true
-CPUS["HD6309"] = true
-CPUS["M6809"] = true
-CPUS["M680X0"] = true
-CPUS["S2650"] = true
-CPUS["TMS340X0"] = true
-CPUS["TMS32010"] = true
-CPUS["TMS32031"] = true
-CPUS["CCPU"] = true
 CPUS["ADSP21XX"] = true
 CPUS["ARM"] = true
 CPUS["ARM7"] = true
-CPUS["SH2"] = true
+CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
+CPUS["H6280"] = true
+CPUS["HD6309"] = true
+CPUS["I8085"] = true
+CPUS["I8089"] = true
+CPUS["I86"] = true
+CPUS["M6502"] = true
+CPUS["M6800"] = true
+CPUS["M6805"] = true
+CPUS["M6809"] = true
+CPUS["M680X0"] = true
+CPUS["MB88XX"] = true
+CPUS["MCS48"] = true
+CPUS["MCS51"] = true
+CPUS["NEC"] = true
+CPUS["S2650"] = true
+CPUS["SH2"] = true
+CPUS["SSP1601"] = true
+CPUS["TLCS90"] = true
+CPUS["TMS32010"] = true
+CPUS["TMS32031"] = true
+CPUS["TMS340X0"] = true
 CPUS["PIC16C5X"] = true
 CPUS["V810"] = true
-CPUS["MB88XX"] = true
-CPUS["SSP1601"] = true
+CPUS["Z80"] = true
 
 --------------------------------------------------
 -- specify available sound cores
@@ -176,6 +177,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"nghb",
 		"nichibut",
 		"nintendo",
+		"nmk",
 		"pacman",
 		"phoenix",
 		"psikyo",
@@ -513,6 +515,14 @@ files {
 	MAME_DIR .. "src/mame/video/ppu2c0x.c",
 	MAME_DIR .. "src/devices/machine/z80dma.c",
 
+}
+
+createHBMAMEProjects(_target, _subtarget, "nmk")
+files {
+	MAME_DIR .. "src/hbmame/drivers/nmk16.c",
+	MAME_DIR .. "src/mame/video/nmk16.c",
+	MAME_DIR .. "src/mame/machine/nmk004.c",
+	MAME_DIR .. "src/mame/audio/seibu.c",
 }
 
 createHBMAMEProjects(_target, _subtarget, "pacman")
