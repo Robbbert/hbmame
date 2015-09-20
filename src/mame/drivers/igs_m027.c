@@ -26,7 +26,6 @@
 #include "cpu/arm7/arm7core.h"
 #include "machine/nvram.h"
 #include "machine/pgmcrypt.h"
-#include "sound/ics2115.h"
 
 
 class igs_m027_state : public driver_device
@@ -54,7 +53,6 @@ public:
 	DECLARE_WRITE32_MEMBER(igs_tx_videoram_w);
 	DECLARE_WRITE32_MEMBER(igs_bg_videoram_w);
 	DECLARE_WRITE32_MEMBER(igs_palette32_w);
-	DECLARE_WRITE_LINE_MEMBER(sound_irq);
 	DECLARE_DRIVER_INIT(sdwx);
 	DECLARE_DRIVER_INIT(chessc2);
 	DECLARE_DRIVER_INIT(lhzb4);
@@ -65,7 +63,6 @@ public:
 	DECLARE_DRIVER_INIT(hauntedh);
 	DECLARE_DRIVER_INIT(zhongguo);
 	DECLARE_DRIVER_INIT(klxyj);
-	DECLARE_DRIVER_INIT(fearless);
 	DECLARE_DRIVER_INIT(slqz3);
 	DECLARE_DRIVER_INIT(fruitpar);
 	DECLARE_DRIVER_INIT(amazonia);
@@ -73,9 +70,7 @@ public:
 	TILE_GET_INFO_MEMBER(get_tx_tilemap_tile_info);
 	TILE_GET_INFO_MEMBER(get_bg_tilemap_tile_info);
 	virtual void video_start();
-	virtual void video_start_fearless();
 	UINT32 screen_update_igs_majhong(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	UINT32 screen_update_fearless(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	INTERRUPT_GEN_MEMBER(igs_majhong_interrupt);
 	void sdwx_gfx_decrypt();
 	void pgm_create_dummy_internal_arm_region();
@@ -183,9 +178,7 @@ void igs_m027_state::video_start()
 	logerror("Video START OK!\n");
 }
 
-void igs_m027_state::video_start_fearless()
-{
-}
+
 
 UINT32 igs_m027_state::screen_update_igs_majhong(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
@@ -203,10 +196,6 @@ UINT32 igs_m027_state::screen_update_igs_majhong(screen_device &screen, bitmap_i
 	return 0;
 }
 
-UINT32 igs_m027_state::screen_update_fearless(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
-{
-	return 0;
-}
 
 /***************************************************************************
 
@@ -234,10 +223,6 @@ static ADDRESS_MAP_START( igs_majhong_map, AS_PROGRAM, 32, igs_m027_state )
 	AM_RANGE(0xf0000000, 0xF000000f) AM_WRITENOP // magic registers
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( igs_fearless_map, AS_PROGRAM, 32, igs_m027_state )
-	AM_RANGE(0x00000000, 0x00003fff) AM_ROM /* Internal ROM */
-	AM_RANGE(0x08000000, 0x0807ffff) AM_ROM AM_REGION("user1", 0)/* Game ROM */
-ADDRESS_MAP_END
 
 
 /***************************************************************************
@@ -440,6 +425,12 @@ static GFXDECODE_START( igs_m027 )
 	// GFXDECODE_ENTRY( "gfx2", 0, gfxlayout_16x16x16, 0, 16  )
 GFXDECODE_END
 
+static GFXDECODE_START( amazonia )
+	GFXDECODE_ENTRY( "gfx1", 0, gfxlayout_8x8x4,   0, 16  )
+	GFXDECODE_ENTRY( "gfx2", 0, gfxlayout_8x8x4,   0, 16  )
+	GFXDECODE_ENTRY( "gfx3", 0, gfxlayout_8x8x4,   0, 16  )
+GFXDECODE_END
+
 
 INTERRUPT_GEN_MEMBER(igs_m027_state::igs_majhong_interrupt)
 {
@@ -474,39 +465,34 @@ static MACHINE_CONFIG_START( igs_majhong, igs_m027_state )
 MACHINE_CONFIG_END
 
 
-WRITE_LINE_MEMBER(igs_m027_state::sound_irq)
-{
-}
 
 
-static MACHINE_CONFIG_START( fearless, igs_m027_state )
-	MCFG_CPU_ADD("maincpu",ARM7, 50000000/2)
-	MCFG_CPU_PROGRAM_MAP(igs_fearless_map)
+
+static MACHINE_CONFIG_START( amazonia, igs_m027_state )
+	MCFG_CPU_ADD("maincpu",ARM7, 20000000)
+
+	MCFG_CPU_PROGRAM_MAP(igs_majhong_map)
 
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs_m027_state,  igs_majhong_interrupt)
+	//MCFG_NVRAM_ADD_0FILL("nvram")
+
+	MCFG_GFXDECODE_ADD("gfxdecode", "palette", amazonia)
+
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_REFRESH_RATE(60)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
 	MCFG_SCREEN_SIZE(512, 256)
 	MCFG_SCREEN_VISIBLE_AREA(0, 512-1, 0, 256-1)
-
-	MCFG_VIDEO_START_OVERRIDE(igs_m027_state, fearless)
-	MCFG_SCREEN_UPDATE_DRIVER(igs_m027_state, screen_update_fearless)
+	MCFG_SCREEN_UPDATE_DRIVER(igs_m027_state, screen_update_igs_majhong)
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_PALETTE_ADD("palette", 0x200)
+	MCFG_PALETTE_FORMAT(xGGGGGRRRRRBBBBB)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_ICS2115_ADD("ics", 0)
-	MCFG_ICS2115_IRQ_CB(WRITELINE(igs_m027_state, sound_irq))
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 5.0)
 
 MACHINE_CONFIG_END
-
-
-
 
 /***************************************************************************
 
@@ -640,30 +626,14 @@ ROM_START( amazonia )
 	ROM_REGION( 0x480000, "gfx1", 0 )
 	ROM_LOAD( "igs_t2105_cg_v110.u12", 0x000000, 0x80000, CRC(1d4be260) SHA1(6374c61735144b3ff54d5e490f26adac4a10b14d) )
 
-	ROM_REGION( 0x480000, "gfx2", 0 )
-	ROM_LOAD( "amazonia_cg.u11", 0x000000, 0x80000, CRC(2ac2cfd1) SHA1(f8750a4727ddabf1415dab6eaa4a72e60e86e7f1) )
+	ROM_REGION( 0x80000, "gfx2", 0 )
+	ROM_LOAD( "amazonia_cg.u11", 0x000000, 0x80000, CRC(2ac2cfd1) SHA1(f8750a4727ddabf1415dab6eaa4a72e60e86e7f1) )       // FIXED BITS (xxxxxxxx0xxxxxxx)
+
+	ROM_REGION( 0x400000, "gfx3", 0 )
+	ROM_LOAD( "igs_a2107_cg_v110.u13", 0x000000, 0x400000,CRC(d8dadfd7) SHA1(b40a46d56ff46d91e3377be8616c3eed321f7db4) ) // FIXED BITS (xxxxxxx0xxxxxxxx)
 
 	ROM_REGION( 0x80000, "oki", 0 )
 	ROM_LOAD( "igs_s2102.u28", 0x00000, 0x80000, CRC(90dda82d) SHA1(67fbc1e8d76b85e124136e2f1df09c8b6c5a8f97) )
-ROM_END
-
-
-ROM_START( sdwx )
-	ROM_REGION( 0x04000, "maincpu", 0 )
-	/* Internal rom of IGS027A ARM based MCU */
-	ROM_LOAD( "sdwx_igs027a", 0x00000, 0x4000, NO_DUMP )
-
-	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
-	ROM_LOAD( "prg.u16", 0x000000, 0x80000, CRC(c94ef6a8) SHA1(69f2f356e05206b0866a9020253d9a112b56316c) )
-
-	ROM_REGION( 0x80000, "gfx1", 0 )
-	ROM_LOAD( "text.u24", 0x000000, 0x80000, CRC(60b415ac) SHA1(b4475b0ba1e70504cac9ac05078873df0b16495b) )
-
-	ROM_REGION( 0x200000, "gfx2", 0 )
-	ROM_LOAD( "cg.u25", 0x000000, 0x200000, CRC(709b9a42) SHA1(18c4b8e159b29c168f5cafb437fe6eb123672471) )
-
-	ROM_REGION( 0x80000, "oki", 0 ) // m6295 samples
-	ROM_LOAD( "sp.u2", 0x00000, 0x80000, CRC(216b5418) SHA1(b7bc24ced0ccb5476c974420aa506c13b971fc9f) )
 ROM_END
 
 /*
@@ -688,18 +658,64 @@ ROM_START( amazoni2 )
 	ROM_LOAD( "sdwx_igs027a", 0x00000, 0x4000, NO_DUMP )
 
 	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
-	ROM_LOAD( "U23_27c4096_AKII_V-202br.bin", 0x000000, 0x80000, CRC(7147b43c) SHA1(29a4a20867595650918c4ab892ddb71440bd3f4b) )
+	ROM_LOAD( "27c4096_akii_b-202br.u23", 0x000000, 0x80000, CRC(7147b43c) SHA1(29a4a20867595650918c4ab892ddb71440bd3f4b) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
-	ROM_LOAD( "akii_text.u24", 0x000000, 0x80000, CRC(60b415ac) SHA1(b4475b0ba1e70504cac9ac05078873df0b16495b) )
+	ROM_LOAD( "akii_text.u12", 0x000000, 0x80000, CRC(60b415ac) SHA1(b4475b0ba1e70504cac9ac05078873df0b16495b) )
 
 	ROM_REGION( 0x200000, "gfx2", 0 )
-	ROM_LOAD( "U13_27c160_AKII_CG.bin", 0x000000, 0x200000, CRC(254bd84f) SHA1(091ecda792c4c4a7bb039b2c708788ef87fdaf86) ) // FIXED BITS (xxxxxxx0xxxxxxxx)
+	ROM_LOAD( "U13_27c160_akii_cg.u13", 0x000000, 0x200000, CRC(254bd84f) SHA1(091ecda792c4c4a7bb039b2c708788ef87fdaf86) ) // FIXED BITS (xxxxxxx0xxxxxxxx)
 
 	ROM_REGION( 0x80000, "oki", 0 )  // m6295 samples
 	ROM_LOAD( "akii_sp.u28", 0x00000, 0x80000, CRC(216b5418) SHA1(b7bc24ced0ccb5476c974420aa506c13b971fc9f) )
 ROM_END
 
+
+// Games with prg at u16
+// text at u24
+// cg at u25
+// samples at u2
+
+ROM_START( sdwx )
+	ROM_REGION( 0x04000, "maincpu", 0 )
+	/* Internal rom of IGS027A ARM based MCU */
+	ROM_LOAD( "sdwx_igs027a", 0x00000, 0x4000, NO_DUMP )
+
+	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
+	ROM_LOAD( "prg.u16", 0x000000, 0x80000, CRC(c94ef6a8) SHA1(69f2f356e05206b0866a9020253d9a112b56316c) )
+
+	ROM_REGION( 0x80000, "gfx1", 0 )
+	ROM_LOAD( "text.u24", 0x000000, 0x80000, CRC(60b415ac) SHA1(b4475b0ba1e70504cac9ac05078873df0b16495b) )
+
+	ROM_REGION( 0x200000, "gfx2", 0 )
+	ROM_LOAD( "cg.u25", 0x000000, 0x200000, CRC(709b9a42) SHA1(18c4b8e159b29c168f5cafb437fe6eb123672471) )
+
+	ROM_REGION( 0x80000, "oki", 0 ) // m6295 samples
+	ROM_LOAD( "sp.u2", 0x00000, 0x80000, CRC(216b5418) SHA1(b7bc24ced0ccb5476c974420aa506c13b971fc9f) )
+ROM_END
+
+ROM_START( klxyj )
+	ROM_REGION( 0x04000, "maincpu", 0 )
+	/* Internal rom of IGS027A ARM based MCU */
+	ROM_LOAD( "klxyj_igs027a", 0x00000, 0x4000, NO_DUMP )
+
+	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
+	ROM_LOAD( "klxyj_104.u16", 0x000000, 0x80000, CRC(8cb9bdc2) SHA1(5a13d0ff6488a938617a9ea89e7cf607539a1f49) )
+
+	ROM_REGION( 0x80000, "gfx1", 0 )
+	ROM_LOAD( "klxyj_text.u24", 0x000000, 0x80000, CRC(22dcebd0) SHA1(0383f017135230d020d12c8c6cc3aeb136fe9106) )
+
+	ROM_REGION( 0x400000, "gfx2", 0 )
+	ROM_LOAD( "a4202.u25", 0x000000, 0x400000, CRC(97a68f85) SHA1(177c8c23fd0d585b24a71359ede005ac9a2e4d4d) )
+
+	ROM_REGION( 0x200000, "unknown", 0 )
+	ROM_LOAD( "w4201.u2", 0x00000, 0x100000, CRC(464f11ab) SHA1(56e45bd31f667fc30387fcd4c940a94819b7ef0f) )
+ROM_END
+
+// Games with prg at u17
+// text at u27
+// cg at u28
+// samples at u4 (or u5?)
 
 ROM_START( sddz )
 	ROM_REGION( 0x04000, "maincpu", 0 )
@@ -718,27 +734,6 @@ ROM_START( sddz )
 	ROM_REGION( 0x200000, "unknown", 0 )
 	ROM_LOAD( "ddz_sp.u4", 0x00000, 0x200000, CRC(7ef65d95) SHA1(345c587cd449d6d06908e9687480be76b2cb2d28) )
 ROM_END
-
-
-
-ROM_START( lhzb3 )
-	ROM_REGION( 0x04000, "maincpu", 0 )
-	/* Internal rom of IGS027A ARM based MCU */
-	ROM_LOAD( "lhzb3_igs027a", 0x00000, 0x4000, NO_DUMP )
-
-	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
-	ROM_LOAD( "lhzb3_104.u9", 0x000000, 0x80000, CRC(70d61846) SHA1(662b59702ef6f26129de6b16346786df92f99097) )
-
-	ROM_REGION( 0x80000, "gfx1", 0 )
-	ROM_LOAD( "lhzb3_text.u17", 0x000000, 0x80000,CRC(a82398a9) SHA1(4d2987f57096b7f24ce6571ed3be6dcb33bce88d) )
-
-	ROM_REGION( 0x400000, "gfx2", 0 )
-	ROM_LOAD( "m2401.u18", 0x000000, 0x400000,  CRC(81428f18) SHA1(9fb19c8a79cc3443642f4b044e04735df2cb45be) )
-
-	ROM_REGION( 0x200000, "unknown", 0 )
-	ROM_LOAD( "s2402.u14", 0x00000, 0x100000, CRC(56083fe2) SHA1(62afd651809bf5e639bfda6e5579dbf4b903b664) )
-ROM_END
-
 
 ROM_START( lhzb4 )
 	ROM_REGION( 0x04000, "maincpu", 0 )
@@ -760,42 +755,32 @@ ROM_END
 
 
 
-ROM_START( klxyj )
+// Games with prg at u9
+// text at u17
+// cg at u18
+// samples at u14
+
+
+ROM_START( lhzb3 )
 	ROM_REGION( 0x04000, "maincpu", 0 )
 	/* Internal rom of IGS027A ARM based MCU */
-	ROM_LOAD( "klxyj_igs027a", 0x00000, 0x4000, NO_DUMP )
+	ROM_LOAD( "lhzb3_igs027a", 0x00000, 0x4000, NO_DUMP )
 
 	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
-	ROM_LOAD( "klxyj_104.u16", 0x000000, 0x80000, CRC(8cb9bdc2) SHA1(5a13d0ff6488a938617a9ea89e7cf607539a1f49) )
+	ROM_LOAD( "lhzb3_104.u9", 0x000000, 0x80000, CRC(70d61846) SHA1(662b59702ef6f26129de6b16346786df92f99097) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
-	ROM_LOAD( "klxyj_text.u24", 0x000000, 0x80000, CRC(22dcebd0) SHA1(0383f017135230d020d12c8c6cc3aeb136fe9106) )
+	ROM_LOAD( "lhzb3_text.u17", 0x000000, 0x80000,CRC(a82398a9) SHA1(4d2987f57096b7f24ce6571ed3be6dcb33bce88d) )
 
 	ROM_REGION( 0x400000, "gfx2", 0 )
-	ROM_LOAD( "a4202.u25", 0x000000, 0x400000, CRC(97a68f85) SHA1(177c8c23fd0d585b24a71359ede005ac9a2e4d4d) )
+	ROM_LOAD( "m2401.u18", 0x000000, 0x400000,  CRC(81428f18) SHA1(9fb19c8a79cc3443642f4b044e04735df2cb45be) )
 
 	ROM_REGION( 0x200000, "unknown", 0 )
-	ROM_LOAD( "w4201.u2", 0x00000, 0x100000, CRC(464f11ab) SHA1(56e45bd31f667fc30387fcd4c940a94819b7ef0f) )
+	ROM_LOAD( "s2402.u14", 0x00000, 0x100000, CRC(56083fe2) SHA1(62afd651809bf5e639bfda6e5579dbf4b903b664) )
 ROM_END
 
 
-ROM_START( mgfx )
-	ROM_REGION( 0x04000, "maincpu", 0 )
-	/* Internal rom of IGS027A ARM based MCU */
-	ROM_LOAD( "mgfx_igs027a", 0x00000, 0x4000, NO_DUMP )
 
-	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
-	ROM_LOAD( "mgfx_101.u10", 0x000000, 0x80000, CRC(897c88a1) SHA1(0f7a7808b9503ff28ad32c0b8e071cb24cff59b1) )
-
-	ROM_REGION( 0x80000, "gfx1", 0 )
-	ROM_LOAD( "mgfx_text.u9", 0x000000, 0x80000, CRC(e41e7768) SHA1(3d0add7c75c23533309e799fd8853c815e6f811c) )
-
-	ROM_REGION( 0x400000, "gfx2", 0 )
-	ROM_LOAD( "mgfx_ani.u17", 0x000000, 0x400000, CRC(9fc75f4d) SHA1(acb600739dcf252a5210e28ec96d749573061b27) )
-
-	ROM_REGION( 0x200000, "unknown", 0 )
-	ROM_LOAD( "mgfx_sp.u14", 0x00000, 0x100000, CRC(9bb28fc8) SHA1(6368753c29607f2d212d68c5cca3f10aa069649b) )
-ROM_END
 
 
 /*
@@ -861,6 +846,27 @@ ROM_START( zhongguo )
 	ROM_REGION( 0x200000, "unknown", 0 )
 	ROM_LOAD( "s2602.u14", 0x00000, 0x100000, CRC(f137028c) SHA1(0e4114222820bca2f7026fa653e2b96a489a0183) )
 ROM_END
+
+
+
+ROM_START( mgfx )
+	ROM_REGION( 0x04000, "maincpu", 0 )
+	/* Internal rom of IGS027A ARM based MCU */
+	ROM_LOAD( "mgfx_igs027a", 0x00000, 0x4000, NO_DUMP )
+
+	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
+	ROM_LOAD( "mgfx_101.u10", 0x000000, 0x80000, CRC(897c88a1) SHA1(0f7a7808b9503ff28ad32c0b8e071cb24cff59b1) )
+
+	ROM_REGION( 0x80000, "gfx1", 0 )
+	ROM_LOAD( "mgfx_text.u9", 0x000000, 0x80000, CRC(e41e7768) SHA1(3d0add7c75c23533309e799fd8853c815e6f811c) )
+
+	ROM_REGION( 0x400000, "gfx2", 0 )
+	ROM_LOAD( "mgfx_ani.u17", 0x000000, 0x400000, CRC(9fc75f4d) SHA1(acb600739dcf252a5210e28ec96d749573061b27) )
+
+	ROM_REGION( 0x200000, "unknown", 0 )
+	ROM_LOAD( "mgfx_sp.u14", 0x00000, 0x100000, CRC(9bb28fc8) SHA1(6368753c29607f2d212d68c5cca3f10aa069649b) )
+ROM_END
+
 
 /*
 
@@ -1027,7 +1033,10 @@ ROM_END
 
 
 
-
+// prg at u34
+// text at u15
+// cg at u32 / u12
+// samples at u3
 
 ROM_START( haunthig )
 	ROM_REGION( 0x04000, "maincpu", 0 )
@@ -1052,31 +1061,6 @@ ROM_START( haunthig )
 
 	ROM_REGION( 0x200000, "oki", 0 )
 	ROM_LOAD( "haunted-h_sp.u3", 0x00000, 0x200000,  CRC(fe3fcddf) SHA1(ac57ab6d4e4883747c093bd19d0025cf6588cb2c) )
-ROM_END
-
-// seems to be a bigger game with different video system
-ROM_START( fearless )
-	ROM_REGION( 0x04000, "maincpu", 0 )
-	/* Internal rom of IGS027A ARM based MCU */
-	ROM_LOAD( "fearless_igs027a", 0x00000, 0x4000, NO_DUMP ) // sticker marked 'F1'
-
-	ROM_REGION( 0x80000, "user1", 0 ) // external ARM data / prg
-	ROM_LOAD( "fearlessp_v-101us.u37", 0x000000, 0x80000, CRC(2522873c) SHA1(8db709877311b6d2796353fc9a44a820937e35c2) )
-
-	ROM_REGION( 0x10000, "plcc", 0 )
-	ROM_LOAD( "fearlessp_07.u33", 0x000000, 0x10000, CRC(7dae4900) SHA1(bbf7ba7c9e95ff2ffeb1dc0fc7ccedd4da274d01) ) // MX10EXAQC (80C51 XA based MCU) marked 07, not read protected?
-
-	ROM_REGION( 0x800000, "gfx1", 0 ) // these all report FIXED BITS (0xxxxxxx), possibly just 7-bit colour data
-	ROM_LOAD( "fearlessp_u6_cg-0h.u6",   0x000000, 0x800000, CRC(02d8bbbf) SHA1(7cf36c909a5d76096a725ffe0a697bcbafbcf985) )
-	ROM_LOAD( "fearlessp_u7_cg-0l.u7",   0x000000, 0x800000, CRC(ca254db4) SHA1(f5670c2ff0720c84c9aff3cea95b118b6044e469) )
-	ROM_LOAD( "fearlessp_u13_cg-1h.u13", 0x000000, 0x800000, CRC(c9d2a56d) SHA1(91d1665623bca743f68f15a27bbf433e2ffc0808) )
-	ROM_LOAD( "fearlessp_u14_cg-1l.u14", 0x000000, 0x800000, CRC(7fe312d2) SHA1(c0add22d9fc4c0e32a03922cb709b947bfff429d) )
-	ROM_LOAD( "fearlessp_u17_cg-2h.u17", 0x000000, 0x800000, CRC(756fe1f2) SHA1(48ee81c5fa4808406b57b2521b836db3ff5a7fa9) )
-	ROM_LOAD( "fearlessp_u18_cg-2l.u18", 0x000000, 0x800000, CRC(07623d66) SHA1(041d5e44917bc16caa720ea98bdc0a4f5fb4b8e0) )
-
-	ROM_REGION( 0x800000, "ics", 0 )
-	ROM_LOAD( "fearlessp_u25_music0.u25", 0x000000, 0x400000, CRC(a015b9b1) SHA1(7b129c59acd523dec82e58a75d873bbc5341fb28) )
-	ROM_LOAD( "fearlessp_u26_music1.u26", 0x400000, 0x400000, CRC(9d5f18da) SHA1(42e5224c1af0898cc2e02b2e051ea8b629d5fb6d) )
 ROM_END
 
 
@@ -1141,12 +1125,6 @@ DRIVER_INIT_MEMBER(igs_m027_state,hauntedh)
 	pgm_create_dummy_internal_arm_region();
 }
 
-DRIVER_INIT_MEMBER(igs_m027_state,fearless)
-{
-	fearless_decrypt(machine());
-	//sdwx_gfx_decrypt(machine());
-	pgm_create_dummy_internal_arm_region();
-}
 
 
 DRIVER_INIT_MEMBER(igs_m027_state,lhzb4)
@@ -1226,7 +1204,7 @@ DRIVER_INIT_MEMBER(igs_m027_state,amazoni2)
 ***************************************************************************/
 
 GAME( 1999,  slqz3,     0, igs_majhong, sdwx, igs_m027_state, slqz3,       ROT0, "IGS", "Mahjong Shuang Long Qiang Zhu 3 (China, VS107C)", MACHINE_IS_SKELETON )
-GAME( 1999,  amazonia,  0, igs_majhong, amazonia, igs_m027_state, amazonia,    ROT0, "IGS", "Amazonia King (V104BR)", MACHINE_IS_SKELETON )
+GAME( 1999,  amazonia,  0, amazonia,amazonia, igs_m027_state, amazonia,    ROT0, "IGS", "Amazonia King (V104BR)", MACHINE_IS_SKELETON )
 GAME( 200?,  fruitpar,  0, igs_majhong, sdwx, igs_m027_state, fruitpar,    ROT0, "IGS", "Fruit Paradise (V214)", MACHINE_IS_SKELETON )
 GAME( 2002,  sdwx,      0, igs_majhong, sdwx, igs_m027_state, sdwx,        ROT0, "IGS", "Sheng Dan Wu Xian", MACHINE_IS_SKELETON ) // aka Christmas 5 Line? (or Amazonia King II, shares roms at least?)
 GAME( 2002,  amazoni2,  0, igs_majhong, sdwx, igs_m027_state, amazoni2,    ROT0, "IGS", "Amazonia King II (V202BR)", MACHINE_IS_SKELETON )
@@ -1239,4 +1217,3 @@ GAME( 2000,  mgfx,      0, igs_majhong, sdwx, igs_m027_state, mgfx,        ROT0,
 GAME( 200?,  gonefsh2,  0, igs_majhong, sdwx, igs_m027_state, gonefsh2,    ROT0, "IGS", "Gone Fishing 2",   MACHINE_IS_SKELETON )
 GAME( 200?,  chessc2,   0, igs_majhong, sdwx, igs_m027_state, chessc2,     ROT0, "IGS", "Chess Challenge 2",   MACHINE_IS_SKELETON )
 GAME( 200?,  haunthig,  0, igs_majhong, sdwx, igs_m027_state, hauntedh,    ROT0, "IGS", "Haunted House (IGS)",   MACHINE_IS_SKELETON )
-GAME( 2006,  fearless,  0, fearless,    sdwx, igs_m027_state, fearless,    ROT0, "IGS", "Fearless Pinocchio (V101US)",   MACHINE_IS_SKELETON )
