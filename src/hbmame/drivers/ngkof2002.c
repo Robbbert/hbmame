@@ -58,6 +58,30 @@ ROM_START( kof2002d )
 	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
+ROM_START( kof2002x )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265x.p1",    0x000000, 0x100000, CRC(ec7402a2) SHA1(a3d94c709d4c23cc7d1502a9e92a34f49cbcc878) )
+	ROM_LOAD16_WORD_SWAP( "265-p2.sp2", 0x100000, 0x400000, CRC(327266b8) SHA1(98f445cc0a94f8744d74bca71cb420277622b034) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265-m1.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265-v1.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
+	ROM_LOAD( "265-v2.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265-c1.c1", 0x0000000, 0x800000, CRC(2b65a656) SHA1(9c46d8cf5b1ef322db442ac6a9b9406ab49206c5) )
+	ROM_LOAD16_BYTE( "265-c2.c2", 0x0000001, 0x800000, CRC(adf18983) SHA1(150cd4a5e51e9df88688469d2ea7675c2cf3658a) )
+	ROM_LOAD16_BYTE( "265-c3.c3", 0x1000000, 0x800000, CRC(875e9fd7) SHA1(28f52d56192d48bbc5dc3c97abf456bd34a58cbd) )
+	ROM_LOAD16_BYTE( "265-c4.c4", 0x1000001, 0x800000, CRC(2da13947) SHA1(f8d79ec2c236aa3d3648a4f715676899602122c1) )
+	ROM_LOAD16_BYTE( "265-c5.c5", 0x2000000, 0x800000, CRC(61bd165d) SHA1(b3424db84bc683d858fb635bc42728f9cdd89caf) )
+	ROM_LOAD16_BYTE( "265-c6.c6", 0x2000001, 0x800000, CRC(03fdd1eb) SHA1(6155c7e802062f4eafa27e414c4e73ee59b868bf) )
+	ROM_LOAD16_BYTE( "265-c7.c7", 0x3000000, 0x800000, CRC(1a2749d8) SHA1(af7d9ec1d576209826fa568f676bbff92f6d6ddd) )
+	ROM_LOAD16_BYTE( "265-c8.c8", 0x3000001, 0x800000, CRC(ab0bb549) SHA1(d23afb60b7f831f7d4a98ad3c4a00ee19877a1ce) )
+ROM_END
+
 ROM_START( kof2k2b ) /* The King of Fighters 2002 - Hack by Alphax2? - (Can choose Kusanagi and Rugal) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265b.p1",    0x000000, 0x100000, CRC(f03a9769) SHA1(558eaf60244b7b01588dc773a31d5e3f3ffdbb29) )
@@ -2552,6 +2576,7 @@ ROM_END
 
 
 GAME( 2002, kof2002d,    kof2002,  neogeo, neogeo, neogeo_class, kof2002d, ROT0, "Eolith / Playmore", "The King of Fighters 2002 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof2002x,    kof2002,  neogeo, neogeo, neogeo_class, kof2002,  ROT0, "hack", "The King of Fighters 2002x", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2b,     kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Alphax2?", "The King of Fighters 2002 (Add Char set 3)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal
 GAME( 2002, kof2k2b1,    kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Alphax2?", "The King of Fighters 2002 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal
 GAME( 2002, kof2k2bh,    kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Alphax2", "The King of Fighters 2002 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal

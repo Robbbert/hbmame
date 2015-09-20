@@ -740,6 +740,7 @@ kof2k1z2
 
 	/* kof2002 */
 kof2002d
+kof2002x
 kof2k2b // no sound in attract mode
 kof2k2b1
 kof2k2bh
@@ -947,11 +948,13 @@ wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 mineswp		/* Minesweeper */
 
 	/* midtunit.c */
-mk		/* (c) 1992 Midway */
+mk		//parent
+mkfr		// french
 mkturbod	/* MK protection hack */
 mktturboen	// Zenomorp 2012 Turbo Endurance
 mktturbopi	// Zenomorp 2012 Turbo Projectile Insanity
-mk2		// Mortal Kombat II r3.1
+mk2		//parent Mortal Kombat II r3.1
+mk2fr		// french
 mk2r33		// Mortal Kombat II r3.3
 umk2te50	// Ultimate MKII Tournament Edition r5.0.050
 umk2te51	// Ultimate MKII Tournament Edition r5.0.051
@@ -1874,8 +1877,18 @@ terracrc
 ssriders
 ssridersaex
 
+	/* toaplan1.c */
+fireshrk	//parent
+samenew		// Trap15
+
 	/* toaplan2.c */
 kgpe		/* Neill Corlett hack */
+sstriker	//parent
+mahoudcn
+batsugun	//parent
+batsugunt
+bgaregga	//parent
+bgareggz
 
 	/* trackfld.c */
 athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */

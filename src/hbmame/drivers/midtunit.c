@@ -3,7 +3,7 @@
 #include "../mame/drivers/midtunit.c"
 
 ROM_START( mkturbod )
-	ROM_REGION( 0x50000, "adpcm:cpu", 0 )	/* sound CPU */
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
 	ROM_LOAD( "mks-u3.rom", 0x10000, 0x40000, CRC(c615844c) SHA1(5732f9053a5f73b0cc3b0166d7dc4430829d5bc7) )
 
 	ROM_REGION( 0x200000, "adpcm:oki", 0 )	/* ADPCM */
@@ -12,8 +12,7 @@ ROM_START( mkturbod )
 	ROM_LOAD( "mks-u13.rom", 0x80000, 0x40000, CRC(7b7ec3b6) SHA1(6eec1b90d4a4855f34a7ebfbf93f3358d5627db4) )
 	ROM_RELOAD(              0xc0000, 0x40000 )
 
-	/* A 'NIBBLE BOARD' daughtercard holding a GAL16V8A-2SP, 27C040 EPROM and a 9.8304MHz XTAL plugs into the UG12 socket */
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )	/* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "kombo-rom-uj-12.bin", 0x00000, 0x80000, CRC(7a441f2d) SHA1(3b731bcbd73721ea0cc20157ec5181d25922523c) )
 	ROM_LOAD16_BYTE( "kombo-hacked-ug-12.bin", 0x00001, 0x80000, CRC(bfab4bb6) SHA1(fc48b4b1fd4f32d9a597e292a1121916c98968d1) )
 
@@ -35,16 +34,15 @@ ROM_START( mkturbod )
 ROM_END
 
 ROM_START( mktturboen )
-	ROM_REGION( 0x50000, "adpcm:cpu", 0 )   /* sound CPU */
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
 	ROM_LOAD( "mks-u3.rom", 0x10000, 0x40000, CRC(c615844c) SHA1(5732f9053a5f73b0cc3b0166d7dc4430829d5bc7) )
 
-	ROM_REGION( 0x100000, "adpcm:oki", 0 )  /* ADPCM */
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
 	ROM_LOAD( "mks-u12.rom", 0x00000, 0x40000, CRC(258bd7f9) SHA1(463890b23f17350fb9b8a85897b0777c45bc2d54) )
 	ROM_RELOAD(              0x40000, 0x40000 )
 	ROM_LOAD( "mks-u13.rom", 0x80000, 0x40000, CRC(7b7ec3b6) SHA1(6eec1b90d4a4855f34a7ebfbf93f3358d5627db4) )
 	ROM_RELOAD(              0xc0000, 0x40000 )
 
-	/* A 'NIBBLE BOARD' daughtercard holding a GAL16V8A-2SP, 27C040 EPROM and a 9.8304MHz XTAL plugs into the UG12 socket */
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
 	ROM_LOAD16_BYTE( "kombo-romen-uj-12.bin", 0x00000, 0x80000, CRC(53069455) SHA1(f86da6036844b3e996fa9b3769e4f9979a920b28) )
 	ROM_LOAD16_BYTE( "kombo-rom-ug-12.bin", 0x00001, 0x80000, CRC(45bed5a1) SHA1(dba2c21878925afdcaf61520c18ebefd5e9617db) )
@@ -69,17 +67,16 @@ ROM_START( mktturboen )
 ROM_END
 
 ROM_START( mktturbopi )
-	ROM_REGION( 0x50000, "adpcm:cpu", 0 )   /* sound CPU */
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
 	ROM_LOAD( "mks-u3.rom", 0x10000, 0x40000, CRC(c615844c) SHA1(5732f9053a5f73b0cc3b0166d7dc4430829d5bc7) )
 
-	ROM_REGION( 0x100000, "adpcm:oki", 0 )  /* ADPCM */
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
 	ROM_LOAD( "mks-u12.rom", 0x00000, 0x40000, CRC(258bd7f9) SHA1(463890b23f17350fb9b8a85897b0777c45bc2d54) )
 	ROM_RELOAD(              0x40000, 0x40000 )
 	ROM_LOAD( "mks-u13.rom", 0x80000, 0x40000, CRC(7b7ec3b6) SHA1(6eec1b90d4a4855f34a7ebfbf93f3358d5627db4) )
 	ROM_RELOAD(              0xc0000, 0x40000 )
 
-	/* A 'NIBBLE BOARD' daughtercard holding a GAL16V8A-2SP, 27C040 EPROM and a 9.8304MHz XTAL plugs into the UG12 socket */
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "kombo-rompi-uj-12.bin", 0x00000, 0x80000, CRC(f4a9a289) SHA1(a94b0a5796457c6f2789e9fd5a1cb80fd6dcf22b) )
 	ROM_LOAD16_BYTE( "kombo-rom-ug-12.bin", 0x00001, 0x80000, CRC(45bed5a1) SHA1(dba2c21878925afdcaf61520c18ebefd5e9617db) )
 	ROM_FILL(0xF7914, 1, 0x60)
@@ -103,7 +100,7 @@ ROM_START( mktturbopi )
 ROM_END
 
 ROM_START( mk2r33 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )   /* sound data */
+	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "su2.l1", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
 	ROM_RELOAD(                0x100000, 0x80000 )
 	ROM_LOAD16_BYTE( "su3.l1", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
@@ -116,9 +113,8 @@ ROM_START( mk2r33 )
 	ROM_RELOAD(                0x900000, 0x80000 )
 	ROM_LOAD16_BYTE( "su7.l1", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
 	ROM_RELOAD(                0xb00000, 0x80000 )
-	/* su8 and su9 are unpopulated */
 
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "uj12.l33", 0x00000, 0x80000, CRC(84cb0bf4) SHA1(098e0b5be75c60733f3a63893431506cb99f0981) )
 	ROM_LOAD16_BYTE( "ug12.l33", 0x00001, 0x80000, CRC(2021ec4f) SHA1(7f357abd7ae66eda8eae2b318426da668cfe1deb) )
 
@@ -140,7 +136,7 @@ ROM_START( mk2r33 )
 ROM_END
 
 ROM_START( umk2te50 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )   /* sound data */
+	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "su2.l1", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
 	ROM_RELOAD(                0x100000, 0x80000 )
 	ROM_LOAD16_BYTE( "su3.l1", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
@@ -153,9 +149,8 @@ ROM_START( umk2te50 )
 	ROM_RELOAD(                0x900000, 0x80000 )
 	ROM_LOAD16_BYTE( "su7.l1", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
 	ROM_RELOAD(                0xb00000, 0x80000 )
-	/* su8 and su9 are unpopulated */
 
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "uj12.l50", 0x00000, 0x80000, CRC(62ef20f8) SHA1(0e0392bb4b59fb4e01369f533fdcfa6ee5fb6939) )
 	ROM_LOAD16_BYTE( "ug12.l50", 0x00001, 0x80000, CRC(8c66e999) SHA1(ddb9f39149a7ded105f2e993a4c39c473067adf6) )
 
@@ -177,7 +172,7 @@ ROM_START( umk2te50 )
 ROM_END
 
 ROM_START( umk2te51 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )   /* sound data */
+	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "su2.l1", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
 	ROM_RELOAD(                0x100000, 0x80000 )
 	ROM_LOAD16_BYTE( "su3.l1", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
@@ -190,9 +185,8 @@ ROM_START( umk2te51 )
 	ROM_RELOAD(                0x900000, 0x80000 )
 	ROM_LOAD16_BYTE( "su7.l1", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
 	ROM_RELOAD(                0xb00000, 0x80000 )
-	/* su8 and su9 are unpopulated */
 
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "uj12.l51", 0x00000, 0x80000, CRC(fbf97b24) SHA1(902614ce3a4527d1a78e148a876cd321ea221e8f) )
 	ROM_LOAD16_BYTE( "ug12.l51", 0x00001, 0x80000, CRC(8d67c168) SHA1(699bf8e6924429221ace092fb66ae4c85eede8d2) )
 
@@ -214,7 +208,7 @@ ROM_START( umk2te51 )
 ROM_END
 
 ROM_START( umk2te52 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )   /* sound data */
+	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "su2.l1", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
 	ROM_RELOAD(                0x100000, 0x80000 )
 	ROM_LOAD16_BYTE( "su3.l1", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
@@ -229,7 +223,7 @@ ROM_START( umk2te52 )
 	ROM_RELOAD(                0xb00000, 0x80000 )
 	/* su8 and su9 are unpopulated */
 
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "uj12.l52", 0x00000, 0x80000, CRC(a027088c) SHA1(10aced067d8e3a5fe905c07e2ee27904e3dd8855) )
 	ROM_LOAD16_BYTE( "ug12.l52", 0x00001, 0x80000, CRC(474cf238) SHA1(fee96dc9390ade206be3768812040f3bb4ea1e2c) )
 
@@ -250,6 +244,74 @@ ROM_START( umk2te52 )
 	ROM_LOAD32_BYTE( "uj22-vid", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
 ROM_END
 
+ROM_START( mkfr )
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD( "mks-u3.rom", 0x10000, 0x40000, CRC(c615844c) SHA1(5732f9053a5f73b0cc3b0166d7dc4430829d5bc7) )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "mks-u12.rom", 0x00000, 0x40000, CRC(258bd7f9) SHA1(463890b23f17350fb9b8a85897b0777c45bc2d54) )
+	ROM_RELOAD(              0x40000, 0x40000 )
+	ROM_LOAD( "mks-u13.rom", 0x80000, 0x40000, CRC(7b7ec3b6) SHA1(6eec1b90d4a4855f34a7ebfbf93f3358d5627db4) )
+	ROM_RELOAD(              0xc0000, 0x40000 )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "mkt-uj12f.bin", 0x00000, 0x80000, CRC(4192e38f) SHA1(abe2e6f643a36df48a23aaa2f9027c78c6078d2d) )
+	ROM_LOAD16_BYTE( "mkt-ug12f.bin", 0x00001, 0x80000, CRC(8799979d) SHA1(4f094540e68c03fbd03cd8731797c55e455f61e6) )
+
+	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_LOAD32_BYTE( "mkt-ug14.bin", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
+	ROM_LOAD32_BYTE( "mkt-uj14.bin", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
+	ROM_LOAD32_BYTE( "mkt-ug19.bin", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
+	ROM_LOAD32_BYTE( "mkt-uj19.bin", 0x000003, 0x80000, CRC(33b9b7a4) SHA1(e8ceca4c049e1f55d480a03ff793b595bd04d344) )
+
+	ROM_LOAD32_BYTE( "mkt-ug16.bin", 0x200000, 0x80000, CRC(52c9d1e5) SHA1(7b1880fca0a11544782b70365c7dd96381ac48e7) )
+	ROM_LOAD32_BYTE( "mkt-uj16.bin", 0x200001, 0x80000, CRC(c94c58cf) SHA1(974d75667eee779497325d5be8df937f15417edf) )
+	ROM_LOAD32_BYTE( "mkt-ug20.bin", 0x200002, 0x80000, CRC(2f7e55d3) SHA1(bda6892ee6fcb46959e4d0892bbe7d9fc6072dd3) )
+	ROM_LOAD32_BYTE( "mkt-uj20.bin", 0x200003, 0x80000, CRC(eae96df0) SHA1(b40532312ba61e4065abfd733dd0c93eecad48e9) )
+
+	ROM_LOAD32_BYTE( "mkt-ug17.bin", 0x400000, 0x80000, CRC(e34fe253) SHA1(6b010bee795c1770297c9557ded1fe83425857f2) )
+	ROM_LOAD32_BYTE( "mkt-uj17.bin", 0x400001, 0x80000, CRC(a56e12f5) SHA1(5db637c4710990cd06bb0069714b19621532e431) )
+	ROM_LOAD32_BYTE( "mkt-ug22.bin", 0x400002, 0x80000, CRC(b537bb4e) SHA1(05a447deee2e89b49bdb3ca2161a021d7ec5f11e) )
+	ROM_LOAD32_BYTE( "mkt-uj22.bin", 0x400003, 0x80000, CRC(5e12523b) SHA1(468f93ef9bb6addb45c1c939d24b6511f255426a) )
+ROM_END
+
+ROM_START( mk2fr )
+	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "su2.l1", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
+	ROM_RELOAD(                0x100000, 0x80000 )
+	ROM_LOAD16_BYTE( "su3.l1", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
+	ROM_RELOAD(                0x300000, 0x80000 )
+	ROM_LOAD16_BYTE( "su4.l1", 0x400000, 0x80000, CRC(eebc8e0f) SHA1(705ab63ff7672a4857d546afda6dca4973cce1ad) )
+	ROM_RELOAD(                0x500000, 0x80000 )
+	ROM_LOAD16_BYTE( "su5.l1", 0x600000, 0x80000, CRC(2b0b7961) SHA1(1cdc64aab74d14afbd8c3531e3d0bd49271a281f) )
+	ROM_RELOAD(                0x700000, 0x80000 )
+	ROM_LOAD16_BYTE( "su6.l1", 0x800000, 0x80000, CRC(f694b27f) SHA1(d43e38a124665f49ebb4ffc5a55e8f19a1a64686) )
+	ROM_RELOAD(                0x900000, 0x80000 )
+	ROM_LOAD16_BYTE( "su7.l1", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
+	ROM_RELOAD(                0xb00000, 0x80000 )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "uj12fr.l31", 0x00000, 0x80000, CRC(0f801e9b) SHA1(b0dc620e1be6b89ff0a1dcd64eec678e81a2ea69) )
+	ROM_LOAD16_BYTE( "ug12fr.l31", 0x00001, 0x80000, CRC(d896c9b6) SHA1(61e26c6acaf810e0788aef31000056e524b87b06) )
+
+	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_LOAD32_BYTE( "ug14-vid", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
+	ROM_LOAD32_BYTE( "uj14-vid", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
+	ROM_LOAD32_BYTE( "ug19-vid", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
+	ROM_LOAD32_BYTE( "uj19-vid", 0x000003, 0x100000, CRC(2d763156) SHA1(06536006da49ab5fb6b75b25f801b83fad000ff5) )
+
+	ROM_LOAD32_BYTE( "ug16-vid", 0x400000, 0x100000, CRC(8ba6ae18) SHA1(465fe907de4a1e502180c4e41642998dd3abc8e6) )
+	ROM_LOAD32_BYTE( "uj16-vid", 0x400001, 0x100000, CRC(39d885b4) SHA1(2251826d247c3c6df421124718401fb35a672f83) )
+	ROM_LOAD32_BYTE( "ug20-vid", 0x400002, 0x100000, CRC(809118c1) SHA1(86153e648834c749e34573151cd4fee403a81962) )
+	ROM_LOAD32_BYTE( "uj20-vid", 0x400003, 0x100000, CRC(b96824f0) SHA1(d42b122f9a57da330192abc7e5f97abc4065d718) )
+
+	ROM_LOAD32_BYTE( "ug17-vid", 0x800000, 0x100000, CRC(937d8620) SHA1(8b9f80a460b124a747a6d1495b53f01f580e28f1) )
+	ROM_LOAD32_BYTE( "uj17-vid", 0x800001, 0x100000, CRC(218de160) SHA1(87aea173720d2a33d8183903f4fe8ba1d47e3348) )
+	ROM_LOAD32_BYTE( "ug22-vid", 0x800002, 0x100000, CRC(154d53b1) SHA1(58ff0aa59101f40a9a3b5fbae1c904d0b0b31612) )
+	ROM_LOAD32_BYTE( "uj22-vid", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
+ROM_END
+
+
 GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
@@ -257,3 +319,5 @@ GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "M
 GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Arkatrad", "Mortal Kombat (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French)", MACHINE_SUPPORTS_SAVE )

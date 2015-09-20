@@ -648,6 +648,9 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
 files {
+	MAME_DIR .. "src/hbmame/drivers/toaplan1.c",
+	MAME_DIR .. "src/mame/machine/toaplan1.c",
+	MAME_DIR .. "src/mame/video/toaplan1.c",
 	MAME_DIR .. "src/hbmame/drivers/toaplan2.c",
 	MAME_DIR .. "src/mame/video/toaplan2.c",
 	MAME_DIR .. "src/mame/video/gp9001.c",
