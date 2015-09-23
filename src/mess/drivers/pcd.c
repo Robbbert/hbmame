@@ -4,7 +4,7 @@
 
     Siemens PC-D
 
-    For PC-X HDD should have 306,4,9 chs at 1024Bps or 17 at 512Bps
+    For PC-X HDD should have 306,4,9 chs at 1024Bps or 18 at 512Bps
 
 ***************************************************************************/
 
@@ -537,6 +537,9 @@ static MACHINE_CONFIG_START( pcd, pcd_state )
 	// rtc
 	MCFG_MC146818_ADD("rtc", XTAL_32_768kHz)
 	MCFG_MC146818_IRQ_HANDLER(DEVWRITELINE("pic1", pic8259_device, ir7_w))
+	MCFG_MC146818_BINARY(true)
+	MCFG_MC146818_EPOCH(1900)
+	MCFG_MC146818_24_12(true)
 
 	MCFG_DEVICE_ADD("keyboard", PCD_KEYBOARD, 0)
 	MCFG_PCD_KEYBOARD_OUT_TX_HANDLER(DEVWRITELINE("usart2", mc2661_device, rx_w))
