@@ -68,6 +68,8 @@ dinopic2: no sound, one bad gfx rom. Copying 8.bin from dinopic fixes it.
 
 fcrash, kodb: old sprites show on next screen. Patch used.
 
+kodb: gems are missing.
+
 knightsb: sprites are entangled with the front layer.
 
 punipic, punipic2: no sound. Problems in Central Park. Patches used.

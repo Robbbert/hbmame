@@ -7,24 +7,24 @@
 Issues:
 
 - knightsh
-	the title screen is garbage
+	the title screen is garbage.
 
 - kodh
-	title, problem with placement of the letters
+	title, problem with placement of the letters.
 
 - sk2h1, sk2h2, sk2h3, sk2h22, sk2h31, sk2h32, sk2h33, sk2h34
-	setup screen is blank
+	setup screen is blank.
 	map doesn't show first time around prior to demo 1, and never before demo 3.
 	priority issue, easily noticed on 3rd demo where actors are in the wagon instead of behind it.
 
 - sk2h22, sk2h31, sk2h32, sk2h33, sk2h34, sk2h35
-	coin 3, start 3, 3rd player not working
+	coin 3, start 3, 3rd player not working.
 
 - wofjcn
 	chinese language rom isn't working. Whatever is tried breaks stuff.
 
 - wofjhb, wofjhc
-	not working - could be incorrect roms
+	not working - 2nd p rom is missing.
 
 *******************************************************************************************************************/
 
