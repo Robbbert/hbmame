@@ -1669,7 +1669,8 @@ vecpengo	/* T-Bone hack of Pengo */
 	/* pgm.c */
 pgm		/* (c) 1997 */
 ket
-//kov
+kov		//parent
+kov2		//parent
 kovplus
 kovsh
 kov2p
@@ -1684,12 +1685,17 @@ ketarrs15
 ketarr151
 ketarrs151
 ketarr17
+orlegend	//parent
+orlegendcs
+orlegendh
 //kovassg
 //kovdf
+kovsgqyzc		// similar to kovsgqyza
 kov2h1
 kov2h2
 kov2h3
 kov2h4
+kov2h5			// was kov2psv
 kovph1
 kovph2
 kovph3
@@ -1713,10 +1719,12 @@ kovph18
 //kovph21
 //kovph22
 //kovph23
+kovph24			// was kvplusjq
+kovph25			// was kovplusq
 kovsh1
 kovsh2
-//kovsh3		// all of these are encrypted, not working
-//kovsh4
+kovsh3
+//kovsh4		// all of these are encrypted, not working
 //kovsh5
 //kovsh6
 //kovsh7
@@ -1729,6 +1737,7 @@ kovsh2
 //kovsh14
 //kovsh15
 //kovsh16
+//kovsh17
 
 	/* phoenix.c */
 phoenix		/* (c) 1980 Amstar */

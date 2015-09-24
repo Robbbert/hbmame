@@ -2,9 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/tempest.c"
 
-// The Clay Cowgill games (vbrakout and tempmg) show no video due to a regression somewhere in avgdvg
-// However tempmg will work once you've chosen from the invisible menu
-
 
 /* most of these inputs are not verified */
 static INPUT_PORTS_START( aliensv )
@@ -776,8 +773,8 @@ GAME( 2000, tmptwst2, tempest, tempest, tempest, driver_device, 0,      ROT270, 
 GAME( 2000, tmptwst3, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tmptwst4, tempest, tempest, tempest, driver_device, 0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tempestm, tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,  tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 1999, vbrakout, tempest, tempest, tempest, driver_device, 0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,  tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, vbrakout, tempest, tempest, tempest, driver_device, 0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptlm,  tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, vortex,   tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, vortexa,  tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )

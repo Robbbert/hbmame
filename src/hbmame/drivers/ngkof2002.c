@@ -2576,7 +2576,7 @@ ROM_END
 
 
 GAME( 2002, kof2002d,    kof2002,  neogeo, neogeo, neogeo_class, kof2002d, ROT0, "Eolith / Playmore", "The King of Fighters 2002 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof2002x,    kof2002,  neogeo, neogeo, neogeo_class, kof2002,  ROT0, "hack", "The King of Fighters 2002x", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof2002x,    kof2002,  neogeo, neogeo, neogeo_class, kof2002,  ROT0, "hack", "The King of Fighters 2002 (Babel ice field remix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2b,     kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Alphax2?", "The King of Fighters 2002 (Add Char set 3)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal
 GAME( 2002, kof2k2b1,    kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Alphax2?", "The King of Fighters 2002 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal
 GAME( 2002, kof2k2bh,    kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Alphax2", "The King of Fighters 2002 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal

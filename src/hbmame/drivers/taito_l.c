@@ -26,7 +26,9 @@ ROM_END
 
 ROM_START( tldemo2 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "tldemo2.ic10",   0x00000, 0x6514, CRC(efd21b6b) SHA1(1c3bfb64dacfb5a1da55201cd4d4202694e06d37) )
+	ROM_LOAD( "tldemo2.ic10",   0x00000, 0x7142, CRC(1292a22c) SHA1(e351ac5381f7d73de0087586c7fb28d9eccd72cb) )
+	// This one below is the old version, works fine in MAME but is buggy in real hardware.
+	//ROM_LOAD( "tldemo2.ic10",   0x00000, 0x6514, CRC(efd21b6b) SHA1(1c3bfb64dacfb5a1da55201cd4d4202694e06d37) )
 
 	ROM_REGION( 0x20000, "gfx1", 0 )
 	ROM_LOAD16_BYTE( "tldemo2.ic9", 0x00000, 0x10000, CRC(fcc75ddb) SHA1(e702480b84379e3106cb6d575d237a8f9701f49e) )

@@ -1641,8 +1641,8 @@ GAME( 2002, mslugxfro, mslugx,   neogeo, neogeo, neogeo_class, mslugx,   ROT0, "
 GAME( 2003, mslugxit,  mslugx,   neogeo, neogeo, neogeo_class, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Italian - Beta)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, mslug2fr,  mslug2,   neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug2fro, mslug2,   neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French) (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, mslug3fr,  mslug3,   neogeo, neogeo, neogeo_class, mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2003, mslug3fro, mslug3,   neogeo, neogeo, neogeo_class, mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French) (Old)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
+GAME( 2004, mslug3fr,  mslug3,   neogeo, neogeo, neogeo_class, mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug3fro, mslug3,   neogeo, neogeo, neogeo_class, mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French) (Old)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, mslug4fr,  mslug4,   neogeo, neogeo, neogeo_class, mslug4m,  ROT0, "Arkatrad", "Metal Slug 4 (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, mslug4i,   mslug4,   neogeo, neogeo, neogeo_class, mslug4it, ROT0, "Evoboy", "Metal Slug 4 (Italian)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, mslug5fr,  mslug5,   neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (French)", MACHINE_SUPPORTS_SAVE )
@@ -1663,31 +1663,31 @@ GAME( 1998, mslug2eh4, mslug2,   neogeo, neogeo, neogeo_class, neogeo,   ROT0, "
 GAME( 2015, mslug2t,   mslug2,   neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Trap15", "Metal Slug 2 Turbo", MACHINE_SUPPORTS_SAVE )
 
 //GAME( 2000, mslug3,   neogeo,   neogeo, neogeo, neogeo_class, mslug3,   ROT0, "SNK", "Metal Slug 3" , 0) /* Encrypted Code & GFX */
-GAME( 2000, mslug3eha, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3ehs, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e02, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e03, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 03)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e04, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 04)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e05, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 05)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e06, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 06)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e07, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 07)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e08, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 08)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e09, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 09)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e10, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 10)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e11, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 11)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e12, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 12)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e13, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 13)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e14, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 14)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e15, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 15)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e16, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 16)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e17, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 17)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e18, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 18)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e19, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 19)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e20, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e21, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3e22, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3kh,  mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE ) // mslug3n hack
-GAME( 2000, mslug3kho, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // mslug3n hack
+GAME( 2000, mslug3eha, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3ehs, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e02, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e03, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e04, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e05, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e06, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 06)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e07, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e08, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e09, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e10, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e11, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e12, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e13, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e14, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e15, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e16, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e17, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e18, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e19, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e20, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e21, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e22, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3kh,  mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3kho, mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, mslug3v,   mslug3,   neogeo, neogeo, neogeo_class, mslug3n,  ROT0, "Eezezy", "Metal Slug 3 (Violence Edition)", MACHINE_SUPPORTS_SAVE )
 
 //GAME( 2002, mslug4,   neogeo,   neogeo, neogeo, neogeo_class, mslug4,   ROT0, "Mega", "Metal Slug 4", MACHINE_SUPPORTS_SAVE )
