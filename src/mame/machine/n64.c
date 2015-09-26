@@ -27,7 +27,18 @@ n64_periphs::n64_periphs(const machine_config &mconfig, const char *tag, device_
 	, dd_present(false)
 	, disk_present(false)
 	, cart_present(false)
-{
+{	
+	for (INT32 i = 0; i < 256; i++)
+	{
+		m_gamma_table[i] = sqrt((float)(i << 6));
+		m_gamma_table[i] <<= 1;
+	}
+
+	for (INT32 i = 0; i < 0x4000; i++)
+	{
+		m_gamma_dither_table[i] = sqrt((float)i);
+		m_gamma_dither_table[i] <<= 1;
+	}
 }
 
 TIMER_CALLBACK_MEMBER(n64_periphs::reset_timer_callback)
@@ -1029,14 +1040,13 @@ void n64_periphs::vi_recalculate_resolution()
 
 	if(vi_control & 0x40) /* Interlace */
 	{
-		height *= 2;
 	}
 
 	//state->m_rdp->m_misc_state.m_fb_height = height;
 
 	visarea.max_x = width - 1;
 	visarea.max_y = height - 1;
-	m_screen->configure(width, 525, visarea, period);
+	m_screen->configure((vi_hsync & 0x00000fff)>>2, (vi_vsync & 0x00000fff), visarea, period);
 }
 
 READ32_MEMBER( n64_periphs::vi_reg_r )
@@ -1434,10 +1444,6 @@ void n64_periphs::pi_dma_tick()
 	{
 		UINT32 dma_length = pi_wr_len + 1;
 		//logerror("PI Write, %X, %X, %X\n", pi_cart_addr, pi_dram_addr, pi_wr_len);
-		if (dma_length & 1)
-		{
-			dma_length = (dma_length + 1) & ~1;
-		}
 
 		if (pi_dram_addr != 0xffffffff)
 		{
@@ -1454,10 +1460,6 @@ void n64_periphs::pi_dma_tick()
 	{
 		UINT32 dma_length = pi_rd_len + 1;
 		//logerror("PI Read, %X, %X, %X\n", pi_cart_addr, pi_dram_addr, pi_rd_len);
-		if (dma_length & 1)
-		{
-			dma_length = (dma_length + 1) & ~1;
-		}
 
 		if (pi_dram_addr != 0xffffffff)
 		{
@@ -2093,6 +2095,7 @@ TIMER_CALLBACK_MEMBER(n64_periphs::si_dma_callback)
 void n64_periphs::si_dma_tick()
 {
 	si_dma_timer->adjust(attotime::never);
+	si_status = 0;
 	si_status |= 0x1000;
 	signal_rcp_interrupt(SI_INTERRUPT);
 }
@@ -2136,8 +2139,8 @@ void n64_periphs::pif_dma(int direction)
 			*dst++ = d;
 		}
 	}
-
-	si_dma_timer->adjust(attotime::from_hz(500));
+	si_status |= 1;
+	si_dma_timer->adjust(attotime::from_hz(1000));
 	//si_status |= 0x1000;
 	//signal_rcp_interrupt(SI_INTERRUPT);
 }
@@ -2180,7 +2183,7 @@ WRITE32_MEMBER( n64_periphs::si_reg_w )
 			break;
 
 		case 0x18/4:        // SI_STATUS_REG
-			si_status &= ~0x1000;
+			si_status = 0;
 			clear_rcp_interrupt(SI_INTERRUPT);
 			break;
 
