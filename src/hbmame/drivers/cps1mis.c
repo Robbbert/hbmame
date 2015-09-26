@@ -1767,7 +1767,7 @@ ROM_START( punisherjha )
 	ROM_LOAD16_WORD_SWAP( "psj23ex.bin",   0x000000, 0x80000, CRC(fa084bab) SHA1(af323e6399ab5d3091a57188d3cedc1d0600dd3d) )
 	ROM_LOAD16_WORD_SWAP( "psj22ex.bin",   0x080000, 0x80000, CRC(69433b02) SHA1(cc7127170fad47562aaded71a3c1e216084667f8) )
 	ROM_LOAD16_WORD_SWAP( "ps_21ex.rom",   0x100000, 0x80000, CRC(e4e15e4a) SHA1(405d57983ed33276e6fde155d4c78c2973466483) )
-	
+
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "ps_01.3a",  0x000000, 0x80000, CRC(77b7ccab) SHA1(e08e5d55a79e4c0c8ca819d6d7d2a14f753c6ec3) , ROM_GROUPWORD | ROM_SKIP(6) )	// == ps-1m.3a
 	ROMX_LOAD( "ps_02.4a",  0x000002, 0x80000, CRC(0122720b) SHA1(5f0d3097e097f64106048156fbb0d343fe78fffa) , ROM_GROUPWORD | ROM_SKIP(6) )	// == ps-3m.5a
@@ -1807,35 +1807,6 @@ ROM_START( punisherjha )
 	ROM_LOAD_OPTIONAL( "d8l1.8l",      0x0000, 0x0117, CRC(539fc7da) SHA1(cad5c91629c6247e49ccbbcbfe6b08229eafae07) )
 	ROM_LOAD_OPTIONAL( "d9k2.9k",      0x0000, 0x0117, CRC(cd85a156) SHA1(a88f8939c5d93e65d7bcc0eb3ee5b6f4f1114e3a) )	// pal verification required
 	ROM_LOAD_OPTIONAL( "d10f1.10f",    0x0000, 0x0117, CRC(6619c494) SHA1(3aef656c07182a2186f810f30e0d854dd5bd8d18) )
-ROM_END
-
-ROM_START( sf2acc2 )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
-	ROM_LOAD16_WORD_SWAP( "sf2ca_23-c.8f", 0x000000, 0x80000, CRC(35f9517b) SHA1(0976870c65d69a6d8ca0232a48e042588a9ec5d8) )
-	ROM_LOAD16_WORD_SWAP( "sf2ca_22-c.bin",0x080000, 0x80000, CRC(99f1cca4) SHA1(64111eba81d743fc3fd51d7a89cd0b2eefcc900d) )
-	ROM_LOAD16_WORD_SWAP( "sf2ca_21-c.6f", 0x100000, 0x80000, CRC(2ab2034f) SHA1(4dc90ba524e76529700945605e02068d49b56aba) )
-
-	ROM_REGION( 0x600000, "gfx", 0 )
-	ROMX_LOAD( "s92_01.bin",   0x000000, 0x80000, CRC(03b0d852) SHA1(f370f25c96ad2b94f8c53d6b7139100285a25bef) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_02.bin",   0x000002, 0x80000, CRC(840289ec) SHA1(2fb42a242f60ba7e74009b5a90eb26e035ba1e82) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_03.bin",   0x000004, 0x80000, CRC(cdb5f027) SHA1(4c7d944fef200fdfcaf57758b901b5511188ed2e) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_04.bin",   0x000006, 0x80000, CRC(e2799472) SHA1(27d3796429338d82a8de246a0ea06dd487a87768) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_05.bin",   0x200000, 0x80000, CRC(ba8a2761) SHA1(4b696d66c51611e43522bed752654314e76d33b6) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_06.bin",   0x200002, 0x80000, CRC(e584bfb5) SHA1(ebdf1f5e2638eed3a65dda82b1ed9151a355f4c9) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_07.bin",   0x200004, 0x80000, CRC(21e3f87d) SHA1(4a4961bb68c3a1ce15f9d393d9c03ecb2466cc29) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_08.bin",   0x200006, 0x80000, CRC(befc47df) SHA1(520390420da3a0271ba90b0a933e65143265e5cf) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_10.bin",   0x400000, 0x80000, CRC(960687d5) SHA1(2868c31121b1c7564e9767b9a19cdbf655c7ed1d) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_11.bin",   0x400002, 0x80000, CRC(978ecd18) SHA1(648a59706b93c84b4206a968ecbdc3e834c476f6) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_12.bin",   0x400004, 0x80000, CRC(d6ec9a0a) SHA1(ed6143f8737013b6ef1684e37c05e037e7a80dae) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "s92_13.bin",   0x400006, 0x80000, CRC(ed2c67f6) SHA1(0083c0ffaf6fe7659ff0cf822be4346cd6e61329) , ROM_GROUPWORD | ROM_SKIP(6) )
-
-	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
-	ROM_LOAD( "s92_09.bin",    0x00000, 0x08000, CRC(08f6b60e) SHA1(8258fcaca4ac419312531eec67079b97f471179c) )
-	ROM_CONTINUE(              0x10000, 0x08000 )
-
-	ROM_REGION( 0x40000, "oki", 0 )	/* Samples */
-	ROM_LOAD( "s92_18.bin",    0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
-	ROM_LOAD( "s92_19.bin",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 ROM_END
 
 ROM_START( sf2c )
@@ -3800,9 +3771,8 @@ GAME( 1993, punisherjh,  punisher, qsound,     punisher, cps_state, punisher, RO
 GAME( 1993, punisherjha, punisher, qsound,     punisher, cps_state, punisher, ROT0,   "Zhyxxxx", "The Punisher (930422 Japan, SM Experience Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherb,   punisher, qsound,     punisher, cps_state, punisherb,ROT0,   "bootleg", "The Punisher (Bootleg)", MACHINE_SUPPORTS_SAVE)
 GAME( 2007, punisherf,   punisher, qsound,     punisher, cps_state, punisherb,ROT0,   "Zhyxxxx", "The Punisher (Flash version) 2007-09-24", MACHINE_SUPPORTS_SAVE)
-GAME( 1999, sf2acc2,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition Accelerator (920310)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, sf2c,        sf2,      cps1_10MHz, sf2j,     cps_state, cps1,     ROT0,   "hack", "Street Fighter II: The World Warrior (Chinese 911210)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, sf2cebr,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Brasil 920313)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, sf2cebr,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Neogeo BR team", "Street Fighter II' - Champion Edition (Brasil 920313)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, sf2ced,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long Hack v7.1)", MACHINE_SUPPORTS_SAVE )   // "ETC"
 GAME( 2012, sf2ceda,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Hack)", MACHINE_SUPPORTS_SAVE )   // "ETC"
 GAME( 1999, sf2ceh,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "hack", "Street Fighter II' - Champion Edition (Hispanic 990804)", MACHINE_SUPPORTS_SAVE )

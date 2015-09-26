@@ -326,14 +326,14 @@ ROM_START( suicide )
 ROM_END
 
 
-GAME( 2000, 1944da,   1944,     dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "bootleg", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, 1944fp,   1944,     cps2,      cps2_2p2b, cps_state, cps2, ROT0, "hack", "1944: The Loop Master (USA 000620) Fire Power Ver by qxs8", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, 1944da,   1944,     dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, 1944fp,   1944,     cps2,      cps2_2p2b, cps_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (USA 000620) Fire Power Ver", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ddsomchs, ddsom,    cps2,      cps2_4p4b, cps_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (chinese)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mpangjd,  mpang,    dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "bootleg", "Mighty! Pang (Japan 001011 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, sfa2h,    sfa2,     cps2,      cps2_2p6b, cps_state, cps2, ROT0, "hack", "Street Fighter Alpha 2 (Euro 960229) Boss Hack by pipi899", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sfaud,    sfa,      dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "bootleg", "Street Fighter Alpha: Warriors' Dreams (USA 950727 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, sfz2abr,  sfa2,     cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Capcom", "Street Fighter Zero 2 Alpha (Brasil 061225)", MACHINE_SUPPORTS_SAVE ) // portuguese-brazilian hack fix
+GAME( 2000, mpangjd,  mpang,    dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Razoola", "Mighty! Pang (Japan 001011 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, sfa2h,    sfa2,     cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Pipi899", "Street Fighter Alpha 2 (Euro 960229) Boss Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sfaud,    sfa,      dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "Razoola", "Street Fighter Alpha: Warriors' Dreams (USA 950727 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, sfz2abr,  sfa2,     cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Neogeo BR team", "Street Fighter Zero 2 Alpha (Brasil 061225)", MACHINE_SUPPORTS_SAVE ) // portuguese-brazilian hack fix
 GAME( 1993, ssf2r1d,  ssf2,     dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "Razoola", "Super Street Fighter II: The New Challengers (ETC 930911 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, ssf2td,   ssf2t,    dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "bootleg", "Super Street Fighter II Turbo (World 940223 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, spf2tb,   spf2t,    cps2,      cps2_2p2b, cps_state, cps2, ROT0, "hack", "Super Puzzle Fighter II Turbo Boss Hack (USA 960620).", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, ssf2td,   ssf2t,    dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "Eazoola", "Super Street Fighter II Turbo (World 940223 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, spf2tb,   spf2t,    cps2,      cps2_2p2b, cps_state, cps2, ROT0, "hack", "Super Puzzle Fighter II Turbo Boss Hack (USA 960620)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, suicide,  0,        suicide,   cps2_2p2b, cps_state, cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )

@@ -42,4 +42,4 @@ ROM_START( powernbr )
 	ROM_LOAD( "20.u54",       0x000100, 0x0100, CRC(38bd0e2f) SHA1(20d311869642cd96bb831fdf4a458e0d872f03eb) )
 ROM_END
 
-GAME( 2006, powernbr,  powerins, powerins, powerins, driver_device, 0, ROT0, "Atlus", "Power Instinct (Brasil)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
+GAME( 2006, powernbr,  powerins, powerins, powerins, driver_device, 0, ROT0, "Neogeo BR team", "Power Instinct (Brasil)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
