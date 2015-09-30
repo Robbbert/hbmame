@@ -318,6 +318,7 @@ mariner         // (c) 1981 Amenip
 mars            // (c) 1981 Artic
 devilfsh        // (c) 1982 Artic
 newsin7         // (c) 1983 ATW USA, Inc.
+newsin7a        // (c) 1982 ATW USA, Inc.
 mrkougar        // (c) 1984 ATW
 mrkougar2       // (c) 1984 ATW
 mrkougb         // bootleg
@@ -4569,6 +4570,8 @@ enduror         // (c) 1985 (FD1089B)
 enduror1        // (c) 1985 (FD1089B)
 endurob2        // (c) 1985 (Beta bootleg)
 endurobl        // (c) 1985 (Herb bootleg)
+endurord		// bootleg
+enduror1d		// bootleg
 hangon          // (c) 1985 (Rev A)
 hangon1         // (c) 1985
 hangon2         // (c) 1985
@@ -4610,6 +4613,13 @@ timescan1       // (c) 1987 (FD1089B)
 wb31            // (c) 1988 Sega / Westone (FD1094)
 wb35            // (c) 1988 Sega / Westone (FD1089A)
 passsht16a      // (c) 1988 (FD1094)
+
+// System 16A decrypted bootlegs
+wb31d
+wb35d
+shinobi1d
+tetrisd
+tetris3d
 
 // System 16B
 aceattac        // (c) 1988 (FD1094)
@@ -4699,6 +4709,48 @@ fantzn2xp       // (c) 2008 Sega / M2
 atomicp         // (c) 1990 Philko - korean clone board
 snapper         // (c) 1990 Philko - korean clone board
 
+// S16 decrypted bootlegs
+cottonjd
+cottond
+cottonud
+cottonjad
+sonicbomd
+ryukyud
+mvpd
+mvpjd
+exctleagd
+fpointd
+fpoint1d
+bulletd
+eswatd
+eswatud
+eswatjd
+eswatj1d
+passshtd
+passshtad
+passshtjd
+tetris2d
+tetris1d
+wb34d
+wb33d
+wb32d
+dduxd
+dduxjd
+goldnaxeud
+goldnaxe1d
+goldnaxe3d
+goldnaxejd
+hwchampjd
+altbeast5d
+altbeastj3d
+aurail1d
+aurailjd
+bayrouted
+bayroutejd
+wrestwar2d
+wrestwar1d
+shinobi2d
+
 // S16 Bootlegs
 bayrouteb1      // (c) 1989 (protected) (bootleg)
 bayrouteb2      // (c) 1989 (protected) (bootleg)
@@ -4756,6 +4808,28 @@ desertbrj       // 1992.10 Desert Breaker (Japan, FD1094)
 pontoon
 hamaway         // prototype
 
+ddcrewd
+ddcrewud
+ddcrew2d
+ddcrew1d
+ddcrewjd
+ddcrewj2d
+cltchitrd
+cltchitrjd
+desertbrd
+desertbrjd
+lghostd
+lghostud
+astorm3d
+astormud
+astormjd
+bloxeedd
+mwalkd
+mwalkud
+mwalkjd
+wwallyjd
+wwallyjad
+
 // System18 Bootlegs
 astormbl        // BOOTLEG
 astormb2        // BOOTLEG
@@ -4789,6 +4863,11 @@ toutrun3        // 1987 (FD1094)
 toutrun2        // 1987 (FD1094)
 toutrun1        // 1987 (FD1094)
 toutrunj1       // 1987 (FD1094)
+toutrund		// bootleg
+toutrunjd		// bootleg
+toutrun3d		// bootleg
+toutrunj1d		// bootleg
+shangon3d		// bootleg
 
 // X Board
 aburner         // 1987.07 After Burner (Japan)
@@ -4820,6 +4899,22 @@ gpriderus       // 1990.12 GP Rider (US, FD1094)
 gprideru	 	// as above
 rascot          // 1991.?? Royal Ascot (Japan)
 
+// decrypted X-Board bootlegs
+thndrbldd
+racherod
+smgpd
+smgp6d
+smgp5d
+smgpud
+smgpu1d
+smgpu2d
+smgpjd
+abcopd
+abcopjd
+lastsurvd
+loffired
+loffireud
+loffirejd
 
 // Y-Board
 				// 1988.05 Galaxy Force (Japan)
@@ -6346,6 +6441,7 @@ trackfldc       // GX361 (c) 1983 + Centuri license
 trackfldnz      // (c) 1982 Goldberg Enterprizes Inc.
 hyprolym        // GX361 (c) 1983
 hyprolymb       // bootleg
+hyprolymba		// bootleg
 atlantol        // bootleg
 wizzquiz        // (c) 1985 Konami
 wizzquiza       // (c) 1985 Zilec-Zenitone
@@ -9323,7 +9419,8 @@ spacecho        // bootleg
 spacecho2       // bootleg
 route16         // (c) 1981 Tehkan/Sun + Centuri license
 route16a        // (c) 1981 Tehkan/Sun + Centuri license
-route16b        // bootleg
+route16c        // (c) 1981 Tehkan/Sun + Centuri license
+route16bl       // bootleg
 routex          // bootleg
 ttmahjng        // Taito
 fnkyfish        // (c) 1981 Sun Electronics
@@ -32224,4 +32321,6 @@ fidlstix
 jackbean
 dumpump
 3lilpigs
+
+wackygtr   // Wacky Gator
 
