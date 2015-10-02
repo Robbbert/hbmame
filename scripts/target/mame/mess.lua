@@ -693,7 +693,6 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"bnpo",
 		"bondwell",
 		"booth",
-		"byte",
 		"camputers",
 		"canon",
 		"cantab",
@@ -1224,11 +1223,6 @@ files {
 createMESSProjects(_target, _subtarget, "booth")
 files {
 	MAME_DIR .. "src/mame/drivers/apexc.c",
-}
-
-createMESSProjects(_target, _subtarget, "byte")
-files {
-	MAME_DIR .. "src/mame/drivers/zapcomputer.c",
 }
 
 createMESSProjects(_target, _subtarget, "camputers")
@@ -2449,6 +2443,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/savia84.c",
 	MAME_DIR .. "src/mame/drivers/selz80.c",
 	MAME_DIR .. "src/mame/drivers/tk80.c",
+	MAME_DIR .. "src/mame/drivers/zapcomputer.c",
 }
 
 createMESSProjects(_target, _subtarget, "trs")
@@ -2711,11 +2706,13 @@ files {
 	MAME_DIR .. "src/mame/drivers/plan80.c",
 	MAME_DIR .. "src/mame/drivers/pm68k.c",
 	MAME_DIR .. "src/mame/drivers/poly.c",
+	MAME_DIR .. "src/mame/drivers/proteus3.c",
 	MAME_DIR .. "src/mame/drivers/pt68k4.c",
 	MAME_DIR .. "src/mame/drivers/ptcsol.c",
 	MAME_DIR .. "src/mame/drivers/pulsar.c",
 	MAME_DIR .. "src/mame/drivers/pv9234.c",
 	MAME_DIR .. "src/mame/drivers/qtsbc.c",
+	MAME_DIR .. "src/mame/drivers/rd100.c",
 	MAME_DIR .. "src/mame/drivers/rvoice.c",
 	MAME_DIR .. "src/mame/drivers/sacstate.c",
 	MAME_DIR .. "src/mame/drivers/sbrain.c",
