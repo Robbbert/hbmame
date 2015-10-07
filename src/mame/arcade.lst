@@ -193,8 +193,8 @@ phoenxp2        // bootleg
 atlantisb       // bootleg
 tenspot         // (c) 1982 Thomas Automatics
 devilfsg        // (c) 1984 Vision / Artic (bootleg?)
-zigzag          // (c) 1982 LAX
-zigzag2         // (c) 1982 LAX
+zigzagb         // (c) 1982 LAX (bootleg)
+zigzagb2        // (c) 1982 LAX (bootleg)
 jumpbug         // (c) 1981 Rock-ola
 jumpbugb        // (c) 1981 Sega
 levers          // (c) 1983 Rock-ola
@@ -1858,6 +1858,7 @@ cosmccop        // (c) 1991 (World)
 gallop          // (c) 1991 (Japan)
 ltswords        // (c) 1991 (World)
 kengo           // (c) 1991 (Japan)
+kengoa			// (c) 1991 (Japan)
 // not M72, but same sound hardware
 sichuan2        // (c) 1989 Tamtex
 sichuan2a       // (c) 1989 Tamtex
@@ -6932,6 +6933,8 @@ popn6           // GQA16 (c) 2001 (Japan)
 popn7           // GCB00 (c) 2001 (Japan)
 popnanm2        // GEA02 (c) 2001 (Japan)
 popn8           // GQB30 (c) 2002 (Japan)
+bm3core         // GCA05 (c) 2000 (Japan)
+bm36th          // GCA21 (c) 2001 (Japan)
 bm37th          // GCB07 (c) 2002 (Japan JCA)
 bm3final        // GCC01 (c) 2003 (Japan JCA)
 
