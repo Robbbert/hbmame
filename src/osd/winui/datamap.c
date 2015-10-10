@@ -108,7 +108,7 @@ static char *tztrim(float float_value);
 datamap *datamap_create(void)
 {
 	datamap *map = (datamap *)malloc(sizeof(*map));
-	
+
 	if (!map)
 		return NULL;
 
