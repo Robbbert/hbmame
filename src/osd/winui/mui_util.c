@@ -301,8 +301,9 @@ const char * GetDriverFilename(int nIndex)
 {
 	static char tmp[40];
 	std::string driver;
-	core_filename_extract_base(driver, driver_list::driver(nIndex).source_file, TRUE);
-	sprintf(tmp, "%s.c", driver.c_str());
+
+	core_filename_extract_base(driver, driver_list::driver(nIndex).source_file, FALSE);
+	strcpy(tmp, driver.c_str());
 	return tmp;
 }
 

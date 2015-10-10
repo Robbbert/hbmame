@@ -34,10 +34,6 @@
 #define snprintf _snprintf
 #endif
 
-#undef malloc
-#undef realloc
-#undef free
-
 //============================================================
 //  TYPE DEFINITIONS
 //============================================================
@@ -83,9 +79,7 @@ struct _datamap_entry
 struct _datamap
 {
 	int entry_count;
-	int entry_size;
-	// mamefx: dynamic allocation
-	datamap_entry *entries;
+	datamap_entry entries[256];	// 256 options entries seems enough for now...
 };
 
 typedef void (*datamap_default_callback)(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name);
@@ -114,12 +108,11 @@ static char *tztrim(float float_value);
 datamap *datamap_create(void)
 {
 	datamap *map = (datamap *)malloc(sizeof(*map));
+	
 	if (!map)
 		return NULL;
 
 	map->entry_count = 0;
-	map->entry_size = 0;
-	map->entries = NULL;
 	return map;
 }
 
@@ -131,11 +124,6 @@ datamap *datamap_create(void)
 
 void datamap_free(datamap *map)
 {
-	if (map->entries)
-	{
-		free(map->entries);
-		map->entries = NULL;
-	}
 	free(map);
 }
 
@@ -148,17 +136,7 @@ void datamap_free(datamap *map)
 void datamap_add(datamap *map, int dlgitem, datamap_entry_type type, const char *option_name)
 {
 	// sanity check for too many entries
-	if (map->entry_count == map->entry_size)
-	{
-		map->entry_size += 32;
-
-		if (map->entries)
-			map->entries = (datamap_entry *)realloc(map->entries, map->entry_size * sizeof (*map->entries));
-		else
-			map->entries = (datamap_entry *)malloc(map->entry_size * sizeof (*map->entries));
-
-		assert (map->entries);
-	}
+	assert(map->entry_count < ARRAY_LENGTH(map->entries));
 
 	// add entry to the datamap
 	memset(&map->entries[map->entry_count], 0, sizeof(map->entries[map->entry_count]));

@@ -537,7 +537,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		t_description = tstring_from_utf8(ModifyThe(driver_list::driver(g_nGame).description));
 		break;
 	case OPTIONS_SOURCE:
-		t_description = tstring_from_utf8(GetFolderNameByID(g_nFolder));
+		t_description = tstring_from_utf8(GetDriverFilename(g_nGame));
 		break;
 	case OPTIONS_GLOBAL:
 		t_description = tstring_from_utf8("Default Settings");

@@ -106,7 +106,7 @@ winui_options & MameUISettings(void);
 windows_options & MameUIGlobal(void);
 
 void LoadFolderFlags(void);
-const char* GetFolderNameByID(UINT nID);
+//const char* GetFolderNameByID(UINT nID); // not used
 
 void SaveOptions(void);
 void SaveDefaultOptions(void);
