@@ -15,6 +15,36 @@ ROM_START( evilstonfr )
 	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
 ROM_END
 
+ROM_START( sokoban )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sokoban.ic10",      0x00000, 0x10000, CRC(5959ddb4) SHA1(73f206e19cdfd151426092aa3eea6f72093f360b) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD16_BYTE( "sokoban.ic9", 0x00000, 0x10000, CRC(859e1ff4) SHA1(899b71bd0eb9923e88cf7142ed634b36b3e34c6c) )
+	ROM_LOAD16_BYTE( "sokoban.ic8", 0x00001, 0x10000, CRC(439a6670) SHA1(79144e3ba5205f5356f28d3b23ef32d3d4fca51c) )
+
+	// came with the zipfile but not used
+	ROM_REGION( 0x0200, "plds", 0 )
+	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
+ROM_END
+
+ROM_START( speccies )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "speccies.ic10",     0x00000, 0x55e9, CRC(29e126ac) SHA1(1e3e1379f964e0967d6ea5ef6a84741319b5108f) )
+
+	// came with the zipfile but not used
+	ROM_REGION( 0x0800, "mcu", 0 )
+	ROM_LOAD_OPTIONAL( "mc68705p3.ic4", 0x0000, 0x0800, CRC(085f68b4) SHA1(2dbc7e2c015220dc59ee1f1208540744e5b9b7cc) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD16_BYTE( "speccies.ic9", 0x00000, 0x10000, CRC(11ed1528) SHA1(55f0b63bcbbbe4ad4d1041dca980b55ccb7a7aea) )
+	ROM_LOAD16_BYTE( "speccies.ic8", 0x00001, 0x10000, CRC(fcfeb89f) SHA1(fc0e811c72313b371d3a6530b27f9023ff201e31) )
+
+	// came with the zipfile but not used
+	ROM_REGION( 0x0200, "plds", 0 )
+	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
+ROM_END
+
 ROM_START( tldemo )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tldemo.ic10",   0x00000, 0x56a4, CRC(fda3d418) SHA1(e0171cc1c035d1f800702c3766825b63f6acd291) )
@@ -36,5 +66,7 @@ ROM_START( tldemo2 )
 ROM_END
 
 GAME( 2007, evilstonfr,  evilston, evilston,  evilston, driver_device, 0, ROT270, "Arkatrad", "Evil Stone (French)", MACHINE_IMPERFECT_SOUND )
+GAME( 2015, sokoban,     0,        plotting,  plotting, driver_device, 0, ROT0,   "cmonkey", "Sokoban LE", 0 )
+GAME( 2015, speccies,    0,        plotting,  plotting, driver_device, 0, ROT0,   "Sokurah", "Speccies 2", 0 )
 GAME( 2014, tldemo,      0,        plotting,  plotting, driver_device, 0, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
 GAME( 2015, tldemo2,     0,        plotting,  plotting, driver_device, 0, ROT0,   "cmonkey", "Demo - 256 colours", 0 )

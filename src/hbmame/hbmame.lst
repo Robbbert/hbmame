@@ -988,18 +988,22 @@ newdigdo	/* Vic 20 George and Jerky hack of... */
 stickydo	/* Marck's Hacks */
 
 	/* mslug */
-mslug
-mslug2		/* 0241 (c) 1998 SNK */
-mslugx		/* 0250 (c) 1999 SNK */
-mslug3		/* 0256 (c) 2000 SNK */
-mslug4		/* 0263 (c) 2002 Mega Enterprise */
-mslug5		/* 0268 (c) 2003 Playmore */
+mslug		// parent
+mslug2		// parent
+mslugx		// parent
+mslug3		// parent
+mslug4		// parent
+mslug5		// parent
 
 mslugeh
 mslugxfr
 mslugxfro
 mslugxit
+mslugxeb
 mslugxeh
+mslugxhp
+mslugxr
+
 mslug2eh
 mslug2eh1
 mslug2eh2
@@ -1008,6 +1012,7 @@ mslug2eh4
 mslug2fr
 mslug2fro
 mslug2t		// 2015 trap15 - remove slowdowns that plague gameplay
+
 mslug3d
 mslug3eha
 mslug3ehs
@@ -1032,11 +1037,13 @@ mslug3e19
 mslug3e20
 mslug3e21
 mslug3e22
+mslug3eb
 mslug3fr
 mslug3fro
 mslug3kh
 mslug3kho
 mslug3v		/* EEZEZY Violence Edition */
+
 mslug4d
 mslug4dh	/* Super D version */
 mslug4eh
@@ -1049,6 +1056,7 @@ mslug4eho
 mslug4fr
 mslug4i
 mslug4kh
+
 mslug5d
 mslug5fr
 
@@ -1251,7 +1259,10 @@ b2b		// 071 Bang Bang Busters
 fr2		// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
+zintrckb	// parent
 zintrkcd	/* 211 (c) 1996 ADK / SNK */
+zintrkcd1
+zintrkm
 totc		// 316 Treasure of the Caribbean
 beast		/* 2002 (c) 1989 Psygnosis */
 cndi		/* Chip n Dale Intro */
@@ -1846,6 +1857,8 @@ pbobl2xh
 	/* taito_l.c */
 evilston	//parent
 evilstonfr	// French
+sokoban		// Sokoban LE by cmonkey
+speccies	// Speccies 2 by Sokurah
 tldemo		// cmonkey
 tldemo2		// cmonkey
 
