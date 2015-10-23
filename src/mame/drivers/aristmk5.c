@@ -648,7 +648,7 @@ ROM_START( margmgc )
 	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
 ROM_END
 
-ROM_START( adonis )
+ROM_START( adonis )	// NSW/ACT 602/9 revision 10
 	ROM_REGION( 0x400000, "game_prg", ROMREGION_ERASEFF )
 	ROM_LOAD32_WORD( "0200751v.u7",  0x000000, 0x80000, CRC(ab386ab0) SHA1(56c5baea4272866a9fe18bdc371a49f155251f86) )
 	ROM_LOAD32_WORD( "0200751v.u11", 0x000002, 0x80000, CRC(ce8c8449) SHA1(9894f0286f27147dcc437e4406870fe695a6f61a) )
@@ -660,6 +660,34 @@ ROM_START( adonis )
 	ROM_REGION( 0x200000, "vram", ROMREGION_ERASE00 )
 
 	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x0005, "plds", 0 )
+	ROM_LOAD( "gal20v8b.u22", 0x0000, 0x0001, NO_DUMP ) /* 28-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal16v8d.u23", 0x0000, 0x0001, NO_DUMP ) /* 20-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal16v8d.u24", 0x0000, 0x0001, NO_DUMP ) /* 20-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal20v8b.u36", 0x0000, 0x0001, NO_DUMP ) /* 28-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal20v8b.u65", 0x0000, 0x0001, NO_DUMP ) /* 28-Lead PLCC package. Unable to read */
+ROM_END
+
+ROM_START( adonisa )	// NSW/ACT 602/9 revision 9
+	ROM_REGION( 0x400000, "game_prg", ROMREGION_ERASEFF )
+	ROM_LOAD32_WORD( "0100751v.u7",  0x000000, 0x80000, CRC(ca3e97db) SHA1(bd0a4402e57891899d92ea85a87fb8925a44f706) )
+	ROM_LOAD32_WORD( "0100751v.u11", 0x000002, 0x80000, CRC(cfe3f792) SHA1(aa1bf77101404c2018a5e5b808f1d683e29ae942) )
+	ROM_LOAD32_WORD( "0100751v.u8",  0x100000, 0x80000, CRC(d55204bd) SHA1(208c089d435ea4af25d0b9b3d5e79fea397bc885) )
+	ROM_LOAD32_WORD( "0100751v.u12", 0x100002, 0x80000, CRC(77090858) SHA1(76ebc15b26f378ac95276f0aa26d077e3646a6f1) )
+
+	ROM_REGION( 0x800000, "maincpu", ROMREGION_ERASE00 ) /* ARM Code */
+
+	ROM_REGION( 0x200000, "vram", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x0005, "plds", 0 )
+	ROM_LOAD( "gal20v8b.u22", 0x0000, 0x0001, NO_DUMP ) /* 28-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal16v8d.u23", 0x0000, 0x0001, NO_DUMP ) /* 20-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal16v8d.u24", 0x0000, 0x0001, NO_DUMP ) /* 20-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal20v8b.u36", 0x0000, 0x0001, NO_DUMP ) /* 28-Lead PLCC package. Unable to read */
+	ROM_LOAD( "gal20v8b.u65", 0x0000, 0x0001, NO_DUMP ) /* 28-Lead PLCC package. Unable to read */
 ROM_END
 
 ROM_START( wtiger )
@@ -749,6 +777,7 @@ GAME( 1997, goldprmd, aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5
 GAME( 1997, qotn,     0,        aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Queen of the Nile (0200439V, NSW/ACT)",                MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 602/4,  B - 13/05/97
 GAME( 1997, dmdtouch, 0,        aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Diamond Touch (0400433V, Local)",                      MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 604,    E - 30/06/97
 GAME( 1998, adonis,   0,        aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Adonis (0200751V, NSW/ACT)",                           MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 602/9,  A - 25/05/98
+GAME( 1998, adonisa,  adonis,   aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Adonis (0100751V, NSW/ACT)",                           MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 602/9,  A - 25/05/98
 GAME( 1998, reelrock, 0,        aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Reelin-n-Rockin (0100779V, Local)",                    MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 628,    A - 13/07/98
 GAME( 1998, indiandr, 0,        aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Indian Dreaming (0100845V, Local)",                    MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 628/1,  B - 15/12/98
 GAME( 1999, wtiger,   0,        aristmk5, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "White Tiger Classic (0200954V, NSW/ACT)",              MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 638/1,  B - 08/07/99

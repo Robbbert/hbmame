@@ -1229,6 +1229,7 @@ files {
 createMESSProjects(_target, _subtarget, "camputers")
 files {
 	MAME_DIR .. "src/mame/drivers/camplynx.c",
+	MAME_DIR .. "src/lib/formats/camplynx_dsk.c",
 }
 
 createMESSProjects(_target, _subtarget, "canon")
@@ -2722,6 +2723,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/softbox.c",
 	MAME_DIR .. "src/mame/drivers/squale.c",
 	MAME_DIR .. "src/mame/drivers/swtpc.c",
+	MAME_DIR .. "src/mame/drivers/swyft.c",
 	MAME_DIR .. "src/mame/drivers/sys2900.c",
 	MAME_DIR .. "src/mame/drivers/systec.c",
 	MAME_DIR .. "src/mame/drivers/tavernie.c",
