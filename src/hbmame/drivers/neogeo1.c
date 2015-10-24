@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+NOT IN USE
 
 DRIVER_INIT_MEMBER( neogeo_state, gfxdec42 )
 {
@@ -4165,6 +4166,7 @@ GAME( 2002, rotdfy,    rotd,     neogeo_noslot,   neogeo,  neogeo_state, rotdb, 
 GAME( 2002, rotdyc,    rotd,     neogeo_noslot,   neogeo,  neogeo_state, rotdb,    ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
 
 GAME( 1999, s1945pwe,  s1945p,   neogeo_noslot,   neogeo,  neogeo_state, s1945p,   ROT0, "Wesker","Strikers 1945 Plus (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, s1945pa,  s1945p,   neogeo_noslot,   neogeo,  neogeo_state, s1945p,   ROT0, "Wesker","Strikers 1945 Plus (Hack)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1993, samshob,   samsho,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Ydmis", "Samurai Shodown (Add Char)", MACHINE_SUPPORTS_SAVE ) // Amakusa
 GAME( 1993, samshoeh,  samsho,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Ydmis", "Samurai Shodown (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // Amakusa

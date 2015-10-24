@@ -368,7 +368,8 @@ videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 
 	/* gauntlet.c */
-gaunt2		/* 136043           (c) 1986 */
+gaunt2		// parent
+gaunt2ls	// Orange Elf - new levels
 gaunt2s		/* Speed Hack */
 
 	/* gottlieb.c */
@@ -1059,6 +1060,8 @@ mslug4kh
 
 mslug5d
 mslug5fr
+mslug5l9a
+mslug5l9b
 
 	/* mspacman.c */
 mspacman	/* (c) 1981 Midway */ /* made by Gencomp */
