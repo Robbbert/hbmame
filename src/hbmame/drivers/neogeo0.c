@@ -50,3 +50,6 @@
 //#include "kof2003.c"
 //#include "mslug.c"
 #include "mgd2.c"
+//#include "ngmamep.c"
+#include "ngextra.c"
+

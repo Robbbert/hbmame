@@ -594,4 +594,4 @@ ROM_START( schasrcv )
 	ROM_LOAD( "10",           0x4400, 0x0400, CRC(037edb99) SHA1(f2fc5e61f962666e7f6bb81753ac24ea0b97e581) )
 ROM_END
 
-GAME( 1979, schasrcv, 0, schasercv, schasercv, driver_device, 0, ROT270, "Taito", "Space Chaser (CV version)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS )
+GAME( 1979, schasrcv, 0, schasercv, schasercv, driver_device, 0, ROT270, "Taito", "Space Chaser (CV version)(Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS )

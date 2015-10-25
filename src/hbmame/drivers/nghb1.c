@@ -4125,7 +4125,7 @@ GAME( 1999, garoupfp,  garoupy,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 
 GAME( 1996, ironcladb, ironclad, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Saurus", "Ironclad (conversion from Wii)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2007, joyjoycd,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Puzzled (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, joyjoycd,  joyjoy,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Puzzled (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, kabukleh,  kabukikl, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Far East of Eden - Kabuki Klash (Add Char)", MACHINE_SUPPORTS_SAVE ) // Manto, Karakuri, Jyashinsai and Lucifeller
 GAME( 1995, kabuklyc,  kabukikl, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami and Ydmis","Far East of Eden - Kabuki Klash (Add Char - Magic always max)", MACHINE_SUPPORTS_SAVE ) // Manto, Karakuri, Jyashinsai and Lucifeller - Based on kabukleh

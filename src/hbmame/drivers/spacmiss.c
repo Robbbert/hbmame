@@ -481,4 +481,4 @@ ROM_START( spacmiss )
 	ROM_LOAD( "8",       0x0000, 0x0800, CRC(942e5261) SHA1(e8af51d644eab4e7b31c14dc66bb036ad8940c42) ) // ?
 ROM_END
 
-GAMEL(1980?,spacmiss, 0, spacmiss, spacmiss, driver_device, 0, ROT270, "bootleg?", "Space Missile - Space Fighting Game", MACHINE_SUPPORTS_SAVE, layout_galactic )
+GAMEL(1980?,spacmiss, 0, spacmiss, spacmiss, driver_device, 0, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_galactic )
