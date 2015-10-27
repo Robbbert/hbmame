@@ -4501,6 +4501,7 @@ wboyub          // bootleg of wboyu
 wbdeluxe        // (c) 1986 + Escape license (S1)
 wboysys2        // 834-5984  (c) 1986 + Escape license (S1)
 gardia          // 834-6119 (S2?)
+gardiaj			//
 gardiab         // bootleg
 nob             // (c) Data East
 nobb            // bootleg
@@ -5336,6 +5337,7 @@ tfrceacj        // (c) 1990 Sega / Technosoft
 tfrceacb        // bootleg
 twinsqua        // (c) 1991 Sega
 soniccar        // (c) 1991 Sega
+sonicpop
 ribbit          // (c) 1991 Sega
 tantr           // (c) 1992 Sega
 tantrkor        // (c) 1992 Sega
@@ -12052,21 +12054,31 @@ coralr2         // (c) 2002
 aristmk5        // (c) 1995, USA platform set chips
 swthrt2v        // (c) 1995
 enchfrst        // (c) 1995
+minemine        // (c) 1996
 dolphntr        // (c) 1996
 dolphtra        // (c) 1996
 dolphtre        // (c) 1996
-dmdtouch        // (c) 1997
+cashcham        // (c) 1996
 goldprmd        // (c) 1997
 qotn            // (c) 1997
+dmdtouch        // (c) 1997
+wldcougr        // (c) 1997
+bumblbug        // (c) 1997
+pengpays        // (c) 1997
 adonis          // (c) 1998
 adonisa         // (c) 1998
 reelrock        // (c) 1998
 indiandr        // (c) 1998
+chariotc        // (c) 1998
+wtiger          // (c) 1999
+bootsctn        // (c) 1999
 cuckoo          // (c) 2000
 magicmsk        // (c) 2000
+magicmska       // (c) 2000
 margmgc         // (c) 2000
 geishanz        // (c) 2001
-wtiger          // (c) 2001
+adonise         // (c) 2001
+partygrs        // (c) 2001
 
 // Aristocrat Mk6 hardware
 aristmk6
@@ -13182,6 +13194,7 @@ tmspoker
 kas89           // 1989, SFC S.R.L.
 caspoker        // 1987, PM / Beck Elektronik.
 wildpkr         // 199?, TAB Austria.
+subhuntr		// 1979 Model Racing
 
 manohman        // 199?, Merkur.
 
