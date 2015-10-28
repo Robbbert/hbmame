@@ -5430,18 +5430,18 @@ ROM_START( pbobblcd ) /* NGCD CONVERSION */
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "083-p1ch.p1", 0x000000, 0x040000, CRC(b1095646) SHA1(20fa2bc724df4b5234ff0ccf3074e545f28d1bbd) )
 
-	NEO_SFIX_128K( "d96-04.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) ) /* mask rom TC531000 */
+	NEO_SFIX_128K( "d96-04.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) )
 
 	NEO_BIOS_AUDIO_64K( "083-m1ch.m1", CRC(c505fcdb) SHA1(2b3e10e1475c7c1425b382be30c765e455c5bbc6) )
 
+	// these do nothing
 	ROM_REGION( 0x380000, "ymsnd", 0 )
-	/* 0x000000-0x1fffff empty */
 	ROM_LOAD( "083-v3ch.v3", 0x200000, 0x100000, CRC(30ce579e) SHA1(635f7ab2178981ba38cc0080f4f97e954e552440) )
-	ROM_LOAD( "d96-05.v4", 0x300000, 0x080000, CRC(0a548948) SHA1(e1e4afd17811cb60401c14fbcf0465035165f4fb) ) /* mask rom TC534200 */
+	ROM_LOAD( "d96-05.v4", 0x300000, 0x080000, CRC(0a548948) SHA1(e1e4afd17811cb60401c14fbcf0465035165f4fb) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "d96-02.c5", 0x000000, 0x80000, CRC(e89ad494) SHA1(69c9ea415773af94ac44c48af05d55ada222b138) ) /* Plane 0,1 */ /* mask rom TC534200 */
-	ROM_LOAD16_BYTE( "d96-03.c6", 0x000001, 0x80000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) ) /* Plane 2,3 */ /* mask rom TC534200 */
+	ROM_LOAD16_BYTE( "d96-02.c5", 0x000000, 0x80000, CRC(e89ad494) SHA1(69c9ea415773af94ac44c48af05d55ada222b138) )
+	ROM_LOAD16_BYTE( "d96-03.c6", 0x000001, 0x80000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
 ROM_END
 
 ROM_START( lasthpcd )
@@ -6723,7 +6723,7 @@ GAME( 1991, gpilotcd,   gpilots,  neogeo_noslot,   neogeo, neogeo_state,        
 GAME( 1990, joyjoycd_d,   joyjoy,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Puzzled / Joy Joy Kid (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, 2020bbcd,   2020bb,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "2020 Super Baseball (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1994, strhopcd,   strhoop,  neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Street Hoop / Street Slam / Dunk Dream (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, pbobblcd,   pbobblen, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (Neo-Geo)(NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pbobblcd,   pbobblen, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (Neo-Geo)(NGCD Conversion)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 ///GAME( 1995, fr2ch,      neogeo,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Idol Mahjong - final romance 2 (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1996, zintrkcd,   zintrckb, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Zintrick / Oshidashi Zentrix (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lasthpcd,   lhcdb,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "NG:Dev.Team", "Last Hope (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
