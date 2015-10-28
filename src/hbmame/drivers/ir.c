@@ -543,4 +543,4 @@ ROM_START( invrvnge )
 	ROM_LOAD( "colour.bin",  0x0000, 0x0800, CRC(7de74988) SHA1(0b8c94b2bfdbc3921d60aad765df8af611f3fdd7) )
 ROM_END
 
-GAME( 1980?,invrvnge, 0, ir, ir, driver_device, 0, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980?,invrvnge, 0, ir, ir, driver_device, 0, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )

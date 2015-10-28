@@ -4254,7 +4254,7 @@ GAME( 2001, senku3ha,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0
 GAME( 2001, senku3yk,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE ) // Byakki and Okuni
 GAME( 2001, senku3ya,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE ) // Byakki and Okuni
 
-GAME( 1998, shockt2w,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Wesker","Shock Troopers - 2nd Squad (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, shockt2w,  shocktr2, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Wesker","Shock Troopers - 2nd Squad (Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, strhoopcd, strhoop,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Data East Corporation", "Street Hoop (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2007, tpgolfcd,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )

@@ -6726,7 +6726,7 @@ GAME( 1991, 2020bbcd,   2020bb,   neogeo_noslot,   neogeo, neogeo_state,        
 GAME( 1994, pbobblcd,   pbobblen, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (Neo-Geo)(NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1995, fr2ch,      neogeo,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Idol Mahjong - final romance 2 (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1996, zintrkcd,   zintrckb, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "bootleg", "Zintrick / Oshidashi Zentrix (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lasthpcd,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "NG:Dev.Team", "Last Hope (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, lasthpcd,   lhcdb,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "NG:Dev.Team", "Last Hope (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 
 /* AES Conversion */
 ///GAME( 2007, lhcdb,      neogeo,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "NG:Dev.Team", "Last Hope (AES Beta Conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

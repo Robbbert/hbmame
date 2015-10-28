@@ -1,4 +1,5 @@
 // license:BSD-3-Clause
+// license:BSD-3-Clause
 // copyright-holders:Robbbert
 /******************************************************************************
 
@@ -75,22 +76,16 @@ bublbobl	/* A78 (c) 1986 Taito Corporation */
 bbaladar	/* Aladar Bootleg */
 bb2bmh		/* Overclocked Bubblebobble Memories Hack */
 bbhackv1 	/* OVerclocked Level Hack */ 
-bbredux		/* Punji - Bubble Bobble Redux */
 bbredux1	/* Punji - Bubble Bobble Redux with Level Skip */
 bbredux2	/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3	/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
 bublbobf 	/* Arkatrad */ 
-bublcave
-bublcave10
-bublcave11
 sboblboblh 	/* level select hack */ 
 
 	/* bwidow.c */
 spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
 
 	/* cave.c */
-ddonpach
-ddonpacha
 pwrinst2
 pwrinst2h	/* 2013 Hack by TT */
 
@@ -1691,14 +1686,7 @@ kov2p
 pgemeni		/* Blastar */
 pgmdemo		/* Charles Doty */
 pgmfrog		/* Rastersoft */
-ketarr		/* trap15 */
 ketarrb
-ketarrf
-ketarr15
-ketarrs15
-ketarr151
-ketarrs151
-ketarr17
 orlegend	//parent
 orlegendcs
 orlegendh
