@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:
+// copyright-holders:David Haywood
 #ifndef __VCS_DPCPLUS_H
 #define __VCS_DPCPLUS_H
 
@@ -24,6 +24,14 @@ public:
 	virtual DECLARE_READ8_MEMBER(read_rom);
 	virtual DECLARE_WRITE8_MEMBER(write_bank);
 
+	DECLARE_READ32_MEMBER(armrom_r);
+	DECLARE_WRITE32_MEMBER(armrom_w);
+	
+	DECLARE_READ8_MEMBER(read8_r);
+
+	DECLARE_READ32_MEMBER(arm_E01FC088_r);
+
+	void check_bankswitch(offs_t offset);
 
 protected:
 };
