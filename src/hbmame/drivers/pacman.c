@@ -91,7 +91,7 @@ WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
 
 INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 {
-	UINT8 cheat_exist = ioport("FAKE")->read_safe(120);
+	UINT8 cheat_exist = read_safe(ioport("FAKE"),120);
 
 	/* always signal a normal VBLANK */
 	if(m_irq_mask)
