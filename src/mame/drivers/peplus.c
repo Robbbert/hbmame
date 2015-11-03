@@ -176,6 +176,16 @@ NOTE:  The Door Open cycling is currently not fully understood. Non Plus program
        expect the Door Open bit to cycle. Later versions, Superboard & Wingboards require the Door Open cycling but
        at different rates. It's currently not know what if any universal value will work for all sets.
 
+A Note about Best Bet Products.
+  Best Bet Products holds 2 US patents (5,882,259 & 5,957,774) which covers the mid hand dealt bonus payout.
+  Games that feature the dealt bonus include (but not limited to):
+   Barbaric Deuces Wild (AKA Dealt Deuces Wild Bonus Poker), Blackjack Poker, Double Bonus Poker with Three Aces,
+   Double Double Bonus Poker with Three Aces, Faces 'n' Deuces, Joker's Revenge, No Faces Pay the Aces, Platinum
+   Deuces, "Your Property" Royals, Four to a Royal Flush, One Eyed Jacks, Queens Follow Kings, Bonus Poker with 7's,
+   Double Bonus Poker with 7's, Looney Twos, Hopscotch Poker, FreeBee Poker, Royal Boat Launch, Mega Royals, Stop
+   Sign Poker, Curved Straight, Relay Pair, Best Bet Royals, Double Action Pairs, Red Coats are Coming, Waden n'
+   Jokers and Million Coin Poker.
+
 ***********************************************************************************/
 
 #include "emu.h"
@@ -5781,7 +5791,7 @@ ROM_START( peke0017 ) /* Normal board : Keno 1-10 Spot (KE0017) */
 	ROM_LOAD( "cap1016.u50", 0x0000, 0x0100, CRC(12e1be25) SHA1(501487bc729eb80fcf9e61705d3546de5e0d7cde) )
 ROM_END
 
-ROM_START( peke1006 ) /* Normal board : Keno 1-10 Spot (KE1006) - Payout 87.61%, Paytable 87-C */
+ROM_START( peke1006 ) /* Normal board : Keno 2-10 Spot (KE1006) - Payout 87.61%, Paytable 87-C */
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "ke1006_590-a77.u68",   0x00000, 0x10000, CRC(5f2a9aac) SHA1(67d24e376d0dcea30d68c3019919e02261c38d7d) ) /* Game Version: 590, Library Version: A77 */
 
@@ -9204,19 +9214,21 @@ PayTable   Js+ 2PR  STR  FL  FH  4K  SF  4K  4K  4A  4K   4K   4A  RF (Bonus)
 	ROM_LOAD( "capx1321.u43", 0x0000, 0x0200, CRC(4b57569f) SHA1(fa29c0f627e7ce79951ec6dadec114864144f37d) )
 ROM_END
 
-ROM_START( pex2283p ) /* Superboard : Dealt Deuces Wild Bonus (X002283P+XP000057) */
+ROM_START( pex2283p ) /* Superboard : Barbaric Deuces Wild / Dealt Deuces Wild Bonus Poker (X002283P+XP000057) */
 /*
                                    w/D 6-K 3-5         w/A w/oD
 PayTable   3K  STR  FL  FH  4K  SF  RF  5K  5K  5A  4D  4D  RF  (Bonus)
 -----------------------------------------------------------------------
-  ????      1   1    3   3   4  10  25  20  40  80 200 400 250    800
-  % Range: 94.6-96.6%  Optimum: 98.6%  Hit Frequency: ??.?%
+  P886A     1   1    3   3   4  10  25  20  40  80 200 400 250    800
+  % Range: 94.6-96.6%  Optimum: 98.6%  Hit Frequency: 44.8%
      Programs Available: X002283P
 
-Bonus "Dealt" payouts at MAX BET are:
- Dealt 3 Deuces .....   15
- Dealt 4 Deuces ..... 1500
- Dealt 4 Deuces + Ace 8000
+Bonus "Dealt" payouts per Coin In are:
+ Dealt 3 Deuces .....    3
+ Dealt 4 Deuces .....  300
+ Dealt 4 Deuces + Ace 1600
+
+Belly glass could be ordered as either Barbaric Deuces Wild or Dealt Deuces Wild Bonus Poker
 
 Designed and co-created by Best Bet Products
 
@@ -9225,7 +9237,7 @@ Designed and co-created by Best Bet Products
 	ROM_LOAD( "xp000057.u67",   0x00000, 0x10000, CRC(a1186020) SHA1(d42823aac1cb16521ecc0a09cba694374642cff7) )
 
 	ROM_REGION( 0x10000, "user1", 0 )
-	ROM_LOAD( "x002283p.u66",   0x00000, 0x10000, CRC(90f7f7b3) SHA1(0c8460391303ed16f20c41472840d798950bb2c0) ) /* Dealt Deuces Wild Bonus */
+	ROM_LOAD( "x002283p.u66",   0x00000, 0x10000, CRC(90f7f7b3) SHA1(0c8460391303ed16f20c41472840d798950bb2c0) ) /* Barbaric Deuces Wild / Dealt Deuces Wild Bonus Poker */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
 	ROM_LOAD( "mro-cg2325.u77",  0x00000, 0x8000, CRC(ae53d1f6) SHA1(bf28b8f784d6683bb352944b88d0b646d7313efd) )
@@ -9238,19 +9250,21 @@ Designed and co-created by Best Bet Products
 	ROM_LOAD( "capx1321.u43", 0x0000, 0x0200, CRC(4b57569f) SHA1(fa29c0f627e7ce79951ec6dadec114864144f37d) ) /* Wrong!! Should be CAPX2325 */
 ROM_END
 
-ROM_START( pex2284p ) /* Superboard : Barbaric Decues Wild Bonus (X002284P+XP000057) */
+ROM_START( pex2284p ) /* Superboard : Barbaric Deuces Wild / Dealt Deuces Wild Bonus Poker (X002284P+XP000057) */
 /*
                                    w/D 6-K 3-5         w/A w/oD
 PayTable   3K  STR  FL  FH  4K  SF  RF  5K  5K  5A  4D  4D  RF  (Bonus)
 -----------------------------------------------------------------------
-  ????      1   1    2   3   4  12  25  20  40  80 200 400 250    800
-  % Range: 93.5-95.5%  Optimum: 97.5%  Hit Frequency: ??.?%
+  P885A     1   1    2   3   4  12  25  20  40  80 200 400 250    800
+  % Range: 93.5-95.5%  Optimum: 97.5%  Hit Frequency: 45.1%
      Programs Available: X002284P
 
-Bonus "Dealt" payouts at MAX BET are:
- Dealt 3 Deuces .....   15
- Dealt 4 Deuces ..... 1500
- Dealt 4 Deuces + Ace 8000
+Bonus "Dealt" payouts per Coin In are:
+ Dealt 3 Deuces .....    3
+ Dealt 4 Deuces .....  300
+ Dealt 4 Deuces + Ace 1600
+
+Belly glass could be ordered as either Barbaric Deuces Wild or Dealt Deuces Wild Bonus Poker
 
 Designed and co-created by Best Bet Products
 
@@ -9259,7 +9273,7 @@ Designed and co-created by Best Bet Products
 	ROM_LOAD( "xp000057.u67",   0x00000, 0x10000, CRC(a1186020) SHA1(d42823aac1cb16521ecc0a09cba694374642cff7) )
 
 	ROM_REGION( 0x10000, "user1", 0 )
-	ROM_LOAD( "x002284p.u66",   0x00000, 0x10000, CRC(2a3cb2a9) SHA1(76bfbf9a25913604454142716e1433ec73f0f0c9) ) /* Barbaric Decues Wild Bonus */
+	ROM_LOAD( "x002284p.u66",   0x00000, 0x10000, CRC(2a3cb2a9) SHA1(76bfbf9a25913604454142716e1433ec73f0f0c9) ) /* Barbaric Deuces Wild / Dealt Deuces Wild Bonus Poker */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
 	ROM_LOAD( "mro-cg2325.u77",  0x00000, 0x8000, CRC(ae53d1f6) SHA1(bf28b8f784d6683bb352944b88d0b646d7313efd) )
@@ -9272,17 +9286,17 @@ Designed and co-created by Best Bet Products
 	ROM_LOAD( "capx1321.u43", 0x0000, 0x0200, CRC(4b57569f) SHA1(fa29c0f627e7ce79951ec6dadec114864144f37d) ) /* Wrong!! Should be CAPX2325 */
 ROM_END
 
-ROM_START( pex2287p ) /* Superboard : Pay the Aces NO Faces Bonus (X002287P+XP000057) */
+ROM_START( pex2287p ) /* Superboard : No Faces Pay the Aces (X002287P+XP000057) */
 /*
 
                                        5-K 2-4
 PayTable   Js+  2PR  3K   STR  FL  FH  4K  4K  4A  SF  RF  (Bonus)
 ------------------------------------------------------------------
-  ????      1    1    2    4    5   8  25  40  80  50 250    800
-  % Range: 94.4-96.4%  Optimum: 98.4%  Hit Frequency: ??.?%
+  P888A     1    1    2    4    5   8  25  40  80  50 250    800
+  % Range: 94.4-96.4%  Optimum: 98.4%  Hit Frequency: 55.6%
      Programs Available: X002287P
 
-Bonus "Dealt" payouts per Coin bet are:
+Bonus "Dealt" payouts per Coin In are:
  Dealt Royal Flush     ..... 1000
  Dealt 1 Ace no Faces  .....    1
  Dealt 2 Aces no Faces .....    2
@@ -9296,7 +9310,7 @@ Designed and co-created by Best Bet Products
 	ROM_LOAD( "xp000057.u67",   0x00000, 0x10000, CRC(a1186020) SHA1(d42823aac1cb16521ecc0a09cba694374642cff7) )
 
 	ROM_REGION( 0x10000, "user1", 0 )
-	ROM_LOAD( "x002287p.u66",   0x00000, 0x10000, CRC(f5a8f485) SHA1(4bf9ad2a75acd5445e97661efe8a39ceb8b97549) ) /* Pay the Acse NO Faces Bonus */
+	ROM_LOAD( "x002287p.u66",   0x00000, 0x10000, CRC(f5a8f485) SHA1(4bf9ad2a75acd5445e97661efe8a39ceb8b97549) ) /* No Faces Pay the Aces */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
 	ROM_LOAD( "mro-cg2325.u77",  0x00000, 0x8000, CRC(ae53d1f6) SHA1(bf28b8f784d6683bb352944b88d0b646d7313efd) )
@@ -11183,9 +11197,9 @@ GAMEL(1995, pex2251p,  0,         peplus,  peplus_poker, peplus_state, peplussb,
 GAMEL(1995, pex2272p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002272P+XP000055) Black Jack Bonus Poker", 0, layout_pe_poker )
 GAMEL(1995, pex2275p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002275P+XP000055) Black Jack Bonus Poker", 0, layout_pe_poker )
 GAMEL(1995, pex2276p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002276P+XP000055) Black Jack Bonus Poker", 0, layout_pe_poker )
-GAMEL(1995, pex2283p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002283P+XP000057) Dealt Deuces Wild Bonus Poker", 0, layout_pe_poker ) /* Undumped color CAPX2325 but should have correct colors anyways */
-GAMEL(1995, pex2284p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002284P+XP000057) Barbaric Decues Wild Bonus Poker", 0, layout_pe_poker ) /* Undumped color CAPX2325 but should have correct colors anyways */
-GAMEL(1995, pex2287p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002287P+XP000057) Pay the Aces NO Faces Bonus Poker", 0, layout_pe_poker ) /* Undumped color CAPX2325 but should have correct colors anyways */
+GAMEL(1995, pex2283p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002283P+XP000057) Barbaric Decues Wild Poker", 0, layout_pe_poker ) /* Undumped color CAPX2325 but should have correct colors anyways */
+GAMEL(1995, pex2284p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002284P+XP000057) Barbaric Decues Wild Poker", 0, layout_pe_poker ) /* Undumped color CAPX2325 but should have correct colors anyways */
+GAMEL(1995, pex2287p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002287P+XP000057) No Faces Pay the Aces Poker", 0, layout_pe_poker ) /* Undumped color CAPX2325 but should have correct colors anyways */
 GAMEL(1995, pex2297p,  0,         peplus,  peplus_poker, peplus_state, pepluss64,ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002297P+XP000053) Jackpot Poker",       0, layout_pe_poker )
 GAMEL(1995, pex2302p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002302P+XP000038) Bonus Poker Deluxe",  0, layout_pe_poker )
 GAMEL(1995, pex2303p,  0,         peplus,  peplus_poker, peplus_state, peplussb, ROT0,  "IGT - International Game Technology", "Player's Edge Plus (X002303P+XP000112) White Hot Aces Poker", 0, layout_pe_poker )
