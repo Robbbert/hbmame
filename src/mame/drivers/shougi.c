@@ -114,7 +114,6 @@ public:
 	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	INTERRUPT_GEN_MEMBER(vblank_nmi);
 
-protected:
 	virtual void machine_start();
 	virtual void machine_reset();
 };
@@ -410,7 +409,7 @@ static MACHINE_CONFIG_START( shougi, shougi_state )
 	MCFG_DEVICE_ADD("alpha_8201", ALPHA_8201, XTAL_10MHz/4/8)
 
 	MCFG_QUANTUM_PERFECT_CPU("maincpu")
-	MCFG_WATCHDOG_VBLANK_INIT(16) // assuming it's the same as champbas
+	MCFG_WATCHDOG_VBLANK_INIT(0x10) // assuming it's the same as champbas
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)

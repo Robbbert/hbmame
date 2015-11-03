@@ -403,7 +403,7 @@ WRITE16_MEMBER(alpha_8201_device::mcu_d_w)
 
 WRITE_LINE_MEMBER(alpha_8201_device::bus_dir_w)
 {
-	// set bus direction to 0: external, 1: MCU side
+	// set RAM bus direction to 0: external, 1: MCU side
 	// selects one of two 74LS245 (octal bus transceiver) for databus, addressbus via
 	// a couple of 74LS157 (2-input multiplexer)
 	m_bus = (state) ? 1 : 0;
@@ -418,16 +418,12 @@ WRITE_LINE_MEMBER(alpha_8201_device::mcu_start_w)
 
 READ8_MEMBER(alpha_8201_device::ext_ram_r)
 {
-	if (m_bus)
-		logerror("%s: EXT side read bus conflict\n", tag());
-
+	// going by exctsccr, m_bus has no effect here
 	return m_shared_ram[offset & 0x3ff];
 }
 
 WRITE8_MEMBER(alpha_8201_device::ext_ram_w)
 {
-	if (!m_bus)
-		m_shared_ram[offset & 0x3ff] = data;
-	else
-		logerror("%s: EXT side write bus conflict\n", tag());
+	// going by exctsccr, m_bus has no effect here
+	m_shared_ram[offset & 0x3ff] = data;
 }

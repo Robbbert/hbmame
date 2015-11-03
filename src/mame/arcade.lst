@@ -5595,8 +5595,8 @@ shaktamb        // 2001.10.17 Shakatto Tambourine Cho Powerup Chu (2K1 AUT)
 keyboard        // 2001.11 La Keyboard
 ikaruga         // 2001.12 Ikaruga
 lupinsho        // 2001.12 Lupin the Third: the Shooting
-drbyocwc        // 2001.?? Derby Owners Club World Edition (Rev. C)
-derbyocw        // 2001.?? Derby Owners Club World Edition (Rev. D)
+drbyocwc        // 2001.?? Derby Owners Club World Edition (Rev C)
+derbyocw        // 2001.?? Derby Owners Club World Edition (Rev D)
 				// 2001.?? Star Horse 2001
 vathlete        // 2002.03 Virtua Athletics / Virtua Athlete
 mok             // 2002.03.06 The Maze of the Kings
@@ -5733,7 +5733,7 @@ initdexpo       // 2002.?? Initial D Arcade Stage (Export)
 				// 2003.05 Initial D Arcade Stage Ver. 2 (Japan) (Rev A)
 initdv2j        // 2003.05.27 Initial D Arcade Stage Ver. 2 (Japan) (Rev B)
 				// 2003.09 World Club Champion Football Serie A 2002-2003
-				// 2003.?? Club Kart Cycraft Edition
+clubkcyc  		// 2003.?? Club Kart Cycraft Edition (Rev A)
 clubk2k3        // 2003.?? Club Kart: European Session (2003, Rev A)
 clubk2kp        // 2003.?? Club Kart: European Session (2003, prototype)
 clubkprz        // 2003.?? Club Kart Prize
@@ -5760,6 +5760,7 @@ vf4tuned        // 2004.12 Virtua Fighter 4 Final Tuned (Rev F)
 				// 2006.09 Mobile Suit Gundam 0079 Card Builder Ver.2.01
 				// 2006.10 World Club Champion Football European Clubs 2005-2006 bugfix
 				// 2006.11 Mobile Suit Gundam 0079 Card Builder Ver.2.02
+inidv3ca        // 2006.?? Initial D Arcade Stage Ver. 3 Cycraft Edition (Rev A)
 inidv3cy        // 2006.?? Initial D Arcade Stage Ver. 3 Cycraft Edition (Rev B)
 				// 2007.03 Mobile Suit Gundam 0083 Card Builder
 				// 2007.10 Mobile Suit Gundam 0083 Card Builder Ryouyuu Gekitotsu
@@ -5810,7 +5811,7 @@ airtrix         // 2001.02 Air Trix
 triforce        // 2002.?? Triforce BIOS
 vs2002ex        // 2002.07.30 Virtua Striker 2002 (Export)
 vs2002j         // 2002.10 Virtua Striker 2002 (Japan)
-fzeroaxc        // 2003.06.11 F-Zero AX (Rev. C)
+fzeroaxc        // 2003.06.11 F-Zero AX (Rev C)
 avalonsc        // 2003.07 The Key Of Avalon: The Wizard Master (server) (Rev C)
 avalonse        // 2003.08 The Key Of Avalon: The Wizard Master (server) (Rev E)
 avalonce        // 2003.08 The Key Of Avalon: The Wizard Master (client) (Rev E)
@@ -5821,7 +5822,7 @@ gekpurya        // 2003.10 Gekitou Pro Yakyuu Mizushima Shinji All Stars vs. Pro
 				// 2003.10 The Key Of Avalon 1.01
 avalons         // 2003.11 The Key Of Avalon: The Wizard Master (server) (Rev G)
 avalonc         // 2003.11 The Key Of Avalon: The Wizard Master (client) (Rev G)
-fzeroax         // 2003.12 F-Zero AX (Rev. E)
+fzeroax         // 2003.12 F-Zero AX (Rev E)
 				// 2003.12 The Key Of Avalon 1.10
 avalns12        // 2004.03 The Key Of Avalon 1.20 - Summon The New Monsters (server) (Rev A)
 avalnc12        // 2004.03 The Key Of Avalon 1.20 - Summon The New Monsters (client) (Rev A)
@@ -8964,6 +8965,7 @@ spikes91        // bootleg
 spikes91b       // bootleg
 pspikesc        // bootleg
 karatblz        // (c) 1991 Video System Co.
+karatblza       // (c) 1991 Video System Co.
 karatblzu       // (c) 1991 Video System Co. (US)
 karatblzj       // (c) 1991 Video System / Tecmo (Japan)
 karatblzbl      // bootleg
@@ -11326,12 +11328,15 @@ brasil89a       // 1989, Unknown
 brasil93        // 1993, Unknown
 poker91         // 1991, Unknown
 genie           // (c) 198? Video Fun Games Ltd.
+geniea          // 198?, Unknown
 silverga        // 1983, Unknown
 pokerdub        // 198?, Unknown
 pokerduc        // 198?, Unknown
 bchancep        // 198?, Unknown
 pokermon        // 1987, Unknown
 pokersis        // 198?, Sisteme France.
+super98
+
 
 // Cal Omega
 comg074         // (c) 1981 Cal Omega Inc.
@@ -12081,9 +12086,11 @@ dolphtra        // (c) 1996
 dolphtre        // (c) 1996
 cashcham        // (c) 1996
 enchfore        // (c) 1997
+mgarden         // (c) 1997
 goldprmd        // (c) 1997
 qotn            // (c) 1997
 qotna           // (c) 1997
+goldpyra        // (c) 1997
 dmdtouch        // (c) 1997
 wldcougr        // (c) 1997
 bumblbug        // (c) 1997
@@ -12102,6 +12109,7 @@ magicmska       // (c) 2000
 margmgc         // (c) 2000
 geishanz        // (c) 2001
 adonise         // (c) 2001
+koalamnt        // (c) 2001
 partygrs        // (c) 2001
 
 // Aristocrat Mk6 hardware
