@@ -2,13 +2,19 @@
 // copyright-holders:Acho A. Tang, Nicola Salmoria
 /*******************************************************************************
 
-Equites           (c) 1984 Alpha Denshi Co./Sega   8303
-Bull Fighter      (c) 1984 Alpha Denshi Co./Sega   8303
-Gekisou           (c) 1985 Eastern Corp.           8304
-Violent Run       (c) 1985 Eastern Corp.           8304? (probably on Equites HW)
-The Koukouyakyuh  (c) 1985 Alpha Denshi Co.        8304
-Splendor Blast    (c) 1985 Alpha Denshi Co.        8303
-High Voltage      (c) 1985 Alpha Denshi Co.        8304 (POST says 8404)
+Equites           (c) 1984 Alpha Denshi Co./Sega
+Bull Fighter      (c) 1984 Alpha Denshi Co./Sega
+Gekisou           (c) 1985 Eastern Corp.
+The Koukouyakyuh  (c) 1985 Alpha Denshi Co.
+Splendor Blast    (c) 1985 Alpha Denshi Co.
+High Voltage      (c) 1985 Alpha Denshi Co.
+
+The following are not dumped yet:
+Champion Croquet  (c) 1984 Alpha Denshi Co. (sports)
+Violent Run       (c) 1985 Eastern Corp. (export version of Gekisou)
+Tune Pit(?)       (c) 1985 Alpha Denshi Co.
+Perfect Janputer  (c) 1984 Alpha Denshi Co. (4-player Mahjong)
+
 
 Driver by Acho A. Tang, Nicola Salmoria
 Many thanks to Corrado Tomaselli for precious hardware info.
@@ -176,15 +182,6 @@ TODO:
   Yasuhiro Ogawa for the correct Equites ROM information
 
 
-Other unemulated Alpha Denshi and SNK games that may use similar hardware:
------------------------------------------------------------
-Maker        Year Genre Name             Japanese Name
------------------------------------------------------------
-Alpha Denshi 1984 (SPT) Champion Croquet ?`?????s?I???N???b?P?[
-Alpha Denshi 1985 (???) Tune Pit(?)      ?`?F?[???s?b?g
-Alpha Denshi 1985 (MAJ) Perfect Janputer ?p?[?t?F?N?g?W?????s???[?^?[
-
-
 *******************************************************************************
 
 Bull Fighter
@@ -261,8 +258,6 @@ f205v
 -----------------------------------------------------------------------|
 
 
-
-
 -----------------------------------------------------------------------------------|
 |ALPHA DENSHI CO, LTD. MAIN CONNECTOR BOARD                                        |
 |                                                                                  |
@@ -314,8 +309,6 @@ D        |-                                                                     
 |----------------------------------------------------------------------------------|
 
 
-
-
 -------------------------------------------------------------------------------------|
 |ALPHA DENSHI CO, LTD. LOWER BOARD                                                   |
 |                                                                                    |
@@ -364,7 +357,6 @@ D                                                                               
 
 
 *******************************************************************************/
-// Directives
 
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
@@ -1909,7 +1901,7 @@ GAME( 1984, equites,  0,        equites,  equites,  equites_state, equites,  ROT
 GAME( 1984, equitess, equites,  equites,  equites,  equites_state, equites,  ROT90, "Alpha Denshi Co. (Sega license)", "Equites (Sega)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1984, bullfgtr, 0,        equites,  bullfgtr, equites_state, bullfgtr, ROT90, "Alpha Denshi Co.", "Bull Fighter", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1984, bullfgtrs,bullfgtr, equites,  bullfgtr, equites_state, bullfgtr, ROT90, "Alpha Denshi Co. (Sega license)", "Bull Fighter (Sega)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1985, kouyakyu, 0,        equites,  kouyakyu, equites_state, kouyakyu, ROT0,  "Alpha Denshi Co.", "The Koukouyakyuh", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1985, kouyakyu, 0,        equites,  kouyakyu, equites_state, kouyakyu, ROT0,  "Alpha Denshi Co.", "The Koukou Yakyuu", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1985, gekisou,  0,        gekisou,  gekisou,  equites_state, gekisou,  ROT90, "Eastern Corp.", "Gekisou (Japan)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 
 // Splendor Blast Hardware

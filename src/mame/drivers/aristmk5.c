@@ -1115,6 +1115,25 @@ ROM_START( swheart2 )
 	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
 ROM_END
 
+// MV4084/1 - 10 Credit Multiplier / 9 Line Multiline.
+// THE GAMBLER - Export  A - 30/10/98.
+// Marked as EHG0916 and 92.268%.
+// All devices are 27c4002 instead of 27c4096.
+ROM_START( thgamblr )
+	ARISTOCRAT_MK5_BIOS
+	ROM_REGION( 0x400000, "game_prg", ROMREGION_ERASEFF )
+	ROM_LOAD32_WORD( "ehg0916_the_gambler.u7",  0x000000, 0x80000, CRC(7524c954) SHA1(0a895d1e2d09a2c873bbbbeb37bc59c25f3c577c) )  // 92.268%
+	ROM_LOAD32_WORD( "ehg0916_the_gambler.u11", 0x000002, 0x80000, CRC(f29a6932) SHA1(17761218a04d36a599c987b4e13c0e3f46b7793f) )  // 92.268%
+	ROM_LOAD32_WORD( "ehg0916_the_gambler.u8",  0x100000, 0x80000, CRC(e2221fdf) SHA1(8a7b2d5de68ae66fe1915a6faac6277249e3fb53) )  // base
+	ROM_LOAD32_WORD( "ehg0916_the_gambler.u12", 0x100002, 0x80000, CRC(ebe957f9) SHA1(539945ec9beafe2c83051208370588fce2334f16) )  // base
+
+	ROM_REGION( 0x800000, "maincpu", ROMREGION_ERASE00 ) /* ARM Code */
+
+	ROM_REGION( 0x200000, "vram", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
+ROM_END
+
 // MV4098 - 10 Credit Multiplier / 9 Line Multiline.
 // BOOT SCOOTIN' - Export A - 25/08/99.
 // All devices are 27c4002 instead of 27c4096.
@@ -1258,6 +1277,24 @@ ROM_START( koalamnt )
 	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
 ROM_END
 
+// MV4115/3 - 20 Line Multiline / 3,5,10,20,25,50 Credit Multiplier.
+// Party Gras - Export  B - 06/02/2001.
+// Marked as BHG1284 and touch.
+ROM_START( prtygras )
+	ARISTOCRAT_MK5_BIOS
+	ROM_REGION( 0x400000, "game_prg", ROMREGION_ERASEFF )
+	ROM_LOAD32_WORD( "bhg1284_party_grass.u7",  0x000000, 0x80000, CRC(02ed0631) SHA1(ae2c89c876a030d325ec94490d293deba772630e) )
+	ROM_LOAD32_WORD( "bhg1284_party_grass.u11", 0x000002, 0x80000, CRC(7ac80cd9) SHA1(70e910784a1e1ea8820005082e76223a85a3c346) )
+	ROM_LOAD32_WORD( "bhg1284_party_grass.u8",  0x100000, 0x80000, CRC(28774b9a) SHA1(ebdd738a73ffa7c5238640f4d7956751f7bb6243) )
+	ROM_LOAD32_WORD( "bhg1284_party_grass.u12", 0x100002, 0x80000, CRC(942835c1) SHA1(fefc509311716559ac6b836a56b2c981907d499b) )
+
+	ROM_REGION( 0x800000, "maincpu", ROMREGION_ERASE00 ) /* ARM Code */
+
+	ROM_REGION( 0x200000, "vram", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x20000*4, "sram", ROMREGION_ERASE00 )
+ROM_END
+
 // MV4115/6 - 9/20 Line Multiline Multiplier.
 // Party Gras [Reel Game] - Export A - 10/11/2001.
 // All devices are 27c4002 instead of 27c4096.
@@ -1307,6 +1344,7 @@ GAME( 1998, adonis,    0,        aristmk5,     aristmk5, aristmk5_state, aristmk
 GAME( 1998, adonisa,   adonis,   aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Adonis (0100751V, NSW/ACT)",                     MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 602/9,    A - 25/05/98, Rev 9
 GAME( 1998, swheart2,  aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Sweet Hearts II (PHG0742, Export, 92.252%)",     MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4061,   A - 29/06/98
 GAME( 1998, reelrock,  0,        aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Reelin-n-Rockin (0100779V, Local)",              MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 628,      A - 13/07/98
+GAME( 1998, thgamblr,  aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "The Gambler (EHG0916, Export, 92.268%)",         MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4084/1, A - 30/10/98
 GAME( 1998, indiandr,  0,        aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Indian Dreaming (0100845V, Local)",              MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 628/1,    B - 15/12/98
 GAME( 1998, chariotc,  0,        aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "The Chariot Challenge (04J00714, NSW/ACT)",      MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 630,      A - 10/08/98, Rev 12
 GAME( 1999, wtiger,    0,        aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "White Tiger Classic (0200954V, NSW/ACT)",        MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // 638/1,    B - 08/07/99
@@ -1316,6 +1354,7 @@ GAME( 2000, magicmsk,  aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk
 GAME( 2000, magicmska, magicmsk, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Magic Mask (MV4115, Export, set 2)",             MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4115,   A - 09/05/00
 GAME( 2000, margmgc,   0,        aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Margarita Magic (01J00101, NSW/ACT)",            MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // JB005,    A - 07/07/00
 GAME( 2000, marmagic,  aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Margarita Magic (EHG1559, NSW/ACT)",             MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // US003,    A - 07/07/00
+GAME( 2001, prtygras,  aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Party Gras (MV4115/3, Export, touch)",           MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4115/3, B - 06/02/01
 GAME( 2001, geishanz,  0,        aristmk5,     aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Geisha (0101408V, New Zealand)",                 MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4127,   A - 05/03/01
 GAME( 2001, adonise,   aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Adonis (MV4124/1, Export)",                      MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4124/1, B - 31/07/01
 GAME( 2001, koalamnt,  aristmk5, aristmk5_usa, aristmk5, aristmk5_state, aristmk5, ROT0,  "Aristocrat", "Koala Mint (MV4137, Export)",                    MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  // MV4137,   A - 12/09/01
