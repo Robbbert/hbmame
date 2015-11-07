@@ -21,21 +21,26 @@ driver by Couriersud
 
  Technical Manual #s  Game Name(s)                                               Atari Part #'s                     Data
  -------------------+----------------------------------------------------------+----------------------------------+---------+
- TM-058               Breakout/Breakout Cocktail/Consolette (1976)               A004533                            NO
+ TM-013               Pong (1972)                                                A001433                            NO
+ TM-0??               Pong In-A-Barrel (1973)                                    A001433?                           NO
  TM-015               Cocktail Pong/Coup Franc (1974)                            A001433?                           NO
  TM-0??               Dr. Pong/Puppy Pong/Snoopy Pong (1974)                     A001433?                           NO
- TM-013               Pong (1972)                                                A001433                            NO
- TM-014               Pong Doubles/Coupe Davis (1973)                            A000785                            NO
  422                  Superpong (1974)                                           A000423                            NO
+ TM-014               Pong Doubles/Coupe Davis (1973)                            A000785                            NO
+ TM-058               Breakout/Breakout Cocktail/Consolette (1976)               A004533                            NO
  
 Notes:
 
 TODO: Please see netlist include files
-TODO: Breakout Cocktail and Consolette are believed to use the Breakout PCB with different cabinet designs, this needs to be verified.
-TODO: Coupe Davis is believed to use the Pong Doubles PCB, just a different cabinet design, this needs to be verified.
-TODO: Dr. Pong, Puppy Pong, Snoopy Pong, Cocktail Pong and Coup Franc are all believed to use the Pong (Rev E) PCB, but
-      different cabinet designs; this needs to be verified.
-TODO: Superpong is believed to use the Pong (Rev E) PCB with some minor modifications, this needs to be verified.
+TODO: Breakout Cocktail and Consolette are believed to use the Breakout PCB with different
+      cabinet designs, this needs to be verified.
+TODO: Coupe Davis is believed to use the Pong Doubles PCB, just a different cabinet design,
+      this needs to be verified.
+TODO: Dr. Pong, Pong In-A-Barrel, Puppy Pong, Snoopy Pong, Cocktail Pong and Coup Franc are
+      all believed to use the Pong (Rev E) PCB, but different cabinet designs; this needs to
+      be verified.
+TODO: Superpong is believed to use the Pong (Rev E) PCB with some minor modifications, this
+      needs to be verified.
 
 ***************************************************************************/
 
@@ -519,6 +524,10 @@ ROM_END
 
 /*   // 100% TTL - NO ROMS
 
+ROM_START( pongbarl ) // dummy to satisfy game entry
+	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASE00 )
+ROM_END
+
 ROM_START( coupedav ) // dummy to satisfy game entry
 	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASE00 )
 ROM_END
@@ -563,6 +572,7 @@ GAMEL( 1976, breakout,  0, breakout, breakout,  driver_device,  0, ROT90, "Atari
 
 // 100% TTL
 //GAME( 1973, coupedav,   pongd,    pongd,    pongd,     driver_device,  0, ROT0,  "Atari France", "Coupe Davis [TTL]", MACHINE_SUPPORTS_SAVE)
+//GAME( 1973, pongbarl,   pong,     pong,     pong,      driver_device,  0, ROT0,  "Atari", "Pong In-A-Barrel [TTL]", MACHINE_SUPPORTS_SAVE)
 //GAME( 1974, coupfran,   pong,     pong,     pong,      driver_device,  0, ROT0,  "Atari Europe", "Coup Franc [TTL]", MACHINE_SUPPORTS_SAVE)
 //GAME( 1974, cktpong,    pong,     pong,     pong,      driver_device,  0, ROT0,  "Atari / National Entertainment Co.", "Cocktail Pong [TTL]", MACHINE_SUPPORTS_SAVE)
 //GAME( 1974, drpong,     pong,     pong,     pong,      driver_device,  0, ROT0,  "Atari", "Dr. Pong [TTL]", MACHINE_SUPPORTS_SAVE)

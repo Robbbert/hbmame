@@ -1,11 +1,15 @@
 // license:BSD-3-Clause
 // copyright-holders:Acho A. Tang, Nicola Salmoria
+/*************************************************************************
+
+    Equites, Splendor Blast driver
+
+*************************************************************************/
+
 #include "machine/alpha8201.h"
 #include "sound/samples.h"
 #include "sound/msm5232.h"
 #include "sound/dac.h"
-
-#define POPDRUMKIT 0
 
 
 class equites_state : public driver_device
@@ -62,10 +66,6 @@ public:
 	float     m_hihatvol;
 	int       m_timer_count;
 	int       m_unknown_bit;    // Gekisou special handling
-#if POPDRUMKIT
-	int       m_hihat;
-	int       m_cymbal;
-#endif
 
 	/* devices */
 	required_device<cpu_device> m_maincpu;
@@ -85,7 +85,6 @@ public:
 	DECLARE_WRITE8_MEMBER(equites_dac_latch_w);
 	DECLARE_WRITE8_MEMBER(equites_8155_portb_w);
 	DECLARE_WRITE8_MEMBER(equites_8155_w);
-	DECLARE_READ16_MEMBER(hvoltage_debug_r);
 	DECLARE_WRITE16_MEMBER(gekisou_unknown_0_w);
 	DECLARE_WRITE16_MEMBER(gekisou_unknown_1_w);
 	DECLARE_READ16_MEMBER(equites_spriteram_kludge_r);
@@ -93,17 +92,14 @@ public:
 	DECLARE_WRITE8_MEMBER(mcu_ram_w);
 	DECLARE_WRITE16_MEMBER(mcu_start_w);
 	DECLARE_WRITE16_MEMBER(mcu_switch_w);
-	DECLARE_READ16_MEMBER(equites_fg_videoram_r);
-	DECLARE_WRITE16_MEMBER(equites_fg_videoram_w);
+	DECLARE_READ8_MEMBER(equites_fg_videoram_r);
+	DECLARE_WRITE8_MEMBER(equites_fg_videoram_w);
 	DECLARE_WRITE16_MEMBER(equites_bg_videoram_w);
-	DECLARE_WRITE16_MEMBER(equites_bgcolor_w);
+	DECLARE_WRITE8_MEMBER(equites_bgcolor_w);
 	DECLARE_WRITE16_MEMBER(equites_scrollreg_w);
-	DECLARE_WRITE16_MEMBER(splndrbt_selchar0_w);
-	DECLARE_WRITE16_MEMBER(splndrbt_selchar1_w);
-	DECLARE_WRITE16_MEMBER(equites_flip0_w);
-	DECLARE_WRITE16_MEMBER(equites_flip1_w);
-	DECLARE_WRITE16_MEMBER(splndrbt_flip0_w);
-	DECLARE_WRITE16_MEMBER(splndrbt_flip1_w);
+	DECLARE_WRITE16_MEMBER(splndrbt_selchar_w);
+	DECLARE_WRITE16_MEMBER(equites_flipw_w);
+	DECLARE_WRITE8_MEMBER(equites_flipb_w);
 	DECLARE_WRITE16_MEMBER(splndrbt_bg_scrollx_w);
 	DECLARE_WRITE16_MEMBER(splndrbt_bg_scrolly_w);
 	DECLARE_CUSTOM_INPUT_MEMBER(gekisou_unknown_status);
@@ -111,7 +107,6 @@ public:
 	DECLARE_WRITE8_MEMBER(equites_8910portb_w);
 	DECLARE_DRIVER_INIT(bullfgtr);
 	DECLARE_DRIVER_INIT(kouyakyu);
-	DECLARE_DRIVER_INIT(hvoltage);
 	DECLARE_DRIVER_INIT(gekisou);
 	DECLARE_DRIVER_INIT(splndrbt);
 	DECLARE_DRIVER_INIT(equites);

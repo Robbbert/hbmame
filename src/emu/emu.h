@@ -85,9 +85,6 @@ typedef device_t * (*machine_config_constructor)(machine_config &config, device_
 // timers, CPU and scheduling
 #include "devcpu.h"
 
-// networking
-#include "network.h"
-
 // the running machine
 #include "mame.h"
 #include "machine.h"
@@ -98,7 +95,6 @@ typedef device_t * (*machine_config_constructor)(machine_config &config, device_
 #include "tilemap.h"
 #include "emupal.h"
 #include "screen.h"
-#include "render.h"
 #include "video.h"
 
 // sound-related
