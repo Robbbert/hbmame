@@ -843,7 +843,7 @@ input_item_id input_device::add_item(const char *name, input_item_id itemid, ite
 	assert(m_item[itemid] == NULL);
 
 	// determine the class and create the appropriate item class
-	input_device_item *item = NULL;
+	input_device_item *item;
 	switch (m_class.standard_item_class(originalid))
 	{
 		case ITEM_CLASS_SWITCH:
@@ -859,6 +859,7 @@ input_item_id input_device::add_item(const char *name, input_item_id itemid, ite
 			break;
 
 		default:
+			item = NULL;
 			assert(false);
 	}
 
