@@ -2,16 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/cps2.cpp"
 
-static ADDRESS_MAP_START( suicide_map, AS_PROGRAM, 16, cps_state )
-	AM_IMPORT_FROM(dead_cps2_map)
-	AM_RANGE(0x700000, 0x701fff) AM_READ(cps2_objram1_r)		/* Object RAM, used by Razoola Suicide tester */
-ADDRESS_MAP_END
-
-static MACHINE_CONFIG_DERIVED( suicide, dead_cps2 )
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(suicide_map)
-MACHINE_CONFIG_END
-
 ROM_START( 1944da )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "nffu_da.03", 0x000000, 0x80000, CRC(78188e42) SHA1(add31daba3e6916a1facfaf32feeaba228e9a6ab) )
@@ -325,6 +315,29 @@ ROM_START( suicide )
 	CPS2_DEAD_KEY
 ROM_END
 
+ROM_START( suicide2 )
+	ROM_REGION(CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "suicide2.03", 0x000000, 0x80000, CRC(d61ba7e3) SHA1(bde345a1d4643adc854d4c7e86c04f72fee1a07b) )
+
+	ROM_REGION( 0xC00000, "gfx", 0 )
+	ROM_FILL(              0x000000, 0x800000, 0 )
+	ROMX_LOAD( "pzf.14m",  0x800000, 0x100000, CRC(2d4881cb) SHA1(fd3baa183c25bed153b19c251980e2fb761600e2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "pzf.16m",  0x800002, 0x100000, CRC(4b0fd1be) SHA1(377aafdcdb7a866b1c8487670e3598d8197976e4) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "pzf.18m",  0x800004, 0x100000, CRC(e43aac33) SHA1(d041e0688c3807d3363861a7f216de43b34d846c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "pzf.20m",  0x800006, 0x100000, CRC(7f536ff1) SHA1(905b9d62ef7bef47297c7f4a4dd697aed6df38a5) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION(QSOUND_SIZE, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_LOAD( "pzf.01",   0x00000, 0x08000, CRC(600fb2a3) SHA1(1fab1c2a23bf6ad8309d29ddbbc29435a8aeea13) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "pzf.02",   0x28000, 0x20000, CRC(496076e0) SHA1(1ee4e135140afd0e8e03231e570cd77d140f6367) )
+
+	ROM_REGION( 0x400000, "qsound", 0 ) /* QSound samples */
+	ROM_LOAD16_WORD_SWAP( "pzf.11m",   0x000000, 0x200000, CRC(78442743) SHA1(b61190bb586871de6d54af580e3e1d9cc0de0acb) )
+	ROM_LOAD16_WORD_SWAP( "pzf.12m",   0x200000, 0x200000, CRC(399d2c7b) SHA1(e849dea97b8d16540415c0d9bbc4f9f4eb755ec4) )
+
+	CPS2_DEAD_KEY
+ROM_END
+
 
 GAME( 2000, 1944da,   1944,     dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, 1944fp,   1944,     cps2,      cps2_2p2b, cps_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (USA 000620) Fire Power Ver", MACHINE_SUPPORTS_SAVE )
@@ -336,4 +349,5 @@ GAME( 1996, sfz2abr,  sfa2,     cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Ne
 GAME( 1993, ssf2r1d,  ssf2,     dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "Razoola", "Super Street Fighter II: The New Challengers (ETC 930911 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2td,   ssf2t,    dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "Eazoola", "Super Street Fighter II Turbo (World 940223 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, spf2tb,   spf2t,    cps2,      cps2_2p2b, cps_state, cps2, ROT0, "hack", "Super Puzzle Fighter II Turbo Boss Hack (USA 960620)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, suicide,  0,        suicide,   cps2_2p2b, cps_state, cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, suicide,  0,        dead_cps2, cps2_2p2b, cps_state, cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, suicide2, suicide,  dead_cps2, cps2_2p2b, cps_state, cps2, ROT0, "Razoola", "Suicide Test v2", MACHINE_SUPPORTS_SAVE )

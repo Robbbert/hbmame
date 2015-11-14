@@ -1,6 +1,12 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 #include "../mame/drivers/pgm.cpp"
+/**************************************************************************************
+Problem sets not included:
+
+KOV Zero 2000: only change is 2 gfx roms, and the result has bad gfx
+
+**************************************************************************************/
 
 ROM_START( pgemeni )
 	ROM_REGION( 0x600000, "maincpu", 0 ) /* 68000 Code  */
@@ -1548,6 +1554,64 @@ ROM_START( kovsh17 ) // encrypted - was kovshq
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
 ROM_END
 
+ROM_START( kovsh18 ) // Gem Fighter hack
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600.sh18", 0x100000, 0x400000, CRC(24f9d4dc) SHA1(5e32c9faab39a735fa9c26aac09a7e87d84c252b) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.sh18",   0x0000000, 0x0800000, CRC(7bd1a62d) SHA1(8dee71a336a21b8ba967066477f0285e310686e4) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604.rom",    0x1a00000, 0x0400000, CRC(26b59fd3) SHA1(53219376056f4766dc5236735599d982ceb56b84) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.sh18",   0x0000000, 0x0800000, CRC(52f5ba74) SHA1(05abef7cdfc9632601628bc2e8df142fc348b914) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602.rom",    0x0c00000, 0x0100000, CRC(9df77934) SHA1(99a3fe337c13702c9aa2373bcd1bb1befd0e2a13) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom", 0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsh19 ) // Rugal 98 hack
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600.sh19", 0x100000, 0x400000, CRC(ed4a87a8) SHA1(70845ccd41eee2b31ffb93cd76fc53e2f6e4d5a8) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.sh19",   0x0000000, 0x0800000, CRC(ba94a9ac) SHA1(6bd779196cbcc89864b7f5aae6d363eacd93ed68) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604.rom",    0x1a00000, 0x0400000, CRC(26b59fd3) SHA1(53219376056f4766dc5236735599d982ceb56b84) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.sh19",   0x0000000, 0x0800000, CRC(3d90f533) SHA1(7026a2193ed16ec3097f024326fdae08bc639f50) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602.rom",    0x0c00000, 0x0100000, CRC(9df77934) SHA1(99a3fe337c13702c9aa2373bcd1bb1befd0e2a13) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.sh19", 0x400000, 0x400000, CRC(4a6053b0) SHA1(64b37dc52f7924a727f549a4c2c2682851f9405e) )
+ROM_END
+
 // same problem as MAME kovsgqyza: it crashes after the 2nd attract cycle
 ROM_START( kovsgqyzc )
 	ROM_REGION( 0x600000, "maincpu", 0 ) /* 68000 Code */
@@ -1637,6 +1701,8 @@ GAME( 1999, kovsh14,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_s
 GAME( 1999, kovsh15,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Hack", "Knights of Valour Super Heroes / Sangoku Senki Super Heroes (hack set 15)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kovsh16,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Hack", "Knights of Valour Super Heroes / Sangoku Senki Super Heroes (hack set 16)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kovsh17,    kovsh,     pgm_arm_type1_sim,  kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes / Sangoku Senki Super Heroes (ver. 320)(hack set 17)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kovsh18,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Hack", "Knights of Valour Super Heroes / Sangoku Senki Super Heroes (v104, Gem Fighters, hack set 18)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kovsh19,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Hack", "Knights of Valour Super Heroes / Sangoku Senki Super Heroes (v104, Rugal 98, hack set 19)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 
 
 #if 0

@@ -171,6 +171,7 @@ punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
 punisherjh	/* Found in neht build */
 punisherjha
 sf2c		// sf2, chinese
+sf2ceb1		// real bootleg (suspected same as sf2h14 if it had been a complete dump)
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
 sf2ceda		/* hack, Hispanic 990804 */
@@ -239,6 +240,7 @@ ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's nam
 mpang		//parent
 mpangjd
 suicide		/* Razoola */
+suicide2	/* Razoola */
 sfa		//parent
 sfa2		//parent
 sfa2h
@@ -1740,6 +1742,8 @@ kovsh3
 //kovsh15
 //kovsh16
 //kovsh17
+kovsh18			// gem fighters
+kovsh19			// rugal 98
 
 	/* phoenix.c */
 phoenix		/* (c) 1980 Amstar */

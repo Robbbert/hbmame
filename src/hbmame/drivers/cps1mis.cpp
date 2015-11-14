@@ -1857,6 +1857,50 @@ ROM_START( sf2c )
 	ROM_LOAD_OPTIONAL( "c632.ic1",     0x0000, 0x0117, CRC(0fbd9270) SHA1(d7e737b20c44d41e29ca94be56114b31934dde81) )
 ROM_END
 
+// this is pretty much sf2h14
+// bad gfx on player select screen, but that's what is expected when you use sf2ce program with sf2 gfx
+// This is to be moved to MAME in the 168-169 cycle, then delete sf2h14 as well.
+ROM_START( sf2ceb1 ) // real dump, a mixture of sf2ebbl2 and sf2h14
+	ROM_REGION( CODE_SIZE, "maincpu", 0 ) // roms in this region are same as sf2h14
+	ROM_LOAD16_BYTE( "sf2h14.7", 0x000000, 0x80000, CRC(74803532) SHA1(c1f774bbc4c7b18fcac15417711a86eb852b9957) )
+	ROM_LOAD16_BYTE( "sf2h14.5", 0x000001, 0x80000, CRC(66c91972) SHA1(219aecad1feb60bb758190ea82223171075c858e) )
+	// same as sf2m8
+	ROM_LOAD16_BYTE( "yyc-4.1", 0x100000, 0x20000, CRC(1073b7b6) SHA1(81ca1eab65ceac69520584bb23a684ccb9d92f89) )
+	ROM_LOAD16_BYTE( "yyc-5.3", 0x100001, 0x20000, CRC(924c6ce2) SHA1(676a912652bd75da5087f0c7eae047b7681a993c) )
+
+	// roms in this region are same as sf2ebbl2
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROMX_LOAD( "a-se235.bin", 0x000000, 0x80000, CRC(a258de13) SHA1(2e477948c4c8a2fb7cfdc4a739766bc4a4e01c49) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x000004, 0x80000)
+	ROMX_LOAD( "c-se005.bin", 0x000002, 0x80000, CRC(c781bf87) SHA1(034baa9807c2ce8dc800200963a38cd9262b21fb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x000006, 0x80000)
+	ROMX_LOAD( "b-se194.bin", 0x200000, 0x80000, CRC(5726cab8) SHA1(0b2243a9a7184d53d42ddab7a8c51b63001c2f56) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x200004, 0x80000)
+	ROMX_LOAD( "d-se064.bin", 0x200002, 0x80000, CRC(4dd24197) SHA1(548beaa0a6f1c3c88f4fc83169d1a3c86e0755d4) , ROM_GROUPWORD | ROM_SKIP(6) )   //sf2-8m.6c 99.999809%
+	ROM_CONTINUE(       0x200006, 0x80000)
+	ROMX_LOAD( "e-sf004.bin", 0x400000, 0x80000, CRC(187667cc) SHA1(fae65bf23f49a32903fda8080659ccf8d42b911f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x400004, 0x80000)
+	ROMX_LOAD( "f-sf001.bin", 0x400002, 0x80000, CRC(5b585071) SHA1(ad3371b1ba0441c67d9fcbb23b09464710e4e28a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(       0x400006, 0x80000)
+
+	// from here to the end are same as sf2h14 or sf2ebbl2
+	ROMX_LOAD( "27c1024.10", 0x400000, 0x20000, CRC(84427d1b) SHA1(f988a2b53c8cc46eeb8032084f24966a539b3734) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "27c1024.12", 0x400002, 0x20000, CRC(55bc790c) SHA1(a1114b89f6fa4487210477676984c77ad94b5ef8) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "27c1024.9",  0x400004, 0x20000, CRC(f8725add) SHA1(fa3fcf6637ee4dd7667bd89766074b3c6ba4f166) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "27c1024.11", 0x400006, 0x20000, CRC(c2a5373e) SHA1(602b32e5ecc7007efe9ad30751040ee52b81f59a) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_LOAD( "27c512.3",    0x00000, 0x08000, CRC(a4823a1b) SHA1(7b6bf59dfd578bfbbdb64c27988796783442d659) )
+	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x20000, "user1", 0 )
+	ROM_LOAD( "27c512.8",    0x00000, 0x10000, CRC(13ea1c44) SHA1(5b05fe4c3920e33d94fac5f59e09ff14b3e427fe) )
+
+	ROM_REGION( 0x40000, "oki", 0 ) /* Samples */
+	ROM_LOAD( "27c010.2",    0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
+	ROM_LOAD( "27c010.1",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
+ROM_END
+
 ROM_START( sf2cebr )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "sf2cebr.23",   0x000000, 0x80000, CRC(74e848ee) SHA1(6DCE8D0C7D439E6D1D08C8169A3ECDF178E82C16) )
@@ -2227,7 +2271,6 @@ ROM_START( sf2h14 )
 	ROMX_LOAD( "27c1024.12", 0x400002, 0x20000, CRC(55bc790c) SHA1(a1114b89f6fa4487210477676984c77ad94b5ef8) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "27c1024.9",  0x400004, 0x20000, CRC(f8725add) SHA1(fa3fcf6637ee4dd7667bd89766074b3c6ba4f166) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "27c1024.11", 0x400006, 0x20000, CRC(c2a5373e) SHA1(602b32e5ecc7007efe9ad30751040ee52b81f59a) , ROM_GROUPWORD | ROM_SKIP(6) )
-
 
 	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
 	ROM_LOAD( "27c512.3",    0x00000, 0x08000, CRC(a4823a1b) SHA1(7b6bf59dfd578bfbbdb64c27988796783442d659) )
@@ -3772,6 +3815,7 @@ GAME( 1993, punisherjha, punisher, qsound,     punisher, cps_state, punisher, RO
 GAME( 1993, punisherb,   punisher, qsound,     punisher, cps_state, punisherb,ROT0,   "bootleg", "The Punisher (Bootleg)", MACHINE_SUPPORTS_SAVE)
 GAME( 2007, punisherf,   punisher, qsound,     punisher, cps_state, punisherb,ROT0,   "Zhyxxxx", "The Punisher (Flash version) 2007-09-24", MACHINE_SUPPORTS_SAVE)
 GAME( 1991, sf2c,        sf2,      cps1_10MHz, sf2j,     cps_state, cps1,     ROT0,   "hack", "Street Fighter II: The World Warrior (Chinese 911210)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ceb1,     sf2ce,    sf2h14,     sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II' - Champion Edition (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, sf2cebr,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Neogeo BR team", "Street Fighter II' - Champion Edition (Brasil 920313)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, sf2ced,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long Hack v7.1)", MACHINE_SUPPORTS_SAVE )   // "ETC"
 GAME( 2012, sf2ceda,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Hack)", MACHINE_SUPPORTS_SAVE )   // "ETC"
