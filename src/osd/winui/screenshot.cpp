@@ -441,9 +441,6 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	char* dir_name1 = 0;
 	int i,j;
 	bool ok = FALSE; // TRUE indicates split success
-	// allocate space
-	system_name = (char*)malloc(strlen(filename) + 1);
-	file_name = (char*)malloc(strlen(filename) + 1);
 
 	switch (pic_type)
 	{
@@ -479,6 +476,10 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			// in case a non-image tab gets here, which can happen
 			return FALSE;
 	}
+
+	// allocate space
+	system_name = (char*)malloc(strlen(filename) + 1);
+	file_name = (char*)malloc(strlen(filename) + 1);
 
 	// if the filename contains a system, split them
 

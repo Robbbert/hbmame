@@ -2536,7 +2536,7 @@ void save_options(windows_options &opts, int game_num)
 	{
 		SetDirectories(opts);
 		SaveSettingsFile(opts, filepath.c_str());
-		//printf("Settings saved to %s\n",filepath.c_str());
+		printf("Settings saved to %s\n",filepath.c_str());
 	}
 	else
 		printf("Unable to save settings\n");

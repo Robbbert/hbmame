@@ -60,7 +60,7 @@ BOOL TestBit(LPBITS lpBits, UINT nBit)
 	UINT offset;
 	UCHAR mask;
 
-	if (nBit < 0 || !lpBits || !lpBits->m_lpBits)
+	if (!lpBits || !lpBits->m_lpBits)
 		return FALSE;
 
 	offset = nBit >> 3;
@@ -78,7 +78,7 @@ void SetBit(LPBITS lpBits, UINT nBit)
 	UINT offset;
 	UCHAR mask;
 
-	if (nBit < 0 || !lpBits || !lpBits->m_lpBits)
+	if (!lpBits || !lpBits->m_lpBits)
 		return;
 
 	offset = nBit >> 3;
@@ -96,7 +96,7 @@ void ClearBit(LPBITS lpBits, UINT nBit)
 	UINT offset;
 	UCHAR mask;
 
-	if (nBit < 0 || !lpBits || !lpBits->m_lpBits)
+	if (!lpBits || !lpBits->m_lpBits)
 		return;
 
 	offset = nBit >> 3;
