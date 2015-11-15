@@ -219,7 +219,7 @@ static int MIN_HEIGHT = DBU_MIN_HEIGHT;
 #define STATESAVE_VERSION 1
 //I could not find a predefined value for this event and docs just say it has 1 for the parameter
 #define TOOLBAR_EDIT_ACCELERATOR_PRESSED 1
-
+#define SHOW_MISSING_ROMS_ICON
 
 /***************************************************************************
  externally defined global variables
@@ -3617,10 +3617,10 @@ static void ResetListView()
 	if (bListReady)
 	{
 	    /* If last folder was empty, select the first item in this folder */
-	    if (no_selection)
-		    Picker_SetSelectedPick(hwndList, 0);
+		if (no_selection)
+			Picker_SetSelectedPick(hwndList, 0);
 		else
-		    Picker_SetSelectedItem(hwndList, current_game);
+			Picker_SetSelectedItem(hwndList, current_game);
 	}
 
 	/*RS Instead of the Arrange Call that was here previously on all Views
@@ -4113,11 +4113,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
               as it doesn't affect the others*/
 			folder = GetSelectedFolder();
 			if( folder )
-			{
 				if (folder->m_nFolderId == FOLDER_AVAILABLE )
 					ResetListView();
-
-			}
 		}
 		break;
 
