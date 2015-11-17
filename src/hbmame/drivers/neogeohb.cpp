@@ -199,6 +199,7 @@ NUM YEAR COMPANY                 TITLE
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
 472 2015 freem                   ADPCM-A Playback Demo
 473 2015 blastar                 Twister in a mirror intro
+474 2015 freem                   Sound-Loop Demo
 
 
 ********************** 800 to 899 **********************************
@@ -1397,6 +1398,24 @@ ROM_START( twister )
 	ROM_LOAD16_BYTE( "473.c2",    0x000001, 0x100000, CRC(27da57ee) SHA1(323fcd0893aec82cc3c78687834920e2eeedb67b) )
 ROM_END
 
+// 474 : Sound-Loop Demo by freem.
+// Bugs: The first time 5 is pressed, the game resets. After that it has no effect.
+ROM_START( snddemo )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "474.p1", 0x000000, 0x080000, CRC(fbb26284) SHA1(80837fb870e36360f2c8c4576d1b43f3feef3ff5) )
+
+	NEO_SFIX_128K( "474.s1", CRC(a7a76e2a) SHA1(894194f43b0bb884cb6f392bb0c9d1284639e577) )
+
+	NEO_BIOS_AUDIO_64K( "474.m1", CRC(ba37ca7d) SHA1(4bb0897b74eadd7eb2782fcf2ae0a9897b9e8c8f) )
+
+	ROM_REGION( 0x10000, "ymsnd", 0 )
+	ROM_LOAD( "474.v1", 0x000000, 0x10000, CRC(95101457) SHA1(81ca771f441edc01019b8c629709eccc746059ba) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "474.c1",    0x000000, 0x080000, CRC(cad47785) SHA1(538c072417d849f33d1da3f61f98be4674c10762) )
+	ROM_LOAD16_BYTE( "474.c2",    0x000001, 0x080000, CRC(c43d0953) SHA1(1ceb394b495f8a082452d50f78d2d7d8d1ec9a56) )
+ROM_END
+
 
 // GAME MACROS
 
@@ -1447,6 +1466,7 @@ GAME( 2015, pcmbdemo, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo, 
 GAME( 2003, poknight, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, snddemo,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, syscheck, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
 GAME( 20??, test01,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )

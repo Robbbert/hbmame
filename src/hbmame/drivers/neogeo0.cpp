@@ -40,6 +40,8 @@
 
 #include "neogeohb.cpp"
 //#include "neogeo1.cpp"
+#include "kof94.cpp"
+#include "kof95.cpp"
 #include "kof96.cpp"
 #include "kof97.cpp"
 //#include "kof98.cpp"

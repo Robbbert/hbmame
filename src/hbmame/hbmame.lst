@@ -10,68 +10,68 @@
 ****************************************************************************
 
 
-	/* 1942.c */
+	/* 1942 */
 1942		//parent
 1942c64		// 1942 with C64 sounds (by minwah)
 1942fpa		// 1942 with free play (by cmonkey)
 galagax 	/* Jerky - Chris Moore hack of 1942 */
 
-	/* 1943.c */
+	/* 1943 */
 1943		//parent
 1943h		/* Hacked to have the vendor name and phone number */
 
-	/* arkanoid.c */
+	/* arkanoid */
 arkanoid	/* A75 (c) 1986 Taito Corporation Japan (World) */
 akblc2dx 	/* hack */
 akgcdx	 	/* hack */
 aktaytdx 	/* hack */
 arkll32 	/* LLMAME 32 */
 
-	/* asteroid.c */
+	/* asteroid */
 asteroid
 asteroid6	/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer	// star destroyer, hack of asteroid2
 //amg		// test only
 
-	/* astrocde.c */
+	/* astrocde */
 tst_gorf	/* Gorf test rom */
 tst_gor1	/* Gorf test rom */
 tst_wow2	/* Wow test rom */
 tst_wow3	/* Wow test rom */
 
-	/* astrof.c */
+	/* astrof */
 astrf_bl	/* Black Background */
 
-	/* asuka.c */
+	/* asuka */
 asuka		// parent
 asukac		// chinese
 
-	/* atari_s1.c */
+	/* atari_s1 */
 //atarians	// parent
 //atarianb	/* hack for emulators */
 
-	/* bagman.c */
+	/* bagman */
 bagturbo
 pickinpi	/* Color Hack by Pi */
 
-	/* blktiger.c */
+	/* blktiger */
 blkdrgnk	/* Korean Translation */
 
-	/* bombjack.c */
+	/* bombjack */
 bombjack	/* (c) 1984 Tehkan */
 bmbjckgr	/* Vag @ GreekRoms */
 bombjckb	/* bootleg */
 bombjred	/* hack by unknown French person */
 
-	/* btime.c */
+	/* btime */
 btime		/* (c) 1982 */
 bnjr		/* Bump N Jump Reverse Mod */
 pnc		/* Pac N Chase */
 stictime	/* Marks Hack of btime */
 vecbtime	/* T-Bone hack of Burgertime */
 
-	/* bublbobl.c */
+	/* bublbobl */
 bublbobl	/* A78 (c) 1986 Taito Corporation */
 bbaladar	/* Aladar Bootleg */
 bb2bmh		/* Overclocked Bubblebobble Memories Hack */
@@ -82,18 +82,18 @@ bbredux3	/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High
 bublbobf 	/* Arkatrad */ 
 sboblboblh 	/* level select hack */ 
 
-	/* bwidow.c */
+	/* bwidow */
 spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
 
-	/* cave.c */
+	/* cave */
 pwrinst2
 pwrinst2h	/* 2013 Hack by TT */
 
-	/* cball.c */
+	/* cball */
 cball		// parent
 cballfix	// With MASH 'fixed' gfx rom
 
-	/* cclimber.c */
+	/* cclimber */
 ckong		/* (c) 1981 Falcon */
 tongypac
 ckongfix	/* Graphics Fix */
@@ -101,7 +101,7 @@ ckonga2
 ckonga3
 cclimbrm	/* Tim Arcadecollecting Modded Version */
 
-	/* centiped.c */
+	/* centiped */
 centiped	/* 136001           (c) 1980 */
 milliped	/* 136013           (c) 1982 */
 astroped	/* Twisty Hack of Centipede */
@@ -115,15 +115,15 @@ vectrped	/* T-Bone hack of Centipede */
 centipb		/* bootleg of centipdb */
 magworm2	/* bootleg of magworm */
 
-	/* cinemat.c */
+	/* cinemat */
 bbugtest	/* Test Rom */
 
-	/* commando.c */
+	/* commando */
 commando	/*  5/1985 (c) 1985 (World) */
 comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
-	/* cps1.c */
+	/* cps1 */
 captcomm	// parent
 cawing		// parent
 dino		// parent
@@ -139,7 +139,7 @@ strider		// parent
 varth		// parent
 wof		// parent
 
-	/* cps1mis.c */
+	/* cps1mis */
 captcomc	// chinese
 captcomh
 cawingb
@@ -231,7 +231,7 @@ wofjzero
 wofr1h
 wofsf2
 
-	/* cps2.c */
+	/* cps2 */
 1944		//parent
 1944da
 1944fp
@@ -253,19 +253,19 @@ ssf2td
 spf2t		//parent
 spf2tb		// boss hack
 
-	/* cps3.c */
+	/* cps3 */
 redearth	// parent
 redeartn	// no-cd version - needs correct bios
 sfiii3		// parent
 sfiii3an	// hack
 sfiii4rd	// hack
 
-	/* dec0.c */
+	/* dec0 */
 baddudes	// parent
 baddudef	/* Arkatrad */
 decodemo	/* Charles Doty */
 
-	/* dkong.c */
+	/* dkong */
 dkong		/* (c) 1981 Nintendo of America */
 dkongex		/* Jeff's Hack with Foundry Level */
 dkongp		/* Fix for level 22 kill screen by Don Hodges */
@@ -275,22 +275,22 @@ nadkong
 dkong2m
 pauline		/* Clay Cowgill */
 
-	/* docastle.c */
+	/* docastle */
 dorunrun	/* (c) 1984 */
 sdreturn
 
-	/* ertictac.c */
+	/* ertictac */
 //armdemo		/* Charles Doty */  // totally broken
 
-	/* exidy.c */
+	/* exidy */
 targ		/* needed parent */
 targtest	/* Targ Test Rom */
 
-	/* exerion.c */
+	/* exerion */
 exerionj	/* Japanese version */
 exriongr	/* Vag @ GreekRoms 2004 */
 
-	/* fcrash.c */
+	/* fcrash */
 fcrash
 ffightbl
 ffightbla
@@ -299,7 +299,7 @@ varthb		// from mame+
 // from mame+ to be checked
 captcommb2
 
-	/* galaga.c */
+	/* galaga */
 galaga
 xevious
 galagads	
@@ -332,7 +332,7 @@ xevious4	/* Xevious 2004 */
 xevious5	/* Xevious 2005 */
 xeviblk		/* Xevious Black */
 
-	/* galaxian.c */
+	/* galaxian */
 amidar		/* GX337 (c) 1981 Konami */
 mooncrst	/* (c) 1980 Nichibutsu */
 pisces		/* Subelectro */
@@ -364,25 +364,25 @@ vectrgal	/* T-Bone hack of Galaxian */
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 
-	/* gauntlet.c */
+	/* gauntlet */
 gaunt2		// parent
 gaunt2ls	// Orange Elf - new levels
 gaunt2s		/* Speed Hack */
 
-	/* gottlieb.c */
+	/* gottlieb */
 qbert		/* GV-103 (c) 1982 Gottlieb */
 711qbert	/* Hack of Mello Yellow QBert */
 pbert
 qbertb		/*  */
 vbert
 
-	/* ir.c */
+	/* ir */
 invrvnge
 
-	/* itech8.c */
+	/* itech8 */
 itecdemo	/* Charles Doty */
 
-	/* jrpacman.c */
+	/* jrpacman */
 jrpacman	/* (c) 1983 Midway */
 jr1000		/* Blue Justice */
 jr1000_2	/* Blue Justice */
@@ -419,39 +419,60 @@ jrspeed
 jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
 	/* kof96 */
+kof96a
 kof96ae
+kof96ae_d
+kof96ae10
+kof96ae20
 kof96b
+kof96b_d
+kof96bb
 kof96c
 kof96cbi
 kof96ckvs
+kof96cn
 kof96cr
 kof96chj
 kof96de
-kof96seh
 kof96eh
 kof96ep
+kof96ep2
+kof96ep3
 kof96evo
 kof96evoo
 kof96ey
 kof96hp
 kof96hpr
 kof96k
+kof96k_d
 kof96k3
 kof96k3o
 kof96kt			// supposedly a korean translation, but looks the same to me.
 kof96lx
+kof96ncd
 kof96oib	//IsmaMj
 kof96oib2	//IsmaMj
+kof96oih
+kof96oir
 kof96pjc
+kof96pm
 kof96rcw
+kof96rf
+kof96rfs
 kof96ri
 kof96ri1
 kof96ri2
 kof96ri3
 kof96ri4
 kof96ri5
+kof96rm
+kof96rp
+kof96rp_d
+kof96rss
 kof96ru
+kof96ru_d
 kof96rw
+kof96seh
 
 	/* kof97 */
 kof97bh
@@ -845,22 +866,22 @@ kof2k4ru // no sound in attract mode
 kof2k4se1
 kof2k8uni
 
-	/* kof2003.c */
+	/* kof2003 */
 kof2k3b
 kof2k3gc
 kof2k3sc
 kof2k3tc
 kof2k3zgf
 
-	/* kyugo.c */
+	/* kyugo */
 airwolf		//parent
 airwolffr	// french
 
-	/* m52.c */
+	/* m52 */
 mpatrol		/* M52 (c) 1982 */
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
-	/* maketrax.c */
+	/* maketrax */
 eyes		/* (c) 1982 Digitrex Techstar + "Rockola presents" */
 aa		/* Widel's Games */
 absurd		/* scott - nonworking alpha ver 3 */
@@ -886,7 +907,7 @@ tst_pacm
 wavybug
 zap		/* Widel's Games */
 
-	/* mappy.c */
+	/* mappy */
 mappy		/* (c) 1983 */
 superpac	/* (c) 1982 */
 crackhea 	/* Cary Barnhard hack of Mappy */
@@ -898,20 +919,20 @@ superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
-	/* mario.c */
+	/* mario */
 cenmario 
 
-	/* mcr.c */
+	/* mcr */
 handiman	/* Bobby Tribble hack of Tron */
 shtron		/* Jerronimo */
 stapper		/* Tapper Simpsons Hack */
 stapper1	/* Tapper Simpsons Hack ver .81 */
 
-	/* mcr3.c */
+	/* mcr3 */
 sarge		/* (c) 1985 */
 sargex		/* Gatinho Sarge x-rated */
 
-	/* mgd2.c */
+	/* mgd2 */
 bstarsd		/* 0002 (c) 1990 SNK */
 tpgolfd		/* 0003 (c) 1990 SNK */
 maglordd	/* 0005 (c) 1990 Alpha Denshi Co. */
@@ -945,10 +966,10 @@ androdud	/* 0049 (c) 1992 Visco */
 ncommndd	/* 0050 (c) 1992 Alpha Denshi Co. */
 wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 
-	/* mineswp.c */
+	/* mineswp */
 mineswp		/* Minesweeper */
 
-	/* midtunit.c */
+	/* midtunit */
 mk		//parent
 mkfr		// french
 mkturbod	/* MK protection hack */
@@ -961,25 +982,25 @@ umk2te50	// Ultimate MKII Tournament Edition r5.0.050
 umk2te51	// Ultimate MKII Tournament Edition r5.0.051
 umk2te52	// Ultimate MKII Tournament Edition r5.0.052
 
-	/* midwunit.c */
+	/* midwunit */
 mk3		/* (c) 1994 Midway */
 umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3z		/* UMK3 1.2 Zeus hack */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
 
-	/* midyunit.c */
+	/* midyunit */
 mkla4d		/* MK protection hack */
 
-	/* mitchell.c */
+	/* mitchell */
 mitcdemo	/* Charles Doty */
 
-	/* mmagic.c */
+	/* mmagic */
 mmagic
 
-	/* monaco.c */
+	/* monaco */
 monaco
 
-	/* mrdo.c */
+	/* mrdo */
 mrdo		/* (c) 1982 */
 mrdigdo		/* Justin Clark hack of Mr. Do! */
 mrdofast	/* Speedup hack from Evil Exidy*/
@@ -1063,7 +1084,7 @@ mslug5fr
 mslug5l9a
 mslug5l9b
 
-	/* mspacman.c */
+	/* mspacman */
 mspacman	/* (c) 1981 Midway */ /* made by Gencomp */
 chtmsatk	/* PacMAME Hacks */
 chtmspa		/* PacMAME Hacks */
@@ -1188,7 +1209,7 @@ mspacmbx 	/* bootleg */
 mspacplx 	/* hack */
 pacgalx 	/* hack */
 
-	/* multipac.c */
+	/* multipac */
 96in1		/* Widel's Games */
 96in1a		/* Widel's Games */
 96in1b		/* Widel's Games */
@@ -1208,12 +1229,12 @@ pm4n1c
 pm4n1d
 pm4n1e
 
-	/* nemesis.c */
+	/* nemesis */
 salamand	// parent
 spclone		// v0.7.3
 spcloneo	// v0.7.2.2
 
-	/* neogeo.c */
+	/* neogeo */
 neogeo
 aof2		/* 0056 (c) 1994 SNK */
 doubledr	/* 0082 (c) 1995 Technos */
@@ -1257,7 +1278,7 @@ whp		/* 0090 (c) 1995 ADK / SNK */
 zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
 				/* 0054 Crossed Swords 2  (CD only? not confirmed, MVS might exist) */
 
-	/* neogeohb.c */
+	/* neogeohb */
 b2b		// 071 Bang Bang Busters
 fr2		// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
@@ -1305,6 +1326,7 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 rci		/* Robocop intro */
 smi		/* Spiderman intro */
+snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
 syscheck
 test01		// MVS Test 01 by Furrtek
@@ -1313,7 +1335,7 @@ tmnti		/* TMNT intro */
 twister		// Blastar 2015
 ww2demo
 
-	/* neogeo1.c */
+	/* neogeo1 */
 ganryud
 garoud
 matrimd
@@ -1487,19 +1509,19 @@ whpbho2
 whpeh
 whpeho
 
-	/* nmk16.c */
+	/* nmk16 */
 //tdragon			//parent
 //tdragonp		// trap15 - not working
 tdragon2		//parent
 tdragon2p		// trap15
 
-	/* pacland.c */
+	/* pacland */
 pacland		/* (c) 1984 */
 mariopac
 paclandb
 paclandd	/* Blue Justice */
 
-	/* pacman.c */
+	/* pacman */
 abortman 	/* Paul C Copeland hack of Puckman */
 baby2		/* T-Bone hack */
 baby3		/* T-Bone hack */
@@ -1668,19 +1690,19 @@ hangly3x 	/* hack */
 pacplusx
 pheartx 	/* hack */
 
-	/* pcktgal.c */
+	/* pcktgal */
 pcktgal		/* (c) 1987 Data East Corporation (Japan) */
 pckgalgr	/* Vag @ GreekRoms */
 pcktgalk	/* Korean Translation */
 
-	/* pengo.c */
+	/* pengo */
 pengo		/* 834-0386 (c) 1982 Sega */
 pengopop
 vecpengo	/* T-Bone hack of Pengo */
 //alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
 //alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
 
-	/* pgm.c */
+	/* pgm */
 pgm		/* (c) 1997 */
 ket
 kov		//parent
@@ -1748,7 +1770,7 @@ kovsh3
 kovsh18			// gem fighters
 kovsh19			// rugal 98
 
-	/* phoenix.c */
+	/* phoenix */
 phoenix		/* (c) 1980 Amstar */
 //phoenix4	/* rom missing */
 phoenixd
@@ -1756,7 +1778,7 @@ phoenixg	/* Vag @ GreekRoms */
 phoenixr	/* CYBERYOGI =CO= Windler hack of Phoenix */
 pleiads2
 
-	/* playch10.c */
+	/* playch10 */
 playch10
 pc_bb2		/* NES->PC-10 */
 pc_ctfrc	/* NES->PC-10 */
@@ -1773,19 +1795,19 @@ pc_pacm		/* NES->PC-10 */
 pc_gyrus	/* NES->PC-10 */
 pc_skykd	/* NES->PC-10 */
 
-	/* powerins.c */
+	/* powerins */
 powerins	// parent
 powernbr	// Brazil translation
 
-	/* psikyosh.c */
+	/* psikyosh */
 s1945ii
 s1945iiex
 
-	/* rallyx.c */
+	/* rallyx */
 rxtron		/* Jerky and Sil hack of Rally-X */
 nrallyv		/* New Rally-X (vertical) */
 
-	/* rastan.c */
+	/* rastan */
 rastan		/* B04 (c) 1987 Taito Corporation Japan (World) */
 rastandh	/* Neil Pearce Hack */	
 rastand2	/* Neil Pearce Hack */
@@ -1793,56 +1815,56 @@ rastaneh	/* Neil Pearce Hack */
 rastane2	/* Neil Pearce Hack */
 rastwack	/* Vogel Hack */
 
-	/* retofinv.c */
+	/* retofinv */
 retofin4	/* Paul Smith hack */
 
-	/* schaser.c */
+	/* schaser */
 schasrcv
 
-	/* segac2.c */
+	/* segac2 */
 c2frog
 
-	/* segaorun.c */
+	/* segaorun */
 outrun
 outrunen
 outrunen0
 outrunen1
 outrunen2
 
-	/* segar.c */
+	/* segar */
 astrob2h
 
-	/* segas16b.c */
+	/* segas16b */
 //altbeast	// parent
 //altbeastfr	// french - Arkatrad - not working
 
-	/* shaolins.c */
+	/* shaolins */
 kfjohnny	/* hack by Smitdogg*/
 
-	/* snk6502.c */
+	/* snk6502 */
 vantris		/* (c) 1998 Norbert Kehrer */
 
-	/* spacmiss.c */
+	/* spacmiss */
 spacmiss
 
-	/* st0016.c */
+	/* st0016 */
 renjuk		/* Korean Translation */
 
-	/* system1.c */
+	/* system1 */
 wbml		/* bootleg (S2) */
 wbmlbit		/* Italian Translation */
 wbmlkb		/* Korean Translation */
 
-	/* system16.c */
+	/* system16 */
 sys16dem	// Charles Doty
 
-	/* taito_b.c */
+	/* taito_b */
 bubbleb 	/* pbobble USA Region Hack */
 
-	/* taito_f2.c */
+	/* taito_f2 */
 f2demo		/* Charles Doty */
 
-	/* taito_f3.c */
+	/* taito_f3 */
 dariusg		/* D87 (c) 1994 Taito Corporation Japan (World) */
 arkretrh
 cleopath
@@ -1852,7 +1874,7 @@ gekiridh
 landmakh
 pbobl2xh
 
-	/* taito_l.c */
+	/* taito_l */
 evilston	//parent
 evilstonfr	// French
 sokoban		// Sokoban LE by cmonkey
@@ -1860,18 +1882,18 @@ speccies	// Speccies 2 by Sokurah
 tldemo		// cmonkey
 tldemo2		// cmonkey
 
-	/* tecmo.c */
+	/* tecmo */
 geminit		/* Twisty Hack */
 rygark		/* Korean Translation */
 
-	/* tehkanwc.c */
+	/* tehkanwc */
 tehkanwc	/* (c) 1985 Tehkan */
 ballonwc
 tehkangc
 tankwc
 twc_gr		/* Vag @ GreekRoms */
 
-	/* tempest.c */
+	/* tempest */
 tempest		/* 136002           (c) 1980 */
 tempall
 temped		/* Tempest TempEd Hack */
@@ -1889,19 +1911,19 @@ vortexa		/* Tempest Prototype */
 aliensv		/* Tempest Prototype */
 aliensva	/* Tempest Prototype */
 
-	/* terracre.c */
+	/* terracre */
 terracre	/* (c) 1985 */
 terracrc
 
-	/* tmnt.c */
+	/* tmnt */
 ssriders
 ssridersaex
 
-	/* toaplan1.c */
+	/* toaplan1 */
 fireshrk	//parent
 samenew		// Trap15
 
-	/* toaplan2.c */
+	/* toaplan2 */
 kgpe		/* Neill Corlett hack */
 sstriker	//parent
 mahoudcn
@@ -1910,23 +1932,23 @@ batsugunt
 bgaregga	//parent
 bgareggz
 
-	/* trackfld.c */
+	/* trackfld */
 athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
 
-	/* twincobr.c */
+	/* twincobr */
 twincobr	/* TP-011 (c) 1987 Taito Corporation (World) */
 twincbu2
 twintwst
 
-	/* volfied.c */
+	/* volfied */
 volfiedg	/* Vag @ GreekRoms 2005 */
 
-	/* vsnes.c */
+	/* vsnes */
 suprmrio	/* (c) 1986 Nintendo */
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 
-	/* williams.c */
+	/* williams */
 defender
 defender2
 robotron
@@ -1935,11 +1957,11 @@ robotronp	/* Patched to remove the 'in the corner' crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splatsc1
 
-	/* yiear.c */
+	/* yiear */
 yiear		/* GX407 (c) 1985 */
 nacho		/* Gatinho - Nacho Libre */
 
-	/* ngmamep.c */
+	/* ngmamep */
 2020bbcd
 //bangbedd
 burnigfp
@@ -1976,7 +1998,6 @@ kf2k3bs4
 //kf2k4pls
 kf2k4seb
 //kf2k4spl
-kf9610th
 kf97bng
 //kof10thd
 //kof10thu
@@ -1999,20 +2020,6 @@ kof94blk
 kof94br
 kof94k
 kof95xg
-kof96a
-kof96ae_d
-kof96b_d
-kof96bb
-kof96cn
-kof96ep2
-kof96ep3
-kof96k_d
-kof96ncd
-kof96pm
-kof96rf
-//kof96rm
-kof96rp
-kof96ru_d
 kof9710th
 kof97bs
 kof97cb2
