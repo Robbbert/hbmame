@@ -418,14 +418,42 @@ jrcheat
 jrspeed
 jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
+	/* kof94 */
+kof94b
+kof94blk
+kof94br
+kof94cyk
+kof94eh
+//kof94h rom missing
+kof94k
+kof94ru
+kof94ruj
+kof94rz
+kof94seh
+kof94sri
+kof94y
+
+	/* kof95 */
+kof95b
+kof95bln
+kof95brz
+kof95ce
+kof95d
+kof95eh
+kof95hp
+kof95pjc
+kof95ru
+kof95seh
+kof95xg
+kof95y
+
 	/* kof96 */
 kof96a
 kof96ae
-kof96ae_d
-kof96ae10
-kof96ae20
+kof96ae1
+kof96ae1a
 kof96b
-kof96b_d
+kof96b1
 kof96bb
 kof96c
 kof96cbi
@@ -444,7 +472,7 @@ kof96ey
 kof96hp
 kof96hpr
 kof96k
-kof96k_d
+kof96k1
 kof96k3
 kof96k3o
 kof96kt			// supposedly a korean translation, but looks the same to me.
@@ -467,10 +495,9 @@ kof96ri4
 kof96ri5
 kof96rm
 kof96rp
-kof96rp_d
+kof96rp1
 kof96rss
 kof96ru
-kof96ru_d
 kof96rw
 kof96seh
 
@@ -1396,18 +1423,6 @@ kabuklgm
 kabuklmc
 karnvreh
 kizunaeh
-kof94b
-kof94seh
-kof94eh
-kof94ru
-kof95b
-kof95d
-kof95seh
-kof95eh
-kof95hp
-kof95pjc
-kof95ru
-kof95y
 labld2pl
 lastbl2b
 lastbldb
@@ -2016,10 +2031,6 @@ kof2k2rs_d
 //kof2k4mp
 //kof2kbsd
 //kof2kxxx
-kof94blk
-kof94br
-kof94k
-kof95xg
 kof9710th
 kof97bs
 kof97cb2

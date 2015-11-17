@@ -33,6 +33,7 @@
 #include "mui_audit.h"
 #include "winui.h"
 #include "properties.h"
+#define SHOW_UNAVAILABLE_FOLDER
 
 static BOOL FilterAvailable(int driver_index);
 

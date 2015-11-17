@@ -125,8 +125,6 @@ BEGIN
         MENUITEM SEPARATOR
 
         MENUITEM "&Background Image",        ID_OPTIONS_BG
-        MENUITEM "&History File",            ID_OPTIONS_HISTORY
-        MENUITEM "&Mameinfo File",           ID_OPTIONS_MAMEINFO
         MENUITEM SEPARATOR
         MENUITEM "&Reset to Default",        ID_OPTIONS_RESET_DEFAULTS
 
