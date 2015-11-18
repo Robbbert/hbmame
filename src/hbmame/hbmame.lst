@@ -502,7 +502,15 @@ kof96rw
 kof96seh
 
 	/* kof97 */
+kof97aa
+kof97ae
 kof97bh
+kof97bng
+kof97bs
+kof97cb2
+kof97chris
+kof97cn
+kof97co
 kof97cr
 kof97chl
 kof97chl2
@@ -510,22 +518,42 @@ kof97eh
 kof97eh2
 kof97eho
 kof97evo
+kof97evoa
+kof97hk
+kof97hl
 kof97hxd
 kof97ice
+kof97kai
 kof97kp
+kof97lb
 kof97lc
 kof97lr
+kof97m
 kof97mit
 kof97ne
+kof97nude
+kof97phl
 kof97pj
 kof97pjc
+kof97pl2
+kof97pl3
+//kof97pla needs a driver init
+kof97plc
+kof97pm
+kof97ps
+kof97rk
 kof97saw
 kof97sed
+kof97sex
+kof97shi
 kof97sw
 kof97wh
 kof97wpls
+kof97xbt
+kof97xi
 kof97xp
 kof97xxx
+kof97xt
 kof97y
 kof97ya
 kof97yb
@@ -533,8 +561,11 @@ kof97ye
 kof97yg
 kof97yh
 kof97yk
+kof97yk1
 kof97yl
 kof97yl2
+kof97yo
+kof97zm
 
 	/* kof98 */
 //kof98ae //reboots during attract mode
@@ -966,31 +997,31 @@ maglordd	/* 0005 (c) 1990 Alpha Denshi Co. */
 ridherod	/* 0006 (c) 1990 SNK */
 alpham2d	/* 0007 (c) 1991 SNK */
 ncombatd	/* 0009 (c) 1990 Alpha Denshi Co. */
-cyberlid	/* 0010 (c) 1990 SNK */
-superspd	/* 0011 (c) 1990 SNK */
+cyberlipd	/* 0010 (c) 1990 SNK */
+superspyd	/* 0011 (c) 1990 SNK */
 mutnatd		/* 0014 (c) 1992 SNK */
 kotmd		/* 0016 (c) 1991 SNK */
 sengokud	/* 0017 (c) 1991 SNK */
-burningd	/* 0018 (c) 1991 SNK */
-lbowlind	/* 0019 (c) 1990 SNK */
+burningfd	/* 0018 (c) 1991 SNK */
+lbowlingd	/* 0019 (c) 1990 SNK */
 gpilotsd	/* 0020 (c) 1991 SNK */
 joyjoyd		/* 0021 (c) 1990 SNK */
 lresortd	/* 0024 (c) 1992 SNK */
-eightmad	/* 0025 (c) 1991 SNK / Pallas */
+eightmand	/* 0025 (c) 1991 SNK / Pallas */
 minasand	/* 0027 (c) 1990 Monolith Corp. */
 2020bbd		/* 0030 (c) 1991 SNK / Pallas */
-socbrawd	/* 0031 (c) 1991 SNK */
-roboarmd	/* 0032 (c) 1991 SNK */
-fatfuryd	/* 0033 (c) 1991 SNK */
-fbfrenzd	/* 0034 (c) 1992 SNK */
-bakatond	/* 0036 (c) 1991 Monolith Corp. */
+socbrawld	/* 0031 (c) 1991 SNK */
+roboarmyd	/* 0032 (c) 1991 SNK */
+fatfury1d	/* 0033 (c) 1991 SNK */
+fbfrenzyd	/* 0034 (c) 1992 SNK */
+bakatonod	/* 0036 (c) 1991 Monolith Corp. */
 crswordd	/* 0037 (c) 1991 Alpha Denshi Co. */
 trallyd		/* 0038 (c) 1991 Alpha Denshi Co. */
-sengok2d	/* 0040 (c) 1993 SNK */
+sengoku2d	/* 0040 (c) 1993 SNK */
 3countbd	/* 0043 (c) 1993 SNK */
 aofd		/* 0044 (c) 1992 SNK */
-androdud	/* 0049 (c) 1992 Visco */
-ncommndd	/* 0050 (c) 1992 Alpha Denshi Co. */
+androdund	/* 0049 (c) 1992 Visco */
+ncommandd	/* 0050 (c) 1992 Alpha Denshi Co. */
 wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 
 	/* mineswp */
@@ -1262,13 +1293,40 @@ spclone		// v0.7.3
 spcloneo	// v0.7.2.2
 
 	/* neogeo */
+	// These are the parents of our hacks
 neogeo
+2020bb
+3countb
+alpham2
+aof
 aof2		/* 0056 (c) 1994 SNK */
+aof3
+androdun
+bakatono
+bangbead
+breakers
+bstars
+burningf
+crsword
+cyberlip
 doubledr	/* 0082 (c) 1995 Technos */
+eightman
+fatfury1
 fatfury3	/* 0069 (c) 1995 SNK */
+fatfursp
+fbfrenzy
+fightfev
+flipshot
+fswords
 ganryu		/* 0252 (c) 1999 Visco */
+garou
+gowcaizr
+gpilots
 ironclad
+joyjoy
 kabukikl	/* 0092 (c) 1995 Hudson */
+karnovr
+kizuna
 kof94		/* 0055 (c) 1994 SNK */
 kof95		/* 0084 (c) 1995 SNK */
 kof96		/* 0214 (c) 1996 SNK */
@@ -1278,16 +1336,30 @@ kof99		/* 0251 (c) 1999 SNK */
 kof2000		/* 0257 (c) 2000 SNK */
 kof2001		/* 0262 (c) 2001 Eolith / SNK */
 kof2002		/* 0265 (c) 2002 Eolith / Playmore */
+kof2003
+kotm
 lastblad	/* 0234 (c) 1997 SNK */
 lastbld2	/* 0243 (c) 1998 SNK */
-nam1975		/* 0001 (c) 1990 SNK */
+lbowling
+lresort
+magdrop3
+maglord
 matrim		/* 0266 (c) 2002 Atlus */
+miexchng
+minasan
+mutnat
+nam1975		/* 0001 (c) 1990 SNK */
+ncombat
+ncommand
+neocup98
 ninjamas	/* 0217 (c) 1996 ADK / SNK */
 nitd		/* 0260 (c) 2000 Eleven / Gavaking */
 pbobblen	/* 0083 (c) 1994 Taito */
 preisle2	/* 0255 (c) 1999 Yumekobo */
+rbff1
 rbff2		/* 0240 (c) 1998 SNK */
 rbffspec	/* 0223 (c) 1996 SNK */
+ridhero
 roboarmy
 rotd		/* 0264 (c) 2002 Evoga */
 s1945p		/* 0254 (c) 1999 Psikyo */
@@ -1297,16 +1369,29 @@ samsho3		/* 0087 (c) 1995 SNK */
 samsho4		/* 0222 (c) 1996 SNK */
 samsho5		/* 0270 (c) 2003 Playmore */
 samsh5sp	/* 0272 (c) 2003 Playmore */
+savagere
+sengoku
+sengoku2
 sengoku3	/* 0261 (c) 2001 SNK */
+shocktr2
+socbrawl
+spinmast
 strhoop		// 079
+superspy
 svc		/* 0269 (c) 2003 Playmore / Capcom */
+tpgolf
+trally
+viewpoin
+wakuwak7
+wh1
+wh2
 wh2j		// 064
 whp		/* 0090 (c) 1995 ADK / SNK */
+wjammers
+zedblade
 zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
-				/* 0054 Crossed Swords 2  (CD only? not confirmed, MVS might exist) */
 
 	/* neogeohb */
-b2b		// 071 Bang Bang Busters
 fr2		// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
@@ -1314,7 +1399,6 @@ zintrckb	// parent
 zintrkcd	/* 211 (c) 1996 ADK / SNK */
 zintrkcd1
 zintrkm
-totc		// 316 Treasure of the Caribbean
 beast		/* 2002 (c) 1989 Psygnosis */
 cndi		/* Chip n Dale Intro */
 cnbe
@@ -1984,7 +2068,7 @@ burnigfp
 //ct2k3spd
 //cthd2k3a
 //cthd2k3d
-diggerma
+//diggerma duplicate name, to check
 fatfrspb
 //fstarfrcc
 ///garoupy_d
@@ -2013,7 +2097,6 @@ kf2k3bs4
 //kf2k4pls
 kf2k4seb
 //kf2k4spl
-kf97bng
 //kof10thd
 //kof10thu
 kof2001n
@@ -2031,23 +2114,6 @@ kof2k2rs_d
 //kof2k4mp
 //kof2kbsd
 //kof2kxxx
-kof9710th
-kof97bs
-kof97cb2
-kof97cn
-kof97co
-kof97kai
-kof97m
-kof97pl2
-kof97pl3
-//kof97pla
-kof97pm
-kof97xbt
-kof97xi
-kof97xt
-kof97yk_d
-kof97yo
-kof97zm
 kof98ae_d
 kof98cd_d
 kof98cn
@@ -2076,7 +2142,7 @@ lans2k4d
 lastbdha
 lastblada
 lasthpcd
-lhopecd
+//lhopecd not working
 //matrima
 matrimeh
 //ms5boot
@@ -2134,14 +2200,3 @@ svcrm
 svcspryu
 //wakwak7h
 zupapad_d
-
-2020bb
-gpilots
-burningf
-fatfursp
-gowcaizr
-joyjoy
-kof2003
-shocktr2
-mutnat
-spinmast

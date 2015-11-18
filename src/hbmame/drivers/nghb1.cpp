@@ -3764,7 +3764,7 @@ ROM_END
 /* decrypted sets */
 
 GAME( 1999, ganryud,   ganryu,   neogeo,   neogeo,  neogeo_class, gfxdec42, ROT0, "Visco","Ganryu / Musashi Ganryuki (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoud,    neogeo,   neogeo,   neogeo,  neogeo_class, garoud,   ROT0, "SNK","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoud,    garou,    neogeo,   neogeo,  neogeo_class, garoud,   ROT0, "SNK","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrimd,   matrim,   neogeo,   neogeo,  neogeo_class, matrimd,  ROT0, "Noise Factory / Atlus", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrimdh,  matrim,   neogeo,   neogeo,  neogeo_class, matrmehc, ROT0, "Dodowang", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (decrypted C) hack", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitdd,     nitd,     neogeo,   neogeo,  neogeo_class, gfxdec42, ROT0, "Eleven / Gavaking","Nightmare in the Dark (decrypted C)", MACHINE_SUPPORTS_SAVE )
@@ -3779,11 +3779,11 @@ GAME( 2001, zupapad,   zupapa,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 
 /* Translations */
 
-GAME( 1994, fightfek,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Unk","Fight Fever (Kanji Patch)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, flipshok,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Hack","Battle Flip Shot (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mdrop3fr,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Arkatrad","Magical Drop III (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, miexchfr,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Arkatrad","Money Puzzle Exchanger (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, necup98k,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Hack","Neo-Geo Cup '98 - The Road to the Victory (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, fightfek,  fightfev, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Unk","Fight Fever (Kanji Patch)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, flipshok,  flipshot, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Hack","Battle Flip Shot (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mdrop3fr,  magdrop3, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Arkatrad","Magical Drop III (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, miexchfr,  miexchng, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Arkatrad","Money Puzzle Exchanger (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, necup98k,  neocup98, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Hack","Neo-Geo Cup '98 - The Road to the Victory (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, nitdfr,    nitd,     neogeo,   neogeo,  neogeo_class, gfxdec42, ROT0, "Arkatrad","Nightmare in the Dark (French)", MACHINE_SUPPORTS_SAVE )  // based on decrypted C
 GAME( 2005, nitdfro,   nitd,     neogeo,   neogeo,  neogeo_class, gfxdec42, ROT0, "Arkatrad","Nightmare in the Dark (French) (Old)", MACHINE_SUPPORTS_SAVE )   // based on decrypted C
 GAME( 2000, nitdsp,    nitd,     neogeo,   neogeo,  neogeo_class, nitd,     ROT0, "Hack","Nightmare in the Dark (Spanish)", MACHINE_SUPPORTS_SAVE )
@@ -3791,16 +3791,16 @@ GAME( 2015, nitdsp1,   nitd,     neogeo,   neogeo,  neogeo_class, gfxdec42, ROT0
 GAME( 2002, rotdbr,    rotd,     neogeo,   neogeo,  neogeo_class, rotdb,    ROT0, "Hack","Rage of the Dragons (Portuguese)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdbr1,   rotd,     neogeo,   neogeo,  neogeo_class, rotdb,    ROT0, "Hack","Rage of the Dragons (Portuguese) (Alt Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdbr2,   rotd,     neogeo,   neogeo,  neogeo_class, rotdb,    ROT0, "Hack","Rage of the Dragons (Portuguese) (Alt Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wjammerk,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Hack","Windjammers / Flying Power Disc (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wjammerk,  wjammers, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Hack","Windjammers / Flying Power Disc (Korean)", MACHINE_SUPPORTS_SAVE )
 
 /* Hacks */
 
 GAME( 1994, aof2b,     aof2,     neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "TcwLee","Art of Fighting 2 (Geese instead of Mr. Big)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2br2,   aof2,     neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "TcwLee","Art of Fighting 2 (Geese instead of Ryo)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, aof3b,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Art of Fighting 3 (Add Char - Enabled add info)", MACHINE_SUPPORTS_SAVE ) // Wyler and Sinclair AES/MVS
+GAME( 1996, aof3b,     aof3,     neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Art of Fighting 3 (Add Char - Enabled add info)", MACHINE_SUPPORTS_SAVE ) // Wyler and Sinclair AES/MVS
 
-GAME( 2000, bangbedp,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Visco", "Bang Bead (prototype)", MACHINE_SUPPORTS_SAVE ) /* commented out in official MAME source */
-GAME( 1996, breaksp,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Unk","Breakers (Move change 26c?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bangbedp,  bangbead, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Visco", "Bang Bead (prototype)", MACHINE_SUPPORTS_SAVE ) /* commented out in official MAME source */
+GAME( 1996, breaksp,   breakers, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Unk","Breakers (Move change 26c?)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, dbdehy,    doubledr, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Double Dragon (Neo-Geo) (Add Char)", MACHINE_SUPPORTS_SAVE ) // Shuko and Duke
 GAME( 1995, dbdy,      doubledr, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Double Dragon (Neo-Geo) (Add Char - Always in AES mode)", MACHINE_SUPPORTS_SAVE ) // Shuko and Duke
@@ -3814,7 +3814,7 @@ GAME( 1995, ffur3b,    fatfury3, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 GAME( 1995, ffur3bd,   fatfury3, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami and Dodowang","Fatal Fury 3 (Add Char set 2)", MACHINE_SUPPORTS_SAVE ) // Ryuji Yamazaki, Jin Chonshu and Jin Chonrei
 GAME( 1995, ffur3eh,   fatfury3, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami and Dodowang","Fatal Fury 3 (Add Char - Ultra kill style changed)", MACHINE_SUPPORTS_SAVE ) // Ryuji Yamazaki, Jin Chonshu and Jin Chonrei
 
-GAME( 1993, ffspeh,    neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, ffspeh,    fatfursp, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1999, garoupy,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (P1 Add Char)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
 GAME( 1999, garopamu,  garoupy,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "MU", "Garou - Mark of the Wolves (proto) (Approach to Arcade by MU v5.0a)", MACHINE_SUPPORTS_SAVE )
@@ -3834,9 +3834,9 @@ GAME( 1995, kabukgmc,  kabukikl, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 GAME( 1995, kabuklgm,  kabukikl, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Flycboy","Far East of Eden - Kabuki Klash (Color Fix set 2 - Title screen and char color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabuklmc,  kabukikl, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami","Far East of Eden - Kabuki Klash (Magic always max)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1994, karnvreh,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Karnov's Revenge (Add Char)", MACHINE_SUPPORTS_SAVE ) // Big Tornado
+GAME( 1994, karnvreh,  karnovr,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Karnov's Revenge (Add Char)", MACHINE_SUPPORTS_SAVE ) // Big Tornado
 
-GAME( 1996, kizunaeh,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Kizuna Encounter (Add Char)", MACHINE_SUPPORTS_SAVE ) // 2 Hidden Char
+GAME( 1996, kizunaeh,  kizuna,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Kizuna Encounter (Add Char)", MACHINE_SUPPORTS_SAVE ) // 2 Hidden Char
 
 GAME( 1998, labld2pl,  lastbld2, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "FCHT", "Last Blade 2 (Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, lastbl2b,  lastbld2, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang", "Last Blade 2 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
@@ -3872,7 +3872,7 @@ GAME( 1996, njmehyc,   ninjamas, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 GAME( 2000, pbobbldx,  pbobblen, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "[Hack]", "Puzzle Bobble Deluxe / Bust-A-Move Deluxe (Neo-Geo hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pbobblnb,  pbobblen, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Taito", "Puzzle Bobble / Bust-A-Move (Neo-Geo) (set 3)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1995, rbff1ud,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Real Bout Fatal Fury (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, rbff1ud,   rbff1,    neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Real Bout Fatal Fury (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1996, rbffsehd,  rbffspec, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Real Bout Fatal Fury Special (Ultra kill style changed - 5 Add Char)", MACHINE_SUPPORTS_SAVE ) // Geese Howard, Andy B. EX, Blue Mary EX, Billy K. EX and Tung Fu Rue EX
 GAME( 1996, rbffsb,    rbffspec, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami","Real Bout Fatal Fury Special (Add Geese Howard)", MACHINE_SUPPORTS_SAVE )
@@ -3890,7 +3890,7 @@ GAME( 1998, rbff2fc,   rbff2,    neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 GAME( 1998, rbff2ud,   rbff2,    neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Real Bout Fatal Fury 2 (P1 and P2 Add Alfred [Terry, hold B+C and press A] - Ultra kill style change)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, rbff2y,    rbff2,    neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Real Bout Fatal Fury 2 (P1 only Add Alfred [Terry, hold B+C and press A])", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1996, rageh,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Operation Ragnagard (Add Char)", MACHINE_SUPPORTS_SAVE ) // Lucifer, Eelis and Behemoth
+GAME( 1996, rageh,     zedblade, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Ydmis","Operation Ragnagard (Add Char)", MACHINE_SUPPORTS_SAVE ) // Lucifer, Eelis and Behemoth
 GAME( 1991, roboarma,  roboarmy, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "hack", "Robo Army (hack)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2002, rotdb,     rotd,     neogeo,   neogeo,  neogeo_class, rotdb,    ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
@@ -3930,9 +3930,9 @@ GAME( 1996, samsh4kw,  samsho4,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0
 GAME( 1996, samsh4kz,  samsho4,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Fighters Kim and Zhangshee","Samurai Shodown IV (Add Char - Ultra pow hack set 1)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
 GAME( 1996, samsh4wh,  samsho4,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Wesker","Samurai Shodown IV (Add Char - final edition)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
 
-GAME( 1995, savagedb,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Savage Reign (Debug menu unlocked - P1 and P2 Press select to change stage)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, savagedb,  savagere, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Savage Reign (Debug menu unlocked - P1 and P2 Press select to change stage)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2007, senkucd,   neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, senkucd,   sengoku,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, senku3kc,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0, "Fighters Kim","Sengoku 3 (Char color changed - 80%)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, senku3k,   sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0, "KrysoFun","Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE ) // Byakki and Okuni
 GAME( 2001, senku3c,   sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0, "Unk","Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE ) // Byakki and Okuni
@@ -3944,13 +3944,13 @@ GAME( 2001, senku3ya,  sengoku3, neogeo,   neogeo,  neogeo_class, sengoku3, ROT0
 GAME( 1998, shockt2w,  shocktr2, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Wesker","Shock Troopers - 2nd Squad (Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, strhoopcd, strhoop,  neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Data East Corporation", "Street Hoop (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2007, tpgolfcd,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, tpgolfcd,  tpgolf,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "SNK", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, viewpntr,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "KiWi Starlight","Viewpoint Enhanced", MACHINE_SUPPORTS_SAVE ) // Unlimited lives and mega-bombs for p1 and p2
+GAME( 1992, viewpntr,  viewpoin, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "KiWi Starlight","Viewpoint Enhanced", MACHINE_SUPPORTS_SAVE ) // Unlimited lives and mega-bombs for p1 and p2
 
-GAME( 1996, wakuw7bh,  neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Waku Waku 7 (Add Char - 2 players only)", MACHINE_SUPPORTS_SAVE ) // Fernandez and Bonus Kun
+GAME( 1996, wakuw7bh,  wakuwak7, neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Dodowang","Waku Waku 7 (Add Char - 2 players only)", MACHINE_SUPPORTS_SAVE ) // Fernandez and Bonus Kun
 
-GAME( 1993, wh2ey,     neogeo,   neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, wh2ey,     wh2,      neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wh2ja,     wh2j,     neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "ADK / SNK", "World Heroes 2 Jet (ADM-007)(ADH-007)(old set)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, whpb,      whp,      neogeo,   neogeo,  neogeo_class, neogeo,   ROT0, "Creamymami and Dodowang","World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
