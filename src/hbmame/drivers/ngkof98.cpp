@@ -1880,8 +1880,8 @@ ROM_START( kof98yh ) /* The King of Fighters '98 - Enhance by Ydmis - (Secret ch
 ROM_END
 
 
-GAME( 2009, kof98ae,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "SNK", "The King of Fighters '98 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98cd,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "SNK", "The King of Fighters '98 (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, kof98ae,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "hack", "The King of Fighters '98 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98cd,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "hack", "The King of Fighters '98 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ch,   kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "Chase", "The King of Fighters '98 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98chl,  kof98,    neogeo, neogeo, neogeo_class, neogeo,   ROT0, "CHL", "The King of Fighters '98 (Diff Moves 030320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof98c20070720, kof98, neogeo, neogeo, neogeo_class, neogeo, ROT0, "Ivex", "The King of Fighters '98 Combo (2007-07-20)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
