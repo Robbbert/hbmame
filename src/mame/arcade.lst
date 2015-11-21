@@ -5149,7 +5149,8 @@ micrombc        // 1999.03 Microman Battle Charge
 pclub2v3        // 1999.03 Print Club 2 Vol. 3
 sanjeon         // 1999.04 Sanjun Sujun (Sega / Deniam)
 danchih         // 1999.06 Danchi de Hanafuda Okusan Komeya Desuyo! (Altron (Tecmo License))
-ffreveng        // 1999.09 Final Fight Revenge (Capcom)
+ffrevng10       // 1999.09 Final Fight Revenge (Capcom) (V1.000)
+ffreveng        // 1999.09 Final Fight Revenge (Capcom) (V1.100)
 pclubpok        // 1999.11 Print Club Pokemon
 pclubor         // 1999.11 Print Club Goukakenran
 danchiq         // 2000.12 Danchi de Quiz Okusan Yontaku Desuyo! (Altron)
@@ -5516,6 +5517,7 @@ spawn           // 1999.?? Spawn In the Demon's Hand
 				// 1999.?? Tokio Bus Guide
 				// 1999.?? Tokio Bus Guide (Rev A)
 vtennisg        // 1999.?? Virtua Tennis / Power Smash (GD-ROM)
+totdo           // 1999.?? The Typing of the Dead
 18wheelr        // 2000.01 18 Wheeler Deluxe (Rev A)
 18wheels        // 2000.01 18 Wheeler (Standard)
 18wheelu        // 2000.01 18 Wheeler (Upright)
@@ -11171,7 +11173,8 @@ victor21        // (c) 1990 Subsino
 crsbingo        // (c) 1991 Subsino
 tisub           // (c) 1992 Subsino
 tisuba          // (c) 1992 Subsino
-stisub          // (c) 1995 Subsino (Alpha license)
+stbsub          // (c) 1995 Subsino (Alpha license)
+stisub          // (c) 1995 Subsino
 tesorone        // (c) 1995 Subsino
 tesorone240     // (c) 1995 Subsino
 tesorone230     // (c) 1995 Subsino
@@ -11336,6 +11339,7 @@ superdbl        // 198? Karateco
 pokerdub        // 198?, Unknown
 pokerduc        // 198?, Unknown
 bchancep        // 198?, Unknown
+bchanceq        // 198?, Unknown
 pokermon        // 1987, Unknown
 pokersis        // 198?, Sisteme France.
 super98         // 199?, Unknown
@@ -12065,6 +12069,7 @@ gtroppo         // (c) 1986 Ainsworth Nominees P.L.
 clkwise         // (c) 1986 Ainsworth Nominees P.L.
 gldnpkr         // (c) 1986 Ainsworth Nominees P.L.
 cgold           // (c) 1986 Ainsworth Nominees P.L.
+fvrpitch        // (c) 1986 Ainsworth Nominees P.L.
 gunnrose        // (c) 1993
 3bagflvt        // (c) 1994
 3bagflnz        // (c) 1994
