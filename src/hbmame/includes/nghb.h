@@ -149,7 +149,6 @@ public:
 	DECLARE_DRIVER_INIT(samsh5sd);
 	DECLARE_DRIVER_INIT(samsho5d);
 	DECLARE_DRIVER_INIT(svcd);
-	DECLARE_DRIVER_INIT(fr2ch);
 	DECLARE_DRIVER_INIT(shockt2w);
 	DECLARE_DRIVER_INIT(kof99bh);
 	DECLARE_DRIVER_INIT(kof99d);
@@ -172,9 +171,6 @@ public:
 	DECLARE_DRIVER_INIT(mslug4it);
 	DECLARE_DRIVER_INIT(mslug4m);
 	DECLARE_DRIVER_INIT(mslug5d);
-
-private:
-	void fr2ch_patches();
 // END HBMAME
 protected:
 	void neogeo_postload();

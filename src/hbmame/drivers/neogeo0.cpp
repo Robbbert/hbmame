@@ -5,6 +5,29 @@
 
 /******************************************************************************/
 
+// set up a hbmame-specific derived class, instead of hacking into src/mame/includes/neogeo.h
+class neogeo_hbmame : public neogeo_noslot_state //, public neogeo_noslot_kog_state
+{
+public:
+	neogeo_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: neogeo_noslot_state(mconfig, type, tag)
+		//, neogeo_noslot_kog_state(mconfig, type, tag)
+	//	, m_bootleg_prot(*this, "bootleg_prot"),
+	//	, m_kog_prot(*this, "kog_prot")
+	{}
+
+
+	DECLARE_DRIVER_INIT(fr2ch);
+private:
+	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
+	//optional_device<kog_prot_device> m_kog_prot;
+};
+
+
+
+
+
+
 
 	/* The Encrypted Boards do not have a s1 rom, data for it comes from the Cx ROMs */
 #define NEO_SFIX_MT_128K \

@@ -72,7 +72,6 @@ NUM TITLES
 
 NUM YEAR COMPANY          TITLE
 --- ---- ---------------- -------------------------------------------
-071 2000 Visco            Bang^2 Busters (Bang Bang Busters)
 300*                      Baseball Stars 3
 301*                      Death Match
 302*                      Fire Suplex 2
@@ -227,8 +226,7 @@ static MACHINE_CONFIG_DERIVED( npong10, neogeo_noslot )
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
 MACHINE_CONFIG_END
 
-#if 0
-void neogeo_state::fr2ch_patches()
+DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 {
 //// Fix rebooting at start
 
@@ -275,13 +273,8 @@ void neogeo_state::fr2ch_patches()
 	src[0x80004 /2] = 0x0020;
 	src[0x80006 /2] = 0x0002;
 	src[0x80008 /2] = 0x4E75;
-}
 
-DRIVER_INIT_MEMBER( neogeo_state, fr2ch )
-{
-	fr2ch_patches();
 	DRIVER_INIT_CALL(neogeo);
-}
 
 	/* old fr2cd code:
 	UINT16 *mem16 = (UINT16*)memory_region(machine, "maincpu");
@@ -289,7 +282,7 @@ DRIVER_INIT_MEMBER( neogeo_state, fr2ch )
 	mem16[0x1BF4/2] = 0x4E71;
 	mem16[0x1BF6/2] = 0x4E71;
 	DRIVER_INIT_CALL(neogeo);  */
-#endif
+}
 
 
 
@@ -311,24 +304,6 @@ ROM_START( csw2 )
 	ROM_REGION( 0x400000, "sprites", 0 )
 ROM_END
 
-// 071 : Bang Bang Busters
-ROM_START( bbbuster )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "071.p1", 0x000000, 0x80000, CRC(7687197d) SHA1(4bb9cb7819807f7a7e1f85f1c4faac4a2f8761e8) )
-
-	NEO_SFIX_128K( "071.s1", CRC(44e5f154) SHA1(b3f80051789e60e5d8c5df0408f1aba51616e92d) )
-
-	NEO_BIOS_AUDIO_128K( "071.m1", CRC(6da739ad) SHA1(cbf5f55c54b4ee00943e2a411eeee4e465ce9c34) )
-
-	ROM_REGION( 0x100000, "ymsnd", 0 )
-	ROM_LOAD( "071.v1", 0x000000, 0x100000, CRC(50feffb0) SHA1(00127dae0130889995bfa7560bc4b0662f74fba5) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "071.c1", 0x000000, 0x200000, CRC(23d84a7a) SHA1(9034658ad40e2c45558abc3db312aa2764102fc4) )
-	ROM_LOAD16_BYTE( "071.c2", 0x000001, 0x200000, CRC(ce7b6248) SHA1(ad1cd5adae5c151e183ff88b68afe10f7009f48e) )
-ROM_END
-
-#if 0
 // 098 : Idol Mahjong Final Romance 2
 ROM_START( fr2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -362,7 +337,7 @@ ROM_START( fr2cd )
 	ROM_LOAD16_BYTE( "098cd.c2", 0x0000001, 0x300000, CRC(3cf46f63) SHA1(c5316e83586e7b1c902746f8f2049baf026b52bf) )
 ROM_END
 
-ROM_START( fr2ch ) /* CD to MVS Conversion */
+ROM_START( fr2ch ) // CD to MVS Conversion
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "098ch.p1", 0x000000, 0x080000, CRC(9AA8CEE0) SHA1(b2201f16d8fde4eaae9dbc754d019e7b381ecc06) )
 
@@ -374,7 +349,6 @@ ROM_START( fr2ch ) /* CD to MVS Conversion */
 	ROM_LOAD( "098cd.v1", 0x000000, 0x100000, CRC(92e175f0) SHA1(788a9cce9028f16d6734bff163beb1a19305b8be) )
 
 	ROM_REGION( 0x600000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "098ch.c1", 0x000000, 0x100000, CRC(6158CF4A) SHA1(8e34b65f2cdfccaa6eeb40fef1ab3453eab92f46) )
 	ROM_LOAD16_BYTE( "098ch.c2", 0x000001, 0x100000, CRC(93A809A3) SHA1(9b680b8b758cfc77f01d7211b67343a90462b3f3) )
 	ROM_LOAD16_BYTE( "098ch.c3", 0x200000, 0x100000, CRC(FAFA3381) SHA1(0c4f20c4d5f57c1dad50b914f9d1299a9d882b42) )
@@ -382,7 +356,6 @@ ROM_START( fr2ch ) /* CD to MVS Conversion */
 	ROM_LOAD16_BYTE( "098ch.c5", 0x400000, 0x100000, CRC(EEAAA818) SHA1(434c13852153d7bebe138611a836d9bf07d1d4cf) )
 	ROM_LOAD16_BYTE( "098ch.c6", 0x400001, 0x100000, CRC(F3D9A190) SHA1(44932122e044d23234235cb3899f6e1e63970983) )
 ROM_END
-#endif
 
 // 211 : Zintrick
 ROM_START( zintrkcd )
@@ -1420,10 +1393,9 @@ ROM_END
 // GAME MACROS
 
 GAME( 1995, csw2,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "ADK", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2011, bbbuster, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Visco / NCI", "Bang Bang Busters (prototype)", MACHINE_SUPPORTS_SAVE )
-//GAME( 1995, fr2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
-//GAME( 1995, fr2cd,    fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
-//GAME( 1995, fr2ch,    fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, fr2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, fr2cd,    fr2,      neogeo_noslot,   neogeo,  neogeo_hbmame,fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, fr2ch,    fr2,      neogeo_noslot,   neogeo,  neogeo_hbmame,fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, zintrkcd, zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK / Oshidashi Zentrix (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, zintrkm,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Elrayseur", "ZinTricK / Oshidashi Zentrix (Music test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, zintrkcd1,zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK / Oshidashi Zentrix (CD test)", MACHINE_SUPPORTS_SAVE )
