@@ -357,7 +357,7 @@ mooncrs5	/* clone of fantazia */
 offender	/* Chris Henry hack of scramble */
 starfgh2	/* Bootleg of Pisces */
 superdog	/* Jerky Hack Hack of scramble */
-supergs		/* Silver Systems Super Galaxian */
+//supergs		/* Silver Systems Super Galaxian - in MAME */
 trukker		/* Grimlick hack of Frogger */
 tst_frog	/* JROK */
 vectrgal	/* T-Bone hack of Galaxian */
@@ -570,17 +570,20 @@ kof97z
 kof97zm
 
 	/* kof98 */
-//kof98ae //reboots during attract mode
-kof98cd
-kof98ch
-kof98chl
+kof98aas
+//kof98ae //black splashes all over fight scene where cars speed past
+kof98b
+kof98bh
+kof98c2006
 kof98c20070720
 kof98c20070923 // sometimes reboots itself
 kof98c20080524 // sometimes reboots itself
 kof98c20080616 // sometimes reboots itself
 kof98c20080712 // sometimes reboots itself
 kof98c20090620 // sometimes reboots itself
+kof98c20090923
 kof98c20100214
+kof98c20110114
 kof98c20120116
 kof98c20120915
 kof98c20130213
@@ -590,6 +593,7 @@ kof98c20130528
 kof98c20130617
 kof98c20130808
 kof98c20130820
+kof98c20131113
 kof98c20140101
 kof98c20140110
 kof98c20140118
@@ -610,7 +614,10 @@ kof98c20140524
 kof98c20140606
 kof98c20140620
 kof98c20140717
+kof98c20140809
+kof98c20140816
 kof98c20140824
+kof98c20140906
 kof98c20140924
 kof98c20141002
 kof98c20141020
@@ -622,27 +629,52 @@ kof98c20150330
 kof98c20150528
 kof98c20150614
 kof98c20150705
+kof98c20150729
+kof98c20150827
+kof98c20151103
+kof98c20151108
+kof98c20151110
+kof98cd
+kof98cd1
+kof98ch
+kof98chl
+kof98chris
+kof98cn
+kof98cos
+kof98cos2
 kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
 kof98ehr
+kof98evl
+kof98evo
 kof98fr
 kof98fro
 kof98fro2
 kof98frp	//slutfest
+kof98gold
+kof98hk
 kof98ice
 kof98ico
+kof98iori
 kof98jh
+kof98m
 kof98mix	/* KOF98 mix 2011-10-01 */
+kof98new
 kof98pjc
 kof98rh
+kof98rh1
 kof98rm
 kof98seh
 kof98seho
+kof98sp
+kof98sp2
+kof98sr
+kof98tim
 kof98wh
+kof98wh1
 kof98wh2
 kof98y
 kof98yh
-
 
 	/* kof99 */
 kof99ab
@@ -2117,18 +2149,6 @@ kof2k2rs_d
 //kof2k4mp
 //kof2kbsd
 //kof2kxxx
-kof98ae_d
-kof98cd_d
-kof98cn
-kof98cos
-kof98m
-kof98new
-kof98rh_d
-kof98sp
-kof98sp2
-kof98sr
-kof98tim
-kof98wh_d
 kof99ae_d
 //kof99bhs
 //kof99bs
