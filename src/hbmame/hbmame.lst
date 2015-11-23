@@ -678,11 +678,14 @@ kof98yh
 	/* kof99 */
 kof99ab
 kof99ae		/* Anniversary Edition */
+kof99ae0
 kof99ae20140624
 kof99ae20150121
 kof99ae20150520
 kof99ae20150711
 kof99bh
+kof99bhs
+kof99bs
 kof99btr
 kof99ch
 kof99chf
@@ -690,7 +693,9 @@ kof99co
 kof99d
 kof99eh
 kof99ehr
+kof99eur
 kof99fc
+kof99fix
 kof99hp
 kof99iori
 kof99jh
@@ -698,6 +703,10 @@ kof99jho
 kof99kp
 kof99lb
 kof99m
+kof99nd
+kof99ndh
+kof99ob
+kof99pb
 kof99pjc1
 kof99pjc2
 kof99pjc3
@@ -710,6 +719,7 @@ kof99py
 kof99r
 kof99revo
 kof99rp
+kof99rp0
 kof99rp1
 kof99rp2
 kof99rp3
@@ -729,6 +739,7 @@ kof99rsm
 kof99rsp
 kof99seh
 kof99sp
+kof99the4
 kof99wh1
 kof99wh2
 kof99wh3
@@ -2149,15 +2160,6 @@ kof2k2rs_d
 //kof2k4mp
 //kof2kbsd
 //kof2kxxx
-kof99ae_d
-//kof99bhs
-//kof99bs
-kof99eur
-kof99fix
-//kof99ob
-//kof99pb
-///kof99rp_d
-//kof99the4
 kogd
 //kogf
 //kogplus

@@ -17,12 +17,31 @@ public:
 	{}
 
 
+	DECLARE_DRIVER_INIT(cmc42_sfix);
+	DECLARE_DRIVER_INIT(cmc50_sfix);
 	DECLARE_DRIVER_INIT(fr2ch);
+	DECLARE_DRIVER_INIT(kof96ep);
 	DECLARE_DRIVER_INIT(kof97pla);
+	DECLARE_DRIVER_INIT(kof99bh);
+	DECLARE_DRIVER_INIT(kof99d);
 private:
 	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
 	//optional_device<kog_prot_device> m_kog_prot;
 };
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, cmc42_sfix )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50_sfix )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 2;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
 
 
 
@@ -69,7 +88,7 @@ private:
 #include "kof96.cpp"
 #include "kof97.cpp"
 #include "kof98.cpp"
-//#include "kof99.cpp"
+#include "kof99.cpp"
 //#include "kof2000.cpp"
 //#include "kof2001.cpp"
 //#include "kof2002.cpp"

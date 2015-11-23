@@ -1,6 +1,23 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+// kof96 has an extra rom with crossed wires which overrides part of the
+// main p1 rom. This init unscrambles the extra rom and inserts the new
+// code into the correct place.
+DRIVER_INIT_MEMBER( neogeo_hbmame, kof96ep )
+{
+	DRIVER_INIT_CALL(neogeo);
+	int i,j;
+	UINT8 *rom = cpuregion;
+	for ( i=0; i < 0x080000; i++ )
+	{
+		j=i+0x300000;
+		if (rom[j] - rom[i] == 8) rom[j]=rom[i];
+	}
+	memcpy(rom, rom+0x300000, 0x080000);
+}
+
+
 ROM_START( kof96a )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214a.ep1", 0x000000, 0x080000, CRC(a6101486) SHA1(51357c216cc8e52fc4ecf5b2db4814e87d016132) )
@@ -369,7 +386,7 @@ ROM_START( kof96eh ) /* The King of Fighters '96 - Enhance by Ydmis - (Can choos
 ROM_END
 
 ROM_START( kof96ep )
-	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_REGION( 0x380000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214-p1.p1",  0x000000, 0x100000, CRC(52755d74) SHA1(4232d627f1d2e6ea9fc8cf01571d77d4d5b8a1bb) )
 	ROM_LOAD16_WORD_SWAP( "214-p2.sp2", 0x100000, 0x200000, CRC(002ccb73) SHA1(3ae8df682c75027ca82db25491021eeba00a267e) )
 	ROM_LOAD16_WORD_SWAP( "214ep.p1",   0x300000, 0x080000, CRC(e5f2fb43) SHA1(5efff9873b30679ea924b7770606c889a1076315) )
@@ -1304,7 +1321,7 @@ GAME( 200?, kof96cn,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 GAME( 1996, kof96cr,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "CHL", "Kof'96 (Diff Moves and Style)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96de,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Dragon Edition set 2)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
 GAME( 1996, kof96eh,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Pow hack ABC set 1)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 1996, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Kof'96 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_hbmame, kof96ep,  ROT0, "bootleg", "Kof'96 (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96ep2,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Bootleg / Hack Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96ep3,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Bootleg / Hack Set 3 All Boss)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof96evo,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker/Fight China", "Kof'96 Evolution", MACHINE_SUPPORTS_SAVE ) // Moves and style rev
