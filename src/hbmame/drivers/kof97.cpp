@@ -1,6 +1,23 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+DRIVER_INIT_MEMBER( neogeo_hbmame, kof97pla )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
+	// The following was used in Ash build, purpose unknown:
+	//m_bootleg_prot->patch_kof97pla(cpuregion, cpuregion_size);
+	// This contains:
+	//void ngbootleg_prot_device::patch_kof97pla(UINT8* cpurom, UINT32 cpurom_size)
+	//cpurom[0x1394A] = 0x6C;
+	//cpurom[0x1394B] = 0xD1;
+	//cpurom[0x1394C] = 0x3A;
+	//cpurom[0x1394D] = 0x1;
+	//cpurom[0x1394E] = 0x6C;
+	//cpurom[0x1394F] = 0x91;
+}
+
+
 ROM_START( kof97aa )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232aa.p1", 0x000000, 0x100000, CRC(35a1a664) SHA1(5fc3835e5a3747f5e5d6bfe63e1562e33d26526e) )
@@ -1557,7 +1574,7 @@ GAME( 1997, kof97pjc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 1997, kof97phl,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Liyang1983", "Kof'97 (Plus Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 PLUS set 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97pl3,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 PLUS set 3", MACHINE_SUPPORTS_SAVE )
-//GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_state, kof97pla, ROT0, "bootleg", "Kof'97 PLUS set 1", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_hbmame,kof97pla, ROT0, "bootleg", "Kof'97 PLUS set 1", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "ZKW", "Kof'97 PLUS (Black Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "KOF1996", "Kof'97 Practice Mode", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97ps,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (Playstation Hack)", MACHINE_SUPPORTS_SAVE )

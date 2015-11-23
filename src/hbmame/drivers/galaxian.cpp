@@ -534,21 +534,6 @@ ROM_START( starfgh2 )
 	ROM_LOAD( "colour.bin",   0x0000, 0x0020, CRC(57a45057) SHA1(d4ec6a54f72640e5b485aa59e206c090e67ff640) )
 ROM_END
 
-ROM_START( supergs )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "7f.bin",       0x0000, 0x1000, CRC(4335b1de) SHA1(e41e3d90dac738cf71377f3b476ec67b14dee27a) )
-	ROM_LOAD( "superg.w",     0x1000, 0x0800, CRC(ddeabdae) SHA1(daa5109a32c7c9a80bdb212dc3e4e3e3c104a731) )
-	ROM_LOAD( "superg.y",     0x1800, 0x0800, CRC(9463f753) SHA1(d9cb35c19aafec43d08b048bbe2337a790f6ba9d) )
-	ROM_LOAD( "supergs.z",    0x2000, 0x0800, CRC(95e9005c) SHA1(cb4c556f00ec2ae9876d235224a7eb7816c06f60) )
-
-	ROM_REGION( 0x1000, "gfx1", 0 )
-	ROM_LOAD( "galmidw.1j",   0x0000, 0x0800, CRC(84decf98) SHA1(2e565cb6057b1816a6b4541e6dfadd3c3762fa36) )
-	ROM_LOAD( "galmidw.1k",   0x0800, 0x0800, CRC(c31ada9e) SHA1(237ebb48549b34ca59a13cc2706512d957413ec4) )
-
-	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
-ROM_END
-
 ROM_START( vectrgal )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "galnamco.7f",  0x0000, 0x1000, CRC(b10533fd) SHA1(ea8653e80000d607cd37a41f2de27ffe6e190f0f) )
@@ -848,7 +833,6 @@ GAME( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_state, galaxian, RO
 GAME( 1979, galnamco, 0,        galaxian, galaxian, galaxian_state, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_state, galaxian, ROT90, "Krazy Ivan", "Mr. Do Nightmare", MACHINE_SUPPORTS_SAVE )
-GAME( 1979, supergs,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Midway", "Super Galaxians (Silver Systems)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_state, galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
 
 

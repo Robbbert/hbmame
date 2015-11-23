@@ -18,6 +18,7 @@ public:
 
 
 	DECLARE_DRIVER_INIT(fr2ch);
+	DECLARE_DRIVER_INIT(kof97pla);
 private:
 	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
 	//optional_device<kog_prot_device> m_kog_prot;
@@ -67,7 +68,7 @@ private:
 #include "kof95.cpp"
 #include "kof96.cpp"
 #include "kof97.cpp"
-//#include "kof98.cpp"
+#include "kof98.cpp"
 //#include "kof99.cpp"
 //#include "kof2000.cpp"
 //#include "kof2001.cpp"

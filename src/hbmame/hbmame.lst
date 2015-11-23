@@ -357,7 +357,6 @@ mooncrs5	/* clone of fantazia */
 offender	/* Chris Henry hack of scramble */
 starfgh2	/* Bootleg of Pisces */
 superdog	/* Jerky Hack Hack of scramble */
-//supergs		/* Silver Systems Super Galaxian - in MAME */
 trukker		/* Grimlick hack of Frogger */
 tst_frog	/* JROK */
 vectrgal	/* T-Bone hack of Galaxian */
@@ -537,7 +536,7 @@ kof97pj
 kof97pjc
 kof97pl2
 kof97pl3
-//kof97pla needs a driver init
+kof97pla
 kof97plc
 kof97pm
 kof97ps
