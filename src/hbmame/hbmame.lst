@@ -1112,32 +1112,31 @@ newdigdo	/* Vic 20 George and Jerky hack of... */
 stickydo	/* Marck's Hacks */
 
 	/* mslug */
-mslug		// parent
-mslug2		// parent
-mslugx		// parent
-mslug3		// parent
-mslug4		// parent
-mslug5		// parent
-
+msboot
 mslugeh
-mslugxfr
-mslugxfro
-mslugxit
-mslugxeb
-mslugxeh
-mslugxhp
-mslugxr
-
 mslug2eh
+mslug2eh0
 mslug2eh1
 mslug2eh2
 mslug2eh3
 mslug2eh4
 mslug2fr
 mslug2fro
+mslug2sh
 mslug2t		// 2015 trap15 - remove slowdowns that plague gameplay
-
+mslugxeb
+mslugxeh
+mslugxeh1
+mslugxex
+mslugxfr
+mslugxfro
+mslugxit
+mslugxhp
+mslugxp
+mslugxr
+mslugxst
 mslug3d
+mslug3d1
 mslug3eha
 mslug3ehs
 mslug3e02
@@ -1167,9 +1166,9 @@ mslug3fro
 mslug3kh
 mslug3kho
 mslug3v		/* EEZEZY Violence Edition */
-
 mslug4d
 mslug4dh	/* Super D version */
+mslug4dh1
 mslug4eh
 mslug4eh2
 mslug4eh3
@@ -1179,31 +1178,20 @@ mslug4eh6
 mslug4eho
 mslug4fr
 mslug4i
-mslug4kh
-
-mslug5d
-mslug5fr
-mslug5l9a
-mslug5l9b
-
-ms5boot
-ms5pcbd
-msboot
-mslug2eh0
-mslug2sh
-mslug3d1
-mslug4dh1
 mslug4i1
+mslug4kh
 mslug4nd
 mslug5b
+mslug5d
 mslug5d1
+mslug5fr
 mslug5fr1
 mslug5hd
+mslug5l9a
+mslug5l9b
 mslug5nd
-mslugxeh1
-mslugxex
-mslugxp
-mslugxst
+ms5boot
+ms5pcbd
 
 	/* mspacman */
 mspacman	/* (c) 1981 Midway */ /* made by Gencomp */
@@ -1411,6 +1399,12 @@ matrim		/* 0266 (c) 2002 Atlus */
 miexchng
 minasan
 ms5pcb
+mslug
+mslug2
+mslugx
+mslug3
+mslug4
+mslug5
 mutnat
 nam1975		/* 0001 (c) 1990 SNK */
 ncombat
