@@ -1583,21 +1583,6 @@ njmehc
 njmehyc
 pbobblnb
 pbobbldx
-rbff1ud
-rbffsehd
-rbffsb
-rbffseh
-rbffspy
-rbffsud
-rbff2b
-rbff2bh
-rbff2eh
-rbff2ehc
-rbff2eh2
-rbff2eho
-rbff2fc
-rbff2ud
-rbff2y
 rageh
 roboarma
 s1945pwe
@@ -1626,6 +1611,23 @@ dbdqb
 dbdqp
 dbdqeh
 
+	/* ngrbff */
+rbff1ud
+rbffsehd
+rbffsb
+rbffseh
+rbffspy
+rbffspbd
+rbffsud
+rbff2b
+rbff2bh
+rbff2eh
+rbff2ehc
+rbff2eh2
+rbff2eho
+rbff2fc
+rbff2ud
+rbff2y
 
 	/* ngrotd */
 rotdb
@@ -2219,7 +2221,6 @@ mutnatex
 ninjmsha
 pbobblcd
 //pnyaad
-//rbffspbd
 //sengk3pl
 //sengok3p
 spinmsth

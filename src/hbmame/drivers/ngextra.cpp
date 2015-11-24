@@ -694,33 +694,7 @@ ROM_START( lastbldb )
 	ROM_LOAD16_BYTE( "234-c5.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) ) /* Plane 0,1 */ /* TC5332205 */
 	ROM_LOAD16_BYTE( "234-c6.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) ) /* Plane 2,3 */ /* TC5332205 */
 ROM_END
-#if 0
-ROM_START( rbff2b )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "240-p1b.bin", 0x000000, 0x100000, CRC(a5652c51) SHA1(0a736bb5c817752aef5b559c0355329667203073) )
-	ROM_LOAD16_WORD_SWAP( "240-p2.sp2", 0x100000, 0x400000, CRC(960aa88d) SHA1(3d9e785891871af90313f178dca2724633406674) )
 
-	NEO_SFIX_128K( "240-s1b.bin",  CRC(141a8492) SHA1(e3b27771c78ac1df96f9daf951511897652b1a0f) )
-
-	NEO_BIOS_AUDIO_256K( "240-m1.m1", CRC(ed482791) SHA1(1f54a45967cb7842c33aa24be322c9f33ff75ac3) )
-
-	ROM_REGION( 0x0e00000, "ymsnd", 0 )
-	ROM_LOAD( "240-v1.v1", 0x000000, 0x400000, CRC(f796265a) SHA1(736dff37eb91fc856b4d189249fb0de9b6c0813a) )
-	ROM_LOAD( "240-v2.v2", 0x400000, 0x400000, CRC(2cb3f3bb) SHA1(697e677890892f4b028c9a27c66809ca0a8a9b18) )
-	//ROM_LOAD( "240-v3.bin", 0x800000, 0x400000, CRC(df77b7fa) SHA1(4df971ce20bdb8c1ce8cc1692a32ac69505ffa9a) ) // bad?
-	ROM_LOAD( "240-v3.v3", 0x800000, 0x400000, CRC(8fe1367a) SHA1(093d7a4ac2b54ad7ffb2dc316fe29415f7a99535) )
-	ROM_LOAD( "240-v4.v4", 0xc00000, 0x200000, CRC(996704d8) SHA1(0bf7a1d0660199dedf3c25be757eeab75cc6147e) )
-
-	ROM_REGION( 0x3000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "240-c1.c1", 0x0000000, 0x800000, CRC(effac504) SHA1(e36a96e7369b02c7e839b5abf3c6799453ba1927) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "240-c2.c2", 0x0000001, 0x800000, CRC(ed182d44) SHA1(a9fc0a3a786bf067c129ec7220df65953dff804f) ) /* Plane 2,3 */
-	ROM_LOAD16_BYTE( "240-c3.c3", 0x1000000, 0x800000, CRC(22e0330a) SHA1(0fe7f6a8aeba7f17dbb278e85003969ff10d3cd2) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "240-c4.c4", 0x1000001, 0x800000, CRC(c19a07eb) SHA1(139eac8b51cadf328dd42d8109f4e2463f57230c) ) /* Plane 2,3 */
-	ROM_LOAD16_BYTE( "240-c5.c5", 0x2000000, 0x800000, CRC(244dff5a) SHA1(156548156d3ceaa808d0053d0749af2526a3943e) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "240-c6.c6", 0x2000001, 0x800000, CRC(4609e507) SHA1(bb17f50a377dddb77c1eeda5944a7bcbf0cca5f7) ) /* Plane 2,3 */
-ROM_END
-
-#endif
 ROM_START( ffury3bd )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "069-p1bd.p1", 0x000000, 0x100000, CRC(532c2930) SHA1(a65a39a79820138f275f75563f548240dd53f371) )
@@ -767,33 +741,7 @@ ROM_START( ninjamh )
 	ROM_LOAD16_BYTE( "217-c7.c7", 0x1800000, 0x400000, CRC(8b0ede2e) SHA1(ea632ac98291ddac95441b7fe2349974b2da8a42) ) /* Plane 0,1 */
 	ROM_LOAD16_BYTE( "217-c8.c8", 0x1800001, 0x400000, CRC(a085bb61) SHA1(6a3e9e6ba96072b8849b407f2b24103dc0852259) ) /* Plane 2,3 */
 ROM_END
-#if 0
-ROM_START( rbffspbd )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223-p1bd.p1", 0x000000, 0x100000, CRC(04cb6d40) SHA1(97427ce56aeb3eaa851297a7beae125a34ca82c4) )
-	ROM_LOAD16_WORD_SWAP( "223-p2.sp2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
-	NEO_SFIX_128K( "223-s1.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
-
-	NEO_BIOS_AUDIO_128K( "223-m1.m1", CRC(3fee46bf) SHA1(e750f85233953853618fcdff980a4721af1710a3) )
-
-	ROM_REGION( 0xc00000, "ymsnd", 0 )
-	ROM_LOAD( "223-v1.v1", 0x000000, 0x400000, CRC(76673869) SHA1(78a26afa29f73de552ffabdbf3fc4bf26be8ae9e) )
-	ROM_LOAD( "223-v2.v2", 0x400000, 0x400000, CRC(7a275acd) SHA1(8afe87ce822614262b72a90b371fc79155ac0d0c) )
-	ROM_LOAD( "223-v3.v3", 0x800000, 0x400000, CRC(5a797fd2) SHA1(94958e334f86d4d71059af8138f255b8d97a3b01) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "223-c1.c1", 0x0000000, 0x400000, CRC(ebab05e2) SHA1(0d60a8b631e3a3dcfbfdd7779dee081c9548ec39) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "223-c2.c2", 0x0000001, 0x400000, CRC(641868c3) SHA1(aa1aeb661842276b3326bfa4f1456f75bfecd52e) ) /* Plane 2,3 */
-	ROM_LOAD16_BYTE( "223-c3.c3", 0x0800000, 0x400000, CRC(ca00191f) SHA1(96977febfcc513e1848d7029ff169cdf51104038) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "223-c4.c4", 0x0800001, 0x400000, CRC(1f23d860) SHA1(e18df52f898a51074e07a0b8c6e75873e7cde35e) ) /* Plane 2,3 */
-	ROM_LOAD16_BYTE( "223-c5.c5", 0x1000000, 0x400000, CRC(321e362c) SHA1(39bd189334278f266124c97c6f70995f6f171cea) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "223-c6.c6", 0x1000001, 0x400000, CRC(d8fcef90) SHA1(bbccacb27f1e587bc144fe7ce68bd7b327ceaaee) ) /* Plane 2,3 */
-	ROM_LOAD16_BYTE( "223-c7.c7", 0x1800000, 0x400000, CRC(bc80dd2d) SHA1(086f372015eede88c6c578595fe915e28a589d2f) ) /* Plane 0,1 */
-	ROM_LOAD16_BYTE( "223-c8.c8", 0x1800001, 0x400000, CRC(5ad62102) SHA1(e28cc9840caed2a1a8bd65a03bef05231071040c) ) /* Plane 2,3 */
-ROM_END
-
-#endif
 ROM_START( kof2k1ru_d )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "262-p1ru.bin", 0x000000, 0x100000, CRC(3377ebee) SHA1 (52b70ba1bb0801db02be3862dde1fcaf8ae5075b) )
@@ -3715,10 +3663,8 @@ GAME( 2001, kof2k1h,    kof2001,  neogeo_noslot,   neogeo, neogeo_state,        
 ///GAME( 1996, aof3b,      aof3,     neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfrspb,   fatfursp, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Fatal Fury Special / Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1997, lastbldb,   lastblad, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-///GAME( 1998, rbff2b,     rbff2,    neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, ffury3bd,   fatfury3, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - haruka-naru tatakai (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamh,    ninjamas, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Ninja Master's - haoh-ninpo-cho (Boss Hack by Ydmis and Creamymami)", MACHINE_SUPPORTS_SAVE )
-//GAME( 1996, rbffspbd,   rbffspec, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, kof2k1ru_d,   kof2001,  neogeo_noslot,   neogeo, neogeo_state,          neogeo ,  ROT0, "hack", "The King of Fighters 2001 Remix Ultra Ver 2.3 by Jason", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcrm,      svc,      neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Snk vs Capcom - Chaos Remix Ultra Ver 1.2 by Jason", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svch,       svc,      neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "SVC CHAOS: SNK VS. CAPCOM REMIX Ver 1.0 by chbandy", MACHINE_SUPPORTS_SAVE )
