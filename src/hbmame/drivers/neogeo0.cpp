@@ -17,9 +17,10 @@ public:
 	{}
 
 
-	DECLARE_DRIVER_INIT(cmc42_sfix);
-	DECLARE_DRIVER_INIT(cmc50_sfix);
+	DECLARE_DRIVER_INIT(cmc42sfix);
+	DECLARE_DRIVER_INIT(cmc50sfix);
 	DECLARE_DRIVER_INIT(fr2ch);
+	DECLARE_DRIVER_INIT(garoud);
 	DECLARE_DRIVER_INIT(kof96ep);
 	DECLARE_DRIVER_INIT(kof97pla);
 	DECLARE_DRIVER_INIT(kof99bh);
@@ -40,15 +41,6 @@ public:
 	DECLARE_DRIVER_INIT(mslug5fr1);
 	DECLARE_DRIVER_INIT(ms5boot);
 //	DECLARE_DRIVER_INIT(kof2001d);
-//	DECLARE_DRIVER_INIT(garoud);
-//	DECLARE_DRIVER_INIT(matrimd);
-//	DECLARE_DRIVER_INIT(matrmehc);
-//	DECLARE_DRIVER_INIT(rotdb);
-//	DECLARE_DRIVER_INIT(rotdd);
-//	DECLARE_DRIVER_INIT(samsh5sd);
-//	DECLARE_DRIVER_INIT(samsho5d);
-//	DECLARE_DRIVER_INIT(svcd);
-//	DECLARE_DRIVER_INIT(shockt2w);
 //	DECLARE_DRIVER_INIT(kof2000d);
 //	DECLARE_DRIVER_INIT(kof2000h);
 //	DECLARE_DRIVER_INIT(kof2000m);
@@ -60,19 +52,31 @@ public:
 //	DECLARE_DRIVER_INIT(kof2k2dbh);
 //	DECLARE_DRIVER_INIT(kof2k2h);
 //	DECLARE_DRIVER_INIT(kof2003b);
+//	DECLARE_DRIVER_INIT(matrimd);
+//	DECLARE_DRIVER_INIT(matrmehc);
+	DECLARE_DRIVER_INIT(rotdb);
+	DECLARE_DRIVER_INIT(rotdd);
+	DECLARE_DRIVER_INIT(rotdnd);
+	DECLARE_DRIVER_INIT(samsh5sd);
+	DECLARE_DRIVER_INIT(samsho5d);
+	DECLARE_DRIVER_INIT(samsh5hd);
+	DECLARE_DRIVER_INIT(samsh5spd);
+	DECLARE_DRIVER_INIT(samsho5hd);
+//	DECLARE_DRIVER_INIT(shockt2w);
+//	DECLARE_DRIVER_INIT(svcd);
 private:
 	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
 	//optional_device<kog_prot_device> m_kog_prot;
 };
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, cmc42_sfix )
+DRIVER_INIT_MEMBER( neogeo_hbmame, cmc42sfix )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50_sfix )
+DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -140,7 +144,15 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50_sfix )
 //#include "kof2001.cpp"
 //#include "kof2002.cpp"
 //#include "kof2003.cpp"
-#include "mslug.cpp"
 #include "mgd2.cpp"
+#include "mslug.cpp"
+#include "ngdoubledr.cpp"
 #include "ngextra.cpp"
+#include "nggaroup.cpp"
+#include "nglastblade.cpp"
+#include "ngrbff.cpp"
+#include "ngrotd.cpp"
+#include "ngsamsho.cpp"
+#include "ngsengoku.cpp"
+#include "ngwh.cpp"
 

@@ -11147,16 +11147,8 @@ DRIVER_INIT_MEMBER(neogeo_class,sbp)
 /******************************************************************************/
 
 
-//#include "nghb0.cpp" - do not use
-//#include "nghbhb.cpp"
 #include "nghb1.cpp"
-//#include "ngkof96.cpp"
-//#include "ngkof97.cpp"
-//#include "ngkof98.cpp"
-//#include "ngkof99.cpp"
 #include "ngkof2000.cpp"
 #include "ngkof2001.cpp"
 #include "ngkof2002.cpp"
 #include "ngkof2003.cpp"
-//#include "ngmslug.cpp"
-//#include "ngmgd2.cpp"

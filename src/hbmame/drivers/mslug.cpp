@@ -92,7 +92,9 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5d )
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5hd )
 {
-	DRIVER_INIT_CALL(cmc50_sfix);
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 2;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
 	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
@@ -1946,13 +1948,14 @@ ROM_END
 #endif
 ROM_START( ms5boot ) /* Bootleg / Hack of Metal Slug 5 */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "268boot.p1", 0x000000, 0x100000, CRC(e6d297af) SHA1(5bb3f72ce26e3f46c523b955f425056eb246e855) )
+	// not sure if it's actually bad, or some weird protection
+	ROM_LOAD16_WORD_SWAP( "268boot.p1", 0x000000, 0x100000, BAD_DUMP CRC(e6d297af) SHA1(5bb3f72ce26e3f46c523b955f425056eb246e855) )
+	// this one fixes all the issues
+	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
 	ROM_LOAD16_WORD_SWAP( "268boot.p2", 0x100000, 0x100000, CRC(3fc46cfa) SHA1(f20d3d359f6cdbf6aabb6920020621b02bafee91) )
 	ROM_CONTINUE(0x300000, 0x100000 )
 	ROM_LOAD16_WORD_SWAP( "268boot.p3", 0x200000, 0x100000, CRC(742c955a) SHA1(96c0f08b1f2f6877f5169a96c13b67f3be6082c6) )
 	ROM_CONTINUE(0x400000, 0x100000 )
-	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
-	ROM_LOAD16_WORD_SWAP( "268nd.p2", 0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
 
 	NEO_SFIX_MT_512K
 	//NEO_SFIX_MSLUG( "268boot.s1", CRC(52a8c09b) SHA1(3a90d8e44aa7cbc79945f8ece0e2fb9ce3e5a4c7) ) // corrupt?
@@ -2206,7 +2209,7 @@ ROM_END
 
 ROM_START( mslug5nd )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
+	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) ) // this rom is watermarked by HappyASR (24/12/03)
 	ROM_LOAD16_WORD_SWAP( "268nd.p2", 0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
 //	ROM_LOAD16_WORD_SWAP( "268boot.p1", 0x000000, 0x100000, CRC(e6d297af) SHA1(5bb3f72ce26e3f46c523b955f425056eb246e855) )
 //	ROM_LOAD16_WORD_SWAP( "268-p2n.bin", 0x100000, 0x400000, CRC(84def63e) SHA1(fddd68e8879d6f5c1aac42997ff2245ea54d5869) )
@@ -2262,7 +2265,7 @@ GAME( 2013, mslugxr,   mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, msl
 GAME( 1999, mslugxst,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X (Enhanced Version by STARK) [EGCG]", MACHINE_SUPPORTS_SAVE )
 // Metal Slug 3
 GAME( 2000, mslug3d,   mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3d,  ROT0, "SNK", "Metal Slug 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3d1,  mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42_sfix, ROT0, "SNK", "Metal Slug 3 (NGH-2560)(Fully Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3d1,  mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix,ROT0, "SNK", "Metal Slug 3 (NGH-2560)(Fully Decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3eha, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3ehs, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3e02, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)", MACHINE_SUPPORTS_SAVE )

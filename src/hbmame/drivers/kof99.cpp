@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 
 // Rules: no encryption, has s1 rom -> neogeo_state,neogeo
-// no s1 rom -> neogeo_hbmame,cmc42_sfix
+// no s1 rom -> neogeo_hbmame,cmc42sfix
 // encrypted gfx -> m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, KOF99_GFX_KEY);
 // encrypted gfx and no s1 rom -> m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF99_GFX_KEY);
 
@@ -2007,7 +2007,7 @@ GAME( 1999, kof99jh,    kof99,    neogeo_noslot, neogeo, neogeo_noslot_state, ko
 GAME( 1999, kof99jho,   kof99,    neogeo_noslot, neogeo, neogeo_noslot_state, kof99k,   ROT0, "Jason/K3", "Kof'99 (3 Add Char - Simple moves rev - Athena style changed 030924)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof99lb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "lb70", "Kof'99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99m,     kof99,    neogeo_noslot, neogeo, neogeo_noslot_state, kof99k,   ROT0, "MasakiAnton", "Kof'99 (2 Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       cmc42_sfix, ROT0, "SNK", "Kof'99 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "SNK", "Kof'99 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ndh,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ob,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Orochi's Blood-Another part of Leona & Iori", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99pb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Perfect Boss", MACHINE_SUPPORTS_SAVE )
