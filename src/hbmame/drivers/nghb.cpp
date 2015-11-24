@@ -11158,5 +11158,5 @@ DRIVER_INIT_MEMBER(neogeo_class,sbp)
 #include "ngkof2001.cpp"
 #include "ngkof2002.cpp"
 #include "ngkof2003.cpp"
-#include "ngmslug.cpp"
+//#include "ngmslug.cpp"
 //#include "ngmgd2.cpp"

@@ -1,79 +1,148 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-NOT IN USE
 #if 0
-DRIVER_INIT_MEMBER( neogeo_state, mslugx )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslugx )
 {
 	mslugx_install_protection();
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug3 )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3 )
 {
 	DRIVER_INIT_CALL(neogeo);
-	mslug3_decrypt_68k();
+	m_sma_prot->mslug3_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	kof99_neogeo_gfx_decrypt(0xad);
-	mslug3_install_protection();
-}
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MSLUG3_GFX_KEY);
+	m_sma_prot->mslug3_install_protection(m_maincpu, m_banked_cart);
+
 #endif
-DRIVER_INIT_MEMBER( neogeo_state, mslug3n )
-{
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	kof99_neogeo_gfx_decrypt(0xad);
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug3d )
-{
-	DRIVER_INIT_CALL(neogeo);
-	mslug3_decrypt_68k();
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	mslug3_install_protection();
-	neogeo_sfix_decrypt();
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug3fr )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3n )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	mslug3_install_protection();
-	neogeo_sfix_decrypt();
+	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG3_GFX_KEY);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4d )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3d )
 {
+	DRIVER_INIT_CALL(neogeo);
+	m_sma_prot->mslug3_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	neogeo_sfix_decrypt();
-	neo_pcm2_snk_1999(8);
+	m_sma_prot->mslug3_install_protection(m_maincpu, m_banked_cart);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4dh )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3fr )
 {
+	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	neogeo_sfix_decrypt();
+	m_sma_prot->mslug3_install_protection(m_maincpu, m_banked_cart);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4it )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug4d )
 {
+	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	cmc50_neogeo_gfx_decrypt(0x31);
-	neo_pcm2_snk_1999(8);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4m )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug4dh )
 {
+	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	kof2000_neogeo_gfx_decrypt(0x31);
-	neo_pcm2_snk_1999(8);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug5d )
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug4it )
 {
-	mslug5_decrypt_68k();
-	neo_pcm2_swap(2);
+	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	neogeo_sfix_decrypt();
-	install_pvc_protection();
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MSLUG4_GFX_KEY);
+	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 }
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug4m )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG4_GFX_KEY);
+	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5b )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG5_GFX_KEY);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5d )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5hd )
+{
+	DRIVER_INIT_CALL(cmc50_sfix);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
+	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5d1 )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5fr1 )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, ms5boot )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 2;
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5nd )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, ms5pcbd )
+{
+	DRIVER_INIT_CALL(neogeo);
+
+	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	m_sprgen->m_fixed_layer_bank_type = 2;
+	svcpcb_s1data_decrypt();
+	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+	install_banked_bios();
+}
+
 
 #if 0
 ROM_START( mslug )
@@ -96,6 +165,28 @@ ROM_START( mslug )
 	ROM_LOAD16_BYTE( "201-c4.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
 ROM_END
 #endif
+ROM_START( msboot )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "201-p1.p1", 0x100000, 0x100000, CRC(08d8daa5) SHA1(b888993dbb7e9f0a28a01d7d2e1da00ef9cf6f38) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "201-s1.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
+
+	NEO_BIOS_AUDIO_128K( "201-m1.m1", CRC(c28b3253) SHA1(fd75bd15aed30266a8b3775f276f997af57d1c06) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "201boot.v1", 0x000000, 0x200000, CRC(2C05FD7C) SHA1(4f28bc799da0e27b2f3cde364d8c9822468abb8f) )
+	ROM_LOAD( "201boot.v2", 0x200000, 0x200000, CRC(752DE272) SHA1(1e9ffb296a1089e15b23455841ad91e8a565ba62) )
+	ROM_LOAD( "201boot.v3", 0x400000, 0x200000, CRC(AA48FAA6) SHA1(4695b9dafdc13997410cbd7954c2a7f1b5e4649d) )
+	ROM_LOAD( "201boot.v4", 0x600000, 0x200000, CRC(4264444B) SHA1(7c248e8e559c67d6e8474ec6ce5cf2e3e41235e4) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "201-c1.c1", 0x000000, 0x400000, CRC(72813676) SHA1(7b045d1a48980cb1a140699011cb1a3d4acdc4d1) )
+	ROM_LOAD16_BYTE( "201-c2.c2", 0x000001, 0x400000, CRC(96f62574) SHA1(cb7254b885989223bba597b8ff0972dfa5957816) )
+	ROM_LOAD16_BYTE( "201-c3.c3", 0x800000, 0x400000, CRC(5121456a) SHA1(0a7a27d603d1bb2520b5570ebf5b34a106e255a6) )
+	ROM_LOAD16_BYTE( "201-c4.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
+ROM_END
+
 ROM_START( mslugeh ) /* Metal Slug - Enhance by Ydmis - (New standard weapon shotgun - 20 bombs instead of 10) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "201eh.p1", 0x100000, 0x100000, CRC(20bb97f7) SHA1(1444cad0262883b9e6c581387634d4e82a33c6bb) )
@@ -141,7 +232,27 @@ ROM_START( mslug2eh ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_WORD_SWAP( "241eh.p1",   0x000000, 0x100000, CRC(82cdf18b) SHA1(4a51e4973f7ff5d7149763502e07cf2fc8ec9f43) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+
+	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "241-v1.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) )
+	ROM_LOAD( "241-v2.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241-c1.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) )
+	ROM_LOAD16_BYTE( "241-c2.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) )
+	ROM_LOAD16_BYTE( "241-c3.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
+	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
+ROM_END
+
+ROM_START( mslug2eh0 )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241eh0.p1",  0x000000, 0x100000, CRC(d2dbae34) SHA1(6bd86bd6b3f4a08d0586efccdef457499bb53d8f) )
+	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
+
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -161,7 +272,7 @@ ROM_START( mslug2eh1 ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_WORD_SWAP( "241eh1.p1",  0x000000, 0x100000, CRC(e8646c37) SHA1(f3d02a16ec6106e6c20d8c519893d532764420a6) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -181,7 +292,7 @@ ROM_START( mslug2eh2 ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_WORD_SWAP( "241eh2.p1",  0x000000, 0x100000, CRC(579ecaf3) SHA1(e437ae08b265202635c963f10e497ed1788b75fa) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -201,7 +312,7 @@ ROM_START( mslug2eh3 ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_WORD_SWAP( "241eh3.p1",  0x000000, 0x100000, CRC(3d37574f) SHA1(431e80d8689cdba27726265a7dab2ac7a5db71e2) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -221,7 +332,7 @@ ROM_START( mslug2eh4 ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_WORD_SWAP( "241eh4.p1",  0x000000, 0x100000, CRC(f31a813a) SHA1(a0024fc378b7e7daa4f48049042ecb8b2551e71a) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -241,7 +352,7 @@ ROM_START( mslug2fr ) /* Metal Slug 2 - Translation Hack by NEO-ARC - (French tr
 	ROM_LOAD16_WORD_SWAP( "241fr.p1",   0x000000, 0x100000, CRC(ad0de810) SHA1(69c56326b555fb2c18228794e1a2bfd11652ec16) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -261,7 +372,7 @@ ROM_START( mslug2fro ) /* [OLD] Metal Slug 2 - (mslug2fro) - Translation Hack by
 	ROM_LOAD16_WORD_SWAP( "241fro.p1",  0x000000, 0x100000, CRC(b0fe22b3) SHA1(9b2d19694165d1f5e20da70b645e55294a10ef51) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
-	NEO_SFIX_128K( "241-s1.s1",  CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
 
 	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
 
@@ -272,6 +383,26 @@ ROM_START( mslug2fro ) /* [OLD] Metal Slug 2 - (mslug2fro) - Translation Hack by
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "241fro.c1", 0x0000000, 0x800000, CRC(44da3c4a) SHA1(72ea1c469b332d8c60816e4c965d4f46a5090baa) )
 	ROM_LOAD16_BYTE( "241fro.c2", 0x0000001, 0x800000, CRC(07c20fad) SHA1(8664950aa7569cd6594b8964f053b19a18c2d5a9) )
+	ROM_LOAD16_BYTE( "241-c3.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
+	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
+ROM_END
+
+ROM_START( mslug2sh )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241sh.p1",   0x000000, 0x100000, CRC(4e4c8d1d) SHA1(bdb30f68fa1345511cbe1afcdf04c5f59d8965a1) )
+	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
+
+	NEO_SFIX_128K( "241-s1.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+
+	NEO_BIOS_AUDIO_128K( "241-m1.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "241-v1.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) )
+	ROM_LOAD( "241-v2.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241-c1.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) )
+	ROM_LOAD16_BYTE( "241-c2.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) )
 	ROM_LOAD16_BYTE( "241-c3.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
 	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
@@ -295,6 +426,7 @@ ROM_START( mslug2t ) /* Trap15 - Metal Slug 2 Turbo - hack to remove slowdowns i
 	ROM_LOAD16_BYTE( "241-c3.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
 	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
+
 #if 0
 ROM_START( mslugx ) /* MVS AND AES VERSION */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -319,12 +451,82 @@ ROM_START( mslugx ) /* MVS AND AES VERSION */
 	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 #endif
+ROM_START( mslugxeb )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250eb.p1", 0x000000, 0x100000, CRC(c41c7ddb) SHA1(1662a1fd1c35511b3091e979b55e940a9f887143) )
+	ROM_CONTINUE (0x000000, 0x100000)
+	ROM_LOAD16_WORD_SWAP( "250eb.p2", 0x100000, 0x400000, CRC(a51363d1) SHA1(7b6b3490a975ac1e549df60b9d70ccd6d2f2ba6e) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
 ROM_START( mslugxeh ) /* Metal Slug X - Enhance by KrysoFun/KVS - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250eh.p1",   0x000000, 0x100000, CRC(2e110dd7) SHA1(4ce18a726103bc7c1972125806b2c89332338050) )
 	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
 
-	NEO_SFIX_128K( "250-s1.s1",  CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
+ROM_START( mslugxeh1 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250eh1.p1",  0x000000, 0x100000, CRC(2b016e87) SHA1(ab99da64a084f5fef75d9647182a42d7e72bd4c4) )
+	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
+ROM_START( mslugxex )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250ex.p1",   0x000000, 0x100000, CRC(7b751398) SHA1(6149b81b5fb4e9b501a7b119b030df432985b409) )
+	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
 
 	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
 
@@ -347,7 +549,7 @@ ROM_START( mslugxfr ) /* Metal Slug X - Translation Hack by NEO-ARC - (French tr
 	ROM_LOAD16_WORD_SWAP( "250fr.p1",   0x000000, 0x100000, CRC(58a64443) SHA1(ab07993de04eb65f89bab5d4b6e473d7ecbc8ff1) )
 	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
 
-	NEO_SFIX_128K( "250-s1.s1",  CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
 
 	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
 
@@ -370,7 +572,7 @@ ROM_START( mslugxfro ) /* [OLD] Metal Slug X - (mslugxfro) - Translation Hack by
 	ROM_LOAD16_WORD_SWAP( "250fro.p1",  0x000000, 0x100000, CRC(4dadf4f3) SHA1(e37e53370cd6b03bb0e2b8266f635ce7980de45b) )
 	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
 
-	NEO_SFIX_128K( "250-s1.s1",  CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
 
 	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
 
@@ -388,12 +590,12 @@ ROM_START( mslugxfro ) /* [OLD] Metal Slug X - (mslugxfro) - Translation Hack by
 	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxit )
+ROM_START( mslugxhp )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "250it.p1",   0x000000, 0x100000, CRC(f3e154ea) SHA1(bb8260deefa7b048772625085e6f41cab717a147) )
-	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
+	ROM_LOAD16_WORD_SWAP( "250-p1.p1", 0x000000, 0x100000, CRC(81f1f60b) SHA1(4c19f2e9824e606178ac1c9d4b0516fbaa625035) )
+	ROM_LOAD16_WORD_SWAP( "250hp.p2",  0x100000, 0x400000, CRC(eac6830a) SHA1(27927f5341c128f93d74113514f2d099d01acbdf) )
 
-	NEO_SFIX_128K( "250-s1.s1",  CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
 
 	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
 
@@ -410,6 +612,99 @@ ROM_START( mslugxit )
 	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
 	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
+
+ROM_START( mslugxit )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250it.p1",   0x000000, 0x100000, CRC(f3e154ea) SHA1(bb8260deefa7b048772625085e6f41cab717a147) )
+	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
+ROM_START( mslugxp )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250p.p1",    0x000000, 0x100000, CRC(e65937fc) SHA1(128af1815a23962de02384d61ff52869ae14cea1) )
+	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
+ROM_START( mslugxr )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250r.p1", 0x000000, 0x100000, CRC(e74f36c2) SHA1(b17d66f36e6ac31433179566ea07a0ed8790b161) )
+	ROM_LOAD16_WORD_SWAP( "250r.p2", 0x100000, 0x400000, CRC(e954b8aa) SHA1(b339b1fd05d50ac3a9d3992bb0fc8e3fd1a95557) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
+ROM_START( mslugxst )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250st.p1",   0x000000, 0x100000, CRC(db88d115) SHA1(627d01c4d4bd6c4cfeac5f14859fe9a7026370b0) )
+	ROM_LOAD16_WORD_SWAP( "250-p2.ep1", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
+
+	NEO_SFIX_128K( "250-s1.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250-m1.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250-v1.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250-v2.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250-v3.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250-c1.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250-c2.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250-c3.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250-c4.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250-c5.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250-c6.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
 #if 0
 ROM_START( mslug3 ) /* Original Version - Encrypted Code & GFX */ /* revision 2000.4.1 */ /* MVS VERSION */
 	ROM_REGION( 0x900000, "maincpu", 0 )
@@ -434,7 +729,6 @@ ROM_START( mslug3 ) /* Original Version - Encrypted Code & GFX */ /* revision 20
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1", 0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2", 0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3", 0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -447,9 +741,9 @@ ROM_END
 #endif
 ROM_START( mslug3d )
 	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256-sma", 0x0c0000, 0x040000, CRC(9cd55736) SHA1(d6efb2b313127c2911d47d9324626b3f1e7c6ccb) )
-	ROM_LOAD16_WORD_SWAP( "256-pg1.p1",  0x100000, 0x400000, CRC(b07edfd5) SHA1(dcbd9e500bfae98d754e55cdbbbbf9401013f8ee) )
-	ROM_LOAD16_WORD_SWAP( "256-pg2.p2",  0x500000, 0x400000, CRC(6097c26b) SHA1(248ec29d21216f29dc6f5f3f0e1ad1601b3501b6) )
+	ROM_LOAD16_WORD_SWAP( "256-sma",    0x0c0000, 0x040000, CRC(9cd55736) SHA1(d6efb2b313127c2911d47d9324626b3f1e7c6ccb) )
+	ROM_LOAD16_WORD_SWAP( "256-pg1.p1", 0x100000, 0x400000, CRC(b07edfd5) SHA1(dcbd9e500bfae98d754e55cdbbbbf9401013f8ee) )
+	ROM_LOAD16_WORD_SWAP( "256-pg2.p2", 0x500000, 0x400000, CRC(6097c26b) SHA1(248ec29d21216f29dc6f5f3f0e1ad1601b3501b6) )
 
 	//NEO_SFIX_128K( "256d.s1", CRC(6d9d4d0a) SHA1(4237247494aa0d734ffc728c7fc2808aca42539e) )
 	NEO_SFIX_MT_512K
@@ -473,10 +767,10 @@ ROM_START( mslug3d )
 	ROM_LOAD16_BYTE( "256d.c8",  0x3000001, 0x800000, CRC(a369f9d4) SHA1(f8146ea80a1a23da7e7e04c88f778ee9abdfeb5c) )
 ROM_END
 
-ROM_START( mslug3e02 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
+ROM_START( mslug3d1 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e02.p1",    0x000000, 0x100000, CRC(c9cf4ef8) SHA1(e1e10dcea6ce0c8b6939250adaa167e950069760) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256d1.p1",    0x000000, 0x100000, CRC(9c42ca85) SHA1(7a8f77a89867b889295ae9b9dfd4ba28f02d234d) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -489,7 +783,32 @@ ROM_START( mslug3e02 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
+	ROM_LOAD16_BYTE( "256-c1d.c1d",  0x0000000, 0x800000, CRC(3540398c) SHA1(0a96f2360eb26c66bf02bbc6f52230b55cc95e4e) )
+	ROM_LOAD16_BYTE( "256-c2d.c2d",  0x0000001, 0x800000, CRC(bdd220f0) SHA1(f52851023f3bc120b05f622af0e0ab1bedc41604) )
+	ROM_LOAD16_BYTE( "256-c3d.c3d",  0x1000000, 0x800000, CRC(bfaade82) SHA1(66b07e592c9a9b35567fe463496f8f75c32a7db9) )
+	ROM_LOAD16_BYTE( "256-c4d.c4d",  0x1000001, 0x800000, CRC(1463add6) SHA1(4db91b46d6430da272d27d00a6dc0eb25949bea1) )
+	ROM_LOAD16_BYTE( "256-c5d.c5d",  0x2000000, 0x800000, CRC(48ca7f28) SHA1(e903876be5fb4fa582c988d74c6bef1c3b9c7083) )
+	ROM_LOAD16_BYTE( "256-c6d.c6d",  0x2000001, 0x800000, CRC(806eb36f) SHA1(a412a9cab80c326733dde7652d1db2a46afb3ebb) )
+	ROM_LOAD16_BYTE( "256-c7d.c7d",  0x3000000, 0x800000, CRC(9395b809) SHA1(ca9ac9832017094eee3623f0b6c4c4b7b4f1374d) )
+	ROM_LOAD16_BYTE( "256-c8d.c8d",  0x3000001, 0x800000, CRC(a369f9d4) SHA1(f8146ea80a1a23da7e7e04c88f778ee9abdfeb5c) )
+ROM_END
+
+ROM_START( mslug3e02 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "256e02.p1",   0x000000, 0x100000, CRC(c9cf4ef8) SHA1(e1e10dcea6ce0c8b6939250adaa167e950069760) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_512K( "256-m1.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "256-v1.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
+	ROM_LOAD( "256-v2.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
+	ROM_LOAD( "256-v3.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
+	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -502,8 +821,8 @@ ROM_END
 
 ROM_START( mslug3e03 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e03.p1",  0x000000, 0x100000, CRC(77f64aa6) SHA1(8aa93f67e55461019dc677cb6f96ead3771232d1) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e03.p1",   0x000000, 0x100000, CRC(77f64aa6) SHA1(8aa93f67e55461019dc677cb6f96ead3771232d1) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -516,7 +835,6 @@ ROM_START( mslug3e03 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -529,8 +847,8 @@ ROM_END
 
 ROM_START( mslug3e04 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e04.p1",  0x000000, 0x100000, CRC(09e9fe91) SHA1(573bd25c77e79de85396812bb7632be8d93bdaa6) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e04.p1",   0x000000, 0x100000, CRC(09e9fe91) SHA1(573bd25c77e79de85396812bb7632be8d93bdaa6) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -543,7 +861,6 @@ ROM_START( mslug3e04 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -556,8 +873,8 @@ ROM_END
 
 ROM_START( mslug3e05 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e05.p1",  0x000000, 0x100000, CRC(c1a91748) SHA1(07227283b7fe0e040962a84bc345b231fe6417e3) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e05.p1",   0x000000, 0x100000, CRC(c1a91748) SHA1(07227283b7fe0e040962a84bc345b231fe6417e3) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -570,7 +887,6 @@ ROM_START( mslug3e05 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -583,8 +899,8 @@ ROM_END
 
 ROM_START( mslug3e06 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e06.p1",  0x000000, 0x100000, CRC(812cdce7) SHA1(5249bc026471c1abb2d37b2ac03267b3349a6345) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e06.p1",   0x000000, 0x100000, CRC(812cdce7) SHA1(5249bc026471c1abb2d37b2ac03267b3349a6345) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -597,7 +913,6 @@ ROM_START( mslug3e06 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -610,8 +925,8 @@ ROM_END
 
 ROM_START( mslug3e07 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e07.p1",  0x000000, 0x100000, CRC(bb123461) SHA1(26a8fbb7792ebbd1052a09a78a38a72901644902) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e07.p1",   0x000000, 0x100000, CRC(bb123461) SHA1(26a8fbb7792ebbd1052a09a78a38a72901644902) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -624,7 +939,6 @@ ROM_START( mslug3e07 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -637,8 +951,8 @@ ROM_END
 
 ROM_START( mslug3e08 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e08.p1",  0x000000, 0x100000, CRC(7666aad5) SHA1(3d55be31a158501d74994a5abf31d6928626d7e3) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e08.p1",   0x000000, 0x100000, CRC(7666aad5) SHA1(3d55be31a158501d74994a5abf31d6928626d7e3) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -651,7 +965,6 @@ ROM_START( mslug3e08 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -664,8 +977,8 @@ ROM_END
 
 ROM_START( mslug3e09 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e09.p1",  0x000000, 0x100000, CRC(be26430c) SHA1(ee4d070885032bc5c2699d8c0b5abe7d1d7bc6cc) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e09.p1",   0x000000, 0x100000, CRC(be26430c) SHA1(ee4d070885032bc5c2699d8c0b5abe7d1d7bc6cc) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -678,7 +991,6 @@ ROM_START( mslug3e09 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -691,8 +1003,8 @@ ROM_END
 
 ROM_START( mslug3e10 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e10.p1",  0x000000, 0x100000, CRC(e510ae7e) SHA1(35183a58c11e78c9da08643853c2b06eed74b87c) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e10.p1",   0x000000, 0x100000, CRC(e510ae7e) SHA1(35183a58c11e78c9da08643853c2b06eed74b87c) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -705,7 +1017,6 @@ ROM_START( mslug3e10 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -718,8 +1029,8 @@ ROM_END
 
 ROM_START( mslug3e11 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e11.p1",  0x000000, 0x100000, CRC(2d5047a7) SHA1(89e720e8ccddbbc81c923ad8f7e5a371f9f0ecfc) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e11.p1",   0x000000, 0x100000, CRC(2d5047a7) SHA1(89e720e8ccddbbc81c923ad8f7e5a371f9f0ecfc) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -732,7 +1043,6 @@ ROM_START( mslug3e11 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -745,8 +1055,8 @@ ROM_END
 
 ROM_START( mslug3e12 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e12.p1",  0x000000, 0x100000, CRC(410a6c8e) SHA1(d89aaa1a6fa46c20a84b8fafd83c66fe43a93e86) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e12.p1",   0x000000, 0x100000, CRC(410a6c8e) SHA1(d89aaa1a6fa46c20a84b8fafd83c66fe43a93e86) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -759,7 +1069,6 @@ ROM_START( mslug3e12 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -772,8 +1081,8 @@ ROM_END
 
 ROM_START( mslug3e13 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e13.p1",  0x000000, 0x100000, CRC(642335cb) SHA1(a17e7a48759a7589a3baf5ff4f69c937954de44c) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e13.p1",   0x000000, 0x100000, CRC(642335cb) SHA1(a17e7a48759a7589a3baf5ff4f69c937954de44c) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -786,7 +1095,6 @@ ROM_START( mslug3e13 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -799,8 +1107,8 @@ ROM_END
 
 ROM_START( mslug3e14 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e14.p1",  0x000000, 0x100000, CRC(3e8538ca) SHA1(148732165a081bec2f7bdefc79ce7a2db6a2998d) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e14.p1",   0x000000, 0x100000, CRC(3e8538ca) SHA1(148732165a081bec2f7bdefc79ce7a2db6a2998d) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -813,7 +1121,6 @@ ROM_START( mslug3e14 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -826,8 +1133,8 @@ ROM_END
 
 ROM_START( mslug3e15 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e15.p1",  0x000000, 0x100000, CRC(f6c5d113) SHA1(555ce0ea6c7d3003c9239de8b7a580295096e9ff) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e15.p1",   0x000000, 0x100000, CRC(f6c5d113) SHA1(555ce0ea6c7d3003c9239de8b7a580295096e9ff) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -840,7 +1147,6 @@ ROM_START( mslug3e15 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -853,8 +1159,8 @@ ROM_END
 
 ROM_START( mslug3e16 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e16.p1",  0x000000, 0x100000, CRC(52df13e3) SHA1(9e24404b687284540d21b3be512108da1f1e2bbf) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e16.p1",   0x000000, 0x100000, CRC(52df13e3) SHA1(9e24404b687284540d21b3be512108da1f1e2bbf) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -867,7 +1173,6 @@ ROM_START( mslug3e16 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -880,8 +1185,8 @@ ROM_END
 
 ROM_START( mslug3e17 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e17.p1",  0x000000, 0x100000, CRC(9a9ffa3a) SHA1(3ce3ba9048aa94543a03798c710c4bea4075a072) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e17.p1",   0x000000, 0x100000, CRC(9a9ffa3a) SHA1(3ce3ba9048aa94543a03798c710c4bea4075a072) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -894,7 +1199,6 @@ ROM_START( mslug3e17 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -907,8 +1211,8 @@ ROM_END
 
 ROM_START( mslug3e18 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e18.p1",  0x000000, 0x100000, CRC(1a3c81fc) SHA1(b6f2ed4cb2b7f3f3dd3ef1bc97780ef136b2a82c) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e18.p1",   0x000000, 0x100000, CRC(1a3c81fc) SHA1(b6f2ed4cb2b7f3f3dd3ef1bc97780ef136b2a82c) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -921,7 +1225,6 @@ ROM_START( mslug3e18 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -934,8 +1237,8 @@ ROM_END
 
 ROM_START( mslug3e19 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e19.p1",  0x000000, 0x100000, CRC(d27c6825) SHA1(d58d0db2378f0541c18dd60fc933614537572dc7) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e19.p1",   0x000000, 0x100000, CRC(d27c6825) SHA1(d58d0db2378f0541c18dd60fc933614537572dc7) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -948,7 +1251,6 @@ ROM_START( mslug3e19 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -961,8 +1263,8 @@ ROM_END
 
 ROM_START( mslug3e20 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e20.p1",  0x000000, 0x100000, CRC(e4804e0d) SHA1(9d47e69e8ff737a977c9470a59024da7af35db9c) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e20.p1",   0x000000, 0x100000, CRC(e4804e0d) SHA1(9d47e69e8ff737a977c9470a59024da7af35db9c) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -975,7 +1277,6 @@ ROM_START( mslug3e20 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -988,8 +1289,8 @@ ROM_END
 
 ROM_START( mslug3e21 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e21.p1",  0x000000, 0x100000, CRC(2cc0a7d4) SHA1(7f640067d653c8c0b66ba3c33d0e948497786acf) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e21.p1",   0x000000, 0x100000, CRC(2cc0a7d4) SHA1(7f640067d653c8c0b66ba3c33d0e948497786acf) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1002,7 +1303,6 @@ ROM_START( mslug3e21 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -1015,8 +1315,8 @@ ROM_END
 
 ROM_START( mslug3e22 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256e22.p1",  0x000000, 0x100000, CRC(7d648368) SHA1(d637a17d777f59596ad1b67b7898f182f8f4d577) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256e22.p1",   0x000000, 0x100000, CRC(7d648368) SHA1(d637a17d777f59596ad1b67b7898f182f8f4d577) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1029,7 +1329,6 @@ ROM_START( mslug3e22 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -1040,10 +1339,11 @@ ROM_START( mslug3e22 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD16_BYTE( "256-c8.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
-ROM_START( mslug3eha ) /* Metal Slug 3 - Super Enhance by HappyAsr - (Style remix 20030826) */
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256eha.p1",  0x000000, 0x100000, CRC(e04c6624) SHA1(de684f346ab9a2e5730a6753de6d53801a702cc8) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+ROM_START( mslug3eb )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "mslug3eb.sma", 0x0c0000, 0x040000, CRC(2a9935c2) SHA1(f39d47b0b6fbe0e741777d47fbaf37008c4e0599) )
+	ROM_LOAD16_WORD_SWAP( "256eb.p1",     0x100000, 0x400000, CRC(6ec2e58d) SHA1(d83dd522a5c8a8b4bd32722967e3d934d2e73e08) )
+	ROM_LOAD16_WORD_SWAP( "256eb.p2",     0x500000, 0x400000, CRC(ca4eb0d3) SHA1(eafd000ae27c0b904aea50f681f98ab67068da20) )
 
 	NEO_SFIX_MT_512K
 
@@ -1056,7 +1356,32 @@ ROM_START( mslug3eha ) /* Metal Slug 3 - Super Enhance by HappyAsr - (Style remi
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
+	ROM_LOAD16_BYTE( "256-c1.c1", 0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
+	ROM_LOAD16_BYTE( "256-c2.c2", 0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
+	ROM_LOAD16_BYTE( "256-c3.c3", 0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
+	ROM_LOAD16_BYTE( "256-c4.c4", 0x1000001, 0x800000, CRC(b755b4eb) SHA1(804700a0966a48f130c434ede3f970792ea74fa5) )
+	ROM_LOAD16_BYTE( "256-c5.c5", 0x2000000, 0x800000, CRC(7aacab47) SHA1(312c1c9846175fe1a3cad51d5ae230cf674fc93d) )
+	ROM_LOAD16_BYTE( "256-c6.c6", 0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
+	ROM_LOAD16_BYTE( "256-c7.c7", 0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
+	ROM_LOAD16_BYTE( "256-c8.c8", 0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
+ROM_END
+
+ROM_START( mslug3eha ) /* Metal Slug 3 - Super Enhance by HappyAsr - (Style remix 20030826) */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "256eha.p1",   0x000000, 0x100000, CRC(e04c6624) SHA1(de684f346ab9a2e5730a6753de6d53801a702cc8) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_512K( "256-m1.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "256-v1.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
+	ROM_LOAD( "256-v2.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
+	ROM_LOAD( "256-v3.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
+	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -1069,8 +1394,8 @@ ROM_END
 
 ROM_START( mslug3ehs ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256ehs.p1",  0x000000, 0x100000, CRC(bfb6a37f) SHA1(2ed7fc7936d732ff55f629612434f1d72c09976e) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256ehs.p1",   0x000000, 0x100000, CRC(bfb6a37f) SHA1(2ed7fc7936d732ff55f629612434f1d72c09976e) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1083,7 +1408,6 @@ ROM_START( mslug3ehs ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -1096,8 +1420,8 @@ ROM_END
 
 ROM_START( mslug3fr ) /* [OLD] Metal Slug 3 N - (mslug3fro) - Translation Hack by NEO-ARC - (French translation) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256fr.p1",  0x000000, 0x100000, CRC(1f5fcb35) SHA1(387e0e0121a26254991b446d6bbdf755cf2e3ad2) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256fr.p1",    0x000000, 0x100000, CRC(1f5fcb35) SHA1(387e0e0121a26254991b446d6bbdf755cf2e3ad2) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1110,7 +1434,6 @@ ROM_START( mslug3fr ) /* [OLD] Metal Slug 3 N - (mslug3fro) - Translation Hack b
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256fr.c1", 0x0000000, 0x800000, CRC(6ac28a9f) SHA1(9dae9703d20af3644456eda228ea7fb52fe67bd7) )
 	ROM_LOAD16_BYTE( "256fr.c2", 0x0000001, 0x800000, CRC(C9725CD0) SHA1(59A0A2778AE35DDCAC17FBA05A81F3DA5EACA1F1) )
 	ROM_LOAD16_BYTE( "256d.c3",  0x1000000, 0x800000, CRC(bfaade82) SHA1(66b07e592c9a9b35567fe463496f8f75c32a7db9) )
@@ -1123,8 +1446,8 @@ ROM_END
 
 ROM_START( mslug3fro ) /* Metal Slug 3 - Translation Hack by NEO-ARC - (French translation) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256fro.p1",  0x000000, 0x100000, CRC(ce3f408b) SHA1(c2752af1dd4373c37e90b2e718ab7ae038535ea1) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256fro.p1",   0x000000, 0x100000, CRC(ce3f408b) SHA1(c2752af1dd4373c37e90b2e718ab7ae038535ea1) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1137,7 +1460,6 @@ ROM_START( mslug3fro ) /* Metal Slug 3 - Translation Hack by NEO-ARC - (French t
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256fro.c1", 0x0000000, 0x800000, CRC(d799f41c) SHA1(d87cda305d054c56197112ba515299883d419bb4) )
 	ROM_LOAD16_BYTE( "256fr.c2", 0x0000001, 0x800000, CRC(C9725CD0) SHA1(59A0A2778AE35DDCAC17FBA05A81F3DA5EACA1F1) )
 	ROM_LOAD16_BYTE( "256d.c3",  0x1000000, 0x800000, CRC(bfaade82) SHA1(66b07e592c9a9b35567fe463496f8f75c32a7db9) )
@@ -1150,8 +1472,8 @@ ROM_END
 
 ROM_START( mslug3kh ) /* Metal Slug 3 - Enhance by Fighters Kim and Ydmis - (Style remix 20030801) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256kh.p1",     0x000000, 0x100000, CRC(696aa1b4) SHA1(2e72191f12f4cbbddda1350fbe859e8bc70be62f) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256kh.p1",    0x000000, 0x100000, CRC(696aa1b4) SHA1(2e72191f12f4cbbddda1350fbe859e8bc70be62f) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1164,7 +1486,6 @@ ROM_START( mslug3kh ) /* Metal Slug 3 - Enhance by Fighters Kim and Ydmis - (Sty
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -1177,8 +1498,8 @@ ROM_END
 
 ROM_START( mslug3kho ) /* [OLD] Metal Slug 3 - Enhance by Fighters Kim and Ydmis - (See mslug3kho.txt for info 20030728) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256kho.p1",    0x000000, 0x100000, CRC(820567e4) SHA1(c23d58e3c5c185715bb65839f4a6a04767992f3d) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256kho.p1",   0x000000, 0x100000, CRC(820567e4) SHA1(c23d58e3c5c185715bb65839f4a6a04767992f3d) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
 
@@ -1191,7 +1512,6 @@ ROM_START( mslug3kho ) /* [OLD] Metal Slug 3 - Enhance by Fighters Kim and Ydmis
 	ROM_LOAD( "256-v4.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "256-c1.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
 	ROM_LOAD16_BYTE( "256-c2.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
 	ROM_LOAD16_BYTE( "256-c3.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
@@ -1204,10 +1524,10 @@ ROM_END
 
 ROM_START( mslug3v ) // extreme violence
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256v.p1",      0x000000, 0x100000, CRC(47f9aeea) SHA1(db1c65681ac12b146e2fa21a8f28000f41a11fe2) )
-	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2",  0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_LOAD16_WORD_SWAP( "256v.p1",     0x000000, 0x100000, CRC(47f9aeea) SHA1(db1c65681ac12b146e2fa21a8f28000f41a11fe2) )
+	ROM_LOAD16_WORD_SWAP( "256-ph2.sp2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
-	NEO_SFIX_MT_512K
+	NEO_SFIX_MSLUG( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
 	NEO_BIOS_AUDIO_512K( "256-m1.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
@@ -1227,6 +1547,7 @@ ROM_START( mslug3v ) // extreme violence
 	ROM_LOAD16_BYTE( "256-c7.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
 	ROM_LOAD16_BYTE( "256-c8.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
+
 #if 0
 ROM_START( mslug4 ) /* Original Version - Encrypted GFX */ /* MVS VERSION */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -1241,16 +1562,13 @@ ROM_START( mslug4 ) /* Original Version - Encrypted GFX */ /* MVS VERSION */
 	ROM_REGION( 0x20000, "fixedbios", 0 )
 	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
 
-	/* Encrypted */
 	NEO_BIOS_AUDIO_ENCRYPTED_128K( "263-m1.m1", CRC(46ac8228) SHA1(5aeea221050c98e4bb0f16489ce772bf1c80f787) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	/* Encrypted */
 	ROM_LOAD( "263-v1.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1", 0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2", 0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3", 0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1286,15 +1604,7 @@ ROM_START( mslug4dh ) // Super D Version
 	ROM_LOAD16_WORD_SWAP( "263dh.p1",  0x000000, 0x100000, CRC(af69d959) SHA1(2bc9796003c8742d681e11ad842978d918fbae40) )
 	ROM_LOAD16_WORD_SWAP( "263dh.sp2", 0x100000, 0x400000, CRC(2b863b30) SHA1(b5edc43d87faf6540e3154fcbab42efb148cbd04) )
 
-//	NEO_SFIX_MT_512K
-	ROM_REGION( 0x80000, "fixed", 0 )
-	ROM_LOAD( "263dh.s1", 0x00000, 0x20000, CRC(c4f4ed0e) SHA1(bbf31c879d72cc843229b03db01399af98e02f01) )
-	ROM_RELOAD (          0x20000, 0x20000 )
-	ROM_RELOAD (          0x40000, 0x20000 )
-	ROM_RELOAD (          0x60000, 0x20000 )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfx", 0x000000, 0x20000, CRC(354029fc) SHA1(4ae4bf23b4c2acff875775d4cbff5583893ce2a1) )
-	ROM_Y_ZOOM
+	NEO_SFIX_MSLUG( "263dh.s1", CRC(c4f4ed0e) SHA1(bbf31c879d72cc843229b03db01399af98e02f01) )
 
 	NEO_BIOS_AUDIO_64K( "263d.m1", CRC(0c4c42f8) SHA1(b7be47d909f5e4fcfe769ead0653d40e1e708d36) )
 
@@ -1311,6 +1621,30 @@ ROM_START( mslug4dh ) // Super D Version
 	ROM_LOAD16_BYTE( "263d.c6", 0x2000001, 0x800000, CRC(5ed018ab) SHA1(e78501fa8a80960093a4d54ce952681a98300148) )
 ROM_END
 
+ROM_START( mslug4dh1 ) 
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263dh.p1",  0x000000, 0x100000, CRC(af69d959) SHA1(2bc9796003c8742d681e11ad842978d918fbae40) )
+	ROM_LOAD16_WORD_SWAP( "263dh.sp2", 0x100000, 0x400000, CRC(2b863b30) SHA1(b5edc43d87faf6540e3154fcbab42efb148cbd04) )
+
+	NEO_SFIX_128K( "263-s1.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
+
+	NEO_BIOS_AUDIO_128K( "263nd.m1", CRC(ef5db532) SHA1(4aeba9e206b8f309610eb7e1891644f39aa61830) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263nd.v1", 0x000000, 0x400000, CRC(c1b2af81) SHA1(532dca0a2b2e03d50c6ac3adc9ebceb413f61690) )
+	ROM_LOAD( "263nd.v2", 0x400000, 0x400000, CRC(cbbdc6fa) SHA1(06abb738cf198804248ecfc92adea38f7f86f612) )
+	ROM_LOAD( "263nd.v3", 0x800000, 0x400000, CRC(c4f1a3cc) SHA1(109e8db93875e1b1f3db293d1756b2bbebe63a28) )
+	ROM_LOAD( "263nd.v4", 0xC00000, 0x400000, CRC(40126a0a) SHA1(4234e0f4d9a9dc486d7af1eec91a17840a57976d) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263nd.c3", 0x1000000, 0x800000, CRC(63fb79ff) SHA1(a7da0a554034792721abda4369a71b0c8045f334) )
+	ROM_LOAD16_BYTE( "263nd.c4", 0x1000001, 0x800000, CRC(e8623126) SHA1(66c2b874cd55c628e7e6768d6f31180c29a734e7) )
+	ROM_LOAD16_BYTE( "263nd.c5", 0x2000000, 0x400000, CRC(3348DC5D) SHA1(a119e80aa2b36a7d8c7e8debd0eb13441a19adff) )
+	ROM_LOAD16_BYTE( "263nd.c6", 0x2000001, 0x400000, CRC(D90FC1A0) SHA1(0eaf5f658212c19a4cdbcdbff3b04389a2be76bb) )
+ROM_END
+
 ROM_START( mslug4eh ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 20030414) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263eh.p1",    0x000000, 0x100000, CRC(42866fc5) SHA1(0ef57352b28fae2b884dfc021a2fd0bdf36456cb) )
@@ -1325,7 +1659,6 @@ ROM_START( mslug4eh ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 200
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1348,7 +1681,6 @@ ROM_START( mslug4eh2 ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 20
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1371,7 +1703,6 @@ ROM_START( mslug4eh3 ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 20
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1394,7 +1725,6 @@ ROM_START( mslug4eh4 ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 20
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1417,7 +1747,6 @@ ROM_START( mslug4eh5 ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 20
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1440,7 +1769,6 @@ ROM_START( mslug4eh6 ) /* Metal Slug 4 - Enhance by Creamymami - (Style remix 20
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1463,7 +1791,6 @@ ROM_START( mslug4eho ) /* [OLD] Metal Slug 4 - Enhance by Creamymami - (Style re
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1486,7 +1813,6 @@ ROM_START( mslug4fr ) /* Metal Slug 4 - Translation Hack by NEO-ARC - (French tr
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1497,17 +1823,10 @@ ROM_END
 
 ROM_START( mslug4i ) /* NeoArc Italian translation */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263i.p1",     0x000000, 0x100000, CRC(ffb20602) SHA1(4d3103d613a2452c95ae15b70670664354dce67b) )
-	ROM_LOAD16_WORD_SWAP( "263-p2.sp2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+	ROM_LOAD16_WORD_SWAP( "263i.p1",    0x000000, 0x100000, CRC(ffb20602) SHA1(4d3103d613a2452c95ae15b70670664354dce67b) )
+	ROM_LOAD16_WORD_SWAP( "263-p2.sp2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
-	ROM_REGION( 0x80000, "fixed", 0 )
-	ROM_LOAD( "263i.s1",  0x00000, 0x20000, CRC(1f67801e) SHA1(87c33e74599ca063da459f3c8562447bccc104e3) )
-	ROM_RELOAD (          0x20000, 0x20000 )
-	ROM_RELOAD (          0x40000, 0x20000 )
-	ROM_RELOAD (          0x60000, 0x20000 )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfx", 0x000000, 0x20000, CRC(354029fc) SHA1(4ae4bf23b4c2acff875775d4cbff5583893ce2a1) )
-	ROM_Y_ZOOM
+	NEO_SFIX_MSLUG( "263i.s1", CRC(1f67801e) SHA1(87c33e74599ca063da459f3c8562447bccc104e3) )
 
 	NEO_BIOS_AUDIO_64K( "263d.m1", CRC(0c4c42f8) SHA1(b7be47d909f5e4fcfe769ead0653d40e1e708d36) )
 
@@ -1522,6 +1841,30 @@ ROM_START( mslug4i ) /* NeoArc Italian translation */
 	ROM_LOAD16_BYTE( "263-c4.c4",   0x1000001, 0x800000, CRC(942cfb44) SHA1(d9b46c71726383c4581fb042e63897e5a3c92d1b) )
 	ROM_LOAD16_BYTE( "263-c5.c5",   0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
 	ROM_LOAD16_BYTE( "263-c6.c6",   0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
+ROM_END
+
+ROM_START( mslug4i1 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263i.p1",    0x000000, 0x100000, CRC(ffb20602) SHA1(4d3103d613a2452c95ae15b70670664354dce67b) )
+	ROM_LOAD16_WORD_SWAP( "263-p2.sp2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_128K( "263i.s1", CRC(1f67801e) SHA1(87c33e74599ca063da459f3c8562447bccc104e3) )
+
+	NEO_BIOS_AUDIO_64K( "263d.m1", CRC(0c4c42f8) SHA1(b7be47d909f5e4fcfe769ead0653d40e1e708d36) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263nd.v1", 0x000000, 0x400000, CRC(c1b2af81) SHA1(532dca0a2b2e03d50c6ac3adc9ebceb413f61690) )
+	ROM_LOAD( "263nd.v2", 0x400000, 0x400000, CRC(cbbdc6fa) SHA1(06abb738cf198804248ecfc92adea38f7f86f612) )
+	ROM_LOAD( "263nd.v3", 0x800000, 0x400000, CRC(c4f1a3cc) SHA1(109e8db93875e1b1f3db293d1756b2bbebe63a28) )
+	ROM_LOAD( "263nd.v4", 0xC00000, 0x400000, CRC(40126a0a) SHA1(4234e0f4d9a9dc486d7af1eec91a17840a57976d) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263nd.c3", 0x1000000, 0x800000, CRC(63fb79ff) SHA1(a7da0a554034792721abda4369a71b0c8045f334) )
+	ROM_LOAD16_BYTE( "263nd.c4", 0x1000001, 0x800000, CRC(e8623126) SHA1(66c2b874cd55c628e7e6768d6f31180c29a734e7) )
+	ROM_LOAD16_BYTE( "263nd.c5", 0x2000000, 0x400000, CRC(3348DC5D) SHA1(a119e80aa2b36a7d8c7e8debd0eb13441a19adff) )
+	ROM_LOAD16_BYTE( "263nd.c6", 0x2000001, 0x400000, CRC(D90FC1A0) SHA1(0eaf5f658212c19a4cdbcdbff3b04389a2be76bb) )
 ROM_END
 
 ROM_START( mslug4kh ) /* Metal Slug 4 - Enhance by Creamymami and Fighters Kim - (Style remix 20030731) */
@@ -1538,7 +1881,6 @@ ROM_START( mslug4kh ) /* Metal Slug 4 - Enhance by Creamymami and Fighters Kim -
 	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "263-c1.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
 	ROM_LOAD16_BYTE( "263-c2.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
 	ROM_LOAD16_BYTE( "263-c3.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
@@ -1546,6 +1888,31 @@ ROM_START( mslug4kh ) /* Metal Slug 4 - Enhance by Creamymami and Fighters Kim -
 	ROM_LOAD16_BYTE( "263-c5.c5",   0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
 	ROM_LOAD16_BYTE( "263-c6.c6",   0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
+
+ROM_START( mslug4nd )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263nd.p1",   0x000000, 0x100000, CRC(4D7E6624) SHA1(125d5203e89cce23a851fa74cc8cbe003ef978f3) )
+	ROM_LOAD16_WORD_SWAP( "263-p2.sp2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_128K( "263-s1.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
+
+	NEO_BIOS_AUDIO_128K( "263nd.m1", CRC(ef5db532) SHA1(4aeba9e206b8f309610eb7e1891644f39aa61830) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263nd.v1", 0x000000, 0x400000, CRC(c1b2af81) SHA1(532dca0a2b2e03d50c6ac3adc9ebceb413f61690) )
+	ROM_LOAD( "263nd.v2", 0x400000, 0x400000, CRC(cbbdc6fa) SHA1(06abb738cf198804248ecfc92adea38f7f86f612) )
+	ROM_LOAD( "263nd.v3", 0x800000, 0x400000, CRC(c4f1a3cc) SHA1(109e8db93875e1b1f3db293d1756b2bbebe63a28) )
+	ROM_LOAD( "263nd.v4", 0xC00000, 0x400000, CRC(40126a0a) SHA1(4234e0f4d9a9dc486d7af1eec91a17840a57976d) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263nd.c3", 0x1000000, 0x800000, CRC(63fb79ff) SHA1(a7da0a554034792721abda4369a71b0c8045f334) )
+	ROM_LOAD16_BYTE( "263nd.c4", 0x1000001, 0x800000, CRC(e8623126) SHA1(66c2b874cd55c628e7e6768d6f31180c29a734e7) )
+	ROM_LOAD16_BYTE( "263nd.c5", 0x2000000, 0x400000, CRC(3348DC5D) SHA1(a119e80aa2b36a7d8c7e8debd0eb13441a19adff) )
+	ROM_LOAD16_BYTE( "263nd.c6", 0x2000001, 0x400000, CRC(D90FC1A0) SHA1(0eaf5f658212c19a4cdbcdbff3b04389a2be76bb) )
+ROM_END
+
 #if 0
 ROM_START( mslug5 ) /* Encrypted Set */ /* MVS VERSION */
 	ROM_REGION( 0x800000, "maincpu", 0 )
@@ -1560,16 +1927,13 @@ ROM_START( mslug5 ) /* Encrypted Set */ /* MVS VERSION */
 	ROM_REGION( 0x20000, "fixedbios", 0 )
 	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
 
-	/* Encrypted */
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	/* Encrypted */
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	/* Encrypted */
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1580,6 +1944,94 @@ ROM_START( mslug5 ) /* Encrypted Set */ /* MVS VERSION */
 	ROM_LOAD16_BYTE( "268-c8c.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
 ROM_END
 #endif
+ROM_START( ms5boot ) /* Bootleg / Hack of Metal Slug 5 */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268boot.p1", 0x000000, 0x100000, CRC(e6d297af) SHA1(5bb3f72ce26e3f46c523b955f425056eb246e855) )
+	ROM_LOAD16_WORD_SWAP( "268boot.p2", 0x100000, 0x100000, CRC(3fc46cfa) SHA1(f20d3d359f6cdbf6aabb6920020621b02bafee91) )
+	ROM_CONTINUE(0x300000, 0x100000 )
+	ROM_LOAD16_WORD_SWAP( "268boot.p3", 0x200000, 0x100000, CRC(742c955a) SHA1(96c0f08b1f2f6877f5169a96c13b67f3be6082c6) )
+	ROM_CONTINUE(0x400000, 0x100000 )
+	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
+	ROM_LOAD16_WORD_SWAP( "268nd.p2", 0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
+
+	NEO_SFIX_MT_512K
+	//NEO_SFIX_MSLUG( "268boot.s1", CRC(52a8c09b) SHA1(3a90d8e44aa7cbc79945f8ece0e2fb9ce3e5a4c7) ) // corrupt?
+
+	NEO_BIOS_AUDIO_256K( "268boot.m1", CRC(792e07c1) SHA1(117516e8ec9026c7682ab27857aab6639bef5835) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268boot.v1", 0x000000, 0x400000, CRC(c3540e0d) SHA1(bf7ca3abe291b28a4cfaef791f0c556cc98ad8d8) )
+	ROM_LOAD( "268boot.v2", 0x400000, 0x400000, CRC(077bd2f4) SHA1(1699959d17f8c7113cebdb9da2e1cd18ce48486c) )
+	ROM_LOAD( "268boot.v3", 0x800000, 0x400000, CRC(39b14567) SHA1(1658612a93ba30130f9260bc41d3f18f6b90c1e7) )
+	ROM_LOAD( "268boot.v4", 0xc00000, 0x400000, CRC(969ff3b2) SHA1(50feceb741a1c08b000b077a33151ab1352eb798) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268d.c1", 0x0000000, 0x800000, CRC(969c0d62) SHA1(DE3C5CFA980CCA2FAB0416AC0D292948B5D4C9C3) )
+	ROM_LOAD16_BYTE( "268d.c2", 0x0000001, 0x800000, CRC(c69ae867) SHA1(3198EE5C7C2C7563B49EBD9F7BA95D9B0B303F6C) )
+	ROM_LOAD16_BYTE( "268d.c3", 0x1000000, 0x800000, CRC(d7beaeaf) SHA1(99443EA4C1BAB45F1977A390EB7E1A0163915110) )
+	ROM_LOAD16_BYTE( "268nd.c4", 0x1000001, 0x800000, CRC(E1B1131B) SHA1(68A36D336582069E79AD481638D92F57C4CD6523) )
+	ROM_LOAD16_BYTE( "268d.c5", 0x2000000, 0x800000, CRC(2fa1a5ad) SHA1(4AE15D29BA979601598EDDF8905072FE1D9E0A98) )
+	ROM_LOAD16_BYTE( "268d.c6", 0x2000001, 0x800000, CRC(6de89589) SHA1(86A6C036BF51AF516FEA83A30874026EC1586A83) )
+	ROM_LOAD16_BYTE( "268d.c7", 0x3000000, 0x800000, CRC(97bd0c0a) SHA1(30F3280FE527098ECF46541CC645A59B366105EA) )
+	ROM_LOAD16_BYTE( "268d.c8", 0x3000001, 0x800000, CRC(c0d5bc20) SHA1(B5D0D81D5CC624538B0651C568295E578A1330D1) )
+ROM_END
+
+ROM_START( ms5pcbd )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD32_WORD_SWAP( "268-p1r.p1", 0x000000, 0x400000, CRC(d0466792) SHA1(880819933d997fab398f91061e9dbccb959ae8a1) )
+	ROM_LOAD32_WORD_SWAP( "268-p2r.p2", 0x000002, 0x400000, CRC(fbf6b61e) SHA1(9ec743d5988b5e3183f37f8edf45c72a8c0c893e) )
+
+	NEO_SFIX_MT_512K
+
+	ROM_REGION16_BE( 0x80000, "mainbios", 0 )
+	/* this contains both an ASIA and JAPAN bios, HARDDIP3 on the PCB selects which to use */
+	ROM_LOAD16_WORD_SWAP( "sp-4x.sp1", 0x00000, 0x80000, CRC(b4590283) SHA1(47047ed5b6062babc0a0bebcc30e4b3f021e115a) )
+
+	/* Encrypted, we load it here for reference and replace with decrypted ROM */
+	// ROM_LOAD( "268-m1.bin", 0x00000, 0x10000, CRC(58b107d0) SHA1(cc7fe66ff4f9c026cde4df06f86c848eb21f7af8) )
+	//NEO_BIOS_AUDIO_64K( "268d.m1",  CRC(3c0655a7) SHA1(ae839d4c2b87a7aa3dd8e5caddc43eb75ee9b732) )
+	ROM_REGION( 0x80000, "audiocrypt", 0 )
+	ROM_LOAD( "268-m1.m1", 0x00000, 0x80000, CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) ) /* mask rom TC534000 */
+	ROM_REGION( 0x90000, "audiocpu", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268pcbd.v1", 0x000000, 0x1000000, CRC(4182838b) SHA1(03e58b6709db467e92397b26b84658f5adb0ff92) )
+//	ROM_LOAD( "268-v1.v1", 0x000000, 0x1000000, CRC(8458afe5) SHA1(62b4c6e7db763e9ff2697bbcdb43dc5a56b48c68) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268pcbd.c1", 0x0000000, 0x1000000, CRC(996debed) SHA1(ec6965a24862541f337a1b7e259038b9b40ad1d2) )
+	ROM_LOAD16_BYTE( "268pcbd.c2", 0x0000001, 0x1000000, CRC(960a9764) SHA1(687cf957d91ef9da219b573f444e668209dcea41) )
+	ROM_LOAD16_BYTE( "268pcbd.c3", 0x2000000, 0x1000000, CRC(f699994f) SHA1(ff079d3c126e9611760956d51c5df66d8013dd78) )
+	ROM_LOAD16_BYTE( "268pcbd.c4", 0x2000001, 0x1000000, CRC(49e902e8) SHA1(289a560ffe3d50abd773c61fa2df3c1f18d7e803) )
+ROM_END
+
+ROM_START( mslug5b )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268b.p1", 0x000000, 0x100000, CRC(d05853ea) SHA1(8bb284d8f937b1b50d28d207f5fd262e4ed1d96c) )
+	ROM_CONTINUE( 0x200000, 0x100000 )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_CONTINUE( 0x300000, 0x100000 )
+	ROM_CONTINUE( 0x500000, 0x100000 )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
+	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
+	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
+	ROM_LOAD16_BYTE( "268-c4c.c4", 0x1000001, 0x800000, CRC(c329c373) SHA1(5073d4079958a0ef5426885af2c9e3178f37d5e0) )
+	ROM_LOAD16_BYTE( "268-c5c.c5", 0x2000000, 0x800000, CRC(959c8177) SHA1(889bda7c65d71172e7d89194d1269561888fe789) )
+	ROM_LOAD16_BYTE( "268-c6c.c6", 0x2000001, 0x800000, CRC(010a831b) SHA1(aec140661e3ae35d264df416478ba15188544d91) )
+	ROM_LOAD16_BYTE( "268-c7c.c7", 0x3000000, 0x800000, CRC(6d72a969) SHA1(968dd9a4d1209b770b9b85ea6532fa24d262a262) )
+	ROM_LOAD16_BYTE( "268-c8c.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
+ROM_END
+
 ROM_START( mslug5d )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD32_WORD_SWAP( "268-p1cr.p1", 0x000000, 0x400000, CRC(d0466792) SHA1(880819933d997fab398f91061e9dbccb959ae8a1) )
@@ -1604,10 +2056,34 @@ ROM_START( mslug5d )
 	ROM_LOAD16_BYTE( "268d.c8", 0x3000001, 0x800000, CRC(c0d5bc20) SHA1(B5D0D81D5CC624538B0651C568295E578A1330D1) )
 ROM_END
 
+ROM_START( mslug5d1 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
+	ROM_LOAD16_WORD_SWAP( "268nd.p2", 0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268hd.c1", 0x0000000, 0x800000, CRC(e8239365) SHA1(E0A75902A783110049730B66AD3CBCCDD804BF62) )
+	ROM_LOAD16_BYTE( "268hd.c2", 0x0000001, 0x800000, CRC(89b21d4c) SHA1(862AC31CE9570529B33E6F58ADA0AC867A442679) )
+	ROM_LOAD16_BYTE( "268hd.c3", 0x1000000, 0x800000, CRC(3cda13a0) SHA1(5D029C92688384EAFD65AD711A2954D0B86A3163) )
+	ROM_LOAD16_BYTE( "268hd.c4", 0x1000001, 0x800000, CRC(9c00160d) SHA1(C612102F9CD288BBA4C245B5855D795E4362B217) )
+	ROM_LOAD16_BYTE( "268hd.c5", 0x2000000, 0x800000, CRC(38754256) SHA1(744D91D041998CA27EE2781188746797C65377BD) )
+	ROM_LOAD16_BYTE( "268hd.c6", 0x2000001, 0x800000, CRC(59d33e9c) SHA1(ED7F5C7DB4C35EC5A7DB0AD5436110B3FE80B89A) )
+	ROM_LOAD16_BYTE( "268hd.c7", 0x3000000, 0x800000, CRC(c9f8c357) SHA1(7064224AFA887F57245F5479B0B46228539A131B) )
+	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
+ROM_END
+
 ROM_START( mslug5fr ) /* Metal Slug 5 - French translation - NeoArc */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "268fr.p1",  0x000000, 0x100000, CRC(63cc3c2d) SHA1(b4543c65427d15f784641617dcab53663031a9f3) )
-	ROM_LOAD16_WORD_SWAP( "268fr.p2",  0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
+	ROM_LOAD16_WORD_SWAP( "268fr.p1", 0x000000, 0x100000, CRC(63cc3c2d) SHA1(b4543c65427d15f784641617dcab53663031a9f3) )
+	ROM_LOAD16_WORD_SWAP( "268nd.p2", 0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
 
 	NEO_SFIX_128K( "268fr.s1", CRC(77b18feb) SHA1(2d7cb5838730bfcb45eceeef11557cbcab8aa9da) )
 
@@ -1628,78 +2104,219 @@ ROM_START( mslug5fr ) /* Metal Slug 5 - French translation - NeoArc */
 	ROM_LOAD16_BYTE( "268fr.c8",   0x3000001, 0x800000, CRC(6fabe6d5) SHA1(12c23b85de985b4daba7def1d9d9d9b4c050ab63) )
 ROM_END
 
+ROM_START( mslug5fr1 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268fr1.p1", 0x000000, 0x100000, CRC(0ee0d5c7) SHA1(10209cd9757b212708c569656d5c935c7bd4a5b3) )
+	ROM_LOAD16_WORD_SWAP( "268nd.p2",  0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
 
-/* Decrypted */
+	NEO_SFIX_MT_128K
 
-GAME( 2000, mslug3d,   mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3d,  ROT0, "SNK", "Metal Slug 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4d,  ROT0, "Mega","Metal Slug 4 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5d,   mslug5,   neogeo_noslot, neogeo, neogeo_state, mslug5d,  ROT0, "SNK Playmore", "Metal Slug 5 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+	NEO_BIOS_AUDIO_64K( "268d.m1",  CRC(3c0655a7) SHA1(ae839d4c2b87a7aa3dd8e5caddc43eb75ee9b732) )
 
-/* Translations */
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
-GAME( 2003, mslugxfr,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslugxfro, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (French) (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslugxit,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Italian - Beta)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French) (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, mslug3fr,  mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug3fro, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French) (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Arkatrad", "Metal Slug 4 (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4it, ROT0, "Evoboy", "Metal Slug 4 (Italian)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (French)", MACHINE_SUPPORTS_SAVE )
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268hd.c1", 0x0000000, 0x800000, CRC(e8239365) SHA1(E0A75902A783110049730B66AD3CBCCDD804BF62) )
+	ROM_LOAD16_BYTE( "268hd.c2", 0x0000001, 0x800000, CRC(89b21d4c) SHA1(862AC31CE9570529B33E6F58ADA0AC867A442679) )
+	ROM_LOAD16_BYTE( "268hd.c3", 0x1000000, 0x800000, CRC(3cda13a0) SHA1(5D029C92688384EAFD65AD711A2954D0B86A3163) )
+	ROM_LOAD16_BYTE( "268hd.c4", 0x1000001, 0x800000, CRC(9c00160d) SHA1(C612102F9CD288BBA4C245B5855D795E4362B217) )
+	ROM_LOAD16_BYTE( "268hd.c5", 0x2000000, 0x800000, CRC(38754256) SHA1(744D91D041998CA27EE2781188746797C65377BD) )
+	ROM_LOAD16_BYTE( "268hd.c6", 0x2000001, 0x800000, CRC(59d33e9c) SHA1(ED7F5C7DB4C35EC5A7DB0AD5436110B3FE80B89A) )
+	ROM_LOAD16_BYTE( "268hd.c7", 0x3000000, 0x800000, CRC(c9f8c357) SHA1(7064224AFA887F57245F5479B0B46228539A131B) )
+	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
+ROM_END
 
-/* Hacks */
+ROM_START( mslug5hd )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD32_WORD_SWAP( "268-p1c.p1", 0x000000, 0x400000, CRC(3636690a) SHA1(e0da714b4bdc6efffe1250ded02ebddb3ab6d7b3) )
+	ROM_LOAD32_WORD_SWAP( "268-p2c.p2", 0x000002, 0x400000, CRC(8dfc47a2) SHA1(27d618cfbd0107a4d2a836797e967b39d2eb4851) )
 
-GAME( 1996, mslugeh,  mslug,     neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug Enhanced", MACHINE_SUPPORTS_SAVE ) // New standard weapon shotgun - 20 bombs instead of 10
+	NEO_SFIX_MT_128K
 
-//GAME( 1999, mslugx,   neogeo,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "SNK", "Metal Slug X - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, mslugxeh,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "KrysoFun/KVS", "Metal Slug X (Style remix)", MACHINE_SUPPORTS_SAVE )
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
-//GAME( 1998, mslug2,   neogeo,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "SNK", "Metal Slug 2 - Super Vehicle-001/II", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh,  mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh1, mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh2, mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh3, mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Trap15", "Metal Slug 2 Turbo", MACHINE_SUPPORTS_SAVE )
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
-//GAME( 2000, mslug3,   neogeo,   neogeo_noslot, neogeo, neogeo_state, mslug3,   ROT0, "SNK", "Metal Slug 3" , 0)
-GAME( 2000, mslug3eha, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3ehs, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e02, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e03, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e04, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 04)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e05, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e06, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 06)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e07, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e08, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 08)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e09, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 09)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e10, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e11, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e12, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e13, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 13)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e14, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 14)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e15, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e16, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e17, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e18, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e19, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e20, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e21, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3e22, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3kh,  mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3kho, mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mslug3v,   mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3n,  ROT0, "Eezezy", "Metal Slug 3 (Violence Edition)", MACHINE_SUPPORTS_SAVE )
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268hd.c1", 0x0000000, 0x800000, CRC(e8239365) SHA1(E0A75902A783110049730B66AD3CBCCDD804BF62) )
+	ROM_LOAD16_BYTE( "268hd.c2", 0x0000001, 0x800000, CRC(89b21d4c) SHA1(862AC31CE9570529B33E6F58ADA0AC867A442679) )
+	ROM_LOAD16_BYTE( "268hd.c3", 0x1000000, 0x800000, CRC(3cda13a0) SHA1(5D029C92688384EAFD65AD711A2954D0B86A3163) )
+	ROM_LOAD16_BYTE( "268hd.c4", 0x1000001, 0x800000, CRC(9c00160d) SHA1(C612102F9CD288BBA4C245B5855D795E4362B217) )
+	ROM_LOAD16_BYTE( "268hd.c5", 0x2000000, 0x800000, CRC(38754256) SHA1(744D91D041998CA27EE2781188746797C65377BD) )
+	ROM_LOAD16_BYTE( "268hd.c6", 0x2000001, 0x800000, CRC(59d33e9c) SHA1(ED7F5C7DB4C35EC5A7DB0AD5436110B3FE80B89A) )
+	ROM_LOAD16_BYTE( "268hd.c7", 0x3000000, 0x800000, CRC(c9f8c357) SHA1(7064224AFA887F57245F5479B0B46228539A131B) )
+	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
+ROM_END
 
-//GAME( 2002, mslug4,   neogeo,   neogeo_noslot, neogeo, neogeo_state, mslug4,   ROT0, "Mega", "Metal Slug 4", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4dh, ROT0, "HappyASR [EGCG]","Metal Slug 4 Super D Version", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 6)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4m,  ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
+ROM_START( mslug5l9a )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268l9a.p1", 0x000000, 0x100000, CRC(96aa148d) SHA1(b2487a29d6a96435cfe220cb78f74bc2a9ccc6b3) )
+	ROM_LOAD16_WORD_SWAP( "268l9b.p2", 0x100000, 0x400000, CRC(f5bf2c6b) SHA1(99fdc44aba8b2f30d14a1975052811567ea8f05a) )
 
-//GAME( 2003, mslug5,   neogeo,   neogeo_noslot, neogeo, neogeo_state, mslug5,   ROT0, "SNK Playmore", "Metal Slug 5", MACHINE_SUPPORTS_SAVE )
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_512K( "268l9a.m1", CRC(464c72ad) SHA1(9e8a01c2bad897e2bbf32563a30f0474f8fcd2b5) )
+
+	ROM_REGION( 0x10002f0, "ymsnd", 0 )
+	ROM_LOAD( "268l9a.v1", 0x000000, 0x400000, CRC(a8e12a92) SHA1(b23d80d131649c1d243bb30cf5b2141354a7ac55) )
+	ROM_LOAD( "268l9a.v2", 0x400000, 0x400000, CRC(c40fa69b) SHA1(3c1ff87a2174a92d9f457a6932b53534ed410dc2) )
+	ROM_LOAD( "268l9a.v3", 0x800000, 0x400000, CRC(aeff1982) SHA1(ac777a12639e21f0f227be84a59c7bb543c6ddd9) )
+	ROM_LOAD( "268l9a.v4", 0xc00000, 0x4002f0, CRC(179cbca3) SHA1(fdcb0df0c2f73d11cd32a8625ad6fa24cedb9dc9) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268l9a.c1", 0x0000000, 0x800000, CRC(5e2e9087) SHA1(2366df8b0ee03e8938dcae571dccf32cfcfd685b) )
+	ROM_LOAD16_BYTE( "268l9a.c2", 0x0000001, 0x800000, CRC(d15770e3) SHA1(162c166c3fdc2a29af88dfea8a10138284029e36) )
+	ROM_LOAD16_BYTE( "268l9a.c3", 0x1000000, 0x800000, CRC(3e104b8f) SHA1(ee8467e07f27fbcad35a239b45e1e7e5aed79a25) )
+	ROM_LOAD16_BYTE( "268l9a.c4", 0x1000001, 0x800000, CRC(03f32dda) SHA1(64bc08dce4a8188878d683a6290e370e4d3488a1) )
+	ROM_LOAD16_BYTE( "268l9a.c5", 0x2000000, 0x800000, CRC(fd3e0f24) SHA1(5143c521c79a011465c93717171bb24b550bdc1f) )
+	ROM_LOAD16_BYTE( "268l9a.c6", 0x2000001, 0x800000, CRC(3c873aba) SHA1(b1c882f7c228046929f82a24d9f635c1b6443a94) )
+	ROM_LOAD16_BYTE( "268l9a.c7", 0x3000000, 0x800000, CRC(0d070c3b) SHA1(2d785bd095726b4e48aa65578b9694372f4c46c3) )
+	ROM_LOAD16_BYTE( "268l9a.c8", 0x3000001, 0x800000, CRC(09751dd8) SHA1(5a1378faa3bd3ebb6573d7c171639df153b5202b) )
+ROM_END
+
+ROM_START( mslug5l9b )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268l9a.p1", 0x000000, 0x100000, CRC(96aa148d) SHA1(b2487a29d6a96435cfe220cb78f74bc2a9ccc6b3) )
+	ROM_LOAD16_WORD_SWAP( "268l9b.p2", 0x100000, 0x400000, CRC(35982b98) SHA1(069f5f7fe6d2278b6bdeb1f5bd87818b868ed41b) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_512K( "268l9a.m1", CRC(464c72ad) SHA1(9e8a01c2bad897e2bbf32563a30f0474f8fcd2b5) )
+
+	ROM_REGION( 0x1037510, "ymsnd", 0 )
+	ROM_LOAD( "268l9b.v1", 0x000000, 0x400000, CRC(fcc8ba01) SHA1(c187c318c65f6aefae05e6cef9f17492edf2e4db) )
+	ROM_LOAD( "268l9b.v2", 0x400000, 0x400000, CRC(386f32bd) SHA1(d49fc812c442563b9e82da43bf5c6b9deea0f687) )
+	ROM_LOAD( "268l9b.v3", 0x800000, 0x400000, CRC(dc737e12) SHA1(f940ea767404f6a15dea526eda56ad66517ba79e) )
+	ROM_LOAD( "268l9b.v4", 0xc00000, 0x437510, CRC(2b310542) SHA1(5f0050d36cd1f722d78d9ae98db537eacc4d8548) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268l9b.c1", 0x0000000, 0x800000, CRC(aad8ff17) SHA1(f8c5f7bd9aa4b930ceb38b25934650ac810563df) )
+	ROM_LOAD16_BYTE( "268l9b.c2", 0x0000001, 0x800000, CRC(b0404dd4) SHA1(0ab1f81072dac777c3269811dfb69cb40bd7a245) )
+	ROM_LOAD16_BYTE( "268l9b.c3", 0x1000000, 0x800000, CRC(95dda158) SHA1(7ec4625a17f815e8d7e690cb01f3c9dbce75e39b) )
+	ROM_LOAD16_BYTE( "268l9b.c4", 0x1000001, 0x800000, CRC(c052cf1f) SHA1(198041e813914570b943fc1927e986e5553c6bd4) )
+	ROM_LOAD16_BYTE( "268l9b.c5", 0x2000000, 0x800000, CRC(8b9f7e21) SHA1(0dcefc5efc67d520a880b3da6122c342ebdc5e2f) )
+	ROM_LOAD16_BYTE( "268l9b.c6", 0x2000001, 0x800000, CRC(4a0693cf) SHA1(c4bdf72754f85250dfccdd4444941931a6596569) )
+	ROM_LOAD16_BYTE( "268l9b.c7", 0x3000000, 0x800000, CRC(3ad5eaf4) SHA1(b4c4cf0425d42bd47bc85acfab93006c003af341) )
+	ROM_LOAD16_BYTE( "268l9b.c8", 0x3000001, 0x800000, CRC(3e7c670d) SHA1(166eda40c01d01b1d8ec82f2482e8cb4e5ca0e79) )
+ROM_END
+
+ROM_START( mslug5nd )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
+	ROM_LOAD16_WORD_SWAP( "268nd.p2", 0x100000, 0x400000, CRC(768ee64a) SHA1(76a65a69aee749758a2101aabdd44f3404838b54) )
+//	ROM_LOAD16_WORD_SWAP( "268boot.p1", 0x000000, 0x100000, CRC(e6d297af) SHA1(5bb3f72ce26e3f46c523b955f425056eb246e855) )
+//	ROM_LOAD16_WORD_SWAP( "268-p2n.bin", 0x100000, 0x400000, CRC(84def63e) SHA1(fddd68e8879d6f5c1aac42997ff2245ea54d5869) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_128K( "268nd.m1", CRC(6FA01C9A) SHA1(3DAB7593BFCCE318D22EC3DF672EE3B4AB73DCF5) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+//	ROM_LOAD( "268-v1c.bin", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+//	ROM_LOAD( "268-v2c.bin", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
+	ROM_LOAD( "268nd.v1", 0x000000, 0x400000, CRC(dc7f03f0) SHA1(e1e31dcaff1f8d2c4b2d657aa856a60771d82c26) )
+	ROM_LOAD( "268nd.v2", 0x400000, 0x400000, CRC(eeb7c926) SHA1(4d71f59948bdc5ed2e6daf101f16fd979e1ab193) )
+	ROM_LOAD( "268nd.v3", 0x800000, 0x400000, CRC(02fd519e) SHA1(6fbda5bf8dbf52bc110aba7b9d20b24bdc2fe0d7) )
+	ROM_LOAD( "268nd.v4", 0xc00000, 0x400000, CRC(d7c67794) SHA1(345dcbf76b25b2fbd10bcaf08ee395da0a52c5ce) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268d.c1", 0x0000000, 0x800000, CRC(969c0d62) SHA1(DE3C5CFA980CCA2FAB0416AC0D292948B5D4C9C3) )
+	ROM_LOAD16_BYTE( "268d.c2", 0x0000001, 0x800000, CRC(c69ae867) SHA1(3198EE5C7C2C7563B49EBD9F7BA95D9B0B303F6C) )
+	ROM_LOAD16_BYTE( "268d.c3", 0x1000000, 0x800000, CRC(d7beaeaf) SHA1(99443EA4C1BAB45F1977A390EB7E1A0163915110) )
+	ROM_LOAD16_BYTE( "268nd.c4", 0x1000001, 0x800000, CRC(E1B1131B) SHA1(68A36D336582069E79AD481638D92F57C4CD6523) )
+	ROM_LOAD16_BYTE( "268d.c5", 0x2000000, 0x800000, CRC(2fa1a5ad) SHA1(4AE15D29BA979601598EDDF8905072FE1D9E0A98) )
+	ROM_LOAD16_BYTE( "268d.c6", 0x2000001, 0x800000, CRC(6de89589) SHA1(86A6C036BF51AF516FEA83A30874026EC1586A83) )
+	ROM_LOAD16_BYTE( "268d.c7", 0x3000000, 0x800000, CRC(97bd0c0a) SHA1(30F3280FE527098ECF46541CC645A59B366105EA) )
+	ROM_LOAD16_BYTE( "268d.c8", 0x3000001, 0x800000, CRC(c0d5bc20) SHA1(B5D0D81D5CC624538B0651C568295E578A1330D1) )
+ROM_END
+
+// Metal Slug
+GAME( 2005, msboot,    mslug,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Nazca", "Metal Slug (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugeh,   mslug,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug Enhanced", MACHINE_SUPPORTS_SAVE ) // New standard weapon shotgun - 20 bombs instead of 10
+// Metal Slug 2
+GAME( 1998, mslug2eh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh0, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 2 (Enhanced Revised Version, hack by Ydmis)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh1, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh2, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh3, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French) (Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 2 (hybrid Bullets version, Shinwa hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Trap15", "Metal Slug 2 Turbo", MACHINE_SUPPORTS_SAVE )
+// Metal Slug X
+GAME( 2013, mslugxeb,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (EB)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mslugxeh,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "KrysoFun/KVS", "Metal Slug X (Style remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mslugxeh1, mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X (Super Revised Version by KrysoFun)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mslugxex,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X (Excel version by PlayerX)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslugxfr,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslugxfro, mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (French) (Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, mslugxhp,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X (Enemy Heavy Plate 2013-06-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslugxit,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Italian - Beta)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X Plus (Hack by Player-X)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, mslugxr,   mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X (Reset Version 2013-05-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mslugxst,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "hack", "Metal Slug X (Enhanced Version by STARK) [EGCG]", MACHINE_SUPPORTS_SAVE )
+// Metal Slug 3
+GAME( 2000, mslug3d,   mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3d,  ROT0, "SNK", "Metal Slug 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3d1,  mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42_sfix, ROT0, "SNK", "Metal Slug 3 (NGH-2560)(Fully Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3eha, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3ehs, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e02, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e03, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e04, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e05, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e06, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 06)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e07, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e08, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e09, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e10, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e11, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e12, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e13, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e14, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e15, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e16, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e17, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e18, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e19, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e20, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e21, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3e22, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, mslug3eb,  mslug3,   neogeo_noslot, neogeo, neogeo_noslot_state, mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (EB)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2004, mslug3fr,  mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug3fro, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French) (Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3kh,  mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3kho, mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mslug3v,   mslug3,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug3n,  ROT0, "Eezezy", "Metal Slug 3 (Violence Edition)", MACHINE_SUPPORTS_SAVE )
+// Metal Slug 4
+GAME( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4d,  ROT0, "Mega","Metal Slug 4 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4dh, ROT0, "HappyASR [EGCG]","Metal Slug 4 Super D Version", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 4 Super D Version (Hack by HappyASR [EGCG])", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Arkatrad", "Metal Slug 4 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4it, ROT0, "Evoboy", "Metal Slug 4 (Italian)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 4 (Italian)2", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug4m,  ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+// Metal Slug 5
+GAME( 2003, mslug5b,   mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug5b,  ROT0, "bootleg", "Metal Slug 5 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5d,   mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug5d,  ROT0, "hack", "Metal Slug 5 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5d1,  mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug5d1, ROT0, "hack", "Metal Slug 5 (NGM-2680) (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug5fr1,ROT0, "NEO-ARC", "Metal Slug 5 (French Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5hd,  mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug5hd, ROT0, "hack", "Metal Slug 5 (NGH-2680) (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5l9a, mslug5,   neogeo_noslot, neogeo, neogeo_noslot_state, s1945p,   ROT0, "C.B", "Metal Slug 5 Level 9 Hack (Ver A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5l9b, mslug5,   neogeo_noslot, neogeo, neogeo_noslot_state, s1945p,   ROT0, "C.B", "Metal Slug 5 Level 9 Hack (Ver B)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5nd,  mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       mslug5nd, ROT0, "hack", "Metal Slug 5 (decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5boot,   mslug5,   neogeo_noslot, neogeo, neogeo_hbmame,       ms5boot,  ROT0, "bootleg", "Metal Slug 5 (Bootleg Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5pcbd,   ms5pcb,   neogeo_noslot, dualbios, neogeo_hbmame,     ms5pcbd,  ROT0, "hack", "Metal Slug 5 (JAMMA PCB) decrypted", MACHINE_SUPPORTS_SAVE )

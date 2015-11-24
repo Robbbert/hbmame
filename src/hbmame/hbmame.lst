@@ -1186,6 +1186,25 @@ mslug5fr
 mslug5l9a
 mslug5l9b
 
+ms5boot
+ms5pcbd
+msboot
+mslug2eh0
+mslug2sh
+mslug3d1
+mslug4dh1
+mslug4i1
+mslug4nd
+mslug5b
+mslug5d1
+mslug5fr1
+mslug5hd
+mslug5nd
+mslugxeh1
+mslugxex
+mslugxp
+mslugxst
+
 	/* mspacman */
 mspacman	/* (c) 1981 Midway */ /* made by Gencomp */
 chtmsatk	/* PacMAME Hacks */
@@ -1391,6 +1410,7 @@ maglord
 matrim		/* 0266 (c) 2002 Atlus */
 miexchng
 minasan
+ms5pcb
 mutnat
 nam1975		/* 0001 (c) 1990 SNK */
 ncombat
@@ -2170,27 +2190,6 @@ lasthpcd
 //lhopecd not working
 //matrima
 matrimeh
-//ms5boot
-//ms5pcbd
-//ms5plusd
-msboot
-mslug2eh_d
-mslug2sh
-///mslug4d_d
-mslug4dh_d
-//mslug4hd
-mslug4i_d
-mslug4nd
-//mslug5b
-///mslug5d_d
-///mslug5fr_d
-//mslug5hd
-//mslug5n
-//mslug5nd
-///mslugxeh_d
-//mslugxex
-//mslugxp
-//mslugxst
 mutnatex
 ninjmsha
 pbobblcd
