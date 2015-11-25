@@ -671,30 +671,6 @@ ROM_START( fatfrspb )
 	ROM_LOAD16_BYTE( "058-c6.c6", 0x800001, 0x200000, CRC(8ff1f43d) SHA1(6180ceb5412a3e2e34e9513a3283b9f63087f747) ) /* Plane 2,3 */
 ROM_END
 
-ROM_START( lastbldb )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234-p1b.p1", 0x000000, 0x100000, CRC(c09d3ff3) SHA1(311a5f98d78c8fe7d551a92ac08c47b52271fb7b) )
-	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
-
-	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) ) /* TC531000 */
-
-	NEO_BIOS_AUDIO_128K( "234-m1.m1", CRC(087628ea) SHA1(48dcf739bb16699af4ab8ed632b7dcb25e470e06) ) /* TC531001 */
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "234-v1.v1", 0x000000, 0x400000, CRC(ed66b76f) SHA1(8a05ff06d9b6f01c6c16b3026282eaabb0e25b44) ) /* TC5332204 */
-	ROM_LOAD( "234-v2.v2", 0x400000, 0x400000, CRC(a0e7f6e2) SHA1(753ff74fa9294f695aae511ae01ead119b114a57) ) /* TC5332204 */
-	ROM_LOAD( "234-v3.v3", 0x800000, 0x400000, CRC(a506e1e2) SHA1(b3e04ba1a5cb50b77c6fbe9fe353b9b64b6f3f74) ) /* TC5332204 */
-	ROM_LOAD( "234-v4.v4", 0xc00000, 0x400000, CRC(0e34157f) SHA1(20A1F4833E5E29BA0073C1712D7A17AB7A2A035C) ) /* TC5332204 */
-
-	ROM_REGION( 0x2800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "234-c1.c1", 0x0000000, 0x800000, CRC(9f7e2bd3) SHA1(2828aca0c0f5802110f10453c1cf640f69736554) ) /* Plane 0,1 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c2.c2", 0x0000001, 0x800000, CRC(80623d3c) SHA1(ad460615115ec8fb25206f012da59ecfc8059b64) ) /* Plane 2,3 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c3.c3", 0x1000000, 0x800000, CRC(91ab1a30) SHA1(e3cf9133784bef2c8f1bfe45f277ccf82cc6f6a1) ) /* Plane 0,1 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c4.c4", 0x1000001, 0x800000, CRC(3d60b037) SHA1(78a50233bcd19e92c7b6f7ee1a53417d9db21f6a) ) /* Plane 2,3 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c5.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) ) /* Plane 0,1 */ /* TC5332205 */
-	ROM_LOAD16_BYTE( "234-c6.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) ) /* Plane 2,3 */ /* TC5332205 */
-ROM_END
-
 ROM_START( ffury3bd )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "069-p1bd.p1", 0x000000, 0x100000, CRC(532c2930) SHA1(a65a39a79820138f275f75563f548240dd53f371) )
@@ -1219,30 +1195,6 @@ ROM_START( kabukikb )
 	ROM_LOAD16_BYTE( "092-c4.c4", 0x800001, 0x400000, CRC(de07f997) SHA1(c27a4d4bef868eed38dc152ff37d4135b16cc991) ) /* Plane 2,3 */
 ROM_END
 
-ROM_START( lastbdha )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234-p1ha.p1", 0x000000, 0x100000, CRC(b8d24c55) SHA1(d954f5b6a35877369ebc9cbcfcb2f26bc72a653a) )
-	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
-
-	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) ) /* TC531000 */
-
-	NEO_BIOS_AUDIO_128K( "234-m1.m1", CRC(087628ea) SHA1(48dcf739bb16699af4ab8ed632b7dcb25e470e06) ) /* TC531001 */
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "234-v1.v1", 0x000000, 0x400000, CRC(ed66b76f) SHA1(8a05ff06d9b6f01c6c16b3026282eaabb0e25b44) ) /* TC5332204 */
-	ROM_LOAD( "234-v2.v2", 0x400000, 0x400000, CRC(a0e7f6e2) SHA1(753ff74fa9294f695aae511ae01ead119b114a57) ) /* TC5332204 */
-	ROM_LOAD( "234-v3.v3", 0x800000, 0x400000, CRC(a506e1e2) SHA1(b3e04ba1a5cb50b77c6fbe9fe353b9b64b6f3f74) ) /* TC5332204 */
-	ROM_LOAD( "234-v4.v4", 0xc00000, 0x400000, CRC(0e34157f) SHA1(20A1F4833E5E29BA0073C1712D7A17AB7A2A035C) ) /* TC5332204 */
-
-	ROM_REGION( 0x2800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "234-c1.c1", 0x0000000, 0x800000, CRC(9f7e2bd3) SHA1(2828aca0c0f5802110f10453c1cf640f69736554) ) /* Plane 0,1 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c2.c2", 0x0000001, 0x800000, CRC(80623d3c) SHA1(ad460615115ec8fb25206f012da59ecfc8059b64) ) /* Plane 2,3 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c3.c3", 0x1000000, 0x800000, CRC(91ab1a30) SHA1(e3cf9133784bef2c8f1bfe45f277ccf82cc6f6a1) ) /* Plane 0,1 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c4.c4", 0x1000001, 0x800000, CRC(3d60b037) SHA1(78a50233bcd19e92c7b6f7ee1a53417d9db21f6a) ) /* Plane 2,3 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c5.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) ) /* Plane 0,1 */ /* TC5332205 */
-	ROM_LOAD16_BYTE( "234-c6.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) ) /* Plane 2,3 */ /* TC5332205 */
-ROM_END
-
 ROM_START( lhopecd ) // These roms were extracted from the Jap ISO game, I dont know if all of these are correct or not.
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD( "lh-p1.bin", 0x000000, 0x100000, CRC(cd108282) SHA1(bb9b3c8bb94c05b46ea24173e62245611dbc29ce) )
@@ -1475,32 +1427,6 @@ ROM_START( mutnatex ) /* MVS AND AES VERSION */
 	ROM_LOAD16_BYTE( "014-c2.c2", 0x000001, 0x100000, CRC(69ba4e18) SHA1(b3369190c47771a790c7adffa958ff55d90e758b) ) /* Plane 2,3 */
 	ROM_LOAD16_BYTE( "014-c3.c3", 0x200000, 0x100000, CRC(890327d5) SHA1(47f97bf120a8480758e1f3bb8982be4c5325c036) ) /* Plane 0,1 */
 	ROM_LOAD16_BYTE( "014-c4.c4", 0x200001, 0x100000, CRC(e4002651) SHA1(17e53a5f4708866a120415bf24f3b89621ad0bcc) ) /* Plane 2,3 */
-ROM_END
-
-ROM_START( lastblada ) /* MVS VERSION */
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234-ep1.bin", 0x000000, 0x080000, CRC(3893d38b) SHA1(204d3f61dbeb82b1c942cda7089f24f997925adb) )
-	ROM_LOAD16_WORD_SWAP( "234-ep2.bin", 0x080000, 0x080000, CRC(9470c788) SHA1(41671491cef3020b895e42935208e92abec09ed9) )
-	ROM_LOAD16_WORD_SWAP( "234-sp1.bin", 0x100000, 0x200000, CRC(b45e631c) SHA1(5c88e6f6c1e343df24f2acf8bb4aed77954f7b36) )
-	ROM_LOAD16_WORD_SWAP( "234-sp2.bin", 0x300000, 0x200000, CRC(aa34e149) SHA1(113930343f8efa603823a619964e90f1b06df2ab) )
-
-	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) ) /* TC531000 */
-
-	NEO_BIOS_AUDIO_128K( "234-m1.m1", CRC(087628ea) SHA1(48dcf739bb16699af4ab8ed632b7dcb25e470e06) ) /* TC531001 */
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "234-v1.v1", 0x000000, 0x400000, CRC(ed66b76f) SHA1(8a05ff06d9b6f01c6c16b3026282eaabb0e25b44) ) /* TC5332204 */
-	ROM_LOAD( "234-v2.v2", 0x400000, 0x400000, CRC(a0e7f6e2) SHA1(753ff74fa9294f695aae511ae01ead119b114a57) ) /* TC5332204 */
-	ROM_LOAD( "234-v3.v3", 0x800000, 0x400000, CRC(a506e1e2) SHA1(b3e04ba1a5cb50b77c6fbe9fe353b9b64b6f3f74) ) /* TC5332204 */
-	ROM_LOAD( "234-v4.v4", 0xc00000, 0x400000, CRC(0e34157f) SHA1(20A1F4833E5E29BA0073C1712D7A17AB7A2A035C) ) /* TC5332204 */
-
-	ROM_REGION( 0x2800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "234-c1.c1", 0x0000000, 0x800000, CRC(9f7e2bd3) SHA1(2828aca0c0f5802110f10453c1cf640f69736554) ) /* Plane 0,1 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c2.c2", 0x0000001, 0x800000, CRC(80623d3c) SHA1(ad460615115ec8fb25206f012da59ecfc8059b64) ) /* Plane 2,3 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c3.c3", 0x1000000, 0x800000, CRC(91ab1a30) SHA1(e3cf9133784bef2c8f1bfe45f277ccf82cc6f6a1) ) /* Plane 0,1 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c4.c4", 0x1000001, 0x800000, CRC(3d60b037) SHA1(78a50233bcd19e92c7b6f7ee1a53417d9db21f6a) ) /* Plane 2,3 */ /* TC5364205 */
-	ROM_LOAD16_BYTE( "234-c5.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) ) /* Plane 0,1 */ /* TC5332205 */
-	ROM_LOAD16_BYTE( "234-c6.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) ) /* Plane 2,3 */ /* TC5332205 */
 ROM_END
 
 ROM_START( garoupy_d ) /* Prototype Version, seems genuine */
@@ -3656,13 +3582,11 @@ GAME( 1994, bustamov,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neoge
 
 /* These are hacks or bootlegs */
 ///GAME( 1996, wakwak7h,   wakuwak7, neogeo_noslot,   neogeo, neogeo_state,   kof96rm,  ROT0, "hack", "Waku Waku 7 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, lstbld2h,   lastbld2, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, kof2001n,   kof2001,  neogeo_noslot,   neogeo, neogeo_state,          neogeo ,  ROT0, "Eolith / SNK", "The King of Fighters 2001 (fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, kof2k1h,    kof2001,  neogeo_noslot,   neogeo, neogeo_state,          neogeo ,  ROT0, "hack", "The King of Fighters 2001 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 //GAME( 2003, pnyaad,     pnyaa,    neogeo,   neogeo, neogeo_state,   gfxdec42, ROT0, "Aiky", "Pochi & Nyaa (decrypted C)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1996, aof3b,      aof3,     neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfrspb,   fatfursp, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Fatal Fury Special / Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-///GAME( 1997, lastbldb,   lastblad, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, ffury3bd,   fatfury3, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - haruka-naru tatakai (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamh,    ninjamas, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Ninja Master's - haoh-ninpo-cho (Boss Hack by Ydmis and Creamymami)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, kof2k1ru_d,   kof2001,  neogeo_noslot,   neogeo, neogeo_state,          neogeo ,  ROT0, "hack", "The King of Fighters 2001 Remix Ultra Ver 2.3 by Jason", MACHINE_SUPPORTS_SAVE )
@@ -3685,7 +3609,6 @@ GAME( 2003, svcspryu,   svc,      neogeo_noslot,   neogeo, neogeo_state,        
 GAME( 2003, svcps2,     svc,      neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "SNK Vs CAPCOM PLAYSTATION2 HACK Final 1.02 (EGHT)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2evo,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "The King of Fighters '2000 [Evolution v1.3, by FCHT/EGHT]", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikb,   kabukikl, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den (Boss Hack by Ydmis and Creamymami)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastbdha,   lastblad, neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Boss hack, Alternate Set by Robert)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhopecd,    lhcdb,   neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta)", MACHINE_NOT_WORKING )
 GAME( 1991, gpilotse,   gpilots,  neogeo_noslot,   neogeo, neogeo_state,  		  neogeo,   ROT0, "hack", "Ghost Pilots (Enhanced Version, Hack by Robert)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, spinmsth,   spinmast, neogeo_noslot,   neogeo, neogeo_state,  		  neogeo,   ROT0, "hack", "Spin Master / Miracle Adventure (Enhanced Version, Hack by Robert)", MACHINE_SUPPORTS_SAVE )
@@ -3696,7 +3619,6 @@ GAME( 1996, ninjmsha,   ninjamas, neogeo_noslot,   neogeo, neogeo_state,   		  n
 GAME( 1995, gowcairy,   gowcaizr, neogeo_noslot,   neogeo, neogeo_state,   		  neogeo,   ROT0, "hack", "Voltage Fighter - Gowcaizer (Boss Hack - Easy Moves)", MACHINE_SUPPORTS_SAVE)
 GAME( 2001, kof2k1st,   kof2001,  neogeo_noslot,   neogeo, neogeo_state,  		  neogeo ,  ROT0, "hack", "The King of Fighters 2001 - Special ST Version (Hack by KOF1996)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, mutnatex,   mutnat,   neogeo_noslot,   neogeo, neogeo_state,   		  neogeo,   ROT0, "hack", "Mutation Nation (Ex version, Pipi899)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastblada,  lastblad, neogeo_noslot,   neogeo, neogeo_state,   		  neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (set 3)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 1999, garoupy_d,    garou,    neogeo_noslot,   neogeo, neogeo_state,          neogeo,   ROT0, "hack", "Garou: Mark of the Wolves (Prototype) [Boss Hack by Ydmis]", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2bld,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   		  neogeo,   ROT0, "hack", "The King of Fighters 2002 Blood", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, kof2k1bs,   kof2001,  neogeo_noslot,   neogeo, neogeo_state,   		  neogeo ,  ROT0, "hack", "The King of Fighters 2001: PS2 PLUS ( Eddids )", MACHINE_SUPPORTS_SAVE )

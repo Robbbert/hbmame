@@ -1,7 +1,34 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+// The Last Blade
 
 
+
+ROM_START( lba )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "234a.p1", 0x000000, 0x080000, CRC(3893d38b) SHA1(204d3f61dbeb82b1c942cda7089f24f997925adb) )
+	ROM_LOAD16_WORD_SWAP( "234a.p2", 0x080000, 0x080000, CRC(9470c788) SHA1(41671491cef3020b895e42935208e92abec09ed9) )
+	ROM_LOAD16_WORD_SWAP( "234a.p3", 0x100000, 0x200000, CRC(b45e631c) SHA1(5c88e6f6c1e343df24f2acf8bb4aed77954f7b36) )
+	ROM_LOAD16_WORD_SWAP( "234a.p4", 0x300000, 0x200000, CRC(aa34e149) SHA1(113930343f8efa603823a619964e90f1b06df2ab) )
+
+	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
+
+	NEO_BIOS_AUDIO_128K( "234-m1.m1", CRC(087628ea) SHA1(48dcf739bb16699af4ab8ed632b7dcb25e470e06) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "234-v1.v1", 0x000000, 0x400000, CRC(ed66b76f) SHA1(8a05ff06d9b6f01c6c16b3026282eaabb0e25b44) )
+	ROM_LOAD( "234-v2.v2", 0x400000, 0x400000, CRC(a0e7f6e2) SHA1(753ff74fa9294f695aae511ae01ead119b114a57) )
+	ROM_LOAD( "234-v3.v3", 0x800000, 0x400000, CRC(a506e1e2) SHA1(b3e04ba1a5cb50b77c6fbe9fe353b9b64b6f3f74) )
+	ROM_LOAD( "234-v4.v4", 0xc00000, 0x400000, CRC(0e34157f) SHA1(20A1F4833E5E29BA0073C1712D7A17AB7A2A035C) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "234-c1.c1", 0x0000000, 0x800000, CRC(9f7e2bd3) SHA1(2828aca0c0f5802110f10453c1cf640f69736554) )
+	ROM_LOAD16_BYTE( "234-c2.c2", 0x0000001, 0x800000, CRC(80623d3c) SHA1(ad460615115ec8fb25206f012da59ecfc8059b64) )
+	ROM_LOAD16_BYTE( "234-c3.c3", 0x1000000, 0x800000, CRC(91ab1a30) SHA1(e3cf9133784bef2c8f1bfe45f277ccf82cc6f6a1) )
+	ROM_LOAD16_BYTE( "234-c4.c4", 0x1000001, 0x800000, CRC(3d60b037) SHA1(78a50233bcd19e92c7b6f7ee1a53417d9db21f6a) )
+	ROM_LOAD16_BYTE( "234-c5.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) )
+	ROM_LOAD16_BYTE( "234-c6.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) )
+ROM_END
 
 ROM_START( lbb ) /* The Last Blade - Hack by Kurouri and Wesker - (Can choose 'fair' Kaede, Musashi and Kagami - Wesker mod.) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -126,6 +153,30 @@ ROM_END
 ROM_START( lbeho ) /* The Last Blade - Enhance by Ydmis - (Can choose Musashi and Kagami - ultra kill start is max) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "234eho.p1",  0x000000, 0x100000, CRC(c09d3ff3) SHA1(311a5f98d78c8fe7d551a92ac08c47b52271fb7b) )
+	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
+
+	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
+
+	NEO_BIOS_AUDIO_128K( "234-m1.m1", CRC(087628ea) SHA1(48dcf739bb16699af4ab8ed632b7dcb25e470e06) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "234-v1.v1", 0x000000, 0x400000, CRC(ed66b76f) SHA1(8a05ff06d9b6f01c6c16b3026282eaabb0e25b44) )
+	ROM_LOAD( "234-v2.v2", 0x400000, 0x400000, CRC(a0e7f6e2) SHA1(753ff74fa9294f695aae511ae01ead119b114a57) )
+	ROM_LOAD( "234-v3.v3", 0x800000, 0x400000, CRC(a506e1e2) SHA1(b3e04ba1a5cb50b77c6fbe9fe353b9b64b6f3f74) )
+	ROM_LOAD( "234-v4.v4", 0xc00000, 0x400000, CRC(0e34157f) SHA1(20A1F4833E5E29BA0073C1712D7A17AB7A2A035C) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "234-c1.c1", 0x0000000, 0x800000, CRC(9f7e2bd3) SHA1(2828aca0c0f5802110f10453c1cf640f69736554) )
+	ROM_LOAD16_BYTE( "234-c2.c2", 0x0000001, 0x800000, CRC(80623d3c) SHA1(ad460615115ec8fb25206f012da59ecfc8059b64) )
+	ROM_LOAD16_BYTE( "234-c3.c3", 0x1000000, 0x800000, CRC(91ab1a30) SHA1(e3cf9133784bef2c8f1bfe45f277ccf82cc6f6a1) )
+	ROM_LOAD16_BYTE( "234-c4.c4", 0x1000001, 0x800000, CRC(3d60b037) SHA1(78a50233bcd19e92c7b6f7ee1a53417d9db21f6a) )
+	ROM_LOAD16_BYTE( "234-c5.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) )
+	ROM_LOAD16_BYTE( "234-c6.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) )
+ROM_END
+
+ROM_START( lbha )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "234ha.p1",   0x000000, 0x100000, CRC(b8d24c55) SHA1(d954f5b6a35877369ebc9cbcfcb2f26bc72a653a) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -534,6 +585,7 @@ ROM_END
 
 
 
+GAME( 1997, lba,       lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "SNK", "Last Blade (set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbb,       lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Kurouri and Wesker", "Last Blade (3 Add Char - Wesker mod.)", MACHINE_SUPPORTS_SAVE ) // 'fair' Kaede, Musashi and Kagami
 GAME( 1997, lbboss,    lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Kurouri", "Last Blade (3 Add Char)", MACHINE_SUPPORTS_SAVE ) // 'fair' Kaede, Musashi and Kagami
 GAME( 1997, lbe,       lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Kurouri, Wesker and Ydmis", "Last Blade (3 Add Char - Ultra kill start max - Ultra pow hack - Wesker mod.)", MACHINE_SUPPORTS_SAVE ) // 'fair' Kaede, Musashi and Kagami
@@ -541,6 +593,7 @@ GAME( 1997, lbeh,      lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, RO
 GAME( 1997, lbeh2,     lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Last Blade (2 Add Char)", MACHINE_SUPPORTS_SAVE ) // Musashi and Kagami
 GAME( 1997, lbseh,     lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Kurouri and Ydmis", "Last Blade (3 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // 'fair' Kaede, Musashi and Kagami
 GAME( 1997, lbeho,     lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Last Blade (2 Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // Musashi and Kagami
+GAME( 1997, lbha,      lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Robert", "Last Blade (Boss hack, Alternate Set)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lby,       lastblad, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Last Blade (Add Musashi)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1998, lb2a,      lastbld2, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Alphax2", "Last Blade 2 (Add Kouryu)", MACHINE_SUPPORTS_SAVE ) // Bosses

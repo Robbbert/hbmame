@@ -1553,28 +1553,6 @@ kabuklgm
 kabuklmc
 karnvreh
 kizunaeh
-lb2pl
-lb2b
-lbb
-lbe
-lbboss
-lbeh
-lbeh2
-lbseh
-lbeho
-lby
-lb2a
-lb2bhd
-lb2easy
-lb2ed
-lb2ebd
-lb2eh
-lb2eh2
-lb2eho
-lb2ehu
-lb2te
-lb2wh
-lb2yd
 matrmehc
 nam1975g
 nam1975h
@@ -1610,6 +1588,32 @@ dbdq
 dbdqb
 dbdqp
 dbdqeh
+
+	/* nglastblade */
+lba
+lbb
+lbe
+lbboss
+lbeh
+lbeh2
+lbseh
+lbeho
+lbha
+lby
+lb2a
+lb2b
+lb2bhd
+lb2easy
+lb2ed
+lb2ebd
+lb2eh
+lb2eh2
+lb2eho
+lb2ehu
+lb2pl
+lb2te
+lb2wh
+lb2yd
 
 	/* ngrbff */
 rbff1ud
@@ -2211,8 +2215,6 @@ kogd
 //kogf
 //kogplus
 lans2k4d
-lastbdha
-lastblada
 lasthpcd
 //lhopecd not working
 //matrima
