@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+// Garou Mark of the Wolves: mostly hacks of the prototype
 
 
 
@@ -225,13 +226,40 @@ ROM_START( garoupy ) /* Garou: Mark of the Wolves PROTOTYPE - Hack by Ydmis - (I
 	ROM_LOAD16_BYTE( "proto_253-c8.c8", 0x3000001, 0x800000, CRC(f778fe99) SHA1(c963f6ba90a36d02991728b44ffcf174ca18268a) )
 ROM_END
 
+ROM_START( garoupy1 ) /* Prototype Version, seems genuine */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "253py1.p1", 0x000000, 0x100000, CRC(b4a28ce4) SHA1(bab447230b6bc91a327a2622a55e125ce3aef781) )
+	ROM_LOAD16_WORD_SWAP( "253pf.p2",  0x100000, 0x400000, CRC(19eb641b) SHA1(114BE5C20142223CF6BB0938AA3B07B61E3243E1) )
+
+	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+
+	NEO_BIOS_AUDIO_256K( "proto_253-m1.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "proto_253-v1.v1", 0x000000, 0x400000, CRC(274f3923) SHA1(4c7a8ad1cd0e3afc1f78de3c2929120ed434f104) )
+	ROM_LOAD( "proto_253-v2.v2", 0x400000, 0x400000, CRC(8f86dabe) SHA1(b3d2d9f5c1d97a6e7aee2c674fb6627f41bbb240) )
+	ROM_LOAD( "proto_253-v3.v3", 0x800000, 0x400000, CRC(05fd06cd) SHA1(6cd699719614bb87547632ea3d61d92d81fdf563) )
+	ROM_LOAD( "proto_253-v4.v4", 0xc00000, 0x400000, CRC(14984063) SHA1(170d5638327ec0eb3590b80dc11590897367250c) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "proto_253-c1.c1", 0x0000000, 0x800000, CRC(5bb5d137) SHA1(d648febd8e6a0bdd9bdbb6ce1f1f8b08567ec05a) )
+	ROM_LOAD16_BYTE( "proto_253-c2.c2", 0x0000001, 0x800000, CRC(5c8d2960) SHA1(f7503502be0332adf408ee0ea5ee5161c8939fd8) )
+	ROM_LOAD16_BYTE( "proto_253-c3.c3", 0x1000000, 0x800000, CRC(234d16fc) SHA1(7b9221f7ecc438150c8a10be72390329854ed21b) )
+	ROM_LOAD16_BYTE( "proto_253-c4.c4", 0x1000001, 0x800000, CRC(b9b5b993) SHA1(6059793eaf6e58c172235fe64aa9d25a40c38ed6) )
+	ROM_LOAD16_BYTE( "proto_253-c5.c5", 0x2000000, 0x800000, CRC(722615d2) SHA1(798832c535869f0e247c3db0d8253779b103e213) )
+	ROM_LOAD16_BYTE( "proto_253-c6.c6", 0x2000001, 0x800000, CRC(0a6fab38) SHA1(eaee6f2f18af91f7959d84d4b991b3fc182d07c4) )
+	ROM_LOAD16_BYTE( "proto_253-c7.c7", 0x3000000, 0x800000, CRC(d68e806f) SHA1(92bfd9839115bd590972ae4ecc45ad35dce22387) )
+	ROM_LOAD16_BYTE( "proto_253-c8.c8", 0x3000001, 0x800000, CRC(f778fe99) SHA1(c963f6ba90a36d02991728b44ffcf174ca18268a) )
+ROM_END
 
 
-GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo,  neogeo_hbmame, garoud, ROT0, "SNK","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "MU", "Garou - Mark of the Wolves (proto) (Approach to Arcade by MU v5.0a)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoupeh,  garoupy,  neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (Add Char)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
-GAME( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (proto) (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
-GAME( 1999, garoupf,   garoupy,  neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "Unk", "Garou - Mark of the Wolves (proto) (Fixed winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE ) // From MAME32+ IPS
-GAME( 1999, garoupfu,  garoupy,  neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "Unk", "Garou - Mark of the Wolves (proto) (Unk Hack/Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoupfp,  garoupy,  neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "Unk", "Garou - Mark of the Wolves (proto) (Rom Fix - FixPlus)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoupy,   neogeo,   neogeo_noslot, neogeo,  neogeo_state,  neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (P1 Add Char)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
+
+GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_hbmame, garoud, ROT0, "SNK","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "MU", "Garou - Mark of the Wolves (proto) (Approach to Arcade by MU v5.0a)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupeh,  garoupy,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (Add Char)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
+GAME( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (proto) (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
+GAME( 1999, garoupf,   garoupy,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unk", "Garou - Mark of the Wolves (proto) (Fixed winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE ) // From MAME32+ IPS
+GAME( 1999, garoupfu,  garoupy,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unk", "Garou - Mark of the Wolves (proto) (Unk Hack/Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupfp,  garoupy,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unk", "Garou - Mark of the Wolves (proto) (Rom Fix - FixPlus)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupy,   neogeo,   neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (P1 Add Char)", MACHINE_SUPPORTS_SAVE ) // Kain and Grant
+GAME( 1999, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "hack", "Garou: Mark of the Wolves (Prototype) [Boss Hack by Ydmis]", MACHINE_SUPPORTS_SAVE )

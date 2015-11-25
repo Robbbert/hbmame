@@ -1507,13 +1507,11 @@ ww2demo
 
 	/* neogeo1 */
 ganryud
-garoud
 matrimd
 matrimdh
 nitdd
 preisl2d
 s1945pd
-sengoku3d
 svcd
 zupapad
 	/* translation */
@@ -1537,13 +1535,6 @@ ffur3b
 ffur3bd
 ffur3eh
 ffspeh
-garoupamu
-garoupeh
-garoupehc
-garoupy
-garoupf
-garoupfu
-garoupfp
 ironcladb	/* 1996 Saurus */
 joyjoycd
 kabukleh
@@ -1565,14 +1556,6 @@ rageh
 roboarma
 s1945pwe
 savagedb
-sengokucd
-sengoku3kc
-sengoku3k
-sengoku3c
-sengoku3b
-sengoku3ha
-sengoku3yk
-sengoku3ya
 shockt2w
 strhoopcd
 tpgolfcd
@@ -1588,6 +1571,17 @@ dbdq
 dbdqb
 dbdqp
 dbdqeh
+
+	/* nggaroup */
+garoud
+garoupamu
+garoupeh
+garoupehc
+garoupy
+garoupf
+garoupfu
+garoupfp
+garoupy1
 
 	/* nglastblade */
 lba
@@ -1655,6 +1649,19 @@ rotdhfw
 rotdhfwb
 rotdnd
 rotdyc
+
+	/* ngsengoku */
+sengokucd
+sengoku3b
+sengoku3c
+sengoku3d
+sengoku3ha
+sengoku3k
+sengoku3kc
+sengoku3p
+sengoku3pl
+sengoku3ya
+sengoku3yk
 
 	/* ngsamsho */
 samshob
@@ -2168,7 +2175,6 @@ burnigfp
 //diggerma duplicate name, to check
 fatfrspb
 //fstarfrcc
-///garoupy_d
 //gekiridoc
 gowcairy
 gpilotcd
@@ -2223,8 +2229,6 @@ mutnatex
 ninjmsha
 pbobblcd
 //pnyaad
-//sengk3pl
-//sengok3p
 spinmsth
 ///svcd_d
 svch

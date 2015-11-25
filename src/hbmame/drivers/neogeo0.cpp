@@ -62,6 +62,7 @@ public:
 	DECLARE_DRIVER_INIT(samsh5hd);
 	DECLARE_DRIVER_INIT(samsh5spd);
 	DECLARE_DRIVER_INIT(samsho5hd);
+	DECLARE_DRIVER_INIT(sengo3d);
 //	DECLARE_DRIVER_INIT(shockt2w);
 //	DECLARE_DRIVER_INIT(svcd);
 private:
