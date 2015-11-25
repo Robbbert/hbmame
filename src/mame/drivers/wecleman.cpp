@@ -337,7 +337,7 @@ WRITE16_MEMBER(wecleman_state::irqctrl_w)
 
 		// Bit 1 : NSUBRST
 		m_subcpu->set_input_line(INPUT_LINE_RESET,  (data & 2) ? CLEAR_LINE : ASSERT_LINE);
-		
+
 		// Bit 2 : SOUND-ON: send a interrupt to sound CPU, 0 -> 1 transition
 		if ( (m_irqctrl & 4) && (!(data & 4)) )
 		{
@@ -1044,7 +1044,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(wecleman_state::wecleman_scanline)
 
 	if(scanline == 232) // vblank irq
 		m_maincpu->set_input_line(4, HOLD_LINE);
-	else if(((scanline % 64) == 0)) // timer irq TODO: wrong place maybe? Could do with 007645 blitter or "V-CNT" signal.
+	else if(((scanline % 64) == 0)) // timer irq TODO: wrong place maybe? Could do with blitter chip irq (007643/007645?) or "V-CNT" signal.
 		m_maincpu->set_input_line(5, HOLD_LINE);
 }
 
