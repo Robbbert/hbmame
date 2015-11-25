@@ -25,6 +25,8 @@ public:
 	DECLARE_DRIVER_INIT(kof97pla);
 	DECLARE_DRIVER_INIT(kof99bh);
 	DECLARE_DRIVER_INIT(kof99d);
+	DECLARE_DRIVER_INIT(matrimd);
+	DECLARE_DRIVER_INIT(matrmehc);
 	DECLARE_DRIVER_INIT(mslug3d);
 	DECLARE_DRIVER_INIT(mslug3fr);
 	DECLARE_DRIVER_INIT(mslug3n);
@@ -52,8 +54,6 @@ public:
 //	DECLARE_DRIVER_INIT(kof2k2dbh);
 //	DECLARE_DRIVER_INIT(kof2k2h);
 //	DECLARE_DRIVER_INIT(kof2003b);
-//	DECLARE_DRIVER_INIT(matrimd);
-//	DECLARE_DRIVER_INIT(matrmehc);
 	DECLARE_DRIVER_INIT(rotdb);
 	DECLARE_DRIVER_INIT(rotdd);
 	DECLARE_DRIVER_INIT(rotdnd);
@@ -63,8 +63,8 @@ public:
 	DECLARE_DRIVER_INIT(samsh5spd);
 	DECLARE_DRIVER_INIT(samsho5hd);
 	DECLARE_DRIVER_INIT(sengo3d);
-//	DECLARE_DRIVER_INIT(shockt2w);
-//	DECLARE_DRIVER_INIT(svcd);
+	DECLARE_DRIVER_INIT(shockt2w);
+	DECLARE_DRIVER_INIT(svcd);
 private:
 	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
 	//optional_device<kog_prot_device> m_kog_prot;
@@ -134,7 +134,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 
 
 #include "neogeohb.cpp"
-//#include "neogeo1.cpp"
+#include "neogeo1.cpp"
 #include "kof94.cpp"
 #include "kof95.cpp"
 #include "kof96.cpp"

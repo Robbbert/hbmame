@@ -1,6 +1,13 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+DRIVER_INIT_MEMBER( neogeo_class, gfxdec50 )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 2;
+	neogeo_sfix_decrypt();
+}
+
 DRIVER_INIT_MEMBER( neogeo_class, kof2000d )
 {
 	kof2000_decrypt_68k();
