@@ -14,7 +14,6 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <commctrl.h>
-#include <richedit.h>
 
 // standard C headers
 #include <stdio.h>
@@ -29,6 +28,7 @@
 #include "mui_opts.h"
 #include "mui_util.h"
 #include "properties.h"
+#include <richedit.h>
 
 
 #ifdef _MSC_VER
