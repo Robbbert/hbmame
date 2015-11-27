@@ -3,34 +3,12 @@ dofile("modules.lua")
 premake.make.linkoptions_after = false;
 
 function maintargetosdoptions(_target,_subtarget)
-	kind "WindowedApp"
-
 	osdmodulestargetconf()
 
 	configuration { "mingw*-gcc" }
 		linkoptions {
 			"-municode",
-			"-lmingw32",
-			"-Wl,--allow-multiple-definition",
 		}
-
-	configuration { "x64", "Release" }
-		targetsuffix "ui64"
-
-	configuration { "x64", "Debug" }
-		targetsuffix "ui64d"
-
-	configuration { "x32", "Release" }
-		targetsuffix "ui"
-
-	configuration { "x32", "Debug" }
-		targetsuffix "uid"
-
-	configuration { "Native", "Release" }
-		targetsuffix "ui"
-
-	configuration { "Native", "Debug" }
-		targetsuffix "uid"
 
 	configuration { }
 
@@ -50,11 +28,10 @@ function maintargetosdoptions(_target,_subtarget)
 		"psapi",
 	}
 
--- Local file gives correct icon in mame instance inside of mameui
--- Local file must #include mameui.rc
+-- needs same resources as messui, because dropdown menus are in mameui.rc
 	override_resources = true;
-	local rcfile = MAME_DIR .. "src/osd/winui/" .. _target .. ".rc"
-	local uifile = MAME_DIR .. "src/osd/winui/" .. _target .. "ui.rc"
+	local rcfile = MAME_DIR .. "src/osd/winui/" .. _subtarget .. ".rc"
+	local uifile = MAME_DIR .. "src/osd/winui/" .. _subtarget .. "ui.rc"
 
 	if not os.isfile(rcfile) then
 		print(string.format("***** %s not found *****",rcfile))
@@ -70,7 +47,7 @@ function maintargetosdoptions(_target,_subtarget)
 		rcfile,
 	}
 	dependency {
-		{ "$(OBJDIR)/".._target ..".res" ,  GEN_DIR  .. "/resource/" .. _target .. "vers.rc", true  },
+		{ "$(OBJDIR)/".._subtarget..".res" ,  GEN_DIR  .. "/resource/".._subtarget.."vers.rc", true  },
 	}
 end
 
@@ -135,7 +112,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/windows/output.cpp",
 		MAME_DIR .. "src/osd/windows/video.cpp",
 		MAME_DIR .. "src/osd/windows/window.cpp",
---		MAME_DIR .. "src/osd/windows/winmenu.cpp",
 		MAME_DIR .. "src/osd/winui/newui.cpp",
 		MAME_DIR .. "src/osd/windows/winmain.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.cpp",
@@ -151,34 +127,8 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/debugger/win/memorywininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/pointswininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/uimetrics.cpp",
-		MAME_DIR .. "src/osd/winui/win_options.cpp",
-		MAME_DIR .. "src/osd/winui/mui_util.cpp",
-		MAME_DIR .. "src/osd/winui/directinput.cpp",
-		MAME_DIR .. "src/osd/winui/dijoystick.cpp",
-		MAME_DIR .. "src/osd/winui/directdraw.cpp",
-		MAME_DIR .. "src/osd/winui/directories.cpp",
-		MAME_DIR .. "src/osd/winui/mui_audit.cpp",
-		MAME_DIR .. "src/osd/winui/columnedit.cpp",
-		MAME_DIR .. "src/osd/winui/screenshot.cpp",
-		MAME_DIR .. "src/osd/winui/treeview.cpp",
-		MAME_DIR .. "src/osd/winui/splitters.cpp",
-		MAME_DIR .. "src/osd/winui/bitmask.cpp",
-		MAME_DIR .. "src/osd/winui/datamap.cpp",
-		MAME_DIR .. "src/osd/winui/dxdecode.cpp",
-		MAME_DIR .. "src/osd/winui/picker.cpp",
-		MAME_DIR .. "src/osd/winui/properties.cpp",
-		MAME_DIR .. "src/osd/winui/tabview.cpp",
-		MAME_DIR .. "src/osd/winui/help.cpp",
-		MAME_DIR .. "src/osd/winui/history.cpp",
-		MAME_DIR .. "src/osd/winui/dialogs.cpp",
-		MAME_DIR .. "src/osd/winui/mui_opts.cpp",
-		MAME_DIR .. "src/osd/winui/layout.cpp",
-		MAME_DIR .. "src/osd/winui/datafile.cpp",
-		MAME_DIR .. "src/osd/winui/dirwatch.cpp",
-		MAME_DIR .. "src/osd/winui/winui.cpp",
-		MAME_DIR .. "src/osd/winui/helpids.cpp",
-		MAME_DIR .. "src/osd/winui/mui_main.cpp",
 	}
+
 
 project ("ocore_" .. _OPTIONS["osd"])
 	uuid (os.uuid("ocore_" .. _OPTIONS["osd"]))
@@ -188,11 +138,11 @@ project ("ocore_" .. _OPTIONS["osd"])
 		"ForceCPP",
 	}
 	removeflags {
-		"SingleOutputDir",	
+		"SingleOutputDir",
 	}
 
 	dofile("windows_cfg.lua")
-	
+
 	includedirs {
 		MAME_DIR .. "src/emu",
 		MAME_DIR .. "src/osd",
@@ -212,6 +162,7 @@ project ("ocore_" .. _OPTIONS["osd"])
 	files {
 		MAME_DIR .. "src/osd/osdcore.cpp",
 		MAME_DIR .. "src/osd/strconv.cpp",
+		MAME_DIR .. "src/osd/windows/main.cpp",
 		MAME_DIR .. "src/osd/windows/windir.cpp",
 		MAME_DIR .. "src/osd/windows/winfile.cpp",
 		MAME_DIR .. "src/osd/modules/sync/sync_windows.cpp",
@@ -221,9 +172,18 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/windows/winsocket.cpp",
 		MAME_DIR .. "src/osd/windows/winptty.cpp",
 		MAME_DIR .. "src/osd/modules/osdmodule.cpp",
-		MAME_DIR .. "src/osd/modules/sync/work_osd.cpp",
 		MAME_DIR .. "src/osd/modules/lib/osdlib_win32.cpp",
 	}
+
+	if _OPTIONS["NOASM"]=="1" then
+		files {
+			MAME_DIR .. "src/osd/modules/sync/work_mini.cpp",
+		}
+	else
+		files {
+			MAME_DIR .. "src/osd/modules/sync/work_osd.cpp",
+		}
+	end
 
 
 --------------------------------------------------
@@ -248,9 +208,8 @@ if _OPTIONS["with-tools"] then
 		includedirs {
 			MAME_DIR .. "src/osd",
 		}
-
+		
 		files {
 			MAME_DIR .. "src/osd/windows/ledutil.cpp",
 		}
 end
-

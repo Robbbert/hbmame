@@ -67,6 +67,7 @@ public:
 	bool is_recording() const { return (m_mng_file != NULL || m_avi_file != NULL); }
 
 	// setters
+	void set_speed_factor(int speed) { m_speed = speed; } // MESSUI
 	void set_frameskip(int frameskip);
 	void set_throttled(bool throttled = true) { m_throttled = throttled; }
 	void set_throttle_rate(float throttle_rate) { m_throttle_rate = throttle_rate; }

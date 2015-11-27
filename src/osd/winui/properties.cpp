@@ -125,6 +125,7 @@ b) Exit the dialog.
 #include "resourcems.h"
 #include "propertiesms.h"
 #endif
+#include "newuires.h"
 #include "directdraw.h"    /* has to be after samples.h */
 #include "properties.h"
 #include "drivenum.h"
@@ -2551,10 +2552,8 @@ static void BuildDataMap(void)
 	// input device options
 	datamap_add(properties_datamap, IDC_DUAL_LIGHTGUN,			DM_BOOL,	WINOPTION_DUAL_LIGHTGUN);
 
-#ifdef MESS
 	// show menu
 	datamap_add(properties_datamap, IDC_SHOW_MENU,				DM_BOOL,	WINOPTION_MENU);
-#endif
 
 	// hlsl
 	datamap_add(properties_datamap, IDC_HLSL_ON,				DM_BOOL,	WINOPTION_HLSL_ENABLE);

@@ -1,5 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
+#include "newuires.h"
 #include "resource.h"
 
 // Generated Help ID header file
@@ -19,7 +20,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Englisch (USA) resources
+// English (USA) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -40,7 +41,7 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About MAMEUI",               ID_ABOUT
+        MENUITEM "&About HBMAMEUI",             ID_ABOUT
     END
 END
 
@@ -66,7 +67,7 @@ BEGIN
         MENUITEM "Pr&operties",                 ID_GAME_PROPERTIES
         MENUITEM SEPARATOR
         MENUITEM "Audi&t existing sets",        ID_FILE_AUDIT_X
-        MENUITEM "&Audit all games",            ID_FILE_AUDIT
+        MENUITEM "&Audit all sets",             ID_FILE_AUDIT
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_FILE_EXIT
     END
@@ -226,7 +227,86 @@ BEGIN
     END
 END
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
 
+IDR_RUNTIME_MENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Load State...",              ID_FILE_LOADSTATE_NEWUI, GRAYED
+        MENUITEM "&Save State",                 ID_FILE_SAVESTATE, GRAYED
+        MENUITEM "S&ave State As...",           ID_FILE_SAVESTATE_AS, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Save Sc&reenshot",            ID_FILE_SAVESCREENSHOT
+        MENUITEM SEPARATOR
+        MENUITEM "&Hide Menubar",               ID_FILE_TOGGLEMENUBAR
+        MENUITEM "&Full Screen\tAlt+Enter",     ID_FILE_FULLSCREEN
+        MENUITEM "Partial Keyboard Emulation",  ID_FILE_UIACTIVE
+        MENUITEM "Show Tab Menu",               ID_FILE_OLDUI
+        MENUITEM "&Debugger...",                ID_FILE_DEBUGGER
+        MENUITEM "Show P&rofiler",              ID_FILE_PROFILER, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit",                       ID_FILE_EXIT_NEWUI
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Paste",                       ID_EDIT_PASTE
+    END
+    POPUP "&Options"
+    BEGIN
+        MENUITEM "&Pause",                      ID_OPTIONS_PAUSE, GRAYED
+        MENUITEM "Soft &Reset",                 ID_OPTIONS_SOFTRESET
+        MENUITEM "Ha&rd Reset",                 ID_OPTIONS_HARDRESET
+        MENUITEM SEPARATOR
+        POPUP "&Keyboard"
+        BEGIN
+            MENUITEM "Emulated",                    ID_KEYBOARD_EMULATED
+            MENUITEM "Natural",                     ID_KEYBOARD_NATURAL
+            MENUITEM SEPARATOR
+            MENUITEM "Customise Emulated Keyboard...",     ID_KEYBOARD_CUSTOMIZE
+        END
+        MENUITEM "&Joysticks",                  ID_OPTIONS_JOYSTICKS, GRAYED
+        POPUP "&Video"
+        BEGIN
+		    MENUITEM SEPARATOR
+		    MENUITEM "Rotate 0 degrees",        ID_VIDEO_ROTATE_0
+		    MENUITEM "Rotate 90 degrees",       ID_VIDEO_ROTATE_90
+		    MENUITEM "Rotate 180 degrees",      ID_VIDEO_ROTATE_180
+		    MENUITEM "Rotate 270 degrees",      ID_VIDEO_ROTATE_270
+        END
+        MENUITEM "&Configuration...",           ID_OPTIONS_CONFIGURATION
+        MENUITEM "&DIP Switches...",            ID_OPTIONS_DIPSWITCHES
+        MENUITEM "&Miscellaneous Inputs...",    ID_OPTIONS_MISCINPUT
+        MENUITEM "&Analog Controls...",         ID_OPTIONS_ANALOGCONTROLS
+        MENUITEM SEPARATOR
+        POPUP "&Frameskip"
+        BEGIN
+            MENUITEM "Auto",                        ID_FRAMESKIP_AUTO
+        END
+        POPUP "Maximum &Speed"
+        BEGIN
+            MENUITEM "50%",                         ID_THROTTLE_50
+            MENUITEM "100%",                        ID_THROTTLE_100
+            MENUITEM "200%",                        ID_THROTTLE_200
+            MENUITEM "500%",                        ID_THROTTLE_500
+            MENUITEM "1000%",                       ID_THROTTLE_1000
+            MENUITEM "Unlimited",                   ID_THROTTLE_UNTHROTTLED
+        END
+        MENUITEM "Show &FPS",                   ID_OPTIONS_TOGGLEFPS
+    END
+    POPUP "&Media"
+    BEGIN
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "About This System...",        ID_HELP_ABOUTSYSTEM
+        MENUITEM "&About HBMAME...",            ID_HELP_ABOUT_NEWUI
+    END
+END
 
 
 #ifdef APSTUDIO_INVOKED
@@ -237,7 +317,8 @@ END
 
 1 TEXTINCLUDE MOVEABLE PURE
 BEGIN
-    "resource.h\0"
+    "resource.h\\r\n"
+    "newuires.h\0"
 END
 
 2 TEXTINCLUDE MOVEABLE PURE
@@ -303,7 +384,7 @@ IDI_HEADER_DOWN         ICON                    "res\\header_down.ico"
 
 IDD_ABOUT DIALOG DISCARDABLE 0, 0, 296, 129
 STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About MAMEUI"
+CAPTION "About HBMAMEUI"
 FONT 8, "Tahoma"
 BEGIN
     DEFPUSHBUTTON   "&OK",IDOK,200,109,50,14,WS_GROUP
@@ -809,6 +890,8 @@ BEGIN
     PUSHBUTTON      "Reset",IDC_PROP_RESET,4,222,97,14,0,0,HIDC_PROP_RESET
     PUSHBUTTON      "Restore Default Settings",IDC_USE_DEFAULT,118,222,97,14,
                     0,0,HIDC_USE_DEFAULT
+    CONTROL         "Show Menu",IDC_SHOW_MENU,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,119,160,86,10,0
 END
 
 IDD_PROP_VECTOR DIALOGEX 0, 0, 220, 240
@@ -837,12 +920,11 @@ BEGIN
 END
 
 IDD_MAIN DIALOGEX 0, 0, 364, 206
-STYLE DS_3DLOOK | DS_NOFAILCREATE | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | 
-    WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+STYLE DS_3DLOOK | DS_NOFAILCREATE | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | DS_SETFONT
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "MAMEUI - overwritten at runtime"
 CLASS "MainClass"
-FONT 8, "Tahoma"
+FONT 8, "Verdana"
 BEGIN
     CONTROL         "",IDC_DIVIDER,"Static",SS_ETCHEDHORZ,0,5,304,1
     CONTROL         "Tree1",IDC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_EDITLABELS |
