@@ -17,6 +17,7 @@
 #include "mui_opts.h"
 #include "mui_util.h"
 #include "sound/samples.h"
+#include "drivenum.h"  // MESSUI only
 
 #define MAX_TOKEN_LENGTH        256
 #define DATAFILE_TAG '$'
@@ -53,6 +54,51 @@ static struct tDatafileIndex *mess_idx = 0;
 static struct tDatafileIndex *messdriv_idx = 0;
 static struct tDatafileIndex *cmd_idx = 0;
 static struct tDatafileIndex *score_idx = 0;
+
+/****************************************************************************
+* Create an array with sorted sourcedrivers for the function
+* index_datafile_drivinfo to speed up the datafile access
+****************************************************************************/
+
+typedef struct
+{
+	const char *srcdriver;
+	int index;
+} srcdriver_data_type;
+
+static srcdriver_data_type *sorted_srcdrivers = NULL;
+
+static int SrcDriverDataCompareFunc(const void *arg1, const void *arg2)
+{
+	return strcmp(((srcdriver_data_type *)arg1)->srcdriver, ((srcdriver_data_type *)arg2)->srcdriver);
+}
+
+static int GetSrcDriverIndex(const char *srcdriver)
+{
+	srcdriver_data_type *srcdriver_index_info;
+	srcdriver_data_type key;
+	key.srcdriver = srcdriver;
+	int num_games = driver_list::total();
+
+	if (sorted_srcdrivers == NULL)
+	{
+		/* initialize array of game names/indices */
+		sorted_srcdrivers = (srcdriver_data_type *)malloc(sizeof(srcdriver_data_type) * num_games);
+		for (int i = 0; i < num_games; i++)
+		{
+			sorted_srcdrivers[i].srcdriver = driver_list::driver(i).source_file+32;
+			sorted_srcdrivers[i].index = i;
+		}
+		qsort(sorted_srcdrivers,num_games,sizeof(srcdriver_data_type),SrcDriverDataCompareFunc);
+	}
+
+	srcdriver_index_info = (srcdriver_data_type *)bsearch(&key, sorted_srcdrivers, num_games, sizeof(srcdriver_data_type), SrcDriverDataCompareFunc);
+
+	if (srcdriver_index_info)
+		return srcdriver_index_info->index;
+	else
+		return -1;
+}
 
 /****************************************************************************
  *      ParseClose - Closes the existing opened file (if any)
@@ -154,8 +200,8 @@ static int index_datafile(struct tDatafileIndex **_index, int source)
 
 					if (!source)
 						game_index = GetGameNameIndex(name);
-//					else
-//						game_index = GetSrcDriverIndex(name);
+					else
+						game_index = GetSrcDriverIndex(name);
 
 					if (game_index >= 0)
 					{
@@ -177,8 +223,8 @@ static int index_datafile(struct tDatafileIndex **_index, int source)
 
 					if (!source)
 						game_index = GetGameNameIndex(name);
-//					else
-//						game_index = GetSrcDriverIndex(name);
+					else
+						game_index = GetSrcDriverIndex(name);
 
 					if (game_index >= 0)
 					{
