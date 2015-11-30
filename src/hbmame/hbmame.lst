@@ -171,7 +171,6 @@ punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
 punisherjh	/* Found in neht build */
 punisherjha
 sf2c		// sf2, chinese
-sf2ceb1		// real bootleg (suspected same as sf2h14 if it had been a complete dump)
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
 sf2ceda		/* hack, Hispanic 990804 */
@@ -182,7 +181,6 @@ sf2h10		/* Found in Mame Plus */
 sf2h11		/* Found in Mame Plus */
 sf2h12		/* Found in Mame Plus */
 sf2h13		/* hack */
-sf2h14		// bootleg, gfx same as sf2ebbl2, program similar to sf2m8
 sf2pun		/* Drakon, Punishment Edition v1 Final */
 sf2sl73a	/* Drakon, Sheng Long v7.3a */
 sf2th
