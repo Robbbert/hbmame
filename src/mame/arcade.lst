@@ -3263,6 +3263,7 @@ sf2m6           // hack
 sf2m7           // hack
 sf2m8           // bootleg
 sf2m9           // bootleg
+sf2m10          // bootleg
 sf2yyc          // hack
 sf2koryu        // hack
 sf2dongb        // hack
@@ -10570,6 +10571,7 @@ gcpinbal        // (c) 1994 Excellent System
 vmetal          // (c) 1995 Excellent System?
 vmetaln         // (c) 1995 Excellent System?
 aquarium        // (c) 1996 Excellent System
+aquariumj       // (c) 1996 Excellent System
 policetr        // (c) 1996 P&P Marketing
 policetr11      // (c) 1996 P&P Marketing
 policetr10      // (c) 1996 P&P Marketing
@@ -11535,6 +11537,7 @@ pepp0250a       // (c) 1987 IGT - International Game Technology
 pepp0265        // (c) 1987 IGT - International Game Technology
 pepp0265a       // (c) 1987 IGT - International Game Technology
 pepp0265b       // (c) 1987 IGT - International Game Technology
+pepp0265c       // (c) 1987 IGT - International Game Technology
 pepp0274        // (c) 1987 IGT - International Game Technology
 pepp0288        // (c) 1987 IGT - International Game Technology
 pepp0290        // (c) 1987 IGT - International Game Technology
@@ -11601,6 +11604,8 @@ pepp0562        // (c) 1987 IGT - International Game Technology
 pepp0568        // (c) 1987 IGT - International Game Technology
 pepp0585        // (c) 1987 IGT - International Game Technology
 pepp0587        // (c) 1987 IGT - International Game Technology
+pepp0596        // (c) 1987 IGT - International Game Technology
+pepp0598        // (c) 1987 IGT - International Game Technology
 pepp0711        // (c) 1987 IGT - International Game Technology
 pepp0713        // (c) 1987 IGT - International Game Technology
 pepp0725        // (c) 1987 IGT - International Game Technology
@@ -32520,10 +32525,15 @@ wackygtr   // Wacky Gator
 amerihok
 
 ice_tbd // ICE - Turbo Drive
+ice_bozo // ICE - Bozo Pail Toss
 
 scm_500
 
 awetoss // Lazer-tron Awesome Toss'em
 aftrshok // Lazer-tron After Shock
 aftrshoka
+ribrac // Lazer-tron Ribbit Racing
 
+age_cand // AGE Candy Crane
+
+clowndwn // Elwood Clown Roll Down

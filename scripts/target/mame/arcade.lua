@@ -275,6 +275,7 @@ VIDEOS["BUFSPRITE"] = true
 VIDEOS["DM9368"] = true
 --VIDEOS["EF9340_1"] = true
 --VIDEOS["EF9345"] = true
+--VIDEOS["EF9365"] = true
 --VIDEOS["GF4500"] = true
 VIDEOS["GF7600GS"] = true
 VIDEOS["EPIC12"] = true
@@ -4160,6 +4161,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/aces1.cpp",
 	MAME_DIR .. "src/mame/drivers/acesp.cpp",
 	MAME_DIR .. "src/mame/drivers/adp.cpp",
+	MAME_DIR .. "src/mame/drivers/age_candy.cpp",
 	MAME_DIR .. "src/mame/drivers/alinvade.cpp",
 	MAME_DIR .. "src/mame/drivers/amaticmg.cpp",
 	MAME_DIR .. "src/mame/drivers/amerihok.cpp",
@@ -4222,6 +4224,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/cidelsa.cpp",
 	MAME_DIR .. "src/mame/includes/cidelsa.h",
 	MAME_DIR .. "src/mame/video/cidelsa.cpp",
+	MAME_DIR .. "src/mame/drivers/clowndwn.cpp",
 	MAME_DIR .. "src/mame/drivers/cocoloco.cpp",
 	MAME_DIR .. "src/mame/drivers/coinmstr.cpp",
 	MAME_DIR .. "src/mame/drivers/coinmvga.cpp",
@@ -4346,6 +4349,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/laserbas.cpp",
 	MAME_DIR .. "src/mame/drivers/laz_awetoss.cpp",
 	MAME_DIR .. "src/mame/drivers/laz_aftrshok.cpp",
+	MAME_DIR .. "src/mame/drivers/laz_ribrac.cpp",
 	MAME_DIR .. "src/mame/drivers/lethalj.cpp",
 	MAME_DIR .. "src/mame/includes/lethalj.h",
 	MAME_DIR .. "src/mame/video/lethalj.cpp",
@@ -4501,6 +4505,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/trvquest.cpp",
 	MAME_DIR .. "src/mame/drivers/ttchamp.cpp",
 	MAME_DIR .. "src/mame/drivers/tugboat.cpp",
+	MAME_DIR .. "src/mame/drivers/ice_bozopail.cpp",
 	MAME_DIR .. "src/mame/drivers/ice_tbd.cpp",
 	MAME_DIR .. "src/mame/drivers/umipoker.cpp",
 	MAME_DIR .. "src/mame/drivers/unkfr.cpp",
