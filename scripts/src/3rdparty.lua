@@ -58,6 +58,16 @@ project "zlib"
 	uuid "3d78bd2a-2bd0-4449-8087-42ddfaef7ec9"
 	kind "StaticLib"
 
+	local version = str_to_version(_OPTIONS["gcc_version"])
+	if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "clang") then
+		configuration { "gmake" }
+		if (version >= 30700) then
+			buildoptions {
+				"-Wno-shift-negative-value",
+			}
+		end	
+	end
+
 	configuration { "vs*" }
 		buildoptions {
 			"/wd4131", -- warning C4131: 'xxx' : uses old-style declarator
@@ -674,11 +684,6 @@ end
 		includedirs {
 			MAME_DIR .. "3rdparty/bx/include/compat/mingw",
 		}
-if _OPTIONS["CPP11"]~="1" then		
-		defines {
-			"nullptr=NULL" -- not used but needed for C++11 code
-		}
-end
 
 	configuration { "osx*" }
 		includedirs {
@@ -745,7 +750,7 @@ end
 		MAME_DIR .. "3rdparty/bgfx/examples/common/font/text_buffer_manager.cpp",
 		MAME_DIR .. "3rdparty/bgfx/examples/common/font/text_metrics.cpp",
 		MAME_DIR .. "3rdparty/bgfx/examples/common/font/utf8.cpp",
-		--MAME_DIR .. "3rdparty/bgfx/examples/common/imgui/imgui.cpp",
+		MAME_DIR .. "3rdparty/bgfx/examples/common/imgui/imgui.cpp",
 		MAME_DIR .. "3rdparty/bgfx/examples/common/nanovg/nanovg.cpp",
 		MAME_DIR .. "3rdparty/bgfx/examples/common/nanovg/nanovg_bgfx.cpp",
 	}

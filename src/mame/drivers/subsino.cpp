@@ -325,7 +325,7 @@ public:
 	UINT32 screen_update_subsino(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	UINT32 screen_update_subsino_reels(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	UINT32 screen_update_stbsub_reels(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	virtual void machine_start();
+	virtual void machine_start() override;
 	required_device<cpu_device> m_maincpu;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
@@ -3759,11 +3759,11 @@ ROM_START( mtrainnv )
 
 	ROM_REGION( 0x10000, "tilemap", 0 )
 	ROM_LOAD( "mtrain_tilemap.bin", 0x00000, 0x10000, NO_DUMP )
-	ROM_COPY( "maincpu", 0x0000, 0x00000, 0x10000 ) // just to show something
+	ROM_COPY( "maincpu", 0x000000, 0x00000, 0x10000 ) // just to show something
 
 	ROM_REGION( 0x10000, "reels", 0 )
 	ROM_LOAD( "mtrain_reels.bin", 0x00000, 0x10000, NO_DUMP )
-	ROM_COPY( "maincpu", 0x0000, 0x00000, 0x10000 ) // just to show something
+	ROM_COPY( "maincpu", 0x000000, 0x00000, 0x10000 ) // just to show something
 ROM_END
 
 

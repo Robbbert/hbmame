@@ -233,12 +233,12 @@ public:
 		ReleaseDC(m_window, m_hdc);
 	}
 
-	virtual void MakeCurrent()
+	virtual void MakeCurrent() override
 	{
 		this->pfn_wglMakeCurrent(m_hdc, m_context);
 	}
 
-	virtual const char *LastErrorMsg()
+	virtual const char *LastErrorMsg() override
 	{
 		if (m_error[0] == 0)
 			return NULL;
@@ -246,7 +246,7 @@ public:
 			return m_error;
 	}
 
-	virtual void *getProcAddress(const char *proc)
+	virtual void *getProcAddress(const char *proc) override
 	{
 		void *ret = (void *) GetProcAddress(m_module, proc);
 		if (ret == NULL)
@@ -254,7 +254,7 @@ public:
 		return ret;
 	}
 
-	virtual int SetSwapInterval(const int swap)
+	virtual int SetSwapInterval(const int swap) override
 	{
 		if (this->pfn_wglSwapIntervalEXT != NULL)
 		{
@@ -263,7 +263,7 @@ public:
 		return 0;
 	}
 
-	virtual void SwapBuffer()
+	virtual void SwapBuffer() override
 	{
 		SwapBuffers(m_hdc);
 		//wglSwapLayerBuffers(GetDC(window().m_hwnd), WGL_SWAP_MAIN_PLANE);
@@ -362,29 +362,29 @@ public:
 	{
 		SDL_GL_DeleteContext(m_context);
 	}
-	virtual void MakeCurrent()
+	virtual void MakeCurrent() override
 	{
 		SDL_GL_MakeCurrent(m_window, m_context);
 	}
 
-	virtual int SetSwapInterval(const int swap)
+	virtual int SetSwapInterval(const int swap) override
 	{
 		return SDL_GL_SetSwapInterval(swap);
 	}
 
-	virtual const char *LastErrorMsg()
+	virtual const char *LastErrorMsg() override
 	{
 		if (m_error[0] == 0)
 			return NULL;
 		else
 			return m_error;
 	}
-	virtual void *getProcAddress(const char *proc)
+	virtual void *getProcAddress(const char *proc) override
 	{
 		return SDL_GL_GetProcAddress(proc);
 	}
 
-	virtual void SwapBuffer()
+	virtual void SwapBuffer() override
 	{
 		SDL_GL_SwapWindow(m_window);
 	}
@@ -535,12 +535,14 @@ public:
 			m_texVerticex[i] = 0.0f;
 	}
 
-	/* virtual */ int create();
-	/* virtual */ int draw(const int update);
+	virtual int create() override;
+	virtual int draw(const int update) override;
 
-	/* virtual */ int xy_to_render_target(const int x, const int y, int *xt, int *yt);
-	/* virtual */ void destroy();
-	/* virtual */ render_primitive_list *get_primitives()
+#ifndef OSD_WINDOWS
+	virtual int xy_to_render_target(const int x, const int y, int *xt, int *yt) override;
+#endif
+	virtual void destroy() override;
+	virtual render_primitive_list *get_primitives() override
 	{
 #ifdef OSD_WINDOWS
 		osd_dim nd = window().get_size();
@@ -556,9 +558,11 @@ public:
 		return &window().target()->get_primitives();
 	}
 
-	/* virtual */ void save() { }
-	/* virtual */ void record() { }
-	/* virtual */ void toggle_fsfx() { }
+#ifdef OSD_WINDOWS
+	virtual void save() override { }
+	virtual void record() override { }
+	virtual void toggle_fsfx() override { }
+#endif
 
 private:
 	void destroy_all_textures();
@@ -1087,7 +1091,7 @@ void sdl_info_ogl::destroy()
 //============================================================
 //  drawsdl_xy_to_render_target
 //============================================================
-
+#ifndef OSD_WINDOWS
 int sdl_info_ogl::xy_to_render_target(int x, int y, int *xt, int *yt)
 {
 	*xt = x - m_last_hofs;
@@ -1098,7 +1102,7 @@ int sdl_info_ogl::xy_to_render_target(int x, int y, int *xt, int *yt)
 		return 0;
 	return 1;
 }
-
+#endif
 //============================================================
 //  drawsdl_destroy_all_textures
 //============================================================

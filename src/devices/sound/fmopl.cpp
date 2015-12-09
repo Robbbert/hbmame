@@ -184,7 +184,7 @@ static FILE *sample[1];
 #endif
 
 #define LOG_CYM_FILE 0
-static FILE * cymfile = NULL;
+static FILE * cymfile = nullptr;
 
 
 
@@ -344,7 +344,7 @@ static const int slot_array[32]=
 /* table is 3dB/octave , DV converts this into 6dB/octave */
 /* 0.1875 is bit 0 weight of the envelope counter (volume) expressed in the 'decibel' scale */
 #define DV (0.1875/2.0)
-static const UINT32 ksl_tab[8*16]=
+static const double ksl_tab[8*16]=
 {
 	/* OCT 0 */
 		0.000/DV, 0.000/DV, 0.000/DV, 0.000/DV,
@@ -1299,7 +1299,7 @@ static void OPL_initalize(FM_OPL *OPL)
 		logerror("FMOPL.C: ksl_tab[oct=%2i] =",i);
 		for (j=0; j<16; j++)
 		{
-			logerror("%08x ", ksl_tab[i*16+j] );
+			logerror("%08x ", static_cast<UINT32>(ksl_tab[i*16+j]) );
 		}
 		logerror("\n");
 	}
@@ -1674,7 +1674,7 @@ static void OPLWriteReg(FM_OPL *OPL, int r, int v)
 
 			CH->block_fnum = block_fnum;
 
-			CH->ksl_base = ksl_tab[block_fnum>>6];
+			CH->ksl_base = static_cast<UINT32>(ksl_tab[block_fnum>>6]);
 			CH->fc       = OPL->fn_tab[block_fnum&0x03ff] >> (7-block);
 
 			/* BLK 2,1,0 bits -> bits 3,2,1 of kcode */
@@ -1765,7 +1765,7 @@ static void OPL_UnLockTable(void)
 
 	if (cymfile)
 		fclose (cymfile);
-	cymfile = NULL;
+	cymfile = nullptr;
 }
 
 static void OPLResetChip(FM_OPL *OPL)
@@ -1824,7 +1824,7 @@ static void OPL_postload(FM_OPL *OPL)
 
 		/* Look up key scale level */
 		UINT32 block_fnum = CH->block_fnum;
-		CH->ksl_base = ksl_tab[block_fnum >> 6];
+		CH->ksl_base = static_cast<UINT32>(ksl_tab[block_fnum >> 6]);
 		CH->fc       = OPL->fn_tab[block_fnum & 0x03ff] >> (7 - (block_fnum >> 10));
 
 		for( slot=0 ; slot < 2 ; slot++ )
@@ -1971,7 +1971,7 @@ static FM_OPL *OPLCreate(device_t *device, UINT32 clock, UINT32 rate, int type)
 	FM_OPL *OPL;
 	int state_size;
 
-	if (OPL_LockTable(device) == -1) return NULL;
+	if (OPL_LockTable(device) == -1) return nullptr;
 
 	/* calculate OPL state size */
 	state_size  = sizeof(FM_OPL);

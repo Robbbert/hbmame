@@ -379,7 +379,7 @@ READ16_MEMBER(ninjaw_state::sound_r)
 
 WRITE8_MEMBER(ninjaw_state::pancontrol_w)
 {
-	filter_volume_device *flt = NULL;
+	filter_volume_device *flt = nullptr;
 	offset &= 3;
 
 	switch (offset)

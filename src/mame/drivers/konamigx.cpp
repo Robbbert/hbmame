@@ -166,12 +166,23 @@
 
 // Say hello to gokuparo at 0x2a285c
 
+/*!
+@todo
+ - Daisu Kiss: sets up 0x00257e28 as set variable in a 2p game after beating specific stages, and causes a game breaking sticky sprite.
+   It actually also sets up something that looks like non-sprite sub-commands in the same area (example is for character select), I'm inclined to think upper bits are actually used for something else:
+   00010005
+   00000006
+   000e0002
+   002e0080
+ - Sexy Parodius: sets up p1 as 2 at start of stage 1, 4 during stage 3A (attract mode), p4 is autoincremented at each gameplay frame. Related to missing effects?
+ */
+
 static struct sprite_entry {
 	int pri;
 	UINT32 adr;
 } sprites[0x100];
 
-static void generate_sprites(address_space &space, UINT32 src, UINT32 spr, int count)
+void konamigx_state::generate_sprites(address_space &space, UINT32 src, UINT32 spr, int count)
 {
 	int scount = 0;
 	int ecount = 0;
@@ -207,7 +218,7 @@ static void generate_sprites(address_space &space, UINT32 src, UINT32 spr, int c
 			UINT16 color_set    = 0x0000;
 			UINT16 color_rotate = 0x0000;
 			UINT16 v;
-
+			
 			v = space.read_word(adr+24);
 			if(v & 0x8000) {
 				color_mask = 0xf3ff;
@@ -236,10 +247,11 @@ static void generate_sprites(address_space &space, UINT32 src, UINT32 spr, int c
 				zoom_x = 0x40;
 			if(!zoom_y)
 				zoom_y = 0x40;
-
+			
 			if(set >= 0x200000 && set < 0xd00000)
 			{
 				UINT16 count2 = space.read_word(set);
+
 				set += 2;
 				while(count2) {
 					UINT16 idx  = space.read_word(set);
@@ -247,7 +259,7 @@ static void generate_sprites(address_space &space, UINT32 src, UINT32 spr, int c
 					UINT16 col  = space.read_word(set+4);
 					short y = space.read_word(set+6);
 					short x = space.read_word(set+8);
-
+								
 					if(idx == 0xffff) {
 						set = (flip<<16) | col;
 						if(set >= 0x200000 && set < 0xd00000)
@@ -324,6 +336,19 @@ void konamigx_state::sal2_esc(address_space &space, UINT32 p1, UINT32 p2, UINT32
 void konamigx_state::sexyparo_esc(address_space &space, UINT32 p1, UINT32 p2, UINT32 p3, UINT32 p4)
 {
 	// The d20000 should probably be p3
+	// TODO: debugging bootcamp, remove once finished
+	if(p1 != 0)
+	{
+		static bool shorter_debug_msg;
+
+		if(machine().input().code_pressed_once(KEYCODE_L))
+			shorter_debug_msg = true;
+
+		if(shorter_debug_msg == true)
+			popmessage("%02x",p1);
+		else
+			popmessage("%02x P1 param detected, please drop a note at MAMETesters #06035, press L if you understood and make this message shorter",p1);
+	}
 	generate_sprites(space, 0xc00604, 0xd20000, 0xfc);
 }
 
@@ -961,7 +986,8 @@ static ADDRESS_MAP_START( gx_base_memmap, AS_PROGRAM, 32, konamigx_state )
 	AM_RANGE(0xc00000, 0xc1ffff) AM_RAM AM_SHARE("workram")
 	AM_RANGE(0xd00000, 0xd01fff) AM_DEVREAD("k056832", k056832_device, k_5bpp_rom_long_r)
 	AM_RANGE(0xd20000, 0xd20fff) AM_DEVREADWRITE16("k055673", k055673_device, k053247_word_r, k053247_word_w, 0xffffffff)
-	AM_RANGE(0xd21000, 0xd23fff) AM_RAM
+	AM_RANGE(0xd21000, 0xd21fff) AM_RAM // second bank of sprite RAM, accessed thru ESC
+	AM_RANGE(0xd22000, 0xd23fff) AM_RAM // extra bank checked at least by sexyparo, pending further investigation.
 	AM_RANGE(0xd40000, 0xd4003f) AM_DEVWRITE("k056832", k056832_device, long_w)
 	AM_RANGE(0xd44000, 0xd4400f) AM_WRITE(konamigx_tilebank_w)
 	AM_RANGE(0xd48000, 0xd48007) AM_DEVWRITE16("k055673", k055673_device, k053246_word_w, 0xffffffff)
@@ -3730,7 +3756,7 @@ static const GXGameInfoT gameDefs[] =
 	{ "rungun2",   7, 0, BPP4 },
 	{ "slamdnk2",  7, 0, BPP4 },
 	{ "rushhero",  7, 0, BPP4 },
-	{ "",         -1, -1, -1 },
+	{ "",        0xff,0xff,0xff },
 };
 
 READ32_MEMBER( konamigx_state::k_6bpp_rom_long_r )
@@ -3747,14 +3773,14 @@ DRIVER_INIT_MEMBER(konamigx_state,konamigx)
 	m_last_prot_op = -1;
 	m_last_prot_clk = 0;
 
-	m_esc_cb = NULL;
+	m_esc_cb = nullptr;
 	m_resume_trigger = 0;
 
 	m_dmadelay_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(konamigx_state::dmaend_callback),this));
 	m_boothack_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(konamigx_state::boothack_callback),this));
 
 	i = match = 0;
-	while ((gameDefs[i].cfgport != -1) && (!match))
+	while ((gameDefs[i].cfgport != 0xff) && (!match))
 	{
 		if (!strcmp(machine().system().name, gameDefs[i].romname))
 		{

@@ -1435,6 +1435,7 @@ pss64           // 199? Nintendo / Hudson Soft
 
 // SNES-based hacks
 kinstb          // bootleg
+mk3snes			// bootleg
 ffight2b        // bootleg
 sblast2b        // bootleg
 iron            // bootleg
@@ -3362,6 +3363,7 @@ ddtodh          // 12/04/1994 (c) 1993 (Hispanic)
 ddtodhr1        // 25/01/1994 (c) 1993 (Hispanic)
 ddtodhr2        // 13/01/1994 (c) 1993 (Hispanic)
 ssf2t           // 23/02/1994 (c) 1994 (World)
+ssf2th			// 23/02/1994 (c) 1994 (Hispanic)
 ssf2tu          // 23/03/1994 (c) 1994 (USA)
 ssf2tur1        // 23/02/1994 (c) 1994 (USA)
 ssf2ta          // 23/02/1994 (c) 1994 (Asia)
@@ -3727,7 +3729,8 @@ doapp           // Dead Or Alive ++ (JAPAN)
 cbaj            // Cool Boaders Arcade Jam
 shngmtkb        // Shanghai Matekibuyuu
 tondemo         // Tondemo Crisis (JAPAN)
-glpracr3        // Gallop Racer 3 (JAPAN)
+glpracr3		// Gallop Racer 3 (Export)
+glpracr3j       // Gallop Racer 3 (JAPAN)
 flamegun        // Flame Gunner (USA)
 flamegunj       // Flame Gunner (JAPAN)
 lpadv           // Logic Pro Adventure (JAPAN)
@@ -6763,6 +6766,7 @@ xmen2pj         // GX065 (c) 1992 (Japan)
 xmen6p          // GX065 (c) 1992 (World)
 xmen6pu         // GX065 (c) 1992 (US)
 xexex           // GX067 (c) 1991 (World)
+orius			// GX067 (c) 1991 (USA)
 xexexa          // GX067 (c) 1991 (Asia)
 xexexj          // GX067 (c) 1991 (Japan)
 asterix         // GX068 (c) 1992 (World)
@@ -6817,9 +6821,17 @@ mtlchampa       // GX234 (c) 1993 (Japan)
 rungun          // GX247 (c) 1993 (World)
 runguna         // GX247 (c) 1993 (World)
 rungunb         // GX247 (c) 1993 (World)
-rungunu         // GX247 (c) 1993 (US)
 rungunua        // GX247 (c) 1993 (US)
 slmdunkj        // GX247 (c) 1993 (Japan)
+
+rungund         // GX247 (c) 1993 (World)
+rungunad        // GX247 (c) 1993 (World)
+rungunbd        // GX247 (c) 1993 (World)
+rungunuad       // GX247 (c) 1993 (US)
+slmdunkjd       // GX247 (c) 1993 (Japan)
+
+rungunud        // GX247 (c) 1993 (US)
+
 dbz             // (c) 1993 Banpresto
 dbza            // (c) 1993 Banpresto
 dbz2            // (c) 1994 Banpresto
@@ -7513,6 +7525,7 @@ badlandsb       // bootleg
 badlandsb2      // bootleg set 2
 klax            // 136075           (c) 1989
 klax2           // 136075           (c) 1989
+klax2bl			// bootleg
 klax3           // 136075           (c) 1989
 klaxj           // 136075           (c) 1989 (Japan)
 klaxd           // 136075           (c) 1989 (Germany)
@@ -9121,6 +9134,7 @@ wrallyb         // (c) 1993 - Ref 930217
 glass           // (c) 1993 - Ref 931021
 glass10         // (c) 1993 - Ref 931021
 glassbrk        // (c) 1993 - Ref 931021 shows "Break Edition" on a real PCB
+glass94			// (c) 1994 - Ref 931021 shows 1994 version, Anime girls, unprotected
 targeth         // (c) 1994 - Ref 940531
 targetha        // (c) 1994 - Ref 940531
 thoop2          // (c) 1994 - Ref ???
@@ -9604,7 +9618,8 @@ galhustl        // (c) 1997 ACE International
 
 // Playmark games
 sslam           // (c) 1993 - hack of Namco's Super World Court
-sslama          // (c) 1993 - hack of Namco's Super World Court
+sslama          // ^
+sslamb			// ^
 powerbal        // (c) 1994
 powerbals       // (c) 1994
 magicstk        // (c) 1995
@@ -11202,6 +11217,7 @@ wtrnymph        // (c) 1996 Subsino
 expcard         // (c) 1998 American Alpha
 saklove         // (c) 1998 Subsino
 bishjan         // (c) 1999 Subsino
+ptrain          // (c) 1999 Subsino
 xtrain          // (c) 1999 Subsino
 lastfght        // (c) 2000 Subsino
 xplan           // (c) 2006 Subsino
@@ -11683,6 +11699,7 @@ peps0628        // (c) 1996 IGT - International Game Technology
 peps0631        // (c) 1996 IGT - International Game Technology
 peps0708        // (c) 1996 IGT - International Game Technology
 peps0716        // (c) 1996 IGT - International Game Technology
+peps0722        // (c) 1996 IGT - International Game Technology
 pex0002p        // (c) 1995 IGT - International Game Technology
 pex0002pa       // (c) 1995 IGT - International Game Technology
 pex0006p        // (c) 1995 IGT - International Game Technology
@@ -11996,7 +12013,7 @@ ichiban         // (c) 199? Excel
 3x3puzzla       // (c) 199? Ace
 gambl186        // unknown
 gambl186a       // unknown
-
+gambl186b		// unknown
 
 // InterFlip / Recreativos Franco
 videopkr        // (c) 1984 InterFlip

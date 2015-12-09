@@ -91,6 +91,7 @@ CPUS["APEXC"] = true
 CPUS["CP1610"] = true
 CPUS["F8"] = true
 CPUS["LH5801"] = true
+CPUS["PATINHOFEIO"] = true
 CPUS["PDP1"] = true
 CPUS["SATURN"] = true
 CPUS["SC61860"] = true
@@ -852,6 +853,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"ultratec",
 		"unisonic",
 		"unisys",
+		"usp",
 		"veb",
 		"vidbrain",
 		"videoton",
@@ -880,6 +882,7 @@ function createMESSProjects(_target, _subtarget, _name)
 	targetsubdir(_target .."_" .. _subtarget)
 	kind (LIBTYPE)
 	uuid (os.uuid("drv-" .. _target .."_" .. _subtarget .. "_" .._name))
+	addprojectflags()
 
 	includedirs {
 		MAME_DIR .. "src/osd",
@@ -2843,6 +2846,11 @@ files {
 createMESSProjects(_target, _subtarget, "unisys")
 files {
 	MAME_DIR .. "src/mame/drivers/univac.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "usp")
+files {
+    MAME_DIR .. "src/mame/drivers/patinho_feio.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "veb")
