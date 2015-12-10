@@ -64,7 +64,7 @@ options::entry::entry(const char *name, const char *description, UINT32 flags, c
 		m_description(description)
 {
 	// copy in the name(s) as appropriate
-	if (name != NULL)
+	if (name)
 	{
 		// first extract any range
 		std::string namestr(name);
@@ -95,7 +95,7 @@ options::entry::entry(const char *name, const char *description, UINT32 flags, c
 	}
 
 	// set the default value
-	if (defvalue != NULL)
+	if (defvalue)
 		m_defdata = defvalue;
 	m_data = m_defdata;
 }
@@ -230,7 +230,7 @@ options &options::operator=(const options &rhs)
 bool options::operator==(const options &rhs)
 {
 	// iterate over options in the first list
-	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
 		if (!curentry->is_header())
 		{
 			// if the values differ, return false
@@ -261,7 +261,7 @@ void options::add_entry(const char *name, const char *description, UINT32 flags,
 {
 	// allocate a new entry
 	entry *newentry = global_alloc(entry(name, description, flags, defvalue));
-	if (newentry->name() != NULL)
+	if (newentry->name())
 	{
 		// see if we match an existing entry
 		auto checkentry = m_entrymap.find(newentry->name());
@@ -295,7 +295,7 @@ void options::add_entry(const char *name, const char *description, UINT32 flags,
 void options::add_entries(const options_entry *entrylist, bool override_existing)
 {
 	// loop over entries until we hit a NULL name
-	for ( ; entrylist->name != NULL || (entrylist->flags & OPTION_HEADER) != 0; entrylist++)
+	for ( ; entrylist->name || (entrylist->flags & OPTION_HEADER) != 0; entrylist++)
 		add_entry(*entrylist, override_existing);
 }
 
@@ -493,7 +493,7 @@ const char *options::output_ini(std::string &buffer, const options *diff)
 	const char *last_header = NULL;
 
 	// loop over all items
-	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
 	{
 		const char *name = curentry->name();
 		const char *value = curentry->value();
@@ -519,7 +519,7 @@ const char *options::output_ini(std::string &buffer, const options *diff)
 				if (diff == NULL || strcmp(value, diff->value(name)) != 0)
 				{
 					// output header, if we have one
-					if (last_header != NULL)
+					if (last_header)
 					{
 						if (num_valid_headers++)
 							strcatprintf(buffer, "\n");
@@ -530,7 +530,7 @@ const char *options::output_ini(std::string &buffer, const options *diff)
 					// and finally output the data, skip if unadorned
 					if (!is_unadorned)
 					{
-						if (strchr(value, ' ') != NULL)
+						if (strchr(value, ' '))
 							strcatprintf(buffer, "%-25s \"%s\"\n", name, value);
 						else
 							strcatprintf(buffer, "%-25s %s\n", name, value);
@@ -553,7 +553,7 @@ const char *options::output_help(std::string &buffer)
 	buffer.clear();
 
 	// loop over all items
-	for (entry *curentry = m_entrylist.first(); curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
 	{
 		// header: just print
 		if (curentry->is_header())
@@ -708,7 +708,10 @@ void options::remove_entry(options::entry &delentry)
 	// remove all names from the map
 	for (int name = 0; name < ARRAY_LENGTH(delentry.m_name); name++)
 		if (!delentry.m_name[name].empty())
-			m_entrymap.erase(m_entrymap.find(delentry.m_name[name]));
+		{
+			auto entry = m_entrymap.find(delentry.m_name[name]);
+			if (entry!= m_entrymap.end()) m_entrymap.erase(entry);
+		}
 
 	// remove the entry from the list
 	m_entrylist.remove(delentry);
@@ -725,7 +728,7 @@ void options::copyfrom(const options &src)
 	reset();
 
 	// iterate through the src options and make our own
-	for (entry *curentry = src.m_entrylist.first(); curentry != NULL; curentry = curentry->next())
+	for (entry *curentry = src.m_entrylist.first(); curentry; curentry = curentry->next())
 		append_entry(*global_alloc(entry(curentry->name(), curentry->description(), curentry->flags(), curentry->default_value())));
 }
 
