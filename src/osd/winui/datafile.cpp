@@ -306,7 +306,7 @@ static int load_datafile_text(const game_driver *drv, char *buffer, int bufsize,
 
 		if (mameinfo)
 		{
-			if (strtok(readbuf, "\r\n\r\n") != NULL)
+			if (strtok(readbuf, "\r\n\r\n"))
 			{
 				char *temp = strtok(readbuf, "\r\n\r\n");
 				strcat(buffer, temp);
@@ -636,7 +636,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 		strcat(buffer,"Vector\n");
 	else
 	{
-		for (; screen != NULL; screen = screeniter.next())
+		for (; screen; screen = screeniter.next())
 		{
 			if (drv->flags & ORIENTATION_SWAP_XY)
 				snprintf(name, ARRAY_LENGTH(name), "%d x %d (V)", screen->visible_area().height(), screen->visible_area().width());
@@ -671,9 +671,9 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 					machine_config pconfig(*parent, MameUIGlobal());
 					device_iterator deviter(pconfig.root_device());
 
-					for (device_t *device = deviter.first(); device != NULL; device = deviter.next())
-						for (const rom_entry *pregion = rom_first_region(*device); pregion != NULL; pregion = rom_next_region(pregion))
-							for (const rom_entry *prom = rom_first_file(pregion); prom != NULL; prom = rom_next_file(prom))
+					for (device_t *device = deviter.first(); device; device = deviter.next())
+						for (const rom_entry *pregion = rom_first_region(*device); pregion; pregion = rom_next_region(pregion))
+							for (const rom_entry *prom = rom_first_file(pregion); prom; prom = rom_next_file(prom))
 							{
 								hash_collection phashes(ROM_GETHASHDATA(prom));
 
@@ -695,22 +695,22 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 	samples_device_iterator samplesiter(config.root_device());
 
-	for (samples_device *device = samplesiter.first(); device != NULL; device = samplesiter.next())
+	for (samples_device *device = samplesiter.first(); device; device = samplesiter.next())
 	{
 		samples_iterator sampiter(*device);
 
-		if (sampiter.altbasename() != NULL)
+		if (sampiter.altbasename())
 		{
 			snprintf(name, ARRAY_LENGTH(name), "\nSAMPLES (%s):\n", sampiter.altbasename());
 			strcat(buffer, name);
 		}
 
-		tagmap_t<int> already_printed;
+		std::unordered_set<std::string> already_printed;
 
-		for (const char *samplename = sampiter.first(); samplename != NULL; samplename = sampiter.next())
+		for (const char *samplename = sampiter.first(); samplename; samplename = sampiter.next())
 		{
 			// filter out duplicates
-			if (already_printed.add(samplename, 1) == TMERR_DUPLICATE)
+			if (already_printed.insert(samplename).second)
 				continue;
 
 			// output the sample name
