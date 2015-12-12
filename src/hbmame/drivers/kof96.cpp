@@ -1280,6 +1280,31 @@ ROM_START( kof96rw ) /* The King of Fighters '96 - Remix By Wesker - (Character 
 	ROM_LOAD16_BYTE( "214-c8.c8", 0x1800001, 0x400000, CRC(fa1461ad) SHA1(6c71a7f08e4044214223a6bf80984582ab5e0328) )
 ROM_END
 
+ROM_START( kof96ryu ) // Ryu Hack by Iori Yagami
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "214ryu.p1",  0x000000, 0x100000, CRC(ff399656) SHA1(27895e26ac82461850a594e1384b994bfa3772e5) )
+	ROM_LOAD16_WORD_SWAP( "214-p2.sp2", 0x100000, 0x200000, CRC(002ccb73) SHA1(3ae8df682c75027ca82db25491021eeba00a267e) )
+
+	NEO_SFIX_128K( "214-s1.s1", CRC(1254cbdb) SHA1(fce5cf42588298711a3633e9c9c1d4dcb723ac76) )
+
+	NEO_BIOS_AUDIO_128K( "214-m1.m1", CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "214-v1.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
+	ROM_LOAD( "214-v2.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
+	ROM_LOAD( "214-v3.v3", 0x800000, 0x200000, CRC(92a2257d) SHA1(5064aec78fa0d104e5dd5869b95382aa170214ee) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "214-c1.c1", 0x0000000, 0x400000, CRC(7ecf4aa2) SHA1(f773c4c1f05d58dd37e7bb2ac1d1e0ec43998a71) )
+	ROM_LOAD16_BYTE( "214-c2.c2", 0x0000001, 0x400000, CRC(05b54f37) SHA1(cc31653fe4cb05201fba234e080cb9c7a7592b1b) )
+	ROM_LOAD16_BYTE( "214-c3.c3", 0x0800000, 0x400000, CRC(64989a65) SHA1(e6f3749d43be0afa9dad7b085cb782ba694252ca) )
+	ROM_LOAD16_BYTE( "214-c4.c4", 0x0800001, 0x400000, CRC(afbea515) SHA1(ae875052728de33174827705646bd14cf3937b5c) )
+	ROM_LOAD16_BYTE( "214-c5.c5", 0x1000000, 0x400000, CRC(2a3bbd26) SHA1(7c1a7e50a10a1b082e0d0d515c34135ee9f995ac) )
+	ROM_LOAD16_BYTE( "214-c6.c6", 0x1000001, 0x400000, CRC(44d30dc7) SHA1(c8ae001e37224b55d9e4a4d99f6578b4f6eb055f) )
+	ROM_LOAD16_BYTE( "214-c7.c7", 0x1800000, 0x400000, CRC(3687331b) SHA1(2be95caab76d7af51674f93884330ba73a6053e4) )
+	ROM_LOAD16_BYTE( "214-c8.c8", 0x1800001, 0x400000, CRC(fa1461ad) SHA1(6c71a7f08e4044214223a6bf80984582ab5e0328) )
+ROM_END
+
 ROM_START( kof96seh ) /* The King of Fighters '96 - Super Enhance Hack by Ydmis - (Can choose Chizuru Kagura and Goenitz - ultra power hack ABC) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214seh.p1",  0x000000, 0x100000, CRC(76fc560c) SHA1(618b01b00235e1ff3d083e5c077e43482864f774) )
@@ -1353,8 +1378,9 @@ GAME( 1996, kof96ri4,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 GAME( 1996, kof96ri5,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Igniz","Kof'96 (Igniz rev 030527 set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96rm,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Marcochen", "Kof'96 (Remix 2.5)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
 GAME( 1996, kof96rp,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Remix Pro 1)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
-GAME( 2008, kof96rp1,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "Kof'96 - Remix Plus 2008 SP", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kof96rp1,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "Kof'96 Remix Plus 2008 SP", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96rss,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "SNK2003", "Kof'96 (Remix Spring Special 1.5)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
 GAME( 1996, kof96ru,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "CHL and Jason/K3", "Kof'96 Remix Ultra (Diff Moves - Ultra kill style changed - Add Char 031203)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
 GAME( 1996, kof96rw,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Kof'96 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ryu,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Iori Yagami", "Kof'96 (Ryu Hack by Iori Yagami)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96seh,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Chizuru Kagura and Goenitz
