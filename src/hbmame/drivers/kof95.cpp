@@ -1,6 +1,8 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+
+
 ROM_START( kof95b ) /* The King of Fighters '95 - Hack by UNKNOWN - (Can choose Kusanagi and Rugal) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "084b.p1", 0x100000, 0x100000, CRC(64d9aa39) SHA1(2f1f1adf33e4944bd4d1ae913bb48c73a97d6ea2) )
@@ -299,6 +301,7 @@ ROM_START( kof95y ) /* The King of Fighters '95 - Hack by Ydmis - (Can choose Ku
 	ROM_LOAD16_BYTE( "084-c7.c7",  0x1800000, 0x100000, CRC(9904025f) SHA1(eec770746a0ad073f7d353ab16a2cc3a5278d307) )
 	ROM_LOAD16_BYTE( "084-c8.c8",  0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
 ROM_END
+
 
 
 GAME( 1995, kof95b,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (Add Char set 3)", MACHINE_SUPPORTS_SAVE )

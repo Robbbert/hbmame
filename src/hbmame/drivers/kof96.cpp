@@ -1,7 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
-// kof96 has an extra rom with crossed wires which overrides part of the
+
+
+// kof96ep has an extra rom with crossed wires which overrides part of the
 // main p1 rom. This init unscrambles the extra rom and inserts the new
 // code into the correct place.
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof96ep )
@@ -16,6 +18,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof96ep )
 	}
 	memcpy(rom, rom+0x300000, 0x080000);
 }
+
 
 
 ROM_START( kof96a )
@@ -1329,6 +1332,7 @@ ROM_START( kof96seh ) /* The King of Fighters '96 - Super Enhance Hack by Ydmis 
 	ROM_LOAD16_BYTE( "214-c7.c7", 0x1800000, 0x400000, CRC(3687331b) SHA1(2be95caab76d7af51674f93884330ba73a6053e4) )
 	ROM_LOAD16_BYTE( "214-c8.c8", 0x1800001, 0x400000, CRC(fa1461ad) SHA1(6c71a7f08e4044214223a6bf80984582ab5e0328) )
 ROM_END
+
 
 
 GAME( 1996, kof96a,    kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (set 3)", MACHINE_SUPPORTS_SAVE )

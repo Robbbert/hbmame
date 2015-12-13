@@ -1,6 +1,8 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+
+
 ROM_START( kof98aas ) // Asamiya Athena 99 Style by Ivex
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242-pn1.p1", 0x000000, 0x100000, CRC(61ac868a) SHA1(26577264aa72d6af272952a876fcd3775f53e3fa) )
@@ -2742,6 +2744,7 @@ ROM_START( kof98yh ) /* The King of Fighters '98 - Enhance by Ydmis - (Secret ch
 	ROM_LOAD16_BYTE( "242-c7.c7", 0x3000000, 0x800000, CRC(f6d7a38a) SHA1(dd295d974dd4a7e5cb26a3ef3febcd03f28d522b) )
 	ROM_LOAD16_BYTE( "242-c8.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
+
 
 
 GAME( 1998, kof98aas,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ivex", "Kof'98 (Asamiya Athena 99 Style)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

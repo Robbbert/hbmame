@@ -1,6 +1,8 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+
+
 ROM_START( kof94b ) /* The King of Fighters '94 - Hack by Ydmis - (Can choose Rugal) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "055b.p1", 0x100000, 0x100000, CRC(c4c1b20a) SHA1(963befa89ea08104cae0e195f9ed6b153af67f9c) )
@@ -326,6 +328,7 @@ ROM_START( kof94y ) // Hack Boss By Ydmis
 	ROM_LOAD16_BYTE( "055-c7.c7", 0xc00000, 0x200000, CRC(62f66888) SHA1(ac91a0eab0753bee175ad40213a4ae5d38ed5b87) )
 	ROM_LOAD16_BYTE( "055-c8.c8", 0xc00001, 0x200000, CRC(fe0a235d) SHA1(a45c66836e4e3c77dfef9d4c6cc422cb59169149) )
 ROM_END
+
 
 
 GAME( 1994, kof94b,    kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'94 (Add Char)", MACHINE_SUPPORTS_SAVE )
