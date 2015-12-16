@@ -65,6 +65,9 @@ public:
 	DECLARE_DRIVER_INIT(sengo3d);
 	DECLARE_DRIVER_INIT(shockt2w);
 	DECLARE_DRIVER_INIT(svcd);
+	DECLARE_DRIVER_INIT(svcd1);
+	DECLARE_DRIVER_INIT(svcpcd);
+	DECLARE_DRIVER_INIT(svcplusb);
 private:
 	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
 	//optional_device<kog_prot_device> m_kog_prot;
@@ -155,5 +158,6 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 #include "ngrotd.cpp"
 #include "ngsamsho.cpp"
 #include "ngsengoku.cpp"
+#include "ngsvc.cpp"
 #include "ngwh.cpp"
 

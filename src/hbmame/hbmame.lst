@@ -502,6 +502,7 @@ kof96seh
 	/* kof97 */
 kof97aa
 kof97ae
+kof97ae1
 kof97bh
 kof97bng
 kof97bs
@@ -705,6 +706,7 @@ kof98yh
 kof99ab
 kof99ae		/* Anniversary Edition */
 kof99ae0
+kof99ae20140408
 kof99ae20140624
 kof99ae20150121
 kof99ae20150520
@@ -1478,6 +1480,7 @@ spinmast
 strhoop		// 079
 superspy
 svc		/* 0269 (c) 2003 Playmore / Capcom */
+svcpcb
 tpgolf
 trally
 viewpoin
@@ -1553,7 +1556,6 @@ matrimdh
 nitdd
 preisl2d
 s1945pd
-svcd
 zupapad
 	/* translation */
 fightfek
@@ -1602,6 +1604,32 @@ strhoopcd
 tpgolfcd
 viewpntr
 wakuw7bh
+
+2020bbcd
+//bangbedd
+burnigfp
+//diggerma duplicate name, to check
+fatfrspb
+//fstarfrcc
+//gekiridoc
+gowcairy
+gpilotcd
+gpilotse
+//jockygpd
+joyjoycd_d
+kabukikb
+lans2k4d
+lasthpcd
+//lhopecd not working
+//matrima
+matrimeh
+mutnatex
+ninjmsha
+pbobblcd
+//pnyaad
+spinmsth
+//wakwak7h
+zupapad_d
 
 	/* ngdoubledr */
 dbdehy
@@ -1691,19 +1719,6 @@ rotdhfwb
 rotdnd
 rotdyc
 
-	/* ngsengoku */
-sengokucd
-sengoku3b
-sengoku3c
-sengoku3d
-sengoku3ha
-sengoku3k
-sengoku3kc
-sengoku3p
-sengoku3pl
-sengoku3ya
-sengoku3yk
-
 	/* ngsamsho */
 samshob
 samshoeh
@@ -1740,6 +1755,30 @@ samsh5spd1
 samsh5spd2
 samsh5sphd
 samsh5spnd
+
+	/* ngsengoku */
+sengokucd
+sengoku3b
+sengoku3c
+sengoku3d
+sengoku3ha
+sengoku3k
+sengoku3kc
+sengoku3p
+sengoku3pl
+sengoku3ya
+sengoku3yk
+
+	/* ngsvc */
+svcd
+svcd1
+svch
+svcpcbd
+svcplusb
+svcpryu
+svcps2
+svcrm
+svcspryu
 
 	/* ngwh */
 whpb
@@ -2206,23 +2245,10 @@ yiear		/* GX407 (c) 1985 */
 nacho		/* Gatinho - Nacho Libre */
 
 	/* ngmamep */
-2020bbcd
-//bangbedd
-burnigfp
 //ct2k3ad
 //ct2k3spd
 //cthd2k3a
 //cthd2k3d
-//diggerma duplicate name, to check
-fatfrspb
-//fstarfrcc
-//gekiridoc
-gowcairy
-gpilotcd
-gpilotse
-//jockygpd
-joyjoycd_d
-kabukikb
 kf10thub
 kf10thud
 //kf2k1bs
@@ -2261,23 +2287,3 @@ kof2k2rs_d
 kogd
 //kogf
 //kogplus
-lans2k4d
-lasthpcd
-//lhopecd not working
-//matrima
-matrimeh
-mutnatex
-ninjmsha
-pbobblcd
-//pnyaad
-spinmsth
-///svcd_d
-svch
-//svcpcbd
-//svcplusb
-svcpryu
-svcps2
-svcrm
-svcspryu
-//wakwak7h
-zupapad_d

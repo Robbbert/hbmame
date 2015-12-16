@@ -67,6 +67,29 @@ ROM_START( kof97ae )
 	ROM_LOAD16_BYTE( "232-c6.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
 ROM_END
 
+ROM_START( kof97ae1 )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232ae1.p1", 0x000000, 0x100000, CRC(49cfaded) SHA1(e42d4ccd8e91747e4f87799bb813a0e6382b79db) )
+	ROM_LOAD16_WORD_SWAP( "232ae1.p2", 0x100000, 0x600000, CRC(030a85fb) SHA1(afe2249bde61ef401c2cfae9dddb3a6b51c258d9) )
+
+	NEO_SFIX_128K( "232ae1.s1", CRC(67d4cd7a) SHA1(b4f7d6a10523aa1d6322a04dc755ed4258003de0) )
+
+	NEO_BIOS_AUDIO_128K( "232-m1.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232-v1.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232-v2.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232-v3.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232ae1.c1", 0x0000000, 0x800000, CRC(bc35a6dc) SHA1(81d0b5a2c7fb6f5d0f19e3ab3ef2cc9d98806532) )
+	ROM_LOAD16_BYTE( "232ae1.c2", 0x0000001, 0x800000, CRC(66bf2938) SHA1(a45933a286cf6c1d4e63f687819262751650a9cd) )
+	ROM_LOAD16_BYTE( "232-c3.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232-c4.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232-c5.c5", 0x2000000, 0x400000, CRC(34fc4e51) SHA1(b39c65f27873f71a6f5a5d1d04e5435f874472ee) )
+	ROM_LOAD16_BYTE( "232-c6.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
+ROM_END
+
 ROM_START( kof97bh ) /* The King of Fighters '97 - Hack by Dodowang - (Can choose Orochi + add. Iori, Yashiro, Shermie, Chris and Leona - Orochi has icon in menue - extra stage select) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232bh.p1",   0x000000, 0x100000, CRC(b49a3fcf) SHA1(2dcb95e184b86a455ef23b70aca00bbcd28f23c5) )
@@ -1773,7 +1796,8 @@ ROM_END
 
 
 GAME( 1997, kof97aa,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Simaguang", "Kof'97 (Plus Athena)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97ae,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ivex, EGHT", "Kof'97 10TH ANNIVERSARY", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97ae,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ivex, EGHT", "Kof'97 10TH ANNIVERSARY (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97ae1,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ivex, EGHT", "Kof'97 10TH ANNIVERSARY (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97bh,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Dodowang", "Kof'97 (Add Char - Orochi icon - Extra stage select)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof97bng,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ivex", "Kof'97 COMBO 2006 set 1", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97bs,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "0-DAY", "Kof'97 (Boss Hack)", MACHINE_SUPPORTS_SAVE )

@@ -409,7 +409,7 @@ ROM_START( mslug2sh )
 	ROM_LOAD16_BYTE( "241-c4.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2t ) /* Trap15 - Metal Slug 2 Turbo - hack to remove slowdowns in gameplay */
+ROM_START( mslug2t ) /* System11 - Metal Slug 2 Turbo - hack to remove slowdowns in gameplay */
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241t.p1",    0x000000, 0x100000, CRC(df5d6fbc) SHA1(b9cc3e29afc12dc98daac9afb4f94e2cdd8b455c) )
 	ROM_LOAD16_WORD_SWAP( "241-p2.sp2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
@@ -2250,7 +2250,7 @@ GAME( 1998, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
 GAME( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French) (Old)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 2 (hybrid Bullets version, Shinwa hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Trap15", "Metal Slug 2 Turbo", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "System11", "Metal Slug 2 Turbo", MACHINE_SUPPORTS_SAVE )
 // Metal Slug X
 GAME( 2013, mslugxeb,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (EB)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, mslugxeh,  mslugx,   neogeo_noslot, neogeo, neogeo_noslot_state, mslugx,   ROT0, "KrysoFun/KVS", "Metal Slug X (Style remix)", MACHINE_SUPPORTS_SAVE )
