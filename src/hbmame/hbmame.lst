@@ -1417,6 +1417,7 @@ garou
 gowcaizr
 gpilots
 ironclad
+jockeygp
 joyjoy
 kabukikl	/* 0092 (c) 1995 Hudson */
 karnovr
@@ -1456,6 +1457,7 @@ neocup98
 ninjamas	/* 0217 (c) 1996 ADK / SNK */
 nitd		/* 0260 (c) 2000 Eleven / Gavaking */
 pbobblen	/* 0083 (c) 1994 Taito */
+pnyaa
 preisle2	/* 0255 (c) 1999 Yumekobo */
 rbff1
 rbff2		/* 0240 (c) 1998 SNK */
@@ -1514,6 +1516,8 @@ gbi		/* Ghostbusters Intro */
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lhcdb		/* 2007 (c) Last Hope CD beta */
+lhcdba
+lhopecd //not working
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
@@ -1550,86 +1554,84 @@ twister		// Blastar 2015
 ww2demo
 
 	/* neogeo1 */
-ganryud
-matrimd
-matrimdh
-nitdd
-preisl2d
-s1945pd
-zupapad
-	/* translation */
-fightfek
-flipshok
-mdrop3fr	/* Neo-Arc French Trans */
-miexchfr	/* Neo-Arc French Trans */
-necup98k
-nitdfr		/* Neo-Arc French Trans */
-nitdfro		/* Neo-Arc French Trans */
-nitdsp
-nitdsp1		// Spanish.Rev2
-wjammerk
-	/* other hacks */
+2020bbcd
 aof2b
 aof2br2
 aof3b
-bangbedp	/* 2000 Visco - Prototype ? */
-breaksp	
-ffur3b
-ffur3bd
-ffur3eh
-ffspeh
+bangbeadp
+breakersp
+burningfhp
+fatfury3b
+fatfury3bd
+fatfury3eh
+fatfurspb
+fatfurspeh
+fightfevk
+flipshotk
+ganryud
+gowcaizry
+gpilotscd
+gpilotse
 ironcladb	/* 1996 Saurus */
+jockeygpd
 joyjoycd
-kabukleh
-kabuklyc
-kabukgmc
-kabuklgm
-kabuklmc
-karnvreh
+joyjoycd1
+kabukiklb
+kabukikleh
+kabukiklgm
+kabukiklgmc
+kabukiklmc
+kabukiklyc
+karnovreh
 kizunaeh
-matrmehc
+lans2k4d
+magdrop3fr	/* Neo-Arc French Trans */
+matrima
+matrimd
+matrimdh
+matrimeh
+matrimehc
+miexchngfr	/* Neo-Arc French Trans */
+mutnatex
 nam1975g
 nam1975h
-njmeh
-njmehc
-njmehyc
-pbobblnb
-pbobbldx
-rageh
+nam1975ha
+neocup98k
+ninjamaseh
+ninjamasehc
+ninjamasehyc
+ninjamasha
+nitdd
+nitdfr		/* Neo-Arc French Trans */
+nitdfro		/* Neo-Arc French Trans */
+nitdfro1
+nitdsp
+nitdsp1		// Spanish.Rev2
+nitdsp2
+pbobblenba
+pbobblencd
+pbobblendx
+pbobblenh
+pnyaad
+preisle2d
+ragnagrdeh
 roboarma
+s1945pd
 s1945pwe
-savagedb
-shockt2w
+savageredb
+shocktr2w
+spinmasth
 strhoopcd
 tpgolfcd
-viewpntr
-wakuw7bh
-
-2020bbcd
-//bangbedd
-burnigfp
+tpgolfcd1
+viewpointr
+wakuwak7bh
+wakuwak7h
+wjammersk
+zupapad
 //diggerma duplicate name, to check
-fatfrspb
 //fstarfrcc
 //gekiridoc
-gowcairy
-gpilotcd
-gpilotse
-//jockygpd
-joyjoycd_d
-kabukikb
-lans2k4d
-lasthpcd
-//lhopecd not working
-//matrima
-matrimeh
-mutnatex
-ninjmsha
-pbobblcd
-//pnyaad
-spinmsth
-//wakwak7h
-zupapad_d
 
 	/* ngdoubledr */
 dbdehy
