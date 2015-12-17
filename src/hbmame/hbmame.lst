@@ -1411,7 +1411,6 @@ fatfursp
 fbfrenzy
 fightfev
 flipshot
-fswords
 ganryu		/* 0252 (c) 1999 Visco */
 garou
 gowcaizr
@@ -1517,7 +1516,7 @@ iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
-lhopecd //not working
+//lhopecd //not working
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
@@ -1595,7 +1594,6 @@ miexchngfr	/* Neo-Arc French Trans */
 mutnatex
 nam1975g
 nam1975h
-nam1975ha
 neocup98k
 ninjamaseh
 ninjamasehc
@@ -1631,7 +1629,7 @@ wjammersk
 zupapad
 //diggerma duplicate name, to check
 //fstarfrcc
-//gekiridoc
+
 
 	/* ngdoubledr */
 dbdehy
@@ -2150,12 +2148,18 @@ bubbleb 	/* pbobble USA Region Hack */
 f2demo		/* Charles Doty */
 
 	/* taito_f3 */
-dariusg		/* D87 (c) 1994 Taito Corporation Japan (World) */
+arkretrn	//parent
+cleopatr	//parent
+dariusg		//parent
+gekiridn	//parent
+landmakr	//parent
+pbobble2	//parent
 arkretrh
 cleopath
 driusgxh
 //f3demo		/* Antiriad (a demo made for Raine, not tested on real hardware) - not working */
 gekiridh
+gekiridoc
 landmakh
 pbobl2xh
 
@@ -2170,6 +2174,10 @@ tldemo2		// cmonkey
 	/* tecmo */
 geminit		/* Twisty Hack */
 rygark		/* Korean Translation */
+
+	/* tecmo16 */
+fstarfrc	//parent
+fstarfrcc
 
 	/* tehkanwc */
 tehkanwc	/* (c) 1985 Tehkan */

@@ -157,6 +157,34 @@ ROM_START( gekiridh )
 	ROM_LOAD16_BYTE("e11-05.bin", 0x400000, 0x200000, CRC(a4d08cf1) SHA1(ae2cabef7b7bcb8a788988c73d7af6fa4bb2c444) )	// CC CD -std-
 ROM_END
 
+ROM_START( gekiridoc )
+	ROM_REGION(0x200000, "maincpu", 0) /* 68020 code */
+	ROM_LOAD32_BYTE("e11-12c.bin", 0x000000, 0x40000, CRC(448308ce) SHA1(22eac25158bd3a0349aa4f1f041473b93030ee43) )
+	ROM_LOAD32_BYTE("e11-11c.bin", 0x000001, 0x40000, CRC(8ae457c4) SHA1(f1d74d99c916df90a74be0ff80b05b0f31284306) )
+	ROM_LOAD32_BYTE("e11-10c.bin", 0x000002, 0x40000, CRC(b1ff4529) SHA1(9e8366d9d90ad4155aab3828523daff09e3d400d) )
+	ROM_LOAD32_BYTE("e11-09c.bin", 0x000003, 0x40000, CRC(24d884ff) SHA1(35ddb21608c781a0674a4244c8e5c0aa6dc220eb) )
+
+	ROM_REGION(0x800000, "gfx1" , 0) /* Sprites */
+	ROM_LOAD16_BYTE("e11-03c.bin", 0x000000, 0x200000, CRC(2b0dab58) SHA1(7c70a2104fbbfde32fa006bfafe30c3d9708cb10) )
+	ROM_LOAD16_BYTE("e11-02c.bin", 0x000001, 0x200000, CRC(a2c4fa4f) SHA1(2ad73ce8431f1199dd32df83352dc4f85345529f) )
+	ROM_LOAD       ("e11-01c.bin", 0x600000, 0x200000, CRC(e19874b3) SHA1(a8d6806133977a7decefafff5d7b249803add70b) )
+	ROM_FILL       (              0x400000, 0x200000, 0 )
+
+	ROM_REGION(0x800000, "gfx2" , 0) /* Tiles */
+	ROM_LOAD16_BYTE("e11-08c.bin", 0x000000, 0x200000, CRC(93884253) SHA1(6d0530db64c84bf7b2ad47e94036ecd8c81418b6) )
+	ROM_LOAD16_BYTE("e11-07c.bin", 0x000001, 0x200000, CRC(15ca8ac2) SHA1(33cbcc96e5144e5910c67c99815958d8f004287e) )
+	ROM_LOAD       ("e11-06c.bin", 0x600000, 0x200000, CRC(0acc71d3) SHA1(455c70ec8f1087189170160d5683545bbea1fe9a) )
+	ROM_FILL       (              0x400000, 0x200000, 0 )
+
+	ROM_REGION(0x140000, "audiocpu", 0)	/* 68000 sound CPU */
+	ROM_LOAD16_BYTE("e11-13.bin", 0x100000, 0x20000, CRC(51a11ff7) SHA1(c03042489d71423667f25856d15aa6a363ea6c92) )
+	ROM_LOAD16_BYTE("e11-14.bin", 0x100001, 0x20000, CRC(dce2ba91) SHA1(00bc353c7747a7954365b587d7bc759ee5dc09c2) )
+
+	ROM_REGION16_BE(0x800000, "ensoniq.0" , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
+	ROM_LOAD16_BYTE("e11-04.ic38", 0x000000, 0x200000, CRC(e0ff4fb1) SHA1(81e186e3a692af1da316b8085a729c4f103d9a52) )	// C8 C9 CA CB
+	ROM_LOAD16_BYTE("e11-05.ic41", 0x400000, 0x200000, CRC(a4d08cf1) SHA1(ae2cabef7b7bcb8a788988c73d7af6fa4bb2c444) )	// CC CD -std-
+ROM_END
+
 ROM_START( landmakh )
 	ROM_REGION(0x200000, "maincpu", 0) /* 68020 code */
  	ROM_LOAD32_BYTE("e61-13.20", 0x000000, 0x80000, CRC(0af756a2) SHA1(2dadac6873f2491ee77703f07f00dde2aa909355) )
@@ -213,10 +241,11 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-GAME( 1997, arkretrh, 0,       f3,      f3, taito_f3_state, arkretrn, ROT0,   "hack",     "Arkanoid Returns (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, cleopath, 0,       f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, driusgxh, dariusg, f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, f3demo,   0,       f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 1995, gekiridh, 0,       f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, landmakh, 0,       f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, pbobl2xh, 0,       f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, arkretrh,  arkretrn, f3,      f3, taito_f3_state, arkretrn, ROT0,   "hack",     "Arkanoid Returns (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Ver 2.3C 1995/09/21)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )

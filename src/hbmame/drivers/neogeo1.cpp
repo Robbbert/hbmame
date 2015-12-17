@@ -8,30 +8,27 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, jckeygpd)
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 
 	/* install some extra RAM */
 	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
-
-//  m_maincpu->space(AS_PROGRAM).install_read_port(0x280000, 0x280001, "IN5");
-//  m_maincpu->space(AS_PROGRAM).install_read_port(0x2c0000, 0x2c0001, "IN6");
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, matrima )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, JOCKEYGP_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MATRIM_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, matrimd )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_sma_prot->kof2000_decrypt_68k(cpuregion);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	m_kof2002_prot->matrim_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 1);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, matrmehc )
@@ -41,6 +38,15 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, matrmehc )
 	m_kof2002_prot->matrim_decrypt_68k(cpuregion, cpuregion_size);
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MATRIM_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 1);
+}
+
+DRIVER_INIT_MEMBER( neogeo_hbmame, pnyaad )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 4);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, shockt2w )
@@ -409,6 +415,8 @@ ROM_START( gpilotscd )
 	NEO_SFIX_128K( "020-s1.s1", CRC(a6d83d53) SHA1(9a8c092f89521cc0b27a385aa72e29cbaca926c5) )
 
 	NEO_BIOS_AUDIO_64K( "020cd.m1", CRC(08697f52) SHA1(670998421355ccfdc5e778123b9df54df4dcde76) )
+	// use this to get full sound
+	//NEO_BIOS_AUDIO_128K( "020-m1.m1", CRC(48409377) SHA1(0e212d2c76856a90b2c2fdff675239525972ac43) )
 
 	ROM_REGION( 0x180000, "ymsnd", 0 )
 	ROM_LOAD( "020cd.v11", 0x000000, 0x100000, CRC(1285132c) SHA1(dad570624888550937ea15180c9ceb5fcdb418b8) )
@@ -698,7 +706,7 @@ ROM_END
 
 ROM_START( lans2k4d ) /* Bootleg / Hack of Shock Troopers - 2nd Squad */
 	ROM_REGION( 0x600000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "246lnsq.p1", 0x000000, 0x100000, CRC(724576EA) SHA1(d1a0345bcb4e3f6044c93abd52ff6fe6280dc5ee) )
+	ROM_LOAD16_WORD_SWAP( "246lnsq.p1", 0x000000, 0x100000, CRC(724576EA) SHA1(075f5d8ccb7303c8b6bebf630c4fa9c204554044) )
 	ROM_LOAD16_WORD_SWAP( "246-p2.sp2", 0x100000, 0x400000, CRC(72ea04c3) SHA1(4fb1d22c30f5f3db4637dd92a4d2705c88de399d) )
 
 	NEO_SFIX_128K( "246lnsq.s1", CRC(8699c63a) SHA1(d1a0345bcb4e3f6044c93abd52ff6fe6280dc5ee) )
@@ -897,7 +905,7 @@ ROM_START( mutnatex )
 	ROM_LOAD16_BYTE( "014-c4.c4", 0x200001, 0x100000, CRC(e4002651) SHA1(17e53a5f4708866a120415bf24f3b89621ad0bcc) )
 ROM_END
 
-ROM_START( nam1975g )
+ROM_START( nam1975g ) // sound effects only, no music no voices
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "001g.p1", 0x000000, 0x100000, CRC(b8bf8b43) SHA1(b5de430d9e13ce82b761d566916329752e84424a) )
 
@@ -905,10 +913,10 @@ ROM_START( nam1975g )
 
 	NEO_BIOS_AUDIO_64K( "001g.m1", CRC(afd04078) SHA1(a75833cd26442297ee35de302c186aa193fdb0ed) )
 
-	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 ) // weapons fire
 	ROM_LOAD( "001g.v1", 0x000000, 0x100000, CRC(dd5b3adc) SHA1(09b75fa1b2dc7704952cd371e440ea8771068633) )
 
-	ROM_REGION( 0x180000, "ymsnd.deltat", 0 )
+	ROM_REGION( 0x180000, "ymsnd.deltat", 0 ) // voices
 	ROM_LOAD( "001-v21.v21", 0x000000, 0x080000, CRC(55e670b3) SHA1(a047049646a90b6db2d1882264df9256aa5a85e5) )
 	ROM_LOAD( "001-v22.v22", 0x080000, 0x080000, CRC(ab0d8368) SHA1(404114db9f3295929080b87a5d0106b40da6223a) )
 	ROM_LOAD( "001-v23.v23", 0x100000, 0x080000, CRC(df468e28) SHA1(4e5d4a709a4737a87bba4083aeb788f657862f1a) )
@@ -922,7 +930,7 @@ ROM_START( nam1975g )
 	ROM_LOAD16_BYTE( "001-c6.c6", 0x200001, 0x80000, CRC(e62bed58) SHA1(d05b2903b212a51ee131e52c761b714cb787683e) )
 ROM_END
 
-ROM_START( nam1975h )
+ROM_START( nam1975h ) // infinite lives
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "001h.p1", 0x000000, 0x080000, CRC(908a4fd0) SHA1(37ffc705ee772a1a25e77ff8696750a78dacc7f7) )
 
@@ -935,31 +943,6 @@ ROM_START( nam1975h )
 
 	ROM_REGION( 0x180000, "ymsnd.deltat", 0 )
 	ROM_LOAD( "001-v21.v21", 0x000000, 0x080000, CRC(55e670b3) SHA1(a047049646a90b6db2d1882264df9256aa5a85e5) )
-	ROM_LOAD( "001-v22.v22", 0x080000, 0x080000, CRC(ab0d8368) SHA1(404114db9f3295929080b87a5d0106b40da6223a) )
-	ROM_LOAD( "001-v23.v23", 0x100000, 0x080000, CRC(df468e28) SHA1(4e5d4a709a4737a87bba4083aeb788f657862f1a) )
-
-	ROM_REGION( 0x300000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "001-c1.c1", 0x000000, 0x80000, CRC(32ea98e1) SHA1(c2fb3fb7dd14523a4b4b7fbdb81f44cb4cc48239) )
-	ROM_LOAD16_BYTE( "001-c2.c2", 0x000001, 0x80000, CRC(cbc4064c) SHA1(224c970fd060d841fd430c946ef609bb57b6d78c) )
-	ROM_LOAD16_BYTE( "001-c3.c3", 0x100000, 0x80000, CRC(0151054c) SHA1(f24fb501a7845f64833f4e5a461bcf9dc3262557) )
-	ROM_LOAD16_BYTE( "001-c4.c4", 0x100001, 0x80000, CRC(0a32570d) SHA1(f108446ec7844fde25f7a4ab454f76d384bf5e52) )
-	ROM_LOAD16_BYTE( "001-c5.c5", 0x200000, 0x80000, CRC(90b74cc2) SHA1(89898da36db259180e5261ed45eafc99ca13e504) )
-	ROM_LOAD16_BYTE( "001-c6.c6", 0x200001, 0x80000, CRC(e62bed58) SHA1(d05b2903b212a51ee131e52c761b714cb787683e) )
-ROM_END
-
-ROM_START( nam1975ha )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "001h.p1", 0x000000, 0x080000, CRC(908a4fd0) SHA1(37ffc705ee772a1a25e77ff8696750a78dacc7f7) )
-
-	NEO_SFIX_128K( "001-s1.s1", CRC(7988ba51) SHA1(bc2f661f381b06b34ac2fa215dd5689d3bf84832) )
-
-	NEO_BIOS_AUDIO_256K( "001-m1.m1", CRC(ba874463) SHA1(a83514f4b20301f84a98699900e2593f1c1b8846) )
-
-	ROM_REGION( 0x080000, "ymsnd", 0 )
-	ROM_LOAD( "001-v11.v11", 0x000000, 0x080000, CRC(a7c3d5e5) SHA1(e3efc86940f91c53b7724c4566cfc21ea1a7a465) )
-
-	ROM_REGION( 0x180000, "ymsnd.deltat", 0 )
-	ROM_LOAD( "001-v21.v21", 0x000000, 0x080000, CRC(55e670b3) SHA1(a047049646a90b6db2d1882264df9256aa5a85e5) ) 
 	ROM_LOAD( "001-v22.v22", 0x080000, 0x080000, CRC(ab0d8368) SHA1(404114db9f3295929080b87a5d0106b40da6223a) )
 	ROM_LOAD( "001-v23.v23", 0x100000, 0x080000, CRC(df468e28) SHA1(4e5d4a709a4737a87bba4083aeb788f657862f1a) )
 
@@ -1718,7 +1701,6 @@ GAME( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state,       
 
 GAME( 2008, nam1975g,      nam1975,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "NAM-1975 (hack?)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, nam1975h,      nam1975,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Blast of the Wolf", "NAM-1975 (Max Blast edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, nam1975ha,     nam1975,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "NAM-1975 Max Plus Edition (Blast of the Wolf Hack)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1998, neocup98k,     neocup98, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Hack", "Neo-Geo Cup '98 - The Road to the Victory (Korean)", MACHINE_SUPPORTS_SAVE )
 
@@ -1730,7 +1712,7 @@ GAME( 1996, ninjamasha,    ninjamas, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 2000, nitdd,         nitd,     neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Eleven / Gavaking", "Nightmare in the Dark (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, nitdfr,        nitd,     neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (French)", MACHINE_SUPPORTS_SAVE )  // based on decrypted C
 GAME( 2005, nitdfro,       nitd,     neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (French) (Old)", MACHINE_SUPPORTS_SAVE )   // based on decrypted C
-GAME( 2000, nitdfro1,      nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark French (NEO·ARC Traduction)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, nitdfro1,      nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark French (NEO ARC Traduction)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitdsp,        nitd,     neogeo_noslot, neogeo, neogeo_noslot_state, nitd,      ROT0, "hack", "Nightmare in the Dark (Spanish)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, nitdsp1,       nitd,     neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "hack", "Nightmare in the Dark (Spanish.Rev2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitdsp2,       nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Nightmare in the Dark Spanish (Version 1.1 by MEGANIUZ)", MACHINE_SUPPORTS_SAVE )
@@ -1740,7 +1722,7 @@ GAME( 1994, pbobblencd,    pbobblen, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 2000, pbobblendx,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Puzzle Bobble Deluxe / Bust-A-Move Deluxe (Neo-Geo hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pbobblenh,     pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Puzzle Bobble (hack)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2003, pnyaad,        pnyaa,    neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Aiky", "Pochi & Nyaa (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, pnyaad,        pnyaa,    neogeo_noslot, neogeo, neogeo_hbmame,       pnyaad,    ROT0, "Aiky", "Pochi & Nyaa (decrypted C)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1999, preisle2d,     preisle2, neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Yumekobo", "Prehistoric Isle 2 (decrypted C)", MACHINE_SUPPORTS_SAVE )
 

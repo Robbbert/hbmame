@@ -914,43 +914,43 @@ ROM_END
 
 
 
-GAME( 1993, samshob,    samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown (Add Char)", MACHINE_SUPPORTS_SAVE ) // Amakusa
-GAME( 1993, samshoeh,   samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE ) // Amakusa
-GAME( 1993, samshoeh2,  samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown (Add Char - Ultra kill start max - Ultra kill always max)", MACHINE_SUPPORTS_SAVE ) // Amakusa
+GAME( 1993, samshob,    samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, samshoeh,   samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, samshoeh2,  samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown (Add Char - Ultra kill start max - Ultra kill always max)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1994, samsho2b,   samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown II / Shin Samurai Spirits - Haohmaru jigokuhen (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2eh,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown II (Add Char)", MACHINE_SUPPORTS_SAVE ) // Mizuki and Kuroko
+GAME( 1994, samsho2eh,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown II (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2sq,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown II / Shin Samurai Spirits - Haohmaru jigokuhen (Soul Q version v2.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2ss,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown II Special / Shin Samurai Spirits - Haohmaru jigokuhen Special (Hack by Yashional)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2yc,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown II (Char - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Mizuki and Kuroko
+GAME( 1994, samsho2ss,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Yashional", "Samurai Shodown II Special / Shin Samurai Spirits - Haohmaru jigokuhen Special (Hack by Yashional)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, samsho2yc,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown II (Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1995, samsho3eh,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown III (Add Char)", MACHINE_SUPPORTS_SAVE ) // Zankuro and Kuroko
+GAME( 1995, samsho3eh,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown III (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, samsho3hb,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (bootleg/hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, samsho3se,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown III (Add Char - Pow hack ABC - Ultra pow hack)", MACHINE_SUPPORTS_SAVE ) // Zankuro and Kuroko
-GAME( 1995, samsho3yc,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown III (Add Char - Pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Zankuro and Kuroko
+GAME( 1995, samsho3se,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown III (Add Char - Pow hack ABC - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, samsho3yc,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown III (Add Char - Pow hack ABC)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1996, samsho4bh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Dodowang", "Samurai Shodown IV (Add Char with Icon)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
-GAME( 1996, samsho4cz,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Zhangshee", "Samurai Shodown IV (Add Char - Ultra kill start max - Ultra kill always max)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
-GAME( 1996, samsho4eh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zhangshee", "Samurai Shodown IV (Add Char)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
+GAME( 1996, samsho4bh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Dodowang", "Samurai Shodown IV (Add Char with Icon)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4cz,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Zhangshee", "Samurai Shodown IV (Add Char - Ultra kill start max - Ultra kill always max)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4eh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zhangshee", "Samurai Shodown IV (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, samsho4es,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "SNK2003/PPX Hack Team", "Samurai Shodown IV (Moves rev - v3.8)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4ev,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown IV Amakusa's Revenge / Samurai Spirits - Amakusa Kourin (Evil Amakusa - Hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4ew,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Eddids and Wesker", "Samurai Shodown IV (Add Char with Color corrections P2/P3/P4)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
+GAME( 1996, samsho4ev,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Yumeji", "Samurai Shodown IV Amakusa's Revenge / Samurai Spirits - Amakusa Kourin (Evil Amakusa - Hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4ew,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Eddids and Wesker", "Samurai Shodown IV (Add Char with Color corrections P2/P3/P4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, samsho4fc,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "FCHT", "Samurai Shodown IV (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4kw,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Fighters Kim and Wesker", "Samurai Shodown IV (Add Char - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
-GAME( 1996, samsho4kz,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Fighters Kim and Zhangshee", "Samurai Shodown IV (Add Char - Ultra pow hack set 1)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
+GAME( 1996, samsho4kw,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Fighters Kim and Wesker", "Samurai Shodown IV (Add Char - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4kz,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Fighters Kim and Zhangshee", "Samurai Shodown IV (Add Char - Ultra pow hack set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, samsho4ps,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown IV Amakusa's Revenge (Boss Fix Ver 1.00 [EGHT])", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4wh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown IV (Add Char - final edition)", MACHINE_SUPPORTS_SAVE ) // Zankuro Minazuki
+GAME( 1996, samsho4wh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown IV (Add Char - final edition)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2003, samsho5bd,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown V / Samurai Spirits Zero (bootleg, fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsho5bs,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Spirits Zero / Samurai Showdown V (Enable Hidden Characters v3.5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5ch,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Spirits Zero / Samurai Showdown V (Chinese Language and Boss Hack by Dodowang & Wesker)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5ch,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Dodowang and Wesker", "Samurai Spirits Zero / Samurai Showdown V (Chinese Language and Boss Hack by Dodowang & Wesker)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsho5d,   samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5d, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (decrypted C)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5d1,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5hd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGM-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE ) // different program scrambling
-GAME( 2003, samsho5hd,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5hd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGH-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE ) // different program scrambling
+GAME( 2003, samsho5d1,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5hd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGM-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5hd,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5hd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGH-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsho5x,   samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown V / Samurai Spirits Zero (XBOX version, hack)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2004, samsh5spd,  samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5sd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (decrypted C)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsh5spd1, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5hd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGM-2720)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spd2, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5spd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Spirits Zero Special / Samurai Showdown V Special (no encrypted P, decrypted C)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd2, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5spd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Spirits Zero Special / Samurai Showdown V Special (no encrypted P, decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsh5sphd, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5hd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720)(1st release, censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsh5spnd, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5hd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720)(2nd release, less censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )

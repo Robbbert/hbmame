@@ -639,10 +639,15 @@ files {
 createHBMAMEProjects(_target, _subtarget, "tehkan")
 files {
 	MAME_DIR .. "src/mame/video/tecmo_spr.cpp",
+	MAME_DIR .. "src/mame/video/tecmo_mix.cpp",
+	MAME_DIR .. "src/mame/video/tecmo_mix.h",
 	MAME_DIR .. "src/hbmame/drivers/bombjack.cpp",
 	MAME_DIR .. "src/mame/video/bombjack.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tecmo.cpp",
 	MAME_DIR .. "src/mame/video/tecmo.cpp",
+	MAME_DIR .. "src/hbmame/drivers/tecmo16.cpp",
+	MAME_DIR .. "src/mame/includes/tecmo16.h",
+	MAME_DIR .. "src/mame/video/tecmo16.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/video/tehkanwc.cpp",
 }
