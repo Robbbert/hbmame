@@ -158,7 +158,7 @@ K055673_CB_MEMBER(konamigx_state::le2_sprite_callback)
 int konamigx_state::K055555GX_decode_vmixcolor(int layer, int *color) // (see p.62 7.2.6 and p.27 3.3)
 {
 	int vcb, shift, pal, vmx, von, pl45, emx;
-
+			
 	vcb    =  m_vcblk[layer]<<6;
 	shift  =  layer<<1;
 	pal    =  *color;
@@ -173,10 +173,10 @@ int konamigx_state::K055555GX_decode_vmixcolor(int layer, int *color) // (see p.
 	pal   |=  pl45;
 	emx   |=  vmx;
 	pal   |=  vcb;
-
-	if (m_gx_le2_textcolour_hack)
-		if (layer==0)
-			pal |= 0x1c0;
+	
+	//if (m_gx_le2_textcolour_hack)
+	//	if (layer==0)
+	//		pal |= 0x1c0;
 
 	if (von == 3) emx = -1; // invalidate external mix code if all bits are from internal
 	*color =  pal;
@@ -1104,7 +1104,6 @@ void konamigx_state::common_init()
 	m_gx_rozenable = 0;
 	m_gx_specialrozenable = 0;
 	m_gx_rushingheroes_hack = 0;
-	m_gx_le2_textcolour_hack = 0;
 
 	// Documented relative offsets of non-flipped games are (-2, 0, 2, 3),(0, 0, 0, 0).
 	// (+ve values move layers to the right and -ve values move layers to the left)
@@ -1148,8 +1147,6 @@ VIDEO_START_MEMBER(konamigx_state, le2)
 	common_init();
 
 	konamigx_mixer_primode(-1); // swapped layer B and C priorities?
-
-	m_gx_le2_textcolour_hack = 1; // force text layer to use the right palette
 }
 
 VIDEO_START_MEMBER(konamigx_state, konamigx_6bpp)
@@ -1318,10 +1315,10 @@ VIDEO_START_MEMBER(konamigx_state, racinfrc)
 {
 	common_init();
 
-	m_k056832->set_layer_offs(0, -2+1, 0);
-	m_k056832->set_layer_offs(1,  0+1, 0);
-	m_k056832->set_layer_offs(2,  2+1, 0);
-	m_k056832->set_layer_offs(3,  3+1, 0);
+	m_k056832->set_layer_offs(0, -2+1, -16);
+	m_k056832->set_layer_offs(1,  0+1, -16);
+	m_k056832->set_layer_offs(2,  2+1, -16);
+	m_k056832->set_layer_offs(3,  3+1, -16);
 
 	m_gx_psac_tilemap = &machine().tilemap().create(m_gfxdecode, tilemap_get_info_delegate(FUNC(konamigx_state::get_gx_psac1a_tile_info),this), TILEMAP_SCAN_COLS,  16, 16, 128, 128);
 	m_gx_psac_tilemap2 = &machine().tilemap().create(m_gfxdecode, tilemap_get_info_delegate(FUNC(konamigx_state::get_gx_psac1b_tile_info),this), TILEMAP_SCAN_COLS,  16, 16, 128, 128);
@@ -1405,7 +1402,7 @@ UINT32 konamigx_state::screen_update_konamigx(screen_device &screen, bitmap_rgb3
 	// Type-1
 	if (m_gx_specialrozenable == 1)
 	{
-		K053936_0_zoom_draw(screen, *m_gxtype1_roz_dstbitmap, m_gxtype1_roz_dstbitmapclip,m_gx_psac_tilemap, 0,0,0); // height data
+		//K053936_0_zoom_draw(screen, *m_gxtype1_roz_dstbitmap, m_gxtype1_roz_dstbitmapclip,m_gx_psac_tilemap, 0,0,0); // height data
 		K053936_0_zoom_draw(screen, *m_gxtype1_roz_dstbitmap2,m_gxtype1_roz_dstbitmapclip,m_gx_psac_tilemap2,0,0,0); // colour data (+ some voxel height data?)
 	}
 
@@ -1415,7 +1412,6 @@ UINT32 konamigx_state::screen_update_konamigx(screen_device &screen, bitmap_rgb3
 	{
 		konamigx_mixer(screen, bitmap, cliprect, m_gx_psac_tilemap, GXSUB_8BPP,nullptr,0,  0, nullptr, m_gx_rushingheroes_hack);
 	}
-	// hack, draw the roz tilemap if W is held
 	// todo: fix so that it works with the mixer without crashing(!)
 	else if (m_gx_specialrozenable == 2)
 	{
@@ -1441,7 +1437,8 @@ UINT32 konamigx_state::screen_update_konamigx(screen_device &screen, bitmap_rgb3
 	if (m_gx_specialrozenable == 1)
 	{
 		const pen_t *paldata = m_palette->pens();
-
+		
+		// hack, draw the roz tilemap if W is held
 		if ( machine().input().code_pressed(KEYCODE_W) )
 		{
 			int y,x;
@@ -1451,13 +1448,13 @@ UINT32 konamigx_state::screen_update_konamigx(screen_device &screen, bitmap_rgb3
 			{
 				for (y=0;y<256;y++)
 				{
-					//UINT16* src = &m_gxtype1_roz_dstbitmap->pix16(y);
-
 					//UINT32* dst = &bitmap.pix32(y);
 					// ths K053936 rendering should probably just be flipped
 					// this is just kludged to align the racing force 2d logo
-					UINT16* src = &m_gxtype1_roz_dstbitmap2->pix16(y+30);
-					UINT32* dst = &bitmap.pix32(256-y);
+					UINT16* src = &m_gxtype1_roz_dstbitmap2->pix16(y);
+					//UINT16* src = &m_gxtype1_roz_dstbitmap->pix16(y);
+
+					UINT32* dst = &bitmap.pix32((256+16)-y);
 
 					for (x=0;x<512;x++)
 					{
