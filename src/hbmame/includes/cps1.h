@@ -138,9 +138,10 @@ public:
 	UINT16 *     m_scroll3;
 	UINT16 *     m_obj;
 	UINT16 *     m_other;
-	UINT16 *     m_buffered_obj;
+	std::unique_ptr<UINT16[]>     m_buffered_obj;
 	optional_shared_ptr<UINT8> m_qsound_sharedram1;
 	optional_shared_ptr<UINT8> m_qsound_sharedram2;
+	std::unique_ptr<UINT8[]> m_decrypt_kabuki;
 	// cps2
 	optional_shared_ptr<UINT16> m_objram1;
 	optional_shared_ptr<UINT16> m_objram2;
@@ -148,9 +149,9 @@ public:
 	
 	optional_ioport m_io_in0;
 	optional_ioport m_io_in1;
-	UINT16 *     m_cps2_buffered_obj;
+	std::unique_ptr<UINT16[]>     m_cps2_buffered_obj;
 	// game-specific
-	UINT16 *     m_gigaman2_dummyqsound_ram;
+	std::unique_ptr<UINT16[]>    m_gigaman2_dummyqsound_ram;
 	UINT16  sf2ceblp_prot;
 	
 	/* video-related */

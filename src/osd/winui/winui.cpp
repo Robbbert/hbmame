@@ -6214,7 +6214,7 @@ static void RemoveGameCustomFolder(int driver_index)
 			return;
 		}
 	}
-	MessageBox(GetMainWindow(), TEXT("Error searching for custom folder"), TEXT(MAMEUINAME), MB_OK | MB_ICONERROR);
+	MessageBox(GetMainWindow(), TEXT("Error searching for custom folder"), (LPCTSTR)MAMEUINAME, MB_OK | MB_ICONERROR);
 }
 
 

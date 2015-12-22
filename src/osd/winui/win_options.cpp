@@ -64,7 +64,7 @@ options::entry::entry(const char *name, const char *description, UINT32 flags, c
 		m_description(description)
 {
 	// copy in the name(s) as appropriate
-	if (name)
+	if (name != nullptr)
 	{
 		// first extract any range
 		std::string namestr(name);
@@ -95,7 +95,7 @@ options::entry::entry(const char *name, const char *description, UINT32 flags, c
 	}
 
 	// set the default value
-	if (defvalue)
+	if (defvalue != nullptr)
 		m_defdata = defvalue;
 	m_data = m_defdata;
 }
@@ -230,7 +230,7 @@ options &options::operator=(const options &rhs)
 bool options::operator==(const options &rhs)
 {
 	// iterate over options in the first list
-	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != nullptr; curentry = curentry->next())
 		if (!curentry->is_header())
 		{
 			// if the values differ, return false
@@ -261,7 +261,7 @@ void options::add_entry(const char *name, const char *description, UINT32 flags,
 {
 	// allocate a new entry
 	entry *newentry = global_alloc(entry(name, description, flags, defvalue));
-	if (newentry->name())
+	if (newentry->name() != nullptr)
 	{
 		// see if we match an existing entry
 		auto checkentry = m_entrymap.find(newentry->name());
@@ -295,7 +295,7 @@ void options::add_entry(const char *name, const char *description, UINT32 flags,
 void options::add_entries(const options_entry *entrylist, bool override_existing)
 {
 	// loop over entries until we hit a NULL name
-	for ( ; entrylist->name || (entrylist->flags & OPTION_HEADER) != 0; entrylist++)
+	for (; entrylist->name != nullptr || (entrylist->flags & OPTION_HEADER) != 0; entrylist++)
 		add_entry(*entrylist, override_existing);
 }
 
@@ -408,7 +408,7 @@ bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priori
 {
 	// loop over lines in the file
 	char buffer[4096];
-	while (core_fgets(buffer, ARRAY_LENGTH(buffer), &inifile))
+	while (core_fgets(buffer, ARRAY_LENGTH(buffer), &inifile) != nullptr)
 	{
 		// find the extent of the name
 		char *optionname;
@@ -472,7 +472,7 @@ bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priori
 void options::revert(int priority)
 {
 	// iterate over options and revert to defaults if below the given priority
-	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != nullptr; curentry = curentry->next())
 		curentry->revert(priority);
 }
 
@@ -493,7 +493,7 @@ const char *options::output_ini(std::string &buffer, const options *diff)
 	const char *last_header = NULL;
 
 	// loop over all items
-	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != nullptr; curentry = curentry->next())
 	{
 		const char *name = curentry->name();
 		const char *value = curentry->value();
@@ -516,21 +516,21 @@ const char *options::output_ini(std::string &buffer, const options *diff)
 			if ( !curentry->is_internal() )
 			{
 				// look up counterpart in diff, if diff is specified
-				if (diff == NULL || strcmp(value, diff->value(name)) != 0)
+				if (diff == nullptr || strcmp(value, diff->value(name)) != 0)
 				{
 					// output header, if we have one
-					if (last_header)
+					if (last_header != nullptr)
 					{
 						if (num_valid_headers++)
 							strcatprintf(buffer, "\n");
 						strcatprintf(buffer, "#\n# %s\n#\n", last_header);
-						last_header = NULL;
+						last_header = nullptr;
 					}
 
 					// and finally output the data, skip if unadorned
 					if (!is_unadorned)
 					{
-						if (strchr(value, ' '))
+						if (strchr(value, ' ') != nullptr)
 							strcatprintf(buffer, "%-25s \"%s\"\n", name, value);
 						else
 							strcatprintf(buffer, "%-25s %s\n", name, value);
@@ -553,7 +553,7 @@ const char *options::output_help(std::string &buffer)
 	buffer.clear();
 
 	// loop over all items
-	for (entry *curentry = m_entrylist.first(); curentry; curentry = curentry->next())
+	for (entry *curentry = m_entrylist.first(); curentry != nullptr; curentry = curentry->next())
 	{
 		// header: just print
 		if (curentry->is_header())
@@ -687,7 +687,7 @@ void options::append_entry(options::entry &newentry)
 
 	// if we have names, add them to the map
 	for (int name = 0; name < ARRAY_LENGTH(newentry.m_name); name++)
-		if (newentry.name(name))
+		if (newentry.name(name) != nullptr)
 		{
 			m_entrymap.insert(std::make_pair(newentry.name(name), &newentry));
 
@@ -728,7 +728,7 @@ void options::copyfrom(const options &src)
 	reset();
 
 	// iterate through the src options and make our own
-	for (entry *curentry = src.m_entrylist.first(); curentry; curentry = curentry->next())
+	for (entry *curentry = src.m_entrylist.first(); curentry != nullptr; curentry = curentry->next())
 		append_entry(*global_alloc(entry(curentry->name(), curentry->description(), curentry->flags(), curentry->default_value())));
 }
 

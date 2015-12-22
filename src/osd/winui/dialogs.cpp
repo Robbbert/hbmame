@@ -115,7 +115,7 @@ INT_PTR CALLBACK ResetDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 			{
 
 				TCHAR temp[400];
-				_tcscpy(temp, TEXT(MAMEUINAME));
+				_tcscpy(temp, (LPCTSTR)MAMEUINAME);
 				_tcscat(temp, TEXT(" will now reset the following\n"));
 				_tcscat(temp, TEXT("to the default settings:\n\n"));
 
@@ -130,7 +130,7 @@ INT_PTR CALLBACK ResetDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 					_tcscat(temp, TEXT("User interface settings\n\n"));
 					_tcscat(temp, TEXT("Resetting the User Interface options\n"));
 					_tcscat(temp, TEXT("requires exiting "));
-					_tcscat(temp, TEXT(MAMEUINAME));
+					_tcscat(temp, (LPCTSTR)MAMEUINAME);
 					_tcscat(temp, TEXT(".\n"));
 				}
 				_tcscat(temp, TEXT("\nDo you wish to continue?"));

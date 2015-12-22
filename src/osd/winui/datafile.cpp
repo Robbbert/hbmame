@@ -36,7 +36,7 @@ static const char *DATAFILE_TAG_END = "$end";
 /****************************************************************************
  *      private data for parsing functions
  ****************************************************************************/
-static FILE *fp = NULL; /* Our file pointer */
+static FILE *fp = nullptr; /* Our file pointer */
 static UINT64 dwFilePos = 0; /* file position */
 static char filename[MAX_PATH]; /* datafile name */
 
@@ -46,14 +46,14 @@ struct tDatafileIndex
 	const game_driver *driver;
 };
 
-static struct tDatafileIndex *hist_idx = 0;
-static struct tDatafileIndex *mame_idx = 0;
-static struct tDatafileIndex *driv_idx = 0;
-static struct tDatafileIndex *sysinfo_idx = 0;
-static struct tDatafileIndex *mess_idx = 0;
-static struct tDatafileIndex *messdriv_idx = 0;
-static struct tDatafileIndex *cmd_idx = 0;
-static struct tDatafileIndex *score_idx = 0;
+static struct tDatafileIndex *hist_idx = nullptr;
+static struct tDatafileIndex *mame_idx = nullptr;
+static struct tDatafileIndex *driv_idx = nullptr;
+static struct tDatafileIndex *sysinfo_idx = nullptr;
+static struct tDatafileIndex *mess_idx = nullptr;
+static struct tDatafileIndex *messdriv_idx = nullptr;
+static struct tDatafileIndex *cmd_idx = nullptr;
+static struct tDatafileIndex *score_idx = nullptr;
 
 /****************************************************************************
 * Create an array with sorted sourcedrivers for the function
@@ -66,7 +66,7 @@ typedef struct
 	int index;
 } srcdriver_data_type;
 
-static srcdriver_data_type *sorted_srcdrivers = NULL;
+static srcdriver_data_type *sorted_srcdrivers = nullptr;
 
 static int SrcDriverDataCompareFunc(const void *arg1, const void *arg2)
 {
@@ -306,11 +306,9 @@ static int load_datafile_text(const game_driver *drv, char *buffer, int bufsize,
 
 		if (mameinfo)
 		{
-			if (strtok(readbuf, "\r\n\r\n"))
-			{
-				char *temp = strtok(readbuf, "\r\n\r\n");
+			char *temp = strtok(readbuf, "\r\n\r\n");
+			if (temp != nullptr)
 				strcat(buffer, temp);
-			}
 			else
 				strcat(buffer, readbuf);
 		}
@@ -630,13 +628,13 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	screen_device_iterator screeniter(config.root_device());
 	const screen_device *screen = screeniter.first();
 
-	if (screen == NULL)
+	if (screen == nullptr)
 		strcat(buffer, "Screenless\n");
 	else if (screen->screen_type() == SCREEN_TYPE_VECTOR)
 		strcat(buffer,"Vector\n");
 	else
 	{
-		for (; screen; screen = screeniter.next())
+		for (; screen != nullptr; screen = screeniter.next())
 		{
 			if (drv->flags & ORIENTATION_SWAP_XY)
 				snprintf(name, ARRAY_LENGTH(name), "%d x %d (V)", screen->visible_area().height(), screen->visible_area().width());
@@ -660,9 +658,9 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 	for (device_t *device = deviter.first(); device; device = deviter.next())
 	{
-		for (const rom_entry *region = rom_first_region(*device); region; region = rom_next_region(region))
+		for (const rom_entry *region = rom_first_region(*device); region != nullptr; region = rom_next_region(region))
 		{
-			for (const rom_entry *rom = rom_first_file(region); rom; rom = rom_next_file(rom))
+			for (const rom_entry *rom = rom_first_file(region); rom != nullptr; rom = rom_next_file(rom))
 			{
 				hash_collection hashes(ROM_GETHASHDATA(rom));
 
@@ -671,9 +669,9 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 					machine_config pconfig(*parent, MameUIGlobal());
 					device_iterator deviter(pconfig.root_device());
 
-					for (device_t *device = deviter.first(); device; device = deviter.next())
-						for (const rom_entry *pregion = rom_first_region(*device); pregion; pregion = rom_next_region(pregion))
-							for (const rom_entry *prom = rom_first_file(pregion); prom; prom = rom_next_file(prom))
+					for (device_t *device = deviter.first(); device != nullptr; device = deviter.next())
+						for (const rom_entry *pregion = rom_first_region(*device); pregion != nullptr; pregion = rom_next_region(pregion))
+							for (const rom_entry *prom = rom_first_file(pregion); prom != nullptr; prom = rom_next_file(prom))
 							{
 								hash_collection phashes(ROM_GETHASHDATA(prom));
 
@@ -695,11 +693,11 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 	samples_device_iterator samplesiter(config.root_device());
 
-	for (samples_device *device = samplesiter.first(); device; device = samplesiter.next())
+	for (samples_device *device = samplesiter.first(); device != nullptr; device = samplesiter.next())
 	{
 		samples_iterator sampiter(*device);
 
-		if (sampiter.altbasename())
+		if (sampiter.altbasename() != nullptr)
 		{
 			snprintf(name, ARRAY_LENGTH(name), "\nSAMPLES (%s):\n", sampiter.altbasename());
 			strcat(buffer, name);
@@ -707,10 +705,10 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 		std::unordered_set<std::string> already_printed;
 
-		for (const char *samplename = sampiter.first(); samplename; samplename = sampiter.next())
+		for (const char *samplename = sampiter.first(); samplename != nullptr; samplename = sampiter.next())
 		{
 			// filter out duplicates
-			if (already_printed.insert(samplename).second)
+			if (!already_printed.insert(samplename).second)
 				continue;
 
 			// output the sample name

@@ -1494,7 +1494,9 @@ static seqselect_info *get_seqselect_info(HWND editwnd)
 //  seqselect_settext
 //============================================================
 //#pragma GCC diagnostic push
+#ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 
 static void seqselect_settext(HWND editwnd)
 {
@@ -1524,8 +1526,10 @@ static void seqselect_settext(HWND editwnd)
 			SendMessage(editwnd, EM_SETSEL, 0, -1);
 	}
 }
-#pragma GCC diagnostic error "-Wunused-value"
 
+#ifdef __GNUC__
+#pragma GCC diagnostic error "-Wunused-value"
+#endif
 
 
 //============================================================
@@ -3955,11 +3959,9 @@ int win_create_menu(running_machine &machine, HMENU *menus)
 	else
 		software_dir = t; // the only path
 
-	HMENU menu_bar = NULL;
-	HMODULE module;
+	HMODULE module = win_resource_module();
+	HMENU menu_bar = LoadMenu(module, MAKEINTRESOURCE(IDR_RUNTIME_MENU));
 
-	module = win_resource_module();
-	menu_bar = LoadMenu(module, MAKEINTRESOURCE(IDR_RUNTIME_MENU));
 	if (!menu_bar)
 		goto error;
 

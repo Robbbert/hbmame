@@ -31,8 +31,8 @@ static BOOL         bTracking = 0;
 static int          numSplitters = 0;
 static int          currentSplitter = 0;
 static HZSPLITTER   *splitter;
-static LPHZSPLITTER lpCurSpltr = 0;
-static HCURSOR      hSplitterCursor = 0;
+static LPHZSPLITTER lpCurSpltr = nullptr;
+static HCURSOR      hSplitterCursor = nullptr;
 
 int *nSplitterOffset;
 

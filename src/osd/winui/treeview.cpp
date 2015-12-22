@@ -99,7 +99,7 @@ static TREEFOLDER **treeFolders = 0;
 static UINT numFolders  = 0;		/* Number of folder in the folder array */
 static UINT next_folder_id = MAX_FOLDERS;
 static UINT folderArrayLength = 0;  /* Size of the folder array */
-static LPTREEFOLDER lpCurrentFolder = 0;	/* Currently selected folder */
+static LPTREEFOLDER lpCurrentFolder = nullptr;	/* Currently selected folder */
 static UINT nCurrentFolder = 0;	/* Current folder ID */
 static WNDPROC g_lpTreeWndProc = 0;	/* for subclassing the TreeView */
 static HIMAGELIST hTreeSmall = 0;		/* TreeView Image list of icons */
@@ -319,27 +319,27 @@ void ResetWhichGamesInFolders(void)
 
 
 /* Used to build the GameList */
-BOOL GameFiltered(int nGame, DWORD dwMask)
+bool GameFiltered(int nGame, DWORD dwMask)
 {
 	int i;
 	LPTREEFOLDER lpFolder = GetCurrentFolder();
-	LPTREEFOLDER lpParent = NULL;
+	LPTREEFOLDER lpParent = nullptr;
 
 	//Filter out the Bioses on all Folders, except for the Bios Folder
-	if( lpFolder->m_nFolderId != FOLDER_BIOS )
+	if (lpFolder != nullptr && lpFolder->m_nFolderId != FOLDER_BIOS)
 	{
 //	if( !( (driver_list::driver(nGame).flags & MACHINE_IS_BIOS_ROOT ) == 0) )
 //		return TRUE;
-	if( driver_list::driver(nGame).name[0] == '_' )
-		return TRUE;
+		if( driver_list::driver(nGame).name[0] == '_' )
+			return TRUE;
 	}
 	// Filter games--return TRUE if the game should be HIDDEN in this view
 	if( GetFilterInherit() )
 	{
-		if( lpFolder )
+		if( lpFolder != nullptr )
 		{
 			lpParent = GetFolder( lpFolder->m_nParent );
-			if( lpParent )
+			if( lpParent != nullptr )
 			{
 				/* Check the Parent Filters and inherit them on child,
 				* The inherited filters don't display on the custom Filter Dialog for the Child folder
@@ -2323,7 +2323,7 @@ BOOL TrySaveExtraFolder(LPTREEFOLDER lpFolder)
 
 	if (extra_folder == NULL || root_folder == NULL)
 	{
-	MessageBox(GetMainWindow(), TEXT("Error finding custom file name to save"), TEXT(MAMEUINAME), MB_OK | MB_ICONERROR);
+		MessageBox(GetMainWindow(), TEXT("Error finding custom file name to save"), (LPCTSTR)MAMEUINAME, MB_OK | MB_ICONERROR);
 	return FALSE;
 	}
 	/* "folder\title.ini" */

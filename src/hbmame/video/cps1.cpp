@@ -22,7 +22,8 @@ Known A-board revisions:
 
 Game                                                         Year  B-board #       B-board PALs       C-board #           CPS-B #          C-board PALs
 -----------------------------------------------------------  ----  ---------  ---------------------  -----------  -----------------------  ------------
-Forgotten Worlds (World)                                     1988  88621B-2   LW621            LWIO  None         CPS-B-01  DL-0411-10001  N/A
+Forgotten Worlds (World, newer)                              1988  88621B-2   LW621            LWIO  None         CPS-B-01  DL-0411-10001  N/A
+Forgotten Worlds (World)                                           88621B-2   LW621            LWIO  None         CPS-B-01  DL-0411-10001  N/A
 Forgotten Worlds (USA, B-Board 88618B-2, Rev. A)                   88618B-2   LWCHR            LWIO  None         CPS-B-01  DL-0411-10001  N/A
 Forgotten Worlds (USA, B-Board 88618B-2, Rev. AA)                  88618B-2   LWCHR            LWIO  None         CPS-B-01  DL-0411-10001  N/A
 Forgotten Worlds (USA, B-Board 88618B-2, Rev. C)                   88618B-2   LWCHR            LWIO  None         CPS-B-01  DL-0411-10001  N/A
@@ -59,6 +60,7 @@ Final Fight (World, set 2)                                         89624B-3   S2
 Final Fight (USA, set 1)                                           89624B-3   S224B            IOB1  88622-C-5    CPS-B-04  DL-0411-10005  None
 Final Fight (USA, set 2)                                           89624B-3   S224B            IOB1  88622-C-5    CPS-B-04  DL-0411-10005  None
 Final Fight (USA 900112)                                           89624B-3   S224B            IOB1  88622-C-5    CPS-B-04@ DL-0411-10001  None
+Final Fight (USA 900424)                                           89624B-3   S224B            IOB1  88622-C-5    CPS-B-03  DL-0411-10003  None
 Final Fight (USA 900613)                                           89624B-3   S224B            IOB1  88622-C-5    CPS-B-05  DL-0411-10006  None
 Final Fight (Japan)                                                ?          S222B            ?     ?            CPS-B-04  DL-0411-10005
 Final Fight (Japan 900112)                                         89625B-1   S222B            LWIO  88622-C-5    CPS-B-01  DL-0411-10001  None
@@ -488,7 +490,6 @@ The games seem to use them to mark platforms, kill zones and no-go areas.
 #define HACK_H_6      -1,   -1,   0x06,0x04,0x02,0x00, 0x1e,0x1c,0x1a,  0x28,{0x26,0x24,0x22,0x20},0x30, {0x40,0x10,0x02,0x00,0x00} // knightsb2
 #define HACK_H_7      -1,   -1,   0x06,0x04,0x02,0x00, 0x1e,0x1c,0x1a,  0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x20,0x10,0x02,0x00,0x00} // knightsha
 #define HACK_H_8      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x20,{0x00,0x00,0x00,0x00},0x00, {0x80,0x80,0x80,0x00,0x00}
-
 
 /*
 CPS_B_21_DEF is CPS-B-21 at default settings (no battery)
@@ -1421,6 +1422,7 @@ static const struct CPS1config cps1_config_table[]=
 {
 	/* name         CPSB          gfx mapper   in2  in3  out2   kludge */
 	{"forgottn",    CPS_B_01,     mapper_LW621 },
+	{"forgottna",   CPS_B_01,     mapper_LW621 },
 	{"forgottnu",   CPS_B_01,     mapper_LW621 },
 	{"forgottnu1",  CPS_B_01,     mapper_LWCHR },
 	{"forgottnua",  CPS_B_01,     mapper_LWCHR },
@@ -1448,7 +1450,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"ffightu",     CPS_B_04,     mapper_S224B },
 	{"ffightu1",    CPS_B_04,     mapper_S224B },
 	{"ffightua",    CPS_B_01,     mapper_S224B },
-	{"ffightub",    CPS_B_05,     mapper_S224B },
+	{"ffightub",    CPS_B_03,     mapper_S224B },   // had 04 handwritten on the CPS_B chip, but clearly isn't.
+	{"ffightuc",    CPS_B_05,     mapper_S224B },
 	{"ffightj",     CPS_B_04,     mapper_S224B },   // wrong, this set uses S222B
 	{"ffightj1",    CPS_B_01,     mapper_S224B },   // wrong, this set uses S222B
 	{"ffightj2",    CPS_B_02,     mapper_S224B },   // wrong, this set uses S222B
@@ -1547,6 +1550,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2v004",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2acc",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceblp",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
+	{"sf2cebltw",   CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2acca",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2accp2",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2amf",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 }, // probably wrong but this set is not completely dumped anyway
@@ -1561,6 +1565,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2m7",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
 	{"sf2m8",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 2 },
 	{"sf2m9",       CPS_B_21_DEF, mapper_S9263B, 0x36 },
+	{"sf2m10",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },
 	{"sf2dongb",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2yyc",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
 	{"sf2koryu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
@@ -1725,8 +1730,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },			//works
 
 	// HBMAME end
-
-	{0}     /* End of table */
+	{nullptr}     /* End of table */
 };
 
 
@@ -1839,10 +1843,9 @@ inline UINT16 *cps_state::cps1_base( int offset, int boundary )
 }
 
 
+
 WRITE16_MEMBER(cps_state::cps1_cps_a_w)
 {
-	//printf("A:%X=%X ",offset<<1,data);
-
 	data = COMBINE_DATA(&m_cps_a_regs[offset]);
 
 	/*
@@ -1911,9 +1914,6 @@ READ16_MEMBER(cps_state::cps1_cps_b_r)
 
 WRITE16_MEMBER(cps_state::cps1_cps_b_w)
 {
-	//printf("B:%X=%X ",offset<<1,data);
-	//if (offset==0x14) printf("%s %X\n",machine().describe_context(), data);
-
 	data = COMBINE_DATA(&m_cps_b_regs[offset]);
 
 	if (m_cps_version == 2)
@@ -2367,10 +2367,10 @@ VIDEO_START_MEMBER(cps_state,cps)
 	for (i = 0; i < cps1_palette_entries * 16; i++)
 		m_palette->set_pen_color(i, rgb_t(0,0,0));
 
-	m_buffered_obj = auto_alloc_array_clear(machine(), UINT16, m_obj_size / 2);
+	m_buffered_obj = make_unique_clear<UINT16[]>(m_obj_size / 2);
 
 	if (m_cps_version == 2)
-		m_cps2_buffered_obj = auto_alloc_array_clear(machine(), UINT16, m_cps2_obj_size / 2);
+		m_cps2_buffered_obj = make_unique_clear<UINT16[]>(m_cps2_obj_size / 2);
 
 	/* clear RAM regions */
 	memset(m_gfxram, 0, m_gfxram.bytes());   /* Clear GFX RAM */
@@ -2397,11 +2397,11 @@ VIDEO_START_MEMBER(cps_state,cps)
 
 
 	/* Set up old base */
-	m_scroll1 = NULL;
-	m_scroll2 = NULL;
-	m_scroll3 = NULL;
-	m_obj = NULL;
-	m_other = NULL;
+	m_scroll1 = nullptr;
+	m_scroll2 = nullptr;
+	m_scroll3 = nullptr;
+	m_obj = nullptr;
+	m_other = nullptr;
 	cps1_get_video_base();   /* Calculate base pointers */
 	cps1_get_video_base();   /* Calculate old base pointers */
 
@@ -2427,11 +2427,11 @@ VIDEO_START_MEMBER(cps_state,cps)
 	save_item(NAME(m_pri_ctrl));
 	save_item(NAME(m_objram_bank));
 
-	save_pointer(NAME(m_buffered_obj), m_obj_size / 2);
+	save_pointer(NAME(m_buffered_obj.get()), m_obj_size / 2);
 	if (m_cps_version == 2)
 	{
 		save_item(NAME(m_cps2_last_sprite_offset));
-		save_pointer(NAME(m_cps2_buffered_obj), m_cps2_obj_size / 2);
+		save_pointer(NAME(m_cps2_buffered_obj.get()), m_cps2_obj_size / 2);
 	}
 
 	machine().save().register_postload(save_prepost_delegate(FUNC(cps_state::cps1_get_video_base), this));
@@ -2590,7 +2590,7 @@ void cps_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 
 
 	int i, baseadd;
-	UINT16 *base = m_buffered_obj;
+	UINT16 *base = m_buffered_obj.get();
 
 	/* some sf2 hacks draw the sprites in reverse order */
 	if BIT(m_game_config->bootleg_kludge, 6) // HBMAME
@@ -2783,7 +2783,7 @@ UINT16 *cps_state::cps2_objbase()
 void cps_state::cps2_find_last_sprite()    /* Find the offset of last sprite */
 {
 	int offset = 0;
-	UINT16 *base = m_cps2_buffered_obj;
+	UINT16 *base = m_cps2_buffered_obj.get();
 
 	/* Locate the end of table marker */
 	while (offset < m_cps2_obj_size / 2)
@@ -2822,7 +2822,7 @@ void cps_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 }
 
 	int i;
-	UINT16 *base = m_cps2_buffered_obj;
+	UINT16 *base = m_cps2_buffered_obj.get();
 	int xoffs = 64 - m_output[CPS2_OBJ_XOFFS /2];
 	int yoffs = 16 - m_output[CPS2_OBJ_YOFFS /2];
 
@@ -3212,7 +3212,7 @@ void cps_state::screen_eof_cps1(screen_device &screen, bool state)
 		if (m_cps_version == 1)
 		{
 			/* CPS1 sprites have to be delayed one frame */
-			memcpy(m_buffered_obj, m_obj, m_obj_size);
+			memcpy(m_buffered_obj.get(), m_obj, m_obj_size);
 		}
 	}
 }
@@ -3225,5 +3225,5 @@ void cps_state::cps2_set_sprite_priorities()
 void cps_state::cps2_objram_latch()
 {
 	cps2_set_sprite_priorities();
-	memcpy(m_cps2_buffered_obj, cps2_objbase(), m_cps2_obj_size);
+	memcpy(m_cps2_buffered_obj.get(), cps2_objbase(), m_cps2_obj_size);
 }

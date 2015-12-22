@@ -36,14 +36,14 @@
 ***************************************************************************/
 
 /* these refer to the single image currently loaded by the ScreenShot functions */
-static HGLOBAL   m_hDIB = NULL;
-static HPALETTE  m_hPal = NULL;
-static HANDLE m_hDDB = NULL;
+static HGLOBAL   m_hDIB = nullptr;
+static HPALETTE  m_hPal = nullptr;
+static HANDLE m_hDDB = nullptr;
 
 /* PNG variables */
 
 static int   copy_size = 0;
-static char* pixel_ptr = 0;
+static char* pixel_ptr = nullptr;
 static int   row = 0;
 static int   effWidth;
 static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type);

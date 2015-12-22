@@ -722,10 +722,11 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 		}
 	}
 
-	strncpy(buffer, utf8_buffer, bufferlength);
-
-	if( utf8_buffer )
+	if (utf8_buffer)
+	{
+		strncpy(buffer, utf8_buffer, bufferlength);
 		osd_free(utf8_buffer);
+	}
 
 	if( t_buffer )
 		free(t_buffer);
