@@ -15,12 +15,20 @@ UINT16 tms32051_device::POP_STACK()
 	return pc;
 }
 
-INT32 tms32051_device::SUB(UINT32 a, UINT32 b)
+INT32 tms32051_device::SUB(UINT32 a, UINT32 b, int shift)
 {
 	UINT32 res = a - b;
 
-	// C is cleared if borrow was generated
-	m_st1.c = (b > a) ? 0 : 1;
+	if (shift > 0)
+	{
+		// C is cleared if borrow was generated, otherwise unaffected
+		if (b > a) m_st1.c = 0;
+	}
+	else
+	{
+		// C is cleared if borrow was generated
+		m_st1.c = (b > a) ? 0 : 1;
+	}
 
 	// check overflow
 	if ((a ^ b) & (a ^ res) & 0x80000000)
@@ -37,12 +45,20 @@ INT32 tms32051_device::SUB(UINT32 a, UINT32 b)
 	return (INT32)(res);
 }
 
-INT32 tms32051_device::ADD(UINT32 a, UINT32 b)
+INT32 tms32051_device::ADD(UINT32 a, UINT32 b, int shift)
 {
 	UINT32 res = a + b;
 
-	// C is set if carry was generated
-	m_st1.c = (a > res) ? 1 : 0;
+	if (shift > 0)
+	{
+		// C is set if carry was generated, otherwise unaffected
+		if (a > res) m_st1.c = 1;
+	}
+	else
+	{
+		// C is set if carry was generated
+		m_st1.c = (a > res) ? 1 : 0;
+	}
 
 	// check overflow
 	if ((a ^ res) & (b ^ res) & 0x80000000)
@@ -302,7 +318,7 @@ void tms32051_device::op_add_mem()
 		d = (UINT32)(UINT16)(data) << shift;
 	}
 
-	m_acc = ADD(m_acc, d);
+	m_acc = ADD(m_acc, d, shift);
 
 	CYCLES(1);
 }
@@ -311,7 +327,7 @@ void tms32051_device::op_add_simm()
 {
 	UINT16 imm = m_op & 0xff;
 
-	m_acc = ADD(m_acc, imm);
+	m_acc = ADD(m_acc, imm, 0);
 
 	CYCLES(1);
 }
@@ -331,7 +347,7 @@ void tms32051_device::op_add_limm()
 		d = (UINT32)(UINT16)(imm) << shift;
 	}
 
-	m_acc = ADD(m_acc, d);
+	m_acc = ADD(m_acc, d, shift);
 
 	CYCLES(2);
 }
@@ -341,14 +357,14 @@ void tms32051_device::op_add_s16_mem()
 	UINT16 ea = GET_ADDRESS();
 	UINT32 data = DM_READ16(ea) << 16;
 
-	m_acc = ADD(m_acc, data);
+	m_acc = ADD(m_acc, data, 0);
 
 	CYCLES(1);
 }
 
 void tms32051_device::op_addb()
 {
-	m_acc = ADD(m_acc, m_accb);
+	m_acc = ADD(m_acc, m_accb, 0);
 
 	CYCLES(1);
 }
@@ -663,12 +679,22 @@ void tms32051_device::op_sath()
 
 void tms32051_device::op_satl()
 {
-	fatalerror("32051: unimplemented op satl at %08X\n", m_pc-1);
+	int count = m_treg1 & 0xf;
+	if (m_st1.sxm)
+	{
+		m_acc = (INT32)(m_acc) >> count;
+	}
+	else
+	{
+		m_acc = (UINT32)(m_acc) >> count;
+	}
+
+	CYCLES(1);
 }
 
 void tms32051_device::op_sbb()
 {
-	m_acc = SUB(m_acc, m_accb);
+	m_acc = SUB(m_acc, m_accb, 0);
 
 	CYCLES(1);
 }
@@ -735,7 +761,7 @@ void tms32051_device::op_sub_mem()
 		d = (UINT32)(UINT16)(data) << shift;
 	}
 
-	m_acc = SUB(m_acc, d);
+	m_acc = SUB(m_acc, d, shift);
 
 	CYCLES(1);
 }
@@ -749,7 +775,7 @@ void tms32051_device::op_sub_simm()
 {
 	UINT16 imm = m_op & 0xff;
 
-	m_acc = SUB(m_acc, imm);
+	m_acc = SUB(m_acc, imm, 0);
 
 	CYCLES(1);
 }
@@ -769,7 +795,7 @@ void tms32051_device::op_sub_limm()
 		d = (UINT32)(UINT16)(imm) << shift;
 	}
 
-	m_acc = SUB(m_acc, d);
+	m_acc = SUB(m_acc, d, shift);
 
 	CYCLES(2);
 }
@@ -1093,7 +1119,19 @@ void tms32051_device::op_calld()
 
 void tms32051_device::op_cc()
 {
-	fatalerror("32051: unimplemented op cc at %08X\n", m_pc-1);
+	UINT16 pma = ROPCODE();
+
+	if (GET_ZLVC_CONDITION((m_op >> 4) & 0xf, m_op & 0xf) || GET_TP_CONDITION((m_op >> 8) & 0x3))
+	{
+		PUSH_STACK(m_pc);
+
+		CHANGE_PC(pma);
+		CYCLES(4);
+	}
+	else
+	{
+		CYCLES(2);
+	}
 }
 
 void tms32051_device::op_ccd()
@@ -1456,7 +1494,7 @@ void tms32051_device::op_xpl_imm()
 void tms32051_device::op_apac()
 {
 	INT32 spreg = PREG_PSCALER(m_preg);
-	m_acc = ADD(m_acc, spreg);
+	m_acc = ADD(m_acc, spreg, 0);
 
 	CYCLES(1);
 }
@@ -1489,7 +1527,7 @@ void tms32051_device::op_lta()
 
 	m_treg0 = data;
 	spreg = PREG_PSCALER(m_preg);
-	m_acc = ADD(m_acc, spreg);
+	m_acc = ADD(m_acc, spreg, 0);
 	if (m_pmst.trm == 0)
 	{
 		m_treg1 = data;
@@ -1590,7 +1628,11 @@ void tms32051_device::op_sph()
 
 void tms32051_device::op_spl()
 {
-	fatalerror("32051: unimplemented op spl at %08X\n", m_pc-1);
+	UINT16 ea = GET_ADDRESS();
+	UINT16 spreg = (UINT16)(PREG_PSCALER(m_preg));
+	DM_WRITE16(ea, spreg);
+
+	CYCLES(1);
 }
 
 void tms32051_device::op_spm()
@@ -1794,7 +1836,9 @@ void tms32051_device::op_setc_hold()
 
 void tms32051_device::op_setc_tc()
 {
-	fatalerror("32051: unimplemented op setc tc at %08X\n", m_pc-1);
+	m_st1.tc = 1;
+
+	CYCLES(1);
 }
 
 void tms32051_device::op_setc_carry()

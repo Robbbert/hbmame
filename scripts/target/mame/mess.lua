@@ -486,6 +486,7 @@ MACHINES["PC_LPT"] = true
 MACHINES["PCCARD"] = true
 MACHINES["PCF8593"] = true
 MACHINES["PCKEYBRD"] = true
+MACHINES["PDC"] = true
 MACHINES["PIC8259"] = true
 MACHINES["PIT68230"] = true
 MACHINES["PIT8253"] = true
@@ -808,10 +809,12 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"robotron",
 		"rockwell",
 		"roland",
+		"rolm",
 		"sage",
 		"samcoupe",
 		"samsung",
 		"sanyo",
+		"saturn",
 		"sega",
 		"sgi",
 		"sharp",
@@ -2360,12 +2363,22 @@ files {
 	MAME_DIR .. "src/mame/drivers/tb303.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "rolm")
+files {
+	MAME_DIR .. "src/mame/drivers/r9751.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "rockwell")
 files {
 	MAME_DIR .. "src/mame/drivers/aim65.cpp",
 	MAME_DIR .. "src/mame/includes/aim65.h",
 	MAME_DIR .. "src/mame/machine/aim65.cpp",
 	MAME_DIR .. "src/mame/drivers/aim65_40.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "saturn")
+files {
+	MAME_DIR .. "src/mame/drivers/st17xx.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "sage")
@@ -2713,6 +2726,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/geneve.cpp",
 	MAME_DIR .. "src/mame/drivers/ticalc1x.cpp",
 	MAME_DIR .. "src/mame/drivers/tispeak.cpp",
+	MAME_DIR .. "src/mame/drivers/tispellb.cpp",
 	MAME_DIR .. "src/mame/drivers/ti74.cpp",
 	MAME_DIR .. "src/mame/drivers/ti85.cpp",
 	MAME_DIR .. "src/mame/includes/ti85.h",

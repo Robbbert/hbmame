@@ -19,7 +19,7 @@
 TILE_GET_INFO_MEMBER(rungun_state::ttl_get_tile_info)
 {
 	UINT32 base_addr = (FPTR)tilemap.user_data();
-	UINT8 *lvram = (UINT8 *)m_ttl_vram + base_addr;
+	UINT8 *lvram = (UINT8 *)m_ttl_vram.get() + base_addr;
 	int attr, code;
 	
 	attr = (lvram[BYTE_XOR_LE(tile_index<<2)] & 0xf0) >> 4;
@@ -84,8 +84,8 @@ void rungun_state::video_start()
 
 	int gfx_index;
 
-	m_ttl_vram = auto_alloc_array(machine(), UINT16, 0x1000*2);
-	m_psac2_vram = auto_alloc_array(machine(), UINT16, 0x80000*2);
+	m_ttl_vram = std::make_unique<UINT16[]>(0x1000*2);
+	m_psac2_vram = std::make_unique<UINT16[]>(0x80000*2);
 
 	/* find first empty slot to decode gfx */
 	for (gfx_index = 0; gfx_index < MAX_GFX_ELEMENTS; gfx_index++)
@@ -95,7 +95,7 @@ void rungun_state::video_start()
 	assert(gfx_index != MAX_GFX_ELEMENTS);
 
 	// decode the ttl layer's gfx
-	m_gfxdecode->set_gfx(gfx_index, global_alloc(gfx_element(m_palette, charlayout, memregion("gfx3")->base(), 0, m_palette->entries() / 16, 0)));
+	m_gfxdecode->set_gfx(gfx_index, std::make_unique<gfx_element>(m_palette, charlayout, memregion("gfx3")->base(), 0, m_palette->entries() / 16, 0));
 	m_ttl_gfx_index = gfx_index;
 
 	// create the tilemaps

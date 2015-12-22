@@ -225,10 +225,10 @@ VIDEO_START_MEMBER(megasys1_state,megasys1)
 
 	m_spriteram = &m_ram[0x8000/2];
 
-	m_buffer_objectram = auto_alloc_array(machine(), UINT16, 0x2000);
-	m_buffer_spriteram16 = auto_alloc_array(machine(), UINT16, 0x2000);
-	m_buffer2_objectram = auto_alloc_array(machine(), UINT16, 0x2000);
-	m_buffer2_spriteram16 = auto_alloc_array(machine(), UINT16, 0x2000);
+	m_buffer_objectram = std::make_unique<UINT16[]>(0x2000);
+	m_buffer_spriteram16 = std::make_unique<UINT16[]>(0x2000);
+	m_buffer2_objectram = std::make_unique<UINT16[]>(0x2000);
+	m_buffer2_spriteram16 = std::make_unique<UINT16[]>(0x2000);
 
 	create_tilemaps();
 	m_tmap[0] = m_tilemap[0][0][0];
@@ -415,6 +415,9 @@ WRITE16_MEMBER(megasys1_state::megasys1_vregs_A_w)
 {
 	UINT16 new_data = COMBINE_DATA(&m_vregs[offset]);
 
+	if(((offset*2) & 0x300) == 0)
+		m_screen->update_partial(m_screen->vpos());
+	
 	switch (offset)
 	{
 		case 0x000/2   :    m_active_layers = new_data; break;
@@ -658,7 +661,7 @@ inline void megasys1_state::draw_16x16_priority_sprite(screen_device &screen, bi
 
 //	if (sy >= nScreenHeight || sy < -15 || sx >= nScreenWidth || sx < -15) return;
 	gfx_element *decodegfx = m_gfxdecode->gfx(3);
-	sy = sy + cliprect.min_y;
+	sy = sy + 16;
 
 	const UINT8* gfx = decodegfx->get_data(code);
 
@@ -725,8 +728,8 @@ void megasys1_state::draw_sprites(screen_device &screen, bitmap_ind16 &bitmap,co
 
 		INT32 color_mask = (m_sprite_flag & 0x100) ? 0x07 : 0x0f;
 
-		UINT16 *objectram = (UINT16*)m_buffer2_objectram;
-		UINT16 *spriteram = (UINT16*)m_buffer2_spriteram16;
+		UINT16 *objectram = (UINT16*)m_buffer2_objectram.get();
+		UINT16 *spriteram = (UINT16*)m_buffer2_spriteram16.get();
 
 		for (INT32 offs = (0x800-8)/2; offs >= 0; offs -= 4)
 		{
@@ -1179,11 +1182,11 @@ void megasys1_state::screen_eof_megasys1(screen_device &screen, bool state)
 	{
 		/* Sprite are TWO frames ahead, like NMK16 HW. */
 	//m_objectram
-		memcpy(m_buffer2_objectram,m_buffer_objectram, 0x2000);
-		memcpy(m_buffer_objectram, m_objectram, 0x2000);
+		memcpy(m_buffer2_objectram.get(),m_buffer_objectram.get(), 0x2000);
+		memcpy(m_buffer_objectram.get(), m_objectram, 0x2000);
 	//spriteram16
-		memcpy(m_buffer2_spriteram16, m_buffer_spriteram16, 0x2000);
-		memcpy(m_buffer_spriteram16, m_spriteram, 0x2000);
+		memcpy(m_buffer2_spriteram16.get(), m_buffer_spriteram16.get(), 0x2000);
+		memcpy(m_buffer_spriteram16.get(), m_spriteram, 0x2000);
 	}
 
 }

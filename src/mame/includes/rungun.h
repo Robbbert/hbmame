@@ -50,9 +50,9 @@ public:
 	/* video-related */
 	tilemap_t   *m_ttl_tilemap[2];
 	tilemap_t   *m_936_tilemap[2];
-	UINT16		*m_psac2_vram;
-	UINT16      *m_ttl_vram;
-	UINT16		*m_pal_ram;
+	std::unique_ptr<UINT16[]> m_psac2_vram;
+	std::unique_ptr<UINT16[]>    m_ttl_vram;
+	std::unique_ptr<UINT16[]>	m_pal_ram;
 	UINT8		m_current_display_bank;
 	int         m_ttl_gfx_index;
 	int         m_sprite_colorbase;
@@ -66,7 +66,7 @@ public:
 	UINT8       m_sound_nmi_clk;
 	
 	bool		m_video_priority_mode;
-	UINT16		*m_banked_ram;
+	std::unique_ptr<UINT16[]> m_banked_ram;
 	bool		m_single_screen_mode;
 	UINT8		m_video_mux_bank;
 	

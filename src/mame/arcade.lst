@@ -1534,6 +1534,7 @@ schasera        // RT  Taito
 schaserb        // RT  Taito
 schaserc        // RT  Taito
 schasercv       // RT  Taito
+schaserm		// Model Racing
 lupin3          // LP  (c) 1980 Taito
 lupin3a         // LP  (c) 1980 Taito
 intruder        // (c) 1980 GamePlan (Taito)
@@ -2116,6 +2117,7 @@ knightb         // bootleg
 kicknrun        // A87 (c) 1986 Taito Corporation
 kicknrunu       // A87 (c) 1986 Taito Corporation
 mexico86        // bootleg (Micro Research)
+mexico86a		// bootleg
 darius          // A96 (c) 1986 Taito Corporation Japan (World)
 dariusu         // A96 (c) 1986 Taito America Corporation (US)
 dariusj         // A96 (c) 1986 Taito Corporation (Japan)
@@ -3251,6 +3253,7 @@ sf2v004         // hack
 sf2acc          // hack
 sf2acca         // hack
 sf2ceblp        // hack
+sf2cebltw		// hack
 sf2accp2        // hack
 sf2amf          // bootleg
 sf2amf2         // bootleg
@@ -3385,6 +3388,7 @@ vampja          // 05/07/1994 (c) 1994 (Japan)
 vampjr1         // 30/06/1994 (c) 1994 (Japan)
 ringdest        // 02/09/1994 (c) 1994 (Euro)
 ringdesta       // 31/08/1994 (c) 1994 (Asia)
+ringdesth		// 02/09/1994 (c) 1994 (Hispanic)
 smbomb          // 31/08/1994 (c) 1994 (Japan)
 smbombr1        // 08/08/1994 (c) 1994 (Japan)
 armwar          // 24/10/1994 (c) 1994 (Euro)
@@ -4129,6 +4133,7 @@ tsurugij        // 2001
 wcombat         // 2002
 wcombatk        // 2002
 wcombatj        // 2002
+wcombatu		// 2002
 xtrial          // 2002
 mfightc         // 2002
 mfightcc        // 2002
@@ -8136,6 +8141,7 @@ vball2pjb       // bootleg (of Japan set)
 ddragon2        // TA-0026 (c) 1988 (World)
 ddragon2u       // TA-0026 (c) 1988 (US)
 ddragon2j       // TA-0026 (c) 1988 (Japan)
+ddragon2b		// bootleg
 toffy           // (c) 1993 Midas
 stoffy          // (c) 1994 Midas
 stoffyu         // (c) 1994 Midas + Unico
@@ -9138,8 +9144,8 @@ wrallya         // (c) 1993 - Ref 930705
 wrallyb         // (c) 1993 - Ref 930217
 glass           // (c) 1993 - Ref 931021
 glass10         // (c) 1993 - Ref 931021
-glassbrk        // (c) 1993 - Ref 931021 shows "Break Edition" on a real PCB
-glass94			// (c) 1994 - Ref 931021 shows 1994 version, Anime girls, unprotected
+glass10a        // (c) 1993 - Ref 931021 shows "Break Edition" on a real PCB
+glasskr			// (c) 1994 - Ref 931021 shows 1994 version, Anime girls, unprotected
 targeth         // (c) 1994 - Ref 940531
 targetha        // (c) 1994 - Ref 940531
 thoop2          // (c) 1994 - Ref ???
@@ -9538,6 +9544,7 @@ sparkman        // (c) 1989 SunA
 sparkmana       // (c) 1989 SunA
 starfigh        // (c) 1990 SunA
 hardhea2        // (c) 1991 SunA
+hardhea2b		// bootleg
 brickzn         // (c) 1992 SunA
 brickznv5       // (c) 1992 SunA
 brickznv4       // (c) 1992 SunA
@@ -9611,6 +9618,7 @@ zipzap          // (c) 1995 Barko Corp
 missw96         // (c) 1996 Comad
 missw96a        // (c) 1996 Comad
 missw96b        // (c) 1996 Comad
+missw96c        // (c) 1996 Comad
 missmw96        // (c) 1996 Comad
 smissw          //
 fantsia2        // (c) 1997 Comad
@@ -10074,6 +10082,7 @@ drgnwrldv21j    // (c) 1995
 drgnwrldv20j    // (c) 1995
 drgnwrldv10c    // (c) 1995
 drgnwrldv11h    // (c) 1995
+drgnwrldv40k
 nkishusp        // (c) 1998
 
 // IGS017 / IGS031 Games
@@ -10662,6 +10671,7 @@ driblingbr      // bootleg
 ace             // [1976 Allied Leisure]
 clayshoo        // [1979 Allied Leisure]
 pirates         // (c) 1994 NIX
+piratesb		// bootleg?
 genix           // (c) 199? NIX
 fitfight        // bootleg of Art of Fighting
 histryma        // bootleg of Fighter's History
@@ -11895,6 +11905,7 @@ pexmp013        // (c) 1997 IGT - International Game Technology
 pexmp017        // (c) 1997 IGT - International Game Technology
 pexmp017a       // (c) 1997 IGT - International Game Technology
 pexmp017b       // (c) 1997 IGT - International Game Technology
+pexmp022        // (c) 1997 IGT - International Game Technology
 pexmp026        // (c) 1997 IGT - International Game Technology
 pexmp030        // (c) 1997 IGT - International Game Technology
 pexmp030a       // (c) 1997 IGT - International Game Technology

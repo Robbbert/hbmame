@@ -17,6 +17,8 @@
 #include "debug/debugvw.h"
 #include "debug/dvdisasm.h"
 #include "debug/dvmemory.h"
+#include "debug/dvbpoints.h"
+#include "debug/dvwpoints.h"
 #include "debug/debugcon.h"
 #include "debug/debugcpu.h"
 
@@ -275,6 +277,7 @@ static DView *          focus_view;
 
 static ui_menu *        menu;
 static DView_edit *     cur_editor;
+static int              win_count;
 
 static void set_focus_view(DView *dv)
 {
@@ -289,7 +292,7 @@ static void set_focus_view(DView *dv)
 		focus_view = dv;
 		LIST_REMOVE(list, dv, DView);
 		LIST_ADD_FRONT(list, dv, DView);
-		dv->target->debug_top(*dv->container);
+		dv->target->debug_append(*dv->container);
 	}
 }
 
@@ -754,20 +757,18 @@ static void dview_draw(DView *dv)
 			UINT16 s = ' ';
 			unsigned char v = viewdata->byte;
 
-//			if (v != ' ')
-			{
-				if(v < 128) {
-					s = v;
-				} else {
-					s = 0xc0 | (v>>6);
-					s |= (0x80 | (v & 0x3f));
-				}
-				map_attr_to_fg_bg(viewdata->attrib, &fg, &bg);
-				if (bg != bg_base)
-					dview_draw_box(dv, RECT_DVIEW_CLIENT, xx, yy,
-							debug_font_width, debug_font_height, bg);
-				dview_draw_char(dv, RECT_DVIEW_CLIENT, xx, yy, debug_font_height, fg, s);
+			if(v < 128) {
+				s = v;
+			} else {
+				s = 0xc0 | (v>>6);
+				s |= (0x80 | (v & 0x3f));
 			}
+			map_attr_to_fg_bg(viewdata->attrib, &fg, &bg);
+			if (bg != bg_base)
+				dview_draw_box(dv, RECT_DVIEW_CLIENT, xx, yy,
+						debug_font_width, debug_font_height, bg);
+			if (v != ' ')
+				dview_draw_char(dv, RECT_DVIEW_CLIENT, xx, yy, debug_font_height, fg, s);
 			xx += debug_font_width;
 			viewdata++;
 		}
@@ -1012,6 +1013,10 @@ static void on_memory_window_activate(DView *dv, const ui_menu_event *event)
 	ndv->editor.container = &dv->machine().render().ui_container();
 	source = ndv->view->source();
 	dview_set_title(ndv, source->name());
+	ndv->ofs_x = ndv->ofs_y = win_count * TITLE_HEIGHT;
+	ndv->bounds.setx(0,500);
+	win_count++;
+
 	set_focus_view(ndv);
 }
 
@@ -1028,8 +1033,9 @@ static void on_disassembly_window_activate(DView *dv, const ui_menu_event *event
 	ndv->editor.container = &dv->machine().render().ui_container();
 	source = ndv->view->source();
 	dview_set_title(ndv, source->name());
+	ndv->ofs_x = ndv->ofs_y = win_count * TITLE_HEIGHT;
+	win_count++;
 	set_focus_view(ndv);
-
 }
 
 static void on_disasm_cpu_activate(DView *dv, const ui_menu_event *event)
@@ -1055,6 +1061,37 @@ static void on_log_window_activate(DView *dv, const ui_menu_event *event)
 	target = &dv->machine().render().ui_target();
 	ndv = dview_alloc(target, dv->machine(), DVT_LOG, 0);
 	dview_set_title(ndv, "Log");
+	ndv->ofs_x = ndv->ofs_y = win_count * TITLE_HEIGHT;
+	ndv->bounds.setx(0,600);
+	win_count++;
+	set_focus_view(ndv);
+}
+
+static void on_bp_window_activate(DView *dv, const ui_menu_event *event)
+{
+	DView *ndv;
+	render_target *target;
+
+	target = &dv->machine().render().ui_target();
+	ndv = dview_alloc(target, dv->machine(), DVT_BREAK_POINTS, 0);
+	dview_set_title(ndv, "Breakpoints");
+	ndv->ofs_x = ndv->ofs_y = win_count * TITLE_HEIGHT;
+	ndv->bounds.setx(0,600);
+	win_count++;
+	set_focus_view(ndv);
+}
+
+static void on_wp_window_activate(DView *dv, const ui_menu_event *event)
+{
+	DView *ndv;
+	render_target *target;
+
+	target = &dv->machine().render().ui_target();
+	ndv = dview_alloc(target, dv->machine(), DVT_WATCH_POINTS, 0);
+	dview_set_title(ndv, "Watchpoints");
+	ndv->ofs_x = ndv->ofs_y = win_count * TITLE_HEIGHT;
+	ndv->bounds.setx(0,600);
+	win_count++;
 	set_focus_view(ndv);
 }
 
@@ -1062,6 +1099,7 @@ static void on_close_activate(DView *dv, const ui_menu_event *event)
 {
 	if (focus_view == dv)
 		set_focus_view(dv->next);
+	win_count--;
 	dview_free(dv);
 }
 
@@ -1299,6 +1337,12 @@ static void CreateMainMenu(running_machine &machine)
 	case DVT_STATE:
 		title = "State:";
 		break;
+	case DVT_BREAK_POINTS:
+		title = "Breakpoints:";
+		break;
+	case DVT_WATCH_POINTS:
+		title = "Watchpoints:";
+		break;
 	}
 
 	menu->item_append(title.append(focus_view->title).c_str(), nullptr, MENU_FLAG_DISABLE, nullptr);
@@ -1356,6 +1400,8 @@ static void CreateMainMenu(running_machine &machine)
 	menu->item_append("New Memory Window", nullptr, 0, (void *)on_memory_window_activate);
 	menu->item_append("New Disassembly Window", nullptr, 0, (void *)on_disassembly_window_activate);
 	menu->item_append("New Error Log Window", nullptr, 0, (void *)on_log_window_activate);
+	menu->item_append("New Breakpoints Window", nullptr, 0, (void *)on_bp_window_activate);
+	menu->item_append("New Watchpoints Window", nullptr, 0, (void *)on_wp_window_activate);
 	menu->item_append(MENU_SEPARATOR_ITEM, nullptr, 0, nullptr);
 	menu->item_append("Run", nullptr, 0, (void *)on_run_activate);
 	menu->item_append("Run and Hide Debugger", nullptr, 0, (void *)on_run_h_activate);
@@ -1568,15 +1614,10 @@ static void dview_update_view(DView *dv)
 
 static void update_views(void)
 {
-	DView *dv, *prev;
+	DView *dv;
 
-	LIST_GET_LAST(list, dv);
-	while (dv != nullptr)
-	{
+	for(dv=list;dv!=nullptr;dv=dv->next)
 		dview_update_view(dv);
-		LIST_GET_PREVIOUS(list, dv, prev);
-		dv = prev;
-	}
 }
 
 
@@ -1587,20 +1628,28 @@ void debug_internal::wait_for_debugger(device_t &device, bool firststop)
 		render_target *target = &device.machine().render().ui_target();
 
 		//set_view_by_name(target, "Debug");
+		win_count = 0;
 
 		DView *disassembly = dview_alloc(target, device.machine(), DVT_DISASSEMBLY, VIEW_STATE_FOLLOW_CPU);
 		disassembly->editor.active = TRUE;
 		disassembly->editor.container = &device.machine().render().ui_container();
-		disassembly->ofs_x = 300;
+		disassembly->ofs_x = 500;
+		disassembly->bounds.setx(0,600);
+		win_count++;
 
-		dview_alloc(target, device.machine(), DVT_STATE, VIEW_STATE_FOLLOW_CPU);
-
+		DView *statewin = dview_alloc(target, device.machine(), DVT_STATE, VIEW_STATE_FOLLOW_CPU);
+		statewin->ofs_x = 350;
+		statewin->bounds.set(0,150,0,600);
+		win_count++;
+		
 		DView *console = dview_alloc(target, device.machine(), DVT_CONSOLE, VIEW_STATE_FOLLOW_CPU);
 		dview_set_title(console, "Console");
 		console->editor.active = TRUE;
 		console->editor.container = &device.machine().render().ui_container();
 		console->bounds.setx(0,600);
-		console->ofs_x = 600;
+		console->ofs_x = 500;
+		console->ofs_y = 300;
+		win_count++;
 		set_focus_view(console);
 	}
 

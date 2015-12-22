@@ -2268,7 +2268,20 @@ phpball     // Tomy
 elecbowl    // Marx
 mbdtower    // Milton Bradley
 
-// hh_tms1k tispeak.c
+// hh_tms1k ticalc1x.cpp
+tisr16
+tisr16ii
+ti1270
+ti1000
+ti30
+tiprog
+tibusan1
+wizatron
+lilprof
+lilprof78
+dataman
+
+// hh_tms1k tispeak.cpp
 snspell
 snspellp
 snspella
@@ -2288,18 +2301,9 @@ tntellfr
 tntellp
 vocaid
 
-// hh_tms1k ticalc1x.c
-tisr16
-tisr16ii
-ti1270
-ti1000
-ti30
-tiprog
-tibusan1
-wizatron
-lilprof
-lilprof78
-dataman
+// hh_tms1k tispellb.cpp
+spellb
+mrchalgr
 
 // hh_ucom4
 ufombs      // Bambino
@@ -2337,7 +2341,7 @@ wildfire    // Parker Bros
 
 ssem // Manchester Small-Scale Experimental Machine, "Baby"
 craft // Craft, by [lft]
-
+r9751 // ROLM 9751 phone system
 
 //********** To sort (mostly skeleton drivers) *****************************
 
@@ -2779,3 +2783,13 @@ micral
 rd100
 proteus3
 unichamp
+st1700h
+st1701
+st1702
+st1703
+st1704
+st1705
+st1706
+st1707
+st1708
+st1714

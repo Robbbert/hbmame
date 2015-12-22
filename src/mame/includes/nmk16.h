@@ -55,8 +55,8 @@ public:
 	int mask[4*2];
 	int m_simple_scroll;
 	int m_redraw_bitmap;
-	UINT16 *m_spriteram_old;
-	UINT16 *m_spriteram_old2;
+	std::unique_ptr<UINT16[]> m_spriteram_old;
+	std::unique_ptr<UINT16[]> m_spriteram_old2;
 	int m_bgbank;
 	int m_videoshift;
 	int m_bioship_background_bank;
@@ -67,7 +67,7 @@ public:
 	tilemap_t *m_bg_tilemap3;
 	tilemap_t *m_tx_tilemap;
 	tilemap_t *m_fg_tilemap;
-	bitmap_ind16 *m_background_bitmap;
+	std::unique_ptr<bitmap_ind16> m_background_bitmap;
 	int m_mustang_bg_xscroll;
 	UINT8 m_scroll[4];
 	UINT8 m_scroll_2[4];

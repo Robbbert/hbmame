@@ -565,9 +565,9 @@ public:
 	DECLARE_READ64_MEMBER(video_fifo_r);
 	DECLARE_WRITE64_MEMBER(video_fifo_w);
 
-	UINT32 *m_screen_ram;
-	UINT32 *m_frame_ram;
-	UINT32 *m_texture_ram;
+	std::unique_ptr<UINT32[]> m_screen_ram;
+	std::unique_ptr<UINT32[]> m_frame_ram;
+	std::unique_ptr<UINT32[]> m_texture_ram;
 	UINT32 m_video_unk_reg[0x10];
 
 	UINT32 m_video_fifo_ptr;
@@ -593,7 +593,7 @@ public:
 	UINT32 m_displist_addr;
 	int m_count;
 
-	taitotz_renderer *m_renderer;
+	std::unique_ptr<taitotz_renderer> m_renderer;
 	DECLARE_DRIVER_INIT(batlgr2a);
 	DECLARE_DRIVER_INIT(batlgr2);
 	DECLARE_DRIVER_INIT(pwrshovl);
@@ -626,7 +626,7 @@ public:
 		: poly_manager<float, taitotz_polydata, 6, 50000>(state.machine()),
 			m_state(state)
 	{
-		m_zbuffer = auto_bitmap_ind32_alloc(state.machine(), width, height);
+		m_zbuffer = std::make_unique<bitmap_ind32>(width, height);
 		m_texture = texram;
 
 		m_diffuse_intensity = 224;
@@ -659,7 +659,7 @@ private:
 
 	taitotz_state &m_state;
 	bitmap_rgb32 *m_fb;
-	bitmap_ind32 *m_zbuffer;
+	std::unique_ptr<bitmap_ind32> m_zbuffer;
 	UINT32 *m_texture;
 
 	PLANE m_clip_plane[6];
@@ -742,12 +742,12 @@ void taitotz_state::video_start()
 	int width = m_screen->width();
 	int height = m_screen->height();
 
-	m_screen_ram = auto_alloc_array(machine(), UINT32, 0x200000);
-	m_frame_ram = auto_alloc_array(machine(), UINT32, 0x80000);
-	m_texture_ram = auto_alloc_array(machine(), UINT32, 0x800000);
+	m_screen_ram = std::make_unique<UINT32[]>(0x200000);
+	m_frame_ram = std::make_unique<UINT32[]>(0x80000);
+	m_texture_ram = std::make_unique<UINT32[]>(0x800000);
 
 	/* create renderer */
-	m_renderer = auto_alloc(machine(), taitotz_renderer(*this, width, height, m_texture_ram));
+	m_renderer = std::make_unique<taitotz_renderer>(*this, width, height, m_texture_ram.get());
 
 	//machine().add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(taitotz_exit), &machine()));
 }
@@ -2668,10 +2668,10 @@ static MACHINE_CONFIG_START( taitotz, taitotz_state )
 
 	/* TMP95C063F I/O CPU */
 	MCFG_CPU_ADD("iocpu", TMP95C063, 25000000)
-	MCFG_TMP95C063_PORT9_WRITE(IOPORT("INPUTS1"))
-	MCFG_TMP95C063_PORTB_WRITE(IOPORT("INPUTS2"))
-	MCFG_TMP95C063_PORTD_WRITE(IOPORT("INPUTS3"))
-	MCFG_TMP95C063_PORTE_WRITE(IOPORT("INPUTS4"))
+	MCFG_TMP95C063_PORT9_READ(IOPORT("INPUTS1"))
+	MCFG_TMP95C063_PORTB_READ(IOPORT("INPUTS2"))
+	MCFG_TMP95C063_PORTD_READ(IOPORT("INPUTS3"))
+	MCFG_TMP95C063_PORTE_READ(IOPORT("INPUTS4"))
 
 	MCFG_CPU_PROGRAM_MAP(tlcs900h_mem)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", taitotz_state,  taitotz_vbi)
