@@ -799,6 +799,7 @@ kof2000d
 kof2000r
 kof2kbh
 kof2kbj
+kof2kbsd
 kof2kce
 kof2kch
 kof2kcp
@@ -824,6 +825,7 @@ kof2kseh
 kof2kst
 kof2kwh
 kof2kwh2
+kof2kxxx
 kof2ky
 kof2kyd
 kof2kyg
@@ -831,14 +833,11 @@ kof2kz
 kof2kzs
 
 	/* kof2001 */
-cthd2k3b
-ct2k3eh
-ct2k3k3
-ct2k3k3o
 kof2001d
 kof2k1ay
 kof2k1b
 kof2k1b3
+kof2k1b4
 kof2k1bd2
 kof2k1bh
 kof2k1ce
@@ -859,6 +858,7 @@ kof2k1eh
 kof2k1ehc
 kof2k1ehr
 kof2k1gm
+kof2k1guan
 kof2k1ha
 kof2k1ha2
 kof2k1hao
@@ -883,11 +883,13 @@ kof2k1k3e
 kof2k1k3f
 kof2k1k3g
 kof2k1k3h
+kof2k1ki
 kof2k1lse
 kof2k1mk2
 kof2k1mk
 kof2k1mke
 kof2k1pa
+kof2k1pa2
 kof2k1pjc
 kof2k1pjo
 kof2k1pj1
@@ -901,9 +903,21 @@ kof2k1rp1
 kof2k1ru
 kof2k1seh
 kof2k1sob
+kof2k1st2
 kof2k1wh
 kof2k1z1
 kof2k1z2
+
+kof2001n
+kf2k1bs
+//kf2k1pa
+//kf2k1pls
+kof2k1b_d
+kof2k1bs
+kof2k1h
+kof2k1rp_d
+kof2k1ru_d
+kof2k1st
 
 	/* kof2002 */
 kof2002d
@@ -1007,9 +1021,14 @@ kof2k2ul
 kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
-kof2k4ru // no sound in attract mode
-kof2k4se1
-kof2k8uni
+
+kof2k2bd
+kof2k2bld
+kof2k2evo2
+kof2k2ps2a
+kof2k2rs2
+kof2k2spl
+//kf2k2plc
 
 	/* kof2003 */
 kof2k3b
@@ -1017,6 +1036,16 @@ kof2k3gc
 kof2k3sc
 kof2k3tc
 kof2k3zgf
+
+kof2003d
+kof2k3br
+kof2k3bs4
+kof2k3d
+kof2k3hd
+kof2k3pcd
+//kof2k3bd
+//kof2k3pd
+//kof2k3upd
 
 	/* kyugo */
 airwolf		//parent
@@ -1431,6 +1460,7 @@ kof2000		/* 0257 (c) 2000 SNK */
 kof2001		/* 0262 (c) 2001 Eolith / SNK */
 kof2002		/* 0265 (c) 2002 Eolith / Playmore */
 kof2003
+kf2k3pcb
 kotm
 lastblad	/* 0234 (c) 1997 SNK */
 lastbld2	/* 0243 (c) 1998 SNK */
@@ -1628,7 +1658,6 @@ wakuwak7h
 wjammersk
 zupapad
 //diggerma duplicate name, to check
-//fstarfrcc
 
 
 	/* ngdoubledr */
@@ -1651,6 +1680,30 @@ garoupf
 garoupfu
 garoupfp
 garoupy1
+
+	/* ngkofmisc */
+cthd2k3b
+ct2k3eh
+ct2k3k3
+ct2k3k3o
+//ct2k3ad
+//ct2k3spd
+//cthd2k3a
+//cthd2k3d
+kof2k4mp
+kof2k4ru // no sound in attract mode
+kof2k4se1
+//kof2k4pls
+kof2k4seb
+kof2k4spl
+kof2k8uni
+//kof10thd
+kof10thu
+kof10thub
+kof10thud
+kogd
+kogf
+kogplus
 
 	/* nglastblade */
 lba
@@ -2254,46 +2307,3 @@ splatsc1
 yiear		/* GX407 (c) 1985 */
 nacho		/* Gatinho - Nacho Libre */
 
-	/* ngmamep */
-//ct2k3ad
-//ct2k3spd
-//cthd2k3a
-//cthd2k3d
-kf10thub
-kf10thud
-//kf2k1bs
-//kf2k1pa
-//kf2k1pls
-kf2k2bld
-kf2k2evo
-//kf2k2plc
-//kf2k2ps2
-kf2k2spl
-//kf2k3bd
-kf2k3bs4
-//kf2k3pcd
-//kf2k3pd
-//kf2k3upd
-//kf2k4pls
-kf2k4seb
-//kf2k4spl
-//kof10thd
-//kof10thu
-kof2001n
-//kof2003d
-kof2k1b_d
-kof2k1bs
-kof2k1h
-///kof2k1rp_d
-kof2k1ru_d
-kof2k1st
-//kof2k2bd
-kof2k2rs_d
-//kof2k3br
-//kof2k3hd
-//kof2k4mp
-//kof2kbsd
-//kof2kxxx
-kogd
-//kogf
-//kogplus

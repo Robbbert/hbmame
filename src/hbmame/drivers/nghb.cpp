@@ -7,6 +7,7 @@
     time permits.
 
 ****************************************************************************/
+#if 0
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
 #include "includes/nghb.h"
@@ -11147,8 +11148,6 @@ DRIVER_INIT_MEMBER(neogeo_class,sbp)
 /******************************************************************************/
 
 
-//#include "nghb1.cpp"
-#include "ngkof2000.cpp"
-#include "ngkof2001.cpp"
-#include "ngkof2002.cpp"
-#include "ngkof2003.cpp"
+//#include "ngkof2002.cpp"
+//#include "ngkof2003.cpp"
+#endif

@@ -2488,7 +2488,7 @@ ROM_START( kof2k2xxx )
 	ROM_LOAD16_BYTE( "265d.c7",   0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
 	ROM_LOAD16_BYTE( "265d.c8",   0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
-
+#if 0
 ROM_START( kof2k4ru )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265-ru.p1",  0x000000, 0x100000, CRC(69100ad2) SHA1(36a818fb6fbe8433df89187dcf171058128f4f22) )
@@ -2572,7 +2572,7 @@ ROM_START( kof2k8uni )
 	ROM_LOAD16_BYTE( "5009.c7", 0x3800000, 0x400000, CRC(1b6f3bde) SHA1(5e1222197f5a09837930cc34713667dc1644c02a) )
 	ROM_LOAD16_BYTE( "5009.c8", 0x3800001, 0x400000, CRC(113555e3) SHA1(52b48e182d23422492d95c95de4c86b1d30864e0) )
 ROM_END
-
+#endif
 
 
 GAME( 2002, kof2002d,    kof2002,  neogeo, neogeo, neogeo_class, kof2002d, ROT0, "Eolith / Playmore", "The King of Fighters 2002 (decrypted C)", MACHINE_SUPPORTS_SAVE )
@@ -2676,6 +2676,6 @@ GAME( 2002, kof2k2ul,    kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0,
 GAME( 2002, kof2k2ule,   kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Raymonose", "The King of Fighters 2002 (Add Char - Diff Move - Ultra kill start max - Ultra pow hack 030515)", MACHINE_SUPPORTS_SAVE ) // Kusanagi and Rugal
 GAME( 2002, kof2k2wuk,   kof2002,  neogeo, neogeo, neogeo_class, kof2002m, ROT0, "Wesker", "The King of Fighters 2002 (Ultra kill style - rev max2 - perfect)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2xxx,   kof2002,  neogeo, neogeo, neogeo_class, neogeo,   ROT0, "hack", "The King of Fighters 2002 (Perfect revised edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, kof2k4ru,    kof2002,  neogeo, neogeo, neogeo_class, neogeo,   ROT0, "MVS Hacks PSP", "The King of Fighters 2004 Remix Ultra 2.6F", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4se1,   kof2002,  neogeo, neogeo, neogeo_class, kof2k4se, ROT0, "bootleg", "The King of Fighters Special Edition 2004 (hack 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, kof2k8uni,   kof2002,  neogeo, neogeo, neogeo_class, neogeo,   ROT0, "bootleg", "The King of Fighters 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
+//GAME( 2010, kof2k4ru,    kof2002,  neogeo, neogeo, neogeo_class, neogeo,   ROT0, "MVS Hacks PSP", "The King of Fighters 2004 Remix Ultra 2.6F", MACHINE_SUPPORTS_SAVE )
+//GAME( 2004, kof2k4se1,   kof2002,  neogeo, neogeo, neogeo_class, kof2k4se, ROT0, "bootleg", "The King of Fighters Special Edition 2004 (hack 1)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2008, kof2k8uni,   kof2002,  neogeo, neogeo, neogeo_class, neogeo,   ROT0, "bootleg", "The King of Fighters 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )

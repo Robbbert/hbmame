@@ -11,9 +11,7 @@ class neogeo_hbmame : public neogeo_noslot_state //, public neogeo_noslot_kog_st
 public:
 	neogeo_hbmame(const machine_config &mconfig, device_type type, const char *tag)
 		: neogeo_noslot_state(mconfig, type, tag)
-		//, neogeo_noslot_kog_state(mconfig, type, tag)
-	//	, m_bootleg_prot(*this, "bootleg_prot"),
-	//	, m_kog_prot(*this, "kog_prot")
+		, m_kog_prot(*this, "kog_prot")
 	{}
 
 
@@ -26,18 +24,30 @@ public:
 	DECLARE_DRIVER_INIT(kof97pla);
 	DECLARE_DRIVER_INIT(kof99bh);
 	DECLARE_DRIVER_INIT(kof99d);
-//	DECLARE_DRIVER_INIT(kof2001d);
-//	DECLARE_DRIVER_INIT(kof2000d);
-//	DECLARE_DRIVER_INIT(kof2000h);
-//	DECLARE_DRIVER_INIT(kof2000m);
-//	DECLARE_DRIVER_INIT(kof2001m);
-//	DECLARE_DRIVER_INIT(kf2k1pls);
-//	DECLARE_DRIVER_INIT(kf2k1pa);
-//	DECLARE_DRIVER_INIT(kof2002d);
-//	DECLARE_DRIVER_INIT(kof2002m);
-//	DECLARE_DRIVER_INIT(kof2k2dbh);
-//	DECLARE_DRIVER_INIT(kof2k2h);
-//	DECLARE_DRIVER_INIT(kof2003b);
+	DECLARE_DRIVER_INIT(kof2000d);
+	DECLARE_DRIVER_INIT(kof2000h);
+	DECLARE_DRIVER_INIT(kof2000m);
+	DECLARE_DRIVER_INIT(kof2kbsd);
+	DECLARE_DRIVER_INIT(kof2knd);
+	DECLARE_DRIVER_INIT(kof2kxxx);
+	DECLARE_DRIVER_INIT(kof2001d);
+	DECLARE_DRIVER_INIT(kof2001m);
+	DECLARE_DRIVER_INIT(kf2k1pls);
+	DECLARE_DRIVER_INIT(kf2k1pa);
+	DECLARE_DRIVER_INIT(kof2002d);
+	DECLARE_DRIVER_INIT(kof2002m);
+	DECLARE_DRIVER_INIT(kof2k2bd);
+	DECLARE_DRIVER_INIT(kof2k2dbh);
+	DECLARE_DRIVER_INIT(kof2k2h);
+	DECLARE_DRIVER_INIT(kof2k2ps2a);
+	DECLARE_DRIVER_INIT(kof2003b);
+	DECLARE_DRIVER_INIT(kof2003d);
+	DECLARE_DRIVER_INIT(kof2k3br);
+	DECLARE_DRIVER_INIT(kof2k3d);
+	DECLARE_DRIVER_INIT(kof2k3hd);
+	DECLARE_DRIVER_INIT(kof2k3pcd);
+	DECLARE_DRIVER_INIT(kof10thu);
+	DECLARE_DRIVER_INIT(kogd);
 	DECLARE_DRIVER_INIT(matrima);
 	DECLARE_DRIVER_INIT(matrimd);
 	DECLARE_DRIVER_INIT(matrmehc);
@@ -72,8 +82,7 @@ public:
 	DECLARE_DRIVER_INIT(svcpcd);
 	DECLARE_DRIVER_INIT(svcplusb);
 private:
-	//optional_device<ngbootleg_prot_device> m_bootleg_prot;
-	//optional_device<kog_prot_device> m_kog_prot;
+	optional_device<kog_prot_device> m_kog_prot;
 };
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, cmc42sfix )
@@ -89,10 +98,6 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
-
-
-
-
 
 
 
@@ -147,15 +152,16 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 #include "kof97.cpp"
 #include "kof98.cpp"
 #include "kof99.cpp"
-//#include "kof2000.cpp"
-//#include "kof2001.cpp"
-//#include "kof2002.cpp"
-//#include "kof2003.cpp"
+#include "kof2000.cpp"
+#include "kof2001.cpp"
+#include "kof2002.cpp"
+#include "kof2003.cpp"
 #include "mgd2.cpp"
 #include "mslug.cpp"
 #include "ngdoubledr.cpp"
-#include "ngextra.cpp"
+//#include "ngextra.cpp"
 #include "nggaroup.cpp"
+#include "ngkofmisc.cpp"
 #include "nglastblade.cpp"
 #include "ngrbff.cpp"
 #include "ngrotd.cpp"
