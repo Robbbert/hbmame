@@ -834,12 +834,17 @@ kof2kzs
 
 	/* kof2001 */
 kof2001d
+kof2001n
 kof2k1ay
 kof2k1b
+kof2k1b1
 kof2k1b3
 kof2k1b4
 kof2k1bd2
 kof2k1bh
+kof2k1bh1
+kof2k1bs
+kof2k1bs2
 kof2k1ce
 kof2k1cfc
 kof2k1cf1
@@ -898,26 +903,20 @@ kof2k1pj3
 kof2k1pls
 kof2k1rm
 kof2k1rp
-kof2k1rpo
+kof2k1rp0
 kof2k1rp1
+kof2k1rpo
 kof2k1ru
+kof2k1ru0
 kof2k1seh
 kof2k1sob
+kof2k1st
 kof2k1st2
 kof2k1wh
 kof2k1z1
 kof2k1z2
-
-kof2001n
-kf2k1bs
 //kf2k1pa
 //kf2k1pls
-kof2k1b_d
-kof2k1bs
-kof2k1h
-kof2k1rp_d
-kof2k1ru_d
-kof2k1st
 
 	/* kof2002 */
 kof2002d
@@ -1704,6 +1703,7 @@ kof10thud
 kogd
 kogf
 kogplus
+kogplusf
 
 	/* nglastblade */
 lba

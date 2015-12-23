@@ -111,11 +111,12 @@ NUM YEAR COMPANY          TITLE
 350*                      Neo Dev Cart
 351*                      MVS Test Cart
 360 2003 PhenixSoft       Crouching Tiger Hidden Dragon (hack of kof2001) (original number 5003)
-361 2003 SNK?             King of Gladiator (hack of kof97)
+361 2003 SNK?             King of Gladiator (hack of kof97) (original number 5232)
 362 2004 Saurus/SNK       Lansquenet 2004 (hack of Shock Troopers 2nd squad)
-363 2004 SNK?             King of Fighters 10th Anniversary (hack of kof2002)
+363 2004 SNK?             King of Fighters 10th Anniversary (hack of kof2002) (original number 5004,5008)
 364 2004 SNK?             King of Fighters 2004 EX (hack of kof2003)
-365 2004 Dragon Co, Ltd   King of Fighters 2004 Special Edition
+365 2004 Dragon Co, Ltd   King of Fighters Special Edition 2004 (hack of kof2002)
+366 2008 SNK?             King of Fighters 10th Anniversary 2008 (hack of kof10th) (original number 5009)
 
 
 
