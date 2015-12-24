@@ -25,9 +25,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof10thu )
 {
 	UINT32 tsize = m_region_maincpu->bytes();
 	UINT8 *rom = m_region_maincpu->base();
-	UINT8 *trom = machine().root_device().memregion( "user1" )->base();
 	UINT32 i, ofst;
-
+	dynamic_buffer trom( tsize );
 	memcpy( &trom[ 0 ], &rom[ 0 ], tsize );
 	// We unscramble the lower 6 address lines of the program rom.
 	for( i = 0; i < tsize / 2; i++ )
@@ -198,10 +197,36 @@ ROM_START( kof2k4ru )
 	ROM_LOAD16_BYTE( "365ru.c8", 0x3000001, 0x800000, CRC(aa21b917) SHA1(12f256f2a54246b1ed604ae4dcaa1af6e48a7b1f) )
 ROM_END
 
-ROM_START( kof2k4se1 )
+ROM_START( kof2k4se1 ) // also known as kofse2k4
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "365se1.p2",    0x000000, 0x100000, CRC(5f482757) SHA1(0c2cba7fc6256e62eb7464306036784703c35a70) )
 	ROM_LOAD16_WORD_SWAP( "k2k4s-p1.bin", 0x100000, 0x400000, CRC(e6c50566) SHA1(cc6a3489a3bfeb4dcc65b6ddae0030f7e66fbabe) )
+
+	NEO_SFIX_128K( "k2k4s-s1.bin", CRC(a3c9b2d8) SHA1(1472d2cbd7bb73e84824ecf773924007e6117e77) )
+
+	NEO_BIOS_AUDIO_128K( "5008-m1.bin", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "365mp.v1", 0x000000, 0x400000, CRC(8991f6e9) SHA1(ce5afc0169c142d7f98111afbc60b3a9a2e17256) )
+	ROM_LOAD( "365mp.v2", 0x400000, 0x400000, CRC(511e4d2f) SHA1(28190ec86ac2169ab6fad80635ed13cfcf430c65) )
+	ROM_LOAD( "365mp.v3", 0x800000, 0x400000, CRC(1dd8b53a) SHA1(9aa84f145ba07f5f3c3b3fb682eb8a8ab1500b4c) )
+	ROM_LOAD( "365mp.v4", 0xc00000, 0x400000, CRC(63bb5462) SHA1(afc6a085e25bd006f26e16beda4244bc8bc19bb8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "k2k4s-c4.bin", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "k2k4s-c8.bin", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3",      0x1000000, 0x800000, CRC(959fad0b) SHA1(63ab83ddc5f688dc8165a7ff8d262df3fcd942a2) )
+	ROM_LOAD16_BYTE( "265d.c4",      0x1000001, 0x800000, CRC(efe6a468) SHA1(2a414285e48aa948b5b0d4a9333bab083b5fb853) )
+	ROM_LOAD16_BYTE( "265d.c5",      0x2000000, 0x800000, CRC(74bba7c6) SHA1(e01adc7a4633bc0951b9b4f09abc07d728e9a2d9) )
+	ROM_LOAD16_BYTE( "265d.c6",      0x2000001, 0x800000, CRC(e20d2216) SHA1(5d28eea7b581e780b78f391a8179f1678ee0d9a5) )
+	ROM_LOAD16_BYTE( "k2k4s-c1.bin", 0x3000000, 0x800000, CRC(fa705b2b) SHA1(f314c66876589601806352484dd8e45bc41be692) )
+	ROM_LOAD16_BYTE( "k2k4s-c5.bin", 0x3000001, 0x800000, CRC(2c912ff9) SHA1(b624a625ea3e221808b7ea43fb0b1a51d8c1853e) )
+ROM_END
+
+ROM_START( kof2k4se2 ) // also known as kof2004, same as kof2k4se1 except for 2nd program rom
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "365se1.p2", 0x000000, 0x100000, CRC(5f482757) SHA1(0c2cba7fc6256e62eb7464306036784703c35a70) )
+	ROM_LOAD16_WORD_SWAP( "365se2.p1", 0x100000, 0x400000, CRC(698679a7) SHA1(2bf3a7a7423141685ecd36c266139a97bac0a69c) )
 
 	NEO_SFIX_128K( "k2k4s-s1.bin", CRC(a3c9b2d8) SHA1(1472d2cbd7bb73e84824ecf773924007e6117e77) )
 
@@ -312,8 +337,6 @@ ROM_START( kof10thu )
 	ROM_CONTINUE( 0x100000, 0x500000 )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 	ROM_CONTINUE( 0x700000, 0x100000 )
-
-	ROM_REGION16_BE( 0x800000, "user1", ROMREGION_ERASE00 )
 
 	NEO_SFIX_128K( "363u.s1", CRC(b22ba74f) SHA1(3ba9e9d4b95fef9bf35f76e9d4fb6e1a36aeee5a) )
 
@@ -488,16 +511,17 @@ GAME( 2003, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state
 GAME( 2003, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4mp,   kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic PLUS", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, kof2k4ru,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "MVS Hacks PSP", "Kof Special Edition 2004 REMIX ULTRA V2.6F", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4se1,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "bootleg", "Kof Special Edition 2004 (hack 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4se1,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (hack 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4se2,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (hack 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4seb,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "Dragon Co.", "Kof Special Edition 2004 (portuguese)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4spl,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "bootleg", "Kof Special Edition 2004 Plus", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "bootleg", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4spl,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_hbmame,           kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (portuguese edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (decrypted, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "bootleg", "King of Gladiator (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "hack", "King of Gladiator (fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kogf,       kof97,    neogeo_noslot_kog, neogeo, neogeo_noslot_kog_state, kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogplus,    kof97,    neogeo_noslot_kog, neogeo, neogeo_noslot_kog_state, kog,       ROT0, "hack", "King of Gladiator PLUS (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "hack", "King of Gladiator Plus (set 2)", MACHINE_SUPPORTS_SAVE )
-///GAME( 2004, kf2k4pls,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf2k4pls, ROT0, "bootleg", "Kof2004 Special Edition Plus", MACHINE_SUPPORTS_SAVE )
-///GAME( 2004, kof10thd,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kof10thd, ROT0, "bootleg", "Kof 10th Anniversary (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogplus,    kof97,    neogeo_noslot_kog, neogeo, neogeo_noslot_kog_state, kog,       ROT0, "hack", "King of Gladiator PLUS", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
+///GAME( 2004, kf2k4pls,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf2k4pls, ROT0, "hack", "Kof2004 Special Edition Plus", MACHINE_SUPPORTS_SAVE )
+///GAME( 2004, kof10thd,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kof10thd, ROT0, "hack", "Kof 10th Anniversary (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )

@@ -6,7 +6,7 @@
 /******************************************************************************/
 
 // set up a hbmame-specific derived class, instead of hacking into src/mame/includes/neogeo.h
-class neogeo_hbmame : public neogeo_noslot_state //, public neogeo_noslot_kog_state
+class neogeo_hbmame : public neogeo_noslot_state
 {
 public:
 	neogeo_hbmame(const machine_config &mconfig, device_type type, const char *tag)
@@ -98,6 +98,12 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
+
+
+
+static MACHINE_CONFIG_DERIVED( no_watchdog, neogeo_noslot )
+	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
+MACHINE_CONFIG_END
 
 
 

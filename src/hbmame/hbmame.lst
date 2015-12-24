@@ -926,6 +926,7 @@ kof2k2b1
 kof2k2bh
 kof2k2bjh
 kof2k2bjo
+kof2k2bld
 kof2k2br
 kof2k2br1
 kof2k2br2
@@ -947,6 +948,7 @@ kof2k2er3
 kof2k2er4
 kof2k2erx
 kof2k2evo
+kof2k2evo2
 kof2k2fy
 kof2k2gc
 kof2k2gc2
@@ -989,6 +991,7 @@ kof2k2plb
 kof2k2pr
 kof2k2pro
 kof2k2ps2
+kof2k2ps2a
 kof2k2ra
 kof2k2rm
 kof2k2rma
@@ -1006,6 +1009,7 @@ kof2k2rr6
 kof2k2rr7
 kof2k2rr8 // no sound in attract mode
 kof2k2rs
+kof2k2rs2
 kof2k2ru
 kof2k2rw
 kof2k2sb
@@ -1014,34 +1018,33 @@ kof2k2se2
 kof2k2sm // bad gfx on train scene
 kof2k2smg
 kof2k2sp
+kof2k2spl
 kof2k2spo
 kof2k2tc
 kof2k2ul
 kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
-
-kof2k2bd
-kof2k2bld
-kof2k2evo2
-kof2k2ps2a
-kof2k2rs2
-kof2k2spl
+//kof2k2bd //not working
 //kf2k2plc
 
 	/* kof2003 */
-kof2k3b
-kof2k3gc
-kof2k3sc
-kof2k3tc
-kof2k3zgf
-
 kof2003d
+kof2003f
+kof2003rebh
+kof2k3b
 kof2k3br
 kof2k3bs4
 kof2k3d
+kof2k3evo
+kof2k3gc
 kof2k3hd
 kof2k3pcd
+kof2k3ps2
+kof2k3ryu
+kof2k3sc
+kof2k3tc
+kof2k3zgf
 //kof2k3bd
 //kof2k3pd
 //kof2k3upd
@@ -1051,7 +1054,7 @@ airwolf		//parent
 airwolffr	// french
 
 	/* m52 */
-mpatrol		/* M52 (c) 1982 */
+mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 	/* maketrax */
@@ -1081,8 +1084,8 @@ wavybug
 zap		/* Widel's Games */
 
 	/* mappy */
-mappy		/* (c) 1983 */
-superpac	/* (c) 1982 */
+mappy		//parent
+superpac	//parent
 crackhea 	/* Cary Barnhard hack of Mappy */
 housepty 	/* Jerky hack of Mappy */
 marpy
@@ -1102,7 +1105,7 @@ stapper		/* Tapper Simpsons Hack */
 stapper1	/* Tapper Simpsons Hack ver .81 */
 
 	/* mcr3 */
-sarge		/* (c) 1985 */
+sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
 	/* mgd2 */
@@ -1143,7 +1146,7 @@ wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 mineswp		/* Minesweeper */
 
 	/* midtunit */
-mk		//parent
+mk			//parent
 mkfr		// french
 mkturbod	/* MK protection hack */
 mktturboen	// Zenomorp 2012 Turbo Endurance
@@ -1156,7 +1159,7 @@ umk2te51	// Ultimate MKII Tournament Edition r5.0.051
 umk2te52	// Ultimate MKII Tournament Edition r5.0.052
 
 	/* midwunit */
-mk3		/* (c) 1994 Midway */
+mk3			//parent
 umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3z		/* UMK3 1.2 Zeus hack */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
@@ -1692,6 +1695,7 @@ ct2k3k3o
 kof2k4mp
 kof2k4ru // no sound in attract mode
 kof2k4se1
+kof2k4se2
 //kof2k4pls
 kof2k4seb
 kof2k4spl

@@ -19,12 +19,12 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2002m )
 	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
 }
 
+// S1-rom is scrambled. This code looks right but doesn't work.
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2bd )
 {
 	DRIVER_INIT_CALL(neogeo);
-	UINT8 rtemp[fix_region_size];
+	dynamic_buffer src( fix_region_size );
 	int i,j;
-	UINT8 *src = rtemp;
 	UINT8 *dst = fix_region;
 	memcpy (&src[0], &dst[0], fix_region_size);
 
@@ -2674,9 +2674,11 @@ GAME( 2002, kof2002d,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2005, kof2002x,    kof2002, neogeo_noslot, neogeo, neogeo_noslot_state, kof2002,  ROT0, "hack", "Kof2002 (Babel ice field remix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2b,     kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Alphax2?", "Kof2002 (Add Char set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2b1,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Alphax2?", "Kof2002 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2bd,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2bd, ROT0, "hack", "Kof2002 Challenge to Ultimate Battle (Bootleg, Decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2bh,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Alphax2", "Kof2002 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2bjh,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Ben Jeremy", "Kof2002 (Diff Moves 031025)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2bjo,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Ben Jeremy", "Kof2002 (Diff Moves 031013)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2bld,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 BLOOD PLUS", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2br,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2h,  ROT0, "Hack", "Kof2002 (Portuguese set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2br1,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Hack", "Kof2002 (Portuguese set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2br2,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2h,  ROT0, "Hack", "Kof2002 (Portuguese set 3)", MACHINE_SUPPORTS_SAVE )
@@ -2698,6 +2700,7 @@ GAME( 2003, kof2k2er3,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2003, kof2k2er4,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 89% 030420)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2erx,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. xx%)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2evo,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Jimmyi", "Kof2002 (Evolution)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2evo2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT / EGHT", "Kof2002 (Evolution v1.3, by FCHT/EGHT)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2fy,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2h,  ROT0, "Unk", "Kof2002 (Lifebar + K', Vanessa, Iori, Kula and Angel color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2gc,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2h,  ROT0, "Lewis67", "Kof2002 (Color changed set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2gc2,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2h,  ROT0, "Lewis67", "Kof2002 (Color changed set 2)", MACHINE_SUPPORTS_SAVE )
@@ -2740,6 +2743,7 @@ GAME( 2002, kof2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2003, kof2k2pr,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - 030607)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - 030607 Older?)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof2k2ps2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (PS2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2ps2a, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4, EGHT hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2ra,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Ruin Angel", "Kof2002 (Diff Moves - Based on CHL set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2rm,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Remix 33%)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2rma,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 (KOF Remix Ultra 2010-07-23)", MACHINE_SUPPORTS_SAVE )
@@ -2757,6 +2761,7 @@ GAME( 2003, kof2k2rr6,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2003, kof2k2rr7,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - rev.u)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2rr8,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - rev.u1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2rs,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Slovakia", "Kof2002 (Iori Special Remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2rs2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Slovakia", "Kof2002 Super Plus (Ultimate Edition v2.0 by Slovakia)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2ru,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Jason/K3", "Kof2002 Remix Ultra v2.5 (Add Char - Diff Moves ultra rev - 040820)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2rw,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Wesker", "Kof2002 (Add Char - Diff Moves - 0310xx)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2sb,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Streetboy", "Kof2002 (Diff Moves - Based on CHL set 1)", MACHINE_SUPPORTS_SAVE )
@@ -2765,19 +2770,13 @@ GAME( 2002, kof2k2seh,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2013, kof2k2sm,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Maitry Maker", "Kof2002 (Super Mix)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2smg,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker/Abbas", "Kof2002 (SMG)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2sp,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Wesker", "Kof2002 (Add Char - Special move change)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2spl,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "NeHt", "Kof2002 Super Plus (Ultimate Edition by NeHt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2spo,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Wesker", "Kof2002 (Add Char - Special move change Old 030830)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2tc,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2h,  ROT0, "T.Com", "Kof2002 (Char color changed - Attack spark color changed for Iori and Orochi-Chris)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2ul,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Diff Moves 030515)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2ule,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Add Char - Diff Move - Ultra kill start max - Ultra pow hack 030515)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2wuk,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Wesker", "Kof2002 (Ultra kill style - rev max2 - perfect)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2xxx,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 (Perfect revised edition)", MACHINE_SUPPORTS_SAVE )
-
-GAME( 2002, kof2k2bd,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2bd, ROT0, "hack", "Kof2002 Challenge to Ultimate Battle (Bootleg, Decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2bld,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 Blood", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2evo2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT / EGHT", "Kof2002 (Evolution v1.3, by FCHT/EGHT)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2ps2a, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4, EGHT hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2rs2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Slovakia", "Kof2002 Super Plus (Ultimate Edition v2.0 by Slovakia)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2spl,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "NeHt", "Kof2002 Super Plus (Ultimate Edition by NeHt)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2002, kof2002d,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002d, ROT0, "hack", "Kof2002 (NGM-2650)(NGH-2650) (decrypted C)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2002, kf2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kf2k2pls, ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2002, kf2k2plc,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kf2k2plc, ROT0, "bootleg", "Kof2002 Super (set 4, bootleg / hack)", MACHINE_SUPPORTS_SAVE )

@@ -223,10 +223,6 @@ NUM YEAR COMPANY                 TITLE
 
 // MACHINE
 
-static MACHINE_CONFIG_DERIVED( npong10, neogeo_noslot )
-	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
-MACHINE_CONFIG_END
-
 DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 {
 //// Fix rebooting at start
@@ -1462,7 +1458,7 @@ GAME( 2013, neogal1t, neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo, 
 GAME( 2013, neogal2,  neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R002", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, neonopon, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo No Panepon V0.2", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, neopong,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Neodev", "Neo Pong (v1.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neoponga, neopong,  npong10,         neogeo,  neogeo_state, neogeo,   ROT0, "Neodev", "Neo Pong (v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neoponga, neopong,  no_watchdog,     neogeo,  neogeo_state, neogeo,   ROT0, "Neodev", "Neo Pong (v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, neoromjb, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "CeL", "Neo Rom Jukebox", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, neotest,  neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Sound Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, neothund, neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
