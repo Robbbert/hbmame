@@ -960,7 +960,7 @@ kof2k2ic2
 kof2k2ice
 kof2k2jc
 kof2k2js
-kof2k2kc
+kof2k2k2
 kof2k2k3o
 kof2k2k32
 kof2k2k33
@@ -977,6 +977,7 @@ kof2k2k3d
 kof2k2k3e
 kof2k2k3f
 kof2k2k3g
+kof2k2kc
 kof2k2mp1	/* Magic Plus */
 kof2k2mp3	/* Magic Plus III - Ismamj */
 kof2k2mpu
@@ -1025,7 +1026,7 @@ kof2k2ul
 kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
-//kof2k2bd //not working
+kof2k2bd //not working
 //kf2k2plc
 
 	/* kof2003 */
