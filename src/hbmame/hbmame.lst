@@ -1528,7 +1528,7 @@ zedblade
 zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
 
 	/* neogeohb */
-fr2		// 098 Idol Mahjong - final romance 2
+fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
 zintrckb	// parent
@@ -1541,10 +1541,10 @@ cnbe
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 //csw2 //not working at all & roms missing
-dwi		/* DarkWing Duck Intro */
+dwi			/* DarkWing Duck Intro */
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
-gbi		/* Ghostbusters Intro */
+gbi			/* Ghostbusters Intro */
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lhcdb		/* 2007 (c) Last Hope CD beta */
@@ -1560,6 +1560,9 @@ neogal1d	// BEY
 neogal1t	// BEY
 neogal2		// BEY
 neonopon	/* (c) 2002-10-05 Blastar */
+neonopon_d1 // unplayable demo
+neonopon_d2 // unplayable demo
+neonopon_d3 // unplayable demo
 neopong		/* (c) 2002 Neodev */
 neoponga	/* (c) 2002 Neodev */
 neoromjb	// CeL
@@ -1573,8 +1576,8 @@ nyan
 pcmademo	// 2015 freem
 pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
-rci		/* Robocop intro */
-smi		/* Spiderman intro */
+rci			/* Robocop intro */
+smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
 syscheck
@@ -1623,6 +1626,7 @@ matrimd
 matrimdh
 matrimeh
 matrimehc
+matrimnd
 miexchngfr	/* Neo-Arc French Trans */
 mutnatex
 nam1975g
@@ -1831,8 +1835,10 @@ sengoku3yk
 svcd
 svcd1
 svch
+svcnd
 svcpcbd
 svcplusb
+svcplusd
 svcpryu
 svcps2
 svcrm

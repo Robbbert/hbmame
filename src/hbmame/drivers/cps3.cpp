@@ -22,7 +22,6 @@ MACHINE_RESET_MEMBER( cps3_state, redeartn )
 	copy_from_nvram();
 }
 
-
 MACHINE_CONFIG_DERIVED( redeartn, redearth )
 	MCFG_MACHINE_RESET_OVERRIDE(cps3_state, redeartn)
 MACHINE_CONFIG_END
@@ -36,34 +35,32 @@ static INPUT_PORTS_START ( cps3_ren )
 	PORT_START("REG")
 	PORT_DIPNAME( 0x0000000f, 0x00000000, DEF_STR( Region ) )
 	PORT_DIPSETTING( 0x00000000, "Default" )
-	PORT_DIPSETTING( 0x00000001, DEF_STR( Japan ) )
-	PORT_DIPSETTING( 0x00000002, DEF_STR( Asia ) )
-	PORT_DIPSETTING( 0x00000003, DEF_STR( Europe ) )
-	PORT_DIPSETTING( 0x00000004, DEF_STR( USA ) )
-	PORT_DIPSETTING( 0x00000005, "Hispanic" )
-	PORT_DIPSETTING( 0x00000006, "Brazil" )
-	PORT_DIPSETTING( 0x00000007, "Oceania" )
-	PORT_DIPSETTING( 0x00000008, "Asia NCD" )
+	// none of these do anything
+	//PORT_DIPSETTING( 0x00000001, DEF_STR( Japan ) )
+	//PORT_DIPSETTING( 0x00000002, DEF_STR( Asia ) )
+	//PORT_DIPSETTING( 0x00000003, DEF_STR( Europe ) )
+	//PORT_DIPSETTING( 0x00000004, DEF_STR( USA ) )
+	//PORT_DIPSETTING( 0x00000005, "Hispanic" )
+	//PORT_DIPSETTING( 0x00000006, "Brazil" )
+	//PORT_DIPSETTING( 0x00000007, "Oceania" )
+	//PORT_DIPSETTING( 0x00000008, "Asia NCD" )
 
 	PORT_START("VER")
 	PORT_DIPNAME( 0x000000f0, 0x00000060, DEF_STR( Version ) )
 	PORT_DIPSETTING( 0x00000060, DEF_STR( Normal ) )
-	PORT_DIPSETTING( 0x00000010, "Character Check" )
-	PORT_DIPSETTING( 0x00000020, "Publicity" )
-	PORT_DIPSETTING( 0x00000030, "Location Test" )
-	PORT_DIPSETTING( 0x00000040, "Show" )
-	PORT_DIPSETTING( 0x00000050, "???" )
+	// none of these do anything
+	//PORT_DIPSETTING( 0x00000010, "Character Check" )
+	//PORT_DIPSETTING( 0x00000020, "Publicity" )
+	//PORT_DIPSETTING( 0x00000030, "Location Test" )
+	//PORT_DIPSETTING( 0x00000040, "Show" )
+	//PORT_DIPSETTING( 0x00000050, "???" )
 INPUT_PORTS_END
 
+
+
 ROM_START( redeartn )
-	ROM_REGION32_BE( 0x080000, "bios", 0 ) /* bios region */
-	// need the correct no-cd bios for this game
-	//ROM_LOAD( "warzard_euro.29f400.u2", 0x000000, 0x080000, CRC(02e0f336) SHA1(acc37e830dfeb9674f5a0fb24f4cc23217ae4ff5) )
-	// This one mostly works:
-	//Only the enemies fight in attract mode, the good guys just stand there.
-	//Some graphics glitches.
-	//Could possibly be more problems ingame.
-	ROM_LOAD( "sfiii_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(ca2b715f) SHA1(86319987f9af4afd272a2488e73de8382743cb37) ) // this is a different VERSION of the bios compared to all other sets, not just an alt region code
+	ROM_REGION32_BE( 0x080000, "bios", 0 )
+	ROM_LOAD( "redearthn_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(db09f27c) SHA1(f2d299cda7cda175b4218526a15f12560654d97f) )
 
 	ROM_REGION( 0x200000, "simm1.0", 0 )
 	ROM_LOAD( "redeartn-simm1.0", 0x00000, 0x200000, CRC(cad468f8) SHA1(b3aa4f7d3fae84e8821417ccde9528d3eda2b7a6) )
@@ -297,6 +294,7 @@ ROM_START( sfiii4rd )
 ROM_END
 
 
-GAME( 1996, redeartn,  redearth, redeartn, cps3_ren,  cps3_state,  redearth, ROT0, "Capcom", "War-zard (961121, NO CD)", MACHINE_IMPERFECT_GRAPHICS )
+
+GAME( 1996, redeartn,  redearth, redeartn, cps3_ren,  cps3_state,  redearth, ROT0, "Capcom", "Red Earth (961121, Asia NCD)", 0 )
 GAME( 2013, sfiii3an,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,   ROT0, "Hack",   "Street Fighter III 3rd Strike: Ford Strike (Japan 990608, NO CD)", 0 )
 GAME( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,   ROT0, "Hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )

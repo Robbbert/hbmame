@@ -806,7 +806,7 @@ ROM_START( matrimeh )
 	ROM_LOAD16_WORD_SWAP( "266eh.p1", 0x000000, 0x100000, CRC(e3b05e78) SHA1(8cbf3fe47c8afedb4ea7dcf5809acf7e5e858aba) )
 	ROM_LOAD16_WORD_SWAP( "266a.p2",  0x100000, 0x400000, CRC(b0132cef) SHA1(3780db1b8947a8371a46b67ca1a14a12bf97986b) )
 
-	NEO_SFIX_256K( "242eh.s1", CRC(31c02ff8) SHA1(f4096d0b39a2fd682c0b3be435098ed8de990f8b) )
+	NEO_SFIX_256K( "266eh.s1", CRC(31c02ff8) SHA1(f4096d0b39a2fd682c0b3be435098ed8de990f8b) )
 
 	NEO_BIOS_AUDIO_128K( "266eh.m1", CRC(f692d84b) SHA1(a3737c574e779e0330916a2eea6ad5b3839f9538) )
 
@@ -847,6 +847,30 @@ ROM_START( matrimehc ) /* Matrimelee - Enhance by Creamymami - (Power always max
 	ROM_LOAD16_BYTE( "266-c6.c6", 0x2000001, 0x800000, CRC(281cb939) SHA1(bdb7766cfde581ccfaee2be7fe48445f360a2301) )
 	ROM_LOAD16_BYTE( "266-c7.c7", 0x3000000, 0x800000, CRC(4b71f780) SHA1(d5611a6f6b730db58613b48f2b0174661ccfb7bb) )
 	ROM_LOAD16_BYTE( "266-c8.c8", 0x3000001, 0x800000, CRC(29873d33) SHA1(dc77f129ed49b8d40d0d4241feef3f6c2f19a987) )
+ROM_END
+
+ROM_START( matrimnd )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "266nd.p1", 0x000000, 0x100000, CRC(d07b4032) SHA1(d9878ac13c8c374d496317359038b4a53c6f1872) )
+	ROM_LOAD16_WORD_SWAP( "266a.p2",  0x100000, 0x400000, CRC(b0132cef) SHA1(3780db1b8947a8371a46b67ca1a14a12bf97986b) )
+
+	NEO_SFIX_128K( "266a.s1", CRC(aff2a3be) SHA1(57aba048573eacf8fbdd228f04a7f30da64cebe5) )
+
+	NEO_BIOS_AUDIO_128K( "266eh.m1", CRC(f692d84b) SHA1(a3737c574e779e0330916a2eea6ad5b3839f9538) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "266eh-v1d.bin", 0x000000, 0x800000, CRC(328b2194) SHA1(6734da4f1e882a8524c04ff375567ed96a2dae5e) )
+	ROM_LOAD( "266eh-v2d.bin", 0x800000, 0x800000, CRC(2a13562d) SHA1(dc13f1af6afaf43f2ac20b7cf1c751a047450312) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "266d.c1", 0x0000000, 0x800000, CRC(0ab54c54) SHA1(31bca460462b8545b3e5264804987ab951e9b202) )
+	ROM_LOAD16_BYTE( "266d.c2", 0x0000001, 0x800000, CRC(b834dd89) SHA1(579470839a8d23b2d22cf727d2b43c6c3c113e1f) )
+	ROM_LOAD16_BYTE( "266d.c3", 0x1000000, 0x800000, CRC(f31d68d4) SHA1(a6b8aaf11d25f871b52e9626fe0e4ae0683c3c52) )
+	ROM_LOAD16_BYTE( "266d.c4", 0x1000001, 0x800000, CRC(58cfb6e9) SHA1(106875db996ec29b0254b34f9d935c761cde20c4) )
+	ROM_LOAD16_BYTE( "266d.c5", 0x2000000, 0x800000, CRC(f3c0e3fd) SHA1(3a2f14517617fb98a202ceec88d52891e1438c8e) )
+	ROM_LOAD16_BYTE( "266d.c6", 0x2000001, 0x800000, CRC(b53c8dcf) SHA1(9f4b0bac92262e8c1c1055a70f13c7c326367f73) )
+	ROM_LOAD16_BYTE( "266d.c7", 0x3000000, 0x800000, CRC(3c1fb02a) SHA1(43e170e6d48c01d8c323f9309f97e6038bab20d7) )
+	ROM_LOAD16_BYTE( "266d.c8", 0x3000001, 0x800000, CRC(5ee31f80) SHA1(3cdd8037f5004df92f4c19ba0746c8bccb4e2473) )
 ROM_END
 
 ROM_START( magdrop3fr )
@@ -1694,10 +1718,11 @@ GAME( 2002, matrimd,       matrim,   neogeo_noslot, neogeo, neogeo_hbmame,      
 GAME( 2002, matrimdh,      matrim,   neogeo_noslot, neogeo, neogeo_hbmame,       matrmehc,  ROT0, "Dodowang", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (decrypted C) hack", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrimeh,      matrim,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Matrimelee (Bootleg, Hero Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrimehc,     matrim,   neogeo_noslot, neogeo, neogeo_hbmame,       matrmehc,  ROT0, "Creamymami", "Matrimelee (Pow always max - MVS protection rem)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, matrimnd,      matrim,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Matrimelee (unknown nd)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2005, miexchngfr,    miexchng, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Arkatrad", "Money Puzzle Exchanger (French)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Mutation Nation (Ex version, Pipi899)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Pipi899", "Mutation Nation (Ex version, Pipi899)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2008, nam1975g,      nam1975,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "NAM-1975 (hack?)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, nam1975h,      nam1975,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Blast of the Wolf", "NAM-1975 (Max Blast edition)", MACHINE_SUPPORTS_SAVE )
