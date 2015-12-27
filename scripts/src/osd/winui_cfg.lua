@@ -6,6 +6,7 @@ defines {
 	--"WIN95_MULTIMON"
 	"main=utf8_main",
 	"_WIN32_WINNT=0x0501",
+	"USE_QTDEBUG=0",
 }
 
 configuration { "vs*" }

@@ -166,13 +166,13 @@ static int index_datafile(struct tDatafileIndex **_index, int source)
 	int num_games = driver_list::total();
 
 	/* rewind file */
-	if (ParseSeek (0L, SEEK_SET)) 
+	if (ParseSeek (0L, SEEK_SET))
 		return 0;
 
 	/* allocate index */
 	idx = *_index = global_alloc_array(tDatafileIndex, (num_games + 1) * sizeof (struct tDatafileIndex));
- 
-	if (!idx) 
+
+	if (!idx)
 		return 0;
 
 	while (fgets(readbuf, 512, fp))
@@ -189,8 +189,8 @@ static int index_datafile(struct tDatafileIndex **_index, int source)
 			{
 				// search for comma
 				pch = strpbrk(curpoint, ",");
-				
-				// found it 
+
+				// found it
 				if (pch)
 				{
 					// copy data and validate driver
@@ -267,7 +267,7 @@ static int load_datafile_text(const game_driver *drv, char *buffer, int bufsize,
 		/* find driver in datafile index */
 		while (idx->driver)
 		{
-			if (idx->driver == drv) 
+			if (idx->driver == drv)
 				break;
 
 		idx++;
@@ -278,30 +278,30 @@ static int load_datafile_text(const game_driver *drv, char *buffer, int bufsize,
 		/* find source file in datafile index */
 		while (idx->driver)
 		{
-			if (idx->driver->source_file == drv->source_file) 
+			if (idx->driver->source_file == drv->source_file)
 				break;
 
 			idx++;
 		}
 	}
 
-	if (idx->driver == 0) 
+	if (idx->driver == 0)
 		return 1; /* driver not found in index */
 
 	/* seek to correct point in datafile */
-	if (ParseSeek (idx->offset, SEEK_SET)) 
+	if (ParseSeek (idx->offset, SEEK_SET))
 		return 1;
 
 	/* read text until buffer is full or end of entry is encountered */
 	while (fgets(readbuf, 16384, fp))
 	{
-		if (!core_strnicmp(DATAFILE_TAG_END, readbuf, strlen(DATAFILE_TAG_END))) 
+		if (!core_strnicmp(DATAFILE_TAG_END, readbuf, strlen(DATAFILE_TAG_END)))
 			break;
 
-		if (!core_strnicmp(tag, readbuf, strlen(tag))) 
+		if (!core_strnicmp(tag, readbuf, strlen(tag)))
 			continue;
 
-		if (strlen(buffer) + strlen(readbuf) > bufsize) 
+		if (strlen(buffer) + strlen(readbuf) > bufsize)
 			break;
 
 		if (mameinfo)
@@ -370,7 +370,7 @@ int load_driver_history(const game_driver *drv, char *buffer, int bufsize, int f
 						gdrv = NULL;
 				} while (err && gdrv);
 
-				if (err) 
+				if (err)
 					history = 0;
 			}
 
@@ -407,7 +407,7 @@ int load_driver_history(const game_driver *drv, char *buffer, int bufsize, int f
 						gdrv = NULL;
 				} while (err && gdrv);
 
-				if (err) 
+				if (err)
 					history = 0;
 			}
 
@@ -502,7 +502,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 						gdrv = NULL;
 				} while (err && gdrv);
 
-				if (err) 
+				if (err)
 					mameinfo = 0;
 			}
 		}
@@ -533,7 +533,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 						gdrv = NULL;
 				} while (err && gdrv);
 
-				if (err) 
+				if (err)
 					mameinfo = 0;
 			}
 		}
@@ -730,7 +730,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 		for (int i = 0; i < driver_list::total(); i++)
 		{
-			if (!strcmp (drv->name, driver_list::driver(i).parent)) 
+			if (!strcmp (drv->name, driver_list::driver(i).parent))
 			{
 				strcat(buffer, driver_list::driver(i).description);
 				strcat(buffer, "\n");
@@ -780,7 +780,7 @@ int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufsize, in
 				int len = strlen(buffer);
 				int err = load_datafile_text(drv, buffer + len, bufsize - len, messdriv_idx, DATAFILE_TAG_DRIV, 1, 1);
 
-				if (err) 
+				if (err)
 					drivinfo = 0;
 			}
 		}
@@ -798,7 +798,7 @@ int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufsize, in
 				int len = strlen(buffer);
 				int err = load_datafile_text(drv, buffer + len, bufsize - len, driv_idx, DATAFILE_TAG_DRIV, 1, 1);
 
-				if (err) 
+				if (err)
 					drivinfo = 0;
 			}
 		}
@@ -856,7 +856,7 @@ int load_driver_command(const game_driver *drv, char *buffer, int bufsize)
 					gdrv = NULL;
 			} while (err && gdrv);
 
-			if (err) 
+			if (err)
 				command = 0;
 		}
 
@@ -898,11 +898,11 @@ int load_driver_scoreinfo(const game_driver *drv, char *buffer, int bufsize)
 
 				if (g!=-1)
 					gdrv = &driver_list::driver(g);
-				else 
+				else
 					gdrv = NULL;
 			} while (err && gdrv);
 
-			if (err) 
+			if (err)
 				scoreinfo = 0;
 		}
 
