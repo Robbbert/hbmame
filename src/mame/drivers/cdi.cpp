@@ -67,16 +67,16 @@ static ADDRESS_MAP_START( cdimono1_mem, AS_PROGRAM, 16, cdi_state )
 #if ENABLE_UART_PRINTING
 	AM_RANGE(0x00301400, 0x00301403) AM_DEVREAD("scc68070", cdi68070_device, uart_loopback_enable)
 #endif
-	//AM_RANGE(0x00300000, 0x00303bff) AM_DEVREADWRITE("cdic", cdicdic_device, ram_r, ram_w)
-	//AM_RANGE(0x00303c00, 0x00303fff) AM_DEVREADWRITE("cdic", cdicdic_device, regs_r, regs_w)
-	//AM_RANGE(0x00310000, 0x00317fff) AM_DEVREADWRITE("slave", cdislave_device, slave_r, slave_w)
-	//AM_RANGE(0x00318000, 0x0031ffff) AM_NOP
+	AM_RANGE(0x00300000, 0x00303bff) AM_DEVREADWRITE("cdic", cdicdic_device, ram_r, ram_w)
+	AM_RANGE(0x00303c00, 0x00303fff) AM_DEVREADWRITE("cdic", cdicdic_device, regs_r, regs_w)
+	AM_RANGE(0x00310000, 0x00317fff) AM_DEVREADWRITE("slave_hle", cdislave_device, slave_r, slave_w)
+	AM_RANGE(0x00318000, 0x0031ffff) AM_NOP
 	AM_RANGE(0x00320000, 0x00323fff) AM_DEVREADWRITE8("mk48t08", timekeeper_device, read, write, 0xff00)    /* nvram (only low bytes used) */
 	AM_RANGE(0x00400000, 0x0047ffff) AM_ROM AM_REGION("maincpu", 0)
 	AM_RANGE(0x004fffe0, 0x004fffff) AM_DEVREADWRITE("mcd212", mcd212_device, regs_r, regs_w)
-	//AM_RANGE(0x00500000, 0x0057ffff) AM_RAM
+	AM_RANGE(0x00500000, 0x0057ffff) AM_RAM
 	AM_RANGE(0x00500000, 0x00ffffff) AM_NOP
-	//AM_RANGE(0x00e00000, 0x00efffff) AM_RAM // DVC
+	AM_RANGE(0x00e00000, 0x00efffff) AM_RAM // DVC
 	AM_RANGE(0x80000000, 0x8000807f) AM_DEVREADWRITE("scc68070", cdi68070_device, periphs_r, periphs_w)
 ADDRESS_MAP_END
 
@@ -163,14 +163,14 @@ INPUT_CHANGED_MEMBER(cdi_state::mcu_input)
 
 static INPUT_PORTS_START( cdi )
 	PORT_START("MOUSEX")
-	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_X) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_X) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
 
 	PORT_START("MOUSEY")
-	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_Y) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_Y) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
 
 	PORT_START("MOUSEBTN")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_BUTTON1) PORT_CODE(MOUSECODE_BUTTON1) PORT_NAME("Mouse Button 1") PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_BUTTON2) PORT_CODE(MOUSECODE_BUTTON2) PORT_NAME("Mouse Button 2") PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_BUTTON1) PORT_CODE(MOUSECODE_BUTTON1) PORT_NAME("Mouse Button 1") PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_BUTTON2) PORT_CODE(MOUSECODE_BUTTON2) PORT_NAME("Mouse Button 2") PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
 	PORT_BIT(0xfc, IP_ACTIVE_HIGH, IPT_UNUSED)
 
 	PORT_START("DEBUG")
@@ -204,14 +204,14 @@ INPUT_PORTS_END
 
 static INPUT_PORTS_START( cdimono2 )
 	PORT_START("MOUSEX")
-	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_X) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) //PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_X) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) //PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
 
 	PORT_START("MOUSEY")
-	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_Y) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) //PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x3ff, 0x000, IPT_MOUSE_Y) PORT_SENSITIVITY(100) PORT_MINMAX(0x000, 0x3ff) PORT_KEYDELTA(2) //PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
 
 	PORT_START("MOUSEBTN")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_BUTTON1) PORT_CODE(MOUSECODE_BUTTON1) PORT_NAME("Mouse Button 1") //PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_BUTTON2) PORT_CODE(MOUSECODE_BUTTON2) PORT_NAME("Mouse Button 2") //PORT_CHANGED_MEMBER("slave", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_BUTTON1) PORT_CODE(MOUSECODE_BUTTON1) PORT_NAME("Mouse Button 1") //PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_BUTTON2) PORT_CODE(MOUSECODE_BUTTON2) PORT_NAME("Mouse Button 2") //PORT_CHANGED_MEMBER("slave_hle", cdislave_device, mouse_update, 0)
 	PORT_BIT(0xfc, IP_ACTIVE_HIGH, IPT_UNUSED)
 
 	PORT_START("DEBUG")
@@ -276,6 +276,7 @@ MACHINE_RESET_MEMBER( cdi_state, cdimono1 )
 	UINT16 *dst   = m_planea;
 	memcpy(dst, src, 0x8);
 	memset(m_servo_io_regs, 0, 0x20);
+	memset(m_slave_io_regs, 0, 0x20);
 
 	m_maincpu->reset();
 
@@ -408,10 +409,11 @@ READ8_MEMBER( cdi_state::servo_io_r )
 			verboselog(*this, 1, "SERVO Port A Data read (%02x)\n", ret);
 			break;
 		case m68hc05eg_io_reg_t::PORT_B_DATA:
+			ret = 0x08;
 			verboselog(*this, 1, "SERVO Port B Data read (%02x)\n", ret);
-			ret |= 0x08;
 			break;
 		case m68hc05eg_io_reg_t::PORT_C_DATA:
+			ret |= INV_CADDYSWITCH_IN;
 			verboselog(*this, 1, "SERVO Port C Data read (%02x)\n", ret);
 			break;
 		case m68hc05eg_io_reg_t::PORT_D_INPUT:
@@ -511,13 +513,13 @@ WRITE8_MEMBER( cdi_state::servo_io_w )
 	{
 		case m68hc05eg_io_reg_t::PORT_A_DATA:
 			verboselog(*this, 1, "SERVO Port A Data write (%02x)\n", data);
-			break;
+			return;
 		case m68hc05eg_io_reg_t::PORT_B_DATA:
 			verboselog(*this, 1, "SERVO Port B Data write (%02x)\n", data);
-			break;
+			return;
 		case m68hc05eg_io_reg_t::PORT_C_DATA:
 			verboselog(*this, 1, "SERVO Port C Data write (%02x)\n", data);
-			break;
+			return;
 		case m68hc05eg_io_reg_t::PORT_D_INPUT:
 			verboselog(*this, 1, "SERVO Port D Input write (%02x)\n", data);
 			return;
@@ -708,13 +710,13 @@ WRITE8_MEMBER( cdi_state::slave_io_w )
 	{
 		case m68hc05eg_io_reg_t::PORT_A_DATA:
 			verboselog(*this, 1, "SLAVE Port A Data write (%02x)\n", data);
-			break;
+			return;
 		case m68hc05eg_io_reg_t::PORT_B_DATA:
 			verboselog(*this, 1, "SLAVE Port B Data write (%02x)\n", data);
-			break;
+			return;
 		case m68hc05eg_io_reg_t::PORT_C_DATA:
 			verboselog(*this, 1, "SLAVE Port C Data write (%02x)\n", data);
-			break;
+			return;
 		case m68hc05eg_io_reg_t::PORT_D_INPUT:
 			verboselog(*this, 1, "SLAVE Port D Input write (%02x)\n", data);
 			return;
@@ -868,8 +870,6 @@ static MACHINE_CONFIG_START( cdimono2, cdi_state )
 	MCFG_MACHINE_RESET_OVERRIDE( cdi_state, cdimono2 )
 
 	MCFG_CDI68070_ADD("scc68070")
-	//MCFG_CDICDIC_ADD("cdic")
-	//MCFG_CDISLAVE_ADD("slave")
 	MCFG_CPU_ADD("servo", M68HC05EG, 2000000) /* Unknown clock speed, docs say 2MHz internal clock */
 	MCFG_CPU_PROGRAM_MAP(cdimono2_servo_mem)
 	MCFG_CPU_ADD("slave", M68HC05EG, 2000000) /* Unknown clock speed, docs say 2MHz internal clock */
@@ -899,6 +899,7 @@ MACHINE_CONFIG_END
 // CD-i Mono-I, with CD-ROM image device (MESS) and Software List (MESS)
 static MACHINE_CONFIG_DERIVED( cdimono1, cdimono1_base )
 	MCFG_MACHINE_RESET_OVERRIDE(cdi_state, cdimono1)
+
 	MCFG_CDROM_ADD( "cdrom" )
 	MCFG_CDROM_INTERFACE("cdi_cdrom")
 	MCFG_SOFTWARE_LIST_ADD("cd_list","cdi")

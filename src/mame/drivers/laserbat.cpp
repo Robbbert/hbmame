@@ -30,6 +30,8 @@
     bidirectional interface on J7.
 
     Laser Battle/Lazarian notes:
+    * Manuals clearly indicate the controls to fire in four directions
+      are four buttons arranged in a diamond, not a four-way joystick
     * Cocktail cabinet has an additional "image commutation board"
       consuming the screen flip output, presumably flipping the image by
       reversing the deflection coil connections
@@ -46,7 +48,6 @@
 
     TODO:
     - work out where all the magic layer offsets come from
-    - second bank of DIP switches in laserbat and catnmous
     - sound in laserbat (with schematics) and in catnmous
 */
 
@@ -223,9 +224,9 @@ static INPUT_PORTS_START( laserbat_base )
 	PORT_DIPNAME( 0x20, 0x20, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-1:6")
 	PORT_DIPSETTING(    0x20, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x00, DEF_STR(On) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-1:7")
-	PORT_DIPSETTING(    0x40, DEF_STR(Off) )
-	PORT_DIPSETTING(    0x00, DEF_STR(On) )
+	PORT_DIPNAME( 0x40, 0x00, "Infinite Lives" )        PORT_DIPLOCATION("SW-1:7")
+	PORT_DIPSETTING(    0x00, DEF_STR(Off) )
+	PORT_DIPSETTING(    0x40, DEF_STR(On) )
 	PORT_DIPNAME( 0x80, 0x80, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-1:8")
 	PORT_DIPSETTING(    0x80, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x00, DEF_STR(On) )
@@ -240,12 +241,11 @@ static INPUT_PORTS_START( laserbat_base )
 	PORT_DIPNAME( 0x04, 0x04, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-2:3")
 	PORT_DIPSETTING(    0x04, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x00, DEF_STR(On) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-2:4")
-	PORT_DIPSETTING(    0x08, DEF_STR(Off) )
-	PORT_DIPSETTING(    0x00, DEF_STR(On) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-2:5")
-	PORT_DIPSETTING(    0x10, DEF_STR(Off) )
-	PORT_DIPSETTING(    0x00, DEF_STR(On) )
+	PORT_DIPNAME( 0x18, 0x08, DEF_STR(Difficulty) )     PORT_DIPLOCATION("SW-2:4,5")
+	PORT_DIPSETTING(    0x00, DEF_STR(Easy) )
+	PORT_DIPSETTING(    0x08, DEF_STR(Medium) )
+	PORT_DIPSETTING(    0x10, DEF_STR(Difficult) )
+	PORT_DIPSETTING(    0x18, DEF_STR(Very_Difficult) )
 	PORT_DIPNAME( 0x20, 0x20, DEF_STR(Unknown) )        PORT_DIPLOCATION("SW-2:6")
 	PORT_DIPSETTING(    0x20, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x00, DEF_STR(On) )
@@ -264,28 +264,12 @@ INPUT_PORTS_END
 static INPUT_PORTS_START( laserbat )
 	PORT_INCLUDE(laserbat_base)
 
-	PORT_MODIFY("ROW0")
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(1) PORT_NAME("P1 Fire Left")
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(1) PORT_NAME("P1 Fire Right")
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(1) PORT_NAME("P1 Fire Up")
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(1) PORT_NAME("P1 Fire Down")
-
-	PORT_MODIFY("ROW1")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_PLAYER(2) PORT_NAME("P2 Fire Left")
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2) PORT_NAME("P2 Fire Right")
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(2) PORT_NAME("P2 Fire Up")
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_PLAYER(2) PORT_NAME("P2 Fire Down")
-
 	PORT_MODIFY("SW1")
-	PORT_DIPNAME( 0x70, 0x10, DEF_STR(Lives) )          PORT_DIPLOCATION("SW-1:5,6,7")
+	PORT_DIPNAME( 0x30, 0x10, DEF_STR(Lives) )          PORT_DIPLOCATION("SW-1:5,6")
 	PORT_DIPSETTING(    0x00, "2" )
 	PORT_DIPSETTING(    0x10, "3" )
 	PORT_DIPSETTING(    0x20, "5" )
 	PORT_DIPSETTING(    0x30, "6" )
-	PORT_DIPSETTING(    0x40, DEF_STR(Infinite) )
-//  PORT_DIPSETTING(    0x50, DEF_STR(Infinite) )
-//  PORT_DIPSETTING(    0x60, DEF_STR(Infinite) )
-//  PORT_DIPSETTING(    0x70, DEF_STR(Infinite) )
 	PORT_DIPNAME( 0x80, 0x80, "Collision Detection" )   PORT_DIPLOCATION("SW-1:8")
 	PORT_DIPSETTING(    0x00, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x80, DEF_STR(On) )
@@ -326,11 +310,6 @@ static INPUT_PORTS_START( lazarian )
 	PORT_DIPNAME( 0x04, 0x00, "Freeze" )                PORT_DIPLOCATION("SW-2:3")
 	PORT_DIPSETTING(    0x00, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x04, DEF_STR(On) )
-	PORT_DIPNAME( 0x18, 0x08, DEF_STR(Difficulty) )     PORT_DIPLOCATION("SW-2:4,5")
-	PORT_DIPSETTING(    0x00, DEF_STR(Easy) )
-	PORT_DIPSETTING(    0x08, DEF_STR(Medium) )
-	PORT_DIPSETTING(    0x10, DEF_STR(Difficult) )
-	PORT_DIPSETTING(    0x18, DEF_STR(Very_Difficult) )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( catnmous )
@@ -349,18 +328,30 @@ static INPUT_PORTS_START( catnmous )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNUSED )
 
 	PORT_MODIFY("SW1")
-	PORT_DIPNAME( 0x70, 0x10, DEF_STR(Lives) )          PORT_DIPLOCATION("SW-1:5,6,7")
+	PORT_DIPNAME( 0x30, 0x10, DEF_STR(Lives) )          PORT_DIPLOCATION("SW-1:5,6")
 	PORT_DIPSETTING(    0x00, "2" )
 	PORT_DIPSETTING(    0x10, "3" )
 	PORT_DIPSETTING(    0x20, "4" )
 	PORT_DIPSETTING(    0x30, "5" )
-	PORT_DIPSETTING(    0x40, DEF_STR(Infinite) )
-//  PORT_DIPSETTING(    0x50, DEF_STR(Infinite) )
-//  PORT_DIPSETTING(    0x60, DEF_STR(Infinite) )
-//  PORT_DIPSETTING(    0x70, DEF_STR(Infinite) )
 	PORT_DIPNAME( 0x80, 0x80, DEF_STR(Demo_Sounds) )    PORT_DIPLOCATION("SW-1:8")
 	PORT_DIPSETTING(    0x00, DEF_STR(Off) )
 	PORT_DIPSETTING(    0x80, DEF_STR(On) )
+
+	PORT_MODIFY("SW2")
+	PORT_DIPNAME( 0x01, 0x01, "Free Play" )             PORT_DIPLOCATION("SW-2:1") // taken from manual, assuming poor translation
+	PORT_DIPSETTING(    0x01, "Win Play" )
+	PORT_DIPSETTING(    0x00, "No Win Play" )
+	PORT_DIPNAME( 0x02, 0x02, DEF_STR(Unused) )         PORT_DIPLOCATION("SW-2:2") // manual says not used
+	PORT_DIPSETTING(    0x02, DEF_STR(Off) )
+	PORT_DIPSETTING(    0x00, DEF_STR(On) )
+	PORT_DIPNAME( 0x04, 0x04, DEF_STR(Unused) )         PORT_DIPLOCATION("SW-2:3") // manual says not used
+	PORT_DIPSETTING(    0x04, DEF_STR(Off) )
+	PORT_DIPSETTING(    0x00, DEF_STR(On) )
+	PORT_DIPNAME( 0x60, 0x40, DEF_STR(Bonus_Life) )     PORT_DIPLOCATION("SW-2:6,7")
+	PORT_DIPSETTING(    0x00, DEF_STR(Off) )
+	PORT_DIPSETTING(    0x20, "20,000" )
+	PORT_DIPSETTING(    0x40, "24,000" )
+	PORT_DIPSETTING(    0x60, "28,000" )
 INPUT_PORTS_END
 
 static const gfx_layout charlayout =
@@ -678,7 +669,11 @@ ROM_START( catnmous )
 	ROM_LOAD( "type01.11g",   0x1000, 0x0800, CRC(2999f378) SHA1(929082383b2b0006de171587adb932ce57316963) )
 
 	ROM_REGION( 0x0800, "gfx2", 0 )
-	ROM_LOAD( "type01.14l",   0x0000, 0x0800, CRC(af79179a) SHA1(de61af7d02c93be326a33ee51572e3da7a25dab0) )
+	// This needs double checking, might be a case of the wrong ROM type being marked on the PCB like with the final program rom.
+	// Flyers indicate there should be an 'old lady' character, and even show a graphic for one approaching from the right.
+	// This graphic is not present in our ROM and instead we get incorrect looking sprites, so the rom could be half size with
+	// an additional sprite bank bit coming from somewhere?
+	ROM_LOAD( "type01.14l",   0x0000, 0x0800, BAD_DUMP CRC(af79179a) SHA1(de61af7d02c93be326a33ee51572e3da7a25dab0) )
 
 	ROM_REGION( 0x0100, "gfxmix", 0 )
 	ROM_LOAD( "82s100.13m",   0x0000, 0x00f5, CRC(6b724cdb) SHA1(8a0ca3b171b103661a3b2fffbca3d7162089e243) )
@@ -719,7 +714,8 @@ ROM_START( catnmousa )
 	ROM_LOAD( "catnmous.11g", 0x1000, 0x0800, CRC(2999f378) SHA1(929082383b2b0006de171587adb932ce57316963) )
 
 	ROM_REGION( 0x0800, "gfx2", 0 )
-	ROM_LOAD( "catnmous.14l", 0x0000, 0x0800, CRC(af79179a) SHA1(de61af7d02c93be326a33ee51572e3da7a25dab0) )
+	// see comment in parent set
+	ROM_LOAD( "catnmous.14l", 0x0000, 0x0800, BAD_DUMP CRC(af79179a) SHA1(de61af7d02c93be326a33ee51572e3da7a25dab0) )
 
 	ROM_REGION( 0x0100, "gfxmix", 0 )
 	// copied from parent set to give working graphics, need dump to confirm
@@ -735,4 +731,4 @@ ROM_END
 GAME( 1981, laserbat,  0,        laserbat, laserbat, laserbat_state_base, laserbat, ROT0,  "Zaccaria", "Laser Battle",                    MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1981, lazarian,  laserbat, laserbat, lazarian, laserbat_state_base, laserbat, ROT0,  "Zaccaria (Bally Midway license)", "Lazarian", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1982, catnmous,  0,        catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 1)",           MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1982, catnmousa, catnmous, catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 2)",           MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1982, catnmousa, catnmous, catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 2)",           MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

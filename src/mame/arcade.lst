@@ -314,6 +314,7 @@ amidars         // GX337 (c) 1982 Konami
 triplep         // (c) 1982 KKI / made by Sanritsu?
 triplepa        // (c) 1982 KKI / made by Sanritsu?
 knockout        // (c) 1982 KKK
+knockoutb		// bootleg
 mariner         // (c) 1981 Amenip
 800fath         // (c) 1981 Amenip + U.S. Billiards license
 mars            // (c) 1981 Artic
@@ -359,6 +360,7 @@ calipso         // (c) 1982 Tago
 anteater        // (c) 1982 Tago
 anteaterg       // (c) 1983 TV-Tuning (F.E.G. license)
 anteateruk      // (c) 1983 Free Enterprise Games
+anteatergg		// bootleg
 rescue          // (c) 1982 Stern
 rescueb         // (c) Videl Games (Rescue bootleg)
 aponow          // bootleg
@@ -6174,6 +6176,7 @@ hbarrelw        // (c) 1987 Data East Corporation (World)
 baddudes        // EI (c) 1988 Data East USA (US)
 drgninja        // EG (c) 1988 Data East Corporation (Japan)
 drgninjab       // bootleg
+drgninjab2		// bootleg
 birdtry         // (c) 1988 Data East Corporation (Japan)
 robocop         // EP? (c) 1988 Data East Corporation (World)
 robocopw        // EP? (c) 1988 Data East Corporation (World)
@@ -8877,6 +8880,7 @@ f1gpstar        // (c) 1991 Jaleco
 armchmp2        // (c) 1992 Jaleco
 armchmp2o       // (c) 1992 Jaleco
 wildplt         // (c) 1992 Jaleco
+captflag        // (c) 1993 Jaleco
 f1gpstr2        // (c) 1993 Jaleco
 scudhamm        // (c) 1994 Jaleco
 tetrisp2        // (c) 1997 Jaleco
