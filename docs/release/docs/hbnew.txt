@@ -1,0 +1,578 @@
+What's new in HBMAME
+====================
+
+2015-12-30 0.169
+----------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- Added more neogeo hacks from MAME Plus/Ash-build.
+- Added a number of kof hacks.
+- Work continues on neogeo modernisation.
+- UI build:
+-- various small improvements
+
+
+
+
+
+2015-11-25 0.168 r41860
+-----------------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- Added more neogeo hacks from MAME Plus/Ash-build.
+- Added a number of kof94/95/96/97/98 hacks.
+- Work continues on neogeo modernisation.
+- Removed hack that fudged CPS2 suicide tester results.
+- Fixed kof96ep decryption.
+- UI build:
+-- Fixed problem where Default Game Options changes would revert on exit.
+-- various small improvements
+
+
+New Games
+---------
+- [suicide2]        CPS2 Suicide Tester v2 [by Razoola]
+- [sf2ceb1]         Street Fighter 2 hack
+- [kovsh18]         KOVSH Gem Fighters
+- [kovsh19]         KOVSH Rugal 98
+- [lb2te]           The Last Blade hack
+- [snddemo]         Neo-Geo Sound Loop Demo [by Freem]
+
+
+
+2015-10-28 0.167 r41414
+-----------------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- UI build: various small improvements
+- Added approx 100 neogeo hacks from MAME Plus/Ash-build
+
+
+New Games
+---------
+- [gaunt2ls]        Gauntlet II with new levels [by Orange Elf]
+- [mslug3eb]        Metal Slug 3 hack [by PlayerX China]
+- [mslugxeb]        Metal Slug X hack [by PlayerX China]
+- [mslug5l9a]       Metal Slug 5 lvl 9 hack ver A
+- [mslug5l9b]       Metal Slug 5 lvl 9 hack ver B
+- [sfiii3an]        SF3 Ford Strike
+- [sokoban]         Sokoban LE [by cmonkey]
+- [speccies]        Speccies 2 [by Sokurah]
+- [zintrkm]         Zintrick (music replaces voices)
+- [zintrkcd1]       Zintrick CD hack
+
+
+
+2015-09-30 0.166 r40959
+-----------------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- F2demo: Fixed display.
+- Punisherb: Fixed gfx.
+- Punisherf: Fixed exception on stage 1.
+- Monster Zero: added attract mode.
+- Added a number of hacks from MamePlus/Ash-build, fixing them as needed.
+- ddonpacha: used the correct eprom
+- Rearranged/renamed the various hacks of Sangokushi 2
+- Renamed spclone to spcloneo (ver 0.7.2.2) and added a new spclone (ver 0.7.3)
+- Vector Breakout, Tempest Multigame, and Pacman Multigame (pm4n1d) now working.
+- Tldemo2 didn't work properly on real hardware, replacement rom supplied.
+- UI build: fix from MAMEUIFX for history tab
+
+
+New Games
+---------
+- [bbaladar]        Bubble Bobble hack [by Aladar]
+- [cballfix]        Atari Cannonball (with replacement rom) [by MASH]
+- [kof2002x]        KOF 2002 Babel ice field remix
+- [mslug3kho]       Metal Slug 3 style remix
+- [spacwarp]        Space Warp (proto on Space Duel hardware) [by Jeff Hendrix]
+- [sys16dem]        System-16 demo [by Charles Doty]
+- [wofsf2]          Warriors of Fate on Street Fighter 2 hardware
+- [1944da]          1944 Alt Phoenix edition
+- [1944fp]          1944 Fire Power version
+- [airwolffr]       Air Wolf (French traduction)
+- [asukac]          Asuka (Chinese)
+- [batsugunt]       Batsugun transparent
+- [bgareggz]        Battle Garegga Zakk version
+- [captcomc]        Captain Commando (Chinese)
+- [captcommb2]      Captain Commando bootleg
+- [dinojp]          Cadillacs hack [by Pipi899]
+- [evilstonfr]      Evil Stone (French traduction)
+- [knight21]        Knights of the Round (debug)
+- [knightsjb]       Knights of the Round (Japan, bootleg)
+- [kov2h5]          Knights of Valor 2 Plus (hack 5)
+- [kovph24]         Knights of Valor Plus (hack 24)
+- [kovph25]         Knights of Valor Plus (v120)
+- [mahoudcn]        Mahou Daisakusen (Chinese)
+- [mkfr]            Mortal Kombat (French traduction)
+- [mk2fr]           Mortal Kombat 2 (French traduction)
+- [mpangjd]         Mighty Pang Phoenix edition
+- [orlegendcs]      Oriental Legand hack
+- [orlegendh]       Oriental Legend hack
+- [powernbr]        Power Instinct (Brazil)
+- [punisherjh]      The Punisher (Shinwa hack)
+- [redeartn]        War-Zard No-CD
+- [samenew]         Same! Same! Same! NEW version
+- [sf2c]            Street Fighter 2 (Chinese)
+- [sf2th]           Street Fighter 2 Turbo (hack)
+- [sf2tha]          Street Fighter 2 Turbo (hack)
+- [sf2tlonc]        Street Fighter 2 (slay the dragon set 3)
+- [sf2yyc3d5]       Street Fighter 2 bootleg
+- [sf2yyc3g]        Street Fighter 2 bootleg
+- [sf2yyc6]         Street Fighter 2 bootleg
+- [sfa2h]           Street Fighter Alpha 2 hack
+- [sfaud]           Street Fighter Alpha Phoenix edition
+- [sfiii4rd]        Street Fighter 3rd strike (4rd arrange edition)
+- [sfz2abr]         Street Fighter Zero 2 Alpha (Brazil)
+- [sk2h22]          Sangokushi 2 hack 22
+- [spf2tb]          Super Puzzle Fighter II Turbo Boss Hack
+- [ssf2td]          Super Street Fighter II Turbo Phoenix edition
+- [tdragon2p]       Thunder Dragon 2 (Practice version)
+- [varthb]          Varth bootleg
+- [wofchdx1]        Green version of wofchdx
+
+
+2015-08-26 0.165 r40487
+-----------------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- UI build: various fixes and adjustments.
+- Added 41 versions of KOF'98 Combo.
+- Added a few versions of KOF'99 Anniversary Edition.
+- Renamed the various KOV hacks, and added some more.
+- Fixed knightsha.
+
+
+New Games
+---------
+- [knightsro]       Knights of the Round (Romanian) [by Sebastian Mihai]
+- [kof2000r]        KOF REMIX PRO
+- [kof96oib]
+- [kof97evo]        KOF'97 Evolution
+- [kof98cta]        KOF'98 COMBO 10th Anniversary (not fully working)
+- [kof98frp]        KOF'98 the Slutfest [by Cigarette Patch]
+- [nitdsp1]         Nightmare in the Dark (Spanish.rev2)
+- [sf2h14]
+- [ssf2r1d]         Super Street Fighter II ETC 930911 Phoenix
+- [strhoopcd]       Street Hoop (CD Conversion)
+- [tldemo2]         "256 colours" demo for Taito-L [by cmonkey]
+- [twister]         Twister in a mirror intro [by Blastar]
+- [wh2ja]
+
+
+
+2015-06-04 0.162 r38440
+-----------------------
+
+Thanks to various sources of information:
+Smitdogg.
+
+- [pcmbdemo] - fixed with new roms from the author
+- UI build: various fixes and adjustments.
+- Sync'd docs to latest MAME, and can be opened with Notepad.
+
+
+New Games
+---------
+- [1942c64]     1942 with C64 music [by Minwah]
+- [1942fpa]     1942 with attract mode when free play is selected [by cmonkey]
+- [hellowp]     Hello World (Pacman HW)  [by cmonkey]
+- [robotron201] Robotron 2084 (Hacked Patched Blue-201) [by Sean Riddle]
+- [robotrontie] Robotron 2084 (Tie Die)  [by Vid Kidz]
+- [tldemo]      Demo - Taito-L  [by cmonkey]
+
+
+
+
+2015-05-03 0.161 r37536
+-----------------------
+
+Thanks to various sources of information:
+Smitdogg, mamesick.
+
+- Converted to MAME's Genie compiling system
+- Fixed Charles Doty's Dec0 Chaos Demo.
+- [pacmanp] (Fix for level 256 kill screen) - modified to include Pinky and Inky AI fixes [Don Hodges, Krick]
+- UI build: various fixes and adjustments.
+
+
+New Games
+---------
+- [ketarr17]    Ketsui Arrange 1.7 [by trap15]
+- [mslug2t]     Metal Slug 2 Turbo [by trap15]
+- [pcmademo]    Neogeo ADPCM-A Playback demo [by freem]
+
+
+
+
+2015-03-28 r36652
+-----------------
+
+Thanks to various sources of information:
+Tafoid.
+
+- Cookie-Mon fixed
+
+
+New Games
+---------
+- [ngmontst]    Neo Geo Monitor Test
+- [ottop1]      Otto Project P1 (Crazy Otto)
+- [ottop2]      Otto Project P2 (Crazy Otto)
+- [ottop3]      Otto Project P3 (Crazy Otto)
+- [ottopz]      Otto Project PZ (Crazy Otto)
+- [pcmbdemo]    Neogeo ADPCM-B Playback demo (not working)
+- [spriteex]    Sprite Experimenter
+- [stridergf]   Strider with minor gfx fixes [Willkaotix]
+- [stridergh]   Strider with minor gfx fixes and uncensor amazons [Willkaotix]
+- [superp4g]    Otto Project P4G (Super Pacman)
+- [superp4m]    Otto Project P4M (Super Pacman)
+- [womanp5]     Otto Project P5 (Pac Woman)
+
+
+
+
+2015-03-15 r36430
+-----------------
+
+Thanks to various sources of information:
+Newuzer.
+
+- fixed graphics in svcd
+- bbredux updated to latest patch
+
+- UI build
+-- Added "Video: OpenGL" selection.
+
+New Games
+---------
+- [kof96ae]     King of Fighters 96 (10th anniversary set 2)
+- [kof2k2mpu]   King of Fighters 2002 (Plus)
+- [kof2k2or]    King of Fighters 2002 (3rd strike of Orochi)
+- [kof2k2sm]    King of Fighters 2002 (Super Mix 2013)
+- [kof2k4se1]   King of Fighters 2004 (alternate set)
+- [robotronp]   Robotron (patched)
+- [umk3te]      Ultimate Mortal Kombat III Tournament Edition 2.0.032b8 (Public Beta)
+
+
+
+2014-10-16 r32769
+-----------------
+
+Thanks to various sources of information:
+ KOF-ON, Newuzer, Tafoid, JacKc.
+
+- UI build:
+-- Fixed problem where Default Game Options would revert to original defaults.
+-- Adjusted Sound options to match 0.154 baseline.
+-- Added "Video: Auto" selection.
+-- Fixed a number of bugs with certain video/display options being grayed out.
+-- Due to a baseline bug, after modifying the Default Game Options, you should quit and restart HBMAMEUI.
+
+- Updated neogeo information.
+
+
+New Games
+---------
+- [dkongpac]    Pacman saves Mspacman, by Tim Appleton
+- [jryumyum]    Jr.Pacman vs Yumyum + Friends, by Tim Appleton
+- [pacwf]       Pacman Weird Fruit, by Tim Appleton
+- [mspacwf]     Ms Weird Fruit Pac, by Tim Appleton
+- [pacfnt]      Pacman with Pacman font, by Tim Appleton
+- [mspacfnt]    Ms.Pacman with Pacman font, by Tim Appleton
+- [kof2k2ibp]   Ice Blue Perfect
+- [kof2k2js]    KOF Remix Ultra 3.0
+- [kof2k2mp1]   Magic Plus (alt vers)
+- [kof2k2mp3]   Magic Plus III
+- [kof2k2rma]   Remix-A
+- [kof2k2smg]
+- [knacki]      Knackiballs, by Furrtek
+- [mslug4dh]    Metal SLug 4 Super D Version, by HappyASR [EGCG]
+- [test01]      MVS Test 01, by Furrtek
+- [umk2te52]    Ultimate Mortal Kombat II Tournament Edition 5.2
+- [wofchdx]     Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010
+- [wofjm]       Tenchi wo Kurau 2 (Japan 921031) (with fighting women)
+
+
+
+
+2014-06-13 r30958
+-----------------
+
+Thanks to various sources of information:
+ KOF-ON, Newuzer, Tafoid.
+
+- UI build: fixed certain directory settings not being saved.
+
+- Big Neo-Geo changes:
+-- Added back a number of hacks that had been overlooked
+-- Fixed some sets that were not working as intended
+-- Renamed every rom that's not in MAME to a new standard
+-- Renamed some sets
+-- Created a list of all known homebrews, unreleased and rumoured
+   sets and allocated numbers to them.
+
+
+New Games
+---------
+- [kof95d]
+- [kof96lx]     10th Anniversary
+- [kof97bh]
+- [kof97sed]
+- [kof98fr]
+- [kof98fro]
+- [kof98fro2]
+- [kof99d]
+- [kof99iori]
+- [kof2000d]
+- [kof2001d]
+- [kof2k1pa]
+- [kof2k1pls]
+- [kof2002d]
+- [kof2k2br]
+- [kof2k2br1]
+- [kof2k2br2]
+- [kof2k2ht]
+- [kof2k2omg]   KOF-ON Omega
+- [kof2k2omg9]  KOF-ON Omega v0.9
+- [kof2k2omg9b] KOF-ON Omega v0.9 beta
+- [kof2k2plb]
+- [kof2k2ps2]
+- [kof2k4ru]    Remix Ultra 2.6F
+- [mslug3d]
+- [mslug4d]
+- [mslug5d]
+- [mslugxfr]
+- [mslugxfro]
+- [mslugxit]
+- [mslug2fr]
+- [mslug2fro]
+- [mslug3fr]
+- [mslug3fro]
+- [mslug4fr]
+- [mslug5fr]
+- [punisherf]   The Punisher Flash Version by Zhyxxxx
+- [mk2r33]      Mortal Kombat II rev 3.3 (proto)
+- [umk2te50]    Ultimate Mortal Kombat II Tournament Edition 5.0
+- [umk2te51]    Ultimate Mortal Kombat II Tournament Edition 5.1
+
+
+
+
+2014-04-10 r29507
+-----------------
+
+Thanks to various sources of information:
+ JackC, Newuzer.
+
+- Added UI build
+- Various improvements to Galaga bootlegs
+- Fixed a few mspacman sets that crashed
+- Fixed cawingb
+- Lots of misc fixes
+- Added a FAQ entry explaining how to fix cphd.
+
+
+New Games
+---------
+- Warrior of Fate Hack by Zero
+- Bubble Bobble Redux (4 sets)
+- Roboarmy hack (roboarma set removed from MAME)
+- Power Instinct 2 hack by TT
+- [matrimdh]    hack by Dodowang
+- KOF98 Combo   (5 more sets) by Ivex
+- [sf2koryu]    hack by TT
+- [sf2pun]      Punishment Edition hack by Drakon
+- [sf2sl73a]    Sheng Long hack by Drakon
+- [ddsomchs]    Dungeons & Dragons (chinese)
+- [ssridersaex] Sunset Riders hack by Pipi899
+- [s1945iiex]   Strikers 1945 II hack by Pipi899
+
+
+
+2014-01-20 r27151
+-----------------
+
+New Games
+---------
+- Crouching Pony Hidden Dragon demo
+
+
+
+2013-12-13 r26602
+-----------------
+
+New Games
+---------
+- Mr. Do! Nightmare (thanks to mamesick)
+- Bubble Bobble: Lost Cave (v1.2)
+
+
+
+2013-09-18 r25368
+-----------------
+
+- Added a FAQ entry explaining how to fix ww2demo.
+
+- Fixed 'neopong' and 'neopong10'
+
+- Fixed sprites in 'beast', but still suffers from
+  some screen tearing.
+
+
+New Games
+---------
+- kf2k8uni (King of Fighters 2002 hack)
+- kof98mix (2011-10-01)
+- Targ Test Rom V1.0
+
+
+
+2013-06-30 r24018
+-----------------
+
+Thanks to various sources of information:
+ JackC, B2K24, Newuzer.
+
+
+New Games
+---------
+- Wofr1h (Warriors of Fate hack)
+- wofchs (Warriors of Fate, Chinese)
+- wofch_v3 (CPS Changer alt version)
+- Dinoex (Cadillacs and Dinosoaurs hack)
+- kof98co1 (King of Fighters 98 Combo 2013-05-09)
+- kof99ae (King of Fighters 99 Anniversary Edition)
+- spacmiss (Space Missile modification)
+
+
+
+2013-05-01 r22408
+-----------------
+
+Thanks to various sources of information:
+ JackC, B2K24, abelenki.
+
+
+New Games
+---------
+- Star Slayer (asteroids hack)
+- KOF2002 Super Black Mix
+- Donkey Kong: Pauline Edition Rev 5
+
+
+
+
+2013-04-15 r22408
+-----------------
+
+Thanks to various sources of information:
+ JackC, B2K24, FBA, Houba, Jan Tleskac.
+
+
+CPS-1 games have seen improvement and cleanup:
+
+- cps1demo - working
+- cps1frog - working
+- daimakb - working
+- knightsb2 - working (fixed high score screen)
+- wofh - working
+- wofha - working
+- wofsj - working
+- wofsja - working
+- wof3sj - working
+- wof3sja - working
+
+
+
+New Games
+---------
+- Bang Bang Busters prototype (neogeo)
+- Treasure of the Caribbean (neogeo)
+- more versions of neogeo galaga demo
+- Out Run Enhanced Edition v1.0.2, v1.0.1, v1.0.0
+- Invaders Revenge
+- and a few non-working games
+
+
+
+2013-03-07 r21683
+-----------------
+
+
+New Games
+---------
+- Street Fighter II (Drakon) (2 sets)
+- Super Bobble Bobble level select hack
+- WW2demo (neogeo)
+- Nyan Cat demo (neogeo)
+- Galaga demo (neogeo) (2 sets)
+- NeoGeo 2-player Tetris
+- Final Romance 2
+- Mortal Kombat (Turbo Endurance)
+- Mortal Kombat (Projectile Insanity)
+- Knights of Valour hacks (12 sets)
+- and a few non-working games
+
+
+
+2013-02-26 r21445
+-----------------
+
+
+New Games
+---------
+- CPS1 Diagnostic for sf2ce
+- CPS1 Diagnostic for megaman
+- Williams 6-in-1 Multigame
+- Ketsui Arrange (7 sets)
+- DoDonPachi Arrange v1.1
+- Out Run Enhanced Edition v1.0.3
+- Metal Slug 3 Violence Edition
+- Final Fight (bootleg)
+- Dinosaurs & Cadillacs Z (Boss hack)
+- and a few non-working games
+
+
+
+2013-02-20 r21209
+-----------------
+
+
+New Games
+---------
+- Neo 3D
+- Neo Castlevania Demo
+- Bubble Bobble: Lost Cave (v1.0)
+- Bubble Bobble: Lost Cave (v1.1)
+- Pac Manic Miner Man
+
+
+
+2013-02-18 r21153
+-----------------
+
+- Fixed listxml output for cmp
+- Removed symbols in build
+- Added hbnew.txt (whatsnew file)
+- Added 64-bit build
+
+New Games
+---------
+- Neo Thunder
+- NGF Transparency Demo
+- Neorom Jukebox
+- Time's Up! Demo
+
+
+
+2013-02-17 r21147
+-----------------
+
+- First release

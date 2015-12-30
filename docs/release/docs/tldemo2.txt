@@ -1,0 +1,52 @@
+Taito L System 256 colour demo (Plotting board)
+
+-----------------------------------------------
+
+
+
+Instructions for use
+
+--------------------
+
+Ensure you drink lots of beer before watching this crap!
+
+
+
+During 256 colour section of the demo the following controls do stuff :-
+
+
+  P1 START - toggle between 220 colour and 256 colour palettes
+
+  P1 FIRE  - reverse palette rotation direction
+
+  P1 UP    - slow down palette rotation (max of 9 frame delay between rotations)
+
+  P1 DOWN  - speed up palette rotation (min of 1 frame delay between rotations)
+
+  P1 LEFT  - increase delay before palette rotation routine begins
+
+  P1 RIGHT - decrease delay before palette rotation routine begins
+
+
+  DIP SWITCH BANK 2 - SWITCH 8 : ON = FREEZE DISPLAY, OFF = RESUME
+
+
+  P1 START & P1 FIRE together to exit 256 colour demo and move to next section of demo
+
+
+  NOTE - The effects of increasing/decreasing the delay before the palette rotation routine
+
+  begins executing will only be visible when this code is running on a CRT monitor.
+
+
+
+
+Slideshow/screen transition section of the demo
+
+-----------------------------------------------
+
+P1 FIRE to advance to the next screen
+
+
+
+Ensure you drink even more beer after suffering this crap!

@@ -1,0 +1,110 @@
+HBMAME FAQ
+----------
+
+This should answer the most common questions.
+
+
+1. What are the issues regarding use of source code and the emulator?
+A. HBMAME usage follows the MAME licence precisely. See the MAMEDEV site for details.
+   Any source code that is specific to HBMAME may be incorporated into your build, but you
+   MUST GIVE CREDIT to me (Robbbert) or HBMAME.
+
+2. Save state not working!
+A. We currently do NOT support Save States, High Scores (except games that have the [h] designator),
+   and Cheats. If it happens to work for you, feel fortunate.
+
+3. What does [c] mean?
+A. The game has cheat facilities built in. Press 1 to be invulnerable. Press 2 to go fast.
+   Exception: Cookie-Mon goes slower.
+   Another exception: Bagman Turbo has 1 to go fast, and 2 to be invulnerable to guards.
+
+4. What does [f] mean?
+A. The game has a built in hack to make Pacman go fast. It cannot be turned off.
+
+5. What does [h] mean?
+A. The game has built-in support for saving the high scores in NVRAM.
+
+6. What other cheats exist in Pacman games?
+A. Press 8 to end the level you are on and proceed to the next.
+   Most games have a dipswitch available to allow Pacman to go fast when the Fire key is pressed.
+   This cheat also exists in JrPacMan, and MsPacMan.
+
+7. Tell me about HOMERCIDE.
+A. Coded by David Widel, Graphics by Cutebutwrong.
+   You need to pass over each dot 3 times before it is removed. They start out white, then blue,
+   then green, then eaten. If you eat a power pill, the blue dots turn green, and you go faster.
+   The game features a warping feature. At the start, you can see Homer on a round plate. If you
+   press 1, you will warp to this point. Use it when in danger. Pressing 2 will move the plate
+   to your current location. The counter at the top right shows how many warps you have left.
+
+8. I can't shoot in some of Dave Widel's games (example: Alien Armada / Zap / Multipac / 96in1).
+A. Press 1 to fire.
+
+9. ALPACA doesn't work.
+A. It's an operating system, not a game. See the author's website.
+
+10. How do I get to the config menu in 96IN1 / MADPAC?
+A.  From the menu, choose Other Games, then choose Eyes or Mr. TNT, press 1 to start, then press 9.
+
+11. How do I get to the config menu in PM4N1E?
+A.  In the Dipswitch menu, turn on the Service switch.
+
+12. How do I play Vector Breakout Plus?
+A.  Start Vector Breakout, then hold down 1 and press F3.
+
+13. I can't get all the dots in PAC RABBIT.
+A.  Rabbits can jump. And yes, it is possible to jump over a monster. Watch out for the mad fox.
+
+14. The cartoons (TMNTI, etc) don't work.
+A.  They need to be set to Japan Console-AES mode. When you see the Unibios screen, press the keys
+    Ctrl, Alt and Space together. Now you are at a menu. Press Ctrl. Press Ctrl to select Japan,
+    then Alt to select Console-AES. Then choose Play Game and press Ctrl to start. These settings
+    will be remembered for next time.
+
+15. Shock Troopers 2nd squad Wesker hack (shockt2w) doesn't work properly.
+A.  It needs to be set to Console-AES mode. When you see the Unibios screen, press the keys
+    Ctrl, Alt and Space together. Now you are at a menu. Press Ctrl. Press Space to select Europe,
+    then Alt to select Console-AES. Then choose Play Game and press Ctrl to start. These settings
+    will be remembered for next time. Because you're in Console mode, don't try inserting coins,
+    just press 1 to start playing.
+
+16. Absurd/Quadblok
+A.  Absurd doesn't work, but Quadblok does. To play it, press the left or right arrow to select,
+    then insert a coin.
+
+17. Monaco GP
+A.  Use the up and down arrows to change gear (high or low). Use any of Ctrl, Alt or Space to
+    accelerate. Space will give the highest speed, and you get speed increases if you get 6000
+    points.
+
+18. WW2demo crashes on the 2nd run
+A.  This game uses the up & down arrow keys to scroll around. However on the next run, pressing
+    those keys causes it to reboot, and it never works again. On exit, it writes a corrupted
+    nvram file which causes the problem. To fix this, firstly navigate to the nvram\ww2demo
+    folder and delete the file 'saveram'. Then use Notepad or similar to create a small file
+    of the same name. Then make it read-only. Now, the game should work.
+
+19. Crouching Pony Hidden Dragon only shows a black screen on the 2nd run
+A.  This is recent regression in the main neogeo driver. You'll need to make a dummy saveram
+    just like in the WW2demo paragraph above.
+
+20. List of neogeo problems
+A.  neonopon - high scores 1 and 2 don't show. Key debounce problem.
+    neonopona - crashes at start due to some programming error
+    beast - screen tearing
+    neopong, neopong10 - On the intro page, a vertical bar moves slowly from the left.
+
+21. Bubble Bobble Redux
+A.  The monsters can fire at you!
+    bbredux1 - as above, and press P1+P2 while playing to skip to the next level;
+    bbredux2 - as above, and when you lose your last life press P1 to continue;
+    bbredux3 - as above, and saves the high scores. Well, it would, except it isn't coded yet.
+
+22. Ironclad - the screen is rather dark.
+A.  Choose Japan or US bios. You still get some Japanese text though.
+
+98. I would like to submit a game.
+A.  Send me a PM. Remember, games cannot be included without roms to test with.
+
+99. My question isn't here!
+A.  Ask it on the forum at mameworld.info

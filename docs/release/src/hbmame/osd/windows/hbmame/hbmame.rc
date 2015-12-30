@@ -1,0 +1,11 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
+
+//#define NOWINRES
+#include "windows.h"
+//#include "commctrl.h"
+//#include "hbmamevers.rc"
+
+1                       24      MOVEABLE PURE   "hbmame.man"
+
+2                       ICON    DISCARDABLE     "../../../osd/winui/res/hbmame.ico"
