@@ -199,8 +199,9 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 	project (_name)
 	targetsubdir(_target .."_" .. _subtarget)
 	kind (LIBTYPE)
---	kind "StaticLib"
 	uuid (os.uuid("drv-" .. _target .."_" .. _subtarget .. "_" .._name))
+--	addprojectflags() -- no idea if this is needed, seems to work fine without it
+	precompiledheaders()
 
 --	options {
 --		"ForceCPP",
