@@ -82,7 +82,6 @@
 # OPENMP = 1
 # FASTDEBUG = 1
 
-# FILTER_DEPS = 1
 # SEPARATE_BIN = 1
 # PYTHON_EXECUTABLE = python3
 # SHADOW_CHECK = 1
@@ -637,10 +636,6 @@ ifdef FASTDEBUG
 PARAMS += --FASTDEBUG='$(FASTDEBUG)'
 endif
 
-ifdef FILTER_DEPS
-PARAMS += --FILTER_DEPS='$(FILTER_DEPS)'
-endif
-
 ifdef SEPARATE_BIN
 PARAMS += --SEPARATE_BIN='$(SEPARATE_BIN)'
 endif
@@ -761,9 +756,15 @@ endif
 
 
 ifeq ($(OS),windows)
+ifeq (posix,$(SHELLTYPE))
+GCC_VERSION      := $(shell $(subst @,,$(CC)) -dumpversion 2> /dev/null)
+CLANG_VERSION    := $(shell $(subst @,,$(CC)) --version 2> /dev/null| head -n 1 | grep clang | sed "s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$$/\1/" | head -n 1)
+PYTHON_AVAILABLE := $(shell $(PYTHON) --version > /dev/null 2>&1 && echo python)
+else
 GCC_VERSION      := $(shell $(subst @,,$(CC)) -dumpversion 2> NUL)
 CLANG_VERSION    := $(shell $(subst @,,$(CC)) --version 2> NUL| head -n 1 | grep clang | sed "s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$$/\1/" | head -n 1)
 PYTHON_AVAILABLE := $(shell $(PYTHON) --version > NUL 2>&1 && echo python)
+endif
 ifdef MSBUILD
 MSBUILD_PARAMS   := /v:minimal /m:$(NUMBER_OF_PROCESSORS)
 ifeq ($(CONFIG),debug)
@@ -823,6 +824,9 @@ endif
 
 .PHONY: windows_x64
 windows_x64: generate $(PROJECTDIR)/gmake-mingw64-gcc/Makefile
+ifndef MINGW64
+	$(error MINGW64 is not set)
+endif
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/gmake-mingw64-gcc config=$(CONFIG)64 WINDRES=$(WINDRES) precompile
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/gmake-mingw64-gcc config=$(CONFIG)64 WINDRES=$(WINDRES) 
 
@@ -841,6 +845,9 @@ endif
 
 .PHONY: windows_x86
 windows_x86: generate $(PROJECTDIR)/gmake-mingw32-gcc/Makefile
+ifndef MINGW32
+	$(error MINGW32 is not set)
+endif
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/gmake-mingw32-gcc config=$(CONFIG)32 WINDRES=$(WINDRES) precompile
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/gmake-mingw32-gcc config=$(CONFIG)32 WINDRES=$(WINDRES)
 
@@ -849,9 +856,6 @@ windows_x86: generate $(PROJECTDIR)/gmake-mingw32-gcc/Makefile
 #-------------------------------------------------
 
 $(PROJECTDIR)/gmake-mingw-clang/Makefile: makefile $(SCRIPTS) $(GENIE)
-ifndef CLANG
-	$(error CLANG is not set)
-endif
 	$(SILENT) $(GENIE) $(PARAMS) --gcc=mingw-clang --gcc_version=$(CLANG_VERSION) gmake
 
 .PHONY: windows_x64_clang
@@ -1211,7 +1215,7 @@ generate: \
 		$(GEN_FOLDERS) \
 		$(patsubst $(SRC)/%.lay,$(GENDIR)/%.lh,$(LAYOUTS))
 
-$(GENDIR)/%.lh: $(SRC)/%.lay scripts/build/file2str.py
+$(GENDIR)/%.lh: $(SRC)/%.lay scripts/build/file2str.py | $(GEN_FOLDERS)
 	@echo Converting $<...
 	$(SILENT)$(PYTHON) scripts/build/file2str.py $< $@ layout_$(basename $(notdir $<))
 

@@ -7677,6 +7677,7 @@ ikaria          // A5004 'IW' (c) 1986
 ikarinc         // A5004 'IW' (c) 1986
 ikarijp         // A5004 'IW' (c) 1986 (Japan)
 ikarijpb        // bootleg
+ikariram		// bootleg
 victroad        // A6002      (c) 1986
 dogosoke        // A6002      (c) 1986
 dogosokb        // bootleg
@@ -11929,6 +11930,16 @@ pexmp026        // (c) 1997 IGT - International Game Technology
 pexmp030        // (c) 1997 IGT - International Game Technology
 pexmp030a       // (c) 1997 IGT - International Game Technology
 
+// IGT Game King
+gkigt4
+gkigt4ms
+gkigt43
+gkigt43n
+gkigtez
+gkigt5p
+igtsc
+gkkey
+
 elgrande        // (c) 1982 Tuni Electro Service / E.T. Marketing
 jjpoker         // (c) 1983 Enter-Tech
 jjpokerb        // (c) 1983 Enter-Tech
@@ -13424,6 +13435,7 @@ tmspoker
 kas89           // 1989, SFC S.R.L.
 caspoker        // 1987, PM / Beck Elektronik.
 wildpkr         // 199?, TAB Austria.
+tabpkr			// 199?, TAB Austira
 subhuntr        // 1979 Model Racing
 
 manohman        // 199?, Merkur.
