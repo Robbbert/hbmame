@@ -4833,7 +4833,7 @@ mwalku          // 1990.08 Micheal Jackson's Moonwalker (US, FD1094+8751)
 mwalkj          // 1990.08 Micheal Jackson's Moonwalker (Japan, FD1094+8751)
 mwalk           // 1990.?? Micheal Jackson's Moonwalker (World, FD1094+8751)
 lghost          // 1990.?? Laser Ghost (World, FD1094)
-				// 1990.12 Laser Ghost (Japan)
+lghostj			// 1990.12 Laser Ghost (Japan)
 lghostu         // 1991.01 Laser Ghost (US, FD1094)
 cltchitr        // 1991.02 Clutch Hitter (US, FD1094)
 cltchitrj       // 1991.05 Clutch Hitter (Japan, FD1094)
@@ -9251,6 +9251,7 @@ fjbuster        // (c) 1992 Kaneko
 brapboys        // (c) 1992 Kaneko
 brapboysj       // (c) 1992 Kaneko
 brapboysu       // (c) 1992 Kaneko
+wingforc        // (c) 1993 Atlus (Japan, prototype)
 bloodwar        // (c) 1994 Kaneko
 oedfight        // (c) 1994 Kaneko
 bonkadv         // (c) 1994 Kaneko
@@ -11128,6 +11129,10 @@ chinatow        // 1998 unknown
 photoply
 supercrd        // (c) 1992 Fun World
 fruitstr        // (c) 1992 Fun World
+
+// with 2nd set of hardware on PCB for stealth purposes
+royalcrd_nes
+royalcrd_msx
 
 // Sandii'
 snookr10        // (c) 1998 Sandii'
@@ -32607,6 +32612,8 @@ arac6000
 number1    // 1996 San Remo Games
 gluck2     // 1992 Yung Yu / CYE
 
+sanremmg   // San Remo / Elsy
+
 // Valco fireball
 fireball
 
@@ -32653,3 +32660,4 @@ clowndwn // Elwood Clown Roll Down
 
 fi6845
 fi8275
+
