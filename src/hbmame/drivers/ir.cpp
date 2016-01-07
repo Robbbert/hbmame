@@ -2,66 +2,66 @@
 // copyright-holders:Robbbert
 /****************************************************************************************
 
-	Invader's Revenge
+    Invader's Revenge
 
-	October, 2008 by Robbbert
+    October, 2008 by Robbbert
 
-	No diagram available, so I threw this together
-
-
-	Invader's Revenge was made by the English company, Zenitone-Microsec Ltd.
-	Distributed in Germany by Dutchford.
-	Also distributed in America by Americade Amusement, Inc., of New Jersey.
-
-	It's basically a hardware hack of the normal Taito Space Invaders machine.
-
-	Changes (start with a Space Invaders with a colour CRT):
-
-	1. The sound board is replaced with another that makes different sounds.
-
-	2. A sardine-can-shaped potted black epoxy block containing a 4mhz crystal,
-	   two large 40-pin ICs, at least 2 roms, and a number of TTL-shaped chips.
-	   My assumption is that one of the big chips is a (slave sound) CPU.
-
-	3. New main roms
-
-	4. A small card contains a colour PROM. There's no RAM for this, so the colours
-	   must be quite simplistic.
-
-	The main CPU communicates to the slave by sending sound codes via port 3,
-	while port 5 controls various aspects of the screen display.
-
-	The method of enabling cocktail mode is the same as for Space Invaders, that is,
-	changing the positions of SW5,6,7; cutting a track; and adding some jumpers.
-	Obviously this is a once-off change for the table model.
-
-	Known bugs in the original roms:
-
-	1. If you turn on the machine, start a 1-player game and just let it run to the
-	   end, it will congratulate player 2 for getting a high score. Of course, zero
-	   points is not a high score, and there wasn't a player 2.
-
-	2. If you die just after killing the last enemy in the 8th level, the docking
-	   stage uses the wrong colour map. I've added a fix for this.
+    No diagram available, so I threw this together
 
 
-	Notes about colour proms:
+    Invader's Revenge was made by the English company, Zenitone-Microsec Ltd.
+    Distributed in Germany by Dutchford.
+    Also distributed in America by Americade Amusement, Inc., of New Jersey.
 
-	1. The proms from sets 'invrvnga' and 'invrvng3' are the correct ones. The prom
-	   from 'invrvng3' is used for the other sets, as their proms haven't shown up
+    It's basically a hardware hack of the normal Taito Space Invaders machine.
+
+    Changes (start with a Space Invaders with a colour CRT):
+
+    1. The sound board is replaced with another that makes different sounds.
+
+    2. A sardine-can-shaped potted black epoxy block containing a 4mhz crystal,
+       two large 40-pin ICs, at least 2 roms, and a number of TTL-shaped chips.
+       My assumption is that one of the big chips is a (slave sound) CPU.
+
+    3. New main roms
+
+    4. A small card contains a colour PROM. There's no RAM for this, so the colours
+       must be quite simplistic.
+
+    The main CPU communicates to the slave by sending sound codes via port 3,
+    while port 5 controls various aspects of the screen display.
+
+    The method of enabling cocktail mode is the same as for Space Invaders, that is,
+    changing the positions of SW5,6,7; cutting a track; and adding some jumpers.
+    Obviously this is a once-off change for the table model.
+
+    Known bugs in the original roms:
+
+    1. If you turn on the machine, start a 1-player game and just let it run to the
+       end, it will congratulate player 2 for getting a high score. Of course, zero
+       points is not a high score, and there wasn't a player 2.
+
+    2. If you die just after killing the last enemy in the 8th level, the docking
+       stage uses the wrong colour map. I've added a fix for this.
+
+
+    Notes about colour proms:
+
+    1. The proms from sets 'invrvnga' and 'invrvng3' are the correct ones. The prom
+       from 'invrvng3' is used for the other sets, as their proms haven't shown up
            yet.
 
-	2. Real name for 'invrvnga' prom is '3r.bin' ; for 'invrvng3' is 'ir.clr'.
+    2. Real name for 'invrvnga' prom is '3r.bin' ; for 'invrvng3' is 'ir.clr'.
 
-	Todo:
+    Todo:
 
-	1. Identify the slave CPU and make it work.
-	2. Get schematic diagrams, and design a discrete sound board.
+    1. Identify the slave CPU and make it work.
+    2. Get schematic diagrams, and design a discrete sound board.
 
-	Changes:
+    Changes:
 
-	1. Added above documentation (MAME doesn't have any)
-	2. Identified all sound codes. (We only need good samples now)
+    1. Added above documentation (MAME doesn't have any)
+    2. Identified all sound codes. (We only need good samples now)
 
 *******************************************************************************************/
 
@@ -98,18 +98,6 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
-	/* device/memory pointers */
-	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<UINT8> m_p_ram;
-	required_device<samples_device> m_samples;
-	required_device<screen_device> m_screen;
-
-	bool       m_flip_screen;
-	bool       m_screen_red;
-
-	/* timer */
-	emu_timer   *m_interrupt_timer;
-
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
@@ -118,12 +106,24 @@ public:
 	DECLARE_WRITE8_MEMBER(invrvnge_05_w);
 	DECLARE_MACHINE_START(ir);
 	DECLARE_MACHINE_RESET(ir);
-	UINT8 vpos_to_vysnc_chain_counter( int vpos );
-	int vysnc_chain_counter_to_vpos( UINT8 counter, int vblank );
-	UINT32 screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
-	void mw8080bw_create_interrupt_timer(  );
-	void mw8080bw_start_interrupt_timer(  );
+	UINT32 screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+
+private:
+
+	bool       m_flip_screen;
+	bool       m_screen_red;
+	emu_timer  *m_interrupt_timer;
+	UINT8      vpos_to_vysnc_chain_counter( int vpos );
+	int        vysnc_chain_counter_to_vpos( UINT8 counter, int vblank );
+	void       mw8080bw_create_interrupt_timer(  );
+	void       mw8080bw_start_interrupt_timer(  );
+
+	/* device/memory pointers */
+	required_device<cpu_device> m_maincpu;
+	required_shared_ptr<UINT8> m_p_ram;
+	required_device<samples_device> m_samples;
+	required_device<screen_device> m_screen;
 };
 
 
@@ -341,97 +341,97 @@ WRITE8_MEMBER(ir_state::invrvnge_03_w)
 {
 	switch (data)
 	{
-		case 0x02:						/* Coin */
-			machine().sound().system_enable(1);		/* enable sound so we can hear coin drop */
+		case 0x02: /* Coin */
+			machine().sound().system_enable(1); /* enable sound so we can hear coin drop */
 			m_samples->start(0, 0);
 			break;
 
-		case 0x04:						/* Attract Mode */
-			machine().sound().system_enable(0);		/* disable sound */
+		case 0x04: /* Attract Mode */
+			machine().sound().system_enable(0); /* disable sound */
 			break;
 
 		case 0x06:
-			m_samples->start(1, 1);				/* Shoot */
+			m_samples->start(1, 1); /* Shoot */
 			break;
 
 		case 0x14:
-			m_samples->start(2, 2);				/* Hit Alien (0x0a happens at the same time) */
+			m_samples->start(2, 2); /* Hit Alien (0x0a happens at the same time) */
 			break;
 
 		case 0x16:
-			m_samples->start(2, 3);				/* Hit Asteroid */
+			m_samples->start(2, 3); /* Hit Asteroid */
 			break;
 
-		case 0x18:						/* Fuel Low */
+		case 0x18: /* Fuel Low */
 			m_samples->start(5, 4);
 			break;
 
-		case 0x1a:						/* Successful docking */
+		case 0x1a: /* Successful docking */
 			m_samples->start(0, 5);
 			break;
 
-		case 0x1c:						/* Finished fuelling */
+		case 0x1c: /* Finished fuelling */
 			m_samples->stop(0);
 			break;
 
 		case 0x1e:
-			m_samples->start(0, 6);				/* Death */
+			m_samples->start(0, 6); /* Death */
 			break;
 
 		case 0x20:
-			machine().sound().system_enable(1);		/* enable sound for game start */
+			machine().sound().system_enable(1); /* enable sound for game start */
 		case 0x22:
-			m_samples->start(0, 7);				/* Start Game */
+			m_samples->start(0, 7); /* Start Game */
 			break;
 
-		case 0x24:						/* Alien dropping to steal fuel */
+		case 0x24: /* Alien dropping to steal fuel */
 			m_samples->start(3, 8);
 			break;
 
-		case 0x26:						/* Alien lifting with fuel */
+		case 0x26: /* Alien lifting with fuel */
 			m_samples->start(4, 9);
 			break;
 
-		case 0x28:						/* background sound level 1 */
-		case 0x2a:						/* background sound level 2 */
-		case 0x2c:						/* background sound level 3 */
-		case 0x2e:						/* background sound level 4 */
+		case 0x28: /* background sound level 1 */
+		case 0x2a: /* background sound level 2 */
+		case 0x2c: /* background sound level 3 */
+		case 0x2e: /* background sound level 4 */
 			m_samples->start(0, data/2-10, 1);
 			break;
 
-		case 0x30:						/* Fuel bar filling up */
+		case 0x30: /* Fuel bar filling up */
 			m_samples->start(0, 14);
 			break;
 
-		case 0x32:						/* UFO drops a bomb */
+		case 0x32: /* UFO drops a bomb */
 			m_samples->start(6, 15);
 			break;
 
-		case 0x34:						/* You got the highest score */
+		case 0x34: /* You got the highest score */
 			m_samples->start(0, 16);
 			break;
 
-		case 0x36:						/* Docking stage */
-			m_screen_red = 0;				/* fix bug (2) in documentation */
+		case 0x36: /* Docking stage */
+			m_screen_red = 0; /* fix bug (2) in documentation */
 			m_samples->start(0, 17);
 			break;
 
-		case 0x38:						/* Bonus ship */
+		case 0x38: /* Bonus ship */
 			m_samples->start(8, 18);
 			break;
 
-		case 0x3a:						/* Thrust */
+		case 0x3a: /* Thrust */
 			m_samples->start(7, 19);
 			break;
 
 		case 0x4c:
 			m_samples->stop(0);	// using this to stop sound if game tilted
-		case 0x01:						/* These 3 play at boot time */
-		case 0x40:						/* no idea if they are actual sounds */
+		case 0x01: /* These 3 play at boot time */
+		case 0x40: /* no idea if they are actual sounds */
 		case 0x44:
 
-		case 0x0a:						/* with 0x14 */
-		case 0x0c:						/* used a lot but for what? */
+		case 0x0a: /* with 0x14 */
+		case 0x0c: /* used a lot but for what? */
 			break;
 
 		default:
@@ -441,12 +441,12 @@ WRITE8_MEMBER(ir_state::invrvnge_03_w)
 
 WRITE8_MEMBER(ir_state::invrvnge_05_w)
 {
-	/*
-	    00 - normal play
-	    0A, 0E - alternate during play/attract at about once per second (invrvngegw only) purpose unknown
-	    01 - briefly at boot time
-	    10 - different colour map (or screen red) when you die
-	    20 - flip screen */
+/*
+    00 - normal play
+    0A, 0E - alternate during play/attract at about once per second (invrvngegw only) purpose unknown
+    01 - briefly at boot time
+    10 - different colour map (or screen red) when you die
+    20 - flip screen */
 
 	m_screen_red = BIT(data, 4);
 	m_flip_screen = BIT(data, 5) & ioport("CAB")->read();
