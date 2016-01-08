@@ -175,7 +175,6 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"midway",
 		"namco",
 		"neogeo",
-		"nghb",
 		"nichibut",
 		"nintendo",
 		"nmk",
@@ -476,18 +475,6 @@ files {
 	MAME_DIR .. "src/mame/video/neogeo_spr.cpp",
 	MAME_DIR .. "src/mame/machine/neocrypt.cpp",
 	MAME_DIR .. "src/mame/machine/ng_memcard.cpp",
-}
-
-createHBMAMEProjects(_target, _subtarget, "nghb")
-files {
-	MAME_DIR .. "src/hbmame/drivers/nghb.cpp",
-	MAME_DIR .. "src/hbmame/video/nghb.cpp",
-	MAME_DIR .. "src/hbmame/video/nghb_spr.cpp",
-	MAME_DIR .. "src/hbmame/machine/nghb_boot.cpp",
-	MAME_DIR .. "src/hbmame/machine/nghb_crypt.cpp",
-	MAME_DIR .. "src/hbmame/machine/nghb_prot.cpp",
-	MAME_DIR .. "src/hbmame/machine/nghb_memc.cpp",
-	MAME_DIR .. "src/emu/imagedev/cartslot.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "nichibut")
