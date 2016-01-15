@@ -294,7 +294,7 @@ WRITE8_MEMBER(sc_state::schaser_05_w)
 	m_discrete->write(space, SCHASER_SND_EN, m_sound_enabled);
 	machine().sound().system_enable(m_sound_enabled);
 
-	coin_lockout_global_w(machine(), BIT(data, 2));
+	machine().bookkeeping().coin_lockout_global_w(BIT(data, 2));
 
 	m_flip_screen = BIT(data, 5) & ioport("CAB")->read();
 }

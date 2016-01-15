@@ -1,6 +1,15 @@
 What's new in HBMAME
 ====================
 
+2016-01-27 0.170
+----------------
+
+
+- Added a number of kof hacks.
+- finished neogeo modernisation.
+
+
+
 2015-12-30 0.169
 ----------------
 
@@ -11,8 +20,6 @@ Thanks to all those who helped gather the newest hacks.
 - Work continues on neogeo modernisation.
 - UI build:
 -- various small improvements
-
-
 
 
 

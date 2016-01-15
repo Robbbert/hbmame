@@ -2039,35 +2039,35 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	data = m_led_high1>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output_set_digit_value(i+10, led_map[data%10]);
+		output().set_digit_value(i+10, led_map[data%10]);
 		data = data/10;
 	}
 
 	data = m_led_high2>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output_set_digit_value(i+20, led_map[data%10]);
+		output().set_digit_value(i+20, led_map[data%10]);
 		data = data/10;
 	}
 
 	data = m_led_high3>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output_set_digit_value(i+30, led_map[data%10]);
+		output().set_digit_value(i+30, led_map[data%10]);
 		data = data/10;
 	}
 
 	data = m_led_high4>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output_set_digit_value(i+40, led_map[data%10]);
+		output().set_digit_value(i+40, led_map[data%10]);
 		data = data/10;
 	}
 
 	data = m_led_high5>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output_set_digit_value(i+50, led_map[data%10]);
+		output().set_digit_value(i+50, led_map[data%10]);
 		data = data/10;
 	}
 
@@ -2080,7 +2080,7 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //			0,SCREEN_HEIGHT-6-i*6,
 //			NULL, TRANSPARENCY_NONE,0 );
 
-		output_set_digit_value(i, led_map[data%10]);
+		output().set_digit_value(i, led_map[data%10]);
 
 		data = data/10;
 	}
@@ -2088,7 +2088,7 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	data = m_led_plays;
 	for( i=2; i>=0; i-- )
 	{
-		output_set_digit_value(i+60, led_map[data%10]);
+		output().set_digit_value(i+60, led_map[data%10]);
 		data = data/10;
 	}
 
@@ -2097,11 +2097,11 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	{
 		if (data == 0xffff)
 		{
-			output_set_digit_value(i+70, 0);		/* make it blank */
+			output().set_digit_value(i+70, 0);		/* make it blank */
 		}
 		else
 		{
-			output_set_digit_value(i+70, led_map[data%10]);
+			output().set_digit_value(i+70, led_map[data%10]);
 			data = data/10;
 		}
 	}
@@ -2115,21 +2115,21 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //			9,SCREEN_HEIGHT-6-i*6,
 //			NULL, TRANSPARENCY_NONE,0 );
 //
-		output_set_digit_value(i+80, led_map[data%10]);
+		output().set_digit_value(i+80, led_map[data%10]);
 		data = data/10;
 	}
 
 	data = m_led_gear;
 	for( i=0; i>=0; i-- )
 	{
-		output_set_digit_value(i+90, led_map[10+data%10]);
+		output().set_digit_value(i+90, led_map[10+data%10]);
 		data = data/10;
 	}
 
 	data = m_led_lives;
 	for( i=0; i>=0; i-- )
 	{
-		output_set_digit_value(i+100, led_map[data%10]);
+		output().set_digit_value(i+100, led_map[data%10]);
 		data = data/10;
 	}
 
@@ -2141,7 +2141,7 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //			0,1, /* no flip */
 //			18,SCREEN_HEIGHT-6-i*6 );
 
-		output_set_digit_value(i+4, led_map[data%10]);
+		output().set_digit_value(i+4, led_map[data%10]);
 
 		data = data/10;
 	}

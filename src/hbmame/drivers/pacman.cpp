@@ -131,19 +131,19 @@ INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 
 WRITE8_MEMBER(pacman_state::pacman_leds_w)
 {
-	set_led_status(machine(), offset,data & 1);
+	output().set_led_value(offset, BIT(data, 0));
 }
 
 
 WRITE8_MEMBER(pacman_state::pacman_coin_counter_w)
 {
-	coin_counter_w(machine(), offset,data & 1);
+	machine().bookkeeping().coin_counter_w(offset, BIT(data, 0));
 }
 
 
 WRITE8_MEMBER(pacman_state::pacman_coin_lockout_global_w)
 {
-	coin_lockout_global_w(machine(), ~data & 0x01);
+	machine().bookkeeping().coin_lockout_global_w(~data & 1);
 }
 
 
