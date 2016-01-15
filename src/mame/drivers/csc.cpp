@@ -4,7 +4,7 @@
 
     Fidelity Champion Chess Challenger (model CSC)
 
-    See fidelz80.c for hardware description
+    See drivers/fidelz80.cpp for hardware description
 
     TODO:
     - speech doesn't work
@@ -27,10 +27,11 @@ class csc_state : public driver_device
 public:
 	csc_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
-			m_speech(*this, "speech")
-		,
-		m_maincpu(*this, "maincpu") { }
+		m_maincpu(*this, "maincpu"),
+		m_speech(*this, "speech")
+	{ }
 
+	required_device<cpu_device> m_maincpu;
 	required_device<s14001a_device> m_speech;
 
 	virtual void machine_start() override;
@@ -50,7 +51,6 @@ public:
 
 	UINT8 m_selector;
 	TIMER_DEVICE_CALLBACK_MEMBER(irq_timer);
-	required_device<cpu_device> m_maincpu;
 };
 
 
@@ -73,19 +73,19 @@ WRITE8_MEMBER( csc_state::pia0_pa_w )
 	switch (m_selector)
 	{
 	case 0:
-		output_set_digit_value(0, out_digit & 0x7f);
-		output_set_value("pm_led", BIT(out_digit, 7));
+		output().set_digit_value(0, out_digit & 0x7f);
+		output().set_value("pm_led", BIT(out_digit, 7));
 		break;
 	case 1:
-		output_set_digit_value(1, out_digit & 0x7f);
+		output().set_digit_value(1, out_digit & 0x7f);
 		break;
 	case 2:
-		output_set_digit_value(2, out_digit & 0x7f);
-		output_set_value("up_dot", BIT(out_digit, 7));
+		output().set_digit_value(2, out_digit & 0x7f);
+		output().set_value("up_dot", BIT(out_digit, 7));
 		break;
 	case 3:
-		output_set_digit_value(3, out_digit & 0x7f);
-		output_set_value("low_dot", BIT(out_digit, 7));
+		output().set_digit_value(3, out_digit & 0x7f);
+		output().set_value("low_dot", BIT(out_digit, 7));
 		break;
 	}
 
@@ -134,7 +134,7 @@ WRITE8_MEMBER( csc_state::pia1_pb_w )
 
 	if (m_selector < 8)
 		for (int i=0; i<8; i++)
-			output_set_indexed_value(row_tag[m_selector], i+1, BIT(data, 7-i));
+			output().set_indexed_value(row_tag[m_selector], i+1, BIT(data, 7-i));
 }
 
 READ8_MEMBER( csc_state::pia1_pa_r )

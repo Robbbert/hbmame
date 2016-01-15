@@ -816,6 +816,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"sanyo",
 		"saturn",
 		"sega",
+		"sequential",
 		"sgi",
 		"sharp",
 		"siemens",
@@ -2439,6 +2440,11 @@ files {
 	MAME_DIR .. "src/mame/machine/megacdcd.h",
 }
 
+createMESSProjects(_target, _subtarget, "sequential")
+files {
+	MAME_DIR .. "src/mame/drivers/prophet600.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "sgi")
 files {
 	MAME_DIR .. "src/mame/machine/sgi.cpp",
@@ -3048,6 +3054,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/d6800.cpp",
 	MAME_DIR .. "src/mame/drivers/d6809.cpp",
 	MAME_DIR .. "src/mame/drivers/daruma.cpp",
+	MAME_DIR .. "src/mame/drivers/didact.cpp",
 	MAME_DIR .. "src/mame/drivers/digel804.cpp",
 	MAME_DIR .. "src/mame/drivers/dim68k.cpp",
 	MAME_DIR .. "src/mame/drivers/dm7000.cpp",
