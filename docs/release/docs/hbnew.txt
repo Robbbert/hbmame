@@ -9,6 +9,12 @@ What's new in HBMAME
 - finished neogeo modernisation.
 
 
+New Games
+---------
+- [umk3te2]         Ultimate Mortal Kombat III Tournament Edition 2.0.035
+
+
+
 
 2015-12-30 0.169
 ----------------

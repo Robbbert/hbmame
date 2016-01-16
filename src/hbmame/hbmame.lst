@@ -1160,10 +1160,11 @@ umk2te51	// Ultimate MKII Tournament Edition r5.0.051
 umk2te52	// Ultimate MKII Tournament Edition r5.0.052
 
 	/* midwunit */
-mk3			//parent
+umk3		//parent
 umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3z		/* UMK3 1.2 Zeus hack */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
+umk3te2		/* UMK3 Tournament Edition 2.0.035 */
 
 	/* midyunit */
 mkla4d		/* MK protection hack */
