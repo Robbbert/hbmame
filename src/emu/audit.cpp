@@ -453,7 +453,6 @@ media_auditor::summary media_auditor::winui_summarize(const char *name, std::str
 			case audit_record::SUBSTATUS_FOUND_BAD_CHECKSUM:
 				if (output)
 				{
-					std::string tempstr;
 					strcatprintf(*output, "INCORRECT CHECKSUM:\n");
 					strcatprintf(*output, "EXPECTED: %s\n", record->expected_hashes().macro_string().c_str());
 					strcatprintf(*output, "   FOUND: %s\n", record->actual_hashes().macro_string().c_str());

@@ -197,7 +197,7 @@ controller or home-made spinner built from a PC mouse will work but the player m
 slowly and the game is unplayable. The Taito geared spinner moves the optical wheel *very*
 fast to ensure the player moves fast enough to follow and return the ball easily. The ratio of
 the control knob rotation to the optical wheel rotation is 1:20 so for one rotation of the
-control knob the optical wheel rotates 20 times.
+control knob the optical wheel rotates 20 times. The optical quadrature wheel has 24 slots.
 Generally a half-turn of the control knob is enough to move the player across the full screen.
 
 The spinner connections are....
@@ -1336,10 +1336,10 @@ static MACHINE_CONFIG_START( arkanoid, arkanoid_state )
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
 	MCFG_SOUND_ADD("aysnd", YM2149, XTAL_12MHz/4) /* YM2149 clock is 3mhz, pin 26 is low so final clock is 3mhz/2, handled inside the ay core */
-	MCFG_AY8910_OUTPUT_TYPE(/*AY8910_SINGLE_OUTPUT |*/ YM2149_PIN26_LOW) // all outputs are tied together with no resistors, and pin 26 is low
+	MCFG_AY8910_OUTPUT_TYPE(AY8910_SINGLE_OUTPUT | YM2149_PIN26_LOW) // all outputs are tied together with no resistors, and pin 26 is low
 	MCFG_AY8910_PORT_A_READ_CB(IOPORT("UNUSED"))
 	MCFG_AY8910_PORT_B_READ_CB(IOPORT("DSW"))
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.33)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.66)
 MACHINE_CONFIG_END
 
 

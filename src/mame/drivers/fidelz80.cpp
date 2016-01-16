@@ -593,9 +593,10 @@ expect that the software reads these once on startup only.
 #include "sound/s14001a.h"
 
 // internal artwork
-#include "fidelz80.lh"
-#include "vsc.lh"
-#include "bridgec3.lh"
+#include "fidel_cc.lh"
+#include "fidel_vcc.lh"
+#include "fidel_vsc.lh"
+#include "fidel_vbrc.lh"
 
 
 class fidelz80_state : public driver_device
@@ -631,7 +632,6 @@ public:
 	UINT16 m_led_select;             // 5 bit selects for 7 seg leds and for common other leds, bits are (7seg leds are 0 1 2 3, common other leds are C) 0bxx3210xc
 	UINT16 m_7seg_data;            // data for seg leds
 	UINT16 m_led_data;
-	UINT8 m_digit_line_status[4];   // prevent overwrite of m_7seg_data
 
 	UINT16 read_inputs(int columns);
 	DECLARE_INPUT_CHANGED_MEMBER(reset_button);
@@ -670,7 +670,6 @@ public:
 	DECLARE_READ8_MEMBER(vsc_pio_porta_r);
 	DECLARE_READ8_MEMBER(vsc_pio_portb_r);
 	DECLARE_WRITE8_MEMBER(vsc_pio_portb_w);
-	DECLARE_INPUT_CHANGED_MEMBER(fidelz80_trigger_reset);
 
 	// model 7014 and VBC
 	DECLARE_WRITE8_MEMBER(bridgec_speech_w);
@@ -683,7 +682,6 @@ public:
 	DECLARE_WRITE8_MEMBER(mcu_command_w);
 	DECLARE_READ8_MEMBER(mcu_data_r);
 	DECLARE_READ8_MEMBER(mcu_status_r);
-	DECLARE_INPUT_CHANGED_MEMBER(bridgec_trigger_reset);
 	DECLARE_WRITE8_MEMBER(digit_w);
 
 protected:
@@ -706,7 +704,6 @@ void fidelz80_state::machine_start()
 	m_led_select = 0;
 	m_led_data = 0;
 	m_7seg_data = 0;
-	memset(m_digit_line_status, 0, sizeof(m_digit_line_status));
 
 	// register for savestates
 	save_item(NAME(m_display_maxy));
@@ -722,7 +719,6 @@ void fidelz80_state::machine_start()
 	save_item(NAME(m_led_select));
 	save_item(NAME(m_led_data));
 	save_item(NAME(m_7seg_data));
-	save_item(NAME(m_digit_line_status));
 }
 
 void fidelz80_state::machine_reset()
@@ -911,8 +907,8 @@ WRITE8_MEMBER(fidelz80_state::vcc_ppi_portc_w)
 
 WRITE8_MEMBER(fidelz80_state::cc10_ppi_porta_w)
 {
-	// d0-d6: digit segment data
-	m_7seg_data = data;
+	// d0-d6: digit segment data (same as VCC)
+	m_7seg_data = BITSWAP8(data,7,0,1,2,3,4,5,6) & 0x7f;
 	vcc_prepare_display();
 
 	// d7: beeper output
@@ -969,7 +965,7 @@ WRITE8_MEMBER(fidelz80_state::vsc_ppi_portc_w)
 
 
 /******************************************************************************
-    PIO Device, for VSC
+    Z80 PIO Device, for VSC
 ******************************************************************************/
 
 READ8_MEMBER(fidelz80_state::vsc_pio_porta_r)
@@ -999,6 +995,35 @@ WRITE8_MEMBER(fidelz80_state::vsc_pio_portb_w)
 	// d6: TSI START line
 	m_speech->set_volume(15); // hack, s14001a core should assume a volume of 15 unless otherwise stated...
 	m_speech->rst_w(data >> 6 & 1);
+}
+
+
+/******************************************************************************
+    I8243 I/O Expander Device, for VBRC
+******************************************************************************/
+
+WRITE8_MEMBER(fidelz80_state::digit_w)
+{
+//	if (m_digit_line_status[offset])
+//		return;
+
+//	m_digit_line_status[offset&3] = 1;
+
+	switch (offset)
+	{
+	case 0:
+		m_7seg_data = (m_7seg_data&(~0x000f)) | ((data<<0)&0x000f);
+		break;
+	case 1:
+		m_7seg_data = (m_7seg_data&(~0x00f0)) | ((data<<4)&0x00f0);
+		break;
+	case 2:
+		m_7seg_data = (m_7seg_data&(~0x0f00)) | ((data<<8)&0x0f00);
+		break;
+	case 3:
+		m_7seg_data = (m_7seg_data&(~0xf000)) | ((data<<12)&0xf000);
+		break;
+	}
 }
 
 
@@ -1054,7 +1079,7 @@ WRITE8_MEMBER(fidelz80_state::kp_matrix_w)
 		output().set_led_value(1, out_led);
 	}
 
-	memset(m_digit_line_status, 0, sizeof(m_digit_line_status));
+//	memset(m_digit_line_status, 0, sizeof(m_digit_line_status));
 
 	m_inp_mux = data;
 }
@@ -1084,34 +1109,6 @@ READ8_MEMBER(fidelz80_state::unknown_r)
 READ8_MEMBER(fidelz80_state::unknown2_r)
 {
 	return machine().rand();
-}
-
-/******************************************************************************
-    I8243 expander
-******************************************************************************/
-
-WRITE8_MEMBER(fidelz80_state::digit_w)
-{
-	if (m_digit_line_status[offset])
-		return;
-
-	m_digit_line_status[offset&3] = 1;
-
-	switch (offset)
-	{
-	case 0:
-		m_7seg_data = (m_7seg_data&(~0x000f)) | ((data<<0)&0x000f);
-		break;
-	case 1:
-		m_7seg_data = (m_7seg_data&(~0x00f0)) | ((data<<4)&0x00f0);
-		break;
-	case 2:
-		m_7seg_data = (m_7seg_data&(~0x0f00)) | ((data<<8)&0x0f00);
-		break;
-	case 3:
-		m_7seg_data = (m_7seg_data&(~0xf000)) | ((data<<12)&0xf000);
-		break;
-	}
 }
 
 /******************************************************************************
@@ -1452,7 +1449,7 @@ static MACHINE_CONFIG_START( cc10, fidelz80_state )
 	MCFG_I8255_OUT_PORTC_CB(WRITE8(fidelz80_state, vcc_ppi_portc_w))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", fidelz80_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_fidelz80)
+	MCFG_DEFAULT_LAYOUT(layout_fidel_cc)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1475,7 +1472,7 @@ static MACHINE_CONFIG_START( vcc, fidelz80_state )
 	MCFG_I8255_OUT_PORTC_CB(WRITE8(fidelz80_state, vcc_ppi_portc_w))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", fidelz80_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_fidelz80)
+	MCFG_DEFAULT_LAYOUT(layout_fidel_vcc)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1502,7 +1499,7 @@ static MACHINE_CONFIG_START( vsc, fidelz80_state )
 	MCFG_Z80PIO_OUT_PB_CB(WRITE8(fidelz80_state, vsc_pio_portb_w))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", fidelz80_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_vsc)
+	MCFG_DEFAULT_LAYOUT(layout_fidel_vsc)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1527,7 +1524,7 @@ static MACHINE_CONFIG_START( bridgec, fidelz80_state )
 	MCFG_I8243_ADD("i8243", NOOP, WRITE8(fidelz80_state, digit_w))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", fidelz80_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_bridgec3)
+	MCFG_DEFAULT_LAYOUT(layout_fidel_vbrc)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1556,6 +1553,17 @@ ROM_START( vcc )
 	ROM_REGION( 0x2000, "speech", 0 )
 	ROM_LOAD("vcc-engl.bin", 0x0000, 0x1000, CRC(f35784f9) SHA1(348e54a7fa1e8091f89ac656b4da22f28ca2e44d) ) // at location c4?
 ROM_END
+
+ROM_START( vccsp )
+	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD("101-32103.bin", 0x0000, 0x1000, CRC(257bb5ab) SHA1(f7589225bb8e5f3eac55f23e2bd526be780b38b5) ) // 32014.VCC??? at location b3?
+	ROM_LOAD("vcc2.bin", 0x1000, 0x1000, CRC(f33095e7) SHA1(692fcab1b88c910b74d04fe4d0660367aee3f4f0) ) // at location a2?
+	ROM_LOAD("vcc3.bin", 0x2000, 0x1000, CRC(624f0cd5) SHA1(7c1a4f4497fe5882904de1d6fecf510c07ee6fc6) ) // at location a1?
+
+	ROM_REGION( 0x2000, "speech", 0 )
+	ROM_LOAD("vcc-spanish.bin", 0x0000, 0x2000, CRC(8766e128) SHA1(78c7413bf240159720b131ab70bfbdf4e86eb1e9) ) // at location c4?
+ROM_END
+
 
 ROM_START( uvc )
 	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASEFF )
@@ -1616,6 +1624,7 @@ ROM_END
 /*    YEAR  NAME      PARENT  COMPAT  MACHINE  INPUT     INIT              COMPANY, FULLNAME, FLAGS */
 COMP( 1978, cc10,     0,      0,      cc10,    fidelz80, driver_device, 0, "Fidelity Electronics", "Chess Challenger 10/3 (Model CC10/BCC)", MACHINE_NOT_WORKING )
 COMP( 1979, vcc,      0,      0,      vcc,     fidelz80, driver_device, 0, "Fidelity Electronics", "Talking Chess Challenger (model VCC)", MACHINE_NOT_WORKING )
+COMP( 1979, vccsp,    vcc,    0,      vcc,     fidelz80, driver_device, 0, "Fidelity Electronics", "Talking Chess Challenger (model VCC, Spanish)", MACHINE_NOT_WORKING )
 COMP( 1980, uvc,      vcc,    0,      vcc,     fidelz80, driver_device, 0, "Fidelity Electronics", "Advanced Talking Chess Challenger (model UVC)", MACHINE_NOT_WORKING )
 
 COMP( 1980, vsc,      0,      0,      vsc,     vsc,      driver_device, 0, "Fidelity Electronics", "Voice Sensory Chess Challenger (model VSC)", MACHINE_NOT_WORKING | MACHINE_CLICKABLE_ARTWORK )
