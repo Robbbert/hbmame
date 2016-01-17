@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Robbbert
+// copyright-holders:Nicola Salmoria
 #include "sound/discrete.h"
 #include "sound/namco.h"
 #include "sound/samples.h"
@@ -8,7 +8,7 @@
 class galaga_state : public driver_device
 {
 public:
-	galaga_state(const machine_config &mconfig, device_type type, const char *tag)
+	galaga_state(const machine_config &mconfig, device_type type, std::string tag)
 		: driver_device(mconfig, type, tag),
 		m_videoram(*this, "videoram"),
 		m_galaga_ram1(*this, "galaga_ram1"),
@@ -39,10 +39,11 @@ public:
 	required_device<namco_device> m_namco_sound;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<screen_device> m_screen;
-	required_device<palette_device> m_palette;	
+	required_device<palette_device> m_palette;
 	emu_timer *m_cpu3_interrupt_timer;
 	UINT8 m_custom_mod;
 	DECLARE_WRITE8_MEMBER(galaga_sample_w); //HBMAME
+
 	/* machine state */
 	UINT32 m_stars_scrollx;
 	UINT32 m_stars_scrolly;
@@ -98,7 +99,7 @@ public:
 class xevious_state : public galaga_state
 {
 public:
-	xevious_state(const machine_config &mconfig, device_type type, const char *tag)
+	xevious_state(const machine_config &mconfig, device_type type, std::string tag)
 		: galaga_state(mconfig, type, tag),
 		m_xevious_sr1(*this, "xevious_sr1"),
 		m_xevious_sr2(*this, "xevious_sr2"),
@@ -172,7 +173,7 @@ public:
 class bosco_state : public galaga_state
 {
 public:
-	bosco_state(const machine_config &mconfig, device_type type, const char *tag)
+	bosco_state(const machine_config &mconfig, device_type type, std::string tag)
 		: galaga_state(mconfig, type, tag),
 			m_bosco_radarattr(*this, "bosco_radarattr"),
 			m_bosco_starcontrol(*this, "starcontrol"),
@@ -211,7 +212,7 @@ public:
 class digdug_state : public galaga_state
 {
 public:
-	digdug_state(const machine_config &mconfig, device_type type, const char *tag)
+	digdug_state(const machine_config &mconfig, device_type type, std::string tag)
 		: galaga_state(mconfig, type, tag),
 		m_digdug_objram(*this, "digdug_objram"),
 		m_digdug_posram(*this, "digdug_posram"),

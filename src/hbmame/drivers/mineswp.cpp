@@ -98,7 +98,7 @@ Colours:	White (normal play / attract mode)
 class mineswp_state : public driver_device
 {
 public:
-	mineswp_state(const machine_config &mconfig, device_type type, const char *tag)
+	mineswp_state(const machine_config &mconfig, device_type type, std::string tag)
 		: driver_device(mconfig, type, tag)
 		, m_p_videoram(*this, "videoram")
 		, m_beep(*this, "beeper")

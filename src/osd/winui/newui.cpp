@@ -3350,7 +3350,7 @@ static void prepare_menus(HWND wnd)
 		}
 		s = img->exists() ? img->filename() : "[empty slot]";
 
-		snprintf(buf, ARRAY_LENGTH(buf), "%s: %s", img->device().name(), s);
+		snprintf(buf, ARRAY_LENGTH(buf), "%s: %s", img->device().name().c_str(), s);
 		win_append_menu_utf8(device_menu, MF_POPUP, (UINT_PTR)sub_menu, buf);
 
 		cnt++;

@@ -585,7 +585,7 @@ ROM_END
 class tempmg_state : public tempest_state
 {
 public:
-	tempmg_state(const machine_config &mconfig, device_type type, const char *tag)
+	tempmg_state(const machine_config &mconfig, device_type type, std::string tag)
 		: tempest_state(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
 	{ }

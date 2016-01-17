@@ -197,7 +197,7 @@ public:
 
 	// static configuration
 	static void static_set_info(device_t &device, const gfx_decode_entry *gfxinfo);
-	static void static_set_palette(device_t &device, const char *tag);
+	static void static_set_palette(device_t &device, std::string tag);
 
 	// getters
 	palette_device *palette() const { return m_palette; }
@@ -221,7 +221,7 @@ protected:
 private:
 	// configuration
 	const gfx_decode_entry *    m_gfxdecodeinfo;        // pointer to array of gfx decode information
-	const char *                m_palette_tag;          // configured tag for palette device
+	std::string                 m_palette_tag;          // configured tag for palette device
 	bool                        m_palette_is_sibling;   // is palette a sibling or a subdevice?
 
 	// internal state

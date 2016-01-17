@@ -270,7 +270,7 @@ enum monaco_mode
 class monaco_state : public driver_device
 {
 public:
-	monaco_state(const machine_config &mconfig, device_type type, const char *tag)
+	monaco_state(const machine_config &mconfig, device_type type, std::string tag)
 		: driver_device(mconfig, type, tag)
 		, m_samples(*this, "samples")
 		, m_p_ram(*this, "ram")
