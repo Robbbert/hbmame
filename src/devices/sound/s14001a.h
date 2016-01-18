@@ -8,6 +8,12 @@
 #ifndef __S14001A_H__
 #define __S14001A_H__
 
+#define MCFG_S14001A_BSY_HANDLER(_devcb) \
+	devcb = &s14001a_device::set_bsy_handler(*device, DEVCB_##_devcb);
+
+#define MCFG_S14001A_EXT_READ_HANDLER(_devcb) \
+	devcb = &s14001a_device::set_ext_read_handler(*device, DEVCB_##_devcb);
+
 
 class s14001a_device : public device_t,
 									public device_sound_interface
@@ -16,11 +22,16 @@ public:
 	s14001a_device(const machine_config &mconfig, std::string tag, device_t *owner, UINT32 clock);
 	~s14001a_device() {}
 
+	// static configuration helpers
+	template<class _Object> static devcb_base &set_bsy_handler(device_t &device, _Object object) { return downcast<s14001a_device &>(device).m_bsy_handler.set_callback(object); }
+	template<class _Object> static devcb_base &set_ext_read_handler(device_t &device, _Object object) { return downcast<s14001a_device &>(device).m_ext_read_handler.set_callback(object); }
+
 	int bsy_r();        /* read BUSY pin */
 	void reg_w(int data);     /* write to input latch */
 	void rst_w(int data);     /* write to RESET pin */
 	void set_clock(int clock);     /* set VSU-1000 clock */
 	void set_volume(int volume);    /* set VSU-1000 volume control */
+	void force_update();
 
 protected:
 	// device-level overrides
@@ -33,6 +44,9 @@ private:
 	// internal state
 	required_region_ptr<UINT8> m_SpeechRom;
 	sound_stream * m_stream;
+
+	devcb_write_line m_bsy_handler;
+	devcb_read8 m_ext_read_handler;
 
 	UINT8 m_WordInput; // value on word input bus
 	UINT8 m_LatchedWord; // value latched from input bus
@@ -57,6 +71,7 @@ private:
 
 	void PostPhoneme();
 	void s14001a_clock();
+	UINT8 readmem(UINT16 offset);
 };
 
 extern const device_type S14001A;
