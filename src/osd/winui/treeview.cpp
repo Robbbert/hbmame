@@ -903,7 +903,7 @@ void CreateCPUFolders(int parent_index)
 			// are we forced to create a folder?
 			if (folder == NULL)
 			{
-				lpTemp = NewFolder(device->device().name().c_str(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
+				lpTemp = NewFolder(device->device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
 				AddFolder(lpTemp);
 				folder = treeFolders[nFolder++];
 
@@ -953,7 +953,7 @@ void CreateSoundFolders(int parent_index)
 			if (folder == NULL)
 			{
 
-				lpTemp = NewFolder(device->device().name().c_str(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
+				lpTemp = NewFolder(device->device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
 				AddFolder(lpTemp);
 				folder = treeFolders[nFolder++];
 

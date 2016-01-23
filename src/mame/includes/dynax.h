@@ -13,7 +13,7 @@
 class dynax_state : public driver_device
 {
 public:
-	dynax_state(const machine_config &mconfig, device_type type, std::string tag)
+	dynax_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 			m_maincpu(*this, "maincpu"),
 			m_soundcpu(*this, "soundcpu"),
@@ -112,6 +112,7 @@ public:
 	UINT8 m_gekisha_val[2];
 	UINT8 m_gekisha_rom_enable;
 	UINT8 *m_romptr;
+	UINT8 *m_hnoridur_ptr;
 
 	DECLARE_WRITE8_MEMBER(dynax_vblank_ack_w);
 	DECLARE_WRITE8_MEMBER(dynax_blitter_ack_w);

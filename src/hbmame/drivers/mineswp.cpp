@@ -77,16 +77,15 @@ By using the debugger, you can see the sound test by setting the pc to 105F,
 and the ending scene by setting the pc to 0F30.
 
 - Backup nvram added (April 2007)
-- Made everything static (July 2008)
 - Hooked port 20 to the colour generator (July 2008)
-- Changed interrupt code as the core's VIDEO_INT has become flaky (May 2010)
 - Hooked up a sound click to port 20 (May 2010)
 
-Colours:	White (normal play / attract mode)
-		Yellow (new record time)
-		Green (new record level - must be at least level 3)
-		Purple (stepped on a bomb)
-		Red (game over)
+Colours:
+	White (normal play / attract mode)
+	Yellow (new record time)
+	Green (new record level - must be at least level 3)
+	Purple (stepped on a bomb)
+	Red (game over)
 
 ***************************************************************************/
 
@@ -98,7 +97,7 @@ Colours:	White (normal play / attract mode)
 class mineswp_state : public driver_device
 {
 public:
-	mineswp_state(const machine_config &mconfig, device_type type, std::string tag)
+	mineswp_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_p_videoram(*this, "videoram")
 		, m_beep(*this, "beeper")
@@ -209,7 +208,6 @@ INPUT_PORTS_END
 *******************************************************************/
 void mineswp_state::machine_start()
 {
-	m_beep->set_frequency(950);    /* guess */
 	m_beep->set_state(0);
 	save_item(NAME(m_color));
 }
@@ -225,7 +223,7 @@ static MACHINE_CONFIG_START( mineswp, mineswp_state )
 	MCFG_CPU_ADD  ("maincpu", Z80, XTAL_4MHz)
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)
 	MCFG_CPU_IO_MAP(mineswp_io)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", mineswp_state,  irq0_line_hold)
+	MCFG_CPU_VBLANK_INT_DRIVER("screen", mineswp_state, irq0_line_hold)
 	MCFG_NVRAM_ADD_1FILL("nvram")
 
 	/* video hardware */
@@ -238,7 +236,7 @@ static MACHINE_CONFIG_START( mineswp, mineswp_state )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("beeper", BEEP, 0)
+	MCFG_SOUND_ADD("beeper", BEEP, 950) // guess
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.40)
 MACHINE_CONFIG_END
 

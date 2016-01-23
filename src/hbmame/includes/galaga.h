@@ -8,7 +8,7 @@
 class galaga_state : public driver_device
 {
 public:
-	galaga_state(const machine_config &mconfig, device_type type, std::string tag)
+	galaga_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 		m_videoram(*this, "videoram"),
 		m_galaga_ram1(*this, "galaga_ram1"),
@@ -99,7 +99,7 @@ public:
 class xevious_state : public galaga_state
 {
 public:
-	xevious_state(const machine_config &mconfig, device_type type, std::string tag)
+	xevious_state(const machine_config &mconfig, device_type type, const char *tag)
 		: galaga_state(mconfig, type, tag),
 		m_xevious_sr1(*this, "xevious_sr1"),
 		m_xevious_sr2(*this, "xevious_sr2"),
@@ -173,7 +173,7 @@ public:
 class bosco_state : public galaga_state
 {
 public:
-	bosco_state(const machine_config &mconfig, device_type type, std::string tag)
+	bosco_state(const machine_config &mconfig, device_type type, const char *tag)
 		: galaga_state(mconfig, type, tag),
 			m_bosco_radarattr(*this, "bosco_radarattr"),
 			m_bosco_starcontrol(*this, "starcontrol"),
@@ -212,7 +212,7 @@ public:
 class digdug_state : public galaga_state
 {
 public:
-	digdug_state(const machine_config &mconfig, device_type type, std::string tag)
+	digdug_state(const machine_config &mconfig, device_type type, const char *tag)
 		: galaga_state(mconfig, type, tag),
 		m_digdug_objram(*this, "digdug_objram"),
 		m_digdug_posram(*this, "digdug_posram"),

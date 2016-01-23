@@ -1,4 +1,4 @@
-// license:???
+// license:GPL-2.0+
 // copyright-holders:Jarek Burczynski
 #include "machine/buggychl.h"
 #include "sound/msm5232.h"
@@ -6,7 +6,7 @@
 class fortyl_state : public driver_device
 {
 public:
-	fortyl_state(const machine_config &mconfig, device_type type, std::string tag)
+	fortyl_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 		m_videoram(*this, "videoram"),
 		m_video_ctrl(*this, "video_ctrl"),

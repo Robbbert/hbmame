@@ -592,14 +592,14 @@ static char *GameInfoCPU(UINT nIndex)
 		if (cpu->device().clock() >= 1000000)
 		{
 			sprintf(&buf[strlen(buf)], "%s %d.%06d MHz",
-				cpu->device().name().c_str(),
+				cpu->device().name(),
 				cpu->device().clock() / 1000000,
 				cpu->device().clock() % 1000000);
 		}
 		else
 		{
 			sprintf(&buf[strlen(buf)], "%s %d.%03d kHz",
-				cpu->device().name().c_str(),
+				cpu->device().name(),
 				cpu->device().clock() / 1000,
 				cpu->device().clock() % 1000);
 		}
@@ -630,7 +630,7 @@ static char *GameInfoSound(UINT nIndex)
 		device_type sound_type_;
 		char tmpname[1024];
 
-		sprintf(tmpname,"%s",sound->device().name().c_str());
+		sprintf(tmpname,"%s",sound->device().name());
 
 		sound_type_ = sound->device().type();
 		clock = sound->device().clock();

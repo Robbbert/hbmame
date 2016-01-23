@@ -555,9 +555,9 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	while (cpu)
 	{
 		if (cpu->device().clock() >= 1000000)
-			snprintf(name, ARRAY_LENGTH(name), "%s %d.%06d MHz\n", cpu->device().name().c_str(), cpu->device().clock() / 1000000, cpu->device().clock() % 1000000);
+			snprintf(name, ARRAY_LENGTH(name), "%s %d.%06d MHz\n", cpu->device().name(), cpu->device().clock() / 1000000, cpu->device().clock() % 1000000);
 		else
-			snprintf(name, ARRAY_LENGTH(name), "%s %d.%03d kHz\n", cpu->device().name().c_str(), cpu->device().clock() / 1000, cpu->device().clock() % 1000);
+			snprintf(name, ARRAY_LENGTH(name), "%s %d.%03d kHz\n", cpu->device().name(), cpu->device().clock() / 1000, cpu->device().clock() % 1000);
 
 		strcat(buffer, name);
 		cpu = iter.next();
@@ -576,7 +576,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 		device_type sound_type_;
 		char tmpname[1024];
 
-		snprintf(tmpname, ARRAY_LENGTH(tmpname), "%s", sound->device().name().c_str());
+		snprintf(tmpname, ARRAY_LENGTH(tmpname), "%s", sound->device().name());
 		sound_type_ = sound->device().type();
 		clock = sound->device().clock();
 		has_sound = 1;

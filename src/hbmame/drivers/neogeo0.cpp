@@ -9,7 +9,7 @@
 class neogeo_hbmame : public neogeo_noslot_state
 {
 public:
-	neogeo_hbmame(const machine_config &mconfig, device_type type, std::string tag)
+	neogeo_hbmame(const machine_config &mconfig, device_type type, const char *tag)
 		: neogeo_noslot_state(mconfig, type, tag)
 		, m_kog_prot(*this, "kog_prot")
 	{}
