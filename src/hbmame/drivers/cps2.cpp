@@ -83,6 +83,28 @@ ROM_START( ddsomchs )
 	DDSOM_JAPAN_KEY
 ROM_END
 
+ROM_START( halfway )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
+	ROM_LOAD16_WORD_SWAP( "halfway.03",   0x000000, 0x080000, CRC(55ce8d4a) SHA1(3b7342afbfa1244cb5cbf5be7391d3e1f8231822) )
+	ROM_LOAD16_WORD_SWAP( "tohell.04",    0x080000, 0x080000, CRC(71060b9e) SHA1(007a174ceca6ae080f19f088bf0fc6cd0fe2510c) )
+
+	ROM_REGION( 0x1000000, "gfx", 0 )
+	ROMX_LOAD( "pga.13m",   0x0000000, 0x400000, CRC(5194c198) SHA1(f9ae16cad8b30547b8dd3a1ea1d6e845d76ccefe) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "pga.15m",   0x0000002, 0x400000, CRC(b794e83f) SHA1(0332fa798b2955464ab336929866c9185bd4b520) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "pga.17m",   0x0000004, 0x400000, CRC(87f22918) SHA1(7f048d66593f385526bd2c669cf6b8ad58d12bbf) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "pga.19m",   0x0000006, 0x400000, CRC(65ffb45b) SHA1(9c21187519c1ec95c5a960b2c815ee41ace4fa7e) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_LOAD( "pga.01",   0x00000, 0x08000, CRC(bdbfa992) SHA1(7c5496c1daaea6a7ab95c0b25625d325ec3427cc) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+
+	ROM_REGION( 0x800000, "qsound", 0 ) /* QSound samples */
+	ROM_LOAD16_WORD_SWAP( "redlabel.11m", 0x000000, 0x400000, CRC(33ebf625) SHA1(39e5f9afd37a258005b0143fa38b9c53b63f700d) )
+	ROM_LOAD16_WORD_SWAP( "redlabel.12m", 0x000000, 0x400000, CRC(47f25cf4) SHA1(714b5baf146d720cc86f77aeee5b1160f553d958) )
+
+	CPS2_DEAD_KEY
+ROM_END
+
 ROM_START( mpangjd )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "mpnj_d.03a", 0x000000, 0x80000, CRC(dac63128) SHA1(e5ee8f6d698a28dbf54520473520e40efadf30e3) )
@@ -342,6 +364,7 @@ ROM_END
 GAME( 2000, 1944da,   1944,     dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, 1944fp,   1944,     cps2,      cps2_2p2b, cps_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (USA 000620) Fire Power Ver", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ddsomchs, ddsom,    cps2,      cps2_4p4b, cps_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, halfway,  progear,  dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "hack", "Halfway to Hell - Progear Red Label (2016-01-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mpangjd,  mpang,    dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Razoola", "Mighty! Pang (Japan 001011 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, sfa2h,    sfa2,     cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Pipi899", "Street Fighter Alpha 2 (Euro 960229) Boss Hack", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfaud,    sfa,      dead_cps2, cps2_2p6b, cps_state, cps2, ROT0, "Razoola", "Street Fighter Alpha: Warriors' Dreams (USA 950727 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
