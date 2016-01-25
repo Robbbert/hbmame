@@ -4,13 +4,17 @@ What's new in HBMAME
 2016-01-27 0.170
 ----------------
 
+Thanks to all those who helped gather the newest hacks.
 
 - Added a number of kof hacks.
 - finished neogeo modernisation.
+- dkongp: turned patch into a rom
+
 
 
 New Games
 ---------
+- [dkrainbow]       Rainbow Donkey Kong [by Sock Master]
 - [umk3te2]         Ultimate Mortal Kombat III Tournament Edition 2.0.035
 
 
