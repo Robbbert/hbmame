@@ -2151,6 +2151,7 @@ bridgec3
 vbrc
 vsc
 csc
+fscc12
 fexcelv
 
 // Hegener & Glaser Munich
@@ -2369,6 +2370,7 @@ alnchase    // Tomy
 
 // hh_ucom4 derivatives
 tb303       // Roland
+tr606       // Roland
 
 // other
 tama        // Bandai
@@ -2400,6 +2402,7 @@ ds348 //Sigtron Daruma
 mc1000
 d6809
 mp68a
+md6802
 mk85
 mk90
 elwro800

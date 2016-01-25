@@ -76,7 +76,9 @@ mspacmanbg      // bootleg
 mspacmanbgd     // bootleg
 mspacmanbcc     // bootleg
 mspacmanblt     // bootleg
-clubpacm        // Miky
+clubpacm        // Miky SRL
+clubpacma       // Miky SRL
+clubpacmb       // Miky SRL
 woodpeck        // (c) 1981 Amenip (Palcom Queen River)
 woodpeca        // (c) 1981 Amenip Nova Games Ltd.
 mspacmab        // bootleg
@@ -4192,6 +4194,7 @@ wfortunea       // (c) 1989 GameTek
 grmatch         // (c) 1989 Yankee Game Technology
 stratab         // (c) 1990 Strata/Incredible Technologies
 stratab1        // (c) 1990 Strata/Incredible Technologies
+stratabs		// (c) 1990 Strata/Incredible Technologies
 sstrike         // (c) 1990 Strata/Incredible Technologies
 gtg             // (c) 1990 Strata/Incredible Technologies
 gtgt            // (c) 1990 Strata/Incredible Technologies
@@ -5672,8 +5675,8 @@ meltybld        // 2005.08 Melty Blood Act Cadenza Ver. A (Rev C)
 ggxxsla         // 2005.09 Guilty Gear XX Slash (Rev A)
 radirgyo        // 2005.10 Radirgy
 undefeat        // 2005.10 Under Defeat
+dragntr3        // 2005.11 Dragon Treasure 3 (Rev A)
 radirgy         // 2005.12.04 Radirgy (Rev A)
-				// 2005.?? Dragon Treasure 3 (Rev A)
 				// 2005.?? ExZeus
 mushi2eo        // 2005.?? Mushiking The King Of Beetles II ENG (Ver. 1.001)
 mushik2e        // 2005.?? Mushiking The King Of Beetles II ENG (Ver. 2.001)
@@ -5816,7 +5819,8 @@ fotns           // 2005.12 Hokuto no Ken
 mslug6          // 2006.02 Metal Slug 6
 xtrmhnt2        // 2006.09 Extreme Hunting 2 Tournament Edition
 claychal        // 2008.11 Sega Clay Challenge
-basschal        // 2009.02 Sega Bass Challenge
+basschalo       // 2009.02 Sega Bass Challenge
+basschal        // 2009.07 Sega Bass Challenge Version A
 
 // Hikaru
 hikaru          // 2000.?? Hikaru BIOS
@@ -9172,7 +9176,8 @@ touchgon        // (c) 1995 - Ref 950906
 touchgoe        // (c) 1995 - Ref 950510-1
 wrally2         // (c) 1995 - Ref 950510
 maniacsp        // (c) 1996 - Ref 922804/2 - (prototype)
-maniacsq        // (c) 1996 - Ref ??? - (unprotected)
+maniacsq        // (c) 1996 - Ref 940411 - (unprotected)
+maniacsqa		// (c) 1996 - Ref 940411
 snowboar        // (c) 1996 - Ref 960419/1
 snowboara       // (c) 1996 - Ref 960419/1
 bang            // (c) 1998 - Ref ???
@@ -9697,6 +9702,7 @@ trckydoca       // (c) 1987
 
 // Metro games
 karatour        // (c) 1992 Mitchell
+karatourj       // (c) 1992 Mitchell
 ladykill        // (c) 1993 Yanyaka + Mitchell license - (Arcade TV Game List - P.101, Right, 2 from Bottom)
 moegonta        // (c) 1993 Yanyaka (Japan) (Arcade TV Game List - P.101, Right, 2 from Bottom)
 pangpoms        // (c) 1992
@@ -10892,6 +10898,7 @@ stuntair        // (c) 1983 Nuova Videotron
 // Success
 tonton          // (c) 199? Success / Taiyo Jidoki.
 kurukuru        // (c) 199? Success / Taiyo Jidoki.
+ppj             // (c) 199? Success / Taiyo Jidoki.
 othello         // (c) 1984 Success.
 sothello        // (c) 1986 Success / Fujiwara.
 kothello        // (c) 1990 Success.
@@ -11203,6 +11210,7 @@ sgsafari        // (c) 1996 New Impeuropex Corp.
 musicsrt        // (c) 1995 ABM Games
 galaxi          // (c) 2000 BRL S.R.L. Bologna
 magjoker        // (c) 2000 BRL S.R.L. Bologna
+lastfour        // (c) 2001 BRL S.R.L. Bologna
 dwarfd          // (c) 198? Electro-Sports
 dwarfda         // (c) 198? Electro-Sports
 quarterh        // (c) 1983 Electro-Sports
@@ -12181,6 +12189,7 @@ cfever1k        // (c) 2000 High Video
 girotutt        // (c) 2000 High Video
 nyjoker         //
 grancapi        // (c) 2000 High Video
+galeone
 magicbom        // (c) 2000 High Video
 
 // Sure games
