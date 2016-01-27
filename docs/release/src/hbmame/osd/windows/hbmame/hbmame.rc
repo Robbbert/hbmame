@@ -8,4 +8,4 @@
 
 1                       24      MOVEABLE PURE   "hbmame.man"
 
-2                       ICON    DISCARDABLE     "../../../osd/winui/res/hbmame.ico"
+2                       ICON    DISCARDABLE     "hbmame.ico"

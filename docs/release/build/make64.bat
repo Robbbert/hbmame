@@ -1,6 +1,6 @@
 @echo off
-set MINGW64=E:\Mingw\4-9-1\mingw64-w64
-set minpath=%MINGW64%\bin;%MINGW64%\opt\bin;%MINGW64%\Qt\bin
+set MINGW64=E:\Mingw\5-3-0\mingw64
+set minpath=%MINGW64%\bin
 set oldpath=%Path%
 set Path=%minpath%;%oldpath%
 echo.|time

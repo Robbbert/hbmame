@@ -2180,8 +2180,7 @@ static void SaveSettingsFile(winui_options &opts, const char *filename)
 
 	if (filerr == FILERR_NONE)
 	{
-		std::string inistring;
-		opts.output_ini(inistring);
+		std::string inistring = opts.output_ini();
 		core_fputs(file,inistring.c_str());
 		core_fclose(file);
 	}
@@ -2199,8 +2198,7 @@ static void SaveSettingsFile(windows_options &opts, const char *filename)
 
 	if (filerr == FILERR_NONE)
 	{
-		std::string inistring;
-		opts.output_ini(inistring);
+		std::string inistring =  opts.output_ini();
 		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
 		core_fputs(file,inistring.c_str());
 		core_fclose(file);

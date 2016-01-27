@@ -3042,7 +3042,7 @@ GAME( 2004, kof2k2k3g,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2002, kof2k2mp1,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 (Magic Plus)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2010, kof2k2mp3,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 (Magic Plus III)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2mpu,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof2002 (Plus)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2ngp,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "hack", "Kof2002 (Portuguese negative colour)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2ngp,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 (Portuguese negative colour)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, kof2k2nu,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack by BXX", "Kof2002 (Super Black Nude Mix)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2olp,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 (Orochi Leona 97 color style)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, kof2k2omg8,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.8)", MACHINE_SUPPORTS_SAVE )

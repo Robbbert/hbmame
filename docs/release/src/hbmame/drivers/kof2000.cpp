@@ -43,6 +43,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2kxxx )
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2knd )
 {
 	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
@@ -156,8 +157,8 @@ ROM_END
 
 ROM_START( kof2kbsd )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "kof2kbsd_p1.rom",  0x000000, 0x100000, CRC(391948a6) SHA1(a41759bdb587a8765e5f5cc7a4631e9b002d4cf4) )
-	ROM_LOAD16_WORD_SWAP( "kof2kbsd_p2.rom",  0x100000, 0x400000, CRC(7a6d80b8) SHA1(0a3bcf71a43b2b5dde0c33ed107c207a7c59e90c) )
+	ROM_LOAD16_WORD_SWAP( "257bsd.p1",  0x000000, 0x100000, CRC(391948a6) SHA1(a41759bdb587a8765e5f5cc7a4631e9b002d4cf4) )
+	ROM_LOAD16_WORD_SWAP( "257bsd.p2",  0x100000, 0x400000, CRC(7a6d80b8) SHA1(0a3bcf71a43b2b5dde0c33ed107c207a7c59e90c) )
 
 	NEO_SFIX_MT_512K
 
@@ -170,14 +171,14 @@ ROM_START( kof2kbsd )
 	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "257-c1d.bin", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) ) 
-	ROM_LOAD16_BYTE( "257-c2d.bin", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) ) 
-	ROM_LOAD16_BYTE( "257-c3d.bin", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
-	ROM_LOAD16_BYTE( "257-c4d.bin", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) ) 
-	ROM_LOAD16_BYTE( "257-c5d.bin", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
-	ROM_LOAD16_BYTE( "257-c6d.bin", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) ) 
-	ROM_LOAD16_BYTE( "kof2kbsd_c7.rom", 0x3000000, 0x800000, CRC(110f72a3) SHA1(7540aa2be692fbbcd887c8377ca6891d1ba1b6ed) )
-	ROM_LOAD16_BYTE( "kof2kbsd_c8.rom", 0x3000001, 0x800000, CRC(4347f6af) SHA1(fc744d68e04905af1fa8d39d8772fba67e14777f) )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257bsd.c7", 0x3000000, 0x800000, CRC(110f72a3) SHA1(7540aa2be692fbbcd887c8377ca6891d1ba1b6ed) )
+	ROM_LOAD16_BYTE( "257bsd.c8", 0x3000001, 0x800000, CRC(4347f6af) SHA1(fc744d68e04905af1fa8d39d8772fba67e14777f) )
 ROM_END
 
 ROM_START( kof2kce ) /* The King of Fighters 2000 - Colour fix by UNKNOWN - (Character colour change) */
@@ -388,12 +389,40 @@ ROM_START( kof2kevo2 ) /* [OLD] The King of Fighters 2000 N - (kof2kevo10) - KOF
 	ROM_LOAD16_BYTE( "257-c8.c8",   0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) )
 ROM_END
 
+ROM_START( kof2kevo3 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257evo3.p1",  0x000000, 0x100000, CRC(93cc8aa5) SHA1(46226909fd182d9edefb529bfe4c91f8a5b02a9e) )
+	ROM_LOAD16_WORD_SWAP( "257-pg2.sp2", 0x100000, 0x400000, CRC(693c2c5e) SHA1(dc9121b7369ef46596343cac055a00aec81704d4) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257-v1.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
+	ROM_LOAD( "257-v2.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
+	ROM_LOAD( "257-v3.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
+	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257d.c7", 0x3000000, 0x800000, CRC(71dfc3e2) SHA1(1889a8dc88993e35f9fd93ce2bee1de52995932d) )
+	ROM_LOAD16_BYTE( "257d.c8", 0x3000001, 0x800000, CRC(0fa30e5f) SHA1(0cb7fa6b0219e1af2df9b97786c677651a78f37a) )
+ROM_END
+
 ROM_START( kof2kgbh )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "257gbh.p1",  0x000000, 0x100000, CRC(5527a8fb) SHA1(5c861ab496ab713d04fe26ad5e6f73c2bb52bf48) )
 	ROM_LOAD16_WORD_SWAP( "257gbh.p2",  0x100000, 0x400000, CRC(7992520d) SHA1(7718348355adbb05e64767ae5d075046ae9b5400) )
 
 	NEO_SFIX_MT_512K
+	// This came with the set but doesn't work
+	//NEO_SFIX_128K( "257gbh.s1", CRC(cabc287b) SHA1(dbf3adc0fe31d3c6c246ed4c996ca9b8c9bbfa4d) )
 
 	NEO_BIOS_AUDIO_256K( "257gbh.m1", CRC(a082f086) SHA1(809ef4a533cf541b86786f455a7f283a5acecd82) )
 
@@ -416,7 +445,7 @@ ROM_END
 
 ROM_START( kof2kgold ) /* The King of Fighters 2000 - Colour fix by Anndy - (Character colour change - attack cremation gold) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257gbh.p2",  0x100000, 0x400000, CRC(7992520d) SHA1(7718348355adbb05e64767ae5d075046ae9b5400) )
 
 	NEO_SFIX_MT_512K
@@ -464,6 +493,32 @@ ROM_START( kof2kice ) /* The King of Fighters 2000 - Colour fix by Zhangshee - (
 	ROM_LOAD16_BYTE( "257-c6.c6",   0x2000001, 0x800000, CRC(fa7200d5) SHA1(6f2b0d38af34e280d56a58955400e5c679906871) )
 	ROM_LOAD16_BYTE( "257-c7.c7",   0x3000000, 0x800000, CRC(7da11fe4) SHA1(065336cf166807acb6c8569d59d3bf37a19b0a42) )
 	ROM_LOAD16_BYTE( "257-c8.c8",   0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) )
+ROM_END
+
+ROM_START( kof2kiori )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257iori.p1", 0x000000, 0x100000, CRC(d7cdca85) SHA1(2cdc6f528512a8d8eff800602f00f75797e4a5f1) )
+	ROM_LOAD16_WORD_SWAP( "257iori.p2", 0x100000, 0x400000, CRC(ce947e0f) SHA1(0d86e181a1a6244fb61ac18d013352c3a9722ebd) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257-v1.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
+	ROM_LOAD( "257-v2.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
+	ROM_LOAD( "257-v3.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
+	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257iori.c7", 0x3000000, 0x800000, CRC(4230c654) SHA1(7e5cb48cbec8b27047e5642af58bebd71a9f986b) )
+	ROM_LOAD16_BYTE( "257iori.c8", 0x3000001, 0x800000, CRC(80aa8ac2) SHA1(7a828725e8442e19b1ad34327d9d9025d04f4853) )
 ROM_END
 
 ROM_START( kof2kjlc ) /* The King of Fighters 2000 - Colour fix by Jui Lee - (Character colour change for Athena 2P and Kula 2P) */
@@ -575,13 +630,9 @@ ROM_START( kof2knd )
 	ROM_LOAD16_WORD_SWAP( "257-pg1.p1",  0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257-pg2.sp2",  0x100000, 0x400000, CRC(693c2c5e) SHA1(dc9121b7369ef46596343cac055a00aec81704d4) )
 
-	NEO_SFIX_MT_128K
+	NEO_SFIX_MT_512K
 
-	ROM_REGION( 0x40000, "audiocrypt", 0 )
-	/* Encrypted, we load it here for reference and replace with decrypted ROM */
-	ROM_LOAD( "257-m1.m1", 0x00000, 0x40000, CRC(4b749113) SHA1(2af2361146edd0ce3966614d90165a5c1afb8de4) )
-	/* Decrypted */
-	NEO_BIOS_AUDIO_256K( "257-m1_bootleg.bin", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "257-v1.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
@@ -590,14 +641,14 @@ ROM_START( kof2knd )
 	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "257-c1d.bin", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
-	ROM_LOAD16_BYTE( "257-c2d.bin", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
-	ROM_LOAD16_BYTE( "257-c3d.bin", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
-	ROM_LOAD16_BYTE( "257-c4d.bin", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
-	ROM_LOAD16_BYTE( "257-c5d.bin", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
-	ROM_LOAD16_BYTE( "257-c6d.bin", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
-	ROM_LOAD16_BYTE( "257-c7d.bin", 0x3000000, 0x800000, CRC(71dfc3e2) SHA1(1889a8dc88993e35f9fd93ce2bee1de52995932d) )
-	ROM_LOAD16_BYTE( "257-c8d.bin", 0x3000001, 0x800000, CRC(0fa30e5f) SHA1(0cb7fa6b0219e1af2df9b97786c677651a78f37a) )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257d.c7", 0x3000000, 0x800000, CRC(71dfc3e2) SHA1(1889a8dc88993e35f9fd93ce2bee1de52995932d) )
+	ROM_LOAD16_BYTE( "257d.c8", 0x3000001, 0x800000, CRC(0fa30e5f) SHA1(0cb7fa6b0219e1af2df9b97786c677651a78f37a) )
 ROM_END
 
 ROM_START( kof2kpjc ) /* The King of Fighters 2000 - Colour fix by TcwLee - (Colour fix 20030720) */
@@ -704,6 +755,33 @@ ROM_START( kof2kpjc3 ) /* [OLD] The King of Fighters 2000 N - (kof2kpjco2) - Col
 	ROM_LOAD16_BYTE( "257-c8.c8",   0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) )
 ROM_END
 
+ROM_START( kof2kpls )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257pls.p1", 0x000000, 0x100000, CRC(052a5e17) SHA1(1f2c43981e1e762c0d0a81f23311e5d021e94472) )
+	ROM_LOAD16_WORD_SWAP( "257pls.p2", 0x100000, 0x400000, CRC(9d716a8b) SHA1(da32f57719155b8dfa86124312d03ee82fbc7151) )
+
+	NEO_SFIX_MT_512K
+	ROM_LOAD( "257pls.s1", 0x000000, 0x80000, CRC(5a8d9e10) SHA1(2eb244a28b891a6fadbbccf10afe47b78d7948f0) )
+
+	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257-v1.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
+	ROM_LOAD( "257-v2.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
+	ROM_LOAD( "257-v3.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
+	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257pls.c7", 0x3000000, 0x800000, CRC(eda5ea7f) SHA1(25e1d5279635eab65ba7b3f565d5cf0dd48ad201) )
+	ROM_LOAD16_BYTE( "257pls.c8", 0x3000001, 0x800000, CRC(6df754d8) SHA1(94469836ae8e08448a01f346a09e660ceed9371f) )
+ROM_END
+
 ROM_START( kof2krm ) /* The King of Fighters 2000 - Remix by Raymonose - (Character move change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "257rm.p1",  0x000000, 0x100000, CRC(597fdfc7) SHA1(10bb9e4ad0c3ff53336cc0e06303f83bcb5c94e4) )
@@ -754,6 +832,32 @@ ROM_START( kof2krp ) /* The King of Fighters 2000 - Remix PRO by FCHT - (Charact
 	ROM_LOAD16_BYTE( "257-c6.c6",   0x2000001, 0x800000, CRC(fa7200d5) SHA1(6f2b0d38af34e280d56a58955400e5c679906871) )
 	ROM_LOAD16_BYTE( "257-c7.c7",   0x3000000, 0x800000, CRC(7da11fe4) SHA1(065336cf166807acb6c8569d59d3bf37a19b0a42) )
 	ROM_LOAD16_BYTE( "257-c8.c8",   0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) )
+ROM_END
+
+ROM_START( kof2kryu )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257ryu.p1",   0x000000, 0x100000, CRC(47806bd7) SHA1(fd61bd7c6758870c24446b07175537ed1c2135af) )
+	ROM_LOAD16_WORD_SWAP( "257-pg2.sp2", 0x100000, 0x400000, CRC(693c2c5e) SHA1(dc9121b7369ef46596343cac055a00aec81704d4) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257-v1.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
+	ROM_LOAD( "257-v2.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
+	ROM_LOAD( "257-v3.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
+	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257d.c7", 0x3000000, 0x800000, CRC(71dfc3e2) SHA1(1889a8dc88993e35f9fd93ce2bee1de52995932d) )
+	ROM_LOAD16_BYTE( "257d.c8", 0x3000001, 0x800000, CRC(0fa30e5f) SHA1(0cb7fa6b0219e1af2df9b97786c677651a78f37a) )
 ROM_END
 
 ROM_START( kof2kseh ) /* The King of Fighters 2000 - Super Enhance Hack by Creamymami and Ydmis - (Can choose Kula and Zero - ultra kill start is max - super power hack) */
@@ -862,8 +966,8 @@ ROM_END
 
 ROM_START( kof2kxxx )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1xxx.bin", 0x000000, 0x100000, CRC(b88cd5eb) SHA1(81b5ef268991fe368c6efa836cb822fbcfe54920) )
-	ROM_LOAD16_WORD_SWAP( "257-pg2xxx.bin", 0x100000, 0x400000, CRC(1a10f2be) SHA1(67794176d3d834b85495fa653a8acd14901b1658) )
+	ROM_LOAD16_WORD_SWAP( "257xxx.p1", 0x000000, 0x100000, CRC(b88cd5eb) SHA1(81b5ef268991fe368c6efa836cb822fbcfe54920) )
+	ROM_LOAD16_WORD_SWAP( "257xxx.p2", 0x100000, 0x400000, CRC(1a10f2be) SHA1(67794176d3d834b85495fa653a8acd14901b1658) )
 
 	NEO_SFIX_MT_512K
 
@@ -876,14 +980,24 @@ ROM_START( kof2kxxx )
 	ROM_LOAD( "257-v4.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "257-c1xxx.bin",   0x0000000, 0x800000, CRC(3006a5e4) SHA1(e1fa9c32306a7501cb4789ec85521fd6fd7ad28c) )
-	ROM_LOAD16_BYTE( "257-c2xxx.bin",   0x0000001, 0x800000, CRC(366fd118) SHA1(36abc1e8e48e47afdab9541a4612b346799693de) )
-	ROM_LOAD16_BYTE( "257-c3xxx.bin",   0x1000000, 0x800000, CRC(5b16d7e3) SHA1(3a5cbfc47b7db0ee4f15232066c4f79544dee20f) )
-	ROM_LOAD16_BYTE( "257-c4xxx.bin",   0x1000001, 0x800000, CRC(7e57dfc1) SHA1(7a07d1547306646538d29ba9bd3acdaca7c70907) )
-	ROM_LOAD16_BYTE( "257-c5xxx.bin",   0x2000000, 0x800000, CRC(671904f4) SHA1(7bfd66b7f1866c06b161eb6cf594aa017b7088b2) )
-	ROM_LOAD16_BYTE( "257-c6xxx.bin",   0x2000001, 0x800000, CRC(68adf255) SHA1(a60ad8adbec8c4e6ed85fd3b251a8f187aca85b1) )
-	ROM_LOAD16_BYTE( "257-c7xxx.bin",   0x3000000, 0x800000, CRC(8c6b22b3) SHA1(7f4a204de276a9acae2c6d58b2b5c03f76bcab69) )
-	ROM_LOAD16_BYTE( "257-c8xxx.bin",   0x3000001, 0x800000, CRC(6223bd1d) SHA1(94b512eb202aec084110e477b283591bad54d027) )
+	ROM_LOAD16_BYTE( "257xxx.c1", 0x0000000, 0x800000, CRC(3006a5e4) SHA1(e1fa9c32306a7501cb4789ec85521fd6fd7ad28c) )
+	ROM_LOAD16_BYTE( "257xxx.c2", 0x0000001, 0x800000, CRC(366fd118) SHA1(36abc1e8e48e47afdab9541a4612b346799693de) )
+	ROM_LOAD16_BYTE( "257xxx.c3", 0x1000000, 0x800000, CRC(5b16d7e3) SHA1(3a5cbfc47b7db0ee4f15232066c4f79544dee20f) )
+	ROM_LOAD16_BYTE( "257xxx.c4", 0x1000001, 0x800000, CRC(7e57dfc1) SHA1(7a07d1547306646538d29ba9bd3acdaca7c70907) )
+	ROM_LOAD16_BYTE( "257xxx.c5", 0x2000000, 0x800000, CRC(671904f4) SHA1(7bfd66b7f1866c06b161eb6cf594aa017b7088b2) )
+	ROM_LOAD16_BYTE( "257xxx.c6", 0x2000001, 0x800000, CRC(68adf255) SHA1(a60ad8adbec8c4e6ed85fd3b251a8f187aca85b1) )
+	ROM_LOAD16_BYTE( "257xxx.c7", 0x3000000, 0x800000, CRC(8c6b22b3) SHA1(7f4a204de276a9acae2c6d58b2b5c03f76bcab69) )
+	ROM_LOAD16_BYTE( "257xxx.c8", 0x3000001, 0x800000, CRC(6223bd1d) SHA1(94b512eb202aec084110e477b283591bad54d027) )
+	// Alternate (decrypted) roms
+	//NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+	//ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	//ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	//ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	//ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	//ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	//ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	//ROM_LOAD16_BYTE( "257xxx1.c7", 0x300000, 0x800000, CRC(05125a94) SHA1(cdd77c649945e15088dd07ba282e6dc9ef883a75) )
+	//ROM_LOAD16_BYTE( "257xxx1.c8", 0x300001, 0x800000, CRC(300eba2a) SHA1(42defa20e3a0760f64c4c0346ab48d664960c638) )
 ROM_END
 
 ROM_START( kof2ky ) /* The King of Fighters 2000 - Hack by Ydmis - (Can choose Kula) */
@@ -1021,37 +1135,40 @@ GAME( 2000, kof2000d,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       ko
 GAME( 2000, kof2000r,   kof2000,  neogeo_noslot, neogeo, neogeo_noslot_state, kof2000,   ROT0, "hack", "Kof2000 (KOF REMIX PRO)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kbh,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000h,  ROT0, "Dodowang","Kof2000 (Add Char - Zero has icon)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kbj,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3", "Kof2000 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kbsd,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2kbsd,  ROT0, "Eddids / EGHT", "Kof2000 Boss Striker Pro ( Eddids, EGHT )", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kce,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "hack", "Kof2000 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kch,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Chase", "Kof2000 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kcp,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "hack", "Kof2000 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2keh,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kehr,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Add Char - Diff Moves - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 Evolution (v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo1,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 Evolution (v1.01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo2,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 Evolution (v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kevo,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVOLUTION (v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kevo1,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVOLUTION (v1.01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kevo2,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVO (Evolution v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kevo3,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2knd,   ROT0, "FCHT-EGHT", "Kof2000 EVOLUTION (v1.3 by FCHT-EGHT)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kgold,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Anndy", "Kof2000 (Char color changed - Gold)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kgbh,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       cmc50sfix, ROT0, "hack", "Kof2000 (Boss Hack - Gold Color Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kice,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Zhangshee", "Kof2000 (Char color changed - Ice blue)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kiori,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2knd,   ROT0, "ZKW", "Kof2000 (Iori Orochi by ZKW)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kjlc,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Jui Lee", "Kof2000 (Char color changed for Athena 2P and Kula 2P)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kkf1,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - MVS protection rem set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kkvs,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "KVS", "Kof2000 (Add Char - MVS protection rem set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kkzs,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2knd,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2knd,   ROT0, "hack", "Kof2000 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kpjc,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kpjc1,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix - Entire role change)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kpjc2,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix v. 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kpjc3,  kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color changed - Striker not Perfect 030302)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kpls,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2knd,   ROT0, "Guangzhou Game Team", "Kof2000 PLUS (by Guangzhou Game Team)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2krm,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2krp,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "FCHT", "Kof2000 Remix Pro (Diff Moves v1.0a 031103 - Beta)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kryu,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2knd,   ROT0, "Iori Yagami", "Kof2000 EVX TION (Ryu Hack by Iori Yagami)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kseh,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - Ultra kill start max - Super pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kst,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "KOF1995", "Kof2000 (Add Char - Boss striker moves changed - Similar to kof2kevo from FGCH)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kwh,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Wesker", "Kof2000 (Diff Moves for Takuma)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kwh2,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Wesker", "Kof2000 (Diff Moves for Jhun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kxxx,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2kxxx,  ROT0, "Crispy", "Kof2000 XXX (Crispy SP Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2ky,     kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Ydmis", "Kof2000 (Add Kula)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kyd,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Dodowang and Ydmis", "Kof2000 (Style change - Select 2 Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kyg,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kz,     kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "Ydmis", "Kof2000 (Add Zero)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kzs,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2000m,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 4)", MACHINE_SUPPORTS_SAVE )
-
-GAME( 2000, kof2kbsd,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2kbsd,  ROT0, "Eddids / EGHT", "Kof2000 Boss Striker Pro ( Eddids, EGHT )", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2knd,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2knd,   ROT0, "hack", "Kof2000 (non encrypted P,decrypted C)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2000, kof2kxxx,   kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2kxxx,  ROT0, "Crispy", "Kof2000 XXX (Crispy SP Hack)", MACHINE_SUPPORTS_SAVE )

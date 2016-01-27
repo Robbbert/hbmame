@@ -235,8 +235,10 @@ wofsf2
 1944fp
 ddsom
 ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
+halfway
 mpang		//parent
 mpangjd
+progear //parent
 suicide		/* Razoola */
 suicide2	/* Razoola */
 sfa		//parent
@@ -271,7 +273,7 @@ dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
 kong2600	/* Vic Twenty George hack of Donkey Kong */
 nadkong
 dkong2m
-pauline		/* Clay Cowgill */
+dkrainbow
 
 	/* docastle */
 dorunrun	/* (c) 1984 */
@@ -808,19 +810,24 @@ kof2kehr
 kof2kevo
 kof2kevo1
 kof2kevo2
+kof2kevo3
 kof2kgbh
 kof2kgold
 kof2kice
+kof2kiori
 kof2kjlc
 kof2kkf1
 kof2kkvs
 kof2kkzs
+kof2knd
 kof2kpjc
 kof2kpjc1
 kof2kpjc2
 kof2kpjc3
+kof2kpls
 kof2krm
 kof2krp
+kof2kryu
 kof2kseh
 kof2kst
 kof2kwh
@@ -981,19 +988,27 @@ kof2k2kc
 kof2k2mp1	/* Magic Plus */
 kof2k2mp3	/* Magic Plus III - Ismamj */
 kof2k2mpu
+kof2k2ngp
 kof2k2nu
+kof2k2olp
 kof2k2omg8
 kof2k2omg9
 kof2k2omg9b
+kof2k2on
 kof2k2or
 kof2k2ori
+kof2k2ori2
+kof2k2pa
 kof2k2pjw // no sound in attract mode
 kof2k2plb
 kof2k2pr
 kof2k2pro
 kof2k2ps2
 kof2k2ps2a
+kof2k2ps2mp
+kof2k2pur
 kof2k2ra
+kof2k2rgl // no sound in attract mode
 kof2k2rm
 kof2k2rma
 kof2k2rm1
@@ -1018,8 +1033,11 @@ kof2k2seh
 kof2k2se2
 kof2k2sm // bad gfx on train scene
 kof2k2smg
+kof2k2smg2
+kof2k2soi
 kof2k2sp
 kof2k2spl
+kof2k2spls
 kof2k2spo
 kof2k2tc
 kof2k2ul
@@ -1160,10 +1178,11 @@ umk2te51	// Ultimate MKII Tournament Edition r5.0.051
 umk2te52	// Ultimate MKII Tournament Edition r5.0.052
 
 	/* midwunit */
-mk3			//parent
+umk3		//parent
 umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3z		/* UMK3 1.2 Zeus hack */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
+umk3te2		/* UMK3 Tournament Edition 2.0.035 */
 
 	/* midyunit */
 mkla4d		/* MK protection hack */

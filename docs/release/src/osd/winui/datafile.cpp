@@ -747,9 +747,7 @@ int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufsize, in
 	int drivinfo = 0;
 	char source_file[40];
 	char tmp[100];
-	std::string temp;
-
-	core_filename_extract_base(temp, drv->source_file, FALSE);
+	std::string temp = core_filename_extract_base(drv->source_file);
 	strcpy(source_file, temp.c_str());
 
 	*buffer = 0;

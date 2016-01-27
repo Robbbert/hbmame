@@ -887,13 +887,13 @@ void CreateCPUFolders(int parent_index)
 		for (device_execute_interface *device = iter.first(); device; device = iter.next())
 		{
 			// get the name
-			const char *dev_name = device->device().name();
+			std::string dev_name = device->device().name();
 
 			// do we have a folder for this device?
 			folder = NULL;
 			for (j = 0; j < device_folder_count; j++)
 			{
-				if (!strcmp(dev_name, device_folders[j]->m_lpTitle))
+				if (!strcmp(dev_name.c_str(), device_folders[j]->m_lpTitle))
 				{
 					folder = device_folders[j];
 					break;
@@ -936,13 +936,13 @@ void CreateSoundFolders(int parent_index)
 		for (device_sound_interface *device = iter.first(); device; device = iter.next())
 		{
 			// get the name
-			const char *dev_name = device->device().name();
+			std::string dev_name = device->device().name();
 
 			// do we have a folder for this device?
 			folder = NULL;
 			for (j = 0; j < device_folder_count; j++)
 			{
-				if (!strcmp(dev_name, device_folders[j]->m_lpTitle))
+				if (!strcmp(dev_name.c_str(), device_folders[j]->m_lpTitle))
 				{
 					folder = device_folders[j];
 					break;

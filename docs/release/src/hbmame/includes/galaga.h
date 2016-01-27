@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Robbbert
+// copyright-holders:Nicola Salmoria
 #include "sound/discrete.h"
 #include "sound/namco.h"
 #include "sound/samples.h"
@@ -39,10 +39,11 @@ public:
 	required_device<namco_device> m_namco_sound;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<screen_device> m_screen;
-	required_device<palette_device> m_palette;	
+	required_device<palette_device> m_palette;
 	emu_timer *m_cpu3_interrupt_timer;
 	UINT8 m_custom_mod;
 	DECLARE_WRITE8_MEMBER(galaga_sample_w); //HBMAME
+
 	/* machine state */
 	UINT32 m_stars_scrollx;
 	UINT32 m_stars_scrolly;

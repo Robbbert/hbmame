@@ -1,5 +1,5 @@
 set from=c:\HBMAME
-set to=c:\HBMAME\release
+set to=c:\HBMAME\docs\release
 
 rd %to%\src /q /s
 
@@ -8,8 +8,10 @@ copy /Y %from%\src\version.cpp %to%\src\version.cpp
 copy /Y %from%\src\emu\validity.cpp %to%\src\emu
 copy /Y %from%\src\emu\digfx.h %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
-md %to%\src\emu\imagedev
-copy /Y %from%\src\emu\imagedev\cartslot.* %to%\src\emu\imagedev
+copy /Y %from%\src\emu\audit.* %to%\src\emu
+
+md %to%\src\devices\cpu\m68000
+copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
 
 md %to%\src\mame\drivers
 md %to%\src\mame\includes
@@ -46,7 +48,7 @@ pause
 echo off
 cls
 echo.
-echo ZIP up everything.
+echo RAR up everything.
 echo.
 
 pause

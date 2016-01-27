@@ -5,7 +5,7 @@
 ROM_START( akblc2dx )
 	ROM_REGION( 0x10000, "maincpu", 0 ) /* 64k for code */
 	ROM_LOAD( "akblc2dx.bin", 0x0000,  0x10000, CRC(e8ca9820) SHA1(ac97ebf285d1b8dd216dfc7024f7630fceac50b6) )
-	
+
 	ROM_REGION( 0x18000, "gfx1", 0 )
 	ROM_LOAD( "a75-03.rom",   0x00000, 0x8000, CRC(038b74ba) SHA1(ac053cc4908b4075f918748b89570e07a0ba5116) )
 	ROM_LOAD( "a75-04.rom",   0x08000, 0x8000, CRC(71fae199) SHA1(5d253c46ccf4cd2976a5fb8b8713f0f345443d06) )
@@ -67,7 +67,7 @@ ROM_START( arkll32 )
 ROM_END
 
 
-GAME( 2000, akblc2dx, arkanoid, bootleg,  arkanoidj, driver_device, 0, ROT90, "[Hack]", "Block Deluxe (Game Corporation)", 0 )
-GAME( 2000, akgcdx,   arkanoid, bootleg,  arkanoidj, driver_device, 0, ROT90, "[Hack]", "Arkanoid Deluxe (Game Corporation)", 0 )
-GAME( 2000, aktaytdx, arkanoid, bootleg,  arkanoidj, driver_device, 0, ROT90, "[Hack]", "Arkanoid Deluxe (Japan, Tayto)", 0 )
-GAME( 2000, arkll32,  arkanoid, arkanoid, arkanoidj, driver_device, 0, ROT90, "[Hack]", "Arkanoid LL32", 0 )
+GAME( 2000, akblc2dx, arkanoid, bootleg,  arkangc,   arkanoid_state, arkblock, ROT90, "[Hack]", "Block Deluxe (Game Corporation)", 0 )
+GAME( 2000, akgcdx,   arkanoid, bootleg,  arkangc,   arkanoid_state, arkgcbl,  ROT90, "[Hack]", "Arkanoid Deluxe (Game Corporation)", 0 )
+GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  driver_device,  0,        ROT90, "[Hack]", "Arkanoid Deluxe (Japan, Tayto)", 0 )
+GAME( 2000, arkll32,  arkanoid, arkanoid, arkanoidj, driver_device,  0,        ROT90, "[Hack]", "Arkanoid LL32", 0 )

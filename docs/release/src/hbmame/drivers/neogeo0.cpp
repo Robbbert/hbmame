@@ -166,7 +166,6 @@ MACHINE_CONFIG_END
 #include "mgd2.cpp"
 #include "mslug.cpp"
 #include "ngdoubledr.cpp"
-//#include "ngextra.cpp"
 #include "nggaroup.cpp"
 #include "ngkofmisc.cpp"
 #include "nglastblade.cpp"
