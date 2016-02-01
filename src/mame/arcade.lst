@@ -9270,6 +9270,7 @@ oedfight        // (c) 1994 Kaneko
 bonkadv         // (c) 1994 Kaneko
 gtmr            // (c) 1994 Kaneko
 gtmra           // (c) 1994 Kaneko
+gtmro			// (c) 1994 Kaneko
 gtmre           // (c) 1994 Kaneko
 gtmrusa         // (c) 1994 Kaneko (US)
 gtmr2           // (c) 1995 Kaneko
@@ -11953,6 +11954,7 @@ pexmp030        // (c) 1997 IGT - International Game Technology
 pexmp030a       // (c) 1997 IGT - International Game Technology
 
 // IGT Game King
+ms72c
 gkigt4
 gkigt4ms
 gkigt43
@@ -32680,3 +32682,6 @@ clowndwn // Elwood Clown Roll Down
 
 fi6845
 fi8275
+
+l9nibble   // unknown Nibble game.
+ 
