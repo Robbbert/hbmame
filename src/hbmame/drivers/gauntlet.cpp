@@ -87,5 +87,5 @@ ROM_START( gaunt2ls )
 ROM_END
 
 
-GAME( 1987, gaunt2s,  gaunt2,   gauntlet, gauntlet, gauntlet_state, gauntlet2, ROT0, "Todd Bordelon", "Gauntlet II Speed Hack", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
-GAME( 1988, gaunt2ls, gaunt2,   gauntlet, gauntlet, gauntlet_state, gauntlet2, ROT0, "Orange Elf", "Gauntlet II New Levels", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Todd Bordelon", "Gauntlet II Speed Hack", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
+GAME( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Orange Elf", "Gauntlet II New Levels", MACHINE_SUPPORTS_SAVE )
