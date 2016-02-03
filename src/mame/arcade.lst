@@ -5143,8 +5143,15 @@ shienryu        // 1997.02 Shienryu (Warashi)
 vmahjong        // 1997.02 Virtual Mahjong (Micronet)
 pclub2kc        // 1997.02 Print Club Kome Kome Club
 pclub2fc        // 1997.04 Print Club 2 Felix The Cat
+pclub2pe		//
+pclub2pf		//
+pclub26w		//
+pclub27s		//
+pclubyo2		//
 groovef         // 1997.05 Groove on Fight (Atlus)
 nclubv3         // 1997.07 Name Club Ver. 3
+nclubv2			//
+nameclub		//
 pclb2elk        // 1997.07 Print Club Custom
 pclub2          // 1997.09 Print Club 2
 thunt           // 1997.09 Puzzle & Action Treasure Hunt (Sega (Deniam License))
@@ -5152,6 +5159,7 @@ thuntk
 winterht        // 1997.10 Winter Heat (Data East)
 pclb297w        // 1997.10 Print Club 2 '97 Winter Ver
 pclub298        // 1997.10 Print Club 2 '98 Spring Ver
+pclove
 cotton2         // 1997.11 Cotton 2 (Success)
 hanagumi        // 1997.11 Sakura Taisen Hanagumi Taisen Columns
 findlove        // 1997.12 Find Love (Daiki / FCF)
@@ -9270,6 +9278,7 @@ oedfight        // (c) 1994 Kaneko
 bonkadv         // (c) 1994 Kaneko
 gtmr            // (c) 1994 Kaneko
 gtmra           // (c) 1994 Kaneko
+gtmrb			// (c) 1994 Kaneko
 gtmro			// (c) 1994 Kaneko
 gtmre           // (c) 1994 Kaneko
 gtmrusa         // (c) 1994 Kaneko (US)
@@ -9852,8 +9861,9 @@ spec2kh         // (c) 2000 Yonatech
 
 // ESD games
 // http://www.esdgame.co.kr/english/
-multchmp        // (c) 1998 (World)
+multchmp        // (c) 1999 (World)
 multchmpk       // (c) 1998 (Korea)
+multchmpa		// (c) 1998 (World)
 mchampdx        // (c) 1999 ESD
 mchampdxa       // (c) 1999 ESD
 mchampdxb       // (c) 1999 ESD
@@ -10859,6 +10869,7 @@ strvmstr        // (c) 1986 Enerdyne Technologies Inc
 dorachan        // (c) 1980 Craul Denshi
 ladyfrog        // (c) 1990 Mondial Games
 toucheme
+touchemea
 rabbit          // (c) 1997 Electronic Arts
 tmmjprd         // (c) 1997 Media / Sonnet
 tmpdoki         // (c) 1998 Media Syouji
