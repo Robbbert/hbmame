@@ -18,6 +18,25 @@ TODO:
 -Minor graphic glitches in Royal Queen (cross hatch test, some little glitches during gameplay),
  presumably due of the unemulated wait states on the comms.
 
+ Notes:
+-Night Gal Summer accesses the blitter in a weird fashion, perhaps it fails the ROM check 
+ due of address line encryption?
+ Example snippet:
+		 0  1  2  3  4  5  6
+		   RH XX YY WW HH DD
+		70 00 40 80 07 06 00 x = 2 y = 3 srcl = 0 srch = 1 srcd = 6
+        DD    YY RH WW HH XX
+		00 60 80 03 07 06 48 x = 6 y = 2 srcl = 1 srch = 3 srcd = 0
+		XX DD RH    WW HH YY
+		50 00 04 28 07 06 80 x = 0 y = 6 srcl = 3 srch = 2 srcd = 1
+		YY XX    DD WW HH RH
+		80 58 10 00 07 06 03 x = 1 y = 0 srcl = 2 srch = 6 srcd = 3
+		RH YY DD XX WW HH
+		02 80 00 68 07 06 a0 x = 3 y = 1 srcl = 6 srch = 0 srcd = 2
+		      .. .. .. .. ..
+			  
+		48 03 78 80 07 06 00 (again) 
+ 
 *******************************************************************************************/
 
 #include "emu.h"
@@ -898,10 +917,7 @@ static MACHINE_CONFIG_START( royalqn, nightgal_state )
 	/* video hardware */
 	/* TODO: blitter clock is MASTER_CLOCK / 4, 320 x 264 pixels, 256 x 224 of visible area */
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
-	MCFG_SCREEN_SIZE(256, 256)
-	MCFG_SCREEN_VISIBLE_AREA(0, 256-1, 0, 256-1)
+	MCFG_SCREEN_RAW_PARAMS(MASTER_CLOCK/4,320,0,256,264,16,240)
 	MCFG_SCREEN_UPDATE_DRIVER(nightgal_state, screen_update_nightgal)
 	MCFG_SCREEN_PALETTE("palette")
 
