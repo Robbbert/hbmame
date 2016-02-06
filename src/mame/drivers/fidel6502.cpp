@@ -5,9 +5,6 @@
     Fidelity Electronics 6502 based board driver
     See drivers/fidelz80.cpp for hardware description
 
-    TODO:
-    - x
-
 ******************************************************************************/
 
 #include "emu.h"
@@ -23,7 +20,7 @@
 
 // internal artwork
 #include "fidel_csc.lh" // clickable
-#include "fidel_fev.lh"
+#include "fidel_fev.lh" // clickable
 #include "fidel_sc12.lh" // clickable
 
 
@@ -43,8 +40,7 @@ public:
 	TIMER_DEVICE_CALLBACK_MEMBER(irq_on) { m_maincpu->set_input_line(M6502_IRQ_LINE, ASSERT_LINE); }
 	TIMER_DEVICE_CALLBACK_MEMBER(irq_off) { m_maincpu->set_input_line(M6502_IRQ_LINE, CLEAR_LINE); }
 
-	// model CSC
-	void csc_update_7442();
+	// CSC
 	void csc_prepare_display();
 	DECLARE_READ8_MEMBER(csc_speech_r);
 	DECLARE_WRITE8_MEMBER(csc_pia0_pa_w);
@@ -59,11 +55,17 @@ public:
 	DECLARE_READ_LINE_MEMBER(csc_pia1_ca1_r);
 	DECLARE_READ_LINE_MEMBER(csc_pia1_cb1_r);
 
-	// model SC12
+	// SC12/6086
 	DECLARE_MACHINE_START(sc12);
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(scc_cartridge);
 	DECLARE_WRITE8_MEMBER(sc12_control_w);
 	DECLARE_READ8_MEMBER(sc12_input_r);
+	
+	// 6080/6092/6093 (Excellence)
+	DECLARE_INPUT_CHANGED_MEMBER(fexcelv_bankswitch);
+	DECLARE_READ8_MEMBER(fexcelv_speech_r);
+	DECLARE_WRITE8_MEMBER(fexcel_ttl_w);
+	DECLARE_READ8_MEMBER(fexcel_ttl_r);
 };
 
 
@@ -76,18 +78,13 @@ public:
 
 // misc handlers
 
-void fidel6502_state::csc_update_7442()
+void fidel6502_state::csc_prepare_display()
 {
 	// 7442 0-8: led select, input mux
 	m_inp_mux = 1 << m_led_select & 0x3ff;
 	
-	// 7442 9: buzzer speaker out
+	// 7442 9: speaker out
 	m_speaker->level_w(m_inp_mux >> 9 & 1);
-}
-
-void fidel6502_state::csc_prepare_display()
-{
-	csc_update_7442();
 
 	// 4 7seg leds + H
 	for (int i = 0; i < 4; i++)
@@ -97,7 +94,7 @@ void fidel6502_state::csc_prepare_display()
 	for (int i = 0; i < 8; i++)
 		m_display_state[i+4] = (m_inp_mux >> i & 1) ? m_led_data : 0;
 
-	set_display_size(8, 12);
+	set_display_size(8, 4+8);
 	set_display_segmask(0xf, 0x7f);
 	display_update();
 }
@@ -206,7 +203,7 @@ WRITE_LINE_MEMBER(fidel6502_state::csc_pia1_ca2_w)
 
 
 /******************************************************************************
-    SC12
+    SC12/6086
 ******************************************************************************/
 
 // cartridge
@@ -259,7 +256,88 @@ WRITE8_MEMBER(fidel6502_state::sc12_control_w)
 READ8_MEMBER(fidel6502_state::sc12_input_r)
 {
 	// a0-a2,d7: multiplexed inputs (active low)
-	return (read_inputs(9) << (offset^7) & 0x80) ^ 0xff;
+	return (read_inputs(9) >> offset & 1) ? 0 : 0x80;
+}
+
+
+
+/******************************************************************************
+    6080/6092/6093 (Excellence)
+******************************************************************************/
+
+// misc handlers
+
+INPUT_CHANGED_MEMBER(fidel6502_state::fexcelv_bankswitch)
+{
+	// tied to speech ROM highest bits
+	m_speech->force_update();
+	m_speech_bank = (m_speech_bank & 1) | newval << 1;
+}
+
+READ8_MEMBER(fidel6502_state::fexcelv_speech_r)
+{
+	// TSI A11 is A12, program controls A11, user controls A13,A14(language switches)
+	offset = (offset & 0x7ff) | (offset << 1 & 0x1000);
+	return m_speech_rom[offset | (m_speech_bank << 11 & 0x800) | (~m_speech_bank << 12 & 0x6000)];
+}
+
+
+// TTL
+
+WRITE8_MEMBER(fidel6502_state::fexcel_ttl_w)
+{
+	// a0-a2,d0: 74259(1)
+	UINT8 mask = 1 << offset;
+	m_led_select = (m_led_select & ~mask) | ((data & 1) ? mask : 0);
+	
+	// 74259 Q0-Q3: 7442 a0-a3
+	// 7442 0-8: led data, input mux
+	UINT16 sel = 1 << (m_led_select & 0xf) & 0x3ff;
+	UINT8 led_data = sel & 0xff;
+	m_inp_mux = sel & 0x1ff;
+
+	// 7442 9: speaker out (optional?)
+	m_speaker->level_w(sel >> 9 & 1);
+
+	// 74259 Q4-Q7,Q2,Q1: digit/led select (active low)
+	UINT8 led_sel = ~BITSWAP8(m_led_select,0,3,1,2,7,6,5,4) & 0x3f;
+
+	// a0-a2,d1: digit segment data (optional/model 6093)
+	m_7seg_data = (m_7seg_data & ~mask) | ((data & 2) ? mask : 0);
+	UINT8 seg_data = BITSWAP8(m_7seg_data,0,1,3,2,7,5,6,4);
+	
+	// update display: 4 7seg leds, 2*8 chessboard leds
+	for (int i = 0; i < 6; i++)
+		m_display_state[i] = (led_sel >> i & 1) ? ((i < 2) ? led_data : seg_data) : 0;
+
+	set_display_size(8, 2+4);
+	set_display_segmask(0x3c, 0x7f);
+	display_update();
+
+	// speech (optional/model 6092)
+	if (m_speech != nullptr)
+	{
+		// a0-a2,d2: 74259(2) to speech board
+		m_speech_data = (m_speech_data & ~mask) | ((data & 4) ? mask : 0);
+	
+		// 74259 Q6: TSI ROM A11
+		m_speech->force_update(); // update stream to now
+		m_speech_bank = (m_speech_bank & ~1) | (m_speech_data >> 6 & 1);
+
+		// Q0-Q5: TSI C0-C5
+		// Q7: TSI START line
+		m_speech->data_w(space, 0, m_speech_data & 0x3f);
+		m_speech->start_w(m_speech_data >> 7 & 1);
+	}
+}
+
+READ8_MEMBER(fidel6502_state::fexcel_ttl_r)
+{
+	// a0-a2,d6: from speech board: language switches and TSI BUSY line, otherwise tied to VCC
+	UINT8 d6 = (read_safe(m_inp_matrix[9], 0xff) >> offset & 1) ? 0x40 : 0;
+	
+	// a0-a2,d7: multiplexed inputs (active low)
+	return d6 | ((read_inputs(9) >> offset & 1) ? 0 : 0x80);
 }
 
 
@@ -281,7 +359,7 @@ static ADDRESS_MAP_START( csc_map, AS_PROGRAM, 8, fidel6502_state )
 ADDRESS_MAP_END
 
 
-// SC12
+// SC12/6086
 
 static ADDRESS_MAP_START( sc12_map, AS_PROGRAM, 8, fidel6502_state )
 	ADDRESS_MAP_UNMAP_HIGH
@@ -294,11 +372,11 @@ static ADDRESS_MAP_START( sc12_map, AS_PROGRAM, 8, fidel6502_state )
 ADDRESS_MAP_END
 
 
-// FEV
+// 6080/6092/6093 (Excellence)
 
-static ADDRESS_MAP_START( fev_map, AS_PROGRAM, 8, fidel6502_state )
-	ADDRESS_MAP_UNMAP_HIGH
-	AM_RANGE(0x0000, 0x1fff) AM_RAM
+static ADDRESS_MAP_START( fexcel_map, AS_PROGRAM, 8, fidel6502_state )
+	AM_RANGE(0x0000, 0x1fff) AM_MIRROR(0x2000) AM_RAM
+	AM_RANGE(0x4000, 0x4007) AM_MIRROR(0x3ff8) AM_READWRITE(fexcel_ttl_r, fexcel_ttl_w)
 	AM_RANGE(0x8000, 0xffff) AM_ROM
 ADDRESS_MAP_END
 
@@ -307,125 +385,6 @@ ADDRESS_MAP_END
 /******************************************************************************
     Input Ports
 ******************************************************************************/
-
-static INPUT_PORTS_START( csc )
-	PORT_START("IN.0")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square a8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Speak") PORT_CODE(KEYCODE_SPACE)
-
-	PORT_START("IN.1")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square b8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RV") PORT_CODE(KEYCODE_V)
-
-	PORT_START("IN.2")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square c8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("TM") PORT_CODE(KEYCODE_T)
-
-	PORT_START("IN.3")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square d8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("LV") PORT_CODE(KEYCODE_L)
-
-	PORT_START("IN.4")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square e8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("DM") PORT_CODE(KEYCODE_M)
-
-	PORT_START("IN.5")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square f8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("ST") PORT_CODE(KEYCODE_S)
-
-	PORT_START("IN.6")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square g8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_UNUSED)
-
-	PORT_START("IN.7")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h1")
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h2")
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h3")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h4")
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h5")
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h6")
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h7")
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Square h8")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_UNUSED)
-
-	PORT_START("IN.8")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Pawn") PORT_CODE(KEYCODE_1)
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Rook") PORT_CODE(KEYCODE_2)
-	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Knight") PORT_CODE(KEYCODE_3)
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Bishop") PORT_CODE(KEYCODE_4)
-	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Queen") PORT_CODE(KEYCODE_5)
-	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("King") PORT_CODE(KEYCODE_6)
-	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("CL") PORT_CODE(KEYCODE_DEL)
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RE") PORT_CODE(KEYCODE_R)
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_UNUSED)
-
-	PORT_START("IN.9") // hardwired
-	PORT_CONFNAME( 0x01, 0x00, "Language" )
-	PORT_CONFSETTING(    0x00, "English" )
-	PORT_CONFSETTING(    0x01, "Other" )
-	PORT_CONFNAME( 0x02, 0x00, DEF_STR( Unknown ) )
-	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-	PORT_CONFSETTING(    0x02, DEF_STR( On ) )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( cscg )
-	PORT_INCLUDE( csc )
-
-	PORT_MODIFY("IN.9")
-	PORT_CONFNAME( 0x01, 0x01, "Language" )
-	PORT_CONFSETTING(    0x00, "English" )
-	PORT_CONFSETTING(    0x01, "Other" )
-INPUT_PORTS_END
-
 
 static INPUT_PORTS_START( sc12 )
 	PORT_START("IN.0")
@@ -519,6 +478,81 @@ static INPUT_PORTS_START( sc12 )
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RE") PORT_CODE(KEYCODE_R)
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( fexcel )
+	PORT_INCLUDE( sc12 )
+
+	PORT_MODIFY("IN.8")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Clear") PORT_CODE(KEYCODE_DEL)
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Move / Pawn") PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD)
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Hint / Knight") PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD)
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Take Back / Bishop") PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD)
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Level / Rook") PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD)
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Options / Queen") PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD)
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Verify / King") PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("New Game") PORT_CODE(KEYCODE_R) PORT_CODE(KEYCODE_N)
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( fexcelv )
+	PORT_INCLUDE( fexcel )
+
+	PORT_START("IN.9")
+	PORT_CONFNAME( 0x03, 0x00, "Language" ) PORT_CHANGED_MEMBER(DEVICE_SELF, fidel6502_state, fexcelv_bankswitch, 0)
+	PORT_CONFSETTING(    0x00, "English" )
+	PORT_CONFSETTING(    0x01, "German" )
+	PORT_CONFSETTING(    0x02, "French" )
+	PORT_CONFSETTING(    0x03, "Spanish" )
+	PORT_BIT(0x7c, IP_ACTIVE_HIGH, IPT_UNUSED)
+	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_SPECIAL) PORT_READ_LINE_DEVICE_MEMBER("speech", s14001a_device, busy_r)
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( csc )
+	PORT_INCLUDE( sc12 )
+
+	PORT_MODIFY("IN.0")
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Speak") PORT_CODE(KEYCODE_SPACE)
+
+	PORT_MODIFY("IN.1")
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RV") PORT_CODE(KEYCODE_V)
+
+	PORT_MODIFY("IN.2")
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("TM") PORT_CODE(KEYCODE_T)
+
+	PORT_MODIFY("IN.3")
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("LV") PORT_CODE(KEYCODE_L)
+
+	PORT_MODIFY("IN.4")
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("DM") PORT_CODE(KEYCODE_M)
+
+	PORT_MODIFY("IN.5")
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("ST") PORT_CODE(KEYCODE_S)
+
+	PORT_MODIFY("IN.8")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Pawn") PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD)
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Rook") PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD)
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Knight") PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD)
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Bishop") PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD)
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Queen") PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD)
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("King") PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD)
+
+	PORT_START("IN.9") // hardwired
+	PORT_CONFNAME( 0x01, 0x00, "Language" )
+	PORT_CONFSETTING(    0x00, "English" )
+	PORT_CONFSETTING(    0x01, "Other" )
+	PORT_CONFNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
+	PORT_CONFSETTING(    0x02, DEF_STR( On ) )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( cscg )
+	PORT_INCLUDE( csc )
+
+	PORT_MODIFY("IN.9")
+	PORT_CONFNAME( 0x01, 0x01, "Language" )
+	PORT_CONFSETTING(    0x00, "English" )
+	PORT_CONFSETTING(    0x01, "Other" )
+INPUT_PORTS_END
+
 
 
 /******************************************************************************
@@ -586,11 +620,11 @@ static MACHINE_CONFIG_START( sc12, fidel6502_state )
 	MCFG_SOFTWARE_LIST_ADD("cart_list", "fidel_scc")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( fev, fidel6502_state )
+static MACHINE_CONFIG_START( fexcel, fidel6502_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M65SC02, XTAL_12MHz/4) // G65SC102P-3, 12.0M ceramic resonator
-	MCFG_CPU_PROGRAM_MAP(fev_map)
+	MCFG_CPU_PROGRAM_MAP(fexcel_map)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("irq_on", fidel6502_state, irq_on, attotime::from_hz(780)) // from 556 timer, PCB photo suggests it's same as sc12
 	MCFG_TIMER_START_DELAY(attotime::from_hz(780) - attotime::from_nsec(15250)) // active for 15.25us
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("irq_off", fidel6502_state, irq_off, attotime::from_hz(780))
@@ -600,8 +634,15 @@ static MACHINE_CONFIG_START( fev, fidel6502_state )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+static MACHINE_CONFIG_DERIVED( fexcelv, fexcel )
+
+	/* sound hardware */
 	MCFG_SOUND_ADD("speech", S14001A, 25000) // R/C circuit, around 25khz
-	MCFG_S14001A_EXT_READ_HANDLER(READ8(fidel6502_state, csc_speech_r))
+	MCFG_S14001A_EXT_READ_HANDLER(READ8(fidel6502_state, fexcelv_speech_r))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.75)
 MACHINE_CONFIG_END
 
@@ -668,6 +709,12 @@ ROM_START( fscc12 )
 	ROM_LOAD("tmm2764d-2",    0xe000, 0x2000, CRC(183d3edc) SHA1(3296a4c3bce5209587d4a1694fce153558544e63) ) // Toshiba TMM2764D-2
 ROM_END
 
+
+ROM_START( fexcel )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD("101-1080a01.ic5", 0x8000, 0x8000, CRC(846f8e40) SHA1(4e1d5b08d5ff3422192b54fa82cb3f505a69a971) )
+ROM_END
+
 ROM_START( fexcelv )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD("101-1080a01.ic5", 0x8000, 0x8000, CRC(846f8e40) SHA1(4e1d5b08d5ff3422192b54fa82cb3f505a69a971) )
@@ -676,16 +723,19 @@ ROM_START( fexcelv )
 	ROM_LOAD("101-1081a01.ic2", 0x0000, 0x8000, CRC(c8ae1607) SHA1(6491ce6be60ed77f3dd931c0ca17616f13af943e) )
 ROM_END
 
+
+
 /******************************************************************************
     Drivers
 ******************************************************************************/
 
-/*    YEAR  NAME     PARENT  COMPAT  MACHINE  INPUT   INIT              COMPANY, FULLNAME, FLAGS */
-COMP( 1981, csc,     0,      0,      csc,     csc,    driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (English)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-COMP( 1981, cscsp,   csc,    0,      csc,     cscg,   driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (Spanish)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-COMP( 1981, cscg,    csc,    0,      csc,     cscg,   driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (German)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-COMP( 1981, cscfr,   csc,    0,      csc,     cscg,   driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (French)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+/*    YEAR  NAME     PARENT  COMPAT  MACHINE  INPUT    INIT              COMPANY, FULLNAME, FLAGS */
+COMP( 1981, csc,     0,      0,      csc,     csc,     driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (English)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+COMP( 1981, cscsp,   csc,    0,      csc,     cscg,    driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (Spanish)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+COMP( 1981, cscg,    csc,    0,      csc,     cscg,    driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (German)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+COMP( 1981, cscfr,   csc,    0,      csc,     cscg,    driver_device, 0, "Fidelity Electronics", "Champion Sensory Chess Challenger (French)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
-COMP( 1984, fscc12,  0,      0,      sc12,    sc12,   driver_device, 0, "Fidelity Electronics", "Sensory Chess Challenger 12-B", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+COMP( 1984, fscc12,  0,      0,      sc12,    sc12,    driver_device, 0, "Fidelity Electronics", "Sensory Chess Challenger 12-B", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
-COMP( 1987, fexcelv, 0,      0,      fev,     csc,    driver_device, 0, "Fidelity Electronics", "Voice Excellence", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+COMP( 1987, fexcel,  0,      0,      fexcel,  fexcel,  driver_device, 0, "Fidelity Electronics", "Excellence (model 6080/6093)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+COMP( 1987, fexcelv, 0,      0,      fexcelv, fexcelv, driver_device, 0, "Fidelity Electronics", "Voice Excellence", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
