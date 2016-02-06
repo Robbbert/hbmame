@@ -130,6 +130,7 @@ b) Exit the dialog.
 #include "properties.h"
 #include "drivenum.h"
 #include "machine/ram.h"
+#include "ui/moptions.h"
 
 
 #if defined(__GNUC__)
@@ -2496,7 +2497,7 @@ static void BuildDataMap(void)
 	// core misc options
 	datamap_add(properties_datamap, IDC_BIOS,					DM_STRING,	OPTION_BIOS);
 	datamap_add(properties_datamap, IDC_CHEAT,					DM_BOOL,	OPTION_CHEAT);
-	datamap_add(properties_datamap, IDC_SKIP_GAME_INFO,			DM_BOOL,	OPTION_SKIP_GAMEINFO);
+	datamap_add(properties_datamap, IDC_SKIP_GAME_INFO,			DM_BOOL,	OPTION_UI_SKIP_GAMEINFO);
 
 	// windows debugging options
 	datamap_add(properties_datamap, IDC_OSLOG,					DM_BOOL,	OPTION_OSLOG);
