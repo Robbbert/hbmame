@@ -2314,7 +2314,6 @@ tbreakup    // Tomy
 phpball     // Tomy
 
 // hh_tms1k derivatives
-ctteach     // Coleco
 elecbowl    // Marx
 mbdtower    // Milton Bradley
 
@@ -2360,6 +2359,7 @@ tntelluk
 tntellfr
 tntellp
 vocaid
+k28         // Tiger Electronics
 
 // hh_ucom4
 ufombs      // Bambino

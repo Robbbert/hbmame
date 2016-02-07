@@ -10,7 +10,7 @@
       It sometimes does this on Voice Sensory Chess Challenger real hardware.
       It can also be heard on Advanced Voice Chess Challenger real hardware, but not the whole line:
       "I I am Fidelity's chess challenger", instead.
-    - correctly hook up VBRC speech so that the z80 is halted while words are being spoken
+    - VBRC card scanner
 
     Chess pieces are required, but theoretically blindfold chess is possible.
     Chessboard artwork is provided for boards with pressure/magnet sensors.
@@ -633,7 +633,7 @@ NE556 dual-timer IC:
 
 Memory map:
 -----------
-6000-0FFF: 4K of RAM (2016 * 2)
+6000-0FFF: 4K RAM (2016 * 2)
 2000-5FFF: cartridge
 6000-7FFF: control(W)
 8000-9FFF: 8K ROM SSS SCM23C65E4
@@ -689,6 +689,51 @@ ROM A11 is however tied to the CPU's XYZ
 6800_6FFF - Bridge Challenger 1/2
 7000_77FF - English 2/2
 7800_7FFF - Bridge Challenger 2/2
+
+------------------
+RE info by hap, based on PCB photos
+
+Memory map:
+-----------
+0000-3FFF: 8K RAM (SRM2264)
+4000-7FFF: control (R/W)
+8000-FFFF: 32K ROM (M27256 compatible)
+
+control (W):
+------------
+Z80 A0-A2 to 3*74259, Z80 Dx to D (_C unused)
+
+Z80 D0:
+- Q4,Q5: led commons
+- Q6,Q7,Q2,Q1: 7seg panel digit select
+- Q0-Q3: 7442 A0-A3
+  + 0-7: led data
+  + 0-8: keypad mux
+  + 9: buzzer out
+
+Z80 D1: (model 6093)
+- Q0-Q7: 7seg data
+
+Z80 D2: (model 6092)
+- Q0-Q5: TSI C0-C5
+- Q6: TSI START pin
+- Q7: TSI ROM A11
+
+A11 from TSI is tied to TSI ROM A12(!)
+TSI ROM A13,A14 are hardwired to the 2 language switches.
+Sound comes from the Audio out pin, digital out pins are N/C.
+
+control (R):
+------------
+Z80 A0-A2 to 2*74251, Z80 Dx to output
+
+Z80 D7 to Y:
+- D0-D7: keypad row data
+
+Z80 D6 to W: (model 6092, tied to VCC otherwise)
+- D0,D1: language switches
+- D2-D6: VCC
+- D7: TSI BUSY
 
 ******************************************************************************/
 
@@ -1282,21 +1327,16 @@ ADDRESS_MAP_END
 
 WRITE8_MEMBER(fidelz80_state::vbrc_speech_w)
 {
-	//printf("%X ",data);
-
-	// todo: HALT THE z80 here, and set up a callback to poll the s14001a BUSY line to resume z80
 	m_speech->data_w(space, 0, data & 0x3f);
 	m_speech->start_w(1);
 	m_speech->start_w(0);
-
-	//m_speech->start_w(BIT(data, 7));
 }
 
 static ADDRESS_MAP_START( vbrc_main_map, AS_PROGRAM, 8, fidelz80_state )
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0x5fff) AM_ROM
 	AM_RANGE(0x6000, 0x63ff) AM_MIRROR(0x1c00) AM_RAM
-	AM_RANGE(0xe000, 0xffff) AM_MIRROR(0x1fff) AM_WRITE(vbrc_speech_w)
+	AM_RANGE(0xe000, 0xe000) AM_MIRROR(0x1fff) AM_WRITE(vbrc_speech_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( vbrc_main_io, AS_IO, 8, fidelz80_state )
@@ -1363,13 +1403,13 @@ static INPUT_PORTS_START( vcc )
 	PORT_INCLUDE( vcc_base )
 
 	PORT_START("IN.4") // PCB jumpers, not consumer accessible
-	PORT_CONFNAME( 0x01, 0x00, "Language: French" )
+	PORT_CONFNAME( 0x01, 0x00, "Language: German" )
 	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
 	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
-	PORT_CONFNAME( 0x02, 0x00, "Language: Spanish" )
+	PORT_CONFNAME( 0x02, 0x00, "Language: French" )
 	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
 	PORT_CONFSETTING(    0x02, DEF_STR( On ) )
-	PORT_CONFNAME( 0x04, 0x00, "Language: German" )
+	PORT_CONFNAME( 0x04, 0x00, "Language: Spanish" )
 	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
 	PORT_CONFSETTING(    0x04, DEF_STR( On ) )
 	PORT_CONFNAME( 0x08, 0x00, "Language: Special" )
@@ -1381,27 +1421,27 @@ static INPUT_PORTS_START( vccfr )
 	PORT_INCLUDE( vcc )
 
 	PORT_MODIFY("IN.4")
-	PORT_CONFNAME( 0x01, 0x01, "Language: French" )
+	PORT_CONFNAME( 0x02, 0x02, "Language: French" )
 	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
+	PORT_CONFSETTING(    0x02, DEF_STR( On ) )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( vccsp )
 	PORT_INCLUDE( vcc )
 
 	PORT_MODIFY("IN.4")
-	PORT_CONFNAME( 0x02, 0x02, "Language: Spanish" )
+	PORT_CONFNAME( 0x04, 0x04, "Language: Spanish" )
 	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-	PORT_CONFSETTING(    0x02, DEF_STR( On ) )
+	PORT_CONFSETTING(    0x04, DEF_STR( On ) )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( vccg )
 	PORT_INCLUDE( vcc )
 
 	PORT_MODIFY("IN.4")
-	PORT_CONFNAME( 0x04, 0x04, "Language: German" )
+	PORT_CONFNAME( 0x01, 0x01, "Language: German" )
 	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-	PORT_CONFSETTING(    0x04, DEF_STR( On ) )
+	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
@@ -1721,6 +1761,7 @@ static MACHINE_CONFIG_START( vbrc, fidelz80_state )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_SOUND_ADD("speech", S14001A, 25000) // R/C circuit, around 25khz
+	MCFG_S14001A_BSY_HANDLER(INPUTLINE("maincpu", Z80_INPUT_LINE_WAIT))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.75)
 MACHINE_CONFIG_END
 

@@ -1376,8 +1376,8 @@ void ui_menu::draw_select_game(bool noinput)
 		container->add_quad(0.0f, 0.0f, 1.0f, 1.0f, ARGB_WHITE, bgrnd_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA));
 
 	hover = item.size() + 1;
-	visible_items = (is_swlist) ? item.size() - 2 : item.size() - 4;
-	float extra_height = (is_swlist) ? 2.0f * line_height : 4.0f * line_height;
+	visible_items = (is_swlist) ? item.size() - 2 : item.size() - 5;
+	float extra_height = (is_swlist) ? 2.0f * line_height : 5.0f * line_height;
 	float visible_extra_menu_height = customtop + custombottom + extra_height;
 
 	// locate mouse
@@ -1613,9 +1613,13 @@ void ui_menu::get_title_search(std::string &snaptext, std::string &searchstr)
 	snaptext.assign(arts_info[ui_globals::curimage_view].title);
 
 	// get search path
-	path_iterator path(machine().ui().options().value(arts_info[ui_globals::curimage_view].path));
+	if (ui_globals::curimage_view == SNAPSHOT_VIEW)
+		searchstr = machine().options().value(arts_info[ui_globals::curimage_view].path);
+	else
+		searchstr = machine().ui().options().value(arts_info[ui_globals::curimage_view].path);
+
+	path_iterator path(searchstr.c_str());
 	std::string curpath;
-	searchstr.assign(machine().ui().options().value(arts_info[ui_globals::curimage_view].path));
 
 	// iterate over path and add path for zipped formats
 	while (path.next(curpath))

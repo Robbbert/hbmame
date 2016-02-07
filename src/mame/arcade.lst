@@ -5162,7 +5162,8 @@ prc297wi        // 1997.10 Print Club 2 '97 Winter Ver
 prc297wia		//
 prc298sp        // 1997.10 Print Club 2 '98 Spring Ver
 prc298su		//
-pclove
+pclove			//
+pclove2			//
 cotton2         // 1997.11 Cotton 2 (Success)
 hanagumi        // 1997.11 Sakura Taisen Hanagumi Taisen Columns
 findlove        // 1997.12 Find Love (Daiki / FCF)
@@ -6366,6 +6367,7 @@ charlien        // MBR (c) 1994 Mitchell
 				// MBV ??
 				// MBW ??
 wcvol95         // MBX (c) 1993 Data East
+wcvol95x		// ?
 				// MBY ??
 backfire        // MBZ (c) 1995
 backfirea       // MBZ (c) 1995
@@ -7692,6 +7694,7 @@ tnk3j           // A5001      (c) 1985
 athena          //       'UP' (c) 1986
 fitegolf        //       'GU' (c) 1988
 fitegolfu       //       'GU' (c) 1988
+fitegolf2		//
 countryc        // A7004 'CC' (c) 1988
 ikari           // A5004 'IW' (c) 1986
 ikaria          // A5004 'IW' (c) 1986
@@ -8807,6 +8810,7 @@ rdft2a          // (c) 1997 Seibu Kaihatsu (Metrotainment license)
 rdft2aa         // (c) 1997 Seibu Kaihatsu (Dream Island license)
 rdft2j          // (c) 1997 Seibu Kaihatsu
 rdft2ja         // (c) 1997 Seibu Kaihatsu
+rdft2it			// (c) 1997 Seibu Kaihatsu
 rdft2t          // (c) 1997 Seibu Kaihatsu
 rdft2u          // (c) 1997 Seibu Kaihatsu (Fabtek license)
 rdft2us         // (c) 1997 Seibu Kaihatsu (Fabtek license)
@@ -8955,6 +8959,7 @@ edfu            // (c) 1991 (North America)
 edfbl           // (c) 1991
 64street        // (c) 1991
 64streetj       // (c) 1991 (Japan)
+64streetja		// (c) 1991 (Japan)
 soldam          // (c) 1992
 soldamj         // (c) 1992 (Japan)
 bigstrik        // (c) 1992
@@ -9173,7 +9178,8 @@ thoop           // (c) 1992 - Ref 922804/1
 squash          // (c) 1992 - Ref 922804/2
 wrally          // (c) 1993 - Ref 930705
 wrallya         // (c) 1993 - Ref 930705
-wrallyb         // (c) 1993 - Ref 930217
+wrallyb			// (c) 1993 - Ref 930217
+wrallyat        // (c) 1993 - Ref 930217
 glass           // (c) 1993 - Ref 931021
 glass10         // (c) 1993 - Ref 931021
 glass10a        // (c) 1993 - Ref 931021 shows "Break Edition" on a real PCB
@@ -10973,7 +10979,8 @@ phrcrazea       // (c) 1986 Merit
 phrcrazeb       // (c) 1986 Merit
 phrcrazec       // (c) 1986 Merit
 phrcrazev       // (c) 1986 Merit
-bigappg         // (c) 1986 Merit
+bigappg         // (c) 1986 Merit / Big Apple Games
+misdraw         // (c) 1986 Merit / Big Apple Games
 riviera         // (c) 1987 Merit
 rivieraa        // (c) 1986 Merit
 rivierab        // (c) 1986 Merit
