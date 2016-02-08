@@ -62,19 +62,15 @@
     * Service coin 1 input grants two credits the first time it's
       pushed, but remembers this and won't grant credits again unless
       unless you trigger the tilt input
-    * Judging by the PLA program, the colour weight resistors are likely
-      different to what Laser Battle/Lazarian uses - we need a detailed
-      colour photo of the game board or a schematic to confirm values
+    * The sprite ROM is twice the size as Laser Battle with the bank
+      selected using bit 9 of the 16-bit sound interface (there's a wire
+      making this connection visible on the component side of the PCB)
     * Sound board emulation is based on tracing the program and guessing
       what's connected where - we really need someone to trace out the
       1b11107 sound board if we want to get this right
 
     TODO:
     - work out where all the magic layer offsets come from
-    - catnmous sprite ROM appears to be underdumped
-    - need to confirm colour weight resistors on catnmous (detailed photo required):
-      R58, R59, R60, R61, R62, R65, R66, R67, R68, R69, R72, R73, R74, R75
-      (network connected between 11M, 12M, Q5, Q7, Q8)
     - sound in laserbat (with schematics) and in catnmous
 */
 
@@ -495,9 +491,6 @@ static MACHINE_CONFIG_START( laserbat_base, laserbat_state_base )
 	MCFG_SCREEN_UPDATE_DRIVER(laserbat_state_base, screen_update_laserbat)
 	MCFG_SCREEN_PALETTE("palette")
 
-	MCFG_PALETTE_ADD("palette", 256)
-	MCFG_PALETTE_INIT_OWNER(laserbat_state_base, laserbat)
-
 	MCFG_PLS100_ADD("gfxmix")
 
 	MCFG_DEVICE_ADD("pvi1", S2636, XTAL_14_31818MHz/3)
@@ -517,6 +510,10 @@ static MACHINE_CONFIG_START( laserbat_base, laserbat_state_base )
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED_CLASS( laserbat, laserbat_base, laserbat_state )
+
+	// video hardware
+	MCFG_PALETTE_ADD("palette", 256)
+	MCFG_PALETTE_INIT_OWNER(laserbat_state, laserbat)
 
 	// sound board devices
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -545,6 +542,10 @@ static MACHINE_CONFIG_DERIVED_CLASS( laserbat, laserbat_base, laserbat_state )
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED_CLASS( catnmous, laserbat_base, catnmous_state )
+
+	// video hardware
+	MCFG_PALETTE_ADD("palette", 256)
+	MCFG_PALETTE_INIT_OWNER(catnmous_state, catnmous)
 
 	// sound board devices
 	MCFG_CPU_ADD("audiocpu", M6802, 3580000) // ?
@@ -756,5 +757,5 @@ ROM_END
 
 GAME( 1981, laserbat,  0,        laserbat, laserbat, laserbat_state_base, laserbat, ROT0,  "Zaccaria", "Laser Battle",                    MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1981, lazarian,  laserbat, laserbat, lazarian, laserbat_state_base, laserbat, ROT0,  "Zaccaria (Bally Midway license)", "Lazarian", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1982, catnmous,  0,        catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 1)",           MACHINE_IMPERFECT_COLORS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1982, catnmousa, catnmous, catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 2)",           MACHINE_NOT_WORKING | MACHINE_IMPERFECT_COLORS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1982, catnmous,  0,        catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 1)",           MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1982, catnmousa, catnmous, catnmous, catnmous, laserbat_state_base, laserbat, ROT90, "Zaccaria", "Cat and Mouse (set 2)",           MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

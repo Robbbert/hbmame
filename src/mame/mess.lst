@@ -2358,7 +2358,7 @@ tntelluk
 tntellfr
 tntellp
 vocaid
-k28         // Tiger Electronics
+k28m2       // Tiger Electronics
 
 // hh_ucom4
 ufombs      // Bambino
@@ -2393,6 +2393,7 @@ microvsn    // Milton Bradley
 monty       // Ritam
 mmonty      // Ritam
 wildfire    // Parker Bros
+k28         // Tiger Electronics
 
 
 //********** Misc **********************************************************
@@ -2441,6 +2442,7 @@ hec2mdhrx
 hec2mx80
 hec2mx40
 hector1
+os214
 victor
 poly880
 sc1
