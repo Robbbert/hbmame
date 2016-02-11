@@ -10075,9 +10075,12 @@ haekaka         // (c) 2001 Sammy
 goldstar        // (c) 198? IGS
 goldstbl        // (c) 198? IGS
 moonlght        // bootleg
+moonlghta       // bootleg
 moonlghtb       // bootleg
+moonlghtc       // bootleg
 chry10          // bootleg
 chrygld         // bootleg
+chryglda        // bootleg
 goldfrui        // bootleg
 wcherry         // bootleg
 super9          // (c) 2001 Playmark
@@ -10556,6 +10559,7 @@ fastdraw_130    // (c) 1995
 aplatoon        // (c) 199? Nova?
 zortonbr        // (c) 1993 Web Picmatic
 
+crospuzl		//
 // Crystal System
 crysbios
 crysking        // 2001 Brezzasoft. Crystal of the kings
@@ -10758,6 +10762,7 @@ coolpool        // (c) 1992 Catalina Games
 9ballsht3       // (c) 1993 E-Scape EnterMedia + "marketed by Bundra Games"
 9ballshtc       // (c) 1993 E-Scape EnterMedia + "marketed by Bundra Games"
 megaphx         // (c) 1991 Dinamic / Inder
+flagrall		// ?
 gumbo           // (c) 1994 Min Corp.
 mspuzzleg       // (c) 1994 Min Corp.
 mspuzzle        // (c) 1994 Min Corp.
@@ -12280,6 +12285,8 @@ cmasterbv       // (c) 1991 Dyna Electronics / Gerald Duhamel?
 cmasterd        // (c) 1991 Dyna Electronics
 cmastere        // (c) 1991 Dyna Electronics
 cmasterf        // (c) 1991 Dyna Electronics
+cmasterg        // (c) 1991 Dyna Electronics
+cmasterh        // (c) 1991 Dyna Electronics
 cmast91         // (c) 1991 Dyna Electronics
 cmast92         // (c) 1992 Dyna Electronics
 cmast97         // (c) 1996 Dyna Electronics

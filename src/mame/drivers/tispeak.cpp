@@ -357,7 +357,7 @@ Tiger Electronics K28 (model 7-232) Sold in Hong Kong, distributed in US as:
 - Coleco: Talking Teacher
 - Sears: Talkatron - Learning Computer
 
-Earlier K28 models 7-230 and 7-231 are on different hardware, showing a different
+1981 K28 models 7-230 and 7-231 are on different hardware, showing a different
 keyboard, VFD display, and use the SC-01 speech chip. --> driver k28.cpp
 
     K28 model 7-232 (HK), 1985
@@ -377,6 +377,8 @@ K28 modules:
     - Expansion Module 4: VSM: 16KB CM62217
     - Expansion Module 5: VSM: 16KB CM62218*
     - Expansion Module 6: VSM: 16KB CM62219
+    
+    note: these won't work on the 1981 version(s)
 
 ----------------------------------------------------------------------------
 
@@ -1125,7 +1127,7 @@ static INPUT_PORTS_START( k28m2 )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_U) PORT_CHAR('U')
 
 	PORT_START("IN.3") // O3
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_EQUALS) PORT_NAME("Prompt")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_SLASH) PORT_NAME("Prompt")
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_D) PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD) PORT_CHAR('D') PORT_NAME("D/4")
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_M) PORT_CODE(KEYCODE_ASTERISK) PORT_CHAR('M') PORT_NAME("M/" UTF8_MULTIPLY)
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_CODE(KEYCODE_V) PORT_CHAR('V')
