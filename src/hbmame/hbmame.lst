@@ -219,6 +219,7 @@ wofch
 wofch_v3
 wofchdx
 wofchdx1
+wofchdx2
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh
@@ -2184,7 +2185,7 @@ powerins	// parent
 powernbr	// Brazil translation
 
 	/* psikyosh */
-s1945ii
+s1945ii // parent
 s1945iiex
 
 	/* rallyx */
