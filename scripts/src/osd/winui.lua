@@ -144,7 +144,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/render/drawd3d.cpp",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3d9intf.cpp",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.cpp",
-		MAME_DIR .. "src/osd/modules/render/drawdd.cpp",
 		MAME_DIR .. "src/osd/modules/render/drawgdi.cpp",
 		MAME_DIR .. "src/osd/modules/render/drawnone.cpp",
 		MAME_DIR .. "src/osd/windows/input.cpp",
