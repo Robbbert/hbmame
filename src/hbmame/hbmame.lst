@@ -368,6 +368,7 @@ wbeast		/* Bootleg of War-of-Bug */
 gaunt2		// parent
 gaunt2ls	// Orange Elf - new levels
 gaunt2s		/* Speed Hack */
+gaunt2f		// graphics hack
 
 	/* gottlieb */
 qbert		/* GV-103 (c) 1982 Gottlieb */
