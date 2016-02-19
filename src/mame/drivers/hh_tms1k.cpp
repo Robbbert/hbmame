@@ -48,6 +48,7 @@
  @MP3404   TMS1100   1978, Parker Brothers Merlin
  @MP3405   TMS1100   1979, Coleco Amaze-A-Tron
  @MP3415   TMS1100   1978, Coleco Electronic Quarterback
+ @MP3435   TMS1100   1979, Coleco Zodiac
  @MP3438A  TMS1100   1979, Kenner Star Wars Electronic Battle Command
   MP3450A  TMS1100   1979, MicroVision cartridge: Blockbuster
   MP3454   TMS1100   1979, MicroVision cartridge: Star Trek Phaser Strike
@@ -65,7 +66,7 @@
  @M34012   TMS1100   1980, Mattel Dungeons & Dragons - Computer Labyrinth Game
  *M34014   TMS1100   1981, Coleco Bowlatronic
   M34017   TMS1100   1981, MicroVision cartridge: Cosmic Hunter
- *M34038   TMS1100   1982, Parker Brothers Lost Treasure
+ @M34038   TMS1100   1982, Parker Brothers Lost Treasure
   M34047   TMS1100   1982, MicroVision cartridge: Super Blockbuster
  *M34078A  TMS1100   1983, Milton Bradley Arcade Mania
  @MP6100A  TMS0980   1979, Ideal Electronic Detective
@@ -127,6 +128,7 @@
 #include "gpoker.lh"
 #include "h2hbaseb.lh"
 #include "h2hfootb.lh"
+#include "lostreas.lh"
 #include "mathmagi.lh"
 #include "merlin.lh" // clickable
 #include "mmerlin.lh" // clickable
@@ -138,6 +140,7 @@
 #include "tandy12.lh" // clickable
 #include "tbreakup.lh"
 #include "tc4.lh"
+#include "zodiac.lh"
 
 #include "hh_tms1k_test.lh" // common test-layout - use external artwork
 
@@ -429,6 +432,7 @@ WRITE16_MEMBER(mathmagi_state::write_o)
 	// O0: N/C
 	data = (data << 1 & 0xfe) | (data >> 7 & 1); // because opla is unknown
 	m_o = data;
+	prepare_display();
 }
 
 READ8_MEMBER(mathmagi_state::read_k)
@@ -674,6 +678,167 @@ static MACHINE_CONFIG_START( amaztron, amaztron_state )
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_amaztron)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
+  Coleco Zodiac - The Astrology Computer
+  * TMS1100 MP3435 (no decap)
+  * 8-digit 7seg display, 12 other LEDs, 1bit sound
+  
+  As the name suggests, this is an astrologic calculator. Refer to the
+  (very extensive) manual on how to use it.
+
+***************************************************************************/
+
+class zodiac_state : public hh_tms1k_state
+{
+public:
+	zodiac_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void prepare_display();
+	DECLARE_WRITE16_MEMBER(write_r);
+	DECLARE_WRITE16_MEMBER(write_o);
+	DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+void zodiac_state::prepare_display()
+{
+	set_display_segmask(0xff, 0x7f);
+	display_matrix(8, 10, m_o, m_r);
+}
+
+WRITE16_MEMBER(zodiac_state::write_r)
+{
+	// R10: speaker out
+	m_speaker->level_w(data >> 10 & 1);
+
+	// R0-R4,R8: input mux
+	m_inp_mux = (data & 0x1f) | (data >> 3 & 0x20);
+
+	// R0-R7: digit select
+	// R8,R9: led select
+	m_r = data & 0x3ff;
+	prepare_display();
+}
+
+WRITE16_MEMBER(zodiac_state::write_o)
+{
+	// O0-O7: digit segment/led data
+	m_o = data;
+	prepare_display();
+}
+
+READ8_MEMBER(zodiac_state::read_k)
+{
+	// K: multiplexed inputs
+	return read_inputs(6);
+}
+
+
+// config
+
+static INPUT_PORTS_START( zodiac )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD) PORT_NAME("3")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD) PORT_NAME("2")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("1")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_0) PORT_CODE(KEYCODE_0_PAD) PORT_NAME("0")
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_7) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("7")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("6")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("5")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD) PORT_NAME("4")
+
+	PORT_START("IN.2") // R2
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_D) PORT_NAME("D")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_A) PORT_NAME("A")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_9) PORT_CODE(KEYCODE_9_PAD) PORT_NAME("9")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_8) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("8")
+
+	PORT_START("IN.3") // R3
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_P) PORT_NAME("P")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_L) PORT_NAME("L")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_J) PORT_NAME("J")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_E) PORT_NAME("E")
+
+	PORT_START("IN.4") // R4
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_ENTER) PORT_CODE(KEYCODE_ENTER_PAD) PORT_NAME("Enter")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_DEL) PORT_NAME("Clear")
+
+	PORT_START("IN.5") // R8
+	PORT_CONFNAME( 0x03, 0x01, "Mode")
+	PORT_CONFSETTING(    0x01, "H" ) // Horoscope
+	PORT_CONFSETTING(    0x02, "P" ) // Preview
+	PORT_CONFSETTING(    0x00, "A" ) // Answer
+	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_UNUSED )
+INPUT_PORTS_END
+
+
+// output PLA is not dumped
+static const UINT16 zodiac_output_pla[0x20] =
+{
+	0x80,                   // empty/led 1/7
+	lC,                     // i/led 2/8
+	lE+lG,                  // r/led 3/9
+	lC+lE+lG,               // n
+	lF,                     // seg F/led 4/10
+	0,                      // ?
+	0,                      // ?
+	lC+lE+lF+lG,            // h
+	lB,                     // seg B/led 5/11
+	lD,                     // seg D/led 6/12
+	0,                      // ?
+	0,                      // ?
+	0,                      // ?
+	0,                      // ?
+	lA+lB+lE+lF+lG,         // P
+	0,                      // ?
+	lA+lB+lC+lD+lE+lF,      // 0
+	lB+lC,                  // 1
+	lA+lB+lD+lE+lG,         // 2
+	lA+lB+lC+lD+lG,         // 3
+	lB+lC+lF+lG,            // 4
+	lA+lC+lD+lF+lG,         // 5
+	lA+lC+lD+lE+lF+lG,      // 6
+	lA+lB+lC,               // 7
+	lA+lB+lC+lD+lE+lF+lG,   // 8
+	lA+lB+lC+lD+lF+lG,      // 9
+	lA+lB+lC+lE+lF+lG,      // A
+	lB+lC+lD+lE+lG,         // d
+	lA+lD+lE+lF+lG,         // E
+	lB+lC+lD+lE,            // J
+	lD+lE+lF,               // L
+	lB+lC+lD+lE+lF          // U
+};
+
+static MACHINE_CONFIG_START( zodiac, zodiac_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1100, 500000) // approximation - RC osc. R=18K, C=100pf
+	MCFG_TMS1XXX_OUTPUT_PLA(zodiac_output_pla)
+	MCFG_TMS1XXX_READ_K_CB(READ8(zodiac_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(zodiac_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(zodiac_state, write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_zodiac)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2407,7 +2572,7 @@ MACHINE_CONFIG_END
   * TMS0980NLL MP6100A (die labeled 0980B-00)
   * 10-digit 7seg LED display, 1bit sound
 
-  hardware (and concept) is very similar to Parker Bros Stop Thief
+  hardware (and concept) is very similar to Parker Brothers Stop Thief
 
   This is an electronic board game. It requires game cards with suspect info,
   and good old pen and paper to record game progress. To start the game, enter
@@ -3474,7 +3639,7 @@ void bigtrak_state::machine_start()
 	save_item(NAME(m_gearbox_pos));
 }
 
-static const INT16 bigtrak_speaker_levels[] = { 0, 32767/3, 32767/3, 32767/3*2, 32767/3, 32767/3*2, 32767/3*2, 32767 };
+static const INT16 bigtrak_speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
 
 static MACHINE_CONFIG_START( bigtrak, bigtrak_state )
 
@@ -3624,7 +3789,7 @@ MACHINE_CONFIG_END
 
 /***************************************************************************
 
-  Parker Bros Merlin handheld game, by Bob Doyle
+  Parker Brothers Merlin handheld game, by Bob Doyle
   * TMS1100NLL MP3404A-N2
   * 11 LEDs behind buttons, 3-level sound
 
@@ -3717,7 +3882,7 @@ static INPUT_PORTS_START( merlin )
 INPUT_PORTS_END
 
 
-static const INT16 merlin_speaker_levels[] = { 0, 32767/3, 32767/3, 32767/3*2, 32767/3, 32767/3*2, 32767/3*2, 32767 };
+static const INT16 merlin_speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
 
 static MACHINE_CONFIG_START( merlin, merlin_state )
 
@@ -4133,6 +4298,122 @@ static MACHINE_CONFIG_START( splitsec, splitsec_state )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
+  Parker Brothers Lost Treasure - The Electronic Deep-Sea Diving Game,
+  Featuring The Electronic Dive-Control Center
+  * TMS1100 M34038-NLL (die labeled 1100E, M34038)
+  * 11 LEDs, 4-bit sound
+  
+  This is a board game. The electronic accessory is the emulated part here.
+
+***************************************************************************/
+
+class lostreas_state : public hh_tms1k_state
+{
+public:
+	lostreas_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	DECLARE_WRITE16_MEMBER(write_r);
+	DECLARE_WRITE16_MEMBER(write_o);
+	DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+WRITE16_MEMBER(lostreas_state::write_r)
+{
+	// R0-R10: leds
+	display_matrix(11, 1, data, 1);
+}
+
+WRITE16_MEMBER(lostreas_state::write_o)
+{
+	// O0-O3: input mux
+	m_inp_mux = data & 0xf;
+
+	// O4: 330 ohm resistor - speaker out
+	// O5: 220 ohm resistor - speaker out
+	// O6: 180 ohm resistor - speaker out
+	// O7:  68 ohm resistor - speaker out
+	m_speaker->level_w(data >> 4 & 0xf);
+}
+
+READ8_MEMBER(lostreas_state::read_k)
+{
+	// K: multiplexed inputs
+	return read_inputs(4);
+}
+
+
+// config
+
+/* physical button layout and labels is like this:
+  (note: Canadian version differs slightly to accomodoate dual-language)
+
+    [N-S(gold)]    [1] [2] [3]    [AIR]
+    [E-W(gold)]    [4] [5] [6]    [UP]
+    [N-S(silv)]    [7] [8] [9]    [$ VALUE]
+    [E-W(silv)]                   [CLEAR]
+*/
+
+static INPUT_PORTS_START( lostreas )
+	PORT_START("IN.0") // O0
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("1")
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD) PORT_NAME("2")
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD) PORT_NAME("3")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD) PORT_NAME("4")
+
+	PORT_START("IN.1") // O1
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("5")
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("6")
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_7) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("7")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_8) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("8")
+
+	PORT_START("IN.2") // O2
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_9) PORT_CODE(KEYCODE_9_PAD) PORT_NAME("9")
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_DEL) PORT_NAME("Clear")
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_A) PORT_CODE(KEYCODE_U) PORT_NAME("Air/Up")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_V) PORT_NAME("$ Value")
+
+	PORT_START("IN.3") // O3
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_R) PORT_NAME("E-W (silver)")
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_E) PORT_NAME("N-S (silver)")
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_W) PORT_NAME("E-W (gold)")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_Q) PORT_NAME("N-S (gold)")
+INPUT_PORTS_END
+
+
+static const INT16 lostreas_speaker_levels[16] =
+{
+	0, 0x7fff/15, 0x7fff/14, 0x7fff/13, 0x7fff/12, 0x7fff/11, 0x7fff/10, 0x7fff/9,
+	0x7fff/8, 0x7fff/7, 0x7fff/6, 0x7fff/5, 0x7fff/4, 0x7fff/3, 0x7fff/2, 0x7fff/1
+};
+
+static MACHINE_CONFIG_START( lostreas, lostreas_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1100, 425000) // approximation - RC osc. R=39K, C=47pf
+	MCFG_TMS1XXX_READ_K_CB(READ8(lostreas_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(lostreas_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(lostreas_state, write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_lostreas)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SPEAKER_LEVELS(16, lostreas_speaker_levels)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
@@ -4637,7 +4918,7 @@ ROM_START( mathmagi )
 	ROM_LOAD( "mp1030", 0x0000, 0x0800, CRC(a81d7ccb) SHA1(4756ce42f1ea28ce5fe6498312f8306f10370969) )
 
 	ROM_REGION( 867, "maincpu:mpla", 0 )
-	ROM_LOAD( "tms1100_common1_micro.pla", 0, 867, BAD_DUMP CRC(62445fc9) SHA1(d6297f2a4bc7a870b76cc498d19dbb0ce7d69fec) ) // not verified
+	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, BAD_DUMP CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) ) // not verified
 	ROM_REGION( 365, "maincpu:opla", 0 )
 	ROM_LOAD( "tms1100_mathmagi_output.pla", 0, 365, NO_DUMP )
 ROM_END
@@ -4651,6 +4932,17 @@ ROM_START( amaztron )
 	ROM_LOAD( "tms1100_common3_micro.pla", 0, 867, CRC(03574895) SHA1(04407cabfb3adee2ee5e4218612cb06c12c540f4) )
 	ROM_REGION( 365, "maincpu:opla", 0 )
 	ROM_LOAD( "tms1100_amaztron_output.pla", 0, 365, CRC(f3875384) SHA1(3c256a3db4f0aa9d93cf78124db39f4cbdc57e4a) )
+ROM_END
+
+
+ROM_START( zodiac )
+	ROM_REGION( 0x0800, "maincpu", 0 )
+	ROM_LOAD( "mp3435", 0x0000, 0x0800, CRC(ecdc3160) SHA1(a7e82d66314a039fcffeddf99919d9f9ad42d61d) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common3_micro.pla", 0, 867, BAD_DUMP CRC(03574895) SHA1(04407cabfb3adee2ee5e4218612cb06c12c540f4) ) // not verified
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1100_zodiac_output.pla", 0, 365, NO_DUMP )
 ROM_END
 
 
@@ -4991,6 +5283,17 @@ ROM_START( splitsec )
 ROM_END
 
 
+ROM_START( lostreas )
+	ROM_REGION( 0x0800, "maincpu", 0 )
+	ROM_LOAD( "m34038", 0x0000, 0x0800, CRC(4c996f63) SHA1(ebbaa8b2f909f4300887aa2dbdb7185eedc75d3f) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common1_micro.pla", 0, 867, CRC(62445fc9) SHA1(d6297f2a4bc7a870b76cc498d19dbb0ce7d69fec) )
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1100_lostreas_output.pla", 0, 365, CRC(c62d850f) SHA1(d25974e6901eb10c52cdda12e6d4a13e26745e6f) )
+ROM_END
+
+
 ROM_START( tandy12 )
 	ROM_REGION( 0x0800, "maincpu", 0 )
 	ROM_LOAD( "cd7282sl", 0x0000, 0x0800, CRC(a10013dd) SHA1(42ebd3de3449f371b99937f9df39c240d15ac686) )
@@ -5029,6 +5332,7 @@ ROM_END
 COMP( 1980, mathmagi,  0,        0, mathmagi,  mathmagi,  driver_device, 0, "APF Electronics Inc.", "Mathemagician", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW )
 
 CONS( 1979, amaztron,  0,        0, amaztron,  amaztron,  driver_device, 0, "Coleco", "Amaze-A-Tron", MACHINE_SUPPORTS_SAVE )
+COMP( 1979, zodiac,    0,        0, zodiac,    zodiac,    driver_device, 0, "Coleco", "Zodiac - The Astrology Computer", MACHINE_SUPPORTS_SAVE )
 CONS( 1978, cqback,    0,        0, cqback,    cqback,    driver_device, 0, "Coleco", "Electronic Quarterback", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, h2hfootb,  0,        0, h2hfootb,  h2hfootb,  driver_device, 0, "Coleco", "Head to Head Football", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, h2hbaseb,  0,        0, h2hbaseb,  h2hbaseb,  driver_device, 0, "Coleco", "Head to Head Baseball", MACHINE_SUPPORTS_SAVE )
@@ -5066,6 +5370,7 @@ CONS( 1979, stopthiep, stopthie, 0, stopthief, stopthief, driver_device, 0, "Par
 CONS( 1980, bankshot,  0,        0, bankshot,  bankshot,  driver_device, 0, "Parker Brothers", "Bank Shot - Electronic Pool", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, splitsec,  0,        0, splitsec,  splitsec,  driver_device, 0, "Parker Brothers", "Split Second", MACHINE_SUPPORTS_SAVE )
 CONS( 1982, mmerlin,   0,        0, mmerlin,   mmerlin,   driver_device, 0, "Parker Brothers", "Master Merlin", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1982, lostreas,  0,        0, lostreas,  lostreas,  driver_device, 0, "Parker Brothers", "Lost Treasure - The Electronic Deep-Sea Diving Game (Electronic Dive-Control Center)", MACHINE_SUPPORTS_SAVE ) // ***
 
 CONS( 1981, tandy12,   0,        0, tandy12,   tandy12,   driver_device, 0, "Tandy Radio Shack", "Tandy-12: Computerized Arcade", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // some of the minigames: ***
 

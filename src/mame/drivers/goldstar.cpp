@@ -6752,6 +6752,31 @@ static const gfx_layout sangho_tilelayout =
 	128*8   /* every char takes 128 consecutive bytes */
 };
 
+static const gfx_layout super9_charlayout =
+{
+	8,8,    /* 8*8 characters */
+	4096,    /* 4096 characters */
+	3,      /* 3 bits per pixel */
+	{ 2, 4, 6 }, /* the bitplanes are packed in one byte */
+	{ 0*8+0, 0*8+1, 1*8+0, 1*8+1, 2*8+0, 2*8+1, 3*8+0, 3*8+1 },
+	{ 0*32, 4*32, 2*32, 6*32, 1*32, 5*32, 3*32, 7*32 },
+	32*8   /* every char takes 32 consecutive bytes */
+};
+
+static const gfx_layout super9_tilelayout =  // Green is OK. Red needs normal goldstar order... 
+{
+	8,32,    /* 8*32 characters */
+	256,    /* 256 tiles */
+	4,      /* 4 bits per pixel */
+	{ 0, 2, 4, 6 },
+	{ 1, 0, 1*8+1, 1*8+0, 2*8+1, 2*8+0, 3*8+1, 3*8+0 },
+	{ 0*8, 4*8, 8*8, 12*8, 16*8, 20*8, 24*8, 28*8,
+			32*8, 36*8, 40*8, 44*8, 48*8, 52*8, 56*8, 60*8,
+			64*8, 68*8, 72*8, 76*8, 80*8, 84*8, 88*8, 92*8,
+			96*8, 100*8, 104*8, 108*8, 112*8, 116*8, 120*8, 124*8 },
+	128*8   /* every char takes 128 consecutive bytes */
+};
+
 
 
 static GFXDECODE_START( goldstar )
@@ -6850,6 +6875,11 @@ static GFXDECODE_START( sangho )
    2*16,16 oranges and title girl in game
    1*16,16 nines in game
 */
+GFXDECODE_END
+
+static GFXDECODE_START( super9 )
+	GFXDECODE_ENTRY( "gfx1", 0, super9_charlayout,   0, 16 )
+	GFXDECODE_ENTRY( "gfx2", 0, super9_tilelayout, 128,  8 )
 GFXDECODE_END
 
 
@@ -7153,12 +7183,12 @@ static MACHINE_CONFIG_START( super9, goldstar_state )
 	MCFG_SCREEN_UPDATE_DRIVER(goldstar_state, screen_update_goldstar)
 	MCFG_SCREEN_PALETTE("palette")
 
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", goldstar)
+	MCFG_GFXDECODE_ADD("gfxdecode", "palette", super9)
 	MCFG_PALETTE_ADD("palette", 256)
 	MCFG_PALETTE_FORMAT(BBGGGRRR)
 	MCFG_NVRAM_ADD_1FILL("nvram")
 
-	MCFG_VIDEO_START_OVERRIDE(goldstar_state,goldstar)
+	MCFG_VIDEO_START_OVERRIDE(goldstar_state, goldstar)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -11989,7 +12019,10 @@ ROM_END
 
 
 /* Super Cherry Master.
-   Dyna.
+   Lacks of Dyna copyright. Maybe bootleg.
+
+   Not reels stop options.
+   Tried any input on the real hardware without luck.   
 */
 ROM_START( scmaster )  // all roms unique
 	ROM_REGION( 0x10000, "maincpu", 0 )
