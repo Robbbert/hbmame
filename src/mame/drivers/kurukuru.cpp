@@ -121,7 +121,7 @@
 
   1) Pyon Pyon (a marathon game with froggy characters).
   2) Kuru Kuru Pyon Pyon (a kind of slots game with the same froggy characters).
-  3) Pyon Pyon Jump (a contents where the same characters try to cross the river jumping on pads).
+  3) Pyon Pyon Jyanpu (a contents where the same characters try to cross the river jumping on pads).
   4) Sui Sui Pyon Pyon (a swimming competition where the same characters swim with different styles, even walking).
 
   Coin 1 (key 5) could be set either as Coin 1 or as Payout button, through
@@ -179,10 +179,10 @@
 
   ----------------------------------------------------------------------------------
 
-  * Pyon Pyon Jump:
+  * Pyon Pyon Jyanpu:
 
   The game name could be translated as "Hop Hop Jump"
-  Pyon is the sound of jumps.
+  Pyon is the sound of jumps. Jyanpu means jump.
 
   How to play...
 
@@ -222,22 +222,26 @@
 
   ADPCM Samples....
 
-  There are 14 samples in the system.
+  There are 14 samples in Kuru Kuru Pyon Pyon.
 
   00: "Botechin"
   01:
-  02: "Hakase" ("professor")
+  02: "Hakase" (professor)
   03: "Pyokorin"
   04: "Kunio"
-  05: "Pyon Pyon"
-  06:
+  05: "Pyon-Pyon"
+  06: "Boketa"
   07:
   08: "Oume"
-  09: "Haipaa" ("hyper")
-  10: "Ichi ni tsuite" ("on your marks")
-  11: "Youi" ("get ready")
-  12: Bang sound for the tadpoles landing in the right panel.
+  09: "Haipaa" (hyper)
+  10: "Ichi ni tsuite" (on your marks)
+  11: "Youi" (get ready)
+  12: "Bang" (sound for the tadpoles landing in the right panel).
   13: Sound effect for reels when running.
+
+  The fact that there are samples for "on your marks", "get ready", and "bang",
+  make me think that these sounds could be shared with the other unemulated marathon
+  game of the series called just "Pyon Pyon".
 
 ***********************************************************************************/
 
@@ -777,11 +781,9 @@ static MACHINE_CONFIG_START( ppj, kurukuru_state )
 MACHINE_CONFIG_END
 
 
-/***************************************************************************
-
-  Game driver(s)
-
-***************************************************************************/
+/*************************************************
+*                 ROMs Loading                   *
+*************************************************/
 
 /*  Kuru Kuru Pyon Pyon.
     1990, Success / Taiyo Jidoki.
@@ -806,7 +808,7 @@ ROM_START( kurukuru )
 	ROM_LOAD( "7908b-4.ic32", 0x0600, 0x0034, CRC(bddf925e) SHA1(861cf5966444d0c0392241e5cfa08db475fb439a) )
 ROM_END
 
-/*  Pyon Pyon Jump.
+/*  Pyon Pyon Jyanpu.
     Ver 1.40.
 	199?, Success / Taiyo Jidoki.
 */
@@ -831,6 +833,15 @@ ROM_START( ppj )
 ROM_END
 
 
-/*    YEAR  NAME      PARENT  MACHINE   INPUT     STATE          INIT  ROT    COMPANY                   FULLNAME                        FLAGS  */
-GAME( 1990, kurukuru, 0,      kurukuru, kurukuru, driver_device, 0,    ROT0, "Success / Taiyo Jidoki", "Kuru Kuru Pyon Pyon (Japan)",   0 )
-GAME( 199?, ppj,      0,      ppj,      ppj,      driver_device, 0,    ROT0, "Success / Taiyo Jidoki", "Pyon Pyon Jump (V1.40, Japan)", 0 )
+/***************************************************************************
+*                              Game Drivers                                *
+***************************************************************************/
+
+/*    YEAR  NAME      PARENT  MACHINE   INPUT     STATE          INIT  ROT    COMPANY                   FULLNAME                          FLAGS  */
+GAME( 1990, kurukuru, 0,      kurukuru, kurukuru, driver_device, 0,    ROT0, "Success / Taiyo Jidoki", "Kuru Kuru Pyon Pyon (Japan)",     0 )
+GAME( 199?, ppj,      0,      ppj,      ppj,      driver_device, 0,    ROT0, "Success / Taiyo Jidoki", "Pyon Pyon Jyanpu (V1.40, Japan)", 0 )
+
+// unemulated....
+
+//    199?, Success / Taiyo Jidoki, Pyon Pyon
+//    1990, Success / Taiyo Jidoki, Sui Sui Pyon Pyon
