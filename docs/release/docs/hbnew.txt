@@ -1,6 +1,23 @@
 What's new in HBMAME
 ====================
 
+2016-02-26 0.171
+----------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- Added a number of kof hacks.
+
+
+
+New Games
+---------
+- [gaunt2f]         Gauntlet 2 (graphics hack)
+- [wofchdx2]        Green version of wofchdx (set 2)
+
+
+
+
 2016-01-27 0.170
 ----------------
 
