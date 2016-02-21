@@ -150,6 +150,8 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/windows/output.cpp",
 		MAME_DIR .. "src/osd/windows/video.cpp",
 		MAME_DIR .. "src/osd/windows/window.cpp",
+		MAME_DIR .. "src/osd/modules/osdwindow.cpp",
+		MAME_DIR .. "src/osd/modules/osdwindow.h",
 --		MAME_DIR .. "src/osd/windows/winmenu.cpp",
 		MAME_DIR .. "src/osd/winui/newui.cpp",
 		MAME_DIR .. "src/osd/windows/winmain.cpp",
