@@ -444,11 +444,17 @@ configurations {
 	"Release",
 }
 
-platforms {
-	"x32",
-	"x64",
-	"Native", -- for targets where bitness is not specified
-}
+if _ACTION == "xcode4" then
+    platforms {
+        "x64",
+    }
+else
+    platforms {
+        "x32",
+        "x64",
+        "Native", -- for targets where bitness is not specified
+    }
+end
 
 language "C++"
 
@@ -674,7 +680,7 @@ end
 		"LUA_COMPAT_5_2",
 	}
 
-	if _ACTION == "gmake" or _ACTION == "xcode4" then
+	if _ACTION == "gmake" then
 
 	--we compile C-only to C99 standard with GNU extensions
 

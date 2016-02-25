@@ -564,8 +564,8 @@ ui_menu_misc_options::misc_option ui_menu_misc_options::m_options[] = {
 	{ 0, __("DATs info"),                                       OPTION_DATS_ENABLED },
 	{ 0, __("Cheats"),                                          OPTION_CHEAT },
 	{ 0, __("Show mouse pointer"),                              OPTION_UI_MOUSE },
-	{ 0, __("Confirm quit from machines"),                      OPTION_UI_CONFIRM_QUIT },
-	{ 0, __("Skip displaying information's screen at startup"), OPTION_UI_SKIP_GAMEINFO },
+	{ 0, __("Confirm quit from machines"),                      OPTION_CONFIRM_QUIT },
+	{ 0, __("Skip displaying information's screen at startup"), OPTION_SKIP_GAMEINFO },
 	{ 0, __("Force 4:3 appearance for software snapshot"),      OPTION_FORCED4X3 },
 	{ 0, __("Use image as background"),                         OPTION_USE_BACKGROUND },
 	{ 0, __("Skip bios selection menu"),                        OPTION_SKIP_BIOS_MENU },
@@ -651,7 +651,7 @@ void ui_menu_misc_options::custom_render(void *selectedref, float top, float bot
 	ui_manager &mui = machine().ui();
 
 	mui.draw_text_full(container, _("Miscellaneous Options"), 0.0f, 0.0f, 1.0f, JUSTIFY_CENTER, WRAP_TRUNCATE,
-	                              DRAW_NONE, ARGB_WHITE, ARGB_BLACK, &width, nullptr);
+									DRAW_NONE, ARGB_WHITE, ARGB_BLACK, &width, nullptr);
 	width += 2 * UI_BOX_LR_BORDER;
 	float maxwidth = MAX(origx2 - origx1, width);
 
@@ -671,5 +671,5 @@ void ui_menu_misc_options::custom_render(void *selectedref, float top, float bot
 
 	// draw the text within it
 	mui.draw_text_full(container, _("Miscellaneous Options"), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_TRUNCATE,
-	                              DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr);
+									DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr);
 }
