@@ -1721,6 +1721,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofchdx",     CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofchdx1",    CPS_B_21_DEF, mapper_TK263B },				//works
+	{"wofchdx2",    CPS_B_21_DEF, mapper_TK263B },				//works
 	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },				// problem with chinese language roms
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },				//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },				//works

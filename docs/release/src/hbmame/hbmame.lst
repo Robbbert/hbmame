@@ -219,6 +219,7 @@ wofch
 wofch_v3
 wofchdx
 wofchdx1
+wofchdx2
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh
@@ -367,6 +368,7 @@ wbeast		/* Bootleg of War-of-Bug */
 gaunt2		// parent
 gaunt2ls	// Orange Elf - new levels
 gaunt2s		/* Speed Hack */
+gaunt2f		// graphics hack
 
 	/* gottlieb */
 qbert		/* GV-103 (c) 1982 Gottlieb */
@@ -648,6 +650,7 @@ kof98c20150827
 kof98c20151103
 kof98c20151108
 kof98c20151110
+kof98c20151223
 kof98cd
 kof98cd1
 kof98ch
@@ -928,15 +931,19 @@ kof2k1z2
 	/* kof2002 */
 kof2002d
 kof2002x
+kof2k2ath
 kof2k2b // no sound in attract mode
 kof2k2b1
 kof2k2bh
 kof2k2bjh
 kof2k2bjo
 kof2k2bld
+kof2k2blood2
 kof2k2br
 kof2k2br1
 kof2k2br2
+kof2k2bs
+kof2k2c2
 kof2k2cf1
 kof2k2cf2
 kof2k2cf3
@@ -945,6 +952,8 @@ kof2k2ch
 kof2k2chl
 kof2k2cl2
 kof2k2cl3
+kof2k2cn
+kof2k2cori
 kof2k2dbh
 kof2k2e1
 kof2k2e2
@@ -960,6 +969,7 @@ kof2k2fy
 kof2k2gc
 kof2k2gc2
 kof2k2gf
+kof2k2green
 kof2k2ht
 kof2k2ibp
 kof2k2ic1
@@ -967,6 +977,8 @@ kof2k2ic2
 kof2k2ice
 kof2k2jc
 kof2k2js
+kof2k2js2
+kof2k2js4
 kof2k2k2
 kof2k2k3o
 kof2k2k32
@@ -984,7 +996,15 @@ kof2k2k3d
 kof2k2k3e
 kof2k2k3f
 kof2k2k3g
+kof2k2kai
 kof2k2kc
+kof2k2kc2
+kof2k2kk
+kof2k2lb // no sound in attract mode
+kof2k2leon
+kof2k2mcr
+kof2k2moi2
+kof2k2moir // no sound in attract mode
 kof2k2mp1	/* Magic Plus */
 kof2k2mp3	/* Magic Plus III - Ismamj */
 kof2k2mpu
@@ -1011,6 +1031,7 @@ kof2k2ra
 kof2k2rgl // no sound in attract mode
 kof2k2rm
 kof2k2rma
+kof2k2rmb
 kof2k2rm1
 kof2k2rm2
 kof2k2rm3
@@ -2166,7 +2187,7 @@ powerins	// parent
 powernbr	// Brazil translation
 
 	/* psikyosh */
-s1945ii
+s1945ii // parent
 s1945iiex
 
 	/* rallyx */
