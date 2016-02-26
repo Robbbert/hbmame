@@ -98,21 +98,16 @@ newoption {
 	trigger = "targetos",
 	description = "Choose target OS",
 	allowed = {
-		{ "android-arm",   "Android - ARM"          },
-		{ "android-mips",  "Android - MIPS"         },
-		{ "android-x86",   "Android - x86"          },
+		{ "android",  	   "Android" 	            },
 		{ "asmjs",         "Emscripten/asm.js"      },
 		{ "freebsd",       "FreeBSD"                },
 		{ "netbsd",        "NetBSD"                 },
 		{ "openbsd",       "OpenBSD"                },
-		{ "nacl",          "Native Client"          },
-		{ "nacl-arm",      "Native Client - ARM"    },
 		{ "pnacl",         "Native Client - PNaCl"  },
 		{ "linux",     	   "Linux"                  },
 		{ "ios",           "iOS"                    },
 		{ "macosx",        "OSX"                    },
 		{ "windows",       "Windows"                },
-		{ "os2",           "OS/2 eComStation"       },
 		{ "haiku",         "Haiku"                  },
 		{ "solaris",       "Solaris SunOS"          },
 		{ "steamlink",     "Steam Link"             },
@@ -392,6 +387,15 @@ newoption {
 	description = "Target machine platform (x86,arm,...)",
 }
 
+newoption {
+	trigger = "USE_LIBUV",
+	description = "Use libuv.",
+	allowed = {
+		{ "0",   "Disabled" 	},
+		{ "1",   "Enabled"      },
+	}
+}
+
 if _OPTIONS["SHLIB"]=="1" then
 	LIBTYPE = "SharedLib"
 else
@@ -414,6 +418,10 @@ if not _OPTIONS["NOASM"] then
 	else
 		_OPTIONS["NOASM"] = "0"
 	end
+end
+
+if not _OPTIONS["USE_LIBUV"] then
+	_OPTIONS["USE_LIBUV"] = "1"
 end
 
 if _OPTIONS["NOASM"]=="1" and not _OPTIONS["FORCE_DRC_C_BACKEND"] then
@@ -516,6 +524,11 @@ configuration { "gmake" }
 
 dofile ("toolchain.lua")
 
+if _OPTIONS["USE_LIBUV"]=="0" then
+	defines {
+		"NO_LIBUV",
+	}
+end
 
 if _OPTIONS["targetos"]=="windows" then
 	configuration { "x64" }
@@ -559,8 +572,8 @@ configuration { "Release" }
 
 configuration { }
 
--- CR/LF setup: use both on win32/os2, CR only on everything else
-if _OPTIONS["targetos"]=="windows" or _OPTIONS["targetos"]=="os2" then
+-- CR/LF setup: use on win32, CR only on everything else
+if _OPTIONS["targetos"]=="windows" then
 	defines {
 		"CRLF=3",
 	}
@@ -700,17 +713,10 @@ if string.find(_OPTIONS["gcc"], "clang") and ((version < 30500) or (_OPTIONS["ta
 		"-std=c++1y",
 	}
 else
-	if _OPTIONS["targetos"]=="os2" then
-		buildoptions_cpp {
-			"-x c++",
-			"-std=gnu++14",
-		}
-	else
-		buildoptions_cpp {
-			"-x c++",
-			"-std=c++14",
-		}
-	end
+	buildoptions_cpp {
+		"-x c++",
+		"-std=c++14",
+	}
 
 	buildoptions_objc {
 		"-x objective-c++",
@@ -955,7 +961,7 @@ end
 
 
 		local version = str_to_version(_OPTIONS["gcc_version"])
-		if string.find(_OPTIONS["gcc"], "clang") or string.find(_OPTIONS["gcc"], "pnacl") or string.find(_OPTIONS["gcc"], "asmjs") then
+		if string.find(_OPTIONS["gcc"], "clang") or string.find(_OPTIONS["gcc"], "pnacl") or string.find(_OPTIONS["gcc"], "asmjs") or string.find(_OPTIONS["gcc"], "android") then
 			if (version < 30400) then
 				print("Clang version 3.4 or later needed")
 				os.exit(-1)

@@ -513,7 +513,7 @@ project "lualibs"
 --------------------------------------------------
 -- luv lua library objects
 --------------------------------------------------
-
+if _OPTIONS["USE_LIBUV"]=="1" then
 project "luv"
 	uuid "d98ec5ca-da2a-4a50-88a2-52061ca53871"
 	kind "StaticLib"
@@ -523,10 +523,7 @@ project "luv"
 			"_WIN32_WINNT=0x0600",
 		}
 	end
-	configuration { "pnacl"}
-		defines {
-			"_POSIX_BARRIERS=1",
-		}
+
 	configuration { "vs*" }
 		buildoptions {
 			"/wd4244", -- warning C4244: 'argument' : conversion from 'xxx' to 'xxx', possible loss of data
@@ -570,7 +567,7 @@ project "luv"
 		MAME_DIR .. "3rdparty/luv/src/luv.c",
 		MAME_DIR .. "3rdparty/luv/src/luv.h",
 	}
-
+end
 --------------------------------------------------
 -- SQLite3 library objects
 --------------------------------------------------
@@ -1010,6 +1007,7 @@ end
 --------------------------------------------------
 -- libuv library objects
 --------------------------------------------------
+if _OPTIONS["USE_LIBUV"]=="1" then
 project "uv"
 	uuid "cd2afe7f-139d-49c3-9000-fc9119f3cea0"
 	kind "StaticLib"
@@ -1159,6 +1157,25 @@ project "uv"
 			MAME_DIR .. "3rdparty/libuv/src/unix/proctitle.c",
 		}
 	end
+			
+	if _OPTIONS["targetos"]=="android" then
+		defines {
+			"_GNU_SOURCE",
+		}
+		buildoptions {
+			"-Wno-header-guard",
+		}
+		files {
+			MAME_DIR .. "3rdparty/libuv/src/unix/proctitle.c",
+			MAME_DIR .. "3rdparty/libuv/src/unix/linux-core.c",
+			MAME_DIR .. "3rdparty/libuv/src/unix/linux-inotify.c",
+			MAME_DIR .. "3rdparty/libuv/src/unix/linux-syscalls.c",
+			MAME_DIR .. "3rdparty/libuv/src/unix/linux-syscalls.h",
+			MAME_DIR .. "3rdparty/libuv/src/unix/pthread-fixes.c",
+			MAME_DIR .. "3rdparty/libuv/src/unix/android-ifaddrs.c",
+		}
+	end
+			
 	if _OPTIONS["targetos"]=="solaris" then
 		defines {
 			"__EXTENSIONS__",
@@ -1180,7 +1197,7 @@ project "uv"
 			"-Wshadow"
 		}
 	end
-
+end
 --------------------------------------------------
 -- HTTP parser library objects
 --------------------------------------------------
