@@ -8,6 +8,9 @@ newoption {
 
 premake.check_paths = true
 premake.make.override = { "TARGET" }
+
+premake.xcode.parameters = { 'CLANG_CXX_LANGUAGE_STANDARD = "c++14"', 'CLANG_CXX_LIBRARY = "libc++"' }
+
 MAME_DIR = (path.getabsolute("..") .. "/")
 --MAME_DIR = string.gsub(MAME_DIR, "(%s)", "\\%1")
 local MAME_BUILD_DIR = (MAME_DIR .. _OPTIONS["build-dir"] .. "/")
@@ -152,6 +155,11 @@ newoption {
 newoption {
     trigger = 'with-bundled-portaudio',
     description = 'Build bundled PortAudio library',
+}
+
+newoption {
+    trigger = 'with-bundled-sdl2',
+    description = 'Build bundled SDL2 library',
 }
 
 newoption {
@@ -447,6 +455,7 @@ else
 	end
 end
 
+
 configurations {
 	"Debug",
 	"Release",
@@ -494,6 +503,13 @@ configuration { "Release", "vs*" }
 		"Optimize",
 	}
 
+-- Force VS2013/15 targets to use bundled SDL2
+if string.sub(_ACTION,1,4) == "vs20" and _OPTIONS["osd"]=="sdl" then
+	if _OPTIONS["with-bundled-sdl2"]==nil then
+		_OPTIONS["with-bundled-sdl2"] = "1"
+	end
+end
+	
 configuration {}
 
 msgcompile ("Compiling $(subst ../,,$<)...")
@@ -542,7 +558,7 @@ end
 if (_ACTION == nil) then return false end
 
 -- define PTR64 if we are a 64-bit target
-configuration { "x64" }
+configuration { "x64 or android-*64"}
 	defines { "PTR64=1" }
 
 -- define MAME_DEBUG if we are a debugging build
@@ -1043,6 +1059,11 @@ configuration { "android*" }
 	}
 	archivesplit_size "20"
 
+configuration { "android-arm64" }
+	buildoptions {
+		"-Wno-asm-operand-widths",
+	}
+	
 configuration { "pnacl" }
 	buildoptions {
 		"-std=gnu89",

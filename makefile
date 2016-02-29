@@ -62,6 +62,7 @@
 # USE_SYSTEM_LIB_SQLITE3 = 1
 # USE_SYSTEM_LIB_PORTMIDI = 1
 # USE_SYSTEM_LIB_PORTAUDIO = 1
+# USE_BUNDLED_LIB_SDL2 = 1
 
 # MESA_INSTALL_ROOT = /opt/mesa
 # SDL_INSTALL_ROOT = /opt/sdl2
@@ -381,6 +382,12 @@ endif
 
 ifndef USE_SYSTEM_LIB_PORTAUDIO
 PARAMS += --with-bundled-portaudio
+endif
+
+# reverse logic for this one
+
+ifdef USE_BUNDLED_LIB_SDL2
+PARAMS += --with-bundled-sdl2
 endif
 
 #-------------------------------------------------
@@ -747,7 +754,7 @@ ifeq (posix,$(SHELLTYPE))
   COPY  = $(SILENT) cp -fR "$(1)" "$(2)"
 else
   MKDIR = $(SILENT) mkdir "$(subst /,\\,$(1))" 2> nul || exit 0
-  COPY  = $(SILENT) copy /Y "$(subst /,\\,$(1))" "$(subst /,\\,$(2))"
+  COPY  = $(SILENT) copy /Y "$(subst /,\\,$(1))" "$(subst /,\\,$(2))" > nul || exit 0
 endif
 
 GENDIR = $(BUILDDIR)/generated
@@ -887,21 +894,21 @@ windows_x86_clang: generate $(PROJECTDIR)/gmake-mingw-clang/Makefile
 
 .PHONY: vs2013
 vs2013: generate
-	$(SILENT) $(GENIE) $(PARAMS) --osd=windows --targetos=windows vs2013
+	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) vs2013
 ifdef MSBUILD
 	$(SILENT) msbuild $(PROJECTDIR_WIN)/vs2013/$(PROJECT_NAME).sln $(MSBUILD_PARAMS)
 endif
 
 .PHONY: vs2013_intel
 vs2013_intel: generate
-	$(SILENT) $(GENIE) $(PARAMS) --osd=windows --targetos=windows --vs=intel-15 vs2013
+	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) --vs=intel-15 vs2013
 ifdef MSBUILD
 	$(SILENT) msbuild $(PROJECTDIR_WIN)/vs2013-intel/$(PROJECT_NAME).sln $(MSBUILD_PARAMS)
 endif
 
 .PHONY: vs2013_xp
 vs2013_xp: generate
-	$(SILENT) $(GENIE) $(PARAMS) --osd=windows --targetos=windows --vs=vs2013-xp vs2013
+	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) --vs=vs2013-xp vs2013
 ifdef MSBUILD
 	$(SILENT) msbuild $(PROJECTDIR_WIN)/vs2013-xp/$(PROJECT_NAME).sln $(MSBUILD_PARAMS)
 endif
@@ -912,21 +919,21 @@ endif
 
 .PHONY: vs2015
 vs2015: generate
-	$(SILENT) $(GENIE) $(PARAMS) --osd=windows --targetos=windows vs2015
+	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) vs2015
 ifdef MSBUILD
 	$(SILENT) msbuild $(PROJECTDIR_WIN)/vs2015/$(PROJECT_NAME).sln $(MSBUILD_PARAMS)
 endif
 
 .PHONY: vs2015_intel
 vs2015_intel: generate
-	$(SILENT) $(GENIE) $(PARAMS) --osd=windows --targetos=windows --vs=intel-15 vs2015
+	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) --vs=intel-15 vs2015
 ifdef MSBUILD
 	$(SILENT) msbuild $(PROJECTDIR_WIN)/vs2015-intel/$(PROJECT_NAME).sln $(MSBUILD_PARAMS)
 endif
 
 .PHONY: vs2015_xp
 vs2015_xp: generate
-	$(SILENT) $(GENIE) $(PARAMS) --osd=windows --targetos=windows --vs=vs2015-xp vs2015
+	$(SILENT) $(GENIE) $(PARAMS) $(TARGET_PARAMS) --vs=vs2015-xp vs2015
 ifdef MSBUILD
 	$(SILENT) msbuild $(PROJECTDIR_WIN)/vs2015-xp/$(PROJECT_NAME).sln $(MSBUILD_PARAMS)
 endif
@@ -956,6 +963,30 @@ endif
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-arm config=$(CONFIG)
 
 #-------------------------------------------------
+# android-arm64
+#-------------------------------------------------
+
+$(PROJECTDIR_MINI)/gmake-android-arm64/Makefile: makefile $(SCRIPTS) $(GENIE)
+ifndef ANDROID_NDK_ARM64
+	$(error ANDROID_NDK_ARM64 is not set)
+endif
+ifndef ANDROID_NDK_ROOT
+	$(error ANDROID_NDK_ROOT is not set)
+endif
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-arm64 --gcc_version=3.6.0 --osd=osdmini --targetos=android-arm64 --targetos=android --PLATFORM=arm64 --NOASM=1 gmake
+
+.PHONY: android-arm64
+android-arm64: generate $(PROJECTDIR_MINI)/gmake-android-arm64/Makefile
+ifndef ANDROID_NDK_ARM64
+	$(error ANDROID_NDK_ARM64 is not set)
+endif
+ifndef ANDROID_NDK_ROOT
+	$(error ANDROID_NDK_ROOT is not set)
+endif	
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-arm64 config=$(CONFIG) precompile
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-arm64 config=$(CONFIG)
+
+#-------------------------------------------------
 # android-mips
 #-------------------------------------------------
 
@@ -980,6 +1011,30 @@ endif
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-mips config=$(CONFIG)
 
 #-------------------------------------------------
+# android-mips64
+#-------------------------------------------------
+
+$(PROJECTDIR_MINI)/gmake-android-mips64/Makefile: makefile $(SCRIPTS) $(GENIE)
+ifndef ANDROID_NDK_MIPS64
+	$(error ANDROID_NDK_MIPS64 is not set)
+endif
+ifndef ANDROID_NDK_ROOT
+	$(error ANDROID_NDK_ROOT is not set)
+endif
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-mips64 --gcc_version=3.6.0 --osd=osdmini --targetos=android-mips64 --targetos=android --PLATFORM=mips64 --NOASM=1 gmake
+
+.PHONY: android-mips64
+android-mips64: generate $(PROJECTDIR_MINI)/gmake-android-mips64/Makefile
+ifndef ANDROID_NDK_MIPS64
+	$(error ANDROID_NDK_MIPS64 is not set)
+endif
+ifndef ANDROID_NDK_ROOT
+	$(error ANDROID_NDK_ROOT is not set)
+endif
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-mips64 config=$(CONFIG) precompile
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-mips64 config=$(CONFIG)
+
+#-------------------------------------------------
 # android-x86
 #-------------------------------------------------
 
@@ -1002,6 +1057,30 @@ ifndef ANDROID_NDK_ROOT
 endif
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-x86 config=$(CONFIG) precompile
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-x86 config=$(CONFIG)
+
+#-------------------------------------------------
+# android-x64
+#-------------------------------------------------
+
+$(PROJECTDIR_MINI)/gmake-android-x64/Makefile: makefile $(SCRIPTS) $(GENIE)
+ifndef ANDROID_NDK_X64
+	$(error ANDROID_NDK_X64 is not set)
+endif
+ifndef ANDROID_NDK_ROOT
+	$(error ANDROID_NDK_ROOT is not set)
+endif
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-x64 --gcc_version=3.6.0 --osd=osdmini --targetos=android-x64 --targetos=android --PLATFORM=x64 gmake
+
+.PHONY: android-x64
+android-x64: generate $(PROJECTDIR_MINI)/gmake-android-x64/Makefile
+ifndef ANDROID_NDK_X64
+	$(error ANDROID_NDK_X64 is not set)
+endif
+ifndef ANDROID_NDK_ROOT
+	$(error ANDROID_NDK_ROOT is not set)
+endif
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-x64 config=$(CONFIG) precompile
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_MINI)/gmake-android-x64 config=$(CONFIG)
 
 #-------------------------------------------------
 # asmjs / Emscripten
@@ -1266,7 +1345,12 @@ generate: \
 		$(GEN_FOLDERS) \
 		$(patsubst %.po,%.mo,$(call rwildcard, language/, *.po)) \
 		$(patsubst $(SRC)/%.lay,$(GENDIR)/%.lh,$(LAYOUTS)) \
-		$(SRC)/devices/cpu/m68000/m68kops.cpp
+		$(SRC)/devices/cpu/m68000/m68kops.cpp \
+		$(GENDIR)/includes/SDL2
+
+$(GENDIR)/includes/SDL2:
+	-$(call MKDIR,$@)
+	-$(call COPY,3rdparty/SDL2/include/,$(GENDIR)/includes/SDL2)
 
 $(GENDIR)/%.lh: $(SRC)/%.lay scripts/build/file2str.py | $(GEN_FOLDERS)
 	@echo Converting $<...

@@ -706,6 +706,7 @@ pleiadsb2       // bootleg
 pleiadbl        // bootleg
 pleiadce        // (c) 1981 Centuri + Tehkan
 pleiadsi        // bootleg?
+pleiadsn        // Niemer S.A.
 pleiadss        // bootleg
 capitol         // bootleg?
 survival        // (c) 1982 Rock-ola
@@ -2775,6 +2776,7 @@ grindstma       // TP-027 (c) 1993 Toaplan + Unite Trading license (Korea)
 vfive           // TP-027 (c) 1993 Toaplan (Japan)
 batsugun        // TP-030 (c) 1993 Toaplan
 batsuguna       // TP-030 (c) 1993 Toaplan
+batsugunb		//
 batsugunsp      // TP-030 (c) 1993 Toaplan
 snowbro2        // TP-033 (c) 1994 Hanafram
 snowbro2b       //
@@ -2799,6 +2801,7 @@ batriderc       // (c) 1998 Raizing/8ing
 batriderj       // (c) 1998 Raizing/8ing
 batriderk       // (c) 1998 Raizing/8ing
 batriderja      // (c) 1998 Raizing/8ing
+batriderhk      // (c) 1998 Raizing/8ing
 batridert       // (c) 1998 Raizing/8ing
 bbakraid        // (c) 1999 8ing
 bbakraidc       // (c) 1999 8ing
@@ -4769,6 +4772,7 @@ fantzn2xp       // (c) 2008 Sega / M2
 // Philko Boards
 atomicp         // (c) 1990 Philko - korean clone board
 snapper         // (c) 1990 Philko - korean clone board
+lockonph
 
 // S16 decrypted bootlegs
 cottonjd
@@ -10126,6 +10130,10 @@ alienchac       // (c) 1994
 
 // IGS009 Games
 jingbell        // (c) 1995?
+jingbella       // (c) 1995?
+jingbellb       // (c) 1995?
+jingbellc       // (c) 1995?
+jingbelld       // (c) 1995?
 gp98            // (c) 1998
 
 // IGS011 Games
@@ -11515,6 +11523,7 @@ pepk0719b       // (c) 1987 IGT - International Game Technology
 pepk0756        // (c) 1987 IGT - International Game Technology
 pepk0756a       // (c) 1987 IGT - International Game Technology
 pepk0756b       // (c) 1987 IGT - International Game Technology
+pepk0756c       // (c) 1987 IGT - International Game Technology
 pepk0757        // (c) 1987 IGT - International Game Technology
 pepk0758        // (c) 1987 IGT - International Game Technology
 pepk0769        // (c) 1987 IGT - International Game Technology
@@ -11924,6 +11933,7 @@ pex2245pa       // (c) 1995 IGT - International Game Technology
 pex2247p        // (c) 1995 IGT - International Game Technology
 pex2250p        // (c) 1995 IGT - International Game Technology
 pex2251p        // (c) 1995 IGT - International Game Technology
+pex2252p        // (c) 1995 IGT - International Game Technology
 pex2270p        // (c) 1995 IGT - International Game Technology
 pex2272p        // (c) 1995 IGT - International Game Technology
 pex2275p        // (c) 1995 IGT - International Game Technology
@@ -11939,6 +11949,7 @@ pex2303p        // (c) 1995 IGT - International Game Technology
 pex2306p        // (c) 1995 IGT - International Game Technology
 pex2307p        // (c) 1995 IGT - International Game Technology
 pex2308p        // (c) 1995 IGT - International Game Technology
+pex2309p        // (c) 1995 IGT - International Game Technology
 pex2310p        // (c) 1995 IGT - International Game Technology
 pex2312p        // (c) 1995 IGT - International Game Technology
 pex2314p        // (c) 1995 IGT - International Game Technology
@@ -12443,6 +12454,8 @@ unkch4          // bootleg
 cherry96        // bootleg
 ns8lines        // unknown
 ns8linew        // unknown
+luckybar        // unknown
+chryangla       // unknown, W-4 hardware
 ladylinr        // (c) 198? TAB Austria
 kkotnoli        // 198? south korean hack
 wcat3

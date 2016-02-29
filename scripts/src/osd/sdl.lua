@@ -48,34 +48,52 @@ function maintargetosdoptions(_target,_subtarget)
 	end
 
 	if _OPTIONS["targetos"]=="windows" then
-		if _OPTIONS["USE_LIBSDL"]~="1" then
+		if _OPTIONS["with-bundled-sdl2"]~=nil then
 			configuration { "mingw*"}
 				links {
-					"SDL2.dll",
+					"SDL2",
+					"Imm32",
+					"Version",
+					"Ole32",
+					"OleAut32",
 				}
-			configuration { "x64","vs*" }
-				libdirs {
-					MAME_DIR .. "3rdparty/sdl2/lib/x64",
-				}
-			configuration { "x32","vs*" }
-				libdirs {
-					MAME_DIR .. "3rdparty/sdl2/lib/x86",
-				}
-				
-			configuration { "vs*"}
+			configuration { "vs*" }
 				links {
 					"SDL2",
+					"Imm32",
+					"Version",
 				}
 			configuration { }
 		else
-			local str = backtick(sdlconfigcmd() .. " --libs | sed 's/ -lSDLmain//'")
-			addlibfromstring(str)
-			addoptionsfromstring(str)
+			if _OPTIONS["USE_LIBSDL"]~="1" then
+				configuration { "mingw*"}
+					links {
+						"SDL2.dll",
+					}
+				configuration { "vs*" }
+					links {
+						"SDL2",
+						"Imm32",
+						"Version",
+					}
+				configuration { }
+			else
+				local str = backtick(sdlconfigcmd() .. " --libs | sed 's/ -lSDLmain//'")
+				addlibfromstring(str)
+				addoptionsfromstring(str)
+			end
+			configuration { "x32", "vs*" }
+				libdirs {
+					path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x86")
+				}
+			configuration { "x64", "vs*" }
+				libdirs {
+					path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x64")
+				}			
 		end
 		links {
 			"psapi",
 		}
-
 		configuration { "mingw*-gcc" }
 			linkoptions{
 				"-municode",
@@ -83,14 +101,6 @@ function maintargetosdoptions(_target,_subtarget)
 		configuration { "vs*" }
 			flags {
 				"Unicode",
-			}
-		configuration { "x32", "vs*" }
-			libdirs {
-				path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x86")
-			}
-		configuration { "x64", "vs*" }
-			libdirs {
-				path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x64")
 			}
 		configuration {}
 	elseif _OPTIONS["targetos"]=="haiku" then
@@ -105,8 +115,16 @@ function maintargetosdoptions(_target,_subtarget)
 		links {
 			"psapi"
 		}
-
 	configuration { }
+	    
+    if _OPTIONS["targetos"]=="macosx" then
+		if _OPTIONS["with-bundled-sdl2"]~=nil then
+			links {
+				"SDL2",
+			}
+        end
+    end
+    
 end
 
 
@@ -228,6 +246,11 @@ elseif _OPTIONS["targetos"]=="macosx" then
 	SDL_NETWORK         = "pcap"
 end
 
+if _OPTIONS["with-bundled-sdl2"]~=nil then
+	includedirs {
+		GEN_DIR .. "includes",
+	}
+end
 if BASE_TARGETOS=="unix" then
 	if _OPTIONS["targetos"]=="macosx" then
 		local os_version = str_to_version(backtick("sw_vers -productVersion"))
@@ -239,22 +262,35 @@ if BASE_TARGETOS=="unix" then
 			"-framework QuartzCore",
 			"-framework OpenGL",
 		}
+      
+        
 		if os_version>=101100 then
 			linkoptions {
 				"-weak_framework Metal",
 			}
 		end
-		if _OPTIONS["USE_LIBSDL"]~="1" then
-			linkoptions {
-				"-F" .. _OPTIONS["SDL_FRAMEWORK_PATH"],
-			}
-			links {
-				"SDL2.framework",
-			}
+		if _OPTIONS["with-bundled-sdl2"]~=nil then
+            linkoptions {
+                "-framework AudioUnit",
+                "-framework CoreAudio",
+                "-framework Carbon",
+                "-framework ForceFeedback",
+                "-framework IOKit",
+                "-framework CoreVideo",                                
+            }                  
 		else
-			local str = backtick(sdlconfigcmd() .. " --libs --static | sed 's/-lSDLmain//'")
-			addlibfromstring(str)
-			addoptionsfromstring(str)
+			if _OPTIONS["USE_LIBSDL"]~="1" then
+				linkoptions {
+					"-F" .. _OPTIONS["SDL_FRAMEWORK_PATH"],
+				}
+				links {
+					"SDL2.framework",
+				}
+			else
+				local str = backtick(sdlconfigcmd() .. " --libs --static | sed 's/-lSDLmain//'")
+				addlibfromstring(str)
+				addoptionsfromstring(str)
+			end
 		end
 	else
 		if _OPTIONS["NO_X11"]=="1" then
@@ -266,9 +302,16 @@ if BASE_TARGETOS=="unix" then
 				"/usr/openwin/lib",
 			}
 		end
-		local str = backtick(sdlconfigcmd() .. " --libs")
-		addlibfromstring(str)
-		addoptionsfromstring(str)
+		if _OPTIONS["with-bundled-sdl2"]~=nil then
+			links {
+				"SDL2",
+			}
+		else
+			local str = backtick(sdlconfigcmd() .. " --libs")
+			addlibfromstring(str)
+			addoptionsfromstring(str)
+		end	
+		
 		if _OPTIONS["targetos"]~="haiku" then
 			links {
 				"m",
@@ -496,17 +539,11 @@ if _OPTIONS["with-tools"] then
 					links {
 						"SDL2.dll",
 					}
-				configuration { "x64","vs*" }
-					libdirs {
-						MAME_DIR .. "3rdparty/sdl2/lib/x64",
-					}
-				configuration { "x32","vs*" }
-					libdirs {
-						MAME_DIR .. "3rdparty/sdl2/lib/x86",
-					}					
-				configuration { "vs*"}
+				configuration { "vs*" }
 					links {
 						"SDL2",
+						"Imm32",
+						"Version",
 					}
 				configuration { }
 			else
