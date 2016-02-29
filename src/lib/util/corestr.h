@@ -75,4 +75,10 @@ std::string strmakeupper(std::string& str);
 std::string strmakelower(std::string& str);
 int strreplace(std::string &str, const std::string& search, const std::string& replace);
 
+// MESSUI start
+int strprintf(std::string &str, const char *format, ...) ATTR_PRINTF(2, 3);
+int strcatprintf(std::string &str, const char *format, ...) ATTR_PRINTF(2, 3);
+std::string strformat(const char *format, ...) ATTR_PRINTF(1, 2);
+// MESSUI end
+
 #endif /* __CORESTR_H__ */

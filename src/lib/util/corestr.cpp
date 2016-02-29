@@ -306,3 +306,34 @@ int strreplace(std::string &str, const std::string& search, const std::string& r
 	}
 	return matches;
 }
+
+// MESSUI start
+int strprintf(std::string &str, const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	int retVal = strvprintf(str, format, ap);
+	va_end(ap);
+	return retVal;
+}
+
+int strcatprintf(std::string &str, const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	int retVal = strcatvprintf(str, format, ap);
+	va_end(ap);
+	return retVal;
+}
+
+std::string strformat(const char *format, ...)
+{
+	std::string retVal;
+	va_list ap;
+	va_start(ap, format);
+	strvprintf(retVal, format, ap);
+	va_end(ap);
+	return retVal;
+}
+
+// MESSUI end

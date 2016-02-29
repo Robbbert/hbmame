@@ -411,7 +411,7 @@ media_auditor::summary media_auditor::summarize(const char *name, std::string *o
 	return overall_status;
 }
 
-// MESSUI - only report problems that the user can fix
+// WINUI - only report problems that the user can fix
 media_auditor::summary media_auditor::winui_summarize(const char *name, std::string *output)
 {
 	if (m_record_list.count() == 0)
@@ -434,48 +434,59 @@ media_auditor::summary media_auditor::winui_summarize(const char *name, std::str
 			continue;
 
 		// output the game name, file name, and length (if applicable)
-		//if (output)
+		if (output)
 		{
-			strcatprintf(*output, "%-12s: %s", name, record->name());
+			output->append(string_format("%-12s: %s", name, record->name()));
 			if (record->expected_length() > 0)
-				strcatprintf(*output, " (%" I64FMT "d bytes)", record->expected_length());
-			strcatprintf(*output, " - ");
+				output->append(string_format(" (%d bytes)", record->expected_length()));
+			output->append(" - ");
 		}
 
 		// use the substatus for finer details
 		switch (record->substatus())
 		{
-			case audit_record::SUBSTATUS_FOUND_NODUMP:
-				if (output) strcatprintf(*output, "NO GOOD DUMP KNOWN\n");
+			case audit_record::SUBSTATUS_GOOD_NEEDS_REDUMP:
+				if (output) output->append("NEEDS REDUMP\n");
 				best_new_status = BEST_AVAILABLE;
 				break;
+
+			//case audit_record::SUBSTATUS_FOUND_NODUMP:
+			//	if (output) output->append("NO GOOD DUMP KNOWN\n");
+			//	best_new_status = BEST_AVAILABLE;
+			//	break;
 
 			case audit_record::SUBSTATUS_FOUND_BAD_CHECKSUM:
 				if (output)
 				{
-					strcatprintf(*output, "INCORRECT CHECKSUM:\n");
-					strcatprintf(*output, "EXPECTED: %s\n", record->expected_hashes().macro_string().c_str());
-					strcatprintf(*output, "   FOUND: %s\n", record->actual_hashes().macro_string().c_str());
+					output->append("INCORRECT CHECKSUM:\n");
+					output->append(string_format("EXPECTED: %s\n", record->expected_hashes().macro_string().c_str()));
+					output->append(string_format("   FOUND: %s\n", record->actual_hashes().macro_string().c_str()));
 				}
 				break;
 
 			case audit_record::SUBSTATUS_FOUND_WRONG_LENGTH:
-				if (output) strcatprintf(*output, "INCORRECT LENGTH: %" I64FMT "d bytes\n", record->actual_length());
+				if (output) output->append(string_format("INCORRECT LENGTH: %d bytes\n", record->actual_length()));
 				break;
 
 			case audit_record::SUBSTATUS_NOT_FOUND:
 				if (output)
 				{
 					device_t *shared_device = record->shared_device();
-					if (shared_device == NULL)
-						strcatprintf(*output, "NOT FOUND\n");
+					if (shared_device)
+						output->append(string_format("NOT FOUND (%s)\n", shared_device->shortname()));
 					else
-						strcatprintf(*output, "NOT FOUND (%s)\n", shared_device->shortname());
+						output->append("NOT FOUND\n");
 				}
+				best_new_status = NOTFOUND;
 				break;
 
+			//case audit_record::SUBSTATUS_NOT_FOUND_NODUMP:
+			//	if (output) output->append("NOT FOUND - NO GOOD DUMP KNOWN\n");
+			//	best_new_status = BEST_AVAILABLE;
+			//	break;
+
 			case audit_record::SUBSTATUS_NOT_FOUND_OPTIONAL:
-				if (output) strcatprintf(*output, "NOT FOUND BUT OPTIONAL\n");
+				if (output) output->append("NOT FOUND BUT OPTIONAL\n");
 				best_new_status = BEST_AVAILABLE;
 				break;
 
