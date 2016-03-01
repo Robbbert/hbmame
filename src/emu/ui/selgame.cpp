@@ -660,26 +660,75 @@ void ui_menu_select_game::build_available_list()
 
 	// now check and include NONE_NEEDED
 	for (int x = 0; x < m_total; ++x)
-		if (!m_included[x])
+	{
+		const game_driver *driver = &driver_list::driver(x);
+		if (!m_included[x] && driver != &GAME_NAME(___empty))
 		{
-			if (&driver_list::driver(x) == &GAME_NAME(___empty))
-				continue;
-
-			const rom_entry *rom = driver_list::driver(x).rom;
+			const rom_entry *rom = driver->rom;
 			bool noroms = true;
-			for (; !ROMENTRY_ISEND(rom); ++rom)
-				if (!ROMENTRY_ISREGION(rom))
+
+			// check NO-DUMP
+			for (; !ROMENTRY_ISEND(rom) && noroms == true; ++rom)
+				if (ROMENTRY_ISFILE(rom))
 				{
-					noroms = false;
-					break;
+					hash_collection hashes(ROM_GETHASHDATA(rom));
+					if (!hashes.flag(hash_collection::FLAG_NO_DUMP) && !ROM_ISOPTIONAL(rom))
+						noroms = false;
 				}
-			
+
+			if (!noroms)
+			{
+				// check if clone == parent
+				int cx = driver_list::clone(*driver);
+				if (cx != -1 && m_included[cx])
+				{
+					const game_driver *drv = &driver_list::driver(cx);
+					if (strcmp(drv->name, "natodef") == 0)
+						noroms = false;
+					const rom_entry *parentrom = drv->rom;
+					if ((rom = driver->rom) == parentrom)
+						noroms = true;
+
+					// check if clone < parent
+					if (!noroms)
+					{
+						noroms = true;
+						for (; !ROMENTRY_ISEND(rom) && noroms == true; ++rom)
+						{
+							if (ROMENTRY_ISFILE(rom))
+							{
+								hash_collection hashes(ROM_GETHASHDATA(rom));
+								if (hashes.flag(hash_collection::FLAG_NO_DUMP) || ROM_ISOPTIONAL(rom))
+									continue;
+
+								UINT64 lenght = ROM_GETLENGTH(rom);
+								bool found = false;
+								for (parentrom = drv->rom; !ROMENTRY_ISEND(parentrom) && found == false; ++parentrom)
+								{
+									if (ROMENTRY_ISFILE(parentrom) && ROM_GETLENGTH(parentrom) == lenght)
+									{
+										hash_collection parenthashes(ROM_GETHASHDATA(parentrom));
+										if (parenthashes.flag(hash_collection::FLAG_NO_DUMP) || ROM_ISOPTIONAL(parentrom))
+											continue;
+
+										if (hashes == parenthashes)
+											found = true;
+									}
+								}
+								noroms = found;
+							}
+						}
+					}
+				}
+			}
+
 			if (noroms)
 			{
 				m_availsortedlist.push_back(&driver_list::driver(x));
 				m_included[x] = true;
 			}
 		}
+	}
 
 	// sort
 	std::stable_sort(m_availsortedlist.begin(), m_availsortedlist.end(), sort_game_list);
@@ -1469,13 +1518,13 @@ void ui_menu_select_game::general_info(const game_driver *driver, std::string &b
 {
 	std::ostringstream str;
 
-	stream_format(str, _("Romset: %1$-.100s\n"), driver->name);
-	stream_format(str, _("Year: %1$s\n"), driver->year);
-	stream_format(str, _("Manufacturer: %1$-.100s\n"), driver->manufacturer);
+	util::stream_format(str, _("Romset: %1$-.100s\n"), driver->name);
+	util::stream_format(str, _("Year: %1$s\n"), driver->year);
+	util::stream_format(str, _("Manufacturer: %1$-.100s\n"), driver->manufacturer);
 
 	int cloneof = driver_list::non_bios_clone(*driver);
 	if (cloneof != -1)
-		stream_format(str, _("Driver is Clone of: %1$-.100s\n"), driver_list::driver(cloneof).description);
+		util::stream_format(str, _("Driver is Clone of: %1$-.100s\n"), driver_list::driver(cloneof).description);
 	else
 		str << _("Driver is Parent\n");
 
@@ -1502,14 +1551,14 @@ void ui_menu_select_game::general_info(const game_driver *driver, std::string &b
 	else
 		str << _("Sound: OK\n");
 
-	stream_format(str, _("Driver is Skeleton: %1$s\n"), ((driver->flags & MACHINE_IS_SKELETON) ? _("Yes") : _("No")));
-	stream_format(str, _("Game is Mechanical: %1$s\n"), ((driver->flags & MACHINE_MECHANICAL) ? _("Yes") : _("No")));
-	stream_format(str, _("Requires Artwork: %1$s\n"), ((driver->flags & MACHINE_REQUIRES_ARTWORK) ? _("Yes") : _("No")));
-	stream_format(str, _("Requires Clickable Artwork: %1$s\n"), ((driver->flags & MACHINE_CLICKABLE_ARTWORK) ? _("Yes") : _("No")));
-	stream_format(str, _("Support Cocktail: %1$s\n"), ((driver->flags & MACHINE_NO_COCKTAIL) ? _("Yes") : _("No")));
-	stream_format(str, _("Driver is Bios: %1$s\n"), ((driver->flags & MACHINE_IS_BIOS_ROOT) ? _("Yes") : _("No")));
-	stream_format(str, _("Support Save: %1$s\n"), ((driver->flags & MACHINE_SUPPORTS_SAVE) ? _("Yes") : _("No")));
-	stream_format(str, _("Screen Orentation: %1$s\n"), ((driver->flags & ORIENTATION_SWAP_XY) ? _("Vertical") : _("Horizontal")));
+	util::stream_format(str, _("Driver is Skeleton: %1$s\n"), ((driver->flags & MACHINE_IS_SKELETON) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Game is Mechanical: %1$s\n"), ((driver->flags & MACHINE_MECHANICAL) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Requires Artwork: %1$s\n"), ((driver->flags & MACHINE_REQUIRES_ARTWORK) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Requires Clickable Artwork: %1$s\n"), ((driver->flags & MACHINE_CLICKABLE_ARTWORK) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Support Cocktail: %1$s\n"), ((driver->flags & MACHINE_NO_COCKTAIL) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Driver is Bios: %1$s\n"), ((driver->flags & MACHINE_IS_BIOS_ROOT) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Support Save: %1$s\n"), ((driver->flags & MACHINE_SUPPORTS_SAVE) ? _("Yes") : _("No")));
+	util::stream_format(str, _("Screen Orentation: %1$s\n"), ((driver->flags & ORIENTATION_SWAP_XY) ? _("Vertical") : _("Horizontal")));
 	bool found = false;
 	for (const rom_entry *rom = driver->rom; !ROMENTRY_ISEND(rom); ++rom)
 		if (ROMENTRY_ISREGION(rom) && ROMREGION_ISDISKDATA(rom))
@@ -1517,7 +1566,7 @@ void ui_menu_select_game::general_info(const game_driver *driver, std::string &b
 			found = true;
 			break;
 		}
-	stream_format(str, _("Requires CHD: %1$s\n"), found ? _("Yes") : _("No"));
+	util::stream_format(str, _("Requires CHD: %1$s\n"), found ? _("Yes") : _("No"));
 
 	// audit the game first to see if we're going to work
 	if (machine().ui().options().info_audit())
@@ -2259,6 +2308,7 @@ void ui_menu_select_game::arts_render(void *selectedref, float origx1, float ori
 		if (driver != olddriver || !snapx_bitmap->valid() || ui_globals::switch_image)
 		{
 			emu_file snapfile(searchstr.c_str(), OPEN_FLAG_READ);
+			snapfile.set_restrict_to_mediapath(true);
 			bitmap_argb32 *tmp_bitmap;
 			tmp_bitmap = auto_alloc(machine(), bitmap_argb32);
 
