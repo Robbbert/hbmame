@@ -181,7 +181,7 @@ const char *running_machine::describe_context()
 		if (cpu != nullptr)
 		{
 			address_space &prg = cpu->space(AS_PROGRAM);
-			m_context = string_format("'%s' (%s)", cpu->tag(), core_i64_format(cpu->pc(), prg.logaddrchars(), prg.is_octal()));
+			m_context = string_format(prg.is_octal() ? "'%s' (%*o)" :  "'%s' (%*X)", cpu->tag(), prg.logaddrchars(), cpu->pc());
 		}
 	}
 	else
@@ -1009,7 +1009,10 @@ void running_machine::watchdog_vblank(screen_device &screen, bool vblank_state)
 void running_machine::logfile_callback(const running_machine &machine, const char *buffer)
 {
 	if (machine.m_logfile != nullptr)
+	{
 		machine.m_logfile->puts(buffer);
+		machine.m_logfile->flush();
+	}
 }
 
 

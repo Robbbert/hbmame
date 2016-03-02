@@ -375,17 +375,12 @@ file_error osd_truncate(osd_file *file, UINT64 offset)
 
 file_error osd_fflush(osd_file *file)
 {
-	UINT32 result;
-
 	if (!file || !file->handle)
 		return FILERR_FAILURE;
 
 	switch (file->type)
 	{
 		case SDLFILE_FILE:
-			result = fflush(file->handle, offset);
-			if (result == EOF)
-				return error_to_file_error(errno);
 			return FILERR_NONE;
 
 		default:
