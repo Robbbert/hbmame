@@ -181,7 +181,6 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/windows/main.cpp",
 		MAME_DIR .. "src/osd/windows/windir.cpp",
 		MAME_DIR .. "src/osd/windows/winfile.cpp",
-		MAME_DIR .. "src/osd/modules/sync/sync_windows.cpp",
 		MAME_DIR .. "src/osd/windows/winutf8.cpp",
 		MAME_DIR .. "src/osd/windows/winutil.cpp",
 		MAME_DIR .. "src/osd/windows/winclip.cpp",
