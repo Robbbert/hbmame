@@ -155,6 +155,8 @@
 #ifndef NLBASE_H_
 #define NLBASE_H_
 
+#include <vector>
+
 #include "nl_lists.h"
 #include "nl_time.h"
 #include "nl_util.h"
@@ -165,7 +167,14 @@
 // Type definitions
 // ----------------------------------------------------------------------------------------
 
-typedef UINT8 netlist_sig_t;
+//typedef UINT8 netlist_sig_t;
+
+/*
+ *  unsigned int would be a 20% speed increase over UINT8 for pong.
+ *  For breakout it causes a slight decrease.
+ *
+ */
+typedef unsigned int netlist_sig_t;
 
 //============================================================
 //  MACROS / netlist devices
@@ -460,7 +469,7 @@ namespace netlist
 		P_PREVENT_COPYING(core_terminal_t)
 	public:
 
-		typedef plist_t<core_terminal_t *> list_t;
+		typedef pvector_t<core_terminal_t *> list_t;
 
 		/* needed here ... */
 
@@ -513,7 +522,7 @@ namespace netlist
 		P_PREVENT_COPYING(terminal_t)
 	public:
 
-		typedef plist_t<terminal_t *> list_t;
+		typedef pvector_t<terminal_t *> list_t;
 
 		ATTR_COLD terminal_t();
 
@@ -664,7 +673,7 @@ namespace netlist
 		P_PREVENT_COPYING(net_t)
 	public:
 
-		typedef plist_t<net_t *> list_t;
+		typedef pvector_t<net_t *> list_t;
 
 		ATTR_COLD net_t(const family_t afamily);
 		virtual ~net_t();
@@ -702,7 +711,7 @@ namespace netlist
 
 		ATTR_COLD void move_connections(net_t *new_net);
 
-		plist_t<core_terminal_t *> m_core_terms; // save post-start m_list ...
+		pvector_t<core_terminal_t *> m_core_terms; // save post-start m_list ...
 
 		ATTR_HOT  void set_Q_time(const netlist_sig_t &newQ, const netlist_time &at)
 		{
@@ -744,7 +753,7 @@ namespace netlist
 		P_PREVENT_COPYING(logic_net_t)
 	public:
 
-		typedef plist_t<logic_net_t *> list_t;
+		typedef pvector_t<logic_net_t *> list_t;
 
 		ATTR_COLD logic_net_t();
 		virtual ~logic_net_t() { };
@@ -804,7 +813,7 @@ namespace netlist
 		P_PREVENT_COPYING(analog_net_t)
 	public:
 
-		typedef plist_t<analog_net_t *> list_t;
+		typedef pvector_t<analog_net_t *> list_t;
 
 		ATTR_COLD analog_net_t();
 		virtual ~analog_net_t() { };
@@ -990,7 +999,7 @@ namespace netlist
 		P_PREVENT_COPYING(core_device_t)
 	public:
 
-		typedef plist_t<core_device_t *> list_t;
+		typedef pvector_t<core_device_t *> list_t;
 
 		ATTR_COLD core_device_t(const family_t afamily);
 
@@ -1106,7 +1115,7 @@ namespace netlist
 		ATTR_COLD void connect_late(core_terminal_t &t1, core_terminal_t &t2);
 		ATTR_COLD void connect_direct(core_terminal_t &t1, core_terminal_t &t2);
 
-		plist_t<pstring> m_terminals;
+		pvector_t<pstring> m_terminals;
 
 	protected:
 
@@ -1186,14 +1195,14 @@ namespace netlist
 		ATTR_COLD net_t *find_net(const pstring &name);
 
 		template<class _device_class>
-		ATTR_COLD plist_t<_device_class *> get_device_list()
+		ATTR_COLD pvector_t<_device_class *> get_device_list()
 		{
-			plist_t<_device_class *> tmp;
+			pvector_t<_device_class *> tmp;
 			for (std::size_t i = 0; i < m_devices.size(); i++)
 			{
 				_device_class *dev = dynamic_cast<_device_class *>(m_devices[i]);
 				if (dev != NULL)
-					tmp.add(dev);
+					tmp.push_back(dev);
 			}
 			return tmp;
 		}
@@ -1228,7 +1237,7 @@ namespace netlist
 			return ret;
 		}
 
-		pnamedlist_t<device_t *> m_devices;
+		pvector_t<device_t *> m_devices;
 		net_t::list_t m_nets;
 	#if (NL_KEEP_STATISTICS)
 		pnamedlist_t<core_device_t *> m_started_devices;

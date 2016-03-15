@@ -1,3 +1,14 @@
+-- license:BSD-3-Clause
+-- copyright-holders:Robbbert
+
+---------------------------------------------------------------------------
+--
+--   winui.lua
+--
+--   Rules for the building for Windows
+--
+---------------------------------------------------------------------------
+
 dofile("modules.lua")
 
 premake.make.linkoptions_after = false;
@@ -53,6 +64,7 @@ function maintargetosdoptions(_target,_subtarget)
 -- Local file gives correct icon in mame instance inside of mameui
 -- Local file must #include mameui.rc
 	override_resources = true;
+	rctarget = _target;
 	local rcfile = MAME_DIR .. "src/osd/winui/" .. _target .. ".rc"
 	local uifile = MAME_DIR .. "src/osd/winui/" .. _target .. "ui.rc"
 
@@ -132,6 +144,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd",
 		MAME_DIR .. "src/lib",
 		MAME_DIR .. "src/lib/util",
+		MAME_DIR .. "src/osd/modules/file",
 		MAME_DIR .. "src/osd/modules/render",
 		MAME_DIR .. "3rdparty",
 	}
@@ -141,32 +154,58 @@ project ("osd_" .. _OPTIONS["osd"])
 	}
 
 	files {
-		MAME_DIR .. "src/osd/modules/render/drawd3d.cpp",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3d9intf.cpp",
+		MAME_DIR .. "src/osd/modules/render/d3d/d3dintf.h",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.cpp",
+		MAME_DIR .. "src/osd/modules/render/d3d/d3dcomm.h",
+		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.h",
+		MAME_DIR .. "src/osd/modules/render/drawd3d.cpp",
+		MAME_DIR .. "src/osd/modules/render/drawd3d.h",
 		MAME_DIR .. "src/osd/modules/render/drawgdi.cpp",
+		MAME_DIR .. "src/osd/modules/render/drawgdi.h",
 		MAME_DIR .. "src/osd/modules/render/drawnone.cpp",
+		MAME_DIR .. "src/osd/modules/render/drawnone.h",
 		MAME_DIR .. "src/osd/windows/output.cpp",
+		MAME_DIR .. "src/osd/windows/output.h",
 		MAME_DIR .. "src/osd/windows/video.cpp",
+		MAME_DIR .. "src/osd/windows/video.h",
 		MAME_DIR .. "src/osd/windows/window.cpp",
+		MAME_DIR .. "src/osd/windows/window.h",
 		MAME_DIR .. "src/osd/modules/osdwindow.cpp",
 		MAME_DIR .. "src/osd/modules/osdwindow.h",
+		MAME_DIR .. "src/osd/windows/winmain.cpp",
+		MAME_DIR .. "src/osd/windows/winmain.h",
+		MAME_DIR .. "src/osd/osdepend.h",
 --		MAME_DIR .. "src/osd/windows/winmenu.cpp",
 		MAME_DIR .. "src/osd/winui/newui.cpp",
 		MAME_DIR .. "src/osd/windows/winmain.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugbaseinfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/debugbaseinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugviewinfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/debugviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugwininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/debugwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/disasmbasewininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/disasmbasewininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/disasmviewinfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/disasmviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/disasmwininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/disasmwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/editwininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/editwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/logwininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/logwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/memoryviewinfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/memoryviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/memorywininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/memorywininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/pointswininfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/pointswininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/uimetrics.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/uimetrics.h",
+		MAME_DIR .. "src/osd/modules/debugger/win/debugwin.h",
 		MAME_DIR .. "src/osd/winui/win_options.cpp",
 		MAME_DIR .. "src/osd/winui/mui_util.cpp",
 		MAME_DIR .. "src/osd/winui/directinput.cpp",
@@ -210,8 +249,10 @@ project ("ocore_" .. _OPTIONS["osd"])
 	dofile("windows_cfg.lua")
 	
 	includedirs {
+		MAME_DIR .. "3rdparty",
 		MAME_DIR .. "src/emu",
 		MAME_DIR .. "src/osd",
+		MAME_DIR .. "src/osd/modules/file",
 		MAME_DIR .. "src/lib",
 		MAME_DIR .. "src/lib/util",
 	}
@@ -226,18 +267,33 @@ project ("ocore_" .. _OPTIONS["osd"])
 	}
 
 	files {
+		MAME_DIR .. "src/osd/eigccppc.h",
+		MAME_DIR .. "src/osd/eigccx86.h",
+		MAME_DIR .. "src/osd/eivc.h",
+		MAME_DIR .. "src/osd/eivcx86.h",
+		MAME_DIR .. "src/osd/eminline.h",
+		MAME_DIR .. "src/osd/osdcomm.h",
 		MAME_DIR .. "src/osd/osdcore.cpp",
+		MAME_DIR .. "src/osd/osdcore.h",
 		MAME_DIR .. "src/osd/strconv.cpp",
+		MAME_DIR .. "src/osd/strconv.h",
+		MAME_DIR .. "src/osd/windows/main.cpp",
 		MAME_DIR .. "src/osd/windows/windir.cpp",
-		MAME_DIR .. "src/osd/windows/winfile.cpp",
+		MAME_DIR .. "src/osd/modules/sync/osdsync.cpp",
+		MAME_DIR .. "src/osd/modules/sync/osdsync.h",
 		MAME_DIR .. "src/osd/windows/winutf8.cpp",
+		MAME_DIR .. "src/osd/windows/winutf8.h",
 		MAME_DIR .. "src/osd/windows/winutil.cpp",
+		MAME_DIR .. "src/osd/windows/winutil.h",
 		MAME_DIR .. "src/osd/windows/winclip.cpp",
-		MAME_DIR .. "src/osd/windows/winsocket.cpp",
-		MAME_DIR .. "src/osd/windows/winptty.cpp",
 		MAME_DIR .. "src/osd/modules/osdmodule.cpp",
-		MAME_DIR .. "src/osd/modules/sync/work_osd.cpp",
+		MAME_DIR .. "src/osd/modules/osdmodule.h",
+		MAME_DIR .. "src/osd/modules/file/winfile.cpp",
+		MAME_DIR .. "src/osd/modules/file/winfile.h",
+		MAME_DIR .. "src/osd/modules/file/winptty.cpp",
+		MAME_DIR .. "src/osd/modules/file/winsocket.cpp",
 		MAME_DIR .. "src/osd/modules/lib/osdlib_win32.cpp",
+		MAME_DIR .. "src/osd/modules/sync/work_osd.cpp",
 	}
 
 
@@ -250,11 +306,9 @@ if _OPTIONS["with-tools"] then
 		uuid ("061293ca-7290-44ac-b2b5-5913ae8dc9c0")
 		kind "ConsoleApp"
 
-		options {
-			"ForceCPP",
-		}
-
-		targetdir(MAME_DIR)
+		if _OPTIONS["SEPARATE_BIN"]~="1" then 
+			targetdir(MAME_DIR)
+		end
 
 		links {
 			"ocore_" .. _OPTIONS["osd"],

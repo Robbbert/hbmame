@@ -25,7 +25,6 @@
 
 # USE_DISPATCH_GL = 0
 # MODERN_WIN_API = 0
-# USE_XAUDIO2 = 0
 # DIRECTINPUT = 7
 # USE_SDL = 1
 # SDL_INI_PATH = .;$HOME/.mame/;ini;
@@ -62,6 +61,7 @@
 # USE_SYSTEM_LIB_SQLITE3 = 1
 # USE_SYSTEM_LIB_PORTMIDI = 1
 # USE_SYSTEM_LIB_PORTAUDIO = 1
+# USE_SYSTEM_LIB_UV = 1
 # USE_BUNDLED_LIB_SDL2 = 1
 
 # MESA_INSTALL_ROOT = /opt/mesa
@@ -97,6 +97,7 @@
 
 # MSBUILD = 1
 # USE_LIBUV = 1
+# IGNORE_BAD_LOCALISATION=1
 
 ifdef PREFIX_MAKEFILE
 include $(PREFIX_MAKEFILE)
@@ -135,6 +136,12 @@ PLATFORM := arm
 endif 
 ifneq ($(filter arm%,$(UNAME_P)),)
 PLATFORM := arm
+endif 
+ifneq ($(filter aarch64%,$(UNAME_M)),)
+PLATFORM := arm64
+endif 
+ifneq ($(filter aarch64%,$(UNAME_P)),)
+PLATFORM := arm64
 endif 
 ifneq ($(filter powerpc,$(UNAME_P)),)
 PLATFORM := powerpc
@@ -279,6 +286,13 @@ ifndef NOASM
 endif
 endif
 
+ifeq ($(findstring aarch64,$(UNAME)),aarch64)
+ARCHITECTURE :=
+ifndef NOASM
+	NOASM := 1
+endif
+endif
+
 # Emscripten
 ifeq ($(findstring emcc,$(CC)),emcc)
 TARGETOS := asmjs
@@ -388,6 +402,10 @@ endif
 
 ifdef USE_BUNDLED_LIB_SDL2
 PARAMS += --with-bundled-sdl2
+endif
+
+ifndef USE_SYSTEM_LIB_UV
+PARAMS += --with-bundled-libuv
 endif
 
 #-------------------------------------------------
@@ -574,10 +592,6 @@ endif
 
 ifdef MODERN_WIN_API
 PARAMS += --MODERN_WIN_API='$(MODERN_WIN_API)'
-endif
-
-ifdef USE_XAUDIO2
-PARAMS += --USE_XAUDIO2='$(USE_XAUDIO2)'
 endif
 
 ifdef DIRECTINPUT
@@ -803,16 +817,20 @@ CLANG_VERSION    := $(shell $(TOOLCHAIN)$(subst @,,$(CC))  --version  2> /dev/nu
 endif
 PYTHON_AVAILABLE := $(shell $(PYTHON) --version > /dev/null 2>&1 && echo python)
 endif
+
 ifeq ($(CLANG_VERSION),)
 $(info GCC $(GCC_VERSION) detected)
 else
 $(info Clang $(CLANG_VERSION) detected)
+ifneq ($(TARGETOS),asmjs)
 ifeq ($(ARCHITECTURE),_x64)
 ARCHITECTURE := _x64_clang
 else
 ARCHITECTURE := _x86_clang
 endif
 endif
+endif
+
 ifneq ($(PYTHON_AVAILABLE),python)
 $(error Python is not available in path)
 endif
@@ -949,7 +967,7 @@ endif
 ifndef ANDROID_NDK_ROOT
 	$(error ANDROID_NDK_ROOT is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-arm --gcc_version=3.6.0 --osd=osdmini --targetos=android-arm --targetos=android --PLATFORM=arm --NOASM=1 gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-arm --gcc_version=3.8.0 --osd=osdmini --targetos=android-arm --targetos=android --PLATFORM=arm --NOASM=1 gmake
 
 .PHONY: android-arm
 android-arm: generate $(PROJECTDIR_MINI)/gmake-android-arm/Makefile
@@ -973,7 +991,7 @@ endif
 ifndef ANDROID_NDK_ROOT
 	$(error ANDROID_NDK_ROOT is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-arm64 --gcc_version=3.6.0 --osd=osdmini --targetos=android-arm64 --targetos=android --PLATFORM=arm64 --NOASM=1 gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-arm64 --gcc_version=3.8.0 --osd=osdmini --targetos=android-arm64 --targetos=android --PLATFORM=arm64 --NOASM=1 gmake
 
 .PHONY: android-arm64
 android-arm64: generate $(PROJECTDIR_MINI)/gmake-android-arm64/Makefile
@@ -997,7 +1015,7 @@ endif
 ifndef ANDROID_NDK_ROOT
 	$(error ANDROID_NDK_ROOT is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-mips --gcc_version=3.6.0 --osd=osdmini --targetos=android-mips --targetos=android --PLATFORM=mips --NOASM=1 gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-mips --gcc_version=3.8.0 --osd=osdmini --targetos=android-mips --targetos=android --PLATFORM=mips --NOASM=1 gmake
 
 .PHONY: android-mips
 android-mips: generate $(PROJECTDIR_MINI)/gmake-android-mips/Makefile
@@ -1021,7 +1039,7 @@ endif
 ifndef ANDROID_NDK_ROOT
 	$(error ANDROID_NDK_ROOT is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-mips64 --gcc_version=3.6.0 --osd=osdmini --targetos=android-mips64 --targetos=android --PLATFORM=mips64 --NOASM=1 gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-mips64 --gcc_version=3.8.0 --osd=osdmini --targetos=android-mips64 --targetos=android --PLATFORM=mips64 --NOASM=1 gmake
 
 .PHONY: android-mips64
 android-mips64: generate $(PROJECTDIR_MINI)/gmake-android-mips64/Makefile
@@ -1045,7 +1063,7 @@ endif
 ifndef ANDROID_NDK_ROOT
 	$(error ANDROID_NDK_ROOT is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-x86 --gcc_version=3.6.0 --osd=osdmini --targetos=android-x86 --targetos=android --PLATFORM=x86 gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-x86 --gcc_version=3.8.0 --osd=osdmini --targetos=android-x86 --targetos=android --PLATFORM=x86 gmake
 
 .PHONY: android-x86
 android-x86: generate $(PROJECTDIR_MINI)/gmake-android-x86/Makefile
@@ -1069,7 +1087,7 @@ endif
 ifndef ANDROID_NDK_ROOT
 	$(error ANDROID_NDK_ROOT is not set)
 endif
-	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-x64 --gcc_version=3.6.0 --osd=osdmini --targetos=android-x64 --targetos=android --PLATFORM=x64 gmake
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=android-x64 --gcc_version=3.8.0 --osd=osdmini --targetos=android-x64 --targetos=android --PLATFORM=x64 gmake
 
 .PHONY: android-x64
 android-x64: generate $(PROJECTDIR_MINI)/gmake-android-x64/Makefile
@@ -1365,8 +1383,11 @@ endif
 
 %.mo: %.po
 	@echo Converting translation $<...
+ifdef IGNORE_BAD_LOCALISATION
+	$(SILENT)$(PYTHON) scripts/build/msgfmt.py --output-file $@ $< || exit 0
+else
 	$(SILENT)$(PYTHON) scripts/build/msgfmt.py --output-file $@ $<
-
+endif
 #-------------------------------------------------
 # Regression tests
 #-------------------------------------------------
@@ -1479,5 +1500,6 @@ shaders:
 translation:
 	$(SILENT) echo Generating mame.pot
 	$(SILENT) find src -iname "*.cpp" | xargs xgettext --from-code=UTF-8 -k_ -k__ -o mame.pot
-	$(SILENT) find language -iname "*.po" | xargs -n 1 -I %% msgmerge -U %% mame.pot 
+	$(SILENT) find language -iname "*.po" | xargs -n 1 -I %% msgmerge -U -N %% mame.pot 
+	$(SILENT) find language -iname "*.po" | xargs -n 1 -I %% msgattrib --clear-fuzzy --empty %% -o %%
 

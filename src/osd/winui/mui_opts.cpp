@@ -2144,45 +2144,45 @@ static void TabFlagsDecodeString(const char *str, int *data)
 
 static void LoadSettingsFile(winui_options &opts, const char *filename)
 {
-	file_error filerr;
-	core_file *file;
+	osd_file::error filerr;
+	util::core_file::ptr file;
 
-	filerr = core_fopen(filename, OPEN_FLAG_READ, &file);
-	if (filerr == FILERR_NONE)
+	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
+	if (filerr == osd_file::error::NONE)
 	{
 		std::string error_string;
 		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
-		core_fclose(file);
+		file.reset();
 	}
 }
 
 static void LoadSettingsFile(windows_options &opts, const char *filename)
 {
-	file_error filerr;
-	core_file *file;
+	osd_file::error filerr;
+	util::core_file::ptr file;
 
-	filerr = core_fopen(filename, OPEN_FLAG_READ, &file);
-	if (filerr == FILERR_NONE)
+	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
+	if (filerr == osd_file::error::NONE)
 	{
 		std::string error_string;
 		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
-		core_fclose(file);
+		file.reset();
 	}
 }
 
 // This saves changes to MESSUI.INI only
 static void SaveSettingsFile(winui_options &opts, const char *filename)
 {
-	file_error filerr = FILERR_NONE;
-	core_file *file;
+	osd_file::error filerr = osd_file::error::NONE;
+	util::core_file::ptr file;
 
-	filerr = core_fopen(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, &file);
+	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
 
-	if (filerr == FILERR_NONE)
+	if (filerr == osd_file::error::NONE)
 	{
 		std::string inistring = opts.output_ini();
-		core_fputs(file,inistring.c_str());
-		core_fclose(file);
+		file->puts(inistring.c_str());
+		file.reset();
 	}
 }
 
@@ -2191,17 +2191,17 @@ static void SaveSettingsFile(winui_options &opts, const char *filename)
 // This saves changes to <game>.INI or MESS.INI only
 static void SaveSettingsFile(windows_options &opts, const char *filename)
 {
-	file_error filerr = FILERR_NONE;
-	core_file *file;
+	osd_file::error filerr = osd_file::error::NONE;
+	util::core_file::ptr file;
 
-	filerr = core_fopen(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, &file);
+	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
 
-	if (filerr == FILERR_NONE)
+	if (filerr == osd_file::error::NONE)
 	{
 		std::string inistring =  opts.output_ini();
 		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
-		core_fputs(file,inistring.c_str());
-		core_fclose(file);
+		file->puts(inistring.c_str());
+		file.reset();
 	}
 }
 

@@ -845,9 +845,6 @@ BEGIN
     CONTROL         "Save game state on exit",IDC_ENABLE_AUTOSAVE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,10,76,96,10,0,
                     HIDC_ENABLE_AUTOSAVE
-    CONTROL         "Multi-threaded rendering",IDC_MULTITHREAD_RENDERING,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,88,96,10,0,
-                    HIDC_MULTITHREAD_RENDERING
     CONTROL         "Coin lockout",IDC_COINLOCKOUT,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,10,100,96,10,0,HIDC_COINLOCKOUT
     GROUPBOX        "Thread Priority",IDC_HIGH_PRIORITY_TEXT,7,112,103,34

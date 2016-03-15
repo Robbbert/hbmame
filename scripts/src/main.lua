@@ -137,11 +137,6 @@ end
 	links {
 		"qtdbg_" .. _OPTIONS["osd"],
 	}
-	if (_OPTIONS["SOURCES"] == nil) then 
-		links {
-			"bus",
-		}
-	end
 	links {
 		"netlist",
 		"optional",
@@ -165,7 +160,6 @@ end
 
 	if _OPTIONS["USE_LIBUV"]=="1" then
 		links {		
-			"luv",
 			"uv",
 			"http-parser",
 		}
@@ -280,14 +274,41 @@ end
 	}
 	
 if (_OPTIONS["SOURCES"] == nil) then 	
-	dependency {
-		{ "../../../../generated/mame/mame/drivlist.cpp",  MAME_DIR .. "src/mame/mess.lst", true },
-		{ "../../../../generated/mame/mame/drivlist.cpp" , MAME_DIR .. "src/mame/arcade.lst", true},
-	}
-	custombuildtask {
-		{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makelist.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) $(<) > $(@)" }},
-	}
+
+	if os.isfile(MAME_DIR .. "src/".._target .."/" .. _subtarget ..".flt") then
+		dependency {
+		{  
+			GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",  MAME_DIR .. "src/".._target .."/" .. _target ..".lst", true },
+		}
+		custombuildtask {
+			{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".flt" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makelist.py", MAME_DIR .. "src/".._target .."/" .. _target ..".lst"  }, {"@echo Building driver list...",    PYTHON .. " $(1) $(2) $(<) > $(@)" }},
+		}
+	else
+		if os.isfile(MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst") then
+			custombuildtask {
+				{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makelist.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) $(<) > $(@)" }},
+			}
+		else
+			dependency {
+			{  
+				GEN_DIR  .. _target .. "/" .. _target .."/drivlist.cpp",  MAME_DIR .. "src/".._target .."/" .. _target ..".lst", true },
+			}
+			custombuildtask {
+				{ MAME_DIR .. "src/".._target .."/" .. _target ..".lst" ,  GEN_DIR  .. _target .. "/" .. _target .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makelist.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) $(<) > $(@)" }},
+			}
+		end
+	end
 end	
+
+if (_OPTIONS["SOURCES"] ~= nil) then
+		dependency {
+		{  
+			GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",  MAME_DIR .. "src/".._target .."/" .. _target ..".lst", true },
+		}
+		custombuildtask {
+			{ GEN_DIR .. _target .."/" .. _subtarget ..".flt" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makelist.py", MAME_DIR .. "src/".._target .."/" .. _target ..".lst"  }, {"@echo Building driver list...",    PYTHON .. " $(1) $(2) $(<) > $(@)" }},
+		}
+end
 
 if _OPTIONS["FORCE_VERSION_COMPILE"]=="1" then
 	configuration { "gmake" }

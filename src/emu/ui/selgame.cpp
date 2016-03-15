@@ -299,10 +299,31 @@ void ui_menu_select_game::handle()
 			}
 
 			// Infos
-			else if (ui_globals::rpanel == RP_INFOS && ui_globals::curdats_view > UI_FIRST_LOAD)
+			else if (ui_globals::rpanel == RP_INFOS)
 			{
-				ui_globals::curdats_view--;
-				topline_datsview = 0;
+				if (!isfavorite()) 
+				{
+					const game_driver *drv = (const game_driver *)m_event->itemref;
+					if ((FPTR)drv > skip_main_items && ui_globals::curdats_view > UI_FIRST_LOAD)
+					{
+						ui_globals::curdats_view--;
+						topline_datsview = 0;
+					}
+				}
+				else
+				{
+					ui_software_info *drv = (ui_software_info *)m_event->itemref;
+					if (drv->startempty == 1 && ui_globals::curdats_view > UI_FIRST_LOAD)
+					{
+						ui_globals::curdats_view--;
+						topline_datsview = 0;
+					}
+					else if ((FPTR)drv > skip_main_items && ui_globals::cur_sw_dats_view > 0)
+					{
+						ui_globals::cur_sw_dats_view--;
+						topline_datsview = 0;
+					}
+				}
 			}
 		}
 
@@ -318,10 +339,31 @@ void ui_menu_select_game::handle()
 			}
 
 			// Infos
-			else if (ui_globals::rpanel == RP_INFOS && ui_globals::curdats_view < UI_LAST_LOAD)
+			else if (ui_globals::rpanel == RP_INFOS)
 			{
-				ui_globals::curdats_view++;
-				topline_datsview = 0;
+				if (!isfavorite())
+				{
+					const game_driver *drv = (const game_driver *)m_event->itemref;
+					if ((FPTR)drv > skip_main_items && ui_globals::curdats_view < UI_LAST_LOAD)
+					{
+						ui_globals::curdats_view++;
+						topline_datsview = 0;
+					}
+				}
+				else
+				{
+					ui_software_info *drv = (ui_software_info *)m_event->itemref;
+					if (drv->startempty == 1 && ui_globals::curdats_view < UI_LAST_LOAD)
+					{
+						ui_globals::curdats_view++;
+						topline_datsview = 0;
+					}
+					else if ((FPTR)drv > skip_main_items && ui_globals::cur_sw_dats_view < 1)
+					{
+						ui_globals::cur_sw_dats_view++;
+						topline_datsview = 0;
+					}
+				}
 			}
 		}
 
@@ -358,18 +400,20 @@ void ui_menu_select_game::handle()
 			if (!isfavorite())
 			{
 				const game_driver *driver = (const game_driver *)m_event->itemref;
-				if ((FPTR)driver > 3 && machine().datfile().has_data(driver))
+				if ((FPTR)driver > skip_main_items && machine().datfile().has_data(driver))
 					ui_menu::stack_push(global_alloc_clear<ui_menu_dats_view>(machine(), container, driver));
 			}
 			else
 			{
-				ui_software_info *swinfo  = (ui_software_info *)m_event->itemref;
-				if ((FPTR)swinfo > 3 && machine().datfile().has_data(swinfo->driver))
+				ui_software_info *ui_swinfo  = (ui_software_info *)m_event->itemref;
+				datfile_manager &mdat = machine().datfile();
+
+				if ((FPTR)ui_swinfo > skip_main_items)
 				{
-					if (swinfo->startempty == 1)
-						ui_menu::stack_push(global_alloc_clear<ui_menu_dats_view>(machine(), container, swinfo->driver));
-					else
-						ui_menu::stack_push(global_alloc_clear<ui_menu_dats_view>(machine(), container, swinfo));
+					if (ui_swinfo->startempty == 1 && mdat.has_history(ui_swinfo->driver))
+						ui_menu::stack_push(global_alloc_clear<ui_menu_dats_view>(machine(), container, ui_swinfo->driver));
+					else if (mdat.has_software(ui_swinfo->listname, ui_swinfo->shortname, ui_swinfo->parentname) || !ui_swinfo->usage.empty())
+						ui_menu::stack_push(global_alloc_clear<ui_menu_dats_view>(machine(), container, ui_swinfo));
 				}
 			}
 		}
@@ -380,7 +424,7 @@ void ui_menu_select_game::handle()
 			if (!isfavorite())
 			{
 				const game_driver *driver = (const game_driver *)m_event->itemref;
-				if ((FPTR)driver > 3)
+				if ((FPTR)driver > skip_main_items)
 				{
 					if (!machine().favorite().isgame_favorite(driver))
 					{
@@ -398,7 +442,7 @@ void ui_menu_select_game::handle()
 			else
 			{
 				ui_software_info *swinfo = (ui_software_info *)m_event->itemref;
-				if ((FPTR)swinfo > 3)
+				if ((FPTR)swinfo > skip_main_items)
 				{
 					machine().popmessage(_("%s\n removed from favorites list."), swinfo->longname.c_str());
 					machine().favorite().remove_favorite_game(*swinfo);
@@ -534,24 +578,26 @@ void ui_menu_select_game::populate()
 			}
 
 			// iterate over entries
-			for (size_t curitem = 0; curitem < m_displaylist.size(); ++curitem)
+			int curitem = 0;
+			for (auto & elem : m_displaylist)
 			{
 				UINT32 flags_ui = MENU_FLAG_UI | MENU_FLAG_LEFT_ARROW | MENU_FLAG_RIGHT_ARROW;
 
-				if (old_item_selected == -1 && m_displaylist[curitem]->name == reselect_last::driver)
+				if (old_item_selected == -1 && elem->name == reselect_last::driver)
 					old_item_selected = curitem;
 
-				bool cloneof = strcmp(m_displaylist[curitem]->parent, "0");
+				bool cloneof = strcmp(elem->parent, "0");
 				if (cloneof)
 				{
-					int cx = driver_list::find(m_displaylist[curitem]->parent);
+					int cx = driver_list::find(elem->parent);
 					if (cx != -1 && ((driver_list::driver(cx).flags & MACHINE_IS_BIOS_ROOT) != 0))
 						cloneof = false;
 				}
 				if (cloneof)
 					flags_ui |= MENU_FLAG_INVERT;
 
-				item_append(m_displaylist[curitem]->description, nullptr, flags_ui, (void *)m_displaylist[curitem]);
+				item_append(elem->description, nullptr, flags_ui, (void *)elem);
+				curitem++;
 			}
 		}
 	}
@@ -754,6 +800,7 @@ void ui_menu_select_game::custom_render(void *selectedref, float top, float bott
 	bool isstar = false;
 	ui_manager &mui = machine().ui();
 	float tbarspace = mui.get_line_height();
+	float text_size = 1.0f;
 
 	tempbuf[0] = string_format(_("%1$s %2$s ( %3$d / %4$d machines (%5$d BIOS) )"),
 			emulator_info::get_appname(),
@@ -793,9 +840,15 @@ void ui_menu_select_game::custom_render(void *selectedref, float top, float bott
 	for (int line = 0; line < 2; ++line)
 	{
 		mui.draw_text_full(container, tempbuf[line].c_str(), 0.0f, 0.0f, 1.0f, JUSTIFY_CENTER, WRAP_NEVER,
-		                              DRAW_NONE, ARGB_WHITE, ARGB_BLACK, &width, nullptr);
+			DRAW_NONE, ARGB_WHITE, ARGB_BLACK, &width, nullptr);
 		width += 2 * UI_BOX_LR_BORDER;
 		maxwidth = MAX(width, maxwidth);
+	}
+
+	if (maxwidth > origx2 - origx1)
+	{
+		text_size = (origx2 - origx1) / maxwidth;
+		maxwidth = origx2 - origx1;
 	}
 
 	// compute our bounds
@@ -816,7 +869,7 @@ void ui_menu_select_game::custom_render(void *selectedref, float top, float bott
 	for (int line = 0; line < 2; ++line)
 	{
 		mui.draw_text_full(container, tempbuf[line].c_str(), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_NEVER, 
-			DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr);
+			DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr, text_size);
 		y1 += mui.get_line_height();
 	}
 
@@ -946,6 +999,12 @@ void ui_menu_select_game::custom_render(void *selectedref, float top, float bott
 		maxwidth = MAX(maxwidth, width);
 	}
 
+	if (maxwidth > origx2 - origx1)
+	{
+		text_size = (origx2 - origx1) / maxwidth;
+		maxwidth = origx2 - origx1;
+	}
+
 	// compute our bounds
 	x1 = 0.5f - 0.5f * maxwidth;
 	x2 = x1 + maxwidth;
@@ -968,7 +1027,7 @@ void ui_menu_select_game::custom_render(void *selectedref, float top, float bott
 	for (auto & elem : tempbuf)
 	{
 		mui.draw_text_full(container, elem.c_str(), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_NEVER,
-			DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr);
+			DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr, text_size);
 		y1 += mui.get_line_height();
 	}
 }
@@ -1556,7 +1615,7 @@ void ui_menu_select_game::general_info(const game_driver *driver, std::string &b
 	util::stream_format(str, _("Support Cocktail: %1$s\n"), ((driver->flags & MACHINE_NO_COCKTAIL) ? _("Yes") : _("No")));
 	util::stream_format(str, _("Driver is Bios: %1$s\n"), ((driver->flags & MACHINE_IS_BIOS_ROOT) ? _("Yes") : _("No")));
 	util::stream_format(str, _("Support Save: %1$s\n"), ((driver->flags & MACHINE_SUPPORTS_SAVE) ? _("Yes") : _("No")));
-	util::stream_format(str, _("Screen Orentation: %1$s\n"), ((driver->flags & ORIENTATION_SWAP_XY) ? _("Vertical") : _("Horizontal")));
+	util::stream_format(str, _("Screen Orientation: %1$s\n"), ((driver->flags & ORIENTATION_SWAP_XY) ? _("Vertical") : _("Horizontal")));
 	bool found = false;
 	for (const rom_entry *rom = driver->rom; !ROMENTRY_ISEND(rom); ++rom)
 		if (ROMENTRY_ISREGION(rom) && ROMREGION_ISDISKDATA(rom))
@@ -1648,7 +1707,7 @@ bool ui_menu_select_game::load_available_machines()
 {
 	// try to load available drivers from file
 	emu_file file(machine().ui().options().ui_path(), OPEN_FLAG_READ);
-	if (file.open(emulator_info::get_configname(), "_avail.ini") != FILERR_NONE)
+	if (file.open(emulator_info::get_configname(), "_avail.ini") != osd_file::error::NONE)
 		return false;
 
 	std::string readbuf;
@@ -1700,7 +1759,7 @@ void ui_menu_select_game::load_custom_filters()
 {
 	// attempt to open the output file
 	emu_file file(machine().ui().options().ui_path(), OPEN_FLAG_READ);
-	if (file.open("custom_", emulator_info::get_configname(), "_filter.ini") == FILERR_NONE)
+	if (file.open("custom_", emulator_info::get_configname(), "_filter.ini") == osd_file::error::NONE)
 	{
 		char buffer[MAX_CHAR_INFO];
 
@@ -1960,14 +2019,14 @@ void ui_menu_select_game::infos_render(void *selectedref, float origx1, float or
 
 		// apply title to right panel
 		float title_size = 0.0f;
-		float txt_lenght = 0.0f;
+		float txt_length = 0.0f;
 
 		for (int x = UI_FIRST_LOAD; x < UI_LAST_LOAD; ++x)
 		{
 			mui.draw_text_full(container, _(dats_info[x]), origx1, origy1, origx2 - origx1, JUSTIFY_CENTER, 
-				WRAP_TRUNCATE, DRAW_NONE, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, &txt_lenght, nullptr);
-			txt_lenght += 0.01f;
-			title_size = MAX(txt_lenght, title_size);
+				WRAP_NEVER, DRAW_NONE, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, &txt_length, nullptr);
+			txt_length += 0.01f;
+			title_size = (std::max)(txt_length, title_size);
 		}
 
 		rgb_t fgcolor = UI_TEXT_COLOR;
@@ -1980,12 +2039,17 @@ void ui_menu_select_game::infos_render(void *selectedref, float origx1, float or
 
 		float middle = origx2 - origx1;
 
+		// check size
+		float sc = title_size + 2.0f * gutter_width;
+		float tmp_size = (sc > middle) ? ((middle - 2.0f * gutter_width) / sc) : 1.0f;
+		title_size *= tmp_size;
+
 		if (bgcolor != UI_TEXT_BG_COLOR)
 			mui.draw_textured_box(container, origx1 + ((middle - title_size) * 0.5f), origy1, origx1 + ((middle + title_size) * 0.5f),
 				origy1 + line_height, bgcolor, rgb_t(255, 43, 43, 43), hilight_main_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
 
 		mui.draw_text_full(container, snaptext.c_str(), origx1, origy1, origx2 - origx1, JUSTIFY_CENTER,
-			WRAP_TRUNCATE, DRAW_NORMAL, fgcolor, bgcolor, nullptr, nullptr);
+			WRAP_NEVER, DRAW_NORMAL, fgcolor, bgcolor, nullptr, nullptr, tmp_size);
 
 		draw_common_arrow(origx1, origy1, origx2, origy2, ui_globals::curdats_view, UI_FIRST_LOAD, UI_LAST_LOAD, title_size);
 
@@ -2038,7 +2102,7 @@ void ui_menu_select_game::infos_render(void *selectedref, float origx1, float or
 		if (topline_datsview + r_visible_lines >= totallines)
 			topline_datsview = totallines - r_visible_lines;
 
-		float sc = origx2 - origx1 - (2.0f * UI_BOX_LR_BORDER);
+		sc = origx2 - origx1 - (2.0f * UI_BOX_LR_BORDER);
 		for (int r = 0; r < r_visible_lines; ++r)
 		{
 			int itemline = r + topline_datsview;
@@ -2131,17 +2195,17 @@ void ui_menu_select_game::infos_render(void *selectedref, float origx1, float or
 		else
 		{
 			float title_size = 0.0f;
-			float txt_lenght = 0.0f;
+			float txt_length = 0.0f;
 			std::string t_text[2];
 			t_text[0] = _("History");
 			t_text[1] = _("Usage");
 
 			for (auto & elem: t_text)
 			{
-				mui.draw_text_full(container, elem.c_str(), origx1, origy1, origx2 - origx1, JUSTIFY_CENTER, WRAP_TRUNCATE, 
-					DRAW_NONE, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, &txt_lenght, nullptr);
-				txt_lenght += 0.01f;
-				title_size = MAX(txt_lenght, title_size);
+				mui.draw_text_full(container, elem.c_str(), origx1, origy1, origx2 - origx1, JUSTIFY_CENTER, WRAP_TRUNCATE,
+					DRAW_NONE, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, &txt_length, nullptr);
+				txt_length += 0.01f;
+				title_size = (std::max)(txt_length, title_size);
 			}
 
 			rgb_t fgcolor = UI_TEXT_COLOR;

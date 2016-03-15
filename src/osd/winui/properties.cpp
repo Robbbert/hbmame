@@ -2505,7 +2505,6 @@ static void BuildDataMap(void)
 	// windows performance options
 	datamap_add(properties_datamap, IDC_HIGH_PRIORITY,			DM_INT,		WINOPTION_PRIORITY);
 	datamap_add(properties_datamap, IDC_HIGH_PRIORITYTXT,		DM_INT,		WINOPTION_PRIORITY);
-	datamap_add(properties_datamap, IDC_MULTITHREAD_RENDERING,	DM_BOOL,	OSDOPTION_MULTITHREADING);
 
 	// windows video options
 	datamap_add(properties_datamap, IDC_VIDEO_MODE,				DM_STRING,	OSDOPTION_VIDEO);

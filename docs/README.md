@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 What is HBMAME?
 ===============
 
@@ -23,3 +24,10 @@ Where can I find out more?
 * [Forum](http://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame) (bug reports go here too)
 
 
+=======
+# **Docs** #
+
+Documentation of MAME is work of many different contributors, and contain information about usage and internals of MAME.
+
+Licensed under [CC0 1.0 Universal (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/)
+>>>>>>> upstream/master

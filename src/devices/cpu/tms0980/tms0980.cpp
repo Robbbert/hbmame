@@ -203,7 +203,8 @@ const device_type TMS0270 = &device_creator<tms0270_cpu_device>; // 40-pin DIP, 
 // TMS0260 is same or similar?
 
 // TP0320 is TI's first CMOS MCU with integrated LCD controller, the die is still very similar to TMS0980
-// - x
+// - ROM and main RAM is same as on TMS0980 with different row-select
+// - 
 const device_type TP0320 = &device_creator<tp0320_cpu_device>; // 28-pin SDIP, ..
 
 
@@ -488,6 +489,12 @@ offs_t tms0980_cpu_device::disasm_disassemble(char *buffer, offs_t pc, const UIN
 {
 	extern CPU_DISASSEMBLE(tms0980);
 	return CPU_DISASSEMBLE_NAME(tms0980)(this, buffer, pc, oprom, opram, options);
+}
+
+offs_t tp0320_cpu_device::disasm_disassemble(char *buffer, offs_t pc, const UINT8 *oprom, const UINT8 *opram, UINT32 options)
+{
+	extern CPU_DISASSEMBLE(tp0320);
+	return CPU_DISASSEMBLE_NAME(tp0320)(this, buffer, pc, oprom, opram, options);
 }
 
 void tms1xxx_cpu_device::state_string_export(const device_state_entry &entry, std::string &str) const

@@ -240,6 +240,19 @@ void screen_device::static_set_video_attributes(device_t &device, UINT32 flags)
 	screen_device &screen = downcast<screen_device &>(device);
 	screen.m_video_attributes = flags;
 }
+
+
+//-------------------------------------------------
+//  static_set_color - set the screen global color
+//-------------------------------------------------
+
+void screen_device::static_set_color(device_t &device, rgb_t color)
+{
+	screen_device &screen = downcast<screen_device &>(device);
+	screen.m_color = color;
+}
+
+
 //-------------------------------------------------
 //  device_validity_check - verify device
 //  configuration
@@ -1140,8 +1153,8 @@ void screen_device::finalize_burnin()
 
 	// compute the name and create the file
 	emu_file file(machine().options().snapshot_directory(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-	file_error filerr = file.open(machine().basename(), PATH_SEPARATOR "burnin-", this->tag()+1, ".png") ;
-	if (filerr == FILERR_NONE)
+	osd_file::error filerr = file.open(machine().basename(), PATH_SEPARATOR "burnin-", this->tag()+1, ".png") ;
+	if (filerr == osd_file::error::NONE)
 	{
 		png_info pnginfo = { nullptr };
 //      png_error pngerr;

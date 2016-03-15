@@ -536,7 +536,7 @@ void ui_menu_file_selector::append_entry_menu_item(const file_selector_entry *en
 void ui_menu_file_selector::populate()
 {
 	zippath_directory *directory = nullptr;
-	file_error err;
+	osd_file::error err;
 	const osd_directory_entry *dirent;
 	const file_selector_entry *entry;
 	const file_selector_entry *selected_entry = nullptr;
@@ -579,7 +579,7 @@ void ui_menu_file_selector::populate()
 	}
 
 	// build the menu for each item
-	if (err == FILERR_NONE)
+	if (err == osd_file::error::NONE)
 	{
 		while((dirent = zippath_readdir(directory)) != nullptr)
 		{
@@ -621,7 +621,7 @@ void ui_menu_file_selector::populate()
 
 void ui_menu_file_selector::handle()
 {
-	file_error err;
+	osd_file::error err;
 	const file_selector_entry *entry;
 	const file_selector_entry *selected_entry = nullptr;
 	int bestmatch = 0;
@@ -657,7 +657,7 @@ void ui_menu_file_selector::handle()
 				case SELECTOR_ENTRY_TYPE_DIRECTORY:
 					// drive/directory - first check the path
 					err = zippath_opendir(entry->fullpath, nullptr);
-					if (err != FILERR_NONE)
+					if (err != osd_file::error::NONE)
 					{
 						// this path is problematic; present the user with an error and bail
 						machine().ui().popup_time(1, "Error accessing %s", entry->fullpath);
@@ -712,7 +712,7 @@ void ui_menu_file_selector::handle()
 				// from current entry to the end
 				for (entry = cur_selected; entry != nullptr; entry = entry->next)
 				{
-					if (entry->basename != nullptr && m_filename_buffer != nullptr)
+					if (entry->basename != nullptr && m_filename_buffer[0] != '\0')
 					{
 						int match = 0;
 						for (int i = 0; i < ARRAY_LENGTH(m_filename_buffer); i++)
@@ -731,7 +731,7 @@ void ui_menu_file_selector::handle()
 				// and from the first entry to current one
 				for (entry = m_entrylist; entry != cur_selected; entry = entry->next)
 				{
-					if (entry->basename != nullptr && m_filename_buffer != nullptr)
+					if (entry->basename != nullptr && m_filename_buffer[0] != '\0')
 					{
 						int match = 0;
 						for (int i = 0; i < ARRAY_LENGTH(m_filename_buffer); i++)

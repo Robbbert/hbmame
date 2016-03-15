@@ -404,11 +404,11 @@ bool options::parse_command_line(int argc, char **argv, int priority, std::strin
 //  an INI file
 //-------------------------------------------------
 
-bool options::parse_ini_file(core_file &inifile, int priority, int ignore_priority, std::string &error_string)
+bool options::parse_ini_file(util::core_file &inifile, int priority, int ignore_priority, std::string &error_string)
 {
 	// loop over lines in the file
 	char buffer[4096];
-	while (core_fgets(buffer, ARRAY_LENGTH(buffer), &inifile) != nullptr)
+	while (inifile.gets(buffer, ARRAY_LENGTH(buffer)) != nullptr)
 	{
 		// find the extent of the name
 		char *optionname;

@@ -158,8 +158,8 @@ void machine_manager::start_luaengine()
 	m_lua->initialize();
 	{
 		emu_file file(options().plugins_path(), OPEN_FLAG_READ);
-		file_error filerr = file.open("boot.lua");
-		if (filerr == FILERR_NONE)
+		osd_file::error filerr = file.open("boot.lua");
+		if (filerr == osd_file::error::NONE)
 		{
 			m_lua->load_script(file.fullpath());
 		}
@@ -259,7 +259,7 @@ int machine_manager::execute()
 				sw_instance = sw_load.substr(right + 1);
 				sw_load.assign(sw_load.substr(0, right));
 
-				char arg[] = "ume";
+				char arg[] = "mame";
 				char *argv = &arg[0];
 				m_options.set_value(OPTION_SOFTWARENAME, sw_name.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
 				m_options.parse_slot_devices(1, &argv, option_errors, sw_instance.c_str(), sw_load.c_str());

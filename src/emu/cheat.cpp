@@ -1031,6 +1031,9 @@ std::unique_ptr<cheat_script> &cheat_entry::script_for_state(script_state state)
 //  CHEAT MANAGER
 //**************************************************************************
 
+const int cheat_manager::CHEAT_VERSION;
+
+
 //-------------------------------------------------
 //  cheat_manager - constructor
 //-------------------------------------------------
@@ -1168,10 +1171,10 @@ bool cheat_manager::save_all(const char *filename)
 {
 	// open the file with the proper name
 	emu_file cheatfile(machine().options().cheat_path(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-	file_error filerr = cheatfile.open(filename, ".xml");
+	osd_file::error filerr = cheatfile.open(filename, ".xml");
 
 	// if that failed, return nothing
-	if (filerr != FILERR_NONE)
+	if (filerr != osd_file::error::NONE)
 		return false;
 
 	// wrap the rest of catch errors
@@ -1369,10 +1372,10 @@ void cheat_manager::load_cheats(const char *filename)
 	try
 	{
 		// open the file with the proper name
-		file_error filerr = cheatfile.open(filename, ".xml");
+		osd_file::error filerr = cheatfile.open(filename, ".xml");
 
 		// loop over all instrances of the files found in our search paths
-		while (filerr == FILERR_NONE)
+		while (filerr == osd_file::error::NONE)
 		{
 			osd_printf_verbose("Loading cheats file from %s\n", cheatfile.fullpath());
 

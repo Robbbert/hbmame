@@ -1329,7 +1329,7 @@ static void execute_bplist(running_machine &machine, int ref, int params, const 
 			/* loop over the breakpoints */
 			for (device_debug::breakpoint *bp = device->debug()->breakpoint_first(); bp != nullptr; bp = bp->next())
 			{
-				buffer = string_format("%c%4X @ %*X", bp->enabled() ? ' ' : 'D', bp->index(), device->debug()->logaddrchars(), bp->address());
+				buffer = string_format("%c%4X @ %0*X", bp->enabled() ? ' ' : 'D', bp->index(), device->debug()->logaddrchars(), bp->address());
 				if (std::string(bp->condition()).compare("1") != 0)
 					buffer.append(string_format(" if %s", bp->condition()));
 				if (std::string(bp->action()).compare("") != 0)
@@ -1496,7 +1496,7 @@ static void execute_wplist(running_machine &machine, int ref, int params, const 
 				/* loop over the watchpoints */
 				for (device_debug::watchpoint *wp = device->debug()->watchpoint_first(spacenum); wp != nullptr; wp = wp->next())
 				{
-					buffer = string_format("%c%4X @ %*X-%*X %s", wp->enabled() ? ' ' : 'D', wp->index(),
+					buffer = string_format("%c%4X @ %0*X-%0*X %s", wp->enabled() ? ' ' : 'D', wp->index(),
 							wp->space().addrchars(), wp->space().byte_to_address(wp->address()),
 							wp->space().addrchars(), wp->space().byte_to_address_end(wp->address() + wp->length()) - 1,
 							types[wp->type() & 3]);
@@ -1874,7 +1874,7 @@ static void execute_dump(running_machine &machine, int ref, int params, const ch
 		output.clear();
 
 		/* print the address */
-		util::stream_format(output, "%*X: ", space->logaddrchars(), (UINT32)space->byte_to_address(i));
+		util::stream_format(output, "%0*X: ", space->logaddrchars(), (UINT32)space->byte_to_address(i));
 
 		/* print the bytes */
 		for (j = 0; j < 16; j += width)
@@ -1885,7 +1885,7 @@ static void execute_dump(running_machine &machine, int ref, int params, const ch
 				if (debug_cpu_translate(*space, TRANSLATE_READ_DEBUG, &curaddr))
 				{
 					UINT64 value = debug_read_memory(*space, i + j, width, TRUE);
-					util::stream_format(output, " %*X", width * 2, value);
+					util::stream_format(output, " %0*X", width * 2, value);
 				}
 				else
 					util::stream_format(output, " %.*s", width * 2, "****************");
@@ -2308,9 +2308,9 @@ static void execute_cheatlist(running_machine &machine, int ref, int params, con
 				output.clear();
 				stream_format(
 						output,
-						"  <cheat desc=\"Possibility %d : %*X (%*X)\">\n"
+						"  <cheat desc=\"Possibility %d : %0*X (%0*X)\">\n"
 						"    <script state=\"run\">\n"
-						"      <action>%s.p%c%c@%*X=%*X</action>\n"
+						"      <action>%s.p%c%c@%0*X=%0*X</action>\n"
 						"    </script>\n"
 						"  </cheat>\n\n",
 						active_cheat, space->logaddrchars(), address, cheat.width * 2, value,
@@ -2321,7 +2321,7 @@ static void execute_cheatlist(running_machine &machine, int ref, int params, con
 			else
 			{
 				debug_console_printf(
-						machine, "Address=%*X Start=%*X Current=%*X\n",
+						machine, "Address=%0*X Start=%0*X Current=%0*X\n",
 						space->logaddrchars(), address,
 						cheat.width * 2, cheat_byte_swap(&cheat, cheat.cheatmap[cheatindex].first_value) & sizemask,
 						cheat.width * 2, value);
@@ -2452,7 +2452,7 @@ static void execute_find(running_machine &machine, int ref, int params, const ch
 		if (match)
 		{
 			found++;
-			debug_console_printf(machine, "Found at %*X\n", space->addrchars(), (UINT32)space->byte_to_address(i));
+			debug_console_printf(machine, "Found at %0*X\n", space->addrchars(), (UINT32)space->byte_to_address(i));
 		}
 	}
 
@@ -2518,7 +2518,7 @@ static void execute_dasm(running_machine &machine, int ref, int params, const ch
 		output.clear();
 
 		/* print the address */
-		stream_format(output, "%*X: ", space->logaddrchars(), (UINT32)space->byte_to_address(pcbyte));
+		stream_format(output, "%0*X: ", space->logaddrchars(), (UINT32)space->byte_to_address(pcbyte));
 
 		/* make sure we can translate the address */
 		tempaddr = pcbyte;
@@ -2543,7 +2543,7 @@ static void execute_dasm(running_machine &machine, int ref, int params, const ch
 			auto const startdex = output.tellp();
 			numbytes = space->address_to_byte(numbytes);
 			for (j = 0; j < numbytes; j += minbytes)
-				stream_format(output, "%*X ", minbytes * 2, debug_read_opcode(*decrypted_space, pcbyte + j, minbytes));
+				stream_format(output, "%0*X ", minbytes * 2, debug_read_opcode(*decrypted_space, pcbyte + j, minbytes));
 			if ((output.tellp() - startdex) < byteswidth)
 				stream_format(output, "%*s", byteswidth - (output.tellp() - startdex), "");
 			stream_format(output, "  ");
@@ -2701,7 +2701,7 @@ static void execute_history(running_machine &machine, int ref, int params, const
 		char buffer[200];
 		debug->disassemble(buffer, pc, opbuf, argbuf);
 
-		debug_console_printf(machine, "%*X: %s\n", space->logaddrchars(), pc, buffer);
+		debug_console_printf(machine, "%0*X: %s\n", space->logaddrchars(), pc, buffer);
 	}
 }
 
@@ -2856,9 +2856,9 @@ static void execute_snap(running_machine &machine, int ref, int params, const ch
 		if (fname.find(".png") == -1)
 			fname.append(".png");
 		emu_file file(machine.options().snapshot_directory(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-		file_error filerr = file.open(fname.c_str());
+		osd_file::error filerr = file.open(fname.c_str());
 
-		if (filerr != FILERR_NONE)
+		if (filerr != osd_file::error::NONE)
 		{
 			debug_console_printf(machine, "Error creating file '%s'\n", filename);
 			return;
@@ -2908,14 +2908,14 @@ static void execute_map(running_machine &machine, int ref, int params, const cha
 		{
 			const char *mapname = space->get_handler_string((intention == TRANSLATE_WRITE_DEBUG) ? ROW_WRITE : ROW_READ, taddress);
 			debug_console_printf(
-					machine, "%7s: %*X logical == %*X physical -> %s\n",
+					machine, "%7s: %0*X logical == %0*X physical -> %s\n",
 					intnames[intention & 3],
 					space->logaddrchars(), address,
 					space->addrchars(), space->byte_to_address(taddress),
 					mapname);
 		}
 		else
-			debug_console_printf(machine, "%7s: %*X logical is unmapped\n", intnames[intention & 3], space->logaddrchars(), address);
+			debug_console_printf(machine, "%7s: %0*X logical is unmapped\n", intnames[intention & 3], space->logaddrchars(), address);
 	}
 }
 

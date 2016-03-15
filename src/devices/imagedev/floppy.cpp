@@ -295,9 +295,9 @@ void floppy_image_device::commit_image()
 	io.procs = &image_ioprocs;
 	io.filler = 0xff;
 
-	file_error err = core_truncate(image_core_file(), 0);
-	if (err != 0)
-		popmessage("Error, unable to truncate image: %d", err);
+	osd_file::error err = image_core_file().truncate(0);
+	if (err != osd_file::error::NONE)
+		popmessage("Error, unable to truncate image: %d", int(err));
 
 	output_format->save(&io, image);
 }
@@ -362,29 +362,30 @@ void floppy_image_device::device_timer(emu_timer &timer, device_timer_id id, int
 
 floppy_image_format_t *floppy_image_device::identify(std::string filename)
 {
-	core_file *fd;
+	util::core_file::ptr fd;
 	std::string revised_path;
 
-	file_error err = zippath_fopen(filename.c_str(), OPEN_FLAG_READ, fd, revised_path);
-	if(err) {
+	osd_file::error err = zippath_fopen(filename.c_str(), OPEN_FLAG_READ, fd, revised_path);
+	if(err != osd_file::error::NONE) {
 		seterror(IMAGE_ERROR_INVALIDIMAGE, "Unable to open the image file");
 		return nullptr;
 	}
 
 	io_generic io;
-	io.file = fd;
+	io.file = fd.get();
 	io.procs = &corefile_ioprocs_noclose;
 	io.filler = 0xff;
 	int best = 0;
 	floppy_image_format_t *best_format = nullptr;
-	for(floppy_image_format_t *format = fif_list; format; format = format->next) {
+	for (floppy_image_format_t *format = fif_list; format; format = format->next)
+	{
 		int score = format->identify(&io, form_factor);
 		if(score > best) {
 			best = score;
 			best_format = format;
 		}
 	}
-	core_fclose(fd);
+	fd.reset();
 	return best_format;
 }
 
@@ -515,15 +516,15 @@ void floppy_image_device::mon_w(int state)
 	if (!mon && image)
 	{
 		revolution_start_time = machine().time();
-				if (motor_always_on) {
-					// Drives with motor that is always spinning are immediately ready when a disk is loaded
-					// because there is no spin-up time
-					ready = false;
-					if(!cur_ready_cb.isnull())
-						cur_ready_cb(this, ready);
-				} else {
-					ready_counter = 2;
-				}
+		if (motor_always_on) {
+			// Drives with motor that is always spinning are immediately ready when a disk is loaded
+			// because there is no spin-up time
+			ready = false;
+			if(!cur_ready_cb.isnull())
+				cur_ready_cb(this, ready);
+		} else {
+			ready_counter = 2;
+		}
 		index_resync();
 	}
 
@@ -999,13 +1000,13 @@ void ui_menu_control_floppy_image::hook_load(std::string filename, bool softlist
 
 	bool can_in_place = input_format->supports_save();
 	if(can_in_place) {
-		file_error filerr;
+		osd_file::error filerr;
 		std::string tmp_path;
-		core_file *tmp_file;
+		util::core_file::ptr tmp_file;
 		/* attempt to open the file for writing but *without* create */
 		filerr = zippath_fopen(filename.c_str(), OPEN_FLAG_READ | OPEN_FLAG_WRITE, tmp_file, tmp_path);
-		if(!filerr)
-			core_fclose(tmp_file);
+		if(filerr == osd_file::error::NONE)
+			tmp_file.reset();
 		else
 			can_in_place = false;
 	}

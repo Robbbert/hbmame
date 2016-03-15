@@ -2930,11 +2930,12 @@ static void change_device(HWND wnd, device_image_interface *image, int is_save)
 		filename[0] = '\0';
 
 	// get the working directory, but if it is ".", then use the one specified in comments_path
-	char *dst = NULL,*working = 0;
-	osd_get_full_path(&dst,"."); // turn local directory into full path
+	char *working = 0;
+	std::string dst;
+	osd_get_full_path(dst,"."); // turn local directory into full path
 	initial_dir = image->working_directory(); // get working directory from diimage.c
 	// if . use comments_dir
-	if (strcmp(dst, initial_dir) == 0)  // same?
+	if (strcmp(dst.c_str(), initial_dir) == 0)  // same?
 		initial_dir = software_dir;
 
 	// remove any trailing backslash

@@ -571,6 +571,7 @@ MACHINES["DIABLO_HD"] = true
 MACHINES["TMS1024"] = true
 MACHINES["NSC810"] = true
 MACHINES["VT82C496"] = true
+MACHINES["GENPC"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -629,6 +630,7 @@ BUSES["NASBUS"] = true
 BUSES["NEOGEO"] = true
 BUSES["NES"] = true
 BUSES["NES_CTRL"] = true
+BUSES["NEWBRAIN"] = true
 BUSES["NUBUS"] = true
 BUSES["O2"] = true
 BUSES["ORICEXT"] = true
@@ -954,7 +956,7 @@ files {
 	MAME_DIR .. "src/mame/video/jaguar.cpp",
 	MAME_DIR .. "src/mame/video/jagblit.h",
 	MAME_DIR .. "src/mame/video/jagblit.inc",
-	MAME_DIR .. "src/mame/video/jagobj.inc",	
+	MAME_DIR .. "src/mame/video/jagobj.inc",
 	MAME_DIR .. "src/mame/audio/gorf.cpp",
 	MAME_DIR .. "src/mame/audio/wow.cpp",
 	MAME_DIR .. "src/mame/drivers/astrocde.cpp",
@@ -971,7 +973,7 @@ files {
 	MAME_DIR .. "src/mame/machine/n64.cpp",
 	MAME_DIR .. "src/mame/video/n64.cpp",
 	MAME_DIR .. "src/mame/video/n64types.h",
-	MAME_DIR .. "src/mame/video/rdpfiltr.inc",	
+	MAME_DIR .. "src/mame/video/rdpfiltr.inc",
 	MAME_DIR .. "src/mame/video/n64.h",
 	MAME_DIR .. "src/mame/video/rdpblend.cpp",
 	MAME_DIR .. "src/mame/video/rdpblend.h",
@@ -1776,8 +1778,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/mephisto.cpp",
 	MAME_DIR .. "src/mame/drivers/mmodular.cpp",
 	MAME_DIR .. "src/mame/drivers/stratos.cpp",
-	MAME_DIR .. "src/mame/machine/mboard.cpp",
-	MAME_DIR .. "src/mame/includes/mboard.h",
 }
 
 createMESSProjects(_target, _subtarget, "hitachi")
@@ -2171,10 +2171,10 @@ createMESSProjects(_target, _subtarget, "novag")
 files {
 	MAME_DIR .. "src/mame/drivers/mk1.cpp",
 	MAME_DIR .. "src/mame/drivers/mk2.cpp",
+	MAME_DIR .. "src/mame/drivers/novag6502.cpp",
 	MAME_DIR .. "src/mame/drivers/ssystem3.cpp",
 	MAME_DIR .. "src/mame/includes/ssystem3.h",
 	MAME_DIR .. "src/mame/video/ssystem3.cpp",
-	MAME_DIR .. "src/mame/drivers/supercon.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "olivetti")
@@ -2256,8 +2256,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/asst128.cpp",
 	MAME_DIR .. "src/mame/drivers/europc.cpp",
 	MAME_DIR .. "src/mame/drivers/genpc.cpp",
-	MAME_DIR .. "src/mame/includes/genpc.h",
-	MAME_DIR .. "src/mame/machine/genpc.cpp",
 	MAME_DIR .. "src/mame/drivers/ibmpc.cpp",
 	MAME_DIR .. "src/mame/drivers/ibmpcjr.cpp",
 	MAME_DIR .. "src/mame/drivers/pc.cpp",
@@ -2604,8 +2602,6 @@ files {
 createMESSProjects(_target, _subtarget, "svi")
 files {
 	MAME_DIR .. "src/mame/drivers/svi318.cpp",
-	MAME_DIR .. "src/mame/includes/svi318.h",
-	MAME_DIR .. "src/mame/machine/svi318.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "svision")
@@ -2995,9 +2991,6 @@ files {
 	MAME_DIR .. "src/mame/includes/mc1502.h",
 	MAME_DIR .. "src/mame/drivers/poisk1.cpp",
 	MAME_DIR .. "src/mame/machine/kb_poisk1.h",
-	MAME_DIR .. "src/mame/includes/poisk1.h",
-	MAME_DIR .. "src/mame/video/poisk1.cpp",
-	MAME_DIR .. "src/mame/video/poisk1.h",
 }
 
 createMESSProjects(_target, _subtarget, "yamaha")
@@ -3169,6 +3162,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/squale.cpp",
 	MAME_DIR .. "src/mame/drivers/swtpc.cpp",
 	MAME_DIR .. "src/mame/drivers/swyft.cpp",
+	MAME_DIR .. "src/mame/drivers/symbolics.cpp",
 	MAME_DIR .. "src/mame/drivers/sys2900.cpp",
 	MAME_DIR .. "src/mame/drivers/systec.cpp",
 	MAME_DIR .. "src/mame/drivers/tavernie.cpp",

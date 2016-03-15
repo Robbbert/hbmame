@@ -28,33 +28,33 @@ struct folders_entry
 
 static const folders_entry s_folders[] =
 {
-	{ __("ROMs"),                OPTION_MEDIAPATH,			ADDING },
-	{ __("UI"),                  OPTION_UI_PATH,			CHANGE },
-	{ __("Language"),            OPTION_LANGUAGEPATH,		CHANGE },
-	{ __("Samples"),             OPTION_SAMPLEPATH,			ADDING },
-	{ __("DATs"),                OPTION_HISTORY_PATH,		ADDING },
-	{ __("INIs"),                OPTION_INIPATH,			ADDING },
-	{ __("Extra INIs"),          OPTION_EXTRAINI_PATH,		CHANGE },
-	{ __("Icons"),               OPTION_ICONS_PATH,			ADDING },
-	{ __("Cheats"),              OPTION_CHEATPATH,			ADDING },
-	{ __("Snapshots"),           OPTION_SNAPSHOT_DIRECTORY,	ADDING },
-	{ __("Cabinets"),            OPTION_CABINETS_PATH,		ADDING },
-	{ __("Flyers"),              OPTION_FLYERS_PATH,		ADDING },
-	{ __("Titles"),              OPTION_TITLES_PATH,		ADDING },
-	{ __("Ends"),                OPTION_ENDS_PATH,			ADDING },
-	{ __("PCBs"),                OPTION_PCBS_PATH,			ADDING },
-	{ __("Marquees"),            OPTION_MARQUEES_PATH,		ADDING },
-	{ __("Controls Panels"),     OPTION_CPANELS_PATH,		ADDING },
-	{ __("Crosshairs"),          OPTION_CROSSHAIRPATH,		ADDING },
-	{ __("Artworks"),            OPTION_ARTPATH,			ADDING },
-	{ __("Bosses"),              OPTION_BOSSES_PATH,		ADDING },
-	{ __("Artworks Preview"),    OPTION_ARTPREV_PATH,		ADDING },
-	{ __("Select"),              OPTION_SELECT_PATH,		ADDING },
-	{ __("GameOver"),            OPTION_GAMEOVER_PATH,		ADDING },
-	{ __("HowTo"),               OPTION_HOWTO_PATH,			ADDING },
-	{ __("Logos"),               OPTION_LOGOS_PATH,			ADDING },
-	{ __("Scores"),              OPTION_SCORES_PATH,		ADDING },
-	{ __("Versus"),              OPTION_VERSUS_PATH,		ADDING },
+	{ __("ROMs"),                OPTION_MEDIAPATH,          ADDING },
+	{ __("UI"),                  OPTION_UI_PATH,            CHANGE },
+	{ __("Language"),            OPTION_LANGUAGEPATH,       CHANGE },
+	{ __("Samples"),             OPTION_SAMPLEPATH,         ADDING },
+	{ __("DATs"),                OPTION_HISTORY_PATH,       ADDING },
+	{ __("INIs"),                OPTION_INIPATH,            ADDING },
+	{ __("Extra INIs"),          OPTION_EXTRAINI_PATH,      CHANGE },
+	{ __("Icons"),               OPTION_ICONS_PATH,         ADDING },
+	{ __("Cheats"),              OPTION_CHEATPATH,          ADDING },
+	{ __("Snapshots"),           OPTION_SNAPSHOT_DIRECTORY, ADDING },
+	{ __("Cabinets"),            OPTION_CABINETS_PATH,      ADDING },
+	{ __("Flyers"),              OPTION_FLYERS_PATH,        ADDING },
+	{ __("Titles"),              OPTION_TITLES_PATH,        ADDING },
+	{ __("Ends"),                OPTION_ENDS_PATH,          ADDING },
+	{ __("PCBs"),                OPTION_PCBS_PATH,          ADDING },
+	{ __("Marquees"),            OPTION_MARQUEES_PATH,      ADDING },
+	{ __("Controls Panels"),     OPTION_CPANELS_PATH,       ADDING },
+	{ __("Crosshairs"),          OPTION_CROSSHAIRPATH,      ADDING },
+	{ __("Artworks"),            OPTION_ARTPATH,            ADDING },
+	{ __("Bosses"),              OPTION_BOSSES_PATH,        ADDING },
+	{ __("Artworks Preview"),    OPTION_ARTPREV_PATH,       ADDING },
+	{ __("Select"),              OPTION_SELECT_PATH,        ADDING },
+	{ __("GameOver"),            OPTION_GAMEOVER_PATH,      ADDING },
+	{ __("HowTo"),               OPTION_HOWTO_PATH,         ADDING },
+	{ __("Logos"),               OPTION_LOGOS_PATH,         ADDING },
+	{ __("Scores"),              OPTION_SCORES_PATH,        ADDING },
+	{ __("Versus"),              OPTION_VERSUS_PATH,        ADDING },
 };
 
 
@@ -95,7 +95,6 @@ void ui_menu_directory::handle()
 
 void ui_menu_directory::populate()
 {
-
 	for (auto & elem : s_folders)
 		item_append(_(elem.name), nullptr, 0, (void *)(FPTR)elem.action);
 
@@ -144,7 +143,7 @@ void ui_menu_directory::custom_render(void *selectedref, float top, float bottom
 //  ctor / dtor
 //-------------------------------------------------
 
-ui_menu_display_actual::ui_menu_display_actual(running_machine &machine, render_container *container, int ref) 
+ui_menu_display_actual::ui_menu_display_actual(running_machine &machine, render_container *container, int ref)
 	: ui_menu(machine, container), m_ref(ref)
 {
 }
@@ -180,10 +179,10 @@ void ui_menu_display_actual::handle()
 
 void ui_menu_display_actual::populate()
 {
-	m_tempbuf.assign(_("Current ")).append(_(s_folders[m_ref].name)).append(_(" Folders"));
-	if (machine().ui().options().exists(s_folders[m_ref].option)) 
+	m_tempbuf = string_format(_("Current %1$s Folders"), _(s_folders[m_ref].name));
+	if (machine().ui().options().exists(s_folders[m_ref].option))
 		m_searchpath.assign(machine().ui().options().value(s_folders[m_ref].option));
-	else 
+	else
 		m_searchpath.assign(machine().options().value(s_folders[m_ref].option));
 
 	path_iterator path(m_searchpath.c_str());
@@ -238,7 +237,7 @@ void ui_menu_display_actual::custom_render(void *selectedref, float top, float b
 	y1 += UI_BOX_TB_BORDER;
 
 	// draw the text within it
-	mui.draw_text_full(container, m_tempbuf.c_str(), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_TRUNCATE, 
+	mui.draw_text_full(container, m_tempbuf.c_str(), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_TRUNCATE,
 		DRAW_NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr);
 
 	// compute our bounds
@@ -279,10 +278,7 @@ ui_menu_add_change_folder::ui_menu_add_change_folder(running_machine &machine, r
 	m_search[0] = '\0';
 
 	// configure the starting path
-	char *dst = nullptr;
-	osd_get_full_path(&dst, ".");
-	m_current_path = dst;
-	osd_free(dst);
+	osd_get_full_path(m_current_path, ".");
 
 	std::string searchpath;
 	if (machine.ui().options().exists(s_folders[m_ref].option))
@@ -494,8 +490,12 @@ void ui_menu_add_change_folder::custom_render(void *selectedref, float top, floa
 	float width, maxwidth = origx2 - origx1;
 	ui_manager &mui = machine().ui();
 	std::string tempbuf[2];
-	tempbuf[0] = (m_change) ? _("Change)") : _("Add");
-	tempbuf[0].append(" ").append(_(s_folders[m_ref].name)).append(_(" Folder - Search: ")).append(m_search).append("_");
+	tempbuf[0] = string_format(
+			(m_change)
+				? _("Change %1$s Folder - Search: %2$s_")
+				: _("Add %1$s Folder - Search: %2$s_"),
+			_(s_folders[m_ref].name),
+			m_search);
 	tempbuf[1] = m_current_path;
 
 	// get the size of the text
@@ -567,9 +567,9 @@ void ui_menu_add_change_folder::custom_render(void *selectedref, float top, floa
 ui_menu_remove_folder::ui_menu_remove_folder(running_machine &machine, render_container *container, int ref) : ui_menu(machine, container)
 {
 	m_ref = ref;
-	if (machine.ui().options().exists(s_folders[m_ref].option)) 
+	if (machine.ui().options().exists(s_folders[m_ref].option))
 		m_searchpath.assign(machine.ui().options().value(s_folders[m_ref].option));
-	else 
+	else
 		m_searchpath.assign(machine.options().value(s_folders[m_ref].option));
 
 	path_iterator path(m_searchpath.c_str());
@@ -593,10 +593,10 @@ void ui_menu_remove_folder::handle()
 	if (m_event != nullptr && m_event->itemref != nullptr && m_event->iptkey == IPT_UI_SELECT)
 	{
 		std::string tmppath, error_string;
+		m_folders.erase(m_folders.begin() + selected);
 		for (int x = 0; x < m_folders.size(); ++x)
 		{
-			if (x != selected)
-				tmppath.append(m_folders[x]);
+			tmppath.append(m_folders[x]);
 			if (x < m_folders.size() - 1)
 				tmppath.append(";");
 		}
@@ -605,7 +605,7 @@ void ui_menu_remove_folder::handle()
 			machine().ui().options().set_value(s_folders[m_ref].option, tmppath.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
 		else if (strcmp(machine().options().value(s_folders[m_ref].option),tmppath.c_str())!=0)
 		{
-			machine().options().set_value(s_folders[m_ref].option, tmppath.c_str(), OPTION_PRIORITY_CMDLINE, error_string);				
+			machine().options().set_value(s_folders[m_ref].option, tmppath.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
 			machine().options().mark_changed(s_folders[m_ref].option);
 		}
 
@@ -636,7 +636,7 @@ void ui_menu_remove_folder::custom_render(void *selectedref, float top, float bo
 {
 	float width;
 	ui_manager &mui = machine().ui();
-	std::string tempbuf = std::string(_("Remove ")).append(_(s_folders[m_ref].name)).append(_(" Folder"));
+	std::string tempbuf = string_format(_("Remove %1$s Folder"), _(s_folders[m_ref].name));
 
 	// get the size of the text
 	mui.draw_text_full(container, tempbuf.c_str(), 0.0f, 0.0f, 1.0f, JUSTIFY_CENTER, WRAP_NEVER, DRAW_NONE, ARGB_WHITE, ARGB_BLACK, &width, nullptr);
@@ -658,6 +658,6 @@ void ui_menu_remove_folder::custom_render(void *selectedref, float top, float bo
 	y1 += UI_BOX_TB_BORDER;
 
 	// draw the text within it
-	mui.draw_text_full(container, tempbuf.c_str(), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_NEVER, DRAW_NORMAL, 
+	mui.draw_text_full(container, tempbuf.c_str(), x1, y1, x2 - x1, JUSTIFY_CENTER, WRAP_NEVER, DRAW_NORMAL,
 		UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr);
 }

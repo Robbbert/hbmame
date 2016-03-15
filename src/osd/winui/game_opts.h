@@ -116,12 +116,12 @@ public:
 		}
 	}
 
-	file_error load_file(const char *filename)
+	osd_file::error load_file(const char *filename)
 	{
 		emu_file file(OPEN_FLAG_READ);
 
-		file_error filerr = file.open(filename);
-		if (filerr == FILERR_NONE)
+		osd_file::error filerr = file.open(filename);
+		if (filerr == osd_file::error::NONE)
 		{
 			std::string error_string;
 			m_info.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
@@ -205,9 +205,9 @@ public:
 		}
 	}
 
-	file_error save_file(const char *filename)
+	osd_file::error save_file(const char *filename)
 	{
-		file_error filerr;
+		osd_file::error filerr;
 		std::string inistring;
 
 		save_settings();
@@ -216,7 +216,7 @@ public:
 
 		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 		filerr = file.open(filename);
-		if (filerr == FILERR_NONE)
+		if (filerr == osd_file::error::NONE)
 			file.puts(inistring.c_str());
 
 		return filerr;

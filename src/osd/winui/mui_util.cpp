@@ -593,7 +593,7 @@ BOOL DriverIsVertical(int driver_index)
 
 void FlushFileCaches(void)
 {
-	zip_file_cache_clear();
+	zip_file::cache_clear();
 }
 
 BOOL StringIsSuffixedBy(const char *s, const char *suffix)
