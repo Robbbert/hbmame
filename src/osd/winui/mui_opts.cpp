@@ -36,9 +36,6 @@
 #include "mui_opts.h"
 #include "winutf8.h"
 #include "strconv.h"
-#ifdef MESS
-#include "optionsms.h"
-#endif
 #include "drivenum.h"
 #include "game_opts.h"
 
@@ -218,7 +215,7 @@ static windows_options global;			// Global 'default' options
 
 static game_options game_opts;
 
-// UI options in MESSui.ini
+// UI options in MAMEui.ini
 const options_entry winui_options::s_option_entries[] =
 {
 	// UI options
@@ -336,10 +333,11 @@ const options_entry winui_options::s_option_entries[] =
 	{ NULL }
 };
 
-#ifdef MESS
+#if 0
+// no longer used, but keep in case we need to add more per-game options in the future
 static const options_entry perGameOptions[] =
 {
-	// per game options in messui.ini - to transfer to commentpath
+	// per game options in messui.ini - transferred to commentpath
 	{ "_extra_software",         "",         OPTION_STRING,  NULL },
 	{ NULL }
 };
@@ -401,9 +399,10 @@ void CreateGameOptions(windows_options &opts, int driver_index)
 
 BOOL OptionsInit()
 {
-#ifdef MESS
 	MessSetupSettings(settings);
 
+#if 0
+// keep in case we need per-game options in the future
 	// set up per game options
 	{
 		char buffer[128];
@@ -483,7 +482,7 @@ const char * GetImageTabShortName(int tab_index)
 static COLORREF options_get_color(winui_options &opts, const char *name)
 {
 	const char *value_str;
-	unsigned int r, g, b = 0;
+	unsigned int r = 0, g = 0, b = 0;
 	COLORREF value;
 
 	value_str = opts.value(name);
@@ -713,11 +712,10 @@ static void GetsShowFolderFlags(LPBITS bits)
 	SetAllBits(bits, TRUE);
 
 	token = strtok(s,", \t");
-	while (token != NULL)
+	int j;
+	while (token)
 	{
-		int j;
-
-		for (j=0;g_folderData[j].m_lpTitle != NULL;j++)
+		for (j=0; g_folderData[j].m_lpTitle; j++)
 		{
 			if (strcmp(g_folderData[j].short_name,token) == 0)
 			{
@@ -741,7 +739,7 @@ BOOL GetShowFolder(int folder)
 void SetShowFolder(int folder,BOOL show)
 {
 	LPBITS show_folder_flags = NewBits(MAX_FOLDERS);
-	int i = 0;
+	int i = 0, j = 0;
 	int num_saved = 0;
 	char str[10000];
 	extern const FOLDERDATA g_folderData[];
@@ -761,12 +759,10 @@ void SetShowFolder(int folder,BOOL show)
 	{
 		if (TestBit(show_folder_flags, i) == FALSE)
 		{
-			int j;
-
 			if (num_saved != 0)
 				strcat(str,", ");
 
-			for (j=0;g_folderData[j].m_lpTitle != NULL;j++)
+			for (j=0; g_folderData[j].m_lpTitle; j++)
 			{
 				if (g_folderData[j].m_nFolderId == i)
 				{
@@ -1330,6 +1326,28 @@ void SetPcbDir(const char *path)
 	settings.set_value(MUIOPTION_PCB_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
+const char* GetPluginsDir(void)
+{
+	return global.value(OPTION_PLUGINSPATH);
+}
+
+void SetPluginsDir(const char* path)
+{
+	std::string error_string;
+	global.set_value(OPTION_PLUGINSPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+const char* GetLangDir(void)
+{
+	return global.value(OPTION_LANGUAGEPATH);
+}
+
+void SetLangDir(const char* path)
+{
+	std::string error_string;
+	global.set_value(OPTION_LANGUAGEPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
 const char * GetDiffDir(void)
 {
 	return global.value(OPTION_DIFF_DIRECTORY);
@@ -1479,13 +1497,11 @@ int GetPlayCount(int driver_index)
 
 static void ResetPlayVariable(int driver_index, const char *play_variable)
 {
-	int i = 0;
 	if (driver_index < 0)
 	{
 		/* all games */
-		for (i = 0; i< driver_list::total(); i++)
+		for (int i = 0; i< driver_list::total(); i++)
 		{
-			/* 20070808 MSH - Was passing in driver_index instead of i. Doh! */
 			ResetPlayVariable(i, play_variable);
 		}
 	}
@@ -1518,17 +1534,15 @@ void IncrementPlayTime(int driver_index,int playtime)
 	IncrementPlayVariable(driver_index, "time", playtime);
 }
 
-void GetTextPlayTime(int driver_index,char *buf)
+void GetTextPlayTime(int driver_index, char *buf)
 {
-	int hour, minute, second = 0;
-	int temp = GetPlayTime(driver_index);
 
 	assert(0 <= driver_index && driver_index < driver_list::total());
-
-	hour = temp / 3600;
+	int temp = GetPlayTime(driver_index);
+	int hour = temp / 3600;
 	temp = temp - 3600*hour;
-	minute = temp / 60; //Calc Minutes
-	second = temp - 60*minute;
+	int minute = temp / 60; //Calc Minutes
+	int second = temp - 60*minute;
 
 	if (hour == 0)
 		sprintf(buf, "%d:%02d", minute, second );
@@ -1915,14 +1929,13 @@ void SetRunFullScreen(BOOL fullScreen)
 
 static void  CusColorEncodeString(const COLORREF *value, char* str)
 {
-	int i = 0;
 	char tmpStr[256];
 
 	sprintf(tmpStr, "%u", (int) value[0]);
 
 	strcpy(str, tmpStr);
 
-	for (i = 1; i < 16; i++)
+	for (int i = 1; i < 16; i++)
 	{
 		sprintf(tmpStr, ",%u", (unsigned) value[i]);
 		strcat(str, tmpStr);
@@ -1931,14 +1944,13 @@ static void  CusColorEncodeString(const COLORREF *value, char* str)
 
 static void CusColorDecodeString(const char* str, COLORREF *value)
 {
-	int i = 0;
 	char *s, *p;
 	char tmpStr[256];
 
 	strcpy(tmpStr, str);
 	p = tmpStr;
 
-	for (i = 0; p && i < 16; i++)
+	for (int i = 0; p && i < 16; i++)
 	{
 		s = p;
 
@@ -1954,14 +1966,13 @@ static void CusColorDecodeString(const char* str, COLORREF *value)
 
 void ColumnEncodeStringWithCount(const int *value, char *str, int count)
 {
-	int i = 0;
 	char buffer[256];
 
 	snprintf(buffer,sizeof(buffer),"%d",value[0]);
 
 	strcpy(str,buffer);
 
-	for (i = 1; i < count; i++)
+	for (int i = 1; i < count; i++)
 	{
 		snprintf(buffer,sizeof(buffer),",%d",value[i]);
 		strcat(str,buffer);
@@ -1970,7 +1981,6 @@ void ColumnEncodeStringWithCount(const int *value, char *str, int count)
 
 void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 {
-	int i = 0;
 	char *s, *p;
 	char tmpStr[256];
 
@@ -1980,7 +1990,7 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 	strcpy(tmpStr, str);
 	p = tmpStr;
 
-	for (i = 0; p && i < count; i++)
+	for (int i = 0; p && i < count; i++)
 	{
 		s = p;
 
@@ -1995,14 +2005,13 @@ void ColumnDecodeStringWithCount(const char* str, int *value, int count)
 
 static void SplitterEncodeString(const int *value, char* str)
 {
-	int i = 0;
 	char tmpStr[256];
 
 	sprintf(tmpStr, "%d", value[0]);
 
 	strcpy(str, tmpStr);
 
-	for (i = 1; i < GetSplitterCount(); i++)
+	for (int i = 1; i < GetSplitterCount(); i++)
 	{
 		sprintf(tmpStr, ",%d", value[i]);
 		strcat(str, tmpStr);
@@ -2011,14 +2020,13 @@ static void SplitterEncodeString(const int *value, char* str)
 
 static void SplitterDecodeString(const char *str, int *value)
 {
-	int i = 0;
 	char *s, *p;
 	char tmpStr[256];
 
 	strcpy(tmpStr, str);
 	p = tmpStr;
 
-	for (i = 0; p && i < GetSplitterCount(); i++)
+	for (int i = 0; p && i < GetSplitterCount(); i++)
 	{
 		s = p;
 
@@ -2052,7 +2060,8 @@ static void FontDecodeString(const char* str, LOGFONT *f)
 		(int*)&f->lfQuality,
 		(int*)&f->lfPitchAndFamily);
 	ptr = strrchr(str, ',');
-	if (ptr != NULL) {
+	if (ptr)
+	{
 		t_ptr = tstring_from_utf8(ptr + 1);
 		if( !t_ptr )
 			return;
@@ -2099,7 +2108,7 @@ static void TabFlagsEncodeString(int data, char *str)
 	{
 		if (((data & (1 << i)) == 0) && GetImageTabShortName(i))
 		{
-			if (num_saved != 0)
+			if (num_saved > 0)
 				strcat(str, ", ");
 
 			strcat(str,GetImageTabShortName(i));
@@ -2110,6 +2119,7 @@ static void TabFlagsEncodeString(int data, char *str)
 
 static void TabFlagsDecodeString(const char *str, int *data)
 {
+	int j = 0;
 	char s[2000];
 	char *token;
 
@@ -2119,11 +2129,9 @@ static void TabFlagsDecodeString(const char *str, int *data)
 	*data = (1 << MAX_TAB_TYPES) - 1;
 
 	token = strtok(s,", \t");
-	while (token != NULL)
+	while (token)
 	{
-		int j;
-
-		for (j=0;j<MAX_TAB_TYPES;j++)
+		for (j=0; j<MAX_TAB_TYPES; j++)
 		{
 			if (!GetImageTabShortName(j) || (strcmp(GetImageTabShortName(j), token) == 0))
 			{
@@ -2170,7 +2178,7 @@ static void LoadSettingsFile(windows_options &opts, const char *filename)
 	}
 }
 
-// This saves changes to MESSUI.INI only
+// This saves changes to MAMEUI.INI only
 static void SaveSettingsFile(winui_options &opts, const char *filename)
 {
 	osd_file::error filerr = osd_file::error::NONE;
@@ -2188,7 +2196,7 @@ static void SaveSettingsFile(winui_options &opts, const char *filename)
 
 
 
-// This saves changes to <game>.INI or MESS.INI only
+// This saves changes to <game>.INI or MAME.INI only
 static void SaveSettingsFile(windows_options &opts, const char *filename)
 {
 	osd_file::error filerr = osd_file::error::NONE;
@@ -2212,7 +2220,7 @@ static void LoadOptionsAndSettings(void)
 {
 //	char buffer[MAX_PATH];
 
-	// parse MESSui.ini - always in the current directory.
+	// parse MAMEui.ini - always in the current directory.
 	LoadSettingsFile(settings, UI_INI_FILENAME);
 
 	// parse GameInfo.ini - game options.
@@ -2310,15 +2318,14 @@ static const char * EncodeFolderFlags(DWORD value)
 }
 
 /* MSH 20080813
- * Read the folder filters from MESSui.ini.  This must only
+ * Read the folder filters from MAMEui.ini.  This must only
  * be called AFTER the folders have all been created.
  */
 void LoadFolderFlags(void)
 {
 	winui_options opts;
-	int numFolders = 0;
+	int i, numFolders = 0;
 	LPTREEFOLDER lpFolder;
-	int i = 0;
 	options_entry entries[2] = { { 0 }, { 0 } };
 
 	memcpy(entries, filterOptions, sizeof(filterOptions));
@@ -2394,10 +2401,8 @@ void LoadFolderFlags(void)
 // Adds our folder flags to a temporary winui_options, for saving.
 static void AddFolderFlags(winui_options &opts)
 {
-	int numFolders = 0;
-	int i = 0;
+	int numFolders = 0, num_entries = 0;
 	LPTREEFOLDER lpFolder;
-	int num_entries = 0;
 	options_entry entries[2] = { { 0 }, { 0 } };
 
 	entries[0].name = NULL;
@@ -2410,7 +2415,7 @@ static void AddFolderFlags(winui_options &opts)
 
 	numFolders = GetNumFolders();
 
-	for (i = 0; i < numFolders; i++)
+	for (int i = 0; i < numFolders; i++)
 	{
 		lpFolder = GetFolder(i);
 		if (lpFolder && (lpFolder->m_dwFlags & F_MASK) != 0)
@@ -2446,7 +2451,7 @@ static void AddFolderFlags(winui_options &opts)
 	}
 }
 
-// Save MESSUI.ini
+// Save MAMEUI.ini
 void SaveOptions(void)
 {
 	// Add the folder flag to settings.
@@ -2534,10 +2539,10 @@ void save_options(windows_options &opts, int game_num)
 	{
 		SetDirectories(opts);
 		SaveSettingsFile(opts, filepath.c_str());
-		printf("Settings saved to %s\n",filepath.c_str());
+//		printf("Settings saved to %s\n",filepath.c_str());
 	}
-	else
-		printf("Unable to save settings\n");
+//	else
+//		printf("Unable to save settings\n");
 }
 
 
@@ -2571,5 +2576,231 @@ BOOL RequiredDriverCache(void)
 	return ret;
 }
 
+// from optionsms.cpp (MESSUI)
 
+#define MESSUI_SWLIST_COLUMN_SHOWN		"swlist_column_shown"
+#define MESSUI_SWLIST_COLUMN_WIDTHS		"swlist_column_widths"
+#define MESSUI_SWLIST_COLUMN_ORDER		"swlist_column_order"
+#define MESSUI_SWLIST_SORT_REVERSED		"swlist_sort_reversed"
+#define MESSUI_SWLIST_SORT_COLUMN		"swlist_sort_column"
+#define MESSUI_SOFTWARE_COLUMN_SHOWN		"mess_column_shown"
+#define MESSUI_SOFTWARE_COLUMN_WIDTHS		"mess_column_widths"
+#define MESSUI_SOFTWARE_COLUMN_ORDER		"mess_column_order"
+#define MESSUI_SOFTWARE_SORT_REVERSED		"mess_sort_reversed"
+#define MESSUI_SOFTWARE_SORT_COLUMN		"mess_sort_column"
+#define MESSUI_SOFTWARE_TAB			"current_software_tab"
+#define MESSUI_SOFTWAREPATH			"softwarepath"
+
+#define LOG_SOFTWARE 0
+
+static const options_entry mess_wingui_settings[] =
+{
+	{ MESSUI_SWLIST_COLUMN_WIDTHS,    "100,75,223,46,120,120", OPTION_STRING, NULL },
+	{ MESSUI_SWLIST_COLUMN_ORDER,     "0,1,2,3,4,5", OPTION_STRING, NULL }, // order of columns
+	{ MESSUI_SWLIST_COLUMN_SHOWN,     "1,1,1,1,1,1", OPTION_STRING, NULL }, // 0=hide,1=show
+	{ MESSUI_SWLIST_SORT_COLUMN,      "0", OPTION_INTEGER, NULL },
+	{ MESSUI_SWLIST_SORT_REVERSED,    "0", OPTION_BOOLEAN, NULL },
+	{ MESSUI_SOFTWARE_COLUMN_WIDTHS,  "400", OPTION_STRING, NULL },
+	{ MESSUI_SOFTWARE_COLUMN_ORDER,   "0", OPTION_STRING, NULL }, // 1= dummy column
+	{ MESSUI_SOFTWARE_COLUMN_SHOWN,   "1", OPTION_STRING, NULL }, // 0=don't show it
+	{ MESSUI_SOFTWARE_SORT_COLUMN,    "0", OPTION_INTEGER, NULL },
+	{ MESSUI_SOFTWARE_SORT_REVERSED,  "0", OPTION_BOOLEAN, NULL },
+	{ MESSUI_SOFTWARE_TAB,            "0", OPTION_STRING, NULL },
+	{ MESSUI_SOFTWAREPATH,            "software", OPTION_STRING, NULL },
+	{ NULL }
+};
+
+void MessSetupSettings(winui_options &settings)
+{
+	settings.add_entries(mess_wingui_settings);
+}
+
+void MessSetupGameOptions(windows_options &opts, int driver_index)
+{
+	if (driver_index >= 0)
+		opts.set_system_name(driver_list::driver(driver_index).name);
+}
+
+void SetSWListColumnOrder(int order[])
+{
+	char column_order_string[80];
+	ColumnEncodeStringWithCount(order, column_order_string, SWLIST_COLUMN_MAX);
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SWLIST_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void GetSWListColumnOrder(int order[])
+{
+	const char *column_order_string;
+	column_order_string = MameUISettings().value(MESSUI_SWLIST_COLUMN_ORDER);
+	ColumnDecodeStringWithCount(column_order_string, order, SWLIST_COLUMN_MAX);
+}
+
+void SetSWListColumnShown(int shown[])
+{
+	char column_shown_string[80];
+	ColumnEncodeStringWithCount(shown, column_shown_string, SWLIST_COLUMN_MAX);
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SWLIST_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void GetSWListColumnShown(int shown[])
+{
+	const char *column_shown_string;
+	column_shown_string = MameUISettings().value(MESSUI_SWLIST_COLUMN_SHOWN);
+	ColumnDecodeStringWithCount(column_shown_string, shown, SWLIST_COLUMN_MAX);
+}
+
+void SetSWListColumnWidths(int width[])
+{
+	char column_width_string[80];
+	ColumnEncodeStringWithCount(width, column_width_string, SWLIST_COLUMN_MAX);
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SWLIST_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void GetSWListColumnWidths(int width[])
+{
+	const char *column_width_string;
+	column_width_string = MameUISettings().value(MESSUI_SWLIST_COLUMN_WIDTHS);
+	ColumnDecodeStringWithCount(column_width_string, width, SWLIST_COLUMN_MAX);
+}
+
+void SetSWListSortColumn(int column)
+{
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SWLIST_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+int GetSWListSortColumn(void)
+{
+	return MameUISettings().int_value(MESSUI_SWLIST_SORT_COLUMN);
+}
+
+void SetSWListSortReverse(BOOL reverse)
+{
+	std::string error_string;
+	MameUISettings().set_value( MESSUI_SWLIST_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+BOOL GetSWListSortReverse(void)
+{
+	return MameUISettings().bool_value(MESSUI_SWLIST_SORT_REVERSED);
+}
+
+void SetMessColumnOrder(int order[])
+{
+	char column_order_string[80];
+	ColumnEncodeStringWithCount(order, column_order_string, MESS_COLUMN_MAX);
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SOFTWARE_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void GetMessColumnOrder(int order[])
+{
+	const char *column_order_string;
+	column_order_string = MameUISettings().value(MESSUI_SOFTWARE_COLUMN_ORDER);
+	ColumnDecodeStringWithCount(column_order_string, order, MESS_COLUMN_MAX);
+}
+
+void SetMessColumnShown(int shown[])
+{
+	char column_shown_string[80];
+	ColumnEncodeStringWithCount(shown, column_shown_string, MESS_COLUMN_MAX);
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SOFTWARE_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void GetMessColumnShown(int shown[])
+{
+	const char *column_shown_string;
+	column_shown_string = MameUISettings().value(MESSUI_SOFTWARE_COLUMN_SHOWN);
+	ColumnDecodeStringWithCount(column_shown_string, shown, MESS_COLUMN_MAX);
+}
+
+void SetMessColumnWidths(int width[])
+{
+	char column_width_string[80];
+	ColumnEncodeStringWithCount(width, column_width_string, MESS_COLUMN_MAX);
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SOFTWARE_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void GetMessColumnWidths(int width[])
+{
+	const char *column_width_string;
+	column_width_string = MameUISettings().value(MESSUI_SOFTWARE_COLUMN_WIDTHS);
+	ColumnDecodeStringWithCount(column_width_string, width, MESS_COLUMN_MAX);
+}
+
+void SetMessSortColumn(int column)
+{
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SOFTWARE_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+int GetMessSortColumn(void)
+{
+	return MameUISettings().int_value(MESSUI_SOFTWARE_SORT_COLUMN);
+}
+
+void SetMessSortReverse(BOOL reverse)
+{
+	std::string error_string;
+	MameUISettings().set_value( MESSUI_SOFTWARE_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+BOOL GetMessSortReverse(void)
+{
+	return MameUISettings().bool_value(MESSUI_SOFTWARE_SORT_REVERSED);
+}
+
+const char* GetSoftwareDirs(void)
+{
+	return MameUISettings().value(MESSUI_SOFTWAREPATH);
+}
+
+void SetSoftwareDirs(const char* paths)
+{
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SOFTWAREPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *dev, const char *software)
+{
+	const char *opt_name = dev->instance_name();
+	windows_options o;
+	std::string error_string;
+
+	if (LOG_SOFTWARE)
+	{
+		dprintf("SetSelectedSoftware(): dev=%p (\'%s\') software='%s'\n",
+			dev, driver_list::driver(driver_index).name, software);
+	}
+
+	load_options(o, driver_index);
+	o.set_value(opt_name, software, OPTION_PRIORITY_CMDLINE,error_string);
+	save_options(o, driver_index);
+}
+
+// not used
+const char *GetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *dev)
+{
+	const char *opt_name = dev->instance_name();
+	windows_options o;
+
+	load_options(o, driver_index);
+	return o.value(opt_name);
+}
+
+void SetCurrentSoftwareTab(const char *shortname)
+{
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SOFTWARE_TAB, shortname, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+const char *GetCurrentSoftwareTab(void)
+{
+	return MameUISettings().value(MESSUI_SOFTWARE_TAB);
+}
 
