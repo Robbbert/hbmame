@@ -43,4 +43,16 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 
 int PropertiesCurrentGame(HWND hDlg);
 
+// from propertiesms.h (MESSUI)
+
+BOOL MessPropertiesCommand(HWND hWnd, WORD wNotifyCode, WORD wID, BOOL *changed);
+
+INT_PTR CALLBACK GameMessOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam);
+BOOL PropSheetFilter_Config(const machine_config *drv, const game_driver *gamedrv);
+
+#include "datamap.h"
+void MessBuildDataMap(datamap *properties_datamap);
+
+
 #endif
+

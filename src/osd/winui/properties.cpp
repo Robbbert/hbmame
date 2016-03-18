@@ -100,6 +100,7 @@ b) Exit the dialog.
 
 // standard C headers
 #include <tchar.h>
+#include <sys/stat.h> // for S_IFDIR
 
 // MAME/MAMEUI headers
 #include "emu.h"
@@ -115,22 +116,17 @@ b) Exit the dialog.
 #include "winutf8.h"
 #include "directories.h"
 #include "sound/samples.h"
-#include "sound/vlm5030.h"
+//#include "sound/vlm5030.h"    // why is this device treated as samples?
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
 #endif
 
-#ifdef MESS
-#include "resourcems.h"
-#include "propertiesms.h"
-#endif
 #include "newuires.h"
 #include "directdraw.h"    /* has to be after samples.h */
 #include "properties.h"
 #include "drivenum.h"
 #include "machine/ram.h"
-#include "ui/moptions.h"
 
 
 #if defined(__GNUC__)
@@ -187,7 +183,7 @@ static HBRUSH hBkBrush;
 /* No longer used by the core, but we need it to predefine configurable screens for all games. */
 #ifndef MAX_SCREENS
 /* maximum number of screens for one game */
-#define MAX_SCREENS					4
+#define MAX_SCREENS 4
 #endif
 
 static windows_options pOrigOpts, pDefaultOpts, pCurrentOpts;
@@ -197,8 +193,6 @@ static int  g_nGame            = 0;
 static int  g_nFolder          = 0;
 static int  g_nFolderGame      = 0;
 static OPTIONS_TYPE g_nPropertyMode;
-//static BOOL g_bUseDefaults     = FALSE;
-//static BOOL g_bReset           = FALSE;
 static BOOL  g_bAutoAspect[MAX_SCREENS] = {FALSE, FALSE, FALSE, FALSE};
 static BOOL  g_bAutoSnapSize = FALSE;
 static HICON g_hIcon = NULL;
@@ -226,8 +220,8 @@ extern const DWORD dwHelpIDs[];
 
 static struct ComboBoxVideo
 {
-	const TCHAR*	m_pText;
-	const char*		m_pData;
+	const TCHAR* m_pText;
+	const char* m_pData;
 } g_ComboBoxVideo[] =
 {
 	{ TEXT("Auto"),                 "auto"    },
@@ -241,8 +235,8 @@ static struct ComboBoxVideo
 
 static struct ComboBoxSound
 {
-	const TCHAR*	m_pText;
-	const char*		m_pData;
+	const TCHAR* m_pText;
+	const char* m_pData;
 } g_ComboBoxSound[] =
 {
 	{ TEXT("None"),                 "none"    },
@@ -253,8 +247,8 @@ static struct ComboBoxSound
 
 static struct ComboBoxD3DVersion
 {
-	const TCHAR*	m_pText;
-	const int		m_pData;
+	const TCHAR* m_pText;
+	const int m_pData;
 } g_ComboBoxD3DVersion[] =
 {
 	{ TEXT("Version 9"),           9   },
@@ -266,8 +260,8 @@ static struct ComboBoxD3DVersion
 
 static struct ComboBoxSelectScreen
 {
-	const TCHAR*	m_pText;
-	const int		m_pData;
+	const TCHAR* m_pText;
+	const int m_pData;
 } g_ComboBoxSelectScreen[] =
 {
 	{ TEXT("Screen 0"),             0    },
@@ -279,11 +273,11 @@ static struct ComboBoxSelectScreen
 
 static struct ComboBoxView
 {
-	const TCHAR*	m_pText;
-	const char*		m_pData;
+	const TCHAR* m_pText;
+	const char* m_pData;
 } g_ComboBoxView[] =
 {
-	{ TEXT("Auto"),		        "auto"        },
+	{ TEXT("Auto"),             "auto"        },
 	{ TEXT("Standard"),         "standard"    },
 	{ TEXT("Pixel Aspect"),     "pixel"       },
 	{ TEXT("Cocktail"),         "cocktail"    },
@@ -294,13 +288,13 @@ static struct ComboBoxView
 
 static struct ComboBoxDevices
 {
-	const TCHAR*	m_pText;
-	const char* 	m_pData;
+	const TCHAR* m_pText;
+	const char* m_pData;
 } g_ComboBoxDevice[] =
 {
 	{ TEXT("None"),                  "none"      },
 	{ TEXT("Keyboard"),              "keyboard"  },
-	{ TEXT("Mouse"),		 "mouse"     },
+	{ TEXT("Mouse"),                 "mouse"     },
 	{ TEXT("Joystick"),              "joystick"  },
 	{ TEXT("Lightgun"),              "lightgun"  },
 };
@@ -309,12 +303,12 @@ static struct ComboBoxDevices
 
 static struct ComboBoxSnapView
 {
-	const TCHAR*	m_pText;
-	const char*		m_pData;
+	const TCHAR* m_pText;
+	const char* m_pData;
 } g_ComboBoxSnapView[] =
 {
-	{ TEXT("Internal"),	        "internal"    },
-	{ TEXT("Auto"),		        "auto"        },
+	{ TEXT("Internal"),         "internal"    },
+	{ TEXT("Auto"),             "auto"        },
 	{ TEXT("Standard"),         "standard"    },
 	{ TEXT("Pixel Aspect"),     "pixel"       },
 	{ TEXT("Cocktail"),         "cocktail"    },
@@ -337,8 +331,6 @@ DWORD_PTR GetHelpIDs(void)
 	return (DWORD_PTR)dwHelpIDs;
 }
 
-// This function (and the code that use it) is a gross hack - but at least the vile
-// and disgusting global variables are gone, making it less gross than what came before
 static int GetSelectedScreen(HWND hWnd)
 {
 	int nSelectedScreen = 0;
@@ -422,8 +414,6 @@ void InitDefaultPropertyPage(HINSTANCE hInst, HWND hWnd)
 	PROPSHEETPAGE   *pspage;
 
 	// clear globals
-	//pCurrentOpts = NULL;
-
 	g_nGame = GLOBAL_OPTIONS;
 	windows_options dummy;
 	pCurrentOpts = dummy;
@@ -692,7 +682,7 @@ static char *GameInfoScreen(UINT nIndex)
 			strcpy(buf, "Screenless Game");
 		else
 		{
-			for (; screen != NULL; screen = iter.next())
+			for (; screen; screen = iter.next())
 			{
 				char tmpbuf[256];
 				const rectangle &visarea = screen->visible_area();
@@ -1012,9 +1002,6 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 
 		UpdateProperties(hDlg, properties_datamap, pCurrentOpts);
 
-		//load_options(pCurrentOpts, g_nGame);
-		//load_options(pOrigOpts, g_nGame);
-		//load_options(pDefaultOpts, -1);
 		g_bUseDefaults = (pCurrentOpts != pDefaultOpts);
 		g_bReset = (pCurrentOpts != pOrigOpts);
 
@@ -1130,7 +1117,7 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 				if (wNotifyCode != BN_CLICKED)
 					break;
 
-				// Change settings to be the same as mess.ini
+				// Change settings to be the same as mame.ini
 				UpdateProperties(hDlg, properties_datamap, pDefaultOpts);
 				// The original options become the current options.
 				UpdateOptions(hDlg, properties_datamap, pCurrentOpts);
@@ -1923,7 +1910,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 
 	// determine the ctrlr option
 	ctrlr_option = opts->value(OPTION_CTRLR);
-	if( ctrlr_option != NULL )
+	if( ctrlr_option )
 	{
 		t_buf = tstring_from_utf8(ctrlr_option);
 		if( !t_buf )
@@ -2180,7 +2167,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 	}
 
 	utf8_dir_list = utf8_from_tstring(buffer);
-	if (utf8_dir_list != NULL)
+	if (utf8_dir_list)
 	{
 		driver_index = PropertiesCurrentGame(dialog);
 		SetExtraSoftwarePaths(driver_index, utf8_dir_list);
@@ -2228,7 +2215,7 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 	{
 		// parse off this item
 		s = _tcschr(&t_dir_list[pos], ';');
-		if (s != NULL)
+		if (s)
 		{
 			*s = '\0';
 			new_pos = s - t_dir_list + 1;
@@ -2302,7 +2289,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 	i = 0;
 
 	// we can only do something meaningful if there is more than one option
-	if (device != NULL)
+	if (device)
 	{
 		const ram_device *ramdev = dynamic_cast<const ram_device *>(device);
 
@@ -2328,7 +2315,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 
 			osd_free(t_ramstring);
 		}
-		if (ramdev->extra_options() != NULL)
+		if (ramdev->extra_options())
 		{
 			int j;
 			int size = strlen(ramdev->extra_options());
@@ -2614,13 +2601,13 @@ static void BuildDataMap(void)
 
 #ifdef MESS
 	// MESS specific stuff
-	datamap_add(properties_datamap, IDC_DIR_LIST,			DM_STRING,	NULL);
-	datamap_add(properties_datamap, IDC_RAM_COMBOBOX,		DM_INT,		OPTION_RAMSIZE);
+	datamap_add(properties_datamap, IDC_DIR_LIST,                    DM_STRING, NULL);
+	datamap_add(properties_datamap, IDC_RAM_COMBOBOX,                DM_INT, OPTION_RAMSIZE);
 
 	// set up callbacks
-	datamap_set_callback(properties_datamap, IDC_DIR_LIST,		DCT_READ_CONTROL,	DirListReadControl);
-	datamap_set_callback(properties_datamap, IDC_DIR_LIST,		DCT_POPULATE_CONTROL,	DirListPopulateControl);
-	datamap_set_callback(properties_datamap, IDC_RAM_COMBOBOX,	DCT_POPULATE_CONTROL,	RamPopulateControl);
+	datamap_set_callback(properties_datamap, IDC_DIR_LIST,           DCT_READ_CONTROL,      DirListReadControl);
+	datamap_set_callback(properties_datamap, IDC_DIR_LIST,           DCT_POPULATE_CONTROL,  DirListPopulateControl);
+	datamap_set_callback(properties_datamap, IDC_RAM_COMBOBOX,       DCT_POPULATE_CONTROL,  RamPopulateControl);
 #endif
 }
 
@@ -2640,9 +2627,10 @@ static void SetSamplesEnabled(HWND hWnd, int nIndex, BOOL bSoundEnabled)
 			machine_config config(driver_list::driver(nIndex),pCurrentOpts);
 
 			sound_interface_iterator iter(config.root_device());
-			for (device_sound_interface *sound = iter.first(); sound != NULL; sound = iter.next())
+			for (device_sound_interface *sound = iter.first(); sound; sound = iter.next())
 			{
-				if ((sound->device().type() == SAMPLES) || (sound->device().type() == VLM5030))
+				//if ((sound->device().type() == SAMPLES) || (sound->device().type() == VLM5030))
+				if (sound->device().type() == SAMPLES)
 					enabled = TRUE;
 			}
 		}
@@ -2931,7 +2919,7 @@ static void InitializeBIOSUI(HWND hwnd)
 			(void)ComboBox_InsertString(hCtrl, i, TEXT("Default"));
 			(void)ComboBox_SetItemData( hCtrl, i++, "");
 
-			if (gamedrv->rom != NULL)
+			if (gamedrv->rom)
 			{
 				for (rom = gamedrv->rom; !ROMENTRY_ISEND(rom); rom++)
 				{
@@ -2960,7 +2948,7 @@ static void InitializeBIOSUI(HWND hwnd)
 		(void)ComboBox_InsertString(hCtrl, i, TEXT("Default"));
 		(void)ComboBox_SetItemData( hCtrl, i++, "");
 
-		if (gamedrv->rom != NULL)
+		if (gamedrv->rom)
 		{
 			for (rom = gamedrv->rom; !ROMENTRY_ISEND(rom); rom++)
 			{
@@ -3148,4 +3136,260 @@ void UpdateBackgroundBrush(HWND hwndTab)
 }
 
 
-/* End of source file */
+// from propertiesms.cpp (MESSUI)
+
+
+static BOOL SoftwareDirectories_OnInsertBrowse(HWND hDlg, BOOL bBrowse, LPCTSTR lpItem);
+static BOOL SoftwareDirectories_OnDelete(HWND hDlg);
+static BOOL SoftwareDirectories_OnBeginLabelEdit(HWND hDlg, NMHDR* pNMHDR);
+static BOOL SoftwareDirectories_OnEndLabelEdit(HWND hDlg, NMHDR* pNMHDR);
+
+extern BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult);
+static BOOL g_bModifiedSoftwarePaths = FALSE;
+
+
+
+static void MarkChanged(HWND hDlg)
+{
+	HWND hCtrl;
+
+	/* fake a CBN_SELCHANGE event from IDC_SIZES to force it to be changed */
+	hCtrl = GetDlgItem(hDlg, IDC_SIZES);
+	PostMessage(hDlg, WM_COMMAND, (CBN_SELCHANGE << 16) | IDC_SIZES, (LPARAM) hCtrl);
+}
+
+
+static void AppendList(HWND hList, LPCTSTR lpItem, int nItem)
+{
+	LV_ITEM Item;
+	HRESULT res;
+	memset(&Item, 0, sizeof(LV_ITEM));
+	Item.mask = LVIF_TEXT;
+	Item.pszText = (LPTSTR) lpItem;
+	Item.iItem = nItem;
+	res = ListView_InsertItem(hList, &Item);
+	res++;
+}
+
+
+static BOOL SoftwareDirectories_OnInsertBrowse(HWND hDlg, BOOL bBrowse, LPCTSTR lpItem)
+{
+	int nItem;
+	TCHAR inbuf[MAX_PATH];
+	TCHAR outbuf[MAX_PATH];
+	HWND hList;
+	LPTSTR lpIn;
+	BOOL res;
+
+	g_bModifiedSoftwarePaths = TRUE;
+
+	hList = GetDlgItem(hDlg, IDC_DIR_LIST);
+	nItem = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
+
+	if (nItem == -1)
+		return FALSE;
+
+	/* Last item is placeholder for append */
+	if (nItem == ListView_GetItemCount(hList) - 1)
+		bBrowse = FALSE;
+
+	if (!lpItem)
+	{
+		if (bBrowse)
+		{
+			ListView_GetItemText(hList, nItem, 0, inbuf, ARRAY_LENGTH(inbuf));
+			lpIn = inbuf;
+		}
+		else
+			lpIn = NULL;
+
+		if (!BrowseForDirectory(hDlg, lpIn, outbuf))
+			return FALSE;
+
+		lpItem = outbuf;
+	}
+
+	AppendList(hList, lpItem, nItem);
+	if (bBrowse)
+		res = ListView_DeleteItem(hList, nItem+1);
+	MarkChanged(hDlg);
+	res++;
+	return TRUE;
+}
+
+
+
+static BOOL SoftwareDirectories_OnDelete(HWND hDlg)
+{
+	int nCount;
+	int nSelect;
+	int nItem;
+	HWND hList = GetDlgItem(hDlg, IDC_DIR_LIST);
+	BOOL res;
+
+	g_bModifiedSoftwarePaths = TRUE;
+
+	nItem = ListView_GetNextItem(hList, -1, LVNI_SELECTED | LVNI_ALL);
+
+	if (nItem == -1)
+		return FALSE;
+
+	/* Don't delete "Append" placeholder. */
+	if (nItem == ListView_GetItemCount(hList) - 1)
+		return FALSE;
+
+	res = ListView_DeleteItem(hList, nItem);
+
+	nCount = ListView_GetItemCount(hList);
+	if (nCount <= 1)
+		return FALSE;
+
+	/* If the last item was removed, select the item above. */
+	if (nItem == nCount - 1)
+		nSelect = nCount - 2;
+	else
+		nSelect = nItem;
+
+	ListView_SetItemState(hList, nSelect, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
+	MarkChanged(hDlg);
+	res++;
+	return TRUE;
+}
+
+
+
+static BOOL SoftwareDirectories_OnBeginLabelEdit(HWND hDlg, NMHDR* pNMHDR)
+{
+	BOOL          bResult = FALSE;
+	NMLVDISPINFO* pDispInfo = (NMLVDISPINFO*)pNMHDR;
+	LVITEM*       pItem = &pDispInfo->item;
+	HWND          hList = GetDlgItem(hDlg, IDC_DIR_LIST);
+
+	/* Last item is placeholder for append */
+	if (pItem->iItem == ListView_GetItemCount(hList) - 1)
+	{
+		HWND hEdit = (HWND) (FPTR) SendMessage(hList, LVM_GETEDITCONTROL, 0, 0);
+		win_set_window_text_utf8(hEdit, "");
+	}
+
+	return bResult;
+}
+
+
+
+static BOOL SoftwareDirectories_OnEndLabelEdit(HWND hDlg, NMHDR* pNMHDR)
+{
+	BOOL bResult = FALSE;
+	NMLVDISPINFO* pDispInfo = (NMLVDISPINFO*)pNMHDR;
+	LVITEM* pItem = &pDispInfo->item;
+
+	if (pItem->pszText)
+	{
+		struct _stat file_stat;
+
+		/* Don't allow empty entries. */
+		if (!_tcscmp(pItem->pszText, TEXT("")))
+			return FALSE;
+
+		/* Check validity of edited directory. */
+		if ((_tstat(pItem->pszText, &file_stat) == 0) && (file_stat.st_mode & S_IFDIR))
+			bResult = TRUE;
+		else
+		if (win_message_box_utf8(NULL, "Folder does not exist, continue anyway?", MAMEUINAME, MB_OKCANCEL) == IDOK)
+			bResult = TRUE;
+	}
+
+	if (bResult == TRUE)
+		SoftwareDirectories_OnInsertBrowse(hDlg, TRUE, pItem->pszText);
+
+	return bResult;
+}
+
+
+static BOOL DriverHasDevice(const game_driver *gamedrv, iodevice_t type)
+{
+	BOOL b = FALSE;
+
+	// allocate the machine config
+	machine_config config(*gamedrv,MameUIGlobal());
+
+	image_interface_iterator iter(config.root_device());
+	for (device_image_interface *dev = iter.first(); dev; dev = iter.next())
+	{
+		if (dev->image_type() == type)
+		{
+			b = TRUE;
+			break;
+		}
+	}
+	return b;
+}
+
+BOOL PropSheetFilter_Config(const machine_config *drv, const game_driver *gamedrv)
+{
+	ram_device_iterator iter(drv->root_device());
+	return (iter.first()!=NULL) || DriverHasDevice(gamedrv, IO_PRINTER);
+}
+
+
+
+INT_PTR CALLBACK GameMessOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+	INT_PTR rc = 0;
+	BOOL bHandled = FALSE;
+
+	switch (Msg)
+	{
+	case WM_NOTIFY:
+		switch (((NMHDR *) lParam)->code)
+		{
+		case LVN_ENDLABELEDIT:
+			rc = SoftwareDirectories_OnEndLabelEdit(hDlg, (NMHDR *) lParam);
+			bHandled = TRUE;
+			break;
+
+		case LVN_BEGINLABELEDIT:
+			rc = SoftwareDirectories_OnBeginLabelEdit(hDlg, (NMHDR *) lParam);
+			bHandled = TRUE;
+			break;
+		}
+	}
+
+	if (!bHandled)
+		rc = GameOptionsProc(hDlg, Msg, wParam, lParam);
+
+	return rc;
+}
+
+
+
+BOOL MessPropertiesCommand(HWND hWnd, WORD wNotifyCode, WORD wID, BOOL *changed)
+{
+	BOOL handled = TRUE;
+
+	switch(wID)
+	{
+		case IDC_DIR_BROWSE:
+			if (wNotifyCode == BN_CLICKED)
+				*changed = SoftwareDirectories_OnInsertBrowse(hWnd, TRUE, NULL);
+			break;
+
+		case IDC_DIR_INSERT:
+			if (wNotifyCode == BN_CLICKED)
+				*changed = SoftwareDirectories_OnInsertBrowse(hWnd, FALSE, NULL);
+			break;
+
+		case IDC_DIR_DELETE:
+			if (wNotifyCode == BN_CLICKED)
+				*changed = SoftwareDirectories_OnDelete(hWnd);
+			break;
+
+		default:
+			handled = FALSE;
+			break;
+	}
+	return handled;
+}
+
+
+
