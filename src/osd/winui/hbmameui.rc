@@ -132,12 +132,8 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
+        MENUITEM "What's New in MAME",          ID_HELP_WHATS_NEW
         MENUITEM "&Contents\tF1",               ID_HELP_CONTENTS
-        MENUITEM "&Troubleshooting",            ID_HELP_TROUBLE
-        MENUITEM SEPARATOR
-        MENUITEM "&New Game Changes",           ID_HELP_WHATS_NEWUI
-        MENUITEM "&Mame Release Notes",         ID_HELP_WHATS_NEW
-        MENUITEM SEPARATOR
         MENUITEM "&About",                      ID_HELP_ABOUT
     END
 END
@@ -388,10 +384,10 @@ CAPTION "About HBMAMEUI"
 FONT 8, "Tahoma"
 BEGIN
     DEFPUSHBUTTON   "&OK",IDOK,200,109,50,14,WS_GROUP
-    CTEXT           "Homebrew Multiple Arcade Machine Emulator",IDC_STATIC,147,7,142,
+    CTEXT           "Homebrew MAME",IDC_STATIC,147,7,142,
                     11,NOT WS_GROUP
     CTEXT           "Version 0",IDC_VERSION,147,18,142,11,NOT WS_GROUP
-    CTEXT           "Copyright (C) 1997-2015 The MAME Team",IDC_STATIC,147,
+    CTEXT           "Copyright (C) 1997-2016 The MAME Team",IDC_STATIC,147,
                     29,142,10,NOT WS_GROUP
     CTEXT           "MAMEUI version by",IDC_STATIC,147,51,142,10,NOT 
                     WS_GROUP
