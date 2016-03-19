@@ -331,18 +331,6 @@ static int png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE 
     File search functions
 ***************************************************************************/
 
-static const zip_file::file_header *zip_file_seek_file(zip_file::ptr &zip, const char *filename)
-{
-	const zip_file::file_header *header;
-
-	// find the entry
-	header = zip->first_file();
-	while(header && (core_stricmp(header->filename, filename)!=0))
-		header = zip->next_file();
-
-	return header;
-}
-
 static osd_file::error OpenBkgroundFile(const char *filename, util::core_file::ptr &file)
 {
 	osd_file::error filerr;
@@ -374,27 +362,26 @@ static osd_file::error OpenRawDIBFile(const char *dir_name, const char *filename
 static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name, const char *filename, util::core_file::ptr &file, void **buffer)
 {
 	osd_file::error filerr = osd_file::error::NOT_FOUND;
-	zip_file::error ziperr;
-	zip_file::ptr zip;
-	const zip_file::file_header *zip_header;
+	util::archive_file::error ziperr;
+	util::archive_file::ptr zip;
 
 	// clear out result
 	file = NULL;
 
 	// look into zip file
 	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".zip";
-	ziperr = zip_file::open(fname, zip);
+	ziperr = util::archive_file::open_zip(fname, zip);
 
-	if (ziperr == zip_file::error::NONE)
+	if (ziperr == util::archive_file::error::NONE)
 	{
-		zip_header = zip_file_seek_file(zip, filename);
-		if (zip_header != NULL)
+		int res = zip->search(filename);
+		if (res >= 0)
 		{
-			*buffer = malloc(zip_header->uncompressed_length);
-			ziperr = zip->decompress(*buffer, zip_header->uncompressed_length);
-			if (ziperr == zip_file::error::NONE)
+			*buffer = malloc(zip->current_uncompressed_length());
+			ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
+			if (ziperr == util::archive_file::error::NONE)
 			{
-				filerr = util::core_file::open_ram(*buffer, zip_header->uncompressed_length, OPEN_FLAG_READ, file);
+				filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
 			}
 		}
 		zip.reset();

@@ -176,6 +176,14 @@ static void ResetDataMap(HWND hWnd);
 static void UpdateBackgroundBrush(HWND hwndTab);
 static HBRUSH hBkBrush;
 
+#ifdef MESS
+static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name);
+static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name);
+static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name);
+extern BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult);
+static BOOL g_bModifiedSoftwarePaths = FALSE;
+#endif
+
 /**************************************************************
  * Local private variables
  **************************************************************/
@@ -1402,6 +1410,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 	int  d = 0;
 	int  width = 0;
 	int  height = 0;
+	int res = 0;
 
 	/* video */
 
@@ -1434,7 +1443,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 			cBuffer = (const char*)ComboBox_GetItemData( hCtrl, i );
 			if (strcmp(cBuffer, pCurrentOpts.value(OPTION_BIOS) ) == 0)
 			{
-				(void)ComboBox_SetCurSel(hCtrl, i);
+				res = ComboBox_SetCurSel(hCtrl, i);
 				break;
 			}
 
@@ -1542,6 +1551,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 			Edit_SetText(hCtrl2, TEXT("480"));
 		}
 	}
+	res++;
 }
 
 /* Adjust controls - tune them to the currently selected game */
@@ -1747,7 +1757,7 @@ static BOOL RotateReadControl(datamap *map, HWND dialog, HWND control, windows_o
 
 static BOOL RotatePopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
-	int selected_index = 0;
+	int res, selected_index = 0;
 	if (opts->bool_value(OPTION_ROR) && !opts->bool_value(OPTION_ROL))
 		selected_index = 1;
 	else if (!opts->bool_value(OPTION_ROR) && opts->bool_value(OPTION_ROL))
@@ -1759,7 +1769,8 @@ static BOOL RotatePopulateControl(datamap *map, HWND dialog, HWND control, windo
 	else if (opts->bool_value(OPTION_AUTOROL))
 		selected_index = 5;
 
-	(void)ComboBox_SetCurSel(control, selected_index);
+	res = ComboBox_SetCurSel(control, selected_index);
+	res++;
 	return FALSE;
 }
 
@@ -1790,14 +1801,14 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 {
 	//int iMonitors;
 	DISPLAY_DEVICE dd;
-	int i = 0;
+	int res, i = 0;
 	int nSelection = 0;
 	TCHAR* t_option = 0;
 
 	/* Remove all items in the list. */
-	(void)ComboBox_ResetContent(control);
-	(void)ComboBox_InsertString(control, 0, TEXT("Auto"));
-	(void)ComboBox_SetItemData(control, 0, (void*)tstring_from_utf8("auto"));
+	res = ComboBox_ResetContent(control);
+	res = ComboBox_InsertString(control, 0, TEXT("Auto"));
+	res = ComboBox_SetItemData(control, 0, (void*)tstring_from_utf8("auto"));
 
 	//Dynamically populate it, by enumerating the Monitors
 	//iMonitors = GetSystemMetrics(SM_CMONITORS); // this gets the count of monitors attached
@@ -1810,8 +1821,8 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 			char screen_option[32];
 
 			//we have to add 1 to account for the "auto" entry
-			(void)ComboBox_InsertString(control, i+1, win_tstring_strdup(dd.DeviceName));
-			(void)ComboBox_SetItemData(control, i+1, (void*)win_tstring_strdup(dd.DeviceName));
+			res = ComboBox_InsertString(control, i+1, win_tstring_strdup(dd.DeviceName));
+			res = ComboBox_SetItemData(control, i+1, (void*)win_tstring_strdup(dd.DeviceName));
 
 			snprintf(screen_option, ARRAY_LENGTH(screen_option), "screen%d", GetSelectedScreen(dialog));
 			t_option = tstring_from_utf8(opts->value(screen_option));
@@ -1822,7 +1833,8 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 			osd_free(t_option);
 		}
 	}
-	(void)ComboBox_SetCurSel(control, nSelection);
+	res = ComboBox_SetCurSel(control, nSelection);
+	res++;
 	return FALSE;
 }
 
@@ -1835,7 +1847,7 @@ static void ViewSetOptionName(datamap *map, HWND dialog, HWND control, char *buf
 
 static BOOL ViewPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
-	int i;
+	int res, i;
 	int selected_index = 0;
 	char view_option[32];
 	const char *view;
@@ -1844,38 +1856,40 @@ static BOOL ViewPopulateControl(datamap *map, HWND dialog, HWND control, windows
 	snprintf(view_option, ARRAY_LENGTH(view_option), "view%d", GetSelectedScreen(dialog));
 	view = opts->value(view_option);
 
-	(void)ComboBox_ResetContent(control);
+	res = ComboBox_ResetContent(control);
 	for (i = 0; i < NUMVIEW; i++)
 	{
-		(void)ComboBox_InsertString(control, i, g_ComboBoxView[i].m_pText);
-		(void)ComboBox_SetItemData(control, i, g_ComboBoxView[i].m_pData);
+		res = ComboBox_InsertString(control, i, g_ComboBoxView[i].m_pText);
+		res = ComboBox_SetItemData(control, i, g_ComboBoxView[i].m_pData);
 
 		if (strcmp(view, g_ComboBoxView[i].m_pData)==0)
 			selected_index = i;
 	}
-	(void)ComboBox_SetCurSel(control, selected_index);
+	res = ComboBox_SetCurSel(control, selected_index);
+	res++;
 	return FALSE;
 }
 
 static BOOL SnapViewPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
-	int i;
+	int res, i;
 	int selected_index = 0;
 	const char *snapview;
 
 	// determine the snapview option value
 	snapview = opts->value(OPTION_SNAPVIEW);
 
-	(void)ComboBox_ResetContent(control);
+	res = ComboBox_ResetContent(control);
 	for (i = 0; i < NUMSNAPVIEW; i++)
 	{
-		(void)ComboBox_InsertString(control, i, g_ComboBoxSnapView[i].m_pText);
-		(void)ComboBox_SetItemData(control, i, g_ComboBoxSnapView[i].m_pData);
+		res = ComboBox_InsertString(control, i, g_ComboBoxSnapView[i].m_pText);
+		res = ComboBox_SetItemData(control, i, g_ComboBoxSnapView[i].m_pData);
 
 		if (strcmp(snapview, g_ComboBoxSnapView[i].m_pData)==0)
 			selected_index = i;
 	}
-	(void)ComboBox_SetCurSel(control, selected_index);
+	res = ComboBox_SetCurSel(control, selected_index);
+	res++;
 	return FALSE;
 }
 
@@ -1902,7 +1916,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	TCHAR root[256];
 	TCHAR path[256];
 	int selected = 0;
-	int index = 0;
+	int res, index = 0;
 	LPCTSTR t_ctrlr_option = 0;
 	LPTSTR t_buf = 0;
 	const char *ctrlr_option;
@@ -1923,9 +1937,9 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	}
 
 	// reset the controllers dropdown
-	(void)ComboBox_ResetContent(control);
-	(void)ComboBox_InsertString(control, index, TEXT("Default"));
-	(void)ComboBox_SetItemData(control, index, "");
+	res = ComboBox_ResetContent(control);
+	res = ComboBox_InsertString(control, index, TEXT("Default"));
+	res = ComboBox_SetItemData(control, index, "");
 	index++;
 
 	t_ctrldir = tstring_from_utf8(GetCtrlrDir());
@@ -1964,8 +1978,8 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 						selected = index;
 
 					// add it as an option
-					(void)ComboBox_InsertString(control, index, root);
-					(void)ComboBox_SetItemData(control, index, (void*)win_tstring_strdup(root));	// FIXME - leaks memory!
+					res = ComboBox_InsertString(control, index, root);
+					res = ComboBox_SetItemData(control, index, (void*)win_tstring_strdup(root));	// FIXME - leaks memory!
 					index++;
 				}
 			}
@@ -1975,11 +1989,12 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 		FindClose (hFind);
 	}
 
-	(void)ComboBox_SetCurSel(control, selected);
+	res = ComboBox_SetCurSel(control, selected);
 
 	if( t_buf )
 		osd_free(t_buf);
 
+	res++;
 	return FALSE;
 }
 
@@ -1995,14 +2010,14 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 {
 	HWND refresh_control = GetDlgItem(dialog, IDC_REFRESH);
 	HWND sizes_control = GetDlgItem(dialog, IDC_SIZES);
-	int refresh_index, refresh_value, width, height;
+	int res = 0, refresh_index = 0, refresh_value = 0, width = 0, height = 0;
 	char option_value[256];
 	TCHAR buffer[256];
 	std::string error_string;
 
 	if (refresh_control && sizes_control)
 	{
-		(void)ComboBox_GetText(sizes_control, buffer, ARRAY_LENGTH(buffer) - 1);
+		res = ComboBox_GetText(sizes_control, buffer, ARRAY_LENGTH(buffer) - 1);
 		if (_stscanf(buffer, TEXT("%d x %d"), &width, &height) == 2)
 		{
 			refresh_index = ComboBox_GetCurSel(refresh_control);
@@ -2015,6 +2030,7 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 		}
 		opts->set_value(option_name, option_value, OPTION_PRIORITY_CMDLINE,error_string);
 	}
+	res++;
 	return FALSE;
 }
 
@@ -2034,7 +2050,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 	const char *screen;
 	LPTSTR t_screen;
 	TCHAR buf[16];
-	int i;
+	int res = 0, i;
 	DEVMODE devmode;
 
 	if (sizes_control && refresh_control)
@@ -2049,15 +2065,15 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 		}
 
 		// reset sizes control
-		(void)ComboBox_ResetContent(sizes_control);
-		(void)ComboBox_InsertString(sizes_control, sizes_index, TEXT("Auto"));
-		(void)ComboBox_SetItemData(sizes_control, sizes_index, 0);
+		res = ComboBox_ResetContent(sizes_control);
+		res = ComboBox_InsertString(sizes_control, sizes_index, TEXT("Auto"));
+		res = ComboBox_SetItemData(sizes_control, sizes_index, 0);
 		sizes_index++;
 
 		// reset refresh control
-		(void)ComboBox_ResetContent(refresh_control);
-		(void)ComboBox_InsertString(refresh_control, refresh_index, TEXT("Auto"));
-		(void)ComboBox_SetItemData(refresh_control, refresh_index, 0);
+		res = ComboBox_ResetContent(refresh_control);
+		res = ComboBox_InsertString(refresh_control, refresh_index, TEXT("Auto"));
+		res = ComboBox_SetItemData(refresh_control, refresh_index, 0);
 		refresh_index++;
 
 		// determine which screen we're using
@@ -2077,7 +2093,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 
 				if (ComboBox_FindString(sizes_control, 0, buf) == CB_ERR)
 				{
-					(void)ComboBox_InsertString(sizes_control, sizes_index, buf);
+					res = ComboBox_InsertString(sizes_control, sizes_index, buf);
 
 					if ((width == devmode.dmPelsWidth) && (height == devmode.dmPelsHeight))
 						sizes_selection = sizes_index;
@@ -2093,8 +2109,8 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 
 				if (ComboBox_FindString(refresh_control, 0, buf) == CB_ERR)
 				{
-					(void)ComboBox_InsertString(refresh_control, refresh_index, buf);
-					(void)ComboBox_SetItemData(refresh_control, refresh_index, devmode.dmDisplayFrequency);
+					res = ComboBox_InsertString(refresh_control, refresh_index, buf);
+					res = ComboBox_SetItemData(refresh_control, refresh_index, devmode.dmDisplayFrequency);
 
 					if (refresh == devmode.dmDisplayFrequency)
 						refresh_selection = refresh_index;
@@ -2105,266 +2121,13 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 		}
 		osd_free(t_screen);
 
-		(void)ComboBox_SetCurSel(sizes_control, sizes_selection);
-		(void)ComboBox_SetCurSel(refresh_control, refresh_selection);
+		res = ComboBox_SetCurSel(sizes_control, sizes_selection);
+		res = ComboBox_SetCurSel(refresh_control, refresh_selection);
 	}
+	res++;
 	return FALSE;
 }
 
-
-
-//============================================================
-#ifdef MESS
-//============================================================
-//  DATAMAP HANDLERS FOR MESS
-//============================================================
-
-static void AppendList(HWND hList, LPCTSTR lpItem, int nItem)
-{
-	LV_ITEM Item;
-	HRESULT res;
-	memset(&Item, 0, sizeof(LV_ITEM));
-	Item.mask = LVIF_TEXT;
-	Item.pszText = (LPTSTR) lpItem;
-	Item.iItem = nItem;
-	res = ListView_InsertItem(hList, &Item);
-	res++;
-}
-
-static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
-{
-	int directory_count;
-	LV_ITEM lvi;
-	TCHAR buffer[2048];
-	char *utf8_dir_list;
-	int i, pos, driver_index;
-	BOOL res;
-
-	// determine the directory count; note that one item is the "<    >" entry
-	directory_count = ListView_GetItemCount(control);
-	if (directory_count > 0)
-		directory_count--;
-
-	buffer[0] = '\0';
-	pos = 0;
-
-	for (i = 0; i < directory_count; i++)
-	{
-		// append a semicolon, if we're past the first entry
-		if (i > 0)
-			pos += _sntprintf(&buffer[pos], ARRAY_LENGTH(buffer) - pos, TEXT(";"));
-
-		// retrieve the next entry
-		memset(&lvi, '\0', sizeof(lvi));
-		lvi.mask = LVIF_TEXT;
-		lvi.iItem = i;
-		lvi.pszText = &buffer[pos];
-		lvi.cchTextMax = ARRAY_LENGTH(buffer) - pos;
-		res = ListView_GetItem(control, &lvi);
-
-		// advance the position
-		pos += _tcslen(&buffer[pos]);
-	}
-
-	utf8_dir_list = utf8_from_tstring(buffer);
-	if (utf8_dir_list)
-	{
-		driver_index = PropertiesCurrentGame(dialog);
-		SetExtraSoftwarePaths(driver_index, utf8_dir_list);
-		std::string error_string;
-		pCurrentOpts.set_value(OPTION_COMMENT_DIRECTORY, utf8_dir_list, OPTION_PRIORITY_CMDLINE,error_string);
-		osd_free(utf8_dir_list);
-	}
-	res++;
-	return TRUE;
-}
-
-
-static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
-{
-	int driver_index, pos, new_pos, current_item;
-	const char *dir_list;
-	TCHAR *t_dir_list;
-	TCHAR *s;
-	LV_COLUMN lvc;
-	RECT r;
-	HRESULT res;
-	BOOL b_res;
-
-	// access the directory list, and convert to TCHARs
-	driver_index = PropertiesCurrentGame(dialog);
-	dir_list = GetExtraSoftwarePaths(driver_index, 0);
-	t_dir_list = tstring_from_utf8(dir_list);
-	if (!t_dir_list)
-		return FALSE;
-
-	// delete all items in the list control
-	b_res = ListView_DeleteAllItems(control);
-
-	// add the column
-	GetClientRect(control, &r);
-	memset(&lvc, 0, sizeof(LVCOLUMN));
-	lvc.mask = LVCF_WIDTH;
-	lvc.cx = r.right - r.left - GetSystemMetrics(SM_CXHSCROLL);
-	res = ListView_InsertColumn(control, 0, &lvc);
-
-	// add each of the directories
-	pos = 0;
-	current_item = 0;
-	while(t_dir_list[pos] != '\0')
-	{
-		// parse off this item
-		s = _tcschr(&t_dir_list[pos], ';');
-		if (s)
-		{
-			*s = '\0';
-			new_pos = s - t_dir_list + 1;
-		}
-		else
-			new_pos = pos + _tcslen(&t_dir_list[pos]);
-
-		// append this item
-		AppendList(control, &t_dir_list[pos], current_item);
-
-		// advance to next item
-		pos = new_pos;
-		current_item++;
-	}
-
-	// finish up
-	AppendList(control, TEXT(DIRLIST_NEWENTRYTEXT), current_item);
-	ListView_SetItemState(control, 0, LVIS_SELECTED, LVIS_SELECTED);
-	osd_free(t_dir_list);
-	res++;
-	b_res++;
-	return TRUE;
-}
-
-
-
-static const char *messram_string(char *buffer, UINT32 ram)
-{
-	const char *suffix;
-
-	if ((ram % (1024*1024)) == 0)
-	{
-		ram /= 1024*1024;
-		suffix = "m";
-	}
-	else if ((ram % 1024) == 0)
-	{
-		ram /= 1024;
-		suffix = "k";
-	}
-	else
-		suffix = "";
-
-	sprintf(buffer, "%u%s", ram, suffix);
-	return buffer;
-}
-
-static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
-{
-	int i, current_index, driver_index;
-	const game_driver *gamedrv;
-	UINT32 ram, current_ram;
-	const char *this_ram_string;
-	TCHAR* t_ramstring;
-
-	// identify the driver
-	driver_index = PropertiesCurrentGame(dialog);
-	gamedrv = &driver_list::driver(driver_index);
-
-	// clear out the combo box
-	(void)ComboBox_ResetContent(control);
-
-	// allocate the machine config
-	machine_config cfg(*gamedrv,*opts);
-
-	// identify how many options that we have
-	ram_device_iterator iter(cfg.root_device());
-	ram_device *device = iter.first();
-
-	EnableWindow(control, (device != NULL));
-	i = 0;
-
-	// we can only do something meaningful if there is more than one option
-	if (device)
-	{
-		const ram_device *ramdev = dynamic_cast<const ram_device *>(device);
-
-		// identify the current amount of RAM
-		this_ram_string = opts->value(OPTION_RAMSIZE);
-		current_ram = (this_ram_string != NULL) ? ramdev->parse_string(this_ram_string) : 0;
-		if (current_ram == 0)
-			current_ram = ramdev->default_size();
-
-		// by default, assume index 0
-		current_index = 0;
-
-		{
-			char tmpval[20] ;
-			ram = ramdev->default_size();
-			messram_string(tmpval,ram);
-			t_ramstring = tstring_from_utf8(tmpval);
-			if( !t_ramstring )
-				return FALSE;
-
-			(void)ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
-			(void)ComboBox_SetItemData(control, i, ram);
-
-			osd_free(t_ramstring);
-		}
-		if (ramdev->extra_options())
-		{
-			int j;
-			int size = strlen(ramdev->extra_options());
-			char * const s = core_strdup(ramdev->extra_options());
-			char * const e = s + size;
-			char *p = s;
-			for (j=0;j<size;j++)
-				if (p[j]==',')
-					p[j]=0;
-
-			/* try to parse each option */
-			while(p <= e)
-			{
-				i++;
-				// identify this option
-				ram = ramdev->parse_string(p);
-
-				this_ram_string = p;
-
-				t_ramstring = tstring_from_utf8(this_ram_string);
-				if( !t_ramstring )
-					return FALSE;
-
-				// add this option to the combo box
-				(void)ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
-				(void)ComboBox_SetItemData(control, i, ram);
-
-				osd_free(t_ramstring);
-
-				// is this the current option?  record the index if so
-				if (ram == current_ram)
-					current_index = i;
-
-				p+= strlen(p);
-				if (p == e)
-					break;
-
-				p++;
-			}
-
-			osd_free(s);
-		}
-
-		// set the combo box
-		(void)ComboBox_SetCurSel(control, current_index);
-	}
-	return TRUE;
-}
-#endif
 
 /************************************************************
  * DataMap initializers
@@ -2687,15 +2450,15 @@ static void RefreshSelectionChange(HWND hWnd, HWND hWndCtrl)
 static void InitializeSoundUI(HWND hwnd)
 {
 	HWND    hCtrl;
-	int i;
+	int res = 0, i;
 
 	hCtrl = GetDlgItem(hwnd, IDC_SOUND_MODE);
 	if (hCtrl)
 	{
 		for (i = 0; i < NUMSOUND; i++)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, g_ComboBoxSound[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl, i, g_ComboBoxSound[i].m_pData);
+			res = ComboBox_InsertString(hCtrl, i, g_ComboBoxSound[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl, i, g_ComboBoxSound[i].m_pData);
 		}
 	}
 
@@ -2704,71 +2467,76 @@ static void InitializeSoundUI(HWND hwnd)
 	hCtrl = GetDlgItem(hwnd, IDC_SAMPLERATE);
 	if (hCtrl)
 	{
-		(void)ComboBox_AddString(hCtrl, TEXT("11025"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 11025);
-		(void)ComboBox_AddString(hCtrl, TEXT("22050"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 22050);
-		(void)ComboBox_AddString(hCtrl, TEXT("44100"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 44100);
-		(void)ComboBox_AddString(hCtrl, TEXT("48000"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 48000);
-		(void)ComboBox_SetCurSel(hCtrl, 1);
+		res = ComboBox_AddString(hCtrl, TEXT("11025"));
+		res = ComboBox_SetItemData(hCtrl, i++, 11025);
+		res = ComboBox_AddString(hCtrl, TEXT("22050"));
+		res = ComboBox_SetItemData(hCtrl, i++, 22050);
+		res = ComboBox_AddString(hCtrl, TEXT("44100"));
+		res = ComboBox_SetItemData(hCtrl, i++, 44100);
+		res = ComboBox_AddString(hCtrl, TEXT("48000"));
+		res = ComboBox_SetItemData(hCtrl, i++, 48000);
+		res = ComboBox_SetCurSel(hCtrl, 1);
 	}
+	res++;
 }
 
 /* Populate the Frame Skipping drop down */
 static void InitializeSkippingUI(HWND hwnd)
 {
 	HWND hCtrl = GetDlgItem(hwnd, IDC_FRAMESKIP);
-	int i = 0;
+	int res = 0, i = 0;
 
 	if (hCtrl)
 	{
-		(void)ComboBox_AddString(hCtrl, TEXT("Draw every frame"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 0);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 1 frame"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 1);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 2 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 2);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 3 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 3);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 4 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 4);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 5 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 5);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 6 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 6);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 7 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 7);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 8 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 8);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 9 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 9);
-		(void)ComboBox_AddString(hCtrl, TEXT("Skip 10 frames"));
-		(void)ComboBox_SetItemData(hCtrl, i++, 10);
+		res = ComboBox_AddString(hCtrl, TEXT("Draw every frame"));
+		res = ComboBox_SetItemData(hCtrl, i++, 0);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 1 frame"));
+		res = ComboBox_SetItemData(hCtrl, i++, 1);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 2 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 2);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 3 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 3);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 4 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 4);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 5 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 5);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 6 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 6);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 7 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 7);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 8 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 8);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 9 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 9);
+		res = ComboBox_AddString(hCtrl, TEXT("Skip 10 frames"));
+		res = ComboBox_SetItemData(hCtrl, i++, 10);
 	}
+	res++;
 }
 
 /* Populate the Rotate drop down */
 static void InitializeRotateUI(HWND hwnd)
 {
 	HWND hCtrl = GetDlgItem(hwnd, IDC_ROTATE);
+	int res = 0;
 
 	if (hCtrl)
 	{
-		(void)ComboBox_AddString(hCtrl, TEXT("Default"));             // 0
-		(void)ComboBox_AddString(hCtrl, TEXT("Clockwise"));           // 1
-		(void)ComboBox_AddString(hCtrl, TEXT("Anti-clockwise"));      // 2
-		(void)ComboBox_AddString(hCtrl, TEXT("None"));                // 3
-		(void)ComboBox_AddString(hCtrl, TEXT("Auto clockwise"));      // 4
-		(void)ComboBox_AddString(hCtrl, TEXT("Auto anti-clockwise")); // 5
+		res = ComboBox_AddString(hCtrl, TEXT("Default"));             // 0
+		res = ComboBox_AddString(hCtrl, TEXT("Clockwise"));           // 1
+		res = ComboBox_AddString(hCtrl, TEXT("Anti-clockwise"));      // 2
+		res = ComboBox_AddString(hCtrl, TEXT("None"));                // 3
+		res = ComboBox_AddString(hCtrl, TEXT("Auto clockwise"));      // 4
+		res = ComboBox_AddString(hCtrl, TEXT("Auto anti-clockwise")); // 5
 	}
+	res++;
 }
 
 /* Populate the Video Mode drop down */
 static void InitializeVideoUI(HWND hwnd)
 {
-	HWND    hCtrl;
+	HWND hCtrl;
+	int res = 0;
 
 	hCtrl = GetDlgItem(hwnd, IDC_VIDEO_MODE);
 	if (hCtrl)
@@ -2776,48 +2544,51 @@ static void InitializeVideoUI(HWND hwnd)
 		int i;
 		for (i = 0; i < NUMVIDEO; i++)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, g_ComboBoxVideo[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl, i, g_ComboBoxVideo[i].m_pData);
+			res = ComboBox_InsertString(hCtrl, i, g_ComboBoxVideo[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl, i, g_ComboBoxVideo[i].m_pData);
 		}
 	}
+	res++;
 }
 
 /* Populate the D3D Version drop down */
 static void InitializeD3DVersionUI(HWND hwnd)
 {
 	HWND hCtrl = GetDlgItem(hwnd, IDC_D3D_VERSION);
+	int res = 0, i;
 	if (hCtrl)
 	{
-		int i;
 		for (i = 0; i < NUMD3DVERSIONS; i++)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, g_ComboBoxD3DVersion[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl, i, g_ComboBoxD3DVersion[i].m_pData);
+			res = ComboBox_InsertString(hCtrl, i, g_ComboBoxD3DVersion[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl, i, g_ComboBoxD3DVersion[i].m_pData);
 		}
 	}
+	res++;
 }
 
 static void UpdateSelectScreenUI(HWND hwnd)
 {
+	int res = 0, i, curSel;
 	HWND hCtrl = GetDlgItem(hwnd, IDC_SCREENSELECT);
 	if (hCtrl)
 	{
-		int i, curSel;
 		curSel = ComboBox_GetCurSel(hCtrl);
 		if ((curSel < 0) || (curSel >= NUMSELECTSCREEN))
 			curSel = 0;
-		(void)ComboBox_ResetContent(hCtrl);
+		res = ComboBox_ResetContent(hCtrl);
 		for (i = 0; i < NUMSELECTSCREEN && i < pCurrentOpts.int_value(OSDOPTION_NUMSCREENS) ; i++)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, g_ComboBoxSelectScreen[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl, i, g_ComboBoxSelectScreen[i].m_pData);
+			res = ComboBox_InsertString(hCtrl, i, g_ComboBoxSelectScreen[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl, i, g_ComboBoxSelectScreen[i].m_pData);
 		}
 		// Smaller Amount of screens was selected, so use 0
 		if( i < curSel )
-			(void)ComboBox_SetCurSel(hCtrl, 0);
+			res = ComboBox_SetCurSel(hCtrl, 0);
 		else
-			(void)ComboBox_SetCurSel(hCtrl, curSel);
+			res = ComboBox_SetCurSel(hCtrl, curSel);
 	}
+	res++;
 }
 
 /* Populate the Select Screen drop down */
@@ -2828,7 +2599,7 @@ static void InitializeSelectScreenUI(HWND hwnd)
 
 static void InitializeControllerMappingUI(HWND hwnd)
 {
-	int i;
+	int res = 0, i;
 	HWND hCtrl  = GetDlgItem(hwnd,IDC_PADDLE);
 	HWND hCtrl1 = GetDlgItem(hwnd,IDC_ADSTICK);
 	HWND hCtrl2 = GetDlgItem(hwnd,IDC_PEDAL);
@@ -2842,59 +2613,60 @@ static void InitializeControllerMappingUI(HWND hwnd)
 	{
 		if (hCtrl)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl1)
 		{
-			(void)ComboBox_InsertString(hCtrl1, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl1, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl1, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl1, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl2)
 		{
-			(void)ComboBox_InsertString(hCtrl2, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl2, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl2, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl2, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl3)
 		{
-			(void)ComboBox_InsertString(hCtrl3, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl3, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl3, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl3, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl4)
 		{
-			(void)ComboBox_InsertString(hCtrl4, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl4, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl4, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl4, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl5)
 		{
-			(void)ComboBox_InsertString(hCtrl5, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl5, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl5, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl5, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl6)
 		{
-			(void)ComboBox_InsertString(hCtrl6, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl6, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl6, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl6, i, g_ComboBoxDevice[i].m_pData);
 		}
 
 		if (hCtrl7)
 		{
-			(void)ComboBox_InsertString(hCtrl7, i, g_ComboBoxDevice[i].m_pText);
-			(void)ComboBox_SetItemData( hCtrl7, i, g_ComboBoxDevice[i].m_pData);
+			res = ComboBox_InsertString(hCtrl7, i, g_ComboBoxDevice[i].m_pText);
+			res = ComboBox_SetItemData( hCtrl7, i, g_ComboBoxDevice[i].m_pData);
 		}
 	}
+	res++;
 }
 
 
 static void InitializeBIOSUI(HWND hwnd)
 {
 	HWND hCtrl = GetDlgItem(hwnd,IDC_BIOS);
-	int i = 0;
+	int res = 0, i = 0;
 	TCHAR* t_s;
 	if (hCtrl)
 	{
@@ -2903,8 +2675,8 @@ static void InitializeBIOSUI(HWND hwnd)
 
 		if (g_nGame == GLOBAL_OPTIONS)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, TEXT("None"));
-			(void)ComboBox_SetItemData( hCtrl, i++, "");
+			res = ComboBox_InsertString(hCtrl, i, TEXT("None"));
+			res = ComboBox_SetItemData( hCtrl, i++, "");
 			return;
 		}
 		if (g_nGame == FOLDER_OPTIONS) //Folder Options
@@ -2912,12 +2684,12 @@ static void InitializeBIOSUI(HWND hwnd)
 			gamedrv = &driver_list::driver(g_nFolderGame);
 			if (DriverHasOptionalBIOS(g_nFolderGame) == FALSE)
 			{
-				(void)ComboBox_InsertString(hCtrl, i, TEXT("None"));
-				(void)ComboBox_SetItemData( hCtrl, i++, "");
+				res = ComboBox_InsertString(hCtrl, i, TEXT("None"));
+				res = ComboBox_SetItemData( hCtrl, i++, "");
 				return;
 			}
-			(void)ComboBox_InsertString(hCtrl, i, TEXT("Default"));
-			(void)ComboBox_SetItemData( hCtrl, i++, "");
+			res = ComboBox_InsertString(hCtrl, i, TEXT("Default"));
+			res = ComboBox_SetItemData( hCtrl, i++, "");
 
 			if (gamedrv->rom)
 			{
@@ -2930,8 +2702,8 @@ static void InitializeBIOSUI(HWND hwnd)
 						t_s = tstring_from_utf8(name);
 						if( !t_s )
 							return;
-						(void)ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
-						(void)ComboBox_SetItemData( hCtrl, i++, biosname);
+						res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
+						res = ComboBox_SetItemData( hCtrl, i++, biosname);
 						osd_free(t_s);
 					}
 				}
@@ -2941,12 +2713,12 @@ static void InitializeBIOSUI(HWND hwnd)
 
 		if (DriverHasOptionalBIOS(g_nGame) == FALSE)
 		{
-			(void)ComboBox_InsertString(hCtrl, i, TEXT("None"));
-			(void)ComboBox_SetItemData( hCtrl, i++, "");
+			res = ComboBox_InsertString(hCtrl, i, TEXT("None"));
+			res = ComboBox_SetItemData( hCtrl, i++, "");
 			return;
 		}
-		(void)ComboBox_InsertString(hCtrl, i, TEXT("Default"));
-		(void)ComboBox_SetItemData( hCtrl, i++, "");
+		res = ComboBox_InsertString(hCtrl, i, TEXT("Default"));
+		res = ComboBox_SetItemData( hCtrl, i++, "");
 
 		if (gamedrv->rom)
 		{
@@ -2959,13 +2731,14 @@ static void InitializeBIOSUI(HWND hwnd)
 					t_s = tstring_from_utf8(name);
 					if( !t_s )
 						return;
-					(void)ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
-					(void)ComboBox_SetItemData( hCtrl, i++, biosname);
+					res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
+					res = ComboBox_SetItemData( hCtrl, i++, biosname);
 					osd_free(t_s);
 				}
 			}
 		}
 	}
+	res++;
 }
 
 static BOOL SelectEffect(HWND hWnd)
@@ -3139,25 +2912,11 @@ void UpdateBackgroundBrush(HWND hwndTab)
 // from propertiesms.cpp (MESSUI)
 
 
-static BOOL SoftwareDirectories_OnInsertBrowse(HWND hDlg, BOOL bBrowse, LPCTSTR lpItem);
-static BOOL SoftwareDirectories_OnDelete(HWND hDlg);
-static BOOL SoftwareDirectories_OnBeginLabelEdit(HWND hDlg, NMHDR* pNMHDR);
-static BOOL SoftwareDirectories_OnEndLabelEdit(HWND hDlg, NMHDR* pNMHDR);
-
-extern BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult);
-static BOOL g_bModifiedSoftwarePaths = FALSE;
-
-
-
-static void MarkChanged(HWND hDlg)
-{
-	HWND hCtrl;
-
-	/* fake a CBN_SELCHANGE event from IDC_SIZES to force it to be changed */
-	hCtrl = GetDlgItem(hDlg, IDC_SIZES);
-	PostMessage(hDlg, WM_COMMAND, (CBN_SELCHANGE << 16) | IDC_SIZES, (LPARAM) hCtrl);
-}
-
+//============================================================
+#ifdef MESS
+//============================================================
+//  DATAMAP HANDLERS FOR MESS
+//============================================================
 
 static void AppendList(HWND hList, LPCTSTR lpItem, int nItem)
 {
@@ -3169,6 +2928,246 @@ static void AppendList(HWND hList, LPCTSTR lpItem, int nItem)
 	Item.iItem = nItem;
 	res = ListView_InsertItem(hList, &Item);
 	res++;
+}
+
+static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
+{
+	int directory_count;
+	LV_ITEM lvi;
+	TCHAR buffer[2048];
+	int i, pos = 0;
+	BOOL res;
+
+	// determine the directory count; note that one item is the "<    >" entry
+	directory_count = ListView_GetItemCount(control);
+	if (directory_count > 0)
+		directory_count--;
+
+	buffer[0] = '\0';
+
+	for (i = 0; i < directory_count; i++)
+	{
+		// append a semicolon, if we're past the first entry
+		if (i > 0)
+			pos += _sntprintf(&buffer[pos], ARRAY_LENGTH(buffer) - pos, TEXT(";"));
+
+		// retrieve the next entry
+		memset(&lvi, '\0', sizeof(lvi));
+		lvi.mask = LVIF_TEXT;
+		lvi.iItem = i;
+		lvi.pszText = &buffer[pos];
+		lvi.cchTextMax = ARRAY_LENGTH(buffer) - pos;
+		res = ListView_GetItem(control, &lvi);
+
+		// advance the position
+		pos += _tcslen(&buffer[pos]);
+	}
+
+	const char* paths = utf8_from_tstring(buffer);
+	if ((buffer[1] == 0x3A) || (buffer[0] == 0)) // must be a folder or null
+	{
+		std::string error_string;
+		pCurrentOpts.set_value(OPTION_COMMENT_DIRECTORY, paths, OPTION_PRIORITY_CMDLINE, error_string);
+	}
+	res++;
+	return TRUE;
+}
+
+
+static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
+{
+	int driver_index, pos, new_pos, current_item;
+	TCHAR *s;
+	LV_COLUMN lvc;
+	RECT r;
+	HRESULT res;
+	BOOL b_res;
+
+	// access the directory list, and convert to TCHARs
+	driver_index = PropertiesCurrentGame(dialog);
+	windows_options o;
+	load_options(o, driver_index);
+	const char* paths = o.value(OPTION_COMMENT_DIRECTORY);
+	TCHAR* t_dir_list = tstring_from_utf8(paths);
+	paths = 0;
+	if (!t_dir_list)
+		return FALSE;
+
+	// delete all items in the list control
+	b_res = ListView_DeleteAllItems(control);
+
+	// add the column
+	GetClientRect(control, &r);
+	memset(&lvc, 0, sizeof(LVCOLUMN));
+	lvc.mask = LVCF_WIDTH;
+	lvc.cx = r.right - r.left - GetSystemMetrics(SM_CXHSCROLL);
+	res = ListView_InsertColumn(control, 0, &lvc);
+
+	// add each of the directories
+	pos = 0;
+	current_item = 0;
+	while(t_dir_list[pos] != '\0')
+	{
+		// parse off this item
+		s = _tcschr(&t_dir_list[pos], ';');
+		if (s)
+		{
+			*s = '\0';
+			new_pos = s - t_dir_list + 1;
+		}
+		else
+			new_pos = pos + _tcslen(&t_dir_list[pos]);
+
+		// append this item
+		AppendList(control, &t_dir_list[pos], current_item);
+
+		// advance to next item
+		pos = new_pos;
+		current_item++;
+	}
+
+	// finish up
+	AppendList(control, TEXT(DIRLIST_NEWENTRYTEXT), current_item);
+	ListView_SetItemState(control, 0, LVIS_SELECTED, LVIS_SELECTED);
+	osd_free(t_dir_list);
+	res++;
+	b_res++;
+	return TRUE;
+}
+
+
+
+static const char *messram_string(char *buffer, UINT32 ram)
+{
+	const char *suffix;
+
+	if ((ram % (1024*1024)) == 0)
+	{
+		ram /= 1024*1024;
+		suffix = "m";
+	}
+	else if ((ram % 1024) == 0)
+	{
+		ram /= 1024;
+		suffix = "k";
+	}
+	else
+		suffix = "";
+
+	sprintf(buffer, "%u%s", ram, suffix);
+	return buffer;
+}
+
+static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
+{
+	int res = 0, i = 0, current_index, driver_index;
+	const game_driver *gamedrv;
+	UINT32 ram, current_ram;
+	const char *this_ram_string;
+	TCHAR* t_ramstring;
+
+	// identify the driver
+	driver_index = PropertiesCurrentGame(dialog);
+	gamedrv = &driver_list::driver(driver_index);
+
+	// clear out the combo box
+	res = ComboBox_ResetContent(control);
+
+	// allocate the machine config
+	machine_config cfg(*gamedrv,*opts);
+
+	// identify how many options that we have
+	ram_device_iterator iter(cfg.root_device());
+	ram_device *device = iter.first();
+
+	EnableWindow(control, (device != NULL));
+
+	// we can only do something meaningful if there is more than one option
+	if (device)
+	{
+		const ram_device *ramdev = dynamic_cast<const ram_device *>(device);
+
+		// identify the current amount of RAM
+		this_ram_string = opts->value(OPTION_RAMSIZE);
+		current_ram = (this_ram_string != NULL) ? ramdev->parse_string(this_ram_string) : 0;
+		if (current_ram == 0)
+			current_ram = ramdev->default_size();
+
+		// by default, assume index 0
+		current_index = 0;
+
+		{
+			char tmpval[20] ;
+			ram = ramdev->default_size();
+			messram_string(tmpval,ram);
+			t_ramstring = tstring_from_utf8(tmpval);
+			if( !t_ramstring )
+				return FALSE;
+
+			res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
+			res = ComboBox_SetItemData(control, i, ram);
+
+			osd_free(t_ramstring);
+		}
+		if (ramdev->extra_options())
+		{
+			int j;
+			int size = strlen(ramdev->extra_options());
+			char * const s = core_strdup(ramdev->extra_options());
+			char * const e = s + size;
+			char *p = s;
+			for (j=0;j<size;j++)
+				if (p[j]==',')
+					p[j]=0;
+
+			/* try to parse each option */
+			while(p <= e)
+			{
+				i++;
+				// identify this option
+				ram = ramdev->parse_string(p);
+
+				this_ram_string = p;
+
+				t_ramstring = tstring_from_utf8(this_ram_string);
+				if( !t_ramstring )
+					return FALSE;
+
+				// add this option to the combo box
+				res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
+				res = ComboBox_SetItemData(control, i, ram);
+
+				osd_free(t_ramstring);
+
+				// is this the current option?  record the index if so
+				if (ram == current_ram)
+					current_index = i;
+
+				p+= strlen(p);
+				if (p == e)
+					break;
+
+				p++;
+			}
+
+			osd_free(s);
+		}
+
+		// set the combo box
+		res = ComboBox_SetCurSel(control, current_index);
+	}
+	res++;
+	return TRUE;
+}
+
+
+static void MarkChanged(HWND hDlg)
+{
+	HWND hCtrl;
+
+	/* fake a CBN_SELCHANGE event from IDC_SIZES to force it to be changed */
+	hCtrl = GetDlgItem(hDlg, IDC_SIZES);
+	PostMessage(hDlg, WM_COMMAND, (CBN_SELCHANGE << 16) | IDC_SIZES, (LPARAM) hCtrl);
 }
 
 
@@ -3331,8 +3330,6 @@ BOOL PropSheetFilter_Config(const machine_config *drv, const game_driver *gamedr
 	return (iter.first()!=NULL) || DriverHasDevice(gamedrv, IO_PRINTER);
 }
 
-
-
 INT_PTR CALLBACK GameMessOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	INT_PTR rc = 0;
@@ -3391,5 +3388,6 @@ BOOL MessPropertiesCommand(HWND hWnd, WORD wNotifyCode, WORD wID, BOOL *changed)
 	return handled;
 }
 
+#endif
 
 

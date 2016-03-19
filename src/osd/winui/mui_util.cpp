@@ -26,6 +26,7 @@
 #include "mui_util.h"
 #include "mui_opts.h"
 #include "drivenum.h"
+#include "machine/ram.h"
 
 #include <shlwapi.h>
 #include <vector>
@@ -55,7 +56,9 @@ struct DriversInfo
 	bool usesTrackball;
 	bool usesLightGun;
 	bool usesMouse;
+	bool supportsSaveState;
 	bool isVertical;
+	bool hasRam;
 };
 
 static std::vector<DriversInfo>	drivers_info;
@@ -68,12 +71,13 @@ enum
 	DRIVER_CACHE_CLONE		= 0x0020,
 	DRIVER_CACHE_STEREO		= 0x0040,
 	DRIVER_CACHE_BIOS		= 0x0080,
-	DRIVER_CACHE_TRACKBALL		= 0x0100,
-	DRIVER_CACHE_HARDDISK		= 0x0200,
-	DRIVER_CACHE_SAMPLES		= 0x0400,
-	DRIVER_CACHE_LIGHTGUN		= 0x0800,
+	DRIVER_CACHE_TRACKBALL	= 0x0100,
+	DRIVER_CACHE_HARDDISK	= 0x0200,
+	DRIVER_CACHE_SAMPLES	= 0x0400,
+	DRIVER_CACHE_LIGHTGUN	= 0x0800,
 	DRIVER_CACHE_VECTOR		= 0x1000,
 	DRIVER_CACHE_MOUSE		= 0x2000,
+	DRIVER_CACHE_RAM        = 0x4000,
 };
 
 /***************************************************************************
@@ -85,11 +89,11 @@ enum
 */
 void __cdecl ErrorMsg(const char* fmt, ...)
 {
-	static FILE* pFile = NULL;
-	DWORD dwWritten;
-	char buf[5000];
-	char buf2[5000];
-	va_list va;
+	static FILE*	pFile = NULL;
+	DWORD			dwWritten;
+	char			buf[5000];
+	char			buf2[5000];
+	va_list 		va;
 
 	va_start(va, fmt);
 
@@ -131,8 +135,8 @@ void __cdecl dprintf(const char* fmt, ...)
 
 UINT GetDepth(HWND hWnd)
 {
-	UINT nBPP;
-	HDC hDC;
+	UINT	nBPP;
+	HDC 	hDC;
 
 	hDC = GetDC(hWnd);
 
@@ -201,8 +205,8 @@ LONG GetCommonControlVersion()
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
 	HINSTANCE hErr;
-	LPCTSTR msg = 0;
-	LPTSTR tName;
+	LPCTSTR	  msg = 0;
+	LPTSTR    tName;
 
 	tName = tstring_from_utf8(cName);
 	if( !tName )
@@ -293,8 +297,8 @@ char * ConvertToWindowsNewlines(const char *source)
 	return buf;
 }
 
-/* Lop off path and extension from a source file name
- * This assumes there is a pathname passed to the function
+/* Lop off path and extention from a source file name
+ * This assumes their is a pathname passed to the function
  * like src\drivers\blah.c
  */
 const char * GetDriverFilename(int nIndex)
@@ -322,7 +326,7 @@ int numberOfScreens(const machine_config *config)
 	const screen_device *screen  = config->first_screen();
 	screen_device_iterator iter(config->root_device());
 	UINT8 i = 0;
-	for (screen = iter.first(); screen; screen = iter.next())
+	for (screen = iter.first(); screen != NULL; screen = iter.next())
 		i++;
 	return i;
 }
@@ -347,14 +351,15 @@ static void SetDriversInfo(void)
 		cache    = (gameinfo->screenCount & DRIVER_CACHE_SCREEN);
 		if (gameinfo->isClone)			cache += DRIVER_CACHE_CLONE;
 		if (gameinfo->isHarddisk)		cache += DRIVER_CACHE_HARDDISK;
-		if (gameinfo->hasOptionalBIOS)		cache += DRIVER_CACHE_BIOS;
+		if (gameinfo->hasOptionalBIOS)	cache += DRIVER_CACHE_BIOS;
 		if (gameinfo->isStereo)			cache += DRIVER_CACHE_STEREO;
 		if (gameinfo->isVector)			cache += DRIVER_CACHE_VECTOR;
 		if (gameinfo->usesRoms)			cache += DRIVER_CACHE_ROMS;
 		if (gameinfo->usesSamples)		cache += DRIVER_CACHE_SAMPLES;
-		if (gameinfo->usesTrackball)		cache += DRIVER_CACHE_TRACKBALL;
+		if (gameinfo->usesTrackball)	cache += DRIVER_CACHE_TRACKBALL;
 		if (gameinfo->usesLightGun)		cache += DRIVER_CACHE_LIGHTGUN;
 		if (gameinfo->usesMouse)		cache += DRIVER_CACHE_MOUSE;
+		if (gameinfo->hasRam)           cache += DRIVER_CACHE_RAM;
 
 		SetDriverCache(ndriver, cache);
 	}
@@ -363,7 +368,7 @@ static void SetDriversInfo(void)
 static void InitDriversInfo(void)
 {
 	int ndriver;
-	int num_speakers = 0;
+	int num_speakers;
 	int total = driver_list::total();
 	const game_driver *gamedrv = NULL;
 	struct DriversInfo *gameinfo = NULL;
@@ -376,9 +381,14 @@ static void InitDriversInfo(void)
 		machine_config config(*gamedrv, MameUIGlobal());
 
 		gameinfo->isClone = (GetParentRomSetIndex(gamedrv) != -1);
-		gameinfo->isBroken = (gamedrv->flags & MACHINE_NOT_WORKING) ? true : false;
+		gameinfo->isBroken = ((gamedrv->flags & MACHINE_NOT_WORKING) != 0);
+		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
 		gameinfo->isHarddisk = FALSE;
 		gameinfo->isVertical = (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
+
+		ram_device_iterator iter1(config.root_device());
+		gameinfo->hasRam = (iter1.first()!=NULL);
+
 		device_iterator deviter(config.root_device());
 		for (device_t *device = deviter.first(); device; device = deviter.next())
 			for (region = rom_first_region(*device); region; region = rom_next_region(region))
@@ -395,7 +405,7 @@ static void InitDriversInfo(void)
 
 		gameinfo->isStereo = (num_speakers > 1);
 		gameinfo->screenCount = numberOfScreens(&config);
-		gameinfo->isVector = isDriverVector(&config);
+		gameinfo->isVector = isDriverVector(&config); // ((drv.video_attributes & VIDEO_TYPE_VECTOR) != 0);
 		gameinfo->usesRoms = FALSE;
 		for (device_t *device = deviter.first(); device; device = deviter.next())
 			for (region = rom_first_region(*device); region; region = rom_next_region(region))
@@ -471,19 +481,21 @@ static int InitDriversCache(void)
 			break;
 		}
 
-		gameinfo->isBroken          = (gamedrv->flags & MACHINE_NOT_WORKING)    ? TRUE : FALSE;
-		gameinfo->isVertical        = (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
-		gameinfo->screenCount       =  cache & DRIVER_CACHE_SCREEN;
-		gameinfo->isClone           = (cache & DRIVER_CACHE_CLONE)           ? TRUE : FALSE;
-		gameinfo->isHarddisk        = (cache & DRIVER_CACHE_HARDDISK)        ? TRUE : FALSE;
-		gameinfo->hasOptionalBIOS   = (cache & DRIVER_CACHE_BIOS)            ? TRUE : FALSE;
-		gameinfo->isStereo          = (cache & DRIVER_CACHE_STEREO)          ? TRUE : FALSE;
-		gameinfo->isVector          = (cache & DRIVER_CACHE_VECTOR)          ? TRUE : FALSE;
-		gameinfo->usesRoms          = (cache & DRIVER_CACHE_ROMS)            ? TRUE : FALSE;
-		gameinfo->usesSamples       = (cache & DRIVER_CACHE_SAMPLES)         ? TRUE : FALSE;
-		gameinfo->usesTrackball     = (cache & DRIVER_CACHE_TRACKBALL)       ? TRUE : FALSE;
-		gameinfo->usesLightGun      = (cache & DRIVER_CACHE_LIGHTGUN)        ? TRUE : FALSE;
-		gameinfo->usesMouse         = (cache & DRIVER_CACHE_MOUSE)           ? TRUE : FALSE;
+		gameinfo->isBroken          = ((gamedrv->flags & MACHINE_NOT_WORKING)   != 0);
+		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
+		gameinfo->isVertical        =  (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
+		gameinfo->screenCount       =   cache & DRIVER_CACHE_SCREEN;
+		gameinfo->isClone           = ((cache & DRIVER_CACHE_CLONE)     != 0);
+		gameinfo->isHarddisk        = ((cache & DRIVER_CACHE_HARDDISK)  != 0);
+		gameinfo->hasOptionalBIOS   = ((cache & DRIVER_CACHE_BIOS)      != 0);
+		gameinfo->isStereo          = ((cache & DRIVER_CACHE_STEREO)    != 0);
+		gameinfo->isVector          = ((cache & DRIVER_CACHE_VECTOR)    != 0);
+		gameinfo->usesRoms          = ((cache & DRIVER_CACHE_ROMS)      != 0);
+		gameinfo->usesSamples       = ((cache & DRIVER_CACHE_SAMPLES)   != 0);
+		gameinfo->usesTrackball     = ((cache & DRIVER_CACHE_TRACKBALL) != 0);
+		gameinfo->usesLightGun      = ((cache & DRIVER_CACHE_LIGHTGUN)  != 0);
+		gameinfo->usesMouse         = ((cache & DRIVER_CACHE_MOUSE)     != 0);
+		gameinfo->hasRam            = ((cache & DRIVER_CACHE_RAM)       != 0);
 	}
 
 	return 0;
@@ -583,7 +595,7 @@ BOOL DriverUsesMouse(int driver_index)
 
 BOOL DriverSupportsSaveState(int driver_index)
 {
-	return ( driver_list::driver(driver_index).flags & MACHINE_SUPPORTS_SAVE ) ? TRUE : FALSE;
+	return GetDriversInfo(driver_index)->supportsSaveState;
 }
 
 BOOL DriverIsVertical(int driver_index)
@@ -591,9 +603,14 @@ BOOL DriverIsVertical(int driver_index)
 	return GetDriversInfo(driver_index)->isVertical;
 }
 
+BOOL DriverHasRam(int driver_index)
+{
+	return GetDriversInfo(driver_index)->hasRam;
+}
+
 void FlushFileCaches(void)
 {
-	zip_file::cache_clear();
+	util::archive_file::cache_clear();
 }
 
 BOOL StringIsSuffixedBy(const char *s, const char *suffix)
@@ -612,10 +629,10 @@ BOOL SafeIsAppThemed(void)
 	BOOL (WINAPI *pfnIsAppThemed)(void);
 
 	hThemes = LoadLibrary(TEXT("uxtheme.dll"));
-	if (hThemes != NULL)
+	if (hThemes)
 	{
 		pfnIsAppThemed = (BOOL (WINAPI *)(void)) GetProcAddress(hThemes, "IsAppThemed");
-		if (pfnIsAppThemed != NULL)
+		if (pfnIsAppThemed)
 			bResult = pfnIsAppThemed();
 		FreeLibrary(hThemes);
 	}
@@ -661,10 +678,10 @@ HICON win_extract_icon_utf8(HINSTANCE inst, const char* exefilename, UINT iconin
 TCHAR* win_tstring_strdup(LPCTSTR str)
 {
 	TCHAR *cpy = NULL;
-	if (str != NULL)
+	if (str)
 	{
 		cpy = (TCHAR*)osd_malloc((_tcslen(str) + 1) * sizeof(TCHAR));
-		if (cpy != NULL)
+		if (cpy)
 			_tcscpy(cpy, str);
 	}
 	return cpy;
@@ -675,8 +692,8 @@ TCHAR* win_tstring_strdup(LPCTSTR str)
 //============================================================
 
 HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD sharemode,
-		LPSECURITY_ATTRIBUTES securityattributes, DWORD creationdisposition,
-		DWORD flagsandattributes, HANDLE templatehandle)
+							LPSECURITY_ATTRIBUTES securityattributes, DWORD creationdisposition,
+							DWORD flagsandattributes, HANDLE templatehandle)
 {
 	HANDLE result = 0;
 	TCHAR* t_filename = tstring_from_utf8(filename);
@@ -684,7 +701,7 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 		return result;
 
 	result = CreateFile(t_filename, desiredmode, sharemode, securityattributes, creationdisposition,
-			flagsandattributes, templatehandle);
+						flagsandattributes, templatehandle);
 
 	osd_free(t_filename);
 
@@ -701,8 +718,7 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 	TCHAR* t_buffer = NULL;
 	char* utf8_buffer = NULL;
 
-	if( bufferlength > 0 )
-	{
+	if( bufferlength > 0 ) {
 		t_buffer = (TCHAR*)malloc((bufferlength * sizeof(TCHAR)) + 1);
 		if( !t_buffer )
 			return result;
@@ -710,21 +726,18 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 
 	result = GetCurrentDirectory(bufferlength, t_buffer);
 
-	if( bufferlength > 0 )
-	{
+	if( bufferlength > 0 ) {
 		utf8_buffer = utf8_from_tstring(t_buffer);
-		if( !utf8_buffer )
-		{
+		if( !utf8_buffer ) {
 			osd_free(t_buffer);
 			return result;
 		}
 	}
 
-	if (utf8_buffer)
-	{
-		strncpy(buffer, utf8_buffer, bufferlength);
+	strncpy(buffer, utf8_buffer, bufferlength);
+
+	if( utf8_buffer )
 		osd_free(utf8_buffer);
-	}
 
 	if( t_buffer )
 		free(t_buffer);

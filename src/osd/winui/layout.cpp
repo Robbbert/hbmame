@@ -29,6 +29,8 @@
 static BOOL FilterAvailable(int driver_index);
 
 #ifdef MESS
+#include "drivenum.h"
+
 static BOOL DriverIsComputer(int driver_index)
 {
 	return (driver_list::driver(driver_index).flags & MACHINE_TYPE_COMPUTER) != 0;
@@ -166,24 +168,23 @@ extern const SPLITTERINFO g_splitterInfo[] =
 #endif
 
 #ifdef MESS
-// this doesn't seem to be used
 extern const MAMEHELPINFO g_helpInfo[] =
 {
-	//{ ID_HELP_CONTENTS,    TRUE,  TEXT("messui.chm::/windows/main.htm") },
-	{ ID_HELP_CONTENTS,    TRUE,  "messui.chm" },
-	//{ ID_HELP_RELEASE,     TRUE,  TEXT("messui.chm") },
-	//{ ID_HELP_WHATS_NEW,   TRUE,  TEXT("messui.chm::/messnew.txt") },
-	{ ID_HELP_WHATS_NEW,   TRUE,  "http://messui.the-chronicles.org/mess/messnew.txt" },
+	//{ ID_HELP_CONTENTS,    TRUE,  TEXT(MAMEUIHELP"::/windows/main.htm") },
+	{ ID_HELP_CONTENTS,    TRUE,  TEXT(MAMEUIHELP) }, // 0 - call up CHM file
+	//{ ID_HELP_RELEASE,     TRUE,  TEXT(MAMEUIHELP) },
+	//{ ID_HELP_WHATS_NEW,   TRUE,  TEXT(MAMEUIHELP"::/messnew.txt") },
+	{ ID_HELP_WHATS_NEW,   TRUE,  TEXT("") }, // 1 - call up whatsnew at mamedev.org
 	{ -1 }
 };
 #else
 extern const MAMEHELPINFO g_helpInfo[] =
 {
-	{ ID_HELP_CONTENTS,    TRUE,  MAMEUIHELP "::/html/mameui_overview.htm" },
-	{ ID_HELP_WHATS_NEWUI, TRUE,  MAMEUIHELP "::/html/mameui_changes.txt" },
-	{ ID_HELP_TROUBLE,     TRUE,  MAMEUIHELP "::/html/mameui_support.htm" },
-	{ ID_HELP_RELEASE,     FALSE, "windows.txt" },
-	{ ID_HELP_WHATS_NEW,   TRUE,  MAMEUIHELP "::/docs/whatsnew.txt" },
+	{ ID_HELP_CONTENTS,    TRUE,  TEXT(MAMEUIHELP) },
+	//{ ID_HELP_WHATS_NEWUI, TRUE,  TEXT(MAMEUIHELP"::/html/mameui_changes.txt") },
+	//{ ID_HELP_TROUBLE,     TRUE,  TEXT(MAMEUIHELP"::/html/mameui_support.htm") },
+	//{ ID_HELP_RELEASE,     FALSE, TEXT("windows.txt") },
+	{ ID_HELP_WHATS_NEW,   TRUE,  TEXT(MAMEUIHELP"::/docs/whatsnew.txt") },
 	{ -1 }
 };
 #endif
@@ -202,8 +203,8 @@ extern const PROPERTYSHEETINFO g_propSheets[] =
 	{ TRUE,  NULL,                   IDD_PROP_DEBUG,         GameOptionsProc },
 	{ TRUE,  NULL,                   IDD_PROP_MISC,          GameOptionsProc },
 	{ FALSE, NULL,                   IDD_PROP_SOFTWARE,      GameMessOptionsProc },
-	{ FALSE, PropSheetFilter_Config, IDD_PROP_CONFIGURATION, GameMessOptionsProc }, // PropSheetFilter_Config needs rewriting
-	{ TRUE,  DriverIsVector,         IDD_PROP_VECTOR,        GameOptionsProc }, // PropSheetFilter_Vector not needed
+	{ FALSE, DriverHasRam,           IDD_PROP_CONFIGURATION, GameMessOptionsProc }, // PropSheetFilter_Config not needed
+	{ TRUE,  DriverIsVector,         IDD_PROP_VECTOR,        GameOptionsProc },     // PropSheetFilter_Vector not needed
 	{ FALSE }
 };
 #else

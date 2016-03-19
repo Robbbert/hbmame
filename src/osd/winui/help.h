@@ -19,7 +19,7 @@ typedef struct
 {
 	int nMenuItem;
 	BOOL bIsHtmlHelp;
-	LPCSTR lpFile;
+	LPCTSTR lpFile;
 } MAMEHELPINFO;
 
 extern const MAMEHELPINFO g_helpInfo[];

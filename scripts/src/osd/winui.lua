@@ -227,6 +227,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/winui/mui_util.cpp",
 		MAME_DIR .. "src/osd/winui/picker.cpp",
 		MAME_DIR .. "src/osd/winui/properties.cpp",
+		MAME_DIR .. "src/osd/winui/resource.h",
 		MAME_DIR .. "src/osd/winui/screenshot.cpp",
 		MAME_DIR .. "src/osd/winui/splitters.cpp",
 		MAME_DIR .. "src/osd/winui/tabview.cpp",
