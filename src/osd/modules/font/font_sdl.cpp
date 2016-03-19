@@ -199,14 +199,13 @@ osd_font_sdl::TTF_Font_ptr osd_font_sdl::TTF_OpenFont_Magic(std::string const &n
 		unsigned char const ttf_magic[] = { 0x00, 0x01, 0x00, 0x00, 0x00 };
 		unsigned char const ttc1_magic[] = { 0x74, 0x74, 0x63, 0x66, 0x00, 0x01, 0x00, 0x00 };
 		unsigned char const ttc2_magic[] = { 0x74, 0x74, 0x63, 0x66, 0x00, 0x02, 0x00, 0x00 };
-		unsigned char buffer[std::max({ sizeof(ttf_magic), sizeof(ttc1_magic), sizeof(ttc2_magic) })];
-		auto const bytes_read = file.read(buffer, sizeof(buffer));
+		constexpr auto buffer_size = std::max({ sizeof(ttf_magic), sizeof(ttc1_magic), sizeof(ttc2_magic) });
+		unsigned char buffer[buffer_size];
+		auto const bytes_read = file.read(buffer, buffer_size);
 		file.close();
 
-		if ((bytes_read >= sizeof(ttf_magic)) && !std::memcmp(buffer, ttf_magic, sizeof(ttf_magic)))
-			return TTF_Font_ptr(TTF_OpenFont(name.c_str(), POINT_SIZE), &TTF_CloseFont);
-
-		if (((bytes_read >= sizeof(ttc1_magic)) && !std::memcmp(buffer, ttc1_magic, sizeof(ttc1_magic))) ||
+		if (((bytes_read >= sizeof(ttf_magic)) && !std::memcmp(buffer, ttf_magic, sizeof(ttf_magic))) ||
+			((bytes_read >= sizeof(ttc1_magic)) && !std::memcmp(buffer, ttc1_magic, sizeof(ttc1_magic))) ||
 			((bytes_read >= sizeof(ttc2_magic)) && !std::memcmp(buffer, ttc2_magic, sizeof(ttc2_magic))))
 			return TTF_Font_ptr(TTF_OpenFontIndex(name.c_str(), POINT_SIZE, index), &TTF_CloseFont);
 	}
