@@ -152,7 +152,7 @@ int MameUIVerifyRomSet(int game, bool choice)
 	if (summary == media_auditor::NOTFOUND)
 	{
 		if (m_choice < 2)
-			strcatprintf(summary_string, "%s: Romset NOT FOUND\n", driver_list::driver(game).name);
+			summary_string.append(string_format("%s: Romset NOT FOUND\n", driver_list::driver(game).name));
 	}
 	else
 	if (choice)
@@ -178,7 +178,7 @@ int MameUIVerifySampleSet(int game)
 	std::string summary_string;
 
 	if (summary == media_auditor::NOTFOUND)
-		strcatprintf(summary_string, "%s: Sampleset NOT FOUND\n", driver_list::driver(game).name);
+		summary_string.append(string_format("%s: Sampleset NOT FOUND\n", driver_list::driver(game).name));
 	else
 		auditor.summarize(driver_list::driver(game).name, &summary_string);
 

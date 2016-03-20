@@ -61,10 +61,6 @@ char *core_strdup(const char *str);
 int core_strwildcmp(const char *sp1, const char *sp2);
 
 
-/* I64 printf helper */
-char *core_i64_format(UINT64 value, UINT8 mindigits, bool is_octal);
-
-int strvprintf(std::string &str, const char *format, va_list args);
 int strcatvprintf(std::string &str, const char *format, va_list args);
 
 void strdelchr(std::string& str, char chr);
@@ -73,11 +69,5 @@ std::string strtrimspace(std::string& str);
 std::string strmakeupper(std::string& str);
 std::string strmakelower(std::string& str);
 int strreplace(std::string &str, const std::string& search, const std::string& replace);
-
-// MESSUI start
-int strprintf(std::string &str, const char *format, ...) ATTR_PRINTF(2, 3);
-int strcatprintf(std::string &str, const char *format, ...) ATTR_PRINTF(2, 3);
-std::string strformat(const char *format, ...) ATTR_PRINTF(1, 2);
-// MESSUI end
 
 #endif /* __CORESTR_H__ */

@@ -131,16 +131,6 @@ char *core_strdup(const char *str)
 
 #include <algorithm>
 
-int strvprintf(std::string &str, const char *format, va_list args)
-{
-	char tempbuf[4096];
-	int result = vsprintf(tempbuf, format, args);
-
-	// set the result
-	str.assign(tempbuf);
-	return result;
-}
-
 int strcatvprintf(std::string &str, const char *format, va_list args)
 {
 	char tempbuf[4096];
@@ -239,34 +229,3 @@ int strreplace(std::string &str, const std::string& search, const std::string& r
 	}
 	return matches;
 }
-
-// MESSUI start
-int strprintf(std::string &str, const char *format, ...)
-{
-	va_list ap;
-	va_start(ap, format);
-	int retVal = strvprintf(str, format, ap);
-	va_end(ap);
-	return retVal;
-}
-
-int strcatprintf(std::string &str, const char *format, ...)
-{
-	va_list ap;
-	va_start(ap, format);
-	int retVal = strcatvprintf(str, format, ap);
-	va_end(ap);
-	return retVal;
-}
-
-std::string strformat(const char *format, ...)
-{
-	std::string retVal;
-	va_list ap;
-	va_start(ap, format);
-	strvprintf(retVal, format, ap);
-	va_end(ap);
-	return retVal;
-}
-
-// MESSUI end
