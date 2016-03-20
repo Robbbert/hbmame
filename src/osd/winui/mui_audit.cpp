@@ -67,6 +67,15 @@ static int m_choice = 0;
     External functions
  ***************************************************************************/
 
+static int strcatprintf(std::string &str, const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	int retVal = strcatvprintf(str, format, ap);
+	va_end(ap);
+	return retVal;
+}
+
 void AuditDialog(HWND hParent, int choice)
 {
 	HMODULE hModule = NULL;
@@ -152,7 +161,7 @@ int MameUIVerifyRomSet(int game, bool choice)
 	if (summary == media_auditor::NOTFOUND)
 	{
 		if (m_choice < 2)
-			summary_string.append(string_format("%s: Romset NOT FOUND\n", driver_list::driver(game).name));
+			strcatprintf(summary_string, "%s: Romset NOT FOUND\n", driver_list::driver(game).name);
 	}
 	else
 	if (choice)
@@ -178,7 +187,7 @@ int MameUIVerifySampleSet(int game)
 	std::string summary_string;
 
 	if (summary == media_auditor::NOTFOUND)
-		summary_string.append(string_format("%s: Sampleset NOT FOUND\n", driver_list::driver(game).name));
+		strcatprintf(summary_string, "%s: Sampleset NOT FOUND\n", driver_list::driver(game).name);
 	else
 		auditor.summarize(driver_list::driver(game).name, &summary_string);
 
