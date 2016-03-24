@@ -141,6 +141,30 @@ static BOOL TrySaveExtraFolder(LPTREEFOLDER lpFolder);
     public functions
  ***************************************************************************/
 
+static BOOL win_move_file_utf8(const char* existingfilename, const char* newfilename)
+{
+	TCHAR* t_existingfilename;
+	TCHAR* t_newfilename;
+	BOOL result = FALSE;
+
+	t_existingfilename = tstring_from_utf8(existingfilename);
+	if( !t_existingfilename )
+		return result;
+
+	t_newfilename = tstring_from_utf8(newfilename);
+	if( !t_newfilename ) {
+		free(t_existingfilename);
+		return result;
+	}
+
+	result = MoveFile(t_existingfilename, t_newfilename);
+
+	osd_free(t_newfilename);
+	osd_free(t_existingfilename);
+
+	return result;
+}
+
 /**************************************************************************
  *    ci_strncmp - case insensitive character array compare
  *
