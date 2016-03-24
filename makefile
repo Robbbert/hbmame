@@ -185,6 +185,13 @@ $(error Unable to detect OS from uname -a: $(UNAME))
 endif
 endif
 
+MINGW:=
+ifdef MINGW64
+	MINGW := $(MINGW64)
+else
+	MINGW := $(MINGW32)
+endif
+
 #-------------------------------------------------
 # specify core target: mame, ldplayer
 # specify subtarget: mame, arcade, mess, tiny, etc.
@@ -1339,6 +1346,30 @@ endif
 	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_SDL)/gmake-rpi config=$(CONFIG)
 
 #-------------------------------------------------
+# gmake-ci20
+#-------------------------------------------------
+
+$(PROJECTDIR_SDL)/gmake-ci20/Makefile: makefile $(SCRIPTS) $(GENIE)
+ifndef MIPS_LINUXGNU_ROOT
+	$(error MIPS_LINUXGNU_ROOT is not set)
+endif
+ifndef CI20_SYSROOT
+	$(error CI20_SYSROOT is not set)
+endif
+	$(SILENT) $(GENIE) $(PARAMS) --gcc=ci20 --gcc_version=4.9.2 --osd=sdl --targetos=ci20 --targetos=ci20 --NO_USE_MIDI=1  --PLATFORM=arm --NOASM=1 --USE_QTDEBUG=0 --SDL_INSTALL_ROOT=$(RASPBERRY_SYSROOT)/usr  gmake  
+
+.PHONY: ci20
+ci20: generate $(PROJECTDIR_SDL)/gmake-ci20/Makefile
+ifndef MIPS_LINUXGNU_ROOT
+	$(error MIPS_LINUXGNU_ROOT is not set)
+endif
+ifndef CI20_SYSROOT
+	$(error CI20_SYSROOT is not set)
+endif
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_SDL)/gmake-ci20 config=$(CONFIG) precompile
+	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR_SDL)/gmake-ci20 config=$(CONFIG)
+
+#-------------------------------------------------
 # cmake
 #-------------------------------------------------
 .PHONY: cmake
@@ -1521,9 +1552,14 @@ cppcheck:
 .PHONY: shaders bgfx-tools
 
 bgfx-tools:
-	$(SILENT) $(MAKE) $(MAKEPARAMS) -C 3rdparty/bgfx -f makefile dist-$(GENIEOS)
+	$(SILENT) $(MAKE) -C 3rdparty/bgfx -f makefile dist-$(GENIEOS) CC="$(CC)" CXX="$(CXX)" MINGW="$(MINGW)"
 
 shaders: bgfx-tools
+	-$(call MKDIR,build/bgfx/shaders/dx11)
+	-$(call MKDIR,build/bgfx/shaders/dx9)
+	-$(call MKDIR,build/bgfx/shaders/gles)
+	-$(call MKDIR,build/bgfx/shaders/glsl)
+	-$(call MKDIR,build/bgfx/shaders/metal)	
 	$(SILENT) $(MAKE) -C $(SRC)/osd/modules/render/bgfx rebuild
 	
 #-------------------------------------------------
