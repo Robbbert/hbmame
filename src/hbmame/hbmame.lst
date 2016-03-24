@@ -1460,7 +1460,7 @@ spclone		// v0.7.3
 spcloneo	// v0.7.2.2
 
 	/* neogeo */
-	// These are the parents of our hacks
+// These are the parents of our hacks
 neogeo
 2020bb
 3countb
@@ -1583,6 +1583,7 @@ cphd
 columnsn	/* 2000 (c) 1990 Sega */
 //csw2 //not working at all & roms missing
 dwi			/* DarkWing Duck Intro */
+ennemi      // kannagi 2016
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
 gbi			/* Ghostbusters Intro */

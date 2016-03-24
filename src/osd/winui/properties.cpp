@@ -181,7 +181,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name);
 static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name);
 extern BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult);
-static BOOL g_bModifiedSoftwarePaths = FALSE;
+//static BOOL g_bModifiedSoftwarePaths = FALSE;
 #endif
 
 /**************************************************************

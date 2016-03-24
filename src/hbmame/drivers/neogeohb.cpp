@@ -200,6 +200,7 @@ NUM YEAR COMPANY                 TITLE
 472 2015 freem                   ADPCM-A Playback Demo
 473 2015 blastar                 Twister in a mirror intro
 474 2015 freem                   Sound-Loop Demo
+475 2016 kannagi                 Sprite Demo
 
 
 ********************** 800 to 899 **********************************
@@ -1460,6 +1461,25 @@ ROM_START( snddemo )
 ROM_END
 
 
+// 475 : Sprite demo by Kannagi (26-3-2016)
+// Arrows to move fighter around. A = kick; B = punch; C & D slide background left & right. No sound.
+ROM_START( ennemi )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "475.p1", 0x000000, 0x080000, CRC(caaf0da5) SHA1(089a89c787d4955fcb11141b50d587caa785c30a) )
+
+	NEO_SFIX_128K( "052-s1.s1", CRC(97689804) SHA1(fa8dab3b3353d7115a0368f3fc749950c0186fbc) )
+
+	NEO_BIOS_AUDIO_128K( "475.m1", CRC(ffcbeb27) SHA1(101fee624083f33aac88e73afc69907df0b41de3) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "475.v1", 0x000000, 0x1e3300, CRC(da4f84c0) SHA1(7e9c039a47445ef805adf68c65e20063d93ba601) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "475.c1",    0x000000, 0x200000, CRC(4c2ec7e3) SHA1(572f087d2adb4900dbab39fa9bc517237ddba54e) )
+	ROM_LOAD16_BYTE( "475.c2",    0x000001, 0x200000, CRC(319b0d51) SHA1(f57b4b3c96d94a6887f9e02e53af8eaef59d617a) )
+ROM_END
+
+
 
 GAME( 1995, csw2,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "ADK", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
@@ -1476,6 +1496,7 @@ GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, ennemi,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "GhostBusters Intro", MACHINE_SUPPORTS_SAVE )
