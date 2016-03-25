@@ -1157,7 +1157,7 @@ HICON LoadIconFromFile(const char *iconname)
 			ziperr = util::archive_file::open_zip(tmpStr, zip);
 			if (ziperr == util::archive_file::error::NONE)
 			{
-				res = zip->search(tmpIcoName);
+				res = zip->search(tmpIcoName, false);
 				if (res >= 0)
 				{
 					bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());

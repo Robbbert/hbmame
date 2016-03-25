@@ -61,9 +61,9 @@ typedef void (*dialog_itemchangedproc)(dialog_box *dialog, HWND dlgitem, void *c
 typedef void (*dialog_notification)(dialog_box *dialog, HWND dlgwnd, NMHDR *notification, void *param);
 
 #ifdef UNICODE
-#define win_dialog_tcsdup	win_dialog_wcsdup
+#define win_dialog_tcsdup win_dialog_wcsdup
 #else
-#define win_dialog_tcsdup	win_dialog_strdup
+#define win_dialog_tcsdup win_dialog_strdup
 #endif
 
 static const TCHAR guide_prop[] = TEXT("opcntrl_guide");
@@ -75,9 +75,9 @@ static const TCHAR value_prop[] = TEXT("opcntrl_value");
 
 enum
 {
-	TRIGGER_INITDIALOG	= 1,
-	TRIGGER_APPLY		= 2,
-	TRIGGER_CHANGED		= 4
+	TRIGGER_INITDIALOG = 1,
+	TRIGGER_APPLY = 2,
+	TRIGGER_CHANGED = 4
 };
 
 typedef LRESULT (*trigger_function)(dialog_box *dialog, HWND dlgwnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -137,9 +137,9 @@ typedef struct _seqselect_info seqselect_info;
 struct _seqselect_info
 {
 	WNDPROC oldwndproc;
-	ioport_field *field;		// pointer to the field
-	ioport_field::user_settings settings;		// the new settings
-	input_seq *code;				// the input_seq within settings
+	ioport_field *field; // pointer to the field
+	ioport_field::user_settings settings; // the new settings
+	input_seq *code; // the input_seq within settings
 	WORD pos;
 	BOOL is_analog;
 	seqselect_state poll_state;
@@ -197,12 +197,12 @@ static double pixels_to_xdlgunits;
 static double pixels_to_ydlgunits;
 
 static const struct dialog_layout default_layout = { 80, 140 };
-static const WORD dlgitem_button[] =	{ 0xFFFF, 0x0080 };
-static const WORD dlgitem_edit[] =	{ 0xFFFF, 0x0081 };
-static const WORD dlgitem_static[] =	{ 0xFFFF, 0x0082 };
-static const WORD dlgitem_listbox[] =	{ 0xFFFF, 0x0083 };
-static const WORD dlgitem_scrollbar[] =	{ 0xFFFF, 0x0084 };
-static const WORD dlgitem_combobox[] =	{ 0xFFFF, 0x0085 };
+static const WORD dlgitem_button[] = { 0xFFFF, 0x0080 };
+static const WORD dlgitem_edit[] = { 0xFFFF, 0x0081 };
+static const WORD dlgitem_static[] = { 0xFFFF, 0x0082 };
+static const WORD dlgitem_listbox[] = { 0xFFFF, 0x0083 };
+static const WORD dlgitem_scrollbar[] = { 0xFFFF, 0x0084 };
+static const WORD dlgitem_combobox[] = { 0xFFFF, 0x0085 };
 
 
 //============================================================
@@ -219,13 +219,12 @@ static int dialog_write_item(dialog_box *di, DWORD style, short x, short y,
 //  PARAMETERS
 //============================================================
 
-#define ID_FRAMESKIP_0		10000
-#define ID_DEVICE_0		11000
-#define ID_JOYSTICK_0		12000
-#define ID_INPUT_0		13000
-#define ID_VIDEO_VIEW_0		14000
-
-#define MAX_JOYSTICKS		(8)
+#define ID_FRAMESKIP_0   10000
+#define ID_DEVICE_0      11000
+#define ID_JOYSTICK_0    12000
+#define ID_INPUT_0       13000
+#define ID_VIDEO_VIEW_0  14000
+#define MAX_JOYSTICKS    (8)
 
 enum
 {
@@ -241,11 +240,6 @@ enum
 	DEVOPTION_MAX
 };
 
-#ifdef MAME_PROFILER
-#define HAS_PROFILER	1
-#else
-#define HAS_PROFILER	0
-#endif
 
 //============================================================
 //  LOCAL VARIABLES
@@ -3267,9 +3261,6 @@ static void prepare_menus(HWND wnd)
 	set_command_state(menu_bar, ID_FILE_FULLSCREEN, !is_windowed() ? MFS_CHECKED : MFS_ENABLED);
 	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, window->machine().ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
 	set_command_state(menu_bar, ID_FILE_UIACTIVE, window->machine().ioport().has_keyboard() ? (window->machine().ui_active() ? MFS_CHECKED : MFS_ENABLED): MFS_CHECKED | MFS_GRAYED);
-#if HAS_PROFILER
-	set_command_state(menu_bar, ID_FILE_PROFILER, window->machine().ui().show_profiler() ? MFS_CHECKED : MFS_ENABLED);
-#endif
 
 	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, (has_keyboard) ? (!window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
 	set_command_state(menu_bar, ID_KEYBOARD_NATURAL, (has_keyboard && window->machine().ioport().natkeyboard().can_post()) ? (window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
@@ -3703,12 +3694,6 @@ static int invoke_command(HWND wnd, UINT command)
 			window->machine().schedule_soft_reset();
 			break;
 
-#if HAS_PROFILER
-		case ID_FILE_PROFILER:
-			window->machine().ui().set_show_profiler(window->machine().ui().show_profiler());
-			break;
-#endif // HAS_PROFILER
-
 		case ID_FILE_DEBUGGER:
 			debug_cpu_get_visible_cpu(window->machine())->debug()->halt_on_next_instruction("User-initiated break\n");
 			break;
@@ -3877,12 +3862,7 @@ static int win_setup_menus(running_machine &machine, HMODULE module, HMENU menu_
 	// initialize critical values
 	joystick_menu_setup = 0;
 
-	// remove the profiler menu item if it doesn't exist
-#if HAS_PROFILER
-	machine.ui().show_profiler();
-#else
-	DeleteMenu(menu_bar, ID_FILE_PROFILER, MF_BYCOMMAND);
-#endif
+//	DeleteMenu(menu_bar, ID_FILE_PROFILER, MF_BYCOMMAND);
 
 	if ((machine.debug_flags & DEBUG_FLAG_ENABLED) == 0)
 		DeleteMenu(menu_bar, ID_FILE_DEBUGGER, MF_BYCOMMAND);
@@ -3954,28 +3934,35 @@ int win_create_menu(running_machine &machine, HMENU *menus)
 	// if this is invalid, then windows chooses whatever directory it used last.
 	const char* t = machine.options().emu_options::comment_directory();
 	// This pulls out the first path from a multipath field
-	const char * t1 = strtok((char*)t, ";");
+	const char* t1 = strtok((char*)t, ";");
 	if (t1)
 		software_dir = t1; // the first path of many
 	else
 		software_dir = t; // the only path
 
+	// do not show in the mewui ui.
+	if (strcmp(machine.system().name, "___empty") == 0)
+		return 0;
+
 	HMODULE module = win_resource_module();
 	HMENU menu_bar = LoadMenu(module, MAKEINTRESOURCE(IDR_RUNTIME_MENU));
 
 	if (!menu_bar)
-		goto error;
+	{
+		printf("No memory for the menu, running without it.\n");
+		return 0;
+	}
 
 	if (win_setup_menus(machine, module, menu_bar))
-		goto error;
+	{
+		printf("Unable to setup the menu, running without it.\n");
+		if (menu_bar)
+			DestroyMenu(menu_bar);
+		return 0; // return 1 causes a crash
+	}
 
 	*menus = menu_bar;
 	return 0;
-
-error:
-	if (menu_bar)
-		DestroyMenu(menu_bar);
-	return 1;
 }
 
 

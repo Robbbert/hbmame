@@ -374,7 +374,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 
 	if (ziperr == util::archive_file::error::NONE)
 	{
-		int res = zip->search(filename);
+		int res = zip->search(filename, false);
 		if (res >= 0)
 		{
 			*buffer = malloc(zip->current_uncompressed_length());
