@@ -12318,6 +12318,7 @@ omni                            // bootleg
 orbitron                        // (c) 1982 Signatron USA (Arcade Tv Game List - P.160, Left, 22 from top)
 pacmanbl                        // bootleg
 pacmanbla                       // bootleg
+pacmanblb						// bootleg
 pajaroes                        // bootleg
 phoenxp2                        // bootleg
 pisces                          // Subelectro
@@ -13684,6 +13685,7 @@ maniac                          // Ideal
 
 @source:hh_sm510.cpp
 gnwmndon                        // Nintendo
+kcontra                         // Konami
 ktmnt                           // Konami
 ktopgun                         // Konami
 
@@ -36336,6 +36338,9 @@ mysticmp                        // (c) 1983 Prototype
 playball                        // (c) 1983
 robotron                        // (c) 1982
 robotronyo                      // (c) 1982
+robotron87						// 
+robotron12						//
+robotrontd						//
 sinistar                        // (c) 1982
 sinistar1                       // (c) 1982
 sinistar2                       // (c) 1982
