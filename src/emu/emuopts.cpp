@@ -376,6 +376,9 @@ void emu_options::remove_device_options()
 			remove_entry(*curentry);
 	}
 
+	// take also care of ramsize options
+	set_default_value(OPTION_RAMSIZE, "");
+
 	// reset counters
 	m_slot_options = 0;
 	m_device_options = 0;
@@ -541,20 +544,29 @@ void emu_options::set_system_name(const char *name)
 {
 	// remember the original system name
 	std::string old_system_name(system_name());
+	bool new_system = old_system_name.compare(name)!=0;
 
 	// if the system name changed, fix up the device options
-	if (old_system_name.compare(name)!=0)
+	if (new_system)
 	{
 		// first set the new name
 		std::string error;
 		set_value(OPTION_SYSTEMNAME, name, OPTION_PRIORITY_CMDLINE, error);
 		assert(error.empty());
 
-		// remove any existing device options and then add them afresh
+		// remove any existing device options
 		remove_device_options();
-		while (add_slot_options()) { }
+	}
 
-		// then add the options
+	// get the new system
+	const game_driver *cursystem = system();
+	if (cursystem == nullptr)
+		return;
+
+	if (new_system)
+	{
+		// add the options afresh
+		while (add_slot_options()) { }
 		add_device_options();
 		int num;
 		do {

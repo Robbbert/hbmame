@@ -1,6 +1,24 @@
 What's new in HBMAME
 ====================
 
+2016-03-30 0.172
+----------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- Newui is added but turned off by default
+
+
+
+New Games
+---------
+- [ennemi]          Neogeo demo [by Kannagi]
+- [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
+- [kof98f]
+
+
+
+
 2016-02-26 0.171
 ----------------
 
