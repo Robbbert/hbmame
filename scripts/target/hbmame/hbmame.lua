@@ -202,10 +202,6 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 --	addprojectflags() -- no idea if this is needed, seems to work fine without it
 	precompiledheaders()
 
---	options {
---		"ForceCPP",
---	}
-
 	includedirs {
 		MAME_DIR .. "src/osd",
 		MAME_DIR .. "src/emu",
@@ -220,6 +216,9 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 		MAME_DIR .. "3rdparty/zlib",
 		GEN_DIR  .. "mame/layout",
 		GEN_DIR  .. "hbmame/layout",
+	}
+	includedirs {
+		ext_includedir("flac"),
 	}
 end
 
