@@ -33,6 +33,9 @@ char * GetGameHistory(int driver_index)
 	memset(&buffer, 0, sizeof(buffer));
 	memset(&dataBuf, 0, sizeof(dataBuf));
 
+	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 2) == 0)
+		strcat(dataBuf, buffer);
+
 	if (load_driver_history(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 0) == 0)
 		strcat(dataBuf, buffer);
 

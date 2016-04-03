@@ -2039,13 +2039,13 @@ static int input_item_from_serial_number(running_machine &machine, int serial_nu
 	ioport_setting *this_setting = NULL;
 
 	int i = 0;
-	for (this_port = machine.ioport().first_port(); (i != serial_number) && (this_port); this_port = this_port->next())
+	for (this_port = machine.ioport().ports().first(); (i != serial_number) && (this_port); this_port = this_port->next())
 	{
 		i++;
-		for (this_field = this_port->first_field(); (i != serial_number) && (this_field); this_field = this_field->next())
+		for (this_field = this_port->fields().first(); (i != serial_number) && (this_field); this_field = this_field->next())
 		{
 			i++;
-			for (this_setting = this_field->first_setting(); (i != serial_number) && (this_setting); this_setting = this_setting->next())
+			for (this_setting = this_field->settings().first(); (i != serial_number) && (this_setting); this_setting = this_setting->next())
 				i++;
 		}
 	}
@@ -2088,9 +2088,9 @@ static void customise_input(running_machine &machine, HWND wnd, const char *titl
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			/* add if we match the group and we have a valid name */
 			const char *name = field->name();
@@ -2182,9 +2182,9 @@ static bool check_for_miscinput(running_machine &machine)
 	ioport_field *field;
 	int this_inputclass = 0;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			const char *name = field->name();
 			this_inputclass = field->type_class();
@@ -2229,9 +2229,9 @@ static void customise_miscinput(running_machine &machine, HWND wnd)
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			const char *name = field->name();
 			this_inputclass = field->type_class();
@@ -2317,9 +2317,9 @@ static void customise_switches(running_machine &machine, HWND wnd, const char* t
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			type = field->type();
 
@@ -2332,7 +2332,7 @@ static void customise_switches(running_machine &machine, HWND wnd, const char* t
 				if (win_dialog_add_combobox(dlg, switch_name, settings.value, storeval_inputport, (void *) field))
 					goto done;
 
-				for (setting = field->first_setting(); setting; setting = setting->next())
+				for (setting = field->settings().first(); setting; setting = setting->next())
 				{
 					if (win_dialog_add_combobox_item(dlg, setting->name(), setting->value()))
 						goto done;
@@ -2457,9 +2457,9 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			if (port_type_is_analog(field->type()))
 			{
@@ -2728,7 +2728,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 
 	// make the filter
 	pos = 0;
-	for (format = dev->formatlist(); format; format = format->next())
+	for (format = dev->formatlist().first(); format; format = format->next())
 		pos += add_filter_entry(filter + pos, filter_len - pos, format->description(), format->extensions());
 
 	// create the dialog
@@ -2753,7 +2753,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	{
 		// make sure that this entry is present on at least one option specification
 		found = FALSE;
-		for (format = dev->formatlist(); format; format = format->next())
+		for (format = dev->formatlist().first(); format; format = format->next())
 		{
 			if (option_resolution_contains(format->optspec(), guide_entry->parameter))
 			{
@@ -2947,7 +2947,7 @@ static void change_device(HWND wnd, device_image_interface *image, int is_save)
 	// add custom dialog elements, if appropriate
 	if (is_save
 		&& (image->device_get_creation_option_guide())
-		&& (image->formatlist()))
+		&& (image->formatlist().first()))
 	{
 		dialog = build_option_dialog(image, filter, ARRAY_LENGTH(filter), &create_format, &create_args);
 		if (!dialog)
@@ -3226,9 +3226,9 @@ static void prepare_menus(HWND wnd)
 	has_misc	= check_for_miscinput(window->machine());
 
 	has_analog = 0;
-	for (port = window->machine().ioport().first_port(); port; port = port->next())
+	for (port = window->machine().ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			if (port_type_is_analog(field->type()))
 			{

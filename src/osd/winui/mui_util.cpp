@@ -432,11 +432,10 @@ static void InitDriversInfo(void)
 
 			for (port = portlist.first(); port; port = port->next())
 			{
-				ioport_field *field;
-				for (field = port->first_field(); field; field = field->next())
+				for (ioport_field &field : port->fields())
 				{
 					UINT32 type;
-					type = field->type();
+					type = field.type();
 					if (type == IPT_END)
 						break;
 					if (type == IPT_DIAL || type == IPT_PADDLE ||
