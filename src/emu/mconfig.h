@@ -36,6 +36,15 @@ struct gfx_decode_entry;
 class driver_device;
 class screen_device;
 
+struct internal_layout
+{
+	size_t decompressed_size;
+	size_t compressed_size;
+	UINT8 compression_type;
+	const UINT8* data;
+};
+
+
 // ======================> machine_config
 
 // machine configuration definition
@@ -66,7 +75,7 @@ public:
 	bool                    m_force_no_drc;             // whether or not to force DRC off
 
 	// other parameters
-	const char *            m_default_layout;           // default layout for this machine
+	const internal_layout *            m_default_layout;           // default layout for this machine
 
 	// helpers during configuration; not for general use
 	device_t *device_add(device_t *owner, const char *tag, device_type type, UINT32 clock);
@@ -75,6 +84,10 @@ public:
 	device_t *device_find(device_t *owner, const char *tag);
 
 private:
+	// internal helpers
+	void remove_references(ATTR_UNUSED device_t &device);
+	device_t &config_new_device(device_t &device);
+
 	// internal state
 	const game_driver &     m_gamedrv;
 	emu_options &           m_options;
@@ -201,7 +214,7 @@ References an external machine config.
 
 // core video parameters
 #define MCFG_DEFAULT_LAYOUT(_layout) \
-	config.m_default_layout = &(_layout)[0];
+	config.m_default_layout = &(_layout);
 
 // add/remove devices
 #define MCFG_DEVICE_ADD(_tag, _type, _clock) \
