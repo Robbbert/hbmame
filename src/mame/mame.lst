@@ -12290,6 +12290,7 @@ monsterz                        // (c) 1982 Nihon (Arcade TV Game List - P.102, 
 moonal2                         // [1980] Nichibutsu
 moonal2b                        // [1980] Nichibutsu
 moonaln                         // [Nichibutsu] (Karateco license) or hack
+kamikazp						// bootleg (Potomac Games)
 mooncmw                         // bootleg
 mooncptc                        // bootleg (Petaco S.A.)
 mooncreg                        // bootleg
@@ -13791,6 +13792,7 @@ sgnascar                        // 2000.09 Nascar Arcade
 @source:himesiki.cpp
 himesiki                        // (c) 1989 Hi-Soft
 androidp                        // (c) 198? Nasco
+androidpo                       // (c) 198? Nasco
 
 @source:hitme.cpp
 barricad                        // (c) 1976 Ramtek
@@ -16859,6 +16861,7 @@ leaguemn                        // (c) 1993 Irem (Japan)
 lethalth                        // (c) 1991 Irem (World)
 majtitl2                        // (c) 1992 Irem (World)
 majtitl2a                       //
+majtitl2b						//
 majtitl2j                       // (c) 1992 Irem (Japan)
 mysticri                        // (c) 1992 Irem (World)
 mysticrib                       // bootleg?
@@ -28304,6 +28307,7 @@ rdaction                        // UPL-87003?(c) 1987 + World Games license
 robokid                         // UPL-88013 (c) 1988
 robokidj                        // UPL-88013 (c) 1988
 robokidj2                       // UPL-88013 (c) 1988
+robokidj3						//
 
 @source:ninjaw.cpp
 darius2                         // C07 (c) 1989 Taito Corporation (Japan)
