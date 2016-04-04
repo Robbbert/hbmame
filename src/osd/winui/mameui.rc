@@ -246,8 +246,6 @@ BEGIN
         MENUITEM "&Full Screen\tAlt+Enter",     ID_FILE_FULLSCREEN
         MENUITEM "Partial Keyboard Emulation",  ID_FILE_UIACTIVE
         MENUITEM "Show Tab Menu",               ID_FILE_OLDUI
-        MENUITEM "&Debugger...",                ID_FILE_DEBUGGER
-        MENUITEM "Show P&rofiler",              ID_FILE_PROFILER, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "&Exit",                       ID_FILE_EXIT_NEWUI
     END

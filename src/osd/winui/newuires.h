@@ -22,9 +22,7 @@
 #define ID_OPTIONS_JOYSTICKS            3118
 #define ID_OPTIONS_ANALOGCONTROLS       3119
 #define ID_FILE_FULLSCREEN              3120
-#define ID_FILE_PROFILER                3121
 #define ID_OPTIONS_TOGGLEFPS            3122
-#define ID_FILE_DEBUGGER                3123
 #define ID_KEYBOARD_EMULATED            3124
 #define ID_KEYBOARD_NATURAL             3125
 #define ID_KEYBOARD_CUSTOMIZE           3126

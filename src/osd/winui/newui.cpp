@@ -3694,10 +3694,6 @@ static int invoke_command(HWND wnd, UINT command)
 			window->machine().schedule_soft_reset();
 			break;
 
-		case ID_FILE_DEBUGGER:
-			debug_cpu_get_visible_cpu(window->machine())->debug()->halt_on_next_instruction("User-initiated break\n");
-			break;
-
 		case ID_OPTIONS_CONFIGURATION:
 			customise_configuration(window->machine(), wnd);
 			break;
@@ -3861,11 +3857,6 @@ static int win_setup_menus(running_machine &machine, HMODULE module, HMENU menu_
 
 	// initialize critical values
 	joystick_menu_setup = 0;
-
-//	DeleteMenu(menu_bar, ID_FILE_PROFILER, MF_BYCOMMAND);
-
-	if ((machine.debug_flags & DEBUG_FLAG_ENABLED) == 0)
-		DeleteMenu(menu_bar, ID_FILE_DEBUGGER, MF_BYCOMMAND);
 
 	// set up frameskip menu
 	frameskip_menu = find_sub_menu(menu_bar, "&Options\0&Frameskip\0", FALSE);
