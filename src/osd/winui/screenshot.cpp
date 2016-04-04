@@ -65,7 +65,6 @@ static BOOL LoadSoftwareScreenShot(const game_driver *drv, LPCSTR lpSoftwareName
 	// oldest code --> sprintf(s, "%s/%s.png", drv->name, lpSoftwareName);
 	//sprintf(s, "%s:%s", drv->name, lpSoftwareName);
 	result = LoadDIB(s, &m_hDIB, &m_hPal, nType);
-	free(s);
 	return result;
 }
 

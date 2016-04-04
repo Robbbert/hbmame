@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
@@ -1561,7 +1562,6 @@ static void SetPropEnabledControls(HWND hWnd)
 	bool useart = TRUE;
 	BOOL joystick_attached = FALSE;
 	bool in_window = FALSE;
-	bool hlsl_on = FALSE;
 	int nIndex = g_nGame;
 
 	// auto is a reserved word
@@ -1619,17 +1619,6 @@ static void SetPropEnabledControls(HWND hWnd)
 	EnableWindow(GetDlgItem(hWnd, IDC_CPANELS), useart);
 	EnableWindow(GetDlgItem(hWnd, IDC_MARQUEES), useart);
 	EnableWindow(GetDlgItem(hWnd, IDC_ARTMISCTEXT), useart);
-
-	// HLSL - only enable if D3D selected
-	if (d3d)
-	{
-		//d3d_version = pCurrentOpts.int_value(WINOPTION_D3DVERSION);
-
-		//if (d3d_version >= 9)
-			hlsl_on = TRUE;//pCurrentOpts.bool_value(WINOPTION_HLSL_ENABLE);
-	}
-
-	EnableWindow(GetDlgItem(hWnd, IDC_HLSL_ON), hlsl_on);
 
 	/* Joystick options */
 	joystick_attached = DIJoystick.Available();
@@ -2301,9 +2290,6 @@ static void BuildDataMap(void)
 
 	// show menu
 	datamap_add(properties_datamap, IDC_SHOW_MENU,				DM_BOOL,	WINOPTION_MENU);
-
-	// hlsl
-	datamap_add(properties_datamap, IDC_HLSL_ON,				DM_BOOL,	WINOPTION_HLSL_ENABLE);
 
 	// set up callbacks
 	datamap_set_callback(properties_datamap, IDC_ROTATE,		DCT_READ_CONTROL,		RotateReadControl);

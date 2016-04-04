@@ -323,7 +323,6 @@
 #define IDC_SNAPSIZETEXT                1252
 #define IDC_SNAPSIZEX                   1253
 #define IDC_FILTER_MECHANICAL           1254
-#define IDC_HLSL_ON                     1279
 #define IDC_SPLITTER3                   2000
 #define IDC_SWTAB                       2001
 #define IDC_SWLIST                      2002
