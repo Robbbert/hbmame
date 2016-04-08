@@ -120,10 +120,34 @@ function cheat.startplugin()
 		output[#output + 1] = { type = "box", scr = screen, x1 = x1, x2 = x2, y1 = y1, y2 = y2, bgcolor = bgcolor, linecolor = linecolor }
 	end
 
+	local function tobcd(val)
+		local result = 0
+		local shift = 0
+		while val ~= 0 do
+			result = result + ((val % 10) << shift)
+			val = val / 10
+			shift = shift + 4
+		end
+		return result
+	end
+
+	local function frombcd(val)
+		local result = 0
+		local mul = 1
+		while val ~= 0 do
+			result = result + ((val % 16) * mul)
+			val = val >> 4
+			mul = mul * 10
+		end
+		return result
+	end
+
 	local function parse_cheat(cheat)
 		cheat.cheat_env = { draw_text = draw_text,
 				    draw_line = draw_line,
 				    draw_box = draw_box,
+				    tobcd = tobcd,
+				    frombcd = frombcd,
 				    pairs = pairs }
 		cheat.enabled = false
 		-- verify scripts are valid first
@@ -134,10 +158,14 @@ function cheat.startplugin()
 			script = load(script, cheat.desc .. name, "t", cheat.cheat_env)
 			if not script then
 				print("error loading cheat script: " .. cheat.desc)
-				cheat = nil
+				cheat = { desc = cheat.desc .. "error" }
 				return
 			end
 			cheat.script[name] = script
+		end
+		-- initialize temp[0-9] for backward compatbility reasons
+		for i = 0, 9 do
+			cheat.cheat_env["temp" .. i] = 0
 		end
 		if cheat.space then
 			for name, space in pairs(cheat.space) do
@@ -145,7 +173,7 @@ function cheat.startplugin()
 				cpu = manager:machine().devices[space.tag]
 				if not cpu then
 					print("error loading cheat script: " .. cheat.desc)
-					cheat = nil
+					cheat = { desc = cheat.desc .. "error" }
 					return
 				end
 				if space.type then
@@ -155,7 +183,7 @@ function cheat.startplugin()
 				end
 				if not mem then
 					print("error loading cheat script: " .. cheat.desc)
-					cheat = nil
+					cheat = { desc = cheat.desc .. "error" }
 					return
 				end
 				cheat.cheat_env[name] = mem
@@ -166,9 +194,8 @@ function cheat.startplugin()
 				local scr
 				scr = manager:machine().screens[screen]
 				if not scr then
-					print("error loading cheat script: " .. cheat.desc)
-					cheat = nil
-					return
+					local tag
+					tag, scr = next(manager:machine().screens) -- get any screen
 				end
 				cheat.cheat_env[name] = scr
 			end

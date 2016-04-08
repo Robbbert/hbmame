@@ -2,6 +2,12 @@ local xml = {}
 
 -- basic xml parser for mamecheat only
 local function xml_parse(data)
+	local function fix_gt(str)
+		str = str:gsub(">=", " ge ")
+		str = str:gsub(">", " gt ")
+		return str
+	end
+	data = data:gsub("(condition=%b\"\")", fix_gt)
 	local cheat_str = data:match("<mamecheat.->(.*)</ *mamecheat>")
 
 	local function get_tags(str)
@@ -52,6 +58,7 @@ function xml.conv_cheat(data)
 	
 		local function convert_memref(cpu, space, width, addr, rw)
 			local direct = ""
+			local count
 			if space == "p" then
 				fullspace = "program"
 			elseif space == "d" then
@@ -96,17 +103,26 @@ function xml.conv_cheat(data)
 		end
 
 		data = data:lower()
-		data = data:gsub("lt", "<")
-		data = data:gsub("ge", ">=")
-		data = data:gsub("gt", ">")
-		data = data:gsub("le", "<=")
+		data = data:gsub("^[(](.-)[)]$", "%1")
+		data = data:gsub("%f[%w]lt%f[%W]", "<")
+		data = data:gsub("%f[%w]ge%f[%W]", ">=")
+		data = data:gsub("%f[%w]gt%f[%W]", ">")
+		data = data:gsub("%f[%w]le%f[%W]", "<=")
+		data = data:gsub("%f[%w]eq%f[%W]", "==")
+		data = data:gsub("%f[%w]ne%f[%W]", "~=")
 		data = data:gsub("!=", "~=")
-		data = data:gsub("frame", frame)
-		data = data:gsub("band", "&")
-		data = data:gsub("bor", "|")
+		data = data:gsub("||", " or ")
+		data = data:gsub("%f[%w]frame%f[%W]", frame)
+		data = data:gsub("%f[%w]band%f[%W]", "&")
+		data = data:gsub("%f[%w]bor%f[%W]", "|")
+		data = data:gsub("%f[%w]rshift%f[%W]", ">>")
+		data = data:gsub("%f[%w]lshift%f[%W]", "<<")
+		data = data:gsub("(%w-)%+%+", "%1 = %1 + 1")
 		data = data:gsub("%f[%w](%x+)%f[%W]", "0x%1")
-		data = data:gsub("([%w:]-).([pmrodi3])([bwdq])@(0x%x+) *(=*)", convert_memref)
-		data = data:gsub("([%w:]-).([pmrodi3])([bwdq])@(%b()) *(=*)", convert_memref)
+		data = data:gsub("([%w_:]-)%.([pmrodi3]-)([bwdq])@(%w+) *(=*)", convert_memref)
+		repeat
+			data, count = data:gsub("([%w_:]-)%.([pmrodi3]-)([bwdq])@(%b()) *(=*)", convert_memref)
+		until count == 0
 		if write then
 			data = data .. ")"
 		end
@@ -126,14 +142,16 @@ function xml.conv_cheat(data)
 			str = str .. ", \"auto\""
 		end
 		str = str .. ", nil,\"" .. data["format"] .. "\""
-		for count, block in pairs(data["argument"]) do
-			local expr = convert_expr(block["text"])
-			if block["count"] then
-				for i = 0, block["count"] - 1 do
-					str = str .. "," .. expr:gsub("argindex", i)
+		if data["argument"] then
+			for count, block in pairs(data["argument"]) do
+				local expr = convert_expr(block["text"])
+				if block["count"] then
+					for i = 0, block["count"] - 1 do
+						str = str .. "," .. expr:gsub("argindex", i)
+					end
+				else
+					str = str .. "," .. expr
 				end
-			else
-				str = str .. "," .. expr
 			end
 		end
 		return str .. ")"
@@ -148,7 +166,7 @@ function xml.conv_cheat(data)
 			elseif tag == "action" then
 				for count, action in pairs(block) do
 					if action["condition"] then
-						str = str .. " if " .. convert_expr(action["condition"]) .. " then "
+						str = str .. " if (" .. convert_expr(action["condition"]) .. ") then "
 						for expr in action["text"]:gmatch("([^,]+)") do
 							str = str .. convert_expr(expr) .. " "
 						end
@@ -189,7 +207,16 @@ function xml.conv_cheat(data)
 				end
 				data["cheat"][count]["script"] = scripts
 			elseif tag == "parameter" then
-				data["cheat"][count]["parameter"] = block[1]
+				if block[1]["min"] then
+					block[1]["min"] = block[1]["min"]:gsub("%$","0x")
+				end
+				if block[1]["max"] then
+					block[1]["max"] = block[1]["max"]:gsub("%$","0x")
+				end
+				if block[1]["step"] then
+					block[1]["step"] = block[1]["step"]:gsub("%$","0x")
+				end
+			data["cheat"][count]["parameter"] = block[1]
 			end
 		end
 		if next(spaces) then
