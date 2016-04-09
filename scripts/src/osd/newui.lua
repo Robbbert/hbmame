@@ -37,6 +37,7 @@ function maintargetosdoptions(_target,_subtarget)
 		"comctl32",
 		"comdlg32",
 		"psapi",
+		"ole32",
 	}
 
 -- needs same resources as messui, because dropdown menus are in mameui.rc
