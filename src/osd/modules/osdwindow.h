@@ -14,8 +14,8 @@
 #include "osdhelper.h"
 
 #ifdef OSD_SDL
-// standard SDL headers
-#include "sdlinc.h"
+// forward declaration
+struct SDL_Window;
 #endif
 
 //============================================================
@@ -196,7 +196,6 @@ public:
 	virtual void record() { };
 	virtual void toggle_fsfx() { };
 	virtual bool sliders_dirty() { return m_sliders_dirty; }
-	virtual bool multi_window_sliders() { return false; }
 
 	static osd_renderer* make_for_type(int mode, osd_window *window, int extra_flags = FLAG_NONE);
 
