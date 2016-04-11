@@ -883,7 +883,6 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 {
 	time_t start, end;
 	double elapsedtime;
-	DWORD dwExitCode = 0;
 	int i;
 	windows_options mame_opts;
 	std::string error_string;
@@ -938,13 +937,31 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	elapsedtime = end - start;
 	// Increment our playtime.
 	IncrementPlayTime(nGameIndex, elapsedtime);
+
+	// clear any specified play options
+	if (playopts)
+	{
+		if (playopts->record)
+			mame_opts.set_value(OPTION_RECORD, "", OPTION_PRIORITY_CMDLINE,error_string);
+		if (playopts->playback)
+			mame_opts.set_value(OPTION_PLAYBACK, "", OPTION_PRIORITY_CMDLINE,error_string);
+		if (playopts->state)
+			mame_opts.set_value(OPTION_STATE, "", OPTION_PRIORITY_CMDLINE,error_string);
+		if (playopts->wavwrite)
+			mame_opts.set_value(OPTION_WAVWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+		if (playopts->mngwrite)
+			mame_opts.set_value(OPTION_MNGWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+		if (playopts->aviwrite)
+			mame_opts.set_value(OPTION_AVIWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+		save_options(mame_opts, nGameIndex);
+	}
 	// the emulation is complete; continue
 	for (i = 0; i < ARRAY_LENGTH(s_nPickers); i++)
 		Picker_ResetIdle(GetDlgItem(hMain, s_nPickers[i]));
 	ShowWindow(hMain, SW_SHOW);
 	SetForegroundWindow(hMain);
 
-	return dwExitCode;
+	return (DWORD)0;
 }
 
 int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
