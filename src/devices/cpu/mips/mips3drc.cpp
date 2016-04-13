@@ -2062,11 +2062,11 @@ int mips3_device::generate_special(drcuml_block *block, compiler_state *compiler
 			return TRUE;
 
 		case 0x1c:  /* DMULT - MIPS III */
-			UML_DMULS(block, LO64, HI64, R64(RSREG), R64(RTREG));                   // dmuls   lo,hi,<rsreg>,<rtreg>
+			UML_DMULS(block, LO64, HI64, R64(RSREG), R64(RTREG));
 			return TRUE;
 
 		case 0x1d:  /* DMULTU - MIPS III */
-			UML_DMULU(block, LO64, HI64, R64(RSREG), R64(RTREG));                   // dmulu   lo,hi,<rsreg>,<rtreg>
+			UML_DMULU(block, LO64, HI64, R64(RSREG), R64(RTREG));
 			return TRUE;
 
 		case 0x1a:  /* DIV - MIPS I */
@@ -2265,11 +2265,15 @@ int mips3_device::generate_regimm(drcuml_block *block, compiler_state *compiler,
 		case 0x02:  /* BLTZL */
 		case 0x10:  /* BLTZAL */
 		case 0x12:  /* BLTZALL */
+			if (opswitch & 0x10)
+			{
+				UML_DMOV(block, R64(31), (INT32)(desc->pc + 8));
+			}
 			if (RSREG != 0)
 			{
 				UML_DCMP(block, R64(RSREG), 0);                             // dcmp    <rsreg>,0
 				UML_JMPc(block, COND_GE, skip = compiler->labelnum++);              // jmp     skip,GE
-				generate_delay_slot_and_branch(block, compiler, desc, (opswitch & 0x10) ? 31 : 0);
+				generate_delay_slot_and_branch(block, compiler, desc, 0);
 																					// <next instruction + hashjmp>
 				UML_LABEL(block, skip);                                         // skip:
 			}
@@ -2279,17 +2283,22 @@ int mips3_device::generate_regimm(drcuml_block *block, compiler_state *compiler,
 		case 0x03:  /* BGEZL */
 		case 0x11:  /* BGEZAL */
 		case 0x13:  /* BGEZALL */
+			if (opswitch & 0x10)
+			{
+				UML_DMOV(block, R64(31), (INT32)(desc->pc + 8));
+			}
+
 			if (RSREG != 0)
 			{
 				UML_DCMP(block, R64(RSREG), 0);                             // dcmp    <rsreg>,0
-				UML_JMPc(block, COND_L, skip = compiler->labelnum++);                   // jmp     skip,L
-				generate_delay_slot_and_branch(block, compiler, desc, (opswitch & 0x10) ? 31 : 0);
-																					// <next instruction + hashjmp>
-				UML_LABEL(block, skip);                                         // skip:
+				UML_JMPc(block, COND_L, skip = compiler->labelnum++);       // jmp     skip,L
+				generate_delay_slot_and_branch(block, compiler, desc, 0);	// <next instruction + hashjmp>
+				UML_LABEL(block, skip);                                     // skip:
 			}
 			else
-				generate_delay_slot_and_branch(block, compiler, desc, (opswitch & 0x10) ? 31 : 0);
-																					// <next instruction + hashjmp>
+			{
+				generate_delay_slot_and_branch(block, compiler, desc, 0);	// <next instruction + hashjmp>
+			}
 			return TRUE;
 
 		case 0x08:  /* TGEI */

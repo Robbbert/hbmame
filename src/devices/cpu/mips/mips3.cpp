@@ -6,9 +6,6 @@
     Core implementation for the portable MIPS III/IV emulator.
     Written by Aaron Giles
 
-    Still not implemented:
-       * DMULT needs to be fixed properly
-
 ***************************************************************************/
 
 #include "emu.h"
@@ -67,7 +64,6 @@
 #define FDVALL_FR1  (*(UINT64 *)&m_core->cpr[1][FDREG])
 
 #define ADDPC(x)    m_nextpc = m_core->pc + ((x) << 2)
-#define ADDPCL(x,l) { m_nextpc = m_core->pc + ((x) << 2); m_core->r[l] = (INT32)(m_core->pc + 4); }
 #define ABSPC(x)    m_nextpc = (m_core->pc & 0xf0000000) | ((x) << 2)
 #define ABSPCL(x,l) { m_nextpc = (m_core->pc & 0xf0000000) | ((x) << 2); m_core->r[l] = (INT32)(m_core->pc + 4); }
 #define SETPC(x)    m_nextpc = (x)
@@ -2551,10 +2547,10 @@ void mips3_device::handle_regimm(UINT32 op)
 		case 0x0b:  /* TLTIU */     if (RSVAL64 >= UIMMVAL) generate_exception(EXCEPTION_TRAP, 1);  break;
 		case 0x0c:  /* TEQI */      if (RSVAL64 == UIMMVAL) generate_exception(EXCEPTION_TRAP, 1);  break;
 		case 0x0e:  /* TNEI */      if (RSVAL64 != UIMMVAL) generate_exception(EXCEPTION_TRAP, 1);  break;
-		case 0x10:  /* BLTZAL */    if ((INT64)RSVAL64 < 0) ADDPCL(SIMMVAL,31);                     break;
-		case 0x11:  /* BGEZAL */    if ((INT64)RSVAL64 >= 0) ADDPCL(SIMMVAL,31);                    break;
-		case 0x12:  /* BLTZALL */   if ((INT64)RSVAL64 < 0) ADDPCL(SIMMVAL,31) else m_core->pc += 4; break;
-		case 0x13:  /* BGEZALL */   if ((INT64)RSVAL64 >= 0) ADDPCL(SIMMVAL,31) else m_core->pc += 4;    break;
+		case 0x10:  /* BLTZAL */    m_core->r[31] = (INT32)(m_core->pc + 4); if ((INT64)RSVAL64 < 0) ADDPC(SIMMVAL);                     break;
+		case 0x11:  /* BGEZAL */    m_core->r[31] = (INT32)(m_core->pc + 4); if ((INT64)RSVAL64 >= 0) ADDPC(SIMMVAL);                    break;
+		case 0x12:  /* BLTZALL */   m_core->r[31] = (INT32)(m_core->pc + 4); if ((INT64)RSVAL64 < 0) ADDPC(SIMMVAL); else m_core->pc += 4; break;
+		case 0x13:  /* BGEZALL */   m_core->r[31] = (INT32)(m_core->pc + 4); if ((INT64)RSVAL64 >= 0) ADDPC(SIMMVAL); else m_core->pc += 4;    break;
 		default:    /* ??? */       invalid_instruction(op);                                        break;
 	}
 }
@@ -2618,17 +2614,33 @@ void mips3_device::handle_special(UINT32 op)
 			break;
 		case 0x1c:  /* DMULT */
 		{
-			UINT64 temp64 = (INT64)RSVAL64 * (INT64)RTVAL64;
-			LOVAL64 = temp64;
-			HIVAL64 = (INT64)temp64 >> 63;
+			INT64 rshi = (INT32)(RSVAL64 >> 32);
+			INT64 rthi = (INT32)(RTVAL64 >> 32);
+			INT64 rslo = (UINT32)RSVAL64;
+			INT64 rtlo = (UINT32)RTVAL64;
+			INT64 mid_prods = (rshi * rtlo) + (rslo * rthi);
+			UINT64 lo_prod = (rslo * rtlo);
+			INT64 hi_prod = (rshi * rthi);
+			mid_prods += lo_prod >> 32;
+
+			HIVAL64 = hi_prod + (mid_prods >> 32);
+			LOVAL64 = (UINT32)lo_prod + (mid_prods << 32);
 			m_core->icount -= 7;
 			break;
 		}
 		case 0x1d:  /* DMULTU */
 		{
-			UINT64 temp64 = (UINT64)RSVAL64 * (UINT64)RTVAL64;
-			LOVAL64 = temp64;
-			HIVAL64 = 0;
+			UINT64 rshi = (INT32)(RSVAL64 >> 32);
+			UINT64 rthi = (INT32)(RTVAL64 >> 32);
+			UINT64 rslo = (UINT32)RSVAL64;
+			UINT64 rtlo = (UINT32)RTVAL64;
+			UINT64 mid_prods = (rshi * rtlo) + (rslo * rthi);
+			UINT64 lo_prod = (rslo * rtlo);
+			UINT64 hi_prod = (rshi * rthi);
+			mid_prods += lo_prod >> 32;
+
+			HIVAL64 = hi_prod + (mid_prods >> 32);
+			LOVAL64 = (UINT32)lo_prod + (mid_prods << 32);
 			m_core->icount -= 7;
 			break;
 		}

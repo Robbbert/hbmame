@@ -566,7 +566,8 @@ void ui_menu::draw(bool customonly, bool noimage, bool noinput)
 	bool show_bottom_arrow = false;
 
 	// if scrolling, show arrows
-	if (item.size() > visible_lines) {
+	if (item.size() > visible_lines)
+	{
 		if (top_line > 0)
 			show_top_arrow = true;
 		if (top_line != item.size() - visible_lines)
@@ -1419,7 +1420,7 @@ void ui_menu::draw_select_game(bool noinput)
 {
 	float line_height = machine().ui().get_line_height();
 	float ud_arrow_width = line_height * machine().render().ui_aspect();
-	float gutter_width = 0.52f * line_height * machine().render().ui_aspect();
+	float gutter_width = 0.52f * ud_arrow_width;
 	mouse_x = -1, mouse_y = -1;
 	float right_panel_size = (ui_globals::panels_status == HIDE_BOTH || ui_globals::panels_status == HIDE_RIGHT_PANEL) ? 2.0f * UI_BOX_LR_BORDER : 0.3f;
 	float visible_width = 1.0f - 4.0f * UI_BOX_LR_BORDER;
@@ -1578,7 +1579,7 @@ void ui_menu::draw_select_game(bool noinput)
 				else
 					draw_icon(linenum, item[itemnum].ref, effective_left, line_y);
 
-				space = mui.get_line_height() * container->manager().ui_aspect() * 1.5f;
+				space = ud_arrow_width * 1.5f;
 			}
 			mui.draw_text_full(container, itemtext, effective_left + space, line_y, effective_width - space, JUSTIFY_LEFT, WRAP_TRUNCATE,
 				DRAW_NORMAL, item_invert ? fgcolor3 : fgcolor, bgcolor, nullptr, nullptr);
@@ -2796,7 +2797,6 @@ void ui_menu::draw_dats_menu()
 	float y2 = visible_top + visible_main_menu_height + UI_BOX_TB_BORDER + extra_height;
 	float line = visible_top + (float)(visible_lines * line_height);
 
-	//machine().ui().draw_outlined_box(container, x1, y1, x2, y2, rgb_t(0xEF, 0x12, 0x47, 0x7B));
 	mui.draw_outlined_box(container, x1, y1, x2, y2, UI_BACKGROUND_COLOR);
 
 	if (visible_items < visible_lines)

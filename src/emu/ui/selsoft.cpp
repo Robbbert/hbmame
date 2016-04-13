@@ -4,7 +4,7 @@
 
     ui/selsoft.cpp
 
-    UI softwares menu.
+    UI software menu.
 
 ***************************************************************************/
 
@@ -431,7 +431,6 @@ void ui_menu_select_software::populate()
 
 	machine_config config(*m_driver, machine().options());
 	image_interface_iterator iter(config.root_device());
-
 	for (device_image_interface *image = iter.first(); image != nullptr; image = iter.next())
 		if (image->filename() == nullptr && image->must_be_loaded())
 		{
@@ -520,7 +519,7 @@ void ui_menu_select_software::populate()
 }
 
 //-------------------------------------------------
-//  build a list of softwares
+//  build a list of software
 //-------------------------------------------------
 
 void ui_menu_select_software::build_software_list()
@@ -681,7 +680,7 @@ void ui_menu_select_software::custom_render(void *selectedref, float top, float 
 
 	// determine the text for the header
 	int vis_item = (m_search[0] != 0) ? visible_items : (m_has_empty_start ? visible_items - 1 : visible_items);
-	tempbuf[0] = string_format(_("%1$s %2$s ( %3$d / %4$d softwares )"), emulator_info::get_appname(), bare_build_version, vis_item, m_swinfo.size() - 1);
+	tempbuf[0] = string_format(_("%1$s %2$s ( %3$d / %4$d software packages )"), emulator_info::get_appname(), bare_build_version, vis_item, m_swinfo.size() - 1);
 	tempbuf[1] = string_format(_("Driver: \"%1$s\" software list "), m_driver->description);
 
 	if (sw_filters::actual == UI_SW_REGION && m_filter.region.ui.size() != 0)
@@ -1416,13 +1415,13 @@ float ui_menu_select_software::draw_left_panel(float x1, float y1, float x2, flo
 			line_height = l_height * text_size;
 		}
 
-		float text_sign = mui.get_string_width_ex("_# ", text_size);
+		float text_sign = mui.get_string_width("_# ", text_size);
 		for (int x = 0; x < text_lenght; ++x)
 		{
 			float total_width;
 
 			// compute width of left hand side
-			total_width = mui.get_string_width_ex(text[x], text_size);
+			total_width = mui.get_string_width(text[x], text_size);
 			total_width += text_sign;
 
 			// track the maximum
@@ -1431,7 +1430,6 @@ float ui_menu_select_software::draw_left_panel(float x1, float y1, float x2, flo
 		}
 
 		x2 = x1 + left_width + 2.0f * UI_BOX_LR_BORDER;
-		//machine().ui().draw_outlined_box(container, x1, y1, x2, y2, rgb_t(0xEF, 0x12, 0x47, 0x7B));
 		mui.draw_outlined_box(container, x1, y1, x2, y2, UI_BACKGROUND_COLOR);
 
 		// take off the borders
@@ -1512,7 +1510,6 @@ float ui_menu_select_software::draw_left_panel(float x1, float y1, float x2, flo
 		float ar_x1 = ar_x0 + lr_arrow_width;
 		float ar_y1 = 0.5f * (y2 + y1) + 0.9f * space;
 
-		//machine().ui().draw_outlined_box(container, x1, y1, x2, y2, UI_BACKGROUND_COLOR);
 		mui.draw_outlined_box(container, x1, y1, x2, y2, rgb_t(0xEF, 0x12, 0x47, 0x7B));
 
 		if (mouse_hit && x1 <= mouse_x && x2 > mouse_x && y1 <= mouse_y && y2 > mouse_y)
@@ -1536,7 +1533,6 @@ float ui_menu_select_software::draw_left_panel(float x1, float y1, float x2, flo
 		float ar_x1 = ar_x0 + lr_arrow_width;
 		float ar_y1 = 0.5f * (y2 + y1) + 0.9f * space;
 
-		//machine().ui().draw_outlined_box(container, x1, y1, x2, y2, UI_BACKGROUND_COLOR);
 		mui.draw_outlined_box(container, x1, y1, x2, y2, rgb_t(0xEF, 0x12, 0x47, 0x7B));
 
 		if (mouse_hit && x1 <= mouse_x && x2 > mouse_x && y1 <= mouse_y && y2 > mouse_y)
@@ -1899,7 +1895,6 @@ void ui_menu_select_software::draw_right_panel(void *selectedref, float origx1, 
 	float ar_x1 = ar_x0 + lr_arrow_width;
 	float ar_y1 = 0.5f * (origy2 + origy1) + 0.9f * space;
 
-	//machine().ui().draw_outlined_box(container, origx1, origy1, origx2, origy2, UI_BACKGROUND_COLOR);
 	mui.draw_outlined_box(container, origx1, origy1, origx2, origy2, rgb_t(0xEF, 0x12, 0x47, 0x7B));
 
 	if (mouse_hit && origx1 <= mouse_x && x2 > mouse_x && origy1 <= mouse_y && origy2 > mouse_y)
