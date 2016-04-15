@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 /*********************************************************************************************************
 
-neogeohb.c - started 2014-06-02
+neogeohb.cpp - started 2014-06-02
 
 HBMAME list of protos, unreleased, and homebrews. This number system is to make the categorisation
 of non-official NeoGeo sets easier. 300-399 is for unreleased commercial sets, while 400-999 is for
@@ -108,6 +108,7 @@ NUM YEAR COMPANY          TITLE
 333*2002 Sun Amusement    Poker Kingdom / Bingo Island
 334*2002 ADK              Dance RhythMIX
 335*2002 ADK              World Heroes 3
+336      Technos          (unknown set based on Voltage Gowcaizer)
 350*                      Neo Dev Cart
 351*                      MVS Test Cart
 360 2003 PhenixSoft       Crouching Tiger Hidden Dragon (hack of kof2001) (original number 5003)
@@ -163,7 +164,7 @@ NUM YEAR COMPANY                 TITLE
 435 2010 CeL                     Neorom Jukebox
 436*2010 CeL                     Neo Pang
 437 2013 Le Cortex               Crouching Pony Hidden Dragon demo
-438
+438 2009 Raregame                Duck Tales Intro
 439 2013 Cristiano Bei           Primo demo
 440 2013 Cristiano Bei           Neo Geo Galaga demo
 441 2013 Cristiano Bei           Neo Geo Sound Test
@@ -1134,6 +1135,38 @@ ROM_START( cphd )
 ROM_END
 
 
+// 438 : Duck Tales intro from Raregame
+ROM_START( dti )	/* you must use unibios to select Japan Console */
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "438.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
+
+	NEO_SFIX_64K( "427.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
+
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
+
+	ROM_REGION( 0x20000, "audiocpu", 0 )
+	ROM_LOAD( "438.m1", 0x0000, 0x2000, CRC(7761d993) SHA1(b269e9878ca28faa1d36c7fa3dd8e9939714a5f4) )
+	ROM_RELOAD( 0x10000, 0x2000 )
+
+	ROM_REGION( 0x090200, "ymsnd", 0 )
+	ROM_LOAD( "438.v1", 0x000000, 0x090200, CRC(b40c3a5a) SHA1(fda5e4bf3af75aa70df32b21f132c41670212c52) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "438.c1", 0x0000000, 0x400000, CRC(02adabba) SHA1(7b1eafebed09dbfc1b8d9612f0ed477e25ab152d) )
+	ROM_LOAD16_BYTE( "438.c2", 0x0000001, 0x400000, CRC(00bd87ac) SHA1(cb3c02c799109fa7083110825dacf19c89372c55) )
+	ROM_LOAD16_BYTE( "438.c3", 0x0800000, 0x400000, CRC(263307c8) SHA1(5dabc76b18c02c6955abfbc5010b8fbac7d15753) )
+	ROM_LOAD16_BYTE( "438.c4", 0x0800001, 0x400000, CRC(b8330c1e) SHA1(e3ab645eb1101e561bc581e6b2cf696a0ca1e673) )
+	ROM_LOAD16_BYTE( "438.c5", 0x1000000, 0x400000, CRC(ce99fcb8) SHA1(f6222f1b0dc31e5ae5e6c7e3223aa7129b38b772) )
+	ROM_LOAD16_BYTE( "438.c6", 0x1000001, 0x400000, CRC(a6d30781) SHA1(a29e6b39169f9354a64cf64b302b9e91e0671c82) )
+	ROM_LOAD16_BYTE( "438.c7", 0x1800000, 0x400000, CRC(eda15323) SHA1(ef7291870fd30e7b04cb63e59ff45a3c0acab714) )
+	ROM_LOAD16_BYTE( "438.c8", 0x1800001, 0x400000, CRC(400fd4cd) SHA1(20cc401de5d429deb7d076535a0b42fc62c48c52) )
+ROM_END
+
+
 // 439 : Primo demo by BEY
 // No sound.
 ROM_START( iocero )
@@ -1495,6 +1528,7 @@ GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Chip n Dale Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ennemi,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )

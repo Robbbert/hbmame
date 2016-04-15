@@ -1583,6 +1583,7 @@ cnbe
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 //csw2 //not working at all & roms missing
+dti			// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
 ennemi      // kannagi 2016
 ffeast		// Frog Feast
@@ -1648,6 +1649,7 @@ fightfevk
 flipshotk
 ganryud
 gowcaizry
+unkneo1
 gpilotscd
 gpilotse
 ironcladb	/* 1996 Saurus */

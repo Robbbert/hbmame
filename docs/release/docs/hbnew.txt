@@ -1,17 +1,19 @@
 What's new in HBMAME
 ====================
 
-2016-03-30 0.172
+2016-04-27 0.173
 ----------------
 
 Thanks to all those who helped gather the newest hacks.
 
 - Newui is added but turned off by default
+- Started adding hacks from MultiJet
 
 
 
 New Games
 ---------
+- [dti]             Duck Tales Intro [Raregame]
 - [ennemi]          Neogeo demo [by Kannagi]
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
