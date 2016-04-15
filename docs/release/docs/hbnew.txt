@@ -6,17 +6,21 @@ What's new in HBMAME
 
 Thanks to all those who helped gather the newest hacks.
 
-- Newui is added but turned off by default
+- NewUI is added but turned off by default
 - Started adding hacks from MultiJet
 
 
 
 New Games
 ---------
+- [columnsncd]      Columns CD hack
 - [dti]             Duck Tales Intro [Raregame]
 - [ennemi]          Neogeo demo [by Kannagi]
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
+- [poknightcd]      Poker Night CD hack
+- [poknightfr]      Poker Night (French)
+- [zintrckbh]       Zintrick hack [by Yumeji]
 
 
 

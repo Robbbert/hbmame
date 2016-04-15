@@ -1567,33 +1567,32 @@ wh2j		// 064
 whp		/* 0090 (c) 1995 ADK / SNK */
 wjammers
 zedblade
+zintrckb	// 211
 zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
 
 	/* neogeohb */
-fr2			// 098 Idol Mahjong - final romance 2
-fr2cd		/* 098 (c) 1995 Video Systems Co. */
-fr2ch		/* 098 (c) 1995 Video Systems Co. */
-zintrckb	// parent
-zintrkcd	/* 211 (c) 1996 ADK / SNK */
-zintrkcd1
-zintrkm
 beast		/* 2002 (c) 1989 Psygnosis */
 cndi		/* Chip n Dale Intro */
 cnbe
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
-//csw2 //not working at all & roms missing
+columnsncd
+//csw2 //not working & roms missing
 dti			// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
 ennemi      // kannagi 2016
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
+fr2			// 098 Idol Mahjong - final romance 2
+fr2cd		/* 098 (c) 1995 Video Systems Co. */
+fr2ch		/* 098 (c) 1995 Video Systems Co. */
 gbi			/* Ghostbusters Intro */
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
 //lhopecd //not working
+//lhopecdh // not working
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
@@ -1620,6 +1619,8 @@ nyan
 pcmademo	// 2015 freem
 pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
+poknightcd
+poknightfr
 rci			/* Robocop intro */
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
@@ -1631,6 +1632,10 @@ tmnti		/* TMNT intro */
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 ww2demo
+zintrckbh
+zintrkcd	/* 211 (c) 1996 ADK / SNK */
+zintrkcd1
+zintrkm
 
 	/* neogeo1 */
 2020bbcd
