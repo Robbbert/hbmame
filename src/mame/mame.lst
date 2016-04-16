@@ -13666,6 +13666,7 @@ cpacman                         // Coleco
 cpacmanr1                       // Coleco (rev 1)
 egalaxn2                        // Entex
 epacman2                        // Entex
+epacman2r                       // Entex
 estargte                        // Entex
 eturtles                        // Entex
 gckong                          // Gakken
@@ -13703,6 +13704,8 @@ amaztron                        // Coleco
 astro                           // Kosmos
 bankshot                        // Parker Bros
 bigtrak                         // Milton Bradley
+copycat                         // Tiger Electronics
+copycatm2                        // Tiger Electronics
 cnfball                         // Conic
 cnfball2                        // Conic
 cnsector                        // Parker Bros
@@ -27390,6 +27393,7 @@ cosmogng                        // (c) 1991 (US)
 cosmogngj                       // (c) 1991 (Japan)
 dirtfoxj                        // (c) 1989 (Japan)
 dsaber                          // (c) 1990
+dsabera							//
 dsaberj                         // (c) 1990 (Japan)
 finalap2                        // 90.8  Final Lap 2
 finalap2j                       // 90.8  Final Lap 2 (Japan)
@@ -29754,6 +29758,9 @@ kov3                            //
 orleg2                          // (c) 2007
 orleg2o                         //
 orleg2oa                        //
+
+@source:phantom.cpp
+fphantom                        //
 
 @source:phc25.cpp
 phc25                           //
@@ -34762,6 +34769,7 @@ vocaid                          //
 @source:tispellb.cpp
 mrchalgr                        //
 spellb                          //
+spellb79                        //
 
 @source:tk2000.cpp
 tk2000                          // Microdigital TK2000

@@ -10,7 +10,6 @@
 #define __WINDOWS_WINMAIN_H__
 
 #include <winapifamily.h>
-#include "clifront.h"
 #include "osdepend.h"
 #include "modules/lib/osdobj_common.h"
 
@@ -338,8 +337,6 @@ extern int osd_num_processors;
 //  FUNCTION PROTOTYPES
 //============================================================
 
-// use this to ping the watchdog
-void winmain_watchdog_ping(void);
 void winmain_dump_stack();
 
 #endif

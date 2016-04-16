@@ -373,7 +373,7 @@ void chain_manager::create_selection_slider(uint32_t screen_index)
     item.subtext = "";
     item.flags = 0;
     item.ref = state;
-    item.type = ui_menu_item_type::UI_MENU_ITEM_TYPE_SLIDER;
+    item.type = ui_menu_item_type::SLIDER;
     m_selection_sliders.push_back(item);
 }
 
@@ -391,7 +391,7 @@ uint32_t chain_manager::handle_screen_chains(uint32_t view, render_primitive *st
     uint32_t screen_index = 0;
     for (render_primitive* prim : screens)
     {
-        if (m_current_chain[screen_index] == CHAIN_NONE)
+        if (m_current_chain[screen_index] == CHAIN_NONE || screen_chain(screen_index) == nullptr)
         {
 			screen_index++;
             continue;
@@ -449,15 +449,15 @@ std::vector<ui_menu_item> chain_manager::get_slider_list()
         for (bgfx_slider* slider : chain_sliders)
         {
             slider_state* core_slider = slider->core_slider();
-            
+
             ui_menu_item item;
             item.text = core_slider->description;
             item.subtext = "";
             item.flags = 0;
             item.ref = core_slider;
-            item.type = ui_menu_item_type::UI_MENU_ITEM_TYPE_SLIDER;
+            item.type = ui_menu_item_type::SLIDER;
             m_selection_sliders.push_back(item);
-            
+
             sliders.push_back(item);
         }
 
@@ -468,8 +468,8 @@ std::vector<ui_menu_item> chain_manager::get_slider_list()
             item.subtext = "";
             item.flags = 0;
             item.ref = nullptr;
-            item.type = ui_menu_item_type::UI_MENU_ITEM_TYPE_SEPARATOR;
-        	
+            item.type = ui_menu_item_type::SEPARATOR;
+
             sliders.push_back(item);
 		}
     }
