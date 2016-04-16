@@ -25,6 +25,10 @@ New Games
 - [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 11/06/09)
 - [breakrevy]       Breakers Revenge (Boss Robert PPX Team hack remixed by ZKW)
 - [columnsncd]      Columns CD hack
+- [ct2k3ifz]        Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)
+- [ct2k3xx]         Crouching Tiger Hidden Dragon 2003 (Blood Edition)
+- [ct2k3ys]         Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)
+- [ctomadaypx]      Captain Tomaday (Plus Max hack by Xyahzhs)
 - [dti]             Duck Tales Intro [Raregame]
 - [ennemi]          Neogeo demo [by Kannagi]
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
