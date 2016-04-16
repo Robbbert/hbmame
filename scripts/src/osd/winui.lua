@@ -279,8 +279,8 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/strconv.h",
 		MAME_DIR .. "src/osd/windows/main.cpp",
 		MAME_DIR .. "src/osd/windows/windir.cpp",
-		MAME_DIR .. "src/osd/modules/sync/osdsync.cpp",
-		MAME_DIR .. "src/osd/modules/sync/osdsync.h",
+		MAME_DIR .. "src/osd/osdsync.cpp",
+		MAME_DIR .. "src/osd/osdsync.h",
 		MAME_DIR .. "src/osd/windows/winutf8.cpp",
 		MAME_DIR .. "src/osd/windows/winutf8.h",
 		MAME_DIR .. "src/osd/windows/winutil.cpp",
@@ -292,7 +292,6 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/file/winptty.cpp",
 		MAME_DIR .. "src/osd/modules/file/winsocket.cpp",
 		MAME_DIR .. "src/osd/modules/lib/osdlib_win32.cpp",
-		MAME_DIR .. "src/osd/modules/sync/work_osd.cpp",
 	}
 
 

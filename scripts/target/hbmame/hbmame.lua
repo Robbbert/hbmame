@@ -148,6 +148,7 @@ MACHINES["Z80PIO"] = true
 
 BUSES["GENERIC"] = true
 BUSES["NEOGEO"] = true
+BUSES["NEOGEO_CTRL"] = true
 BUSES["SCSI"] = true
 
 --------------------------------------------------
