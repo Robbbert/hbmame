@@ -1466,10 +1466,10 @@ neogeo
 2020bb
 3countb
 alpham2
+androdun	// 049
 aof
 aof2		/* 0056 (c) 1994 SNK */
 aof3
-androdun
 bakatono
 bangbead
 breakers
@@ -1639,9 +1639,14 @@ zintrkm
 
 	/* neogeo1 */
 2020bbcd
+androdunpx
+aofbh
 aof2b
+aof2b1
+aof2bh
 aof2br2
 aof3b
+aof3bh
 bangbeadp
 breakersp
 burningfhp

@@ -13,6 +13,11 @@ Thanks to all those who helped gather the newest hacks.
 
 New Games
 ---------
+- [androdunpx]      Andro Dunos (Plus Max hack by Xyahzhs)
+- [aofbh]           Art of Fighting (Boss hack by Yumeji)
+- [aof2b1]          Art of Fighting 2 (Boss hack)
+- [aof2bh]          Art of Fighting 2 (Boss hack by Yumeji)
+- [aof3bh]          Art of Fighting 3 (Boss hack by Yumeji)
 - [columnsncd]      Columns CD hack
 - [dti]             Duck Tales Intro [Raregame]
 - [ennemi]          Neogeo demo [by Kannagi]

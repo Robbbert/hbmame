@@ -82,9 +82,100 @@ ROM_START( 2020bbcd )
 	ROM_LOAD16_BYTE( "030-c4.c4", 0x200001, 0x100000, CRC(780d1c4e) SHA1(2e2cf9de828e3b48642dd2203637103438c62142) )
 ROM_END
 
+
+ROM_START( androdunpx )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "049px.p1", 0x000000, 0x080000, CRC(5f63193e) SHA1(7ba7bb8f9382ddd7b35601b8171a0e532c9dfe55) )
+	ROM_LOAD16_WORD_SWAP( "049-p2.p2", 0x080000, 0x080000, CRC(2f062209) SHA1(991cf3e3677929b2cc0b2787b0c7b6ad3700f618) )
+
+	NEO_SFIX_128K( "049-s1.s1", CRC(6349de5d) SHA1(bcc44b9576d7bedd9a39294530bb66f707690c72) )
+
+	NEO_BIOS_AUDIO_128K( "049-m1.m1", CRC(edd2acf4) SHA1(c4ee6ba834d54b9fc5a854dbc41a05877e090371) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "049-v1.v1", 0x000000, 0x100000, CRC(ce43cb89) SHA1(47f82e077abb6efc6b1b0490412ae147d5d2acef) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "049-c1.c1", 0x000000, 0x100000, CRC(7ace6db3) SHA1(c41cc9de8c0788dcc49ca494fd3bb3124062d9dd) )
+	ROM_LOAD16_BYTE( "049-c2.c2", 0x000001, 0x100000, CRC(b17024f7) SHA1(fcf7efae48fcdccaf5255c145de414fb246128f0) )
+ROM_END
+
+
+ROM_START( aofbh )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "044bh.p1", 0x000000, 0x080000, CRC(202a60d8) SHA1(f0caa8b6a18dff1b9568aaae552cf6d10a9db722) )
+
+	NEO_SFIX_128K( "044-s1.s1", CRC(89903f39) SHA1(a04a0c244a5d5c7a595fcf649107969635a6a8b6) )
+
+	NEO_BIOS_AUDIO_128K( "044-m1.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "044-v2.v2", 0x000000, 0x200000, CRC(3ec632ea) SHA1(e3f413f580b57f70d2dae16dbdacb797884d3fce) )
+	ROM_LOAD( "044-v4.v4", 0x200000, 0x200000, CRC(4b0f8e23) SHA1(105da0cc5ba19869c7147fba8b177500758c232b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "044-c1.c1", 0x000000, 0x100000, CRC(ddab98a7) SHA1(f20eb81ec431268798c142c482146c1545af1c24) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "044-c2.c2", 0x000001, 0x100000, CRC(d8ccd575) SHA1(f697263fe92164e274bf34c55327b3d4a158b332) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "044-c3.c3", 0x200000, 0x100000, CRC(403e898a) SHA1(dd5888f8b24a33b2c1f483316fe80c17849ccfc4) )
+	ROM_CONTINUE( 0x600000, 0x100000 )
+	ROM_LOAD16_BYTE( "044-c4.c4", 0x200001, 0x100000, CRC(6235fbaa) SHA1(9090e337d7beed25ba81ae0708d0aeb57e6cf405) )
+	ROM_CONTINUE( 0x600001, 0x100000 )
+ROM_END
+
+
 ROM_START( aof2b ) /* Art of Fighting 2 - Hack by TcwLee - (Can select Geese instead of Mr. Big) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "056b.p1", 0x000000, 0x100000, CRC(c3dc11f8) SHA1(7f92f4931ffdf2561b1a2741e18a4ae301df8497) )
+
+	NEO_SFIX_128K( "056-s1.s1", CRC(8b02638e) SHA1(aa4d28804ca602da776948b5f223ea89e427906b) )
+
+	NEO_BIOS_AUDIO_128K( "056-m1.m1", CRC(f27e9d52) SHA1(dddae733d87ce7c88ad2580a8f64cb6ff9572e67) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "056-v1.v1", 0x000000, 0x200000, CRC(4628fde0) SHA1(ece2a50f5270d844d58401b1447d1d856d78ea45) )
+	ROM_LOAD( "056-v2.v2", 0x200000, 0x200000, CRC(b710e2f2) SHA1(df4da585203eea7554d3ce718eb107e9cb6a0254) )
+	ROM_LOAD( "056-v3.v3", 0x400000, 0x100000, CRC(d168c301) SHA1(969273d1d11943e81560959359a2c4e69522af0e) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "056-c1.c1", 0x000000, 0x200000, CRC(17b9cbd2) SHA1(1eee81e02763d384bd1c10a6012473ca931e4093) )
+	ROM_LOAD16_BYTE( "056-c2.c2", 0x000001, 0x200000, CRC(5fd76b67) SHA1(11925a41a53b53c6df4a5ebd28f98300950f743b) )
+	ROM_LOAD16_BYTE( "056-c3.c3", 0x400000, 0x200000, CRC(d2c88768) SHA1(22e2d84aa0c095944190e249ce87ef50d3f7b8ce) )
+	ROM_LOAD16_BYTE( "056-c4.c4", 0x400001, 0x200000, CRC(db39b883) SHA1(59de86c513dc4e230ae25d9e3b7e84621b657b54) )
+	ROM_LOAD16_BYTE( "056-c5.c5", 0x800000, 0x200000, CRC(c3074137) SHA1(9a75e3d63cb98d54f900dcfb3a03e21f3148d32f) )
+	ROM_LOAD16_BYTE( "056-c6.c6", 0x800001, 0x200000, CRC(31de68d3) SHA1(13ba7046cdd6863125f8284e60f102d4720af5a4) )
+	ROM_LOAD16_BYTE( "056-c7.c7", 0xc00000, 0x200000, CRC(3f36df57) SHA1(79ee97e9ae811a51141b535633f90e1491209d54) )
+	ROM_LOAD16_BYTE( "056-c8.c8", 0xc00001, 0x200000, CRC(e546d7a8) SHA1(74a2fca994a5a93a5784a46c0f68193122456a09) )
+ROM_END
+
+ROM_START( aof2b1 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "056b1.p1", 0x000000, 0x100000, CRC(5d21dc39) SHA1(72df83c4249990386ced39749dd6994aa5a0b2a9) )
+
+	NEO_SFIX_128K( "056-s1.s1", CRC(8b02638e) SHA1(aa4d28804ca602da776948b5f223ea89e427906b) )
+
+	NEO_BIOS_AUDIO_128K( "056-m1.m1", CRC(f27e9d52) SHA1(dddae733d87ce7c88ad2580a8f64cb6ff9572e67) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "056-v1.v1", 0x000000, 0x200000, CRC(4628fde0) SHA1(ece2a50f5270d844d58401b1447d1d856d78ea45) )
+	ROM_LOAD( "056-v2.v2", 0x200000, 0x200000, CRC(b710e2f2) SHA1(df4da585203eea7554d3ce718eb107e9cb6a0254) )
+	ROM_LOAD( "056-v3.v3", 0x400000, 0x100000, CRC(d168c301) SHA1(969273d1d11943e81560959359a2c4e69522af0e) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "056-c1.c1", 0x000000, 0x200000, CRC(17b9cbd2) SHA1(1eee81e02763d384bd1c10a6012473ca931e4093) )
+	ROM_LOAD16_BYTE( "056-c2.c2", 0x000001, 0x200000, CRC(5fd76b67) SHA1(11925a41a53b53c6df4a5ebd28f98300950f743b) )
+	ROM_LOAD16_BYTE( "056-c3.c3", 0x400000, 0x200000, CRC(d2c88768) SHA1(22e2d84aa0c095944190e249ce87ef50d3f7b8ce) )
+	ROM_LOAD16_BYTE( "056-c4.c4", 0x400001, 0x200000, CRC(db39b883) SHA1(59de86c513dc4e230ae25d9e3b7e84621b657b54) )
+	ROM_LOAD16_BYTE( "056-c5.c5", 0x800000, 0x200000, CRC(c3074137) SHA1(9a75e3d63cb98d54f900dcfb3a03e21f3148d32f) )
+	ROM_LOAD16_BYTE( "056-c6.c6", 0x800001, 0x200000, CRC(31de68d3) SHA1(13ba7046cdd6863125f8284e60f102d4720af5a4) )
+	ROM_LOAD16_BYTE( "056-c7.c7", 0xc00000, 0x200000, CRC(3f36df57) SHA1(79ee97e9ae811a51141b535633f90e1491209d54) )
+	ROM_LOAD16_BYTE( "056-c8.c8", 0xc00001, 0x200000, CRC(e546d7a8) SHA1(74a2fca994a5a93a5784a46c0f68193122456a09) )
+ROM_END
+
+ROM_START( aof2bh )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "056bh.p1", 0x000000, 0x100000, CRC(3af1e484) SHA1(57b33dbb93d066092acddf163dbd67d15b5159e2) )
 
 	NEO_SFIX_128K( "056-s1.s1", CRC(8b02638e) SHA1(aa4d28804ca602da776948b5f223ea89e427906b) )
 
@@ -130,6 +221,7 @@ ROM_START( aof2br2 ) /* Art of Fighting 2 - Hack by TcwLee - (Can select Geese i
 	ROM_LOAD16_BYTE( "056-c8.c8", 0xc00001, 0x200000, CRC(e546d7a8) SHA1(74a2fca994a5a93a5784a46c0f68193122456a09) )
 ROM_END
 
+
 ROM_START( aof3b ) /* Art of Fighting 3 - Hack by Dodowang - (Can select Wyler and Sinclair AES/MVS - enabled add. info) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "096b.p1",    0x000000, 0x100000, CRC(255aec23) SHA1(9E97772CC2DB51139A04BAC725E6529DD6E0F19A) )
@@ -155,6 +247,32 @@ ROM_START( aof3b ) /* Art of Fighting 3 - Hack by Dodowang - (Can select Wyler a
 	ROM_LOAD16_BYTE( "096-c8.c8", 0x1800001, 0x200000, CRC(9a34f99c) SHA1(fca72d95ec42790a7f1e771a1e25dbc5bec5fc19) )
 ROM_END
 
+ROM_START( aof3bh )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "096bh.p1", 0x000000, 0x100000, CRC(70969ff1) SHA1(a17d17c451655e01db8d42c6edd31fd2917bd486) )
+	ROM_LOAD16_WORD_SWAP( "096-p2.sp2", 0x100000, 0x200000, CRC(4d5a2602) SHA1(4c26d6135d2877d9c38169662033e9d0cc24d943) )
+
+	NEO_SFIX_128K( "096-s1.s1", CRC(cc7fd344) SHA1(2c6846cf8ea61fb192ba181dbccb63594d572c0e) )
+
+	NEO_BIOS_AUDIO_128K( "096-m1.m1", CRC(cb07b659) SHA1(940b379957c2987d7ab0443cb80c3ff58f6ba559) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "096-v1.v1", 0x000000, 0x200000, CRC(e2c32074) SHA1(69426e7e63fc31a73d1cd056cc9ae6a2c4499407) )
+	ROM_LOAD( "096-v2.v2", 0x200000, 0x200000, CRC(a290eee7) SHA1(e66a98cd9740188bf999992b417f8feef941cede) )
+	ROM_LOAD( "096-v3.v3", 0x400000, 0x200000, CRC(199d12ea) SHA1(a883bf34e685487705a8dafdd0b8db15eb360e80) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "096-c1.c1", 0x0000000, 0x400000, CRC(f17b8d89) SHA1(7180df23f7c7a964b0835fda76970b12f0aa9ea8) )
+	ROM_LOAD16_BYTE( "096-c2.c2", 0x0000001, 0x400000, CRC(3840c508) SHA1(55adc7cd26fec3e4dbd779df6701bc6eaba41b84) )
+	ROM_LOAD16_BYTE( "096-c3.c3", 0x0800000, 0x400000, CRC(55f9ee1e) SHA1(fbe1b7891beae66c5fcbc7e36168dc1b460ede91) )
+	ROM_LOAD16_BYTE( "096-c4.c4", 0x0800001, 0x400000, CRC(585b7e47) SHA1(d50ea91397fc53d86470ff5b493a44d57c010306) )
+	ROM_LOAD16_BYTE( "096-c5.c5", 0x1000000, 0x400000, CRC(c75a753c) SHA1(fc977f8710816a369a5d0d49ee84059380e93fb7) )
+	ROM_LOAD16_BYTE( "096-c6.c6", 0x1000001, 0x400000, CRC(9a9d2f7a) SHA1(a89a713bfcd93974c9acb21ce699d365b08e7e39) )
+	ROM_LOAD16_BYTE( "096-c7.c7", 0x1800000, 0x200000, CRC(51bd8ab2) SHA1(c8def9c64de64571492b5b7e14b794e3c18f1393) )
+	ROM_LOAD16_BYTE( "096-c8.c8", 0x1800001, 0x200000, CRC(9a34f99c) SHA1(fca72d95ec42790a7f1e771a1e25dbc5bec5fc19) )
+ROM_END
+
+
 ROM_START( bangbeadp )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "259-p1.p1", 0x100000, 0x100000, CRC(88a37f8b) SHA1(566db84850fad5e8fe822e8bba910a33e083b550) )
@@ -176,6 +294,7 @@ ROM_START( bangbeadp )
 	ROM_LOAD16_BYTE( "259p.c4", 0x400001, 0x100000, CRC(69fa8e60) SHA1(29c1fbdb79dedf1470683202e2cb3435732d9275) )
 ROM_END
 
+
 ROM_START( breakersp ) /* Breakers - Hack by UNKNOWN - (Move change 26c?) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "230sp.p1", 0x100000, 0x100000, CRC(244ad91b) SHA1(22EFEA04BFB86E8C75A80C6584AB0CAA85FC0E92) )
@@ -196,6 +315,7 @@ ROM_START( breakersp ) /* Breakers - Hack by UNKNOWN - (Move change 26c?) */
 	ROM_LOAD16_BYTE( "230-c4.c4", 0x800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
 ROM_END
 
+
 ROM_START( burningfhp )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "018hp.p1", 0x000000, 0x080000, CRC(da26031b) SHA1(44997a8c313356db48716bb007ab842473805d88) )
@@ -214,6 +334,7 @@ ROM_START( burningfhp )
 	ROM_LOAD16_BYTE( "018-c3.c3", 0x200000, 0x100000, CRC(862b60da) SHA1(e2303eb1609f1050f0b4f46693a15e37deb176fb) )
 	ROM_LOAD16_BYTE( "018-c4.c4", 0x200001, 0x100000, CRC(e2e0aff7) SHA1(1c691c092a6e2787de4f433b0eb9252bfdaa7e16) )
 ROM_END
+
 
 ROM_START( fatfurspb )
 	ROM_REGION( 0x180000, "maincpu", 0 )
@@ -260,6 +381,7 @@ ROM_START( fatfurspeh ) /* Fatal Fury Special - (fatfspeh) - Enhance by Dodowang
 	ROM_LOAD16_BYTE( "058-c5.c5", 0x800000, 0x200000, CRC(49c5e0bf) SHA1(f3784178f90751990ea47a082a6aa869ee3566c9) )
 	ROM_LOAD16_BYTE( "058-c6.c6", 0x800001, 0x200000, CRC(8ff1f43d) SHA1(6180ceb5412a3e2e34e9513a3283b9f63087f747) )
 ROM_END
+
 
 ROM_START( fatfury3b ) /* Fatal Fury 3 - Hack by Creamymami - (Can choose Ryuji Yamazaki, Jin Chonshu and Jin Chonrei) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
@@ -330,6 +452,7 @@ ROM_START( fatfury3eh ) /* Fatal Fury 3 - Enhance by Creamymami and Dodowang - (
 	ROM_LOAD16_BYTE( "069-c6.c6", 0x1000001, 0x200000, CRC(69210441) SHA1(6d496c549dba65caabeaffe5b762e86f9d648a26) )
 ROM_END
 
+
 ROM_START( fightfevk ) /* Fight Fever - Hack by UNKNOWN - (Kanji Patch) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "060-epr.sp2", 0x000000, 0x080000, CRC(3032041b) SHA1(4b8ed2e6f74579ea35a53e06ccac42d6905b0f51) )
@@ -350,6 +473,7 @@ ROM_START( fightfevk ) /* Fight Fever - Hack by UNKNOWN - (Kanji Patch) */
 	ROM_LOAD16_BYTE( "060-c4.c4", 0x0400001, 0x200000, CRC(026f3b62) SHA1(d608483b70d60e7aa0e41f25a8b3fed508129eb7) )
 ROM_END
 
+
 ROM_START( flipshotk )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "247k.p1", 0x000000, 0x080000, CRC(d2e7a7e3) SHA1(1ff4f070fcc658bbc7dc69e16c87f82d7392d100) )
@@ -365,6 +489,7 @@ ROM_START( flipshotk )
 	ROM_LOAD16_BYTE( "247k.c1",  0x000000, 0x200000, CRC(1ccfeff9) SHA1(3575b84acca6ec0f26f4a0ad30a16c140e1c0b2e) )
 	ROM_LOAD16_BYTE( "247k.c2",  0x000001, 0x200000, CRC(648cdd5d) SHA1(8a0aaf13e2539e48f9b0b18f8154aa50bf4bed2a) )
 ROM_END
+
 
 ROM_START( ganryud )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -382,6 +507,7 @@ ROM_START( ganryud )
 	ROM_LOAD16_BYTE( "252d.c1", 0x0000000, 0x800000, CRC(6bf7605b) SHA1(6710cbc27d6ec35648f98f0ca541aaaeeffd0980) )
 	ROM_LOAD16_BYTE( "252d.c2", 0x0000001, 0x800000, CRC(596792ce) SHA1(ad9c8f8b0e95396fade2b485d11a1b3d4cb65f37) )
 ROM_END
+
 
 ROM_START( gowcaizry )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -408,6 +534,7 @@ ROM_START( gowcaizry )
 	ROM_LOAD16_BYTE( "094y.c8", 0xc00001, 0x200000, CRC(0d31dee6) SHA1(4979aa3daa7e490fbe39e7b3c70cbb2ef7551c5f) )
 ROM_END
 
+
 ROM_START( unkneo1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "336.p1", 0x000000, 0x080000, CRC(f25c71ad) SHA1(803fb6cd6a7ada59678ad901ff9788b1e54ddd0c) )
@@ -427,6 +554,7 @@ ROM_START( unkneo1 )
 	ROM_LOAD16_BYTE( "336.c1", 0x000000, 0x1000000, CRC(81821826) SHA1(b7c1a53e32633383675206a16c68f6f2ff984865) )
 	ROM_LOAD16_BYTE( "336.c2", 0x000001, 0x1000000, CRC(3601d568) SHA1(800323e52f5d33b402f84d31850b42c688082d67) )
 ROM_END
+
 
 ROM_START( gpilotscd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -475,6 +603,7 @@ ROM_START( gpilotse )
 	ROM_LOAD16_BYTE( "020-c4.c4", 0x200001, 0x100000, CRC(edde439b) SHA1(79be7b10ecdab54c2f77062b8f5fda0e299fa982) )
 ROM_END
 
+
 ROM_START( ironcladb )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "220b.p1", 0x000000, 0x200000, CRC(65849961) SHA1(2846081bb1451a209412159991bfac95d394fe3a) )
@@ -490,6 +619,7 @@ ROM_START( ironcladb )
 	ROM_LOAD16_BYTE( "220b.c1", 0x000000, 0x800000, CRC(621f4a09) SHA1(117a8e8bea5f880d8315b48bc5884eb805c5e678) )
 	ROM_LOAD16_BYTE( "220b.c2", 0x000001, 0x800000, CRC(7fec83e8) SHA1(769c2cb4ed4a9d7c29e3aad3f4601f1d24c96640) )
 ROM_END
+
 
 ROM_START( jockeygpd )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -507,6 +637,7 @@ ROM_START( jockeygpd )
 	ROM_LOAD16_BYTE( "008d.c1", 0x0000000, 0x800000, CRC(ea259019) SHA1(c14dc59a43e255ef12d8d832b2860f1a84c48170) )
 	ROM_LOAD16_BYTE( "008d.c2", 0x0000001, 0x800000, CRC(97f270be) SHA1(06e03b26bacb8568c69ccf22e58175426a69e01b) )
 ROM_END
+
 
 ROM_START( joyjoycd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -545,6 +676,7 @@ ROM_START( joyjoycd1 )
 	ROM_LOAD16_BYTE( "021-c1.c1", 0x000000, 0x080000, CRC(509250ec) SHA1(d6ddb16d8222088f153a85a905bcb99541a5f2cf) )
 	ROM_LOAD16_BYTE( "021-c2.c2", 0x000001, 0x080000, CRC(09ed5258) SHA1(6bf50cd10236e29146b49e714a0e0ebcfe30a682) )
 ROM_END
+
 
 ROM_START( kabukiklb )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -678,6 +810,7 @@ ROM_START( kabukiklyc ) /* Kabuki Klash - Far East of Eden - Enhance by Creamyma
 	ROM_LOAD16_BYTE( "092-c4.c4", 0x800001, 0x400000, CRC(de07f997) SHA1(c27a4d4bef868eed38dc152ff37d4135b16cc991) )
 ROM_END
 
+
 ROM_START( karnovreh ) /* Karnov's Revenge - Enhance by Ydmis - (Can choose Big Tornado) */
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "066eh.p1", 0x000000, 0x100000, CRC(76dfb5be) SHA1(E7B72C50C5ABC1CF8088FB18A40560B787F5284E) )
@@ -697,6 +830,7 @@ ROM_START( karnovreh ) /* Karnov's Revenge - Enhance by Ydmis - (Can choose Big 
 	ROM_LOAD16_BYTE( "066-c5.c5", 0x800000, 0x200000, CRC(9a28785d) SHA1(19723e1f7ff429e8a038d89488b279f830dfaf6e) )
 	ROM_LOAD16_BYTE( "066-c6.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
 ROM_END
+
 
 ROM_START( kizunaeh ) /* Kizuna Encounter - (kizunaeh) - Enhance by Ydmis - (Can choose 2 hidden characters) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -724,6 +858,7 @@ ROM_START( kizunaeh ) /* Kizuna Encounter - (kizunaeh) - Enhance by Ydmis - (Can
 	ROM_LOAD16_BYTE( "059-c8.c8", 0x1800001, 0x200000, CRC(484ce3ba) SHA1(4f21ed20ce6e2b67e2b079404599310c94f591ff) )
 ROM_END
 
+
 ROM_START( lans2k4d ) /* Bootleg / Hack of Shock Troopers - 2nd Squad */
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "246lnsq.p1", 0x000000, 0x100000, CRC(724576EA) SHA1(075f5d8ccb7303c8b6bebf630c4fa9c204554044) )
@@ -746,6 +881,7 @@ ROM_START( lans2k4d ) /* Bootleg / Hack of Shock Troopers - 2nd Squad */
 	ROM_LOAD16_BYTE( "246lnsq.c5", 0x2000000, 0x800000, CRC(bab3b417) SHA1(232f718fecf597434b7a93602387fabab2bda9c0) )
 	ROM_LOAD16_BYTE( "246lnsq.c6", 0x2000001, 0x800000, CRC(4c089a28) SHA1(f854ce46b4723aa971de280007268d474d2a6361) )
 ROM_END
+
 
 ROM_START( matrima )
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -893,6 +1029,7 @@ ROM_START( matrimnd )
 	ROM_LOAD16_BYTE( "266d.c8", 0x3000001, 0x800000, CRC(5ee31f80) SHA1(3cdd8037f5004df92f4c19ba0746c8bccb4e2473) )
 ROM_END
 
+
 ROM_START( magdrop3fr )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "233fr.p1", 0x000000, 0x100000, CRC(ed90bb10) SHA1(eb22b362475ef294307357abf6c31a1ff2229f4a) )
@@ -912,6 +1049,7 @@ ROM_START( magdrop3fr )
 	ROM_LOAD16_BYTE( "233-c4.c4", 0x800001, 0x400000, CRC(70dbbd6d) SHA1(32dd6a04c6329e89f4878e7a56f0d172a6388eea) )
 ROM_END
 
+
 ROM_START( miexchngfr )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "231fr.p1", 0x000000, 0x80000, CRC(a107101b) SHA1(f1a165779a4a26d7c9067b649fdcb7da40f3aea6) )
@@ -929,6 +1067,7 @@ ROM_START( miexchngfr )
 	ROM_LOAD16_BYTE( "231fr.c3", 0x400000, 0x080000, CRC(14524eb5) SHA1(e090b99a1ee2cca4a7f7d5262e764d1cab6bada2) )
 	ROM_LOAD16_BYTE( "231fr.c4", 0x400001, 0x080000, CRC(1694f171) SHA1(a6af5d3f1e0b3f73da275e04d4434c6c9c7b9208) )
 ROM_END
+
 
 ROM_START( mutnatex )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -948,6 +1087,7 @@ ROM_START( mutnatex )
 	ROM_LOAD16_BYTE( "014-c3.c3", 0x200000, 0x100000, CRC(890327d5) SHA1(47f97bf120a8480758e1f3bb8982be4c5325c036) )
 	ROM_LOAD16_BYTE( "014-c4.c4", 0x200001, 0x100000, CRC(e4002651) SHA1(17e53a5f4708866a120415bf24f3b89621ad0bcc) )
 ROM_END
+
 
 ROM_START( nam1975g ) // sound effects only, no music no voices
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -999,6 +1139,7 @@ ROM_START( nam1975h ) // infinite lives
 	ROM_LOAD16_BYTE( "001-c6.c6", 0x200001, 0x80000, CRC(e62bed58) SHA1(d05b2903b212a51ee131e52c761b714cb787683e) )
 ROM_END
 
+
 ROM_START( neocup98k )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "244-p1.p1", 0x100000, 0x100000, CRC(f8fdb7a5) SHA1(f34ee5d1c24e70427d05ef488f46906dbd9f9950) )
@@ -1016,6 +1157,7 @@ ROM_START( neocup98k )
 	ROM_LOAD16_BYTE( "244k.c1", 0x000000, 0x800000, CRC(9067dfda) SHA1(034c0e21ece55df30357d7abfb7cb05994e9b131) )
 	ROM_LOAD16_BYTE( "244k.c2", 0x000001, 0x800000, CRC(54e86379) SHA1(e76f27b5cf2ab7ed00a8abfe2e2397394c51dac5) )
 ROM_END
+
 
 ROM_START( ninjamaseh ) /* Ninja Master's - Enhance by Ydmis - (Can choose Ranmaru and Nobunaga) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
@@ -1112,6 +1254,7 @@ ROM_START( ninjamasha )
 	ROM_LOAD16_BYTE( "217-c7.c7", 0x1800000, 0x400000, CRC(8b0ede2e) SHA1(ea632ac98291ddac95441b7fe2349974b2da8a42) )
 	ROM_LOAD16_BYTE( "217-c8.c8", 0x1800001, 0x400000, CRC(a085bb61) SHA1(6a3e9e6ba96072b8849b407f2b24103dc0852259) )
 ROM_END
+
 
 ROM_START( nitdd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1225,6 +1368,7 @@ ROM_START( nitdsp2 )
 	ROM_LOAD16_BYTE( "260-c2sp.bin", 0x0000001, 0x800000, CRC(b5ddbb97) SHA1(b44dee65bbb5b2c6d7c6d4990762b26deaf3c696) )
 ROM_END
 
+
 ROM_START( pbobblenba )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "083b.p1", 0x000000, 0x080000, CRC(ac1e9ef3) SHA1(a2b125ee70869667431ab125bc29e768500802ad) )
@@ -1295,6 +1439,7 @@ ROM_START( pbobblenh )
 	ROM_LOAD16_BYTE( "083-c6.bin", 0x000001, 0x080000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
 ROM_END
 
+
 ROM_START( pnyaad ) /* Decrypted C ROMs Version -  Encrypted Sound */
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "267-p1.p1", 0x000000, 0x100000, CRC(112fe2c0) SHA1(01420e051f0bdbd4f68ce306a3738161b96f8ba8) )
@@ -1310,6 +1455,7 @@ ROM_START( pnyaad ) /* Decrypted C ROMs Version -  Encrypted Sound */
 	ROM_LOAD16_BYTE( "267d.c1", 0x0000000, 0x800000, CRC(75fa4f27) SHA1(05f39dc5bedfecff67a9e5bd0bb8d09d93168f58) )
 	ROM_LOAD16_BYTE( "267d.c2", 0x0000001, 0x800000, CRC(02345689) SHA1(d40c425e73fd8dc0b0f66bf72a79f66b3bf390e1) )
 ROM_END
+
 
 ROM_START( preisle2d )
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -1332,6 +1478,7 @@ ROM_START( preisle2d )
 	ROM_LOAD16_BYTE( "255d.c5", 0x2000000, 0x800000, CRC(83c56bca) SHA1(54bec4cce628bef3b87bbd6c0339494232a9516b) )
 	ROM_LOAD16_BYTE( "255d.c6", 0x2000001, 0x800000, CRC(59e0e805) SHA1(0d9c9b52bb0672fe70ffbb2780a9449f6a7f0984) )
 ROM_END
+
 
 ROM_START( ragnagrdeh ) /* Operation Ragnagard - Enhance by Ydmis - (Can choose Lucifer, Eelis and Behemoth) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -1357,6 +1504,7 @@ ROM_START( ragnagrdeh ) /* Operation Ragnagard - Enhance by Ydmis - (Can choose 
 	ROM_LOAD16_BYTE( "218-c8.c8", 0x1800001, 0x400000, CRC(d9b311f6) SHA1(ba61a7ab3f08bb7348ad6cd01e5d29ca5ee75074) )
 ROM_END
 
+
 ROM_START( roboarma )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "032a.p1", 0x000000, 0x080000, CRC(27c773cb) SHA1(597ca73f142b1129cc7780540bb9cfacd47bc6ce) )
@@ -1375,6 +1523,7 @@ ROM_START( roboarma )
 	ROM_LOAD16_BYTE( "032-c3.c3", 0x200000, 0x080000, CRC(40adfccd) SHA1(b11f866dd70ba0ed9123424508355cb948b19bdc) )
 	ROM_LOAD16_BYTE( "032-c4.c4", 0x200001, 0x080000, CRC(462571de) SHA1(5c3d610d492f91564423873b3b434dcda700373f) )
 ROM_END
+
 
 ROM_START( s1945pd )
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -1428,6 +1577,7 @@ ROM_START( s1945pwe ) /* Strikers 1945 Plus - Enhance by Wesker */
 	ROM_LOAD16_BYTE( "254-c8.c8", 0x3000001, 0x800000, CRC(66848c7d) SHA1(24d4ed627940a4cf8129761c1da15556e52e199c) )
 ROM_END
 
+
 ROM_START( savageredb ) /* Savage Reign - Hack by Dodowang - (Debug menue unlocked - press select to change stage, p1 and p2) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "059db.p1", 0x100000, 0x100000, CRC(83be1cfc) SHA1(ec85c5d8416c7895ec7b47a9be50f62dc2c88703) )
@@ -1452,6 +1602,7 @@ ROM_START( savageredb ) /* Savage Reign - Hack by Dodowang - (Debug menue unlock
 	ROM_LOAD16_BYTE( "059-c7.c7", 0xc00000, 0x200000, CRC(c88f7035) SHA1(c29a428b741f4fe7b71a3bc23c87925b6bc1ca8f) )
 	ROM_LOAD16_BYTE( "059-c8.c8", 0xc00001, 0x200000, CRC(484ce3ba) SHA1(4f21ed20ce6e2b67e2b079404599310c94f591ff) )
 ROM_END
+
 
 ROM_START( shocktr2w ) /* you must use unibios to select AES */ /* Shock Troopers - 2nd Squad - Hack by Wesker */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -1483,6 +1634,7 @@ ROM_START( shocktr2w ) /* you must use unibios to select AES */ /* Shock Trooper
 	ROM_LOAD16_BYTE( "246-c6.c6", 0x2000001, 0x800000, CRC(7e2caae1) SHA1(d9de14e3e323664a8c5b7f1df1ba9ec7dd0e6a46) )
 ROM_END
 
+
 ROM_START( spinmasth )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "062h.p1", 0x000000, 0x100000, CRC(51d531ee) SHA1(bc8b16ddc76d14de9d239efddd3a1cdfbf207521) )
@@ -1506,6 +1658,7 @@ ROM_START( spinmasth )
 	ROM_LOAD16_BYTE( "062-c8.c8", 0x600001, 0x100000, CRC(8d7be933) SHA1(e7097cfa26a959f90721e2e8368ceb47ea9db661) )
 ROM_END
 
+
 ROM_START( strhoopcd ) // CD conversion - sometimes can have bad background gfx
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "079cd.p1", 0x000000, 0x100000, CRC(16795f7f) SHA1(977a6c31ca6553e1cfa3402a5e541bab4c2244be) )
@@ -1524,6 +1677,7 @@ ROM_START( strhoopcd ) // CD conversion - sometimes can have bad background gfx
 	ROM_LOAD16_BYTE( "079cd.c3", 0x680000, 0x080000, CRC(4d490ecc) SHA1(8ced8f547799b613edd95acabd6f8cb28c41eab5) )
 	ROM_LOAD16_BYTE( "079cd.c4", 0x680001, 0x080000, CRC(e223d27c) SHA1(2e195fea0d5808e90f154412b5e80b430e6341e2) )
 ROM_END
+
 
 ROM_START( tpgolfcd )
 	ROM_REGION( 0x180000, "maincpu", 0 )
@@ -1582,6 +1736,7 @@ ROM_START( tpgolfcd1 )
 	ROM_LOAD16_BYTE( "003-c8.c8", 0x300001, 0x80000, CRC(422af22d) SHA1(f67c844c34545de6ea187f5bfdf440dec8518532) )
 ROM_END
 
+
 ROM_START( viewpointr ) /* Viewpoint - Hack by KiWi Starlight - (Unlimited lives and mega-bombs for p1 and p2) */
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "051tr.p1", 0x000000, 0x100000, CRC(063b9fa2) SHA1(e2d43646a976d82c809c6fad7dd40cc3dda07b15) )
@@ -1600,6 +1755,7 @@ ROM_START( viewpointr ) /* Viewpoint - Hack by KiWi Starlight - (Unlimited lives
 	ROM_LOAD16_BYTE( "051-c2.c2", 0x000001, 0x100000, CRC(40d69f1e) SHA1(ec4a13582772594957f927622d50f54b0dfcd8d8) )
 	ROM_CONTINUE( 0x400001, 0x100000 )
 ROM_END
+
 
 ROM_START( wakuwak7bh ) /* Waku Waku 7 - Hack by Dodowang - (Can choose Fernandez and Bonus Kun - only playable when 2 Player play AES/MVS) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
@@ -1645,6 +1801,7 @@ ROM_START( wakuwak7h )
 	ROM_LOAD16_BYTE( "225-c6.c6", 0x1000001, 0x400000, CRC(0eb11a6d) SHA1(c6d4f978ff3ca190a3060ac52bd7347189194f76) )
 ROM_END
 
+
 ROM_START( wjammersk )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "065-p1.p1", 0x000000, 0x100000, CRC(6692c140) SHA1(5da574e906974fac92bb2f49bdeea257c014a897) )
@@ -1666,6 +1823,7 @@ ROM_START( wjammersk )
 	ROM_LOAD16_BYTE( "065-c4.c4", 0x200001, 0x100000, CRC(715e15ff) SHA1(ac8b8b01f5c7384b883afbe0cf977430378e3fef) )
 ROM_END
 
+
 ROM_START( zupapad )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "070-p1.p1", 0x000000, 0x100000, CRC(5a96203e) SHA1(49cddec9ca6cc51e5ecf8a34e447a23e1f8a15a1) )
@@ -1686,11 +1844,17 @@ ROM_END
 
 GAME( 1991, 2020bbcd,      2020bb,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "bootleg", "2020 Super Baseball (NGCD Conversion)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1994, aof2b,         aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "TcwLee", "Art of Fighting 2 (Geese instead of Mr. Big)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aof2br2,       aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "TcwLee", "Art of Fighting 2 (Geese instead of Ryo)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, aof3b,         aof3,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Art of Fighting 3 (Add Char - Enabled add info)", MACHINE_SUPPORTS_SAVE ) // Wyler and Sinclair AES/MVS
+GAME( 1992, androdunpx,    androdun, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Andro Dunos (Plus Max hack by Xyahzhs)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2000, bangbeadp,     bangbead, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Visco", "Bang Bead (prototype)", MACHINE_SUPPORTS_SAVE ) /* commented out in official MAME source */
+GAME( 1992, aofbh,         aof,      neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Art of Fighting (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2b,         aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "TcwLee", "Art of Fighting 2 (Geese instead of Mr. Big)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2b1,        aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Art of Fighting 2 (Boss hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2bh,        aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Art of Fighting 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2br2,       aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "TcwLee", "Art of Fighting 2 (Geese instead of Ryo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, aof3b,         aof3,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Art of Fighting 3 (Boss hack by Dodowang)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, aof3bh,        aof3,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Art of Fighting 3 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+
+GAME( 2000, bangbeadp,     bangbead, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Visco", "Bang Bead (prototype)", MACHINE_SUPPORTS_SAVE ) // commented out in official MAME source
 GAME( 1996, breakersp,     breakers, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Breakers (Move change 26c?)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, burningfhp,    burningf, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Burning Fight (High Power by EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
 
