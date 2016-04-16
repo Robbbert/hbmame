@@ -18,6 +18,12 @@ New Games
 - [aof2b1]          Art of Fighting 2 (Boss hack)
 - [aof2bh]          Art of Fighting 2 (Boss hack by Yumeji)
 - [aof3bh]          Art of Fighting 3 (Boss hack by Yumeji)
+- [bjourneypx]      Blue's Journey / Raguy (Plus Max hack by Xyahzhs)
+- [breakersbh]      Breakers (Boss hack by Yumeji)
+- [breakersy]       Breakers (Boss Robert PPX Team hack remixed by ZKW)
+- [breakrevb]       Breakers Revenge (Boss hack by Yumeji)
+- [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 11/06/09)
+- [breakrevy]       Breakers Revenge (Boss Robert PPX Team hack remixed by ZKW)
 - [columnsncd]      Columns CD hack
 - [dti]             Duck Tales Intro [Raregame]
 - [ennemi]          Neogeo demo [by Kannagi]

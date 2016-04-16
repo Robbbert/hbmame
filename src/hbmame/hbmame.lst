@@ -1463,112 +1463,115 @@ spcloneo	// v0.7.2.2
 	/* neogeo */
 // These are the parents of our hacks
 neogeo
-2020bb
-3countb
-alpham2
+2020bb		// 030
+3countb		// 043
+alpham2		// 007
 androdun	// 049
-aof
-aof2		/* 0056 (c) 1994 SNK */
-aof3
-bakatono
-bangbead
-breakers
-bstars
-burningf
-crsword
-cyberlip
-doubledr	/* 0082 (c) 1995 Technos */
-eightman
-fatfury1
-fatfury3	/* 0069 (c) 1995 SNK */
-fatfursp
-fbfrenzy
-fightfev
-flipshot
-ganryu		/* 0252 (c) 1999 Visco */
-garou
-gowcaizr
-gpilots
-ironclad
-jockeygp
-joyjoy
-kabukikl	/* 0092 (c) 1995 Hudson */
-karnovr
-kizuna
-kof94		/* 0055 (c) 1994 SNK */
-kof95		/* 0084 (c) 1995 SNK */
-kof96		/* 0214 (c) 1996 SNK */
-kof97		/* 0232 (c) 1997 SNK */
-kof98		/* 0242 (c) 1998 SNK */
-kof99		/* 0251 (c) 1999 SNK */
-kof2000		/* 0257 (c) 2000 SNK */
-kof2001		/* 0262 (c) 2001 Eolith / SNK */
-kof2002		/* 0265 (c) 2002 Eolith / Playmore */
-kof2003
+aof			// 044
+aof2		// 056
+aof3		// 096
+bakatono	// 036
+bangbead	// 259
+bjourney	// 022
+breakers	// 230
+breakrev	// 245
+bstars		// 002
+burningf	// 018
+crsword		// 037
+ctomaday	// 249
+cyberlip	// 010
+doubledr	// 082
+eightman	// 025
+fatfury1	// 033
+fatfury3	// 069
+fatfursp	// 058
+fbfrenzy	// 034
+fightfev	// 060
+flipshot	// 247
+ganryu		// 252
+garou		// 253
+gowcaizr	// 094
+gpilots		// 020
+ironclad	// 220
+jockeygp	// 331
+joyjoy		// 021
+kabukikl	// 092
+karnovr		// 066
+kizuna		// 216
+kof94		// 055
+kof95		// 084
+kof96		// 214
+kof97		// 232
+kof98		// 242
+kof99		// 251
+kof2000		// 257
+kof2001		// 262
+kof2002		// 265
+kof2003		// 271
 kf2k3pcb
-kotm
-lastblad	/* 0234 (c) 1997 SNK */
-lastbld2	/* 0243 (c) 1998 SNK */
-lbowling
-lresort
-magdrop3
-maglord
-matrim		/* 0266 (c) 2002 Atlus */
-miexchng
-minasan
+kotm		// 016
+lastblad	// 234
+lastbld2	// 243
+lbowling	// 019
+lresort		// 024
+magdrop3	// 233
+maglord		// 005
+matrim		// 266
+miexchng	// 231
+minasan		// 027
 ms5pcb
-mslug
-mslug2
-mslugx
-mslug3
-mslug4
-mslug5
-mutnat
-nam1975		/* 0001 (c) 1990 SNK */
-ncombat
-ncommand
-neocup98
-ninjamas	/* 0217 (c) 1996 ADK / SNK */
-nitd		/* 0260 (c) 2000 Eleven / Gavaking */
-pbobblen	/* 0083 (c) 1994 Taito */
-pnyaa
-preisle2	/* 0255 (c) 1999 Yumekobo */
-rbff1
-rbff2		/* 0240 (c) 1998 SNK */
-rbffspec	/* 0223 (c) 1996 SNK */
-ridhero
-roboarmy
-rotd		/* 0264 (c) 2002 Evoga */
-s1945p		/* 0254 (c) 1999 Psikyo */
-samsho		/* 0045 (c) 1993 SNK */
-samsho2		/* 0063 (c) 1994 SNK */
-samsho3		/* 0087 (c) 1995 SNK */
-samsho4		/* 0222 (c) 1996 SNK */
-samsho5		/* 0270 (c) 2003 Playmore */
-samsh5sp	/* 0272 (c) 2003 Playmore */
-savagere
-sengoku
-sengoku2
-sengoku3	/* 0261 (c) 2001 SNK */
-shocktr2
-socbrawl
-spinmast
+mslug		// 201
+mslug2		// 241
+mslugx		// 250
+mslug3		// 256
+mslug4		// 263
+mslug5		// 268
+mutnat		// 014
+nam1975		// 001
+ncombat		// 009
+ncommand	// 050
+neocup98	// 244
+ninjamas	// 217
+nitd		// 260
+pbobblen	// 083
+pnyaa		// 267
+preisle2	// 255
+rbff1		// 095
+rbff2		// 240
+rbffspec	// 223
+ridhero		// 006
+roboarmy	// 032
+rotd		// 264
+s1945p		// 254
+samsho		// 045
+samsho2		// 063
+samsho3		// 087
+samsho4		// 222
+samsho5		// 270
+samsh5sp	// 272
+savagere	// 059
+sengoku		// 017
+sengoku2	// 040
+sengoku3	// 261
+shocktr2	// 246
+socbrawl	// 031
+spinmast	// 062
 strhoop		// 079
-superspy
-svc		/* 0269 (c) 2003 Playmore / Capcom */
+superspy	// 011
+svc			// 269
 svcpcb
-tpgolf
-trally
-viewpoin
-wakuwak7
-wh1
-wh2
+tpgolf		// 003
+trally		// 038
+viewpoin	// 051
+wakuwak7	// 225
+wh1			// 053
+wh2			// 057
 wh2j		// 064
-whp		/* 0090 (c) 1995 ADK / SNK */
-wjammers
-zedblade
+whp			// 090
+wjammers	// 065
+zedblade	// 076
 zintrckb	// 211
-zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
+zupapa		// 070
 
 	/* neogeohb */
 beast		/* 2002 (c) 1989 Psygnosis */
@@ -1648,7 +1651,13 @@ aof2br2
 aof3b
 aof3bh
 bangbeadp
+bjourneypx
+breakersbh
 breakersp
+breakersy
+breakrevb
+breakrevpp
+breakrevy
 burningfhp
 fatfury3b
 fatfury3bd
