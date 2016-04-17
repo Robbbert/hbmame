@@ -1536,6 +1536,7 @@ nitd		// 260
 pbobblen	// 083
 pnyaa		// 267
 preisle2	// 255
+//pspikes2	// 068
 rbff1		// 095
 rbff2		// 240
 rbffspec	// 223
@@ -1672,7 +1673,8 @@ gowcaizry
 unkneo1
 gpilotscd
 gpilotse
-ironcladb	/* 1996 Saurus */
+ironcladb
+//ironcladcd // not working
 jockeygpd
 joyjoycd
 joyjoycd1
@@ -1685,6 +1687,7 @@ kabukiklyc
 karnovreh
 kizunaeh
 lans2k4d
+lbowlingcd
 magdrop3fr	/* Neo-Arc French Trans */
 matrima
 matrimd
@@ -1708,12 +1711,15 @@ nitdfro1
 nitdsp
 nitdsp1		// Spanish.Rev2
 nitdsp2
+pbcrazyb1
+pbcrazyb2
 pbobblenba
 pbobblencd
 pbobblendx
 pbobblenh
 pnyaad
 preisle2d
+//pspikes2cd // not working
 ragnagrdeh
 roboarma
 s1945pd

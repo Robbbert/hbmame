@@ -24,7 +24,7 @@ New Games
 - [breakrevb]       Breakers Revenge (Boss hack by Yumeji)
 - [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 11/06/09)
 - [breakrevy]       Breakers Revenge (Boss Robert PPX Team hack remixed by ZKW)
-- [columnsncd]      Columns CD hack
+- [columnsncd]      Columns (CD conversion)
 - [ct2k3ifz]        Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)
 - [ct2k3xx]         Crouching Tiger Hidden Dragon 2003 (Blood Edition)
 - [ct2k3ys]         Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)
@@ -33,7 +33,10 @@ New Games
 - [ennemi]          Neogeo demo [by Kannagi]
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
-- [poknightcd]      Poker Night CD hack
+- [lbowlingcd]      League Bowling (CD Conversion)
+- [pbcrazyb1]       Puzzle Bobble Crazy beta 1 [by Elrayzeur]
+- [pbcrazyb2]       Puzzle Bobble Crazy beta 2 [by Elrayzeur]
+- [poknightcd]      Poker Night (CD Conversion)
 - [poknightfr]      Poker Night (French)
 - [zintrckbh]       Zintrick hack [by Yumeji]
 

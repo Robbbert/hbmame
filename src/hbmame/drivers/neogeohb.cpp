@@ -188,7 +188,7 @@ NUM YEAR COMPANY                 TITLE
 459*n/r  Furrtek                 Unleashed (in development or cancelled)
 460*n/r  Furrtek                 Astrosmash (in development or cancelled)
 461*n/r  RiKo                    Cosmic Tower (in development or cancelled)
-462*2009 Elrayzeur               Puzzle Bobble Crazy
+462 2009 Elrayzeur               Puzzle Bobble Crazy
 463*     NGD                     NGD::ARK (Arkanoid port)
 464*     NGD                     NGD::AIR (ngdevgroup.com [dead])
 465*     NGD                     NGD::FIGHT
