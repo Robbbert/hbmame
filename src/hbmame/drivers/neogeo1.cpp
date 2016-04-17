@@ -1959,9 +1959,8 @@ ROM_END
 
 
 ROM_START( tpgolfcd )
-	ROM_REGION( 0x180000, "maincpu", 0 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "003cd.p1",  0x000000, 0x100000, CRC(87f2a8ce) SHA1(ad903d7711ac4af47f1dee64ba7c6bb247029407) )
-	ROM_LOAD16_WORD_SWAP( "003-p2.p2", 0x100000, 0x080000, CRC(b7809a8f) SHA1(1604c889592c9610668bff296de48a0d6906156d) )
 
 	NEO_SFIX_128K( "003-s1.s1", CRC(7b3eb9b1) SHA1(39cd8bad9f8bfdeb8ac681b5b79ae5aa81c8dd5f) )
 
@@ -1970,45 +1969,11 @@ ROM_START( tpgolfcd )
 	ROM_REGION( 0x080000, "ymsnd", 0 )
 	ROM_LOAD( "003-v11.v11", 0x000000, 0x080000, CRC(ff97f1cb) SHA1(defa249d46ae220f7bfa70746f5202bbbcc3e5fe) )
 
-	ROM_REGION( 0x200000, "ymsnd.deltat", 0 )
-	ROM_LOAD( "003-v21.v21", 0x000000, 0x080000, CRC(d34960c6) SHA1(36d5877d5e42aab943f4d693159f4f3ad8b0addc) )
-	ROM_LOAD( "003-v22.v22", 0x080000, 0x080000, CRC(9a5f58d4) SHA1(2b580595e1820430a36f06fd3e0e0b8f7d686889) )
-	ROM_LOAD( "003-v23.v23", 0x100000, 0x080000, CRC(30f53e54) SHA1(22461f88a56d272b78dbc23204c0c6816200532b) )
-	ROM_LOAD( "003-v24.v24", 0x180000, 0x080000, CRC(5ba0f501) SHA1(ca02937a611a2c50c9e4b54f8fd4eaea09259894) )
-
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "003-c1.c1", 0x000000, 0x80000, CRC(0315fbaf) SHA1(583c9253219c1026d81ee5e0cf5568683adc2633) )
 	ROM_LOAD16_BYTE( "003-c2.c2", 0x000001, 0x80000, CRC(b4c15d59) SHA1(b0d8ec967f9b8e5216301c10b2d36912abce6515) )
 	ROM_LOAD16_BYTE( "003cd.c3",  0x100000, 0x80000, CRC(b09f1612) SHA1(03fbb5db4e377ce9cb4e65ddbc0b114c02e7bae1) )
 	ROM_LOAD16_BYTE( "003cd.c4",  0x100001, 0x80000, CRC(150ea7a1) SHA1(13edc30144b56285ef37eb8aa6fb934704de18d8) )
-	ROM_LOAD16_BYTE( "003-c5.c5", 0x200000, 0x80000, CRC(9a7146da) SHA1(2fc83d13e3e9565919aab01bf2a1b028f433b547) )
-	ROM_LOAD16_BYTE( "003-c6.c6", 0x200001, 0x80000, CRC(1e63411a) SHA1(ee397e2f679042e87b37d95837af62bb95a72af9) )
-	ROM_LOAD16_BYTE( "003-c7.c7", 0x300000, 0x80000, CRC(2886710c) SHA1(1533dd935f0a8f92a0a3c47d1d2bc6d035454244) )
-	ROM_LOAD16_BYTE( "003-c8.c8", 0x300001, 0x80000, CRC(422af22d) SHA1(f67c844c34545de6ea187f5bfdf440dec8518532) )
-ROM_END
-
-ROM_START( tpgolfcd1 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "003cd.p1", 0x000000, 0x100000, CRC(87f2a8ce) SHA1(ad903d7711ac4af47f1dee64ba7c6bb247029407) )
-
-	NEO_SFIX_128K( "003-s1.s1", CRC(7b3eb9b1) SHA1(39cd8bad9f8bfdeb8ac681b5b79ae5aa81c8dd5f) )
-
-	NEO_BIOS_AUDIO_128K( "003-m1.m1", CRC(4cc545e6) SHA1(8e014b8cab3e5b3995756a4ea52ce49c36866377) )
-
-	ROM_REGION( 0x080000, "ymsnd", 0 )
-	ROM_LOAD( "003-v11.v11", 0x000000, 0x080000, CRC(ff97f1cb) SHA1(defa249d46ae220f7bfa70746f5202bbbcc3e5fe) )
-
-	ROM_REGION( 0x200000, "ymsnd.deltat", 0 )
-	ROM_LOAD( "003-v21.v21", 0x000000, 0x080000, CRC(d34960c6) SHA1(36d5877d5e42aab943f4d693159f4f3ad8b0addc) )
-	ROM_LOAD( "003-v22.v22", 0x080000, 0x080000, CRC(9a5f58d4) SHA1(2b580595e1820430a36f06fd3e0e0b8f7d686889) )
-	ROM_LOAD( "003-v23.v23", 0x100000, 0x080000, CRC(30f53e54) SHA1(22461f88a56d272b78dbc23204c0c6816200532b) )
-	ROM_LOAD( "003-v24.v24", 0x180000, 0x080000, CRC(5ba0f501) SHA1(ca02937a611a2c50c9e4b54f8fd4eaea09259894) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "003-c1.c1", 0x000000, 0x80000, CRC(0315fbaf) SHA1(583c9253219c1026d81ee5e0cf5568683adc2633) )
-	ROM_LOAD16_BYTE( "003-c2.c2", 0x000001, 0x80000, CRC(b4c15d59) SHA1(b0d8ec967f9b8e5216301c10b2d36912abce6515) )
-	ROM_LOAD16_BYTE( "003-c3.c3", 0x100000, 0x80000, CRC(8ce3e8da) SHA1(bc6c49b27d498f75a0d1a8c4d0cca75e140b9efc) )
-	ROM_LOAD16_BYTE( "003-c4.c4", 0x100001, 0x80000, CRC(29725969) SHA1(f1407da84919c2b3fe0e8f1fca65934b147c86c7) )
 	ROM_LOAD16_BYTE( "003-c5.c5", 0x200000, 0x80000, CRC(9a7146da) SHA1(2fc83d13e3e9565919aab01bf2a1b028f433b547) )
 	ROM_LOAD16_BYTE( "003-c6.c6", 0x200001, 0x80000, CRC(1e63411a) SHA1(ee397e2f679042e87b37d95837af62bb95a72af9) )
 	ROM_LOAD16_BYTE( "003-c7.c7", 0x300000, 0x80000, CRC(2886710c) SHA1(1533dd935f0a8f92a0a3c47d1d2bc6d035454244) )
@@ -2263,7 +2228,6 @@ GAME( 1994, strhoopcd,     strhoop,  neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1990, superspycd,    superspy, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "The Super Spy (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2007, tpgolfcd,      tpgolf,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, tpgolfcd1,     tpgolf,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Top Player's Golf (CD conversion 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Thrash Rally (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1992, viewpointr,    viewpoin, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "KiWi Starlight", "Viewpoint Enhanced", MACHINE_SUPPORTS_SAVE ) // Unlimited lives and mega-bombs for p1 and p2
