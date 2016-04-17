@@ -33,11 +33,14 @@ New Games
 - [ennemi]          Neogeo demo [by Kannagi]
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
-- [lbowlingcd]      League Bowling (CD Conversion)
+- [lbowlingcd]      League Bowling (CD conversion)
 - [pbcrazyb1]       Puzzle Bobble Crazy beta 1 [by Elrayzeur]
 - [pbcrazyb2]       Puzzle Bobble Crazy beta 2 [by Elrayzeur]
-- [poknightcd]      Poker Night (CD Conversion)
+- [poknightcd]      Poker Night (CD conversion)
 - [poknightfr]      Poker Night (French)
+- [ssidekicd]       Super Sidekicks / Tokuten Ou (CD conversion)
+- [superspycd]      The Super Spy (CD conversion)
+- [trallycd]        Thrash Rally (CD conversion)
 - [zintrckbh]       Zintrick hack [by Yumeji]
 
 

@@ -108,6 +108,7 @@ static MACHINE_CONFIG_DERIVED( no_watchdog, neogeo_noslot )
 MACHINE_CONFIG_END
 
 
+#undef NO_DELTAT_REGION
 
 	/* The Encrypted Boards do not have a s1 rom, data for it comes from the Cx ROMs */
 #define NEO_SFIX_MT_128K \
