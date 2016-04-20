@@ -361,6 +361,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/m52.cpp",
 	MAME_DIR .. "src/mame/video/m52.cpp",
 	MAME_DIR .. "src/mame/machine/irem_cpu.cpp",
+	MAME_DIR .. "src/mame/audio/nl_kidniki.cpp",
 	MAME_DIR .. "src/mame/audio/irem.cpp",
 }
 

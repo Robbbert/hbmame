@@ -39,6 +39,7 @@ enum
 	COLUMN_MAX
 };
 
+#define UI_OPTIONS	-3
 #define FOLDER_OPTIONS	-2
 #define GLOBAL_OPTIONS	-1
 

@@ -856,7 +856,7 @@ public:
 				winwindow_toggle_full_screen();
 
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
-			win_message_box_utf8(win_window_list ? win_window_list->m_hwnd : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
+			win_message_box_utf8(win_window_list ? win_window_list->platform_window<HWND>() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
 		}
 		else
 			chain_output(channel, msg, args);

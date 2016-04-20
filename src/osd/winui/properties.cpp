@@ -585,28 +585,24 @@ static char *GameInfoCPU(UINT nIndex)
 	machine_config config(driver_list::driver(nIndex),pCurrentOpts);
 	ZeroMemory(buf, sizeof(buf));
 
-	execute_interface_iterator iter(config.root_device());
-	device_execute_interface *cpu = iter.first();
-	while (cpu)
+	for (device_execute_interface &cpu : execute_interface_iterator(config.root_device()))
 	{
-		if (cpu->device().clock() >= 1000000)
+		if (cpu.device().clock() >= 1000000)
 		{
 			sprintf(&buf[strlen(buf)], "%s %d.%06d MHz",
-				cpu->device().name(),
-				cpu->device().clock() / 1000000,
-				cpu->device().clock() % 1000000);
+				cpu.device().name(),
+				cpu.device().clock() / 1000000,
+				cpu.device().clock() % 1000000);
 		}
 		else
 		{
 			sprintf(&buf[strlen(buf)], "%s %d.%03d kHz",
-				cpu->device().name(),
-				cpu->device().clock() / 1000,
-				cpu->device().clock() % 1000);
+				cpu.device().name(),
+				cpu.device().clock() / 1000,
+				cpu.device().clock() % 1000);
 		}
 
 		strcat(buf, "\n");
-
-		cpu = iter.next();
 	}
 
 	return buf;
@@ -622,34 +618,13 @@ static char *GameInfoSound(UINT nIndex)
 	machine_config config(driver_list::driver(nIndex),pCurrentOpts);
 
 	/* iterate over sound chips */
-	sound_interface_iterator iter(config.root_device());
-	const device_sound_interface *sound = iter.first();
-	while(sound)
+	for (device_sound_interface &sound : sound_interface_iterator(config.root_device()))
 	{
-		int clock,count;
-		device_type sound_type_;
 		char tmpname[1024];
 
-		sprintf(tmpname,"%s",sound->device().name());
+		sprintf(tmpname,"%s",sound.device().name());
 
-		sound_type_ = sound->device().type();
-		clock = sound->device().clock();
-
-		count = 1;
-		sound = iter.next();
-		/* Matching chips at the same clock are aggregated */
-		while (sound
-			&& sound->device().type() == sound_type_
-			&& sound->device().clock() == clock)
-		{
-			count++;
-			sound = iter.next();
-		}
-
-		if (count > 1)
-		{
-			sprintf(&buf[strlen(buf)],"%dx",count);
-		}
+		int clock = sound.device().clock();
 
 		sprintf(&buf[strlen(buf)],"%s",tmpname);
 
@@ -691,24 +666,24 @@ static char *GameInfoScreen(UINT nIndex)
 			strcpy(buf, "Screenless Game");
 		else
 		{
-			for (; screen; screen = iter.next())
+		for (screen_device &screen : screen_device_iterator(config.root_device()))
 			{
 				char tmpbuf[256];
-				const rectangle &visarea = screen->visible_area();
+				const rectangle &visarea = screen.visible_area();
 
 				if (driver_list::driver(nIndex).flags & ORIENTATION_SWAP_XY)
 				{
 					sprintf(tmpbuf,"%d x %d (V) %f Hz\n",
 							visarea.max_y - visarea.min_y + 1,
 							visarea.max_x - visarea.min_x + 1,
-							ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+							ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
 				}
 				else
 				{
 					sprintf(tmpbuf,"%d x %d (H) %f Hz\n",
 							visarea.max_x - visarea.min_x + 1,
 							visarea.max_y - visarea.min_y + 1,
-							ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+							ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
 				}
 				strcat(buf, tmpbuf);
 			}
@@ -2372,11 +2347,9 @@ static void SetSamplesEnabled(HWND hWnd, int nIndex, BOOL bSoundEnabled)
 		{
 			machine_config config(driver_list::driver(nIndex),pCurrentOpts);
 
-			sound_interface_iterator iter(config.root_device());
-			for (device_sound_interface *sound = iter.first(); sound; sound = iter.next())
+			for (device_sound_interface &sound : sound_interface_iterator(config.root_device()))
 			{
-				//if ((sound->device().type() == SAMPLES) || (sound->device().type() == VLM5030))
-				if (sound->device().type() == SAMPLES)
+				if (sound.device().type() == SAMPLES)
 					enabled = TRUE;
 			}
 		}

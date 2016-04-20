@@ -24,6 +24,7 @@
 #include <direct.h>
 #include <emu.h>
 #include <emuopts.h>
+#include <ui/moptions.h>
 #include <stddef.h>
 #include <tchar.h>
 
@@ -84,54 +85,47 @@ static void ResetToDefaults(windows_options &opts, int priority);
     Internal defines
  ***************************************************************************/
 
-#define GAMEINFO_INI_FILENAME				MAMENAME "_g.ini"
+#define GAMEINFO_INI_FILENAME					MAMENAME "_g.ini"
+#define MEWUI_FILENAME							"ini\\ui.ini"
 
-#define MUIOPTION_LIST_MODE				"list_mode"
-#define MUIOPTION_CHECK_GAME				"check_game"
+#define MUIOPTION_LIST_MODE						"list_mode"
+#define MUIOPTION_CHECK_GAME					"check_game"
 #define MUIOPTION_JOYSTICK_IN_INTERFACE			"joystick_in_interface"
 #define MUIOPTION_KEYBOARD_IN_INTERFACE			"keyboard_in_interface"
-#define MUIOPTION_CYCLE_SCREENSHOT			"cycle_screenshot"
+#define MUIOPTION_CYCLE_SCREENSHOT				"cycle_screenshot"
 #define MUIOPTION_STRETCH_SCREENSHOT_LARGER		"stretch_screenshot_larger"
 #define MUIOPTION_SCREENSHOT_BORDER_SIZE		"screenshot_bordersize"
 #define MUIOPTION_SCREENSHOT_BORDER_COLOR		"screenshot_bordercolor"
-#define MUIOPTION_INHERIT_FILTER			"inherit_filter"
-#define MUIOPTION_OFFSET_CLONES				"offset_clones"
-#define MUIOPTION_DEFAULT_FOLDER_ID			"default_folder_id"
+#define MUIOPTION_INHERIT_FILTER				"inherit_filter"
+#define MUIOPTION_OFFSET_CLONES					"offset_clones"
+#define MUIOPTION_DEFAULT_FOLDER_ID				"default_folder_id"
 #define MUIOPTION_SHOW_IMAGE_SECTION			"show_image_section"
 #define MUIOPTION_SHOW_FOLDER_SECTION			"show_folder_section"
-#define MUIOPTION_HIDE_FOLDERS				"hide_folders"
-#define MUIOPTION_SHOW_STATUS_BAR			"show_status_bar"
-#define MUIOPTION_SHOW_TABS				"show_tabs"
-#define MUIOPTION_SHOW_TOOLBAR				"show_tool_bar"
-#define MUIOPTION_CURRENT_TAB				"current_tab"
-#define MUIOPTION_WINDOW_X				"window_x"
-#define MUIOPTION_WINDOW_Y				"window_y"
-#define MUIOPTION_WINDOW_WIDTH				"window_width"
-#define MUIOPTION_WINDOW_HEIGHT				"window_height"
-#define MUIOPTION_WINDOW_STATE				"window_state"
-#define MUIOPTION_CUSTOM_COLOR				"custom_color"
-#define MUIOPTION_LIST_FONT				"list_font"
-#define MUIOPTION_TEXT_COLOR				"text_color"
-#define MUIOPTION_CLONE_COLOR				"clone_color"
-#define MUIOPTION_HIDE_TABS				"hide_tabs"
-#define MUIOPTION_HISTORY_TAB				"history_tab"
-#define MUIOPTION_COLUMN_WIDTHS				"column_widths"
-#define MUIOPTION_COLUMN_ORDER				"column_order"
-#define MUIOPTION_COLUMN_SHOWN				"column_shown"
-#define MUIOPTION_SPLITTERS				"splitters"
-#define MUIOPTION_SORT_COLUMN				"sort_column"
-#define MUIOPTION_SORT_REVERSED				"sort_reversed"
-#define MUIOPTION_LANGUAGE				"language"
-#define MUIOPTION_FLYER_DIRECTORY			"flyer_directory"
-#define MUIOPTION_CABINET_DIRECTORY			"cabinet_directory"
-#define MUIOPTION_MARQUEE_DIRECTORY			"marquee_directory"
-#define MUIOPTION_TITLE_DIRECTORY			"title_directory"
-#define MUIOPTION_CPANEL_DIRECTORY			"cpanel_directory"
-#define MUIOPTION_PCB_DIRECTORY				"pcb_directory"
+#define MUIOPTION_HIDE_FOLDERS					"hide_folders"
+#define MUIOPTION_SHOW_STATUS_BAR				"show_status_bar"
+#define MUIOPTION_SHOW_TABS						"show_tabs"
+#define MUIOPTION_SHOW_TOOLBAR					"show_tool_bar"
+#define MUIOPTION_CURRENT_TAB					"current_tab"
+#define MUIOPTION_WINDOW_X						"window_x"
+#define MUIOPTION_WINDOW_Y						"window_y"
+#define MUIOPTION_WINDOW_WIDTH					"window_width"
+#define MUIOPTION_WINDOW_HEIGHT					"window_height"
+#define MUIOPTION_WINDOW_STATE					"window_state"
+#define MUIOPTION_CUSTOM_COLOR					"custom_color"
+#define MUIOPTION_LIST_FONT						"list_font"
+#define MUIOPTION_TEXT_COLOR					"text_color"
+#define MUIOPTION_CLONE_COLOR					"clone_color"
+#define MUIOPTION_HIDE_TABS						"hide_tabs"
+#define MUIOPTION_HISTORY_TAB					"history_tab"
+#define MUIOPTION_COLUMN_WIDTHS					"column_widths"
+#define MUIOPTION_COLUMN_ORDER					"column_order"
+#define MUIOPTION_COLUMN_SHOWN					"column_shown"
+#define MUIOPTION_SPLITTERS						"splitters"
+#define MUIOPTION_SORT_COLUMN					"sort_column"
+#define MUIOPTION_SORT_REVERSED					"sort_reversed"
+#define MUIOPTION_LANGUAGE						"language"
 #define MUIOPTION_ICONS_DIRECTORY			"icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY			"background_directory"
-#define MUIOPTION_FOLDER_DIRECTORY			"folder_directory"
-#define MUIOPTION_DATS_DIRECTORY			"datafile_directory"
 #define MUIOPTION_UI_KEY_UP				"ui_key_up"
 #define MUIOPTION_UI_KEY_DOWN				"ui_key_down"
 #define MUIOPTION_UI_KEY_LEFT				"ui_key_left"
@@ -207,11 +201,10 @@ static void ResetToDefaults(windows_options &opts, int priority);
     Internal variables
  ***************************************************************************/
 
-//static object_pool *options_memory_pool;
+static ui_options mewui; // ui.ini
+static winui_options settings; // mameui.ini
 
-static winui_options settings;
-
-static windows_options global;			// Global 'default' options
+static windows_options global; // Global 'default' options
 
 static game_options game_opts;
 
@@ -269,16 +262,8 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_EXEC_COMMAND,			"",         OPTION_STRING,                 NULL },
 	{ MUIOPTION_EXEC_WAIT,				"0",        OPTION_INTEGER,                 NULL },
 	{ NULL,						NULL,       OPTION_HEADER,     "SEARCH PATH OPTIONS" },
-	{ MUIOPTION_FLYER_DIRECTORY,			"flyers",   OPTION_STRING,                 NULL },
-	{ MUIOPTION_CABINET_DIRECTORY,			"cabinets", OPTION_STRING,                 NULL },
-	{ MUIOPTION_MARQUEE_DIRECTORY,			"marquees", OPTION_STRING,                 NULL },
-	{ MUIOPTION_TITLE_DIRECTORY,			"titles",   OPTION_STRING,                 NULL },
-	{ MUIOPTION_CPANEL_DIRECTORY,			"cpanel",   OPTION_STRING,                 NULL },
-	{ MUIOPTION_PCB_DIRECTORY,			"pcb",      OPTION_STRING,                 NULL },
 	{ MUIOPTION_BACKGROUND_DIRECTORY,		"bkground", OPTION_STRING,                 NULL },
-	{ MUIOPTION_FOLDER_DIRECTORY,			"folders",  OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,			"icons",    OPTION_STRING,                 NULL },
-	{ MUIOPTION_DATS_DIRECTORY,			"dats",     OPTION_STRING,                 NULL },
 	{ NULL,						NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
 	{ MUIOPTION_UI_KEY_UP,				"KEYCODE_UP",						OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,			"KEYCODE_DOWN", 					OPTION_STRING,          NULL },
@@ -1262,68 +1247,68 @@ void SetCrosshairDir(const char* paths)
 
 const char* GetFlyerDir(void)
 {
-	return settings.value( MUIOPTION_FLYER_DIRECTORY);
+	return mewui.value(OPTION_FLYERS_PATH);
 }
 
 void SetFlyerDir(const char* path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_FLYER_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_FLYERS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetCabinetDir(void)
 {
-	return settings.value( MUIOPTION_CABINET_DIRECTORY);
+	return mewui.value(OPTION_CABINETS_PATH);
 }
 
 void SetCabinetDir(const char* path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_CABINET_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_CABINETS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetMarqueeDir(void)
 {
-	return settings.value( MUIOPTION_MARQUEE_DIRECTORY);
+	return mewui.value(OPTION_MARQUEES_PATH);
 }
 
 void SetMarqueeDir(const char* path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_MARQUEE_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_MARQUEES_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetTitlesDir(void)
 {
-	return settings.value( MUIOPTION_TITLE_DIRECTORY);
+	return mewui.value(OPTION_TITLES_PATH);
 }
 
 void SetTitlesDir(const char* path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_TITLE_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_TITLES_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char * GetControlPanelDir(void)
 {
-	return settings.value( MUIOPTION_CPANEL_DIRECTORY);
+	return mewui.value(OPTION_CPANELS_PATH);
 }
 
 void SetControlPanelDir(const char *path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_CPANEL_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_CPANELS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char * GetPcbDir(void)
 {
-	return settings.value( MUIOPTION_PCB_DIRECTORY);
+	return mewui.value(OPTION_PCBS_PATH);
 }
 
 void SetPcbDir(const char *path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_PCB_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_PCBS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetPluginsDir(void)
@@ -1383,24 +1368,24 @@ void SetBgDir (const char* path)
 
 const char * GetDatsDir(void)
 {
-	return settings.value(MUIOPTION_DATS_DIRECTORY);
+	return mewui.value(OPTION_HISTORY_PATH);
 }
 
 void SetDatsDir(const char *path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_DATS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE, error_string);
+	mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE, error_string);
 }
 
 const char* GetFolderDir(void)
 {
-	return settings.value( MUIOPTION_FOLDER_DIRECTORY);
+	return mewui.value(OPTION_EXTRAINI_PATH);
 }
 
 void SetFolderDir(const char* path)
 {
 	std::string error_string;
-	settings.set_value(MUIOPTION_FOLDER_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_EXTRAINI_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetCheatDir(void)
@@ -2150,6 +2135,20 @@ static void TabFlagsDecodeString(const char *str, int *data)
 	}
 }
 
+static void LoadSettingsFile(ui_options &opts, const char *filename)
+{
+	osd_file::error filerr;
+	util::core_file::ptr file;
+
+	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
+	if (filerr == osd_file::error::NONE)
+	{
+		std::string error_string;
+		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		file.reset();
+	}
+}
+
 static void LoadSettingsFile(winui_options &opts, const char *filename)
 {
 	osd_file::error filerr;
@@ -2177,6 +2176,24 @@ static void LoadSettingsFile(windows_options &opts, const char *filename)
 		file.reset();
 	}
 }
+
+// This saves changes to UI.INI only
+static void SaveSettingsFile(ui_options &opts, const char *filename)
+{
+	osd_file::error filerr = osd_file::error::NONE;
+	util::core_file::ptr file;
+
+	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
+
+	if (filerr == osd_file::error::NONE)
+	{
+		std::string inistring = opts.output_ini();
+		file->puts(inistring.c_str());
+		file.reset();
+	}
+}
+
+
 
 // This saves changes to MAMEUI.INI only
 static void SaveSettingsFile(winui_options &opts, const char *filename)
@@ -2222,6 +2239,7 @@ static void LoadOptionsAndSettings(void)
 
 	// parse MAMEui.ini - always in the current directory.
 	LoadSettingsFile(settings, UI_INI_FILENAME);
+	LoadSettingsFile(mewui, MEWUI_FILENAME);
 
 	// parse GameInfo.ini - game options.
 	game_opts.load_file(GAMEINFO_INI_FILENAME);
@@ -2459,6 +2477,7 @@ void SaveOptions(void)
 	// Save opts if it is non-null, else save settings.
 	// It will be null if there are no filters set.
 	SaveSettingsFile(settings, UI_INI_FILENAME);
+	SaveSettingsFile(mewui, MEWUI_FILENAME);
 }
 
 void SaveGameListOptions(void)

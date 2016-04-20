@@ -597,52 +597,27 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	snprintf(name, ARRAY_LENGTH(name), " (%s %s)\n\nCPU:\n", drv->manufacturer, drv->year);
 	strcat(buffer, name);
 	/* iterate over CPUs */
-	execute_interface_iterator iter(config.root_device());
-	device_execute_interface *cpu = iter.first();
-
-	while (cpu)
+	for (device_execute_interface &cpu : execute_interface_iterator(config.root_device()))
 	{
-		if (cpu->device().clock() >= 1000000)
-			snprintf(name, ARRAY_LENGTH(name), "%s %d.%06d MHz\n", cpu->device().name(), cpu->device().clock() / 1000000, cpu->device().clock() % 1000000);
+		if (cpu.device().clock() >= 1000000)
+			snprintf(name, ARRAY_LENGTH(name), "%s %d.%06d MHz\n", cpu.device().name(), cpu.device().clock() / 1000000, cpu.device().clock() % 1000000);
 		else
-			snprintf(name, ARRAY_LENGTH(name), "%s %d.%03d kHz\n", cpu->device().name(), cpu->device().clock() / 1000, cpu->device().clock() % 1000);
+			snprintf(name, ARRAY_LENGTH(name), "%s %d.%03d kHz\n", cpu.device().name(), cpu.device().clock() / 1000, cpu.device().clock() % 1000);
 
 		strcat(buffer, name);
-		cpu = iter.next();
 	}
 
 	strcat(buffer, "\nSOUND:\n");
 	int has_sound = 0;
 	/* iterate over sound chips */
-	sound_interface_iterator sounditer(config.root_device());
-	const device_sound_interface *sound = sounditer.first();
 
-	while(sound)
+	for (device_sound_interface &sound : sound_interface_iterator(config.root_device()))
 	{
-		int clock = 0;
-		int count = 0;
-		device_type sound_type_;
 		char tmpname[1024];
 
-		snprintf(tmpname, ARRAY_LENGTH(tmpname), "%s", sound->device().name());
-		sound_type_ = sound->device().type();
-		clock = sound->device().clock();
+		snprintf(tmpname, ARRAY_LENGTH(tmpname), "%s", sound.device().name());
+		int clock = sound.device().clock();
 		has_sound = 1;
-		count = 1;
-		sound = sounditer.next();
-
-		/* Matching chips at the same clock are aggregated */
-		while (sound && sound->device().type() == sound_type_ && sound->device().clock() == clock)
-		{
-			count++;
-			sound = sounditer.next();
-		}
-
-		if (count > 1)
-		{
-			snprintf(name, ARRAY_LENGTH(name), "%dx ",count);
-			strcat(buffer, name);
-		}
 
 		strcat(buffer, tmpname);
 
@@ -674,23 +649,23 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 	strcat(buffer, "\nVIDEO:\n");
 	screen_device_iterator screeniter(config.root_device());
-	const screen_device *screen = screeniter.first();
+	const screen_device *screen1 = screeniter.first();
 
-	if (screen == nullptr)
+	if (screen1 == nullptr)
 		strcat(buffer, "Screenless\n");
-	else if (screen->screen_type() == SCREEN_TYPE_VECTOR)
+	else if (screen1->screen_type() == SCREEN_TYPE_VECTOR)
 		strcat(buffer,"Vector\n");
 	else
 	{
-		for (; screen; screen = screeniter.next())
+		for (screen_device &screen : screen_device_iterator(config.root_device()))
 		{
 			if (drv->flags & ORIENTATION_SWAP_XY)
-				snprintf(name, ARRAY_LENGTH(name), "%d x %d (V)", screen->visible_area().height(), screen->visible_area().width());
+				snprintf(name, ARRAY_LENGTH(name), "%d x %d (V)", screen.visible_area().height(), screen.visible_area().width());
 			else
-				snprintf(name, ARRAY_LENGTH(name), "%d x %d (H)", screen->visible_area().width(), screen->visible_area().height());
+				snprintf(name, ARRAY_LENGTH(name), "%d x %d (H)", screen.visible_area().width(), screen.visible_area().height());
 
 			strcat(buffer, name);
-			snprintf(name, ARRAY_LENGTH(name), " %f Hz", ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+			snprintf(name, ARRAY_LENGTH(name), " %f Hz", ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
 			strcat(buffer, name);
 			strcat(buffer, "\n");
 		}
@@ -699,26 +674,24 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	strcat(buffer, "\nROM REGION:\n");
 	int g = driver_list::clone(*drv);
 
-	if (g!=-1)
+	if (g != -1)
 		parent = &driver_list::driver(g);
 
-	device_iterator deviter(config.root_device());
-
-	for (device_t *device = deviter.first(); device; device = deviter.next())
+	for (device_t &device : device_iterator(config.root_device()))
 	{
-		for (const rom_entry *region = rom_first_region(*device); region; region = rom_next_region(region))
+		for (const rom_entry *region = rom_first_region(device); region; region = rom_next_region(region))
 		{
 			for (const rom_entry *rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 			{
 				hash_collection hashes(ROM_GETHASHDATA(rom));
 
-				if (g!=-1)
+				if (g != -1)
 				{
 					machine_config pconfig(*parent, MameUIGlobal());
 					device_iterator deviter(pconfig.root_device());
 
-					for (device_t *device = deviter.first(); device; device = deviter.next())
-						for (const rom_entry *pregion = rom_first_region(*device); pregion; pregion = rom_next_region(pregion))
+					for (device_t &device : device_iterator(pconfig.root_device()))
+						for (const rom_entry *pregion = rom_first_region(device); pregion; pregion = rom_next_region(pregion))
 							for (const rom_entry *prom = rom_first_file(pregion); prom; prom = rom_next_file(prom))
 							{
 								hash_collection phashes(ROM_GETHASHDATA(prom));
@@ -739,13 +712,11 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 		}
 	}
 
-	samples_device_iterator samplesiter(config.root_device());
-
-	for (samples_device *device = samplesiter.first(); device; device = samplesiter.next())
+	for (samples_device &device : samples_device_iterator(config.root_device()))
 	{
-		samples_iterator sampiter(*device);
+		samples_iterator sampiter(device);
 
-		if (sampiter.altbasename() != nullptr)
+		if (sampiter.altbasename() )
 		{
 			snprintf(name, ARRAY_LENGTH(name), "\nSAMPLES (%s):\n", sampiter.altbasename());
 			strcat(buffer, name);
@@ -769,7 +740,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	{
 		int g = driver_list::clone(*drv);
 
-		if (g!=-1)
+		if (g != -1)
 			drv = &driver_list::driver(g);
 
 		strcat(buffer, "\nORIGINAL:\n");

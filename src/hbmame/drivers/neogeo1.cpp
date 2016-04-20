@@ -482,6 +482,27 @@ ROM_START( ctomadaypx )
 ROM_END
 
 
+ROM_START( dragonsh1 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "336.p1", 0x000000, 0x080000, CRC(f25c71ad) SHA1(803fb6cd6a7ada59678ad901ff9788b1e54ddd0c) )
+	ROM_LOAD16_BYTE( "336.p2", 0x000001, 0x080000, CRC(f353448c) SHA1(f0f966ca15d503e01b40e901765ff0888463b65d) )
+
+	//NEO_SFIX_128K( "094-s1.s1", CRC(2f8748a2) SHA1(5cc723c4284120473d63d8b0c1a3b3be74bdc324) )
+	NEO_SFIX_128K( "336.s1", CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) )
+
+	NEO_BIOS_AUDIO_128K( "094-m1.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "094-v1.v1", 0x000000, 0x200000, CRC(6c31223c) SHA1(ede3a2806d7d872a0f737626a23ecce200b534e6) )
+	ROM_LOAD( "094-v2.v2", 0x200000, 0x200000, CRC(8edb776c) SHA1(a9eac5e24f83ccdcf303d63261747b1bad876a24) )
+	ROM_LOAD( "094-v3.v3", 0x400000, 0x100000, CRC(c63b9285) SHA1(6bbbacfe899e204e74657d6c3f3d05ce75e432f1) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "336.c1", 0x000000, 0x1000000, CRC(81821826) SHA1(b7c1a53e32633383675206a16c68f6f2ff984865) )
+	ROM_LOAD16_BYTE( "336.c2", 0x000001, 0x1000000, CRC(3601d568) SHA1(800323e52f5d33b402f84d31850b42c688082d67) )
+ROM_END
+
+
 ROM_START( fatfurspb )
 	ROM_REGION( 0x180000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "058b.p1", 0x000000, 0x100000, CRC(1222cf0a) SHA1(dab98ef9464e8759433958663f2625912295822b) )
@@ -678,27 +699,6 @@ ROM_START( gowcaizry )
 	ROM_LOAD16_BYTE( "094-c6.c6", 0x800001, 0x200000, CRC(31bbd918) SHA1(7ff8c5e3f17d40e7a8a189ad8f8026de55368810) )
 	ROM_LOAD16_BYTE( "094-c7.c7", 0xc00000, 0x200000, CRC(2091ec04) SHA1(a81d4bdbef1ac6ea49845dc30e31bf9745694100) )
 	ROM_LOAD16_BYTE( "094y.c8", 0xc00001, 0x200000, CRC(0d31dee6) SHA1(4979aa3daa7e490fbe39e7b3c70cbb2ef7551c5f) )
-ROM_END
-
-
-ROM_START( unkneo1 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "336.p1", 0x000000, 0x080000, CRC(f25c71ad) SHA1(803fb6cd6a7ada59678ad901ff9788b1e54ddd0c) )
-	ROM_LOAD16_BYTE( "336.p2", 0x000001, 0x080000, CRC(f353448c) SHA1(f0f966ca15d503e01b40e901765ff0888463b65d) )
-
-	//NEO_SFIX_128K( "094-s1.s1", CRC(2f8748a2) SHA1(5cc723c4284120473d63d8b0c1a3b3be74bdc324) )
-	NEO_SFIX_128K( "336.s1", CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) )
-
-	NEO_BIOS_AUDIO_128K( "094-m1.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
-
-	ROM_REGION( 0x500000, "ymsnd", 0 )
-	ROM_LOAD( "094-v1.v1", 0x000000, 0x200000, CRC(6c31223c) SHA1(ede3a2806d7d872a0f737626a23ecce200b534e6) )
-	ROM_LOAD( "094-v2.v2", 0x200000, 0x200000, CRC(8edb776c) SHA1(a9eac5e24f83ccdcf303d63261747b1bad876a24) )
-	ROM_LOAD( "094-v3.v3", 0x400000, 0x100000, CRC(c63b9285) SHA1(6bbbacfe899e204e74657d6c3f3d05ce75e432f1) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "336.c1", 0x000000, 0x1000000, CRC(81821826) SHA1(b7c1a53e32633383675206a16c68f6f2ff984865) )
-	ROM_LOAD16_BYTE( "336.c2", 0x000001, 0x1000000, CRC(3601d568) SHA1(800323e52f5d33b402f84d31850b42c688082d67) )
 ROM_END
 
 
@@ -1981,7 +1981,7 @@ ROM_START( tpgolfcd )
 ROM_END
 
 
-ROM_START( trallycd )
+ROM_START( trallycd ) // title screen is corrupt
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "038-p1.p1", 0x000000, 0x080000, CRC(1e52a576) SHA1(a1cb56354c3378e955b0cd482c3c41ae15add952) )
 	ROM_LOAD16_WORD_SWAP( "038cd.p2",  0x080000, 0x080000, CRC(9facb7fb) SHA1(96b4edbdddbd9ba642d0d046b33349c95559badd) )
@@ -2130,6 +2130,8 @@ GAME( 1991, burningfhp,    burningf, neogeo_noslot, neogeo, neogeo_state,       
 
 GAME( 1999, ctomadaypx,    ctomaday, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Captain Tomaday (Plus Max hack by Xyahzhs)", MACHINE_SUPPORTS_SAVE )
 
+GAME( 1997?,dragonsh1,     neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Face?", "Dragon's Heaven (prototype)", MACHINE_SUPPORTS_SAVE )
+
 GAME( 1993, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Fatal Fury Special / Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fatfury3b,     fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Fatal Fury 3 (Add Char set 1)", MACHINE_SUPPORTS_SAVE ) // Ryuji Yamazaki, Jin Chonshu and Jin Chonrei
@@ -2143,7 +2145,6 @@ GAME( 1998, flipshotk,     flipshot, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1999, ganryud,       ganryu,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Visco", "Ganryu / Musashi Ganryuki (decrypted C)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, gowcaizry,     gowcaizr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Voltage Fighter - Gowcaizer (Boss Hack - Easy Moves)", MACHINE_SUPPORTS_SAVE)
-GAME( 199?, unkneo1,       gowcaizr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Face?", "Dragon's Heaven (prototype)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1991, gpilotscd,     gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Ghost Pilots (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, gpilotse,      gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Ghost Pilots (Enhanced Version, Hack by Robert)", MACHINE_SUPPORTS_SAVE )
@@ -2228,7 +2229,7 @@ GAME( 1994, strhoopcd,     strhoop,  neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1990, superspycd,    superspy, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "The Super Spy (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2007, tpgolfcd,      tpgolf,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Thrash Rally (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Thrash Rally (CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 
 GAME( 1992, viewpointr,    viewpoin, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "KiWi Starlight", "Viewpoint Enhanced", MACHINE_SUPPORTS_SAVE ) // Unlimited lives and mega-bombs for p1 and p2
 

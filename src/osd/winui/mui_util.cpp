@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
@@ -323,14 +324,9 @@ BOOL isDriverVector(const machine_config *config)
 
 int numberOfScreens(const machine_config *config)
 {
-	const screen_device *screen  = config->first_screen();
-	screen_device_iterator iter(config->root_device());
-	UINT8 i = 0;
-	for (screen = iter.first(); screen != NULL; screen = iter.next())
-		i++;
-	return i;
+	screen_device_iterator scriter(config->root_device());
+	return scriter.count();
 }
-
 
 int numberOfSpeakers(const machine_config *config)
 {
@@ -387,11 +383,10 @@ static void InitDriversInfo(void)
 		gameinfo->isVertical = (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
 
 		ram_device_iterator iter1(config.root_device());
-		gameinfo->hasRam = (iter1.first()!=NULL);
+		gameinfo->hasRam = (iter1.first() );
 
-		device_iterator deviter(config.root_device());
-		for (device_t *device = deviter.first(); device; device = deviter.next())
-			for (region = rom_first_region(*device); region; region = rom_next_region(region))
+		for (device_t &device : device_iterator(config.root_device()))
+			for (region = rom_first_region(device); region; region = rom_next_region(region))
 				if (ROMREGION_ISDISKDATA(region))
 					gameinfo->isHarddisk = TRUE;
 
@@ -407,8 +402,8 @@ static void InitDriversInfo(void)
 		gameinfo->screenCount = numberOfScreens(&config);
 		gameinfo->isVector = isDriverVector(&config); // ((drv.video_attributes & VIDEO_TYPE_VECTOR) != 0);
 		gameinfo->usesRoms = FALSE;
-		for (device_t *device = deviter.first(); device; device = deviter.next())
-			for (region = rom_first_region(*device); region; region = rom_next_region(region))
+		for (device_t &device : device_iterator(config.root_device()))
+			for (region = rom_first_region(device); region; region = rom_next_region(region))
 				for (rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 					gameinfo->usesRoms = TRUE;
 
@@ -425,10 +420,9 @@ static void InitDriversInfo(void)
 			ioport_port *port;
 			ioport_list portlist;
 			std::string errors;
-			device_iterator iter(config.root_device());
-			for (device_t *cfg = iter.first(); cfg; cfg = iter.next())
-				if (cfg->input_ports())
-					portlist.append(*cfg, errors);
+			for (device_t &cfg : device_iterator(config.root_device()))
+				if (cfg.input_ports())
+					portlist.append(cfg, errors);
 
 			for (port = portlist.first(); port; port = port->next())
 			{

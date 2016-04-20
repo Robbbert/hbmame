@@ -1,5 +1,6 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
+// MASTER
 //============================================================
 //
 //  newui.c - This is the NEWUI Windows dropdown menu system
@@ -1533,13 +1534,9 @@ static void seqselect_settext(HWND editwnd)
 static void seqselect_start_read_from_main_thread(void *param)
 {
 	seqselect_info *stuff;
-	HWND editwnd;
-	win_window_info fake_window_info(*Machine);
-	win_window_info *old_window_list;
-	int pause_count;
 
 	// get the basics
-	editwnd = (HWND) param;
+	HWND editwnd = (HWND) param;
 	stuff = get_seqselect_info(editwnd);
 
 	// are we currently polling?  if so bail out
@@ -1551,18 +1548,12 @@ static void seqselect_start_read_from_main_thread(void *param)
 
 	// the Win32 OSD code thinks that we are paused, we need to temporarily
 	// unpause ourselves or else we will block
-	pause_count = 0;
+	int pause_count = 0;
 	while(Machine->paused() && !winwindow_ui_is_paused(*Machine))
 	{
 		winwindow_ui_pause_from_main_thread(*Machine, FALSE);
 		pause_count++;
 	}
-
-	// butt ugly hack so that we accept focus
-	old_window_list = win_window_list;
-	memset(&fake_window_info, 0, sizeof(fake_window_info));
-	fake_window_info.m_hwnd = GetFocus();
-	win_window_list = &fake_window_info;
 
 	// start the polling
 	(*Machine).input().seq_poll_start(stuff->is_analog ? ITEM_CLASS_ABSOLUTE : ITEM_CLASS_SWITCH, NULL);
@@ -1576,9 +1567,6 @@ static void seqselect_start_read_from_main_thread(void *param)
 			seqselect_settext(editwnd);
 		}
 	}
-
-	// clean up after hack
-	win_window_list = old_window_list;
 
 	// we are no longer polling
 	stuff->poll_state = SEQSELECT_STATE_NOT_POLLING;
@@ -3308,31 +3296,30 @@ static void prepare_menus(HWND wnd)
 
 	int cnt = 0;
 	// then set up the actual devices
-	image_interface_iterator iter(window->machine().root_device());
-	for (device_image_interface *img = iter.first(); img; img = iter.next())
+	for (device_image_interface &img : image_interface_iterator(window->machine().root_device()))
 	{
 		new_item = ID_DEVICE_0 + (cnt * DEVOPTION_MAX);
 		flags_for_exists = MF_STRING;
 
-		if (!img->exists())
+		if (!img.exists())
 			flags_for_exists |= MF_GRAYED;
 
 		flags_for_writing = flags_for_exists;
-		if (img->is_readonly())
+		if (img.is_readonly())
 			flags_for_writing |= MF_GRAYED;
 
 		sub_menu = CreateMenu();
 		win_append_menu_utf8(sub_menu, MF_STRING, new_item + DEVOPTION_OPEN, "Mount File...");
 
-		if (img->is_creatable())
+		if (img.is_creatable())
 			win_append_menu_utf8(sub_menu, MF_STRING, new_item + DEVOPTION_CREATE, "Create...");
 
 		win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CLOSE, "Unmount");
 
-		if (img->device().type() == CASSETTE)
+		if (img.device().type() == CASSETTE)
 		{
 			cassette_state state;
-			state = (cassette_state)(img->exists() ? (dynamic_cast<cassette_image_device*>(&img->device())->get_state() & CASSETTE_MASK_UISTATE) : CASSETTE_STOPPED);
+			state = (cassette_state)(img.exists() ? (dynamic_cast<cassette_image_device*>(&img.device())->get_state() & CASSETTE_MASK_UISTATE) : CASSETTE_STOPPED);
 			win_append_menu_utf8(sub_menu, MF_SEPARATOR, 0, NULL);
 			win_append_menu_utf8(sub_menu, flags_for_exists	| ((state == CASSETTE_STOPPED) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_STOPPAUSE, "Pause/Stop");
 			win_append_menu_utf8(sub_menu, flags_for_exists	| ((state == CASSETTE_PLAY) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_PLAY, "Play");
@@ -3340,9 +3327,9 @@ static void prepare_menus(HWND wnd)
 			win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CASSETTE_REWIND, "Rewind");
 			win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CASSETTE_FASTFORWARD, "Fast Forward");
 		}
-		s = img->exists() ? img->filename() : "[empty slot]";
+		s = img.exists() ? img.filename() : "[empty slot]";
 
-		snprintf(buf, ARRAY_LENGTH(buf), "%s: %s", img->device().name(), s);
+		snprintf(buf, ARRAY_LENGTH(buf), "%s: %s", img.device().name(), s);
 		win_append_menu_utf8(device_menu, MF_POPUP, (UINT_PTR)sub_menu, buf);
 
 		cnt++;
@@ -3388,7 +3375,7 @@ static void win_toggle_menubar(void)
 		RECT before_rect = { 100, 100, 200, 200 };
 		RECT after_rect = { 100, 100, 200, 200 };
 
-		hwnd = window->m_hwnd;
+		hwnd = window->platform_window<HWND>();
 
 		// get current menu
 		menu = GetMenu(hwnd);
