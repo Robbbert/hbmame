@@ -51,11 +51,15 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/modules/midi/midi_module.h",
 		MAME_DIR .. "src/osd/modules/netdev/netdev_module.h",
 		MAME_DIR .. "src/osd/modules/sound/sound_module.h",
+		MAME_DIR .. "src/osd/modules/diagnostics/diagnostics_module.h",
 		MAME_DIR .. "src/osd/modules/lib/osdobj_common.cpp",
 		MAME_DIR .. "src/osd/modules/lib/osdobj_common.h",
+		MAME_DIR .. "src/osd/modules/diagnostics/none.cpp",
+		MAME_DIR .. "src/osd/modules/diagnostics/diagnostics_win32.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/none.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/debugint.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/debugwin.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/debugimgui.cpp",
 		MAME_DIR .. "src/osd/modules/font/font_sdl.cpp",
 		MAME_DIR .. "src/osd/modules/font/font_windows.cpp",
 		MAME_DIR .. "src/osd/modules/font/font_dwrite.cpp",
@@ -155,6 +159,8 @@ function osdmodulesbuild()
 
 	files {
 		MAME_DIR .. "src/osd/modules/render/drawbgfx.cpp",
+		MAME_DIR .. "src/osd/modules/render/aviwrite.cpp",
+		MAME_DIR .. "src/osd/modules/render/aviwrite.h",
 		MAME_DIR .. "src/osd/modules/render/bgfxutil.cpp",
 		MAME_DIR .. "src/osd/modules/render/bgfxutil.h",
 		MAME_DIR .. "src/osd/modules/render/binpacker.cpp",
@@ -288,14 +294,14 @@ function qtdebuggerbuild()
 			MOC = "moc"
 		else
 			if _OPTIONS["QT_HOME"]~=nil then
-				QMAKETST = backtick(_OPTIONS["QT_HOME"] .. "/bin/qmake -qt5 --version 2>/dev/null")
+				QMAKETST = backtick(_OPTIONS["QT_HOME"] .. "/bin/qmake --version 2>/dev/null")
 				if (QMAKETST=='') then
 					print("Qt's Meta Object Compiler (moc) wasn't found!")
 					os.exit(1)
 				end
-				MOC = _OPTIONS["QT_HOME"] .. "/bin/moc -qt5"
+				MOC = _OPTIONS["QT_HOME"] .. "/bin/moc"
 			else
-				MOCTST = backtick("which moc 2>/dev/null")
+				MOCTST = backtick("which moc-qt5 2>/dev/null")
 				if (MOCTST=='') then
 					MOCTST = backtick("which moc 2>/dev/null")
 				end
@@ -303,7 +309,7 @@ function qtdebuggerbuild()
 					print("Qt's Meta Object Compiler (moc) wasn't found!")
 					os.exit(1)
 				end
-				MOC = MOCTST .. " -qt5"
+				MOC = MOCTST
 			end
 		end
 
@@ -324,17 +330,17 @@ function qtdebuggerbuild()
 		if _OPTIONS["targetos"]=="windows" then
 			configuration { "mingw*" }
 				buildoptions {
-					"-I$(shell qmake -qt5 -query QT_INSTALL_HEADERS)",
+					"-I$(shell qmake -query QT_INSTALL_HEADERS)",
 				}
 			configuration { }
 		elseif _OPTIONS["targetos"]=="macosx" then
 			buildoptions {
-				"-F" .. backtick("qmake -qt5 -query QT_INSTALL_LIBS"),
+				"-F" .. backtick("qmake -query QT_INSTALL_LIBS"),
 			}
 		else
 			if _OPTIONS["QT_HOME"]~=nil then
 				buildoptions {
-					"-I" .. backtick(_OPTIONS["QT_HOME"] .. "/bin/qmake -qt5 -query QT_INSTALL_HEADERS"),
+					"-I" .. backtick(_OPTIONS["QT_HOME"] .. "/bin/qmake -query QT_INSTALL_HEADERS"),
 				}
 			else
 				buildoptions {
@@ -386,7 +392,7 @@ function osdmodulestargetconf()
 	if _OPTIONS["USE_QTDEBUG"]=="1" then
 		if _OPTIONS["targetos"]=="windows" then
 			linkoptions {
-				"-L$(shell qmake -qt5 -query QT_INSTALL_LIBS)",
+				"-L$(shell qmake -query QT_INSTALL_LIBS)",
 			}
 			links {
 				"qtmain",
@@ -396,7 +402,7 @@ function osdmodulestargetconf()
 			}
 		elseif _OPTIONS["targetos"]=="macosx" then
 			linkoptions {
-				"-F" .. backtick("qmake -qt5 -query QT_INSTALL_LIBS"),
+				"-F" .. backtick("qmake -query QT_INSTALL_LIBS"),
 			}
 			links {
 				"Qt5Core.framework",
@@ -406,7 +412,7 @@ function osdmodulestargetconf()
 		else
 			if _OPTIONS["QT_HOME"]~=nil then
 				linkoptions {
-					"-L" .. backtick(_OPTIONS["QT_HOME"] .. "/bin/qmake -qt5 -query QT_INSTALL_LIBS"),
+					"-L" .. backtick(_OPTIONS["QT_HOME"] .. "/bin/qmake -query QT_INSTALL_LIBS"),
 				}
 				links {
 					"Qt5Core",
