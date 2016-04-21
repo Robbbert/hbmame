@@ -712,7 +712,7 @@ luabridge::LuaRef lua_engine::l_dev_get_memspaces(const device_t *d)
 	lua_State *L = luaThis->m_lua_state;
 	luabridge::LuaRef sp_table = luabridge::LuaRef::newTable(L);
 
-	if(!&dev->memory())
+	if(!dynamic_cast<device_memory_interface *>(dev))
 		return sp_table;
 
 	for (address_spacenum sp = AS_0; sp < ADDRESS_SPACES; ++sp) {
@@ -735,7 +735,7 @@ luabridge::LuaRef lua_engine::l_dev_get_states(const device_t *d)
 	lua_State *L = luaThis->m_lua_state;
 	luabridge::LuaRef st_table = luabridge::LuaRef::newTable(L);
 
-	if(!&dev->state())
+	if(!dynamic_cast<device_state_interface *>(dev))
 		return st_table;
 
 	for (device_state_entry &s : dev->state().state_entries())
@@ -1772,7 +1772,7 @@ Tout lua_engine::run(const char *env, int ref, Tin in)
 	luabridge::Stack<Tin>::push(m_lua_state, in);
 	run_internal(env, ref);
 	if(lua_isnil(m_lua_state, 1))
-		ret = reinterpret_cast<Tout>(0);
+		ret = Tout(0);
 	else
 		ret = luabridge::Stack<Tout>::get(m_lua_state, 1);
 	lua_pop(m_lua_state, 1);
@@ -1787,7 +1787,7 @@ Tout lua_engine::run(const char *env, int ref)
 	lua_pushnil(m_lua_state);
 	run_internal(env, ref);
 	if(lua_isnil(m_lua_state, 1))
-		ret = reinterpret_cast<Tout>(0);
+		ret = Tout(0);
 	else
 		ret = luabridge::Stack<Tout>::get(m_lua_state, 1);
 	lua_pop(m_lua_state, 1);
