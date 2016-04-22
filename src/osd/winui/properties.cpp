@@ -3268,10 +3268,9 @@ static BOOL DriverHasDevice(const game_driver *gamedrv, iodevice_t type)
 	// allocate the machine config
 	machine_config config(*gamedrv,MameUIGlobal());
 
-	image_interface_iterator iter(config.root_device());
-	for (device_image_interface *dev = iter.first(); dev; dev = iter.next())
+	for (device_image_interface &dev : image_interface_iterator(config.root_device()))
 	{
-		if (dev->image_type() == type)
+		if (dev.image_type() == type)
 		{
 			b = TRUE;
 			break;

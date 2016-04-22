@@ -852,11 +852,11 @@ public:
 			char buffer[1024];
 
 			// if we are in fullscreen mode, go to windowed mode
-			if ((video_config.windowed == 0) && (win_window_list ))
+			if ((video_config.windowed == 0) && !win_window_list.empty())
 				winwindow_toggle_full_screen();
 
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
-			win_message_box_utf8(win_window_list ? win_window_list->platform_window<HWND>() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
+			win_message_box_utf8(!win_window_list.empty() ? win_window_list.front()->platform_window<HWND>() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
 		}
 		else
 			chain_output(channel, msg, args);
@@ -884,32 +884,33 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	time_t start, end;
 	double elapsedtime;
 	int i;
-	windows_options mame_opts;
+	mame_options mame_opts;
+	windows_options global_opts;
 	std::string error_string;
 	// set up MAME options
 //  mame_opts = mame_options_init(mame_win_options);
 
 	// Tell mame were to get the INIs
-	SetDirectories(mame_opts);
+	SetDirectories(global_opts);
 
 	// add image specific device options
-	mame_opts.set_system_name(driver_list::driver(nGameIndex).name);
+	mame_opts.set_system_name(global_opts, driver_list::driver(nGameIndex).name);
 
 	// set any specified play options
 	if (playopts)
 	{
 		if (playopts->record)
-			mame_opts.set_value(OPTION_RECORD, playopts->record, OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_RECORD, playopts->record, OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->playback)
-			mame_opts.set_value(OPTION_PLAYBACK, playopts->playback, OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_PLAYBACK, playopts->playback, OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->state)
-			mame_opts.set_value(OPTION_STATE, playopts->state, OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_STATE, playopts->state, OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->wavwrite)
-			mame_opts.set_value(OPTION_WAVWRITE, playopts->wavwrite, OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_WAVWRITE, playopts->wavwrite, OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->mngwrite)
-			mame_opts.set_value(OPTION_MNGWRITE, playopts->mngwrite, OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_MNGWRITE, playopts->mngwrite, OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->aviwrite)
-			mame_opts.set_value(OPTION_AVIWRITE, playopts->aviwrite, OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_AVIWRITE, playopts->aviwrite, OPTION_PRIORITY_CMDLINE,error_string);
 	}
 
 	// Mame will parse all the needed .ini files.
@@ -923,12 +924,12 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	// run the emulation
 	// Time the game run.
 	time(&start);
-	windows_osd_interface osd(mame_opts);
+	windows_osd_interface osd(global_opts);
 	// output errors to message boxes
 	mameui_output_error winerror;
 	osd_output::push(&winerror);
 	osd.register_options();
-	machine_manager *manager = machine_manager::instance(mame_opts, osd);
+	machine_manager *manager = machine_manager::instance(global_opts, osd);
 	manager->execute();
 	osd_output::pop(&winerror);
 	global_free(manager);
@@ -942,18 +943,18 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	if (playopts)
 	{
 		if (playopts->record)
-			mame_opts.set_value(OPTION_RECORD, "", OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_RECORD, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->playback)
-			mame_opts.set_value(OPTION_PLAYBACK, "", OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_PLAYBACK, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->state)
-			mame_opts.set_value(OPTION_STATE, "", OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_STATE, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->wavwrite)
-			mame_opts.set_value(OPTION_WAVWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_WAVWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->mngwrite)
-			mame_opts.set_value(OPTION_MNGWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+			global_opts.set_value(OPTION_MNGWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->aviwrite)
-			mame_opts.set_value(OPTION_AVIWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
-		save_options(mame_opts, nGameIndex);
+			global_opts.set_value(OPTION_AVIWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+		save_options(global_opts, nGameIndex);
 	}
 	// the emulation is complete; continue
 	for (i = 0; i < ARRAY_LENGTH(s_nPickers); i++)

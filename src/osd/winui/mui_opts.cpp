@@ -201,6 +201,7 @@ static void ResetToDefaults(windows_options &opts, int priority);
     Internal variables
  ***************************************************************************/
 
+static mame_options mameopts; // something Micko made up
 static ui_options mewui; // ui.ini
 static winui_options settings; // mameui.ini
 
@@ -2637,7 +2638,7 @@ void MessSetupSettings(winui_options &settings)
 void MessSetupGameOptions(windows_options &opts, int driver_index)
 {
 	if (driver_index >= 0)
-		opts.set_system_name(driver_list::driver(driver_index).name);
+		mameopts.set_system_name(opts, driver_list::driver(driver_index).name);
 }
 
 void SetSWListColumnOrder(int order[])

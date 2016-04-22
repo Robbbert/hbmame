@@ -482,7 +482,7 @@ ROM_START( ctomadaypx )
 ROM_END
 
 
-ROM_START( dragonsh1 )
+ROM_START( dragons1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "336.p1", 0x000000, 0x080000, CRC(f25c71ad) SHA1(803fb6cd6a7ada59678ad901ff9788b1e54ddd0c) )
 	ROM_LOAD16_BYTE( "336.p2", 0x000001, 0x080000, CRC(f353448c) SHA1(f0f966ca15d503e01b40e901765ff0888463b65d) )
@@ -2130,7 +2130,7 @@ GAME( 1991, burningfhp,    burningf, neogeo_noslot, neogeo, neogeo_state,       
 
 GAME( 1999, ctomadaypx,    ctomaday, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Captain Tomaday (Plus Max hack by Xyahzhs)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1997?,dragonsh1,     neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Face?", "Dragon's Heaven (prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, dragons1,      neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Face", "Dragon's Heaven", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1993, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Fatal Fury Special / Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )

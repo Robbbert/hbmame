@@ -907,7 +907,6 @@ void CreateCPUFolders(int parent_index)
 		machine_config config(driver_list::driver(i),MameUIGlobal());
 
 		// enumerate through all devices
-		execute_interface_iterator iter(config.root_device());
 		for (device_execute_interface &device : execute_interface_iterator(config.root_device()))
 		{
 			// get the name
@@ -956,7 +955,6 @@ void CreateSoundFolders(int parent_index)
 
 		// enumerate through all devices
 
-		sound_interface_iterator iter(config.root_device());
 		for (device_sound_interface &device : sound_interface_iterator(config.root_device()))
 		{
 			// get the name
