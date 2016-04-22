@@ -38,7 +38,7 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
-#include "emuopts.h"
+#include "mameopts.h"
 #include "unzip.h"
 #include "winutf8.h"
 #include "strconv.h"
