@@ -181,10 +181,10 @@ ROM_END
 
 ROM_START( whph )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "090ph.p1", 0x100000, 0x100000, CRC(9bd000f2) SHA1(3f3b2cc47a0ef33f2b8e7ba6e6e81ebdff39a54b) )
+	ROM_LOAD16_WORD_SWAP( "090h.p1", 0x100000, 0x100000, CRC(9bd000f2) SHA1(3f3b2cc47a0ef33f2b8e7ba6e6e81ebdff39a54b) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
-	NEO_SFIX_128K( "090ph.s1", CRC(f2de6500) SHA1(5acc7746394724903b0fd3d4b5acf5bab355c9f4) )
+	NEO_SFIX_128K( "090bh.s1", CRC(f2de6500) SHA1(5acc7746394724903b0fd3d4b5acf5bab355c9f4) )
 
 	NEO_BIOS_AUDIO_128K( "090-m1.m1", CRC(28065668) SHA1(0c60d4afa1dccad0135e733104f056be73b54e4e) )
 
@@ -202,6 +202,127 @@ ROM_START( whph )
 	ROM_LOAD16_BYTE( "064-c6.c6", 0x1000001, 0x200000, CRC(a43e4766) SHA1(54f282f2b1ff2934cca7acbb4386a2b99a29df3a) )
 	ROM_LOAD16_BYTE( "064-c7.c7", 0x1800000, 0x200000, CRC(59d97215) SHA1(85a960dc7f364df13ee0c2f99a4c53aefb081486) )
 	ROM_LOAD16_BYTE( "064-c8.c8", 0x1800001, 0x200000, CRC(fc092367) SHA1(69ff4ae909dd857de3ca8645d63f8b4bde117448) )
+ROM_END
+
+ROM_START( whphez )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "090hez.p1", 0x100000, 0x100000, CRC(d1b90868) SHA1(344fdcac65adafbf086f6ecef0fcda5a8dc03169) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "090bh.s1", CRC(f2de6500) SHA1(5acc7746394724903b0fd3d4b5acf5bab355c9f4) )
+
+	NEO_BIOS_AUDIO_128K( "090-m1.m1", CRC(28065668) SHA1(0c60d4afa1dccad0135e733104f056be73b54e4e) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "090-v1.v1", 0x000000, 0x200000, CRC(30cf2709) SHA1(d1845033f16de2470afd3858ee0efb45176d9ed7) )
+	ROM_LOAD( "064-v2.v2", 0x200000, 0x200000, CRC(b6527edd) SHA1(2bcf5bfa6e117cf4a3728a5e5f5771313c93f22a) )
+	ROM_LOAD( "090-v3.v3", 0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "090-c1.c1", 0x0000000, 0x400000, CRC(cd30ed9b) SHA1(839c20f7ff31251acc875ae402b5d267e55510c7) )
+	ROM_LOAD16_BYTE( "090-c2.c2", 0x0000001, 0x400000, CRC(10eed5ee) SHA1(12131b1c8c017ea77a98c044b392a5db6aad0143) )
+	ROM_LOAD16_BYTE( "064-c3.c3", 0x0800000, 0x200000, CRC(436d1b31) SHA1(059776d77b91377ed0bcfc278802d659c917fc0f) )
+	ROM_LOAD16_BYTE( "064-c4.c4", 0x0800001, 0x200000, CRC(f9c8dd26) SHA1(25a9eea1d49b21b4a988beb32c25bf2f7796f227) )
+	ROM_LOAD16_BYTE( "064-c5.c5", 0x1000000, 0x200000, CRC(8e34a9f4) SHA1(67b839b426ef3fad0a85d951fdd44c0a45c55226) )
+	ROM_LOAD16_BYTE( "064-c6.c6", 0x1000001, 0x200000, CRC(a43e4766) SHA1(54f282f2b1ff2934cca7acbb4386a2b99a29df3a) )
+	ROM_LOAD16_BYTE( "064-c7.c7", 0x1800000, 0x200000, CRC(59d97215) SHA1(85a960dc7f364df13ee0c2f99a4c53aefb081486) )
+	ROM_LOAD16_BYTE( "064-c8.c8", 0x1800001, 0x200000, CRC(fc092367) SHA1(69ff4ae909dd857de3ca8645d63f8b4bde117448) )
+ROM_END
+
+ROM_START( whpsp )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "090sp.p1", 0x100000, 0x100000, CRC(e7ea5216) SHA1(7383ecb99249ad3e56faecd033cfeeee498c2f9b) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "090bh.s1", CRC(f2de6500) SHA1(5acc7746394724903b0fd3d4b5acf5bab355c9f4) )
+
+	NEO_BIOS_AUDIO_128K( "090-m1.m1", CRC(28065668) SHA1(0c60d4afa1dccad0135e733104f056be73b54e4e) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "090-v1.v1", 0x000000, 0x200000, CRC(30cf2709) SHA1(d1845033f16de2470afd3858ee0efb45176d9ed7) )
+	ROM_LOAD( "064-v2.v2", 0x200000, 0x200000, CRC(b6527edd) SHA1(2bcf5bfa6e117cf4a3728a5e5f5771313c93f22a) )
+	ROM_LOAD( "090-v3.v3", 0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "090-c1.c1", 0x0000000, 0x400000, CRC(cd30ed9b) SHA1(839c20f7ff31251acc875ae402b5d267e55510c7) )
+	ROM_LOAD16_BYTE( "090-c2.c2", 0x0000001, 0x400000, CRC(10eed5ee) SHA1(12131b1c8c017ea77a98c044b392a5db6aad0143) )
+	ROM_LOAD16_BYTE( "064-c3.c3", 0x0800000, 0x200000, CRC(436d1b31) SHA1(059776d77b91377ed0bcfc278802d659c917fc0f) )
+	ROM_LOAD16_BYTE( "064-c4.c4", 0x0800001, 0x200000, CRC(f9c8dd26) SHA1(25a9eea1d49b21b4a988beb32c25bf2f7796f227) )
+	ROM_LOAD16_BYTE( "064-c5.c5", 0x1000000, 0x200000, CRC(8e34a9f4) SHA1(67b839b426ef3fad0a85d951fdd44c0a45c55226) )
+	ROM_LOAD16_BYTE( "064-c6.c6", 0x1000001, 0x200000, CRC(a43e4766) SHA1(54f282f2b1ff2934cca7acbb4386a2b99a29df3a) )
+	ROM_LOAD16_BYTE( "064-c7.c7", 0x1800000, 0x200000, CRC(59d97215) SHA1(85a960dc7f364df13ee0c2f99a4c53aefb081486) )
+	ROM_LOAD16_BYTE( "064-c8.c8", 0x1800001, 0x200000, CRC(fc092367) SHA1(69ff4ae909dd857de3ca8645d63f8b4bde117448) )
+ROM_END
+
+ROM_START( whpss )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "090ss.p1", 0x100000, 0x100000, CRC(9c1a79d5) SHA1(13f924cf08d17205e10c282a9555d03a9e355112) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "090-s1.s1", CRC(174a880f) SHA1(c35d315d728d119a6e9aa42e0593937c90897449) )
+
+	NEO_BIOS_AUDIO_128K( "090-m1.m1", CRC(28065668) SHA1(0c60d4afa1dccad0135e733104f056be73b54e4e) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "090-v1.v1", 0x000000, 0x200000, CRC(30cf2709) SHA1(d1845033f16de2470afd3858ee0efb45176d9ed7) )
+	ROM_LOAD( "064-v2.v2", 0x200000, 0x200000, CRC(b6527edd) SHA1(2bcf5bfa6e117cf4a3728a5e5f5771313c93f22a) )
+	ROM_LOAD( "090-v3.v3", 0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "090ss.c1",  0x0000000, 0x400000, CRC(a56ebf84) SHA1(664bda43b529934a4594a205e578044acface2be) )
+	ROM_LOAD16_BYTE( "090ss.c2",  0x0000001, 0x400000, CRC(6d589146) SHA1(d24687310611ce4d61dd2e2743258d9ca8855c03) )
+	ROM_LOAD16_BYTE( "064-c3.c3", 0x0800000, 0x200000, CRC(436d1b31) SHA1(059776d77b91377ed0bcfc278802d659c917fc0f) )
+	ROM_LOAD16_BYTE( "064-c4.c4", 0x0800001, 0x200000, CRC(f9c8dd26) SHA1(25a9eea1d49b21b4a988beb32c25bf2f7796f227) )
+	ROM_LOAD16_BYTE( "064-c5.c5", 0x1000000, 0x200000, CRC(8e34a9f4) SHA1(67b839b426ef3fad0a85d951fdd44c0a45c55226) )
+	ROM_LOAD16_BYTE( "064-c6.c6", 0x1000001, 0x200000, CRC(a43e4766) SHA1(54f282f2b1ff2934cca7acbb4386a2b99a29df3a) )
+	ROM_LOAD16_BYTE( "064-c7.c7", 0x1800000, 0x200000, CRC(59d97215) SHA1(85a960dc7f364df13ee0c2f99a4c53aefb081486) )
+	ROM_LOAD16_BYTE( "064-c8.c8", 0x1800001, 0x200000, CRC(fc092367) SHA1(69ff4ae909dd857de3ca8645d63f8b4bde117448) )
+ROM_END
+
+
+ROM_START( wh1bs )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "053bs.p1",  0x000000, 0x080000, CRC(222ef9ea) SHA1(81bdded4fc61b321afc8ec050d192e4384d129cf) )
+	ROM_LOAD16_WORD_SWAP( "053-p2.p2", 0x080000, 0x080000, CRC(f198ed45) SHA1(24ccc091e97f63796562bb5b30df51f39bd504ef) )
+
+	NEO_SFIX_128K( "053-s1.s1", CRC(8c2c2d6b) SHA1(87fa79611c6f8886dcc8766814829c669c65b40f) )
+
+	NEO_BIOS_AUDIO_128K( "053-m1.m1", CRC(1bd9d04b) SHA1(65cd7b002123ed1a3111e3d942608d0082799ff3) )
+
+	ROM_REGION( 0x300000, "ymsnd", 0 )
+	ROM_LOAD( "053-v2.v2", 0x000000, 0x200000, CRC(a68df485) SHA1(007fa715423fba72c899cd3db3f4bec13281cf7a) )
+	ROM_LOAD( "053-v4.v4", 0x200000, 0x100000, CRC(7bea8f66) SHA1(428e8721bd87f7faa756adb1e12672219be46c1d) )
+
+	ROM_REGION( 0x600000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "053-c1.c1", 0x000000, 0x100000, CRC(85eb5bce) SHA1(3d03d29296ca6e6b5106aac4aaeec9d4b4ed1313) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "053-c2.c2", 0x000001, 0x100000, CRC(ec93b048) SHA1(d4159210df94e259f874a4671d271ec27be13451) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "053-c3.c3", 0x200000, 0x100000, CRC(0dd64965) SHA1(e97b3b8a461da5e8861b3dfdacb25e007ced37a1) )
+	ROM_LOAD16_BYTE( "053-c4.c4", 0x200001, 0x100000, CRC(9270d954) SHA1(a2ef909868f6b06cdcc22a63ddf6c96be12b999c) )
+ROM_END
+
+
+ROM_START( wh2bs )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "057bs.p1", 0x100000, 0x100000, CRC(6e6a0077) SHA1(a0a0eca1aff5dec55f863b1cb1f67bbe4ac3530a) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "057-s1.s1", CRC(fcaeb3a4) SHA1(1f3f85e38b8552333261c04ae5af0d6e3b310622) )
+
+	NEO_BIOS_AUDIO_128K( "057-m1.m1", CRC(8fa3bc77) SHA1(982f92978671e4ee66630948e6bb7565b37b5dc0) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "057-v1.v1", 0x000000, 0x200000, CRC(8877e301) SHA1(1bab988d74ea8fd12db201c257ec844622cf5f4e) )
+	ROM_LOAD( "057-v2.v2", 0x200000, 0x200000, CRC(c1317ff4) SHA1(4c28b2b5998abaeaa5143f2f3a9ba52c6041f4f3) )
+
+	ROM_REGION( 0xc00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "057-c1.c1", 0x000000, 0x200000, CRC(21c6bb91) SHA1(a2c17d0c91dd59528d8fa7fe110af8b20b25ff99) )
+	ROM_LOAD16_BYTE( "057-c2.c2", 0x000001, 0x200000, CRC(a3999925) SHA1(0ee861a77850d378d03c1bf00b9692abd860c759) )
+	ROM_LOAD16_BYTE( "057-c3.c3", 0x400000, 0x200000, CRC(b725a219) SHA1(4857687d156a9150a69b97d2729245a51c144a0c) )
+	ROM_LOAD16_BYTE( "057-c4.c4", 0x400001, 0x200000, CRC(8d96425e) SHA1(0f79c868a6a33ad25e38d842f30ec4440d809033) )
+	ROM_LOAD16_BYTE( "057-c5.c5", 0x800000, 0x200000, CRC(b20354af) SHA1(da7609fd467f2f4d71d92970f438a04d11ab1cc1) )
+	ROM_LOAD16_BYTE( "057-c6.c6", 0x800001, 0x200000, CRC(b13d1de3) SHA1(7d749c23a33d90fe50279e884540d71cf1aaaa6b) )
 ROM_END
 
 ROM_START( wh2ey )
@@ -246,16 +367,47 @@ ROM_START( wh2ja ) // World Heroes 2 Jet old set that was in MAME
 	ROM_LOAD16_BYTE( "064a-c68.c4", 0x800001, 0x400000, CRC(6e385398) SHA1(e74a0e72876bff8766152b76e5d94f2958b03cf2) )
 ROM_END
 
+ROM_START( wh2jb )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "064b.p1", 0x100000, 0x100000, CRC(80ce9674) SHA1(ca081af472a114a3ac0c54b1fd21fe565a45ff22) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "064-s1.s1", CRC(2a03998a) SHA1(5e33f469982f12d4622a06d323a345f192bf88e6) )
+
+	NEO_BIOS_AUDIO_128K( "064-m1.m1", CRC(d2eec9d3) SHA1(09478787045f1448d19d064dd3d540d1741fd619) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "064-v1.v1", 0x000000, 0x200000, CRC(aa277109) SHA1(35c22b15bb0a4d0ab118cb22a2d450d03995a17c) )
+	ROM_LOAD( "064-v2.v2", 0x200000, 0x200000, CRC(b6527edd) SHA1(2bcf5bfa6e117cf4a3728a5e5f5771313c93f22a) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "064-c1.c1", 0x000000, 0x200000, CRC(2ec87cea) SHA1(e713ec7839a7665edee6ee3f82a6e530b3b4bd7c) )
+	ROM_LOAD16_BYTE( "064-c2.c2", 0x000001, 0x200000, CRC(526b81ab) SHA1(b5f0a2f04489539ed6b9d0810b12787356c64b23) )
+	ROM_LOAD16_BYTE( "064-c3.c3", 0x400000, 0x200000, CRC(436d1b31) SHA1(059776d77b91377ed0bcfc278802d659c917fc0f) )
+	ROM_LOAD16_BYTE( "064-c4.c4", 0x400001, 0x200000, CRC(f9c8dd26) SHA1(25a9eea1d49b21b4a988beb32c25bf2f7796f227) )
+	ROM_LOAD16_BYTE( "064-c5.c5", 0x800000, 0x200000, CRC(8e34a9f4) SHA1(67b839b426ef3fad0a85d951fdd44c0a45c55226) )
+	ROM_LOAD16_BYTE( "064-c6.c6", 0x800001, 0x200000, CRC(a43e4766) SHA1(54f282f2b1ff2934cca7acbb4386a2b99a29df3a) )
+	ROM_LOAD16_BYTE( "064-c7.c7", 0xc00000, 0x200000, CRC(59d97215) SHA1(85a960dc7f364df13ee0c2f99a4c53aefb081486) )
+	ROM_LOAD16_BYTE( "064-c8.c8", 0xc00001, 0x200000, CRC(fc092367) SHA1(69ff4ae909dd857de3ca8645d63f8b4bde117448) )
+ROM_END
 
 
-GAME( 1995, whpb,      whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Dodowang", "World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
-GAME( 1995, whpb2,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Dodowang", "World Heroes Perfect (Add Char - 2 with Icons)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
-GAME( 1995, whpbh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Add Char - All with Icons)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
-GAME( 1995, whpbho,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Add Char - Older - Has bug)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
-GAME( 1995, whpbho2,   whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Dodowang", "World Heroes Perfect (Add Char - Old - BugFix)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
-GAME( 1995, whpeh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang and Fighters Kim", "World Heroes Perfect (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
-GAME( 1995, whpeho,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang and Fighters Kim", "World Heroes Perfect (Add Char - Pow hack - Old)", MACHINE_SUPPORTS_SAVE ) // Gokuu, Neo-Dio and Zeus
+
+GAME( 1995, whpb,      whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Dodowang", "World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpb2,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Dodowang", "World Heroes Perfect (Add Char - 2 with Icons)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpbh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Add Char - All with Icons)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpbho,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Add Char - Older - Has bug)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpbho2,   whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Dodowang", "World Heroes Perfect (Add Char - Old - BugFix)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpeh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang and Fighters Kim", "World Heroes Perfect (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpeho,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang and Fighters Kim", "World Heroes Perfect (Add Char - Pow hack - Old)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, whph,      whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "hack", "World Heroes Perfect (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whphez,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Zeng_K", "World Heroes Perfect (Boss hack by Zeng_K)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpsp,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Yashional", "World Heroes Perfect (Special Boss hack by Yashional)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, whpss,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Eddids", "World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 2007-12-25)", MACHINE_SUPPORTS_SAVE )
 
+GAME( 1992, wh1bs,     wh1,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Yumeji", "World Heroes (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+
+GAME( 1993, wh2bs,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Yumeji", "World Heroes 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, wh2ey,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (ADM-007)(ADH-007)(old set)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wh2jb,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "0days", "World Heroes 2 Jet (Boss hack by 0days (EGCG))", MACHINE_SUPPORTS_SAVE )

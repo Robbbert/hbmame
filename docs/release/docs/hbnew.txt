@@ -41,6 +41,13 @@ New Games
 - [ssidekicd]       Super Sidekicks / Tokuten Ou (CD conversion)
 - [superspycd]      The Super Spy (CD conversion)
 - [trallycd]        Thrash Rally (CD conversion)
+- [wh1bs]           World Heroes (Boss hack by Yumeji)
+- [wh2bs]           World Heroes 2 (Boss hack by Yumeji)
+- [wh2jb]           World Heroes 2 Jet (Boss hack by 0days (EGCG))
+- [whphez]          World Heroes Perfect (Boss hack by Zeng_K)
+- [whpsp]           World Heroes Perfect (Special Boss hack by Yashional)
+- [whpss]           World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 12/25/07)
+- [wjammersf]       Windjammers (French v0.1 beta by Elrayzeur)
 - [zintrckbh]       Zintrick hack [by Yumeji]
 
 

@@ -2066,6 +2066,27 @@ ROM_START( wakuwak7h )
 ROM_END
 
 
+ROM_START( wjammersf )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "065f.p1", 0x000000, 0x100000, CRC(a458cc18) SHA1(0d476edef593c4fa6f50ec4457f69629b2be37e7) )
+
+	NEO_SFIX_128K( "065-s1.s1", CRC(074b5723) SHA1(86d3b3bb5414f43e4d3b7a2af0db23cc71ce8412) )
+
+	NEO_BIOS_AUDIO_128K( "065-m1.m1", CRC(52c23cfc) SHA1(809a7e072ad9acbffc25e9bd27cdb97638d09d07) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "065-v1.v1", 0x000000, 0x100000, CRC(ce8b3698) SHA1(7d75e2a5cf8c90be422f8b425447e81597fe145a) )
+	ROM_LOAD( "065-v2.v2", 0x100000, 0x100000, CRC(659f9b96) SHA1(62f40365212153bc3b92a1187fa44f6cdc7f7b83) )
+	ROM_LOAD( "065-v3.v3", 0x200000, 0x100000, CRC(39f73061) SHA1(ec57cd58e7f8569cff925d11e2320d588ce4fe49) )
+	ROM_LOAD( "065-v4.v4", 0x300000, 0x100000, CRC(5dee7963) SHA1(f8e6de73d65dd80b29c711f00835a574a770cb4e) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "065-c1.c1", 0x000000, 0x100000, CRC(c7650204) SHA1(42918d700d59864f8ab15caf968a062a563c9b09) )
+	ROM_LOAD16_BYTE( "065-c2.c2", 0x000001, 0x100000, CRC(d9f3e71d) SHA1(fad1f64061eac1bf85bf6d75d2eae974a8c94069) )
+	ROM_LOAD16_BYTE( "065-c3.c3", 0x200000, 0x100000, CRC(40986386) SHA1(65795a50197049681265946713d416c9cdb68f08) )
+	ROM_LOAD16_BYTE( "065-c4.c4", 0x200001, 0x100000, CRC(715e15ff) SHA1(ac8b8b01f5c7384b883afbe0cf977430378e3fef) )
+ROM_END
+
 ROM_START( wjammersk )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "065-p1.p1", 0x000000, 0x100000, CRC(6692c140) SHA1(5da574e906974fac92bb2f49bdeea257c014a897) )
@@ -2236,6 +2257,7 @@ GAME( 1992, viewpointr,    viewpoin, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1996, wakuwak7bh,    wakuwak7, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Waku Waku 7 (Add Char - 2 players only)", MACHINE_SUPPORTS_SAVE ) // Fernandez and Bonus Kun
 GAME( 1996, wakuwak7h,     wakuwak7, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Waku Waku 7 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1994, wjammersk,     wjammers, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Windjammers / Flying Power Disc (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wjammersf,     wjammers, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Elrayzeur", "Windjammers (French v0.1 beta by Elrayzeur)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wjammersk,     wjammers, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Aneue Bannzai", "Windjammers (Korean hack by Aneue Bannzai)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2001, zupapad,       zupapa,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Zupapa! (custom decrypted C)", MACHINE_SUPPORTS_SAVE )
