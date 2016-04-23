@@ -1555,7 +1555,10 @@ sengoku		// 017
 sengoku2	// 040
 sengoku3	// 261
 shocktr2	// 246
+shocktro	// 238
 socbrawl	// 031
+sonicwi2	// 075
+sonicwi3	// 097
 spinmast	// 062
 ssideki     // 052
 strhoop		// 079
@@ -1900,7 +1903,10 @@ samsh5spd
 samsh5spd1
 samsh5spd2
 samsh5sphd
+samsh5spn
 samsh5spnd
+samsh5spnh3
+samsh5spnzk
 
 	/* ngsengoku */
 sengokucd

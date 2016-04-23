@@ -38,6 +38,9 @@ New Games
 - [pbcrazyb2]       Puzzle Bobble Crazy beta 2 [by Elrayzeur]
 - [poknightcd]      Poker Night (CD conversion)
 - [poknightfr]      Poker Night (French)
+- [samsh5spn]       Samurai Shodown V Special / Samurai Spirits Zero Special (fully decrypted)
+- [samsh5spnh3]     Samurai Shodown V Special / Samurai Spirits Zero Special (Enhanced Blood v3.0 hack by Eddids, Snk2003)
+- [samsh5spnzk]     Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 23/10/08)
 - [ssidekicd]       Super Sidekicks / Tokuten Ou (CD conversion)
 - [superspycd]      The Super Spy (CD conversion)
 - [tophuntrpx]      Top Hunter - Roddy & Cathy (Plus Max hack by Xyahzhs)
