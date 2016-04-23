@@ -38,6 +38,10 @@ New Games
 - [pbcrazyb2]       Puzzle Bobble Crazy beta 2 [by Elrayzeur]
 - [poknightcd]      Poker Night (CD conversion)
 - [poknightfr]      Poker Night (French)
+- [samsh5sph]       Samurai Shodown V Special / Samurai Spirits Zero Special (Bloodlust hack)
+- [samsh5spha]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 1 hack by Wesker)
+- [samsh5sphb]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 2 hack by Wesker)
+- [samsh5sphc]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 3 hack by Wesker)
 - [samsh5spn]       Samurai Shodown V Special / Samurai Spirits Zero Special (fully decrypted)
 - [samsh5spnh3]     Samurai Shodown V Special / Samurai Spirits Zero Special (Enhanced Blood v3.0 hack by Eddids, Snk2003)
 - [samsh5spnzk]     Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 23/10/08)
