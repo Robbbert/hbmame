@@ -1562,8 +1562,10 @@ strhoop		// 079
 superspy	// 011
 svc			// 269
 svcpcb
+tophuntr	// 046
 tpgolf		// 003
 trally		// 038
+twinspri	// 224
 viewpoin	// 051
 wakuwak7	// 225
 wh1			// 053
@@ -1731,8 +1733,11 @@ spinmasth
 ssidekicd
 strhoopcd
 superspycd
+tophuntrpx
 tpgolfcd
 trallycd
+twinsprih
+viewpoinf
 viewpointr
 wakuwak7bh
 wakuwak7h

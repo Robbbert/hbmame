@@ -1958,6 +1958,33 @@ ROM_START( superspycd )
 ROM_END
 
 
+ROM_START( tophuntrpx )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "046px.p1",   0x000000, 0x100000, CRC(949dbb78) SHA1(fb005e60ff693c6656e33cd0641c7300826a6b54) )
+	ROM_LOAD16_WORD_SWAP( "046-p2.sp2", 0x100000, 0x100000, CRC(f182cb3e) SHA1(6b4e0af5d4e623f0682f37ff5c69e5b705e20028) )
+
+	NEO_SFIX_128K( "046-s1.s1", CRC(14b01d7b) SHA1(618ce75c25d6cc86a3b46bd64a0aa34ab82f75ae) )
+
+	NEO_BIOS_AUDIO_128K( "046-m1.m1", CRC(3f84bb9f) SHA1(07446040871d11da3c2217ee9d1faf8c3cae7420) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "046-v1.v1", 0x000000, 0x100000, CRC(c1f9c2db) SHA1(bed95a76afefa46503a12e0f0a9787c4c967ac50) )
+	ROM_LOAD( "046-v2.v2", 0x100000, 0x100000, CRC(56254a64) SHA1(1cf049cb4c414419859d2c8ee714317a35a85251) )
+	ROM_LOAD( "046-v3.v3", 0x200000, 0x100000, CRC(58113fb1) SHA1(40972982a63c7adecef840f9882f4165da723ab6) )
+	ROM_LOAD( "046-v4.v4", 0x300000, 0x100000, CRC(4f54c187) SHA1(63a76949301b83bdd44aa1a4462f642ab9ca3c0b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "046-c1.c1", 0x000000, 0x100000, CRC(fa720a4a) SHA1(364913b9fa40d46e4e39ae3cdae914cfd0de137d) )
+	ROM_LOAD16_BYTE( "046-c2.c2", 0x000001, 0x100000, CRC(c900c205) SHA1(50274e79aa26f334eb806288688b30720bade883) )
+	ROM_LOAD16_BYTE( "046-c3.c3", 0x200000, 0x100000, CRC(880e3c25) SHA1(b6974af0c833b766866919b6f15b6f8cef82530d) )
+	ROM_LOAD16_BYTE( "046-c4.c4", 0x200001, 0x100000, CRC(7a2248aa) SHA1(8af0b26025a54e3b91604dd24a3c1c518fbd8536) )
+	ROM_LOAD16_BYTE( "046-c5.c5", 0x400000, 0x100000, CRC(4b735e45) SHA1(2f8b46388c4696aee6a97e1e21cdadf6b142b01a) )
+	ROM_LOAD16_BYTE( "046-c6.c6", 0x400001, 0x100000, CRC(273171df) SHA1(9c35832221e016c12ef1ed71da167f565daaf86c) )
+	ROM_LOAD16_BYTE( "046-c7.c7", 0x600000, 0x100000, CRC(12829c4c) SHA1(ac5f3d848d7116fc35c97f53a72c85e049dd3a2f) )
+	ROM_LOAD16_BYTE( "046-c8.c8", 0x600001, 0x100000, CRC(c944e03d) SHA1(be23999b8ce09ee15ba500ce4d5e2a82a4f58d9b) )
+ROM_END
+
+
 ROM_START( tpgolfcd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "003cd.p1",  0x000000, 0x100000, CRC(87f2a8ce) SHA1(ad903d7711ac4af47f1dee64ba7c6bb247029407) )
@@ -2000,6 +2027,46 @@ ROM_START( trallycd ) // title screen is corrupt
 	ROM_LOAD16_BYTE( "038-c4.c4", 0x200001, 0x080000, CRC(a4513ecf) SHA1(934aa103c226eac55157b44d7b4dfa35515322c3) )
 ROM_END
 
+
+ROM_START( twinsprih )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "224h.p1", 0x100000, 0x100000, CRC(df71c8cd) SHA1(1e49205b46c59c7f4ca6ee1dc06f555320d3b9af) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "224-s1.s1", CRC(eeed5758) SHA1(24e48f396716e145b692468762cf595fb7267873) )
+
+	NEO_BIOS_AUDIO_128K( "224-m1.m1", CRC(364d6f96) SHA1(779b95a6476089b71f48c8368d9043ee1dba9032) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "224-v1.v1", 0x000000, 0x400000, CRC(ff57f088) SHA1(1641989b8aac899dbd68aa2332bcdf9b90b33564) )
+	ROM_LOAD( "224-v2.v2", 0x400000, 0x200000, CRC(7ad26599) SHA1(822030037b7664795bf3d64e1452d0aecc22497e) )
+
+	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "224-c1.c1", 0x000000, 0x400000, CRC(f7da64ab) SHA1(587a10ed9235c9046a3523fe80feba07764fac9b) )
+	ROM_LOAD16_BYTE( "224-c2.c2", 0x000001, 0x400000, CRC(4c09bbfb) SHA1(e781aafba3bdefb7ed152826f4c3eb441735331c) )
+	ROM_LOAD16_BYTE( "224-c3.c3", 0x800000, 0x100000, CRC(c59e4129) SHA1(93f02d1b4fbb152a9d336494fbff0d7642921de5) )
+	ROM_LOAD16_BYTE( "224-c4.c4", 0x800001, 0x100000, CRC(b5532e53) SHA1(7d896c25ba97f6e5d43c13d4df4ba72964a976ed) )
+ROM_END
+
+
+ROM_START( viewpoinf )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "051f.p1", 0x000000, 0x100000, CRC(d28c99ef) SHA1(c603ae8ad4a80fa3921016cd294a61a60cc37923) )
+
+	NEO_SFIX_64K( "051tr.s1", CRC(6d0f146a) SHA1(537fc5ef099f46fef64d147c0d1264b319758b4f) )
+
+	NEO_BIOS_AUDIO_64K( "051tr.m1", CRC(d57bd7af) SHA1(9ed766dbc3c07dbba7869ff335eeb7e297c8e2d9) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "051-v2.v1", 0x000000, 0x200000, CRC(019978b6) SHA1(7896a551115fc6ed38b5944e0c8dcb2b2c1c077d) )
+	ROM_LOAD( "051-v4.v2", 0x200000, 0x200000, CRC(5758f38c) SHA1(da10f4b7d22d9139bbf068bd940be82168a74ca1) )
+
+	ROM_REGION( 0x600000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "051-c1.c1", 0x000000, 0x100000, CRC(d624c132) SHA1(49c7e9f020cba45d7083b45252bcc03397f8c286) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "051-c2.c2", 0x000001, 0x100000, CRC(40d69f1e) SHA1(ec4a13582772594957f927622d50f54b0dfcd8d8) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+ROM_END
 
 ROM_START( viewpointr ) /* Viewpoint - Hack by KiWi Starlight - (Unlimited lives and mega-bombs for p1 and p2) */
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -2249,9 +2316,12 @@ GAME( 1992, ssidekicd,     ssideki,  neogeo_noslot, neogeo, neogeo_noslot_state,
 GAME( 1994, strhoopcd,     strhoop,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Street Hoop (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, superspycd,    superspy, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "The Super Spy (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
+GAME( 1994, tophuntrpx,    tophuntr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Top Hunter - Roddy & Cathy (Plus Max hack by Xyahzhs)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, tpgolfcd,      tpgolf,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Thrash Rally (CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1996, twinsprih,     twinspri, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Twinkle Star Sprites (ExChar hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 
+GAME( 1992, viewpoinf,     viewpoin, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SHYMA.X", "Viewpoint (French by NEOARC Team)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, viewpointr,    viewpoin, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "KiWi Starlight", "Viewpoint Enhanced", MACHINE_SUPPORTS_SAVE ) // Unlimited lives and mega-bombs for p1 and p2
 
 GAME( 1996, wakuwak7bh,    wakuwak7, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Waku Waku 7 (Add Char - 2 players only)", MACHINE_SUPPORTS_SAVE ) // Fernandez and Bonus Kun
