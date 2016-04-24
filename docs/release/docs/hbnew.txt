@@ -30,6 +30,9 @@ New Games
 - [ct2k3ys]         Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)
 - [ctomadaypx]      Captain Tomaday (Plus Max hack by Xyahzhs)
 - [dti]             Duck Tales Intro [Raregame]
+- [doubledre2]      Double Dragon Q (Boss hack Easy Special Attacks)
+- [doubledres]      Double Dragon (Boss hack Easy Special Attacks)
+- [doubledrhp]      Double Dragon (Boss Hack Perfect Edition hack by Blackheart 19/09/09)
 - [eightmaneb]      Eight Man (Enhanced Version hack by Blackheart 22/08/09)
 - [ennemi]          Neogeo demo [by Kannagi]
 - [fatfury2b]       Fatal Fury 2 (Boss hack by Yumeji)
@@ -44,6 +47,7 @@ New Games
 - [pbcrazyb2]       Puzzle Bobble Crazy beta 2 [by Elrayzeur]
 - [poknightcd]      Poker Night (CD conversion)
 - [poknightfr]      Poker Night (French)
+- [rbffspecbs]      Real Bout Fatal Fury Special (Boss hack Yumeji)
 - [samsh5sph]       Samurai Shodown V Special / Samurai Spirits Zero Special (Bloodlust hack)
 - [samsh5spha]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 1 hack by Wesker)
 - [samsh5sphb]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 2 hack by Wesker)
