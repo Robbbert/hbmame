@@ -9382,9 +9382,10 @@ chqflag                         // GX717 (c) 1988
 chqflagj                        // GX717 (c) 1988 (Japan)
 
 @source:chsuper.cpp
-chmpnum                         // unknown
-chsuper2                        // unknown
-chsuper3                        // unknown
+chsuper2                        // 1999, unknown
+chsuper3                        // 1999, unknown
+chmpnum                         // 1999, unknown
+chmpnuma                        // 1999, unknown
 
 @source:cidelsa.cpp
 altair                          // (c) 1981 Cidelsa
@@ -14669,6 +14670,7 @@ thedrink                        // (c) 200? unknown
 trstar2k                        // (c) 1999 A.M.
 unkh8gam                        // (c) 200? unknown
 wizard                          // (c) 1999 A.A.
+eurodsr                         // (c) 200? unknown
 
 @source:itgambl3.cpp
 ejollyx5                        // (c) 200? Solar Games
@@ -17269,6 +17271,7 @@ musicsrt                        // (c) 1995 ABM Games
 sgsafari                        // (c) 1996 New Impeuropex Corp.
 suprpool                        // (c) 1997 ABM Games
 lunaprk                         // (c) 1998 ABM Games
+altaten                         // 199? unknown
 
 @source:magicard.cpp
 hotslots                        // (c) 2002 Impera

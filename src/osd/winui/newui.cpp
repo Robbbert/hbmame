@@ -3247,7 +3247,7 @@ static void prepare_menus(HWND wnd)
 	set_command_state(menu_bar, ID_OPTIONS_MISCINPUT, has_misc ? MFS_ENABLED : MFS_GRAYED);
 	set_command_state(menu_bar, ID_OPTIONS_ANALOGCONTROLS, has_analog ? MFS_ENABLED : MFS_GRAYED);
 	set_command_state(menu_bar, ID_FILE_FULLSCREEN, !is_windowed() ? MFS_CHECKED : MFS_ENABLED);
-	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, window->machine().ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
+	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, mame_machine_manager::instance()->ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
 	set_command_state(menu_bar, ID_FILE_UIACTIVE, window->machine().ioport().has_keyboard() ? (window->machine().ui_active() ? MFS_CHECKED : MFS_ENABLED): MFS_CHECKED | MFS_GRAYED);
 
 	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, (has_keyboard) ? (!window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
@@ -3641,11 +3641,11 @@ static int invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_KEYBOARD_NATURAL:
-			window->machine().ui().set_use_natural_keyboard(TRUE);
+			mame_machine_manager::instance()->ui().set_use_natural_keyboard(TRUE);
 			break;
 
 		case ID_KEYBOARD_EMULATED:
-			window->machine().ui().set_use_natural_keyboard(FALSE);
+			mame_machine_manager::instance()->ui().set_use_natural_keyboard(FALSE);
 			break;
 
 		case ID_KEYBOARD_CUSTOMIZE:
@@ -3697,7 +3697,7 @@ static int invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_FILE_OLDUI:
-			window->machine().ui().show_menu();
+			mame_machine_manager::instance()->ui().show_menu();
 			break;
 
 		case ID_FILE_FULLSCREEN:
@@ -3705,7 +3705,7 @@ static int invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_OPTIONS_TOGGLEFPS:
-			window->machine().ui().set_show_fps(!window->machine().ui().show_fps());
+			mame_machine_manager::instance()->ui().set_show_fps(!mame_machine_manager::instance()->ui().show_fps());
 			break;
 
 		case ID_OPTIONS_USEMOUSE:
@@ -3958,10 +3958,7 @@ LRESULT CALLBACK winwindow_video_window_proc_ui(HWND wnd, UINT message, WPARAM w
 
 		case WM_PASTE:
 			{
-				LONG_PTR ptr = GetWindowLongPtr(wnd, GWLP_USERDATA);
-				win_window_info *window = (win_window_info *)ptr;
-				//ui_manager ui(window->machine());
-				window->machine().ui().paste();
+				mame_machine_manager::instance()->ui().paste();
 			}
 			break;
 

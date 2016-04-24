@@ -2496,7 +2496,7 @@ void SaveDefaultOptions(void)
 
 const char * GetVersionString(void)
 {
-	return build_version;
+	return emulator_info::get_build_version();
 }
 
 

@@ -38,6 +38,7 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "mame.h"
 #include "mameopts.h"
 #include "unzip.h"
 #include "winutf8.h"
@@ -929,7 +930,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	mameui_output_error winerror;
 	osd_output::push(&winerror);
 	osd.register_options();
-	machine_manager *manager = machine_manager::instance(global_opts, osd);
+	mame_machine_manager *manager = mame_machine_manager::instance(global_opts, osd);
 	manager->execute();
 	osd_output::pop(&winerror);
 	global_free(manager);
@@ -1557,7 +1558,7 @@ static void SetMainTitle(void)
 	char version[50];
 	char buffer[100];
 
-	sscanf(build_version,"%49s",version);
+	sscanf(GetVersionString(),"%49s",version);
 	snprintf(buffer, ARRAY_LENGTH(buffer), "%s %s", MAMEUINAME, GetVersionString());
 	win_set_window_text_utf8(hMain,buffer);
 }
@@ -4467,7 +4468,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				printf("%X: %ls\n",g_helpInfo[i].bIsHtmlHelp, g_helpInfo[i].lpFile);
 				if (i == 1) // get current whatsnew.txt from mamedev.org
 				{
-					std::string version = std::string(build_version); // turn version string into std
+					std::string version = std::string(GetVersionString()); // turn version string into std
 					version.erase(1,1); // take out the decimal point
 					version.erase(4, std::string::npos); // take out the date
 					std::string url = "http://mamedev.org/releases/whatsnew_" + version + ".txt"; // construct url
