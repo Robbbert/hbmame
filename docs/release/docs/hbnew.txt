@@ -30,7 +30,13 @@ New Games
 - [ct2k3ys]         Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)
 - [ctomadaypx]      Captain Tomaday (Plus Max hack by Xyahzhs)
 - [dti]             Duck Tales Intro [Raregame]
+- [eightmaneb]      Eight Man (Enhanced Version hack by Blackheart 22/08/09)
 - [ennemi]          Neogeo demo [by Kannagi]
+- [fatfury2b]       Fatal Fury 2 (Boss hack by Yumeji)
+- [fatfury3bh]      Fatal Fury 3 (Boss hack by Yumeji)
+- [fatfurspbs]      Fatal Fury Special (Boss hack by Yumeji)
+- [fatfurspbt]      Fatal Fury Special (BT Version PPX Team hack)
+- [gpilotspx]       Ghost Pilots (Plus Max hack by Xyahzhs)
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
 - [lbowlingcd]      League Bowling (CD conversion)

@@ -1483,6 +1483,7 @@ cyberlip	// 010
 doubledr	// 082
 eightman	// 025
 fatfury1	// 033
+fatfury2	// 047
 fatfury3	// 069
 fatfursp	// 058
 fbfrenzy	// 034
@@ -1668,10 +1669,15 @@ breakrevy
 burningfhp
 ctomadaypx
 dragons1
+eightmaneb
+fatfury2b  // not working
 fatfury3b
 fatfury3bd
+fatfury3bh
 fatfury3eh
 fatfurspb
+fatfurspbs
+fatfurspbt
 fatfurspeh
 fightfevk
 flipshotk
@@ -1679,6 +1685,7 @@ ganryud
 gowcaizry
 gpilotscd
 gpilotse
+gpilotspx
 ironcladb
 //ironcladcd // not working
 jockeygpd
