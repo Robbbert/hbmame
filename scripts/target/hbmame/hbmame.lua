@@ -284,7 +284,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/cps1.cpp",
 	MAME_DIR .. "src/hbmame/video/cps1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps2.cpp",
-	MAME_DIR .. "src/mame/machine/cps2crpt.cpp",
+	MAME_DIR .. "src/mame/machine/cps2crypt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps3.cpp",
 	MAME_DIR .. "src/mame/audio/cps3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/fcrash.cpp",

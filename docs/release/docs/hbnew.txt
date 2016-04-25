@@ -39,6 +39,8 @@ New Games
 - [fatfury3bh]      Fatal Fury 3 (Boss hack by Yumeji)
 - [fatfurspbs]      Fatal Fury Special (Boss hack by Yumeji)
 - [fatfurspbt]      Fatal Fury Special (BT Version PPX Team hack)
+- [fightfevbs]      Fight Fever (Boss hack by Yumeji)
+- [galaxyfgb]       Galaxy Fight (Boss hack by Yumeji)
 - [gowcaizrb]       Voltage Fighter (Boss hack by Wesker (FGCH))
 - [gowcaizrbs]      Voltage Fighter (Boss hack by Yumeji)
 - [gowcaizrrv]      Voltage Fighter (Boss Revised Version 05/10/09)

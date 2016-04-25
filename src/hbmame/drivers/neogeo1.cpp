@@ -523,6 +523,26 @@ ROM_START( eightmaneb )
 ROM_END
 
 
+ROM_START( fightfevbs )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "060bs.p1", 0x000000, 0x080000, CRC(10bc5d92) SHA1(b0bc22f7ece6548512f7582678efe260487c6ed4) )
+	ROM_LOAD16_WORD_SWAP( "060bs.p2", 0x080000, 0x080000, CRC(b0801d5f) SHA1(085746d8f5d271d5f84ccbb7f577193c391f88d4) )
+
+	NEO_SFIX_128K( "060bs.s1", CRC(7f012104) SHA1(f366dcc3923655dff16ec08a40d5fce22a84257d) )
+
+	NEO_BIOS_AUDIO_128K( "060-m1.m1", CRC(0b7c4e65) SHA1(999a1e784de18db3f1332b30bc425836ea6970be) )
+
+	ROM_REGION( 0x300000, "ymsnd", 0 )
+	ROM_LOAD( "060-v1.v1", 0x000000, 0x200000, CRC(f417c215) SHA1(0f53b8dd056f43b5d880628e8b74c2b27881ffac) )
+	ROM_LOAD( "060-v2.v2", 0x200000, 0x100000, CRC(efcff7cf) SHA1(e8372303724284a750b706dc6bf7641e4c52bb95) )
+
+	ROM_REGION( 0x0800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "060-c1.c1", 0x0000000, 0x200000, CRC(8908fff9) SHA1(f8c16ab0248b60f3a62e0d4d65c456e2f8e4da49) )
+	ROM_LOAD16_BYTE( "060-c2.c2", 0x0000001, 0x200000, CRC(c6649492) SHA1(5d39b077387ed6897ac075ede4a2aa94bb64545e) )
+	ROM_LOAD16_BYTE( "060-c3.c3", 0x0400000, 0x200000, CRC(0956b437) SHA1(c70be8b5cebf321afe4c3f5e9a12413c3077694a) )
+	ROM_LOAD16_BYTE( "060-c4.c4", 0x0400001, 0x200000, CRC(026f3b62) SHA1(d608483b70d60e7aa0e41f25a8b3fed508129eb7) )
+ROM_END
+
 ROM_START( fightfevk ) /* Fight Fever - Hack by UNKNOWN - (Kanji Patch) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "060-epr.sp2", 0x000000, 0x080000, CRC(3032041b) SHA1(4b8ed2e6f74579ea35a53e06ccac42d6905b0f51) )
@@ -558,6 +578,32 @@ ROM_START( flipshotk )
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "247k.c1",  0x000000, 0x200000, CRC(1ccfeff9) SHA1(3575b84acca6ec0f26f4a0ad30a16c140e1c0b2e) )
 	ROM_LOAD16_BYTE( "247k.c2",  0x000001, 0x200000, CRC(648cdd5d) SHA1(8a0aaf13e2539e48f9b0b18f8154aa50bf4bed2a) )
+ROM_END
+
+
+ROM_START( galaxyfgb )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "078b.p1", 0x100000, 0x100000, CRC(6288cb4a) SHA1(8fb3c124664512f5aa5a8c75064605955b2e24fb) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "078-s1.s1", CRC(72f8923e) SHA1(da908bffc2b5d8baa2002dbb5bfb3aa17d2472b7) )
+
+	NEO_BIOS_AUDIO_128K( "078-m1.m1", CRC(8e9e3b10) SHA1(7c44d1dbd4f8d337c99e90361d1dab837df85e31) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "078-v1.v1", 0x000000, 0x200000, CRC(e3b735ac) SHA1(e16dfac09aef8115a20bae0bef8c86d4e7d0dc4a) )
+	ROM_LOAD( "078-v2.v2", 0x200000, 0x200000, CRC(6a8e78c2) SHA1(f60b1f8a3a945f279a582745e82f37278ce5d83b) )
+	ROM_LOAD( "078-v3.v3", 0x400000, 0x100000, CRC(70bca656) SHA1(218b7079c90898e7faa382b386e77f81f415e7ac) )
+
+	ROM_REGION( 0xe00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "078-c1.c1", 0x000000, 0x200000, CRC(c890c7c0) SHA1(b96c18a41c34070a4f24ca77cb7516fae8b0fd0c) )
+	ROM_LOAD16_BYTE( "078-c2.c2", 0x000001, 0x200000, CRC(b6d25419) SHA1(e089df9c9a9645f706e501108d634f4d222622a2) )
+	ROM_LOAD16_BYTE( "078-c3.c3", 0x400000, 0x200000, CRC(9d87e761) SHA1(ea1b6d7c9d5ef3a9b48968bde5a52d5699d591cc) )
+	ROM_LOAD16_BYTE( "078-c4.c4", 0x400001, 0x200000, CRC(765d7cb8) SHA1(7b9c86714d688602064d928c9d2b49d70bb7541e) )
+	ROM_LOAD16_BYTE( "078-c5.c5", 0x800000, 0x200000, CRC(e6b77e6a) SHA1(db3b8fc62a6f21c6653621c0665450d5d9a9913d) )
+	ROM_LOAD16_BYTE( "078-c6.c6", 0x800001, 0x200000, CRC(d779a181) SHA1(2761026abd9698a7b56114b76631563abd41fd12) )
+	ROM_LOAD16_BYTE( "078-c7.c7", 0xc00000, 0x100000, CRC(4f27d580) SHA1(c0f12496b45b2fe6e94aa8ac52b0157063127e0a) )
+	ROM_LOAD16_BYTE( "078-c8.c8", 0xc00001, 0x100000, CRC(0a7cc0d8) SHA1(68aaee6341c87e56ce11acc1c4ec8047839fe70d) )
 ROM_END
 
 
@@ -2396,10 +2442,12 @@ GAME( 1997, dragons1,      neogeo,   neogeo_noslot, neogeo, neogeo_state,       
 
 GAME( 2009, eightmaneb,    eightman, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Blackheart", "Eight Man (Enhanced Version hack by Blackheart 2009-08-22)", MACHINE_SUPPORTS_SAVE )
 
+GAME( 1994, fightfevbs,    fightfev, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fight Fever (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, fightfevk,     fightfev, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unk", "Fight Fever (Kanji Patch)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1998, flipshotk,     flipshot, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Battle Flip Shot (Korean)", MACHINE_SUPPORTS_SAVE )
 
+GAME( 1995, galaxyfgb,     galaxyfg, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Galaxy Fight (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, ganryud,       ganryu,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Visco", "Ganryu / Musashi Ganryuki (decrypted C)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, gowcaizrb,     gowcaizr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Wesker", "Voltage Fighter (Boss hack by Wesker (FGCH))", MACHINE_SUPPORTS_SAVE )
