@@ -951,9 +951,9 @@ files {
 	MAME_DIR .. "src/mame/video/amigaaga.cpp",
 	MAME_DIR .. "src/mame/video/tia.cpp",
 	MAME_DIR .. "src/mame/video/tia.h",
-	MAME_DIR .. "src/mame/machine/atari.cpp",
-	MAME_DIR .. "src/mame/video/atari.cpp",
-	MAME_DIR .. "src/mame/includes/atari.h",
+	MAME_DIR .. "src/mame/machine/atari400.cpp",
+	MAME_DIR .. "src/mame/video/atari400.cpp",
+	MAME_DIR .. "src/mame/includes/atari400.h",
 	MAME_DIR .. "src/mame/video/antic.cpp",
 	MAME_DIR .. "src/mame/video/antic.h",
 	MAME_DIR .. "src/mame/video/gtia.cpp",
@@ -1656,10 +1656,10 @@ createMESSProjects(_target, _subtarget, "enterprise")
 files {
 	MAME_DIR .. "src/mame/drivers/ep64.cpp",
 	MAME_DIR .. "src/mame/includes/ep64.h",
-	MAME_DIR .. "src/mame/audio/dave.cpp",
-	MAME_DIR .. "src/mame/audio/dave.h",
-	MAME_DIR .. "src/mame/video/nick.cpp",
-	MAME_DIR .. "src/mame/video/nick.h",
+	MAME_DIR .. "src/mame/audio/ep64.cpp",
+	MAME_DIR .. "src/mame/audio/ep64.h",
+	MAME_DIR .. "src/mame/video/ep64.cpp",
+	MAME_DIR .. "src/mame/video/ep64.h",
 }
 
 createMESSProjects(_target, _subtarget, "entex")
@@ -2437,7 +2437,6 @@ files {
 	MAME_DIR .. "src/mame/machine/dccons.cpp",
 	MAME_DIR .. "src/mame/drivers/megadriv.cpp",
 	MAME_DIR .. "src/mame/includes/megadriv.h",
-	MAME_DIR .. "src/mame/includes/md_cons.h",
 	MAME_DIR .. "src/mame/drivers/saturn.cpp",
 	MAME_DIR .. "src/mame/drivers/segapico.cpp",
 	MAME_DIR .. "src/mame/drivers/sega_sawatte.cpp",
