@@ -17,6 +17,7 @@ public:
 
 	DECLARE_DRIVER_INIT(cmc42sfix);
 	DECLARE_DRIVER_INIT(cmc50sfix);
+	DECLARE_DRIVER_INIT(cthd2k3a);
 	DECLARE_DRIVER_INIT(fr2ch);
 	DECLARE_DRIVER_INIT(garoud);
 	DECLARE_DRIVER_INIT(jckeygpd);
@@ -108,6 +109,7 @@ static MACHINE_CONFIG_DERIVED( no_watchdog, neogeo_noslot )
 MACHINE_CONFIG_END
 
 
+#undef NO_DELTAT_REGION
 
 	/* The Encrypted Boards do not have a s1 rom, data for it comes from the Cx ROMs */
 #define NEO_SFIX_MT_128K \

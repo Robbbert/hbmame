@@ -67,6 +67,15 @@ static int m_choice = 0;
     External functions
  ***************************************************************************/
 
+static int strcatprintf(std::string &str, const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	int retVal = strcatvprintf(str, format, ap);
+	va_end(ap);
+	return retVal;
+}
+
 void AuditDialog(HWND hParent, int choice)
 {
 	HMODULE hModule = NULL;

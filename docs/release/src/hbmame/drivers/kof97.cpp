@@ -1080,6 +1080,29 @@ ROM_START( kof97ps ) // Playstation Hack
 	ROM_LOAD16_BYTE( "232ps.c6",  0x2000001, 0x400000, CRC(6703a48a) SHA1(ffdc3f8e65a0197d9fcb9bd0d1d945061bf9736e) )
 ROM_END
 
+ROM_START( kof97rev ) // KOF97 revival
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232rev.p1", 0x000000, 0x100000, CRC(565adea2) SHA1(fa179e2b958096033692bd523571e130f8f52b77) )
+	ROM_LOAD16_WORD_SWAP( "232rev.p2", 0x100000, 0x400000, CRC(96848312) SHA1(198ddbbbc0834b8cdabf1f765d6c82e382de95ff) )
+
+	NEO_SFIX_128K( "232rev.s1", CRC(61a87d84) SHA1(3e5c17c13eacf48c92fbb3863c0af89570e44b31) )
+
+	NEO_BIOS_AUDIO_128K( "232-m1.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232-v1.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232-v2.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232-v3.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232rev.c1", 0x0000000, 0x800000, CRC(ba114558) SHA1(8e66d600b3c65061f83622934585f58ba8809691) )
+	ROM_LOAD16_BYTE( "232rev.c2", 0x0000001, 0x800000, CRC(cb287153) SHA1(d08559131d0fc9900de12433733af176d698dff4) )
+	ROM_LOAD16_BYTE( "232-c3.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232-c4.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232rev.c5", 0x2000000, 0x400000, CRC(9c543bc6) SHA1(cb227c71aca5e632a08fbd7f5af53581b5b28f93) )
+	ROM_LOAD16_BYTE( "232rev.c6", 0x2000001, 0x400000, CRC(e3feb991) SHA1(978b106bccd31c8229c9abcc6e682a7b5fc98154) )
+ROM_END
+
 ROM_START( kof97rk ) // Hack by Risko
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232rk.p1", 0x000000, 0x100000, CRC(940409b7) SHA1(94d1e0ec3460f5a2087f5fc1e1455df123f18c28) )
@@ -1841,6 +1864,7 @@ GAME( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 2006, kof97plus, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 PLUS 2006", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "KOF1996", "Kof'97 Practice Mode", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97ps,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (Playstation Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97rev,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "BisMill Hassan", "Kof'97 (The Revival 2016)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97rk,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Risko", "Kof'97 (Hack by Risko)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97rv,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (revised edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97saw,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 (Kill red flame special effect)", MACHINE_SUPPORTS_SAVE )

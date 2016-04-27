@@ -141,6 +141,30 @@ static BOOL TrySaveExtraFolder(LPTREEFOLDER lpFolder);
     public functions
  ***************************************************************************/
 
+static BOOL win_move_file_utf8(const char* existingfilename, const char* newfilename)
+{
+	TCHAR* t_existingfilename;
+	TCHAR* t_newfilename;
+	BOOL result = FALSE;
+
+	t_existingfilename = tstring_from_utf8(existingfilename);
+	if( !t_existingfilename )
+		return result;
+
+	t_newfilename = tstring_from_utf8(newfilename);
+	if( !t_newfilename ) {
+		free(t_existingfilename);
+		return result;
+	}
+
+	result = MoveFile(t_existingfilename, t_newfilename);
+
+	osd_free(t_newfilename);
+	osd_free(t_existingfilename);
+
+	return result;
+}
+
 /**************************************************************************
  *    ci_strncmp - case insensitive character array compare
  *
@@ -883,11 +907,10 @@ void CreateCPUFolders(int parent_index)
 		machine_config config(driver_list::driver(i),MameUIGlobal());
 
 		// enumerate through all devices
-		execute_interface_iterator iter(config.root_device());
-		for (device_execute_interface *device = iter.first(); device; device = iter.next())
+		for (device_execute_interface &device : execute_interface_iterator(config.root_device()))
 		{
 			// get the name
-			std::string dev_name = device->device().name();
+			std::string dev_name = device.device().name();
 
 			// do we have a folder for this device?
 			folder = NULL;
@@ -903,7 +926,7 @@ void CreateCPUFolders(int parent_index)
 			// are we forced to create a folder?
 			if (folder == NULL)
 			{
-				lpTemp = NewFolder(device->device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
+				lpTemp = NewFolder(device.device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
 				AddFolder(lpTemp);
 				folder = treeFolders[nFolder++];
 
@@ -932,11 +955,10 @@ void CreateSoundFolders(int parent_index)
 
 		// enumerate through all devices
 
-		sound_interface_iterator iter(config.root_device());
-		for (device_sound_interface *device = iter.first(); device; device = iter.next())
+		for (device_sound_interface &device : sound_interface_iterator(config.root_device()))
 		{
 			// get the name
-			std::string dev_name = device->device().name();
+			std::string dev_name = device.device().name();
 
 			// do we have a folder for this device?
 			folder = NULL;
@@ -953,7 +975,7 @@ void CreateSoundFolders(int parent_index)
 			if (folder == NULL)
 			{
 
-				lpTemp = NewFolder(device->device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
+				lpTemp = NewFolder(device.device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
 				AddFolder(lpTemp);
 				folder = treeFolders[nFolder++];
 
@@ -1064,10 +1086,9 @@ void CreateDumpingFolders(int parent_index)
 		/* Allocate machine config */
 		machine_config config(*gamedrv,MameUIGlobal());
 
-		device_iterator deviter(config.root_device());
-		for (device_t *device = deviter.first(); device; device = deviter.next())
+		for (device_t &device : device_iterator(config.root_device()))
 		{
-			for (region = rom_first_region(*device); region; region = rom_next_region(region))
+			for (region = rom_first_region(device); region; region = rom_next_region(region))
 			{
 				for (rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 				{

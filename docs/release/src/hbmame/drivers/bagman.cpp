@@ -23,7 +23,7 @@ ROM_START( bagturbo )
 	ROM_LOAD( "p3.bin",          0x0000, 0x0020, CRC(2a855523) SHA1(91e032233fee397c90b7c1662934aca9e0671482) )
 	ROM_LOAD( "r3.bin",          0x0020, 0x0020, CRC(ae6f1019) SHA1(fd711882b670380cb4bd909c840ba06277b8fbe3) )
 
-	ROM_REGION( 0x0060, "5110ctrl", 0)
+	ROM_REGION( 0x0020, "5110ctrl", 0)
 	ROM_LOAD( "r6.bin",          0x0000, 0x0020, CRC(c58a4f6a) SHA1(35ef244b3e94032df2610aa594ea5670b91e1449) ) /*state machine driving TMS5110*/
 
 	ROM_REGION( 0x2000, "tmsprom", 0 ) /* data for the TMS5110 speech chip */
@@ -51,5 +51,5 @@ ROM_START( pickinpi )
 	ROM_LOAD( "6331-1pi.3r",  0x0020, 0x0020, CRC(47fadc93) SHA1(3ba46957e664a2ea639a97a0c199a9636861ca50) )
 ROM_END
 
-GAME(1991, bagturbo, 0, bagman, bagmans, bagman_state,  bagman, ROT270, "Tim Arcadecollecting", "Bagman Turbo (Stern set 1) [c]", 0 ) // http://www.arcadecollecting.com/hacks/bagman
+GAME(1991, bagturbo, 0, bagman, bagman, bagman_state,  bagman, ROT270, "Tim Arcadecollecting", "Bagman Turbo (Stern set 1) [c]", 0 ) // http://www.arcadecollecting.com/hacks/bagman
 GAME(1983, pickinpi, 0, pickin, pickin,  driver_device, 0,      ROT270, "Pi", "Pickin' (Color Hack)", 0 )

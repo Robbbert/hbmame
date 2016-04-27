@@ -550,6 +550,7 @@ kof97plc
 kof97plus
 kof97pm
 kof97ps
+kof97rev
 kof97rk
 kof97rv
 kof97saw
@@ -667,6 +668,7 @@ kof98ehr
 kof98evl
 kof98evo
 kof98evo2
+kof98f
 kof98fr
 kof98fro
 kof98fro2
@@ -1459,137 +1461,151 @@ spclone		// v0.7.3
 spcloneo	// v0.7.2.2
 
 	/* neogeo */
-	// These are the parents of our hacks
+// These are the parents of our hacks
 neogeo
-2020bb
-3countb
-alpham2
-aof
-aof2		/* 0056 (c) 1994 SNK */
-aof3
-androdun
-bakatono
-bangbead
-breakers
-bstars
-burningf
-crsword
-cyberlip
-doubledr	/* 0082 (c) 1995 Technos */
-eightman
-fatfury1
-fatfury3	/* 0069 (c) 1995 SNK */
-fatfursp
-fbfrenzy
-fightfev
-flipshot
-ganryu		/* 0252 (c) 1999 Visco */
-garou
-gowcaizr
-gpilots
-ironclad
-jockeygp
-joyjoy
-kabukikl	/* 0092 (c) 1995 Hudson */
-karnovr
-kizuna
-kof94		/* 0055 (c) 1994 SNK */
-kof95		/* 0084 (c) 1995 SNK */
-kof96		/* 0214 (c) 1996 SNK */
-kof97		/* 0232 (c) 1997 SNK */
-kof98		/* 0242 (c) 1998 SNK */
-kof99		/* 0251 (c) 1999 SNK */
-kof2000		/* 0257 (c) 2000 SNK */
-kof2001		/* 0262 (c) 2001 Eolith / SNK */
-kof2002		/* 0265 (c) 2002 Eolith / Playmore */
-kof2003
+2020bb		// 030
+3countb		// 043
+alpham2		// 007
+androdun	// 049
+aof			// 044
+aof2		// 056
+aof3		// 096
+bakatono	// 036
+bangbead	// 259
+bjourney	// 022
+breakers	// 230
+breakrev	// 245
+bstars		// 002
+burningf	// 018
+crsword		// 037
+ctomaday	// 249
+cyberlip	// 010
+doubledr	// 082
+eightman	// 025
+fatfury1	// 033
+fatfury2	// 047
+fatfury3	// 069
+fatfursp	// 058
+fbfrenzy	// 034
+fightfev	// 060
+flipshot	// 247
+galaxyfg	// 078
+ganryu		// 252
+garou		// 253
+gowcaizr	// 094
+gpilots		// 020
+ironclad	// 220
+jockeygp	// 331
+joyjoy		// 021
+kabukikl	// 092
+karnovr		// 066
+kizuna		// 216
+kof94		// 055
+kof95		// 084
+kof96		// 214
+kof97		// 232
+kof98		// 242
+kof99		// 251
+kof2000		// 257
+kof2001		// 262
+kof2002		// 265
+kof2003		// 271
 kf2k3pcb
-kotm
-lastblad	/* 0234 (c) 1997 SNK */
-lastbld2	/* 0243 (c) 1998 SNK */
-lbowling
-lresort
-magdrop3
-maglord
-matrim		/* 0266 (c) 2002 Atlus */
-miexchng
-minasan
+kotm		// 016
+lastblad	// 234
+lastbld2	// 243
+lasthope	// 802
+lbowling	// 019
+lresort		// 024
+magdrop3	// 233
+maglord		// 005
+matrim		// 266
+miexchng	// 231
+minasan		// 027
 ms5pcb
-mslug
-mslug2
-mslugx
-mslug3
-mslug4
-mslug5
-mutnat
-nam1975		/* 0001 (c) 1990 SNK */
-ncombat
-ncommand
-neocup98
-ninjamas	/* 0217 (c) 1996 ADK / SNK */
-nitd		/* 0260 (c) 2000 Eleven / Gavaking */
-pbobblen	/* 0083 (c) 1994 Taito */
-pnyaa
-preisle2	/* 0255 (c) 1999 Yumekobo */
-rbff1
-rbff2		/* 0240 (c) 1998 SNK */
-rbffspec	/* 0223 (c) 1996 SNK */
-ridhero
-roboarmy
-rotd		/* 0264 (c) 2002 Evoga */
-s1945p		/* 0254 (c) 1999 Psikyo */
-samsho		/* 0045 (c) 1993 SNK */
-samsho2		/* 0063 (c) 1994 SNK */
-samsho3		/* 0087 (c) 1995 SNK */
-samsho4		/* 0222 (c) 1996 SNK */
-samsho5		/* 0270 (c) 2003 Playmore */
-samsh5sp	/* 0272 (c) 2003 Playmore */
-savagere
-sengoku
-sengoku2
-sengoku3	/* 0261 (c) 2001 SNK */
-shocktr2
-socbrawl
-spinmast
+mslug		// 201
+mslug2		// 241
+mslugx		// 250
+mslug3		// 256
+mslug4		// 263
+mslug5		// 268
+mutnat		// 014
+nam1975		// 001
+ncombat		// 009
+ncommand	// 050
+neocup98	// 244
+ninjamas	// 217
+nitd		// 260
+pbobblen	// 083
+pnyaa		// 267
+preisle2	// 255
+//pspikes2	// 068
+rbff1		// 095
+rbff2		// 240
+rbffspec	// 223
+ridhero		// 006
+roboarmy	// 032
+rotd		// 264
+s1945p		// 254
+samsho		// 045
+samsho2		// 063
+samsho3		// 087
+samsho4		// 222
+samsho5		// 270
+samsh5sp	// 272
+savagere	// 059
+sengoku		// 017
+sengoku2	// 040
+sengoku3	// 261
+shocktr2	// 246
+shocktro	// 238
+socbrawl	// 031
+sonicwi2	// 075
+sonicwi3	// 097
+spinmast	// 062
+ssideki     // 052
 strhoop		// 079
-superspy
-svc		/* 0269 (c) 2003 Playmore / Capcom */
+superspy	// 011
+svc			// 269
 svcpcb
-tpgolf
-trally
-viewpoin
-wakuwak7
-wh1
-wh2
+tophuntr	// 046
+tpgolf		// 003
+trally		// 038
+twinspri	// 224
+viewpoin	// 051
+wakuwak7	// 225
+wh1			// 053
+wh2			// 057
 wh2j		// 064
-whp		/* 0090 (c) 1995 ADK / SNK */
-wjammers
-zedblade
-zupapa		/* 0070 Zupapa - released in 2001, 1994 prototype probably exists */
+whp			// 090
+wjammers	// 065
+zedblade	// 076
+zintrckb	// 211
+zupapa		// 070
 
 	/* neogeohb */
-fr2			// 098 Idol Mahjong - final romance 2
-fr2cd		/* 098 (c) 1995 Video Systems Co. */
-fr2ch		/* 098 (c) 1995 Video Systems Co. */
-zintrckb	// parent
-zintrkcd	/* 211 (c) 1996 ADK / SNK */
-zintrkcd1
-zintrkm
 beast		/* 2002 (c) 1989 Psygnosis */
 cndi		/* Chip n Dale Intro */
 cnbe
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
-//csw2 //not working at all & roms missing
+columnsncd
+//csw2 //not working & roms missing
+dti			// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
+ennemi      // kannagi 2016
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
+fr2			// 098 Idol Mahjong - final romance 2
+fr2cd		/* 098 (c) 1995 Video Systems Co. */
+fr2ch		/* 098 (c) 1995 Video Systems Co. */
 gbi			/* Ghostbusters Intro */
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
 //lhopecd //not working
+//lhopecdh // not working
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
@@ -1616,6 +1632,8 @@ nyan
 pcmademo	// 2015 freem
 pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
+poknightcd
+poknightfr
 rci			/* Robocop intro */
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
@@ -1627,27 +1645,47 @@ tmnti		/* TMNT intro */
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 ww2demo
+zintrckbh
+zintrkcd	/* 211 (c) 1996 ADK / SNK */
+zintrkcd1
+zintrkm
 
 	/* neogeo1 */
 2020bbcd
+androdunpx
+aofbh
 aof2b
+aof2b1
+aof2bh
 aof2br2
 aof3b
+aof3bh
 bangbeadp
+bjourneypx
+breakersbh
 breakersp
+breakersy
+breakrevb
+breakrevpp
+breakrevy
 burningfhp
-fatfury3b
-fatfury3bd
-fatfury3eh
-fatfurspb
-fatfurspeh
+ctomadaypx
+dragons1
+eightmaneb
+fightfevbs
 fightfevk
 flipshotk
+galaxyfgb
 ganryud
+gowcaizrb
+gowcaizrbs
+gowcaizrrv
 gowcaizry
 gpilotscd
 gpilotse
-ironcladb	/* 1996 Saurus */
+gpilotspx
+ironcladb
+//ironcladcd // not working
 jockeygpd
 joyjoycd
 joyjoycd1
@@ -1660,6 +1698,7 @@ kabukiklyc
 karnovreh
 kizunaeh
 lans2k4d
+lbowlingcd
 magdrop3fr	/* Neo-Arc French Trans */
 matrima
 matrimd
@@ -1683,25 +1722,42 @@ nitdfro1
 nitdsp
 nitdsp1		// Spanish.Rev2
 nitdsp2
+pbcrazyb1
+pbcrazyb2
 pbobblenba
 pbobblencd
 pbobblendx
 pbobblenh
 pnyaad
 preisle2d
+//pspikes2cd // not working
 ragnagrdeh
 roboarma
 s1945pd
 s1945pwe
 savageredb
+shocktr2px
 shocktr2w
+shocktrosp
+sonicwi2eh
+sonicwi2px
+sonicwi3eh
+sonicwi3h
+sonicwi3px
 spinmasth
+spinmastpx
+ssidekicd
 strhoopcd
+superspycd
+tophuntrpx
 tpgolfcd
-tpgolfcd1
+trallycd
+twinsprih
+viewpoinf
 viewpointr
 wakuwak7bh
 wakuwak7h
+wjammersf
 wjammersk
 zupapad
 //diggerma duplicate name, to check
@@ -1716,6 +1772,9 @@ dbdq
 dbdqb
 dbdqp
 dbdqeh
+doubledre2
+doubledres
+doubledrhp
 
 	/* nggaroup */
 garoud
@@ -1730,9 +1789,13 @@ garoupy1
 
 	/* ngkofmisc */
 cthd2k3b
+//cthd2k3a // not working, "not responding"
 ct2k3eh
+ct2k3ifz
 ct2k3k3
 ct2k3k3o
+ct2k3xx
+ct2k3ys
 //ct2k3ad
 //ct2k3spd
 //cthd2k3a
@@ -1781,10 +1844,20 @@ lb2wh
 lb2yd
 
 	/* ngrbff */
+fatfury2b
+fatfury3b
+fatfury3bd
+fatfury3bh
+fatfury3eh
+fatfurspb
+fatfurspbs
+fatfurspbt
+fatfurspeh
 rbff1ud
 rbffsehd
 rbffsb
 rbffseh
+rbffspecbs
 rbffspy
 rbffspbd
 rbffsud
@@ -1855,8 +1928,15 @@ samsho5x
 samsh5spd
 samsh5spd1
 samsh5spd2
+samsh5sph1
+samsh5spha
+samsh5sphb
+samsh5sphc
 samsh5sphd
+samsh5spn
 samsh5spnd
+samsh5spnh3
+samsh5spnzk
 
 	/* ngsengoku */
 sengokucd
@@ -1893,8 +1973,14 @@ whpbho2
 whpeh
 whpeho
 whph
+whphez
+whpsp
+whpss
+wh1bs
+wh2bs
 wh2ey
 wh2ja
+wh2jb
 
 	/* nmk16 */
 //tdragon			//parent

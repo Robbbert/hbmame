@@ -9,6 +9,14 @@
 --
 ---------------------------------------------------------------------------
 
+files {
+	MAME_DIR .. "src/devices/video/poly.h",
+	MAME_DIR .. "src/devices/video/sprite.cpp",
+	MAME_DIR .. "src/devices/video/sprite.h",
+	MAME_DIR .. "src/devices/video/vector.cpp",
+	MAME_DIR .. "src/devices/video/vector.h",
+}
+
 --------------------------------------------------
 --
 --@src/devices/video/315_5124.h,VIDEOS["SEGA315_5124"] = true
@@ -513,9 +521,9 @@ if (VIDEOS["MOS6566"]~=null) then
 end
 
 
-files {	
+files {
 	MAME_DIR .. "src/devices/video/cgapal.cpp",
-	MAME_DIR .. "src/devices/video/cgapal.h",	
+	MAME_DIR .. "src/devices/video/cgapal.h",
 }
 
 --------------------------------------------------

@@ -19,9 +19,9 @@ if _OPTIONS["NO_OPENGL"]~="1" and _OPTIONS["USE_DISPATCH_GL"]~="1" and _OPTIONS[
 end
 
 if _OPTIONS["SDL_INI_PATH"]~=nil then
-    defines {
-        "'INI_PATH=\"" .. _OPTIONS["SDL_INI_PATH"] .. "\"'",
-    }
+	defines {
+		"'INI_PATH=\"" .. _OPTIONS["SDL_INI_PATH"] .. "\"'",
+	}
 end
 
 if _OPTIONS["NO_X11"]=="1" then
@@ -67,7 +67,6 @@ end
 
 defines {
 	"OSD_SDL",
-	"SYNC_IMPLEMENTATION=" .. SYNC_IMPLEMENTATION,
 }
 
 if BASE_TARGETOS=="unix" then
@@ -75,18 +74,20 @@ if BASE_TARGETOS=="unix" then
 		"SDLMAME_UNIX",
 	}
 	if _OPTIONS["targetos"]=="macosx" then
-		if _OPTIONS["USE_LIBSDL"]~="1" then
-			buildoptions {
-				"-F" .. _OPTIONS["SDL_FRAMEWORK_PATH"],
-			}
-		else
-			defines {
-				"MACOSX_USE_LIBSDL",
-			}
-			buildoptions {
-				backtick(sdlconfigcmd() .. " --cflags | sed 's:/SDL::'"),
-			}
-		end
+		if _OPTIONS["with-bundled-sdl2"]==nil then
+			if _OPTIONS["USE_LIBSDL"]~="1" then
+				buildoptions {
+					"-F" .. _OPTIONS["SDL_FRAMEWORK_PATH"],
+				}
+			else
+				defines {
+					"MACOSX_USE_LIBSDL",
+				}
+				buildoptions {
+					backtick(sdlconfigcmd() .. " --cflags | sed 's:/SDL::'"),
+				}
+			end
+			end
 	else
 		buildoptions {
 			backtick(sdlconfigcmd() .. " --cflags"),
@@ -100,7 +101,7 @@ if BASE_TARGETOS=="unix" then
 end
 
 if _OPTIONS["targetos"]=="windows" then
-	configuration { "mingw*-gcc or vs*" }
+	configuration { "mingw* or vs*" }
 		defines {
 			"UNICODE",
 			"_UNICODE",
@@ -110,10 +111,6 @@ if _OPTIONS["targetos"]=="windows" then
 	configuration { "Debug" }
 		defines {
 			"MALLOC_DEBUG",
-		}
-	configuration { "vs*" }
-		includedirs {
-			MAME_DIR .. "3rdparty/sdl2/include",
 		}
 	configuration { }
 
@@ -136,13 +133,6 @@ elseif _OPTIONS["targetos"]=="freebsd" then
 	buildoptions {
 		-- /usr/local/include is not considered a system include director on FreeBSD.  GL.h resides there and throws warnings
 		"-isystem /usr/local/include",
-	}
-elseif _OPTIONS["targetos"]=="os2" then
-	defines {
-		"SDLMAME_OS2",
-	}
-	buildoptions {
-		backtick(sdlconfigcmd() .. " --cflags"),
 	}
 end
 

@@ -148,6 +148,7 @@ MACHINES["Z80PIO"] = true
 
 BUSES["GENERIC"] = true
 BUSES["NEOGEO"] = true
+BUSES["NEOGEO_CTRL"] = true
 BUSES["SCSI"] = true
 
 --------------------------------------------------
@@ -202,10 +203,6 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 --	addprojectflags() -- no idea if this is needed, seems to work fine without it
 	precompiledheaders()
 
---	options {
---		"ForceCPP",
---	}
-
 	includedirs {
 		MAME_DIR .. "src/osd",
 		MAME_DIR .. "src/emu",
@@ -220,6 +217,9 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 		MAME_DIR .. "3rdparty/zlib",
 		GEN_DIR  .. "mame/layout",
 		GEN_DIR  .. "hbmame/layout",
+	}
+	includedirs {
+		ext_includedir("flac"),
 	}
 end
 
@@ -284,7 +284,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/cps1.cpp",
 	MAME_DIR .. "src/hbmame/video/cps1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps2.cpp",
-	MAME_DIR .. "src/mame/machine/cps2crpt.cpp",
+	MAME_DIR .. "src/mame/machine/cps2crypt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps3.cpp",
 	MAME_DIR .. "src/mame/audio/cps3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/fcrash.cpp",
@@ -361,6 +361,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/m52.cpp",
 	MAME_DIR .. "src/mame/video/m52.cpp",
 	MAME_DIR .. "src/mame/machine/irem_cpu.cpp",
+	MAME_DIR .. "src/mame/audio/nl_kidniki.cpp",
 	MAME_DIR .. "src/mame/audio/irem.cpp",
 }
 
@@ -559,8 +560,10 @@ files {
 	MAME_DIR .. "src/mame/machine/fd1094.cpp",
 	MAME_DIR .. "src/mame/machine/mc8123.cpp",
 	MAME_DIR .. "src/mame/machine/segaic16.cpp",
-	MAME_DIR .. "src/mame/machine/segacrpt.cpp",
-	MAME_DIR .. "src/mame/machine/segacrp2.cpp",
+	MAME_DIR .. "src/mame/machine/segacrpt_device.cpp",
+	MAME_DIR .. "src/mame/machine/segacrpt_device.h",
+	MAME_DIR .. "src/mame/machine/segacrp2_device.cpp",
+	MAME_DIR .. "src/mame/machine/segacrp2_device.h",
 	MAME_DIR .. "src/mame/audio/segasnd.cpp",
 	MAME_DIR .. "src/mame/video/segaic16.cpp",
 	MAME_DIR .. "src/mame/video/segaic16_road.cpp",

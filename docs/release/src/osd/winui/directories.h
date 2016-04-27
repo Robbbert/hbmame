@@ -19,9 +19,6 @@
 #define DIRLIST_NEWENTRYTEXT "<               >"
 
 #include "mui_opts.h"
-#ifdef MESS
-#include "optionsms.h"
-#endif
 
 typedef struct
 {
@@ -37,10 +34,8 @@ const DIRECTORYINFO g_directoryInfo[] =
 {
 	{ "ROMs",                  GetRomDirs,         SetRomDirs,         TRUE,  DIRDLG_ROMS },
 	{ "Samples",               GetSampleDirs,      SetSampleDirs,      TRUE,  DIRDLG_SAMPLES },
-#ifdef MESS
 	{ "Software File Base",    GetCommentDir,      SetCommentDir,      TRUE,  DIRDLG_COMMENT },
 	{ "Software List Base",    GetSoftwareDirs,    SetSoftwareDirs,    FALSE, DIRDLG_SOFTWARE },
-#endif
 	{ "Artwork",               GetArtDir,          SetArtDir,          TRUE, 0 },
 	{ "Cabinets",              GetCabinetDir,      SetCabinetDir,      TRUE, 0 },
 	{ "Cheats",                GetCheatDir,        SetCheatDir,        TRUE, DIRDLG_CHEAT },
@@ -57,9 +52,11 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "Icons",                 GetIconsDir,        SetIconsDir,        FALSE, 0 },
 	{ "Ini Files",             GetIniDir,          SetIniDir,          FALSE, DIRDLG_INI },
 	{ "Input files",           GetInpDir,          SetInpDir,          TRUE, DIRDLG_INP },
+	{ "Language",              GetLangDir,         SetLangDir,         FALSE, 0 },
 	{ "Marquees",              GetMarqueeDir,      SetMarqueeDir,      TRUE, 0 },
 	{ "NVRAM",                 GetNvramDir,        SetNvramDir,        TRUE, 0 },
 	{ "PCBs",                  GetPcbDir,          SetPcbDir,          TRUE, 0 },
+	{ "Plugins",               GetPluginsDir,      SetPluginsDir,      FALSE, 0 },
 	{ "Snapshots",             GetImgDir,          SetImgDir,          TRUE, DIRDLG_IMG },
 	{ "State",                 GetStateDir,        SetStateDir,        TRUE, 0 },
 	{ "Titles",                GetTitlesDir,       SetTitlesDir,       TRUE, 0 },

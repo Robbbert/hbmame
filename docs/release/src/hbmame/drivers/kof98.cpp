@@ -2213,6 +2213,34 @@ ROM_START( kof98evo2 )
 	ROM_LOAD16_BYTE( "242sp.c8", 0x3000001, 0x800000, CRC(9744d47f) SHA1(8a7057a99f6cbc9707f10feb64192716cf6df151) )
 ROM_END
 
+ROM_START( kof98f )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242f.p1", 0x000000, 0x100000, CRC(c17a0ace) SHA1(b5496062954bdc3ab45a9b4e7787ab3426ff7404) )
+	ROM_LOAD16_WORD_SWAP( "242f.p2", 0x100000, 0x400000, CRC(d7477a42) SHA1(f20980ab53ebc36907712b0e0b8db18c42d1198c) )
+	ROM_FILL(0x182,1,0x00)
+	ROM_FILL(0x183,1,0x0A)
+
+	NEO_SFIX_128K( "242f.s1", CRC(bdd8c78e) SHA1(2df58aad109ac3012f7814f873d8c966faef8aa1) )
+
+	NEO_BIOS_AUDIO_256K( "242f.m1", CRC(d73ccd25) SHA1(54dfdf4baf8efb621e234f602939929b17330bfc) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "242f.v1",   0x000000, 0x400000, CRC(5c6d6b00) SHA1(ef87aa9573d66e3ee35d7fa0bb680dfea52da144) )
+	ROM_LOAD( "242f.v2",   0x400000, 0x400000, CRC(392953d5) SHA1(53468da327e64cb471fb3f0ea71977ec2bfb31f7) )
+	ROM_LOAD( "242f.v3",   0x800000, 0x400000, CRC(a2e57162) SHA1(6c3f010035d6426a420dbbfbe8d3cecc879e8ee7) )
+	ROM_LOAD( "242f.v4",   0xc00000, 0x400000, CRC(91c353c5) SHA1(58f1fb75191b662f087929f8a401719375274d1f) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242f.c1",   0x0000000, 0x800000, CRC(69a77e68) SHA1(4b0a0d6b52b1136b2c0ce237536532e9333f918a) )
+	ROM_LOAD16_BYTE( "242f.c2",   0x0000001, 0x800000, CRC(315609de) SHA1(44d92b59e93f8340b27bbd91b6a6ed74c1e88cf4) )
+	ROM_LOAD16_BYTE( "242f.c3",   0x1000000, 0x800000, CRC(bd6ba838) SHA1(5142ca697b2b6e203df7737e6a4ada126706bac3) )
+	ROM_LOAD16_BYTE( "242f.c4",   0x1000001, 0x800000, CRC(ad1a89a2) SHA1(ab470673d561955c9d0640c06c5d6b931f2d095c) )
+	ROM_LOAD16_BYTE( "242f.c5",   0x2000000, 0x800000, CRC(6cb4a77c) SHA1(73bcefd2e090db70d9bc693d6086cf6ab2af049b) )
+	ROM_LOAD16_BYTE( "242f.c6",   0x2000001, 0x800000, CRC(7bf63b7d) SHA1(6e5c38dc450272d4410c150d5906b0870e753480) )
+	ROM_LOAD16_BYTE( "242f.c7",   0x3000000, 0x800000, CRC(c4a3ef6b) SHA1(28fc5b7d1e0bf641483190ff27f30e4b9f48d80a) )
+	ROM_LOAD16_BYTE( "242f.c8",   0x3000001, 0x800000, CRC(1c506f21) SHA1(5a96a8649c1027fdcbdd34be6176c3110271f74d) )
+ROM_END
+
 ROM_START( kof98fr ) /* The King of Fighters '98 - Translation Hack by NEO-ARC - (French translation) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242fr.p1", 0x000000, 0x100000, CRC(2f29984c) SHA1(6feb8412d335e8b38a0d7231f51af91251901dd4) )
@@ -3317,6 +3345,7 @@ GAME( 1998, kof98ehr,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 1998, kof98evl,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'98 (Ultra Evolution Lite)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98evo,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'98 (Evolution)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98evo2, kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'98 (Evolution Orochi Baozou Hack Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98f,    kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'98 ('fake')", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof98fr,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "Kof'98 (French 2004)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof98fro,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "Kof'98 (French 2003)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof98fro2, kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Arkatrad", "Kof'98 (French 2002)", MACHINE_SUPPORTS_SAVE )

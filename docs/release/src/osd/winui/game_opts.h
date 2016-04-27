@@ -116,12 +116,12 @@ public:
 		}
 	}
 
-	file_error load_file(const char *filename)
+	osd_file::error load_file(const char *filename)
 	{
 		emu_file file(OPEN_FLAG_READ);
 
-		file_error filerr = file.open(filename);
-		if (filerr == FILERR_NONE)
+		osd_file::error filerr = file.open(filename);
+		if (filerr == osd_file::error::NONE)
 		{
 			std::string error_string;
 			m_info.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
@@ -139,9 +139,9 @@ public:
 
 		m_info.output_ini(inibuffer);
 
-		if (header != NULL && !inibuffer.empty())
+		if (header && !inibuffer.empty())
 		{
-			strcatprintf(buffer, "#\n# %s\n#\n", header);
+			buffer.append(string_format("\n#\n# %s\n#\n", header));
 			buffer.append(inibuffer);
 		}
 	}
@@ -192,22 +192,14 @@ public:
 
 		for (int i = 0; i < m_total; i++)
 		{
-			strprintf(value_str, "%d,%d,%d", m_list[i].rom, m_list[i].sample, m_list[i].cache);
-			if ((m_list[i].play_count > 0) || (m_list[i].play_time > 0))
-			{
-				if (m_list[i].play_time > 0)
-					strcatprintf(value_str, ",%d,%d", m_list[i].play_count, m_list[i].play_time);
-				else
-					strcatprintf(value_str, ",%d", m_list[i].play_count);
-			}
-
+			value_str = string_format("%d,%d,%d,%d,%d", m_list[i].rom, m_list[i].sample, m_list[i].cache, m_list[i].play_count, m_list[i].play_time);
 			m_info.set_value(driver_list::driver(i).name, value_str.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
 		}
 	}
 
-	file_error save_file(const char *filename)
+	osd_file::error save_file(const char *filename)
 	{
-		file_error filerr;
+		osd_file::error filerr;
 		std::string inistring;
 
 		save_settings();
@@ -216,7 +208,7 @@ public:
 
 		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 		filerr = file.open(filename);
-		if (filerr == FILERR_NONE)
+		if (filerr == osd_file::error::NONE)
 			file.puts(inistring.c_str());
 
 		return filerr;

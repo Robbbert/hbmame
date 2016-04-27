@@ -1,5 +1,6 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
+// MASTER
 //============================================================
 //
 //  newui.c - This is the NEWUI Windows dropdown menu system
@@ -61,9 +62,9 @@ typedef void (*dialog_itemchangedproc)(dialog_box *dialog, HWND dlgitem, void *c
 typedef void (*dialog_notification)(dialog_box *dialog, HWND dlgwnd, NMHDR *notification, void *param);
 
 #ifdef UNICODE
-#define win_dialog_tcsdup	win_dialog_wcsdup
+#define win_dialog_tcsdup win_dialog_wcsdup
 #else
-#define win_dialog_tcsdup	win_dialog_strdup
+#define win_dialog_tcsdup win_dialog_strdup
 #endif
 
 static const TCHAR guide_prop[] = TEXT("opcntrl_guide");
@@ -75,9 +76,9 @@ static const TCHAR value_prop[] = TEXT("opcntrl_value");
 
 enum
 {
-	TRIGGER_INITDIALOG	= 1,
-	TRIGGER_APPLY		= 2,
-	TRIGGER_CHANGED		= 4
+	TRIGGER_INITDIALOG = 1,
+	TRIGGER_APPLY = 2,
+	TRIGGER_CHANGED = 4
 };
 
 typedef LRESULT (*trigger_function)(dialog_box *dialog, HWND dlgwnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -137,9 +138,9 @@ typedef struct _seqselect_info seqselect_info;
 struct _seqselect_info
 {
 	WNDPROC oldwndproc;
-	ioport_field *field;		// pointer to the field
-	ioport_field::user_settings settings;		// the new settings
-	input_seq *code;				// the input_seq within settings
+	ioport_field *field; // pointer to the field
+	ioport_field::user_settings settings; // the new settings
+	input_seq *code; // the input_seq within settings
 	WORD pos;
 	BOOL is_analog;
 	seqselect_state poll_state;
@@ -197,12 +198,12 @@ static double pixels_to_xdlgunits;
 static double pixels_to_ydlgunits;
 
 static const struct dialog_layout default_layout = { 80, 140 };
-static const WORD dlgitem_button[] =	{ 0xFFFF, 0x0080 };
-static const WORD dlgitem_edit[] =	{ 0xFFFF, 0x0081 };
-static const WORD dlgitem_static[] =	{ 0xFFFF, 0x0082 };
-static const WORD dlgitem_listbox[] =	{ 0xFFFF, 0x0083 };
-static const WORD dlgitem_scrollbar[] =	{ 0xFFFF, 0x0084 };
-static const WORD dlgitem_combobox[] =	{ 0xFFFF, 0x0085 };
+static const WORD dlgitem_button[] = { 0xFFFF, 0x0080 };
+static const WORD dlgitem_edit[] = { 0xFFFF, 0x0081 };
+static const WORD dlgitem_static[] = { 0xFFFF, 0x0082 };
+static const WORD dlgitem_listbox[] = { 0xFFFF, 0x0083 };
+static const WORD dlgitem_scrollbar[] = { 0xFFFF, 0x0084 };
+static const WORD dlgitem_combobox[] = { 0xFFFF, 0x0085 };
 
 
 //============================================================
@@ -219,13 +220,12 @@ static int dialog_write_item(dialog_box *di, DWORD style, short x, short y,
 //  PARAMETERS
 //============================================================
 
-#define ID_FRAMESKIP_0		10000
-#define ID_DEVICE_0		11000
-#define ID_JOYSTICK_0		12000
-#define ID_INPUT_0		13000
-#define ID_VIDEO_VIEW_0		14000
-
-#define MAX_JOYSTICKS		(8)
+#define ID_FRAMESKIP_0   10000
+#define ID_DEVICE_0      11000
+#define ID_JOYSTICK_0    12000
+#define ID_INPUT_0       13000
+#define ID_VIDEO_VIEW_0  14000
+#define MAX_JOYSTICKS    (8)
 
 enum
 {
@@ -241,11 +241,6 @@ enum
 	DEVOPTION_MAX
 };
 
-#ifdef MAME_PROFILER
-#define HAS_PROFILER	1
-#else
-#define HAS_PROFILER	0
-#endif
 
 //============================================================
 //  LOCAL VARIABLES
@@ -1539,13 +1534,9 @@ static void seqselect_settext(HWND editwnd)
 static void seqselect_start_read_from_main_thread(void *param)
 {
 	seqselect_info *stuff;
-	HWND editwnd;
-	win_window_info fake_window_info(*Machine);
-	win_window_info *old_window_list;
-	int pause_count;
 
 	// get the basics
-	editwnd = (HWND) param;
+	HWND editwnd = (HWND) param;
 	stuff = get_seqselect_info(editwnd);
 
 	// are we currently polling?  if so bail out
@@ -1557,18 +1548,12 @@ static void seqselect_start_read_from_main_thread(void *param)
 
 	// the Win32 OSD code thinks that we are paused, we need to temporarily
 	// unpause ourselves or else we will block
-	pause_count = 0;
+	int pause_count = 0;
 	while(Machine->paused() && !winwindow_ui_is_paused(*Machine))
 	{
 		winwindow_ui_pause_from_main_thread(*Machine, FALSE);
 		pause_count++;
 	}
-
-	// butt ugly hack so that we accept focus
-	old_window_list = win_window_list;
-	memset(&fake_window_info, 0, sizeof(fake_window_info));
-	fake_window_info.m_hwnd = GetFocus();
-	win_window_list = &fake_window_info;
 
 	// start the polling
 	(*Machine).input().seq_poll_start(stuff->is_analog ? ITEM_CLASS_ABSOLUTE : ITEM_CLASS_SWITCH, NULL);
@@ -1582,9 +1567,6 @@ static void seqselect_start_read_from_main_thread(void *param)
 			seqselect_settext(editwnd);
 		}
 	}
-
-	// clean up after hack
-	win_window_list = old_window_list;
 
 	// we are no longer polling
 	stuff->poll_state = SEQSELECT_STATE_NOT_POLLING;
@@ -2045,13 +2027,13 @@ static int input_item_from_serial_number(running_machine &machine, int serial_nu
 	ioport_setting *this_setting = NULL;
 
 	int i = 0;
-	for (this_port = machine.ioport().first_port(); (i != serial_number) && (this_port); this_port = this_port->next())
+	for (this_port = machine.ioport().ports().first(); (i != serial_number) && (this_port); this_port = this_port->next())
 	{
 		i++;
-		for (this_field = this_port->first_field(); (i != serial_number) && (this_field); this_field = this_field->next())
+		for (this_field = this_port->fields().first(); (i != serial_number) && (this_field); this_field = this_field->next())
 		{
 			i++;
-			for (this_setting = this_field->first_setting(); (i != serial_number) && (this_setting); this_setting = this_setting->next())
+			for (this_setting = this_field->settings().first(); (i != serial_number) && (this_setting); this_setting = this_setting->next())
 				i++;
 		}
 	}
@@ -2094,9 +2076,9 @@ static void customise_input(running_machine &machine, HWND wnd, const char *titl
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			/* add if we match the group and we have a valid name */
 			const char *name = field->name();
@@ -2188,9 +2170,9 @@ static bool check_for_miscinput(running_machine &machine)
 	ioport_field *field;
 	int this_inputclass = 0;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			const char *name = field->name();
 			this_inputclass = field->type_class();
@@ -2235,9 +2217,9 @@ static void customise_miscinput(running_machine &machine, HWND wnd)
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			const char *name = field->name();
 			this_inputclass = field->type_class();
@@ -2323,9 +2305,9 @@ static void customise_switches(running_machine &machine, HWND wnd, const char* t
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			type = field->type();
 
@@ -2338,7 +2320,7 @@ static void customise_switches(running_machine &machine, HWND wnd, const char* t
 				if (win_dialog_add_combobox(dlg, switch_name, settings.value, storeval_inputport, (void *) field))
 					goto done;
 
-				for (setting = field->first_setting(); setting; setting = setting->next())
+				for (setting = field->settings().first(); setting; setting = setting->next())
 				{
 					if (win_dialog_add_combobox_item(dlg, setting->name(), setting->value()))
 						goto done;
@@ -2463,9 +2445,9 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().first_port(); port; port = port->next())
+	for (port = machine.ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			if (port_type_is_analog(field->type()))
 			{
@@ -2734,7 +2716,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 
 	// make the filter
 	pos = 0;
-	for (format = dev->formatlist(); format; format = format->next())
+	for (format = dev->formatlist().first(); format; format = format->next())
 		pos += add_filter_entry(filter + pos, filter_len - pos, format->description(), format->extensions());
 
 	// create the dialog
@@ -2759,7 +2741,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	{
 		// make sure that this entry is present on at least one option specification
 		found = FALSE;
-		for (format = dev->formatlist(); format; format = format->next())
+		for (format = dev->formatlist().first(); format; format = format->next())
 		{
 			if (option_resolution_contains(format->optspec(), guide_entry->parameter))
 			{
@@ -2930,11 +2912,12 @@ static void change_device(HWND wnd, device_image_interface *image, int is_save)
 		filename[0] = '\0';
 
 	// get the working directory, but if it is ".", then use the one specified in comments_path
-	char *dst = NULL,*working = 0;
-	osd_get_full_path(&dst,"."); // turn local directory into full path
+	char *working = 0;
+	std::string dst;
+	osd_get_full_path(dst,"."); // turn local directory into full path
 	initial_dir = image->working_directory(); // get working directory from diimage.c
 	// if . use comments_dir
-	if (strcmp(dst, initial_dir) == 0)  // same?
+	if (strcmp(dst.c_str(), initial_dir) == 0)  // same?
 		initial_dir = software_dir;
 
 	// remove any trailing backslash
@@ -2952,7 +2935,7 @@ static void change_device(HWND wnd, device_image_interface *image, int is_save)
 	// add custom dialog elements, if appropriate
 	if (is_save
 		&& (image->device_get_creation_option_guide())
-		&& (image->formatlist()))
+		&& (image->formatlist().first()))
 	{
 		dialog = build_option_dialog(image, filter, ARRAY_LENGTH(filter), &create_format, &create_args);
 		if (!dialog)
@@ -3231,9 +3214,9 @@ static void prepare_menus(HWND wnd)
 	has_misc	= check_for_miscinput(window->machine());
 
 	has_analog = 0;
-	for (port = window->machine().ioport().first_port(); port; port = port->next())
+	for (port = window->machine().ioport().ports().first(); port; port = port->next())
 	{
-		for (field = port->first_field(); field; field = field->next())
+		for (field = port->fields().first(); field; field = field->next())
 		{
 			if (port_type_is_analog(field->type()))
 			{
@@ -3264,11 +3247,8 @@ static void prepare_menus(HWND wnd)
 	set_command_state(menu_bar, ID_OPTIONS_MISCINPUT, has_misc ? MFS_ENABLED : MFS_GRAYED);
 	set_command_state(menu_bar, ID_OPTIONS_ANALOGCONTROLS, has_analog ? MFS_ENABLED : MFS_GRAYED);
 	set_command_state(menu_bar, ID_FILE_FULLSCREEN, !is_windowed() ? MFS_CHECKED : MFS_ENABLED);
-	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, window->machine().ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
+	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, mame_machine_manager::instance()->ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
 	set_command_state(menu_bar, ID_FILE_UIACTIVE, window->machine().ioport().has_keyboard() ? (window->machine().ui_active() ? MFS_CHECKED : MFS_ENABLED): MFS_CHECKED | MFS_GRAYED);
-#if HAS_PROFILER
-	set_command_state(menu_bar, ID_FILE_PROFILER, window->machine().ui().show_profiler() ? MFS_CHECKED : MFS_ENABLED);
-#endif
 
 	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, (has_keyboard) ? (!window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
 	set_command_state(menu_bar, ID_KEYBOARD_NATURAL, (has_keyboard && window->machine().ioport().natkeyboard().can_post()) ? (window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
@@ -3316,31 +3296,30 @@ static void prepare_menus(HWND wnd)
 
 	int cnt = 0;
 	// then set up the actual devices
-	image_interface_iterator iter(window->machine().root_device());
-	for (device_image_interface *img = iter.first(); img; img = iter.next())
+	for (device_image_interface &img : image_interface_iterator(window->machine().root_device()))
 	{
 		new_item = ID_DEVICE_0 + (cnt * DEVOPTION_MAX);
 		flags_for_exists = MF_STRING;
 
-		if (!img->exists())
+		if (!img.exists())
 			flags_for_exists |= MF_GRAYED;
 
 		flags_for_writing = flags_for_exists;
-		if (img->is_readonly())
+		if (img.is_readonly())
 			flags_for_writing |= MF_GRAYED;
 
 		sub_menu = CreateMenu();
 		win_append_menu_utf8(sub_menu, MF_STRING, new_item + DEVOPTION_OPEN, "Mount File...");
 
-		if (img->is_creatable())
+		if (img.is_creatable())
 			win_append_menu_utf8(sub_menu, MF_STRING, new_item + DEVOPTION_CREATE, "Create...");
 
 		win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CLOSE, "Unmount");
 
-		if (img->device().type() == CASSETTE)
+		if (img.device().type() == CASSETTE)
 		{
 			cassette_state state;
-			state = (cassette_state)(img->exists() ? (dynamic_cast<cassette_image_device*>(&img->device())->get_state() & CASSETTE_MASK_UISTATE) : CASSETTE_STOPPED);
+			state = (cassette_state)(img.exists() ? (dynamic_cast<cassette_image_device*>(&img.device())->get_state() & CASSETTE_MASK_UISTATE) : CASSETTE_STOPPED);
 			win_append_menu_utf8(sub_menu, MF_SEPARATOR, 0, NULL);
 			win_append_menu_utf8(sub_menu, flags_for_exists	| ((state == CASSETTE_STOPPED) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_STOPPAUSE, "Pause/Stop");
 			win_append_menu_utf8(sub_menu, flags_for_exists	| ((state == CASSETTE_PLAY) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_PLAY, "Play");
@@ -3348,9 +3327,9 @@ static void prepare_menus(HWND wnd)
 			win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CASSETTE_REWIND, "Rewind");
 			win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CASSETTE_FASTFORWARD, "Fast Forward");
 		}
-		s = img->exists() ? img->filename() : "[empty slot]";
+		s = img.exists() ? img.filename() : "[empty slot]";
 
-		snprintf(buf, ARRAY_LENGTH(buf), "%s: %s", img->device().name(), s);
+		snprintf(buf, ARRAY_LENGTH(buf), "%s: %s", img.device().name(), s);
 		win_append_menu_utf8(device_menu, MF_POPUP, (UINT_PTR)sub_menu, buf);
 
 		cnt++;
@@ -3384,19 +3363,18 @@ static void set_speed(running_machine &machine, int speed)
 
 static void win_toggle_menubar(void)
 {
-	win_window_info *window;
 	LONG width_diff = 0;
 	LONG height_diff = 0;
 	DWORD style = 0, exstyle = 0;
 	HWND hwnd = 0;
 	HMENU menu = 0;
 
-	for (window = win_window_list; window; window = window->m_next)
+	for (auto window : win_window_list)
 	{
 		RECT before_rect = { 100, 100, 200, 200 };
 		RECT after_rect = { 100, 100, 200, 200 };
 
-		hwnd = window->m_hwnd;
+		hwnd = window->platform_window<HWND>();
 
 		// get current menu
 		menu = GetMenu(hwnd);
@@ -3663,11 +3641,11 @@ static int invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_KEYBOARD_NATURAL:
-			window->machine().ui().set_use_natural_keyboard(TRUE);
+			mame_machine_manager::instance()->ui().set_use_natural_keyboard(TRUE);
 			break;
 
 		case ID_KEYBOARD_EMULATED:
-			window->machine().ui().set_use_natural_keyboard(FALSE);
+			mame_machine_manager::instance()->ui().set_use_natural_keyboard(FALSE);
 			break;
 
 		case ID_KEYBOARD_CUSTOMIZE:
@@ -3702,16 +3680,6 @@ static int invoke_command(HWND wnd, UINT command)
 			window->machine().schedule_soft_reset();
 			break;
 
-#if HAS_PROFILER
-		case ID_FILE_PROFILER:
-			window->machine().ui().set_show_profiler(window->machine().ui().show_profiler());
-			break;
-#endif // HAS_PROFILER
-
-		case ID_FILE_DEBUGGER:
-			debug_cpu_get_visible_cpu(window->machine())->debug()->halt_on_next_instruction("User-initiated break\n");
-			break;
-
 		case ID_OPTIONS_CONFIGURATION:
 			customise_configuration(window->machine(), wnd);
 			break;
@@ -3729,7 +3697,7 @@ static int invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_FILE_OLDUI:
-			window->machine().ui().show_menu();
+			mame_machine_manager::instance()->ui().show_menu();
 			break;
 
 		case ID_FILE_FULLSCREEN:
@@ -3737,7 +3705,7 @@ static int invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_OPTIONS_TOGGLEFPS:
-			window->machine().ui().set_show_fps(!window->machine().ui().show_fps());
+			mame_machine_manager::instance()->ui().set_show_fps(!mame_machine_manager::instance()->ui().show_fps());
 			break;
 
 		case ID_OPTIONS_USEMOUSE:
@@ -3876,16 +3844,6 @@ static int win_setup_menus(running_machine &machine, HMODULE module, HMENU menu_
 	// initialize critical values
 	joystick_menu_setup = 0;
 
-	// remove the profiler menu item if it doesn't exist
-#if HAS_PROFILER
-	machine.ui().show_profiler();
-#else
-	DeleteMenu(menu_bar, ID_FILE_PROFILER, MF_BYCOMMAND);
-#endif
-
-	if ((machine.debug_flags & DEBUG_FLAG_ENABLED) == 0)
-		DeleteMenu(menu_bar, ID_FILE_DEBUGGER, MF_BYCOMMAND);
-
 	// set up frameskip menu
 	frameskip_menu = find_sub_menu(menu_bar, "&Options\0&Frameskip\0", FALSE);
 
@@ -3953,28 +3911,35 @@ int win_create_menu(running_machine &machine, HMENU *menus)
 	// if this is invalid, then windows chooses whatever directory it used last.
 	const char* t = machine.options().emu_options::comment_directory();
 	// This pulls out the first path from a multipath field
-	const char * t1 = strtok((char*)t, ";");
+	const char* t1 = strtok((char*)t, ";");
 	if (t1)
 		software_dir = t1; // the first path of many
 	else
 		software_dir = t; // the only path
 
+	// do not show in the mewui ui.
+	if (strcmp(machine.system().name, "___empty") == 0)
+		return 0;
+
 	HMODULE module = win_resource_module();
 	HMENU menu_bar = LoadMenu(module, MAKEINTRESOURCE(IDR_RUNTIME_MENU));
 
 	if (!menu_bar)
-		goto error;
+	{
+		printf("No memory for the menu, running without it.\n");
+		return 0;
+	}
 
 	if (win_setup_menus(machine, module, menu_bar))
-		goto error;
+	{
+		printf("Unable to setup the menu, running without it.\n");
+		if (menu_bar)
+			DestroyMenu(menu_bar);
+		return 0; // return 1 causes a crash
+	}
 
 	*menus = menu_bar;
 	return 0;
-
-error:
-	if (menu_bar)
-		DestroyMenu(menu_bar);
-	return 1;
 }
 
 
@@ -3993,10 +3958,7 @@ LRESULT CALLBACK winwindow_video_window_proc_ui(HWND wnd, UINT message, WPARAM w
 
 		case WM_PASTE:
 			{
-				LONG_PTR ptr = GetWindowLongPtr(wnd, GWLP_USERDATA);
-				win_window_info *window = (win_window_info *)ptr;
-				//ui_manager ui(window->machine());
-				window->machine().ui().paste();
+				mame_machine_manager::instance()->ui().paste();
 			}
 			break;
 

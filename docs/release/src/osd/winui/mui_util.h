@@ -42,6 +42,7 @@ BOOL DriverSupportsSaveState(int driver_index);
 BOOL DriverIsVertical(int driver_index);
 BOOL DriverIsMechanical(int driver_index);
 BOOL DriverIsArcade(int driver_index);
+BOOL DriverHasRam(int driver_index);
 
 int isDriverVector(const machine_config *config);
 int numberOfSpeakers(const machine_config *config);
@@ -60,8 +61,8 @@ void GetSystemErrorMessage(DWORD dwErrorId, TCHAR **tErrorMessage);
 HICON win_extract_icon_utf8(HINSTANCE inst, const char* exefilename, UINT iconindex);
 TCHAR* win_tstring_strdup(LPCTSTR str);
 HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD sharemode,
-	LPSECURITY_ATTRIBUTES securityattributes, DWORD creationdisposition,
-	DWORD flagsandattributes, HANDLE templatehandle);
+							LPSECURITY_ATTRIBUTES securityattributes, DWORD creationdisposition,
+							DWORD flagsandattributes, HANDLE templatehandle);
 DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer);
 HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfiledata);
 

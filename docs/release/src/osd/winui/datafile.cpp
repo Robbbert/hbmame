@@ -46,6 +46,7 @@ struct tDatafileIndex
 	const game_driver *driver;
 };
 
+static struct tDatafileIndex *gameinit_idx = nullptr;
 static struct tDatafileIndex *hist_idx = nullptr;
 static struct tDatafileIndex *mame_idx = nullptr;
 static struct tDatafileIndex *driv_idx = nullptr;
@@ -429,53 +430,96 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 	*buffer = 0;
 
-	if (filenum)
-		snprintf(filename, ARRAY_LENGTH(filename), "%s\\messinfo.dat", GetDatsDir());
-	else
-		snprintf(filename, ARRAY_LENGTH(filename), "%s\\mameinfo.dat", GetDatsDir());
+	switch (filenum)
+	{
+		case 0:
+			snprintf(filename, ARRAY_LENGTH(filename), "%s\\mameinfo.dat", GetDatsDir());
+			strcat(buffer, "\n**** MAMEINFO: ****\n\n");
+			break;
+		case 1:
+			snprintf(filename, ARRAY_LENGTH(filename), "%s\\messinfo.dat", GetDatsDir());
+			strcat(buffer, "\n**** MESSINFO: ****\n\n");
+			break;
+		case 2:
+			snprintf(filename, ARRAY_LENGTH(filename), "%s\\gameinit.dat", GetDatsDir());
+			strcat(buffer, "\n**** GAMEINIT: ****\n\n");
+			break;
+		default:
+			break;
+	}
 
-	if (filenum)
-		strcat(buffer, "\n**** MESSINFO: ****\n\n");
-	else
-		strcat(buffer, "\n**** MAMEINFO: ****\n\n");
+	if (filenum < 2)
+	{
+		/* List the game info 'flags' */
+		if (drv->flags & MACHINE_NOT_WORKING)
+			strcat(buffer, "THIS GAME DOESN'T WORK PROPERLY\n");
 
-	/* List the game info 'flags' */
-	if (drv->flags & MACHINE_NOT_WORKING)
-		strcat(buffer, "THIS GAME DOESN'T WORK PROPERLY\n");
+		if (drv->flags & MACHINE_UNEMULATED_PROTECTION)
+			strcat(buffer, "The game has protection which isn't fully emulated.\n");
 
-	if (drv->flags & MACHINE_UNEMULATED_PROTECTION)
-		strcat(buffer, "The game has protection which isn't fully emulated.\n");
+		if (drv->flags & MACHINE_IMPERFECT_GRAPHICS)
+			strcat(buffer, "The video emulation isn't 100% accurate.\n");
 
-	if (drv->flags & MACHINE_IMPERFECT_GRAPHICS)
-		strcat(buffer, "The video emulation isn't 100% accurate.\n");
+		if (drv->flags & MACHINE_WRONG_COLORS)
+			strcat(buffer, "The colors are completely wrong.\n");
 
-	if (drv->flags & MACHINE_WRONG_COLORS)
-		strcat(buffer, "The colors are completely wrong.\n");
+		if (drv->flags & MACHINE_IMPERFECT_COLORS)
+			strcat(buffer, "The colors aren't 100% accurate.\n");
 
-	if (drv->flags & MACHINE_IMPERFECT_COLORS)
-		strcat(buffer, "The colors aren't 100% accurate.\n");
+		if (drv->flags & MACHINE_NO_SOUND)
+			strcat(buffer, "The game lacks sound.\n");
 
-	if (drv->flags & MACHINE_NO_SOUND)
-		strcat(buffer, "The game lacks sound.\n");
+		if (drv->flags & MACHINE_IMPERFECT_SOUND)
+			strcat(buffer, "The sound emulation isn't 100% accurate.\n");
 
-	if (drv->flags & MACHINE_IMPERFECT_SOUND)
-		strcat(buffer, "The sound emulation isn't 100% accurate.\n");
+		if (drv->flags & MACHINE_SUPPORTS_SAVE)
+			strcat(buffer, "Save state support.\n");
 
-	if (drv->flags & MACHINE_SUPPORTS_SAVE)
-		strcat(buffer, "Save state support.\n");
+		if (drv->flags & MACHINE_MECHANICAL)
+			strcat(buffer, "The game contains mechanical parts.\n");
 
-	if (drv->flags & MACHINE_MECHANICAL)
-		strcat(buffer, "The game contains mechanical parts.\n");
+		strcat(buffer, "\n");
 
-	strcat(buffer, "\n");
-
-	if (drv->flags & MACHINE_IS_BIOS_ROOT)
-		is_bios = 1;
+		if (drv->flags & MACHINE_IS_BIOS_ROOT)
+			is_bios = 1;
+	}
 
 	/* try to open mameinfo datafile */
 	if (ParseOpen(filename))
 	{
-		if (filenum)
+		if (filenum == 2)
+		{
+			/* create index if necessary */
+			if (gameinit_idx)
+				mameinfo = 1;
+			else
+				mameinfo = (index_datafile (&gameinit_idx, 0) != 0);
+
+			/* load informational text (append) */
+			if (gameinit_idx)
+			{
+				int len = strlen(buffer);
+				int err = 0;
+				const game_driver *gdrv;
+				gdrv = drv;
+
+				do
+				{
+					err = load_datafile_text(gdrv, buffer + len, bufsize - len, gameinit_idx, DATAFILE_TAG_MAME, 0, 1);
+					int g = driver_list::clone(*gdrv);
+
+					if (g!=-1)
+						gdrv = &driver_list::driver(g);
+					else
+						gdrv = NULL;
+				} while (err && gdrv);
+
+				if (err)
+					mameinfo = 0;
+			}
+		}
+		else
+		if (filenum == 1)
 		{
 			/* create index if necessary */
 			if (mess_idx)
@@ -507,6 +551,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 			}
 		}
 		else
+		if (filenum == 0)
 		{
 			/* create index if necessary */
 			if (mame_idx)
@@ -541,6 +586,9 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 		ParseClose();
 	}
 
+	if (filenum > 1)
+		return (mameinfo == 0);
+
 	/* GAME INFORMATIONS */
 	snprintf(name, ARRAY_LENGTH(name), "\nGAME: %s\n", drv->name);
 	strcat(buffer, name);
@@ -549,52 +597,27 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	snprintf(name, ARRAY_LENGTH(name), " (%s %s)\n\nCPU:\n", drv->manufacturer, drv->year);
 	strcat(buffer, name);
 	/* iterate over CPUs */
-	execute_interface_iterator iter(config.root_device());
-	device_execute_interface *cpu = iter.first();
-
-	while (cpu)
+	for (device_execute_interface &cpu : execute_interface_iterator(config.root_device()))
 	{
-		if (cpu->device().clock() >= 1000000)
-			snprintf(name, ARRAY_LENGTH(name), "%s %d.%06d MHz\n", cpu->device().name(), cpu->device().clock() / 1000000, cpu->device().clock() % 1000000);
+		if (cpu.device().clock() >= 1000000)
+			snprintf(name, ARRAY_LENGTH(name), "%s %d.%06d MHz\n", cpu.device().name(), cpu.device().clock() / 1000000, cpu.device().clock() % 1000000);
 		else
-			snprintf(name, ARRAY_LENGTH(name), "%s %d.%03d kHz\n", cpu->device().name(), cpu->device().clock() / 1000, cpu->device().clock() % 1000);
+			snprintf(name, ARRAY_LENGTH(name), "%s %d.%03d kHz\n", cpu.device().name(), cpu.device().clock() / 1000, cpu.device().clock() % 1000);
 
 		strcat(buffer, name);
-		cpu = iter.next();
 	}
 
 	strcat(buffer, "\nSOUND:\n");
 	int has_sound = 0;
 	/* iterate over sound chips */
-	sound_interface_iterator sounditer(config.root_device());
-	const device_sound_interface *sound = sounditer.first();
 
-	while(sound)
+	for (device_sound_interface &sound : sound_interface_iterator(config.root_device()))
 	{
-		int clock = 0;
-		int count = 0;
-		device_type sound_type_;
 		char tmpname[1024];
 
-		snprintf(tmpname, ARRAY_LENGTH(tmpname), "%s", sound->device().name());
-		sound_type_ = sound->device().type();
-		clock = sound->device().clock();
+		snprintf(tmpname, ARRAY_LENGTH(tmpname), "%s", sound.device().name());
+		int clock = sound.device().clock();
 		has_sound = 1;
-		count = 1;
-		sound = sounditer.next();
-
-		/* Matching chips at the same clock are aggregated */
-		while (sound && sound->device().type() == sound_type_ && sound->device().clock() == clock)
-		{
-			count++;
-			sound = sounditer.next();
-		}
-
-		if (count > 1)
-		{
-			snprintf(name, ARRAY_LENGTH(name), "%dx ",count);
-			strcat(buffer, name);
-		}
 
 		strcat(buffer, tmpname);
 
@@ -626,23 +649,23 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 	strcat(buffer, "\nVIDEO:\n");
 	screen_device_iterator screeniter(config.root_device());
-	const screen_device *screen = screeniter.first();
+	const screen_device *screen1 = screeniter.first();
 
-	if (screen == nullptr)
+	if (screen1 == nullptr)
 		strcat(buffer, "Screenless\n");
-	else if (screen->screen_type() == SCREEN_TYPE_VECTOR)
+	else if (screen1->screen_type() == SCREEN_TYPE_VECTOR)
 		strcat(buffer,"Vector\n");
 	else
 	{
-		for (; screen != nullptr; screen = screeniter.next())
+		for (screen_device &screen : screen_device_iterator(config.root_device()))
 		{
 			if (drv->flags & ORIENTATION_SWAP_XY)
-				snprintf(name, ARRAY_LENGTH(name), "%d x %d (V)", screen->visible_area().height(), screen->visible_area().width());
+				snprintf(name, ARRAY_LENGTH(name), "%d x %d (V)", screen.visible_area().height(), screen.visible_area().width());
 			else
-				snprintf(name, ARRAY_LENGTH(name), "%d x %d (H)", screen->visible_area().width(), screen->visible_area().height());
+				snprintf(name, ARRAY_LENGTH(name), "%d x %d (H)", screen.visible_area().width(), screen.visible_area().height());
 
 			strcat(buffer, name);
-			snprintf(name, ARRAY_LENGTH(name), " %f Hz", ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+			snprintf(name, ARRAY_LENGTH(name), " %f Hz", ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
 			strcat(buffer, name);
 			strcat(buffer, "\n");
 		}
@@ -651,27 +674,25 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	strcat(buffer, "\nROM REGION:\n");
 	int g = driver_list::clone(*drv);
 
-	if (g!=-1)
+	if (g != -1)
 		parent = &driver_list::driver(g);
 
-	device_iterator deviter(config.root_device());
-
-	for (device_t *device = deviter.first(); device; device = deviter.next())
+	for (device_t &device : device_iterator(config.root_device()))
 	{
-		for (const rom_entry *region = rom_first_region(*device); region != nullptr; region = rom_next_region(region))
+		for (const rom_entry *region = rom_first_region(device); region; region = rom_next_region(region))
 		{
-			for (const rom_entry *rom = rom_first_file(region); rom != nullptr; rom = rom_next_file(rom))
+			for (const rom_entry *rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 			{
 				hash_collection hashes(ROM_GETHASHDATA(rom));
 
-				if (g!=-1)
+				if (g != -1)
 				{
 					machine_config pconfig(*parent, MameUIGlobal());
 					device_iterator deviter(pconfig.root_device());
 
-					for (device_t *device = deviter.first(); device != nullptr; device = deviter.next())
-						for (const rom_entry *pregion = rom_first_region(*device); pregion != nullptr; pregion = rom_next_region(pregion))
-							for (const rom_entry *prom = rom_first_file(pregion); prom != nullptr; prom = rom_next_file(prom))
+					for (device_t &device : device_iterator(pconfig.root_device()))
+						for (const rom_entry *pregion = rom_first_region(device); pregion; pregion = rom_next_region(pregion))
+							for (const rom_entry *prom = rom_first_file(pregion); prom; prom = rom_next_file(prom))
 							{
 								hash_collection phashes(ROM_GETHASHDATA(prom));
 
@@ -691,13 +712,11 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 		}
 	}
 
-	samples_device_iterator samplesiter(config.root_device());
-
-	for (samples_device *device = samplesiter.first(); device != nullptr; device = samplesiter.next())
+	for (samples_device &device : samples_device_iterator(config.root_device()))
 	{
-		samples_iterator sampiter(*device);
+		samples_iterator sampiter(device);
 
-		if (sampiter.altbasename() != nullptr)
+		if (sampiter.altbasename() )
 		{
 			snprintf(name, ARRAY_LENGTH(name), "\nSAMPLES (%s):\n", sampiter.altbasename());
 			strcat(buffer, name);
@@ -705,7 +724,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 
 		std::unordered_set<std::string> already_printed;
 
-		for (const char *samplename = sampiter.first(); samplename != nullptr; samplename = sampiter.next())
+		for (const char *samplename = sampiter.first(); samplename; samplename = sampiter.next())
 		{
 			// filter out duplicates
 			if (!already_printed.insert(samplename).second)
@@ -721,7 +740,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 	{
 		int g = driver_list::clone(*drv);
 
-		if (g!=-1)
+		if (g != -1)
 			drv = &driver_list::driver(g);
 
 		strcat(buffer, "\nORIGINAL:\n");
