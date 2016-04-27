@@ -257,7 +257,8 @@ void running_machine::start()
 
 	m_render->resolve_tags();
 
-
+	manager().create_custom(*this);
+	
 	// register callbacks for the devices, then start them
 	add_notifier(MACHINE_NOTIFY_RESET, machine_notify_delegate(FUNC(running_machine::reset_all_devices), this));
 	add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(running_machine::stop_all_devices), this));
@@ -283,7 +284,7 @@ void running_machine::start()
 //  run - execute the machine
 //-------------------------------------------------
 
-int running_machine::run(bool firstrun)
+int running_machine::run(bool quiet)
 {
 	int error = EMU_ERR_NONE;
 
@@ -294,7 +295,7 @@ int running_machine::run(bool firstrun)
 		m_current_phase = MACHINE_PHASE_INIT;
 
 		// if we have a logfile, set up the callback
-		if (options().log() && &system() != &GAME_NAME(___empty))
+		if (options().log() && !quiet)
 		{
 			m_logfile = std::make_unique<emu_file>(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 			osd_file::error filerr = m_logfile->open("error.log");
@@ -315,10 +316,12 @@ int running_machine::run(bool firstrun)
 
 		nvram_load();
 		sound().ui_mute(false);
+		if (!quiet)
+			sound().start_recording();
 
 		// initialize ui lists
 		// display the startup screens
-		manager().ui_initialize(*this, firstrun);
+		manager().ui_initialize(*this);
 
 		// perform a soft reset -- this takes us to the running phase
 		soft_reset();

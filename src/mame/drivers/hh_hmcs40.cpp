@@ -34,6 +34,7 @@
  @23      HD38800B  1982, Tomy Kingman (THF-01II)
  *24      HD38800B  1982, Actronics(Hanzawa) Wanted G-Man
  *29      HD38800B  1984, Tomy Portable 6000 Bombman
+ *31      HD38800B  1983, Gongoll Frog Prince (ET-806)
  *35      HD38800B  1983, Bandai Gundam vs Gelgoog Zaku
  @43      HD38800B  1983, Bandai Dokodemo Dorayaki Doraemon (PT-412)
  @52      HD38800B  1983, Bandai Ultraman Monster Battle (PT-424)
@@ -83,15 +84,15 @@
 ***************************************************************************/
 
 #include "emu.h"
+#include "rendlay.h"
 #include "cpu/hmcs40/hmcs40.h"
 #include "cpu/cop400/cop400.h"
 #include "sound/speaker.h"
 
 // internal artwork
-#include "rendlay.h"
 #include "pairmtch.lh"
 
-#include "hh_hmcs40_test.lh" // common test-layout - use external artwork
+#include "hh_hmcs40_test.lh" // common test-layout - no svg artwork(yet), use external artwork
 
 
 class hh_hmcs40_state : public driver_device
@@ -340,8 +341,6 @@ INPUT_CHANGED_MEMBER(hh_hmcs40_state::single_interrupt_line)
   * Hitachi HD38750A08 MCU
   * green VFD display Emix-106, with bezel overlay
 
-  NOTE!: MAME external artwork is required
-
 ***************************************************************************/
 
 class bambball_state : public hh_hmcs40_state
@@ -430,8 +429,13 @@ static MACHINE_CONFIG_START( bambball, bambball_state )
 	MCFG_HMCS40_WRITE_R_CB(3, WRITE8(bambball_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bambball_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 249)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 249-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -449,8 +453,6 @@ MACHINE_CONFIG_END
   * PCB label Emix Corp. ET-06B
   * Hitachi HD38750A07 MCU
   * cyan VFD display Emix-103, with blue or green color overlay
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -564,8 +566,13 @@ static MACHINE_CONFIG_START( bmboxing, bmboxing_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bmboxing_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.4"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 276)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 276-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -583,8 +590,6 @@ MACHINE_CONFIG_END
   * PCB label Kaken Corp., PT-327A
   * Hitachi HD38800A77 MCU
   * cyan/red/green VFD display Futaba DM-43ZK 2E
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -686,8 +691,13 @@ static MACHINE_CONFIG_START( bfriskyt, bfriskyt_state )
 	MCFG_HMCS40_WRITE_R_CB(3, WRITE8(bfriskyt_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bfriskyt_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 351)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 351-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -711,8 +721,6 @@ MACHINE_CONFIG_END
   - USA(World?): Packri Monster
   - USA/Canada: Hungry Monster, published by Tandy
   - other: Gobble Man/Ogre Monster, published by Tandy
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -794,8 +802,13 @@ static MACHINE_CONFIG_START( packmon, packmon_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(packmon_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(READ16(packmon_state, input_r))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 358)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 358-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -820,8 +833,6 @@ MACHINE_CONFIG_END
   known releases:
   - Japan: ?
   - USA: Star Hawk, published by Mattel
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -926,8 +937,13 @@ static MACHINE_CONFIG_START( msthawk, msthawk_state )
 	MCFG_HMCS40_WRITE_R_CB(3, WRITE8(msthawk_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(msthawk_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 362)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 362-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1065,8 +1081,6 @@ MACHINE_CONFIG_END
   * Hitachi QFP HD38820A49 MCU
   * cyan/red/yellow VFD display Futaba DM-53Z 3E, with color overlay
 
-  NOTE!: MAME external artwork is required
-
 ***************************************************************************/
 
 class zackman_state : public hh_hmcs40_state
@@ -1162,8 +1176,13 @@ static MACHINE_CONFIG_START( zackman, zackman_state )
 	MCFG_HMCS40_WRITE_R_CB(6, WRITE8(zackman_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(zackman_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(429, 950)
+	MCFG_SCREEN_VISIBLE_AREA(0, 429-1, 0, 950-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1181,8 +1200,6 @@ MACHINE_CONFIG_END
   * PCB label FL Pengo(in katakana)
   * Hitachi QFP HD38820A63 MCU
   * cyan/red/blue VFD display Futaba DM-68ZK 3D DM-63
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -1288,8 +1305,13 @@ static MACHINE_CONFIG_START( bpengo, bpengo_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bpengo_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.5"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 395)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 395-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1307,8 +1329,6 @@ MACHINE_CONFIG_END
   * PCB label Kaken Corp. PT-389 Burger Time
   * Hitachi QFP HD38820A65 MCU
   * cyan/red/green VFD display NEC FIP6AM25T no. 21-21
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -1410,8 +1430,13 @@ static MACHINE_CONFIG_START( bbtime, bbtime_state )
 	MCFG_HMCS40_WRITE_R_CB(6, WRITE8(bbtime_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bbtime_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(351, 1000)
+	MCFG_SCREEN_VISIBLE_AREA(0, 351-1, 0, 1000-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1429,8 +1454,6 @@ MACHINE_CONFIG_END
   * PCB label Kaken Corp PT-412 FL-Doreamon(in katakana)
   * Hitachi HD38800B43 MCU
   * cyan/red/blue VFD display Futaba DM-71
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -1506,8 +1529,13 @@ static MACHINE_CONFIG_START( bdoramon, bdoramon_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bdoramon_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.2"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 348)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 348-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1525,8 +1553,6 @@ MACHINE_CONFIG_END
   * PCB label Kaken Corp. PT-424 FL Ultra Man
   * Hitachi HD38800B52 MCU
   * cyan/red/blue VFD display NEC FIP8BM25T no. 21-8 2
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -1594,8 +1620,13 @@ static MACHINE_CONFIG_START( bultrman, bultrman_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(bultrman_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.1"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(2033, 713)
+	MCFG_SCREEN_VISIBLE_AREA(0, 2033-1, 0, 713-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1613,8 +1644,6 @@ MACHINE_CONFIG_END
   * PCB label Kaken PT-438
   * Hitachi QFP HD38820A85 MCU
   * cyan/red/green VFD display NEC FIP5CM33T no. 4 21
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -1681,8 +1710,13 @@ static MACHINE_CONFIG_START( machiman, machiman_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(machiman_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.1"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 704)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 704-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1856,8 +1890,6 @@ MACHINE_CONFIG_END
   It looks like Coleco took Gakken's Heiankyo Alien and turned it into a more
   action-oriented game.
 
-  NOTE!: MAME external artwork is required
-
 ***************************************************************************/
 
 class alnattck_state : public hh_hmcs40_state
@@ -1945,8 +1977,13 @@ static MACHINE_CONFIG_START( alnattck, alnattck_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(alnattck_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(READ16(alnattck_state, input_r))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 364)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 364-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2072,7 +2109,7 @@ static MACHINE_CONFIG_START( cdkong, cdkong_state )
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
 	MCFG_SCREEN_REFRESH_RATE(50)
 	MCFG_SCREEN_SIZE(559, 998)
-	MCFG_SCREEN_VISIBLE_AREA(0, 558, 0, 997)
+	MCFG_SCREEN_VISIBLE_AREA(0, 559-1, 0, 998-1)
 	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
 
@@ -2099,8 +2136,6 @@ MACHINE_CONFIG_END
   - P1 Right: Midway's Attackers
   - P2 Left:  Head-to-Head Galaxian (2-player mode, short)
   - P2 Right: Head-to-Head Galaxian (2-player mode, long)
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -2199,8 +2234,13 @@ static MACHINE_CONFIG_START( cgalaxn, cgalaxn_state )
 	MCFG_HMCS40_WRITE_R_CB(3, WRITE8(cgalaxn_state, grid_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(cgalaxn_state, plate_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(483, 992)
+	MCFG_SCREEN_VISIBLE_AREA(0, 483-1, 0, 992-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2230,8 +2270,6 @@ MACHINE_CONFIG_END
   - P1 Down:  Demo
 
   BTANB note: 1st version doesn't show the whole maze on power-on
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -2318,8 +2356,13 @@ static MACHINE_CONFIG_START( cpacman, cpacman_state )
 	MCFG_HMCS40_WRITE_R_CB(6, WRITE8(cpacman_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(cpacman_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(447, 997)
+	MCFG_SCREEN_VISIBLE_AREA(0, 447-1, 0, 997-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2344,8 +2387,6 @@ MACHINE_CONFIG_END
   - P1 Up:    Demo
 
   BTANB note: in demo-mode, she hardly ever walks to the upper two rows
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -2432,8 +2473,13 @@ static MACHINE_CONFIG_START( cmspacmn, cmspacmn_state )
 	MCFG_HMCS40_WRITE_R_CB(6, WRITE8(cmspacmn_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(cmspacmn_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(432, 970)
+	MCFG_SCREEN_VISIBLE_AREA(0, 432-1, 0, 970-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2553,7 +2599,7 @@ static MACHINE_CONFIG_START( egalaxn2, egalaxn2_state )
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
 	MCFG_SCREEN_REFRESH_RATE(50)
 	MCFG_SCREEN_SIZE(421, 900)
-	MCFG_SCREEN_VISIBLE_AREA(0, 420, 0, 899)
+	MCFG_SCREEN_VISIBLE_AREA(0, 421-1, 0, 900-1)
 	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
 
@@ -2625,7 +2671,7 @@ static MACHINE_CONFIG_DERIVED( epacman2, egalaxn2 )
 	/* video hardware */
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_SIZE(467, 1000)
-	MCFG_SCREEN_VISIBLE_AREA(0, 466, 0, 999)
+	MCFG_SCREEN_VISIBLE_AREA(0, 467-1, 0, 1000-1)
 MACHINE_CONFIG_END
 
 
@@ -2639,8 +2685,6 @@ MACHINE_CONFIG_END
   * Hitachi QFP HD38820A43 MCU
   * COP411L sub MCU, label COP411L-KED/N
   * cyan/red/green VFD display NEC FIP15BM32T
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -2810,8 +2854,13 @@ static MACHINE_CONFIG_START( eturtles, eturtles_state )
 
 	MCFG_QUANTUM_PERFECT_CPU("maincpu")
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(443, 989)
+	MCFG_SCREEN_VISIBLE_AREA(0, 443-1, 0, 989-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2830,8 +2879,6 @@ MACHINE_CONFIG_END
   * Hitachi QFP HD38820A42 MCU
   * COP411L sub MCU, label ~/B8236 COP411L-KEC/N
   * cyan/red/green VFD display NEC FIP15AM32T (EL628-003) no. 2-421, with partial color overlay
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -2916,8 +2963,13 @@ static MACHINE_CONFIG_START( estargte, estargte_state )
 
 	MCFG_QUANTUM_PERFECT_CPU("maincpu")
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 445)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 445-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -2938,8 +2990,6 @@ MACHINE_CONFIG_END
   known releases:
   - Japan: Heiankyo Alien
   - USA: Earth Invaders, published by CGL
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3029,8 +3079,13 @@ static MACHINE_CONFIG_START( ghalien, ghalien_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(ghalien_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(READ16(ghalien_state, input_r))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 364)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 364-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3052,8 +3107,6 @@ MACHINE_CONFIG_END
   known releases:
   - Japan: Crazy Kong
   - USA: Super Kong, published by CGL
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3154,8 +3207,13 @@ static MACHINE_CONFIG_START( gckong, gckong_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(gckong_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.5"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(444, 1000)
+	MCFG_SCREEN_VISIBLE_AREA(0, 444-1, 0, 1000-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3173,8 +3231,6 @@ MACHINE_CONFIG_END
   * PCB label Gakken DIG-DAG KS-004283(A/B)
   * Hitachi QFP HD38820A69 MCU
   * cyan/red/green VFD display Futaba DM-69Z 3F, with color overlay
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3273,8 +3329,13 @@ static MACHINE_CONFIG_START( gdigdug, gdigdug_state )
 	MCFG_HMCS40_WRITE_R_CB(6, WRITE8(gdigdug_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(gdigdug_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(441, 1000)
+	MCFG_SCREEN_VISIBLE_AREA(0, 441-1, 0, 1000-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3296,8 +3357,6 @@ MACHINE_CONFIG_END
   To start the game in 2-player mode, simply turn the game on. For 1-player,
   turn the game on while holding the 1-key and use the visitor's side keypad
   to play offsense.
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3431,8 +3490,13 @@ static MACHINE_CONFIG_START( mwcbaseb, mwcbaseb_state )
 	MCFG_HMCS40_WRITE_R_CB(6, WRITE8(mwcbaseb_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(mwcbaseb_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 249)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 249-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3451,8 +3515,6 @@ MACHINE_CONFIG_END
   * PCB label 13662 REV-4
   * Hitachi QFP HD38820A70 MCU
   * cyan/red/green/darkgreen VFD display Itron CP5137
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3518,8 +3580,13 @@ static MACHINE_CONFIG_START( pbqbert, pbqbert_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(pbqbert_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.0"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(525, 939)
+	MCFG_SCREEN_VISIBLE_AREA(0, 525-1, 0, 939-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3537,8 +3604,6 @@ MACHINE_CONFIG_END
   * PCB label THF-01II 2E138E01/2E128E02
   * Hitachi HD38800B23 MCU
   * cyan/red/blue VFD display Futaba DM-65ZK 3A
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3637,8 +3702,13 @@ static MACHINE_CONFIG_START( kingman, kingman_state )
 	MCFG_HMCS40_WRITE_R_CB(3, WRITE8(kingman_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(kingman_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(342, 988)
+	MCFG_SCREEN_VISIBLE_AREA(0, 342-1, 0, 988-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3656,8 +3726,6 @@ MACHINE_CONFIG_END
   * PCB label THN-02 2E114E07
   * Hitachi HD38800A88 MCU
   * cyan/red/green VFD display NEC FIP10AM24T no. 2-8 1
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3756,8 +3824,13 @@ static MACHINE_CONFIG_START( tmtron, tmtron_state )
 	MCFG_HMCS40_WRITE_R_CB(3, WRITE8(tmtron_state, plate_w))
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(tmtron_state, grid_w))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(1000, 345)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1000-1, 0, 345-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3779,8 +3852,6 @@ MACHINE_CONFIG_END
   - USA: Invaders/Sonic Invader
   - UK: Cosmic Invader, published by Grandstand
   - UK: Galactic Invaders, published by Prinztronic
-
-  NOTE!: MAME external artwork is required
 
 ***************************************************************************/
 
@@ -3848,8 +3919,13 @@ static MACHINE_CONFIG_START( vinvader, vinvader_state )
 	MCFG_HMCS40_WRITE_D_CB(WRITE16(vinvader_state, grid_w))
 	MCFG_HMCS40_READ_D_CB(IOPORT("IN.1"))
 
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(216, 1000)
+	MCFG_SCREEN_VISIBLE_AREA(0, 216-1, 0, 1000-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_hmcs40_state, display_decay_tick, attotime::from_msec(1))
-	MCFG_DEFAULT_LAYOUT(layout_hh_hmcs40_test)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -3871,6 +3947,9 @@ ROM_START( bambball )
 	ROM_REGION( 0x1000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38750a08", 0x0000, 0x0800, CRC(907fef18) SHA1(73fe7ca7c6332268a3a9abc5ac88ada2991012fb) )
 	ROM_CONTINUE(           0x0f00, 0x0080 )
+
+	ROM_REGION( 280708, "svg", 0)
+	ROM_LOAD( "bambball.svg", 0, 280708, CRC(cf096b37) SHA1(8a2ea1762612c3a3edb68596ff2a9f91eedf0e68) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -3878,6 +3957,9 @@ ROM_START( bmboxing )
 	ROM_REGION( 0x1000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38750a07", 0x0000, 0x0800, CRC(7f33e259) SHA1(c5fcdd6bf060c96666354f09f0570c754f6ed4e0) )
 	ROM_CONTINUE(           0x0f00, 0x0080 )
+
+	ROM_REGION( 257144, "svg", 0)
+	ROM_LOAD( "bmboxing.svg", 0, 257144, CRC(dab81477) SHA1(28b0c844a311e2023ffa71d754e799059b7d050f) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -3885,6 +3967,9 @@ ROM_START( bfriskyt )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a77", 0x0000, 0x1000, CRC(a2445c4f) SHA1(0aaccfec90b66d27dae194d4462d88e654c41578) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 413577, "svg", 0)
+	ROM_LOAD( "bfriskyt.svg", 0, 413577, CRC(17090264) SHA1(4512a8a91a459f2ddc258641c6d38c2f48f4160f) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -3892,6 +3977,9 @@ ROM_START( packmon )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a27", 0x0000, 0x1000, CRC(86e09e84) SHA1(ac7d3c43667d5720ca513f8ff51d146d9f2af124) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 400909, "svg", 0)
+	ROM_LOAD( "packmon.svg", 0, 400909, CRC(d91393ac) SHA1(1aa27b6dbef59ea6482a41f3e6eb30ff0eb91b4a) ) // by kevtris/OG/hap, ver. 25 apr 2016
 ROM_END
 
 
@@ -3899,6 +3987,9 @@ ROM_START( msthawk )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a73", 0x0000, 0x1000, CRC(a4f9a523) SHA1(465f06b02e2e7d2277218fd447830725790a816c) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 197907, "svg", 0)
+	ROM_LOAD( "msthawk.svg", 0, 197907, CRC(b54efcb9) SHA1(76db2ca156d556bf578995196eca1170b39988bb) ) // by kevtris/hap, ver. 25 apr 2016
 ROM_END
 
 
@@ -3913,6 +4004,9 @@ ROM_START( zackman )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a49", 0x0000, 0x1000, CRC(b97f5ef6) SHA1(7fe20e8107361caf9ea657e504be1f8b10b8b03f) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 910689, "svg", 0)
+	ROM_LOAD( "zackman.svg", 0, 910689, CRC(5f322820) SHA1(4210aff160e5de9a409aba8b915aaebff2a92647) ) // by kevtris, ver. 29 mar 2015
 ROM_END
 
 
@@ -3920,6 +4014,9 @@ ROM_START( bpengo )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a63", 0x0000, 0x1000, CRC(ebd6bc64) SHA1(0a322c47b9553a2739a85908ce64b9650cf93d49) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 744461, "svg", 0)
+	ROM_LOAD( "bpengo.svg", 0, 744461, BAD_DUMP CRC(2b9abaa5) SHA1(c70a6ac1fa757fdd3ababfe6e00573ef1410c1eb) ) // by hap/kevtris, ver. 25 apr 2016 - BAD_DUMP: needs cleanup/redo
 ROM_END
 
 
@@ -3927,6 +4024,9 @@ ROM_START( bbtime )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a65", 0x0000, 0x1000, CRC(33611faf) SHA1(29b6a30ed543688d31ec2aa18f7938fa4eef30b0) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 461605, "svg", 0)
+	ROM_LOAD( "bbtime.svg", 0, 461605, BAD_DUMP CRC(5b335271) SHA1(46c45b711358e8397ae707668aecead9e341ab8a) ) // by hap/kevtris, ver. 25 apr 2016 - BAD_DUMP: needs cleanup/redo
 ROM_END
 
 
@@ -3934,6 +4034,9 @@ ROM_START( bdoramon )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800b43", 0x0000, 0x1000, CRC(9387ca42) SHA1(8937e208934b34bd9f49700aa50287dfc8bda76c) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 624751, "svg", 0)
+	ROM_LOAD( "bdoramon.svg", 0, 624751, CRC(5dc4017c) SHA1(2091765de401969651b8eb22067572be72d12398) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -3941,6 +4044,9 @@ ROM_START( bultrman )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800b52", 0x0000, 0x1000, CRC(88d372dc) SHA1(f2ac3b89be8afe6fb65914ccebe1a56316b9472a) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 405717, "svg", 0)
+	ROM_LOAD( "bultrman.svg", 0, 405717, CRC(13367971) SHA1(f294898712d1e146ff267bb1e3cfd059f972b248) ) // by Rik/kevtris, ver. 7 apr 2016
 ROM_END
 
 
@@ -3948,6 +4054,9 @@ ROM_START( machiman )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a85", 0x0000, 0x1000, CRC(894b4954) SHA1(cab49638a326b031aa548301beb16f818759ef62) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 374097, "svg", 0)
+	ROM_LOAD( "machiman.svg", 0, 374097, CRC(78af02ac) SHA1(1b4bbea3e46e1bf33149727d9725bc9b18652b9c) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -3966,6 +4075,9 @@ ROM_START( alnattck )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a25", 0x0000, 0x1000, CRC(18b50869) SHA1(11e9d5f7b4ae818b077b0ee14a3b43190e20bff3) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 564271, "svg", 0)
+	ROM_LOAD( "alnattck.svg", 0, 564271, CRC(5466d1d4) SHA1(3295272015969e58fddc53272769e1fc1bd4b355) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -3983,6 +4095,9 @@ ROM_START( cgalaxn )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a70", 0x0000, 0x1000, CRC(a4c5ed1d) SHA1(0f647cb78437d7e62411febf7c9ce3c5b6753a80) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 712204, "svg", 0)
+	ROM_LOAD( "cgalaxn.svg", 0, 712204, CRC(67ec57bf) SHA1(195c9867b321da9768ce287d1060ceae50345dd4) ) // by kevtris, ver. 30 mar 2015
 ROM_END
 
 
@@ -3990,12 +4105,18 @@ ROM_START( cpacman )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a29", 0x0000, 0x1000, CRC(1082d577) SHA1(0ef73132bd41f6ca1e4c001ae19f7f7c97eaa8d1) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 359765, "svg", 0)
+	ROM_LOAD( "cpacman.svg", 0, 359765, CRC(e3810a46) SHA1(d0994edd71a6adc8f238c71e360a8606ce397a14) ) // by Rik/kevtris, ver. 26 apr 2016
 ROM_END
 
 ROM_START( cpacmanr1 )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a28", 0x0000, 0x1000, CRC(d2ed57e5) SHA1(f56f1341485ac28ea9e6cc4d162fab18d8a4c977) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 359765, "svg", 0)
+	ROM_LOAD( "cpacman.svg", 0, 359765, CRC(e3810a46) SHA1(d0994edd71a6adc8f238c71e360a8606ce397a14) ) // by Rik/kevtris, ver. 26 apr 2016
 ROM_END
 
 
@@ -4003,6 +4124,9 @@ ROM_START( cmspacmn )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a61", 0x0000, 0x1000, CRC(76276318) SHA1(9d6ff3f49b4cdaee5c9e238c1ed638bfb9b99aa7) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 849327, "svg", 0)
+	ROM_LOAD( "cmspacmn.svg", 0, 849327, CRC(4110ad07) SHA1(76113a2ce0fb1c6dab4e26fd59a13dc89d950d75) ) // by kevtris, ver. 1 apr 2015
 ROM_END
 
 
@@ -4042,6 +4166,9 @@ ROM_START( estargte )
 
 	ROM_REGION( 0x0200, "audiocpu", 0 )
 	ROM_LOAD( "cop411l-kec_n", 0x0000, 0x0200, CRC(fbd3c2d3) SHA1(65b8b24d38678c3fa970bfd639e9449a75a28927) )
+
+	ROM_REGION( 462214, "svg", 0)
+	ROM_LOAD( "estargte.svg", 0, 462214, CRC(282cc090) SHA1(b0f3c21e9a529e5f1e33b90ca25ce3a097fb75a0) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -4052,6 +4179,9 @@ ROM_START( eturtles )
 
 	ROM_REGION( 0x0200, "audiocpu", 0 )
 	ROM_LOAD( "cop411l-ked_n", 0x0000, 0x0200, CRC(503d26e9) SHA1(a53d24d62195bfbceff2e4a43199846e0950aef6) )
+
+	ROM_REGION( 1027626, "svg", 0)
+	ROM_LOAD( "eturtles.svg", 0, 1027626, CRC(b4f7abff) SHA1(e9b065a3a3fef3c71495002945724a86c2a68eb4) ) // by kevtris, ver. 30 mar 2015
 ROM_END
 
 
@@ -4059,6 +4189,9 @@ ROM_START( ghalien )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a04", 0x0000, 0x1000, CRC(019c3328) SHA1(9f1029c5c479f78350952c4f18747341ba5ea7a0) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 462749, "svg", 0)
+	ROM_LOAD( "ghalien.svg", 0, 462749, CRC(1acbb1e8) SHA1(7bdeb840bc9080792e24812eba923bf84f7865a6) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -4066,6 +4199,9 @@ ROM_START( gckong )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800b01", 0x0000, 0x1000, CRC(d5a2cca3) SHA1(37bb5784383daab672ed1e0e2362c7a40d8d9b3f) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 349591, "svg", 0)
+	ROM_LOAD( "gckong.svg", 0, 349591, BAD_DUMP CRC(94b5fcdf) SHA1(a797feb71d18d0320e846eca72a0df92d111ee1e) ) // by kevtris, ver. 25 apr 2016 - BAD_DUMP: needs overlay
 ROM_END
 
 
@@ -4073,6 +4209,9 @@ ROM_START( gdigdug )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a69", 0x0000, 0x1000, CRC(501165a9) SHA1(8a15d00c4aa66e870cadde33148426463560d2e6) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 807990, "svg", 0)
+	ROM_LOAD( "gdigdug.svg", 0, 807990, CRC(a5b8392d) SHA1(3503829bb1a626a9e70115fb60b656dff8908144) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -4080,6 +4219,9 @@ ROM_START( mwcbaseb )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a09", 0x0000, 0x1000, CRC(25ba7dc0) SHA1(69e0a867fdcf07b454b1faf835e576ae782432c0) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 178441, "svg", 0)
+	ROM_LOAD( "mwcbaseb.svg", 0, 178441, CRC(0f631190) SHA1(74a10ad0630af5516f76d5bf5628483d21f6b7be) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -4087,6 +4229,9 @@ ROM_START( pbqbert )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38820a70", 0x0000, 0x1000, CRC(be7c80b4) SHA1(0617a80ef7fe188ea221de32e760d45fd4318c67) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 456567, "svg", 0)
+	ROM_LOAD( "pbqbert.svg", 0, 456567, CRC(49853a62) SHA1(869377109fb7163e5ef5efadb26ce3955231f6ca) ) // by kevtris, ver. 30 mar 2015
 ROM_END
 
 
@@ -4094,6 +4239,9 @@ ROM_START( kingman )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800b23", 0x0000, 0x1000, CRC(f8dfe14f) SHA1(660610d92ae7e5f92bddf5a3bcc2296b2ec3946b) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 396320, "svg", 0)
+	ROM_LOAD( "kingman.svg", 0, 396320, CRC(3f52d2a9) SHA1(9291f1a1da3d19c3d6dedb995de0a5feba75b442) ) // by kevtris, ver. 29 mar 2015
 ROM_END
 
 
@@ -4101,6 +4249,9 @@ ROM_START( tmtron )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38800a88", 0x0000, 0x1000, CRC(33db9670) SHA1(d6f747a59356526698784047bcfdbb59e79b9a23) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
+
+	ROM_REGION( 384174, "svg", 0)
+	ROM_LOAD( "tmtron.svg", 0, 384174, CRC(06bd9e63) SHA1(fb93013ec42dc05f7029ef3c3073c84867f0d077) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
@@ -4108,48 +4259,51 @@ ROM_START( vinvader )
 	ROM_REGION( 0x1000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "hd38750a45", 0x0000, 0x0800, CRC(32de6056) SHA1(70238c6c40c3d513f8eced1cb81bdd4dbe12f16c) )
 	ROM_CONTINUE(           0x0f00, 0x0080 )
+
+	ROM_REGION( 166379, "svg", 0)
+	ROM_LOAD( "vinvader.svg", 0, 166379, CRC(b75c448e) SHA1(40d546f9fbdb446883e3ab0e3f678f1be8105159) ) // by kevtris, ver. 25 apr 2016
 ROM_END
 
 
 
 /*    YEAR  NAME       PARENT COMPAT MACHINE  INPUT     INIT              COMPANY, FULLNAME, FLAGS */
-CONS( 1979, bambball,  0,        0, bambball, bambball, driver_device, 0, "Bambino", "Dribble Away Basketball", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1979, bmboxing,  0,        0, bmboxing, bmboxing, driver_device, 0, "Bambino", "Knock-Em Out Boxing", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1979, bambball,  0,        0, bambball, bambball, driver_device, 0, "Bambino", "Dribble Away Basketball", MACHINE_SUPPORTS_SAVE )
+CONS( 1979, bmboxing,  0,        0, bmboxing, bmboxing, driver_device, 0, "Bambino", "Knock-Em Out Boxing", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1982, bfriskyt,  0,        0, bfriskyt, bfriskyt, driver_device, 0, "Bandai", "Frisky Tom (Bandai)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1981, packmon,   0,        0, packmon,  packmon,  driver_device, 0, "Bandai", "Packri Monster", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1982, msthawk,   0,        0, msthawk,  msthawk,  driver_device, 0, "Bandai (Mattel license)", "Star Hawk (Mattel)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1982, bfriskyt,  0,        0, bfriskyt, bfriskyt, driver_device, 0, "Bandai", "Frisky Tom (Bandai)", MACHINE_SUPPORTS_SAVE )
+CONS( 1981, packmon,   0,        0, packmon,  packmon,  driver_device, 0, "Bandai", "Packri Monster", MACHINE_SUPPORTS_SAVE )
+CONS( 1982, msthawk,   0,        0, msthawk,  msthawk,  driver_device, 0, "Bandai (Mattel license)", "Star Hawk (Mattel)", MACHINE_SUPPORTS_SAVE )
 CONS( 1982, bzaxxon,   0,        0, bzaxxon,  bzaxxon,  driver_device, 0, "Bandai", "Zaxxon (Bandai)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1983, zackman,   0,        0, zackman,  zackman,  driver_device, 0, "Bandai", "Zackman", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1983, bpengo,    0,        0, bpengo,   bpengo,   driver_device, 0, "Bandai", "Pengo (Bandai)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1983, bbtime,    0,        0, bbtime,   bbtime,   driver_device, 0, "Bandai", "Burger Time (Bandai)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1983, bdoramon,  0,        0, bdoramon, bdoramon, driver_device, 0, "Bandai", "Dokodemo Dorayaki Doraemon", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1983, bultrman,  0,        0, bultrman, bultrman, driver_device, 0, "Bandai", "Ultraman Monster Battle", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1984, machiman,  0,        0, machiman, machiman, driver_device, 0, "Bandai", "Machine Man", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1983, zackman,   0,        0, zackman,  zackman,  driver_device, 0, "Bandai", "Zackman", MACHINE_SUPPORTS_SAVE )
+CONS( 1983, bpengo,    0,        0, bpengo,   bpengo,   driver_device, 0, "Bandai", "Pengo (Bandai)", MACHINE_SUPPORTS_SAVE )
+CONS( 1983, bbtime,    0,        0, bbtime,   bbtime,   driver_device, 0, "Bandai", "Burger Time (Bandai)", MACHINE_SUPPORTS_SAVE )
+CONS( 1983, bdoramon,  0,        0, bdoramon, bdoramon, driver_device, 0, "Bandai", "Dokodemo Dorayaki Doraemon", MACHINE_SUPPORTS_SAVE )
+CONS( 1983, bultrman,  0,        0, bultrman, bultrman, driver_device, 0, "Bandai", "Ultraman Monster Battle", MACHINE_SUPPORTS_SAVE )
+CONS( 1984, machiman,  0,        0, machiman, machiman, driver_device, 0, "Bandai", "Machine Man", MACHINE_SUPPORTS_SAVE )
 CONS( 1984, pairmtch,  0,        0, pairmtch, pairmtch, driver_device, 0, "Bandai", "Pair Match", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1981, alnattck,  0,        0, alnattck, alnattck, driver_device, 0, "Coleco", "Alien Attack", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1981, alnattck,  0,        0, alnattck, alnattck, driver_device, 0, "Coleco", "Alien Attack", MACHINE_SUPPORTS_SAVE )
 CONS( 1982, cdkong,    0,        0, cdkong,   cdkong,   driver_device, 0, "Coleco", "Donkey Kong (Coleco)", MACHINE_SUPPORTS_SAVE )
-CONS( 1982, cgalaxn,   0,        0, cgalaxn,  cgalaxn,  driver_device, 0, "Coleco", "Galaxian (Coleco)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK | MACHINE_IMPERFECT_SOUND )
-CONS( 1981, cpacman,   0,        0, cpacman,  cpacman,  driver_device, 0, "Coleco", "Pac-Man (Coleco, Rev. 29)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1981, cpacmanr1, cpacman,  0, cpacman,  cpacman,  driver_device, 0, "Coleco", "Pac-Man (Coleco, Rev. 28)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1983, cmspacmn,  0,        0, cmspacmn, cmspacmn, driver_device, 0, "Coleco", "Ms. Pac-Man (Coleco)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1982, cgalaxn,   0,        0, cgalaxn,  cgalaxn,  driver_device, 0, "Coleco", "Galaxian (Coleco)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+CONS( 1981, cpacman,   0,        0, cpacman,  cpacman,  driver_device, 0, "Coleco", "Pac-Man (Coleco, Rev. 29)", MACHINE_SUPPORTS_SAVE )
+CONS( 1981, cpacmanr1, cpacman,  0, cpacman,  cpacman,  driver_device, 0, "Coleco", "Pac-Man (Coleco, Rev. 28)", MACHINE_SUPPORTS_SAVE )
+CONS( 1983, cmspacmn,  0,        0, cmspacmn, cmspacmn, driver_device, 0, "Coleco", "Ms. Pac-Man (Coleco)", MACHINE_SUPPORTS_SAVE )
 
 CONS( 1981, egalaxn2,  0,        0, egalaxn2, egalaxn2, driver_device, 0, "Entex", "Galaxian 2 (Entex)", MACHINE_SUPPORTS_SAVE )
 CONS( 1981, epacman2,  0,        0, epacman2, epacman2, driver_device, 0, "Entex", "Pac Man 2 (Entex, cyan Pacman)", MACHINE_SUPPORTS_SAVE )
 CONS( 1981, epacman2r, epacman2, 0, epacman2, epacman2, driver_device, 0, "Entex", "Pac Man 2 (Entex, red Pacman)", MACHINE_SUPPORTS_SAVE )
-CONS( 1982, estargte,  0,        0, estargte, estargte, driver_device, 0, "Entex", "Stargate (Entex)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1982, eturtles,  0,        0, eturtles, eturtles, driver_device, 0, "Entex", "Turtles (Entex)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1982, estargte,  0,        0, estargte, estargte, driver_device, 0, "Entex", "Stargate (Entex)", MACHINE_SUPPORTS_SAVE )
+CONS( 1982, eturtles,  0,        0, eturtles, eturtles, driver_device, 0, "Entex", "Turtles (Entex)", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1980, ghalien,   0,        0, ghalien,  ghalien,  driver_device, 0, "Gakken", "Heiankyo Alien (Gakken)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1982, gckong,    0,        0, gckong,   gckong,   driver_device, 0, "Gakken", "Crazy Kong (Gakken)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK | MACHINE_NOT_WORKING )
-CONS( 1983, gdigdug,   0,        0, gdigdug,  gdigdug,  driver_device, 0, "Gakken", "Dig Dug (Gakken)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1980, ghalien,   0,        0, ghalien,  ghalien,  driver_device, 0, "Gakken", "Heiankyo Alien (Gakken)", MACHINE_SUPPORTS_SAVE )
+CONS( 1982, gckong,    0,        0, gckong,   gckong,   driver_device, 0, "Gakken", "Crazy Kong (Gakken)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
+CONS( 1983, gdigdug,   0,        0, gdigdug,  gdigdug,  driver_device, 0, "Gakken", "Dig Dug (Gakken)", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1980, mwcbaseb,  0,        0, mwcbaseb, mwcbaseb, driver_device, 0, "Mattel", "World Championship Baseball", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1980, mwcbaseb,  0,        0, mwcbaseb, mwcbaseb, driver_device, 0, "Mattel", "World Championship Baseball", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1983, pbqbert,   0,        0, pbqbert,  pbqbert,  driver_device, 0, "Parker Brothers", "Q*Bert (Parker Brothers)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1983, pbqbert,   0,        0, pbqbert,  pbqbert,  driver_device, 0, "Parker Brothers", "Q*Bert (Parker Brothers)", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1982, kingman,   0,        0, kingman,  kingman,  driver_device, 0, "Tomy", "Kingman", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
-CONS( 1984, tmtron,    0,        0, tmtron,   tmtron,   driver_device, 0, "Tomy", "Tron (Tomy)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1982, kingman,   0,        0, kingman,  kingman,  driver_device, 0, "Tomy", "Kingman", MACHINE_SUPPORTS_SAVE )
+CONS( 1984, tmtron,    0,        0, tmtron,   tmtron,   driver_device, 0, "Tomy", "Tron (Tomy)", MACHINE_SUPPORTS_SAVE )
 
-CONS( 1981, vinvader,  0,        0, vinvader, vinvader, driver_device, 0, "VTech", "Invaders (VTech)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
+CONS( 1981, vinvader,  0,        0, vinvader, vinvader, driver_device, 0, "VTech", "Invaders (VTech)", MACHINE_SUPPORTS_SAVE )

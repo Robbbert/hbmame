@@ -2457,6 +2457,7 @@ gghost                          // (c) 1984
 gimeabrk                        // (c) 1985
 grudge                          // prototype - Bally/Midway
 hattrick                        // (c) 1984
+teamht							//
 minigolf                        // (c) 1985
 minigolf2                       // (c) 1985
 nametune                        // (c) 1986
@@ -14054,6 +14055,7 @@ bmsoccer                        // Bambino
 edracula                        // Epoch
 efball                          // Epoch
 galaxy2                         // Epoch
+galaxy2b                        // Epoch
 invspace                        // Epoch
 mcompgin                        // Mattel
 mvbfree                         // Mego
@@ -14461,6 +14463,9 @@ indigo4k                        // IP20: Indigo 1, R4400, 150MHz
 ip224613                        // IP22: Indy, R4600, 133MHz
 ip225015                        // IP22: Indy, R5000, 150MHz
 ip244415                        // IP24: Indigo 2, R4400, 150MHz
+
+@source:instantm.cpp
+instantm                        //
 
 @source:instruct.cpp
 instruct                        //
@@ -17234,6 +17239,7 @@ macse30                         // 1989 Apple Macintosh SE/30
 macsefd                         // 1988 Apple Macintosh SE (FDHD)
 pmac6100                        // 1993 Apple Power Macintosh 6100
 unitron                         // 1985 Unitron
+utrn1024						// 1986 Unitron 1024
 
 @source:macpci.cpp
 pippin                          //
@@ -19923,6 +19929,7 @@ mkla3                           // (c) 1992 Midway
 mkla4                           // (c) 1992 Midway
 mknifty                         // hack
 mknifty666                      // hack
+mkrep							// hack
 mkprot4                         // (c) 1992 Midway
 mkprot8                         // (c) 1992 Midway
 mkprot9                         // (c) 1992 Midway
@@ -28042,6 +28049,7 @@ starhrse                        // 2000.?? Star Horse (big screens)
 starhrsp                        // 2003.12.01 Star Horse Progress (satellite) (Rev A)
 starseek                        // 2001.07 Dokidoki Idol Star Seeker
 suchie3                         // 1999.09 Idol Janshi Su-Chi-Pi 3
+sushibar                        // 2003 Sushi Bar
 takoron                         // 2006.12.16 Noukone Puzzle Takoron
 tduno                           // 1999.08 Touch de UNO! / Unou Nouryoku Check Machine
 tduno2                          // 2000.02 Touch de UNO! 2
@@ -28542,6 +28550,7 @@ wjammers                        // 0065 (c) 1994 Data East Corporation
 zedblade                        // 0076 (c) 1994 NMK
 zintrckb                        // 0211 hack - this is not a genuine MVS proto, its a bootleg made from the CD version
 zupapa                          // 0070 Zupapa - released in 2001, 1994 prototype probably exists
+lasthope
 
 @source:neoprint.cpp
 98best44                        //
@@ -30453,6 +30462,9 @@ pc1403                          // Pocket Computer 1403
 pc1403h                         // Pocket Computer 1403H
 pc1450                          // Pocket Computer 1450
 trs80pc3                        // Tandy TRS80 PC-3
+
+@source:pockchal.cpp
+pockchal
 
 @source:pockstat.cpp
 pockstat                        // 1999 Sony PocketStation
@@ -33793,10 +33805,12 @@ nclubv3                         // 1997.07 Name Club Ver. 3
 othellos                        // 1998.07 Othello Shiyouyo (Success)
 pblbeach                        // 1996.03 Pebble Beach the Great Shot (T&E Soft)
 pclb2elk                        // 1997.07 Print Club Custom
+pckobe99						// Print Club Custom 3
 pclove                          //
 pclove2                         //
 pclub2                          // 1997.09 Print Club 2
 pclub26w                        //
+pclub26wa						//
 pclub27s                        //
 pclub2fc                        // 1997.04 Print Club 2 Felix The Cat
 pclub2kc                        // 1997.02 Print Club Kome Kome Club
@@ -33807,12 +33821,17 @@ pclub2wb                        //
 pclubol                         // 1998.07 Print Club Olive
 pclubor                         // 1999.11 Print Club Goukakenran
 pclubpok                        // 1999.11 Print Club Pokemon
+pcpooh2							//
+pcpooh3							//
 pclubyo2                        //
+prc28su							// Vol 8. Summer 97
+prc29au							// Vol 9. Autumn 97
 prc297wi                        // 1997.10 Print Club 2 '97 Winter Ver
 prc297wia                       //
 prc298au                        // 1998.08 Print Club 2 '98 Autumn Ver
 prc298sp                        // 1997.10 Print Club 2 '98 Spring Ver
 prc298su                        //
+prc2ksu							// Print Club Summer 2000
 prikura                         // 1996.10 Prikura Daisakusen (Atlus)
 puyosun                         // 1996.12 Puyo Puyo SUN (Compile)
 rsgun                           // 1998.05 Radient Silver Gun (Treasure)
@@ -35364,72 +35383,6 @@ tourtabl                        // 030170           1978/03 [6507]
 
 @source:tourvis.cpp
 tourvis                         // (c) ???? Tourvision
-tv1943                          // (c) 1991 Capcom / Nexat Soft (Tourvision bootleg)
-tvablast                        // (c) 1990 Hudson / Kaneko (Tourvision bootleg)
-tvaburn                         // (c) 1990 Sega / Nec Avenue (Tourvision bootleg)
-tvarmedf                        // (c) 1990 Nichibutsu / Big Don (Tourvision bootleg)
-tvbalstx                        // (c) 1991 Psygnosis / Coconuts Japan (Tourvision bootleg)
-tvbeball                        // (c) 1990 Hudson (Tourvision bootleg)
-tvbomber                        // (c) 1990 Hudson (Tourvision bootleg)
-tvbrabho                        // (c) 1990 Namco / Namcot (Tourvision bootleg)
-tvcolumn                        // (c) 1991 Telenet Japan (Tourvision bootleg)
-tvcoryon                        // (c) 1991 Naxat Soft (Tourvision bootleg)
-tvdensho                        // (c) 1989 Big Club / Wolf Team (Tourvision bootleg)
-tvdevilc                        // (c) 1990 Naxat / Red (Tourvision bootleg)
-tvdmoon                         // (c) 1991 T.S.S. (Tourvision bootleg)
-tvdodgeb                        // (c) 1990 Technos Japan Corp / Naxat Soft (Tourvision bootleg)
-tvdormon                        // (c) 1989 Hudson / Fujiko-Shogakukan-TV Asahi (Tourvision bootleg)
-tvdrgnst                        // (c) 1988 Namcot (Tourvision bootleg)
-tvdsenpu                        // (c) 1990 Toaplan / Nec Avenue (Tourvision bootleg)
-tvdunexp                        // (c) 1989 Hudson / Atlus (Tourvision bootleg)
-tveigues                        // (c) 1990 Victor Musical Industries, Inc. (Tourvision bootleg)
-tvfblast                        // (c) 1990 Namco / Namcot (Tourvision bootleg)
-tvflaptw                        // (c) 1989 Namco (Tourvision bootleg)
-tvfsoc90                        // (c) 1990 Human (Tourvision bootleg)
-tvftenis                        // (c) 1991 Human (Tourvision bootleg)
-tvgomola                        // (c) 1990 Human (Tourvision bootleg)
-tvgunhed                        // (c) 1989 Hudson / Toho Sunrise (Tourvision bootleg)
-tvhtdaka                        // (c) 1991 Taito(Tourvision bootleg)
-tvjchan                         // (c) 1991 Hudson (Tourvision bootleg)
-tvkaikai                        // (c) 1990 Taito (Tourvision bootleg)
-tvlegaxe                        // (c) 1988 Victor Musical Industries, Inc. (Tourvision bootleg)
-tvlqkids                        // (c) 1992 Taito (Tourvision bootleg)
-tvmrheli                        // (c) 1989 IREM Corp (Tourvision bootleg)
-tvninjar                        // (c) 1992 Tecmo / Hudson Soft (Tourvision bootleg)
-tvninjas                        // (c) 1990 IREM Corp (Tourvision bootleg)
-tvopwolf                        // (c) 1990 Taito / Nec Avenue (Tourvision bootleg)
-tvovride                        // (c) 1990 Sting / Data East Corporation (Tourvision bootleg)
-tvpaclnd                        // (c) 1991 Namco / Namcot (Tourvision bootleg)
-tvpcgen2                        // (c) 1991 Hudson Soft / Red (Tourvision bootleg)
-tvpchasr                        // (c) 1990 Naxat Soft (Tourvision bootleg)
-tvpcybrg                        // (c) 1992 Hudson Soft / Red (Tourvision bootleg)
-tvpdrift                        // (c) 1991 Sega / Asmik Corporation (Tourvision bootleg)
-tvpow11                         // (c) 1991 Hudson (Tourvision bootleg)
-tvpros91                        // (c) 1991 Namco / Namcot (Tourvision bootleg)
-tvpwlg4                         // (c) 1991 Hudson (Tourvision bootleg)
-tvpzlboy                        // (c) 1991 Atlus / Telenet Japan (Tourvision bootleg)
-tvraiden                        // (c) 1991 Seibu Kaihatsu inc / Hudson Soft (Tourvision bootleg)
-tvrs2                           // (c) 1990 Taito (Tourvision bootleg)
-tvrtype2                        // (c) 1991 IREM (Tourvision bootleg)
-tvsci                           // (c) 1991 Taito (Tourvision bootleg)
-tvsdarms                        // (c) 1989 Capcom / Nec Avenue (Tourvision bootleg)
-tvshnobi                        // (c) 1989 Sega / Asmik Corporation (Tourvision bootleg)
-tvskweek                        // (c) 1991 Victor Musical Industries, Inc. (Tourvision bootleg)
-tvslmndr                        // (c) 1991 Konami (Tourvision bootleg)
-tvsson2                         // (c) 1989 Capcom / Nec Avenue (Tourvision bootleg)
-tvsssold                        // (c) 1990 Hudson / Kaneko (Tourvision bootleg)
-tvsvball                        // (c) 1990 Video System (Tourvision bootleg)
-tvtaisen                        // (c) 1992 Taito (Tourvision bootleg)
-tvtcrst2                        // (c) 1992 Nichibutsu / Nihon Bussan Co., Ltd (Tourvision bootleg)
-tvthbld                         // (c) 1990 Sega / NEC Avenue (Tourvision bootleg)
-tvtonma                         // (c) 1991 IREM Corp (Tourvision bootleg)
-tvtsboys                        // (c) 1990 Victor Musical Industries, Inc. (Tourvision bootleg)
-tvtsujin                        // (c) 1992 Toaplan Co Ltd / Taito Corporation (Tourvision bootleg)
-tvusapb                         // (c) 1989 Aicom (Tourvision bootleg)
-tvvolfd                         // (c) 1989 Taito (Tourvision bootleg)
-tvwnshot                        // (c) 1989 Data East Corp. (Tourvision bootleg)
-tvwring                         // (c) 1990 Naxat Soft (Tourvision bootleg)
-tvxvious                        // (c) 1990 Namco Ltd. / Namcot (Tourvision bootleg)
 
 @source:toypop.cpp
 liblrabl                        // (c) 1983

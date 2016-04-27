@@ -59,9 +59,9 @@ chain_manager::~chain_manager()
 void chain_manager::refresh_available_chains()
 {
 	m_available_chains.clear();
-	m_available_chains.push_back("none");
+	m_available_chains.push_back(chain_desc("none", ""));
 
-	find_available_chains(std::string(m_options.bgfx_path()) + "/chains");
+	find_available_chains(std::string(m_options.bgfx_path()) + "/chains", "");
 
 	destroy_unloaded_chains();
 }
@@ -74,11 +74,12 @@ void chain_manager::destroy_unloaded_chains()
 		std::string name = m_chain_names[i];
 		if (name.length() > 0)
 		{
-			for (std::string available_name : m_available_chains)
+			for (chain_desc desc : m_available_chains)
 			{
-				if (available_name == name)
+				if (desc.m_name == name)
 				{
 					delete m_screen_chains[i];
+					m_screen_chains[i] = nullptr;
 					m_chain_names[i] = "";
 					m_current_chain[i] = CHAIN_NONE;
 					break;
@@ -88,9 +89,9 @@ void chain_manager::destroy_unloaded_chains()
 	}
 }
 
-void chain_manager::find_available_chains(std::string path)
+void chain_manager::find_available_chains(std::string root, std::string path)
 {
-	osd_directory *directory = osd_opendir(path.c_str());
+	osd_directory *directory = osd_opendir((root + path).c_str());
 	if (directory != nullptr)
 	{
 		for (const osd_directory_entry *entry = osd_readdir(directory); entry != nullptr; entry = osd_readdir(directory))
@@ -109,7 +110,7 @@ void chain_manager::find_available_chains(std::string path)
 					// Does it end in .json?
 					if (test_segment == extension)
 					{
-						m_available_chains.push_back(name.substr(0, start));
+						m_available_chains.push_back(chain_desc(name.substr(0, start), path));
 					}
 				}
 			}
@@ -118,7 +119,12 @@ void chain_manager::find_available_chains(std::string path)
 				std::string name = entry->name;
 				if (!(name == "." || name == ".."))
 				{
-					find_available_chains(path + PATH_SEPARATOR + name);
+					std::string appended_path = path + "/" + name;
+					if (path.length() == 0)
+					{
+						appended_path = name;
+					}
+					find_available_chains(root, path + "/" + name);
 				}
 			}
 		}
@@ -189,7 +195,7 @@ void chain_manager::parse_chain_selections(std::string chain_str)
         size_t chain_index = 0;
         for (chain_index = 0; chain_index < m_available_chains.size(); chain_index++)
         {
-            if (m_available_chains[chain_index] == chain_names[index])
+            if (m_available_chains[chain_index].m_name == chain_names[index])
             {
                 break;
             }
@@ -198,7 +204,7 @@ void chain_manager::parse_chain_selections(std::string chain_str)
         if (chain_index < m_available_chains.size())
         {
             m_current_chain[index] = chain_index;
-            m_chain_names[index] = m_available_chains[chain_index];
+            m_chain_names[index] = m_available_chains[chain_index].m_name;
         }
         else
         {
@@ -240,8 +246,9 @@ void chain_manager::load_chains()
     {
         if (m_current_chain[chain] != CHAIN_NONE)
         {
-			m_chain_names[chain] = m_available_chains[m_current_chain[chain]];
-            m_screen_chains[chain] = load_chain(m_chain_names[chain], uint32_t(chain));
+			chain_desc& desc = m_available_chains[m_current_chain[chain]];
+			m_chain_names[chain] = desc.m_name;
+            m_screen_chains[chain] = load_chain(desc.m_path + "/" + desc.m_name, uint32_t(chain));
         }
     }
 }
@@ -362,14 +369,16 @@ int32_t chain_manager::chain_changed(int32_t id, std::string *str, int32_t newva
     {
         m_current_chain[id] = newval;
 
+		std::vector<std::vector<float>> settings = slider_settings();
         reload_chains();
+    	restore_slider_settings(id, settings);
 
         m_slider_notifier.set_sliders_dirty();
     }
 
     if (str != nullptr)
     {
-        *str = string_format("%s", m_available_chains[m_current_chain[id]].c_str());
+        *str = string_format("%s", m_available_chains[m_current_chain[id]].m_name.c_str());
     }
 
     return m_current_chain[id];
@@ -451,6 +460,63 @@ bool chain_manager::has_applicable_chain(uint32_t screen)
 bool chain_manager::needs_sliders()
 {
 	return m_screen_count > 0 && m_available_chains.size() > 1;
+}
+
+void chain_manager::restore_slider_settings(int32_t id, std::vector<std::vector<float>>& settings)
+{
+    if (!needs_sliders())
+    {
+        return;
+    }
+
+    for (size_t index = 0; index < m_screen_chains.size() && index < m_screen_count; index++)
+    {
+		if (index == id)
+		{
+			continue;
+		}
+
+        bgfx_chain* chain = m_screen_chains[index];
+        if (chain == nullptr)
+        {
+            continue;
+        }
+
+        std::vector<bgfx_slider*> chain_sliders = chain->sliders();
+		for (size_t slider = 0; slider < chain_sliders.size(); slider++)
+		{
+			chain_sliders[slider]->import(settings[index][slider]);
+		}
+    }
+}
+
+std::vector<std::vector<float>> chain_manager::slider_settings()
+{
+	std::vector<std::vector<float>> curr;
+
+    if (!needs_sliders())
+    {
+        return curr;
+    }
+
+    for (size_t index = 0; index < m_screen_chains.size() && index < m_screen_count; index++)
+    {
+		curr.push_back(std::vector<float>());
+
+        bgfx_chain* chain = m_screen_chains[index];
+        if (chain == nullptr)
+        {
+            continue;
+        }
+
+        std::vector<bgfx_slider*> chain_sliders = chain->sliders();
+        for (bgfx_slider* slider : chain_sliders)
+        {
+			curr[index].push_back(slider->value());
+        }
+    }
+
+    return curr;
 }
 
 std::vector<ui_menu_item> chain_manager::get_slider_list()
