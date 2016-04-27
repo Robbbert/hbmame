@@ -228,6 +228,7 @@ static int MIN_HEIGHT = DBU_MIN_HEIGHT;
 extern const ICONDATA g_iconData[];
 extern const TCHAR g_szPlayGameString[];
 extern const char g_szGameCountString[];
+UINT8 playopts_apply = 0;
 
 typedef struct _play_options play_options;
 struct _play_options
@@ -898,7 +899,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	mame_opts.set_system_name(global_opts, driver_list::driver(nGameIndex).name);
 
 	// set any specified play options
-	if (playopts)
+	if (playopts_apply == 0x57)
 	{
 		if (playopts->record)
 			global_opts.set_value(OPTION_RECORD, playopts->record, OPTION_PRIORITY_CMDLINE,error_string);
@@ -941,22 +942,28 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	IncrementPlayTime(nGameIndex, elapsedtime);
 
 	// clear any specified play options
-	if (playopts)
+	// do it this way to preserve slots and software entries
+	if (playopts_apply == 0x57)
 	{
+		windows_options o;
+		load_options(o, nGameIndex);
 		if (playopts->record)
-			global_opts.set_value(OPTION_RECORD, "", OPTION_PRIORITY_CMDLINE,error_string);
+			o.set_value(OPTION_RECORD, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->playback)
-			global_opts.set_value(OPTION_PLAYBACK, "", OPTION_PRIORITY_CMDLINE,error_string);
+			o.set_value(OPTION_PLAYBACK, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->state)
-			global_opts.set_value(OPTION_STATE, "", OPTION_PRIORITY_CMDLINE,error_string);
+			o.set_value(OPTION_STATE, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->wavwrite)
-			global_opts.set_value(OPTION_WAVWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+			o.set_value(OPTION_WAVWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->mngwrite)
-			global_opts.set_value(OPTION_MNGWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+			o.set_value(OPTION_MNGWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
 		if (playopts->aviwrite)
-			global_opts.set_value(OPTION_AVIWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
-		save_options(global_opts, nGameIndex);
+			o.set_value(OPTION_AVIWRITE, "", OPTION_PRIORITY_CMDLINE,error_string);
+		// apply the above to the ini file
+		save_options(o, nGameIndex);
 	}
+	playopts_apply = 0;
+
 	// the emulation is complete; continue
 	for (i = 0; i < ARRAY_LENGTH(s_nPickers); i++)
 		Picker_ResetIdle(GetDlgItem(hMain, s_nPickers[i]));
@@ -5308,6 +5315,7 @@ static void MamePlayBackGame()
 
 		memset(&playopts, 0, sizeof(playopts));
 		playopts.playback = fname;
+		playopts_apply = 0x57;
 		MamePlayGameWithOptions(nGame, &playopts);
 	}
 }
@@ -5385,6 +5393,7 @@ static void MameLoadState()
 		memset(&playopts, 0, sizeof(playopts));
 #ifdef MESS
 		playopts.state = state_fname;
+		playopts_apply = 0x57;
 #else
 		{
 			char *cPos;
@@ -5428,6 +5437,7 @@ static void MamePlayRecordGame()
 		memset(&playopts, 0, sizeof(playopts));
 		strcat(fname, ".inp");
 		playopts.record = fname;
+		playopts_apply = 0x57;
 		MamePlayGameWithOptions(nGame, &playopts);
 	}
 }
@@ -5456,6 +5466,7 @@ static void MamePlayRecordWave()
 	{
 		memset(&playopts, 0, sizeof(playopts));
 		playopts.wavwrite = filename;
+		playopts_apply = 0x57;
 		MamePlayGameWithOptions(nGame, &playopts);
 	}
 }
@@ -5486,6 +5497,7 @@ static void MamePlayRecordMNG()
 		memset(&playopts, 0, sizeof(playopts));
 		strcat(fname, ".mng");
 		playopts.mngwrite = fname;
+		playopts_apply = 0x57;
 		MamePlayGameWithOptions(nGame, &playopts);
 	}
 }
@@ -5516,6 +5528,7 @@ static void MamePlayRecordAVI()
 		memset(&playopts, 0, sizeof(playopts));
 		strcat(fname, ".avi");
 		playopts.aviwrite = fname;
+		playopts_apply = 0x57;
 		MamePlayGameWithOptions(nGame, &playopts);
 	}
 }

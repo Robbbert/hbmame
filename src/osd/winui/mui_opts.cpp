@@ -2225,7 +2225,7 @@ static void SaveSettingsFile(windows_options &opts, const char *filename)
 
 	if (filerr == osd_file::error::NONE)
 	{
-		std::string inistring =  opts.output_ini();
+		std::string inistring = opts.output_ini();
 		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
 		file->puts(inistring.c_str());
 		file.reset();
