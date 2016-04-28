@@ -11,30 +11,29 @@ Due to the lack of historical records, it is unknown who exactly contributed wha
 
 Here is the list of known authors, and the known licence for them:
 
-Michael Soderstrom                ???
-Christopher Kirmse                ???
-MSH (Mike Haarland)               ???
-Jeff Miller                       ???
+Michael Soderstrom                BSD-3-Clause
+Christopher Kirmse                BSD-3-Clause
+MSH (Mike Haaland)                BSD-3-Clause
+Captain Pugwash                   BSD-3-Clause
+Jeff Miller                       BSD-3-Clause
 Robbbert                          BSD-3-Clause
 etabeta (Fabio Priuli)            BSD-3-Clause
 Bletch (Nathan Woods)             BSD-3-Clause
-Mamesick                          ???
+Mamesick                          BSD-3-Clause
 
 
-Copyright exists from 1997 to the present day, and beyond. The project is hereby covered by the BSD-3-Clause,
+Copyright exists from 1997 to the present day, and beyond. The project is hereby covered by the GPL,
 with the following additional provisos.
 
 1. Original authors may lay claim to their particular works.
 
 2. Original authors may specify a different licence.
 
-3. Original authors may place additional restrictions on usage.
-
-4. Redistributions must include this file, and the file BSD3Clause.txt .
+3. Redistributions must include this file, and the file BSD3Clause.txt .
 
 
 
-5. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+4. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 
@@ -59,13 +58,15 @@ POSSIBILITY OF SUCH DAMAGE.
 In other words, we (authors, contributors, repository holders, official websites)
 are not liable or responsible for anything.
 
-6. Distribution of binaries MUST NOT INCLUDE DOWNLOAD MANAGERS, INSTALLERS, ADWARE or anything
-   that might be considered harmful.
-
-7. Usage: WINUI can be modified and used as you see fit, including commercially, however you
+5. Usage: WINUI can be modified and used as you see fit, including commercially, however you
    cannot claim ownership or copyright of the works. See BSD3Clause.txt for more information.
 
-8. If you are unable to comply with these conditions, you must delete any winui code in your
+6. If you are unable to comply with these conditions, you must delete any winui code in your
    possession, along with any binaries that contain winui code, immediately.
 
 Written by Robbbert on 2015-06-03.
+Updated on 2016-03-14.
+
+Please read the MAME license as well.
+
+
