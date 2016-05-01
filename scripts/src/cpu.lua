@@ -73,7 +73,7 @@ end
 
 --------------------------------------------------
 -- ARcompact (ARCtangent-A5, ARC 600, ARC 700)
---@src/devices/cpu/arc/arc.h,CPUS["ARCOMPACT"] = true
+--@src/devices/cpu/arcompact/arcompact.h,CPUS["ARCOMPACT"] = true
 --------------------------------------------------
 
 if (CPUS["ARCOMPACT"]~=null) then
@@ -566,16 +566,22 @@ if (CPUS["H8"]~=null) then
 		MAME_DIR .. "src/devices/cpu/h8/h8s2655.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8_adc.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8_adc.h",
-		MAME_DIR .. "src/devices/cpu/h8/h8_port.cpp",
-		MAME_DIR .. "src/devices/cpu/h8/h8_port.h",
+		MAME_DIR .. "src/devices/cpu/h8/h8_dma.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h8_dma.h",
+		MAME_DIR .. "src/devices/cpu/h8/h8_dtc.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h8_dtc.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8_intc.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8_intc.h",
+		MAME_DIR .. "src/devices/cpu/h8/h8_port.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h8_port.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8_timer8.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8_timer8.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8_timer16.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8_timer16.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8_sci.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8_sci.h",
+		MAME_DIR .. "src/devices/cpu/h8/h8_watchdog.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h8_watchdog.h",
 	}
 
 	dependency {
@@ -1076,14 +1082,27 @@ end
 
 --------------------------------------------------
 -- MIPS R3000 (MIPS I/II) series
+--@src/devices/cpu/mips/r3000.h,CPUS["R3000"] = true
+--------------------------------------------------
+
+if (CPUS["R3000"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/cpu/mips/r3000.cpp",
+		MAME_DIR .. "src/devices/cpu/mips/r3000.h",
+	}
+end
+
+if (CPUS["R3000"]~=null or _OPTIONS["with-tools"]) then
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/mips/r3kdasm.cpp")
+end
+
+--------------------------------------------------
 -- MIPS R4000 (MIPS III/IV) series
 --@src/devices/cpu/mips/mips3.h,CPUS["MIPS"] = true
 --------------------------------------------------
 
 if (CPUS["MIPS"]~=null) then
 	files {
-		MAME_DIR .. "src/devices/cpu/mips/r3000.cpp",
-		MAME_DIR .. "src/devices/cpu/mips/r3000.h",
 		MAME_DIR .. "src/devices/cpu/mips/mips3com.cpp",
 		MAME_DIR .. "src/devices/cpu/mips/mips3com.h",
 		MAME_DIR .. "src/devices/cpu/mips/mips3.cpp",
@@ -1095,7 +1114,6 @@ if (CPUS["MIPS"]~=null) then
 end
 
 if (CPUS["MIPS"]~=null or _OPTIONS["with-tools"]) then
-	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/mips/r3kdasm.cpp")
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/mips/mips3dsm.cpp")
 end
 

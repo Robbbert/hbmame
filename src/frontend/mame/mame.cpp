@@ -12,17 +12,20 @@
 #include "mame.h"
 #include "emuopts.h"
 #include "mameopts.h"
+#include "pluginopts.h"
 #include "osdepend.h"
 #include "validity.h"
 #include "clifront.h"
 #include "drivenum.h"
 #include "luaengine.h"
 #include <time.h>
+#include "ui/ui.h"
 #include "ui/selgame.h"
 #include "ui/simpleselgame.h"
 #include "cheat.h"
 #include "ui/datfile.h"
 #include "ui/inifile.h"
+#include "xmlfile.h"
 
 //**************************************************************************
 //  MACHINE MANAGER
@@ -184,7 +187,7 @@ int mame_machine_manager::execute()
 		m_new_driver_pending = nullptr;
 
 		// if no driver, use the internal empty driver
-		const game_driver *system = m_options.system();
+		const game_driver *system = mame_options::system(m_options);
 		if (system == nullptr)
 		{
 			system = &GAME_NAME(___empty);
@@ -271,27 +274,9 @@ ui_manager* mame_machine_manager::create_ui(running_machine& machine)
 
 	machine.add_notifier(MACHINE_NOTIFY_RESET, machine_notify_delegate(FUNC(mame_machine_manager::reset), this));
 
-	// start the inifile manager
-	m_inifile = std::make_unique<inifile_manager>(machine);
-
 	m_ui->set_startup_text("Initializing...", true);
 
-	// allocate autoboot timer
-	m_autoboot_timer = machine.scheduler().timer_alloc(timer_expired_delegate(FUNC(mame_machine_manager::autoboot_callback), this));
-
-	// start datfile manager
-	m_datfile = std::make_unique<datfile_manager>(machine);
-
-	// start favorite manager
-	m_favorite = std::make_unique<favorite_manager>(machine);
-
 	return m_ui.get();
-}
-
-void mame_machine_manager::create_custom(running_machine& machine)
-{
-	// set up the cheat engine
-	m_cheat = std::make_unique<cheat_manager>(machine);
 }
 
 void mame_machine_manager::ui_initialize(running_machine& machine)
@@ -302,18 +287,36 @@ void mame_machine_manager::ui_initialize(running_machine& machine)
 	m_ui->display_startup_screens(m_firstrun);
 }
 
+void mame_machine_manager::create_custom(running_machine& machine)
+{
+	// start the inifile manager
+	m_inifile = std::make_unique<inifile_manager>(machine, m_ui->options());
+
+	// allocate autoboot timer
+	m_autoboot_timer = machine.scheduler().timer_alloc(timer_expired_delegate(FUNC(mame_machine_manager::autoboot_callback), this));
+
+	// start datfile manager
+	m_datfile = std::make_unique<datfile_manager>(machine, m_ui->options());
+
+	// start favorite manager
+	m_favorite = std::make_unique<favorite_manager>(machine, m_ui->options());
+
+	// set up the cheat engine
+	m_cheat = std::make_unique<cheat_manager>(machine);
+}
+
 const char * emulator_info::get_bare_build_version() { return bare_build_version; }
 const char * emulator_info::get_build_version() { return build_version; }
 
 void emulator_info::display_ui_chooser(running_machine& machine)
 {
 	// force the UI to show the game select screen
-	if (strcmp(machine.options().ui(), "simple") == 0) {
-		ui_simple_menu_select_game::force_game_select(machine, &machine.render().ui_container());
-	}
-	else {
-		ui_menu_select_game::force_game_select(machine, &machine.render().ui_container());
-	}
+	mame_ui_manager &mui = mame_machine_manager::instance()->ui();
+	render_container *container = &machine.render().ui_container();
+	if (strcmp(machine.options().ui(), "simple") == 0)
+		ui_simple_menu_select_game::force_game_select(mui, container);
+	else
+		ui_menu_select_game::force_game_select(mui, container);
 }
 
 int emulator_info::start_frontend(emu_options &options, osd_interface &osd, int argc, char *argv[])
@@ -335,4 +338,15 @@ void emulator_info::periodic_check()
 bool emulator_info::frame_hook()
 {
 	return mame_machine_manager::instance()->lua()->frame_hook();
+}
+
+void emulator_info::layout_file_cb(xml_data_node &layout)
+{
+	xml_data_node *mamelayout = xml_get_sibling(layout.child, "mamelayout");
+	if(mamelayout)
+	{
+		xml_data_node *script = xml_get_sibling(mamelayout->child, "script");
+		if(script)
+			mame_machine_manager::instance()->lua()->call_plugin(script->value, "layout");
+	}
 }

@@ -1591,6 +1591,7 @@ end
 ---------------------------------------------------
 --
 --@src/devices/machine/mos6530.h,MACHINES["MIOT6530"] = true
+--@src/devices/machine/mos6530n.h,MACHINES["MIOT6530"] = true
 ---------------------------------------------------
 
 if (MACHINES["MIOT6530"]~=null) then
@@ -2285,8 +2286,6 @@ if (MACHINES["UPD765"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/upd765.cpp",
 		MAME_DIR .. "src/devices/machine/upd765.h",
-		MAME_DIR .. "src/devices/machine/fdc_pll.cpp",
-		MAME_DIR .. "src/devices/machine/fdc_pll.h",
 	}
 end
 
@@ -2311,8 +2310,6 @@ if (MACHINES["WD_FDC"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/wd_fdc.cpp",
 		MAME_DIR .. "src/devices/machine/wd_fdc.h",
-		MAME_DIR .. "src/devices/machine/fdc_pll.cpp",
-		MAME_DIR .. "src/devices/machine/fdc_pll.h",
 	}
 end
 
@@ -2776,7 +2773,7 @@ end
 
 ---------------------------------------------------
 --
---@src/emu/machine/pdc.h,MACHINES["PDC"] = true
+--@src/devices/machine/pdc.h,MACHINES["PDC"] = true
 ---------------------------------------------------
 
 if (MACHINES["PDC"]~=null) then
@@ -2800,7 +2797,7 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/machine/gen_latch.h,MACHINES["GEN_LATCH] = true
+--@src/devices/machine/gen_latch.h,MACHINES["GEN_LATCH"] = true
 ---------------------------------------------------
 
 if (MACHINES["GEN_LATCH"]~=null) then
@@ -2809,3 +2806,28 @@ if (MACHINES["GEN_LATCH"]~=null) then
 		MAME_DIR .. "src/devices/machine/gen_latch.h",
 	}
 end
+
+---------------------------------------------------
+--
+--@src/devices/machine/fdc_pll.h,MACHINES["FDC_PLL"] = true
+---------------------------------------------------
+
+if (MACHINES["FDC_PLL"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/fdc_pll.cpp",
+		MAME_DIR .. "src/devices/machine/fdc_pll.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/watchdog.h,MACHINES["WATCHDOG"] = true
+---------------------------------------------------
+
+if (MACHINES["WATCHDOG"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/watchdog.cpp",
+		MAME_DIR .. "src/devices/machine/watchdog.h",
+	}
+end
+

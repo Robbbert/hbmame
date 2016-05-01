@@ -175,7 +175,7 @@ static ADDRESS_MAP_START( mspachi_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
 	AM_RANGE(0x5070, 0x5080) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0x5000, 0x5000) AM_READ_PORT("IN0")
 	AM_RANGE(0x5040, 0x5040) AM_READ_PORT("IN1")
 	AM_RANGE(0x5080, 0x5080) AM_READ_PORT("DSW1")
@@ -203,7 +203,7 @@ static ADDRESS_MAP_START( mspacii_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x5040, 0x505f) AM_MIRROR(0x8000) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x5060, 0x506f) AM_MIRROR(0x8000) AM_WRITEONLY AM_SHARE("spriteram2")
 	AM_RANGE(0x5070, 0x5080) AM_MIRROR(0x8000) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_MIRROR(0x8000) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0x5000, 0x5000) AM_MIRROR(0x8000) AM_READ_PORT("IN0")
 	AM_RANGE(0x5040, 0x5040) AM_MIRROR(0x8000) AM_READ_PORT("IN1")
 	AM_RANGE(0x504d, 0x506f) AM_READ(mspacii_prot_r)
@@ -230,7 +230,7 @@ static ADDRESS_MAP_START( mspacman_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x5060, 0x506f) AM_MIRROR(0xaf00) AM_WRITEONLY AM_SHARE("spriteram2")
 	AM_RANGE(0x5070, 0x507f) AM_MIRROR(0xaf00) AM_WRITENOP
 	AM_RANGE(0x5080, 0x5080) AM_MIRROR(0xaf3f) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_MIRROR(0xaf3f) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0x5000, 0x5000) AM_MIRROR(0xaf3f) AM_READ_PORT("IN0")
 	AM_RANGE(0x5040, 0x5040) AM_MIRROR(0xaf3f) AM_READ_PORT("IN1")
 	AM_RANGE(0x5080, 0x5080) AM_MIRROR(0xaf3f) AM_READ_PORT("DSW1")
@@ -271,7 +271,7 @@ static ADDRESS_MAP_START( widel_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
 	AM_RANGE(0x5070, 0x5080) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0x5000, 0x5000) AM_READ_PORT("IN0")
 	AM_RANGE(0x5040, 0x5040) AM_READ_PORT("IN1")
 	AM_RANGE(0x5080, 0x5080) AM_READ_PORT("DSW1")
@@ -332,7 +332,8 @@ MACHINE_CONFIG_END
 /* These drivers need the watchdog to be removed in order to work */
 
 static MACHINE_CONFIG_DERIVED( pachack, pacman )
-	MCFG_WATCHDOG_VBLANK_INIT(0)
+	MCFG_WATCHDOG_MODIFY("watchdog")
+	MCFG_WATCHDOG_VBLANK_INIT("screen", 0)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( mspachi, pachack )

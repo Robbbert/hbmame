@@ -1431,6 +1431,7 @@ clean: genieclean
 	@echo Cleaning...
 	-@rm -rf $(BUILDDIR)
 	$(SILENT) $(MAKE) -C $(SRC)/devices/cpu/m68000 clean
+	-@rm -rf 3rdparty/bgfx/.build
 
 GEN_FOLDERS := $(GENDIR)/$(TARGET)/layout/ $(GENDIR)/$(TARGET)/$(SUBTARGET)/
 
@@ -1581,14 +1582,15 @@ cppcheck:
 .PHONY: shaders bgfx-tools
 
 bgfx-tools:
+	-@rm -rf 3rdparty/bgfx/.build/projects
 	$(SILENT) $(MAKE) -C 3rdparty/bgfx -f makefile dist-$(GENIEOS) CC="$(CC)" CXX="$(CXX)" MINGW="$(MINGW)"
 
 shaders: bgfx-tools
-	-$(call MKDIR,build/bgfx/shaders/dx11)
-	-$(call MKDIR,build/bgfx/shaders/dx9)
-	-$(call MKDIR,build/bgfx/shaders/gles)
-	-$(call MKDIR,build/bgfx/shaders/glsl)
-	-$(call MKDIR,build/bgfx/shaders/metal)	
+	-$(call MKDIR,build/shaders/dx11)
+	-$(call MKDIR,build/shaders/dx9)
+	-$(call MKDIR,build/shaders/gles)
+	-$(call MKDIR,build/shaders/glsl)
+	-$(call MKDIR,build/shaders/metal)	
 	$(SILENT) $(MAKE) -C $(SRC)/osd/modules/render/bgfx/shaders rebuild CHAIN="$(CHAIN)"
 	
 #-------------------------------------------------

@@ -58,6 +58,7 @@ CPUS["JAGUAR"] = true
 CPUS["CUBEQCPU"] = true
 CPUS["ESRIP"] = true
 CPUS["MIPS"] = true
+CPUS["R3000"] = true
 CPUS["PSX"] = true
 CPUS["SH2"] = true
 CPUS["SH4"] = true
@@ -256,7 +257,7 @@ SOUNDS["T6721A"] = true
 SOUNDS["MOS7360"] = true
 SOUNDS["ESQPUMP"] = true
 SOUNDS["VRC6"] = true
-
+SOUNDS["UPD1771"] = true
 --------------------------------------------------
 -- specify available video cores
 --------------------------------------------------
@@ -542,6 +543,7 @@ MACHINES["UPD4701"] = true
 MACHINES["UPD7002"] = true
 MACHINES["UPD71071"] = true
 MACHINES["UPD765"] = true
+MACHINES["FDC_PLL"] = true
 MACHINES["V3021"] = true
 MACHINES["WD_FDC"] = true
 MACHINES["WD11C00_17"] = true
@@ -575,6 +577,7 @@ MACHINES["NSC810"] = true
 MACHINES["VT82C496"] = true
 MACHINES["GENPC"] = true
 MACHINES["GEN_LATCH"] = true
+MACHINES["WATCHDOG"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -936,7 +939,7 @@ function createProjects_mame_mess(_target, _subtarget)
 -- n64.c (MESS), aleck64.c (MAME)
 -- megadriv.c, segapico.c (MESS), hshavoc.c, megadrvb.c, megaplay.c, megatech.c, puckpkmn.c, segac2.c, segas18.c (MAME)
 -- dccons.c (MESS), naomi.c (MAME)
--- ng_aes.c (MESS), midas.c, neogeo.c, neogeo_noslot.c, neoprint.c (MAME)
+-- neogeocd.c (MESS), midas.c, neogeo.c, neoprint.c (MAME)
 -- cdi.c (MESS + MAME)
 -- 3do.c (MESS + MAME), konamim2.c (MAME)
 -- vectrex.c (MESS + MAME)
@@ -950,6 +953,7 @@ files {
 	MAME_DIR .. "src/mame/machine/amiga.cpp",
 	MAME_DIR .. "src/mame/video/amiga.cpp",
 	MAME_DIR .. "src/mame/video/amigaaga.cpp",
+	MAME_DIR .. "src/mame/video/amigaaga.h",
 	MAME_DIR .. "src/mame/video/tia.cpp",
 	MAME_DIR .. "src/mame/video/tia.h",
 	MAME_DIR .. "src/mame/machine/atari400.cpp",
@@ -1028,7 +1032,6 @@ files {
 	MAME_DIR .. "src/mame/video/powervr2.h",
 	MAME_DIR .. "src/mame/drivers/neogeo.cpp",
 	MAME_DIR .. "src/mame/includes/neogeo.h",
-	MAME_DIR .. "src/mame/machine/neocrypt.cpp",
 	MAME_DIR .. "src/mame/machine/ng_memcard.cpp",
 	MAME_DIR .. "src/mame/machine/ng_memcard.h",
 	MAME_DIR .. "src/mame/video/neogeo.cpp",
@@ -1146,6 +1149,7 @@ files {
 createMESSProjects(_target, _subtarget, "altos")
 files {
 	MAME_DIR .. "src/mame/drivers/altos5.cpp",
+	MAME_DIR .. "src/mame/drivers/altos486.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "amiga")
@@ -1677,8 +1681,6 @@ files {
 	MAME_DIR .. "src/mame/includes/gamepock.h",
 	MAME_DIR .. "src/mame/machine/gamepock.cpp",
 	MAME_DIR .. "src/mame/drivers/scv.cpp",
-	MAME_DIR .. "src/devices/sound/upd1771.cpp",
-	MAME_DIR .. "src/devices/sound/upd1771.h",
 }
 
 createMESSProjects(_target, _subtarget, "epson")
@@ -1839,8 +1841,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/hec2hrp.cpp",
 	MAME_DIR .. "src/mame/includes/hec2hrp.h",
 	MAME_DIR .. "src/mame/machine/hec2hrp.cpp",
-	MAME_DIR .. "src/mame/machine/hecdisk2.cpp",
-	MAME_DIR .. "src/mame/video/hec2video.cpp",
+	MAME_DIR .. "src/mame/video/hec2hrp.cpp",
 	MAME_DIR .. "src/mame/drivers/interact.cpp",
 }
 
@@ -1927,8 +1928,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/abc80x.cpp",
 	MAME_DIR .. "src/mame/includes/abc80x.h",
 	MAME_DIR .. "src/mame/video/abc800.cpp",
+	MAME_DIR .. "src/mame/video/abc800.h",
 	MAME_DIR .. "src/mame/video/abc802.cpp",
+	MAME_DIR .. "src/mame/video/abc802.h",
 	MAME_DIR .. "src/mame/video/abc806.cpp",
+	MAME_DIR .. "src/mame/video/abc806.h",
 	MAME_DIR .. "src/mame/drivers/abc1600.cpp",
 	MAME_DIR .. "src/mame/includes/abc1600.h",
 	MAME_DIR .. "src/mame/machine/abc1600mac.cpp",
@@ -2297,7 +2301,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/p2000t.cpp",
 	MAME_DIR .. "src/mame/includes/p2000t.h",
 	MAME_DIR .. "src/mame/machine/p2000t.cpp",
-	MAME_DIR .. "src/mame/video/p2000m.cpp",
+	MAME_DIR .. "src/mame/video/p2000t.cpp",
 	MAME_DIR .. "src/mame/drivers/vg5k.cpp",
 }
 
@@ -2568,7 +2572,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "snk")
 files {
-	MAME_DIR .. "src/mame/drivers/ng_aes.cpp",
+	MAME_DIR .. "src/mame/drivers/neogeocd.cpp",
 	MAME_DIR .. "src/mame/drivers/ngp.cpp",
 	MAME_DIR .. "src/mame/video/k1ge.cpp",
 	MAME_DIR .. "src/mame/video/k1ge.h",

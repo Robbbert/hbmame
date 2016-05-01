@@ -1,9 +1,10 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-//#include "../mame/drivers/neogeo.cpp"
 
 
 /******************************************************************************/
+
+#include "machine/watchdog.h"
 
 // set up a hbmame-specific derived class, instead of hacking into src/mame/includes/neogeo.h
 class neogeo_hbmame : public neogeo_noslot_state
@@ -105,6 +106,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 
 
 static MACHINE_CONFIG_DERIVED( no_watchdog, neogeo_noslot )
+	MCFG_WATCHDOG_MODIFY("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
 MACHINE_CONFIG_END
 

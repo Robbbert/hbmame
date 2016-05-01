@@ -227,11 +227,6 @@ public:
 	void base_datetime(system_time &systime);
 	void current_datetime(system_time &systime);
 
-	// watchdog control
-	void watchdog_reset();
-	void watchdog_enable(bool enable = true);
-	INT32 get_vblank_watchdog_counter() const { return m_watchdog_counter; }
-
 	// misc
 	void popmessage() const { popmessage(static_cast<char const *>(nullptr)); }
 	template <typename Format, typename... Params> void popmessage(Format &&fmt, Params &&... args) const;
@@ -262,8 +257,6 @@ private:
 	std::string get_statename(const char *statename_opt) const;
 	void handle_saveload();
 	void soft_reset(void *ptr = nullptr, INT32 param = 0);
-	void watchdog_fired(void *ptr = nullptr, INT32 param = 0);
-	void watchdog_vblank(screen_device &screen, bool vblank_state);
 	std::string nvram_filename(device_t &device) const;
 	void nvram_load();
 	void nvram_save();
@@ -308,11 +301,6 @@ private:
 	bool                    m_hard_reset_pending;   // is a hard reset pending?
 	bool                    m_exit_pending;         // is an exit pending?
 	emu_timer *             m_soft_reset_timer;     // timer used to schedule a soft reset
-
-	// watchdog state
-	bool                    m_watchdog_enabled;     // is the watchdog enabled?
-	INT32                   m_watchdog_counter;     // counter for watchdog tracking
-	emu_timer *             m_watchdog_timer;       // timer for watchdog tracking
 
 	// misc state
 	UINT32                  m_rand_seed;            // current random number seed
