@@ -2638,7 +2638,7 @@ qosb                            // 1992 BFM
 quizvadr                        // 1991 BFM
 trebltop                        // 1991 BFM
 
-@source:bfm_ad5sw.cpp
+@source:bfm_ad5.cpp
 ad5bpfpm                        // Bullseye Pounds For Points (Mazooma)
 ad5bpfpma                       //
 ad5bpfpmb                       //
@@ -6714,7 +6714,7 @@ sc4ziggye                       //
 sc4ziggyf                       //
 sc4ziggyg                       //
 
-@source:bfm_sc5sw.cpp
+@source:bfm_sc5.cpp
 sc5_3414                        //
 sc5_3434                        //
 sc5_3435                        //
@@ -16704,7 +16704,6 @@ ladybgb2                        // bootleg
 ladybug                         // 8110 (c) 1981
 ladybugb                        // bootleg
 snapjack                        // ???? (c)
-sraider                         // ???? (c) 1982 Universal
 
 @source:ladyfrog.cpp
 ladyfrog                        // (c) 1990 Mondial Games
@@ -17399,7 +17398,7 @@ mf_bdash                        // (c) 1984 Exidy / First Star Software
 mf_brist                        // (c) 1983 Exidy / First Star Software
 mf_flip                         // (c) 1983 Exidy / First Star Software
 
-@source:maygay1bsw.cpp
+@source:maygay1b.cpp
 m1albsq                         // Albert Square (Maygay)
 m1albsq1                        //
 m1albsq1p                       //
@@ -19417,7 +19416,6 @@ rampage2                        // (c) 1986
 sarge                           // (c) 1985
 spyhunt                         // (c) 1983
 spyhuntp                        // (c) 1983
-spyhuntpr                       //
 stargrds                        // (c) 1987
 turbotag                        // (c) 1985
 
@@ -19730,6 +19728,9 @@ metalmx                         // 136103?          (c) 1994
 
 @source:metlclsh.cpp
 metlclsh                        // (c) 1985 Data East
+
+@source:metlfrzr.cpp
+metlfrzr
 
 @source:metro.cpp
 3kokushi                        // (c) 1996 Mitchell
@@ -20679,7 +20680,7 @@ m4wnud                          // Unknown MPU4 'W Nudge'
 m4zill                          // Zillionare's Challenge (Pure Leisure)
 m4zilla                         //
 
-@source:mpu4avan.cpp
+//@source:mpu4avan.inc
 m4abeaut                        //
 m4abeaut_1                      //
 m4abeaut_2                      //
@@ -21181,7 +21182,7 @@ m4trg__x                        //
 m4trg__y                        //
 m4trg__z                        //
 
-@source:mpu4bwb.cpp
+//@source:mpu4bwb.inc
 m4abra                          // Abracadabra (Bwb)
 m4abra__a                       //
 m4abra__b                       //
@@ -21643,7 +21644,7 @@ m4xtrm                          // X-treme (Bwb)
 m4xtrm__a                       //
 m4xtrm__b                       //
 
-@source:mpu4concept.cpp
+//@source:mpu4concept.inc
 m4nudgwc                        // Nudge a Win (Concept)
 m4nudgwc__a                     //
 m4nudgwc__b                     //
@@ -21715,7 +21716,7 @@ m4spnwnc                        // Spin-A-Win (Concept)
 m4spnwnc__a                     //
 m4spnwnc__b                     //
 
-@source:mpu4crystal.cpp
+//@source:mpu4crystal.inc
 m4aladn                         // Aladdin's Cave (Crystal)
 m4aladna                        //
 m4aladnb                        //
@@ -21818,10 +21819,7 @@ m4twstrd                        //
 m4tylb                          // Thank Your Lucky Bars (Crystal)
 m4tylba                         //
 
-@source:mpu4dealem.cpp
-v4dealem                        // Deal 'Em
-
-@source:mpu4empire.cpp
+//@source:mpu4empire.inc
 m4apachg                        // Apache Gold (Empire)
 m4apachga                       //
 m4apachgb                       //
@@ -21904,7 +21902,7 @@ m4ttrail                        // Treasure Trail (Empire)
 m4ttraila                       //
 m4ttrailb                       //
 
-@source:mpu4mdm.cpp
+//@source:mpu4mdm.inc
 m42punlm                        // 2p Unlimited (Mdm)
 m4bigapl                        // The Big Apple (Mdm)
 m4bigapla                       //
@@ -21950,7 +21948,7 @@ m4themob                        // The Mob (Mdm)
 m4themoba                       //
 m4themobb                       //
 
-@source:mpu4misc.cpp
+//@source:mpu4misc.inc
 m4bangin                        // Bangin' Away (Global)
 m4bangina                       //
 m4banginb                       //
@@ -22089,7 +22087,7 @@ m4wwc                           // Wacky Weekend Club (Global)
 m4wwca                          //
 m4wwcb                          //
 
-@source:mpu4mod2sw.cpp
+//@source:mpu4mod2sw.inc
 m421                            // Twenty One (Barcrest)
 m421club                        // 21 Club (Barcrest)
 m4actbnka                       //
@@ -22334,7 +22332,7 @@ m4wayin                         // Way In (Barcrest)
 m4wayina                        //
 m4wildms                        // Wild Mystery (Barcrest)
 
-@source:mpu4mod4yam.cpp
+//@source:mpu4mod4yam.inc
 m4acechs                        // Ace Chase (Bwb)
 m4acechs__a                     //
 m4acechs__b                     //
@@ -22617,16 +22615,7 @@ m4vivalv__y                     //
 m4vivalv__z                     //
 m4voodoo                        // Voodoo 1000 (Barcrest)
 
-@source:mpu4plasma.cpp
-m4apach                         // Apache (Barcrest)
-m4bigchf                        // Big Chief (Barcrest)
-m4bigchfa                       //
-m4bigchfb                       //
-m4bigchfc                       //
-m4click                         // Clickity Click (Barcrest)
-m4elite                         // Elite (Barcrest)
-
-@source:mpu4sw.cpp
+//@source:mpu4sw.inc
 m4actbnk                        // Action Bank (Barcrest)
 m4actbnk__a                     //
 m4actbnk__b                     //
@@ -26006,7 +25995,7 @@ m4wta__x                        //
 m4wta__y                        //
 m4wta__z                        //
 
-@source:mpu4union.cpp
+//@source:mpu4union.inc
 m4crzbn                         // Crazy Bingo
 m4cwalk                         // Cake Walk (Union)
 m4eezee                         // Eezee Fruits (Union)
@@ -26039,6 +26028,18 @@ m4unibox                        // Unibox (Union)
 m4uniboxa                       //
 m4unique                        // Unique (Union)
 m4uniquep                       //
+
+@source:mpu4dealem.cpp
+v4dealem                        // Deal 'Em
+
+@source:mpu4plasma.cpp
+m4apach                         // Apache (Barcrest)
+m4bigchf                        // Big Chief (Barcrest)
+m4bigchfa                       //
+m4bigchfb                       //
+m4bigchfc                       //
+m4click                         // Clickity Click (Barcrest)
+m4elite                         // Elite (Barcrest)
 
 @source:mpu4vid.cpp
 v4addlad                        // Adders and Ladders
@@ -27314,6 +27315,9 @@ murogmbl                        // ???
 
 @source:mustache.cpp
 mustache                        // (c) 1987 March
+
+@source:mvme350.cpp
+mvme350                         // 
 
 @source:mw18w.cpp
 18w                             // 653 (c) 1979 Midway
@@ -31165,6 +31169,7 @@ redclashk                       // (c) Kaneko (bootleg?)
 zerohour                        // 8011 (c) Universal
 zerohoura                       // 8011 (c) Universal
 zerohouri                       //
+sraider                         // ???? (c) 1982 Universal
 
 @source:relief.cpp
 relief                          // 136093           (c) 1992
@@ -33540,6 +33545,9 @@ sprint8a                        // ??????           1977/05 [6800]
 @source:spy.cpp
 spy                             // GX857 (c) 1989 (World)
 spyu                            // GX857 (c) 1989 (US)
+
+@source:spyhuntertec.cpp
+spyhuntpr                       //
 
 @source:squale.cpp
 squale                          //

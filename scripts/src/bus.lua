@@ -1634,9 +1634,9 @@ if (BUSES["NES"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/nes/nes_slot.cpp",
 		MAME_DIR .. "src/devices/bus/nes/nes_slot.h",
-		MAME_DIR .. "src/devices/bus/nes/nes_ines.inc",
-		MAME_DIR .. "src/devices/bus/nes/nes_pcb.inc",
-		MAME_DIR .. "src/devices/bus/nes/nes_unif.inc",
+		MAME_DIR .. "src/devices/bus/nes/nes_ines.hxx",
+		MAME_DIR .. "src/devices/bus/nes/nes_pcb.hxx",
+		MAME_DIR .. "src/devices/bus/nes/nes_unif.hxx",
 		MAME_DIR .. "src/devices/bus/nes/nes_carts.cpp",
 		MAME_DIR .. "src/devices/bus/nes/nes_carts.h",
 		MAME_DIR .. "src/devices/bus/nes/2a03pur.cpp",
@@ -2087,6 +2087,10 @@ end
 ---------------------------------------------------
 --
 --@src/devices/bus/ti99x/990_dk.h,BUSES["TI99X"] = true
+--@src/devices/bus/ti99x/990_tap.h,BUSES["TI99X"] = true
+--@src/devices/bus/ti99x/990_hd.h,BUSES["TI99X"] = true
+--@src/devices/bus/ti99x/genboard.h,BUSES["TI99X"] = true
+--@src/devices/bus/ti99x/joyport.h,BUSES["TI99X"] = true
 ---------------------------------------------------
 
 if (BUSES["TI99X"]~=null) then
