@@ -510,8 +510,6 @@ ADDRESS_MAP_EXTERN(neogeo_main_map,16);
 	ROM_REGION( 0x80000, "audiocrypt", 0 ) \
 	ROM_LOAD( name,      0x00000, 0x80000, hash )
 
-#define NO_DELTAT_REGION
-
 
 #define NEO_SFIX_64K(name, hash) \
 	ROM_REGION( 0x20000, "fixed", 0 ) \
