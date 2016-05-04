@@ -32,7 +32,6 @@
 #ifndef NLD_7486_H_
 #define NLD_7486_H_
 
-#include "nld_signal.h"
 #include "nld_truthtable.h"
 
 #define TTL_7486_XOR(_name, _A, _B)                                                 \
@@ -62,10 +61,10 @@ public:
 
 NETLIB_DEVICE(7486_dip,
 
-	NETLIB_NAME(7486) m_1;
-	NETLIB_NAME(7486) m_2;
-	NETLIB_NAME(7486) m_3;
-	NETLIB_NAME(7486) m_4;
+	NETLIB_SUB(7486) m_1;
+	NETLIB_SUB(7486) m_2;
+	NETLIB_SUB(7486) m_3;
+	NETLIB_SUB(7486) m_4;
 );
 
 NETLIB_NAMESPACE_DEVICES_END()

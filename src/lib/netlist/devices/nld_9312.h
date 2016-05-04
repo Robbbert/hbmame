@@ -37,7 +37,6 @@
 #ifndef NLD_9312_H_
 #define NLD_9312_H_
 
-#include "nld_signal.h"
 #include "nld_truthtable.h"
 
 #define TTL_9312(_name)                                                \
@@ -73,7 +72,7 @@ public:
 #endif
 
 NETLIB_DEVICE(9312_dip,
-	NETLIB_NAME(9312) m_sub;
+	NETLIB_SUB(9312) m_sub;
 );
 
 NETLIB_NAMESPACE_DEVICES_END()

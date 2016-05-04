@@ -36,7 +36,7 @@
 #ifndef NLD_74175_H_
 #define NLD_74175_H_
 
-#include "nld_signal.h"
+#include "nl_base.h"
 
 #define TTL_74175(_name)                                     \
 		NET_REGISTER_DEV(TTL_74175, _name)
@@ -57,7 +57,7 @@ NETLIB_SUBDEVICE(74175_sub,
 
 NETLIB_DEVICE(74175,
 
-	NETLIB_NAME(74175_sub) m_sub;
+	NETLIB_SUB(74175_sub) m_sub;
 	logic_input_t m_D[4];
 	logic_input_t m_CLRQ;
 );

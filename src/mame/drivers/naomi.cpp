@@ -216,6 +216,13 @@ Notes: (* - these parts on other side of PCB)
     LED1 / LED2 - Red LED / Green LED
         CN1/2/3 - Connectors for ROM cart or GDROM DIMM Unit
         CN25/26 - Connectors for Filter Board
+       JP9-JP13 - JUMPERs set CN8 connector function: 1-2 = RS422 (315-6146 "MIE"), 2-3 = RS232C (SH4 SCIF)
+                        CN8  1-2   2-3
+                  JP9    1   RXD+  RXD
+                  JP10   4   TXD+  RTS
+                  JP11   2   RXD-  TXD
+                  JP12   5   TXD-  CTS
+                  JP13  3/6  422   232  (GND)
 
 
 Filter Board
@@ -8522,6 +8529,14 @@ ROM_START( initd )
 	//PIC16C622A (317-0331-JPN)
 	//(sticker 253-5508-0331J)
 	ROM_LOAD("317-0331-jpn.pic", 0x00, 0x4000, CRC(0a3bf606) SHA1(7c0e22df4a43a440571ac55fd0a6575931e8f959) )
+
+	// Sanwa CRP-1231BR-10 card reader-printer (Sega p/n 601-11082), also used in Derby Owners Club WE, Derby Owners Club II, F-Zero AX
+	ROM_REGION( 0x20000, "card_reader", ROMREGION_ERASE)
+	// CRP1231BR10     2306
+	// Ver.01.07       ???
+	// 01/08/20
+	// ?? : ME131-5244Z01
+	ROM_LOAD("crp1231br10_ver0107.ic2", 0, 0x20000, CRC(3198f0ac) SHA1(fa38bce7ca217ed6df558dc2456b010f690d0729) ) // H8/3003 code
 ROM_END
 
 ROM_START( initdo )
