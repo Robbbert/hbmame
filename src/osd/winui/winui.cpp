@@ -40,6 +40,7 @@
 #include "emu.h"
 #include "mame.h"
 #include "mameopts.h"
+#include "language.h"
 #include "unzip.h"
 #include "winutf8.h"
 #include "strconv.h"
@@ -886,17 +887,23 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	time_t start, end;
 	double elapsedtime;
 	int i;
-	mame_options mame_opts;
+	//mame_options mame_opts;	seems useless....
 	windows_options global_opts;
 	std::string error_string;
 	// set up MAME options
-//  mame_opts = mame_options_init(mame_win_options);
+	//  mame_opts = mame_options_init(mame_win_options);
 
 	// Tell mame were to get the INIs
 	SetDirectories(global_opts);
 
+	// set some startup options
+	global_opts.set_value(OPTION_LANGUAGE, GetLanguageUI(), OPTION_PRIORITY_CMDLINE, error_string);
+	global_opts.set_value(OPTION_PLUGINS, GetEnablePlugins(), OPTION_PRIORITY_CMDLINE, error_string);
+	global_opts.set_value(OPTION_PLUGIN, GetPlugins(), OPTION_PRIORITY_CMDLINE, error_string);
+
 	// add image specific device options
-	mame_opts.set_system_name(global_opts, driver_list::driver(nGameIndex).name);
+	//mame_opts.set_system_name(global_opts, driver_list::driver(nGameIndex).name);
+	global_opts.set_value(OPTION_SYSTEMNAME, driver_list::driver(nGameIndex).name, OPTION_PRIORITY_CMDLINE, error_string);
 
 	// set any specified play options
 	if (playopts_apply == 0x57)
@@ -932,6 +939,8 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	osd_output::push(&winerror);
 	osd.register_options();
 	mame_machine_manager *manager = mame_machine_manager::instance(global_opts, osd);
+	load_translation(global_opts);
+	manager->start_luaengine();
 	manager->execute();
 	osd_output::pop(&winerror);
 	global_free(manager);

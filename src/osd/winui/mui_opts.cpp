@@ -1073,15 +1073,30 @@ BOOL GetSortReverse(void)
 	return settings.bool_value( MUIOPTION_SORT_REVERSED);
 }
 
-const char* GetLanguage(void)
+const char* GetLanguage(void)		// this is unused I guess
 {
 	return settings.value( MUIOPTION_LANGUAGE);
 }
 
-void SetLanguage(const char* lang)
+void SetLanguage(const char* lang)	// same as above, time to remove it?
 {
 	std::string error_string;
 	settings.set_value(MUIOPTION_LANGUAGE, lang, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+const char* GetLanguageUI(void)
+{
+	return global.value(OPTION_LANGUAGE);
+}
+
+bool GetEnablePlugins(void)
+{
+	return global.bool_value(OPTION_PLUGINS);
+}
+
+const char* GetPlugins(void)
+{
+	return global.value(OPTION_PLUGIN);
 }
 
 const char* GetRomDirs(void)
