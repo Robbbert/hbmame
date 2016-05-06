@@ -1,6 +1,24 @@
 What's new in HBMAME
 ====================
 
+2016-05-25 0.174
+----------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- NewUI: 7z enabled
+- WinUI: Various tweaks
+- Continued adding hacks from MultiJet
+
+
+
+New Games
+---------
+- [santabll]        Santaball [by M.Priewe]
+
+
+
+
 2016-04-27 0.173
 ----------------
 
