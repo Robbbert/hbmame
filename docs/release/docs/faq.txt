@@ -10,8 +10,8 @@ A. HBMAME usage follows the MAME licence precisely. See the MAMEDEV site for det
    MUST GIVE CREDIT to me (Robbbert) or HBMAME.
 
 2. Save state not working!
-A. We currently do NOT support Save States, High Scores (except games that have the [h] designator),
-   and Cheats. If it happens to work for you, feel fortunate.
+A. We currently do NOT support Save States and High Scores (except games that have the [h] designator).
+   If it happens to work for you, feel fortunate.
 
 3. What does [c] mean?
 A. The game has cheat facilities built in. Press 1 to be invulnerable. Press 2 to go fast.
@@ -78,29 +78,26 @@ A.  Use the up and down arrows to change gear (high or low). Use any of Ctrl, Al
     points.
 
 18. WW2demo crashes on the 2nd run
-A.  This game uses the up & down arrow keys to scroll around. However on the next run, pressing
-    those keys causes it to reboot, and it never works again. On exit, it writes a corrupted
-    nvram file which causes the problem. To fix this, firstly navigate to the nvram\ww2demo
-    folder and delete the file 'saveram'. Then use Notepad or similar to create a small file
-    of the same name. Then make it read-only. Now, the game should work.
+A.  Copy nvram\svcd\saveram into nvram\ww2demo, and make it read-only.
 
 19. Crouching Pony Hidden Dragon only shows a black screen on the 2nd run
-A.  This is recent regression in the main neogeo driver. You'll need to make a dummy saveram
-    just like in the WW2demo paragraph above.
+A.  Copy nvram\svcd\saveram into nvram\cphd, and make it read-only.
 
-20. List of neogeo problems
+20. Santaball misbehaves on the 2nd run
+A.  Copy nvram\svcd\saveram into nvram\santabll, and make it read-only.
+
+21. List of neogeo problems
 A.  neonopon - high scores 1 and 2 don't show. Key debounce problem.
-    neonopona - crashes at start due to some programming error
     beast - screen tearing
     neopong, neopong10 - On the intro page, a vertical bar moves slowly from the left.
 
-21. Bubble Bobble Redux
+22. Bubble Bobble Redux
 A.  The monsters can fire at you!
     bbredux1 - as above, and press P1+P2 while playing to skip to the next level;
     bbredux2 - as above, and when you lose your last life press P1 to continue;
     bbredux3 - as above, and saves the high scores. Well, it would, except it isn't coded yet.
 
-22. Ironclad - the screen is rather dark.
+23. Ironclad - the screen is rather dark.
 A.  Choose Japan or US bios. You still get some Japanese text though.
 
 98. I would like to submit a game.

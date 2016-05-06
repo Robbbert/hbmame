@@ -173,16 +173,16 @@ NUM YEAR COMPANY                 TITLE
 441 2013 Cristiano Bei           Neo Geo Sound Test
 442
 443
-444
-445
-446
-447
+444 2012 M.Priewe                Santaball
+445*2014 M.Priewe                Doom in the Deep (in development)
+446 2014 M.Priewe                Monitor Test Tool
+447*2016 M.Priewe                Hypernoid (in development)
 448
 449
 450*2012 RKGAMES                 Neo-sprite demo (CD only)
 451*2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
 452*2011 Furrtek                 VUmeter (CD only) [nebula]
-453*2012 M.Priewe                Santaball (CD only)
+453
 454*2013 Cristiano Bei           NGPhoenix (CD only)
 455*2004 Blastar                 Neo Puzzle League (CD only) [nebula]
 456*2013 Jeff Ferrier            Neo Geo Manic Panic
@@ -198,7 +198,7 @@ NUM YEAR COMPANY                 TITLE
 466*                             4-player input test
 467 2011 Furrtek                 Sprite Experimenter
 468*n/r  Neobitz                 Submarine Shooter (in development)
-469 2014 Neobitz                 Monitor Test
+469
 470 2015 freem                   ADPCM-B Playback Demo
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
 472 2015 freem                   ADPCM-A Playback Demo
@@ -1362,6 +1362,45 @@ ROM_START( neotest )
 ROM_END
 
 
+// 444 : Santaball by M.Priewe.
+// Press 1 to play a game of Pong.
+// If the game misbehaves, read the FAQ.
+ROM_START( santabll )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "444.p1", 0x000000, 0x100000, CRC(2af7a77c) SHA1(ff79d4695e8060f5a7b981524303336a0ad99c0c) )
+
+	NEO_SFIX_128K( "444.s1", CRC(ac031928) SHA1(7516593efc70e6effed8f5423e9736d6555b3baf) )
+
+	NEO_BIOS_AUDIO_64K( "444.m1", CRC(37a8d679) SHA1(957de2aa1775502a51b4e2d5cb6268cee00f6c2a) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "444.v1", 0x000000, 0x100000, CRC(d0150804) SHA1(b3d4cdb6d0f426de3801eb04d56f867bec8fe611) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "444.c1", 0x000000, 0x100000, CRC(1e271a9b) SHA1(5cae43aa094d5ee34983bc70aeab06652a6b0e7f) )
+	ROM_LOAD16_BYTE( "444.c2", 0x000001, 0x100000, CRC(1c7fd396) SHA1(aa2e2fff1ad1804631f3058b9666b970a368a847) )
+ROM_END
+
+
+// 446 : Monitor Test by M.Priewe.
+// No sound.
+ROM_START( ngmontst )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "446.p1", 0x000000, 0x100000, CRC(17a4ad61) SHA1(38c0f2022947043f30a27ccda06cc709fe980fed) )
+
+	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	NEO_BIOS_AUDIO_128K( "052-m1.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "052-v1.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "446.c1", 0x000000, 0x100000, CRC(715df715) SHA1(74534eb9bb48a04f25d0044b1f2b57e59f49b06f) )
+	ROM_LOAD16_BYTE( "446.c2", 0x000001, 0x100000, CRC(d8ee3c9b) SHA1(c731eaffae34b4394e290e68ca8c3700e1c6dc2b) )
+ROM_END
+
+
 // 457 : MVS Test 01 by Furrtek.
 ROM_START( test01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1429,25 +1468,6 @@ ROM_START( spriteex )
 	ROM_CONTINUE( 0x400000, 0x200000 )
 	ROM_LOAD16_BYTE( "467.c2", 0x000001, 0x200000, CRC(c8a4d037) SHA1(6541074be8493bf2c7b869e8dbdb39f3309dcaf7) )
 	ROM_CONTINUE( 0x400001, 0x200000 )
-ROM_END
-
-
-// 469 : Monitor Test by Neobitz.
-// No sound.
-ROM_START( ngmontst )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "469.p1", 0x000000, 0x100000, CRC(17a4ad61) SHA1(38c0f2022947043f30a27ccda06cc709fe980fed) )
-
-	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
-
-	NEO_BIOS_AUDIO_128K( "052-m1.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
-
-	ROM_REGION( 0x200000, "ymsnd", 0 )
-	ROM_LOAD( "052-v1.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "469.c1", 0x000000, 0x100000, CRC(715df715) SHA1(74534eb9bb48a04f25d0044b1f2b57e59f49b06f) )
-	ROM_LOAD16_BYTE( "469.c2", 0x000001, 0x100000, CRC(d8ee3c9b) SHA1(c731eaffae34b4394e290e68ca8c3700e1c6dc2b) )
 ROM_END
 
 
@@ -1666,7 +1686,7 @@ GAME( 2013, neotest,      neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2012, neothund,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NGEM2K", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
@@ -1675,6 +1695,7 @@ GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
