@@ -1208,6 +1208,31 @@ HICON LoadIconFromFile(const char *iconname)
 				}
 				zip.reset();
 			}
+			else
+			{
+				sprintf(tmpStr, "%s/icons.7z", GetIconsDir());
+				sprintf(tmpIcoName, "%s.ico", iconname);
+
+				ziperr = util::archive_file::open_zip(tmpStr, zip);
+				if (ziperr == util::archive_file::error::NONE)
+				{
+					res = zip->search(tmpIcoName, false);
+					if (res >= 0)
+					{
+						bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
+						if (bufferPtr)
+						{
+							ziperr = zip->decompress(bufferPtr, zip->current_uncompressed_length());
+							if (ziperr == util::archive_file::error::NONE)
+							{
+								hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
+							}
+							free(bufferPtr);
+						}
+					}
+					zip.reset();
+				}
+			}
 		}
 	}
 	return hIcon;
@@ -5128,7 +5153,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	switch (filetype)
 	{
 	case FILETYPE_INPUT_FILES :
-		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip)\0*.inp;*.zip\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip,*.7z)\0*.inp;*.zip;*.7z\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("inp");
 		dirname = GetInpDir();
 		break;

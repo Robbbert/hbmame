@@ -2860,7 +2860,7 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 
 	/* copy the string */
 	file_extension = dev->file_extensions();
-	const char* s2 = ",zip"; // Add ZIP extension as a default.
+	const char* s2 = ",zip,7z"; // Add ZIP extension as a default.
 	char *result = (LPSTR) alloca(strlen(file_extension)+strlen(s2)+1);
 	strcpy(result, file_extension);
 	strcat(result, s2);
@@ -2877,7 +2877,7 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 
 	// compressed
 	if (!is_save)
-		s += sprintf(s, "Compressed Images (*.zip)|*.zip|"); //(*.zip;*.7z)|*.zip;*.7z|");
+		s += sprintf(s, "Compressed Images (*.zip;*.7z)|*.zip;*.7z|");
 
 	*(s++) = '\0';
 }
