@@ -22,6 +22,7 @@
 
   Game notes:
   -----------
+
   * Wing Game Boards & Games (Originals):
 
   Various types
@@ -239,6 +240,7 @@
 #include "crazybon.lh"
 #include "goldstar.lh"
 #include "lucky8.lh"
+#include "lucky8p1.lh"
 #include "nfb96.lh"
 #include "nfb96tx.lh"
 #include "pokonl97.lh"
@@ -3398,6 +3400,158 @@ static INPUT_PORTS_START( ns8linew )
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 INPUT_PORTS_END
+
+static INPUT_PORTS_START( ns8linwa )
+	PORT_START("IN0")   /* b800 */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_CODE(KEYCODE_B) PORT_NAME("P1 - Big / Switch Controls")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_CODE(KEYCODE_C) PORT_NAME("P1 - Double-Up")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_CODE(KEYCODE_V) PORT_NAME("P1 - Take Score")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_CODE(KEYCODE_Z) PORT_NAME("P1 - Bet")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_CODE(KEYCODE_N) PORT_NAME("P1 - Small / Info")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_CODE(KEYCODE_X) PORT_NAME("P1 - Start")
+
+	PORT_START("IN1")   /* $b801 - P2 Controls... Not set */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
+	PORT_START("IN2")   /* $b802 */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
+	PORT_START("IN3")   /* $b810 - Money in */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN2 ) PORT_IMPULSE(2) PORT_NAME("Coin B");
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_COIN4 ) PORT_IMPULSE(2) PORT_NAME("Coin D");
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN3 ) PORT_IMPULSE(2) PORT_NAME("Coin C");
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_KEYIN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN1 ) PORT_IMPULSE(2) PORT_NAME("Coin A")
+
+	PORT_START("IN4")   /* $b811 - Service controls */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_KEYOUT ) PORT_NAME("Key Out / Attendant")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE ) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("Hopper")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_SERVICE ) PORT_NAME("Settings")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Stats")
+
+	PORT_START("DSW1")
+	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )          PORT_DIPLOCATION("DSW1:1")  // not checked
+	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x02, "Hopper Coin Switch" )        PORT_DIPLOCATION("DSW1:2")  // not checked
+	PORT_DIPSETTING(    0x02, "Active Low" )
+	PORT_DIPSETTING(    0x00, "Active High" )
+	PORT_DIPNAME( 0x04, 0x04, "Payout Mode" )               PORT_DIPLOCATION("DSW1:3")  // not checked
+	PORT_DIPSETTING(    0x04, "Payout Switch" )
+	PORT_DIPSETTING(    0x00, "Automatic" )
+	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )          PORT_DIPLOCATION("DSW1:4")  // not checked
+	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x30, 0x30, "Double-Up Game Pay Rate" )   PORT_DIPLOCATION("DSW1:5,6")  // OK
+	PORT_DIPSETTING(    0x00, "60%" )  // OK
+	PORT_DIPSETTING(    0x10, "65%" )  // OK
+	PORT_DIPSETTING(    0x20, "70%" )  // OK
+	PORT_DIPSETTING(    0x30, "75%" )  // OK
+	PORT_DIPNAME( 0xc0, 0x00, "Special Odds" )              PORT_DIPLOCATION("DSW1:7,8")  // not checked
+	PORT_DIPSETTING(    0xc0, "None" )
+	PORT_DIPSETTING(    0xb0, "Limited to x300 (x1000)" )
+	PORT_DIPSETTING(    0x40, "Limited to x500 (x5000)" )
+	PORT_DIPSETTING(    0x00, "Limited to x1000 (x10000)" )
+
+	PORT_START("DSW2")
+	PORT_DIPNAME( 0x03, 0x01, "Main Game Pay Rate" )    PORT_DIPLOCATION("DSW2:1,2")  // OK
+	PORT_DIPSETTING(    0x03, "58%" )  // OK
+	PORT_DIPSETTING(    0x02, "62%" )  // OK
+	PORT_DIPSETTING(    0x01, "66%" )  // OK
+	PORT_DIPSETTING(    0x00, "70%" )  // OK
+	PORT_DIPNAME( 0x04, 0x04, "Double Up Game" )        PORT_DIPLOCATION("DSW2:3")  // not checked
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x18, 0x00, "Hopper Limit" )          PORT_DIPLOCATION("DSW2:4,5")  // not checked
+	PORT_DIPSETTING(    0x18, "300" )
+	PORT_DIPSETTING(    0x10, "500" )
+	PORT_DIPSETTING(    0x08, "1000" )
+	PORT_DIPSETTING(    0x00, "Unlimited" )
+	PORT_DIPNAME( 0x20, 0x20, "Over 100 Bet Sound" )    PORT_DIPLOCATION("DSW2:6")  // not checked
+	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x40, "Odds Table" )            PORT_DIPLOCATION("DSW2:7")  // not checked
+	PORT_DIPSETTING(    0x40, "A - Low" )
+	PORT_DIPSETTING(    0x00, "B - High" )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )      PORT_DIPLOCATION("DSW2:8")  // not checked
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_START("DSW3")
+	PORT_DIPNAME( 0x0f, 0x07, "Coin D Rate" )           PORT_DIPLOCATION("DSW3:1,2,3,4")  // not checked
+	PORT_DIPSETTING(    0x0f, "10 Coins/1 Credit" )
+	PORT_DIPSETTING(    0x01, DEF_STR( 5C_1C ) )
+	PORT_DIPSETTING(    0x02, "5 Coins/2 Credits" )
+	PORT_DIPSETTING(    0x03, DEF_STR( 4C_1C ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( 3C_1C ) )
+	PORT_DIPSETTING(    0x05, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x06, DEF_STR( 2C_3C ) )
+	PORT_DIPSETTING(    0x07, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( 1C_2C ) )
+	PORT_DIPSETTING(    0x09, DEF_STR( 1C_3C ) )
+	PORT_DIPSETTING(    0x0a, DEF_STR( 1C_5C ) )
+	PORT_DIPSETTING(    0x0b, "1 Coin/10 Credits" )
+	PORT_DIPNAME( 0x70, 0x60, "Coin C Rate" )       PORT_DIPLOCATION("DSW3:5,6,7")  // not checked
+	PORT_DIPSETTING(    0x70, "10 Coins/1 Credit" )
+	PORT_DIPSETTING(    0x10, "9 Coins/1 Credit" )
+	PORT_DIPSETTING(    0x20, DEF_STR( 6C_1C ) )
+	PORT_DIPSETTING(    0x30, DEF_STR( 5C_1C ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( 3C_1C ) )
+	PORT_DIPSETTING(    0x50, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x60, DEF_STR( 1C_1C ) )
+	PORT_DIPNAME( 0x80, 0x80, "4th Coin" )          PORT_DIPLOCATION("DSW3:8")  // not checked
+	PORT_DIPSETTING(    0x80, "As Coin A" )
+	PORT_DIPSETTING(    0x00, "As Hopper Line" )
+
+	PORT_START("DSW4")
+	PORT_DIPNAME( 0x07, 0x03, "Key In Rate" )       PORT_DIPLOCATION("DSW4:1,2,3")  // OK
+	PORT_DIPSETTING(    0x00, "1 Pulse / 5 Credits" )  // OK
+	PORT_DIPSETTING(    0x01, "1 Pulse / 10 Credits" )  // OK
+	PORT_DIPSETTING(    0x02, "1 Pulse / 20 Credits" )  // OK
+	PORT_DIPSETTING(    0x03, "1 Pulse / 100 Credits" )  // OK
+	PORT_DIPSETTING(    0x04, "1 Pulse / 110 Credits" )  // OK
+	PORT_DIPSETTING(    0x05, "1 Pulse / 120 Credits" )  // OK
+	PORT_DIPSETTING(    0x06, "1 Pulse / 130 Credits" )  // OK
+	PORT_DIPSETTING(    0x07, "1 Pulse / 500 Credits" )  // OK
+	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )  PORT_DIPLOCATION("DSW4:4")  // not checked
+	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x30, 0x00, "Coin A Rate" )       PORT_DIPLOCATION("DSW4:5,6")  // OK
+	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )  // OK
+	PORT_DIPSETTING(    0x10, DEF_STR( 1C_2C ) )  // OK
+	PORT_DIPSETTING(    0x20, DEF_STR( 1C_5C ) )  // OK
+	PORT_DIPSETTING(    0x30, "1 Coin/10 Credits" )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )  PORT_DIPLOCATION("DSW4:7")  // not checked
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )  PORT_DIPLOCATION("DSW4:8")  // not checked
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+INPUT_PORTS_END
+
 
 static INPUT_PORTS_START( luckylad ) // CHECK & FIX ME
 	PORT_START("IN0")
@@ -10279,107 +10433,104 @@ ROM_END
   a sort of Super Mario character from Nintendo, clouds and stars...
 
 
- PCB Layout:
-+----------------------------------------------------------------------------------------------------------------------------+
-|      J       I       H         G            F         E         D           C          B              A                    |
-|                                                                        +----------+                                        |
-|   +-----+ +-----+ +-------+ +-----+                +-----+             |ASB IN USA| +--------------+ +-----+            +--+
-|14 |  U  | |  U  | |   F   | |  T  |                |  M  |             |4FJ       | |      8       | |  R  |            |
-|   +-----+ +-----+ +-------+ +-----+                +-----+             |HM6116LP-2| |   D27256     | +-----+            |
-|                                                                        +----------+ |              |                    +--+
-|   +-----+           +-----+ +-----+      +-----+   +-------+ +-----+   +-------+    +--------------+ +-----+             --|
-|13 |  H  |           |  V  | |  T  |      |  H  |   |   F   | |  S  |   |   A   |                     |  M  |             --|
-|   +-----+           +-----+ +-----+      +-----+   +-------+ +-----+   +-------+                     +-----+             --|
-|                +----------+                                                                                              --|
-|                |Toshiba   | +-----+                +-----+   +-----+   +-------+                                         --|
-|12              |TMM2016BP-| |  O  |                |  B  |   |  S  |   |   A   |                                         --|
-|                |12        | +-----+                +-----+   +-----+   +-------+                                         --|
-|                +----------+                                                                                              --|
-|                +----------+                                            +------------------+                              --|
-|                |          | +-----+                +-----+   +-----+   |      ZILOG       |                              --|
-|11              |HM6116L-90| |  O  |                |  B  |   |  L  |   |   Z0840004PSC    |                              --|
-|                |          | +-----+                +-----+   +-----+   |   Z80 CPU        |                              --|
-|                +----------+                                            +------------------+                              --|
-|   +-----+  +--------------+ +-----+      +-----+   +-----+   +-----+   +------------------+                              --|
-|10 |  J  |  |      [7]     | |  O  |      |  W  |   |  B  |   |  X  |   |    NEC JAPAN     |                              --|
-|   +-----+  |    D27256    | +-----+      +-----+   +-----+   +-----+   |    D8255AC-2     |                              --|
-|            |              |                                            |    9014XD010     |                              --|
-|   +-----+  +--------------+ +-----+      +-----+   +-----+   +-----+   +------------------+                            36--|
-|9  |  J  |  +--------------+ |  O  |      |  E  |   |  C  |   |  L  |                                                 Pinout|
-|   +-----+  |      [6]     | +-----+      +-----+   +-----+   +-----+   +------------------+                              --|
-|   +-----+  |    D27256    | +-------+    +-----+   +-----+ +--------+  |    NEC JAPAN     |                              --|
-|8  |  J  |  |              | |   I   |    |  E  |   |  D  | |  DIP1  |  |    D8255AC-2     |                              --|
-|   +-----+  +--------------+ +-------+    +-----+   +-----+ +--------+  |    9014XD010     |                              --|
-|   +-----+  +--------------+ +-------+              +-----+ +--------+  +------------------+ +---+ +-----+                --|
-|7  |  G  |  |      [5]     | |   I   |              |  E  | |  DIP2  |  +------------------+ | Q | |  P  |                --|
-|   +-----+  |   D27256     | +-------+              +-----+ +--------+  |    NEC JAPAN     | +---+ +-----+                --|
-|            |              |                                            |                  |                              --|
-|    XTAL    +--------------+ +-------+              +-----+ +--------+  |                  |       +-----+                --|
-|6  .----.   +--------------+ |   I   |              |  L  | |  DIP3  |  +------------------+       |  P  |                --|
-|            |      [4]     | +-------+              +-----+ +--------+  +------------------+       +-----+                --|
-|            |   D2764D     |                                            |     Winbond      |                              --|
-|   +-----+  |              | +-------+    +-----+   +-----+ +--------+  |     WF19054      |                              --|
-|5  |  J  |  +--------------+ |   I   |    |  K  |   |  B  | |  DIP4  |  |  4150C14090830   |                              --|
-|   +-----+  +--------------+ +-------+    +-----+   +-----+ +--------+  +------------------+                              --|
-|            |      [3]     | +----------+                                                                                 --|
-|   +-----+  |  HN482764G   | |Toshiba Tm| +-----+   +-----+ +---------+  +------+ +------+                                --|
-|4  |  J  |  |              | |m2016BP-12| |  K  |   |  B  | |    I    |  |    V | |   X  |                                --|
-|   +-----+  +--------------+ +----------+ +-----+   +-----+ +---------+  +------+ +------+                               +--+
-|   +-----+  +--------------+ +----------+ +-----+   +-----+ +-------+    +------+ +------+                               |
-|3  |  J  |  |     [2]      | |USC 6516-A| |  T  |   |  B  | |   H   |    |    V | |   X  |                               |
-|   +-----+  |    D2764     | |9252E GYU1| +-----+   +-----+ +-------+    +------+ +------+                               +--+
-|            |              | +----------+                                                                                   |
-|   +-----+  +--------------+ +----------+ +-----+   +-----+  +------+    +------+                                           |
-|2  |  J  |  +--------------+ |Toshiba Tm| |  O  |   |  M  |  |   Y  |    |   Z  |                                           |
-|   +-----+  |     [1]      | |m2016BP-12| +-----+   +-----+  +------+    +------+                                           |
-|   +-----+  |  MBM2764-25  | +----------+ +-----+   +-----+  +------+                                                       |
-|1  |  J  |  |              | +----------+ |  O  |   |  N  |  |   W  |                                                       |
-|   +-----+  +--------------+ |HM6116L-90| +-----+   +-----+  +------+                                  A                    |
-|                             |  9140A   |                                           +-----+    10 Pins   +-----+            |
-|      J       I       H      +----------+    F         E         D           C     B|     ||||||||||||||||     |            |
-+------------------------------------------------------------------------------------+     +--------------+     +------------+
+   PCB Layout:
+  +----------------------------------------------------------------------------------------------------------------------------+
+  |      J       I       H         G            F         E         D           C          B              A                    |
+  |                                                                        +----------+                                        |
+  |   +-----+ +-----+ +-------+ +-----+                +-----+             |ASB IN USA| +--------------+ +-----+            +--+
+  |14 |  U  | |  U  | |   F   | |  T  |                |  M  |             |4FJ       | |      8       | |  R  |            |
+  |   +-----+ +-----+ +-------+ +-----+                +-----+             |HM6116LP-2| |   D27256     | +-----+            |
+  |                                                                        +----------+ |              |                    +--+
+  |   +-----+           +-----+ +-----+      +-----+   +-------+ +-----+   +-------+    +--------------+ +-----+             --|
+  |13 |  H  |           |  V  | |  T  |      |  H  |   |   F   | |  S  |   |   A   |                     |  M  |             --|
+  |   +-----+           +-----+ +-----+      +-----+   +-------+ +-----+   +-------+                     +-----+             --|
+  |                +----------+                                                                                              --|
+  |                |Toshiba   | +-----+                +-----+   +-----+   +-------+                                         --|
+  |12              |TMM2016BP-| |  O  |                |  B  |   |  S  |   |   A   |                                         --|
+  |                |12        | +-----+                +-----+   +-----+   +-------+                                         --|
+  |                +----------+                                                                                              --|
+  |                +----------+                                            +------------------+                              --|
+  |                |          | +-----+                +-----+   +-----+   |      ZILOG       |                              --|
+  |11              |HM6116L-90| |  O  |                |  B  |   |  L  |   |   Z0840004PSC    |                              --|
+  |                |          | +-----+                +-----+   +-----+   |   Z80 CPU        |                              --|
+  |                +----------+                                            +------------------+                              --|
+  |   +-----+  +--------------+ +-----+      +-----+   +-----+   +-----+   +------------------+                              --|
+  |10 |  J  |  |      [7]     | |  O  |      |  W  |   |  B  |   |  X  |   |    NEC JAPAN     |                              --|
+  |   +-----+  |    D27256    | +-----+      +-----+   +-----+   +-----+   |    D8255AC-2     |                              --|
+  |            |              |                                            |    9014XD010     |                              --|
+  |   +-----+  +--------------+ +-----+      +-----+   +-----+   +-----+   +------------------+                            36--|
+  |9  |  J  |  +--------------+ |  O  |      |  E  |   |  C  |   |  L  |                                                 Pinout|
+  |   +-----+  |      [6]     | +-----+      +-----+   +-----+   +-----+   +------------------+                              --|
+  |   +-----+  |    D27256    | +-------+    +-----+   +-----+ +--------+  |    NEC JAPAN     |                              --|
+  |8  |  J  |  |              | |   I   |    |  E  |   |  D  | |  DIP1  |  |    D8255AC-2     |                              --|
+  |   +-----+  +--------------+ +-------+    +-----+   +-----+ +--------+  |    9014XD010     |                              --|
+  |   +-----+  +--------------+ +-------+              +-----+ +--------+  +------------------+ +---+ +-----+                --|
+  |7  |  G  |  |      [5]     | |   I   |              |  E  | |  DIP2  |  +------------------+ | Q | |  P  |                --|
+  |   +-----+  |   D27256     | +-------+              +-----+ +--------+  |    NEC JAPAN     | +---+ +-----+                --|
+  |            |              |                                            |                  |                              --|
+  |    XTAL    +--------------+ +-------+              +-----+ +--------+  |                  |       +-----+                --|
+  |6  .----.   +--------------+ |   I   |              |  L  | |  DIP3  |  +------------------+       |  P  |                --|
+  |            |      [4]     | +-------+              +-----+ +--------+  +------------------+       +-----+                --|
+  |            |   D2764D     |                                            |     Winbond      |                              --|
+  |   +-----+  |              | +-------+    +-----+   +-----+ +--------+  |     WF19054      |                              --|
+  |5  |  J  |  +--------------+ |   I   |    |  K  |   |  B  | |  DIP4  |  |  4150C14090830   |                              --|
+  |   +-----+  +--------------+ +-------+    +-----+   +-----+ +--------+  +------------------+                              --|
+  |            |      [3]     | +----------+                                                                                 --|
+  |   +-----+  |  HN482764G   | |Toshiba Tm| +-----+   +-----+ +---------+  +------+ +------+                                --|
+  |4  |  J  |  |              | |m2016BP-12| |  K  |   |  B  | |    I    |  |   V  | |   X  |                                --|
+  |   +-----+  +--------------+ +----------+ +-----+   +-----+ +---------+  +------+ +------+                               +--+
+  |   +-----+  +--------------+ +----------+ +-----+   +-----+ +-------+    +------+ +------+                               |
+  |3  |  J  |  |     [2]      | |USC 6516-A| |  T  |   |  B  | |   H   |    |   V  | |   X  |                               |
+  |   +-----+  |    D2764     | |9252E GYU1| +-----+   +-----+ +-------+    +------+ +------+                               +--+
+  |            |              | +----------+                                                                                   |
+  |   +-----+  +--------------+ +----------+ +-----+   +-----+  +------+    +------+                                           |
+  |2  |  J  |  +--------------+ |Toshiba Tm| |  O  |   |  M  |  |   Y  |    |   Z  |                                           |
+  |   +-----+  |     [1]      | |m2016BP-12| +-----+   +-----+  +------+    +------+                                           |
+  |   +-----+  |  MBM2764-25  | +----------+ +-----+   +-----+  +------+                                                       |
+  |1  |  J  |  |              | +----------+ |  O  |   |  N  |  |   W  |                                                       |
+  |   +-----+  +--------------+ |HM6116L-90| +-----+   +-----+  +------+                                  A                    |
+  |                             |  9140A   |                                           +-----+    10 Pins   +-----+            |
+  |      J       I       H      +----------+    F         E         D           C     B|     ||||||||||||||||     |            |
+  +------------------------------------------------------------------------------------+     +--------------+     +------------+
 
+  DIP1:                     DIP2:                     DIP3:                     DIP4:
+  +-------------------+     +-------------------+     +-------------------+     +-------------------+
+  | ON                |     | ON                |     | ON                |     | ON                |
+  | +---------------+ |     | +---------------+ |     | +---------------+ |     | +---------------+ |
+  | |_|_|_|#|_|_|_|_| |     | |#|#|#|_|_|_|_|#| |     | |_|_|#|#|#|#|#|_| |     | |_|_|_|_|#|_|_|_| |
+  | |#|#|#| |#|#|#|#| |     | | | | |#|#|#|#| | |     | |#|#| | | | | |#| |     | |#|#|#|#| |#|#|#| |
+  | +---------------+ |     | +---------------+ |     | +---------------+ |     | +---------------+ |
+  |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |
+  +-------------------+     +-------------------+     +-------------------+     +-------------------+
 
-DIP1:                     DIP2:                     DIP3:                     DIP4:
-+-------------------+     +-------------------+     +-------------------+     +-------------------+
-| ON                |     | ON                |     | ON                |     | ON                |
-| +---------------+ |     | +---------------+ |     | +---------------+ |     | +---------------+ |
-| |_|_|_|#|_|_|_|_| |     | |#|#|#|_|_|_|_|#| |     | |_|_|#|#|#|#|#|_| |     | |_|_|_|_|#|_|_|_| |
-| |#|#|#| |#|#|#|#| |     | | | | |#|#|#|#| | |     | |#|#| | | | | |#| |     | |#|#|#|#| |#|#|#| |
-| +---------------+ |     | +---------------+ |     | +---------------+ |     | +---------------+ |
-|  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |
-+-------------------+     +-------------------+     +-------------------+     +-------------------+
+  1x XTAL = 12 Mhz
 
-
-1x XTAL = 12 Mhz
-
-
-A = SN74LS244N / XXAC9307
-B = GD74LS161A / A9417
-C = MB74LS10 / 8507 M12
-D = 74LSMPC / SLB1254
-E = GD74LS74A / 9430
-F = HD74LS273P
-G = HD74LS368AP
-H = 74LS32
-I = 74LS245  / W994K9318 / Malaysia
-J = GS 9429 / GD74LS166     ?????
-K = SN74LS283N / KKFQ9149
-L = GS 9427 / GD74LS138
-M = GS 9424 / GD74LS04
-N = Malaysia 9022AS / SN74LS139AN
-O = GS 9425 / GD74LS157 ????
-P = HD74LS04P
-Q = 5560 / JRC / 3151A
-R = HD74HC00P
-S = DM74S288
-T = DM74S287
-U = LS02
-V = LS174
-W = LS08
-X = LS367
-Y = LS60 ??
-Z = sn76489an
+  A = SN74LS244N
+  B = GD74LS161A
+  C = MB74LS10
+  D = 74LS10
+  E = GD74LS74A
+  F = HD74LS273P
+  G = HD74LS368AP
+  H = 74LS32
+  I = 74LS245
+  J = GD74LS166
+  K = SN74LS283N
+  L = GD74LS138
+  M = GD74LS04
+  N = SN74LS139AN
+  O = GD74LS157
+  P = HD74LS04P
+  Q = 5560 / JRC / 3151A (555?)
+  R = HD74HC00P
+  S = DM74S288
+  T = DM74S287
+  U = LS02
+  V = LS174
+  W = LS08
+  X = LS367
+  Y = LS00
+  Z = SN76489AN
 
 */
 ROM_START( ns8lines )
@@ -10413,7 +10564,7 @@ ROM_END
 
 
 /*
-  New Lucky 8 Lines / New Super 8 Lines (Witch Bonus)
+  New Lucky 8 Lines / New Super 8 Lines (F-5, Witch Bonus)
 
   This set has the 'Witch Bonus' present in Witch Card games.
 
@@ -10470,6 +10621,164 @@ ROM_START( ns8linew )
 
 	ROM_REGION( 0x20, "unkprom2", 0 )
 	ROM_LOAD( "dm74s288.d12", 0x0000, 0x0020, CRC(6df3f972) SHA1(0096a7f7452b70cac6c0752cb62e24b643015b5c) )
+ROM_END
+
+
+/*
+  New Lucky 8 Lines / New Super 8 Lines (W-4, Witch Bonus)
+  
+  CPUs
+  1x Z80        (11b) - 8-bit Microprocessor - main (missing).
+  3x iD8255A-5  (7b, 8b, 9b) - Programmable Peripheral Interface.
+  1x SN76489AN  (2c) - Digital Complex Sound Generator - sound.
+  1x WF19054    (5b) - Programmable Sound Generator - sound.
+  1x uPC1181    (0a) - Audio Amplifier - sound.
+
+  ROMs
+  4x AM27C64    (1-4)	dumped.
+  4x M27C256B   (5-8) dumped.
+  3x AM27S21APC (1, 2, 3) dumped.
+  3x N82S123AN  (4, 5) dumped.
+
+  RAMs
+  7x HM3-6116-5 (11h, 12h, 1g, 2g, 3g, 4g, 14c)
+
+  Others
+  1x 12.000MHz oscillator (6j).
+  1x 36x2 edge connector.
+  1x 10x2 edge connector.
+  1x pushbutton.
+  2x trimmer (VOL, VAL).
+  3x 8 DIP switches banks.
+
+
+   PCB Layout:
+  +----------------------------------------------------------------------------------------------------------------------------+
+  |      J       I       H         G            F         E         D           C          B              A           push     |
+  |                                                                        +----------+                               button   |
+  |   +-----+ +-----+ +-------+ +-----+                +-----+             |RAM 6116  | +--------------+ +-----+            +--+
+  |14 |  U  | |  U  | |   F   | |  T  |                |  M  |             |          | |     [8]      | |  R  |            |
+  |   +-----+ +-----+ +-------+ +-----+                +-----+             |(missing) | |   M27C256B   | +-----+            |
+  |                                                                        +----------+ |              |                    +--+
+  |   +-----+           +-----+ +-----+      +-----+   +-------+ +-----+   +-------+    +--------------+ +-----+             --|
+  |13 |  H  |           |  V  | |  T  |      |  H  |   |   F   | |  S  |   |   A   |                     |  P  |             --|
+  |   +-----+           +-----+ +-----+      +-----+   +-------+ +-----+   +-------+                     +-----+             --|
+  |                +----------+                                                                                              --|
+  |                |TEMIC     | +-----+                +-----+   +-----+   +-------+                                         --|
+  |12              |HM3-6116-5| |  O  |                |  B  |   |  S  |   |   A   |                                         --|
+  |                |          | +-----+                +-----+   +-----+   +-------+                                         --|
+  |                +----------+                                                                                              --|
+  |                +----------+                                            +------------------+                              --|
+  |                |TEMIC     | +-----+                +-----+   +-----+   |     Z80 CPU      |                              --|
+  |11              |HM3-6116-5| |  O  |                |  B  |   |  L  |   |    (missing)     |                              --|
+  |                |          | +-----+                +-----+   +-----+   |                  |                              --|
+  |                +----------+                                            +------------------+                              --|
+  |   +-----+  +--------------+ +-----+      +-----+   +-----+   +-----+   +------------------+                              --|
+  |10 |  J  |  |     [7]      | |  O  |      |  W  |   |  B  |   |  X  |   |    INTEL         |                              --|
+  |   +-----+  |   M27C256B   | +-----+      +-----+   +-----+   +-----+   |    P8255A-5      |                              --|
+  |            |              |                                            |                  |                              --|
+  |   +-----+  +--------------+ +-----+      +-----+   +-----+   +-----+   +------------------+                            36--|
+  |9  |  J  |  +--------------+ |  O  |      |  E  |   |  C  |   |  L  |                                                 Pinout|
+  |   +-----+  |     [6]      | +-----+      +-----+   +-----+   +-----+   +------------------+                              --|
+  |   +-----+  |   M27C256B   | +-------+    +-----+   +-----+ +--------+  |    INTEL         |                              --|
+  |8  |  J  |  |              | |   I   |    |  E  |   |  D  | |  DIP1  |  |    P8255A-5      |                              --|
+  |   +-----+  +--------------+ +-------+    +-----+   +-----+ +--------+  |                  |                              --|
+  |   +-----+  +--------------+ +-------+              +-----+ +--------+  +------------------+ +---+ +-----+                --|
+  |7  |  G  |  |     [5]      | |   I   |              |  E  | |  DIP2  |  +------------------+ | Q | |  P  |                --|
+  |   +-----+  |   M27C256B   | +-------+              +-----+ +--------+  |    INTEL         | +---+ +-----+                --|
+  |            |              |                                            |    P8255A-5      |                              --|
+  |    XTAL    +--------------+ +-------+              +-----+             |                  |       +-----+                --|
+  |6  .----.   +--------------+ |   I   |              |  L  |             +------------------+       |  P  |                --|
+  |            |     [4]      | +-------+              +-----+             +------------------+       +-----+                --|
+  |            |   AM27C64    |                                            |     Winbond      |                              --|
+  |   +-----+  |              | +-------+    +-----+   +-----+ +--------+  |     WF19054      |                              --|
+  |5  |  O  |  +--------------+ |   I   |    |  K  |   |  B  | |  DIP3  |  |                  |                              --|
+  |   +-----+  +--------------+ +-------+    +-----+   +-----+ +--------+  +------------------+                              --|
+  |            |     [3]      | +----------+                                                                                 --|
+  |   +-----+  |   AM27C64    | |TEMIC     | +-----+   +-----+ +---------+  +------+ +------+                                --|
+  |4  |  J  |  |              | |HM3-6116-5| |  K  |   |  B  | |    I    |  |   V  | |   X  |                                --|
+  |   +-----+  +--------------+ +----------+ +-----+   +-----+ +---------+  +------+ +------+                               +--+
+  |   +-----+  +--------------+ +----------+ +-----+   +-----+ +-------+    +------+ +------+                               |
+  |3  |  J  |  |     [2]      | |TEMIC     | |  T  |   |  E  | |   H   |    |   V  | |   X  |                               |
+  |   +-----+  |   AM27C64    | |HM3-6116-5| +-----+   +-----+ +-------+    +------+ +------+                               +--+
+  |            |              | +----------+                                                                                   |
+  |   +-----+  +--------------+ +----------+ +-----+   +-----+  +------+    +------+     trimmer        trimmer                |
+  |2  |  J  |  +--------------+ |TEMIC     | |  O  |   |  M  |  |   Y  |    |   Z  |     VAL 10K        VOL 10K                |
+  |   +-----+  |     [1]      | |HM3-6116-5| +-----+   +-----+  +------+    +------+                                           |
+  |   +-----+  |   AM27C64    | +----------+ +-----+   +-----+  +------+                                            +-------+  |
+  |1  |  J  |  |              | +----------+ |  O  |   |  N  |  |   W  |                                            |NEC    |  |
+  |   +-----+  +--------------+ |TEMIC     | +-----+   +-----+  +------+                                  A         |C1181H3|  |
+  |                             |HM3-6116-5|                                           +-----+    10 Pins   +-----+ +-------+  |
+  |      J       I       H      +----------+    F         E         D           C     B|     ||||||||||||||||     |            |
+  +------------------------------------------------------------------------------------+     +--------------+     +------------+
+
+  DIP1:                     DIP2:                     DIP3:
+  +-------------------+     +-------------------+     +-------------------+
+  | ON                |     | ON                |     | ON                |
+  | +---------------+ |     | +---------------+ |     | +---------------+ |
+  | |_|_|_|_|#|#|_|_| |     | |#|#|#|_|_|_|_|_| |     | |#|#|#|_|#|#|_|_| |
+  | |#|#|#| | | |#|#| |     | | | | |#|#|#|#|#| |     | |#|#| |#| | |#|#| |
+  | +---------------+ |     | +---------------+ |     | +---------------+ |
+  |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |     |  1 2 3 4 5 6 7 8  |
+  +-------------------+     +-------------------+     +-------------------+
+
+  1x XTAL = 12 Mhz
+
+  A = 74LS244
+  B = 74LS161
+  C = 74LS10
+  D = 74LS11
+  E = 74LS74
+  F = 74LS273
+  G = 74LS368
+  H = 74LS32
+  I = 74LS245
+  J = 74166
+  K = 74LS283
+  L = 74LS138
+  M = 74LS04
+  N = 74LS139
+  O = 74LS157
+  P = 74LS04
+  Q = NE555N
+  R = 74HC00
+  S = N82S123AN
+  T = AM27S21APC
+  U = 74LS02
+  V = 74LS174
+  W = 74LS08
+  X = 74LS367
+  Y = 74LS00
+  Z = SN76489AN
+
+*/
+ROM_START( ns8linewa )
+	ROM_REGION( 0x8000, "maincpu", 0 )
+	ROM_LOAD( "8.13b",   0x0000, 0x8000, CRC(c5692077) SHA1(423e0fe49ac450f22e693d9ac5ac1c3c662b17d3) )  // no match...
+
+	ROM_REGION( 0x18000, "gfx1", 0 )
+	ROM_LOAD( "5.7h",  0x00000, 0x8000, CRC(25ca3657) SHA1(95ac8affbc309110159cd67e17d789c8bf426937) )  // no match...
+	ROM_LOAD( "6.8h",  0x08000, 0x8000, CRC(80888d64) SHA1(91ec96709df77c534d381e391839984a88aeb1e0) )  // same as ns8lines
+	ROM_LOAD( "7.9h",  0x10000, 0x8000, CRC(255d5860) SHA1(f171fde3d542594132b38b44300f750d45fb67a2) )  // same as ns8lines
+
+	ROM_REGION( 0x8000, "gfx2", 0 )
+	ROM_LOAD( "1.1h",   0x0000, 0x2000, CRC(b45f41e2) SHA1(890c94c802f5ada97bc73f5a7a09e69c3207966c) )  // same as ns8lines
+	ROM_LOAD( "2.2h",   0x2000, 0x2000, CRC(0463413a) SHA1(061b8335fdd44767e8c1832f5b5101276ad0f689) )  // same as ns8lines
+	ROM_LOAD( "3.4h",   0x4000, 0x2000, CRC(6be213c8) SHA1(bf5a002961b0827581cbab4249321ae5b51316f0) )  // same as ns8lines
+	ROM_LOAD( "4.5h",   0x6000, 0x2000, CRC(0a25964b) SHA1(d41eda201bb01229fb6e2ff437196dd65eebe577) )  // same as ns8lines
+
+	ROM_REGION( 0x200, "proms", 0 ) /* proper dumps */
+	ROM_LOAD( "2.13g", 0x0000, 0x0100, CRC(23e81049) SHA1(78071dae70fad870e972d944642fb3a2374be5e4) )  // same as ns8lines
+	ROM_LOAD( "1.14g", 0x0100, 0x0100, CRC(526cf9d3) SHA1(eb779d70f2507d0f26d225ac8f5de8f2243599ca) )  // same as ns8lines
+
+	ROM_REGION( 0x20, "proms2", 0 )
+	ROM_LOAD( "4.13d", 0x0000, 0x0020, CRC(c6b41352) SHA1(d7c3b5aa32e4e456c9432a13bede1db6d62eb270) )  // same as ns8lines
+
+	ROM_REGION( 0x100, "unkprom", 0 )
+	ROM_LOAD( "3.3f",  0x0000, 0x0100, CRC(1d668d4a) SHA1(459117f78323ea264d3a29f1da2889bbabe9e4be) )  // same as ns8lines
+
+	ROM_REGION( 0x20, "unkprom2", 0 )
+	ROM_LOAD( "5.12d", 0x0000, 0x0020, CRC(6df3f972) SHA1(0096a7f7452b70cac6c0752cb62e24b643015b5c) )  // same as ns8lines
 ROM_END
 
 
@@ -14158,14 +14467,15 @@ GAME(  1999, cmast99b,  cmast99,  cm,       cmast99,  cmaster_state,  cmv4,     
 
 
 // --- Wing W-4 hardware ---
-GAMEL( 1989, lucky8,    0,        lucky8,   lucky8,   driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 1, W-4)",                           0,                     layout_lucky8 )
-GAMEL( 1989, lucky8a,   lucky8,   lucky8,   lucky8a,  wingco_state,   lucky8a,   ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 2, W-4)",                           0,                     layout_lucky8 )
-GAMEL( 1989, lucky8b,   lucky8,   lucky8,   lucky8b,  driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 3, W-4, extended gfx)",             0,                     layout_lucky8 )
-GAMEL( 1989, lucky8c,   lucky8,   lucky8,   lucky8,   wingco_state,   lucky8a,   ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 4, W-4)",                           0,                     layout_lucky8 )
-GAMEL( 1989, lucky8d,   lucky8,   lucky8,   lucky8d,  driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 5, W-4, main 40%, d-up 60%)",       0,                     layout_lucky8 )
-GAMEL( 1989, lucky8e,   lucky8,   lucky8,   lucky8d,  driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 6, W-4, main 40%, d-up 60%)",       0,                     layout_lucky8 )
-GAMEL( 198?, ns8lines,  0,        lucky8,   lucky8b,  driver_device,  0,         ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (W-4)",              0,                     layout_lucky8 )
-GAMEL( 198?, ns8linew,  0,        lucky8,   ns8linew, driver_device,  0,         ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (F-5, Witch Bonus)", 0,                     layout_lucky8 )
+GAMEL( 1989, lucky8,    0,        lucky8,   lucky8,   driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 1, W-4)",                           0,                     layout_lucky8 )    // 2 Players...
+GAMEL( 1989, lucky8a,   lucky8,   lucky8,   lucky8a,  wingco_state,   lucky8a,   ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 2, W-4)",                           0,                     layout_lucky8 )    // 2 Players...
+GAMEL( 1989, lucky8b,   lucky8,   lucky8,   lucky8b,  driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 3, W-4, extended gfx)",             0,                     layout_lucky8p1 )  // Only 1 player...
+GAMEL( 1989, lucky8c,   lucky8,   lucky8,   lucky8,   wingco_state,   lucky8a,   ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 4, W-4)",                           0,                     layout_lucky8 )    // 2 Players...
+GAMEL( 1989, lucky8d,   lucky8,   lucky8,   lucky8d,  driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 5, W-4, main 40%, d-up 60%)",       0,                     layout_lucky8 )    // 2 Players...
+GAMEL( 1989, lucky8e,   lucky8,   lucky8,   lucky8d,  driver_device,  0,         ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 6, W-4, main 40%, d-up 60%)",       0,                     layout_lucky8 )    // 2 Players...
+GAMEL( 198?, ns8lines,  0,        lucky8,   lucky8b,  driver_device,  0,         ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (W-4)",              0,                     layout_lucky8p1 )  // Only 1 player...
+GAMEL( 198?, ns8linew,  ns8lines, lucky8,   ns8linew, driver_device,  0,         ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (F-5, Witch Bonus)", 0,                     layout_lucky8 )    // 2 Players...
+GAMEL( 198?, ns8linewa, ns8lines, lucky8,   ns8linwa, driver_device,  0,         ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (W-4, Witch Bonus)", 0,                     layout_lucky8p1 )  // Only 1 player...
 
 GAME(  198?, luckybar,  0,        lucky8,   ns8linew, driver_device,  0,         ROT0, "<unknown>",         "Lucky Bar (W-4 with mc68705 MCU)",                         MACHINE_NOT_WORKING )  // MC68705 MCU
 GAME(  198?, chryangla, ncb3,     lucky8,   ns8linew, driver_device,  0,         ROT0, "<unknown>",         "Cherry Angel (encrypted, W-4 hardware)",                   MACHINE_NOT_WORKING )

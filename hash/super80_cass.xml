@@ -2,18 +2,20 @@
 <!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
 <!--
      The original tapes have died long ago, so these were loaded from the
-     archived quickloads into MAME, then saved at 300 baud.
+     archived quickloads into MAME, then saved to wav files.
+     Release dates are between 1981 and 1987, but precise dates are unknown.
+     Although each software is intended for certain computer variations, they may work on others.
  -->
 <softwarelist name="super80_cass" description="Super-80 cassettes">
 <!--
-     Sold in Dick Smith stores and intended for use with super80 and super80d.
+     Sold in Dick Smith stores and intended for use with super80 and super80d, recorded at 300 baud.
      debug, edasm, and basic have numerous bugs.
  -->
 	<software name="horserac">
 		<description>Horse Race</description>
 		<year>1981</year>
 		<publisher>Dick Smith Electronics</publisher>
-		<info name="serial" value="X-3607" />
+		<info name="serial" value="X-3607" /><!-- 012L1 -->
 		<info name="developer" value="George Georgiou"/>
 		<info name="usage" value="LOAD while in BASIC, then RUN" />
 		<part name="cass" interface="super80_cass">
@@ -26,7 +28,7 @@
 		<description>Dungeon Dilemma</description>
 		<year>1981</year>
 		<publisher>Dick Smith Electronics</publisher>
-		<info name="serial" value="X-3792" />
+		<info name="serial" value="X-3792" /><!-- 028L1 -->
 		<info name="developer" value="George Georgiou"/>
 		<info name="usage" value="LOAD while in BASIC, then RUN" />
 		<part name="cass" interface="super80_cass">
@@ -39,7 +41,7 @@
 		<description>Tape Basic</description>
 		<year>1981</year>
 		<publisher>Dick Smith Electronics</publisher>
-		<info name="serial" value="K-3602" />
+		<info name="serial" value="K-3602" /><!-- 421 -->
 		<info name="usage" value="L to load, G100 to run" />
 		<part name="cass" interface="super80_cass">
 			<dataarea name="cass" size="32782636">
@@ -51,7 +53,7 @@
 		<description>Editor Assembler</description>
 		<year>1981</year>
 		<publisher>Dick Smith Electronics</publisher>
-		<info name="serial" value="X-3791" />
+		<info name="serial" value="X-3791" /><!-- 437L1 -->
 		<info name="usage" value="0xF0 must be nonzero, L to load, G8000 to run" />
 		<part name="cass" interface="super80_cass">
 			<dataarea name="cass" size="23330502">
@@ -63,11 +65,173 @@
 		<description>Debugger</description>
 		<year>1981</year>
 		<publisher>Dick Smith Electronics</publisher>
-		<info name="serial" value="X-3790" />
+		<info name="serial" value="X-3790" /><!-- 438L1 -->
 		<info name="usage" value="0xF0 must be nonzero, L to load, G100 to run" />
 		<part name="cass" interface="super80_cass">
 			<dataarea name="cass" size="13885816">
 				<rom name="debug.wav" size="13885816" crc="27c6cfe7" sha1="c6c961cad63eee987405efff35d1843131660d4b" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+<!--
+     Various commercial releases for use with super80, super80d and super80e, recorded at 300 baud.
+     Mini Typewriter has bugs.
+     There was quite a lot of commercially-available software available, however 99 percent of it has been lost forever.
+ -->
+ 	<software name="eldraw">
+		<description>El Draw 3.6.3</description>
+		<year>1981</year>
+		<publisher>El Graphix</publisher>
+		<info name="serial" value="402" />
+		<info name="usage" value="super80e only. L to load, G100 to run" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="17319458">
+				<rom name="eldraw.wav" size="17319458" crc="786ace93" sha1="000bfd1b6ce9864d2a9b0e733c9061dfdc4ecb4a" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="minitype">
+		<description>Mini Typewriter</description>
+		<year>1981</year>
+		<publisher>Bemak</publisher>
+		<info name="serial" value="417" />
+		<info name="usage" value="L to load, G8000 to run" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="5294908">
+				<rom name="minitypewriter.wav" size="5294908" crc="01465f5c" sha1="5715fa5d3c8e450387f1c8dc32c761c2a7c61c23" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="missile">
+		<description>Missile Attack</description>
+		<year>1981</year>
+		<publisher>Matrix Software</publisher>
+		<info name="serial" value="013L2" />
+		<info name="developer" value="George Georgiou"/>
+		<info name="usage" value="super80d only. LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="19040094">
+				<rom name="missileattack.wav" size="19040094" crc="b17cb7a6" sha1="dd0266414089c31967f08a956db6aa2c9913b389" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="pelatron">
+		<description>Pelatronics Editor Assembler</description>
+		<year>1981</year>
+		<publisher>Pelatronics</publisher>
+		<info name="serial" value="427" />
+		<info name="usage" value="L to load, G100 to run" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="27629118">
+				<rom name="pelatronics.wav" size="27629118" crc="20df6d1d" sha1="5a982a8f34d607c2c4af7e38403c1bd553e35bec" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="zipzap">
+		<description>Zip Zap</description>
+		<year>1981</year>
+		<publisher>Bemak</publisher>
+		<info name="serial" value="403" />
+		<info name="usage" value="super80d only. L to load, G100 to run" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="15616026">
+				<rom name="zipzap.wav" size="15616026" crc="7bf30894" sha1="50fe59484b5eb39f37933f23754e7f1c2c0f322b" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+<!--
+     Various homebrew programs for use with super80, super80d and super80e, recorded at 300 baud.
+     Some is ok, some is junk.
+ -->
+	<software name="vonshrin">
+		<description>Von Shrink</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="074L1" />
+		<info name="usage" value="LOAD while in BASIC, then RUN. SHUT to quit." />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="23345086">
+				<rom name="vonshrink.wav" size="23345086" crc="090605cd" sha1="b55a73bc403f3da3e5aaff33d06b4b37882a60ac" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+<!--
+     Various homebrew programs for use with super80m, recorded at 600 baud.
+     Most of these have been partially rewritten by myself to take advantage of the features of the super80m.
+     The "developer" field has the name of the original author.
+ -->
+	<software name="pontoon">
+		<description>Shep's Casino (Pontoon)</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="002L4" />
+		<info name="developer" value="Glyn Shepherd"/>
+		<info name="usage" value="LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="5463644">
+				<rom name="pontoon.wav" size="5463644" crc="f50d41a5" sha1="6ec6eb7eaf80d433dab3b0d3115e570573df7f04" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="riverboa">
+		<description>Riverboat</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="003L4" />
+		<info name="usage" value="LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="2845384">
+				<rom name="riverboat.wav" size="2845384" crc="5ee507b1" sha1="c4561727a4b1a105e3590beef1dc9b8432f05a7e" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="riverboatj" cloneof="riverboa">
+		<description>Riverboat (arrow keys)</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="003L4J" />
+		<info name="usage" value="LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="2844850">
+				<rom name="riverboat.wav" size="2844850" crc="06438381" sha1="dc22308ffaa63c82e3fcfbe943832a269c07fe4d" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="tibetian">
+		<description>Tibetian Disks</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="004L4" />
+		<info name="usage" value="LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="2408946">
+				<rom name="tibetiandisks.wav" size="2408946" crc="00b8d245" sha1="80c9c287ad4bc1dbb42132c80d1650b63f163ee5" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="matchmat">
+		<description>Match Mates</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="005L4" />
+		<info name="developer" value="Glyn Shepherd"/>
+		<info name="usage" value="LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="3718072">
+				<rom name="matchmates.wav" size="3718072" crc="4fb3cb4d" sha1="75cf751097390e1b823b022b270e150ab15abfef" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	<software name="aceyduce">
+		<description>Acey-Ducey</description>
+		<year>1981</year>
+		<publisher>unknown</publisher>
+		<info name="serial" value="006L4" />
+		<info name="developer" value="Glyn Shepherd"/>
+		<info name="usage" value="LOAD while in BASIC, then RUN" />
+		<part name="cass" interface="super80_cass">
+			<dataarea name="cass" size="4153556">
+				<rom name="aceyducey.wav" size="4153556" crc="0b8aab7a" sha1="77445735df1154e3b1c9a7d8baaf8465a7f6ec30" offset="0" />
 			</dataarea>
 		</part>
 	</software>
