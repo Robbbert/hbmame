@@ -169,14 +169,12 @@
 // Type definitions
 // ----------------------------------------------------------------------------------------
 
-//typedef UINT8 netlist_sig_t;
-
 /*
  *  unsigned int would be a 20% speed increase over UINT8 for pong.
  *  For breakout it causes a slight decrease.
  *
  */
-typedef unsigned int netlist_sig_t;
+using netlist_sig_t = std::uint32_t;
 
 //============================================================
 //  MACROS / netlist devices
@@ -253,13 +251,6 @@ typedef unsigned int netlist_sig_t;
 			ATTR_HOT void update_param() override;                              \
 		, _priv)
 
-#define NETLIB_LOGIC_FAMILY(_fam)                                               \
-virtual logic_family_desc_t *default_logic_family() override                    \
-{                                                                               \
-	return family_ ## _fam;                                                     \
-}
-
-
 //============================================================
 //  Asserts
 //============================================================
@@ -317,7 +308,7 @@ namespace netlist
 	// model_map_t
 	// -----------------------------------------------------------------------------
 
-	typedef phashmap_t<pstring, pstring> model_map_t;
+	using model_map_t = phashmap_t<pstring, pstring>;
 
 	// -----------------------------------------------------------------------------
 	// logic_family_t
@@ -475,7 +466,7 @@ namespace netlist
 		P_PREVENT_COPYING(core_terminal_t)
 	public:
 
-		typedef pvector_t<core_terminal_t *> list_t;
+		using list_t = pvector_t<core_terminal_t *>;
 
 		/* needed here ... */
 
@@ -553,7 +544,7 @@ namespace netlist
 		P_PREVENT_COPYING(terminal_t)
 	public:
 
-		typedef pvector_t<terminal_t *> list_t;
+		using list_t = pvector_t<terminal_t *>;
 
 		ATTR_COLD terminal_t();
 
@@ -701,7 +692,7 @@ namespace netlist
 		P_PREVENT_COPYING(net_t)
 	public:
 
-		typedef pvector_t<net_t *> list_t;
+		using list_t = pvector_t<net_t *>;
 
 		ATTR_COLD net_t(const family_t afamily);
 		virtual ~net_t();
@@ -781,7 +772,7 @@ namespace netlist
 		P_PREVENT_COPYING(logic_net_t)
 	public:
 
-		typedef pvector_t<logic_net_t *> list_t;
+		using list_t = pvector_t<logic_net_t *>;
 
 		ATTR_COLD logic_net_t();
 		virtual ~logic_net_t() { };
@@ -841,7 +832,7 @@ namespace netlist
 		P_PREVENT_COPYING(analog_net_t)
 	public:
 
-		typedef pvector_t<analog_net_t *> list_t;
+		using list_t =  pvector_t<analog_net_t *>;
 
 		ATTR_COLD analog_net_t();
 		virtual ~analog_net_t() { };
@@ -987,9 +978,9 @@ namespace netlist
 	private:
 	};
 
-	typedef param_template_t<nl_double, param_t::DOUBLE> param_double_t;
-	typedef param_template_t<int, param_t::INTEGER> param_int_t;
-	typedef param_template_t<pstring, param_t::STRING> param_str_t;
+	using param_double_t = param_template_t<nl_double, param_t::DOUBLE>;
+	using param_int_t = param_template_t<int, param_t::INTEGER>;
+	using param_str_t = param_template_t<pstring, param_t::STRING>;
 
 	class param_logic_t : public param_int_t
 	{
@@ -1026,7 +1017,7 @@ namespace netlist
 		P_PREVENT_COPYING(core_device_t)
 	public:
 
-		typedef pvector_t<core_device_t *> list_t;
+		using list_t = pvector_t<core_device_t *>;
 
 		ATTR_COLD core_device_t(const family_t afamily, netlist_t &anetlist, const pstring &name);
 
@@ -1091,18 +1082,14 @@ namespace netlist
 
 		ATTR_HOT virtual void update() { }
 		virtual void start() { }
-		virtual void stop() { }                                                  \
-		virtual logic_family_desc_t *default_logic_family()
-		{
-			return family_TTL;
-		}
+		virtual void stop() { }
 
 	private:
 
 		#if (NL_PMF_TYPE == NL_PMF_TYPE_GNUC_PMF)
 		typedef void (core_device_t::*net_update_delegate)();
 		#elif ((NL_PMF_TYPE == NL_PMF_TYPE_GNUC_PMF_CONV) || (NL_PMF_TYPE == NL_PMF_TYPE_INTERNAL))
-		typedef MEMBER_ABI void (*net_update_delegate)(core_device_t *);
+		using net_update_delegate = MEMBER_ABI void (*)(core_device_t *);
 		#endif
 
 	#if (NL_PMF_TYPE > NL_PMF_TYPE_VIRTUAL)
