@@ -103,14 +103,13 @@ void setup_t::namespace_pop()
 }
 
 
-device_t *setup_t::register_dev(device_t *dev)
+void setup_t::register_dev(device_t *dev)
 {
 	for (auto & d : netlist().m_devices)
 		if (d->name() == dev->name())
 			log().fatal("Error adding {1} to device list. Duplicate name \n", d->name());
 
 	netlist().m_devices.push_back(dev);
-	return dev;
 }
 
 void setup_t::register_lib_entry(const pstring &name)
@@ -121,14 +120,13 @@ void setup_t::register_lib_entry(const pstring &name)
 		m_lib.push_back(name);
 }
 
-device_t *setup_t::register_dev(const pstring &classname, const pstring &name)
+void setup_t::register_dev(const pstring &classname, const pstring &name)
 {
 	if (m_lib.contains(classname))
 	{
 		namespace_push(name);
 		include(classname);
 		namespace_pop();
-		return nullptr;
 	}
 	else
 	{
@@ -136,7 +134,7 @@ device_t *setup_t::register_dev(const pstring &classname, const pstring &name)
 		//device_t *dev = factory().new_device_by_classname(classname);
 		if (dev == nullptr)
 			log().fatal("Class {1} not found!\n", classname);
-		return register_dev(dev);
+		register_dev(dev);
 	}
 }
 
@@ -214,14 +212,31 @@ void setup_t::register_object(device_t &dev, const pstring &name, object_t &obj)
 				if (obj.isType(terminal_t::OUTPUT))
 				{
 					if (obj.isFamily(terminal_t::LOGIC))
+					{
+						logic_output_t &port = dynamic_cast<logic_output_t &>(term);
+						port.set_logic_family(dev.logic_family());
 						dynamic_cast<logic_output_t &>(term).init_object(dev, dev.name() + "." + name);
+					}
 					else if (obj.isFamily(terminal_t::ANALOG))
 						dynamic_cast<analog_output_t &>(term).init_object(dev, dev.name() + "." + name);
 					else
 						log().fatal("Error adding {1} {2} to terminal list, neither LOGIC nor ANALOG\n", objtype_as_astr(term), term.name());
 				}
-				else
+				else if (obj.isType(terminal_t::INPUT))
+				{
+					if (obj.isFamily(terminal_t::LOGIC))
+					{
+						logic_input_t &port = dynamic_cast<logic_input_t &>(term);
+						port.set_logic_family(dev.logic_family());
+					}
 					term.init_object(dev, dev.name() + "." + name);
+					dev.m_terminals.push_back(obj.name());
+				}
+				else
+				{
+					term.init_object(dev, dev.name() + "." + name);
+					dev.m_terminals.push_back(obj.name());
+				}
 
 				if (!m_terminals.add(term.name(), &term))
 					log().fatal("Error adding {1} {2} to terminal list\n", objtype_as_astr(term), term.name());
@@ -331,22 +346,23 @@ void setup_t::register_frontier(const pstring attach, const double r_IN, const d
 {
 	pstring frontier_name = pfmt("frontier_{1}")(m_frontier_cnt);
 	m_frontier_cnt++;
-	device_t *front = register_dev("FRONTIER_DEV", frontier_name);
+	register_dev("FRONTIER_DEV", frontier_name);
 	register_param(frontier_name + ".RIN", r_IN);
 	register_param(frontier_name + ".ROUT", r_OUT);
 	register_link(frontier_name + ".G", "GND");
 	pstring attfn = build_fqn(attach);
+	pstring front_fqn = build_fqn(frontier_name);
 	bool found = false;
 	for (auto & link  : m_links)
 	{
 		if (link.e1 == attfn)
 		{
-			link.e1 = front->name() + ".I";
+			link.e1 = front_fqn + ".I";
 			found = true;
 		}
 		else if (link.e2 == attfn)
 		{
-			link.e2 = front->name() + ".I";
+			link.e2 = front_fqn + ".I";
 			found = true;
 		}
 	}

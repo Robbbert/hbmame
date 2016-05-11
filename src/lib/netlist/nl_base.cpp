@@ -501,35 +501,9 @@ ATTR_COLD void device_t::register_subalias(const pstring &name, const pstring &a
 	//  m_terminals.add(name);
 }
 
-ATTR_COLD void device_t::register_terminal(const pstring &name, terminal_t &port)
+ATTR_COLD void device_t::register_p(const pstring &name, object_t &obj)
 {
-	setup().register_object(*this, name, port);
-	if (port.isType(terminal_t::INPUT) || port.isType(terminal_t::TERMINAL))
-		m_terminals.push_back(port.name());
-}
-
-ATTR_COLD void device_t::register_output(const pstring &name, logic_output_t &port)
-{
-	port.set_logic_family(this->logic_family());
-	setup().register_object(*this, name, port);
-}
-
-ATTR_COLD void device_t::register_output(const pstring &name, analog_output_t &port)
-{
-	setup().register_object(*this, name, port);
-}
-
-ATTR_COLD void device_t::register_input(const pstring &name, logic_input_t &inp)
-{
-	inp.set_logic_family(this->logic_family());
-	setup().register_object(*this, name, inp);
-	m_terminals.push_back(inp.name());
-}
-
-ATTR_COLD void device_t::register_input(const pstring &name, analog_input_t &inp)
-{
-	setup().register_object(*this, name, inp);
-	m_terminals.push_back(inp.name());
+	setup().register_object(*this, name, obj);
 }
 
 ATTR_COLD void device_t::connect_late(core_terminal_t &t1, core_terminal_t &t2)
@@ -542,7 +516,10 @@ ATTR_COLD void device_t::connect_late(const pstring &t1, const pstring &t2)
 	setup().register_link_fqn(name() + "." + t1, name() + "." + t2);
 }
 
-ATTR_COLD void device_t::connect_direct(core_terminal_t &t1, core_terminal_t &t2)
+/* FIXME: this is only used by solver code since matrix solvers are started in
+ *        post_start.
+ */
+ATTR_COLD void device_t::connect_post_start(core_terminal_t &t1, core_terminal_t &t2)
 {
 	if (!setup().connect(t1, t2))
 		netlist().log().fatal("Error connecting {1} to {2}\n", t1.name(), t2.name());
@@ -1005,7 +982,7 @@ ATTR_HOT /* inline */ void NETLIB_NAME(mainclock)::mc_update(logic_net_t &net)
 
 NETLIB_START(mainclock)
 {
-	register_output("Q", m_Q);
+	enregister("Q", m_Q);
 
 	register_param("FREQ", m_freq, 7159000.0 * 5);
 	m_inc = netlist_time::from_hz(m_freq.Value()*2);
