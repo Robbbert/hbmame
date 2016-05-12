@@ -2852,7 +2852,7 @@ static int add_filter_entry(char *dest, size_t dest_len, const char *description
 //  build_generic_filter
 //============================================================
 
-static void build_generic_filter(device_image_interface *dev, int is_save, char *filter, size_t filter_len)
+static void build_generic_filter(device_image_interface *dev, bool is_save, char *filter, size_t filter_len)
 {
 	char *s;
 
@@ -2863,7 +2863,8 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 	const char* s2 = ",zip,7z"; // Add ZIP extension as a default.
 	char *result = (LPSTR) alloca(strlen(file_extension)+strlen(s2)+1);
 	strcpy(result, file_extension);
-	strcat(result, s2);
+	if (!is_save)
+		strcat(result, s2);
 
 	// start writing the filter
 	s = filter;
@@ -2888,7 +2889,7 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 //  change_device
 //============================================================
 
-static void change_device(HWND wnd, device_image_interface *image, int is_save)
+static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 {
 	dialog_box *dialog = NULL;
 	char filter[2048];
