@@ -880,6 +880,42 @@ static ADDRESS_MAP_START( lucky8_map, AS_PROGRAM, 8, goldstar_state )
 	AM_RANGE(0xf800, 0xffff) AM_RAM
 ADDRESS_MAP_END
 
+static ADDRESS_MAP_START( flaming7_map, AS_PROGRAM, 8, goldstar_state )
+	AM_RANGE(0x0000, 0x7fff) AM_ROM
+	AM_RANGE(0x8000, 0x87ff) AM_RAM AM_SHARE("nvram")
+	AM_RANGE(0x8800, 0x8fff) AM_RAM_WRITE(goldstar_fg_vidram_w) AM_SHARE("fg_vidram")
+	AM_RANGE(0x9000, 0x97ff) AM_RAM_WRITE(goldstar_fg_atrram_w) AM_SHARE("fg_atrram")
+
+	AM_RANGE(0x9800, 0x99ff) AM_RAM_WRITE(goldstar_reel1_ram_w) AM_SHARE("reel1_ram")
+	AM_RANGE(0x9a00, 0x9fff) AM_RAM
+	AM_RANGE(0xa000, 0xa1ff) AM_RAM_WRITE(goldstar_reel2_ram_w) AM_SHARE("reel2_ram")
+	AM_RANGE(0xa200, 0xa7ff) AM_RAM
+	AM_RANGE(0xa800, 0xa9ff) AM_RAM_WRITE(goldstar_reel3_ram_w) AM_SHARE("reel3_ram")
+	AM_RANGE(0xaa00, 0xafff) AM_RAM
+	
+	AM_RANGE(0xb000, 0xb03f) AM_RAM
+	AM_RANGE(0xb040, 0xb07f) AM_RAM AM_SHARE("reel1_scroll")
+	AM_RANGE(0xb080, 0xb0bf) AM_RAM AM_SHARE("reel2_scroll")
+	AM_RANGE(0xb0c0, 0xb0ff) AM_RAM
+	AM_RANGE(0xb100, 0xb17f) AM_RAM AM_SHARE("reel3_scroll")
+	AM_RANGE(0xb180, 0xb7ff) AM_RAM
+
+	AM_RANGE(0xb800, 0xb803) AM_DEVREADWRITE("ppi8255_0", i8255_device, read, write)    /* Input Ports (92) */
+	AM_RANGE(0xb810, 0xb813) AM_DEVREADWRITE("ppi8255_1", i8255_device, read, write)    /* Input Ports (9B) */
+	AM_RANGE(0xb820, 0xb823) AM_DEVREADWRITE("ppi8255_2", i8255_device, read, write)    /* Input/Output Ports (90) */
+	AM_RANGE(0xb830, 0xb830) AM_DEVREADWRITE("aysnd", ay8910_device, data_r, data_w)
+	AM_RANGE(0xb840, 0xb840) AM_DEVWRITE("aysnd", ay8910_device, address_w)  /* no sound... only use both ports for DSWs */
+	AM_RANGE(0xb850, 0xb850) AM_WRITE(p1_lamps_w)
+	AM_RANGE(0xb860, 0xb860) AM_WRITE(p2_lamps_w)
+	AM_RANGE(0xb870, 0xb870) AM_DEVWRITE("snsnd", sn76489_device, write)    /* sound */
+	AM_RANGE(0xf800, 0xffff) AM_RAM
+ADDRESS_MAP_END
+/*
+  W 9A00-B7FF FF
+ RW B000-B7FF 00 
+
+*/
+
 WRITE8_MEMBER(wingco_state::magodds_outb850_w)
 {
 	// guess, could be wrong, this might just be lights
@@ -6873,158 +6909,156 @@ INPUT_PORTS_END
 
 static INPUT_PORTS_START( flaming7 )
 	PORT_START("IN0")   /* d800 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_1) PORT_NAME("IN0-1")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_2) PORT_NAME("IN0-2")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_3) PORT_NAME("IN0-3")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_4) PORT_NAME("Double-Up")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_5) PORT_NAME("Take")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_6) PORT_NAME("Bet / Boot bypass")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_7) PORT_NAME("IN0-7")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_8) PORT_NAME("Start")
 
 	PORT_START("IN1")   /* d801 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_Q) PORT_NAME("IN1-1")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_W) PORT_NAME("IN1-2")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_E) PORT_NAME("IN1-3")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_R) PORT_NAME("IN1-4")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_T) PORT_NAME("IN1-5")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_Y) PORT_NAME("IN1-6")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_U) PORT_NAME("IN1-7")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_I) PORT_NAME("IN1-8")
 
 	PORT_START("IN2")   /* d802 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_A) PORT_NAME("IN2-1")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_S) PORT_NAME("IN2-2")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_D) PORT_NAME("IN2-3")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_F) PORT_NAME("IN2-4")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_G) PORT_NAME("IN2-5")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_H) PORT_NAME("IN2-6")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_J) PORT_NAME("IN2-7")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_K) PORT_NAME("IN2-8")
 
 	PORT_START("IN3")   /* d810 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_Z) PORT_NAME("Main Door SW")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_X) PORT_NAME("IN3-2")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_C) PORT_NAME("Logic Door SW")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_V) PORT_NAME("Cash Door SW")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_B) PORT_NAME("IN3-5")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_N) PORT_NAME("Coin A")  // COIN A?
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_M) PORT_NAME("Coin B")  // COIN B?
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_L) PORT_NAME("Key In")
 
 	PORT_START("IN4")   /* d811 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("IN4-1")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_2_PAD) PORT_NAME("IN4-2")  // related to hopper...
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_3_PAD) PORT_NAME("IN4-3")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_4_PAD) PORT_NAME("IN4-4")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("IN4-5")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("Collect")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("Reset")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER ) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("Stats / Setup") PORT_TOGGLE
 
 	PORT_START("DSW1")
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x03, 0x03, "Payout" )
+	PORT_DIPSETTING(    0x03, "Amusement (no credits out)" )
+	PORT_DIPSETTING(    0x02, "Ticket Printer" )
+	PORT_DIPSETTING(    0x01, "Hopper Payout" )
+	PORT_DIPSETTING(    0x00, "Remote Clear" )
+	PORT_DIPNAME( 0x04, 0x04, "Reels Speed" )
+	PORT_DIPSETTING(    0x04, "Fast" )
+	PORT_DIPSETTING(    0x00, "Slow" )
+	PORT_DIPNAME( 0x08, 0x08, "DSW1_08" )
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x30, 0x30, "Reels Graphics" )
+	PORT_DIPSETTING(    0x30, "Regular Fruits" )
+	PORT_DIPSETTING(    0x20, "Numbers" )
+	PORT_DIPSETTING(    0x10, "Custom 1: Red, White & Blue 7's" )
+	PORT_DIPSETTING(    0x00, "Custom 2: Hollywood Nights" )
+	PORT_DIPNAME( 0x40, 0x40, "DSW1_40" )
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x80, 0x80, "DSW1_80" )
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 
 	PORT_START("DSW2")
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x01, 0x01, "DSW2_01" )
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x02, 0x02, "DSW2_02" )
 	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x04, 0x04, "DSW2_04" )
 	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x08, 0x08, "DSW2_08" )
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x10, 0x10, "DSW2_10" )
 	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x20, 0x20, "DSW2_20" )
 	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x40, 0x40, "DSW2_40" )
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x80, 0x80, "DSW2_80" )
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 
 	PORT_START("DSW3")
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x03, 0x03, "Maximum Bet" )
+	PORT_DIPSETTING(    0x03, "8" )
+	PORT_DIPSETTING(    0x02, "16" )
+	PORT_DIPSETTING(    0x01, "32" )
+	PORT_DIPSETTING(    0x00, "32" )  // should be 64?
+	PORT_DIPNAME( 0x04, 0x04, "Coin-In Timeout" )
 	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x08, 0x08, "DSW3_08" )
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x10, 0x10, "DSW3_10" )
 	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x20, 0x20, "DSW3_20" )
 	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x40, 0x40, "DSW3_40" )
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x80, 0x80, "DSW3_80" )
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 
 	PORT_START("DSW4")
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x01, 0x01, "DSW4_01" )
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x02, 0x02, "DSW4_02" )
 	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x04, 0x04, "DSW4_04" )
 	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x08, 0x08, "DSW4_08" )
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x10, 0x10, "DSW4_10" )
 	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x20, 0x20, "DSW4_20" )
 	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x40, 0x40, "DSW4_40" )
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x80, 0x80, "DSW4_80" )
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
 INPUT_PORTS_END
 
 
@@ -8143,6 +8177,15 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( bingownga, bingowng )
 	MCFG_GFXDECODE_MODIFY("gfxdecode", bingownga)
 MACHINE_CONFIG_END
+
+
+static MACHINE_CONFIG_DERIVED( flaming7, lucky8 )
+	/* basic machine hardware */
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(flaming7_map)
+//	MCFG_CPU_IO_MAP(flaming7_readport)
+MACHINE_CONFIG_END
+
 
 PALETTE_INIT_MEMBER(wingco_state, magodds)
 {
@@ -13969,54 +14012,83 @@ ROM_END
   Bonus Games: Yes.
   Harness Type: Standard 36/10 Pin Cherry Master Harness.
 
-  Titles:
+  Graphics: 4 different types, selectable through DIP switches.
 
-  - Big Bull Frog.
-  - Buffalo Bills.
-  - Cash Cabaret.
-  - Cash Cow.
-  - Cherry 50 Bonus.
-  - Cherry 500 Bonus.
-  - Cherry 1000 Bonus.
-  - Christmas.
-  - Deuces Wild.
-  - Diamond Delight.
-  - Diamond Doubles.
-  - Diamond Treasure.
-  - Dream Catcher.
-  - Dynamite Diamonds 1.
-  - Dynamite Diamonds 2.
-  - Egyptian Gold.
-  - Gold Country.
-  - Golden Treasure.
-  - Greenbacks.
-  - Harley Davidson.
-  - Hollywood Nights.
-  - Independence Day / July 4th.
-  - Jokers Wild.
-  - Midnight Sevens.
-  - Mighty Buffalo.
-  - Money.
-  - Moola.
-  - New Year's.
-  - Prospector's Gold.
-  - Red Hot Ice.
-  - Red, White & Blue 7's.
-  - Rising Star.
-  - Rockin' Reels.
-  - Rolling Thunder.
-  - Soboba Gold.
-  - Star Sevens / American Gold.
-  - Sun God.
-  - Super Stars & Stripes / American Glory Alternative.
-  - Sweet Dreams.
-  - Sweethearts & Sevens.
-  - Tropical Treasure.
-  - Vegas Classic.
-  - White Buffalo.
-  - Wild Thing.
-  - Wild Watermelons.
-  - Wild West.
+  1) Regular Fruits.
+  2) Numbers.
+  3) Custom Set 1
+  4) Custom Set 2
+
+  Titles / GFX upgrades:
+
+  +----+------------------------------+---------+----------+
+  | N# |      Title:                  | Dumped  | Emulated |
+  +----+------------------------------+---------+----------+
+  | 01 | Big Bull Frog.               | NO      | NO       |
+  | 02 | Buffalo Bills.               | NO      | NO       |
+  | 03 | Cash Cabaret.                | NO      | NO       |
+  | 04 | Cash Cow.                    | NO      | NO       |
+  | 05 | Cherry 50 Bonus.             | NO      | NO       |
+  | 06 | Cherry 500 Bonus.            | NO      | NO       |
+  | 07 | Cherry 1000 Bonus.           | NO      | NO       |
+  | 08 | Christmas.                   | NO      | NO       |
+  | 09 | Deuces Wild.                 | NO      | NO       |
+  | 10 | Diamond Delight.             | NO      | NO       |
+  | 11 | Diamond Doubles.             | NO      | NO       |
+  | 12 | Diamond Treasure.            | NO      | NO       |
+  | 13 | Dream Catcher.               | NO      | NO       |
+  | 14 | Dynamite Diamonds 1.         | NO      | NO       |
+  | 15 | Dynamite Diamonds 2.         | NO      | NO       |
+  | 16 | Egyptian Gold.               | NO      | NO       |
+  | 17 | Gold Country.                | NO      | NO       |
+  | 18 | Golden Treasure.             | NO      | NO       |
+  | 19 | Greenbacks.                  | NO      | NO       |
+  | 20 | Harley Davidson.             | NO      | NO       |
+  | 21 | Hollywood Nights.            | YES     | YES      |
+  | 22 | Independence Day.            | NO      | NO       |
+  | 23 | Jokers Wild.                 | NO      | NO       |
+  | 24 | Midnight Sevens.             | NO      | NO       |
+  | 25 | Mighty Buffalo.              | NO      | NO       |
+  | 26 | Money.                       | NO      | NO       |
+  | 27 | Moola.                       | NO      | NO       |
+  | 28 | New Year's.                  | NO      | NO       |
+  | 29 | Prospector's Gold.           | NO      | NO       |
+  | 30 | Red Hot Ice.                 | NO      | NO       |
+  | 31 | Red, White & Blue 7's.       | YES     | YES      |
+  | 32 | Rising Star.                 | NO      | NO       |
+  | 33 | Rockin' Reels.               | NO      | NO       |
+  | 34 | Rolling Thunder.             | NO      | NO       |
+  | 35 | Soboba Gold.                 | NO      | NO       |
+  | 36 | Star Sevens / American Gold. | NO      | NO       |
+  | 37 | Sun God.                     | NO      | NO       |
+  | 38 | Super Stars & Stripes.       | NO      | NO       |
+  | 39 | Sweet Dreams.                | NO      | NO       |
+  | 40 | Sweethearts & Sevens.        | NO      | NO       |
+  | 41 | Tropical Treasure.           | NO      | NO       |
+  | 42 | Vegas Classic.               | NO      | NO       |
+  | 43 | White Buffalo.               | NO      | NO       |
+  | 44 | Wild Thing.                  | NO      | NO       |
+  | 45 | Wild Watermelons.            | NO      | NO       |
+  | 46 | Wild West.                   | NO      | NO       |
+  +----+------------------------------+---------+----------+
+
+  Will name the sets using the internal code of both custom
+  graphics sets in their respective order...
+
+  -------------------------------------------------------------------
+  
+  Tech Notes:
+
+  PCB has some hacks...
+
+  1) PPI 8255 pin 10 (PC7) is wired to pin 22 (PB4)...
+     Maybe the boot protection?
+
+  2) Pin 39 from solder side (speaker GND) and pin 04 from components side (PPI 8255 pin 11, PC6)
+     are wired with a DS2401 (sillicon serial number) device, to pins 1 & 2 (GND & DATA).
+
+  3) Z80 /INT line (pin 16) is out of socket and wired to a 74161.
+
 
 */
 
@@ -14024,12 +14096,18 @@ ROM_END
   Flaming 7
   Cyberdyne Systems, Inc.
 
-  Set: Hollywood Nights.
+  GFX sets:
+  1) Red, White & Blue 7's
+  2) Hollywood Nights.
 
-  Issues: At boot, spits "E6" on screen (5th row, 7th column).
-          Seems an error code.
+  Issues: At boot, writes "E6" on screen (5th row, 7th column).
+          Looks like an error code.
+
+  To boot the first time, press the BET button, and then STATS/SETUP twice.
+  For further boots, just press BET button. (the real hardware boots straight)
+
 */
-ROM_START( fl7_hn )
+ROM_START( fl7_3121 )  // Red, White & Blue 7's + Hollywood Nights.
 	ROM_REGION( 0x8000, "maincpu", 0 )
 	ROM_LOAD( "main.14b",  0x0000, 0x8000, CRC(cab76770) SHA1(4f2c17a0e077f3d9017e44977a3cb7a4aa9e4009) )
 
@@ -14802,7 +14880,9 @@ GAME(  1991, megaline,  0,        megaline, megaline, driver_device,  0,        
 GAMEL( 1993, bingowng,  0,        bingowng, bingowng, driver_device,  0,         ROT0, "Wing Co., Ltd.",    "Bingo (set 1)",                                            0,                     layout_bingowng )
 GAMEL( 1993, bingownga, bingowng, bingownga,bingownga,driver_device,  0,         ROT0, "Wing Co., Ltd.",    "Bingo (set 2)",                                            0,                     layout_bingowng )
 
-GAME(  199?, fl7_hn,    0       , lucky8,   flaming7, driver_device,  0,         ROT0, "Cyberdyne Systems", "Flaming 7 - Hollywood Nights",                             MACHINE_IMPERFECT_COLORS | MACHINE_NOT_WORKING )
+
+// --- Flaming 7's hardware (W-4 derivative) ---
+GAME(  199?, fl7_3121,  0,        flaming7, flaming7, driver_device,  0,         ROT0, "Cyberdyne Systems", "Flaming 7 (Red, White & Blue 7's + Hollywood Nights)",     MACHINE_IMPERFECT_COLORS | MACHINE_NOT_WORKING )
 
 
 // --- Wing W-8 hardware ---
