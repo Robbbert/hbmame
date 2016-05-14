@@ -124,38 +124,55 @@ comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
 	/* cps1 */
+3wonders	// parent
 captcomm	// parent
 cawing		// parent
 dino		// parent
 ffight		// parent
 ghouls		// parent
-kod		// parent
+kod			// parent
 knights		// parent
 megaman		// parent
 punisher	// parent
-sf2		// parent
+sf2			// parent
 sf2ce		// parent
 strider		// parent
 varth		// parent
-wof		// parent
+wof			// parent
 
 	/* cps1mis */
+3wondrud
+//captcocc // not working
 captcomc	// chinese
 captcomh
+captcoud
+//captcovs // not working
 cawingb
 cps1demo	/* Charles Doty */
 cps1frog	/* Charles Doty */
 cps1test	/* Cal2 */
 cps1testa	/* Cal2 */
 daimakb		/* Found in Mame Plus */
+dino08h2
+dino08h3
+dino08hp
 dinob		/* 1993 Cadillacs and Dinosaurs (bootleg) */
+dinobt
+dinobtpp
+dinocgba
+dinocgbb
+dinocgbc
 dinoeh
 dinoex
 dinoh		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinoha		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinohp
+//dinohx // crashes in the "underground", demo sound only works on first run.
 dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
+dinorp
 dinoslice
+dinouphp
 dinoz		/* Boss Hack */
 knight21	// debug
 //knightsa	// - rom missing

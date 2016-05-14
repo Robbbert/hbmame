@@ -14,7 +14,20 @@ Thanks to all those who helped gather the newest hacks.
 
 New Games
 ---------
-- [santabll]        Santaball [by M.Priewe]
+- [3wondrud]        3 Wonders (Phoenix)
+- [captcoud]        Captain Commando (Phoenix)
+- [dino08h2]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f hack by Pipi899 17/10/08)
+- [dino08h3]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 hack by Pipi899 11/10/08)
+- [dino08hp]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f hack by Pipi899 17/10/08)
+- [dinobt]          Cadillacs and Dinosaurs (BT hack version)
+- [dinobtpp]        Cadillacs and Dinosaurs (BT Power hack by Pipi899 15/01/09)
+- [dinocgba]        Cadillacs and Dinosaurs (Cngba hack Version set 1)
+- [dinocgbb]        Cadillacs and Dinosaurs (Cngba hack Version set 2)
+- [dinocgbc]        Cadillacs and Dinosaurs (Cngba hack Version set 3)
+- [dinohp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 1)
+- [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 05/08/08)
+- [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 15/01/09)
+- [santabll]        Santaball [by M.Priewe] [read the FAQ!]
 
 
 
