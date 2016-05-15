@@ -1675,8 +1675,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dynwarj2",    CPS_B_02,     mapper_TK22B },
-	{"dynwarjh",    CPS_B_02,     mapper_TK22B },
 	{"ffightb",     CPS_B_01,     mapper_S224B },							//works
 	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
@@ -1693,8 +1691,12 @@ static const struct CPS1config cps1_config_table[]=
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },							//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },			//works
 	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },							//works
+	{"punisherje1", CPS_B_21_QS3, mapper_PS63B },							//works
 	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },							//works
+	{"punisherjh1", CPS_B_21_QS3, mapper_PS63B },							//works
 	{"punisherjha", CPS_B_21_QS3, mapper_PS63B },							//works
+	{"punisherud1", CPS_B_21_DEF, mapper_PS63B },							//works
+	{"punisherud2", CPS_B_21_DEF, mapper_PS63B },							//works
 	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },					//works
 	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
 	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works

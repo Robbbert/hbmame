@@ -128,7 +128,6 @@ comdlux1	/* Twisty Hack */
 captcomm	// parent
 cawing		// parent
 dino		// parent
-dynwar		// parent
 ffight		// parent
 ghouls		// parent
 kod			// parent
@@ -191,8 +190,12 @@ kodsp
 pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb	/* Found in neht build */
 punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
-punisherjh	/* Found in neht build */
+punisherje1
+punisherjh
+punisherjh1
 punisherjha
+punisherud1
+punisherud2
 sf2c		// sf2, chinese
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
