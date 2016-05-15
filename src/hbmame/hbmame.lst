@@ -128,6 +128,7 @@ comdlux1	/* Twisty Hack */
 captcomm	// parent
 cawing		// parent
 dino		// parent
+dynwar		// parent
 ffight		// parent
 ghouls		// parent
 kod			// parent
@@ -174,6 +175,7 @@ dinorp
 dinoslice
 dinouphp
 dinoz		/* Boss Hack */
+ffightb
 knight21	// debug
 //knightsa	// - rom missing
 knightsb2
@@ -181,7 +183,11 @@ knightsh	/* 1991 Knights of the Round (Hack) */
 knightsha	/* 1991 Knights of the Round (Hack) */
 knightsjb
 knightsro	// Sebastian Mihai - Romanian translation 2015
+knightud
+//kodd // not working
 kodh
+kodsp
+//kodud // not working
 pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb	/* Found in neht build */
 punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
@@ -240,8 +246,8 @@ wofchdx2
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh
-//wofjhb	// was dynwarjh in error - unknown rom missing - not working
-//wofjhc	// was dynwarj2 in error - unknown rom missing - not working
+wofjhb		// was dynwarjh in another life
+wofjhc		// was dynwarj2 in another life
 wofjm
 wofjzero
 wofr1h

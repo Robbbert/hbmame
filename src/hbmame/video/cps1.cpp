@@ -1648,7 +1648,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.c
+	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
 	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },			//works
 	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },			//works
 	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
@@ -1658,7 +1658,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"dino08h3",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dino08hp",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinob",       CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },			//works
-	{"dinobt",    CPS_B_21_QS2, mapper_CD63B },								//works
+	{"dinobt",      CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinobtpp",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinocgba",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinocgbb",    CPS_B_21_QS2, mapper_CD63B },							//works
@@ -1668,13 +1668,16 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoh",       CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
 	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
 	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },			//works
-	{"dinohp",    CPS_B_21_QS2, mapper_CD63B },								//works
+	{"dinohp",      CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinohx",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
 	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinorp",    CPS_B_21_QS2, mapper_CD63B },								//works
+	{"dinorp",      CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },							//works
+	{"dynwarj2",    CPS_B_02,     mapper_TK22B },
+	{"dynwarjh",    CPS_B_02,     mapper_TK22B },
+	{"ffightb",     CPS_B_01,     mapper_S224B },							//works
 	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
 	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 		//works
@@ -1682,7 +1685,11 @@ static const struct CPS1config cps1_config_table[]=
 	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },			//works
 	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
+	{"knightud",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
+	{"kodd",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
 	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			//works
+	{"kodsp",       CPS_B_21_BT2, mapper_KD29B, 0x36, 0, 0x34 },			//works
+	{"kodud",       CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },							//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },			//works
 	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },							//works
@@ -1741,8 +1748,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },							// problem with chinese language roms
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },							//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },							//works
-	//{"wofjhb",      CPS_B_21_QS1, mapper_TK263B },						// unknown rom is missing
-	//{"wofjhc",      CPS_B_21_QS1, mapper_TK263B },						// unknown rom is missing
+	{"wofjhb",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjhc",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjm",       CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjzero",    CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },							//works

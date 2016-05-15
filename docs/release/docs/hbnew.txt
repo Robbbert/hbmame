@@ -9,6 +9,7 @@ Thanks to all those who helped gather the newest hacks.
 - NewUI: 7z enabled
 - WinUI: Various tweaks
 - Continued adding hacks from MultiJet
+- wofjhb and wofjhc have been fixed and are available
 
 
 
@@ -27,6 +28,9 @@ New Games
 - [dinohp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 1)
 - [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 05/08/08)
 - [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 15/01/09)
+- [ffightb]         Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)
+- [knightud]        Knights of the Round (Phoenix)
+- [kodsp]           The King of Dragons (Remix Special hack by Bonusjz)
 - [santabll]        Santaball [by M.Priewe] [read the FAQ!]
 
 
