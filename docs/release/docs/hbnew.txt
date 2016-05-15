@@ -27,6 +27,7 @@ New Games
 - [dinohp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 1)
 - [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 05/08/08)
 - [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 15/01/09)
+- [dkrdemo]         Donkey Kong Remix demo 1.8 [by Sock Master]
 - [ffightb]         Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)
 - [knightud]        Knights of the Round (Phoenix)
 - [kodsp]           The King of Dragons (Remix Special hack by Bonusjz)
