@@ -279,6 +279,6 @@ GAME( 2005, dkongex,   dkong, dkong2b, dkongex, driver_device, 0, ROT90, "Jeff K
 GAME( 2007, dkongp,    dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, dkongpac,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, dkrainbow, dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, dkrdemo,   dkong, dkong2b, dkrdemo, driver_device, 0, ROT90, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkrdemo,   dkong, dkong2b, dkrdemo, driver_device, 0, ROT90, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kong2600,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, nadkong,   dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )

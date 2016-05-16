@@ -31,6 +31,7 @@ New Games
 - [ffightb]         Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)
 - [knightud]        Knights of the Round (Phoenix)
 - [kodsp]           The King of Dragons (Remix Special hack by Bonusjz)
+- [pacpen]          Pacman on Pengo hardware [by Andrew Hannay]
 - [punisherje1]     The Punisher (SM Experience Edition hack by Zhyxxxx set 1 2009-06-12)
 - [punisherjh1]     The Punisher (SQ Unlimited Version hack by Zhyxxxx 2009-06-08)
 - [punisherud1]     The Punisher (US 930422 Phoenix Edition (8b/32p))

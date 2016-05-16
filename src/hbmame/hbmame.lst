@@ -2239,6 +2239,7 @@ pcktgalk	/* Korean Translation */
 
 	/* pengo */
 pengo		/* 834-0386 (c) 1982 Sega */
+pacpen
 pengopop
 vecpengo	/* T-Bone hack of Pengo */
 //alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
