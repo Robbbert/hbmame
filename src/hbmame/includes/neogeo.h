@@ -390,7 +390,7 @@ ADDRESS_MAP_EXTERN(neogeo_main_map,16);
 */
 
 #define ROM_LOAD16_WORD_SWAP_BIOS(bios,name,offset,length,hash) \
-		ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_BIOS(bios+1)) /* Note '+1' */
+		ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_OPTIONAL | ROM_BIOS(bios+1)) /* Note '+1' */
 
 #define NEOGEO_UNIBIOS(x) \
 	ROM_SYSTEM_BIOS( x+ 0, "unibios32", "Universe Bios (Hack, Ver. 3.2)" ) \
@@ -424,20 +424,17 @@ ADDRESS_MAP_EXTERN(neogeo_main_map,16);
 #define NEOGEO_BIOS \
 	ROM_REGION16_BE( 0x80000, "mainbios", 0 ) \
 	ROM_SYSTEM_BIOS( 0, "euro", "Europe MVS (Ver. 2)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 0, "sp-s2.sp1",         0x00000, 0x020000, CRC(9036d879) SHA1(4f5ed7105b7128794654ce82b51723e16e389543) ) /* Europe, 1 Slot, has also been found on 2 Slot and 4 Slot (the old hacks were designed for this one) */ \
+		ROMX_LOAD("euro_s1", 0, 0x20000, CRC(9036d879) SHA1(4f5ed7105b7128794654ce82b51723e16e389543), ROM_GROUPWORD | ROM_REVERSE | ROM_OPTIONAL | ROM_BIOS(1)) \
 	ROM_SYSTEM_BIOS( 1, "euro-s1", "Europe MVS (Ver. 1)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 1, "sp-s.sp1",          0x00000, 0x020000, CRC(c7f2fa45) SHA1(09576ff20b4d6b365e78e6a5698ea450262697cd) ) /* Europe, 4 Slot */ \
-	\
 	ROM_SYSTEM_BIOS( 2, "us", "US MVS (Ver. 2?)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 2, "sp-u2.sp1",         0x00000, 0x020000, CRC(e72943de) SHA1(5c6bba07d2ec8ac95776aa3511109f5e1e2e92eb) ) /* US, 2 Slot */ \
 	ROM_SYSTEM_BIOS( 3, "us-e", "US MVS (Ver. 1)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 3, "sp-e.sp1",          0x00000, 0x020000, CRC(2723a5b5) SHA1(5dbff7531cf04886cde3ef022fb5ca687573dcb8) ) /* US, 6 Slot (V5?) */ \
 	ROM_SYSTEM_BIOS( 4, "us-v2", "US MVS (4 slot, Ver 2)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 4, "v2.bin",            0x00000, 0x020000, CRC(62f021f4) SHA1(62d372269e1b3161c64ae21123655a0a22ffd1bb) ) /* US, 4 slot */ \
-	\
 	ROM_SYSTEM_BIOS( 5, "asia", "Asia MVS (Ver. 3)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 5, "asia-s3.rom",       0x00000, 0x020000, CRC(91b64be3) SHA1(720a3e20d26818632aedf2c2fd16c54f213543e1) ) /* Asia */ \
-	\
 	ROM_SYSTEM_BIOS( 6, "japan", "Japan MVS (Ver. 3)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 6, "vs-bios.rom",       0x00000, 0x020000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) ) /* Japan, Ver 6 VS Bios */ \
 	ROM_SYSTEM_BIOS( 7, "japan-s2", "Japan MVS (Ver. 2)" ) \
