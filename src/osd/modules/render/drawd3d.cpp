@@ -672,11 +672,14 @@ void d3d_texture_manager::update_textures()
 				}
 			}
 		}
-		else if(m_renderer->get_shaders()->vector_enabled() && PRIMFLAG_GET_VECTORBUF(prim.flags))
+		else if(PRIMFLAG_GET_VECTORBUF(prim.flags))
 		{
-			if (!m_renderer->get_shaders()->get_vector_target(&prim))
+			if (m_renderer->get_shaders()->vector_enabled())
 			{
-				m_renderer->get_shaders()->create_vector_target(&prim);
+				if (!m_renderer->get_shaders()->get_vector_target(&prim))
+				{
+					m_renderer->get_shaders()->create_vector_target(&prim);
+				}
 			}
 		}
 	}
@@ -1633,6 +1636,8 @@ void renderer_d3d9::batch_vector(const render_primitive &prim, float line_time)
 		// set the color, Z parameters to standard values
 		for (int i = 0; i < 6; i++)
 		{
+			m_vectorbatch[m_batchindex + i].x -= 0.5f;
+			m_vectorbatch[m_batchindex + i].y -= 0.5f;
 			m_vectorbatch[m_batchindex + i].z = 0.0f;
 			m_vectorbatch[m_batchindex + i].rhw = 1.0f;
 			m_vectorbatch[m_batchindex + i].color = color;
@@ -2959,11 +2964,15 @@ bool d3d_render_target::init(renderer_d3d9 *d3d, d3d_base *d3dintf, int source_w
 		(*d3dintf->texture.get_surface_level)(target_texture[index], 0, &target_surface[index]);
 	}
 
+	auto win = d3d->assert_window();
+
+	auto first_screen = win->machine().first_screen();
 	bool vector_screen =
-		d3d->assert_window()->machine().first_screen()->screen_type() == SCREEN_TYPE_VECTOR;
+		first_screen != nullptr &&
+		first_screen->screen_type() == SCREEN_TYPE_VECTOR;
 
 	float scale_factor = 0.75f;
-	int scale_count = vector_screen ? MAX_BLOOM_COUNT : MAX_BLOOM_COUNT / 2;
+	int scale_count = vector_screen ? MAX_BLOOM_COUNT : HALF_BLOOM_COUNT;
 
 	float bloom_width = (float)source_width;
 	float bloom_height = (float)source_height;

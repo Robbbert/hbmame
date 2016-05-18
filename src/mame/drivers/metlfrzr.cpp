@@ -1,9 +1,20 @@
 // license:BSD-3-Clause
-// copyright-holders:David Haywood
-/*
+// copyright-holders:Angelo Salese
+/****************************************
 
+	Metal Freezer (c) 1989 Seibu
+	
+	preliminary driver by Angelo Salese
+	
+	HW seems the natural evolution of Dark Mist type HW.
+	
+	TODO:
+	- T5182 hookup, controls sound and coin inputs. With current hookup it accepts coins but not fully, and sound isn't working at all ...
+	- Sprites, 0xfe00-0xffff? (And why game doesn't actually write at 0xff80-0xffff?)
+	- Foreground rowscroll / per-tile scroll;
+	- Writes at 0xb800-0xbfff at attract mode gameplay demo transition?
 
-*/
+****************************************/
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
@@ -16,17 +27,27 @@ public:
 	metlfrzr_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
-		m_decrypted_opcodes(*this, "decrypted_opcodes")
+		m_decrypted_opcodes(*this, "decrypted_opcodes"),
+		m_vram(*this, "vram"),
+		m_palette(*this, "palette"),
+		m_gfxdecode(*this, "gfxdecode")
 		{ }
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
+	void legacy_fg_draw(bitmap_ind16 &bitmap, const rectangle &cliprect);
 	UINT32 screen_update_metlfrzr(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	required_device<cpu_device> m_maincpu;
 	required_shared_ptr<UINT8> m_decrypted_opcodes;
+	required_shared_ptr<UINT8> m_vram;
+	required_device<palette_device> m_palette;
+	required_device<gfxdecode_device> m_gfxdecode;
 
 	DECLARE_DRIVER_INIT(metlfrzr);
+	DECLARE_WRITE8_MEMBER(output_w);
+	TIMER_DEVICE_CALLBACK_MEMBER(scanline);
+	UINT8 m_fg_tilebank;
 };
 
 
@@ -34,32 +55,182 @@ void metlfrzr_state::video_start()
 {
 }
 
+void metlfrzr_state::legacy_fg_draw(bitmap_ind16 &bitmap,const rectangle &cliprect)
+{
+	gfx_element *gfx_0 = m_gfxdecode->gfx(m_fg_tilebank);
+	int count;
+
+	for (count=0;count<32*32;count++)
+	{
+		int y = (count % 32);
+		int x = count / 32;
+
+		UINT16 tile = m_vram[count*2+0] + ((m_vram[count*2+1] & 0xf0) << 4);
+		UINT8 color = m_vram[count*2+1] & 0xf;
+		
+		gfx_0->transpen(bitmap,cliprect,tile,color,0,0,x*8,y*8,0xf);
+	}
+
+}
+
 UINT32 metlfrzr_state::screen_update_metlfrzr(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
+	bitmap.fill(m_palette->black_pen(), cliprect);
+
+	legacy_fg_draw(bitmap,cliprect);
 	return 0;
 }
 
+WRITE8_MEMBER(metlfrzr_state::output_w)
+{
+	// bit 7: flip screen
+	// bit 1-0: unknown purpose, both 1s too generally
+	m_fg_tilebank = (data & 0x10) >> 4;
+	membank("bank1")->set_entry((data & 0xc) >> 2);
+
+	popmessage("%02x",data & 3);
+	if(data & 0x63)
+		printf("%02x\n",data);
+}
 
 static ADDRESS_MAP_START( metlfrzr_map, AS_PROGRAM, 8, metlfrzr_state )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
+	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
+	AM_RANGE(0xc000, 0xcfff) AM_RAM AM_SHARE("vram")
+	AM_RANGE(0xd000, 0xd1ff) AM_RAM_DEVWRITE("palette", palette_device, write_indirect) AM_SHARE("palette")
+	AM_RANGE(0xd200, 0xd3ff) AM_RAM_DEVWRITE("palette", palette_device, write_indirect_ext) AM_SHARE("palette_ext")
+
+	AM_RANGE(0xd400, 0xd47f) AM_DEVREADWRITE("t5182", t5182_device, sharedram_r, sharedram_w)
+
+	AM_RANGE(0xd600, 0xd600) AM_READ_PORT("P1")
+	AM_RANGE(0xd601, 0xd601) AM_READ_PORT("P2")
+	AM_RANGE(0xd602, 0xd602) AM_READ_PORT("START")
+	AM_RANGE(0xd603, 0xd603) AM_READ_PORT("DSW1")
+	AM_RANGE(0xd604, 0xd604) AM_READ_PORT("DSW2")
+	// d600-0d61f scroll area?
+	
+	AM_RANGE(0xd700, 0xd700) AM_WRITE(output_w)
+	AM_RANGE(0xd710, 0xd710) AM_DEVWRITE("t5182", t5182_device, sound_irq_w)
+	AM_RANGE(0xd711, 0xd711) AM_DEVREAD("t5182", t5182_device, sharedram_semaphore_snd_r)
+	AM_RANGE(0xd712, 0xd712) AM_DEVWRITE("t5182", t5182_device, sharedram_semaphore_main_acquire_w)
+	AM_RANGE(0xd713, 0xd713) AM_DEVWRITE("t5182", t5182_device, sharedram_semaphore_main_release_w)
+	
+	AM_RANGE(0xd800, 0xdfff) AM_RAM
+	AM_RANGE(0xe000, 0xefff) AM_RAM
+	AM_RANGE(0xf000, 0xffff) AM_RAM AM_SHARE("wram")
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( decrypted_opcodes_map, AS_DECRYPTED_OPCODES, 8, metlfrzr_state )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM AM_SHARE("decrypted_opcodes")
+	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
+	AM_RANGE(0xf000, 0xffff) AM_RAM AM_SHARE("wram") // executes code at 0xf5d5
 ADDRESS_MAP_END
 
 
 static INPUT_PORTS_START( metlfrzr )
+	PORT_START("P1")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_8WAY
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_8WAY
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_8WAY
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_8WAY
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 )
+	PORT_BIT( 0xc0, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
+	PORT_START("P2")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_8WAY PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_8WAY PORT_COCKTAIL
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_8WAY PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_8WAY PORT_COCKTAIL
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_COCKTAIL
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_COCKTAIL
+	PORT_BIT( 0xc0, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
+	PORT_START("START")
+	PORT_DIPNAME( 0x01, 0x01, "2-0" )
+	PORT_DIPSETTING(    0x01, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	PORT_DIPNAME( 0x02, 0x02, "2-1" )
+	PORT_DIPSETTING(    0x02, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	PORT_DIPNAME( 0x04, 0x04, "2-2" )
+	PORT_DIPSETTING(    0x04, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	PORT_DIPNAME( 0x08, 0x08, "2-2" )
+	PORT_DIPSETTING(    0x08, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_START1 )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START2 )
+	PORT_DIPNAME( 0x40, 0x40, "2-6" )
+	PORT_DIPSETTING(    0x40, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	PORT_DIPNAME( 0x80, 0x80, "2-7" )
+	PORT_DIPSETTING(    0x80, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	
+	PORT_START("DSW1")
+	PORT_DIPNAME( 0x01, 0x00, "SYSA" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_SERVICE_DIPLOC( 0x02, IP_ACTIVE_LOW, "SW1:2" )
+	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Flip_Screen ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	
+
+	PORT_START("DSW2")
+	PORT_DIPNAME( 0x01, 0x00, "SYSB" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
 
 void metlfrzr_state::machine_start()
 {
+	membank("bank1")->configure_entries(0, 4, memregion("maincpu")->base() + 0x10000, 0x4000);
 }
 
 void metlfrzr_state::machine_reset()
 {
+	membank("bank1")->set_entry(0);
+
 }
 
 
@@ -69,10 +240,10 @@ static const gfx_layout tiles8x8_layout =
 	RGN_FRAC(1,1),
 	4,
 	{ 0, 4, 8, 12 },
-	{ 0, 1, 2, 3, 16, 17, 18, 19 }, 
+	{ 19, 18,17,16,3,2,1,0 }, 
 //	{ 19, 18, 17, 16, 3, 2, 1, 0 }, // maybe display is flipped?
 //	{ 0*32, 1*32, 2*32, 3*32, 4*32, 5*32, 6*32, 7*32 },
-	{ 7*32, 6*32, 5*32, 4*32, 3*32, 2*32, 1*32, 0*32 },
+	{ 0*32, 1*32, 2*32, 3*32, 4*32, 5*32, 6*32, 7*32 },
 	32*8
 };
 
@@ -91,11 +262,22 @@ static const gfx_layout tiles16x16_layout =
 
 
 static GFXDECODE_START(metlfrzr)
-	GFXDECODE_ENTRY("gfx1", 0, tiles8x8_layout, 0, 16)
-	GFXDECODE_ENTRY("gfx2", 0, tiles8x8_layout, 0, 16)
+	GFXDECODE_ENTRY("gfx1", 0, tiles8x8_layout, 0x100, 16)
+	GFXDECODE_ENTRY("gfx2", 0, tiles8x8_layout, 0x100, 16)
 	GFXDECODE_ENTRY("gfx3", 0, tiles16x16_layout, 0, 16)
 	GFXDECODE_ENTRY("gfx4", 0, tiles16x16_layout, 0, 16)
 GFXDECODE_END
+
+TIMER_DEVICE_CALLBACK_MEMBER(metlfrzr_state::scanline)
+{
+	int scanline = param;
+
+	if(scanline == 240) // vblank-out irq
+		m_maincpu->set_input_line_and_vector(0, HOLD_LINE,0x10); /* RST 10h */
+
+	if(scanline == 0) // vblank-in irq
+		m_maincpu->set_input_line_and_vector(0, HOLD_LINE,0x08); /* RST 08h */
+}
 
 static MACHINE_CONFIG_START(metlfrzr, metlfrzr_state)
 
@@ -103,13 +285,13 @@ static MACHINE_CONFIG_START(metlfrzr, metlfrzr_state)
 	MCFG_CPU_ADD("maincpu", Z80, XTAL_12MHz / 2)
 	MCFG_CPU_PROGRAM_MAP(metlfrzr_map)
 	MCFG_CPU_DECRYPTED_OPCODES_MAP(decrypted_opcodes_map)
-	//  MCFG_CPU_VBLANK_INT_DRIVER("screen", metlfrzr_state,  irq0_line_hold)
+	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", metlfrzr_state, scanline, "screen", 0, 1)
 
 	MCFG_DEVICE_ADD("t5182", T5182, 0)
 
-	MCFG_PALETTE_ADD("palette", 0x100)
-	MCFG_PALETTE_FORMAT(xxxxRRRRGGGGBBBB)
-	MCFG_PALETTE_ENDIANNESS(ENDIANNESS_BIG)
+	MCFG_PALETTE_ADD("palette", 0x200)
+	MCFG_PALETTE_INDIRECT_ENTRIES(256*2)
+	MCFG_PALETTE_FORMAT(xxxxBBBBGGGGRRRR)
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", metlfrzr)
 
@@ -202,4 +384,4 @@ DRIVER_INIT_MEMBER(metlfrzr_state, metlfrzr)
 
 
 
-GAME( 1989, metlfrzr,  0,    metlfrzr, metlfrzr, metlfrzr_state,  metlfrzr, ROT90, "Seibu", "Metal Freezer", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+GAME( 1989, metlfrzr,  0,    metlfrzr, metlfrzr, metlfrzr_state,  metlfrzr, ROT270, "Seibu", "Metal Freezer", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
