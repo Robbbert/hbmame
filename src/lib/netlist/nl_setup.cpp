@@ -71,7 +71,7 @@ setup_t::~setup_t()
 	m_param_values.clear();
 
 	netlist().set_setup(nullptr);
-	m_sources.clear_and_free();
+	m_sources.clear();
 
 	pstring::resetmem();
 }
@@ -100,13 +100,13 @@ void setup_t::namespace_pop()
 }
 
 
-void setup_t::register_dev(std::shared_ptr<device_t> dev)
+void setup_t::register_dev(powned_ptr<device_t> dev)
 {
 	for (auto & d : netlist().m_devices)
 		if (d->name() == dev->name())
 			log().fatal("Error adding {1} to device list. Duplicate name \n", d->name());
 
-	netlist().m_devices.push_back(dev);
+	netlist().m_devices.push_back(std::move(dev));
 }
 
 void setup_t::register_lib_entry(const pstring &name)
@@ -501,8 +501,7 @@ devices::nld_base_proxy *setup_t::get_d_a_proxy(core_terminal_t &out)
 				out_cast.logic_family()->create_d_a_proxy(netlist(), x, &out_cast);
 		m_proxy_cnt++;
 
-		register_dev_s(new_proxy);
-		new_proxy->start_dev();
+		//new_proxy->start_dev();
 
 		/* connect all existing terminals to new net */
 
@@ -515,8 +514,11 @@ devices::nld_base_proxy *setup_t::get_d_a_proxy(core_terminal_t &out)
 		out.net().m_core_terms.clear(); // clear the list
 
 		out.net().register_con(new_proxy->in());
-		out_cast.set_proxy(new_proxy.get());
+		out_cast.set_proxy(proxy);
+
 		proxy = new_proxy.get();
+
+		register_dev_s(std::move(new_proxy));
 	}
 	return proxy;
 }
@@ -527,15 +529,14 @@ void setup_t::connect_input_output(core_terminal_t &in, core_terminal_t &out)
 	{
 		logic_input_t &incast = dynamic_cast<logic_input_t &>(in);
 		pstring x = pfmt("proxy_ad_{1}_{2}")(in.name())( m_proxy_cnt);
-		auto proxy = std::make_shared<devices::nld_a_to_d_proxy>(netlist(), x, &incast);
+		auto proxy = powned_ptr<devices::nld_a_to_d_proxy>::Create(netlist(), x, &incast);
 		incast.set_proxy(proxy.get());
 		m_proxy_cnt++;
 
-		register_dev_s(proxy);
-		proxy->start_dev();
-
 		proxy->m_Q.net().register_con(in);
 		out.net().register_con(proxy->m_I);
+
+		register_dev_s(std::move(proxy));
 
 	}
 	else if (out.is_logic() && in.is_analog())
@@ -566,12 +567,9 @@ void setup_t::connect_terminal_input(terminal_t &term, core_terminal_t &inp)
 		logic_input_t &incast = dynamic_cast<logic_input_t &>(inp);
 		log().debug("connect_terminal_input: connecting proxy\n");
 		pstring x = pfmt("proxy_ad_{1}_{2}")(inp.name())(m_proxy_cnt);
-		auto proxy = std::make_shared<devices::nld_a_to_d_proxy>(netlist(), x, &incast);
+		auto proxy = powned_ptr<devices::nld_a_to_d_proxy>::Create(netlist(), x, &incast);
 		incast.set_proxy(proxy.get());
 		m_proxy_cnt++;
-
-		register_dev_s(proxy);
-		proxy->start_dev();
 
 		connect_terminals(term, proxy->m_I);
 
@@ -580,6 +578,8 @@ void setup_t::connect_terminal_input(terminal_t &term, core_terminal_t &inp)
 			proxy->m_Q.net().merge_net(&inp.net());
 		else
 			proxy->m_Q.net().register_con(inp);
+
+		register_dev_s(std::move(proxy));
 	}
 	else
 	{
@@ -834,6 +834,12 @@ void setup_t::resolve_inputs()
 	else
 		netlist().solver()->post_start();
 
+	/* finally, set the pointers */
+
+	log().debug("Initializing devices ...\n");
+	for (auto &dev : netlist().m_devices)
+		dev->set_delegate_pointer();
+
 }
 
 void setup_t::start_devices()
@@ -848,9 +854,9 @@ void setup_t::start_devices()
 		{
 			pstring name = "log_" + ll;
 			auto nc = factory().new_device_by_name("LOG", netlist(), name);
-			register_dev_s(nc);
 			register_link(name + ".I", ll);
 			log().debug("    dynamic link {1}: <{2}>\n",ll, name);
+			register_dev_s(std::move(nc));
 		}
 	}
 
@@ -866,24 +872,28 @@ class logic_family_std_proxy_t : public logic_family_desc_t
 {
 public:
 	logic_family_std_proxy_t() { }
-	virtual std::shared_ptr<devices::nld_base_d_to_a_proxy> create_d_a_proxy(netlist_t &anetlist,
+	virtual powned_ptr<devices::nld_base_d_to_a_proxy> create_d_a_proxy(netlist_t &anetlist,
 			const pstring &name, logic_output_t *proxied) const override
 	{
-		return std::make_shared<devices::nld_d_to_a_proxy>(anetlist, name, proxied);
+		return powned_ptr<devices::nld_base_d_to_a_proxy>::Create<devices::nld_d_to_a_proxy>(anetlist, name, proxied);
 	}
 };
 
-logic_family_desc_t *setup_t::family_from_model(const pstring &model)
+const logic_family_desc_t *setup_t::family_from_model(const pstring &model)
 {
 	model_map_t map;
 	model_parse(model, map);
 
 	if (setup_t::model_value_str(map, "TYPE") == "TTL")
-		return family_TTL;
+		return family_TTL();
 	if (setup_t::model_value_str(map, "TYPE") == "CD4XXX")
-		return family_CD4XXX;
+		return family_CD4XXX();
 
-	logic_family_std_proxy_t *ret = palloc(logic_family_std_proxy_t);
+	for (auto & e : netlist().m_family_cache)
+		if (e.first == model)
+			return e.second.get();
+
+	auto ret = make_unique_base<logic_family_desc_t, logic_family_std_proxy_t>();
 
 	ret->m_low_thresh_V = setup_t::model_value(map, "IVL");
 	ret->m_high_thresh_V = setup_t::model_value(map, "IVH");
@@ -892,7 +902,11 @@ logic_family_desc_t *setup_t::family_from_model(const pstring &model)
 	ret->m_R_low = setup_t::model_value(map, "ORL");
 	ret->m_R_high = setup_t::model_value(map, "ORH");
 
-	return ret;
+	auto retp = ret.get();
+
+	netlist().m_family_cache.emplace_back(model, std::move(ret));
+
+	return retp;
 }
 
 static pstring model_string(model_map_t &map)
@@ -993,7 +1007,7 @@ nl_double setup_t::model_value(model_map_t &map, const pstring &entity)
 
 void setup_t::include(const pstring &netlist_name)
 {
-	for (source_t *source : m_sources)
+	for (auto source : m_sources)
 	{
 		if (source->parse(*this, netlist_name))
 			return;

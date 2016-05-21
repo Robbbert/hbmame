@@ -27,7 +27,7 @@
 
 #define TRUTHTABLE_START(_name, _in, _out, _has_state, _def_params) \
 	{ \
-	netlist::devices::netlist_base_factory_truthtable_t *ttd = netlist::devices::nl_tt_factory_create(_in, _out, _has_state, \
+	auto ttd = netlist::devices::nl_tt_factory_create(_in, _out, _has_state, \
 			# _name, # _name, "+" _def_params);
 
 #define TT_HEAD(_x) \
@@ -40,7 +40,7 @@
 	ttd->m_family = setup.family_from_model(_x);
 
 #define TRUTHTABLE_END() \
-	setup.factory().register_device(ttd); \
+	setup.factory().register_device(std::move(ttd)); \
 	}
 
 NETLIB_NAMESPACE_DEVICES_START()
@@ -114,7 +114,7 @@ public:
 	};
 
 	template <class C>
-	nld_truthtable_t(C &owner, const pstring &name, logic_family_desc_t *fam,
+	nld_truthtable_t(C &owner, const pstring &name, const logic_family_desc_t *fam,
 			truthtable_t *ttbl, const char *desc[])
 	: device_t(owner, name)
 	, m_fam(*this, fam)
@@ -128,11 +128,11 @@ public:
 				m_desc.push_back(*desc);
 				desc++;
 			}
-
+		startxx();
 	}
 
 	template <class C>
-	nld_truthtable_t(C &owner, const pstring &name, logic_family_desc_t *fam,
+	nld_truthtable_t(C &owner, const pstring &name, const logic_family_desc_t *fam,
 			truthtable_t *ttbl, const pstring_vector_t &desc)
 	: device_t(owner, name)
 	, m_fam(*this, fam)
@@ -142,9 +142,10 @@ public:
 	, m_ttp(ttbl)
 	{
 		m_desc = desc;
+		startxx();
 	}
 
-	virtual void start() override
+	void startxx()
 	{
 		pstring header = m_desc[0];
 
@@ -199,7 +200,7 @@ public:
 		save(NLNAME(m_active));
 	}
 
-	void reset() override
+	NETLIB_RESETI()
 	{
 		m_active = 0;
 		m_ign = 0;
@@ -211,24 +212,69 @@ public:
 		m_last_state = 0;
 	}
 
+	NETLIB_UPDATEI()
+	{
+		process<true>();
+	}
+
+public:
+	ATTR_HOT void inc_active() override
+	{
+		nl_assert(netlist().use_deactivate());
+		if (has_state == 0)
+			if (++m_active == 1)
+			{
+				process<false>();
+			}
+	}
+
+	ATTR_HOT void dec_active() override
+	{
+		nl_assert(netlist().use_deactivate());
+		/* FIXME:
+		 * Based on current measurements there is no point to disable
+		 * 1 input devices. This should actually be a parameter so that we
+		 * can decide for each individual gate whether it is benefitial to
+		 * ignore deactivation.
+		 */
+		if (m_NI > 1 && has_state == 0)
+			if (--m_active == 0)
+			{
+				for (unsigned i = 0; i< m_NI; i++)
+					m_I[i].inactivate();
+				m_ign = (1<<m_NI)-1;
+			}
+	}
+
+	logic_input_t m_I[m_NI];
+	logic_output_t m_Q[m_NO];
+
+protected:
+
+private:
+
 	template<bool doOUT>
 	inline void process()
 	{
 		netlist_time mt = netlist_time::zero;
 
 		UINT32 state = 0;
-		for (unsigned i = 0; i < m_NI; i++)
-		{
-			if (!doOUT || (m_ign & (1<<i)))
-				m_I[i].activate();
-		}
-		for (unsigned i = 0; i < m_NI; i++)
-		{
-			state |= (INPLOGIC(m_I[i]) << i);
-			if (!doOUT)
-				if (this->m_I[i].net().time() > mt)
-					mt = this->m_I[i].net().time();
-		}
+		if (m_NI > 1 && !has_state)
+			for (unsigned i = 0; i < m_NI; i++)
+			{
+				if (!doOUT || (m_ign & (1<<i)))
+					m_I[i].activate();
+			}
+
+		if (!doOUT)
+			for (unsigned i = 0; i < m_NI; i++)
+			{
+				state |= (INPLOGIC(m_I[i]) << i);
+				mt = std::max(this->m_I[i].net().time(), mt);
+			}
+		else
+			for (unsigned i = 0; i < m_NI; i++)
+				state |= (INPLOGIC(m_I[i]) << i);
 
 		const UINT32 nstate = state | (has_state ? (m_last_state << m_NI) : 0);
 		const UINT32 outstate = m_ttp->m_outs[nstate];
@@ -252,55 +298,13 @@ public:
 			for (unsigned i = 0; i < m_NO; i++)
 				m_Q[i].net().set_Q_time((out >> i) & 1, mt + m_ttp->m_timing_nt[m_ttp->m_timing[timebase + i]]);
 
-		if (m_NI > 1 || has_state)
+		if (m_NI > 1 && !has_state)
 		{
 			for (unsigned i = 0; i < m_NI; i++)
 				if (m_ign & (1 << i))
 					m_I[i].inactivate();
 		}
 	}
-
-	ATTR_HOT void update() override
-	{
-		process<true>();
-	}
-
-	ATTR_HOT void inc_active() override
-	{
-		nl_assert(netlist().use_deactivate());
-		if (has_state == 0)
-			if (++m_active == 1)
-			{
-				process<false>();
-			}
-	}
-
-	ATTR_HOT void dec_active() override
-	{
-		nl_assert(netlist().use_deactivate());
-		/* FIXME:
-		 * Based on current measurements there is no point to disable
-		 * 1 input devices. This should actually be a parameter so that we
-		 * can decide for each individual gate whether it is benefitial to
-		 * ignore deactivation.
-		 */
-		if (m_NI < 2)
-			return;
-		else if (has_state == 0)
-		{
-			if (--m_active == 0)
-			{
-				for (unsigned i = 0; i< m_NI; i++)
-					m_I[i].inactivate();
-				m_ign = (1<<m_NI)-1;
-			}
-		}
-	}
-
-	logic_input_t m_I[m_NI];
-	logic_output_t m_Q[m_NO];
-
-private:
 
 	UINT32 m_last_state;
 	UINT32 m_ign;
@@ -316,17 +320,15 @@ class netlist_base_factory_truthtable_t : public base_factory_t
 public:
 	netlist_base_factory_truthtable_t(const pstring &name, const pstring &classname,
 			const pstring &def_param)
-	: base_factory_t(name, classname, def_param), m_family(family_TTL)
+	: base_factory_t(name, classname, def_param), m_family(family_TTL())
 	{}
 
 	virtual ~netlist_base_factory_truthtable_t()
 	{
-		if (!m_family->m_is_static)
-			pfree(m_family);
 	}
 
 	pstring_vector_t m_desc;
-	logic_family_desc_t *m_family;
+	const logic_family_desc_t *m_family;
 };
 
 
@@ -339,18 +341,16 @@ public:
 			const pstring &def_param)
 	: netlist_base_factory_truthtable_t(name, classname, def_param) { }
 
-	device_t *Create(netlist_t &anetlist, const pstring &name) override
+	powned_ptr<device_t> Create(netlist_t &anetlist, const pstring &name) override
 	{
 		typedef nld_truthtable_t<m_NI, m_NO, has_state> tt_type;
-		device_t *r = palloc(tt_type(anetlist, name, m_family, &m_ttbl, m_desc));
-		//r->init(setup, name);
-		return r;
+		return powned_ptr<device_t>::Create<tt_type>(anetlist, name, m_family, &m_ttbl, m_desc);
 	}
 private:
 	typename nld_truthtable_t<m_NI, m_NO, has_state>::truthtable_t m_ttbl;
 };
 
-netlist_base_factory_truthtable_t *nl_tt_factory_create(const unsigned ni, const unsigned no,
+powned_ptr<netlist_base_factory_truthtable_t> nl_tt_factory_create(const unsigned ni, const unsigned no,
 		const unsigned has_state,
 		const pstring &name, const pstring &classname,
 		const pstring &def_param);
