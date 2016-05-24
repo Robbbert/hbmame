@@ -2348,7 +2348,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain2">
+	<software name="aressh2">
 		<description>A Ressha de Ikou II</description>
 		<year>1988</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2368,7 +2368,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain2g" cloneof="atrain2">
+	<software name="aressh2g" cloneof="aressh2">
 		<description>A Ressha de Ikou II - 5 Shuunen Kinen Tokubetsu Gentei Version</description>
 		<year>1990</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2400,7 +2400,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain3">
+	<software name="aressh3">
 		<description>A Ressha de Ikou III</description>
 		<year>1990</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2420,7 +2420,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain3log" cloneof="atrain3">
+	<software name="aressh3log" cloneof="aressh3">
 		<description>A Ressha de Ikou III - Login Tokubetsu Map Shuu</description>
 		<year>199?</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2432,7 +2432,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain3mc" cloneof="atrain3">
+	<software name="aressh3mc" cloneof="aressh3">
 		<description>A Ressha de Ikou III - Map Construction</description>
 		<year>1991</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2452,7 +2452,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain3oms" cloneof="atrain3">
+	<software name="aressh3oms" cloneof="aressh3">
 		<description>A Ressha de Ikou III - Original Meitetsu Sharyou Disk</description>
 		<year>1991</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2464,7 +2464,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atran3mv">
+	<software name="aresh3mv">
 		<description>A Ressha de Ikou III - Memorial Version</description>
 		<year>1993</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2484,7 +2484,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrain4">
+	<software name="aressh4">
 		<description>A Ressha de Ikou 4 ~ Take the A-Train IV</description>
 		<year>1993</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -2510,7 +2510,7 @@ only have some part of Windows file and a Video driver(CLGD?).
 		</part>
 	</software>
 
-	<software name="atrainf">
+	<software name="aresshaf">
 		<description>A Ressha de Ikou Fukkokuban</description>
 		<year>1994</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -44982,7 +44982,7 @@ Requires MS-DOS 5.00H plus an unknown procedure (HDD install?)
 		</part>
 	</software>
 
-	<software name="atrain" supported="no">
+	<software name="aressha" supported="no">
 		<description>A Ressha de Ikou 98 ~ Take the A Train.</description>
 		<year>1987</year>
 		<publisher>アートディンク (Artdink)</publisher>
@@ -64029,6 +64029,25 @@ doujin?!?
 		<part name="flop1" interface="floppy_5_25">
 			<dataarea name="flop" size="1265664">
 				<rom name="youko to anata - hard porno soft.fdi" size="1265664" crc="636721a5" sha1="04b46d33773e143873251d2b5665cd2552666752" offset="0" />
+			</dataarea>
+		</part>
+	</software>
+	
+	<software name="yumeyare">
+		<description>Yume de Yaretara</description>
+		<year>19??</year>
+		<publisher>&lt;doujin&gt;</publisher>
+		<info name="author" value="ソフトさーくる　クレージュ ~ Soft Circle Courreges" />
+		<part name="flop1" interface="floppy_5_25">
+			<feature name="part_id" value="Disk A"/>
+			<dataarea name="flop" size="1265664">
+				<rom name="yume de yaretara disk a.fdi" size="1265664" crc="368bbe1b" sha1="cab3763ebd8e258c4865c810a1be3d79a0f7f4bd" offset="0" />
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_5_25">
+			<feature name="part_id" value="Disk B"/>
+			<dataarea name="flop" size="1265664">
+				<rom name="yume de yaretara disk b.fdi" size="1265664" crc="4077888c" sha1="d8588f87536174f7280b408f020d53daa22e2807" offset="0" />
 			</dataarea>
 		</part>
 	</software>
