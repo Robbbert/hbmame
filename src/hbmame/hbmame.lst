@@ -265,15 +265,19 @@ wofsf2
 1944		//parent
 1944da
 1944fp
-ddsom
-ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
-halfway
+ddsom		//parent
+ddsomavs
+ddsomchs
+ddsomhp
+ddsomjfs
+dstlk		//parent
+halfway		// progear hack
 mpang		//parent
 mpangjd
-progear //parent
+progear		//parent
 suicide		/* Razoola */
 suicide2	/* Razoola */
-sfa		//parent
+sfa			//parent
 sfa2		//parent
 sfa2h
 sfaud
@@ -284,6 +288,7 @@ ssf2t		//parent
 ssf2td
 spf2t		//parent
 spf2tb		// boss hack
+vampjb
 
 	/* cps3 */
 redearth	// parent
@@ -1851,6 +1856,7 @@ doubledres
 doubledrhp
 
 	/* nggaroup */
+garoub
 garoud
 garoupamu
 garoupeh
