@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
@@ -384,6 +385,26 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 			}
 		}
 		zip.reset();
+	}
+	else
+	{
+		fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".7z";
+		ziperr = util::archive_file::open_zip(fname, zip);
+
+		if (ziperr == util::archive_file::error::NONE)
+		{
+			int res = zip->search(filename, false);
+			if (res >= 0)
+			{
+				*buffer = malloc(zip->current_uncompressed_length());
+				ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
+				if (ziperr == util::archive_file::error::NONE)
+				{
+					filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
+				}
+			}
+			zip.reset();
+		}
 	}
 	return filerr;
 }

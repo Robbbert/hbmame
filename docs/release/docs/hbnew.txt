@@ -16,6 +16,9 @@ New Games
 ---------
 - [3wondrud]        3 Wonders (Phoenix)
 - [captcoud]        Captain Commando (Phoenix)
+- [ddsomavs]        Dungeons & Dragons: Shadow over Mystara (1vs4 hack by Pipi899 29/06/09)
+- [ddsomhp]         Dungeons & Dragons: Shadow over Mystara (HP Revision hack by Pipi899, cheat by sssskkkk 15/06/09)
+- [ddsomjfs]        Dungeons & Dragons: Shadow over Mystara (Final Strike hack by e107 17/07/09)
 - [dino08h2]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f hack by Pipi899 17/10/08)
 - [dino08h3]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 hack by Pipi899 11/10/08)
 - [dino08hp]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f hack by Pipi899 17/10/08)
@@ -29,6 +32,7 @@ New Games
 - [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 15/01/09)
 - [dkrdemo]         Donkey Kong Remix demo 1.8 [by Sock Master]
 - [ffightb]         Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)
+- [garoub]          Garou - Mark of the Wolves (Boss hack by Ydmis)
 - [knightud]        Knights of the Round (Phoenix)
 - [kodsp]           The King of Dragons (Remix Special hack by Bonusjz)
 - [pacpen]          Pacman on Pengo hardware [by Andrew Hannay]
@@ -40,6 +44,7 @@ New Games
 - [sk2h15]          Sangokushi 2 (Hack by Pipi899 2009-01-02)
 - [sk2h16]          Sangokushi 2 (Easy Moves hack by Pipi899 12/01/09)
 - [slammastud]      Saturday Night Slam Masters (USA 930713 Phoenix)
+- [vampjb]          Vampire: The Night Warriors (Boss hack by Yumeji)
 - [wofchspp]        CPS Changer - Tenchi Wo Kurau II (Super Jian Huang hack by Pipi899 29/01/10)
 - [wofjhb]          Tenchi wo Kurau II (Japan 921031) (Hack set 2)
 - [wofjhc]          Tenchi wo Kurau II (Japan 921031) (Hack set 3)

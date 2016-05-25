@@ -124,39 +124,58 @@ comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
 	/* cps1 */
+3wonders	// parent
 captcomm	// parent
 cawing		// parent
 dino		// parent
 ffight		// parent
 ghouls		// parent
-kod		// parent
+kod			// parent
 knights		// parent
 megaman		// parent
 punisher	// parent
-sf2		// parent
+sf2			// parent
 sf2ce		// parent
+slammast	// parent
 strider		// parent
 varth		// parent
-wof		// parent
+wof			// parent
 
 	/* cps1mis */
+3wondrud
+//captcocc // not working
 captcomc	// chinese
 captcomh
+captcoud
+//captcovs // not working
 cawingb
 cps1demo	/* Charles Doty */
 cps1frog	/* Charles Doty */
 cps1test	/* Cal2 */
 cps1testa	/* Cal2 */
 daimakb		/* Found in Mame Plus */
+dino08h2
+dino08h3
+dino08hp
 dinob		/* 1993 Cadillacs and Dinosaurs (bootleg) */
+dinobt
+dinobtpp
+dinocgba
+dinocgbb
+dinocgbc
 dinoeh
 dinoex
 dinoh		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinoha		/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinohp
+//dinohx // crashes in the "underground", demo sound only works on first run.
 dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
+dinorp
 dinoslice
+dinouphp
 dinoz		/* Boss Hack */
+ffightb
 knight21	// debug
 //knightsa	// - rom missing
 knightsb2
@@ -164,12 +183,20 @@ knightsh	/* 1991 Knights of the Round (Hack) */
 knightsha	/* 1991 Knights of the Round (Hack) */
 knightsjb
 knightsro	// Sebastian Mihai - Romanian translation 2015
+knightud
+//kodd // not working
 kodh
+kodsp
+//kodud // not working
 pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb	/* Found in neht build */
 punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
-punisherjh	/* Found in neht build */
+punisherje1
+punisherjh
+punisherjh1
 punisherjha
+punisherud1
+punisherud2
 sf2c		// sf2, chinese
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
@@ -192,8 +219,6 @@ sf2turyu	/* hack, Tu Long prototype */
 sf2yyc3d5
 sf2yyc3g
 sf2yyc6
-stridergf	// fix unwanted black specks
-stridergh	// as above, and uncensored
 sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
 sk2h2		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
 sk2h3		// mame sgyxz for testing
@@ -214,17 +239,23 @@ sk2h31q
 sk2h32q
 sk2h33q
 sk2h34q
+slammastud
+stridergf	// fix unwanted black specks
+stridergh	// as above, and uncensored
+sk2h15		// wofaehp
+sk2h16		// wofahp2
 wofb
 wofch
 wofch_v3
 wofchdx
 wofchdx1
 wofchdx2
+wofchspp
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh
-//wofjhb	// was dynwarjh in error - unknown rom missing - not working
-//wofjhc	// was dynwarj2 in error - unknown rom missing - not working
+wofjhb		// was dynwarjh in another life
+wofjhc		// was dynwarj2 in another life
 wofjm
 wofjzero
 wofr1h
@@ -234,15 +265,19 @@ wofsf2
 1944		//parent
 1944da
 1944fp
-ddsom
-ddsomchs	/* 2014 Dungeons and Dragons (chinese) (unable to decipher author's name) */
-halfway
+ddsom		//parent
+ddsomavs
+ddsomchs
+ddsomhp
+ddsomjfs
+dstlk		//parent
+halfway		// progear hack
 mpang		//parent
 mpangjd
-progear //parent
+progear		//parent
 suicide		/* Razoola */
 suicide2	/* Razoola */
-sfa		//parent
+sfa			//parent
 sfa2		//parent
 sfa2h
 sfaud
@@ -253,6 +288,7 @@ ssf2t		//parent
 ssf2td
 spf2t		//parent
 spf2tb		// boss hack
+vampjb
 
 	/* cps3 */
 redearth	// parent
@@ -275,6 +311,7 @@ kong2600	/* Vic Twenty George hack of Donkey Kong */
 nadkong
 dkong2m
 dkrainbow
+dkrdemo
 
 	/* docastle */
 dorunrun	/* (c) 1984 */
@@ -1467,17 +1504,22 @@ neogeo
 3countb		// 043
 alpham2		// 007
 androdun	// 049
+aodk		// 074
 aof			// 044
 aof2		// 056
 aof3		// 096
+b2b			// 071
 bakatono	// 036
 bangbead	// 259
 bjourney	// 022
+blazstar	// 239
 breakers	// 230
 breakrev	// 245
 bstars		// 002
+bstars2		// 041
 burningf	// 018
 crsword		// 037
+crswd2bl	// 054
 ctomaday	// 249
 cyberlip	// 010
 doubledr	// 082
@@ -1492,9 +1534,14 @@ flipshot	// 247
 galaxyfg	// 078
 ganryu		// 252
 garou		// 253
+ghostlop	// 228
+goalx3		// 209
 gowcaizr	// 094
 gpilots		// 020
+gururin		// 067
 ironclad	// 220
+irrmaze		// 236
+janshin		// 048
 jockeygp	// 331
 joyjoy		// 021
 kabukikl	// 092
@@ -1512,16 +1559,22 @@ kof2002		// 265
 kof2003		// 271
 kf2k3pcb
 kotm		// 016
+kotm2		// 039
 lastblad	// 234
 lastbld2	// 243
 lasthope	// 802
 lbowling	// 019
+legendos	// 029
 lresort		// 024
+magdrop2	// 221
 magdrop3	// 233
 maglord		// 005
+mahretsu	// 004
+marukodq	// 206
 matrim		// 266
 miexchng	// 231
 minasan		// 027
+mosyougi	// 203
 ms5pcb
 mslug		// 201
 mslug2		// 241
@@ -1533,13 +1586,28 @@ mutnat		// 014
 nam1975		// 001
 ncombat		// 009
 ncommand	// 050
+neobombe	// 093
 neocup98	// 244
+neodrift	// 213
+neomrdo		// 207
 ninjamas	// 217
 nitd		// 260
+overtop		// 212
+panicbom	// 073
+pbobbl2n	// 248
 pbobblen	// 083
+pgoal		// 219
 pnyaa		// 267
+popbounc	// 237
 preisle2	// 255
-//pspikes2	// 068
+pspikes2	// 068
+pulstar		// 089
+puzzledp	// 202
+puzzldpr	// 235
+quizdais	// 023
+quizdai2	// 042
+quizkof		// 080
+ragnagrd	// 218
 rbff1		// 095
 rbff2		// 240
 rbffspec	// 223
@@ -1554,6 +1622,8 @@ samsho4		// 222
 samsho5		// 270
 samsh5sp	// 272
 savagere	// 059
+sbp			// 338
+sdodgeb		// 208
 sengoku		// 017
 sengoku2	// 040
 sengoku3	// 261
@@ -1563,7 +1633,12 @@ socbrawl	// 031
 sonicwi2	// 075
 sonicwi3	// 097
 spinmast	// 062
-ssideki     // 052
+ssideki		// 052
+ssideki2	// 061
+ssideki3	// 081
+ssideki4	// 215
+stakwin		// 088
+stakwin2	// 227
 strhoop		// 079
 superspy	// 011
 svc			// 269
@@ -1571,8 +1646,11 @@ svcpcb
 tophuntr	// 046
 tpgolf		// 003
 trally		// 038
+turfmast	// 200
 twinspri	// 224
+tws96		// 086
 viewpoin	// 051
+vliner		// 332
 wakuwak7	// 225
 wh1			// 053
 wh2			// 057
@@ -1635,6 +1713,7 @@ poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
 rci			/* Robocop intro */
+santabll
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
@@ -1777,6 +1856,7 @@ doubledres
 doubledrhp
 
 	/* nggaroup */
+garoub
 garoud
 garoupamu
 garoupeh
@@ -2170,6 +2250,7 @@ pcktgalk	/* Korean Translation */
 
 	/* pengo */
 pengo		/* 834-0386 (c) 1982 Sega */
+pacpen
 pengopop
 vecpengo	/* T-Bone hack of Pengo */
 //alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */

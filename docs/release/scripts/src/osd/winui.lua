@@ -106,7 +106,7 @@ project ("qtdbg_" .. _OPTIONS["osd"])
 	uuid (os.uuid("qtdbg_" .. _OPTIONS["osd"]))
 	kind (LIBTYPE)
 
-	dofile("windows_cfg.lua")
+	dofile("winui_cfg.lua")
 	includedirs {
 		MAME_DIR .. "src/emu",
 		MAME_DIR .. "src/devices", -- accessing imagedev from debugger
@@ -148,9 +148,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/file",
 		MAME_DIR .. "src/osd/modules/render",
 		MAME_DIR .. "3rdparty",
-	}
-
-	includedirs {
+		MAME_DIR .. "src/frontend/mame",
 		MAME_DIR .. "src/osd/windows",
 	}
 

@@ -811,6 +811,7 @@ end
 		if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "clang") then
 			buildoptions {
 				"-Wno-switch",
+				"-Wno-unknown-pragmas",
 			}
 		end
 	end
@@ -1213,6 +1214,15 @@ project "uv"
 			MAME_DIR .. "3rdparty/libuv/src/unix/kqueue.c",
 		}
 	end
+	if _OPTIONS["targetos"]=="netbsd" then
+		files {
+			MAME_DIR .. "3rdparty/libuv/src/unix/netbsd.c",
+			MAME_DIR .. "3rdparty/libuv/src/unix/kqueue.c",
+		}
+		links {
+			"kvm",
+		}
+	end	
 
 	if (_OPTIONS["SHADOW_CHECK"]=="1") then
 		removebuildoptions {

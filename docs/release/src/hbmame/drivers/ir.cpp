@@ -148,7 +148,7 @@ static ADDRESS_MAP_START( invrvnge_io_map, AS_IO, 8, ir_state )
 	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(invrvnge_03_w)
 	AM_RANGE(0x04, 0x04) AM_DEVWRITE("mb14241", mb14241_device, shift_data_w)
 	AM_RANGE(0x05, 0x05) AM_WRITE(invrvnge_05_w)
-	AM_RANGE(0x06, 0x06) AM_WRITE(watchdog_reset_w)
+	//AM_RANGE(0x06, 0x06) AM_WRITE(watchdog_reset_w)
 ADDRESS_MAP_END
 
 //static ADDRESS_MAP_START( invrvnge_sound_map, AS_PROGRAM, 8, ir_state )

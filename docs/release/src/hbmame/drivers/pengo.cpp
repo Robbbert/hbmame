@@ -2,6 +2,30 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/pengo.cpp"
 
+
+
+// DSW1 needs to be here, coins/credits combinations to be found out
+static INPUT_PORTS_START( pacpen )
+	PORT_INCLUDE( pengo )
+	PORT_MODIFY("DSW0")
+	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Bonus_Life ) )       PORT_DIPLOCATION("SW1:1,2")
+	PORT_DIPSETTING(    0x00, "10000" )
+	PORT_DIPSETTING(    0x01, "15000" )
+	PORT_DIPSETTING(    0x02, "20000" )
+	PORT_DIPSETTING(    0x03, DEF_STR( None ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Cabinet ) )          PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x00, DEF_STR( Upright ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( Cocktail ) )
+	PORT_DIPNAME( 0x18, 0x10, DEF_STR( Lives ) )            PORT_DIPLOCATION("SW1:4,5")
+	PORT_DIPSETTING(    0x18, "5" )
+	PORT_DIPSETTING(    0x10, "3" )
+	PORT_DIPSETTING(    0x08, "2" )
+	PORT_DIPSETTING(    0x00, "1" )
+	PORT_BIT(0xe0, IP_ACTIVE_LOW, IPT_UNUSED)               PORT_DIPLOCATION("SW1:6,7,8")
+INPUT_PORTS_END
+
+
+
 /* The colours for alpacap7 and alpacap8 are completely wrong, but we are using the roms specified by
        the original programmer. See http://umlautllama.com/projects/alpaca */
 ROM_START( alpacap7 )
@@ -10,17 +34,17 @@ ROM_START( alpacap7 )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
 	ROM_LOAD( "alp7_ic92",    0x0000, 0x1000, CRC(693B1A96) SHA1(DED8AC0A4186458FDA6A241C027718742BA87973) )
-	ROM_CONTINUE(             0x2000, 0x1000 ) /* sprites (bank 1) */
+	ROM_CONTINUE(             0x2000, 0x1000 )
 	ROM_LOAD( "alp_ic105",    0x1000, 0x1000, CRC(BDA193F4) SHA1(A61B5E86809FEFF025C73DE78FC751EAD646125B) )
-	ROM_CONTINUE(             0x3000, 0x1000 ) /* sprites (bank 1) */
+	ROM_CONTINUE(             0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 ROM_START( alpacap8 )
@@ -29,17 +53,39 @@ ROM_START( alpacap8 )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
 	ROM_LOAD( "alp8_ic92",    0x0000, 0x1000, CRC(4A45717F) SHA1(159A74C31FC5D4E5405BCD8D8843A1B381EA01A4) )
-	ROM_CONTINUE(             0x2000, 0x1000 ) /* sprites (bank 1) */
+	ROM_CONTINUE(             0x2000, 0x1000 )
 	ROM_LOAD( "alp_ic105",    0x1000, 0x1000, CRC(BDA193F4) SHA1(A61B5E86809FEFF025C73DE78FC751EAD646125B) )
-	ROM_CONTINUE(             0x3000, 0x1000 ) /* sprites (bank 1) */
+	ROM_CONTINUE(             0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
+
+ROM_START( pacpen )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacpen.u8",    0x0000, 0x1000, CRC(59959af1) SHA1(c528a7895338806977f2d9c76da91f67b0f78aed) )
+	ROM_LOAD( "pacpen.u7",    0x1000, 0x1000, CRC(3ed59df1) SHA1(561725f5970954cccf938330fd9f48ad0cb1829b) )
+	ROM_LOAD( "pacpen.u15",   0x2000, 0x1000, CRC(d0c8dcc8) SHA1(3a6829d12d7ef6f09d5e1afa5e0e4ef9d0605aa1) )
+	ROM_LOAD( "pacpen.u14",   0x3000, 0x1000, CRC(39066ad9) SHA1(9789a111b94a3c5aabf910c72c146f71df59f316) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "pacpen.u92",   0x0000, 0x1000, CRC(2f0b5176) SHA1(a6a51d4545329999a5f42ae790bfb3a894429fee) )
+	ROM_CONTINUE(             0x2000, 0x1000 )
+	ROM_LOAD( "pacpen.105",   0x1000, 0x1000, CRC(6ba0078e) SHA1(a6e14aa373ef22fe732c335fb1ad6c48fec92530) )
+	ROM_CONTINUE(             0x3000, 0x1000 )
+
+	ROM_REGION( 0x0420, "proms", 0 )
+	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 ROM_START( pengopop )
@@ -54,18 +100,18 @@ ROM_START( pengopop )
 	ROM_LOAD( "pengopc.u31",  0x7000, 0x1000, CRC(1ede8569) SHA1(0d10a0896847a06185a91eb83c0ccb88c4307b33) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "ep1640.92",    0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1) */
-	ROM_CONTINUE(             0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "ep1695.105",   0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(             0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "ep1640.92",    0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) )
+	ROM_CONTINUE(             0x2000, 0x1000 )
+	ROM_LOAD( "ep1695.105",   0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(             0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 ROM_START( vecpengo )
@@ -80,22 +126,23 @@ ROM_START( vecpengo )
 	ROM_LOAD( "ep5119c.31",   0x7000, 0x1000, CRC(933950fe) SHA1(fec7236b3dee2ea6e39c68440a6d2d9e3f72675a) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "vecp_ic92",    0x0000, 0x1000, CRC(57c5e53c) SHA1(4d1d4cdc352cb2fd14ebbd6678211093be73fb69) ) /* tiles (bank 1) */
-	ROM_CONTINUE(         	  0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "vecp_ic105",   0x1000, 0x1000, CRC(b93588b0) SHA1(bbb779e538bdf7ebfcb0e12e11b57cabd5ddd29d) ) /* tiles (bank 2) */
-	ROM_CONTINUE(             0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "vecp_ic92",    0x0000, 0x1000, CRC(57c5e53c) SHA1(4d1d4cdc352cb2fd14ebbd6678211093be73fb69) )
+	ROM_CONTINUE(             0x2000, 0x1000 )
+	ROM_LOAD( "vecp_ic105",   0x1000, 0x1000, CRC(b93588b0) SHA1(bbb779e538bdf7ebfcb0e12e11b57cabd5ddd29d) )
+	ROM_CONTINUE(             0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
-GAME( 2003, alpacap7, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
-GAME( 2003, alpacap8, alpaca8, pengou, pengo, driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
-GAME( 1997, pengopop, pengo,   pengou, pengo, driver_device, 0,     ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, vecpengo, pengo,   pengoe, pengo, driver_device, 0,     ROT90, "T-Bone", "Pengo (Vector sim)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, alpacap7, alpaca8, pengou, pengo,  driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
+GAME( 2003, alpacap8, alpaca8, pengou, pengo,  driver_device, 0,     ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
+GAME( 2016, pacpen,   pengo,   pengou, pacpen, driver_device, 0,     ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, pengopop, pengo,   pengou, pengo,  driver_device, 0,     ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, vecpengo, pengo,   pengoe, pengo,  driver_device, 0,     ROT90, "T-Bone", "Pengo (Vector sim)", MACHINE_SUPPORTS_SAVE )

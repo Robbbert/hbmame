@@ -230,6 +230,12 @@ BOOL GetSortReverse(void);
 const char* GetLanguage(void);
 void SetLanguage(const char* lang);
 
+const char* GetLanguageUI(void);
+
+bool GetEnablePlugins(void);
+
+const char* GetPlugins(void);
+
 const char* GetRomDirs(void);
 void SetRomDirs(const char* paths);
 

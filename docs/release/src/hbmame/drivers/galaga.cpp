@@ -28,7 +28,7 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_state )
 	AM_RANGE(0x6800, 0x6807) AM_READ(bosco_dsw_r)
 	AM_RANGE(0x6800, 0x681f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x6820, 0x6827) AM_WRITE(bosco_latch_w)                        /* misc latches */
-	AM_RANGE(0x6830, 0x6830) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x6830, 0x6830) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0x7000, 0x70ff) AM_DEVREAD("06xx", namco_06xx_device, data_r) AM_WRITE(galaga_sample_w)
 	AM_RANGE(0x7100, 0x7100) AM_DEVREADWRITE("06xx", namco_06xx_device, ctrl_r, ctrl_w)
 	AM_RANGE(0x8000, 0x87ff) AM_RAM_WRITE(galaga_videoram_w) AM_SHARE("videoram")

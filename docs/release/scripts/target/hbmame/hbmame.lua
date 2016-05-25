@@ -124,6 +124,7 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8255"] = true
 MACHINES["INTELFLASH"] = true
+MACHINES["GEN_LATCH"] = true
 MACHINES["LATCH8"] = true
 MACHINES["LDPR8210"] = true
 MACHINES["MB14241"] = true
@@ -136,6 +137,7 @@ MACHINES["TMS6100"] = true
 MACHINES["UPD1990A"] = true
 MACHINES["UPD4992"] = true
 MACHINES["V3021"] = true
+MACHINES["WATCHDOG"] = true
 MACHINES["WD33C93"] = true
 MACHINES["WD_FDC"] = true
 MACHINES["Z80CTC"] = true
@@ -147,8 +149,8 @@ MACHINES["Z80PIO"] = true
 --------------------------------------------------
 
 BUSES["GENERIC"] = true
-BUSES["NEOGEO"] = true
-BUSES["NEOGEO_CTRL"] = true
+-- BUSES["NEOGEO"] = true
+-- BUSES["NEOGEO_CTRL"] = true
 BUSES["SCSI"] = true
 
 --------------------------------------------------
@@ -368,7 +370,7 @@ files {
 createHBMAMEProjects(_target, _subtarget, "itech")
 files {
 	MAME_DIR .. "src/hbmame/drivers/itech8.cpp",
-	MAME_DIR .. "src/mame/machine/slikshot.cpp",
+	MAME_DIR .. "src/mame/machine/itech8.cpp",
 	MAME_DIR .. "src/mame/video/itech8.cpp",
 }
 
@@ -470,12 +472,78 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "neogeo")
 files {
-	MAME_DIR .. "src/mame/drivers/neogeo.cpp",
-	MAME_DIR .. "src/mame/video/neogeo.cpp",
-	MAME_DIR .. "src/mame/drivers/neogeo_noslot.cpp",
-	MAME_DIR .. "src/mame/video/neogeo_spr.cpp",
-	MAME_DIR .. "src/mame/machine/neocrypt.cpp",
-	MAME_DIR .. "src/mame/machine/ng_memcard.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeo.cpp",
+	MAME_DIR .. "src/hbmame/video/neogeo.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeo_noslot.cpp",
+	MAME_DIR .. "src/hbmame/video/neogeo_spr.cpp",
+	MAME_DIR .. "src/hbmame/machine/neocrypt.cpp",
+	MAME_DIR .. "src/hbmame/machine/ng_memcard.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_slot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_slot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_intf.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_intf.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_carts.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_carts.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_helper.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_helper.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/banked_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/banked_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/mslugx_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/mslugx_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/mslugx_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/mslugx_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/sma_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/sma_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/sma_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/sma_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/cmc_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/cmc_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/cmc_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/cmc_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pcm2_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pcm2_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pcm2_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pcm2_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof2002_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof2002_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof2002_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof2002_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pvc_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pvc_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pvc_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/pvc_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/fatfury2_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/fatfury2_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/fatfury2_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/fatfury2_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof98_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof98_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof98_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kof98_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/bootleg_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/bootleg_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/bootleg_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/bootleg_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/bootleg_hybrid_cart.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/bootleg_hybrid_cart.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/sbp_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/sbp_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kog_prot.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/kog_prot.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo/rom.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo/rom.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/ctrl.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/ctrl.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/joystick.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/joystick.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/mahjong.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/mahjong.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/dial.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/dial.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/irrmaze.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/irrmaze.h",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/kizuna4p.cpp",
+	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/kizuna4p.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "nichibut")

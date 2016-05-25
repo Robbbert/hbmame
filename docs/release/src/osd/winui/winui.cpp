@@ -40,6 +40,7 @@
 #include "emu.h"
 #include "mame.h"
 #include "mameopts.h"
+#include "language.h"
 #include "unzip.h"
 #include "winutf8.h"
 #include "strconv.h"
@@ -886,17 +887,23 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	time_t start, end;
 	double elapsedtime;
 	int i;
-	mame_options mame_opts;
+	//mame_options mame_opts;	seems useless....
 	windows_options global_opts;
 	std::string error_string;
 	// set up MAME options
-//  mame_opts = mame_options_init(mame_win_options);
+	//  mame_opts = mame_options_init(mame_win_options);
 
 	// Tell mame were to get the INIs
 	SetDirectories(global_opts);
 
+	// set some startup options
+	global_opts.set_value(OPTION_LANGUAGE, GetLanguageUI(), OPTION_PRIORITY_CMDLINE, error_string);
+	global_opts.set_value(OPTION_PLUGINS, GetEnablePlugins(), OPTION_PRIORITY_CMDLINE, error_string);
+	global_opts.set_value(OPTION_PLUGIN, GetPlugins(), OPTION_PRIORITY_CMDLINE, error_string);
+
 	// add image specific device options
-	mame_opts.set_system_name(global_opts, driver_list::driver(nGameIndex).name);
+	//mame_opts.set_system_name(global_opts, driver_list::driver(nGameIndex).name);
+	global_opts.set_value(OPTION_SYSTEMNAME, driver_list::driver(nGameIndex).name, OPTION_PRIORITY_CMDLINE, error_string);
 
 	// set any specified play options
 	if (playopts_apply == 0x57)
@@ -932,6 +939,8 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	osd_output::push(&winerror);
 	osd.register_options();
 	mame_machine_manager *manager = mame_machine_manager::instance(global_opts, osd);
+	load_translation(global_opts);
+	manager->start_luaengine();
 	manager->execute();
 	osd_output::pop(&winerror);
 	global_free(manager);
@@ -1198,6 +1207,31 @@ HICON LoadIconFromFile(const char *iconname)
 					}
 				}
 				zip.reset();
+			}
+			else
+			{
+				sprintf(tmpStr, "%s/icons.7z", GetIconsDir());
+				sprintf(tmpIcoName, "%s.ico", iconname);
+
+				ziperr = util::archive_file::open_zip(tmpStr, zip);
+				if (ziperr == util::archive_file::error::NONE)
+				{
+					res = zip->search(tmpIcoName, false);
+					if (res >= 0)
+					{
+						bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
+						if (bufferPtr)
+						{
+							ziperr = zip->decompress(bufferPtr, zip->current_uncompressed_length());
+							if (ziperr == util::archive_file::error::NONE)
+							{
+								hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
+							}
+							free(bufferPtr);
+						}
+					}
+					zip.reset();
+				}
 			}
 		}
 	}
@@ -5119,7 +5153,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	switch (filetype)
 	{
 	case FILETYPE_INPUT_FILES :
-		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip)\0*.inp;*.zip\0All files (*.*)\0*.*\0");
+		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip,*.7z)\0*.inp;*.zip;*.7z\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("inp");
 		dirname = GetInpDir();
 		break;

@@ -1551,7 +1551,7 @@ static void seqselect_start_read_from_main_thread(void *param)
 	int pause_count = 0;
 	while(Machine->paused() && !winwindow_ui_is_paused(*Machine))
 	{
-		winwindow_ui_pause_from_main_thread(*Machine, FALSE);
+		winwindow_ui_pause(*Machine, FALSE);
 		pause_count++;
 	}
 
@@ -1573,7 +1573,7 @@ static void seqselect_start_read_from_main_thread(void *param)
 
 	// repause the OSD code
 	while(pause_count--)
-		winwindow_ui_pause_from_main_thread(*Machine, TRUE);
+		winwindow_ui_pause(*Machine, TRUE);
 }
 
 
@@ -1631,12 +1631,12 @@ static INT_PTR CALLBACK seqselect_wndproc(HWND editwnd, UINT msg, WPARAM wparam,
 
 		case SEQWM_SETFOCUS:
 			// if we receive the focus, we should start a polling loop
-			winwindow_ui_exec_on_main_thread(seqselect_start_read_from_main_thread, (void *) editwnd);
+			seqselect_start_read_from_main_thread( (void *) editwnd);
 			break;
 
 		case SEQWM_KILLFOCUS:
 			// when we abort the focus, end any current polling loop
-			winwindow_ui_exec_on_main_thread(seqselect_stop_read_from_main_thread, (void *) editwnd);
+			seqselect_stop_read_from_main_thread( (void *) editwnd);
 			break;
 
 		case WM_LBUTTONDOWN:
@@ -1874,7 +1874,7 @@ static int win_dialog_add_standard_buttons(dialog_box *dialog)
 static void before_display_dialog(running_machine &machine)
 {
 	Machine = &machine;
-	winwindow_ui_pause_from_window_thread(machine, TRUE);
+	winwindow_ui_pause(machine, TRUE);
 }
 
 
@@ -1885,7 +1885,7 @@ static void before_display_dialog(running_machine &machine)
 
 static void after_display_dialog(running_machine &machine)
 {
-	winwindow_ui_pause_from_window_thread(machine, FALSE);
+	winwindow_ui_pause(machine, FALSE);
 	//Machine = NULL;
 }
 
@@ -2852,7 +2852,7 @@ static int add_filter_entry(char *dest, size_t dest_len, const char *description
 //  build_generic_filter
 //============================================================
 
-static void build_generic_filter(device_image_interface *dev, int is_save, char *filter, size_t filter_len)
+static void build_generic_filter(device_image_interface *dev, bool is_save, char *filter, size_t filter_len)
 {
 	char *s;
 
@@ -2860,10 +2860,11 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 
 	/* copy the string */
 	file_extension = dev->file_extensions();
-	const char* s2 = ",zip"; // Add ZIP extension as a default.
+	const char* s2 = ",zip,7z"; // Add ZIP extension as a default.
 	char *result = (LPSTR) alloca(strlen(file_extension)+strlen(s2)+1);
 	strcpy(result, file_extension);
-	strcat(result, s2);
+	if (!is_save)
+		strcat(result, s2);
 
 	// start writing the filter
 	s = filter;
@@ -2877,7 +2878,7 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 
 	// compressed
 	if (!is_save)
-		s += sprintf(s, "Compressed Images (*.zip)|*.zip|"); //(*.zip;*.7z)|*.zip;*.7z|");
+		s += sprintf(s, "Compressed Images (*.zip;*.7z)|*.zip;*.7z|");
 
 	*(s++) = '\0';
 }
@@ -2888,7 +2889,7 @@ static void build_generic_filter(device_image_interface *dev, int is_save, char 
 //  change_device
 //============================================================
 
-static void change_device(HWND wnd, device_image_interface *image, int is_save)
+static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 {
 	dialog_box *dialog = NULL;
 	char filter[2048];
@@ -3608,7 +3609,7 @@ static int invoke_command(HWND wnd, UINT command)
 
 	// pause while invoking certain commands
 	if (pause_for_command(command))
-		winwindow_ui_pause_from_window_thread(window->machine(), TRUE);
+		winwindow_ui_pause(window->machine(), TRUE);
 
 	switch(command)
 	{
@@ -3796,7 +3797,7 @@ static int invoke_command(HWND wnd, UINT command)
 
 	// resume emulation
 	if (pause_for_command(command))
-		winwindow_ui_pause_from_window_thread(window->machine(), FALSE);
+		winwindow_ui_pause(window->machine(), FALSE);
 
 	return handled;
 }

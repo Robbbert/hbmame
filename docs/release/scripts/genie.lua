@@ -1,5 +1,6 @@
 -- license:BSD-3-Clause
 -- copyright-holders:MAMEdev Team
+STANDALONE = false
 
 newoption {
 	trigger = 'build-dir',
@@ -553,7 +554,7 @@ configuration { "Debug" }
 	defines {
 		"MAME_DEBUG",
 		"MAME_PROFILER",
-		"BGFX_CONFIG_DEBUG=1",
+--		"BGFX_CONFIG_DEBUG=1",
 	}
 
 if _OPTIONS["FASTDEBUG"]=="1" then
@@ -1317,14 +1318,18 @@ group "core"
 
 dofile(path.join("src", "emu.lua"))
 
-dofile(path.join("src", "mame", "frontend.lua"))
+if (STANDALONE~=true) then
+	dofile(path.join("src", "mame", "frontend.lua"))
+end
 
 group "devices"
 dofile(path.join("src", "devices.lua"))
 devicesProject(_OPTIONS["target"],_OPTIONS["subtarget"])
 
-group "drivers"
-findfunction("createProjects_" .. _OPTIONS["target"] .. "_" .. _OPTIONS["subtarget"])(_OPTIONS["target"], _OPTIONS["subtarget"])
+if (STANDALONE~=true) then
+	group "drivers"
+	findfunction("createProjects_" .. _OPTIONS["target"] .. "_" .. _OPTIONS["subtarget"])(_OPTIONS["target"], _OPTIONS["subtarget"])
+end
 
 group "emulator"
 dofile(path.join("src", "main.lua"))

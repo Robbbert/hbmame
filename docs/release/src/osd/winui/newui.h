@@ -15,6 +15,7 @@
 #include <commdlg.h>
 #include <tchar.h>
 #include "emu.h"
+#include "mame.h"
 #include "emuopts.h"
 #include "ui/ui.h"
 #include "newuires.h"

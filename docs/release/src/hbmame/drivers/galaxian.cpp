@@ -17,7 +17,7 @@ static ADDRESS_MAP_START( fourplay_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x6000, 0x6000) AM_READ_PORT("IN0")
 	AM_RANGE(0x6800, 0x6800) AM_READ_PORT("IN1")
 	AM_RANGE(0x7000, 0x7000) AM_READ_PORT("IN2")
-	AM_RANGE(0x7800, 0x7fff) AM_READ(watchdog_reset_r)
+	AM_RANGE(0x7800, 0x7fff) AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
 	AM_RANGE(0x6000, 0x6001) AM_WRITE(start_lamp_w)
 	AM_RANGE(0x6002, 0x6002) AM_WRITENOP // AM_WRITE(coin_lock_w)
 	AM_RANGE(0x6003, 0x6003) AM_WRITE(coin_count_0_w)
@@ -195,7 +195,7 @@ DRIVER_INIT_MEMBER( galaxian_state, trukker )
  ************************************************************/
 
 static MACHINE_CONFIG_DERIVED( tst_frog, frogger )
-	MCFG_WATCHDOG_VBLANK_INIT(0)
+	//MCFG_WATCHDOG_VBLANK_INIT(0)
 MACHINE_CONFIG_END
 
 
@@ -214,7 +214,7 @@ static ADDRESS_MAP_START( videight_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x6000, 0x6000) AM_READ_PORT("IN0")
 	AM_RANGE(0x6800, 0x6800) AM_READ_PORT("IN1")
 	AM_RANGE(0x7000, 0x7000) AM_READ_PORT("IN2")
-	AM_RANGE(0x7800, 0x7fff) AM_READ(watchdog_reset_r)
+	AM_RANGE(0x7800, 0x7fff) AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
 	AM_RANGE(0x6000, 0x6002) AM_WRITE(videight_gfxbank_w)
 	AM_RANGE(0x6003, 0x6003) AM_WRITE(coin_count_0_w)
 	AM_RANGE(0x6004, 0x6007) AM_DEVWRITE("cust", galaxian_sound_device, lfo_freq_w)
