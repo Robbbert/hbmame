@@ -13,6 +13,7 @@
 	- Nuke legacy video code and re-do it by using tilemap system.
 	- sprites are ahead of 1/2 frames;
 	- Writes at 0xb800-0xbfff at attract mode gameplay demo transition?
+	- DIPs need work - Flip Screen does not function.  Still playable
 
 ****************************************/
 
@@ -80,14 +81,16 @@ void metlfrzr_state::legacy_bg_draw(bitmap_ind16 &bitmap,const rectangle &clipre
 	UINT16 x_scroll_value;
 	x_scroll_value = m_video_regs[0x17] + ((m_video_regs[0x06] & 1) << 8);
 	x_scroll_base = (x_scroll_value >> 3) * 32;
-	x_scroll_shift = (x_scroll_value & 7);
 	
-	for (count=0;count<32*32;count++)
+	for (count=0;count<32*33;count++)
 	{
 		int tile_base = count;
 		int y = (count % 32);
 		if(y > 7 || m_video_regs[0x06] & 3) // TODO: this condition breaks on level 5 halfway thru.
+		{
 			tile_base+= x_scroll_base;
+			x_scroll_shift = (x_scroll_value & 7);
+		}
 		else
 			x_scroll_shift = 0;
 		tile_base &= vram_mask;
@@ -451,4 +454,4 @@ DRIVER_INIT_MEMBER(metlfrzr_state, metlfrzr)
 
 
 
-GAME( 1989, metlfrzr,  0,    metlfrzr, metlfrzr, metlfrzr_state,  metlfrzr, ROT270, "Seibu", "Metal Freezer", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+GAME( 1989, metlfrzr,  0,    metlfrzr, metlfrzr, metlfrzr_state,  metlfrzr, ROT270, "Seibu", "Metal Freezer", MACHINE_NO_COCKTAIL )
