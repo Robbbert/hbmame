@@ -136,6 +136,7 @@ megaman		// parent
 punisher	// parent
 sf2			// parent
 sf2ce		// parent
+slammast	// parent
 strider		// parent
 varth		// parent
 wof			// parent
@@ -218,8 +219,6 @@ sf2turyu	/* hack, Tu Long prototype */
 sf2yyc3d5
 sf2yyc3g
 sf2yyc6
-stridergf	// fix unwanted black specks
-stridergh	// as above, and uncensored
 sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
 sk2h2		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
 sk2h3		// mame sgyxz for testing
@@ -240,12 +239,18 @@ sk2h31q
 sk2h32q
 sk2h33q
 sk2h34q
+slammastud
+stridergf	// fix unwanted black specks
+stridergh	// as above, and uncensored
+sk2h15		// wofaehp
+sk2h16		// wofahp2
 wofb
 wofch
 wofch_v3
 wofchdx
 wofchdx1
 wofchdx2
+wofchspp
 wofjcn		// chinese language
 woffr		/* Neo-Arc French Trans */
 wofjh

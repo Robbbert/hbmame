@@ -37,6 +37,10 @@ New Games
 - [punisherud1]     The Punisher (US 930422 Phoenix Edition (8b/32p))
 - [punisherud2]     The Punisher (US 930422 Phoenix Edition (16b/40p))
 - [santabll]        Santaball [by M.Priewe] [read the FAQ!]
+- [sk2h15]          Sangokushi 2 (Hack by Pipi899 2009-01-02)
+- [sk2h16]          Sangokushi 2 (Easy Moves hack by Pipi899 12/01/09)
+- [slammastud]      Saturday Night Slam Masters (USA 930713 Phoenix)
+- [wofchspp]        CPS Changer - Tenchi Wo Kurau II (Super Jian Huang hack by Pipi899 29/01/10)
 - [wofjhb]          Tenchi wo Kurau II (Japan 921031) (Hack set 2)
 - [wofjhc]          Tenchi wo Kurau II (Japan 921031) (Hack set 3)
 
