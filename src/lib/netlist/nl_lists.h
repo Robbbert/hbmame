@@ -33,19 +33,23 @@ namespace netlist
 		public:
 			ATTR_HOT  entry_t()
 			:  m_exec_time(), m_object() {}
+#if 0
 			ATTR_HOT  entry_t(entry_t &&right) NOEXCEPT
 			:  m_exec_time(right.m_exec_time), m_object(right.m_object) {}
 			ATTR_HOT  entry_t(const entry_t &right) NOEXCEPT
 			:  m_exec_time(right.m_exec_time), m_object(right.m_object) {}
+#endif
 			ATTR_HOT  entry_t(const _Time &atime, const _Element &elem) NOEXCEPT
 			: m_exec_time(atime), m_object(elem)  {}
 			ATTR_HOT  const _Time &exec_time() const { return m_exec_time; }
 			ATTR_HOT  const _Element &object() const { return m_object; }
+#if 0
 			ATTR_HOT  entry_t &operator=(const entry_t &right) NOEXCEPT {
 				m_exec_time = right.m_exec_time;
 				m_object = right.m_object;
 				return *this;
 			}
+#endif
 		private:
 			_Time m_exec_time;
 			_Element m_object;
@@ -64,12 +68,13 @@ namespace netlist
 		ATTR_HOT  bool is_empty() const { return (m_end == &m_list[1]); }
 		ATTR_HOT  bool is_not_empty() const { return (m_end > &m_list[1]); }
 
-		ATTR_HOT void push(const entry_t &e) NOEXCEPT
+		ATTR_HOT void push(const entry_t e) NOEXCEPT
 		{
 	#if HAS_OPENMP && USE_OPENMP
 			/* Lock */
 			while (m_lock.exchange(1)) { }
 	#endif
+#if 1
 			const _Time t = e.exec_time();
 			entry_t * i = m_end++;
 			for (; t > (i - 1)->exec_time(); i--)
@@ -79,6 +84,16 @@ namespace netlist
 				inc_stat(m_prof_sortmove);
 			}
 			*i = e;
+#else
+			entry_t * i = m_end++;
+			while (e.exec_time() > (i - 1)->exec_time())
+			{
+				*(i) = *(i-1);
+				--i;
+				inc_stat(m_prof_sortmove);
+			}
+			*i = e;
+#endif
 			inc_stat(m_prof_call);
 	#if HAS_OPENMP && USE_OPENMP
 			m_lock = 0;

@@ -10,6 +10,8 @@
 
 #include <exception>
 #include <vector>
+#include <memory>
+#include <utility>
 
 #include "pconfig.h"
 #include "pstring.h"
@@ -95,13 +97,16 @@ inline void pfree_array_t(T *p)
 	pfree_raw(s);
 }
 
+#if 0
 #define palloc(T)             new(ppool) T
 #define pfree(_ptr)           pfree_t(_ptr)
 
-#if 1
 #define palloc_array(T, N)    palloc_array_t<T>(N)
 #define pfree_array(_ptr)     pfree_array_t(_ptr)
 #else
+#define palloc(T)             new T
+#define pfree(_ptr)           delete _ptr
+
 #define palloc_array(T, N)    new T[N]
 #define pfree_array(_ptr)     delete[] _ptr
 #endif
@@ -117,6 +122,11 @@ inline void pfree_array_t(T *p)
 #define pfree_array(_ptr)     global_free_array(_ptr)
 
 #endif
+
+template<typename T, typename... Args>
+std::unique_ptr<T> pmake_unique(Args&&... args) {
+    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
 
 class pmempool
 {
