@@ -54,18 +54,18 @@ public:
 	int32_t chain_changed(int32_t index, std::string *str, int32_t newval);
 
 	// Getters
-	running_machine& machine() { return m_machine; }
-	osd_options& options() { return m_options; }
-	texture_manager& textures() { return m_textures; }
-	target_manager& targets() { return m_targets; }
-	effect_manager& effects() { return m_effects; }
-	slider_dirty_notifier& slider_notifier() { return m_slider_notifier; }
-	uint32_t window_index() { return m_window_index; }
-	uint32_t screen_count() { return m_screen_count; }
+	running_machine& machine() const { return m_machine; }
+	osd_options& options() const { return m_options; }
+	texture_manager& textures() const { return m_textures; }
+	target_manager& targets() const { return m_targets; }
+	effect_manager& effects() const { return m_effects; }
+	slider_dirty_notifier& slider_notifier() const { return m_slider_notifier; }
+	uint32_t window_index() const { return m_window_index; }
+	uint32_t screen_count() const { return m_screen_count; }
 	bgfx_chain* screen_chain(uint32_t screen);
 	bgfx_chain* load_chain(std::string name, uint32_t screen_index);
 	bool has_applicable_chain(uint32_t screen);
-	std::vector<ui_menu_item> get_slider_list();
+	std::vector<ui::menu_item> get_slider_list();
 	std::vector<std::vector<float>> slider_settings();
 
 	// Setters
@@ -100,7 +100,7 @@ private:
 	std::vector<chain_desc>     m_available_chains;
 	std::vector<bgfx_chain*>    m_screen_chains;
 	std::vector<std::string>    m_chain_names;
-	std::vector<ui_menu_item>   m_selection_sliders;
+	std::vector<ui::menu_item>  m_selection_sliders;
 	std::vector<int32_t>        m_current_chain;
 
 	static const uint32_t       CHAIN_NONE;

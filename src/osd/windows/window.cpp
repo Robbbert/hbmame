@@ -232,7 +232,7 @@ void windows_osd_interface::build_slider_list()
 	for (auto window : win_window_list)
 	{
 		// take the sliders of the first window
-		std::vector<ui_menu_item> window_sliders = window->m_renderer->get_slider_list();
+		std::vector<ui::menu_item> window_sliders = window->m_renderer->get_slider_list();
 		m_sliders.insert(m_sliders.end(), window_sliders.begin(), window_sliders.end());
 	}
 }
@@ -300,7 +300,7 @@ win_window_info::win_window_info(
 	running_machine &machine,
 	int index,
 	osd_monitor_info *monitor,
-	const osd_window_config *config) : osd_window(),
+	const osd_window_config *config) : osd_window(*config),
 		m_next(nullptr),
 		m_init_state(0),
 		m_startmaximized(0),
@@ -325,8 +325,6 @@ win_window_info::win_window_info(
 	m_non_fullscreen_bounds.right  = 0;
 	m_non_fullscreen_bounds.bottom = 0;
 	m_prescale = video_config.prescale;
-
-
 }
 
 win_window_info::~win_window_info()

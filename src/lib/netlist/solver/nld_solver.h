@@ -19,9 +19,9 @@
 // Macros
 // ----------------------------------------------------------------------------------------
 
-#define SOLVER(_name, _freq)                                                 \
-		NET_REGISTER_DEV(SOLVER, _name)                                      \
-		PARAM(_name.FREQ, _freq)
+#define SOLVER(name, freq)                                                 \
+		NET_REGISTER_DEV(SOLVER, name)                                      \
+		PARAM(name.FREQ, freq)
 
 // ----------------------------------------------------------------------------------------
 // solver
@@ -92,7 +92,7 @@ NETLIB_OBJECT(solver)
 
 	inline nl_double gmin() { return m_gmin.Value(); }
 
-	void create_solver_code(postream &strm);
+	void create_solver_code(plib::postream &strm);
 
 	NETLIB_UPDATEI();
 	NETLIB_RESETI();
@@ -120,12 +120,12 @@ protected:
 
 	param_logic_t  m_log_stats;
 
-	pvector_t<matrix_solver_t *> m_mat_solvers;
+	plib::pvector_t<matrix_solver_t *> m_mat_solvers;
 private:
 
 	solver_parameters_t m_params;
 
-	template <int m_N, int _storage_N>
+	template <int m_N, int storage_N>
 	matrix_solver_t *create_solver(int size, bool use_specific);
 };
 
