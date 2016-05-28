@@ -3261,10 +3261,10 @@ static int GUI_seq_pressed(const input_seq *seq)
 {
 	int codenum;
 	int res = 1;
-	int invert = 0;
+	bool invert = 0;
 	int count = 0;
 
-	for (codenum = 0; codenum < ARRAY_LENGTH(seq); codenum++)
+	for (codenum = 0; codenum < (sizeof(seq)/sizeof(seq[0])); codenum++)
 	{
 		input_code code = (*seq)[codenum];
 
