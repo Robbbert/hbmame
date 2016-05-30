@@ -1,28 +1,4 @@
-<<<<<<< HEAD
 What is HBMAME?
-=======
-
-# **MAME** #
-
-[![Join the chat at https://gitter.im/mamedev/mame](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mamedev/mame?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-Build status for tiny build only, containing just core parts of project
-
-| OS/Compiler        | Status           | 
-| ------------- |:-------------:| 
-|Linux GCC / OSX Clang| [![Build Status](https://travis-ci.org/mamedev/mame.svg?branch=master)](https://travis-ci.org/mamedev/mame) |
-|Windows MinGW | [![Build Status](https://tea-ci.org/api/badges/mamedev/mame/status.svg)](https://tea-ci.org/mamedev/mame) |
-
-
-What is MAME?
-=============
-
-MAME originally stood for Multiple Arcade Machine Emulator.
-
-MAME's purpose is to preserve decades of software history. As electronic technology continues to rush forward, MAME prevents this important "vintage" software from being lost and forgotten. This is achieved by documenting the hardware and how it functions. The source code to MAME serves as this documentation. The fact that the software is usable serves primarily to validate the accuracy of the documentation (how else can you prove that you have recreated the hardware faithfully?). Over time, MAME absorbed the sister-project MESS (Multi Emulator Super System), so MAME now documents a wide variety of (mostly vintage) computers, video game consoles and calculators, in addition to the arcade video games that were its initial focus.
-
-How to compile?
->>>>>>> upstream/master
 ===============
 
 HBMAME stands for Home Brew Multiple Arcade Machine Emulator.
@@ -33,7 +9,7 @@ How to compile
 ==============
 
 ```
-make TARGET=hbmame
+make TARGET=hbmame OSD=newui
 ```
 
 or
