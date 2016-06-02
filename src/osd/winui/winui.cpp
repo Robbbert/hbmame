@@ -1213,7 +1213,7 @@ HICON LoadIconFromFile(const char *iconname)
 				sprintf(tmpStr, "%s/icons.7z", GetIconsDir());
 				sprintf(tmpIcoName, "%s.ico", iconname);
 
-				ziperr = util::archive_file::open_zip(tmpStr, zip);
+				ziperr = util::archive_file::open_7z(tmpStr, zip);
 				if (ziperr == util::archive_file::error::NONE)
 				{
 					res = zip->search(tmpIcoName, false);
