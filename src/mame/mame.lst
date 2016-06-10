@@ -185,6 +185,7 @@ searthina                       // bootleg
 sflush                          // (c)1979 Taito
 shuttlei                        // (c) 1979 Omori (Arcade Tv Game List - P.79, Left, 6 from bottom)
 sicv                            // (c) 1979 Taito
+sicv1                           // (c) 1979 Taito
 sinvemag                        // Zenitone-Microsec Ltd.
 sinvzen                         // Zenitone-Microsec Ltd
 sisv                            // (c) 1978 Taito
@@ -1467,7 +1468,8 @@ alchemy
 atkgld
 amzqueen
 amztempl
-antcleo                         // (c) 2004
+antcleo
+antcleom                        // (c) 2004
 apocof
 arabnga6
 arabnga6u
@@ -1497,6 +1499,7 @@ canaryrc
 cmtonig
 cinhell
 csd
+csdsp
 csdm                         // (c) 2003
 csdce
 csret
@@ -1558,7 +1561,7 @@ indremce
 indremll
 indrem2c
 indremmm                        // (c) 2003
-indremcm
+indgldcm
 indprncs
 jailbrk
 jefffox
@@ -1566,6 +1569,7 @@ jewelcm
 kingnep
 kingnile
 kingnilea
+kingpeng
 koalama6
 kohinoor
 lgfish
@@ -1609,6 +1613,7 @@ pcfavor
 pcbydem
 pcmostw
 pcgold
+pcplat
 pwsuper
 pompeia6
 pompeia6u
@@ -1617,6 +1622,7 @@ prophecy
 qnile
 qnilese
 qnilejc
+qnilejcsp
 qsheeba
 raprichs
 redbara6
@@ -1625,6 +1631,7 @@ ruprup
 rubymag
 rumbreel
 scatmag2
+scatmag2sa
 sealdeal
 shorthng
 shamnmg
@@ -1677,6 +1684,7 @@ wldpanth
 wldstall
 wtepee
 wwaratah
+wwaratahsp
 wways
 wwaysm                        // (c) 2003
 wzwaysll
@@ -2010,6 +2018,7 @@ abattle                         // Sidam
 abattle2                        // Sidam
 acombat                         // bootleg
 acombat3                        // bootleg
+acombat4                        // bootleg
 acombato                        // bootleg
 afire                           // Rene Pierre
 astrof                          // (c) [1980?]
@@ -2321,8 +2330,8 @@ atmtb2                          //
 
 @source:atom.cpp
 atom                            // 1979 Acorn Atom
-atombb                          // 1979 Acorn Atom
-atomeb                          // 1979 Acorn Atom
+atombb                          // 1982 Acorn Atom with BBC Basic
+atomeb                          // 1979 Acorn Atom with Eprom Box
 
 @source:atpci.cpp
 at586                           // 19?? AT 586
@@ -12104,6 +12113,11 @@ fexcel                          //
 fexcelv                         //
 fscc9                           //
 fscc12                          //
+reversic                        //
+super9cc                        // SU9: Super 9 Sensory Chess Challenger (English)
+super9ccfr                      // * French
+super9ccg                       // * German
+super9ccsp                      // * Spanish
 
 @source:fidel68k.cpp
 feagv10                         //
@@ -12645,6 +12659,7 @@ scrambp                         // bootleg (Billport S.A.)
 scramce                         // bootleg (Centromatic S.A.)
 scrampt                         // bootleg (Petaco S.A.)
 scramrf                         // bootleg (Recreativos Franco)
+scrammr                         // bootleg (Model Racing)
 sfx                             // (c) 1983 Nichibutsu
 skelagon                        // (c) 1983 Nichibutsu USA
 skybase                         // (c) 1982 Omori Electric Co., Ltd.
@@ -12738,8 +12753,10 @@ galgame                         // (c) 1971 Computer Recreations, Inc
 
 @source:galivan.cpp
 dangar                          // (c) 1986
-dangar2                         // (c) 1986
-dangarb                         // bootleg
+dangara                         // (c) 1986
+dangarb                         // (c) 1986
+dangarj                         // (c) 1986
+dangarbt                        // bootleg
 galivan                         // (c) 1985
 galivan2                        // (c) 1985
 galivan3                        // (c) 1985
@@ -14532,6 +14549,14 @@ isbc2861                        //
 isbc86                          //
 rpc86                           //
 
+@source:isbc8010.cpp
+isbc8010                        //
+isbc8010a                       //
+isbc8010b                       //
+
+@source:isbc8030.cpp
+isbc8030                        //
+
 @source:iskr103x.cpp
 iskr1030m                       //
 iskr1031                        //
@@ -14665,6 +14690,7 @@ wfortunea                       // (c) 1989 GameTek
 
 @source:itgambl2.cpp
 cmagica                         // (c) 200? unknown
+mcard_h8                        // (c) 200? unknown
 elvis                           // (c) 200? unknown
 europass                        // (c) 200? unknown
 laser2k1                        // (c) 2001 unknown
@@ -16640,6 +16666,7 @@ hypbbc2p                        // 1999 - Hyper Bishi Bashi Champ - 2 Player (GX
 hypbbc2pk                       // 1999 - Hyper Bishi Bashi Champ - 2 Player (GX908 1999/08/24 VER. KAA)
 hyperbbc                        // 1998 - Hyper Bishi Bashi (GQ876 VER. EAA)
 hyperbbca                       // 1998 - Hyper Bishi Bashi (GQ876 VER. AAA)
+hyperbbck                       // 1998 - Hyper Bishi Bashi (GE876 VER. KAA)
 konam80a                        // 1998 - Konami 80's AC Special (GC826 VER. AAA)
 konam80j                        // 1998 - Konami 80's Gallery (GC826 VER. JAA)
 konam80k                        // 1998 - Konami 80's AC Special (GC826 VER. KAA)
@@ -28113,8 +28140,11 @@ vtenis2c                        // 2001.10 Virtua Tennis 2 / Power Smash 2 (Rev 
 vtennis                         // 1999.12 Virtua Tennis / Power Smash (cartridge)
 vtennis2                        // 2001.08.27 Virtua Tennis 2 / Power Smash 2 (GD-ROM)
 vtennisg                        // 1999.?? Virtua Tennis / Power Smash (GD-ROM)
+wccf116                         // 2003.?? World Club Champion Football Serie A 2001-2002 Ver. 2
+wccf1dup                        // 2002.?? World Club Champion Football Serie A 2001-2002 DIMM FIRM Ver.3.03
 wccf212e                        // 2004.12 World Club Champion Football Serie A 2002-2003 Ver.2.12
 wccf234j                        // 2004.12 World Club Champion Football Serie A 2002-2003 Ver.2.34
+wccf2chk                        // 2004.?? World Club Champion Football Serie A 2002-2003 Drive Checker
 wccf310j                        // 2005.06 World Club Champion Football European Clubs 2004-2005
 wccf322e                        // 2005.11 World Club Champion Football European Clubs 2004-2005 Ver.3.22
 wccf331e                        // 2005.06 World Club Champion Football European Clubs 2004-2005 Ver.1.1
@@ -33957,11 +33987,13 @@ sun2_50                         //
 sun3_110                        //
 sun3_150                        //
 sun3_260                        //
-sun3_460                        //
 sun3_50                         //
 sun3_60                         //
-sun3_80                         //
 sun3_e                          //
+
+@source:sun3x.cpp
+sun3_80                         //
+sun3_460                        //
 
 @source:sun4.cpp
 sun_s10                         //
@@ -35304,6 +35336,7 @@ outzonea                        // TP-O18 (c) 1990 Toaplan
 outzoneb                        // TP-O18 (c) 1990 Toaplan
 outzonec                        // TP-O18 (c) 1990 Toaplan
 outzoneh                        // TP-O18 (c) 1990 Toaplan
+outzonecv                       // TP-O18 (c) 1990 Toaplan (TP-015 conversion)
 rallybik                        // B45 / TP-O12 (c) 1988 Taito
 samesame                        // TP-O17 (c) 1989 Toaplan
 samesame2                       // TP-O17 (c) 1989 Toaplan

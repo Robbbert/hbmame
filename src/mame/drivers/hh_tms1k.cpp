@@ -5758,7 +5758,7 @@ MACHINE_CONFIG_END
 
   U.S. Games Super Sports-4
   * TMS1100 MP1219 (no decap)
-  * 9-digit 7seg LEDs(not fully used), 47 more LEDs, 1-bit sound
+  * 4 7seg LEDs, 49 other LEDs, 1-bit sound
   
   This handheld includes 4 games: Basketball, Football, Soccer, Hockey.
   MAME external artwork is needed for the switchable overlays.
@@ -5998,7 +5998,7 @@ ROM_END
 
 ROM_START( esoccer )
 	ROM_REGION( 0x0400, "maincpu", 0 )
-	ROM_LOAD( "mp0158", 0x0000, 0x0400, CRC(ae4581ea) SHA1(5f6881f8247094abf8cffb17f6e6586e94cff38c) )
+	ROM_LOAD( "mp0158.ic1", 0x0000, 0x0400, CRC(ae4581ea) SHA1(5f6881f8247094abf8cffb17f6e6586e94cff38c) )
 
 	ROM_REGION( 867, "maincpu:mpla", 0 )
 	ROM_LOAD( "tms1000_common2_micro.pla", 0, 867, CRC(d33da3cf) SHA1(13c4ebbca227818db75e6db0d45b66ba5e207776) )

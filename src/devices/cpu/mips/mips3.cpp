@@ -224,7 +224,7 @@ void mips3_device::generate_exception(int exception, int backup)
     if (exception != 0)
     {
         fprintf(stderr, "Exception: PC=%08X, PPC=%08X\n", m_core->pc, m_ppc);
-        debugger_break(machine());
+        machine().debug_break();
     }
 */
 
@@ -386,8 +386,6 @@ void mips3_device::device_start()
 
 	/* initialize the front-end helper */
 	m_drcfe = std::make_unique<mips3_frontend>(this, COMPILE_BACKWARDS_BYTES, COMPILE_FORWARDS_BYTES, SINGLE_INSTRUCTION_MODE ? 1 : COMPILE_MAX_SEQUENCE);
-	// Allow branches in delay slots
-	m_drcfe->set_allow_branch_in_delay(true);
 
 	/* allocate memory for cache-local state and initialize it */
 	memcpy(m_fpmode, fpmode_source, sizeof(fpmode_source));

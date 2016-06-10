@@ -962,9 +962,6 @@ static void guess_chs(std::string *filename, UINT64 filesize, int sectorsize, UI
 						return;
 					}
 			}
-
-	// ack, it didn't work!
-	report_error(1, "Can't guess CHS values because no logical combination works!");
 }
 
 
@@ -1792,7 +1789,7 @@ static void do_create_hd(parameters_t &params)
 		sectors = (identdata[13] << 8) | identdata[12];
 
 		// ignore CHS for > 8GB drives
-		if (input_file && filesize > 0x200000000)
+		if (cylinders * heads * sectors >= 16514064)
 			cylinders = 0;
 	}
 

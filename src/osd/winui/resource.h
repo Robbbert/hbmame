@@ -114,7 +114,6 @@
 #define IDC_CONTRAST                    1026
 #define IDC_SAMPLERATE                  1027
 #define IDC_NUMSCREENS                  1028
-#define IDC_ANTIALIAS                   1029
 #define IDC_BEAM                        1030
 #define IDC_FLICKER                     1031
 #define IDC_FLIPX                       1032

@@ -468,6 +468,10 @@ public:
 	DECLARE_WRITE32_MEMBER(geforce_w);
 	DECLARE_READ32_MEMBER(smbus_r);
 	DECLARE_WRITE32_MEMBER(smbus_w);
+	DECLARE_READ32_MEMBER(smbus2_r);
+	DECLARE_WRITE32_MEMBER(smbus2_w);
+	DECLARE_READ32_MEMBER(networkio_r);
+	DECLARE_WRITE32_MEMBER(networkio_w);
 	DECLARE_READ8_MEMBER(superio_read);
 	DECLARE_WRITE8_MEMBER(superio_write);
 	DECLARE_READ8_MEMBER(superiors232_read);
@@ -480,6 +484,10 @@ public:
 	DECLARE_WRITE32_MEMBER(dummy_w);
 	DECLARE_READ32_MEMBER(ohci_usb_r);
 	DECLARE_WRITE32_MEMBER(ohci_usb_w);
+	DECLARE_READ32_MEMBER(ohci_usb2_r);
+	DECLARE_WRITE32_MEMBER(ohci_usb2_w);
+	DECLARE_READ32_MEMBER(network_r);
+	DECLARE_WRITE32_MEMBER(network_w);
 
 	void smbus_register_device(int address, int(*handler)(xbox_base_state &chs, int command, int rw, int data));
 	int smbus_pic16lc(int command, int rw, int data);
@@ -554,6 +562,22 @@ public:
 	int debug_irq_number;
 	required_device<cpu_device> m_maincpu;
 	ohci_usb_controller *ohci_usb;
+
+private:
+	void dump_string_command(int ref, int params, const char **param);
+	void dump_process_command(int ref, int params, const char **param);
+	void dump_list_command(int ref, int params, const char **param);
+	void dump_dpc_command(int ref, int params, const char **param);
+	void dump_timer_command(int ref, int params, const char **param);
+	void curthread_command(int ref, int params, const char **param);
+	void generate_irq_command(int ref, int params, const char **param);
+	void nv2a_combiners_command(int ref, int params, const char **param);
+	void waitvblank_command(int ref, int params, const char **param);
+	void grab_texture_command(int ref, int params, const char **param);
+	void grab_vprog_command(int ref, int params, const char **param);
+	void vprogdis_command(int ref, int params, const char **param);
+	void help_command(int ref, int params, const char **param);
+	void xbox_debug_commands(int ref, int params, const char **param);
 };
 
 ADDRESS_MAP_EXTERN(xbox_base_map, 32);
