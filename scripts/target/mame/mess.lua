@@ -583,6 +583,7 @@ MACHINES["SMARTMEDIA"] = true
 MACHINES["APPLE_DRIVE"] = true
 MACHINES["APPLE_FDC"] = true
 MACHINES["SONY_DRIVE"] = true
+MACHINES["SCNXX562"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -1726,6 +1727,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "force")
 files {
+	MAME_DIR .. "src/mame/drivers/fccpu30.cpp",
 	MAME_DIR .. "src/mame/drivers/force68k.cpp",
 }
 
