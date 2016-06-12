@@ -12128,6 +12128,7 @@ feagv10                         //
 feagv11                         //
 feagv2                          //
 feagv7                          //
+feagv9                          //
 
 @source:fidelz80.cpp
 bridgec3                        //
@@ -12812,7 +12813,7 @@ gamecst2                        // MAME based bootleg, version 2.613
 gamecstl                        // MAME based bootleg
 
 @source:gameking.cpp
-gamekin3                        //
+gking3                          //
 gameking                        //
 
 @source:gameplan.cpp
@@ -17366,6 +17367,10 @@ mainsnk                         // (c) 1984
 
 @source:majorpkr.cpp
 majorpkr                        // (c) 1994 PAL System.
+majorpkra                       // (c) 1994 PAL System.
+majorpkrb                       // (c) 1994 PAL System.
+majorpkrc                       // (c) 1994 PAL System.
+luckypkr                        // bootleg/hack.
 
 @source:malzak.cpp
 malzak                          // (c) 1980? Kitronix

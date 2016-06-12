@@ -3370,7 +3370,7 @@ static void win_toggle_menubar(void)
 	HWND hwnd = 0;
 	HMENU menu = 0;
 
-	for (auto window : win_window_list)
+	for (auto window : osd_common_t::s_window_list)
 	{
 		RECT before_rect = { 100, 100, 200, 200 };
 		RECT after_rect = { 100, 100, 200, 200 };
