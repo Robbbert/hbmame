@@ -64,7 +64,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3pcd ) // decrypted C & decrypted Bios
 
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	neogeo_noslot_state::kf2k3pcb_decrypt_s1data();
-	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0, 0x080000, memregion("mainbios")->base());  // 512k bios
+	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0x080000, memregion("mainbios")->base());  // 512k bios
 }
 
 
