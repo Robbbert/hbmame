@@ -103,8 +103,6 @@ public:
 		m_region_maincpu(*this, "maincpu")
 	{ }
 
-	DECLARE_WRITE_LINE_MEMBER( snd_int_callback );
-	DECLARE_WRITE_LINE_MEMBER( bios_int_callback );
 	DECLARE_READ8_MEMBER(cart_select_r);
 	DECLARE_WRITE8_MEMBER(cart_select_w);
 	DECLARE_READ8_MEMBER(bios_ctrl_r);
@@ -368,7 +366,7 @@ void mtech_state::set_genz80_as_sms()
 
 	// main ram area
 	sms_mainram = std::make_unique<UINT8[]>(0x2000);
-	prg.install_ram(0xc000, 0xdfff, 0, 0x2000, sms_mainram.get());
+	prg.install_ram(0xc000, 0xdfff, 0x2000, sms_mainram.get());
 	memset(sms_mainram.get(), 0x00, 0x2000);
 
 	// fixed rom bank area
@@ -380,10 +378,10 @@ void mtech_state::set_genz80_as_sms()
 	prg.install_write_handler(0xfffc, 0xffff, write8_delegate(FUNC(mtech_state::mt_sms_standard_rom_bank_w),this));
 
 	// ports
-	io.install_read_handler      (0x40, 0x41, 0xff, 0x3e, read8_delegate(FUNC(mtech_state::sms_count_r),this));
-	io.install_write_handler     (0x40, 0x41, 0xff, 0x3e, write8_delegate(FUNC(sn76496_device::write),(sn76496_base_device *)m_snsnd));
-	io.install_readwrite_handler (0x80, 0x80, 0xff, 0x3e, read8_delegate(FUNC(sega315_5124_device::vram_read),(sega315_5124_device *)m_vdp), write8_delegate(FUNC(sega315_5124_device::vram_write),(sega315_5124_device *)m_vdp));
-	io.install_readwrite_handler (0x81, 0x81, 0xff, 0x3e, read8_delegate(FUNC(sega315_5124_device::register_read),(sega315_5124_device *)m_vdp), write8_delegate(FUNC(sega315_5124_device::register_write),(sega315_5124_device *)m_vdp));
+	io.install_read_handler      (0x40, 0x41, 0, 0x3e, 0, read8_delegate(FUNC(mtech_state::sms_count_r),this));
+	io.install_write_handler     (0x40, 0x41, 0, 0x3e, 0, write8_delegate(FUNC(sn76496_device::write),(sn76496_base_device *)m_snsnd));
+	io.install_readwrite_handler (0x80, 0x80, 0, 0x3e, 0, read8_delegate(FUNC(sega315_5124_device::vram_read),(sega315_5124_device *)m_vdp), write8_delegate(FUNC(sega315_5124_device::vram_write),(sega315_5124_device *)m_vdp));
+	io.install_readwrite_handler (0x81, 0x81, 0, 0x3e, 0, read8_delegate(FUNC(sega315_5124_device::register_read),(sega315_5124_device *)m_vdp), write8_delegate(FUNC(sega315_5124_device::register_write),(sega315_5124_device *)m_vdp));
 
 	io.install_read_handler      (0x10, 0x10, read8_delegate(FUNC(mtech_state::sms_ioport_dd_r),this)); // super tetris
 
@@ -678,17 +676,6 @@ UINT32 mtech_state::screen_update_menu(screen_device &screen, bitmap_rgb32 &bitm
 }
 
 
-
-WRITE_LINE_MEMBER( mtech_state::bios_int_callback )
-{
-	m_bioscpu->set_input_line(0, state);
-}
-
-WRITE_LINE_MEMBER( mtech_state::snd_int_callback )
-{
-	m_z80snd->set_input_line(0, state);
-}
-
 static MACHINE_CONFIG_START( megatech, mtech_state )
 	/* basic machine hardware */
 	MCFG_FRAGMENT_ADD(md_ntsc)
@@ -710,7 +697,7 @@ static MACHINE_CONFIG_START( megatech, mtech_state )
 	MCFG_SCREEN_VBLANK_DRIVER(mtech_state, screen_eof_main)
 
 	MCFG_DEVICE_MODIFY("gen_vdp")
-	MCFG_SEGA315_5313_INT_CB(WRITELINE(mtech_state, snd_int_callback))
+	MCFG_SEGA315_5313_INT_CB(INPUTLINE("genesis_snd_z80", 0))
 
 	MCFG_SCREEN_ADD("menu", RASTER)
 	// check frq
@@ -722,7 +709,7 @@ static MACHINE_CONFIG_START( megatech, mtech_state )
 	MCFG_DEVICE_ADD("vdp1", SEGA315_5246, 0)
 	MCFG_SEGA315_5246_SET_SCREEN("menu")
 	MCFG_SEGA315_5246_IS_PAL(false)
-	MCFG_SEGA315_5246_INT_CB(WRITELINE(mtech_state, bios_int_callback))
+	MCFG_SEGA315_5246_INT_CB(INPUTLINE("mtbios", 0))
 
 	/* sound hardware */
 	MCFG_SOUND_ADD("sn2", SN76496, MASTER_CLOCK/15)
