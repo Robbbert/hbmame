@@ -678,7 +678,7 @@ bool osd_common_t::input_init()
 	m_keyboard_input->input_init(machine());
 	m_mouse_input->input_init(machine());
 	m_lightgun_input->input_init(machine());
-	m_joystick_input->input_init(machine());
+	//m_joystick_input->input_init(machine());
 	return true;
 }
 
