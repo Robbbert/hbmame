@@ -1413,11 +1413,37 @@ ROM_START( abc802 )
 	ROMX_LOAD( "abc 32-31.14f", 0x6000, 0x2000, CRC(fc8be7a8) SHA1(a1d4cb45cf5ae21e636dddfa70c99bfd2050ad60), ROM_BIOS(3) )
 	ROM_SYSTEM_BIOS( 3, "mica620", "MICA DOS v.20 (1984-03-02)" )
 	ROMX_LOAD( "mica820.14f",   0x6000, 0x2000, CRC(edf998af) SHA1(daae7e1ff6ef3e0ddb83e932f324c56f4a98f79b), ROM_BIOS(4) )
+	ROM_SYSTEM_BIOS( 4, "luxnet01", "LUXNET 01" )
+	ROMX_LOAD( "322n01.14f",   0x6000, 0x2000, CRC(0911bc92) SHA1(bf58b3be40ce07638eb265aa2dd97c5562a0c41b), ROM_BIOS(5) )
+	ROM_SYSTEM_BIOS( 5, "luxnet02", "LUXNET 02" )
+	ROMX_LOAD( "322n02.14f",   0x6000, 0x2000, CRC(2384baec) SHA1(8ae0371242c201913b2d33a75f670d2bccf29582), ROM_BIOS(6) )
 
 	ROM_REGION( 0x1000, MC6845_TAG, 0 )
 	ROM_LOAD( "abc t02-1.3g", 0x0000, 0x1000, CRC(4d54eed8) SHA1(04cb5fc5f3d7ba9b9a5ae0ec94241d1fe83647f7) ) // 64 90191-01
 
 	ROM_REGION( 0x400, "plds", 0 )
+	/*
+	    1   CLK
+	    2   CUR
+	    3   FC
+	    4   IHS
+	    5   LL
+	    6   ATE
+	    7   ATD
+	    8   AT0
+	    9   AT1
+	    10  GND
+	    11  GND
+	    12  >O1
+	    13  >O0
+	    14
+	    15
+	    16  >RI
+	    17  >RG
+	    18  INV
+	    19  >D
+	    20  Vcc
+	*/
 	ROM_LOAD( "abc p2-1.2g", 0x000, 0x400, NO_DUMP ) // PAL16R4
 ROM_END
 
@@ -1443,6 +1469,8 @@ ROM_START( abc806 )
 	ROMX_LOAD( "mica2006.2k",  0x6000, 0x1000, CRC(58bc2aa8) SHA1(0604bd2396f7d15fcf3d65888b4b673f554037c0), ROM_BIOS(3) )
 	ROM_SYSTEM_BIOS( 3, "catnet", "CAT-NET" )
 	ROMX_LOAD( "cmd8_5.2k",    0x6000, 0x1000, CRC(25430ef7) SHA1(03a36874c23c215a19b0be14ad2f6b3b5fb2c839), ROM_BIOS(4) )
+	ROM_SYSTEM_BIOS( 4, "luxnet", "LUXNET" )
+	ROMX_LOAD( "ln806.2k",    0x6000, 0x1000, CRC(034b5991) SHA1(ba7f8653f4e516687a4399abef450e361f2bfd20), ROM_BIOS(5) )
 	ROM_LOAD_OPTIONAL( "abc 76-11.2j",  0x7000, 0x1000, CRC(3eb5f6a1) SHA1(02d4e38009c71b84952eb3b8432ad32a98a7fe16) ) // Options-PROM ABC 76-11 "64 90238-02"
 	ROM_LOAD( "abc 76-xx.2j",  0x7000, 0x1000, CRC(b364cc49) SHA1(9a2c373778856a31902cdbd2ae3362c200a38e24) ) // Enhanced Options-PROM
 
@@ -1494,9 +1522,53 @@ ROM_START( abc806 )
 	//ROM_LOAD( "60 90225-01.11c", 0x000, 0x400, NO_DUMP ) // "VIDEO ATTRIBUTE" 40033A (?)
 
 	ROM_REGION( 0x104, "abc_p3", 0 )
+	/*
+		1   12MHz
+		2   DOT
+		3   RTF
+		4   GTF
+		5   BTF
+		6   RTB
+		7   GTB
+		8   BTB
+		9   SFG
+		10  GND
+		11  GND
+		12  RFG
+		13  GFG
+		14  >YL
+		15  >BL
+		16  >GL
+		17  >RL
+		18  BFG
+		19  >FGE
+		20  Vcc
+	*/
 	ROM_LOAD( "60 90239-01.1b",  0x000, 0x104, CRC(f3d0ba00) SHA1(bcc0ee26ecac0028aef6bf5cb308133b509bb360) ) // "ABC P3-11" PAL16R4, color encoder
 
 	ROM_REGION( 0x104, "abc_p4", 0 )
+	/*
+	    1   I3
+	    2   A15
+	    3   A14
+	    4   A13
+	    5   A12
+	    6   A11
+	    7   MIL
+	    8   EME
+	    9   ENL
+	    10  GND
+	    11  XML
+	    12  >ROMD
+	    13  HRAL
+	    14  HRBL
+	    15  KDL
+	    16  >HRE
+	    17  RKDL
+	    18  MUX
+	    19  >RAMD
+	    20  Vcc
+	*/
 	ROM_LOAD( "60 90240-01.2d",  0x000, 0x104, CRC(3cc5518d) SHA1(343cf951d01c9d361b695bb4e80eaadf0820b6bc) ) // "ABC P4-11" PAL16L8, memory mapper
 ROM_END
 
