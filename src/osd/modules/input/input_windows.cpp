@@ -23,10 +23,10 @@
 bool windows_osd_interface::should_hide_mouse() const
 {
 	bool hidemouse = false;
-	hidemouse |= downcast<wininput_module*>(m_keyboard_input)->should_hide_mouse();
-	hidemouse |= downcast<wininput_module*>(m_mouse_input)->should_hide_mouse();
-	hidemouse |= downcast<wininput_module*>(m_lightgun_input)->should_hide_mouse();
-	hidemouse |= downcast<wininput_module*>(m_joystick_input)->should_hide_mouse();
+	//hidemouse |= downcast<wininput_module*>(m_keyboard_input)->should_hide_mouse();
+	//hidemouse |= downcast<wininput_module*>(m_mouse_input)->should_hide_mouse();
+	//hidemouse |= downcast<wininput_module*>(m_lightgun_input)->should_hide_mouse();
+	//hidemouse |= downcast<wininput_module*>(m_joystick_input)->should_hide_mouse();
 	return hidemouse;
 }
 

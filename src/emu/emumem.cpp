@@ -1849,6 +1849,7 @@ inline void address_space::adjust_addresses(offs_t &start, offs_t &end, offs_t &
 
 void address_space::check_optimize_all(const char *function, offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, offs_t &nstart, offs_t &nend, offs_t &nmask, offs_t &nmirror)
 {
+//#if 0
 	if (addrstart > addrend)
 		fatalerror("%s: In range %x-%x mask %x mirror %x select %x, start address is after the end address.\n", function, addrstart, addrend, addrmask, addrmirror, addrselect);
 	if (addrstart & ~m_bytemask)
@@ -1863,6 +1864,7 @@ void address_space::check_optimize_all(const char *function, offs_t addrstart, o
 		fatalerror("%s: In range %x-%x mask %x mirror %x select %x, end address has low bits unset, did you mean %x ?\n", function, addrstart, addrend, addrmask, addrmirror, addrselect, addrend | lowbits_mask);
 
 	offs_t set_bits = addrstart | addrend;
+//#endif
 	offs_t changing_bits = addrstart ^ addrend;
 	// Round up to the nearest power-of-two-minus-one
 	changing_bits |= changing_bits >> 1;
@@ -1870,7 +1872,7 @@ void address_space::check_optimize_all(const char *function, offs_t addrstart, o
 	changing_bits |= changing_bits >> 4;
 	changing_bits |= changing_bits >> 8;
 	changing_bits |= changing_bits >> 16;
-
+//#if 0
 	if (addrmask & ~m_bytemask)
 		fatalerror("%s: In range %x-%x mask %x mirror %x select %x, mask is outside of the global address mask %x, did you mean %x ?\n", function, addrstart, addrend, addrmask, addrmirror, addrselect, m_bytemask, addrmask & m_bytemask);
 	if (addrmirror & ~m_bytemask)
@@ -1889,7 +1891,7 @@ void address_space::check_optimize_all(const char *function, offs_t addrstart, o
 		fatalerror("%s: In range %x-%x mask %x mirror %x select %x, select touches a set address bit, did you mean %x ?\n", function, addrstart, addrend, addrmask, addrmirror, addrselect, addrselect & ~set_bits);
 	if (addrmirror & addrselect)
 		fatalerror("%s: In range %x-%x mask %x mirror %x select %x, mirror touches a select bit, did you mean %x ?\n", function, addrstart, addrend, addrmask, addrmirror, addrselect, addrmirror & ~addrselect);
-
+//#endif
 	nstart = addrstart;
 	nend = addrend;
 	nmask = (addrmask ? addrmask : changing_bits) | addrselect;
@@ -1910,6 +1912,7 @@ void address_space::check_optimize_all(const char *function, offs_t addrstart, o
 
 void address_space::check_optimize_mirror(const char *function, offs_t addrstart, offs_t addrend, offs_t addrmirror, offs_t &nstart, offs_t &nend, offs_t &nmask, offs_t &nmirror)
 {
+//#if 0
 	if (addrstart > addrend)
 		fatalerror("%s: In range %x-%x mirror %x, start address is after the end address.\n", function, addrstart, addrend, addrmirror);
 	if (addrstart & ~m_bytemask)
@@ -1924,6 +1927,7 @@ void address_space::check_optimize_mirror(const char *function, offs_t addrstart
 		fatalerror("%s: In range %x-%x mirror %x, end address has low bits unset, did you mean %x ?\n", function, addrstart, addrend, addrmirror, addrend | lowbits_mask);
 
 	offs_t set_bits = addrstart | addrend;
+//#endif
 	offs_t changing_bits = addrstart ^ addrend;
 	// Round up to the nearest power-of-two-minus-one
 	changing_bits |= changing_bits >> 1;
@@ -1931,14 +1935,14 @@ void address_space::check_optimize_mirror(const char *function, offs_t addrstart
 	changing_bits |= changing_bits >> 4;
 	changing_bits |= changing_bits >> 8;
 	changing_bits |= changing_bits >> 16;
-
+//#if 0
 	if (addrmirror & ~m_bytemask)
 		fatalerror("%s: In range %x-%x mirror %x, mirror is outside of the global address mask %x, did you mean %x ?\n", function, addrstart, addrend, addrmirror, m_bytemask, addrmirror & m_bytemask);
 	if (addrmirror & changing_bits)
 		fatalerror("%s: In range %x-%x mirror %x, mirror touches a changing address bit, did you mean %x ?\n", function, addrstart, addrend, addrmirror, addrmirror & ~changing_bits);
 	if (addrmirror & set_bits)
 		fatalerror("%s: In range %x-%x mirror %x, mirror touches a set address bit, did you mean %x ?\n", function, addrstart, addrend, addrmirror, addrmirror & ~set_bits);
-
+//#endif
 	nstart = addrstart;
 	nend = addrend;
 	nmask = changing_bits;
@@ -1960,6 +1964,7 @@ void address_space::check_optimize_mirror(const char *function, offs_t addrstart
 
 void address_space::check_address(const char *function, offs_t addrstart, offs_t addrend)
 {
+//#if 0
 	if (addrstart > addrend)
 		fatalerror("%s: In range %x-%x, start address is after the end address.\n", function, addrstart, addrend);
 	if (addrstart & ~m_bytemask)
@@ -1972,6 +1977,7 @@ void address_space::check_address(const char *function, offs_t addrstart, offs_t
 		fatalerror("%s: In range %x-%x, start address has low bits set, did you mean %x ?\n", function, addrstart, addrend, addrstart & ~lowbits_mask);
 	if ((~addrend) & lowbits_mask)
 		fatalerror("%s: In range %x-%x, end address has low bits unset, did you mean %x ?\n", function, addrstart, addrend, addrend | lowbits_mask);
+//#endif
 }
 
 

@@ -66,9 +66,10 @@ public:
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
-	DECLARE_READ8_MEMBER(schasercv_02_r);
-	DECLARE_WRITE8_MEMBER(schaser_03_w);
-	DECLARE_WRITE8_MEMBER(schaser_05_w);
+	DECLARE_READ8_MEMBER(port02_r);
+	DECLARE_WRITE8_MEMBER(port03_w);
+	DECLARE_WRITE8_MEMBER(port05_w);
+	DECLARE_WRITE8_MEMBER(colour_w);
 	DECLARE_MACHINE_START(sc);
 	DECLARE_MACHINE_RESET(sc);
 	TIMER_DEVICE_CALLBACK_MEMBER(schaser_effect_555_cb);
@@ -77,7 +78,6 @@ public:
 private:
 
 	bool m_flip_screen;
-	bool m_screen_red;
 	bool m_sound_enabled;
 	bool m_explosion;
 	bool m_555_is_low;
@@ -197,7 +197,7 @@ static const double schaser_effect_rc[8] =
 	(1.0/ (1.0/RES_K(15) + 1.0/RES_K(39) + 1.0/RES_K(82)) + RES_K(20)) * CAP_U(1)
 };
 
-WRITE8_MEMBER(sc_state::schaser_03_w)
+WRITE8_MEMBER(sc_state::port03_w)
 {
 	/* bit 1 - Dot Sound Enable
 	   bit 2 - Effect Sound A (a stream of pulses)
@@ -279,7 +279,7 @@ WRITE8_MEMBER(sc_state::schaser_03_w)
 	m_sn->mixer_b_w(m_explosion);
 }
 
-WRITE8_MEMBER(sc_state::schaser_05_w)
+WRITE8_MEMBER(sc_state::port05_w)
 {
 	/* bit 0 - Music (DAC)
 	   bit 2 - Coin Lockout
@@ -334,7 +334,6 @@ void sc_state::schaser_reinit_555_time_remain()
 MACHINE_START_MEMBER( sc_state, sc )
 {
 	save_item(NAME(m_flip_screen));
-	save_item(NAME(m_screen_red));
 	save_item(NAME(m_sound_enabled));
 	save_item(NAME(m_explosion));
 	save_item(NAME(m_last_effect));
@@ -349,7 +348,6 @@ MACHINE_START_MEMBER( sc_state, sc )
 MACHINE_RESET_MEMBER( sc_state, sc )
 {
 	m_flip_screen = 0;
-	m_screen_red = 0;
 	m_sound_enabled = 0;
 	m_explosion = 0;
 	m_last_effect = 0xff;
@@ -360,8 +358,8 @@ MACHINE_RESET_MEMBER( sc_state, sc )
 	m_555_timer->adjust(attotime::never);
 
 	address_space &space = m_maincpu->space(AS_PROGRAM);
-	schaser_03_w(space, 0, 0);
-	schaser_05_w(space, 0, 0);
+	port03_w(space, 0, 0);
+	port05_w(space, 0, 0);
 	mw8080bw_start_interrupt_timer();
 }
 
@@ -473,7 +471,7 @@ UINT32 sc_state::screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bi
 	return 0;
 }
 
-READ8_MEMBER(sc_state::schasercv_02_r)
+READ8_MEMBER(sc_state::port02_r)
 {
 	UINT8 data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
@@ -481,19 +479,24 @@ READ8_MEMBER(sc_state::schasercv_02_r)
 	return (data & 0x89) | (in1 & 0x70) | (BIT(in1, 3) << 1) | (BIT(in1, 7) << 2);
 }
 
+WRITE8_MEMBER( sc_state::colour_w )
+{
+	m_p_colorram[offset & 0x1f9f] = data;
+}
+
 static ADDRESS_MAP_START( schaser_map, AS_PROGRAM, 8, sc_state )
 	AM_RANGE(0x0000, 0x1fff) AM_ROM
 	AM_RANGE(0x2000, 0x3fff) AM_RAM AM_SHARE("ram")
 	AM_RANGE(0x4000, 0x5fff) AM_ROM
-	AM_RANGE(0xc000, 0xdfff) AM_MIRROR(0x0060) AM_RAM AM_SHARE("colorram")
+	AM_RANGE(0xc000, 0xdfff) AM_SHARE("colorram") AM_WRITE(colour_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( schasercv_io_map, AS_IO, 8, sc_state )
 	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
-	AM_RANGE(0x02, 0x02) AM_READ(schasercv_02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
-	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(schaser_03_w)
+	AM_RANGE(0x02, 0x02) AM_READ(port02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
+	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(port03_w)
 	AM_RANGE(0x04, 0x04) AM_DEVWRITE("mb14241", mb14241_device, shift_data_w)
-	AM_RANGE(0x05, 0x05) AM_WRITE(schaser_05_w)
+	AM_RANGE(0x05, 0x05) AM_WRITE(port05_w)
 	//AM_RANGE(0x06, 0x06) AM_WRITE(watchdog_reset_w)
 ADDRESS_MAP_END
 

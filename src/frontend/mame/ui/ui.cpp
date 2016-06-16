@@ -406,7 +406,8 @@ void mame_ui_manager::update_and_render(render_container *container)
 		m_popup_text_end = 0;
 
 	// display the internal mouse cursor
-	if (m_mouse_show || (is_menu_active() && machine().options().ui_mouse()))
+	if (machine().options().ui_mouse() && (m_mouse_show || is_menu_active())) //MESSUI - (NEWUI) system pointer always on; MAME pointer always off
+	//if (m_mouse_show || (is_menu_active() && machine().options().ui_mouse()))
 	{
 		INT32 mouse_target_x, mouse_target_y;
 		bool mouse_button;
