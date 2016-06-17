@@ -3357,8 +3357,8 @@ static MACHINE_CONFIG_DERIVED( qsound, cps1_12MHz )
 	MCFG_DEVICE_REMOVE("mono")
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_DEVICE_REMOVE("soundlatch")
-	MCFG_DEVICE_REMOVE("soundlatch2")
+	//MCFG_DEVICE_REMOVE("soundlatch")   // HBMAME
+	//MCFG_DEVICE_REMOVE("soundlatch2")  // HBMAME
 	MCFG_DEVICE_REMOVE("2151")
 	MCFG_DEVICE_REMOVE("oki")
 
