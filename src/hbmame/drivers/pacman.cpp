@@ -1868,7 +1868,6 @@ ROM_START( pacminer )
 	ROM_LOAD( "pacminer.6e",  0x0000, 0x1000, CRC(11dee14e) SHA1(1aeb94299a33daa9b51fdab3c0abea98858cc7dd) )
 	ROM_LOAD( "pacminer.6f",  0x1000, 0x1000, CRC(8c449bd7) SHA1(84233296683321f71fdef604ca19bfffd97e993c) )
 	ROM_LOAD( "pacminer.6h",  0x2000, 0x1000, CRC(a0e62570) SHA1(654a71144eae3c78d7baaeb9119aad0ece500e60) )
-	ROM_LOAD( "pacminer.6j",  0x3000, 0x1000, CRC(c71c0011) SHA1(1ceaf73df40e531df3bfb26b4fb7cd95fb7bff1d) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacminer.5e",  0x0000, 0x1000, CRC(9b3cc7cd) SHA1(9bfb71e71f7f61e26d23e6370d684cdc6c910899) )

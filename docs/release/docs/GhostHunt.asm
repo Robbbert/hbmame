@@ -574,11 +574,7 @@ start_game:
 ; performs logic for game mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 game_logic:
-				ld a,(start_state)							;get state
-				and inp_chk_p2st							;examine p2 start
-				cp inp_p2_presd								;check for pressed 
-				jp z,start_title_mode						;0 means pressed so quit to title mode
-
+				call quit_to_title							;see if we want to get back to title screen
 
 				call player_one_movement					;control player 
 				call shoot									;allow player to shoot if bullet not in use
@@ -594,6 +590,16 @@ game_logic:
 				call debug_output							;some debug values for player positions
 
 				jp wait										;finished setup goto wait section
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; checks to see if player pressed p2 start so they can get
+; quickly back to title screen
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+quit_to_title:
+				ld a,(start_state)							;get state
+				and inp_chk_p2st							;examine p2 start
+				cp inp_p2_presd								;check for pressed 
+				jp z,start_title_mode						;0 means pressed so quit to title mode
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; checks to see if whole second has passed
@@ -665,6 +671,8 @@ start_game_over:
 ; just a countdown timer so no other functions needed
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 game_over_logic:
+				call quit_to_title							;see if we want to get back to title screen
+
 				ld a,(frame_number)							;get frame number
 				and a										;see if it is zero
 				jp nz,wait									;if not then second is not up yet
@@ -1717,7 +1725,7 @@ top_mess_1:			defm	"         SIMPLE GAME        ",0
 top_mess_2:			defm	"        DEMONSTRATION       ",0
 top_mess_3:			defm	"  IN Z80 ASSEMBLY LANGUAGE  ",0
 top_mess_4:			defm	"DESIGNED TO SHOW FEATURES OF",0
-top_mess_5:			defm	"  ASSEMBLY LANUAGE SUCH AS  ",0
+top_mess_5:			defm	" ASSEMBLY LANGUAGE  SUCH AS ",0
 top_mess_6:			defm	"       ADDRESSING MODES     ",0
 top_mess_7:			defm	"      USE OF INTERRUPTS     ",0
 top_mess_8:			defm	"          SHIFTING          ",0
