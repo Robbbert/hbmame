@@ -1,6 +1,23 @@
 What's new in HBMAME
 ====================
 
+2016-06-29 0.175
+----------------
+
+Thanks to all those who helped gather the newest hacks.
+
+- WinUI: more 7z support
+- Continued adding hacks from MultiJet
+
+
+
+New Games
+---------
+- [ghohunt]         Ghost Hunt [by Hurray Banana]
+
+
+
+
 2016-05-25 0.174
 ----------------
 

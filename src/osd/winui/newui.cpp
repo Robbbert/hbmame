@@ -2705,11 +2705,10 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	struct file_dialog_params *params;
 	struct storeval_optres_params *storeval_params;
 	static const struct dialog_layout filedialog_layout = { 44, 220 };
-	const image_device_format *format;
 
 	// make the filter
 	pos = 0;
-	for (format = dev->formatlist().first(); format; format = format->next())
+	for (auto &format : dev->formatlist())
 		pos += add_filter_entry(filter + pos, filter_len - pos, format->description(), format->extensions());
 
 	// create the dialog
@@ -2734,7 +2733,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	{
 		// make sure that this entry is present on at least one option specification
 		found = FALSE;
-		for (format = dev->formatlist().first(); format; format = format->next())
+		for (auto &format : dev->formatlist())
 		{
 			if (option_resolution_contains(format->optspec(), guide_entry->parameter))
 			{
@@ -2929,7 +2928,7 @@ static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 	// add custom dialog elements, if appropriate
 	if (is_save
 		&& (image->device_get_creation_option_guide())
-		&& (image->formatlist().first()))
+		&& (image->formatlist().front()))
 	{
 		dialog = build_option_dialog(image, filter, ARRAY_LENGTH(filter), &create_format, &create_args);
 		if (!dialog)
@@ -3512,7 +3511,7 @@ static void help_about_mess(HWND wnd)
 {
 	//help_display(wnd, "mess.chm::/windows/main.htm"); //doesnt do anything
 	//help_display(wnd, "mess.chm");
-	help_display(wnd, "http://www.mess.org/");
+	help_display(wnd, "http://mamedev.org/");
 }
 
 
