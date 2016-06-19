@@ -417,16 +417,15 @@ static void InitDriversInfo(void)
 		gameinfo->usesLightGun = FALSE;
 		if (gamedrv->ipt)
 		{
-			ioport_port *port;
 			ioport_list portlist;
 			std::string errors;
 			for (device_t &cfg : device_iterator(config.root_device()))
 				if (cfg.input_ports())
 					portlist.append(cfg, errors);
 
-			for (port = portlist.first(); port; port = port->next())
+			for (auto &port : portlist)
 			{
-				for (ioport_field &field : port->fields())
+				for (ioport_field &field : port.second->fields())
 				{
 					UINT32 type;
 					type = field.type();
