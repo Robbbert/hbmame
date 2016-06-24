@@ -102,6 +102,30 @@ ROM_START( svcd1 )
 	ROM_LOAD16_BYTE( "269d1.c8", 0x3000001, 0x800000, CRC(b17dfcf9) SHA1(46af296b12831ee40355f52d2c316f609557d6df) )
 ROM_END
 
+ROM_START( svcesv ) // all confirmed
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD32_WORD_SWAP( "269esv.p1", 0x000000, 0x400000, CRC(c6fd0131) SHA1(25439e469d0403439fde5d6532081a9b405bf642) )
+	ROM_LOAD32_WORD_SWAP( "269esv.p2", 0x000002, 0x400000, CRC(2adede28) SHA1(555d3a9a53f0c7e8b450f7885b0ea86abece0843) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "269-m1.m1", CRC(f6819d00) SHA1(d3bbe09df502464f104e53501708ac6e2c1832c6) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "269-v1.v1", 0x000000, 0x800000, CRC(c659b34c) SHA1(1931e8111ef43946f68699f8707334c96f753a1e) )
+	ROM_LOAD( "269-v2.v2", 0x800000, 0x800000, CRC(dd903835) SHA1(e58d38950a7a8697bb22a1cc7a371ae6664ae8f9) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "269esv.c1", 0x0000000, 0x800000, CRC(03cda72a) SHA1(5557d44f191ed329256fd5dc383a7242ca30aee5) )
+	ROM_LOAD16_BYTE( "269esv.c2", 0x0000001, 0x800000, CRC(442a7724) SHA1(8b7155978638a6656b0df9ccf7bd85be8172b167) )
+	ROM_LOAD16_BYTE( "269esv.c3", 0x1000000, 0x800000, CRC(b311b183) SHA1(52b4c8c5530b856bbb497e5b33587cee0abfc892) )
+	ROM_LOAD16_BYTE( "269esv.c4", 0x1000001, 0x800000, CRC(4aa13c41) SHA1(733c1434b65d2b595ba40d51045cfa523c14eefa) )
+	ROM_LOAD16_BYTE( "269esv.c5", 0x2000000, 0x800000, CRC(1a81e716) SHA1(12d5f4128be45294aaf14461203ad99d768ad9bd) )
+	ROM_LOAD16_BYTE( "269esv.c6", 0x2000001, 0x800000, CRC(6f346ae8) SHA1(a5561786bcdb51ffd72332c8da4a4448490a7068) )
+	ROM_LOAD16_BYTE( "269esv.c7", 0x3000000, 0x800000, CRC(8dd412d3) SHA1(3d2afd7fc09c59537209071d049ec294f76770e5) )
+	ROM_LOAD16_BYTE( "269esv.c8", 0x3000001, 0x800000, CRC(305ef23f) SHA1(3bdd24b075757062803ac2a6f9582bcfe0bcbb4c) )
+ROM_END
+
 ROM_START( svch )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "269h.p1", 0x000000, 0x600000, CRC(06435efb) SHA1(115d8dbad06565cfdd6b607cc2359ec3ae5db6e0) )
@@ -324,14 +348,15 @@ ROM_END
 
 
 
-GAME( 2003, svcd,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,  svcd,     ROT0, "hack", "SvC Chaos (decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcd1,     svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,  svcd1,    ROT0, "hack", "SvC Chaos (decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svch,      svc,      neogeo_noslot,   neogeo,   neogeo_state,   neogeo,   ROT0, "chbandy", "SvC Chaos (Remix Ver 1.0 by chbandy)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcnd,     svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,  svcplusd, ROT0, "hack", "SvC Chaos (unknown nd)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcpcbd,   svcpcb,   neogeo_noslot,   dualbios, neogeo_hbmame,  svcpcd,   ROT0, "bootleg", "SVC Chaos (JAMMA PCB, decrypted C & V)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplusb,  svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,  svcplusb, ROT0, "bootleg", "SvC Chaos PLUS (Bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplusd,  svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,  svcplusd, ROT0, "hack", "SvC Chaos PLUS (unknown plusd)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcpryu,   svc,      neogeo_noslot,   neogeo,   neogeo_state,   neogeo,   ROT0, "hack", "SvC Plus (Koryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcps2,    svc,      neogeo_noslot,   neogeo,   neogeo_state,   neogeo,   ROT0, "EGHT", "SvC Playstation2 Hack Final 1.02 (EGHT)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcrm,     svc,      neogeo_noslot,   neogeo,   neogeo_state,   neogeo,   ROT0, "Jason", "SVC REMIX ULTRA (Ver 1.2 by Jason)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcspryu,  svc,      neogeo_noslot,   neogeo,   neogeo_state,   neogeo,   ROT0, "hack", "SvC Plus (Super Koryu)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcd,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcd,     ROT0, "hack", "SvC Chaos (decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcd1,     svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcd1,    ROT0, "hack", "SvC Chaos (decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svch,      svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "chbandy", "SvC Chaos (Remix Ver 1.0 by chbandy)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcesv,    svc,      neogeo_noslot,   neogeo,   neogeo_noslot_state, svc,      ROT0, "hack", "SvC Chaos (unknown esv)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcnd,     svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcplusd, ROT0, "hack", "SvC Chaos (unknown nd)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcpcbd,   svcpcb,   neogeo_noslot,   dualbios, neogeo_hbmame,       svcpcd,   ROT0, "hack", "SVC Chaos (JAMMA PCB, decrypted C & V)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcplusb,  svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcplusb, ROT0, "hack", "SvC Chaos PLUS (Bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcplusd,  svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcplusd, ROT0, "hack", "SvC Chaos PLUS (unknown plusd)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcpryu,   svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "hack", "SvC Plus (Koryu)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcps2,    svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "EGHT", "SvC Playstation2 Hack Final 1.02 (EGHT)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcrm,     svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "Jason", "SVC REMIX ULTRA (Ver 1.2 by Jason)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcspryu,  svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "hack", "SvC Plus (Super Koryu)", MACHINE_SUPPORTS_SAVE )
