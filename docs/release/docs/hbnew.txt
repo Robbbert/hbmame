@@ -14,6 +14,7 @@ Thanks to all those who helped gather the newest hacks.
 New Games
 ---------
 - [ghohunt]         Ghost Hunt [by Hurray Banana]
+- [neofight]        Neo Fight [by Kannagi]
 
 
 
