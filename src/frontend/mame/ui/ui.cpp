@@ -1211,6 +1211,30 @@ void mame_ui_manager::draw_profiler(render_container *container)
 
 
 //-------------------------------------------------
+//  start_save_state
+//-------------------------------------------------
+
+void mame_ui_manager::start_save_state()
+{
+	machine().pause();
+	m_load_save_hold = true;
+	set_handler(UI_CALLBACK_TYPE_GENERAL, &mame_ui_manager::handler_load_save, (UINT32)LOADSAVE_SAVE);
+}
+
+
+//-------------------------------------------------
+//  start_load_state
+//-------------------------------------------------
+
+void mame_ui_manager::start_load_state()
+{
+	machine().pause();
+	m_load_save_hold = true;
+	set_handler(UI_CALLBACK_TYPE_GENERAL, &mame_ui_manager::handler_load_save, (UINT32)LOADSAVE_LOAD);
+}
+
+
+//-------------------------------------------------
 //  image_handler_ingame - execute display
 //  callback function for each image device
 //-------------------------------------------------
@@ -1387,18 +1411,14 @@ UINT32 mame_ui_manager::handler_ingame(render_container *container)
 	// handle a save state request
 	if (machine().ui_input().pressed(IPT_UI_SAVE_STATE))
 	{
-		machine().pause();
-		m_load_save_hold = true;
-		set_handler(UI_CALLBACK_TYPE_GENERAL, &mame_ui_manager::handler_load_save, (UINT32)LOADSAVE_SAVE);
+		start_save_state();
 		return LOADSAVE_SAVE;
 	}
 
 	// handle a load state request
 	if (machine().ui_input().pressed(IPT_UI_LOAD_STATE))
 	{
-		machine().pause();
-		m_load_save_hold = true;
-		set_handler(UI_CALLBACK_TYPE_GENERAL, &mame_ui_manager::handler_load_save, (UINT32)LOADSAVE_LOAD);
+		start_load_state();
 		return LOADSAVE_LOAD;
 	}
 
