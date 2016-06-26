@@ -14,7 +14,16 @@ Thanks to all those who helped gather the newest hacks.
 New Games
 ---------
 - [ghohunt]         Ghost Hunt [by Hurray Banana]
+- [kof2000ev]
 - [kof200215]       Kof2002 Magic Plus II
+- [kof99ae20160411]
+- [ms5sp]
+- [mslug3hev]
+- [mslug4sp]
+- [mslug5f]
+- [mslug5lvf]
+- [mslug5lvnc]
+- [mslug5w]
 - [neofight]        Neo Fight [by Kannagi]
 - [svcesv]
 
