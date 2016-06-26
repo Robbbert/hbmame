@@ -292,7 +292,7 @@ vampjb
 
 	/* cps3 */
 redearth	// parent
-redeartn	// no-cd version - needs correct bios
+redeartn	// no-cd version
 sfiii3		// parent
 sfiii3an	// hack
 sfiii4rd	// hack
@@ -620,10 +620,12 @@ kof97zm
 
 	/* kof98 */
 kof98aas
-//kof98ae //black splashes all over fight scene where cars speed past
-kof98ae0
-kof98ae1
-kof98ae2
+//kof98ae //test only, do not enable
+kof98ae0 //black splashes all over fight scene where cars speed past
+kof98ae1 //black splashes all over fight scene where cars speed past
+kof98ae2 //black splashes all over fight scene where cars speed past
+kof98ae3 //black splashes all over fight scene where cars speed past
+kof98ae20160308 //black splashes all over fight scene where cars speed past
 kof98b
 kof98bh
 kof98c2006

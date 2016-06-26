@@ -16,7 +16,11 @@ New Games
 - [ghohunt]         Ghost Hunt [by Hurray Banana]
 - [kof2000ev]
 - [kof200215]       Kof2002 Magic Plus II
+- [kof98ae3]
+- [kof98ae20160308] Kof'98 Anniversary Edition 2016
 - [kof99ae20160411]
+- [kof99ae20160419]
+- [kof99aes]
 - [ms5sp]
 - [mslug3hev]
 - [mslug4sp]
