@@ -892,9 +892,9 @@ BEGIN
     ICON            IDI_MAMEUI_ICON,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,
                     SS_NOPREFIX
-    CONTROL         "Draw antialiased vectors",IDC_ANTIALIAS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,10,40,92,10,0,
-                    HIDC_ANTIALIAS
+//    CONTROL         "Draw antialiased vectors",IDC_ANTIALIAS,"Button",
+//                    BS_AUTOCHECKBOX | WS_TABSTOP,10,40,92,10,0,
+//                    HIDC_ANTIALIAS
     GROUPBOX        "Beam width",IDC_BEAMTEXT,60,53,100,28
     CONTROL         "BeamSlider",IDC_BEAM,"msctls_trackbar32",TBS_BOTH |
                     TBS_NOTICKS | WS_TABSTOP,66,65,64,10,0,HIDC_BEAM

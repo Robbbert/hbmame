@@ -115,7 +115,7 @@ end
 		targetextension ".bc"
 		if os.getenv("EMSCRIPTEN") then
 			local emccopts = ""
-				.. " -O3"
+				.. " -O" .. _OPTIONS["OPTIMIZE"]
 				.. " -s USE_SDL=2"
 				.. " -s USE_SDL_TTF=2"
 				.. " --memory-init-file 0"
@@ -132,7 +132,9 @@ end
 				.. " --embed-file " .. _MAKE.esc(MAME_DIR) .. "artwork/slot-mask.png@artwork/slot-mask.png"
 
 			if _OPTIONS["SYMBOLS"]~=nil and _OPTIONS["SYMBOLS"]~="0" then
-				emccopts = emccopts .. " -g" .. _OPTIONS["SYMLEVEL"]
+				emccopts = emccopts
+					.. " -g" .. _OPTIONS["SYMLEVEL"]
+					.. " -s DEMANGLE_SUPPORT=1"
 			end
 
 			if _OPTIONS["ARCHOPTS"] then
@@ -145,17 +147,7 @@ end
 		end
 
 	configuration { }
-	
-if _OPTIONS["IGNORE_GIT"]~="1" then	
-	GIT_VERSION = backtick( "git describe --dirty" )
-	local p = string.find(GIT_VERSION, '-', 1)
-	if (p~=nil) then
-		defines {
-			"GIT_VERSION=" .. string.sub(GIT_VERSION,p+1)
-		}
-	end
-end
-	
+
 	if _OPTIONS["targetos"]=="android" then
 		includedirs {
 			MAME_DIR .. "3rdparty/SDL2/include",
@@ -229,13 +221,11 @@ end
 	if _OPTIONS["USE_LIBUV"]=="1" then
 		links {
 			ext_lib("uv"),
-			"http-parser",
 		}
 	end
 	links {
 		ext_lib("zlib"),
 		ext_lib("flac"),
-		ext_lib("sqlite3"),
 	}
 
 	if _OPTIONS["NO_USE_MIDI"]~="1" then
@@ -277,7 +267,7 @@ if (STANDALONE~=true) then
 			"-sectcreate __TEXT __info_plist " .. _MAKE.esc(GEN_DIR) .. "resource/" .. _subtarget .. "-Info.plist"
 		}
 		custombuildtask {
-			{ MAME_DIR .. "src/version.cpp" ,  GEN_DIR .. "resource/" .. _subtarget .. "-Info.plist",    {  MAME_DIR .. "scripts/build/verinfo.py" }, {"@echo Emitting " .. _subtarget .. "-Info.plist" .. "...",    PYTHON .. " $(1)  -p -b " .. _subtarget .. " $(<) > $(@)" }},
+			{ GEN_DIR .. "version.cpp" ,  GEN_DIR .. "resource/" .. _subtarget .. "-Info.plist",    {  MAME_DIR .. "scripts/build/verinfo.py" }, {"@echo Emitting " .. _subtarget .. "-Info.plist" .. "...",    PYTHON .. " $(1)  -p -b " .. _subtarget .. " $(<) > $(@)" }},
 		}
 		dependency {
 			{ "$(TARGET)" ,  GEN_DIR  .. "resource/" .. _subtarget .. "-Info.plist", true  },
@@ -355,21 +345,21 @@ if (STANDALONE~=true) then
 
 	configuration { "mingw*" }
 		custombuildtask {
-			{ MAME_DIR .. "src/version.cpp" ,  GEN_DIR  .. "resource/" .. rctarget .. "vers.rc",    {  MAME_DIR .. "scripts/build/verinfo.py" }, {"@echo Emitting " .. rctarget .. "vers.rc" .. "...",    PYTHON .. " $(1)  -r -b " .. rctarget .. " $(<) > $(@)" }},
+			{ GEN_DIR .. "version.cpp" ,  GEN_DIR  .. "resource/" .. rctarget .. "vers.rc",    {  MAME_DIR .. "scripts/build/verinfo.py" }, {"@echo Emitting " .. rctarget .. "vers.rc" .. "...",    PYTHON .. " $(1)  -r -b " .. rctarget .. " $(<) > $(@)" }},
 		}
 
 	configuration { "vs*" }
 		prebuildcommands {
 			"mkdir " .. path.translate(GEN_DIR  .. "resource/","\\") .. " 2>NUL",
 			"@echo Emitting ".. rctarget .. "vers.rc...",
-			PYTHON .. " " .. path.translate(MAME_DIR .. "scripts/build/verinfo.py","\\") .. " -r -b " .. rctarget .. " " .. path.translate(MAME_DIR .. "src/version.cpp","\\") .. " > " .. path.translate(GEN_DIR  .. "resource/" .. rctarget .. "vers.rc", "\\") ,
+			PYTHON .. " " .. path.translate(MAME_DIR .. "scripts/build/verinfo.py","\\") .. " -r -b " .. rctarget .. " " .. path.translate(GEN_DIR .. "version.cpp","\\") .. " > " .. path.translate(GEN_DIR  .. "resource/" .. rctarget .. "vers.rc", "\\") ,
 		}
 end
 
 	configuration { }
 
 	if _OPTIONS["DEBUG_DIR"]~=nil then
-		debugabsolutedir(_OPTIONS["DEBUG_DIR"])
+		debugdir(_OPTIONS["DEBUG_DIR"])
 	else
 		debugdir (MAME_DIR)
 	end

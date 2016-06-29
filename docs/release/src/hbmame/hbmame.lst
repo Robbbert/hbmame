@@ -99,6 +99,7 @@ tongypac
 ckongfix	/* Graphics Fix */
 ckonga2
 ckonga3
+cclimber // parent
 cclimbrm	/* Tim Arcadecollecting Modded Version */
 
 	/* centiped */
@@ -138,7 +139,6 @@ sf2			// parent
 sf2ce		// parent
 slammast	// parent
 strider		// parent
-varth		// parent
 wof			// parent
 
 	/* cps1mis */
@@ -292,7 +292,7 @@ vampjb
 
 	/* cps3 */
 redearth	// parent
-redeartn	// no-cd version - needs correct bios
+redeartn	// no-cd version
 sfiii3		// parent
 sfiii3an	// hack
 sfiii4rd	// hack
@@ -330,12 +330,10 @@ exriongr	/* Vag @ GreekRoms 2004 */
 
 	/* fcrash */
 fcrash
+captcommb2
 ffightbl
 ffightbla
 kodb
-varthb		// from mame+
-// from mame+ to be checked
-captcommb2
 
 	/* galaga */
 galaga
@@ -622,10 +620,12 @@ kof97zm
 
 	/* kof98 */
 kof98aas
-//kof98ae //black splashes all over fight scene where cars speed past
-kof98ae0
-kof98ae1
-kof98ae2
+//kof98ae //test only, do not enable
+kof98ae0 //black splashes all over fight scene where cars speed past
+kof98ae1 //black splashes all over fight scene where cars speed past
+kof98ae2 //black splashes all over fight scene where cars speed past
+kof98ae3 //black splashes all over fight scene where cars speed past
+kof98ae20160308 //black splashes all over fight scene where cars speed past
 kof98b
 kof98bh
 kof98c2006
@@ -755,6 +755,9 @@ kof99ae20140624
 kof99ae20150121
 kof99ae20150520
 kof99ae20150711
+kof99ae20160411
+kof99ae20160419
+kof99aes
 kof99bh
 kof99bhs
 kof99bs
@@ -825,6 +828,7 @@ kof99sr
 kof99srr
 kof99the4
 kof99the42
+//kof99vor // corrupt gfx
 kof99wet
 kof99wh1
 kof99wh2
@@ -840,6 +844,7 @@ kof99yd
 
 	/* kof2000 */
 kof2000d
+kof2000ev
 kof2000r
 kof2kbh
 kof2kbj
@@ -968,6 +973,7 @@ kof2k1z2
 //kf2k1pls
 
 	/* kof2002 */
+kof200215
 kof2002d
 kof2002x
 kof2k2ath
@@ -1146,6 +1152,7 @@ bace		/* Widel's Games */
 crashh		/* PacMAME Hacks */
 dderby		/* Widel's Games */
 eyesb
+ghohunt		// Hurray Banana
 kangaroh	/* Widel's Games */
 lazybug
 lazybug1
@@ -1290,7 +1297,6 @@ mslugxp
 mslugxr
 mslugxst
 mslug3d
-mslug3d1
 mslug3eha
 mslug3ehs
 mslug3e02
@@ -1317,8 +1323,10 @@ mslug3e22
 mslug3eb
 mslug3fr
 mslug3fro
+mslug3hev
 mslug3kh
 mslug3kho
+mslug3nd
 mslug3v		/* EEZEZY Violence Edition */
 mslug4d
 mslug4dh	/* Super D version */
@@ -1335,17 +1343,23 @@ mslug4i
 mslug4i1
 mslug4kh
 mslug4nd
+mslug4sp
 mslug5b
 mslug5d
 mslug5d1
+mslug5f
 mslug5fr
 mslug5fr1
 mslug5hd
 mslug5l9a
 mslug5l9b
+mslug5lvf
+mslug5lvnc
 mslug5nd
+mslug5w
 ms5boot
 ms5pcbd
+ms5sp
 
 	/* mspacman */
 mspacman	/* (c) 1981 Midway */ /* made by Gencomp */
@@ -1689,6 +1703,7 @@ neo2500		/* Blastar */
 neo3d		// Oxygene
 neocstlv	// BarfHappy
 neodemo		/* Charles Doty */
+neofight	// Kannagi
 neogal1		// BEY
 neogal1d	// BEY
 neogal1t	// BEY
@@ -2034,6 +2049,7 @@ sengoku3yk
 	/* ngsvc */
 svcd
 svcd1
+svcesv
 svch
 svcnd
 svcpcbd

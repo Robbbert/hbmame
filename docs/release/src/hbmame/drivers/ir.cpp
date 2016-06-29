@@ -48,8 +48,7 @@
     Notes about colour proms:
 
     1. The proms from sets 'invrvnga' and 'invrvng3' are the correct ones. The prom
-       from 'invrvng3' is used for the other sets, as their proms haven't shown up
-           yet.
+       from 'invrvng3' is used for the other sets, as their proms haven't shown up yet.
 
     2. Real name for 'invrvnga' prom is '3r.bin' ; for 'invrvng3' is 'ir.clr'.
 
@@ -101,9 +100,9 @@ public:
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
-	DECLARE_READ8_MEMBER(invrvnge_02_r);
-	DECLARE_WRITE8_MEMBER(invrvnge_03_w);
-	DECLARE_WRITE8_MEMBER(invrvnge_05_w);
+	DECLARE_READ8_MEMBER(port02_r);
+	DECLARE_WRITE8_MEMBER(port03_w);
+	DECLARE_WRITE8_MEMBER(port05_w);
 	DECLARE_MACHINE_START(ir);
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
@@ -127,7 +126,7 @@ private:
 };
 
 
-READ8_MEMBER(ir_state::invrvnge_02_r)
+READ8_MEMBER(ir_state::port02_r)
 {
 	UINT8 data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
@@ -144,11 +143,11 @@ ADDRESS_MAP_END
 static ADDRESS_MAP_START( invrvnge_io_map, AS_IO, 8, ir_state )
 	AM_RANGE(0x00, 0x00) AM_READ_PORT("IN0")
 	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
-	AM_RANGE(0x02, 0x02) AM_READ(invrvnge_02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
-	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(invrvnge_03_w)
+	AM_RANGE(0x02, 0x02) AM_READ(port02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
+	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(port03_w)
 	AM_RANGE(0x04, 0x04) AM_DEVWRITE("mb14241", mb14241_device, shift_data_w)
-	AM_RANGE(0x05, 0x05) AM_WRITE(invrvnge_05_w)
-	//AM_RANGE(0x06, 0x06) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x05, 0x05) AM_WRITE(port05_w)
+	AM_RANGE(0x06, 0x06) AM_WRITENOP //(watchdog_reset_w)
 ADDRESS_MAP_END
 
 //static ADDRESS_MAP_START( invrvnge_sound_map, AS_PROGRAM, 8, ir_state )
@@ -161,7 +160,7 @@ static INPUT_PORTS_START( ir )
 	PORT_START("IN0")
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_DIPNAME( 0x06, 0x00, DEF_STR( Difficulty ) )       PORT_DIPLOCATION("SW1:5,6")
-	PORT_DIPSETTING(    0x00, DEF_STR( Easy ) )	// [code: 0x3b1-3b5]
+	PORT_DIPSETTING(    0x00, DEF_STR( Easy ) ) // [code: 0x3b1-3b5]
 	PORT_DIPSETTING(    0x02, DEF_STR( Hard ) )
 	PORT_DIPSETTING(    0x04, DEF_STR( Harder ) )
 	PORT_DIPSETTING(    0x06, DEF_STR( Hardest ) )
@@ -172,7 +171,7 @@ static INPUT_PORTS_START( ir )
 	PORT_DIPNAME( 0x80, 0x80, "Fuel Destroyed by Comet" )   PORT_DIPLOCATION("SW1:7")
 	PORT_DIPSETTING(    0x00, "3" )
 	PORT_DIPSETTING(    0x80, "6" )
-	//PORT_DIPNAME( 0x80, 0x00, "Fuel Usage" )	// [code: 0x1cb0-1cb6]
+	//PORT_DIPNAME( 0x80, 0x00, "Fuel Usage" ) // [code: 0x1cb0-1cb6]
 	//PORT_DIPSETTING(    0x80, "Fast" )
 	//PORT_DIPSETTING(    0x00, "Slow" )
 
@@ -184,7 +183,7 @@ static INPUT_PORTS_START( ir )
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT  ) PORT_2WAY
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_2WAY
-	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNUSED )	// [code: 0x750-75B] causes this switch to be ineffective
+	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNUSED ) // [code: 0x750-75B] causes this switch to be ineffective
 
 	PORT_START("IN2")
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )            PORT_DIPLOCATION("SW1:1,2")
@@ -194,7 +193,7 @@ static INPUT_PORTS_START( ir )
 	PORT_DIPSETTING(    0x03, "6" )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_TILT )
 	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Bonus_Life ) )       PORT_DIPLOCATION("SW1:4")
-	PORT_DIPSETTING(    0x00, "1500" )	// [code: 0x3b9-3c9]
+	PORT_DIPSETTING(    0x00, "1500" ) // [code: 0x3b9-3c9]
 	PORT_DIPSETTING(    0x08, "2000" )
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT  ) PORT_2WAY PORT_PLAYER(2)
@@ -337,7 +336,7 @@ static const char *const ir_sample_names[] =
 /* Player 1 start sequence: 0x0c, 0x20, 0x22.                                        */
 /* Unknown codes: 0x0A, 0x0c                                                         */
 /*************************************************************************************/
-WRITE8_MEMBER(ir_state::invrvnge_03_w)
+WRITE8_MEMBER(ir_state::port03_w)
 {
 	switch (data)
 	{
@@ -425,7 +424,7 @@ WRITE8_MEMBER(ir_state::invrvnge_03_w)
 			break;
 
 		case 0x4c:
-			m_samples->stop(0);	// using this to stop sound if game tilted
+			m_samples->stop(0); // using this to stop sound if game tilted
 		case 0x01: /* These 3 play at boot time */
 		case 0x40: /* no idea if they are actual sounds */
 		case 0x44:
@@ -439,7 +438,7 @@ WRITE8_MEMBER(ir_state::invrvnge_03_w)
 	}
 }
 
-WRITE8_MEMBER(ir_state::invrvnge_05_w)
+WRITE8_MEMBER(ir_state::port05_w)
 {
 /*
     00 - normal play

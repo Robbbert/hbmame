@@ -389,7 +389,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 	else
 	{
 		fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".7z";
-		ziperr = util::archive_file::open_zip(fname, zip);
+		ziperr = util::archive_file::open_7z(fname, zip);
 
 		if (ziperr == util::archive_file::error::NONE)
 		{

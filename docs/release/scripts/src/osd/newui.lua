@@ -130,7 +130,6 @@ project ("osd_" .. _OPTIONS["osd"])
 	}
 
 	files {
-		MAME_DIR .. "src/osd/modules/render/d3d/d3d9intf.cpp",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dintf.h",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.cpp",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dcomm.h",
@@ -225,7 +224,6 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/strconv.cpp",
 		MAME_DIR .. "src/osd/strconv.h",
 		MAME_DIR .. "src/osd/windows/main.cpp",
-		MAME_DIR .. "src/osd/windows/windir.cpp",
 		MAME_DIR .. "src/osd/osdsync.cpp",
 		MAME_DIR .. "src/osd/osdsync.h",
 		MAME_DIR .. "src/osd/windows/winutf8.cpp",
@@ -234,6 +232,7 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/windows/winutil.h",
 		MAME_DIR .. "src/osd/modules/osdmodule.cpp",
 		MAME_DIR .. "src/osd/modules/osdmodule.h",
+		MAME_DIR .. "src/osd/modules/file/windir.cpp",
 		MAME_DIR .. "src/osd/modules/file/winfile.cpp",
 		MAME_DIR .. "src/osd/modules/file/winfile.h",
 		MAME_DIR .. "src/osd/modules/file/winptty.cpp",

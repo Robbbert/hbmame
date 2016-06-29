@@ -9,6 +9,7 @@
 
 #include "machine/upd1990a.h"
 #include "machine/ng_memcard.h"
+#include "machine/gen_latch.h"
 #include "video/neogeo_spr.h"
 #include "bus/neogeo/neogeo_slot.h"
 #include "bus/neogeo/neogeo_carts.h"
@@ -56,6 +57,8 @@ public:
 		m_ctrl1(*this, "ctrl1"),
 		m_ctrl2(*this, "ctrl2"),
 		m_sprgen(*this, "spritegen"),
+		m_soundlatch(*this, "soundlatch"),
+		m_soundlatch2(*this, "soundlatch2"),
 		m_use_cart_vectors(0),
 		m_use_cart_audio(0),
 		m_cartslot1(*this, "cartslot1"),
@@ -198,6 +201,8 @@ protected:
 	UINT8      m_raster_level;
 
 	required_device<neosprite_optimized_device> m_sprgen;
+	optional_device<generic_latch_8_device> m_soundlatch;
+	optional_device<generic_latch_8_device> m_soundlatch2;
 	UINT16 get_video_control(  );
 
 	// color/palette related

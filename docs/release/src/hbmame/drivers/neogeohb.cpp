@@ -109,9 +109,9 @@ NUM YEAR COMPANY          TITLE
 334*2002 ADK              Dance RhythMIX
 335*2002 ADK              World Heroes 3
 336      Face             Dragon's Heaven
-337*2000 Vektorlogic      Neo Sparks (cancelled?)
+337*2000 Vektorlogic      Neo Sparks (cancelled)
 338 2004 Vektorlogic      Super Bubble Pop
-339*     Vektorlogic      TommyK (cancelled?)
+339*     Vektorlogic      TommyK (cancelled)
 350*                      Neo Dev Cart
 351*                      MVS Test Cart
 360 2003 PhenixSoft       Crouching Tiger Hidden Dragon (hack of kof2001) (original number 5003)
@@ -204,7 +204,8 @@ NUM YEAR COMPANY                 TITLE
 472 2015 freem                   ADPCM-A Playback Demo
 473 2015 blastar                 Twister in a mirror intro
 474 2015 freem                   Sound-Loop Demo
-475 2016 kannagi                 Sprite Demo
+475 2016 kannagi                 Ennemi Sprite Demo
+476 2015 kannagi                 Neo Fight
 
 
 ********************** 800 to 899 **********************************
@@ -1563,6 +1564,24 @@ ROM_START( ennemi )
 	ROM_LOAD16_BYTE( "475.c2",    0x000001, 0x200000, CRC(319b0d51) SHA1(f57b4b3c96d94a6887f9e02e53af8eaef59d617a) )
 ROM_END
 
+// 476 : Neo Fight by Kannagi (14-12-2015)
+// Arrows to move fighter around. A = kick; B = punch; C & D slide background left & right. No sound.
+ROM_START( neofight )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "476.p1", 0x000000, 0x080000, CRC(b0eb16a0) SHA1(136b1cb9b9daf1b8563c66002d07bb5128d41061) )
+
+	NEO_SFIX_128K( "052-s1.s1", CRC(97689804) SHA1(fa8dab3b3353d7115a0368f3fc749950c0186fbc) )
+
+	NEO_BIOS_AUDIO_128K( "052-m1.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "052-v1.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "476.c1",    0x000000, 0x200000, CRC(99fda4d5) SHA1(c5ff1b724a8cbc209c47eb4fb1eca4f0b76aad5c) )
+	ROM_LOAD16_BYTE( "476.c2",    0x000001, 0x200000, CRC(2e48378a) SHA1(80389cfc420b2e7c5f50c809995a3298a57c697f) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -1671,6 +1690,7 @@ GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, neofight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neo Fight", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, neogal1,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, neogal1d,     neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (debug)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, neogal1t,     neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (text)", MACHINE_SUPPORTS_SAVE )

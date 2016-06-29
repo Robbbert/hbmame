@@ -9,7 +9,6 @@
 extern const DWORD dwHelpIDs[] =
 {
 	IDC_ADSTICK                   ,HIDC_ADSTICK,
-	IDC_ANTIALIAS                 ,HIDC_ANTIALIAS,
 	IDC_ARTWORK_CROP              ,HIDC_ARTWORK_CROP,
 	IDC_ASPECT                    ,HIDC_ASPECT,
 	IDC_ASPECTRATIOD              ,HIDC_ASPECTRATIOD,

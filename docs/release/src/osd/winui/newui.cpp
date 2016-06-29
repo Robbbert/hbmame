@@ -2018,7 +2018,7 @@ static BOOL win_file_dialog(running_machine &machine,
 //============================================================
 //  input_item_from_serial_number
 //============================================================
-
+#if 0
 static int input_item_from_serial_number(running_machine &machine, int serial_number,
 	ioport_port **port, ioport_field **field, ioport_setting **setting)
 {
@@ -2050,7 +2050,7 @@ static int input_item_from_serial_number(running_machine &machine, int serial_nu
 
 	return (i == serial_number);
 }
-
+#endif
 
 
 //============================================================
@@ -2060,8 +2060,6 @@ static int input_item_from_serial_number(running_machine &machine, int serial_nu
 static void customise_input(running_machine &machine, HWND wnd, const char *title, int player, int inputclass)
 {
 	dialog_box *dlg;
-	ioport_port *port;
-	ioport_field *field;
 	int this_inputclass = 0;
 	int this_player = 0, portslot_count = 0, i = 0;
 	const int max_portslots = 256;
@@ -2076,17 +2074,17 @@ static void customise_input(running_machine &machine, HWND wnd, const char *titl
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().ports().first(); port; port = port->next())
+	for (auto &port : machine.ioport().ports())
 	{
-		for (field = port->fields().first(); field; field = field->next())
+		for (ioport_field &field : port.second->fields())
 		{
 			/* add if we match the group and we have a valid name */
-			const char *name = field->name();
-			this_inputclass = field->type_class();
-			this_player = field->player();
+			const char *name = field.name();
+			this_inputclass = field.type_class();
+			this_player = field.player();
 
 			if ((name)
-			&& (field->enabled())
+			&& (field.enabled())
 //check me		&& ((field->type() == IPT_OTHER && field->name()) || (machine.ioport().type_group(field->type(), field->player()) != IPG_INVALID))
 			&& (this_player == player)
 			&& (this_inputclass == inputclass))
@@ -2096,7 +2094,7 @@ static void customise_input(running_machine &machine, HWND wnd, const char *titl
 				 * want to reorder the tab order */
 				if (portslot_count < max_portslots)
 				{
-					portslots[portslot_count].field = field;
+					portslots[portslot_count].field = &field;
 					portslot_count++;
 				}
 			}
@@ -2166,21 +2164,19 @@ static void customise_keyboard(running_machine &machine, HWND wnd)
 
 static bool check_for_miscinput(running_machine &machine)
 {
-	ioport_port *port;
-	ioport_field *field;
 	int this_inputclass = 0;
 
-	for (port = machine.ioport().ports().first(); port; port = port->next())
+	for (auto &port : machine.ioport().ports())
 	{
-		for (field = port->fields().first(); field; field = field->next())
+		for (ioport_field &field : port.second->fields())
 		{
-			const char *name = field->name();
-			this_inputclass = field->type_class();
+			const char *name = field.name();
+			this_inputclass = field.type_class();
 
 			/* add if we match the group and we have a valid name */
 			if ((name)
-			&& (field->enabled())
-			&& ((field->type() == IPT_OTHER && field->name()) || (machine.ioport().type_group(field->type(), field->player()) != IPG_INVALID))
+			&& (field.enabled())
+			&& ((field.type() == IPT_OTHER && field.name()) || (machine.ioport().type_group(field.type(), field.player()) != IPG_INVALID))
 			&& (this_inputclass != INPUT_CLASS_CONTROLLER)
 			&& (this_inputclass != INPUT_CLASS_KEYBOARD))
 			{
@@ -2200,8 +2196,6 @@ static bool check_for_miscinput(running_machine &machine)
 static void customise_miscinput(running_machine &machine, HWND wnd)
 {
 	dialog_box *dlg;
-	ioport_port *port;
-	ioport_field *field;
 	int this_inputclass = 0;
 	int portslot_count = 0, i = 0;
 	const int max_portslots = 256;
@@ -2217,17 +2211,17 @@ static void customise_miscinput(running_machine &machine, HWND wnd)
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().ports().first(); port; port = port->next())
+	for (auto &port : machine.ioport().ports())
 	{
-		for (field = port->fields().first(); field; field = field->next())
+		for (ioport_field &field : port.second->fields())
 		{
-			const char *name = field->name();
-			this_inputclass = field->type_class();
+			const char *name = field.name();
+			this_inputclass = field.type_class();
 
 			/* add if we match the group and we have a valid name */
 			if ((name)
-			&& (field->enabled())
-			&& ((field->type() == IPT_OTHER && field->name()) || (machine.ioport().type_group(field->type(), field->player()) != IPG_INVALID))
+			&& (field.enabled())
+			&& ((field.type() == IPT_OTHER && field.name()) || (machine.ioport().type_group(field.type(), field.player()) != IPG_INVALID))
 			&& (this_inputclass != INPUT_CLASS_CONTROLLER)
 			&& (this_inputclass != INPUT_CLASS_KEYBOARD))
 			{
@@ -2236,7 +2230,7 @@ static void customise_miscinput(running_machine &machine, HWND wnd)
 					 * want to reorder the tab order */
 				if (portslot_count < max_portslots)
 				{
-					portslots[portslot_count].field = field;
+					portslots[portslot_count].field = &field;
 					portslot_count++;
 				}
 			}
@@ -2293,8 +2287,7 @@ static void storeval_inputport(void *param, int val)
 static void customise_switches(running_machine &machine, HWND wnd, const char* title_string, UINT32 ipt_name)
 {
 	dialog_box *dlg;
-	ioport_port *port;
-	ioport_field *field;
+	ioport_field *afield;
 	ioport_setting *setting;
 	const char *switch_name = NULL;
 	ioport_field::user_settings settings;
@@ -2305,22 +2298,22 @@ static void customise_switches(running_machine &machine, HWND wnd, const char* t
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().ports().first(); port; port = port->next())
+	for (auto &port : machine.ioport().ports())
 	{
-		for (field = port->fields().first(); field; field = field->next())
+		for (ioport_field &field : port.second->fields())
 		{
-			type = field->type();
+			type = field.type();
 
 			if (type == ipt_name)
 			{
-				switch_name = field->name();
+				switch_name = field.name();
 
-				field->get_user_settings(settings);
-
-				if (win_dialog_add_combobox(dlg, switch_name, settings.value, storeval_inputport, (void *) field))
+				field.get_user_settings(settings);
+				afield = &field;
+				if (win_dialog_add_combobox(dlg, switch_name, settings.value, storeval_inputport, (void *) afield))
 					goto done;
 
-				for (setting = field->settings().first(); setting; setting = setting->next())
+				for (setting = field.settings().first(); setting; setting = setting->next())
 				{
 					if (win_dialog_add_combobox_item(dlg, setting->name(), setting->value()))
 						goto done;
@@ -2434,9 +2427,8 @@ static int port_type_is_analog(int type)
 static void customise_analogcontrols(running_machine &machine, HWND wnd)
 {
 	dialog_box *dlg;
-	ioport_port *port;
-	ioport_field *field;
 	ioport_field::user_settings settings;
+	ioport_field *afield;
 	const char *name;
 	char buf[255];
 	static const struct dialog_layout layout = { 120, 52 };
@@ -2445,28 +2437,29 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 	if (!dlg)
 		return;
 
-	for (port = machine.ioport().ports().first(); port; port = port->next())
+	for (auto &port : machine.ioport().ports())
 	{
-		for (field = port->fields().first(); field; field = field->next())
+		for (ioport_field &field : port.second->fields())
 		{
-			if (port_type_is_analog(field->type()))
+			if (port_type_is_analog(field.type()))
 			{
-				field->get_user_settings(settings);
-				name = field->name();
+				field.get_user_settings(settings);
+				name = field.name();
+				afield = &field;
 
 				_snprintf(buf, ARRAY_LENGTH(buf),
 					"%s %s", name, "Digital Speed");
-				if (win_dialog_add_adjuster(dlg, buf, settings.delta, 1, 255, FALSE, store_delta, (void *) field))
+				if (win_dialog_add_adjuster(dlg, buf, settings.delta, 1, 255, FALSE, store_delta, (void *) afield))
 					goto done;
 
 				_snprintf(buf, ARRAY_LENGTH(buf),
 					"%s %s", name, "Autocenter Speed");
-				if (win_dialog_add_adjuster(dlg, buf, settings.centerdelta, 1, 255, FALSE, store_centerdelta, (void *) field))
+				if (win_dialog_add_adjuster(dlg, buf, settings.centerdelta, 1, 255, FALSE, store_centerdelta, (void *) afield))
 					goto done;
 
 				_snprintf(buf, ARRAY_LENGTH(buf),
 					"%s %s", name, "Reverse");
-				if (win_dialog_add_combobox(dlg, buf, settings.reverse ? 1 : 0, store_reverse, (void *) field))
+				if (win_dialog_add_combobox(dlg, buf, settings.reverse ? 1 : 0, store_reverse, (void *) afield))
 					goto done;
 				if (win_dialog_add_combobox_item(dlg, "Off", 0))
 					goto done;
@@ -2475,7 +2468,7 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 
 				_snprintf(buf, ARRAY_LENGTH(buf),
 					"%s %s", name, "Sensitivity");
-				if (win_dialog_add_adjuster(dlg, buf, settings.sensitivity, 1, 255, TRUE, store_sensitivity, (void *) field))
+				if (win_dialog_add_adjuster(dlg, buf, settings.sensitivity, 1, 255, TRUE, store_sensitivity, (void *) afield))
 					goto done;
 			}
 		}
@@ -2712,11 +2705,10 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	struct file_dialog_params *params;
 	struct storeval_optres_params *storeval_params;
 	static const struct dialog_layout filedialog_layout = { 44, 220 };
-	const image_device_format *format;
 
 	// make the filter
 	pos = 0;
-	for (format = dev->formatlist().first(); format; format = format->next())
+	for (auto &format : dev->formatlist())
 		pos += add_filter_entry(filter + pos, filter_len - pos, format->description(), format->extensions());
 
 	// create the dialog
@@ -2741,7 +2733,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	{
 		// make sure that this entry is present on at least one option specification
 		found = FALSE;
-		for (format = dev->formatlist().first(); format; format = format->next())
+		for (auto &format : dev->formatlist())
 		{
 			if (option_resolution_contains(format->optspec(), guide_entry->parameter))
 			{
@@ -2936,7 +2928,7 @@ static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 	// add custom dialog elements, if appropriate
 	if (is_save
 		&& (image->device_get_creation_option_guide())
-		&& (image->formatlist().first()))
+		&& (image->formatlist().front()))
 	{
 		dialog = build_option_dialog(image, filter, ARRAY_LENGTH(filter), &create_format, &create_args);
 		if (!dialog)
@@ -3182,8 +3174,6 @@ static void prepare_menus(HWND wnd)
 	UINT flags_for_exists = 0;
 	UINT flags_for_writing = 0;
 	bool has_config = 0, has_dipswitch = 0, has_keyboard = 0, has_misc = 0, has_analog = 0;
-	ioport_port *port;
-	ioport_field *field;
 	int frameskip = 0;
 	int orientation = 0;
 	int speed = 0;
@@ -3215,11 +3205,11 @@ static void prepare_menus(HWND wnd)
 	has_misc	= check_for_miscinput(window->machine());
 
 	has_analog = 0;
-	for (port = window->machine().ioport().ports().first(); port; port = port->next())
+	for (auto &port : window->machine().ioport().ports())
 	{
-		for (field = port->fields().first(); field; field = field->next())
+		for (ioport_field &field : port.second->fields())
 		{
-			if (port_type_is_analog(field->type()))
+			if (port_type_is_analog(field.type()))
 			{
 				has_analog = 1;
 				break;
@@ -3370,7 +3360,7 @@ static void win_toggle_menubar(void)
 	HWND hwnd = 0;
 	HMENU menu = 0;
 
-	for (auto window : win_window_list)
+	for (auto window : osd_common_t::s_window_list)
 	{
 		RECT before_rect = { 100, 100, 200, 200 };
 		RECT after_rect = { 100, 100, 200, 200 };
@@ -3521,7 +3511,7 @@ static void help_about_mess(HWND wnd)
 {
 	//help_display(wnd, "mess.chm::/windows/main.htm"); //doesnt do anything
 	//help_display(wnd, "mess.chm");
-	help_display(wnd, "http://www.mess.org/");
+	help_display(wnd, "http://mamedev.org/");
 }
 
 
@@ -3601,8 +3591,6 @@ static int invoke_command(HWND wnd, UINT command)
 	int handled = 1;
 	int dev_command = 0;
 	device_image_interface *img;
-	ioport_field *field;
-	ioport_setting *setting;
 	LONG_PTR ptr = GetWindowLongPtr(wnd, GWLP_USERDATA);
 	win_window_info *window = (win_window_info *)ptr;
 	ioport_field::user_settings settings;
@@ -3784,10 +3772,10 @@ static int invoke_command(HWND wnd, UINT command)
 				window->m_target->set_view(command - ID_VIDEO_VIEW_0);
 				window->update(); // actually change window size
 			}
-			else
-			if (input_item_from_serial_number(window->machine(), command - ID_INPUT_0, NULL, &field, &setting))
+//			else
+//			if (input_item_from_serial_number(window->machine(), command - ID_INPUT_0, NULL, &field, &setting))
 				// should never happen
-				handled = 0;
+//				handled = 0;
 			else
 				// bogus command
 				handled = 0;

@@ -576,6 +576,19 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/bus/electron/exp.h,BUSES["ELECTRON"] = true
+---------------------------------------------------
+
+if (BUSES["ELECTRON"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/electron/exp.cpp",
+		MAME_DIR .. "src/devices/bus/electron/exp.h",
+	}
+end
+
+
+---------------------------------------------------
+--
 --@src/devices/bus/ep64/exp.h,BUSES["EP64"] = true
 ---------------------------------------------------
 
@@ -1047,6 +1060,8 @@ if (BUSES["PET"]~=null) then
 		MAME_DIR .. "src/devices/bus/pet/petuja.h",
 		MAME_DIR .. "src/devices/bus/pet/cb2snd.cpp",
 		MAME_DIR .. "src/devices/bus/pet/cb2snd.h",
+		MAME_DIR .. "src/devices/bus/pet/2joysnd.h",
+		MAME_DIR .. "src/devices/bus/pet/2joysnd.cpp",
 	}
 end
 
@@ -1071,6 +1086,23 @@ if (BUSES["PLUS4"]~=null) then
 		MAME_DIR .. "src/devices/bus/plus4/user.h",
 		MAME_DIR .. "src/devices/bus/plus4/diag264_lb_user.cpp",
 		MAME_DIR .. "src/devices/bus/plus4/diag264_lb_user.h",
+	}
+end
+
+
+---------------------------------------------------
+--
+--@src/devices/bus/pofo/exp.h,BUSES["POFO"] = true
+---------------------------------------------------
+
+if (BUSES["POFO"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/pofo/exp.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/exp.h",
+		MAME_DIR .. "src/devices/bus/pofo/hpc101.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/hpc101.h",
+		MAME_DIR .. "src/devices/bus/pofo/hpc102.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/hpc102.h",
 	}
 end
 
@@ -2039,6 +2071,22 @@ if (BUSES["SEGA8"]~=null) then
 		MAME_DIR .. "src/devices/bus/sega8/ccatch.h",
 		MAME_DIR .. "src/devices/bus/sega8/mgear.cpp",
 		MAME_DIR .. "src/devices/bus/sega8/mgear.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/bus/sg1000_exp/sg1000exp.h,BUSES["SG1000_EXP"] = true
+---------------------------------------------------
+
+if (BUSES["SG1000_EXP"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/sg1000_exp/sg1000exp.cpp",
+		MAME_DIR .. "src/devices/bus/sg1000_exp/sg1000exp.h",
+		MAME_DIR .. "src/devices/bus/sg1000_exp/sk1100.cpp",
+		MAME_DIR .. "src/devices/bus/sg1000_exp/sk1100.h",
+		MAME_DIR .. "src/devices/bus/sg1000_exp/fm_unit.cpp",
+		MAME_DIR .. "src/devices/bus/sg1000_exp/fm_unit.h",
 	}
 end
 

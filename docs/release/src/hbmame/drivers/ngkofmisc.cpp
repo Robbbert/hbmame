@@ -19,6 +19,13 @@ static MACHINE_CONFIG_DERIVED_CLASS( hbmame_kog, neogeo_arcade, neogeo_hbmame )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 	MCFG_KOG_PROT_ADD("kog_prot")
+
+	//joystick controller
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+
+	//no mahjong controller
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
 MACHINE_CONFIG_END
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kogd )

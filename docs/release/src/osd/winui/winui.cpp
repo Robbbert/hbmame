@@ -855,11 +855,11 @@ public:
 			char buffer[1024];
 
 			// if we are in fullscreen mode, go to windowed mode
-			if ((video_config.windowed == 0) && !win_window_list.empty())
+			if ((video_config.windowed == 0) && !osd_common_t::s_window_list.empty())
 				winwindow_toggle_full_screen();
 
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
-			win_message_box_utf8(!win_window_list.empty() ? win_window_list.front()->platform_window<HWND>() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
+			win_message_box_utf8(!osd_common_t::s_window_list.empty() ? osd_common_t::s_window_list.front()->platform_window<HWND>() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
 		}
 		else
 			chain_output(channel, msg, args);
@@ -1213,7 +1213,7 @@ HICON LoadIconFromFile(const char *iconname)
 				sprintf(tmpStr, "%s/icons.7z", GetIconsDir());
 				sprintf(tmpIcoName, "%s.ico", iconname);
 
-				ziperr = util::archive_file::open_zip(tmpStr, zip);
+				ziperr = util::archive_file::open_7z(tmpStr, zip);
 				if (ziperr == util::archive_file::error::NONE)
 				{
 					res = zip->search(tmpIcoName, false);
@@ -3261,10 +3261,10 @@ static int GUI_seq_pressed(const input_seq *seq)
 {
 	int codenum;
 	int res = 1;
-	int invert = 0;
+	bool invert = 0;
 	int count = 0;
 
-	for (codenum = 0; codenum < ARRAY_LENGTH(seq); codenum++)
+	for (codenum = 0; (*seq)[codenum] != input_seq::end_code; codenum++)
 	{
 		input_code code = (*seq)[codenum];
 

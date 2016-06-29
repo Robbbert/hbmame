@@ -132,12 +132,17 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
+//        MENUITEM "&Contents\tF1",               ID_HELP_CONTENTS
+//        MENUITEM "&Troubleshooting",            ID_HELP_TROUBLE
+//        MENUITEM SEPARATOR
+//        MENUITEM "&New Game Changes",           ID_HELP_WHATS_NEWUI
+//        MENUITEM "&Mame Release Notes",         ID_HELP_WHATS_NEW
+//        MENUITEM SEPARATOR
+//        MENUITEM "&About",                      ID_HELP_ABOUT
+//        MENUITEM "&Mess Release Notes",         ID_HELP_RELEASE
+        MENUITEM "What's New in MAME",          ID_HELP_WHATS_NEW
         MENUITEM "&Contents\tF1",               ID_HELP_CONTENTS
-        MENUITEM "&Troubleshooting",            ID_HELP_TROUBLE
-        MENUITEM SEPARATOR
-        MENUITEM "&New Game Changes",           ID_HELP_WHATS_NEWUI
-        MENUITEM "&Mame Release Notes",         ID_HELP_WHATS_NEW
-        MENUITEM SEPARATOR
+//        MENUITEM "&Troubleshooting",            ID_HELP_TROUBLE
         MENUITEM "&About",                      ID_HELP_ABOUT
     END
 END
@@ -389,7 +394,7 @@ BEGIN
     CTEXT           "Multiple Arcade Machine Emulator",IDC_STATIC,147,7,142,
                     11,NOT WS_GROUP
     CTEXT           "Version 0",IDC_VERSION,147,18,142,11,NOT WS_GROUP
-    CTEXT           "Copyright (C) 1997-2015 The MAME Team",IDC_STATIC,147,
+    CTEXT           "Copyright (C) 1997-2016 The MAME Team",IDC_STATIC,147,
                     29,142,10,NOT WS_GROUP
     CTEXT           "MAMEUI version by",IDC_STATIC,147,51,142,10,NOT 
                     WS_GROUP
@@ -660,8 +665,8 @@ BEGIN
 //    GROUPBOX        "Version",IDC_STATIC,119,150,90,28
 //    COMBOBOX        IDC_D3D_VERSION,125,160,78,95,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP,0,HIDC_D3D_VERSION
 
-    GROUPBOX        "DirectDraw",IDC_STATIC,113,187,102,26
-    CONTROL         "Stretch using hardware",IDC_HWSTRETCH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,119,197,85,10,0,HIDC_HWSTRETCH
+//    GROUPBOX        "DirectDraw",IDC_STATIC,113,187,102,26
+//    CONTROL         "Stretch using hardware",IDC_HWSTRETCH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,119,197,85,10,0,HIDC_HWSTRETCH
 
     PUSHBUTTON      "Reset",IDC_PROP_RESET,4,222,97,14,0,0,HIDC_PROP_RESET
     PUSHBUTTON      "Restore Default Settings",IDC_USE_DEFAULT,118,222,97,14,0,0,HIDC_USE_DEFAULT
@@ -835,6 +840,9 @@ BEGIN
                     WS_TABSTOP,10,40,86,10,0,HIDC_CHEAT
     CONTROL         "Sleep when possible",IDC_SLEEP,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,10,52,86,10,0,HIDC_SLEEP
+    CONTROL         "Skip game info",IDC_SKIP_GAME_INFO,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,64,96,10,0,
+                    HIDC_SKIP_GAME_INFO
     CONTROL         "Save game state on exit",IDC_ENABLE_AUTOSAVE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,10,76,96,10,0,
                     HIDC_ENABLE_AUTOSAVE
@@ -892,9 +900,9 @@ BEGIN
     ICON            IDI_MAMEUI_ICON,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,
                     SS_NOPREFIX
-    CONTROL         "Draw antialiased vectors",IDC_ANTIALIAS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,10,40,92,10,0,
-                    HIDC_ANTIALIAS
+//    CONTROL         "Draw antialiased vectors",IDC_ANTIALIAS,"Button",
+//                    BS_AUTOCHECKBOX | WS_TABSTOP,10,40,92,10,0,
+//                    HIDC_ANTIALIAS
     GROUPBOX        "Beam width",IDC_BEAMTEXT,60,53,100,28
     CONTROL         "BeamSlider",IDC_BEAM,"msctls_trackbar32",TBS_BOTH |
                     TBS_NOTICKS | WS_TABSTOP,66,65,64,10,0,HIDC_BEAM

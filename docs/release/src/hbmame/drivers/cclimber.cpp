@@ -23,7 +23,7 @@ INPUT_PORTS_START( ckonga4 )	/* two less lives than normal */
 INPUT_PORTS_END
 
 ROM_START( cclimbrm )
-	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
+	ROM_REGION( 0x6000, "maincpu", 0 )	/* 64k for code */
 	ROM_LOAD( "cc11m",         0x0000, 0x1000, CRC(a7d58b7e) SHA1(83a21b1a731895c84f1f3604f36b21b172bb144b) )
 	ROM_LOAD( "cc10",          0x1000, 0x1000, CRC(b3c26cef) SHA1(f52cb5482c12a9c5fb56e2e2aec7cab0ed23e5a5) )
 	ROM_LOAD( "cc09",          0x2000, 0x1000, CRC(6db0879c) SHA1(c0ba1976c1dcd6edadd78073173a26851ae8dd4f) )
@@ -175,8 +175,8 @@ ROM_START( tongypac )
 	ROM_LOAD( "ck12.bin",     0x1000, 0x1000, CRC(2eb23b60) SHA1(c9e7dc584562aceb374193655fbacb7df6c9c731) )
 ROM_END
 
-GAME( 1980, cclimbrm, 0,     cclimber, cclimber, cclimber_state, cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
-GAME( 1981, ckonga2,  ckong, cclimber, ckonga2,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -1", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, ckonga3,  ckong, cclimber, ckonga4,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -2", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, ckongfix, ckong, cclimber, ckong,    driver_device,  0,        ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, tongypac, ckong, cclimber, ckong,    driver_device,  0,        ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 1980, cclimbrm, cclimber, cclimberx, cclimber, cclimber_state, cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
+GAME( 1981, ckonga2,  ckong,    cclimber, ckonga2,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -1", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, ckonga3,  ckong,    cclimber, ckonga4,  driver_device,  0,        ROT270, "bootleg", "Crazy Kong Part II -2", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, ckongfix, ckong,    cclimber, ckong,    driver_device,  0,        ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, tongypac, ckong,    cclimber, ckong,    driver_device,  0,        ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )

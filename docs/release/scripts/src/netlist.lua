@@ -14,6 +14,11 @@ project "netlist"
 	kind (LIBTYPE)
 
 	addprojectflags()
+	
+	
+	defines {
+		"__STDC_CONSTANT_MACROS",
+	}
 
 	includedirs {
 		MAME_DIR .. "src/lib/netlist",
@@ -27,7 +32,6 @@ project "netlist"
 		MAME_DIR .. "src/lib/netlist/nl_dice_compat.h",
 		MAME_DIR .. "src/lib/netlist/nl_lists.h",
 		MAME_DIR .. "src/lib/netlist/nl_time.h",
-		MAME_DIR .. "src/lib/netlist/nl_util.h",
 		MAME_DIR .. "src/lib/netlist/nl_base.cpp",
 		MAME_DIR .. "src/lib/netlist/nl_base.h",
 		MAME_DIR .. "src/lib/netlist/nl_parser.cpp",
@@ -39,11 +43,14 @@ project "netlist"
 		MAME_DIR .. "src/lib/netlist/plib/pconfig.h",
 		MAME_DIR .. "src/lib/netlist/plib/palloc.cpp",
 		MAME_DIR .. "src/lib/netlist/plib/palloc.h",
+    MAME_DIR .. "src/lib/netlist/plib/pchrono.cpp",
+    MAME_DIR .. "src/lib/netlist/plib/pchrono.h",
 		MAME_DIR .. "src/lib/netlist/plib/pfmtlog.cpp",
 		MAME_DIR .. "src/lib/netlist/plib/pfmtlog.h",
 		MAME_DIR .. "src/lib/netlist/plib/plists.h",
     MAME_DIR .. "src/lib/netlist/plib/pdynlib.cpp",
     MAME_DIR .. "src/lib/netlist/plib/pdynlib.h",
+    MAME_DIR .. "src/lib/netlist/plib/poptions.cpp",
 		MAME_DIR .. "src/lib/netlist/plib/poptions.h",
 		MAME_DIR .. "src/lib/netlist/plib/pparser.cpp",
 		MAME_DIR .. "src/lib/netlist/plib/pparser.h",
@@ -56,6 +63,8 @@ project "netlist"
 		MAME_DIR .. "src/lib/netlist/plib/pstream.cpp",
 		MAME_DIR .. "src/lib/netlist/plib/pstream.h",
 		MAME_DIR .. "src/lib/netlist/plib/ptypes.h",
+    MAME_DIR .. "src/lib/netlist/plib/putil.cpp",
+    MAME_DIR .. "src/lib/netlist/plib/putil.h",
 		MAME_DIR .. "src/lib/netlist/tools/nl_convert.cpp",
 		MAME_DIR .. "src/lib/netlist/tools/nl_convert.h",
 		MAME_DIR .. "src/lib/netlist/analog/nld_bjt.cpp",
@@ -136,9 +145,10 @@ project "netlist"
 		MAME_DIR .. "src/lib/netlist/devices/nld_log.h",
 		MAME_DIR .. "src/lib/netlist/devices/nld_system.cpp",
 		MAME_DIR .. "src/lib/netlist/devices/nld_system.h",
-		MAME_DIR .. "src/lib/netlist/devices/nld_cmos.h",
 		MAME_DIR .. "src/lib/netlist/devices/nld_truthtable.cpp",
 		MAME_DIR .. "src/lib/netlist/devices/nld_truthtable.h",
+    MAME_DIR .. "src/lib/netlist/devices/nlid_cmos.h",
+    MAME_DIR .. "src/lib/netlist/devices/nlid_system.h",
 		MAME_DIR .. "src/lib/netlist/macro/nlm_ttl74xx.cpp",
 		MAME_DIR .. "src/lib/netlist/macro/nlm_ttl74xx.h",
 		MAME_DIR .. "src/lib/netlist/macro/nlm_cd4xxx.cpp",

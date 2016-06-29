@@ -2161,7 +2161,6 @@ static void BuildDataMap(void)
 	datamap_add(properties_datamap, IDC_PAUSEBRIGHTDISP,		DM_FLOAT,	OPTION_PAUSE_BRIGHTNESS);
 
 	// core vector options
-	datamap_add(properties_datamap, IDC_ANTIALIAS,				DM_BOOL,	OPTION_ANTIALIAS);
 	datamap_add(properties_datamap, IDC_BEAM,				DM_FLOAT,	OPTION_BEAM_WIDTH_MAX);
 	datamap_add(properties_datamap, IDC_BEAMDISP,				DM_FLOAT,	OPTION_BEAM_WIDTH_MAX);
 	datamap_add(properties_datamap, IDC_FLICKER,				DM_FLOAT,	OPTION_FLICKER);

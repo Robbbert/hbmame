@@ -8433,7 +8433,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,vliner)
 
 	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
 
-	m_maincpu->space(AS_PROGRAM).install_read_port(0x300000, 0x300001, 0, 0x01ff7e, "DSW");
+	m_maincpu->space(AS_PROGRAM).install_read_port(0x300000, 0x300001, 0x01ff7e, "DSW");
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x280000, 0x280001, "IN5");
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x2c0000, 0x2c0001, "IN6");
 
@@ -8696,7 +8696,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3upl) // copied to slot
 
 void neogeo_noslot_state::install_banked_bios()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc00000, 0xc1ffff, 0, 0x0e0000, "bankedbios");
+	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc00000, 0xc1ffff, 0x0e0000, "bankedbios");
 	membank("bankedbios")->configure_entries(0, 2, memregion("mainbios")->base(), 0x20000);
 	membank("bankedbios")->set_entry(1);
 }
@@ -8763,7 +8763,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3pcb)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
-	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0, 0x080000, memregion("mainbios")->base());  // 512k bios
+	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0x080000, memregion("mainbios")->base());  // 512k bios
 }
 
 
