@@ -1,27 +1,27 @@
 // For licensing and usage information, read docs/winui_license.txt
-//****************************************************************************
+//************************************************************************************************
 // MASTER
-//============================================================
 //
 //  newui.c - This is the NEWUI Windows dropdown menu system
 //
-//============================================================
+//  known bugs:
+//  -  Unable to modify keyboard or joystick. Last known to be working in 0.158 .
+//     Need to use the default UI.
+//
+//
+//************************************************************************************************
 
-// Needed for better file dialog
-//#ifdef _WIN32_WINNT
-//#undef _WIN32_WINNT
-//#endif // _WIN32_WINNT
-//#define _WIN32_WINNT 0x500
+// Set minimum windows version to XP
+#ifdef _WIN32_WINNT
+#undef _WIN32_WINNT
+#endif
+#define _WIN32_WINNT 0x501
 
 
 // standard windows headers
-#define WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN // leave out not-needed libraries
 #include "newui.h"
 
-// stupid hack; not sure why this is needed
-//#ifdef const
-//#undef const
-//#endif // const
 #include <shellapi.h>
 
 
@@ -35,17 +35,17 @@ typedef enum _win_file_dialog_type win_file_dialog_type;
 typedef struct _win_open_file_name win_open_file_name;
 struct _win_open_file_name
 {
-	win_file_dialog_type	type;			// type of file dialog
-	HWND			owner;			// owner of the dialog
-	HINSTANCE		instance;		// instance
-	const char *		filter;			// pipe char ("|") delimited strings
-	DWORD			filter_index;		// index into filter
-	char			filename[MAX_PATH];	// filename buffer
-	const char *		initial_directory;	// initial directory for dialog
-	DWORD			flags;			// standard flags
-	LPARAM			custom_data;		// custom data for dialog hook
-	LPOFNHOOKPROC		hook;			// custom dialog hook
-	LPCTSTR			template_name;		// custom dialog template
+	win_file_dialog_type  type;                 // type of file dialog
+	HWND                  owner;                // owner of the dialog
+	HINSTANCE             instance;             // instance
+	const char *          filter;               // pipe char ("|") delimited strings
+	DWORD                 filter_index;         // index into filter
+	char                  filename[MAX_PATH];   // filename buffer
+	const char *          initial_directory;    // initial directory for dialog
+	DWORD                 flags;                // standard flags
+	LPARAM                custom_data;          // custom data for dialog hook
+	LPOFNHOOKPROC         hook;                 // custom dialog hook
+	LPCTSTR               template_name;        // custom dialog template
 };
 
 
@@ -71,8 +71,8 @@ static const TCHAR guide_prop[] = TEXT("opcntrl_guide");
 static const TCHAR spec_prop[] = TEXT("opcntrl_optspec");
 static const TCHAR value_prop[] = TEXT("opcntrl_value");
 
-#define SEQWM_SETFOCUS	(WM_APP + 0)
-#define SEQWM_KILLFOCUS	(WM_APP + 1)
+#define SEQWM_SETFOCUS  (WM_APP + 0)
+#define SEQWM_KILLFOCUS (WM_APP + 1)
 
 enum
 {
@@ -152,39 +152,39 @@ struct _seqselect_info
 //  PARAMETERS
 //============================================================
 
-#define DIM_VERTICAL_SPACING	3
-#define DIM_HORIZONTAL_SPACING	5
-#define DIM_NORMAL_ROW_HEIGHT	10
-#define DIM_COMBO_ROW_HEIGHT	12
-#define DIM_SLIDER_ROW_HEIGHT	18
-#define DIM_BUTTON_ROW_HEIGHT	12
-#define DIM_EDIT_WIDTH		120
-#define DIM_BUTTON_WIDTH	50
-#define DIM_ADJUSTER_SCR_WIDTH	12
-#define DIM_ADJUSTER_HEIGHT	12
-#define DIM_SCROLLBAR_WIDTH	10
-#define DIM_BOX_VERTSKEW	-3
+#define DIM_VERTICAL_SPACING    3
+#define DIM_HORIZONTAL_SPACING  5
+#define DIM_NORMAL_ROW_HEIGHT   10
+#define DIM_COMBO_ROW_HEIGHT    12
+#define DIM_SLIDER_ROW_HEIGHT   18
+#define DIM_BUTTON_ROW_HEIGHT   12
+#define DIM_EDIT_WIDTH          120
+#define DIM_BUTTON_WIDTH        50
+#define DIM_ADJUSTER_SCR_WIDTH  12
+#define DIM_ADJUSTER_HEIGHT     12
+#define DIM_SCROLLBAR_WIDTH     10
+#define DIM_BOX_VERTSKEW        -3
 
-#define DLGITEM_BUTTON		((const WCHAR *) dlgitem_button)
-#define DLGITEM_EDIT		((const WCHAR *) dlgitem_edit)
-#define DLGITEM_STATIC		((const WCHAR *) dlgitem_static)
-#define DLGITEM_LISTBOX		((const WCHAR *) dlgitem_listbox)
-#define DLGITEM_SCROLLBAR	((const WCHAR *) dlgitem_scrollbar)
-#define DLGITEM_COMBOBOX	((const WCHAR *) dlgitem_combobox)
+#define DLGITEM_BUTTON          ((const WCHAR *) dlgitem_button)
+#define DLGITEM_EDIT            ((const WCHAR *) dlgitem_edit)
+#define DLGITEM_STATIC          ((const WCHAR *) dlgitem_static)
+#define DLGITEM_LISTBOX         ((const WCHAR *) dlgitem_listbox)
+#define DLGITEM_SCROLLBAR       ((const WCHAR *) dlgitem_scrollbar)
+#define DLGITEM_COMBOBOX        ((const WCHAR *) dlgitem_combobox)
 
-#define DLGTEXT_OK		"OK"
-#define DLGTEXT_APPLY		"Apply"
-#define DLGTEXT_CANCEL		"Cancel"
+#define DLGTEXT_OK              "OK"
+#define DLGTEXT_APPLY           "Apply"
+#define DLGTEXT_CANCEL          "Cancel"
 
-#define FONT_SIZE		8
-#define FONT_FACE		L"Arial"
+#define FONT_SIZE               8
+#define FONT_FACE               L"Arial"
 
-#define SCROLL_DELTA_LINE	10
-#define SCROLL_DELTA_PAGE	100
+#define SCROLL_DELTA_LINE       10
+#define SCROLL_DELTA_PAGE       100
 
-#define LOG_WINMSGS		0
-#define DIALOG_STYLE		WS_POPUP | WS_BORDER | WS_SYSMENU | DS_MODALFRAME | WS_CAPTION | DS_SETFONT
-#define MAX_DIALOG_HEIGHT	200
+#define LOG_WINMSGS             0
+#define DIALOG_STYLE            WS_POPUP | WS_BORDER | WS_SYSMENU | DS_MODALFRAME | WS_CAPTION | DS_SETFONT
+#define MAX_DIALOG_HEIGHT       200
 
 
 
@@ -211,8 +211,7 @@ static const WORD dlgitem_combobox[] = { 0xFFFF, 0x0085 };
 //============================================================
 
 static void dialog_prime(dialog_box *di);
-static int dialog_write_item(dialog_box *di, DWORD style, short x, short y,
-	 short width, short height, const char *str, const WCHAR *class_name, WORD *id);
+static int dialog_write_item(dialog_box *di, DWORD style, short x, short y, short width, short height, const char *str, const WCHAR *class_name, WORD *id);
 
 
 
@@ -223,7 +222,6 @@ static int dialog_write_item(dialog_box *di, DWORD style, short x, short y,
 #define ID_FRAMESKIP_0   10000
 #define ID_DEVICE_0      11000
 #define ID_JOYSTICK_0    12000
-#define ID_INPUT_0       13000
 #define ID_VIDEO_VIEW_0  14000
 #define MAX_JOYSTICKS    (8)
 
@@ -271,9 +269,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 {
 	BOOL result = FALSE;
 	BOOL dialog_result;
-	OSVERSIONINFO vers;
 	OPENFILENAME os_ofn;
-	DWORD os_ofn_size;
 	LPTSTR t_filter = NULL;
 	LPTSTR t_file = NULL;
 	DWORD t_file_size = 0;
@@ -281,21 +277,6 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 	LPTSTR buffer;
 	char *utf8_file;
 	int i;
-
-	// determine the version of Windows
-	memset(&vers, 0, sizeof(vers));
-	vers.dwOSVersionInfoSize = sizeof(vers);
-	GetVersionEx(&vers);
-
-	// based on the version of Windows, determine the correct struct size
-	if (vers.dwMajorVersion >= 5)
-		os_ofn_size = sizeof(os_ofn);
-	else
-#ifdef __GNUC__
-		os_ofn_size = 76;	// MinGW does not define OPENFILENAME_NT4
-#else
-		os_ofn_size = sizeof(OPENFILENAME_NT4);
-#endif
 
 	// do we have to translate the filter?
 	if (ofn->filter)
@@ -336,7 +317,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 
 	// translate our custom structure to a native Win32 structure
 	memset(&os_ofn, 0, sizeof(os_ofn));
-	os_ofn.lStructSize = os_ofn_size;
+	os_ofn.lStructSize = sizeof(OPENFILENAME);
 	os_ofn.hwndOwner = ofn->owner;
 	os_ofn.hInstance = ofn->instance;
 	os_ofn.lpstrFilter = t_filter;
@@ -637,8 +618,7 @@ static BOOL win_prepare_option_control(HWND control, const option_guide *guide, 
 
 	SetProp(control, guide_prop, (HANDLE) guide);
 	SetProp(control, spec_prop, (HANDLE) optspec);
-	GetClassName(control, class_name, sizeof(class_name)
-		/ sizeof(class_name[0]));
+	GetClassName(control, class_name, sizeof(class_name) / sizeof(class_name[0]));
 
 	if (!_tcsicmp(class_name, TEXT("ComboBox")))
 		rc = prepare_combobox(control, guide, optspec);
@@ -783,7 +763,6 @@ dialog_box *win_dialog_init(const char *title, const struct dialog_layout *layou
 	memset(di, 0, sizeof(*di));
 
 	di->layout = layout;
-	//di->mempool = pool_alloc_lib(NULL);
 
 	memset(&dlg_template, 0, sizeof(dlg_template));
 	dlg_template.style = di->style = DIALOG_STYLE;
@@ -844,8 +823,7 @@ static void calc_dlgunits_multiple(void)
 		if (!dialog)
 			goto done;
 
-		if (dialog_write_item(dialog, WS_CHILD | WS_VISIBLE | SS_LEFT,
-				0, 0, offset_x, offset_y, wnd_title, DLGITEM_STATIC, &id))
+		if (dialog_write_item(dialog, WS_CHILD | WS_VISIBLE | SS_LEFT, 0, 0, offset_x, offset_y, wnd_title, DLGITEM_STATIC, &id))
 			goto done;
 
 		dialog_prime(dialog);
@@ -916,12 +894,6 @@ static INT_PTR CALLBACK dialog_proc(HWND dlgwnd, UINT msg, WPARAM wparam, LPARAM
 	INT_PTR handled = TRUE;
 	CHAR buf[32];
 	WORD command;
-
-	//if (LOG_WINMSGS)
-	//{
-	//	logerror("dialog_proc(): dlgwnd=%p msg=0x%08x wparam=0x%08x lparam=0x%08x\n",
-	//		dlgwnd, (unsigned int) msg, (unsigned int) wparam, (unsigned int) lparam);
-	//}
 
 	switch(msg)
 	{
@@ -1052,8 +1024,6 @@ static int dialog_add_trigger(struct _dialog_box *di, WORD dialog_item,
 	assert(trigger_flags);
 
 	dialog_info_trigger *trigger = new(dialog_info_trigger);
-	//dialog_info_trigger *trigger;
-	//trigger = global_alloc(dialog_info_trigger);
 
 	trigger->next = NULL;
 	trigger->trigger_flags = trigger_flags;
@@ -1278,11 +1248,9 @@ done:
 //  win_dialog_add_combobox
 //============================================================
 
-static int win_dialog_add_combobox(dialog_box *dialog, const char *item_label, int default_value,
-	void (*storeval)(void *param, int val), void *storeval_param)
+static int win_dialog_add_combobox(dialog_box *dialog, const char *item_label, int default_value, void (*storeval)(void *param, int val), void *storeval_param)
 {
-	return win_dialog_add_active_combobox(dialog, item_label, default_value,
-		storeval, storeval_param, NULL, NULL);
+	return win_dialog_add_active_combobox(dialog, item_label, default_value, storeval, storeval_param, NULL, NULL);
 }
 
 
@@ -1374,16 +1342,6 @@ static INT_PTR CALLBACK adjuster_sb_wndproc(HWND sbwnd, UINT msg, WPARAM wparam,
 }
 
 
-//============================================================
-//  win_dialog_malloc
-//============================================================
-
-//static void *win_dialog_malloc(dialog_box *dialog, size_t size)
-//{
-//	return pool_malloc_lib(dialog->mempool, size);
-//}
-
-
 
 //============================================================
 //  adjuster_sb_setup
@@ -1424,8 +1382,7 @@ static int win_dialog_add_adjuster(dialog_box *dialog, const char *item_label, i
 
 	dialog_new_control(dialog, &x, &y);
 
-	if (dialog_write_item(dialog, WS_CHILD | WS_VISIBLE | SS_LEFT,
-			x, y, dialog->layout->label_width, DIM_ADJUSTER_HEIGHT, item_label, DLGITEM_STATIC, NULL))
+	if (dialog_write_item(dialog, WS_CHILD | WS_VISIBLE | SS_LEFT, x, y, dialog->layout->label_width, DIM_ADJUSTER_HEIGHT, item_label, DLGITEM_STATIC, NULL))
 		goto error;
 	x += dialog->layout->label_width + DIM_HORIZONTAL_SPACING;
 
@@ -1436,28 +1393,23 @@ static int win_dialog_add_adjuster(dialog_box *dialog, const char *item_label, i
 		goto error;
 	x += dialog->layout->combo_width - DIM_ADJUSTER_SCR_WIDTH;
 
-	_sntprintf(buf, ARRAY_LENGTH(buf),
-		is_percentage ? TEXT("%d%%") : TEXT("%d"),
-		default_value);
+	_sntprintf(buf, ARRAY_LENGTH(buf), is_percentage ? TEXT("%d%%") : TEXT("%d"), default_value);
 	s = win_dialog_tcsdup(dialog, buf);
 	osd_free(buf);
 	if (!s)
 		return 1;
-	if (dialog_add_trigger(dialog, dialog->item_count, TRIGGER_INITDIALOG, WM_SETTEXT, NULL,
-			0, (LPARAM) s, NULL, NULL))
+	if (dialog_add_trigger(dialog, dialog->item_count, TRIGGER_INITDIALOG, WM_SETTEXT, NULL, 0, (LPARAM) s, NULL, NULL))
 		goto error;
 
 	// add the trigger invoked when the apply button is pressed
 	if (dialog_add_trigger(dialog, dialog->item_count, TRIGGER_APPLY, 0, dialog_get_adjuster_value, 0, 0, storeval, storeval_param))
 		goto error;
 
-	if (dialog_write_item(dialog, WS_CHILD | WS_VISIBLE | WS_TABSTOP | SBS_VERT,
-			x, y, DIM_ADJUSTER_SCR_WIDTH, DIM_ADJUSTER_HEIGHT, NULL, DLGITEM_SCROLLBAR, NULL))
+	if (dialog_write_item(dialog, WS_CHILD | WS_VISIBLE | WS_TABSTOP | SBS_VERT, x, y, DIM_ADJUSTER_SCR_WIDTH, DIM_ADJUSTER_HEIGHT, NULL, DLGITEM_SCROLLBAR, NULL))
 		goto error;
 	x += DIM_ADJUSTER_SCR_WIDTH + DIM_HORIZONTAL_SPACING;
 
-	if (dialog_add_trigger(dialog, dialog->item_count, TRIGGER_INITDIALOG, 0, adjuster_sb_setup,
-			0, MAKELONG(min_value, max_value), NULL, NULL))
+	if (dialog_add_trigger(dialog, dialog->item_count, TRIGGER_INITDIALOG, 0, adjuster_sb_setup, 0, MAKELONG(min_value, max_value), NULL, NULL))
 		return 1;
 
 	y += DIM_COMBO_ROW_HEIGHT + DIM_VERTICAL_SPACING * 2;
@@ -1497,6 +1449,7 @@ static void seqselect_settext(HWND editwnd)
 {
 	seqselect_info *stuff;
 	std::string seqstring;
+	std::string str2 ("Kbd ");
 	char buffer[128];
 
 	// the basics
@@ -1506,9 +1459,13 @@ static void seqselect_settext(HWND editwnd)
 
 	// retrieve the seq name
 	seqstring = Machine->input().seq_name(*stuff->code);
+	// Remove 'Kbd'
+	while (seqstring.find(str2) != std::string::npos)
+		seqstring.erase(seqstring.find(str2), 4);
 
 	// change the text - avoid calls to SetWindowText() if we can
 	win_get_window_text_utf8(editwnd, buffer, ARRAY_LENGTH(buffer));
+
 	if (strcmp(buffer, seqstring.c_str())!=0)
 		win_set_window_text_utf8(editwnd, seqstring.c_str());
 
@@ -1692,12 +1649,10 @@ static LRESULT seqselect_apply(dialog_box *dialog, HWND editwnd, UINT message, W
 //  dialog_add_single_seqselect
 //============================================================
 
-static int dialog_add_single_seqselect(struct _dialog_box *di, short x, short y,
-	short cx, short cy, ioport_field *field, int is_analog, int seqtype)
+static int dialog_add_single_seqselect(struct _dialog_box *di, short x, short y, short cx, short cy, ioport_field *field, int is_analog, int seqtype)
 {
 	// write the dialog item
-	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_ENDELLIPSIS | ES_CENTER | SS_SUNKEN,
-			x, y, cx, cy, NULL, DLGITEM_EDIT, NULL))
+	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_ENDELLIPSIS | ES_CENTER | SS_SUNKEN, x, y, cx, cy, NULL, DLGITEM_EDIT, NULL))
 		return 1;
 
 	// allocate a seqselect_info
@@ -1780,8 +1735,7 @@ static int win_dialog_add_portselect(dialog_box *dialog, ioport_field *field)
 		// create our local name for this entry; also convert from
 		// MAME strings to wide strings
 		len = strlen(port_name);
-		s = (char *) alloca((len + (port_suffix[seq] ? strlen(port_suffix[seq])
-			: 0) + 1) * sizeof(*s));
+		s = (char *) alloca((len + (port_suffix[seq] ? strlen(port_suffix[seq]) : 0) + 1) * sizeof(*s));
 		strcpy(s, port_name);
 
 		if (port_suffix[seq])
@@ -1796,8 +1750,7 @@ static int win_dialog_add_portselect(dialog_box *dialog, ioport_field *field)
 			return 1;
 		x += dialog->layout->label_width + DIM_HORIZONTAL_SPACING;
 
-		if (dialog_add_single_seqselect(di, x, y, DIM_EDIT_WIDTH, DIM_NORMAL_ROW_HEIGHT,
-				field, is_analog[seq], seq_types[seq]))
+		if (dialog_add_single_seqselect(di, x, y, DIM_EDIT_WIDTH, DIM_NORMAL_ROW_HEIGHT, field, is_analog[seq], seq_types[seq]))
 			return 1;
 		y += DIM_VERTICAL_SPACING + DIM_NORMAL_ROW_HEIGHT;
 		x += DIM_EDIT_WIDTH + DIM_HORIZONTAL_SPACING;
@@ -1848,16 +1801,14 @@ static int win_dialog_add_standard_buttons(dialog_box *dialog)
 	y = di->size_y + DIM_VERTICAL_SPACING;
 
 	// display cancel button
-	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_LEFT,
-			x, y, DIM_BUTTON_WIDTH, DIM_BUTTON_ROW_HEIGHT, DLGTEXT_CANCEL, DLGITEM_BUTTON, NULL))
+	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_LEFT, x, y, DIM_BUTTON_WIDTH, DIM_BUTTON_ROW_HEIGHT, DLGTEXT_CANCEL, DLGITEM_BUTTON, NULL))
 		return 1;
 
 	// work out where OK button goes
 	x -= DIM_HORIZONTAL_SPACING + DIM_BUTTON_WIDTH;
 
 	// display OK button
-	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_LEFT,
-			x, y, DIM_BUTTON_WIDTH, DIM_BUTTON_ROW_HEIGHT, DLGTEXT_OK, DLGITEM_BUTTON, NULL))
+	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_LEFT, x, y, DIM_BUTTON_WIDTH, DIM_BUTTON_ROW_HEIGHT, DLGTEXT_OK, DLGITEM_BUTTON, NULL))
 		return 1;
 
 	di->size_y += DIM_BUTTON_ROW_HEIGHT + DIM_VERTICAL_SPACING * 2;
@@ -1886,7 +1837,6 @@ static void before_display_dialog(running_machine &machine)
 static void after_display_dialog(running_machine &machine)
 {
 	winwindow_ui_pause(machine, FALSE);
-	//Machine = NULL;
 }
 
 
@@ -1973,8 +1923,7 @@ static UINT_PTR CALLBACK file_dialog_hook(HWND dlgwnd, UINT message, WPARAM wpar
 //  win_file_dialog
 //============================================================
 
-static BOOL win_file_dialog(running_machine &machine,
-	HWND parent, win_file_dialog_type dlgtype, dialog_box *custom_dialog, const char *filter,
+static BOOL win_file_dialog(running_machine &machine, HWND parent, win_file_dialog_type dlgtype, dialog_box *custom_dialog, const char *filter,
 	const char *initial_dir, char *filename, size_t filename_len)
 {
 	win_open_file_name ofn;
@@ -2016,58 +1965,13 @@ static BOOL win_file_dialog(running_machine &machine,
 
 
 //============================================================
-//  input_item_from_serial_number
-//============================================================
-#if 0
-static int input_item_from_serial_number(running_machine &machine, int serial_number,
-	ioport_port **port, ioport_field **field, ioport_setting **setting)
-{
-	ioport_port *this_port = NULL;
-	ioport_field *this_field = NULL;
-	ioport_setting *this_setting = NULL;
-
-	int i = 0;
-	for (this_port = machine.ioport().ports().first(); (i != serial_number) && (this_port); this_port = this_port->next())
-	{
-		i++;
-		for (this_field = this_port->fields().first(); (i != serial_number) && (this_field); this_field = this_field->next())
-		{
-			i++;
-			for (this_setting = this_field->settings().first(); (i != serial_number) && (this_setting); this_setting = this_setting->next())
-				i++;
-		}
-	}
-
-	if (this_field)
-		this_port = &this_field->port();
-
-	if (port)
-		*port = this_port;
-	if (field)
-		*field = this_field;
-	if (setting)
-		*setting = this_setting;
-
-	return (i == serial_number);
-}
-#endif
-
-
-//============================================================
 //  customise_input
 //============================================================
 
 static void customise_input(running_machine &machine, HWND wnd, const char *title, int player, int inputclass)
 {
 	dialog_box *dlg;
-	int this_inputclass = 0;
-	int this_player = 0, portslot_count = 0, i = 0;
-	const int max_portslots = 256;
-
-	struct
-	{
-		ioport_field *field;
-	} portslots[max_portslots];
+	int this_inputclass, this_player;
 
 	/* create the dialog */
 	dlg = win_dialog_init(title, NULL);
@@ -2089,32 +1993,9 @@ static void customise_input(running_machine &machine, HWND wnd, const char *titl
 			&& (this_player == player)
 			&& (this_inputclass == inputclass))
 			{
-				/* store this InputPort/RECT combo in our list.  we do not
-				 * necessarily want to add it yet because we the INI might
-				 * want to reorder the tab order */
-				if (portslot_count < max_portslots)
-				{
-					portslots[portslot_count].field = &field;
-					portslot_count++;
-				}
+				if (win_dialog_add_portselect(dlg, &field))
+					goto done;
 			}
-		}
-	}
-
-	/* finally add the portselects to the dialog */
-	if (portslot_count > max_portslots)
-		portslot_count = max_portslots;
-
-	/* No keyboard? Just exit */
-	if (!portslot_count)
-		goto done;
-
-	for (i = 0; i < portslot_count; i++)
-	{
-		if (portslots[i].field)
-		{
-			if (win_dialog_add_portselect(dlg, portslots[i].field))
-				goto done;
 		}
 	}
 
@@ -2164,7 +2045,7 @@ static void customise_keyboard(running_machine &machine, HWND wnd)
 
 static bool check_for_miscinput(running_machine &machine)
 {
-	int this_inputclass = 0;
+	int this_inputclass;
 
 	for (auto &port : machine.ioport().ports())
 	{
@@ -2196,15 +2077,8 @@ static bool check_for_miscinput(running_machine &machine)
 static void customise_miscinput(running_machine &machine, HWND wnd)
 {
 	dialog_box *dlg;
-	int this_inputclass = 0;
-	int portslot_count = 0, i = 0;
-	const int max_portslots = 256;
+	int this_inputclass;
 	const char *title = "Miscellaneous Inputs";
-
-	struct
-	{
-		ioport_field *field;
-	} portslots[max_portslots];
 
 	/* create the dialog */
 	dlg = win_dialog_init(title, NULL);
@@ -2225,28 +2099,9 @@ static void customise_miscinput(running_machine &machine, HWND wnd)
 			&& (this_inputclass != INPUT_CLASS_CONTROLLER)
 			&& (this_inputclass != INPUT_CLASS_KEYBOARD))
 			{
-					/* store this InputPort/RECT combo in our list.  we do not
-					 * necessarily want to add it yet because we the INI might
-					 * want to reorder the tab order */
-				if (portslot_count < max_portslots)
-				{
-					portslots[portslot_count].field = &field;
-					portslot_count++;
-				}
+				if (win_dialog_add_portselect(dlg, &field))
+					goto done;
 			}
-		}
-	}
-
-	/* finally add the portselects to the dialog */
-	if (portslot_count > max_portslots)
-		portslot_count = max_portslots;
-
-	for (i = 0; i < portslot_count; i++)
-	{
-		if (portslots[i].field)
-		{
-			if (win_dialog_add_portselect(dlg, portslots[i].field))
-				goto done;
 		}
 	}
 
@@ -2379,10 +2234,18 @@ static void store_analogitem(void *param, int val, int selected_item)
 
 	switch(selected_item)
 	{
-		case ANALOG_ITEM_KEYSPEED:		settings.delta = val;		break;
-		case ANALOG_ITEM_CENTERSPEED:	settings.centerdelta = val;	break;
-		case ANALOG_ITEM_REVERSE:		settings.reverse = val;		break;
-		case ANALOG_ITEM_SENSITIVITY:	settings.sensitivity = val;	break;
+		case ANALOG_ITEM_KEYSPEED:
+			settings.delta = val;
+			break;
+		case ANALOG_ITEM_CENTERSPEED:
+			settings.centerdelta = val;
+			break;
+		case ANALOG_ITEM_REVERSE:
+			settings.reverse = val;
+			break;
+		case ANALOG_ITEM_SENSITIVITY:
+			settings.sensitivity = val;
+			break;
 	}
 	field->set_user_settings(settings);
 }
@@ -2447,18 +2310,15 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 				name = field.name();
 				afield = &field;
 
-				_snprintf(buf, ARRAY_LENGTH(buf),
-					"%s %s", name, "Digital Speed");
+				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Digital Speed");
 				if (win_dialog_add_adjuster(dlg, buf, settings.delta, 1, 255, FALSE, store_delta, (void *) afield))
 					goto done;
 
-				_snprintf(buf, ARRAY_LENGTH(buf),
-					"%s %s", name, "Autocenter Speed");
+				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Autocenter Speed");
 				if (win_dialog_add_adjuster(dlg, buf, settings.centerdelta, 1, 255, FALSE, store_centerdelta, (void *) afield))
 					goto done;
 
-				_snprintf(buf, ARRAY_LENGTH(buf),
-					"%s %s", name, "Reverse");
+				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Reverse");
 				if (win_dialog_add_combobox(dlg, buf, settings.reverse ? 1 : 0, store_reverse, (void *) afield))
 					goto done;
 				if (win_dialog_add_combobox_item(dlg, "Off", 0))
@@ -2466,8 +2326,7 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 				if (win_dialog_add_combobox_item(dlg, "On", 1))
 					goto done;
 
-				_snprintf(buf, ARRAY_LENGTH(buf),
-					"%s %s", name, "Sensitivity");
+				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Sensitivity");
 				if (win_dialog_add_adjuster(dlg, buf, settings.sensitivity, 1, 255, TRUE, store_sensitivity, (void *) afield))
 					goto done;
 			}
@@ -2525,9 +2384,7 @@ static char *win_dirname(const char *filename)
 //  state_dialog
 //============================================================
 
-static void state_dialog(HWND wnd, win_file_dialog_type dlgtype,
-	DWORD fileproc_flags, bool is_load,
-	running_machine &machine)
+static void state_dialog(HWND wnd, win_file_dialog_type dlgtype, DWORD fileproc_flags, bool is_load, running_machine &machine)
 {
 	win_open_file_name ofn;
 	char *dir = NULL;
@@ -2614,11 +2471,11 @@ static void format_combo_changed(dialog_box *dialog, HWND dlgwnd, NMHDR *notific
 	// compute our parameters
 	dev = params->dev;
 	guide = dev->device_get_creation_option_guide();
-	optspec =dev->device_get_indexed_creatable_format(format_combo_val)->optspec();
+	optspec =dev->device_get_indexed_creatable_format(format_combo_val)->optspec().c_str();
 
 	// set the default extension
 	CommDlg_OpenSave_SetDefExt(GetParent(dlgwnd),
-		(const char*)dev->device_get_indexed_creatable_format(format_combo_val)->extensions());
+		(const char*)dev->device_get_indexed_creatable_format(format_combo_val)->extensions().c_str());
 
 	// enumerate through all of the child windows
 	wnd = NULL;
@@ -2643,9 +2500,7 @@ static void format_combo_changed(dialog_box *dialog, HWND dlgwnd, NMHDR *notific
 			SendMessage(wnd, CB_GETLBTEXT, SendMessage(wnd, CB_GETCURSEL, 0, 0), (LPARAM) t_buf1);
 			SendMessage(wnd, CB_RESETCONTENT, 0, 0);
 
-			win_prepare_option_control(wnd,
-				has_option ? guide : NULL,
-				has_option ? optspec : NULL);
+			win_prepare_option_control(wnd, has_option ? guide : NULL, has_option ? optspec : NULL);
 		}
 		osd_free(utf8_buf1);
 	}
@@ -2680,7 +2535,7 @@ static void storeval_option_resolution(void *storeval_param, int val)
 		const option_guide *optguide = dev->device_get_creation_option_guide();
 		const image_device_format *format = dev->device_get_indexed_creatable_format(*(params->fdparams->create_format));
 
-		resolution = option_resolution_create(optguide, format->optspec());
+		resolution = option_resolution_create(optguide, format->optspec().c_str());
 		if (!resolution)
 			return;
 		*(params->fdparams->create_args) = resolution;
@@ -2709,7 +2564,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 	// make the filter
 	pos = 0;
 	for (auto &format : dev->formatlist())
-		pos += add_filter_entry(filter + pos, filter_len - pos, format->description(), format->extensions());
+		pos += add_filter_entry(filter + pos, filter_len - pos, format->description().c_str(), format->extensions().c_str());
 
 	// create the dialog
 	dialog = win_dialog_init(NULL, &filedialog_layout);
@@ -2735,7 +2590,7 @@ static dialog_box *build_option_dialog(device_image_interface *dev, char *filter
 		found = FALSE;
 		for (auto &format : dev->formatlist())
 		{
-			if (option_resolution_contains(format->optspec(), guide_entry->parameter))
+			if (option_resolution_contains(format->optspec().c_str(), guide_entry->parameter))
 			{
 				found = TRUE;
 				break;
@@ -2926,9 +2781,7 @@ static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 // NOTE: the working directory can come from the .cfg file. If it's wrong delete the cfg.
 //printf("%s = %s = %s = %s\n",dst,working,initial_dir,software_dir);
 	// add custom dialog elements, if appropriate
-	if (is_save
-		&& (image->device_get_creation_option_guide())
-		&& (image->formatlist().front()))
+	if (is_save && (image->device_get_creation_option_guide()) && (image->formatlist().front()))
 	{
 		dialog = build_option_dialog(image, filter, ARRAY_LENGTH(filter), &create_format, &create_args);
 		if (!dialog)
@@ -2939,8 +2792,7 @@ static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 		build_generic_filter(image, is_save, filter, ARRAY_LENGTH(filter));
 
 	// display the dialog
-	result = win_file_dialog(image->device().machine(), wnd, is_save ? WIN_FILE_DIALOG_SAVE : WIN_FILE_DIALOG_OPEN,
-		dialog, filter, initial_dir, filename, ARRAY_LENGTH(filename));
+	result = win_file_dialog(image->device().machine(), wnd, is_save ? WIN_FILE_DIALOG_SAVE : WIN_FILE_DIALOG_OPEN, dialog, filter, initial_dir, filename, ARRAY_LENGTH(filename));
 	if (result)
 	{
 		// mount the image
@@ -3275,8 +3127,7 @@ static void prepare_menus(HWND wnd)
 	while((view_name = window->m_target->view_name(i)))
 	{
 		TCHAR *t_view_name = tstring_from_utf8(view_name);
-		InsertMenu(video_menu, i, MF_BYPOSITION | (i == view_index ? MF_CHECKED : 0),
-			ID_VIDEO_VIEW_0 + i, t_view_name);
+		InsertMenu(video_menu, i, MF_BYPOSITION | (i == view_index ? MF_CHECKED : 0), ID_VIDEO_VIEW_0 + i, t_view_name);
 		osd_free(t_view_name);
 		i++;
 	}
@@ -3395,10 +3246,7 @@ static void win_toggle_menubar(void)
 		{
 			RECT window_rect;
 			GetWindowRect(hwnd, &window_rect);
-			SetWindowPos(hwnd, HWND_TOP, 0, 0,
-				window_rect.right - window_rect.left + width_diff,
-				window_rect.bottom - window_rect.top + height_diff,
-				SWP_NOMOVE | SWP_NOZORDER);
+			SetWindowPos(hwnd, HWND_TOP, 0, 0, window_rect.right - window_rect.left + width_diff, window_rect.bottom - window_rect.top + height_diff, SWP_NOMOVE | SWP_NOZORDER);
 		}
 
 		RedrawWindow(hwnd, NULL, NULL, 0);
@@ -3585,10 +3433,10 @@ static int pause_for_command(UINT command)
 //  invoke_command
 //============================================================
 
-static int invoke_command(HWND wnd, UINT command)
+static bool invoke_command(HWND wnd, UINT command)
 {
 	std::string error_string;
-	int handled = 1;
+	bool handled = TRUE;
 	int dev_command = 0;
 	device_image_interface *img;
 	LONG_PTR ptr = GetWindowLongPtr(wnd, GWLP_USERDATA);
@@ -3772,13 +3620,9 @@ static int invoke_command(HWND wnd, UINT command)
 				window->m_target->set_view(command - ID_VIDEO_VIEW_0);
 				window->update(); // actually change window size
 			}
-//			else
-//			if (input_item_from_serial_number(window->machine(), command - ID_INPUT_0, NULL, &field, &setting))
-				// should never happen
-//				handled = 0;
 			else
 				// bogus command
-				handled = 0;
+			handled = FALSE;
 
 			break;
 	}
@@ -3854,8 +3698,7 @@ static int win_setup_menus(running_machine &machine, HMODULE module, HMENU menu_
 		char *src;
 		char *dst;
 
-		snprintf(state_filename, ARRAY_LENGTH(state_filename),
-			"%s State", machine.system().description);
+		snprintf(state_filename, ARRAY_LENGTH(state_filename), "%s State", machine.system().description);
 
 		src = state_filename;
 		dst = state_filename;
