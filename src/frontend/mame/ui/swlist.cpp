@@ -276,9 +276,9 @@ void menu_software_list::handle()
 			if (update_selected)
 			{
 				// identify the selected entry
-				const entry_info *cur_selected = ((FPTR)event->itemref != 1)
-					? (const entry_info *)get_selection()
-					: nullptr;
+				entry_info const *const cur_selected = (FPTR(event->itemref) != 1)
+						? reinterpret_cast<entry_info const *>(get_selection_ref())
+						: nullptr;
 
 				// loop through all entries
 				for (auto &entry : m_entrylist)
@@ -306,7 +306,7 @@ void menu_software_list::handle()
 				if (selected_entry != nullptr && selected_entry != cur_selected)
 				{
 					set_selection((void *)selected_entry);
-					top_line = selected - (visible_lines / 2);
+					centre_selection();
 				}
 			}
 		}
