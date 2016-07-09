@@ -526,10 +526,10 @@ static int dialog_write_string(dialog_box *di, const WCHAR *str)
 
 
 
-//===========================================================================================================
+//============================================================
 //  win_dialog_exit
 //    called from win_dialog_init, calc_dlgunits_multiple, change_device, and all customise_input functions
-//===========================================================================================================
+//============================================================
 
 static void win_dialog_exit(dialog_box *dialog)
 {
@@ -708,7 +708,7 @@ static void dialog_trigger(HWND dlgwnd, WORD trigger_flags)
 //    called from win_dialog_runmodal
 //============================================================
 
-static INT_PTR CALLBACK dialog_proc(running_machine &machine, HWND dlgwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+static INT_PTR CALLBACK dialog_proc(HWND dlgwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	INT_PTR handled = TRUE;
 	CHAR buf[32];
@@ -1028,7 +1028,7 @@ static WCHAR *win_dialog_wcsdup(dialog_box *dialog, const WCHAR *s)
 //    called from win_dialog_add_combobox
 //============================================================
 
-static int win_dialog_add_active_combobox(running_machine &machine, dialog_box *dialog, const char *item_label, int default_value,
+static int win_dialog_add_active_combobox(dialog_box *dialog, const char *item_label, int default_value,
 	dialog_itemstoreval storeval, void *storeval_param, dialog_itemchangedproc changed, void *changed_param)
 {
 	int rc = 1;
@@ -1078,9 +1078,9 @@ done:
 //    called from customise_switches, customise_analogcontrols
 //============================================================
 
-static int win_dialog_add_combobox(running_machine &machine, dialog_box *dialog, const char *item_label, int default_value, void (*storeval)(void *param, int val), void *storeval_param)
+static int win_dialog_add_combobox(dialog_box *dialog, const char *item_label, int default_value, void (*storeval)(void *param, int val), void *storeval_param)
 {
-	return win_dialog_add_active_combobox(machine, dialog, item_label, default_value, storeval, storeval_param, NULL, NULL);
+	return win_dialog_add_active_combobox(dialog, item_label, default_value, storeval, storeval_param, NULL, NULL);
 }
 
 
@@ -1090,7 +1090,7 @@ static int win_dialog_add_combobox(running_machine &machine, dialog_box *dialog,
 //    called from customise_switches, customise_analogcontrols
 //============================================================
 
-static int win_dialog_add_combobox_item(running_machine &machine, dialog_box *dialog, const char *item_label, int item_data)
+static int win_dialog_add_combobox_item(dialog_box *dialog, const char *item_label, int item_data)
 {
 	// create our own copy of the string
 	size_t newsize = strlen(item_label) + 1;
@@ -1206,7 +1206,7 @@ static LRESULT adjuster_sb_setup(dialog_box *dialog, HWND sbwnd, UINT message, W
 //    called from customise_analogcontrols
 //============================================================
 
-static int win_dialog_add_adjuster(running_machine &machine, dialog_box *dialog, const char *item_label, int default_value,
+static int win_dialog_add_adjuster(dialog_box *dialog, const char *item_label, int default_value,
 	int min_value, int max_value, BOOL is_percentage, dialog_itemstoreval storeval, void *storeval_param)
 {
 	short x;
@@ -1284,23 +1284,18 @@ static void seqselect_settext(HWND editwnd)
 {
 	seqselect_info *stuff;
 	std::string seqstring;
-	std::string str2 ("Kbd ");
 	char buffer[128];
 
 	// the basics
 	stuff = get_seqselect_info(editwnd);
 	if (stuff == NULL)
-		return;	// this should not happen - need to fix this
+		return; // this should not happen - need to fix this
 
 	// retrieve the seq name
 	seqstring = Machine->input().seq_name(*stuff->code);
-	// Remove 'Kbd'
-	while (seqstring.find(str2) != std::string::npos)
-		seqstring.erase(seqstring.find(str2), 4);
 
 	// change the text - avoid calls to SetWindowText() if we can
 	win_get_window_text_utf8(editwnd, buffer, ARRAY_LENGTH(buffer));
-
 	if (strcmp(buffer, seqstring.c_str())!=0)
 		win_set_window_text_utf8(editwnd, seqstring.c_str());
 
@@ -1490,7 +1485,7 @@ static LRESULT seqselect_apply(dialog_box *dialog, HWND editwnd, UINT message, W
 //    called from win_dialog_add_portselect
 //============================================================
 
-static int dialog_add_single_seqselect(running_machine &machine, struct _dialog_box *di, short x, short y, short cx, short cy, ioport_field *field, int is_analog, int seqtype)
+static int dialog_add_single_seqselect(struct _dialog_box *di, short x, short y, short cx, short cy, ioport_field *field, int is_analog, int seqtype)
 {
 	// write the dialog item
 	if (dialog_write_item(di, WS_CHILD | WS_VISIBLE | SS_ENDELLIPSIS | ES_CENTER | SS_SUNKEN, x, y, cx, cy, NULL, DLGITEM_EDIT, NULL))
@@ -1527,7 +1522,7 @@ static int dialog_add_single_seqselect(running_machine &machine, struct _dialog_
 //    called from customise_input, customise_miscinput
 //============================================================
 
-static int win_dialog_add_portselect(running_machine &machine, dialog_box *dialog, ioport_field *field)
+static int win_dialog_add_portselect(dialog_box *dialog, ioport_field *field)
 {
 	dialog_box *di = dialog;
 	short x;
@@ -1592,7 +1587,7 @@ static int win_dialog_add_portselect(running_machine &machine, dialog_box *dialo
 			return 1;
 		x += dialog->layout->label_width + DIM_HORIZONTAL_SPACING;
 
-		if (dialog_add_single_seqselect(machine, di, x, y, DIM_EDIT_WIDTH, DIM_NORMAL_ROW_HEIGHT, field, is_analog[seq], seq_types[seq]))
+		if (dialog_add_single_seqselect(di, x, y, DIM_EDIT_WIDTH, DIM_NORMAL_ROW_HEIGHT, field, is_analog[seq], seq_types[seq]))
 			return 1;
 		y += DIM_VERTICAL_SPACING + DIM_NORMAL_ROW_HEIGHT;
 		x += DIM_EDIT_WIDTH + DIM_HORIZONTAL_SPACING;
@@ -1688,69 +1683,11 @@ static void win_dialog_runmodal(running_machine &machine, HWND wnd, dialog_box *
 
 
 //============================================================
-//  file_dialog_hook
-//    called from win_file_dialog
-//============================================================
-
-static UINT_PTR CALLBACK file_dialog_hook(HWND dlgwnd, UINT message, WPARAM wparam, LPARAM lparam)
-{
-	OPENFILENAME *ofn;
-	dialog_box *dialog;
-	UINT_PTR rc = 0;
-	LPNMHDR notify;
-	LONG_PTR l;
-
-	switch(message)
-	{
-	case WM_INITDIALOG:
-		ofn = (OPENFILENAME *) lparam;
-		dialog = (dialog_box *) ofn->lCustData;
-
-		SetWindowLongPtr(dlgwnd, GWLP_USERDATA, (LONG_PTR) dialog);
-		dialog_trigger(dlgwnd, TRIGGER_INITDIALOG);
-		rc = 1;
-
-		// hack
-		if (dialog->notify_callback && (dialog->notify_code == CDN_TYPECHANGE))
-			dialog->notify_callback(dialog, dlgwnd, NULL, dialog->notify_param);
-		break;
-
-	case WM_NOTIFY:
-		notify = (LPNMHDR) lparam;
-		switch(notify->code)
-		{
-		case CDN_FILEOK:
-			dialog_trigger(dlgwnd, TRIGGER_APPLY);
-			break;
-		}
-
-		// hack
-		l = GetWindowLongPtr(dlgwnd, GWLP_USERDATA);
-		dialog = (dialog_box *) l;
-		if (dialog->notify_callback && (notify->code == dialog->notify_code))
-			dialog->notify_callback(dialog, dlgwnd, notify, dialog->notify_param);
-		break;
-
-	case WM_COMMAND:
-		switch(HIWORD(wparam))
-		{
-		case CBN_SELCHANGE:
-			dialog_trigger(dlgwnd, TRIGGER_CHANGED);
-			break;
-		}
-		break;
-	}
-	return rc;
-}
-
-
-
-//============================================================
 //  win_file_dialog
 //    called from change_device
 //============================================================
 
-static BOOL win_file_dialog(running_machine &machine, HWND parent, win_file_dialog_type dlgtype, dialog_box *custom_dialog, const char *filter,
+static BOOL win_file_dialog(running_machine &machine, HWND parent, win_file_dialog_type dlgtype, const char *filter,
 	const char *initial_dir, char *filename, size_t filename_len)
 {
 	win_open_file_name ofn;
@@ -1767,17 +1704,6 @@ static BOOL win_file_dialog(running_machine &machine, HWND parent, win_file_dial
 	if (dlgtype == WIN_FILE_DIALOG_OPEN)
 		ofn.flags |= OFN_FILEMUSTEXIST;
 
-	if (custom_dialog)
-	{
-		custom_dialog->style = WS_CHILD | WS_CLIPSIBLINGS | DS_3DLOOK | DS_CONTROL | DS_SETFONT;
-		dialog_prime(custom_dialog);
-
-		ofn.flags |= OFN_ENABLETEMPLATEHANDLE | OFN_ENABLEHOOK;
-		ofn.instance = (HINSTANCE)custom_dialog->handle;
-		ofn.custom_data = (LPARAM) custom_dialog;
-		ofn.hook = file_dialog_hook;
-	}
-
 	snprintf(ofn.filename, ARRAY_LENGTH(ofn.filename), "%s", filename);
 
 	before_display_dialog(machine);
@@ -1787,7 +1713,6 @@ static BOOL win_file_dialog(running_machine &machine, HWND parent, win_file_dial
 	snprintf(filename, filename_len, "%s", ofn.filename);
 	return result;
 }
-
 
 
 
@@ -1820,7 +1745,7 @@ static void customise_input(running_machine &machine, HWND wnd, const char *titl
 			&& (this_player == player)
 			&& (this_inputclass == inputclass))
 			{
-				if (win_dialog_add_portselect(machine, dlg, &field))
+				if (win_dialog_add_portselect(dlg, &field))
 					goto done;
 			}
 		}
@@ -1870,7 +1795,7 @@ static void customise_keyboard(running_machine &machine, HWND wnd)
 
 static bool check_for_miscinput(running_machine &machine)
 {
-	int this_inputclass;
+	int this_inputclass = 0;
 
 	for (auto &port : machine.ioport().ports())
 	{
@@ -1924,7 +1849,7 @@ static void customise_miscinput(running_machine &machine, HWND wnd)
 			&& (this_inputclass != INPUT_CLASS_CONTROLLER)
 			&& (this_inputclass != INPUT_CLASS_KEYBOARD))
 			{
-				if (win_dialog_add_portselect(machine, dlg, &field))
+				if (win_dialog_add_portselect(dlg, &field))
 					goto done;
 			}
 		}
@@ -1991,12 +1916,12 @@ static void customise_switches(running_machine &machine, HWND wnd, const char* t
 
 				field.get_user_settings(settings);
 				afield = &field;
-				if (win_dialog_add_combobox(machine, dlg, switch_name, settings.value, storeval_inputport, (void *) afield))
+				if (win_dialog_add_combobox(dlg, switch_name, settings.value, storeval_inputport, (void *) afield))
 					goto done;
 
 				for (setting = field.settings().first(); setting; setting = setting->next())
 				{
-					if (win_dialog_add_combobox_item(machine, dlg, setting->name(), setting->value()))
+					if (win_dialog_add_combobox_item(dlg, setting->name(), setting->value()))
 						goto done;
 				}
 			}
@@ -2137,23 +2062,23 @@ static void customise_analogcontrols(running_machine &machine, HWND wnd)
 				afield = &field;
 
 				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Digital Speed");
-				if (win_dialog_add_adjuster(machine, dlg, buf, settings.delta, 1, 255, FALSE, store_delta, (void *) afield))
+				if (win_dialog_add_adjuster(dlg, buf, settings.delta, 1, 255, FALSE, store_delta, (void *) afield))
 					goto done;
 
 				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Autocenter Speed");
-				if (win_dialog_add_adjuster(machine, dlg, buf, settings.centerdelta, 0, 255, FALSE, store_centerdelta, (void *) afield))
+				if (win_dialog_add_adjuster(dlg, buf, settings.centerdelta, 0, 255, FALSE, store_centerdelta, (void *) afield))
 					goto done;
 
 				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Reverse");
-				if (win_dialog_add_combobox(machine, dlg, buf, settings.reverse ? 1 : 0, store_reverse, (void *) afield))
+				if (win_dialog_add_combobox(dlg, buf, settings.reverse ? 1 : 0, store_reverse, (void *) afield))
 					goto done;
-				if (win_dialog_add_combobox_item(machine, dlg, "Off", 0))
+				if (win_dialog_add_combobox_item(dlg, "Off", 0))
 					goto done;
-				if (win_dialog_add_combobox_item(machine, dlg, "On", 1))
+				if (win_dialog_add_combobox_item(dlg, "On", 1))
 					goto done;
 
 				_snprintf(buf, ARRAY_LENGTH(buf), "%s %s", name, "Sensitivity");
-				if (win_dialog_add_adjuster(machine, dlg, buf, settings.sensitivity, 1, 255, TRUE, store_sensitivity, (void *) afield))
+				if (win_dialog_add_adjuster(dlg, buf, settings.sensitivity, 1, 255, TRUE, store_sensitivity, (void *) afield))
 					goto done;
 			}
 		}
@@ -2347,14 +2272,14 @@ static void build_generic_filter(device_image_interface *img, bool is_save, std:
 }
 
 
+
 //============================================================
 //  change_device
 //    open a dialog box to open or create a software file
 //============================================================
 
-static void change_device(running_machine &machine, HWND wnd, device_image_interface *image, bool is_save)
+static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 {
-	dialog_box *dialog = NULL;
 	std::string filter;
 	char filename[MAX_PATH];
 	const char *initial_dir;
@@ -2393,11 +2318,12 @@ static void change_device(running_machine &machine, HWND wnd, device_image_inter
 
 // NOTE: the working directory can come from the .cfg file. If it's wrong delete the cfg.
 //printf("%s = %s = %s = %s\n",dst,working,initial_dir,software_dir);
+
 	// build a normal filter
 	build_generic_filter(image, is_save, filter);
 
 	// display the dialog
-	result = win_file_dialog(image->device().machine(), wnd, is_save ? WIN_FILE_DIALOG_SAVE : WIN_FILE_DIALOG_OPEN, dialog, filter.c_str(), initial_dir, filename, ARRAY_LENGTH(filename));
+	result = win_file_dialog(image->device().machine(), wnd, is_save ? WIN_FILE_DIALOG_SAVE : WIN_FILE_DIALOG_OPEN, filter.c_str(), initial_dir, filename, ARRAY_LENGTH(filename));
 	if (result)
 	{
 		// mount the image
@@ -2409,9 +2335,6 @@ static void change_device(running_machine &machine, HWND wnd, device_image_inter
 		// no need to check the returnvalue and show a messagebox anymore.
 		// a UI message will now be generated by the image code
 	}
-
-	if (dialog)
-		win_dialog_exit(dialog);
 }
 
 
@@ -2653,10 +2576,10 @@ static void prepare_menus(HWND wnd)
 
 	speed = window->machine().video().throttled() ? window->machine().video().speed_factor() : 0;
 
-	has_config	= window->machine().ioport().type_class_present(INPUT_CLASS_CONFIG);
-	has_dipswitch	= window->machine().ioport().type_class_present(INPUT_CLASS_DIPSWITCH);
-	has_keyboard	= window->machine().ioport().type_class_present(INPUT_CLASS_KEYBOARD);
-	has_misc	= check_for_miscinput(window->machine());
+	has_config = window->machine().ioport().type_class_present(INPUT_CLASS_CONFIG);
+	has_dipswitch = window->machine().ioport().type_class_present(INPUT_CLASS_DIPSWITCH);
+	has_keyboard = window->machine().ioport().type_class_present(INPUT_CLASS_KEYBOARD);
+	has_misc = check_for_miscinput(window->machine());
 
 	has_analog = 0;
 	for (auto &port : window->machine().ioport().ports())
@@ -2765,8 +2688,8 @@ static void prepare_menus(HWND wnd)
 			cassette_state state;
 			state = (cassette_state)(img.exists() ? (dynamic_cast<cassette_image_device*>(&img.device())->get_state() & CASSETTE_MASK_UISTATE) : CASSETTE_STOPPED);
 			win_append_menu_utf8(sub_menu, MF_SEPARATOR, 0, NULL);
-			win_append_menu_utf8(sub_menu, flags_for_exists	| ((state == CASSETTE_STOPPED) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_STOPPAUSE, "Pause/Stop");
-			win_append_menu_utf8(sub_menu, flags_for_exists	| ((state == CASSETTE_PLAY) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_PLAY, "Play");
+			win_append_menu_utf8(sub_menu, flags_for_exists | ((state == CASSETTE_STOPPED) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_STOPPAUSE, "Pause/Stop");
+			win_append_menu_utf8(sub_menu, flags_for_exists | ((state == CASSETTE_PLAY) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_PLAY, "Play");
 			win_append_menu_utf8(sub_menu, flags_for_writing | ((state == CASSETTE_RECORD) ? MF_CHECKED : 0), new_item + DEVOPTION_CASSETTE_RECORD, "Record");
 			win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CASSETTE_REWIND, "Rewind");
 			win_append_menu_utf8(sub_menu, flags_for_exists, new_item + DEVOPTION_CASSETTE_FASTFORWARD, "Fast Forward");
@@ -2862,16 +2785,16 @@ static void win_toggle_menubar(void)
 //    This handles all options under the "Media" dropdown
 //============================================================
 
-static void device_command(running_machine &machine, HWND wnd, device_image_interface *img, int devoption)
+static void device_command(HWND wnd, device_image_interface *img, int devoption)
 {
 	switch(devoption)
 	{
 		case DEVOPTION_OPEN:
-			change_device(machine, wnd, img, FALSE);
+			change_device(wnd, img, FALSE);
 			break;
 
 		case DEVOPTION_CREATE:
-			change_device(machine, wnd, img, TRUE);
+			change_device(wnd, img, TRUE);
 			break;
 
 		case DEVOPTION_CLOSE:
@@ -3210,7 +3133,7 @@ static bool invoke_command(HWND wnd, UINT command)
 			{
 				// change device
 				img = decode_deviceoption(window->machine(), command, &dev_command);
-				device_command(window->machine(), wnd, img, dev_command);
+				device_command(wnd, img, dev_command);
 			}
 			else
 			if ((command >= ID_JOYSTICK_0) && (command < ID_JOYSTICK_0 + MAX_JOYSTICKS))
