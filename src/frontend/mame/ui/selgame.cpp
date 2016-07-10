@@ -55,7 +55,8 @@ int menu_select_game::m_isabios = 0;
 //  ctor
 //-------------------------------------------------
 
-menu_select_game::menu_select_game(mame_ui_manager &mui, render_container *container, const char *gamename) : menu(mui, container)
+menu_select_game::menu_select_game(mame_ui_manager &mui, render_container *container, const char *gamename)
+	: menu_select_launch(mui, container, false)
 {
 	set_focus(focused_menu::main);
 	highlight = 0;
@@ -184,7 +185,7 @@ void menu_select_game::handle()
 	{
 		ui_globals::reset = false;
 		machine().schedule_hard_reset();
-		menu::stack_reset(machine());
+		stack_reset();
 		return;
 	}
 
@@ -203,10 +204,10 @@ void menu_select_game::handle()
 	const event *menu_event = process(PROCESS_LR_REPEAT);
 	if (menu_event && menu_event->itemref)
 	{
-		if (ui_error)
+		if (m_ui_error)
 		{
 			// reset the error on any future menu_event
-			ui_error = false;
+			m_ui_error = false;
 			machine().ui_input().reset();
 		}
 		else if (menu_event->iptkey == IPT_UI_SELECT)
@@ -257,7 +258,7 @@ void menu_select_game::handle()
 					if ((FPTR)drv > skip_main_items && ui_globals::curdats_view > UI_FIRST_LOAD)
 					{
 						ui_globals::curdats_view--;
-						topline_datsview = 0;
+						m_topline_datsview = 0;
 					}
 				}
 				else
@@ -266,12 +267,12 @@ void menu_select_game::handle()
 					if (drv->startempty == 1 && ui_globals::curdats_view > UI_FIRST_LOAD)
 					{
 						ui_globals::curdats_view--;
-						topline_datsview = 0;
+						m_topline_datsview = 0;
 					}
 					else if ((FPTR)drv > skip_main_items && ui_globals::cur_sw_dats_view > 0)
 					{
 						ui_globals::cur_sw_dats_view--;
-						topline_datsview = 0;
+						m_topline_datsview = 0;
 					}
 				}
 			}
@@ -295,7 +296,7 @@ void menu_select_game::handle()
 					if ((FPTR)drv > skip_main_items && ui_globals::curdats_view < UI_LAST_LOAD)
 					{
 						ui_globals::curdats_view++;
-						topline_datsview = 0;
+						m_topline_datsview = 0;
 					}
 				}
 				else
@@ -304,12 +305,12 @@ void menu_select_game::handle()
 					if (drv->startempty == 1 && ui_globals::curdats_view < UI_LAST_LOAD)
 					{
 						ui_globals::curdats_view++;
-						topline_datsview = 0;
+						m_topline_datsview = 0;
 					}
 					else if ((FPTR)drv > skip_main_items && ui_globals::cur_sw_dats_view < 1)
 					{
 						ui_globals::cur_sw_dats_view++;
-						topline_datsview = 0;
+						m_topline_datsview = 0;
 					}
 				}
 			}
@@ -457,7 +458,7 @@ void menu_select_game::handle()
 	}
 
 	// if we're in an error state, overlay an error message
-	if (ui_error)
+	if (m_ui_error)
 		ui().draw_text_box(container, _("The selected machine is missing one or more required ROM or CHD images. "
 			"Please select a different machine.\n\nPress any key to continue."), ui::text_layout::CENTER, 0.5f, 0.5f, UI_RED_COLOR);
 
@@ -497,7 +498,7 @@ void menu_select_game::populate()
 	ui_globals::redraw_icon = true;
 	ui_globals::switch_image = true;
 	int old_item_selected = -1;
-	UINT32 flags_ui = FLAG_UI | FLAG_LEFT_ARROW | FLAG_RIGHT_ARROW;
+	UINT32 flags_ui = FLAG_LEFT_ARROW | FLAG_RIGHT_ARROW;
 
 	if (!isfavorite())
 	{
@@ -588,7 +589,7 @@ void menu_select_game::populate()
 	item_append(menu_item_type::SEPARATOR, flags_ui);
 
 	// add special items
-	if (menu::stack_has_special_main_menu())
+	if (stack_has_special_main_menu())
 	{
 		item_append(_("Configure Options"), "", flags_ui, (void *)(FPTR)CONF_OPTS);
 		item_append(_("Configure Machine"), "", flags_ui, (void *)(FPTR)CONF_MACHINE);
@@ -1064,14 +1065,14 @@ void menu_select_game::inkey_select(const event *menu_event)
 				reselect_last::swlist.clear();
 				mame_machine_manager::instance()->schedule_new_driver(*driver);
 				machine().schedule_hard_reset();
-				menu::stack_reset(machine());
+				stack_reset();
 			}
 		}
 		// otherwise, display an error
 		else
 		{
 			reset(reset_options::REMEMBER_REF);
-			ui_error = true;
+			m_ui_error = true;
 		}
 	}
 }
@@ -1125,7 +1126,7 @@ void menu_select_game::inkey_select_favorite(const event *menu_event)
 				reselect_last::set(true);
 				mame_machine_manager::instance()->schedule_new_driver(*ui_swinfo->driver);
 				machine().schedule_hard_reset();
-				menu::stack_reset(machine());
+				stack_reset();
 			}
 		}
 
@@ -1133,7 +1134,7 @@ void menu_select_game::inkey_select_favorite(const event *menu_event)
 		else
 		{
 			reset(reset_options::REMEMBER_REF);
-			ui_error = true;
+			m_ui_error = true;
 		}
 	}
 	else
@@ -1182,14 +1183,14 @@ void menu_select_game::inkey_select_favorite(const event *menu_event)
 			reselect_last::swlist = ui_swinfo->listname;
 			mame_machine_manager::instance()->schedule_new_driver(drv.driver());
 			machine().schedule_hard_reset();
-			menu::stack_reset(machine());
+			stack_reset();
 		}
 
 		// otherwise, display an error
 		else
 		{
 			reset(reset_options::REMEMBER_POSITION);
-			ui_error = true;
+			m_ui_error = true;
 		}
 	}
 }
@@ -1531,7 +1532,7 @@ void menu_select_game::populate_search()
 	}
 
 	(index < VISIBLE_GAMES_IN_SEARCH) ? m_searchlist[index] = nullptr : m_searchlist[VISIBLE_GAMES_IN_SEARCH] = nullptr;
-	UINT32 flags_ui = FLAG_UI | FLAG_LEFT_ARROW | FLAG_RIGHT_ARROW;
+	UINT32 flags_ui = FLAG_LEFT_ARROW | FLAG_RIGHT_ARROW;
 	for (int curitem = 0; m_searchlist[curitem]; ++curitem)
 	{
 		bool cloneof = strcmp(m_searchlist[curitem]->parent, "0");
@@ -1863,7 +1864,7 @@ float menu_select_game::draw_left_panel(float x1, float y1, float x2, float y2)
 				fgcolor = rgb_t(0xff, 0xff, 0xff, 0x00);
 				bgcolor = rgb_t(0xff, 0xff, 0xff, 0xff);
 				ui().draw_textured_box(container, x1, y1, x2, y1 + line_height_max, bgcolor, rgb_t(255, 43, 43, 43),
-					hilight_main_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
+					hilight_main_texture(), PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
 			}
 
 			float x1t = x1 + text_sign;
@@ -2028,7 +2029,7 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 
 		if (bgcolor != UI_TEXT_BG_COLOR)
 			ui().draw_textured_box(container, origx1 + ((middle - title_size) * 0.5f), origy1, origx1 + ((middle + title_size) * 0.5f),
-				origy1 + line_height, bgcolor, rgb_t(255, 43, 43, 43), hilight_main_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
+				origy1 + line_height, bgcolor, rgb_t(255, 43, 43, 43), hilight_main_texture(), PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
 
 		ui().draw_text_full(container, snaptext.c_str(), origx1, origy1, origx2 - origx1, ui::text_layout::CENTER,
 			ui::text_layout::NEVER, mame_ui_manager::NORMAL, fgcolor, bgcolor, nullptr, nullptr, tmp_size);
@@ -2040,8 +2041,8 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 			buffer.clear();
 			olddriver = driver;
 			oldview = ui_globals::curdats_view;
-			topline_datsview = 0;
-			totallines = 0;
+			m_topline_datsview = 0;
+			m_total_lines = 0;
 			std::vector<std::string> m_item;
 
 			if (ui_globals::curdats_view == UI_GENERAL_LOAD)
@@ -2072,30 +2073,30 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 			return;
 		}
 		else if (ui_globals::curdats_view != UI_STORY_LOAD && ui_globals::curdats_view != UI_COMMAND_LOAD)
-			totallines = ui().wrap_text(container, buffer.c_str(), origx1, origy1, origx2 - origx1 - (2.0f * gutter_width), xstart, xend, text_size);
+			m_total_lines = ui().wrap_text(container, buffer.c_str(), origx1, origy1, origx2 - origx1 - (2.0f * gutter_width), xstart, xend, text_size);
 		else
-			totallines = ui().wrap_text(container, buffer.c_str(), 0.0f, 0.0f, 1.0f - (2.0f * gutter_width), xstart, xend, text_size);
+			m_total_lines = ui().wrap_text(container, buffer.c_str(), 0.0f, 0.0f, 1.0f - (2.0f * gutter_width), xstart, xend, text_size);
 
 		int r_visible_lines = floor((origy2 - oy1) / (line_height * text_size));
-		if (totallines < r_visible_lines)
-			r_visible_lines = totallines;
-		if (topline_datsview < 0)
-			topline_datsview = 0;
-		if (topline_datsview + r_visible_lines >= totallines)
-			topline_datsview = totallines - r_visible_lines;
+		if (m_total_lines < r_visible_lines)
+			r_visible_lines = m_total_lines;
+		if (m_topline_datsview < 0)
+			m_topline_datsview = 0;
+		if (m_topline_datsview + r_visible_lines >= m_total_lines)
+			m_topline_datsview = m_total_lines - r_visible_lines;
 
 		sc = origx2 - origx1 - (2.0f * UI_BOX_LR_BORDER);
 		for (int r = 0; r < r_visible_lines; ++r)
 		{
-			int itemline = r + topline_datsview;
+			int itemline = r + m_topline_datsview;
 			std::string tempbuf(buffer.substr(xstart[itemline], xend[itemline] - xstart[itemline]));
 
 			// up arrow
-			if (r == 0 && topline_datsview != 0)
-				info_arrow(0, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
+			if (r == 0 && m_topline_datsview != 0)
+				draw_info_arrow(0, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
 			// bottom arrow
-			else if (r == r_visible_lines - 1 && itemline != totallines - 1)
-				info_arrow(1, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
+			else if (r == r_visible_lines - 1 && itemline != m_total_lines - 1)
+				draw_info_arrow(1, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
 			// special case for mamescore
 			else if (ui_globals::curdats_view == UI_STORY_LOAD)
 			{
@@ -2159,7 +2160,7 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 		}
 
 		// return the number of visible lines, minus 1 for top arrow and 1 for bottom arrow
-		right_visible_lines = r_visible_lines - (topline_datsview != 0) - (topline_datsview + r_visible_lines != totallines);
+		right_visible_lines = r_visible_lines - (m_topline_datsview != 0) - (m_topline_datsview + r_visible_lines != m_total_lines);
 	}
 	else if (soft)
 	{
@@ -2202,7 +2203,7 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 
 			if (bgcolor != UI_TEXT_BG_COLOR)
 				ui().draw_textured_box(container, origx1 + ((middle - title_size) * 0.5f), origy1, origx1 + ((middle + title_size) * 0.5f),
-					origy1 + line_height, bgcolor, rgb_t(255, 43, 43, 43), hilight_main_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
+					origy1 + line_height, bgcolor, rgb_t(255, 43, 43, 43), hilight_main_texture(), PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
 
 			ui().draw_text_full(container, t_text[ui_globals::cur_sw_dats_view].c_str(), origx1, origy1, origx2 - origx1,
 				ui::text_layout::CENTER, ui::text_layout::TRUNCATE, mame_ui_manager::NORMAL, fgcolor, bgcolor, nullptr, nullptr);
@@ -2233,27 +2234,27 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 			return;
 		}
 		else
-			totallines = ui().wrap_text(container, buffer.c_str(), origx1, origy1, origx2 - origx1 - (2.0f * gutter_width), xstart, xend, text_size);
+			m_total_lines = ui().wrap_text(container, buffer.c_str(), origx1, origy1, origx2 - origx1 - (2.0f * gutter_width), xstart, xend, text_size);
 
 		int r_visible_lines = floor((origy2 - oy1) / (line_height * text_size));
-		if (totallines < r_visible_lines)
-			r_visible_lines = totallines;
-		if (topline_datsview < 0)
-				topline_datsview = 0;
-		if (topline_datsview + r_visible_lines >= totallines)
-				topline_datsview = totallines - r_visible_lines;
+		if (m_total_lines < r_visible_lines)
+			r_visible_lines = m_total_lines;
+		if (m_topline_datsview < 0)
+			m_topline_datsview = 0;
+		if (m_topline_datsview + r_visible_lines >= m_total_lines)
+			m_topline_datsview = m_total_lines - r_visible_lines;
 
 		for (int r = 0; r < r_visible_lines; ++r)
 		{
-			int itemline = r + topline_datsview;
+			int itemline = r + m_topline_datsview;
 			std::string tempbuf(buffer.substr(xstart[itemline], xend[itemline] - xstart[itemline]));
 
 			// up arrow
-			if (r == 0 && topline_datsview != 0)
-				info_arrow(0, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
+			if (r == 0 && m_topline_datsview != 0)
+				draw_info_arrow(0, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
 			// bottom arrow
-			else if (r == r_visible_lines - 1 && itemline != totallines - 1)
-				info_arrow(1, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
+			else if (r == r_visible_lines - 1 && itemline != m_total_lines - 1)
+				draw_info_arrow(1, origx1, origx2, oy1, line_height, text_size, ud_arrow_width);
 			else
 				ui().draw_text_full(container, tempbuf.c_str(), origx1 + gutter_width, oy1, origx2 - origx1, ui::text_layout::LEFT,
 					ui::text_layout::TRUNCATE, mame_ui_manager::NORMAL, UI_TEXT_COLOR, UI_TEXT_BG_COLOR, nullptr, nullptr, text_size);
@@ -2261,7 +2262,7 @@ void menu_select_game::infos_render(void *selectedref, float origx1, float origy
 		}
 
 		// return the number of visible lines, minus 1 for top arrow and 1 for bottom arrow
-		right_visible_lines = r_visible_lines - (topline_datsview != 0) - (topline_datsview + r_visible_lines != totallines);
+		right_visible_lines = r_visible_lines - (m_topline_datsview != 0) - (m_topline_datsview + r_visible_lines != m_total_lines);
 	}
 }
 
@@ -2313,7 +2314,6 @@ void menu_select_game::draw_right_panel(void *selectedref, float origx1, float o
 
 void menu_select_game::arts_render(void *selectedref, float origx1, float origy1, float origx2, float origy2)
 {
-	float line_height = ui().get_line_height();
 	bool is_favorites = ((item[0].flags & FLAG_UI_FAVORITE) != 0);
 	static ui_software_info *oldsoft = nullptr;
 	static const game_driver *olddriver = nullptr;
@@ -2346,7 +2346,7 @@ void menu_select_game::arts_render(void *selectedref, float origx1, float origy1
 		searchstr = arts_render_common(origx1, origy1, origx2, origy2);
 
 		// loads the image if necessary
-		if (driver != olddriver || !snapx_bitmap->valid() || ui_globals::switch_image)
+		if (driver != olddriver || !snapx_valid() || ui_globals::switch_image)
 		{
 			emu_file snapfile(searchstr.c_str(), OPEN_FLAG_READ);
 			snapfile.set_restrict_to_mediapath(true);
@@ -2405,16 +2405,7 @@ void menu_select_game::arts_render(void *selectedref, float origx1, float origy1
 		}
 
 		// if the image is available, loaded and valid, display it
-		if (snapx_bitmap->valid())
-		{
-			float x1 = origx1 + 0.01f;
-			float x2 = origx2 - 0.01f;
-			float y1 = origy1 + UI_BOX_TB_BORDER + line_height;
-			float y2 = origy2 - UI_BOX_TB_BORDER - line_height;
-
-			// apply texture
-			container->add_quad( x1, y1, x2, y2, rgb_t::white, snapx_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA));
-		}
+		draw_snapx(origx1, origy1, origx2, origy2);
 	}
 	else if (soft != nullptr)
 	{
@@ -2428,7 +2419,7 @@ void menu_select_game::arts_render(void *selectedref, float origx1, float origy1
 		searchstr = arts_render_common(origx1, origy1, origx2, origy2);
 
 		// loads the image if necessary
-		if (soft != oldsoft || !snapx_bitmap->valid() || ui_globals::switch_image)
+		if (soft != oldsoft || !snapx_valid() || ui_globals::switch_image)
 		{
 			emu_file snapfile(searchstr.c_str(), OPEN_FLAG_READ);
 			bitmap_argb32 *tmp_bitmap;
@@ -2494,16 +2485,7 @@ void menu_select_game::arts_render(void *selectedref, float origx1, float origy1
 		}
 
 		// if the image is available, loaded and valid, display it
-		if (snapx_bitmap->valid())
-		{
-			float x1 = origx1 + 0.01f;
-			float x2 = origx2 - 0.01f;
-			float y1 = origy1 + UI_BOX_TB_BORDER + line_height;
-			float y2 = origy2 - UI_BOX_TB_BORDER - line_height;
-
-			// apply texture
-			container->add_quad(x1, y1, x2, y2, rgb_t::white, snapx_texture, PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA));
-		}
+		draw_snapx(origx1, origy1, origx2, origy2);
 	}
 }
 

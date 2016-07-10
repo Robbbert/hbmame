@@ -417,6 +417,14 @@ private:
 	static const UINT8 strdesc2[];
 	int maximum_send;
 	UINT8 *region;
+	struct
+	{
+		UINT8 buffer_in[32768];
+		int buffer_in_expected;
+		UINT8 buffer_out[32768];
+		int buffer_out_used;
+		int buffer_out_packets;
+	} jvs;
 };
 
 const device_type OHCI_HLEAN2131QC = &device_creator<ohci_hlean2131qc_device>;
@@ -696,6 +704,9 @@ ohci_hlean2131qc_device::ohci_hlean2131qc_device(const machine_config &mconfig, 
 {
 	maximum_send = 0;
 	region = nullptr;
+	jvs.buffer_in_expected = 0;
+	jvs.buffer_out_used = 0;
+	jvs.buffer_out_packets = 0;
 }
 
 void ohci_hlean2131qc_device::initialize(running_machine &machine, ohci_usb_controller *usb_bus_manager)
@@ -733,9 +744,13 @@ int ohci_hlean2131qc_device::handle_nonstandard_request(int endpoint, USBSetupPa
 	// default valuse for data stage
 	for (int n = 0; n < setup->wLength; n++)
 		endpoints[endpoint].buffer[n] = 0x50 ^ n;
-	endpoints[endpoint].buffer[1] = 0x4b; // PINSA register, bits 4-1 special value, must be 10 xor 15, but bit 3 is ignored since its used as the CS pin of the chip
-	endpoints[endpoint].buffer[2] = 0x52; // PINSB register, bit 4 connected to re/de pins of max485, bits 2-3 used as uart pins, bit 0 is the sense pin of the jvs connector
-	endpoints[endpoint].buffer[3] = 0x53; // OUTB register
+	// PINSA register, bits 4-1 special value, must be 10 xor 15, but bit 3 is ignored since its used as the CS pin of the chip
+	endpoints[endpoint].buffer[1] = 0x4b;
+	// PINSB register, bit 4 connected to re/de pins of max485, bits 2-3 used as uart pins, bit 0-1 is the sense pin of the jvs connector
+	// if bits 0-1 are 11, the not all the connected jvs devices have been assigned an address yet
+	endpoints[endpoint].buffer[2] = 0x52|3;
+	// OUTB register
+	endpoints[endpoint].buffer[3] = 0x53;
 	// bRequest is a command value
 	if (setup->bRequest == 0x16)
 	{
@@ -767,19 +782,19 @@ int ohci_hlean2131qc_device::handle_nonstandard_request(int endpoint, USBSetupPa
 	}
 	else if (setup->bRequest == 0x19)
 	{
-		const int tosend = 20;
 		// this command is used to retreive the jvs packets that have been received in response to the ones of 0x20
 		// data for the packets will be transferred to the host using endpoint 4 (IN)
 		// the nuber of bytes to transfer is returned at bytes 4 and 5 in the data stage of this control transfer
 		// data transferred starts with a byte with value 0, then a byte with value the number of packets received, then a block of bytes for each packet
-		// the bytes for a packet start with the jvs node address, then a dummy one, then a 16 bit number in little endian format that specifies how many bytes follow
-		// the bytes that follow contain the body of the packet as received from the jvs bus
+		// the bytes for a packet start with the jvs node address, then a dummy one (must be 0), then a 16 bit number in little endian format that specifies how many bytes follow
+		// the bytes that follow contain the body of the packet as received from the jvs bus, from the 0xa0 byte to the checksum
 		endpoints[endpoint].buffer[0] = 0; // 0 if not busy
-		endpoints[endpoint].buffer[5] = tosend >> 8; // amount to transfer with endpoint 4
-		endpoints[endpoint].buffer[4] = (tosend & 0xff);
-		endpoints[4].remain = tosend;
-		endpoints[4].position = endpoints[4].buffer;
-		memset(endpoints[4].buffer, 0, 20);
+		endpoints[endpoint].buffer[5] = jvs.buffer_out_used >> 8; // amount to transfer with endpoint 4
+		endpoints[endpoint].buffer[4] = (jvs.buffer_out_used & 0xff);
+		// the data to be sent is prepared in command 0x20
+		endpoints[4].remain = jvs.buffer_out_used;
+		endpoints[4].position = jvs.buffer_out;
+		jvs.buffer_out_used = 0;
 		endpoints[endpoint].buffer[0] = 0;
 	}
 	else if (setup->bRequest == 0x1c)
@@ -826,6 +841,16 @@ int ohci_hlean2131qc_device::handle_nonstandard_request(int endpoint, USBSetupPa
 		// the data for each packet contains first a byte with value 0, then the sync byte (0xe0) then all the other bytes of the packet ending with the checksum byte
 		printf(" Jvs packets data of %d bytes\n\r", setup->wIndex);
 		endpoints[endpoint].buffer[0] = 0;
+		if (jvs.buffer_out_used == 0)
+		{
+			jvs.buffer_out_packets = 0;
+			jvs.buffer_out[0] = 0;
+			jvs.buffer_out[1] = (UINT8)jvs.buffer_out_packets;
+			jvs.buffer_out_used = 2;
+		}
+		jvs.buffer_in_expected = setup->wIndex;
+		endpoints[4].remain = jvs.buffer_in_expected;
+		endpoints[4].position = jvs.buffer_in;
 	}
 	else if (setup->bRequest == 0x24)
 	{
@@ -858,7 +883,7 @@ int ohci_hlean2131qc_device::handle_nonstandard_request(int endpoint, USBSetupPa
 int ohci_hlean2131qc_device::handle_bulk_pid(int endpoint, int pid, UINT8 *buffer, int size)
 {
 	printf("Bulk request: %x %d %x\n\r", endpoint, pid, size);
-	if (((endpoint == 1) || (endpoint == 2) || (endpoint == 4)) && (pid == InPid))
+	if (((endpoint == 1) || (endpoint == 2)) && (pid == InPid))
 	{
 		if (size > endpoints[endpoint].remain)
 			size = endpoints[endpoint].remain;
@@ -866,11 +891,59 @@ int ohci_hlean2131qc_device::handle_bulk_pid(int endpoint, int pid, UINT8 *buffe
 		endpoints[endpoint].position = endpoints[endpoint].position + size;
 		endpoints[endpoint].remain = endpoints[endpoint].remain - size;
 	}
+	if ((endpoint == 4) && (pid == InPid))
+	{
+		if (size > endpoints[4].remain)
+			size = endpoints[4].remain;
+		memcpy(buffer, endpoints[4].position, size);
+		endpoints[4].position = endpoints[4].position + size;
+		endpoints[4].remain = endpoints[4].remain - size;
+	}
 	if ((endpoint == 4) && (pid == OutPid))
 	{
+		if (size > endpoints[4].remain)
+			size = endpoints[4].remain;
 		for (int n = 0; n < size; n++)
-			printf(" %02x",buffer[n]);
-		printf("\n\r");
+			printf(" %02x", buffer[n]);
+		if (size > 0) {
+			memcpy(endpoints[4].position, buffer, size);
+			endpoints[4].position = endpoints[4].position + size;
+			endpoints[4].remain = endpoints[4].remain - size;
+			printf("\n\r");
+			if (endpoints[4].remain == 0)
+			{
+				// extract packets
+				int numpk = jvs.buffer_in[1];
+				int p = 2;
+
+				for (int n = 0;n < numpk;n++)
+				{
+					p++;
+					if (jvs.buffer_in[p] != 0xe0)
+						break;
+					p++;
+					int dest = jvs.buffer_in[p];
+					p++;
+					int len = jvs.buffer_in[p];
+					p++;
+					if ((p + len) >= jvs.buffer_in_expected)
+						break;
+					int chk = dest + len;
+					for (int m = len - 1; m > 0; m--)
+						chk = chk + (int)jvs.buffer_in[p + m - 1];
+					chk = chk & 255;
+					if (chk != (int)jvs.buffer_in[p + len - 1])
+					{
+						p = p + len;
+						continue;
+					}
+					// use data of this packet
+					// generate response
+					// update buffer_out
+					p = p + len;
+				}
+			}
+		}
 	}
 	return size;
 }
