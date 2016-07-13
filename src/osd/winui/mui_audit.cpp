@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
  /***************************************************************************
@@ -165,9 +166,15 @@ int MameUIVerifyRomSet(int game, bool choice)
 	}
 	else
 	if (choice)
+	{
 		auditor.winui_summarize(driver_list::driver(game).name, &summary_string); // audit all games
+	}
 	else
-		auditor.summarize(driver_list::driver(game).name, &summary_string); // audit one game
+	{
+		std::ostringstream whatever;
+		auditor.summarize(driver_list::driver(game).name, &whatever); // audit one game
+		summary_string = whatever.str();
+	}
 
 	// output the summary of the audit
 	DetailsPrintf("%s", summary_string.c_str());
@@ -189,7 +196,11 @@ int MameUIVerifySampleSet(int game)
 	if (summary == media_auditor::NOTFOUND)
 		strcatprintf(summary_string, "%s: Sampleset NOT FOUND\n", driver_list::driver(game).name);
 	else
-		auditor.summarize(driver_list::driver(game).name, &summary_string);
+	{
+		std::ostringstream whatever;
+		auditor.summarize(driver_list::driver(game).name, &whatever);
+		summary_string = whatever.str();
+	}
 
 	// output the summary of the audit
 	DetailsPrintf("%s", summary_string.c_str());
