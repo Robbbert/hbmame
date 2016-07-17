@@ -27,7 +27,6 @@ public:
 	static void force_game_select(mame_ui_manager &mui, render_container &container);
 
 protected:
-	virtual void custom_render(void *selectedref, float top, float bottom, float x, float y, float x2, float y2) override;
 	virtual bool menu_has_search_active() override { return (m_search[0] != 0); }
 
 private:
@@ -40,8 +39,14 @@ private:
 
 	enum { VISIBLE_GAMES_IN_SEARCH = 200 };
 	char m_search[40];
+	static bool first_start;
 	static int m_isabios;
 	int highlight;
+
+	std::string             m_info_buffer;
+	game_driver const       *m_info_driver;
+	ui_software_info const  *m_info_software;
+	int                     m_info_view;
 
 	static std::vector<const game_driver *> m_sortedlist;
 	std::vector<const game_driver *> m_availsortedlist;
@@ -56,8 +61,13 @@ private:
 	// draw left panel
 	virtual float draw_left_panel(float x1, float y1, float x2, float y2) override;
 
-	// draw right panel
-	virtual void draw_right_panel(void *selectedref, float origx1, float origy1, float origx2, float origy2) override;
+	// get selected software and/or driver
+	virtual void get_selection(ui_software_info const *&software, game_driver const *&driver) const override;
+
+	// text for main top/bottom panels
+	virtual void make_topbox_text(std::string &line0, std::string &line1, std::string &line2) const override;
+	virtual std::string make_driver_description(game_driver const &driver) const override;
+	virtual std::string make_software_description(ui_software_info const &software) const override;
 
 	// internal methods
 	void build_custom();
@@ -65,24 +75,28 @@ private:
 	void build_available_list();
 	void build_list(const char *filter_text = nullptr, int filter = 0, bool bioscheck = false, std::vector<const game_driver *> vec = {});
 
-	bool isfavorite();
+	bool isfavorite() const;
 	void populate_search();
 	void init_sorted_list();
 	bool load_available_machines();
 	void load_custom_filters();
 
+	void *get_selection_ptr() const
+	{
+		void *const selected_ref(get_selection_ref());
+		return (FPTR(selected_ref) > skip_main_items) ? selected_ref : m_prev_selected;
+	}
+
 	// General info
 	void general_info(const game_driver *driver, std::string &buffer);
 
-	void arts_render(void *selectedref, float x1, float y1, float x2, float y2);
-	void infos_render(void *selectedref, float x1, float y1, float x2, float y2);
+	virtual void infos_render(float x1, float y1, float x2, float y2) override;
 
 	// handlers
 	void inkey_select(const event *menu_event);
 	void inkey_select_favorite(const event *menu_event);
 	void inkey_special(const event *menu_event);
 	void inkey_export();
-	void inkey_navigation();
 };
 
 } // namespace ui
