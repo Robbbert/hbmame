@@ -1701,6 +1701,35 @@ ROM_START( kof97yk2 )
 	ROM_LOAD16_BYTE( "232yk2.c6", 0x2000001, 0x800000, CRC(0b06fba8) SHA1(528b66d6d53682316dd1f33d1cf8b689b3642364) )
 ROM_END
 
+ROM_START( kof97yk85 )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232yk85.p1", 0x000000, 0x100000, CRC(821b0dc4) SHA1(402488249d4e2984fb5c42f0bb4c00b179ea4d12) )
+	ROM_IGNORE( 0x354f67 )
+	ROM_LOAD16_WORD_SWAP( "232yk85.p2", 0x100000, 0x600000, CRC(170e7302) SHA1(3952ca4fbf8aa71e372372881efc4f4aafa9562c) )
+
+	NEO_SFIX_128K( "232yk85.s1", CRC(d8826314) SHA1(5d3ffdf709ee8f84e451464866d0ddcaf98bdb89) )
+
+	NEO_BIOS_AUDIO_128K( "232-m1.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "232-v1.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232-v2.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232-v3.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+	//ROM_LOAD( "265-nu.v4", 0xc00000, 0x400000, CRC(067271b5) SHA1(36e07da78aaf634824c98023053bef802be4e218) ) in romset but m1 is not changed so i doubt it is used
+
+	ROM_REGION( 0x5000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232yk85.c1",  0x0000000, 0x800000, CRC(e47371bb) SHA1(e0e107f4edfbac0a7638b240405745bf31dbadf9) )
+	ROM_LOAD16_BYTE( "232yk85.c2",  0x0000001, 0x800000, CRC(e09108b0) SHA1(b19e0101ed500dec65156a6c19334125a4012521) )
+	ROM_LOAD16_BYTE( "232yk1.c3",   0x1000000, 0x800000, CRC(ffb025af) SHA1(64913b51b496a13a92317008d2a15543e6c89ba9) )
+	ROM_LOAD16_BYTE( "232yk1.c4",   0x1000001, 0x800000, CRC(7182157c) SHA1(306a968ae325d0b7d647e7fdb36a3a07bacda923) )
+	ROM_LOAD16_BYTE( "232yk85.c5",  0x2000000, 0x800000, CRC(c61653cc) SHA1(05674fb5b0007f200b090e93863335fdf474fa64) )
+	ROM_LOAD16_BYTE( "232yk85.c6",  0x2000001, 0x800000, CRC(a01a762f) SHA1(68df7a1753745b9468c4f464779c2c5033f16458) )
+	ROM_LOAD16_BYTE( "232yk85.c7",  0x3000000, 0x800000, CRC(52ac1bcf) SHA1(51f026db5bac479b82297260b55575f8a60306c7) )
+	ROM_LOAD16_BYTE( "232yk85.c8",  0x3000001, 0x800000, CRC(76de561d) SHA1(8f27e746372daf77ff41c4ee431fa36ae22c7b8d) )
+	ROM_LOAD16_BYTE( "232yk85.c9",  0x4000000, 0x800000, CRC(46eb506a) SHA1(1b64fb31dfdc95b901b2e3d359bdee38f764358f) )
+	ROM_LOAD16_BYTE( "232yk85.c10", 0x4000001, 0x800000, CRC(33595746) SHA1(1532ce71b27beace35f359568d506eaf75ad578d) )
+ROM_END
+
 ROM_START( kof97yl ) /* The King of Fighters '97 - Hack by Leather and Ydmis - (Can choose Orochi + 5 add. characters - extra stage select) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232yl.p1", 0x000000, 0x100000, CRC(b74278b8) SHA1(5fe72fa346c54229b3b80121720af624a7eca95c) )
@@ -1891,6 +1920,7 @@ GAME( 1997, kof97yh,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 2007, kof97yk,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yk1,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yk2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yk85, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yl,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "Kof'97 (Add Char - Extra stage select set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "Kof'97 (Add Char - Extra stage select set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yo,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 Seven Yoga Community Imitation 98", MACHINE_SUPPORTS_SAVE )

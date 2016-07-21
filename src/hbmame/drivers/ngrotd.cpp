@@ -239,6 +239,29 @@ ROM_START( rotdd )
 	ROM_LOAD16_BYTE( "264d.c8", 0x3000001, 0x800000, CRC(82b1ba22) SHA1(B4AD715807F2C15FC06945F0BCB475C3698CF089) )
 ROM_END
 
+ROM_START( rotddh )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "264dh.p1", 0x000000, 0x800000, CRC(7c095666) SHA1(2b9412105cd60fa6d7eea9d13a552fd976f56eb6) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_128K( "264nd.m1", CRC(c5d36af9) SHA1(320739d0cfa6cc84455ae1f7b1f9cdab3c018933) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "264-v1.v1", 0x000000, 0x800000, CRC(fa005812) SHA1(73723126dab5a640ac11955ed6da1bf7a91394f5) )
+	ROM_LOAD( "264-v2.v2", 0x800000, 0x800000, CRC(c3dc8bf0) SHA1(a105e37262d9500a30fb8a5dac05aa4fab2562a3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "264d.c1", 0x0000000, 0x800000, CRC(ec9d18c0) SHA1(83EBEDAE9655B6C64421CD131930B27D252853EC) )
+	ROM_LOAD16_BYTE( "264d.c2", 0x0000001, 0x800000, CRC(b1069066) SHA1(0B4E2249EFC782B572B589F72AADBD8007E8778C) )
+	ROM_LOAD16_BYTE( "264d.c3", 0x1000000, 0x800000, CRC(7e636d49) SHA1(1BA15DDBCE8369D7232CC1DA3F833F6CB68FBC10) )
+	ROM_LOAD16_BYTE( "264d.c4", 0x1000001, 0x800000, CRC(76892fda) SHA1(27416585973A6EC7B5721DE1116C8700B38E3A4C) )
+	ROM_LOAD16_BYTE( "264d.c5", 0x2000000, 0x800000, CRC(469061bc) SHA1(34E60E5F93743BE88BFC9E8B7656FE9FAF77F8F5) )
+	ROM_LOAD16_BYTE( "264d.c6", 0x2000001, 0x800000, CRC(2200220a) SHA1(8379B4C89854B3CC9B4F33F4F51AB5387ACD14CA) )
+	ROM_LOAD16_BYTE( "264dh.c7", 0x3000000, 0x800000, CRC(2b5c1044) SHA1(1dc3b2bd5fed3e5b39d87c4728e8b0d8225ee7dc) )
+	ROM_LOAD16_BYTE( "264dh.c8", 0x3000001, 0x800000, CRC(f697f287) SHA1(2b257f2ebef69f19aaca54f37472f1c3dfc6bee6) )
+ROM_END
+
 ROM_START( rotdeh ) /* Rage of the Dragons - Hack by Ydmis - (Can choose Abubo and Johann) */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "264eh.p1", 0x000000, 0x800000, CRC(b8db28bc) SHA1(9fd6cd7a13bde0854243dca4b0d7d9601cde4996) )
@@ -521,23 +544,24 @@ ROM_END
 
 
 
-GAME( 2002, rotdb,     rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
+GAME( 2002, rotdb,     rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdbr,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "hack", "Rage of the Dragons (Portuguese)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdbr1,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "hack", "Rage of the Dragons (Portuguese) (Alt Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdbr2,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "hack", "Rage of the Dragons (Portuguese) (Alt Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdcre,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami and Unk","Rage of the Dragons (Console mode enabled - Always pow max - No change wait)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdcreb,  rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami, Unk and Ydmis","Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 2)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
+GAME( 2002, rotdcreb,  rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami, Unk and Ydmis","Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdd,     rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdd, ROT0, "Evoga / Playmore","Rage of the Dragons (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdeh,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Ydmis", "Rage of the Dragons (Add Char)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
-GAME( 2002, rotdehc,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami, FWNL and Ydmis","Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 1)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
-GAME( 2002, rotdfw,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
-GAME( 2002, rotdfy,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 3)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
-GAME( 2002, rotdh2b,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 5)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
-GAME( 2002, rotdhab,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "HappyAsr", "Rage of the Dragons (Add Char - Console mode enabled - Char menu changed - Char choose twice)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
+GAME( 2002, rotddh,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdd, ROT0, "hack", "Rage of the Dragons (hack dh)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdeh,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Ydmis", "Rage of the Dragons (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdehc,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami, FWNL and Ydmis","Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdfw,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdfy,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdh2b,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdhab,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "HappyAsr", "Rage of the Dragons (Add Char - Console mode enabled - Char menu changed - Char choose twice)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdhar,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "HappyAsr", "Rage of the Dragons (Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdhfw,   rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL", "Rage of the Dragons (Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
-GAME( 2002, rotdyc,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE ) // Abubo and Johann
+GAME( 2002, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdyc,    rotd, neogeo_noslot, neogeo, neogeo_hbmame, rotdb, ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE )
 
 
 

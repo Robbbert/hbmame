@@ -1,6 +1,29 @@
 What's new in HBMAME
 ====================
 
+2016-07-27 0.176
+----------------
+
+Thanks to all those who helped gather the newest hacks.
+
+
+
+
+New Games
+---------
+- [kof2k2bl3]
+- [kof2k2bl4]
+- [kof2k2omg]
+- [kof2k2smf]
+- [kof10thep15]
+- [kof97yk85]
+- [rotddh]
+- [sengoku3eb]
+- [svcplusa2016]
+- [svcsplus2016]
+
+
+
 2016-06-29 0.175
 ----------------
 
