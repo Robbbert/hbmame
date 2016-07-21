@@ -6,9 +6,8 @@
 
 
 /*
-    TODO: implement keyclick
-    TODO: determine default keyclick state on real keyboard
-    TODO: use 1,200 Baud properly once we work out what's going on with the SCC
+    TODO: scancodes for extra key on international layout
+    TODO: self test pass sequence for Type 3 keyboard
 
     HLE SPARC serial keyboard compatible with Sun Type 4/5/6
 
@@ -16,7 +15,7 @@
     0000 0001               reset (keyboard responds with self test pass/fail)
     0000 0010               bell on (480us period)
     0000 0011               bell off
-    0000 1010               enable keyclick (5us duration 480us period on make)
+    0000 1010               enable keyclick (5ms duration 480us period on make)
     0000 1011               disable keyclick
     0000 1110  ---- lscn    LED (1 = on, l = caps lock, s = scroll lock, c = compose, n = num lock)
     0000 1111               layout request (keyboard responds with layout response)
@@ -27,7 +26,48 @@
     0111 1111               all keys up
     1111 1110  00dd dddd    layout response (DIP switches 3 to 8 from MSB to LSB)
     1111 1111  0000 0100    reset response (self test pass, always followed by all keys up or key make)
-    0111 1110  0000 0001    self test fal
+    0111 1110  0000 0001    self test fail
+
+
+    Type 3 layout:
+
+    01  03    05  06    08      0a      0c      0e      10    11  12  2b    15  16  17
+    19  1a    1d  1e  1f  20  21  22  23  24  25  26  27  28  29  58  2a    2d  2e  2f
+    31  33    35    36  37  38  39  3a  3b  3c  3d  3e  3f  40  41    42    44  45  46
+    48  49    4c     4d  4e  4f  50  51  52  53  54  55  56  57       59    5b  5c  5d
+    5f  61    63       64  65  66  67  68  69  6a  6b  6c  6d    6e   6f    70  71  72
+              77     78                  79                   7a      13
+
+    no LEDs
+    top row function keys are F1-F9 and backspace
+    delete key is above return
+    meta keys labelled "Left" and "Right"
+    linefeed key to the right of right shift (removed for Type 5)
+    single control key (still the case on later Sun keyboards)
+    "Alternate" key at bottom right of main area (moved to left for Type 4)
+    left group of function keys labelled L1-L10
+    right group of function keys labelled R1-R15
+    cursor up/down/left/right on R8/R10/R12/R14
+
+
+    Type 4 layout:
+
+    01  03    05  06  08  0a  0c  0e  10  11  12  07  09  0b  58      42    15  16  17  62
+    19  1a    1d  1e  1f  20  21  22  23  24  25  26  27  28  29      2b    2d  2e  2f  47
+    31  33    35    36  37  38  39  3a  3b  3c  3d  3e  3f  40  41          44  45  46
+    48  49    4c     4d  4e  4f  50  51  52  53  54  55  56  57  2a   59    5b  5c  5d  7d
+    5f  61    63       64  65  66  67  68  69  6a  6b  6c  6d   6e    6f    70  71  72
+      76      77  13  78                  79                  7a  43  0d      5e    32  5a
+
+    double-height return key, backspace above return
+    top row F1-F12, backslash and delete
+    dedicated labels for left function group with "Help" key added at bottom
+    meta keys labelled with diamonds, "Alt" on left, "Alt Graph" on right
+    "tenkey" keypad layout mostly re-using codes from R1-R15 on Type 3
+    top row of keypad is Pause, PrSc, Scroll Lock/Break, Num Lock
+    2d is = key on keypad (removed for Type 5 and scancode reused for mute)
+    introduces the "Compose" key
+    Caps Lock/Compose/Scroll Lock/Num Lock LEDs above keypad
 
 
     Type 5 US PC layout:
@@ -38,7 +78,8 @@
     19  1a    35    36  37  38  39  3a  3b  3c  3d  3e  3f  40  41    58    42  4a  7b    44  45  46
     31  33    77     4d  4e  4f  50  51  52  53  54  55  56  57       59                  5b  5c  5d  7d
     48  49    63       64  65  66  67  68  69  6a  6b  6c  6d         6e        14        70  71  72
-    5f  61    4c     78   13                79                0d  43  7a    18  1b  1c      5e    32  5a
+    5f  61    4c     13   78                79                7a  43  0d    18  1b  1c      5e    32  5a
+
 
     Type 5 US UNIX layout:
 
@@ -48,10 +89,9 @@
     19  1a    35    36  37  38  39  3a  3b  3c  3d  3e  3f  40  41    2b    42  4a  7b    44  45  46
     31  33    4c     4d  4e  4f  50  51  52  53  54  55  56  57       59                  5b  5c  5d  7d
     48  49    63       64  65  66  67  68  69  6a  6b  6c  6d         6e        14        70  71  72
-    5f  61    77     78   13                79                0d  43  7a    18  1b  1c      5e    32  5a
+    5f  61    77     13   78                79                7a  43  0d    18  1b  1c      5e    32  5a
 
     xx is a blank key
-    6f is assigned to linefeed, which is present on Type 4 keyboards, but absent on Type 5
 */
 
 namespace {
@@ -297,9 +337,9 @@ sparc_keyboard_device::sparc_keyboard_device(
 		char const *source)
 	: device_t(mconfig, type, name, tag, owner, clock, shortname, source)
 	, device_serial_interface(mconfig, *this)
-	, device_rs232_port_interface(mconfig, *this)
+	, device_sun_keyboard_port_interface(mconfig, *this)
 	, m_scan_timer(nullptr)
-	, m_tx_delay_timer(nullptr)
+	, m_click_timer(nullptr)
 	, m_dips(*this, "DIP")
 	, m_key_inputs{
 			{ *this, "ROW0" }, { *this, "ROW1" },
@@ -314,6 +354,7 @@ sparc_keyboard_device::sparc_keyboard_device(
 	, m_tail(0)
 	, m_empty(0)
 	, m_rx_state(RX_IDLE)
+	, m_keyclick(0)
 	, m_beeper_state(0)
 {
 }
@@ -340,7 +381,7 @@ void sparc_keyboard_device::device_start()
 	device_serial_interface::register_save_state(machine().save(), this);
 
 	m_scan_timer = timer_alloc(SCAN_TIMER_ID);
-	m_tx_delay_timer = timer_alloc(TX_DELAY_TIMER_ID);
+	m_click_timer = timer_alloc(CLICK_TIMER_ID);
 
 	save_item(NAME(m_current_keys));
 	save_item(NAME(m_next_row));
@@ -349,6 +390,7 @@ void sparc_keyboard_device::device_start()
 	save_item(NAME(m_tail));
 	save_item(NAME(m_empty));
 	save_item(NAME(m_rx_state));
+	save_item(NAME(m_keyclick));
 	save_item(NAME(m_beeper_state));
 }
 
@@ -362,20 +404,17 @@ void sparc_keyboard_device::device_reset()
 	m_head = m_tail = 0;
 	m_empty = 1;
 	m_rx_state = RX_IDLE;
+	m_keyclick = 0;
 	m_beeper_state = 0;
 
 	// configure device_serial_interface
-	set_data_frame(1, 8, PARITY_NONE, STOP_BITS_1);
-	set_rate(9'600); // FIXME: should be 1'200 but the z80scc Baud rate generator is broken
+	set_data_frame(START_BIT_COUNT, DATA_BIT_COUNT, PARITY, STOP_BITS);
+	set_rate(BAUD);
 	receive_register_reset();
 	transmit_register_reset();
 
-	// set device_rs232_port_interface lines - note that only RxD is physically present
+	// set device_sun_keyboard_port_interface lines
 	output_rxd(1);
-	output_dcd(0);
-	output_dsr(0);
-	output_ri(0);
-	output_cts(0);
 
 	// send reset response
 	send_byte(0xffU);
@@ -391,7 +430,7 @@ void sparc_keyboard_device::device_reset()
 
 	// kick the scan timer
 	m_scan_timer->adjust(attotime::from_hz(1'200), 0, attotime::from_hz(1'200));
-	m_tx_delay_timer->reset();
+	m_click_timer->reset();
 }
 
 
@@ -403,20 +442,9 @@ void sparc_keyboard_device::device_timer(emu_timer &timer, device_timer_id id, i
 		scan_row();
 		break;
 
-	case TX_DELAY_TIMER_ID:
-		assert(is_transmit_register_empty());
-		assert(!m_empty || (m_head == m_tail));
-		assert(m_head < ARRAY_LENGTH(m_fifo));
-		assert(m_tail < ARRAY_LENGTH(m_fifo));
-
-		if (!m_empty)
-		{
-			printf("SPARC keyboard: send queued: %02x\n", m_fifo[m_head]);
-			fflush(stdout);
-			transmit_register_setup(m_fifo[m_head]);
-			m_head = (m_head + 1) & 0x0fU;
-			m_empty = (m_head == m_tail) ? 1 : 0;
-		}
+	case CLICK_TIMER_ID:
+		m_beeper_state &= ~UINT8(BEEPER_CLICK);
+		m_beeper->set_state(m_beeper_state ? 1 : 0);
 		break;
 
 	default:
@@ -433,7 +461,18 @@ void sparc_keyboard_device::tra_callback()
 
 void sparc_keyboard_device::tra_complete()
 {
-	m_tx_delay_timer->reset(attotime::from_hz(1'200 / 10));
+	assert(!m_empty || (m_head == m_tail));
+	assert(m_head < ARRAY_LENGTH(m_fifo));
+	assert(m_tail < ARRAY_LENGTH(m_fifo));
+
+	if (!m_empty)
+	{
+		printf("SPARC keyboard: send queued: %02x\n", m_fifo[m_head]);
+		fflush(stdout);
+		transmit_register_setup(m_fifo[m_head]);
+		m_head = (m_head + 1) & 0x0fU;
+		m_empty = (m_head == m_tail) ? 1 : 0;
+	}
 }
 
 
@@ -446,8 +485,6 @@ void sparc_keyboard_device::rcv_complete()
 	switch (m_rx_state)
 	{
 	case RX_LED:
-		printf("SPARC keyboard: LED data: %02x\n", code);
-		fflush(stdout);
 		machine().output().set_led_value(LED_NUM, BIT(code, 0));
 		machine().output().set_led_value(LED_COMPOSE, BIT(code, 1));
 		machine().output().set_led_value(LED_SCROLL, BIT(code, 2));
@@ -460,58 +497,41 @@ void sparc_keyboard_device::rcv_complete()
 	case RX_IDLE:
 		switch (code)
 		{
-		// Reset
-		case 0x01U:
-			printf("SPARC keyboard: reset\n");
-			fflush(stdout);
+		case COMMAND_RESET:
 			device_reset();
 			break;
 
-		// Bell on
-		case 0x02U:
-			printf("SPARC keyboard: bell on\n");
-			fflush(stdout);
+		case COMMAND_BELL_ON:
 			m_beeper_state |= UINT8(BEEPER_BELL);
 			m_beeper->set_state(m_beeper_state ? 1 : 0);
 			m_rx_state = RX_IDLE;
 			break;
 
-		// Bell off
-		case 0x03U:
-			printf("SPARC keyboard: bell off\n");
-			fflush(stdout);
+		case COMMAND_BELL_OFF:
 			m_beeper_state &= ~UINT8(BEEPER_BELL);
 			m_beeper->set_state(m_beeper_state ? 1 : 0);
 			m_rx_state = RX_IDLE;
 			break;
 
-		// Click on
-		case 0x0aU:
-			printf("SPARC keyboard: keyclick on\n");
-			fflush(stdout);
-			logerror("Keyclick on");
+		case COMMAND_CLICK_ON:
+			m_keyclick = 1;
 			m_rx_state = RX_IDLE;
 			break;
 
-		// Click off
-		case 0x0bU:
-			printf("SPARC keyboard: keyclick off\n");
-			fflush(stdout);
-			logerror("Keyclick off");
+		case COMMAND_CLICK_OFF:
+			m_keyclick = 0;
+			m_click_timer->reset();
+			m_beeper_state &= ~UINT8(BEEPER_CLICK);
+			m_beeper->set_state(m_beeper_state ? 1 : 0);
 			m_rx_state = RX_IDLE;
 			break;
 
-		// LED command
-		case 0x0eU:
-			printf("SPARC keyboard: LED command\n");
-			fflush(stdout);
+		case COMMAND_LED:
 			m_rx_state = RX_LED;
 			break;
 
-		// Layout command
-		case 0x0fU:
-			printf("SPARC keyboard: layout command\n");
-			fflush(stdout);
+		case COMMAND_LAYOUT:
+			send_byte(0xfeU);
 			send_byte(UINT8(m_dips->read() & 0x3fU));
 			m_rx_state = RX_IDLE;
 			break;
@@ -531,7 +551,7 @@ void sparc_keyboard_device::scan_row()
 
 	UINT16 const row(m_key_inputs[m_next_row]->read());
 	UINT16 &current(m_current_keys[m_next_row]);
-	bool keyup(false);
+	bool keydown(false), keyup(false);
 
 	for (UINT8 bit = 0; (bit < 16) && (m_empty || (m_head != m_tail)); ++bit)
 	{
@@ -539,10 +559,18 @@ void sparc_keyboard_device::scan_row()
 		if ((row ^ current) & mask)
 		{
 			UINT8 const make_break((row & mask) ? 0x00U : 0x80U);
+			keydown = keydown || !bool(make_break);
 			keyup = keyup || bool(make_break);
 			current = (current & ~mask) | (row & mask);
 			send_byte(make_break | (m_next_row << 4) | bit);
 		}
+	}
+
+	if (keydown && m_keyclick)
+	{
+		m_beeper_state |= UINT8(BEEPER_CLICK);
+		m_beeper->set_state(m_beeper_state ? 1 : 0);
+		m_click_timer->reset(attotime::from_msec(5));
 	}
 
 	if (keyup)
@@ -567,7 +595,7 @@ void sparc_keyboard_device::send_byte(UINT8 code)
 	assert(m_head < ARRAY_LENGTH(m_fifo));
 	assert(m_tail < ARRAY_LENGTH(m_fifo));
 
-	if (m_empty && is_transmit_register_empty() && (m_tx_delay_timer->remaining() == attotime::never))
+	if (m_empty && is_transmit_register_empty())
 	{
 		printf("SPARC keyboard: send immediately: %02x\n", code);
 		fflush(stdout);
