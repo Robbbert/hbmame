@@ -21,7 +21,7 @@
 //  TYPE DEFINITIONS
 //**************************************************************************
 
-typedef std::unordered_map<std::string,software_info *> softlist_map;
+typedef std::unordered_map<std::string,const software_info *> softlist_map;
 
 
 // ======================> softlist_parser
@@ -56,6 +56,7 @@ private:
 
 	// internal helpers
 	template <typename T> std::vector<std::string> parse_attributes(const char **attributes, const T &attrlist);
+	bool parse_name_and_value(const char **attributes, std::string &name, std::string &value);
 	void add_rom_entry(const char *name, const char *hashdata, UINT32 offset, UINT32 length, UINT32 flags);
 
 	// expat callbacks
@@ -92,6 +93,34 @@ private:
 // device type definition
 const device_type SOFTWARE_LIST = &device_creator<software_list_device>;
 
+
+
+//**************************************************************************
+//  FEATURE LIST ITEM
+//**************************************************************************
+
+//-------------------------------------------------
+//  feature_list_item - constructor
+//-------------------------------------------------
+
+feature_list_item::feature_list_item(const std::string &name, const std::string &value)
+	: m_next(nullptr),
+	m_name(name),
+	m_value(value)
+{
+}
+
+
+//-------------------------------------------------
+//  feature_list_item - constructor
+//-------------------------------------------------
+
+feature_list_item::feature_list_item(std::string &&name, std::string &&value)
+	: m_next(nullptr),
+	m_name(std::move(name)),
+	m_value(std::move(value))
+{
+}
 
 
 //**************************************************************************
@@ -263,7 +292,7 @@ const software_part *software_info::find_part(const char *partname, const char *
 	if (partname != nullptr && strlen(partname)==0) partname = nullptr;
 
 	if (partname == nullptr && interface == nullptr)
-		return m_partdata.first();
+		return &m_partdata.front();
 
 	// look for the part by name and match against the interface if provided
 	for (const software_part &part : m_partdata)
@@ -289,7 +318,7 @@ bool software_info::has_multiple_parts(const char *interface) const
 	int count = 0;
 
 	// increment the count for each match and stop if we hit more than 1
-	for (software_part &part : m_partdata)
+	for (const software_part &part : m_partdata)
 		if (part.matches_interface(interface))
 			if (++count > 1)
 				return true;
@@ -374,8 +403,8 @@ void software_list_device::find_approx_matches(const char *name, int matches, co
 	// iterate over our info (will cause a parse if needed)
 	for (const software_info &swinfo : get_info())
 	{
-		const software_part *part = swinfo.first_part();
-		if ((interface == nullptr || part->matches_interface(interface)) && part->is_compatible(*this) == SOFTWARE_IS_COMPATIBLE)
+		const software_part &part = swinfo.parts().front();
+		if ((interface == nullptr || part.matches_interface(interface)) && part.is_compatible(*this) == SOFTWARE_IS_COMPATIBLE)
 		{
 			// pick the best match between driver name and description
 			int longpenalty = driver_list::penalty_compare(name, swinfo.longname().c_str());
@@ -413,7 +442,7 @@ void software_list_device::release()
 	m_parsed = false;
 	m_description.clear();
 	m_errors.clear();
-	m_infolist.reset();
+	m_infolist.clear();
 }
 
 
@@ -481,7 +510,7 @@ void software_list_device::display_matches(const machine_config &config, const c
 //  from an intermediate point
 //-------------------------------------------------
 
-const software_info *software_list_device::find(const char *look_for, const software_info *prev)
+const software_info *software_list_device::find(const char *look_for)
 {
 	// nullptr search returns nothing
 	if (look_for == nullptr)
@@ -490,11 +519,13 @@ const software_info *software_list_device::find(const char *look_for, const soft
 	bool iswild = strchr(look_for, '*') != nullptr || strchr(look_for, '?');
 
 	// find a match (will cause a parse if needed when calling get_info)
-	for (prev = (prev != nullptr) ? prev->next() : get_info().first(); prev != nullptr; prev = prev->next())
-		if ((iswild && core_strwildcmp(look_for, prev->shortname().c_str()) == 0) || core_stricmp(look_for, prev->shortname().c_str()) == 0)
-			break;
+	for (const software_info &info : get_info())
+	{
+		if ((iswild && core_strwildcmp(look_for, info.shortname().c_str()) == 0) || core_stricmp(look_for, info.shortname().c_str()) == 0)
+			return &info;
+	}
 
-	return prev;
+	return nullptr;
 }
 
 
@@ -561,7 +592,7 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 
 	softlist_map names;
 	softlist_map descriptions;
-	for (software_info &swinfo : get_info())
+	for (const software_info &swinfo : get_info())
 	{
 		// first parse and output core errors if any
 		if (m_errors.length() > 0)
@@ -605,7 +636,7 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 		// check for duplicate names
 		if (!names.insert(std::make_pair(swinfo.shortname(), &swinfo)).second)
 		{
-			software_info *match = names.find(swinfo.shortname())->second;
+			const software_info *match = names.find(swinfo.shortname())->second;
 			osd_printf_error("%s: %s is a duplicate name (%s)\n", filename(), swinfo.shortname().c_str(), match->shortname().c_str());
 		}
 
@@ -615,7 +646,7 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 			osd_printf_error("%s: %s is a duplicate description (%s)\n", filename(), swinfo.longname().c_str(), swinfo.shortname().c_str());
 
 		bool is_clone = false;
-		if (swinfo.parentname().empty())
+		if (!swinfo.parentname().empty())
 		{
 			is_clone = true;
 			if (swinfo.parentname() == swinfo.shortname())
@@ -629,7 +660,7 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 
 			if (swinfo2 == nullptr)
 				osd_printf_error("%s: parent '%s' software for '%s' not found\n", filename(), swinfo.parentname().c_str(), swinfo.shortname().c_str());
-			else if (swinfo2->parentname().empty())
+			else if (!swinfo2->parentname().empty())
 				osd_printf_error("%s: %s is a clone of a clone\n", filename(), swinfo.shortname().c_str());
 		}
 
@@ -647,7 +678,7 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 			}
 
 		softlist_map part_names;
-		for (software_part &part : swinfo.parts())
+		for (const software_part &part : swinfo.parts())
 		{
 			if (part.interface().empty())
 				osd_printf_error("%s: %s has a part (%s) without interface\n", filename(), swinfo.shortname().c_str(), part.name().c_str());
@@ -774,6 +805,40 @@ std::vector<std::string> softlist_parser::parse_attributes(const char **attribut
 	}
 
 	return outlist;
+}
+
+
+//-------------------------------------------------
+//  parse_name_and_value - helper to parse "name"
+//  and "value" attribute pairs (allowing the
+//  latter to be defined as an empty string)
+//-------------------------------------------------
+
+bool softlist_parser::parse_name_and_value(const char **attributes, std::string &name, std::string &value)
+{
+	bool found_value = false;
+
+	// iterate over attribute/value pairs
+	for( ; attributes[0]; attributes += 2)
+	{
+		// if found, set the corresponding output entry to the value
+		if (strcmp(attributes[0], "name") == 0)
+		{
+			name = attributes[1];
+		}
+
+		else if (strcmp(attributes[0], "value") == 0)
+		{
+			value = attributes[1];
+			found_value = true;
+		}
+
+		// if not found, report an unknown attribute
+		else
+			unknown_attribute(attributes[0]);
+	}
+
+	return !name.empty() && found_value;
 }
 
 
@@ -940,7 +1005,10 @@ void softlist_parser::parse_main_start(const char *tagname, const char **attribu
 		auto attrvalues = parse_attributes(attributes, attrnames);
 
 		if (!attrvalues[0].empty())
-			m_current_info = &m_list.m_infolist.append(*global_alloc(software_info(m_list, std::move(attrvalues[0]), std::move(attrvalues[1]), attrvalues[2].c_str())));
+		{
+			m_list.m_infolist.emplace_back(m_list, std::move(attrvalues[0]), std::move(attrvalues[1]), attrvalues[2].c_str());
+			m_current_info = &m_list.m_infolist.back();
+		}
 		else
 			parse_error("No name defined for item");
 	}
@@ -978,11 +1046,10 @@ void softlist_parser::parse_soft_start(const char *tagname, const char **attribu
 	// <info name='' value=''>
 	else if (strcmp(tagname, "info") == 0)
 	{
-		static const char *attrnames[] = { "name", "value" };
-		auto attrvalues = parse_attributes(attributes, attrnames);
+		std::string infoname, infovalue;
 
-		if (!attrvalues[0].empty() && !attrvalues[1].empty())
-			m_current_info->m_other_info.append(*global_alloc(feature_list_item(std::move(attrvalues[0]), std::move(attrvalues[1]))));
+		if (parse_name_and_value(attributes, infoname, infovalue))
+			m_current_info->m_other_info.emplace_back(std::move(infoname), std::move(infovalue));
 		else
 			parse_error("Incomplete other_info definition");
 	}
@@ -990,11 +1057,10 @@ void softlist_parser::parse_soft_start(const char *tagname, const char **attribu
 	// <sharedfeat name='' value=''>
 	else if (strcmp(tagname, "sharedfeat") == 0)
 	{
-		static const char *attrnames[] = { "name", "value" };
-		auto attrvalues = parse_attributes(attributes, attrnames);
+		std::string featname, featvalue;
 
-		if (!attrvalues[0].empty() && !attrvalues[1].empty())
-			m_current_info->m_shared_info.append(*global_alloc(feature_list_item(std::move(attrvalues[0]), std::move(attrvalues[1]))));
+		if (parse_name_and_value(attributes, featname, featvalue))
+			m_current_info->m_shared_info.emplace_back(std::move(featname), std::move(featvalue));
 		else
 			parse_error("Incomplete sharedfeat definition");
 	}
@@ -1006,7 +1072,10 @@ void softlist_parser::parse_soft_start(const char *tagname, const char **attribu
 		auto attrvalues = parse_attributes(attributes, attrnames);
 
 		if (!attrvalues[0].empty() && !attrvalues[1].empty())
-			m_current_part = &m_current_info->m_partdata.append(*global_alloc(software_part(*m_current_info, std::move(attrvalues[0]), std::move(attrvalues[1]))));
+		{
+			m_current_info->m_partdata.emplace_back(*m_current_info, std::move(attrvalues[0]), std::move(attrvalues[1]));
+			m_current_part = &m_current_info->m_partdata.back();
+		}
 		else
 			parse_error("Incomplete part definition");
 	}
@@ -1086,11 +1155,10 @@ void softlist_parser::parse_part_start(const char *tagname, const char **attribu
 	// <feature name='' value=''>
 	else if (strcmp(tagname, "feature") == 0)
 	{
-		static const char *attrnames[] = { "name", "value" };
-		auto attrvalues = parse_attributes(attributes, attrnames);
+		std::string featname, featvalue;
 
-		if (!attrvalues[0].empty())
-			m_current_part->m_featurelist.append(*global_alloc(feature_list_item(std::move(attrvalues[0]), std::move(attrvalues[1]))));
+		if (parse_name_and_value(attributes, featname, featvalue))
+			m_current_part->m_featurelist.emplace_back(std::move(featname), std::move(featvalue));
 		else
 			parse_error("Incomplete feature definition");
 	}
@@ -1258,7 +1326,7 @@ void softlist_parser::parse_soft_end(const char *tagname)
 		// get the info; if present, copy shared data (we assume name/value strings live
 		// in the string pool and don't need to be reallocated)
 		if (m_current_info != nullptr)
-			for (feature_list_item &item : m_current_info->shared_info())
-				m_current_part->m_featurelist.append(*global_alloc(feature_list_item(item.name(), item.value())));
+			for (const feature_list_item &item : m_current_info->shared_info())
+				m_current_part->m_featurelist.emplace_back(item.name(), item.value());
 	}
 }
