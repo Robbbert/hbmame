@@ -6,8 +6,10 @@
 
 
 /*
-    TODO: scancodes for extra key on international layout
+    TODO: other international layouts
+    TODO: localised labels on Solaris group for Swedish layout
     TODO: suppress LED command processing for Type 3 keyboard
+    TODO: work out what actually happens with DIPs on Type 3 keyboard
 
     HLE SPARC serial keyboard compatible with Sun Type 3/4/5/6
 
@@ -17,7 +19,7 @@
     0000 0011               bell off
     0000 1010               enable keyclick (5ms duration 480us period on make)
     0000 1011               disable keyclick
-    0000 1110  ---- lscn    LED (1 = on, l = caps lock, s = scroll lock, c = compose, n = num lock)
+    0000 1110  ---k lscn    LED (1 = on, k = kana, l = caps lock, s = scroll lock, c = compose, n = num lock)
     0000 1111               layout request (keyboard responds with layout response)
 
     message from keyboad to host:
@@ -92,6 +94,39 @@
     5f  61    77     13   78                79                7a  43  0d    18  1b  1c      5e    32  5a
 
     xx is a blank key
+    backspace immediately above return
+    backslash and backtick/tilde at top right of main area
+    control on home row, caps lock at bottom left corner of main area
+
+
+    Type 5 International layout:
+
+      76      1d      05  06  08  0a    0c  0e  10  11    12  07  09  0b    16  17  15    2d  02  04  30
+
+    01  03    2a  1e  1f  20  21  22  23  24  25  26  27  28  29      2b    2c  34  60    62  2e  2f  47
+    19  1a    35    36  37  38  39  3a  3b  3c  3d  3e  3f  40  41          42  4a  7b    44  45  46
+    31  33    77     4d  4e  4f  50  51  52  53  54  55  56  57  58   59                  5b  5c  5d  7d
+    48  49    63   7c  64  65  66  67  68  69  6a  6b  6c  6d         6e        14        70  71  72
+    5f  61    4c     13   78                79                7a  43  0d    18  1b  1c      5e    32  5a
+
+    double-height return key, 58 (US backslash) moved to home row, 7c added on left of bottom row
+
+
+    Type 5 Japanese layout:
+
+      76      1d      05  06  08  0a    0c  0e  10  11    12  07  09  0b    16  17  15    2d  02  04  30
+
+    01  03    2a  1e  1f  20  21  22  23  24  25  26  27  28  29      2b    2c  34  60    62  2e  2f  47
+    19  1a    35    36  37  38  39  3a  3b  3c  3d  3e  3f  40  41          42  4a  7b    44  45  46
+    31  33    77     4d  4e  4f  50  51  52  53  54  55  56  57  58   59                  5b  5c  5d  7d
+    48  49    63       64  65  66  67  68  69  6a  6b  6c  6d  6f     6e        14        70  71  72
+    5f  61    4c  13  78   73           79           74   75  7a  43  0d    18  1b  1c      5e    32  5a
+
+    double-height return key
+    yen/pipe replaces backtick/tilde at top left corner of main area
+    linefeed scancode repurposed for backslash/underscore
+    kana replaces alt graph (with LED window)
+    extra kakutei, henkan and nihongo on-off keys
 */
 
 
@@ -99,9 +134,12 @@
     DEVICE TYPE GLOBALS
 ***************************************************************************/
 
-device_type const SUN_TYPE3_HLE_KEYBOARD = &device_creator<bus::sunkbd::hle_type3_device>;
-device_type const SUN_TYPE4_HLE_KEYBOARD = &device_creator<bus::sunkbd::hle_type4_device>;
-device_type const SUN_TYPE5_HLE_KEYBOARD = &device_creator<bus::sunkbd::hle_type5_device>;
+device_type const SUN_TYPE3_HLE_KEYBOARD    = &device_creator<bus::sunkbd::hle_type3_device>;
+device_type const SUN_TYPE4_HLE_KEYBOARD    = &device_creator<bus::sunkbd::hle_type4_device>;
+device_type const SUN_TYPE5_HLE_KEYBOARD    = &device_creator<bus::sunkbd::hle_type5_device>;
+device_type const SUN_TYPE5_GB_HLE_KEYBOARD = &device_creator<bus::sunkbd::hle_type5_gb_device>;
+device_type const SUN_TYPE5_SE_HLE_KEYBOARD = &device_creator<bus::sunkbd::hle_type5_se_device>;
+device_type const SUN_TYPE5_JP_HLE_KEYBOARD = &device_creator<bus::sunkbd::hle_type5_jp_device>;
 
 
 
@@ -110,6 +148,44 @@ namespace {
 /***************************************************************************
     INPUT PORT DEFINITIONS
 ***************************************************************************/
+
+#define TYPE5_DIPS(dflt)                                                    \
+		PORT_START("DIP")                                                   \
+		PORT_DIPNAME( 0x1f, dflt, "Layout") PORT_DIPLOCATION("S:5,4,3,2,1") \
+		/* 0x00 */                                                          \
+		PORT_DIPSETTING(    0x01, "U.S.A. (US5.kt)"                      )  \
+		PORT_DIPSETTING(    0x02, "U.S.A./UNIX (US_UNIX5.kt)"            )  \
+		PORT_DIPSETTING(    0x03, "France (France5.kt)"                  )  \
+		PORT_DIPSETTING(    0x04, "Denmark (Denmark5.kt)"                )  \
+		PORT_DIPSETTING(    0x05, "Germany (Germany5.kt)"                )  \
+		PORT_DIPSETTING(    0x06, "Italy (Italy5.kt)"                    )  \
+		PORT_DIPSETTING(    0x07, "The Netherlands (Netherland5.kt)"     )  \
+		PORT_DIPSETTING(    0x08, "Norway (Norway5.kt)"                  )  \
+		PORT_DIPSETTING(    0x09, "Portugal (Portugal5.kt)"              )  \
+		PORT_DIPSETTING(    0x0a, "Spain (Spain5.kt)"                    )  \
+		PORT_DIPSETTING(    0x0b, "Sweden (Sweden5.kt)"                  )  \
+		PORT_DIPSETTING(    0x0c, "Switzerland/French (Switzer_Fr5.kt)"  )  \
+		PORT_DIPSETTING(    0x0d, "Switzerland/German (Switzer_Ge5.kt)"  )  \
+		PORT_DIPSETTING(    0x0e, "Great Britain (UK5.kt)"               )  \
+		PORT_DIPSETTING(    0x0f, "Korea (Korea5.kt)"                    )  \
+		PORT_DIPSETTING(    0x10, "Taiwan (Taiwan5.kt)"                  )  \
+		PORT_DIPSETTING(    0x11, "Japan (Japan5.kt)"                    )  \
+		PORT_DIPSETTING(    0x12, "Canada/French (Canada_Fr5.kt)"        )  \
+		PORT_DIPSETTING(    0x13, "Hungary (Hungary5.kt)"                )  \
+		PORT_DIPSETTING(    0x14, "Poland (Poland5.kt)"                  )  \
+		PORT_DIPSETTING(    0x15, "Czech (Czech5.kt)"                    )  \
+		PORT_DIPSETTING(    0x16, "Russia (Russia5.kt)"                  )  \
+		PORT_DIPSETTING(    0x17, "Latvia (Latvia5.kt)"                  )  \
+		PORT_DIPSETTING(    0x18, "Turkey-Q5 (TurkeyQ5.kt)"              )  \
+		PORT_DIPSETTING(    0x19, "Greece (Greece5.kt)"                  )  \
+		PORT_DIPSETTING(    0x1a, "Arabic (Arabic5.kt)"                  )  \
+		PORT_DIPSETTING(    0x1b, "Lithuania (Lithuania5.kt)"            )  \
+		PORT_DIPSETTING(    0x1c, "Belgium (Belgium5.kt)"                )  \
+		/* 0x1d */                                                          \
+		PORT_DIPSETTING(    0x1e, "Turkey-F5 (TurkeyF5.kt)"              )  \
+		PORT_DIPSETTING(    0x1f, "Canada/French (Canada_Fr5_TBITS5.kt)" )  \
+		PORT_BIT( 0xe0, 0x20, IPT_UNUSED )
+
 
 INPUT_PORTS_START( basic )
 	PORT_START("ROW0")
@@ -134,7 +210,7 @@ INPUT_PORTS_START( basic )
 	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F7")           PORT_CODE(KEYCODE_F7)         PORT_CHAR(UCHAR_MAMEKEY(F7))
 	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F8")           PORT_CODE(KEYCODE_F8)         PORT_CHAR(UCHAR_MAMEKEY(F8))
 	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F9")           PORT_CODE(KEYCODE_F9)         PORT_CHAR(UCHAR_MAMEKEY(F9))
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_UNUSED   )
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alternate")    PORT_CODE(KEYCODE_LALT)
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_UNUSED   )
@@ -187,7 +263,7 @@ INPUT_PORTS_START( basic )
 	PORT_START("ROW4")
 	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR('[') PORT_CHAR('{')
 	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(']') PORT_CHAR('}')
-	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_UNUSED   )
+	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Delete")       PORT_CODE(KEYCODE_DEL)        PORT_CHAR(UCHAR_MAMEKEY(DEL))
 	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_UNUSED   )
@@ -224,7 +300,7 @@ INPUT_PORTS_START( basic )
 	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_UNUSED   )
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("L Shift")      PORT_CODE(KEYCODE_LSHIFT)     PORT_CHAR(UCHAR_MAMEKEY(LSHIFT))
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("L Shift")      PORT_CODE(KEYCODE_LSHIFT)     PORT_CHAR(UCHAR_SHIFT_1)
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_Z)          PORT_CHAR('z') PORT_CHAR('Z')
 	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_X)          PORT_CHAR('x') PORT_CHAR('X')
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_C)          PORT_CHAR('c') PORT_CHAR('C')
@@ -255,6 +331,97 @@ INPUT_PORTS_START( basic )
 	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x4000, IP_ACTIVE_HIGH, IPT_UNUSED   )
 	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_UNUSED   )
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( basic_gb )
+	PORT_INCLUDE( basic )
+
+	PORT_MODIFY("ROW1")
+	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_2)          PORT_CHAR('2') PORT_CHAR('"')
+
+	PORT_MODIFY("ROW2")
+	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_3)          PORT_CHAR('3') PORT_CHAR(0x00a3U)
+	PORT_BIT( 0x0400, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_TILDE)      PORT_CHAR('`') PORT_CHAR(0x00acU) PORT_CHAR(0x00a6)
+
+	PORT_MODIFY("ROW5")
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_QUOTE)      PORT_CHAR('\'') PORT_CHAR('@')
+	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_BACKSLASH)  PORT_CHAR('#') PORT_CHAR('~')
+
+	PORT_MODIFY("ROW7")
+	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR('\\') PORT_CHAR('|')
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( basic_se )
+	PORT_INCLUDE( basic )
+
+	PORT_MODIFY("ROW1")
+	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_2)          PORT_CHAR('2') PORT_CHAR('"') PORT_CHAR('@')
+
+	PORT_MODIFY("ROW2")
+	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_3)          PORT_CHAR('3') PORT_CHAR('#') PORT_CHAR(0x00a3U)
+	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_4)          PORT_CHAR('4') PORT_CHAR(0x00a4U) PORT_CHAR('$')
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_6)          PORT_CHAR('6') PORT_CHAR('&')
+	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_7)          PORT_CHAR('7') PORT_CHAR('/') PORT_CHAR('{')
+	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_8)          PORT_CHAR('8') PORT_CHAR('(') PORT_CHAR('[')
+	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_9)          PORT_CHAR('9') PORT_CHAR(')') PORT_CHAR(']')
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_0)          PORT_CHAR('0') PORT_CHAR('=') PORT_CHAR('}')
+	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_MINUS)      PORT_CHAR('+') PORT_CHAR('?') PORT_CHAR('\\')
+	PORT_BIT( 0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_EQUALS)     PORT_CHAR(0x00b4U) PORT_CHAR('`')
+	PORT_BIT( 0x0400, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_TILDE)      PORT_CHAR(0x00a7U) PORT_CHAR(0x00bdU)
+
+	PORT_MODIFY("ROW4")
+	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR(0x00e5U) PORT_CHAR(0x00c5U)
+	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(0x00a8U) PORT_CHAR('^') PORT_CHAR('~')
+
+	PORT_MODIFY("ROW5")
+	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_COLON)      PORT_CHAR(0x00f6U) PORT_CHAR(0x00d6U)
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_QUOTE)      PORT_CHAR(0x00e4U) PORT_CHAR(0x00c4U)
+	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_BACKSLASH)  PORT_CHAR('\'') PORT_CHAR('*') PORT_CHAR('`')
+
+	PORT_MODIFY("ROW6")
+	PORT_BIT( 0x0800, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_COMMA)      PORT_CHAR(',') PORT_CHAR(';')
+	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_STOP)       PORT_CHAR('.') PORT_CHAR(':')
+	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_SLASH)      PORT_CHAR('-') PORT_CHAR('_')
+
+	PORT_MODIFY("ROW7")
+	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR('<') PORT_CHAR('>') PORT_CHAR('|')
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( basic_jp )
+	PORT_INCLUDE( basic )
+
+	PORT_MODIFY("ROW1")
+	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_2)          PORT_CHAR('2') PORT_CHAR('"')
+
+	PORT_MODIFY("ROW2")
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_6)          PORT_CHAR('6') PORT_CHAR('&')
+	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_7)          PORT_CHAR('7') PORT_CHAR('\'')
+	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_8)          PORT_CHAR('8') PORT_CHAR('(')
+	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_9)          PORT_CHAR('9') PORT_CHAR(')')
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_0)          PORT_CHAR('0')
+	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_MINUS)      PORT_CHAR('-') PORT_CHAR('=')
+	PORT_BIT( 0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_EQUALS)     PORT_CHAR('^') PORT_CHAR('~')
+	PORT_BIT( 0x0400, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_TILDE)      PORT_CHAR(0x00a5U) PORT_CHAR('|')
+
+	PORT_MODIFY("ROW4")
+	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR('@') PORT_CHAR('`')
+	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR('[') PORT_CHAR('{')
+
+	PORT_MODIFY("ROW5")
+	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_COLON)      PORT_CHAR(';') PORT_CHAR('+')
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_QUOTE)      PORT_CHAR(':') PORT_CHAR('*')
+	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_BACKSLASH)  PORT_CHAR(']') PORT_CHAR('}')
+
+	PORT_MODIFY("ROW6")
+	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_KEYBOARD )                           PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR('\\') PORT_CHAR('_')
+
+	PORT_MODIFY("ROW7")
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Kakutei")
+	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Henkan")
+	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Nihongo On-Off") PORT_CODE(KEYCODE_MENU)
 INPUT_PORTS_END
 
 
@@ -343,6 +510,21 @@ INPUT_PORTS_START( r_group )
 INPUT_PORTS_END
 
 
+INPUT_PORTS_START( enhanced_function )
+	PORT_MODIFY("ROW0")
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F10")          PORT_CODE(KEYCODE_F10)        PORT_CHAR(UCHAR_MAMEKEY(F10))
+	PORT_BIT( 0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F11")          PORT_CODE(KEYCODE_F11)        PORT_CHAR(UCHAR_MAMEKEY(F11))
+	PORT_BIT( 0x0800, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F12")          PORT_CODE(KEYCODE_F12)        PORT_CHAR(UCHAR_MAMEKEY(F12))
+	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alt Graph")    PORT_CODE(KEYCODE_RALT)       PORT_CHAR(UCHAR_SHIFT_2)
+
+	PORT_MODIFY("ROW1")
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alt")          PORT_CODE(KEYCODE_LALT)       PORT_CHAR(UCHAR_MAMEKEY(LALT))
+
+	PORT_MODIFY("ROW4")
+	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Compose")      PORT_CODE(KEYCODE_RCONTROL)   PORT_CHAR(UCHAR_MAMEKEY(RCONTROL))
+INPUT_PORTS_END
+
+
 INPUT_PORTS_START( cursor )
 	PORT_MODIFY("ROW1")
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Up")           PORT_CODE(KEYCODE_UP)         PORT_CHAR(UCHAR_MAMEKEY(UP))
@@ -350,10 +532,14 @@ INPUT_PORTS_START( cursor )
 	PORT_BIT( 0x0800, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Down")         PORT_CODE(KEYCODE_DOWN)       PORT_CHAR(UCHAR_MAMEKEY(DOWN))
 	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Right")        PORT_CODE(KEYCODE_RIGHT)      PORT_CHAR(UCHAR_MAMEKEY(RIGHT))
 
+	PORT_MODIFY("ROW2")
+	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Insert")       PORT_CODE(KEYCODE_INSERT)     PORT_CHAR(UCHAR_MAMEKEY(INSERT))
+
 	PORT_MODIFY("ROW3")
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Home")         PORT_CODE(KEYCODE_HOME)       PORT_CHAR(UCHAR_MAMEKEY(HOME))
 
 	PORT_MODIFY("ROW4")
+	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Del")          PORT_CODE(KEYCODE_DEL)        PORT_CHAR(UCHAR_MAMEKEY(DEL))
 	PORT_BIT( 0x0400, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("End")          PORT_CODE(KEYCODE_END)        PORT_CHAR(UCHAR_MAMEKEY(END))
 
 	PORT_MODIFY("ROW6")
@@ -392,49 +578,59 @@ INPUT_PORTS_START( solaris )
 INPUT_PORTS_END
 
 
+INPUT_PORTS_START( power )
+	PORT_MODIFY("ROW0")
+	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Vol-")
+	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Vol+")
+
+	PORT_MODIFY("ROW2")
+	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Mute")
+
+	PORT_MODIFY("ROW3")
+	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Pwr")
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( type5_ext )
+	PORT_INCLUDE( enhanced_function )
+	PORT_INCLUDE( tenkey            )
+	PORT_INCLUDE( cursor            )
+	PORT_INCLUDE( solaris           )
+	PORT_INCLUDE( power             )
+
+	PORT_MODIFY("ROW1")
+	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Pause")        PORT_CODE(KEYCODE_PAUSE)
+	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Print Screen") PORT_CODE(KEYCODE_PRTSCR)     PORT_CHAR(UCHAR_MAMEKEY(PRTSCR))
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Scroll Lock")  PORT_CODE(KEYCODE_SCRLOCK)    PORT_CHAR(UCHAR_MAMEKEY(SCRLOCK))
+INPUT_PORTS_END
+
+
 INPUT_PORTS_START( hle_type3_device )
 	PORT_INCLUDE( basic   )
 	PORT_INCLUDE( l_group )
 	PORT_INCLUDE( r_group )
 
-	PORT_MODIFY("ROW1")
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alternate")    PORT_CODE(KEYCODE_LALT)
-
-	PORT_MODIFY("ROW4")
-	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Delete")       PORT_CODE(KEYCODE_DEL)        PORT_CHAR(UCHAR_MAMEKEY(DEL))
-
 	PORT_MODIFY("ROW6")
 	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Line Feed")                                  PORT_CHAR(10)
 
-	// TODO: work out what actually happens with DIPs on Type 3 keyboard
 	PORT_START("DIP")
 	PORT_BIT( 0xff, 0x00, IPT_UNUSED )
 INPUT_PORTS_END
 
 
 INPUT_PORTS_START( hle_type4_device )
-	PORT_INCLUDE( basic   )
-	PORT_INCLUDE( tenkey  )
-	PORT_INCLUDE( solaris )
-
-	PORT_MODIFY("ROW0")
-	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F10")          PORT_CODE(KEYCODE_F10)        PORT_CHAR(UCHAR_MAMEKEY(F10))
-	PORT_BIT( 0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F11")          PORT_CODE(KEYCODE_F11)        PORT_CHAR(UCHAR_MAMEKEY(F11))
-	PORT_BIT( 0x0800, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F12")          PORT_CODE(KEYCODE_F12)        PORT_CHAR(UCHAR_MAMEKEY(F12))
-	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alt Graph")    PORT_CODE(KEYCODE_RALT)       PORT_CHAR(UCHAR_MAMEKEY(RALT))
+	PORT_INCLUDE( basic             )
+	PORT_INCLUDE( enhanced_function )
+	PORT_INCLUDE( tenkey            )
+	PORT_INCLUDE( solaris           )
 
 	PORT_MODIFY("ROW1")
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alt")          PORT_CODE(KEYCODE_LALT)
 	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Pause")        PORT_CODE(KEYCODE_PAUSE)
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("PrSc")         PORT_CODE(KEYCODE_PRTSCR)     PORT_CHAR(UCHAR_MAMEKEY(PRTSCR))
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Scroll Lock")  PORT_CODE(KEYCODE_SCRLOCK)    PORT_CHAR(UCHAR_MAMEKEY(SCRLOCK))
 
 	PORT_MODIFY("ROW2")
 	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("KP =")         PORT_CODE(KEYCODE_INSERT)     PORT_CHAR(UCHAR_MAMEKEY(INSERT))
-
-	PORT_MODIFY("ROW4")
-	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Delete")       PORT_CODE(KEYCODE_DEL)        PORT_CHAR(UCHAR_MAMEKEY(DEL))
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Compose")      PORT_CODE(KEYCODE_RCONTROL)   PORT_CHAR(UCHAR_MAMEKEY(RCONTROL))
 
 	PORT_MODIFY("ROW6")
 	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Line Feed")                                  PORT_CHAR(10)
@@ -499,71 +695,33 @@ INPUT_PORTS_END
 
 
 INPUT_PORTS_START( hle_type5_device )
-	PORT_INCLUDE( basic   )
-	PORT_INCLUDE( tenkey  )
-	PORT_INCLUDE( cursor  )
-	PORT_INCLUDE( solaris )
+	PORT_INCLUDE(basic)
+	PORT_INCLUDE(type5_ext)
+	TYPE5_DIPS(0x01)
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( hle_type5_gb_device )
+	PORT_INCLUDE(basic_gb)
+	PORT_INCLUDE(type5_ext)
+	TYPE5_DIPS(0x0e)
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( hle_type5_se_device )
+	PORT_INCLUDE(basic_se)
+	PORT_INCLUDE(type5_ext)
+	TYPE5_DIPS(0x0b)
+INPUT_PORTS_END
+
+
+INPUT_PORTS_START( hle_type5_jp_device )
+	PORT_INCLUDE(basic_jp)
+	PORT_INCLUDE(type5_ext)
+	TYPE5_DIPS(0x11)
 
 	PORT_MODIFY("ROW0")
-	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Vol-")
-	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Vol+")
-	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F10")          PORT_CODE(KEYCODE_F10)        PORT_CHAR(UCHAR_MAMEKEY(F10))
-	PORT_BIT( 0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F11")          PORT_CODE(KEYCODE_F11)        PORT_CHAR(UCHAR_MAMEKEY(F11))
-	PORT_BIT( 0x0800, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("F12")          PORT_CODE(KEYCODE_F12)        PORT_CHAR(UCHAR_MAMEKEY(F12))
-	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alt Graph")    PORT_CODE(KEYCODE_RALT)       PORT_CHAR(UCHAR_MAMEKEY(RALT))
-
-	PORT_MODIFY("ROW1")
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Alt")          PORT_CODE(KEYCODE_LALT)
-	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Pause")        PORT_CODE(KEYCODE_PAUSE)
-	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Print Screen") PORT_CODE(KEYCODE_PRTSCR)     PORT_CHAR(UCHAR_MAMEKEY(PRTSCR))
-	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Scroll Lock")  PORT_CODE(KEYCODE_SCRLOCK)    PORT_CHAR(UCHAR_MAMEKEY(SCRLOCK))
-
-	PORT_MODIFY("ROW2")
-	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Insert")       PORT_CODE(KEYCODE_INSERT)     PORT_CHAR(UCHAR_MAMEKEY(INSERT))
-	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Mute")
-
-	PORT_MODIFY("ROW3")
-	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Pwr")
-
-	PORT_MODIFY("ROW4")
-	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Del")          PORT_CODE(KEYCODE_DEL)        PORT_CHAR(UCHAR_MAMEKEY(DEL))
-	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Compose")      PORT_CODE(KEYCODE_RCONTROL)   PORT_CHAR(UCHAR_MAMEKEY(RCONTROL))
-
-	PORT_START("DIP")
-	PORT_DIPNAME( 0x1f, 0x01, "Layout"                                 ) PORT_DIPLOCATION("S:5,4,3,2,1")
-	// 0x00
-	PORT_DIPSETTING(    0x01, "U.S.A. (US5.kt)"                        )
-	PORT_DIPSETTING(    0x02, "U.S.A./UNIX (US_UNIX5.kt)"              )
-	PORT_DIPSETTING(    0x03, "France (France5.kt)"                    )
-	PORT_DIPSETTING(    0x04, "Denmark (Denmark5.kt)"                  )
-	PORT_DIPSETTING(    0x05, "Germany (Germany5.kt)"                  )
-	PORT_DIPSETTING(    0x06, "Italy (Italy5.kt)"                      )
-	PORT_DIPSETTING(    0x07, "The Netherlands (Netherland5.kt)"       )
-	PORT_DIPSETTING(    0x08, "Norway (Norway5.kt)"                    )
-	PORT_DIPSETTING(    0x09, "Portugal (Portugal5.kt)"                )
-	PORT_DIPSETTING(    0x0a, "Spain (Spain5.kt)"                      )
-	PORT_DIPSETTING(    0x0b, "Sweden (Sweden5.kt)"                    )
-	PORT_DIPSETTING(    0x0c, "Switzerland/French (Switzer_Fr5.kt)"    )
-	PORT_DIPSETTING(    0x0d, "Switzerland/German (Switzer_Ge5.kt)"    )
-	PORT_DIPSETTING(    0x0e, "Great Britain (UK5.kt)"                 )
-	PORT_DIPSETTING(    0x0f, "Korea (Korea5.kt)"                      )
-	PORT_DIPSETTING(    0x10, "Taiwan (Taiwan5.kt)"                    )
-	PORT_DIPSETTING(    0x11, "Japan (Japan5.kt)"                      )
-	PORT_DIPSETTING(    0x12, "Canada/French (Canada_Fr5.kt)"          )
-	PORT_DIPSETTING(    0x13, "Hungary (Hungary5.kt)"                  )
-	PORT_DIPSETTING(    0x14, "Poland (Poland5.kt)"                    )
-	PORT_DIPSETTING(    0x15, "Czech (Czech5.kt)"                      )
-	PORT_DIPSETTING(    0x16, "Russia (Russia5.kt)"                    )
-	PORT_DIPSETTING(    0x17, "Latvia (Latvia5.kt)"                    )
-	PORT_DIPSETTING(    0x18, "Turkey-Q5 (TurkeyQ5.kt)"                )
-	PORT_DIPSETTING(    0x19, "Greece (Greece5.kt)"                    )
-	PORT_DIPSETTING(    0x1a, "Arabic (Arabic5.kt)"                    )
-	PORT_DIPSETTING(    0x1b, "Lithuania (Lithuania5.kt)"              )
-	PORT_DIPSETTING(    0x1c, "Belgium (Belgium5.kt)"                  )
-	// 0x1d
-	PORT_DIPSETTING(    0x1e, "Turkey-F5 (TurkeyF5.kt)"                )
-	PORT_DIPSETTING(    0x1f, "Canada/French (Canada_Fr5_TBITS5.kt)"   )
-	PORT_BIT( 0xe0, 0x20, IPT_UNUSED )
+	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("Kana")         PORT_CODE(KEYCODE_RALT)
 INPUT_PORTS_END
 
 
@@ -660,7 +818,7 @@ WRITE_LINE_MEMBER( hle_device_base::input_txd )
 /*--------------------------------------------------
     hle_device_base::device_start
     perform expensive initialisations, allocate
-	resources, register for save state
+    resources, register for save state
 --------------------------------------------------*/
 
 void hle_device_base::device_start()
@@ -685,7 +843,7 @@ void hle_device_base::device_start()
 /*--------------------------------------------------
     hle_device_base::device_reset
     perform startup tasks, also used for host
-	requested reset
+    requested reset
 --------------------------------------------------*/
 
 void hle_device_base::device_reset()
@@ -708,6 +866,13 @@ void hle_device_base::device_reset()
 
 	// set device_sun_keyboard_port_interface lines
 	output_rxd(1);
+
+	// start with keyboard LEDs off
+	machine().output().set_led_value(LED_NUM, 0);
+	machine().output().set_led_value(LED_COMPOSE, 0);
+	machine().output().set_led_value(LED_SCROLL, 0);
+	machine().output().set_led_value(LED_CAPS, 0);
+	machine().output().set_led_value(LED_KANA, 0);
 
 	// send reset response
 	send_byte(0xffU);
@@ -754,7 +919,7 @@ void hle_device_base::device_timer(emu_timer &timer, device_timer_id id, int par
 /*--------------------------------------------------
     hle_device_base::tra_callback
     send output of serial transmit shift register
-	to host
+    to host
 --------------------------------------------------*/
 
 void hle_device_base::tra_callback()
@@ -799,6 +964,7 @@ void hle_device_base::rcv_complete()
 		machine().output().set_led_value(LED_COMPOSE, BIT(code, 1));
 		machine().output().set_led_value(LED_SCROLL, BIT(code, 2));
 		machine().output().set_led_value(LED_CAPS, BIT(code, 3));
+		machine().output().set_led_value(LED_KANA, BIT(code, 4));
 		m_rx_state = RX_IDLE;
 		break;
 
@@ -857,7 +1023,7 @@ void hle_device_base::rcv_complete()
 /*--------------------------------------------------
     hle_device_base::scan_row
     scan the next row in the keyboard matrix and
-	send update to host
+    send update to host
 --------------------------------------------------*/
 
 void hle_device_base::scan_row()
@@ -941,6 +1107,23 @@ void hle_device_base::send_byte(UINT8 code)
 
 
 /***************************************************************************
+    BASE TYPE 4/5/6 HLE KEYBOARD DEVICE
+***************************************************************************/
+
+/*--------------------------------------------------
+    hle_type4_device_base::ident_byte
+    return identification byte for self test pass
+    response
+--------------------------------------------------*/
+
+UINT8 hle_type4_device_base::ident_byte()
+{
+	return (m_dips->read() & 0x80U) ? 0x03U : 0x04U;
+}
+
+
+
+/***************************************************************************
     TYPE 3 HLE KEYBOARD DEVICE
 ***************************************************************************/
 
@@ -954,7 +1137,8 @@ hle_type3_device::hle_type3_device(
 		char const *tag,
 		device_t *owner,
 		UINT32 clock)
-	: hle_type3_device(mconfig,
+	: hle_device_base(
+			mconfig,
 			SUN_TYPE3_HLE_KEYBOARD,
 			"Sun Type 3 Keyboard (HLE)",
 			tag,
@@ -962,25 +1146,6 @@ hle_type3_device::hle_type3_device(
 			clock,
 			"type3_hle_kbd",
 			__FILE__)
-{
-}
-
-
-/*--------------------------------------------------
-    hle_type3_device::hle_type3_device
-    designated device constructor
---------------------------------------------------*/
-
-hle_type3_device::hle_type3_device(
-		machine_config const &mconfig,
-		device_type type,
-		char const *name,
-		char const *tag,
-		device_t *owner,
-		UINT32 clock,
-		char const *shortname,
-		char const *source)
-	: hle_device_base(mconfig, type, name, tag, owner, clock, shortname, source)
 {
 }
 
@@ -998,8 +1163,8 @@ ioport_constructor hle_type3_device::device_input_ports() const
 
 /*--------------------------------------------------
     hle_type3_device::ident_byte
-	return identification byte for self test pass
-	response
+    return identification byte for self test pass
+    response
 --------------------------------------------------*/
 
 UINT8 hle_type3_device::ident_byte()
@@ -1023,7 +1188,8 @@ hle_type4_device::hle_type4_device(
 		char const *tag,
 		device_t *owner,
 		UINT32 clock)
-	: hle_type4_device(mconfig,
+	: hle_type4_device_base(
+			mconfig,
 			SUN_TYPE4_HLE_KEYBOARD,
 			"Sun Type 4 Keyboard (HLE)",
 			tag,
@@ -1036,25 +1202,6 @@ hle_type4_device::hle_type4_device(
 
 
 /*--------------------------------------------------
-    hle_type4_device::hle_type4_device
-    designated device constructor
---------------------------------------------------*/
-
-hle_type4_device::hle_type4_device(
-		machine_config const &mconfig,
-		device_type type,
-		char const *name,
-		char const *tag,
-		device_t *owner,
-		UINT32 clock,
-		char const *shortname,
-		char const *source)
-	: hle_device_base(mconfig, type, name, tag, owner, clock, shortname, source)
-{
-}
-
-
-/*--------------------------------------------------
     hle_type4_device::device_input_ports
     get input ports for this device
 --------------------------------------------------*/
@@ -1062,18 +1209,6 @@ hle_type4_device::hle_type4_device(
 ioport_constructor hle_type4_device::device_input_ports() const
 {
 	return INPUT_PORTS_NAME(hle_type4_device);
-}
-
-
-/*--------------------------------------------------
-    hle_type4_device::ident_byte
-	return identification byte for self test pass
-	response
---------------------------------------------------*/
-
-UINT8 hle_type4_device::ident_byte()
-{
-	return (m_dips->read() & 0x80U) ? 0x03U : 0x04U;
 }
 
 
@@ -1092,33 +1227,15 @@ hle_type5_device::hle_type5_device(
 		char const *tag,
 		device_t *owner,
 		UINT32 clock)
-	: hle_type5_device(mconfig,
+	: hle_type4_device_base(
+			mconfig,
 			SUN_TYPE5_HLE_KEYBOARD,
-			"Sun Type 5 Keyboard (HLE)",
+			"Sun Type 5 Keyboard (U.S.A. - HLE)",
 			tag,
 			owner,
 			clock,
 			"type5_hle_kbd",
 			__FILE__)
-{
-}
-
-
-/*--------------------------------------------------
-    hle_type5_device::hle_type5_device
-    designated device constructor
---------------------------------------------------*/
-
-hle_type5_device::hle_type5_device(
-		machine_config const &mconfig,
-		device_type type,
-		char const *name,
-		char const *tag,
-		device_t *owner,
-		UINT32 clock,
-		char const *shortname,
-		char const *source)
-	: hle_device_base(mconfig, type, name, tag, owner, clock, shortname, source)
 {
 }
 
@@ -1134,15 +1251,120 @@ ioport_constructor hle_type5_device::device_input_ports() const
 }
 
 
+
+/***************************************************************************
+    TYPE 5 UK HLE KEYBOARD DEVICE
+***************************************************************************/
+
 /*--------------------------------------------------
-    hle_type5_device::ident_byte
-	return identification byte for self test pass
-	response
+    hle_type5_gb_device::hle_type5_gb_device
+    abbreviated constructor
 --------------------------------------------------*/
 
-UINT8 hle_type5_device::ident_byte()
+hle_type5_gb_device::hle_type5_gb_device(
+		machine_config const &mconfig,
+		char const *tag,
+		device_t *owner,
+		UINT32 clock)
+	: hle_type4_device_base(
+			mconfig,
+			SUN_TYPE5_HLE_KEYBOARD,
+			"Sun Type 5 Keyboard (Great Britain - HLE)",
+			tag,
+			owner,
+			clock,
+			"type5_gb_hle_kbd",
+			__FILE__)
 {
-	return 0x04U;
+}
+
+
+/*--------------------------------------------------
+    hle_type5_gb_device::device_input_ports
+    get input ports for this device
+--------------------------------------------------*/
+
+ioport_constructor hle_type5_gb_device::device_input_ports() const
+{
+	return INPUT_PORTS_NAME(hle_type5_gb_device);
+}
+
+
+
+/***************************************************************************
+    TYPE 5 SWEDISH HLE KEYBOARD DEVICE
+***************************************************************************/
+
+/*--------------------------------------------------
+    hle_type5_se_device::hle_type5_se_device
+    abbreviated constructor
+--------------------------------------------------*/
+
+hle_type5_se_device::hle_type5_se_device(
+		machine_config const &mconfig,
+		char const *tag,
+		device_t *owner,
+		UINT32 clock)
+	: hle_type4_device_base(
+			mconfig,
+			SUN_TYPE5_HLE_KEYBOARD,
+			"Sun Type 5 Keyboard (Sweden - HLE)",
+			tag,
+			owner,
+			clock,
+			"type5_se_hle_kbd",
+			__FILE__)
+{
+}
+
+
+/*--------------------------------------------------
+    hle_type5_se_device::device_input_ports
+    get input ports for this device
+--------------------------------------------------*/
+
+ioport_constructor hle_type5_se_device::device_input_ports() const
+{
+	return INPUT_PORTS_NAME(hle_type5_se_device);
+}
+
+
+
+/***************************************************************************
+    TYPE 5 JAPANESE HLE KEYBOARD DEVICE
+***************************************************************************/
+
+/*--------------------------------------------------
+    hle_type5_jp_device::hle_type5_jp_device
+    abbreviated constructor
+--------------------------------------------------*/
+
+hle_type5_jp_device::hle_type5_jp_device(
+		machine_config const &mconfig,
+		char const *tag,
+		device_t *owner,
+		UINT32 clock)
+	: hle_type4_device_base(
+			mconfig,
+			SUN_TYPE5_HLE_KEYBOARD,
+			"Sun Type 5 Keyboard (Japan - HLE)",
+			tag,
+			owner,
+			clock,
+			"type5_jp_hle_kbd",
+			__FILE__)
+{
+}
+
+
+/*--------------------------------------------------
+    hle_type5_jp_device::device_input_ports
+    get input ports for this device
+--------------------------------------------------*/
+
+ioport_constructor hle_type5_jp_device::device_input_ports() const
+{
+	return INPUT_PORTS_NAME(hle_type5_jp_device);
 }
 
 } } // namespace bus::sunkbd
