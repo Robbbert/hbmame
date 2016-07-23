@@ -639,6 +639,7 @@ kof98c20090620 // sometimes reboots itself
 kof98c20090923
 kof98c20100214
 kof98c20110114
+kof98c20110314
 kof98c20120116
 kof98c20120915
 kof98c20130213
@@ -690,6 +691,7 @@ kof98c20151103
 kof98c20151108
 kof98c20151110
 kof98c20151223
+kof98c20160320
 kof98cd
 kof98cd1
 kof98ch
@@ -706,6 +708,7 @@ kof98ehr
 kof98evl
 kof98evo
 kof98evo2
+kof98evr
 kof98f
 kof98fr
 kof98fro
@@ -722,7 +725,8 @@ kof98klc
 kof98lb
 kof98lv
 kof98m
-kof98mix	/* KOF98 mix 2011-10-01 */
+kof98mev
+kof98mix
 kof98nc
 kof98new
 kof98pjc
@@ -1347,6 +1351,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
+//mslug4lw // not working - p roms are encrypted
 mslug4nd
 mslug4sp
 mslug5b
@@ -1355,6 +1360,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
+//mslug5fu // not working - p roms are encrypted
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -1885,6 +1891,7 @@ garoupy
 garoupf
 garoupfu
 garoupfp
+garoupx11
 garoupy1
 
 	/* ngkofmisc */
@@ -1894,6 +1901,7 @@ ct2k3eh
 ct2k3ifz
 ct2k3k3
 ct2k3k3o
+ct2k3spi
 ct2k3xx
 ct2k3ys
 //ct2k3ad
@@ -1909,12 +1917,14 @@ kof2k4seb
 kof2k4spl
 kof2k8uni
 //kof10thd
+//kof10thd16 // not working, p1 needs unscrambling
 kof10thep15
 kof10thu
 kof10thub
 kof10thud
 kogd
 kogf
+kogmxpls
 kogplus
 kogplusf
 

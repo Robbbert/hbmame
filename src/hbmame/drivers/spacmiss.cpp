@@ -382,7 +382,7 @@ static ADDRESS_MAP_START( spacmiss_io_map, AS_IO, 8, sm_state )
 	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(spacmiss_03_w)
 	AM_RANGE(0x04, 0x04) AM_DEVWRITE("mb14241", mb14241_device, shift_data_w)
 	AM_RANGE(0x05, 0x05) AM_WRITE(spacmiss_05_w)
-	//AM_RANGE(0x06, 0x06) AM_WRITE(watchdog_reset_w)
+	AM_RANGE(0x06, 0x06) AM_WRITENOP //(watchdog_reset_w)
 	AM_RANGE(0x07, 0x07) AM_WRITE(spacmiss_07_w)
 ADDRESS_MAP_END
 

@@ -11,12 +11,19 @@ Thanks to all those who helped gather the newest hacks.
 
 New Games
 ---------
+- [ct2k3spi]
+- [garoupx11]       Garou Mark of the Wolves Xtreme Plus
 - [kof2k2bl3]
 - [kof2k2bl4]
 - [kof2k2omg]
 - [kof2k2smf]
 - [kof10thep15]
 - [kof97yk85]
+- [kof98c20110314]
+- [kof98c20160320]
+- [kof98evr]
+- [kof98mev]
+- [kogmxpls]        King of Gladiator Mix Plus-EX
 - [rotddh]
 - [sengoku3eb]
 - [svcplusa2016]
