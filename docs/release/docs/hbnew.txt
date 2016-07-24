@@ -4,8 +4,6 @@ What's new in HBMAME
 2016-07-27 0.176
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
-
 
 
 
@@ -18,12 +16,21 @@ New Games
 - [kof2k2omg]
 - [kof2k2smf]
 - [kof10thep15]
+- [kof97yk83]
 - [kof97yk85]
 - [kof98c20110314]
 - [kof98c20160320]
 - [kof98evr]
 - [kof98mev]
+- [kof99ndis]       Kof'99 Remix Pro
 - [kogmxpls]        King of Gladiator Mix Plus-EX
+- [mslugxce]
+- [mslugxfe]
+- [mslugxjdkj]
+- [mslugxmfb]
+- [mslugxres]
+- [mslugxsef]
+- [mslugxsvb]
 - [rotddh]
 - [sengoku3eb]
 - [svcplusa2016]

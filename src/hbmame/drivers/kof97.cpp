@@ -1287,6 +1287,30 @@ ROM_START( kof97svs )
 	ROM_LOAD16_BYTE( "232svs.c6", 0x2000001, 0x800000, CRC(6f047b36) SHA1(9df4cb34f3b28a97c0b903394b3e2cdb79906582) )
 ROM_END
 
+ROM_START( kof97svsb2 ) // all confirmed
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232svsb2.p1", 0x000000, 0x454fd8, CRC(c9a489de) SHA1(b93dd3aa9e91456c7d92b81dc96d60c1c94797d3) )
+	ROM_LOAD16_WORD_SWAP( "232svsb2.p2", 0x100000, 0x400000, CRC(9f2c57dd) SHA1(3cf16a8b0d79f95279ca7ba19678c50499b470e4) )
+	ROM_IGNORE( 0x054f64 )
+
+	NEO_SFIX_128K( "232xt.s1", CRC(d6fe166f) SHA1(55e70395466ab68e7a170be3aa6f5978e704701b) )
+
+	NEO_BIOS_AUDIO_128K( "232-m1.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232-v1.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232-v2.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232-v3.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232yk.c1", 0x0000000, 0x800000, CRC(d504bf4a) SHA1(a58f6c07080c666ae1bb3e2dbab4790feab5ccc7) )
+	ROM_LOAD16_BYTE( "232yk.c2", 0x0000001, 0x800000, CRC(942ea708) SHA1(20389bdb253611745c5515206b1eb620a1574711) )
+	ROM_LOAD16_BYTE( "232-c3.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232-c4.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232svsb2.c5", 0x2000000, 0x800000, CRC(2cb9f438) SHA1(a358f81e937504b6bc087bf0e40a17ac07a968b2) )
+	ROM_LOAD16_BYTE( "232svsb2.c6", 0x2000001, 0x800000, CRC(95029580) SHA1(51cc1186269da68c89af2e2f491477e0e2eb244f) )
+ROM_END
+
 ROM_START( kof97sw ) /* The King of Fighters '97 - (kof97sw) - Hack by Wesker - (Shingo: 26a\c the 623a\c special effect is the red flame) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232sw.p1", 0x000000, 0x100000, CRC(b4378ad4) SHA1(18210a5259f1499123277532dabb00b0c7bee50e) )
@@ -1701,6 +1725,29 @@ ROM_START( kof97yk2 )
 	ROM_LOAD16_BYTE( "232yk2.c6", 0x2000001, 0x800000, CRC(0b06fba8) SHA1(528b66d6d53682316dd1f33d1cf8b689b3642364) )
 ROM_END
 
+ROM_START( kof97yk83 ) // all confirmed
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232kp83.p1", 0x000000, 0x100000, CRC(b983abb8) SHA1(e3d3f222b883b82c686b52b7042401ac8a922992) )
+	ROM_LOAD16_WORD_SWAP( "232kp1.p2", 0x100000, 0x600000, CRC(fddde211) SHA1(6e8280ad7a9dda204f30e40d9575e31d3e436ef2) )
+
+	NEO_SFIX_128K( "232yk1.s1", CRC(c7dbe270) SHA1(0b81b31da6c18dd02e8d0442100685d5ff61bece) )
+
+	NEO_BIOS_AUDIO_128K( "232-m1.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232-v1.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232-v2.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232-v3.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232yk1.c1", 0x0000000, 0x800000, CRC(f748da71) SHA1(5012e8537e7d16d365d9c088a70323b3b71cd6f5) )
+	ROM_LOAD16_BYTE( "232yk1.c2", 0x0000001, 0x800000, CRC(6b77e767) SHA1(7f625fa348754a248d9b58bd2f085c47142faf91) )
+	ROM_LOAD16_BYTE( "232yk1.c3", 0x1000000, 0x800000, CRC(ffb025af) SHA1(64913b51b496a13a92317008d2a15543e6c89ba9) )
+	ROM_LOAD16_BYTE( "232yk1.c4", 0x1000001, 0x800000, CRC(7182157c) SHA1(306a968ae325d0b7d647e7fdb36a3a07bacda923) )
+	ROM_LOAD16_BYTE( "232yk1.c5", 0x2000000, 0x800000, CRC(00a77a26) SHA1(a86054fd3870be49ad6055a2fab663cb5ef27de2) )
+	ROM_LOAD16_BYTE( "232yk1.c6", 0x2000001, 0x800000, CRC(0b504e35) SHA1(597cabd5077670827ad3e809d6cd52c9c7f3013a) )
+ROM_END
+
 ROM_START( kof97yk85 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232yk85.p1", 0x000000, 0x100000, CRC(821b0dc4) SHA1(402488249d4e2984fb5c42f0bb4c00b179ea4d12) )
@@ -1897,30 +1944,32 @@ GAME( 2016, kof97rev,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 1997, kof97rk,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Risko", "Kof'97 (Hack by Risko)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97rv,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (revised edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97saw,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 (Kill red flame special effect)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, kof97sed,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (hack 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, kof97sed,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (SED)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97sex,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Katana", "Kof'97 (Extra/Sexy Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97shi,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'97 (Evolution Shin Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97sm,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (Smoke Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97svs,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (unknown hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97svs,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (SVS)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97svsb2,kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (SVSB2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97sw,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 (26a-c and 623a-c red flame special effect)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97wh,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 (Style Kyo to 95' Kyo)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97wpls, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 Plus", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97xbt,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 BT X Version", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97xi,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Jacky", "Kof'97 XI Flash Version", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof97xp,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Xuhui", "Kof'97 (Xuhui plus)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, kof97xt,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 Final Battle (hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof97xt,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 Final Battle", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97xt1,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Chris Love", "Kof'97 (Unfinished version by Cross Love)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, kof97xxx,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (Nude mix)", MACHINE_SUPPORTS_SAVE ) // no nudes here??
+GAME( 1997, kof97xxx,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (Nude mix)", MACHINE_SUPPORTS_SAVE ) // no nudes here??
 GAME( 1997, kof97y,    kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'97 (Add Char - no Orochi)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97ya,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'97 (Add Orochi set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yb,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'97 (Add Orochi set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97ye,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'97 (Add Char - no Orochi - Pow hack ABC in Extra Mode set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yg,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'97 (Add Char - Pow hack ABC in Extra Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yh,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'97 (Add Char - no Orochi - Pow hack ABC in Extra Mode set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, kof97yk,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97yk1,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97yk2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97yk85, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof97yk,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack YK)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yk1,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack YK1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yk2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack YK2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yk83, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack YK83)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97yk85, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (Yukimura Hack YK85)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yl,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "Kof'97 (Add Char - Extra stage select set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Leather and Ydmis", "Kof'97 (Add Char - Extra stage select set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97yo,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 Seven Yoga Community Imitation 98", MACHINE_SUPPORTS_SAVE )
