@@ -11039,6 +11039,9 @@ dm500                           //
 dm5620                          //
 dm7000                          //
 
+@source:dmax8000.cpp
+dmax8000                        //
+
 @source:dmndrby.cpp
 dmndrby                         // G4001 'DD' (c) 1986
 dmndrbya                        // G4001 'DD' (c) 1986
@@ -11222,6 +11225,7 @@ ougonpai                        // "62" (c) 1991 Dynax
 ougonpaib                       // "62" (c) 1991 bootleg
 quiztvqq                        // "64" Quiz TV Gassyuukoku Q&Q 1992 Dynax
 shpeng                          // (c) 1995 WSAC Systems
+intrgirl                        // (c) 1995 Barko
 sprtmtch                        // "31" (c) 1989 Dynax + Fabtek license
 tenkai                          // (c) 1991 Dynax
 tenkai2b                        // (c) 1991 bootleg
@@ -33282,6 +33286,9 @@ spielbud                        // (c) 1985 ADP
 
 @source:sm1800.cpp
 sm1800                          //
+
+@source:sm7238.cpp
+sm7238                          //
 
 @source:smc777.cpp
 smc777                          //
