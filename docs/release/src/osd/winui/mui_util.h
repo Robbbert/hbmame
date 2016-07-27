@@ -66,5 +66,36 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer);
 HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfiledata);
 
+ //  wstring_from_utf8
+ //============================================================
+ 
+WCHAR *ui_wstring_from_utf8(const char *utf8string)
+{
+	int char_count;
+	WCHAR *result;
+
+	// convert MAME string (UTF-8) to UTF-16
+	char_count = MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, nullptr, 0);
+	result = (WCHAR *)osd_malloc_array(char_count * sizeof(*result));
+	if (result != nullptr)
+		MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, result, char_count);
+ 
+	return result;
+}
+
+char *ui_utf8_from_wstring(const WCHAR *wstring)
+{
+	int char_count;
+	char *result;
+
+	// convert UTF-16 to MAME string (UTF-8)
+	char_count = WideCharToMultiByte(CP_UTF8, 0, wstring, -1, nullptr, 0, nullptr, nullptr);
+	result = (char *)osd_malloc_array(char_count * sizeof(*result));
+	if (result != nullptr)
+		WideCharToMultiByte(CP_UTF8, 0, wstring, -1, result, char_count, nullptr, nullptr);
+	return result;
+}
+
+
 #endif /* MUI_UTIL_H */
 

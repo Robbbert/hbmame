@@ -796,6 +796,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/fga002.h,MACHINES["FGA002"] = true
+---------------------------------------------------
+
+if (MACHINES["FGA002"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/fga002.cpp",
+		MAME_DIR .. "src/devices/machine/fga002.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/hd63450.h,MACHINES["HD63450"] = true
 ---------------------------------------------------
 
@@ -2900,5 +2912,16 @@ if (MACHINES["SCNXX562"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/scnxx562.cpp",
 		MAME_DIR .. "src/devices/machine/scnxx562.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/input_merger.h,MACHINES["INPUT_MERGER"] = true
+---------------------------------------------------
+if (MACHINES["INPUT_MERGER"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/input_merger.cpp",
+		MAME_DIR .. "src/devices/machine/input_merger.h",
 	}
 end

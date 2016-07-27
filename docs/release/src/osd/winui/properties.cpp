@@ -535,13 +535,13 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 	switch( opt_type )
 	{
 	case OPTIONS_GAME:
-		t_description = tstring_from_utf8(ModifyThe(driver_list::driver(g_nGame).description));
+		t_description = ui_wstring_from_utf8(ModifyThe(driver_list::driver(g_nGame).description));
 		break;
 	case OPTIONS_SOURCE:
-		t_description = tstring_from_utf8(GetDriverFilename(g_nGame));
+		t_description = ui_wstring_from_utf8(GetDriverFilename(g_nGame));
 		break;
 	case OPTIONS_GLOBAL:
-		t_description = tstring_from_utf8("Default Settings");
+		t_description = ui_wstring_from_utf8("Default Settings");
 		break;
 	default:
 		return;
@@ -1753,7 +1753,7 @@ static BOOL ScreenReadControl(datamap *map, HWND dialog, HWND control, windows_o
 	screen_option_index = ComboBox_GetCurSel(control);
 	screen_option_value = (TCHAR*) ComboBox_GetItemData(control, screen_option_index);
 	snprintf(screen_option_name, ARRAY_LENGTH(screen_option_name), "screen%d", selected_screen);
-	op_val = utf8_from_tstring(screen_option_value);
+	op_val = ui_utf8_from_wstring(screen_option_value);
 	opts->set_value(screen_option_name, op_val, OPTION_PRIORITY_CMDLINE,error_string);
 	osd_free(op_val);
 	return FALSE;
@@ -1772,7 +1772,7 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 	/* Remove all items in the list. */
 	res = ComboBox_ResetContent(control);
 	res = ComboBox_InsertString(control, 0, TEXT("Auto"));
-	res = ComboBox_SetItemData(control, 0, (void*)tstring_from_utf8("auto"));
+	res = ComboBox_SetItemData(control, 0, (void*)ui_wstring_from_utf8("auto"));
 
 	//Dynamically populate it, by enumerating the Monitors
 	//iMonitors = GetSystemMetrics(SM_CMONITORS); // this gets the count of monitors attached
@@ -1789,7 +1789,7 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 			res = ComboBox_SetItemData(control, i+1, (void*)win_tstring_strdup(dd.DeviceName));
 
 			snprintf(screen_option, ARRAY_LENGTH(screen_option), "screen%d", GetSelectedScreen(dialog));
-			t_option = tstring_from_utf8(opts->value(screen_option));
+			t_option = ui_wstring_from_utf8(opts->value(screen_option));
 			if( !t_option )
 				return FALSE;
 			if (_tcscmp(t_option, dd.DeviceName) == 0)
@@ -1866,7 +1866,7 @@ static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, win
 
 	input_option_index = ComboBox_GetCurSel(control);
 	input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
-	op_val = utf8_from_tstring(input_option_value);
+	op_val = ui_utf8_from_wstring(input_option_value);
 	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE,error_string);
 	osd_free(op_val);
 	return FALSE;
@@ -1890,7 +1890,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	ctrlr_option = opts->value(OPTION_CTRLR);
 	if( ctrlr_option )
 	{
-		t_buf = tstring_from_utf8(ctrlr_option);
+		t_buf = ui_wstring_from_utf8(ctrlr_option);
 		if( !t_buf )
 			return FALSE;
 		t_ctrlr_option = t_buf;
@@ -1906,7 +1906,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	res = ComboBox_SetItemData(control, index, "");
 	index++;
 
-	t_ctrldir = tstring_from_utf8(GetCtrlrDir());
+	t_ctrldir = ui_wstring_from_utf8(GetCtrlrDir());
 	if( !t_ctrldir )
 	{
 		if( t_buf )
@@ -2043,7 +2043,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 		// determine which screen we're using
 		snprintf(screen_option, ARRAY_LENGTH(screen_option), "screen%d", GetSelectedScreen(dialog));
 		screen = opts->value(screen_option);
-		t_screen = tstring_from_utf8(screen);
+		t_screen = ui_wstring_from_utf8(screen);
 
 		// retrieve screen information
 		devmode.dmSize = sizeof(devmode);
@@ -2654,7 +2654,7 @@ static void InitializeBIOSUI(HWND hwnd)
 					{
 						const char *name = ROM_GETHASHDATA(rom);
 						const char *biosname = ROM_GETNAME(rom);
-						t_s = tstring_from_utf8(name);
+						t_s = ui_wstring_from_utf8(name);
 						if( !t_s )
 							return;
 						res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
@@ -2683,7 +2683,7 @@ static void InitializeBIOSUI(HWND hwnd)
 				{
 					const char *name = ROM_GETHASHDATA(rom);
 					const char *biosname = ROM_GETNAME(rom);
-					t_s = tstring_from_utf8(name);
+					t_s = ui_wstring_from_utf8(name);
 					if( !t_s )
 						return;
 					res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
@@ -2918,7 +2918,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 		pos += _tcslen(&buffer[pos]);
 	}
 
-	const char* paths = utf8_from_tstring(buffer);
+	const char* paths = ui_utf8_from_wstring(buffer);
 	if ((buffer[1] == 0x3A) || (buffer[0] == 0)) // must be a folder or null
 	{
 		std::string error_string;
@@ -2943,7 +2943,7 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 	windows_options o;
 	load_options(o, driver_index);
 	const char* paths = o.value(OPTION_COMMENT_DIRECTORY);
-	TCHAR* t_dir_list = tstring_from_utf8(paths);
+	TCHAR* t_dir_list = ui_wstring_from_utf8(paths);
 	paths = 0;
 	if (!t_dir_list)
 		return FALSE;
@@ -3055,7 +3055,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 			char tmpval[20] ;
 			ram = ramdev->default_size();
 			messram_string(tmpval,ram);
-			t_ramstring = tstring_from_utf8(tmpval);
+			t_ramstring = ui_wstring_from_utf8(tmpval);
 			if( !t_ramstring )
 				return FALSE;
 
@@ -3084,7 +3084,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 
 				this_ram_string = p;
 
-				t_ramstring = tstring_from_utf8(this_ram_string);
+				t_ramstring = ui_wstring_from_utf8(this_ram_string);
 				if( !t_ramstring )
 					return FALSE;
 

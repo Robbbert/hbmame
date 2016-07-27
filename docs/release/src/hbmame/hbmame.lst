@@ -518,6 +518,7 @@ kof96oib	//IsmaMj
 kof96oib2	//IsmaMj
 kof96oih
 kof96oir
+kof96pch
 kof96pjc
 kof96pm
 kof96rcw
@@ -542,22 +543,28 @@ kof96seh
 kof97aa
 kof97ae
 kof97ae1
+kof97aot
 kof97bh
 kof97bng
 kof97bs
 kof97cb2
 kof97chris
 kof97cn
-kof97co
-kof97co6
+kof97co // combo 2010-02-07
+kof97co6 // combo 2006
 kof97cr
 kof97chl
 kof97chl2
+kof97cy
+kof97dse
 kof97eh
 kof97eh2
 kof97eho
+kof97ei // combo 2010-02-07 different colours
 kof97evo
 kof97evoa
+kof97frb
+kof97irgc
 kof97hk
 kof97hl
 kof97hxd
@@ -586,7 +593,11 @@ kof97plus
 kof97pm
 kof97ps
 kof97rev
+kof97ribe
 kof97rk
+kof97rst
+kof97rst2
+kof97rst3
 kof97rv
 kof97saw
 kof97sed
@@ -594,7 +605,9 @@ kof97sex
 kof97shi
 kof97sm
 kof97svs
+kof97svsb2
 kof97sw
+kof97tse
 kof97wh
 kof97wpls
 kof97xbt
@@ -612,6 +625,8 @@ kof97yh
 kof97yk
 kof97yk1
 kof97yk2
+kof97yk83
+kof97yk85
 kof97yl
 kof97yl2
 kof97yo
@@ -638,6 +653,7 @@ kof98c20090620 // sometimes reboots itself
 kof98c20090923
 kof98c20100214
 kof98c20110114
+kof98c20110314
 kof98c20120116
 kof98c20120915
 kof98c20130213
@@ -689,6 +705,7 @@ kof98c20151103
 kof98c20151108
 kof98c20151110
 kof98c20151223
+kof98c20160320
 kof98cd
 kof98cd1
 kof98ch
@@ -705,6 +722,7 @@ kof98ehr
 kof98evl
 kof98evo
 kof98evo2
+kof98evr
 kof98f
 kof98fr
 kof98fro
@@ -721,7 +739,8 @@ kof98klc
 kof98lb
 kof98lv
 kof98m
-kof98mix	/* KOF98 mix 2011-10-01 */
+kof98mev
+kof98mix
 kof98nc
 kof98new
 kof98pjc
@@ -789,6 +808,7 @@ kof99lb
 kof99m
 kof99nd
 kof99ndh
+kof99ndis
 kof99ob
 kof99ob2
 kof99pb
@@ -979,9 +999,12 @@ kof2002x
 kof2k2ath
 kof2k2b // no sound in attract mode
 kof2k2b1
+kof2k2bd //not working
 kof2k2bh
 kof2k2bjh
 kof2k2bjo
+kof2k2bl3
+kof2k2bl4
 kof2k2bld
 kof2k2blood2
 kof2k2br
@@ -1056,6 +1079,7 @@ kof2k2mpu
 kof2k2ngp
 kof2k2nu
 kof2k2olp
+kof2k2omg
 kof2k2omg8
 kof2k2omg9
 kof2k2omg9b
@@ -1098,6 +1122,7 @@ kof2k2sb
 kof2k2seh
 kof2k2se2
 kof2k2sm // bad gfx on train scene
+kof2k2smf
 kof2k2smg
 kof2k2smg2
 kof2k2soi
@@ -1110,7 +1135,6 @@ kof2k2ul
 kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
-kof2k2bd //not working
 //kf2k2plc
 
 	/* kof2003 */
@@ -1285,14 +1309,21 @@ mslug2fr
 mslug2fro
 mslug2sh
 mslug2t		// 2015 trap15 - remove slowdowns that plague gameplay
+mslugxce
 mslugxeb
 mslugxeh
 mslugxeh1
 mslugxex
+mslugxfe
 mslugxfr
 mslugxfro
-mslugxit
 mslugxhp
+mslugxit
+mslugxjdkj
+mslugxmfb
+mslugxres
+mslugxsef
+mslugxsvb
 mslugxp
 mslugxr
 mslugxst
@@ -1342,6 +1373,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
+//mslug4lw // not working - p roms are encrypted
 mslug4nd
 mslug4sp
 mslug5b
@@ -1350,6 +1382,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
+//mslug5fu // not working - p roms are encrypted
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -1880,6 +1913,7 @@ garoupy
 garoupf
 garoupfu
 garoupfp
+garoupx11
 garoupy1
 
 	/* ngkofmisc */
@@ -1889,6 +1923,7 @@ ct2k3eh
 ct2k3ifz
 ct2k3k3
 ct2k3k3o
+ct2k3spi
 ct2k3xx
 ct2k3ys
 //ct2k3ad
@@ -1904,11 +1939,14 @@ kof2k4seb
 kof2k4spl
 kof2k8uni
 //kof10thd
+//kof10thd16 // not working, p1 needs unscrambling
+kof10thep15
 kof10thu
 kof10thub
 kof10thud
 kogd
 kogf
+kogmxpls
 kogplus
 kogplusf
 
@@ -1976,6 +2014,7 @@ rotdbr2d
 rotdcre
 rotdcreb
 rotdd
+rotddh
 rotdeh
 rotdehc
 rotdfw
@@ -2038,6 +2077,7 @@ sengokucd
 sengoku3b
 sengoku3c
 sengoku3d
+sengoku3eb
 sengoku3ha
 sengoku3k
 sengoku3kc
@@ -2053,11 +2093,13 @@ svcesv
 svch
 svcnd
 svcpcbd
+svcplusa2016
 svcplusb
 svcplusd
 svcpryu
 svcps2
 svcrm
+svcsplus2016
 svcspryu
 
 	/* ngwh */

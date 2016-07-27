@@ -1,5 +1,6 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
+//  MASTER
 /****************************************************************************
  *      datafile.c
  *      History database engine
@@ -683,7 +684,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 		{
 			for (const rom_entry *rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 			{
-				hash_collection hashes(ROM_GETHASHDATA(rom));
+				util::hash_collection hashes(ROM_GETHASHDATA(rom));
 
 				if (g != -1)
 				{
@@ -694,7 +695,7 @@ int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int 
 						for (const rom_entry *pregion = rom_first_region(device); pregion; pregion = rom_next_region(pregion))
 							for (const rom_entry *prom = rom_first_file(pregion); prom; prom = rom_next_file(prom))
 							{
-								hash_collection phashes(ROM_GETHASHDATA(prom));
+								util::hash_collection phashes(ROM_GETHASHDATA(prom));
 
 								if (hashes == phashes)
 									break;

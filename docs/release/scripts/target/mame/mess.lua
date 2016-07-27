@@ -585,6 +585,8 @@ MACHINES["APPLE_DRIVE"] = true
 MACHINES["APPLE_FDC"] = true
 MACHINES["SONY_DRIVE"] = true
 MACHINES["SCNXX562"] = true
+MACHINES["FGA002"] = true
+MACHINES["INPUT_MERGER"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -602,6 +604,10 @@ BUSES["APF"] = true
 BUSES["APRICOT_EXPANSION"] = true
 BUSES["ARCADIA"] = true
 BUSES["ASTROCADE"] = true
+BUSES["BBC_ANALOGUE"] = true
+BUSES["BBC_1MHZBUS"] = true
+BUSES["BBC_TUBE"] = true
+BUSES["BBC_USERPORT"] = true
 BUSES["BML3"] = true
 BUSES["BW2"] = true
 BUSES["C64"] = true
@@ -672,6 +678,7 @@ BUSES["SMS_EXP"] = true
 BUSES["SNES"] = true
 BUSES["SNES_CTRL"] = true
 BUSES["SPC1000"] = true
+BUSES["SUNKBD"] = true
 BUSES["SVI_EXPANDER"] = true
 BUSES["SVI_SLOT"] = true
 BUSES["TI99PEB"] = true
@@ -883,6 +890,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"trs",
 		"ultimachine",
 		"ultratec",
+		"unicard",
 		"unisonic",
 		"unisys",
 		"usp",
@@ -1070,6 +1078,7 @@ files {
 	MAME_DIR .. "src/mame/video/cps1.cpp",
 	MAME_DIR .. "src/mame/video/chihiro.cpp",
 	MAME_DIR .. "src/mame/machine/xbox.cpp",
+	MAME_DIR .. "src/mame/machine/xbox_usb.cpp",
 	MAME_DIR .. "src/mame/includes/saturn.h",
 	MAME_DIR .. "src/mame/drivers/saturn.cpp",
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
@@ -1105,7 +1114,6 @@ files {
 	MAME_DIR .. "src/mame/includes/bbc.h",
 	MAME_DIR .. "src/mame/machine/bbc.cpp",
 	MAME_DIR .. "src/mame/video/bbc.cpp",
-	MAME_DIR .. "src/mame/drivers/bbcbc.cpp",
 	MAME_DIR .. "src/mame/drivers/electron.cpp",
 	MAME_DIR .. "src/mame/includes/electron.h",
 	MAME_DIR .. "src/mame/machine/electron.cpp",
@@ -1446,6 +1454,9 @@ files {
 	MAME_DIR .. "src/mame/video/pk8020.cpp",
 	MAME_DIR .. "src/mame/drivers/pyl601.cpp",
 	MAME_DIR .. "src/mame/drivers/sm1800.cpp",
+	MAME_DIR .. "src/mame/drivers/sm7238.cpp",
+	MAME_DIR .. "src/mame/machine/km035.cpp",
+	MAME_DIR .. "src/mame/machine/km035.h",
 	MAME_DIR .. "src/mame/drivers/uknc.cpp",
 	MAME_DIR .. "src/mame/drivers/unior.cpp",
 	MAME_DIR .. "src/mame/drivers/ut88.cpp",
@@ -2018,6 +2029,7 @@ createMESSProjects(_target, _subtarget, "microsoft")
 files {
 	MAME_DIR .. "src/mame/drivers/xbox.cpp",
 	MAME_DIR .. "src/mame/includes/xbox.h",
+	MAME_DIR .. "src/mame/includes/xbox_usb.h",
 }
 
 createMESSProjects(_target, _subtarget, "mit")
@@ -2716,6 +2728,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/ts803.cpp",
 	MAME_DIR .. "src/mame/drivers/ts816.cpp",
 	MAME_DIR .. "src/mame/drivers/tv950.cpp",
+	MAME_DIR .. "src/mame/drivers/tv990.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "tem")
@@ -2883,6 +2896,11 @@ files {
 createMESSProjects(_target, _subtarget, "ultratec")
 files {
 	MAME_DIR .. "src/mame/drivers/minicom.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "unicard")
+files {
+	MAME_DIR .. "src/mame/drivers/bbcbc.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "unisonic")
@@ -3083,6 +3101,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/dim68k.cpp",
 	MAME_DIR .. "src/mame/drivers/dm7000.cpp",
 	MAME_DIR .. "src/mame/includes/dm7000.h",
+	MAME_DIR .. "src/mame/drivers/dmax8000.cpp",
 	MAME_DIR .. "src/mame/drivers/dmv.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.h",
@@ -3097,6 +3116,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/fanucs15.cpp",
 	MAME_DIR .. "src/mame/drivers/fanucspmg.cpp",
 	MAME_DIR .. "src/mame/drivers/fc100.cpp",
+	MAME_DIR .. "src/mame/drivers/fcisio.cpp",
 	MAME_DIR .. "src/mame/drivers/fcscsi.cpp",
 	MAME_DIR .. "src/mame/drivers/fk1.cpp",
 	MAME_DIR .. "src/mame/drivers/ft68m.cpp",

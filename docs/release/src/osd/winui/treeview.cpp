@@ -147,11 +147,11 @@ static BOOL win_move_file_utf8(const char* existingfilename, const char* newfile
 	TCHAR* t_newfilename;
 	BOOL result = FALSE;
 
-	t_existingfilename = tstring_from_utf8(existingfilename);
+	t_existingfilename = ui_wstring_from_utf8(existingfilename);
 	if( !t_existingfilename )
 		return result;
 
-	t_newfilename = tstring_from_utf8(newfilename);
+	t_newfilename = ui_wstring_from_utf8(newfilename);
 	if( !t_newfilename ) {
 		free(t_existingfilename);
 		return result;
@@ -1095,10 +1095,10 @@ void CreateDumpingFolders(int parent_index)
 					if (ROMREGION_ISROMDATA(region) || ROMREGION_ISDISKDATA(region) )
 					{
 						//name = ROM_GETNAME(rom);
-						hash_collection hashes(ROM_GETHASHDATA(rom));
-						if (hashes.flag(hash_collection::FLAG_BAD_DUMP))
+						util::hash_collection hashes(ROM_GETHASHDATA(rom));
+						if (hashes.flag(util::hash_collection::FLAG_BAD_DUMP))
 							bBadDump = TRUE;
-						if (hashes.flag(hash_collection::FLAG_NO_DUMP))
+						if (hashes.flag(util::hash_collection::FLAG_NO_DUMP))
 							bNoDump = TRUE;
 					}
 				}
@@ -1560,7 +1560,7 @@ static LPTREEFOLDER NewFolder(const char *lpTitle, UINT nFolderId, int nParent, 
 	memset(lpFolder, '\0', sizeof (TREEFOLDER));
 	lpFolder->m_lpTitle = (LPSTR)malloc(strlen(lpTitle) + 1);
 	strcpy((char *)lpFolder->m_lpTitle,lpTitle);
-	lpFolder->m_lptTitle = tstring_from_utf8(lpFolder->m_lpTitle);
+	lpFolder->m_lptTitle = ui_wstring_from_utf8(lpFolder->m_lpTitle);
 	lpFolder->m_lpGameBits = NewBits(driver_list::total());
 	lpFolder->m_nFolderId = nFolderId;
 	lpFolder->m_nParent = nParent;
