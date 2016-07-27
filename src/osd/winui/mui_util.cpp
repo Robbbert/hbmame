@@ -209,7 +209,7 @@ void DisplayTextFile(HWND hWnd, const char *cName)
 	LPCTSTR	  msg = 0;
 	LPTSTR    tName;
 
-	tName = tstring_from_utf8(cName);
+	tName = ui_wstring_from_utf8(cName);
 	if( !tName )
 		return;
 
@@ -650,7 +650,7 @@ void GetSystemErrorMessage(DWORD dwErrorId, TCHAR **tErrorMessage)
 HICON win_extract_icon_utf8(HINSTANCE inst, const char* exefilename, UINT iconindex)
 {
 	HICON icon = 0;
-	TCHAR* t_exefilename = tstring_from_utf8(exefilename);
+	TCHAR* t_exefilename = ui_wstring_from_utf8(exefilename);
 	if( !t_exefilename )
 		return icon;
 
@@ -688,12 +688,11 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 							DWORD flagsandattributes, HANDLE templatehandle)
 {
 	HANDLE result = 0;
-	TCHAR* t_filename = tstring_from_utf8(filename);
+	TCHAR* t_filename = ui_wstring_from_utf8(filename);
 	if( !t_filename )
 		return result;
 
-	result = CreateFile(t_filename, desiredmode, sharemode, securityattributes, creationdisposition,
-						flagsandattributes, templatehandle);
+	result = CreateFile(t_filename, desiredmode, sharemode, securityattributes, creationdisposition, flagsandattributes, templatehandle);
 
 	osd_free(t_filename);
 
@@ -719,7 +718,7 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 	result = GetCurrentDirectory(bufferlength, t_buffer);
 
 	if( bufferlength > 0 ) {
-		utf8_buffer = utf8_from_tstring(t_buffer);
+		utf8_buffer = ui_utf8_from_wstring(t_buffer);
 		if( !utf8_buffer ) {
 			osd_free(t_buffer);
 			return result;
@@ -744,7 +743,7 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfiledata)
 {
 	HANDLE result = 0;
-	TCHAR* t_filename = tstring_from_utf8(filename);
+	TCHAR* t_filename = ui_wstring_from_utf8(filename);
 	if( !t_filename )
 		return result;
 

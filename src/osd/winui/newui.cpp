@@ -21,6 +21,7 @@
 // standard windows headers
 #define WIN32_LEAN_AND_MEAN // leave out not-needed libraries
 #include "newui.h"
+#include "mui_util.h"
 
 #include <shellapi.h>
 
@@ -263,7 +264,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 	// do we have to translate the filter?
 	if (ofn->filter)
 	{
-		buffer = tstring_from_utf8(ofn->filter);
+		buffer = ui_wstring_from_utf8(ofn->filter);
 		if (!buffer)
 			goto done;
 
@@ -279,7 +280,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 	// do we need to translate the file parameter?
 	if (ofn->filename)
 	{
-		buffer = tstring_from_utf8(ofn->filename);
+		buffer = ui_wstring_from_utf8(ofn->filename);
 		if (!buffer)
 			goto done;
 
@@ -292,7 +293,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 	// do we need to translate the initial directory?
 	if (ofn->initial_directory)
 	{
-		t_initial_directory = tstring_from_utf8(ofn->initial_directory);
+		t_initial_directory = ui_wstring_from_utf8(ofn->initial_directory);
 		if (t_initial_directory == NULL)
 			goto done;
 	}
@@ -336,7 +337,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 	// copy file back out into passed structure
 	if (t_file)
 	{
-		utf8_file = utf8_from_tstring(t_file);
+		utf8_file = ui_utf8_from_wstring(t_file);
 		if (!utf8_file)
 			goto done;
 
@@ -430,7 +431,7 @@ static BOOL win_append_menu_utf8(HMENU menu, UINT flags, UINT_PTR id, const char
 	// only convert string when it's not a bitmap
 	if (!(flags & MF_BITMAP) && item)
 	{
-		t_str = tstring_from_utf8(item);
+		t_str = ui_wstring_from_utf8(item);
 		t_item = t_str;
 	}
 
@@ -592,7 +593,7 @@ dialog_box *win_dialog_init(const char *title, const struct dialog_layout *layou
 	if (dialog_write(di, w, sizeof(w), 2))
 		goto error;
 
-	w_title = wstring_from_utf8(title);
+	w_title = ui_wstring_from_utf8(title);
 	rc = dialog_write_string(di, w_title);
 	osd_free(w_title);
 	if (rc)
@@ -807,7 +808,7 @@ static int dialog_write_item(dialog_box *di, DWORD style, short x, short y, shor
 	if (dialog_write(di, class_name, class_name_length, 2))
 		return 1;
 
-	w_str = str ? wstring_from_utf8(str) : NULL;
+	w_str = str ? ui_wstring_from_utf8(str) : NULL;
 	rc = dialog_write_string(di, w_str);
 	if (w_str)
 		osd_free(w_str);
@@ -2398,7 +2399,7 @@ static HMENU find_sub_menu(HMENU menu, const char *menutext, bool create_sub_men
 
 	while(*menutext)
 	{
-		TCHAR *t_menutext = tstring_from_utf8(menutext);
+		TCHAR *t_menutext = ui_wstring_from_utf8(menutext);
 
 		int i = -1;
 		do
@@ -2651,7 +2652,7 @@ static void prepare_menus(HWND wnd)
 	view_index = window->m_target->view();
 	while((view_name = window->m_target->view_name(i)))
 	{
-		TCHAR *t_view_name = tstring_from_utf8(view_name);
+		TCHAR *t_view_name = ui_wstring_from_utf8(view_name);
 		InsertMenu(video_menu, i, MF_BYPOSITION | (i == view_index ? MF_CHECKED : 0), ID_VIDEO_VIEW_0 + i, t_view_name);
 		osd_free(t_view_name);
 		i++;
@@ -2863,7 +2864,7 @@ static void help_display(HWND wnd, const char *chapter)
 	if (!is_windowed())
 		winwindow_toggle_full_screen();
 
-	TCHAR *t_chapter = tstring_from_utf8(chapter);
+	TCHAR *t_chapter = ui_wstring_from_utf8(chapter);
 //	htmlhelp(wnd, t_chapter, 0 /*HH_DISPLAY_TOPIC*/, 0);
 //	TCHAR *szSite = new TCHAR[100];
 //	_tcscpy(szSite, TEXT("http://messui.the-chronicles.org/onlinehelp/"));
@@ -3172,7 +3173,7 @@ static void set_menu_text(HMENU menu_bar, int command, const char *text)
 	MENUITEMINFO mii;
 
 	// convert to TCHAR
-	t_text = tstring_from_utf8(text);
+	t_text = ui_wstring_from_utf8(text);
 
 	// invoke SetMenuItemInfo()
 	memset(&mii, 0, sizeof(mii));

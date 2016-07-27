@@ -276,7 +276,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 
 	for (i = nDirInfoCount - 1; i >= 0; i--)
 	{
-		t_s = tstring_from_utf8(g_directoryInfo[i].lpName);
+		t_s = ui_wstring_from_utf8(g_directoryInfo[i].lpName);
 		if( !t_s )
 			return FALSE;
 		(void)ComboBox_InsertString(GetDlgItem(hDlg, IDC_DIR_COMBO), 0, win_tstring_strdup(t_s));
@@ -299,7 +299,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	for (i = 0; i < nDirInfoCount; i++)
 	{
 		s = g_directoryInfo[i].pfnGetTheseDirs();
-		t_s = tstring_from_utf8(s);
+		t_s = ui_wstring_from_utf8(s);
 		if( !t_s )
 			return FALSE;
 		if (IsMultiDir(i))
@@ -387,7 +387,7 @@ static int RetrieveDirList(int nDir, int nFlagResult, void (*SetTheseDirs)(const
 			if (i < nPaths - 1)
 				_tcscat(buf, TEXT(";"));
 		}
-		utf8_buf = utf8_from_tstring(buf);
+		utf8_buf = ui_utf8_from_wstring(buf);
 		SetTheseDirs(utf8_buf);
 		osd_free(utf8_buf);
 
@@ -412,7 +412,7 @@ static void Directories_OnOk(HWND hDlg)
 		else
 		{
 			s = FixSlash(DirInfo_Dir(g_pDirInfo, i));
-			utf8_s = utf8_from_tstring(s);
+			utf8_s = ui_utf8_from_wstring(s);
 			g_directoryInfo[i].pfnSetTheseDirs(utf8_s);
 			osd_free(utf8_s);
 		}

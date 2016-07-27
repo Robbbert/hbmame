@@ -454,7 +454,7 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 
 	va_end(marker);
 
-	t_s = tstring_from_utf8(ConvertToWindowsNewlines(buffer));
+	t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(buffer));
 	if( !t_s || _tcscmp(TEXT(""), t_s) == 0)
 		return;
 

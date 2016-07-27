@@ -147,11 +147,11 @@ static BOOL win_move_file_utf8(const char* existingfilename, const char* newfile
 	TCHAR* t_newfilename;
 	BOOL result = FALSE;
 
-	t_existingfilename = tstring_from_utf8(existingfilename);
+	t_existingfilename = ui_wstring_from_utf8(existingfilename);
 	if( !t_existingfilename )
 		return result;
 
-	t_newfilename = tstring_from_utf8(newfilename);
+	t_newfilename = ui_wstring_from_utf8(newfilename);
 	if( !t_newfilename ) {
 		free(t_existingfilename);
 		return result;
@@ -1560,7 +1560,7 @@ static LPTREEFOLDER NewFolder(const char *lpTitle, UINT nFolderId, int nParent, 
 	memset(lpFolder, '\0', sizeof (TREEFOLDER));
 	lpFolder->m_lpTitle = (LPSTR)malloc(strlen(lpTitle) + 1);
 	strcpy((char *)lpFolder->m_lpTitle,lpTitle);
-	lpFolder->m_lptTitle = tstring_from_utf8(lpFolder->m_lpTitle);
+	lpFolder->m_lptTitle = ui_wstring_from_utf8(lpFolder->m_lpTitle);
 	lpFolder->m_lpGameBits = NewBits(driver_list::total());
 	lpFolder->m_nFolderId = nFolderId;
 	lpFolder->m_nParent = nParent;

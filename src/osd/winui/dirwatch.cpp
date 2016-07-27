@@ -174,7 +174,7 @@ static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEnt
 	// send the message (assuming that we have a target)
 	if (pWatcher->hwndTarget)
 	{
-		t_filename = tstring_from_utf8(pszFileName);
+		t_filename = ui_wstring_from_utf8(pszFileName);
 		if( !t_filename )
 			return;
 		SendMessage(pWatcher->hwndTarget,

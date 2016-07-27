@@ -286,7 +286,7 @@ void TabView_Reset(HWND hwndTabView)
 	{
 		if (!pTabViewInfo->pCallbacks->pfnGetShowTab || pTabViewInfo->pCallbacks->pfnGetShowTab(i))
 		{
-			t_text = tstring_from_utf8(pTabViewInfo->pCallbacks->pfnGetTabLongName(i));
+			t_text = ui_wstring_from_utf8(pTabViewInfo->pCallbacks->pfnGetTabLongName(i));
 			if( !t_text )
 				return;
 			tci.pszText = t_text;
