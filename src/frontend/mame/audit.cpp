@@ -632,7 +632,7 @@ media_auditor::summary media_auditor::winui_summarize(const char *name, std::str
 		}
 
 		// downgrade the overall status if necessary
-		overall_status = MAX(overall_status, best_new_status);
+		overall_status = (std::max)(overall_status, best_new_status);
 	}
 	return overall_status;
 }
