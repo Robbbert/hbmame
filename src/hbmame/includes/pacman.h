@@ -26,6 +26,7 @@ public:
 		m_gfxdecode(*this, "gfxdecode"),
 		m_palette(*this, "palette"),
 		m_patched_opcodes(*this, "patched_opcodes")
+		, m_io_fake(*this, "FAKE") // HBMAME
 	{ }
 
 	required_device<cpu_device> m_maincpu;
@@ -40,7 +41,7 @@ public:
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 	optional_shared_ptr<UINT8> m_patched_opcodes;
-
+	required_ioport m_io_fake;
 	UINT8 m_cannonb_bit_to_read;
 	int m_mystery;
 	UINT8 m_counter;
