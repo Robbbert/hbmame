@@ -392,9 +392,12 @@ static void InitDriversInfo(void)
 
 		gameinfo->hasOptionalBIOS = FALSE;
 		if (gamedrv->rom)
-			for (rom = gamedrv->rom; !ROMENTRY_ISEND(rom); rom++)
+		{
+			auto rom_entries = rom_build_entries(gamedrv->rom);
+			for (rom = rom_entries.data(); !ROMENTRY_ISEND(rom); rom++)
 				if (ROMENTRY_ISSYSTEM_BIOS(rom))
 					gameinfo->hasOptionalBIOS = TRUE;
+		}
 
 		num_speakers = numberOfSpeakers(&config);
 
