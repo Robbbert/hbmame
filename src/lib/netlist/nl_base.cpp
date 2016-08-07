@@ -536,8 +536,9 @@ void core_device_t::set_delegate_pointer()
 
 void core_device_t::stop_dev()
 {
-#if (NL_KEEP_STATISTICS)
-#endif
+	//NOTE: stop_dev is not removed. It remains so it can be reactivated in case
+	//      we run into a situation were RAII and noexcept dtors force us to
+	//      to have a device stop() routine which may throw.
 	//stop();
 }
 
@@ -690,7 +691,6 @@ void detail::net_t::rebuild_list()
 
 void detail::net_t::update_devs()
 {
-	//assert(m_num_cons != 0);
 	nl_assert(this->isRailNet());
 
 	static const unsigned masks[4] =
@@ -748,40 +748,13 @@ void detail::net_t::register_con(detail::core_terminal_t &terminal)
 		m_active++;
 }
 
-void detail::net_t::move_connections(detail::net_t *dest_net)
+void detail::net_t::move_connections(detail::net_t &dest_net)
 {
 	for (auto &ct : m_core_terms)
-		dest_net->register_con(*ct);
+		dest_net.register_con(*ct);
 	m_core_terms.clear();
 	m_active = 0;
 }
-
-void detail::net_t::merge_net(detail::net_t *othernet)
-{
-	netlist().log().debug("merging nets ...\n");
-	if (othernet == nullptr)
-		return; // Nothing to do
-
-	if (othernet == this)
-	{
-		netlist().log().warning("Connecting {1} to itself. This may be right, though\n", this->name());
-		return; // Nothing to do
-	}
-
-	if (this->isRailNet() && othernet->isRailNet())
-		netlist().log().fatal("Trying to merge two rail nets: {1} and {2}\n", this->name(), othernet->name());
-
-	if (othernet->isRailNet())
-	{
-		netlist().log().debug("othernet is railnet\n");
-		othernet->merge_net(this);
-	}
-	else
-	{
-		othernet->move_connections(this);
-	}
-}
-
 
 // ----------------------------------------------------------------------------------------
 // logic_net_t
@@ -802,37 +775,6 @@ analog_net_t::analog_net_t(netlist_t &nl, const pstring &aname, detail::core_ter
 	, m_solver(nullptr)
 {
 }
-
-bool analog_net_t::already_processed(std::vector<list_t> &groups)
-{
-	if (isRailNet())
-		return true;
-	for (auto & grp : groups)
-	{
-		if (plib::container::contains(grp, this))
-			return true;
-	}
-	return false;
-}
-
-void analog_net_t::process_net(std::vector<list_t> &groups)
-{
-	if (num_cons() == 0)
-		return;
-	/* add the net */
-	groups.back().push_back(this);
-	for (auto &p : m_core_terms)
-	{
-		if (p->is_type(terminal_t::TERMINAL))
-		{
-			terminal_t *pt = static_cast<terminal_t *>(p);
-			analog_net_t *other_net = &pt->m_otherterm->net();
-			if (!other_net->already_processed(groups))
-				other_net->process_net(groups);
-		}
-	}
-}
-
 
 // ----------------------------------------------------------------------------------------
 // core_terminal_t
