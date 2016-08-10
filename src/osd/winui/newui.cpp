@@ -2333,7 +2333,7 @@ static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 	char *working = 0;
 	std::string dst;
 	osd_get_full_path(dst,"."); // turn local directory into full path
-	initial_dir = image->working_directory(); // get working directory from diimage.c
+	initial_dir = image->working_directory().c_str(); // get working directory from diimage.cpp
 	// if . use comments_dir
 	if (strcmp(dst.c_str(), initial_dir) == 0)  // same?
 		initial_dir = software_dir;

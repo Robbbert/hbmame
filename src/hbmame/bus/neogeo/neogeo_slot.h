@@ -5,6 +5,7 @@
 
 #include "neogeo_intf.h"
 #include "neogeo_helper.h"
+#include "softlist_dev.h"
 
 /***************************************************************************
  TYPE DEFINITIONS
