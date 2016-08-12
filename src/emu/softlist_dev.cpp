@@ -229,9 +229,9 @@ void software_list_device::display_matches(const machine_config &config, const c
 		{
 			// different output depending on original system or compatible
 			if (swlistdev.list_type() == SOFTWARE_LIST_ORIGINAL_SYSTEM)
-				osd_printf_error("* Software list \"%s\" (%s) matches: \n", swlistdev.list_name().c_str(), swlistdev.description());
+				osd_printf_error("* Software list \"%s\" (%s) matches: \n", swlistdev.list_name().c_str(), swlistdev.description().c_str());
 			else
-				osd_printf_error("* Compatible software list \"%s\" (%s) matches: \n", swlistdev.list_name().c_str(), swlistdev.description());
+				osd_printf_error("* Compatible software list \"%s\" (%s) matches: \n", swlistdev.list_name().c_str(), swlistdev.description().c_str());
 
 			// print them out
 			for (auto &match : matches)
@@ -252,13 +252,13 @@ void software_list_device::display_matches(const machine_config &config, const c
 //  from an intermediate point
 //-------------------------------------------------
 
-const software_info *software_list_device::find(const char *look_for)
+const software_info *software_list_device::find(const std::string &look_for)
 {
-	// nullptr search returns nothing
-	if (look_for == nullptr)
+	// empty search returns nothing
+	if (look_for.empty())
 		return nullptr;
 
-	bool iswild = strchr(look_for, '*') != nullptr || strchr(look_for, '?');
+	const bool iswild = look_for.find_first_of("*?") != std::string::npos;
 
 	// find a match (will cause a parse if needed when calling get_info)
 	const auto &info_list = get_info();
@@ -268,8 +268,8 @@ const software_info *software_list_device::find(const char *look_for)
 		[&](const software_info &info)
 	{
 		const char *shortname = info.shortname().c_str();
-		return (iswild && core_strwildcmp(look_for, shortname) == 0)
-			|| core_stricmp(look_for, shortname) == 0;
+		return (iswild && core_strwildcmp(look_for.c_str(), shortname) == 0)
+			|| core_stricmp(look_for.c_str(), shortname) == 0;
 	});
 
 	return iter != info_list.end()
@@ -297,7 +297,7 @@ void software_list_device::parse()
 	{
 		// parse if no error
 		std::ostringstream errs;
-		softlist_parser parser(m_file, m_description, m_infolist, errs);
+		softlist_parser parser(m_file, m_file.filename(), m_description, m_infolist, errs);
 		m_file.close();
 		m_errors = errs.str();
 	}

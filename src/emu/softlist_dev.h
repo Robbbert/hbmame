@@ -145,13 +145,13 @@ public:
 	const char *filename() { return m_file.filename(); }
 
 	// getters that may trigger a parse
-	const char *description() { if (!m_parsed) parse(); return m_description.c_str(); }
+	const std::string &description() { if (!m_parsed) parse(); return m_description; }
 	bool valid() { if (!m_parsed) parse(); return !m_infolist.empty(); }
 	const char *errors_string() { if (!m_parsed) parse(); return m_errors.c_str(); }
 	const std::list<software_info> &get_info() { if (!m_parsed) parse(); return m_infolist; }
 
 	// operations
-	const software_info *find(const char *look_for);
+	const software_info *find(const std::string &look_for);
 	void find_approx_matches(const std::string &name, int matches, const software_info **list, const char *interface);
 	void release();
 	software_compatibility is_compatible(const software_part &part) const;
