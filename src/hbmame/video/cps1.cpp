@@ -2625,7 +2625,7 @@ void cps_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 	UINT16 *base = m_buffered_obj.get();
 
 	/* some sf2 hacks draw the sprites in reverse order */
-	if BIT(m_game_config->bootleg_kludge, 6) // HBMAME
+	if (BIT(m_game_config->bootleg_kludge, 6)) // HBMAME
 	{
 		base += m_last_sprite_offset;
 		baseadd = -4;
@@ -3158,7 +3158,7 @@ UINT32 cps_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap
 
 	if (m_cps_version == 1)
 	{
-		if BIT(m_game_config->bootleg_kludge, 7)
+		if (BIT(m_game_config->bootleg_kludge, 7))
 			cps1_build_palette(cps1_base(CPS1_PALETTE_BASE, m_palette_align));
 
 		cps1_render_layer(screen, bitmap, cliprect, l0, 0);
