@@ -1,6 +1,19 @@
 What's new in HBMAME
 ====================
 
+2016-08-31 0.177
+----------------
+
+
+
+
+New Games
+---------
+- [dotrimjr]        Dottori-Man Jr [by Chris Covell]
+
+
+
+
 2016-07-27 0.176
 ----------------
 
@@ -45,6 +58,7 @@ New Games
 - [sengoku3eb]
 - [svcplusa2016]
 - [svcsplus2016]
+
 
 
 

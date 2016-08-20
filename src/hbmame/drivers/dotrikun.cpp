@@ -1,5 +1,17 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+#include "../mame/drivers/dotrikun.cpp"
+
+// http://www.chrismcovell.com/dottorikun.html
+
+ROM_START( dotrimjr )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "dotrimjr.bin", 0x0000, 0x4000, CRC(4ba6d2f5) SHA1(db805e9121ecbd41fac4593b58d7f071e7dbc720) )
+ROM_END
+
+GAMEL( 2016, dotrimjr, 0, dotrikun, dotrikun, driver_device, 0, ROT0, "Chris Covell", "Dottori-Man Jr", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+
+
 /***************************************************************************
 
 Minesweeper driver, originally for Dotrikun hardware
@@ -79,6 +91,7 @@ and the ending scene by setting the pc to 0F30.
 - Backup nvram added (April 2007)
 - Hooked port 20 to the colour generator (July 2008)
 - Hooked up a sound click to port 20 (May 2010)
+- Merged back into dotrikun driver (August 2016)
 
 Colours:
 	White (normal play / attract mode)
@@ -88,28 +101,20 @@ Colours:
 	Red (game over)
 
 ***************************************************************************/
-
-#include "emu.h"
-#include "cpu/z80/z80.h"
 #include "machine/nvram.h"
 #include "sound/beep.h"
 
-class mineswp_state : public driver_device
+class mineswp_state : public dotrikun_state
 {
 public:
 	mineswp_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag)
-		, m_p_videoram(*this, "videoram")
+		: dotrikun_state(mconfig, type, tag)
 		, m_beep(*this, "beeper")
 	{ }
 
-	DECLARE_WRITE8_MEMBER(color_w);
-	UINT32 screen_update_mineswp(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	DECLARE_WRITE8_MEMBER(mineswp_color_w);
 private:
-	UINT8 m_color;
-	virtual void machine_start();
-	virtual void machine_reset();
-	required_shared_ptr<UINT8> m_p_videoram;
+	virtual void machine_start() override;
 	required_device<beep_device> m_beep;
 };
 
@@ -121,45 +126,16 @@ private:
 *******************************************************************/
 
 
-WRITE8_MEMBER( mineswp_state::color_w )
+WRITE8_MEMBER( mineswp_state::mineswp_color_w )
 {
+	// d0-d2: fg palette
+	// d3: sound bit
+	// d4-d7: N/C
+	m_screen->update_now();
 	m_color = data & 7;
 	m_beep->set_state(BIT(data, 3));
 }
 
-
-/*******************************************************************
-
-    Video updating
-
-*******************************************************************/
-UINT32 mineswp_state::screen_update_mineswp(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
-{
-	UINT8 x,y,z,data;
-
-	pen_t bg = rgb_t(pal1bit(m_color >> 3), pal1bit(m_color >> 4), pal1bit(m_color >> 5));
-	pen_t fg = rgb_t(pal1bit(m_color >> 0), pal1bit(m_color >> 1), pal1bit(m_color >> 2));
-
-	for (y = 0; y < 96; y++)
-	{
-		x = 0;
-		for (z = 0; z < 16; z++)
-		{
-			data = m_p_videoram[(y<<4) | z];
-
-			bitmap.pix32(y, x++) = BIT(data, 7) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 6) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 5) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 4) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 3) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 2) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 1) ? fg : bg;
-			bitmap.pix32(y, x++) = BIT(data, 0) ? fg : bg;
-		}
-	}
-
-	return 0;
-}
 
 
 /*******************************************************************
@@ -168,37 +144,19 @@ UINT32 mineswp_state::screen_update_mineswp(screen_device &screen, bitmap_rgb32 
 
 *******************************************************************/
 static ADDRESS_MAP_START( mineswp_map, AS_PROGRAM, 8, mineswp_state )
-	AM_RANGE(0x0000, 0x3fff) AM_ROM AM_REGION("roms", 0)
-	AM_RANGE(0x8000, 0x85ff) AM_RAM AM_SHARE("videoram")
+	AM_RANGE(0x0000, 0x3fff) AM_ROM
+	AM_RANGE(0x8000, 0x85ff) AM_RAM_WRITE(vram_w) AM_SHARE("vram")
 	AM_RANGE(0x8600, 0x86df) AM_RAM
 	AM_RANGE(0x86e0, 0x86ff) AM_RAM AM_SHARE("nvram")
 	AM_RANGE(0x8700, 0x87ff) AM_RAM
-	AM_RANGE(0xfffc, 0xffff) AM_RAM
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( mineswp_io, AS_IO, 8, mineswp_state )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
-	AM_RANGE(0x00, 0x00) AM_READ_PORT("IN0")
-	AM_RANGE(0x20, 0x20) AM_WRITE(color_w)
+	AM_RANGE(0x00, 0x00) AM_MIRROR(0xff) AM_READ_PORT("INPUTS") AM_WRITE(mineswp_color_w)
 ADDRESS_MAP_END
 
 
-/*******************************************************************
-
-    Inputs
-
-*******************************************************************/
-static INPUT_PORTS_START( mineswp )
-	PORT_START  ("IN0")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START1 )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN1 )
-INPUT_PORTS_END
 
 
 /*******************************************************************
@@ -209,30 +167,15 @@ INPUT_PORTS_END
 void mineswp_state::machine_start()
 {
 	m_beep->set_state(0);
-	save_item(NAME(m_color));
 }
 
-void mineswp_state::machine_reset()
-{
-	m_color = 0;
-}
-
-static MACHINE_CONFIG_START( mineswp, mineswp_state )
-
+static MACHINE_CONFIG_DERIVED_CLASS( mineswp, dotrikun, mineswp_state )
 	/* basic machine hardware */
-	MCFG_CPU_ADD  ("maincpu", Z80, XTAL_4MHz)
+	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)
 	MCFG_CPU_IO_MAP(mineswp_io)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", mineswp_state, irq0_line_hold)
-	MCFG_NVRAM_ADD_1FILL("nvram")
 
-	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500))
-	MCFG_SCREEN_SIZE(128, 96)
-	MCFG_SCREEN_VISIBLE_AREA(0, 127, 0, 95)
-	MCFG_SCREEN_UPDATE_DRIVER(mineswp_state, screen_update_mineswp)
+	MCFG_NVRAM_ADD_1FILL("nvram")
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -248,9 +191,16 @@ MACHINE_CONFIG_END
 ***************************************************************************/
 
 ROM_START( mineswp )
-	ROM_REGION( 0x4000, "roms", 0 ) /* 64k for code */
-	ROM_LOAD( "14479b.mpr", 0x0000, 0x4000, CRC(1cece483) SHA1(c425a09b640721c9a5b499cdb79848dc18ee66b9) )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "mineswp.bin", 0x0000, 0x4000, CRC(1cece483) SHA1(c425a09b640721c9a5b499cdb79848dc18ee66b9) )
+	// fix programming error
+	ROM_FILL(0x0005, 1, 0x31)
+	ROM_FILL(0x0006, 1, 0x00)
+	ROM_FILL(0x0007, 1, 0x88)
+	ROM_FILL(0x0008, 1, 0xCD)
+	ROM_FILL(0x0009, 1, 0xA1)
+	ROM_FILL(0x000A, 1, 0x03)
 ROM_END
 
-GAME( 1998, mineswp, 0, mineswp, mineswp, driver_device, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE )
 
+GAMEL( 1998, mineswp, 0, mineswp, dotrikun, driver_device, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )

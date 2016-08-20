@@ -317,6 +317,10 @@ dkrdemo
 dorunrun	/* (c) 1984 */
 sdreturn
 
+	/* dotrikun */
+dotrimjr
+mineswp		/* Minesweeper */
+
 	/* ertictac */
 //armdemo		/* Charles Doty */  // totally broken
 
@@ -1251,9 +1255,6 @@ aofd		/* 0044 (c) 1992 SNK */
 androdund	/* 0049 (c) 1992 Visco */
 ncommandd	/* 0050 (c) 1992 Alpha Denshi Co. */
 wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
-
-	/* mineswp */
-mineswp		/* Minesweeper */
 
 	/* midtunit */
 mk			//parent
