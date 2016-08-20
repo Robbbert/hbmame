@@ -39,25 +39,46 @@ public:
 		: driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_screen(*this, "screen"),
-		m_vram(*this, "vram")
+		m_vram(*this, "vram"),
+		m_scanline_off_timer(*this, "scanline_off")
 	{ }
 
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
 	required_shared_ptr<UINT8> m_vram;
+	required_device<timer_device> m_scanline_off_timer;
 
 	UINT8 m_vram_latch;
-	UINT8 m_fg_color;
-	UINT8 m_bg_color;
+	UINT8 m_color;
 
 	DECLARE_WRITE8_MEMBER(vram_w);
 	DECLARE_WRITE8_MEMBER(color_w);
 	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	INTERRUPT_GEN_MEMBER(interrupt);
+	TIMER_DEVICE_CALLBACK_MEMBER(scanline_on);
+	TIMER_DEVICE_CALLBACK_MEMBER(scanline_off);
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 };
+
+TIMER_DEVICE_CALLBACK_MEMBER(dotrikun_state::scanline_off)
+{
+	m_maincpu->set_unscaled_clock(XTAL_4MHz);
+}
+
+TIMER_DEVICE_CALLBACK_MEMBER(dotrikun_state::scanline_on)
+{
+	// on vram fetch(every 8 pixels during active display), z80 is stalled for 2 clocks
+	if (param >= 0 && param < 192)
+	{
+		m_maincpu->set_unscaled_clock(XTAL_4MHz * 0.75);
+		m_scanline_off_timer->adjust(m_screen->time_until_pos(param, 128), param);
+	}
+	
+	// vblank interrupt
+	else if (param == 192)
+		generic_pulse_irq_line(m_maincpu, 0, 1);
+}
 
 
 /*************************************
@@ -78,8 +99,7 @@ WRITE8_MEMBER(dotrikun_state::color_w)
 	// d3-d5: bg palette
 	// d6,d7: N/C
 	m_screen->update_now();
-	m_fg_color = data & 7;
-	m_bg_color = data >> 3 & 7;
+	m_color = data & 0x3f;
 }
 
 
@@ -89,14 +109,11 @@ UINT32 dotrikun_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap
 	{
 		for (int x = cliprect.min_x; x <= cliprect.max_x; x++)
 		{
+			// vram fetch
 			if ((x & 7) == 0)
-			{
-				// on vram fetch(every 8 pixels during active display), z80 is stalled for 2 clocks
-				m_maincpu->eat_cycles(2);
 				m_vram_latch = m_vram[x >> 3 | y >> 1 << 4];
-			}
 			
-			bitmap.pix16(y, x) = (m_vram_latch >> (~x & 7) & 1) ? m_fg_color : m_bg_color;
+			bitmap.pix16(y, x) = (m_vram_latch >> (~x & 7) & 1) ? m_color & 7 : m_color >> 3;
 		}
 	}
 
@@ -147,22 +164,16 @@ INPUT_PORTS_END
  *
  *************************************/
 
-INTERRUPT_GEN_MEMBER(dotrikun_state::interrupt)
-{
-	generic_pulse_irq_line(m_maincpu, 0, 1);
-}
-
 void dotrikun_state::machine_start()
 {
 	save_item(NAME(m_vram_latch));
-	save_item(NAME(m_fg_color));
-	save_item(NAME(m_bg_color));
+	save_item(NAME(m_color));
 }
 
 void dotrikun_state::machine_reset()
 {
 	m_vram_latch = 0;
-	m_fg_color = m_bg_color = 0;
+	m_color = 0;
 }
 
 static MACHINE_CONFIG_START( dotrikun, dotrikun_state )
@@ -171,8 +182,9 @@ static MACHINE_CONFIG_START( dotrikun, dotrikun_state )
 	MCFG_CPU_ADD("maincpu", Z80, XTAL_4MHz)
 	MCFG_CPU_PROGRAM_MAP(dotrikun_map)
 	MCFG_CPU_IO_MAP(io_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", dotrikun_state, interrupt)
-
+	MCFG_TIMER_DRIVER_ADD_SCANLINE("scanline_on", dotrikun_state, scanline_on, "screen", 0, 1)
+	MCFG_TIMER_DRIVER_ADD("scanline_off", dotrikun_state, scanline_off)
+	
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(XTAL_4MHz, 128+128, 0, 128, 192+64, 0, 192)

@@ -8463,6 +8463,7 @@ brooklyn                        //
 brooklyna                       //
 cntine31                        //
 cntinntl                        //
+cntinntl2                       //
 domino2                         //
 ggate                           //
 ggatea                          //
@@ -12394,6 +12395,7 @@ elephfmb                        // (c) 1996 C.M.C.
 funquiz                         // (c) 198? Fun World
 jokercrd                        // (c) 1993 Vesely Svet
 jollycrd                        // (c) 1985 TAB-Austria
+jollycrda                       // (c) 1985 TAB-Austria
 jolyc3x3                        // (c) 1985 TAB-Austria
 jolyc980                        // (c) 2000 Spale-Soft
 jolyccra                        // (c) 1985 TAB-Austria
@@ -12458,6 +12460,7 @@ vegasfte                        // (c) 1993 Soft Design
 vegasmil                        // (c) 1993 Mile
 vegasslw                        // (c) 1993 Fun World
 witchryl                        // (c) 199? Video Klein
+intrgmes                        // (c) 1991 Inter Games
 
 @source:funybubl.cpp
 funybubl                        // (c) 1999 In Chang Electronic Co
@@ -12646,6 +12649,7 @@ gteikokb                        // bootleg
 gteikoku                        // (c) Irem
 jumpbug                         // (c) 1981 Rock-ola
 jumpbugb                        // (c) 1981 Sega
+jungsub							// bootleg
 kamakazi3                       // Video Games (UK) Ltd., hack or bootleg?
 kingball                        // (c) 1980 Namco
 kingballj                       // (c) 1980 Namco
@@ -13805,6 +13809,7 @@ hh_1                            //
 jamesb                          //
 jamesb2                         //
 marsp                           //
+marspf                          //
 panthera                        //
 pnkpnthr                        //
 s80tst                          //
@@ -13813,11 +13818,13 @@ starrace                        //
 timeline                        //
 vlcno_1a                        //
 vlcno_1b                        //
+vlcno_1c                        //
 vlcno_ax                        //
 
 @source:gts80a.cpp
 alienstr                        //
 amazonh                         //
+amazonha                        //
 caveman                         //
 cavemana                        //
 dvlsdre                         //
@@ -13840,7 +13847,10 @@ thegames                        //
 touchdn                         //
 
 @source:gts80b.cpp
+amazonh2                        //
+amazonh3                        //
 arena                           //
+arenaa                          //
 badgirls                        //
 bighouse                        //
 bonebstr                        //
@@ -13853,16 +13863,21 @@ goldwing                        //
 hlywoodh                        //
 hotshots                        //
 mntecrlo                        //
+mntecrloa                       //
 nmoves                          //
 raven                           //
+ravena                          //
 robowars                        //
 rock                            //
 rock_enc                        //
+s80btest                        //
 sprbreak                        //
+sprbreaka                       //
 sprbreaks                       //
 tagteamp                        //
 tagteamp2                       //
 triplay                         //
+triplaya                        //
 txsector                        //
 victoryp                        //
 
@@ -30375,14 +30390,12 @@ madrace                         //
 zira                            //
 
 @source:play_3.cpp
-megaaton                        //
-megaatona                       //
-
-@source:play_5.cpp
 fldragon                        //
 fldragona                       //
 ironball                        //
 kz26                            //
+megaaton                        //
+megaatona                       //
 msdisco                         //
 nautilus                        //
 phntmshp                        //
@@ -31139,6 +31152,7 @@ r2dtank                         // (c) 1980 Sigma Ent. Inc.
 
 @source:r2dx_v33.cpp
 nzeroteam                       // (c) 1997 Seibu Kaihatsu
+nzeroteama						//
 r2dx_v33                        // (c) 1996 Seibu Kaihatsu
 r2dx_v33_r2                     // (c) 1996 Seibu Kaihatsu
 zerotm2k                        // (c) 2000 Seibu Kaihatsu
