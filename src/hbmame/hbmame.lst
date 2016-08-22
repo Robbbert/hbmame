@@ -291,19 +291,19 @@ spf2tb		// boss hack
 vampjb
 
 	/* cps3 */
-redearth	// parent
+redearth	//parent
 redeartn	// no-cd version
-sfiii3		// parent
+sfiii3		//parent
 sfiii3an	// hack
 sfiii4rd	// hack
 
 	/* dec0 */
-baddudes	// parent
+baddudes	//parent
 baddudef	/* Arkatrad */
 decodemo	/* Charles Doty */
 
 	/* dkong */
-dkong		/* (c) 1981 Nintendo of America */
+dkong		//parent
 dkongex		/* Jeff's Hack with Foundry Level */
 dkongp		/* Fix for level 22 kill screen by Don Hodges */
 dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
@@ -314,7 +314,7 @@ dkrainbow
 dkrdemo
 
 	/* docastle */
-dorunrun	/* (c) 1984 */
+dorunrun	//parent
 sdreturn
 
 	/* dotrikun */
