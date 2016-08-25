@@ -385,14 +385,7 @@ public:
 		, m_floppy_1(*this, "wd1791:1")
 		, m_floppy(nullptr)
 		, m_wd1791(*this, "wd1791")
-		, m_cmi01a_0(*this, "cmi01a_0")
-		, m_cmi01a_1(*this, "cmi01a_1")
-		, m_cmi01a_2(*this, "cmi01a_2")
-		, m_cmi01a_3(*this, "cmi01a_3")
-		, m_cmi01a_4(*this, "cmi01a_4")
-		, m_cmi01a_5(*this, "cmi01a_5")
-		, m_cmi01a_6(*this, "cmi01a_6")
-		, m_cmi01a_7(*this, "cmi01a_7")
+		, m_channels(*this, "cmi01a_%u", 0)
 		, m_cmi10_pia_u20(*this, "cmi10_pia_u20")
 		, m_cmi10_pia_u21(*this, "cmi10_pia_u21")
 		, m_dp1(*this, "dp1")
@@ -400,16 +393,13 @@ public:
 		, m_dp3(*this, "dp3")
 		, m_screen(*this, "screen")
 		, m_palette(*this, "palette")
-		, m_ankrow_ports(*this, {"ROW0", "ROW1", "ROW2", "ROW3", "ROW4", "ROW5", "ROW6", "ROW7"})
+		, m_ankrow_ports(*this, "ROW%u", 0)
 		, m_lp_x_port(*this, "LP_X")
 		, m_lp_y_port(*this, "LP_Y")
 		, m_lp_touch_port(*this, "LP_TOUCH")
 		, m_keypad_a_port(*this, "KEYPAD_A")
 		, m_keypad_b_port(*this, "KEYPAD_B")
-		, m_key_mux0_port(*this, {"KEY_0_0", "KEY_1_0", "KEY_2_0"})
-		, m_key_mux1_port(*this, {"KEY_0_1", "KEY_1_1", "KEY_2_1"})
-		, m_key_mux2_port(*this, {"KEY_0_2", "KEY_1_2", "KEY_2_2"})
-		, m_key_mux3_port(*this, {"KEY_0_3", "KEY_1_3", "KEY_2_3"})
+		, m_key_mux_ports{ { *this, "KEY_%u_0", 0 }, { *this, "KEY_%u_1", 0 }, { *this, "KEY_%u_2", 0 }, { *this, "KEY_%u_3", 0 } }
 		, m_cmi07_ram(*this, "cmi07_ram")
 	{
 	}
@@ -557,15 +547,7 @@ protected:
 	floppy_image_device *m_floppy;
 	required_device<fd1791_t> m_wd1791;
 
-	required_device<cmi01a_device> m_cmi01a_0;
-	required_device<cmi01a_device> m_cmi01a_1;
-	required_device<cmi01a_device> m_cmi01a_2;
-	required_device<cmi01a_device> m_cmi01a_3;
-	required_device<cmi01a_device> m_cmi01a_4;
-	required_device<cmi01a_device> m_cmi01a_5;
-	required_device<cmi01a_device> m_cmi01a_6;
-	required_device<cmi01a_device> m_cmi01a_7;
-	cmi01a_device* m_channels[8];
+	required_device_array<cmi01a_device, 8> m_channels;
 
 	required_device<pia6821_device> m_cmi10_pia_u20;
 	required_device<pia6821_device> m_cmi10_pia_u21;
@@ -585,10 +567,7 @@ protected:
 	required_ioport m_keypad_a_port;
 	required_ioport m_keypad_b_port;
 
-	required_ioport_array<3> m_key_mux0_port;
-	required_ioport_array<3> m_key_mux1_port;
-	required_ioport_array<3> m_key_mux2_port;
-	required_ioport_array<3> m_key_mux3_port;
+	required_ioport_array<3> m_key_mux_ports[4];
 
 	required_shared_ptr<UINT8> m_cmi07_ram;
 
@@ -2415,23 +2394,7 @@ READ8_MEMBER( cmi_state::cmi10_u21_a_r )
 
 	for (int module = 0; module < 3; ++module)
 	{
-		UINT8 keyval = 0;
-		switch (mux)
-		{
-			case 0:
-				keyval = m_key_mux0_port[module]->read();
-				break;
-			case 1:
-				keyval = m_key_mux1_port[module]->read();
-				break;
-			case 2:
-				keyval = m_key_mux2_port[module]->read();
-				break;
-			case 3:
-				keyval = m_key_mux3_port[module]->read();
-				break;
-		}
-
+		UINT8 keyval = m_key_mux_ports[mux][module]->read();
 		data |= BIT(keyval, key) << module;
 	}
 
@@ -2581,15 +2544,6 @@ void cmi_state::machine_start()
 	/* Allocate 256B scratch RAM per CPU */
 	m_scratch_ram[0] = std::make_unique<UINT8[]>(0x100);
 	m_scratch_ram[1] = std::make_unique<UINT8[]>(0x100);
-
-	m_channels[0] = m_cmi01a_0;
-	m_channels[1] = m_cmi01a_1;
-	m_channels[2] = m_cmi01a_2;
-	m_channels[3] = m_cmi01a_3;
-	m_channels[4] = m_cmi01a_4;
-	m_channels[5] = m_cmi01a_5;
-	m_channels[6] = m_cmi01a_6;
-	m_channels[7] = m_cmi01a_7;
 }
 
 INTERRUPT_GEN_MEMBER( cmi_state::cmi_iix_vblank )

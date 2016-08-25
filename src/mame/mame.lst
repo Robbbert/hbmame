@@ -119,6 +119,7 @@ cosmicmo                        // Universal
 cosmo                           // TDS & Mints
 darthvdr                        // bootleg
 desterth                        // bootleg
+escmars                         // bootleg
 galactic                        // (c) 19?? Taito
 galmonst                        // (c) Laguna S.A.
 galxwars                        // (c) 1979 Universal
@@ -2502,6 +2503,9 @@ metrocrsa                       // (c) 1985
 
 @source:barata.cpp
 barata                          //
+
+@source:barni.cpp
+redbarnp                        //
 
 @source:bartop52.cpp
 barbball                        // (proto)          (c) 1983
@@ -9303,6 +9307,7 @@ cham24                          // 2002
 champbas                        // (c) 1983 Sega
 champbasj                       // (c) 1983 Alpha Denshi Co.
 champbasja                      // (c) 1983 Alpha Denshi Co.
+champbasjb                      // (c) 1983 Alpha Denshi Co.
 champbb2                        // (c) 1983 Sega
 champbb2a                       // (c) 1983 ?
 champbb2j                       // (c) 1983 ?
@@ -11138,6 +11143,7 @@ gulfstrm                        // (c) 1991 Dooyong
 gulfstrma                       // (c) 1991 Dooyong
 gulfstrmb                       // (c) 1991 Dooyong
 gulfstrmm                       // (c) 1991 Dooyong + distributed by Media Shoji
+gulfstrmk
 gundl94                         // (c) 1994 Dooyong
 lastday                         // (c) 1990 Dooyong
 lastdaya                        // (c) 1990 Dooyong
@@ -14450,6 +14456,10 @@ zekepeak                        //
 @source:ichiban.cpp
 ichiban                         // (c) 199? Excel
 
+@source:idsa.cpp
+bsktbllp                        //
+v1                              //
+
 @source:ie15.cpp
 ie15                            //
 
@@ -14580,6 +14590,10 @@ metalman                        //
 mundial                         //
 pinclown                        //
 pinmoonl                        //
+
+@source:inderp.cpp
+centauri
+centauri2
 
 @source:indiana.cpp
 indiana                         //
@@ -14940,6 +14954,10 @@ jedi                            // 136030           (c) 1984
 @source:jeutel.cpp
 leking                          //
 olympic                         //
+
+@source:jeutel.cpp
+punkywil                        //
+walkyria                        //
 
 @source:jokrwild.cpp
 jokrwild                        // (c) 1988 Sigma
@@ -17393,6 +17411,17 @@ macsefd                         // 1988 Apple Macintosh SE (FDHD)
 pmac6100                        // 1993 Apple Power Macintosh 6100
 unitron                         // 1985 Unitron
 utrn1024                        // 1986 Unitron 1024
+
+@source:macp.cpp
+//glxplay                       //
+glxplay2                        //
+kidnap                          //
+mac_1808                        //
+macgalxy                        //
+macjungn                        //
+nbamac                          //
+spcpnthr                        //
+spctrain                        //
 
 @source:macpci.cpp
 pippin                          //
