@@ -10,7 +10,9 @@ What's new in HBMAME
 New Games
 ---------
 - [dotrimjr]        Dottori-Man Jr [by Chris Covell]
-
+- [xmvsfjphp]       X-Men Vs. Street Fighter (Power hack by Pipi899)
+- [xmvsfrm]         X-Men Vs. Street Fighter (Easy Moves hack by Blackheart 22/04/09)
+- [xmvsfryh]        X-Men Vs. Street Fighter (ST Char hack by Ydmis)
 
 
 
