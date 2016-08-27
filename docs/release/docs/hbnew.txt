@@ -9,7 +9,18 @@ What's new in HBMAME
 
 New Games
 ---------
+- [akiradmo]        Demo [by Mega Shocked]
+- [didemo]          Demo of DatImage [by Mega Shocked]
 - [dotrimjr]        Dottori-Man Jr [by Chris Covell]
+- [mshjphp]         Marvel Super Heroes (Power hack by Pipi899)
+- [mshyh]           Marvel Super Heroes (Boss hack by Yumeji)
+- [mvscjemb]        Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves hack by Blackheart 24/04/09)
+- [mvscjphp]        Marvel Vs. Capcom: Clash of Super Heroes (Power hack by Pipi899)
+- [pfghtjrm]        Pocket Fighter (Easy Moves hack by Blackheart 20/04/09)
+- [sgemfch]         Super Gem Fighter Mini Mix (Color remix)
+- [vsav2emb]        Vampire Savior 2: The Lord of Vampire (Easy Moves hack by Blackheart 30/04/09)
+- [xmcotajb]        X-Men: Children of the Atom (Boss hack by Yumeji)
+- [xmcotajphp]      X-Men: Children of the Atom (Power hack by Pipi899)
 - [xmvsfjphp]       X-Men Vs. Street Fighter (Power hack by Pipi899)
 - [xmvsfrm]         X-Men Vs. Street Fighter (Easy Moves hack by Blackheart 22/04/09)
 - [xmvsfryh]        X-Men Vs. Street Fighter (ST Char hack by Ydmis)
