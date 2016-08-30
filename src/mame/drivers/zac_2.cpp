@@ -181,7 +181,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(zac_2_state::zac_2_inttimer)
 {
 	// a pulse is sent via a capacitor (similar to what one finds at a reset pin)
 	if (m_t_c > 0x80)
-		generic_pulse_irq_line_and_vector(m_maincpu, INPUT_LINE_IRQ0, 0xbf, 2);
+		generic_pulse_irq_line_and_vector(*m_maincpu, INPUT_LINE_IRQ0, 0xbf, 2);
 	else
 		m_t_c++;
 }
@@ -881,7 +881,7 @@ ROM_START(thndrman)
 	ROM_REGION(0x10000, "cpu2", 0)
 	ROM_LOAD("snd_1f.764", 0xc000, 0x2000, CRC(400e8e2a) SHA1(24af3a8e11aec89ae27a5cfcce9d4624bede18f7))
 	ROM_LOAD("snd_1c.764", 0xe000, 0x2000, CRC(4f18409f) SHA1(21002a147e2542caacba0392cec62511343b90c2))
-ROM_END	
+ROM_END
 
 /*--------------------------------
 / Time Machine (04/83)

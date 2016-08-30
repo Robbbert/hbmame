@@ -35,12 +35,7 @@ CASSETTE_FORMATLIST_END
 
 static double map_double(double d, UINT64 low, UINT64 high, UINT64 value)
 {
-#if defined(_MSC_VER) && (_MSC_VER <= 1200)
-	/* casting unsigned __int64 to double is not supported on VC6 or before */
-	return d * (INT64)(value - low) / (INT64)(high - low);
-#else
 	return d * (value - low) / (high - low);
-#endif
 }
 
 
@@ -914,7 +909,7 @@ cassette_image::error cassette_legacy_construct(cassette_image *cassette,
 		bytes.resize(size);
 		cassette_image_read(cassette, &bytes[0], 0, size);
 		sample_count = args.chunk_sample_calc(&bytes[0], (int)size);
-		
+
 		// chunk_sample_calc functions report errors by returning negative numbers
 		if (sample_count < 0)
 		{

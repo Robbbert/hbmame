@@ -32,8 +32,10 @@ public:
 
 	void writedata(UINT8 data);
 	int busy(void);
-	
+
 	INTERRUPT_GEN_MEMBER(nmi_line_assert);
+
+	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 protected:
 	// device-level overrides
@@ -43,6 +45,8 @@ protected:
 
 private:
 	required_device<cpu_device> m_matrixcpu;
+	required_device<screen_device> m_screen;
+	required_device<palette_device> m_palette;
 
 	// internal state
 	int m_data_avail;
@@ -57,6 +61,8 @@ private:
 	devcb_write_line m_busy_cb;
 
 	int read_data(void);
+
+	bitmap_ind16 m_tmpbitmap;
 
 };
 

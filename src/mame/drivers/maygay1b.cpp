@@ -354,8 +354,8 @@ WRITE8_MEMBER(maygay1b_state::reel12_w)
 	m_reel0->update( data     & 0x0F);
 	m_reel1->update((data>>4) & 0x0F);
 
-	awp_draw_reel(machine(),"reel1", m_reel0);
-	awp_draw_reel(machine(),"reel2", m_reel1);
+	awp_draw_reel(machine(),"reel1", *m_reel0);
+	awp_draw_reel(machine(),"reel2", *m_reel1);
 }
 
 WRITE8_MEMBER(maygay1b_state::reel34_w)
@@ -363,8 +363,8 @@ WRITE8_MEMBER(maygay1b_state::reel34_w)
 	m_reel2->update( data     & 0x0F);
 	m_reel3->update((data>>4) & 0x0F);
 
-	awp_draw_reel(machine(),"reel3", m_reel2);
-	awp_draw_reel(machine(),"reel4", m_reel3);
+	awp_draw_reel(machine(),"reel3", *m_reel2);
+	awp_draw_reel(machine(),"reel4", *m_reel3);
 }
 
 WRITE8_MEMBER(maygay1b_state::reel56_w)
@@ -372,8 +372,8 @@ WRITE8_MEMBER(maygay1b_state::reel56_w)
 	m_reel4->update( data     & 0x0F);
 	m_reel5->update((data>>4) & 0x0F);
 
-	awp_draw_reel(machine(),"reel5", m_reel4);
-	awp_draw_reel(machine(),"reel6", m_reel5);
+	awp_draw_reel(machine(),"reel5", *m_reel4);
+	awp_draw_reel(machine(),"reel6", *m_reel5);
 }
 
 READ8_MEMBER(maygay1b_state::m1_duart_r)
@@ -696,10 +696,10 @@ WRITE8_MEMBER(maygay1b_state::mcu_port0_w)
 {
 #ifdef USE_MCU
 // only during startup
-//	logerror("%s: mcu_port0_w %02x\n",machine().describe_context(),data);
+//  logerror("%s: mcu_port0_w %02x\n",machine().describe_context(),data);
 #endif
 }
-	
+
 WRITE8_MEMBER(maygay1b_state::mcu_port1_w)
 {
 #ifdef USE_MCU
@@ -718,7 +718,7 @@ WRITE8_MEMBER(maygay1b_state::mcu_port1_w)
 	}
 #endif
 }
-	
+
 WRITE8_MEMBER(maygay1b_state::mcu_port2_w)
 {
 #ifdef USE_MCU
@@ -726,7 +726,7 @@ WRITE8_MEMBER(maygay1b_state::mcu_port2_w)
 	logerror("%s: mcu_port2_w %02x\n",machine().describe_context(),data);
 #endif
 }
-	
+
 WRITE8_MEMBER(maygay1b_state::mcu_port3_w)
 {
 #ifdef USE_MCU
@@ -742,12 +742,12 @@ READ8_MEMBER(maygay1b_state::mcu_port0_r)
 	// the MCU code checks to see if the input from this port is stable in
 	// the main loop
 	// it looks like it needs to read the strobe
-//	logerror("%s: mcu_port0_r returning %02x\n", machine().describe_context(), ret);
+//  logerror("%s: mcu_port0_r returning %02x\n", machine().describe_context(), ret);
 #endif
 	return ret;
 
 }
-	
+
 
 READ8_MEMBER(maygay1b_state::mcu_port2_r)
 {
@@ -810,12 +810,12 @@ MACHINE_CONFIG_START( maygay_m1, maygay1b_state )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 1.0)
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("nmitimer", maygay1b_state, maygay1b_nmitimer_callback, attotime::from_hz(75)) // freq?
-	
+
 	MCFG_DEVICE_ADD("i8279", I8279, M1_MASTER_CLOCK/4)    // unknown clock
 	MCFG_I8279_OUT_SL_CB(WRITE8(maygay1b_state, scanlines_w))   // scan SL lines
 	MCFG_I8279_OUT_DISP_CB(WRITE8(maygay1b_state, lamp_data_w))     // display A&B
 	MCFG_I8279_IN_RL_CB(READ8(maygay1b_state, kbd_r))           // kbd RL lines
-	
+
 #ifndef USE_MCU
 	// on M1B there is a 2nd i8279, on M1 / M1A a 8051 handles this task!
 	MCFG_DEVICE_ADD("i8279_2", I8279, M1_MASTER_CLOCK/4)        // unknown clock
