@@ -1141,9 +1141,9 @@ void neogeo_state::set_slot_number(int slot)
 		ym->reset(); // reset it again to get the new pointers
 
 		// these could have changed, ensure the pointers are valid
-		m_region_maincpu.findit();
-		m_region_sprites.findit();
-		m_region_fixed.findit();
+		//m_region_maincpu.findit();
+		//m_region_sprites.findit();
+		//m_region_fixed.findit();
 
 		space.install_rom(0x000080, 0x0fffff, m_region_maincpu->base()+0x80); // reinstall the base program rom handler
 

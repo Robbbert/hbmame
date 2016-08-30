@@ -15,7 +15,7 @@ VIDEO_START_MEMBER( pacman_state, pacmanx )
 	m_inv_spr = 0;
 	m_xoffsethack = 2;
 
-	m_bg_tilemap = &machine().tilemap().create(m_gfxdecode, tilemap_get_info_delegate(FUNC(pacman_state::pacman_get_tile_info),this), tilemap_mapper_delegate(FUNC(pacman_state::pacman_scan_rows),this),  16, 16, 36, 28 );
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(pacman_state::pacman_get_tile_info),this), tilemap_mapper_delegate(FUNC(pacman_state::pacman_scan_rows),this),  16, 16, 36, 28 );
 
 	m_bg_tilemap->set_scrolldx(0, 384*2 - 288*2 );
 	m_bg_tilemap->set_scrolldy(0, 264*2 - 224*2 );
@@ -160,7 +160,7 @@ VIDEO_START_MEMBER( pacman_state, multipac )
 	m_inv_spr = 0;
 	m_xoffsethack = 1;
 
-	m_bg_tilemap = &machine().tilemap().create(m_gfxdecode, tilemap_get_info_delegate(FUNC(pacman_state::multipac_get_tile_info),this), tilemap_mapper_delegate(FUNC(pacman_state::pacman_scan_rows),this),  8, 8, 36, 28 );
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(pacman_state::multipac_get_tile_info),this), tilemap_mapper_delegate(FUNC(pacman_state::pacman_scan_rows),this),  8, 8, 36, 28 );
 
 	m_bg_tilemap->set_scrolldx(0, 384 - 288 );
 	m_bg_tilemap->set_scrolldy(0, 264 - 224 );

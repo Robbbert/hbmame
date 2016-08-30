@@ -207,6 +207,7 @@ NUM YEAR COMPANY                 TITLE
 475 2016 kannagi                 Ennemi Sprite Demo
 476 2015 kannagi                 Neo Fight
 477 2016 Mega Shocked            DatImage demo
+478 2016 Mega Shocked            Demo
 
 
 ********************** 800 to 899 **********************************
