@@ -18,6 +18,7 @@ files {
 --	MAME_DIR .. "src/devices/machine/clock.h",
 --	MAME_DIR .. "src/devices/machine/keyboard.cpp",
 --	MAME_DIR .. "src/devices/machine/keyboard.h",
+--	MAME_DIR .. "src/devices/machine/keyboard.ipp",
 	MAME_DIR .. "src/devices/machine/laserdsc.cpp",
 	MAME_DIR .. "src/devices/machine/laserdsc.h",
 --	MAME_DIR .. "src/devices/machine/latch.cpp",
@@ -1197,6 +1198,18 @@ if (MACHINES["LDP1000"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/ldp1000.cpp",
 		MAME_DIR .. "src/devices/machine/ldp1000.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/ldp1000.h,MACHINES["LDP1450"] = true
+---------------------------------------------------
+
+if (MACHINES["LDP1450"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/ldp1450.cpp",
+		MAME_DIR .. "src/devices/machine/ldp1450.h",
 	}
 end
 

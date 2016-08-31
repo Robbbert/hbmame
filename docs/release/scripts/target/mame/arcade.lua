@@ -431,6 +431,7 @@ MACHINES["LDPR8210"] = true
 MACHINES["LDSTUB"] = true
 MACHINES["LDV1000"] = true
 MACHINES["LDP1000"] = true
+MACHINES["LDP1450"] = true
 MACHINES["LDVP931"] = true
 --MACHINES["LH5810"] = true
 MACHINES["LINFLASH"] = true
@@ -668,6 +669,16 @@ BUSES["VECTREX"] = true
 --BUSES["Z88"] = true
 --BUSES["ZORRO"] = true
 
+
+--------------------------------------------------
+-- specify used file formats
+--------------------------------------------------
+
+FORMATS["GUAB_DSK"] = true
+FORMATS["AMI_DSK"] = true
+FORMATS["SC3000_BIT"] = true
+FORMATS["WD177X_DSK"] = true
+
 --------------------------------------------------
 -- this is the list of driver libraries that
 -- comprise MAME plus mamedriv.o which contains
@@ -750,8 +761,8 @@ function linkProjects_mame_arcade(_target, _subtarget)
 		"sony",
 		"stern",
 		"subsino",
-		"sun",
 		"suna",
+		"sunelect",
 		"sure",
 		"taito",
 		"tatsumi",
@@ -2121,9 +2132,9 @@ files {
 	MAME_DIR .. "src/mame/drivers/ddribble.cpp",
 	MAME_DIR .. "src/mame/includes/ddribble.h",
 	MAME_DIR .. "src/mame/video/ddribble.cpp",
-    MAME_DIR .. "src/mame/drivers/divebomb.cpp",
-    MAME_DIR .. "src/mame/includes/divebomb.h",
-    MAME_DIR .. "src/mame/video/divebomb.cpp",
+	MAME_DIR .. "src/mame/drivers/divebomb.cpp",
+	MAME_DIR .. "src/mame/includes/divebomb.h",
+	MAME_DIR .. "src/mame/video/divebomb.cpp",
 	MAME_DIR .. "src/mame/drivers/djmain.cpp",
 	MAME_DIR .. "src/mame/includes/djmain.h",
 	MAME_DIR .. "src/mame/video/djmain.cpp",
@@ -3240,7 +3251,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/cabal.cpp",
 	MAME_DIR .. "src/mame/includes/cabal.h",
 	MAME_DIR .. "src/mame/video/cabal.cpp",
-	MAME_DIR .. "src/mame/drivers/cshooter.cpp",
+	MAME_DIR .. "src/mame/drivers/airraid.cpp",
 	MAME_DIR .. "src/mame/drivers/dcon.cpp",
 	MAME_DIR .. "src/mame/includes/dcon.h",
 	MAME_DIR .. "src/mame/video/dcon.cpp",
@@ -3284,9 +3295,12 @@ files {
 	MAME_DIR .. "src/mame/video/seibuspi.cpp",
 	MAME_DIR .. "src/mame/drivers/sengokmj.cpp",
 	MAME_DIR .. "src/mame/drivers/stfight.cpp",
+	MAME_DIR .. "src/mame/video/stfight_dev.cpp",
+	MAME_DIR .. "src/mame/video/stfight_dev.h",
+	MAME_DIR .. "src/mame/video/airraid_dev.cpp",
+	MAME_DIR .. "src/mame/video/airraid_dev.h",
 	MAME_DIR .. "src/mame/includes/stfight.h",
 	MAME_DIR .. "src/mame/machine/stfight.cpp",
-	MAME_DIR .. "src/mame/video/stfight.cpp",
 	MAME_DIR .. "src/mame/drivers/toki.cpp",
 	MAME_DIR .. "src/mame/includes/toki.h",
 	MAME_DIR .. "src/mame/video/toki.cpp",
@@ -3430,7 +3444,22 @@ files {
 	MAME_DIR .. "src/mame/machine/subsino.h",
 }
 
-createMAMEProjects(_target, _subtarget, "sun")
+createMAMEProjects(_target, _subtarget, "suna")
+files {
+	MAME_DIR .. "src/mame/drivers/go2000.cpp",
+	MAME_DIR .. "src/mame/drivers/goindol.cpp",
+	MAME_DIR .. "src/mame/includes/goindol.h",
+	MAME_DIR .. "src/mame/video/goindol.cpp",
+	MAME_DIR .. "src/mame/drivers/suna8.cpp",
+	MAME_DIR .. "src/mame/includes/suna8.h",
+	MAME_DIR .. "src/mame/audio/suna8.cpp",
+	MAME_DIR .. "src/mame/video/suna8.cpp",
+	MAME_DIR .. "src/mame/drivers/suna16.cpp",
+	MAME_DIR .. "src/mame/includes/suna16.h",
+	MAME_DIR .. "src/mame/video/suna16.cpp",
+}
+
+createMAMEProjects(_target, _subtarget, "sunelect")
 files {
 	MAME_DIR .. "src/mame/drivers/arabian.cpp",
 	MAME_DIR .. "src/mame/includes/arabian.h",
@@ -3456,21 +3485,6 @@ files {
 	MAME_DIR .. "src/mame/includes/strnskil.h",
 	MAME_DIR .. "src/mame/video/strnskil.cpp",
 	MAME_DIR .. "src/mame/drivers/tonton.cpp",
-}
-
-createMAMEProjects(_target, _subtarget, "suna")
-files {
-	MAME_DIR .. "src/mame/drivers/go2000.cpp",
-	MAME_DIR .. "src/mame/drivers/goindol.cpp",
-	MAME_DIR .. "src/mame/includes/goindol.h",
-	MAME_DIR .. "src/mame/video/goindol.cpp",
-	MAME_DIR .. "src/mame/drivers/suna8.cpp",
-	MAME_DIR .. "src/mame/includes/suna8.h",
-	MAME_DIR .. "src/mame/audio/suna8.cpp",
-	MAME_DIR .. "src/mame/video/suna8.cpp",
-	MAME_DIR .. "src/mame/drivers/suna16.cpp",
-	MAME_DIR .. "src/mame/includes/suna16.h",
-	MAME_DIR .. "src/mame/video/suna16.cpp",
 }
 
 createMAMEProjects(_target, _subtarget, "sure")
@@ -3917,9 +3931,9 @@ files {
 	MAME_DIR .. "src/mame/video/slapfght.cpp",
 	MAME_DIR .. "src/mame/drivers/snowbros.cpp",
 	MAME_DIR .. "src/mame/includes/snowbros.h",
-	MAME_DIR .. "src/mame/video/snowbros.cpp",	
+	MAME_DIR .. "src/mame/video/snowbros.cpp",
 	MAME_DIR .. "src/mame/video/kan_pand.cpp",
-	MAME_DIR .. "src/mame/video/kan_pand.h",	
+	MAME_DIR .. "src/mame/video/kan_pand.h",
 	MAME_DIR .. "src/mame/drivers/toaplan1.cpp",
 	MAME_DIR .. "src/mame/includes/toaplan1.h",
 	MAME_DIR .. "src/mame/machine/toaplan1.cpp",
@@ -4122,6 +4136,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/alvg.cpp",
 	MAME_DIR .. "src/mame/drivers/atari_s1.cpp",
 	MAME_DIR .. "src/mame/drivers/atari_s2.cpp",
+	MAME_DIR .. "src/mame/drivers/barni.cpp",
 	MAME_DIR .. "src/mame/drivers/bingo.cpp",
 	MAME_DIR .. "src/mame/drivers/by17.cpp",
 	MAME_DIR .. "src/mame/drivers/by35.cpp",
@@ -4154,12 +4169,16 @@ files {
 	MAME_DIR .. "src/mame/drivers/gts80b.cpp",
 	MAME_DIR .. "src/mame/drivers/hankin.cpp",
 	MAME_DIR .. "src/mame/drivers/icecold.cpp",
+	MAME_DIR .. "src/mame/drivers/idsa.cpp",
 	MAME_DIR .. "src/mame/drivers/inder.cpp",
+	MAME_DIR .. "src/mame/drivers/inderp.cpp",
 	MAME_DIR .. "src/mame/drivers/jeutel.cpp",
+	MAME_DIR .. "src/mame/drivers/joctronic.cpp",
 	MAME_DIR .. "src/mame/drivers/jp.cpp",
 	MAME_DIR .. "src/mame/drivers/jvh.cpp",
 	MAME_DIR .. "src/mame/drivers/kissproto.cpp",
 	MAME_DIR .. "src/mame/drivers/ltd.cpp",
+	MAME_DIR .. "src/mame/drivers/macp.cpp",
 	MAME_DIR .. "src/mame/drivers/micropin.cpp",
 	MAME_DIR .. "src/mame/drivers/mephistp.cpp",
 	MAME_DIR .. "src/mame/drivers/mrgame.cpp",
@@ -4168,7 +4187,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/play_1.cpp",
 	MAME_DIR .. "src/mame/drivers/play_2.cpp",
 	MAME_DIR .. "src/mame/drivers/play_3.cpp",
-	MAME_DIR .. "src/mame/drivers/play_5.cpp",
 	MAME_DIR .. "src/mame/drivers/rowamet.cpp",
 	MAME_DIR .. "src/mame/drivers/s11.cpp",
 	MAME_DIR .. "src/mame/includes/s11.h",

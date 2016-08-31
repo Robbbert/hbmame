@@ -91,7 +91,7 @@ WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
 
 INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 {
-	UINT8 cheat_exist = read_safe(ioport("FAKE"),120);
+	UINT8 cheat_exist = m_io_fake.read_safe(120);
 
 	/* always signal a normal VBLANK */
 	if(m_irq_mask)
@@ -99,24 +99,24 @@ INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 
 	if (cheat_exist != 120)
 	{
-		UINT8 cheating = ((cheat_exist & 7) > 2);		/* are we cheating? */
+		UINT8 cheating = ((cheat_exist & 7) > 2); /* are we cheating? */
 
-		if (cheating != (m_speedcheat & 1))	/* if status just changed, alter program bytes */
+		if (cheating != (m_speedcheat & 1)) /* if status just changed, alter program bytes */
 		{
 			UINT8 *RAM = machine().root_device().memregion("maincpu")->base();
 			m_speedcheat = (m_speedcheat & 2) | cheating;
 
-			if (cheating)						/* activate the cheat */
+			if (cheating) /* activate the cheat */
 			{
-				if (RAM[0x180b] == 0xbe) RAM[0x180b] = 1;	/* pacman */
+				if (RAM[0x180b] == 0xbe) RAM[0x180b] = 1; /* pacman */
 				else
-				if (RAM[0x182d] == 0xbe) RAM[0x182d] = 1;	/* pacplus */
+				if (RAM[0x182d] == 0xbe) RAM[0x182d] = 1; /* pacplus */
 			}
-			else							/* remove the cheat */
+			else /* remove the cheat */
 			{
-				if (RAM[0x180b] == 1) RAM[0x180b] = 0xbe;	/* pacman */
+				if (RAM[0x180b] == 1) RAM[0x180b] = 0xbe; /* pacman */
 				else
-				if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe;	/* pacplus */
+				if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe; /* pacplus */
 			}
 		}
 	}

@@ -197,12 +197,20 @@ if (STANDALONE~=true) then
 		"frontend",
 	}
 end
+if (MACHINES["NETLIST"]~=null) then
 	links {
 		"netlist",
+	}
+end
+	links {
 		"optional",
 		"emu",
+	}
+--if (STANDALONE~=true) then
+	links {
 		"formats",
 	}
+--end
 if #disasm_files > 0 then
 	links {
 		"dasm",
@@ -214,10 +222,13 @@ end
 		"softfloat",
 		ext_lib("jpeg"),
 		"7z",
+	}
+if (STANDALONE~=true) then
+	links {
 		ext_lib("lua"),
 		"lualibs",
 	}
-
+end
 	if _OPTIONS["USE_LIBUV"]=="1" then
 		links {
 			ext_lib("uv"),
@@ -256,11 +267,11 @@ end
 		ext_includedir("flac"),
 	}
 
-	
+
 if (STANDALONE==true) then
 	standalone();
 end
-		
+
 if (STANDALONE~=true) then
 	if _OPTIONS["targetos"]=="macosx" and (not override_resources) then
 		linkoptions {
@@ -367,6 +378,6 @@ end
 		debugargs (_OPTIONS["DEBUG_ARGS"])
 	else
 		debugargs ("-window")
-	end	
-	
+	end
+
 end

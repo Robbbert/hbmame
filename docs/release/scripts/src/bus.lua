@@ -153,17 +153,32 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/bus/apricot/expansion.h,BUSES["APRICOT_EXPANSION"] = true
+--@src/devices/bus/apricot/expansion/expansion.h,BUSES["APRICOT_EXPANSION"] = true
 ---------------------------------------------------
 
 if (BUSES["APRICOT_EXPANSION"]~=null) then
 	files {
-		MAME_DIR .. "src/devices/bus/apricot/expansion.cpp",
-		MAME_DIR .. "src/devices/bus/apricot/expansion.h",
-		MAME_DIR .. "src/devices/bus/apricot/cards.cpp",
-		MAME_DIR .. "src/devices/bus/apricot/cards.h",
-		MAME_DIR .. "src/devices/bus/apricot/ram.cpp",
-		MAME_DIR .. "src/devices/bus/apricot/ram.h",
+		MAME_DIR .. "src/devices/bus/apricot/expansion/expansion.cpp",
+		MAME_DIR .. "src/devices/bus/apricot/expansion/expansion.h",
+		MAME_DIR .. "src/devices/bus/apricot/expansion/cards.cpp",
+		MAME_DIR .. "src/devices/bus/apricot/expansion/cards.h",
+		MAME_DIR .. "src/devices/bus/apricot/expansion/ram.cpp",
+		MAME_DIR .. "src/devices/bus/apricot/expansion/ram.h",
+	}
+end
+
+
+---------------------------------------------------
+--
+--@src/devices/bus/apricot/keyboard/keyboard.h,BUSES["APRICOT_KEYBOARD"] = true
+---------------------------------------------------
+
+if (BUSES["APRICOT_KEYBOARD"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/apricot/keyboard/keyboard.cpp",
+		MAME_DIR .. "src/devices/bus/apricot/keyboard/keyboard.h",
+		MAME_DIR .. "src/devices/bus/apricot/keyboard/hle.cpp",
+		MAME_DIR .. "src/devices/bus/apricot/keyboard/hle.h",
 	}
 end
 
@@ -1159,6 +1174,14 @@ if (BUSES["POFO"]~=null) then
 		MAME_DIR .. "src/devices/bus/pofo/hpc101.h",
 		MAME_DIR .. "src/devices/bus/pofo/hpc102.cpp",
 		MAME_DIR .. "src/devices/bus/pofo/hpc102.h",
+		MAME_DIR .. "src/devices/bus/pofo/hpc104.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/hpc104.h",
+		MAME_DIR .. "src/devices/bus/pofo/ccm.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/ccm.h",
+		MAME_DIR .. "src/devices/bus/pofo/ram.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/ram.h",
+		MAME_DIR .. "src/devices/bus/pofo/rom.cpp",
+		MAME_DIR .. "src/devices/bus/pofo/rom.h",
 	}
 end
 
@@ -2840,5 +2863,19 @@ end
 if (BUSES["HP_OPTROM"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/hp_optroms/hp_optrom.cpp",
-        }
+		}
+end
+
+---------------------------------------------------
+--
+--@src/devices/bus/compis/graphics.h,BUSES["COMPIS_GRAPHICS"] = true
+---------------------------------------------------
+
+if (BUSES["COMPIS_GRAPHICS"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/compis/graphics.cpp",
+		MAME_DIR .. "src/devices/bus/compis/graphics.h",
+		MAME_DIR .. "src/devices/bus/compis/hrg.cpp",
+		MAME_DIR .. "src/devices/bus/compis/hrg.h",
+	}
 end

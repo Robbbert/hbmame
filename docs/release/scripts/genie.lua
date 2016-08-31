@@ -75,10 +75,17 @@ end
 
 function addprojectflags()
 	local version = str_to_version(_OPTIONS["gcc_version"])
-	if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "gcc") and (version >= 50100) then
-		buildoptions_cpp {
-			"-Wsuggest-override",
-		}
+	if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "gcc") then
+		if version >= 50100 then
+			buildoptions_cpp {
+				"-Wsuggest-override",
+			}
+		end
+		if version >= 60000 then
+			buildoptions_cpp {
+				"-flifetime-dse=1",
+			}
+		end
 	end
 end
 
@@ -87,6 +94,7 @@ SOUNDS  = {}
 MACHINES  = {}
 VIDEOS = {}
 BUSES  = {}
+FORMATS  = {}
 
 newoption {
 	trigger = "with-tools",
@@ -478,7 +486,7 @@ configuration { "Release", "vs*" }
 		"Optimize",
 	}
 
--- Force VS2013/15 targets to use bundled SDL2
+-- Force VS2015 targets to use bundled SDL2
 if string.sub(_ACTION,1,4) == "vs20" and _OPTIONS["osd"]=="sdl" then
 	if _OPTIONS["with-bundled-sdl2"]==nil then
 		_OPTIONS["with-bundled-sdl2"] = "1"
@@ -545,7 +553,7 @@ configuration { "Debug" }
 	defines {
 		"MAME_DEBUG",
 		"MAME_PROFILER",
---		"BGFX_CONFIG_DEBUG=1",
+--      "BGFX_CONFIG_DEBUG=1",
 	}
 
 if _OPTIONS["FASTDEBUG"]=="1" then
@@ -950,28 +958,20 @@ end
 			buildoptions {
 				"-Wno-cast-align",
 				"-Wno-tautological-compare",
-				"-Wno-dynamic-class-memaccess",
 				"-Wno-unused-value",
-				"-Wno-inline-new-delete",
 				"-Wno-constant-logical-operand",
-				"-Wno-deprecated-register",
+				"-Wno-missing-braces", -- clang is not as permissive as GCC about std::array initialization
 				"-fdiagnostics-show-note-include-stack",
 			}
 			if (version >= 30500) then
 				buildoptions {
-					"-Wno-absolute-value",
 					"-Wno-unknown-warning-option",
 					"-Wno-extern-c-compat",
 				}
 			end
-			if (version >= 70000) then
-				buildoptions {
-					"-Wno-tautological-undefined-compare",
-				}
-			end
 		else
-			if (version < 40900) then
-				print("GCC version 4.9 or later needed")
+			if (version < 50000) then
+				print("GCC version 5.0 or later needed")
 				os.exit(-1)
 			end
 				buildoptions {
@@ -1149,6 +1149,7 @@ configuration { "vs*" }
 			"_WIN32",
 			"_CRT_NONSTDC_NO_DEPRECATE",
 			"_CRT_SECURE_NO_DEPRECATE",
+			"_CRT_STDIO_LEGACY_WIDE_SPECIFIERS",
 		}
 		links {
 			"user32",
@@ -1298,6 +1299,12 @@ configuration { "winphone8* or winstore8*" }
 	}
 
 
+-- adding this till we sort out asserts in debug mode
+configuration { "Debug", "gmake" }
+	buildoptions_cpp {
+		"-Wno-terminate",
+	}
+
 configuration { }
 
 if (_OPTIONS["SOURCES"] ~= nil) then
@@ -1313,6 +1320,13 @@ if (not os.isfile(path.join("src", "osd",  _OPTIONS["osd"] .. ".lua"))) then
 end
 dofile(path.join("src", "osd", _OPTIONS["osd"] .. ".lua"))
 dofile(path.join("src", "lib.lua"))
+if (MACHINES["NETLIST"]~=null or _OPTIONS["with-tools"]) then
+dofile(path.join("src", "netlist.lua"))
+end
+--if (STANDALONE~=true) then
+dofile(path.join("src", "formats.lua"))
+formatsProject(_OPTIONS["target"],_OPTIONS["subtarget"])
+--end
 
 group "3rdparty"
 dofile(path.join("src", "3rdparty.lua"))

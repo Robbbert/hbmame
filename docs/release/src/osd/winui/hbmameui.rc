@@ -158,8 +158,8 @@ BEGIN
         MENUITEM "A&udit",                      ID_GAME_AUDIT
         MENUITEM SEPARATOR
         MENUITEM "Pr&operties",                 ID_GAME_PROPERTIES
-        MENUITEM "Source propert&ies",          ID_FOLDER_SOURCEPROPERTIES
-        MENUITEM "&Vector properties",          ID_FOLDER_VECTORPROPERTIES
+//        MENUITEM "Source propert&ies",          ID_FOLDER_SOURCEPROPERTIES
+//        MENUITEM "&Vector properties",          ID_FOLDER_VECTORPROPERTIES
     END
 END
 

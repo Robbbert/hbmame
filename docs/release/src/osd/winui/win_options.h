@@ -1,5 +1,6 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
+// MASTER
 /***************************************************************************
 
     win_options.h
@@ -133,7 +134,7 @@ public:
 	void set_flag(const char *name, UINT32 mask, UINT32 flags);
 
 	// misc
-	static const char *unadorned(int x = 0) { return s_option_unadorned[MIN(x, MAX_UNADORNED_OPTIONS)]; }
+	static const char *unadorned(int x = 0) { return s_option_unadorned[(std::min)(x, MAX_UNADORNED_OPTIONS)]; }
 	int options_count() const { return m_entrylist.count(); }
 
 private:

@@ -265,7 +265,7 @@ WRITE8_MEMBER( mmagic_state::audio_w )
 	data ^= 0xff;
 	if (data != m_audio_sw)
 	{
-		if BIT(data, 7)
+		if (BIT(data, 7))
 			m_samples->start(0, m_audio_sw & 7);
 
 		m_audio_sw = data;

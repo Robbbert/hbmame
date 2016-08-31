@@ -68,7 +68,7 @@ void neogeo_cart_slot_device::device_config_complete()
  -------------------------------------------------*/
 
 
-bool neogeo_cart_slot_device::call_load()
+image_init_result neogeo_cart_slot_device::call_load()
 {
 	if (m_cart)
 	{
@@ -138,11 +138,11 @@ bool neogeo_cart_slot_device::call_load()
 			m_cart->m_sprite_gfx_address_mask = neogeohelper_optimize_sprite_data(m_cart->get_sprites_optimized_arr(), m_cart->get_sprites_base(), m_cart->get_sprites_size());
 
 
-			return IMAGE_INIT_PASS;
+			return image_init_result::PASS;
 		}
 	}
 
-	return IMAGE_INIT_PASS;
+	return image_init_result::PASS;
 }
 
 void neogeo_cart_slot_device::setup_memory_banks(running_machine &machine)

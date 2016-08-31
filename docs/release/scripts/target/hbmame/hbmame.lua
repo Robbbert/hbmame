@@ -745,7 +745,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "misc")
 files {
-	MAME_DIR .. "src/hbmame/drivers/mineswp.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dotrikun.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ir.cpp",
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
 	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",

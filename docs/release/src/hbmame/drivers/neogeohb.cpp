@@ -24,12 +24,12 @@ Please note: It is planned to move this list to the HBMAME website sometime this
 
 NUM YEAR COMPANY          TITLE
 --- ---- ---------------- -------------------------------------------
-054*1995 ADK              Crossed Swords 2
+054 1995 ADK              Crossed Swords 2
 085*1997 SNK              Samurai Showdown R.P.G. (also known as 'Shinsetsu Samurai Spirits Bushidoretsuden')
 091*1995 ADK              ADK World
-098*1995 Video System Co  Final Romance 2
+098 1995 Video System Co  Final Romance 2
 205*1995 SNK              NeoGeo CD Special
-211*1996 ADK              Zintrick
+211 1996 ADK              Zintrick
 229*1996 SNK              King of Fighters 96 CD Collection
 
 
@@ -206,6 +206,8 @@ NUM YEAR COMPANY                 TITLE
 474 2015 freem                   Sound-Loop Demo
 475 2016 kannagi                 Ennemi Sprite Demo
 476 2015 kannagi                 Neo Fight
+477 2016 Mega Shocked            DatImage demo
+478 2016 Mega Shocked            Demo
 
 
 ********************** 800 to 899 **********************************
@@ -1582,6 +1584,50 @@ ROM_START( neofight )
 	ROM_LOAD16_BYTE( "476.c2",    0x000001, 0x200000, CRC(2e48378a) SHA1(80389cfc420b2e7c5f50c809995a3298a57c697f) )
 ROM_END
 
+// 477 : Demo that comes with DatImage, by Mega Shocked (26-07-2016)
+// No sound.
+ROM_START( didemo )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "477.p1", 0x000000, 0x200000, CRC(732691f4) SHA1(40bddb4e636799f77b85a5b46fd9c90f9e125dce) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_128K( "063-m1.m1", CRC(56675098) SHA1(90429fc40d056d480d0e2bbefbc691d9fa260fc4) )
+
+	ROM_REGION( 0x200000, "ymsnd", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "477.c1",    0x000000, 0x200000, CRC(af99af71) SHA1(81b723a159dc80f2b784eb6027ccece94dc8324b) )
+	ROM_LOAD16_BYTE( "477.c2",    0x000001, 0x200000, CRC(7b17b0f2) SHA1(b11071fd4782592a375f260352a0ca0d0df2c6e5) )
+	ROM_LOAD16_BYTE( "477.c3",    0x400000, 0x200000, CRC(9a4109e5) SHA1(ba59caac5f5a80fc52c507d8a47f322a380aa9a1) )
+	ROM_LOAD16_BYTE( "477.c4",    0x400001, 0x200000, CRC(9a4109e5) SHA1(ba59caac5f5a80fc52c507d8a47f322a380aa9a1) )
+	ROM_LOAD16_BYTE( "477.c5",    0x800000, 0x200000, CRC(20d3a475) SHA1(28da44a136bd14c73c62c147c3f6e6bcfa1066de) )
+	ROM_LOAD16_BYTE( "477.c6",    0x800001, 0x200000, CRC(ae4c0a88) SHA1(cc8a7d11daa3821f83a6fd0942534706f939e576) )
+	ROM_LOAD16_BYTE( "477.c7",    0xc00000, 0x200000, CRC(2df3cbcf) SHA1(e54f9022359963711451c2025825b862d36c6975) )
+	ROM_LOAD16_BYTE( "477.c8",    0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
+ROM_END
+
+// 478 : Demo by Mega Shocked (17-08-2016)
+ROM_START(akiradmo)
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD( "478.p1", 0x000000, 0x003188, CRC(a87fa008) SHA1(89f41671f185fd5e92237fcf82e9ed60387fafad) )
+	ROM_LOAD( "478.p2", 0x100000, 0x09edf8, CRC(16d8b6b4) SHA1(b246b380b3cca17e11ab223bf4d1aeb605663a03) )
+	ROM_LOAD( "478.p3", 0x200000, 0x074da4, CRC(94a22666) SHA1(e9cb0f159404ddcce10554753e56084fb79f2e60) )
+	ROM_LOAD( "478.p4", 0x300000, 0x076b0c, CRC(d170285c) SHA1(b19bd0de148a68de9dbd18d89417c3dd32518780) )
+
+	NEO_SFIX_128K( "063-s1.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
+
+	NEO_BIOS_AUDIO_128K( "478.m1", CRC(37d8cb43) SHA1(b89baa6f41aefad57fb546fd1135506538ab9099) )
+
+	ROM_REGION( 0x100000, "ymsnd", ROMREGION_ERASEFF )
+	ROM_LOAD( "478.v1", 0x000000, 0x100000, CRC(148c5203) SHA1(8ddbfeeac4493f6e6ed7df834fcf1f0cede42ac3) )
+
+	ROM_REGION( 0xc00000, "sprites", 0 )
+	ROM_LOAD( "478.c1", 0x000000, 0x34c700, CRC(84eba506) SHA1(a771cbc5efe7b61114db6b7f776b5ab93f09b2bc) )
+	ROM_LOAD( "478.c2", 0x400000, 0x2e0400, CRC(a731451c) SHA1(aae521c38430a2797c7a60d970a0179673f05215) )
+	ROM_LOAD( "478.c3", 0x800000, 0x249a80, CRC(87b2a616) SHA1(915d5c7bf832b725a3678b3735790f503dd34f48) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -1667,12 +1713,14 @@ GAME( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Face / NCI", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
+GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Chip n Dale Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ennemi,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo", MACHINE_SUPPORTS_SAVE )

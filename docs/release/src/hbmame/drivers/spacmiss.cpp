@@ -185,8 +185,8 @@ WRITE8_MEMBER(sm_state::spacmiss_03_w)
 {
 	UINT8 rising_bits = data & ~m_port_1_last_extra;
 
-	if BIT(rising_bits, 1) m_samples->start(2, 2);     /* Killed an enemy */
-	if BIT(rising_bits, 2) m_samples->start(1, 1);     /* Lost a life */
+	if (BIT(rising_bits, 1)) m_samples->start(2, 2);     /* Killed an enemy */
+	if (BIT(rising_bits, 2)) m_samples->start(1, 1);     /* Lost a life */
 
 	m_port_1_last_extra = data;
 }
@@ -194,14 +194,14 @@ WRITE8_MEMBER(sm_state::spacmiss_03_w)
 // bits 0-3 make a variable background tone
 WRITE8_MEMBER(sm_state::spacmiss_05_w)
 {
-	if BIT(m_port_1_last_extra, 5)
+	if (BIT(m_port_1_last_extra, 5))
 		m_discrete->write(space, NODE_02, data & 0x0f);
 	else
 		m_discrete->write(space, NODE_02, 0);
 
 	UINT8 rising_bits = data & ~m_port_2_last_extra;
 
-	if BIT(rising_bits, 4) m_samples->start(0, 0);     /* Shoot */
+	if (BIT(rising_bits, 4)) m_samples->start(0, 0);     /* Shoot */
 
 	m_flip_screen = BIT(data, 5) & ioport("CAB")->read();
 

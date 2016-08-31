@@ -37,16 +37,7 @@ xcopy /E /Y %from%\scripts %to%\scripts
 
 rem convert all the unix documents to windows format for notepad
 type %from%\docs\BSD3Clause.txt    | MORE /P > %to%\docs\BSD3Clause.txt
-type %from%\docs\config.txt        | MORE /P > %to%\docs\config.txt
-type %from%\docs\floppy.txt        | MORE /P > %to%\docs\floppy.txt
-type %from%\docs\hlsl.txt          | MORE /P > %to%\docs\hlsl.txt
-type %from%\docs\imgtool.txt       | MORE /P > %to%\docs\imgtool.txt
-type %from%\docs\mame.txt          | MORE /P > %to%\docs\mame.txt
 type %from%\docs\LICENSE           | MORE /P > %to%\docs\license.txt
-type %from%\docs\newvideo.txt      | MORE /P > %to%\docs\newvideo.txt
-type %from%\docs\nscsi.txt         | MORE /P > %to%\docs\nscsi.txt
-type %from%\docs\SDL.txt           | MORE /P > %to%\docs\SDL.txt
-type %from%\docs\windows.txt       | MORE /P > %to%\docs\windows.txt
 type %from%\docs\winui_license.txt | MORE /P > %to%\docs\winui_license.txt
 
 pause
