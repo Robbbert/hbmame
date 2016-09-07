@@ -1081,7 +1081,7 @@ void video_manager::recompute_speed(const attotime &emutime)
 	}
 
 	// if we're past the "time-to-execute" requested, signal an exit
-	if (m_seconds_to_run > 1 && emutime.seconds() >= m_seconds_to_run)
+	if (m_seconds_to_run != 0 && emutime.seconds() >= m_seconds_to_run)
 	{
 		// create a final screenshot
 		emu_file file(machine().options().snapshot_directory(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);

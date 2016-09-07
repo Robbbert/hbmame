@@ -359,6 +359,10 @@ ffightbl
 ffightbla
 kodb
 
+	/* flower */
+flower
+flowerj
+
 	/* galaga */
 galaga
 xevious
@@ -1228,6 +1232,9 @@ superpcn 	/* Blue Justice */
 superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
+
+	/* marinedt */
+marinedt
 
 	/* mario */
 cenmario 
@@ -2429,6 +2436,9 @@ pc_dk		/* NES->PC-10 */
 pc_pacm		/* NES->PC-10 */
 pc_gyrus	/* NES->PC-10 */
 pc_skykd	/* NES->PC-10 */
+
+	/* popper */
+popper
 
 	/* powerins */
 powerins	// parent
