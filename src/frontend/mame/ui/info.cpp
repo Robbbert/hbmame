@@ -72,8 +72,8 @@ std::string machine_info::warnings_string()
 						MACHINE_IMPERFECT_GRAPHICS |
 						MACHINE_IMPERFECT_KEYBOARD |
 						MACHINE_NO_COCKTAIL |
-						MACHINE_IS_INCOMPLETE |
-						MACHINE_NO_SOUND_HW );
+						MACHINE_IS_INCOMPLETE ); //| HBMAME
+						//MACHINE_NO_SOUND_HW );
 
 	// if no warnings, nothing to return
 	if (m_machine.rom_load().warnings() == 0 && m_machine.rom_load().knownbad() == 0 && !(m_machine.system().flags & warning_flags) && m_machine.rom_load().software_load_warnings_message().length() == 0)
