@@ -707,15 +707,11 @@ done:
 
 static int cmd_listformats(const struct command *c, int argc, char *argv[])
 {
-	const imgtool_module *mod;
-
 	fprintf(stdout, "Image formats supported by imgtool:\n\n");
 
-	mod = imgtool_find_module(nullptr);
-	while(mod)
+	for (const auto &module : imgtool_get_modules())
 	{
-		fprintf(stdout, "  %-25s%s\n", mod->name, mod->description);
-		mod = mod->next;
+		fprintf(stdout, "  %-25s%s\n", module->name, module->description);
 	}
 
 	return 0;
@@ -747,10 +743,10 @@ static void listoptions(const util::option_guide &opt_guide, const char *opt_spe
 	fprintf(stdout, "Option           Allowed values                 Description\n");
 	fprintf(stdout, "---------------- ------------------------------ -----------\n");
 
-	std::stringstream description_buffer;
 	for (auto iter = resolution.entries_begin(); iter != resolution.entries_end(); iter++)
 	{
 		const util::option_resolution::entry &entry = *iter;
+                std::stringstream description_buffer;
 
 		std::string opt_name = string_format("--%s", entry.identifier());
 		const char *opt_desc = entry.display_name();
