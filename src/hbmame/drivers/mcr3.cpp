@@ -6,9 +6,9 @@ ROM_START( sargex )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "cpu_3b.bin",   0x00000, 0x8000, CRC(da31a58f) SHA1(29b97caf61f8f59042519a6b501cd1d15099dd59) )
 	ROM_LOAD( "cpu_5b.bin",   0x08000, 0x8000, CRC(6800e746) SHA1(018c2b622b3654530ebc2c299b3f745777163d4b) )
-	ROM_FILL(                 0x0e000, 0x2000, 0xff )	/* upper 8k is not mapped on monoboard */
+	ROM_FILL(                 0x0e000, 0x2000, 0xff )
 
-	ROM_REGION( 0x10000, "tcs:cpu", 0 )  /* 64k for the Turbo Cheap Squeak */
+	ROM_REGION( 0x10000, "tcs:cpu", 0 )
 	ROM_LOAD( "tcs_u5.bin",   0x0c000, 0x2000, CRC(a894ef8a) SHA1(7f53927fc185fff8ba1b1747f0d565e089d879e6) )
 	ROM_LOAD( "tcs_u4.bin",   0x0e000, 0x2000, CRC(6ca6faf3) SHA1(4647e633dd11f55a65c3acf81adeb3af93624991) )
 

@@ -124,7 +124,7 @@ ROM_END
  *******************************************************/
 
 GAME( 1981, defender2,   defender, williams, stargate, williams_state, stargate, ROT0, "Jeff Vavasour", "Defender II", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, splatsc1,    0,        williams, splat,    williams_state, joust,    ROT0, "Williams", "Splat! (sc1 hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, splatsc1,    splat,    williams, splat,    williams_state, joust,    ROT0, "Williams", "Splat! (sc1 hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, robotron201, robotron, williams, robotron, williams_state, robotron, ROT0, "Sean Riddle", "Robotron: 2084 (Hacked Patched Blue-201)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, robotronp,   robotron, williams, robotron, williams_state, robotron, ROT0, "Christian Gingras / Sean Riddle", "Robotron: 2084 (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, robotrontie, robotron, williams, robotron, williams_state, robotron, ROT0, "Vid Kidz", "Robotron: 2084 (Tie Die)", MACHINE_SUPPORTS_SAVE )
