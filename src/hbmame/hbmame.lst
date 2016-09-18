@@ -1,5 +1,4 @@
 // license:BSD-3-Clause
-// license:BSD-3-Clause
 // copyright-holders:Robbbert
 /******************************************************************************
 
@@ -21,14 +20,14 @@ galagax 	/* Jerky - Chris Moore hack of 1942 */
 1943h		/* Hacked to have the vendor name and phone number */
 
 	/* arkanoid */
-arkanoid	/* A75 (c) 1986 Taito Corporation Japan (World) */
+arkanoid	//parent
 akblc2dx 	/* hack */
 akgcdx	 	/* hack */
 aktaytdx 	/* hack */
 arkll32 	/* LLMAME 32 */
 
 	/* asteroid */
-asteroid
+asteroid	//parent
 asteroid6	/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer	// star destroyer, hack of asteroid2
@@ -41,38 +40,44 @@ tst_wow2	/* Wow test rom */
 tst_wow3	/* Wow test rom */
 
 	/* astrof */
-astrf_bl	/* Black Background */
+astrof		//parent
+astrofbl	/* Black Background */
 
 	/* asuka */
-asuka		// parent
+asuka		//parent
 asukac		// chinese
 
 	/* atari_s1 */
-//atarians	// parent
+//atarians	//parent
 //atarianb	/* hack for emulators */
 
 	/* bagman */
+bagman		//parent
 bagturbo
+pickin		//parent
 pickinpi	/* Color Hack by Pi */
 
 	/* blktiger */
-blkdrgnk	/* Korean Translation */
+blktiger	//parent
+blkdrgonk	/* Korean Translation */
 
 	/* bombjack */
-bombjack	/* (c) 1984 Tehkan */
+bombjack	//parent
 bmbjckgr	/* Vag @ GreekRoms */
 bombjckb	/* bootleg */
 bombjred	/* hack by unknown French person */
 
 	/* btime */
-btime		/* (c) 1982 */
+btime		//parent
+brubber		//parent
+lnc			//parent
 bnjr		/* Bump N Jump Reverse Mod */
-pnc		/* Pac N Chase */
+pnc			/* Pac N Chase */
 stictime	/* Marks Hack of btime */
 vecbtime	/* T-Bone hack of Burgertime */
 
 	/* bublbobl */
-bublbobl	/* A78 (c) 1986 Taito Corporation */
+bublbobl	//parent
 bbaladar	/* Aladar Bootleg */
 bb2bmh		/* Overclocked Bubblebobble Memories Hack */
 bbhackv1 	/* OVerclocked Level Hack */ 
@@ -94,17 +99,17 @@ cball		// parent
 cballfix	// With MASH 'fixed' gfx rom
 
 	/* cclimber */
-ckong		/* (c) 1981 Falcon */
+ckong		//parent
+cclimber	//parent
 tongypac
 ckongfix	/* Graphics Fix */
 ckonga2
 ckonga3
-cclimber // parent
 cclimbrm	/* Tim Arcadecollecting Modded Version */
 
 	/* centiped */
-centiped	/* 136001           (c) 1980 */
-milliped	/* 136013           (c) 1982 */
+centiped	//parent
+milliped	//parent
 astroped	/* Twisty Hack of Centipede */
 astropd2	/* Twisty Hack of Centipede */
 cemescry	/* NoSync hack of Centipede */
@@ -120,7 +125,7 @@ magworm2	/* bootleg of magworm */
 bbugtest	/* Test Rom */
 
 	/* commando */
-commando	/*  5/1985 (c) 1985 (World) */
+commando	//parent
 comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
@@ -345,7 +350,7 @@ mineswp		/* Minesweeper */
 //armdemo		/* Charles Doty */  // totally broken
 
 	/* exidy */
-targ		/* needed parent */
+targ		//parent
 targtest	/* Targ Test Rom */
 
 	/* exerion */

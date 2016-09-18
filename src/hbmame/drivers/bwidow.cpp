@@ -2,11 +2,11 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/bwidow.cpp"
 
-/*************************************
+/************************************************************************************************
  *
- *  ROM definitions
+ *  The only sound in this game is a low continuous growl when a ship is damaged or destroyed
  *
- *************************************/
+ ************************************************************************************************/
 
 
 ROM_START( spacwarp )
@@ -20,14 +20,8 @@ ROM_START( spacwarp )
 	ROM_LOAD( "136006.103",     0x6000, 0x1000, CRC(ee72da63) SHA1(d36d62cdf7fe76ee9cdbfc2e76ac5d90f22986ba) )
 	ROM_LOAD( "spacwarp.104",   0x7000, 0x1000, CRC(aae05ec6) SHA1(14629e8375e1ae12dce96a742f1a0777e5114edb) )
 	ROM_LOAD( "spacwarp.105",   0x8000, 0x1000, CRC(41cddb2d) SHA1(8dcd7f72ca1099b04f3d29730b5071d3cb55888e) )
-
-	ROM_RELOAD(              0x9000, 0x1000 )
-	ROM_RELOAD(              0xa000, 0x1000 )
-	ROM_RELOAD(              0xb000, 0x1000 )
-	ROM_RELOAD(              0xc000, 0x1000 )
-	ROM_RELOAD(              0xd000, 0x1000 )
-	ROM_RELOAD(              0xe000, 0x1000 )
 	ROM_RELOAD(              0xf000, 0x1000 )   /* for reset/interrupt vectors */
+
 	// patch irq code to acknowledge the interrupt
 	ROM_COPY( "maincpu", 0x4003, 0x5353, 3 )  // move jump
 	ROM_FILL(0x4004, 1, 0x50) // new jump
@@ -35,7 +29,6 @@ ROM_START( spacwarp )
 	ROM_FILL(0x5350, 1, 0x8D) // ack irq
 	ROM_FILL(0x5351, 1, 0x00)
 	ROM_FILL(0x5352, 1, 0x0E)
-
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "user1", 0 )

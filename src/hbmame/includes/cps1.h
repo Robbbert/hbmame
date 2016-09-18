@@ -128,6 +128,7 @@ public:
 		m_soundlatch(*this, "soundlatch"),
 		m_soundlatch2(*this, "soundlatch2"),
 		m_decrypted_opcodes(*this, "decrypted_opcodes"),
+		m_region_key(*this, "key"),
 		m_region_stars(*this, "stars")
 	{ }
 
@@ -238,6 +239,7 @@ public:
 	optional_device<generic_latch_8_device> m_soundlatch;
 	optional_device<generic_latch_8_device> m_soundlatch2;
 	optional_shared_ptr<UINT16> m_decrypted_opcodes;
+	optional_memory_region m_region_key;
 	optional_memory_region m_region_stars;
 
 	DECLARE_READ16_MEMBER(cps1_hack_dsw_r);
@@ -411,7 +413,6 @@ public:
 	DECLARE_READ16_MEMBER(joy_or_paddle_ecofghtr_r);
 	DECLARE_WRITE_LINE_MEMBER(m5205_int1);
 	DECLARE_WRITE_LINE_MEMBER(m5205_int2);
-
 // HBMAME start
 
 	DECLARE_WRITE16_MEMBER(dinoh_sound_command_w);

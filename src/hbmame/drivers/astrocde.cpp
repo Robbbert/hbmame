@@ -3,14 +3,6 @@
 #include "../mame/drivers/astrocde.cpp"
 
 
-//READ8_HANDLER(gorf_speech_r) { return 0; }
-//READ8_HANDLER(wow_speech_r) { return 0; }
-//CUSTOM_INPUT(gorf_speech_status_r) { return 0; }
-//CUSTOM_INPUT(wow_speech_status_r) { return 0; }
-
-//const char *const gorf_sample_names[] = { 0, 0 } ;
-//const char *const wow_sample_names[] = { 0, 0 } ;
-
 ROM_START( tst_gorf )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "gorfmd.bin",   0x0000, 0x1000, CRC(3776a6a1) SHA1(bd6b0a1dd587e8d4b325ef4133b8e3797416d8d2) )
