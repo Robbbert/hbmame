@@ -2560,6 +2560,7 @@ bbcmc                           // 1986 BBC Master Compact
 bbcmc_ar                        // 1986 BBC Master Compact (Arabic)
 bbcmet                          // 1986 BBC Master ET
 bbcmt                           // 1986 BBC Master Turbo
+discmate                        // 1988 Arbiter Discmate
 ltmpbp                          // 1985 LTM Portable (B+)
 ltmpm                           // 1986 LTM Portable (Master)
 pro128s                         // 1987 Olivetti Prodest PC 128S
@@ -11201,6 +11202,7 @@ cutefght                        // (c) 1998 SemiCom
 dreamwld                        // (c) 2000 SemiCom
 gaialast                        // (c) 1999 SemiCom
 rolcrush                        // (c) 1999 Trust
+rolcrusha                       // (c) 1999 SemiCom
 
 @source:drgnmst.cpp
 drgnmst                         // (c) 1994
@@ -12796,6 +12798,7 @@ thepitm                         // bootleg
 timefgtr                        // (c) Taito (Brazil) - rewrite of Time Pilot
 tst_galx                        // Galaxian Test ROM
 turpin                          // (c) 1981 Sega
+turpins                         // (c) 1981 bootleg
 turtles                         // (c) 1981 Stern
 uniwars                         // (c) Irem
 warofbug                        // (c) 1981 Armenia
@@ -14977,7 +14980,7 @@ jedi                            // 136030           (c) 1984
 leking                          //
 olympic                         //
 
-@source:jeutel.cpp
+@source:joctronic.cpp
 punkywil                        //
 walkyria                        //
 
@@ -16967,9 +16970,6 @@ cupsoca                         // (c) 1992 Seibu
 cupsocb                         // (c) 1992 Seibu
 cupsocs                         // (c) 1992 Seibu
 cupsocs2                        // (c) 1992 Seibu
-cupsocsb                        // bootleg
-cupsocsb2                       // bootleg
-cupsocsb3                       // bootleg
 denjinmk                        // (c) 199? Banpresto
 godzilla                        // (c) 1993 Banpresto
 grainbow                        // (c) 1993 Banpresto
@@ -29305,7 +29305,7 @@ pacuman                         // bootleg
 paintrlr                        // 1981 bootleg
 pengojpm                        // bootleg
 pengopac                        // bootleg
-pinguinos						// bootleg
+pinguinos                       // bootleg
 piranha                         // GL
 piranhah                        // hack
 piranhao                        // GL
@@ -30190,7 +30190,8 @@ sonstwr2                        //
 wolfman                         //
 
 @source:pg685.cpp
-pg685							//
+pg685                           //
+pg685oua12                      //
 
 
 
@@ -30340,7 +30341,8 @@ avefenix                        // bootleg (Video Game)
 avefenixl                       // bootleg (Laguna)
 avefenixrf                      // bootleg (Recreativos Franco)
 capitol                         // bootleg?
-condor                          // bootleg
+condor                          // bootleg (Sidam)
+condorn                         // bootleg (S C Novar)
 falcon                          // bootleg
 falconz                         // bootleg
 fenix                           // bootleg
@@ -30798,6 +30800,7 @@ popeye                          // (c) 1982
 popeyebl                        // bootleg
 popeyef                         // (c) 1982
 popeyeu                         // (c) 1982
+popeyej                         //
 skyskipr                        // (c) 1981
 
 @source:popobear.cpp
@@ -31530,6 +31533,7 @@ spacecho2                       // bootleg
 speakres                        // [Sun Electronics]
 speakresb                       // bootleg
 stratvox                        // [1980 Sun Electronics] Taito
+stratvoxa                       // [1980 Sun Electronics] Taito
 stratvoxb                       // bootleg
 ttmahjng                        // Taito
 
@@ -32174,7 +32178,6 @@ newsin7                         // (c) 1983 ATW USA, Inc.
 newsin7a                        // (c) 1982 ATW USA, Inc.
 triplep                         // (c) 1982 KKI / made by Sanritsu?
 triplepa                        // (c) 1982 KKI / made by Sanritsu?
-turpins                         // (c) 1981 bootleg
 
 @source:scregg.cpp
 dommy                           // TA-00?? (c) 1983 (Arcade TV Game List - P.90, Left, 13 from top)
@@ -32287,6 +32290,7 @@ fantzn2                         // (c) 1988
 hangonjr                        // (c) 1985
 opaopa                          //
 ridleofp                        // (c) 1986 Sega / Nasco
+slapshtr                        // (c) 1986 Sega
 tetrisse                        // (c) 1988
 transfrm                        // 834-5803 (c) 1986
 
@@ -32799,6 +32803,7 @@ rdftadi                         // (c) 1996 Seibu Kaihatsu (Dream Island license
 rdftam                          // (c) 1996 Seibu Kaihatsu (Metrotainment license)
 rdftau                          // (c) 1996 Seibu Kaihatsu
 rdftauge                        // (c) 1996 Seibu Kaihatsu (Tuning license and text display, but Australia region code)
+rdftgb                          // (c) 1996 Seibu Kaihatsu
 rdftit                          // (c) 1996 Seibu Kaihatsu
 rdftj                           // (c) 1996 Seibu Kaihatsu
 rdftja                          // (c) 1996 Seibu Kaihatsu
@@ -32833,6 +32838,11 @@ friskytb                        // (c) 1981
 radrad                          // (c) 1982 Nichibutsu USA
 sectrzon                        // (c) 1984 + Alice
 seicross                        // (c) 1984 + Alice
+
+@source:seicupbl.cpp
+cupsocsb                        // bootleg
+cupsocsb2                       // bootleg
+cupsocsb3                       // bootleg
 
 @source:selz80.cpp
 dagz80                          //
@@ -34937,7 +34947,7 @@ optiger                         // 1998.09 E63 (c) 1998 Taito
 alpine                          // RH  (c) 1982 Taito Corporation
 alpinea                         // RH  (c) 1982 Taito Corporation
 bioatack                        // AA8 (c) 1983 Taito Corporation + Fox Video Games license
-elevator                        // EA  (c) 1983 Taito Corporation (5 board set)
+elevator                        // EA  (c) 1983 Taito Corporation (5 board set, v1.1?)
 elevator4                       // BA3 (c) 1983 Taito Corporation (4 board set, v1.1?)
 elevatorb                       // bootleg
 frontlin                        // FL  (c) 1982 Taito Corporation
@@ -35095,7 +35105,7 @@ spcteam                         //
 @source:tecmo.cpp
 backfirt                        // bootleg [(c) 1988 Tecmo]
 gemini                          // (c) 1987 Tecmo
-geminib							// bootleg
+geminib                         // bootleg
 rygar                           // 6002 - (c) 1986 Tecmo
 rygar2                          // 6002 - (c) 1986 Tecmo
 rygar3                          // 6002 - (c) 1986 Tecmo
