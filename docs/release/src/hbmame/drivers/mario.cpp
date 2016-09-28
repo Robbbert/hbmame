@@ -3,20 +3,14 @@
 #include "../mame/drivers/mario.cpp"
 
 ROM_START( cenmario )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "tma1-c.7f_e-1",     0x0000, 0x2000, CRC(c0c6e014) SHA1(36a04f9ca1c2a583477cb8a6f2ef94e044e08296) )
-//	ROM_LOAD( "tma1-c.7e_e-b",     0x2000, 0x2000, CRC(b09ab857) SHA1(35b91cd1c4c3dd2d543a1ea8ff7b951715727792) )
-	ROM_LOAD( "mario.7e",     0x2000, 0x2000, CRC(116b3856) SHA1(e372f846d0e5a2b9b47ebd0330293fcc8a12363f) )
-	ROM_LOAD( "tma1-c.7d_e-1",     0x4000, 0x2000, CRC(dcceb6c1) SHA1(b19804e69ce2c98cf276c6055c3a250316b96b45) )
-//	ROM_LOAD( "tma1-c.7c_e-3",     0xf000, 0x1000, CRC(0d31bd1c) SHA1(a2e238470ba2ea3c81225fec687f61f047c68c59) )
-	ROM_LOAD( "mario.7c",     0xf000, 0x1000, CRC(4a63d96b) SHA1(b09060b2c84ab77cc540a27b8f932cb60ec8d442) )
+	ROM_REGION( 0x10000, "maincpu", 0 ) // cpu roms from marioj
+	ROM_LOAD( "tma1c-a1.7f",  0x0000, 0x2000, CRC(b64b6330) SHA1(f7084251ac325bbfa3fb804da16a50622e1fd213) )
+	ROM_LOAD( "tma1c-a2.7e",  0x2000, 0x2000, CRC(290c4977) SHA1(5af266be0ddc883c6548c90e4a9084024a1e91a0) )
+	ROM_LOAD( "tma1c-a1.7d",  0x4000, 0x2000, CRC(f8575f31) SHA1(710d0e72fcfce700ed2a22fb9c7c392cc76b250b) )
+	ROM_LOAD( "tma1c-a2.7c",  0xf000, 0x1000, CRC(a3c11e9e) SHA1(d0612b0f8c2ea4e798f551922a04a324f4ed5f3d) )
 
-	ROM_REGION( 0x1800, "audiocpu", 0 )	/* sound */
-	/* internal rom */
-	ROM_FILL(                 0x0000, 0x0800, 0x00)
-	/* first half banked */
+	ROM_REGION( 0x1800, "audiocpu", ROMREGION_ERASE00 )
 	ROM_LOAD( "tma1c-a.6k",   0x1000, 0x0800, CRC(06b9ff85) SHA1(111a29bcb9cda0d935675fa26eca6b099a88427f) )
-	/* second half always read */
 	ROM_CONTINUE(             0x0800, 0x0800)
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
@@ -32,7 +26,7 @@ ROM_START( cenmario )
 	ROM_LOAD( "cenmario.7u",  0x5000, 0x1000, CRC(19eef39f) SHA1(41ee5184eeee10d7b502f5a06a3b006242756e57) )
 
 	ROM_REGION( 0x0200, "proms", 0 )
-	ROM_LOAD( "mario.4p",     0x0000, 0x0200, CRC(afc9bd41) SHA1(90b739c4c7f24a88b6ac5ca29b06c032906a2801) )
+	ROM_LOAD( "tma1-c-4p.4p",     0x0000, 0x0200, CRC(afc9bd41) SHA1(90b739c4c7f24a88b6ac5ca29b06c032906a2801) )
 ROM_END
 
-GAME( 2002, cenmario, 0, mario, marioj, driver_device, 0, ROT0, "Hack", "Censored Mario Bros.", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, cenmario, mario, mario, marioj, driver_device, 0, ROT0, "Marks Hacks", "Censored Mario Bros.", MACHINE_SUPPORTS_SAVE )

@@ -194,7 +194,7 @@ ROM_END
 
 GAME( 1998, crackhea, mappy, 	mappy, 	  mappy,    mappy_state,   mappy,    ROT90, "Cary Barnhard", "Crackhead", MACHINE_SUPPORTS_SAVE ) // transparency error
 GAME( 1998, housepty, mappy, 	mappy, 	  mappy,    mappy_state,   mappy,    ROT90, "Jerky", "House Party", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, marpy,    mappy, 	mappy,    mappy,    mappy_state,   mappy,    ROT90, "Mark", "Marpy", MACHINE_SUPPORTS_SAVE ) // transparency error
+GAME( 2001, marpy,    mappy, 	mappy,    mappy,    mappy_state,   mappy,    ROT90, "Marks Hacks", "Marpy", MACHINE_SUPPORTS_SAVE ) // transparency error
 GAME( 2011, superpc1, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Paul Smith", "Super Pac-Man (Super Locksmith sound and gfx hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, superpcn, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Namco", "Super Pac-Man (Namco)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, superpcp, superpac,	superpac, superpac, mappy_state,   superpac, ROT90, "Blue Justice", "Super Pac-Man Plus", MACHINE_SUPPORTS_SAVE )

@@ -12,6 +12,7 @@ copy /Y %from%\src\version.cpp %to%\src
 
 md %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\audit.* %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\info.cpp %to%\src\frontend\mame
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000

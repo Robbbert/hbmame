@@ -743,7 +743,7 @@ static void dialog_trigger(HWND dlgwnd, WORD trigger_flags)
 static INT_PTR CALLBACK dialog_proc(HWND dlgwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	INT_PTR handled = TRUE;
-	CHAR buf[32];
+	std::string buf;
 	WORD command;
 
 	switch(msg)
@@ -756,10 +756,10 @@ static INT_PTR CALLBACK dialog_proc(HWND dlgwnd, UINT msg, WPARAM wparam, LPARAM
 		case WM_COMMAND:
 			command = LOWORD(wparam);
 
-			win_get_window_text_utf8((HWND) lparam, buf, ARRAY_LENGTH(buf));
-			if (!strcmp(buf, DLGTEXT_OK))
+			buf = win_get_window_text_utf8((HWND) lparam);
+			if (!strcmp(buf.c_str(), DLGTEXT_OK))
 				command = IDOK;
-			else if (!strcmp(buf, DLGTEXT_CANCEL))
+			else if (!strcmp(buf.c_str(), DLGTEXT_CANCEL))
 				command = IDCANCEL;
 			else
 				command = 0;
@@ -1162,7 +1162,8 @@ static INT_PTR CALLBACK adjuster_sb_wndproc(HWND sbwnd, UINT msg, WPARAM wparam,
 {
 	INT_PTR result;
 	struct adjuster_sb_stuff *stuff;
-	char buf[64];
+	std::string buf;
+	CHAR BUF[64];
 	HWND dlgwnd, editwnd;
 	int value, id;
 	LONG_PTR l;
@@ -1175,8 +1176,8 @@ static INT_PTR CALLBACK adjuster_sb_wndproc(HWND sbwnd, UINT msg, WPARAM wparam,
 		id = GetWindowLong(sbwnd, GWL_ID);
 		dlgwnd = GetParent(sbwnd);
 		editwnd = GetDlgItem(dlgwnd, id - 1);
-		win_get_window_text_utf8(editwnd, buf, ARRAY_LENGTH(buf));
-		value = atoi(buf);
+		buf = win_get_window_text_utf8(editwnd);
+		value = atoi(buf.c_str());
 
 		switch(wparam)
 		{
@@ -1195,8 +1196,8 @@ static INT_PTR CALLBACK adjuster_sb_wndproc(HWND sbwnd, UINT msg, WPARAM wparam,
 			value = stuff->min_value;
 		else if (value > stuff->max_value)
 			value = stuff->max_value;
-		_snprintf(buf, ARRAY_LENGTH(buf), "%d", value);
-		win_set_window_text_utf8(editwnd, buf);
+		_snprintf(BUF, 64, "%d", value);
+		win_set_window_text_utf8(editwnd, BUF);
 		result = 0;
 	}
 	else
@@ -1315,8 +1316,7 @@ static seqselect_info *get_seqselect_info(HWND editwnd)
 static void seqselect_settext(HWND editwnd)
 {
 	seqselect_info *stuff;
-	std::string seqstring;
-	char buffer[128];
+	std::string seqstring, buf;
 
 	// the basics
 	stuff = get_seqselect_info(editwnd);
@@ -1327,8 +1327,8 @@ static void seqselect_settext(HWND editwnd)
 	seqstring = Machine->input().seq_name(*stuff->code);
 
 	// change the text - avoid calls to SetWindowText() if we can
-	win_get_window_text_utf8(editwnd, buffer, ARRAY_LENGTH(buffer));
-	if (strcmp(buffer, seqstring.c_str())!=0)
+	buf = win_get_window_text_utf8(editwnd);
+	if (buf != seqstring)
 		win_set_window_text_utf8(editwnd, seqstring.c_str());
 
 	// reset the selection
@@ -1336,7 +1336,7 @@ static void seqselect_settext(HWND editwnd)
 	{
 		DWORD start = 0, end = 0;
 		SendMessage(editwnd, EM_GETSEL, (WPARAM) (LPDWORD) &start, (LPARAM) (LPDWORD) &end);
-		if ((start != 0) || (end != strlen(buffer)))
+		if ((start != 0) || (end != buf.size()))
 			SendMessage(editwnd, EM_SETSEL, 0, -1);
 	}
 }

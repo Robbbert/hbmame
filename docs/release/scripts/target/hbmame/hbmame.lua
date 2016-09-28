@@ -752,6 +752,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
 --	MAME_DIR .. "src/hbmame/drivers/atari_s1.cpp",
 --	MAME_DIR .. "src/mame/machine/genpin.cpp",
+	MAME_DIR .. "src/hbmame/drivers/flower.cpp",
+	MAME_DIR .. "src/hbmame/drivers/marinedt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/popper.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 }

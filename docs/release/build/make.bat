@@ -9,3 +9,4 @@ del hbmame.exe
 if exist hbmame.exe goto start1
 call make32 -j4 "OSD=newui" %1 %2 %3
 :end
+hbmame -valid

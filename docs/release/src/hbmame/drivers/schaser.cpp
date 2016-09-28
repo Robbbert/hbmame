@@ -2,27 +2,27 @@
 // copyright-holders:Robbbert
 /****************************************************************************************
 
-	Space Chaser (CV version)
+Space Chaser (CV version)
 
-	August, 2008 by Robbbert
+August, 2008 by Robbbert
 
-	No diagram, therefore this is a Hack Job.
-
-
-	These cheats exist in this game:
-	1. Hold down 2P DOWN (the F key) while it says INSERT COIN. Then insert a coin
-	   and play. You will have 2 extra ships.
-	2. In the Hard difficulty setting, you normally start at level 4. Hold down the
-	   1P START (the 1 key) while it says INSERT COIN. Then insert a coin and play.
-	   You will start at level 5.
+No diagram, therefore this is a Hack Job.
 
 
-	Changes:
-	1. Used the existing Discrete System for all sounds
-	2. Removed IN0 as it is never referenced
-	3. Identified and documented input cheats
-	4. Added watchdog
-	5. Added coin lockout
+These cheats exist in this game:
+1. Hold down 2P DOWN (the F key) while it says INSERT COIN. Then insert a coin
+   and play. You will have 2 extra ships.
+2. In the Hard difficulty setting, you normally start at level 4. Hold down the
+   1P START (the 1 key) while it says INSERT COIN. Then insert a coin and play.
+   You will start at level 5.
+
+
+Changes:
+1. Used the existing Discrete System for all sounds
+2. Removed IN0 as it is never referenced
+3. Identified and documented input cheats
+4. Added watchdog
+5. Added coin lockout
 
 *******************************************************************************************/
 

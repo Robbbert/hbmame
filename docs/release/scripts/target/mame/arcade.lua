@@ -2017,6 +2017,8 @@ files {
 	MAME_DIR .. "src/mame/machine/jalcrpt.h",
 	MAME_DIR .. "src/mame/video/jalblend.cpp",
 	MAME_DIR .. "src/mame/video/jalblend.h",
+	MAME_DIR .. "src/mame/video/ms1_tmap.cpp",
+	MAME_DIR .. "src/mame/video/ms1_tmap.h",
 }
 
 createMAMEProjects(_target, _subtarget, "jpm")
@@ -3245,13 +3247,16 @@ files {
 
 createMAMEProjects(_target, _subtarget, "seibu")
 files {
+	MAME_DIR .. "src/mame/drivers/airraid.cpp",
 	MAME_DIR .. "src/mame/drivers/bloodbro.cpp",
 	MAME_DIR .. "src/mame/includes/bloodbro.h",
 	MAME_DIR .. "src/mame/video/bloodbro.cpp",
 	MAME_DIR .. "src/mame/drivers/cabal.cpp",
 	MAME_DIR .. "src/mame/includes/cabal.h",
 	MAME_DIR .. "src/mame/video/cabal.cpp",
-	MAME_DIR .. "src/mame/drivers/airraid.cpp",
+	MAME_DIR .. "src/mame/drivers/darkmist.cpp",
+	MAME_DIR .. "src/mame/includes/darkmist.h",
+	MAME_DIR .. "src/mame/video/darkmist.cpp",
 	MAME_DIR .. "src/mame/drivers/dcon.cpp",
 	MAME_DIR .. "src/mame/includes/dcon.h",
 	MAME_DIR .. "src/mame/video/dcon.cpp",
@@ -3313,6 +3318,8 @@ files {
 	MAME_DIR .. "src/mame/machine/seibuspi.h",
 	MAME_DIR .. "src/mame/audio/seibu.cpp",
 	MAME_DIR .. "src/mame/audio/seibu.h",
+	MAME_DIR .. "src/mame/audio/t5182.cpp",
+	MAME_DIR .. "src/mame/audio/t5182.h",
 	MAME_DIR .. "src/mame/video/seibu_crtc.cpp",
 	MAME_DIR .. "src/mame/video/seibu_crtc.h",
 }
@@ -3546,9 +3553,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/darius.cpp",
 	MAME_DIR .. "src/mame/includes/darius.h",
 	MAME_DIR .. "src/mame/video/darius.cpp",
-	MAME_DIR .. "src/mame/drivers/darkmist.cpp",
-	MAME_DIR .. "src/mame/includes/darkmist.h",
-	MAME_DIR .. "src/mame/video/darkmist.cpp",
 	MAME_DIR .. "src/mame/drivers/exzisus.cpp",
 	MAME_DIR .. "src/mame/includes/exzisus.h",
 	MAME_DIR .. "src/mame/video/exzisus.cpp",
@@ -3728,8 +3732,6 @@ files {
 	MAME_DIR .. "src/mame/audio/taitosnd.h",
 	MAME_DIR .. "src/mame/audio/taito_zm.cpp",
 	MAME_DIR .. "src/mame/audio/taito_zm.h",
-	MAME_DIR .. "src/mame/audio/t5182.cpp",
-	MAME_DIR .. "src/mame/audio/t5182.h",
 	MAME_DIR .. "src/mame/machine/taitoio.cpp",
 	MAME_DIR .. "src/mame/machine/taitoio.h",
 	MAME_DIR .. "src/mame/video/taito_helper.cpp",
@@ -4484,6 +4486,7 @@ files {
 	MAME_DIR .. "src/mame/includes/malzak.h",
 	MAME_DIR .. "src/mame/video/malzak.cpp",
 	MAME_DIR .. "src/mame/drivers/manohman.cpp",
+	MAME_DIR .. "src/mame/drivers/marywu.cpp",
 	MAME_DIR .. "src/mame/drivers/mcatadv.cpp",
 	MAME_DIR .. "src/mame/includes/mcatadv.h",
 	MAME_DIR .. "src/mame/video/mcatadv.cpp",

@@ -2,8 +2,8 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/astrof.cpp"
 
-ROM_START( astrf_bl )
-	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
+ROM_START( astrofbl )
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "afii.6",       0xd000, 0x0800, CRC(d6cd13a4) SHA1(359b00b02f4256f1138c8526214c6a34d2e5b47a) )
 	ROM_LOAD( "afii.5",       0xd800, 0x0800, CRC(6fd3c4df) SHA1(73aad03e2588ac9f249d5751eb4a7c7cd12fd3b9) )
 	ROM_LOAD( "afii.4",       0xe000, 0x0800, CRC(9612dae3) SHA1(8ee1797c212e06c381972b7b555f240ff317d75d) )
@@ -16,4 +16,4 @@ ROM_START( astrf_bl )
 ROM_END
 
 
-GAME( 1979, astrf_bl, 0, astrof, astrof, driver_device, 0, ROT90, "Hack", "Astro Fighter (Black Background)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, astrofbl, astrof, astrof, astrof, driver_device, 0, ROT90, "Hack", "Astro Fighter (Black Background)", MACHINE_SUPPORTS_SAVE )
