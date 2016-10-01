@@ -12803,6 +12803,7 @@ turpin                          // (c) 1981 Sega
 turpins                         // (c) 1981 bootleg
 turtles                         // (c) 1981 Stern
 uniwars                         // (c) Irem
+uniwarsa                        // (c) Karateco
 warofbug                        // (c) 1981 Armenia
 warofbugg                       // German Version
 warofbugu                       // (c) 1981 Armenia
@@ -13834,6 +13835,7 @@ stargatp1                       //
 stargatp2                       //
 stargatp3                       //
 stargatp4                       //
+stargatp5                       //
 teedoffp                        //
 teedoffp1                       //
 teedoffp3                       //
@@ -14711,6 +14713,9 @@ iskr1031                        //
 @source:istellar.cpp
 istellar                        // (c) 1983 Funai / Gakken
 
+@source:istrebiteli.cpp
+istreb                          //
+
 @source:iteagle.cpp
 bbh2sp                          //
 bbhcotw                         //
@@ -14838,8 +14843,10 @@ wfortunea                       // (c) 1989 GameTek
 
 @source:itgambl2.cpp
 cmagica                         // (c) 200? unknown
+granfrat                        // (c) 200? unknown
 mcard_h8                        // (c) 200? unknown
 elvis                           // (c) 200? unknown
+eurodsr                         // (c) 200? unknown
 europass                        // (c) 200? unknown
 laser2k1                        // (c) 2001 unknown
 mclass                          // (c) 200? unknown
@@ -14855,7 +14862,6 @@ thedrink                        // (c) 200? unknown
 trstar2k                        // (c) 1999 A.M.
 unkh8gam                        // (c) 200? unknown
 wizard                          // (c) 1999 A.A.
-eurodsr                         // (c) 200? unknown
 
 @source:itgambl3.cpp
 ejollyx5                        // (c) 200? Solar Games
@@ -20372,6 +20378,7 @@ vf                              // 1993.12 Virtua Fighter
 vformula                        // 1993.?? Virtua Formula
 vr                              // 1992.08 Virtua Racing
 wingwar                         // 1994.06 Wing War
+wingwar360                      // 1994.09 Wing War R360
 wingwarj                        // 1994.06 Wing War (Japan)
 wingwaru                        // 1994.09 Wing War (US)
 
@@ -28377,7 +28384,7 @@ iemoto                          // (c) 1987
 iemotom                         // (c) 1987
 kaguya                          // (c) 1988 MIKI SYOUJI
 kaguya2                         // (c) 1989 MIKI SYOUJI
-kaguya2f                        // (c) 1989 MIKI SYOUJI
+kaguya2f                        // (c) 2001 MIKI SYOUJI
 kanatuen                        // (c) 1988 Panac
 korinai                         // (c) 1988
 korinaim                        // (c) 1988
@@ -28451,6 +28458,7 @@ finalbny                        // (c) 1991
 galkaika                        // (c) 1989 Nichibutsu/T.R.TEC
 galkoku                         // (c) 1989 Nichibutsu/T.R.TEC
 hyouban                         // (c) 1989 Nichibutsu/T.R.TEC
+ladymakr                        // (c) 1991
 mcontest                        // (c) 1989
 mjgottub                        // (c) 1991
 mjlstory                        // (c) 1991
@@ -30418,6 +30426,7 @@ pingpong                        // GX555 (c) 1985
 janshi                          //
 pinkiri8                        //
 ronjan                          //
+ronjans                         //
 
 @source:pipbug.cpp
 pipbug                          //
@@ -34025,6 +34034,7 @@ starwarso                       // 136021           (c) 1983
 tomcatsw                        // (proto)          (c) 1983
 
 @source:statriv2.cpp
+bigcsino                        // (c) 1984 Status Games
 cstripxi                        // (c) 1981 Status Games
 funcsino                        // (c) 1981 Status Games
 hangman                         // (c) 1984 Status Games
