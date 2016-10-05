@@ -385,7 +385,7 @@ ROM_START( eyes )
 ROM_END
 
 /* E204 - Rockola presents and copyright notice are all removed. Where it should say "EYES" on title screen,
-	  it has some corrupt gfx instead. The rest is fine. */
+          it has some corrupt gfx instead. The rest is fine. */
 ROM_START( eyesb )	/* E204 */
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "eyesb.7d",     0x0000, 0x1000, CRC(7e7dd02d) SHA1(a0026fec57c089dd500efa107b0e884ed9edd4d6) )
@@ -622,9 +622,9 @@ ROM_START( ppong2 )
 	ROM_LOAD( "ppong2.7f",    0x0000, 0x0020, CRC(e3a96194) SHA1(6eb54a64e9d1df6052fecb754852bd44dd9ed69e) )
 	ROM_LOAD( "ppong2.4a",    0x0020, 0x0100, CRC(dbd17cc2) SHA1(072e20975ae0453df57cfc54c344238aa311c373) )
 
-	ROM_REGION( 0x0200, "namco", 0 )	/* sound PROMs */
+	ROM_REGION( 0x0200, "namco", 0 )
 	ROM_LOAD( "ppong2.1m",    0x0000, 0x0100, CRC(0d968558) SHA1(b376885ac8452b6cbf9ced81b1080bfd570d9b91) )
-	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )	/* timing - not used */
+	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 ROM_START( rainboh )
@@ -647,7 +647,7 @@ ROM_START( seq1 )
 	ROM_LOAD( "seq1.6f",      0x1000, 0x1000, CRC(95DB4723) SHA1(A0C47EA05E14CEBC6493705CD2D46D1E3D12B23A) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "at.5e",	  0x0000, 0x1000, CRC(EEB359BF) SHA1(36F153B5CE53475FD144AF50E4BD67B0E0B3A01F) )
+	ROM_LOAD( "at.5e",        0x0000, 0x1000, CRC(EEB359BF) SHA1(36F153B5CE53475FD144AF50E4BD67B0E0B3A01F) )
 	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958FEDF9) SHA1(4A937AC02216EA8C96477D4A15522070507FB599) )
 
 	PACMAN_PROMS
@@ -665,6 +665,23 @@ ROM_START( seq2 )
 	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958FEDF9) SHA1(4A937AC02216EA8C96477D4A15522070507FB599) )
 
 	PACMAN_PROMS
+ROM_END
+
+/* No sound */
+ROM_START( tinyworld )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "tinyworld.1",  0x0000, 0x1000, CRC(b485503b) SHA1(c868587529f73b4e52a9a20bc04fd8a9a9543a1e) )
+	ROM_LOAD( "tinyworld.2",  0x1000, 0x1000, CRC(37862299) SHA1(bfaec22fcb6c59b0e26980b68936ae2bf2312b40) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "tinyworld.5e", 0x0000, 0x1000, CRC(38db47a4) SHA1(ae85b7d39d36b92d519653d65132ff213f6caecc) )
+	ROM_LOAD( "absurd.5f",    0x1000, 0x1000, CRC(ae9805ee) SHA1(fd90b8bb2492a39f27216e0cda09f9594a9dada7) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "glob.7f",      0x0000, 0x0020, CRC(1f617527) SHA1(448845cab63800a05fcb106897503d994377f78f) )
+	ROM_LOAD( "absurd.4a",    0x0020, 0x0100, CRC(9379a246) SHA1(88c84668f67afc4a5ff12e794ac37a0636bd7153) )
+
+	PACMAN_SOUND_PROMS
 ROM_END
 
 /* note: the original rom was only 3154 bytes with a CRC of 0E67D062 - the one here is padded out to normal size */
@@ -695,7 +712,8 @@ ROM_START( wavybug )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( zap ) // no sound
+/* No sound */
+ROM_START( zap )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "zap.1",        0x0000, 0x1000, CRC(74e6e3a0) SHA1(3d953bfd57aa56f8fe61d1abd01db84d027df3bb) )
 	ROM_LOAD( "zap.2",        0x1000, 0x1000, CRC(40e1884b) SHA1(ce303b6a6c9e765c256997c19f64e9ebfd8f435e) )
@@ -753,6 +771,7 @@ GAME( 2001, pachello, 0,        pachack,  pacman0,  driver_device, 0,        ROT
 GAME( 2001, pacmatri, 0,        pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Matrix Effect", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, seq1,     0,        pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "16 Step Simple Sequencer", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, seq2,     seq1,     pachack,  pacman0,  driver_device, 0,        ROT90, "Scott Lawrence", "Sequencer and Music Player", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, tinyworld,0,        pacman,   mspacman, driver_device, 0,        ROT90, "Scott Lawrence", "Tiny World 82 (demo)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 
 /* Other Misc Hacks */
 
