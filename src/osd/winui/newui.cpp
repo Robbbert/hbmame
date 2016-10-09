@@ -2648,9 +2648,9 @@ static void prepare_menus(HWND wnd)
 	set_command_state(menu_bar, ID_OPTIONS_ANALOGCONTROLS, has_analog ? MFS_ENABLED : MFS_GRAYED);
 	set_command_state(menu_bar, ID_FILE_FULLSCREEN, !is_windowed() ? MFS_CHECKED : MFS_ENABLED);
 	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, mame_machine_manager::instance()->ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
-	set_command_state(menu_bar, ID_FILE_UIACTIVE, window->machine().ioport().has_keyboard() ? (window->machine().ui_active() ? MFS_CHECKED : MFS_ENABLED): MFS_CHECKED | MFS_GRAYED);
+	set_command_state(menu_bar, ID_FILE_UIACTIVE, has_keyboard ? (window->machine().ui_active() ? MFS_CHECKED : MFS_ENABLED): MFS_CHECKED | MFS_GRAYED);
 
-	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, (has_keyboard) ? (!window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
+	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, has_keyboard ? (!window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
 	set_command_state(menu_bar, ID_KEYBOARD_NATURAL, (has_keyboard && window->machine().ioport().natkeyboard().can_post()) ? (window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
 	set_command_state(menu_bar, ID_KEYBOARD_CUSTOMIZE, has_keyboard ? MFS_ENABLED : MFS_GRAYED);
 
