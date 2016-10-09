@@ -1388,7 +1388,6 @@ files {
 	MAME_DIR .. "src/mame/machine/lisa.cpp",
 	MAME_DIR .. "src/mame/drivers/mac.cpp",
 	MAME_DIR .. "src/mame/includes/mac.h",
-	MAME_DIR .. "src/mame/audio/mac.cpp",
 	MAME_DIR .. "src/mame/machine/egret.cpp",
 	MAME_DIR .. "src/mame/machine/egret.h",
 	MAME_DIR .. "src/mame/machine/mac.cpp",
@@ -3221,6 +3220,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "skeleton")
 files {
+	MAME_DIR .. "src/mame/drivers/akaiax80.cpp",
 	MAME_DIR .. "src/mame/drivers/alesis_qs.cpp",
 	MAME_DIR .. "src/mame/drivers/alphasma.cpp",
 	MAME_DIR .. "src/mame/drivers/ampro.cpp",

@@ -120,6 +120,7 @@ Its BIOS performs POST and halts as there's no keyboard.
 #include "imagedev/floppy.h"
 #include "machine/pit8253.h"
 #include "sound/speaker.h"
+#include "machine/z80dart.h"
 #include "machine/octo_kbd.h"
 #include "machine/bankdev.h"
 #include "machine/ram.h"
@@ -146,8 +147,9 @@ public:
 		m_pit(*this, "pit"),
 		m_ppi(*this, "ppi"),
 		m_speaker(*this, "speaker"),
+		m_serial(*this, "serial"),
 		m_z80_bankdev(*this, "z80_bank"),
-		m_ram(*this, "main_ram"),
+		m_ram(*this, "ram"),
 		m_current_dma(-1),
 		m_speaker_active(false),
 		m_beep_active(false),
@@ -180,11 +182,14 @@ public:
 	IRQ_CALLBACK_MEMBER(x86_irq_cb);
 	DECLARE_READ8_MEMBER(rtc_r);
 	DECLARE_WRITE8_MEMBER(rtc_w);
+	DECLARE_READ8_MEMBER(z80_vector_r);
+	DECLARE_WRITE8_MEMBER(z80_vector_w);
 
 	DECLARE_WRITE_LINE_MEMBER(spk_w);
 	DECLARE_WRITE_LINE_MEMBER(spk_freq_w);
 	DECLARE_WRITE_LINE_MEMBER(beep_w);
-
+	DECLARE_WRITE_LINE_MEMBER(serial_clock_w);
+	
 	DECLARE_WRITE_LINE_MEMBER(dack0_w) { m_dma1->hack_w(state ? 0 : 1); }  // for all unused DMA channel?
 	DECLARE_WRITE_LINE_MEMBER(dack1_w) { if(!state) m_current_dma = 1; else if(m_current_dma == 1) m_current_dma = -1; }  // HD
 	DECLARE_WRITE_LINE_MEMBER(dack2_w) { if(!state) m_current_dma = 2; else if(m_current_dma == 2) m_current_dma = -1; }  // RAM refresh
@@ -220,6 +225,7 @@ private:
 	required_device<pit8253_device> m_pit;
 	required_device<i8255_device> m_ppi;
 	required_device<speaker_sound_device> m_speaker;
+	required_device<z80sio2_device> m_serial;
 	required_device<address_map_bank_device> m_z80_bankdev;
 	required_device<ram_device> m_ram;
 
@@ -238,6 +244,8 @@ private:
 	bool m_rtc_address;
 	bool m_rtc_data;
 	UINT8 m_prev_cntl;
+	UINT8 m_rs232_vector;
+	UINT8 m_rs422_vector;
 
 	emu_timer* m_timer_beep;
 };
@@ -267,7 +275,10 @@ static ADDRESS_MAP_START( octopus_io, AS_IO, 8, octopus_state )
 	AM_RANGE(0x51, 0x51) AM_DEVREADWRITE("keyboard", i8251_device, status_r, control_w)
 	// 0x70-73: HD controller
 	AM_RANGE(0x80, 0x83) AM_DEVREADWRITE("pit", pit8253_device, read, write)
-	// 0xa0-a3: serial interface (Z80 SIO/2)
+	AM_RANGE(0xa0, 0xa0) AM_DEVREADWRITE("serial", z80sio2_device, da_r, da_w)
+	AM_RANGE(0xa1, 0xa1) AM_DEVREADWRITE("serial", z80sio2_device, ca_r, ca_w)
+	AM_RANGE(0xa2, 0xa2) AM_DEVREADWRITE("serial", z80sio2_device, db_r, db_w)
+	AM_RANGE(0xa3, 0xa3) AM_DEVREADWRITE("serial", z80sio2_device, cb_r, cb_w)
 	AM_RANGE(0xb0, 0xb1) AM_DEVREADWRITE("pic_master", pic8259_device, read, write)
 	AM_RANGE(0xb4, 0xb5) AM_DEVREADWRITE("pic_slave", pic8259_device, read, write)
 	AM_RANGE(0xc0, 0xc7) AM_DEVREADWRITE("crtc", scn2674_device, read, write)
@@ -276,8 +287,7 @@ static ADDRESS_MAP_START( octopus_io, AS_IO, 8, octopus_state )
 	AM_RANGE(0xca, 0xca) AM_RAM // attribute writes go here
 	// 0xcf: mode control
 	AM_RANGE(0xd0, 0xd3) AM_DEVREADWRITE("fdc", fd1793_t, read, write)
-	// 0xe0: Z80 interrupt vector for RS232
-	// 0xe4: Z80 interrupt vector for RS422
+	AM_RANGE(0xe0, 0xe4) AM_READWRITE(z80_vector_r, z80_vector_w)
 	// 0xf0-f1: Parallel interface data I/O (Centronics), and control/status
 	AM_RANGE(0xf8, 0xff) AM_DEVREADWRITE("ppi", i8255_device, read, write)
 ADDRESS_MAP_END
@@ -427,6 +437,38 @@ WRITE8_MEMBER(octopus_state::z80_io_w)
 	m_z80_active = false;
 }
 
+// Z80 vector for RS232 and RS422
+READ8_MEMBER(octopus_state::z80_vector_r)
+{
+	switch(offset)
+	{
+		case 0:
+			return m_rs232_vector;
+		case 4:
+			return m_rs422_vector;
+		default:
+			return 0xff;
+	}
+	return 0xff;
+}
+
+WRITE8_MEMBER(octopus_state::z80_vector_w)
+{
+	switch(offset)
+	{
+		case 0:
+			m_rs232_vector = data;
+			logerror("RS232 vector set to %02x\n",data);
+			break;
+		case 4:
+			m_rs422_vector = data;
+			logerror("RS422 vector set to %02x\n",data);
+			break;
+		default:
+			logerror("Read invalid vector port 0x%02x\n",0xe0 + offset);
+	}
+}
+
 // RTC data and I/O - PPI port A
 // bits 0-3 of RTC/FDC control go to control lines of the MC146818
 // The technical manual does not mention what is connected to each bit
@@ -472,13 +514,11 @@ WRITE8_MEMBER(octopus_state::cntl_w)
 	{
 		m_rtc_address = true;
 		m_rtc_data = false;
-		logerror("Address strobe!\n");
 	}
 	if((data & 0x04) && !(m_prev_cntl & 0x04))
 	{
 		m_rtc_address = false;
 		m_rtc_data = true;
-		logerror("Data strobe!\n");
 	}
 	m_ppi->pc4_w(data & 0x02);
 	m_prev_cntl = m_cntl;
@@ -567,6 +607,12 @@ WRITE_LINE_MEMBER(octopus_state::beep_w)
 	}
 }
 
+WRITE_LINE_MEMBER(octopus_state::serial_clock_w)
+{
+	m_serial->rxca_w(state);
+	m_serial->txca_w(state);
+}
+
 READ8_MEMBER(octopus_state::dma_read)
 {
 	UINT8 byte;
@@ -599,7 +645,10 @@ IRQ_CALLBACK_MEMBER(octopus_state::x86_irq_cb)
 	m_subcpu->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
 	m_maincpu->set_input_line(INPUT_LINE_HALT, CLEAR_LINE);
 	m_z80_active = false;
-	return m_pic1->inta_cb(device,irqline);
+	if((strcmp(device.tag(),"pic_master") == 0) && irqline == 1)
+		return m_serial->m1_r();
+	else
+		return m_pic1->inta_cb(device,irqline);
 }
 
 void octopus_state::machine_start()
@@ -608,7 +657,7 @@ void octopus_state::machine_start()
 
 	// install extra RAM
 	if(m_ram->size() > 0x20000)
-		m_maincpu->space(AS_PROGRAM).install_readwrite_bank(0x10000,m_ram->size()-1,"extra_ram_bank");
+		m_maincpu->space(AS_PROGRAM).install_readwrite_bank(0x20000,m_ram->size()-1,"extra_ram_bank");
 }
 
 void octopus_state::machine_reset()
@@ -621,6 +670,9 @@ void octopus_state::machine_reset()
 	m_rtc_address = true;
 	m_rtc_data = false;
 	membank("main_ram_bank")->set_base(m_ram->pointer());
+	if(m_ram->size() > 0x20000)
+		membank("extra_ram_bank")->set_base(m_ram->pointer()+0x20000);
+	m_kb_uart->write_dsr(1);  // DSR is used to determine if a keyboard is connected?  If DSR is high, then the CHAR_OUT BIOS function will not output to the screen.
 }
 
 void octopus_state::video_start()
@@ -720,7 +772,6 @@ static MACHINE_CONFIG_START( octopus, octopus_state )
 	MCFG_I8251_RTS_HANDLER(WRITELINE(octopus_state,beep_w))
 	MCFG_RS232_PORT_ADD("keyboard_port", keyboard, "octopus")
 	MCFG_RS232_RXD_HANDLER(DEVWRITELINE("keyboard", i8251_device, write_rxd))
-	MCFG_RS232_DSR_HANDLER(DEVWRITELINE("keyboard", i8251_device, write_dsr))
 	MCFG_DEVICE_ADD("keyboard_clock_rx", CLOCK, 9600 * 64)
 	MCFG_CLOCK_SIGNAL_HANDLER(DEVWRITELINE("keyboard",i8251_device,write_rxc))
 	MCFG_DEVICE_ADD("keyboard_clock_tx", CLOCK, 1200 * 64)
@@ -733,8 +784,10 @@ static MACHINE_CONFIG_START( octopus, octopus_state )
 	MCFG_FLOPPY_DRIVE_ADD("fdc:1", octopus_floppies, "525dd", floppy_image_device::default_floppy_formats)
 
 	MCFG_DEVICE_ADD("pit", PIT8253, 0)
-	MCFG_PIT8253_CLK0(500)  // DART channel A
-	MCFG_PIT8253_CLK1(500)  // DART channel B
+	MCFG_PIT8253_CLK0(2457500)  // DART channel A
+	MCFG_PIT8253_OUT0_HANDLER(WRITELINE(octopus_state,serial_clock_w))  // being able to write both Rx and Tx clocks at one time would be nice
+	MCFG_PIT8253_CLK1(2457500)  // DART channel B
+	MCFG_PIT8253_OUT1_HANDLER(DEVWRITELINE("serial",z80sio2_device,rxtxcb_w))
 	MCFG_PIT8253_CLK2(2457500)  // speaker frequency
 	MCFG_PIT8253_OUT2_HANDLER(WRITELINE(octopus_state,spk_freq_w))
 
@@ -742,10 +795,17 @@ static MACHINE_CONFIG_START( octopus, octopus_state )
 	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.50)
 
+	MCFG_Z80SIO2_ADD("serial", XTAL_16MHz / 4, 0, 0, 0, 0) // clock rate not mentioned in tech manual
+	MCFG_Z80DART_OUT_INT_CB(DEVWRITELINE("pic_master",pic8259_device, ir1_w))
+	MCFG_RS232_PORT_ADD("serial_a", default_rs232_devices, nullptr)
+	MCFG_RS232_CTS_HANDLER(DEVWRITELINE("serial",z80sio2_device, ctsa_w))
+	MCFG_RS232_RI_HANDLER(DEVWRITELINE("serial",z80sio2_device, ria_w)) MCFG_DEVCB_INVERT
+	MCFG_RS232_PORT_ADD("serial_b", default_rs232_devices, nullptr)
+	MCFG_RS232_CTS_HANDLER(DEVWRITELINE("serial",z80sio2_device, ctsb_w))
+	MCFG_RS232_RI_HANDLER(DEVWRITELINE("serial",z80sio2_device, rib_w)) MCFG_DEVCB_INVERT
+
 	// TODO: add components
-	// i8253 PIT timer (speaker output, serial timing, other stuff too?)
 	// Centronics parallel interface
-	// Z80SIO/2 (serial)
 	// Winchester HD controller (Xebec/SASI compatible? uses TTL logic)
 
 	/* video hardware */
@@ -770,9 +830,9 @@ static MACHINE_CONFIG_START( octopus, octopus_state )
 	MCFG_ADDRESS_MAP_BANK_DATABUS_WIDTH(8)
 	MCFG_ADDRESS_MAP_BANK_STRIDE(0x10000)
 
-	MCFG_RAM_ADD("main_ram")
-	MCFG_RAM_DEFAULT_SIZE("128K")
-	MCFG_RAM_EXTRA_OPTIONS("256K")
+	MCFG_RAM_ADD("ram")
+	MCFG_RAM_DEFAULT_SIZE("256K")
+	MCFG_RAM_EXTRA_OPTIONS("128K,512K,768K")
 
 MACHINE_CONFIG_END
 

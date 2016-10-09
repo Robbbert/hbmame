@@ -622,13 +622,13 @@
 	</software>
 
 	<software name="alcazar">
-		<description>Alcazar the Forgotten Fortress</description>
+		<description>Alcazar the Forgotten Fortress (clean crack)</description>
 		<year>1985</year>
 		<publisher>Activision</publisher>
 
 		<part name="flop1" interface="floppy_5_25">
 			<dataarea name="flop" size="143360">
-				<rom name="alcazar the forgotten fortress (1985)(activision)[cr disk jockey].do" size="143360" crc="7ef58da3" sha1="65f0036593f8083537b901cabe9e7a7859249600" offset="0x0000" />
+				<rom name="alcazar the forgotten fortress (1985)(activision)(clean crack).dsk" size="143360" crc="38a4bc9f" sha1="0d58e0821508b06ccbb73cbe6d7b45b07f7bfda8" offset="0x0000" />
 			</dataarea>
 		</part>
 	</software>
@@ -3726,13 +3726,13 @@
 	</software>
 
 	<software name="cntdsht">
-		<description>Countdown to Shutdown</description>
+		<description>Countdown to Shutdown (clean crack)</description>
 		<year>1985</year>
 		<publisher>Activision</publisher>
 
 		<part name="flop1" interface="floppy_5_25">
 			<dataarea name="flop" size="143360">
-				<rom name="countdown to shutdown (1985)(activision)[cr circle k].dsk" size="143360" crc="d5b2f897" sha1="b8217d8a0077fd3001410b3bef6bf95363e4abae" offset="0x0000" />
+				<rom name="countdown to shutdown (1985)(activision)(trex crack).dsk" size="143360" crc="cf4ac129" sha1="ee6843930f3c78c738f3ef4cf1e306ef5897d8af" offset="0x0000" />
 			</dataarea>
 		</part>
 	</software>
@@ -4868,6 +4868,18 @@
 		</part>
 	</software>
 
+	<software name="gamemaker">
+		<description>Gamemaker</description>
+		<year>1985</year>
+		<publisher>Activision</publisher>
+
+		<part name="flop1" interface="floppy_5_25">
+			<dataarea name="flop" size="143360">
+				<rom name="gamemaker (1985)(activision)(trex crack).dsk" size="143360" crc="10b94ba0" sha1="ba1bdfa1b30edc981a8ad8d33a68ab5c81b9485b" offset="0x0000" />
+			</dataarea>
+		</part>
+	</software>
+
 	<software name="gauntlet">
 		<description>Gauntlet</description>
 		<year>1986</year>
@@ -4899,13 +4911,13 @@
 	</software>
 
 	<software name="gbust">
-		<description>Ghostbusters</description>
+		<description>Ghostbusters (clean crack)</description>
 		<year>1984</year>
 		<publisher>Activision</publisher>
 
 		<part name="flop1" interface="floppy_5_25">
 			<dataarea name="flop" size="143360">
-				<rom name="ghostbusters.dsk" size="143360" crc="de55f2c3" sha1="75305180d48135b0170ee73bafc51624a5a04e7b" offset="0x0000" />
+				<rom name="ghostbusters (1984)(activision)(clean crack).dsk" size="143360" crc="7664a255" sha1="708fc0c0903a7c3f61b0b873ce032e81762367ba" offset="0x0000" />
 			</dataarea>
 		</part>
 	</software>
@@ -5593,6 +5605,18 @@
 		<part name="flop1" interface="floppy_5_25">
 			<dataarea name="flop" size="143360">
 				<rom name="pinballcset.dsk" size="143360" crc="e9a48021" sha1="3be3e6602348149efdf28c75c6527c3094f3a36a" offset="0x0000" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pipedream">
+		<description>Pipe Dream (clean crack)</description>
+		<year>1990</year>
+		<publisher>Lucasfilm</publisher>
+
+		<part name="flop1" interface="floppy_5_25">
+			<dataarea name="flop" size="143360">
+				<rom name="pipe dream (1990)(lucasfilm)(trex crack).dsk" size="143360" crc="46befc67" sha1="654d9f22147a111a77f59cd775a3e2822579b085" offset="0x0000" />
 			</dataarea>
 		</part>
 	</software>
