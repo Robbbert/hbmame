@@ -12199,6 +12199,7 @@ csc                             // CSC: Champion Sensory Chess Challenger (Engli
 cscfr                           // * French
 cscg                            // * German
 cscsp                           // * Spanish
+fdes2000                        //
 feasbu                          // EAS: Elite A/S Challenger (Budapest program, English)
 feasbufr                        // * French
 feasbug                         // * German
@@ -14235,6 +14236,7 @@ edracula                        // Epoch
 efball                          // Epoch
 galaxy2                         // Epoch
 galaxy2b                        // Epoch
+grobot9                         // Gakken
 invspace                        // Epoch
 mcompgin                        // Mattel
 mvbfree                         // Mego
@@ -28950,6 +28952,7 @@ bioship                         // UPL-90062 (c) 1990 UPL + American Sammy licen
 bjtwin                          // UPL-93087 (c) 1993 NMK
 bjtwina                         // UPL-93087 (c) 1993 NMK
 bjtwinp                         // UPL-93087 (c) 1993 NMK
+bjtwinpa
 blkheart                        // UPL-91069
 blkheartj                       // UPL-91069
 bubl2000                        // (c) 1998 Tuning
@@ -32162,6 +32165,7 @@ hustler                         // GX343 (c) 1981 Konami
 hustlerb                        // bootleg
 hustlerb2                       // bootleg
 hustlerb4                       // bootleg
+hustlerb5                       // bootleg
 hustlerd                        // GX343 (c) 1981 Konami + Dynamo Games license
 mimonkey                        // (c) 1982 Universal Video Games (US Copyright Office info - http://cocatalog.loc.gov)
 mimonsco                        // (c) 1982 bootleg
@@ -35622,6 +35626,7 @@ demonwld                        // TP-O16 (c) 1990 Toaplan (+ Taito license when
 demonwld1                       // TP-O16 (c) 1989 Toaplan + Taito license
 demonwld2                       // TP-O16 (c) 1989 Toaplan
 demonwld3                       // TP-O16 (c) 1989 Toaplan
+demonwld4                       // TP-O16 (c) 1989 Toaplan
 fireshrk                        // TP-O17 (c) 1990 Toaplan
 fireshrka                       // TP-O17 (c) 1989 Toaplan
 fireshrkd                       // TP-O17 (c) 1990 Toaplan
