@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
@@ -156,7 +157,11 @@ static void DirInfo_SetDir(tDirInfo *pInfo, int nType, int nItem, LPCTSTR pText)
 static TCHAR* DirInfo_Dir(tDirInfo *pInfo, int nType)
 {
 	assert(!IsMultiDir(nType));
-	return pInfo[nType].m_tDirectory;
+	TCHAR* t = pInfo[nType].m_tDirectory;
+	// if a multipath exists in a single-path-only area then truncate it
+	TCHAR* i = _tcstok(t, TEXT(";"));
+	i++;
+	return t;
 }
 
 static TCHAR* DirInfo_Path(tDirInfo *pInfo, int nType, int nItem)
@@ -450,8 +455,7 @@ static void Directories_OnInsert(HWND hDlg)
 				return;
 
 			for (i = DirInfo_NumDir(g_pDirInfo, nType); nItem < i; i--)
-				_tcscpy(DirInfo_Path(g_pDirInfo, nType, i),
-					   DirInfo_Path(g_pDirInfo, nType, i - 1));
+				_tcscpy(DirInfo_Path(g_pDirInfo, nType, i), DirInfo_Path(g_pDirInfo, nType, i - 1));
 
 			_tcscpy(DirInfo_Path(g_pDirInfo, nType, nItem), buf);
 			DirInfo_NumDir(g_pDirInfo, nType)++;

@@ -4,7 +4,7 @@
 
  /***************************************************************************
 
-  mui_opts.c
+  mui_opts.cpp
 
   Stores global options and per-game options;
 
@@ -86,111 +86,110 @@ static void ResetToDefaults(windows_options &opts, int priority);
     Internal defines
  ***************************************************************************/
 
-#define GAMEINFO_INI_FILENAME					MAMENAME "_g.ini"
-#define MEWUI_FILENAME							"ini\\ui.ini"
+#define GAMEINFO_INI_FILENAME                    MAMENAME "_g.ini"
+#define MEWUI_FILENAME                           "ini\\ui.ini"
 
-#define MUIOPTION_LIST_MODE						"list_mode"
-#define MUIOPTION_CHECK_GAME					"check_game"
-#define MUIOPTION_JOYSTICK_IN_INTERFACE			"joystick_in_interface"
-#define MUIOPTION_KEYBOARD_IN_INTERFACE			"keyboard_in_interface"
-#define MUIOPTION_CYCLE_SCREENSHOT				"cycle_screenshot"
-#define MUIOPTION_STRETCH_SCREENSHOT_LARGER		"stretch_screenshot_larger"
-#define MUIOPTION_SCREENSHOT_BORDER_SIZE		"screenshot_bordersize"
-#define MUIOPTION_SCREENSHOT_BORDER_COLOR		"screenshot_bordercolor"
-#define MUIOPTION_INHERIT_FILTER				"inherit_filter"
-#define MUIOPTION_OFFSET_CLONES					"offset_clones"
-#define MUIOPTION_DEFAULT_FOLDER_ID				"default_folder_id"
-#define MUIOPTION_SHOW_IMAGE_SECTION			"show_image_section"
-#define MUIOPTION_SHOW_FOLDER_SECTION			"show_folder_section"
-#define MUIOPTION_HIDE_FOLDERS					"hide_folders"
-#define MUIOPTION_SHOW_STATUS_BAR				"show_status_bar"
-#define MUIOPTION_SHOW_TABS						"show_tabs"
-#define MUIOPTION_SHOW_TOOLBAR					"show_tool_bar"
-#define MUIOPTION_CURRENT_TAB					"current_tab"
-#define MUIOPTION_WINDOW_X						"window_x"
-#define MUIOPTION_WINDOW_Y						"window_y"
-#define MUIOPTION_WINDOW_WIDTH					"window_width"
-#define MUIOPTION_WINDOW_HEIGHT					"window_height"
-#define MUIOPTION_WINDOW_STATE					"window_state"
-#define MUIOPTION_CUSTOM_COLOR					"custom_color"
-#define MUIOPTION_LIST_FONT						"list_font"
-#define MUIOPTION_TEXT_COLOR					"text_color"
-#define MUIOPTION_CLONE_COLOR					"clone_color"
-#define MUIOPTION_HIDE_TABS						"hide_tabs"
-#define MUIOPTION_HISTORY_TAB					"history_tab"
-#define MUIOPTION_COLUMN_WIDTHS					"column_widths"
-#define MUIOPTION_COLUMN_ORDER					"column_order"
-#define MUIOPTION_COLUMN_SHOWN					"column_shown"
-#define MUIOPTION_SPLITTERS						"splitters"
-#define MUIOPTION_SORT_COLUMN					"sort_column"
-#define MUIOPTION_SORT_REVERSED					"sort_reversed"
-#define MUIOPTION_LANGUAGE						"language"
-#define MUIOPTION_ICONS_DIRECTORY			"icons_directory"
-#define MUIOPTION_BACKGROUND_DIRECTORY			"background_directory"
-#define MUIOPTION_UI_KEY_UP				"ui_key_up"
-#define MUIOPTION_UI_KEY_DOWN				"ui_key_down"
-#define MUIOPTION_UI_KEY_LEFT				"ui_key_left"
-#define MUIOPTION_UI_KEY_RIGHT				"ui_key_right"
-#define MUIOPTION_UI_KEY_START				"ui_key_start"
-#define MUIOPTION_UI_KEY_PGUP				"ui_key_pgup"
-#define MUIOPTION_UI_KEY_PGDWN				"ui_key_pgdwn"
-#define MUIOPTION_UI_KEY_HOME				"ui_key_home"
-#define MUIOPTION_UI_KEY_END				"ui_key_end"
-#define MUIOPTION_UI_KEY_SS_CHANGE			"ui_key_ss_change"
-#define MUIOPTION_UI_KEY_HISTORY_UP			"ui_key_history_up"
-#define MUIOPTION_UI_KEY_HISTORY_DOWN			"ui_key_history_down"
-#define MUIOPTION_UI_KEY_CONTEXT_FILTERS		"ui_key_context_filters"
-#define MUIOPTION_UI_KEY_SELECT_RANDOM			"ui_key_select_random"
-#define MUIOPTION_UI_KEY_GAME_AUDIT			"ui_key_game_audit"
-#define MUIOPTION_UI_KEY_GAME_PROPERTIES		"ui_key_game_properties"
-#define MUIOPTION_UI_KEY_HELP_CONTENTS			"ui_key_help_contents"
-#define MUIOPTION_UI_KEY_UPDATE_GAMELIST		"ui_key_update_gamelist"
-#define MUIOPTION_UI_KEY_VIEW_FOLDERS			"ui_key_view_folders"
-#define MUIOPTION_UI_KEY_VIEW_FULLSCREEN		"ui_key_view_fullscreen"
-#define MUIOPTION_UI_KEY_VIEW_PAGETAB			"ui_key_view_pagetab"
-#define MUIOPTION_UI_KEY_VIEW_PICTURE_AREA		"ui_key_view_picture_area"
-#define MUIOPTION_UI_KEY_VIEW_STATUS			"ui_key_view_status"
-#define MUIOPTION_UI_KEY_VIEW_TOOLBARS			"ui_key_view_toolbars"
-#define MUIOPTION_UI_KEY_VIEW_TAB_CABINET		"ui_key_view_tab_cabinet"
-#define MUIOPTION_UI_KEY_VIEW_TAB_CPANEL		"ui_key_view_tab_cpanel"
-#define MUIOPTION_UI_KEY_VIEW_TAB_FLYER			"ui_key_view_tab_flyer"
-#define MUIOPTION_UI_KEY_VIEW_TAB_HISTORY		"ui_key_view_tab_history"
-#define MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE		"ui_key_view_tab_marquee"
-#define MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT		"ui_key_view_tab_screenshot"
-#define MUIOPTION_UI_KEY_VIEW_TAB_TITLE			"ui_key_view_tab_title"
-#define MUIOPTION_UI_KEY_VIEW_TAB_PCB   		"ui_key_view_tab_pcb"
-#define MUIOPTION_UI_KEY_QUIT				"ui_key_quit"
-#define MUIOPTION_UI_JOY_UP				"ui_joy_up"
-#define MUIOPTION_UI_JOY_DOWN				"ui_joy_down"
-#define MUIOPTION_UI_JOY_LEFT				"ui_joy_left"
-#define MUIOPTION_UI_JOY_RIGHT				"ui_joy_right"
-#define MUIOPTION_UI_JOY_START				"ui_joy_start"
-#define MUIOPTION_UI_JOY_PGUP				"ui_joy_pgup"
-#define MUIOPTION_UI_JOY_PGDWN				"ui_joy_pgdwn"
-#define MUIOPTION_UI_JOY_HOME				"ui_joy_home"
-#define MUIOPTION_UI_JOY_END				"ui_joy_end"
-#define MUIOPTION_UI_JOY_SS_CHANGE			"ui_joy_ss_change"
-#define MUIOPTION_UI_JOY_HISTORY_UP			"ui_joy_history_up"
-#define MUIOPTION_UI_JOY_HISTORY_DOWN			"ui_joy_history_down"
-#define MUIOPTION_UI_JOY_EXEC				"ui_joy_exec"
-#define MUIOPTION_EXEC_COMMAND				"exec_command"
-#define MUIOPTION_EXEC_WAIT				"exec_wait"
-#define MUIOPTION_HIDE_MOUSE				"hide_mouse"
-#define MUIOPTION_FULL_SCREEN				"full_screen"
+#define MUIOPTION_LIST_MODE                      "list_mode"
+#define MUIOPTION_CHECK_GAME                     "check_game"
+#define MUIOPTION_JOYSTICK_IN_INTERFACE          "joystick_in_interface"
+#define MUIOPTION_KEYBOARD_IN_INTERFACE          "keyboard_in_interface"
+#define MUIOPTION_CYCLE_SCREENSHOT               "cycle_screenshot"
+#define MUIOPTION_STRETCH_SCREENSHOT_LARGER      "stretch_screenshot_larger"
+#define MUIOPTION_SCREENSHOT_BORDER_SIZE         "screenshot_bordersize"
+#define MUIOPTION_SCREENSHOT_BORDER_COLOR        "screenshot_bordercolor"
+#define MUIOPTION_INHERIT_FILTER                 "inherit_filter"
+#define MUIOPTION_OFFSET_CLONES                  "offset_clones"
+#define MUIOPTION_DEFAULT_FOLDER_ID              "default_folder_id"
+#define MUIOPTION_SHOW_IMAGE_SECTION             "show_image_section"
+#define MUIOPTION_SHOW_FOLDER_SECTION            "show_folder_section"
+#define MUIOPTION_HIDE_FOLDERS                   "hide_folders"
+#define MUIOPTION_SHOW_STATUS_BAR                "show_status_bar"
+#define MUIOPTION_SHOW_TABS                      "show_tabs"
+#define MUIOPTION_SHOW_TOOLBAR                   "show_tool_bar"
+#define MUIOPTION_CURRENT_TAB                    "current_tab"
+#define MUIOPTION_WINDOW_X                       "window_x"
+#define MUIOPTION_WINDOW_Y                       "window_y"
+#define MUIOPTION_WINDOW_WIDTH                   "window_width"
+#define MUIOPTION_WINDOW_HEIGHT                  "window_height"
+#define MUIOPTION_WINDOW_STATE                   "window_state"
+#define MUIOPTION_CUSTOM_COLOR                   "custom_color"
+#define MUIOPTION_LIST_FONT                      "list_font"
+#define MUIOPTION_TEXT_COLOR                     "text_color"
+#define MUIOPTION_CLONE_COLOR                    "clone_color"
+#define MUIOPTION_HIDE_TABS                      "hide_tabs"
+#define MUIOPTION_HISTORY_TAB                    "history_tab"
+#define MUIOPTION_COLUMN_WIDTHS                  "column_widths"
+#define MUIOPTION_COLUMN_ORDER                   "column_order"
+#define MUIOPTION_COLUMN_SHOWN                   "column_shown"
+#define MUIOPTION_SPLITTERS                      "splitters"
+#define MUIOPTION_SORT_COLUMN                    "sort_column"
+#define MUIOPTION_SORT_REVERSED                  "sort_reversed"
+#define MUIOPTION_ICONS_DIRECTORY                "icons_directory"
+#define MUIOPTION_BACKGROUND_DIRECTORY           "background_directory"
+#define MUIOPTION_UI_KEY_UP                      "ui_key_up"
+#define MUIOPTION_UI_KEY_DOWN                    "ui_key_down"
+#define MUIOPTION_UI_KEY_LEFT                    "ui_key_left"
+#define MUIOPTION_UI_KEY_RIGHT                   "ui_key_right"
+#define MUIOPTION_UI_KEY_START                   "ui_key_start"
+#define MUIOPTION_UI_KEY_PGUP                    "ui_key_pgup"
+#define MUIOPTION_UI_KEY_PGDWN                   "ui_key_pgdwn"
+#define MUIOPTION_UI_KEY_HOME                    "ui_key_home"
+#define MUIOPTION_UI_KEY_END                     "ui_key_end"
+#define MUIOPTION_UI_KEY_SS_CHANGE               "ui_key_ss_change"
+#define MUIOPTION_UI_KEY_HISTORY_UP              "ui_key_history_up"
+#define MUIOPTION_UI_KEY_HISTORY_DOWN            "ui_key_history_down"
+#define MUIOPTION_UI_KEY_CONTEXT_FILTERS         "ui_key_context_filters"
+#define MUIOPTION_UI_KEY_SELECT_RANDOM           "ui_key_select_random"
+#define MUIOPTION_UI_KEY_GAME_AUDIT              "ui_key_game_audit"
+#define MUIOPTION_UI_KEY_GAME_PROPERTIES         "ui_key_game_properties"
+#define MUIOPTION_UI_KEY_HELP_CONTENTS           "ui_key_help_contents"
+#define MUIOPTION_UI_KEY_UPDATE_GAMELIST         "ui_key_update_gamelist"
+#define MUIOPTION_UI_KEY_VIEW_FOLDERS            "ui_key_view_folders"
+#define MUIOPTION_UI_KEY_VIEW_FULLSCREEN         "ui_key_view_fullscreen"
+#define MUIOPTION_UI_KEY_VIEW_PAGETAB            "ui_key_view_pagetab"
+#define MUIOPTION_UI_KEY_VIEW_PICTURE_AREA       "ui_key_view_picture_area"
+#define MUIOPTION_UI_KEY_VIEW_STATUS             "ui_key_view_status"
+#define MUIOPTION_UI_KEY_VIEW_TOOLBARS           "ui_key_view_toolbars"
+#define MUIOPTION_UI_KEY_VIEW_TAB_CABINET        "ui_key_view_tab_cabinet"
+#define MUIOPTION_UI_KEY_VIEW_TAB_CPANEL         "ui_key_view_tab_cpanel"
+#define MUIOPTION_UI_KEY_VIEW_TAB_FLYER          "ui_key_view_tab_flyer"
+#define MUIOPTION_UI_KEY_VIEW_TAB_HISTORY        "ui_key_view_tab_history"
+#define MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE        "ui_key_view_tab_marquee"
+#define MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT     "ui_key_view_tab_screenshot"
+#define MUIOPTION_UI_KEY_VIEW_TAB_TITLE          "ui_key_view_tab_title"
+#define MUIOPTION_UI_KEY_VIEW_TAB_PCB            "ui_key_view_tab_pcb"
+#define MUIOPTION_UI_KEY_QUIT                    "ui_key_quit"
+#define MUIOPTION_UI_JOY_UP                      "ui_joy_up"
+#define MUIOPTION_UI_JOY_DOWN                    "ui_joy_down"
+#define MUIOPTION_UI_JOY_LEFT                    "ui_joy_left"
+#define MUIOPTION_UI_JOY_RIGHT                   "ui_joy_right"
+#define MUIOPTION_UI_JOY_START                   "ui_joy_start"
+#define MUIOPTION_UI_JOY_PGUP                    "ui_joy_pgup"
+#define MUIOPTION_UI_JOY_PGDWN                   "ui_joy_pgdwn"
+#define MUIOPTION_UI_JOY_HOME                    "ui_joy_home"
+#define MUIOPTION_UI_JOY_END                     "ui_joy_end"
+#define MUIOPTION_UI_JOY_SS_CHANGE               "ui_joy_ss_change"
+#define MUIOPTION_UI_JOY_HISTORY_UP              "ui_joy_history_up"
+#define MUIOPTION_UI_JOY_HISTORY_DOWN            "ui_joy_history_down"
+#define MUIOPTION_UI_JOY_EXEC                    "ui_joy_exec"
+#define MUIOPTION_EXEC_COMMAND                   "exec_command"
+#define MUIOPTION_EXEC_WAIT                      "exec_wait"
+#define MUIOPTION_HIDE_MOUSE                     "hide_mouse"
+#define MUIOPTION_FULL_SCREEN                    "full_screen"
 
 #ifdef MESS
-#define MUIOPTION_SHOW_SOFTWARE_SECTION			"show_software_section"
-#define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA		"ui_key_view_software_area"
-#define MUIOPTION_DEFAULT_GAME				"default_system"
-#define MUIDEFAULT_SELECTION				"3do"
-#define MUIDEFAULT_SPLITTERS				"152,310,468"
+#define MUIOPTION_SHOW_SOFTWARE_SECTION          "show_software_section"
+#define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA      "ui_key_view_software_area"
+#define MUIOPTION_DEFAULT_GAME                   "default_system"
+#define MUIDEFAULT_SELECTION                     "3do"
+#define MUIDEFAULT_SPLITTERS                     "152,310,468"
 #else
-#define MUIOPTION_DEFAULT_GAME				"default_machine"
-#define MUIDEFAULT_SELECTION				"puckman"
-#define MUIDEFAULT_SPLITTERS				"152,362"
+#define MUIOPTION_DEFAULT_GAME                   "default_machine"
+#define MUIDEFAULT_SELECTION                     "puckman"
+#define MUIDEFAULT_SPLITTERS                     "152,362"
 #endif
 
-#define MUIOPTION_VERSION				"version"
+#define MUIOPTION_VERSION                        "version"
 
 
 
@@ -214,109 +213,108 @@ static game_options game_opts;
 const options_entry winui_options::s_option_entries[] =
 {
 	// UI options
-	{ NULL,						NULL,       OPTION_HEADER,     "APPLICATION OPTIONS" },
-	{ MUIOPTION_VERSION,				"",         OPTION_STRING,                 NULL },
-	{ NULL,						NULL,       OPTION_HEADER,     "DISPLAY STATE OPTIONS" },
-	{ MUIOPTION_DEFAULT_GAME,			MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
-	{ MUIOPTION_DEFAULT_FOLDER_ID,			"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SHOW_IMAGE_SECTION,			"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_FULL_SCREEN,			"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_CURRENT_TAB,			"0",        OPTION_STRING,                 NULL },
-	{ MUIOPTION_SHOW_TOOLBAR,			"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_STATUS_BAR,			"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_FOLDERS,			"",         OPTION_STRING,                 NULL },
-	{ MUIOPTION_SHOW_FOLDER_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_TABS,				"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_TABS,				"marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
-	{ MUIOPTION_HISTORY_TAB,			"0",        OPTION_INTEGER,                 NULL },
+	{ NULL,                                   NULL,       OPTION_HEADER,     "APPLICATION OPTIONS" },
+	{ MUIOPTION_VERSION,                      "",         OPTION_STRING,                 NULL },
+	{ NULL,                                   NULL,       OPTION_HEADER,     "DISPLAY STATE OPTIONS" },
+	{ MUIOPTION_DEFAULT_GAME,                 MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
+	{ MUIOPTION_DEFAULT_FOLDER_ID,            "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SHOW_IMAGE_SECTION,           "1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_FULL_SCREEN,                  "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_CURRENT_TAB,                  "0",        OPTION_STRING,                 NULL },
+	{ MUIOPTION_SHOW_TOOLBAR,                 "1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_SHOW_STATUS_BAR,              "1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_FOLDERS,                 "",         OPTION_STRING,                 NULL },
+	{ MUIOPTION_SHOW_FOLDER_SECTION,          "1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_SHOW_TABS,                    "1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_TABS,                    "marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
+	{ MUIOPTION_HISTORY_TAB,                  "0",        OPTION_INTEGER,                 NULL },
 #ifdef MESS
-	{ MUIOPTION_SHOW_SOFTWARE_SECTION,		"1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_SHOW_SOFTWARE_SECTION,        "1",        OPTION_BOOLEAN,    NULL },
 #endif
-	{ MUIOPTION_SORT_COLUMN,			"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SORT_REVERSED,			"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_WINDOW_X,				"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_Y,				"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_WIDTH,			"800",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_HEIGHT,			"600",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_STATE,			"1",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_TEXT_COLOR,				"-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_CLONE_COLOR,			"-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_CUSTOM_COLOR,			"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", OPTION_STRING, NULL },
+	{ MUIOPTION_SORT_COLUMN,                  "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SORT_REVERSED,                "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_WINDOW_X,                     "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_Y,                     "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_WIDTH,                 "800",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_HEIGHT,                "600",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_STATE,                 "1",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_TEXT_COLOR,                   "-1",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_CLONE_COLOR,                  "-1",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_CUSTOM_COLOR,                 "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", OPTION_STRING, NULL },
 	/* ListMode needs to be before ColumnWidths settings */
-	{ MUIOPTION_LIST_MODE,				"5",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SPLITTERS,				MUIDEFAULT_SPLITTERS, OPTION_STRING,       NULL },
-	{ MUIOPTION_LIST_FONT,				"-8,0,0,0,400,0,0,0,0,0,0,0,MS Sans Serif", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_WIDTHS,			"185,78,84,84,64,88,74,108,60,144,84,40,40", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_ORDER,			"0,1,2,3,4,5,6,7,8,9,10,11,12", OPTION_STRING, NULL },
-	{ MUIOPTION_COLUMN_SHOWN,			"1,1,1,1,1,1,1,1,1,1,1,1,0", OPTION_STRING,  NULL },
-	{ NULL,						NULL,       OPTION_HEADER,     "INTERFACE OPTIONS" },
-	{ MUIOPTION_LANGUAGE,				"english",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_CHECK_GAME,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_JOYSTICK_IN_INTERFACE,		"1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_KEYBOARD_IN_INTERFACE,		"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_MOUSE,				"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_INHERIT_FILTER,			"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_OFFSET_CLONES,			"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_STRETCH_SCREENSHOT_LARGER,		"0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_CYCLE_SCREENSHOT,			"0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SCREENSHOT_BORDER_SIZE,		"11",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SCREENSHOT_BORDER_COLOR,		"-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_EXEC_COMMAND,			"",         OPTION_STRING,                 NULL },
-	{ MUIOPTION_EXEC_WAIT,				"0",        OPTION_INTEGER,                 NULL },
-	{ NULL,						NULL,       OPTION_HEADER,     "SEARCH PATH OPTIONS" },
-	{ MUIOPTION_BACKGROUND_DIRECTORY,		"bkground", OPTION_STRING,                 NULL },
-	{ MUIOPTION_ICONS_DIRECTORY,			"icons",    OPTION_STRING,                 NULL },
-	{ NULL,						NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
-	{ MUIOPTION_UI_KEY_UP,				"KEYCODE_UP",						OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_DOWN,			"KEYCODE_DOWN", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_LEFT,			"KEYCODE_LEFT", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_RIGHT,			"KEYCODE_RIGHT",					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_START,			"KEYCODE_ENTER NOT KEYCODE_LALT",	OPTION_STRING,			NULL },
-	{ MUIOPTION_UI_KEY_PGUP,			"KEYCODE_PGUP", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_PGDWN,			"KEYCODE_PGDN", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_HOME,			"KEYCODE_HOME", 					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_END,				"KEYCODE_END",						OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_SS_CHANGE,			"KEYCODE_INSERT",					OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_HISTORY_UP,			"KEYCODE_DEL",						OPTION_STRING,          NULL },
-	{ MUIOPTION_UI_KEY_HISTORY_DOWN,		"KEYCODE_LALT KEYCODE_0",			OPTION_STRING,  		NULL },
-	{ MUIOPTION_UI_KEY_CONTEXT_FILTERS,		"KEYCODE_LCONTROL KEYCODE_F", OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_SELECT_RANDOM,		"KEYCODE_LCONTROL KEYCODE_R", OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_GAME_AUDIT,			"KEYCODE_LALT KEYCODE_A",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_GAME_PROPERTIES,		"KEYCODE_LALT KEYCODE_ENTER", OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_HELP_CONTENTS,		"KEYCODE_F1",                 OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_UPDATE_GAMELIST,		"KEYCODE_F5",                 OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_FOLDERS,		"KEYCODE_LALT KEYCODE_D",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_FULLSCREEN,		"KEYCODE_F11",                OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_PAGETAB,		"KEYCODE_LALT KEYCODE_B",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,		"KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
+	{ MUIOPTION_LIST_MODE,                    "5",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SPLITTERS,                    MUIDEFAULT_SPLITTERS, OPTION_STRING,       NULL },
+	{ MUIOPTION_LIST_FONT,                    "-8,0,0,0,400,0,0,0,0,0,0,0,MS Sans Serif", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_WIDTHS,                "185,78,84,84,64,88,74,108,60,144,84,40,40", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_ORDER,                 "0,1,2,3,4,5,6,7,8,9,10,11,12", OPTION_STRING, NULL },
+	{ MUIOPTION_COLUMN_SHOWN,                 "1,1,1,1,1,1,1,1,1,1,1,1,0", OPTION_STRING,  NULL },
+	{ NULL,                                   NULL,       OPTION_HEADER,     "INTERFACE OPTIONS" },
+	{ MUIOPTION_CHECK_GAME,                   "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_JOYSTICK_IN_INTERFACE,        "1",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_KEYBOARD_IN_INTERFACE,        "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_HIDE_MOUSE,                   "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_INHERIT_FILTER,               "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_OFFSET_CLONES,                "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_STRETCH_SCREENSHOT_LARGER,    "0",        OPTION_BOOLEAN,    NULL },
+	{ MUIOPTION_CYCLE_SCREENSHOT,             "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SCREENSHOT_BORDER_SIZE,       "11",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SCREENSHOT_BORDER_COLOR,      "-1",       OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_EXEC_COMMAND,                 "",         OPTION_STRING,                 NULL },
+	{ MUIOPTION_EXEC_WAIT,                    "0",        OPTION_INTEGER,                 NULL },
+	{ NULL,                                   NULL,       OPTION_HEADER,     "SEARCH PATH OPTIONS" },
+	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground", OPTION_STRING,                 NULL },
+	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
+	{ NULL,                                   NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
+	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_DOWN,                  "KEYCODE_DOWN",                     OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_LEFT,                  "KEYCODE_LEFT",                     OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_RIGHT,                 "KEYCODE_RIGHT",                    OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_START,                 "KEYCODE_ENTER NOT KEYCODE_LALT",    OPTION_STRING,            NULL },
+	{ MUIOPTION_UI_KEY_PGUP,                  "KEYCODE_PGUP",                     OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_PGDWN,                 "KEYCODE_PGDN",                     OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_HOME,                  "KEYCODE_HOME",                     OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_END,                   "KEYCODE_END",                        OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_SS_CHANGE,             "KEYCODE_INSERT",                    OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_HISTORY_UP,            "KEYCODE_DEL",                        OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_HISTORY_DOWN,          "KEYCODE_LALT KEYCODE_0",            OPTION_STRING,          NULL },
+	{ MUIOPTION_UI_KEY_CONTEXT_FILTERS,       "KEYCODE_LCONTROL KEYCODE_F", OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_SELECT_RANDOM,         "KEYCODE_LCONTROL KEYCODE_R", OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_GAME_AUDIT,            "KEYCODE_LALT KEYCODE_A",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_GAME_PROPERTIES,       "KEYCODE_LALT KEYCODE_ENTER", OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_HELP_CONTENTS,         "KEYCODE_F1",                 OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_UPDATE_GAMELIST,       "KEYCODE_F5",                 OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_FOLDERS,          "KEYCODE_LALT KEYCODE_D",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_FULLSCREEN,       "KEYCODE_F11",                OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_PAGETAB,          "KEYCODE_LALT KEYCODE_B",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,     "KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
 #ifdef MESS
-	{ MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA,		"KEYCODE_LALT KEYCODE_W",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA,    "KEYCODE_LALT KEYCODE_W",     OPTION_STRING, NULL },
 #endif
-	{ MUIOPTION_UI_KEY_VIEW_STATUS,			"KEYCODE_LALT KEYCODE_S",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TOOLBARS,		"KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,		"KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_CPANEL,		"KEYCODE_LALT KEYCODE_6",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_FLYER,		"KEYCODE_LALT KEYCODE_2",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_HISTORY,		"KEYCODE_LALT KEYCODE_8",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE,		"KEYCODE_LALT KEYCODE_4",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT,		"KEYCODE_LALT KEYCODE_1",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_TITLE,		"KEYCODE_LALT KEYCODE_5",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_VIEW_TAB_PCB,		"KEYCODE_LALT KEYCODE_7",     OPTION_STRING, NULL },
-	{ MUIOPTION_UI_KEY_QUIT,			"KEYCODE_LALT KEYCODE_Q",     OPTION_STRING, NULL },
-	{ NULL,						NULL,       OPTION_HEADER,     "NAVIGATION JOYSTICK CODES" },
-	{ MUIOPTION_UI_JOY_UP,				"1,1,1,1",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_DOWN,			"1,1,1,2",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_LEFT,			"1,1,2,1",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_RIGHT,			"1,1,2,2",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_START,			"1,0,1,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_PGUP,			"2,1,2,1",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_PGDWN,			"2,1,2,2",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_HOME,			"0,0,0,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_END,				"0,0,0,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_SS_CHANGE,			"2,0,3,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_HISTORY_UP,			"2,0,4,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_HISTORY_DOWN,		"2,0,1,0",  OPTION_STRING,                 NULL },
-	{ MUIOPTION_UI_JOY_EXEC,			"0,0,0,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_KEY_VIEW_STATUS,           "KEYCODE_LALT KEYCODE_S",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TOOLBARS,         "KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,      "KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_CPANEL,       "KEYCODE_LALT KEYCODE_6",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_FLYER,        "KEYCODE_LALT KEYCODE_2",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_HISTORY,      "KEYCODE_LALT KEYCODE_8",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_MARQUEE,      "KEYCODE_LALT KEYCODE_4",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_SCREENSHOT,   "KEYCODE_LALT KEYCODE_1",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_TITLE,        "KEYCODE_LALT KEYCODE_5",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_VIEW_TAB_PCB,          "KEYCODE_LALT KEYCODE_7",     OPTION_STRING, NULL },
+	{ MUIOPTION_UI_KEY_QUIT,                  "KEYCODE_LALT KEYCODE_Q",     OPTION_STRING, NULL },
+	{ NULL,                                   NULL,      OPTION_HEADER,     "NAVIGATION JOYSTICK CODES" },
+	{ MUIOPTION_UI_JOY_UP,                    "1,1,1,1",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_DOWN,                  "1,1,1,2",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_LEFT,                  "1,1,2,1",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_RIGHT,                 "1,1,2,2",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_START,                 "1,0,1,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_PGUP,                  "2,1,2,1",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_PGDWN,                 "2,1,2,2",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_HOME,                  "0,0,0,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_END,                   "0,0,0,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_SS_CHANGE,             "2,0,3,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_HISTORY_UP,            "2,0,4,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_HISTORY_DOWN,          "2,0,1,0",  OPTION_STRING,                 NULL },
+	{ MUIOPTION_UI_JOY_EXEC,                  "0,0,0,0",  OPTION_STRING,                 NULL },
 	{ NULL }
 };
 
@@ -324,7 +322,7 @@ const options_entry winui_options::s_option_entries[] =
 // no longer used, but keep in case we need to add more per-game options in the future
 static const options_entry perGameOptions[] =
 {
-	// per game options in messui.ini - transferred to commentpath
+	// per game options in messui.ini - transferred to swpath
 	{ "_extra_software",         "",         OPTION_STRING,  NULL },
 	{ NULL }
 };
@@ -491,10 +489,7 @@ static void options_set_color(winui_options &opts, const char *name, COLORREF va
 	}
 	else
 	{
-		snprintf(value_str, ARRAY_LENGTH(value_str), "%d,%d,%d",
-			(((int) value) >>  0) & 0xFF,
-			(((int) value) >>  8) & 0xFF,
-			(((int) value) >> 16) & 0xFF);
+		snprintf(value_str, ARRAY_LENGTH(value_str), "%d,%d,%d", (((int) value) >>  0) & 0xFF, (((int) value) >>  8) & 0xFF, (((int) value) >> 16) & 0xFF);
 	}
 	std::string error_string;
 	opts.set_value(name, value_str, OPTION_PRIORITY_CMDLINE,error_string);
@@ -1073,17 +1068,6 @@ BOOL GetSortReverse(void)
 	return settings.bool_value( MUIOPTION_SORT_REVERSED);
 }
 
-const char* GetLanguage(void)		// this is unused I guess
-{
-	return settings.value( MUIOPTION_LANGUAGE);
-}
-
-void SetLanguage(const char* lang)	// same as above, time to remove it?
-{
-	std::string error_string;
-	settings.set_value(MUIOPTION_LANGUAGE, lang, OPTION_PRIORITY_CMDLINE,error_string);
-}
-
 const char* GetLanguageUI(void)
 {
 	return global.value(OPTION_LANGUAGE);
@@ -1163,15 +1147,15 @@ void SetCtrlrDir(const char* path)
 	global.set_value(OPTION_CTRLRPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-const char* GetCommentDir(void)
+const char* GetSWDir(void)
 {
-	return global.value(OPTION_COMMENT_DIRECTORY);
+	return global.value(OPTION_SWPATH);
 }
 
-void SetCommentDir(const char* path)
+void SetSWDir(const char* path)
 {
 	std::string error_string;
-	global.set_value(OPTION_COMMENT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_SWPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
 const char* GetCfgDir(void)
@@ -2534,9 +2518,9 @@ void load_options(windows_options &opts, int game_num)
 
 		if (game_num > -1)
 		{
-			// global comment_dir serves a different purpose than for games, so blank it out
+			// global swpath serves a different purpose than for games, so blank it out
 			std::string error_string;
-			opts.set_value(OPTION_COMMENT_DIRECTORY, "", OPTION_PRIORITY_CMDLINE,error_string);
+			opts.set_value(OPTION_SWPATH, "", OPTION_PRIORITY_CMDLINE,error_string);
 			// Lastly, gamename.ini
 			driver = &driver_list::driver(game_num);
 			if (driver != NULL)
@@ -2614,35 +2598,33 @@ BOOL RequiredDriverCache(void)
 
 // from optionsms.cpp (MESSUI)
 
-#define MESSUI_SWLIST_COLUMN_SHOWN		"swlist_column_shown"
-#define MESSUI_SWLIST_COLUMN_WIDTHS		"swlist_column_widths"
-#define MESSUI_SWLIST_COLUMN_ORDER		"swlist_column_order"
-#define MESSUI_SWLIST_SORT_REVERSED		"swlist_sort_reversed"
-#define MESSUI_SWLIST_SORT_COLUMN		"swlist_sort_column"
-#define MESSUI_SOFTWARE_COLUMN_SHOWN		"mess_column_shown"
-#define MESSUI_SOFTWARE_COLUMN_WIDTHS		"mess_column_widths"
-#define MESSUI_SOFTWARE_COLUMN_ORDER		"mess_column_order"
-#define MESSUI_SOFTWARE_SORT_REVERSED		"mess_sort_reversed"
-#define MESSUI_SOFTWARE_SORT_COLUMN		"mess_sort_column"
-#define MESSUI_SOFTWARE_TAB			"current_software_tab"
-#define MESSUI_SOFTWAREPATH			"softwarepath"
+#define MESSUI_SL_COLUMN_SHOWN        "sl_column_shown"
+#define MESSUI_SL_COLUMN_WIDTHS       "sl_column_widths"
+#define MESSUI_SL_COLUMN_ORDER        "sl_column_order"
+#define MESSUI_SL_SORT_REVERSED       "sl_sort_reversed"
+#define MESSUI_SL_SORT_COLUMN         "sl_sort_column"
+#define MESSUI_SW_COLUMN_SHOWN        "sw_column_shown"
+#define MESSUI_SW_COLUMN_WIDTHS       "sw_column_widths"
+#define MESSUI_SW_COLUMN_ORDER        "sw_column_order"
+#define MESSUI_SW_SORT_REVERSED       "sw_sort_reversed"
+#define MESSUI_SW_SORT_COLUMN         "sw_sort_column"
+#define MESSUI_SOFTWARE_TAB           "current_software_tab"
 
 #define LOG_SOFTWARE 0
 
 static const options_entry mess_wingui_settings[] =
 {
-	{ MESSUI_SWLIST_COLUMN_WIDTHS,    "100,75,223,46,120,120", OPTION_STRING, NULL },
-	{ MESSUI_SWLIST_COLUMN_ORDER,     "0,1,2,3,4,5", OPTION_STRING, NULL }, // order of columns
-	{ MESSUI_SWLIST_COLUMN_SHOWN,     "1,1,1,1,1,1", OPTION_STRING, NULL }, // 0=hide,1=show
-	{ MESSUI_SWLIST_SORT_COLUMN,      "0", OPTION_INTEGER, NULL },
-	{ MESSUI_SWLIST_SORT_REVERSED,    "0", OPTION_BOOLEAN, NULL },
-	{ MESSUI_SOFTWARE_COLUMN_WIDTHS,  "400", OPTION_STRING, NULL },
-	{ MESSUI_SOFTWARE_COLUMN_ORDER,   "0", OPTION_STRING, NULL }, // 1= dummy column
-	{ MESSUI_SOFTWARE_COLUMN_SHOWN,   "1", OPTION_STRING, NULL }, // 0=don't show it
-	{ MESSUI_SOFTWARE_SORT_COLUMN,    "0", OPTION_INTEGER, NULL },
-	{ MESSUI_SOFTWARE_SORT_REVERSED,  "0", OPTION_BOOLEAN, NULL },
+	{ MESSUI_SL_COLUMN_WIDTHS,        "100,75,223,46,120,120", OPTION_STRING, NULL },
+	{ MESSUI_SL_COLUMN_ORDER,         "0,1,2,3,4,5", OPTION_STRING, NULL }, // order of columns
+	{ MESSUI_SL_COLUMN_SHOWN,         "1,1,1,1,1,1", OPTION_STRING, NULL }, // 0=hide,1=show
+	{ MESSUI_SL_SORT_COLUMN,          "0", OPTION_INTEGER, NULL },
+	{ MESSUI_SL_SORT_REVERSED,        "0", OPTION_BOOLEAN, NULL },
+	{ MESSUI_SW_COLUMN_WIDTHS,        "400", OPTION_STRING, NULL },
+	{ MESSUI_SW_COLUMN_ORDER,         "0", OPTION_STRING, NULL }, // 1= dummy column
+	{ MESSUI_SW_COLUMN_SHOWN,         "1", OPTION_STRING, NULL }, // 0=don't show it
+	{ MESSUI_SW_SORT_COLUMN,          "0", OPTION_INTEGER, NULL },
+	{ MESSUI_SW_SORT_REVERSED,        "0", OPTION_BOOLEAN, NULL },
 	{ MESSUI_SOFTWARE_TAB,            "0", OPTION_STRING, NULL },
-	{ MESSUI_SOFTWAREPATH,            "software", OPTION_STRING, NULL },
 	{ NULL }
 };
 
@@ -2657,149 +2639,138 @@ void MessSetupGameOptions(windows_options &opts, int driver_index)
 		mameopts.set_system_name(opts, driver_list::driver(driver_index).name);
 }
 
-void SetSWListColumnOrder(int order[])
+void SetSLColumnOrder(int order[])
 {
 	char column_order_string[80];
-	ColumnEncodeStringWithCount(order, column_order_string, SWLIST_COLUMN_MAX);
+	ColumnEncodeStringWithCount(order, column_order_string, SL_COLUMN_MAX);
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SWLIST_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-void GetSWListColumnOrder(int order[])
+void GetSLColumnOrder(int order[])
 {
 	const char *column_order_string;
-	column_order_string = MameUISettings().value(MESSUI_SWLIST_COLUMN_ORDER);
-	ColumnDecodeStringWithCount(column_order_string, order, SWLIST_COLUMN_MAX);
+	column_order_string = MameUISettings().value(MESSUI_SL_COLUMN_ORDER);
+	ColumnDecodeStringWithCount(column_order_string, order, SL_COLUMN_MAX);
 }
 
-void SetSWListColumnShown(int shown[])
+void SetSLColumnShown(int shown[])
 {
 	char column_shown_string[80];
-	ColumnEncodeStringWithCount(shown, column_shown_string, SWLIST_COLUMN_MAX);
+	ColumnEncodeStringWithCount(shown, column_shown_string, SL_COLUMN_MAX);
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SWLIST_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-void GetSWListColumnShown(int shown[])
+void GetSLColumnShown(int shown[])
 {
 	const char *column_shown_string;
-	column_shown_string = MameUISettings().value(MESSUI_SWLIST_COLUMN_SHOWN);
-	ColumnDecodeStringWithCount(column_shown_string, shown, SWLIST_COLUMN_MAX);
+	column_shown_string = MameUISettings().value(MESSUI_SL_COLUMN_SHOWN);
+	ColumnDecodeStringWithCount(column_shown_string, shown, SL_COLUMN_MAX);
 }
 
-void SetSWListColumnWidths(int width[])
+void SetSLColumnWidths(int width[])
 {
 	char column_width_string[80];
-	ColumnEncodeStringWithCount(width, column_width_string, SWLIST_COLUMN_MAX);
+	ColumnEncodeStringWithCount(width, column_width_string, SL_COLUMN_MAX);
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SWLIST_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-void GetSWListColumnWidths(int width[])
+void GetSLColumnWidths(int width[])
 {
 	const char *column_width_string;
-	column_width_string = MameUISettings().value(MESSUI_SWLIST_COLUMN_WIDTHS);
-	ColumnDecodeStringWithCount(column_width_string, width, SWLIST_COLUMN_MAX);
+	column_width_string = MameUISettings().value(MESSUI_SL_COLUMN_WIDTHS);
+	ColumnDecodeStringWithCount(column_width_string, width, SL_COLUMN_MAX);
 }
 
-void SetSWListSortColumn(int column)
+void SetSLSortColumn(int column)
 {
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SWLIST_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-int GetSWListSortColumn(void)
+int GetSLSortColumn(void)
 {
-	return MameUISettings().int_value(MESSUI_SWLIST_SORT_COLUMN);
+	return MameUISettings().int_value(MESSUI_SL_SORT_COLUMN);
 }
 
-void SetSWListSortReverse(BOOL reverse)
+void SetSLSortReverse(BOOL reverse)
 {
 	std::string error_string;
-	MameUISettings().set_value( MESSUI_SWLIST_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value( MESSUI_SL_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-BOOL GetSWListSortReverse(void)
+BOOL GetSLSortReverse(void)
 {
-	return MameUISettings().bool_value(MESSUI_SWLIST_SORT_REVERSED);
+	return MameUISettings().bool_value(MESSUI_SL_SORT_REVERSED);
 }
 
-void SetMessColumnOrder(int order[])
+void SetSWColumnOrder(int order[])
 {
 	char column_order_string[80];
-	ColumnEncodeStringWithCount(order, column_order_string, MESS_COLUMN_MAX);
+	ColumnEncodeStringWithCount(order, column_order_string, SW_COLUMN_MAX);
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SOFTWARE_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-void GetMessColumnOrder(int order[])
+void GetSWColumnOrder(int order[])
 {
 	const char *column_order_string;
-	column_order_string = MameUISettings().value(MESSUI_SOFTWARE_COLUMN_ORDER);
-	ColumnDecodeStringWithCount(column_order_string, order, MESS_COLUMN_MAX);
+	column_order_string = MameUISettings().value(MESSUI_SW_COLUMN_ORDER);
+	ColumnDecodeStringWithCount(column_order_string, order, SW_COLUMN_MAX);
 }
 
-void SetMessColumnShown(int shown[])
+void SetSWColumnShown(int shown[])
 {
 	char column_shown_string[80];
-	ColumnEncodeStringWithCount(shown, column_shown_string, MESS_COLUMN_MAX);
+	ColumnEncodeStringWithCount(shown, column_shown_string, SW_COLUMN_MAX);
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SOFTWARE_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-void GetMessColumnShown(int shown[])
+void GetSWColumnShown(int shown[])
 {
 	const char *column_shown_string;
-	column_shown_string = MameUISettings().value(MESSUI_SOFTWARE_COLUMN_SHOWN);
-	ColumnDecodeStringWithCount(column_shown_string, shown, MESS_COLUMN_MAX);
+	column_shown_string = MameUISettings().value(MESSUI_SW_COLUMN_SHOWN);
+	ColumnDecodeStringWithCount(column_shown_string, shown, SW_COLUMN_MAX);
 }
 
-void SetMessColumnWidths(int width[])
+void SetSWColumnWidths(int width[])
 {
 	char column_width_string[80];
-	ColumnEncodeStringWithCount(width, column_width_string, MESS_COLUMN_MAX);
+	ColumnEncodeStringWithCount(width, column_width_string, SW_COLUMN_MAX);
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SOFTWARE_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-void GetMessColumnWidths(int width[])
+void GetSWColumnWidths(int width[])
 {
 	const char *column_width_string;
-	column_width_string = MameUISettings().value(MESSUI_SOFTWARE_COLUMN_WIDTHS);
-	ColumnDecodeStringWithCount(column_width_string, width, MESS_COLUMN_MAX);
+	column_width_string = MameUISettings().value(MESSUI_SW_COLUMN_WIDTHS);
+	ColumnDecodeStringWithCount(column_width_string, width, SW_COLUMN_MAX);
 }
 
-void SetMessSortColumn(int column)
+void SetSWSortColumn(int column)
 {
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SOFTWARE_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
 }
 
-int GetMessSortColumn(void)
+int GetSWSortColumn(void)
 {
-	return MameUISettings().int_value(MESSUI_SOFTWARE_SORT_COLUMN);
+	return MameUISettings().int_value(MESSUI_SW_SORT_COLUMN);
 }
 
-void SetMessSortReverse(BOOL reverse)
-{
-	std::string error_string;
-	MameUISettings().set_value( MESSUI_SOFTWARE_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
-}
-
-BOOL GetMessSortReverse(void)
-{
-	return MameUISettings().bool_value(MESSUI_SOFTWARE_SORT_REVERSED);
-}
-
-const char* GetSoftwareDirs(void)
-{
-	return MameUISettings().value(MESSUI_SOFTWAREPATH);
-}
-
-void SetSoftwareDirs(const char* paths)
+void SetSWSortReverse(BOOL reverse)
 {
 	std::string error_string;
-	MameUISettings().set_value(MESSUI_SOFTWAREPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value( MESSUI_SW_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+}
+
+BOOL GetSWSortReverse(void)
+{
+	return MameUISettings().bool_value(MESSUI_SW_SORT_REVERSED);
 }
 
 void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *dev, const char *software)

@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 #ifndef MUI_OPTS_H
@@ -91,8 +92,8 @@ private:
 BOOL OptionsInit(void);
 void OptionsExit(void);
 
-#define OPTIONS_TYPE_GLOBAL		-1
-#define OPTIONS_TYPE_FOLDER		-2
+#define OPTIONS_TYPE_GLOBAL -1
+#define OPTIONS_TYPE_FOLDER -2
 
 void SetDirectories(windows_options &opts);
 
@@ -107,6 +108,90 @@ windows_options & MameUIGlobal(void);
 
 void LoadFolderFlags(void);
 //const char* GetFolderNameByID(UINT nID); // not used
+
+// Start interface to directories.h
+const char* GetRomDirs(void);
+void SetRomDirs(const char* paths);
+
+const char* GetSampleDirs(void);
+void  SetSampleDirs(const char* paths);
+
+const char* GetArtDir(void);
+void SetArtDir(const char* path);
+
+const char* GetCabinetDir(void);
+void SetCabinetDir(const char* path);
+
+const char* GetCheatDir(void);
+void SetCheatDir(const char* path);
+
+const char* GetCfgDir(void);
+void SetCfgDir(const char* path);
+
+const char* GetControlPanelDir(void);
+void SetControlPanelDir(const char* path);
+
+const char* GetCtrlrDir(void);
+void SetCtrlrDir(const char* path);
+
+const char* GetCrosshairDir(void);
+void SetCrosshairDir(const char* paths);
+
+const char* GetDatsDir(void);
+void SetDatsDir(const char *path);
+
+const char* GetFlyerDir(void);
+void SetFlyerDir(const char* path);
+
+const char* GetFolderDir(void);
+void SetFolderDir(const char* path);
+
+const char* GetFontDir(void);
+void SetFontDir(const char* paths);
+
+const char* GetHashDirs(void);
+void SetHashDirs(const char* paths);
+
+const char* GetDiffDir(void);
+void SetDiffDir(const char* path);
+
+const char* GetIconsDir(void);
+void SetIconsDir(const char* path);
+
+const char* GetIniDir(void);
+void SetIniDir(const char *path);
+
+const char* GetInpDir(void);
+void SetInpDir(const char* path);
+
+const char* GetLangDir(void);
+void SetLangDir(const char* path);
+
+const char* GetMarqueeDir(void);
+void SetMarqueeDir(const char* path);
+
+const char* GetNvramDir(void);
+void SetNvramDir(const char* path);
+
+const char* GetPcbDir(void);
+void SetPcbDir(const char* path);
+
+const char* GetPluginsDir(void);
+void SetPluginsDir(const char* path);
+
+const char* GetImgDir(void);
+void SetImgDir(const char* path);
+
+const char* GetStateDir(void);
+void SetStateDir(const char* path);
+
+const char* GetTitlesDir(void);
+void SetTitlesDir(const char* path);
+
+// MESSUI only
+const char* GetSWDir(void);
+void SetSWDir(const char* path);
+// End interface to directories.h
 
 void SaveOptions(void);
 void SaveDefaultOptions(void);
@@ -227,104 +312,17 @@ int  GetSortColumn(void);
 void SetSortReverse(BOOL reverse);
 BOOL GetSortReverse(void);
 
-const char* GetLanguage(void);
-void SetLanguage(const char* lang);
-
 const char* GetLanguageUI(void);
 
 bool GetEnablePlugins(void);
 
 const char* GetPlugins(void);
 
-const char* GetRomDirs(void);
-void SetRomDirs(const char* paths);
-
-const char* GetHashDirs(void);
-void SetHashDirs(const char* paths);
-
-const char* GetSampleDirs(void);
-void  SetSampleDirs(const char* paths);
-
-const char * GetIniDir(void);
-void SetIniDir(const char *path);
-
-const char* GetCfgDir(void);
-void SetCfgDir(const char* path);
-
-const char* GetNvramDir(void);
-void SetNvramDir(const char* path);
-
-const char* GetInpDir(void);
-void SetInpDir(const char* path);
-
-const char* GetImgDir(void);
-void SetImgDir(const char* path);
-
-const char* GetStateDir(void);
-void SetStateDir(const char* path);
-
-const char* GetArtDir(void);
-void SetArtDir(const char* path);
-
-const char* GetFlyerDir(void);
-void SetFlyerDir(const char* path);
-
-const char* GetFolderDir(void);
-void SetFolderDir(const char* path);
-
-const char* GetCabinetDir(void);
-void SetCabinetDir(const char* path);
-
-const char* GetMarqueeDir(void);
-void SetMarqueeDir(const char* path);
-
-const char* GetTitlesDir(void);
-void SetTitlesDir(const char* path);
-
-const char * GetControlPanelDir(void);
-void SetControlPanelDir(const char *path);
-
-const char * GetPcbDir(void);
-void SetPcbDir(const char *path);
-
-const char* GetPluginsDir(void);
-void SetPluginsDir(const char* path);
-
-const char* GetLangDir(void);
-void SetLangDir(const char* path);
-
-const char* GetDiffDir(void);
-void SetDiffDir(const char* path);
-
-const char* GetIconsDir(void);
-void SetIconsDir(const char* path);
-
-const char *GetBgDir(void);
-void SetBgDir(const char *path);
-
-const char* GetCtrlrDir(void);
-void SetCtrlrDir(const char* path);
-
-const char* GetCommentDir(void);
-void SetCommentDir(const char* path);
-
-const char* GetFolderDir(void);
-void SetFolderDir(const char* path);
-
-const char* GetFontDir(void);
-void  SetFontDir(const char* paths);
-
-const char* GetCrosshairDir(void);
-void  SetCrosshairDir(const char* paths);
-
-const char* GetCheatDir(void);
-void SetCheatDir(const char* path);
-
-const char* GetDatsDir(void);
-void SetDatsDir(const char *path);
-
 const char* GetSnapName(void);
 void SetSnapName(const char* pattern);
+
+const char* GetBgDir(void);
+void SetBgDir(const char* path);
 
 void ResetGameOptions(int driver_index);
 
@@ -452,48 +450,45 @@ BOOL RequiredDriverCache(void);
 
 enum
 {
-	MESS_COLUMN_IMAGES,
-	MESS_COLUMN_MAX
+	SW_COLUMN_IMAGES,
+	SW_COLUMN_MAX
 };
 
 enum
 {
-	SWLIST_COLUMN_IMAGES,
-	SWLIST_COLUMN_GOODNAME,
-	SWLIST_COLUMN_MANUFACTURER,
-	SWLIST_COLUMN_YEAR,
-	SWLIST_COLUMN_PLAYABLE,
-	SWLIST_COLUMN_USAGE,
-	SWLIST_COLUMN_MAX
+	SL_COLUMN_IMAGES,
+	SL_COLUMN_GOODNAME,
+	SL_COLUMN_MANUFACTURER,
+	SL_COLUMN_YEAR,
+	SL_COLUMN_PLAYABLE,
+	SL_COLUMN_USAGE,
+	SL_COLUMN_MAX
 };
 
 void MessSetupSettings(winui_options &settings);
 void MessSetupGameOptions(windows_options &opts, int driver_index);
 
-void SetMessColumnWidths(int widths[]);
-void GetMessColumnWidths(int widths[]);
-void SetMessColumnOrder(int order[]);
-void GetMessColumnOrder(int order[]);
-void SetMessColumnShown(int shown[]);
-void GetMessColumnShown(int shown[]);
-void SetMessSortColumn(int column);
-int  GetMessSortColumn(void);
-void SetMessSortReverse(BOOL reverse);
-BOOL GetMessSortReverse(void);
+void SetSWColumnWidths(int widths[]);
+void GetSWColumnWidths(int widths[]);
+void SetSWColumnOrder(int order[]);
+void GetSWColumnOrder(int order[]);
+void SetSWColumnShown(int shown[]);
+void GetSWColumnShown(int shown[]);
+void SetSWSortColumn(int column);
+int  GetSWSortColumn(void);
+void SetSWSortReverse(BOOL reverse);
+BOOL GetSWSortReverse(void);
 
-void SetSWListColumnWidths(int widths[]);
-void GetSWListColumnWidths(int widths[]);
-void SetSWListColumnOrder(int order[]);
-void GetSWListColumnOrder(int order[]);
-void SetSWListColumnShown(int shown[]);
-void GetSWListColumnShown(int shown[]);
-void SetSWListSortColumn(int column);
-int  GetSWListSortColumn(void);
-void SetSWListSortReverse(BOOL reverse);
-BOOL GetSWListSortReverse(void);
-
-const char* GetSoftwareDirs(void);
-void  SetSoftwareDirs(const char* paths);
+void SetSLColumnWidths(int widths[]);
+void GetSLColumnWidths(int widths[]);
+void SetSLColumnOrder(int order[]);
+void GetSLColumnOrder(int order[]);
+void SetSLColumnShown(int shown[]);
+void GetSLColumnShown(int shown[]);
+void SetSLSortColumn(int column);
+int  GetSLSortColumn(void);
+void SetSLSortReverse(BOOL reverse);
+BOOL GetSLSortReverse(void);
 
 void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *device, const char *software);
 const char *GetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *device);
