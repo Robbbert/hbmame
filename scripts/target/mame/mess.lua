@@ -394,6 +394,7 @@ MACHINES["DP8390"] = true
 --MACHINES["DS1204"] = true
 MACHINES["DS1302"] = true
 MACHINES["DS1315"] = true
+MACHINES["DS1386"] = true
 MACHINES["DS2401"] = true
 MACHINES["DS2404"] = true
 MACHINES["DS75160A"] = true
@@ -650,6 +651,7 @@ BUSES["IQ151"] = true
 BUSES["ISA"] = true
 BUSES["ISBX"] = true
 BUSES["HP_OPTROM"] = true
+BUSES["HP9845_IO"] = true
 BUSES["KC"] = true
 BUSES["LPCI"] = true
 BUSES["M5"] = true
@@ -1047,6 +1049,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"unisys",
 		"usp",
 		"veb",
+		"verifone",
 		"vidbrain",
 		"videoton",
 		"visual",
@@ -3086,6 +3089,12 @@ files {
 	MAME_DIR .. "src/mame/drivers/sc2.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "verifone")
+files {
+	MAME_DIR .. "src/mame/drivers/tranz330.cpp",
+	MAME_DIR .. "src/mame/includes/tranz330.h"
+}
+
 createMESSProjects(_target, _subtarget, "vidbrain")
 files {
 	MAME_DIR .. "src/mame/drivers/vidbrain.cpp",
@@ -3209,6 +3218,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/alphasma.cpp",
 	MAME_DIR .. "src/mame/drivers/ampro.cpp",
 	MAME_DIR .. "src/mame/drivers/amust.cpp",
+	MAME_DIR .. "src/mame/drivers/anzterm.cpp",
 	MAME_DIR .. "src/mame/drivers/applix.cpp",
 	MAME_DIR .. "src/mame/drivers/argox.cpp",
 	MAME_DIR .. "src/mame/drivers/attache.cpp",

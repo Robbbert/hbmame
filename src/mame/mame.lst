@@ -4,9 +4,9 @@
 
     mame.lst
 
-    This is not automatically generated file, and should be manually updated when
-    new driver is added. From time to time we will auto update comments
-    according to meta-data from source files.
+    This is not an automatically generated file, and it should be manually
+    updated when new driver is added. From time to time, we will auto-update
+    comments according to metadata from source files.
 
 ******************************************************************************/
 
@@ -1165,6 +1165,9 @@ amust                           //
 @source:angelkds.cpp
 angelkds                        // 833-6599 (c) 1988 Sega / Nasco?
 spcpostn                        // (c) 1986 Sega / Nasco"
+
+@source:anzterm.cpp
+anzterm                         // Burroughs EF315-I220
 
 @source:apc.cpp
 apc                             //
@@ -10317,7 +10320,8 @@ wizzard                         //
 @source:crystal.cpp
 crysbios                        //
 crysking                        // 2001 Brezzasoft. Crystal of the kings
-ddz                             // (c) 200?
+crzyddz2                        // 2006 Sealy
+ddz                             // 200?
 donghaer                        //
 evosocc                         // 2001 Evoga. Evolution Soccer
 officeye                        //
@@ -10912,6 +10916,8 @@ cmanhat                         // 03 1981.01 Manhattan
 cmissnx                         // 21 1982.04 Mission-X/Zoar
 cnightst                        // 32 1983.04 Night Star
 cnightst2                       // 32
+cocean1a                        // DT-1[10]1-A   1981.03.17 Ocean to Ocean (Slot) (Japan) (DECO Cassette MD) (Ver 1) // version verified, no lever used
+cocean6b                        // DT-1[10]6-B   1981       Ocean to Ocean (Slot) (US) (DECO Cassette MD) (Ver 6) // version not verified, labeled as 10 but might be the game number, set as 6, lever is used to stop the slot
 coozumou                        // 41 1984.05 Oozumou/The Grand Sumo
 cppicf                          // 39 1984.02 Peter Pepper's Ice Cream Factory
 cppicf2                         // 39
@@ -14591,8 +14597,9 @@ sdmg2                           // (c) 1997
 slqz2                           // (c) 1998
 spkrform                        // (c) ????
 starzan                         // (c) 2000?
-tarzan                          // (c) 1999?
-tarzana                         // (c) 1999?
+tarzan                          // (c) 1999
+tarzana                         // (c) 1999
+tarzanc                         // (c) 1999
 tjsb                            // (c) 1997
 
 @source:igspc.cpp
@@ -27661,6 +27668,7 @@ viostormub                      // GX168 (c) 1993 (US)
 myvision                        //
 
 @source:mz2000.cpp
+mz80b                           // 1981 Sharp MZ80B
 mz2000                          // 1981 Sharp MZ2000
 mz2200                          // 1981 Sharp MZ2200
 
@@ -27682,7 +27690,6 @@ mz800                           // 1984 Sharp MZ800
 
 @source:mz80.cpp
 mz80a                           // 1982 Sharp MZ80A
-mz80b                           // 1981 Sharp MZ80B
 mz80k                           // 1979 Sharp MZ80K
 mz80kj                          // 1979 Sharp MZ80K
 
@@ -28155,7 +28162,8 @@ derbyoc                         // 1999.10 Derby Owners Club (Japan) (Rev B)
 derbyoc2                        // 2001.10 Derby Owners Club II Ver.2.1 (Japan) (Rev B)
 derbyocw                        // 2005.?? Derby Owners Club World Edition EX (Rev D)
 dirtypig                        // 2004.09 Dirty Pig Skin Football
-doa2                            // 1999.11 Dead or Alive 2
+doa2                            // 1999.12? Dead or Alive 2
+doa2a                           // 1999.11 Dead or Alive 2 (Rev A)
 doa2m                           // 2000.01 Dead or Alive 2 Millennium
 dolphin                         // 2003.08 Dolphin Blue
 dragntr2                        // 2004.?? Dragon Treasure 2 (Rev A)
@@ -34127,6 +34135,7 @@ stuntair                        // (c) 1983 Nuova Videotron
 astrass                         // 1998.06 Astra Super Stars (Sunsoft)
 bakubaku                        // 1995.04 Bakubaku Animal
 batmanfr                        // 1996.02 Batman Forever (Acclaim)
+choroqhr						// 1998.12 Choro Q Hyper Racing Five (Takara)
 colmns97                        // 1997.01 Columns 97
 cotton2                         // 1997.11 Cotton 2 (Success)
 cottonbm                        // 1998.09 Cotton Boomerang (Success)
@@ -35793,6 +35802,9 @@ trackfldnz                      // (c) 1982 Goldberg Enterprizes Inc.
 wizzquiz                        // (c) 1985 Konami
 wizzquiza                       // (c) 1985 Zilec-Zenitone
 yieartf                         // GX361 (c) 1985
+
+@source:tranz330.cpp
+tranz330                        // (c) 1985 VeriFone
 
 @source:travrusa.cpp
 motorace                        // (c) 1983 Williams license

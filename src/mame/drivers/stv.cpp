@@ -94,11 +94,11 @@ READ8_MEMBER(stv_state::stv_ioga_r)
 	UINT8 res;
 
 	res = 0xff;
-	offset &= 0x1f; // mirror?
-
 	if(offset & 0x20 && !space.debugger_access())
 		printf("Reading from mirror %08x?\n",offset);
 
+	offset &= 0x1f; // mirror?
+	
 	switch(offset)
 	{
 		case 0x01: res = ioport("PORTA")->read(); break; // P1
@@ -115,10 +115,10 @@ READ8_MEMBER(stv_state::stv_ioga_r)
 
 WRITE8_MEMBER(stv_state::stv_ioga_w)
 {
-	offset &= 0x1f; // mirror?
-
 	if(offset & 0x20 && !space.debugger_access())
-		printf("Reading from mirror %08x?\n",offset);
+		printf("Writing to mirror %08x %02x?\n",offset,data);
+
+	offset &= 0x1f; // mirror?
 
 	switch(offset)
 	{
@@ -1784,6 +1784,7 @@ epr-17951a - Japan   STVB1.13J0950425  95/04/25 v1.13
 epr-17952a - USA     STVB1.13U0950425  95/04/25 v1.13
 epr-17953a - Taiwan  STVB1.13T0950425  95/04/25 v1.13
 epr-17954a - Europe  STVB1.13E0950425  95/04/25 v1.13
+epr-19854  - Taiwan  STVB1.14T0970515  97/05/15 v1.14
 
 epr-18343  - ?????   STVB1.30S0950727  95/07/27 v1.30 - Special version used on Sports Fishing 2 (CD based)
 epr-19730  - Japan   PCD11.13J0970217  97/02/17 v1.13 - Enhanced version for CD based units?
@@ -1823,14 +1824,16 @@ ROM_LOAD16_WORD_SWAP_BIOS( x, "saturn.bin", 0x000000, 0x080000, CRC(653ff2d8) SH
 	ROM_LOAD16_WORD_SWAP_BIOS( 5,  "epr-17954a.ic8",  0x000000, 0x080000, CRC(f7722da3) SHA1(af79cff317e5b57d49e463af16a9f616ed1eee08) ) \
 	ROM_SYSTEM_BIOS( 6,  "us",    "EPR-17952A (USA 95/04/25)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 6,  "epr-17952a.ic8",  0x000000, 0x080000, CRC(d1be2adf) SHA1(eaf1c3e5d602e1139d2090a78d7e19f04f916794) ) \
-	ROM_SYSTEM_BIOS( 7,  "tw",    "EPR-17953A (Taiwan 95/04/25)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 7,  "epr-17953a.ic8",  0x000000, 0x080000, CRC(a4c47570) SHA1(9efc73717ec8a13417e65c54344ded9fc25bf5ef) ) \
-	ROM_SYSTEM_BIOS( 8,  "tw1",   "STVB1.11T (Taiwan 95/02/20)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 8,  "stvb111t.ic8",    0x000000, 0x080000, CRC(02daf123) SHA1(23185beb1ce9c09b8719e57d1adb7b28c8141fd5) ) \
-	ROM_SYSTEM_BIOS( 9,  "debug", "Debug (95/01/13)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 9,  "stv110.bin",      0x000000, 0x080000, CRC(3dfeda92) SHA1(8eb33192a57df5f3a1dfb57263054867c6b2db6d) ) \
-	ROM_SYSTEM_BIOS( 10, "dev",   "Development (bios 1.061)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 10, "stv1061.bin",     0x000000, 0x080000, CRC(728dbca3) SHA1(0ed2030177f0aa8285645c395ae9ad9f568ab1d6) ) \
+	ROM_SYSTEM_BIOS( 7,  "tw",    "EPR-19854 (Taiwan 97/05/15)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 7,  "epr-19854.ic8",   0x000000, 0x080000, CRC(e09d1f60) SHA1(b55cdcb45b2a5b0b35e352cf7625f0bd659084df) ) \
+	ROM_SYSTEM_BIOS( 8,  "tw1",   "EPR-17953A (Taiwan 95/04/25)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 8,  "epr-17953a.ic8",  0x000000, 0x080000, CRC(a4c47570) SHA1(9efc73717ec8a13417e65c54344ded9fc25bf5ef) ) \
+	ROM_SYSTEM_BIOS( 9,  "tw2",   "STVB1.11T (Taiwan 95/02/20)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 9,  "stvb111t.ic8",    0x000000, 0x080000, CRC(02daf123) SHA1(23185beb1ce9c09b8719e57d1adb7b28c8141fd5) ) \
+	ROM_SYSTEM_BIOS( 10,  "debug","Debug (95/01/13)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 10,  "stv110.bin",     0x000000, 0x080000, CRC(3dfeda92) SHA1(8eb33192a57df5f3a1dfb57263054867c6b2db6d) ) \
+	ROM_SYSTEM_BIOS( 11, "dev",   "Development (bios 1.061)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 11, "stv1061.bin",     0x000000, 0x080000, CRC(728dbca3) SHA1(0ed2030177f0aa8285645c395ae9ad9f568ab1d6) ) \
 	\
 	ROM_REGION( 0x080000, "slave", 0 ) /* SH2 code */ \
 	ROM_COPY( "maincpu",0,0,0x080000) \
@@ -2969,6 +2972,28 @@ ROM_START( micrombc ) // set to 1p
 	ROM_LOAD( "micrombc.nv", 0x0000, 0x0080, CRC(6e89815f) SHA1(4478f614fb61859f4ee7bf55462f737387887e6f) )
 ROM_END
 
+ROM_START( choroqhr ) // set to 1p
+	STV_BIOS
+	
+	ROM_REGION32_BE( 0x3000000, "cart", ROMREGION_ERASE00 ) /* SH2 code */
+    ROM_LOAD16_WORD_SWAP( "ic22.bin",     0x0200000, 0x200000, CRC(fd04598b) SHA1(4797127869fafae0ecfddc07b1c1325b11ca981a) )
+    ROM_LOAD16_WORD_SWAP( "ic24.bin",     0x0400000, 0x200000, CRC(09b8a154) SHA1(cfd212c6fe6188b9c665650b21f2fd80cd65268f) )
+    ROM_LOAD16_WORD_SWAP( "ic26.bin",     0x0600000, 0x200000, CRC(136ca5e9) SHA1(8697a415d0958e58f5cea5dcc767dd6a4cbdef5c) )
+    ROM_LOAD16_WORD_SWAP( "ic28.bin",     0x0800000, 0x200000, CRC(3c949563) SHA1(ab2a9f9ec23071cc236dee945b436a9cd73efb92) )
+    ROM_LOAD16_WORD_SWAP( "ic30.bin",     0x0a00000, 0x200000, CRC(7e93078d) SHA1(10fa99029a3e741ea0fddcf00ee07b5fd039bf19) )
+    ROM_LOAD16_WORD_SWAP( "ic32.bin",     0x0c00000, 0x200000, BAD_DUMP CRC(d311c5f6) SHA1(c210463ae5b4bcc498de786e05dec245c0d3b46e) ) // ic7 bad
+	//ROM_LOAD16_WORD_SWAP( "ic32.bad2.bin", 0x000000, 0x200000, CRC(76709d73) SHA1(a7805e956ee1a3701a803d0af082c33c89c26c3a) )
+	//ROM_LOAD16_WORD_SWAP( "ic32.bad3.bin", 0x000000, 0x200000, CRC(b873cf3e) SHA1(8ed42a229e416125d7a2359faaea17208324feb0) )
+	//ROM_LOAD16_WORD_SWAP( "ic32.bad4.bin", 0x000000, 0x200000, CRC(ed808ad4) SHA1(b00791ec3ee6255bccde171279a1a14e322d0e6d) )
+	//ROM_LOAD16_WORD_SWAP( "ic32.bad5.bin", 0x000000, 0x200000, CRC(ed808ad4) SHA1(b00791ec3ee6255bccde171279a1a14e322d0e6d) )
+	//ROM_LOAD16_WORD_SWAP( "ic32.bad6.bin", 0x000000, 0x200000, CRC(ed808ad4) SHA1(b00791ec3ee6255bccde171279a1a14e322d0e6d) )
+	ROM_LOAD16_WORD_SWAP( "ic34.bin",     0x0e00000, 0x200000, CRC(be2ed0a0) SHA1(a9225ba6b78fa0119fc6484828f4d4cc6ea05d8f) )
+    ROM_LOAD16_WORD_SWAP( "ic36.bin",     0x1000000, 0x200000, CRC(9a4109e5) SHA1(ba59caac5f5a80fc52c507d8a47f322a380aa9a1) )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 ) // preconfigured to 1 player
+	ROM_LOAD( "choroqhr.nv", 0x0000, 0x0080, CRC(69a71aea) SHA1(08ca9cd70fa3fa6c3156edd966a81244bad5f0c2) )	
+ROM_END
+
 ROM_START( pclub2 ) // set to 1p / runs with the USA bios
 	STV_BIOS
 	ROM_DEFAULT_BIOS( "us" )
@@ -3612,6 +3637,7 @@ GAME( 1998, twsoc98,   twcup98, stv_5881, stv, stv_state,        twcup98,    ROT
 GAME( 1996, magzun,    stvbios, stv,      stv, stv_state,        magzun,     ROT0,   "Sega",                         "Magical Zunou Power (J 961031 V1.000)", MACHINE_NOT_WORKING | MACHINE_NODEVICE_MICROPHONE )
 GAME( 1997, techbowl,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega",                         "Technical Bowling (J 971212 V1.000)", MACHINE_NOT_WORKING )
 GAME( 1999, micrombc,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega",                         "Microman Battle Charge (J 990326 V1.000)", MACHINE_NOT_WORKING )
+GAME( 1998, choroqhr,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega / Takara",				 "Choro Q Hyper Racing 5 (J 981230 V1.000)", MACHINE_NOT_WORKING )
 
 /* CD games */
 GAME( 1995, sfish2,    0,       stv,      stv, stv_state,        stv,        ROT0,   "Sega",                         "Sport Fishing 2 (UET 951106 V1.10e)", MACHINE_NO_SOUND | MACHINE_NOT_WORKING )

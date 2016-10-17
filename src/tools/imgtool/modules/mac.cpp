@@ -625,15 +625,15 @@ static imgtoolerr_t mac_find_block(mac_l1_imgref *image, int block,
 	UINT32 *track, UINT32 *head, UINT32 *sector)
 {
 	*track = 0;
-	while(block >= (apple35_sectors_per_track(imgtool_floppy(image->image), *track) * image->heads))
+	while(block >= (apple35_sectors_per_track(imgtool_floppy(*image->image), *track) * image->heads))
 	{
-		block -= (apple35_sectors_per_track(imgtool_floppy(image->image), (*track)++) * image->heads);
+		block -= (apple35_sectors_per_track(imgtool_floppy(*image->image), (*track)++) * image->heads);
 		if (*track >= 80)
 			return IMGTOOLERR_SEEKERROR;
 	}
 
-	*head = block / apple35_sectors_per_track(imgtool_floppy(image->image), *track);
-	*sector = block % apple35_sectors_per_track(imgtool_floppy(image->image), *track);
+	*head = block / apple35_sectors_per_track(imgtool_floppy(*image->image), *track);
+	*sector = block % apple35_sectors_per_track(imgtool_floppy(*image->image), *track);
 	return IMGTOOLERR_SUCCESS;
 }
 
@@ -660,7 +660,7 @@ static imgtoolerr_t image_read_block(mac_l1_imgref *image, UINT32 block, void *d
 	if (err)
 		return err;
 
-	ferr = floppy_read_sector(imgtool_floppy(image->image), head, track, sector, 0, dest, 512);
+	ferr = floppy_read_sector(imgtool_floppy(*image->image), head, track, sector, 0, dest, 512);
 	if (ferr)
 		return imgtool_floppy_error(ferr);
 
@@ -688,7 +688,7 @@ static imgtoolerr_t image_write_block(mac_l1_imgref *image, UINT32 block, const 
 	if (err)
 		return err;
 
-	ferr = floppy_write_sector(imgtool_floppy(image->image), head, track, sector, 0, src, 512, 0);  /* TODO: pass ddam argument from imgtool */
+	ferr = floppy_write_sector(imgtool_floppy(*image->image), head, track, sector, 0, src, 512, 0);  /* TODO: pass ddam argument from imgtool */
 	if (ferr)
 		return imgtool_floppy_error(ferr);
 
@@ -1069,7 +1069,7 @@ static imgtoolerr_t hfs_file_open(struct mac_l2_imgref *l2_img, UINT32 parID, co
 static imgtoolerr_t mfs_file_setABeof(struct mac_fileref *fileref, UINT32 newABeof);
 static imgtoolerr_t mfs_dir_update(struct mac_fileref *fileref);
 
-static struct mac_l2_imgref *get_imgref(imgtool::image *img)
+static struct mac_l2_imgref *get_imgref(imgtool::image &img)
 {
 	return (struct mac_l2_imgref *) imgtool_floppy_extrabytes(img);
 }
@@ -1542,7 +1542,7 @@ struct mfs_dirref
 
 
 
-static imgtoolerr_t mfs_image_create(imgtool::image *image, imgtool_stream *stream, util::option_resolution *opts)
+static imgtoolerr_t mfs_image_create(imgtool::image &image, imgtool::stream::ptr &&dummy, util::option_resolution *opts)
 {
 	imgtoolerr_t err;
 	UINT8 buffer[512];
@@ -1554,7 +1554,7 @@ static imgtoolerr_t mfs_image_create(imgtool::image *image, imgtool_stream *stre
 	tracks = opts->lookup_int('T');
 	sector_bytes = opts->lookup_int('L');
 
-	get_imgref(image)->l1_img.image = image;
+	get_imgref(image)->l1_img.image = &image;
 	get_imgref(image)->l1_img.heads = heads;
 
 	if (sector_bytes != 512)
@@ -1606,7 +1606,7 @@ static imgtoolerr_t mfs_image_create(imgtool::image *image, imgtool_stream *stre
 
     Return imgtool error code
 */
-static imgtoolerr_t mfs_image_open(imgtool::image *image, imgtool_stream *stream)
+static imgtoolerr_t mfs_image_open(imgtool::image &image, imgtool::stream::ptr &&dummy)
 {
 	imgtoolerr_t err;
 	struct mac_l2_imgref *l2_img;
@@ -1614,7 +1614,7 @@ static imgtoolerr_t mfs_image_open(imgtool::image *image, imgtool_stream *stream
 	img_open_buf *buf;
 
 	l2_img = get_imgref(image);
-	l2_img->l1_img.image = image;
+	l2_img->l1_img.image = &image;
 	l2_img->l1_img.heads = 1;
 	l2_img->format = L2I_MFS;
 
@@ -3033,7 +3033,7 @@ static int hfs_catKey_compare(const void *p1, const void *p2)
 
     Return imgtool error code
 */
-static imgtoolerr_t hfs_image_open(imgtool::image *image, imgtool_stream *stream)
+static imgtoolerr_t hfs_image_open(imgtool::image &image, imgtool::stream::ptr &&stream)
 {
 	imgtoolerr_t err;
 	struct mac_l2_imgref *l2_img;
@@ -3041,7 +3041,7 @@ static imgtoolerr_t hfs_image_open(imgtool::image *image, imgtool_stream *stream
 	img_open_buf *buf;
 
 	l2_img = get_imgref(image);
-	l2_img->l1_img.image = image;
+	l2_img->l1_img.image = &image;
 	l2_img->l1_img.heads = 2;
 	l2_img->format = L2I_HFS;
 
@@ -5273,12 +5273,12 @@ static imgtoolerr_t get_comment(struct mac_l2_imgref *l2_img, UINT16 id, mac_str
 #ifdef UNUSED_FUNCTION
 static void mac_image_exit(imgtool::image *img);
 #endif
-static void mac_image_info(imgtool::image *img, char *string, size_t len);
+static void mac_image_info(imgtool::image &img, char *string, size_t len);
 static imgtoolerr_t mac_image_beginenum(imgtool::directory *enumeration, const char *path);
 static imgtoolerr_t mac_image_nextenum(imgtool::directory *enumeration, imgtool_dirent *ent);
-static imgtoolerr_t mac_image_freespace(imgtool::partition *partition, UINT64 *size);
-static imgtoolerr_t mac_image_readfile(imgtool::partition *partition, const char *filename, const char *fork, imgtool_stream *destf);
-static imgtoolerr_t mac_image_writefile(imgtool::partition *partition, const char *filename, const char *fork, imgtool_stream *sourcef, util::option_resolution *writeoptions);
+static imgtoolerr_t mac_image_freespace(imgtool::partition &partition, UINT64 *size);
+static imgtoolerr_t mac_image_readfile(imgtool::partition &partition, const char *filename, const char *fork, imgtool::stream &destf);
+static imgtoolerr_t mac_image_writefile(imgtool::partition &partition, const char *filename, const char *fork, imgtool::stream &sourcef, util::option_resolution *writeoptions);
 
 #ifdef UNUSED_FUNCTION
 /*
@@ -5297,7 +5297,7 @@ static void mac_image_exit(imgtool::image *img)
 
     Currently returns the volume name
 */
-static void mac_image_info(imgtool::image *img, char *string, size_t len)
+static void mac_image_info(imgtool::image &img, char *string, size_t len)
 {
 	struct mac_l2_imgref *image = get_imgref(img);
 
@@ -5338,7 +5338,7 @@ struct mac_iterator
 */
 static imgtoolerr_t mac_image_beginenum(imgtool::directory *enumeration, const char *path)
 {
-	struct mac_l2_imgref *image = get_imgref(&enumeration->image());
+	struct mac_l2_imgref *image = get_imgref(enumeration->image());
 	mac_iterator *iter = (mac_iterator *) enumeration->extra_bytes();
 	imgtoolerr_t err = IMGTOOLERR_UNEXPECTED;
 
@@ -5571,9 +5571,9 @@ static imgtoolerr_t mac_image_nextenum(imgtool::directory *enumeration, imgtool_
 /*
     Compute free space on disk image in bytes
 */
-static imgtoolerr_t mac_image_freespace(imgtool::partition *partition, UINT64 *size)
+static imgtoolerr_t mac_image_freespace(imgtool::partition &partition, UINT64 *size)
 {
-	imgtool::image *image = &partition->image();
+	imgtool::image &image(partition.image());
 	*size = ((UINT64) get_imgref(image)->freeABs) * 512;
 	return IMGTOOLERR_SUCCESS;
 }
@@ -5610,10 +5610,10 @@ static imgtoolerr_t mac_get_comment(struct mac_l2_imgref *image, mac_str255 file
 /*
     Extract a file from a disk image.
 */
-static imgtoolerr_t mac_image_readfile(imgtool::partition *partition, const char *fpath, const char *fork, imgtool_stream *destf)
+static imgtoolerr_t mac_image_readfile(imgtool::partition &partition, const char *fpath, const char *fork, imgtool::stream &destf)
 {
 	imgtoolerr_t err;
-	imgtool::image *img = &partition->image();
+	imgtool::image &img(partition.image());
 	struct mac_l2_imgref *image = get_imgref(img);
 	UINT32 parID;
 	mac_str255 filename;
@@ -5650,7 +5650,7 @@ static imgtoolerr_t mac_image_readfile(imgtool::partition *partition, const char
 		err = mac_file_read(&fileref, run_len, buf);
 		if (err)
 			return err;
-		if (stream_write(destf, buf, run_len) != run_len)
+		if (destf.write(buf, run_len) != run_len)
 			return IMGTOOLERR_WRITEERROR;
 		i += run_len;
 	}
@@ -5661,9 +5661,9 @@ static imgtoolerr_t mac_image_readfile(imgtool::partition *partition, const char
 /*
     Add a file to a disk image.
 */
-static imgtoolerr_t mac_image_writefile(imgtool::partition *partition, const char *fpath, const char *fork, imgtool_stream *sourcef, util::option_resolution *writeoptions)
+static imgtoolerr_t mac_image_writefile(imgtool::partition &partition, const char *fpath, const char *fork, imgtool::stream &sourcef, util::option_resolution *writeoptions)
 {
-	imgtool::image *img = &partition->image();
+	imgtool::image &img(partition.image());
 	struct mac_l2_imgref *image = get_imgref(img);
 	UINT32 parID;
 	mac_str255 filename;
@@ -5694,7 +5694,7 @@ static imgtoolerr_t mac_image_writefile(imgtool::partition *partition, const cha
 	memset(&cat_info, 0, sizeof(cat_info));
 	set_UINT32BE(&cat_info.flFinderInfo.type, 0x3F3F3F3F);
 	set_UINT32BE(&cat_info.flFinderInfo.creator, 0x3F3F3F3F);
-	fork_len = stream_size(sourcef);
+	fork_len = sourcef.size();
 	/*comment[0] = get_UINT16BE(header.comment_len);*/  /* comment length */
 	/* Next two fields are set to 0 with MFS volumes.  IIRC, 0 normally
 	means system script: I don't think MFS stores the file name script code
@@ -5726,7 +5726,7 @@ static imgtoolerr_t mac_image_writefile(imgtool::partition *partition, const cha
 		run_len = fork_len - i;
 		if (run_len > 512)
 			run_len = 512;
-		if (stream_read(sourcef, buf, run_len) != run_len)
+		if (sourcef.read(buf, run_len) != run_len)
 			return IMGTOOLERR_READERROR;
 		err = mac_file_write(&fileref, run_len, buf);
 		if (err)
@@ -5738,14 +5738,14 @@ static imgtoolerr_t mac_image_writefile(imgtool::partition *partition, const cha
 
 
 
-static imgtoolerr_t mac_image_listforks(imgtool::partition *partition, const char *path, imgtool_forkent *ents, size_t len)
+static imgtoolerr_t mac_image_listforks(imgtool::partition &partition, const char *path, imgtool_forkent *ents, size_t len)
 {
 	imgtoolerr_t err;
 	UINT32 parID;
 	mac_str255 filename;
 	mac_dirent cat_info;
 	int fork_num = 0;
-	imgtool::image *img = &partition->image();
+	imgtool::image &img(partition.image());
 	struct mac_l2_imgref *image = get_imgref(img);
 
 	/* resolve path and fetch file info from directory/catalog */
@@ -5776,10 +5776,10 @@ static imgtoolerr_t mac_image_listforks(imgtool::partition *partition, const cha
 
 
 
-static imgtoolerr_t mac_image_getattrs(imgtool::partition *partition, const char *path, const UINT32 *attrs, imgtool_attribute *values)
+static imgtoolerr_t mac_image_getattrs(imgtool::partition &partition, const char *path, const UINT32 *attrs, imgtool_attribute *values)
 {
 	imgtoolerr_t err;
-	imgtool::image *img = &partition->image();
+	imgtool::image &img(partition.image());
 	UINT32 parID;
 	mac_str255 filename;
 	mac_dirent cat_info;
@@ -5844,13 +5844,13 @@ static imgtoolerr_t mac_image_getattrs(imgtool::partition *partition, const char
 
 
 
-static imgtoolerr_t mac_image_setattrs(imgtool::partition *partition, const char *path, const UINT32 *attrs, const imgtool_attribute *values)
+static imgtoolerr_t mac_image_setattrs(imgtool::partition &partition, const char *path, const UINT32 *attrs, const imgtool_attribute *values)
 {
 	imgtoolerr_t err;
 	UINT32 parID;
 	mac_str255 filename;
 	mac_dirent cat_info;
-	imgtool::image *img = &partition->image();
+	imgtool::image &img(partition.image());
 	struct mac_l2_imgref *image = get_imgref(img);
 	int i;
 
@@ -6111,7 +6111,7 @@ static int load_icon(UINT32 *dest, const void *resource_fork, UINT64 resource_fo
 
 
 
-static imgtoolerr_t mac_image_geticoninfo(imgtool::partition *partition, const char *path, imgtool_iconinfo *iconinfo)
+static imgtoolerr_t mac_image_geticoninfo(imgtool::partition &partition, const char *path, imgtool_iconinfo *iconinfo)
 {
 	static const UINT32 mac_palette_1bpp[2] = { 0xFFFFFF, 0x000000 };
 
@@ -6179,7 +6179,7 @@ static imgtoolerr_t mac_image_geticoninfo(imgtool::partition *partition, const c
 	imgtoolerr_t err;
 	imgtool_attribute attr_values[3];
 	UINT32 type_code, creator_code, finder_flags;
-	imgtool_stream *stream = NULL;
+	imgtool::stream *stream = NULL;
 	const void *resource_fork;
 	UINT64 resource_fork_length;
 	const void *bundle;
@@ -6205,7 +6205,7 @@ static imgtoolerr_t mac_image_geticoninfo(imgtool::partition *partition, const c
 	if (!(finder_flags & 0x2000) && (type_code != /* APPL */ 0x4150504C))
 		path = "Desktop\0";
 
-	stream = stream_open_mem(NULL, 0);
+	stream = imgtool::stream::open_mem(NULL, 0);
 	if (!stream)
 	{
 		err = IMGTOOLERR_SUCCESS;
@@ -6213,11 +6213,11 @@ static imgtoolerr_t mac_image_geticoninfo(imgtool::partition *partition, const c
 	}
 
 	/* read in the resource fork */
-	err = mac_image_readfile(partition, path, "RESOURCE_FORK", stream);
+	err = mac_image_readfile(partition, path, "RESOURCE_FORK", *stream);
 	if (err)
 		goto done;
-	resource_fork = stream_getptr(stream);
-	resource_fork_length = stream_size(stream);
+	resource_fork = stream->getptr();
+	resource_fork_length = stream->size();
 
 	/* attempt to look up the bundle */
 	bundle = mac_walk_resources(resource_fork, resource_fork_length, /* BNDL */ 0x424E444C,
@@ -6305,7 +6305,7 @@ static imgtoolerr_t mac_image_geticoninfo(imgtool::partition *partition, const c
 
 done:
 	if (stream)
-		stream_close(stream);
+		delete stream;
 	return err;
 }
 
@@ -6317,13 +6317,13 @@ done:
  *
  *************************************/
 
-static imgtoolerr_t mac_image_suggesttransfer(imgtool::partition *partition, const char *path, imgtool_transfer_suggestion *suggestions, size_t suggestions_length)
+static imgtoolerr_t mac_image_suggesttransfer(imgtool::partition &partition, const char *path, imgtool_transfer_suggestion *suggestions, size_t suggestions_length)
 {
 	imgtoolerr_t err;
 	UINT32 parID;
 	mac_str255 filename;
 	mac_dirent cat_info;
-	imgtool::image *img = &partition->image();
+	imgtool::image &img(partition.image());
 	struct mac_l2_imgref *image = get_imgref(img);
 	mac_filecategory_t file_category = MAC_FILECATEGORY_DATA;
 
