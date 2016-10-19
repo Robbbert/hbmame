@@ -114,7 +114,7 @@ namespace imgtool
 		imgtoolerr_t read_block(UINT64 block, void *buffer);
 		imgtoolerr_t write_block(UINT64 block, const void *buffer);
 		imgtoolerr_t clear_block(UINT64 block, UINT8 data);
-		imgtoolerr_t list_partitions(imgtool_partition_info *partitions, size_t len);
+		imgtoolerr_t list_partitions(std::vector<imgtool::partition_info> &partitions);
 		void *malloc(size_t size);
 		const imgtool_module &module() { return m_module; }
 		void *extra_bytes() { return m_extra_bytes; }
@@ -203,9 +203,9 @@ namespace imgtool
 		unsigned int m_supports_lastmodified_time : 1;
 		unsigned int m_supports_bootblock : 1;            /* this module supports loading/storing the boot block */
 
-		std::function<imgtoolerr_t(imgtool::directory *enumeration, const char *path)> m_begin_enum;
-		std::function<imgtoolerr_t(imgtool::directory *enumeration, imgtool_dirent *ent)> m_next_enum;
-		std::function<void(imgtool::directory *enumeration)> m_close_enum;
+		std::function<imgtoolerr_t(imgtool::directory &enumeration, const char *path)> m_begin_enum;
+		std::function<imgtoolerr_t(imgtool::directory &enumeration, imgtool_dirent &ent)> m_next_enum;
+		std::function<void(imgtool::directory &enumeration)> m_close_enum;
 		std::function<imgtoolerr_t(imgtool::partition &partition, UINT64 *size)> m_free_space;
 		std::function<imgtoolerr_t(imgtool::partition &partition, const char *filename, const char *fork, imgtool::stream &destf)> m_read_file;
 		std::function<imgtoolerr_t(imgtool::partition &partition, const char *filename, const char *fork, imgtool::stream &sourcef, util::option_resolution *opts)> m_write_file;

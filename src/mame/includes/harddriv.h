@@ -257,8 +257,8 @@ protected:
 	optional_device<adsp2105_device> m_ds3xdsp;
 	optional_memory_region m_ds3sdsp_region;
 	optional_memory_region m_ds3xdsp_region;
-	optional_device<dac_device> m_ds3dac1;
-	optional_device<dac_device> m_ds3dac2;
+	optional_device<dac_word_interface> m_ldac;
+	optional_device<dac_word_interface> m_rdac;
 	optional_device<harddriv_sound_board_device> m_harddriv_sound;
 	optional_device<atari_jsa_base_device> m_jsa;
 	optional_device<screen_device> m_screen;
@@ -497,7 +497,7 @@ protected:
 
 private:
 	required_device<cpu_device> m_soundcpu;
-	required_device<dac_device> m_dac;
+	required_device<dac_word_interface> m_dac;
 	required_device<cpu_device> m_sounddsp;
 	required_shared_ptr<UINT16> m_sounddsp_ram;
 	required_region_ptr<UINT8>  m_sound_rom;
@@ -507,7 +507,6 @@ private:
 	UINT16                  m_sounddata;
 	UINT16                  m_maindata;
 
-	UINT8                   m_dacmute;
 	UINT8                   m_cramen;
 	UINT8                   m_irq68k;
 

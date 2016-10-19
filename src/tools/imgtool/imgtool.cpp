@@ -500,14 +500,14 @@ done:
 //	list_partitions - lists the partitions on an image
 //-------------------------------------------------
 
-imgtoolerr_t imgtool::image::list_partitions(imgtool_partition_info *partitions, size_t len)
+imgtoolerr_t imgtool::image::list_partitions(std::vector<imgtool::partition_info> &partitions)
 {
 	/* implemented? */
 	if (!module().list_partitions)
 		return (imgtoolerr_t)(IMGTOOLERR_UNIMPLEMENTED | IMGTOOLERR_SRC_FUNCTIONALITY);
 
-	memset(partitions, '\0', sizeof(*partitions) * len);
-	return module().list_partitions(*this, partitions, len);
+	partitions.clear();
+	return module().list_partitions(*this, partitions);
 }
 
 
@@ -569,9 +569,9 @@ imgtool::partition::partition(imgtool::image &image, imgtool_class &imgclass, in
 	m_supports_creation_time = imgtool_get_info_int(&imgclass, IMGTOOLINFO_INT_SUPPORTS_CREATION_TIME) ? 1 : 0;
 	m_supports_lastmodified_time = imgtool_get_info_int(&imgclass, IMGTOOLINFO_INT_SUPPORTS_LASTMODIFIED_TIME) ? 1 : 0;
 	m_supports_bootblock = imgtool_get_info_int(&imgclass, IMGTOOLINFO_INT_SUPPORTS_BOOTBLOCK) ? 1 : 0;
-	m_begin_enum = (imgtoolerr_t(*)(imgtool::directory *, const char *)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_BEGIN_ENUM);
-	m_next_enum = (imgtoolerr_t(*)(imgtool::directory *, imgtool_dirent *)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_NEXT_ENUM);
-	m_close_enum = (void(*)(imgtool::directory *)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_CLOSE_ENUM);
+	m_begin_enum = (imgtoolerr_t(*)(imgtool::directory &, const char *)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_BEGIN_ENUM);
+	m_next_enum = (imgtoolerr_t(*)(imgtool::directory &, imgtool_dirent &)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_NEXT_ENUM);
+	m_close_enum = (void(*)(imgtool::directory &)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_CLOSE_ENUM);
 	m_free_space = (imgtoolerr_t(*)(imgtool::partition &, UINT64 *)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_FREE_SPACE);
 	m_read_file = (imgtoolerr_t(*)(imgtool::partition &, const char *, const char *, imgtool::stream &)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_READ_FILE);
 	m_write_file = (imgtoolerr_t(*)(imgtool::partition &, const char *, const char *, imgtool::stream &, util::option_resolution *)) imgtool_get_info_fct(&imgclass, IMGTOOLINFO_PTR_WRITE_FILE);
@@ -623,31 +623,26 @@ imgtoolerr_t imgtool::partition::open(imgtool::image &image, int partition_index
 	imgtoolerr_t err = (imgtoolerr_t)IMGTOOLERR_SUCCESS;
 	imgtool::partition::ptr p;
 	imgtool_class imgclass;
-	imgtool_partition_info partition_info[32];
+	std::vector<imgtool::partition_info> partitions;
 	UINT64 base_block, block_count;
 	imgtoolerr_t (*open_partition)(imgtool::partition &partition, UINT64 first_block, UINT64 block_count);
 
 	if (image.module().list_partitions)
 	{
-		// this image supports partitions 
-		if ((partition_index < 0) || (partition_index >= ARRAY_LENGTH(partition_info)))
-			return IMGTOOLERR_INVALIDPARTITION;
-
-		// retrieve the info on the partitions
-		memset(partition_info, '\0', sizeof(partition_info));
-		err = image.module().list_partitions(image, partition_info, ARRAY_LENGTH(partition_info));
+		// this image supports partitions  - retrieve the info on the partitions
+		err = image.module().list_partitions(image, partitions);
 		if (err)
 			return err;
 
-		// is this a valid partition 
-		if (!partition_info[partition_index].get_info)
+		// is this an invalid index?
+		if ((partition_index < 0) || (partition_index >= partitions.size()) || !partitions[partition_index].get_info())
 			return IMGTOOLERR_INVALIDPARTITION;
 
 		// use this partition 
 		memset(&imgclass, 0, sizeof(imgclass));
-		imgclass.get_info = partition_info[partition_index].get_info;
-		base_block = partition_info[partition_index].base_block;
-		block_count = partition_info[partition_index].block_count;
+		imgclass.get_info = partitions[partition_index].get_info();
+		base_block = partitions[partition_index].base_block();
+		block_count = partitions[partition_index].block_count();
 	}
 	else
 	{
@@ -2461,7 +2456,7 @@ imgtoolerr_t imgtool::directory::open(imgtool::partition &partition, const char 
 
 	if (partition.m_begin_enum)
 	{
-		err = partition.m_begin_enum(enumeration.get(), path);
+		err = partition.m_begin_enum(*enumeration, path);
 		if (err)
 		{
 			err = markerrorsource(err);
@@ -2488,7 +2483,7 @@ done:
 imgtool::directory::~directory()
 {
 	if (m_okay_to_close && m_partition.m_close_enum)
-		m_partition.m_close_enum(this);
+		m_partition.m_close_enum(*this);
 }
 
 
@@ -2505,7 +2500,7 @@ imgtoolerr_t imgtool::directory::get_next(imgtool_dirent &ent)
 	// the attributes if they don't apply
 	memset(&ent, 0, sizeof(ent));
 
-	err = m_partition.m_next_enum(this, &ent);
+	err = m_partition.m_next_enum(*this, ent);
 	if (err)
 		return markerrorsource(err);
 

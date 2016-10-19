@@ -420,25 +420,20 @@ static void hp48_close(imgtool::image &img)
 
 void hp48_partition_get_info(const imgtool_class *imgclass, UINT32 state, union imgtoolinfo *info);
 
-static imgtoolerr_t hp48_list_partitions(imgtool::image &img,
-											imgtool_partition_info *partitions,
-											size_t len)
+static imgtoolerr_t hp48_list_partitions(imgtool::image &img, std::vector<imgtool::partition_info> &partitions)
 {
 	hp48_card* c = get_hp48_card(img);
 
-		int i;
-		for ( i = 0; i < len && i * MAX_PORT_SIZE < c->size ; i++ )
-		{
-				/* offset and size in bytes */
-				partitions[i].base_block = i * MAX_PORT_SIZE;
-				partitions[i].block_count = c->size - partitions[i].base_block;
-				if ( partitions[i].block_count > MAX_PORT_SIZE )
-				{
-						partitions[i].block_count = MAX_PORT_SIZE;
-				}
+	int i;
+	for (i = 0; i * MAX_PORT_SIZE < c->size ; i++)
+	{
+		// offset and size in bytes
+		UINT64 base_block = i * MAX_PORT_SIZE;
+		UINT64 block_count = std::min((UINT64)c->size - base_block, (UINT64)MAX_PORT_SIZE);
 
-				partitions[i].get_info = hp48_partition_get_info;
-		}
+		// append the partition
+		partitions.emplace_back(hp48_partition_get_info, base_block, block_count);
+	}
 
 	return IMGTOOLERR_SUCCESS;
 }
@@ -462,33 +457,31 @@ static imgtoolerr_t hp48_open_partition(imgtool::partition &part,
 
 
 
-static imgtoolerr_t hp48_beginenum(imgtool::directory *enumeration,
-									const char *path)
+static imgtoolerr_t hp48_beginenum(imgtool::directory &enumeration, const char *path)
 {
-	hp48_directory* d = (hp48_directory*) enumeration->extra_bytes();
+	hp48_directory* d = (hp48_directory*) enumeration.extra_bytes();
 
-		d->pos = 0;
+	d->pos = 0;
 
 	return IMGTOOLERR_SUCCESS;
 }
 
 
 
-static imgtoolerr_t hp48_nextenum(imgtool::directory *enumeration,
-									imgtool_dirent *ent)
+static imgtoolerr_t hp48_nextenum(imgtool::directory &enumeration, imgtool_dirent &ent)
 {
-	imgtool::partition &part(enumeration->partition());
+	imgtool::partition &part(enumeration.partition());
 	//imgtool::image &img(part.image());
 	//hp48_card* c = get_hp48_card(img);
 	hp48_partition* p = (hp48_partition*) part.extra_bytes();
-	hp48_directory* d = (hp48_directory*) enumeration->extra_bytes();
+	hp48_directory* d = (hp48_directory*) enumeration.extra_bytes();
 
 		UINT8* data = p->data;
 		int pos = d->pos;
 
 		if ( pos < 0 || pos+12 > 2*p->size )
 		{
-				ent->eof = 1;
+				ent.eof = 1;
 				return IMGTOOLERR_SUCCESS;
 		}
 
@@ -503,21 +496,21 @@ static imgtoolerr_t hp48_nextenum(imgtool::directory *enumeration,
 				int namelen = read8( data+pos );
 				pos += 2;
 				if ( (pos + 2*namelen > 2*p->size) ||
-						(namelen >= sizeof(ent->filename)) )
+						(namelen >= sizeof(ent.filename)) )
 				{
-						ent->eof = 1;
+						ent.eof = 1;
 						return IMGTOOLERR_CORRUPTFILE;
 				}
-				readstring( ent->filename, data+pos, namelen );
+				readstring( ent.filename, data+pos, namelen );
 
 				/* compute size in bytes, removing name, length & CRC fields */
-		ent->filesize = ((totalsize - 19 - 2*namelen) + 1) / 2;
+		ent.filesize = ((totalsize - 19 - 2*namelen) + 1) / 2;
 
 				switch (prolog)
 				{
-				case PROLOG_LIBRARY:  strncpy( ent->attr, "LIB", sizeof(ent->attr) ); break;
-				case PROLOG_BACKUP:   strncpy( ent->attr, "BAK", sizeof(ent->attr) ); break;
-				default:              strncpy( ent->attr, "?", sizeof(ent->attr) );
+				case PROLOG_LIBRARY:  strncpy( ent.attr, "LIB", sizeof(ent.attr) ); break;
+				case PROLOG_BACKUP:   strncpy( ent.attr, "BAK", sizeof(ent.attr) ); break;
+				default:              strncpy( ent.attr, "?", sizeof(ent.attr) );
 				}
 
 				d->pos = d->pos + totalsize + 5;
@@ -525,7 +518,7 @@ static imgtoolerr_t hp48_nextenum(imgtool::directory *enumeration,
 		else
 		{
 				/* 0 or unknown object => end */
-				ent->eof = 1;
+				ent.eof = 1;
 		}
 
 	return IMGTOOLERR_SUCCESS;
@@ -739,7 +732,7 @@ void hp48_get_info(const imgtool_class *imgclass, UINT32 state, union imgtoolinf
 		case IMGTOOLINFO_PTR_OPEN:                          info->open        = hp48_open; break;
 		case IMGTOOLINFO_PTR_CREATE:                        info->create      = hp48_create; break;
 		case IMGTOOLINFO_PTR_CLOSE:                         info->close       = hp48_close; break;
-				case IMGTOOLINFO_PTR_LIST_PARTITIONS:               info->list_partitions = hp48_list_partitions; break;
+		case IMGTOOLINFO_PTR_LIST_PARTITIONS:               info->list_partitions = hp48_list_partitions; break;
 
 		case IMGTOOLINFO_INT_IMAGE_EXTRA_BYTES:             info->i = sizeof(hp48_card); break;
 		}
