@@ -201,7 +201,7 @@ static datamap *properties_datamap;
 static int  g_nGame            = 0;
 static int  g_nFolder          = 0;
 static int  g_nFolderGame      = 0;
-static OPTIONS_TYPE g_nPropertyMode;
+static OPTIONS_TYPE g_nPropertyMode = OPTIONS_GAME;
 static BOOL  g_bAutoAspect[MAX_SCREENS] = {FALSE, FALSE, FALSE, FALSE};
 static BOOL  g_bAutoSnapSize = FALSE;
 static HICON g_hIcon = NULL;
@@ -430,9 +430,9 @@ void InitDefaultPropertyPage(HINSTANCE hInst, HWND hWnd)
 	pDefaultOpts = dummy;
 
 	/* Get default options to populate property sheets */
-	load_options(pCurrentOpts, g_nGame);
-	load_options(pOrigOpts, g_nGame);
-	load_options(pDefaultOpts, -2);
+	load_options(pCurrentOpts, OPTIONS_GLOBAL, g_nGame);
+	load_options(pOrigOpts, OPTIONS_GLOBAL, g_nGame);
+	load_options(pDefaultOpts, OPTIONS_GLOBAL, -2);
 
 	/* Stash the result for comparing later */
 	//CreateGameOptions(pOrigOpts, OPTIONS_TYPE_GLOBAL);
@@ -488,12 +488,12 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		background_brush = CreateSolidBrush(GetSysColor(COLOR_3DFACE));
 
 	// Initialize the options
-	load_options(pCurrentOpts, game_num);
-	load_options(pOrigOpts, game_num);
+	load_options(pCurrentOpts, opt_type, game_num);
+	load_options(pOrigOpts, opt_type, game_num);
 	if (game_num == GLOBAL_OPTIONS)
-		load_options(pDefaultOpts, -2); // base opts is the backup for global
+		load_options(pDefaultOpts, OPTIONS_GLOBAL, -2); // base opts is the backup for global
 	else
-		load_options(pDefaultOpts, -1); // global is the backup for games
+		load_options(pDefaultOpts, OPTIONS_GLOBAL, -1); // global is the backup for games
 
 	// Copy current_options to original options
 ///	CreateGameOptions(pOrigOpts, OPTIONS_TYPE_GLOBAL);
@@ -897,8 +897,12 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
 
 	if (OPTIONS_GLOBAL == opt_type)
 		strcpy(buf, "Global game options\nDefault options used by all games");
-	else if ((OPTIONS_SOURCE == opt_type) || (OPTIONS_VECTOR == opt_type) )
-		strcpy(buf, "Global folder options\nDefault options used by all games in the folder");
+	else
+	if (OPTIONS_SOURCE == opt_type)
+		strcpy(buf, "Options used by all games in the source");
+	else
+	if (OPTIONS_VECTOR == opt_type)
+		strcpy(buf, "Global vector options");
 	else
 	if (OPTIONS_GAME == opt_type)
 		sprintf(buf, "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).description), driver_list::driver(nIndex).name);
@@ -1228,7 +1232,7 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 				EnableWindow(GetDlgItem(hDlg, IDC_PROP_RESET), g_bReset);
 
 				// Save the current options
-				save_options(pCurrentOpts, g_nGame);
+				save_options(pCurrentOpts, g_nPropertyMode, g_nGame);
 
 				// Disable apply button
 				PropSheet_UnChanged(GetParent(hDlg), hDlg);
@@ -2634,7 +2638,7 @@ static void InitializeBIOSUI(HWND hwnd)
 			res = ComboBox_SetItemData( hCtrl, i++, "");
 			return;
 		}
-		if (g_nGame == FOLDER_OPTIONS) //Folder Options
+		if (g_nGame == LOCAL_OPTIONS) //Folder Options: This is the only place that LOCAL_OPTIONS is used, is this code ever executed?
 		{
 			gamedrv = &driver_list::driver(g_nFolderGame);
 			if (DriverHasOptionalBIOS(g_nFolderGame) == FALSE)
@@ -2924,7 +2928,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 	if ((buffer[1] == 0x3A) || (buffer[0] == 0)) // must be a folder or null
 	{
 		std::string error_string;
-		pCurrentOpts.set_value(OPTION_COMMENT_DIRECTORY, paths, OPTION_PRIORITY_CMDLINE, error_string);
+		pCurrentOpts.set_value(OPTION_SWPATH, paths, OPTION_PRIORITY_CMDLINE, error_string);
 	}
 	res++;
 	return TRUE;
@@ -2943,8 +2947,8 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 	// access the directory list, and convert to TCHARs
 	driver_index = PropertiesCurrentGame(dialog);
 	windows_options o;
-	load_options(o, driver_index);
-	const char* paths = o.value(OPTION_COMMENT_DIRECTORY);
+	load_options(o, OPTIONS_GAME, driver_index);
+	const char* paths = o.value(OPTION_SWPATH);
 	TCHAR* t_dir_list = ui_wstring_from_utf8(paths);
 	paths = 0;
 	if (!t_dir_list)

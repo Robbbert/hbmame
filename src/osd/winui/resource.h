@@ -417,8 +417,7 @@
 #define ID_TOGGLE_TAB_PCB               40077
 #define ID_TOGGLE_TAB_HISTORY           40078
 #define ID_VIEW_FULLSCREEN              40079
-#define ID_CONTEXT_RESET_PLAYTIME       40080
-#define ID_CONTEXT_RESET_PLAYCOUNT      40081
+#define ID_CONTEXT_RESET_PLAYSTATS      40081
 #define ID_FOLDER_PROPERTIES            40082
 #define ID_FOLDER_AUDIT                 40083
 #define ID_UI_UP                        40084

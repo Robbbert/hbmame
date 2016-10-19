@@ -9,15 +9,29 @@
 #include "winui.h"
 
 // These help categorise the folders on the left side
+// This list is mainly for documentation, although a few are used in code
 typedef enum {
+	// Global types
 	OPTIONS_GLOBAL = 0,
+	OPTIONS_HORIZONTAL,
+	OPTIONS_VERTICAL,
+	OPTIONS_RASTER,
 	OPTIONS_VECTOR,
+	OPTIONS_LCD,
+	OPTIONS_ARCADE,
+	OPTIONS_CONSOLE,
+	OPTIONS_COMPUTER,
+	OPTIONS_OTHERSYS,
+	// Local types
 	OPTIONS_SOURCE,
+	OPTIONS_GPARENT,
 	OPTIONS_PARENT,
-	OPTIONS_GAME
+	OPTIONS_GAME,
+	// EOF marker
+	OPTIONS_MAX
 } OPTIONS_TYPE;
 
-
+// List of columns in the main game list
 enum
 {
 	COLUMN_GAMES = 0,
@@ -40,8 +54,8 @@ enum
 	COLUMN_MAX
 };
 
-#define FOLDER_OPTIONS	-2
-#define GLOBAL_OPTIONS	-1
+#define LOCAL_OPTIONS   -10
+#define GLOBAL_OPTIONS  -1
 
 typedef struct
 {
@@ -97,8 +111,8 @@ void OptionsExit(void);
 
 void SetDirectories(windows_options &opts);
 
-void load_options(windows_options &opts, int game_num);
-void save_options(windows_options &opts, int game_num);
+void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
+void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 
 //void AddOptions(winui_options *opts, const options_entry *entrylist, BOOL is_global);
 void CreateGameOptions(windows_options &opts, int driver_index);
@@ -466,7 +480,7 @@ enum
 };
 
 void MessSetupSettings(winui_options &settings);
-void MessSetupGameOptions(windows_options &opts, int driver_index);
+void MessSetupGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
 
 void SetSWColumnWidths(int widths[]);
 void GetSWColumnWidths(int widths[]);

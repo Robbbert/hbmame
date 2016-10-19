@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
@@ -258,13 +259,9 @@ extern const ICONDATA g_iconData[] =
 #ifdef MESS
 extern const TCHAR g_szPlayGameString[] = TEXT("&Run %s");
 extern const char g_szGameCountString[] = "%d systems";
-static const char g_szHistoryFileName[] = "history.dat";  // This can only be history.dat or sysinfo.dat
-static const char g_szMameInfoFileName[] = "messinfo.dat"; // This can only be mameinfo.dat or messinfo.dat
 #else
 extern const TCHAR g_szPlayGameString[] = TEXT("&Play %s");
 extern const char g_szGameCountString[] = "%d games";
-extern const char g_szHistoryFileName[] = "history.dat";
-extern const char g_szMameInfoFileName[] = "mameinfo.dat";
 #endif
 
 static BOOL FilterAvailable(int driver_index)

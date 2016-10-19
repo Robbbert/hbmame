@@ -373,10 +373,10 @@ winui_options::winui_options()
 	add_entries(s_option_entries);
 }
 
-void CreateGameOptions(windows_options &opts, int driver_index)
+void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
 {
 #ifdef MESS
-	MessSetupGameOptions(opts, driver_index);
+	MessSetupGameOptions(opts, opt_type, driver_index);
 #endif
 }
 
@@ -416,7 +416,7 @@ BOOL OptionsInit()
 
 	game_opts.add_entries();
 	// set up global options
-	CreateGameOptions(global, GLOBAL_OPTIONS);
+	CreateGameOptions(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS);
 	// now load the options and settings
 	LoadOptionsAndSettings();
 
@@ -1422,7 +1422,7 @@ void ResetGameDefaults(void)
 {
 	// Walk the global settings and reset everything to defaults;
 	ResetToDefaults(global, OPTION_PRIORITY_CMDLINE);
-	save_options(global, GLOBAL_OPTIONS);
+	save_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS);
 }
 
 /*
@@ -2246,7 +2246,7 @@ static void LoadOptionsAndSettings(void)
 	game_opts.load_file(GAMEINFO_INI_FILENAME);
 
 	// parse global options ini/mame32.ini
-	load_options(global, GLOBAL_OPTIONS);
+	load_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS);
 }
 
 void SetDirectories(windows_options &opts)
@@ -2500,14 +2500,23 @@ const char * GetVersionString(void)
 
 
 /*  get options, based on passed in game number. */
-void load_options(windows_options &opts, int game_num)
+void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 {
 	const game_driver *driver = NULL;
-	CreateGameOptions(opts, game_num);
+	if (game_num > -1)
+		driver = &driver_list::driver(game_num);
+	CreateGameOptions(opts, opt_type, game_num);
 
 	// Try base ini first
 	std::string fname = std::string(emulator_info::get_configname()).append(".ini");
 	LoadSettingsFile(opts, fname.c_str());
+
+	if (opt_type == OPTIONS_SOURCE)
+	{
+		fname = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->source_file, true) + ".ini";
+		LoadSettingsFile(opts, fname.c_str());
+		return;
+	}
 
 	if (game_num > -2)
 	{
@@ -2522,8 +2531,7 @@ void load_options(windows_options &opts, int game_num)
 			std::string error_string;
 			opts.set_value(OPTION_SWPATH, "", OPTION_PRIORITY_CMDLINE,error_string);
 			// Lastly, gamename.ini
-			driver = &driver_list::driver(game_num);
-			if (driver != NULL)
+			if (driver)
 			{
 				fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(driver->name).append(".ini");
 				LoadSettingsFile(opts, fname.c_str());
@@ -2534,7 +2542,7 @@ void load_options(windows_options &opts, int game_num)
 }
 
 /* Save ini file based on game_number. */
-void save_options(windows_options &opts, int game_num)
+void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 {
 	const game_driver *driver = NULL;
 	std::string filename, filepath;
@@ -2544,12 +2552,14 @@ void save_options(windows_options &opts, int game_num)
 		driver = &driver_list::driver(game_num);
 		if (driver != NULL)
 			filename.assign(driver->name);
+			if (opt_type == OPTIONS_SOURCE)
+				filepath = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->source_file, true) + ".ini";
 	}
 	else
 	if (game_num == -1)
 		filename = std::string(emulator_info::get_configname());
 
-	if (!filename.empty())
+	if (!filename.empty() && filepath.empty())
 		filepath = std::string(GetIniDir()).append(PATH_SEPARATOR).append(filename.c_str()).append(".ini");
 
 	if (game_num == -2)
@@ -2633,7 +2643,7 @@ void MessSetupSettings(winui_options &settings)
 	settings.add_entries(mess_wingui_settings);
 }
 
-void MessSetupGameOptions(windows_options &opts, int driver_index)
+void MessSetupGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
 {
 	if (driver_index >= 0)
 		mameopts.set_system_name(opts, driver_list::driver(driver_index).name);
@@ -2781,13 +2791,12 @@ void SetSelectedSoftware(int driver_index, const machine_config *config, const d
 
 	if (LOG_SOFTWARE)
 	{
-		dprintf("SetSelectedSoftware(): dev=%p (\'%s\') software='%s'\n",
-			dev, driver_list::driver(driver_index).name, software);
+		dprintf("SetSelectedSoftware(): dev=%p (\'%s\') software='%s'\n", dev, driver_list::driver(driver_index).name, software);
 	}
 
-	load_options(o, driver_index);
+	load_options(o, OPTIONS_GAME, driver_index);
 	o.set_value(opt_name, software, OPTION_PRIORITY_CMDLINE,error_string);
-	save_options(o, driver_index);
+	save_options(o, OPTIONS_GAME, driver_index);
 }
 
 // not used
@@ -2796,7 +2805,7 @@ const char *GetSelectedSoftware(int driver_index, const machine_config *config, 
 	const char *opt_name = dev->instance_name();
 	windows_options o;
 
-	load_options(o, driver_index);
+	load_options(o, OPTIONS_GAME, driver_index);
 	return o.value(opt_name);
 }
 
