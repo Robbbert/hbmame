@@ -2329,12 +2329,12 @@ static void change_device(HWND wnd, device_image_interface *image, bool is_save)
 	else
 		filename[0] = '\0';
 
-	// get the working directory, but if it is ".", then use the one specified in comments_path
+	// get the working directory, but if it is ".", then use the one specified in swpath
 	char *working = 0;
 	std::string dst;
 	osd_get_full_path(dst,"."); // turn local directory into full path
 	initial_dir = image->working_directory().c_str(); // get working directory from diimage.cpp
-	// if . use comments_dir
+	// if . use swpath
 	if (strcmp(dst.c_str(), initial_dir) == 0)  // same?
 		initial_dir = software_dir;
 
@@ -2650,8 +2650,8 @@ static void prepare_menus(HWND wnd)
 	set_command_state(menu_bar, ID_OPTIONS_TOGGLEFPS, mame_machine_manager::instance()->ui().show_fps() ? MFS_CHECKED : MFS_ENABLED);
 	set_command_state(menu_bar, ID_FILE_UIACTIVE, has_keyboard ? (window->machine().ui_active() ? MFS_CHECKED : MFS_ENABLED): MFS_CHECKED | MFS_GRAYED);
 
-	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, has_keyboard ? (!window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
-	set_command_state(menu_bar, ID_KEYBOARD_NATURAL, (has_keyboard && window->machine().ioport().natkeyboard().can_post()) ? (window->machine().ui().use_natural_keyboard() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
+	set_command_state(menu_bar, ID_KEYBOARD_EMULATED, has_keyboard ? (!window->machine().ioport().natkeyboard().in_use() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
+	set_command_state(menu_bar, ID_KEYBOARD_NATURAL, (has_keyboard && window->machine().ioport().natkeyboard().can_post()) ? (window->machine().ioport().natkeyboard().in_use() ? MFS_CHECKED : MFS_ENABLED): MFS_GRAYED);
 	set_command_state(menu_bar, ID_KEYBOARD_CUSTOMIZE, has_keyboard ? MFS_ENABLED : MFS_GRAYED);
 
 	set_command_state(menu_bar, ID_VIDEO_ROTATE_0, (orientation == ROT0) ? MFS_CHECKED : MFS_ENABLED);
@@ -3036,11 +3036,11 @@ static bool invoke_command(HWND wnd, UINT command)
 			break;
 
 		case ID_KEYBOARD_NATURAL:
-			mame_machine_manager::instance()->ui().set_use_natural_keyboard(TRUE);
+			window->machine().ioport().natkeyboard().set_in_use(TRUE);
 			break;
 
 		case ID_KEYBOARD_EMULATED:
-			mame_machine_manager::instance()->ui().set_use_natural_keyboard(FALSE);
+			window->machine().ioport().natkeyboard().set_in_use(FALSE);
 			break;
 
 		case ID_KEYBOARD_CUSTOMIZE:
@@ -3299,7 +3299,7 @@ int win_create_menu(running_machine &machine, HMENU *menus)
 {
 	// Get the path for loose software from <gamename>.ini
 	// if this is invalid, then windows chooses whatever directory it used last.
-	const char* t = machine.options().emu_options::comment_directory();
+	const char* t = machine.options().emu_options::sw_path();
 	// This pulls out the first path from a multipath field
 	const char* t1 = strtok((char*)t, ";");
 	if (t1)
