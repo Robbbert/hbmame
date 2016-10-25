@@ -29,10 +29,6 @@
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.
 #define NEOGEO_VBLANK_IRQ_HTIM (attotime::from_ticks(56+2, NEOGEO_MASTER_CLOCK))
 
-//#define UINT8 uint8_t
-//#define UINT16 uint16_t
-//#define UINT32 uint32_t
-
 class neogeo_state : public driver_device
 {
 public:
