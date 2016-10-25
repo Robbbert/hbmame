@@ -54,14 +54,14 @@ void trucocl_state::device_timer(emu_timer &timer, device_timer_id id, int param
 		m_maincpu->set_input_line(INPUT_LINE_NMI, PULSE_LINE);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in trucocl_state::device_timer");
+		assert_always(false, "Unknown id in trucocl_state::device_timer");
 	}
 }
 
 
 WRITE8_MEMBER(trucocl_state::audio_dac_w)
 {
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 	int dac_address = ( data & 0xf0 ) << 8;
 	int sel = ( ( (~data) >> 1 ) & 2 ) | ( data & 1 );
 

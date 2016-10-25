@@ -4811,14 +4811,14 @@ DRIVER_INIT_MEMBER( cps_state, dinoeh )
 DRIVER_INIT_MEMBER( cps_state, dinoh )
 {
 	/* Patch out Q-Sound test */
-	UINT16 *rom = (UINT16 *)memregion("maincpu")->base();	
+	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();	
 	rom[0xaacf4/2] = 0x4e71;
 	DRIVER_INIT_CALL(dinoeh);
 }
 
 DRIVER_INIT_MEMBER( cps_state, dinoz )
 {
-	UINT16 *rom = (UINT16 *)memregion("maincpu")->base();	
+	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();	
 	rom[0xaaa82/2] = 0x4e71;	// Patch out Q-Sound test
 	rom[0x1cfb4/2] = 0x4e71;	// patch out invalid instruction
 	DRIVER_INIT_CALL(dinoeh);
@@ -4826,7 +4826,7 @@ DRIVER_INIT_MEMBER( cps_state, dinoz )
 
 DRIVER_INIT_MEMBER( cps_state, dinohb )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Fix draw scroll
 //	mem8[0x006c2] = 0xC0;
 //	mem8[0x006c3] = 0xFF;
@@ -4909,7 +4909,7 @@ DRIVER_INIT_MEMBER( cps_state, dinohb )
 DRIVER_INIT_MEMBER( cps_state, punisherb )
 {
 	// note: bytes are swapped around compared to rom_fill.
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Use standard ports
 	mem8[0xAB3] = 0x33;
 	mem8[0xAB4] = 0x30;
@@ -5121,14 +5121,14 @@ DRIVER_INIT_MEMBER( cps_state, punisherb )
 DRIVER_INIT_MEMBER( cps_state, sf2h9 )
 {
 	/* Patch out protection check */
-	UINT16 *rom = (UINT16 *)memregion("maincpu")->base();	
+	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();	
 	rom[0xc0670/2] = 0x4e71;
 	DRIVER_INIT_CALL(cps1);
 }
 
 DRIVER_INIT_MEMBER( cps_state, sf2h13 )
 {
-	UINT16 *rom = (UINT16 *)memregion("maincpu")->base();
+	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
 
 	// Fix scroll
 	rom[0x1d22a/2] = 0x0120;
@@ -5157,7 +5157,7 @@ DRIVER_INIT_MEMBER( cps_state, sf2h13 )
 
 DRIVER_INIT_MEMBER( cps_state, wofb )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Fix gfx
 	mem8[0x506] = 0xE7;
 	mem8[0x507] = 0x48;
@@ -5183,7 +5183,7 @@ DRIVER_INIT_MEMBER( cps_state, wofb )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h35 )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Patch Q sound protection? check
 	mem8[0x5A1A] = 0x00;
 	mem8[0x5A1B] = 0x67;
@@ -5253,7 +5253,7 @@ DRIVER_INIT_MEMBER( cps_state, sk2h35 )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h1q )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Stage Order
 	mem8[0x72a6] = 0x00;
 	// Disable Sprite Recoding
@@ -5378,7 +5378,7 @@ DRIVER_INIT_MEMBER( cps_state, sk2h1q )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h1 )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Stage Order
 	mem8[0x72a6] = 0x00;
 	// Disable Sprite Recoding
@@ -5410,7 +5410,7 @@ DRIVER_INIT_MEMBER( cps_state, sk2h1 )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h3 )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
 	mem8[0x5d8e8] = 0x90;
 	mem8[0x5d8eb] = 0x00;
@@ -5443,7 +5443,7 @@ DRIVER_INIT_MEMBER( cps_state, sk2h3 )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h21 )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Patch Q sound protection? check
 	mem8[0x0554] = 0xb4;
 	mem8[0x0555] = 0x54;
@@ -5464,7 +5464,7 @@ DRIVER_INIT_MEMBER( cps_state, sk2h21 )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h22 )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Protection
 	mem8[0xE7AD0] = 0x71;
 	mem8[0xE7AD1] = 0x4E;
@@ -5491,7 +5491,7 @@ DRIVER_INIT_MEMBER( cps_state, sk2h22 )
 
 DRIVER_INIT_MEMBER( cps_state, sk2h31 )
 {
-	UINT8 *mem8 = memregion("maincpu")->base();
+	uint8_t *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
 	mem8[0x5df26] = 0x90;
 	mem8[0x5df29] = 0x00;

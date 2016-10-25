@@ -9,7 +9,7 @@
 extern const device_type NGBOOTLEG_PROT = &device_creator<ngbootleg_prot_device>;
 
 
-ngbootleg_prot_device::ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+ngbootleg_prot_device::ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, NGBOOTLEG_PROT, "NeoGeo Protection (Bootleg)", tag, owner, clock, "ngbootleg_prot", __FILE__),
 	kof2k3_overlay(0),
 	m_mainrom(nullptr),
@@ -53,12 +53,12 @@ void ngbootleg_prot_device::device_reset()
 /* General Bootleg Functions - used by more than 1 game */
 
 
-void ngbootleg_prot_device::neogeo_bootleg_cx_decrypt(UINT8*sprrom, UINT32 sprrom_size)
+void ngbootleg_prot_device::neogeo_bootleg_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_size)
 {
 	int i;
 	int cx_size = sprrom_size;
-	UINT8 *rom = sprrom;
-	dynamic_buffer buf( cx_size );
+	uint8_t *rom = sprrom;
+	std::vector<uint8_t> buf( cx_size );
 
 	memcpy( &buf[0], rom, cx_size );
 
@@ -68,15 +68,15 @@ void ngbootleg_prot_device::neogeo_bootleg_cx_decrypt(UINT8*sprrom, UINT32 sprro
 }
 
 
-void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(UINT8* fixed, UINT32 fixed_size, int value )
+void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(uint8_t* fixed, uint32_t fixed_size, int value )
 {
 	int sx_size = fixed_size;
-	UINT8 *rom = fixed;
+	uint8_t *rom = fixed;
 	int i;
 
 	if (value == 1)
 	{
-		dynamic_buffer buf( sx_size );
+		std::vector<uint8_t> buf( sx_size );
 		memcpy( &buf[0], rom, sx_size );
 
 		for( i = 0; i < sx_size; i += 0x10 )
@@ -96,11 +96,11 @@ void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(UINT8* fixed, UINT32 fixed
 
 /* The King of Fighters '97 Oroshi Plus 2003 (bootleg) */
 
-void ngbootleg_prot_device::kof97oro_px_decode(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kof97oro_px_decode(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int i;
-	std::vector<UINT16> tmp( 0x500000 );
-	UINT16 *src = (UINT16*)cpurom;
+	std::vector<uint16_t> tmp( 0x500000 );
+	uint16_t *src = (uint16_t*)cpurom;
 
 	for (i = 0; i < 0x500000/2; i++) {
 		tmp[i] = src[i ^ 0x7ffef];
@@ -117,9 +117,9 @@ void ngbootleg_prot_device::kof97oro_px_decode(UINT8* cpurom, UINT32 cpurom_size
   is incomplete, at the moment the S data is copied from the program rom on
   start-up instead */
 
-void ngbootleg_prot_device::kof10thBankswitch(address_space &space, UINT16 nBank)
+void ngbootleg_prot_device::kof10thBankswitch(address_space &space, uint16_t nBank)
 {
-	UINT32 bank = 0x100000 + ((nBank & 7) << 20);
+	uint32_t bank = 0x100000 + ((nBank & 7) << 20);
 	if (bank >= 0x700000)
 		bank = 0x100000;
 	m_bankdev->neogeo_set_main_cpu_bank_address(bank);
@@ -139,7 +139,7 @@ READ16_MEMBER(ngbootleg_prot_device::kof10th_RAM2_r)
 WRITE16_MEMBER( ngbootleg_prot_device::kof10th_custom_w )
 {
 	if (!m_cartridge_ram[0xFFE]) { // Write to RAM bank A
-		//UINT16 *prom = (UINT16*)m_mainrom;
+		//uint16_t *prom = (uint16_t*)m_mainrom;
 		COMBINE_DATA(&m_cartridge_ram2[(0x00000/2) + (offset & 0xFFFF)]);
 	} else { // Write S data on-the-fly
 		m_fixedrom[offset] = BITSWAP8(data,7,6,0,4,3,2,1,5);
@@ -152,14 +152,14 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof10th_bankswitch_w )
 		if (offset == 0x5FFF8) { // Standard bankswitch
 			kof10thBankswitch(space, data);
 		} else if (offset == 0x5FFFC && m_cartridge_ram[0xFFC] != data) { // Special bankswitch
-			UINT8 *src = m_mainrom;
+			uint8_t *src = m_mainrom;
 			memcpy (src + 0x10000,  src + ((data & 1) ? 0x810000 : 0x710000), 0xcffff);
 		}
 		COMBINE_DATA(&m_cartridge_ram[offset & 0xFFF]);
 	}
 }
 
-void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neogeo_banked_cart_device* bankdev, UINT8* cpurom, UINT32 cpurom_size, UINT8* fixedrom, UINT32 fixedrom_size)
+void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
 {
 	m_mainrom = cpurom;
 	m_fixedrom = fixedrom;
@@ -177,11 +177,11 @@ void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neo
 		save_pointer(NAME(m_fixedrom), 0x40000);
 }
 
-void ngbootleg_prot_device::decrypt_kof10th(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::decrypt_kof10th(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int i, j;
-	dynamic_buffer dst(0x900000);
-	UINT8 *src = cpurom;
+	std::vector<uint8_t> dst(0x900000);
+	uint8_t *src = cpurom;
 
 	memcpy(&dst[0x000000], src + 0x700000, 0x100000); // Correct (Verified in Uni-bios)
 	memcpy(&dst[0x100000], src + 0x000000, 0x800000);
@@ -192,12 +192,12 @@ void ngbootleg_prot_device::decrypt_kof10th(UINT8* cpurom, UINT32 cpurom_size)
 	}
 
 	// Altera protection chip patches these over P ROM
-	((UINT16*)src)[0x0124/2] = 0x000d; // Enables XOR for RAM moves, forces SoftDIPs, and USA region
-	((UINT16*)src)[0x0126/2] = 0xf7a8;
+	((uint16_t*)src)[0x0124/2] = 0x000d; // Enables XOR for RAM moves, forces SoftDIPs, and USA region
+	((uint16_t*)src)[0x0126/2] = 0xf7a8;
 
-	((UINT16*)src)[0x8bf4/2] = 0x4ef9; // Run code to change "S" data
-	((UINT16*)src)[0x8bf6/2] = 0x000d;
-	((UINT16*)src)[0x8bf8/2] = 0xf980;
+	((uint16_t*)src)[0x8bf4/2] = 0x4ef9; // Run code to change "S" data
+	((uint16_t*)src)[0x8bf6/2] = 0x000d;
+	((uint16_t*)src)[0x8bf8/2] = 0xf980;
 
 }
 
@@ -205,10 +205,10 @@ void ngbootleg_prot_device::decrypt_kof10th(UINT8* cpurom, UINT32 cpurom_size)
 /* The King of Fighters 10th Anniversary Extra Plus (The King of Fighters 2002 bootleg) */
 
 
-void ngbootleg_prot_device::kf10thep_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf10thep_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
-	UINT16 *rom = (UINT16*)cpurom;
-	std::vector<UINT16> buf(0x100000/2);
+	uint16_t *rom = (uint16_t*)cpurom;
+	std::vector<uint16_t> buf(0x100000/2);
 
 	memcpy(&buf[0x000000/2], &rom[0x060000/2], 0x20000);
 	memcpy(&buf[0x020000/2], &rom[0x100000/2], 0x20000);
@@ -236,11 +236,11 @@ void ngbootleg_prot_device::kf10thep_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 /* The King of Fighters 10th Anniversary 2005 Unique (The King of Fighters 2002 bootleg) */
 
 
-void ngbootleg_prot_device::kf2k5uni_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k5uni_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int i, j, ofst;
-	UINT8 *src = cpurom;
-	UINT8 dst[0x80];
+	uint8_t *src = cpurom;
+	uint8_t dst[0x80];
 
 	for (i = 0; i < 0x800000; i+=0x80)
 	{
@@ -255,25 +255,25 @@ void ngbootleg_prot_device::kf2k5uni_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 	memcpy(src, src + 0x600000, 0x100000); // Seems to be the same as kof10th
 }
 
-void ngbootleg_prot_device::kf2k5uni_sx_decrypt(UINT8* fixedrom, UINT32 fixedrom_size)
+void ngbootleg_prot_device::kf2k5uni_sx_decrypt(uint8_t* fixedrom, uint32_t fixedrom_size)
 {
 	int i;
-	UINT8 *srom = fixedrom;
+	uint8_t *srom = fixedrom;
 
 	for (i = 0; i < 0x20000; i++)
 		srom[i] = BITSWAP8(srom[i], 4, 5, 6, 7, 0, 1, 2, 3);
 }
 
-void ngbootleg_prot_device::kf2k5uni_mx_decrypt(UINT8* audiorom, UINT32 audiorom_size)
+void ngbootleg_prot_device::kf2k5uni_mx_decrypt(uint8_t* audiorom, uint32_t audiorom_size)
 {
 	int i;
-	UINT8 *mrom = audiorom;
+	uint8_t *mrom = audiorom;
 
 	for (i = 0; i < 0x30000; i++)
 		mrom[i] = BITSWAP8(mrom[i], 4, 5, 6, 7, 0, 1, 2, 3);
 }
 
-void ngbootleg_prot_device::decrypt_kf2k5uni(UINT8* cpurom, UINT32 cpurom_size, UINT8* audiorom, UINT32 audiorom_size, UINT8* fixedrom, UINT32 fixedrom_size)
+void ngbootleg_prot_device::decrypt_kf2k5uni(uint8_t* cpurom, uint32_t cpurom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
 {
 	kf2k5uni_px_decrypt(cpurom, cpurom_size);
 	kf2k5uni_sx_decrypt(fixedrom, fixedrom_size);
@@ -284,10 +284,10 @@ void ngbootleg_prot_device::decrypt_kf2k5uni(UINT8* cpurom, UINT32 cpurom_size, 
 /* The King of Fighters 2002 (bootleg) */
 
 
-void ngbootleg_prot_device::kof2002b_gfx_decrypt(UINT8 *src, int size)
+void ngbootleg_prot_device::kof2002b_gfx_decrypt(uint8_t *src, int size)
 {
 	int i, j;
-	static const UINT8 t[ 8 ][ 6 ] =
+	static const uint8_t t[ 8 ][ 6 ] =
 	{
 		{ 0, 8, 7, 6, 2, 1 },
 		{ 1, 0, 8, 7, 6, 2 },
@@ -299,7 +299,7 @@ void ngbootleg_prot_device::kof2002b_gfx_decrypt(UINT8 *src, int size)
 		{ 8, 0, 7, 6, 2, 1 },
 	};
 
-	dynamic_buffer dst( 0x10000 );
+	std::vector<uint8_t> dst( 0x10000 );
 
 	for ( i = 0; i < size; i+=0x10000 )
 	{
@@ -318,12 +318,12 @@ void ngbootleg_prot_device::kof2002b_gfx_decrypt(UINT8 *src, int size)
 /* The King of Fighters 2002 Magic Plus (bootleg) */
 
 
-void ngbootleg_prot_device::kf2k2mp_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k2mp_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int i,j;
 
-	UINT8 *src = cpurom;
-	UINT8 dst[0x80];
+	uint8_t *src = cpurom;
+	uint8_t dst[0x80];
 
 	memmove(src, src + 0x300000, 0x500000);
 
@@ -342,10 +342,10 @@ void ngbootleg_prot_device::kf2k2mp_decrypt(UINT8* cpurom, UINT32 cpurom_size)
 /* The King of Fighters 2002 Magic Plus II (bootleg) */
 
 
-void ngbootleg_prot_device::kf2k2mp2_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k2mp2_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
-	UINT8 *src = cpurom;
-	dynamic_buffer dst(0x600000);
+	uint8_t *src = cpurom;
+	std::vector<uint8_t> dst(0x600000);
 
 	memcpy (&dst[0x000000], &src[0x1C0000], 0x040000);
 	memcpy (&dst[0x040000], &src[0x140000], 0x080000);
@@ -359,13 +359,13 @@ void ngbootleg_prot_device::kf2k2mp2_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 
 
 /* descrambling information from razoola */
-void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix_do(UINT8* sprrom, UINT32 sprrom_size, int start, int end, int bit3shift, int bit2shift, int bit1shift, int bit0shift)
+void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix_do(uint8_t* sprrom, uint32_t sprrom_size, int start, int end, int bit3shift, int bit2shift, int bit1shift, int bit0shift)
 {
 	int i,j;
 	int tilesize=128;
 
-	dynamic_buffer rom(16*tilesize); // 16 tiles buffer
-	UINT8* realrom = sprrom + start*tilesize;
+	std::vector<uint8_t> rom(16*tilesize); // 16 tiles buffer
+	uint8_t* realrom = sprrom + start*tilesize;
 
 	for (i = 0; i < (end-start)/16; i++) {
 		for (j = 0; j < 16; j++) {
@@ -381,7 +381,7 @@ void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix_do(UINT8* sprrom, UI
 	}
 }
 
-void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix(UINT8* sprrom, UINT32 sprrom_size, int start, int end)
+void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix(uint8_t* sprrom, uint32_t sprrom_size, int start, int end)
 {
 	cthd2003_neogeo_gfx_address_fix_do(sprrom, sprrom_size, start+512*0, end+512*0, 0,3,2,1);
 	cthd2003_neogeo_gfx_address_fix_do(sprrom, sprrom_size, start+512*1, end+512*1, 1,0,3,2);
@@ -392,7 +392,7 @@ void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix(UINT8* sprrom, UINT3
 	cthd2003_neogeo_gfx_address_fix_do(sprrom, sprrom_size, start+512*7, end+512*7, 0,2,3,1);
 }
 
-void ngbootleg_prot_device::cthd2003_c(UINT8* sprrom, UINT32 sprrom_size, int pow)
+void ngbootleg_prot_device::cthd2003_c(uint8_t* sprrom, uint32_t sprrom_size, int pow)
 {
 	int i;
 
@@ -415,10 +415,10 @@ void ngbootleg_prot_device::cthd2003_c(UINT8* sprrom, UINT32 sprrom_size, int po
 		cthd2003_neogeo_gfx_address_fix(sprrom, sprrom_size, i*512,i*512+512);
 }
 
-void ngbootleg_prot_device::decrypt_cthd2003(UINT8* sprrom, UINT32 sprrom_size, UINT8* audiorom, UINT32 audiorom_size, UINT8* fixedrom, UINT32 fixedrom_size)
+void ngbootleg_prot_device::decrypt_cthd2003(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
 {
-	UINT8 *romdata = fixedrom;
-	dynamic_buffer tmp(8*128*128);
+	uint8_t *romdata = fixedrom;
+	std::vector<uint8_t> tmp(8*128*128);
 
 	memcpy(&tmp[8*0*128], romdata+8*0*128, 8*32*128);
 	memcpy(&tmp[8*32*128], romdata+8*64*128, 8*32*128);
@@ -452,11 +452,11 @@ WRITE16_MEMBER( ngbootleg_prot_device::cthd2003_bankswitch_w )
 	}
 }
 
-void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size)
 {
 	/* patches thanks to razoola */
 	int i;
-	UINT16 *mem16 = (UINT16 *)cpurom;
+	uint16_t *mem16 = (uint16_t *)cpurom;
 
 	/* special ROM banking handler */
 	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(FUNC(ngbootleg_prot_device::cthd2003_bankswitch_w),this));
@@ -498,11 +498,11 @@ void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_ca
 /* Crouching Tiger Hidden Dragon 2003 Super Plus (bootleg of King of Fighters 2001) */
 
 
-void ngbootleg_prot_device::ct2k3sp_sx_decrypt( UINT8* fixedrom, UINT32 fixedrom_size )
+void ngbootleg_prot_device::ct2k3sp_sx_decrypt( uint8_t* fixedrom, uint32_t fixedrom_size )
 {
 	int rom_size = fixedrom_size;
-	UINT8 *rom = fixedrom;
-	dynamic_buffer buf( rom_size );
+	uint8_t *rom = fixedrom;
+	std::vector<uint8_t> buf( rom_size );
 	int i;
 	int ofst;
 
@@ -526,10 +526,10 @@ void ngbootleg_prot_device::ct2k3sp_sx_decrypt( UINT8* fixedrom, UINT32 fixedrom
 	memcpy( &rom[ 0x30000 ], &buf[ 0x28000 ], 0x8000 );
 }
 
-void ngbootleg_prot_device::decrypt_ct2k3sp(UINT8* sprrom, UINT32 sprrom_size, UINT8* audiorom, UINT32 audiorom_size, UINT8* fixedrom, UINT32 fixedrom_size)
+void ngbootleg_prot_device::decrypt_ct2k3sp(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
 {
-	UINT8 *romdata = audiorom+0x10000;
-	dynamic_buffer tmp(8*128*128);
+	uint8_t *romdata = audiorom+0x10000;
+	std::vector<uint8_t> tmp(8*128*128);
 	memcpy(&tmp[8*0*128], romdata+8*0*128, 8*32*128);
 	memcpy(&tmp[8*32*128], romdata+8*64*128, 8*32*128);
 	memcpy(&tmp[8*64*128], romdata+8*32*128, 8*32*128);
@@ -545,10 +545,10 @@ void ngbootleg_prot_device::decrypt_ct2k3sp(UINT8* sprrom, UINT32 sprrom_size, U
 /* Crouching Tiger Hidden Dragon 2003 Super Plus alternate (bootleg of King of Fighters 2001) */
 
 
-void ngbootleg_prot_device::decrypt_ct2k3sa(UINT8* sprrom, UINT32 sprrom_size, UINT8* audiorom, UINT32 audiorom_size )
+void ngbootleg_prot_device::decrypt_ct2k3sa(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size )
 {
-	UINT8 *romdata = audiorom+0x10000;
-	dynamic_buffer tmp(8*128*128);
+	uint8_t *romdata = audiorom+0x10000;
+	std::vector<uint8_t> tmp(8*128*128);
 	memcpy(&tmp[8*0*128], romdata+8*0*128, 8*32*128);
 	memcpy(&tmp[8*32*128], romdata+8*64*128, 8*32*128);
 	memcpy(&tmp[8*64*128], romdata+8*32*128, 8*32*128);
@@ -559,11 +559,11 @@ void ngbootleg_prot_device::decrypt_ct2k3sa(UINT8* sprrom, UINT32 sprrom_size, U
 	cthd2003_c(sprrom,sprrom_size, 0);
 }
 
-void ngbootleg_prot_device::patch_ct2k3sa(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::patch_ct2k3sa(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	/* patches thanks to razoola - same as for cthd2003*/
 	int i;
-	UINT16 *mem16 = (UINT16 *)cpurom;
+	uint16_t *mem16 = (uint16_t *)cpurom;
 
 	// theres still a problem on the character select screen but it seems to be related to cpu core timing issues,
 	// overclocking the 68k prevents it.
@@ -602,10 +602,10 @@ void ngbootleg_prot_device::patch_ct2k3sa(UINT8* cpurom, UINT32 cpurom_size)
 /* King of Fighters Special Edition 2004 (bootleg of King of Fighters 2002) */
 
 
-void ngbootleg_prot_device::decrypt_kof2k4se_68k(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::decrypt_kof2k4se_68k(uint8_t* cpurom, uint32_t cpurom_size)
 {
-	UINT8 *src = cpurom+0x100000;
-	dynamic_buffer dst(0x400000);
+	uint8_t *src = cpurom+0x100000;
+	std::vector<uint8_t> dst(0x400000);
 	int i;
 	static const int sec[] = {0x300000,0x200000,0x100000,0x000000};
 	memcpy(&dst[0],src,0x400000);
@@ -620,24 +620,24 @@ void ngbootleg_prot_device::decrypt_kof2k4se_68k(UINT8* cpurom, UINT32 cpurom_si
 /* Lansquenet 2004 (Shock Troopers - 2nd Squad bootleg) */
 
 
-void ngbootleg_prot_device::lans2004_vx_decrypt(UINT8* ymsndrom, UINT32 ymsndrom_size)
+void ngbootleg_prot_device::lans2004_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsndrom_size)
 {
 	int i;
-	UINT8 *rom = ymsndrom;
+	uint8_t *rom = ymsndrom;
 	for (i = 0; i < 0xA00000; i++)
 		rom[i] = BITSWAP8(rom[i], 0, 1, 5, 4, 3, 2, 6, 7);
 }
 
-void ngbootleg_prot_device::lans2004_decrypt_68k(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::lans2004_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	/* Descrambling P ROMs - Thanks to Razoola for the info */
 	int i;
-	UINT8 *src = cpurom;
-	UINT16 *rom = (UINT16*)cpurom;
+	uint8_t *src = cpurom;
+	uint16_t *rom = (uint16_t*)cpurom;
 
 	{
 		static const int sec[] = { 0x3, 0x8, 0x7, 0xC, 0x1, 0xA, 0x6, 0xD };
-		dynamic_buffer dst(0x600000);
+		std::vector<uint8_t> dst(0x600000);
 
 		for (i = 0; i < 8; i++)
 			memcpy (&dst[i * 0x20000], src + sec[i] * 0x20000, 0x20000);
@@ -707,15 +707,15 @@ void ngbootleg_prot_device::install_ms5plus_protection(cpu_device* maincpu, neog
 /* SNK vs. CAPCOM SVC CHAOS (bootleg) */
 
 
-void ngbootleg_prot_device::svcboot_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::svcboot_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
-	static const UINT8 sec[] = {
+	static const uint8_t sec[] = {
 		0x06, 0x07, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00
 	};
 	int i;
 	int size = cpurom_size;
-	UINT8 *src = cpurom;
-	dynamic_buffer dst( size );
+	uint8_t *src = cpurom;
+	std::vector<uint8_t> dst( size );
 	int ofst;
 	for( i = 0; i < size / 0x100000; i++ ){
 		memcpy( &dst[ i * 0x100000 ], &src[ sec[ i ] * 0x100000 ], 0x100000 );
@@ -727,12 +727,12 @@ void ngbootleg_prot_device::svcboot_px_decrypt(UINT8* cpurom, UINT32 cpurom_size
 	}
 }
 
-void ngbootleg_prot_device::svcboot_cx_decrypt(UINT8*sprrom, UINT32 sprrom_size)
+void ngbootleg_prot_device::svcboot_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_size)
 {
-	static const UINT8 idx_tbl[ 0x10 ] = {
+	static const uint8_t idx_tbl[ 0x10 ] = {
 		0, 1, 0, 1, 2, 3, 2, 3, 3, 4, 3, 4, 4, 5, 4, 5,
 	};
-	static const UINT8 bitswap4_tbl[ 6 ][ 4 ] = {
+	static const uint8_t bitswap4_tbl[ 6 ][ 4 ] = {
 		{ 3, 0, 1, 2 },
 		{ 2, 3, 0, 1 },
 		{ 1, 2, 3, 0 },
@@ -742,8 +742,8 @@ void ngbootleg_prot_device::svcboot_cx_decrypt(UINT8*sprrom, UINT32 sprrom_size)
 	};
 	int i;
 	int size = sprrom_size;
-	UINT8 *src = sprrom;
-	dynamic_buffer dst( size );
+	uint8_t *src = sprrom;
+	std::vector<uint8_t> dst( size );
 	int ofst;
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < size / 0x80; i++ ){
@@ -762,14 +762,14 @@ void ngbootleg_prot_device::svcboot_cx_decrypt(UINT8*sprrom, UINT32 sprrom_size)
 /* SNK vs. CAPCOM SVC CHAOS Plus (bootleg set 1) */
 
 
-void ngbootleg_prot_device::svcplus_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::svcplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	static const int sec[] = {
 		0x00, 0x03, 0x02, 0x05, 0x04, 0x01
 	};
 	int size = cpurom_size;
-	UINT8 *src = cpurom;
-	dynamic_buffer dst( size );
+	uint8_t *src = cpurom;
+	std::vector<uint8_t> dst( size );
 	int i;
 	int ofst;
 	memcpy( &dst[0], src, size );
@@ -787,10 +787,10 @@ void ngbootleg_prot_device::svcplus_px_decrypt(UINT8* cpurom, UINT32 cpurom_size
 	}
 }
 
-void ngbootleg_prot_device::svcplus_px_hack(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::svcplus_px_hack(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	/* patched by the protection chip? */
-	UINT16 *mem16 = (UINT16 *)cpurom;
+	uint16_t *mem16 = (uint16_t *)cpurom;
 	mem16[0x0f8016/2] = 0x33c1;
 }
 
@@ -798,15 +798,15 @@ void ngbootleg_prot_device::svcplus_px_hack(UINT8* cpurom, UINT32 cpurom_size)
 /* SNK vs. CAPCOM SVC CHAOS Plus (bootleg set 2) */
 
 
-void ngbootleg_prot_device::svcplusa_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::svcplusa_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int i;
 	static const int sec[] = {
 		0x01, 0x02, 0x03, 0x04, 0x05, 0x00
 	};
 	int size = cpurom_size;
-	UINT8 *src = cpurom;
-	dynamic_buffer dst( size );
+	uint8_t *src = cpurom;
+	std::vector<uint8_t> dst( size );
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < 6; i++ ){
 		memcpy( &src[ i * 0x100000 ], &dst[ sec[ i ] * 0x100000 ], 0x100000 );
@@ -817,14 +817,14 @@ void ngbootleg_prot_device::svcplusa_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 /* SNK vs. CAPCOM SVC CHAOS Super Plus (bootleg) */
 
 
-void ngbootleg_prot_device::svcsplus_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::svcsplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	static const int sec[] = {
 		0x06, 0x07, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00
 	};
 	int size = cpurom_size;
-	UINT8 *src = cpurom;
-	dynamic_buffer dst( size );
+	uint8_t *src = cpurom;
+	std::vector<uint8_t> dst( size );
 	int i;
 	int ofst;
 	memcpy( &dst[0], src, size );
@@ -838,10 +838,10 @@ void ngbootleg_prot_device::svcsplus_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 	}
 }
 
-void ngbootleg_prot_device::svcsplus_px_hack(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::svcsplus_px_hack(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	/* patched by the protection chip? */
-	UINT16 *mem16 = (UINT16 *)cpurom;
+	uint16_t *mem16 = (uint16_t *)cpurom;
 	mem16[0x9e90/2] = 0x000f;
 	mem16[0x9e92/2] = 0xc9c0;
 	mem16[0xa10c/2] = 0x4eb9;
@@ -867,9 +867,9 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof2003_w )
 {
 	data = COMBINE_DATA(&m_cartridge_ram[offset]);
 	if (offset == 0x1ff0/2 || offset == 0x1ff2/2) {
-		UINT8* cr = (UINT8 *)m_cartridge_ram;
-		UINT32 address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff1)];
-		UINT8 prt = cr[BYTE_XOR_LE(0x1ff2)];
+		uint8_t* cr = (uint8_t *)m_cartridge_ram;
+		uint32_t address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff1)];
+		uint8_t prt = cr[BYTE_XOR_LE(0x1ff2)];
 
 		cr[BYTE_XOR_LE(0x1ff0)] =  0xa0;
 		cr[BYTE_XOR_LE(0x1ff1)] &= 0xfe;
@@ -884,9 +884,9 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof2003p_w )
 {
 	data = COMBINE_DATA(&m_cartridge_ram[offset]);
 	if (offset == 0x1ff0/2 || offset == 0x1ff2/2) {
-		UINT8* cr = (UINT8 *)m_cartridge_ram;
-		UINT32 address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff0)];
-		UINT8 prt = cr[BYTE_XOR_LE(0x1ff2)];
+		uint8_t* cr = (uint8_t *)m_cartridge_ram;
+		uint32_t address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff0)];
+		uint8_t prt = cr[BYTE_XOR_LE(0x1ff2)];
 
 		cr[BYTE_XOR_LE(0x1ff0)] &= 0xfe;
 		cr[BYTE_XOR_LE(0x1ff3)] &= 0x7f;
@@ -896,16 +896,16 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof2003p_w )
 	}
 }
 
-void ngbootleg_prot_device::kf2k3bl_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k3bl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int i;
-	static const UINT8 sec[] = {
+	static const uint8_t sec[] = {
 		0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06
 	};
 
 	int rom_size = 0x800000;
-	UINT8 *rom = cpurom;
-	dynamic_buffer buf( rom_size );
+	uint8_t *rom = cpurom;
+	std::vector<uint8_t> buf( rom_size );
 	memcpy( &buf[0], rom, rom_size );
 
 	for( i = 0; i < rom_size / 0x100000; i++ ){
@@ -913,7 +913,7 @@ void ngbootleg_prot_device::kf2k3bl_px_decrypt(UINT8* cpurom, UINT32 cpurom_size
 	}
 }
 
-void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size)
 {
 	m_mainrom = cpurom;
 
@@ -928,10 +928,10 @@ void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neog
 /* The King of Fighters 2004 Plus / Hero (The King of Fighters 2003 bootleg) */
 
 
-void ngbootleg_prot_device::kf2k3pl_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k3pl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
-	std::vector<UINT16> tmp(0x100000/2);
-	UINT16*rom16 = (UINT16*)cpurom;
+	std::vector<uint16_t> tmp(0x100000/2);
+	uint16_t*rom16 = (uint16_t*)cpurom;
 	int j;
 	int i;
 
@@ -948,7 +948,7 @@ void ngbootleg_prot_device::kf2k3pl_px_decrypt(UINT8* cpurom, UINT32 cpurom_size
 	kof2k3_overlay = rom16[0x58196 / 2];
 }
 
-void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size)
 {
 	m_mainrom = cpurom;
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff, read16_delegate(FUNC(ngbootleg_prot_device::kof2003_r),this), write16_delegate(FUNC(ngbootleg_prot_device::kof2003p_w),this) );
@@ -959,10 +959,10 @@ void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neog
 /* The King of Fighters 2004 Ultra Plus (The King of Fighters 2003 bootleg) */
 
 
-void ngbootleg_prot_device::kf2k3upl_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::kf2k3upl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	{
-		UINT8 *src = cpurom;
+		uint8_t *src = cpurom;
 		memmove(src+0x100000, src, 0x600000);
 		memmove(src, src+0x700000, 0x100000);
 	}
@@ -970,8 +970,8 @@ void ngbootleg_prot_device::kf2k3upl_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 	{
 		int ofst;
 		int i;
-		UINT8 *rom = cpurom + 0xfe000;
-		UINT8 *buf = cpurom + 0xd0610;
+		uint8_t *rom = cpurom + 0xfe000;
+		uint8_t *buf = cpurom + 0xd0610;
 
 		for( i = 0; i < 0x2000 / 2; i++ ){
 			ofst = (i & 0xff00) + BITSWAP8( (i & 0x00ff), 7, 6, 0, 4, 3, 2, 1, 5 );
@@ -979,7 +979,7 @@ void ngbootleg_prot_device::kf2k3upl_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 		}
 	}
 
-	UINT16*rom16 = (UINT16*)cpurom;
+	uint16_t*rom16 = (uint16_t*)cpurom;
 	kof2k3_overlay = rom16[0x58196 / 2];
 
 
@@ -989,11 +989,11 @@ void ngbootleg_prot_device::kf2k3upl_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 /* Samurai Shodown V / Samurai Spirits Zero (bootleg) */
 
 
-void ngbootleg_prot_device::samsho5b_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void ngbootleg_prot_device::samsho5b_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	int px_size = cpurom_size;
-	UINT8 *rom = cpurom;
-	dynamic_buffer buf( px_size );
+	uint8_t *rom = cpurom;
+	std::vector<uint8_t> buf( px_size );
 	int ofst;
 	int i;
 
@@ -1014,10 +1014,10 @@ void ngbootleg_prot_device::samsho5b_px_decrypt(UINT8* cpurom, UINT32 cpurom_siz
 }
 
 
-void ngbootleg_prot_device::samsho5b_vx_decrypt(UINT8* ymsndrom, UINT32 ymsndrom_size)
+void ngbootleg_prot_device::samsho5b_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsndrom_size)
 {
 	int vx_size = ymsndrom_size;
-	UINT8 *rom = ymsndrom;
+	uint8_t *rom = ymsndrom;
 	int i;
 
 	for( i = 0; i < vx_size; i++ )
@@ -1030,11 +1030,11 @@ void ngbootleg_prot_device::samsho5b_vx_decrypt(UINT8* ymsndrom, UINT32 ymsndrom
 
 #define MATRIMBLZ80( i ) ( i^(BITSWAP8(i&0x3,4,3,1,2,0,7,6,5)<<8) )
 
-void ngbootleg_prot_device::matrimbl_decrypt(UINT8* sprrom, UINT32 sprrom_size, UINT8* audiorom, UINT32 audiorom_size)
+void ngbootleg_prot_device::matrimbl_decrypt(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size)
 {
 	/* decrypt Z80 */
-	UINT8 *rom = audiorom+0x10000;
-	dynamic_buffer buf( 0x20000 );
+	uint8_t *rom = audiorom+0x10000;
+	std::vector<uint8_t> buf( 0x20000 );
 	int i, j;
 	memcpy( &buf[0], rom, 0x20000 );
 	for( i=0x00000; i<0x20000; i++ )

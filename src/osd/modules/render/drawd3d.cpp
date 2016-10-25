@@ -74,7 +74,7 @@ static inline BOOL GetClientRectExceptMenu(HWND hWnd, PRECT pRect, BOOL fullscre
 }
 
 
-static inline UINT32 ycc_to_rgb(UINT8 y, UINT8 cb, UINT8 cr)
+static inline uint32_t ycc_to_rgb(uint8_t y, uint8_t cb, uint8_t cr)
 {
 	/* original equations:
 
@@ -145,17 +145,26 @@ void renderer_d3d9::toggle_fsfx()
 
 void renderer_d3d9::record()
 {
-	get_shaders()->record_movie();
+	if (m_shaders != nullptr)
+	{
+		m_shaders->record_movie();
+	}
 }
 
-void renderer_d3d9::add_audio_to_recording(const INT16 *buffer, int samples_this_frame)
+void renderer_d3d9::add_audio_to_recording(const int16_t *buffer, int samples_this_frame)
 {
-	get_shaders()->record_audio(buffer, samples_this_frame);
+	if (m_shaders != nullptr)
+	{
+		m_shaders->record_audio(buffer, samples_this_frame);
+	}
 }
 
 void renderer_d3d9::save()
 {
-	get_shaders()->save_snapshot();
+	if (m_shaders != nullptr)
+	{
+		m_shaders->save_snapshot();
+	}
 }
 
 
@@ -465,22 +474,22 @@ void d3d_texture_manager::delete_resources()
 	m_texture_list.clear();
 }
 
-UINT32 d3d_texture_manager::texture_compute_hash(const render_texinfo *texture, UINT32 flags)
+uint32_t d3d_texture_manager::texture_compute_hash(const render_texinfo *texture, uint32_t flags)
 {
-	return (FPTR)texture->base ^ (flags & (PRIMFLAG_BLENDMODE_MASK | PRIMFLAG_TEXFORMAT_MASK));
+	return (uintptr_t)texture->base ^ (flags & (PRIMFLAG_BLENDMODE_MASK | PRIMFLAG_TEXFORMAT_MASK));
 }
 
-texture_info *d3d_texture_manager::find_texinfo(const render_texinfo *texinfo, UINT32 flags)
+texture_info *d3d_texture_manager::find_texinfo(const render_texinfo *texinfo, uint32_t flags)
 {
-	UINT32 hash = texture_compute_hash(texinfo, flags);
+	uint32_t hash = texture_compute_hash(texinfo, flags);
 
 	// find a match
 	for (auto it = m_texture_list.begin(); it != m_texture_list.end(); it++)
 	{
-		UINT32 test_screen = (UINT32)(*it)->get_texinfo().osddata >> 1;
-		UINT32 test_page = (UINT32)(*it)->get_texinfo().osddata & 1;
-		UINT32 prim_screen = (UINT32)texinfo->osddata >> 1;
-		UINT32 prim_page = (UINT32)texinfo->osddata & 1;
+		uint32_t test_screen = (uint32_t)(*it)->get_texinfo().osddata >> 1;
+		uint32_t test_page = (uint32_t)(*it)->get_texinfo().osddata & 1;
+		uint32_t prim_screen = (uint32_t)texinfo->osddata >> 1;
+		uint32_t prim_page = (uint32_t)texinfo->osddata & 1;
 		if (test_screen != prim_screen || test_page != prim_page)
 			continue;
 
@@ -490,48 +499,7 @@ texture_info *d3d_texture_manager::find_texinfo(const render_texinfo *texinfo, U
 			(*it)->get_texinfo().height == texinfo->height &&
 			(((*it)->get_flags() ^ flags) & (PRIMFLAG_BLENDMODE_MASK | PRIMFLAG_TEXFORMAT_MASK)) == 0)
 		{
-			// Reject a texture if it belongs to an out-of-date render target, so as to cause the HLSL system to re-cache
-			if (m_renderer->get_shaders()->enabled() && texinfo->width != 0 && texinfo->height != 0 && (flags & PRIMFLAG_SCREENTEX_MASK) != 0)
-			{
-				if (m_renderer->get_shaders()->find_render_target((*it).get()) != nullptr)
-					return (*it).get();
-			}
-			else
-			{
-				return (*it).get();
-			}
-		}
-	}
-
-	// Nothing found, check if we need to unregister something with HLSL
-	if (m_renderer->get_shaders()->enabled())
-	{
-		if (texinfo->width == 0 || texinfo->height == 0)
-		{
-			return nullptr;
-		}
-
-		UINT32 prim_screen = texinfo->osddata >> 1;
-		UINT32 prim_page = texinfo->osddata & 1;
-
-		for (auto it = m_texture_list.begin(); it != m_texture_list.end(); it++)
-		{
-			UINT32 test_screen = (*it)->get_texinfo().osddata >> 1;
-			UINT32 test_page = (*it)->get_texinfo().osddata & 1;
-			if (test_screen != prim_screen || test_page != prim_page)
-			{
-				continue;
-			}
-
-			// Clear out our old texture reference
-			if ((*it)->get_hash() == hash &&
-				(*it)->get_texinfo().base == texinfo->base &&
-				(((*it)->get_flags() ^ flags) & (PRIMFLAG_BLENDMODE_MASK | PRIMFLAG_TEXFORMAT_MASK)) == 0 &&
-				((*it)->get_texinfo().width != texinfo->width ||
-				(*it)->get_texinfo().height != texinfo->height))
-			{
-				m_renderer->get_shaders()->remove_render_target((*it).get());
-			}
+			return (*it).get();
 		}
 	}
 
@@ -644,30 +612,40 @@ void d3d_texture_manager::update_textures()
 					texture->get_texinfo().seqid = prim.texture.seqid;
 				}
 			}
-
-			if (m_renderer->get_shaders()->enabled())
-			{
-				if (!m_renderer->get_shaders()->get_texture_target(&prim, texture))
-				{
-					if (!m_renderer->get_shaders()->register_texture(&prim, texture))
-					{
-						d3dintf->post_fx_available = false;
-					}
-				}
-			}
 		}
-		else if(PRIMFLAG_GET_VECTORBUF(prim.flags))
+	}
+
+	if (!m_renderer->get_shaders()->enabled())
+	{
+		return;
+	}
+
+	int screen_index = 0;
+	for (render_primitive &prim : *win->m_primlist)
+	{
+		if (PRIMFLAG_GET_SCREENTEX(prim.flags))
 		{
-			if (m_renderer->get_shaders()->enabled())
+			if (!m_renderer->get_shaders()->get_texture_target(&prim, prim.texture.width, prim.texture.height, screen_index))
 			{
-				if (!m_renderer->get_shaders()->get_vector_target(&prim))
+				if (!m_renderer->get_shaders()->create_texture_target(&prim, prim.texture.width, prim.texture.height, screen_index))
 				{
-					if (!m_renderer->get_shaders()->create_vector_target(&prim))
-					{
-						d3dintf->post_fx_available = false;
-					}
+					d3dintf->post_fx_available = false;
+					break;
 				}
 			}
+			screen_index++;
+		}
+		else if (PRIMFLAG_GET_VECTORBUF(prim.flags))
+		{
+			if (!m_renderer->get_shaders()->get_vector_target(&prim, screen_index))
+			{
+				if (!m_renderer->get_shaders()->create_vector_target(&prim, screen_index))
+				{
+					d3dintf->post_fx_available = false;
+					break;
+				}
+			}
+			screen_index++;
 		}
 	}
 }
@@ -830,7 +808,7 @@ int renderer_d3d9::device_create(HWND device_hwnd)
 	}
 
 	// verify the caps
-	if (device_verify_caps())
+	if (!device_verify_caps())
 	{
 		return 1;
 	}
@@ -886,7 +864,7 @@ try_again:
 		}
 
 		//  fatal error if we just can't do it
-		osd_printf_error("Unable to create the Direct3D device (%08X)\n", (UINT32)result);
+		osd_printf_error("Unable to create the Direct3D device (%08X)\n", (uint32_t)result);
 		return 1;
 	}
 	m_create_error_count = 0;
@@ -929,24 +907,24 @@ int renderer_d3d9::device_create_resources()
 	HRESULT result = m_device->CreateVertexBuffer(
 		sizeof(vertex) * VERTEX_BUFFER_SIZE,
 		D3DUSAGE_DYNAMIC | D3DUSAGE_SOFTWAREPROCESSING | D3DUSAGE_WRITEONLY,
-		VERTEX_BASE_FORMAT | ((m_shaders->enabled() && d3dintf->post_fx_available)
+		VERTEX_BASE_FORMAT | ((m_shaders->enabled())
 			? D3DFVF_XYZW
 			: D3DFVF_XYZRHW),
 		D3DPOOL_DEFAULT, &m_vertexbuf, nullptr);
 	if (FAILED(result))
 	{
-		osd_printf_error("Error creating vertex buffer (%08X)\n", (UINT32)result);
+		osd_printf_error("Error creating vertex buffer (%08X)\n", (uint32_t)result);
 		return 1;
 	}
 
 	// set the vertex format
 	result = m_device->SetFVF(
-		(D3DFORMAT)(VERTEX_BASE_FORMAT | ((m_shaders->enabled() && d3dintf->post_fx_available)
+		(D3DFORMAT)(VERTEX_BASE_FORMAT | ((m_shaders->enabled())
 			? D3DFVF_XYZW
 			: D3DFVF_XYZRHW)));
 	if (FAILED(result))
 	{
-		osd_printf_error("Error setting vertex format (%08X)\n", (UINT32)result);
+		osd_printf_error("Error setting vertex format (%08X)\n", (uint32_t)result);
 		return 1;
 	}
 
@@ -1065,15 +1043,16 @@ void renderer_d3d9::device_delete_resources()
 //  device_verify_caps
 //============================================================
 
-int renderer_d3d9::device_verify_caps()
+bool renderer_d3d9::device_verify_caps()
 {
-	int verify = 0;
+	bool success = true;
 
 	D3DCAPS9 caps;
 	HRESULT result = d3dintf->d3dobj->GetDeviceCaps(m_adapter, D3DDEVTYPE_HAL, &caps);
 	if (FAILED(result))
 	{
 		osd_printf_verbose("Direct3D: Error %08lX during GetDeviceCaps call\n", result);
+		return false;
 	}
 
 	if (caps.MaxPixelShader30InstructionSlots < 512)
@@ -1085,32 +1064,68 @@ int renderer_d3d9::device_verify_caps()
 	// verify presentation capabilities
 	if (!(caps.PresentationIntervals & D3DPRESENT_INTERVAL_IMMEDIATE))
 	{
-		osd_printf_verbose("Direct3D: Error - Device does not support immediate presentations\n");
-		verify = 2;
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support immediate presentation.\n");
+		success = false;
 	}
 	if (!(caps.PresentationIntervals & D3DPRESENT_INTERVAL_ONE))
 	{
-		osd_printf_verbose("Direct3D: Error - Device does not support per-refresh presentations\n");
-		verify = 2;
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support per-refresh presentation.\n");
+		success = false;
 	}
 
 	// verify device capabilities
 	if (!(caps.DevCaps & D3DDEVCAPS_CANRENDERAFTERFLIP))
 	{
-		osd_printf_verbose("Direct3D: Warning - Device does not support queued rendering after a page flip\n");
-		verify = 1;
+		osd_printf_error("Direct3D Error: Your graphics card does not support rendering after a page\n");
+		osd_printf_error("flip.\n");
+		success = false;
 	}
+
 	if (!(caps.DevCaps & D3DDEVCAPS_HWRASTERIZATION))
 	{
-		osd_printf_verbose("Direct3D: Warning - Device does not support hardware rasterization\n");
-		verify = 1;
+		osd_printf_error("Direct3D Error: Your graphics card does not support hardware rendering.\n");
+		success = false;
 	}
 
 	// verify texture operation capabilities
 	if (!(caps.TextureOpCaps & D3DTEXOPCAPS_MODULATE))
 	{
-		osd_printf_verbose("Direct3D: Warning - Device does not support texture modulation\n");
-		verify = 1;
+		osd_printf_error("Direct3D Error: Your graphics card does not support modulate-type blending.\n");
+		success = false;
+	}
+
+	if (caps.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL)
+	{
+		osd_printf_error("Direct3D Error: Your graphics card does not fully support non-power-of-two\n");
+		osd_printf_error("textures.\n");
+		success = false;
+	}
+
+	if (caps.TextureCaps & D3DPTEXTURECAPS_POW2)
+	{
+		osd_printf_error("Direct3D Error: Your graphics card does not support non-power-of-two textures.\n");
+		success = false;
+	}
+	if (caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
+	{
+		osd_printf_error("Direct3D Error: Your graphics card does not support non-square textures.\n");
+		success = false;
+	}
+
+	// verify texture formats
+	result = d3dintf->d3dobj->CheckDeviceFormat(m_adapter, D3DDEVTYPE_HAL, m_pixformat, 0, D3DRTYPE_TEXTURE, D3DFMT_A8R8G8B8);
+	if (FAILED(result))
+	{
+		osd_printf_error("Direct3D Error: Your graphics card does not support the A8R8G8B8 texture format.\n");
+		success = false;
+	}
+
+	if (!success)
+	{
+		osd_printf_error("This feature or features are required to use the Direct3D renderer. Please\n");
+		osd_printf_error("select another renderer using the -video option or contact the MAME developers\n");
+		osd_printf_error("with information about your system.\n");
+		return false;
 	}
 
 	m_gamma_supported = ((caps.Caps2 & D3DCAPS2_FULLSCREENGAMMA) != 0);
@@ -1119,26 +1134,7 @@ int renderer_d3d9::device_verify_caps()
 		osd_printf_warning("Direct3D: Warning - device does not support full screen gamma correction.\n");
 	}
 
-	// verify texture formats
-	result = d3dintf->d3dobj->CheckDeviceFormat(m_adapter, D3DDEVTYPE_HAL, m_pixformat, 0, D3DRTYPE_TEXTURE, D3DFMT_A8R8G8B8);
-	if (FAILED(result))
-	{
-		osd_printf_error("Error: A8R8G8B8 format textures not supported\n");
-		verify = 2;
-	}
-
-	if (verify == 2)
-	{
-		osd_printf_error("Error: Device does not meet minimum requirements for Direct3D rendering\n");
-		return 1;
-	}
-	if (verify == 1)
-	{
-		osd_printf_warning("Warning: Device may not perform well for Direct3D rendering\n");
-		return 1;
-	}
-
-	return 0;
+	return true;
 }
 
 
@@ -1255,6 +1251,7 @@ int renderer_d3d9::config_adapter_mode()
 		osd_printf_error("Proposed video mode not supported on device %s\n", win->monitor()->devicename().c_str());
 		return 1;
 	}
+
 	return 0;
 }
 
@@ -1294,7 +1291,7 @@ int renderer_d3d9::get_adapter_for_monitor()
 void renderer_d3d9::pick_best_mode()
 {
 	double target_refresh = 60.0;
-	INT32 minwidth, minheight;
+	int32_t minwidth, minheight;
 	float best_score = 0.0f;
 
 	auto win = assert_window();
@@ -1313,8 +1310,8 @@ void renderer_d3d9::pick_best_mode()
 	win->target()->compute_minimum_size(minwidth, minheight);
 
 	// use those as the target for now
-	INT32 target_width = minwidth;
-	INT32 target_height = minheight;
+	int32_t target_width = minwidth;
+	int32_t target_height = minheight;
 
 	// determine the maximum number of modes
 	int maxmodes = d3dintf->d3dobj->GetAdapterModeCount(m_adapter, D3DFMT_X8R8G8B8);
@@ -1381,7 +1378,7 @@ void renderer_d3d9::pick_best_mode()
 //  update_window_size
 //============================================================
 
-int renderer_d3d9::update_window_size()
+bool renderer_d3d9::update_window_size()
 {
 	auto win = assert_window();
 
@@ -1395,22 +1392,22 @@ int renderer_d3d9::update_window_size()
 		// clear out any pending resizing if the area didn't change
 		if (win->m_resize_state == RESIZE_STATE_PENDING)
 			win->m_resize_state = RESIZE_STATE_NORMAL;
-		return FALSE;
+		return false;
 	}
 
 	// if we're in the middle of resizing, leave it alone as well
 	if (win->m_resize_state == RESIZE_STATE_RESIZING)
-		return FALSE;
+		return false;
 
 	// set the new bounds and create the device again
 	m_width = rect_width(&client);
 	m_height = rect_height(&client);
 	if (device_create(win->main_window()->platform_window<HWND>()))
-		return FALSE;
+		return false;
 
 	// reset the resize state to normal, and indicate we made a change
 	win->m_resize_state = RESIZE_STATE_NORMAL;
-	return TRUE;
+	return true;
 }
 
 
@@ -1432,7 +1429,7 @@ void renderer_d3d9::batch_vectors(int vector_count)
 	m_vectorbatch = mesh_alloc(vertex_count);
 	m_batchindex = 0;
 
-	UINT32 cached_flags = 0;
+	uint32_t cached_flags = 0;
 	for (render_primitive &prim : *win->m_primlist)
 	{
 		switch (prim.type)
@@ -1611,10 +1608,10 @@ void renderer_d3d9::batch_vector(const render_primitive &prim)
 	}
 
 	// determine the color of the line
-	INT32 r = (INT32)(prim.color.r * 255.0f);
-	INT32 g = (INT32)(prim.color.g * 255.0f);
-	INT32 b = (INT32)(prim.color.b * 255.0f);
-	INT32 a = (INT32)(prim.color.a * 255.0f);
+	int32_t r = (int32_t)(prim.color.r * 255.0f);
+	int32_t g = (int32_t)(prim.color.g * 255.0f);
+	int32_t b = (int32_t)(prim.color.b * 255.0f);
+	int32_t a = (int32_t)(prim.color.a * 255.0f);
 	DWORD color = D3DCOLOR_ARGB(a, r, g, b);
 
 	// set the color, Z parameters to standard values
@@ -1681,10 +1678,10 @@ void renderer_d3d9::draw_line(const render_primitive &prim)
 	vertex[3].v0 = stop.c.y;
 
 	// determine the color of the line
-	INT32 r = (INT32)(prim.color.r * 255.0f);
-	INT32 g = (INT32)(prim.color.g * 255.0f);
-	INT32 b = (INT32)(prim.color.b * 255.0f);
-	INT32 a = (INT32)(prim.color.a * 255.0f);
+	int32_t r = (int32_t)(prim.color.r * 255.0f);
+	int32_t g = (int32_t)(prim.color.g * 255.0f);
+	int32_t b = (int32_t)(prim.color.b * 255.0f);
+	int32_t a = (int32_t)(prim.color.a * 255.0f);
 	DWORD color = D3DCOLOR_ARGB(a, r, g, b);
 
 	// set the color, Z parameters to standard values
@@ -1750,10 +1747,10 @@ void renderer_d3d9::draw_quad(const render_primitive &prim)
 	}
 
 	// determine the color, allowing for over modulation
-	INT32 r = (INT32)(prim.color.r * 255.0f);
-	INT32 g = (INT32)(prim.color.g * 255.0f);
-	INT32 b = (INT32)(prim.color.b * 255.0f);
-	INT32 a = (INT32)(prim.color.a * 255.0f);
+	int32_t r = (int32_t)(prim.color.r * 255.0f);
+	int32_t g = (int32_t)(prim.color.g * 255.0f);
+	int32_t b = (int32_t)(prim.color.b * 255.0f);
+	int32_t a = (int32_t)(prim.color.a * 255.0f);
 	DWORD color = D3DCOLOR_ARGB(a, r, g, b);
 
 	// adjust half pixel X/Y offset, set the color, Z parameters to standard values
@@ -1842,7 +1839,7 @@ void renderer_d3d9::primitive_flush_pending()
 	// now do the polys
 	for (int polynum = 0; polynum < m_numpolys; polynum++)
 	{
-		UINT32 flags = m_poly[polynum].flags();
+		uint32_t flags = m_poly[polynum].flags();
 		texture_info *texture = m_poly[polynum].texture();
 		int newfilter;
 
@@ -1871,7 +1868,7 @@ void renderer_d3d9::primitive_flush_pending()
 
 		assert(vertnum + m_poly[polynum].numverts() <= m_numverts);
 
-		if(m_shaders->enabled() && d3dintf->post_fx_available)
+		if(m_shaders->enabled())
 		{
 			m_shaders->render_quad(&m_poly[polynum], vertnum);
 		}
@@ -1942,7 +1939,7 @@ texture_info::~texture_info()
 //  texture_info constructor
 //============================================================
 
-texture_info::texture_info(d3d_texture_manager *manager, const render_texinfo* texsource, int prescale, UINT32 flags)
+texture_info::texture_info(d3d_texture_manager *manager, const render_texinfo* texsource, int prescale, uint32_t flags)
 {
 	HRESULT result;
 
@@ -2129,39 +2126,6 @@ void texture_info::compute_size_subroutine(int texwidth, int texheight, int* p_w
 	int finalheight = texheight;
 	int finalwidth = texwidth;
 
-	// round width/height up to nearest power of 2 if we need to
-	if (!(m_texture_manager->get_texture_caps() & D3DPTEXTURECAPS_NONPOW2CONDITIONAL))
-	{
-		// first the width
-		if (finalwidth & (finalwidth - 1))
-		{
-			finalwidth |= finalwidth >> 1;
-			finalwidth |= finalwidth >> 2;
-			finalwidth |= finalwidth >> 4;
-			finalwidth |= finalwidth >> 8;
-			finalwidth++;
-		}
-
-		// then the height
-		if (finalheight & (finalheight - 1))
-		{
-			finalheight |= finalheight >> 1;
-			finalheight |= finalheight >> 2;
-			finalheight |= finalheight >> 4;
-			finalheight |= finalheight >> 8;
-			finalheight++;
-		}
-	}
-
-	// round up to square if we need to
-	if (m_texture_manager->get_texture_caps() & D3DPTEXTURECAPS_SQUAREONLY)
-	{
-		if (finalwidth < finalheight)
-			finalwidth = finalheight;
-		else
-			finalheight = finalwidth;
-	}
-
 	// adjust the aspect ratio if we need to
 	while (finalwidth < finalheight && finalheight / finalwidth > m_texture_manager->get_max_texture_aspect())
 	{
@@ -2186,26 +2150,7 @@ void texture_info::compute_size(int texwidth, int texheight)
 	int finalheight = texheight;
 	int finalwidth = texwidth;
 
-	m_xborderpix = 0;
-	m_yborderpix = 0;
-
 	bool shaders_enabled = m_renderer->get_shaders()->enabled();
-	bool wrap_texture = (m_flags & PRIMFLAG_TEXWRAP_MASK) == PRIMFLAG_TEXWRAP_MASK;
-
-	// skip border when shaders are enabled
-	if (!shaders_enabled)
-	{
-		// if we're not wrapping, add a 1-2 pixel border on all sides
-		if (!wrap_texture)
-		{
-			// note we need 2 pixels in X for YUY textures
-			m_xborderpix = (PRIMFLAG_GET_TEXFORMAT(m_flags) == TEXFORMAT_YUY16) ? 2 : 1;
-			m_yborderpix = 1;
-		}
-	}
-
-	finalwidth += 2 * m_xborderpix;
-	finalheight += 2 * m_yborderpix;
 
 	// take texture size as given when shaders are enabled
 	if (!shaders_enabled)
@@ -2218,9 +2163,6 @@ void texture_info::compute_size(int texwidth, int texheight)
 			finalheight = texheight;
 			finalwidth = texwidth;
 
-			m_xborderpix = 0;
-			m_yborderpix = 0;
-
 			compute_size_subroutine(finalwidth, finalheight, &finalwidth, &finalheight);
 		}
 	}
@@ -2228,16 +2170,16 @@ void texture_info::compute_size(int texwidth, int texheight)
 	// if we're above the max width/height, do what?
 	if (finalwidth > m_texture_manager->get_max_texture_width() || finalheight > m_texture_manager->get_max_texture_height())
 	{
-		static int printed = FALSE;
+		static bool printed = false;
 		if (!printed) osd_printf_warning("Texture too big! (wanted: %dx%d, max is %dx%d)\n", finalwidth, finalheight, (int)m_texture_manager->get_max_texture_width(), (int)m_texture_manager->get_max_texture_height());
-		printed = TRUE;
+		printed = true;
 	}
 
 	// compute the U/V scale factors
-	m_start.c.x = (float)m_xborderpix / (float)finalwidth;
-	m_start.c.y = (float)m_yborderpix / (float)finalheight;
-	m_stop.c.x = (float)(texwidth + m_xborderpix) / (float)finalwidth;
-	m_stop.c.y = (float)(texheight + m_yborderpix) / (float)finalheight;
+	m_start.c.x = 0.0f;
+	m_start.c.y = 0.0f;
+	m_stop.c.x = float(texwidth) / float(finalwidth);
+	m_stop.c.y = float(texheight) / float(finalheight);
 
 	// set the final values
 	m_rawdims.c.x = finalwidth;
@@ -2246,38 +2188,13 @@ void texture_info::compute_size(int texwidth, int texheight)
 
 
 //============================================================
-//  copyline_palette16
-//============================================================
-
-static inline void copyline_palette16(UINT32 *dst, const UINT16 *src, int width, const rgb_t *palette, int xborderpix)
-{
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 1);
-	if (xborderpix)
-		*dst++ = 0xff000000 | palette[*src];
-	for (x = 0; x < width; x++)
-		*dst++ = 0xff000000 | palette[*src++];
-	if (xborderpix)
-		*dst++ = 0xff000000 | palette[*--src];
-}
-
-
-//============================================================
 //  copyline_palettea16
 //============================================================
 
-static inline void copyline_palettea16(UINT32 *dst, const UINT16 *src, int width, const rgb_t *palette, int xborderpix)
+static inline void copyline_palettea16(uint32_t *dst, const uint16_t *src, int width, const rgb_t *palette)
 {
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 1);
-	if (xborderpix)
-		*dst++ = palette[*src];
-	for (x = 0; x < width; x++)
+	for (int x = 0; x < width; x++)
 		*dst++ = palette[*src++];
-	if (xborderpix)
-		*dst++ = palette[*--src];
 }
 
 
@@ -2285,41 +2202,19 @@ static inline void copyline_palettea16(UINT32 *dst, const UINT16 *src, int width
 //  copyline_rgb32
 //============================================================
 
-static inline void copyline_rgb32(UINT32 *dst, const UINT32 *src, int width, const rgb_t *palette, int xborderpix)
+static inline void copyline_rgb32(uint32_t *dst, const uint32_t *src, int width, const rgb_t *palette)
 {
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 1);
-
-	// palette (really RGB map) case
 	if (palette != nullptr)
 	{
-		if (xborderpix)
-		{
-			rgb_t srcpix = *src;
-			*dst++ = 0xff000000 | palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
-		}
-		for (x = 0; x < width; x++)
+		for (int x = 0; x < width; x++)
 		{
 			rgb_t srcpix = *src++;
-			*dst++ = 0xff000000 | palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
-		}
-		if (xborderpix)
-		{
-			rgb_t srcpix = *--src;
-			*dst++ = 0xff000000 | palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
+			*dst++ = palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
 		}
 	}
-
-	// direct case
 	else
 	{
-		if (xborderpix)
-			*dst++ = 0xff000000 | *src;
-		for (x = 0; x < width; x++)
-			*dst++ = 0xff000000 | *src++;
-		if (xborderpix)
-			*dst++ = 0xff000000 | *--src;
+		memcpy(dst, src, sizeof(uint32_t) * width);
 	}
 }
 
@@ -2328,41 +2223,19 @@ static inline void copyline_rgb32(UINT32 *dst, const UINT32 *src, int width, con
 //  copyline_argb32
 //============================================================
 
-static inline void copyline_argb32(UINT32 *dst, const UINT32 *src, int width, const rgb_t *palette, int xborderpix)
+static inline void copyline_argb32(uint32_t *dst, const uint32_t *src, int width, const rgb_t *palette)
 {
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 1);
-
-	// palette (really RGB map) case
 	if (palette != nullptr)
 	{
-		if (xborderpix)
-		{
-			rgb_t srcpix = *src;
-			*dst++ = (srcpix & 0xff000000) | palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
-		}
-		for (x = 0; x < width; x++)
+		for (int x = 0; x < width; x++)
 		{
 			rgb_t srcpix = *src++;
 			*dst++ = (srcpix & 0xff000000) | palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
 		}
-		if (xborderpix)
-		{
-			rgb_t srcpix = *--src;
-			*dst++ = (srcpix & 0xff000000) | palette[0x200 + srcpix.r()] | palette[0x100 + srcpix.g()] | palette[srcpix.b()];
-		}
 	}
-
-	// direct case
 	else
 	{
-		if (xborderpix)
-			*dst++ = *src;
-		for (x = 0; x < width; x++)
-			*dst++ = *src++;
-		if (xborderpix)
-			*dst++ = *--src;
+		memcpy(dst, src, sizeof(uint32_t) * width);
 	}
 }
 
@@ -2371,61 +2244,27 @@ static inline void copyline_argb32(UINT32 *dst, const UINT32 *src, int width, co
 //  copyline_yuy16_to_yuy2
 //============================================================
 
-static inline void copyline_yuy16_to_yuy2(UINT16 *dst, const UINT16 *src, int width, const rgb_t *palette, int xborderpix)
+static inline void copyline_yuy16_to_yuy2(uint16_t *dst, const uint16_t *src, int width, const rgb_t *palette)
 {
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 2);
 	assert(width % 2 == 0);
 
-	// palette (really RGB map) case
-	if (palette != nullptr)
+	if (palette != nullptr) // palette (really RGB map) case
 	{
-		if (xborderpix)
+		for (int x = 0; x < width; x += 2)
 		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src--;
+			uint16_t srcpix0 = *src++;
+			uint16_t srcpix1 = *src++;
 			*dst++ = palette[0x000 + (srcpix0 >> 8)] | (srcpix0 << 8);
-			*dst++ = palette[0x000 + (srcpix0 >> 8)] | (srcpix1 << 8);
-		}
-		for (x = 0; x < width; x += 2)
-		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src++;
-			*dst++ = palette[0x000 + (srcpix0 >> 8)] | (srcpix0 << 8);
-			*dst++ = palette[0x000 + (srcpix1 >> 8)] | (srcpix1 << 8);
-		}
-		if (xborderpix)
-		{
-			UINT16 srcpix1 = *--src;
-			UINT16 srcpix0 = *--src;
-			*dst++ = palette[0x000 + (srcpix1 >> 8)] | (srcpix0 << 8);
 			*dst++ = palette[0x000 + (srcpix1 >> 8)] | (srcpix1 << 8);
 		}
 	}
-
-	// direct case
-	else
+	else // direct case
 	{
-		if (xborderpix)
+		for (int x = 0; x < width; x += 2)
 		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src--;
+			uint16_t srcpix0 = *src++;
+			uint16_t srcpix1 = *src++;
 			*dst++ = (srcpix0 >> 8) | (srcpix0 << 8);
-			*dst++ = (srcpix0 >> 8) | (srcpix1 << 8);
-		}
-		for (x = 0; x < width; x += 2)
-		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src++;
-			*dst++ = (srcpix0 >> 8) | (srcpix0 << 8);
-			*dst++ = (srcpix1 >> 8) | (srcpix1 << 8);
-		}
-		if (xborderpix)
-		{
-			UINT16 srcpix1 = *--src;
-			UINT16 srcpix0 = *--src;
-			*dst++ = (srcpix1 >> 8) | (srcpix0 << 8);
 			*dst++ = (srcpix1 >> 8) | (srcpix1 << 8);
 		}
 	}
@@ -2436,35 +2275,17 @@ static inline void copyline_yuy16_to_yuy2(UINT16 *dst, const UINT16 *src, int wi
 //  copyline_yuy16_to_uyvy
 //============================================================
 
-static inline void copyline_yuy16_to_uyvy(UINT16 *dst, const UINT16 *src, int width, const rgb_t *palette, int xborderpix)
+static inline void copyline_yuy16_to_uyvy(uint16_t *dst, const uint16_t *src, int width, const rgb_t *palette)
 {
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 2);
 	assert(width % 2 == 0);
 
-	// palette (really RGB map) case
-	if (palette != nullptr)
+	if (palette != nullptr) // palette (really RGB map) case
 	{
-		if (xborderpix)
+		for (int x = 0; x < width; x += 2)
 		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src--;
+			uint16_t srcpix0 = *src++;
+			uint16_t srcpix1 = *src++;
 			*dst++ = palette[0x100 + (srcpix0 >> 8)] | (srcpix0 & 0xff);
-			*dst++ = palette[0x100 + (srcpix0 >> 8)] | (srcpix1 & 0xff);
-		}
-		for (x = 0; x < width; x += 2)
-		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src++;
-			*dst++ = palette[0x100 + (srcpix0 >> 8)] | (srcpix0 & 0xff);
-			*dst++ = palette[0x100 + (srcpix1 >> 8)] | (srcpix1 & 0xff);
-		}
-		if (xborderpix)
-		{
-			UINT16 srcpix1 = *--src;
-			UINT16 srcpix0 = *--src;
-			*dst++ = palette[0x100 + (srcpix1 >> 8)] | (srcpix0 & 0xff);
 			*dst++ = palette[0x100 + (srcpix1 >> 8)] | (srcpix1 & 0xff);
 		}
 	}
@@ -2472,25 +2293,7 @@ static inline void copyline_yuy16_to_uyvy(UINT16 *dst, const UINT16 *src, int wi
 	// direct case
 	else
 	{
-		if (xborderpix)
-		{
-			UINT16 srcpix0 = src[0];
-			UINT16 srcpix1 = src[1];
-			*dst++ = srcpix0;
-			*dst++ = (srcpix0 & 0xff00) | (srcpix1 & 0x00ff);
-		}
-		for (x = 0; x < width; x += 2)
-		{
-			*dst++ = *src++;
-			*dst++ = *src++;
-		}
-		if (xborderpix)
-		{
-			UINT16 srcpix1 = *--src;
-			UINT16 srcpix0 = *--src;
-			*dst++ = (srcpix1 & 0xff00) | (srcpix0 & 0x00ff);
-			*dst++ = srcpix1;
-		}
+		memcpy(dst, src, sizeof(uint16_t) * width);
 	}
 }
 
@@ -2499,73 +2302,31 @@ static inline void copyline_yuy16_to_uyvy(UINT16 *dst, const UINT16 *src, int wi
 //  copyline_yuy16_to_argb
 //============================================================
 
-static inline void copyline_yuy16_to_argb(UINT32 *dst, const UINT16 *src, int width, const rgb_t *palette, int xborderpix)
+static inline void copyline_yuy16_to_argb(uint32_t *dst, const uint16_t *src, int width, const rgb_t *palette)
 {
-	int x;
-
-	assert(xborderpix == 0 || xborderpix == 2);
 	assert(width % 2 == 0);
 
-	// palette (really RGB map) case
-	if (palette != nullptr)
+	if (palette != nullptr) // palette (really RGB map) case
 	{
-		if (xborderpix)
+		for (int x = 0; x < width / 2; x++)
 		{
-			UINT16 srcpix0 = src[0];
-			UINT16 srcpix1 = src[1];
-			UINT8 cb = srcpix0 & 0xff;
-			UINT8 cr = srcpix1 & 0xff;
+			uint16_t srcpix0 = *src++;
+			uint16_t srcpix1 = *src++;
+			uint8_t cb = srcpix0 & 0xff;
+			uint8_t cr = srcpix1 & 0xff;
 			*dst++ = ycc_to_rgb(palette[0x000 + (srcpix0 >> 8)], cb, cr);
-			*dst++ = ycc_to_rgb(palette[0x000 + (srcpix0 >> 8)], cb, cr);
-		}
-		for (x = 0; x < width / 2; x++)
-		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src++;
-			UINT8 cb = srcpix0 & 0xff;
-			UINT8 cr = srcpix1 & 0xff;
-			*dst++ = ycc_to_rgb(palette[0x000 + (srcpix0 >> 8)], cb, cr);
-			*dst++ = ycc_to_rgb(palette[0x000 + (srcpix1 >> 8)], cb, cr);
-		}
-		if (xborderpix)
-		{
-			UINT16 srcpix1 = *--src;
-			UINT16 srcpix0 = *--src;
-			UINT8 cb = srcpix0 & 0xff;
-			UINT8 cr = srcpix1 & 0xff;
-			*dst++ = ycc_to_rgb(palette[0x000 + (srcpix1 >> 8)], cb, cr);
 			*dst++ = ycc_to_rgb(palette[0x000 + (srcpix1 >> 8)], cb, cr);
 		}
 	}
-
-	// direct case
-	else
+	else // direct case
 	{
-		if (xborderpix)
+		for (int x = 0; x < width; x += 2)
 		{
-			UINT16 srcpix0 = src[0];
-			UINT16 srcpix1 = src[1];
-			UINT8 cb = srcpix0 & 0xff;
-			UINT8 cr = srcpix1 & 0xff;
+			uint16_t srcpix0 = *src++;
+			uint16_t srcpix1 = *src++;
+			uint8_t cb = srcpix0 & 0xff;
+			uint8_t cr = srcpix1 & 0xff;
 			*dst++ = ycc_to_rgb(srcpix0 >> 8, cb, cr);
-			*dst++ = ycc_to_rgb(srcpix0 >> 8, cb, cr);
-		}
-		for (x = 0; x < width; x += 2)
-		{
-			UINT16 srcpix0 = *src++;
-			UINT16 srcpix1 = *src++;
-			UINT8 cb = srcpix0 & 0xff;
-			UINT8 cr = srcpix1 & 0xff;
-			*dst++ = ycc_to_rgb(srcpix0 >> 8, cb, cr);
-			*dst++ = ycc_to_rgb(srcpix1 >> 8, cb, cr);
-		}
-		if (xborderpix)
-		{
-			UINT16 srcpix1 = *--src;
-			UINT16 srcpix0 = *--src;
-			UINT8 cb = srcpix0 & 0xff;
-			UINT8 cr = srcpix1 & 0xff;
-			*dst++ = ycc_to_rgb(srcpix1 >> 8, cb, cr);
 			*dst++ = ycc_to_rgb(srcpix1 >> 8, cb, cr);
 		}
 	}
@@ -2576,7 +2337,7 @@ static inline void copyline_yuy16_to_argb(UINT32 *dst, const UINT16 *src, int wi
 //  texture_set_data
 //============================================================
 
-void texture_info::set_data(const render_texinfo *texsource, UINT32 flags)
+void texture_info::set_data(const render_texinfo *texsource, uint32_t flags)
 {
 	D3DLOCKED_RECT rect;
 	HRESULT result;
@@ -2595,44 +2356,46 @@ void texture_info::set_data(const render_texinfo *texsource, UINT32 flags)
 	}
 
 	// loop over Y
-	int miny = 0 - m_yborderpix;
-	int maxy = texsource->height + m_yborderpix;
-	for (int dsty = miny; dsty < maxy; dsty++)
+	int tex_format = PRIMFLAG_GET_TEXFORMAT(flags);
+	if ((tex_format == TEXFORMAT_RGB32 || tex_format == TEXFORMAT_ARGB32) && texsource->palette == nullptr && texsource->width == texsource->rowpixels)
 	{
-		int srcy = (dsty < 0) ? 0 : (dsty >= texsource->height) ? texsource->height - 1 : dsty;
-		void *dst = (BYTE *)rect.pBits + (dsty + m_yborderpix) * rect.Pitch;
-
-		// switch off of the format and
-		switch (PRIMFLAG_GET_TEXFORMAT(flags))
+		memcpy((BYTE *)rect.pBits, texsource->base, sizeof(uint32_t) * texsource->width * texsource->height);
+	}
+	else
+	{
+		for (int y = 0; y < texsource->height; y++)
 		{
-			case TEXFORMAT_PALETTE16:
-				copyline_palette16((UINT32 *)dst, (UINT16 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				break;
+			void *dst = (BYTE *)rect.pBits + y * rect.Pitch;
 
-			case TEXFORMAT_PALETTEA16:
-				copyline_palettea16((UINT32 *)dst, (UINT16 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				break;
+			// switch off of the format and
+			switch (PRIMFLAG_GET_TEXFORMAT(flags))
+			{
+				case TEXFORMAT_PALETTE16:
+				case TEXFORMAT_PALETTEA16:
+					copyline_palettea16((uint32_t *)dst, (uint16_t *)texsource->base + y * texsource->rowpixels, texsource->width, texsource->palette);
+					break;
 
-			case TEXFORMAT_RGB32:
-				copyline_rgb32((UINT32 *)dst, (UINT32 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				break;
+				case TEXFORMAT_RGB32:
+					copyline_rgb32((uint32_t *)dst, (uint32_t *)texsource->base + y * texsource->rowpixels, texsource->width, texsource->palette);
+					break;
 
-			case TEXFORMAT_ARGB32:
-				copyline_argb32((UINT32 *)dst, (UINT32 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				break;
+				case TEXFORMAT_ARGB32:
+					copyline_argb32((uint32_t *)dst, (uint32_t *)texsource->base + y * texsource->rowpixels, texsource->width, texsource->palette);
+					break;
 
-			case TEXFORMAT_YUY16:
-				if (m_texture_manager->get_yuv_format() == D3DFMT_YUY2)
-					copyline_yuy16_to_yuy2((UINT16 *)dst, (UINT16 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				else if (m_texture_manager->get_yuv_format() == D3DFMT_UYVY)
-					copyline_yuy16_to_uyvy((UINT16 *)dst, (UINT16 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				else
-					copyline_yuy16_to_argb((UINT32 *)dst, (UINT16 *)texsource->base + srcy * texsource->rowpixels, texsource->width, texsource->palette, m_xborderpix);
-				break;
+				case TEXFORMAT_YUY16:
+					if (m_texture_manager->get_yuv_format() == D3DFMT_YUY2)
+						copyline_yuy16_to_yuy2((uint16_t *)dst, (uint16_t *)texsource->base + y * texsource->rowpixels, texsource->width, texsource->palette);
+					else if (m_texture_manager->get_yuv_format() == D3DFMT_UYVY)
+						copyline_yuy16_to_uyvy((uint16_t *)dst, (uint16_t *)texsource->base + y * texsource->rowpixels, texsource->width, texsource->palette);
+					else
+						copyline_yuy16_to_argb((uint32_t *)dst, (uint16_t *)texsource->base + y * texsource->rowpixels, texsource->width, texsource->palette);
+					break;
 
-			default:
-				osd_printf_error("Unknown texture blendmode=%d format=%d\n", PRIMFLAG_GET_BLENDMODE(flags), PRIMFLAG_GET_TEXFORMAT(flags));
-				break;
+				default:
+					osd_printf_error("Unknown texture blendmode=%d format=%d\n", PRIMFLAG_GET_BLENDMODE(flags), PRIMFLAG_GET_TEXFORMAT(flags));
+					break;
+			}
 		}
 	}
 
@@ -2679,8 +2442,8 @@ void texture_info::prescale()
 		// set the source bounds
 		RECT source;
 		source.left = source.top = 0;
-		source.right = m_texinfo.width + 2 * m_xborderpix;
-		source.bottom = m_texinfo.height + 2 * m_yborderpix;
+		source.right = m_texinfo.width;
+		source.bottom = m_texinfo.height;
 
 		// set the target bounds
 		RECT dest;
@@ -2731,22 +2494,22 @@ void texture_info::prescale()
 		// configure the X/Y coordinates on the target surface
 		lockedbuf[0].x = -0.5f;
 		lockedbuf[0].y = -0.5f;
-		lockedbuf[1].x = (float)((m_texinfo.width + 2 * m_xborderpix) * m_xprescale) - 0.5f;
+		lockedbuf[1].x = (float)((m_texinfo.width) * m_xprescale) - 0.5f;
 		lockedbuf[1].y = -0.5f;
 		lockedbuf[2].x = -0.5f;
-		lockedbuf[2].y = (float)((m_texinfo.height + 2 * m_yborderpix) * m_yprescale) - 0.5f;
-		lockedbuf[3].x = (float)((m_texinfo.width + 2 * m_xborderpix) * m_xprescale) - 0.5f;
-		lockedbuf[3].y = (float)((m_texinfo.height + 2 * m_yborderpix) * m_yprescale) - 0.5f;
+		lockedbuf[2].y = (float)((m_texinfo.height) * m_yprescale) - 0.5f;
+		lockedbuf[3].x = (float)((m_texinfo.width) * m_xprescale) - 0.5f;
+		lockedbuf[3].y = (float)((m_texinfo.height) * m_yprescale) - 0.5f;
 
 		// configure the U/V coordintes on the source texture
 		lockedbuf[0].u0 = 0.0f;
 		lockedbuf[0].v0 = 0.0f;
-		lockedbuf[1].u0 = (float)(m_texinfo.width + 2 * m_xborderpix) / (float)m_rawdims.c.x;
+		lockedbuf[1].u0 = (float)(m_texinfo.width) / (float)m_rawdims.c.x;
 		lockedbuf[1].v0 = 0.0f;
 		lockedbuf[2].u0 = 0.0f;
-		lockedbuf[2].v0 = (float)(m_texinfo.height + 2 * m_yborderpix) / (float)m_rawdims.c.y;
-		lockedbuf[3].u0 = (float)(m_texinfo.width + 2 * m_xborderpix) / (float)m_rawdims.c.x;
-		lockedbuf[3].v0 = (float)(m_texinfo.height + 2 * m_yborderpix) / (float)m_rawdims.c.y;
+		lockedbuf[2].v0 = (float)(m_texinfo.height) / (float)m_rawdims.c.y;
+		lockedbuf[3].u0 = (float)(m_texinfo.width) / (float)m_rawdims.c.x;
+		lockedbuf[3].v0 = (float)(m_texinfo.height) / (float)m_rawdims.c.y;
 
 		// reset the remaining vertex parameters
 		for (i = 0; i < 4; i++)
@@ -2788,42 +2551,6 @@ void texture_info::prescale()
 
 
 //============================================================
-//  cache_target::~cache_target
-//============================================================
-
-cache_target::~cache_target()
-{
-	if (texture != nullptr)
-		texture->Release();
-
-	if (target != nullptr)
-		target->Release();
-}
-
-
-//============================================================
-//  cache_target::init - initializes a target cache
-//============================================================
-
-bool cache_target::init(renderer_d3d9 *d3d, int source_width, int source_height, int target_width, int target_height, int screen_index)
-{
-	this->width = source_width;
-	this->height = source_height;
-	this->target_width = target_width;
-	this->target_height = target_height;
-	this->screen_index = screen_index;
-
-	HRESULT result = d3d->get_device()->CreateTexture(target_width, target_height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texture, nullptr);
-	if (FAILED(result))
-		return false;
-
-	texture->GetSurfaceLevel(0, &target);
-
-	return true;
-}
-
-
-//============================================================
 //  d3d_render_target::~d3d_render_target
 //============================================================
 
@@ -2859,7 +2586,7 @@ d3d_render_target::~d3d_render_target()
 //  d3d_render_target::init - initializes a render target
 //============================================================
 
-bool d3d_render_target::init(renderer_d3d9 *d3d, int source_width, int source_height, int target_width, int target_height, int screen_index, int page_index)
+bool d3d_render_target::init(renderer_d3d9 *d3d, int source_width, int source_height, int target_width, int target_height, int screen_index)
 {
 	HRESULT result;
 
@@ -2870,7 +2597,6 @@ bool d3d_render_target::init(renderer_d3d9 *d3d, int source_width, int source_he
 	this->target_height = target_height;
 
 	this->screen_index = screen_index;
-	this->page_index = page_index;
 
 	for (int index = 0; index < 2; index++)
 	{
@@ -2886,6 +2612,12 @@ bool d3d_render_target::init(renderer_d3d9 *d3d, int source_width, int source_he
 
 		target_texture[index]->GetSurfaceLevel(0, &target_surface[index]);
 	}
+
+	result = d3d->get_device()->CreateTexture(target_width, target_height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &cache_texture, nullptr);
+	if (FAILED(result))
+		return false;
+
+	cache_texture->GetSurfaceLevel(0, &cache_surface);
 
 	auto win = d3d->assert_window();
 

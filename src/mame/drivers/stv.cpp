@@ -94,14 +94,14 @@ offsets:
 
 READ8_MEMBER(stv_state::stv_ioga_r)
 {
-	UINT8 res;
+	uint8_t res;
 
 	res = 0xff;
 	if(offset & 0x20 && !space.debugger_access())
 		printf("Reading from mirror %08x?\n",offset);
 
 	offset &= 0x1f; // mirror?
-	
+
 	switch(offset)
 	{
 		case 0x01: res = ioport("PORTA")->read(); break; // P1
@@ -138,7 +138,7 @@ WRITE8_MEMBER(stv_state::stv_ioga_w)
 
 READ8_MEMBER(stv_state::critcrsh_ioga_r)
 {
-	UINT8 res;
+	uint8_t res;
 	const char *const lgnames[] = { "LIGHTX", "LIGHTY" };
 
 	res = 0xff;
@@ -159,7 +159,7 @@ READ8_MEMBER(stv_state::critcrsh_ioga_r)
 
 READ8_MEMBER(stv_state::magzun_ioga_r)
 {
-	UINT8 res;
+	uint8_t res;
 
 	res = 0xff;
 
@@ -197,7 +197,7 @@ READ8_MEMBER(stv_state::stvmp_ioga_r)
 	const char *const mpnames[2][5] = {
 		{"P1_KEY0", "P1_KEY1", "P1_KEY2", "P1_KEY3", "P1_KEY4"},
 		{"P2_KEY0", "P2_KEY1", "P2_KEY2", "P2_KEY3", "P2_KEY4"} };
-	UINT8 res;
+	uint8_t res;
 
 	res = 0xff;
 
@@ -237,7 +237,7 @@ WRITE8_MEMBER(stv_state::stvmp_ioga_w)
 /* remaps with a 8-bit handler because MAME can't install r/w handlers with a different bus parallelism than the CPU native one, shrug ... */
 READ32_MEMBER(stv_state::stv_ioga_r32)
 {
-	UINT32 res;
+	uint32_t res;
 
 	res = 0;
 	if(ACCESSING_BITS_16_23)
@@ -266,7 +266,7 @@ WRITE32_MEMBER(stv_state::stv_ioga_w32)
 
 READ32_MEMBER(stv_state::critcrsh_ioga_r32)
 {
-	UINT32 res;
+	uint32_t res;
 
 	res = 0;
 	if(ACCESSING_BITS_16_23)
@@ -283,7 +283,7 @@ READ32_MEMBER(stv_state::critcrsh_ioga_r32)
 
 READ32_MEMBER(stv_state::stvmp_ioga_r32)
 {
-	UINT32 res;
+	uint32_t res;
 
 	res = 0;
 	if(ACCESSING_BITS_16_23)
@@ -312,7 +312,7 @@ WRITE32_MEMBER(stv_state::stvmp_ioga_w32)
 
 READ32_MEMBER(stv_state::magzun_ioga_r32)
 {
-	UINT32 res;
+	uint32_t res;
 
 	res = 0;
 	if(ACCESSING_BITS_16_23)
@@ -381,10 +381,10 @@ DRIVER_INIT_MEMBER(stv_state,stv)
 	m_minit_boost_timeslice = attotime::zero;
 	m_sinit_boost_timeslice = attotime::zero;
 
-	m_scu_regs = std::make_unique<UINT32[]>(0x100/4);
-	m_scsp_regs  = std::make_unique<UINT16[]>(0x1000/2);
-	m_backupram = std::make_unique<UINT8[]>(0x8000);
-	memset(m_backupram.get(), 0, sizeof(UINT8) * 0x8000);
+	m_scu_regs = std::make_unique<uint32_t[]>(0x100/4);
+	m_scsp_regs  = std::make_unique<uint16_t[]>(0x1000/2);
+	m_backupram = std::make_unique<uint8_t[]>(0x8000);
+	memset(m_backupram.get(), 0, sizeof(uint8_t) * 0x8000);
 
 	install_stvbios_speedups();
 
@@ -454,7 +454,7 @@ DRIVER_INIT_MEMBER(stv_state,magzun)
 
 	/* Program ROM patches, don't understand how to avoid these two checks ... */
 	{
-		UINT32 *ROM = (UINT32 *)memregion("cart")->base();
+		uint32_t *ROM = (uint32_t *)memregion("cart")->base();
 
 		ROM[0x90054/4] = 0x00e00001; // END error
 
@@ -1032,12 +1032,12 @@ static MACHINE_CONFIG_DERIVED( stv_5881, stv )
 MACHINE_CONFIG_END
 
 
-UINT16 stv_state::crypt_read_callback_ch1(UINT32 addr)
+uint16_t stv_state::crypt_read_callback_ch1(uint32_t addr)
 {
 	return m_maincpu->space().read_word(0x02000000 + 0x1000000 + (addr * 2));
 }
 
-UINT16 stv_state::crypt_read_callback_ch2(UINT32 addr)
+uint16_t stv_state::crypt_read_callback_ch2(uint32_t addr)
 {
 	return m_maincpu->space().read_word(0x02000000 + 0x0000000 + (addr * 2));
 }
@@ -1064,7 +1064,7 @@ WRITE32_MEMBER( stv_state::batmanfr_sound_comms_w )
 
 READ16_MEMBER( stv_state::adsp_control_r )
 {
-	UINT16 res = 0;
+	uint16_t res = 0;
 
 	switch (offset)
 	{
@@ -1100,13 +1100,13 @@ WRITE16_MEMBER( stv_state::adsp_control_w )
 
 			if (data > 0)
 			{
-				UINT8* adsp_rom = (UINT8*)memregion("adsp")->base();
+				uint8_t* adsp_rom = (uint8_t*)memregion("adsp")->base();
 
-				UINT32 page = (m_adsp_regs.bdma_control >> 8) & 0xff;
-				UINT32 dir = (m_adsp_regs.bdma_control >> 2) & 1;
-				UINT32 type = m_adsp_regs.bdma_control & 3;
+				uint32_t page = (m_adsp_regs.bdma_control >> 8) & 0xff;
+				uint32_t dir = (m_adsp_regs.bdma_control >> 2) & 1;
+				uint32_t type = m_adsp_regs.bdma_control & 3;
 
-				UINT32 src_addr = (page << 14) | m_adsp_regs.bdma_external_addr;
+				uint32_t src_addr = (page << 14) | m_adsp_regs.bdma_external_addr;
 
 				address_space &addr_space = m_adsp->space((type == 0) ? AS_PROGRAM : AS_DATA);
 
@@ -1116,7 +1116,7 @@ WRITE16_MEMBER( stv_state::adsp_control_w )
 					{
 						if (type == 0)
 						{
-							UINT32 src_word =(adsp_rom[src_addr + 0] << 16) |
+							uint32_t src_word =(adsp_rom[src_addr + 0] << 16) |
 												(adsp_rom[src_addr + 1] << 8) |
 												(adsp_rom[src_addr + 2]);
 
@@ -1127,7 +1127,7 @@ WRITE16_MEMBER( stv_state::adsp_control_w )
 						}
 						else if (type == 1)
 						{
-							UINT32 src_word =(adsp_rom[src_addr + 0] << 8) | adsp_rom[src_addr + 1];
+							uint32_t src_word =(adsp_rom[src_addr + 0] << 8) | adsp_rom[src_addr + 1];
 
 							addr_space.write_dword(m_adsp_regs.bdma_internal_addr * 2, src_word);
 
@@ -1183,12 +1183,12 @@ MACHINE_RESET_MEMBER(stv_state,batmanfr)
 {
 	MACHINE_RESET_CALL_MEMBER(stv);
 
-	UINT8 *adsp_boot = (UINT8*)memregion("adsp")->base();
+	uint8_t *adsp_boot = (uint8_t*)memregion("adsp")->base();
 
 	/* Load 32 program words (96 bytes) via BDMA */
 	for (int i = 0; i < 32; i ++)
 	{
-		UINT32 word;
+		uint32_t word;
 
 		word = adsp_boot[i*3 + 0] << 16;
 		word |= adsp_boot[i*3 + 1] << 8;
@@ -1277,8 +1277,8 @@ MACHINE_RESET_MEMBER(stv_state,stv)
 
 image_init_result stv_state::load_cart(device_image_interface &image, generic_slot_device *slot)
 {
-	UINT8 *ROM;
-	UINT32 size = slot->common_get_size("rom");
+	uint8_t *ROM;
+	uint32_t size = slot->common_get_size("rom");
 
 	if (image.software_entry() == nullptr)
 		return image_init_result::FAIL;
@@ -1289,7 +1289,7 @@ image_init_result stv_state::load_cart(device_image_interface &image, generic_sl
 
 	/* fix endianess */
 	{
-		UINT8 j[4];
+		uint8_t j[4];
 
 		for (int i = 0; i < size; i += 4)
 		{
@@ -1898,7 +1898,7 @@ by Sega titles,and this is a Sunsoft game)It's likely to be a left-over...
 
 DRIVER_INIT_MEMBER(stv_state,sanjeon)
 {
-	UINT8 *src = memregion("cart")->base();
+	uint8_t *src = memregion("cart")->base();
 	int x;
 
 	for (x=0;x<0x3000000;x++)
@@ -2977,24 +2977,24 @@ ROM_END
 
 ROM_START( choroqhr ) // set to 1p
 	STV_BIOS
-	
+
 	ROM_REGION32_BE( 0x3000000, "cart", ROMREGION_ERASE00 ) /* SH2 code */
-    ROM_LOAD16_WORD_SWAP( "ic22.bin",     0x0200000, 0x200000, CRC(fd04598b) SHA1(4797127869fafae0ecfddc07b1c1325b11ca981a) )
-    ROM_LOAD16_WORD_SWAP( "ic24.bin",     0x0400000, 0x200000, CRC(09b8a154) SHA1(cfd212c6fe6188b9c665650b21f2fd80cd65268f) )
-    ROM_LOAD16_WORD_SWAP( "ic26.bin",     0x0600000, 0x200000, CRC(136ca5e9) SHA1(8697a415d0958e58f5cea5dcc767dd6a4cbdef5c) )
-    ROM_LOAD16_WORD_SWAP( "ic28.bin",     0x0800000, 0x200000, CRC(3c949563) SHA1(ab2a9f9ec23071cc236dee945b436a9cd73efb92) )
-    ROM_LOAD16_WORD_SWAP( "ic30.bin",     0x0a00000, 0x200000, CRC(7e93078d) SHA1(10fa99029a3e741ea0fddcf00ee07b5fd039bf19) )
-    ROM_LOAD16_WORD_SWAP( "ic32.bin",     0x0c00000, 0x200000, BAD_DUMP CRC(d311c5f6) SHA1(c210463ae5b4bcc498de786e05dec245c0d3b46e) ) // ic7 bad
+	ROM_LOAD16_WORD_SWAP( "ic22.bin",     0x0200000, 0x200000, CRC(fd04598b) SHA1(4797127869fafae0ecfddc07b1c1325b11ca981a) )
+	ROM_LOAD16_WORD_SWAP( "ic24.bin",     0x0400000, 0x200000, CRC(09b8a154) SHA1(cfd212c6fe6188b9c665650b21f2fd80cd65268f) )
+	ROM_LOAD16_WORD_SWAP( "ic26.bin",     0x0600000, 0x200000, CRC(136ca5e9) SHA1(8697a415d0958e58f5cea5dcc767dd6a4cbdef5c) )
+	ROM_LOAD16_WORD_SWAP( "ic28.bin",     0x0800000, 0x200000, CRC(3c949563) SHA1(ab2a9f9ec23071cc236dee945b436a9cd73efb92) )
+	ROM_LOAD16_WORD_SWAP( "ic30.bin",     0x0a00000, 0x200000, CRC(7e93078d) SHA1(10fa99029a3e741ea0fddcf00ee07b5fd039bf19) )
+	ROM_LOAD16_WORD_SWAP( "ic32.bin",     0x0c00000, 0x200000, BAD_DUMP CRC(d311c5f6) SHA1(c210463ae5b4bcc498de786e05dec245c0d3b46e) ) // ic7 bad
 	//ROM_LOAD16_WORD_SWAP( "ic32.bad2.bin", 0x000000, 0x200000, CRC(76709d73) SHA1(a7805e956ee1a3701a803d0af082c33c89c26c3a) )
 	//ROM_LOAD16_WORD_SWAP( "ic32.bad3.bin", 0x000000, 0x200000, CRC(b873cf3e) SHA1(8ed42a229e416125d7a2359faaea17208324feb0) )
 	//ROM_LOAD16_WORD_SWAP( "ic32.bad4.bin", 0x000000, 0x200000, CRC(ed808ad4) SHA1(b00791ec3ee6255bccde171279a1a14e322d0e6d) )
 	//ROM_LOAD16_WORD_SWAP( "ic32.bad5.bin", 0x000000, 0x200000, CRC(ed808ad4) SHA1(b00791ec3ee6255bccde171279a1a14e322d0e6d) )
 	//ROM_LOAD16_WORD_SWAP( "ic32.bad6.bin", 0x000000, 0x200000, CRC(ed808ad4) SHA1(b00791ec3ee6255bccde171279a1a14e322d0e6d) )
 	ROM_LOAD16_WORD_SWAP( "ic34.bin",     0x0e00000, 0x200000, CRC(be2ed0a0) SHA1(a9225ba6b78fa0119fc6484828f4d4cc6ea05d8f) )
-    ROM_LOAD16_WORD_SWAP( "ic36.bin",     0x1000000, 0x200000, CRC(9a4109e5) SHA1(ba59caac5f5a80fc52c507d8a47f322a380aa9a1) )
+	ROM_LOAD16_WORD_SWAP( "ic36.bin",     0x1000000, 0x200000, CRC(9a4109e5) SHA1(ba59caac5f5a80fc52c507d8a47f322a380aa9a1) )
 
 	ROM_REGION16_BE( 0x80, "eeprom", 0 ) // preconfigured to 1 player
-	ROM_LOAD( "choroqhr.nv", 0x0000, 0x0080, CRC(69a71aea) SHA1(08ca9cd70fa3fa6c3156edd966a81244bad5f0c2) )	
+	ROM_LOAD( "choroqhr.nv", 0x0000, 0x0080, CRC(69a71aea) SHA1(08ca9cd70fa3fa6c3156edd966a81244bad5f0c2) )
 ROM_END
 
 ROM_START( pclub2 ) // set to 1p / runs with the USA bios
@@ -3640,7 +3640,7 @@ GAME( 1998, twsoc98,   twcup98, stv_5881, stv, stv_state,        twcup98,    ROT
 GAME( 1996, magzun,    stvbios, stv,      stv, stv_state,        magzun,     ROT0,   "Sega",                         "Magical Zunou Power (J 961031 V1.000)", MACHINE_NOT_WORKING | MACHINE_NODEVICE_MICROPHONE )
 GAME( 1997, techbowl,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega",                         "Technical Bowling (J 971212 V1.000)", MACHINE_NOT_WORKING )
 GAME( 1999, micrombc,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega",                         "Microman Battle Charge (J 990326 V1.000)", MACHINE_NOT_WORKING )
-GAME( 1998, choroqhr,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega / Takara",				 "Choro Q Hyper Racing 5 (J 981230 V1.000)", MACHINE_NOT_WORKING )
+GAME( 1998, choroqhr,  stvbios, stv,      stv, stv_state,        stv,        ROT0,   "Sega / Takara",                "Choro Q Hyper Racing 5 (J 981230 V1.000)", MACHINE_NOT_WORKING )
 
 /* CD games */
 GAME( 1995, sfish2,    0,       stv,      stv, stv_state,        stv,        ROT0,   "Sega",                         "Sport Fishing 2 (UET 951106 V1.10e)", MACHINE_NO_SOUND | MACHINE_NOT_WORKING )

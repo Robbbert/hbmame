@@ -24,7 +24,7 @@ for the colours, goal has to be black otherwise it would register
 rom writes when finishing a game
     worth looking at before the collision is correct?
 playing dot hit when eaten by a shark?
-dont use any ints, s/b UINT8?
+dont use any ints, s/b uint8_t?
 enemy sprite not disabled at end of game
 tilemap
 palette may only be around 4 colours
@@ -92,7 +92,7 @@ public:
 	DECLARE_WRITE8_MEMBER(marinedt_pf_w);
 	TILE_GET_INFO_MEMBER(get_tile_info);
 	DECLARE_PALETTE_INIT(marinedt);
-	UINT32 screen_update_marinedt(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_marinedt(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 private:
 
@@ -100,28 +100,28 @@ private:
 	std::unique_ptr<bitmap_ind16> m_obj1;
 	std::unique_ptr<bitmap_ind16> m_obj2;
 	tilemap_t *m_tx_tilemap;
-	UINT8 m_obj1_a;
-	UINT8 m_obj1_x;
-	UINT8 m_obj1_y;
-	UINT8 m_obj2_a;
-	UINT8 m_obj2_x;
-	UINT8 m_obj2_y;
-	UINT8 m_pd;
-	UINT8 m_pf;
-	UINT8 m_music;
-	UINT8 m_sound;
-	UINT8 m_coll;
-	UINT8 m_cx;
-	UINT8 m_cyr;
-	UINT8 m_cyq;
-	UINT8 m_collh;
-	UINT8 m_cxh;
-	UINT8 m_cyrh;
-	UINT8 m_cyqh;
+	uint8_t m_obj1_a;
+	uint8_t m_obj1_x;
+	uint8_t m_obj1_y;
+	uint8_t m_obj2_a;
+	uint8_t m_obj2_x;
+	uint8_t m_obj2_y;
+	uint8_t m_pd;
+	uint8_t m_pf;
+	uint8_t m_music;
+	uint8_t m_sound;
+	uint8_t m_coll;
+	uint8_t m_cx;
+	uint8_t m_cyr;
+	uint8_t m_cyq;
+	uint8_t m_collh;
+	uint8_t m_cxh;
+	uint8_t m_cyrh;
+	uint8_t m_cyqh;
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
-	required_shared_ptr<UINT8> m_tx_tileram;
+	required_shared_ptr<uint8_t> m_tx_tileram;
 	required_device<cpu_device> m_maincpu;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
@@ -163,7 +163,7 @@ READ8_MEMBER(marinedt_state::marinedt_obj1_x_r)
 	//xxxx---- unknown
 	//----xxxx x pos in tile ram
 
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 
 	if (RAM[0x430e])
 		--m_cx;
@@ -422,7 +422,7 @@ GFXDECODE_END
 
 PALETTE_INIT_MEMBER(marinedt_state, marinedt)
 {
-	const UINT8 *color_prom = memregion("proms")->base();
+	const uint8_t *color_prom = memregion("proms")->base();
 	int i,r,b,g;
 
 	for (i = 0; i < palette.entries(); i++)
@@ -490,7 +490,7 @@ void marinedt_state::video_start()
 #define OBJ_FLIPX(a)    ((m_pf & 0x02) == 0)
 #define OBJ_FLIPY(a)    ((a) & 0x80)
 
-UINT32 marinedt_state::screen_update_marinedt(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t marinedt_state::screen_update_marinedt(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int sx, sy;
 

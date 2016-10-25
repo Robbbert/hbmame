@@ -106,21 +106,21 @@ public:
 	DECLARE_MACHINE_START(ir);
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
-	UINT32 screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
 private:
 
 	bool       m_flip_screen;
 	bool       m_screen_red;
 	emu_timer  *m_interrupt_timer;
-	UINT8      vpos_to_vysnc_chain_counter( int vpos );
-	int        vysnc_chain_counter_to_vpos( UINT8 counter, int vblank );
+	uint8_t      vpos_to_vysnc_chain_counter( int vpos );
+	int        vysnc_chain_counter_to_vpos( uint8_t counter, int vblank );
 	void       mw8080bw_create_interrupt_timer(  );
 	void       mw8080bw_start_interrupt_timer(  );
 
 	/* device/memory pointers */
 	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<UINT8> m_p_ram;
+	required_shared_ptr<uint8_t> m_p_ram;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
 };
@@ -128,7 +128,7 @@ private:
 
 READ8_MEMBER(ir_state::port02_r)
 {
-	UINT8 data = ioport("IN2")->read();
+	uint8_t data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
@@ -208,10 +208,10 @@ static INPUT_PORTS_START( ir )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-UINT8 ir_state::vpos_to_vysnc_chain_counter( int vpos )
+uint8_t ir_state::vpos_to_vysnc_chain_counter( int vpos )
 {
 	/* convert from a vertical position to the actual values on the vertical sync counters */
-	UINT8 counter;
+	uint8_t counter;
 	int vblank = (vpos >= MW8080BW_VBSTART);
 
 	if (vblank)
@@ -223,7 +223,7 @@ UINT8 ir_state::vpos_to_vysnc_chain_counter( int vpos )
 }
 
 
-int ir_state::vysnc_chain_counter_to_vpos( UINT8 counter, int vblank )
+int ir_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 {
 	/* convert from the vertical sync counters to an actual vertical position */
 	int vpos;
@@ -239,14 +239,14 @@ int ir_state::vysnc_chain_counter_to_vpos( UINT8 counter, int vblank )
 
 TIMER_CALLBACK_MEMBER(ir_state::mw8080bw_interrupt_callback)
 {
-	UINT8 next_counter;
+	uint8_t next_counter;
 	int next_vpos;
 	int next_vblank;
 
 	/* compute vector and set the interrupt line */
 	int vpos = m_screen->vpos();
-	UINT8 counter = vpos_to_vysnc_chain_counter(vpos);
-	UINT8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
+	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
 	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
 
 	/* set up for next interrupt */
@@ -451,13 +451,13 @@ WRITE8_MEMBER(ir_state::port05_w)
 	m_flip_screen = BIT(data, 5) & ioport("CAB")->read();
 }
 
-UINT32 ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	pen_t pens[8];
 	offs_t offs, color_address;
-	UINT8 *prom;
-	UINT8 *color_map_base;
-	UINT8 i, x, y, data, fore_color, color;
+	uint8_t *prom;
+	uint8_t *color_map_base;
+	uint8_t i, x, y, data, fore_color, color;
 
 	for (i = 0; i < 8; i++)
 		pens[i] = rgb_t(pal1bit(i >> 0), pal1bit(i >> 2), pal1bit(i >> 1));

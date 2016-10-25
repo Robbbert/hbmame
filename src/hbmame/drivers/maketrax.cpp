@@ -202,7 +202,7 @@ MACHINE_CONFIG_END
 
 void pacman_state::maketrax_rom_decode()
 {
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 
 	/* patch protection using a copy of the opcodes so ROM checksum */
 	/* tests will not fail */

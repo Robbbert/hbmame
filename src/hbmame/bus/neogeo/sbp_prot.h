@@ -17,12 +17,12 @@ class sbp_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 
-	UINT8* m_mainrom;
+	uint8_t* m_mainrom;
 
-	void sbp_install_protection(cpu_device* maincpu, UINT8* cpurom, UINT32 cpurom_size);
+	void sbp_install_protection(cpu_device* maincpu, uint8_t* cpurom, uint32_t cpurom_size);
 	DECLARE_WRITE16_MEMBER(sbp_lowerrom_w);
 	DECLARE_READ16_MEMBER(sbp_lowerrom_r);
 

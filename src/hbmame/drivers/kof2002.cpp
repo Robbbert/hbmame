@@ -24,7 +24,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2bd )
 {
 	DRIVER_INIT_CALL(neogeo);
 #if 0
-	dynamic_buffer src( fix_region_size );
+	std::vector<UINT8> src( fix_region_size );
 	int i,j;
 	UINT8 *dst = fix_region;
 	memcpy (&src[0], &dst[0], fix_region_size);

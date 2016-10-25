@@ -489,28 +489,28 @@
 
 void neogeo_state::adjust_display_position_interrupt_timer()
 {
-	attotime period = attotime::from_ticks((UINT64)m_display_counter + 1, NEOGEO_PIXEL_CLOCK);
+	attotime period = attotime::from_ticks((uint64_t)m_display_counter + 1, NEOGEO_PIXEL_CLOCK);
 	if (LOG_VIDEO_SYSTEM) logerror("adjust_display_position_interrupt_timer  current y: %02x  current x: %02x   target y: %x  target x: %x\n", m_screen->vpos(), m_screen->hpos(), (m_display_counter + 1) / NEOGEO_HTOTAL, (m_display_counter + 1) % NEOGEO_HTOTAL);
 
 	m_display_position_interrupt_timer->adjust(period);
 }
 
 
-void neogeo_state::neogeo_set_display_position_interrupt_control( UINT16 data )
+void neogeo_state::neogeo_set_display_position_interrupt_control( uint16_t data )
 {
 	m_display_position_interrupt_control = data;
 }
 
 
-void neogeo_state::neogeo_set_display_counter_msb( UINT16 data )
+void neogeo_state::neogeo_set_display_counter_msb( uint16_t data )
 {
-	m_display_counter = (m_display_counter & 0x0000ffff) | ((UINT32)data << 16);
+	m_display_counter = (m_display_counter & 0x0000ffff) | ((uint32_t)data << 16);
 
 	if (LOG_VIDEO_SYSTEM) logerror("PC %06x: set_display_counter %08x\n", m_maincpu->pc(), m_display_counter);
 }
 
 
-void neogeo_state::neogeo_set_display_counter_lsb( UINT16 data )
+void neogeo_state::neogeo_set_display_counter_lsb( uint16_t data )
 {
 	m_display_counter = (m_display_counter & 0xffff0000) | data;
 
@@ -532,7 +532,7 @@ void neogeo_state::update_interrupts()
 }
 
 
-void neogeo_state::neogeo_acknowledge_interrupt( UINT16 data )
+void neogeo_state::neogeo_acknowledge_interrupt( uint16_t data )
 {
 	if (data & 0x01)
 		m_irq3_pending = 0;
@@ -701,7 +701,7 @@ WRITE8_MEMBER(neogeo_state::io_control_w)
 
 READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
 {
-	UINT16 ret;
+	uint16_t ret;
 
 	/* unmapped memory returns the last word on the data bus, which is almost always the opcode
 	   of the next instruction due to prefetch */
@@ -726,7 +726,7 @@ READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
  *
  *************************************/
 
-void neogeo_state::set_save_ram_unlock( UINT8 data )
+void neogeo_state::set_save_ram_unlock( uint8_t data )
 {
 	m_save_ram_unlocked = data;
 }
@@ -758,7 +758,7 @@ READ16_MEMBER(neogeo_state::memcard_r)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
-	UINT16 ret;
+	uint16_t ret;
 
 	if (m_memcard->present() != -1)
 		ret = m_memcard->read(space, offset) | 0xff00;
@@ -800,7 +800,7 @@ WRITE8_MEMBER(neogeo_state::audio_command_w)
 
 READ8_MEMBER(neogeo_state::audio_command_r)
 {
-	UINT8 ret = m_soundlatch->read(space, 0);
+	uint8_t ret = m_soundlatch->read(space, 0);
 
 	m_audio_cpu_nmi_pending = false;
 	audio_cpu_check_nmi();
@@ -811,7 +811,7 @@ READ8_MEMBER(neogeo_state::audio_command_r)
 
 CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
 {
-	UINT8 ret = m_soundlatch2->read(m_audiocpu->space(AS_PROGRAM), 0);
+	uint8_t ret = m_soundlatch2->read(m_audiocpu->space(AS_PROGRAM), 0);
 
 	return ret;
 }
@@ -854,8 +854,8 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 
 	int region;
 	int bank;
-	UINT8 *rgn;
-	UINT32 address_mask;
+	uint8_t *rgn;
+	uint32_t address_mask;
 
 	rgn = memregion("audiocpu")->base();
 
@@ -881,7 +881,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 	{
 		for (bank = 0xff; bank >= 0; bank--)
 		{
-			UINT32 bank_address = 0x10000 + ((bank << (11 + region)) & address_mask);
+			uint32_t bank_address = 0x10000 + ((bank << (11 + region)) & address_mask);
 			m_bank_audio_cart[region]->configure_entry(bank, &rgn[bank_address]);
 		}
 	}
@@ -909,7 +909,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 
 WRITE8_MEMBER(neogeo_state::system_control_w)
 {
-	UINT8 bit = (offset >> 3) & 0x01;
+	uint8_t bit = (offset >> 3) & 0x01;
 
 	switch (offset & 0x07)
 	{
@@ -964,7 +964,7 @@ WRITE8_MEMBER(neogeo_state::system_control_w)
 
 void neogeo_state::set_outputs(  )
 {
-	static const UINT8 led_map[0x10] =
+	static const uint8_t led_map[0x10] =
 		{ 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x58,0x4c,0x62,0x69,0x78,0x00 };
 
 	/* EL */
@@ -980,11 +980,11 @@ void neogeo_state::set_outputs(  )
 }
 
 
-void neogeo_state::set_output_latch( UINT8 data )
+void neogeo_state::set_output_latch( uint8_t data )
 {
 	/* looks like the LEDs are set on the
 	   falling edge */
-	UINT8 falling_bits = m_output_latch & ~data;
+	uint8_t falling_bits = m_output_latch & ~data;
 
 	if (falling_bits & 0x08)
 		m_el_value = 16 - (m_output_data & 0x0f);
@@ -1004,7 +1004,7 @@ void neogeo_state::set_output_latch( UINT8 data )
 }
 
 
-void neogeo_state::set_output_data( UINT8 data )
+void neogeo_state::set_output_data( uint8_t data )
 {
 	m_output_data = data;
 }
@@ -1148,7 +1148,7 @@ void neogeo_state::set_slot_number(int slot)
 		space.install_rom(0x000080, 0x0fffff, m_region_maincpu->base()+0x80); // reinstall the base program rom handler
 
 		m_cartslots[m_currentslot]->activate_cart(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes(), m_cartslots[m_currentslot]->get_fixed_base(), m_cartslots[m_currentslot]->get_fixed_size());
-		//memcpy((UINT8*)m_cartslots[m_currentslot]->get_rom_base(),m_region_maincpu->base(), m_region_maincpu->bytes()); // hack- copy back any mods activate made (eh cthd2003)c
+		//memcpy((uint8_t*)m_cartslots[m_currentslot]->get_rom_base(),m_region_maincpu->base(), m_region_maincpu->bytes()); // hack- copy back any mods activate made (eh cthd2003)c
 
 		neogeo_audio_cpu_banking_init(0); // should probably be responsibility of the cart
 		m_audiocpu->reset(); // or some games like svc have no sounnd if in higher slots?
@@ -1190,12 +1190,12 @@ READ16_MEMBER(neogeo_state::banked_vectors_r)
 {
 	if (!m_use_cart_vectors)
 	{
-		UINT16* bios = (UINT16*)memregion("mainbios")->base();
+		uint16_t* bios = (uint16_t*)memregion("mainbios")->base();
 		return bios[offset];
 	}
 	else
 	{
-		UINT16* game = (UINT16*)m_region_maincpu->base();
+		uint16_t* game = (uint16_t*)m_region_maincpu->base();
 		return game[offset];
 	}
 
@@ -1210,7 +1210,7 @@ READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
 {
 	if (!m_use_cart_vectors)
 	{
-		UINT16* bios = (UINT16*)memregion("mainbios")->base();
+		uint16_t* bios = (uint16_t*)memregion("mainbios")->base();
 		return bios[offset];
 	}
 	else

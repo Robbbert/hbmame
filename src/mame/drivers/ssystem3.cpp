@@ -57,18 +57,18 @@ void ssystem3_state::ssystem3_playfield_getfigure(int x, int y, int *figure, int
 void ssystem3_state::ssystem3_playfield_reset()
 {
 	memset(&m_playfield, 0, sizeof(m_playfield));
-	m_playfield.signal=FALSE;
-	//  m_playfield.on=TRUE; //m_configuration->read()&1;
+	m_playfield.signal=false;
+	//  m_playfield.on=true; //m_configuration->read()&1;
 }
 
 void ssystem3_state::ssystem3_playfield_write(int reset, int signal)
 {
-	int d=FALSE;
+	int d=false;
 
 	if (!reset) {
 	m_playfield.count=0;
 	m_playfield.bit=0;
-	m_playfield.started=FALSE;
+	m_playfield.started=false;
 	m_playfield.signal=signal;
 	m_playfield.time=machine().time();
 	}
@@ -83,7 +83,7 @@ void ssystem3_state::ssystem3_playfield_write(int reset, int signal)
 	if (m_playfield.started) {
 		// 0 twice as long low
 		// 1 twice as long high
-		if (m_playfield.low_time > m_playfield.high_time) d=TRUE;
+		if (m_playfield.low_time > m_playfield.high_time) d=true;
 
 		m_playfield.data&=~(1<<(m_playfield.bit^7));
 		if (d) m_playfield.data|=1<<(m_playfield.bit^7);
@@ -93,7 +93,7 @@ void ssystem3_state::ssystem3_playfield_write(int reset, int signal)
 	m_playfield.u.data[m_playfield.count]=m_playfield.data;
 	m_playfield.bit=0;
 	m_playfield.count=(m_playfield.count+1)%ARRAY_LENGTH(m_playfield.u.data);
-	if (m_playfield.count==0) m_playfield.started=FALSE;
+	if (m_playfield.count==0) m_playfield.started=false;
 		}
 	}
 
@@ -101,7 +101,7 @@ void ssystem3_state::ssystem3_playfield_write(int reset, int signal)
 	attotime t=machine().time();
 	m_playfield.low_time= t - m_playfield.time;
 	m_playfield.time=t;
-	m_playfield.started=TRUE;
+	m_playfield.started=true;
 	}
 	m_playfield.signal=signal;
 }
@@ -110,7 +110,7 @@ void ssystem3_state::ssystem3_playfield_read(int *on, int *ready)
 {
 	*on = !(m_configuration->read() & 1);
 	//  *on=!m_playfield.on;
-	*ready=FALSE;
+	*ready=false;
 }
 
 WRITE8_MEMBER(ssystem3_state::ssystem3_via_write_a)
@@ -121,7 +121,7 @@ WRITE8_MEMBER(ssystem3_state::ssystem3_via_write_a)
 
 READ8_MEMBER(ssystem3_state::ssystem3_via_read_a)
 {
-	UINT8 data=0xff;
+	uint8_t data=0xff;
 #if 1 // time switch
 	if (!(m_porta&0x10)) data&=m_matrix[0]->read()|0xf1;
 	if (!(m_porta&0x20)) data&=m_matrix[1]->read()|0xf1;
@@ -185,7 +185,7 @@ READ8_MEMBER(ssystem3_state::ssystem3_via_read_a)
  */
 READ8_MEMBER(ssystem3_state::ssystem3_via_read_b)
 {
-	UINT8 data=0xff;
+	uint8_t data=0xff;
 	int on, ready;
 	ssystem3_playfield_read(&on, &ready);
 	if (!on) data&=~0x20;
@@ -199,7 +199,7 @@ WRITE8_MEMBER(ssystem3_state::ssystem3_via_write_b)
 	ssystem3_lcd_write(data & 4, data & 2);
 
 	// TODO: figure out what this is trying to achieve
-	UINT8 d = ssystem3_via_read_b(space, 0, mem_mask) & ~0x40;
+	uint8_t d = ssystem3_via_read_b(space, 0, mem_mask) & ~0x40;
 	if (data & 0x80) d |= 0x40;
 	//  d&=~0x8f;
 	m_via6522_0->write_pb0((d >> 0) & 1);

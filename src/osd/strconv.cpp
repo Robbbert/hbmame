@@ -34,8 +34,8 @@ namespace
 		{
 		}
 
-		const T *string() const { return m_str;	};	// returns pointer to actual characters
-		int char_count() const { return m_char_count; }		// returns the character count (including NUL terminater), or -1 if NUL terminated
+		const T *string() const { return m_str; };  // returns pointer to actual characters
+		int char_count() const { return m_char_count; }     // returns the character count (including NUL terminater), or -1 if NUL terminated
 
 	private:
 		const T *m_str;
@@ -51,7 +51,7 @@ namespace text {
 //============================================================
 
 static std::string &mbstring_from_wstring(std::string &dst, UINT code_page, const string_source<wchar_t> &src)
-{	
+{
 	// convert UTF-16 to the specified code page
 	int dst_char_count = WideCharToMultiByte(code_page, 0, src.string(), src.char_count(), nullptr, 0, nullptr, nullptr);
 	dst.resize(dst_char_count - 1);
@@ -282,7 +282,7 @@ std::string from_wstring(const WCHAR *s)
 //  osd_uchar_from_osdchar
 //============================================================
 
-int osd_uchar_from_osdchar(UINT32 *uchar, const char *osdchar, size_t count)
+int osd_uchar_from_osdchar(char32_t *uchar, const char *osdchar, size_t count)
 {
 	WCHAR wch;
 	CPINFO cp;
@@ -311,7 +311,7 @@ error:
 //  osd_uchar_from_osdchar
 //============================================================
 
-int osd_uchar_from_osdchar(unicode_char *uchar, const char *osdchar, size_t count)
+int osd_uchar_from_osdchar(char32_t *uchar, const char *osdchar, size_t count)
 {
 	wchar_t wch;
 

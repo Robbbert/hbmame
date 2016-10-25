@@ -34,7 +34,6 @@
 
 #define MASTER_CLOCK XTAL_17_73447MHz/5  /* TODO: was 4 MHz, but otherwise cassette won't work due of a bug with MZF support ... */
 
-#define UTF8_PI "\xcf\x80"
 #define UTF8_POUND "\xc2\xa3"
 #define UTF8_YEN "\xc2\xa5"
 #define UTF8_SPADES "\xe2\x99\xa0"
@@ -74,24 +73,24 @@ public:
 
 	floppy_image_device *m_floppy;
 
-	UINT8 m_ipl_enable;
-	UINT8 m_tvram_enable;
-	UINT8 m_gvram_enable;
-	UINT8 m_gvram_bank;
+	uint8_t m_ipl_enable;
+	uint8_t m_tvram_enable;
+	uint8_t m_gvram_enable;
+	uint8_t m_gvram_bank;
 
-	UINT8 m_key_mux;
+	uint8_t m_key_mux;
 
-	UINT8 m_old_portc;
-	UINT8 m_width80;
-	UINT8 m_tvram_attr;
-	UINT8 m_gvram_mask;
+	uint8_t m_old_portc;
+	uint8_t m_width80;
+	uint8_t m_tvram_attr;
+	uint8_t m_gvram_mask;
 
-	UINT8 m_color_mode;
-	UINT8 m_has_fdc;
-	UINT8 m_hi_mode;
+	uint8_t m_color_mode;
+	uint8_t m_has_fdc;
+	uint8_t m_hi_mode;
 
-	UINT8 m_porta_latch;
-	UINT8 m_tape_ctrl;
+	uint8_t m_porta_latch;
+	uint8_t m_tape_ctrl;
 	DECLARE_READ8_MEMBER(mz2000_ipl_r);
 	DECLARE_READ8_MEMBER(mz2000_wram_r);
 	DECLARE_WRITE8_MEMBER(mz2000_wram_w);
@@ -109,7 +108,7 @@ public:
 	DECLARE_WRITE8_MEMBER(mz2000_gvram_mask_w);
 	virtual void machine_reset() override;
 	virtual void video_start() override;
-	UINT32 screen_update_mz2000(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_mz2000(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	DECLARE_READ8_MEMBER(fdc_r);
 	DECLARE_WRITE8_MEMBER(fdc_w);
 	DECLARE_READ8_MEMBER(mz2000_porta_r);
@@ -145,14 +144,14 @@ void mz2000_state::video_start()
 {
 }
 
-UINT32 mz2000_state::screen_update_mz2000(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t mz2000_state::screen_update_mz2000(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	UINT8 *tvram = m_region_tvram->base();
-	UINT8 *gvram = m_region_gvram->base();
-	UINT8 *gfx_data = m_region_chargen->base();
+	uint8_t *tvram = m_region_tvram->base();
+	uint8_t *gvram = m_region_gvram->base();
+	uint8_t *gfx_data = m_region_chargen->base();
 	int x,y,xi,yi;
-	UINT8 x_size;
-	UINT32 count;
+	uint8_t x_size;
+	uint32_t count;
 
 	count = 0;
 
@@ -181,8 +180,8 @@ UINT32 mz2000_state::screen_update_mz2000(screen_device &screen, bitmap_ind16 &b
 	{
 		for(x=0;x<x_size;x++)
 		{
-			UINT8 tile = tvram[y*x_size+x];
-			UINT8 color = m_tvram_attr & 7;
+			uint8_t tile = tvram[y*x_size+x];
+			uint8_t color = m_tvram_attr & 7;
 
 			for(yi=0;yi<8*(m_hi_mode+1);yi++)
 			{
@@ -190,7 +189,7 @@ UINT32 mz2000_state::screen_update_mz2000(screen_device &screen, bitmap_ind16 &b
 				{
 					int pen;
 					int res_x,res_y;
-					UINT16 tile_offset;
+					uint16_t tile_offset;
 
 					res_x = x * 8 + xi;
 					res_y = y * (8 *(m_hi_mode+1)) + yi;
@@ -279,7 +278,7 @@ WRITE8_MEMBER(mz2000_state::mz2000_gvram_w)
 
 READ8_MEMBER(mz2000_state::mz2000_mem_r)
 {
-	UINT8 page_mem;
+	uint8_t page_mem;
 
 	page_mem = (offset & 0xf000) >> 12;
 
@@ -297,7 +296,7 @@ READ8_MEMBER(mz2000_state::mz2000_mem_r)
 			return mz2000_gvram_r(space,offset & 0x3fff);
 		else
 		{
-			UINT16 wram_mask = (m_ipl_enable) ? 0x7fff : 0xffff;
+			uint16_t wram_mask = (m_ipl_enable) ? 0x7fff : 0xffff;
 			return mz2000_wram_r(space,offset & wram_mask);
 		}
 	}
@@ -307,7 +306,7 @@ READ8_MEMBER(mz2000_state::mz2000_mem_r)
 
 WRITE8_MEMBER(mz2000_state::mz2000_mem_w)
 {
-	UINT8 page_mem;
+	uint8_t page_mem;
 
 	page_mem = (offset & 0xf000) >> 12;
 
@@ -322,7 +321,7 @@ WRITE8_MEMBER(mz2000_state::mz2000_mem_w)
 			mz2000_gvram_w(space,offset & 0x3fff,data);
 		else
 		{
-			UINT16 wram_mask = (m_ipl_enable) ? 0x7fff : 0xffff;
+			uint16_t wram_mask = (m_ipl_enable) ? 0x7fff : 0xffff;
 
 			mz2000_wram_w(space,offset & wram_mask,data);
 		}
@@ -420,10 +419,16 @@ static ADDRESS_MAP_START(mz2000_io, AS_IO, 8, mz2000_state )
 ADDRESS_MAP_END
 
 
-// The \ key is actually directly to the left of the BREAK key; the CLR/HOME and INST/DEL keys sit
-// between the BREAK key and the CR key, and the ] key lies directly to the left of CR. The somewhat
-// fudged key bindings for this corner of the keyboard approximate those used for other JIS keyboards.
-// (The Japanese MZ-80B/MZ-2000 keyboard layout is almost but not quite JIS.)
+/*
+   The \ key is actually directly to the left of the BREAK key; the CLR/HOME and INST/DEL keys sit
+   between the BREAK key and the CR key, and the ] key lies directly to the left of CR. The somewhat
+   fudged key bindings for this corner of the keyboard approximate those used for other JIS keyboards.
+   (The Japanese MZ-80B/MZ-2000 keyboard layout is almost but not quite JIS.)
+
+   For the natural keyboard, GRPH and RVS/KANA are mapped to the left and right ALT keys; this follows
+   their positions on the MZ-2500 keyboard. The unshifted INST/DEL functions as a backspace key and
+   has been mapped accordingly.
+*/
 
 /* Input ports */
 static INPUT_PORTS_START( mz80be ) // European keyboard
@@ -465,7 +470,7 @@ static INPUT_PORTS_START( mz80be ) // European keyboard
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_DOWN) PORT_CHAR(UCHAR_MAMEKEY(DOWN))
 	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_LEFT) PORT_CHAR(UCHAR_MAMEKEY(LEFT))
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_RIGHT) PORT_CHAR(UCHAR_MAMEKEY(RIGHT))
-	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("BREAK") PORT_CODE(KEYCODE_BACKSPACE)
+	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("BREAK") PORT_CODE(KEYCODE_BACKSPACE) PORT_CHAR(UCHAR_MAMEKEY(PAUSE))
 
 	PORT_START("KEY4")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("/  \xe2\x86\x90  \xe2\x86\x92") PORT_CODE(KEYCODE_SLASH) PORT_CHAR('/')
@@ -504,7 +509,7 @@ static INPUT_PORTS_START( mz80be ) // European keyboard
 	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_EQUALS) PORT_CHAR('^') PORT_CHAR('~')
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR('\\') PORT_CHAR('|')
 	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("?  \xe2\x86\x91  \xe2\x86\x93") PORT_CODE(KEYCODE_RCONTROL) PORT_CHAR('?')
-	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(".  >  " UTF8_PI) PORT_CODE(KEYCODE_STOP) PORT_CHAR('.') PORT_CHAR('>')
+	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(".  >  " UTF8_SMALL_PI) PORT_CODE(KEYCODE_STOP) PORT_CHAR('.') PORT_CHAR('>')
 	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(",  <  " UTF8_YEN) PORT_CODE(KEYCODE_COMMA) PORT_CHAR(',') PORT_CHAR('<')
 
 	PORT_START("KEY8")
@@ -530,18 +535,18 @@ static INPUT_PORTS_START( mz80be ) // European keyboard
 	PORT_START("KEYA")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_BACKSLASH) PORT_CHAR(']') PORT_CHAR('}')
 	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_UNUSED)
-	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("CLR  HOME") PORT_CODE(KEYCODE_HOME) PORT_CHAR(UCHAR_MAMEKEY(HOME))
-	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("INST  DEL") PORT_CODE(KEYCODE_INSERT) PORT_CHAR(UCHAR_MAMEKEY(DEL)) 
+	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("CLR  HOME") PORT_CODE(KEYCODE_HOME) PORT_CHAR(UCHAR_MAMEKEY(HOME)) PORT_CHAR(UCHAR_MAMEKEY(END))
+	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("INST  DEL") PORT_CODE(KEYCODE_DEL) PORT_CHAR('\b') PORT_CHAR(UCHAR_MAMEKEY(INSERT))
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_UNUSED)
 	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_UNUSED)
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_UNUSED)
 	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_UNUSED)
 
 	PORT_START("KEYB")
-	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("GRPH") PORT_CODE(KEYCODE_TAB)
+	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("GRPH") PORT_CODE(KEYCODE_TAB) PORT_CHAR(UCHAR_MAMEKEY(LALT))
 	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("SFT LOCK") PORT_CODE(KEYCODE_CAPSLOCK) PORT_CHAR(UCHAR_MAMEKEY(CAPSLOCK))
 	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("SHIFT") PORT_CODE(KEYCODE_LSHIFT) PORT_CODE(KEYCODE_RSHIFT) PORT_CHAR(UCHAR_SHIFT_1)
-	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("RVS") PORT_CODE(KEYCODE_TILDE)
+	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("RVS") PORT_CODE(KEYCODE_TILDE) PORT_CHAR(UCHAR_MAMEKEY(RALT))
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_UNUSED)
 	PORT_BIT(0xe0, IP_ACTIVE_LOW, IPT_UNUSED)
 
@@ -607,7 +612,7 @@ static INPUT_PORTS_START( mz80bj ) // Japanese keyboard (kana, no RVS)
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("\\  |  \xe3\x83\xb2") PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR('|') // wo
 	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("?  \xe2\x86\x91  \xe3\x83\xad  \xe2\x86\x93") PORT_CODE(KEYCODE_RCONTROL) PORT_CHAR('?') // ro
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(".  >  \xe3\x83\xab  \xe3\x80\x82") PORT_CODE(KEYCODE_STOP) PORT_CHAR('.') PORT_CHAR('>') // ru
-	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(",  <  \xe3\x83\x8d  " UTF8_PI) PORT_CODE(KEYCODE_COMMA) PORT_CHAR(',') PORT_CHAR('<') // ne
+	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(",  <  \xe3\x83\x8d  " UTF8_SMALL_PI) PORT_CODE(KEYCODE_COMMA) PORT_CHAR(',') PORT_CHAR('<') // ne
 
 	PORT_MODIFY("KEY8")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("0  _  \xe3\x83\xaf") PORT_CODE(KEYCODE_0) PORT_CHAR('0') PORT_CHAR('_') // wa
@@ -632,7 +637,7 @@ static INPUT_PORTS_START( mz80bj ) // Japanese keyboard (kana, no RVS)
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("]  }  \xe3\x83\xa0  \xe3\x80\x8d") PORT_CODE(KEYCODE_BACKSLASH) PORT_CHAR(']') PORT_CHAR('}') // mu
 
 	PORT_MODIFY("KEYB")
-	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(UTF8_KANA_KATAKANA) PORT_CODE(KEYCODE_TILDE)
+	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME(UTF8_KANA_KATAKANA) PORT_CODE(KEYCODE_TILDE) PORT_CHAR(UCHAR_MAMEKEY(RALT))
 INPUT_PORTS_END
 
 
@@ -693,7 +698,7 @@ READ8_MEMBER(mz2000_state::mz2000_portb_r)
 	---- x--- end of tape reached
 	---- ---x "blank" control
 	*/
-	UINT8 res = 0x80;
+	uint8_t res = 0x80;
 
 	if(m_cass->get_image() != nullptr)
 	{
@@ -985,5 +990,5 @@ ROM_END
 
 /*    YEAR  NAME    PARENT  COMPAT   MACHINE     INPUT    INIT    COMPANY           FULLNAME       FLAGS */
 COMP( 1981, mz80b,    0,        0,   mz80b,    mz80be, driver_device,  0, "Sharp",   "MZ-80B", MACHINE_NOT_WORKING )
-COMP( 1982, mz2000,   mz80b,    0,   mz2000,   mz80bj, driver_device,  0, "Sharp",   "MZ-2000", MACHINE_NOT_WORKING )
-COMP( 1982, mz2200,   mz80b,    0,   mz2000,   mz80bj, driver_device,  0, "Sharp",   "MZ-2200", MACHINE_NOT_WORKING )
+COMP( 1982, mz2000,   0,        0,   mz2000,   mz80bj, driver_device,  0, "Sharp",   "MZ-2000", MACHINE_NOT_WORKING )
+COMP( 1982, mz2200,   mz2000,   0,   mz2000,   mz80bj, driver_device,  0, "Sharp",   "MZ-2200", MACHINE_NOT_WORKING )

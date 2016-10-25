@@ -215,9 +215,9 @@ static ADDRESS_MAP_START( bigrun_map, AS_PROGRAM, 16, cischeat_state )
 	AM_RANGE(0x082400, 0x082401) AM_WRITE(active_layers_w)
 
 	/* It's actually 0x840000-0x847ff, divided in four banks and shared with other boards.
-		Each board expects reads from the other boards and writes to own bank.
-		Amusingly, if you run the communication test as ID = X then soft reset -> ID = Y, what was at ID = X gets an OK in the second test
-		so it's likely to be the only thing needed. */
+	    Each board expects reads from the other boards and writes to own bank.
+	    Amusingly, if you run the communication test as ID = X then soft reset -> ID = Y, what was at ID = X gets an OK in the second test
+	    so it's likely to be the only thing needed. */
 	AM_RANGE(0x084000, 0x0847ff) AM_RAM                                                 // Linking with other units
 	AM_RANGE(0x088000, 0x08bfff) AM_RAM AM_SHARE("share2") // Sharedram with sub CPU#2
 	AM_RANGE(0x08c000, 0x08ffff) AM_RAM AM_SHARE("share1") // Sharedram with sub CPU#1
@@ -359,17 +359,17 @@ READ16_MEMBER(cischeat_state::wildplt_xy_r)
 		case 1: return ioport("P2Y")->read() | (ioport("P2X")->read()<<8);
 		case 2: return ioport("P1Y")->read() | (ioport("P1X")->read()<<8);
 	}
-	
+
 	return 0xffff;
 }
 
 // buttons & sensors are muxed. bit 0 routes to coin chute (single according to test mode)
 READ16_MEMBER(cischeat_state::wildplt_mux_r)
 {
-	UINT16 split_in = 0xffff;
+	uint16_t split_in = 0xffff;
 	switch(m_wildplt_output & 0xc)
 	{
-//		case 0: return ioport("IN1")->read();
+//      case 0: return ioport("IN1")->read();
 		case 4: split_in = ioport("IN1_1")->read(); break;
 		case 8: split_in = ioport("IN1_2")->read(); break;
 	}
@@ -405,11 +405,11 @@ static ADDRESS_MAP_START( wildplt_map, AS_PROGRAM, 16, cischeat_state )
 	AM_RANGE(0x082308, 0x082309) AM_READNOP AM_WRITE(f1gpstar_comms_w)
 	AM_RANGE(0x082400, 0x082401) AM_WRITE(active_layers_w)
 
-//	AM_RANGE(0x088000, 0x088fff) AM_RAM                                                                     // Linking with other units
+//  AM_RANGE(0x088000, 0x088fff) AM_RAM                                                                     // Linking with other units
 
 	AM_RANGE(0x090000, 0x097fff) AM_RAM AM_SHARE("share2") // Sharedram with sub CPU#2
 	AM_RANGE(0x098000, 0x09ffff) AM_RAM AM_SHARE("share1") // Sharedram with sub CPU#1
-	
+
 	/* Only writes to the first 0x40000 bytes affect the tilemaps:             */
 	/* either these games support larger tilemaps or have more ram than needed */
 	AM_RANGE(0x0a0000, 0x0a7fff) AM_RAM_DEVWRITE("scroll0", megasys1_tilemap_device, write) AM_SHARE("scroll0")     // Scroll ram 0
@@ -618,7 +618,7 @@ READ16_MEMBER(cischeat_state::armchmp2_buttons_r)
 {
 	int arm_x = ioport("IN1")->read();
 
-	UINT16 ret = ioport("IN0")->read();
+	uint16_t ret = ioport("IN0")->read();
 
 	if (arm_x < 0x40)       ret &= ~1;
 	else if (arm_x > 0xc0)  ret &= ~2;
@@ -728,9 +728,9 @@ WRITE16_MEMBER(cischeat_state::captflag_motor_command_left_w)
 	captflag_motor_move(LEFT, data);
 }
 
-void cischeat_state::captflag_motor_move(int side, UINT16 data)
+void cischeat_state::captflag_motor_move(int side, uint16_t data)
 {
-	UINT16 & pos  = m_captflag_motor_pos[side];
+	uint16_t & pos  = m_captflag_motor_pos[side];
 
 	timer_device &dev((side == RIGHT) ? *m_captflag_motor_right : *m_captflag_motor_left);
 
@@ -785,8 +785,8 @@ void cischeat_state::captflag_motor_move(int side, UINT16 data)
 
 CUSTOM_INPUT_MEMBER(cischeat_state::captflag_motor_pos_r)
 {
-	const UINT8 pos[4] = {1,0,2,3}; // -> 2,3,1,0 offsets -> 0123
-	return ~pos[m_captflag_motor_pos[(FPTR)param]];
+	const uint8_t pos[4] = {1,0,2,3}; // -> 2,3,1,0 offsets -> 0123
+	return ~pos[m_captflag_motor_pos[(uintptr_t)param]];
 }
 
 CUSTOM_INPUT_MEMBER(cischeat_state::captflag_motor_busy_r)
@@ -1416,7 +1416,7 @@ INPUT_PORTS_END
 
 static INPUT_PORTS_START( f1gpstr2 )
 	PORT_INCLUDE( f1gpstar )
-	
+
 	PORT_MODIFY("IN4")
 	PORT_DIPNAME( 0x0e, 0x00, "Unit ID" ) PORT_DIPLOCATION("SW03:2,3,4")          // -> !f901c
 	PORT_DIPSETTING(    0x00, "1 (McLaren)" )
@@ -1489,9 +1489,9 @@ static INPUT_PORTS_START( wildplt )
 
 	PORT_START("IN1_1")
 	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_SERVICE1 )
-	PORT_SERVICE_NO_TOGGLE( 0x0008, IP_ACTIVE_LOW ) 
+	PORT_SERVICE_NO_TOGGLE( 0x0008, IP_ACTIVE_LOW )
 	PORT_BIT( 0xfff3, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	
+
 	PORT_START("IN1_2")
 	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_PLAYER(1) PORT_NAME("P1 Bomb")
 	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_START1 )
@@ -1797,7 +1797,7 @@ static const gfx_layout tiles_16x16_quad =
 	16*16*4
 };
 
-static const UINT32 road_layout_xoffset[64] =
+static const uint32_t road_layout_xoffset[64] =
 {
 	STEP16(16*4*0,4),STEP16(16*4*1,4),
 	STEP16(16*4*2,4),STEP16(16*4*3,4)
@@ -1895,8 +1895,8 @@ TIMER_DEVICE_CALLBACK_MEMBER(cischeat_state::bigrun_scanline)
 	if(scanline == 0)
 		m_cpu1->set_input_line(2, HOLD_LINE);
 
-//	if(scanline == 69)
-//		m_cpu1->set_input_line(1, HOLD_LINE);
+//  if(scanline == 69)
+//      m_cpu1->set_input_line(1, HOLD_LINE);
 }
 
 
@@ -2244,12 +2244,12 @@ MACHINE_CONFIG_END
 */
 void cischeat_state::cischeat_untangle_sprites(const char *region)
 {
-	UINT8       *src = memregion(region)->base();
-	const UINT8 *end = src + memregion(region)->bytes();
+	uint8_t       *src = memregion(region)->base();
+	const uint8_t *end = src + memregion(region)->bytes();
 
 	while (src < end)
 	{
-		UINT8 sprite[16*8];
+		uint8_t sprite[16*8];
 		int i;
 
 		for (i = 0; i < 16 ; i++)

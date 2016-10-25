@@ -1,10 +1,11 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 /***************************************************************************
 
-    win_options.c
+    win_options.cpp
 
-    Core options code code
+    Core options code
 
 ***************************************************************************/
 
@@ -55,7 +56,7 @@ const char *const options::s_option_unadorned[MAX_UNADORNED_OPTIONS] =
 //  entry - constructor
 //-------------------------------------------------
 
-options::entry::entry(const char *name, const char *description, UINT32 flags, const char *defvalue)
+options::entry::entry(const char *name, const char *description, uint32_t flags, const char *defvalue)
 	: m_next(NULL),
 		m_flags(flags),
 		m_seqid(0),
@@ -142,7 +143,7 @@ void options::entry::set_description(const char *description)
 }
 
 
-void options::entry::set_flag(UINT32 mask, UINT32 flag)
+void options::entry::set_flag(uint32_t mask, uint32_t flag)
 {
 	m_flags = ( m_flags & mask ) | flag;
 }
@@ -257,7 +258,7 @@ bool options::operator!=(const options &rhs)
 //  options set
 //-------------------------------------------------
 
-void options::add_entry(const char *name, const char *description, UINT32 flags, const char *defvalue, bool override_existing)
+void options::add_entry(const char *name, const char *description, uint32_t flags, const char *defvalue, bool override_existing)
 {
 	// allocate a new entry
 	entry *newentry = global_alloc(entry(name, description, flags, defvalue));
@@ -413,7 +414,7 @@ bool options::parse_ini_file(util::core_file &inifile, int priority, int ignore_
 		// find the extent of the name
 		char *optionname;
 		for (optionname = buffer; *optionname != 0; optionname++)
-			if (!isspace((UINT8)*optionname))
+			if (!isspace((uint8_t)*optionname))
 				break;
 
 		// skip comments
@@ -423,7 +424,7 @@ bool options::parse_ini_file(util::core_file &inifile, int priority, int ignore_
 		// scan forward to find the first space
 		char *temp;
 		for (temp = optionname; *temp != 0; temp++)
-			if (isspace((UINT8)*temp))
+			if (isspace((uint8_t)*temp))
 				break;
 
 		// if we hit the end early, print a warning and continue
@@ -604,7 +605,7 @@ int options::priority(const char *name) const
 //  seqid - return the seqid for a given option
 //-------------------------------------------------
 
-UINT32 options::seqid(const char *name) const
+uint32_t options::seqid(const char *name) const
 {
 	auto curentry = m_entrymap.find(name);
 	return (curentry != m_entrymap.end()) ? curentry->second->seqid() : 0;
@@ -648,7 +649,7 @@ bool options::set_value(const char *name, float value, int priority, std::string
 }
 
 
-void options::set_flag(const char *name, UINT32 mask, UINT32 flag)
+void options::set_flag(const char *name, uint32_t mask, uint32_t flag)
 {
 	// find the entry first
 	auto curentry = m_entrymap.find(name);

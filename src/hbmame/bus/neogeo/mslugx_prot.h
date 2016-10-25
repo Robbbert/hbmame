@@ -17,15 +17,15 @@ class mslugx_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 
 	DECLARE_WRITE16_MEMBER( mslugx_protection_16_w );
 	DECLARE_READ16_MEMBER( mslugx_protection_16_r );
 	void mslugx_install_protection(cpu_device* maincpu);
 
-	UINT16     m_mslugx_counter;
-	UINT16     m_mslugx_command;
+	uint16_t     m_mslugx_counter;
+	uint16_t     m_mslugx_command;
 
 protected:
 	virtual void device_start() override;

@@ -206,7 +206,7 @@ LONG GetCommonControlVersion()
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
 	HINSTANCE hErr;
-	LPCTSTR	  msg = 0;
+	LPCTSTR   msg = 0;
 	LPTSTR    tName;
 
 	tName = ui_wstring_from_utf8(cName);
@@ -214,13 +214,13 @@ void DisplayTextFile(HWND hWnd, const char *cName)
 		return;
 
 	hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
-	if ((FPTR)hErr > 32)
+	if ((uintptr_t)hErr > 32)
 	{
 		osd_free(tName);
 		return;
 	}
 
-	switch((FPTR)hErr)
+	switch((uintptr_t)hErr)
 	{
 	case 0:
 		msg = TEXT("The operating system is out of memory or resources.");

@@ -3,7 +3,7 @@
 /***************************************************************************
 
   SH7604 Watchdog Timer Controller
-  
+
   TODO:
   - Host CPU setter (clock and callback for irq and reset lines);
   - memory map (needs to verify if ID write is ok);
@@ -28,17 +28,17 @@ const device_type SH7604_WDT = &device_creator<sh7604_wdt_device>;
 //**************************************************************************
 
 static ADDRESS_MAP_START( wdt_regs, AS_0, 8, sh7604_wdt_device )
-//	AM_RANGE(0x00, 0x00) timer control/status
-//	AM_RANGE(0x01, 0x01) timer counter
-//	AM_RANGE(0x02, 0x02) write only, reset control register
-//	AM_RANGE(0x03, 0x03) read status register, write reset status register
+//  AM_RANGE(0x00, 0x00) timer control/status
+//  AM_RANGE(0x01, 0x01) timer counter
+//  AM_RANGE(0x02, 0x02) write only, reset control register
+//  AM_RANGE(0x03, 0x03) read status register, write reset status register
 ADDRESS_MAP_END
 
 //-------------------------------------------------
 //  sh7604_wdt_device - constructor
 //-------------------------------------------------
 
-sh7604_wdt_device::sh7604_wdt_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+sh7604_wdt_device::sh7604_wdt_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, SH7604_WDT, "sh7604_wdt_longname", tag, owner, clock, "sh7604_wdt", __FILE__),
 	device_memory_interface(mconfig, *this),
 	m_space_config("regs", ENDIANNESS_BIG, 8, 4, 0, nullptr, *ADDRESS_MAP_NAME(wdt_regs))
@@ -76,7 +76,7 @@ READ8_MEMBER( sh7604_wdt_device::read )
 
 WRITE16_MEMBER( sh7604_wdt_device::write )
 {
-	UINT8 id_param = data >> 8;
+	uint8_t id_param = data >> 8;
 	switch(id_param)
 	{
 		case 0xa5: space.write_byte(offset*2+0,data & 0xff); break;

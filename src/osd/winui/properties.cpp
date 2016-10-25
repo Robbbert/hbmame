@@ -3228,7 +3228,7 @@ static BOOL SoftwareDirectories_OnBeginLabelEdit(HWND hDlg, NMHDR* pNMHDR)
 	/* Last item is placeholder for append */
 	if (pItem->iItem == ListView_GetItemCount(hList) - 1)
 	{
-		HWND hEdit = (HWND) (FPTR) SendMessage(hList, LVM_GETEDITCONTROL, 0, 0);
+		HWND hEdit = (HWND) (uintptr_t) SendMessage(hList, LVM_GETEDITCONTROL, 0, 0);
 		win_set_window_text_utf8(hEdit, "");
 	}
 

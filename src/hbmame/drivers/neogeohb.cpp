@@ -234,7 +234,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 {
 //// Fix rebooting at start
 
-	UINT16 *src = (UINT16*)memregion("maincpu")->base();
+	uint16_t *src = (uint16_t*)memregion("maincpu")->base();
 
 	// change jsr to C004DA
 	src[0x01AF8 /2] = 0x04DA; // C00552 (Not used?)
@@ -247,7 +247,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 
 //// Fix text on bottom line
 
-	UINT8 *dst = memregion( "fixed" )->base();
+	uint8_t *dst = memregion( "fixed" )->base();
 
 	// Move text for credit + coin info (Thanks to Kanyero), overwrites "MA" in neogeo logo
 	memcpy(dst, dst + 0x600, 0x140);
@@ -259,9 +259,9 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 //// Optional stuff
 
 
-	UINT8 i, *rom = memregion("maincpu")->base();
+	uint8_t i, *rom = memregion("maincpu")->base();
 
-	UINT8 data[16] = {
+	uint8_t data[16] = {
 		0x49, 0x46, 0x41, 0x4E, 0x20, 0x4C, 0x4F, 0x52,
 		0x41, 0x4D, 0x43, 0x4E, 0x20, 0x45, 0x20, 0x32 };
 
@@ -281,7 +281,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 	DRIVER_INIT_CALL(neogeo);
 
 	/* old fr2cd code:
-	UINT16 *mem16 = (UINT16*)memory_region(machine, "maincpu");
+	uint16_t *mem16 = (uint16_t*)memory_region(machine, "maincpu");
 	mem16[0x1BF2/2] = 0x4E71;
 	mem16[0x1BF4/2] = 0x4E71;
 	mem16[0x1BF6/2] = 0x4E71;

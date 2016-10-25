@@ -25,7 +25,7 @@ WRITE8_MEMBER( pacman_state::m96in1b_rombank_w )
 
 WRITE8_MEMBER( pacman_state::hackypac_rombank_w )
 {
-	UINT8 banks[] = { 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 8, 6, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 3 };
+	uint8_t banks[] = { 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 8, 6, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 3 };
 	data &= 0x1f;			/* strip extra bits when option selected */
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
@@ -42,7 +42,7 @@ WRITE8_MEMBER( pacman_state::madpac_rombank_w )
 
 WRITE8_MEMBER( pacman_state::multipac_rombank_w )
 {
-	UINT8 temp = ((data & 0x0f) << 1) + ((data & 0x10) >> 4);	/* rearrange bits */
+	uint8_t temp = ((data & 0x0f) << 1) + ((data & 0x10) >> 4);	/* rearrange bits */
 	membank("bank1")->set_entry(temp);				/* select rom bank */
 	if (!m_maincpu->space(AS_PROGRAM).read_byte(0xa007))
 		membank("bank2")->set_entry(temp << 1);	/* Ms Pacman needs more roms */
@@ -51,8 +51,8 @@ WRITE8_MEMBER( pacman_state::multipac_rombank_w )
 
 WRITE8_MEMBER( pacman_state::pm4n1_rombank_w )
 {
-	static UINT8 pm4n1_temp = 0;
-	UINT8 banks[] = { 0, 4, 2, 0, 1, 0, 3, 0 };
+	static uint8_t pm4n1_temp = 0;
+	uint8_t banks[] = { 0, 4, 2, 0, 1, 0, 3, 0 };
 	pm4n1_temp &= (7 - (1<<offset));
 	pm4n1_temp |= (data&1)<<offset;
 	membank("bank1")->set_entry(banks[pm4n1_temp]);
@@ -101,8 +101,8 @@ MACHINE_RESET_MEMBER( pacman_state, madpac )
 
 MACHINE_RESET_MEMBER( pacman_state, mschamp )
 {
-	UINT8 *rom = memregion("maincpu")->base() + 0x10000;
-	UINT8 data = ioport("GAME")->read() & 1;
+	uint8_t *rom = memregion("maincpu")->base() + 0x10000;
+	uint8_t data = ioport("GAME")->read() & 1;
 
 	membank("bank1")->configure_entries(0, 2, &rom[0x0000], 0x8000);
 	membank("bank2")->configure_entries(0, 2, &rom[0x4000], 0x8000);
@@ -120,7 +120,7 @@ MACHINE_RESET_MEMBER( pacman_state, multipac )
 	m_namco_sound->pacman_sound_enable_w(space, 0, 0);
 }
 
-static UINT8 curr_bank = 0;
+static uint8_t curr_bank = 0;
 
 /* select next game when F3 pressed */
 MACHINE_RESET_MEMBER( pacman_state, mspaceur )
@@ -539,27 +539,27 @@ INPUT_PORTS_END
 
 DRIVER_INIT_MEMBER( pacman_state, 96in1 )
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 16, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 16, &RAM[0x14000], 0x8000);
 }
 
 DRIVER_INIT_MEMBER( pacman_state, madpac )
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 32, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 32, &RAM[0x14000], 0x8000);
 }
 
 DRIVER_INIT_MEMBER( pacman_state, mspaceur )
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank2")->configure_entries(0, 2, &RAM[0x10000], 0x2000);
 }
 
 DRIVER_INIT_MEMBER( pacman_state, multipac )
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	RAM[0x10000] = 0xED;	/* It seems that IM0 is not working properly in MAME */
 	RAM[0x10001] = 0x56;	/* and, the interrupt mode is not being reset when a */
 	RAM[0x10002] = 0xC3;	/* machine reset is done. So, inserting some code so */
@@ -572,7 +572,7 @@ DRIVER_INIT_MEMBER( pacman_state, multipac )
 
 DRIVER_INIT_MEMBER( pacman_state, pm4n1 )
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 5, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 5, &RAM[0x14000], 0x8000);
 }

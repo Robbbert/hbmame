@@ -18,7 +18,7 @@ class fatfury2_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	DECLARE_READ16_MEMBER( fatfury2_protection_16_r );
 	DECLARE_WRITE16_MEMBER( fatfury2_protection_16_w );
@@ -26,7 +26,7 @@ public:
 
 
 	neogeo_banked_cart_device* m_bankdev;
-	UINT32     m_fatfury2_prot_data;
+	uint32_t     m_fatfury2_prot_data;
 
 protected:
 	virtual void device_start() override;

@@ -21,7 +21,7 @@ namespace ui {
 //  ctor / dtor
 //-------------------------------------------------
 
-menu_selector::menu_selector(mame_ui_manager &mui, render_container &container, std::vector<std::string> const &s_sel, UINT16 &s_actual, int category, int _hover)
+menu_selector::menu_selector(mame_ui_manager &mui, render_container &container, std::vector<std::string> const &s_sel, uint16_t &s_actual, int category, int _hover)
 	: menu(mui, container)
 	, m_selector(s_actual)
 	, m_category(category)
@@ -33,7 +33,7 @@ menu_selector::menu_selector(mame_ui_manager &mui, render_container &container, 
 	m_searchlist[0] = nullptr;
 }
 
-menu_selector::menu_selector(mame_ui_manager &mui, render_container &container, std::vector<std::string> &&s_sel, UINT16 &s_actual, int category, int _hover)
+menu_selector::menu_selector(mame_ui_manager &mui, render_container &container, std::vector<std::string> &&s_sel, uint16_t &s_actual, int category, int _hover)
 	: menu(mui, container)
 	, m_selector(s_actual)
 	, m_category(category)
@@ -154,7 +154,7 @@ void menu_selector::custom_render(void *selectedref, float top, float bottom, fl
 
 	// get the size of the text
 	ui().draw_text_full(container(), tempbuf.c_str(), 0.0f, 0.0f, 1.0f, ui::text_layout::CENTER, ui::text_layout::TRUNCATE,
-		mame_ui_manager::NONE, rgb_t::white, rgb_t::black, &width, nullptr);
+		mame_ui_manager::NONE, rgb_t::white(), rgb_t::black(), &width, nullptr);
 	width += (2.0f * UI_BOX_LR_BORDER) + 0.01f;
 	float maxwidth = std::max(width, origx2 - origx1);
 
@@ -182,7 +182,7 @@ void menu_selector::custom_render(void *selectedref, float top, float bottom, fl
 	tempbuf = string_format(_("Double click or press %1$s to select"), ui_select_text);
 
 	ui().draw_text_full(container(), tempbuf.c_str(), 0.0f, 0.0f, 1.0f, ui::text_layout::CENTER, ui::text_layout::NEVER,
-		mame_ui_manager::NONE, rgb_t::white, rgb_t::black, &width, nullptr);
+		mame_ui_manager::NONE, rgb_t::white(), rgb_t::black(), &width, nullptr);
 	width += 2 * UI_BOX_LR_BORDER;
 	maxwidth = std::max(maxwidth, width);
 

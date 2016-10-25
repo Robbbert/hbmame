@@ -23,7 +23,7 @@ const device_type NEOGEO_CART_SLOT = &device_creator<neogeo_cart_slot_device>;
 //-------------------------------------------------
 //  neogeo_cart_slot_device - constructor
 //-------------------------------------------------
-neogeo_cart_slot_device::neogeo_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT16 clock) :
+neogeo_cart_slot_device::neogeo_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint16_t clock) :
 						device_t(mconfig, NEOGEO_CART_SLOT, "NeoGeo Cartridge Slot", tag, owner, clock, "neogeo_cart_slot", __FILE__),
 						device_image_interface(mconfig, *this),
 						device_slot_interface(mconfig, *this),
@@ -72,9 +72,9 @@ image_init_result neogeo_cart_slot_device::call_load()
 {
 	if (m_cart)
 	{
-		UINT16 *ROM;
-		UINT8* ROM8;
-		UINT32 len;
+		uint16_t *ROM;
+		uint8_t* ROM8;
+		uint32_t len;
 
 		if (software_entry() != nullptr)
 		{
@@ -125,7 +125,7 @@ image_init_result neogeo_cart_slot_device::call_load()
 			}
 
 			m_cart->decrypt_all(
-				(UINT8*)m_cart->get_rom_base(), m_cart->get_rom_size(),
+				(uint8_t*)m_cart->get_rom_base(), m_cart->get_rom_size(),
 				m_cart->get_sprites_base(), m_cart->get_sprites_size(),
 				m_cart->get_fixed_base(), m_cart->get_fixed_size(),
 				m_cart->get_ym_base(), m_cart->get_ym_size(),
@@ -147,13 +147,13 @@ image_init_result neogeo_cart_slot_device::call_load()
 
 void neogeo_cart_slot_device::setup_memory_banks(running_machine &machine)
 {
-	UINT16* base16 =  get_rom_base();
-	UINT32 size = get_rom_size();
+	uint16_t* base16 =  get_rom_base();
+	uint32_t size = get_rom_size();
 	machine.memory().region_free(":maincpu");
 	machine.memory().region_alloc(":maincpu",size,2, ENDIANNESS_BIG);
-	memcpy(memregion(":maincpu")->base(),(UINT8*)base16,size);
+	memcpy(memregion(":maincpu")->base(),(uint8_t*)base16,size);
 
-	UINT8* base =  get_audio_base();
+	uint8_t* base =  get_audio_base();
 	size = get_audio_size();
 	machine.memory().region_free(":audiocpu");
 	machine.memory().region_alloc(":audiocpu",size,1, ENDIANNESS_LITTLE);

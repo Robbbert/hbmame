@@ -70,7 +70,7 @@ public:
 	virtual void exit() override;
 
 	// sound_module
-	virtual void update_audio_stream(bool is_throttled, INT16 const *buffer, int samples_this_frame) override;
+	virtual void update_audio_stream(bool is_throttled, int16_t const *buffer, int samples_this_frame) override;
 	virtual void set_mastervolume(int attenuation) override;
 
 private:
@@ -171,7 +171,7 @@ private:
 			if (m_locked1 < bytes)
 			{
 				assert(m_bytes2);
-				memcpy(m_bytes2, (UINT8 const *)data + m_locked1, bytes - m_locked1);
+				memcpy(m_bytes2, (uint8_t const *)data + m_locked1, bytes - m_locked1);
 			}
 
 			unlock();
@@ -239,12 +239,12 @@ private:
 	LPDIRECTSOUND   m_dsound;
 
 	// descriptors and formats
-	UINT32          m_bytes_per_sample;
+	uint32_t          m_bytes_per_sample;
 
 	// sound buffers
 	primary_buffer  m_primary_buffer;
 	stream_buffer   m_stream_buffer;
-	UINT32          m_stream_buffer_in;
+	uint32_t          m_stream_buffer_in;
 
 	// buffer over/underflow counts
 	unsigned        m_buffer_underflows;
@@ -295,7 +295,7 @@ void sound_direct_sound::exit()
 
 void sound_direct_sound::update_audio_stream(
 		bool is_throttled,
-		INT16 const *buffer,
+		int16_t const *buffer,
 		int samples_this_frame)
 {
 	int const bytes_this_frame = samples_this_frame * m_bytes_per_sample;
@@ -449,7 +449,7 @@ HRESULT sound_direct_sound::dsound_init()
 	result = m_stream_buffer.play_looping();
 	if (result != DS_OK)
 	{
-		osd_printf_error("Error playing: %08x\n", (UINT32)result);
+		osd_printf_error("Error playing: %08x\n", (uint32_t)result);
 		goto error;
 	}
 	return DS_OK;

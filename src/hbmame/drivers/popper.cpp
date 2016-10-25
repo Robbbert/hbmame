@@ -43,7 +43,7 @@ public:
 	TILE_GET_INFO_MEMBER(get_popper_ol_p0_tile_info);
 	DECLARE_PALETTE_INIT(popper);
 	INTERRUPT_GEN_MEMBER(vblank_irq);
-	UINT32 screen_update_popper(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_popper(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 private:
 
@@ -51,21 +51,21 @@ private:
 	tilemap_t *m_p0_tilemap;
 	tilemap_t *m_ol_p123_tilemap;
 	tilemap_t *m_ol_p0_tilemap;
-	INT32 m_flipscreen;
-	INT32 m_e002;
-	INT32 m_gfx_bank;
+	int32_t m_flipscreen;
+	int32_t m_e002;
+	int32_t m_gfx_bank;
 	rectangle m_tilemap_clip;
-	UINT8 m_nmi_mask;
+	uint8_t m_nmi_mask;
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
 	void draw_sprites( bitmap_ind16 &bitmap,const rectangle &cliprect );
 
-	required_shared_ptr<UINT8> m_ol_videoram;
-	required_shared_ptr<UINT8> m_videoram;
-	required_shared_ptr<UINT8> m_ol_attribram;
-	required_shared_ptr<UINT8> m_attribram;
-	required_shared_ptr<UINT8> m_spriteram;
+	required_shared_ptr<uint8_t> m_ol_videoram;
+	required_shared_ptr<uint8_t> m_videoram;
+	required_shared_ptr<uint8_t> m_ol_attribram;
+	required_shared_ptr<uint8_t> m_attribram;
+	required_shared_ptr<uint8_t> m_spriteram;
 	required_device<cpu_device> m_audiocpu;
 	required_device<cpu_device> m_maincpu;
 	required_device<gfxdecode_device> m_gfxdecode;
@@ -109,7 +109,7 @@ private:
 //                      -------x  sound
 READ8_MEMBER(popper_state::popper_input_ports_r)
 {
-	UINT8 data = 0;
+	uint8_t data = 0;
 	switch (offset)
 	{
 		//           player inputs        dsw1                           dsw2
@@ -346,7 +346,7 @@ static const res_net_info popper_net_info =
 
 PALETTE_INIT_MEMBER(popper_state, popper)
 {
-	const UINT8 *color_prom = memregion("proms")->base();
+	const uint8_t *color_prom = memregion("proms")->base();
 	std::vector<rgb_t> rgb;
 
 	compute_res_net_all(rgb, color_prom, popper_decode_info, popper_net_info);
@@ -409,8 +409,8 @@ WRITE8_MEMBER(popper_state::popper_gfx_bank_w)
 
 TILE_GET_INFO_MEMBER(popper_state::get_popper_p123_tile_info)
 {
-	UINT32 tile_number = m_videoram[tile_index];
-	UINT8 attr = m_attribram[tile_index];
+	uint32_t tile_number = m_videoram[tile_index];
+	uint8_t attr = m_attribram[tile_index];
 	tile_number += m_gfx_bank << 8;
 
 	SET_TILE_INFO_MEMBER(0,
@@ -422,8 +422,8 @@ TILE_GET_INFO_MEMBER(popper_state::get_popper_p123_tile_info)
 
 TILE_GET_INFO_MEMBER(popper_state::get_popper_p0_tile_info)
 {
-	UINT32 tile_number = m_videoram[tile_index];
-	UINT8 attr = m_attribram[tile_index];
+	uint32_t tile_number = m_videoram[tile_index];
+	uint8_t attr = m_attribram[tile_index];
 	tile_number += m_gfx_bank << 8;
 
 	//pen 0 only in front if colour set as well
@@ -437,8 +437,8 @@ TILE_GET_INFO_MEMBER(popper_state::get_popper_p0_tile_info)
 
 TILE_GET_INFO_MEMBER(popper_state::get_popper_ol_p123_tile_info)
 {
-	UINT32 tile_number = m_ol_videoram[tile_index];
-	UINT8 attr  = m_ol_attribram[tile_index];
+	uint32_t tile_number = m_ol_videoram[tile_index];
+	uint8_t attr  = m_ol_attribram[tile_index];
 	tile_number += m_gfx_bank << 8;
 
 	SET_TILE_INFO_MEMBER(0,
@@ -450,8 +450,8 @@ TILE_GET_INFO_MEMBER(popper_state::get_popper_ol_p123_tile_info)
 
 TILE_GET_INFO_MEMBER(popper_state::get_popper_ol_p0_tile_info)
 {
-	UINT32 tile_number = m_ol_videoram[tile_index];
-	UINT8 attr = m_ol_attribram[tile_index];
+	uint32_t tile_number = m_ol_videoram[tile_index];
+	uint8_t attr = m_ol_attribram[tile_index];
 	tile_number += m_gfx_bank << 8;
 
 	//pen 0 only in front if colour set as well
@@ -523,7 +523,7 @@ void popper_state::draw_sprites( bitmap_ind16 &bitmap,const rectangle &cliprect 
 	}
 }
 
-UINT32 popper_state::screen_update_popper(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t popper_state::screen_update_popper(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	rectangle finalclip = m_tilemap_clip;
 	finalclip &= cliprect;

@@ -28,7 +28,7 @@
  Instead of properly representing each of the dips, the 1st switch in
  each bank ends up turning on/off the entire row display (for rows 2/3
  it shifts row 1 by one pixel)
- 
+
  This then means the 2nd switch changes the digit in the 1st position
  so
 
@@ -57,7 +57,7 @@ public:
 			m_oki(*this, "oki"),
 			m_hopper(*this, "hopper"),
 			m_mainram(*this, "mainram"),
-	//		m_vram(*this, "vram"),
+	//      m_vram(*this, "vram"),
 			m_palette(*this, "palette")
 	{
 	}
@@ -67,20 +67,20 @@ public:
 	required_device<okim6295_device> m_oki;
 	required_device<ticket_dispenser_device> m_hopper;
 
-	required_shared_ptr<UINT32> m_mainram;
-//	required_shared_ptr<UINT32> m_vram;
-	UINT8 m_pal[0x200];
-	UINT32 m_vram0[0x20000 / 4];
-	UINT32 m_vram1[0x20000 / 4];
-	UINT8 m_control;
-	UINT8 m_mux;
+	required_shared_ptr<uint32_t> m_mainram;
+//  required_shared_ptr<uint32_t> m_vram;
+	uint8_t m_pal[0x200];
+	uint32_t m_vram0[0x20000 / 4];
+	uint32_t m_vram1[0x20000 / 4];
+	uint8_t m_control;
+	uint8_t m_mux;
 
 	DECLARE_READ8_MEMBER(palette_low_r);
 	DECLARE_READ8_MEMBER(palette_high_r);
 	DECLARE_WRITE8_MEMBER(palette_low_w);
 	DECLARE_WRITE8_MEMBER(palette_high_w);
 	void set_palette(int offset);
-	
+
 	DECLARE_WRITE8_MEMBER(control_w);
 	DECLARE_WRITE8_MEMBER(mux_w);
 
@@ -95,7 +95,7 @@ public:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
-	UINT32 screen_update_mjsenpu(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_mjsenpu(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	required_device<palette_device> m_palette;
 };
@@ -114,7 +114,7 @@ READ8_MEMBER(mjsenpu_state::palette_high_r)
 
 void mjsenpu_state::set_palette(int offset)
 {
-	UINT16 paldata = (m_pal[(offset * 2) + 0] << 8) | (m_pal[(offset * 2) + 1]);
+	uint16_t paldata = (m_pal[(offset * 2) + 0] << 8) | (m_pal[(offset * 2) + 1]);
 	m_palette->set_pen_color(offset, pal5bit(paldata >> 0), pal5bit(paldata >> 5), pal6bit(paldata >> 10));
 }
 
@@ -154,7 +154,7 @@ WRITE8_MEMBER(mjsenpu_state::control_w)
 	m_oki->set_rom_bank((data&0x10)>>4);
 
 	// bits 0x08 is used in the alt payout / hopper mode (see dipswitches)
-	
+
 	// 0x04 seem to be hopper/ticket related? different ones get used depending on the dips
 	m_hopper->write(space, 0, data & 0x04);
 
@@ -164,8 +164,8 @@ WRITE8_MEMBER(mjsenpu_state::control_w)
 	// bit 0x01 alternates frequently, using as video buffer, but that's a complete guess
 	m_control = data;
 
-//	if (data &~0x9e)
-//		printf("control_w %02x\n", data);
+//  if (data &~0x9e)
+//      printf("control_w %02x\n", data);
 }
 
 WRITE8_MEMBER(mjsenpu_state::mux_w)
@@ -306,9 +306,9 @@ static INPUT_PORTS_START( mjsenpu )
 	PORT_DIPSETTING(          0x00000080, DEF_STR( Off ) )
 	PORT_DIPSETTING(          0x00000000, DEF_STR( On ) )
 	PORT_BIT( 0xffffff00, IP_ACTIVE_LOW, IPT_UNUSED )
-		
 
-		
+
+
 
 	PORT_START("DSW1")
 	PORT_DIPNAME( 0x00000003, 0x00000003, DEF_STR( Coin_A ) )
@@ -394,12 +394,12 @@ void mjsenpu_state::video_start()
 
 
 
-UINT32 mjsenpu_state::screen_update_mjsenpu(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t mjsenpu_state::screen_update_mjsenpu(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int x,y,count;
 	int color;
 
-	UINT32* vram;
+	uint32_t* vram;
 
 	if (m_control & 0x01) vram = m_vram0;
 	else  vram = m_vram1;
@@ -443,7 +443,7 @@ void mjsenpu_state::machine_reset()
 {
 }
 
-/* 
+/*
 following clocks are on the PCB
 
 22.1184
@@ -499,14 +499,14 @@ ROM_END
 READ32_MEMBER(mjsenpu_state::mjsenpu_speedup_r)
 {
 	int pc = m_maincpu->pc();
-	
+
 	if (pc == 0xadb8)
 	{
 		space.device().execute().spin_until_interrupt();
 	}
 	else
 	{
-	//	printf("%08x\n", pc);
+	//  printf("%08x\n", pc);
 	}
 
 	return m_mainram[0x23468/4];

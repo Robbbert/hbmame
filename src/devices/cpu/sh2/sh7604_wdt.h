@@ -27,11 +27,11 @@
 // ======================> sh7604_wdt_device
 
 class sh7604_wdt_device : public device_t,
-    					  public device_memory_interface
+						  public device_memory_interface
 {
 public:
 	// construction/destruction
-	sh7604_wdt_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sh7604_wdt_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// I/O operations
 	DECLARE_WRITE16_MEMBER( write );
@@ -40,7 +40,7 @@ public:
 	virtual const address_space_config *memory_space_config(address_spacenum spacenum = AS_0) const override;
 protected:
 	// device-level overrides
-//	virtual void device_validity_check(validity_checker &valid) const;
+//  virtual void device_validity_check(validity_checker &valid) const;
 	virtual void device_start() override;
 	virtual void device_reset() override;
 private:

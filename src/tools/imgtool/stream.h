@@ -23,27 +23,27 @@ namespace imgtool
 
 		~stream();
 
-		static imgtool::stream *open(const char *fname, int read_or_write);  /* similar params to mame_fopen */
-		static imgtool::stream *open_write_stream(int filesize);
-		static imgtool::stream *open_mem(void *buf, size_t sz);
-		
+		static imgtool::stream::ptr open(const char *fname, int read_or_write);  /* similar params to mame_fopen */
+		static imgtool::stream::ptr open_write_stream(int filesize);
+		static imgtool::stream::ptr open_mem(void *buf, size_t sz);
+
 		util::core_file *core_file();
-		UINT32 read(void *buf, UINT32 sz);
-		UINT32 write(const void *buf, UINT32 sz);
-		UINT64 size() const;
-		int seek(INT64 pos, int where);
-		UINT64 tell();
+		uint32_t read(void *buf, uint32_t sz);
+		uint32_t write(const void *buf, uint32_t sz);
+		uint64_t size() const;
+		int seek(int64_t pos, int where);
+		uint64_t tell();
 		void *getptr();
-		UINT32 putc(char c);
-		UINT32 puts(const char *s);
-		UINT32 printf(const char *fmt, ...) ATTR_PRINTF(2, 3);
+		uint32_t putc(char c);
+		uint32_t puts(const char *s);
+		uint32_t printf(const char *fmt, ...) ATTR_PRINTF(2, 3);
 
 		// transfers sz bytes from source to dest
-		static UINT64 transfer(imgtool::stream &dest, imgtool::stream &source, UINT64 sz);
-		static UINT64 transfer_all(imgtool::stream &dest, imgtool::stream &source);
+		static uint64_t transfer(imgtool::stream &dest, imgtool::stream &source, uint64_t sz);
+		static uint64_t transfer_all(imgtool::stream &dest, imgtool::stream &source);
 
 		// fills sz bytes with b
-		UINT64 fill(unsigned char b, UINT64 sz);
+		uint64_t fill(unsigned char b, uint64_t sz);
 
 		// returns the CRC of a file
 		int crc(unsigned long *result);
@@ -75,7 +75,7 @@ namespace imgtool
 		stream(bool wp, std::size_t size, void *buf);
 
 		// private methods
-		static stream *open_zip(const char *zipname, const char *subname, int read_or_write);
+		static stream::ptr open_zip(const char *zipname, const char *subname, int read_or_write);
 	};
 }
 

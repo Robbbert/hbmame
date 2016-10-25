@@ -36,10 +36,10 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kogd )
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof10thu )
 {
-	UINT32 tsize = m_region_maincpu->bytes();
-	UINT8 *rom = m_region_maincpu->base();
-	UINT32 i, ofst;
-	dynamic_buffer trom( tsize );
+	uint32_t tsize = m_region_maincpu->bytes();
+	uint8_t *rom = m_region_maincpu->base();
+	uint32_t i, ofst;
+	std::vector<uint8_t> trom( tsize );
 	memcpy( &trom[ 0 ], &rom[ 0 ], tsize );
 	// We unscramble the lower 6 address lines of the program rom.
 	for( i = 0; i < tsize / 2; i++ )

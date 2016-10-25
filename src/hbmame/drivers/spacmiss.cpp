@@ -48,7 +48,7 @@ public:
 
 	/* device/memory pointers */
 	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<UINT8> m_p_ram;
+	required_shared_ptr<uint8_t> m_p_ram;
 	required_device<discrete_device> m_discrete;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
@@ -56,8 +56,8 @@ public:
 	bool m_flip_screen;
 	bool m_screen_red;
 	bool m_sound_enabled;
-	UINT8 m_port_1_last_extra;
-	UINT8 m_port_2_last_extra;
+	uint8_t m_port_1_last_extra;
+	uint8_t m_port_2_last_extra;
 
 	/* timer */
 	emu_timer   *m_interrupt_timer;
@@ -71,9 +71,9 @@ public:
 	DECLARE_WRITE8_MEMBER(spacmiss_07_w);
 	DECLARE_MACHINE_START(sm);
 	DECLARE_MACHINE_RESET(sm);
-	UINT8 vpos_to_vysnc_chain_counter( int vpos );
-	int vysnc_chain_counter_to_vpos( UINT8 counter, int vblank );
-	UINT32 screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	uint8_t vpos_to_vysnc_chain_counter( int vpos );
+	int vysnc_chain_counter_to_vpos( uint8_t counter, int vblank );
+	uint32_t screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
@@ -183,7 +183,7 @@ WRITE8_MEMBER( sm_state::spacmiss_07_w )
 
 WRITE8_MEMBER(sm_state::spacmiss_03_w)
 {
-	UINT8 rising_bits = data & ~m_port_1_last_extra;
+	uint8_t rising_bits = data & ~m_port_1_last_extra;
 
 	if (BIT(rising_bits, 1)) m_samples->start(2, 2);     /* Killed an enemy */
 	if (BIT(rising_bits, 2)) m_samples->start(1, 1);     /* Lost a life */
@@ -199,7 +199,7 @@ WRITE8_MEMBER(sm_state::spacmiss_05_w)
 	else
 		m_discrete->write(space, NODE_02, 0);
 
-	UINT8 rising_bits = data & ~m_port_2_last_extra;
+	uint8_t rising_bits = data & ~m_port_2_last_extra;
 
 	if (BIT(rising_bits, 4)) m_samples->start(0, 0);     /* Shoot */
 
@@ -208,10 +208,10 @@ WRITE8_MEMBER(sm_state::spacmiss_05_w)
 	m_port_2_last_extra = data;
 }
 
-UINT8 sm_state::vpos_to_vysnc_chain_counter( int vpos )
+uint8_t sm_state::vpos_to_vysnc_chain_counter( int vpos )
 {
 	/* convert from a vertical position to the actual values on the vertical sync counters */
-	UINT8 counter;
+	uint8_t counter;
 	int vblank = (vpos >= MW8080BW_VBSTART);
 
 	if (vblank)
@@ -223,7 +223,7 @@ UINT8 sm_state::vpos_to_vysnc_chain_counter( int vpos )
 }
 
 
-int sm_state::vysnc_chain_counter_to_vpos( UINT8 counter, int vblank )
+int sm_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 {
 	/* convert from the vertical sync counters to an actual vertical position */
 	int vpos;
@@ -239,14 +239,14 @@ int sm_state::vysnc_chain_counter_to_vpos( UINT8 counter, int vblank )
 
 TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
 {
-	UINT8 next_counter;
+	uint8_t next_counter;
 	int next_vpos;
 	int next_vblank;
 
 	/* compute vector and set the interrupt line */
 	int vpos = m_screen->vpos();
-	UINT8 counter = vpos_to_vysnc_chain_counter(vpos);
-	UINT8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
+	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
 	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
 
 	/* set up for next interrupt */
@@ -303,12 +303,12 @@ MACHINE_RESET_MEMBER( sm_state, sm )
 
 
 
-UINT32 sm_state::screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+uint32_t sm_state::screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	UINT8 x = 0;
-	UINT8 y = MW8080BW_VCOUNTER_START_NO_VBLANK;
-	UINT8 video_data = 0;
-	UINT8 flip = m_flip_screen;
+	uint8_t x = 0;
+	uint8_t y = MW8080BW_VCOUNTER_START_NO_VBLANK;
+	uint8_t video_data = 0;
+	uint8_t flip = m_flip_screen;
 
 	while (1)
 	{
@@ -363,7 +363,7 @@ UINT32 sm_state::screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bit
 
 READ8_MEMBER(sm_state::spacmiss_02_r)
 {
-	UINT8 data = ioport("IN2")->read();
+	uint8_t data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }

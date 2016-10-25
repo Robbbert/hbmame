@@ -577,7 +577,7 @@ TODO:
 
 /***************************************************************************/
 
-void mappy_state::common_latch_w(UINT32 offset)
+void mappy_state::common_latch_w(uint32_t offset)
 {
 	int bit = offset & 1;
 
@@ -762,7 +762,7 @@ void mappy_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 			motos_io_run(ptr, param);
 			break;
 		default:
-			assert_always(FALSE, "Unknown id in mappy_state::device_timer");
+			assert_always(false, "Unknown id in mappy_state::device_timer");
 	}
 }
 

@@ -37,7 +37,7 @@ READ8_MEMBER(sh7604_sci_device::serial_mode_r)
 WRITE8_MEMBER(sh7604_sci_device::serial_mode_w)
 {
 	m_smr = data;
-	
+
 	logerror("%s: serial mode set:\n",tag());
 	logerror("\tCommunication Mode: %s mode\n",data & 0x80 ? "clocked synchronous" : "asynchronous");
 	logerror("\tCharacter Length: %s mode\n",data & 0x40 ? "7-bit" : "8-bit");
@@ -56,7 +56,7 @@ READ8_MEMBER(sh7604_sci_device::serial_control_r)
 WRITE8_MEMBER(sh7604_sci_device::serial_control_w)
 {
 	m_scr = data;
-	
+
 	if(data & 0x30)
 		throw emu_fatalerror("%s: enabled serial control %02x\n", tag(),data);
 }
@@ -112,7 +112,7 @@ ADDRESS_MAP_END
 //  sh7604_sci_device - constructor
 //-------------------------------------------------
 
-sh7604_sci_device::sh7604_sci_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+sh7604_sci_device::sh7604_sci_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, SH7604_SCI, "sh7604_sci_longname", tag, owner, clock, "sh7604_sci", __FILE__),
 	device_memory_interface(mconfig, *this),
 	m_space_config("regs", ENDIANNESS_BIG, 8, 4, 0, nullptr, *ADDRESS_MAP_NAME(sci_regs))

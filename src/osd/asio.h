@@ -15,9 +15,8 @@
 #elif defined(__GNUC__)
 #pragma GCC diagnostic ignored "-Wsuggest-override"
 #pragma GCC diagnostic ignored "-Wunused-variable"
-#endif 
+#endif
 
-#define ASIO_HEADER_ONLY
 #define ASIO_STANDALONE
 #define ASIO_SEPARATE_COMPILATION
 #define ASIO_NOEXCEPT noexcept(true)

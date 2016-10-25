@@ -98,15 +98,15 @@ READ16_MEMBER(exterm_state::exterm_host_data_r)
  *
  *************************************/
 
-UINT16 exterm_state::exterm_trackball_port_r(int which, UINT16 mem_mask)
+uint16_t exterm_state::exterm_trackball_port_r(int which, uint16_t mem_mask)
 {
-	UINT16 port;
+	uint16_t port;
 
 	/* Read the fake input port */
-	UINT8 trackball_pos = ioport(which ? "DIAL1" : "DIAL0")->read();
+	uint8_t trackball_pos = ioport(which ? "DIAL1" : "DIAL0")->read();
 
 	/* Calculate the change from the last position. */
-	UINT8 trackball_diff = m_trackball_old[which] - trackball_pos;
+	uint8_t trackball_diff = m_trackball_old[which] - trackball_pos;
 
 	/* Store the new position for the next comparision. */
 	m_trackball_old[which] = trackball_pos;
@@ -399,7 +399,7 @@ static MACHINE_CONFIG_START( exterm, exterm_state )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", TMS34010, 40000000)
 	MCFG_CPU_PROGRAM_MAP(master_map)
-	MCFG_TMS340X0_HALT_ON_RESET(FALSE) /* halt on reset */
+	MCFG_TMS340X0_HALT_ON_RESET(false) /* halt on reset */
 	MCFG_TMS340X0_PIXEL_CLOCK(40000000/8) /* pixel clock */
 	MCFG_TMS340X0_PIXELS_PER_CLOCK(1) /* pixels per clock */
 	MCFG_TMS340X0_SCANLINE_IND16_CB(exterm_state, scanline_update)     /* scanline updater (indexed16) */
@@ -408,7 +408,7 @@ static MACHINE_CONFIG_START( exterm, exterm_state )
 
 	MCFG_CPU_ADD("slave", TMS34010, 40000000)
 	MCFG_CPU_PROGRAM_MAP(slave_map)
-	MCFG_TMS340X0_HALT_ON_RESET(TRUE) /* halt on reset */
+	MCFG_TMS340X0_HALT_ON_RESET(true) /* halt on reset */
 	MCFG_TMS340X0_PIXEL_CLOCK(40000000/8) /* pixel clock */
 	MCFG_TMS340X0_PIXELS_PER_CLOCK(1) /* pixels per clock */
 	MCFG_TMS340X0_TO_SHIFTREG_CB(exterm_state, to_shiftreg_slave)   /* write to shiftreg function */

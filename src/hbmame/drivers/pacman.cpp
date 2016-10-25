@@ -91,7 +91,7 @@ WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
 
 INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 {
-	UINT8 cheat_exist = m_io_fake.read_safe(120);
+	uint8_t cheat_exist = m_io_fake.read_safe(120);
 
 	/* always signal a normal VBLANK */
 	if(m_irq_mask)
@@ -99,11 +99,11 @@ INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 
 	if (cheat_exist != 120)
 	{
-		UINT8 cheating = ((cheat_exist & 7) > 2); /* are we cheating? */
+		uint8_t cheating = ((cheat_exist & 7) > 2); /* are we cheating? */
 
 		if (cheating != (m_speedcheat & 1)) /* if status just changed, alter program bytes */
 		{
-			UINT8 *RAM = machine().root_device().memregion("maincpu")->base();
+			uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 			m_speedcheat = (m_speedcheat & 2) | cheating;
 
 			if (cheating) /* activate the cheat */
@@ -482,7 +482,7 @@ MACHINE_CONFIG_END
  *
  *************************************/
 
-static UINT8 hbmame_pacplus_decode(offs_t addr, UINT8 e)
+static uint8_t hbmame_pacplus_decode(offs_t addr, uint8_t e)
 {
 	static const unsigned char swap_xor_table[6][9] =
 	{
@@ -525,16 +525,16 @@ DRIVER_INIT_MEMBER(pacman_state,pacplus)
 	offs_t i;
 
 	/* CPU ROMs */
-	UINT8 *RAM = machine().root_device().memregion("maincpu")->base();
+	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 
 	for (i = 0; i < 0x4000; i++)
 		RAM[i] = hbmame_pacplus_decode(i,RAM[i]);
 }
 
-void pacman_state::eyes_decode(UINT8 *data)
+void pacman_state::eyes_decode(uint8_t *data)
 {
 	int j;
-	UINT8 swapbuffer[8];
+	uint8_t swapbuffer[8];
 
 	for (j = 0; j < 8; j++)
 		swapbuffer[j] = data[BITSWAP16(j,15,14,13,12,11,10,9,8,7,6,5,4,3,0,1,2)];
@@ -550,7 +550,7 @@ DRIVER_INIT_MEMBER(pacman_state,eyes)
 	/* CPU ROMs */
 
 	/* Data lines D3 and D5 swapped */
-	UINT8 *RAM = machine().root_device().memregion("maincpu")->base();
+	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 	for (i = 0; i < 0x4000; i++)
 		RAM[i] = BITSWAP8(RAM[i],7,6,3,4,5,2,1,0);
 

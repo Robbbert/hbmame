@@ -4,11 +4,11 @@
 #include "emu.h"
 #include "neogeo_helper.h"
 
-static UINT32 get_region_mask(UINT8* rgn, UINT32 rgn_size)
+static uint32_t get_region_mask(uint8_t* rgn, uint32_t rgn_size)
 {
-	UINT32 mask;
-	UINT32 len;
-	UINT32 bit;
+	uint32_t mask;
+	uint32_t len;
+	uint32_t bit;
 
 	mask = 0xffffffff;
 
@@ -25,17 +25,17 @@ static UINT32 get_region_mask(UINT8* rgn, UINT32 rgn_size)
 	return mask;
 }
 
-UINT32 neogeohelper_optimize_sprite_data(std::vector<UINT8> &spritegfx, UINT8* region_sprites, UINT32 region_sprites_size)
+uint32_t neogeohelper_optimize_sprite_data(std::vector<uint8_t> &spritegfx, uint8_t* region_sprites, uint32_t region_sprites_size)
 {
 	/* convert the sprite graphics data into a format that
 	   allows faster blitting */
-	UINT8 *src;
-	UINT8 *dest;
+	uint8_t *src;
+	uint8_t *dest;
 
-	UINT32 mask = get_region_mask(region_sprites, region_sprites_size);
+	uint32_t mask = get_region_mask(region_sprites, region_sprites_size);
 
 	spritegfx.resize(mask + 1);
-	UINT32 spritegfx_address_mask = mask;
+	uint32_t spritegfx_address_mask = mask;
 
 	src = region_sprites;
 	dest = &spritegfx[0];

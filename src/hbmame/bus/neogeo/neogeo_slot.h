@@ -19,7 +19,7 @@ class neogeo_cart_slot_device : public device_t,
 {
 public:
 	// construction/destruction
-	neogeo_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT16 clock);
+	neogeo_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint16_t clock);
 	virtual ~neogeo_cart_slot_device();
 
 	// device-level overrides
@@ -46,20 +46,20 @@ public:
 	// reading and writing
 	virtual DECLARE_READ16_MEMBER(read_rom);
 
-	UINT16* get_rom_base() { if (m_cart) { return m_cart->get_rom_base(); } else { return nullptr; } }
-	UINT32  get_rom_size() { if (m_cart) { return m_cart->get_rom_size(); } else { return 0; } }
-	UINT8* get_fixed_base() { if (m_cart) { return m_cart->get_fixed_base(); } else { return nullptr; } }
-	UINT32  get_fixed_size() { if (m_cart) { return m_cart->get_fixed_size(); } else { return 0; } }
-	UINT8* get_sprites_base() { if (m_cart) { return m_cart->get_sprites_base(); } else { return nullptr; } }
-	UINT32  get_sprites_size() { if (m_cart) { return m_cart->get_sprites_size(); } else { return 0; } }
-	UINT8* get_sprites_optimized() { if (m_cart) { return m_cart->get_sprites_optimized(); } else { return nullptr; } }
-	UINT32 get_sprites_addrmask() { if (m_cart) { return m_cart->get_sprites_addrmask(); } else { return 0; } }
-	UINT8* get_audio_base() { if (m_cart) { return m_cart->get_audio_base(); } else { return nullptr; } }
-	UINT32  get_audio_size() { if (m_cart) { return m_cart->get_audio_size(); } else { return 0; } }
-	UINT8* get_ym_base() { if (m_cart) { return m_cart->get_ym_base(); } else { return nullptr; } }
-	UINT32  get_ym_size() { if (m_cart) { return m_cart->get_ym_size(); } else { return 0; } }
-	UINT8* get_ymdelta_base() { if (m_cart) { return m_cart->get_ymdelta_base(); } else { return nullptr; } }
-	UINT32  get_ymdelta_size() { if (m_cart) { return m_cart->get_ymdelta_size(); } else { return 0; } }
+	uint16_t* get_rom_base() { if (m_cart) { return m_cart->get_rom_base(); } else { return nullptr; } }
+	uint32_t  get_rom_size() { if (m_cart) { return m_cart->get_rom_size(); } else { return 0; } }
+	uint8_t* get_fixed_base() { if (m_cart) { return m_cart->get_fixed_base(); } else { return nullptr; } }
+	uint32_t  get_fixed_size() { if (m_cart) { return m_cart->get_fixed_size(); } else { return 0; } }
+	uint8_t* get_sprites_base() { if (m_cart) { return m_cart->get_sprites_base(); } else { return nullptr; } }
+	uint32_t  get_sprites_size() { if (m_cart) { return m_cart->get_sprites_size(); } else { return 0; } }
+	uint8_t* get_sprites_optimized() { if (m_cart) { return m_cart->get_sprites_optimized(); } else { return nullptr; } }
+	uint32_t get_sprites_addrmask() { if (m_cart) { return m_cart->get_sprites_addrmask(); } else { return 0; } }
+	uint8_t* get_audio_base() { if (m_cart) { return m_cart->get_audio_base(); } else { return nullptr; } }
+	uint32_t  get_audio_size() { if (m_cart) { return m_cart->get_audio_size(); } else { return 0; } }
+	uint8_t* get_ym_base() { if (m_cart) { return m_cart->get_ym_base(); } else { return nullptr; } }
+	uint32_t  get_ym_size() { if (m_cart) { return m_cart->get_ym_size(); } else { return 0; } }
+	uint8_t* get_ymdelta_base() { if (m_cart) { return m_cart->get_ymdelta_base(); } else { return nullptr; } }
+	uint32_t  get_ymdelta_size() { if (m_cart) { return m_cart->get_ymdelta_size(); } else { return 0; } }
 	int get_fixed_bank_type(void) { if (m_cart) { return m_cart->get_fixed_bank_type(); } else { return 0; } }
 
 	void activate_cart(ACTIVATE_CART_PARAMS) { if (m_cart) m_cart->activate_cart(machine, maincpu, cpuregion, cpuregion_size, fixedregion, fixedregion_size);  }

@@ -46,14 +46,14 @@ public:
 		m_hopper(*this, "hopper"),
 		m_gfxdecode(*this, "gfxdecode") { }
 
-	required_shared_ptr<UINT8> m_fgram;
-	required_shared_ptr<UINT8> m_reel1_ram;
-	required_shared_ptr<UINT8> m_reel2_ram;
-	required_shared_ptr<UINT8> m_reel3_ram;
-	required_shared_ptr<UINT8> m_reel1_scroll;
-	required_shared_ptr<UINT8> m_reel2_scroll;
-	required_shared_ptr<UINT8> m_reel3_scroll;
-	required_shared_ptr<UINT8> m_reel1_alt_scroll;
+	required_shared_ptr<uint8_t> m_fgram;
+	required_shared_ptr<uint8_t> m_reel1_ram;
+	required_shared_ptr<uint8_t> m_reel2_ram;
+	required_shared_ptr<uint8_t> m_reel3_ram;
+	required_shared_ptr<uint8_t> m_reel1_scroll;
+	required_shared_ptr<uint8_t> m_reel2_scroll;
+	required_shared_ptr<uint8_t> m_reel3_scroll;
+	required_shared_ptr<uint8_t> m_reel1_alt_scroll;
 
 
 	INTERRUPT_GEN_MEMBER(funtech_vblank_interrupt);
@@ -63,18 +63,18 @@ public:
 	DECLARE_WRITE8_MEMBER(funtech_vreg_w);
 
 
-	UINT8 m_vreg;
+	uint8_t m_vreg;
 
 	tilemap_t *m_fg_tilemap;
-	
+
 	DECLARE_WRITE8_MEMBER(fgram_w);
-	
+
 	TILE_GET_INFO_MEMBER(get_fg_tile_info);
 
 	tilemap_t *m_reel1_tilemap;
 	tilemap_t *m_reel2_tilemap;
 	tilemap_t *m_reel3_tilemap;
-	
+
 	DECLARE_WRITE8_MEMBER(reel1_ram_w);
 	DECLARE_WRITE8_MEMBER(reel2_ram_w);
 	DECLARE_WRITE8_MEMBER(reel3_ram_w);
@@ -86,7 +86,7 @@ public:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
-	UINT32 screen_update_funtech(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_funtech(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	required_device<cpu_device> m_maincpu;
 	required_device<ticket_dispenser_device> m_hopper;
 	required_device<gfxdecode_device> m_gfxdecode;
@@ -174,7 +174,7 @@ void fun_tech_corp_state::video_start()
 	m_reel1_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fun_tech_corp_state::get_reel1_tile_info),this),TILEMAP_SCAN_ROWS,8,32, 64, 8);
 	m_reel2_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fun_tech_corp_state::get_reel2_tile_info),this),TILEMAP_SCAN_ROWS,8,32, 64, 8);
 	m_reel3_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fun_tech_corp_state::get_reel3_tile_info),this),TILEMAP_SCAN_ROWS,8,32, 64, 8);
-	
+
 	m_reel1_tilemap->set_scroll_cols(64);
 	m_reel2_tilemap->set_scroll_cols(64);
 	m_reel3_tilemap->set_scroll_cols(64);
@@ -188,7 +188,7 @@ WRITE8_MEMBER(fun_tech_corp_state::fgram_w)
 }
 
 
-UINT32 fun_tech_corp_state::screen_update_funtech(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t fun_tech_corp_state::screen_update_funtech(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	bitmap.fill(0, cliprect);
 
@@ -229,7 +229,7 @@ UINT32 fun_tech_corp_state::screen_update_funtech(screen_device &screen, bitmap_
 
 INTERRUPT_GEN_MEMBER(fun_tech_corp_state::funtech_vblank_interrupt)
 {
-//	if (m_nmi_enable)
+//  if (m_nmi_enable)
 		device.execute().set_input_line(INPUT_LINE_NMI, PULSE_LINE);
 }
 
@@ -341,11 +341,11 @@ static INPUT_PORTS_START( funtech )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("Hold 4, Double")
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_NAME("Hold 3, Small, Stop 3")
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_NAME("Hold 2, Big, Stop 2")
-	
+
 	PORT_START("IN1")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("hopper", ticket_dispenser_device, line_r) 
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("hopper", ticket_dispenser_device, line_r)
 	PORT_DIPNAME( 0x08, 0x08, "IN1-08" ) // some kind of key-out? reduces credits to 0
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -500,7 +500,7 @@ static MACHINE_CONFIG_START( funtech, fun_tech_corp_state )
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", funtech)
 	MCFG_PALETTE_ADD("palette", 0x200)
 	MCFG_PALETTE_FORMAT(xBBBBBGGGGGRRRRR)
-	
+
 	MCFG_NVRAM_ADD_1FILL("nvram")
 
 	MCFG_TICKET_DISPENSER_ADD("hopper", attotime::from_msec(50), TICKET_MOTOR_ACTIVE_HIGH, TICKET_STATUS_ACTIVE_HIGH)

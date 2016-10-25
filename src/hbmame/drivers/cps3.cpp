@@ -4,7 +4,7 @@
 
 TIMER_CALLBACK_MEMBER(cps3_state::fastboot_timer_callback)
 {
-	UINT32 *rom =  (UINT32*)m_decrypted_gamerom;
+	uint32_t *rom =  (uint32_t*)m_decrypted_gamerom;
 
 	m_maincpu->set_state_int(SH2_PC, rom[0]);
 	m_maincpu->set_state_int(SH2_R15, rom[1]);

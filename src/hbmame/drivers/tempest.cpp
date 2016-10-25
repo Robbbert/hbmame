@@ -598,7 +598,7 @@ public:
 
 WRITE8_MEMBER( tempmg_state::tempmg_rombank_w )
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
 	/* standard rom banking would not work here, using memcpy instead */
@@ -614,7 +614,7 @@ MACHINE_RESET_MEMBER( tempmg_state, tempmg )
 DRIVER_INIT_MEMBER( tempmg_state, tempmg )
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x11000], 0x8000);	// main roms
 	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000);	// vectors
 	tempmg_rombank_w (space, 0,0);

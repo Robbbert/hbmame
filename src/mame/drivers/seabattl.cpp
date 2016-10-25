@@ -63,9 +63,9 @@ public:
 	}
 
 	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<UINT8> m_videoram;
-	required_shared_ptr<UINT8> m_colorram;
-	required_shared_ptr<UINT8> m_objram;
+	required_shared_ptr<uint8_t> m_videoram;
+	required_shared_ptr<uint8_t> m_colorram;
+	required_shared_ptr<uint8_t> m_objram;
 	required_device<dm9368_device> m_digit0;
 	required_device<dm9368_device> m_digit1;
 	required_device<dm9368_device> m_digit2;
@@ -96,9 +96,9 @@ public:
 	virtual void machine_reset() override;
 	virtual void video_start() override;
 	DECLARE_PALETTE_INIT(seabattl);
-	UINT32 screen_update_seabattl(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_seabattl(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	bool m_waveenable;
-	UINT8 m_collision;
+	uint8_t m_collision;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<screen_device> m_screen;
 	required_device<palette_device> m_palette;
@@ -122,12 +122,12 @@ PALETTE_INIT_MEMBER(seabattl_state, seabattl)
 	// scr
 	for (int i = 0; i < 8; i++)
 	{
-		palette.set_pen_color(8 + 2 * i + 0, rgb_t::black);
+		palette.set_pen_color(8 + 2 * i + 0, rgb_t::black());
 		palette.set_pen_color(8 + 2 * i + 1, rgb_t((i & 1) ? 0xff : 0x00, (i & 2) ? 0xff : 0x00, (i & 4) ? 0xff : 0x00));
 	}
 
 	// wave
-	palette.set_pen_color(24, rgb_t::black);
+	palette.set_pen_color(24, rgb_t::black());
 	palette.set_pen_color(25, rgb_t(0x00, 0xff, 0xff)); // cyan
 }
 
@@ -151,7 +151,7 @@ WRITE8_MEMBER(seabattl_state::seabattl_colorram_w)
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
-UINT32 seabattl_state::screen_update_seabattl(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t seabattl_state::screen_update_seabattl(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int x,y, offset;
 

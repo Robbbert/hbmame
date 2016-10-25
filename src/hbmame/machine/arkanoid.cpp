@@ -177,7 +177,7 @@ TO DO (2006.09.12) :
 /* Kludge for some bootlegs that read this address */
 READ8_MEMBER(arkanoid_state::arkanoid_bootleg_f000_r)
 {
-	UINT8 arkanoid_bootleg_val = 0x00;
+	uint8_t arkanoid_bootleg_val = 0x00;
 
 	switch (m_bootleg_id)
 	{
@@ -219,7 +219,7 @@ READ8_MEMBER(arkanoid_state::arkanoid_bootleg_f000_r)
 /* Kludge for some bootlegs that read this address */
 READ8_MEMBER(arkanoid_state::arkanoid_bootleg_f002_r)
 {
-	UINT8 arkanoid_bootleg_val = 0x00;
+	uint8_t arkanoid_bootleg_val = 0x00;
 
 	switch (m_bootleg_id)
 	{
@@ -568,9 +568,9 @@ READ8_MEMBER(arkanoid_state::block2_bootleg_f000_r)
 /* Kludge for some bootlegs that read this address */
 READ8_MEMBER(arkanoid_state::arkanoid_bootleg_d008_r)
 {
-	UINT8 arkanoid_bootleg_d008_bit[8];
-	UINT8 arkanoid_bootleg_d008_val;
-	UINT8 arkanoid_paddle_value = ioport("MUX")->read();
+	uint8_t arkanoid_bootleg_d008_bit[8];
+	uint8_t arkanoid_bootleg_d008_val;
+	uint8_t arkanoid_paddle_value = ioport("MUX")->read();
 	int b;
 
 	arkanoid_bootleg_d008_bit[4] = arkanoid_bootleg_d008_bit[6] = arkanoid_bootleg_d008_bit[7] = 0;  /* untested bits */

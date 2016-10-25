@@ -38,16 +38,16 @@ enum {
 // ======================> sh7604_sci_device
 
 class sh7604_sci_device : public device_t,
-    					  public device_memory_interface
+						  public device_memory_interface
 {
 public:
 	// construction/destruction
-	sh7604_sci_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sh7604_sci_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// I/O operations
 	DECLARE_WRITE8_MEMBER( write );
 	DECLARE_READ8_MEMBER( read );
-	
+
 	DECLARE_READ8_MEMBER( serial_mode_r );
 	DECLARE_WRITE8_MEMBER( serial_mode_w );
 	DECLARE_READ8_MEMBER( bitrate_r );
@@ -64,15 +64,15 @@ public:
 	virtual const address_space_config *memory_space_config(address_spacenum spacenum = AS_0) const override;
 protected:
 	// device-level overrides
-//	virtual void device_validity_check(validity_checker &valid) const;
+//  virtual void device_validity_check(validity_checker &valid) const;
 	virtual void device_start() override;
 	virtual void device_reset() override;
 private:
 	const address_space_config      m_space_config;
-	UINT8 m_smr;
-	UINT8 m_scr;
-	UINT8 m_ssr;
-	UINT8 m_brr;
+	uint8_t m_smr;
+	uint8_t m_scr;
+	uint8_t m_ssr;
+	uint8_t m_brr;
 };
 
 

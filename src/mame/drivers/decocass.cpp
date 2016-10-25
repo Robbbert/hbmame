@@ -275,10 +275,10 @@ static INPUT_PORTS_START( cocean1a ) /* 10 */
 	PORT_DIPSETTING(    0x00, "1 Coin 100 Credits" )
 	PORT_DIPNAME( 0x04, 0x04, "Game Select" )                           PORT_DIPLOCATION("SW2:3")
 	PORT_DIPSETTING(    0x04, "1 to 8 Lines" )
-	PORT_DIPSETTING(    0x00, "Center Line" )	
+	PORT_DIPSETTING(    0x00, "Center Line" )
 	PORT_DIPNAME( 0x08, 0x08, "Background Music" )                      PORT_DIPLOCATION("SW2:4")
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )	
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_DIPNAME( 0x10, 0x10, "Pay Out %" )                             PORT_DIPLOCATION("SW2:5")
 	PORT_DIPSETTING(    0x10, "Payout 75%")
 	PORT_DIPSETTING(    0x00, "Payout 85%")
@@ -690,13 +690,13 @@ static const gfx_layout tilelayout =
 	2*16*16
 };
 
-static const UINT32 objlayout_xoffset[64] =
+static const uint32_t objlayout_xoffset[64] =
 {
 	STEP8(7*8,1), STEP8(6*8,1), STEP8(5*8,1), STEP8(4*8,1),
 	STEP8(3*8,1), STEP8(2*8,1), STEP8(1*8,1), STEP8(0*8,1)
 };
 
-static const UINT32 objlayout_yoffset[64] =
+static const uint32_t objlayout_yoffset[64] =
 {
 	STEP32(63*2*64, -1*2*64),
 	STEP32(31*2*64, -1*2*64)
@@ -1216,12 +1216,12 @@ ROM_START( cocean1a ) // version MD 1-A-0 verified, 061 blocks, decrypted main d
 	ROM_LOAD( "dp-1100-a.rom",   0x0000, 0x0020, CRC(1bc9fccb) SHA1(ffc59c7660d5c87a8deca294f80260b6bc7c3027) )
 ROM_END
 
-ROM_START( cocean6b ) // version MD 10-B-0 not verified, 068 blocks, decrypted main data CRC(410d1f19)	
+ROM_START( cocean6b ) // version MD 10-B-0 not verified, 068 blocks, decrypted main data CRC(410d1f19)
 	DECOCASS_BIOS_BO_ROMS
 
 	ROM_REGION( 0x10000, "cassette", 0 )  /* (max) 64k for cassette image */
 	ROM_LOAD( "dt-1106-b-0.cas", 0x0000, 0x4500, CRC(fa6ffc95) SHA1(95f881503aa8cd97d04b327abeb68891d053563f) )
-	
+
 	ROM_REGION( 0x00020, "dongle", 0 )    /* dongle data */
 	ROM_LOAD( "dp-1100-b.rom",   0x0000, 0x0020, CRC(e09ae5de) SHA1(7dec067d0739a6dad2607132641b66880a5b7751) )
 ROM_END
@@ -1742,7 +1742,7 @@ DRIVER_INIT_MEMBER(decocass_state,decocrom)
 
 READ8_MEMBER(decocass_state::cdsteljn_input_r )
 {
-	UINT8 res;
+	uint8_t res;
 	static const char *const portnames[2][4] = {
 		{"P1_MP0", "P1_MP1", "P1_MP2", "P1_MP3"},
 		{"P2_MP0", "P2_MP1", "P2_MP2", "P2_MP3"}         };

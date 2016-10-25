@@ -41,24 +41,24 @@ public:
 	TILE_GET_INFO_MEMBER(get_bg0_tile_info);
 	TILE_GET_INFO_MEMBER(get_bg1_tile_info);
 	TILE_GET_INFO_MEMBER(get_text_tile_info);
-	UINT32 screen_update_flower(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_flower(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 private:
 
-	UINT8 m_soundlatch;
+	uint8_t m_soundlatch;
 	tilemap_t *m_bg0_tilemap;
 	tilemap_t *m_bg1_tilemap;
 	tilemap_t *m_text_tilemap;
 	tilemap_t *m_text_right_tilemap;
 	virtual void video_start() override;
 	void draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect );
-	required_shared_ptr<UINT8> m_sn_nmi_enable;
-	required_shared_ptr<UINT8> m_spriteram;
-	required_shared_ptr<UINT8> m_textram;
-	required_shared_ptr<UINT8> m_bg0ram;
-	required_shared_ptr<UINT8> m_bg1ram;
-	required_shared_ptr<UINT8> m_bg0_scroll;
-	required_shared_ptr<UINT8> m_bg1_scroll;
+	required_shared_ptr<uint8_t> m_sn_nmi_enable;
+	required_shared_ptr<uint8_t> m_spriteram;
+	required_shared_ptr<uint8_t> m_textram;
+	required_shared_ptr<uint8_t> m_bg0ram;
+	required_shared_ptr<uint8_t> m_bg1ram;
+	required_shared_ptr<uint8_t> m_bg0_scroll;
+	required_shared_ptr<uint8_t> m_bg1_scroll;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_audiocpu;
 	required_device<cpu_device> m_subcpu;
@@ -73,22 +73,22 @@ private:
 /* this structure defines the parameters for a channel */
 struct flower_sound_channel
 {
-	UINT32 start;
-	UINT32 pos;
-	UINT16 freq;
-	UINT8 volume;
-	UINT8 voltab;
-	UINT8 oneshot;
-	UINT8 active;
-	UINT8 effect;
-	UINT32 ecount;
+	uint32_t start;
+	uint32_t pos;
+	uint16_t freq;
+	uint8_t volume;
+	uint8_t voltab;
+	uint8_t oneshot;
+	uint8_t active;
+	uint8_t effect;
+	uint32_t ecount;
 
 };
 
 class flower_sound_device : public device_t, public device_sound_interface
 {
 public:
-	flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	~flower_sound_device() {}
 
 	enum
@@ -121,17 +121,17 @@ private:
 	flower_sound_channel *m_last_channel;
 
 	/* global sound parameters */
-	const UINT8 *m_sample_rom;
-	const UINT8 *m_volume_rom;
+	const uint8_t *m_sample_rom;
+	const uint8_t *m_volume_rom;
 	sound_stream * m_stream;
 
 	/* mixer tables and internal buffers */
-	std::unique_ptr<INT16[]> m_mixer_table;
-	INT16 *m_mixer_lookup;
+	std::unique_ptr<int16_t[]> m_mixer_table;
+	int16_t *m_mixer_lookup;
 	std::unique_ptr<short[]> m_mixer_buffer;
 
-	UINT8 m_soundregs1[0x40];
-	UINT8 m_soundregs2[0x40];
+	uint8_t m_soundregs1[0x40];
+	uint8_t m_soundregs2[0x40];
 
 };
 
@@ -313,8 +313,8 @@ GFXDECODE_END
 void flower_state::draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect )
 {
 	gfx_element *gfx = m_gfxdecode->gfx(1);
-	UINT8 *source = m_spriteram + 0x200;
-	UINT8 *finish = source - 0x200;
+	uint8_t *source = m_spriteram + 0x200;
+	uint8_t *finish = source - 0x200;
 
 	source -= 8;
 
@@ -443,7 +443,7 @@ void flower_state::video_start()
 	m_text_right_tilemap->set_scrolly(0, 16);
 }
 
-UINT32 flower_state::screen_update_flower(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t flower_state::screen_update_flower(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	rectangle myclip = cliprect;
 
@@ -648,7 +648,7 @@ TODO:
 
 const device_type FLOWER = &device_creator<flower_sound_device>;
 
-flower_sound_device::flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+flower_sound_device::flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, FLOWER, "Flower Audio Custom", tag, owner, clock, "flower_sound", __FILE__),
 		device_sound_interface(mconfig, *this)
 {
@@ -739,7 +739,7 @@ void flower_sound_device::make_mixer_table(int voices, int gain)
 	int count = voices * 128;
 
 	/* allocate memory */
-	m_mixer_table = std::make_unique<INT16[]>(256 * voices);
+	m_mixer_table = std::make_unique<int16_t[]>(256 * voices);
 
 	/* find the middle of the table */
 	m_mixer_lookup = m_mixer_table.get() + (128 * voices);
@@ -769,7 +769,7 @@ void flower_sound_device::device_timer(emu_timer &timer, device_timer_id id, int
 		break;
 
 		default:
-			assert_always(FALSE, "Unknown id in flower_sound_device::device_timer");
+			assert_always(false, "Unknown id in flower_sound_device::device_timer");
 	}
 }
 
@@ -782,7 +782,7 @@ void flower_sound_device::show_soundregs()
 	int set,reg,chan;
 	char text[0x100];
 	char message[0x1000] = {0};
-	UINT8 *base = m_soundregs1;
+	uint8_t *base = m_soundregs1;
 
 	for (set=0;set<2;set++)
 	{
@@ -840,8 +840,8 @@ WRITE8_MEMBER( flower_sound_device::sound1_w )
 {
 	flower_sound_channel *voice = &m_channel_list[offset >> 3 & 7];
 	int c = offset & 0xf8;
-	UINT8 *base1 = m_soundregs1;
-//  UINT8 *base2 = m_soundregs2;
+	uint8_t *base1 = m_soundregs1;
+//  uint8_t *base2 = m_soundregs2;
 
 	m_stream->update();
 	base1[offset] = data;
@@ -859,8 +859,8 @@ WRITE8_MEMBER( flower_sound_device::sound2_w )
 {
 	flower_sound_channel *voice = &m_channel_list[offset >> 3 & 7];
 	int i, c = offset & 0xf8;
-	UINT8 *base1 = m_soundregs1;
-	UINT8 *base2 = m_soundregs2;
+	uint8_t *base1 = m_soundregs1;
+	uint8_t *base2 = m_soundregs2;
 
 	m_stream->update();
 	base2[offset] = data;
@@ -935,7 +935,7 @@ void flower_sound_device::sound_stream_update(sound_stream &stream, stream_sampl
 			// add sample
 			if (voice->oneshot)
 			{
-				UINT8 sample = m_sample_rom[(voice->start + voice->pos) >> 7 & 0x7fff];
+				uint8_t sample = m_sample_rom[(voice->start + voice->pos) >> 7 & 0x7fff];
 				if (sample == 0xff)
 				{
 					voice->active = 0;
@@ -946,7 +946,7 @@ void flower_sound_device::sound_stream_update(sound_stream &stream, stream_sampl
 			}
 			else
 			{
-				UINT8 sample = m_sample_rom[(voice->start >> 7 & 0x7e00) | (voice->pos >> 7 & 0x1ff)];
+				uint8_t sample = m_sample_rom[(voice->start >> 7 & 0x7e00) | (voice->pos >> 7 & 0x1ff)];
 				*mix++ += m_volume_rom[v << 8 | sample] - 0x80;
 			}
 

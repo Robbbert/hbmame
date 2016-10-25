@@ -273,7 +273,7 @@ void menu_select_software::handle()
 			// handle UI_FAVORITES
 			ui_software_info *swinfo = (ui_software_info *)menu_event->itemref;
 
-			if ((FPTR)swinfo > 2)
+			if ((uintptr_t)swinfo > 2)
 			{
 				favorite_manager &mfav = mame_machine_manager::instance()->favorite();
 				if (!mfav.isgame_favorite(*swinfo))
@@ -419,7 +419,7 @@ void menu_select_software::handle()
 
 void menu_select_software::populate()
 {
-	UINT32 flags_ui = FLAG_LEFT_ARROW | FLAG_RIGHT_ARROW;
+	uint32_t flags_ui = FLAG_LEFT_ARROW | FLAG_RIGHT_ARROW;
 	m_has_empty_start = true;
 	int old_software = -1;
 
@@ -1155,7 +1155,7 @@ float menu_select_software::draw_left_panel(float x1, float y1, float x2, float 
 			if (bgcolor != UI_TEXT_BG_COLOR)
 			{
 				ui().draw_textured_box(container(), x1, y1, x2, y1 + line_height, bgcolor, rgb_t(255, 43, 43, 43),
-						hilight_main_texture(), PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(TRUE));
+						hilight_main_texture(), PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA) | PRIMFLAG_TEXWRAP(1));
 			}
 
 			float x1t = x1 + text_sign;
@@ -1316,7 +1316,7 @@ void software_parts::custom_render(void *selectedref, float top, float bottom, f
 {
 	float width;
 	ui().draw_text_full(container(), _("Software part selection:"), 0.0f, 0.0f, 1.0f, ui::text_layout::CENTER, ui::text_layout::TRUNCATE,
-									mame_ui_manager::NONE, rgb_t::white, rgb_t::black, &width, nullptr);
+									mame_ui_manager::NONE, rgb_t::white(), rgb_t::black(), &width, nullptr);
 	width += 2 * UI_BOX_LR_BORDER;
 	float maxwidth = std::max(origx2 - origx1, width);
 
@@ -1457,7 +1457,7 @@ void bios_selection::custom_render(void *selectedref, float top, float bottom, f
 {
 	float width;
 	ui().draw_text_full(container(), _("Bios selection:"), 0.0f, 0.0f, 1.0f, ui::text_layout::CENTER, ui::text_layout::TRUNCATE,
-									mame_ui_manager::NONE, rgb_t::white, rgb_t::black, &width, nullptr);
+									mame_ui_manager::NONE, rgb_t::white(), rgb_t::black(), &width, nullptr);
 	width += 2 * UI_BOX_LR_BORDER;
 	float maxwidth = std::max(origx2 - origx1, width);
 

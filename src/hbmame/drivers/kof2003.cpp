@@ -58,7 +58,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3pcd ) // decrypted C & decrypted Bios
 
 	// Extra m1 decryption
 	int i;
-	UINT8* rom = memregion("audiocpu")->base();
+	uint8_t* rom = memregion("audiocpu")->base();
 	for (i = 0; i < 0x90000; i++)
 		rom[i] = BITSWAP8(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
 

@@ -113,7 +113,7 @@ public:
 	required_device<rs232_port_device> m_rs232b;
 	required_device<palette_device> m_palette;
 	required_memory_region m_rom;
-	required_shared_ptr<UINT8> m_video_ram;
+	required_shared_ptr<uint8_t> m_video_ram;
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
@@ -257,9 +257,9 @@ MC6845_UPDATE_ROW( victor9k_state::crtc_update_row )
 
 	for (int sx = 0; sx < x_count; sx++)
 	{
-		UINT16 dc = (m_video_ram[aa + 1] << 8) | m_video_ram[aa];
+		uint16_t dc = (m_video_ram[aa + 1] << 8) | m_video_ram[aa];
 		offs_t ab = (dot_addr << 15) | ((dc & 0x7ff) << 4) | (ra & 0x0f);
-		UINT16 dd = program.read_word(ab << 1);
+		uint16_t dd = program.read_word(ab << 1);
 
 		int cursor = (sx == cursor_x) ? 1 : 0;
 		int undln = !((dc & DC_UNDLN) && BIT(dd, 15)) ? 2 : 0;
@@ -679,7 +679,7 @@ static MACHINE_CONFIG_START( victor9k, victor9k_state )
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DEVICE(I8259A_TAG, pic8259_device, inta_cb)
 
 	// video hardware
-	MCFG_SCREEN_ADD_MONOCHROME(SCREEN_TAG, RASTER, rgb_t::green)
+	MCFG_SCREEN_ADD_MONOCHROME(SCREEN_TAG, RASTER, rgb_t::green())
 	MCFG_SCREEN_REFRESH_RATE(50)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500)) // not accurate
 	MCFG_SCREEN_UPDATE_DEVICE(HD46505S_TAG, hd6845_device, screen_update)

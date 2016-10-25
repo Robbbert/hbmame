@@ -57,7 +57,7 @@ void nbmj8991_state::machine_reset()
 
 DRIVER_INIT_MEMBER(nbmj8991_state,finalbny)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	int i;
 
 	for (i = 0xf800; i < 0x10000; i++) ROM[i] = 0x00;
@@ -66,7 +66,7 @@ DRIVER_INIT_MEMBER(nbmj8991_state,finalbny)
 DRIVER_INIT_MEMBER(nbmj8991_state,galkaika)
 {
 #if 1
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	// Patch to IM2 -> IM1
 	ROM[0x0002] = 0x56;
@@ -76,7 +76,7 @@ DRIVER_INIT_MEMBER(nbmj8991_state,galkaika)
 DRIVER_INIT_MEMBER(nbmj8991_state,tokyogal)
 {
 #if 1
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	// Patch to IM2 -> IM1
 	ROM[0x0002] = 0x56;
@@ -86,7 +86,7 @@ DRIVER_INIT_MEMBER(nbmj8991_state,tokyogal)
 DRIVER_INIT_MEMBER(nbmj8991_state,tokimbsj)
 {
 #if 1
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	// Patch to IM2 -> IM1
 	ROM[0x0002] = 0x56;
@@ -625,7 +625,7 @@ static INPUT_PORTS_START( qmhayaku )
 	PORT_DIPNAME( 0x40, 0x40, "Character Display Test" )    PORT_DIPLOCATION("DSWA:7")
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, "Graphic ROM Test" )          PORT_DIPLOCATION("DSWA:8")	// manual states this is unused
+	PORT_DIPNAME( 0x80, 0x80, "Graphic ROM Test" )          PORT_DIPLOCATION("DSWA:8")  // manual states this is unused
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 

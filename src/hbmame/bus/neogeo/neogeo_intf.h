@@ -7,10 +7,10 @@
 // ======================> device_neogeo_cart_interface
 
 #define DECRYPT_ALL_PARAMS \
-	UINT8* cpuregion, UINT32 cpuregion_size,UINT8* spr_region, UINT32 spr_region_size,UINT8* fix_region, UINT32 fix_region_size,UINT8* ym_region, UINT32 ym_region_size,UINT8* ymdelta_region, UINT32 ymdelta_region_size,UINT8* audiocpu_region, UINT32 audio_region_size, UINT8* audiocrypt_region, UINT32 audiocrypt_region_size
+	uint8_t* cpuregion, uint32_t cpuregion_size,uint8_t* spr_region, uint32_t spr_region_size,uint8_t* fix_region, uint32_t fix_region_size,uint8_t* ym_region, uint32_t ym_region_size,uint8_t* ymdelta_region, uint32_t ymdelta_region_size,uint8_t* audiocpu_region, uint32_t audio_region_size, uint8_t* audiocrypt_region, uint32_t audiocrypt_region_size
 
 #define ACTIVATE_CART_PARAMS \
-	running_machine& machine, cpu_device* maincpu, UINT8* cpuregion, UINT32 cpuregion_size, UINT8* fixedregion, UINT32 fixedregion_size
+	running_machine& machine, cpu_device* maincpu, uint8_t* cpuregion, uint32_t cpuregion_size, uint8_t* fixedregion, uint32_t fixedregion_size
 
 class device_neogeo_cart_interface : public device_slot_card_interface
 {
@@ -25,52 +25,52 @@ public:
 	virtual void decrypt_all(DECRYPT_ALL_PARAMS) { };
 	virtual int get_fixed_bank_type(void) { return 0; }
 
-	void rom_alloc(UINT32 size) { m_rom.resize(size/sizeof(UINT16)); }
-	UINT16* get_rom_base() { return &m_rom[0]; }
-	UINT32  get_rom_size() { return m_rom.size()*sizeof(UINT16); }
+	void rom_alloc(uint32_t size) { m_rom.resize(size/sizeof(uint16_t)); }
+	uint16_t* get_rom_base() { return &m_rom[0]; }
+	uint32_t  get_rom_size() { return m_rom.size()*sizeof(uint16_t); }
 
-	void fixed_alloc(UINT32 size) { m_fixed.resize(size); }
-	UINT8* get_fixed_base() { return &m_fixed[0]; }
-	UINT32  get_fixed_size() { return m_fixed.size(); }
+	void fixed_alloc(uint32_t size) { m_fixed.resize(size); }
+	uint8_t* get_fixed_base() { return &m_fixed[0]; }
+	uint32_t  get_fixed_size() { return m_fixed.size(); }
 
-	void audio_alloc(UINT32 size) { m_audio.resize(size); }
-	UINT8* get_audio_base() { return &m_audio[0]; }
-	UINT32  get_audio_size() { return m_audio.size(); }
+	void audio_alloc(uint32_t size) { m_audio.resize(size); }
+	uint8_t* get_audio_base() { return &m_audio[0]; }
+	uint32_t  get_audio_size() { return m_audio.size(); }
 
-	void audiocrypt_alloc(UINT32 size) { m_audiocrypt.resize(size); }
-	UINT8* get_audiocrypt_base() { if (m_audiocrypt.size() == 0) return nullptr; else  return &m_audiocrypt[0]; }
-	UINT32  get_audiocrypt_size() { return m_audiocrypt.size(); }
+	void audiocrypt_alloc(uint32_t size) { m_audiocrypt.resize(size); }
+	uint8_t* get_audiocrypt_base() { if (m_audiocrypt.size() == 0) return nullptr; else  return &m_audiocrypt[0]; }
+	uint32_t  get_audiocrypt_size() { return m_audiocrypt.size(); }
 
-	void sprites_alloc(UINT32 size) { m_sprites.resize(size); }
-	UINT8* get_sprites_base() { return &m_sprites[0]; }
-	UINT32  get_sprites_size() { return m_sprites.size(); }
-	UINT8* get_sprites_optimized() { return &m_sprites_optimized[0]; }
-	UINT32 get_sprites_addrmask() { return m_sprite_gfx_address_mask; }
-	std::vector<UINT8>& get_sprites_optimized_arr() { return m_sprites_optimized; }
+	void sprites_alloc(uint32_t size) { m_sprites.resize(size); }
+	uint8_t* get_sprites_base() { return &m_sprites[0]; }
+	uint32_t  get_sprites_size() { return m_sprites.size(); }
+	uint8_t* get_sprites_optimized() { return &m_sprites_optimized[0]; }
+	uint32_t get_sprites_addrmask() { return m_sprite_gfx_address_mask; }
+	std::vector<uint8_t>& get_sprites_optimized_arr() { return m_sprites_optimized; }
 
-	void ym_alloc(UINT32 size) { m_ym.resize(size); }
-	UINT8* get_ym_base() { return &m_ym[0]; }
-	UINT32  get_ym_size() { return m_ym.size(); }
+	void ym_alloc(uint32_t size) { m_ym.resize(size); }
+	uint8_t* get_ym_base() { return &m_ym[0]; }
+	uint32_t  get_ym_size() { return m_ym.size(); }
 
-	void ymdelta_alloc(UINT32 size) { m_ymdelta.resize(size); }
-	UINT8* get_ymdelta_base() { return &m_ymdelta[0]; }
-	UINT32  get_ymdelta_size() { return m_ymdelta.size(); }
+	void ymdelta_alloc(uint32_t size) { m_ymdelta.resize(size); }
+	uint8_t* get_ymdelta_base() { return &m_ymdelta[0]; }
+	uint32_t  get_ymdelta_size() { return m_ymdelta.size(); }
 
-	std::vector<UINT16> m_rom;
-	std::vector<UINT8> m_fixed;
-	std::vector<UINT8> m_sprites;
-	std::vector<UINT8> m_sprites_optimized;
-	std::vector<UINT8> m_audio;
-	std::vector<UINT8> m_ym;
-	std::vector<UINT8> m_ymdelta;
+	std::vector<uint16_t> m_rom;
+	std::vector<uint8_t> m_fixed;
+	std::vector<uint8_t> m_sprites;
+	std::vector<uint8_t> m_sprites_optimized;
+	std::vector<uint8_t> m_audio;
+	std::vector<uint8_t> m_ym;
+	std::vector<uint8_t> m_ymdelta;
 
-	UINT32 m_sprite_gfx_address_mask;
+	uint32_t m_sprite_gfx_address_mask;
 
 
 
 protected:
 	// internal state
-	std::vector<UINT8> m_audiocrypt;
+	std::vector<uint8_t> m_audiocrypt;
 
 
 };

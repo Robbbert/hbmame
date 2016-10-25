@@ -52,7 +52,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, pnyaad )
 DRIVER_INIT_MEMBER( neogeo_hbmame, shockt2w )
 {
 	DRIVER_INIT_CALL(neogeo);
-	UINT16 *mem16= (UINT16 *)memregion("mainbios");
+	uint16_t *mem16= (uint16_t *)memregion("mainbios");
 	mem16[0x0200] = 1;  /* Force home mode */
 	/* Above causes checksum failure, so patch it out */
 	mem16[0x11c62/2] = 0x4e71;

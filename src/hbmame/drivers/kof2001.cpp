@@ -29,7 +29,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kf2k1pa )
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2001_GFX_KEY);
 
 	int i, sx_size = memregion("fixed")->bytes();
-	UINT8 *rom = memregion("fixed")->base();
+	uint8_t *rom = memregion("fixed")->base();
 
 	/* S-rom has its own unique encryption */
 	for( i = 0; i < sx_size; i++ )
