@@ -329,14 +329,18 @@ decodemo	/* Charles Doty */
 
 	/* dkong */
 dkong		//parent
+dkong2m
 dkongex		/* Jeff's Hack with Foundry Level */
+dkongf
 dkongp		/* Fix for level 22 kill screen by Don Hodges */
 dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
-kong2600	/* Vic Twenty George hack of Donkey Kong */
-nadkong
-dkong2m
+dkongpe
+dkongx
+dkongx11
 dkrainbow
 dkrdemo
+kong2600	/* Vic Twenty George hack of Donkey Kong */
+nadkong
 
 	/* docastle */
 dorunrun	//parent
@@ -1778,6 +1782,7 @@ lhcdba
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
+neobubble
 neocstlv	// BarfHappy
 neodemo		/* Charles Doty */
 neofight	// Kannagi

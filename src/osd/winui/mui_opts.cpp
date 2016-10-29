@@ -2550,10 +2550,12 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 	if (game_num >= 0)
 	{
 		driver = &driver_list::driver(game_num);
-		if (driver != NULL)
+		if (driver)
+		{
 			filename.assign(driver->name);
 			if (opt_type == OPTIONS_SOURCE)
 				filepath = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->source_file, true) + ".ini";
+		}
 	}
 	else
 	if (game_num == -1)
