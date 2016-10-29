@@ -139,6 +139,7 @@ d6800.cpp
 d6809.cpp
 dai.cpp
 daruma.cpp
+datum.cpp
 dccons.cpp
 dct11em.cpp
 dectalk.cpp
@@ -296,6 +297,7 @@ kc.cpp
 kim1.cpp
 konin.cpp
 kramermc.cpp
+kron.cpp
 kyocera.cpp
 laser3k.cpp
 lc80.cpp

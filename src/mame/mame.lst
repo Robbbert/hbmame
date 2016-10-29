@@ -114,6 +114,7 @@ astropal                        // (c) 19?? Sidam
 attackfc                        // (c) 1979? E.G.S.
 ballbomb                        // TN  (c) 1980 Taito
 claybust                        // (c) 1978 Model Racing
+cosmicin                        // bootleg
 cosmicm2                        // Universal
 cosmicmo                        // Universal
 cosmo                           // TDS & Mints
@@ -10519,6 +10520,9 @@ thndzone4                       // MAJ (c) 1991 Data East Corporation (World) - 
 thndzonea                       // MAJ (c) 1991 Data East Corporation (World)
 thndzonej                       // MAJ (c) 1991 Data East Corporation (Japan) - Some MASK ROMS stamped MAL
 
+@source:datum.cpp
+datum                           // 1982
+
 @source:dblcrown.cpp
 dblcrown                        // (c) 1994 Excellent System
 
@@ -10986,6 +10990,8 @@ xfilesk                         // (c) 1999 dgPIX Entertainment Inc (censored fo
 md6802                          //
 mp68a                           //
 e100                            //
+can09t                          //
+can09                           //
 
 @source:dietgo.cpp
 dietgo                          // MAY (c) 1993
@@ -16777,6 +16783,9 @@ kopunch                         // 834-0103 (c) 1981 Sega
 @source:kramermc.cpp
 kramermc                        // 1987 Kramer MC
 
+@source:kron.cpp
+kron180                         // 1995 Kron Ltd, Ukraine
+
 @source:ksayakyu.cpp
 ksayakyu                        // ??? (c) 1985 Taito Corporation
 
@@ -17452,10 +17461,7 @@ uccopsj                         // (c) 1992 Irem (Japan)
 uccopsu                         // (c) 1992 Irem (US)
 
 @source:mac.cpp
-mac128k                         // 1984 Apple Macintosh
 mac2fdhd                        // 1988 Apple Macintosh II (FDHD)
-mac512k                         // 1985 Apple Macintosh 512k
-mac512ke                        // 1986 Apple Macintosh 512ke
 maccclas                        // 1993 Apple Macintosh Color Classic
 macclas2                        // 1991 Apple Macintosh Classic II
 macclasc                        // 1990 Apple Macintosh Classic
@@ -17481,13 +17487,18 @@ macpb170                        // 1991 Apple Macintosh PowerBook 170
 macpb180                        // 1992 Apple Macintosh PowerBook 180
 macpb180c                       // 1992 Apple Macintosh PowerBook 180c
 macpd210                        // 1992 Apple Macintosh PowerBook Duo 210
-macplus                         // 1986 Apple Macintosh Plus
 macprtb                         // 1989 Apple Macintosh Portable
 macqd700                        // 1991 Apple Macintosh Quadra 700
 macse                           // 1987 Apple Macintosh SE
 macse30                         // 1989 Apple Macintosh SE/30
 macsefd                         // 1988 Apple Macintosh SE (FDHD)
 pmac6100                        // 1993 Apple Power Macintosh 6100
+
+@source:mac128.cpp
+mac128k                         // 1984 Apple Macintosh
+mac512k                         // 1985 Apple Macintosh 512k
+mac512ke                        // 1986 Apple Macintosh 512ke
+macplus                         // 1986 Apple Macintosh Plus
 unitron                         // 1985 Unitron
 utrn1024                        // 1986 Unitron 1024
 
@@ -28111,6 +28122,7 @@ timecrs2                        // April 1998
 timecrs2v1b                     // April 1998
 timecrs2v2b                     // April 1998
 timecrs2v4a                     // April 1998
+timecrs2v5a                     // April 1998
 
 @source:namcos86.cpp
 genpeitd                        // (c) 1986
@@ -28614,6 +28626,7 @@ bstarsh                         // 0002 (c) 1990 SNK
 burningf                        // 0018 (c) 1991 SNK
 burningfh                       // 0018 (c) 1991 SNK
 burningfp                       // 0018 (c) 1991 SNK (prototype)
+burningfpa                      // 0018 (c) 1991 SNK (prototype)
 crswd2bl                        // 0054 bootleg made from CD version
 crsword                         // 0037 (c) 1991 Alpha Denshi Co.
 ct2k3sa                         // bootleg of kof2001
@@ -34681,6 +34694,7 @@ crimec                          // B99 (c) 1989 Taito Corporation Japan (World)
 crimecj                         // B99 (c) 1989 Taito Corporation (Japan)
 crimecu                         // B99 (c) 1989 Taito America Corporation (US)
 hitice                          // C59 (c) 1990 Williams (US)
+hiticerb                        // C59 (c) 1990 Williams (US)
 hiticej                         // C59 (c) 1990 Midway/Taito Corporation (Japan)
 masterw                         // B72 (c) 1989 Taito Corporation Japan (World)
 masterwj                        // B72 (c) 1989 Taito Corporation (Japan)
