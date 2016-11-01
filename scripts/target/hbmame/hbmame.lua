@@ -430,6 +430,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/midyunit.cpp",
 	MAME_DIR .. "src/mame/machine/midyunit.cpp",
 	MAME_DIR .. "src/mame/video/midyunit.cpp",
+	MAME_DIR .. "src/mame/drivers/wmg.cpp",
 	MAME_DIR .. "src/hbmame/drivers/williams.cpp",
 	MAME_DIR .. "src/mame/machine/williams.cpp",
 	MAME_DIR .. "src/mame/audio/williams.cpp",

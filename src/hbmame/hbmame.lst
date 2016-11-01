@@ -91,7 +91,9 @@ sboblboblh 	/* level select hack */
 spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
 
 	/* cave */
-pwrinst2
+ddonpach	//parent
+ddonpacha	// trap15 hack
+pwrinst2	//parent
 pwrinst2h	/* 2013 Hack by TT */
 
 	/* cball */
@@ -2374,7 +2376,14 @@ kov2p
 pgemeni		/* Blastar */
 pgmdemo		/* Charles Doty */
 pgmfrog		/* Rastersoft */
-ketarrb
+ketarr		// trap15 hack
+ketarrb		// trap15 hack
+ketarr10	// trap15 hack
+ketarr15	// trap15 hack
+ketarr151	// trap15 hack
+ketarrf		// trap15 hack
+ketarrs15	// trap15 hack
+ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 orlegendh
@@ -2639,6 +2648,9 @@ robotronp	/* Patched to remove the 'in the corner' crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1
+
+	/* wmg */
+wmg
 
 	/* yiear */
 yiear		//parent
