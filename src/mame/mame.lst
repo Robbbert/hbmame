@@ -14203,6 +14203,7 @@ nupogodi                        //
 amaztron                        // Coleco
 astro                           // Kosmos
 bankshot                        // Parker Bros
+bcheetah                        // Bandai
 bigtrak                         // Milton Bradley
 bship                           // Milton Bradley
 bshipb                          // Milton Bradley
@@ -14222,6 +14223,7 @@ efootb4                         // Entex
 einvader                        // Entex
 elecbowl                        // Marx
 elecdet                         // Ideal
+esbattle                        // Entex
 esoccer                         // Entex
 fxmcr165                        // Gakken
 gjackpot                        // Gakken
@@ -14236,6 +14238,7 @@ mbdtower                        // Milton Bradley
 mdndclab                        // Mattel
 merlin                          // Parker Bros
 mmerlin                         // Parker Bros
+monkeysee                       // Tandy Radio Shack
 phpball                         // Tomy
 raisedvl                        // Entex
 simon                           // Milton Bradley
@@ -28743,6 +28746,7 @@ ms4plus                         // bootleg
 ms5plus                         // bootleg
 mslug                           // 0201 (c) 1996 Nazca
 mslug2                          // 0241 (c) 1998 SNK
+mslug2t                         // bootleg
 mslug3                          // 0256 (c) 2000 SNK
 mslug3b6                        // bootleg
 mslug3h                         // 0256 (c) 2000 SNK
@@ -29644,6 +29648,7 @@ pcfxga                          // PC-FX NEC 199? (PC-FX on a PC ISA Card)
 
 @source:pcipc.cpp
 pcipc                           //
+pcipctx                         //
 
 @source:pcktgal.cpp
 pcktgal                         // (c) 1987 Data East Corporation (Japan)

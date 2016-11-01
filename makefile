@@ -742,6 +742,10 @@ endif
 ifdef DEBUG_ARGS
 PARAMS += --DEBUG_ARGS='$(DEBUG_ARGS)'
 endif
+
+ifdef WEBASSEMBLY
+PARAMS += --WEBASSEMBLY='$(WEBASSEMBLY)'
+endif
 #-------------------------------------------------
 # All scripts
 #-------------------------------------------------
@@ -1615,9 +1619,11 @@ bgfx-tools:
 shaders: bgfx-tools
 	-$(call MKDIR,build/shaders/dx11)
 	-$(call MKDIR,build/shaders/dx9)
-	-$(call MKDIR,build/shaders/gles)
-	-$(call MKDIR,build/shaders/glsl)
+	-$(call MKDIR,build/shaders/pssl)
 	-$(call MKDIR,build/shaders/metal)
+	-$(call MKDIR,build/shaders/essl)
+	-$(call MKDIR,build/shaders/glsl)
+	-$(call MKDIR,build/shaders/spirv)
 	$(SILENT) $(MAKE) -C $(SRC)/osd/modules/render/bgfx/shaders rebuild CHAIN="$(CHAIN)"
 
 #-------------------------------------------------
