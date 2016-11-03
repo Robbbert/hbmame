@@ -47,7 +47,7 @@ Changes:
 #define MW8080BW_INT_TRIGGER_VBLANK_1     (0)
 #define MW8080BW_INT_TRIGGER_COUNT_2      MW8080BW_VCOUNTER_START_VBLANK
 #define MW8080BW_INT_TRIGGER_VBLANK_2     (1)
-#define MW8080BW_HPIXCOUNT                MW8080BW_HBSTART - 7
+#define MW8080BW_HPIXCOUNT                MW8080BW_HBSTART
 
 class sc_state : public driver_device
 {
@@ -146,7 +146,7 @@ DISCRETE_SOUND_START(schaser)
 
 	/************************************************/
 	/* Volume adjusters.                            */
-	/* We will set them to adjust the realitive     */
+	/* We will set them to adjust the relative      */
 	/* gains.                                       */
 	/************************************************/
 	DISCRETE_ADJUSTMENT(SCHASER_VR1, 0, RES_K(50)/(RES_K(50) + RES_K(470)), DISC_LINADJ, "VR1")
