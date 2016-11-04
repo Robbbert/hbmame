@@ -78,9 +78,13 @@ vecbtime	/* T-Bone hack of Burgertime */
 
 	/* bublbobl */
 bublbobl	//parent
+boblcave
+bublcave
+bublcave10
+bublcave11
 bbaladar	/* Aladar Bootleg */
 bb2bmh		/* Overclocked Bubblebobble Memories Hack */
-bbhackv1 	/* OVerclocked Level Hack */ 
+bbhackv1 	/* Overclocked Level Hack */ 
 bbredux1	/* Punji - Bubble Bobble Redux with Level Skip */
 bbredux2	/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3	/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
@@ -1206,12 +1210,13 @@ airwolf		//parent
 airwolffr	// french
 
 	/* m52 */
+alpha1v		// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 	/* maketrax */
 eyes		//parent
-aa		/* Widel's Games */
+aa			/* Widel's Games */
 absurd		/* scott - nonworking alpha ver 3 */
 //alpaca7		/* Jerronimo (useless) */
 //alpaca8		/* Jerronimo (useless) */
@@ -2638,6 +2643,9 @@ volfiedg	/* Vag @ GreekRoms 2005 */
 suprmrio	//parent
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
+
+	/* wc90 */
+pac90
 
 	/* williams */
 defender	//parent

@@ -1,8 +1,17 @@
 What's new in HBMAME
 ====================
 
-2016-10-26 0.179
+2016-11-30 0.180
 ----------------
+
+
+
+A new direction for HBMAME: Games that are added to MAME will no longer be removed
+from HBMAME. If it's a homebrew, it's in HBMAME forever. Also, test roms and other
+non-revenue sets will be added in when they are found. Games such as Pauline Edition
+and Lost Cave have been added back, the search continues for others.
+
+
 
 New Games
 ---------
