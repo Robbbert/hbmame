@@ -70,6 +70,15 @@ WRITE8_MEMBER( pacman_state::pm4n1d_rombank_w )
 	}
 }
 
+WRITE8_MEMBER( pacman_state::superabc_rombank_w )
+{
+	data = data >> 4;
+	membank("bank1")->set_entry(data);
+	membank("bank2")->set_entry(data);
+	membank("bank3")->set_entry(data);
+	multipac_gfxbank_w( space, 0, data );
+}
+
 
 /*************************************
  *
@@ -381,6 +390,31 @@ static ADDRESS_MAP_START( pm4n1d_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xe004, 0xe006) AM_WRITENOP	// mirror of 5004-5006
 ADDRESS_MAP_END
 
+static ADDRESS_MAP_START( superabc_map, AS_PROGRAM, 8, pacman_state )
+	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
+	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
+	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
+	AM_RANGE(0x4800, 0x49ff) AM_RAM AM_SHARE("nvram")	/* high scores and work area */
+	AM_RANGE(0x4c00, 0x4fef) AM_RAM				/* system ram */
+	AM_RANGE(0x4ff0, 0x4fff) AM_RAM AM_SHARE("spriteram")
+	AM_RANGE(0x5000, 0x5000) AM_WRITE(irq_mask_w)
+	AM_RANGE(0x5001, 0x5001) AM_DEVWRITE("namco", namco_device, pacman_sound_enable_w)
+	AM_RANGE(0x5002, 0x5002) AM_WRITENOP
+	AM_RANGE(0x5003, 0x5003) AM_WRITE(pacman_flipscreen_w)
+	AM_RANGE(0x5004, 0x5005) AM_WRITE(pacman_leds_w)
+	AM_RANGE(0x5006, 0x5006) AM_WRITE(superabc_rombank_w)	/* bit 0 = coin lockout, bits 4,5,6 = bank select */
+	AM_RANGE(0x5007, 0x5007) AM_WRITE(pacman_coin_counter_w)
+	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
+	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
+	AM_RANGE(0x5070, 0x507f) AM_WRITENOP
+	AM_RANGE(0x50c0, 0x50c1) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
+	AM_RANGE(0x5000, 0x5000) AM_READ_PORT("IN0")
+	AM_RANGE(0x5040, 0x5040) AM_READ_PORT("IN1")	/* IN1 - comment this out to get an easter egg */
+	AM_RANGE(0x5080, 0x5080) AM_READ_PORT("DSW1")
+	AM_RANGE(0x50c0, 0x50c0) AM_READ_PORT("DSW2")	/* DSW2 - not used */
+	AM_RANGE(0x8000, 0x9fff) AM_ROMBANK("bank2")
+	AM_RANGE(0xa000, 0xbfff) AM_ROMBANK("bank3")
+ADDRESS_MAP_END
 
 
 /*************************************
@@ -530,6 +564,103 @@ INPUT_PORTS_START( multipac )
 //	PORT_DIPSETTING(    0x04, "Enabled Always" )
 INPUT_PORTS_END
 
+/* Start Official documentation for SuperABC - http://www.twobits.com/sabcinst99.htm
+
+How do I clear the high score table and check the bookkeeping?
+Enter test mode via the cabinet switch located near the coin door hinge. Then hold the
+ONE PLAYER DOWN and ONE PLAYER START switches simultaneously for approximately 7 seconds
+and follow the on-screen directions.
+
+DIP Switch Settings
+Note concerning DIP SWITCH #6:
+During the game ULTRA PACMAN there is a rare 'butterfly' which appears. Eating the butterfly
+awards the player either an extra man or an extra credit depending on the setting of DIP
+switch #6. DIP SWITCH #6 ALSO turns the BUY-IN feature ON and OFF.
+
+
+Option (* = recommended)             | SW1 | SW2 | SW3 | SW4 | SW5 | SW6 | SW7 | SW8 |
+-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+Free Play                            | ON  | ON  |     |     |     |     |     |     |
+1 Coin   1 Credit                   *| OFF | ON  |     |     |     |     |     |     |
+1 Coin   2 Credits                   | ON  | OFF |     |     |     |     |     |     |
+2 Coins  1 Credit                    | OFF | OFF |     |     |     |     |     |     |
+-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+1 Pacman Per Game                    |     |     | ON  | ON  |     |     |     |     |
+2 Pacman Per Game                    |     |     | OFF | ON  |     |     |     |     |
+3 Pacman Per Game                   *|     |     | ON  | OFF |     |     |     |     |
+5 Pacman Per Game                    |     |     | OFF | OFF |     |     |     |     |
+-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+Bonus Player @ 10000 Pts            *|     |     |     |     | ON  | ON  |     |     |
+Bonus Player @ 15000 Pts             |     |     |     |     | OFF | ON  |     |     |
+Bonus Player @ 20000 Pts             |     |     |     |     | ON  | OFF |     |     |
+No Bonus Players                     |     |     |     |     | OFF | OFF |     |     |
+-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+Free Game in ULTRA PAC / Buy-in ON  *|     |     |     |     |     | ON  |     |     |
+Free Life in ULTRA PAC / Buy-in OFF  |     |     |     |     |     | OFF |     |     |
+-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+Auto. Rack Advance (Skip)            |     |     |     |     |     |     | ON  |     |
+Normal- Must be off for game play   *|     |     |     |     |     |     | OFF |     |
+-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+Freeze Video (Pause)                 |     |     |     |     |     |     |     | ON  |
+Normal- Must be off for game play   *|     |     |     |     |     |     |     | OFF |
+--------------------------------------------------------------------------------------
+
+** End Official documentation.
+
+Note: SW7 and SW8 are not part of DSW1 in the input settings below */
+
+INPUT_PORTS_START( superabc )
+	PORT_START ("IN0")	/* IN0 */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_4WAY
+	/* Press this while playing pacman to instantly finish the level */
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Finish Level (Cheat)") PORT_CODE(KEYCODE_8)
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE1 )
+
+	PORT_START ("IN1")	/* IN1 */
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_COCKTAIL
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN  ) PORT_4WAY PORT_COCKTAIL
+	PORT_SERVICE( 0x10, IP_ACTIVE_LOW )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START2 )
+	PORT_DIPNAME(0x80, 0x80, DEF_STR( Cabinet ) )
+	PORT_DIPSETTING(   0x80, DEF_STR( Upright ) )
+	PORT_DIPSETTING(   0x00, DEF_STR( Cocktail ) )
+
+	PORT_START ("DSW1")	/* DSW 1 */
+	PORT_DIPNAME( 0x03, 0x01, DEF_STR( Coinage ) )
+	PORT_DIPSETTING(    0x03, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( 1C_2C ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Free_Play ) )
+	PORT_DIPNAME( 0x0c, 0x08, DEF_STR( Lives ) )
+	PORT_DIPSETTING(    0x00, "1" )
+	PORT_DIPSETTING(    0x04, "2" )
+	PORT_DIPSETTING(    0x08, "3" )
+	PORT_DIPSETTING(    0x0c, "5" )
+	/* bit 5 also switches between ULTRA ON 1 GAME (low), and ULTRA OFF 1 LIFE (high) */
+	PORT_DIPNAME( 0x30, 0x00, DEF_STR( Bonus_Life ) )
+	PORT_DIPSETTING(    0x00, "10000" )
+	PORT_DIPSETTING(    0x10, "15000" )
+	PORT_DIPSETTING(    0x20, "20000" )
+	PORT_DIPSETTING(    0x30, DEF_STR( None ) )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Difficulty ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( Normal ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Hard ) )
+	PORT_DIPNAME( 0x80, 0x80, "Ghost Names" )
+	PORT_DIPSETTING(    0x80, DEF_STR( Normal ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Alternate ) )
+
+	PORT_START ("DSW2")	/* DSW 2 */
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+INPUT_PORTS_END
+
 
 /*************************************
  *
@@ -577,6 +708,17 @@ DRIVER_INIT_MEMBER( pacman_state, pm4n1 )
 	membank("bank2")->configure_entries(0, 5, &RAM[0x14000], 0x8000);
 }
 
+DRIVER_INIT_MEMBER( pacman_state, superabc )
+{
+	uint8_t *RAM = memregion("maincpu")->base();
+	membank("bank1")->configure_entries(0, 8, &RAM[0x10000], 0x10000);
+	membank("bank2")->configure_entries(0, 8, &RAM[0x14000], 0x10000);
+	membank("bank3")->configure_entries(0, 8, &RAM[0x1a000], 0x10000);
+	membank("bank1")->set_entry(0);
+	membank("bank2")->set_entry(0);
+	membank("bank3")->set_entry(0);
+}
+
 
 /********************************
  Graphics layouts
@@ -610,6 +752,11 @@ GFXDECODE_END
 static GFXDECODE_START( pm4n1 )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x05000, spritelayout, 0, 32 )
+GFXDECODE_END
+
+static GFXDECODE_START( superabc )
+	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
+	GFXDECODE_ENTRY( "gfx1", 0x08000, spritelayout, 0, 32 )
 GFXDECODE_END
 
 
@@ -730,6 +877,14 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( pm4n1d, pm4n1c )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1d_map)
+MACHINE_CONFIG_END
+
+static MACHINE_CONFIG_DERIVED( superabc, pacman )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(superabc_map)
+	MCFG_NVRAM_ADD_0FILL("nvram")
+	MCFG_GFXDECODE_MODIFY("gfxdecode", superabc)
+	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
 
@@ -1660,6 +1815,94 @@ ROM_START( pm4n1e )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( superabc )
+	ROM_REGION( 0x90000, "maincpu", 0 )   /* 8 banks of 64k for code */
+	ROM_LOAD( "superabc.u14", 0x10000, 0x80000, CRC(a560efe6) SHA1(c7d43cc3bb3b1b10d06403462276231bfc8542dd) )
+
+	ROM_REGION( 0x10000, "gfx1", 0 )
+	ROM_LOAD( "superabc.u1",  0x00000, 0x1000, CRC(45caace0) SHA1(f850bd09ec68b0263ac8b30ae38c3878c7978ace) )
+	ROM_CONTINUE(             0x08000, 0x1000 )
+	ROM_CONTINUE(             0x04000, 0x1000 ) // these duplicate entries should be ROM_IGNORE but it has a bug
+	ROM_CONTINUE(             0x0c000, 0x1000 )
+	ROM_CONTINUE(             0x04000, 0x1000 )
+	ROM_CONTINUE(             0x0c000, 0x1000 )
+	ROM_CONTINUE(             0x02000, 0x1000 )
+	ROM_CONTINUE(             0x0a000, 0x1000 )
+	ROM_CONTINUE(             0x02000, 0x1000 )
+	ROM_CONTINUE(             0x0a000, 0x1000 )
+	ROM_CONTINUE(             0x06000, 0x1000 )
+	ROM_CONTINUE(             0x0e000, 0x1000 )
+	ROM_CONTINUE(             0x06000, 0x1000 )
+	ROM_CONTINUE(             0x0e000, 0x1000 )
+	ROM_CONTINUE(             0x01000, 0x1000 )
+	ROM_CONTINUE(             0x09000, 0x1000 )
+	ROM_CONTINUE(             0x01000, 0x1000 )
+	ROM_CONTINUE(             0x09000, 0x1000 )
+	ROM_CONTINUE(             0x05000, 0x1000 )
+	ROM_CONTINUE(             0x0d000, 0x1000 )
+	ROM_CONTINUE(             0x05000, 0x1000 )
+	ROM_CONTINUE(             0x0d000, 0x1000 )
+	ROM_CONTINUE(             0x03000, 0x1000 )
+	ROM_CONTINUE(             0x0b000, 0x1000 )
+	ROM_CONTINUE(             0x03000, 0x1000 )
+	ROM_CONTINUE(             0x0b000, 0x1000 )
+	ROM_CONTINUE(             0x07000, 0x1000 )
+	ROM_CONTINUE(             0x0f000, 0x1000 )
+	ROM_CONTINUE(             0x07000, 0x1000 )
+	ROM_CONTINUE(             0x0f000, 0x1000 )
+	ROM_IGNORE(                        0x2000 )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "superabc.7f",  0x0000, 0x0020, CRC(3a188666) SHA1(067386e477ce48bbde3cf71f744a78a42238d236) )
+	ROM_LOAD( "superabc.4a",  0x0020, 0x0100, CRC(4382c049) SHA1(5e535b1a6852260f38ae1e5cd57290a85cb6927f) )
+
+	PACMAN_SOUND_PROMS
+ROM_END
+
+ROM_START( superabco )
+	ROM_REGION( 0x90000, "maincpu", 0 )   /* 8 banks of 64k for code */
+	ROM_LOAD( "superabco.u14", 0x10000, 0x80000, CRC(62565ad8) SHA1(cb434c608ee463788b73152d84ce6173bdfa350d) )
+
+	ROM_REGION( 0x10000, "gfx1", 0 )
+	ROM_LOAD( "superabc.u1",  0x00000, 0x1000, CRC(45caace0) SHA1(f850bd09ec68b0263ac8b30ae38c3878c7978ace) )
+	ROM_CONTINUE(             0x08000, 0x1000 )
+	ROM_CONTINUE(             0x04000, 0x1000 ) // these duplicate entries should be ROM_IGNORE but it has a bug
+	ROM_CONTINUE(             0x0c000, 0x1000 )
+	ROM_CONTINUE(             0x04000, 0x1000 )
+	ROM_CONTINUE(             0x0c000, 0x1000 )
+	ROM_CONTINUE(             0x02000, 0x1000 )
+	ROM_CONTINUE(             0x0a000, 0x1000 )
+	ROM_CONTINUE(             0x02000, 0x1000 )
+	ROM_CONTINUE(             0x0a000, 0x1000 )
+	ROM_CONTINUE(             0x06000, 0x1000 )
+	ROM_CONTINUE(             0x0e000, 0x1000 )
+	ROM_CONTINUE(             0x06000, 0x1000 )
+	ROM_CONTINUE(             0x0e000, 0x1000 )
+	ROM_CONTINUE(             0x01000, 0x1000 )
+	ROM_CONTINUE(             0x09000, 0x1000 )
+	ROM_CONTINUE(             0x01000, 0x1000 )
+	ROM_CONTINUE(             0x09000, 0x1000 )
+	ROM_CONTINUE(             0x05000, 0x1000 )
+	ROM_CONTINUE(             0x0d000, 0x1000 )
+	ROM_CONTINUE(             0x05000, 0x1000 )
+	ROM_CONTINUE(             0x0d000, 0x1000 )
+	ROM_CONTINUE(             0x03000, 0x1000 )
+	ROM_CONTINUE(             0x0b000, 0x1000 )
+	ROM_CONTINUE(             0x03000, 0x1000 )
+	ROM_CONTINUE(             0x0b000, 0x1000 )
+	ROM_CONTINUE(             0x07000, 0x1000 )
+	ROM_CONTINUE(             0x0f000, 0x1000 )
+	ROM_CONTINUE(             0x07000, 0x1000 )
+	ROM_CONTINUE(             0x0f000, 0x1000 )
+	ROM_IGNORE(                        0x2000 )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "superabc.7f",  0x0000, 0x0020, CRC(3a188666) SHA1(067386e477ce48bbde3cf71f744a78a42238d236) )
+	ROM_LOAD( "superabc.4a",  0x0020, 0x0100, CRC(4382c049) SHA1(5e535b1a6852260f38ae1e5cd57290a85cb6927f) )
+
+	PACMAN_SOUND_PROMS
+ROM_END
+
 
 /*************************************
  *
@@ -1672,9 +1915,9 @@ GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  driver_device, 0,        ROT
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2005, 96in1,    madpac,	96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1c,   madpac,	96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1a,   madpac,	96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1,    madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1c,   madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1a,   madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, 96in1b,   madpac,   96in1b,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state,  madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
@@ -1682,14 +1925,16 @@ GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT
 /* Other Misc Hacks */
 
 GAME( 1993, mspaceur, mspacman, mspaceur, mspacman, pacman_state,  mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi10,  multi15,	multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi11,  multi15,	multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi13,  multi15,	multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi14,  multi15,	multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi15,  0,	multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi10,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi11,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi13,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )	// www.souzaonline.com/Games/Hacks/4n1hack.htm
 GAME( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )

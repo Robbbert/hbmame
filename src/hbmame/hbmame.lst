@@ -19,6 +19,20 @@ galagax 	/* Jerky - Chris Moore hack of 1942 */
 1943		//parent
 1943h		/* Hacked to have the vendor name and phone number */
 
+	/* 8080bw */
+invaders	//parent
+invmulti
+invmultim1a
+invmultim2a
+invmultim2c
+invmultim3a
+invmultip
+invmultis1a
+invmultis2a
+invmultis3a
+invmultit3d
+tst_invd	// test rom
+
 	/* arkanoid */
 arkanoid	//parent
 akblc2dx 	/* hack */
@@ -1591,6 +1605,8 @@ pm4n1b
 pm4n1c
 pm4n1d
 pm4n1e
+superabc
+superabco
 
 	/* nemesis */
 salamand	//parent
@@ -2523,12 +2539,12 @@ kfjohnny	/* hack by Smitdogg*/
 	/* snk6502 */
 vantris		/* (c) 1998 Norbert Kehrer */
 
-	/* spacmiss */
-spacmiss	// extra sounds
-
 	/* simple_st0016 */
 renju		//parent
 renjuk		/* Korean Translation */
+
+	/* spacmiss */
+spacmissx	// extra sounds
 
 	/* system1 */
 wbml		//parent
@@ -2599,8 +2615,8 @@ tmptwst4	/* Twisty Hack */
 vbrakout	/* Clay Cowgill */
 tempmg		/* Clay Cowgill Multi-Tempest */
 temptlm
-vortex		/* Tempest Prototype */
-vortexa		/* Tempest Prototype */
+tvortex		/* Tempest Prototype */
+tvortexa	/* Tempest Prototype */
 aliensv		/* Tempest Prototype */
 aliensva	/* Tempest Prototype */
 

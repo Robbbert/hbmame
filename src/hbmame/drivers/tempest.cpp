@@ -444,7 +444,7 @@ ROM_END
 /* The following prototypes, if run on the real hardware, can ruin your monitor...             */
 /* or, as written in the readme, "DONT RUN IT ON REAL HARDWARE - IT CAN FUCK THE MONITOR."  ;) */
 
-ROM_START( vortex ) /* rev 1 */
+ROM_START( tvortex ) /* rev 1 */
 	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
 	ROM_LOAD( "d1.bin",    0x9000, 0x0800, CRC(3aff3417) SHA1(3b7c31f01b7467757ec85e98a17038e5df5720bb) )
 	ROM_LOAD( "e1.bin",    0x9800, 0x0800, CRC(11861be3) SHA1(a35797c649e8286c844cee6dac86ac50f4fbd669) )
@@ -478,7 +478,7 @@ ROM_START( vortex ) /* rev 1 */
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 ROM_END
 
-ROM_START( vortexa ) /* rev 2? */
+ROM_START( tvortexa ) /* rev 2? */
 	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
 	ROM_LOAD( "d1.bin",    0x9000, 0x0800, CRC(3aff3417) SHA1(3b7c31f01b7467757ec85e98a17038e5df5720bb) )
 	ROM_LOAD( "e1.bin",    0x9800, 0x0800, CRC(11861be3) SHA1(a35797c649e8286c844cee6dac86ac50f4fbd669) )
@@ -776,7 +776,7 @@ GAME( 2000, tempestm, tempest, tempest, tempest, driver_device, 0,      ROT270, 
 GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,  tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, vbrakout, tempest, tempest, tempest, driver_device, 0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptlm,  tempest, tempest, tempest, driver_device, 0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, vortex,   tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, vortexa,  tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, tvortex,  tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, tvortexa, tempest, tempest, tempest, driver_device, 0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, aliensv,  tempest, tempest, aliensv, driver_device, 0,      ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, aliensva, tempest, tempest, aliensv, driver_device, 0,      ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )
