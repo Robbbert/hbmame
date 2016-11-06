@@ -126,6 +126,7 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_SORT_REVERSED                  "sort_reversed"
 #define MUIOPTION_ICONS_DIRECTORY                "icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY           "background_directory"
+#define MUIOPTION_DATS_DIRECTORY                 "dats_directory"
 #define MUIOPTION_UI_KEY_UP                      "ui_key_up"
 #define MUIOPTION_UI_KEY_DOWN                    "ui_key_down"
 #define MUIOPTION_UI_KEY_LEFT                    "ui_key_left"
@@ -264,6 +265,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ NULL,                                   NULL,       OPTION_HEADER,     "SEARCH PATH OPTIONS" },
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground", OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
+	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
 	{ NULL,                                   NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
 	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,                  "KEYCODE_DOWN",                     OPTION_STRING,          NULL },
@@ -1369,13 +1371,15 @@ void SetBgDir (const char* path)
 
 const char * GetDatsDir(void)
 {
-	return mewui.value(OPTION_HISTORY_PATH);
+	return settings.value( MUIOPTION_DATS_DIRECTORY);
+	//return mewui.value(OPTION_HISTORY_PATH);
 }
 
 void SetDatsDir(const char *path)
 {
 	std::string error_string;
-	mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE, error_string);
+	settings.set_value(MUIOPTION_DATS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	//mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE, error_string);
 }
 
 const char* GetFolderDir(void)
@@ -2621,6 +2625,7 @@ BOOL RequiredDriverCache(void)
 #define MESSUI_SW_SORT_REVERSED       "sw_sort_reversed"
 #define MESSUI_SW_SORT_COLUMN         "sw_sort_column"
 #define MESSUI_SOFTWARE_TAB           "current_software_tab"
+#define MESSUI_SLPATH                 "slpath"
 
 #define LOG_SOFTWARE 0
 
@@ -2637,6 +2642,7 @@ static const options_entry mess_wingui_settings[] =
 	{ MESSUI_SW_SORT_COLUMN,          "0", OPTION_INTEGER, NULL },
 	{ MESSUI_SW_SORT_REVERSED,        "0", OPTION_BOOLEAN, NULL },
 	{ MESSUI_SOFTWARE_TAB,            "0", OPTION_STRING, NULL },
+	{ MESSUI_SLPATH,                  "software", OPTION_STRING, NULL },
 	{ NULL }
 };
 
@@ -2820,5 +2826,16 @@ void SetCurrentSoftwareTab(const char *shortname)
 const char *GetCurrentSoftwareTab(void)
 {
 	return MameUISettings().value(MESSUI_SOFTWARE_TAB);
+}
+
+const char* GetSLDir(void)
+{
+	return MameUISettings().value(MESSUI_SLPATH);
+}
+
+void SetSLDir(const char* paths)
+{
+	std::string error_string;
+	MameUISettings().set_value(MESSUI_SLPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
 }
 

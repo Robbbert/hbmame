@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 #ifndef DIRECTORIES_H
@@ -12,8 +13,8 @@
 #define DIRDLG_IMG          0x0400
 #define DIRDLG_INP          0x0800
 #define DIRDLG_CTRLR        0x1000
-#define DIRDLG_SOFTWARE     0x2000
-#define DIRDLG_COMMENT      0x4000
+#define DIRDLG_SL           0x2000
+#define DIRDLG_SW           0x4000
 #define DIRDLG_CHEAT        0x8000
 
 #define DIRLIST_NEWENTRYTEXT "<               >"
@@ -34,6 +35,8 @@ const DIRECTORYINFO g_directoryInfo[] =
 {
 	{ "ROMs",                  GetRomDirs,         SetRomDirs,         TRUE,  DIRDLG_ROMS },
 	{ "Samples",               GetSampleDirs,      SetSampleDirs,      TRUE,  DIRDLG_SAMPLES },
+	{ "Software File Base",    GetSWDir,           SetSWDir,           FALSE, DIRDLG_SW }, // core cannot handle multiple path, even though we can.
+	{ "Software List Base",    GetSLDir,           SetSLDir,           FALSE, DIRDLG_SL },
 	{ "Artwork",               GetArtDir,          SetArtDir,          TRUE, 0 },
 	{ "Cabinets",              GetCabinetDir,      SetCabinetDir,      TRUE, 0 },
 	{ "Cheats",                GetCheatDir,        SetCheatDir,        TRUE, DIRDLG_CHEAT },
