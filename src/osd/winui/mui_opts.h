@@ -114,14 +114,12 @@ void SetDirectories(windows_options &opts);
 void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 
-//void AddOptions(winui_options *opts, const options_entry *entrylist, BOOL is_global);
-void CreateGameOptions(windows_options &opts, int driver_index);
+void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
 
 winui_options & MameUISettings(void);
 windows_options & MameUIGlobal(void);
 
 void LoadFolderFlags(void);
-//const char* GetFolderNameByID(UINT nID); // not used
 
 // Start interface to directories.h
 const char* GetRomDirs(void);
@@ -202,7 +200,6 @@ void SetStateDir(const char* path);
 const char* GetTitlesDir(void);
 void SetTitlesDir(const char* path);
 
-// MESSUI only
 const char* GetSLDir(void);
 void SetSLDir(const char* path);
 const char* GetSWDir(void);
@@ -481,9 +478,6 @@ enum
 	SL_COLUMN_MAX
 };
 
-void MessSetupSettings(winui_options &settings);
-void MessSetupGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
-
 void SetSWColumnWidths(int widths[]);
 void GetSWColumnWidths(int widths[]);
 void SetSWColumnOrder(int order[]);
@@ -507,7 +501,6 @@ void SetSLSortReverse(BOOL reverse);
 BOOL GetSLSortReverse(void);
 
 void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *device, const char *software);
-const char *GetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *device);
 
 void SetCurrentSoftwareTab(const char *shortname);
 const char *GetCurrentSoftwareTab(void);

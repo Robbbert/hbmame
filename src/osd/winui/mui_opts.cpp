@@ -177,10 +177,10 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MUIOPTION_EXEC_WAIT                      "exec_wait"
 #define MUIOPTION_HIDE_MOUSE                     "hide_mouse"
 #define MUIOPTION_FULL_SCREEN                    "full_screen"
-
-#ifdef MESS
 #define MUIOPTION_SHOW_SOFTWARE_SECTION          "show_software_section"
 #define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA      "ui_key_view_software_area"
+
+#ifdef MESS
 #define MUIOPTION_DEFAULT_GAME                   "default_system"
 #define MUIDEFAULT_SELECTION                     "3do"
 #define MUIDEFAULT_SPLITTERS                     "152,310,468"
@@ -192,6 +192,18 @@ static void ResetToDefaults(windows_options &opts, int priority);
 
 #define MUIOPTION_VERSION                        "version"
 
+#define MESSUI_SL_COLUMN_SHOWN        "sl_column_shown"
+#define MESSUI_SL_COLUMN_WIDTHS       "sl_column_widths"
+#define MESSUI_SL_COLUMN_ORDER        "sl_column_order"
+#define MESSUI_SL_SORT_REVERSED       "sl_sort_reversed"
+#define MESSUI_SL_SORT_COLUMN         "sl_sort_column"
+#define MESSUI_SW_COLUMN_SHOWN        "sw_column_shown"
+#define MESSUI_SW_COLUMN_WIDTHS       "sw_column_widths"
+#define MESSUI_SW_COLUMN_ORDER        "sw_column_order"
+#define MESSUI_SW_SORT_REVERSED       "sw_sort_reversed"
+#define MESSUI_SW_SORT_COLUMN         "sw_sort_column"
+#define MESSUI_SOFTWARE_TAB           "current_software_tab"
+#define MESSUI_SLPATH                 "slpath"
 
 
 /***************************************************************************
@@ -222,6 +234,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_SHOW_IMAGE_SECTION,           "1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_FULL_SCREEN,                  "0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_CURRENT_TAB,                  "0",        OPTION_STRING,                 NULL },
+	{ MESSUI_SOFTWARE_TAB,                    "0",        OPTION_STRING, NULL },
 	{ MUIOPTION_SHOW_TOOLBAR,                 "1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_SHOW_STATUS_BAR,              "1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_HIDE_FOLDERS,                 "",         OPTION_STRING,                 NULL },
@@ -229,9 +242,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_SHOW_TABS,                    "1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_HIDE_TABS,                    "marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
 	{ MUIOPTION_HISTORY_TAB,                  "0",        OPTION_INTEGER,                 NULL },
-#ifdef MESS
 	{ MUIOPTION_SHOW_SOFTWARE_SECTION,        "1",        OPTION_BOOLEAN,    NULL },
-#endif
 	{ MUIOPTION_SORT_COLUMN,                  "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SORT_REVERSED,                "0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_WINDOW_X,                     "0",        OPTION_INTEGER,                 NULL },
@@ -249,6 +260,16 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_COLUMN_WIDTHS,                "185,78,84,84,64,88,74,108,60,144,84,40,40", OPTION_STRING, NULL },
 	{ MUIOPTION_COLUMN_ORDER,                 "0,1,2,3,4,5,6,7,8,9,10,11,12", OPTION_STRING, NULL },
 	{ MUIOPTION_COLUMN_SHOWN,                 "1,1,1,1,1,1,1,1,1,1,1,1,0", OPTION_STRING,  NULL },
+	{ MESSUI_SL_COLUMN_WIDTHS,                "100,75,223,46,120,120", OPTION_STRING, NULL },
+	{ MESSUI_SL_COLUMN_ORDER,                 "0,1,2,3,4,5", OPTION_STRING, NULL }, // order of columns
+	{ MESSUI_SL_COLUMN_SHOWN,                 "1,1,1,1,1,1", OPTION_STRING, NULL }, // 0=hide,1=show
+	{ MESSUI_SL_SORT_COLUMN,                  "0", OPTION_INTEGER, NULL },
+	{ MESSUI_SL_SORT_REVERSED,                "0", OPTION_BOOLEAN, NULL },
+	{ MESSUI_SW_COLUMN_WIDTHS,                "400", OPTION_STRING, NULL },
+	{ MESSUI_SW_COLUMN_ORDER,                 "0", OPTION_STRING, NULL }, // 1= dummy column
+	{ MESSUI_SW_COLUMN_SHOWN,                 "1", OPTION_STRING, NULL }, // 0=don't show it
+	{ MESSUI_SW_SORT_COLUMN,                  "0", OPTION_INTEGER, NULL },
+	{ MESSUI_SW_SORT_REVERSED,                "0", OPTION_BOOLEAN, NULL },
 	{ NULL,                                   NULL,       OPTION_HEADER,     "INTERFACE OPTIONS" },
 	{ MUIOPTION_CHECK_GAME,                   "0",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_JOYSTICK_IN_INTERFACE,        "1",        OPTION_BOOLEAN,    NULL },
@@ -266,6 +287,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground", OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
+	{ MESSUI_SLPATH,                          "software", OPTION_STRING, NULL },
 	{ NULL,                                   NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
 	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,                  "KEYCODE_DOWN",                     OPTION_STRING,          NULL },
@@ -289,9 +311,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_UI_KEY_VIEW_FULLSCREEN,       "KEYCODE_F11",                OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PAGETAB,          "KEYCODE_LALT KEYCODE_B",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_PICTURE_AREA,     "KEYCODE_LALT KEYCODE_P",     OPTION_STRING, NULL },
-#ifdef MESS
 	{ MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA,    "KEYCODE_LALT KEYCODE_W",     OPTION_STRING, NULL },
-#endif
 	{ MUIOPTION_UI_KEY_VIEW_STATUS,           "KEYCODE_LALT KEYCODE_S",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_TOOLBARS,         "KEYCODE_LALT KEYCODE_T",     OPTION_STRING, NULL },
 	{ MUIOPTION_UI_KEY_VIEW_TAB_CABINET,      "KEYCODE_LALT KEYCODE_3",     OPTION_STRING, NULL },
@@ -377,17 +397,12 @@ winui_options::winui_options()
 
 void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
 {
-#ifdef MESS
-	MessSetupGameOptions(opts, opt_type, driver_index);
-#endif
+	if (driver_index >= 0)
+		mameopts.set_system_name(opts, driver_list::driver(driver_index).name);
 }
-
-
 
 BOOL OptionsInit()
 {
-	MessSetupSettings(settings);
-
 #if 0
 // keep in case we need per-game options in the future
 	// set up per game options
@@ -661,7 +676,6 @@ BOOL GetShowScreenShot(void)
 	return settings.bool_value(MUIOPTION_SHOW_IMAGE_SECTION);
 }
 
-#ifdef MESS
 void SetShowSoftware(BOOL val)
 {
 	std::string error_string;
@@ -672,7 +686,6 @@ BOOL GetShowSoftware(void)
 {
 	return settings.bool_value(MUIOPTION_SHOW_SOFTWARE_SECTION);
 }
-#endif
 
 void SetShowFolderList(BOOL val)
 {
@@ -1371,7 +1384,13 @@ void SetBgDir (const char* path)
 
 const char * GetDatsDir(void)
 {
-	return settings.value( MUIOPTION_DATS_DIRECTORY);
+	const char* t = settings.value( MUIOPTION_DATS_DIRECTORY);
+	const char* t1 = strtok((char*)t, ";");
+	if (t1)
+		return t1;
+	else
+		return t;
+	//return settings.value( MUIOPTION_DATS_DIRECTORY);
 	//return mewui.value(OPTION_HISTORY_PATH);
 }
 
@@ -1650,12 +1669,10 @@ input_seq* Get_ui_key_view_picture_area(void)
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_PICTURE_AREA);
 }
 
-#ifdef MESS
 input_seq* Get_ui_key_view_software_area(void)
 {
 	return options_get_input_seq(settings, MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA);
 }
-#endif
 
 input_seq* Get_ui_key_view_status(void)
 {
@@ -2614,48 +2631,8 @@ BOOL RequiredDriverCache(void)
 
 // from optionsms.cpp (MESSUI)
 
-#define MESSUI_SL_COLUMN_SHOWN        "sl_column_shown"
-#define MESSUI_SL_COLUMN_WIDTHS       "sl_column_widths"
-#define MESSUI_SL_COLUMN_ORDER        "sl_column_order"
-#define MESSUI_SL_SORT_REVERSED       "sl_sort_reversed"
-#define MESSUI_SL_SORT_COLUMN         "sl_sort_column"
-#define MESSUI_SW_COLUMN_SHOWN        "sw_column_shown"
-#define MESSUI_SW_COLUMN_WIDTHS       "sw_column_widths"
-#define MESSUI_SW_COLUMN_ORDER        "sw_column_order"
-#define MESSUI_SW_SORT_REVERSED       "sw_sort_reversed"
-#define MESSUI_SW_SORT_COLUMN         "sw_sort_column"
-#define MESSUI_SOFTWARE_TAB           "current_software_tab"
-#define MESSUI_SLPATH                 "slpath"
 
 #define LOG_SOFTWARE 0
-
-static const options_entry mess_wingui_settings[] =
-{
-	{ MESSUI_SL_COLUMN_WIDTHS,        "100,75,223,46,120,120", OPTION_STRING, NULL },
-	{ MESSUI_SL_COLUMN_ORDER,         "0,1,2,3,4,5", OPTION_STRING, NULL }, // order of columns
-	{ MESSUI_SL_COLUMN_SHOWN,         "1,1,1,1,1,1", OPTION_STRING, NULL }, // 0=hide,1=show
-	{ MESSUI_SL_SORT_COLUMN,          "0", OPTION_INTEGER, NULL },
-	{ MESSUI_SL_SORT_REVERSED,        "0", OPTION_BOOLEAN, NULL },
-	{ MESSUI_SW_COLUMN_WIDTHS,        "400", OPTION_STRING, NULL },
-	{ MESSUI_SW_COLUMN_ORDER,         "0", OPTION_STRING, NULL }, // 1= dummy column
-	{ MESSUI_SW_COLUMN_SHOWN,         "1", OPTION_STRING, NULL }, // 0=don't show it
-	{ MESSUI_SW_SORT_COLUMN,          "0", OPTION_INTEGER, NULL },
-	{ MESSUI_SW_SORT_REVERSED,        "0", OPTION_BOOLEAN, NULL },
-	{ MESSUI_SOFTWARE_TAB,            "0", OPTION_STRING, NULL },
-	{ MESSUI_SLPATH,                  "software", OPTION_STRING, NULL },
-	{ NULL }
-};
-
-void MessSetupSettings(winui_options &settings)
-{
-	settings.add_entries(mess_wingui_settings);
-}
-
-void MessSetupGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
-{
-	if (driver_index >= 0)
-		mameopts.set_system_name(opts, driver_list::driver(driver_index).name);
-}
 
 void SetSLColumnOrder(int order[])
 {
@@ -2805,16 +2782,6 @@ void SetSelectedSoftware(int driver_index, const machine_config *config, const d
 	load_options(o, OPTIONS_GAME, driver_index);
 	o.set_value(opt_name, software, OPTION_PRIORITY_CMDLINE,error_string);
 	save_options(o, OPTIONS_GAME, driver_index);
-}
-
-// not used
-const char *GetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *dev)
-{
-	const char *opt_name = dev->instance_name();
-	windows_options o;
-
-	load_options(o, OPTIONS_GAME, driver_index);
-	return o.value(opt_name);
 }
 
 void SetCurrentSoftwareTab(const char *shortname)
