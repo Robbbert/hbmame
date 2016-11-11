@@ -25,8 +25,6 @@
 #ifdef OSD_SDL
 // forward declaration
 struct SDL_Window;
-#elif defined(OSD_UWP)
-#include <Agile.h>
 #endif
 #undef min
 #undef max
@@ -73,7 +71,7 @@ class osd_window : public std::enable_shared_from_this<osd_window>
 public:
 	osd_window(const osd_window_config &config)
 	:
-#ifdef OSD_WINDOW
+#ifdef OSD_WINDOWS
 		m_dc(nullptr), m_resize_state(0),
 #endif
 		m_primlist(nullptr),
@@ -84,6 +82,8 @@ public:
 		m_renderer(nullptr),
 		m_main(nullptr)
 		{}
+
+	virtual ~osd_window() { }
 
 	virtual render_target *target() = 0;
 	virtual int fullscreen() const = 0;
@@ -138,15 +138,13 @@ public:
 	virtual void update() = 0;
 	virtual void destroy() = 0;
 
+#if defined(OSD_WINDOWS) || defined(OSD_UWP)
+	virtual bool win_has_menu() = 0;
+#endif
+
 #ifdef OSD_WINDOWS
-	virtual bool win_has_menu() = 0;
-
 	HDC                     m_dc;       // only used by GDI renderer!
-
 	int                     m_resize_state;
-#elif defined(OSD_UWP)
-	virtual bool win_has_menu() = 0;
-	Platform::Agile<Windows::UI::Core::CoreWindow^>	m_window;
 #endif
 	render_primitive_list   *m_primlist;
 	osd_window_config       m_win_config;

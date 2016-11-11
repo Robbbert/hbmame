@@ -411,7 +411,7 @@ void winwindow_process_events_periodic(running_machine &machine)
 	// update once every 1/8th of a second
 	if (currticks - last_event_check < std::chrono::milliseconds(1000 / 8))
 		return;
-	winwindow_process_events(machine, TRUE, false);
+	winwindow_process_events(machine, true, false);
 }
 
 
@@ -460,7 +460,7 @@ inline static BOOL handle_keypress(windows_osd_interface *osd, int vkey, int dow
 //  (main thread)
 //============================================================
 
-void winwindow_process_events(running_machine &machine, int ingame, bool nodispatch)
+void winwindow_process_events(running_machine &machine, bool ingame, bool nodispatch)
 {
 	MSG message;
 
@@ -990,7 +990,7 @@ void winwindow_ui_pause(running_machine &machine, int pause)
 		}
 	}
 
-	if (LOG_TEMP_PAUSE)
+	if (IS_ENABLED(LOG_TEMP_PAUSE))
 		osd_printf_verbose("winwindow_ui_pause(): %d --> %d\n", old_temp_pause, ui_temp_pause);
 }
 

@@ -673,7 +673,7 @@ void mame_ui_manager::set_show_fps(bool show)
 	m_showfps = show;
 	if (!show)
 	{
-		m_showfps = 0;
+		m_showfps = false;
 		m_showfps_end = 0;
 	}
 }
@@ -901,7 +901,7 @@ bool mame_ui_manager::can_paste()
 
 	// free the string if allocated
 	if (text != nullptr)
-		osd_free(text);
+		free(text);
 
 	// did we have text?
 	return text != nullptr;
@@ -924,7 +924,7 @@ void mame_ui_manager::paste()
 		machine().ioport().natkeyboard().post_utf8(text);
 
 		// free the string
-		osd_free(text);
+		free(text);
 	}
 }
 

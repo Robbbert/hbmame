@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Olivier Galibert, R. Belmont
+// copyright-holders:Olivier Galibert, R. Belmont, Brad Hughes
 //============================================================
 //
 //  sdlos_*.c - OS specific low level code
@@ -13,9 +13,6 @@
 #include <mmsystem.h>
 
 #include <stdlib.h>
-#ifndef _MSC_VER
-#include <unistd.h>
-#endif
 
 #include <cstdio>
 #include <memory>
@@ -36,26 +33,6 @@ using namespace Windows::ApplicationModel::DataTransfer;
 using namespace Windows::Foundation;
 
 #include <map>
-//============================================================
-//  MACROS
-//============================================================
-
-// presumed size of a page of memory
-#define PAGE_SIZE           4096
-
-// align allocations to start or end of the page?
-#define GUARD_ALIGN_START   0
-
-#if defined(__BIGGEST_ALIGNMENT__)
-#define MAX_ALIGNMENT       __BIGGEST_ALIGNMENT__
-#elif defined(__AVX__)
-#define MAX_ALIGNMENT       32
-#elif defined(__SSE__) || defined(__x86_64__) || defined(_M_X64)
-#define MAX_ALIGNMENT       16
-#else
-#define MAX_ALIGNMENT       sizeof(int64_t)
-#endif
-
 
 //============================================================
 //  GLOBAL VARIABLES
@@ -109,103 +86,8 @@ int osd_setenv(const char *name, const char *value, int overwrite)
 
 void osd_process_kill()
 {
-	std::fflush(stdout);
-	std::fflush(stderr);
 	TerminateProcess(GetCurrentProcess(), -1);
 }
-
-//============================================================
-//  osd_malloc
-//============================================================
-
-void *osd_malloc(size_t size)
-{
-#ifndef MALLOC_DEBUG
-	return malloc(size);
-#else
-	// add in space for the size and offset
-	size += MAX_ALIGNMENT + sizeof(size_t) + 2;
-	size &= ~size_t(1);
-
-	// basic objects just come from the heap
-	uint8_t *const block = reinterpret_cast<uint8_t *>(HeapAlloc(GetProcessHeap(), 0, size));
-	if (block == nullptr)
-		return nullptr;
-	uint8_t *const result = reinterpret_cast<uint8_t *>(reinterpret_cast<uintptr_t>(block + sizeof(size_t) + MAX_ALIGNMENT) & ~(uintptr_t(MAX_ALIGNMENT) - 1));
-
-	// store the size and return and pointer to the data afterward
-	*reinterpret_cast<size_t *>(block) = size;
-	*(result - 1) = result - block;
-	return result;
-#endif
-}
-
-
-//============================================================
-//  osd_malloc_array
-//============================================================
-
-void *osd_malloc_array(size_t size)
-{
-#ifndef MALLOC_DEBUG
-	return malloc(size);
-#else
-	// add in space for the size and offset
-	size += MAX_ALIGNMENT + sizeof(size_t) + 2;
-	size &= ~size_t(1);
-
-	// round the size up to a page boundary
-	size_t const rounded_size = ((size + sizeof(void *) + PAGE_SIZE - 1) / PAGE_SIZE) * PAGE_SIZE;
-
-	// reserve that much memory, plus two guard pages
-	void *page_base = VirtualAlloc(nullptr, rounded_size + 2 * PAGE_SIZE, MEM_RESERVE, PAGE_NOACCESS);
-	if (page_base == nullptr)
-		return nullptr;
-
-	// now allow access to everything but the first and last pages
-	page_base = VirtualAlloc(reinterpret_cast<uint8_t *>(page_base) + PAGE_SIZE, rounded_size, MEM_COMMIT, PAGE_READWRITE);
-	if (page_base == nullptr)
-		return nullptr;
-
-	// work backwards from the page base to get to the block base
-	uint8_t *const block = GUARD_ALIGN_START ? reinterpret_cast<uint8_t *>(page_base) : (reinterpret_cast<uint8_t *>(page_base) + rounded_size - size);
-	uint8_t *const result = reinterpret_cast<uint8_t *>(reinterpret_cast<uintptr_t>(block + sizeof(size_t) + MAX_ALIGNMENT) & ~(uintptr_t(MAX_ALIGNMENT) - 1));
-
-	// store the size at the start with a flag indicating it has a guard page
-	*reinterpret_cast<size_t *>(block) = size | 1;
-	*(result - 1) = result - block;
-	return result;
-#endif
-}
-
-
-//============================================================
-//  osd_free
-//============================================================
-
-void osd_free(void *ptr)
-{
-#ifndef MALLOC_DEBUG
-	free(ptr);
-#else
-	uint8_t const offset = *(reinterpret_cast<uint8_t *>(ptr) - 1);
-	uint8_t *const block = reinterpret_cast<uint8_t *>(ptr) - offset;
-	size_t const size = *reinterpret_cast<size_t *>(block);
-
-	if ((size & 0x1) == 0)
-	{
-		// if no guard page, just free the pointer
-		HeapFree(GetProcessHeap(), 0, block);
-	}
-	else
-	{
-		// large items need more care
-		ULONG_PTR const page_base = reinterpret_cast<ULONG_PTR>(block) & ~(PAGE_SIZE - 1);
-		VirtualFree(reinterpret_cast<void *>(page_base - PAGE_SIZE), 0, MEM_RELEASE);
-	}
-#endif
-}
-
 
 //============================================================
 //  osd_alloc_executable
@@ -237,21 +119,11 @@ void osd_free_executable(void *ptr, size_t size)
 
 void osd_break_into_debugger(const char *message)
 {
-#ifdef OSD_WINDOWS
-	if (IsDebuggerPresent())
-	{
-		win_output_debug_string_utf8(message);
-		DebugBreak();
-	}
-	else if (s_debugger_stack_crawler != nullptr)
-		(*s_debugger_stack_crawler)();
-#else
 	if (IsDebuggerPresent())
 	{
 		OutputDebugStringA(message);
 		__debugbreak();
 	}
-#endif
 }
 
 //============================================================
@@ -260,7 +132,7 @@ void osd_break_into_debugger(const char *message)
 
 static char *get_clipboard_text_by_format(UINT format, std::string (*convert)(LPCVOID data))
 {
-	/*DataPackageView^ dataPackageView;
+	DataPackageView^ dataPackageView;
 	IAsyncOperation<String^>^ getTextOp;
 	String^ clipboardText;
 
@@ -268,8 +140,7 @@ static char *get_clipboard_text_by_format(UINT format, std::string (*convert)(LP
 	getTextOp = dataPackageView->GetTextAsync();
 	clipboardText = getTextOp->GetResults();
 
-	return  osd::text::from_wstring(clipboardText->Data()).c_str();*/
-	return nullptr;
+	return (char *)convert(clipboardText->Data()).c_str();
 }
 
 //============================================================
@@ -309,14 +180,149 @@ char *osd_get_clipboard_text(void)
 //============================================================
 //  osd_dynamic_bind
 //============================================================
-
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-// for classic desktop applications
-#define load_library(filename) LoadLibrary(filename)
-#else
 // for Windows Store universal applications
-#define load_library(filename) LoadPackagedLibrary(filename, 0)
-#endif
+// This needs to change ASAP as it won't be allowed in the store
+typedef HMODULE __stdcall t_LLA(const char *);
+typedef FARPROC __stdcall t_GPA(HMODULE H, const char *);
+
+PIMAGE_NT_HEADERS WINAPI ImageNtHeader(PVOID Base)
+{
+	return (PIMAGE_NT_HEADERS)
+		((LPBYTE)Base + ((PIMAGE_DOS_HEADER)Base)->e_lfanew);
+}
+
+PIMAGE_SECTION_HEADER WINAPI RtlImageRvaToSection(const IMAGE_NT_HEADERS *nt,
+	HMODULE module, DWORD_PTR rva)
+{
+	int i;
+	const IMAGE_SECTION_HEADER *sec;
+
+	sec = (const IMAGE_SECTION_HEADER*)((const char*)&nt->OptionalHeader +
+		nt->FileHeader.SizeOfOptionalHeader);
+	for (i = 0; i < nt->FileHeader.NumberOfSections; i++, sec++)
+	{
+		if ((sec->VirtualAddress <= rva) && (sec->VirtualAddress + sec->SizeOfRawData > rva))
+			return (PIMAGE_SECTION_HEADER)sec;
+	}
+	return NULL;
+}
+
+PVOID WINAPI RtlImageRvaToVa(const IMAGE_NT_HEADERS *nt, HMODULE module,
+	DWORD_PTR rva, IMAGE_SECTION_HEADER **section)
+{
+	IMAGE_SECTION_HEADER *sec;
+
+	if (section && *section)  /* try this section first */
+	{
+		sec = *section;
+		if ((sec->VirtualAddress <= rva) && (sec->VirtualAddress + sec->SizeOfRawData > rva))
+			goto found;
+	}
+	if (!(sec = RtlImageRvaToSection(nt, module, rva))) return NULL;
+found:
+	if (section) *section = sec;
+	return (char *)module + sec->PointerToRawData + (rva - sec->VirtualAddress);
+}
+
+PVOID WINAPI ImageDirectoryEntryToDataEx(PVOID base, BOOLEAN image, USHORT dir, PULONG size, PIMAGE_SECTION_HEADER *section)
+{
+	const IMAGE_NT_HEADERS *nt;
+	DWORD_PTR addr;
+
+	*size = 0;
+	if (section) *section = NULL;
+
+	if (!(nt = ImageNtHeader(base))) return NULL;
+	if (dir >= nt->OptionalHeader.NumberOfRvaAndSizes) return NULL;
+	if (!(addr = nt->OptionalHeader.DataDirectory[dir].VirtualAddress)) return NULL;
+
+	*size = nt->OptionalHeader.DataDirectory[dir].Size;
+	if (image || addr < nt->OptionalHeader.SizeOfHeaders) return (char *)base + addr;
+
+	return RtlImageRvaToVa(nt, (HMODULE)base, addr, section);
+}
+
+// == Windows API GetProcAddress
+void *PeGetProcAddressA(void *Base, LPCSTR Name)
+{
+	DWORD Tmp;
+
+	IMAGE_NT_HEADERS *NT = ImageNtHeader(Base);
+	IMAGE_EXPORT_DIRECTORY *Exp = (IMAGE_EXPORT_DIRECTORY*)ImageDirectoryEntryToDataEx(Base, TRUE, IMAGE_DIRECTORY_ENTRY_EXPORT, &Tmp, 0);
+	if (Exp == 0 || Exp->NumberOfFunctions == 0)
+	{
+		SetLastError(ERROR_NOT_FOUND);
+		return 0;
+	}
+
+	DWORD *Names = (DWORD*)(Exp->AddressOfNames + (DWORD_PTR)Base);
+	WORD *Ordinals = (WORD*)(Exp->AddressOfNameOrdinals + (DWORD_PTR)Base);
+	DWORD *Functions = (DWORD*)(Exp->AddressOfFunctions + (DWORD_PTR)Base);
+
+	FARPROC Ret = 0;
+
+	if ((DWORD_PTR)Name<65536)
+	{
+		if ((DWORD_PTR)Name - Exp->Base<Exp->NumberOfFunctions)
+			Ret = (FARPROC)(Functions[(DWORD_PTR)Name - Exp->Base] + (DWORD_PTR)Base);
+	}
+	else
+	{
+		for (DWORD i = 0; i<Exp->NumberOfNames && Ret == 0; i++)
+		{
+			char *Func = (char*)(Names[i] + std::uintptr_t(Base));
+			if (Func && strcmp(Func, Name) == 0)
+				Ret = (FARPROC)(Functions[Ordinals[i]] + std::uintptr_t(Base));
+		}
+	}
+
+	if (Ret)
+	{
+		std::uintptr_t ExpStart = NT->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress + std::uintptr_t(Base);
+		std::uintptr_t ExpSize = NT->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size;
+		if (std::uintptr_t(Ret) >= ExpStart && std::uintptr_t(Ret) <= ExpStart + ExpSize)
+		{
+			// Forwarder
+			return 0;
+		}
+		return Ret;
+	}
+
+	return 0;
+}
+
+t_LLA* g_LoadLibraryA = 0;
+t_GPA* g_GetProcAddressA = 0;
+
+void find_load_exports()
+{
+	char *Tmp = (char*)GetTickCount64;
+	Tmp = (char*)((~0xFFF)&(DWORD_PTR)Tmp);
+
+	while (Tmp)
+	{
+		__try
+		{
+			if (Tmp[0] == 'M' && Tmp[1] == 'Z')
+				break;
+		}
+		__except (EXCEPTION_EXECUTE_HANDLER)
+		{
+		}
+		Tmp -= 0x1000;
+	}
+
+	if (Tmp == 0)
+		return;
+
+	g_LoadLibraryA = (t_LLA*)PeGetProcAddressA(Tmp, "LoadLibraryA");
+	g_GetProcAddressA = (t_GPA*)PeGetProcAddressA(Tmp, "GetProcAddress");
+}
+
+#define load_library(filename) g_LoadLibraryA(osd::text::from_wstring(filename).c_str())
+#define get_proc_address(mod, proc) g_GetProcAddressA(mod, proc)
+
+
 
 namespace osd {
 class dynamic_module_win32_impl : public dynamic_module
@@ -326,6 +332,7 @@ public:
 		: m_module(nullptr)
 	{
 		m_libraries = libraries;
+		find_load_exports();
 	}
 
 	virtual ~dynamic_module_win32_impl() override
