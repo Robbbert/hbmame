@@ -462,7 +462,7 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 	Edit_SetSel(hEdit, textLength, textLength);
 	SendMessage( hEdit, EM_REPLACESEL, FALSE, (WPARAM)(LPCTSTR)win_tstring_strdup(t_s) );
 
-	osd_free(t_s);
+	free(t_s);
 }
 
 static const char * StatusString(int iStatus)

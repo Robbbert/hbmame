@@ -241,7 +241,7 @@ enum
 
 
 //========================================================================
-//  LOCAL STRING FUNCTIONS (these require osd_free after being called)
+//  LOCAL STRING FUNCTIONS (these require free after being called)
 //========================================================================
 
 static WCHAR *ui_wstring_from_utf8(const char *utf8string)
@@ -251,7 +251,7 @@ static WCHAR *ui_wstring_from_utf8(const char *utf8string)
 
 	// convert MAME string (UTF-8) to UTF-16
 	char_count = MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, nullptr, 0);
-	result = (WCHAR *)osd_malloc_array(char_count * sizeof(*result));
+	result = (WCHAR *)malloc(char_count * sizeof(*result));
 	if (result != nullptr)
 		MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, result, char_count);
  
@@ -265,7 +265,7 @@ static char *ui_utf8_from_wstring(const WCHAR *wstring)
 
 	// convert UTF-16 to MAME string (UTF-8)
 	char_count = WideCharToMultiByte(CP_UTF8, 0, wstring, -1, nullptr, 0, nullptr, nullptr);
-	result = (char *)osd_malloc_array(char_count * sizeof(*result));
+	result = (char *)malloc(char_count * sizeof(*result));
 	if (result != nullptr)
 		WideCharToMultiByte(CP_UTF8, 0, wstring, -1, result, char_count, nullptr, nullptr);
 	return result;
@@ -305,7 +305,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 			t_filter[i] = (buffer[i] != '|') ? buffer[i] : '\0';
 		t_filter[i++] = '\0';
 		t_filter[i++] = '\0';
-		osd_free(buffer);
+		free(buffer);
 	}
 
 	// do we need to translate the file parameter?
@@ -318,7 +318,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 		t_file_size = ((_tcslen(buffer) + 1) > MAX_PATH) ? (_tcslen(buffer) + 1) : MAX_PATH;
 		t_file = (LPTSTR) alloca(t_file_size * sizeof(*t_file));
 		_tcscpy(t_file, buffer);
-		osd_free(buffer);
+		free(buffer);
 	}
 
 	// do we need to translate the initial directory?
@@ -373,7 +373,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 			goto done;
 
 		snprintf(ofn->filename, ARRAY_LENGTH(ofn->filename), "%s", utf8_file);
-		osd_free(utf8_file);
+		free(utf8_file);
 	}
 
 	// we've completed the process
@@ -381,7 +381,7 @@ static BOOL win_get_file_name_dialog(win_open_file_name *ofn)
 
 done:
 	if (t_initial_directory)
-		osd_free(t_initial_directory);
+		free(t_initial_directory);
 	return result;
 }
 
@@ -469,7 +469,7 @@ static BOOL win_append_menu_utf8(HMENU menu, UINT flags, UINT_PTR id, const char
 	result = AppendMenu(menu, flags, id, t_item);
 
 	if (t_str)
-		osd_free(t_str);
+		free(t_str);
 
 	return result;
 }
@@ -626,7 +626,7 @@ dialog_box *win_dialog_init(const char *title, const struct dialog_layout *layou
 
 	w_title = ui_wstring_from_utf8(title);
 	rc = dialog_write_string(di, w_title);
-	osd_free(w_title);
+	free(w_title);
 	if (rc)
 		goto error;
 
@@ -842,7 +842,7 @@ static int dialog_write_item(dialog_box *di, DWORD style, short x, short y, shor
 	w_str = str ? ui_wstring_from_utf8(str) : NULL;
 	rc = dialog_write_string(di, w_str);
 	if (w_str)
-		osd_free(w_str);
+		free(w_str);
 	if (rc)
 		return 1;
 
@@ -1262,7 +1262,7 @@ static int win_dialog_add_adjuster(dialog_box *dialog, const char *item_label, i
 
 	_sntprintf(buf, ARRAY_LENGTH(buf), is_percentage ? TEXT("%d%%") : TEXT("%d"), default_value);
 	s = win_dialog_tcsdup(dialog, buf);
-	osd_free(buf);
+
 	if (!s)
 		return 1;
 	if (dialog_add_trigger(dialog, dialog->item_count, TRIGGER_INITDIALOG, WM_SETTEXT, NULL, 0, (LPARAM) s, NULL, NULL))
@@ -2437,13 +2437,13 @@ static HMENU find_sub_menu(HMENU menu, const char *menutext, bool create_sub_men
 		{
 			if (!get_menu_item_string(menu, ++i, TRUE, &sub_menu, buf, ARRAY_LENGTH(buf)))
 			{
-				osd_free(t_menutext);
+				free(t_menutext);
 				return NULL;
 			}
 		}
 		while(_tcscmp(t_menutext, buf));
 
-		osd_free(t_menutext);
+		free(t_menutext);
 
 		if (!sub_menu && create_sub_menu)
 		{
@@ -2685,7 +2685,7 @@ static void prepare_menus(HWND wnd)
 	{
 		TCHAR *t_view_name = ui_wstring_from_utf8(view_name);
 		InsertMenu(video_menu, i, MF_BYPOSITION | (i == view_index ? MF_CHECKED : 0), ID_VIDEO_VIEW_0 + i, t_view_name);
-		osd_free(t_view_name);
+		free(t_view_name);
 		i++;
 	}
 
@@ -2903,8 +2903,8 @@ static void help_display(HWND wnd, const char *chapter)
 //	_tcscat(szSite, TEXT(".html"));
 //	ShellExecute(wnd, TEXT("open"), TEXT("http://www.microsoft.com/directx"), TEXT(""), NULL, SW_SHOWNORMAL);
 	ShellExecute(wnd, TEXT("open"), t_chapter, TEXT(""), NULL, SW_SHOWNORMAL);
-	osd_free(t_chapter);
-//	osd_free(szSite);
+	free(t_chapter);
+//	free(szSite);
 }
 
 
@@ -3214,7 +3214,7 @@ static void set_menu_text(HMENU menu_bar, int command, const char *text)
 	SetMenuItemInfo(menu_bar, command, FALSE, &mii);
 
 	// cleanup
-	osd_free(t_text);
+	free(t_text);
 }
 
 

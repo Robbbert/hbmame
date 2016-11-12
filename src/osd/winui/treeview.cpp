@@ -159,8 +159,8 @@ static BOOL win_move_file_utf8(const char* existingfilename, const char* newfile
 
 	result = MoveFile(t_existingfilename, t_newfilename);
 
-	osd_free(t_newfilename);
-	osd_free(t_existingfilename);
+	free(t_newfilename);
+	free(t_existingfilename);
 
 	return result;
 }
@@ -1579,7 +1579,7 @@ static void DeleteFolder(LPTREEFOLDER lpFolder)
 			DeleteBits(lpFolder->m_lpGameBits);
 			lpFolder->m_lpGameBits = 0;
 		}
-		osd_free(lpFolder->m_lptTitle);
+		free(lpFolder->m_lptTitle);
 		lpFolder->m_lptTitle = 0;
 		free(lpFolder->m_lpTitle);
 		lpFolder->m_lpTitle = 0;

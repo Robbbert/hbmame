@@ -149,7 +149,7 @@ static void DirInfo_SetDir(tDirInfo *pInfo, int nType, int nItem, LPCTSTR pText)
 			return;
 		t_pOldText = pInfo[nType].m_tDirectory;
 		if (t_pOldText)
-			osd_free(t_pOldText);
+			free(t_pOldText);
 		pInfo[nType].m_tDirectory = t_s;
 	}
 }
@@ -285,7 +285,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 		if( !t_s )
 			return FALSE;
 		(void)ComboBox_InsertString(GetDlgItem(hDlg, IDC_DIR_COMBO), 0, win_tstring_strdup(t_s));
-		osd_free(t_s);
+		free(t_s);
 		t_s = NULL;
 	}
 
@@ -330,7 +330,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 		{
 			DirInfo_SetDir(g_pDirInfo, i, -1, t_s);
 		}
-		osd_free(t_s);
+		free(t_s);
 		t_s = NULL;
 	}
 
@@ -339,7 +339,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 
 error:
 	if( t_s )
-		osd_free(t_s);
+		free(t_s);
 	Directories_OnDestroy(hDlg);
 	EndDialog(hDlg, -1);
 	return FALSE;
@@ -361,7 +361,7 @@ static void Directories_OnDestroy(HWND hDlg)
 			if (g_pDirInfo[i].m_Path)
 				free(g_pDirInfo[i].m_Path);
 			if (g_pDirInfo[i].m_tDirectory)
-				osd_free(g_pDirInfo[i].m_tDirectory);
+				free(g_pDirInfo[i].m_tDirectory);
 		}
 		free(g_pDirInfo);
 		g_pDirInfo = NULL;
@@ -394,7 +394,7 @@ static int RetrieveDirList(int nDir, int nFlagResult, void (*SetTheseDirs)(const
 		}
 		utf8_buf = ui_utf8_from_wstring(buf);
 		SetTheseDirs(utf8_buf);
-		osd_free(utf8_buf);
+		free(utf8_buf);
 
 		nResult |= nFlagResult;
 	}
@@ -419,7 +419,7 @@ static void Directories_OnOk(HWND hDlg)
 			s = FixSlash(DirInfo_Dir(g_pDirInfo, i));
 			utf8_s = ui_utf8_from_wstring(s);
 			g_directoryInfo[i].pfnSetTheseDirs(utf8_s);
-			osd_free(utf8_s);
+			free(utf8_s);
 		}
 	}
 	EndDialog(hDlg, nResult);

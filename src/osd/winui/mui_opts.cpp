@@ -2073,7 +2073,7 @@ static void FontDecodeString(const char* str, LOGFONT *f)
 		if( !t_ptr )
 			return;
 		_tcscpy(f->lfFaceName, t_ptr);
-		osd_free(t_ptr);
+		free(t_ptr);
 	}
 }
 
@@ -2100,7 +2100,7 @@ static void FontEncodeString(const LOGFONT *f, char *str)
 			f->lfPitchAndFamily,
 			utf8_FaceName);
 
-	osd_free(utf8_FaceName);
+	free(utf8_FaceName);
 }
 
 static void TabFlagsEncodeString(int data, char *str)

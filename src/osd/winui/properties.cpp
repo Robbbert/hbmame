@@ -569,7 +569,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		win_message_box_utf8(0, temp, "Error", IDOK);
 	}
 
-	osd_free(t_description);
+	free(t_description);
 	free(pspage);
 }
 
@@ -1759,7 +1759,7 @@ static BOOL ScreenReadControl(datamap *map, HWND dialog, HWND control, windows_o
 	snprintf(screen_option_name, ARRAY_LENGTH(screen_option_name), "screen%d", selected_screen);
 	op_val = ui_utf8_from_wstring(screen_option_value);
 	opts->set_value(screen_option_name, op_val, OPTION_PRIORITY_CMDLINE,error_string);
-	osd_free(op_val);
+	free(op_val);
 	return FALSE;
 }
 
@@ -1798,7 +1798,7 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 				return FALSE;
 			if (_tcscmp(t_option, dd.DeviceName) == 0)
 				nSelection = i+1;
-			osd_free(t_option);
+			free(t_option);
 		}
 	}
 	res = ComboBox_SetCurSel(control, nSelection);
@@ -1872,7 +1872,7 @@ static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, win
 	input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
 	op_val = ui_utf8_from_wstring(input_option_value);
 	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE,error_string);
-	osd_free(op_val);
+	free(op_val);
 	return FALSE;
 }
 
@@ -1914,13 +1914,13 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	if( !t_ctrldir )
 	{
 		if( t_buf )
-			osd_free(t_buf);
+			free(t_buf);
 		return FALSE;
 	}
 
 	_stprintf (path, TEXT("%s\\*.*"), t_ctrldir);
 
-	osd_free(t_ctrldir);
+	free(t_ctrldir);
 
 	hFind = FindFirstFile(path, &FindFileData);
 
@@ -1960,7 +1960,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	res = ComboBox_SetCurSel(control, selected);
 
 	if( t_buf )
-		osd_free(t_buf);
+		free(t_buf);
 
 	res++;
 	return FALSE;
@@ -2087,7 +2087,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 				}
 			}
 		}
-		osd_free(t_screen);
+		free(t_screen);
 
 		res = ComboBox_SetCurSel(sizes_control, sizes_selection);
 		res = ComboBox_SetCurSel(refresh_control, refresh_selection);
@@ -2664,7 +2664,7 @@ static void InitializeBIOSUI(HWND hwnd)
 							return;
 						res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
 						res = ComboBox_SetItemData( hCtrl, i++, biosname);
-						osd_free(t_s);
+						free(t_s);
 					}
 				}
 			}
@@ -2694,7 +2694,7 @@ static void InitializeBIOSUI(HWND hwnd)
 						return;
 					res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
 					res = ComboBox_SetItemData( hCtrl, i++, biosname);
-					osd_free(t_s);
+					free(t_s);
 				}
 			}
 		}
@@ -2990,7 +2990,7 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 	// finish up
 	AppendList(control, TEXT(DIRLIST_NEWENTRYTEXT), current_item);
 	ListView_SetItemState(control, 0, LVIS_SELECTED, LVIS_SELECTED);
-	osd_free(t_dir_list);
+	free(t_dir_list);
 	res++;
 	b_res++;
 	return TRUE;
@@ -3068,7 +3068,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 			res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
 			res = ComboBox_SetItemData(control, i, ram);
 
-			osd_free(t_ramstring);
+			free(t_ramstring);
 		}
 		if (ramdev->extra_options())
 		{
@@ -3098,7 +3098,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 				res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
 				res = ComboBox_SetItemData(control, i, ram);
 
-				osd_free(t_ramstring);
+				free(t_ramstring);
 
 				// is this the current option?  record the index if so
 				if (ram == current_ram)
@@ -3111,7 +3111,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 				p++;
 			}
 
-			osd_free(s);
+			free(s);
 		}
 
 		// set the combo box
