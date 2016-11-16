@@ -1000,7 +1000,7 @@ GAME( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps_state, cps2, ROT0, "
 GAME( 2014, ddsomchs,   ddsom,    cps2,      cps2_4p4b, cps_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (chinese)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsomhp,    ddsom,    cps2,      cps2_4p4b, cps_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (HP Revision hack by Pipi899, cheat by sssskkkk 2009-06-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsomjfs,   ddsom,    cps2,      cps2_4p4b, cps_state, cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (Final Strike hack by e107 2009-07-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, halfway,    progear,  dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "hack", "Halfway to Hell - Progear Red Label (2016-01-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, halfway,    progear,  dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Halfway House", "Halfway to Hell - Progear Red Label (2016-01-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mpangjd,    mpang,    dead_cps2, cps2_2p3b, cps_state, cps2, ROT0, "Razoola", "Mighty! Pang (Japan 001011 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, mshjphp,    msh,      cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Pipi899", "Marvel Super Heroes (Power hack by Pipi899)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, mshyh,      msh,      cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Yumeji", "Marvel Super Heroes (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )

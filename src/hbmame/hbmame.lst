@@ -21,7 +21,8 @@ galagax 	/* Jerky - Chris Moore hack of 1942 */
 
 	/* 8080bw */
 invaders	//parent
-invmulti
+tst_invd	// test rom
+invmulti	//parent
 invmultim1a
 invmultim2a
 invmultim2c
@@ -31,7 +32,7 @@ invmultis1a
 invmultis2a
 invmultis3a
 invmultit3d
-tst_invd	// test rom
+invrvnge	//parent for ir
 
 	/* arkanoid */
 arkanoid	//parent
@@ -287,53 +288,121 @@ wofr1h
 wofsf2
 
 	/* cps2 */
-1944		//parent
-1944da
+// CPS2 PARENTS ***
+1944
+19xx
+armwar
+avsp
+batcir
+csclub
+cybots
+ddsom
+ddtod
+dimahoo
+dstlk
+ecofghtr
+gigawing
+hsf2
+megaman2
+mmatrix 
+mpang
+msh
+mshvsf
+mvsc
+nwarr
+progear
+ringdest
+sfa
+sfa2
+sfa3
+sfz2al
+sgemf
+spf2t
+ssf2
+ssf2t
+vhunt2
+vsav
+vsav2
+xmcota
+xmvsf
+// CPS2 HACKS ***
 1944fp
-ddsom		//parent
 ddsomavs
 ddsomchs
 ddsomhp
 ddsomjfs
-dstlk		//parent
-halfway		// progear hack
-mpang		//parent
-mpangjd
-msh			//parent
+halfway		// progear hack by The Halfway House
 mshjphp
 mshyh
-mvsc		//parent
 mvscjemb
 mvscjphp
 //mvscrcp // reboots shortly after start
 //mvscuh // reboots shortly after start
 pfghtjrm
-progear		//parent
 suicide		/* Razoola */
 suicide2	/* Razoola */
-sfa			//parent
-sfa2		//parent
 sfa2h
-sfaud
 sfz2abr
-sgemf		//parent
 sgemfch
-ssf2
-ssf2r1d
-ssf2t		//parent
-ssf2td
-spf2t		//parent
 spf2tb		// boss hack
 vampjb
-vsav2		//parent
 vsav2emb
-xmcota		//parent
 xmcotajb
 xmcotajphp
-xmvsf		//parent
 xmvsfjphp
 xmvsfrm
 xmvsfryh
+// CPS2 PHOENIX ***
+1944d
+1944da
+19xxd
+armwar1d
+avspd
+batcird
+csclub1d
+cybotsud
+cybotsjd
+dimahoud
+ddsomud
+ddtodd
+dstlku1d
+ecofghtrd
+gigaman2
+gigawingd
+gigawingjd
+hsf2d
+megamn2d
+mmatrixd
+mpangjd
+mshud
+mshvsfu1d
+mvscud
+nwarrud
+progearud
+progearjd
+progearjbl
+ringdstd
+sfa3ud
+sfad
+sfaud
+sfz2ad
+sfz2ald
+sfz2jd
+sfz3jr2d
+sgemfd
+spf2td
+ssf2r1d
+ssf2td
+spf2xjd
+ssf2tad
+ssf2tbd
+ssf2ud
+ssf2xjr1d
+vhunt2d
+vsavd
+vsav2d
+xmcotar1d
+xmvsfu1d
 
 	/* cps3 */
 redearth	//parent
@@ -471,7 +540,7 @@ qbertb
 vbert
 
 	/* ir */
-invrvnge	// extra sounds
+ir			// extra sounds
 
 	/* itech8 */
 itecdemo	/* Charles Doty */
