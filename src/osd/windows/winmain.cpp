@@ -36,6 +36,9 @@
 #include "modules/monitor/monitor_common.h"
 
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#include <wrl/client.h>
+using namespace Windows::Storage;
+using namespace Platform;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::UI::Popups;
@@ -95,9 +98,9 @@ class winuniversal_output_error : public osd_output
 public:
 	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args) override
 	{
+		char buffer[2048];
 		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
 		{
-			char buffer[1024];
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
 
 			std::wstring wcbuffer(osd::text::to_wstring(buffer));
@@ -105,6 +108,15 @@ public:
 
 			auto dlg = ref new MessageDialog(ref new Platform::String(wcbuffer.data()), ref new Platform::String(wcbuffer.data()));
 			dlg->ShowAsync();
+		}
+		else if (channel == OSD_OUTPUT_CHANNEL_VERBOSE)
+		{
+			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
+			std::wstring wcbuffer = osd::text::to_wstring(buffer);
+			OutputDebugString(wcbuffer.c_str());
+
+			// Chain to next anyway
+			chain_output(channel, msg, args);
 		}
 		else
 			chain_output(channel, msg, args);
@@ -355,6 +367,8 @@ int main(Platform::Array<Platform::String^>^ args)
 
 MameMainApp::MameMainApp()
 {
+	// Turn off application view scaling so XBOX gets full screen
+	Windows::UI::ViewManagement::ApplicationViewScaling::TrySetDisableLayoutScaling(true);
 }
 
 void MameMainApp::Initialize(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView)
@@ -425,6 +439,20 @@ windows_options::windows_options()
 : osd_options()
 {
 	add_entries(s_option_entries);
+#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)	
+	String^ path = ApplicationData::Current->LocalFolder->Path + L"\\";
+	set_default_value(OPTION_INIPATH, (osd::text::from_wstring((LPCWSTR)path->Data()) + ";" + ini_path()).c_str());
+	set_default_value(OPTION_CFG_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) +  cfg_directory()).c_str());
+	set_default_value(OPTION_NVRAM_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) + nvram_directory()).c_str());
+	set_default_value(OPTION_INPUT_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) + input_directory()).c_str());
+	set_default_value(OPTION_STATE_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) + state_directory()).c_str());
+	set_default_value(OPTION_SNAPSHOT_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) + snapshot_directory()).c_str());
+	set_default_value(OPTION_DIFF_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) + diff_directory()).c_str());
+	set_default_value(OPTION_COMMENT_DIRECTORY, (osd::text::from_wstring((LPCWSTR)path->Data()) + comment_directory()).c_str());
+
+	set_default_value(OPTION_HOMEPATH, osd::text::from_wstring((LPCWSTR)path->Data()).c_str());
+	set_default_value(OPTION_MEDIAPATH, (osd::text::from_wstring((LPCWSTR)path->Data()) + media_path()).c_str());	
+#endif
 }
 
 
@@ -611,3 +639,4 @@ static int is_double_click_start(int argc)
 }
 
 #endif // WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+

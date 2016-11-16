@@ -131,7 +131,7 @@ void exidy440_sound_device::device_start()
 	m_mixer_buffer_left = make_unique_clear<int32_t[]>(clock());
 	m_mixer_buffer_right = make_unique_clear<int32_t[]>(clock());
 
-	if (IS_ENABLED(SOUND_LOG))
+	if (SOUND_LOG)
 		m_debuglog = fopen("sound.log", "w");
 }
 
@@ -141,7 +141,7 @@ void exidy440_sound_device::device_start()
 
 void exidy440_sound_device::device_stop()
 {
-	if (IS_ENABLED(SOUND_LOG) && m_debuglog)
+	if (SOUND_LOG && m_debuglog)
 		fclose(m_debuglog);
 }
 
@@ -775,7 +775,7 @@ void exidy440_sound_device::decode_and_filter_cvsd(uint8_t *input, int bytes, in
 	}
 
 	/* make sure the volume goes smoothly to 0 over the last 512 samples */
-	if (IS_ENABLED(FADE_TO_ZERO))
+	if (FADE_TO_ZERO)
 	{
 		int16_t *data;
 
