@@ -67,6 +67,7 @@ CPU_DISASSEMBLE( alpha8201 );
 CPU_DISASSEMBLE( am29000 );
 CPU_DISASSEMBLE( amis2000 );
 CPU_DISASSEMBLE( apexc );
+CPU_DISASSEMBLE( arcompact );
 CPU_DISASSEMBLE( arm );
 CPU_DISASSEMBLE( arm_be );
 CPU_DISASSEMBLE( arm7arm );
@@ -150,6 +151,7 @@ CPU_DISASSEMBLE( n8x300 );
 CPU_DISASSEMBLE( nec );
 CPU_DISASSEMBLE( nsc8105 );
 CPU_DISASSEMBLE( pdp1 );
+CPU_DISASSEMBLE( pdp8 );
 CPU_DISASSEMBLE( pic16c5x );
 CPU_DISASSEMBLE( pic16c62x );
 CPU_DISASSEMBLE( powerpc );
@@ -233,6 +235,7 @@ static const dasm_table_entry dasm_table[] =
 	{ "am29000",     _32be,  0, CPU_DISASSEMBLE_NAME(am29000) },
 	{ "amis2000",    _8bit,  0, CPU_DISASSEMBLE_NAME(amis2000) },
 	{ "apexc",       _32be,  0, CPU_DISASSEMBLE_NAME(apexc) },
+	{ "arcompact",   _16le,  0, CPU_DISASSEMBLE_NAME(arcompact) },
 	{ "arm",         _32le,  0, CPU_DISASSEMBLE_NAME(arm) },
 	{ "arm_be",      _32be,  0, CPU_DISASSEMBLE_NAME(arm_be) },
 	{ "arm7",        _32le,  0, CPU_DISASSEMBLE_NAME(arm7arm) },
@@ -318,6 +321,7 @@ static const dasm_table_entry dasm_table[] =
 	{ "nec",         _8bit,  0, CPU_DISASSEMBLE_NAME(nec) },
 	{ "nsc8105",     _8bit,  0, CPU_DISASSEMBLE_NAME(nsc8105) },
 	{ "pdp1",        _32be,  0, CPU_DISASSEMBLE_NAME(pdp1) },
+	{ "pdp8",        _16be,  0, CPU_DISASSEMBLE_NAME(pdp8) },
 	{ "pic16c5x",    _16le, -1, CPU_DISASSEMBLE_NAME(pic16c5x) },
 	{ "pic16c62x",   _16le, -1, CPU_DISASSEMBLE_NAME(pic16c62x) },
 	{ "powerpc",     _32be,  0, CPU_DISASSEMBLE_NAME(powerpc) },

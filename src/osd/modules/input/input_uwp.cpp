@@ -215,9 +215,10 @@ private ref class UwpKeyboardDevice : public UwpInputDevice
 private:
 	keyboard_state keyboard;
 	Platform::Agile<CoreWindow> m_coreWindow;
+	std::mutex m_state_lock;
 
 internal:
-	UwpKeyboardDevice(CoreWindow ^coreWindow, running_machine& machine, char *name, const char *id, input_module &module)
+	UwpKeyboardDevice(Platform::Agile<CoreWindow> coreWindow, running_machine& machine, char *name, const char *id, input_module &module)
 		: UwpInputDevice(machine, name, id, DEVICE_CLASS_KEYBOARD, module),
 		keyboard({{0}}),
 		m_coreWindow(coreWindow)
@@ -229,6 +230,7 @@ internal:
 
 	void Reset() override
 	{
+		std::lock_guard<std::mutex> scope_lock(m_state_lock);
 		memset(&keyboard, 0, sizeof(keyboard));
 	}
 
@@ -236,8 +238,8 @@ internal:
 	{
 		keyboard_trans_table &table = keyboard_trans_table::instance();
 
-		// populate it
-		for (int keynum = 0; keynum < MAX_KEYS; keynum++)
+		// populate it indexed by the scancode
+		for (int keynum = KEY_UNKNOWN + 1; keynum < MAX_KEYS; keynum++)
 		{
 			input_item_id itemid = table.map_di_scancode_to_itemid(keynum);
 			const char *keyname = table.ui_label_for_mame_key(itemid);
@@ -256,6 +258,7 @@ internal:
 
 	void OnKeyDown(CoreWindow^ win, KeyEventArgs^ args)
 	{
+		std::lock_guard<std::mutex> scope_lock(m_state_lock);
 		CorePhysicalKeyStatus status = args->KeyStatus;
 		int discancode = (status.ScanCode & 0x7f) | (status.IsExtendedKey ? 0x80 : 0x00);
 		keyboard.state[discancode] = 0x80;
@@ -263,6 +266,7 @@ internal:
 
 	void OnKeyUp(CoreWindow^ win, KeyEventArgs^ args)
 	{
+		std::lock_guard<std::mutex> scope_lock(m_state_lock);
 		CorePhysicalKeyStatus status = args->KeyStatus;
 		int discancode = (status.ScanCode & 0x7f) | (status.IsExtendedKey ? 0x80 : 0x00);
 		keyboard.state[discancode] = 0;
@@ -292,16 +296,14 @@ internal:
 	void input_init(running_machine &machine) override
 	{
 		auto first_window = std::static_pointer_cast<uwp_window_info>(osd_common_t::s_window_list.front());
-		CoreWindow ^coreWindow = first_window->uwp_window();
-
-		uwp_input_device *devinfo;
+		auto coreWindow = first_window->platform_window();
 
 		// allocate the UWP implementation of the device object
 		UwpKeyboardDevice ^refdevice = ref new UwpKeyboardDevice(coreWindow, machine, "UWP Keyboard 1", "UWP Keyboard 1", *this->NativeModule);
 
 		// Allocate the wrapper and add it to the list
 		auto created_devinfo = std::make_unique<uwp_input_device>(refdevice);
-		devinfo = NativeModule->devicelist()->add_device<uwp_input_device>(machine, std::move(created_devinfo));
+		uwp_input_device *devinfo = NativeModule->devicelist()->add_device<uwp_input_device>(machine, std::move(created_devinfo));
 
 		// Give the UWP implementation a handle to the input_device
 		refdevice->InputDevice = devinfo->device();
