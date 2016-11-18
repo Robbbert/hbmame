@@ -2773,7 +2773,7 @@ static void win_toggle_menubar(void)
 		RECT before_rect = { 100, 100, 200, 200 };
 		RECT after_rect = { 100, 100, 200, 200 };
 
-		hwnd = window->platform_window<HWND>();
+		hwnd = std::static_pointer_cast<win_window_info>(window)->platform_window();
 
 		// get current menu
 		menu = GetMenu(hwnd);
