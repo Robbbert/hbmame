@@ -71,9 +71,8 @@ void vis_audio_device::device_reset()
 
 void vis_audio_device::dack16_w(int line, uint16_t data)
 {
-	if(m_samples < ((m_dmalen & 2) ? 1 : 2))
-		m_sample[m_samples++] = data;
-	else
+	m_sample[m_samples++] = data;
+	if(m_samples >= ((m_dmalen & 2) ? 1 : 2))
 		m_isa->drq7_w(CLEAR_LINE);
 }
 
@@ -184,19 +183,19 @@ WRITE8_MEMBER(vis_audio_device::pcm_w)
 			break;
 		case 0x02:
 			m_data[0][m_index[0] & 0xf] = data;
-			break;
+			return;
 		case 0x03:
 			m_index[0] = data;
-			break;
+			return;
 		case 0x04:
 			m_data[1][m_index[1] & 0xf] = data;
-			break;
+			return;
 		case 0x05:
 			m_index[1] = data;
-			break;
+			return;
 		case 0x09:
 			m_dmalen = data;
-			break;
+			return;
 		case 0x0c:
 			m_count = (m_count & 0xff00) | data;
 			break;
@@ -205,10 +204,10 @@ WRITE8_MEMBER(vis_audio_device::pcm_w)
 			break;
 		case 0x0f:
 			//cdrom related?
-			break;
+			return;
 		default:
 			logerror("unknown pcm write %04x %02x\n", offset, data);
-			break;
+			return;
 	}
 	if((m_mode & 0x10) && (m_count != 0xffff))
 	{
@@ -247,6 +246,7 @@ private:
 	uint8_t m_extreg;
 	uint8_t m_interlace;
 	uint16_t m_wina, m_winb;
+	uint8_t m_shift256, m_dw;
 };
 
 const device_type VIS_VGA = &device_creator<vis_vga_device>;
@@ -397,6 +397,8 @@ void vis_vga_device::device_reset()
 	m_wina = 0;
 	m_winb = 0;
 	m_interlace = 0;
+	m_shift256 = 0;
+	m_dw = 0;
 }
 
 uint32_t vis_vga_device::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
@@ -477,19 +479,30 @@ WRITE8_MEMBER(vis_vga_device::vga_w)
 			{
 				case 0x19:
 					m_wina = (m_wina & 0xff00) | data;
-					return;
+					break;
 				case 0x18:
 					m_wina = (m_wina & 0xff) | (data << 8);
-					return;
+					break;
 				case 0x1d:
 					m_winb = (m_winb & 0xff00) | data;
-					return;
+					break;
 				case 0x1c:
 					m_winb = (m_winb & 0xff) | (data << 8);
-					return;
+					break;
+				case 0x1f:
+					if(data & 0x10)
+					{
+						vga.gc.shift256 = 1;
+						vga.crtc.dw = 1;
+					}
+					else
+					{
+						vga.gc.shift256 = m_shift256;
+						vga.crtc.dw = m_dw;
+					}
+					break;
 			}
-		break;
-
+			break;
 		case 0x16:
 			if(m_extcnt == 4)
 			{
@@ -501,19 +514,25 @@ WRITE8_MEMBER(vis_vga_device::vga_w)
 			break;
 		case 0x1f:
 			if(vga.gc.index == 0x05)
-				data |= 0x40;
+			{
+				m_shift256 = data & 0x40 ? 1 : 0;
+				// remove this if it is shown to be unneeded
+				//if(vga.sequencer.data[0x1f] | 0x10)
+					//data |= 0x40;
+			}
 			break;
 		case 0x05:
 		case 0x25:
 			switch(vga.crtc.index)
 			{
 				case 0x14:
-					data |= 0x40;
+					m_dw = data & 0x40 ? 1 : 0;
+					if(vga.sequencer.data[0x1f] | 0x10)
+						data |= 0x40;
 					break;
 				case 0x30:
 					m_interlace = data; // XXX: verify?
 					return;
-
 			}
 			break;
 	}
@@ -684,6 +703,7 @@ static ADDRESS_MAP_START( at16_io, AS_IO, 16, vis_state )
 	AM_RANGE(0x0080, 0x009f) AM_DEVREADWRITE8("mb", at_mb_device, page8_r, page8_w, 0xffff)
 	AM_RANGE(0x00a0, 0x00bf) AM_DEVREADWRITE8("mb:pic8259_slave", pic8259_device, read, write, 0xffff)
 	AM_RANGE(0x00c0, 0x00df) AM_DEVREADWRITE8("mb:dma8237_2", am9517a_device, read, write, 0x00ff)
+	AM_RANGE(0x00e0, 0x00e1) AM_NOP
 	AM_RANGE(0x023c, 0x023f) AM_READWRITE8(unk1_r, unk1_w, 0xffff)
 	AM_RANGE(0x0268, 0x026f) AM_READWRITE(pad_r, pad_w)
 	AM_RANGE(0x031a, 0x031b) AM_READ8(unk3_r, 0x00ff)
@@ -702,7 +722,7 @@ static INPUT_PORTS_START(vis)
 	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("A") PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
 	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_UNKNOWN ) PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_UNKNOWN ) PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
-	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_UNKNOWN ) PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
+	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("B") PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_UNKNOWN ) PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
 	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_CHANGED_MEMBER(DEVICE_SELF, vis_state, update, 0)
@@ -745,5 +765,5 @@ ROM_START(vis)
 	ROM_LOAD( "p513bk1b.bin", 0x80000, 0x80000, CRC(e18239c4) SHA1(a0262109e10a07a11eca43371be9978fff060bc5))
 ROM_END
 
-COMP ( 1992, vis,  0, 0, vis, vis, driver_device, 0, "Tandy/Memorex", "Video Information System MD-2500", MACHINE_NOT_WORKING )
+COMP ( 1992, vis,  0, 0, vis, vis, driver_device, 0, "Tandy/Memorex", "Video Information System MD-2500", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 

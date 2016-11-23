@@ -428,9 +428,9 @@ T lua_engine::region_read(memory_region &region, offs_t address)
 			continue;
 		mem_content <<= 8;
 		if(region.endianness() == ENDIANNESS_BIG)
-			mem_content |= region.u8((BYTE8_XOR_BE(addr) & lowmask) | (addr & ~lowmask));
+			mem_content |= region.as_u8((BYTE8_XOR_BE(addr) & lowmask) | (addr & ~lowmask));
 		else
-			mem_content |= region.u8((BYTE8_XOR_LE(addr) & lowmask) | (addr & ~lowmask));
+			mem_content |= region.as_u8((BYTE8_XOR_LE(addr) & lowmask) | (addr & ~lowmask));
 	}
 
 	return mem_content;
@@ -787,10 +787,7 @@ void lua_engine::initialize()
  * thread.yield - check if thread is yielded
 */
 
-	emu.new_usertype<context>("thread", sol::call_constructor, sol::initializers([](context &ctx) {
-					ctx.busy = false;
-					ctx.yield = false;
-				}),
+	emu.new_usertype<context>("thread", sol::call_constructor, sol::constructors<sol::types<>>(),
 			"start", [this](context &ctx, const char *scr) {
 					std::string script(scr);
 					if(ctx.busy)
