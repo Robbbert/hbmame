@@ -1093,7 +1093,7 @@ bool renderer_d3d9::device_verify_caps()
 		osd_printf_error("Direct3D Error: Your graphics card does not support modulate-type blending.\n");
 		success = false;
 	}
-
+#if 0
 	if (caps.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL)
 	{
 		osd_printf_error("Direct3D Error: Your graphics card does not fully support non-power-of-two\n");
@@ -1106,6 +1106,7 @@ bool renderer_d3d9::device_verify_caps()
 		osd_printf_error("Direct3D Error: Your graphics card does not support non-power-of-two textures.\n");
 		success = false;
 	}
+#endif
 	if (caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
 	{
 		osd_printf_error("Direct3D Error: Your graphics card does not support non-square textures.\n");
