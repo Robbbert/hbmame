@@ -14796,10 +14796,11 @@ ironhors                        // GX560 (c) 1986
 @source:isbc.cpp
 isbc286                         //
 isbc2861                        //
+isbc28612                       //
 isbc86                          //
 rpc86                           //
-isbc8605            //
-isbc8630            //
+isbc8605                        //
+isbc8630                        //
 
 @source:isbc8010.cpp
 isbc8010                        //
@@ -20527,6 +20528,7 @@ overrev                         // 1997.09 Over Rev (Revision A)
 overrevb                        // 1997.09 Over Rev (Revision B)
 pltkids                         // 1999.03 Pilot Kids (Revision A)
 pltkidsa                        // 1999.03 Pilot Kids
+rascot2                         // 1997.?? Royal Ascot II
 rchase2                         // 1995.06 Rail Chase 2 (Revision A)
 schamp                          // 1996.05 Sonic Championship (USA)
 segawski                        // 1997.09 Sega Water Ski (Japan, Revision A)
@@ -20535,14 +20537,16 @@ sgt24h                          // 1996.07 Super GT 24h
 skisuprg                        // 1996.12 Sega Ski Super G
 skytargt                        // 1995.10 Sky Target
 srallyc                         // 1995.02 Sega Rally Championship TWIN (Revision C)
-srallyca                        // 1995.02 Sega Rally Championship DX (Revision A)
 srallycb                        // 1995.02 Sega Rally Championship TWIN (Revision B)
+srallycdx                       // 1995.02 Sega Rally Championship DX (Revision A)
+srallycdxa                      // 1995.02 Sega Rally Championship DX
 stcc                            // 1996.09 Sega Touring Car Championship
 stcca                           // 1996.09 Sega Touring Car Championship (Revision A)
 stccb                           // 1996.09 Sega Touring Car Championship
 topskatr                        // 1997.05 Top Skater (Export, Revision A)
 topskatrj                       // 1997.05 Top Skater (Japan)
 topskatru                       // 1997.05 Top Skater (USA, Revision A)
+topskatruo                      // 1997.05 Top Skater (USA)
 vcop                            // 1994.09 Virtua Cop (Revision B)
 vcop2                           // 1995.09 Virtua Cop 2
 vcopa                           // 1994.09 Virtua Cop (Revision A)
@@ -20603,6 +20607,7 @@ vs215o                          // 1997.06 Virtua Striker 2
 vs298                           // 1998.05 Virtua Striker 2 ver.98
 vs29815                         // 1998.05 Virtua Striker 2 ver.98
 vs299                           // 1998.12 Virtual Striker 2 ver.99
+vs29915                         // 1999.?? Virtual Striker 2 ver.99 (Step 1.5)
 vs299a                          // 1999.?? Virtual Striker 2 ver.99 (rev A)
 vs299b                          // 1999.?? Virtual Striker 2 ver.99 (rev B)
 vs2v991                         // 1999.?? Virtual Striker 2 ver.99.1
@@ -32874,7 +32879,8 @@ sonicp                          // 1993.?? Sonic the Hedgehog (proto, Japan)
 spidman                         // 1991.?? Spiderman (World)
 spidmanj                        // 1991.09 Spiderman (Japan)
 spidmanu                        // 1991.09 Spiderman (US)
-svf                             // 1994.?? Super Visual Football
+svf                             // 1994.?? Super Visual Football (Rev A)
+svfo                            // 1994.?? Super Visual Football
 svs                             // 1994.?? Super Visual Soccer
 titlef                          // 1993.?? Title Fight (World)
 titlefj                         // 1993.03 Title Fight (Japan)
