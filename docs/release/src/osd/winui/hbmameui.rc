@@ -152,13 +152,12 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "&Select Random Game",         ID_CONTEXT_SELECT_RANDOM
         MENUITEM SEPARATOR
-        MENUITEM "Rese&t Playcount",            ID_CONTEXT_RESET_PLAYCOUNT
-        MENUITEM "Reset Pla&y Time",            ID_CONTEXT_RESET_PLAYTIME
+        MENUITEM "Rese&t Play Stats",           ID_CONTEXT_RESET_PLAYSTATS
         MENUITEM SEPARATOR
         MENUITEM "A&udit",                      ID_GAME_AUDIT
         MENUITEM SEPARATOR
         MENUITEM "Pr&operties",                 ID_GAME_PROPERTIES
-//        MENUITEM "Source propert&ies",          ID_FOLDER_SOURCEPROPERTIES
+        MENUITEM "Source properties",           ID_FOLDER_SOURCEPROPERTIES
 //        MENUITEM "&Vector properties",          ID_FOLDER_VECTORPROPERTIES
     END
 END
@@ -880,8 +879,8 @@ BEGIN
     PUSHBUTTON      "Reset",IDC_PROP_RESET,4,222,97,14,0,0,HIDC_PROP_RESET
     PUSHBUTTON      "Restore Default Settings",IDC_USE_DEFAULT,118,222,97,14,
                     0,0,HIDC_USE_DEFAULT
-    CONTROL         "Show Menu",IDC_SHOW_MENU,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,119,160,86,10,0
+//    CONTROL         "Show Menu",IDC_SHOW_MENU,"Button",
+//                    BS_AUTOCHECKBOX | WS_TABSTOP,119,160,86,10,0
 END
 
 IDD_PROP_VECTOR DIALOGEX 0, 0, 220, 240
@@ -1373,8 +1372,7 @@ END
 
 STRINGTABLE DISCARDABLE
 BEGIN
-    ID_CONTEXT_RESET_PLAYTIME "Reset time played for selected item"
-    ID_CONTEXT_RESET_PLAYCOUNT "Reset number of plays for selected item"
+    ID_CONTEXT_RESET_PLAYSTATS "Reset play stats for selected item"
     ID_FOLDER_PROPERTIES    "Display folder properties"
     ID_FOLDER_AUDIT         "Audit items in this folder"
     ID_FILE_LOADSTATE       "Play a game starting with the given savestate"

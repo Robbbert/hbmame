@@ -27,7 +27,7 @@ WRITE8_MEMBER(pacman_state::mspacman_enable_decode_w){ mspacman_enable_decode_la
 #define BITSWAP11(val,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \
 	BITSWAP16(val,15,14,13,12,11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)
 
-void pacman_state::mspacman_install_patches(UINT8 *ROM)
+void pacman_state::mspacman_install_patches(uint8_t *ROM)
 {
 	int i;
 
@@ -82,7 +82,7 @@ void pacman_state::mspacman_install_patches(UINT8 *ROM)
 DRIVER_INIT_MEMBER(pacman_state,mspacman)
 {
 	int i;
-	UINT8 *ROM, *DROM;
+	uint8_t *ROM, *DROM;
 
 	/* CPU ROMs */
 
@@ -141,7 +141,7 @@ READ8_MEMBER( pacman_state::mspacii_prot_r )
 
 READ8_MEMBER( pacman_state::zolatimer_r )
 {
-	UINT8 timernow = m_timerthing;
+	uint8_t timernow = m_timerthing;
 	m_timerthing++;
 	return timernow;
 }
@@ -361,8 +361,8 @@ The select line is tied to a2; a0 and a1 of the eprom are are left out of
 socket and run through the 74298.  Clock is tied to system clock.  */
 DRIVER_INIT_MEMBER( pacman_state, mspacmbe )
 {
-	UINT8 temp;
-	UINT8 *RAM = machine().root_device().memregion("maincpu")->base();
+	uint8_t temp;
+	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 	int i;
 
 	/* Address lines A1 and A0 swapped if A2=0 */

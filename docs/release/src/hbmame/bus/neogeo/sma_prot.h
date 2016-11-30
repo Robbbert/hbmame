@@ -19,7 +19,7 @@ class sma_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 
 	DECLARE_WRITE16_MEMBER( kof99_bankswitch_w );
@@ -37,13 +37,13 @@ public:
 	void mslug3_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev);
 	void kof2000_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev);
 	neogeo_banked_cart_device* m_bankdev;
-	void kof99_decrypt_68k(UINT8* base);
-	void garou_decrypt_68k(UINT8* base);
-	void garouh_decrypt_68k(UINT8* base);
-	void mslug3_decrypt_68k(UINT8* base);
-	void kof2000_decrypt_68k(UINT8* base);
+	void kof99_decrypt_68k(uint8_t* base);
+	void garou_decrypt_68k(uint8_t* base);
+	void garouh_decrypt_68k(uint8_t* base);
+	void mslug3_decrypt_68k(uint8_t* base);
+	void kof2000_decrypt_68k(uint8_t* base);
 
-	UINT16     m_sma_rng;
+	uint16_t     m_sma_rng;
 protected:
 	virtual void device_start() override;
 	virtual void device_reset() override;

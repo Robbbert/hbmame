@@ -206,7 +206,7 @@ LONG GetCommonControlVersion()
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
 	HINSTANCE hErr;
-	LPCTSTR	  msg = 0;
+	LPCTSTR   msg = 0;
 	LPTSTR    tName;
 
 	tName = ui_wstring_from_utf8(cName);
@@ -214,13 +214,13 @@ void DisplayTextFile(HWND hWnd, const char *cName)
 		return;
 
 	hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
-	if ((FPTR)hErr > 32)
+	if ((uintptr_t)hErr > 32)
 	{
-		osd_free(tName);
+		free(tName);
 		return;
 	}
 
-	switch((FPTR)hErr)
+	switch((uintptr_t)hErr)
 	{
 	case 0:
 		msg = TEXT("The operating system is out of memory or resources.");
@@ -252,7 +252,7 @@ void DisplayTextFile(HWND hWnd, const char *cName)
 
 	MessageBox(NULL, msg, tName, MB_OK);
 
-	osd_free(tName);
+	free(tName);
 }
 
 char* MyStrStrI(const char* pFirst, const char* pSrch)
@@ -659,7 +659,7 @@ HICON win_extract_icon_utf8(HINSTANCE inst, const char* exefilename, UINT iconin
 
 	icon = ExtractIcon(inst, t_exefilename, iconindex);
 
-	osd_free(t_exefilename);
+	free(t_exefilename);
 
 	return icon;
 }
@@ -675,7 +675,7 @@ TCHAR* win_tstring_strdup(LPCTSTR str)
 	TCHAR *cpy = NULL;
 	if (str)
 	{
-		cpy = (TCHAR*)osd_malloc((_tcslen(str) + 1) * sizeof(TCHAR));
+		cpy = (TCHAR*)malloc((_tcslen(str) + 1) * sizeof(TCHAR));
 		if (cpy)
 			_tcscpy(cpy, str);
 	}
@@ -697,7 +697,7 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 
 	result = CreateFile(t_filename, desiredmode, sharemode, securityattributes, creationdisposition, flagsandattributes, templatehandle);
 
-	osd_free(t_filename);
+	free(t_filename);
 
 	return result;
 }
@@ -723,7 +723,7 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 	if( bufferlength > 0 ) {
 		utf8_buffer = ui_utf8_from_wstring(t_buffer);
 		if( !utf8_buffer ) {
-			osd_free(t_buffer);
+			free(t_buffer);
 			return result;
 		}
 	}
@@ -731,7 +731,7 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 	strncpy(buffer, utf8_buffer, bufferlength);
 
 	if( utf8_buffer )
-		osd_free(utf8_buffer);
+		free(utf8_buffer);
 
 	if( t_buffer )
 		free(t_buffer);
@@ -752,7 +752,7 @@ HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfile
 
 	result = FindFirstFile(t_filename, findfiledata);
 
-	osd_free(t_filename);
+	free(t_filename);
 
 	return result;
 }

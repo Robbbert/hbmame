@@ -693,6 +693,29 @@ ROM_START( kof97irgc ) // All confirmed
 	ROM_LOAD16_BYTE( "232rev.c6", 0x2000001, 0x400000, CRC(e3feb991) SHA1(978b106bccd31c8229c9abcc6e682a7b5fc98154) )
 ROM_END
 
+ROM_START( kof97irgc2 ) // All confirmed (was "kof97yb" when found)
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232irgc2.p1", 0x000000, 0x100000, CRC(14532350) SHA1(093d1da101a39c371512416ee90cd2e15c92723a) )
+	ROM_LOAD16_WORD_SWAP( "232irgc2.p2", 0x100000, 0x400000, CRC(696ae4a5) SHA1(be8341ef598bd95c07a1218d1cfcc3f82bbbd6b7) )
+
+	NEO_SFIX_128K( "232-s1.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
+
+	NEO_BIOS_AUDIO_128K( "232-m1.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232-v1.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232-v2.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232-v3.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232-c1.c1", 0x0000000, 0x800000, CRC(5f8bf0a1) SHA1(e8b63bbc814de171fd18c5864a7fc639970c1ecf) )
+	ROM_LOAD16_BYTE( "232-c2.c2", 0x0000001, 0x800000, CRC(e4d45c81) SHA1(fdb2b9326362e27b1c7a5beb977e0bc537488186) )
+	ROM_LOAD16_BYTE( "232-c3.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232-c4.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232rev.c5", 0x2000000, 0x400000, CRC(9c543bc6) SHA1(cb227c71aca5e632a08fbd7f5af53581b5b28f93) )
+	ROM_LOAD16_BYTE( "232rev.c6", 0x2000001, 0x400000, CRC(e3feb991) SHA1(978b106bccd31c8229c9abcc6e682a7b5fc98154) )
+ROM_END
+
 ROM_START( kof97kai )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232kai.p1", 0x000000, 0x100000, CRC(e96524fe) SHA1(e9a523233228ed57bdbc2b8eb620054cadb381f2) )
@@ -2184,6 +2207,7 @@ GAME( 1997, kof97hl,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 1997, kof97hxd,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Hxdhome", "Kof'97 (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97ice,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Cz-Kyo97", "Kof'97 Ice", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97irgc, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (IRGC)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97irgc2,kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 (IRGC2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97kai,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Kai", "Kof'97 PLUS", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97kp,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "KofPerfect", "Kof'97 (Add Orochi set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof97kp1,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yukimura", "Kof'97 (KP 2000)", MACHINE_SUPPORTS_SAVE )

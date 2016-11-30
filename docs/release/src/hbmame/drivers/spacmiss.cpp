@@ -15,7 +15,7 @@ Galaxian running on Space Invaders hardware
 #include "machine/mb14241.h"
 #include "sound/discrete.h"
 #include "sound/samples.h"
-#include "galactic.lh"
+#include "spacmissx.lh"
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
@@ -48,7 +48,7 @@ public:
 
 	/* device/memory pointers */
 	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<UINT8> m_p_ram;
+	required_shared_ptr<uint8_t> m_p_ram;
 	required_device<discrete_device> m_discrete;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
@@ -56,8 +56,8 @@ public:
 	bool m_flip_screen;
 	bool m_screen_red;
 	bool m_sound_enabled;
-	UINT8 m_port_1_last_extra;
-	UINT8 m_port_2_last_extra;
+	uint8_t m_port_1_last_extra;
+	uint8_t m_port_2_last_extra;
 
 	/* timer */
 	emu_timer   *m_interrupt_timer;
@@ -65,21 +65,21 @@ public:
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
-	DECLARE_READ8_MEMBER(spacmiss_02_r);
-	DECLARE_WRITE8_MEMBER(spacmiss_03_w);
-	DECLARE_WRITE8_MEMBER(spacmiss_05_w);
-	DECLARE_WRITE8_MEMBER(spacmiss_07_w);
+	DECLARE_READ8_MEMBER(spacmissx_02_r);
+	DECLARE_WRITE8_MEMBER(spacmissx_03_w);
+	DECLARE_WRITE8_MEMBER(spacmissx_05_w);
+	DECLARE_WRITE8_MEMBER(spacmissx_07_w);
 	DECLARE_MACHINE_START(sm);
 	DECLARE_MACHINE_RESET(sm);
-	UINT8 vpos_to_vysnc_chain_counter( int vpos );
-	int vysnc_chain_counter_to_vpos( UINT8 counter, int vblank );
-	UINT32 screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	uint8_t vpos_to_vysnc_chain_counter( int vpos );
+	int vysnc_chain_counter_to_vpos( uint8_t counter, int vblank );
+	uint32_t screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
 };
 
-static const discrete_dac_r1_ladder spacmiss_music_dac =
+static const discrete_dac_r1_ladder spacmissx_music_dac =
 	{3, {0, RES_K(47), RES_K(12)}, 0, 0, 0, CAP_U(0.1)};
 
 static const discrete_comp_adder_table invaders_thump_resistors =
@@ -111,7 +111,7 @@ static const discrete_mixer_desc mix1 =
 	0, RES_K(100), 0, CAP_U(.1), 0, 20
 };
 
-#define SPACMISS_MUSIC_CLK      (150000)
+#define spacmissx_MUSIC_CLK      (150000)
 
 /* Nodes - Inputs */
 /* Nodes - Sounds */
@@ -119,7 +119,7 @@ static const discrete_mixer_desc mix1 =
  * Fleet movement
  ************************************************/
 
-DISCRETE_SOUND_START(spacmiss)
+DISCRETE_SOUND_START(spacmissx)
 /******************************************************************************
  *
  * Background Hum
@@ -152,12 +152,12 @@ DISCRETE_SOUND_START(spacmiss)
  ******************************************************************************/
 	DISCRETE_INPUT_DATA (NODE_01)
 
-	DISCRETE_NOTE(NODE_20, 1, SPACMISS_MUSIC_CLK, NODE_01, 255, 5, DISC_CLK_IS_FREQ)
+	DISCRETE_NOTE(NODE_20, 1, spacmissx_MUSIC_CLK, NODE_01, 255, 5, DISC_CLK_IS_FREQ)
 
 	// Convert count to 7492 output
 	DISCRETE_TRANSFORM2(NODE_21, NODE_20, 2, "01>0+")
 
-	DISCRETE_DAC_R1(NODE_22, NODE_21, DEFAULT_TTL_V_LOGIC_1, &spacmiss_music_dac)
+	DISCRETE_DAC_R1(NODE_22, NODE_21, DEFAULT_TTL_V_LOGIC_1, &spacmissx_music_dac)
 
 /******************************************************************************
  *
@@ -176,14 +176,14 @@ DISCRETE_SOUND_START(spacmiss)
 
 DISCRETE_SOUND_END
 
-WRITE8_MEMBER( sm_state::spacmiss_07_w )
+WRITE8_MEMBER( sm_state::spacmissx_07_w )
 {
 	m_discrete->write(space, NODE_01, data | 0xc0);
 }
 
-WRITE8_MEMBER(sm_state::spacmiss_03_w)
+WRITE8_MEMBER(sm_state::spacmissx_03_w)
 {
-	UINT8 rising_bits = data & ~m_port_1_last_extra;
+	uint8_t rising_bits = data & ~m_port_1_last_extra;
 
 	if (BIT(rising_bits, 1)) m_samples->start(2, 2);     /* Killed an enemy */
 	if (BIT(rising_bits, 2)) m_samples->start(1, 1);     /* Lost a life */
@@ -192,14 +192,14 @@ WRITE8_MEMBER(sm_state::spacmiss_03_w)
 }
 
 // bits 0-3 make a variable background tone
-WRITE8_MEMBER(sm_state::spacmiss_05_w)
+WRITE8_MEMBER(sm_state::spacmissx_05_w)
 {
 	if (BIT(m_port_1_last_extra, 5))
 		m_discrete->write(space, NODE_02, data & 0x0f);
 	else
 		m_discrete->write(space, NODE_02, 0);
 
-	UINT8 rising_bits = data & ~m_port_2_last_extra;
+	uint8_t rising_bits = data & ~m_port_2_last_extra;
 
 	if (BIT(rising_bits, 4)) m_samples->start(0, 0);     /* Shoot */
 
@@ -208,10 +208,10 @@ WRITE8_MEMBER(sm_state::spacmiss_05_w)
 	m_port_2_last_extra = data;
 }
 
-UINT8 sm_state::vpos_to_vysnc_chain_counter( int vpos )
+uint8_t sm_state::vpos_to_vysnc_chain_counter( int vpos )
 {
 	/* convert from a vertical position to the actual values on the vertical sync counters */
-	UINT8 counter;
+	uint8_t counter;
 	int vblank = (vpos >= MW8080BW_VBSTART);
 
 	if (vblank)
@@ -223,7 +223,7 @@ UINT8 sm_state::vpos_to_vysnc_chain_counter( int vpos )
 }
 
 
-int sm_state::vysnc_chain_counter_to_vpos( UINT8 counter, int vblank )
+int sm_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 {
 	/* convert from the vertical sync counters to an actual vertical position */
 	int vpos;
@@ -239,14 +239,14 @@ int sm_state::vysnc_chain_counter_to_vpos( UINT8 counter, int vblank )
 
 TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
 {
-	UINT8 next_counter;
+	uint8_t next_counter;
 	int next_vpos;
 	int next_vblank;
 
 	/* compute vector and set the interrupt line */
 	int vpos = m_screen->vpos();
-	UINT8 counter = vpos_to_vysnc_chain_counter(vpos);
-	UINT8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
+	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
 	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
 
 	/* set up for next interrupt */
@@ -303,12 +303,12 @@ MACHINE_RESET_MEMBER( sm_state, sm )
 
 
 
-UINT32 sm_state::screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+uint32_t sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	UINT8 x = 0;
-	UINT8 y = MW8080BW_VCOUNTER_START_NO_VBLANK;
-	UINT8 video_data = 0;
-	UINT8 flip = m_flip_screen;
+	uint8_t x = 0;
+	uint8_t y = MW8080BW_VCOUNTER_START_NO_VBLANK;
+	uint8_t video_data = 0;
+	uint8_t flip = m_flip_screen;
 
 	while (1)
 	{
@@ -361,29 +361,29 @@ UINT32 sm_state::screen_update_spacmiss(screen_device &screen, bitmap_rgb32 &bit
 	return 0;
 }
 
-READ8_MEMBER(sm_state::spacmiss_02_r)
+READ8_MEMBER(sm_state::spacmissx_02_r)
 {
-	UINT8 data = ioport("IN2")->read();
+	uint8_t data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
 
-static ADDRESS_MAP_START( spacmiss_map, AS_PROGRAM, 8, sm_state )
+static ADDRESS_MAP_START( spacmissx_map, AS_PROGRAM, 8, sm_state )
 	ADDRESS_MAP_GLOBAL_MASK(0x7fff)
 	AM_RANGE(0x0000, 0x1fff) AM_ROM AM_WRITENOP
 	AM_RANGE(0x2000, 0x3fff) AM_MIRROR(0x4000) AM_RAM AM_SHARE("ram")
 	AM_RANGE(0x4000, 0x5fff) AM_ROM AM_WRITENOP
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( spacmiss_io_map, AS_IO, 8, sm_state )
+static ADDRESS_MAP_START( spacmissx_io_map, AS_IO, 8, sm_state )
 	AM_RANGE(0x00, 0x00) AM_READ_PORT("IN0")
 	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
-	AM_RANGE(0x02, 0x02) AM_READ(spacmiss_02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
-	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(spacmiss_03_w)
+	AM_RANGE(0x02, 0x02) AM_READ(spacmissx_02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
+	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(spacmissx_03_w)
 	AM_RANGE(0x04, 0x04) AM_DEVWRITE("mb14241", mb14241_device, shift_data_w)
-	AM_RANGE(0x05, 0x05) AM_WRITE(spacmiss_05_w)
+	AM_RANGE(0x05, 0x05) AM_WRITE(spacmissx_05_w)
 	AM_RANGE(0x06, 0x06) AM_WRITENOP //(watchdog_reset_w)
-	AM_RANGE(0x07, 0x07) AM_WRITE(spacmiss_07_w)
+	AM_RANGE(0x07, 0x07) AM_WRITE(spacmissx_07_w)
 ADDRESS_MAP_END
 
 static const char *const invaders_sample_names[] =
@@ -402,18 +402,18 @@ static const char *const invaders_sample_names[] =
 };
 
 
-static MACHINE_CONFIG_START( spacmiss, sm_state )
+static MACHINE_CONFIG_START( spacmissx, sm_state )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(spacmiss_map)
-	MCFG_CPU_IO_MAP(spacmiss_io_map)
+	MCFG_CPU_PROGRAM_MAP(spacmissx_map)
+	MCFG_CPU_IO_MAP(spacmissx_io_map)
 	MCFG_MACHINE_START_OVERRIDE(sm_state,sm)
 	MCFG_MACHINE_RESET_OVERRIDE(sm_state,sm)
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(sm_state, screen_update_spacmiss)
+	MCFG_SCREEN_UPDATE_DRIVER(sm_state, screen_update_spacmissx)
 
 	/* add shifter */
 	MCFG_MB14241_ADD("mb14241")
@@ -424,12 +424,12 @@ static MACHINE_CONFIG_START( spacmiss, sm_state )
 	MCFG_SAMPLES_CHANNELS(6)
 	MCFG_SAMPLES_NAMES(invaders_sample_names)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-	MCFG_DISCRETE_ADD("discrete", 0, spacmiss)
+	MCFG_DISCRETE_ADD("discrete", 0, spacmissx)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
 
-static INPUT_PORTS_START( spacmiss )
+static INPUT_PORTS_START( spacmissx )
 	PORT_START("IN0")
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNKNOWN ) // gets read into memory (0x2012) then never used
 
@@ -467,7 +467,7 @@ static INPUT_PORTS_START( spacmiss )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-ROM_START( spacmiss )
+ROM_START( spacmissx )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "1",       0x0000, 0x0800, CRC(e212dc88) SHA1(bc56052bf43d18081f777b936b2be792e91ba842) )
 	ROM_LOAD( "2",       0x0800, 0x0800, CRC(f97410ee) SHA1(47f1f296c905fa13f6c521edc12c10f1f0e42400) )
@@ -481,4 +481,4 @@ ROM_START( spacmiss )
 	ROM_LOAD( "8",       0x0000, 0x0800, CRC(942e5261) SHA1(e8af51d644eab4e7b31c14dc66bb036ad8940c42) ) // ?
 ROM_END
 
-GAMEL(1980?,spacmiss, 0, spacmiss, spacmiss, driver_device, 0, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_galactic )
+GAMEL(1980?,spacmissx, 0, spacmissx, spacmissx, driver_device, 0, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_spacmissx )

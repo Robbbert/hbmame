@@ -167,7 +167,7 @@ NUM YEAR COMPANY                 TITLE
 435 2010 CeL                     Neorom Jukebox
 436*2010 CeL                     Neo Pang
 437 2013 Le Cortex               Crouching Pony Hidden Dragon demo
-438
+438 2002 <unknown>               Neo Bubble
 439 2013 Cristiano Bei           Primo demo
 440 2013 Cristiano Bei           Neo Geo Galaga demo
 441 2013 Cristiano Bei           Neo Geo Sound Test
@@ -234,7 +234,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 {
 //// Fix rebooting at start
 
-	UINT16 *src = (UINT16*)memregion("maincpu")->base();
+	uint16_t *src = (uint16_t*)memregion("maincpu")->base();
 
 	// change jsr to C004DA
 	src[0x01AF8 /2] = 0x04DA; // C00552 (Not used?)
@@ -247,7 +247,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 
 //// Fix text on bottom line
 
-	UINT8 *dst = memregion( "fixed" )->base();
+	uint8_t *dst = memregion( "fixed" )->base();
 
 	// Move text for credit + coin info (Thanks to Kanyero), overwrites "MA" in neogeo logo
 	memcpy(dst, dst + 0x600, 0x140);
@@ -259,9 +259,9 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 //// Optional stuff
 
 
-	UINT8 i, *rom = memregion("maincpu")->base();
+	uint8_t i, *rom = memregion("maincpu")->base();
 
-	UINT8 data[16] = {
+	uint8_t data[16] = {
 		0x49, 0x46, 0x41, 0x4E, 0x20, 0x4C, 0x4F, 0x52,
 		0x41, 0x4D, 0x43, 0x4E, 0x20, 0x45, 0x20, 0x32 };
 
@@ -281,7 +281,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, fr2ch )
 	DRIVER_INIT_CALL(neogeo);
 
 	/* old fr2cd code:
-	UINT16 *mem16 = (UINT16*)memory_region(machine, "maincpu");
+	uint16_t *mem16 = (uint16_t*)memory_region(machine, "maincpu");
 	mem16[0x1BF2/2] = 0x4E71;
 	mem16[0x1BF4/2] = 0x4E71;
 	mem16[0x1BF6/2] = 0x4E71;
@@ -1258,6 +1258,48 @@ ROM_START( cphd )
 ROM_END
 
 
+// 438: Neo Bubble (author unknown)
+// Incomplete. Patched so that it can show an inbuilt message.
+ROM_START( neobubble )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "438.p1", 0x000000, 0x080000, CRC(a38b6d52) SHA1(be7918c98c65dbf533556886dea935347db6ca14) )
+	ROM_COPY("maincpu",0x398, 0x1398, 0x116)
+	ROM_FILL(0x38C,1,0x3A)
+	ROM_FILL(0x38D,1,0x3C)
+	ROM_FILL(0x38E,1,0x01)
+	ROM_FILL(0x38F,1,0x38)
+	ROM_FILL(0x390,1,0x4E)
+	ROM_FILL(0x391,1,0xB9)
+	ROM_FILL(0x392,1,0x00)
+	ROM_FILL(0x393,1,0x00)
+	ROM_FILL(0x394,1,0x13)
+	ROM_FILL(0x395,1,0x98)
+	ROM_FILL(0x396,1,0x50)
+	ROM_FILL(0x397,1,0x8F)
+	ROM_FILL(0x398,1,0x51)
+	ROM_FILL(0x399,1,0xCD)
+	ROM_FILL(0x39A,1,0xFF)
+	ROM_FILL(0x39B,1,0xF6)
+	ROM_FILL(0x39C,1,0x60)
+	ROM_FILL(0x39D,1,0xFE)
+
+	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+
+	NEO_BIOS_AUDIO_128K( "202-m1.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "202-v1.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+	ROM_LOAD( "076-v2.v2", 0x200000, 0x200000, CRC(b61686c3) SHA1(5a3405e833ce36abb7421190438b5cccc8537919) )
+	ROM_LOAD( "076-v3.v3", 0x400000, 0x100000, CRC(b90658fa) SHA1(b9a4b34565ce3688495c47e35c9b888ef686ae9f) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "438.c1", 0x000000, 0x100000, CRC(82ce3020) SHA1(65b572b5304bb259d0a5924d74ec3e1c5b3ac699) )
+	ROM_LOAD16_BYTE( "438.c2", 0x000001, 0x100000, CRC(d209f6f7) SHA1(9d60ac994a1d4004f317aa12a521a8aa6dda5746) )
+	ROM_LOAD16_BYTE( "076-c3.c3", 0x400000, 0x200000, CRC(d06431e3) SHA1(643bd1ad74af272795b02143ba80a76e375036ab) )
+	ROM_LOAD16_BYTE( "076-c4.c4", 0x400001, 0x200000, CRC(4b1c089b) SHA1(cd63961d88c5be84673cce83c683a86b222a064d) )
+ROM_END
+
+
 // 439 : Primo demo by BEY
 // No sound.
 ROM_START( iocero )
@@ -1736,6 +1778,7 @@ GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 20??, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, neofight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neo Fight", MACHINE_SUPPORTS_SAVE )

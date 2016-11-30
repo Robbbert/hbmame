@@ -76,7 +76,7 @@ WCHAR *ui_wstring_from_utf8(const char *utf8string)
 
 	// convert MAME string (UTF-8) to UTF-16
 	char_count = MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, nullptr, 0);
-	result = (WCHAR *)osd_malloc_array(char_count * sizeof(*result));
+	result = (WCHAR *)malloc(char_count * sizeof(*result));
 	if (result != nullptr)
 		MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, result, char_count);
  
@@ -90,7 +90,7 @@ char *ui_utf8_from_wstring(const WCHAR *wstring)
 
 	// convert UTF-16 to MAME string (UTF-8)
 	char_count = WideCharToMultiByte(CP_UTF8, 0, wstring, -1, nullptr, 0, nullptr, nullptr);
-	result = (char *)osd_malloc_array(char_count * sizeof(*result));
+	result = (char *)malloc(char_count * sizeof(*result));
 	if (result != nullptr)
 		WideCharToMultiByte(CP_UTF8, 0, wstring, -1, result, char_count, nullptr, nullptr);
 	return result;

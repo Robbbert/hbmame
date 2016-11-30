@@ -21,7 +21,7 @@ VIDEO_START_MEMBER( pacman_state, pacmanx )
 	m_bg_tilemap->set_scrolldy(0, 264*2 - 224*2 );
 }
 
-UINT32 pacman_state::screen_update_pacmanx(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t pacman_state::screen_update_pacmanx(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	if (m_bgpriority)
 		bitmap.fill(0,cliprect);
@@ -30,8 +30,8 @@ UINT32 pacman_state::screen_update_pacmanx(screen_device &screen, bitmap_ind16 &
 
 	if( m_spriteram )
 	{
-		UINT8 *spriteram = m_spriteram;
-		UINT8 *spriteram_2 = m_spriteram2;
+		uint8_t *spriteram = m_spriteram;
+		uint8_t *spriteram_2 = m_spriteram2;
 		int offs;
 
 		rectangle spriteclip(2*2*8, 2*68*8-1, 0*8, 2*56*8-1);
@@ -43,7 +43,7 @@ UINT32 pacman_state::screen_update_pacmanx(screen_device &screen, bitmap_ind16 &
 		{
 			int color;
 			int sx,sy;
-			UINT8 fx,fy;
+			uint8_t fx,fy;
 
 			if(m_inv_spr)
 			{
@@ -82,7 +82,7 @@ UINT32 pacman_state::screen_update_pacmanx(screen_device &screen, bitmap_ind16 &
 		{
 			int color;
 			int sx,sy;
-			UINT8 fx,fy;
+			uint8_t fx,fy;
 
 			if(m_inv_spr)
 			{
@@ -168,14 +168,14 @@ VIDEO_START_MEMBER( pacman_state, multipac )
 
 PALETTE_INIT_MEMBER( pacman_state, multipac )
 {
-	UINT16 i;
+	uint16_t i;
 	static const int resistances[3] = { 1000, 470, 220 };
 	double rweights[3], gweights[3], bweights[2];
-	UINT8 bit0, bit1, bit2, r, g, b;
-	UINT16 entries = palette.indirect_entries();
-	UINT16 bank,banks = entries >> 5;
-	const UINT8 *color_prom = machine().root_device().memregion("proms")->base();
-	const UINT8 *m_p_prom = machine().root_device().memregion("proms")->base() + entries;
+	uint8_t bit0, bit1, bit2, r, g, b;
+	uint16_t entries = palette.indirect_entries();
+	uint16_t bank,banks = entries >> 5;
+	const uint8_t *color_prom = machine().root_device().memregion("proms")->base();
+	const uint8_t *m_p_prom = machine().root_device().memregion("proms")->base() + entries;
 
 	/* compute the color output resistor weights */
 	compute_resistor_weights(0,	255, -1.0,
@@ -185,8 +185,8 @@ PALETTE_INIT_MEMBER( pacman_state, multipac )
 
 	for (bank = 0; bank < banks; bank++)
 	{
-		UINT16 obank = bank << 7;
-		UINT16 ibank = bank << 5;
+		uint16_t obank = bank << 7;
+		uint16_t ibank = bank << 5;
 
 		/* create a lookup table for the palette */
 		for (i = ibank; i < (ibank+32); i++)
@@ -221,7 +221,7 @@ PALETTE_INIT_MEMBER( pacman_state, multipac )
 	}
 }
 
-UINT32 pacman_state::screen_update_multipac(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t pacman_state::screen_update_multipac(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	if (m_bgpriority != 0)
 		bitmap.fill(0, cliprect);
@@ -230,8 +230,8 @@ UINT32 pacman_state::screen_update_multipac(screen_device &screen, bitmap_ind16 
 
 	if( m_spriteram != NULL )
 	{
-		UINT8 *spriteram = m_spriteram;
-		UINT8 *spriteram_2 = m_spriteram2;
+		uint8_t *spriteram = m_spriteram;
+		uint8_t *spriteram_2 = m_spriteram2;
 		int offs;
 
 		rectangle spriteclip(2*8, 34*8-1, 0*8, 28*8-1);
@@ -243,7 +243,7 @@ UINT32 pacman_state::screen_update_multipac(screen_device &screen, bitmap_ind16 
 		{
 			int color;
 			int sx,sy;
-			UINT8 fx,fy;
+			uint8_t fx,fy;
 
 			if(m_inv_spr)
 			{
@@ -282,7 +282,7 @@ UINT32 pacman_state::screen_update_multipac(screen_device &screen, bitmap_ind16 
 		{
 			int color;
 			int sx,sy;
-			UINT8 fx,fy;
+			uint8_t fx,fy;
 
 			if(m_inv_spr)
 			{
@@ -340,15 +340,15 @@ WRITE8_MEMBER( pacman_state::multipac_palbank_w )
    ============================================= */
 
 
-void pacman_state::m96in1b_gfxbank_w ( UINT8 gfxbank )
+void pacman_state::m96in1b_gfxbank_w ( uint8_t gfxbank )
 {
-	UINT8 banks[] = { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 7, 4, 2, 3, 5, 6, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 };
+	uint8_t banks[] = { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 7, 4, 2, 3, 5, 6, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 };
 	m_charbank = gfxbank;
 	m_spritebank = gfxbank;
 	m_colortablebank = banks[gfxbank];
 }
 
-void pacman_state::madpac_gfxbank_w ( UINT8 gfxbank )
+void pacman_state::madpac_gfxbank_w ( uint8_t gfxbank )
 {
 	m_charbank = gfxbank;
 	m_spritebank = gfxbank;

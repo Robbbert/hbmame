@@ -219,7 +219,7 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/bus/bbc/fds/fds.h,BUSES["BBC_FDC"] = true
+--@src/devices/bus/bbc/fdc/fdc.h,BUSES["BBC_FDC"] = true
 ---------------------------------------------------
 
 if (BUSES["BBC_FDC"]~=null) then
@@ -2909,6 +2909,19 @@ if (BUSES["HP_OPTROM"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/hp_optroms/hp_optrom.cpp",
 		}
+end
+
+---------------------------------------------------
+--
+--@src/devices/bus/hp9845_io/hp9845_io.h,BUSES["HP9845_IO"] = true
+---------------------------------------------------
+
+if (BUSES["HP9845_IO"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/hp9845_io/hp9845_io.cpp",
+		MAME_DIR .. "src/devices/bus/hp9845_io/98034.cpp",
+		MAME_DIR .. "src/devices/bus/hp9845_io/98035.cpp",
+	}
 end
 
 ---------------------------------------------------

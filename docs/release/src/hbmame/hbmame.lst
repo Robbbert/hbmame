@@ -19,6 +19,21 @@ galagax 	/* Jerky - Chris Moore hack of 1942 */
 1943		//parent
 1943h		/* Hacked to have the vendor name and phone number */
 
+	/* 8080bw */
+invaders	//parent
+tst_invd	// test rom
+invmulti	//parent
+invmultim1a
+invmultim2a
+invmultim2c
+invmultim3a
+invmultip
+invmultis1a
+invmultis2a
+invmultis3a
+invmultit3d
+invrvnge	//parent for ir
+
 	/* arkanoid */
 arkanoid	//parent
 akblc2dx 	/* hack */
@@ -78,9 +93,13 @@ vecbtime	/* T-Bone hack of Burgertime */
 
 	/* bublbobl */
 bublbobl	//parent
+boblcave
+bublcave
+bublcave10
+bublcave11
 bbaladar	/* Aladar Bootleg */
 bb2bmh		/* Overclocked Bubblebobble Memories Hack */
-bbhackv1 	/* OVerclocked Level Hack */ 
+bbhackv1 	/* Overclocked Level Hack */ 
 bbredux1	/* Punji - Bubble Bobble Redux with Level Skip */
 bbredux2	/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3	/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
@@ -91,7 +110,9 @@ sboblboblh 	/* level select hack */
 spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
 
 	/* cave */
-pwrinst2
+ddonpach	//parent
+ddonpacha	// trap15 hack
+pwrinst2	//parent
 pwrinst2h	/* 2013 Hack by TT */
 
 	/* cball */
@@ -267,53 +288,121 @@ wofr1h
 wofsf2
 
 	/* cps2 */
-1944		//parent
-1944da
+// CPS2 PARENTS ***
+1944
+19xx
+armwar
+avsp
+batcir
+csclub
+cybots
+ddsom
+ddtod
+dimahoo
+dstlk
+ecofghtr
+gigawing
+hsf2
+megaman2
+mmatrix 
+mpang
+msh
+mshvsf
+mvsc
+nwarr
+progear
+ringdest
+sfa
+sfa2
+sfa3
+sfz2al
+sgemf
+spf2t
+ssf2
+ssf2t
+vhunt2
+vsav
+vsav2
+xmcota
+xmvsf
+// CPS2 HACKS ***
 1944fp
-ddsom		//parent
 ddsomavs
 ddsomchs
 ddsomhp
 ddsomjfs
-dstlk		//parent
-halfway		// progear hack
-mpang		//parent
-mpangjd
-msh			//parent
+halfway		// progear hack by The Halfway House
 mshjphp
 mshyh
-mvsc		//parent
 mvscjemb
 mvscjphp
 //mvscrcp // reboots shortly after start
 //mvscuh // reboots shortly after start
 pfghtjrm
-progear		//parent
 suicide		/* Razoola */
 suicide2	/* Razoola */
-sfa			//parent
-sfa2		//parent
 sfa2h
-sfaud
 sfz2abr
-sgemf		//parent
 sgemfch
-ssf2
-ssf2r1d
-ssf2t		//parent
-ssf2td
-spf2t		//parent
 spf2tb		// boss hack
 vampjb
-vsav2		//parent
 vsav2emb
-xmcota		//parent
 xmcotajb
 xmcotajphp
-xmvsf		//parent
 xmvsfjphp
 xmvsfrm
 xmvsfryh
+// CPS2 PHOENIX ***
+1944d
+1944da
+19xxd
+armwar1d
+avspd
+batcird
+csclub1d
+cybotsud
+cybotsjd
+dimahoud
+ddsomud
+ddtodd
+dstlku1d
+ecofghtrd
+gigaman2
+gigawingd
+gigawingjd
+hsf2d
+megamn2d
+mmatrixd
+mpangjd
+mshud
+mshvsfu1d
+mvscud
+nwarrud
+progearud
+progearjd
+progearjbl
+ringdstd
+sfa3ud
+sfad
+sfaud
+sfz2ad
+sfz2ald
+sfz2jd
+sfz3jr2d
+sgemfd
+spf2td
+ssf2r1d
+ssf2td
+spf2xjd
+ssf2tad
+ssf2tbd
+ssf2ud
+ssf2xjr1d
+vhunt2d
+vsavd
+vsav2d
+xmcotar1d
+xmvsfu1d
 
 	/* cps3 */
 redearth	//parent
@@ -329,14 +418,18 @@ decodemo	/* Charles Doty */
 
 	/* dkong */
 dkong		//parent
+dkong2m
 dkongex		/* Jeff's Hack with Foundry Level */
+dkongf
 dkongp		/* Fix for level 22 kill screen by Don Hodges */
 dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
-kong2600	/* Vic Twenty George hack of Donkey Kong */
-nadkong
-dkong2m
+dkongpe
+dkongx
+dkongx11
 dkrainbow
 dkrdemo
+kong2600	/* Vic Twenty George hack of Donkey Kong */
+nadkong
 
 	/* docastle */
 dorunrun	//parent
@@ -447,7 +540,7 @@ qbertb
 vbert
 
 	/* ir */
-invrvnge	// extra sounds
+ir			// extra sounds
 
 	/* itech8 */
 itecdemo	/* Charles Doty */
@@ -599,6 +692,7 @@ kof97evo
 kof97evoa
 kof97frb
 kof97irgc
+kof97irgc2
 kof97hk
 kof97hl
 kof97hxd
@@ -675,6 +769,7 @@ kof98ae1 //black splashes all over fight scene where cars speed past
 kof98ae2 //black splashes all over fight scene where cars speed past
 kof98ae3 //black splashes all over fight scene where cars speed past
 kof98ae20160308 //black splashes all over fight scene where cars speed past
+kof98ae20160827 //black splashes all over fight scene where cars speed past
 kof98b
 kof98bh
 kof98c2006
@@ -740,6 +835,7 @@ kof98c20151108
 kof98c20151110
 kof98c20151223
 kof98c20160320
+kof98c20160907
 kof98cd
 kof98cd1
 kof98ch
@@ -1197,12 +1293,13 @@ airwolf		//parent
 airwolffr	// french
 
 	/* m52 */
+alpha1v		// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 	/* maketrax */
 eyes		//parent
-aa		/* Widel's Games */
+aa			/* Widel's Games */
 absurd		/* scott - nonworking alpha ver 3 */
 //alpaca7		/* Jerronimo (useless) */
 //alpaca8		/* Jerronimo (useless) */
@@ -1539,6 +1636,7 @@ sueworld
 superp4g
 superp4m
 supmspac	/* Spedic Vending bootleg */
+tinyworld
 vectratk	/* Sil and T-Bone hack of Ms. Pac-Man */
 womanp5
 zolamaze
@@ -1576,6 +1674,8 @@ pm4n1b
 pm4n1c
 pm4n1d
 pm4n1e
+superabc
+superabco
 
 	/* nemesis */
 salamand	//parent
@@ -1774,6 +1874,7 @@ lhcdba
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
+neobubble
 neocstlv	// BarfHappy
 neodemo		/* Charles Doty */
 neofight	// Kannagi
@@ -2365,7 +2466,14 @@ kov2p
 pgemeni		/* Blastar */
 pgmdemo		/* Charles Doty */
 pgmfrog		/* Rastersoft */
-ketarrb
+ketarr		// trap15 hack
+ketarrb		// trap15 hack
+ketarr10	// trap15 hack
+ketarr15	// trap15 hack
+ketarr151	// trap15 hack
+ketarrf		// trap15 hack
+ketarrs15	// trap15 hack
+ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 orlegendh
@@ -2500,12 +2608,12 @@ kfjohnny	/* hack by Smitdogg*/
 	/* snk6502 */
 vantris		/* (c) 1998 Norbert Kehrer */
 
-	/* spacmiss */
-spacmiss	// extra sounds
-
 	/* simple_st0016 */
 renju		//parent
 renjuk		/* Korean Translation */
+
+	/* spacmiss */
+spacmissx	// extra sounds
 
 	/* system1 */
 wbml		//parent
@@ -2576,8 +2684,8 @@ tmptwst4	/* Twisty Hack */
 vbrakout	/* Clay Cowgill */
 tempmg		/* Clay Cowgill Multi-Tempest */
 temptlm
-vortex		/* Tempest Prototype */
-vortexa		/* Tempest Prototype */
+tvortex		/* Tempest Prototype */
+tvortexa	/* Tempest Prototype */
 aliensv		/* Tempest Prototype */
 aliensva	/* Tempest Prototype */
 
@@ -2621,6 +2729,9 @@ suprmrio	//parent
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 
+	/* wc90 */
+pac90
+
 	/* williams */
 defender	//parent
 defender2
@@ -2630,6 +2741,9 @@ robotronp	/* Patched to remove the 'in the corner' crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1
+
+	/* wmg */
+wmg
 
 	/* yiear */
 yiear		//parent

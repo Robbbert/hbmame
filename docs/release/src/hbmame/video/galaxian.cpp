@@ -37,13 +37,13 @@ WRITE8_MEMBER( galaxian_state::fourplay_rombank_w )
  *
  *************************************/
 
-void galaxian_state::videight_extend_tile_info(UINT16 *code, UINT8 *color, UINT8 attrib, UINT8 x)
+void galaxian_state::videight_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
 {
 	*code |= (m_gfxbank[0] << 8);
 	*color |= (m_gfxbank[4] << 3);
 }
 
-void galaxian_state::videight_extend_sprite_info(const UINT8 *base, UINT8 *sx, UINT8 *sy, UINT8 *flipx, UINT8 *flipy, UINT16 *code, UINT8 *color)
+void galaxian_state::videight_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color)
 {
 	*code |= (m_gfxbank[0] << 6);
 	*color |= (m_gfxbank[4] << 3);
@@ -53,7 +53,7 @@ void galaxian_state::videight_extend_sprite_info(const UINT8 *base, UINT8 *sx, U
 /* This handles the main bankswitching for code and one-bank gfx games */
 WRITE8_MEMBER( galaxian_state::videight_rombank_w )
 {
-	UINT8 gfxbanks[] = { 0, 10, 2, 8, 1, 9, 4, 11 };
+	uint8_t gfxbanks[] = { 0, 10, 2, 8, 1, 9, 4, 11 };
 	if (offset == 2)
 		galaxian_stars_enable_w( space, 0, data );
 	else
@@ -70,7 +70,7 @@ WRITE8_MEMBER( galaxian_state::videight_gfxbank_w )
 	/* Moon Cresta (mooncrgx) */
 	if (( data < 2 ) && (m_gfxbank[4] == 3))
 	{
-		UINT8 gfxbanks[] = { 8, 12, 8, 14, 8, 13, 8, 15 };
+		uint8_t gfxbanks[] = { 8, 12, 8, 14, 8, 13, 8, 15 };
 		if (!offset) m_gfxbank[3] = (m_gfxbank[3] & 6) | data;
 		if (offset == 1) m_gfxbank[3] = (m_gfxbank[3] & 5) | (data << 1);
 		if (offset == 2) m_gfxbank[3] = (m_gfxbank[3] & 3) | (data << 2);

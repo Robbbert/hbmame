@@ -10,7 +10,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof96ep )
 {
 	DRIVER_INIT_CALL(neogeo);
 	int i,j;
-	UINT8 *rom = cpuregion;
+	uint8_t *rom = cpuregion;
 	for ( i=0; i < 0x080000; i++ )
 	{
 		j=i+0x300000;

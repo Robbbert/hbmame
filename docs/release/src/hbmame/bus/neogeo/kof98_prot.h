@@ -17,14 +17,14 @@ class kof98_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
-	void kof98_decrypt_68k(UINT8* cpurom, UINT32 cpurom_size);
+	void kof98_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
 	void install_kof98_protection(cpu_device* maincpu);
 	DECLARE_WRITE16_MEMBER(kof98_prot_w);
 	DECLARE_READ16_MEMBER(kof98_prot_r);
 	int kof98_prot_state;
-	UINT16 m_default_rom[2];
+	uint16_t m_default_rom[2];
 
 protected:
 	virtual void device_start() override;

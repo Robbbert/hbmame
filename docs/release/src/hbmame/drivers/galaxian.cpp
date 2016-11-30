@@ -156,14 +156,14 @@ INPUT_PORTS_END
 
 DRIVER_INIT_MEMBER( galaxian_state, trukker )
 {
-	UINT16 i;
+	uint16_t i;
 
 	/* video extensions */
 	common_init(NULL, &galaxian_state::frogger_draw_background, &galaxian_state::frogger_extend_tile_info, &galaxian_state::frogger_extend_sprite_info);
-	m_frogger_adjust = TRUE;
+	m_frogger_adjust = true;
 
 	/* the first ROM of the second CPU has data lines D0 and D1 swapped. Decode it. */
-	UINT8 *ROM = memregion("audiocpu")->base();
+	uint8_t *ROM = memregion("audiocpu")->base();
 	for (i = 0;i < 0x800;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in the alphabetic characters */

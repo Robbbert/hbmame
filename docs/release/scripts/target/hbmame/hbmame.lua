@@ -50,6 +50,7 @@ CPUS["Z80"] = true
 SOUNDS["SAMPLES"] = true
 SOUNDS["DAC"] = true
 SOUNDS["DMADAC"] = true
+SOUNDS["SPEAKER"] = true
 SOUNDS["BEEP"] = true
 SOUNDS["DISCRETE"] = true
 SOUNDS["AY8910"] = true
@@ -92,6 +93,7 @@ SOUNDS["SP0250"] = true
 SOUNDS["CDDA"] = true
 SOUNDS["ICS2115"] = true
 SOUNDS["ST0016"] = true
+SOUNDS["VOLT_REG"] = true
 SOUNDS["VOTRAX"] = true
 SOUNDS["DIGITALKER"] = true
 
@@ -409,6 +411,15 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "midway")
 files {
+	MAME_DIR .. "src/mame/drivers/8080bw.cpp",
+	MAME_DIR .. "src/mame/includes/8080bw.h",
+	MAME_DIR .. "src/mame/audio/8080bw.cpp",
+	MAME_DIR .. "src/mame/video/8080bw.cpp",
+	MAME_DIR .. "src/mame/drivers/mw8080bw.cpp",
+	MAME_DIR .. "src/mame/includes/mw8080bw.h",
+	MAME_DIR .. "src/mame/machine/mw8080bw.cpp",
+	MAME_DIR .. "src/mame/audio/mw8080bw.cpp",
+	MAME_DIR .. "src/mame/video/mw8080bw.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",
 	MAME_DIR .. "src/mame/video/astrocde.cpp",
 	MAME_DIR .. "src/mame/audio/gorf.cpp",
@@ -429,6 +440,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/midyunit.cpp",
 	MAME_DIR .. "src/mame/machine/midyunit.cpp",
 	MAME_DIR .. "src/mame/video/midyunit.cpp",
+	MAME_DIR .. "src/mame/drivers/wmg.cpp",
 	MAME_DIR .. "src/hbmame/drivers/williams.cpp",
 	MAME_DIR .. "src/mame/machine/williams.cpp",
 	MAME_DIR .. "src/mame/audio/williams.cpp",
@@ -709,6 +721,9 @@ files {
 	MAME_DIR .. "src/mame/video/tecmo16.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/video/tehkanwc.cpp",
+	MAME_DIR .. "src/mame/drivers/wc90.cpp",
+	MAME_DIR .. "src/mame/includes/wc90.h",
+	MAME_DIR .. "src/mame/video/wc90.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")

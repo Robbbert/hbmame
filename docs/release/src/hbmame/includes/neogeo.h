@@ -29,7 +29,6 @@
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.
 #define NEOGEO_VBLANK_IRQ_HTIM (attotime::from_ticks(56+2, NEOGEO_MASTER_CLOCK))
 
-
 class neogeo_state : public driver_device
 {
 public:
@@ -101,7 +100,7 @@ public:
 	DECLARE_CUSTOM_INPUT_MEMBER(kizuna4p_start_r);
 	DECLARE_INPUT_CHANGED_MEMBER(select_bios);
 
-	UINT32 screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
 	DECLARE_DRIVER_INIT(neogeo);
 	DECLARE_DRIVER_INIT(mvs);
@@ -113,15 +112,15 @@ protected:
 	void update_interrupts();
 	void create_interrupt_timers();
 	void start_interrupt_timers();
-	void neogeo_acknowledge_interrupt(UINT16 data);
+	void neogeo_acknowledge_interrupt(uint16_t data);
 
 	void neogeo_main_cpu_banking_init();
 	void neogeo_audio_cpu_banking_init(int set_entry);
 	void adjust_display_position_interrupt_timer();
-	void neogeo_set_display_position_interrupt_control(UINT16 data);
-	void neogeo_set_display_counter_msb(UINT16 data);
-	void neogeo_set_display_counter_lsb(UINT16 data);
-	void set_video_control( UINT16 data );
+	void neogeo_set_display_position_interrupt_control(uint16_t data);
+	void neogeo_set_display_counter_msb(uint16_t data);
+	void neogeo_set_display_counter_lsb(uint16_t data);
+	void set_video_control( uint16_t data );
 
 	void create_rgb_lookups();
 	void set_pens();
@@ -129,10 +128,10 @@ protected:
 	void neogeo_set_palette_bank( int data );
 
 	void audio_cpu_check_nmi();
-	void set_save_ram_unlock( UINT8 data );
+	void set_save_ram_unlock( uint8_t data );
 	void set_outputs(  );
-	void set_output_latch( UINT8 data );
-	void set_output_data( UINT8 data );
+	void set_output_latch( uint8_t data );
+	void set_output_data( uint8_t data );
 
 
 	// device overrides
@@ -155,7 +154,7 @@ protected:
 
 	// MVS-specific devices
 	optional_device<upd4990a_device> m_upd4990a;
-	optional_shared_ptr<UINT16> m_save_ram;
+	optional_shared_ptr<uint16_t> m_save_ram;
 
 	required_device<screen_device> m_screen;
 	optional_device<palette_device> m_palette;
@@ -170,12 +169,12 @@ protected:
 	bool       m_audio_cpu_nmi_pending;
 
 	// MVS-specific state
-	UINT8      m_save_ram_unlocked;
-	UINT8      m_output_data;
-	UINT8      m_output_latch;
-	UINT8      m_el_value;
-	UINT8      m_led1_value;
-	UINT8      m_led2_value;
+	uint8_t      m_save_ram_unlocked;
+	uint8_t      m_output_data;
+	uint8_t      m_output_latch;
+	uint8_t      m_el_value;
+	uint8_t      m_led1_value;
+	uint8_t      m_led2_value;
 
 	optional_ioport m_dsw;
 	optional_ioport m_trackx;
@@ -192,22 +191,22 @@ protected:
 	emu_timer  *m_display_position_interrupt_timer;
 	emu_timer  *m_display_position_vblank_timer;
 	emu_timer  *m_vblank_interrupt_timer;
-	UINT32     m_display_counter;
-	UINT8      m_vblank_interrupt_pending;
-	UINT8      m_display_position_interrupt_pending;
-	UINT8      m_irq3_pending;
-	UINT8      m_display_position_interrupt_control;
-	UINT8      m_vblank_level;
-	UINT8      m_raster_level;
+	uint32_t     m_display_counter;
+	uint8_t      m_vblank_interrupt_pending;
+	uint8_t      m_display_position_interrupt_pending;
+	uint8_t      m_irq3_pending;
+	uint8_t      m_display_position_interrupt_control;
+	uint8_t      m_vblank_level;
+	uint8_t      m_raster_level;
 
 	required_device<neosprite_optimized_device> m_sprgen;
 	optional_device<generic_latch_8_device> m_soundlatch;
 	optional_device<generic_latch_8_device> m_soundlatch2;
-	UINT16 get_video_control(  );
+	uint16_t get_video_control(  );
 
 	// color/palette related
-	std::vector<UINT16> m_paletteram;
-	UINT8        m_palette_lookup[32][4];
+	std::vector<uint16_t> m_paletteram;
+	uint8_t        m_palette_lookup[32][4];
 	const pen_t *m_bg_pen;
 	int          m_screen_shadow;
 	int          m_palette_bank;

@@ -10,7 +10,7 @@
 extern const device_type SBP_PROT = &device_creator<sbp_prot_device>;
 
 
-sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, SBP_PROT, "NeoGeo Protection (Super Bubble Pop)", tag, owner, clock, "sbp_prot", __FILE__),
 	m_mainrom(nullptr)
 {
@@ -29,9 +29,9 @@ void sbp_prot_device::device_reset()
 
 READ16_MEMBER( sbp_prot_device::sbp_lowerrom_r )
 {
-	UINT16* rom = (UINT16*)m_mainrom;
-	UINT16 origdata = rom[(offset+(0x200/2))];
-	UINT16 data =  BITSWAP16(origdata, 11,10,9,8,15,14,13,12,3,2,1,0,7,6,5,4);
+	uint16_t* rom = (uint16_t*)m_mainrom;
+	uint16_t origdata = rom[(offset+(0x200/2))];
+	uint16_t data =  BITSWAP16(origdata, 11,10,9,8,15,14,13,12,3,2,1,0,7,6,5,4);
 	int realoffset = 0x200+(offset*2);
 	logerror("sbp_lowerrom_r offset %08x data %04x\n", realoffset, data );
 
@@ -64,7 +64,7 @@ WRITE16_MEMBER( sbp_prot_device::sbp_lowerrom_w )
 }
 
 
-void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, UINT8* cpurom, UINT32 cpurom_size)
+void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpurom, uint32_t cpurom_size)
 {
 	m_mainrom = cpurom;
 
@@ -78,7 +78,7 @@ void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, UINT8* cpurom,
 
 	/* the game code clears the text overlay used ingame immediately after writing it.. why? protection? sloppy code that the hw ignores? imperfect emulation? */
 	{
-		UINT16* rom = (UINT16*)cpurom;
+		uint16_t* rom = (uint16_t*)cpurom;
 
 		rom[0x2a6f8 / 2] = 0x4e71;
 		rom[0x2a6fa / 2] = 0x4e71;

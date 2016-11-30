@@ -201,7 +201,7 @@ static datamap *properties_datamap;
 static int  g_nGame            = 0;
 static int  g_nFolder          = 0;
 static int  g_nFolderGame      = 0;
-static OPTIONS_TYPE g_nPropertyMode;
+static OPTIONS_TYPE g_nPropertyMode = OPTIONS_GAME;
 static BOOL  g_bAutoAspect[MAX_SCREENS] = {FALSE, FALSE, FALSE, FALSE};
 static BOOL  g_bAutoSnapSize = FALSE;
 static HICON g_hIcon = NULL;
@@ -430,9 +430,9 @@ void InitDefaultPropertyPage(HINSTANCE hInst, HWND hWnd)
 	pDefaultOpts = dummy;
 
 	/* Get default options to populate property sheets */
-	load_options(pCurrentOpts, g_nGame);
-	load_options(pOrigOpts, g_nGame);
-	load_options(pDefaultOpts, -2);
+	load_options(pCurrentOpts, OPTIONS_GLOBAL, g_nGame);
+	load_options(pOrigOpts, OPTIONS_GLOBAL, g_nGame);
+	load_options(pDefaultOpts, OPTIONS_GLOBAL, -2);
 
 	/* Stash the result for comparing later */
 	//CreateGameOptions(pOrigOpts, OPTIONS_TYPE_GLOBAL);
@@ -488,12 +488,12 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		background_brush = CreateSolidBrush(GetSysColor(COLOR_3DFACE));
 
 	// Initialize the options
-	load_options(pCurrentOpts, game_num);
-	load_options(pOrigOpts, game_num);
+	load_options(pCurrentOpts, opt_type, game_num);
+	load_options(pOrigOpts, opt_type, game_num);
 	if (game_num == GLOBAL_OPTIONS)
-		load_options(pDefaultOpts, -2); // base opts is the backup for global
+		load_options(pDefaultOpts, OPTIONS_GLOBAL, -2); // base opts is the backup for global
 	else
-		load_options(pDefaultOpts, -1); // global is the backup for games
+		load_options(pDefaultOpts, OPTIONS_GLOBAL, -1); // global is the backup for games
 
 	// Copy current_options to original options
 ///	CreateGameOptions(pOrigOpts, OPTIONS_TYPE_GLOBAL);
@@ -569,7 +569,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		win_message_box_utf8(0, temp, "Error", IDOK);
 	}
 
-	osd_free(t_description);
+	free(t_description);
 	free(pspage);
 }
 
@@ -897,8 +897,12 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
 
 	if (OPTIONS_GLOBAL == opt_type)
 		strcpy(buf, "Global game options\nDefault options used by all games");
-	else if ((OPTIONS_SOURCE == opt_type) || (OPTIONS_VECTOR == opt_type) )
-		strcpy(buf, "Global folder options\nDefault options used by all games in the folder");
+	else
+	if (OPTIONS_SOURCE == opt_type)
+		strcpy(buf, "Options used by all games in the source");
+	else
+	if (OPTIONS_VECTOR == opt_type)
+		strcpy(buf, "Global vector options");
 	else
 	if (OPTIONS_GAME == opt_type)
 		sprintf(buf, "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).description), driver_list::driver(nIndex).name);
@@ -1228,7 +1232,7 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 				EnableWindow(GetDlgItem(hDlg, IDC_PROP_RESET), g_bReset);
 
 				// Save the current options
-				save_options(pCurrentOpts, g_nGame);
+				save_options(pCurrentOpts, g_nPropertyMode, g_nGame);
 
 				// Disable apply button
 				PropSheet_UnChanged(GetParent(hDlg), hDlg);
@@ -1755,7 +1759,7 @@ static BOOL ScreenReadControl(datamap *map, HWND dialog, HWND control, windows_o
 	snprintf(screen_option_name, ARRAY_LENGTH(screen_option_name), "screen%d", selected_screen);
 	op_val = ui_utf8_from_wstring(screen_option_value);
 	opts->set_value(screen_option_name, op_val, OPTION_PRIORITY_CMDLINE,error_string);
-	osd_free(op_val);
+	free(op_val);
 	return FALSE;
 }
 
@@ -1794,7 +1798,7 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 				return FALSE;
 			if (_tcscmp(t_option, dd.DeviceName) == 0)
 				nSelection = i+1;
-			osd_free(t_option);
+			free(t_option);
 		}
 	}
 	res = ComboBox_SetCurSel(control, nSelection);
@@ -1868,7 +1872,7 @@ static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, win
 	input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
 	op_val = ui_utf8_from_wstring(input_option_value);
 	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE,error_string);
-	osd_free(op_val);
+	free(op_val);
 	return FALSE;
 }
 
@@ -1910,13 +1914,13 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	if( !t_ctrldir )
 	{
 		if( t_buf )
-			osd_free(t_buf);
+			free(t_buf);
 		return FALSE;
 	}
 
 	_stprintf (path, TEXT("%s\\*.*"), t_ctrldir);
 
-	osd_free(t_ctrldir);
+	free(t_ctrldir);
 
 	hFind = FindFirstFile(path, &FindFileData);
 
@@ -1956,7 +1960,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	res = ComboBox_SetCurSel(control, selected);
 
 	if( t_buf )
-		osd_free(t_buf);
+		free(t_buf);
 
 	res++;
 	return FALSE;
@@ -2083,7 +2087,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 				}
 			}
 		}
-		osd_free(t_screen);
+		free(t_screen);
 
 		res = ComboBox_SetCurSel(sizes_control, sizes_selection);
 		res = ComboBox_SetCurSel(refresh_control, refresh_selection);
@@ -2634,7 +2638,7 @@ static void InitializeBIOSUI(HWND hwnd)
 			res = ComboBox_SetItemData( hCtrl, i++, "");
 			return;
 		}
-		if (g_nGame == FOLDER_OPTIONS) //Folder Options
+		if (g_nGame == LOCAL_OPTIONS) //Folder Options: This is the only place that LOCAL_OPTIONS is used, is this code ever executed?
 		{
 			gamedrv = &driver_list::driver(g_nFolderGame);
 			if (DriverHasOptionalBIOS(g_nFolderGame) == FALSE)
@@ -2660,7 +2664,7 @@ static void InitializeBIOSUI(HWND hwnd)
 							return;
 						res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
 						res = ComboBox_SetItemData( hCtrl, i++, biosname);
-						osd_free(t_s);
+						free(t_s);
 					}
 				}
 			}
@@ -2690,7 +2694,7 @@ static void InitializeBIOSUI(HWND hwnd)
 						return;
 					res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
 					res = ComboBox_SetItemData( hCtrl, i++, biosname);
-					osd_free(t_s);
+					free(t_s);
 				}
 			}
 		}
@@ -2924,7 +2928,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 	if ((buffer[1] == 0x3A) || (buffer[0] == 0)) // must be a folder or null
 	{
 		std::string error_string;
-		pCurrentOpts.set_value(OPTION_COMMENT_DIRECTORY, paths, OPTION_PRIORITY_CMDLINE, error_string);
+		pCurrentOpts.set_value(OPTION_SWPATH, paths, OPTION_PRIORITY_CMDLINE, error_string);
 	}
 	res++;
 	return TRUE;
@@ -2943,8 +2947,8 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 	// access the directory list, and convert to TCHARs
 	driver_index = PropertiesCurrentGame(dialog);
 	windows_options o;
-	load_options(o, driver_index);
-	const char* paths = o.value(OPTION_COMMENT_DIRECTORY);
+	load_options(o, OPTIONS_GAME, driver_index);
+	const char* paths = o.value(OPTION_SWPATH);
 	TCHAR* t_dir_list = ui_wstring_from_utf8(paths);
 	paths = 0;
 	if (!t_dir_list)
@@ -2986,7 +2990,7 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 	// finish up
 	AppendList(control, TEXT(DIRLIST_NEWENTRYTEXT), current_item);
 	ListView_SetItemState(control, 0, LVIS_SELECTED, LVIS_SELECTED);
-	osd_free(t_dir_list);
+	free(t_dir_list);
 	res++;
 	b_res++;
 	return TRUE;
@@ -3064,7 +3068,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 			res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
 			res = ComboBox_SetItemData(control, i, ram);
 
-			osd_free(t_ramstring);
+			free(t_ramstring);
 		}
 		if (ramdev->extra_options())
 		{
@@ -3094,7 +3098,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 				res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
 				res = ComboBox_SetItemData(control, i, ram);
 
-				osd_free(t_ramstring);
+				free(t_ramstring);
 
 				// is this the current option?  record the index if so
 				if (ram == current_ram)
@@ -3107,7 +3111,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 				p++;
 			}
 
-			osd_free(s);
+			free(s);
 		}
 
 		// set the combo box
@@ -3224,7 +3228,7 @@ static BOOL SoftwareDirectories_OnBeginLabelEdit(HWND hDlg, NMHDR* pNMHDR)
 	/* Last item is placeholder for append */
 	if (pItem->iItem == ListView_GetItemCount(hList) - 1)
 	{
-		HWND hEdit = (HWND) (FPTR) SendMessage(hList, LVM_GETEDITCONTROL, 0, 0);
+		HWND hEdit = (HWND) (uintptr_t) SendMessage(hList, LVM_GETEDITCONTROL, 0, 0);
 		win_set_window_text_utf8(hEdit, "");
 	}
 

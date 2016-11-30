@@ -18,7 +18,7 @@ class pvc_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	void pvc_write_unpack_color();
 	void pvc_write_pack_color();
@@ -28,13 +28,13 @@ public:
 	void install_pvc_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev);
 	neogeo_banked_cart_device* m_bankdev;
 
-	UINT16 m_cartridge_ram[0x1000];
+	uint16_t m_cartridge_ram[0x1000];
 
-	void mslug5_decrypt_68k(UINT8* rom, UINT32 size);
-	void svc_px_decrypt(UINT8* rom, UINT32 size);
-	void kf2k3pcb_decrypt_68k(UINT8* rom, UINT32 size);
-	void kof2003_decrypt_68k(UINT8* rom, UINT32 size);
-	void kof2003h_decrypt_68k(UINT8* rom, UINT32 size);
+	void mslug5_decrypt_68k(uint8_t* rom, uint32_t size);
+	void svc_px_decrypt(uint8_t* rom, uint32_t size);
+	void kf2k3pcb_decrypt_68k(uint8_t* rom, uint32_t size);
+	void kof2003_decrypt_68k(uint8_t* rom, uint32_t size);
+	void kof2003h_decrypt_68k(uint8_t* rom, uint32_t size);
 
 protected:
 	virtual void device_start() override;

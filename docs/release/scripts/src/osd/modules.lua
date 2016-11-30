@@ -101,24 +101,13 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/modules/input/input_xinput.cpp",
 		MAME_DIR .. "src/osd/modules/input/input_xinput.h",
 		MAME_DIR .. "src/osd/modules/input/input_winhybrid.cpp",
+		MAME_DIR .. "src/osd/modules/input/input_uwp.cpp",
 		MAME_DIR .. "src/osd/modules/output/output_module.h",
 		MAME_DIR .. "src/osd/modules/output/none.cpp",
 		MAME_DIR .. "src/osd/modules/output/console.cpp",
 		MAME_DIR .. "src/osd/modules/output/network.cpp",
 		MAME_DIR .. "src/osd/modules/output/win32_output.cpp",
 		MAME_DIR .. "src/osd/modules/output/win32_output.h",
-		MAME_DIR .. "src/osd/modules/ipc/tcp_connection.cpp",
-		MAME_DIR .. "src/osd/modules/ipc/tcp_connection.h",
-		MAME_DIR .. "src/osd/modules/ipc/tcp_server.cpp",
-		MAME_DIR .. "src/osd/modules/ipc/tcp_server.h",
-		MAME_DIR .. "src/osd/modules/ipc/raw_tcp_connection.cpp",
-		MAME_DIR .. "src/osd/modules/ipc/raw_tcp_connection.h",
-		MAME_DIR .. "src/osd/modules/ipc/raw_tcp_server.cpp",
-		MAME_DIR .. "src/osd/modules/ipc/raw_tcp_server.h",
-		MAME_DIR .. "src/osd/modules/ipc/rtc_tcp_connection.cpp",
-		MAME_DIR .. "src/osd/modules/ipc/rtc_tcp_connection.h",
-		MAME_DIR .. "src/osd/modules/ipc/rtc_tcp_server.cpp",
-		MAME_DIR .. "src/osd/modules/ipc/rtc_tcp_server.h",
 		MAME_DIR .. "src/osd/modules/monitor/monitor_common.h",
 		MAME_DIR .. "src/osd/modules/monitor/monitor_common.cpp",
 		MAME_DIR .. "src/osd/modules/monitor/monitor_win32.cpp",
@@ -126,7 +115,7 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/modules/monitor/monitor_sdl.cpp",
 	}
 	includedirs {
-		ext_includedir("uv"),
+		MAME_DIR .. "3rdparty/asio/include",
 	}
 
 	if _OPTIONS["targetos"]=="windows" then

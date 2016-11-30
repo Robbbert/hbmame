@@ -8,7 +8,7 @@
 extern const device_type KOG_PROT = &device_creator<kog_prot_device>;
 
 
-kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, KOG_PROT, "NeoGeo Protection (King of Gladiator)", tag, owner, clock, "kog_prot", __FILE__),
 	m_jumper(*this, "JUMPER")
 {
@@ -41,12 +41,12 @@ void kog_prot_device::kog_install_protection(cpu_device* maincpu)
 /* The protection patching here may be incomplete
    Thanks to Razoola for the info */
 
-void kog_prot_device::kog_px_decrypt(UINT8* cpurom, UINT32 cpurom_size)
+void kog_prot_device::kog_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
 {
 	/* the protection chip does some *very* strange things to the rom */
-	UINT8 *src = cpurom;
-	dynamic_buffer dst( 0x600000 );
-	UINT16 *rom = (UINT16 *)cpurom;
+	uint8_t *src = cpurom;
+	std::vector<uint8_t> dst( 0x600000 );
+	uint16_t *rom = (uint16_t *)cpurom;
 	int i;
 	static const int sec[] = { 0x3, 0x8, 0x7, 0xC, 0x1, 0xA, 0x6, 0xD };
 

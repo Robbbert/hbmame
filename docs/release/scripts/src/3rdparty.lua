@@ -60,7 +60,7 @@ if _OPTIONS["vs"]=="intel-15" then
 			"/Qwd869",              -- remark #869: parameter "xxx" was never referenced
 		}
 end
-	configuration { "vs2015*" }
+	configuration { "vs201*" }
 		buildoptions {
 			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 		}
@@ -197,6 +197,11 @@ if _OPTIONS["vs"]=="intel-15" then
 		}
 end
 
+	configuration { "winstore*" }
+		defines {
+			"NO_GETENV"
+		}
+
 	configuration { }
 
 	files {
@@ -284,7 +289,7 @@ end
 			"-include stdint.h"
 		}
 
-	configuration { "vs2015*" }
+	configuration { "vs201*" }
 		buildoptions {
 			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 		}
@@ -372,10 +377,14 @@ if _OPTIONS["vs"]=="intel-15" then
 			"/Qwd869",              -- remark #869: parameter "xxx" was never referenced
 		}
 end
-	configuration { "vs2015*" }
+	configuration { "vs201*" }
 		buildoptions {
 			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 			"/wd4457", -- warning C4457: declaration of 'xxx' hides function parameter
+		}
+	configuration { "winstore*" }
+		forcedincludes {
+			MAME_DIR .. "src/osd/uwp/uwpcompat.h"
 		}
 
 	configuration { }
@@ -404,6 +413,7 @@ end
 			MAME_DIR .. "3rdparty/lzma/C/BraIA64.c",
 			MAME_DIR .. "3rdparty/lzma/C/CpuArch.c",
 			MAME_DIR .. "3rdparty/lzma/C/Delta.c",
+			-- MAME_DIR .. "3rdparty/lzma/C/DllSecur.c",
 			MAME_DIR .. "3rdparty/lzma/C/LzFind.c",
 			-- MAME_DIR .. "3rdparty/lzma/C/LzFindMt.c",
 			MAME_DIR .. "3rdparty/lzma/C/Lzma2Dec.c",
@@ -463,6 +473,12 @@ if _OPTIONS["vs"]=="intel-15" then
 			"/Qwd592", -- error #592: variable "xxx" is used before its value is set
 		}
 end
+
+	configuration { "winstore*" }
+		forcedincludes {
+			MAME_DIR .. "src/osd/uwp/uwpcompat.h",
+		}
+
 	configuration { }
 		defines {
 			"LUA_COMPAT_ALL",
@@ -556,15 +572,75 @@ project "lualibs"
 	includedirs {
 		MAME_DIR .. "3rdparty",
 	}
+if (_OPTIONS["osd"] ~= "uwp") then
+	includedirs {
+		MAME_DIR .. "3rdparty/linenoise-ng/include",
+	}
+end
 	includedirs {
 		ext_includedir("lua"),
 		ext_includedir("zlib"),
+		ext_includedir("sqlite3"),
 	}
 
+	configuration { "winstore*" }
+		forcedincludes {
+			MAME_DIR .. "src/osd/uwp/uwpcompat.h"
+		}
+
+	configuration {}
+
 	files {
+		MAME_DIR .. "3rdparty/lsqlite3/lsqlite3.c",
 		MAME_DIR .. "3rdparty/lua-zlib/lua_zlib.c",
 		MAME_DIR .. "3rdparty/luafilesystem/src/lfs.c",
 	}
+if (_OPTIONS["osd"] == "uwp") then
+	files {
+		MAME_DIR .. "3rdparty/lua-linenoise/linenoise_none.c",
+	}
+else
+	files {
+		MAME_DIR .. "3rdparty/lua-linenoise/linenoise.c",
+	}
+end
+
+--------------------------------------------------
+-- SQLite3 library objects
+--------------------------------------------------
+
+if not _OPTIONS["with-system-sqlite3"] then
+project "sqlite3"
+	uuid "5cb3d495-57ed-461c-81e5-80dc0857517d"
+	kind "StaticLib"
+
+	configuration { "gmake" }
+		buildoptions_c {
+			"-Wno-discarded-qualifiers",
+			"-Wno-unused-but-set-variable",
+			"-Wno-bad-function-cast",
+			"-Wno-undef",
+		}
+if _OPTIONS["gcc"]~=nil and ((string.find(_OPTIONS["gcc"], "clang") or string.find(_OPTIONS["gcc"], "asmjs") or string.find(_OPTIONS["gcc"], "android"))) then
+		buildoptions_c {
+			"-Wno-incompatible-pointer-types-discards-qualifiers",
+		}
+end
+	configuration { "winstore*" }
+		defines {
+			"SQLITE_OS_WINRT",
+		}
+
+	configuration { }
+
+	files {
+		MAME_DIR .. "3rdparty/sqlite3/sqlite3.c",
+	}
+else
+links {
+	ext_lib("sqlite3"),
+}
+end
 
 end
 --------------------------------------------------
@@ -597,7 +673,7 @@ if _OPTIONS["vs"]=="intel-15" then
 		}
 end
 
-	configuration { "vs2015*" }
+	configuration { "vs201*" }
 		buildoptions {
 			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 		}
@@ -757,7 +833,7 @@ end
 		end
 	end
 
-	if _OPTIONS["targetos"]=="macosx" then
+	if _OPTIONS["targetos"]=="macosx" or  _OPTIONS["targetos"]=="linux" then
 		if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "clang") then
 			buildoptions {
 				"-Wno-switch",
@@ -781,13 +857,15 @@ end
 		MAME_DIR .. "3rdparty/bgfx/src/glcontext_ppapi.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/glcontext_wgl.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/image.cpp",
+		MAME_DIR .. "3rdparty/bgfx/src/hmd.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/hmd_ovr.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/hmd_openvr.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/renderer_d3d12.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/renderer_d3d11.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/renderer_d3d9.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/renderer_gl.cpp",
-		MAME_DIR .. "3rdparty/bgfx/src/renderer_null.cpp",
+		MAME_DIR .. "3rdparty/bgfx/src/renderer_gnm.cpp",
+		MAME_DIR .. "3rdparty/bgfx/src/renderer_noop.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/renderer_vk.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/debug_renderdoc.cpp",
 		MAME_DIR .. "3rdparty/bgfx/src/shader.cpp",
@@ -812,7 +890,6 @@ end
 		MAME_DIR .. "3rdparty/bgfx/3rdparty/ib-compress/indexbufferdecompression.cpp",
 		MAME_DIR .. "3rdparty/bgfx/3rdparty/ocornut-imgui/imgui.cpp",
 		MAME_DIR .. "3rdparty/bgfx/3rdparty/ocornut-imgui/imgui_draw.cpp",
-		MAME_DIR .. "3rdparty/bgfx/3rdparty/ocornut-imgui/imgui_wm.cpp",
 	}
 	if _OPTIONS["targetos"]=="macosx" then
 		files {
@@ -848,7 +925,7 @@ end
 --          "/Qwd1879",             -- warning #1879: unimplemented pragma ignored
 --      }
 --end
---  configuration { "vs2015*" }
+--  configuration { "vs201*" }
 --      buildoptions {
 --          "/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 --      }
@@ -975,207 +1052,6 @@ end
 --}
 --end
 
---------------------------------------------------
--- libuv library objects
---------------------------------------------------
-if _OPTIONS["USE_LIBUV"]=="1" then
-if not _OPTIONS["with-system-uv"] then
-project "uv"
-	uuid "cd2afe7f-139d-49c3-9000-fc9119f3cea0"
-	kind "StaticLib"
-
-	includedirs {
-		MAME_DIR .. "3rdparty/libuv/include",
-		MAME_DIR .. "3rdparty/libuv/src",
-		MAME_DIR .. "3rdparty/libuv/src/win",
-	}
-
-	configuration { "gmake or ninja" }
-		buildoptions_c {
-			"-Wno-strict-prototypes",
-			"-Wno-bad-function-cast",
-			"-Wno-write-strings",
-			"-Wno-missing-braces",
-			"-Wno-undef",
-			"-Wno-unused-variable",
-		}
-
-
-	local version = str_to_version(_OPTIONS["gcc_version"])
-	if (_OPTIONS["gcc"]~=nil) then
-		if string.find(_OPTIONS["gcc"], "clang") or string.find(_OPTIONS["gcc"], "android") then
-			buildoptions_c {
-				"-Wno-unknown-warning-option",
-				"-Wno-unknown-attributes",
-				"-Wno-null-dereference",
-				"-Wno-unused-but-set-variable",
-				"-Wno-maybe-uninitialized",
-			}
-		else
-			buildoptions_c {
-				"-Wno-unused-but-set-variable",
-				"-Wno-maybe-uninitialized",
-			}
-		end
-	end
-
-	configuration { "vs*" }
-		buildoptions {
-			"/wd4054", -- warning C4054: 'type cast' : from function pointer 'xxx' to data pointer 'void *'
-			"/wd4204", -- warning C4204: nonstandard extension used : non-constant aggregate initializer
-			"/wd4210", -- warning C4210: nonstandard extension used : function given file scope
-			"/wd4701", -- warning C4701: potentially uninitialized local variable 'xxx' used
-			"/wd4703", -- warning C4703: potentially uninitialized local pointer variable 'xxx' used
-			"/wd4477", -- warning C4477: '<function>' : format string '<format-string>' requires an argument of type '<type>', but variadic argument <position> has type '<type>'
-		}
-
-	configuration { }
-
-	files {
-			MAME_DIR .. "3rdparty/libuv/src/fs-poll.c",
-			MAME_DIR .. "3rdparty/libuv/src/inet.c",
-			MAME_DIR .. "3rdparty/libuv/src/threadpool.c",
-			MAME_DIR .. "3rdparty/libuv/src/uv-common.c",
-			MAME_DIR .. "3rdparty/libuv/src/version.c",
-	}
-
-	if _OPTIONS["targetos"]=="windows" then
-		defines {
-			"WIN32_LEAN_AND_MEAN",
-			"_WIN32_WINNT=0x0502",
-		}
-		configuration { }
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/win/async.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/core.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/dl.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/error.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/fs-event.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/fs.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/getaddrinfo.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/getnameinfo.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/handle.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/loop-watcher.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/pipe.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/poll.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/process-stdio.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/process.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/req.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/signal.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/stream.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/tcp.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/thread.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/timer.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/tty.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/udp.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/util.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/winapi.c",
-			MAME_DIR .. "3rdparty/libuv/src/win/winsock.c",
-		}
-	end
-
-	if _OPTIONS["targetos"]~="windows" then
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/async.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/atomic-ops.h",
-			MAME_DIR .. "3rdparty/libuv/src/unix/core.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/dl.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/fs.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/getaddrinfo.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/getnameinfo.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/internal.h",
-			MAME_DIR .. "3rdparty/libuv/src/unix/loop-watcher.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/loop.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/pipe.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/poll.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/process.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/signal.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/spinlock.h",
-			MAME_DIR .. "3rdparty/libuv/src/unix/stream.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/tcp.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/thread.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/timer.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/tty.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/udp.c",
-		}
-	end
-	if _OPTIONS["targetos"]=="linux" then
-		defines {
-			"_GNU_SOURCE",
-		}
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-core.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-inotify.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-syscalls.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-syscalls.h",
-			MAME_DIR .. "3rdparty/libuv/src/unix/proctitle.c",
-		}
-	end
-	if _OPTIONS["targetos"]=="macosx" then
-		defines {
-			"_DARWIN_USE_64_BIT_INODE=1",
-			"_DARWIN_UNLIMITED_SELECT=1",
-		}
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/darwin.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/darwin-proctitle.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/fsevents.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/kqueue.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/proctitle.c",
-		}
-	end
-
-	if _OPTIONS["targetos"]=="android" then
-		defines {
-			"_GNU_SOURCE",
-		}
-		buildoptions {
-			"-Wno-header-guard",
-		}
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/proctitle.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-core.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-inotify.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-syscalls.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/linux-syscalls.h",
-			MAME_DIR .. "3rdparty/libuv/src/unix/pthread-fixes.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/android-ifaddrs.c",
-		}
-	end
-
-	if _OPTIONS["targetos"]=="solaris" then
-		defines {
-			"__EXTENSIONS__",
-			"_XOPEN_SOURCE=500",
-		}
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/sunos.c",
-		}
-	end
-	if _OPTIONS["targetos"]=="freebsd" then
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/freebsd.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/kqueue.c",
-		}
-	end
-	if _OPTIONS["targetos"]=="netbsd" then
-		files {
-			MAME_DIR .. "3rdparty/libuv/src/unix/netbsd.c",
-			MAME_DIR .. "3rdparty/libuv/src/unix/kqueue.c",
-		}
-		links {
-			"kvm",
-		}
-	end
-
-	if (_OPTIONS["SHADOW_CHECK"]=="1") then
-		removebuildoptions {
-			"-Wshadow"
-		}
-	end
-end
-
-end
 --------------------------------------------------
 -- SDL2 library
 --------------------------------------------------
@@ -1307,7 +1183,6 @@ end
 		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_audiocvt.c",
 		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_audiodev.c",
 		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_audiodev_c.h",
-		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_audiomem.h",
 		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_audiotypecvt.c",
 		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_mixer.c",
 		MAME_DIR .. "3rdparty/SDL2/src/audio/SDL_sysaudio.h",
@@ -1507,7 +1382,7 @@ end
 
 	if _OPTIONS["targetos"]=="macosx" then
 		files {
-			MAME_DIR .. "3rdparty/SDL2/src/audio/coreaudio/SDL_coreaudio.c",
+			MAME_DIR .. "3rdparty/SDL2/src/audio/coreaudio/SDL_coreaudio.m",
 			MAME_DIR .. "3rdparty/SDL2/src/audio/coreaudio/SDL_coreaudio.h",
 			MAME_DIR .. "3rdparty/SDL2/src/file/cocoa/SDL_rwopsbundlesupport.m",
 			MAME_DIR .. "3rdparty/SDL2/src/file/cocoa/SDL_rwopsbundlesupport.h",
@@ -1638,10 +1513,18 @@ end
 		}
 		buildoptions_c {
 			"-Wno-undef",
+			"-Wno-format",
+			"-Wno-format-security",
 			"-Wno-strict-prototypes",
 			"-Wno-bad-function-cast",
+			"-Wno-pointer-to-int-cast",
 			"-Wno-discarded-qualifiers",
 			"-Wno-unused-but-set-variable",
+		}
+
+	configuration { "mingw-clang"}
+		buildoptions_c {
+			"-Wno-incompatible-pointer-types-discards-qualifiers"
 		}
 
 	configuration { "osx*"}
@@ -1673,4 +1556,32 @@ end
 			MAME_DIR .. "3rdparty/SDL2/include",
 		}
 
+end
+
+--------------------------------------------------
+-- linenoise-ng library
+--------------------------------------------------
+if (_OPTIONS["osd"] ~= "uwp") then
+project "linenoise-ng"
+	uuid "7320ffc8-2748-4add-8864-ae29b72a8511"
+	kind (LIBTYPE)
+
+	addprojectflags()
+
+	configuration { "vs*" }
+		buildoptions {
+			"/wd4701", -- warning C4701: potentially uninitialized local variable 'xxx' used
+		}
+
+	configuration { }
+
+	includedirs {
+		MAME_DIR .. "3rdparty/linenoise-ng/include",
+	}
+
+	files {
+		MAME_DIR .. "3rdparty/linenoise-ng/src/ConvertUTF.cpp",
+		MAME_DIR .. "3rdparty/linenoise-ng/src/linenoise.cpp",
+		MAME_DIR .. "3rdparty/linenoise-ng/src/wcwidth.cpp",
+	}
 end

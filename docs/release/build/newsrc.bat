@@ -7,6 +7,7 @@ md %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src\version.cpp
 copy /Y %from%\src\emu\validity.cpp %to%\src\emu
 copy /Y %from%\src\emu\digfx.h %to%\src\emu
+copy /Y %from%\src\emu\gamedrv.h %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src
 
@@ -31,6 +32,9 @@ xcopy /E /Y %from%\src\hbmame %to%\src\hbmame
 
 md %to%\src\osd\winui
 xcopy /E /Y %from%\src\osd\winui %to%\src\osd\winui
+
+md %to%\src\osd\modules\render
+copy /Y %from%\src\osd\modules\render\drawd3d.cpp %to%\src\osd\modules\render
 
 rem now save all our stuff to github
 copy %from%\*.bat %to%\build

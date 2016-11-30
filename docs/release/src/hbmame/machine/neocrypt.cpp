@@ -51,12 +51,12 @@
 /* ms5pcb and svcpcb have an additional scramble on top of the standard CMC scrambling */
 void neogeo_noslot_state::svcpcb_gfx_decrypt()
 {
-	static const UINT8 xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
+	static const uint8_t xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
 	int i;
 	int ofst;
 	int rom_size = memregion( "sprites" )->bytes();
-	UINT8 *rom = memregion( "sprites" )->base();
-	dynamic_buffer buf( rom_size );
+	uint8_t *rom = memregion( "sprites" )->base();
+	std::vector<uint8_t> buf( rom_size );
 
 	for( i = 0; i < rom_size; i++ )
 	{
@@ -64,7 +64,7 @@ void neogeo_noslot_state::svcpcb_gfx_decrypt()
 	}
 	for( i = 0; i < rom_size; i += 4 )
 	{
-		UINT32 rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
+		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
 		rom32 = BITSWAP32( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12, 0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
 		buf[i]   = rom32       & 0xff;
 		buf[i+1] = (rom32>>8)  & 0xff;
@@ -85,7 +85,7 @@ void neogeo_noslot_state::svcpcb_gfx_decrypt()
 void neogeo_noslot_state::svcpcb_s1data_decrypt()
 {
 	int i;
-	UINT8 *s1 = memregion( "fixed" )->base();
+	uint8_t *s1 = memregion( "fixed" )->base();
 	size_t s1_size = memregion( "fixed" )->bytes();
 
 	for( i = 0; i < s1_size; i++ ) // Decrypt S
@@ -99,12 +99,12 @@ void neogeo_noslot_state::svcpcb_s1data_decrypt()
 /* Thanks to Razoola & Halrin for the info */
 void neogeo_noslot_state::kf2k3pcb_gfx_decrypt()
 {
-	static const UINT8 xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
+	static const uint8_t xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
 	int i;
 	int ofst;
 	int rom_size = memregion( "sprites" )->bytes();
-	UINT8 *rom = memregion( "sprites" )->base();
-	dynamic_buffer buf( rom_size );
+	uint8_t *rom = memregion( "sprites" )->base();
+	std::vector<uint8_t> buf( rom_size );
 
 	for ( i = 0; i < rom_size; i++ )
 	{
@@ -112,7 +112,7 @@ void neogeo_noslot_state::kf2k3pcb_gfx_decrypt()
 	}
 	for ( i = 0; i < rom_size; i +=4 )
 	{
-		UINT32 rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
+		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
 		rom32 = BITSWAP32( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12, 0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
 		buf[i]   =  rom32      & 0xff;
 		buf[i+1] = (rom32>>8)  & 0xff;
@@ -132,8 +132,8 @@ void neogeo_noslot_state::kf2k3pcb_gfx_decrypt()
 /* and a further swap on the s1 data */
 void neogeo_noslot_state::kf2k3pcb_decrypt_s1data()
 {
-	UINT8 *src;
-	UINT8 *dst;
+	uint8_t *src;
+	uint8_t *dst;
 	int i;
 	int tx_size = memregion( "fixed" )->bytes();
 	int srom_size = memregion( "sprites" )->bytes();
@@ -176,7 +176,7 @@ NeoGeo 'SP1' (BIOS) ROM encryption
 /* only found on kf2k3pcb */
 void neogeo_noslot_state::kf2k3pcb_sp1_decrypt()
 {
-	static const UINT8 address[0x40] = {
+	static const uint8_t address[0x40] = {
 		0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,
 		0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,
 		0x09,0x07,0x09,0x07,0x09,0x07,0x09,0x07,
@@ -187,8 +187,8 @@ void neogeo_noslot_state::kf2k3pcb_sp1_decrypt()
 		0x04,0x00,0x04,0x00,0x0e,0x0a,0x0e,0x0a
 	};
 
-	UINT16 *rom = (UINT16 *)memregion("mainbios")->base();
-	std::vector<UINT16> buf(0x80000/2);
+	uint16_t *rom = (uint16_t *)memregion("mainbios")->base();
+	std::vector<uint16_t> buf(0x80000/2);
 	int i, addr;
 
 	for (i = 0; i < 0x80000/2; i++)

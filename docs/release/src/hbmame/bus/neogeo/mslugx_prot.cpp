@@ -8,7 +8,7 @@
 extern const device_type MSLUGX_PROT = &device_creator<mslugx_prot_device>;
 
 
-mslugx_prot_device::mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+mslugx_prot_device::mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, MSLUGX_PROT, "NeoGeo Protection (Metal Slug X)", tag, owner, clock, "mslugx_prot", __FILE__),
 	m_mslugx_counter(0),
 	m_mslugx_command(0)
@@ -65,7 +65,7 @@ WRITE16_MEMBER( mslugx_prot_device::mslugx_protection_16_w )
 
 READ16_MEMBER( mslugx_prot_device::mslugx_protection_16_r )
 {
-	UINT16 res = 0;
+	uint16_t res = 0;
 
 	switch (m_mslugx_command)
 	{
@@ -76,7 +76,7 @@ READ16_MEMBER( mslugx_prot_device::mslugx_protection_16_r )
 		break;
 
 		case 0x0fff: { // All other accesses (Register D2)
-			INT32 select = space.read_word(0x10f00a) - 1; // How should this be calculated?
+			int32_t select = space.read_word(0x10f00a) - 1; // How should this be calculated?
 			res = (space.read_byte(0xdedd2 + ((select >> 3) & 0x0fff)) >> (~select & 0x07)) & 1;
 		}
 		break;

@@ -1,0 +1,14 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
+//============================================================
+//
+//	mame.rc - Minimal resource file for Win32 MAME
+//
+//============================================================
+
+#include <windows.h>
+//#include "mamevers.rc"
+
+1                       24      MOVEABLE PURE   "hbmame.man"
+
+2                       ICON    DISCARDABLE     "hbmame.ico"
