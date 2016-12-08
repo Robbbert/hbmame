@@ -283,6 +283,7 @@ VIDEOS["DM9368"] = true
 --VIDEOS["EF9345"] = true
 --VIDEOS["EF9364"] = true
 --VIDEOS["EF9365"] = true
+VIDEOS["EF9369"] = true
 --VIDEOS["GF4500"] = true
 VIDEOS["GF7600GS"] = true
 VIDEOS["EPIC12"] = true
@@ -359,6 +360,7 @@ MACHINES["TTL74123"] = true
 MACHINES["TTL74145"] = true
 MACHINES["TTL74148"] = true
 MACHINES["TTL74153"] = true
+MACHINES["TTL74157"] = true
 --MACHINES["TTL74161"] = true
 --MACHINES["TTL74175"] = true
 MACHINES["TTL74181"] = true
@@ -4668,4 +4670,3 @@ files {
 	MAME_DIR .. "src/mame/video/xyonix.cpp",
 }
 end
-
