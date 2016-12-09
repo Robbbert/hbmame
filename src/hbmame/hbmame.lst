@@ -1293,16 +1293,18 @@ airwolf		//parent
 airwolffr	// french
 
 	/* m52 */
-alpha1v		// Kyle Hodgetts
+alpha1v		//parent
+alpha1vx	// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 	/* maketrax */
 eyes		//parent
 aa			/* Widel's Games */
+abscam		// GL 1982
 absurd		/* scott - nonworking alpha ver 3 */
-//alpaca7		/* Jerronimo (useless) */
-//alpaca8		/* Jerronimo (useless) */
+alpaca7		/* Jerronimo (useless) */
+alpaca8		/* Jerronimo (useless) */
 bace		/* Widel's Games */
 crashh		/* PacMAME Hacks */
 dderby		/* Widel's Games */
@@ -1322,7 +1324,7 @@ seq1		/* Jerronimo */
 seq2		/* Jerronimo */
 tst_pacm
 wavybug
-zap		/* Widel's Games */
+zap			/* Widel's Games */
 
 	/* mappy */
 mappy		//parent
@@ -1418,6 +1420,10 @@ mitcdemo	/* Charles Doty */
 
 	/* mmagic */
 mmagic		// with sound
+
+	/* model2 */
+srallyc		//parent
+srallyp		// Kyle Hodgetts Sega Rally Pro Drivin'
 
 	/* monaco */
 monaco
@@ -2452,8 +2458,8 @@ pengo		//parent
 pacpen
 pengopop
 vecpengo	/* T-Bone hack of Pengo */
-//alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
-//alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
+alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
+alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
 
 	/* pgm */
 pgm			//required bios
@@ -2605,6 +2611,9 @@ astrob2h
 kicker		//parent
 kfjohnny	/* hack by Smitdogg*/
 
+	/* skimaxx */
+skimaxx		// Kyle Hodgetts
+
 	/* snk6502 */
 vantris		/* (c) 1998 Norbert Kehrer */
 
@@ -2692,6 +2701,9 @@ aliensva	/* Tempest Prototype */
 	/* terracre */
 terracre	//parent
 terracrc
+
+	/* tickee */
+mouseatk	// Kyle Hodgetts
 
 	/* tmnt */
 ssriders	//parent

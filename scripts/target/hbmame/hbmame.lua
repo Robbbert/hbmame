@@ -13,6 +13,7 @@
 ---------------------------------------------------
 
 CPUS["ADSP21XX"] = true
+CPUS["ADSP21062"] = true -- model2
 CPUS["ARM"] = true
 CPUS["ARM7"] = true
 CPUS["CCPU"] = true
@@ -22,12 +23,15 @@ CPUS["HD6309"] = true
 CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["I86"] = true
+CPUS["I960"] = true -- model2
 CPUS["M6502"] = true
 CPUS["M6800"] = true
 CPUS["M6805"] = true
 CPUS["M6809"] = true
 CPUS["M680X0"] = true
 CPUS["MB88XX"] = true
+CPUS["MB86233"] = true -- model2
+CPUS["MB86235"] = true -- model2
 CPUS["MCS48"] = true
 CPUS["MCS51"] = true
 CPUS["NEC"] = true
@@ -96,6 +100,9 @@ SOUNDS["ST0016"] = true
 SOUNDS["VOLT_REG"] = true
 SOUNDS["VOTRAX"] = true
 SOUNDS["DIGITALKER"] = true
+SOUNDS["MULTIPCM"] = true -- model2
+SOUNDS["SCSP"] = true -- model2
+SOUNDS["MPEG_AUDIO"] = true -- model2
 
 --------------------------------------------------
 -- specify available video cores
@@ -651,6 +658,22 @@ files {
 	MAME_DIR .. "src/mame/video/sega16sp.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segas16b.cpp",
 	MAME_DIR .. "src/mame/video/segas16b.cpp",
+	MAME_DIR .. "src/mame/machine/m2comm.cpp", -- from here, for model2
+	MAME_DIR .. "src/mame/machine/m2comm.h",
+	MAME_DIR .. "src/mame/audio/dsbz80.cpp",
+	MAME_DIR .. "src/mame/audio/dsbz80.h",
+	MAME_DIR .. "src/hbmame/drivers/model2.cpp",
+	MAME_DIR .. "src/mame/includes/model2.h",
+	MAME_DIR .. "src/mame/video/model2rd.hxx",
+	MAME_DIR .. "src/mame/video/model2.cpp",
+	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
+	MAME_DIR .. "src/mame/audio/segam1audio.h",
+	MAME_DIR .. "src/mame/video/segaic24.cpp",
+	MAME_DIR .. "src/mame/video/segaic24.h",
+	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
+	MAME_DIR .. "src/mame/machine/315-5881_crypt.h",
+	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
+	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")
@@ -773,6 +796,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/popper.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
+	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
+	MAME_DIR .. "src/mame/drivers/tickee.cpp",
 }
 
 end
