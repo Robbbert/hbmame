@@ -9612,6 +9612,7 @@ cocoe                           // Color Computer (Extended BASIC 1.0)
 cp400                           // Prologica CP400
 lzcolor64                       // Digiponto LZ Color64
 mx1600                          // Dynacom MX-1600
+t4426							// Terco T4426 CNC programming station
 
 @source:coco3.cpp
 coco3                           // Color Computer 3 (NTSC)
@@ -10703,6 +10704,7 @@ lwar_a81                        //
 lwar_a83                        //
 lwar_e90                        //
 mnfb_c27                        //
+mnfb_c29                        //
 play_a24                        //
 poto_a29                        //
 poto_a32                        //
@@ -11991,6 +11993,7 @@ sd1                             // 1990 SD-1
 sd132                           // 1991 SD-1 32
 sq1                             // 1990 SQ-1
 sqrack                          // 1990 SQ-Rack
+sq2								// 1991 SQ-2
 vfx                             // 1989 VFX
 vfxsd                           // 1989 VFX-SD
 
@@ -17004,9 +17007,9 @@ tricktrp                        // GX771 (c) 1987
 cavenger                        // 8106 (c) 1981
 dorodon                         // Falcon
 dorodon2                        // Falcon
-ladybgb2                        // bootleg
 ladybug                         // 8110 (c) 1981
 ladybugb                        // bootleg
+ladybugb2                       // bootleg
 snapjack                        // ???? (c)
 
 @source:ladyfrog.cpp
@@ -19762,7 +19765,6 @@ spyhunt2                        // (c) 1987
 spyhunt2a                       // (c) 1987
 trisport                        // (c) 1989
 xenophob                        // (c) 1987
-zwackery                        // (c) 1984
 
 @source:meadows.cpp
 bowl3d                          // [1978?]
@@ -28852,6 +28854,7 @@ quizkofk                        // 0080 (c) 1995 Saurus
 ragnagrd                        // 0218 (c) 1996 Saurus
 rbff1                           // 0095 (c) 1995 SNK
 rbff1a                          // 0095 (c) 1995 SNK
+rbff1k							// 0095 (c) 1995 SNK
 rbff2                           // 0240 (c) 1998 SNK
 rbff2h                          // 0240 (c) 1998 SNK
 rbff2k                          // 0140 Censored Korean release of rbff2
@@ -31480,6 +31483,7 @@ raiden                          // (c) 1990 Seibu Kaihatsu
 raidena                         // (c) 1990 Seibu Kaihatsu
 raidenb                         // (c) 1990 Seibu Kaihatsu
 raidenk                         // (c) 1990 Seibu Kaihatsu + IBL Corporation license
+raidenkb                        // (c) bootleg
 raident                         // (c) 1990 Seibu Kaihatsu + Liang HWA Electronics license
 raidenu                         // (c) 1990 Seibu Kaihatsu + Fabtek license
 raidenua                        // (c) 1990 Seibu Kaihatsu + Fabtek license
@@ -34670,6 +34674,7 @@ chopliftbl                      // bootleg (S2)
 chopliftu                       // 834-5795 (c) 1985, (c) 1982 Dan Gorlin (S2)
 dakkochn                        // 836-6483 (S2)
 flicky                          // (c) 1984 (S1)
+flickya                         // (c) 1984 (S1)
 flickyo                         // (c) 1984 (S1)
 flickys1                        // (c) 1984 (S1)
 flickys2                        // (c) 1984 (S1)
@@ -37972,6 +37977,9 @@ zrt80                           //
 
 @source:zsbc3.cpp
 zsbc3                           //
+
+@source:zwackery.cpp
+zwackery                        // (c) 1984
 
 @source:zx.cpp
 lambda                          // Lambda 8300
