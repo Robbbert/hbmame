@@ -35,13 +35,21 @@
 				netlist_analog_output_delegate(& _class :: _member,                 \
 						# _class "::" # _member, _class_tag, (_class *)nullptr)   );
 
-#define MCFG_NETLIST_LOGIC_INPUT(_basetag, _tag, _name, _shift)              \
-	MCFG_DEVICE_ADD(_basetag ":" _tag, NETLIST_LOGIC_INPUT, 0)                      \
+#define MCFG_NETLIST_LOGIC_INPUT(_basetag, _tag, _name, _shift)             \
+	MCFG_DEVICE_ADD(_basetag ":" _tag, NETLIST_LOGIC_INPUT, 0)              \
 	netlist_mame_logic_input_t::static_set_params(*device, _name, _shift);
 
-#define MCFG_NETLIST_INT_INPUT(_basetag, _tag, _name, _shift, _mask)                \
-	MCFG_DEVICE_ADD(_basetag ":" _tag, NETLIST_INT_INPUT, 0)                      \
+#define MCFG_NETLIST_INT_INPUT(_basetag, _tag, _name, _shift, _mask)        \
+	MCFG_DEVICE_ADD(_basetag ":" _tag, NETLIST_INT_INPUT, 0)                \
 	netlist_mame_int_input_t::static_set_params(*device, _name, _mask, _shift);
+
+#define MCFG_NETLIST_ROM_REGION(_basetag, _tag, _name, _region) \
+	MCFG_DEVICE_ADD(_basetag ":" _tag, NETLIST_ROM_REGION, 0) \
+	netlist_mame_rom_t::static_set_params(*device, _name ".m_ROM", ":" _region);
+
+#define MCFG_NETLIST_RAM_POINTER(_basetag, _tag, _name) \
+	MCFG_DEVICE_ADD(_basetag ":" _tag, NETLIST_RAM_POINTER, 0) \
+	netlist_ram_pointer_t::static_set_params(*device, _name ".m_RAM");
 
 #define MCFG_NETLIST_STREAM_INPUT(_basetag, _chan, _name)                           \
 	MCFG_DEVICE_ADD(_basetag ":cin" # _chan, NETLIST_STREAM_INPUT, 0)               \
@@ -50,7 +58,6 @@
 #define MCFG_NETLIST_STREAM_OUTPUT(_basetag, _chan, _name)                          \
 	MCFG_DEVICE_ADD(_basetag ":cout" # _chan, NETLIST_STREAM_OUTPUT, 0)             \
 	netlist_mame_stream_output_t::static_set_params(*device, _chan, _name);
-
 
 #define NETLIST_LOGIC_PORT_CHANGED(_base, _tag)                                     \
 	PORT_CHANGED_MEMBER(_base ":" _tag, netlist_mame_logic_input_t, input_changed, 0)
@@ -410,13 +417,12 @@ private:
 	netlist_analog_output_delegate m_delegate;
 };
 
-
 // ----------------------------------------------------------------------------------------
 // netlist_mame_int_input_t
 // ----------------------------------------------------------------------------------------
 
 class netlist_mame_int_input_t :  public device_t,
-									public netlist_mame_sub_interface
+                                  public netlist_mame_sub_interface
 {
 public:
 
@@ -456,6 +462,7 @@ private:
 	uint32_t m_shift;
 	pstring m_param_name;
 };
+
 
 // ----------------------------------------------------------------------------------------
 // netlist_mame_logic_input_t
@@ -500,6 +507,67 @@ private:
 	netlist::param_logic_t *m_param;
 	uint32_t m_shift;
 	pstring m_param_name;
+};
+
+// ----------------------------------------------------------------------------------------
+// netlist_mame_rom_t
+// ----------------------------------------------------------------------------------------
+
+class netlist_mame_rom_t : public device_t,
+                           public netlist_mame_sub_interface
+{
+public:
+
+	// construction/destruction
+	netlist_mame_rom_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	virtual ~netlist_mame_rom_t() { }
+
+	static void static_set_params(device_t &device, const char *param_name, const char* region_tag);
+
+protected:
+	// device-level overrides
+	virtual void device_start() override;
+	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override
+	{
+		m_param->setTo(m_data);
+	}
+
+private:
+	netlist::param_ptr_t *m_param;
+	pstring m_param_name;
+	const char* m_data_tag;
+	uint8_t* m_data;
+};
+
+// ----------------------------------------------------------------------------------------
+// netlist_ram_pointer_t
+// ----------------------------------------------------------------------------------------
+
+class netlist_ram_pointer_t: public device_t,
+                             public netlist_mame_sub_interface
+{
+public:
+
+	// construction/destruction
+	netlist_ram_pointer_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	virtual ~netlist_ram_pointer_t() { }
+
+	uint8_t* ptr() const { return m_data; }
+
+	static void static_set_params(device_t &device, const char *param_name);
+
+protected:
+	// device-level overrides
+	virtual void device_start() override;
+	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override
+	{
+		m_data = (*m_param)();
+	}
+
+private:
+	netlist::param_ptr_t *m_param;
+	pstring m_param_name;
+	uint8_t* m_data;
 };
 
 // ----------------------------------------------------------------------------------------
@@ -761,6 +829,8 @@ extern const device_type NETLIST_SOUND;
 extern const device_type NETLIST_ANALOG_INPUT;
 extern const device_type NETLIST_LOGIC_INPUT;
 extern const device_type NETLIST_INT_INPUT;
+extern const device_type NETLIST_ROM_REGION;
+extern const device_type NETLIST_RAM_POINTER;
 
 extern const device_type NETLIST_ANALOG_OUTPUT;
 extern const device_type NETLIST_STREAM_INPUT;

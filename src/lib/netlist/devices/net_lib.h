@@ -14,10 +14,13 @@
 #include "nl_base.h"
 #include "nld_system.h"
 
+#include "nld_2102A.h"
+#include "nld_2716.h"
 #include "nld_4020.h"
 #include "nld_4066.h"
 #include "nld_7448.h"
 #include "nld_7450.h"
+#include "nld_7473.h"
 #include "nld_7474.h"
 #include "nld_7483.h"
 #include "nld_7490.h"
@@ -25,20 +28,30 @@
 #include "nld_74107.h"
 #include "nld_74123.h"
 #include "nld_74153.h"
+#include "nld_74161.h"
+#include "nld_74166.h"
+#include "nld_74174.h"
 #include "nld_74175.h"
 #include "nld_74192.h"
 #include "nld_74193.h"
 #include "nld_74279.h"
+#include "nld_74365.h"
 #include "nld_74ls629.h"
 #include "nld_82S16.h"
+#include "nld_82S126.h"
 #include "nld_9310.h"
 #include "nld_9312.h"
 #include "nld_9316.h"
+
+#include "nld_am2847.h"
+#include "nld_dm9334.h"
 
 #include "nld_ne555.h"
 #include "nld_mm5837.h"
 
 #include "nld_r2r_dac.h"
+
+#include "nld_tristate.h"
 
 #include "nld_log.h"
 

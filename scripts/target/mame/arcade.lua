@@ -567,6 +567,8 @@ MACHINES["X76F041"] = true
 MACHINES["X76F100"] = true
 MACHINES["Z80CTC"] = true
 MACHINES["Z80DART"] = true
+--MACHINES["Z80SIO"] = true
+MACHINES["Z80SCC"] = true
 MACHINES["Z80DMA"] = true
 MACHINES["Z80PIO"] = true
 MACHINES["Z80STI"] = true
@@ -2556,6 +2558,8 @@ files {
 	MAME_DIR .. "src/mame/machine/midwayic.h",
 	MAME_DIR .. "src/mame/audio/midway.cpp",
 	MAME_DIR .. "src/mame/audio/midway.h",
+	MAME_DIR .. "src/mame/audio/csd.cpp",
+	MAME_DIR .. "src/mame/audio/csd.h",
 }
 
 createMAMEProjects(_target, _subtarget, "namco")

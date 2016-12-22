@@ -28,6 +28,8 @@ const device_type NETLIST_SOUND = &device_creator<netlist_mame_sound_device_t>;
 
 const device_type NETLIST_ANALOG_INPUT = &device_creator<netlist_mame_analog_input_t>;
 const device_type NETLIST_INT_INPUT = &device_creator<netlist_mame_int_input_t>;
+const device_type NETLIST_ROM_REGION = &device_creator<netlist_mame_rom_t>;
+const device_type NETLIST_RAM_POINTER = &device_creator<netlist_ram_pointer_t>;
 const device_type NETLIST_LOGIC_INPUT = &device_creator<netlist_mame_logic_input_t>;
 const device_type NETLIST_STREAM_INPUT = &device_creator<netlist_mame_stream_input_t>;
 
@@ -83,7 +85,7 @@ void netlist_mame_analog_input_t::device_start()
 // ----------------------------------------------------------------------------------------
 
 netlist_mame_analog_output_t::netlist_mame_analog_output_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-		: device_t(mconfig, NETLIST_ANALOG_INPUT, "Netlist Analog Output", tag, owner, clock, "netlist_analog_output", __FILE__),
+		: device_t(mconfig, NETLIST_ANALOG_OUTPUT, "Netlist Analog Output", tag, owner, clock, "netlist_analog_output", __FILE__),
 			netlist_mame_sub_interface(*owner),
 			m_in("")
 {
@@ -118,7 +120,7 @@ void netlist_mame_analog_output_t::device_start()
 // ----------------------------------------------------------------------------------------
 
 netlist_mame_int_input_t::netlist_mame_int_input_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-		: device_t(mconfig, NETLIST_INT_INPUT, "Netlist Logic Input", tag, owner, clock, "netlist_logic_input", __FILE__),
+		: device_t(mconfig, NETLIST_INT_INPUT, "Netlist Integer Input", tag, owner, clock, "netlist_logic_input", __FILE__),
 			netlist_mame_sub_interface(*owner),
 			m_param(nullptr),
 			m_mask(0xffffffff),
@@ -177,6 +179,77 @@ void netlist_mame_logic_input_t::device_start()
 	{
 		fatalerror("device %s wrong parameter type for %s\n", basetag(), m_param_name.cstr());
 	}
+}
+
+// ----------------------------------------------------------------------------------------
+// netlist_mame_rom_t
+// ----------------------------------------------------------------------------------------
+
+netlist_mame_rom_t::netlist_mame_rom_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+		: device_t(mconfig, NETLIST_ROM_REGION, "Netlist ROM Region", tag, owner, clock, "netlist_rom_region", __FILE__)
+		, netlist_mame_sub_interface(*owner)
+		, m_param(nullptr)
+		, m_param_name("")
+		, m_data_tag(nullptr)
+		, m_data(nullptr)
+{
+}
+
+void netlist_mame_rom_t::static_set_params(device_t &device, const char *param_name, const char* data_tag)
+{
+	netlist_mame_rom_t &netlist = downcast<netlist_mame_rom_t&>(device);
+	LOG_DEV_CALLS(("static_set_params %s\n", device.tag()));
+	netlist.m_param_name = param_name;
+	netlist.m_data_tag = data_tag;
+}
+
+void netlist_mame_rom_t::device_start()
+{
+	LOG_DEV_CALLS(("start %s\n", tag()));
+	netlist::param_t *p = downcast<netlist_mame_device_t *>(this->owner())->setup().find_param(m_param_name);
+	m_param = dynamic_cast<netlist::param_ptr_t *>(p);
+	if (m_param == nullptr)
+	{
+		fatalerror("device %s wrong parameter type for %s\n", basetag(), m_param_name.cstr());
+	}
+
+	if (memregion(m_data_tag) != nullptr)
+		m_data = memregion(m_data_tag)->base();
+
+	m_param->setTo(m_data);
+}
+
+// ----------------------------------------------------------------------------------------
+// netlist_ram_pointer_t
+// ----------------------------------------------------------------------------------------
+
+netlist_ram_pointer_t::netlist_ram_pointer_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+		: device_t(mconfig, NETLIST_RAM_POINTER, "Netlist RAM Pointer", tag, owner, clock, "netlist_ram_pointer", __FILE__)
+		, netlist_mame_sub_interface(*owner)
+		, m_param(nullptr)
+		, m_param_name("")
+		, m_data(nullptr)
+{
+}
+
+void netlist_ram_pointer_t::static_set_params(device_t &device, const char *param_name)
+{
+	netlist_ram_pointer_t &netlist = downcast<netlist_ram_pointer_t&>(device);
+	LOG_DEV_CALLS(("static_set_params %s\n", device.tag()));
+	netlist.m_param_name = param_name;
+}
+
+void netlist_ram_pointer_t::device_start()
+{
+	LOG_DEV_CALLS(("start %s\n", tag()));
+	netlist::param_t *p = downcast<netlist_mame_device_t *>(this->owner())->setup().find_param(m_param_name);
+	m_param = dynamic_cast<netlist::param_ptr_t *>(p);
+	if (m_param == nullptr)
+	{
+		fatalerror("device %s wrong parameter type for %s\n", basetag(), m_param_name.cstr());
+	}
+
+    m_data = (*m_param)();
 }
 
 // ----------------------------------------------------------------------------------------
