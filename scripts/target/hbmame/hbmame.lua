@@ -457,6 +457,8 @@ files {
 	MAME_DIR .. "src/mame/audio/midway.cpp",
 	MAME_DIR .. "src/mame/audio/cage.cpp",
 	MAME_DIR .. "src/mame/audio/dcs.cpp",
+	MAME_DIR .. "src/mame/audio/csd.cpp",
+	MAME_DIR .. "src/mame/audio/csd.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "namco")
@@ -752,7 +754,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
 files {
-	MAME_DIR .. "src/hbmame/drivers/toaplan1.cpp",
+	MAME_DIR .. "src/mame/drivers/toaplan1.cpp",
 	MAME_DIR .. "src/mame/machine/toaplan1.cpp",
 	MAME_DIR .. "src/mame/video/toaplan1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/toaplan2.cpp",
