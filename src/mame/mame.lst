@@ -904,6 +904,7 @@ spinlbrkj                       // (c) 1990 V-System Co. (Japan)
 spinlbrku                       // (c) 1990 V-System Co. (US)
 svolly91                        // (c) 1991 Video System Co. (Japan)
 turbofrc                        // (c) 1991 Video System Co.
+turbofrco                       // (c) 1991 Video System Co.
 wbbc97                          // (c) 1997 Comad
 
 @source:age_candy.cpp
@@ -13345,7 +13346,7 @@ pc                              // 1987 PC with CGA
 pcega                           // 1987 PC with EGA
 pcherc                          // 1987 PC with Hercules (for testing hercules)
 pcmda                           // 1987 PC with MDA
-xtvga                           // 198? PC-XT (VGA, MF2 Keyboard)
+pcvga                           // 198? PC-XT (VGA, MF2 Keyboard)
 
 @source:ggconnie.cpp
 ggconnie                        // (c) ???? Capcom
@@ -20639,7 +20640,8 @@ mole                            // (c) 1982 Yachiyo Electronics, Ltd.
 molecula                        //
 
 @source:momoko.cpp
-momoko                          // (c) 1986 Jaleco
+momoko                          // (c) 1986 Jaleco (Japanese text)
+momokoe                         // (c) 1986 Jaleco (English text)
 
 @source:monacogp.cpp
 monacogp                        // (c) 1980 Sega
@@ -29597,6 +29599,8 @@ ssam88s                         //
 sx16                            // Sanyo SX-16
 zdsupers                        //
 ncrpc4i                         // NCR PC4i
+laser_turbo_xt					// 1988 VTech Laser Turbo XT
+laser_xt3						// 1989 VTech Laser XT/3
 
 @source:pc100.cpp
 pc100                           //
@@ -35160,8 +35164,9 @@ landgearj                       // 1996.?? E17 (c) 1996 Taito Corporation (Japan
 landgearja                      // 1996.03 E17 (c) 1996 Taito Corporation (Japan) - Ver 3.0 J
 sidebs                          // 1996.07 E23 (c) 1996 Taito Corporation (Japan) - Ver 2.7 J
 sidebs2                         // 1997.07 E38 (c) 1997 Taito Corporation (World) - Ver 2.6 OK
-sidebs2j                        // 1997.07 E38 (c) 1997 Taito Corporation (Japan) - Ver 2.4 J
+sidebs2j                        // 1997.07 E38 (c) 1997 Taito Corporation (Japan) - Ver 3.1 J
 sidebs2u                        // 1997.07 E38 (c) 1997 Taito Corporation (US) - Ver 2.6 A
+sidebs2ja                       // 1997.07 E38 (c) 1997 Taito Corporation (Japan) - Ver 2.4 J
 sidebsja                        // 1996.07 E23 (c) 1996 Taito Corporation (Japan) - Ver 2.6 J
 sidebsjb                        // 1996.07 E23 (c) 1996 Taito Corporation (Japan) - Ver 2.5 J
 

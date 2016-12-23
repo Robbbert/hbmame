@@ -74,15 +74,6 @@ namespace netlist
 		m_last_CLK = 0;
 	}
 
-	// FIXME: Timing
-	static const netlist_time delay[4] =
-	{
-			NLTIME_FROM_NS(40),
-			NLTIME_FROM_NS(40),
-			NLTIME_FROM_NS(40),
-			NLTIME_FROM_NS(40)
-	};
-
 	NETLIB_UPDATE(74166)
 	{
 		netlist_sig_t old_qh = m_QH.net().Q();

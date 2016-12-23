@@ -389,7 +389,7 @@ MACHINES["AY31015"] = true
 MACHINES["BANKDEV"] = true
 MACHINES["CDP1852"] = true
 MACHINES["CDP1871"] = true
---MACHINES["CMOS40105"] = true
+MACHINES["CMOS40105"] = true
 MACHINES["CDU76S"] = true
 MACHINES["COM8116"] = true
 MACHINES["CR589"] = true
@@ -1096,6 +1096,8 @@ files {
 	MAME_DIR .. "src/mame/machine/nl_pongd.h",
 	MAME_DIR .. "src/mame/machine/nl_breakout.cpp",
 	MAME_DIR .. "src/mame/machine/nl_breakout.h",
+	MAME_DIR .. "src/mame/machine/nl_stuntcyc.cpp",
+	MAME_DIR .. "src/mame/machine/nl_stuntcyc.h",
 	MAME_DIR .. "src/mame/drivers/poolshrk.cpp",
 	MAME_DIR .. "src/mame/includes/poolshrk.h",
 	MAME_DIR .. "src/mame/audio/poolshrk.cpp",
