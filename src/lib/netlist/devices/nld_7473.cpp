@@ -115,7 +115,7 @@ namespace netlist
 
 		if (m_CLRQ())
 		{
-            if (!m_CLK() && m_last_CLK)
+			if (!m_CLK() && m_last_CLK)
             {
 			    switch (JK)
 			    {
