@@ -1793,26 +1793,6 @@ ROM_START( ragnagrdeh ) /* Operation Ragnagard - Enhance by Ydmis - (Can choose 
 ROM_END
 
 
-ROM_START( roboarma )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "032a.p1", 0x000000, 0x080000, CRC(27c773cb) SHA1(597ca73f142b1129cc7780540bb9cfacd47bc6ce) )
-
-	NEO_SFIX_128K( "032-s1.s1", CRC(ac0daa1b) SHA1(93bae4697dc403fce19422752a514326ccf66a91) )
-
-	NEO_BIOS_AUDIO_128K( "032-m1.m1", CRC(35ec952d) SHA1(8aed30e26d7e2c70dbce5de752df416091066f7b) )
-
-	ROM_REGION( 0x200000, "ymsnd", 0 )
-	ROM_LOAD( "032-v1.v1", 0x000000, 0x100000, CRC(63791533) SHA1(4479e9308cdc906b9e03b985303f4ebedd00512f) )
-	ROM_LOAD( "032-v2.v2", 0x100000, 0x100000, CRC(eb95de70) SHA1(b34885201116d2b3bbdee15ec7b5961cf5c069e1) )
-
-	ROM_REGION( 0x300000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "032-c1.c1", 0x000000, 0x100000, CRC(97984c6c) SHA1(deea59c0892f05dc7db98cb57b3eb83688dc57f0) )
-	ROM_LOAD16_BYTE( "032-c2.c2", 0x000001, 0x100000, CRC(65773122) SHA1(2c0162a8e971e5e57933e4ae16040bf824ffdefe) )
-	ROM_LOAD16_BYTE( "032-c3.c3", 0x200000, 0x080000, CRC(40adfccd) SHA1(b11f866dd70ba0ed9123424508355cb948b19bdc) )
-	ROM_LOAD16_BYTE( "032-c4.c4", 0x200001, 0x080000, CRC(462571de) SHA1(5c3d610d492f91564423873b3b434dcda700373f) )
-ROM_END
-
-
 ROM_START( s1945pd )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "254-p1.p1",  0x000000, 0x100000, CRC(ff8efcff) SHA1(dcaeaca573385c172ecc43ee6bee355359091893) )
@@ -2525,8 +2505,6 @@ GAME( 1999, preisle2d,     preisle2, neogeo_noslot, neogeo, neogeo_hbmame,      
 GAME( 1994, pspikes2cd,    pspikes2, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Power Spikes II (CD conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 
 GAME( 1996, ragnagrdeh,    zedblade, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Operation Ragnagard (Add Char)", MACHINE_SUPPORTS_SAVE ) // Lucifer, Eelis and Behemoth
-
-GAME( 1991, roboarma,      roboarmy, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Robo Army (hack)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1999, s1945pd,       s1945p,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Psikyo", "Strikers 1945 Plus (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, s1945pwe,      s1945p,   neogeo_noslot, neogeo, neogeo_noslot_state, s1945p,    ROT0, "Wesker", "Strikers 1945 Plus (Hack)", MACHINE_SUPPORTS_SAVE )
