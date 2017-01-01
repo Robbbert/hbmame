@@ -4,7 +4,6 @@
 #ifndef WINUI_H
 #define WINUI_H
 
-#define WIN32_LEAN_AND_MEAN
 #include <commctrl.h>
 #include <commdlg.h>
 #include "emu.h"

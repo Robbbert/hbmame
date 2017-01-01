@@ -10,7 +10,6 @@
 
 ***************************************************************************/
 
-#define WIN32_LEAN_AND_MEAN
 
 #ifdef _MSC_VER
 #ifndef NONAMELESSUNION

@@ -7,6 +7,8 @@ defines {
 	"main=utf8_main",
 	"_WIN32_WINNT=0x0501",
 	"USE_QTDEBUG=0",
+	"WIN32_LEAN_AND_MEAN",
+	"NOMINMAX",
 }
 
 configuration { "vs*" }
