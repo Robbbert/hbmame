@@ -30,10 +30,10 @@
 
 #include "nl_setup.h"
 
-#define PROM_82S115(name, cCE1, cCE2Q, cA0, cA1, cA2, cA3, cA4, cA5, cA6, cA7, cA8, cSTROBE)	\
+#define PROM_82S115(name, cCE1Q, cCE2, cA0, cA1, cA2, cA3, cA4, cA5, cA6, cA7, cA8, cSTROBE)	\
 		NET_REGISTER_DEV(PROM_82S115, name)	\
 		NET_CONNECT(name, CE1Q,   cCE1Q)	\
-		NET_CONNECT(name, CE2Q,   cCE2Q)	\
+		NET_CONNECT(name, CE2,    cCE2)		\
 		NET_CONNECT(name, A0,     cA0)		\
 		NET_CONNECT(name, A1,     cA1)		\
 		NET_CONNECT(name, A2,     cA2)		\
