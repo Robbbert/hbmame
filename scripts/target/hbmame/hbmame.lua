@@ -731,6 +731,8 @@ files {
 	MAME_DIR .. "src/mame/video/tc0180vcu.cpp",
 	MAME_DIR .. "src/hbmame/drivers/taito_l.cpp",
 	MAME_DIR .. "src/mame/video/taito_l.cpp",
+	MAME_DIR .. "src/mame/machine/taito68705interface.cpp",
+	MAME_DIR .. "src/mame/machine/taito68705interface.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
