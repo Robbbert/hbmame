@@ -161,23 +161,6 @@ extern const FILTER_ITEM g_filterList[] =
 #endif
 
 #ifdef MESS
-extern const SPLITTERINFO g_splitterInfo[] =
-{
-	{ 0.2,  IDC_SPLITTER,  IDC_TREE,  IDC_LIST,    AdjustSplitter1Rect },
-	{ 0.4,  IDC_SPLITTER2, IDC_LIST,  IDC_SWLIST,  AdjustSplitter1Rect },
-	{ 0.6,  IDC_SPLITTER3, IDC_SWTAB, IDC_SSFRAME, AdjustSplitter2Rect },
-	{ -1 }
-};
-#else
-extern const SPLITTERINFO g_splitterInfo[] =
-{
-	{ 0.25, IDC_SPLITTER,  IDC_TREE,  IDC_LIST,    AdjustSplitter1Rect },
-	{ 0.5,  IDC_SPLITTER2, IDC_LIST,  IDC_SSFRAME, AdjustSplitter2Rect },
-	{ -1 }
-};
-#endif
-
-#ifdef MESS
 extern const MAMEHELPINFO g_helpInfo[] =
 {
 	//{ ID_HELP_CONTENTS,    TRUE,  TEXT(MAMEUIHELP"::/windows/main.htm") },
