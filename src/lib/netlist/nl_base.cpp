@@ -138,7 +138,6 @@ const logic_family_desc_t *family_CD4XXX()
 
 detail::queue_t::queue_t(netlist_t &nl)
 	: timed_queue<net_t *, netlist_time>(512)
-	, object_t("QUEUE")
 	, netlist_ref(nl)
 	, plib::state_manager_t::callback_t()
 	, m_qsize(0)
@@ -690,7 +689,7 @@ void detail::net_t::rebuild_list()
 {
 	/* rebuild m_list */
 
-	unsigned cnt = 0;
+	int cnt = 0;
 	m_list_active.clear();
 	for (auto & term : m_core_terms)
 		if (term->state() != logic_t::STATE_INP_PASSIVE)

@@ -235,7 +235,7 @@ namespace netlist
 	{
 	public:
 		logic_family_desc_t();
-		~logic_family_desc_t();
+		virtual ~logic_family_desc_t();
 
 		virtual plib::owned_ptr<devices::nld_base_d_to_a_proxy> create_d_a_proxy(netlist_t &anetlist, const pstring &name,
 				logic_output_t *proxied) const = 0;
@@ -372,7 +372,7 @@ namespace netlist
 	/*! The base class for netlist devices, terminals and parameters.
 	 *
 	 *  This class serves as the base class for all device, terminal and
-	 *  objects. It provides new and delete operators to supported e.g. pooled
+	 *  objects. It provides new and delete operators to support e.g. pooled
 	 *  memory allocation to enhance locality. Please refer to \ref USE_MEMPOOL as
 	 *  well.
 	 */
@@ -1139,7 +1139,6 @@ namespace netlist
 
 	class detail::queue_t :
 			public timed_queue<net_t *, netlist_time>,
-			public detail::object_t,
 			public detail::netlist_ref,
 			public plib::state_manager_t::callback_t
 	{
