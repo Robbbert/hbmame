@@ -4,9 +4,6 @@
 #ifndef __GAME_OPTS_H__
 #define __GAME_OPTS_H__
 
-#include "emu.h"
-#include "drivenum.h"
-
 class game_options
 {
 public:
