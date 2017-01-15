@@ -58,7 +58,7 @@ NETLIB_OBJECT(VCCS)
 public:
 	NETLIB_CONSTRUCTOR(VCCS)
 	, m_G(*this, "G", 1.0)
-	, m_RI(*this, "RI", NL_FCONST(1.0) / netlist().gmin())
+	, m_RI(*this, "RI", 1e9)
 	, m_OP(*this, "OP")
 	, m_ON(*this, "ON")
 	, m_IP(*this, "IP")
@@ -76,8 +76,8 @@ public:
 		m_ON.m_otherterm = &m_IP;
 		m_ON1.m_otherterm = &m_IN;
 
-		connect_late(m_OP, m_OP1);
-		connect_late(m_ON, m_ON1);
+		connect(m_OP, m_OP1);
+		connect(m_ON, m_ON1);
 		m_gfac = NL_FCONST(1.0);
 	}
 
@@ -208,8 +208,8 @@ public:
 		m_OP2.m_otherterm = &m_ON2;
 		m_ON2.m_otherterm = &m_OP2;
 
-		connect_late(m_OP2, m_OP1);
-		connect_late(m_ON2, m_ON1);
+		connect(m_OP2, m_OP1);
+		connect(m_ON2, m_ON1);
 	}
 
 	param_double_t m_RO;

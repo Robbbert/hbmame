@@ -25,7 +25,8 @@
  @MP0170   TMS1000   1979, Conic Football
  *MP0230   TMS1000   1980, Entex Blast It (6015)
  @MP0271   TMS1000   1982, Tandy Radio Shack Monkey See
- *MP0907   TMS1000   1979, Conic/Cardinal Basketball
+ @MP0907   TMS1000   1979, Conic Basketball (101-006)
+ *MP0910   TMS1000   1979, Conic Basketball (101-003)
  @MP0914   TMS1000   1979, Entex Baseball 1
  @MP0915   TMS1000   1979, Bandai System Control Car: Cheetah/The Incredible Brain Buggy
  @MP0919   TMS1000   1979, Tiger Copy Cat (model 7-520)
@@ -50,7 +51,7 @@
  *MP1604   ?         1981, Hanzawa Twinvader III/Tandy Cosmic Fire Away 3000 (? note: VFD-capable)
  @MP1801   TMS1700   1981, Tiger Ditto/Tandy Pocket Repeat (model 60-2152)
  @MP2105   TMS1370   1979, Gakken/Entex Poker (6005)
- *MP2139   TMS1370?  1982, Gakken Galaxy Invader 1000
+ @MP2139   TMS1370   1982, Gakken Galaxy Invader 1000/Tandy Cosmic 1000 Fire Away
  @MP2726   TMS1040   1979, Tomy Break Up
  *MP2788   TMS1040?  1980, Bandai Flight Time (? note: VFD-capable)
  @MP3005   TMS1730   1989, Tiger Copy Cat (model 7-522)
@@ -92,7 +93,7 @@
  @MP6100A  TMS0980   1979, Ideal Electronic Detective
  @MP6101B  TMS0980   1979, Parker Brothers Stop Thief
  *MP6361   ?         1983, Defender Strikes (? note: VFD-capable)
- *MP7303   TMS1400?  19??, Tiger 7-in-1 Sports Stadium
+ @MP7304   TMS1400   1982, Tiger 7 in 1 Sports Stadium (model 7-555)
  @MP7313   TMS1400   1980, Parker Brothers Bank Shot
  @MP7314   TMS1400   1980, Parker Brothers Split Second
   MP7324   TMS1400   1985, Tiger K28/Coleco Talking Teacher -> tispeak.cpp
@@ -132,8 +133,10 @@
 #include "sound/beep.h"
 #include "sound/sn76477.h"
 #include "sound/s14001a.h"
+#include "rendlay.h"
 
 // internal artwork
+#include "7in1ss.lh"
 #include "amaztron.lh" // clickable
 #include "astro.lh"
 #include "bankshot.lh"
@@ -141,6 +144,7 @@
 #include "bigtrak.lh"
 #include "bship.lh" // clickable
 #include "cmsport.lh"
+#include "cnbaskb.lh"
 #include "cnfball.lh"
 #include "cnfball2.lh"
 #include "cnsector.lh" // clickable
@@ -1760,9 +1764,118 @@ MACHINE_CONFIG_END
 
 /***************************************************************************
 
+  Conic Electronic Basketball
+  * TMS1000NLL MP0907 (die label 1000B MP0907)
+  * PCB label: CONIC 101-006
+  * DS8871N, 2 7seg LEDs, 30 other LEDs, 1-bit sound
+
+  There are 3 known versions of Conic Basketball: MP0910(101-003) and
+  MP0907(101-006) are nearly identical. MP0168 is found in Conic Multisport.
+
+  known releases:
+  - Hong Kong: Electronic Basketball
+  - USA: Electronic Basketball, distributed by Cardinal
+
+***************************************************************************/
+
+class cnbaskb_state : public hh_tms1k_state
+{
+public:
+	cnbaskb_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void prepare_display();
+	DECLARE_WRITE16_MEMBER(write_r);
+	DECLARE_WRITE16_MEMBER(write_o);
+	DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+void cnbaskb_state::prepare_display()
+{
+	// R7,R8 are 7segs
+	set_display_segmask(0x180, 0x7f);
+	display_matrix(7, 9, m_o, m_r & 0x1fc);
+}
+
+WRITE16_MEMBER(cnbaskb_state::write_r)
+{
+	// R9: speaker out
+	m_speaker->level_w(data >> 9 & 1);
+
+	// R0,R1: input mux
+	// R10 is also tied to K1 (locks up at boot if it's not handled)
+	m_inp_mux = (data >> 8 & 4) | (data & 3);
+
+	// R2-R8: led select
+	m_r = data;
+	prepare_display();
+}
+
+WRITE16_MEMBER(cnbaskb_state::write_o)
+{
+	// O0-O6: led/digit data
+	// O7: N/C
+	m_o = data;
+	prepare_display();
+}
+
+READ8_MEMBER(cnbaskb_state::read_k)
+{
+	// K: multiplexed inputs
+	return read_inputs(3);
+}
+
+
+// config
+
+static INPUT_PORTS_START( cnbaskb )
+	PORT_START("IN.0") // R0
+	PORT_CONFNAME( 0x01, 0x00, "Skill Level" )
+	PORT_CONFSETTING(    0x00, "1" ) // amateur
+	PORT_CONFSETTING(    0x01, "2" ) // professional
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_16WAY
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY
+
+	PORT_START("IN.2") // R10
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_SPECIAL )
+	PORT_BIT( 0x0e, IP_ACTIVE_HIGH, IPT_UNUSED )
+INPUT_PORTS_END
+
+static MACHINE_CONFIG_START( cnbaskb, cnbaskb_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1000, 400000) // approximation - RC osc. R=39K, C=47pf
+	MCFG_TMS1XXX_READ_K_CB(READ8(cnbaskb_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(cnbaskb_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(cnbaskb_state, write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_cnbaskb)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
   Conic Electronic Multisport
   * TMS1000 MP0168 (die label same)
-  * PCB label: 101-027(1979), or 101-021 REV A(1980, with DS8871N)
+  * PCB label: CONIC 101-027(1979), or CONIC 101-021 REV A(1980, with DS8871N)
   * 2 7seg LEDs, 33 other LEDs, 1-bit sound
 
   This handheld includes 3 games: Basketball, Ice Hockey, Soccer.
@@ -1813,7 +1926,7 @@ WRITE16_MEMBER(cmsport_state::write_r)
 
 WRITE16_MEMBER(cmsport_state::write_o)
 {
-	// O0-O7: led data
+	// O0-O7: led/digit data
 	m_o = data;
 	prepare_display();
 }
@@ -2893,7 +3006,7 @@ MACHINE_CONFIG_END
 /***************************************************************************
 
   Entex Color Football 4
-  * TMS1670 6009 MP7551 (die also label MP7551)
+  * TMS1670 6009 MP7551 (die label MP7551)
   * 9-digit cyan VFD display, 60 red and green LEDs behind bezel, 1-bit sound
 
 ***************************************************************************/
@@ -3008,7 +3121,7 @@ MACHINE_CONFIG_END
 /***************************************************************************
 
   Entex (Electronic) Basketball 2
-  * TMS1100 6010 MP1218 (die also label MP1218)
+  * TMS1100 6010 MP1218 (die label MP1218)
   * 4 7seg LEDs, and other LEDs behind bezel, 1-bit sound
 
   led translation table: led zz from game PCB = MAME y.x:
@@ -3523,8 +3636,118 @@ MACHINE_CONFIG_END
 
 /***************************************************************************
 
+  Gakken Galaxy Invader 1000
+  * TMS1370 MP2139 (die label 1170 MP2139)
+  * cyan/red VFD display Futaba DM-25Z 2D, 1-bit sound
+
+  known releases:
+  - World: Galaxy Invader 1000
+  - Japan: Invader 1000
+  - USA(1): Galaxy Invader 1000, published by CGL
+  - USA(2): Cosmic 1000 Fire Away, published by Tandy
+
+***************************************************************************/
+
+class ginv1000_state : public hh_tms1k_state
+{
+public:
+	ginv1000_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void prepare_display();
+	virtual DECLARE_WRITE16_MEMBER(write_r);
+	virtual DECLARE_WRITE16_MEMBER(write_o);
+	virtual DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+void ginv1000_state::prepare_display()
+{
+	uint16_t grid = BITSWAP16(m_grid,15,14,13,12,11,10,0,1,2,3,4,5,6,9,8,7);
+	uint16_t plate = BITSWAP16(m_plate,15,14,13,12,3,4,7,8,9,10,11,2,6,5,1,0);
+	display_matrix(12, 10, plate, grid);
+}
+
+WRITE16_MEMBER(ginv1000_state::write_r)
+{
+	// R0: speaker out
+	m_speaker->level_w(data & 1);
+
+	// R8,R15: input mux
+	m_inp_mux = (data >> 8 & 1) | (data >> 14 & 2);
+	
+	// R1-R10: VFD matrix grid
+	// R11-R14: VFD matrix plate
+	m_grid = data >> 1 & 0x3ff;
+	m_plate = (m_plate & 0xff) | (data >> 3 & 0xf00);
+	prepare_display();
+}
+
+WRITE16_MEMBER(ginv1000_state::write_o)
+{
+	// O0-O7: VFD matrix plate
+	m_plate = (m_plate & ~0xff) | data;
+	prepare_display();
+}
+
+READ8_MEMBER(ginv1000_state::read_k)
+{
+	// K: multiplexed inputs (K8 is fire button)
+	return m_inp_matrix[2]->read() | read_inputs(2);
+}
+
+
+// config
+
+static INPUT_PORTS_START( ginv1000 )
+	PORT_START("IN.0") // R8
+	PORT_CONFNAME( 0x03, 0x00, DEF_STR( Difficulty ) )
+	PORT_CONFSETTING(    0x01, "1" )
+	PORT_CONFSETTING(    0x00, "2" )
+	PORT_CONFSETTING(    0x02, "3" )
+	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.1") // R15
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN.2") // K8
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+INPUT_PORTS_END
+
+static MACHINE_CONFIG_START( ginv1000, ginv1000_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1370, 325000) // approximation
+	MCFG_TMS1XXX_READ_K_CB(READ8(ginv1000_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(ginv1000_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(ginv1000_state, write_o))
+
+	/* video hardware */
+	MCFG_SCREEN_SVG_ADD("screen", "svg")
+	MCFG_SCREEN_REFRESH_RATE(50)
+	MCFG_SCREEN_SIZE(226, 1080)
+	MCFG_SCREEN_VISIBLE_AREA(0, 226-1, 0, 1080-1)
+	MCFG_DEFAULT_LAYOUT(layout_svg)
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
   Gakken FX-Micom R-165
-  * TMS1100 MCU, label MP1312, die label MP1312A
+  * TMS1100 MCU, label MP1312 (die label MP1312A)
   * 1 7seg led, 6 other leds, 1-bit sound
 
   This is a simple educational home computer. Refer to the extensive manual
@@ -5190,7 +5413,7 @@ MACHINE_CONFIG_END
 /***************************************************************************
 
   Milton Bradley Dark Tower
-  * TMS1400NLL MP7332-N1.U1(Rev. B) or MP7332-N2LL(Rev. C), die label MP7332
+  * TMS1400NLL MP7332-N1.U1(Rev. B) or MP7332-N2LL(Rev. C) (die label MP7332)
     (assume same ROM contents between revisions)
   * SN75494N MOS-to-LED digit driver
   * motorized rotating reel + lightsensor, 1bit-sound
@@ -7019,6 +7242,120 @@ MACHINE_CONFIG_END
 
 /***************************************************************************
 
+  Tiger 7 in 1 Sports Stadium
+  * TMS1400 MP7304 (die label TMS1400 MP7304A)
+  * 2x2-digit 7seg LED display + 39 other LEDs, 1-bit sound
+
+  This handheld includes 7 games: 1: Basketball, 2: Hockey, 3: Soccer,
+  4: Maze, 5: Baseball, 6: Football, 7: Raquetball.
+  MAME external artwork is needed for the switchable overlays.
+
+  known releases:
+  - World: 7 in 1 Sports Stadium
+  - USA: 7 in 1 Sports, distributed by Sears
+
+***************************************************************************/
+
+class ss7in1_state : public hh_tms1k_state
+{
+public:
+	ss7in1_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void prepare_display();
+	DECLARE_WRITE16_MEMBER(write_r);
+	DECLARE_WRITE16_MEMBER(write_o);
+	DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+void ss7in1_state::prepare_display()
+{
+	// R0-R3 are 7segs
+	set_display_segmask(0xf, 0x7f);
+	display_matrix(8, 9, m_o, m_r);
+}
+
+WRITE16_MEMBER(ss7in1_state::write_r)
+{
+	// R9: speaker out
+	m_speaker->level_w(data >> 9 & 1);
+
+	// R0-R2,R10: input mux
+	m_inp_mux = (data & 7) | (data >> 7 & 8);
+
+	// R0-R9: digit/led select
+	m_r = data;
+	prepare_display();
+}
+
+WRITE16_MEMBER(ss7in1_state::write_o)
+{
+	// O0-O7: led data
+	m_o = data;
+	prepare_display();
+}
+
+READ8_MEMBER(ss7in1_state::read_k)
+{
+	return read_inputs(4);
+}
+
+
+// config
+
+static INPUT_PORTS_START( ss7in1 )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_COCKTAIL
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 )
+
+	PORT_START("IN.2") // R2
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+
+	PORT_START("IN.3") // R10
+	PORT_CONFNAME( 0x01, 0x00, "Players" )
+	PORT_CONFSETTING(    0x00, "1" )
+	PORT_CONFSETTING(    0x01, "2" )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x0c, IP_ACTIVE_LOW, IPT_UNUSED )
+INPUT_PORTS_END
+
+static MACHINE_CONFIG_START( ss7in1, ss7in1_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1400, 450000) // approximation - RC osc. R=47K, C=47pf
+	MCFG_TMS1XXX_READ_K_CB(READ8(ss7in1_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(ss7in1_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(ss7in1_state, write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_7in1ss)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
   Tomy(tronics) Break Up (manufactured in Japan)
   * PCB label TOMY B.O.
   * TMS1040 MP2726 TOMY WIPE (die label MP2726A)
@@ -7594,6 +7931,17 @@ ROM_START( tc4 )
 ROM_END
 
 
+ROM_START( cnbaskb )
+	ROM_REGION( 0x0400, "maincpu", 0 )
+	ROM_LOAD( "mp0907", 0x0000, 0x0400, CRC(35f84f0f) SHA1(744ca60bb853a2785184042e747530a9e02488f8) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1000_common2_micro.pla", 0, 867, CRC(d33da3cf) SHA1(13c4ebbca227818db75e6db0d45b66ba5e207776) )
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1000_cnbaskb_output.pla", 0, 365, CRC(b4e28956) SHA1(8356112da71b351420a88d7e394e7d03e429368c) )
+ROM_END
+
+
 ROM_START( cmsport )
 	ROM_REGION( 0x0400, "maincpu", 0 )
 	ROM_LOAD( "mp0168.u1", 0x0000, 0x0400, CRC(0712a268) SHA1(bd4e23e5c17b28c52e7e769e44773cc9c8839bed) )
@@ -7745,6 +8093,20 @@ ROM_START( gjackpot )
 	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
 	ROM_REGION( 557, "maincpu:opla", 0 )
 	ROM_LOAD( "tms1400_gjackpot_output.pla", 0, 557, CRC(50e471a7) SHA1(9d862cb9f51a563882b62662c5bfe61b52e3df00) )
+ROM_END
+
+
+ROM_START( ginv1000 )
+	ROM_REGION( 0x0800, "maincpu", 0 )
+	ROM_LOAD( "mp2139", 0x0000, 0x0800, CRC(036eab37) SHA1(0795878ad89296f7a6a0314c6e4db23c1cc3673e) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1100_ginv1000_output.pla", 0, 365, CRC(b0a5dc41) SHA1(d94746ec48661998173e7f60ccc7c96e56b3484e) )
+
+	ROM_REGION( 226185, "svg", 0)
+	ROM_LOAD( "ginv1000.svg", 0, 226185, CRC(1e1bafd1) SHA1(15868ef0c9dadbf537fed0e2d846451ba99fab7b) ) // by kevtris, ver. 13 jan 2017
 ROM_END
 
 
@@ -8096,6 +8458,17 @@ ROM_START( ditto )
 ROM_END
 
 
+ROM_START( 7in1ss )
+	ROM_REGION( 0x1000, "maincpu", 0 )
+	ROM_LOAD( "mp7304", 0x0000, 0x1000, CRC(2a1c8390) SHA1(fa10e60686af6828a61f05046abc3854ab49af95) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
+	ROM_REGION( 557, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1400_7in1ss_output.pla", 0, 557, CRC(6b7660f7) SHA1(bb7d58fa04e7606ccdf5b209e1b089948bdd1e7c) )
+ROM_END
+
+
 ROM_START( tbreakup )
 	ROM_REGION( 0x0400, "maincpu", 0 )
 	ROM_LOAD( "mp2726a", 0x0000, 0x0400, CRC(1f7c28e2) SHA1(164cda4eb3f0b1d20955212a197c9aadf8d18a06) )
@@ -8145,6 +8518,7 @@ CONS( 1980, h2hbaseb,  0,        0, h2hbaseb,  h2hbaseb,  driver_device, 0, "Col
 CONS( 1981, h2hboxing, 0,        0, h2hboxing, h2hboxing, driver_device, 0, "Coleco", "Head to Head Boxing", MACHINE_SUPPORTS_SAVE )
 CONS( 1981, tc4,       0,        0, tc4,       tc4,       driver_device, 0, "Coleco", "Total Control 4", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 
+CONS( 1979, cnbaskb,   0,        0, cnbaskb,   cnbaskb,   driver_device, 0, "Conic", "Electronic Basktetball (Conic)", MACHINE_SUPPORTS_SAVE )
 CONS( 1979, cmsport,   0,        0, cmsport,   cmsport,   driver_device, 0, "Conic", "Electronic Multisport", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 CONS( 1979, cnfball,   0,        0, cnfball,   cnfball,   driver_device, 0, "Conic", "Electronic Football (Conic, TMS1000 version)", MACHINE_SUPPORTS_SAVE )
 CONS( 1979, cnfball2,  0,        0, cnfball2,  cnfball2,  driver_device, 0, "Conic", "Electronic Football II (Conic)", MACHINE_SUPPORTS_SAVE )
@@ -8161,6 +8535,7 @@ CONS( 1980, raisedvl,  0,        0, raisedvl,  raisedvl,  driver_device, 0, "Ent
 
 CONS( 1979, gpoker,    0,        0, gpoker,    gpoker,    driver_device, 0, "Gakken", "Poker (Gakken, 1979 version)", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, gjackpot,  0,        0, gjackpot,  gjackpot,  driver_device, 0, "Gakken", "Jackpot: Gin Rummy & Black Jack", MACHINE_SUPPORTS_SAVE )
+CONS( 1982, ginv1000,  0,        0, ginv1000,  ginv1000,  driver_device, 0, "Gakken", "Galaxy Invader 1000", MACHINE_SUPPORTS_SAVE )
 COMP( 1983, fxmcr165,  0,        0, fxmcr165,  fxmcr165,  driver_device, 0, "Gakken", "FX-Micom R-165", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
 CONS( 1979, elecdet,   0,        0, elecdet,   elecdet,   driver_device, 0, "Ideal", "Electronic Detective", MACHINE_SUPPORTS_SAVE ) // ***
@@ -8201,6 +8576,7 @@ COMP( 1976, speechp,   0,        0, speechp,   speechp,   driver_device, 0, "Tel
 CONS( 1979, copycat,   0,        0, copycat,   copycat,   driver_device, 0, "Tiger Electronics", "Copy Cat (model 7-520)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1989, copycatm2, copycat,  0, copycatm2, copycatm2, driver_device, 0, "Tiger Electronics", "Copy Cat (model 7-522)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1981, ditto,     0,        0, ditto,     ditto,     driver_device, 0, "Tiger Electronics", "Ditto", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1982, 7in1ss,    0,        0, ss7in1,    ss7in1,    driver_device, 0, "Tiger Electronics", "7 in 1 Sports Stadium", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 
 CONS( 1979, tbreakup,  0,        0, tbreakup,  tbreakup,  driver_device, 0, "Tomy", "Break Up (Tomy)", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, phpball,   0,        0, phpball,   phpball,   driver_device, 0, "Tomy", "Power House Pinball", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )

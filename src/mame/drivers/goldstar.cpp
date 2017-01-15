@@ -920,6 +920,36 @@ ADDRESS_MAP_END
  at B0C0-B0FF...
 */
 
+
+/* need to check item by item...
+   PPIs are OK.
+   RAM/ROM are OK.
+*/
+static ADDRESS_MAP_START( mbstar_map, AS_PROGRAM, 8, goldstar_state )
+	AM_RANGE(0x0000, 0x7fff) AM_ROM
+	AM_RANGE(0x8000, 0x87ff) AM_RAM AM_SHARE("nvram")
+	AM_RANGE(0x8800, 0x8fff) AM_RAM_WRITE(goldstar_fg_vidram_w) AM_SHARE("fg_vidram")
+	AM_RANGE(0x9000, 0x97ff) AM_RAM_WRITE(goldstar_fg_atrram_w) AM_SHARE("fg_atrram")
+	AM_RANGE(0x9800, 0x99ff) AM_RAM_WRITE(goldstar_reel1_ram_w) AM_SHARE("reel1_ram")
+	AM_RANGE(0xa000, 0xa1ff) AM_RAM_WRITE(goldstar_reel2_ram_w) AM_SHARE("reel2_ram")
+	AM_RANGE(0xa800, 0xa9ff) AM_RAM_WRITE(goldstar_reel3_ram_w) AM_SHARE("reel3_ram")
+	AM_RANGE(0xb040, 0xb07f) AM_RAM AM_SHARE("reel1_scroll")
+	AM_RANGE(0xb080, 0xb0bf) AM_RAM AM_SHARE("reel2_scroll")
+	AM_RANGE(0xb100, 0xb17f) AM_RAM AM_SHARE("reel3_scroll")
+
+	AM_RANGE(0xb800, 0xb803) AM_DEVREADWRITE("ppi8255_0", i8255_device, read, write)    /* Input Ports */
+	AM_RANGE(0xb810, 0xb813) AM_DEVREADWRITE("ppi8255_1", i8255_device, read, write)    /* Input Ports */
+	AM_RANGE(0xb820, 0xb823) AM_DEVREADWRITE("ppi8255_2", i8255_device, read, write)    /* Input/Output Ports */
+	AM_RANGE(0xb830, 0xb830) AM_DEVREADWRITE("aysnd", ay8910_device, data_r, data_w)
+	AM_RANGE(0xb840, 0xb840) AM_DEVWRITE("aysnd", ay8910_device, address_w)  /* no sound... only use both ports for DSWs */
+	AM_RANGE(0xb850, 0xb850) AM_WRITE(p1_lamps_w)
+	AM_RANGE(0xb860, 0xb860) AM_WRITE(p2_lamps_w)
+	AM_RANGE(0xb870, 0xb870) AM_DEVWRITE("snsnd", sn76489_device, write)    /* sound */
+	AM_RANGE(0xc000, 0xf7ff) AM_ROM
+	AM_RANGE(0xf800, 0xffff) AM_RAM
+ADDRESS_MAP_END
+
+
 WRITE8_MEMBER(wingco_state::magodds_outb850_w)
 {
 	// guess, could be wrong, this might just be lights
@@ -8440,6 +8470,12 @@ static MACHINE_CONFIG_DERIVED( flam7_tw, lucky8 )
 	MCFG_DS2401_ADD("fl7w4_id")
 MACHINE_CONFIG_END
 
+static MACHINE_CONFIG_DERIVED( mbstar, lucky8 )
+	/* basic machine hardware */
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(mbstar_map)
+MACHINE_CONFIG_END
+
 
 
 PALETTE_INIT_MEMBER(wingco_state, magodds)
@@ -11287,6 +11323,62 @@ ROM_START( ns8linesa )
 
 	ROM_REGION( 0x20, "unkprom2", 0 )  // Taken from ns8lines. Seems to match 100%.
 	ROM_LOAD( "u1.bin", 0x0000, 0x0020, BAD_DUMP CRC(6df3f972) SHA1(0096a7f7452b70cac6c0752cb62e24b643015b5c) )
+ROM_END
+
+
+/*
+  Mega Bonus Star II
+  Auto-Data Graz, 2002.
+  
+  W4 derivative hardware...
+  
+  PCB has a daughterboard with:
+  - Z80.
+  - Unknown DIP40 IC
+  - M48T12 NVRAM.
+  - HM6116L-70
+  - GAL16V8D.
+  - DS1232.
+  - 74LS374N
+  - SN74LS0xx
+  - Unknown Xtal.
+
+  Dumped by Team Europe.
+
+*/
+ROM_START( mbs2euro )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "mbgeu_or_v.3.5.5.bin",   0x0000, 0x10000, CRC(b468a62f) SHA1(011536b08eb7cd42dd83826b195bbce314effda0) )
+
+	ROM_REGION( 0x20000, "temp", 0 )
+	ROM_LOAD( "mbs_21.bin",  0x00000, 0x8000, CRC(769f5793) SHA1(ffe542b8d1eee12738426b391a6cf61dbcc9fb3e) )  // GFX are in the last quarter.
+	ROM_LOAD( "mbs_22.bin",  0x08000, 0x8000, CRC(2a4fa0f1) SHA1(1df7c7762aa6f4300c390a43092803cfd7ce46d3) )  // GFX are in the last quarter.
+	ROM_LOAD( "mbs_23.bin",  0x10000, 0x8000, CRC(d47117ed) SHA1(ff5d981a70da7b08f04988e60624bad26529374f) )  // GFX are in the last quarter.
+	ROM_LOAD( "mbs_24.bin",  0x18000, 0x8000, CRC(90fa917c) SHA1(d0de55c37c0bcc07586796189bb1e7a861f61a2d) )  // GFX are in the last quarter.
+
+	ROM_REGION( 0x18000, "gfx1", 0 )
+	ROM_LOAD( "mbeu_5.bin",  0x00000, 0x8000, CRC(e97e90b4) SHA1(433b864d43b735dd043880e72eaabd0533530ceb) )
+	ROM_LOAD( "mbeu_6.bin",  0x08000, 0x8000, CRC(9be871a7) SHA1(d4738be7207c121ab3b82bf01e19377b47956f56) )
+	ROM_LOAD( "mbeu_7.bin",  0x10000, 0x8000, CRC(7a647742) SHA1(3f5433b85c81a94675fd681c18f2766d722a1f1f) )
+
+	ROM_REGION( 0x8000, "gfx2", 0 )
+	ROM_COPY( "temp",   0x06000, 0x0000, 0x2000 )
+	ROM_COPY( "temp",   0x0e000, 0x2000, 0x2000 )
+	ROM_COPY( "temp",   0x16000, 0x4000, 0x2000 )
+	ROM_COPY( "temp",   0x1e000, 0x6000, 0x2000 )
+
+	ROM_REGION( 0x200, "proms", 0 ) /* proper dumps */
+	ROM_LOAD( "am27s21.g13", 0x0000, 0x0100, CRC(058b1195) SHA1(8e094e7a15d2ed7ff9d0336b0ea8a0a816e965e4) )
+	ROM_LOAD( "am27s21.g14", 0x0100, 0x0100, CRC(0dcaa791) SHA1(69c68a22002b57d03b90e82b5a33d1df66c39362) )
+
+	ROM_REGION( 0x20, "proms2", 0 )
+	ROM_LOAD( "82s123.d13", 0x0000, 0x0020, CRC(eacb8b76) SHA1(30cdd169a45b87c4262eea03ae28f910b091b100) )
+
+	ROM_REGION( 0x100, "unkprom", 0 )
+	ROM_LOAD( "am27s21.f3",  0x0000, 0x0100, CRC(169cbb68) SHA1(1062e84c4b4208be9aa400e236579dc5b83e9f83) )
+
+	ROM_REGION( 0x20, "unkprom2", 0 )
+	ROM_LOAD( "82s123.d12", 0x0000, 0x0020, CRC(6df3f972) SHA1(0096a7f7452b70cac6c0752cb62e24b643015b5c) )
 ROM_END
 
 
@@ -15688,6 +15780,8 @@ GAME(  1991, megaline,  0,        megaline, megaline, driver_device,  0,        
 
 GAMEL( 1993, bingowng,  0,        bingowng, bingowng, driver_device,  0,         ROT0, "Wing Co., Ltd.",    "Bingo (set 1)",                                            0,                     layout_bingowng )
 GAMEL( 1993, bingownga, bingowng, bingownga,bingownga,driver_device,  0,         ROT0, "Wing Co., Ltd.",    "Bingo (set 2)",                                            0,                     layout_bingowng )
+
+GAME(  2002, mbs2euro,  0,        mbstar,   lucky8,   driver_device,  0,         ROT0, "Auto-Data Graz",    "Mega Bonus Star II (Euro, Millennium Edition)",            MACHINE_NOT_WORKING )  // need more work in memory map, inputs, and reels alignment.
 
 
 // --- Flaming 7's hardware (W-4 derivative) ---

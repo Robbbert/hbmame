@@ -57,7 +57,7 @@ Hardware info:
 - other special: magnet sensors, external module slot, serial port
 
 IRQ source is a 4,9152MHz quartz crystal (Y3) connected to a 74HC4060 (U8,
-ripple counter/divider). From Q12 output (counter=8192) we obtain the IRQ signal
+ripple counter/divider). From Q13 output (counter=8192) we obtain the IRQ signal
 applied to IPL1 of 68000 (pin 24) 4,9152 MHz / 8192 = 600 Hz.
 
 The module slot pinout is different from SCC series. The data on those appears
@@ -576,7 +576,9 @@ static MACHINE_CONFIG_START( eag, fidel68k_state )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz)
 	MCFG_CPU_PROGRAM_MAP(eag_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(fidel68k_state, irq2_line_hold, XTAL_4_9152MHz/0x2000) // 600hz
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("irq_on", fidel68k_state, irq_on, attotime::from_hz(XTAL_4_9152MHz/0x2000)) // 600Hz
+	MCFG_TIMER_START_DELAY(attotime::from_hz(XTAL_4_9152MHz/0x2000) - attotime::from_nsec(8250)) // active for 8.25us
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("irq_off", fidel68k_state, irq_off, attotime::from_hz(XTAL_4_9152MHz/0x2000))
 
 	MCFG_NVRAM_ADD_1FILL("nvram")
 
@@ -605,7 +607,6 @@ static MACHINE_CONFIG_DERIVED( eagv7, eag )
 	/* basic machine hardware */
 	MCFG_CPU_REPLACE("maincpu", M68020, XTAL_20MHz)
 	MCFG_CPU_PROGRAM_MAP(eagv7_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(fidel68k_state, irq2_line_hold, XTAL_4_9152MHz/0x2000) // 600hz
 
 	MCFG_RAM_REMOVE("ram")
 MACHINE_CONFIG_END
@@ -615,7 +616,6 @@ static MACHINE_CONFIG_DERIVED( eagv9, eagv7 )
 	/* basic machine hardware */
 	MCFG_CPU_REPLACE("maincpu", M68030, XTAL_32MHz)
 	MCFG_CPU_PROGRAM_MAP(eagv7_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(fidel68k_state, irq2_line_hold, XTAL_4_9152MHz/0x2000) // 600hz
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( eagv10, eagv7 )
@@ -623,7 +623,6 @@ static MACHINE_CONFIG_DERIVED( eagv10, eagv7 )
 	/* basic machine hardware */
 	MCFG_CPU_REPLACE("maincpu", M68040, XTAL_25MHz)
 	MCFG_CPU_PROGRAM_MAP(eagv11_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(fidel68k_state, irq2_line_hold, XTAL_4_9152MHz/0x2000) // 600hz
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( eagv11, eagv7 )
@@ -631,7 +630,10 @@ static MACHINE_CONFIG_DERIVED( eagv11, eagv7 )
 	/* basic machine hardware */
 	MCFG_CPU_REPLACE("maincpu", M68EC040, XTAL_36MHz*2*2) // wrong! should be M68EC060 @ 72MHz
 	MCFG_CPU_PROGRAM_MAP(eagv11_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(fidel68k_state, irq2_line_hold, XTAL_4_9152MHz/0x2000) // 600hz
+
+	MCFG_CPU_PERIODIC_INT_DRIVER(fidelz80base_state, irq2_line_hold, 600)
+	MCFG_DEVICE_REMOVE("irq_on") // 8.25us is too long
+	MCFG_DEVICE_REMOVE("irq_off")
 MACHINE_CONFIG_END
 
 

@@ -376,6 +376,7 @@ MACHINES["AT45DBXX"] = true
 MACHINES["ATAFLASH"] = true
 MACHINES["AY31015"] = true
 MACHINES["BANKDEV"] = true
+MACHINES["BIM68153"] = true
 MACHINES["CDP1852"] = true
 MACHINES["CDP1871"] = true
 MACHINES["CDP1879"] = true
@@ -895,6 +896,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"ccs",
 		"chromatics",
 		"coleco",
+		"compugraphic",
 		"cromemco",
 		"comx",
 		"concept",
@@ -937,6 +939,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"homebrew",
 		"homelab",
 		"hp",
+		"ibm6580",
 		"imp",
 		"intel",
 		"interton",
@@ -1645,6 +1648,11 @@ files {
 	MAME_DIR .. "src/mame/machine/coleco.h",
 }
 
+createMESSProjects(_target, _subtarget, "compugraphic")
+files {
+	MAME_DIR .. "src/mame/drivers/pwrview.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "cromemco")
 files {
 	MAME_DIR .. "src/mame/drivers/c10.cpp",
@@ -2028,6 +2036,15 @@ files {
 	MAME_DIR .. "src/mame/drivers/hk68v10.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "ibm6580")
+files {
+	MAME_DIR .. "src/mame/drivers/ibm6580.cpp",
+	MAME_DIR .. "src/mame/machine/ibm6580_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/ibm6580_kbd.h",
+	MAME_DIR .. "src/mame/machine/ibm6580_fdc.cpp",
+	MAME_DIR .. "src/mame/machine/ibm6580_fdc.h",
+}
+
 createMESSProjects(_target, _subtarget, "intel")
 files {
 	MAME_DIR .. "src/mame/drivers/basic52.cpp",
@@ -2232,6 +2249,7 @@ files {
 createMESSProjects(_target, _subtarget, "motorola")
 files {
 	MAME_DIR .. "src/mame/drivers/m6805evs.cpp",
+	MAME_DIR .. "src/mame/drivers/m68705prg.cpp",
 	MAME_DIR .. "src/mame/drivers/mekd2.cpp",
 	MAME_DIR .. "src/mame/drivers/mvme147.cpp",
 }
@@ -3287,8 +3305,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/fanucs15.cpp",
 	MAME_DIR .. "src/mame/drivers/fanucspmg.cpp",
 	MAME_DIR .. "src/mame/drivers/fc100.cpp",
---	MAME_DIR .. "src/mame/drivers/fcisio.cpp",
---	MAME_DIR .. "src/mame/drivers/fcscsi.cpp",
+--  MAME_DIR .. "src/mame/drivers/fcisio.cpp",
+--  MAME_DIR .. "src/mame/drivers/fcscsi.cpp",
 	MAME_DIR .. "src/mame/drivers/fk1.cpp",
 	MAME_DIR .. "src/mame/drivers/ft68m.cpp",
 	MAME_DIR .. "src/mame/drivers/gamate.cpp",
@@ -3306,7 +3324,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/hunter2.cpp",
 	MAME_DIR .. "src/mame/drivers/i7000.cpp",
 	MAME_DIR .. "src/mame/drivers/ibm3153.cpp",
-	MAME_DIR .. "src/mame/drivers/ibm6580.cpp",
 	MAME_DIR .. "src/mame/drivers/icatel.cpp",
 	MAME_DIR .. "src/mame/drivers/ie15.cpp",
 	MAME_DIR .. "src/mame/machine/ie15_kbd.cpp",
