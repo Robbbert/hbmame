@@ -101,7 +101,7 @@
 
 namespace netlist
 {
-	namespace devices
+	namespace analog
 	{
 // -----------------------------------------------------------------------------
 // nld_twoterm
@@ -358,6 +358,45 @@ private:
 	nl_double m_Vcrit;
 };
 
+/*! Class representing the diode model paramers.
+ *  This is the model representation of the diode model. Typically, SPICE uses
+ *  the following parameters. A "Y" in the first column indicates that the
+ *  parameter is actually used in netlist.
+ *
+ *   |NL? |name  |parameter                        |units|default| example|area  |
+ *   |:--:|:-----|:--------------------------------|:----|------:|-------:|:----:|
+ *   | Y  |IS    |saturation current               |A    |1.0e-14| 1.0e-14|   *  |
+ *   |    |RS    |ohmic resistanc                  |Ohm  |      0|      10|   *  |
+ *   | Y  |N     |emission coefficient             |-    |      1|       1|      |
+ *   |    |TT    |transit-time                     |sec  |      0|   0.1ns|      |
+ *   |    |CJO   |zero-bias junction capacitance   |F    |      0|     2pF|   *  |
+ *   |    |VJ    |junction potential               |V    |      1|     0.6|      |
+ *   |    |M     |grading coefficient              |-    |    0.5|     0.5|      |
+ *   |    |EG    |band-gap energy                  |eV   |   1.11| 1.11 Si|      |
+ *   |    |XTI   |saturation-current temp.exp      |-    |      3|3.0 pn. 2.0 Schottky| |
+ *   |    |KF    |flicker noise coefficient        |-    |      0|        |      |
+ *   |    |AF    |flicker noise exponent           |-    |      1|        |      |
+ *   |    |FC    |coefficient for forward-bias depletion capacitance formula|-|0.5|| |
+ *   |    |BV    |reverse breakdown voltage        |V    |infinite|     40|      |
+ *   |    |IBV   |current at breakdown voltage     |V    |  0.001|        |      |
+ *   |    |TNOM  |parameter measurement temperature|deg C|     27|      50|      |
+ *
+ */
+
+class diode_model_t : public param_model_t
+{
+public:
+	diode_model_t(device_t &device, const pstring name, const pstring val)
+	: param_model_t(device, name, val)
+	, m_IS(*this, "IS")
+	, m_N(*this, "N")
+	{}
+
+	value_t m_IS;    //!< saturation current.
+	value_t m_N;     //!< emission coefficient.
+};
+
+
 // -----------------------------------------------------------------------------
 // nld_D
 // -----------------------------------------------------------------------------
@@ -373,11 +412,22 @@ public:
 		register_subalias("K", m_N);
 	}
 
+	template <class CLASS>
+	NETLIB_NAME(D)(CLASS &owner, const pstring name, const pstring model)
+	: NETLIB_NAME(twoterm)(owner, name)
+	, m_model(*this, "MODEL", model)
+	, m_D(*this, "m_D")
+	{
+		register_subalias("A", m_P);
+		register_subalias("K", m_N);
+	}
+
+
 	NETLIB_IS_DYNAMIC()
 
 	NETLIB_UPDATE_TERMINALSI();
 
-	param_model_t m_model;
+	diode_model_t m_model;
 
 protected:
 	NETLIB_RESETI();
