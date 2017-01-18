@@ -705,7 +705,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/rastan.cpp",
 	MAME_DIR .. "src/mame/video/rastan.cpp",
 	MAME_DIR .. "src/hbmame/drivers/retofinv.cpp",
-	MAME_DIR .. "src/mame/machine/retofinv.cpp",
 	MAME_DIR .. "src/mame/video/retofinv.cpp",
 	MAME_DIR .. "src/hbmame/drivers/taito_b.cpp",
 	MAME_DIR .. "src/mame/video/taito_b.cpp",
