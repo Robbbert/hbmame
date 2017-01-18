@@ -34,10 +34,13 @@
 #define NLD_TWOTERM_H_
 
 #include "nl_base.h"
+#include "plib/pfunction.h"
 
 // -----------------------------------------------------------------------------
 // Macros
 // -----------------------------------------------------------------------------
+
+#ifndef NL_AUTO_DEVICES
 
 #define RES(name, p_R)                                                         \
 		NET_REGISTER_DEV(RES, name)                                            \
@@ -73,6 +76,8 @@
 #define CS(name, pI)                                                           \
 		NET_REGISTER_DEV(CS, name)                                             \
 		NETDEV_PARAMI(name, I, pI)
+
+#endif
 
 // -----------------------------------------------------------------------------
 // Generic macros
@@ -276,7 +281,7 @@ public:
 		//register_term("2", m_N);
 	}
 
-	NETLIB_IS_TIMESTEP()
+	NETLIB_IS_TIMESTEP(true)
 	NETLIB_TIMESTEPI();
 
 	param_double_t m_C;
@@ -308,7 +313,7 @@ public:
 		//register_term("2", m_N);
 	}
 
-	NETLIB_IS_TIMESTEP()
+	NETLIB_IS_TIMESTEP(true)
 	NETLIB_TIMESTEPI();
 
 	param_double_t m_L;
@@ -363,17 +368,17 @@ private:
  *  the following parameters. A "Y" in the first column indicates that the
  *  parameter is actually used in netlist.
  *
- *   |NL? |name  |parameter                        |units|default| example|area  |
+ *   |NL? |name  |parameter                        |units|default| example|area  |
  *   |:--:|:-----|:--------------------------------|:----|------:|-------:|:----:|
- *   | Y  |IS    |saturation current               |A    |1.0e-14| 1.0e-14|   *  |
- *   |    |RS    |ohmic resistanc                  |Ohm  |      0|      10|   *  |
+ *   | Y  |IS    |saturation current               |A    |1.0e-14| 1.0e-14|   *  |
+ *   |    |RS    |ohmic resistanc                  |Ohm  |      0|      10|   *  |
  *   | Y  |N     |emission coefficient             |-    |      1|       1|      |
  *   |    |TT    |transit-time                     |sec  |      0|   0.1ns|      |
- *   |    |CJO   |zero-bias junction capacitance   |F    |      0|     2pF|   *  |
+ *   |    |CJO   |zero-bias junction capacitance   |F    |      0|     2pF|   *  |
  *   |    |VJ    |junction potential               |V    |      1|     0.6|      |
  *   |    |M     |grading coefficient              |-    |    0.5|     0.5|      |
  *   |    |EG    |band-gap energy                  |eV   |   1.11| 1.11 Si|      |
- *   |    |XTI   |saturation-current temp.exp      |-    |      3|3.0 pn. 2.0 Schottky| |
+ *   |    |XTI   |saturation-current temp.exp      |-    |      3|3.0 pn. 2.0 Schottky| |
  *   |    |KF    |flicker noise coefficient        |-    |      0|        |      |
  *   |    |AF    |flicker noise exponent           |-    |      1|        |      |
  *   |    |FC    |coefficient for forward-bias depletion capacitance formula|-|0.5|| |
@@ -422,9 +427,7 @@ public:
 		register_subalias("K", m_N);
 	}
 
-
-	NETLIB_IS_DYNAMIC()
-
+	NETLIB_IS_DYNAMIC(true)
 	NETLIB_UPDATE_TERMINALSI();
 
 	diode_model_t m_model;
@@ -450,10 +453,16 @@ public:
 	NETLIB_CONSTRUCTOR_DERIVED(VS, twoterm)
 	, m_R(*this, "R", 0.1)
 	, m_V(*this, "V", 0.0)
+	, m_func(*this,"FUNC", "")
 	{
 		register_subalias("P", m_P);
 		register_subalias("N", m_N);
+		if (m_func() != "")
+			m_compiled.compile_postfix(std::vector<pstring>({{"T"}}), m_func());
 	}
+
+	NETLIB_IS_TIMESTEP(m_func() != "")
+	NETLIB_TIMESTEPI();
 
 protected:
 	NETLIB_UPDATEI();
@@ -461,6 +470,8 @@ protected:
 
 	param_double_t m_R;
 	param_double_t m_V;
+	param_str_t m_func;
+	plib::pfunction m_compiled;
 };
 
 // -----------------------------------------------------------------------------
@@ -472,16 +483,24 @@ NETLIB_OBJECT_DERIVED(CS, twoterm)
 public:
 	NETLIB_CONSTRUCTOR_DERIVED(CS, twoterm)
 	, m_I(*this, "I", 1.0)
+	, m_func(*this,"FUNC", "")
 	{
 		register_subalias("P", m_P);
 		register_subalias("N", m_N);
+		if (m_func() != "")
+			m_compiled.compile_postfix(std::vector<pstring>({{"T"}}), m_func());
 	}
+
+	NETLIB_IS_TIMESTEP(m_func() != "")
+	NETLIB_TIMESTEPI();
+protected:
 
 	NETLIB_UPDATEI();
 	NETLIB_RESETI();
-protected:
 
 	param_double_t m_I;
+	param_str_t m_func;
+	plib::pfunction m_compiled;
 };
 
 

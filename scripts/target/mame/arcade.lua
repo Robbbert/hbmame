@@ -351,7 +351,7 @@ MACHINES["TPI6525"] = true
 MACHINES["RIOT6532"] = true
 MACHINES["6821PIA"] = true
 MACHINES["6840PTM"] = true
---MACHINES["68561MPCC"] = true
+--MACHINES["MPCC68561"] = true
 MACHINES["ACIA6850"] = true
 MACHINES["68681"] = true
 MACHINES["7200FIFO"] = true
@@ -3666,7 +3666,6 @@ files {
 	MAME_DIR .. "src/mame/video/rastan.cpp",
 	MAME_DIR .. "src/mame/drivers/retofinv.cpp",
 	MAME_DIR .. "src/mame/includes/retofinv.h",
-	MAME_DIR .. "src/mame/machine/retofinv.cpp",
 	MAME_DIR .. "src/mame/video/retofinv.cpp",
 	MAME_DIR .. "src/mame/drivers/rollrace.cpp",
 	MAME_DIR .. "src/mame/includes/rollrace.h",

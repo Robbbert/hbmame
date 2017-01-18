@@ -14201,6 +14201,7 @@ funjacks                        // Mattel
 funrlgl                         // Mattel
 h2hbaskb                        // Coleco
 lightfgt                        // Milton Bradley
+mdallas                         // Mattel
 plus1                           // Milton Bradley
 qkracer                         // National Semiconductor
 
@@ -20497,7 +20498,6 @@ alm16                           // 1988 Mephisto Almeria 68000
 alm32                           // 1988 Mephisto Alimera 68020
 berlinp                         // 1994 Mephisto Berlin Pro 68020
 bpl32                           // 1996 Mephisto Berlin Pro London Upgrade V5.00
-diablo68                        // 1991 Novag Diablo 68000 Chess Computer
 gen32                           // 1993 Mephisto Genius030 V4.00
 gen32_41                        // 1993 Mephisto Genius030 V4.01
 lond020                         // 1996 Mephisto London 68020 32 Bit
@@ -28487,7 +28487,8 @@ wccf331e                        // 2005.06 World Club Champion Football European
 wccf420e                        // 2006.08 World Club Champion Football European Clubs 2005-2006
 wldkicks                        // 2000.03 World Kicks (US, WK3 Ver.A)
 wldkicksa                       // 2000.03 World Kicks (Asia, WK2 Ver.A)
-wldkicksj                       // 2000.03 World Kicks PCB (Japan, WKC1 Ver.A)
+wldkicksj                       // 2000.03 World Kicks (Japan, WK1 Ver.A)
+wldkickspj                      // 2000.03 World Kicks PCB (Japan, WKC1 Ver.A)
 wldrider                        // 2001.05 Wild Riders
 wrungp                          // 2001.08 Wave Runner GP
 wrungpo                         // 2001.?? Wave Runner GP (USA, Rev A)
@@ -29219,6 +29220,9 @@ sfortea1                        //
 sforteb                         //
 sfortec                         //
 supercon                        //
+
+@source:novag68k.cpp
+diablo68                        //
 
 @source:nsm.cpp
 firebird                        //

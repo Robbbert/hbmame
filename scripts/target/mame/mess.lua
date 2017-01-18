@@ -354,7 +354,7 @@ MACHINES["GAYLE"] = true
 MACHINES["6522VIA"] = true
 MACHINES["6821PIA"] = true
 MACHINES["6840PTM"] = true
-MACHINES["68561MPCC"] = true
+MACHINES["MPCC68561"] = true
 MACHINES["68681"] = true
 MACHINES["7200FIFO"] = true
 MACHINES["8530SCC"] = true
@@ -729,6 +729,7 @@ FORMATS["ADAM_DSK"] = true
 FORMATS["AFS_DSK"] = true
 FORMATS["AMI_DSK"] = true
 FORMATS["AP2_DSK"] = true
+FORMATS["APD_DSK"] = true
 FORMATS["APF_APT"] = true
 FORMATS["APOLLO_DSK"] = true
 FORMATS["APPLIX_DSK"] = true
@@ -1896,7 +1897,7 @@ files {
 createMESSProjects(_target, _subtarget, "fidelity")
 files {
 	MAME_DIR .. "src/mame/drivers/fidelz80.cpp",
-	MAME_DIR .. "src/mame/includes/fidelz80.h",
+	MAME_DIR .. "src/mame/includes/fidelbase.h",
 	MAME_DIR .. "src/mame/drivers/fidel6502.cpp",
 	MAME_DIR .. "src/mame/drivers/fidel68k.cpp",
 }
@@ -2379,6 +2380,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/mk1.cpp",
 	MAME_DIR .. "src/mame/drivers/mk2.cpp",
 	MAME_DIR .. "src/mame/drivers/novag6502.cpp",
+	MAME_DIR .. "src/mame/drivers/novagbase.h",
+	MAME_DIR .. "src/mame/drivers/novag68k.cpp",
 	MAME_DIR .. "src/mame/drivers/ssystem3.cpp",
 	MAME_DIR .. "src/mame/includes/ssystem3.h",
 	MAME_DIR .. "src/mame/video/ssystem3.cpp",

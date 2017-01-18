@@ -300,6 +300,13 @@ NETLIB_UPDATE(VS)
 	NETLIB_NAME(twoterm)::update();
 }
 
+NETLIB_TIMESTEP(VS)
+{
+	this->set(1.0 / m_R(),
+			m_compiled.evaluate(std::vector<double>({netlist().time().as_double()})),
+			0.0);
+}
+
 // ----------------------------------------------------------------------------------------
 // nld_CS
 // ----------------------------------------------------------------------------------------
@@ -319,5 +326,24 @@ NETLIB_UPDATE(CS)
 	NETLIB_NAME(twoterm)::update();
 }
 
-	} //namespace devices
+NETLIB_TIMESTEP(CS)
+{
+	const double I = m_compiled.evaluate(std::vector<double>({netlist().time().as_double()}));
+	set_mat(0.0, 0.0, -I,
+			0.0, 0.0,  I);
+}
+
+	} //namespace analog
+
+	namespace devices {
+		NETLIB_DEVICE_IMPL_NS(analog, R)
+		NETLIB_DEVICE_IMPL_NS(analog, POT)
+		NETLIB_DEVICE_IMPL_NS(analog, POT2)
+		NETLIB_DEVICE_IMPL_NS(analog, C)
+		NETLIB_DEVICE_IMPL_NS(analog, L)
+		NETLIB_DEVICE_IMPL_NS(analog, D)
+		NETLIB_DEVICE_IMPL_NS(analog, VS)
+		NETLIB_DEVICE_IMPL_NS(analog, CS)
+	}
+
 } // namespace netlist

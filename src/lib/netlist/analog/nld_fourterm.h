@@ -15,6 +15,7 @@
 // ----------------------------------------------------------------------------------------
 // Macros
 // ----------------------------------------------------------------------------------------
+#ifndef NL_AUTO_DEVICES
 
 #define VCCS(name)                                                            \
 		NET_REGISTER_DEV(VCCS, name)
@@ -27,6 +28,8 @@
 
 #define LVCCS(name)                                                           \
 		NET_REGISTER_DEV(LVCCS, name)
+
+#endif
 
 namespace netlist
 {
@@ -115,7 +118,7 @@ public:
 	{
 	}
 
-	NETLIB_IS_DYNAMIC()
+	NETLIB_IS_DYNAMIC(true)
 
 	param_double_t m_cur_limit; /* current limit */
 

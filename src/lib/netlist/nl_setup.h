@@ -71,7 +71,7 @@ void NETLIST_NAME(name)(netlist::setup_t &setup)                               \
 
 #define LOCAL_LIB_ENTRY(name)                                                  \
 		LOCAL_SOURCE(name)                                                     \
-		setup.register_lib_entry(# name);
+		setup.register_lib_entry(# name, __FILE__);
 
 #define INCLUDE(name)                                                          \
 		setup.include(# name);
@@ -80,6 +80,9 @@ void NETLIST_NAME(name)(netlist::setup_t &setup)                               \
 		setup.namespace_push(# name);                                          \
 		NETLIST_NAME(model)(setup);                                            \
 		setup.namespace_pop();
+
+#define OPTIMIZE_FRONTIER(attach, r_in, r_out)                                  \
+		setup.register_frontier(# attach, r_in, r_out);
 
 // -----------------------------------------------------------------------------
 // truthtable defines
@@ -105,7 +108,7 @@ void NETLIST_NAME(name)(netlist::setup_t &setup)                               \
 		desc.family = x;
 
 #define TRUTHTABLE_END() \
-		netlist::devices::tt_factory_create(setup, desc);       \
+		netlist::devices::tt_factory_create(setup, desc, __FILE__);       \
 	}
 
 
@@ -202,7 +205,7 @@ namespace netlist
 
 		void register_dev(const pstring &classname, const pstring &name);
 
-		void register_lib_entry(const pstring &name);
+		void register_lib_entry(const pstring &name, const pstring &sourcefile);
 
 		void register_model(const pstring &model_in);
 		void register_alias(const pstring &alias, const pstring &out);
@@ -265,7 +268,7 @@ namespace netlist
 
 		/* FIXME: truth table trampoline */
 
-		void tt_factory_create(tt_desc &desc);
+		void tt_factory_create(tt_desc &desc, const pstring &sourcefile);
 
 		/* helper - also used by nltool */
 		const pstring resolve_alias(const pstring &name) const;
