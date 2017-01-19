@@ -250,6 +250,8 @@ static struct ComboBoxSound
 	{ TEXT("None"),                 "none"    },
 	{ TEXT("Auto"),                 "auto"    },
 	{ TEXT("DirectSound"),          "dsound"  },
+	{ TEXT("PortAudio"),            "portaudio" },
+//	{ TEXT("XAudio2"),              "xaudio2" },     // invalid option
 };
 #define NUMSOUND (sizeof(g_ComboBoxSound) / sizeof(g_ComboBoxSound[0]))
 
