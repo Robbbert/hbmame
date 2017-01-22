@@ -4,8 +4,8 @@
 
 ROM_START( srallyp )
 	ROM_REGION( 0x200000, "maincpu", 0 ) // i960 program
-	ROM_LOAD32_WORD( "srallyp.ic12.bin", 0x000000, 0x080000, CRC(926632ab) SHA1(7a37813f3d59b8e6e68220aa3120460b1ce5b33d) )
-	ROM_LOAD32_WORD( "srallyp.ic13.bin", 0x000002, 0x080000, CRC(c93b33f1) SHA1(8477a05e44c1c9ee5e99eaa9d31cd9905ebf8c26) )
+	ROM_LOAD32_WORD( "srallyp.ic12", 0x000000, 0x080000, CRC(926632ab) SHA1(7a37813f3d59b8e6e68220aa3120460b1ce5b33d) )
+	ROM_LOAD32_WORD( "srallyp.ic13", 0x000002, 0x080000, CRC(c93b33f1) SHA1(8477a05e44c1c9ee5e99eaa9d31cd9905ebf8c26) )
 
 	ROM_REGION32_LE( 0x2400000, "user1", 0 ) // Data
 	ROM_LOAD32_WORD( "mpr-17746.10", 0x000000, 0x200000, CRC(8fe311f4) SHA1(f4ada8e5c906fc384bed1b96f09cdf313f89e825) )
@@ -50,4 +50,4 @@ ROM_END
 
 
 
-GAME( 2000?, srallyp,  srallyc, srallyc, srallyc, model2_state, srallyc, ROT0, "Kyle Hodgetts", "Sega Rally Pro Drivin'", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2000?, srallyp,  srallyc, srallyc, srallyc, model2_state, srallyc, ROT0, "Kyle Hodgetts", "Sega Rally Pro Drivin'", 0 )

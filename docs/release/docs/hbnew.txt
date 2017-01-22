@@ -1,6 +1,45 @@
 What's new in HBMAME
 ====================
 
+2017-04-26 0.185
+----------------
+
+
+New Games
+---------
+- [sk2h4q]          Sangokushi II (Asia 921005) (Chinese hack v2.0)
+- [sk2h5q]          Sangokushi II (Asia 921005) (Revised Version hack by Winuxx 2009-09-09)
+- [sk2h6q]          Sangokushi II (Asia 921005) (Boss hack by Winuxx)
+- [srallyp]         Sega Rally Pro Drivin'
+- [wofbio]          Tenchi wo Kurau II (Chinese hack: Boss Enhanced)
+- [wofbt]           Tenchi wo Kurau II (Chinese hack: Zhang Fei Enhanced)
+- [wofctj]          Tenchi wo Kurau II (Chinese hack: Cao Zhi Jian Enhanced)
+- [wofdy]           Tenchi wo Kurau II (Chinese hack: Di Yu Enhanced)
+- [wofdyg]          Tenchi wo Kurau II (Chinese hack: Di Yi Guan Enhanced)
+- [wofes]           Warriors of Fate (Enhanced Super Version hack by Chaihe)
+- [woffh]           Tenchi wo Kurau II (Chinese hack: Fen Hong Enhanced)
+- [wofjd]           Tenchi wo Kurau II (Japan 921031 Phoenix Edition)
+- [wofgyc]          Tenchi wo Kurau II (Chinese hack: Guan Yu Chi Tu Ma Enhanced)
+- [wofqyq]          Tenchi wo Kurau II (Chinese hack: Guan Yu Enhanced)
+- [wofhgz]          Tenchi wo Kurau II (Chinese hack: Han Guang Zhan Enhanced)
+- [wofhzj]          Tenchi wo Kurau II (Chinese hack: Huang Zhong Enhanced)
+- [wofjqz]          Tenchi wo Kurau II (Chinese hack: Jian Qi Zong Heng Enhanced)
+- [wofmr]           Tenchi wo Kurau II (Chinese hack: Mei ren Guan Enhanced)
+- [wofsbl]          Tenchi wo Kurau II (Chinese hack: Shen Bing Li Qi Enhanced)
+- [wofsjj]          Tenchi wo Kurau II (Chinese hack: Shen Jian + Jian Qi Enhanced)
+- [wofsz]           Tenchi wo Kurau II (Chinese hack: Shao Zhu Enhanced)
+- [wofud]           Warriors of Fate (USA 921031 Phoenix Edition)
+- [wofyjs]          Tenchi wo Kurau II (Chinese hack: Yu Jian Shu Enhanced)
+- [wofxyg]          Tenchi wo Kurau II (Chinese hack: Ying Xiong Guan Enhanced)
+- [wofzhs]          Tenchi wo Kurau II (Chinese hack: Zhao Huan Shou Enhanced)
+- [wofzhy]          Tenchi wo Kurau II (Chinese hack: Zhao Huan Shou + Yu Jian Shu Enhanced)
+- [wofzy2]          Tenchi wo Kurau II (Chinese hack: Zhao Yun Lian Ti Enhanced)
+- [wofzy3]          Tenchi wo Kurau II (Chinese hack: Zhao Yun Sheng Long Enhanced)
+- [wofzyq]          Tenchi wo Kurau II (Chinese hack: Zhao Yun Bao Li Enhanced)
+
+
+
+
 2016-11-30 0.180
 ----------------
 

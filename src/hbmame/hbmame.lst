@@ -247,8 +247,13 @@ sf2yyc3d5
 sf2yyc3g
 sf2yyc6
 sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h1q		// qsound version of sk2h1
 sk2h2		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h2q
 sk2h3		// mame sgyxz for testing
+sk2h4q
+sk2h5q
+sk2h6q
 sk2h11		/* 1992 Sangokushi II (Hack 1) */
 sk2h12		/* 1992 Sangokushi II (Hack 2) */
 sk2h13		/* 1992 Sangokushi II (Hack 3) */
@@ -260,8 +265,6 @@ sk2h32		/* 1997  Three Holy Swords / San Sheng Jian */
 sk2h33		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h34		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h35		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-sk2h1q		// qsound version of sk2h1
-sk2h2q
 sk2h31q
 sk2h32q
 sk2h33q
@@ -272,21 +275,46 @@ stridergh	// as above, and uncensored
 sk2h15		// wofaehp
 sk2h16		// wofahp2
 wofb
+wofbio
+wofbt
 wofch
 wofch_v3
 wofchdx
 wofchdx1
 wofchdx2
 wofchspp
-wofjcn		// chinese language
+wofctj
+wofdy
+wofdyg
+wofes
+woffh
 woffr		/* Neo-Arc French Trans */
+wofgyc
+wofgyq
+wofhgz
+wofhzj
+wofjcn		// chinese language
+wofjd
 wofjh
 wofjhb		// was dynwarjh in another life
 wofjhc		// was dynwarj2 in another life
 wofjm
+wofjqz
 wofjzero
+wofmr
 wofr1h
+wofsbl
 wofsf2
+wofsjj
+wofsz
+wofud
+wofyjs
+wofyxg
+wofzhs
+wofzhy
+wofzy2
+wofzy3
+wofzyq
 
 	/* cps2 */
 // CPS2 PARENTS ***
