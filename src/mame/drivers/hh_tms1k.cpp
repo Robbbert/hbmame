@@ -19,6 +19,7 @@
  @CP0904A  TMS0970   1977, Milton Bradley Comp IV
  @MP0905B  TMS0970   1977, Parker Brothers Codename Sector
  *MP0057   TMS1000   1978, APH Student Speech+ (same ROM contents as TSI Speech+?)
+ *MP0154   TMS1000   1979, Fonas 2 Player Baseball
  @MP0158   TMS1000   1979, Entex Soccer (6003)
  @MP0163   TMS1000   1979, A-One LSI Match Number/LJN Electronic Concentration
  @MP0168   TMS1000   1979, Conic Multisport/Tandy Sports Arena (model 60-2158)
@@ -3686,7 +3687,7 @@ WRITE16_MEMBER(ginv1000_state::write_r)
 
 	// R8,R15: input mux
 	m_inp_mux = (data >> 8 & 1) | (data >> 14 & 2);
-	
+
 	// R1-R10: VFD matrix grid
 	// R11-R14: VFD matrix plate
 	m_grid = data >> 1 & 0x3ff;
@@ -4446,13 +4447,13 @@ MACHINE_CONFIG_END
   * PCB label 1670-4619D
   * TMS1100NLL MP3491-N2 (die label 1100E MP3491)
   * HLCD0569, 67-segment LCD panel, no sound
-  
+
   This handheld is not a toy, read the manual for more information. In short,
   it is a device for prediciting the winning chance of a gambling horserace.
 
   known releases:
   - USA: Thoroughbred Horse Race Analyzer
-  - China/Canada: Thoroughbred Horse Race Analyzer, distributed in 1994 by 
+  - China/Canada: Thoroughbred Horse Race Analyzer, distributed in 1994 by
     Advanced Handicapping Technologies, Inc.
 
 ***************************************************************************/
@@ -4479,11 +4480,11 @@ WRITE32_MEMBER(horseran_state::lcd_output_w)
 	// only 3 rows used
 	if (offset > 2)
 		return;
-	
+
 	// output segments (lamp row*100 + col)
 	for (int i = 0; i < 24; i++)
 		output().set_lamp_value(offset*100 + i+1, data >> i & 1);
-	
+
 	// col5-11 and col13-19 are 7segs
 	for (int i = 0; i < 2; i++)
 		output().set_digit_value(offset << 1 | i, BITSWAP8(data >> (4+8*i),7,3,5,2,0,1,4,6) & 0x7f);
@@ -4497,7 +4498,7 @@ WRITE16_MEMBER(horseran_state::write_r)
 	m_lcd->write_cs(data >> 2 & 1);
 	m_lcd->write_data(data >> 1 & 1);
 	m_lcd->write_clock(data & 1);
-	
+
 	// R3-R10: input mux
 	m_inp_mux = data >> 3 & 0xff;
 }
@@ -4823,7 +4824,6 @@ WRITE16_MEMBER(comp4_state::write_o)
 	// O0: leds common
 	// other bits: N/C
 	m_o = data;
-	display_matrix(11, 1, m_r, m_o);
 }
 
 READ8_MEMBER(comp4_state::read_k)
