@@ -9,7 +9,7 @@ How to compile
 ==============
 
 ```
-make TARGET=hbmame OSD=newui
+make TARGET=hbmame
 ```
 
 or
