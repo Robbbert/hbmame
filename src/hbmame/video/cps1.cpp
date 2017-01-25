@@ -1768,11 +1768,23 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofhzj",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },							// problem with chinese language roms
 	{"wofjd",       CPS_B_21_DEF, mapper_TK263B },							//works
+	{"wofjehp",     CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjh2",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjhb",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjhc",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjhdwb",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjhp2",     CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjjq",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjm",       CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjmsp",     CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjpsrw",    CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjqz",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjrabh",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjrlb",     CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjrpbs",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjv10s",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjzcr1",    CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjzero",    CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofmr",       CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },							//works
