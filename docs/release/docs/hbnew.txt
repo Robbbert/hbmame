@@ -10,7 +10,7 @@ New Games
 - [mshvsemb]        Marvel Super Heroes Vs. Street Fighter (Easy Moves hack by Blackheart 2009-04-23)
 - [mshvsfjh]        Marvel Super Heroes Vs. Street Fighter (Boss hack by Yumeji)
 - [mshvsfjphp]      Marvel Super Heroes Vs. Street Fighter (Power hack by Pipi899)
-- [pactetris]       Tetris on Pacman hardware (by Ben Leperchey, compiled by Stefano)
+- [pactetris]       Tetris on Pacman hardware (by Ben Leperchey)
 - [sf2bhj]          Street Fighter II: The World Warrior (Boss hack by Yumeji)
 - [sf2cehk]         Street Fighter II': Champion Edition (Hack Unknown by Kawada7278)
 - [sf2cehp]         Street Fighter II': Champion Edition (Moves hack by Pipi899 2009-01-10)
