@@ -224,11 +224,15 @@ punisherjh1
 punisherjha
 punisherud1
 punisherud2
+sf2bhj
 sf2c		// sf2, chinese
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
 sf2ceda		/* hack, Hispanic 990804 */
 sf2ceh		/* hack, Hispanic 990804 */
+sf2cehk
+sf2cehp
+sf2cejem
 sf2koryuh	/* Hack by TT */
 sf2h9		/* Found in Mame Plus */
 sf2h10		/* Found in Mame Plus */
@@ -1358,6 +1362,7 @@ mtturbo		/* Tim - Make Trax Turbo Hack */
 pachello	/* Jerronimo */
 pacmatri	/* Jerronimo */
 pactest		/* Widel's Games */
+pactetris
 ppong		/* Widel's Games */
 ppong2		/* Widel's Games */
 rainboh		/* Widel's Games */
