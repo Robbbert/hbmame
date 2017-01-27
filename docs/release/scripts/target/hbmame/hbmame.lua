@@ -13,6 +13,7 @@
 ---------------------------------------------------
 
 CPUS["ADSP21XX"] = true
+CPUS["ADSP21062"] = true -- model2
 CPUS["ARM"] = true
 CPUS["ARM7"] = true
 CPUS["CCPU"] = true
@@ -22,12 +23,15 @@ CPUS["HD6309"] = true
 CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["I86"] = true
+CPUS["I960"] = true -- model2
 CPUS["M6502"] = true
 CPUS["M6800"] = true
 CPUS["M6805"] = true
 CPUS["M6809"] = true
 CPUS["M680X0"] = true
 CPUS["MB88XX"] = true
+CPUS["MB86233"] = true -- model2
+CPUS["MB86235"] = true -- model2
 CPUS["MCS48"] = true
 CPUS["MCS51"] = true
 CPUS["NEC"] = true
@@ -96,6 +100,9 @@ SOUNDS["ST0016"] = true
 SOUNDS["VOLT_REG"] = true
 SOUNDS["VOTRAX"] = true
 SOUNDS["DIGITALKER"] = true
+SOUNDS["MULTIPCM"] = true -- model2
+SOUNDS["SCSP"] = true -- model2
+SOUNDS["MPEG_AUDIO"] = true -- model2
 
 --------------------------------------------------
 -- specify available video cores
@@ -136,6 +143,7 @@ MACHINES["NETLIST"] = true
 MACHINES["RP5H01"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMS6100"] = true
+MACHINES["TTL74157"] = true
 MACHINES["UPD1990A"] = true
 MACHINES["UPD4992"] = true
 MACHINES["V3021"] = true
@@ -422,8 +430,6 @@ files {
 	MAME_DIR .. "src/mame/video/mw8080bw.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",
 	MAME_DIR .. "src/mame/video/astrocde.cpp",
-	MAME_DIR .. "src/mame/audio/gorf.cpp",
-	MAME_DIR .. "src/mame/audio/wow.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcr.cpp",
 	MAME_DIR .. "src/mame/machine/mcr.cpp",
 	MAME_DIR .. "src/mame/video/mcr.cpp",
@@ -449,6 +455,8 @@ files {
 	MAME_DIR .. "src/mame/audio/midway.cpp",
 	MAME_DIR .. "src/mame/audio/cage.cpp",
 	MAME_DIR .. "src/mame/audio/dcs.cpp",
+	MAME_DIR .. "src/mame/audio/csd.cpp",
+	MAME_DIR .. "src/mame/audio/csd.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "namco")
@@ -576,6 +584,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/mario.cpp",
 	MAME_DIR .. "src/mame/audio/mario.cpp",
 	MAME_DIR .. "src/mame/video/mario.cpp",
+	MAME_DIR .. "src/mame/audio/nl_mario.cpp",
+	MAME_DIR .. "src/mame/audio/nl_mario.h",
 	MAME_DIR .. "src/hbmame/drivers/mmagic.cpp",
 	MAME_DIR .. "src/hbmame/drivers/playch10.cpp",
 	MAME_DIR .. "src/mame/machine/playch10.cpp",
@@ -650,6 +660,22 @@ files {
 	MAME_DIR .. "src/mame/video/sega16sp.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segas16b.cpp",
 	MAME_DIR .. "src/mame/video/segas16b.cpp",
+	MAME_DIR .. "src/mame/machine/m2comm.cpp", -- from here, for model2
+	MAME_DIR .. "src/mame/machine/m2comm.h",
+	MAME_DIR .. "src/mame/audio/dsbz80.cpp",
+	MAME_DIR .. "src/mame/audio/dsbz80.h",
+	MAME_DIR .. "src/hbmame/drivers/model2.cpp",
+	MAME_DIR .. "src/mame/includes/model2.h",
+	MAME_DIR .. "src/mame/video/model2rd.hxx",
+	MAME_DIR .. "src/mame/video/model2.cpp",
+	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
+	MAME_DIR .. "src/mame/audio/segam1audio.h",
+	MAME_DIR .. "src/mame/video/segaic24.cpp",
+	MAME_DIR .. "src/mame/video/segaic24.h",
+	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
+	MAME_DIR .. "src/mame/machine/315-5881_crypt.h",
+	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
+	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")
@@ -679,7 +705,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/rastan.cpp",
 	MAME_DIR .. "src/mame/video/rastan.cpp",
 	MAME_DIR .. "src/hbmame/drivers/retofinv.cpp",
-	MAME_DIR .. "src/mame/machine/retofinv.cpp",
 	MAME_DIR .. "src/mame/video/retofinv.cpp",
 	MAME_DIR .. "src/hbmame/drivers/taito_b.cpp",
 	MAME_DIR .. "src/mame/video/taito_b.cpp",
@@ -705,6 +730,8 @@ files {
 	MAME_DIR .. "src/mame/video/tc0180vcu.cpp",
 	MAME_DIR .. "src/hbmame/drivers/taito_l.cpp",
 	MAME_DIR .. "src/mame/video/taito_l.cpp",
+	MAME_DIR .. "src/mame/machine/taito68705interface.cpp",
+	MAME_DIR .. "src/mame/machine/taito68705interface.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
@@ -728,7 +755,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
 files {
-	MAME_DIR .. "src/hbmame/drivers/toaplan1.cpp",
+	MAME_DIR .. "src/mame/drivers/toaplan1.cpp",
 	MAME_DIR .. "src/mame/machine/toaplan1.cpp",
 	MAME_DIR .. "src/mame/video/toaplan1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/toaplan2.cpp",
@@ -772,6 +799,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/popper.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
+	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
 }
 
 end

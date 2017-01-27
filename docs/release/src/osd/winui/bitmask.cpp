@@ -3,7 +3,6 @@
 /* bitmask.c - Bitmask support routines - MSH 11/19/1998 */
 
 // standard windows headers
-#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 // standard C headers

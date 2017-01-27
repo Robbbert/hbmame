@@ -19,7 +19,6 @@
 
 
 // standard windows headers
-#define WIN32_LEAN_AND_MEAN // leave out not-needed libraries
 #include "newui.h"
 
 #include <shellapi.h>

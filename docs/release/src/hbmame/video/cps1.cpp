@@ -1697,11 +1697,15 @@ static const struct CPS1config cps1_config_table[]=
 	{"punisherjha", CPS_B_21_QS3, mapper_PS63B },							//works
 	{"punisherud1", CPS_B_21_DEF, mapper_PS63B },							//works
 	{"punisherud2", CPS_B_21_DEF, mapper_PS63B },							//works
+	{"sf2bhj",      CPS_B_12,     mapper_STF29,  0x36 },					//works
 	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },					//works
 	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
 	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
 	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
 	{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
+	{"sf2cehk",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
+	{"sf2cehp",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
+	{"sf2cejem",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
 	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
 	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
 	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
@@ -1724,6 +1728,9 @@ static const struct CPS1config cps1_config_table[]=
 	{"sk2h2",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
 	{"sk2h2q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
 	{"sk2h3",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
+	{"sk2h4q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
+	{"sk2h5q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
+	{"sk2h6q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
 	{"sk2h11",      CPS_B_21_DEF, mapper_TK263B },							//works
 	{"sk2h12",      CPS_B_21_DEF, mapper_TK263B },							//works
 	{"sk2h13",      CPS_B_21_DEF, mapper_TK263B },							//works
@@ -1746,20 +1753,57 @@ static const struct CPS1config cps1_config_table[]=
 	{"stridergh",   CPS_B_01,     mapper_ST24M1 },							//works
 	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },			//works
 	{"wofb",        CPS_B_21_DEF, mapper_TK263B },							//works
+	{"wofbio",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofbt",       CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofch_v3",    CPS_B_21_DEF, mapper_sfzch },							//works
 	{"wofchdx",     CPS_B_21_DEF, mapper_sfzch },							//works
 	{"wofchdx1",    CPS_B_21_DEF, mapper_TK263B },							//works
 	{"wofchdx2",    CPS_B_21_DEF, mapper_TK263B },							//works
 	{"wofchspp",    CPS_B_21_DEF, mapper_TK263B },							//works
-	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },							// problem with chinese language roms
+	{"wofctj",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofdy",       CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofdyg",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofes",       CPS_B_21_DEF, mapper_TK263B },							//works
+	{"woffh",       CPS_B_21_QS1, mapper_TK263B },							//works
 	{"woffr",       CPS_B_21_DEF, mapper_sfzch },							//works
+	{"wofgyc",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofgyq",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofhgz",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofhzj",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjcn",      CPS_B_21_QS1, mapper_TK263B },							// problem with chinese language roms
+	{"wofjd",       CPS_B_21_DEF, mapper_TK263B },							//works
+	{"wofjehp",     CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjh",       CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjh2",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjhb",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjhc",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjhdwb",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjhp2",     CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjjq",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjm",       CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjmsp",     CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjpsrw",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjqz",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjrabh",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjrlb",     CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjrpbs",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjv10s",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofjzcr1",    CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofjzero",    CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofmr",       CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },							//works
+	{"wofsbl",      CPS_B_21_QS1, mapper_TK263B },							//works
 	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },					//works
+	{"wofsjj",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofsz",       CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofud",       CPS_B_21_DEF, mapper_TK263B },							//works
+	{"wofyjs",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofyxg",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofzhs",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofzhy",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofzy2",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofzy3",      CPS_B_21_QS1, mapper_TK263B },							//works
+	{"wofzyq",      CPS_B_21_QS1, mapper_TK263B },							//works
 
 	// HBMAME end
 	{nullptr}     /* End of table */

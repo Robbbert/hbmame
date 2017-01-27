@@ -236,6 +236,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/68153bim.h,MACHINES["BIM68153"] = true
+---------------------------------------------------
+
+if (MACHINES["BIM68153"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/68153bim.cpp",
+		MAME_DIR .. "src/devices/machine/68153bim.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/68230pit.h,MACHINES["PIT68230"] = true
 ---------------------------------------------------
 
@@ -248,10 +260,10 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/machine/68561mpcc.h,MACHINES += 68561MPCC
+--@src/devices/machine/68561mpcc.h,MACHINES["MPCC68561"] = true
 ---------------------------------------------------
 
-if (MACHINES["68561MPCC"]~=null) then
+if (MACHINES["MPCC68561"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/68561mpcc.cpp",
 		MAME_DIR .. "src/devices/machine/68561mpcc.h",
@@ -352,6 +364,18 @@ if (MACHINES["TTL74153"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/74153.cpp",
 		MAME_DIR .. "src/devices/machine/74153.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/74157.h,MACHINES["TTL74157"] = true
+---------------------------------------------------
+
+if (MACHINES["TTL74157"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/74157.cpp",
+		MAME_DIR .. "src/devices/machine/74157.h",
 	}
 end
 
@@ -656,6 +680,19 @@ if (MACHINES["CDP1871"]~=null) then
 		MAME_DIR .. "src/devices/machine/cdp1871.h",
 	}
 end
+
+---------------------------------------------------
+--
+--@src/devices/machine/cdp1879.h,MACHINES["CDP1879"] = true
+---------------------------------------------------
+
+if (MACHINES["CDP1879"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/cdp1879.cpp",
+		MAME_DIR .. "src/devices/machine/cdp1879.h",
+	}
+end
+
 
 ---------------------------------------------------
 --
@@ -1900,6 +1937,18 @@ if (MACHINES["PCKEYBRD"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/pckeybrd.cpp",
 		MAME_DIR .. "src/devices/machine/pckeybrd.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/phi.h,MACHINES["PHI"] = true
+---------------------------------------------------
+
+if (MACHINES["PHI"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/phi.cpp",
+		MAME_DIR .. "src/devices/machine/phi.h",
 	}
 end
 

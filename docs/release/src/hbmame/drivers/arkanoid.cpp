@@ -52,7 +52,7 @@ ROM_START( arkll32 )
 	ROM_LOAD( "lle_a75_01-1.rom", 0x0000, 0x8000, CRC(8e6d7e7f) SHA1(3682c548c1bc3ceea2ff685fc5b82e61ed0044d2) )
 	ROM_LOAD( "lle_a75_11.rom",   0x8000, 0x8000, CRC(845fa7b0) SHA1(e89ab456281bcb83a61a89b347dc93303928d365) )
 
-	ROM_REGION( 0x0800, "mcu", 0 )
+	ROM_REGION( 0x0800, "mcu:mcu", 0 )
 	ROM_LOAD( "arkanoid.uc",  0x0000, 0x0800, CRC(515d77b6) SHA1(a302937683d11f663abd56a2fd7c174374e4d7fb) )
 
 	ROM_REGION( 0x18000, "gfx1", 0 )
@@ -70,4 +70,4 @@ ROM_END
 GAME( 2000, akblc2dx, arkanoid, bootleg,  arkangc,   arkanoid_state, arkblock, ROT90, "hack", "Block Deluxe (Game Corporation)", 0 )
 GAME( 2000, akgcdx,   arkanoid, bootleg,  arkangc,   arkanoid_state, arkgcbl,  ROT90, "hack", "Arkanoid Deluxe (Game Corporation)", 0 )
 GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  driver_device,  0,        ROT90, "hack", "Arkanoid Deluxe (Japan, Tayto)", 0 )
-GAME( 2000, arkll32,  arkanoid, arkanoid, arkanoidj, driver_device,  0,        ROT90, "hack", "Arkanoid LL32", 0 )
+GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, driver_device,  0,        ROT90, "hack", "Arkanoid LL32", 0 )

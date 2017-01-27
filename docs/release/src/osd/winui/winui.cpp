@@ -16,7 +16,6 @@
 ***************************************************************************/
 
 // standard windows headers
-#define WIN32_LEAN_AND_MEAN
 #define _WIN32_IE 0x0501
 #include <windows.h>
 #include <windowsx.h>
@@ -940,7 +939,9 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	osd.register_options();
 	mame_machine_manager *manager = mame_machine_manager::instance(global_opts, osd);
 	load_translation(global_opts);
+	manager->start_http_server();
 	manager->start_luaengine();
+	manager->start_context();
 	manager->execute();
 	osd_output::pop(&winerror);
 	global_free(manager);

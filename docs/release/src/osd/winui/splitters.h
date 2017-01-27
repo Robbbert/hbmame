@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /* Written by Mike Haaland <mhaaland@hypertech.com> */
@@ -10,6 +11,11 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #endif
+
+#include "resource.h"
+#include "winui.h"
+#define SPLITTER_WIDTH 4
+#define MIN_VIEW_WIDTH 10
 
 enum eSplitterHits
 {
@@ -52,7 +58,24 @@ typedef struct
 	void (*pfnAdjust)(HWND hWnd,LPRECT lpRect);
 } SPLITTERINFO;
 
-extern const SPLITTERINFO g_splitterInfo[];
+#ifdef MESS
+const SPLITTERINFO g_splitterInfo[] =
+{
+	{ 0.2,  IDC_SPLITTER,  IDC_TREE,  IDC_LIST,    AdjustSplitter1Rect },
+	{ 0.4,  IDC_SPLITTER2, IDC_LIST,  IDC_SWLIST,  AdjustSplitter1Rect },
+	{ 0.6,  IDC_SPLITTER3, IDC_SWTAB, IDC_SSFRAME, AdjustSplitter2Rect },
+	{ -1 }
+};
+#else
+const SPLITTERINFO g_splitterInfo[] =
+{
+	{ 0.25, IDC_SPLITTER,  IDC_TREE,  IDC_LIST,    AdjustSplitter1Rect },
+	{ 0.5,  IDC_SPLITTER2, IDC_LIST,  IDC_SSFRAME, AdjustSplitter2Rect },
+	{ -1 }
+};
+#endif
+
+//extern const SPLITTERINFO g_splitterInfo[];
 
 
 #endif /* SPLITTER_H */

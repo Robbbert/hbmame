@@ -111,9 +111,9 @@ ROM_END
 //Press P1+P2 while playing, to advance
 ROM_START( bbredux1 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
-	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(b802046d) SHA1(93dba2507c67f3f61eca80908a7a4409d2cd1b75) )
-	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(19a5a0fa) SHA1(e7fff3643d7922a494ad8118d1a0f74e52443f9f) )
+	ROM_LOAD( "bb3.1",        0x00000, 0x8000, CRC(b802046d) SHA1(93dba2507c67f3f61eca80908a7a4409d2cd1b75) )
+	ROM_LOAD( "bb5.1",        0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
+	ROM_LOAD( "bb4.1",        0x18000, 0x8000, CRC(19a5a0fa) SHA1(e7fff3643d7922a494ad8118d1a0f74e52443f9f) )
 
 	ROM_REGION( 0x10000, "slave", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
@@ -147,9 +147,9 @@ ROM_END
 // When you die for the last time, it momentarily says says press P1. Do so, to continue.
 ROM_START( bbredux2 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
-	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(198dc44e) SHA1(de9538b47703c468f85ba318deb8aa0b65174a26) )
+	ROM_LOAD( "bb3.2",        0x00000, 0x8000, CRC(198dc44e) SHA1(de9538b47703c468f85ba318deb8aa0b65174a26) )
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(9b819b62) SHA1(79d7208cb81fa36ed317f4776b1eda3082b1a21c) )
+	ROM_LOAD( "bb4.2",        0x18000, 0x8000, CRC(9b819b62) SHA1(79d7208cb81fa36ed317f4776b1eda3082b1a21c) )
 
 	ROM_REGION( 0x10000, "slave", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
@@ -183,9 +183,9 @@ ROM_END
 // High score save is not working as yet
 ROM_START( bbredux3 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
-	ROM_LOAD( "bb3",          0x00000, 0x8000, CRC(959cafca) SHA1(9c541e45326d27f4d25a1fd9d66f234ce7f969c9) )
+	ROM_LOAD( "bb3.3",        0x00000, 0x8000, CRC(959cafca) SHA1(9c541e45326d27f4d25a1fd9d66f234ce7f969c9) )
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
-	ROM_LOAD( "bb4",          0x18000, 0x8000, CRC(3f350047) SHA1(7e23d1c9b1a29760d96dcc7f7784ae610ac860d9) )
+	ROM_LOAD( "bb4.3",        0x18000, 0x8000, CRC(3f350047) SHA1(7e23d1c9b1a29760d96dcc7f7784ae610ac860d9) )
 
 	ROM_REGION( 0x10000, "slave", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
@@ -219,7 +219,7 @@ ROM_END
 ROM_START( sboblboblh )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bb3.u28",      0x00000, 0x08000, CRC(c23cd704) SHA1(a389ecc8d55d1b0c915fd3814d93338b9e402701) )
-	ROM_LOAD( "bb5",          0x10000, 0x08000, CRC(13118eb1) SHA1(5a5da40c2cc82420f70bc58ffa32de1088c6c82f) )
+	ROM_LOAD( "bb5.s",        0x10000, 0x08000, CRC(13118eb1) SHA1(5a5da40c2cc82420f70bc58ffa32de1088c6c82f) )
 	ROM_LOAD( "bbb-4.rom",    0x18000, 0x08000, CRC(94c75591) SHA1(7698bc4b7d20e554a73a489cd3a15ae61b350e37) )
 
 	ROM_REGION( 0x10000, "slave", 0 )

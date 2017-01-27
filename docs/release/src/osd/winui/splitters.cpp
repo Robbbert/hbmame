@@ -1,11 +1,12 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
  /***************************************************************************
 
   splitters.c
 
-  Splitter GUI code. - Tree, spliiter, list, splitter, pict
+  Splitter GUI code. - Tree, splitter, list, splitter, pict
 
   Created 12/03/98 (C) by Mike Haaland (mhaaland@hypertech.com)
 
@@ -13,37 +14,29 @@
 
 
 // standard windows headers
-#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <windowsx.h>
-#include <commctrl.h>
-#include <stdlib.h>
-#include <assert.h>
 
 // MAME/MAMEUI headers
 #include "splitters.h"
 #include "mui_opts.h"
-#include "resource.h"
-#include "winui.h"
 
 /* Local Variables */
 static BOOL         bTracking = 0;
 static int          numSplitters = 0;
 static int          currentSplitter = 0;
 static HZSPLITTER   *splitter;
-static LPHZSPLITTER lpCurSpltr = nullptr;
-static HCURSOR      hSplitterCursor = nullptr;
+static LPHZSPLITTER lpCurSpltr = 0;
+static HCURSOR      hSplitterCursor = 0;
 
 int *nSplitterOffset;
 
 BOOL InitSplitters(void)
 {
-	int nSplitterCount;
-
 	/* load the cursor for the splitter */
 	hSplitterCursor = LoadCursor(GetModuleHandle(0), MAKEINTRESOURCE(IDC_CURSOR_HSPLIT));
 
-	nSplitterCount = GetSplitterCount();
+	int nSplitterCount = GetSplitterCount();
 
 	splitter = (HZSPLITTER*)malloc(sizeof(HZSPLITTER) * nSplitterCount);
 	if (!splitter)
@@ -80,15 +73,15 @@ void SplittersExit(void)
 /* Called with hWnd = Parent Window */
 static void CalcSplitter(HWND hWnd, LPHZSPLITTER lpSplitter)
 {
-	POINT	p = {0,0};
-	RECT	leftRect, rightRect;
-	int 	dragWidth;
+	POINT p = {0,0};
+	RECT leftRect, rightRect;
+	int dragWidth;
 
 	ClientToScreen(hWnd, &p);
 
-	GetWindowRect(lpSplitter->m_hWnd,		&lpSplitter->m_dragRect);
-	GetWindowRect(lpSplitter->m_hWndLeft,	&leftRect);
-	GetWindowRect(lpSplitter->m_hWndRight,	&rightRect);
+	GetWindowRect(lpSplitter->m_hWnd, &lpSplitter->m_dragRect);
+	GetWindowRect(lpSplitter->m_hWndLeft, &leftRect);
+	GetWindowRect(lpSplitter->m_hWndRight, &rightRect);
 
 	OffsetRect(&lpSplitter->m_dragRect, -p.x, -p.y);
 	OffsetRect(&leftRect, -p.x, -p.y);
@@ -96,10 +89,10 @@ static void CalcSplitter(HWND hWnd, LPHZSPLITTER lpSplitter)
 
 	dragWidth = lpSplitter->m_dragRect.right - lpSplitter->m_dragRect.left;
 
-	lpSplitter->m_limitRect.left	= leftRect.left + 20;
-	lpSplitter->m_limitRect.right	= rightRect.right - 20;
-	lpSplitter->m_limitRect.top 	= lpSplitter->m_dragRect.top;
-	lpSplitter->m_limitRect.bottom	= lpSplitter->m_dragRect.bottom;
+	lpSplitter->m_limitRect.left = leftRect.left + 20;
+	lpSplitter->m_limitRect.right = rightRect.right - 20;
+	lpSplitter->m_limitRect.top = lpSplitter->m_dragRect.top;
+	lpSplitter->m_limitRect.bottom = lpSplitter->m_dragRect.bottom;
 	if (lpSplitter->m_func)
 		lpSplitter->m_func(hWnd, &lpSplitter->m_limitRect);
 
@@ -132,7 +125,7 @@ void AdjustSplitter1Rect(HWND hWnd, LPRECT lpRect)
 
 void RecalcSplitters(void)
 {
-	int 	i;
+	int i;
 
 	for (i = 0; i < numSplitters; i++)
 	{
@@ -150,13 +143,12 @@ void RecalcSplitters(void)
 
 void OnSizeSplitter(HWND hWnd)
 {
-	static int firstTime = TRUE;
-	int changed = FALSE;
+	static bool firstTime = true;
+	bool changed = false;
 	RECT rWindowRect;
 	POINT p = {0,0};
 	int i;
 	int nSplitterCount;
-	BOOL bMustChange;
 
 	nSplitterCount = GetSplitterCount();
 
@@ -164,8 +156,8 @@ void OnSizeSplitter(HWND hWnd)
 	{
 		for (i = 0; i < nSplitterCount; i++)
 			nSplitterOffset[i] = GetSplitterPos(i);
-		changed = TRUE;
-		firstTime = FALSE;
+		changed = true;
+		firstTime = false;
 	}
 
 	GetWindowRect(hWnd, &rWindowRect);
@@ -177,20 +169,25 @@ void OnSizeSplitter(HWND hWnd)
 		ClientToScreen(splitter[i].m_hWnd, &p);
 
 		/* We must change if our window is not in the window rect */
-		bMustChange = !PtInRect(&rWindowRect, p);
+		bool bMustChange = !PtInRect(&rWindowRect, p);
 
 		/* We should also change if we are ahead the next splitter */
 		if ((i < nSplitterCount-1) && (nSplitterOffset[i] >= nSplitterOffset[i+1]))
-			bMustChange = TRUE;
+			bMustChange = true;
 
 		/* ...or if we are behind the previous splitter */
 		if ((i > 0) && (nSplitterOffset[i] <= nSplitterOffset[i-1]))
-			bMustChange = TRUE;
-
+			bMustChange = true;
+#ifdef MESS
+		if ((i==1)&&(!GetShowSoftware()))
+			bMustChange = false;
+		if ((i==2)&&(!GetShowScreenShot()))
+			bMustChange = false;
+#endif
 		if (bMustChange)
 		{
 			nSplitterOffset[i] = (rWindowRect.right - rWindowRect.left) * g_splitterInfo[i].dPosition;
-			changed = TRUE;
+			changed = true;
 		}
 	}
 
@@ -220,9 +217,9 @@ void AddSplitter(HWND hWnd, HWND hWndLeft, HWND hWndRight, void (*func)(HWND hWn
 
 static void OnInvertTracker(HWND hWnd, const RECT *rect)
 {
-	HDC 	hDC = GetDC(hWnd);
-	HBRUSH	hBrush = CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
-	HBRUSH	hOldBrush = 0;
+	HDC hDC = GetDC(hWnd);
+	HBRUSH hBrush = CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
+	HBRUSH hOldBrush = 0;
 
 	if (hBrush != 0)
 		hOldBrush = (HBRUSH)SelectObject(hDC, hBrush);
@@ -299,11 +296,11 @@ static UINT SplitterHitTest(HWND hWnd, POINTS p)
 
 void OnMouseMove(HWND hWnd, UINT nFlags, POINTS p)
 {
-	if (bTracking)	// move the tracking image
+	if (bTracking) // move the tracking image
 	{
-		int 	nWidth;
-		RECT	rect;
-		POINT	pt;
+		int nWidth;
+		RECT rect;
+		POINT pt;
 
 		pt.x = (int)p.x;
 		pt.y = (int)p.y;

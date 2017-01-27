@@ -1,7 +1,7 @@
 What's new in HBMAME
 ====================
 
-2017-04-26 0.185
+2017-01-27 0.182
 ----------------
 
 
@@ -20,13 +20,27 @@ New Games
 - [sfa3sp2]         Street Fighter Alpha 3 (Boss Special Fix hack by Pipi899 2009-09-27)
 - [sfa3spp]         Street Fighter Alpha 3 (Boss Special hack by Pipi899 2009-07-03)
 - [sfa3uhd]         Street Fighter Alpha 3 (Revision hack by Dodowang (ECGC))
+- [sfz2ajhp]        Street Fighter Zero 2 Alpha (Enhanced Dan Version hack by Pipi899 2008-12-11)
+- [sfz2aldp]        Street Fighter Zero 2 Alpha (Dragon Edition v1.0 hack by Pipi899 2009-03-17)
+- [sfz2aldp2]       Street Fighter Zero 2 Alpha (Dragon Edition v2.0 hack by Pipi899 2009-04-24)
 - [sfz2jyh]         Street Fighter Zero 2 (Boss hack by Yumeji)
+- [sfz3jb]          Street Fighter Zero 3 (Boss hack by Yumeji)
+- [sfz3jemb]        Street Fighter Zero 3 (Easy Moves hack by Blackheart 2009-05-01)
+- [sfz3jhp]         Street Fighter Zero 3 (Hack by Pipi899)
+- [sfz3jsep]        Street Fighter Zero 3 (Shin Edition hack by Pipi899 2009-01-01)
 - [sfjzboss]        Street Fighter Zero (Boss hack set 2 by Yumeji)
 - [sfzjyh]          Street Fighter Zero (Boss hack set 1 by Yumeji)
 - [sk2h4q]          Sangokushi II (Chinese hack v2.0)
 - [sk2h5q]          Sangokushi II (Revised Version hack by Winuxx 2009-09-09)
 - [sk2h6q]          Sangokushi II (Boss hack by Winuxx)
 - [srallyp]         Sega Rally Pro Drivin'
+- [ssf2tfp]         Super Street Fighter II Turbo (French Parody by Cigarette Patch)
+- [ssf2tfr]         Super Street Fighter II Turbo (French by NEOARC Team)
+- [ssf2tpls]        Super Street Fighter II Turbo (Plus v0.9 beta KrysoFun hack)
+- [ssf2xjhy]        Super Street Fighter II X: Grand Master Challenge (Gouki Edition hack by Yumeji)
+- [ssf2xjjs]        Super Street Fighter II X: Grand Master Challenge (Original Color FGCH hack)
+- [ssf2xjnc]        Super Street Fighter II X: Grand Master Challenge (Nude hack by Shiro)
+- [ssf2zhp]         Super Street Fighter II (Easy Move Zangief Edition hack by Pipi899 2009-01-05)
 - [wofbio]          Tenchi wo Kurau II (Chinese hack: Boss Enhanced)
 - [wofbt]           Tenchi wo Kurau II (Chinese hack: Zhang Fei Enhanced)
 - [wofctj]          Tenchi wo Kurau II (Chinese hack: Cao Zhi Jian Enhanced)

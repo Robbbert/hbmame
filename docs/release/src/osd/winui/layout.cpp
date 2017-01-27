@@ -10,7 +10,6 @@
 
 ***************************************************************************/
 // standard windows headers
-#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <commctrl.h>
 
@@ -126,19 +125,22 @@ extern const FOLDERDATA g_folderData[] =
 #ifdef MESS
 extern const FILTER_ITEM g_filterList[] =
 {
+	{ F_VECTOR,       IDC_FILTER_VECTOR,      DriverIsVector, TRUE },
+	{ F_RASTER,       IDC_FILTER_RASTER,      DriverIsVector, FALSE },
+	{ F_CLONES,       IDC_FILTER_CLONES,      DriverIsClone, TRUE },
+	{ F_ORIGINALS,    IDC_FILTER_ORIGINALS,   DriverIsClone, FALSE },
+	{ F_NONWORKING,   IDC_FILTER_NONWORKING,  DriverIsBroken, TRUE },
+	{ F_WORKING,      IDC_FILTER_WORKING,     DriverIsBroken, FALSE },
+	{ F_HORIZONTAL,   IDC_FILTER_HORIZONTAL,  DriverIsVertical, FALSE },
+	{ F_VERTICAL,     IDC_FILTER_VERTICAL,    DriverIsVertical, TRUE },
 	{ F_COMPUTER,     IDC_FILTER_COMPUTER,    DriverIsComputer, TRUE },
 	{ F_CONSOLE,      IDC_FILTER_CONSOLE,     DriverIsConsole, TRUE },
-	{ F_MODIFIED,     IDC_FILTER_MODIFIED,    DriverIsModified, TRUE },
-	{ F_CLONES,       IDC_FILTER_CLONES,      DriverIsClone, TRUE },
-	{ F_NONWORKING,   IDC_FILTER_NONWORKING,  DriverIsBroken, TRUE },
 	{ F_UNAVAILABLE,  IDC_FILTER_UNAVAILABLE, FilterAvailable, FALSE },
-	{ F_RASTER,       IDC_FILTER_RASTER,      DriverIsVector, FALSE },
-	{ F_VECTOR,       IDC_FILTER_VECTOR,      DriverIsVector, TRUE },
-	{ F_ORIGINALS,    IDC_FILTER_ORIGINALS,   DriverIsClone, FALSE },
-	{ F_WORKING,      IDC_FILTER_WORKING,     DriverIsBroken, FALSE },
-	{ F_AVAILABLE,    IDC_FILTER_AVAILABLE,   FilterAvailable, TRUE },
+	{ F_MECHANICAL,   IDC_FILTER_MECHANICAL,  DriverIsMechanical, TRUE },
 	{ F_ARCADE,       IDC_FILTER_ARCADE,      DriverIsArcade, TRUE },
 	{ F_MESS,         IDC_FILTER_MESS,        DriverIsArcade, FALSE },
+//	{ F_MODIFIED,     IDC_FILTER_MODIFIED,    DriverIsModified, TRUE },
+//	{ F_AVAILABLE,    IDC_FILTER_AVAILABLE,   FilterAvailable, TRUE },
 	{ 0 }
 };
 #else
@@ -158,23 +160,6 @@ extern const FILTER_ITEM g_filterList[] =
 	{ F_ARCADE,       IDC_FILTER_ARCADE,      DriverIsArcade, TRUE },
 	{ F_MESS,         IDC_FILTER_MESS,        DriverIsArcade, FALSE },
 	{ 0 }
-};
-#endif
-
-#ifdef MESS
-extern const SPLITTERINFO g_splitterInfo[] =
-{
-	{ 0.2,  IDC_SPLITTER,  IDC_TREE,  IDC_LIST,    AdjustSplitter1Rect },
-	{ 0.4,  IDC_SPLITTER2, IDC_LIST,  IDC_SWLIST,  AdjustSplitter1Rect },
-	{ 0.6,  IDC_SPLITTER3, IDC_SWTAB, IDC_SSFRAME, AdjustSplitter2Rect },
-	{ -1 }
-};
-#else
-extern const SPLITTERINFO g_splitterInfo[] =
-{
-	{ 0.25, IDC_SPLITTER,  IDC_TREE,  IDC_LIST,    AdjustSplitter1Rect },
-	{ 0.5,  IDC_SPLITTER2, IDC_LIST,  IDC_SSFRAME, AdjustSplitter2Rect },
-	{ -1 }
 };
 #endif
 

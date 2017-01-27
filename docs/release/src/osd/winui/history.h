@@ -1,7 +1,8 @@
 // For licensing and usage information, read docs/winui_license.txt
+//  MASTER
 //****************************************************************************
 
-#pragma once 
+#pragma once
  
 #ifndef HISTORY_H
 #define HISTORY_H

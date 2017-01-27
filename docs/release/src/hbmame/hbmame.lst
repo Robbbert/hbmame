@@ -11,6 +11,7 @@
 
 	/* 1942 */
 1942		//parent
+1942h
 1942c64		// 1942 with C64 sounds (by minwah)
 1942fpa		// 1942 with free play (by cmonkey)
 galagax 	/* Jerky - Chris Moore hack of 1942 */
@@ -223,11 +224,15 @@ punisherjh1
 punisherjha
 punisherud1
 punisherud2
+sf2bhj
 sf2c		// sf2, chinese
 sf2cebr		/* hack, Brasil   920313 */
 sf2ced		/* hack, Hispanic 990804 */
 sf2ceda		/* hack, Hispanic 990804 */
 sf2ceh		/* hack, Hispanic 990804 */
+sf2cehk
+sf2cehp
+sf2cejem
 sf2koryuh	/* Hack by TT */
 sf2h9		/* Found in Mame Plus */
 sf2h10		/* Found in Mame Plus */
@@ -246,8 +251,13 @@ sf2yyc3d5
 sf2yyc3g
 sf2yyc6
 sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h1q		// qsound version of sk2h1
 sk2h2		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h2q
 sk2h3		// mame sgyxz for testing
+sk2h4q
+sk2h5q
+sk2h6q
 sk2h11		/* 1992 Sangokushi II (Hack 1) */
 sk2h12		/* 1992 Sangokushi II (Hack 2) */
 sk2h13		/* 1992 Sangokushi II (Hack 3) */
@@ -259,8 +269,6 @@ sk2h32		/* 1997  Three Holy Swords / San Sheng Jian */
 sk2h33		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h34		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
 sk2h35		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-sk2h1q		// qsound version of sk2h1
-sk2h2q
 sk2h31q
 sk2h32q
 sk2h33q
@@ -271,21 +279,58 @@ stridergh	// as above, and uncensored
 sk2h15		// wofaehp
 sk2h16		// wofahp2
 wofb
+wofbio
+wofbt
 wofch
 wofch_v3
 wofchdx
 wofchdx1
 wofchdx2
 wofchspp
-wofjcn		// chinese language
+wofctj
+wofdy
+wofdyg
+wofes
+woffh
 woffr		/* Neo-Arc French Trans */
+wofgyc
+wofgyq
+wofhgz
+wofhzj
+wofjcn		// chinese language
+wofjd
+wofjehp
 wofjh
+wofjh2
 wofjhb		// was dynwarjh in another life
 wofjhc		// was dynwarj2 in another life
+wofjhdwb
+wofjhp2
+wofjjq
 wofjm
+wofjmsp
+wofjpsrw
+wofjqz
+wofjrabh
+wofjrlb
+//wofjrpbs   exception in first demo
+//wofjv10s   exception in first demo
+wofjzcr1
 wofjzero
+wofmr
 wofr1h
+wofsbl
 wofsf2
+wofsjj
+wofsz
+wofud
+wofyjs
+wofyxg
+wofzhs
+wofzhy
+wofzy2
+wofzy3
+wofzyq
 
 	/* cps2 */
 // CPS2 PARENTS ***
@@ -333,6 +378,9 @@ ddsomhp
 ddsomjfs
 halfway		// progear hack by The Halfway House
 mshjphp
+mshvsemb
+mshvsfjh
+mshvsfjphp
 mshyh
 mvscjemb
 mvscjphp
@@ -342,9 +390,31 @@ pfghtjrm
 suicide		/* Razoola */
 suicide2	/* Razoola */
 sfa2h
+sfa3br
+sfa3dp
+sfa3sp2
+sfa3spp
+sfa3uhd
 sfz2abr
+sfz2ajhp
+sfz2aldp
+sfz2aldp2
+sfz2jyh
+sfz3jb
+sfz3jemb
+sfz3jhp
+sfz3jsep
+sfzjboss
+sfzjyh
 sgemfch
 spf2tb		// boss hack
+ssf2tfp
+ssf2tfr
+ssf2tpls
+ssf2xjhy
+ssf2xjjs
+ssf2xjnc
+ssf2zhp
 vampjb
 vsav2emb
 xmcotajb
@@ -1293,16 +1363,18 @@ airwolf		//parent
 airwolffr	// french
 
 	/* m52 */
-alpha1v		// Kyle Hodgetts
+alpha1v		//parent
+alpha1vx	// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 	/* maketrax */
 eyes		//parent
 aa			/* Widel's Games */
+abscam		// GL 1982
 absurd		/* scott - nonworking alpha ver 3 */
-//alpaca7		/* Jerronimo (useless) */
-//alpaca8		/* Jerronimo (useless) */
+alpaca7		/* Jerronimo (useless) */
+alpaca8		/* Jerronimo (useless) */
 bace		/* Widel's Games */
 crashh		/* PacMAME Hacks */
 dderby		/* Widel's Games */
@@ -1315,6 +1387,7 @@ mtturbo		/* Tim - Make Trax Turbo Hack */
 pachello	/* Jerronimo */
 pacmatri	/* Jerronimo */
 pactest		/* Widel's Games */
+pactetris
 ppong		/* Widel's Games */
 ppong2		/* Widel's Games */
 rainboh		/* Widel's Games */
@@ -1322,7 +1395,7 @@ seq1		/* Jerronimo */
 seq2		/* Jerronimo */
 tst_pacm
 wavybug
-zap		/* Widel's Games */
+zap			/* Widel's Games */
 
 	/* mappy */
 mappy		//parent
@@ -1418,6 +1491,10 @@ mitcdemo	/* Charles Doty */
 
 	/* mmagic */
 mmagic		// with sound
+
+	/* model2 */
+srallyc		//parent
+srallyp		// Kyle Hodgetts Sega Rally Pro Drivin'
 
 	/* monaco */
 monaco
@@ -2000,7 +2077,6 @@ pnyaad
 preisle2d
 //pspikes2cd // not working
 ragnagrdeh
-roboarma
 s1945pd
 s1945pwe
 savageredb
@@ -2452,8 +2528,8 @@ pengo		//parent
 pacpen
 pengopop
 vecpengo	/* T-Bone hack of Pengo */
-//alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
-//alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
+alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
+alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
 
 	/* pgm */
 pgm			//required bios
@@ -2605,6 +2681,9 @@ astrob2h
 kicker		//parent
 kfjohnny	/* hack by Smitdogg*/
 
+	/* skimaxx */
+skimaxx		// Kyle Hodgetts
+
 	/* snk6502 */
 vantris		/* (c) 1998 Norbert Kehrer */
 
@@ -2699,7 +2778,7 @@ ssridersaex
 
 	/* toaplan1 */
 fireshrk	//parent
-samenew		// Trap15
+samesamenh	// Trap15
 
 	/* toaplan2 */
 kingdmgp	//parent

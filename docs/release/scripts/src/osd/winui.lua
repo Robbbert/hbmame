@@ -204,7 +204,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/debugger/win/debugwin.h",
 		MAME_DIR .. "src/osd/winui/bitmask.cpp",
 		MAME_DIR .. "src/osd/winui/columnedit.cpp",
-		MAME_DIR .. "src/osd/winui/datafile.cpp",
 		MAME_DIR .. "src/osd/winui/datamap.cpp",
 		MAME_DIR .. "src/osd/winui/dialogs.cpp",
 		MAME_DIR .. "src/osd/winui/dijoystick.cpp",
@@ -229,7 +228,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/winui/tabview.cpp",
 		MAME_DIR .. "src/osd/winui/treeview.cpp",
 		MAME_DIR .. "src/osd/winui/winui.cpp",
-		MAME_DIR .. "src/osd/winui/win_options.cpp",
 	}
 
 project ("ocore_" .. _OPTIONS["osd"])
