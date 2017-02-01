@@ -3,13 +3,13 @@
 #include "../mame/drivers/dec0.cpp"
 
 ROM_START( baddudef )
-	ROM_REGION( 0x60000, "maincpu", 0 )	/* 6*64k for 68000 code, middle 0x20000 unused */
+	ROM_REGION( 0x60000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "baddudef.4",   0x00000, 0x10000, CRC(1a0667ae) SHA1(a530bfe91aa8b489ef7c1368b81983e760d0d993) )
 	ROM_LOAD16_BYTE( "baddudef.1",   0x00001, 0x10000, CRC(14d71614) SHA1(282fe93c04791e48a963ee78e69753e54c51e779) )
 	ROM_LOAD16_BYTE( "ei06.6c",   0x40000, 0x10000, CRC(3ff8da57) SHA1(eea8125a3eac33d76d22e72b69633eaae138efe5) )
 	ROM_LOAD16_BYTE( "ei03.6a",   0x40001, 0x10000, CRC(f8f2bd94) SHA1(622c66fea00cabb2cce16bf621b07d38a660708d) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )	/* Sound CPU */
+	ROM_REGION( 0x10000, "audiocpu", 0 ) /* Sound CPU */
 	ROM_LOAD( "ei07.8a",   0x8000, 0x8000, CRC(9fb1ef4b) SHA1(f4dd0773be93c2ad8b0faacd12939c531b5aa130) )
 
 	ROM_REGION( 0x10000, "gfx1", 0 ) /* chars */
@@ -40,6 +40,9 @@ ROM_START( baddudef )
 
 	ROM_REGION( 0x40000, "oki", 0 ) /* ADPCM samples */
 	ROM_LOAD( "ei08.2c",   0x0000, 0x10000, CRC(3c87463e) SHA1(f17c98507b562e91e9b27599614b3249fe68ff7a) )
+
+	ROM_REGION( 0x1000, "mcu", 0 )  /* i8751 microcontroller */
+	ROM_LOAD( "ei31.9a",   0x0000, 0x1000, CRC(2a8745d2) SHA1(f15ab17b1e7836d603135f5c66ca2e3d72f6e4a2) )
 ROM_END
 
 // There are 3 screens. Press 1 very lightly to advance.
@@ -53,11 +56,11 @@ ROM_START( decodemo )
 
 	// The instruction [33C0 0030 C003] [move.w D0, $30C003.l] is considered illegal, we need to patch out all 3 occurrences
 	//ROM_FILL( 0x04ba, 1, 0x4e )
-	//ROM_FILL( 0x04bb, 1, 0x71 )			/* write a nop instruction [4e71] */
-	//ROM_COPY( "maincpu", 0x04ba, 0x04bc, 2 )	/* The faulty instruction is 6 bytes long, so we need 3 nops */
+	//ROM_FILL( 0x04bb, 1, 0x71 ) /* write a nop instruction [4e71] */
+	//ROM_COPY( "maincpu", 0x04ba, 0x04bc, 2 ) /* The faulty instruction is 6 bytes long, so we need 3 nops */
 	//ROM_COPY( "maincpu", 0x04ba, 0x04be, 2 )
-	//ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 )	/* copy the 3 nops to 0x4e8 */
-	//ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 )	/* and 0x96e */
+	//ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 ) /* copy the 3 nops to 0x4e8 */
+	//ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 ) /* and 0x96e */
 
 	// Text stopped working when bac06 device was rewritten. We send a 1 to pf_control_0 to fix it.
 	ROM_FILL( 0x04d8, 1, 0x33 )
@@ -67,7 +70,7 @@ ROM_START( decodemo )
 	ROM_FILL( 0x04dd, 1, 0x24 )
 	ROM_FILL( 0x04e0, 1, 0x67 )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )	/* Sound CPU */
+	ROM_REGION( 0x10000, "audiocpu", 0 ) /* Sound CPU */
 	ROM_LOAD( "ei07.8a",   0x8000, 0x8000, CRC(9fb1ef4b) SHA1(f4dd0773be93c2ad8b0faacd12939c531b5aa130) )
 
 	ROM_REGION( 0x10000, "gfx1", 0 ) /* chars */
@@ -98,7 +101,10 @@ ROM_START( decodemo )
 
 	ROM_REGION( 0x40000, "oki", 0 ) /* ADPCM samples */
 	ROM_LOAD( "ei08.2c",   0x0000, 0x10000, CRC(3c87463e) SHA1(f17c98507b562e91e9b27599614b3249fe68ff7a) )
+
+	ROM_REGION( 0x1000, "mcu", 0 )  /* i8751 microcontroller */
+	ROM_LOAD( "ei31.9a",   0x0000, 0x1000, CRC(2a8745d2) SHA1(f15ab17b1e7836d603135f5c66ca2e3d72f6e4a2) )
 ROM_END
 
-GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, baddudes, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
