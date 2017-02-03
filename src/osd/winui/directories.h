@@ -51,7 +51,7 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "Hash",                  GetHashDirs,        SetHashDirs,        TRUE, 0 },
 	{ "Hard Drive Difference", GetDiffDir,         SetDiffDir,         TRUE, 0 },
 	{ "Icons",                 GetIconsDir,        SetIconsDir,        FALSE, 0 },
-	{ "Ini Files",             GetIniDir,          SetIniDir,          FALSE, DIRDLG_INI },
+//	{ "Ini Files",             GetIniDir,          SetIniDir,          FALSE, DIRDLG_INI },  // 2017-02-03 hardcoded to 'ini' now
 	{ "Input files",           GetInpDir,          SetInpDir,          TRUE, DIRDLG_INP },
 	{ "Language",              GetLangDir,         SetLangDir,         FALSE, 0 },
 	{ "Marquees",              GetMarqueeDir,      SetMarqueeDir,      TRUE, 0 },

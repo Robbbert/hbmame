@@ -1133,13 +1133,14 @@ void SetSampleDirs(const char* paths)
 const char * GetIniDir(void)
 {
 	const char *ini_dir;
-	const char *s;
+//	const char *s;
 
-	ini_dir = global.value(OPTION_INIPATH);
-	while((s = strchr(ini_dir, ';')) != NULL)
-	{
-		ini_dir = s + 1;
-	}
+//	ini_dir = global.value(OPTION_INIPATH);
+//	while((s = strchr(ini_dir, ';')) != NULL)
+//	{
+//		ini_dir = s + 1;
+//	}
+	ini_dir = "ini\0";
 	return ini_dir;
 
 }
