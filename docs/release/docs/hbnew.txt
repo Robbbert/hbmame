@@ -1,6 +1,22 @@
 What's new in HBMAME
 ====================
 
+2017-04-26 0.185
+----------------
+
+
+New Games
+---------
+- [svcee]           SvC Chaos (Hack by Ethen.H(EGHT) 2008-01-21)
+- [svcnh]           SvC Chaos (Like PS2 Version old)
+- [svcryu]          SvC Chaos (Ryu BT Revision hack by Gordon)
+- [svcspjoy]        SvC Chaos (Super Plus Joy Modified hack by Wesker/Jason/K3)
+- [svcstdse]        SvC Chaos (Subdue the Dragon Super Edition)
+- [svcxlb]          SvC Chaos (Knife Millennium Turbidity v1.0 hack by Lb70)
+
+
+
+
 2017-01-27 0.182
 ----------------
 

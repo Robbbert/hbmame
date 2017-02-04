@@ -85,6 +85,9 @@ public:
 	DECLARE_DRIVER_INIT(svcpcd);
 	DECLARE_DRIVER_INIT(svcplusb);
 	DECLARE_DRIVER_INIT(svcplusd);
+	DECLARE_DRIVER_INIT(svcryu);
+	DECLARE_DRIVER_INIT(svcspjoy);
+	DECLARE_DRIVER_INIT(svcxlb);
 private:
 	optional_device<kog_prot_device> m_kog_prot;
 };
