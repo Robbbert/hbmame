@@ -1427,6 +1427,8 @@ if (BUSES["VIC20"]~=null) then
 		MAME_DIR .. "src/devices/bus/vic20/vic1112.h",
 		MAME_DIR .. "src/devices/bus/vic20/vic1210.cpp",
 		MAME_DIR .. "src/devices/bus/vic20/vic1210.h",
+		MAME_DIR .. "src/devices/bus/vic20/videopak.cpp",
+		MAME_DIR .. "src/devices/bus/vic20/videopak.h",
 		MAME_DIR .. "src/devices/bus/vic20/speakeasy.cpp",
 		MAME_DIR .. "src/devices/bus/vic20/speakeasy.h",
 		MAME_DIR .. "src/devices/bus/vic20/user.cpp",
@@ -2658,6 +2660,8 @@ if (BUSES["AMIGA_KEYBOARD"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/amiga/keyboard/keyboard.cpp",
 		MAME_DIR .. "src/devices/bus/amiga/keyboard/keyboard.h",
+		MAME_DIR .. "src/devices/bus/amiga/keyboard/matrix.cpp",
+		MAME_DIR .. "src/devices/bus/amiga/keyboard/matrix.h",
 		MAME_DIR .. "src/devices/bus/amiga/keyboard/a1200.cpp",
 		MAME_DIR .. "src/devices/bus/amiga/keyboard/a1200.h",
 		MAME_DIR .. "src/devices/bus/amiga/keyboard/a500.cpp",
