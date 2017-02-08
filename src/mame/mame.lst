@@ -29438,6 +29438,7 @@ osbexec                         // 1982 Osborne Executive
 
 @source:osborne1.cpp
 osborne1                        // 1981 Osborne-1
+osborne1nv                      // 1984 Osborne-1 (Nuevo Video)
 
 @source:osi.cpp
 c1p                             //
@@ -31874,6 +31875,7 @@ route16c                        // (c) 1981 Tehkan/Sun + Centuri license
 routex                          // bootleg
 spacecho                        // bootleg
 spacecho2                       // bootleg
+speakhlp                        // bootleg
 speakres                        // [Sun Electronics]
 speakresb                       // bootleg
 stratvox                        // [1980 Sun Electronics] Taito
@@ -35538,6 +35540,9 @@ terracreo                       // (c) 1985
 @source:test_t400.cpp
 test410                         //
 test420                         //
+
+@source:testconsole.cpp
+whousetc                        //
 
 @source:tetrisp2.cpp
 nndmseal                        // (c) 1997 I'Max/Jaleco
