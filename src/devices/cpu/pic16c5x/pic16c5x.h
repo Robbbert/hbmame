@@ -16,6 +16,15 @@
 #ifndef __PIC16C5X_H__
 #define __PIC16C5X_H__
 
+// input lines
+enum
+{
+	PIC16C5x_RTCC = 0
+};
+
+// in the mid-90s RTCC was renamed to T0CKI
+#define PIC16C5x_T0CKI PIC16C5x_RTCC
+
 
 // i/o ports
 enum
@@ -83,8 +92,6 @@ public:
 	template<class _Object> static devcb_base &set_write_c_callback(device_t &device, _Object object) { return downcast<pic16c5x_device &>(device).m_write_c.set_callback(object); }
 	template<class _Object> static devcb_base &set_write_d_callback(device_t &device, _Object object) { return downcast<pic16c5x_device &>(device).m_write_d.set_callback(object); }
 
-	DECLARE_WRITE_LINE_MEMBER(write_rtcc); // RTCC pin
-
 	/****************************************************************************
 	 *  Function to configure the CONFIG register. This is actually hard-wired
 	 *  during ROM programming, so should be called in the driver INIT, with
@@ -115,6 +122,7 @@ protected:
 	virtual uint32_t execute_input_lines() const override { return 1; }
 	virtual uint32_t execute_default_irq_vector() const override { return 0; }
 	virtual void execute_run() override;
+	virtual void execute_set_input(int line, int state) override;
 
 	// device_memory_interface overrides
 	virtual const address_space_config *memory_space_config(address_spacenum spacenum = AS_0) const override

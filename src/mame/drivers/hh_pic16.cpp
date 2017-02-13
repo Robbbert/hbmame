@@ -6,14 +6,25 @@
 
   known chips:
 
-  serial  device  etc.
+  serial   device  etc.
 -----------------------------------------------------------
- @036     1655A   1979, Ideal Maniac
- *061     1655A   1980, Lakeside Le Boom (have dump)
- *094     1655A   1980, GAF Melody Madness (have dump)
- *110     1650A   1979, Tiger Rocket Pinball
- *192     1650    19??, (a phone dialer, have dump)
- *255     1655    19??, (a talking clock, have dump)
+ *024      1655    1979, <unknown> Football (have dump)
+ *033      1655A   1979, Toytronic Football (have dump)
+ @036      1655A   1979, Ideal Maniac
+ *043      1655A   1979, Calfax/Caprice Pro-Action Baseball (have dump)
+ *051      1655A   1979, Tiger Half Court Computer Basketball/Sears Electronic Basketball (have dump)
+ @053      1655A   1979, Atari Touch Me
+ @061      1655A   1980, Lakeside Le Boom
+ *094      1655A   1980, GAF Melody Madness (have dump)
+ *110      1650A   1979, Tiger Rocket Pinball (have dump)
+ *133      1650A   1980, U.S. Games Programmable Baseball/Tandy 2-Player Baseball (have dump)
+ *144      1650A   1980, U.S. Games Football/Tandy 2-Player Football (model 60-2156) (have dump)
+ *192      1650    19??, (a phone dialer, have dump)
+ *255      1655    19??, (a talking clock, have dump)
+
+  inconsistent:
+
+ *69-11557 1655A   1979, U.S. Games Basketball/Tandy Electronic Basketball (have dump)
 
   (* denotes not yet emulated by MAME, @ denotes it's in this driver)
 
@@ -356,7 +367,7 @@ static MACHINE_CONFIG_START( touchme, touchme_state )
 	MCFG_PIC16C5x_WRITE_C_CB(WRITE8(touchme_state, write_c))
 	
 	MCFG_DEVICE_ADD("clock", CLOCK, 300000/4) // PIC CLKOUT, tied to RTCC
-	MCFG_CLOCK_SIGNAL_HANDLER(DEVWRITELINE("maincpu", pic1655_device, write_rtcc))
+	MCFG_CLOCK_SIGNAL_HANDLER(INPUTLINE("maincpu", PIC16C5x_RTCC))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_pic16_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_touchme)
@@ -604,7 +615,7 @@ ROM_END
 
 
 /*    YEAR  NAME       PARENT COMPAT MACHINE INPUT    INIT              COMPANY, FULLNAME, FLAGS */
-CONS( 1978, touchme,   0,        0, touchme, touchme, driver_device, 0, "Atari", "Touch Me (handheld, PIC1655A version)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1979, touchme,   0,        0, touchme, touchme, driver_device, 0, "Atari", "Touch Me (handheld, Rev 2)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
 CONS( 1979, maniac,    0,        0, maniac,  maniac,  driver_device, 0, "Ideal", "Maniac", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 

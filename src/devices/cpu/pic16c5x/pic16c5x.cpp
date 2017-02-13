@@ -50,7 +50,7 @@
 	*     Fixes the case where the status register is the destination.         *
 	*  hap (12-Feb-2017) Ver 1.16                                              *
 	*   - Added basic support for the old GI PIC1650 and PIC1655.              *
-	*   - Made RTCC(aka T0CKI) pin a writeline handler.                        *
+	*   - Made RTCC(aka T0CKI) pin an inputline handler.                       *
 	*                                                                          *
 	*                                                                          *
 	*  **** Notes: ****                                                        *
@@ -458,7 +458,6 @@ void pic16c5x_device::STORE_REGFILE(offs_t addr, uint8_t data)    /* Write to in
 					}
 					else if ((m_picmodel == 0x16C55) || (m_picmodel == 0x16C57)) {
 						m_write_c(PIC16C5x_PORTC, data & (uint8_t)(~m_TRISC), 0xff);
-						PORTC = data;
 					}
 					PORTC = data; /* also writes to RAM */
 					break;
@@ -1128,16 +1127,22 @@ void pic16c5x_device::pic16c5x_update_timer(int counts)
 	}
 }
 
-WRITE_LINE_MEMBER(pic16c5x_device::write_rtcc)
+void pic16c5x_device::execute_set_input(int line, int state)
 {
-	state = (state) ? 1 : 0;
+	switch (line)
+	{
+		/* RTCC/T0CKI pin */
+		case PIC16C5x_RTCC:
+			if (T0CS && state != m_rtcc) /* Count mode, edge triggered */
+				if ((T0SE && !state) || (!T0SE && state))
+					m_count_pending = true;
 
-	/* Count mode, edge triggered */
-	if (T0CS && state != m_rtcc)
-		if ((T0SE && !state) || (!T0SE && state))
-			m_count_pending = true;
+			m_rtcc = state;
+			break;
 
-	m_rtcc = state;
+		default:
+			break;
+	}
 }
 
 
@@ -1151,8 +1156,9 @@ void pic16c5x_device::execute_run()
 
 	do
 	{
-		if (PD == 0)                        /* Sleep Mode */
+		if (PD == 0) /* Sleep Mode */
 		{
+			m_count_pending = false;
 			m_inst_cycles = 1;
 			debugger_instruction_hook(this, m_PC);
 			if (WDTE) {
@@ -1161,8 +1167,10 @@ void pic16c5x_device::execute_run()
 		}
 		else
 		{
-			if (m_count_pending) /* RTCC clocked while in Count mode */
+			if (m_count_pending) { /* RTCC/T0CKI clocked while in Count mode */
+				m_count_pending = false;
 				pic16c5x_update_timer(1);
+			}
 			
 			m_PREVPC = m_PC;
 
@@ -1195,7 +1203,6 @@ void pic16c5x_device::execute_run()
 		}
 
 		m_icount -= m_inst_cycles;
-		m_count_pending = false;
 
 	} while (m_icount > 0);
 }
