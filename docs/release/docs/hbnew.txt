@@ -7,6 +7,7 @@ What's new in HBMAME
 
 New Games
 ---------
+- [deathstar]       Death Star (by Stefano Bodrato)
 - [svcee]           SvC Chaos (Hack by Ethen.H(EGHT) 2008-01-21)
 - [svcnh]           SvC Chaos (Like PS2 Version old)
 - [svcryu]          SvC Chaos (Ryu BT Revision hack by Gordon)
