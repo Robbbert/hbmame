@@ -9,17 +9,19 @@
   serial  device  etc.
 -----------------------------------------------------------
  *020     1650    19??, GI Economega IV TV PPL Tuning System Control
- *024     1655    1979, Toytronic? Football (have dump)
- *033     1655A   1979, Toytronic Football (have dump)
+ @024     1655    1979, Toytronic? Football
+ @033     1655A   1979, Toytronic Football (newer)
  @036     1655A   1979, Ideal Maniac
- *043     1655A   1979, Calfax/Caprice Pro-Action Baseball (have dump)
- *051     1655A   1979, U.S. Games Basketball/Tandy Electronic Basketball (have dump)
+ *043     1655A   1979, Caprice Pro-Action Baseball (have dump)
+ @051     1655A   1979, Tandy Electronic Basketball
  @053     1655A   1979, Atari Touch Me
+ @0??     1655A   1979, Tiger Half Court Computer Basketball/Sears Electronic Basketball (custom label)
  @061     1655A   1980, Lakeside Le Boom
+ *081     1655A   19??, Ramtex Space Invaders/Block Buster
  @094     1655A   1980, GAF Melody Madness
  @110     1650A   1979, Tiger/Tandy Rocket Pinball
- *133     1650A   1980, U.S. Games Programmable Baseball/Tandy 2-Player Baseball (have dump)
- *144     1650A   1980, U.S. Games Football/Tandy 2-Player Football (model 60-2156) (have dump)
+ *133     1650A   1981, U.S. Games Programmable Baseball/Tandy 2-Player Baseball (have dump)
+ *144     1650A   1981, U.S. Games Football/Tandy 2-Player Football (have dump)
  *192     1650    19??, <unknown> phone dialer (have dump)
  *255     1655    19??, <unknown> talking clock (have dump)
  *518     1650A   19??, GI Teleview Control Chip (features differ per program)
@@ -28,15 +30,14 @@
  *533     1650A   19??, "
  *536     1650    1982, GI Teleview Autodialer/Terminal Identifier
 
-  inconsistent:
-
- @<none>  1655A   1979, Tiger Half Court Computer Basketball/Sears Electronic Basketball
-
   (* denotes not yet emulated by MAME, @ denotes it's in this driver)
 
 
   TODO:
   - leboom discrete sound for volume decay (simulated for now)
+  - ttfball/ttfballa: discrete sound part, for volume gating?
+  - what's the relation between hccbaskb and tbaskb? Is one the bootleg
+    of the other? Or are they both made by the same subcontractor?
 
 ***************************************************************************/
 
@@ -50,7 +51,9 @@
 #include "maniac.lh" // clickable
 #include "melodym.lh" // clickable
 #include "rockpin.lh"
+#include "tbaskb.lh"
 #include "touchme.lh" // clickable
+#include "ttfball.lh"
 
 //#include "hh_pic16_test.lh" // common test-layout - use external artwork
 
@@ -615,8 +618,9 @@ MACHINE_CONFIG_END
   * 1 led, 1-bit sound with RC circuit for volume decay
   
   This is a tabletop timebomb defusion game. It's shaped like an aerial bomb,
-  and starts 'ticking' when the player opens the keypad door. To begin, select
-  the game mode, rows(keypad size), and fuse duration.
+  colored black on USA version, yellow on dual-language Canadian version.
+  The game starts 'ticking' when the player opens the keypad door. To begin,
+  select the game mode, rows(keypad size), and fuse duration.
   
   Game modes as described on the box:
   1: Eliminate the buttons one by one in the order set out by the computer. Press
@@ -758,6 +762,115 @@ static MACHINE_CONFIG_START( leboom, leboom_state )
 	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("speaker_decay", leboom_state, speaker_decay_sim, attotime::from_msec(25))
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
+  Tandy Electronic Basketball (model 60-2146)
+  * PIC1655A-51
+  * 2 7seg LEDs + 21 other LEDs, 1-bit sound
+  
+  The ROM is nearly identical to hccbaskb, the shell/overlay is the same as
+  U.S. Games/Tandy Trick Shot Basketball.
+
+***************************************************************************/
+
+class tbaskb_state : public hh_pic16_state
+{
+public:
+	tbaskb_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_pic16_state(mconfig, type, tag)
+	{ }
+
+	void prepare_display();
+	DECLARE_READ8_MEMBER(read_a);
+	DECLARE_WRITE8_MEMBER(write_b);
+	DECLARE_WRITE8_MEMBER(write_c);
+};
+
+// handlers
+
+void tbaskb_state::prepare_display()
+{
+	// B4,B5 are 7segs
+	set_display_segmask(0x30, 0x7f);
+	display_matrix(7, 6, m_c, m_b);
+}
+
+READ8_MEMBER(tbaskb_state::read_a)
+{
+	// A2: skill switch, A3: multiplexed inputs
+	return m_inp_matrix[5]->read() | read_inputs(5) | 3;
+}
+
+WRITE8_MEMBER(tbaskb_state::write_b)
+{
+	// B0: RTCC pin
+	m_maincpu->set_input_line(PIC16C5x_RTCC, data & 1);
+	
+	// B0-B4: input mux
+	m_inp_mux = ~data & 0x1f;
+
+	// B0-B5: led select
+	m_b = data;
+	prepare_display();
+}
+
+WRITE8_MEMBER(tbaskb_state::write_c)
+{
+	// C7: speaker out
+	m_speaker->level_w(data >> 7 & 1);
+
+	// C0-C6: led data
+	m_c = ~data;
+	prepare_display();
+}
+
+
+// config
+
+static INPUT_PORTS_START( tbaskb )
+	PORT_START("IN.0") // B0 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_16WAY
+
+	PORT_START("IN.1") // B1 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_16WAY
+
+	PORT_START("IN.2") // B2 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_16WAY
+
+	PORT_START("IN.3") // B3 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+
+	PORT_START("IN.4") // B4 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_BUTTON1 )
+
+	PORT_START("IN.5") // port A2
+	PORT_CONFNAME( 0x04, 0x04, "Skill Level" )
+	PORT_CONFSETTING(    0x04, "1" )
+	PORT_CONFSETTING(    0x00, "2" )
+INPUT_PORTS_END
+
+static MACHINE_CONFIG_START( tbaskb, tbaskb_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", PIC1655, 1000000) // approximation - RC osc. R=18K, C=47pF
+	MCFG_PIC16C5x_READ_A_CB(READ8(tbaskb_state, read_a))
+	MCFG_PIC16C5x_WRITE_B_CB(WRITE8(tbaskb_state, write_b))
+	MCFG_PIC16C5x_READ_C_CB(CONSTANT(0xff))
+	MCFG_PIC16C5x_WRITE_C_CB(WRITE8(tbaskb_state, write_c))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_pic16_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_tbaskb)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
 
@@ -975,10 +1088,163 @@ static MACHINE_CONFIG_START( hccbaskb, hccbaskb_state )
 	MCFG_CPU_ADD("maincpu", PIC1655, 1000000) // approximation - RC osc. R=15K, C=47pF
 	MCFG_PIC16C5x_READ_A_CB(READ8(hccbaskb_state, read_a))
 	MCFG_PIC16C5x_WRITE_B_CB(WRITE8(hccbaskb_state, write_b))
+	MCFG_PIC16C5x_READ_C_CB(CONSTANT(0xff))
 	MCFG_PIC16C5x_WRITE_C_CB(WRITE8(hccbaskb_state, write_c))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_pic16_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_hccbaskb)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
+  Toytronic Football (set 1)
+  * PIC1655A-033
+  * 4511 7seg BCD decoder, 7 7seg LEDs + 27 other LEDs, 1-bit sound
+
+  (no brand) Football (set 2)
+  * PIC1655-024
+  * rest same as above, 1 less button
+  
+  Hello and welcome to another Mattel Football clone, there are so many of these.
+  The PIC1655-024 one came from an unbranded handheld, but comparison suggests
+  that it's the 'prequel' of PIC1655A-033.
+
+***************************************************************************/
+
+class ttfball_state : public hh_pic16_state
+{
+public:
+	ttfball_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_pic16_state(mconfig, type, tag)
+	{ }
+
+	void prepare_display();
+	DECLARE_READ8_MEMBER(read_a);
+	DECLARE_WRITE8_MEMBER(write_b);
+	DECLARE_WRITE8_MEMBER(write_c);
+};
+
+// handlers
+
+void ttfball_state::prepare_display()
+{
+	// C0-C2: led data
+	// C0-C3: 4511 A-D, C4: digit segment DP
+	// C5: select digits or led matrix
+	const u8 _4511_map[16] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7c,0x07,0x7f,0x67,0,0,0,0,0,0 };
+	u16 led_data = (m_c & 0x20) ? (_4511_map[m_c & 0xf] | (~m_c << 3 & 0x80)) : (~m_c << 8 & 0x700);
+	
+	set_display_segmask(0x7f, 0xff);
+	display_matrix(11, 9, led_data, m_b | (m_c << 1 & 0x100));
+}
+
+READ8_MEMBER(ttfball_state::read_a)
+{
+	// A3: multiplexed inputs, A0-A2: other inputs
+	return m_inp_matrix[5]->read() | read_inputs(5);
+}
+
+WRITE8_MEMBER(ttfball_state::write_b)
+{
+	// B0: RTCC pin
+	m_maincpu->set_input_line(PIC16C5x_RTCC, data & 1);
+	
+	// B0,B1,B3,B7: input mux low
+	m_inp_mux = (m_inp_mux & 0x10) | (~data & 3) | (~data >> 1 & 4) | (~data >> 4 & 8);
+
+	// B0-B7: led select (see above)
+	m_b = data;
+	prepare_display();
+}
+
+WRITE8_MEMBER(ttfball_state::write_c)
+{
+	// C6: speaker out
+	m_speaker->level_w(data >> 6 & 1);
+	
+	// C7: input mux high
+	m_inp_mux = (m_inp_mux & 0xf) | (data >> 3 & 0x10);
+
+	// C0-C7: led data/select (see above)
+	m_c = data;
+	prepare_display();
+}
+
+
+// config
+
+static INPUT_PORTS_START( ttfball )
+	PORT_START("IN.0") // B0 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_16WAY
+
+	PORT_START("IN.1") // B1 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_16WAY
+
+	PORT_START("IN.2") // B3 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_16WAY
+
+	PORT_START("IN.3") // B7 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+
+	PORT_START("IN.4") // C7 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_NAME("Kick")
+
+	PORT_START("IN.5") // port A
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_START1 ) PORT_NAME("Status")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_START2 ) PORT_NAME("Score")
+	PORT_CONFNAME( 0x04, 0x04, "Skill Level" )
+	PORT_CONFSETTING(    0x04, "1" )
+	PORT_CONFSETTING(    0x00, "2" )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( ttfballa )
+	PORT_START("IN.0") // B0 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_NAME("Kick")
+
+	PORT_START("IN.1") // B1 port A3
+	PORT_BIT( 0x08, 0x08, IPT_SPECIAL ) PORT_CONDITION("FAKE", 0x03, EQUALS, 0x00) // left/right
+
+	PORT_START("IN.2") // B3 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_16WAY
+
+	PORT_START("IN.3") // B7 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_16WAY
+
+	PORT_START("IN.4") // C7 port A3
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("IN.5") // port A
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_START1 ) PORT_NAME("Status")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_START2 ) PORT_NAME("Score")
+	PORT_CONFNAME( 0x04, 0x04, "Skill Level" )
+	PORT_CONFSETTING(    0x04, "1" )
+	PORT_CONFSETTING(    0x00, "2" )
+
+	PORT_START("FAKE") // fake port for left/right combination
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+INPUT_PORTS_END
+
+static MACHINE_CONFIG_START( ttfball, ttfball_state )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", PIC1655, 1000000) // approximation - RC osc. R=27K(set 1) or 33K(set 2), C=68pF
+	MCFG_PIC16C5x_READ_A_CB(READ8(ttfball_state, read_a))
+	MCFG_PIC16C5x_WRITE_B_CB(WRITE8(ttfball_state, write_b))
+	MCFG_PIC16C5x_READ_C_CB(CONSTANT(0xff))
+	MCFG_PIC16C5x_WRITE_C_CB(WRITE8(ttfball_state, write_c))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_pic16_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_ttfball)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -1020,6 +1286,12 @@ ROM_START( leboom )
 ROM_END
 
 
+ROM_START( tbaskb )
+	ROM_REGION( 0x0400, "maincpu", 0 )
+	ROM_LOAD( "pic1655a-051", 0x0000, 0x0400, CRC(92534b40) SHA1(7055e32846c913e68f7d35f279cd537f6325f4f2) )
+ROM_END
+
+
 ROM_START( rockpin )
 	ROM_REGION( 0x0400, "maincpu", 0 )
 	ROM_LOAD( "pic1650a-110_69-11397", 0x0000, 0x0400, CRC(d5396e77) SHA1(952feaff70fde53a9eda84c54704520d50749e78) )
@@ -1029,6 +1301,17 @@ ROM_END
 ROM_START( hccbaskb )
 	ROM_REGION( 0x0400, "maincpu", 0 )
 	ROM_LOAD( "69-11557", 0x0000, 0x0400, CRC(56e81079) SHA1(1933f87f82c4c53f953534dba7757c9afc52d5bc) )
+ROM_END
+
+
+ROM_START( ttfball )
+	ROM_REGION( 0x0400, "maincpu", 0 )
+	ROM_LOAD( "pic1655a-033", 0x0000, 0x0400, CRC(2b500501) SHA1(f7fe464663c56e2181a31a1dc5f1f5239df57bed) )
+ROM_END
+
+ROM_START( ttfballa )
+	ROM_REGION( 0x0400, "maincpu", 0 )
+	ROM_LOAD( "pic1655-024", 0x0000, 0x0400, CRC(9091102f) SHA1(ef72759f20b5a99e0366863caad1e26be114263f) )
 ROM_END
 
 
@@ -1042,5 +1325,10 @@ CONS( 1979, maniac,    0,        0, maniac,   maniac,   driver_device, 0, "Ideal
 
 CONS( 1980, leboom,    0,        0, leboom,   leboom,   driver_device, 0, "Lakeside", "Le Boom", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_CLICKABLE_ARTWORK )
 
+CONS( 1979, tbaskb,    0,        0, tbaskb,   tbaskb,   driver_device, 0, "Tandy Radio Shack", "Electronic Basketball (Tandy)", MACHINE_SUPPORTS_SAVE )
+
 CONS( 1979, rockpin,   0,        0, rockpin,  rockpin,  driver_device, 0, "Tiger Electronics", "Rocket Pinball", MACHINE_SUPPORTS_SAVE )
 CONS( 1979, hccbaskb,  0,        0, hccbaskb, hccbaskb, driver_device, 0, "Tiger Electronics", "Half Court Computer Basketball", MACHINE_SUPPORTS_SAVE )
+
+CONS( 1979, ttfball,   0,        0, ttfball,  ttfball,  driver_device, 0, "Toytronic", "Football (Toytronic, set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+CONS( 1979, ttfballa,  ttfball,  0, ttfball,  ttfballa, driver_device, 0, "Toytronic", "Football (Toytronic, set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )

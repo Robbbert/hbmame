@@ -1096,6 +1096,8 @@ ambush                          // (c) 1983
 ambushh                         // (c) 1983
 ambushj                         // (c) 1983 Nippon Amuse license
 ambushv                         // (c) 1983 Volt Electronics license
+dkong3abl                       // bootleg
+mariobl                         // bootleg
 
 @source:amerihok.cpp
 amerihok                        //
@@ -1436,6 +1438,7 @@ incasunu
 indrema5                       // (c) 1998
 jungjuic
 kgalah
+kgbirdmk5                       // (c) 1994
 koalamnt                        // (c) 2001
 kookabuk
 locoloot
@@ -1490,6 +1493,7 @@ swhr2
 swhr2u                        // (c) 1998
 swhr2v                        // (c) 1995
 topbana
+toutango						// (c) 1998
 trstrove
 tritreat
 trojhors
@@ -14320,7 +14324,10 @@ leboom                          // Lakeside
 maniac                          // Ideal
 melodym                         // GAF
 rockpin                         // Tiger Electronics
+tbaskb                          // Tandy Radio Shack
 touchme                         // Atari
+ttfball                         // Toytronic
+ttfballa                        // Toytronic
 
 @source:hh_sm510.cpp
 gnwmndon                        // Nintendo
@@ -16927,7 +16934,7 @@ whiterus                        // White Russia
 konin                           //
 
 @source:konmedal.cpp
-konmedal
+tsukande
 
 @source:kontest.cpp
 kontest                         // GX800 (c) 198? (Japan)
@@ -17807,9 +17814,7 @@ wanted                          // (c) 1984 Sigma Ent. Inc.
 marinedt                        // MG  (c) 1981 Taito Corporation
 
 @source:mario.cpp
-dkong3abl                       //
 mario                           // (c) 1983 Nintendo of America
-mariobl                         // bootleg
 marioe                          // (c) 1983 Nintendo of America
 marioj                          // (c) 1983 Nintendo
 marioo                          // (c) 1983 Nintendo of America
@@ -20083,10 +20088,11 @@ phrcrazeb                       // (c) 1986 Merit
 phrcrazec                       // (c) 1986 Merit
 phrcrazev                       // (c) 1986 Merit
 pitboss                         // (c) 1983 Merit
-pitbossa                        // (c) 1983 Merit
-pitbossa1                       // (c) 1983 Merit
-pitbossb                        // (c) 1983 Merit
-pitbossc                        // (c) 1983 Merit
+pitboss04                       // (c) 1983 Merit
+pitboss03                       // (c) 1983 Merit
+pitboss03a                      // (c) 1983 Merit
+pitbossm4                       // (c) 1983 Merit
+pitbossps                       // (c) 1983 Merit
 riviera                         // (c) 1987 Merit
 rivieraa                        // (c) 1986 Merit
 rivierab                        // (c) 1986 Merit
@@ -35364,6 +35370,7 @@ gwinggen                        // (c) 2004 Takumi Corporation
 homura                          // (c) 2005 SKonec Entertainment
 hotgmkmp                        // (c) 2005 XNauts
 kof98um                         // (c) 2008 SNK
+kofskyst                        // (c) 2008 Moss / SNK Playmore
 kofxii                          // (c) 2008 SNK Playmore
 raiden3                         // (c) 2005 Seibu Kaihatsu/Moss Ltd
 raiden4                         // (c) 2007 Seibu Kaihatsu/Moss Ltd
