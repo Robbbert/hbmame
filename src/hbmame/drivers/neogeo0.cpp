@@ -80,14 +80,8 @@ public:
 	DECLARE_DRIVER_INIT(samsho5hd);
 	DECLARE_DRIVER_INIT(sengo3d);
 	DECLARE_DRIVER_INIT(shockt2w);
-	DECLARE_DRIVER_INIT(svcd);
-	DECLARE_DRIVER_INIT(svcd1);
+	DECLARE_DRIVER_INIT(svchb);
 	DECLARE_DRIVER_INIT(svcpcd);
-	DECLARE_DRIVER_INIT(svcplusb);
-	DECLARE_DRIVER_INIT(svcplusd);
-	DECLARE_DRIVER_INIT(svcryu);
-	DECLARE_DRIVER_INIT(svcspjoy);
-	DECLARE_DRIVER_INIT(svcxlb);
 private:
 	optional_device<kog_prot_device> m_kog_prot;
 };

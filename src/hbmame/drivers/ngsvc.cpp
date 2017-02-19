@@ -4,79 +4,61 @@
 
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcd )
+DRIVER_INIT_MEMBER( neogeo_hbmame, svchb )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
-	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	svcpcb_s1data_decrypt();
-}
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcd1 ) // decrypted C
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-}
+	// decrypt p roms if needed
+	u8 *ram = memregion("maincpu")->base();
+	if (ram[0x100] != 0x45)
+	{
+		//printf("Maincpu=%X\n",ram[0x100]);fflush(stdout);
+		m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
+		m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+	}
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcplusb )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-}
+	// decrypt m1 if needed
+	if (memregion("audiocrypt"))
+		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcplusd )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	// decrypt v roms if needed
+	ram = memregion("ymsnd")->base();
+	if (ram[0x91] != 0x33)
+	{
+		//printf("ym=%X\n",ram[0x91]);
+		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
+	}
+
+	// decrypt c roms if needed
+	ram = memregion("sprites")->base();
+	if (ram[0] != 0)
+	{
+		//printf("Sprites=%X\n",ram[0]);
+		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, 0, SVC_GFX_KEY);
+	}
+
+	// if no s rom, copy info from end of c roms
+	ram = memregion("fixed")->base();
+	if (ram[0x100] == 0)
+	{
+		//printf("Fixed1=%X\n",ram[0]);
+		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	}
+
+	// decrypt s1 if needed
+	if (ram[0x100] != 0xBB)
+	{
+		//printf("Fixed2=%X\n",ram[0]);
+		svcpcb_s1data_decrypt();
+	}
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, svcpcd )
 {
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+	DRIVER_INIT_CALL(svchb);
 	install_banked_bios();
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	svcpcb_s1data_decrypt();
 }
-
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcryu )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SVC_GFX_KEY);
-}
-
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcspjoy )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SVC_GFX_KEY);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
-}
-
-DRIVER_INIT_MEMBER( neogeo_hbmame, svcxlb )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
-}
-
 
 
 
@@ -588,23 +570,23 @@ ROM_END
 
 
 
-GAME( 2003, svcd,          svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcd,     ROT0, "hack", "SvC Chaos (decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcd1,         svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcd1,    ROT0, "hack", "SvC Chaos (decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcd,          svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "hack", "SvC Chaos (decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcd1,         svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "hack", "SvC Chaos (decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svch,          svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "chbandy", "SvC Chaos (Remix Ver 1.0 by chbandy)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, svcee,         svc,      neogeo_noslot,   neogeo,   neogeo_noslot_state, svc,      ROT0, "Ethan H", "SvC Chaos (Hack by Ethen.H(EGHT) 2008-01-21)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcesv,        svc,      neogeo_noslot,   neogeo,   neogeo_noslot_state, svc,      ROT0, "hack", "SvC Chaos (unknown esv)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcnd,         svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcplusd, ROT0, "hack", "SvC Chaos (unknown nd)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcnd,         svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "hack", "SvC Chaos (unknown nd)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcnh,         svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "hack", "SvC Chaos (Like PS2 Version old)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcpcbd,       svcpcb,   neogeo_noslot,   dualbios, neogeo_hbmame,       svcpcd,   ROT0, "hack", "SvC Chaos (JAMMA PCB, decrypted C & V)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, svcplusa2016,  svc,      neogeo_noslot,   neogeo,   neogeo_noslot_state, svcplusa, ROT0, "hack", "SvC Chaos PLUS (2016)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplusb,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcplusb, ROT0, "hack", "SvC Chaos PLUS (Bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplusd,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcplusd, ROT0, "hack", "SvC Chaos PLUS (unknown plusd)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcplusb,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "hack", "SvC Chaos PLUS (Bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcplusd,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "hack", "SvC Chaos PLUS (unknown plusd)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcpryu,       svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "hack", "SvC Plus (Koryu)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcps2,        svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "EGHT", "SvC Playstation2 Hack Final 1.02 (EGHT)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcrm,         svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "Jason", "SvC REMIX ULTRA (Ver 1.2 by Jason)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcryu,        svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcryu,   ROT0, "Gordon", "SvC Chaos (Ryu BT Revision hack by Gordon)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcspjoy,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcspjoy, ROT0, "hack", "SvC Chaos (Super Plus Joy Modified hack by Wesker/Jason/K3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcryu,        svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "Gordon", "SvC Chaos (Ryu BT Revision hack by Gordon)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcspjoy,      svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "hack", "SvC Chaos (Super Plus Joy Modified hack by Wesker/Jason/K3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, svcsplus2016,  svc,      neogeo_noslot,   neogeo,   neogeo_noslot_state, svcsplus, ROT0, "hack", "SvC Chaos Super Plus (2016)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcspryu,      svc,      neogeo_noslot,   neogeo,   neogeo_state,        neogeo,   ROT0, "hack", "SvC Plus (Super Koryu)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcstdse,      svc,      neogeo_noslot,   neogeo,   neogeo_noslot_state, svc,      ROT0, "hack", "SvC Chaos (Subdue the Dragon Super Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcxlb,        svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svcxlb,   ROT0, "LB70", "SvC Chaos (Knife Millennium Turbidity v1.0 hack by Lb70)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcxlb,        svc,      neogeo_noslot,   neogeo,   neogeo_hbmame,       svchb,    ROT0, "LB70", "SvC Chaos (Knife Millennium Turbidity v1.0 hack by Lb70)", MACHINE_SUPPORTS_SAVE )
