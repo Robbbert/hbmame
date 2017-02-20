@@ -8,8 +8,16 @@ What's new in HBMAME
 New Games
 ---------
 - [deathstar]       Death Star (by Stefano Bodrato)
+- [svccprw]         SvC Chaos (Plus Remix v2.0 hack by Wesker)
 - [svcee]           SvC Chaos (Hack by Ethen.H(EGHT) 2008-01-21)
+- [svcg]            SvC Chaos (Boss Special Kyo Green Edition)
+- [svch2]           SvC Chaos (Remix v1.1 by chbandy)
+- [svcice]          SvC Chaos (Ice Edition)
+- [svclspc]         SvC Chaos (Pink Edition)
 - [svcnh]           SvC Chaos (Like PS2 Version old)
+- [svcplusg]        SvC Chaos (Plus Special)
+- [svcplusp]        SvC Chaos (Plus Purple Fire hack by Kawada7278 set 1)
+- [svcplusp2]       SvC Chaos (Plus Purple Fire hack by Kawada7278 set 2)
 - [svcryu]          SvC Chaos (Ryu BT Revision hack by Gordon)
 - [svcspjoy]        SvC Chaos (Super Plus Joy Modified hack by Wesker/Jason/K3)
 - [svcstdse]        SvC Chaos (Subdue the Dragon Super Edition)

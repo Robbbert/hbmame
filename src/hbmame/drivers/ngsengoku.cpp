@@ -284,6 +284,6 @@ GAME( 2001, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, s
 GAME( 2001, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3kc,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "Fighters Kim", "Sengoku 3 (Char color changed - 80%)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3p,   sengoku3, neogeo_noslot, neogeo, neogeo_hbmame,       sengo3d,   ROT0, "Krysofun", "Sengoku 3/Sengoku legends 2001 EX Super Version", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_hbmame,       sengo3d,   ROT0, "hack", "Sengoku 3 / Sengoku Densho 2001 Plus (Hack by Player-X)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_hbmame,       sengo3d,   ROT0, "Player-X", "Sengoku 3 / Sengoku Densho 2001 Plus (Hack by Player-X)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
