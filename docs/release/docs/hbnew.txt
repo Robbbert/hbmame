@@ -8,6 +8,11 @@ What's new in HBMAME
 New Games
 ---------
 - [deathstar]       Death Star (by Stefano Bodrato)
+- [samsho5ba]       Samurai Shodown V (Boss hack alternate set)
+- [samsho5bh]       Samurai Shodown V (Boss hack by Dodowang)
+- [samsho5ge]       Samurai Shodown V (Genjuro Evil Edition hack by Shiro)
+- [samsho5s2]       Samurai Shodown V (Special v0.12 2008-08-26)
+- [samsho5zk]       Samurai Shodown V (Hack by Zuojie, Kof1996 2008-10-23)
 - [sengoku3eh]      Sengoku 3 (Evolution Special hack)
 - [sengoku3s]       Sengoku 3 (Evolution v1.0 hack by Sjx (FCHT))
 - [svccprw]         SvC Chaos (Plus Remix v2.0 hack by Wesker)

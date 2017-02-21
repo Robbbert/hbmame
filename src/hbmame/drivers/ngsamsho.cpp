@@ -3,49 +3,82 @@
 // Samurai Shodown / Samurai Spirits
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, samsh5sd )
+DRIVER_INIT_MEMBER( neogeo_hbmame, sam5hb )
 {
 	DRIVER_INIT_CALL(neogeo);
+	// This is needed if s1 size > 0x20000, ignored otherwise
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_kof2002_prot->samsh5sp_decrypt_68k(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
+
+	// decrypt p roms if needed
+	u8 *ram = memregion("maincpu")->base();
+	if (ram[0x100007] != 0xC2)
+	{
+		//printf("Maincpu=%X\n",ram[0x100007]);fflush(stdout);
+		m_kof2002_prot->samsho5_decrypt_68k(cpuregion, cpuregion_size);
+	}
+
+	// decrypt m1 if needed
+	if (memregion("audiocrypt"))
+		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+
+	// decrypt v roms if needed
+	ram = memregion("ymsnd")->base();
+	if (ram[0] != 8)
+	{
+		//printf("ym=%X\n",ram[0]);
+		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 4);
+	}
+
+	// decrypt c roms if needed
+	ram = memregion("sprites")->base();
+	if (ram[0] != 0)
+	{
+		//printf("Sprites=%X\n",ram[0]);
+		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, 0, SAMSHO5_GFX_KEY);
+	}
+
+	// if no s rom, copy info from end of c roms
+	ram = memregion("fixed")->base();
+	if (ram[0x100] == 0)
+	{
+		//printf("Fixed1=%X\n",ram[0x100]);
+		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	}
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, samsho5d )
+DRIVER_INIT_MEMBER( neogeo_hbmame, sam5sphb )
 {
 	DRIVER_INIT_CALL(neogeo);
+	// This is needed if s1 size > 0x20000, ignored otherwise
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_kof2002_prot->samsho5_decrypt_68k(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 4);
-}
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, samsh5hd )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_kof2002_prot->samsh5sp_decrypt_68k(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-}
+	// decrypt p roms if needed
+	u8 *ram = memregion("maincpu")->base();
+	if (ram[0x100007] == 0)
+	{
+		//printf("Maincpu=%X\n",ram[0x100007]);fflush(stdout);
+		m_kof2002_prot->samsh5sp_decrypt_68k(cpuregion, cpuregion_size);
+	}
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, samsho5hd )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_kof2002_prot->samsho5_decrypt_68k(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 4);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-}
+	// decrypt m1 if needed
+	if (memregion("audiocrypt"))
+		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, samsh5spd )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	// decrypt v roms if needed
+	ram = memregion("ymsnd")->base();
+	if (ram[0] != 8)
+	{
+		//printf("ym=%X\n",ram[0]);
+		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
+	}
+
+	// if no s rom, copy info from end of c roms
+	ram = memregion("fixed")->base();
+	if (ram[0x100] == 0)
+	{
+		//printf("Fixed1=%X\n",ram[0x100]);
+		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	}
 }
 
 
@@ -624,6 +657,30 @@ ROM_START( samsho4wh ) /* Samurai Shodown IV - Hack by Wesker - (Can choose Zank
 ROM_END
 
 
+ROM_START( samsho5ba )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "270ba.p1", 0x000000, 0x400000, CRC(28d9f763) SHA1(21e5cc1cd20a3a9eef7c4d4da87480654cdeceb4) )
+	ROM_LOAD16_WORD_SWAP( "270bs.p2", 0x400000, 0x400000, CRC(91979dee) SHA1(0e03a2a2e3aa493bd839f3754260ddd3935ba25b) )
+
+	NEO_SFIX_128K( "270ch.s1", CRC(cd025baa) SHA1(2ebdff1f40ec31b1842ec5399145869b00c8c4b2) )
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "270-m1.m1", CRC(49c9901a) SHA1(2623e9765a0eba58fee2de72851e9dc502344a3d) )
+
+	ROM_REGION( 0X1000000, "ymsnd", 0 )
+	ROM_LOAD( "270bs.v1", 0x000000, 0x800000, CRC(809c7617) SHA1(b6b542eb4c1078016fcd78d050433dc8e3029329) )
+	ROM_LOAD( "270bs.v2", 0x800000, 0x800000, CRC(42671607) SHA1(4fa64b5a9349e9c3d5d60806c9da4a2b6beff18a) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "270ba.c1", 0x0000000, 0x800000, CRC(102ef439) SHA1(512c4b1c2c3d6fa532a4ebc0cec2127c5f3f6aea) ) 
+	ROM_LOAD16_BYTE( "270ba.c2", 0x0000001, 0x800000, CRC(4986bdd7) SHA1(644666d2ddb99ba67a77d6fccea4fb229a4ccc21) )
+	ROM_LOAD16_BYTE( "270ba.c3", 0x1000000, 0x800000, CRC(149ed711) SHA1(365d742ad191d6a912885e04304959d16c701eca) )
+	ROM_LOAD16_BYTE( "270ba.c4", 0x1000001, 0x800000, CRC(2e2e0e1d) SHA1(7891dd1f269c757dfe3c668c0156b1caa6ede90a) )
+	ROM_LOAD16_BYTE( "270ba.c5", 0x2000000, 0x800000, CRC(7eb555c1) SHA1(d137c290b5fab64152e8124068654174482e2db9) )
+	ROM_LOAD16_BYTE( "270ba.c6", 0x2000001, 0x800000, CRC(6471b021) SHA1(1d7cc33f07688b215706ce73ca03abdf7d654ba1) )
+	ROM_LOAD16_BYTE( "270ba.c7", 0x3000000, 0x800000, CRC(37de7738) SHA1(9bb85e77469681952d0064f1bb57534469fbaf8e) )
+	ROM_LOAD16_BYTE( "270ba.c8", 0x3000001, 0x800000, CRC(74dca282) SHA1(819488133ee2bb27cbdb2d9d53226d61c53f51d4) )
+ROM_END
+
 ROM_START( samsho5bd )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "270bd.p1", 0x000000, 0x800000, CRC(611a6687) SHA1(55ff9122d64efd276e22a66fa443e0bebd079928) )
@@ -649,6 +706,30 @@ ROM_START( samsho5bd )
 	ROM_LOAD16_BYTE( "270bd.c8", 0x3000001, 0x800000, CRC(89db2d34) SHA1(cd3f1e4ef631704c1078c915135a4510891bd429) )
 ROM_END
 
+ROM_START( samsho5bh )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "270bh.p1", 0x000000, 0x400000, CRC(0afe5db8) SHA1(ad7572d58fdda785b12941215b5e613a332e87c7) )
+	ROM_LOAD16_WORD_SWAP( "270bs.p2", 0x400000, 0x400000, CRC(91979dee) SHA1(0e03a2a2e3aa493bd839f3754260ddd3935ba25b) )
+
+	NEO_SFIX_128K( "270ch.s1", CRC(cd025baa) SHA1(2ebdff1f40ec31b1842ec5399145869b00c8c4b2) )
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "270-m1.m1", CRC(49c9901a) SHA1(2623e9765a0eba58fee2de72851e9dc502344a3d) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "270-v1.v1", 0x000000, 0x800000, CRC(62e434eb) SHA1(1985f5e88f8e866f9683b6cea901aa28c04b80bf) )
+	ROM_LOAD( "270-v2.v2", 0x800000, 0x800000, CRC(180f3c9a) SHA1(6d7dc2605ead6e78704efa127e7e0dfe621e2c54) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "270-c1.c1", 0x0000000, 0x800000, CRC(14ffffac) SHA1(2ccebfdd0c7907679ae95bf6eca85b8d322441e2) )
+	ROM_LOAD16_BYTE( "270-c2.c2", 0x0000001, 0x800000, CRC(401f7299) SHA1(94e48cdf1682b1250f53c59f3f71d995e928d17b) )
+	ROM_LOAD16_BYTE( "270-c3.c3", 0x1000000, 0x800000, CRC(838f0260) SHA1(d5c8d3c6e7221d04e0b20882a847752e5ba95635) )
+	ROM_LOAD16_BYTE( "270-c4.c4", 0x1000001, 0x800000, CRC(041560a5) SHA1(d165e533699f15b1e079c82f97db3542b3a7dd66) )
+	ROM_LOAD16_BYTE( "270-c5.c5", 0x2000000, 0x800000, CRC(bd30b52d) SHA1(9f8282e684415b4045218cf764ef7d75a70e3240) )
+	ROM_LOAD16_BYTE( "270-c6.c6", 0x2000001, 0x800000, CRC(86a69c70) SHA1(526732cdb408cf680af9da39057bce6a4dfb5e13) )
+	ROM_LOAD16_BYTE( "270-c7.c7", 0x3000000, 0x800000, CRC(d28fbc3c) SHA1(a82a6ba6760fad14d9309f9147cb7d80bd6f70fc) )
+	ROM_LOAD16_BYTE( "270-c8.c8", 0x3000001, 0x800000, CRC(02c530a6) SHA1(7a3fafa6075506c6ef78cc4ec2cb72118ec83cb9) )
+ROM_END
+
 ROM_START( samsho5bs )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "270bs.p1", 0x000000, 0x400000, CRC(a00cceba) SHA1(de91db34e0068dd40e9b151f0d0a7f609e880d77) )
@@ -658,7 +739,7 @@ ROM_START( samsho5bs )
 
 	NEO_BIOS_AUDIO_256K( "270d.m1", CRC(e94a5e2b) SHA1(53ef2ad6583060af69fdde73576e09ba88affa55) ) /* not a 100% match for encrypted version */
 
-	ROM_REGION( 0X1000000, "ymsnd", 0 )
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "270bs.v1", 0x000000, 0x800000, CRC(809c7617) SHA1(b6b542eb4c1078016fcd78d050433dc8e3029329) )
 	ROM_LOAD( "270bs.v2", 0x800000, 0x800000, CRC(42671607) SHA1(4fa64b5a9349e9c3d5d60806c9da4a2b6beff18a) )
 
@@ -744,6 +825,30 @@ ROM_START( samsho5d1 )
 	ROM_LOAD16_BYTE( "270hd.c8", 0x3000001, 0x800000, CRC(f5903adc) SHA1(64f867a4e9d23302aa1e884f8fad7872ee347a86) )
 ROM_END
 
+ROM_START( samsho5ge )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "270ge.p1", 0x000000, 0x400000, CRC(f4900b62) SHA1(e7f3508d5409e22aac04dacea229405d9afbdfa8) )
+	ROM_LOAD16_WORD_SWAP( "270-p2.sp2", 0x400000, 0x400000, CRC(e0c74c85) SHA1(DF24A4EE76438E40C2F04A714175A7F85CACDFE0) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "270-m1.m1", CRC(49c9901a) SHA1(2623e9765a0eba58fee2de72851e9dc502344a3d) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "270-v1.v1", 0x000000, 0x800000, CRC(62e434eb) SHA1(1985f5e88f8e866f9683b6cea901aa28c04b80bf) )
+	ROM_LOAD( "270-v2.v2", 0x800000, 0x800000, CRC(180f3c9a) SHA1(6d7dc2605ead6e78704efa127e7e0dfe621e2c54) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "270-c1.c1", 0x0000000, 0x800000, CRC(14ffffac) SHA1(2ccebfdd0c7907679ae95bf6eca85b8d322441e2) )
+	ROM_LOAD16_BYTE( "270-c2.c2", 0x0000001, 0x800000, CRC(401f7299) SHA1(94e48cdf1682b1250f53c59f3f71d995e928d17b) )
+	ROM_LOAD16_BYTE( "270-c3.c3", 0x1000000, 0x800000, CRC(838f0260) SHA1(d5c8d3c6e7221d04e0b20882a847752e5ba95635) )
+	ROM_LOAD16_BYTE( "270-c4.c4", 0x1000001, 0x800000, CRC(041560a5) SHA1(d165e533699f15b1e079c82f97db3542b3a7dd66) )
+	ROM_LOAD16_BYTE( "270-c5.c5", 0x2000000, 0x800000, CRC(bd30b52d) SHA1(9f8282e684415b4045218cf764ef7d75a70e3240) )
+	ROM_LOAD16_BYTE( "270-c6.c6", 0x2000001, 0x800000, CRC(86a69c70) SHA1(526732cdb408cf680af9da39057bce6a4dfb5e13) )
+	ROM_LOAD16_BYTE( "270-c7.c7", 0x3000000, 0x800000, CRC(d28fbc3c) SHA1(a82a6ba6760fad14d9309f9147cb7d80bd6f70fc) )
+	ROM_LOAD16_BYTE( "270-c8.c8", 0x3000001, 0x800000, CRC(02c530a6) SHA1(7a3fafa6075506c6ef78cc4ec2cb72118ec83cb9) )
+ROM_END
+
 ROM_START( samsho5hd )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "270hd.p1", 0x000000, 0x400000, CRC(bf956089) SHA1(c538289069bf338b9fa7ecc5c9143763dbb776a8) )
@@ -768,6 +873,30 @@ ROM_START( samsho5hd )
 	ROM_LOAD16_BYTE( "270hd.c8", 0x3000001, 0x800000, CRC(f5903adc) SHA1(64f867a4e9d23302aa1e884f8fad7872ee347a86) )
 ROM_END
 
+ROM_START( samsho5s2 )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "270s2.p1", 0x000000, 0x400000, CRC(e66b65f8) SHA1(be56cc4eb21e4bd2e27bd25350deee2258f5d1da) )
+	ROM_LOAD16_WORD_SWAP( "270-p2.sp2", 0x400000, 0x400000, CRC(e0c74c85) SHA1(DF24A4EE76438E40C2F04A714175A7F85CACDFE0) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "270-m1.m1", CRC(49c9901a) SHA1(2623e9765a0eba58fee2de72851e9dc502344a3d) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "270-v1.v1", 0x000000, 0x800000, CRC(62e434eb) SHA1(1985f5e88f8e866f9683b6cea901aa28c04b80bf) )
+	ROM_LOAD( "270-v2.v2", 0x800000, 0x800000, CRC(180f3c9a) SHA1(6d7dc2605ead6e78704efa127e7e0dfe621e2c54) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "270-c1.c1", 0x0000000, 0x800000, CRC(14ffffac) SHA1(2ccebfdd0c7907679ae95bf6eca85b8d322441e2) )
+	ROM_LOAD16_BYTE( "270-c2.c2", 0x0000001, 0x800000, CRC(401f7299) SHA1(94e48cdf1682b1250f53c59f3f71d995e928d17b) )
+	ROM_LOAD16_BYTE( "270-c3.c3", 0x1000000, 0x800000, CRC(838f0260) SHA1(d5c8d3c6e7221d04e0b20882a847752e5ba95635) )
+	ROM_LOAD16_BYTE( "270-c4.c4", 0x1000001, 0x800000, CRC(041560a5) SHA1(d165e533699f15b1e079c82f97db3542b3a7dd66) )
+	ROM_LOAD16_BYTE( "270-c5.c5", 0x2000000, 0x800000, CRC(bd30b52d) SHA1(9f8282e684415b4045218cf764ef7d75a70e3240) )
+	ROM_LOAD16_BYTE( "270-c6.c6", 0x2000001, 0x800000, CRC(86a69c70) SHA1(526732cdb408cf680af9da39057bce6a4dfb5e13) )
+	ROM_LOAD16_BYTE( "270-c7.c7", 0x3000000, 0x800000, CRC(d28fbc3c) SHA1(a82a6ba6760fad14d9309f9147cb7d80bd6f70fc) )
+	ROM_LOAD16_BYTE( "270-c8.c8", 0x3000001, 0x800000, CRC(02c530a6) SHA1(7a3fafa6075506c6ef78cc4ec2cb72118ec83cb9) )
+ROM_END
+
 ROM_START( samsho5x )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "270x.p1", 0x000000, 0x800000, CRC(16983af9) SHA1(8b1ab272200bede14ad66d7e98474ac3fb7564d3) )
@@ -789,6 +918,30 @@ ROM_START( samsho5x )
 	ROM_LOAD16_BYTE( "270x.c6", 0x2000001, 0x800000, CRC(c300b50d) SHA1(8c8fbb81dbc6c283b55380d577944c6b9cdd6cf4) )
 	ROM_LOAD16_BYTE( "270x.c7", 0x3000000, 0x800000, CRC(5e722b0b) SHA1(7015dac7cc234473949912216a1b82ca640b52b6) )
 	ROM_LOAD16_BYTE( "270x.c8", 0x3000001, 0x800000, CRC(e2a2c546) SHA1(c870acb090606ae185fa9d7b4932949abacb0705) )
+ROM_END
+
+ROM_START( samsho5zk )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "270zk.p1", 0x000000, 0x400000, CRC(a1c49fdd) SHA1(2f2e9de6ae7bb5c1f0b026083c2d47c17ea2d204) )
+	ROM_LOAD16_WORD_SWAP( "270-p2.sp2", 0x400000, 0x400000, CRC(e0c74c85) SHA1(DF24A4EE76438E40C2F04A714175A7F85CACDFE0) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "270-m1.m1", CRC(49c9901a) SHA1(2623e9765a0eba58fee2de72851e9dc502344a3d) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "270-v1.v1", 0x000000, 0x800000, CRC(62e434eb) SHA1(1985f5e88f8e866f9683b6cea901aa28c04b80bf) )
+	ROM_LOAD( "270-v2.v2", 0x800000, 0x800000, CRC(180f3c9a) SHA1(6d7dc2605ead6e78704efa127e7e0dfe621e2c54) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "270-c1.c1", 0x0000000, 0x800000, CRC(14ffffac) SHA1(2ccebfdd0c7907679ae95bf6eca85b8d322441e2) )
+	ROM_LOAD16_BYTE( "270-c2.c2", 0x0000001, 0x800000, CRC(401f7299) SHA1(94e48cdf1682b1250f53c59f3f71d995e928d17b) )
+	ROM_LOAD16_BYTE( "270-c3.c3", 0x1000000, 0x800000, CRC(838f0260) SHA1(d5c8d3c6e7221d04e0b20882a847752e5ba95635) )
+	ROM_LOAD16_BYTE( "270-c4.c4", 0x1000001, 0x800000, CRC(041560a5) SHA1(d165e533699f15b1e079c82f97db3542b3a7dd66) )
+	ROM_LOAD16_BYTE( "270-c5.c5", 0x2000000, 0x800000, CRC(bd30b52d) SHA1(9f8282e684415b4045218cf764ef7d75a70e3240) )
+	ROM_LOAD16_BYTE( "270-c6.c6", 0x2000001, 0x800000, CRC(86a69c70) SHA1(526732cdb408cf680af9da39057bce6a4dfb5e13) )
+	ROM_LOAD16_BYTE( "270-c7.c7", 0x3000000, 0x800000, CRC(d28fbc3c) SHA1(a82a6ba6760fad14d9309f9147cb7d80bd6f70fc) )
+	ROM_LOAD16_BYTE( "270-c8.c8", 0x3000001, 0x800000, CRC(02c530a6) SHA1(7a3fafa6075506c6ef78cc4ec2cb72118ec83cb9) )
 ROM_END
 
 
@@ -1121,23 +1274,28 @@ GAME( 1996, samsho4kz,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 GAME( 1996, samsho4ps,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown IV Amakusa's Revenge (Boss Fix Ver 1.00 [EGHT])", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, samsho4wh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown IV (Add Char - final edition)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2003, samsho5bd,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown V / Samurai Spirits Zero (bootleg, fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5bs,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Spirits Zero / Samurai Showdown V (Enable Hidden Characters v3.5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5ch,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Dodowang and Wesker", "Samurai Spirits Zero / Samurai Showdown V (Chinese Language and Boss Hack by Dodowang & Wesker)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5d,   samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5d, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (decrypted C)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5d1,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5hd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGM-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5hd,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, samsho5hd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (NGH-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5x,   samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown V / Samurai Spirits Zero (XBOX version, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5ba,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "hack", "Samurai Shodown V (Boss hack alternate set)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5bd,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown V (bootleg, fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5bh,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "Dodowang", "Samurai Shodown V (Boss hack by Dodowang)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5bs,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Showdown V (Enable Hidden Characters v3.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5ch,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Dodowang and Wesker", "Samurai Showdown V (Chinese Language and Boss Hack by Dodowang & Wesker)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5d,   samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (decrypted C)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5d1,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (NGM-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5ge,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "Shiro", "Samurai Shodown V (Genjuro Evil Edition hack by Shiro)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5hd,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (NGH-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, samsho5s2,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "hack", "Samurai Shodown V (Special v0.12 2008-08-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5x,   samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown V (XBOX version, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, samsho5zk,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "Zuojie, Kof1996", "Samurai Shodown V (Hack by Zuojie, Kof1996 2008-10-23)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2004, samsh5spd,  samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5sd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spd1, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5hd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGM-2720)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spd2, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5spd,ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Spirits Zero Special / Samurai Showdown V Special (no encrypted P, decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd,  samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd1, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGM-2720)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd2, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Spirits Zero Special / Samurai Showdown V Special (no encrypted P, decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, samsh5sph1, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown V Special / Samurai Spirits Zero Special (Bloodlust hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, samsh5spha, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 1 hack by Wesker)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, samsh5sphb, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 2 hack by Wesker)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, samsh5sphc, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 3 hack by Wesker)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sphd, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5hd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720)(1st release, censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sphd, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720)(1st release, censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, samsh5spn,  samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown V Special / Samurai Spirits Zero Special (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spnd, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, samsh5hd, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720)(2nd release, less censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spnd, samsh5sp, neogeo_noslot, neogeo, neogeo_hbmame, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720)(2nd release, less censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, samsh5spnh3,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Eddids / Snk2003", "Samurai Shodown V Special / Samurai Spirits Zero Special (Enhanced Blood v3.0 hack by Eddids, Snk2003)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, samsh5spnzk,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie / Kof1996", "Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 2008-10-23)", MACHINE_SUPPORTS_SAVE )

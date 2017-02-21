@@ -43,7 +43,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, svchb )
 	ram = memregion("fixed")->base();
 	if (ram[0x100] == 0)
 	{
-		//printf("Fixed1=%X\n",ram[0]);
+		//printf("Fixed1=%X\n",ram[0x100]);
 		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	}
 
