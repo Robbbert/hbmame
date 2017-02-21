@@ -8,6 +8,8 @@ What's new in HBMAME
 New Games
 ---------
 - [deathstar]       Death Star (by Stefano Bodrato)
+- [sengoku3eh]      Sengoku 3 (Evolution Special hack)
+- [sengoku3s]       Sengoku 3 (Evolution v1.0 hack by Sjx (FCHT))
 - [svccprw]         SvC Chaos (Plus Remix v2.0 hack by Wesker)
 - [svcee]           SvC Chaos (Hack by Ethen.H(EGHT) 2008-01-21)
 - [svcg]            SvC Chaos (Boss Special Kyo Green Edition)
