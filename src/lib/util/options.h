@@ -147,8 +147,9 @@ public:
 	void remove_entry(entry &delentry);
 
 	// parsing/input
-	bool parse_command_line(int argc, char **argv, int priority, std::string &error_string);
+	bool parse_command_line(std::vector<std::string> &args, int priority, std::string &error_string);
 	bool parse_ini_file(util::core_file &inifile, int priority, int ignore_priority, std::string &error_string);
+	std::string pluck_from_command_line(std::vector<std::string> &args, const std::string &name);
 
 	// reverting
 	void revert(int priority_hi = OPTION_PRIORITY_MAXIMUM, int priority_lo = OPTION_PRIORITY_DEFAULT);
@@ -179,12 +180,15 @@ public:
 	static const char *unadorned(int x = 0) { return s_option_unadorned[std::min(x, MAX_UNADORNED_OPTIONS)]; }
 	int options_count() const { return m_entrylist.count(); }
 
+protected:
+	virtual void value_changed(const std::string &name, const std::string &value) {}
+
 private:
 	// internal helpers
 	void reset();
 	void append_entry(entry &newentry);
 	void copyfrom(const core_options &src);
-	bool validate_and_set_data(entry &curentry, const char *newdata, int priority, std::string &error_string);
+	bool validate_and_set_data(entry &curentry, std::string &&newdata, int priority, std::string &error_string);
 
 	// internal state
 	simple_list<entry>      m_entrylist;            // head of list of entries
