@@ -11,6 +11,8 @@ New Games
 - [fswordsb1]       Fighters Swords (Boss Hack v1.0)
 - [fswordsb2]       Fighters Swords (Boss Hack v2.0)
 - [fswordsbf]       Fighters Swords (Boss Hack v1.0f)
+- [samshos1]        Samurai Shodown (Special v0.1 2005-09-19)
+- [samshozk]        Samurai Shodown (Hack by Zuojie, Kof1996 2008-10-23)
 - [samsho3s2]       Samurai Shodown III (Special v0.12 2008-09-01)
 - [samsho3ss]       Samurai Shodown III (Special v0.1 2005-09-19)
 - [samsho3zk]       Samurai Shodown III (Hack by Zuojie, Kof1996 2008-10-23)
