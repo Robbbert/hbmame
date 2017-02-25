@@ -8,6 +8,10 @@ What's new in HBMAME
 New Games
 ---------
 - [deathstar]       Death Star (by Stefano Bodrato)
+- [samsho4mb]       Samurai Shodown IV (Moves hack by Blackheart 2009-08-05)
+- [samsho4pm]       Samurai Shodown IV (Power Max hack by Pipi899 2009-06-16)
+- [samsho4s2]       Samurai Shodown IV (Special v0.12 2008-09-01)
+- [samsho4zk]       Samurai Shodown IV (Hack by Zuojie, Kof1996 2008-10-23)
 - [samsho5ba]       Samurai Shodown V (Boss hack alternate set)
 - [samsho5bh]       Samurai Shodown V (Boss hack by Dodowang)
 - [samsho5ge]       Samurai Shodown V (Genjuro Evil Edition hack by Shiro)

@@ -606,6 +606,56 @@ ROM_START( samsho4kz ) /* Samurai Shodown IV - Enhance by Fighters Kim and Zhang
 	ROM_LOAD16_BYTE( "222-c8.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(7d7ee874355b5aa75ad9c9a5c9c3df98d098d85e) )
 ROM_END
 
+ROM_START( samsho4mb )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "222mb.p1",   0x000000, 0x100000, CRC(b10572b2) SHA1(3ed79a23ec86a7a2c96ad6422c2b99d5e81b2117) )
+	ROM_LOAD16_WORD_SWAP( "222-p2.sp2", 0x100000, 0x400000, CRC(b023cd8b) SHA1(35b4cec9858225f90acdfa16ed8a3017d0d08327) )
+
+	NEO_SFIX_128K( "222-s1.s1", CRC(8d3d3bf9) SHA1(9975ed9b458bdd14e23451d2534153f68a5e4e6c) )
+
+	NEO_BIOS_AUDIO_128K( "222-m1.m1", CRC(7615bc1b) SHA1(b936f7b341f6fe0921b4c41049734684583e3596) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "222-v1.v1", 0x000000, 0x400000, CRC(7d6ba95f) SHA1(03cb4e0d770e0b332b07b64cacef624460b84c78) )
+	ROM_LOAD( "222-v2.v2", 0x400000, 0x400000, CRC(6c33bb5d) SHA1(fd5d4e08a962dd0d22c52c91bad5ec7f23cfb901) )
+	ROM_LOAD( "222-v3.v3", 0x800000, 0x200000, CRC(831ea8c0) SHA1(f2987b7d09bdc4311e972ce8a9ab7ca9802db4db) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "222-c1.c1", 0x0000000, 0x400000, CRC(68f2ed95) SHA1(c0a02df012cd25bcfe341770ea861a80294148cb) )
+	ROM_LOAD16_BYTE( "222-c2.c2", 0x0000001, 0x400000, CRC(a6e9aff0) SHA1(15addca49951ed53fa3c000c8d7cd327d012a620) )
+	ROM_LOAD16_BYTE( "222-c3.c3", 0x0800000, 0x400000, CRC(c91b40f4) SHA1(dcda45e0336204e3e024de08edfd0a3217bc1fdd) )
+	ROM_LOAD16_BYTE( "222-c4.c4", 0x0800001, 0x400000, CRC(359510a4) SHA1(b6642677ebdff7788263266402080272b8a66b15) )
+	ROM_LOAD16_BYTE( "222-c5.c5", 0x1000000, 0x400000, CRC(9cfbb22d) SHA1(789c32f917d0c6e38601cd390a7bf9d803131a4a) )
+	ROM_LOAD16_BYTE( "222-c6.c6", 0x1000001, 0x400000, CRC(685efc32) SHA1(db21ba1c7e3631ce0f1cb6f503ae7e0e043ff71b) )
+	ROM_LOAD16_BYTE( "222-c7.c7", 0x1800000, 0x400000, CRC(d0f86f0d) SHA1(32502d71c2ab1469c492b6b382bf2bb3f85981d9) )
+	ROM_LOAD16_BYTE( "222-c8.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(7d7ee874355b5aa75ad9c9a5c9c3df98d098d85e) )
+ROM_END
+
+ROM_START( samsho4pm )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "222pm.p1",   0x000000, 0x100000, CRC(b76aab1e) SHA1(cfba2faa8f81ce4e05813fae290e2d6bd9abeb7c) )
+	ROM_LOAD16_WORD_SWAP( "222-p2.sp2", 0x100000, 0x400000, CRC(b023cd8b) SHA1(35b4cec9858225f90acdfa16ed8a3017d0d08327) )
+
+	NEO_SFIX_128K( "222-s1.s1", CRC(8d3d3bf9) SHA1(9975ed9b458bdd14e23451d2534153f68a5e4e6c) )
+
+	NEO_BIOS_AUDIO_128K( "222-m1.m1", CRC(7615bc1b) SHA1(b936f7b341f6fe0921b4c41049734684583e3596) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "222-v1.v1", 0x000000, 0x400000, CRC(7d6ba95f) SHA1(03cb4e0d770e0b332b07b64cacef624460b84c78) )
+	ROM_LOAD( "222-v2.v2", 0x400000, 0x400000, CRC(6c33bb5d) SHA1(fd5d4e08a962dd0d22c52c91bad5ec7f23cfb901) )
+	ROM_LOAD( "222-v3.v3", 0x800000, 0x200000, CRC(831ea8c0) SHA1(f2987b7d09bdc4311e972ce8a9ab7ca9802db4db) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "222-c1.c1", 0x0000000, 0x400000, CRC(68f2ed95) SHA1(c0a02df012cd25bcfe341770ea861a80294148cb) )
+	ROM_LOAD16_BYTE( "222-c2.c2", 0x0000001, 0x400000, CRC(a6e9aff0) SHA1(15addca49951ed53fa3c000c8d7cd327d012a620) )
+	ROM_LOAD16_BYTE( "222-c3.c3", 0x0800000, 0x400000, CRC(c91b40f4) SHA1(dcda45e0336204e3e024de08edfd0a3217bc1fdd) )
+	ROM_LOAD16_BYTE( "222-c4.c4", 0x0800001, 0x400000, CRC(359510a4) SHA1(b6642677ebdff7788263266402080272b8a66b15) )
+	ROM_LOAD16_BYTE( "222-c5.c5", 0x1000000, 0x400000, CRC(9cfbb22d) SHA1(789c32f917d0c6e38601cd390a7bf9d803131a4a) )
+	ROM_LOAD16_BYTE( "222-c6.c6", 0x1000001, 0x400000, CRC(685efc32) SHA1(db21ba1c7e3631ce0f1cb6f503ae7e0e043ff71b) )
+	ROM_LOAD16_BYTE( "222-c7.c7", 0x1800000, 0x400000, CRC(d0f86f0d) SHA1(32502d71c2ab1469c492b6b382bf2bb3f85981d9) )
+	ROM_LOAD16_BYTE( "222-c8.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(7d7ee874355b5aa75ad9c9a5c9c3df98d098d85e) )
+ROM_END
+
 ROM_START( samsho4ps )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "222ps.p1", 0x000000, 0x100000, CRC(70dd94fe) SHA1(611b84be241eb81a39a29d41779b7dfec6262c8c) )
@@ -631,9 +681,59 @@ ROM_START( samsho4ps )
 	ROM_LOAD16_BYTE( "222ps.c8", 0x1800001, 0x400000, CRC(0f9a0bda) SHA1(6093f607dbcc9e1475bb1bb8e713b23fcd99c486) )
 ROM_END
 
+ROM_START( samsho4s2 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "222s2.p1",   0x000000, 0x100000, CRC(baf26b5e) SHA1(028821e26a2b9ea038c727e9a9e057f176c2e634) )
+	ROM_LOAD16_WORD_SWAP( "222-p2.sp2", 0x100000, 0x400000, CRC(b023cd8b) SHA1(35b4cec9858225f90acdfa16ed8a3017d0d08327) )
+
+	NEO_SFIX_128K( "222-s1.s1", CRC(8d3d3bf9) SHA1(9975ed9b458bdd14e23451d2534153f68a5e4e6c) )
+
+	NEO_BIOS_AUDIO_128K( "222-m1.m1", CRC(7615bc1b) SHA1(b936f7b341f6fe0921b4c41049734684583e3596) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "222-v1.v1", 0x000000, 0x400000, CRC(7d6ba95f) SHA1(03cb4e0d770e0b332b07b64cacef624460b84c78) )
+	ROM_LOAD( "222-v2.v2", 0x400000, 0x400000, CRC(6c33bb5d) SHA1(fd5d4e08a962dd0d22c52c91bad5ec7f23cfb901) )
+	ROM_LOAD( "222-v3.v3", 0x800000, 0x200000, CRC(831ea8c0) SHA1(f2987b7d09bdc4311e972ce8a9ab7ca9802db4db) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "222-c1.c1", 0x0000000, 0x400000, CRC(68f2ed95) SHA1(c0a02df012cd25bcfe341770ea861a80294148cb) )
+	ROM_LOAD16_BYTE( "222-c2.c2", 0x0000001, 0x400000, CRC(a6e9aff0) SHA1(15addca49951ed53fa3c000c8d7cd327d012a620) )
+	ROM_LOAD16_BYTE( "222-c3.c3", 0x0800000, 0x400000, CRC(c91b40f4) SHA1(dcda45e0336204e3e024de08edfd0a3217bc1fdd) )
+	ROM_LOAD16_BYTE( "222-c4.c4", 0x0800001, 0x400000, CRC(359510a4) SHA1(b6642677ebdff7788263266402080272b8a66b15) )
+	ROM_LOAD16_BYTE( "222-c5.c5", 0x1000000, 0x400000, CRC(9cfbb22d) SHA1(789c32f917d0c6e38601cd390a7bf9d803131a4a) )
+	ROM_LOAD16_BYTE( "222-c6.c6", 0x1000001, 0x400000, CRC(685efc32) SHA1(db21ba1c7e3631ce0f1cb6f503ae7e0e043ff71b) )
+	ROM_LOAD16_BYTE( "222-c7.c7", 0x1800000, 0x400000, CRC(d0f86f0d) SHA1(32502d71c2ab1469c492b6b382bf2bb3f85981d9) )
+	ROM_LOAD16_BYTE( "222-c8.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(7d7ee874355b5aa75ad9c9a5c9c3df98d098d85e) )
+ROM_END
+
 ROM_START( samsho4wh ) /* Samurai Shodown IV - Hack by Wesker - (Can choose Zankuro Minazuki - final edition) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "222wh.p1",   0x000000, 0x100000, CRC(8b8fbb8a) SHA1(75dff66982c4b4e2137fb3058516be516d2c6a73) )
+	ROM_LOAD16_WORD_SWAP( "222-p2.sp2", 0x100000, 0x400000, CRC(b023cd8b) SHA1(35b4cec9858225f90acdfa16ed8a3017d0d08327) )
+
+	NEO_SFIX_128K( "222-s1.s1", CRC(8d3d3bf9) SHA1(9975ed9b458bdd14e23451d2534153f68a5e4e6c) )
+
+	NEO_BIOS_AUDIO_128K( "222-m1.m1", CRC(7615bc1b) SHA1(b936f7b341f6fe0921b4c41049734684583e3596) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "222-v1.v1", 0x000000, 0x400000, CRC(7d6ba95f) SHA1(03cb4e0d770e0b332b07b64cacef624460b84c78) )
+	ROM_LOAD( "222-v2.v2", 0x400000, 0x400000, CRC(6c33bb5d) SHA1(fd5d4e08a962dd0d22c52c91bad5ec7f23cfb901) )
+	ROM_LOAD( "222-v3.v3", 0x800000, 0x200000, CRC(831ea8c0) SHA1(f2987b7d09bdc4311e972ce8a9ab7ca9802db4db) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "222-c1.c1", 0x0000000, 0x400000, CRC(68f2ed95) SHA1(c0a02df012cd25bcfe341770ea861a80294148cb) )
+	ROM_LOAD16_BYTE( "222-c2.c2", 0x0000001, 0x400000, CRC(a6e9aff0) SHA1(15addca49951ed53fa3c000c8d7cd327d012a620) )
+	ROM_LOAD16_BYTE( "222-c3.c3", 0x0800000, 0x400000, CRC(c91b40f4) SHA1(dcda45e0336204e3e024de08edfd0a3217bc1fdd) )
+	ROM_LOAD16_BYTE( "222-c4.c4", 0x0800001, 0x400000, CRC(359510a4) SHA1(b6642677ebdff7788263266402080272b8a66b15) )
+	ROM_LOAD16_BYTE( "222-c5.c5", 0x1000000, 0x400000, CRC(9cfbb22d) SHA1(789c32f917d0c6e38601cd390a7bf9d803131a4a) )
+	ROM_LOAD16_BYTE( "222-c6.c6", 0x1000001, 0x400000, CRC(685efc32) SHA1(db21ba1c7e3631ce0f1cb6f503ae7e0e043ff71b) )
+	ROM_LOAD16_BYTE( "222-c7.c7", 0x1800000, 0x400000, CRC(d0f86f0d) SHA1(32502d71c2ab1469c492b6b382bf2bb3f85981d9) )
+	ROM_LOAD16_BYTE( "222-c8.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(7d7ee874355b5aa75ad9c9a5c9c3df98d098d85e) )
+ROM_END
+
+ROM_START( samsho4zk )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "222zk.p1",   0x000000, 0x100000, CRC(6ae69ad2) SHA1(d2ae4c05a1b0247fcbd8153d9e2ea05edf456d19) )
 	ROM_LOAD16_WORD_SWAP( "222-p2.sp2", 0x100000, 0x400000, CRC(b023cd8b) SHA1(35b4cec9858225f90acdfa16ed8a3017d0d08327) )
 
 	NEO_SFIX_128K( "222-s1.s1", CRC(8d3d3bf9) SHA1(9975ed9b458bdd14e23451d2534153f68a5e4e6c) )
@@ -1271,8 +1371,12 @@ GAME( 1996, samsho4ew,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 GAME( 2007, samsho4fc,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "FCHT", "Samurai Shodown IV (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, samsho4kw,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Fighters Kim and Wesker", "Samurai Shodown IV (Add Char - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, samsho4kz,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Fighters Kim and Zhangshee", "Samurai Shodown IV (Add Char - Ultra pow hack set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4ps,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown IV Amakusa's Revenge (Boss Fix Ver 1.00 [EGHT])", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, samsho4mb,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Blackheart", "Samurai Shodown IV (Moves hack by Blackheart 2009-08-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, samsho4pm,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Pipi899", "Samurai Shodown IV (Power Max hack by Pipi899 2009-06-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4ps,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "Samurai Shodown IV Amakusa's Revenge (Boss Fix Ver 1.00 [EGHT])", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, samsho4s2,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown IV (Special v0.12 2008-09-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, samsho4wh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown IV (Add Char - final edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, samsho4zk,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie, Kof1996", "Samurai Shodown IV (Hack by Zuojie, Kof1996 2008-10-23)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2003, samsho5ba,  samsho5,  neogeo_noslot, neogeo, neogeo_hbmame, sam5hb,   ROT0, "hack", "Samurai Shodown V (Boss hack alternate set)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, samsho5bd,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown V (bootleg, fully decrypted)", MACHINE_SUPPORTS_SAVE )
