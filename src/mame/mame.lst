@@ -12322,11 +12322,14 @@ fexcela                         //
 fexcelb                         //
 fexceld                         //
 fexcelp                         //
+fexcelpb                        //
 fexcelv                         //
+fphantom                        //
 fscc9                           //
 fscc9b                          //
 fscc9ps                         //
 fscc12                          //
+granits                         // RCS
 reversic                        //
 super9cc                        // SU9: Super 9 Sensory Chess Challenger (English)
 super9ccfr                      // * French
@@ -30676,9 +30679,6 @@ kov3hd104
 kov3hd103
 kov3hd102
 kov3hd101
-
-@source:phantom.cpp
-fphantom                        //
 
 @source:phc25.cpp
 phc25                           //
