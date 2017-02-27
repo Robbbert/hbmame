@@ -691,6 +691,18 @@ ROM_START( seq2 )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys). If you run the snake next to an edge, gfx break.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "snakes.1",     0x0000, 0x1000, CRC(5cba3718) SHA1(c093acd0f38e24d68c5dd618b742360976f1a3fa) )
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
+	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
 /* No sound */
 ROM_START( tinyworld )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -806,6 +818,7 @@ GAME( 1982, eyesb,     eyes,     pacman,   eyes,     pacman_state,  eyes,     RO
 GAME( 2016, ghohunt,   puckman,  pacman,   pacman0,  driver_device, 0,        ROT90,  "Hurray Banana", "Ghost Hunt", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, pactetris, puckman,  pacman,   pacman0,  driver_device, 0,        ROT90,  "Ben Leperchey", "Tetris on Pacman hardware (incomplete)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, deathstar, puckman,  pacman,   pacman0,  driver_device, 0,        ROT90,  "Stefano Bodrato", "Death Star", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, snakes,    puckman,  pacman,   pacman0,  driver_device, 0,        ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/

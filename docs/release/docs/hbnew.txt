@@ -1,7 +1,7 @@
 What's new in HBMAME
 ====================
 
-2017-04-26 0.185
+2017-03-29 0.184
 ----------------
 
 
@@ -27,6 +27,7 @@ New Games
 - [samsho5zk]       Samurai Shodown V (Hack by Zuojie, Kof1996 2008-10-23)
 - [sengoku3eh]      Sengoku 3 (Evolution Special hack)
 - [sengoku3s]       Sengoku 3 (Evolution v1.0 hack by Sjx (FCHT))
+- [snakes]          Snakes (by Stefano Bodrato)
 - [svccprw]         SvC Chaos (Plus Remix v2.0 hack by Wesker)
 - [svcee]           SvC Chaos (Hack by Ethen.H(EGHT) 2008-01-21)
 - [svcg]            SvC Chaos (Boss Special Kyo Green Edition)

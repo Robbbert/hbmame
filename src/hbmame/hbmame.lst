@@ -1394,6 +1394,7 @@ ppong2		/* Widel's Games */
 rainboh		/* Widel's Games */
 seq1		/* Jerronimo */
 seq2		/* Jerronimo */
+snakes
 tst_pacm
 wavybug
 zap			/* Widel's Games */
@@ -2257,9 +2258,15 @@ samshos1
 samshozk
 samsho2b
 samsho2eh
+samsho2emb
+samsho2hy
+samsho2mb
+samsho2q
+samsho2s2
 samsho2sq
 samsho2ss
 samsho2yc
+samsho2zk
 samsho3eh
 samsho3hb
 samsho3s2
