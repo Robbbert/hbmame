@@ -57,11 +57,14 @@ instead of magnet sensors.
 
 #include "emu.h"
 #include "includes/novagbase.h"
+
+#include "bus/rs232/rs232.h"
 #include "cpu/m6502/m6502.h"
 #include "cpu/m6502/m65c02.h"
-#include "bus/rs232/rs232.h"
 #include "machine/mos6551.h"
 #include "machine/nvram.h"
+#include "screen.h"
+#include "speaker.h"
 
 // internal artwork
 #include "novag_cforte.lh" // clickable
@@ -343,6 +346,10 @@ WRITE8_MEMBER(novag6502_state::cforte_control_w)
 	// d3: unused?
 	m_lcd_control = data;
 	
+	// here's a hacky workaround for now
+	for (int i = 0; i < 10; i++)
+		output().set_digit_value(i, BITSWAP8(m_nvram[i + 0xc2d],3,5,4,6,7,2,1,0));
+	
 	// other: same as supercon
 	supercon_control_w(space, offset, data);
 }
@@ -411,8 +418,10 @@ void novag6502_state::sexpert_set_cpu_freq()
 
 MACHINE_RESET_MEMBER(novag6502_state, sexpert)
 {
-	membank("bank1")->set_entry(0);
 	novagbase_state::machine_reset();
+
+	sexpert_set_cpu_freq();
+	membank("bank1")->set_entry(0);
 }
 
 DRIVER_INIT_MEMBER(novag6502_state, sexpert)
@@ -828,7 +837,7 @@ static MACHINE_CONFIG_START( supercon, novag6502_state )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("beeper", BEEP, 1000) // guessed
+	MCFG_SOUND_ADD("beeper", BEEP, 1024) // guessed
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
@@ -836,7 +845,7 @@ static MACHINE_CONFIG_START( cforte, novag6502_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M65C02, 5000000) // 5MHz
-	MCFG_CPU_PERIODIC_INT_DRIVER(novag6502_state, irq0_line_hold, 250) // guessed
+	MCFG_CPU_PERIODIC_INT_DRIVER(novag6502_state, irq0_line_hold, 256) // guessed
 	MCFG_CPU_PROGRAM_MAP(cforte_map)
 
 	MCFG_NVRAM_ADD_1FILL("nvram")
@@ -846,7 +855,7 @@ static MACHINE_CONFIG_START( cforte, novag6502_state )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("beeper", BEEP, 1000) // guessed
+	MCFG_SOUND_ADD("beeper", BEEP, 1024) // guessed
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
@@ -994,7 +1003,7 @@ ROM_END
 /*    YEAR  NAME       PARENT    COMPAT  MACHINE   INPUT     INIT                      COMPANY, FULLNAME, FLAGS */
 CONS( 1984, supercon,  0,        0,      supercon, supercon, driver_device,   0,       "Novag", "Super Constellation", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
-CONS( 1986, cforteb,   0,        0,      cforte,   cforte,   driver_device,   0,       "Novag", "Constellation Forte (version B)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_NOT_WORKING )
+CONS( 1986, cforteb,   0,        0,      cforte,   cforte,   driver_device,   0,       "Novag", "Constellation Forte (version B)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
 CONS( 1987, sfortea,   0,        0,      sforte,   sforte,   novag6502_state, sexpert, "Novag", "Super Forte (version A, set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1987, sfortea1,  sfortea,  0,      sforte,   sforte,   novag6502_state, sexpert, "Novag", "Super Forte (version A, set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )

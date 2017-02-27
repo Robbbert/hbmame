@@ -9456,6 +9456,7 @@ vcop3                           // 2003.05.21 Virtua Cop 3 (Rev B)
 wangmid                         // 2004.07 Wangan Midnight Maximum Tune (export) (Rev B)
 wangmidj                        // 2004.06 Wangan Midnight Maximum Tune (Japan) (Rev B)
 wangmid2                        // 2005.10 Wangan Midnight Maximum Tune 2 (Export) (Rev A)
+wangmid2o                       // 2005.02 Wangan Midnight Maximum Tune 2 (Export)
 wangmid2j                       // 2005.04 Wangan Midnight Maximum Tune 2 (Japan)
 wangmid2ja                      // 2005.09 Wangan Midnight Maximum Tune 2 (Japan) (Rev A)
 questofd                        // 2004.09 Quest of D (CDV-10005C)
@@ -12303,6 +12304,7 @@ cscfr                           // * French
 cscg                            // * German
 cscsp                           // * Spanish
 fdes2000                        //
+fdes2100                        //
 fdes2000d                       //
 fdes2100d                       //
 feasbu                          // EAS: Elite A/S Challenger (Budapest program, English)
@@ -14377,6 +14379,7 @@ efootb4                         // Entex
 einvader                        // Entex
 elecbowl                        // Marx
 elecdet                         // Ideal
+eleciq                          // Conic
 esbattle                        // Entex
 esoccer                         // Entex
 f2pbball                        // Fonas

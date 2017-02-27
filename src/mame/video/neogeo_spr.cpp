@@ -5,9 +5,11 @@
 
 #include "emu.h"
 #include "neogeo_spr.h"
+#include "screen.h"
+
 
 // pure virtual functions
-//const device_type NEOGEO_SPRITE_BASE = &device_creator<neosprite_base_device>;
+//const device_type NEOGEO_SPRITE_BASE = device_creator<neosprite_base_device>;
 
 /*
 neosprite_base_device::neosprite_base_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
@@ -651,7 +653,7 @@ void neosprite_base_device::set_pens(const pen_t* pens)
 /* regions          (alternatively I could add an additional size check in the draw routine, but that would be slower)           */
 /*********************************************************************************************************************************/
 
-const device_type NEOGEO_SPRITE_REGULAR = &device_creator<neosprite_regular_device>;
+const device_type NEOGEO_SPRITE_REGULAR = device_creator<neosprite_regular_device>;
 
 neosprite_regular_device::neosprite_regular_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: neosprite_base_device(mconfig, tag, owner, clock, NEOGEO_SPRITE_REGULAR)
@@ -699,7 +701,7 @@ inline void neosprite_regular_device::draw_pixel(int romaddr, uint32_t* dst, con
 /* for additional speed                                                                                                          */
 /*********************************************************************************************************************************/
 
-const device_type NEOGEO_SPRITE_OPTIMZIED = &device_creator<neosprite_optimized_device>;
+const device_type NEOGEO_SPRITE_OPTIMZIED = device_creator<neosprite_optimized_device>;
 
 neosprite_optimized_device::neosprite_optimized_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: neosprite_base_device(mconfig, tag, owner, clock, NEOGEO_SPRITE_OPTIMZIED),
@@ -775,7 +777,7 @@ inline void neosprite_optimized_device::draw_pixel(int romaddr, uint32_t* dst, c
 /* and uploads the zoom table.  The additional videoram buffering is a guess because 'hammer' is very glitchy without it         */
 /*********************************************************************************************************************************/
 
-const device_type NEOGEO_SPRITE_MIDAS = &device_creator<neosprite_midas_device>;
+const device_type NEOGEO_SPRITE_MIDAS = device_creator<neosprite_midas_device>;
 
 
 neosprite_midas_device::neosprite_midas_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)

@@ -10,11 +10,14 @@
 
 #include "emu.h"
 #include "mameopts.h"
+
 #include "drivenum.h"
+#include "screen.h"
 #include "softlist_dev.h"
 
 #include <ctype.h>
 #include <stack>
+
 
 int mame_options::m_slot_options = 0;
 int mame_options::m_device_options = 0;
@@ -38,8 +41,8 @@ bool mame_options::add_slot_options(emu_options &options, std::function<void(emu
 	int starting_count = options.options_count();
 	for (const device_slot_interface &slot : slot_interface_iterator(config.root_device()))
 	{
-		// skip slots without selectable options
-		if (!slot.has_selectable_options())
+		// skip fixed slots
+		if (slot.fixed())
 			continue;
 
 		// retrieve info about the device instance
