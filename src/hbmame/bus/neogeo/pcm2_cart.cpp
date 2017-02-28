@@ -15,7 +15,7 @@
 //  neogeo_pcm2_cart - constructor
 //-------------------------------------------------
 
-const device_type NEOGEO_PCM2_CART = &device_creator<neogeo_pcm2_cart>;
+const device_type NEOGEO_PCM2_CART = device_creator<neogeo_pcm2_cart>;
 
 
 neogeo_pcm2_cart::neogeo_pcm2_cart(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint16_t clock, const char *shortname, const char *source)
@@ -78,7 +78,7 @@ machine_config_constructor neogeo_pcm2_cart::device_mconfig_additions() const
  MSLUG4
 **************************************************/
 
-const device_type NEOGEO_PCM2_MSLUG4_CART = &device_creator<neogeo_pcm2_mslug4_cart>;
+const device_type NEOGEO_PCM2_MSLUG4_CART = device_creator<neogeo_pcm2_mslug4_cart>;
 
 neogeo_pcm2_mslug4_cart::neogeo_pcm2_mslug4_cart(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : neogeo_pcm2_cart(mconfig, NEOGEO_PCM2_MSLUG4_CART, "NEOGEO PCM2 mslug4 Cart", tag, owner, clock, "p2_mslug4_cart", __FILE__) {}
 
@@ -91,7 +91,7 @@ void neogeo_pcm2_mslug4_cart::decrypt_all(DECRYPT_ALL_PARAMS)
 }
 
 
-const device_type NEOGEO_PCM2_MS4PLUS_CART = &device_creator<neogeo_pcm2_ms4plus_cart>;
+const device_type NEOGEO_PCM2_MS4PLUS_CART = device_creator<neogeo_pcm2_ms4plus_cart>;
 
 neogeo_pcm2_ms4plus_cart::neogeo_pcm2_ms4plus_cart(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : neogeo_pcm2_cart(mconfig, NEOGEO_PCM2_MS4PLUS_CART, "NEOGEO PCM2 ms4plus Cart", tag, owner, clock, "p2_ms4plus_cart", __FILE__) {}
 
@@ -107,7 +107,7 @@ void neogeo_pcm2_ms4plus_cart::decrypt_all(DECRYPT_ALL_PARAMS)
  ROTD
 **************************************************/
 
-const device_type NEOGEO_PCM2_ROTD_CART = &device_creator<neogeo_pcm2_rotd_cart>;
+const device_type NEOGEO_PCM2_ROTD_CART = device_creator<neogeo_pcm2_rotd_cart>;
 
 neogeo_pcm2_rotd_cart::neogeo_pcm2_rotd_cart(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : neogeo_pcm2_cart(mconfig, NEOGEO_PCM2_ROTD_CART, "NEOGEO PCM2 rotd Cart", tag, owner, clock, "p2_rotd_cart", __FILE__) {}
 
@@ -123,7 +123,7 @@ void neogeo_pcm2_rotd_cart::decrypt_all(DECRYPT_ALL_PARAMS)
  PNYAA
 **************************************************/
 
-const device_type NEOGEO_PCM2_PNYAA_CART = &device_creator<neogeo_pcm2_pnyaa_cart>;
+const device_type NEOGEO_PCM2_PNYAA_CART = device_creator<neogeo_pcm2_pnyaa_cart>;
 
 neogeo_pcm2_pnyaa_cart::neogeo_pcm2_pnyaa_cart(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : neogeo_pcm2_cart(mconfig, NEOGEO_PCM2_PNYAA_CART, "NEOGEO PCM2 pnyaa Cart", tag, owner, clock, "p2_pnyaa_cart", __FILE__) {}
 

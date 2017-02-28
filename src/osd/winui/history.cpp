@@ -22,6 +22,8 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "screen.h"
+#include "speaker.h"
 #include "drivenum.h"
 #include "mui_util.h"
 #include "mui_opts.h"

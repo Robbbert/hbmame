@@ -6,6 +6,8 @@ Flower (c)1986 Komax (USA license)
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
+#include "screen.h"
+#include "speaker.h"
 
 class flower_state : public driver_device
 {
@@ -646,7 +648,7 @@ TODO:
 #define MIXER_DEFGAIN       48
 
 
-const device_type FLOWER = &device_creator<flower_sound_device>;
+const device_type FLOWER = device_creator<flower_sound_device>;
 
 flower_sound_device::flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, FLOWER, "Flower Audio Custom", tag, owner, clock, "flower_sound", __FILE__),

@@ -22,8 +22,9 @@
 #include "bus/neogeo/kof98_prot.h"
 #include "bus/neogeo/sbp_prot.h"
 #include "bus/neogeo/kog_prot.h"
-
 #include "bus/neogeo_ctrl/ctrl.h"
+#include "screen.h"
+#include "speaker.h"
 
 // On scanline 224, /VBLANK goes low 56 mclks (14 pixels) from the rising edge of /HSYNC.
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.

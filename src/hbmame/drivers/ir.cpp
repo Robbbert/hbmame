@@ -68,6 +68,8 @@
 #include "cpu/i8085/i8085.h"
 #include "machine/mb14241.h"
 #include "sound/samples.h"
+#include "screen.h"
+#include "speaker.h"
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)

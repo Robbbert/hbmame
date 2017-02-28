@@ -7,7 +7,7 @@
 
 
 
-extern const device_type KOF98_PROT = &device_creator<kof98_prot_device>;
+extern const device_type KOF98_PROT = device_creator<kof98_prot_device>;
 
 
 kof98_prot_device::kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)

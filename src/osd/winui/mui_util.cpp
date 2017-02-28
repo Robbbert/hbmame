@@ -18,6 +18,8 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "screen.h"
+#include "speaker.h"
 #include "unzip.h"
 #include "sound/samples.h"
 #include "winutf8.h"

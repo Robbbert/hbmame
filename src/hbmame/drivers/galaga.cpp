@@ -3,7 +3,7 @@
 #include "../mame/drivers/galaga.cpp"
 
 // Produce pacman death sound in galagost
-WRITE8_MEMBER( galaga_state::galaga_sample_w )
+WRITE8_MEMBER( galaga_hbmame::galaga_sample_w )
 {
 	switch ( data )
 	{
@@ -23,7 +23,7 @@ static const char *const galagost_sample_names[] =
 	0   /* end of array */
 };
 
-static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_state )
+static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM AM_WRITENOP         /* the only area different for each CPU */
 	AM_RANGE(0x6800, 0x6807) AM_READ(bosco_dsw_r)
 	AM_RANGE(0x6800, 0x681f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
@@ -39,7 +39,7 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_state )
 	AM_RANGE(0xa007, 0xa007) AM_WRITE(galaga_flip_screen_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( galagost, galaga )
+static MACHINE_CONFIG_DERIVED_CLASS( galagost, galaga, galaga_hbmame )
 	MCFG_CPU_MODIFY( "maincpu" )
 	MCFG_CPU_PROGRAM_MAP(galagost_map)
 
@@ -1095,7 +1095,7 @@ GAME( 1981, galagaf,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90
 GAME( 2007, galagap,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Don Hodges", "Galaga (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galagix,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Grand Master Peter", "Galagix", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, galagost, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90, "Twisty", "Galaga Ghost (Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2 - 20021128)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2 - 2002-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galaped,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Cary Barnhard", "Galapede (Fast Shoot)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galgaxin, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "T-Bone", "Galagalaxian", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, nebulbee, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "hack", "Nebulous Bee", MACHINE_SUPPORTS_SAVE )

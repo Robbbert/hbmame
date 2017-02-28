@@ -15,6 +15,8 @@ Galaxian running on Space Invaders hardware
 #include "machine/mb14241.h"
 #include "sound/discrete.h"
 #include "sound/samples.h"
+#include "screen.h"
+#include "speaker.h"
 #include "spacmissx.lh"
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
