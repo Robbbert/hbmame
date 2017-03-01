@@ -14400,6 +14400,7 @@ merlin                          // Parker Bros
 mmerlin                         // Parker Bros
 monkeysee                       // Tandy Radio Shack
 phpball                         // Tomy
+quizwizc                        // Coleco
 raisedvl                        // Entex
 simon                           // Milton Bradley
 speechp                         // TSI
@@ -35803,6 +35804,7 @@ timepltc                        // GX393 (c) 1982 + Centuri license
 
 @source:timetrv.cpp
 timetrv                         // (c) 1991.10 Virtual Image Productions
+timetrv2                        // (c) 1991.10 Virtual Image Productions
 
 @source:timex.cpp
 tc2048                          // 198? TC2048
