@@ -2,6 +2,8 @@
 // copyright-holders:Robbbert
 #include "sound/namco.h"
 #include "machine/watchdog.h"
+#include "screen.h"
+#include "speaker.h"
 
 /*************************************************************************
 

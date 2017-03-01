@@ -142,6 +142,7 @@ MACHINES["MIOT6530"] = true
 MACHINES["NETLIST"] = true
 MACHINES["RP5H01"] = true
 MACHINES["TIMEKPR"] = true
+MACHINES["TMS1024"] = true -- docastle
 MACHINES["TMS6100"] = true
 MACHINES["TTL74157"] = true
 MACHINES["UPD1990A"] = true
@@ -593,7 +594,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/vsnes.cpp",
 	MAME_DIR .. "src/mame/machine/vsnes.cpp",
 	MAME_DIR .. "src/mame/video/vsnes.cpp",
-	MAME_DIR .. "src/mame/video/ppu2c0x.cpp",
+	MAME_DIR .. "src/devices/video/ppu2c0x.cpp",
 	MAME_DIR .. "src/devices/machine/z80dma.cpp",
 
 }

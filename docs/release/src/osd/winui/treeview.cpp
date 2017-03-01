@@ -42,6 +42,7 @@
 #include "winutf8.h"
 #include "strconv.h"
 #include "drivenum.h"
+#include "screen.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf

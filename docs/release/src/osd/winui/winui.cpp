@@ -785,8 +785,6 @@ TCHAR last_directory[MAX_PATH];
    each time it changes */
 static UINT g_mame32_message = 0;
 
-static BOOL use_gui_romloading = FALSE;
-
 static BOOL g_listview_dragging = FALSE;
 static HIMAGELIST himl_drag;
 static int game_dragged; /* which game started the drag */
@@ -985,38 +983,18 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 
 int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
-	use_gui_romloading = TRUE;
-
 	if (__argc != 1)
 	{
 		/* Rename main because gcc will use it instead of WinMain even with -mwindows */
-		extern int /*DECL_SPEC*/ utf8_main(int, char*[]);
-		char **utf8_argv;
-		int i, rc;
+		extern int utf8_main(std::vector<std::string> &args);
+		std::vector<std::string> utf8_argv(__argc);
 
 		/* convert arguments to UTF-8 */
-		utf8_argv = (char **) malloc(__argc * sizeof(*__targv));
-		if (utf8_argv == NULL)
-			return 999;
-		for (i = 0; i < __argc; i++)
-		{
+		for (int i = 0; i < __argc; i++)
 			utf8_argv[i] = ui_utf8_from_wstring(__targv[i]);
-			if (utf8_argv[i] == NULL)
-			{
-				free(utf8_argv);
-				return 999;
-			}
-		}
 
 		/* run utf8_main */
-		rc = utf8_main(__argc, utf8_argv);
-
-		/* free arguments */
-		for (i = 0; i < __argc; i++)
-			free(utf8_argv[i]);
-		free(utf8_argv);
-
-		exit(rc);
+		exit(utf8_main(utf8_argv));
 	}
 	if (!Win32UI_init(hInstance, lpCmdLine, nCmdShow))
 		return 1;
@@ -1653,8 +1631,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	InitCommonControls();
 
 	// Are we using an Old comctl32.dll?
-	dprintf("common controlversion %ld %ld\n",common_control_version >> 16,
-			common_control_version & 0xffff);
+	dprintf("common controlversion %ld %ld\n",common_control_version >> 16, common_control_version & 0xffff);
 
 	oldControl = (common_control_version < PACKVERSION(4,71));
 	xpControl = (common_control_version >= PACKVERSION(6,0));
@@ -1662,13 +1639,9 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	{
 		char buf[] = MAMEUINAME " has detected an old version of comctl32.dll\n\n"
 					 "Game Properties, many configuration options and\n"
-					 "features are not available without an updated DLL\n\n"
-					 "Please install the common control update found at:\n\n"
-					 "http://www.microsoft.com/msdownload/ieplatform/ie/comctrlx86.asp\n\n"
-					 "Would you like to continue without using the new features?\n";
+					 "features are not available without an updated DLL\n\n";
 
-		if (IDNO == win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Warning", MB_YESNO | MB_ICONWARNING))
-			return FALSE;
+		win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Warning", MB_OK | MB_ICONWARNING);
 	}
 
 	g_mame32_message = RegisterWindowMessage(TEXT("MAME32"));

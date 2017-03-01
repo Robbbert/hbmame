@@ -10,7 +10,7 @@ ROM_START( cenmario )
 	ROM_LOAD( "tma1c-a2.7c",  0xf000, 0x1000, CRC(a3c11e9e) SHA1(d0612b0f8c2ea4e798f551922a04a324f4ed5f3d) )
 
 	ROM_REGION( 0x1800, "audiocpu", ROMREGION_ERASE00 )
-	ROM_LOAD( "tma1c-a.6k",   0x1000, 0x0800, CRC(06b9ff85) SHA1(111a29bcb9cda0d935675fa26eca6b099a88427f) )
+	ROM_LOAD( "tma1-c-6k_e.6k", 0x1000, 0x0800, CRC(06b9ff85) SHA1(111a29bcb9cda0d935675fa26eca6b099a88427f) )
 	ROM_CONTINUE(             0x0800, 0x0800)
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
@@ -26,7 +26,7 @@ ROM_START( cenmario )
 	ROM_LOAD( "cenmario.7u",  0x5000, 0x1000, CRC(19eef39f) SHA1(41ee5184eeee10d7b502f5a06a3b006242756e57) )
 
 	ROM_REGION( 0x0200, "proms", 0 )
-	ROM_LOAD( "tma1-c-4p.4p",     0x0000, 0x0200, CRC(afc9bd41) SHA1(90b739c4c7f24a88b6ac5ca29b06c032906a2801) )
+	ROM_LOAD( "tma1-c-4p.4p", 0x0000, 0x0200, CRC(afc9bd41) SHA1(90b739c4c7f24a88b6ac5ca29b06c032906a2801) )
 ROM_END
 
 GAME( 2002, cenmario, mario, mario, marioj, driver_device, 0, ROT0, "Marks Hacks", "Censored Mario Bros.", MACHINE_SUPPORTS_SAVE )

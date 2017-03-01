@@ -210,7 +210,7 @@ ROM_END
 
 ROM_START( kof2kce ) /* The King of Fighters 2000 - Colour fix by UNKNOWN - (Character colour change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257ce.p2",   0x100000, 0x400000, CRC(60b00b9b) SHA1(eb2ea3980dbd2fe4d15b9155d4de7593396f8555) )
 
 	NEO_SFIX_MT_512K
@@ -262,7 +262,7 @@ ROM_END
 
 ROM_START( kof2kcp ) /* The King of Fighters 2000 - Colour fix by UNKNOWN - (Character colour change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257cp.p2",  0x100000, 0x400000, CRC(a73339fd) SHA1(cce171fdb4e3be4b8431eea60b0bea36630bd94f) )
 
 	NEO_SFIX_MT_512K
@@ -498,7 +498,7 @@ ROM_END
 
 ROM_START( kof2kice ) /* The King of Fighters 2000 - Colour fix by Zhangshee - (Character colour change - attack cremation ice blue) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257ice.p2",  0x100000, 0x400000, CRC(95df1ddd) SHA1(faecf18584d5397a588a69d002968a341a12adcb) )
 
 	NEO_SFIX_MT_512K
@@ -550,7 +550,7 @@ ROM_END
 
 ROM_START( kof2kjlc ) /* The King of Fighters 2000 - Colour fix by Jui Lee - (Character colour change for Athena 2P and Kula 2P) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257jlc.p2",  0x100000, 0x400000, CRC(dc36885b) SHA1(b192edc43f598434877df3e2deddca53473bf537) )
 
 	NEO_SFIX_MT_512K
@@ -680,7 +680,7 @@ ROM_END
 
 ROM_START( kof2kpjc ) /* The King of Fighters 2000 - Colour fix by TcwLee - (Colour fix 20030720) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257pjc.p2",  0x100000, 0x400000, CRC(3f94a4d3) SHA1(8fd23e05bde49e9ff25f070338b947c53bbf603f) )
 
 	NEO_SFIX_MT_512K
@@ -706,7 +706,7 @@ ROM_END
 
 ROM_START( kof2kpjc1 ) /* [OLD] The King of Fighters 2000 N - (kof2kpjco) - Colour fix by TcwLee - (Colour fix - entire role change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257pjc1.p2", 0x100000, 0x400000, CRC(c954c944) SHA1(3ca35a5393351ee22ef651f8984067b18aa02144) )
 
 	NEO_SFIX_MT_512K
@@ -732,7 +732,7 @@ ROM_END
 
 ROM_START( kof2kpjc2 ) /* [OLD] The King of Fighters 2000 N - (kof2kc2) - Colour fix by TcwLee - (Colour fix ver. 2) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257pjc2.p2", 0x100000, 0x400000, CRC(136bd0a4) SHA1(5549ba017a9c633a3652ad3fc0d1c41bc247cdcd) )
 
 	NEO_SFIX_MT_512K
@@ -758,7 +758,7 @@ ROM_END
 
 ROM_START( kof2kpjc3 ) /* [OLD] The King of Fighters 2000 N - (kof2kpjco2) - Colour fix by TcwLee - (Colour change - striker not perfect 20030302) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257-pg1,p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
+	ROM_LOAD16_WORD_SWAP( "257-pg1.p1", 0x000000, 0x100000, CRC(5f809dbe) SHA1(2bc233dcff5622de86d01e3b74b840c7caf12982) )
 	ROM_LOAD16_WORD_SWAP( "257pjc3.p2", 0x100000, 0x400000, CRC(22bf407a) SHA1(dba889edbe0bd641ce678f0ffc79afed24659bde) )
 
 	NEO_SFIX_MT_512K

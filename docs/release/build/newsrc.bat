@@ -7,6 +7,7 @@ md %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src\version.cpp
 copy /Y %from%\src\emu\validity.cpp %to%\src\emu
 copy /Y %from%\src\emu\digfx.h %to%\src\emu
+copy /Y %from%\src\emu\emuopts.* %to%\src\emu
 copy /Y %from%\src\emu\gamedrv.h %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src
@@ -22,7 +23,6 @@ md %to%\src\mame\drivers
 md %to%\src\mame\includes
 md %to%\src\mame\video
 copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
-copy /Y %from%\src\mame\drivers\neogeo_noslot.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\includes\cps3.h %to%\src\mame\includes
 copy /Y %from%\src\mame\video\neogeo_spr.cpp %to%\src\mame\video
 

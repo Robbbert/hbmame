@@ -1,6 +1,8 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 #include "../mame/drivers/dotrikun.cpp"
+//#include "screen.h"
+#include "speaker.h"
 
 // http://www.chrismcovell.com/dottorikun.html
 

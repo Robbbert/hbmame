@@ -6,7 +6,7 @@
 
 
 
-extern const device_type CMC_PROT = &device_creator<cmc_prot_device>;
+extern const device_type CMC_PROT = device_creator<cmc_prot_device>;
 
 
 cmc_prot_device::cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)

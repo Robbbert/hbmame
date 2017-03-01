@@ -18,6 +18,8 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "screen.h"
+#include "speaker.h"
 #include "unzip.h"
 #include "sound/samples.h"
 #include "winutf8.h"
@@ -376,7 +378,7 @@ static void InitDriversInfo(void)
 		machine_config config(*gamedrv, MameUIGlobal());
 
 		gameinfo->isClone = (GetParentRomSetIndex(gamedrv) != -1);
-		gameinfo->isBroken = ((gamedrv->flags & MACHINE_NOT_WORKING) != 0);
+		gameinfo->isBroken = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
 		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
 		gameinfo->isHarddisk = FALSE;
 		gameinfo->isVertical = (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
@@ -475,7 +477,7 @@ static int InitDriversCache(void)
 			break;
 		}
 
-		gameinfo->isBroken          = ((gamedrv->flags & MACHINE_NOT_WORKING)   != 0);
+		gameinfo->isBroken  = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
 		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
 		gameinfo->isVertical        =  (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
 		gameinfo->screenCount       =   cache & DRIVER_CACHE_SCREEN;

@@ -104,6 +104,7 @@ b) Exit the dialog.
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "screen.h"
 #include "mui_audit.h"
 #include "mui_opts.h"
 #include "resource.h"
@@ -116,7 +117,6 @@ b) Exit the dialog.
 #include "winutf8.h"
 #include "directories.h"
 #include "sound/samples.h"
-//#include "sound/vlm5030.h"    // why is this device treated as samples?
 
 #ifdef _MSC_VER
 #define snprintf _snprintf

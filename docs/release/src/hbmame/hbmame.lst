@@ -798,7 +798,6 @@ kof97rst2
 kof97rst3
 kof97rv
 kof97saw
-kof97sed
 kof97sex
 kof97shi
 kof97sm
@@ -1377,6 +1376,7 @@ alpaca7		/* Jerronimo (useless) */
 alpaca8		/* Jerronimo (useless) */
 bace		/* Widel's Games */
 crashh		/* PacMAME Hacks */
+deathstar
 dderby		/* Widel's Games */
 eyesb
 ghohunt		// Hurray Banana
@@ -1393,6 +1393,7 @@ ppong2		/* Widel's Games */
 rainboh		/* Widel's Games */
 seq1		/* Jerronimo */
 seq2		/* Jerronimo */
+snakes
 tst_pacm
 wavybug
 zap			/* Widel's Games */
@@ -2041,11 +2042,15 @@ kabukiklgmc
 kabukiklmc
 kabukiklyc
 karnovreh
+kizunab
 kizunaeh
 lans2k4d
 lbowlingcd
+lresortpx
 magdrop3fr	/* Neo-Arc French Trans */
+maglordpx
 matrima
+matrimbh
 matrimd
 matrimdh
 matrimeh
@@ -2055,15 +2060,21 @@ miexchngfr	/* Neo-Arc French Trans */
 mutnatex
 nam1975g
 nam1975h
+ncombatpk
+ncommandsp
 neocup98k
+ninjamasasp
+ninjamaschl
 ninjamaseh
 ninjamasehc
 ninjamasehyc
 ninjamasha
+ninjamashb
 nitdd
 nitdfr		/* Neo-Arc French Trans */
 nitdfro		/* Neo-Arc French Trans */
 nitdfro1
+nitdpx
 nitdsp
 nitdsp1		// Spanish.Rev2
 nitdsp2
@@ -2072,14 +2083,21 @@ pbcrazyb2
 pbobblenba
 pbobblencd
 pbobblendx
-pbobblenh
 pnyaad
 preisle2d
+preisle2px
 //pspikes2cd // not working
+ragnagrdbe
+ragnagrdbs
 ragnagrdeh
+ragnagrdsb
 s1945pd
+s1945peh
+s1945ph
 s1945pwe
+savagereb
 savageredb
+sdodgebp
 shocktr2px
 shocktr2w
 shocktrosp
@@ -2170,16 +2188,19 @@ kogplusf
 	/* nglastblade */
 lba
 lbb
+lbd
 lbe
 lbboss
 lbeh
 lbeh2
-lbseh
 lbeho
 lbha
+lbseh
+lbsk
 lby
 lb2a
 lb2b
+lb2bh
 lb2bhd
 lb2easy
 lb2ed
@@ -2190,6 +2211,7 @@ lb2eho
 lb2ehu
 lb2pl
 lb2te
+lb2uh
 lb2wh
 lb2yd
 
@@ -2224,6 +2246,7 @@ rbff2y
 	/* ngrotd */
 rotdb
 rotdb1
+rotdbh
 rotdbr
 rotdbr1
 rotdbr2
@@ -2246,18 +2269,32 @@ rotdnd
 rotdyc
 
 	/* ngsamsho */
+fswordsb1
+fswordsb2
+fswordsbf
 samshob
 samshoeh
 samshoeh2
+samshos1
+samshozk
 samsho2b
 samsho2eh
+samsho2emb
+samsho2hy
+samsho2mb
+samsho2q
+samsho2s2
 samsho2sq
 samsho2ss
 samsho2yc
+samsho2zk
 samsho3eh
 samsho3hb
-samsho3yc
+samsho3s2
 samsho3se
+samsho3ss
+samsho3yc
+samsho3zk
 samsho4bh
 samsho4cz
 samsho4eh
@@ -2267,15 +2304,24 @@ samsho4ew
 samsho4fc
 samsho4kw
 samsho4kz
+samsho4mb
+samsho4pm
 samsho4ps
+samsho4s2
 samsho4wh
+samsho4zk
+samsho5ba
 samsho5bd
+samsho5bh
 samsho5bs
 samsho5ch
 samsho5d
 samsho5d1
+samsho5ge
 samsho5hd
+samsho5s2
 samsho5x
+samsho5zk
 samsh5spd
 samsh5spd1
 samsh5spd2
@@ -2295,29 +2341,45 @@ sengoku3b
 sengoku3c
 sengoku3d
 sengoku3eb
+sengoku3eh
 sengoku3ha
 sengoku3k
 sengoku3kc
 sengoku3p
 sengoku3pl
+sengoku3s
 sengoku3ya
 sengoku3yk
 
 	/* ngsvc */
+svccprw
 svcd
 svcd1
+svcee
 svcesv
+svcg
 svch
+svch2
+svcice
+svclspc
 svcnd
+svcnh
 svcpcbd
 svcplusa2016
 svcplusb
 svcplusd
+svcplusg
+svcplusp
+svcplusp2
 svcpryu
 svcps2
 svcrm
+svcryu
+svcspjoy
 svcsplus2016
 svcspryu
+svcstdse
+svcxlb
 
 	/* ngwh */
 whpb

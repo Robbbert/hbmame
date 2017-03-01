@@ -391,10 +391,10 @@ CAPTION "About MAMEUI"
 FONT 8, "Tahoma"
 BEGIN
     DEFPUSHBUTTON   "&OK",IDOK,200,109,50,14,WS_GROUP
-    CTEXT           "Multiple Arcade Machine Emulator",IDC_STATIC,147,7,142,
+    CTEXT           "HomeBrew MAME",IDC_STATIC,147,7,142,
                     11,NOT WS_GROUP
     CTEXT           "Version 0",IDC_VERSION,147,18,142,11,NOT WS_GROUP
-    CTEXT           "Copyright (C) 1997-2016 The MAME Team",IDC_STATIC,147,
+    CTEXT           "Copyright (C) 1997-2017 The HBMAME Team",IDC_STATIC,147,
                     29,142,10,NOT WS_GROUP
     CTEXT           "MAMEUI version by",IDC_STATIC,147,51,142,10,NOT 
                     WS_GROUP

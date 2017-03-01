@@ -12,7 +12,7 @@
 //  GLOBAL VARIABLES
 //**************************************************************************
 
-const device_type NEOGEO_CART_SLOT = &device_creator<neogeo_cart_slot_device>;
+const device_type NEOGEO_CART_SLOT = device_creator<neogeo_cart_slot_device>;
 
 
 

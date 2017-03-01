@@ -58,6 +58,7 @@ NUM TITLES
 069 Fatal Fury 3 / Garoudensetsu 3; The Battle of Destiny; Road to the Final Victory
 076 Zed Blade / Operation Ragnarok
 079 Street Hoop / Dunk Dream
+087 Samurai Shodown III / Fighters Swords
 092 Kabuki Klash / Far East of Eden
 200 Neo Turf Masters / Big Tournament Golf
 215 Super Sidekicks 4 / SNK Football Championship

@@ -73,18 +73,12 @@ public:
 	DECLARE_DRIVER_INIT(rotdb);
 	DECLARE_DRIVER_INIT(rotdd);
 	DECLARE_DRIVER_INIT(rotdnd);
-	DECLARE_DRIVER_INIT(samsh5sd);
-	DECLARE_DRIVER_INIT(samsho5d);
-	DECLARE_DRIVER_INIT(samsh5hd);
-	DECLARE_DRIVER_INIT(samsh5spd);
-	DECLARE_DRIVER_INIT(samsho5hd);
+	DECLARE_DRIVER_INIT(sam5hb);
+	DECLARE_DRIVER_INIT(sam5sphb);
 	DECLARE_DRIVER_INIT(sengo3d);
 	DECLARE_DRIVER_INIT(shockt2w);
-	DECLARE_DRIVER_INIT(svcd);
-	DECLARE_DRIVER_INIT(svcd1);
+	DECLARE_DRIVER_INIT(svchb);
 	DECLARE_DRIVER_INIT(svcpcd);
-	DECLARE_DRIVER_INIT(svcplusb);
-	DECLARE_DRIVER_INIT(svcplusd);
 private:
 	optional_device<kog_prot_device> m_kog_prot;
 };

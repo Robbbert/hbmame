@@ -62,6 +62,7 @@ Background should be blue. In-game, it is black above the water. Scores have a b
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
+#include "screen.h"
 
 class marinedt_state : public driver_device
 {
