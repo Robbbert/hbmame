@@ -482,7 +482,7 @@ ROM_START( mooncmst )
 	ROM_LOAD( "mmcs_c",       0x1800, 0x0800, CRC(50e37124) SHA1(ae07715733e864eadc3b4586c3e9f1852a4cf127) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "prom.6l",      0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
+	ROM_LOAD( "mmi6331.6l",   0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
 ROM_END
 
 
@@ -502,7 +502,7 @@ ROM_START( mooncrs5 )
 	ROM_LOAD( "mooncrs5.7b", 0x3400, 0x0400, CRC(aed8acb2) SHA1(a2429daba96e6c064f4bc65cab2df6b15a43bf44) )
 	ROM_LOAD( "mooncrs5.fake", 0x3800, 0x0400, CRC(76db94a5) SHA1(f7d9c81d5e09f7e42258caf265606b1ba32439dd) ) /* fake rom */
 	ROM_LOAD( "mooncrs5.7d", 0x3c00, 0x0400, CRC(db0528cf) SHA1(be06b78d890e07fcbbfd6931d1a59ab0fb8b7a53) )
-	ROM_FILL(0x3FF4,1,0x2c )	/* patch unused byte so checksum test can be passed */
+	ROM_FILL(0x3FF4,1,0x2c ) /* patch unused byte so checksum test can be passed */
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "mooncrs5.1h", 0x0800, 0x0800, CRC(60d783bc) SHA1(584a0600ef1c47fb8bce86f738af7691fdf91c9c) )
@@ -512,7 +512,7 @@ ROM_START( mooncrs5 )
 
 	ROM_REGION( 0x0020, "proms", 0 )
 //	ROM_LOAD( "6l.bpr",      0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
-	ROM_LOAD( "prom.6l",     0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
+	ROM_LOAD( "mmi6331.6l",  0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
 ROM_END
 
 // Mr. Do. Nightmare

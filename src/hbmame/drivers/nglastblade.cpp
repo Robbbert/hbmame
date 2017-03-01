@@ -371,7 +371,7 @@ ROM_END
 ROM_START( lb2bhd ) /* The Last Blade 2 - Super Enhance Hack by Dodowang - (Can choose bosses -> icons in menu - after character selection choose "SPEED" -> press c -> EX - mode enabled) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "243bhd.p1",   0x000000, 0x100000, CRC(f4e141cf) SHA1(515a101c1fc7b038603afc56121d240738e68090) )
-	ROM_LOAD16_WORD_SWAP( "243-sp2.pg2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
+	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243b.s1", CRC(357e4638) SHA1(92bfc78749c00662225ada98eecc562fd2984e3e) )
 
@@ -611,7 +611,7 @@ ROM_END
 ROM_START( lb2uh ) // lastb2uh in multijet
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "243uh.p1",    0x000000, 0x100000, CRC(158d66bd) SHA1(21a518465a21760e8df5bfe39c87abed07f8d654) )
-	ROM_LOAD16_WORD_SWAP( "243-sp2.pg2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
+	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243b.s1", CRC(357e4638) SHA1(92bfc78749c00662225ada98eecc562fd2984e3e) )
 

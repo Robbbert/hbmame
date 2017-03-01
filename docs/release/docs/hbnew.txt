@@ -1,20 +1,27 @@
 What's new in HBMAME
 ====================
 
-2017-03-29 0.184
+2017-03-01 0.183
 ----------------
 
+- kizunaeh set name was corrected to kizunab, and the correct kizunaeh added.
+- corrected the parent of ragnagrdeh
 
-New Games
----------
+
+New Working Games
+-----------------
 - [deathstar]       Death Star (by Stefano Bodrato)
 - [fswordsb1]       Fighters Swords (Boss Hack v1.0)
 - [fswordsb2]       Fighters Swords (Boss Hack v2.0)
 - [fswordsbf]       Fighters Swords (Boss Hack v1.0f)
+- [kizunaeh]        Kizuna Encounter (Easy Moves hack by 007325 2009-02-23)
 - [lbd]             Last Blade (Boss hack by Creamymami/Kurouri/Wesker/Ydmis)
 - [lbsk]            Last Blade Special Moves Revision Final (EGCG)
 - [lb2bh]           Last Blade 2 (Boss Easy Moves hack by 007325 2009-03-06)
 - [lb2uh]           Last Blade 2 (Yano's Ultimate hack)
+- [lresortpx]       Last Resort (Plus Max hack by Xyahzhs)
+- [maglordpx]       Magician Lord (Plus Max hack by Xyahzhs)
+- [matrimbh]        Matrimelee (Boss hack by Creamymami (EGCG))
 - [ncombatpk]       Ninja Combat (Plus hack by Krizal chen (Dsght))
 - [ncommandsp]      Ninja Commando (Super Plus hack by e107 2009-08-16)
 - [ninjamasasp]     Ninja Master's (Plus Remixed by ZKW)
