@@ -71,6 +71,7 @@ private:
 
 	// INI parsing helper
 	static bool parse_one_ini(emu_options &options, const char *basename, int priority, std::string *error_string = nullptr);
+	static bool parse_org_ini(emu_options &options, const char *basename, int priority, std::string *error_string = nullptr); // MESSUI
 
 	// softlist handling
 	static std::map<std::string, std::string> evaluate_initial_softlist_options(emu_options &options);

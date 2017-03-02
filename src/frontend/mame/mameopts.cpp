@@ -387,7 +387,7 @@ void mame_options::parse_standard_inis(emu_options &options, std::string &error_
 
 	// parse the INI file defined by the platform (e.g., "mame.ini")
 	// we do this twice so that the first file can change the INI path
-	parse_one_ini(options,emulator_info::get_configname(), OPTION_PRIORITY_MAME_INI);
+	parse_org_ini(options,emulator_info::get_configname(), OPTION_PRIORITY_MAME_INI); // MESSUI
 	parse_one_ini(options,emulator_info::get_configname(), OPTION_PRIORITY_MAME_INI, &error_string);
 
 	// debug mode: parse "debug.ini" as well
@@ -563,6 +563,32 @@ bool mame_options::parse_one_ini(emu_options &options, const char *basename, int
 
 	// open the file; if we fail, that's ok
 	emu_file file(options.ini_path(), OPEN_FLAG_READ);
+	osd_printf_verbose("Attempting load of %s.ini\n", basename);
+	osd_file::error filerr = file.open(basename, ".ini");
+	if (filerr != osd_file::error::NONE)
+		return false;
+
+	// parse the file
+	osd_printf_verbose("Parsing %s.ini\n", basename);
+	std::string error;
+	bool result = options.parse_ini_file((util::core_file&)file, priority, OPTION_PRIORITY_DRIVER_INI, error);
+
+	// append errors if requested
+	if (!error.empty() && error_string)
+		error_string->append(string_format("While parsing %s:\n%s\n", file.fullpath(), error));
+
+	return result;
+}
+
+// MESSUI - First read of mame.ini must be from the root
+bool mame_options::parse_org_ini(emu_options &options, const char *basename, int priority, std::string *error_string)
+{
+	// don't parse if it has been disabled
+	if (!options.read_config())
+		return false;
+
+	// open the file; if we fail, that's ok
+	emu_file file(".", OPEN_FLAG_READ);
 	osd_printf_verbose("Attempting load of %s.ini\n", basename);
 	osd_file::error filerr = file.open(basename, ".ini");
 	if (filerr != osd_file::error::NONE)
