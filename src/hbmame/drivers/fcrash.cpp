@@ -1861,7 +1861,7 @@ ROM_START( ffightbl )
 	ROM_FILL(0x2610, 1, 7)  // fix transitions HBMAME
 
 	ROM_REGION( 0x30000, "audiocpu", 0 ) /* Audio CPU + Sample Data */
-	ROM_LOAD( "ff1.bin",   0x00000, 0x20000, CRC(5b276c14) SHA1(73e53c077d4e3c1b919eee28b29e34176ee204f8) )
+	ROM_LOAD( "1.bin",   0x00000, 0x20000, CRC(5b276c14) SHA1(73e53c077d4e3c1b919eee28b29e34176ee204f8) )
 	ROM_RELOAD(          0x10000, 0x20000 )
 
 	ROM_REGION( 0x200000, "gfx", 0 )

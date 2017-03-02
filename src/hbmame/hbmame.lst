@@ -839,7 +839,6 @@ kof98ae2 //black splashes all over fight scene where cars speed past
 kof98ae3 //black splashes all over fight scene where cars speed past
 kof98ae20160308 //black splashes all over fight scene where cars speed past
 kof98ae20160827 //black splashes all over fight scene where cars speed past
-kof98b
 kof98bh
 kof98c2006
 kof98c20070720
@@ -2129,7 +2128,6 @@ zupapad
 dbdehy
 dbdy
 dbdeh
-dbdeh1
 dbdq
 dbdqb
 dbdqp
@@ -2277,7 +2275,6 @@ samshoeh
 samshoeh2
 samshos1
 samshozk
-samsho2b
 samsho2eh
 samsho2emb
 samsho2hy
@@ -2772,13 +2769,11 @@ bubbleb 	/* pbobble USA Region Hack */
 f2demo		/* Charles Doty */
 
 	/* taito_f3 */
-arkretrn	//parent
 cleopatr	//parent
 dariusg		//parent
 gekiridn	//parent
 landmakr	//parent
 pbobble2	//parent
-arkretrh
 cleopath
 driusgxh
 //f3demo		/* Antiriad (a demo made for Raine, not tested on real hardware) - not working */

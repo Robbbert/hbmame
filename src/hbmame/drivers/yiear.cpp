@@ -20,8 +20,8 @@ ROM_START( nacho )
 	ROM_REGION( 0x0020, "proms", 0 )
 	ROM_LOAD( "yiear.clr",    0x00000, 0x0020, CRC(c283d71f) SHA1(10cd39f4e951ba6ca5610081c8c1fcd9d68b34d2) )
 
-	ROM_REGION( 0x2000, "vlm", 0 )	/* 8k for the VLM5030 data */
-	ROM_LOAD( "a12_9.bin",    0x00000, 0x2000, CRC(f75a1539) SHA1(f139f6cb41351eb81ee47d777db03012aa5fadb1) )
+	ROM_REGION( 0x2000, "vlm", 0 )
+	ROM_LOAD( "407_c09.8b",   0x00000, 0x2000, CRC(f75a1539) SHA1(f139f6cb41351eb81ee47d777db03012aa5fadb1) )
 ROM_END
 
 GAME( 2009, nacho, yiear, yiear, yiear, driver_device, 0, ROT0, "Gatinho", "Nacho Libre", MACHINE_SUPPORTS_SAVE )
