@@ -262,6 +262,8 @@ sk2h11		/* 1992 Sangokushi II (Hack 1) */
 sk2h12		/* 1992 Sangokushi II (Hack 2) */
 sk2h13		/* 1992 Sangokushi II (Hack 3) */
 sk2h14		/* Chinese language */
+sk2h15		// wofaehp
+sk2h16		// wofahp2
 sk2h21		/* 1997  Three Sword Masters / San Jian Sheng */
 sk2h22		// San Jian Sheng (Chinese bootleg of Sangokushi II
 sk2h31		/* 1997  Three Holy Swords / San Sheng Jian */
@@ -273,64 +275,62 @@ sk2h31q
 sk2h32q
 sk2h33q
 sk2h34q
+sk3p1		// wofchdx
+sk3p2		// wofchdx1
+sk3p3		// wofchdx2
 slammastud
 stridergf	// fix unwanted black specks
 stridergh	// as above, and uncensored
-sk2h15		// wofaehp
-sk2h16		// wofahp2
+tk2c1		// wofbio
+tk2c2		// wofbt
+tk2c3		// wofctj
+tk2c4		// wofdy
+tk2c5		// wofdyg
+tk2c6		// woffh
+tk2c7		// wofgyc
+tk2c8		// wofgyq
+tk2c9		// wofhgz
+tk2c10		// wofhzj
+tk2c11		// wofjjq
+tk2c12		// wofjqz
+tk2c13		// wofmr
+tk2c14		// wofsbl
+tk2c15		// wofsjj
+tk2c16		// wofsz
+tk2c17		// wofyjs
+tk2c18		// wofyxg
+tk2c19		// wofzhs
+tk2c20		// wofzhy
+tk2c21		// wofzy2
+tk2c22		// wofzy3
+tk2c23		// wofzyq
+tk2h1		// wofjh
+tk2h2		// wofjhb, was dynwarjh before rom loading was figured out
+tk2h3		// wofjhc, was dynwarj2 before rom loading was figured out
+tk2h4		// wofjh2
+tk2h5		// wofjcn
+tk2h6		// wofjd
+tk2h7		// wofjehp
+tk2h8		// wofjhdwb
+tk2h9		// wofjhp2
+tk2h10		// wofjm
+tk2h11		// wofjmjp
+tk2h12		// wofjpsrw
+tk2h13		// wofjrabh
+tk2h14		// wofjrlb
+//tk2h15		// wofjrpbs exception in first demo
+//tk2h16		// wofjv10s exception in first demo
+tk2h17		// wofjzcr1
+tk2h18		// wofjzero
+tk2p2		// wofch_v3
+tk2p3		// wofchspp
 wofb
-wofbio
-wofbt
-wofch
-wofch_v3
-wofchdx
-wofchdx1
-wofchdx2
-wofchspp
-wofctj
-wofdy
-wofdyg
+wofch		// tk2p1
 wofes
-woffh
 woffr		/* Neo-Arc French Trans */
-wofgyc
-wofgyq
-wofhgz
-wofhzj
-wofjcn		// chinese language
-wofjd
-wofjehp
-wofjh
-wofjh2
-wofjhb		// was dynwarjh in another life
-wofjhc		// was dynwarj2 in another life
-wofjhdwb
-wofjhp2
-wofjjq
-wofjm
-wofjmsp
-wofjpsrw
-wofjqz
-wofjrabh
-wofjrlb
-//wofjrpbs   exception in first demo
-//wofjv10s   exception in first demo
-wofjzcr1
-wofjzero
-wofmr
 wofr1h
-wofsbl
 wofsf2
-wofsjj
-wofsz
 wofud
-wofyjs
-wofyxg
-wofzhs
-wofzhy
-wofzy2
-wofzy3
-wofzyq
 
 	/* cps2 */
 // CPS2 PARENTS ***
