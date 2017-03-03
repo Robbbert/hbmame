@@ -1323,7 +1323,7 @@ MACHINE_CONFIG_START( neogeo_base, neogeo_state )
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
 
-	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE_OPTIMZIED, 0)
+	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE_OPTIMISED, 0)
 
 	/* audio hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
