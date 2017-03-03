@@ -120,26 +120,3 @@ public:
 };
 
 extern const device_type NEOGEO_SPRITE_OPTIMISED;
-
-
-
-
-
-class neosprite_midas_device : public neosprite_base_device
-{
-public:
-	neosprite_midas_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-
-	virtual void draw_pixel(int romaddr, uint32_t* dst, const pen_t *line_pens) override;
-
-	std::unique_ptr<uint16_t[]> m_videoram_buffer;
-	void buffer_vram();
-	virtual void draw_fixed_layer_2pixels(uint32_t*&pixel_addr, int offset, uint8_t* gfx_base, const pen_t* char_pens) override;
-	virtual void set_sprite_region(uint8_t* region_sprites, uint32_t region_sprites_size) override;
-
-	protected:
-	virtual void device_start() override;
-
-};
-
-extern const device_type NEOGEO_SPRITE_MIDAS;
