@@ -5,7 +5,7 @@
 
 
 
-extern const device_type SMA_PROT = device_creator<sma_prot_device>;
+const device_type SMA_PROT = device_creator<sma_prot_device>;
 
 
 sma_prot_device::sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)

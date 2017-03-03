@@ -55,12 +55,6 @@ void neogeo_cart_slot_device::device_start()
 //  complete
 //-------------------------------------------------
 
-void neogeo_cart_slot_device::device_config_complete()
-{
-	// set brief and instance name
-	update_names();
-}
-
 
 
 /*-------------------------------------------------

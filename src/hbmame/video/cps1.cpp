@@ -513,7 +513,6 @@ static const struct gfx_range mapper_LWCHR_table[] =
 	/* type            start    end      bank */
 	{ GFXTYPE_SPRITES, 0x00000, 0x07fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x00000, 0x1ffff, 0 },
-
 	{ GFXTYPE_STARS,   0x00000, 0x1ffff, 1 },
 	{ GFXTYPE_SCROLL2, 0x00000, 0x1ffff, 1 },
 	{ GFXTYPE_SCROLL3, 0x00000, 0x1ffff, 1 },
@@ -545,7 +544,6 @@ static const struct gfx_range mapper_LW621_table[] =
 	/* type            start    end      bank */
 	{ GFXTYPE_SPRITES, 0x00000, 0x07fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x00000, 0x1ffff, 0 },
-
 	{ GFXTYPE_STARS,   0x00000, 0x1ffff, 1 },
 	{ GFXTYPE_SCROLL2, 0x00000, 0x1ffff, 1 },
 	{ GFXTYPE_SCROLL3, 0x00000, 0x1ffff, 1 },
@@ -570,9 +568,7 @@ static const struct gfx_range mapper_DM620_table[] =
 
 	/* type            start   end     bank */
 	{ GFXTYPE_SCROLL3, 0x8000, 0xbfff, 1 },
-
 	{ GFXTYPE_SPRITES, 0x2000, 0x3fff, 2 },
-
 	{ GFXTYPE_STARS | GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x1ffff, 0 },
 	{ 0 }
 };
@@ -589,11 +585,8 @@ static const struct gfx_range mapper_DM22A_table[] =
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x00000, 0x01fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x02000, 0x03fff, 0 },
-
 	{ GFXTYPE_SCROLL2, 0x04000, 0x07fff, 1 },
-
 	{ GFXTYPE_SCROLL3, 0x00000, 0x1ffff, 2 },
-
 	{ GFXTYPE_SPRITES, 0x02000, 0x03fff, 3 },
 	{ 0 }
 };
@@ -610,7 +603,6 @@ static const struct gfx_range mapper_DAM63B_table[] =
 	{ GFXTYPE_SPRITES, 0x00000, 0x01fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x02000, 0x02fff, 0 },
 	{ GFXTYPE_SCROLL2, 0x04000, 0x07fff, 0 },
-
 	{ GFXTYPE_SCROLL3, 0x00000, 0x1ffff, 1 },
 	{ GFXTYPE_SPRITES, 0x02000, 0x03fff, 1 },
 	{ 0 }
@@ -632,7 +624,6 @@ static const struct gfx_range mapper_ST24M1_table[] =
 	{ GFXTYPE_STARS,   0x00000, 0x003ff, 0 },
 	{ GFXTYPE_SPRITES, 0x00000, 0x04fff, 0 },
 	{ GFXTYPE_SCROLL2, 0x04000, 0x07fff, 0 },
-
 	{ GFXTYPE_SCROLL3, 0x00000, 0x07fff, 1 },
 	{ GFXTYPE_SCROLL1, 0x07000, 0x07fff, 1 },
 	{ 0 }
@@ -650,12 +641,9 @@ static const struct gfx_range mapper_ST22B_table[] =
 	/* type            start    end      bank */
 	{ GFXTYPE_STARS,   0x00000, 0x1ffff, 0 },
 	{ GFXTYPE_SPRITES, 0x00000, 0x03fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x04000, 0x04fff, 1 },
 	{ GFXTYPE_SCROLL2, 0x04000, 0x07fff, 1 },
-
 	{ GFXTYPE_SCROLL3, 0x00000, 0x03fff, 2 },
-
 	{ GFXTYPE_SCROLL3, 0x04000, 0x07fff, 3 },
 	{ GFXTYPE_SCROLL1, 0x07000, 0x07fff, 3 },
 	{ 0 }
@@ -673,12 +661,9 @@ static const struct gfx_range mapper_TK22B_table[] =
 
 	/* type            start  end      bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x4000, 0x5fff, 1 },
 	{ GFXTYPE_SCROLL1, 0x6000, 0x7fff, 1 },
-
 	{ GFXTYPE_SCROLL3, 0x0000, 0x3fff, 2 },
-
 	{ GFXTYPE_SCROLL2, 0x4000, 0x7fff, 3 },
 	{ 0 }
 };
@@ -696,7 +681,6 @@ static const struct gfx_range mapper_WL24B_table[] =
 	{ GFXTYPE_SPRITES, 0x0000, 0x4fff, 0 },
 	{ GFXTYPE_SCROLL3, 0x5000, 0x6fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x7000, 0x7fff, 0 },
-
 	{ GFXTYPE_SCROLL2, 0x0000, 0x3fff, 1 },
 	{ 0 }
 };
@@ -788,7 +772,6 @@ static const struct gfx_range mapper_AR22B_table[] =
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x2fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x3000, 0x3fff, 0 },
-
 	{ GFXTYPE_SCROLL2, 0x4000, 0x5fff, 1 },
 	{ GFXTYPE_SCROLL3, 0x6000, 0x7fff, 1 },
 	{ 0 }
@@ -815,7 +798,6 @@ static const struct gfx_range mapper_O224B_table[] =
 	{ GFXTYPE_SCROLL2, 0x0c00, 0x3bff, 0 },
 	{ GFXTYPE_SCROLL3, 0x3c00, 0x4bff, 0 },
 	{ GFXTYPE_SPRITES, 0x4c00, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x8000, 0xa7ff, 1 },
 	{ GFXTYPE_SCROLL2, 0xa800, 0xb7ff, 1 },
 	{ GFXTYPE_SCROLL3, 0xb800, 0xbfff, 1 },
@@ -926,7 +908,6 @@ static const struct gfx_range mapper_CA22B_table[] =
 	{ GFXTYPE_SPRITES, 0x0000, 0x2fff, 0 },
 	{ GFXTYPE_SCROLL2, 0x0000, 0x2fff, 0 },
 	{ GFXTYPE_SCROLL3, 0x3000, 0x3fff, 0 },
-
 	{ GFXTYPE_SCROLL3, 0x4000, 0x4fff, 1 },
 	{ GFXTYPE_SCROLL1, 0x5000, 0x57ff, 1 },
 	{ GFXTYPE_SPRITES, 0x5800, 0x7fff, 1 },
@@ -945,9 +926,7 @@ static const struct gfx_range mapper_STF29_table[] =
 
 	/* type            start    end      bank */
 	{ GFXTYPE_SPRITES, 0x00000, 0x07fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x08000, 0x0ffff, 1 },
-
 	{ GFXTYPE_SPRITES, 0x10000, 0x11fff, 2 },
 	{ GFXTYPE_SCROLL3, 0x02000, 0x03fff, 2 },
 	{ GFXTYPE_SCROLL1, 0x04000, 0x04fff, 2 },
@@ -971,7 +950,6 @@ static const struct gfx_range mapper_RT24B_table[] =
 	{ GFXTYPE_SPRITES, 0x0000, 0x53ff, 0 },
 	{ GFXTYPE_SCROLL1, 0x5400, 0x6fff, 0 },
 	{ GFXTYPE_SCROLL3, 0x7000, 0x7fff, 0 },
-
 	{ GFXTYPE_SCROLL3, 0x0000, 0x3fff, 1 },
 	{ GFXTYPE_SCROLL2, 0x2800, 0x7fff, 1 },
 	{ GFXTYPE_SPRITES, 0x5400, 0x7fff, 1 },
@@ -989,14 +967,11 @@ static const struct gfx_range mapper_RT22B_table[] =
 
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x4000, 0x53ff, 1 },
 	{ GFXTYPE_SCROLL1, 0x5400, 0x6fff, 1 },
 	{ GFXTYPE_SCROLL3, 0x7000, 0x7fff, 1 },
-
 	{ GFXTYPE_SCROLL3, 0x0000, 0x3fff, 2 },
 	{ GFXTYPE_SCROLL2, 0x2800, 0x3fff, 2 },
-
 	{ GFXTYPE_SCROLL2, 0x4000, 0x7fff, 3 },
 	{ GFXTYPE_SPRITES, 0x5400, 0x7fff, 3 },
 	{ 0 }
@@ -1013,7 +988,6 @@ static const struct gfx_range mapper_KD29B_table[] =
 
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x8000, 0x8fff, 1 },
 	{ GFXTYPE_SCROLL2, 0x9000, 0xbfff, 1 },
 	{ GFXTYPE_SCROLL1, 0xc000, 0xd7ff, 1 },
@@ -1033,7 +1007,6 @@ static const struct gfx_range mapper_CC63B_table[] =
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x7fff, 0 },
 	{ GFXTYPE_SCROLL2, 0x0000, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x8000, 0xffff, 1 },
 	{ GFXTYPE_SCROLL1, 0x8000, 0xffff, 1 },
 	{ GFXTYPE_SCROLL2, 0x8000, 0xffff, 1 },
@@ -1053,7 +1026,6 @@ static const struct gfx_range mapper_KR63B_table[] =
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x7fff, 0 },
 	{ GFXTYPE_SCROLL2, 0x0000, 0x7fff, 0 },
-
 	{ GFXTYPE_SCROLL1, 0x8000, 0x9fff, 1 },
 	{ GFXTYPE_SPRITES, 0x8000, 0xcfff, 1 },
 	{ GFXTYPE_SCROLL2, 0x8000, 0xcfff, 1 },
@@ -1075,9 +1047,7 @@ static const struct gfx_range mapper_S9263B_table[] =
 
 	/* type            start    end      bank */
 	{ GFXTYPE_SPRITES, 0x00000, 0x07fff, 0 },
-
 	{ GFXTYPE_SPRITES, 0x08000, 0x0ffff, 1 },
-
 	{ GFXTYPE_SPRITES, 0x10000, 0x11fff, 2 },
 	{ GFXTYPE_SCROLL3, 0x02000, 0x03fff, 2 },
 	{ GFXTYPE_SCROLL1, 0x04000, 0x04fff, 2 },
@@ -1148,7 +1118,6 @@ static const struct gfx_range mapper_CD63B_table[] =
 	/* type                              start   end     bank */
 	{ GFXTYPE_SCROLL1,                   0x0000, 0x0fff, 0 },
 	{ GFXTYPE_SPRITES,                   0x1000, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0xdfff, 1 },
 	{ GFXTYPE_SCROLL3,                   0xe000, 0xffff, 1 },
 	{ 0 }
@@ -1161,7 +1130,6 @@ static const struct gfx_range mapper_PS63B_table[] =
 	/* type                              start   end     bank */
 	{ GFXTYPE_SCROLL1,                   0x0000, 0x0fff, 0 },
 	{ GFXTYPE_SPRITES,                   0x1000, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0xdbff, 1 },
 	{ GFXTYPE_SCROLL3,                   0xdc00, 0xffff, 1 },
 	{ 0 }
@@ -1174,9 +1142,7 @@ static const struct gfx_range mapper_MB63B_table[] =
 	/* type                              start    end      bank */
 	{ GFXTYPE_SCROLL1,                   0x00000, 0x00fff, 0 },
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x01000, 0x07fff, 0 },
-
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x08000, 0x0ffff, 1 },
-
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x10000, 0x167ff, 2 },
 	{ GFXTYPE_SCROLL3,                   0x16800, 0x17fff, 2 },
 	{ 0 }
@@ -1216,7 +1182,6 @@ static const struct gfx_range mapper_TN2292_table[] =
 	{ GFXTYPE_SCROLL1,                   0x0000, 0x0fff, 0 },
 	{ GFXTYPE_SCROLL3,                   0x1000, 0x3fff, 0 },
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x4000, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0xffff, 1 },
 	{ 0 }
 };
@@ -1256,7 +1221,6 @@ static const struct gfx_range mapper_pang3_table[] =
 {
 	/* type                              start   end     bank */
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x0000, 0x7fff, 0 },
-
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0x9fff, 1 },
 	{ GFXTYPE_SCROLL1,                   0xa000, 0xbfff, 1 },
 	{ GFXTYPE_SCROLL3,                   0xc000, 0xffff, 1 },

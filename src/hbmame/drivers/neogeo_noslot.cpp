@@ -8425,7 +8425,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,jockeygp)
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,vliner)
 {
-	if (!m_cartslots[0]) m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
+	m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
 
 	m_sprgen->m_fixed_layer_bank_type = 0;
 

@@ -11,8 +11,6 @@
 #include "machine/ng_memcard.h"
 #include "machine/gen_latch.h"
 #include "video/neogeo_spr.h"
-#include "bus/neogeo/neogeo_slot.h"
-#include "bus/neogeo/neogeo_carts.h"
 #include "bus/neogeo/cmc_prot.h"
 #include "bus/neogeo/pcm2_prot.h"
 #include "bus/neogeo/pvc_prot.h"
@@ -22,6 +20,8 @@
 #include "bus/neogeo/kof98_prot.h"
 #include "bus/neogeo/sbp_prot.h"
 #include "bus/neogeo/kog_prot.h"
+#include "bus/neogeo/mslugx_prot.h"
+#include "bus/neogeo/sma_prot.h"
 #include "bus/neogeo_ctrl/ctrl.h"
 #include "screen.h"
 #include "speaker.h"
@@ -42,8 +42,6 @@ public:
 		m_region_sprites(*this, "sprites"),
 		m_region_fixed(*this, "fixed"),
 		m_region_fixedbios(*this, "fixedbios"),
-		//m_bank_vectors(*this, "vectors"),
-		//m_bank_cartridge(*this, "cartridge"),
 		m_bank_audio_main(*this, "audio_main"),
 		m_upd4990a(*this, "upd4990a"),
 		m_save_ram(*this, "saveram"),
@@ -60,14 +58,7 @@ public:
 		m_soundlatch(*this, "soundlatch"),
 		m_soundlatch2(*this, "soundlatch2"),
 		m_use_cart_vectors(0),
-		m_use_cart_audio(0),
-		m_cartslot1(*this, "cartslot1"),
-		m_cartslot2(*this, "cartslot2"),
-		m_cartslot3(*this, "cartslot3"),
-		m_cartslot4(*this, "cartslot4"),
-		m_cartslot5(*this, "cartslot5"),
-		m_cartslot6(*this, "cartslot6"),
-		m_currentslot(-1)
+		m_use_cart_audio(0)
 	{ }
 
 	DECLARE_WRITE8_MEMBER(io_control_w);
@@ -148,8 +139,6 @@ protected:
 	required_memory_region m_region_sprites;
 	required_memory_region m_region_fixed;
 	optional_memory_region m_region_fixedbios;
-	//required_memory_bank   m_bank_vectors;
-	//optional_memory_bank   m_bank_cartridge;  // optional because of neocd
 	optional_memory_bank   m_bank_audio_main; // optional because of neocd
 	memory_bank           *m_bank_audio_cart[4];
 
@@ -212,19 +201,8 @@ protected:
 	int          m_screen_shadow;
 	int          m_palette_bank;
 
-
 	int m_use_cart_vectors;
 	int m_use_cart_audio;
-
-	// cart slots
-	optional_device<neogeo_cart_slot_device> m_cartslot1;
-	optional_device<neogeo_cart_slot_device> m_cartslot2;
-	optional_device<neogeo_cart_slot_device> m_cartslot3;
-	optional_device<neogeo_cart_slot_device> m_cartslot4;
-	optional_device<neogeo_cart_slot_device> m_cartslot5;
-	optional_device<neogeo_cart_slot_device> m_cartslot6;
-	neogeo_cart_slot_device* m_cartslots[6];
-	int m_currentslot;
 
 
 public:
