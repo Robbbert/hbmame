@@ -327,7 +327,7 @@ void cli_frontend::listxml(const char *gamename)
 		throw emu_fatalerror(EMU_ERR_NO_SUCH_GAME, "No matching games found for '%s'", gamename);
 
 	// create the XML and print it to stdout
-	info_xml_creator creator(drivlist);
+	info_xml_creator creator(drivlist, gamename && *gamename);
 	creator.output(stdout);
 }
 
@@ -1496,13 +1496,15 @@ void cli_frontend::execute_commands(const char *exename)
 
 	// find the command
 	for (auto & info_command : info_commands)
+	{
 		if (strcmp(m_options.command(), info_command.option) == 0)
 		{
 			// parse any relevant INI files before proceeding
 			const char *sysname = m_options.system_name();
-			(this->*info_command.function)((sysname[0] == 0) ? "*" : sysname);
+			(this->*info_command.function)((sysname[0] == 0) ? nullptr : sysname);
 			return;
 		}
+	}
 
 	if (!m_osd.execute_command(m_options.command()))
 		// if we get here, we don't know what has been requested

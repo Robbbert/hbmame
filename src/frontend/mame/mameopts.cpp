@@ -58,9 +58,7 @@ bool mame_options::add_slot_options(emu_options &options, std::function<void(emu
 
 			// allow opportunity to specify this value
 			if (value_specifier)
-			{
 				value_specifier(options, name);
-			}
 		}
 	}
 	return (options.options_count() != starting_count);
@@ -187,9 +185,7 @@ void mame_options::remove_device_options(emu_options &options)
 bool mame_options::parse_slot_devices(emu_options &options, std::function<void(emu_options &options, const std::string &)> value_specifier)
 {
 	// keep adding slot options until we stop seeing new stuff
-	while (add_slot_options(options, value_specifier))
-	{
-	}
+	while (add_slot_options(options, value_specifier)) { }
 
 	// add device options
 	add_device_options(options, value_specifier);
