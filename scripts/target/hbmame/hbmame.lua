@@ -499,8 +499,6 @@ files {
 	MAME_DIR .. "src/hbmame/video/neogeo_spr.cpp",
 	MAME_DIR .. "src/hbmame/machine/neocrypt.cpp",
 	MAME_DIR .. "src/hbmame/machine/ng_memcard.cpp",
-	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_helper.cpp",
-	MAME_DIR .. "src/hbmame/bus/neogeo/neogeo_helper.h",
 	MAME_DIR .. "src/hbmame/bus/neogeo/banked_cart.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo/banked_cart.h",
 	MAME_DIR .. "src/hbmame/bus/neogeo/mslugx_prot.cpp",

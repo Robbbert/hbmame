@@ -5,7 +5,6 @@
 
 #include "emu.h"
 #include "neogeo_spr.h"
-#include "bus/neogeo/neogeo_helper.h"
 #include "screen.h"
 
 neosprite_base_device::neosprite_base_device
@@ -171,23 +170,19 @@ void neosprite_base_device::neogeo_set_fixed_layer_source( uint8_t data )
 
 void neosprite_base_device::draw_fixed_layer( bitmap_rgb32 &bitmap, int scanline )
 {
-	int x;
-
 	uint8_t* gfx_base = m_fixed_layer_source ? m_region_fixed : m_region_fixedbios->base();
 	uint32_t addr_mask = ( m_fixed_layer_source ? m_region_fixed_size : m_region_fixedbios->bytes() ) - 1;
 	uint16_t *video_data = &m_videoram_drawsource[0x7000 | (scanline >> 3)];
 	uint32_t *pixel_addr = &bitmap.pix32(scanline, NEOGEO_HBEND);
 
-	int garouoffsets[32];
-	int banked = m_fixed_layer_source && (addr_mask > 0x1ffff);
+	uint8_t garouoffsets[32];
+	bool banked = m_fixed_layer_source && (addr_mask > 0x1ffff);
 
 	/* thanks to Mr K for the garou & kof2000 banking info */
 	/* Build line banking table for Garou & MS3 before starting render */
 	if (banked && m_fixed_layer_bank_type == 1)
 	{
-		int garoubank = 0;
-		int k = 0;
-		int y = 0;
+		uint8_t garoubank = 0, k = 0, y = 0;
 		while (y < 32)
 		{
 			if (m_videoram_drawsource[0x7500 + k] == 0x0200 && (m_videoram_drawsource[0x7580 + k] & 0xff00) == 0xff00)
@@ -200,7 +195,7 @@ void neosprite_base_device::draw_fixed_layer( bitmap_rgb32 &bitmap, int scanline
 		}
 	}
 
-	for (x = 0; x < 40; x++)
+	for (uint8_t x = 0; x < 40; x++)
 	{
 		uint16_t code_and_palette = *video_data;
 		uint16_t code = code_and_palette & 0x0fff;
@@ -221,23 +216,19 @@ void neosprite_base_device::draw_fixed_layer( bitmap_rgb32 &bitmap, int scanline
 		}
 
 		{
-			int i;
 			int gfx_offset = ((code << 5) | (scanline & 0x07)) & addr_mask;
 
 			const pen_t *char_pens;
 
 			char_pens = &m_pens[code_and_palette >> 12 << m_bppshift];
 
-
 			static const uint32_t pix_offsets[] = { 0x10, 0x18, 0x00, 0x08 };
 
-			for (i = 0; i < 4; i++)
-			{
+			for (u8 i = 0; i < 4; i++)
 				draw_fixed_layer_2pixels(pixel_addr, gfx_offset + pix_offsets[i], gfx_base, char_pens);
-			}
 		}
 
-		video_data = video_data + 0x20;
+		video_data += 0x20;
 	}
 }
 
@@ -251,7 +242,7 @@ inline void neosprite_base_device::draw_fixed_layer_2pixels(uint32_t*&pixel_addr
 	pixel_addr++;
 
 	if (data & 0xf0)
-		*pixel_addr = char_pens[(data & 0xf0) >> 4];
+		*pixel_addr = char_pens[data >> 4];
 	pixel_addr++;
 
 }
@@ -701,9 +692,62 @@ neosprite_optimized_device::neosprite_optimized_device(const machine_config &mco
 	{ }
 
 
+uint32_t neosprite_optimized_device::helper_get_region_mask(uint8_t* rgn, uint32_t rgn_size)
+{
+	uint32_t mask = 0xffffffff, len = rgn_size * 2 -1, bit;
+
+	for (bit = 31; bit != 0; bit--)
+	{
+		if (BIT(len, bit))
+			break;
+
+		mask >>= 1;
+	}
+
+	return mask;
+}
+
+uint32_t neosprite_optimized_device::helper_optimize_sprite_data(std::vector<uint8_t> &spritegfx, uint8_t* region_sprites, uint32_t region_sprites_size)
+{
+	/* convert the sprite graphics data into a format that
+	   allows faster blitting */
+
+	uint32_t mask = helper_get_region_mask(region_sprites, region_sprites_size);
+
+	spritegfx.resize(mask + 1);
+	uint32_t spritegfx_address_mask = mask;
+
+	uint8_t *src = region_sprites;
+	uint8_t *dest = &spritegfx[0];
+
+	for (unsigned i = 0; i < region_sprites_size; i += 0x80, src += 0x80)
+	{
+		for (unsigned y = 0; y < 0x10; y++)
+		{
+			for (unsigned x = 0; x < 8; x++)
+			{
+				*(dest++) = (((src[0x43 | (y << 2)] >> x) & 0x01) << 3) |
+							(((src[0x41 | (y << 2)] >> x) & 0x01) << 2) |
+							(((src[0x42 | (y << 2)] >> x) & 0x01) << 1) |
+							(((src[0x40 | (y << 2)] >> x) & 0x01) << 0);
+			}
+
+			for (unsigned x = 0; x < 8; x++)
+			{
+				*(dest++) = (((src[0x03 | (y << 2)] >> x) & 0x01) << 3) |
+							(((src[0x01 | (y << 2)] >> x) & 0x01) << 2) |
+							(((src[0x02 | (y << 2)] >> x) & 0x01) << 1) |
+							(((src[0x00 | (y << 2)] >> x) & 0x01) << 0);
+			}
+		}
+	}
+
+	return spritegfx_address_mask;
+}
+
 void neosprite_optimized_device::optimize_sprite_data()
 {
-	m_sprite_gfx_address_mask = neogeohelper_optimize_sprite_data(m_sprite_gfx, m_region_sprites, m_region_sprites_size);
+	m_sprite_gfx_address_mask = helper_optimize_sprite_data(m_sprite_gfx, m_region_sprites, m_region_sprites_size);
 	m_spritegfx8 = &m_sprite_gfx[0];
 }
 

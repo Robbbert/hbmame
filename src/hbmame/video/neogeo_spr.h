@@ -87,9 +87,6 @@ protected:
 	memory_region* m_region_fixedbios;
 	screen_device* m_screen;
 	const pen_t   *m_pens;
-
-private:
-
 };
 
 //extern const device_type NEOGEO_SPRITE_BASE;
@@ -117,6 +114,9 @@ public:
 	std::vector<uint8_t> m_sprite_gfx;
 	uint8_t* m_spritegfx8;
 
+private:
+	uint32_t helper_get_region_mask(uint8_t* rgn, uint32_t rgn_size);
+	uint32_t helper_optimize_sprite_data(std::vector<uint8_t> &spritegfx, uint8_t* region_sprites, uint32_t region_sprites_size);
 };
 
 extern const device_type NEOGEO_SPRITE_OPTIMISED;
