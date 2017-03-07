@@ -627,57 +627,6 @@ void neosprite_base_device::set_pens(const pen_t* pens)
 
 
 /*********************************************************************************************************************************/
-/* Regular NeoGeo sprite handling - drawing directly from ROM (or RAM on NeoCD)                                                  */
-/*                                                                                                                               */
-/* note, we don't currently use this implementation, reference only                                                              */
-/* if we do it will be important to ensure that all sprite regions are ^2 sizes - the optimized routine automatically allocates  */
-/* ^2 sized regions when pre-decoding, but obviously we don't here, so if we want to be safe we'll have to adjust the actual     */
-/* regions          (alternatively I could add an additional size check in the draw routine, but that would be slower)           */
-/*********************************************************************************************************************************/
-
-const device_type NEOGEO_SPRITE_REGULAR = device_creator<neosprite_regular_device>;
-
-neosprite_regular_device::neosprite_regular_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: neosprite_base_device(mconfig, NEOGEO_SPRITE_REGULAR, "Neo-Geo Sprites (regular)", tag, owner, clock, "neosprite_reg", __FILE__)
-	{ }
-
-
-
-void neosprite_regular_device::set_sprite_region(uint8_t* region_sprites, uint32_t region_sprites_size)
-{
-	m_region_sprites = region_sprites;
-	m_region_sprites_size = region_sprites_size;
-
-	uint32_t mask = get_region_mask(m_region_sprites, m_region_sprites_size);
-	uint32_t proper_size = (mask + 1) >>1;
-
-	printf("lengths %08x %08x m_region_sprites", region_sprites_size, proper_size);
-
-	if (m_region_sprites_size != proper_size)
-	{
-		fatalerror("please use power of 2 region sizes with neosprite_base_device to ensure masking works correctly");
-	}
-
-	m_sprite_gfx_address_mask = mask;
-}
-
-inline void neosprite_regular_device::draw_pixel(int romaddr, uint32_t* dst, const pen_t *line_pens)
-{
-	const uint8_t* src = m_region_sprites + (((romaddr &~0xff)>>1) | (((romaddr&0x8)^0x8)<<3) | ((romaddr & 0xf0)  >> 2));
-	const int x = romaddr & 0x7;
-
-	const uint8_t gfx = (((src[0x3] >> x) & 0x01) << 3) |
-						(((src[0x1] >> x) & 0x01) << 2) |
-						(((src[0x2] >> x) & 0x01) << 1) |
-						(((src[0x0] >> x) & 0x01) << 0);
-
-	if (gfx)
-		*dst = line_pens[gfx];
-}
-
-
-
-/*********************************************************************************************************************************/
 /* Regular NeoGeo sprite handling with pre-decode optimization                                                                   */
 /*                                                                                                                               */
 /* this is closer to the old MAME implementation where the 4bpp graphics have been expanded to an easier to draw 8bpp format     */

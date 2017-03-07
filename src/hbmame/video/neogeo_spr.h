@@ -89,19 +89,6 @@ protected:
 	const pen_t   *m_pens;
 };
 
-//extern const device_type NEOGEO_SPRITE_BASE;
-
-
-class neosprite_regular_device : public neosprite_base_device
-{
-public:
-	neosprite_regular_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-	virtual void draw_pixel(int romaddr, uint32_t* dst, const pen_t *line_pens) override;
-	virtual void set_sprite_region(uint8_t* region_sprites, uint32_t region_sprites_size) override;
-
-};
-
-extern const device_type NEOGEO_SPRITE_REGULAR;
 
 
 class neosprite_optimized_device : public neosprite_base_device
