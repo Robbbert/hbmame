@@ -102,7 +102,6 @@ public:
 	uint8_t* m_spritegfx8;
 
 private:
-	uint32_t helper_get_region_mask(uint8_t* rgn, uint32_t rgn_size);
 	uint32_t helper_optimize_sprite_data(std::vector<uint8_t> &spritegfx, uint8_t* region_sprites, uint32_t region_sprites_size);
 };
 

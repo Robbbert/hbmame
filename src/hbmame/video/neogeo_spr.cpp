@@ -641,27 +641,17 @@ neosprite_optimized_device::neosprite_optimized_device(const machine_config &mco
 	{ }
 
 
-uint32_t neosprite_optimized_device::helper_get_region_mask(uint8_t* rgn, uint32_t rgn_size)
+// convert the sprite graphics data into a format that allows faster blitting
+uint32_t neosprite_optimized_device::helper_optimize_sprite_data(std::vector<uint8_t> &spritegfx, uint8_t* region_sprites, uint32_t region_sprites_size)
 {
-	uint32_t mask = 0xffffffff, len = rgn_size * 2 -1, bit;
+	uint32_t mask = 0xffffffff, len = region_sprites_size * 2 - 1;
+	uint8_t bit;
 
 	for (bit = 31; bit != 0; bit--)
-	{
 		if (BIT(len, bit))
 			break;
 
-		mask >>= 1;
-	}
-
-	return mask;
-}
-
-uint32_t neosprite_optimized_device::helper_optimize_sprite_data(std::vector<uint8_t> &spritegfx, uint8_t* region_sprites, uint32_t region_sprites_size)
-{
-	/* convert the sprite graphics data into a format that
-	   allows faster blitting */
-
-	uint32_t mask = helper_get_region_mask(region_sprites, region_sprites_size);
+	mask >>= (31-bit);
 
 	spritegfx.resize(mask + 1);
 	uint32_t spritegfx_address_mask = mask;
