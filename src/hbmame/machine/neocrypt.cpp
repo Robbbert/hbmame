@@ -4,41 +4,7 @@
 
 /***************************************************************************
 
-    Neo-Geo hardware encryption devices
-
-    NeoGeo 'C' (Graphics) Rom encryption
-      CMC42 and CMC50 protection chips
-      Also contains 'S' (Text Layer) data on these games
-      M1 (Z80) rom is also encrypted for CMC50
-
-     The M1 roms contain some additional data at 0xf800.  Some of this
-     is said to be related to the C rom encryption.
-     If CMC50 is used, data located at 0xff00 - 0xffff is required for
-     m1 encryption checksum?.
-
-      Later games use additional basic scrambling on top of the standard
-      CMC scramble.
-
-    NeoGeo 'P' Rom Encryption
-      Used on various games
-
-      kof98
-        - unique early encryption
-      kof99, garou, garouh, mslug3, kof2000
-        - complex SMA chip which appears to contain part of the game rom
-          internally and decrypts the 68k code on the board.  Also has a
-          random number generator and  custom bankswitching
-          (see machine/neoprot.c)
-      kof2002, matrim, samsho5, samsh5p
-        - some basic block / bank swapping
-      svc, kof2003, mslug5
-        - different scrambling with additional xor
-
-    NeoGeo 'V' Rom encryption
-      NEO-PCM2 chip used on various games
-      type1 used on pnyaa, rotd, mslug4
-      type2 used on kof2002, matrim, mslug5, svc,
-                    samsho5, samsh5s, kof2003
+Special decryption used on svcpcb and kf2k3pcb.
 
 ***************************************************************************/
 
