@@ -1144,11 +1144,11 @@ void debugger_commands::execute_bpset(int ref, const std::vector<std::string> &p
 
 	/* param 2 is the condition */
 	parsed_expression condition(&cpu->debug()->symtable());
-	if (!debug_command_parameter_expression(params[1], condition))
+	if (params.size() > 1 && !debug_command_parameter_expression(params[1], condition))
 		return;
 
 	/* param 3 is the action */
-	if (!debug_command_parameter_command(action = params[2].c_str()))
+	if (params.size() > 2 && !debug_command_parameter_command(action = params[2].c_str()))
 		return;
 
 	/* set the breakpoint */
@@ -1302,11 +1302,11 @@ void debugger_commands::execute_wpset(int ref, const std::vector<std::string> &p
 
 	/* param 4 is the condition */
 	parsed_expression condition(&space->device().debug()->symtable());
-	if (!debug_command_parameter_expression(params[3], condition))
+	if (params.size() > 3 && !debug_command_parameter_expression(params[3], condition))
 		return;
 
 	/* param 5 is the action */
-	if (!debug_command_parameter_command(action = params[4].c_str()))
+	if (params.size() > 4 && !debug_command_parameter_command(action = params[4].c_str()))
 		return;
 
 	/* set the watchpoint */
@@ -1444,11 +1444,11 @@ void debugger_commands::execute_rpset(int ref, const std::vector<std::string> &p
 
 	/* param 1 is the condition */
 	parsed_expression condition(&cpu->debug()->symtable());
-	if (!debug_command_parameter_expression(params[0], condition))
+	if (params.size() > 0 && !debug_command_parameter_expression(params[0], condition))
 		return;
 
 	/* param 2 is the action */
-	if (!debug_command_parameter_command(action = params[1].c_str()))
+	if (params.size() > 1 && !debug_command_parameter_command(action = params[1].c_str()))
 		return;
 
 	/* set the breakpoint */
@@ -3013,7 +3013,7 @@ void debugger_commands::execute_mount(int ref, const std::vector<std::string> &p
 	bool done = false;
 	for (device_image_interface &img : image_interface_iterator(m_machine.root_device()))
 	{
-		if (strcmp(img.brief_instance_name(), params[0].c_str()) == 0)
+		if (img.brief_instance_name() == params[0])
 		{
 			if (img.load(params[1]) != image_init_result::PASS)
 				m_console.printf("Unable to mount file %s on %s\n", params[1], params[0]);
@@ -3036,7 +3036,7 @@ void debugger_commands::execute_unmount(int ref, const std::vector<std::string> 
 	bool done = false;
 	for (device_image_interface &img : image_interface_iterator(m_machine.root_device()))
 	{
-		if (strcmp(img.brief_instance_name(), params[0].c_str()) == 0)
+		if (img.brief_instance_name() == params[0])
 		{
 			img.unload();
 			m_console.printf("Unmounted file from : %s\n", params[0]);
