@@ -13,6 +13,9 @@ ROM_START( umk3j )
 	ROM_LOAD16_BYTE( "umk3j-u54.bin",  0x00000, 0x80000, CRC(7bd7de7b) SHA1(b1787f732c15ff217bdc9ed5f83dbf2589e32cfb) )
 	ROM_LOAD16_BYTE( "umk3j-u63.bin",  0x00001, 0x80000, CRC(03ba8907) SHA1(8cf79dc054fe40bc28dbd74a6198468c9ae8c948) )
 
+	ROM_REGION( 0x1009, "serial_security:pic", 0 )   /* security PIC (provides game ID code and serial number) */
+	ROM_LOAD( "463_MK3_Ultimate.u64",  0x0000, 0x1009, CRC(4f425218) SHA1(7f26045ed2c9ca94fadcb673ce10f28208aa720e) )
+
 	ROM_REGION( 0x2000000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u133_game_rom.u133",  0x0000000, 0x100000, CRC(79b94667) SHA1(31bba640c351fdccc6685cadb74dd79a3f910ce8) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u132_game_rom.u132",  0x0000001, 0x100000, CRC(13e95228) SHA1(405b05f5a5a55667c2be17d4b399129bdacefd90) )
@@ -50,6 +53,9 @@ ROM_START( umk3z )
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "umk3z-u54.bin",  0x00000, 0x80000, CRC(7ea6c327) SHA1(266f67302c8a98e96d077ba42bba47dbe5127882) )
 	ROM_LOAD16_BYTE( "umk3z-u63.bin",  0x00001, 0x80000, CRC(51f66368) SHA1(a1e0142e39e123df0e4de525f62328d3c9049244) )
+
+	ROM_REGION( 0x1009, "serial_security:pic", 0 )   /* security PIC (provides game ID code and serial number) */
+	ROM_LOAD( "463_MK3_Ultimate.u64",  0x0000, 0x1009, CRC(4f425218) SHA1(7f26045ed2c9ca94fadcb673ce10f28208aa720e) )
 
 	ROM_REGION( 0x2000000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u133_game_rom.u133",  0x0000000, 0x100000, CRC(79b94667) SHA1(31bba640c351fdccc6685cadb74dd79a3f910ce8) )
@@ -89,6 +95,9 @@ ROM_START( umk3te )
 	ROM_LOAD16_BYTE( "um312te.u54",  0x00000, 0x80000, CRC(6ff000b4) SHA1(4953bf5275e3bbabbd20c3114e8a0be5d10a0176) )
 	ROM_LOAD16_BYTE( "um312te.u63",  0x00001, 0x80000, CRC(524b4033) SHA1(c3c16dbc83dfa49a80aa440ec6a4f121371bccd6) )
 
+	ROM_REGION( 0x1009, "serial_security:pic", 0 )   /* security PIC (provides game ID code and serial number) */
+	ROM_LOAD( "463_MK3_Ultimate.u64",  0x0000, 0x1009, CRC(4f425218) SHA1(7f26045ed2c9ca94fadcb673ce10f28208aa720e) )
+
 	ROM_REGION( 0x2000000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u133_game_rom.u133",  0x0000000, 0x100000, CRC(79b94667) SHA1(31bba640c351fdccc6685cadb74dd79a3f910ce8) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u132_game_rom.u132",  0x0000001, 0x100000, CRC(13e95228) SHA1(405b05f5a5a55667c2be17d4b399129bdacefd90) )
@@ -127,6 +136,9 @@ ROM_START( umk3te2 )
 	ROM_LOAD16_BYTE( "um312te2.u54",  0x00000, 0x80000, CRC(5b6264e5) SHA1(b2c06a729d4cf70e8f5a2721b66e3e2da4a4ca7c) )
 	ROM_LOAD16_BYTE( "um312te2.u63",  0x00001, 0x80000, CRC(1ba096e0) SHA1(75aa60c75856e98f99d90c1978429fab1509eae8) )
 
+	ROM_REGION( 0x1009, "serial_security:pic", 0 )   /* security PIC (provides game ID code and serial number) */
+	ROM_LOAD( "463_MK3_Ultimate.u64",  0x0000, 0x1009, CRC(4f425218) SHA1(7f26045ed2c9ca94fadcb673ce10f28208aa720e) )
+
 	ROM_REGION( 0x2000000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u133_game_rom.u133",  0x0000000, 0x100000, CRC(79b94667) SHA1(31bba640c351fdccc6685cadb74dd79a3f910ce8) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_3_u132_game_rom.u132",  0x0000001, 0x100000, CRC(13e95228) SHA1(405b05f5a5a55667c2be17d4b399129bdacefd90) )
@@ -155,7 +167,7 @@ ROM_START( umk3te2 )
 ROM_END
 
 
-GAME( 2010, umk3j,   umk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Juggernauts Hack v1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, umk3z,   umk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Zeus hack", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk3te,  umk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 Tournament Edition (2.0.032b8)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, umk3te2, umk3, wunit, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 Tournament Edition (2.0.035)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, umk3j,   umk3, wunit_picemu, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Juggernauts Hack v1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, umk3z,   umk3, wunit_picemu, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (rev 1.2) Zeus hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk3te,  umk3, wunit_picemu, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 Tournament Edition (2.0.032b8)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, umk3te2, umk3, wunit_picemu, mk3, midwunit_state, umk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 Tournament Edition (2.0.035)", MACHINE_SUPPORTS_SAVE )
