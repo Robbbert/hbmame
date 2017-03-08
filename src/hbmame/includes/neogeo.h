@@ -189,7 +189,7 @@ protected:
 	uint8_t      m_vblank_level;
 	uint8_t      m_raster_level;
 
-	required_device<neosprite_optimized_device> m_sprgen;
+	required_device<neosprite_device> m_sprgen;
 	optional_device<generic_latch_8_device> m_soundlatch;
 	optional_device<generic_latch_8_device> m_soundlatch2;
 	uint16_t get_video_control(  );
