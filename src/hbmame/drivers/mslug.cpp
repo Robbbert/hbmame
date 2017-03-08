@@ -143,7 +143,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, ms5pcbd )
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	svcpcb_s1data_decrypt();
+	m_sma_prot->svcpcb_s1data_decrypt(fix_region, fix_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
 	install_banked_bios();
 }

@@ -51,7 +51,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, svchb )
 	if (ram[0x100] != 0xBB)
 	{
 		//printf("Fixed2=%X\n",ram[0]);
-		svcpcb_s1data_decrypt();
+		m_sma_prot->svcpcb_s1data_decrypt(fix_region, fix_region_size);
 	}
 }
 

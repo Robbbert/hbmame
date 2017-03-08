@@ -220,7 +220,6 @@ class neogeo_noslot_state : public neogeo_state
 			m_kof98_prot(*this, "kof98_prot"),
 			m_sbp_prot(*this, "sbp_prot") {}
 
-
 	DECLARE_DRIVER_INIT(fatfury2);
 	DECLARE_DRIVER_INIT(zupapa);
 	DECLARE_DRIVER_INIT(kof98);
@@ -286,13 +285,6 @@ class neogeo_noslot_state : public neogeo_state
 	DECLARE_DRIVER_INIT(irrmaze);
 
 	void install_banked_bios();
-	// non-carts
-	void svcpcb_gfx_decrypt();
-	void svcpcb_s1data_decrypt();
-	void kf2k3pcb_gfx_decrypt();
-	void kf2k3pcb_decrypt_s1data();
-	void kf2k3pcb_sp1_decrypt();
-
 
 	// legacy
 	optional_device<mslugx_prot_device> m_mslugx_prot;

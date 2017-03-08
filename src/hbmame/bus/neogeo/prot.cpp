@@ -2984,3 +2984,148 @@ void sma_prot_device::kof2000_decrypt_68k(uint8_t* base)
 	for (i = 0;i < 0x0c0000/2;i++)
 		rom[i] = rom[0x73a000/2 + BITSWAP24(i,23,22,21,20,19,18,8,4,15,13,3,14,16,2,6,17,7,12,10,0,5,11,1,9)];
 }
+
+// From here are not sma decrypts, it's a convenient place to store them **************************************************
+
+
+/* ms5pcb and svcpcb have an additional scramble on top of the standard CMC scrambling */
+void sma_prot_device::svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
+{
+	static const uint8_t xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
+	int i, ofst;
+	std::vector<uint8_t> buf( rom_size );
+
+	for( i = 0; i < rom_size; i++ )
+		rom[ i ] ^= xorval[ (i % 4) ];
+
+	for( i = 0; i < rom_size; i += 4 )
+	{
+		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
+		rom32 = BITSWAP32( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
+			0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
+		buf[i]   = rom32       & 0xff;
+		buf[i+1] = (rom32>>8)  & 0xff;
+		buf[i+2] = (rom32>>16) & 0xff;
+		buf[i+3] = (rom32>>24) & 0xff;
+	}
+
+	for( i = 0; i < rom_size / 4; i++ )
+	{
+		ofst =  BITSWAP24( (i & 0x1fffff), 0x17, 0x16, 0x15, 0x04, 0x0b, 0x0e, 0x08, 0x0c, 0x10, 0x00, 0x0a, 0x13,
+			0x03, 0x06, 0x02, 0x07, 0x0d, 0x01, 0x11, 0x09, 0x14, 0x0f, 0x12, 0x05 );
+		ofst ^= 0x0c8923;
+		ofst += (i & 0xffe00000);
+		memcpy( &rom[ i * 4 ], &buf[ ofst * 4 ], 0x04 );
+	}
+}
+
+
+/* and a further swap on the s1 data */
+void sma_prot_device::svcpcb_s1data_decrypt(uint8_t* rom, uint32_t rom_size)
+{
+	for( int i = 0; i < rom_size; i++ ) // Decrypt S
+		rom[ i ] = BITSWAP8( rom[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
+}
+
+
+/* kf2k3pcb has an additional scramble on top of the standard CMC scrambling */
+/* Thanks to Razoola & Halrin for the info */
+void sma_prot_device::kf2k3pcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
+{
+	const uint8_t xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
+	int i, ofst;
+	std::vector<uint8_t> buf( rom_size );
+
+	for ( i = 0; i < rom_size; i++ )
+		rom[ i ] ^= xorval[ (i % 4) ];
+
+	for ( i = 0; i < rom_size; i +=4 )
+	{
+		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
+		rom32 = BITSWAP32( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
+			0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
+		buf[i]   =  rom32      & 0xff;
+		buf[i+1] = (rom32>>8)  & 0xff;
+		buf[i+2] = (rom32>>16) & 0xff;
+		buf[i+3] = (rom32>>24) & 0xff;
+	}
+
+	for ( i = 0; i < rom_size; i+=4 )
+	{
+		ofst = BITSWAP24( (i & 0x7fffff), 0x17, 0x15, 0x0a, 0x14, 0x13, 0x16, 0x12, 0x11, 0x10, 0x0f, 0x0e, 0x0d,
+			0x0c, 0x0b, 0x09, 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00 );
+		ofst += (i & 0xff800000);
+		memcpy( &rom[ ofst ], &buf[ i ], 0x04 );
+	}
+}
+
+
+/* and a further swap on the s1 data */
+void sma_prot_device::kf2k3pcb_decrypt_s1data(uint8_t* rom, uint32_t rom_size, uint8_t* fixed, uint32_t fixed_size)
+{
+	uint8_t *src;
+	uint8_t *dst;
+	int i;
+
+	src = rom + rom_size - 0x1000000 - 0x80000; // Decrypt S
+
+	for( i = 0; i < fixed_size / 2; i++ )
+		fixed[ i ] = src[ (i & ~0x1f) + ((i & 7) << 2) + ((~i & 8) >> 2) + ((i & 0x10) >> 4) ];
+
+	src = rom + rom_size - 0x80000;
+	dst = fixed + 0x80000;
+
+	for( i = 0; i < fixed_size / 2; i++ )
+		dst[ i ] = src[ (i & ~0x1f) + ((i & 7) << 2) + ((~i & 8) >> 2) + ((i & 0x10) >> 4) ];
+
+	for( i = 0; i < fixed_size; i++ )
+		fixed[ i ] = BITSWAP8( fixed[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
+}
+
+
+/***************************************************************************
+
+NeoGeo 'SP1' (BIOS) ROM encryption
+
+***************************************************************************/
+
+
+/* only found on kf2k3pcb */
+void sma_prot_device::kf2k3pcb_sp1_decrypt(uint16_t* rom)
+{
+	static const uint8_t address[0x40] = {
+		0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,
+		0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,
+		0x09,0x07,0x09,0x07,0x09,0x07,0x09,0x07,
+		0x09,0x09,0x04,0x04,0x09,0x09,0x04,0x04,
+		0x0b,0x0d,0x0b,0x0d,0x03,0x05,0x03,0x05,
+		0x0e,0x0e,0x03,0x03,0x0e,0x0e,0x03,0x03,
+		0x03,0x05,0x0b,0x0d,0x03,0x05,0x0b,0x0d,
+		0x04,0x00,0x04,0x00,0x0e,0x0a,0x0e,0x0a
+	};
+
+	std::vector<uint16_t> buf(0x80000/2);
+	int i, addr;
+
+	for (i = 0; i < 0x80000/2; i++)
+	{
+		// address xor
+		addr = i ^ 0x0020;
+		if ( i & 0x00020) addr ^= 0x0010;
+		if (~i & 0x00010) addr ^= 0x0040;
+		if (~i & 0x00004) addr ^= 0x0080;
+		if ( i & 0x00200) addr ^= 0x0100;
+		if (~i & 0x02000) addr ^= 0x0400;
+		if (~i & 0x10000) addr ^= 0x1000;
+		if ( i & 0x02000) addr ^= 0x8000;
+		addr ^= address[((i >> 1) & 0x38) | (i & 7)];
+		buf[i] = rom[addr];
+
+		// data xor
+		if (buf[i] & 0x0004) buf[i] ^= 0x0001;
+		if (buf[i] & 0x0010) buf[i] ^= 0x0002;
+		if (buf[i] & 0x0020) buf[i] ^= 0x0008;
+	}
+
+	memcpy(rom, &buf[0], 0x80000);
+}

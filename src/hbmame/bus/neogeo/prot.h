@@ -401,6 +401,13 @@ public:
 	void mslug3_decrypt_68k(uint8_t* base);
 	void kof2000_decrypt_68k(uint8_t* base);
 
+	// PCB decrypts (not sma)
+	void svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size);
+	void svcpcb_s1data_decrypt(uint8_t* rom, uint32_t rom_size);
+	void kf2k3pcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size);
+	void kf2k3pcb_decrypt_s1data(uint8_t* rom, uint32_t rom_size, uint8_t* fixed, uint32_t fixed_size);
+	void kf2k3pcb_sp1_decrypt(uint16_t* rom);
+
 	uint16_t     m_sma_rng;
 protected:
 	virtual void device_start() override;
