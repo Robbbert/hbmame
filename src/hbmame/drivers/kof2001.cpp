@@ -12,21 +12,22 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2001d )
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2001m )
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 // use this if the set has a s1 rom
 DRIVER_INIT_MEMBER( neogeo_hbmame, kf2k1pls )
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kf2k1pa )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
 
 	int i, sx_size = memregion("fixed")->bytes();
 	uint8_t *rom = memregion("fixed")->base();

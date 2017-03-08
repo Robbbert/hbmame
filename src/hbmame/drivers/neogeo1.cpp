@@ -19,7 +19,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, matrima )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MATRIM_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MATRIM_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, matrimd )
@@ -36,7 +36,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, matrmehc )
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_kof2002_prot->matrim_decrypt_68k(cpuregion, cpuregion_size);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MATRIM_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MATRIM_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 1);
 }
 

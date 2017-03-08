@@ -8131,7 +8131,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kof99) // copied to slot
 	DRIVER_INIT_CALL(neogeo);
 	m_sma_prot->kof99_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF99_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sma_prot->kof99_install_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8140,7 +8141,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,garou) // copied to slot
 	DRIVER_INIT_CALL(neogeo);
 	m_sma_prot->garou_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, GAROU_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, GAROU_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sma_prot->garou_install_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8149,7 +8151,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,garouh) // copied to slot
 	DRIVER_INIT_CALL(neogeo);
 	m_sma_prot->garouh_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, GAROU_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, GAROU_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sma_prot->garouh_install_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8158,7 +8161,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,mslug3) // copied to slot
 	DRIVER_INIT_CALL(neogeo);
 	m_sma_prot->mslug3_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sma_prot->mslug3_install_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8170,8 +8174,9 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2000) // copied to slot
 	m_sma_prot->kof2000_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2000_GFX_KEY);
-	m_sma_prot->kof2000_install_protection(m_maincpu,m_banked_cart);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	m_sma_prot->kof2000_install_protection(m_maincpu, m_banked_cart);
 }
 
 /*********************************************** CMC42 */
@@ -8180,63 +8185,72 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,mslug3h) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,ganryu) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, GANRYU_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, GANRYU_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,s1945p) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, S1945P_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, S1945P_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,preisle2) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, PREISLE2_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, PREISLE2_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,bangbead) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, BANGBEAD_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, BANGBEAD_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,nitd) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, NITD_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, NITD_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,sengoku3) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SENGOKU3_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, SENGOKU3_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,zupapa) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, ZUPAPA_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, ZUPAPA_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kof99k) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF99_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 /*********************************************** CMC50 */
@@ -8247,14 +8261,16 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2000n)
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2001) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 }
 
@@ -8266,7 +8282,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,mslug4)
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1; /* USA violent content screen is wrong -- not a bug, confirmed on real hardware! */
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG4_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 }
 
@@ -8277,7 +8294,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,rotd)
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 16);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, ROTD_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, ROTD_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,pnyaa)
@@ -8286,7 +8304,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,pnyaa)
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 4);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, PNYAA_GFX_KEY );
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, PNYAA_GFX_KEY );
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 /*********************************************** CMC50 + PCM2 + prg scramble */
@@ -8298,7 +8317,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2002)
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,matrim)
@@ -8308,7 +8328,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,matrim)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 1);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MATRIM_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MATRIM_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,samsho5)
@@ -8318,7 +8339,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,samsho5)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 4);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SAMSHO5_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SAMSHO5_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 
@@ -8329,7 +8351,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,samsh5sp)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SAMSHO5SP_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SAMSHO5SP_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 /*********************************************** CMC50 + PCM2 + PVC */
@@ -8342,7 +8365,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,mslug5)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8354,7 +8378,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,svc)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SVC_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SVC_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8366,7 +8391,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2003)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8377,7 +8403,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2003h)
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
 }
 
@@ -8414,7 +8441,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,jockeygp)
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, JOCKEYGP_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, JOCKEYGP_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 
 	/* install some extra RAM */
 	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
@@ -8558,7 +8586,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_kog_state,kog) // copied to slot
 DRIVER_INIT_MEMBER(neogeo_noslot_state,ms4plus) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG4_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 }
@@ -8569,7 +8597,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k2pls) // copied to slot
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 /*********************************************** bootleg hybrid */
@@ -8579,7 +8607,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,mslug3b6) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
-	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kof2002b) // copied to slot
@@ -8599,7 +8627,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k2mp) // copied to slot
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k2mp2) // copied to slot
@@ -8609,7 +8637,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k2mp2) // copied to slot
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER(neogeo_noslot_state,matrimbl) // copied to slot
@@ -8625,7 +8653,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,matrimbl) // copied to slot
 DRIVER_INIT_MEMBER(neogeo_noslot_state,ms5plus) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -8659,7 +8687,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,svcsplus) // copied to slot
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3bl) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 	m_bootleg_prot->kf2k3bl_install_protection(m_maincpu,m_banked_cart, cpuregion, cpuregion_size);
@@ -8668,7 +8696,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3bl) // copied to slot
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3pl) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_bootleg_prot->kf2k3pl_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
@@ -8678,7 +8706,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3pl) // copied to slot
 DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3upl) // copied to slot
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_bootleg_prot->kf2k3upl_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
@@ -8711,7 +8739,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,ms5pcb)
 	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
 	svcpcb_gfx_decrypt();
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	svcpcb_s1data_decrypt();
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
@@ -8727,7 +8756,8 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,svcpcb)
 	m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
 	svcpcb_gfx_decrypt();
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, SVC_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SVC_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	svcpcb_s1data_decrypt();
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -8748,15 +8778,13 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3pcb)
 	   or the m1 checksum (used to generate the key) for decrypting the m1 is
 	   incorrect */
 	{
-		int i;
 		uint8_t* rom = memregion("audiocpu")->base();
-		for (i = 0; i < 0x90000; i++)
-		{
+		for (int i = 0; i < 0x90000; i++)
 			rom[i] = BITSWAP8(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
-		}
 	}
 
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	kf2k3pcb_decrypt_s1data();
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sprgen->m_fixed_layer_bank_type = 2;

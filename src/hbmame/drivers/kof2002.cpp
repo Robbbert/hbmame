@@ -16,7 +16,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2002m )
 	DRIVER_INIT_CALL(neogeo);
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 // S1-rom is scrambled. This code looks right but doesn't work.
@@ -42,14 +43,15 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2dbh )
 	DRIVER_INIT_CALL(neogeo);
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2h )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2lb )

@@ -5,15 +5,15 @@
 
 // Rules: no encryption, has s1 rom -> neogeo_state,neogeo
 // no s1 rom -> neogeo_hbmame,cmc42sfix
-// encrypted gfx -> m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, KOF99_GFX_KEY);
-// encrypted gfx and no s1 rom -> m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF99_GFX_KEY);
+// encrypted gfx -> m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
+// encrypted gfx and no s1 rom -> above plus m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF99_GFX_KEY);
 
 // encrypted gfx and has s1 rom
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof99bh )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, KOF99_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
 }
 
 // encrypted except for cx roms

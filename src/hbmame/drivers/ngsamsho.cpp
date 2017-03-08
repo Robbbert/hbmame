@@ -34,7 +34,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, sam5hb )
 	if (ram[0] != 0)
 	{
 		//printf("Sprites=%X\n",ram[0]);
-		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, 0, SAMSHO5_GFX_KEY);
+		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SAMSHO5_GFX_KEY);
 	}
 
 	// if no s rom, copy info from end of c roms
