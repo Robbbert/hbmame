@@ -2,7 +2,21 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/cps3.cpp"
 
-TIMER_CALLBACK_MEMBER(cps3_state::fastboot_timer_callback)
+class cps3_hbmame : public cps3_state
+{
+public:
+	cps3_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: cps3_state(mconfig, type, tag)
+		{ }
+
+	DECLARE_MACHINE_RESET(redeartn);
+	TIMER_CALLBACK_MEMBER(fastboot_timer_callback);
+
+private:
+	emu_timer* m_fastboot_timer;
+};
+
+TIMER_CALLBACK_MEMBER(cps3_hbmame::fastboot_timer_callback)
 {
 	uint32_t *rom =  (uint32_t*)m_decrypted_gamerom;
 
@@ -11,19 +25,19 @@ TIMER_CALLBACK_MEMBER(cps3_state::fastboot_timer_callback)
 	m_maincpu->set_state_int(SH2_VBR, 0x6000000);
 }
 
-MACHINE_RESET_MEMBER( cps3_state, redeartn )
+MACHINE_RESET_MEMBER( cps3_hbmame, redeartn )
 {
 	m_current_table_address = -1;
 
-	m_fastboot_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(cps3_state::fastboot_timer_callback),this));
+	m_fastboot_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(cps3_hbmame::fastboot_timer_callback),this));
 	m_fastboot_timer->adjust(attotime::zero);
 
 	// copy data from flashroms back into user regions + decrypt into regions we execute/draw from.
 	copy_from_nvram();
 }
 
-MACHINE_CONFIG_DERIVED( redeartn, redearth )
-	MCFG_MACHINE_RESET_OVERRIDE(cps3_state, redeartn)
+static MACHINE_CONFIG_DERIVED_CLASS( redeartn, redearth, cps3_hbmame )
+	MCFG_MACHINE_RESET_OVERRIDE(cps3_hbmame, redeartn)
 MACHINE_CONFIG_END
 
 static INPUT_PORTS_START ( cps3_ren )
@@ -87,8 +101,8 @@ ROM_START( redeartn )
 	ROM_LOAD( "redeartn-simm3.6", 0x00000, 0x200000, CRC(aeff8f54) SHA1(fd760e237c2e5fb2da45e32a1c12fd3defb4c3e4) )
 	ROM_REGION( 0x200000, "simm3.7", 0 )
 	ROM_LOAD( "redeartn-simm3.7", 0x00000, 0x200000, CRC(f770acd0) SHA1(4b3ccb6f91568f95f04ede6c574144918d131201) )
-	ROM_REGION( 0x200000, "simm4.0", 0 )
 
+	ROM_REGION( 0x200000, "simm4.0", 0 )
 	ROM_LOAD( "redeartn-simm4.0", 0x00000, 0x200000, CRC(301e56f2) SHA1(4847d971bff70a2aeed4599e1201c7ec9677da60) )
 	ROM_REGION( 0x200000, "simm4.1", 0 )
 	ROM_LOAD( "redeartn-simm4.1", 0x00000, 0x200000, CRC(2048e103) SHA1(b21f95b05cd99749bd3f25cc71b2671c2026847b) )
@@ -295,6 +309,6 @@ ROM_END
 
 
 
-GAME( 1996, redeartn,  redearth, redeartn, cps3_ren,  cps3_state,  redearth, ROT0, "Capcom", "Red Earth (961121, Asia NCD)", 0 )
+GAME( 1996, redeartn,  redearth, redeartn, cps3_ren,  cps3_state,  redearth, ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
 GAME( 2013, sfiii3an,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,   ROT0, "Hack",   "Street Fighter III 3rd Strike: Ford Strike (Japan 990608, NO CD)", 0 )
 GAME( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,   ROT0, "Hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )
