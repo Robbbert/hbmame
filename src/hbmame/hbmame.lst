@@ -475,24 +475,44 @@ xmcotar1d
 xmvsfu1d
 
 	/* cps3 */
-redearth	//parent
-redeartn	// no-cd version
-sfiii3		//parent
-sfiii3an	// hack
-sfiii4rd	// hack
+jojo			//parent
+jojoba			//parent
+redearth		//parent
+sfiii			//parent
+sfiii2			//parent
+sfiii3			//parent
+jojobbh2
+jojobbss
+jojobpow
+jojonbss
+jojonpow
+redearex
+redeartn		// no-cd version
+redeartno		// no-cd version with old roms from multijet
+sfiiibhp
+sfiiipmp
+sfiii2bh
+sfiii2np
+sfiii2pl
+sfiii3an		// hack
+sfiii3bh
+sfiii3mh
+sfiii3ng
+sfiii3np
+sfiii4rd		// hack
 
 	/* dec0 */
-baddudes	//parent
-baddudef	/* Arkatrad */
-decodemo	/* Charles Doty */
+baddudes		//parent
+baddudef		/* Arkatrad */
+decodemo		/* Charles Doty */
 
 	/* dkong */
-dkong		//parent
+dkong			//parent
 dkong2m
-dkongex		/* Jeff's Hack with Foundry Level */
+dkongex			/* Jeff's Hack with Foundry Level */
 dkongf
-dkongp		/* Fix for level 22 kill screen by Don Hodges */
-dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
+dkongp			/* Fix for level 22 kill screen by Don Hodges */
+dkongpac		/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
 dkongx
 dkongx11

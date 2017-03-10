@@ -9,6 +9,22 @@ What's new in HBMAME
 
 New Working Games
 -----------------
+- [jojobbh2]        JoJo's Bizarre Adventure (Boss v2.0 hack by Pipi899 2009-08-08)
+- [jojobbss]        JoJo's Bizarre Adventure (Boss hack by Pipi899 2009-07-15)
+- [jojobpow]        JoJo's Bizarre Adventure (Power hack by Pipi899 2009-07-15)
+- [jojonbss]        JoJo's Venture (Boss hack by Pipi899 2009-07-09)
+- [jojonpow]        JoJo's Venture (Power hack by Pipi899 2009-07-11)
+- [redeartno]       Red Earth (Euro 961121, NO CD)
+- [redearex]        Red Earth (Ex Super Version hack by Pipi899 2009-09-08)
+- [sfiiibhp]        Street Fighter III: New Generation (Boss hack by Pipi899 2009-08-08)
+- [sfiiipmp]        Street Fighter III: New Generation (Power hack by Pipi899 2009-07-06)
+- [sfiii2bh]        Street Fighter III 2nd Impact: Giant Attack (Boss hack by Yumeji)
+- [sfiii2np]        Street Fighter III 2nd Impact: Giant Attack (Power hack by Pipi899 2009-07-14)
+- [sfiii2pl]        Street Fighter III 2nd Impact: Giant Attack (Plus v1.0 hack by Krysofun)
+- [sfiii3bh]        Street Fighter III 3rd Strike: Fight for the Future (Boss hack by Yumeji)
+- [sfiii3mh]        Street Fighter III 3rd Strike: Fight for the Future (Makoto Color hack)
+- [sfiii3ng]        Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating hack by Pipi899 2009-07-14)
+- [sfiii3np]        Street Fighter III 3rd Strike: Fight for the Future (Power hack by Pipi899 2009-07-14)
 
 
 
