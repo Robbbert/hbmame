@@ -533,8 +533,10 @@ mineswp		/* Minesweeper */
 //armdemo		/* Charles Doty */  // totally broken
 
 	/* exidy */
-targ		//parent
-targtest	/* Targ Test Rom */
+targ			//parent
+targtest		// Targ Test Rom
+teetert			//parent
+teetertfp		// free play hack
 
 	/* exerion */
 exerion		//parent

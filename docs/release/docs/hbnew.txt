@@ -35,6 +35,7 @@ New Working Games
 - [sfiii3mh]        Street Fighter III 3rd Strike: Fight for the Future (Makoto Color hack)
 - [sfiii3ng]        Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating hack by Pipi899 2009-07-14)
 - [sfiii3np]        Street Fighter III 3rd Strike: Fight for the Future (Power hack by Pipi899 2009-07-14)
+- [teetertfp]       Teeter Torture (free play hack)
 
 
 
