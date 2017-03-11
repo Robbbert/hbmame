@@ -698,8 +698,8 @@ int rom_load_manager::read_rom_data(const rom_entry *parent_region, const rom_en
 	LOG(("Loading ROM data: offs=%X len=%X mask=%02X group=%d skip=%d reverse=%d\n", ROM_GETOFFSET(romp), numbytes, datamask, groupsize, skip, reversed));
 
 	/* make sure the length was an even multiple of the group size */
-	if (numbytes % groupsize != 0)
-		osd_printf_warning("Warning in RomModule definition: %s length not an even multiple of group size\n", ROM_GETNAME(romp));
+//	if (numbytes % groupsize != 0)
+//		osd_printf_warning("Warning in RomModule definition: %s length not an even multiple of group size\n", ROM_GETNAME(romp)); // HBMAME
 
 	/* make sure we only fill within the region space */
 	if (ROM_GETOFFSET(romp) + numgroups * groupsize + (numgroups - 1) * skip > m_region->bytes())
