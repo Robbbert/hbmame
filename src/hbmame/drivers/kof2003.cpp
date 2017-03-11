@@ -94,9 +94,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3pcd ) // decrypted C & decrypted Bios
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 
 	// Extra m1 decryption
-	int i;
 	uint8_t* rom = memregion("audiocpu")->base();
-	for (i = 0; i < 0x90000; i++)
+	for (int i = 0; i < 0x90000; i++)
 		rom[i] = BITSWAP8(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
 
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
@@ -450,7 +449,29 @@ ROM_START( kof2k3hd ) // decrypted version of kof2003h
 	ROM_LOAD16_BYTE( "271d.c8", 0x3000001, 0x800000, CRC(6d8d2d60) SHA1(841698eead0f7d422937ce2f2329e17c383d90a6) )
 ROM_END
 
-ROM_START( kof2k3nrx )
+ROM_START( kof2k3nd )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "271nd.p1", 0x000000, 0x800000, CRC(11624854) SHA1(a7488a0f5d731656aa82cc51282adcfe6ad9f658) )
+
+	NEO_SFIX_128K( "271nrx.s1", CRC(df422440) SHA1(ed84dfd6cc5a73f3ef35db6616bcc3b45754aa4d) )
+
+	NEO_BIOS_AUDIO_512K( "271br.m1", CRC(0e86af8f) SHA1(769102b67bb1a699cfa5674d66cdb46ae633cb65) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "271f.v1", 0x000000, 0x1000000, CRC(2964f36e) SHA1(bfc52f81354eb57e27acb3b80fe1547b9e070293) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "271b.c1", 0x0000000, 0x800000, CRC(e42fc226) SHA1(1cd9364993e141facdcdd53ec2277df7b275d8a7) )
+	ROM_LOAD16_BYTE( "271b.c2", 0x0000001, 0x800000, CRC(1b5e3b58) SHA1(0eb254477a9479541291e43e415310852a0f0bed) )
+	ROM_LOAD16_BYTE( "271b.c3", 0x1000000, 0x800000, CRC(d334fdd9) SHA1(1efe30b4f56a55e25ab518cf6999de797b5e407c) )
+	ROM_LOAD16_BYTE( "271b.c4", 0x1000001, 0x800000, CRC(0d457699) SHA1(ec73d0c9fc7094d0ac6c0986a6e07cde25893e57) )
+	ROM_LOAD16_BYTE( "271b.c5", 0x2000000, 0x800000, CRC(8a91aae4) SHA1(802f4baacf801646be1ef686e105b2e867a6a5df) )
+	ROM_LOAD16_BYTE( "271b.c6", 0x2000001, 0x800000, CRC(9f8674b8) SHA1(65964f40b2227d020023fb436579927e65807dcd) )
+	ROM_LOAD16_BYTE( "271b.c7", 0x3000000, 0x800000, CRC(374ea523) SHA1(613827d72c6181f3e08353750c9af0c4dbad020b) )
+	ROM_LOAD16_BYTE( "271b.c8", 0x3000001, 0x800000, CRC(75211f4d) SHA1(d82f044e816ee539ff131d9c931200c818d34cd0) )
+ROM_END
+
+ROM_START( kof2k3nrx ) // first ever kof2003 set to run on an emulator (in this case, a special version of NeorageX)
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "271nrx.p1", 0x000000, 0x800000, CRC(57a1981d) SHA1(0bc21c09c127e9abb3b03924166c0065ddec2057) )
 
@@ -549,6 +570,28 @@ ROM_START( kof2k3ps2 )
 	ROM_LOAD16_BYTE( "271b.c6", 0x2000001, 0x800000, CRC(9f8674b8) SHA1(65964f40b2227d020023fb436579927e65807dcd) )
 	ROM_LOAD16_BYTE( "271bs4.c7", 0x3000000, 0x800000, CRC(0ff993d7) SHA1(c7d6ce90b84d566dcee85dba5591f8f394fcf032) )
 	ROM_LOAD16_BYTE( "271bs4.c8", 0x3000001, 0x800000, CRC(22e36002) SHA1(bb3a9e1ded0af2db058cfbe773ed5c1a1b4e888a) )
+ROM_END
+
+ROM_START( kof2k3ps3 )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "271ps3.p1", 0x000000, 0x800000, CRC(65a5e73d) SHA1(eec26ceedf67ee3ff0b6b192a7cb2978353c3bc3) )
+
+	NEO_SFIX_128K( "271ps2.s1", CRC(c2e48e98) SHA1(8734c3d1c936aff3d7d1f460b5d211e25a816cc5) )
+
+	NEO_BIOS_AUDIO_512K( "271br.m1", CRC(0e86af8f) SHA1(769102b67bb1a699cfa5674d66cdb46ae633cb65) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "271f.v1", 0x000000, 0x1000000, CRC(2964f36e) SHA1(bfc52f81354eb57e27acb3b80fe1547b9e070293) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "271b.c1", 0x0000000, 0x800000, CRC(e42fc226) SHA1(1cd9364993e141facdcdd53ec2277df7b275d8a7) )
+	ROM_LOAD16_BYTE( "271b.c2", 0x0000001, 0x800000, CRC(1b5e3b58) SHA1(0eb254477a9479541291e43e415310852a0f0bed) )
+	ROM_LOAD16_BYTE( "271b.c3", 0x1000000, 0x800000, CRC(d334fdd9) SHA1(1efe30b4f56a55e25ab518cf6999de797b5e407c) )
+	ROM_LOAD16_BYTE( "271b.c4", 0x1000001, 0x800000, CRC(0d457699) SHA1(ec73d0c9fc7094d0ac6c0986a6e07cde25893e57) )
+	ROM_LOAD16_BYTE( "271b.c5", 0x2000000, 0x800000, CRC(8a91aae4) SHA1(802f4baacf801646be1ef686e105b2e867a6a5df) )
+	ROM_LOAD16_BYTE( "271b.c6", 0x2000001, 0x800000, CRC(9f8674b8) SHA1(65964f40b2227d020023fb436579927e65807dcd) )
+	ROM_LOAD16_BYTE( "271ps3.c7", 0x3000000, 0x800000, CRC(18742a1e) SHA1(2a822c2a0698f7301e3d395fb9366593a64fbffe) )
+	ROM_LOAD16_BYTE( "271ps3.c8", 0x3000001, 0x800000, CRC(aa921e8e) SHA1(0c4d7fff4843d4d3498649b9de5bebfb67fe5312) )
 ROM_END
 
 ROM_START( kof2k3ryu )
@@ -689,18 +732,20 @@ GAME( 2003, kof2003rebh,kof2003,  no_watchdog,   neogeo, neogeo_state,        ne
 GAME( 2003, kof2k3b,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "Gledson01", "Kof2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3bl2,  kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "hack", "Kof2003 (Bootleg Boss hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3br,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003hb, ROT0, "Neogeo BR team", "Kof2003 Portuguese Brazilian Hack", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3bs1,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss, PS2 version, EGCG/FCHT Hack Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3bs2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss, PS2 version, EGCG/FCHT Hack Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3bs3,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss, PS2 version, EGCG/FCHT Hack Set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3bs4,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss, PS2 version, EGCG/FCHT Hack Set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3bs1,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3bs2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3bs3,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3bs4,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3d,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003hb, ROT0, "hack", "Kof2003 (NGM-2710)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3evo,  kof2003,  no_watchdog,   neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (Evolution 1.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3gc,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "Gledson01", "Kof2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3hd,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2k3hd,  ROT0, "hack", "Kof2003 (NGH-2710)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3nd,   kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3nrx,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (Neoragex)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3pcd,  kf2k3pcb, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k3pcd, ROT0, "hack", "Kof2003 (Japan, JAMMA PCB / decrypted C&Bios)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3pch,  kf2k3pcb, neogeo_noslot, neogeo, neogeo_noslot_state, kf2k3pcb,  ROT0, "ZKW", "Kof2003 (Boss hack remixed by ZKW japan jamma pcb)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3ps2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (PS2 beta 1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kof2k3ps2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (PS2 2008-03-03 beta 1.0 (EGCG/FCHT))", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kof2k3ps3,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (PS2 2008-10-31 (EGCG/FCHT))", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3ryu,  kof2003,  no_watchdog,   neogeo, neogeo_state,        neogeo,    ROT0, "Iori Yagami", "Kof2003 (Ryu Hack by Iori Yagami)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3sc,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "SHIPDS", "Kof2003 (Color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3ss,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "hack", "Kof2003 (Silver Style Edition)", MACHINE_SUPPORTS_SAVE )
