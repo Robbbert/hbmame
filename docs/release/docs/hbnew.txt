@@ -29,6 +29,8 @@ New Working Games
 - [kof94cn]         Kof'94 (Chinese Version)
 - [kof94kh]         Kof'94 (Korean Hack)
 - [kof94qaq]        Kof'94 (Power Enhanced hack by Xuyongsheng90)
+- [kof95k]          Kof'95 (Korean Hack)
+- [kof95neo]        Kof'95 (Boss Like NGCD v1.1)
 - [redeartno]       Red Earth (Euro 961121, NO CD)
 - [redearex]        Red Earth (Ex Super Version hack by Pipi899 2009-09-08)
 - [sfiiibhp]        Street Fighter III: New Generation (Boss hack by Pipi899 2009-08-08)
