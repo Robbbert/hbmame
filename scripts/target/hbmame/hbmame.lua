@@ -309,7 +309,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "cave")
 files {
-	MAME_DIR .. "src/hbmame/drivers/cave.cpp",
+	MAME_DIR .. "src/mame/drivers/cave.cpp",
 	MAME_DIR .. "src/mame/video/cave.cpp",
 }
 
