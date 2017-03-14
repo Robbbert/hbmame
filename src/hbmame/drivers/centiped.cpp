@@ -120,7 +120,7 @@ ROM_START( silliped )
 	ROM_LOAD( "silliped.107", 0x0800, 0x0800, CRC(89442fbc) SHA1(450bedd9d09300191bbc31c4cc5b5ca0424661ef) )
 
 	ROM_REGION( 0x0100, "proms", 0 )
-	ROM_LOAD( "136001-213.7e", 0x0000, 0x0100, CRC(6fa3093a) SHA1(2b7aeca74c1ae4156bf1878453a047330f96f0a8) ) /* not used */
+	ROM_LOAD( "136001-213.e7", 0x0000, 0x0100, CRC(6fa3093a) SHA1(2b7aeca74c1ae4156bf1878453a047330f96f0a8) ) /* not used */
 ROM_END
 
 ROM_START( vectiped )

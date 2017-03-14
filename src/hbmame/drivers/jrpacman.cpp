@@ -1009,7 +1009,7 @@ ROM_START( jrhearts )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
 	ROM_LOAD( "jrhearts.2c",                 0x0000, 0x2000, CRC(40cafa63) SHA1(c68a7eefabe4d8b008533abe3cf4b1a6512cd25e) )
-	ROM_LOAD( "jrhearts.2e",                 0x2000, 0x2000, CRC(73477193) SHA1(f00a488958ea0438642d345693787bdf771219ad) )
+	ROM_LOAD( "jrp2e.2e",                    0x2000, 0x2000, CRC(73477193) SHA1(f00a488958ea0438642d345693787bdf771219ad) )
 
 	ROM_REGION( 0x0120, "proms", 0 )
 	ROM_LOAD_NIB_LOW ( "a290-27axv-bxhd.9e", 0x0000, 0x0100, CRC(029d35c4) SHA1(d9aa2dc442e9ac36cf3c346b9fb1aa745eaf3cb8) ) /* color palette (low bits) */

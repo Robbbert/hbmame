@@ -18,7 +18,7 @@ ROM_START( nacho )
 	ROM_LOAD( "nacho.4",      0x0c000, 0x4000, CRC(3ecb72e4) SHA1(4fc494bf3025b3b9fd05fc9f4f6d865039b3ffc8) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "yiear.clr",    0x00000, 0x0020, CRC(c283d71f) SHA1(10cd39f4e951ba6ca5610081c8c1fcd9d68b34d2) )
+	ROM_LOAD( "407c10.1g",    0x00000, 0x0020, CRC(c283d71f) SHA1(10cd39f4e951ba6ca5610081c8c1fcd9d68b34d2) )
 
 	ROM_REGION( 0x2000, "vlm", 0 )
 	ROM_LOAD( "407_c09.8b",   0x00000, 0x2000, CRC(f75a1539) SHA1(f139f6cb41351eb81ee47d777db03012aa5fadb1) )

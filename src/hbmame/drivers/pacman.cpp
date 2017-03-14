@@ -1263,11 +1263,11 @@ ROM_END
 ROM_START( jpmmunch )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "newpuck1.6e",  0x0000, 0x0800, CRC(2c0fa0ab) SHA1(37680e4502771ae69d51d07ce43f65b9b2dd2a49) )
-	ROM_LOAD( "jpmmunch.6k",  0x0800, 0x0800, CRC(afeca2f1) SHA1(1e6d6c75eeb3a354ce2dc88da62caf9e7d53d0cb) )
+	ROM_LOAD( "pmheart.6k",   0x0800, 0x0800, CRC(afeca2f1) SHA1(1e6d6c75eeb3a354ce2dc88da62caf9e7d53d0cb) )
 	ROM_LOAD( "puckman.6f",   0x1000, 0x0800, CRC(7d177853) SHA1(9b5ddaaa8b564654f97af193dbcc29f81f230a25) )
 	ROM_LOAD( "puckman.6m",   0x1800, 0x0800, CRC(d3e8914c) SHA1(c2f00e1773c6864435f29c8b7f44f2ef85d227d3) )
 	ROM_LOAD( "pacheart.6h",  0x2000, 0x0800, CRC(9045a44c) SHA1(a97d7016effbd2ace9a7d92ceb04a6ce18fb42f9) )
-	ROM_LOAD( "jpmmunch.6n",  0x2800, 0x0800, CRC(93f344c5) SHA1(987c7fa18a774a47c045fa1dc7dff37457cb8983) )
+	ROM_LOAD( "pmheart.6n",   0x2800, 0x0800, CRC(93f344c5) SHA1(987c7fa18a774a47c045fa1dc7dff37457cb8983) )
 	ROM_LOAD( "jpmmunch.6j",  0x3000, 0x0800, CRC(258580a2) SHA1(c594329963215971dba7cd857dfde5323f610dba) )
 	ROM_LOAD( "jpmmunch.6p",  0x3800, 0x0800, CRC(b4d7ee8c) SHA1(38dfea4443f13c15ed17e0eb8f7ca24ce14d6ca8) )
 
