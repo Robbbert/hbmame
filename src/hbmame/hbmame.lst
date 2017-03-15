@@ -113,6 +113,8 @@ spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
 	/* cave */
 ddonpach	//parent
 ddonpacha	// trap15 hack
+pwrinst2	//parent
+pwrinst2h	/* 2013 Hack by TT */
 
 	/* cball */
 cball		// parent
