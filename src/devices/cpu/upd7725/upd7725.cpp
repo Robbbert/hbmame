@@ -277,7 +277,10 @@ void necdsp_device::execute_set_input(int inputnum, int state)
 	switch (inputnum)
 	{
 	case NECDSP_INPUT_LINE_INT:
-		//TODO: detect rising edge; if rising edge found AND IE = 1, push PC, pc = 0x100; else do nothing
+		if ( ((m_irq == 0) && (state == 1)) && (regs.sr.ei == 1)) // detect rising edge AND if EI == 1;
+		{
+			regs.stack[regs.sp++] = regs.pc; regs.pc = 0x0100; regs.sp &= 0xf; regs.sr.ei = 0; //push PC, pc = 0x100
+		}
 		m_irq = state; // set old state to current state
 		break;
 	// add more when needed
@@ -369,8 +372,8 @@ void necdsp_device::exec_op(uint32_t opcode) {
 	case  8: regs.idb = regs.dr; regs.sr.rqm = 1; break;
 	case  9: regs.idb = regs.dr; break;
 	case 10: regs.idb = regs.sr; break;
-	case 11: regs.idb = regs.si; break;  //MSB
-	case 12: regs.idb = regs.si; break;  //LSB
+	case 11: regs.idb = regs.si; break;  //MSB = first bit in from serial, 'natural' SI register order
+	case 12: regs.idb = BITSWAP16(regs.si, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15); break;  //LSB = first bit in from serial, 'reversed' SI register order
 	case 13: regs.idb = regs.k; break;
 	case 14: regs.idb = regs.l; break;
 	case 15: regs.idb = dataRAM[regs.dp]; break;
