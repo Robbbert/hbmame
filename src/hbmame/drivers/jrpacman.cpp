@@ -1162,8 +1162,8 @@ ROM_START( jryumyum )
 	ROM_LOAD( "jryumyum.8k",                 0xc000, 0x2000, CRC(191a176c) SHA1(ae5e3c4bd788dd56e0da4130388ee841002cab6c) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "jrp2c.2c",                    0x0000, 0x2000, CRC(f057d596) SHA1(66cbe2720ecc456e9cef5422cf060bd507967fc2) )
-	ROM_LOAD( "jrp2e.2e",                    0x2000, 0x2000, CRC(e851bf29) SHA1(d31fd0bb3b0614a9750f07a55e93b94d16643899) )
+	ROM_LOAD( "jryumyum.2c",                 0x0000, 0x2000, CRC(f057d596) SHA1(66cbe2720ecc456e9cef5422cf060bd507967fc2) )
+	ROM_LOAD( "jryumyum.2e",                 0x2000, 0x2000, CRC(e851bf29) SHA1(d31fd0bb3b0614a9750f07a55e93b94d16643899) )
 
 	ROM_REGION( 0x0120, "proms", 0 )
 	ROM_LOAD_NIB_LOW ( "a290-27axv-bxhd.9e", 0x0000, 0x0100, CRC(029d35c4) SHA1(d9aa2dc442e9ac36cf3c346b9fb1aa745eaf3cb8) )

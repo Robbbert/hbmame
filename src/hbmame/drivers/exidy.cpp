@@ -37,9 +37,9 @@ ROM_END
  *************************************/
 ROM_START( teetertfp )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "11a-cpu", 0xa000, 0x1000, CRC(550375ab) SHA1(ae262f30def469cd56fc2f10336b25f766fc1320) )
+	ROM_LOAD( "teetertfp.11", 0xa000, 0x1000, CRC(550375ab) SHA1(ae262f30def469cd56fc2f10336b25f766fc1320) )
 	ROM_LOAD( "10a-cpu", 0xb000, 0x1000, CRC(3ae7e445) SHA1(e511ce4c553ac58e87b6ee623f8c42d7653de972) )
-	ROM_LOAD( "9a-cpu",  0xc000, 0x1000, CRC(9fab266f) SHA1(b6ad26740f9c87c49b4df122819d1a335fe5545e) )
+	ROM_LOAD( "teetertfp.9",  0xc000, 0x1000, CRC(9fab266f) SHA1(b6ad26740f9c87c49b4df122819d1a335fe5545e) )
 	ROM_LOAD( "8a-cpu",  0xd000, 0x1000, CRC(68de66e7) SHA1(70a0cc950f16f2c408fae717e6fdb75eb0fd8039) )
 	ROM_LOAD( "7a-cpu",  0xe000, 0x1000, CRC(84491333) SHA1(db9f8e4c49057a4574a3784d71e627da7f7a4b44) )
 	ROM_LOAD( "6a-cpu",  0xf000, 0x1000, CRC(3600d465) SHA1(84d633e042f73bfd6bf4a4d0ffee1cd2027c65d2) )
