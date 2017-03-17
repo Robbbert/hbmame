@@ -3891,7 +3891,7 @@ GAME( 1998, kof98bge,  kof98,    neogeo_noslot, neogeo, neogeo_noslot_state, kof
 GAME( 2006, kof98bh,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'98 (Boss Hack 2006)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, kof98bvi,  kof98,    neogeo_noslot, neogeo, neogeo_noslot_state, kof98, ROT0, "hack", "Kof'98 (Blocking Version hack by Ivex 2009-05-31)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // crashes in first demo
 GAME( 2006, kof98c2006,     kof98, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "Kof'98 Combo 2006", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof98c20060214, kof98, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "Kof'98 Combo (2007-02-14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, kof98c20060214, kof98, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "Kof'98 Combo (2006-02-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof98c20070720, kof98, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "Kof'98 Combo (2007-07-20)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself
 GAME( 2007, kof98c20070923, kof98, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "Kof'98 Combo (2007-09-23)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself
 GAME( 2008, kof98c20080330, kof98, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ivex", "Kof'98 Combo (2008-03-30)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself

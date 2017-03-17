@@ -1,7 +1,7 @@
 What's new in HBMAME
 ====================
 
-2017-04-26 0.185
+2017-03-29 0.184
 ----------------
 
 - 
@@ -38,7 +38,7 @@ New Working Games
 - [kof96rfsa]       Kof'96 (Remix Final Standard v1.4 set 2 hack by SNK2003)
 - [kof96ru2]        Kof'96 (Remix Ultra v1.1 hack by CHL/Jason/K3)
 - [kof98bge]        Kof'98 (Boss Gold Edition)
-- [kof98c20060214]  Kof'98 Combo (2007-02-14)
+- [kof98c20060214]  Kof'98 Combo (2006-02-14)
 - [kof98c20100304]  Kof'98 Combo (2010-03-04)
 - [kof98cd2]        Kof'98 (NGCD v1.04 (EGHT))
 - [kof98ch1]        Kof'98 (Chinese Translation hack set 2)
@@ -51,6 +51,9 @@ New Working Games
 - [kof98rup]        Kof'98 (Ultimate Edition v1.0)
 - [kof98sv]         Kof'98 (Silver Style Edition)
 - [kof98zy]         Kof'98 (Purple Remix)
+- [koggv]           King of Gladiator (Green Edition)
+- [kogplus1]        King of Gladiator PLUS (set 2)
+- [kogsm]           King of Gladiator (Smoke Version v1.5 Fix by KalceTin (KOFONTEAM))
 - [redeartno]       Red Earth (Euro 961121, NO CD)
 - [redearex]        Red Earth (Ex Super Version hack by Pipi899 2009-09-08)
 - [sfiiibhp]        Street Fighter III: New Generation (Boss hack by Pipi899 2009-08-08)
