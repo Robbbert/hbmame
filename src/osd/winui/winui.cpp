@@ -939,7 +939,6 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	load_translation(global_opts);
 	manager->start_http_server();
 	manager->start_luaengine();
-	manager->start_context();
 	manager->execute();
 	osd_output::pop(&winerror);
 	global_free(manager);
