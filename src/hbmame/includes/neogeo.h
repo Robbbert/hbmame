@@ -474,20 +474,35 @@ ADDRESS_MAP_EXTERN(neogeo_main_map,16);
 	ROM_LOAD( name,      0x00000, 0x80000, hash )
 
 
-#define NEO_SFIX_64K(name, hash) \
-	ROM_REGION( 0x20000, "fixed", 0 ) \
-	ROM_LOAD( name, 0x000000, 0x10000, hash ) \
-	ROM_REGION( 0x20000, "fixedbios", 0 ) \
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) ) \
-	ROM_Y_ZOOM
-
-#define NEO_SFIX_128K(name, hash) \
-	ROM_REGION( 0x20000, "fixed", 0 ) \
-	ROM_LOAD( name, 0x000000, 0x20000, hash ) \
-	ROM_REGION( 0x20000, "fixedbios", 0 ) \
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) ) \
-	ROM_Y_ZOOM
-
 #define ROM_Y_ZOOM \
 	ROM_REGION( 0x20000, "zoomy", 0 ) \
 	ROM_LOAD( "000-lo.lo", 0x00000, 0x20000, CRC(5a86cff2) SHA1(5992277debadeb64d1c1c64b0a92d9293eaf7e4a) )
+
+#define NEO_SFIX_MT(bytes) \
+	ROM_Y_ZOOM \
+	ROM_REGION( 0x20000, "fixedbios", 0 ) \
+	ROM_LOAD( "sfix.sfix",  0, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) ) \
+	ROM_REGION( bytes, "fixed", ROMREGION_ERASE00 )
+
+#define NEO_SFIX_MT_128K \
+	NEO_SFIX_MT( 0x20000 )
+
+#define NEO_SFIX_MT_512K \
+	NEO_SFIX_MT( 0x80000 )
+
+#define NEO_SFIX_MSLUG(name, hash) \
+	NEO_SFIX_MT( 0x80000 ) \
+	ROM_LOAD( name, 0x00000, 0x20000, hash ) \
+	ROM_RELOAD( 0x20000, 0x20000 ) \
+	ROM_RELOAD( 0x40000, 0x20000 ) \
+	ROM_RELOAD( 0x60000, 0x20000 )
+
+#define NEO_SFIX(bytes, name, hash) \
+	NEO_SFIX_MT( bytes ) \
+	ROM_LOAD( name, 0x00000, bytes, hash )
+
+#define NEO_SFIX_64K(name, hash) \
+	NEO_SFIX( 0x10000, name, hash )
+
+#define NEO_SFIX_128K(name, hash) \
+	NEO_SFIX( 0x20000, name, hash )
