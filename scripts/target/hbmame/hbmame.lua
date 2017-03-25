@@ -751,6 +751,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
+	MAME_DIR .. "src/hbmame/drivers/timelimit.cpp",
+	MAME_DIR .. "src/mame/video/timelimt.cpp",
 }
 
 end

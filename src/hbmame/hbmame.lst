@@ -2906,6 +2906,10 @@ aliensva	/* Tempest Prototype */
 terracre	//parent
 terracrc
 
+	/* timelimit */
+timelimt		//parent
+timelimit		// dink colour hack
+
 	/* tmnt */
 ssriders	//parent
 ssridersaex
