@@ -3573,7 +3573,7 @@ GAME( 1981, puckmodx, puckmanx, pacmanx,  pacman,   driver_device, 0,        ROT
 /* Misc Pacman Hacks */
 
 GAME( 2001, abortman, puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "Paul Copeland",  "Abortman", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, bucaneer, puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "Bucco", "Bucaneer", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, bucaneer, puckman,  pacman,   pacman,   driver_device, 0,        ROT90, "Bucco", "Buccaneer", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, caterpil, puckman,  pacman,   mspacman, driver_device, 0,        ROT90, "Phi", "Caterpillar", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, chtpac,   puckman,  pacman,   pacman0,  driver_device, 0,        ROT90, "[Midway]", "Pacman [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, chtpman2, puckman,  pacman,   pacman0,  driver_device, 0,        ROT90, "[Namco]", "New Puck2 [c]", MACHINE_SUPPORTS_SAVE )
