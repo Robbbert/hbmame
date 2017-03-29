@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/cclimber.cpp"
 
-INPUT_PORTS_START( ckonga2 )	/* one less life than normal */
+INPUT_PORTS_START( ckonga2 ) /* one less life than normal */
 	PORT_INCLUDE( ckong )
 	PORT_MODIFY("DSW")
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
@@ -12,7 +12,7 @@ INPUT_PORTS_START( ckonga2 )	/* one less life than normal */
 	PORT_DIPSETTING(    0x03, "5" )
 INPUT_PORTS_END
 
-INPUT_PORTS_START( ckonga4 )	/* two less lives than normal */
+INPUT_PORTS_START( ckonga4 ) /* two less lives than normal */
 	PORT_INCLUDE( ckong )
 	PORT_MODIFY("DSW")
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
@@ -23,7 +23,7 @@ INPUT_PORTS_START( ckonga4 )	/* two less lives than normal */
 INPUT_PORTS_END
 
 ROM_START( cclimbrm )
-	ROM_REGION( 0x6000, "maincpu", 0 )	/* 64k for code */
+	ROM_REGION( 0x6000, "maincpu", 0 )
 	ROM_LOAD( "cc11m",         0x0000, 0x1000, CRC(a7d58b7e) SHA1(83a21b1a731895c84f1f3604f36b21b172bb144b) )
 	ROM_LOAD( "cc10",          0x1000, 0x1000, CRC(b3c26cef) SHA1(f52cb5482c12a9c5fb56e2e2aec7cab0ed23e5a5) )
 	ROM_LOAD( "cc09",          0x2000, 0x1000, CRC(6db0879c) SHA1(c0ba1976c1dcd6edadd78073173a26851ae8dd4f) )
@@ -49,7 +49,7 @@ ROM_START( cclimbrm )
 	ROM_LOAD( "cclimber.pr2", 0x0020, 0x0020, CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423) )
 	ROM_LOAD( "cclimber.pr3", 0x0040, 0x0020, CRC(71317756) SHA1(1195f0a037e379cc1a3c0314cb746f5cd2bffe50) )
 
-	ROM_REGION( 0x2000, "samples", 0 )	/* samples */
+	ROM_REGION( 0x2000, "samples", 0 )
 	ROM_LOAD( "cc13",         0x0000, 0x1000, CRC(e0042f75) SHA1(86cb31b110742a0f7ae33052c88f42d00deb5468) )
 	ROM_LOAD( "cc12",         0x1000, 0x1000, CRC(5da13aaa) SHA1(b2d41e69435d09c456648a10e33f5e1fbb0bc64c) )
 ROM_END
@@ -67,7 +67,7 @@ ROM_START( ckonga2 )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
 	ROM_LOAD( "n11-06.bin",   0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
-	ROM_LOAD( "ckonga2.05",   0x1000, 0x1000, CRC(cd3b5dde) SHA1(2319a2be04d70989b01f4fc703756ba6e1c1f388) )
+	ROM_LOAD( "falcon5",      0x1000, 0x1000, CRC(cd3b5dde) SHA1(2319a2be04d70989b01f4fc703756ba6e1c1f388) )
 	ROM_LOAD( "k11-04.bin",   0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
 	ROM_LOAD( "h11-03.bin",   0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
 
@@ -80,9 +80,9 @@ ROM_START( ckonga2 )
 	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
 	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
-	ROM_REGION( 0x2000, "samples", 0 )	/* samples */
-	ROM_LOAD( "cc13j.bin",    0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
-	ROM_LOAD( "cc12j.bin",    0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
 
 /* E448 and E589 are basically the same bootleg of "ckonga". One prom in E448 is changed, and we use it here.
@@ -111,13 +111,13 @@ ROM_START( ckonga3 )
 	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
 	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
-	ROM_REGION( 0x2000, "samples", 0 )	/* samples */
-	ROM_LOAD( "cc13j.bin",    0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
-	ROM_LOAD( "cc12j.bin",    0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
 
 ROM_START( ckongfix )
-	ROM_REGION( 0x10000, "maincpu", 0 )     /* 64k for code */
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "d05-07.bin",   0x0000, 0x1000, CRC(b27df032) SHA1(57f9be139c610405e3c2fddd7093dfb1277e450e) )
 	ROM_LOAD( "f05-08.bin",   0x1000, 0x1000, CRC(5dc1aaba) SHA1(42b9e5946ffce7c156d114bde68f37c2c34853c4) )
 	ROM_LOAD( "h05-09.bin",   0x2000, 0x1000, CRC(c9054c94) SHA1(1aa08d2501ee620759fd5c111e12f6d432c25294) )
@@ -140,17 +140,17 @@ ROM_START( ckongfix )
 	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
 	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
-	ROM_REGION( 0x2000, "samples", 0 )	/* samples */
-	ROM_LOAD( "cc13j.bin",    0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
-	ROM_LOAD( "cc12j.bin",    0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
 
 /* This is a gfx hack of monkeyd. Should monkeyd get correct colours, it must be applied here too. */
 ROM_START( tongypac )
-	ROM_REGION( 0x10000, "maincpu", 0 )     /* 64k for code */
-	ROM_LOAD( "ck7.bin",      0x0000, 0x1000, CRC(2171cac3) SHA1(7b18bfe44c32fb64b675bbbe2136344522c79b09) )
-	ROM_LOAD( "ck8.bin",      0x1000, 0x1000, CRC(88b83ff7) SHA1(4afc494cc264aaa4614da6aed02ce062d9c20850) )
-	ROM_LOAD( "ck9.bin",      0x2000, 0x1000, CRC(cff2af47) SHA1(1757428cefad13855a623162101ec01c04006c94) )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "falcon7",      0x0000, 0x1000, CRC(2171cac3) SHA1(7b18bfe44c32fb64b675bbbe2136344522c79b09) )
+	ROM_LOAD( "falcon8",      0x1000, 0x1000, CRC(88b83ff7) SHA1(4afc494cc264aaa4614da6aed02ce062d9c20850) )
+	ROM_LOAD( "falcon9",      0x2000, 0x1000, CRC(cff2af47) SHA1(1757428cefad13855a623162101ec01c04006c94) )
 	ROM_LOAD( "ck10.bin",     0x3000, 0x1000, CRC(520fa4de) SHA1(6edbaf727756cd33bde94492d72654aa12dbd7e1) )
 	ROM_LOAD( "md5l.bin",     0x4000, 0x1000, CRC(d1db1bb0) SHA1(fe7d700c7f9eca9c389be3717ebebf3e7dc63aa2) )
 	/* no ROM at 5000 */
@@ -162,16 +162,16 @@ ROM_START( tongypac )
 	ROM_LOAD( "tpac3.bin",    0x3000, 0x1000, CRC(6b16145b) SHA1(ef17fad07b81c9dae5c6e16a86afc4a8f6a7ff8c) )
 	
 	ROM_REGION( 0x1000, "gfx2", 0 )
-	ROM_LOAD( "ck2.bin",      0x0000, 0x0800, CRC(f67c80f1) SHA1(d1fbcce1b6242f810e106ff50812636e3168ebc1) )
-	ROM_LOAD( "ck1.bin",      0x0800, 0x0800, CRC(80eb517d) SHA1(fef4111f656c58b28e7eac5aa5b5cc7e07ccb2fd) )
+	ROM_LOAD( "falcon2",      0x0000, 0x0800, CRC(f67c80f1) SHA1(d1fbcce1b6242f810e106ff50812636e3168ebc1) )
+	ROM_LOAD( "falcon1",      0x0800, 0x0800, CRC(80eb517d) SHA1(fef4111f656c58b28e7eac5aa5b5cc7e07ccb2fd) )
 
 	ROM_REGION( 0x0060, "proms", 0 )
-	ROM_LOAD( "ck6v.bin",     0x0000, 0x0020, BAD_DUMP CRC(751c3325) SHA1(edce2bc883996c1d72dc6c1c9f62799b162d415a)  )
-	ROM_LOAD( "ck6u.bin",     0x0020, 0x0020, BAD_DUMP CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423)  )
-	ROM_LOAD( "ck6t.bin",     0x0040, 0x0020, BAD_DUMP CRC(b4e827a5) SHA1(31a5a5ad54417a474d22bb16c473415d99a2b6f1)  )
+	ROM_LOAD( "ck6v.bin",     0x0000, 0x0020, CRC(751c3325) SHA1(edce2bc883996c1d72dc6c1c9f62799b162d415a)  )
+	ROM_LOAD( "ck6u.bin",     0x0020, 0x0020, CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423)  )
+	ROM_LOAD( "ck6t.bin",     0x0040, 0x0020, CRC(b4e827a5) SHA1(31a5a5ad54417a474d22bb16c473415d99a2b6f1)  )
 
-	ROM_REGION( 0x2000, "samples", 0 )	/* samples */
-	ROM_LOAD( "cc13j.bin",    0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
 	ROM_LOAD( "ck12.bin",     0x1000, 0x1000, CRC(2eb23b60) SHA1(c9e7dc584562aceb374193655fbacb7df6c9c731) )
 ROM_END
 

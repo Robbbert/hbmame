@@ -44,13 +44,13 @@ INPUT_PORTS_END
 
 
 
-/* same as mame 'dkongf' except rom cx_5at_g.bin is different */
+/* same as mame 'dkongf' except 4th rom is different */
 ROM_START( dkongex )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "cx_5et_g.bin", 0x0000, 0x1000, CRC(00b7efaf) SHA1(97ed5930eb5d0cb98a9008b1d329ba7f3b8b8dbf) )
-	ROM_LOAD( "cx_5ct_g.bin", 0x1000, 0x1000, CRC(88af9b69) SHA1(c5621dd8198c333b3fa32fdece60ee5a3d8b2276) )
-	ROM_LOAD( "cx_5bt_g.bin", 0x2000, 0x1000, CRC(de74ad91) SHA1(c80227361bdbc565e9f5764e6364b52d40ca778a) )
-	ROM_LOAD( "cx_5at_g.bin", 0x3000, 0x1000, CRC(9fa3e5b7) SHA1(5c34170f762a147d5285d17d6689fd64dab99ff2) )
+	ROM_LOAD( "dk_f.5et",     0x0000, 0x1000, CRC(00b7efaf) SHA1(97ed5930eb5d0cb98a9008b1d329ba7f3b8b8dbf) )
+	ROM_LOAD( "dk_f.5ct",     0x1000, 0x1000, CRC(88af9b69) SHA1(c5621dd8198c333b3fa32fdece60ee5a3d8b2276) )
+	ROM_LOAD( "dk_f.5bt",     0x2000, 0x1000, CRC(de74ad91) SHA1(c80227361bdbc565e9f5764e6364b52d40ca778a) )
+	ROM_LOAD( "dkongex.5at",  0x3000, 0x1000, CRC(9fa3e5b7) SHA1(5c34170f762a147d5285d17d6689fd64dab99ff2) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )

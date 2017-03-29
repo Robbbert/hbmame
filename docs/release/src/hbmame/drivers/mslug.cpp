@@ -11,7 +11,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3 )
 	DRIVER_INIT_CALL(neogeo);
 	m_sma_prot->mslug3_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MSLUG3_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
 	m_sma_prot->mslug3_install_protection(m_maincpu, m_banked_cart);
 
 #endif
@@ -19,7 +19,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3n ) // decrypt gfx and extract sx
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof99_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, mslug3d )
@@ -58,7 +59,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, mslug4it )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, MSLUG4_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 }
 
@@ -66,7 +67,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, mslug4m )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG4_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 }
 
@@ -74,7 +76,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, mslug5b )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
@@ -140,7 +143,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, ms5pcbd )
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	svcpcb_s1data_decrypt();
+	m_sma_prot->svcpcb_s1data_decrypt(fix_region, fix_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
 	install_banked_bios();
 }
@@ -2483,7 +2486,7 @@ ROM_END
 ROM_START( mslug5l9a )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "268l9a.p1", 0x000000, 0x100000, CRC(96aa148d) SHA1(b2487a29d6a96435cfe220cb78f74bc2a9ccc6b3) )
-	ROM_LOAD16_WORD_SWAP( "268l9b.p2", 0x100000, 0x400000, CRC(f5bf2c6b) SHA1(99fdc44aba8b2f30d14a1975052811567ea8f05a) )
+	ROM_LOAD16_WORD_SWAP( "268l9a.p2", 0x100000, 0x400000, CRC(f5bf2c6b) SHA1(99fdc44aba8b2f30d14a1975052811567ea8f05a) )
 
 	NEO_SFIX_MT_128K
 

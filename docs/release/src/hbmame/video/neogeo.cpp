@@ -12,7 +12,7 @@
 #include "video/resnet.h"
 
 #define NUM_PENS    (0x1000)
-
+#define VERBOSE     (0)
 
 
 

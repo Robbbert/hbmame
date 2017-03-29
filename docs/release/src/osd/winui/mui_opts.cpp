@@ -2770,7 +2770,7 @@ BOOL GetSWSortReverse(void)
 
 void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *dev, const char *software)
 {
-	const char *opt_name = dev->instance_name();
+	std::string opt_name = dev->instance_name();
 	windows_options o;
 	std::string error_string;
 
@@ -2780,7 +2780,7 @@ void SetSelectedSoftware(int driver_index, const machine_config *config, const d
 	}
 
 	load_options(o, OPTIONS_GAME, driver_index);
-	o.set_value(opt_name, software, OPTION_PRIORITY_CMDLINE,error_string);
+	o.set_value(opt_name.c_str(), software, OPTION_PRIORITY_CMDLINE,error_string);
 	save_options(o, OPTIONS_GAME, driver_index);
 }
 

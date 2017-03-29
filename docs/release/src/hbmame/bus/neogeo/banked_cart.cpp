@@ -5,7 +5,7 @@
 
 
 
-extern const device_type NEOGEO_BANKED_CART = device_creator<neogeo_banked_cart_device>;
+const device_type NEOGEO_BANKED_CART = device_creator<neogeo_banked_cart_device>;
 
 
 neogeo_banked_cart_device::neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)

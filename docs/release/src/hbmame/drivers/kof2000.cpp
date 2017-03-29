@@ -21,7 +21,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2000m )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2kbsd )
@@ -37,7 +38,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2kxxx )
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2knd )
@@ -466,8 +468,8 @@ ROM_START( kof2kgbh )
 	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
 	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
 	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
-	ROM_LOAD16_BYTE( "257gbh.c7", 0x3000000, 0x800000, CRC(f7636227) SHA1(a76b331c96a7bf6fb4123c88a15f565c82b13373) )
-	ROM_LOAD16_BYTE( "257gbh.c8", 0x3000001, 0x800000, CRC(b887fe36) SHA1(d6fc2fba39c8f22ddbe911345ba1d21561cc4eb2) )
+	ROM_LOAD16_BYTE( "257bh.c7", 0x3000000, 0x800000, CRC(f7636227) SHA1(a76b331c96a7bf6fb4123c88a15f565c82b13373) )
+	ROM_LOAD16_BYTE( "257bh.c8", 0x3000001, 0x800000, CRC(b887fe36) SHA1(d6fc2fba39c8f22ddbe911345ba1d21561cc4eb2) )
 ROM_END
 
 ROM_START( kof2kgold ) /* The King of Fighters 2000 - Colour fix by Anndy - (Character colour change - attack cremation gold) */

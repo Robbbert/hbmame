@@ -262,6 +262,8 @@ sk2h11		/* 1992 Sangokushi II (Hack 1) */
 sk2h12		/* 1992 Sangokushi II (Hack 2) */
 sk2h13		/* 1992 Sangokushi II (Hack 3) */
 sk2h14		/* Chinese language */
+sk2h15		// wofaehp
+sk2h16		// wofahp2
 sk2h21		/* 1997  Three Sword Masters / San Jian Sheng */
 sk2h22		// San Jian Sheng (Chinese bootleg of Sangokushi II
 sk2h31		/* 1997  Three Holy Swords / San Sheng Jian */
@@ -273,64 +275,62 @@ sk2h31q
 sk2h32q
 sk2h33q
 sk2h34q
+sk3p1		// wofchdx
+sk3p2		// wofchdx1
+sk3p3		// wofchdx2
 slammastud
 stridergf	// fix unwanted black specks
 stridergh	// as above, and uncensored
-sk2h15		// wofaehp
-sk2h16		// wofahp2
+tk2c1		// wofbio
+tk2c2		// wofbt
+tk2c3		// wofctj
+tk2c4		// wofdy
+tk2c5		// wofdyg
+tk2c6		// woffh
+tk2c7		// wofgyc
+tk2c8		// wofgyq
+tk2c9		// wofhgz
+tk2c10		// wofhzj
+tk2c11		// wofjjq
+tk2c12		// wofjqz
+tk2c13		// wofmr
+tk2c14		// wofsbl
+tk2c15		// wofsjj
+tk2c16		// wofsz
+tk2c17		// wofyjs
+tk2c18		// wofyxg
+tk2c19		// wofzhs
+tk2c20		// wofzhy
+tk2c21		// wofzy2
+tk2c22		// wofzy3
+tk2c23		// wofzyq
+tk2h1		// wofjh
+tk2h2		// wofjhb, was dynwarjh before rom loading was figured out
+tk2h3		// wofjhc, was dynwarj2 before rom loading was figured out
+tk2h4		// wofjh2
+tk2h5		// wofjcn
+tk2h6		// wofjd
+tk2h7		// wofjehp
+tk2h8		// wofjhdwb
+tk2h9		// wofjhp2
+tk2h10		// wofjm
+tk2h11		// wofjmjp
+tk2h12		// wofjpsrw
+tk2h13		// wofjrabh
+tk2h14		// wofjrlb
+//tk2h15		// wofjrpbs exception in first demo
+//tk2h16		// wofjv10s exception in first demo
+tk2h17		// wofjzcr1
+tk2h18		// wofjzero
+tk2p2		// wofch_v3
+tk2p3		// wofchspp
 wofb
-wofbio
-wofbt
-wofch
-wofch_v3
-wofchdx
-wofchdx1
-wofchdx2
-wofchspp
-wofctj
-wofdy
-wofdyg
+wofch		// tk2p1
 wofes
-woffh
 woffr		/* Neo-Arc French Trans */
-wofgyc
-wofgyq
-wofhgz
-wofhzj
-wofjcn		// chinese language
-wofjd
-wofjehp
-wofjh
-wofjh2
-wofjhb		// was dynwarjh in another life
-wofjhc		// was dynwarj2 in another life
-wofjhdwb
-wofjhp2
-wofjjq
-wofjm
-wofjmsp
-wofjpsrw
-wofjqz
-wofjrabh
-wofjrlb
-//wofjrpbs   exception in first demo
-//wofjv10s   exception in first demo
-wofjzcr1
-wofjzero
-wofmr
 wofr1h
-wofsbl
 wofsf2
-wofsjj
-wofsz
 wofud
-wofyjs
-wofyxg
-wofzhs
-wofzhy
-wofzy2
-wofzy3
-wofzyq
 
 	/* cps2 */
 // CPS2 PARENTS ***
@@ -475,24 +475,44 @@ xmcotar1d
 xmvsfu1d
 
 	/* cps3 */
-redearth	//parent
-redeartn	// no-cd version
-sfiii3		//parent
-sfiii3an	// hack
-sfiii4rd	// hack
+jojo			//parent
+jojoba			//parent
+redearth		//parent
+sfiii			//parent
+sfiii2			//parent
+sfiii3			//parent
+jojobbh2
+jojobbss
+jojobpow
+jojonbss
+jojonpow
+redearex
+redeartn		// no-cd version
+redeartno		// no-cd version with old roms from multijet
+sfiiibhp
+sfiiipmp
+sfiii2bh
+sfiii2np
+sfiii2pl
+sfiii3an		// hack
+sfiii3bh
+sfiii3mh
+sfiii3ng
+sfiii3np
+sfiii4rd		// hack
 
 	/* dec0 */
-baddudes	//parent
-baddudef	/* Arkatrad */
-decodemo	/* Charles Doty */
+baddudes		//parent
+baddudef		/* Arkatrad */
+decodemo		/* Charles Doty */
 
 	/* dkong */
-dkong		//parent
+dkong			//parent
 dkong2m
-dkongex		/* Jeff's Hack with Foundry Level */
+dkongex			/* Jeff's Hack with Foundry Level */
 dkongf
-dkongp		/* Fix for level 22 kill screen by Don Hodges */
-dkongpac	/* Tim Appleton - Donkey Kong with Pacman graphics */
+dkongp			/* Fix for level 22 kill screen by Don Hodges */
+dkongpac		/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
 dkongx
 dkongx11
@@ -513,8 +533,10 @@ mineswp		/* Minesweeper */
 //armdemo		/* Charles Doty */  // totally broken
 
 	/* exidy */
-targ		//parent
-targtest	/* Targ Test Rom */
+targ			//parent
+targtest		// Targ Test Rom
+teetert			//parent
+teetertfp		// free play hack
 
 	/* exerion */
 exerion		//parent
@@ -653,12 +675,17 @@ jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
 	/* kof94 */
 kof94b
+kof94bc
 kof94blk
 kof94br
+kof94cg
+kof94cn
 kof94cyk
 kof94eh
 //kof94h rom missing
 kof94k
+kof94kh
+kof94qaq
 kof94ru
 kof94ruj
 kof94rz
@@ -674,6 +701,8 @@ kof95ce
 kof95d
 kof95eh
 kof95hp
+kof95k
+kof95neo
 kof95pjc
 kof95ru
 kof95seh
@@ -685,6 +714,7 @@ kof96a
 kof96ae
 kof96ae1
 kof96ae1a
+kof96ae1b
 kof96b
 kof96b1
 kof96bb
@@ -695,14 +725,17 @@ kof96cn
 kof96cr
 kof96chj
 kof96de
+kof96dr1
 kof96eh
 kof96ep
 kof96ep2
 kof96ep3
 kof96evo
 kof96evoo
+kof96evsp
 kof96ey
 kof96hp
+kof96hp1
 kof96hpr
 kof96k
 kof96k1
@@ -721,6 +754,7 @@ kof96pm
 kof96rcw
 kof96rf
 kof96rfs
+kof96rfsa
 kof96ri
 kof96ri1
 kof96ri2
@@ -732,6 +766,7 @@ kof96rp
 kof96rp1
 kof96rss
 kof96ru
+kof96ru2
 kof96rw
 kof96ryu
 kof96seh
@@ -839,17 +874,21 @@ kof98ae2 //black splashes all over fight scene where cars speed past
 kof98ae3 //black splashes all over fight scene where cars speed past
 kof98ae20160308 //black splashes all over fight scene where cars speed past
 kof98ae20160827 //black splashes all over fight scene where cars speed past
-kof98b
+kof98bge
 kof98bh
+//kof98bvi   // reboots in first demo
 kof98c2006
-kof98c20070720
+kof98c20060214 // date cannot be confirmed
+kof98c20070720 // sometimes reboots itself
 kof98c20070923 // sometimes reboots itself
+kof98c20080330 // sometimes reboots itself while in China with Benimaru
 kof98c20080524 // sometimes reboots itself
 kof98c20080616 // sometimes reboots itself
 kof98c20080712 // sometimes reboots itself
 kof98c20090620 // sometimes reboots itself
 kof98c20090923
 kof98c20100214
+kof98c20100304
 kof98c20110114
 kof98c20110314
 kof98c20120116
@@ -907,7 +946,9 @@ kof98c20160320
 kof98c20160907
 kof98cd
 kof98cd1
+kof98cd2
 kof98ch
+kof98ch1
 kof98chl
 kof98chris
 kof98cn
@@ -917,6 +958,7 @@ kof98cos1
 kof98cos2
 kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
+kof98ecm
 kof98ehr
 kof98evl
 kof98evo
@@ -927,11 +969,14 @@ kof98fr
 kof98fro
 kof98fro2
 kof98frp	//slutfest
+kof98fv
+kof98fv2
 kof98gold
 kof98hk
 kof98ice
 kof98ico
 kof98iori
+kof98izh
 kof98jh
 kof98k95
 kof98klc
@@ -941,18 +986,22 @@ kof98m
 kof98mev
 kof98mix
 kof98nc
+kof98ncdh
 kof98new
 kof98pjc
 kof98rh
 kof98rh1
 kof98rl
 kof98rm
+kof98rsa
+kof98rup
 kof98seh
 kof98seho
 kof98sof
 kof98sp
 kof98sp2
 kof98sr
+kof98sv
 kof98tim
 kof98ul
 kof98ur
@@ -963,6 +1012,7 @@ kof98wh2
 kof98xi
 kof98y
 kof98yh
+kof98zy
 
 	/* kof99 */
 kof99ab
@@ -977,8 +1027,10 @@ kof99ae20160411
 kof99ae20160419
 kof99aes
 kof99bh
+kof99bhp2
 kof99bhs
 kof99bs
+kof99bs2
 kof99ch
 kof99chf
 kof99co
@@ -990,12 +1042,17 @@ kof99eur
 kof99eur1
 kof99eur2
 kof99eur3
+kof99eur4
+kof99ev2
 kof99evo
+kof99evos
 kof99fc
 kof99fc0
 kof99fc1
 kof99fc2
 kof99fix
+kof99fix1
+kof99fix2
 kof99fmi
 kof99hbi
 kof99hp
@@ -1008,9 +1065,11 @@ kof99m
 kof99nd
 kof99ndh
 kof99ndis
+kof99nevo
 kof99ob
 kof99ob2
 kof99pb
+kof99phl
 kof99pjc1
 kof99pjc2
 kof99pjc3
@@ -1021,7 +1080,10 @@ kof99pm
 kof99pt
 kof99py
 kof99r
+kof99rd
+kof99rev
 kof99revo
+kof99roll
 kof99rp
 kof99rp0
 kof99rp1
@@ -1043,8 +1105,10 @@ kof99rsm
 kof99rsp
 kof99seh
 kof99sp
+kof99spd
 kof99sr
 kof99srr
+kof99srr1
 kof99the4
 kof99the42
 //kof99vor // corrupt gfx
@@ -1341,16 +1405,25 @@ kof2003d
 kof2003f
 kof2003rebh
 kof2k3b
+kof2k3bl2
 kof2k3br
+kof2k3bs1
+kof2k3bs2
+kof2k3bs3
 kof2k3bs4
 kof2k3d
 kof2k3evo
 kof2k3gc
 kof2k3hd
+kof2k3nd
+kof2k3nrx
 kof2k3pcd
+kof2k3pch
 kof2k3ps2
+kof2k3ps3
 kof2k3ryu
 kof2k3sc
+kof2k3ss
 kof2k3tc
 kof2k3zgf
 //kof2k3bd
@@ -1362,8 +1435,7 @@ airwolf		//parent
 airwolffr	// french
 
 	/* m52 */
-alpha1v		//parent
-alpha1vx	// Kyle Hodgetts
+alpha1v		// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
@@ -1763,166 +1835,166 @@ spcloneo	// v0.7.2.2
 	/* neogeo */
 // These are the parents of our hacks
 neogeo
-2020bb		// 030
-3countb		// 043
-alpham2		// 007
-androdun	// 049
-aodk		// 074
-aof			// 044
-aof2		// 056
-aof3		// 096
-b2b			// 071
-bakatono	// 036
-bangbead	// 259
-bjourney	// 022
-blazstar	// 239
-breakers	// 230
-breakrev	// 245
-bstars		// 002
-bstars2		// 041
-burningf	// 018
-crsword		// 037
-crswd2bl	// 054
-ctomaday	// 249
-cyberlip	// 010
-doubledr	// 082
-eightman	// 025
-fatfury1	// 033
-fatfury2	// 047
-fatfury3	// 069
-fatfursp	// 058
-fbfrenzy	// 034
-fightfev	// 060
-flipshot	// 247
-galaxyfg	// 078
-ganryu		// 252
-garou		// 253
-ghostlop	// 228
-goalx3		// 209
-gowcaizr	// 094
-gpilots		// 020
-gururin		// 067
-ironclad	// 220
-irrmaze		// 236
-janshin		// 048
-jockeygp	// 331
-joyjoy		// 021
-kabukikl	// 092
-karnovr		// 066
-kizuna		// 216
-kof94		// 055
-kof95		// 084
-kof96		// 214
-kof97		// 232
-kof98		// 242
-kof99		// 251
-kof2000		// 257
-kof2001		// 262
-kof2002		// 265
-kof2003		// 271
+2020bb			// 030
+3countb			// 043
+alpham2			// 007
+androdun		// 049
+//aodk			// 074  not needed
+aof				// 044
+aof2			// 056
+aof3			// 096
+b2b				// 071
+bakatono		// 036
+bangbead		// 259
+bjourney		// 022
+//blazstar		// 239  not needed
+breakers		// 230
+breakrev		// 245
+bstars			// 002
+//bstars2		// 041  not needed
+burningf		// 018
+crsword			// 037
+crswd2bl		// 054
+ctomaday		// 249
+cyberlip		// 010
+doubledr		// 082
+eightman		// 025
+fatfury1		// 033
+fatfury2		// 047
+fatfury3		// 069
+fatfursp		// 058
+fbfrenzy		// 034
+fightfev		// 060
+flipshot		// 247
+galaxyfg		// 078
+ganryu			// 252
+garou			// 253
+ghostlop		// 228
+//goalx3		// 209  not needed
+gowcaizr		// 094
+gpilots			// 020
+//gururin		// 067  not needed
+ironclad		// 220
+//irrmaze		// 236  not needed
+//janshin		// 048  not needed
+jockeygp		// 331
+joyjoy			// 021
+kabukikl		// 092
+karnovr			// 066
+kizuna			// 216
+kof94			// 055
+kof95			// 084
+kof96			// 214
+kof97			// 232
+kof98			// 242
+kof99			// 251
+kof2000			// 257
+kof2001			// 262
+kof2002			// 265
+kof2003			// 271
 kf2k3pcb
-kotm		// 016
-kotm2		// 039
-lastblad	// 234
-lastbld2	// 243
-lasthope	// 802
-lbowling	// 019
-legendos	// 029
-lresort		// 024
-magdrop2	// 221
-magdrop3	// 233
-maglord		// 005
-mahretsu	// 004
-marukodq	// 206
-matrim		// 266
-miexchng	// 231
-minasan		// 027
-mosyougi	// 203
+kotm			// 016
+//kotm2			// 039  not needed
+lastblad		// 234
+lastbld2		// 243
+lasthope		// 802
+lbowling		// 019
+//legendos		// 029  not needed
+lresort			// 024
+//magdrop2		// 221  not needed
+magdrop3		// 233
+maglord			// 005
+//mahretsu		// 004  not needed
+//marukodq		// 206  not needed
+matrim			// 266
+miexchng		// 231
+minasan			// 027
+mosyougi		// 203
 ms5pcb
-mslug		// 201
-mslug2		// 241
-mslugx		// 250
-mslug3		// 256
-mslug4		// 263
-mslug5		// 268
-mutnat		// 014
-nam1975		// 001
-ncombat		// 009
-ncommand	// 050
-neobombe	// 093
-neocup98	// 244
-neodrift	// 213
-neomrdo		// 207
-ninjamas	// 217
-nitd		// 260
-overtop		// 212
-panicbom	// 073
-pbobbl2n	// 248
-pbobblen	// 083
-pgoal		// 219
-pnyaa		// 267
-popbounc	// 237
-preisle2	// 255
-pspikes2	// 068
-pulstar		// 089
-puzzledp	// 202
-puzzldpr	// 235
-quizdais	// 023
-quizdai2	// 042
-quizkof		// 080
-ragnagrd	// 218
-rbff1		// 095
-rbff2		// 240
-rbffspec	// 223
-ridhero		// 006
-roboarmy	// 032
-rotd		// 264
-s1945p		// 254
-samsho		// 045
-samsho2		// 063
-samsho3		// 087
-samsho4		// 222
-samsho5		// 270
-samsh5sp	// 272
-savagere	// 059
-sbp			// 338
-sdodgeb		// 208
-sengoku		// 017
-sengoku2	// 040
-sengoku3	// 261
-shocktr2	// 246
-shocktro	// 238
-socbrawl	// 031
-sonicwi2	// 075
-sonicwi3	// 097
-spinmast	// 062
-ssideki		// 052
-ssideki2	// 061
-ssideki3	// 081
-ssideki4	// 215
-stakwin		// 088
-stakwin2	// 227
-strhoop		// 079
-superspy	// 011
-svc			// 269
+mslug			// 201
+mslug2			// 241
+mslugx			// 250
+mslug3			// 256
+mslug4			// 263
+mslug5			// 268
+mutnat			// 014
+nam1975			// 001
+ncombat			// 009
+ncommand		// 050
+//neobombe		// 093  not needed
+neocup98		// 244
+//neodrift		// 213  not needed
+//neomrdo		// 207  not needed
+ninjamas		// 217
+nitd			// 260
+overtop			// 212
+//panicbom		// 073  not needed
+//pbobbl2n		// 248  not needed
+pbobblen		// 083
+//pgoal			// 219  not needed
+pnyaa			// 267
+//popbounc		// 237  not needed
+preisle2		// 255
+//pspikes2		// 068  not needed
+//pulstar		// 089
+puzzledp		// 202
+puzzldpr		// 235
+//quizdais		// 023  not needed
+//quizdai2		// 042  not needed
+//quizkof		// 080  not needed
+ragnagrd		// 218
+rbff1			// 095
+rbff2			// 240
+rbffspec		// 223
+ridhero			// 006
+roboarmy		// 032
+rotd			// 264
+s1945p			// 254
+samsho			// 045
+samsho2			// 063
+samsho3			// 087
+samsho4			// 222
+samsho5			// 270
+samsh5sp		// 272
+savagere		// 059
+//sbp			// 338  not working
+sdodgeb			// 208
+sengoku			// 017
+sengoku2		// 040
+sengoku3		// 261
+shocktr2		// 246
+shocktro		// 238
+socbrawl		// 031
+sonicwi2		// 075
+sonicwi3		// 097
+spinmast		// 062
+ssideki			// 052
+//ssideki2		// 061  not needed
+//ssideki3		// 081  not needed
+//ssideki4		// 215  not needed
+//stakwin		// 088  not needed
+//stakwin2		// 227  not needed
+strhoop			// 079
+superspy		// 011
+svc				// 269
 svcpcb
-tophuntr	// 046
-tpgolf		// 003
-trally		// 038
-turfmast	// 200
-twinspri	// 224
-tws96		// 086
-viewpoin	// 051
-vliner		// 332
-wakuwak7	// 225
-wh1			// 053
-wh2			// 057
-wh2j		// 064
-whp			// 090
-wjammers	// 065
-zedblade	// 076
-zintrckb	// 211
-zupapa		// 070
+tophuntr		// 046
+tpgolf			// 003
+trally			// 038
+//turfmast		// 200  not needed
+twinspri		// 224
+//tws96			// 086  not needed
+viewpoin		// 051
+//vliner		// 332  not needed
+wakuwak7		// 225
+wh1				// 053
+wh2				// 057
+wh2j			// 064
+whp				// 090
+wjammers		// 065
+//zedblade		// 076  not needed
+zintrckb		// 211
+zupapa			// 070
 
 	/* neogeohb */
 akiradmo
@@ -2129,7 +2201,6 @@ zupapad
 dbdehy
 dbdy
 dbdeh
-dbdeh1
 dbdq
 dbdqb
 dbdqp
@@ -2166,6 +2237,7 @@ ct2k3ys
 //cthd2k3a
 //cthd2k3d
 kof2k4mp
+kof2k4omg
 kof2k4ru // no sound in attract mode
 kof2k4se1
 kof2k4se2
@@ -2173,6 +2245,7 @@ kof2k4se2
 kof2k4seb
 kof2k4spl
 kof2k8uni
+//kof10thbr
 //kof10thd
 //kof10thd16 // not working, p1 needs unscrambling
 kof10thep15
@@ -2181,9 +2254,12 @@ kof10thub
 kof10thud
 kogd
 kogf
+koggv
 kogmxpls
 kogplus
+kogplus1
 kogplusf
+kogsm
 
 	/* nglastblade */
 lba
@@ -2277,7 +2353,6 @@ samshoeh
 samshoeh2
 samshos1
 samshozk
-samsho2b
 samsho2eh
 samsho2emb
 samsho2hy
@@ -2389,7 +2464,6 @@ whpbho
 whpbho2
 whpeh
 whpeho
-whph
 whphez
 whpsp
 whpss
@@ -2772,13 +2846,11 @@ bubbleb 	/* pbobble USA Region Hack */
 f2demo		/* Charles Doty */
 
 	/* taito_f3 */
-arkretrn	//parent
 cleopatr	//parent
 dariusg		//parent
 gekiridn	//parent
 landmakr	//parent
 pbobble2	//parent
-arkretrh
 cleopath
 driusgxh
 //f3demo		/* Antiriad (a demo made for Raine, not tested on real hardware) - not working */
@@ -2833,6 +2905,10 @@ aliensva	/* Tempest Prototype */
 	/* terracre */
 terracre	//parent
 terracrc
+
+	/* timelimit */
+timelimt		//parent
+timelimit		// dink colour hack
 
 	/* tmnt */
 ssriders	//parent

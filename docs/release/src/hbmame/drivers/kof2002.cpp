@@ -16,7 +16,8 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2002m )
 	DRIVER_INIT_CALL(neogeo);
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 // S1-rom is scrambled. This code looks right but doesn't work.
@@ -42,14 +43,15 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2dbh )
 	DRIVER_INIT_CALL(neogeo);
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, 0, 0, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2h )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	m_cmc_prot->kof2000_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2lb )
@@ -1025,7 +1027,7 @@ ROM_START( kof2k2evo2 )
 	ROM_LOAD16_WORD_SWAP( "265evo2.p1", 0x000000, 0x100000, CRC(6e886994) SHA1(e67764738a83b5f34fe0fc4a9e33f2c1d67507db) )
 	ROM_LOAD16_WORD_SWAP( "265evo2.p2", 0x100000, 0x400000, CRC(4c91603b) SHA1(f9db61348220a4a626dee5fbd0498b24aa74f77d) )
 
-	NEO_SFIX_128K( "265evo.s1", CRC(ca56e755) SHA1(ee8b05164682baef782111996f18927683acf577) )
+	NEO_SFIX_128K( "265evo2.s1", CRC(ca56e755) SHA1(ee8b05164682baef782111996f18927683acf577) )
 
 	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1c661a4b) SHA1(4e5aa862a0a182a806d538996ddc68d9f2dffaf7) )
 
@@ -1979,8 +1981,8 @@ ROM_END
 
 ROM_START( kof2k2moi2 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "265moir.p1", 0x000000, 0x100000, CRC(0851940b) SHA1(5f374412c783b2d2392693d64c084dac4a7f3438) )
-	ROM_LOAD16_WORD_SWAP( "265moir.p2", 0x100000, 0x400000, CRC(95c2783d) SHA1(49eb7ceba441988ff974bc5b9b935036b8701291) )
+	ROM_LOAD16_WORD_SWAP( "265moi2.p1", 0x000000, 0x100000, CRC(0851940b) SHA1(5f374412c783b2d2392693d64c084dac4a7f3438) )
+	ROM_LOAD16_WORD_SWAP( "265moi2.p2", 0x100000, 0x400000, CRC(95c2783d) SHA1(49eb7ceba441988ff974bc5b9b935036b8701291) )
 
 	NEO_SFIX_128K( "265k2.s1", CRC(10de5d7c) SHA1(44f4f523a787cf3094923483b824d7795858aff6) )
 

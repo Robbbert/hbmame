@@ -36,7 +36,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, svchb )
 	if (ram[0] != 0)
 	{
 		//printf("Sprites=%X\n",ram[0]);
-		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, fix_region, 0, SVC_GFX_KEY);
+		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SVC_GFX_KEY);
 	}
 
 	// if no s rom, copy info from end of c roms
@@ -51,7 +51,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, svchb )
 	if (ram[0x100] != 0xBB)
 	{
 		//printf("Fixed2=%X\n",ram[0]);
-		svcpcb_s1data_decrypt();
+		m_sma_prot->svcpcb_s1data_decrypt(fix_region, fix_region_size);
 	}
 }
 
@@ -172,14 +172,14 @@ ROM_START( svcesv ) // all confirmed
 	ROM_LOAD( "269-v2.v2", 0x800000, 0x800000, CRC(dd903835) SHA1(e58d38950a7a8697bb22a1cc7a371ae6664ae8f9) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "269esv.c1", 0x0000000, 0x800000, CRC(03cda72a) SHA1(5557d44f191ed329256fd5dc383a7242ca30aee5) )
-	ROM_LOAD16_BYTE( "269esv.c2", 0x0000001, 0x800000, CRC(442a7724) SHA1(8b7155978638a6656b0df9ccf7bd85be8172b167) )
-	ROM_LOAD16_BYTE( "269esv.c3", 0x1000000, 0x800000, CRC(b311b183) SHA1(52b4c8c5530b856bbb497e5b33587cee0abfc892) )
-	ROM_LOAD16_BYTE( "269esv.c4", 0x1000001, 0x800000, CRC(4aa13c41) SHA1(733c1434b65d2b595ba40d51045cfa523c14eefa) )
-	ROM_LOAD16_BYTE( "269esv.c5", 0x2000000, 0x800000, CRC(1a81e716) SHA1(12d5f4128be45294aaf14461203ad99d768ad9bd) )
-	ROM_LOAD16_BYTE( "269esv.c6", 0x2000001, 0x800000, CRC(6f346ae8) SHA1(a5561786bcdb51ffd72332c8da4a4448490a7068) )
-	ROM_LOAD16_BYTE( "269esv.c7", 0x3000000, 0x800000, CRC(8dd412d3) SHA1(3d2afd7fc09c59537209071d049ec294f76770e5) )
-	ROM_LOAD16_BYTE( "269esv.c8", 0x3000001, 0x800000, CRC(305ef23f) SHA1(3bdd24b075757062803ac2a6f9582bcfe0bcbb4c) )
+	ROM_LOAD16_BYTE( "269stdse.c1", 0x0000000, 0x800000, CRC(03cda72a) SHA1(5557d44f191ed329256fd5dc383a7242ca30aee5) )
+	ROM_LOAD16_BYTE( "269stdse.c2", 0x0000001, 0x800000, CRC(442a7724) SHA1(8b7155978638a6656b0df9ccf7bd85be8172b167) )
+	ROM_LOAD16_BYTE( "269stdse.c3", 0x1000000, 0x800000, CRC(b311b183) SHA1(52b4c8c5530b856bbb497e5b33587cee0abfc892) )
+	ROM_LOAD16_BYTE( "269stdse.c4", 0x1000001, 0x800000, CRC(4aa13c41) SHA1(733c1434b65d2b595ba40d51045cfa523c14eefa) )
+	ROM_LOAD16_BYTE( "269stdse.c5", 0x2000000, 0x800000, CRC(1a81e716) SHA1(12d5f4128be45294aaf14461203ad99d768ad9bd) )
+	ROM_LOAD16_BYTE( "269stdse.c6", 0x2000001, 0x800000, CRC(6f346ae8) SHA1(a5561786bcdb51ffd72332c8da4a4448490a7068) )
+	ROM_LOAD16_BYTE( "269stdse.c7", 0x3000000, 0x800000, CRC(8dd412d3) SHA1(3d2afd7fc09c59537209071d049ec294f76770e5) )
+	ROM_LOAD16_BYTE( "269stdse.c8", 0x3000001, 0x800000, CRC(305ef23f) SHA1(3bdd24b075757062803ac2a6f9582bcfe0bcbb4c) )
 ROM_END
 
 ROM_START( svcg )
@@ -356,7 +356,7 @@ ROM_END
 
 ROM_START( svcpcbd ) // JAMMA
 	ROM_REGION( 0x2000000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "269pcb.p1", 0x000000, 0x2000000, CRC(432cfdfc) SHA1(19b40d32188a8bace6d2d570c6cf3d2f1e31e379) )
+	ROM_LOAD16_WORD_SWAP( "269-p1.p1", 0x000000, 0x2000000, CRC(432cfdfc) SHA1(19b40d32188a8bace6d2d570c6cf3d2f1e31e379) )
 
 	NEO_SFIX_MT_512K
 

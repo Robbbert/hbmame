@@ -177,6 +177,55 @@ ROM_START( kof95hp ) /* The King of Fighters '95 - Hack by HackPlus - (Can choos
 	ROM_LOAD16_BYTE( "084-c8.c8",  0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
 ROM_END
 
+ROM_START( kof95k ) // can't see any difference
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "084k.p1", 0x100000, 0x100000, CRC(a974521b) SHA1(053744af529dcebda83964efdf0bacad536971da) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "084k.s1", CRC(0d07a5ab) SHA1(d5426bb91fe31cbb1633d2ca90479869c8d2210d) )
+
+	NEO_BIOS_AUDIO_128K( "084-m1.m1", CRC(6f2d7429) SHA1(6f8462e4f07af82a5ca3197895d5dcbb67bdaa61) )
+
+	ROM_REGION( 0x900000, "ymsnd", 0 )
+	ROM_LOAD( "084-v1.v1", 0x000000, 0x400000, CRC(84861b56) SHA1(1b6c91ddaed01f45eb9b7e49d9c2b9b479d50da6) )
+	ROM_LOAD( "084-v2.v2", 0x400000, 0x200000, CRC(b38a2803) SHA1(dbc2c8606ca09ed7ff20906b022da3cf053b2f09) )
+	ROM_LOAD( "084-v3.v3", 0x800000, 0x100000, CRC(d683a338) SHA1(eb9866b4b286edc09963cb96c43ce0a8fb09adbb) )
+
+	ROM_REGION( 0x1a00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "084k.c1",    0x0000000, 0x400000, CRC(4bb4eb90) SHA1(b14ed655272a13cc189bc6bc3a5f327c55e2182b) )
+	ROM_LOAD16_BYTE( "084k.c2",    0x0000001, 0x400000, CRC(7e94c968) SHA1(e188e6c714ec7600f1275b01c56c8e836fc00a05) )
+	ROM_LOAD16_BYTE( "084-c3.c3",  0x0800000, 0x400000, CRC(a4e65d1b) SHA1(740a405b40b3a4b324697d2652cae29ffe0ac0bd) )
+	ROM_LOAD16_BYTE( "084-c4.c4",  0x0800001, 0x400000, CRC(c1ace468) SHA1(74ea2a3cfd7b744f0988a05baaff10016ca8f625) )
+	ROM_LOAD16_BYTE( "084-c5.c5",  0x1000000, 0x200000, CRC(8a2c1edc) SHA1(67866651bc0ce27122285a66b0aab108acf3d065) )
+	ROM_LOAD16_BYTE( "084-c6.c6",  0x1000001, 0x200000, CRC(f593ac35) SHA1(302c92c63f092a8d49429c3331e5e5678f0ea48d) )
+	ROM_LOAD16_BYTE( "084-c7.c7",  0x1800000, 0x100000, CRC(9904025f) SHA1(eec770746a0ad073f7d353ab16a2cc3a5278d307) )
+	ROM_LOAD16_BYTE( "084-c8.c8",  0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
+ROM_END
+
+ROM_START( kof95neo )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "084neo.p1", 0x000000, 0x200000, CRC(77ae1281) SHA1(bbd8105a2ea0e1b9f42cbb2c6760a05dc37d4e67) )
+
+	NEO_SFIX_128K( "084-s1.s1", CRC(de716f8a) SHA1(f7386454a943ed5caf625f67ee1d0197b1c6fa13) )
+
+	NEO_BIOS_AUDIO_128K( "084-m1.m1", CRC(6f2d7429) SHA1(6f8462e4f07af82a5ca3197895d5dcbb67bdaa61) )
+
+	ROM_REGION( 0x900000, "ymsnd", 0 )
+	ROM_LOAD( "084-v1.v1", 0x000000, 0x400000, CRC(84861b56) SHA1(1b6c91ddaed01f45eb9b7e49d9c2b9b479d50da6) )
+	ROM_LOAD( "084-v2.v2", 0x400000, 0x200000, CRC(b38a2803) SHA1(dbc2c8606ca09ed7ff20906b022da3cf053b2f09) )
+	ROM_LOAD( "084-v3.v3", 0x800000, 0x100000, CRC(d683a338) SHA1(eb9866b4b286edc09963cb96c43ce0a8fb09adbb) )
+
+	ROM_REGION( 0x1a00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "084-c1.c1",  0x0000000, 0x400000, CRC(fe087e32) SHA1(e8e89faa616027e4fb9b8a865c1a67f409c93bdf) )
+	ROM_LOAD16_BYTE( "084-c2.c2",  0x0000001, 0x400000, CRC(07864e09) SHA1(0817fcfd75d0735fd8ff27561eaec371e4ff5829) )
+	ROM_LOAD16_BYTE( "084-c3.c3",  0x0800000, 0x400000, CRC(a4e65d1b) SHA1(740a405b40b3a4b324697d2652cae29ffe0ac0bd) )
+	ROM_LOAD16_BYTE( "084-c4.c4",  0x0800001, 0x400000, CRC(c1ace468) SHA1(74ea2a3cfd7b744f0988a05baaff10016ca8f625) )
+	ROM_LOAD16_BYTE( "084-c5.c5",  0x1000000, 0x200000, CRC(8a2c1edc) SHA1(67866651bc0ce27122285a66b0aab108acf3d065) )
+	ROM_LOAD16_BYTE( "084-c6.c6",  0x1000001, 0x200000, CRC(f593ac35) SHA1(302c92c63f092a8d49429c3331e5e5678f0ea48d) )
+	ROM_LOAD16_BYTE( "084-c7.c7",  0x1800000, 0x100000, CRC(9904025f) SHA1(eec770746a0ad073f7d353ab16a2cc3a5278d307) )
+	ROM_LOAD16_BYTE( "084-c8.c8",  0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
+ROM_END
+
 ROM_START( kof95pjc ) /* The King of Fighters '95 - Colour fix by TcwLee - (Character colour change - can choose Kusanagi and Rugal) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "084pjc.p1", 0x100000, 0x100000, CRC(da14c25e) SHA1(03309a228783864bbb3cb70295c874812e63e959) )
@@ -307,10 +356,12 @@ ROM_END
 GAME( 1995, kof95b,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (Add Char set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95bln,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Eddids", "Kof'95 (Boss - Like NeogeoCD Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95brz,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "ZKW", "Kof'95 (Boss Remixed)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95ce,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (Color Edit)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95d,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (unknown hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95ce,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (Colour Edit)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95d,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (unknown d)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95eh,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char - Pow hack ABC)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95hp,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HackPlus", "Kof'95 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95k,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (Korean Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95neo,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Kof'95 (Boss Like NGCD v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95pjc,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "TcwLee", "Kof'95 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95ru,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jason/K3", "Kof'95 KOF REMIX PRO (Diff Moves ultra rev v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95seh,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Creamymami and Ydmis", "Kof'95 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE )

@@ -658,8 +658,6 @@ WRITE8_MEMBER(neogeo_state::io_control_w)
 			break;
 
 		case 0x10:
-			if (m_type == NEOGEO_MVS)
-				if (m_cartslots[0]) set_slot_number(data);
 			break;
 
 		case 0x18:
@@ -821,15 +819,11 @@ CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
 
 void neogeo_state::neogeo_main_cpu_banking_init()
 {
-	/* create vector banks */
-//  m_bank_vectors->configure_entry(1, m_region_maincpu->base());
-//  m_bank_vectors->configure_entry(0, memregion("mainbios")->base());
-//  m_bank_vectors->set_entry(0);
 	m_use_cart_vectors = 0;
 
 	if (m_type != NEOGEO_CD)
 	{
-		if (!m_cartslots[0]) m_banked_cart->init_banks();
+		m_banked_cart->init_banks();
 	}
 }
 
@@ -922,7 +916,6 @@ WRITE8_MEMBER(neogeo_state::system_control_w)
 			if (m_type == NEOGEO_CD)
 				printf("NeoCD: write to regular vector change address? %d\n", bit); // what IS going on with "neocdz doubledr" and why do games write here if it's hooked up to nothing?
 			else
-				//m_bank_vectors->set_entry(bit);
 				m_use_cart_vectors = bit;
 			break;
 
@@ -1019,7 +1012,7 @@ void neogeo_state::set_output_data( uint8_t data )
 
 DRIVER_INIT_MEMBER(neogeo_state,neogeo)
 {
-	if (!m_cartslots[0]) m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
+	m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
 
 	m_sprgen->m_fixed_layer_bank_type = 0;
 
@@ -1084,15 +1077,6 @@ void neogeo_state::machine_start()
 
 	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_state::neogeo_postload), this));
 
-
-	m_cartslots[0] = m_cartslot1;
-	m_cartslots[1] = m_cartslot2;
-	m_cartslots[2] = m_cartslot3;
-	m_cartslots[3] = m_cartslot4;
-	m_cartslots[4] = m_cartslot5;
-	m_cartslots[5] = m_cartslot6;
-
-
 	m_sprgen->set_screen(m_screen);
 	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
@@ -1106,55 +1090,6 @@ void neogeo_state::machine_start()
  *  Machine reset
  *
  *************************************/
-
-void neogeo_state::set_slot_number(int slot)
-{
-	if (slot != m_currentslot)
-	{
-		m_currentslot = slot;
-
-		address_space &space = m_maincpu->space(AS_PROGRAM);
-
-		// unmap old handlers, some carts will have installed overlays on them, we need them to be cleared
-		space.unmap_readwrite(0x000080, 0x0fffff);
-		space.unmap_readwrite(0x200000, 0x2fffff);
-
-
-		if (m_cartslots[m_currentslot]->get_sprites_size() == 0)
-			return;
-
-		// give the sprite chip pointers to the graphics for this slot from the slot device
-		m_sprgen->set_sprite_region(m_cartslots[m_currentslot]->get_sprites_base(), m_cartslots[m_currentslot]->get_sprites_size());
-		m_sprgen->set_fixed_regions(m_cartslots[m_currentslot]->get_fixed_base(), m_cartslots[m_currentslot]->get_fixed_size(), m_region_fixedbios);
-		m_sprgen->set_optimized_sprite_data(m_cartslots[m_currentslot]->get_sprites_optimized(), m_cartslots[m_currentslot]->get_sprites_addrmask());
-		m_sprgen->m_fixed_layer_bank_type = m_cartslots[m_currentslot]->get_fixed_bank_type();
-		/*
-		    Resetting a sound device causes the core to update() it and generate samples if it's not up to date.
-		    Thus we preemptively reset it here while the old pointers are still valid so it's up to date and
-		    doesn't generate samples below when we reset it for the new pointers.
-		*/
-		device_t* ym = machine().device("ymsnd");
-		ym->reset();
-
-		m_cartslots[m_currentslot]->setup_memory_banks(machine()); // setup basic pointers
-
-		ym->reset(); // reset it again to get the new pointers
-
-		// these could have changed, ensure the pointers are valid
-		//m_region_maincpu.findit();
-		//m_region_sprites.findit();
-		//m_region_fixed.findit();
-
-		space.install_rom(0x000080, 0x0fffff, m_region_maincpu->base()+0x80); // reinstall the base program rom handler
-
-		m_cartslots[m_currentslot]->activate_cart(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes(), m_cartslots[m_currentslot]->get_fixed_base(), m_cartslots[m_currentslot]->get_fixed_size());
-		//memcpy((uint8_t*)m_cartslots[m_currentslot]->get_rom_base(),m_region_maincpu->base(), m_region_maincpu->bytes()); // hack- copy back any mods activate made (eh cthd2003)c
-
-		neogeo_audio_cpu_banking_init(0); // should probably be responsibility of the cart
-		m_audiocpu->reset(); // or some games like svc have no sounnd if in higher slots?
-
-	}
-}
 
 void neogeo_state::machine_reset()
 {
@@ -1178,12 +1113,6 @@ void neogeo_state::machine_reset()
 	update_interrupts();
 
 	m_recurse = false;
-
-	if (m_cartslots[0]) // if thie system has cart slots then do some extra initialization
-	{
-		set_slot_number(0);
-	}
-
 }
 
 READ16_MEMBER(neogeo_state::banked_vectors_r)
@@ -1203,7 +1132,7 @@ READ16_MEMBER(neogeo_state::banked_vectors_r)
 
 READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_r)
 {
-	return m_cartslots[m_currentslot]->read_rom(space, offset+(0x80/2), mem_mask);
+	return 0;
 }
 
 READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
@@ -1215,7 +1144,7 @@ READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
 	}
 	else
 	{
-		return m_cartslots[m_currentslot]->read_rom(space, offset, mem_mask);
+		return 0;
 	}
 
 }
@@ -1394,7 +1323,7 @@ MACHINE_CONFIG_START( neogeo_base, neogeo_state )
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
 
-	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE_OPTIMZIED, 0)
+	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE, 0)
 
 	/* audio hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
@@ -1409,7 +1338,6 @@ MACHINE_CONFIG_START( neogeo_base, neogeo_state )
 	MCFG_SOUND_ROUTE(1, "lspeaker", 0.98)
 	MCFG_SOUND_ROUTE(2, "rspeaker", 0.98)
 	MCFG_NEOGEO_BANKED_CART_ADD("banked_cart")
-
 MACHINE_CONFIG_END
 
 
@@ -1430,15 +1358,6 @@ static MACHINE_CONFIG_DERIVED( mvs, neogeo_arcade )
 
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", false)
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", false)
-
-	MCFG_NEOGEO_CARTRIDGE_ADD("cartslot1", neogeo_cart, nullptr)
-	MCFG_NEOGEO_CARTRIDGE_ADD("cartslot2", neogeo_cart, nullptr)
-	MCFG_NEOGEO_CARTRIDGE_ADD("cartslot3", neogeo_cart, nullptr)
-	MCFG_NEOGEO_CARTRIDGE_ADD("cartslot4", neogeo_cart, nullptr)
-	MCFG_NEOGEO_CARTRIDGE_ADD("cartslot5", neogeo_cart, nullptr)
-	MCFG_NEOGEO_CARTRIDGE_ADD("cartslot6", neogeo_cart, nullptr)
-
-	MCFG_SOFTWARE_LIST_ADD("cart_list","neogeo")
 MACHINE_CONFIG_END
 
 

@@ -4,7 +4,8 @@ What's new in HBMAME
 2017-03-29 0.184
 ----------------
 
-- 
+- Cleaned out unused code from Neogeo driver
+- Renamed many roms to avoid name conflicts, not yet completed. 
 
 
 New Working Games
