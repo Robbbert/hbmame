@@ -9958,6 +9958,7 @@ sf2ceea                         // 13/03/1992 (c) 1992 (World)
 sf2ceja                         // 22/03/1992 (c) 1992 (Japan)
 sf2cejb                         // 13/05/1992 (c) 1992 (Japan)
 sf2cejc                         // 03/08/1992 (c) 1992 (Japan)
+sf2ceupl                       // 03/08/1992 (c) 1992 (Japan)
 sf2ceua                         // 13/03/1992 (c) 1992 (USA)
 sf2ceub                         // 13/05/1992 (c) 1992 (USA)
 sf2ceuc                         // 03/08/1992 (c) 1992 (USA)
@@ -13461,6 +13462,9 @@ ggconnie                        // (c) ???? Capcom
 bballoon                        // (c) 2003 Eolith
 hapytour                        // (c) 2005 GAV Company (on Eolith's Ghost hardware)
 touryuu                         // (c) 200? Yuki Enterprise
+
+@source:giclassic.cpp
+giclasex	
 
 @source:gijoe.cpp
 gijoe                           // GX069 (c) 1991 (World)
@@ -30689,6 +30693,7 @@ killbld104                      //
 killbldp                        // (c) 2004 Killing Blade Plus
 kov                             // (c) 1999 Knights of Valor
 kov100                          //
+kov100hk                        //
 kov115                          //
 kov2                            // (c) 2000 Knights of Valor 2
 kov2100                         //
@@ -30875,6 +30880,9 @@ pipeline                        // (c) 1990 Daehyun Electronics
 genix                           // (c) 199? NIX
 pirates                         // (c) 1994 NIX
 piratesb                        // bootleg?
+
+@source:piratesh.cpp
+piratesh						// (c) 1995 Konami
 
 @source:pitagjr.cpp
 pitagjr                         // Pitagorin Junior
@@ -35123,7 +35131,8 @@ rambo3u                         // B93 (c) 1989 Taito America Corporation (US)
 rastsag2                        // B81 (c) 1988 Taito Corporation (Japan)
 realpunc                        // D76 (c) 1994 Taito Corporation (Japan)
 ryujin                          // ??? (c) 1993 Taito Corporation (Japan)
-sbm                             // C69 (c) 1990 Taito Corporation (Japan)
+sbm                             // C69 (c) 1990 Taito America Corporation (US)
+sbmj                            // C69 (c) 1990 Taito Corporation (Japan)
 selfeena                        // ??? (c) 1991 East Technology
 silentd                         // ??? (c) 1992 Taito Corporation Japan (World)
 silentdj                        // ??? (c) 1992 Taito Corporation (Japan)
