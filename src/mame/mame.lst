@@ -13054,7 +13054,7 @@ galgame                         // (c) 1971 Computer Recreations, Inc
 @source:galgames.cpp
 galgame2                        // (c) 1998 Creative Electronics & Software (CES) / Namco
 galgame3                        // (c) 1998 Creative Electronics & Software (CES) / Atari
-galgame4                        // (c) 1998 Creative Electronics & Software (CES) / Atari
+galgame4                        // (c) 1998 Creative Electronics & Software (CES)
 galgbios                        // (c) 1998 Creative Electronics & Software (CES)
 
 @source:galivan.cpp
@@ -29580,6 +29580,9 @@ othunderj                       // B67 (c) 1988 Taito Corporation (Japan)
 othundero                       // B67 (c) 1988 Taito Corporation Japan (World)
 othunderu                       // B67 (c) 1988 Taito America Corporation (US, rev 1)
 othunderuo                      // B67 (c) 1988 Taito America Corporation (US)
+
+@source:otomedius.cpp
+otomedius						// (c) 2007 Konami
 
 @source:overdriv.cpp
 overdriv                        // GX789 (c) 1990
