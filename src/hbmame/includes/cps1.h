@@ -46,54 +46,57 @@ struct gfx_range
 	// start and end are as passed by the game (shift adjusted to be all
 	// in the same scale a 8x8 tiles): they don't necessarily match the
 	// position in ROM.
-	int type;
-	int start;
-	int end;
-	int bank;
+	u8 type;
+	u32 start;
+	u32 end;
+	u8 bank;
 };
 
 struct CPS1config
 {
-	const char *name;             /* game driver name */
+	mutable const char *name;             /* game driver name */
 
 	/* Some games interrogate a couple of registers on bootup. */
 	/* These are CPS1 board B self test checks. They wander from game to */
 	/* game. */
-	int cpsb_addr;        /* CPS board B test register address */
-	int cpsb_value;       /* CPS board B test register expected value */
+	mutable int cpsb_addr;        /* CPS board B test register address */
+	mutable int cpsb_value;       /* CPS board B test register expected value */
 
 	/* some games use as a protection check the ability to do 16-bit multiplies */
 	/* with a 32-bit result, by writing the factors to two ports and reading the */
 	/* result from two other ports. */
 	/* It looks like this feature was introduced with 3wonders (CPSB ID = 08xx) */
-	int mult_factor1;
-	int mult_factor2;
-	int mult_result_lo;
-	int mult_result_hi;
+	mutable int mult_factor1;
+	mutable int mult_factor2;
+	mutable int mult_result_lo;
+	mutable int mult_result_hi;
 
 	/* unknown registers which might be related to the multiply protection */
-	int unknown1;
-	int unknown2;
-	int unknown3;
+	mutable int unknown1;
+	mutable int unknown2;
+	mutable int unknown3;
 
-	int layer_control;
-	int priority[4];
-	int palette_control;
+	mutable int layer_control;
+	mutable int priority[4];
+	mutable int palette_control;
 
 	/* ideally, the layer enable masks should consist of only one bit, */
 	/* but in many cases it is unknown which bit is which. */
-	int layer_enable_mask[5];
+	mutable int layer_enable_mask[5];
 
 	/* these depend on the B-board model and PAL */
-	int bank_sizes[4];
-	const struct gfx_range *bank_mapper;
+	mutable int bank_sizes[4];
+	mutable const struct gfx_range *bank_mapper;
 
 	/* some C-boards have additional I/O for extra buttons/extra players */
-	int in2_addr;
-	int in3_addr;
-	int out2_addr;
+	mutable int in2_addr;
+	mutable int in3_addr;
+	mutable int out2_addr;
 
-	int bootleg_kludge;
+	mutable int bootleg_kludge;
+	mutable u8 scrollx1;
+	mutable u8 scrollx2;
+	mutable u8 scrollx3;
 };
 
 

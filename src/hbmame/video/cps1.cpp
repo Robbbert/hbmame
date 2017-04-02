@@ -1540,6 +1540,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2mdtb",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
 	{"sf2b",        CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
 	{"varth",       CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */  // wrong, this set uses VA24B, dumped but equations still not added
+	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },
 	{"varthr1",     CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */  // wrong, this set uses VA24B, dumped but equations still not added
 	{"varthu",      CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
 	{"varthj",      CPS_B_21_BT5, mapper_VA22B },   /* CPSB test has been patched out (72=0001) register is also written to, possibly leftover from development */
@@ -1605,169 +1606,12 @@ static const struct CPS1config cps1_config_table[]=
 	{"kenseim",     CPS_B_21_DEF, mapper_KNM10B },  // wrong, need to convert equations from PAL
 
 // HBMAME
-	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },							//works
 	{"captcocc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
-	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcovs",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
-	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
-	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },			//works
-	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },			//works
-	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"cps1testa",   CPS_B_21_DEF, mapper_RCM63B },							//works
-	{"daimakb",     HACK_H_5,     mapper_DM22A },							//works
-	{"dino08h2",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dino08h3",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dino08hp",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinob",       CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },			//works
-	{"dinobt",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinobtpp",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinocgba",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinocgbb",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinocgbc",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoeh",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoex",      CPS_B_21_DEF, mapper_CD63B },							//works
-	{"dinoh",       CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
-	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
-	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },			//works
-	{"dinohp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinohx",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
-	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinorp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },							//works
-	{"ffightb",     CPS_B_01,     mapper_S224B },							//works
-	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
-	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 		//works
-	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works (intro screen is crap)
-	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"knightud",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	{"kodd",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
-	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			//works
-	{"kodsp",       CPS_B_21_BT2, mapper_KD29B, 0x36, 0, 0x34 },			//works
 	{"kodud",       CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
-	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },							//works
-	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },			//works
-	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherje1", CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherjh1", CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherjha", CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherud1", CPS_B_21_DEF, mapper_PS63B },							//works
-	{"punisherud2", CPS_B_21_DEF, mapper_PS63B },							//works
-	{"sf2bhj",      CPS_B_12,     mapper_STF29,  0x36 },					//works
-	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },					//works
-	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2cehk",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2cehp",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2cejem",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2sl73a",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2th",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tha",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tlonc",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2yyc3d5",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2yyc3g",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2yyc6",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sk2h1",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h1q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h2",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h2q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h3",       HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h4q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h5q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h6q",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },			//works, priorities
-	{"sk2h11",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk2h12",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk2h13",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk2h14",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk2h15",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk2h16",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk2h21",      CPS_B_21_DEF, mapper_TK263B, 0x36 },					//works
-	{"sk2h22",      HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h31",      HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h31q",     HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h32",      HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h32q",     HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h33",      HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h33q",     HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h34",      HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h34q",     HACK_H_2,     mapper_TK263B, 0x36, 0, 0, 0x8F },		//works, priorities
-	{"sk2h35",      CPS_B_21_DEF, mapper_TK263B, 0x36 },					//works
-	{"sk3p1",       CPS_B_21_DEF, mapper_sfzch },							//works
-	{"sk3p2",       CPS_B_21_DEF, mapper_TK263B },							//works
-	{"sk3p3",       CPS_B_21_DEF, mapper_TK263B },							//works
-	{"slammastud",  CPS_B_21_DEF, mapper_MB63B },							//works
-	{"stridergf",   CPS_B_01,     mapper_ST24M1 },							//works
-	{"stridergh",   CPS_B_01,     mapper_ST24M1 },							//works
-	{"tk2c1",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c2",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c3",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c4",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c5",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c6",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c7",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c8",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c9",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c10",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c11",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c12",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c13",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c14",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c15",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c16",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c17",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c18",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c19",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c20",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c21",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c22",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2c23",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h1",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h2",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h3",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h4",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h5",       CPS_B_21_QS1, mapper_TK263B },							// problem with chinese language roms
-	{"tk2h6",       CPS_B_21_DEF, mapper_TK263B },							//works
-	{"tk2h7",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h8",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h9",       CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h10",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h11",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h12",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h13",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h14",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h15",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h16",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h17",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2h18",      CPS_B_21_QS1, mapper_TK263B },							//works
-	{"tk2p2",       CPS_B_21_DEF, mapper_sfzch },							//works
-	{"tk2p3",       CPS_B_21_DEF, mapper_TK263B },							//works
-	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },			//works
-	{"wofb",        CPS_B_21_DEF, mapper_TK263B },							//works
-	{"wofes",       CPS_B_21_DEF, mapper_TK263B },							//works
-	{"woffr",       CPS_B_21_DEF, mapper_sfzch },							//works
-	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },					//works
-	{"wofud",       CPS_B_21_DEF, mapper_TK263B },							//works
 
 	// HBMAME end
 	{nullptr}     /* End of table */
@@ -1816,24 +1660,67 @@ CPS1 VIDEO RENDERER
 MACHINE_RESET_MEMBER(cps_state,cps)
 {
 	const char *gamename = machine().system().name;
-	const struct CPS1config *pCFG = &cps1_config_table[0];
-
-	while (pCFG->name)
+	u8 tt = 0;
+	u8 *rom = 0;
+	if (memregion("control"))
 	{
-		if (strcmp(pCFG->name, gamename) == 0)
-			break;
-
-		pCFG++;
+		rom = memregion("control")->base();
+		tt = rom[0x00];
 	}
-
-	m_game_config = pCFG;
-
-	if (!m_game_config->name)
+	if (tt == 0x55)
 	{
-		gamename = "cps2";
-		pCFG = &cps1_config_table[0];
+		tt = 1;
+		m_game_config                       = &cps1_config_table[0];
+		m_game_config->name                 = gamename; // do not need this
+		m_game_config->cpsb_addr            = rom[tt++];
+		m_game_config->cpsb_value           = rom[tt++];
+		m_game_config->mult_factor1         = rom[tt++];
+		m_game_config->mult_factor2         = rom[tt++];
+		m_game_config->mult_result_lo       = rom[tt++];
+		m_game_config->mult_result_hi       = rom[tt++];
+		m_game_config->layer_control        = rom[tt++];
+		m_game_config->priority[0]          = rom[tt++];
+		m_game_config->priority[1]          = rom[tt++];
+		m_game_config->priority[2]          = rom[tt++];
+		m_game_config->priority[3]          = rom[tt++];
+		m_game_config->palette_control      = rom[tt++];
+		m_game_config->layer_enable_mask[0] = rom[tt++];
+		m_game_config->layer_enable_mask[1] = rom[tt++];
+		m_game_config->layer_enable_mask[2] = rom[tt++];
+		m_game_config->layer_enable_mask[3] = rom[tt++];
+		m_game_config->layer_enable_mask[4] = rom[tt++];
+		m_game_config->in2_addr             = rom[tt++];
+		m_game_config->in3_addr             = rom[tt++];
+		m_game_config->out2_addr            = rom[tt++];
+		m_game_config->bootleg_kludge       = rom[tt] | (rom[tt+1] << 8); tt += 2;
+		m_game_config->scrollx1             = rom[tt++];
+		m_game_config->scrollx2             = rom[tt++];
+		m_game_config->scrollx3             = rom[tt++];
+		m_game_config->bank_sizes[0]        = rom[tt] | (rom[tt+1] << 8) | (rom[tt+2] << 16); tt += 3;
+		m_game_config->bank_sizes[1]        = rom[tt] | (rom[tt+1] << 8) | (rom[tt+2] << 16); tt += 3;
+		m_game_config->bank_sizes[2]        = rom[tt] | (rom[tt+1] << 8) | (rom[tt+2] << 16); tt += 3;
+		m_game_config->bank_sizes[3]        = rom[tt] | (rom[tt+1] << 8) | (rom[tt+2] << 16); tt += 3;
 
-		while(pCFG->name)
+		static const struct gfx_range mapper_madeup_table[] = {
+		{ u8(rom[tt] & 0x1f), u32(rom[tt+1]) | u32(rom[tt+2] << 8) | u32(rom[tt+3] << 16), u32(rom[tt+4]) | u32(rom[tt+5] << 8) | u32(rom[tt+6] << 16), u8(rom[tt] >> 6) },
+		{ u8(rom[tt+7] & 0x1f), u32(rom[tt+8]) | u32(rom[tt+9] << 8) | u32(rom[tt+10] << 16), u32(rom[tt+11]) | u32(rom[tt+12] << 8) | u32(rom[tt+13] << 16), u8(rom[tt+7] >> 6) },
+		{ u8(rom[tt+14] & 0x1f), u32(rom[tt+15]) | u32(rom[tt+16] << 8) | u32(rom[tt+17] << 16), u32(rom[tt+18]) | u32(rom[tt+19] << 8) | u32(rom[tt+20] << 16), u8(rom[tt+14] >> 6) },
+		{ u8(rom[tt+21] & 0x1f), u32(rom[tt+22]) | u32(rom[tt+23] << 8) | u32(rom[tt+24] << 16), u32(rom[tt+25]) | u32(rom[tt+26] << 8) | u32(rom[tt+27] << 16), u8(rom[tt+21] >> 6) },
+		{ u8(rom[tt+28] & 0x1f), u32(rom[tt+29]) | u32(rom[tt+30] << 8) | u32(rom[tt+31] << 16), u32(rom[tt+32]) | u32(rom[tt+33] << 8) | u32(rom[tt+34] << 16), u8(rom[tt+28] >> 6) },
+		{ u8(rom[tt+35] & 0x1f), u32(rom[tt+36]) | u32(rom[tt+37] << 8) | u32(rom[tt+38] << 16), u32(rom[tt+39]) | u32(rom[tt+40] << 8) | u32(rom[tt+41] << 16), u8(rom[tt+35] >> 6) },
+		{ u8(rom[tt+42] & 0x1f), u32(rom[tt+43]) | u32(rom[tt+44] << 8) | u32(rom[tt+45] << 16), u32(rom[tt+46]) | u32(rom[tt+47] << 8) | u32(rom[tt+48] << 16), u8(rom[tt+42] >> 6) },
+		{ u8(rom[tt+49] & 0x1f), u32(rom[tt+50]) | u32(rom[tt+51] << 8) | u32(rom[tt+52] << 16), u32(rom[tt+53]) | u32(rom[tt+54] << 8) | u32(rom[tt+55] << 16), u8(rom[tt+49] >> 6) },
+		{ 0 } };
+
+		m_game_config->bank_mapper = mapper_madeup_table;
+		m_game_config->unknown1 = 0;
+		m_game_config->unknown2 = 0;
+		m_game_config->unknown3 = 0;
+	}
+	else
+	{
+		const struct CPS1config *pCFG = &cps1_config_table[0];
+		while (pCFG->name)
 		{
 			if (strcmp(pCFG->name, gamename) == 0)
 				break;
@@ -1842,8 +1729,23 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 		}
 
 		m_game_config = pCFG;
-	}
 
+		if (!m_game_config->name)
+		{
+			gamename = "cps2";
+			pCFG = &cps1_config_table[0];
+
+			while(pCFG->name)
+			{
+				if (strcmp(pCFG->name, gamename) == 0)
+					break;
+
+				pCFG++;
+			}
+
+			m_game_config = pCFG;
+		}
+	}
 #if 0
 	if (strcmp(gamename, "sf2accp2") == 0)
 	{
@@ -1862,6 +1764,86 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 		rom[0x61966 / 2] = 0x0000;
 		rom[0x61968 / 2] = 0x0400;
 	}
+#endif
+#if 0
+	// Write the config to a file
+	FILE *fp;
+	fp = fopen(gamename, "wb");
+	fprintf(fp, "%s", "U");
+	fprintf(fp, "%c", m_game_config->cpsb_addr);
+	fprintf(fp, "%c", m_game_config->cpsb_value);
+	fprintf(fp, "%c", m_game_config->mult_factor1);
+	fprintf(fp, "%c", m_game_config->mult_factor2);
+	fprintf(fp, "%c", m_game_config->mult_result_lo);
+	fprintf(fp, "%c", m_game_config->mult_result_hi);
+	fprintf(fp, "%c", m_game_config->layer_control);
+	fprintf(fp, "%c", m_game_config->priority[0]);
+	fprintf(fp, "%c", m_game_config->priority[1]);
+	fprintf(fp, "%c", m_game_config->priority[2]);
+	fprintf(fp, "%c", m_game_config->priority[3]);
+	fprintf(fp, "%c", m_game_config->palette_control);
+	fprintf(fp, "%c", m_game_config->layer_enable_mask[0]);
+	fprintf(fp, "%c", m_game_config->layer_enable_mask[1]);
+	fprintf(fp, "%c", m_game_config->layer_enable_mask[2]);
+	fprintf(fp, "%c", m_game_config->layer_enable_mask[3]);
+	fprintf(fp, "%c", m_game_config->layer_enable_mask[4]);
+	fprintf(fp, "%c", m_game_config->in2_addr);
+	fprintf(fp, "%c", m_game_config->in3_addr);
+	fprintf(fp, "%c", m_game_config->out2_addr);
+	fprintf(fp, "%c%c", m_game_config->bootleg_kludge&0xff, m_game_config->bootleg_kludge&0xff >> 8);
+	u8 scroll1x = 0, scroll2x = 0, scroll3x = 0;
+	switch (m_game_config->bootleg_kludge&0x0f)
+	{
+		case 0x01:
+			scroll1x = 0x8c;
+			scroll2x = 0x8e;
+			scroll3x = 0x90;
+			break;
+		case 0x02:
+			scroll1x = 0x8c;
+			scroll2x = 0x90;
+			scroll3x = 0x90;
+			break;
+		case 0x03:
+			scroll1x = 0x88;
+			scroll2x = 0x8b;
+			scroll3x = 0x8c;
+			break;
+		case 0x08:
+			scroll1x = 0x04;
+			scroll2x = 0x06;
+			scroll3x = 0x0a;
+			break;
+		case 0x0E:
+			scroll1x = 0xc6;
+			scroll2x = 0xc0;
+			scroll3x = 0xc6;
+			break;
+		case 0x0F:
+			scroll1x = 0xc0;
+			scroll2x = 0xc0;
+			scroll3x = 0xc0;
+	}
+	fprintf(fp, "%c%c%c", scroll1x, scroll2x, scroll3x);
+	fprintf(fp, "%c%c%c", m_game_config->bank_sizes[0]&0xff, (m_game_config->bank_sizes[0] >> 8)&0xff, m_game_config->bank_sizes[0] >> 16);
+	fprintf(fp, "%c%c%c", m_game_config->bank_sizes[1]&0xff, (m_game_config->bank_sizes[1] >> 8)&0xff, m_game_config->bank_sizes[1] >> 16);
+	fprintf(fp, "%c%c%c", m_game_config->bank_sizes[2]&0xff, (m_game_config->bank_sizes[2] >> 8)&0xff, m_game_config->bank_sizes[2] >> 16);
+	fprintf(fp, "%c%c%c", m_game_config->bank_sizes[3]&0xff, (m_game_config->bank_sizes[3] >> 8)&0xff, m_game_config->bank_sizes[3] >> 16);
+
+	const struct gfx_range *range = m_game_config->bank_mapper;
+	tt = ftell(fp);
+	while (range->type)
+	{
+		fprintf(fp, "%c", range->type | (range->bank << 6));
+		fprintf(fp, "%c%c%c", range->start & 0xff, (range->start >> 8)&0xff, range->start >> 16);
+		fprintf(fp, "%c%c%c", range->end & 0xff, (range->end >> 8)&0xff, range->end >> 16);
+		printf("%X,%X,%X,%X\n",range->type,range->start,range->end,range->bank);
+		++range;
+		tt+=7;
+	}
+	for (u8 i = tt; i < 0x80; i++)
+		fprintf(fp, "%c", 0);
+	fclose(fp);
 #endif
 }
 
@@ -1917,24 +1899,30 @@ READ16_MEMBER(cps_state::cps1_cps_b_r)
 	/* game. */
 	if (offset == m_game_config->cpsb_addr / 2)
 		return m_game_config->cpsb_value;
-
+	else
 	/* some games use as a protection check the ability to do 16-bit multiplications */
 	/* with a 32-bit result, by writing the factors to two ports and reading the */
 	/* result from two other ports. */
 	if (offset == m_game_config->mult_result_lo / 2)
+	{
+		//printf("Multiply protection lo at %s\n",machine().describe_context());
 		return (m_cps_b_regs[m_game_config->mult_factor1 / 2] *
 				m_cps_b_regs[m_game_config->mult_factor2 / 2]) & 0xffff;
-
+	}
+	else
 	if (offset == m_game_config->mult_result_hi / 2)
+	{
+		//printf("Multiply protection hi\n");
 		return (m_cps_b_regs[m_game_config->mult_factor1 / 2] *
 				m_cps_b_regs[m_game_config->mult_factor2 / 2]) >> 16;
-
+	}
+	else
 	if (offset == m_game_config->in2_addr / 2)  /* Extra input ports (on C-board) */
 		return cps1_in2_r(space, 0, 0); // HBMAME ioport("IN2")->read();
-
+	else
 	if (offset == m_game_config->in3_addr / 2)  /* Player 4 controls (on C-board) ("Captain Commando") */
 		return cps1_in3_r(space, 0, 0); // HBMAME ioport("IN3")->read();
-
+	else
 	if (m_cps_version == 2)
 	{
 		if (offset == 0x10/2)
@@ -2080,10 +2068,24 @@ DRIVER_INIT_MEMBER(cps_state,cps2_video)
 
 void cps_state::cps1_get_video_base()
 {
+	// HBMAME start
 	int layercontrol=0, videocontrol=0, scroll1xoff=0, scroll2xoff=0, scroll3xoff=0;
 
-	//HBMAME
-	uint8_t kludge = m_game_config->bootleg_kludge & 15;
+	if (BIT(m_game_config->scrollx1, 7))
+		scroll1xoff = 0 - (m_game_config->scrollx1 & 0x7f);
+	else
+		scroll1xoff = m_game_config->scrollx1;
+
+	if (BIT(m_game_config->scrollx2, 7))
+		scroll2xoff = 0 - (m_game_config->scrollx2 & 0x7f);
+	else
+		scroll2xoff = m_game_config->scrollx2;
+
+	if (BIT(m_game_config->scrollx3, 7))
+		scroll3xoff = 0 - (m_game_config->scrollx3 & 0x7f);
+	else
+		scroll3xoff = m_game_config->scrollx3;
+	// HBMAME end
 
 	/* Re-calculate the VIDEO RAM base */
 	if (m_scroll1 != cps1_base(CPS1_SCROLL1_BASE, m_scroll_size))
@@ -2102,57 +2104,21 @@ void cps_state::cps1_get_video_base()
 		m_bg_tilemap[2]->mark_all_dirty();
 	}
 
+	// HBMAME start
 	/* Some of the sf2 hacks use only sprite port 0x9100 and the scroll layers are offset */
-	if (kludge == 0x01) // HBMAME
-	{
+	uint8_t kludge = m_game_config->bootleg_kludge & 15;
+	if (kludge == 0x01 || kludge == 0x02)
 		m_cps_a_regs[CPS1_OBJ_BASE] = 0x9100;
-		scroll1xoff = -0x0c;
-		scroll2xoff = -0x0e;
-		scroll3xoff = -0x10;
-	}
-// HBMAME start
 	else
-	if (kludge == 0x0E)
+	if (kludge == 0x08) // 3wondersb
 	{
-		scroll1xoff = 0xffba;
-		scroll2xoff = 0xffc0;
-		scroll3xoff = 0xffba;
-	}
-	else
-	if (kludge == 0x0F)
-	{
-		scroll1xoff = 0xffc0;
-		scroll2xoff = 0xffc0;
-		scroll3xoff = 0xffc0;
-	}
-// HBMAME end
-	else
-	if (m_game_config->bootleg_kludge == 2)
-	{
-		m_cps_a_regs[CPS1_OBJ_BASE] = 0x9100;
-		scroll1xoff = -0x0c;
-		scroll2xoff = -0x10;
-		scroll3xoff = -0x10;
-	}
-	else
-	if (m_game_config->bootleg_kludge == 3)
-	{
-		scroll1xoff = -0x08;
-		scroll2xoff = -0x0b;
-		scroll3xoff = -0x0c;
-	}
-	else
-	if (m_game_config->bootleg_kludge == 0x88) // 3wondersb
-	{
-		scroll1xoff = 0x4;
-		scroll2xoff = 0x6;
-		scroll3xoff = 0xa;
 		m_cps_b_regs[0x30/2] = 0x3f;
 		m_cps_a_regs[CPS1_VIDEOCONTROL] = 0x3e;
 		m_cps_a_regs[CPS1_SCROLL2_BASE] = 0x90c0;
 		m_cps_a_regs[CPS1_SCROLL3_BASE] = 0x9100;
 		m_cps_a_regs[CPS1_PALETTE_BASE] = 0x9140;
 	}
+	// HBMAME end
 
 	m_obj = cps1_base(CPS1_OBJ_BASE, m_obj_size);
 	m_other = cps1_base(CPS1_OTHER_BASE, m_other_size);

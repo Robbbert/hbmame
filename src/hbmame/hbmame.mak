@@ -12,9 +12,9 @@ GEN_FOLDERS += $(GENDIR)/mame/layout/
 
 # MAME layouts that we use
 LAYOUTS += \
-	$(SRC)/mame/layout/atari_s1.lay \
 	$(SRC)/mame/layout/dotrikun.lay \
-	$(SRC)/hbmame/layout/spacmissx.lay \
+	$(SRC)/hbmame/layout/spacmissx.lay
+#	$(SRC)/mame/layout/atari_s1.lay
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
