@@ -46,57 +46,54 @@ struct gfx_range
 	// start and end are as passed by the game (shift adjusted to be all
 	// in the same scale a 8x8 tiles): they don't necessarily match the
 	// position in ROM.
-	u8 type;
-	u32 start;
-	u32 end;
-	u8 bank;
+	int type;
+	int start;
+	int end;
+	int bank;
 };
 
 struct CPS1config
 {
-	mutable const char *name;             /* game driver name */
+	const char *name;             /* game driver name */
 
 	/* Some games interrogate a couple of registers on bootup. */
 	/* These are CPS1 board B self test checks. They wander from game to */
 	/* game. */
-	mutable int cpsb_addr;        /* CPS board B test register address */
-	mutable int cpsb_value;       /* CPS board B test register expected value */
+	int cpsb_addr;        /* CPS board B test register address */
+	int cpsb_value;       /* CPS board B test register expected value */
 
 	/* some games use as a protection check the ability to do 16-bit multiplies */
 	/* with a 32-bit result, by writing the factors to two ports and reading the */
 	/* result from two other ports. */
 	/* It looks like this feature was introduced with 3wonders (CPSB ID = 08xx) */
-	mutable int mult_factor1;
-	mutable int mult_factor2;
-	mutable int mult_result_lo;
-	mutable int mult_result_hi;
+	int mult_factor1;
+	int mult_factor2;
+	int mult_result_lo;
+	int mult_result_hi;
 
 	/* unknown registers which might be related to the multiply protection */
-	mutable int unknown1;
-	mutable int unknown2;
-	mutable int unknown3;
+	int unknown1;
+	int unknown2;
+	int unknown3;
 
-	mutable int layer_control;
-	mutable int priority[4];
-	mutable int palette_control;
+	int layer_control;
+	int priority[4];
+	int palette_control;
 
 	/* ideally, the layer enable masks should consist of only one bit, */
 	/* but in many cases it is unknown which bit is which. */
-	mutable int layer_enable_mask[5];
+	int layer_enable_mask[5];
 
 	/* these depend on the B-board model and PAL */
-	mutable int bank_sizes[4];
-	mutable const struct gfx_range *bank_mapper;
+	int bank_sizes[4];
+	const struct gfx_range *bank_mapper;
 
 	/* some C-boards have additional I/O for extra buttons/extra players */
-	mutable int in2_addr;
-	mutable int in3_addr;
-	mutable int out2_addr;
+	int in2_addr;
+	int in3_addr;
+	int out2_addr;
 
-	mutable int bootleg_kludge;
-	mutable u8 scrollx1;
-	mutable u8 scrollx2;
-	mutable u8 scrollx3;
+	int bootleg_kludge;
 };
 
 
@@ -136,6 +133,27 @@ public:
 		m_region_key(*this, "key"),
 		m_region_stars(*this, "stars")
 	{ }
+
+	// cps config for new
+	int m_cpsb_addr;
+	int m_cpsb_value;
+	int m_mult_factor1;
+	int m_mult_factor2;
+	int m_mult_result_lo;
+	int m_mult_result_hi;
+	int m_layer_control;
+	int m_priority[4];
+	int m_palette_control;
+	int m_layer_enable_mask[5];
+	int m_bank_sizes[4];
+	int m_in2_addr;
+	int m_in3_addr;
+	int m_out2_addr;
+	int m_bootleg_kludge;
+	u8 m_scrollx1;
+	u8 m_scrollx2;
+	u8 m_scrollx3;
+	u32 m_bank_type[32];
 
 	/* memory pointers */
 	// cps1
@@ -216,12 +234,12 @@ public:
 	int          m_palette_align;
 	int          m_palette_size;
 	int          m_stars_rom_size;
-	uint8_t        m_empty_tile[32*32];
+	uint8_t      m_empty_tile[32*32];
 	int          m_cps_version;
 
 	/* fcrash video config */
-	uint8_t        m_layer_enable_reg;
-	uint8_t        m_layer_mask_reg[4];
+	uint8_t      m_layer_enable_reg;
+	uint8_t      m_layer_mask_reg[4];
 	int          m_layer_scroll1x_offset;
 	int          m_layer_scroll2x_offset;
 	int          m_layer_scroll3x_offset;
