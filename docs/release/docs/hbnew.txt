@@ -1,6 +1,19 @@
 What's new in HBMAME
 ====================
 
+2017-04-26 0.185
+----------------
+
+- cps1: replaced hard-coded per-game tables with a .key rom
+- 
+
+
+New Working Games
+-----------------
+
+
+
+
 2017-03-29 0.184
 ----------------
 
