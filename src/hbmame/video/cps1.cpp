@@ -1160,7 +1160,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinohx",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
 	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinorp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinosf2",      CPS_B_21_QS2, mapper_CD63B },							//works
+	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },							// nw
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },							//works

@@ -200,7 +200,7 @@ dinohp
 //dinohx // crashes in the "underground", demo sound only works on first run.
 dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
 dinorp
-dinosf2
+//dinosf2
 dinoslice
 dinouphp
 dinoz		/* Boss Hack */
@@ -2365,6 +2365,8 @@ samsho2hy
 samsho2mb
 samsho2q
 samsho2s2
+samsho2sp
+samsho2sp2
 samsho2sq
 samsho2ss
 samsho2yc
