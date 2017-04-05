@@ -11,6 +11,7 @@ What's new in HBMAME
 New Working Games
 -----------------
 - [shogwarrubh]     Shogun Warriors (US) Boss Hack by e107
+- [tst_trkfld]      Test Rom - Track and Field by Shoestring
 
 
 

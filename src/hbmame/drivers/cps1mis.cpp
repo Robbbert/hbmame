@@ -1610,6 +1610,32 @@ ROM_START( dinorp )
 	ROM_LOAD_OPTIONAL( "dino.key", 0x000000, 0x000080, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
+ROM_START( dinosf2 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "dinosf2.u23",  0x000000, 0x80000, CRC(ccdc80f3) SHA1(0cb34ac873a9c4cf7189c8d189bb9f96ec4f0721) )
+	ROM_LOAD16_WORD_SWAP( "dinosf2.u22",  0x080000, 0x80000, CRC(e8eb6500) SHA1(d062e31863c8a3d297aa9c32693b67921d9a9650) )
+	ROM_LOAD16_WORD_SWAP( "dinosf2.u21",  0x100000, 0x80000, CRC(8822a8ef) SHA1(3e345fad0331ce7a3ba742ed3a74abf8bb7e7a02) )
+	ROM_LOAD16_WORD_SWAP( "u20",  0x180000, 0x80000, CRC(8987c975) SHA1(3fd856805d627f855f72acc7aacc2e8ecf0f12bd) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_LOAD( "u9",             0x00000, 0x08000, CRC(2eb16a83) SHA1(067ea0bfc2c1e73520d6b836c72fbb9da9998311) )
+	ROM_CONTINUE(               0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 ) /* samples */
+	ROM_LOAD( "u18",            0x00000, 0x20000, CRC(8d2899ba) SHA1(0b3ac6cf2ce0323e3bfc9da3ebfcb0fd14bc405b) )
+	ROM_LOAD( "u19",            0x20000, 0x20000, CRC(b34a4b42) SHA1(3eeb9e33bb911359e03d44949ac58439a3d3d54b) )
+ROM_END
+
 ROM_START( dinoslice )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "cdeslice.rom", 0x000000, 0x200000, CRC(9da95eab) SHA1(370bf3bbd76de5ae638c6fdab67c7cea98744e7b) )
@@ -5670,7 +5696,8 @@ GAME( 1997, dinohp,      dino,     qsound,     dino,     cps_state, dino,     RO
 GAME( 1997, dinohx,      dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "Winuxx", "Cadillacs and Dinosaurs (Revised hack by Winuxx)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinojp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs Kyouryuu-Shinseiki Plus (2010-02-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, dinorp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Hack by Pipi899 set 2 2008-08-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinoslice,   dino,     qsound,     dino,     cps_state, dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 4)", MACHINE_SUPPORTS_SAVE )    // "ETC"
+GAME( 2017, dinosf2,     dino,     wofsf2,     dino,     cps_state, dinohunt, ROT0,   "Arcadefixer", "Cadillacs and Dinosaurs (sf2 conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinoslice,   dino,     qsound,     dino,     cps_state, dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dinouphp,    dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Up Version hack by Pipi899 2009-01-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, dinoz,       dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0,   "hack", "Cadillacs and Dinosaurs Z (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "hack", "Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)", MACHINE_SUPPORTS_SAVE )

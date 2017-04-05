@@ -200,6 +200,7 @@ dinohp
 //dinohx // crashes in the "underground", demo sound only works on first run.
 dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
 dinorp
+dinosf2
 dinoslice
 dinouphp
 dinoz		/* Boss Hack */
@@ -2936,6 +2937,7 @@ bgareggz
 	/* trackfld */
 trackfld	//parent
 athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
+tst_trkfld
 
 	/* twincobr */
 twincobr	//parent
