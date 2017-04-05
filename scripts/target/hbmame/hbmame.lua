@@ -186,6 +186,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"irem",
 		"itech",
 		"jaleco",
+		"kaneko",
 		"konami",
 		"midway",
 		"namco",
@@ -390,6 +391,23 @@ createHBMAMEProjects(_target, _subtarget, "jaleco")
 files {
 	MAME_DIR .. "src/hbmame/drivers/exerion.cpp",
 	MAME_DIR .. "src/mame/video/exerion.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "kaneko")
+files {
+	MAME_DIR .. "src/hbmame/drivers/kaneko16.cpp",
+	MAME_DIR .. "src/mame/includes/kaneko16.h",
+	MAME_DIR .. "src/mame/video/kaneko16.cpp",
+	MAME_DIR .. "src/mame/video/kaneko_tmap.cpp",
+	MAME_DIR .. "src/mame/video/kaneko_tmap.h",
+	MAME_DIR .. "src/mame/video/kaneko_spr.cpp",
+	MAME_DIR .. "src/mame/video/kaneko_spr.h",
+	MAME_DIR .. "src/mame/machine/kaneko_hit.cpp",
+	MAME_DIR .. "src/mame/machine/kaneko_hit.h",
+	MAME_DIR .. "src/mame/machine/kaneko_calc3.cpp",
+	MAME_DIR .. "src/mame/machine/kaneko_calc3.h",
+	MAME_DIR .. "src/mame/machine/kaneko_toybox.cpp",
+	MAME_DIR .. "src/mame/machine/kaneko_toybox.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "konami")

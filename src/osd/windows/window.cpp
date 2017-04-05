@@ -701,7 +701,7 @@ void winwindow_update_cursor_state(running_machine &machine)
 		window->hide_pointer();
 
 		// clip pointer to game video window
-		window->capture_pointer();
+		//window->capture_pointer(); //MESSUI
 	}
 	else
 	{
