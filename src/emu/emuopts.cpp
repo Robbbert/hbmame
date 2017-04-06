@@ -34,7 +34,7 @@ const options_entry emu_options::s_option_entries[] =
 	{ OPTION_SAMPLEPATH ";sp",                           "samples",   OPTION_STRING,     "path to samplesets" },
 	{ OPTION_ARTPATH,                                    "artwork",   OPTION_STRING,     "path to artwork files" },
 	{ OPTION_CTRLRPATH,                                  "ctrlr",     OPTION_STRING,     "path to controller definitions" },
-	{ OPTION_INIPATH,                                    "ini",       OPTION_STRING,     "path to ini files" },  // MESSUI
+	{ OPTION_INIPATH,                                    ".",       OPTION_STRING,     "path to ini files" },  // MESSUI
 	{ OPTION_FONTPATH,                                   ".",         OPTION_STRING,     "path to font files" },
 	{ OPTION_CHEATPATH,                                  "cheat",     OPTION_STRING,     "path to cheat files" },
 	{ OPTION_CROSSHAIRPATH,                              "crosshair", OPTION_STRING,     "path to crosshair files" },
@@ -228,33 +228,6 @@ emu_options::emu_options()
 , m_ui(UI_CABINET)
 {
 	add_entries(emu_options::s_option_entries);
-}
-
-
-std::string emu_options::main_value(const char *name) const
-{
-	std::string buffer = value(name);
-	int pos = buffer.find_first_of(',');
-	if (pos != -1)
-		buffer = buffer.substr(0, pos);
-	return buffer;
-}
-
-std::string emu_options::sub_value(const char *name, const char *subname) const
-{
-	std::string tmp = std::string(",").append(subname).append("=");
-	std::string buffer = value(name);
-	int pos = buffer.find(tmp);
-	if (pos != -1)
-	{
-		int endpos = buffer.find_first_of(',', pos + 1);
-		if (endpos == -1)
-			endpos = buffer.length();
-		buffer = buffer.substr(pos + tmp.length(), endpos - pos - tmp.length());
-	}
-	else
-		buffer.clear();
-	return buffer;
 }
 
 
