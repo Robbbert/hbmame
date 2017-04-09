@@ -51,6 +51,7 @@ After that, the remainder of the file is binary zeroes.
             Configuration table:
 
 ********************************************************************/
+#define WRITE_FILE 0
 
 /* Game specific data */
 
@@ -877,6 +878,7 @@ static const struct gfx_range mapper_KNM10B_table[] =
 	{ 0 }
 };
 
+#if 0
 #define mapper_frog     { 0x8000, 0, 0, 0 }, mapper_frog_table
 static const struct gfx_range mapper_frog_table[] =
 {
@@ -898,6 +900,7 @@ static const struct gfx_range mapper_demo_table[] =
 	{ GFXTYPE_SCROLL3, 0x0100, 0x011f, 0 }, // must not allow access to 0000, otherwise not used
 	{ 0 }
 };
+#endif
 
 
 static const struct CPS1config cps1_config_table[]=
@@ -1125,18 +1128,18 @@ static const struct CPS1config cps1_config_table[]=
 // HBMAME
 	{"captcocc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
 	{"captcovs",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
-	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
-	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
+	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },							// nw
 	{"kodd",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
 	{"kodud",       CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
+#if 0
 	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },							//works
-	{"captcocc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
 	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"captcovs",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
 	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
+	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
+	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
 	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },			//works
 	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },			//works
 	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
@@ -1160,7 +1163,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinohx",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
 	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinorp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },							// nw
 	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },							//works
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },							//works
@@ -1173,10 +1175,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
 	{"knightud",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"kodd",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
 	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			//works
 	{"kodsp",       CPS_B_21_BT2, mapper_KD29B, 0x36, 0, 0x34 },			//works
-	{"kodud",       CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
 	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },							//works
 	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },			//works
 	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },							//works
@@ -1293,7 +1293,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },							//works
 	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },					//works
 	{"wofud",       CPS_B_21_DEF, mapper_TK263B },							//works
-
+#endif
 	// HBMAME end
 	{nullptr}     /* End of table */
 };
@@ -1472,7 +1472,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 		rom[0x61968 / 2] = 0x0400;
 	}
 #endif
-#if 0
+#if WRITE_FILE
 	// Write the config to a file
 	FILE *fp;
 	fp = fopen(gamename, "wb");

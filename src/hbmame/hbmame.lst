@@ -93,41 +93,42 @@ stictime	/* Marks Hack of btime */
 vecbtime	/* T-Bone hack of Burgertime */
 
 	/* bublbobl */
-bublbobl	//parent
+bublbobl		//parent
 boblcave
 bublcave
 bublcave10
 bublcave11
-bbaladar	/* Aladar Bootleg */
-bb2bmh		/* Overclocked Bubblebobble Memories Hack */
-bbhackv1 	/* Overclocked Level Hack */ 
-bbredux1	/* Punji - Bubble Bobble Redux with Level Skip */
-bbredux2	/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
-bbredux3	/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
-bublbobf 	/* Arkatrad */ 
-sboblboblh 	/* level select hack */ 
+bbaladar		/* Aladar Bootleg */
+bb2bmh			/* Overclocked Bubblebobble Memories Hack */
+bbhackv1 		/* Overclocked Level Hack */ 
+bbredux1		/* Punji - Bubble Bobble Redux with Level Skip */
+bbredux2		/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
+bbredux3		/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
+bublbobf 		/* Arkatrad */ 
+sboblboblh 		/* level select hack */ 
 
 	/* bwidow */
-spacwarp	/* Jeff Hendrix - Proto on Space Duel HW */
+spacwarp		/* Jeff Hendrix - Proto on Space Duel HW */
 
 	/* cave */
-ddonpach	//parent
-ddonpacha	// trap15 hack
-pwrinst2	//parent
-pwrinst2h	/* 2013 Hack by TT */
+ddonpach		//parent
+ddonpacha		// trap15 hack
+pwrinst2		//parent
+pwrinst2h		/* 2013 Hack by TT */
+pwrinst2z
 
 	/* cball */
-cball		// parent
-cballfix	// With MASH 'fixed' gfx rom
+cball			//parent
+cballfix		// With MASH 'fixed' gfx rom
 
 	/* cclimber */
-ckong		//parent
-cclimber	//parent
+ckong			//parent
+cclimber		//parent
 tongypac
-ckongfix	/* Graphics Fix */
+ckongfix		/* Graphics Fix */
 ckonga2
 ckonga3
-cclimbrm	/* Tim Arcadecollecting Modded Version */
+cclimbrm		/* Tim Arcadecollecting Modded Version */
 
 	/* centiped */
 centiped	//parent
@@ -394,6 +395,8 @@ suicide2	/* Razoola */
 sfa2h
 sfa3br
 sfa3dp
+sfa3nc
+sfa3nch
 sfa3sp2
 sfa3spp
 sfa3uhd

@@ -10,9 +10,13 @@ What's new in HBMAME
 
 New Working Games
 -----------------
+- [fjbusterbh]      Fujiyama Buster (Japan) Boss Hack by e107
+- [pwrinst2z]
 - [samsho2sp]       Samurai Shodown II (Special)
 - [samsho2sp2]      Samurai Shodown II (Special alt)
 - [shogwarrubh]     Shogun Warriors (US) Boss Hack by e107
+- [sfa3nc]
+- [sfa3nch]
 - [tst_trkfld]      Test Rom - Track and Field by Shoestring
 
 

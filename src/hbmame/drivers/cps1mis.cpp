@@ -5586,8 +5586,8 @@ ROM_START( wofr1h )
 	ROM_LOAD_OPTIONAL( "wofch.key", 0x000000, 0x000080, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-// This is a rom kit to convert SF2 to WOF. There's no oki sound even though the roms are present, because
-// the device isn't being addressed properly (no reads, and only a few writes). Also, demo sound doesn't work.
+// This is a rom kit to convert SF2 to WOF. Demo sound doesn't work. You only get one life. To get in-game sound
+// you need to select MONO in the setup screen.
 ROM_START( wofsf2 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "wof_30.rom",   0x000000, 0x020000, CRC(15886428) SHA1(d528766346e52deb97b9f49f836064ab2891c6cd) )
