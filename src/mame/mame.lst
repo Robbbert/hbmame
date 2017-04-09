@@ -27638,6 +27638,9 @@ yis60464                        //
 @source:mt735.cpp
 mt735                           //
 
+@source:mtouchxl.cpp
+mtchxl6k						// 19?? Merit Industries
+
 @source:mtx.cpp
 mtx500                          // 1983 Memotech MTX 500
 mtx512                          // 1983 Memotech MTX 512
@@ -33731,7 +33734,7 @@ sg1000m2                        // Sega SG-1000 Mark II (Japan)
 chboxing                        // (c) 1984
 chwrestl                        // (c) 1985
 dokidoki                        // (c) 1985
-sderby2                         // (c) 198?
+sderby2                         // (c) 1985
 
 @source:sh4robot.cpp
 sh4robot                        //
@@ -36878,6 +36881,7 @@ vii                             // Chintendo / KenSingTon / Jungle Soft / Siatro
 vsmile                          //
 vsmilef                         //
 walle                           //
+wirels60                        // Wireless 60
 
 @source:vsmilepro.cpp
 vsmilpro
@@ -36965,6 +36969,7 @@ votrtnt                         // 1980 Votrax Type-'N-Talk
 
 @source:voyager.cpp
 voyager                         // (c) 2002 Team Play, Inc.
+policet2						// (c) 2003 Team Play, Inc.
 
 @source:vp101.cpp
 jnero                           // (c) 2004 ICE/Play Mechanix
