@@ -1077,6 +1077,7 @@ pstlpkr1                        //
 punchy                          //
 punchy3                         //
 usafootb                        //
+usafootba                       //
 wrldtour                        //
 wrldtour2                       //
 wrldtour3                       //
@@ -1091,9 +1092,6 @@ am_mg34i                        // (c) Amatic
 am_mg35i                        // (c) Amatic
 am_mg3a                         // (c) 2000 Amatic
 suprstar                        // (c) 1996 Amatic
-
-@source:amazonlf.cpp
-crospuzl                        //
 
 @source:ambush.cpp
 ambush                          // (c) 1983
@@ -10440,6 +10438,7 @@ menghong                        // 2004? Sealy
 psattack                        // 2004 Uniana
 topbladv                        // 2002 Sonokong. Top Blade V
 trivrus                         // 2009 AGT. Trivia R Us
+crospuzl                        //
 
 @source:airraid.cpp
 airraid                         // (c) 1987 Seibu Kaihatsu
@@ -12411,6 +12410,7 @@ bridgec3                        //
 cc10                            //
 cc7                             //
 damesc                          //
+fscc8                           //
 uvc                             // UVC: Advanced Voice Chess Challenger (English)
 uvcfr                           // * French
 uvcg                            // * German
@@ -14105,6 +14105,7 @@ rackempp                        //
 raimfire                        //
 rflshdlx                        //
 rocky                           //
+rockyf                          //
 sorbit                          //
 spirit                          //
 striker                         //
@@ -14416,7 +14417,8 @@ us2pfball                       // US Games
 uspbball                        // US Games
 
 @source:hh_sm510.cpp
-gnwmndon                        // Nintendo
+gnw_bx301                       // Nintendo
+gnw_dm53                        // Nintendo
 kcontra                         // Konami
 kgradius                        // Konami
 kloneran                        // Konami
@@ -17783,7 +17785,7 @@ unitron                         // 1985 Unitron
 utrn1024                        // 1986 Unitron 1024
 
 @source:macp.cpp
-//glxplay                       //
+glxplay                       //
 glxplay2                        //
 kidnap                          //
 mac_1808                        //

@@ -403,6 +403,7 @@ MACHINES["COM8116"] = true
 MACHINES["CR589"] = true
 --MACHINES["CS4031"] = true
 --MACHINES["CS8221"] = true
+MACHINES["CXD1095"] = true
 --MACHINES["DM9334"] = true
 --MACHINES["DP8390"] = true
 MACHINES["DS1204"] = true
@@ -4436,7 +4437,6 @@ files {
 	MAME_DIR .. "src/mame/machine/inder_vid.cpp",
 	MAME_DIR .. "src/mame/machine/inder_vid.h",
 	MAME_DIR .. "src/mame/drivers/corona.cpp",
-	MAME_DIR .. "src/mame/drivers/amazonlf.cpp",
 	MAME_DIR .. "src/mame/drivers/crystal.cpp",
 	MAME_DIR .. "src/mame/video/vrender0.cpp",
 	MAME_DIR .. "src/mame/video/vrender0.h",
