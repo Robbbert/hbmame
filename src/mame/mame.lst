@@ -27641,9 +27641,13 @@ yis60464                        //
 mt735                           //
 
 @source:mtouchxl.cpp
-mtchxls5k						// 1998 Merit Industries
+mtchxl5k						// 1998 Merit Industries
+mtchxl5ko						// 1998 Merit Industries
+mtchxl5ko2						// 1998 Merit Industries
 mtchxl6k						// 1999 Merit Industries
+mtchxl6ko						// 1999 Merit Industries
 mtchxlgld						// 2000 Merit Industries
+mtchxlgldo						// 2000 Merit Industries
 
 @source:mtx.cpp
 mtx500                          // 1983 Memotech MTX 500
@@ -28567,9 +28571,9 @@ mok                             // 2002.03.06 The Maze of the Kings
 monkeyba                        // 2001.05 Monkey Ball
 mslug6                          // 2006.02 Metal Slug 6
 mtkob2                          // 2003.02 MushiKing The King Of Beetle
-mushi2eo                        // 2005.?? Mushiking The King Of Beetles II ENG (Ver. 1.001)
+mushi2eo                        // 2005.?? Mushiking The King Of Beetles II / III / III+ (Ver. 1.001)
 mushi2k5                        // 2005.?? MushiKing The King Of Beetle 2K5 1st
-mushik2e                        // 2005.?? Mushiking The King Of Beetles II ENG (Ver. 2.001)
+mushik2e                        // 2005.?? Mushiking The King Of Beetles II / III / III+ (Ver. 2.001)
 mvsc2                           // 2000.03 Marvel Vs. Capcom 2 New Age of Heroes (Export, Korea) (Rev A)
 mvsc2u                          // 2000.03 Marvel Vs. Capcom 2 New Age of Heroes (USA) (Rev A)
 naomi                           // 1998.?? Naomi BIOS
