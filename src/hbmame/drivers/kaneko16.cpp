@@ -4,7 +4,7 @@
 
 ROM_START( fjbusterbh )
 	ROM_REGION( 0x040000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "fbbh030j.u61", 0x000000, 0x020000, CRC(c3a66037) SHA1(4ca1b440ca822d6c6adecb5c0a3d83126bc775a2) )
+	ROM_LOAD16_BYTE( "fbbh030a.u61", 0x000000, 0x020000, CRC(c3a66037) SHA1(4ca1b440ca822d6c6adecb5c0a3d83126bc775a2) )
 	ROM_LOAD16_BYTE( "fbbh031j.u62", 0x000001, 0x020000, CRC(c104ca05) SHA1(6247ab05c6c88352a75d606961b98cd957709590) )
 
 	ROM_REGION( 0x020000, "calc3_rom", 0 )
@@ -32,7 +32,7 @@ ROM_START( fjbusterbh )
 	ROM_LOAD( "fb-003.u44",   0x100000, 0x100000, CRC(0aea4ac5) SHA1(8f3b30e505b0ba51c140a0a2c071680d4fa05db9) )
 ROM_END
 
-ROM_START( shogwarrubh )
+ROM_START( shogwarrbh )
 	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fbbh030a.u61", 0x000000, 0x020000, CRC(c3a66037) SHA1(4ca1b440ca822d6c6adecb5c0a3d83126bc775a2) )
 	ROM_LOAD16_BYTE( "fbbh031a.u62", 0x000001, 0x020000, CRC(e382acf8) SHA1(50177a525fb6138490c70e50f5b9ae476cb8d6de) )
@@ -62,5 +62,5 @@ ROM_START( shogwarrubh )
 	ROM_LOAD( "fb-003.u44",   0x100000, 0x100000, CRC(0aea4ac5) SHA1(8f3b30e505b0ba51c140a0a2c071680d4fa05db9) )
 ROM_END
 
-GAME( 1992, fjbusterbh,  shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Fujiyama Buster (Japan) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-GAME( 1992, shogwarrubh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Shogun Warriors (US) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1992, fjbusterbh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Fujiyama Buster (Japan) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1992, shogwarrbh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Shogun Warriors (World) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

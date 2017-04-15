@@ -205,11 +205,12 @@ NUM YEAR COMPANY                 TITLE
 472 2015 freem                   ADPCM-A Playback Demo
 473 2015 blastar                 Twister in a mirror intro
 474 2015 freem                   Sound-Loop Demo
-475 2016 kannagi                 Ennemi Sprite Demo
-476 2015 kannagi                 Neo Fight
+475 2016 Kannagi                 Ennemi Sprite Demo
+476 2015 Kannagi                 Neo Fight
 477 2016 Mega Shocked            DatImage demo
 478 2016 Mega Shocked            Demo
-479*2016                         Street Fighter 2 demo
+479*2016 Luis Miguel Mayor       Tech Demo #1 (Street Fighter 2)
+480 2016 Luis Miguel Mayor       Tech Demo #2
 
 
 ********************** 800 to 899 **********************************
@@ -1686,6 +1687,24 @@ ROM_START(akiradmo)
 	ROM_LOAD( "478.c3", 0x800000, 0x249a80, CRC(87b2a616) SHA1(915d5c7bf832b725a3678b3735790f503dd34f48) )
 ROM_END
 
+// 480 : Tech Demo 2 by Luis Miguel Mayor
+// No sound.
+ROM_START( ngtd2 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "480.p1", 0x000000, 0x100000, CRC(35131b60) SHA1(74877b4f1bdbba712b04afdf65bede1d30f846b0) )
+
+	NEO_SFIX_64K( "480.s1", CRC(9a246f50) SHA1(1f1358dd9c2f88d2197d6c8272ec899b7c9a524b) )
+
+	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "480.v1", 0x000000, 0x100000, CRC(5ea51b63) SHA1(62126f407175cd7bf44fb5acc1df12fbc0e23df6) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "480.c1", 0x000000, 0x100000, CRC(0ecfa2ba) SHA1(a5a7cbd3b79260f8cc99992067df315b20ae6741) )
+	ROM_LOAD16_BYTE( "480.c2", 0x000001, 0x100000, CRC(f16b9ae8) SHA1(cb43089370a77bdd177db7eb6819ed21c994a914) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -1815,6 +1834,7 @@ GAME( 2012, neothund,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NGEM2K", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )

@@ -4,8 +4,7 @@ What's new in HBMAME
 2017-04-26 0.185
 ----------------
 
-- cps1: replaced hard-coded per-game tables with a .key rom
-- 
+- cps1: replaced hard-coded per-game tables with a .key rom.
 
 
 New Working Games
@@ -14,12 +13,13 @@ New Working Games
 - [cps1testsa]      CPS1 Diagnostic (for sf2ce 2012-10-29)
 - [fjbusterbh]      Fujiyama Buster (Japan) Boss Hack by e107
 - [neofight]        Neo Fight (final ver) by Kannagi
+- [ngtd2]           Tech Demo 2 by Luis Miguel Mayor
 - [pwrinst2z]
 - [samsho2sp]       Samurai Shodown II (Special)
 - [samsho2sp2]      Samurai Shodown II (Special-2)
 - [samsho2sp3]      Samurai Shodown II (Special-3)
 - [samsho2sp4]      Samurai Shodown II (Special 2017-03-11)
-- [shogwarrubh]     Shogun Warriors (US) Boss Hack by e107
+- [shogwarrbh]      Shogun Warriors (World) Boss Hack by e107
 - [sfa3nc]
 - [sfa3nch]
 - [tst_trkfld]      Test Rom - Track and Field by Shoestring
@@ -30,7 +30,7 @@ New Working Games
 ----------------
 
 - Cleaned out unused code from Neogeo driver
-- Renamed many roms to avoid name conflicts, not yet completed. 
+- Renamed many roms to avoid name conflicts, not yet completed.
 
 
 New Working Games
