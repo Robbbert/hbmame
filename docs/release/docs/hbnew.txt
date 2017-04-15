@@ -19,6 +19,7 @@ New Working Games
 - [samsho2sp2]      Samurai Shodown II (Special-2)
 - [samsho2sp3]      Samurai Shodown II (Special-3)
 - [samsho2sp4]      Samurai Shodown II (Special 2017-03-11)
+- [sf2jbh]          Street Fighter II: The World Warrior (Japan 910522 Boss Hack 2014 Edition by Yumeji)
 - [shogwarrbh]      Shogun Warriors (World) Boss Hack by e107
 - [sfa3nc]
 - [sfa3nch]

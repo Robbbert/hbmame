@@ -211,18 +211,18 @@ ffightb
 knight21		// debug
 //knightsa		// - rom missing
 knightsb2
-knightsh	/* 1991 Knights of the Round (Hack) */
-knightsha	/* 1991 Knights of the Round (Hack) */
+knightsh		/* 1991 Knights of the Round (Hack) */
+knightsha		/* 1991 Knights of the Round (Hack) */
 knightsjb
-knightsro	// Sebastian Mihai - Romanian translation 2015
+knightsro		// Sebastian Mihai - Romanian translation 2015
 knightud
 //kodd // not working
 kodh
 kodsp
 //kodud // not working
-pnicku		/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
-punisherb	/* Found in neht build */
-punisherf	/* Flash version 24/7/2009 by Zhyxxxx */
+pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
+punisherb		/* Found in neht build */
+punisherf		/* Flash version 24/7/2009 by Zhyxxxx */
 punisherje1
 punisherjh
 punisherjh1
@@ -230,36 +230,37 @@ punisherjha
 punisherud1
 punisherud2
 sf2bhj
-sf2c		// sf2, chinese
-sf2cebr		/* hack, Brasil   920313 */
-sf2ced		/* hack, Hispanic 990804 */
-sf2ceda		/* hack, Hispanic 990804 */
-sf2ceh		/* hack, Hispanic 990804 */
+sf2c			// sf2, chinese
+sf2cebr			/* hack, Brasil   920313 */
+sf2ced			/* hack, Hispanic 990804 */
+sf2ceda			/* hack, Hispanic 990804 */
+sf2ceh			/* hack, Hispanic 990804 */
 sf2cehk
 sf2cehp
 sf2cejem
-sf2koryuh	/* Hack by TT */
-sf2h9		/* Found in Mame Plus */
-sf2h10		/* Found in Mame Plus */
-sf2h11		/* Found in Mame Plus */
-sf2h12		/* Found in Mame Plus */
-sf2h13		/* hack */
-sf2pun		/* Drakon, Punishment Edition v1 Final */
-sf2sl73a	/* Drakon, Sheng Long v7.3a */
+sf2jbh			// sf2jbh2014
+sf2koryuh		/* Hack by TT */
+sf2h9			/* Found in Mame Plus */
+sf2h10			/* Found in Mame Plus */
+sf2h11			/* Found in Mame Plus */
+sf2h12			/* Found in Mame Plus */
+sf2h13			/* hack */
+sf2pun			/* Drakon, Punishment Edition v1 Final */
+sf2sl73a		/* Drakon, Sheng Long v7.3a */
 sf2th
 sf2tha
-sf2tlona	/* hack, Tu Long set 1 */
-sf2tlonb	/* hack, Tu Long set 2 */
-sf2tlonc	/* hack, Tu Long set 3 */
-sf2turyu	/* hack, Tu Long prototype */
+sf2tlona		/* hack, Tu Long set 1 */
+sf2tlonb		/* hack, Tu Long set 2 */
+sf2tlonc		/* hack, Tu Long set 3 */
+sf2turyu		/* hack, Tu Long prototype */
 sf2yyc3d5
 sf2yyc3g
 sf2yyc6
-sk2h1 		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
-sk2h1q		// qsound version of sk2h1
-sk2h2		/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h1 			/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h1q			// qsound version of sk2h1
+sk2h2			/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
 sk2h2q
-sk2h3		// mame sgyxz for testing
+sk2h3			// mame sgyxz for testing
 sk2h4q
 sk2h5q
 sk2h6q
