@@ -209,6 +209,7 @@ NUM YEAR COMPANY                 TITLE
 476 2015 kannagi                 Neo Fight
 477 2016 Mega Shocked            DatImage demo
 478 2016 Mega Shocked            Demo
+479*2016                         Street Fighter 2 demo
 
 
 ********************** 800 to 899 **********************************
@@ -1286,6 +1287,8 @@ ROM_START( neobubble )
 	ROM_FILL(0x39B,1,0xF6)
 	ROM_FILL(0x39C,1,0x60)
 	ROM_FILL(0x39D,1,0xFE)
+	// This rom does nothing, just a black screen
+	//ROM_LOAD16_WORD_SWAP( "438a.p1", 0x000000, 0x080000, CRC(cbd8204d) SHA1(d0cbf0b3c4a160fdf0d598fe77b52024d438d595) )
 
 	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
@@ -1596,7 +1599,7 @@ ROM_END
 
 // 475 : Sprite demo by Kannagi (26-3-2016)
 // Arrows to move fighter around. A = kick; B = punch; C & D slide background left & right. No sound.
-ROM_START( ennemi )
+ROM_START( neofightb )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "475.p1", 0x000000, 0x080000, CRC(caaf0da5) SHA1(089a89c787d4955fcb11141b50d587caa785c30a) )
 
@@ -1614,9 +1617,24 @@ ROM_END
 
 // 476 : Neo Fight by Kannagi (14-12-2015)
 // Arrows to move fighter around. A = kick; B = punch; C & D slide background left & right. No sound.
+ROM_START( neofighto )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "476o.p1", 0x000000, 0x080000, CRC(b0eb16a0) SHA1(136b1cb9b9daf1b8563c66002d07bb5128d41061) )
+
+	NEO_SFIX_128K( "052-s1.s1", CRC(97689804) SHA1(fa8dab3b3353d7115a0368f3fc749950c0186fbc) )
+
+	NEO_BIOS_AUDIO_128K( "052-m1.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "052-v1.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "476.c1",    0x000000, 0x200000, CRC(99fda4d5) SHA1(c5ff1b724a8cbc209c47eb4fb1eca4f0b76aad5c) )
+	ROM_LOAD16_BYTE( "476.c2",    0x000001, 0x200000, CRC(2e48378a) SHA1(80389cfc420b2e7c5f50c809995a3298a57c697f) )
+ROM_END
 ROM_START( neofight )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "476.p1", 0x000000, 0x080000, CRC(b0eb16a0) SHA1(136b1cb9b9daf1b8563c66002d07bb5128d41061) )
+	ROM_LOAD16_WORD_SWAP( "476.p1", 0x000000, 0x080000, CRC(c44e5685) SHA1(59bc5814454e74f069dcdc8d3fb32da5b5b65bec) )
 
 	NEO_SFIX_128K( "052-s1.s1", CRC(97689804) SHA1(fa8dab3b3353d7115a0368f3fc749950c0186fbc) )
 
@@ -1763,7 +1781,6 @@ GAME( 1990, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales Intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck Intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, ennemi,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "GhostBusters Intro", MACHINE_SUPPORTS_SAVE )
@@ -1779,6 +1796,8 @@ GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, neofightb,    neofight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo (Neo Fight beta)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, neofighto,    neofight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neo Fight (old)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, neofight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neo Fight", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, neogal1,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, neogal1d,     neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Galaga Demo R001 (debug)", MACHINE_SUPPORTS_SAVE )

@@ -10,10 +10,15 @@ What's new in HBMAME
 
 New Working Games
 -----------------
+- [cps1testma]      CPS1 Diagnostic (for megaman 2012-10-29)
+- [cps1testsa]      CPS1 Diagnostic (for sf2ce 2012-10-29)
 - [fjbusterbh]      Fujiyama Buster (Japan) Boss Hack by e107
+- [neofight]        Neo Fight (final ver) by Kannagi
 - [pwrinst2z]
 - [samsho2sp]       Samurai Shodown II (Special)
-- [samsho2sp2]      Samurai Shodown II (Special alt)
+- [samsho2sp2]      Samurai Shodown II (Special-2)
+- [samsho2sp3]      Samurai Shodown II (Special-3)
+- [samsho2sp4]      Samurai Shodown II (Special 2017-03-11)
 - [shogwarrubh]     Shogun Warriors (US) Boss Hack by e107
 - [sfa3nc]
 - [sfa3nch]

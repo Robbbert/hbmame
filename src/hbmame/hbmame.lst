@@ -173,20 +173,22 @@ wof			// parent
 	/* cps1mis */
 3wondrud
 //captcocc // not working
-captcomc	// chinese
+captcomc		// chinese
 captcomh
 captcoud
 //captcovs // not working
 cawingb
-cps1demo	/* Charles Doty */
-cps1frog	/* Charles Doty */
-cps1test	/* Cal2 */
-cps1testa	/* Cal2 */
-daimakb		/* Found in Mame Plus */
+cps1demo		/* Charles Doty */
+cps1frog		/* Charles Doty */
+cps1testm		/* Cal2 */
+cps1testma		/* Cal2 */
+cps1tests		/* Cal2 */
+cps1testsa		/* Cal2 */
+daimakb			/* Found in Mame Plus */
 dino08h2
 dino08h3
 dino08hp
-dinob		/* 1993 Cadillacs and Dinosaurs (bootleg) */
+dinob			/* 1993 Cadillacs and Dinosaurs (bootleg) */
 dinobt
 dinobtpp
 dinocgba
@@ -194,20 +196,20 @@ dinocgbb
 dinocgbc
 dinoeh
 dinoex
-dinoh		/* 1993 Cadillacs and Dinosaurs (Hack) */
-dinoha		/* 1993 Cadillacs and Dinosaurs (Hack) */
-dinohb		/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinoh			/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinoha			/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinohb			/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohp
 //dinohx // crashes in the "underground", demo sound only works on first run.
-dinojp		// 2010 Pipi899, RockWall, Zhyxxxx
+dinojp			// 2010 Pipi899, RockWall, Zhyxxxx
 dinorp
 //dinosf2
 dinoslice
 dinouphp
-dinoz		/* Boss Hack */
+dinoz			/* Boss Hack */
 ffightb
-knight21	// debug
-//knightsa	// - rom missing
+knight21		// debug
+//knightsa		// - rom missing
 knightsb2
 knightsh	/* 1991 Knights of the Round (Hack) */
 knightsha	/* 1991 Knights of the Round (Hack) */
@@ -2018,7 +2020,6 @@ columnsncd
 didemo
 dti			// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
-ennemi      // kannagi 2016
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
 fr2			// 098 Idol Mahjong - final romance 2
@@ -2038,6 +2039,8 @@ neobubble
 neocstlv	// BarfHappy
 neodemo		/* Charles Doty */
 neofight	// Kannagi
+neofightb
+neofighto
 neogal1		// BEY
 neogal1d	// BEY
 neogal1t	// BEY
@@ -2371,6 +2374,8 @@ samsho2q
 samsho2s2
 samsho2sp
 samsho2sp2
+samsho2sp3
+samsho2sp4
 samsho2sq
 samsho2ss
 samsho2yc
