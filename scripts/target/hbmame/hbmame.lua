@@ -133,6 +133,7 @@ MACHINES["ER2055"] = true
 MACHINES["FDC_PLL"] = true
 MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
+MACHINES["I8251"] = true
 MACHINES["I8255"] = true
 MACHINES["INTELFLASH"] = true
 MACHINES["GEN_LATCH"] = true
@@ -410,6 +411,8 @@ files {
 	MAME_DIR .. "src/mame/machine/kaneko_calc3.h",
 	MAME_DIR .. "src/mame/machine/kaneko_toybox.cpp",
 	MAME_DIR .. "src/mame/machine/kaneko_toybox.h",
+	MAME_DIR .. "src/mame/video/kan_pand.cpp",  -- these 2 needed for linux compile
+	MAME_DIR .. "src/mame/video/kan_pand.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "konami")
