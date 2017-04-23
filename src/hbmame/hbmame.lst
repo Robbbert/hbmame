@@ -10,20 +10,20 @@
 
 
 	/* 1942 */
-1942		//parent
+1942			//parent
 1942h
-1942c64		// 1942 with C64 sounds (by minwah)
-1942fpa		// 1942 with free play (by cmonkey)
-galagax 	/* Jerky - Chris Moore hack of 1942 */
+1942c64			// 1942 with C64 sounds (by minwah)
+1942fpa			// 1942 with free play (by cmonkey)
+galagax 		/* Jerky - Chris Moore hack of 1942 */
 
 	/* 1943 */
-1943		//parent
-1943h		/* Hacked to have the vendor name and phone number */
+1943			//parent
+1943h			/* Hacked to have the vendor name and phone number */
 
 	/* 8080bw */
-invaders	//parent
-tst_invd	// test rom
-invmulti	//parent
+invaders		//parent
+tst_invd		// test rom
+invmulti		//parent
 invmultim1a
 invmultim2a
 invmultim2c
@@ -33,64 +33,69 @@ invmultis1a
 invmultis2a
 invmultis3a
 invmultit3d
-invrvnge	//parent for ir
+invrvnge		//parent for ir
 
 	/* arkanoid */
-arkanoid	//parent
-akblc2dx 	/* hack */
-akgcdx	 	/* hack */
-aktaytdx 	/* hack */
-arkll32 	/* LLMAME 32 */
+arkanoid		//parent
+akblc2dx		/* hack */
+akgcdx			/* hack */
+aktaytdx		/* hack */
+arkll32			/* LLMAME 32 */
 
 	/* asteroid */
-asteroid	//parent
-asteroid6	/* Clay Cowgill Bullet Hack */
+asteroid		//parent
+asteroid6		/* Clay Cowgill Bullet Hack */
 astdelux4
-starslayer	// star destroyer, hack of asteroid2
-//amg		// test only
+starslayer		// star destroyer, hack of asteroid2
+//amg			// test only
 
 	/* astrocde */
-tst_gorf	/* Gorf test rom */
-tst_gor1	/* Gorf test rom */
-tst_wow2	/* Wow test rom */
-tst_wow3	/* Wow test rom */
+tst_gorf		/* Gorf test rom */
+tst_gor1		/* Gorf test rom */
+tst_wow2		/* Wow test rom */
+tst_wow3		/* Wow test rom */
 
 	/* astrof */
-astrof		//parent
-astrofbl	/* Black Background */
+astrof			//parent
+astrofbl		/* Black Background */
 
 	/* asuka */
-asuka		//parent
-asukac		// chinese
+asuka			//parent
+asukac			// chinese
+
+	/* atarisy1 */
+atarisy1		//bios
+indytemp		//parent
+ataris1hw
 
 	/* atari_s1 */
 //atarians	//parent
 //atarianb	/* hack for emulators */
 
 	/* bagman */
-bagman		//parent
+bagman			//parent
 bagturbo
-pickin		//parent
-pickinpi	/* Color Hack by Pi */
+pickin			//parent
+pickinpi		/* Color Hack by Pi */
 
 	/* blktiger */
-blktiger	//parent
-blkdrgonk	/* Korean Translation */
+blktiger		//parent
+blkdrgonk		/* Korean Translation */
 
 	/* bombjack */
-bombjack	//parent
-bmbjckgr	/* Vag @ GreekRoms */
-bombjckb	/* bootleg */
-bombjred	/* hack by unknown French person */
+bombjack		//parent
+bmbjckgr		/* Vag @ GreekRoms */
+bombjckb		/* bootleg */
+bombjred		/* hack by unknown French person */
 
 	/* btime */
-btime		//parent
-brubber		//parent
-lnc			//parent
-bnjr		/* Bump N Jump Reverse Mod */
-pnc			/* Pac N Chase */
-stictime	/* Marks Hack of btime */
-vecbtime	/* T-Bone hack of Burgertime */
+btime			//parent
+brubber			//parent
+lnc				//parent
+bnjr			/* Bump N Jump Reverse Mod */
+pnc				/* Pac N Chase */
+stictime		/* Marks Hack of btime */
+vecbtime		/* T-Bone hack of Burgertime */
 
 	/* bublbobl */
 bublbobl		//parent
