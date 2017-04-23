@@ -2788,9 +2788,6 @@ pc_pacm		/* NES->PC-10 */
 pc_gyrus	/* NES->PC-10 */
 pc_skykd	/* NES->PC-10 */
 
-	/* popper */
-popper
-
 	/* powerins */
 powerins	//parent
 powernbr	// Brazil translation

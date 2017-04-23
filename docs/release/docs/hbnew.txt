@@ -9,6 +9,7 @@ What's new in HBMAME
 
 New Working Games
 -----------------
+- [ataris1hw]       Atari System 1 Hello World by Luigi30
 - [cps1testma]      CPS1 Diagnostic (for megaman 2012-10-29)
 - [cps1testsa]      CPS1 Diagnostic (for sf2ce 2012-10-29)
 - [fjbusterbh]      Fujiyama Buster (Japan) Boss Hack by e107
