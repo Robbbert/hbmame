@@ -394,6 +394,7 @@ MACHINES["COM8116"] = true
 MACHINES["CR589"] = true
 MACHINES["CS4031"] = true
 MACHINES["CS8221"] = true
+--MACHINES["CXD1095"] = true
 MACHINES["DM9334"] = true
 MACHINES["DP8390"] = true
 --MACHINES["DS1204"] = true
@@ -486,6 +487,7 @@ MACHINES["MPU401"] = true
 MACHINES["MSM5832"] = true
 MACHINES["MSM58321"] = true
 MACHINES["MSM6242"] = true
+--MACHINES["MSM6253"] = true
 MACHINES["NCR5380"] = true
 MACHINES["NCR5380N"] = true
 MACHINES["NCR5390"] = true
@@ -602,6 +604,7 @@ MACHINES["SONY_DRIVE"] = true
 MACHINES["SCNXX562"] = true
 MACHINES["FGA002"] = true
 MACHINES["INPUT_MERGER"] = true
+-- MACHINES["K054321"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -2439,6 +2442,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/novag6502.cpp",
 	MAME_DIR .. "src/mame/drivers/novagbase.h",
 	MAME_DIR .. "src/mame/drivers/novag68k.cpp",
+	MAME_DIR .. "src/mame/drivers/novagmcs48.cpp",
 	MAME_DIR .. "src/mame/drivers/ssystem3.cpp",
 	MAME_DIR .. "src/mame/includes/ssystem3.h",
 	MAME_DIR .. "src/mame/video/ssystem3.cpp",
@@ -3332,6 +3336,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/binbug.cpp",
 	MAME_DIR .. "src/mame/drivers/besta.cpp",
 	MAME_DIR .. "src/mame/drivers/bitgraph.cpp",
+	MAME_DIR .. "src/mame/drivers/bpmmicro.cpp",
 	MAME_DIR .. "src/mame/drivers/br8641.cpp",
 	MAME_DIR .. "src/mame/drivers/busicom.cpp",
 	MAME_DIR .. "src/mame/includes/busicom.h",

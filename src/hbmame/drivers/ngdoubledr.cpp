@@ -272,13 +272,13 @@ ROM_END
 
 
 
-GAME( 1995, dbdeh,          doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Neo-Geo) (Add Char - Max ultra kill after hit (2003-04-20))", MACHINE_SUPPORTS_SAVE ) //Based on dbdehy
-GAME( 1995, dbdehy,         doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Double Dragon (Neo-Geo) (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, dbdq,           doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami", "Double Dragon (Neo-Geo) (Q-ver Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, dbdqb,          doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Neo-Geo) (Q-ver Char - Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, dbdqeh,         doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Neo-Geo) (Q-ver Char - Max ultra kill after hit - Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, dbdqp,          doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami", "Double Dragon (Neo-Geo) (Q-ver Char - Max ultra kill after hit)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, dbdy,           doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Double Dragon (Neo-Geo) (Add Char - Always in AES mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, dbdeh,          doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Add Char - Max ultra kill after hit 2003-04-20)", MACHINE_SUPPORTS_SAVE ) //Based on dbdehy
+GAME( 1995, dbdehy,         doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Double Dragon (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, dbdq,           doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami", "Double Dragon (Q-ver Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, dbdqb,          doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Q-ver Char - Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, dbdqeh,         doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Q-ver Char - Max ultra kill after hit - Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, dbdqp,          doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami", "Double Dragon (Q-ver Char - Max ultra kill after hit)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, dbdy,           doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Ydmis", "Double Dragon (Add Char - Always in AES mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, doubledre2,     doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "hack", "Double Dragon Q (Boss hack Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, doubledres,     doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "hack", "Double Dragon (Boss hack Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Blackheart", "Double Dragon (Boss Hack Perfect Edition hack by Blackheart 2009-09-19)", MACHINE_SUPPORTS_SAVE )

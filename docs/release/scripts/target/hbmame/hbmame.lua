@@ -127,11 +127,13 @@ MACHINES["68681"] = true
 MACHINES["I8257"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["BANKDEV"] = true
+MACHINES["CXD1095"] = true
 MACHINES["EEPROMDEV"] = true
 MACHINES["ER2055"] = true
 MACHINES["FDC_PLL"] = true
 MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
+MACHINES["I8251"] = true
 MACHINES["I8255"] = true
 MACHINES["INTELFLASH"] = true
 MACHINES["GEN_LATCH"] = true
@@ -140,6 +142,7 @@ MACHINES["LDPR8210"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
 MACHINES["MIOT6530"] = true
+MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
 MACHINES["RP5H01"] = true
 MACHINES["TIMEKPR"] = true
@@ -186,6 +189,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"irem",
 		"itech",
 		"jaleco",
+		"kaneko",
 		"konami",
 		"midway",
 		"namco",
@@ -263,6 +267,8 @@ createHBMAMEProjects(_target, _subtarget, "atari")
 files {
 	MAME_DIR .. "src/hbmame/drivers/asteroid.cpp",
 	MAME_DIR .. "src/mame/machine/asteroid.cpp",
+	MAME_DIR .. "src/hbmame/drivers/atarisy1.cpp",
+	MAME_DIR .. "src/mame/video/atarisy1.cpp",
 	MAME_DIR .. "src/mame/audio/asteroid.cpp",
 	MAME_DIR .. "src/hbmame/drivers/bwidow.cpp",
 	MAME_DIR .. "src/mame/audio/bwidow.cpp",
@@ -390,6 +396,25 @@ createHBMAMEProjects(_target, _subtarget, "jaleco")
 files {
 	MAME_DIR .. "src/hbmame/drivers/exerion.cpp",
 	MAME_DIR .. "src/mame/video/exerion.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "kaneko")
+files {
+	MAME_DIR .. "src/hbmame/drivers/kaneko16.cpp",
+	MAME_DIR .. "src/mame/includes/kaneko16.h",
+	MAME_DIR .. "src/mame/video/kaneko16.cpp",
+	MAME_DIR .. "src/mame/video/kaneko_tmap.cpp",
+	MAME_DIR .. "src/mame/video/kaneko_tmap.h",
+	MAME_DIR .. "src/mame/video/kaneko_spr.cpp",
+	MAME_DIR .. "src/mame/video/kaneko_spr.h",
+	MAME_DIR .. "src/mame/machine/kaneko_hit.cpp",
+	MAME_DIR .. "src/mame/machine/kaneko_hit.h",
+	MAME_DIR .. "src/mame/machine/kaneko_calc3.cpp",
+	MAME_DIR .. "src/mame/machine/kaneko_calc3.h",
+	MAME_DIR .. "src/mame/machine/kaneko_toybox.cpp",
+	MAME_DIR .. "src/mame/machine/kaneko_toybox.h",
+	MAME_DIR .. "src/mame/video/kan_pand.cpp",  -- these 2 needed for linux compile
+	MAME_DIR .. "src/mame/video/kan_pand.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "konami")
@@ -747,7 +772,6 @@ files {
 --	MAME_DIR .. "src/mame/machine/genpin.cpp",
 	MAME_DIR .. "src/hbmame/drivers/flower.cpp",
 	MAME_DIR .. "src/hbmame/drivers/marinedt.cpp",
-	MAME_DIR .. "src/hbmame/drivers/popper.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",

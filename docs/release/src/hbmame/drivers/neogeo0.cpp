@@ -103,6 +103,17 @@ static MACHINE_CONFIG_DERIVED( no_watchdog, neogeo_noslot )
 MACHINE_CONFIG_END
 
 
+// used by samsho2sp, doubledrsp
+ADDRESS_MAP_START( samsho2sp_map, AS_PROGRAM, 16, neogeo_state )
+	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x200000) // extra rom
+	AM_IMPORT_FROM( main_map_noslot )
+ADDRESS_MAP_END
+
+static MACHINE_CONFIG_DERIVED( samsho2sp, neogeo_noslot )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
+MACHINE_CONFIG_END
+
 /******************************************************************************/
 
 

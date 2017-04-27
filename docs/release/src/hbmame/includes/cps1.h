@@ -134,6 +134,27 @@ public:
 		m_region_stars(*this, "stars")
 	{ }
 
+	// cps config for new
+	int m_cpsb_addr;
+	int m_cpsb_value;
+	int m_mult_factor1;
+	int m_mult_factor2;
+	int m_mult_result_lo;
+	int m_mult_result_hi;
+	int m_layer_control;
+	int m_priority[4];
+	int m_palette_control;
+	int m_layer_enable_mask[5];
+	int m_bank_sizes[4];
+	int m_in2_addr;
+	int m_in3_addr;
+	int m_out2_addr;
+	int m_bootleg_kludge;
+	u8 m_scrollx1;
+	u8 m_scrollx2;
+	u8 m_scrollx3;
+	u32 m_bank_type[32];
+
 	/* memory pointers */
 	// cps1
 	optional_shared_ptr<uint16_t> m_mainram;
@@ -213,12 +234,12 @@ public:
 	int          m_palette_align;
 	int          m_palette_size;
 	int          m_stars_rom_size;
-	uint8_t        m_empty_tile[32*32];
+	uint8_t      m_empty_tile[32*32];
 	int          m_cps_version;
 
 	/* fcrash video config */
-	uint8_t        m_layer_enable_reg;
-	uint8_t        m_layer_mask_reg[4];
+	uint8_t      m_layer_enable_reg;
+	uint8_t      m_layer_mask_reg[4];
 	int          m_layer_scroll1x_offset;
 	int          m_layer_scroll2x_offset;
 	int          m_layer_scroll3x_offset;
