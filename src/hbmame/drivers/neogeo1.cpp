@@ -149,7 +149,7 @@ ROM_START( aof2b ) /* Art of Fighting 2 - Hack by TcwLee - (Can select Geese ins
 	ROM_LOAD16_BYTE( "056-c8.c8", 0xc00001, 0x200000, CRC(e546d7a8) SHA1(74a2fca994a5a93a5784a46c0f68193122456a09) )
 ROM_END
 
-ROM_START( aof2b1 )
+ROM_START( aof2b1 ) // also known as aof2bhfx
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "056b1.p1", 0x000000, 0x100000, CRC(5d21dc39) SHA1(72df83c4249990386ced39749dd6994aa5a0b2a9) )
 
@@ -584,6 +584,31 @@ ROM_END
 ROM_START( galaxyfgb )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "078b.p1", 0x100000, 0x100000, CRC(6288cb4a) SHA1(8fb3c124664512f5aa5a8c75064605955b2e24fb) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "078-s1.s1", CRC(72f8923e) SHA1(da908bffc2b5d8baa2002dbb5bfb3aa17d2472b7) )
+
+	NEO_BIOS_AUDIO_128K( "078-m1.m1", CRC(8e9e3b10) SHA1(7c44d1dbd4f8d337c99e90361d1dab837df85e31) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "078-v1.v1", 0x000000, 0x200000, CRC(e3b735ac) SHA1(e16dfac09aef8115a20bae0bef8c86d4e7d0dc4a) )
+	ROM_LOAD( "078-v2.v2", 0x200000, 0x200000, CRC(6a8e78c2) SHA1(f60b1f8a3a945f279a582745e82f37278ce5d83b) )
+	ROM_LOAD( "078-v3.v3", 0x400000, 0x100000, CRC(70bca656) SHA1(218b7079c90898e7faa382b386e77f81f415e7ac) )
+
+	ROM_REGION( 0xe00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "078-c1.c1", 0x000000, 0x200000, CRC(c890c7c0) SHA1(b96c18a41c34070a4f24ca77cb7516fae8b0fd0c) )
+	ROM_LOAD16_BYTE( "078-c2.c2", 0x000001, 0x200000, CRC(b6d25419) SHA1(e089df9c9a9645f706e501108d634f4d222622a2) )
+	ROM_LOAD16_BYTE( "078-c3.c3", 0x400000, 0x200000, CRC(9d87e761) SHA1(ea1b6d7c9d5ef3a9b48968bde5a52d5699d591cc) )
+	ROM_LOAD16_BYTE( "078-c4.c4", 0x400001, 0x200000, CRC(765d7cb8) SHA1(7b9c86714d688602064d928c9d2b49d70bb7541e) )
+	ROM_LOAD16_BYTE( "078-c5.c5", 0x800000, 0x200000, CRC(e6b77e6a) SHA1(db3b8fc62a6f21c6653621c0665450d5d9a9913d) )
+	ROM_LOAD16_BYTE( "078-c6.c6", 0x800001, 0x200000, CRC(d779a181) SHA1(2761026abd9698a7b56114b76631563abd41fd12) )
+	ROM_LOAD16_BYTE( "078-c7.c7", 0xc00000, 0x100000, CRC(4f27d580) SHA1(c0f12496b45b2fe6e94aa8ac52b0157063127e0a) )
+	ROM_LOAD16_BYTE( "078-c8.c8", 0xc00001, 0x100000, CRC(0a7cc0d8) SHA1(68aaee6341c87e56ce11acc1c4ec8047839fe70d) )
+ROM_END
+
+ROM_START( galaxyfgbh ) // galaxyfgbh2014
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "078bh.p1", 0x100000, 0x100000, CRC(bbfffa22) SHA1(6bde48477f67241dce30107f84c38a8d0c34a81f) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "078-s1.s1", CRC(72f8923e) SHA1(da908bffc2b5d8baa2002dbb5bfb3aa17d2472b7) )
@@ -2802,7 +2827,7 @@ GAME( 1992, androdunpx,    androdun, neogeo_noslot, neogeo, neogeo_state,       
 
 GAME( 1992, aofbh,         aof,      neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Art of Fighting (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2b,         aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "TcwLee", "Art of Fighting 2 (Geese instead of Mr. Big)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aof2b1,        aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Art of Fighting 2 (Boss hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2b1,        aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Art of Fighting 2 (Boss hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2bh,        aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Art of Fighting 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2br2,       aof2,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "TcwLee", "Art of Fighting 2 (Geese instead of Ryo)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, aof3b,         aof3,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Art of Fighting 3 (Boss hack by Dodowang)", MACHINE_SUPPORTS_SAVE )
@@ -2830,6 +2855,7 @@ GAME( 1994, fightfevk,     fightfev, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1998, flipshotk,     flipshot, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Battle Flip Shot (Korean)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, galaxyfgb,     galaxyfg, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Galaxy Fight (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, galaxyfgbh,    galaxyfg, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Galaxy Fight (Boss Hack 2014 Edition by Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, ganryud,       ganryu,   neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "Visco", "Ganryu / Musashi Ganryuki (decrypted C)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, gowcaizrb,     gowcaizr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Wesker", "Voltage Fighter (Boss hack by Wesker (FGCH))", MACHINE_SUPPORTS_SAVE )

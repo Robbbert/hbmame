@@ -2114,6 +2114,7 @@ fightfevbs
 fightfevk
 flipshotk
 galaxyfgb
+galaxyfgbh
 ganryud
 gowcaizrb
 gowcaizrbs
@@ -2228,6 +2229,7 @@ dbdqeh
 doubledre2
 doubledres
 doubledrhp
+//doubledrsp  //protection issues
 
 	/* nggaroup */
 garoub
@@ -2763,58 +2765,60 @@ kovsh3
 //kovsh15
 //kovsh16
 //kovsh17
-kovsh18		// gem fighters
-kovsh19		// rugal 98
+kovsh18			// gem fighters
+kovsh19			// rugal 98
 
 	/* phoenix */
-phoenix		//parent
-phoenixg	/* Vag @ GreekRoms */
-phoenixr	/* CYBERYOGI =CO= Windler hack of Phoenix */
+phoenix			//parent
+phoenixg		/* Vag @ GreekRoms */
+phoenixr		/* CYBERYOGI =CO= Windler hack of Phoenix */
 
 	/* playch10 */
-playch10	//required bios
-pc_bb2		/* NES->PC-10 */
-pc_ctfrc	/* NES->PC-10 */
-pc_digdg	/* NES->PC-10 */
-pc_krsty	/* NES->PC-10 */
-pc_mman5	/* NES->PC-10 */
-pc_parsl	/* NES->PC-10 */
-pc_ark		/* NES->PC-10 */
-pc_dk3		/* NES->PC-10 */
-pc_galag	/* NES->PC-10 */
-pc_cch		/* NES->PC-10 */
-pc_dk		/* NES->PC-10 */
-pc_pacm		/* NES->PC-10 */
-pc_gyrus	/* NES->PC-10 */
-pc_skykd	/* NES->PC-10 */
+playch10		//bios
+pc_bb2			/* NES->PC-10 */
+pc_ctfrc		/* NES->PC-10 */
+pc_digdg		/* NES->PC-10 */
+pc_krsty		/* NES->PC-10 */
+pc_mman5		/* NES->PC-10 */
+pc_parsl		/* NES->PC-10 */
+pc_ark			/* NES->PC-10 */
+pc_dk3			/* NES->PC-10 */
+pc_galag		/* NES->PC-10 */
+pc_cch			/* NES->PC-10 */
+pc_dk			/* NES->PC-10 */
+pc_pacm			/* NES->PC-10 */
+pc_gyrus		/* NES->PC-10 */
+pc_skykd		/* NES->PC-10 */
 
 	/* powerins */
-powerins	//parent
-powernbr	// Brazil translation
+powerins		//parent
+powernbr		// Brazil translation
 
 	/* psikyosh */
-s1945ii		//parent
+s1945ii			//parent
 s1945iiex
+s1945iii		//parent
+s1945sr3
 
 	/* rallyx */
-rallyx		//parent
-rxtron		/* Jerky and Sil hack of Rally-X */
-nrallyv		/* New Rally-X (vertical) */
+rallyx			//parent
+rxtron			/* Jerky and Sil hack of Rally-X */
+nrallyv			/* New Rally-X (vertical) */
 
 	/* rastan */
-rastan		//parent
-rastandh	/* Neil Pearce Hack */	
-rastand2	/* Neil Pearce Hack */
-rastaneh	/* Neil Pearce Hack */
-rastane2	/* Neil Pearce Hack */
-rastwack	/* Vogel Hack */
+rastan			//parent
+rastandh		/* Neil Pearce Hack */	
+rastand2		/* Neil Pearce Hack */
+rastaneh		/* Neil Pearce Hack */
+rastane2		/* Neil Pearce Hack */
+rastwack		/* Vogel Hack */
 
 	/* retofinv */
-retofinv	//parent
-retofinv4	/* Paul Smith hack */
+retofinv		//parent
+retofinv4		/* Paul Smith hack */
 
 	/* schaser */
-schasrcv	// extra sounds
+schasrcv		// extra sounds
 
 	/* segac2 */
 c2frog

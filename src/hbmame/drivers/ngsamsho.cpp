@@ -3,16 +3,6 @@
 // Samurai Shodown / Samurai Spirits
 
 
-ADDRESS_MAP_START( samsho2sp_map, AS_PROGRAM, 16, neogeo_state )
-	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x200000) // extra rom
-	AM_IMPORT_FROM( main_map_noslot )
-ADDRESS_MAP_END
-
-static MACHINE_CONFIG_DERIVED( samsho2sp, neogeo_noslot )
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
-MACHINE_CONFIG_END
-
 DRIVER_INIT_MEMBER( neogeo_hbmame, sam5hb )
 {
 	DRIVER_INIT_CALL(neogeo);
@@ -1800,17 +1790,17 @@ GAME( 1994, samsho2hy,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 GAME( 2009, samsho2mb,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Blackheart", "Samurai Shodown II (Moves hack by Blackheart 2009-08-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2q,   samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown II (Soul Q Version v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, samsho2s2,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown II (Special v0.12 2008-08-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, samsho2sp,  samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, samsho2sp2, samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special-2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, samsho2sp3, samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special-3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, samsho2sp4, samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special 2017-03-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, samsho2sp,  samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0122)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, samsho2sp2, samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0221)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, samsho2sp3, samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, samsho2sp4, samsho2,  samsho2sp,     neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0311 2017-03-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2sq,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown II (Soul Q version v2.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2ss,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Yashional", "Samurai Shodown II Special (Hack by Yashional)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2yc,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown II (Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2zk,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie, Kof1996", "Samurai Shodown II (Hack by Zuojie, Kof1996 2008-10-23)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, samsho3eh,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown III (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, samsho3hb,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (bootleg/hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, samsho3hb,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown III (hack HB)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, samsho3s2,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown III (Special v0.12 2008-09-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, samsho3se,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown III (Add Char - Pow hack ABC - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, samsho3ss,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown III (Special v0.1 2005-09-19)", MACHINE_SUPPORTS_SAVE )

@@ -26,10 +26,10 @@ static ADDRESS_MAP_START( fourplay_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x7001, 0x7001) AM_WRITE(irq_enable_w)
 	AM_RANGE(0x7002, 0x7003) AM_WRITE(fourplay_rombank_w)
 	AM_RANGE(0x7004, 0x7004) AM_WRITE(galaxian_stars_enable_w)
-	AM_RANGE(0x7005, 0x7005) AM_WRITENOP			/* bit 3 of rombank select - always 0 */
+	AM_RANGE(0x7005, 0x7005) AM_WRITENOP /* bit 3 of rombank select - always 0 */
 	AM_RANGE(0x7006, 0x7006) AM_WRITE(galaxian_flip_screen_x_w)
 	AM_RANGE(0x7007, 0x7007) AM_WRITE(galaxian_flip_screen_y_w)
-	AM_RANGE(0x7008, 0x7008) AM_WRITENOP			/* bit 4 of rombank select - always 0 */
+	AM_RANGE(0x7008, 0x7008) AM_WRITENOP /* bit 4 of rombank select - always 0 */
 	AM_RANGE(0x7800, 0x7800) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
 ADDRESS_MAP_END
 
@@ -106,35 +106,21 @@ MACHINE_CONFIG_END
  *************************************/
 
 static INPUT_PORTS_START( mrdonm )
-
 	PORT_START("IN0")
-
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_COIN1 )
-
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
-
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_2WAY
-
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_2WAY
-
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_UNUSED )
-
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_UNUSED )
-
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-
 	PORT_START("IN1")
-
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_START1 )
-
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START2 )
-
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_8WAY
-
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_8WAY
-
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_UNUSED )
 
@@ -143,9 +129,7 @@ static INPUT_PORTS_START( mrdonm )
 	PORT_DIPSETTING(    0xc0, DEF_STR( Free_Play ) )
 
 	PORT_START("IN2")
-
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
-
 INPUT_PORTS_END
 
 /*************************************
@@ -379,7 +363,7 @@ ROM_START( galaxiab )
 
 	ROM_REGION( 0x0020, "proms", 0 )
 	ROM_LOAD( "galaxiab.6l", 0x0000, 0x0020, CRC(feea6525) SHA1(cdb207776f51411ed4e9536babff6050488d2808) )
-	ROM_FILL( 31,1,7 )	/* patch so floating scores can be seen, and explosions look better */
+	ROM_FILL( 31,1,7 ) /* patch so floating scores can be seen, and explosions look better */
 ROM_END
 
 ROM_START( galaxkyo )

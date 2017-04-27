@@ -13,13 +13,15 @@ New Working Games
 - [cps1testma]      CPS1 Diagnostic (for megaman 2012-10-29)
 - [cps1testsa]      CPS1 Diagnostic (for sf2ce 2012-10-29)
 - [fjbusterbh]      Fujiyama Buster (Japan) Boss Hack by e107
+- [galaxyfgbh]      Galaxy Fight (Boss Hack 2014 Edition by Yumeji)
 - [neofight]        Neo Fight (final ver) by Kannagi
 - [ngtd2]           Tech Demo 2 by Luis Miguel Mayor
 - [pwrinst2z]
-- [samsho2sp]       Samurai Shodown II (Special)
-- [samsho2sp2]      Samurai Shodown II (Special-2)
-- [samsho2sp3]      Samurai Shodown II (Special-3)
-- [samsho2sp4]      Samurai Shodown II (Special 2017-03-11)
+- [s1945sr3]
+- [samsho2sp]       Samurai Shodown II (Special v1.0.0122)
+- [samsho2sp2]      Samurai Shodown II (Special v1.0.0221)
+- [samsho2sp3]      Samurai Shodown II (Special v1.0.0320)
+- [samsho2sp4]      Samurai Shodown II (Special v1.0.0311)
 - [sf2jbh]          Street Fighter II: The World Warrior (Japan 910522 Boss Hack 2014 Edition by Yumeji)
 - [shogwarrbh]      Shogun Warriors (World) Boss Hack by e107
 - [sfa3nc]
