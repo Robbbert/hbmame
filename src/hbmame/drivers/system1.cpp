@@ -11,6 +11,9 @@ ROM_START( wbmlbit )
 	ROM_LOAD( "wbml.03",      0x38000, 0x8000, CRC(d57ba8aa) SHA1(16f095cb78e31af5ce76d36c20fe4c3e0d027aea) )
 	ROM_CONTINUE(             0x18000, 0x8000 )
 
+	ROM_REGION( 0x2000, "maincpu:key", 0 ) /* MC8123 key */
+	ROM_LOAD( "317-0043.key",  0x0000, 0x2000, CRC(e354abfc) SHA1(07b0d3c51301ebb25909234b6220a3ed20dbcc7d) )
+
 	ROM_REGION( 0x10000, "soundcpu", 0 )
 	ROM_LOAD( "epr11037.126", 0x0000, 0x8000, CRC(7a4ee585) SHA1(050436106cced5dcbf40a3d94d48202eedddc3ad) )
 
@@ -42,6 +45,9 @@ ROM_START( wbmlkb )
 	ROM_CONTINUE(             0x10000, 0x8000 )
 	ROM_LOAD( "m-7.bin",      0x38000, 0x8000, CRC(11881703) SHA1(b5e4d477158e7653b0fef5a4806be7b4871e917d) )
 	ROM_CONTINUE(             0x18000, 0x8000 )
+
+	ROM_REGION( 0x2000, "maincpu:key", 0 ) /* MC8123 key */
+	ROM_LOAD( "317-0043.key",  0x0000, 0x2000, CRC(e354abfc) SHA1(07b0d3c51301ebb25909234b6220a3ed20dbcc7d) )
 
 	ROM_REGION( 0x10000, "soundcpu", 0 )
 	ROM_LOAD( "epr11037.126", 0x0000, 0x8000, CRC(7a4ee585) SHA1(050436106cced5dcbf40a3d94d48202eedddc3ad) )
