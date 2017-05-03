@@ -398,8 +398,6 @@ extern const device_type JVS_MASTER;
 class jvs_master : public jvs_host
 {
 public:
-	//friend class mie_device;
-
 	// construction/destruction
 	jvs_master(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	int get_sense_line();
@@ -452,7 +450,7 @@ int jvs_master::received_packet(uint8_t *buffer)
 
 extern const device_type OHCI_HLEAN2131QC;
 
-class ohci_hlean2131qc_device : public device_t, public ohci_function_device
+class ohci_hlean2131qc_device : public device_t, public ohci_function
 {
 public:
 	ohci_hlean2131qc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -499,7 +497,7 @@ const device_type OHCI_HLEAN2131QC = device_creator<ohci_hlean2131qc_device>;
 
 extern const device_type OHCI_HLEAN2131SC;
 
-class ohci_hlean2131sc_device : public device_t, public ohci_function_device
+class ohci_hlean2131sc_device : public device_t, public ohci_function
 {
 public:
 	ohci_hlean2131sc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -786,7 +784,7 @@ const uint8_t ohci_hlean2131qc_device::strdesc2[] = { 0x0E,0x03,0x42,0x00,0x41,0
 
 ohci_hlean2131qc_device::ohci_hlean2131qc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, OHCI_HLEAN2131QC, "OHCI Hlean2131qc", tag, owner, clock, "ohci_hlean2131qc", __FILE__),
-	ohci_function_device()
+	ohci_function()
 {
 	maximum_send = 0;
 	region = nullptr;
@@ -798,7 +796,7 @@ ohci_hlean2131qc_device::ohci_hlean2131qc_device(const machine_config &mconfig, 
 
 void ohci_hlean2131qc_device::initialize(running_machine &machine, ohci_usb_controller *usb_bus_manager)
 {
-	ohci_function_device::initialize(machine, usb_bus_manager);
+	ohci_function::initialize(machine, usb_bus_manager);
 	add_device_descriptor(devdesc);
 	add_configuration_descriptor(condesc);
 	add_interface_descriptor(intdesc);
@@ -1104,7 +1102,7 @@ const uint8_t ohci_hlean2131sc_device::strdesc2[] = { 0x0E,0x03,0x42,0x00,0x41,0
 
 ohci_hlean2131sc_device::ohci_hlean2131sc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, OHCI_HLEAN2131SC, "OHCI Hlean2131sc", tag, owner, clock, "ohci_hlean2131sc", __FILE__),
-	ohci_function_device()
+	ohci_function()
 {
 	region = nullptr;
 	midi_rs232 = 0;
@@ -1119,7 +1117,7 @@ void ohci_hlean2131sc_device::set_region_base(uint8_t *data)
 
 void ohci_hlean2131sc_device::initialize(running_machine &machine, ohci_usb_controller *usb_bus_manager)
 {
-	ohci_function_device::initialize(machine, usb_bus_manager);
+	ohci_function::initialize(machine, usb_bus_manager);
 	add_device_descriptor(devdesc);
 	add_configuration_descriptor(condesc);
 	add_interface_descriptor(intdesc);
@@ -1762,9 +1760,9 @@ static MACHINE_CONFIG_DERIVED_CLASS(chihiro_base, xbox_base, chihiro_state)
 	MCFG_CPU_IO_MAP(chihiro_map_io)
 
 	//MCFG_BUS_MASTER_IDE_CONTROLLER_ADD("ide", ide_baseboard, nullptr, "bb", true)
-	MCFG_DEVICE_MODIFY("ide:0")
+	MCFG_DEVICE_MODIFY(":pci:09.0:ide:0")
 	MCFG_DEVICE_SLOT_INTERFACE(ide_baseboard, nullptr, true)
-	MCFG_DEVICE_MODIFY("ide:1")
+	MCFG_DEVICE_MODIFY(":pci:09.0:ide:1")
 	MCFG_DEVICE_SLOT_INTERFACE(ide_baseboard, "bb", true)
 
 	// next lines are temporary

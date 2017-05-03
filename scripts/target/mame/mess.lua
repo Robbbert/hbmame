@@ -1940,6 +1940,7 @@ files {
 	MAME_DIR .. "src/mame/includes/fidelbase.h",
 	MAME_DIR .. "src/mame/drivers/fidel6502.cpp",
 	MAME_DIR .. "src/mame/drivers/fidel68k.cpp",
+	MAME_DIR .. "src/mame/drivers/fidelmcs48.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "force")
@@ -3420,6 +3421,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/micronic.cpp",
 	MAME_DIR .. "src/mame/includes/micronic.h",
 	MAME_DIR .. "src/mame/drivers/mini2440.cpp",
+	MAME_DIR .. "src/mame/drivers/minitel_2_rpic.cpp",
 	MAME_DIR .. "src/mame/drivers/mmd1.cpp",
 	MAME_DIR .. "src/mame/drivers/mod8.cpp",
 	MAME_DIR .. "src/mame/drivers/modellot.cpp",
