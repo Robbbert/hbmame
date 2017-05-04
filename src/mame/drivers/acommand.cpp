@@ -60,8 +60,11 @@ JALCF1   BIN     1,048,576  02-07-99  1:11a JALCF1.BIN
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
 #include "sound/okim6295.h"
+#include "video/ms1_tmap.h"
 #include "screen.h"
 #include "speaker.h"
+
+#include "acommand.lh"
 
 
 class acommand_state : public driver_device
@@ -69,29 +72,21 @@ class acommand_state : public driver_device
 public:
 	acommand_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
-		m_ac_bgvram(*this, "ac_bgvram"),
-		m_ac_txvram(*this, "ac_txvram"),
 		m_spriteram(*this, "spriteram"),
 		m_maincpu(*this, "maincpu"),
 		m_oki1(*this, "oki1"),
 		m_oki2(*this, "oki2"),
 		m_gfxdecode(*this, "gfxdecode"),
-		m_palette(*this, "palette") { }
+		m_palette(*this, "palette"),
+		m_bgtmap(*this, "bgtmap"),
+		m_txtmap(*this, "txtmap") { }
 
-	required_shared_ptr<uint16_t> m_ac_bgvram;
-	required_shared_ptr<uint16_t> m_ac_txvram;
 	required_shared_ptr<uint16_t> m_spriteram;
-	tilemap_t *m_tx_tilemap;
-	tilemap_t *m_bg_tilemap;
 	std::unique_ptr<uint16_t[]> m_ac_vregs;
 	uint16_t m_7seg0;
 	uint16_t m_7seg1;
 	uint16_t m_ufo_lane[5];
 	uint8_t m_boss_door;
-	DECLARE_WRITE16_MEMBER(ac_bgvram_w);
-	DECLARE_WRITE16_MEMBER(ac_txvram_w);
-	DECLARE_WRITE16_MEMBER(ac_bgscroll_w);
-	DECLARE_WRITE16_MEMBER(ac_txscroll_w);
 	DECLARE_WRITE8_MEMBER(oki_bank_w);
 	DECLARE_WRITE16_MEMBER(output_7seg0_w);
 	DECLARE_WRITE16_MEMBER(output_7seg1_w);
@@ -105,45 +100,20 @@ public:
 	
 	DECLARE_WRITE16_MEMBER(ac_unk2_w);
 	TILEMAP_MAPPER_MEMBER(bg_scan);
-	TILE_GET_INFO_MEMBER(ac_get_bg_tile_info);
-	TILE_GET_INFO_MEMBER(ac_get_tx_tile_info);
 	virtual void video_start() override;
 	uint32_t screen_update_acommand(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	TIMER_DEVICE_CALLBACK_MEMBER(acommand_scanline);
 	void draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect, int priority, int pri_mask);
-	void draw_led(bitmap_ind16 &bitmap, int x, int y,uint8_t value);
 	required_device<cpu_device> m_maincpu;
 	required_device<okim6295_device> m_oki1;
 	required_device<okim6295_device> m_oki2;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
+	required_device<megasys1_tilemap_device> m_bgtmap;
+	required_device<megasys1_tilemap_device> m_txtmap;
 };
 
 
-
-TILEMAP_MAPPER_MEMBER(acommand_state::bg_scan)
-{
-	/* logical (col,row) -> memory offset */
-	return (row & 0x0f) + ((col & 0xff) << 4) + ((row & 0x70) << 8);
-}
-
-TILE_GET_INFO_MEMBER(acommand_state::ac_get_bg_tile_info)
-{
-	int code = m_ac_bgvram[tile_index];
-	SET_TILE_INFO_MEMBER(1,
-			code & 0xfff,
-			(code & 0xf000) >> 12,
-			0);
-}
-
-TILE_GET_INFO_MEMBER(acommand_state::ac_get_tx_tile_info)
-{
-	int code = m_ac_txvram[tile_index];
-	SET_TILE_INFO_MEMBER(0,
-			code & 0xfff,
-			(code & 0xf000) >> 12,
-			0);
-}
 
 void acommand_state::draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect, int priority, int pri_mask)
 {
@@ -187,7 +157,7 @@ void acommand_state::draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprec
 				xx = w;
 				do
 				{
-					m_gfxdecode->gfx(2)->transpen(bitmap,cliprect,
+					m_gfxdecode->gfx(0)->transpen(bitmap,cliprect,
 							code,
 							color,
 							flipx, flipy,
@@ -209,70 +179,7 @@ void acommand_state::draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprec
 
 void acommand_state::video_start()
 {
-	m_tx_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(acommand_state::ac_get_tx_tile_info),this),TILEMAP_SCAN_COLS,8,8,512,32);
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(acommand_state::ac_get_bg_tile_info),this),tilemap_mapper_delegate(FUNC(acommand_state::bg_scan),this),16,16,256,16);
-
 	m_ac_vregs = std::make_unique<uint16_t[]>(0x80/2);
-
-	m_bg_tilemap->set_transparent_pen(15);
-	m_tx_tilemap->set_transparent_pen(15);
-}
-
-
-#define LED_ON      0x01c00
-#define LED_OFF     0x00000
-/*
-     a
-    ---
-f   | | b
-    -g-
-e   | | c
-    ---
-     d
-a & 1
-b & 2
-c & 4
-d & 8
-e & 10
-f & 20
-g & 40
-7f
-*/
-/*                                    0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f*/
-static const uint8_t led_fill[0x10] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x00,0x00,0x00,0x00,0x00};
-
-void acommand_state::draw_led(bitmap_ind16 &bitmap, int x, int y,uint8_t value)
-{
-	bitmap.plot_box(x, y, 6, 10, 0x00000000);
-
-	/*a*/
-	bitmap.pix16(y+0, x+1) = ((led_fill[value] & 0x0001) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+0, x+2) = ((led_fill[value] & 0x0001) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+0, x+3) = ((led_fill[value] & 0x0001) ? LED_ON : LED_OFF);
-	/*b*/
-	bitmap.pix16(y+1, x+4) = ((led_fill[value] & 0x0002) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+2, x+4) = ((led_fill[value] & 0x0002) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+3, x+4) = ((led_fill[value] & 0x0002) ? LED_ON : LED_OFF);
-	/*c*/
-	bitmap.pix16(y+5, x+4) = ((led_fill[value] & 0x0004) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+6, x+4) = ((led_fill[value] & 0x0004) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+7, x+4) = ((led_fill[value] & 0x0004) ? LED_ON : LED_OFF);
-	/*d*/
-	bitmap.pix16(y+8, x+1) = ((led_fill[value] & 0x0008) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+8, x+2) = ((led_fill[value] & 0x0008) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+8, x+3) = ((led_fill[value] & 0x0008) ? LED_ON : LED_OFF);
-	/*e*/
-	bitmap.pix16(y+5, x+0) = ((led_fill[value] & 0x0010) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+6, x+0) = ((led_fill[value] & 0x0010) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+7, x+0) = ((led_fill[value] & 0x0010) ? LED_ON : LED_OFF);
-	/*f*/
-	bitmap.pix16(y+1, x+0) = ((led_fill[value] & 0x0020) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+2, x+0) = ((led_fill[value] & 0x0020) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+3, x+0) = ((led_fill[value] & 0x0020) ? LED_ON : LED_OFF);
-	/*g*/
-	bitmap.pix16(y+4, x+1) = ((led_fill[value] & 0x0040) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+4, x+2) = ((led_fill[value] & 0x0040) ? LED_ON : LED_OFF);
-	bitmap.pix16(y+4, x+3) = ((led_fill[value] & 0x0040) ? LED_ON : LED_OFF);
 }
 
 
@@ -280,54 +187,14 @@ uint32_t acommand_state::screen_update_acommand(screen_device &screen, bitmap_in
 {
 	// reference has black pen background, as weird it might sound
 	bitmap.fill(m_palette->black_pen(), cliprect);
-	
-	m_bg_tilemap->draw(screen, bitmap, cliprect, 0,0);
+
+	m_bgtmap->draw(screen, bitmap, cliprect, 0, 0);
 	draw_sprites(bitmap,cliprect,0,0);
-	m_tx_tilemap->draw(screen, bitmap, cliprect, 0,0);
+	m_txtmap->draw(screen, bitmap, cliprect, 0, 0);
 
-	/*Order might be wrong,but these for sure are the led numbers tested*/
-	draw_led(bitmap,  0, 20, (m_7seg0 & 0x0f00) >> 8);
-	draw_led(bitmap,  6, 20, (m_7seg0 & 0x00f0) >> 4);
-	draw_led(bitmap, 12, 20, (m_7seg0 & 0x000f));
-
-	draw_led(bitmap, 256-18,20,(m_7seg0 & 0xf000) >> 12);
-	draw_led(bitmap, 256-12,20,(m_7seg1 & 0xf0) >> 4);
-	draw_led(bitmap, 256-6,20, (m_7seg1 & 0xf));
 	return 0;
 }
 
-
-WRITE16_MEMBER(acommand_state::ac_bgvram_w)
-{
-	COMBINE_DATA(&m_ac_bgvram[offset]);
-	m_bg_tilemap->mark_tile_dirty(offset);
-}
-
-WRITE16_MEMBER(acommand_state::ac_txvram_w)
-{
-	COMBINE_DATA(&m_ac_txvram[offset]);
-	m_tx_tilemap->mark_tile_dirty(offset);
-}
-
-WRITE16_MEMBER(acommand_state::ac_bgscroll_w)
-{
-	switch(offset)
-	{
-		case 0: m_bg_tilemap->set_scrollx(0,data); break;
-		case 1: m_bg_tilemap->set_scrolly(0,data); break;
-		case 2: /*BG_TILEMAP priority?*/ break;
-	}
-}
-
-WRITE16_MEMBER(acommand_state::ac_txscroll_w)
-{
-	switch(offset)
-	{
-		case 0: m_tx_tilemap->set_scrollx(0,data); break;
-		case 1: m_tx_tilemap->set_scrolly(0,data); break;
-		case 2: /*TX_TILEMAP priority?*/ break;
-	}
-}
 
 /******************************************************************************************/
 
@@ -350,14 +217,28 @@ WRITE8_MEMBER(acommand_state::oki_bank_w)
 	m_oki2->set_rom_bank((data & 0x30) >> 4);
 }
 
+
+/*                                    0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f*/
+static const uint8_t led_fill[0x10] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x00,0x00,0x00,0x00,0x00};
+
 WRITE16_MEMBER(acommand_state::output_7seg0_w)
 {
 	COMBINE_DATA(&m_7seg0);
+
+	// nybble 0,1,2: left 7segs, nybble 3: right 7seg 1st digit
+	for (int i = 0; i < 4; i++)
+		output().set_digit_value(i, led_fill[m_7seg0 >> (i*4) & 0xf]);
 }
 
 WRITE16_MEMBER(acommand_state::output_7seg1_w)
 {
 	COMBINE_DATA(&m_7seg1);
+
+	// nybble 0,1: right 7seg 2nd,3rd digit
+	for (int i = 0; i < 2; i++)
+		output().set_digit_value(i+4, led_fill[m_7seg1 >> (i*4) & 0xf]);
+	
+	// other: ?
 }
 
 /*
@@ -438,11 +319,11 @@ WRITE16_MEMBER(acommand_state::output_lamps_w)
 
 static ADDRESS_MAP_START( acommand_map, AS_PROGRAM, 16, acommand_state )
 	AM_RANGE(0x000000, 0x03ffff) AM_ROM
-	AM_RANGE(0x082000, 0x082005) AM_WRITE(ac_bgscroll_w)
-	AM_RANGE(0x082100, 0x082105) AM_WRITE(ac_txscroll_w)
+	AM_RANGE(0x082000, 0x082005) AM_DEVWRITE("bgtmap", megasys1_tilemap_device, scroll_w)
+	AM_RANGE(0x082100, 0x082105) AM_DEVWRITE("txtmap", megasys1_tilemap_device, scroll_w)
 	AM_RANGE(0x082208, 0x082209) AM_WRITE(ac_unk2_w)
-	AM_RANGE(0x0a0000, 0x0a3fff) AM_RAM_WRITE(ac_bgvram_w) AM_SHARE("ac_bgvram")
-	AM_RANGE(0x0b0000, 0x0b3fff) AM_RAM_WRITE(ac_txvram_w) AM_SHARE("ac_txvram")
+	AM_RANGE(0x0a0000, 0x0a3fff) AM_RAM_DEVWRITE("bgtmap", megasys1_tilemap_device, write) AM_SHARE("bgtmap")
+	AM_RANGE(0x0b0000, 0x0b3fff) AM_RAM_DEVWRITE("txtmap", megasys1_tilemap_device, write) AM_SHARE("txtmap")
 	AM_RANGE(0x0b8000, 0x0bffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
 	AM_RANGE(0x0f0000, 0x0f7fff) AM_RAM
 	AM_RANGE(0x0f8000, 0x0f8fff) AM_RAM AM_SHARE("spriteram")
@@ -549,17 +430,6 @@ static INPUT_PORTS_START( acommand )
 	PORT_DIPSETTING(      0x0000, DEF_STR( On ) )
 INPUT_PORTS_END
 
-static const gfx_layout charlayout =
-{
-	8,8,
-	RGN_FRAC(1,1),
-	4,
-	{ 0, 1, 2, 3 },
-	{ 0*4, 1*4, 2*4, 3*4, 4*4, 5*4, 6*4, 7*4 },
-	{ 0*32, 1*32, 2*32, 3*32, 4*32, 5*32, 6*32, 7*32 },
-	32*8
-};
-
 static const gfx_layout tilelayout =
 {
 	16,16,
@@ -574,8 +444,6 @@ static const gfx_layout tilelayout =
 };
 
 static GFXDECODE_START( acommand )
-	GFXDECODE_ENTRY( "gfx1", 0, charlayout, 0x2700, 16 ) /*???*/
-	GFXDECODE_ENTRY( "gfx2", 0, tilelayout, 0x0f00, 256 )
 	GFXDECODE_ENTRY( "gfx3", 0, tilelayout, 0x1800, 256 )
 GFXDECODE_END
 
@@ -610,6 +478,9 @@ static MACHINE_CONFIG_START( acommand, acommand_state )
 	MCFG_PALETTE_ADD("palette", 0x4000)
 	MCFG_PALETTE_FORMAT(RRRRGGGGBBBBRGBx)
 
+	MCFG_MEGASYS1_TILEMAP_ADD("bgtmap", "palette", 0x0f00)
+	MCFG_MEGASYS1_TILEMAP_ADD("txtmap", "palette", 0x2700)
+
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
@@ -633,10 +504,10 @@ ROM_START( acommand )
 	ROM_LOAD16_BYTE( "jalcf3.bin",   0x000000, 0x020000, CRC(f031abf7) SHA1(e381742fd6a6df4ddae42ddb3a074a55dc550b3c) )
 	ROM_LOAD16_BYTE( "jalcf4.bin",   0x000001, 0x020000, CRC(dd0c0540) SHA1(3e788fcb30ae725bd0ec9b57424e3946db1e946f) )
 
-	ROM_REGION( 0x20000, "gfx1", 0 ) /* BG0 */
+	ROM_REGION( 0x20000, "txtmap", 0 ) /* BG0 */
 	ROM_LOAD( "jalcf6.bin",   0x000000, 0x020000, CRC(442173d6) SHA1(56c02bc2761967040127977ecabe844fc45e2218) )
 
-	ROM_REGION( 0x080000, "gfx2", 0 ) /* BG1 */
+	ROM_REGION( 0x080000, "bgtmap", 0 ) /* BG1 */
 	ROM_LOAD( "jalcf5.bin",   0x000000, 0x080000, CRC(ff0be97f) SHA1(5ccab778318dec30849d7b7f25091d4aab8bde32) )
 
 	ROM_REGION( 0x400000, "gfx3", 0 ) /* SPR */
@@ -660,4 +531,4 @@ ROM_START( acommand )
 	ROM_LOAD( "jalmr17.bin",   0x080000, 0x080000, CRC(9d428fb7) SHA1(02f72938d73db932bd217620a175a05215f6016a) )
 ROM_END
 
-GAME( 1994, acommand,  0,       acommand,  acommand, driver_device,  0, ROT0, "Jaleco", "Alien Command" , MACHINE_NOT_WORKING | MACHINE_MECHANICAL)
+GAMEL( 1994, acommand,  0,       acommand,  acommand, driver_device,  0, ROT0, "Jaleco", "Alien Command" , MACHINE_NOT_WORKING | MACHINE_MECHANICAL, layout_acommand )
