@@ -189,25 +189,23 @@ void badlands_state::update_interrupts()
 
 void badlands_state::scanline_update(screen_device &screen, int scanline)
 {
-	if (m_audiocpu != nullptr)
-	{
-		address_space &space = m_audiocpu->space(AS_PROGRAM);
+	// sound CPU irq is scanline controlled, we update it below to make bootlegs happy
+}
 
-		/* sound IRQ is on 32V */
-		if (scanline & 32)
-			m_soundcomm->sound_irq_ack_r(space, 0);
-		else if (!(ioport("FE4000")->read() & 0x40))
-			m_soundcomm->sound_irq_gen(*m_audiocpu);
-	}
-	else
-		return;
+TIMER_DEVICE_CALLBACK_MEMBER(badlands_state::sound_scanline)
+{
+	int scanline = param;
+	//address_space &space = m_audiocpu->space(AS_PROGRAM);
+	
+	// 32V
+	if ((scanline % 64) == 0 && scanline < 240)
+		m_soundcomm->sound_irq_gen(*m_audiocpu);
 }
 
 
 MACHINE_START_MEMBER(badlands_state,badlands)
 {
 	atarigen_state::machine_start();
-
 	save_item(NAME(m_pedal_value));
 }
 
@@ -217,7 +215,7 @@ MACHINE_RESET_MEMBER(badlands_state,badlands)
 	m_pedal_value[0] = m_pedal_value[1] = 0x80;
 
 	atarigen_state::machine_reset();
-	scanline_timer_reset(*m_screen, 32);
+	//scanline_timer_reset(*m_screen, 32);
 
 	membank("soundbank")->set_entry(0);
 }
@@ -232,6 +230,7 @@ MACHINE_RESET_MEMBER(badlands_state,badlands)
 
 INTERRUPT_GEN_MEMBER(badlands_state::vblank_int)
 {
+	// TODO: remove this hack
 	int pedal_state = ioport("PEDALS")->read();
 	int i;
 
@@ -272,7 +271,6 @@ READ16_MEMBER(badlands_state::pedal_1_r)
 {
 	return m_pedal_value[1];
 }
-
 
 
 /*************************************
@@ -352,8 +350,8 @@ WRITE8_MEMBER(badlands_state::audio_io_w)
 		case 0x204:     /* WRIO */
 			/*
 			    0xc0 = bank address
-			    0x20 = coin counter 2
-			    0x10 = coin counter 1
+			    0x20 = coin counter 1
+			    0x10 = coin counter 2
 			    0x08 = n/c
 			    0x04 = n/c
 			    0x02 = n/c
@@ -362,6 +360,8 @@ WRITE8_MEMBER(badlands_state::audio_io_w)
 
 			/* update the bank */
 			membank("soundbank")->set_entry((data >> 6) & 3);
+			machine().bookkeeping().coin_counter_w(0, data & 0x20);
+			machine().bookkeeping().coin_counter_w(1, data & 0x10);
 			break;
 	}
 }
@@ -424,7 +424,7 @@ static INPUT_PORTS_START( badlands )
 	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_UNKNOWN ) // old steering wheels
 	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_UNKNOWN ) // old gas pedals
 	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_UNKNOWN ) // freeze-step
-	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_UNKNOWN ) // freeze
+	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_SERVICE1 ) PORT_NAME("Freeze") // freeze
 	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(1) PORT_NAME("P1 Start / Fire")
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_PLAYER(2) PORT_NAME("P2 Start / Fire")
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_VBLANK("screen")
@@ -440,9 +440,9 @@ static INPUT_PORTS_START( badlands )
 	PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNUSED )
 
 	PORT_START("AUDIO")     /* audio port */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_COIN1 )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_COIN2 )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_COIN3 )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_COIN2 )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_COIN1 )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_SPECIAL )   /* self test */
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_ATARI_COMM_SOUND_TO_MAIN_READY("soundcomm")   /* response buffer full */
@@ -508,7 +508,8 @@ static MACHINE_CONFIG_START( badlands, badlands_state )
 
 	MCFG_CPU_ADD("audiocpu", M6502, ATARI_CLOCK_14MHz/8)
 	MCFG_CPU_PROGRAM_MAP(audio_map)
-
+	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", badlands_state, sound_scanline, "screen", 0, 1)
+	
 	MCFG_MACHINE_START_OVERRIDE(badlands_state,badlands)
 	MCFG_MACHINE_RESET_OVERRIDE(badlands_state,badlands)
 
@@ -651,7 +652,6 @@ WRITE8_MEMBER(badlands_state::bootleg_shared_w)
 	m_b_sharedram[offset] = data;
 }
 
-
 static ADDRESS_MAP_START( bootleg_map, AS_PROGRAM, 16, badlands_state )
 	AM_RANGE(0x000000, 0x03ffff) AM_ROM
 
@@ -659,7 +659,7 @@ static ADDRESS_MAP_START( bootleg_map, AS_PROGRAM, 16, badlands_state )
 	AM_RANGE(0x400000, 0x401fff) AM_READWRITE8(bootleg_shared_r,bootleg_shared_w,0xffff)
 
 	AM_RANGE(0xfc0000, 0xfc0001) AM_READ(badlandsb_unk_r ) // sound comms?
-
+	
 	AM_RANGE(0xfd0000, 0xfd1fff) AM_DEVREADWRITE8("eeprom", atari_eeprom_device, read, write, 0x00ff)
 	//AM_RANGE(0xfe0000, 0xfe1fff) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0xfe2000, 0xfe3fff) AM_WRITE(video_int_ack_w)
@@ -673,6 +673,7 @@ static ADDRESS_MAP_START( bootleg_map, AS_PROGRAM, 16, badlands_state )
 
 	AM_RANGE(0xffc000, 0xffc3ff) AM_DEVREADWRITE8("palette", palette_device, read, write, 0xff00) AM_SHARE("palette")
 	AM_RANGE(0xffe000, 0xffefff) AM_RAM_DEVWRITE("playfield", tilemap_device, write) AM_SHARE("playfield")
+	// TODO: actually sprites are at 0xfff600-0x7ff ?
 	AM_RANGE(0xfff000, 0xfff1ff) AM_RAM AM_SHARE("mob")
 	AM_RANGE(0xfff200, 0xffffff) AM_RAM
 ADDRESS_MAP_END
@@ -737,11 +738,20 @@ GFXDECODE_END
 MACHINE_RESET_MEMBER(badlands_state,badlandsb)
 {
 //  m_pedal_value[0] = m_pedal_value[1] = 0x80;
-
 	atarigen_state::machine_reset();
-	scanline_timer_reset(*m_screen, 32);
+//	scanline_timer_reset(*m_screen, 32);
 
 //  memcpy(m_bank_base, &m_bank_source_data[0x0000], 0x1000);
+}
+
+TIMER_DEVICE_CALLBACK_MEMBER(badlands_state::bootleg_sound_scanline)
+{
+	int scanline = param;
+	//address_space &space = m_audiocpu->space(AS_PROGRAM);
+	
+	// 32V
+	if ((scanline % 64) == 0 && scanline < 240)
+		m_audiocpu->set_input_line(0, HOLD_LINE);
 }
 
 static MACHINE_CONFIG_START( badlandsb, badlands_state )
@@ -751,9 +761,9 @@ static MACHINE_CONFIG_START( badlandsb, badlands_state )
 	MCFG_CPU_PROGRAM_MAP(bootleg_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", badlands_state,  irq1_line_hold) //vblank_int)
 
-	MCFG_CPU_ADD("soundcpu", Z80, XTAL_20MHz/12)    /* Divisor estimated */
+	MCFG_CPU_ADD("audiocpu", Z80, XTAL_20MHz/12)    /* Divisor estimated */
 	MCFG_CPU_PROGRAM_MAP(bootleg_audio_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", badlands_state,  irq0_line_hold) // TODO: maybe triggered by main CPU instead of periodic timer
+	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", badlands_state, bootleg_sound_scanline, "screen", 0, 1)
 
 	MCFG_MACHINE_START_OVERRIDE(badlands_state,badlands)
 	MCFG_MACHINE_RESET_OVERRIDE(badlands_state,badlandsb)

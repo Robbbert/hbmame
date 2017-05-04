@@ -20910,6 +20910,7 @@ monzagpb                        // bootleg
 bucky                           // GX173 (c) 1992 (World)
 buckyaab                        // GX173 (c) 1992 (Asia)
 buckyea                         // GX173 (c) 1992 (World)
+buckyjaa						// GX173 (c) 1992 (Japan)
 buckyuab                        // GX173 (c) 1992 (US)
 moomesa                         // GX151 (c) 1992 (World)
 moomesaaab                      // GX151 (c) 1992 (Asia)
@@ -36046,8 +36047,11 @@ tm                              // (c) 1996 Midway Games
 tm2k                            // (c) 1996 Midway Games
 tm2ka                           // (c) 1996 Midway Games
 tm2kb                           // (c) 1996 Midway Games
+tm2kspeval                      // (c) 1996 Midway Games
 tm3k                            // (c) 1997 Midway Games
 tm3ka                           // (c) 1997 Midway Games
+tm3keval                        // (c) 1997 Midway Games
+tm3ksp                          // (c) 1997 Midway Games
 tm4k                            // (c) 1998 Midway Games
 tm4ka                           // (c) 1998 Midway Games
 tm4kb                           // (c) 1998 Midway Games
@@ -36993,6 +36997,7 @@ thrild2a                        // 2001
 thrild2ab                       // 2001
 thrild2ac                       // 2001
 thrild2c                        // 2001
+thrild2j                        // 2001
 tsurugi                         // 2001
 tsurugie                        // 2001
 tsurugij                        // 2001
