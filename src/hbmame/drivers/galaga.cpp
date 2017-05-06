@@ -151,36 +151,6 @@ ROM_START( galaga84 )
 	ROM_LOAD( "1d.bin",       0x0000, 0x0100, CRC(86d92b24) SHA1(6bef9102b97c83025a2cf84e89d95f2d44c3d2ed) )
 ROM_END
 
-ROM_START( nebulbee )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "nebulbee.01",  0x0000, 0x1000, CRC(f405f2c4) SHA1(9249afeffd8df0f24539ea9b4f88c23a6ad58d8c) )
-	ROM_LOAD( "nebulbee.02",  0x1000, 0x1000, CRC(31022b60) SHA1(90e64afb4128c6dfeeee89635ea9f97a34f70f5f) )
-	ROM_LOAD( "gg1_3.2m",     0x2000, 0x1000, CRC(753ce503) SHA1(481f443aea3ed3504ec2f3a6bfcf3cd47e2f8f81) )
-	ROM_LOAD( "nebulbee.04",  0x3000, 0x1000, CRC(d76788a5) SHA1(adcb83cf64951d86c701a99b410e9230912f8a48) )
-
-	ROM_REGION( 0x10000, "sub", 0 )
-	ROM_LOAD( "gg1-5",        0x0000, 0x1000, CRC(3102fccd) SHA1(d29b68d6aab3217fa2106b3507b9273ff3f927bf) )
-
-	ROM_REGION( 0x10000, "sub2", 0 )
-	ROM_LOAD( "gg1-7",        0x0000, 0x1000, CRC(8995088d) SHA1(d6cb439de0718826d1a0363c9d77de8740b18ecf) )
-
-	ROM_REGION( 0x1000, "gfx1", 0 )
-	ROM_LOAD( "gg1_9.4l",     0x0000, 0x1000, CRC(58b2f47c) SHA1(62f1279a784ab2f8218c4137c7accda00e6a3490) )
-
-	ROM_REGION( 0x2000, "gfx2", 0 )
-	ROM_LOAD( "gg1_11.4d",    0x0000, 0x1000, CRC(ad447c80) SHA1(e697c180178cabd1d32483c5d8889a40633f7857) )
-	ROM_LOAD( "gg1_10.4f",    0x1000, 0x1000, CRC(dd6f1afc) SHA1(c340ed8c25e0979629a9a1730edc762bd72d0cff) )
-
-	ROM_REGION( 0x0320, "proms", 0 )
-	ROM_LOAD( "prom-5.5n",       0x0000, 0x0020, CRC(54603c6b) SHA1(1a6dea13b4af155d9cb5b999a75d4f1eb9c71346) )
-	ROM_LOAD( "2n.bin",       0x0020, 0x0100, CRC(a547d33b) SHA1(7323084320bb61ae1530d916f5edd8835d4d2461) )
-	ROM_LOAD( "1c.bin",       0x0120, 0x0100, CRC(b6f585fb) SHA1(dd10147c4f05fede7ae6e7a760681700a660e87e) )
-	ROM_LOAD( "5c.bin",       0x0220, 0x0100, CRC(8bd565f6) SHA1(bedba65816abfc2ebeacac6ee335ca6f136e3e3d) )
-
-	ROM_REGION( 0x0100, "namco", 0 )
-	ROM_LOAD( "1d.bin",       0x0000, 0x0100, CRC(86d92b24) SHA1(6bef9102b97c83025a2cf84e89d95f2d44c3d2ed) )
-ROM_END
-
 ROM_START( galagads )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "3200a.bin",    0x0000, 0x1000, CRC(3ef0b053) SHA1(0c04a362b737998c0952a753fb3fd8c8a17e9b46) )
@@ -1080,7 +1050,7 @@ GAME( 1999, galaga99, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90
 GAME( 1981, galagab2, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "bootleg", "Galaga (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, galagabl, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "bootleg", "Galaga (Namco 1982)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galagads, galaga,  galaga,   galagamw, galaga_state,  galaga,  ROT90, "hack", "Galaga (fast shoot)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, galagaef, galaga,  galaga,   galagamw, galaga_state,  galaga,  ROT90, "Hack", "Galaga (Enduring Freedom)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, galagaef, galaga,  galaga,   galagamw, galaga_state,  galaga,  ROT90, "hack", "Galaga (Enduring Freedom)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galagaf,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Namco", "Galaga (Fast Shoot Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, galagap,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Don Hodges", "Galaga (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galagix,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Grand Master Peter", "Galagix", MACHINE_SUPPORTS_SAVE )
@@ -1088,7 +1058,6 @@ GAME( 2002, galagost, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90
 GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2 - 2002-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galaped,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Cary Barnhard", "Galapede (Fast Shoot)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galgaxin, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "T-Bone", "Galagalaxian", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, nebulbee, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "hack", "Nebulous Bee", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, terror,   galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Terrorist", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalaga,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Vector Galaga", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalagam, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Vector Galaga Midway", MACHINE_SUPPORTS_SAVE )
