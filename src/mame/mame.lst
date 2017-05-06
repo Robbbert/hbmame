@@ -2544,6 +2544,7 @@ badlandsb2                      // bootleg set 2
 
 @source:bagman.cpp
 bagman                          // (c) 1982
+bagmanj                         // (c) 1982
 bagmans                         // (c) 1982 + Stern license
 bagmans2                        // (c) 1982 + Stern license
 bagnard                         // (c) 1982
@@ -10951,6 +10952,7 @@ cobracom                        // (c) 1988 Data East Corporation (World)
 cobracomj                       // (c) 1988 Data East Corporation (Japan)
 csilver                         // (c) 1987 Data East Corporation (Japan)
 csilverj                        // (c) 1987 Data East Corporation (Japan)
+csilverja                       // (c) 1987 Data East Corporation (Japan)
 garyoret                        // (c) 1987 Data East Corporation (Japan)
 ghostb                          // (c) 1987 Data East USA (US)
 ghostb2a                        // (c) 1987 Data East USA (US)
@@ -12819,6 +12821,7 @@ galagamw                        // (c) 1981 Midway
 galagao                         // (c) 1981
 gallag                          // bootleg
 gatsbee                         // (c) 1984 Uchida / hack
+nebulbee                        // bootleg
 sxevious                        // (c) 1984
 sxeviousj                       // (c) 1984
 xevios                          // bootleg
