@@ -20078,6 +20078,7 @@ mp_col3                         // ??
 mp_gaxe2                        // 02
 mp_gaxe2a                       // 02
 mp_gslam                        // 03
+mp_gunhe                        // 10
 mp_mazin                        // 11
 mp_shnb3                        // 09
 mp_soni2                        // 07
@@ -31895,6 +31896,7 @@ rastanua                        // B04 (c) 1987 Taito America Corporation (US)
 rastanub                        // B04 (c) 1987 Taito America Corporation (US)
 rastsaga                        // B04 (c) 1987 Taito Corporation (Japan)
 rastsagaa                       // B04 (c) 1987 Taito Corporation (Japan)
+rastsagab                       // B04 (c) 1987 Taito Corporation (Japan)
 
 @source:rastersp.cpp
 fbcrazy                         // 1997
