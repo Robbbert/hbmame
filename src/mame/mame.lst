@@ -13748,6 +13748,7 @@ wupndownc                       // (c) 1998, Video Klein
 wupndownd                       // (c) 1998, Video Klein
 
 @source:goldstar.cpp
+aplan                           // bootleg (WeaShing)
 bingowng                        // (c) 1993 Wing Co. Ltd
 bingownga                       // (c) 1993 Wing Co. Ltd
 bonusch                         // (c) 1990 Wing Co. Ltd
@@ -15240,6 +15241,7 @@ zzyzzyxx2                       // (c) 1982 Cinematronics + Advanced Microcomput
 
 @source:jackal.cpp
 jackal                          // GX631 (c) 1986 (World)
+jackalbl                        // bootleg
 jackalj                         // GX631 (c) 1986 (Japan)
 jackalr                         // GX631 (c) 1986 (World)
 topgunbl                        // bootleg
@@ -16924,6 +16926,7 @@ kingdrby                        // (c) 1981 Tatsumi
 
 @source:kingobox.cpp
 kingofb                         // (c) 1985 Wood Place Inc.
+kingofbj                        // (c) 1985 Wood Place Inc.
 ringking                        // (c) 1985 Data East USA
 ringking2                       // (c) 1985 Data East USA
 ringking3                       // (c) 1985 Data East USA
@@ -28535,6 +28538,8 @@ doa2                            // 1999.12? Dead or Alive 2
 doa2a                           // 1999.11 Dead or Alive 2 (Rev A)
 doa2m                           // 2000.01 Dead or Alive 2 Millennium
 dolphin                         // 2003.08 Dolphin Blue
+dragntra                        // 2003.05 Dragon Treasure (Rev A)
+dragntr                         // 2003.10 Dragon Treasure (Rev B)
 dragntr2                        // 2004.?? Dragon Treasure 2 (Rev A)
 dragntr3                        // 2005.11 Dragon Treasure 3 (Rev A)
 drbyocwc                        // 2001.?? Derby Owners Club World Edition (Rev C)
@@ -34695,6 +34700,7 @@ nameclub                        //
 nclubv2                         //
 nclubv3                         // 1997.07 Name Club Ver. 3
 othellos                        // 1998.07 Othello Shiyouyo (Success)
+patocar                         // 1999.03 Hashire Patrol Car
 pblbeach                        // 1996.03 Pebble Beach the Great Shot (T&E Soft)
 pclb2elk                        // 1997.07 Print Club Custom
 pckobe99                        // Print Club Custom 3
@@ -34741,6 +34747,7 @@ sss                             // 1998.12 Steep Slope Sliders (Capcom / Cave / 
 stress                          // 1998.10 Stress Busters
 stvbios                         //
 suikoenb                        // 1995.03 Suiko Enbu (Data East)
+tatacot                         // 1995.?? Tatacot
 techbowl                        // 1997.12 Technical Bowling
 thunt                           // 1997.09 Puzzle & Action Treasure Hunt (Sega (Deniam License))
 thuntk                          //

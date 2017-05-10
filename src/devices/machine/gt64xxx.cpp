@@ -29,7 +29,7 @@ ADDRESS_MAP_END
 
 gt64xxx_device::gt64xxx_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: pci_host_device(mconfig, GT64XXX, "Galileo GT-64XXX System Controller", tag, owner, clock, "gt64xxx", __FILE__),
-		m_be(0), m_autoconfig(0), m_irq_num(-1),
+		m_be(0), m_autoconfig(0), m_irq_num(-1), m_simm0_size(0), m_simm1_size(0),
 		m_mem_config("memory_space", ENDIANNESS_LITTLE, 32, 32),
 		m_io_config("io_space", ENDIANNESS_LITTLE, 32, 32),
 		m_romRegion(*this, "rom"),
@@ -72,9 +72,9 @@ void gt64xxx_device::device_start()
 	// Leave the timer disabled.
 	m_dma_timer->adjust(attotime::never, 0, DMA_TIMER_PERIOD);
 
-	// Reserve 8MB RAM
-	m_ram[0].reserve(0x00800000 / 4);
-	m_ram[0].resize(0x00800000 / 4);
+	// Reserve RAM
+	m_ram[0].resize(m_simm0_size / 4);
+	m_ram[1].resize(m_simm1_size / 4);
 
 	// ROM
 	uint32_t romSize = m_romRegion->bytes();
@@ -113,7 +113,8 @@ void gt64xxx_device::device_start()
 	}
 	save_item(NAME(m_dma_active));
 	// m_ram[4]
-	save_pointer(NAME(m_ram[0].data()), 0x00800000 / 4);
+	save_pointer(NAME(m_ram[0].data()), m_simm0_size / 4);
+	save_pointer(NAME(m_ram[1].data()), m_simm1_size / 4);
 	save_item(NAME(m_last_dma));
 	machine().save().register_postload(save_prepost_delegate(FUNC(gt64xxx_device::map_cpu_space), this));
 }
@@ -203,11 +204,14 @@ void gt64xxx_device::map_cpu_space()
 		logerror("%s: map_cpu_space cpu_reg start: %08X end: %08X\n", tag(), winStart, winEnd);
 
 	// RAS[0:3]
-	m_ram[0].resize(0x00800000 / 4);
 	for (int ramIndex = 0; ramIndex < 4; ++ramIndex)
 	{
 		winStart = (m_reg[GREG_RAS_1_0_LO + 0x10 / 4 * (ramIndex/2)] << 21) | (m_reg[GREG_RAS0_LO + 0x8 / 4 * ramIndex] << 20);
 		winEnd = (m_reg[GREG_RAS_1_0_LO + 0x10 / 4 * (ramIndex / 2)] << 21) | (m_reg[GREG_RAS0_HI + 0x8 / 4 * ramIndex] << 20) | 0xfffff;
+		// Cap window end at physical memory bounds
+		uint32_t winSize = winEnd - winStart + 1;
+		if (winSize > m_ram[ramIndex].size() * 4)
+			winEnd = winStart + m_ram[ramIndex].size() * 4 - 1;
 		//m_ram[ramIndex].resize((winEnd + 1 - winStart) / 4);
 		if (m_ram[ramIndex].size()>0)
 			m_cpu_space->install_ram(winStart, winEnd, m_ram[ramIndex].data());
@@ -215,6 +219,7 @@ void gt64xxx_device::map_cpu_space()
 		//m_cpu->add_fastram(winStart, m_ram[ramIndex].size() * sizeof(uint32_t), false, m_ram[ramIndex].data());
 		if (LOG_GALILEO)
 			logerror("%s: map_cpu_space ras[%i] start: %08X end: %08X\n", tag(), ramIndex, winStart, winEnd);
+		//printf("%s: map_cpu_space ras[%i] start: %08X end: %08X size: %08X\n", tag(), ramIndex, winStart, winEnd, winEnd-winStart+1);
 	}
 
 	// CS[0:3]
