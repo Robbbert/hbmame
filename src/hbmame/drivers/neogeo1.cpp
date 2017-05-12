@@ -2875,7 +2875,7 @@ GAME( 2001, jockeygpd,     jockeygp, neogeo_noslot, jockeygp, neogeo_hbmame,    
 GAME( 2007, joyjoycd,      joyjoy,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Puzzled (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, joyjoycd1,     joyjoy,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Puzzled / Joy Joy Kid (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1995, kabukiklb,     kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den (Boss Hack by Ydmis and Creamymami)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kabukiklb,     kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis / Creamymami", "Far East of Eden - Kabuki Klash (Boss Hack by Ydmis and Creamymami)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikleh,    kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Far East of Eden - Kabuki Klash (Add Char)", MACHINE_SUPPORTS_SAVE ) // Manto, Karakuri, Jyashinsai and Lucifeller
 GAME( 1995, kabukiklgm,    kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Flycboy", "Far East of Eden - Kabuki Klash (Color Fix set 2 - Title screen and char color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukiklgmc,   kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Flycboy", "Far East of Eden - Kabuki Klash (Color Fix set 1 - Title screen and char color changed)", MACHINE_SUPPORTS_SAVE )
