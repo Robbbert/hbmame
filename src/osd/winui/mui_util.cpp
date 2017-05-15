@@ -306,7 +306,7 @@ char * ConvertToWindowsNewlines(const char *source)
 const char * GetDriverFilename(int nIndex)
 {
 	static char tmp[40];
-	std::string driver = core_filename_extract_base(driver_list::driver(nIndex).source_file);
+	std::string driver = core_filename_extract_base(driver_list::driver(nIndex).type.source());
 	strcpy(tmp, driver.c_str());
 	return tmp;
 }

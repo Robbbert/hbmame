@@ -29,5 +29,5 @@ ROM_START( ssridersaex )
 ROM_END
 
 
-//    YEAR, NAME,        PARENT,   MACHINE,  INPUT,     INIT,                    MONITOR,COMPANY,FULLNAME,FLAGS
-GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Pipi899","Sunset Riders (2 Players ver ABD EX Super Version)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+//    YEAR, NAME,        PARENT,   MACHINE,  INPUT,     INIT,          MONITOR,COMPANY,FULLNAME,FLAGS
+GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, 0, ROT0,   "Pipi899","Sunset Riders (2 Players ver ABD EX Super Version)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

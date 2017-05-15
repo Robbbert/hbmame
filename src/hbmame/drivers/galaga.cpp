@@ -39,7 +39,7 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
 	AM_RANGE(0xa007, 0xa007) AM_WRITE(galaga_flip_screen_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED_CLASS( galagost, galaga, galaga_hbmame )
+static MACHINE_CONFIG_DERIVED( galagost, galaga )
 	MCFG_CPU_MODIFY( "maincpu" )
 	MCFG_CPU_PROGRAM_MAP(galagost_map)
 
@@ -1054,8 +1054,8 @@ GAME( 2000, galagaef, galaga,  galaga,   galagamw, galaga_state,  galaga,  ROT90
 GAME( 1981, galagaf,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Namco", "Galaga (Fast Shoot Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, galagap,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Don Hodges", "Galaga (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galagix,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Grand Master Peter", "Galagix", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, galagost, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90, "Twisty", "Galaga Ghost (Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_state,  galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2 - 2002-11-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, galagost, galaga,  galagost, galaga,   galaga_hbmame, galaga,  ROT90, "Twisty", "Galaga Ghost (Set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_hbmame, galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2 - 2002-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galaped,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Cary Barnhard", "Galapede (Fast Shoot)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galgaxin, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "T-Bone", "Galagalaxian", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, terror,   galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Terrorist", MACHINE_SUPPORTS_SAVE )

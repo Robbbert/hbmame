@@ -69,5 +69,5 @@ ROM_END
 
 GAME( 2000, akblc2dx, arkanoid, bootleg,  arkangc,   arkanoid_state, arkblock, ROT90, "hack", "Block Deluxe (Game Corporation)", 0 )
 GAME( 2000, akgcdx,   arkanoid, bootleg,  arkangc,   arkanoid_state, arkgcbl,  ROT90, "hack", "Arkanoid Deluxe (Game Corporation)", 0 )
-GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  driver_device,  0,        ROT90, "hack", "Arkanoid Deluxe (Japan, Tayto)", 0 )
-GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, driver_device,  0,        ROT90, "hack", "Arkanoid LL32", 0 )
+GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  arkanoid_state, 0,        ROT90, "hack", "Arkanoid Deluxe (Japan, Tayto)", 0 )
+GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, arkanoid_state, 0,        ROT90, "hack", "Arkanoid LL32", 0 )

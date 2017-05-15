@@ -404,7 +404,7 @@ static const char *const invaders_sample_names[] =
 };
 
 
-static MACHINE_CONFIG_START( spacmissx, sm_state )
+static MACHINE_CONFIG_START( spacmissx )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
 	MCFG_CPU_PROGRAM_MAP(spacmissx_map)
@@ -483,4 +483,4 @@ ROM_START( spacmissx )
 	ROM_LOAD( "8",       0x0000, 0x0800, CRC(942e5261) SHA1(e8af51d644eab4e7b31c14dc66bb036ad8940c42) ) // ?
 ROM_END
 
-GAMEL(1980?,spacmissx, 0, spacmissx, spacmissx, driver_device, 0, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_spacmissx )
+GAMEL(1980?,spacmissx, 0, spacmissx, spacmissx, sm_state, 0, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_spacmissx )

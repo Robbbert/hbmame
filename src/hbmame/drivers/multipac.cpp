@@ -1910,8 +1910,8 @@ ROM_END
  *
  *************************************/
 
-GAME( 1995, mschamp,  mspacman, mschamp,  mschamp,  driver_device, 0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  driver_device, 0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mschamp,  mspacman, mschamp,  mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
 
 /* Dave Widel's Games - http://www.widel.com */
 

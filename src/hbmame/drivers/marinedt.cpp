@@ -637,7 +637,7 @@ void marinedt_state::machine_reset()
 	m_cyqh = 0;
 }
 
-static MACHINE_CONFIG_START( marinedt, marinedt_state )
+static MACHINE_CONFIG_START( marinedt )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", Z80,10000000/4)
 	MCFG_CPU_PROGRAM_MAP(marinedt_map)
@@ -696,4 +696,4 @@ ROM_START( marinedt )
 	ROM_LOAD( "mg17.bpr", 0x0060, 0x0020, CRC(13261a02) SHA1(050edd18e4f79d19d5206f55f329340432fd4099) )    //?? table of increasing values
 ROM_END
 
-GAME( 1981, marinedt, 0, marinedt, marinedt, driver_device, 0, ROT270, "Taito", "Marine Date", MACHINE_NO_SOUND | MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 1981, marinedt, 0, marinedt, marinedt, marinedt_state, 0, ROT270, "Taito", "Marine Date", MACHINE_NO_SOUND | MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )

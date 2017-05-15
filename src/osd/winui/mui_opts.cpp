@@ -2533,7 +2533,7 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 
 	if (opt_type == OPTIONS_SOURCE)
 	{
-		fname = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->source_file, true) + ".ini";
+		fname = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->type.source(), true) + ".ini";
 		LoadSettingsFile(opts, fname.c_str());
 		return;
 	}
@@ -2574,7 +2574,7 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 		{
 			filename.assign(driver->name);
 			if (opt_type == OPTIONS_SOURCE)
-				filepath = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->source_file, true) + ".ini";
+				filepath = std::string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->type.source(), true) + ".ini";
 		}
 	}
 	else

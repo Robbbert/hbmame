@@ -536,7 +536,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 	switch( opt_type )
 	{
 	case OPTIONS_GAME:
-		t_description = ui_wstring_from_utf8(ModifyThe(driver_list::driver(g_nGame).description));
+		t_description = ui_wstring_from_utf8(ModifyThe(driver_list::driver(g_nGame).type.fullname()));
 		break;
 	case OPTIONS_SOURCE:
 		t_description = ui_wstring_from_utf8(GetDriverFilename(g_nGame));
@@ -906,7 +906,7 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
 		strcpy(buf, "Global vector options");
 	else
 	if (OPTIONS_GAME == opt_type)
-		sprintf(buf, "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).description), driver_list::driver(nIndex).name);
+		sprintf(buf, "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).type.fullname()), driver_list::driver(nIndex).name);
 	return buf;
 }
 
@@ -922,7 +922,7 @@ static char *GameInfoCloneOf(UINT nIndex)
 	{
 		nParentIndex = GetParentIndex(&driver_list::driver(nIndex));
 		sprintf(buf, "%s - \"%s\"",
-			ConvertAmpersandString(ModifyThe(driver_list::driver(nParentIndex).description)),
+			ConvertAmpersandString(ModifyThe(driver_list::driver(nParentIndex).type.fullname())),
 			driver_list::driver(nParentIndex).name);
 	}
 

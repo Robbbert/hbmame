@@ -280,8 +280,8 @@ ROM_END
 
 
 GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, bublbobl, ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bublbobl_state, bublbobl, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, bublbobl, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, bublbobl, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )

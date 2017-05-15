@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/taito_f2.cpp"
 
-static MACHINE_CONFIG_START( f2demo, taitof2_state )
+static MACHINE_CONFIG_START( f2demo )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 24000000/2) /* 12 MHz */
@@ -82,4 +82,4 @@ ROM_START( f2demo )
 	/* no Delta-T samples */
 ROM_END
 
-GAME( 1990, f2demo, 0, f2demo, liquidk, driver_device, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_state, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )

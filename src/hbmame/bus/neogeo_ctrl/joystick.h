@@ -74,8 +74,8 @@ private:
 
 
 // device type definition
-extern const device_type NEOGEO_JOY;
-extern const device_type NEOGEO_JOY_AC;
+DECLARE_DEVICE_TYPE(NEOGEO_JOY, neogeo_joystick_device)
+DECLARE_DEVICE_TYPE(NEOGEO_JOY_AC, neogeo_joy_ac_device)
 
 
 #endif

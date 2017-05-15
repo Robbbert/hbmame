@@ -238,7 +238,7 @@ MACHINE_RESET_MEMBER( cps3_hbmame, redeartn )
 	copy_from_nvram();
 }
 
-static MACHINE_CONFIG_DERIVED_CLASS( redeartn, redearth, cps3_hbmame )
+static MACHINE_CONFIG_DERIVED( redeartn, redearth )
 	MCFG_MACHINE_RESET_OVERRIDE(cps3_hbmame, redeartn)
 MACHINE_CONFIG_END
 
@@ -1289,7 +1289,7 @@ GAME( 2009, jojobbss,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   RO
 GAME( 2009, jojobpow,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Power hack by Pipi899 2009-07-15)", 0 )
 GAME( 2009, jojonbss,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Boss hack by Pipi899 2009-07-09)", 0 )
 GAME( 2009, jojonpow,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Power hack by Pipi899 2009-07-11)", 0 )
-GAME( 1996, redeartn,  redearth, redeartn, cps3_ren,  cps3_state,  redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
+GAME( 1996, redeartn,  redearth, redeartn, cps3_ren,  cps3_hbmame, redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
 GAME( 1996, redeartno, redearth, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Capcom", "Red Earth (Euro 961121, NO CD)", 0 )
 GAME( 2009, redearex,  redearth, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version hack by Pipi899 2009-09-08)", 0 )
 GAME( 2009, sfiiibhp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Boss hack by Pipi899 2009-08-08)", 0 )

@@ -97,7 +97,7 @@ static int GetSrcDriverIndex(const char *srcdriver)
 		sorted_srcdrivers = (srcdriver_data_type *)malloc(sizeof(srcdriver_data_type) * num_games);
 		for (int i = 0; i < num_games; i++)
 		{
-			sorted_srcdrivers[i].srcdriver = driver_list::driver(i).source_file+32;
+			sorted_srcdrivers[i].srcdriver = driver_list::driver(i).type.source()+32;
 			sorted_srcdrivers[i].index = i;
 		}
 		qsort(sorted_srcdrivers,num_games,sizeof(srcdriver_data_type),SrcDriverDataCompareFunc);
@@ -289,7 +289,7 @@ static int load_datafile_text(const game_driver *drv, char *buffer, int bufsize,
 		/* find source file in datafile index */
 		while (idx->driver)
 		{
-			if (idx->driver->source_file == drv->source_file)
+			if (idx->driver->type.source() == drv->type.source())
 				break;
 
 			idx++;
@@ -602,7 +602,7 @@ static int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsiz
 	/* GAME INFORMATIONS */
 	snprintf(name, ARRAY_LENGTH(name), "\nGAME: %s\n", drv->name);
 	strcat(buffer, name);
-	snprintf(name, ARRAY_LENGTH(name), "%s", drv->description);
+	snprintf(name, ARRAY_LENGTH(name), "%s", drv->type.fullname());
 	strcat(buffer, name);
 	snprintf(name, ARRAY_LENGTH(name), " (%s %s)\n\nCPU:\n", drv->manufacturer, drv->year);
 	strcat(buffer, name);
@@ -754,14 +754,14 @@ static int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsiz
 			drv = &driver_list::driver(g);
 
 		strcat(buffer, "\nORIGINAL:\n");
-		strcat(buffer, drv->description);
+		strcat(buffer, drv->type.fullname());
 		strcat(buffer, "\n\nCLONES:\n");
 
 		for (int i = 0; i < driver_list::total(); i++)
 		{
 			if (!strcmp (drv->name, driver_list::driver(i).parent))
 			{
-				strcat(buffer, driver_list::driver(i).description);
+				strcat(buffer, driver_list::driver(i).type.fullname());
 				strcat(buffer, "\n");
 			}
 		}
@@ -776,7 +776,7 @@ static int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufs
 	int drivinfo = 0;
 	char source_file[40];
 	char tmp[100];
-	std::string temp = core_filename_extract_base(drv->source_file);
+	std::string temp = core_filename_extract_base(drv->type.source());
 	strcpy(source_file, temp.c_str());
 
 	*buffer = 0;
@@ -838,7 +838,7 @@ static int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufs
 	{
 		if (!strcmp(source_file, GetDriverFilename(i)) && !(DriverIsBios(i)))
 		{
-			strcat(buffer, driver_list::driver(i).description);
+			strcat(buffer, driver_list::driver(i).type.fullname());
 			strcat(buffer,"\n");
 		}
 	}

@@ -85,7 +85,7 @@ ROM_END
 
 
 
-GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun, ROT270, "Eezezy", "Batsugun Transparent (HACK BY EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga,ROT270, "Zack", "Battle Garegga (Europe / USA / Japan / Asia) (Zakk version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   driver_device,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   driver_device,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (HACK BY EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga, ROT270, "Zack", "Battle Garegga (Europe / USA / Japan / Asia) (Zakk version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )

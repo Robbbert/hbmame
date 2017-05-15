@@ -14,7 +14,7 @@ static ADDRESS_MAP_START( main_map_noslot, AS_PROGRAM, 16, neogeo_state )
 ADDRESS_MAP_END
 
 
-static MACHINE_CONFIG_DERIVED_CLASS( neogeo_noslot, neogeo_arcade, neogeo_noslot_state ) // no slot config (legacy mame)
+static MACHINE_CONFIG_DERIVED( neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 
@@ -37,7 +37,7 @@ static MACHINE_CONFIG_DERIVED_CLASS( neogeo_noslot, neogeo_arcade, neogeo_noslot
 	MCFG_SBP_PROT_ADD("sbp_prot")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED_CLASS( neogeo_kog, neogeo_arcade, neogeo_noslot_kog_state )
+static MACHINE_CONFIG_DERIVED( neogeo_kog, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 

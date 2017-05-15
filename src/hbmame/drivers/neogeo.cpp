@@ -1303,7 +1303,7 @@ DRIVER_INIT_MEMBER(neogeo_state,mvs)
  *
  *************************************/
 
-MACHINE_CONFIG_START( neogeo_base, neogeo_state )
+MACHINE_CONFIG_START( neogeo_base )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)

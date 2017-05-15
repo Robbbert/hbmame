@@ -84,4 +84,4 @@ private:
 	uint8_t* m_spritegfx8;
 };
 
-extern const device_type NEOGEO_SPRITE;
+DECLARE_DEVICE_TYPE(NEOGEO_SPRITE, neosprite_device)

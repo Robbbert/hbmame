@@ -51,7 +51,7 @@ private:
 
 
 // device type definition
-extern const device_type NEOGEO_IRRMAZE;
+DECLARE_DEVICE_TYPE(NEOGEO_IRRMAZE, neogeo_irrmaze_device)
 
 
 #endif

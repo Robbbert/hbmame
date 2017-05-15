@@ -29,8 +29,8 @@
 //  GLOBAL VARIABLES
 //**************************************************************************
 
-const device_type NEOGEO_CONTROL_PORT = device_creator<neogeo_control_port_device>;
-const device_type NEOGEO_CTRL_EDGE_CONNECTOR = device_creator<neogeo_ctrl_edge_port_device>;
+DEFINE_DEVICE_TYPE(NEOGEO_CONTROL_PORT, neogeo_control_port_device, "neogeo_control_port", "SNK Neo Geo control port")
+DEFINE_DEVICE_TYPE(NEOGEO_CTRL_EDGE_CONNECTOR, neogeo_ctrl_edge_port_device, "neogeo_ctrl_edge", "SNK Neo Geo Edge Connector (Controller)")
 
 
 //**************************************************************************
@@ -85,7 +85,7 @@ device_neogeo_ctrl_edge_interface::~device_neogeo_ctrl_edge_interface()
 //-------------------------------------------------
 
 neogeo_control_port_device::neogeo_control_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
-						device_t(mconfig, NEOGEO_CONTROL_PORT, "SNK Neo Geo control port", tag, owner, clock, "neogeo_control_port", __FILE__),
+						device_t(mconfig, NEOGEO_CONTROL_PORT, tag, owner, clock),
 						device_slot_interface(mconfig, *this), m_device(nullptr)
 {
 }
@@ -139,7 +139,7 @@ void neogeo_control_port_device::write_ctrlsel(uint8_t data)
 //-------------------------------------------------
 
 neogeo_ctrl_edge_port_device::neogeo_ctrl_edge_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
-							device_t(mconfig, NEOGEO_CTRL_EDGE_CONNECTOR, "SNK Neo Geo Edge Connector (Controller)", tag, owner, clock, "neogeo_ctrl_edge", __FILE__),
+							device_t(mconfig, NEOGEO_CTRL_EDGE_CONNECTOR, tag, owner, clock),
 							device_slot_interface(mconfig, *this), m_device(nullptr)
 {
 }

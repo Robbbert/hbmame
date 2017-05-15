@@ -375,14 +375,14 @@ bool GameFiltered(int nGame, DWORD dwMask)
 
 	if (strlen(GetSearchText()) && _stricmp(GetSearchText(), SEARCH_PROMPT))
 	{
-		if (MyStrStrI(driver_list::driver(nGame).description,GetSearchText()) == NULL &&
+		if (MyStrStrI(driver_list::driver(nGame).type.fullname(),GetSearchText()) == NULL &&
 			MyStrStrI(driver_list::driver(nGame).name,GetSearchText()) == NULL)
 				return TRUE;
 	}
 	/*Filter Text is already global*/
-	if (MyStrStrI(driver_list::driver(nGame).description,GetFilterText()) == NULL &&
+	if (MyStrStrI(driver_list::driver(nGame).type.fullname(),GetFilterText()) == NULL &&
 		MyStrStrI(driver_list::driver(nGame).name,GetFilterText()) == NULL &&
-		MyStrStrI(driver_list::driver(nGame).source_file,GetFilterText()) == NULL &&
+		MyStrStrI(driver_list::driver(nGame).type.source(),GetFilterText()) == NULL &&
 		MyStrStrI(driver_list::driver(nGame).manufacturer,GetFilterText()) == NULL)
 	{
 		return TRUE;
@@ -1180,12 +1180,12 @@ void CreateBIOSFolders(int parent_index)
 			drv = &driver_list::driver(jj);
 		nParentIndex = GetParentIndex(drv);
 
-		if (nParentIndex < 0 || !driver_list::driver(nParentIndex).description)
+		if (nParentIndex < 0 || !driver_list::driver(nParentIndex).type.fullname())
 			continue;
 
 		for (i = numFolders-1; i >= start_folder; i--)
 		{
-			if (strcmp(treeFolders[i]->m_lpTitle, driver_list::driver(nParentIndex).description) == 0)
+			if (strcmp(treeFolders[i]->m_lpTitle, driver_list::driver(nParentIndex).type.fullname()) == 0)
 			{
 				AddGame(treeFolders[i],jj);
 				break;
@@ -1194,7 +1194,7 @@ void CreateBIOSFolders(int parent_index)
 
 		if (i == start_folder-1)
 		{
-			lpTemp = NewFolder(driver_list::driver(nParentIndex).description, next_folder_id++, parent_index, IDI_CPU, GetFolderFlags(numFolders));
+			lpTemp = NewFolder(driver_list::driver(nParentIndex).type.fullname(), next_folder_id++, parent_index, IDI_CPU, GetFolderFlags(numFolders));
 			AddFolder(lpTemp);
 			AddGame(lpTemp,jj);
 		}

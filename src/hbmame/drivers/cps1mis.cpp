@@ -642,7 +642,7 @@ static MACHINE_CONFIG_DERIVED( sk2h35, qsound)
 	MCFG_CPU_PROGRAM_MAP(sk2h35_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( cps1frog, cps_state )
+static MACHINE_CONFIG_START( cps1frog )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, XTAL_10MHz )    /* verified on pcb */
@@ -673,7 +673,7 @@ static MACHINE_CONFIG_START( cps1frog, cps_state )
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, OKIM6295_PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 

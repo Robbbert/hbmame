@@ -37,4 +37,4 @@ ROM_START( retofinv4 )
 	ROM_LOAD( "82s191n",   0x0300, 0x0800, CRC(93c891e3) SHA1(643a0107717b6a434432dda73a0102e6e8adbca7) )
 ROM_END
 
-GAME( 2011, retofinv4, retofinv, retofinv, retofinv, driver_device, 0, ROT90, "Paul Smith", "Return of the Invaders (hack)", 0 )
+GAME( 2011, retofinv4, retofinv, retofinv, retofinv, retofinv_state, 0, ROT90, "Paul Smith", "Return of the Invaders (hack)", 0 )

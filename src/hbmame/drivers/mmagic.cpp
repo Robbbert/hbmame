@@ -292,7 +292,7 @@ void mmagic_state::machine_start()
 //  MACHINE DEFINTIONS
 //**************************************************************************
 
-static MACHINE_CONFIG_START( mmagic, mmagic_state )
+static MACHINE_CONFIG_START( mmagic )
 	// basic machine hardware
 	MCFG_CPU_ADD("maincpu", I8085A, XTAL_6_144MHz)  // NEC D8085A
 	MCFG_CPU_PROGRAM_MAP(mmagic_mem)
@@ -343,4 +343,4 @@ ROM_END
 //**************************************************************************
 
 //    YEAR  NAME    PARENT  MACHINE INPUT   CLASS          INIT  ROT     COMPANY     FULLNAME        FLAGS
-GAME( 1979, mmagic, 0,      mmagic, mmagic, driver_device, 0,    ROT270, "Nintendo", "Monkey Magic", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, mmagic, 0,      mmagic, mmagic, mmagic_state, 0,    ROT270, "Nintendo", "Monkey Magic", MACHINE_SUPPORTS_SAVE )

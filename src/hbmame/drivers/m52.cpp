@@ -36,4 +36,4 @@ ROM_START( spatrol )
 	ROM_LOAD( "mpc-2.2h",     0x0240, 0x0100, CRC(7ae4cd97) SHA1(bc0662fac82ffe65f02092d912b2c2b0c7a8ac2b) )
 ROM_END
 
-GAME( 2008, spatrol,  mpatrol, m52, mpatrol, driver_device, 0, ROT0, "Gatinho", "Sponge Patrol", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, spatrol,  mpatrol, m52, mpatrol, m52_state, 0, ROT0, "Gatinho", "Sponge Patrol", MACHINE_SUPPORTS_SAVE )

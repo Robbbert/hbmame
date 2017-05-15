@@ -52,5 +52,5 @@ ROM_END
 
 
 
-GAME( 2000, phoenixr, phoenix, phoenix,  phoenix , driver_device, 0, ROT90, "CYBERYOGI =CO= Windler", "PhoenixR (GDR hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, phoenixg, phoenix, phoenix,  phoenixt, driver_device, 0, ROT90, "GreekRoms", "Phoenix (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, phoenixr, phoenix, phoenix,  phoenix , phoenix_state, 0, ROT90, "CYBERYOGI =CO= Windler", "PhoenixR (GDR hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, phoenixg, phoenix, phoenix,  phoenixt, phoenix_state, 0, ROT90, "GreekRoms", "Phoenix (Greek)", MACHINE_SUPPORTS_SAVE )

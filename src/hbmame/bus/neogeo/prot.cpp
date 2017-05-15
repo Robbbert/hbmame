@@ -3,11 +3,11 @@
 #include "neogeo.h"
 
 
-const device_type NGBOOTLEG_PROT = device_creator<ngbootleg_prot_device>;
+DEFINE_DEVICE_TYPE(NGBOOTLEG_PROT, ngbootleg_prot_device, "ngbootleg_prot", "NeoGeo Protection (Bootleg)")
 
 
 ngbootleg_prot_device::ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, NGBOOTLEG_PROT, "NeoGeo Protection (Bootleg)", tag, owner, clock, "ngbootleg_prot", __FILE__)
+	: device_t(mconfig, NGBOOTLEG_PROT, tag, owner, clock)
 	, kof2k3_overlay(0)
 	, m_mainrom(nullptr)
 	, m_fixedrom(nullptr)
@@ -1006,11 +1006,11 @@ void ngbootleg_prot_device::matrimbl_decrypt(uint8_t* sprrom, uint32_t sprrom_si
 
 /***********************************************************************************************************************************/
 
-const device_type KOG_PROT = device_creator<kog_prot_device>;
+DEFINE_DEVICE_TYPE(KOG_PROT, kog_prot_device, "kog_prot", "NeoGeo Protection (King of Gladiator)")
 
 
 kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, KOG_PROT, "NeoGeo Protection (King of Gladiator)", tag, owner, clock, "kog_prot", __FILE__)
+	: device_t(mconfig, KOG_PROT, tag, owner, clock)
 	, m_jumper(*this, "JUMPER")
 	{ }
 
@@ -1107,11 +1107,11 @@ ioport_constructor kog_prot_device::device_input_ports() const
 /***********************************************************************************************************************************/
 
 
-const device_type CMC_PROT = device_creator<cmc_prot_device>;
+DEFINE_DEVICE_TYPE(CMC_PROT, cmc_prot_device, "cmc_prot", "NeoGeo Protection (CMC)")
 
 
 cmc_prot_device::cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, CMC_PROT, "NeoGeo Protection (CMC)", tag, owner, clock, "cmc_prot", __FILE__)
+	: device_t(mconfig, CMC_PROT, tag, owner, clock)
 	, type0_t03(nullptr)
 	, type0_t12(nullptr)
 	, type1_t03(nullptr)
@@ -1773,11 +1773,11 @@ void cmc_prot_device::neogeo_cmc50_m1_decrypt(uint8_t* romcrypt, uint32_t romcry
 
 /***********************************************************************************************************************************/
 
-const device_type FATFURY2_PROT = device_creator<fatfury2_prot_device>;
+DEFINE_DEVICE_TYPE(FATFURY2_PROT, fatfury2_prot_device, "fatfury2_prot", "NeoGeo Protection (Fatal Fury 2)")
 
 
 fatfury2_prot_device::fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, FATFURY2_PROT, "NeoGeo Protection (Fatal Fury 2)", tag, owner, clock, "fatfury2_prot", __FILE__)
+	: device_t(mconfig, FATFURY2_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	, m_fatfury2_prot_data(0)
 	{ }
@@ -1880,11 +1880,11 @@ void fatfury2_prot_device::fatfury2_install_protection(cpu_device* maincpu, neog
 /***********************************************************************************************************************************/
 
 
-const device_type KOF2002_PROT = device_creator<kof2002_prot_device>;
+DEFINE_DEVICE_TYPE(KOF2002_PROT, kof2002_prot_device, "kof2002_prot", "NeoGeo Protection (KOF2002)")
 
 
 kof2002_prot_device::kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, KOF2002_PROT, "NeoGeo Protection (KOF2002)", tag, owner, clock, "kof2002_prot", __FILE__)
+	: device_t(mconfig, KOF2002_PROT, tag, owner, clock)
 	{ }
 
 
@@ -1939,11 +1939,11 @@ void kof2002_prot_device::samsh5sp_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_
 
 /***********************************************************************************************************************************/
 
-const device_type KOF98_PROT = device_creator<kof98_prot_device>;
+DEFINE_DEVICE_TYPE(KOF98_PROT, kof98_prot_device, "kof98_prot", "NeoGeo Protection (KOF98)")
 
 
 kof98_prot_device::kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, KOF98_PROT, "NeoGeo Protection (KOF98)", tag, owner, clock, "kof98_prot", __FILE__)
+	: device_t(mconfig, KOF98_PROT, tag, owner, clock)
 	, kof98_prot_state(0)
 	{ }
 
@@ -2068,11 +2068,11 @@ void kof98_prot_device::install_kof98_protection(cpu_device* maincpu)
 /***********************************************************************************************************************************/
 
 
-const device_type MSLUGX_PROT = device_creator<mslugx_prot_device>;
+DEFINE_DEVICE_TYPE(MSLUGX_PROT, mslugx_prot_device, "mslugx_prot", "NeoGeo Protection (Metal Slug X)")
 
 
 mslugx_prot_device::mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, MSLUGX_PROT, "NeoGeo Protection (Metal Slug X)", tag, owner, clock, "mslugx_prot", __FILE__)
+	: device_t(mconfig, MSLUGX_PROT, tag, owner, clock)
 	, m_mslugx_counter(0)
 	, m_mslugx_command(0)
 	{ }
@@ -2160,11 +2160,11 @@ void mslugx_prot_device::mslugx_install_protection(cpu_device* maincpu)
 /***********************************************************************************************************************************/
 
 
-const device_type PCM2_PROT = device_creator<pcm2_prot_device>;
+DEFINE_DEVICE_TYPE(PCM2_PROT, pcm2_prot_device, "pcm2_prot", "NeoGeo Protection (NEOPCM2)")
 
 
 pcm2_prot_device::pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, PCM2_PROT, "NeoGeo Protection (NEOPCM2)", tag, owner, clock, "pcm2_prot", __FILE__)
+	: device_t(mconfig, PCM2_PROT, tag, owner, clock)
 	{ }
 
 
@@ -2236,11 +2236,11 @@ void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
 /***********************************************************************************************************************************/
 
 
-const device_type PVC_PROT = device_creator<pvc_prot_device>;
+DEFINE_DEVICE_TYPE(PVC_PROT, pvc_prot_device, "pvc_prot", "NeoGeo Protection (PVC)")
 
 
 pvc_prot_device::pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, PVC_PROT, "NeoGeo Protection (PVC)", tag, owner, clock, "pvc_prot", __FILE__)
+	: device_t(mconfig, PVC_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	{ }
 
@@ -2542,11 +2542,11 @@ void pvc_prot_device::kof2003h_decrypt_68k(uint8_t* rom, uint32_t size)
 /***********************************************************************************************************************************/
 
 
-const device_type SBP_PROT = device_creator<sbp_prot_device>;
+DEFINE_DEVICE_TYPE(SBP_PROT, sbp_prot_device, "sbp_prot", "NeoGeo Protection (Super Bubble Pop)")
 
 
 sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, SBP_PROT, "NeoGeo Protection (Super Bubble Pop)", tag, owner, clock, "sbp_prot", __FILE__)
+	: device_t(mconfig, SBP_PROT, tag, owner, clock)
 	, m_mainrom(nullptr)
 	{ }
 
@@ -2612,11 +2612,11 @@ void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpuro
 /***********************************************************************************************************************************/
 
 
-const device_type SMA_PROT = device_creator<sma_prot_device>;
+DEFINE_DEVICE_TYPE(SMA_PROT, sma_prot_device, "sma_prot", "NeoGeo SMA Cartridge")
 
 
 sma_prot_device::sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, SMA_PROT, "NeoGeo SMA Cartridge", tag, owner, clock, "sma_prot", __FILE__)
+	: device_t(mconfig, SMA_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	, m_sma_rng(0)
 	{ }

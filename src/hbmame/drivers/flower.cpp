@@ -137,7 +137,7 @@ private:
 
 };
 
-extern const device_type FLOWER;
+DECLARE_DEVICE_TYPE(FLOWER_SOUND, flower_sound_device)
 
 READ8_MEMBER( flower_state::soundlatch_byte_r )
 {
@@ -498,7 +498,7 @@ WRITE8_MEMBER(flower_state::flower_flipscreen_w)
 }
 
 
-static MACHINE_CONFIG_START( flower, flower_state )
+static MACHINE_CONFIG_START( flower )
 
 	/* basic machine hardware */
 	// clock divider (of all cpus) is unknown. /6 (3.072 MHz) is too slow
@@ -534,7 +534,7 @@ static MACHINE_CONFIG_START( flower, flower_state )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("flower", FLOWER, 0)
+	MCFG_SOUND_ADD("flower", FLOWER_SOUND, 0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
@@ -626,8 +626,8 @@ ROM_START( flowerj ) /* Sega/Alpha version.  Sega game number 834-5998 */
 ROM_END
 
 
-GAME( 1986, flower,  0,      flower, flower, driver_device, 0, ROT0, "Clarue (Komax license)", "Flower (US)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1986, flowerj, flower, flower, flower, driver_device, 0, ROT0, "Clarue (Sega / Alpha Denshi Co. license)", "Flower (Japan)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
+GAME( 1986, flower,  0,      flower, flower, flower_state, 0, ROT0, "Clarue (Komax license)", "Flower (US)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1986, flowerj, flower, flower, flower, flower_state, 0, ROT0, "Clarue (Sega / Alpha Denshi Co. license)", "Flower (Japan)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
 
 
 /* Clarue Flower sound driver.
@@ -648,10 +648,10 @@ TODO:
 #define MIXER_DEFGAIN       48
 
 
-const device_type FLOWER = device_creator<flower_sound_device>;
+DEFINE_DEVICE_TYPE(FLOWER_SOUND, flower_sound_device, "flower_sound", "Flower Audio Custom")
 
 flower_sound_device::flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, FLOWER, "Flower Audio Custom", tag, owner, clock, "flower_sound", __FILE__),
+	: device_t(mconfig, FLOWER_SOUND, tag, owner, clock),
 		device_sound_interface(mconfig, *this)
 {
 }

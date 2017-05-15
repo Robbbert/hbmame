@@ -704,7 +704,7 @@ INT_PTR CALLBACK AddCustomFileDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPA
 		}
 
 		win_set_window_text_utf8(GetDlgItem(hDlg,IDC_CUSTOMFILE_GAME),
-			ModifyThe(driver_list::driver(driver_index).description));
+			ModifyThe(driver_list::driver(driver_index).type.fullname()));
 
 		res++;
 		return TRUE;

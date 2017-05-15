@@ -11,7 +11,7 @@ ROM_START( dotrimjr )
 	ROM_LOAD( "dotrimjr.bin", 0x0000, 0x4000, CRC(4ba6d2f5) SHA1(db805e9121ecbd41fac4593b58d7f071e7dbc720) )
 ROM_END
 
-GAMEL( 2016, dotrimjr, 0, dotrikun, dotrikun, driver_device, 0, ROT0, "Chris Covell", "Dottori-Man Jr", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+GAMEL( 2016, dotrimjr, 0, dotrikun, dotrikun, dotrikun_state, 0, ROT0, "Chris Covell", "Dottori-Man Jr", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
 
 
 /***************************************************************************
@@ -171,7 +171,7 @@ void mineswp_state::machine_start()
 	m_beep->set_state(0);
 }
 
-static MACHINE_CONFIG_DERIVED_CLASS( mineswp, dotrikun, mineswp_state )
+static MACHINE_CONFIG_DERIVED( mineswp, dotrikun )
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)
@@ -205,4 +205,4 @@ ROM_START( mineswp )
 ROM_END
 
 
-GAMEL( 1998, mineswp, 0, mineswp, dotrikun, driver_device, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )

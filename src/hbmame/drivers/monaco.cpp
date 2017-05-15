@@ -1429,7 +1429,7 @@ MACHINE_RESET_MEMBER( monaco_state, monaco )
 	GameOver();
 }
 
-static MACHINE_CONFIG_START( monaco, monaco_state )
+static MACHINE_CONFIG_START( monaco )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD ("maincpu", Z80, 200) /* fake */
