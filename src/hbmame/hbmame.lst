@@ -531,16 +531,18 @@ dkongx
 dkongx11
 dkrainbow
 dkrdemo
-kong2600	/* Vic Twenty George hack of Donkey Kong */
+kong2600		/* Vic Twenty George hack of Donkey Kong */
 nadkong
 
 	/* docastle */
-dorunrun	//parent
+dorunrun		//parent
 sdreturn
 
 	/* dotrikun */
-dotrimjr
-mineswp		/* Minesweeper */
+dotrikun		//parent
+dotrikun2
+dotriman
+mineswp			/* Minesweeper */
 
 	/* ertictac */
 //armdemo		/* Charles Doty */  // totally broken
