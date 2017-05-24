@@ -366,7 +366,7 @@ SegaBoot Ver.2.00.0 Build:Feb  7 2003 12:28:30
 SegaBoot Ver.2.13.0 Build:Mar  3 2005 17:03:15
 
 ic10_g24lc64.bin: This dump contains the firmware of the Base Board, serial number and REGION of the whole system
-Region is located at Offset 0x00001F10 , 01 means JAP, 02 Means USA, 03 Means EXPORT, if you
+Region is located at Offset 0x00001F10 , 01 means JPN, 02 Means USA, 03 Means EXPORT, if you
 want to change the region of your Chihiro Board, just change this byte.
 
 Thanks to Alex, Mr Mudkips, and Philip Burke for this info.
@@ -1797,11 +1797,11 @@ SLOT_INTERFACE_START(usb_baseboard)
 	SLOT_INTERFACE("xbox_controller", OHCI_GAME_CONTROLLER)
 SLOT_INTERFACE_END
 
-static MACHINE_CONFIG_FRAGMENT(an2131qc_configuration)
+static MACHINE_CONFIG_START(an2131qc_configuration)
 	MCFG_OHCI_HLEAN2131QC_REGION(":others", 0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_FRAGMENT(an2131sc_configuration)
+static MACHINE_CONFIG_START(an2131sc_configuration)
 	MCFG_OHCI_HLEAN2131SC_REGION(":others", 0x2080)
 MACHINE_CONFIG_END
 

@@ -196,6 +196,16 @@ CRUCLK*  51||52  DBIN
 #include "memex.h"
 #include "horizon.h"
 
+DEFINE_DEVICE_TYPE_NS(PERIBOX,      bus::ti99::peb, peribox_device,      "peribox",      "Peripheral expansion box")
+DEFINE_DEVICE_TYPE_NS(PERIBOX_SLOT, bus::ti99::peb, peribox_slot_device, "peribox_slot", "TI P-Box slot")
+
+DEFINE_DEVICE_TYPE_NS(PERIBOX_EV,   bus::ti99::peb, peribox_ev_device,   "peribox_ev",   "Peripheral expansion box EVPC")
+DEFINE_DEVICE_TYPE_NS(PERIBOX_SG,   bus::ti99::peb, peribox_sg_device,   "peribox_sg",   "Peripheral expansion box SGCPU")
+DEFINE_DEVICE_TYPE_NS(PERIBOX_GEN,  bus::ti99::peb, peribox_gen_device,  "peribox_gen",  "Peripheral expansion box Geneve")
+DEFINE_DEVICE_TYPE_NS(PERIBOX_998,  bus::ti99::peb, peribox_998_device,  "peribox_998",  "Peripheral expansion box 99/8")
+
+namespace bus { namespace ti99 { namespace peb {
+
 /*
     Debugging flags. Set to 0 or 1.
 */
@@ -458,7 +468,7 @@ SLOT_INTERFACE_START( peribox_slot )
 	SLOT_INTERFACE("tifdc", TI99_FDC)
 SLOT_INTERFACE_END
 
-MACHINE_CONFIG_FRAGMENT( peribox_device )
+MACHINE_CONFIG_START( peribox_device )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT2, peribox_slot )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT3, peribox_slot )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT4, peribox_slot )
@@ -500,7 +510,7 @@ SLOT_INTERFACE_START( peribox_slotg )
 	SLOT_INTERFACE("hfdc", TI99_HFDC)
 SLOT_INTERFACE_END
 
-MACHINE_CONFIG_FRAGMENT( peribox_gen_device )
+MACHINE_CONFIG_START( peribox_gen_device )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT2, peribox_slotg )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT3, peribox_slotg )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT4, peribox_slotg )
@@ -538,7 +548,7 @@ SLOT_INTERFACE_START( peribox_slot998 )
 	SLOT_INTERFACE("hfdc", TI99_HFDC)
 SLOT_INTERFACE_END
 
-MACHINE_CONFIG_FRAGMENT( peribox_998_device )
+MACHINE_CONFIG_START( peribox_998_device )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT2, peribox_slot998 )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT3, peribox_slot998 )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT4, peribox_slot998 )
@@ -585,7 +595,7 @@ SLOT_INTERFACE_START( peribox_hs_slot )
 	SLOT_INTERFACE("hsgpl", TI99_HSGPL)
 SLOT_INTERFACE_END
 
-MACHINE_CONFIG_FRAGMENT( peribox_sg_device )
+MACHINE_CONFIG_START( peribox_sg_device )
 	MCFG_PERIBOX_SLOT_ADD_DEF( PEBSLOT2, peribox_ev_slot, "evpc" )
 	MCFG_PERIBOX_SLOT_ADD_DEF( PEBSLOT3, peribox_hs_slot, "hsgpl" )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT4, peribox_slotp )
@@ -611,7 +621,7 @@ peribox_ev_device::peribox_ev_device(const machine_config &mconfig, const char *
 	m_address_prefix = 0x70000;
 }
 
-MACHINE_CONFIG_FRAGMENT( peribox_ev_device )
+MACHINE_CONFIG_START( peribox_ev_device )
 	MCFG_PERIBOX_SLOT_ADD_DEF( PEBSLOT2, peribox_ev_slot, "evpc" )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT3, peribox_slot )
 	MCFG_PERIBOX_SLOT_ADD( PEBSLOT4, peribox_slot )
@@ -744,10 +754,4 @@ WRITE_LINE_MEMBER( peribox_slot_device::set_ready )
 }
 
 /***************************************************************************/
-DEFINE_DEVICE_TYPE(PERIBOX,      peribox_device,      "peribox",      "Peripheral expansion box")
-DEFINE_DEVICE_TYPE(PERIBOX_SLOT, peribox_slot_device, "peribox_slot", "TI P-Box slot")
-
-DEFINE_DEVICE_TYPE(PERIBOX_EV,   peribox_ev_device,   "peribox_ev",   "Peripheral expansion box EVPC")
-DEFINE_DEVICE_TYPE(PERIBOX_SG,   peribox_sg_device,   "peribox_sg",   "Peripheral expansion box SGCPU")
-DEFINE_DEVICE_TYPE(PERIBOX_GEN,  peribox_gen_device,  "peribox_gen",  "Peripheral expansion box Geneve")
-DEFINE_DEVICE_TYPE(PERIBOX_998,  peribox_998_device,  "peribox_998",  "Peripheral expansion box 99/8")
+} } } // end namespace bus::ti99::peb
