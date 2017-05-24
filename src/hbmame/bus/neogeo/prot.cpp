@@ -152,7 +152,7 @@ void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neo
 	memcpy(m_cartridge_ram2, cpurom + 0xe0000, 0x20000);
 
 	// HACK: only save this at device_start (not allowed later)
-	if (machine().phase() <= MACHINE_PHASE_INIT)
+	if (machine().phase() <= machine_phase::INIT)
 		save_pointer(NAME(m_fixedrom), 0x40000);
 }
 
