@@ -17,7 +17,7 @@
 #define GALAXIAN_XSCALE         3
 
 /* master clocks */
-#define GALAXIAN_MASTER_CLOCK   (18432000)
+#define GALAXIAN_MASTER_CLOCK   (XTAL_18_432MHz)
 #define GALAXIAN_PIXEL_CLOCK    (GALAXIAN_XSCALE*GALAXIAN_MASTER_CLOCK/3)
 
 /* H counts from 128->511, HBLANK starts at 130 and ends at 250 */
@@ -249,6 +249,7 @@ public:
 	DECLARE_DRIVER_INIT(thepitm);
 	DECLARE_DRIVER_INIT(theend);
 	DECLARE_DRIVER_INIT(scramble);
+	DECLARE_DRIVER_INIT(mandinga);
 	DECLARE_DRIVER_INIT(sfx);
 	DECLARE_DRIVER_INIT(atlantis);
 	DECLARE_DRIVER_INIT(scobra);
@@ -328,10 +329,10 @@ public:
 	void decode_anteater_gfx();
 	void decode_losttomb_gfx();
 	void decode_superbon();
-	void unmap_galaxian_sound(offs_t base);
 	void mshuttle_decode(const uint8_t convtable[8][16]);
 	void common_init(galaxian_draw_bullet_func draw_bullet,galaxian_draw_background_func draw_background,
 		galaxian_extend_tile_info_func extend_tile_info,galaxian_extend_sprite_info_func extend_sprite_info);
+
 //HBMAME start
 	DECLARE_WRITE8_MEMBER(fourplay_rombank_w);
 	DECLARE_WRITE8_MEMBER(videight_rombank_w);
