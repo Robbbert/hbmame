@@ -12178,6 +12178,9 @@ waveterm                        //
 @source:europc.cpp
 europc                          // 1988 Schneider Euro PC (CGA or Hercules)
 
+@source:eva.cpp
+eva11                           //
+
 @source:evmbug.cpp
 evmbug                          //
 
@@ -29540,6 +29543,7 @@ raiders5                        // UPL-85004 (c) 1985
 raiders5t                       // UPL-85004 (c) 1985 Taito license
 
 @source:novag6502.cpp
+cfortea                         //
 cforteb                         //
 sexperta                        //
 sexpertb                        //
@@ -36734,6 +36738,10 @@ cbombersp                       //
 undrfire                        // D67 (c) 1993 Taito Corporation Japan (World)
 undrfirej                       // D67 (c) 1993 Taito Corporation (Japan)
 undrfireu                       // D67 (c) 1993 Taito America Corporation (US)
+
+@source:unianapc.cpp
+dhunting                        // (c) 2002 Game Box Entertainment
+hogwild                         // (c) 2003 Uniana
 
 @source:unichamp.cpp
 unichamp                        //
