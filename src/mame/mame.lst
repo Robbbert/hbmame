@@ -12220,6 +12220,7 @@ rallysa                         // (c) 1980 Musik Box Brescia (bootleg)
 sidetrac                        // (c) 1979
 spectar                         // (c) 1980
 spectar1                        // (c) 1980
+spectarrf                       // (c) 1984 Recreativos Franco (bootleg)
 targ                            // (c) 1980
 targc                           // (c) 1980
 teetert                         // (c) 1981
@@ -13005,6 +13006,7 @@ mshuttle                        // (c) 1981 Nichibutsu
 mshuttle2                       // (c) 1981 Nichibutsu
 mshuttlej                       // (c) 1981 Nichibutsu
 mshuttlej2                      // (c) 1981 Nichibutsu
+offensiv                        // bootleg (Video Dens)
 omegab                          // bootleg
 omni                            // bootleg
 orbitron                        // (c) 1982 Signatron USA (Arcade Tv Game List - P.160, Left, 22 from top)
@@ -13034,9 +13036,9 @@ scrambles                       // GX387 (c) 1981 Stern
 scrambles2                      // GX387 (c) 1981 Stern
 scrambp                         // bootleg (Billport S.A.)
 scramce                         // bootleg (Centromatic S.A.)
+scrammr                         // bootleg (Model Racing)
 scrampt                         // bootleg (Petaco S.A.)
 scramrf                         // bootleg (Recreativos Franco)
-scrammr                         // bootleg (Model Racing)
 sfx                             // (c) 1983 Nichibutsu
 skelagon                        // (c) 1983 Nichibutsu USA
 skybase                         // (c) 1982 Omori Electric Co., Ltd.
@@ -31931,6 +31933,7 @@ rainbow190                      // 1985 DEC Rainbow 190
 @source:rallyx.cpp
 commsega                        // (c) 1983 Sega
 cottong                         // bootleg
+dngrtrck                        // Petaco bootleg
 gutangtn                        // GX359 (c) 1982 Konami + Sega license
 jackler                         // 1 9 8 2 (Jungler Bootleg)
 jungler                         // GX327 (c) 1981 Konami
@@ -33187,6 +33190,7 @@ timescan                        // (c) 1987 (Unprotected)
 toryumon                        // (c) 1995 (Unprotected)
 tturf                           // (c) 1989 Sega / Sunsoft (8751)
 tturfu                          // (c) 1989 Sega / Sunsoft (8751)
+ultracin                        // (c) 1996 Sega (Unprotected)
 wb3                             // (c) 1988 Sega / Westone (8751)
 wb32                            // (c) 1988 Sega / Westone (FD1094)
 wb32d                           //
@@ -37041,7 +37045,9 @@ vigilanto                       // (c) 1988 (US)
 batmantv                        // The Batman, 2004
 vii                             // Chintendo / KenSingTon / Jungle Soft / Siatronics Vii
 vsmile                          //
+vsmileb                         //
 vsmilef                         //
+vsmileg                         //
 walle                           //
 wirels60                        // Wireless 60
 zone60                          // Zone 60
