@@ -521,6 +521,10 @@ Notes:
 IC17S-IC38S - MaskROM (SOP44), either 32Mb or 64Mb. Not all positions are populated
    CN1/2/3  - connectors joining to main board
 
+Despite the fact this ROM board have SPI-type EEPROM, containing cartridge serial number,
+from NAOMI side it read as X76F100-type, probably simulated by ACTEL FPGA.
+Actual data is shuffled, address bits 3 to 6 have reversed order, i.e. 8 7 3 4 5 6 2 1 0.
+
 Games known to use this PCB include....
                                                              Sticker      EPROM   MASKROMs    25LC040  A54SX32
 Game                                                         on cart      IC11#   # of SOP44  IC13S#   IC1#          Notes
@@ -1418,6 +1422,7 @@ Notes:
                Sega Bass Fishing Challenge           315-6248   -
                Sega Bass Fishing Challenge Version A 315-6248   -
                Sega Clay Challenge                   315-6248   -
+               Animal Basket                         VM2001F01  -
 
           U* - Fujitsu MBM29PL12LM-10PCN 128M MirrorFlash TSOP56 flash ROM.
                (configured as 16Mbytes x8bit or 8Mwords x16bit)
@@ -4308,6 +4313,9 @@ ROM_START( gram2000 )
 
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
 
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0, 0x200, CRC(28d2a967) SHA1(8cdb146f42562811b5ce8a3ea3c9f91818ef4536) )
+
 	// 840-0039    2000     317-0296-COM   Naomi
 	ROM_PARAMETER( ":rom_board:key", "7f805c3f" )
 ROM_END
@@ -4350,6 +4358,9 @@ ROM_START( tduno2 )
 
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
 
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0, 0x200, CRC(6291605c) SHA1(44f757da4814b08108d1a4f431c9a39c38acecb2) )
+
 	// 840-0022    2000     317-0276-COM   Naomi
 	ROM_PARAMETER( ":rom_board:key", "2f6f0f8d" )
 ROM_END
@@ -4369,6 +4380,8 @@ ROM_START( mtkob2 )
 
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
 
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0, 0x200, CRC(9adb86c2) SHA1(682d06b2004809c3c7ff2f4f9bc0bde0e51885c0) )
 
 	// MUSHIKING
 	// The King of Beetle
@@ -4782,8 +4795,8 @@ ROM_START( mvsc2 )
 
 	ROM_COPY( "rom_board", 0x1200000, 0x400000, 0x400000 )
 
-	ROM_REGION(0x74, "some_eeprom", 0)
-	ROM_LOAD("sflash.ic13s", 0x000000, 0x000074, CRC(5fbc2d5e) SHA1(fd762b81d1bbb65d28ad223874db198918fb0853))
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0x000000, 0x200, CRC(dc449637) SHA1(6cab09f61be1498271a36bff6a114a4eeeb00e1a) )
 
 	// 841-0007-02 2000     317-5058-COM   Naomi
 	ROM_PARAMETER( ":rom_board:key", "c18b6e7c" )
@@ -5578,6 +5591,9 @@ ROM_START( shootpl )
 	ROM_LOAD32_WORD("opr-24063.ic20",  0x2000002, 0x0800000, CRC(683fdcff) SHA1(890816ef1b3e604e16289998cf66e221ef75a0fe) )
 
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
+
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0, 0x200, CRC(d11312d3) SHA1(c444012954f58a9af283ab8439f31cb89de9c14d) )
 
 	// 840-0128    2002     317-0367-COM   Naomi
 	ROM_PARAMETER( ":rom_board:key", "9dbde9cd" )
@@ -6679,8 +6695,8 @@ ROM_START( kick4csh )
 	ROM_LOAD32_WORD( "opr-24235a.ic32s", 0x8000002, 0x800000, CRC(a2bb0d26) SHA1(bafd66250f8ad472eaa179bd73edc0dc22b681f5) )
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
 
-	ROM_REGION(0x84, "some_eeprom", 0)
-	ROM_LOAD( "25lc040.ic13s", 0, 0x84, CRC(19d77c96) SHA1(1d82af6b11f7fde93a3c4dd3561f1f2ab74c8d65) )
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0, 0x200, CRC(1576366a) SHA1(3e8bf3dbc8a248a6863242b78d5c6e53a869e951) )
 
 	// 837-14438 SH I/O BD
 	// IC1    - Hitachi/Renesas SH4 SoC
@@ -8304,7 +8320,7 @@ ROM_START( dragntra )
 	ROM_REGION( 0x4000, "pic", ROMREGION_ERASEFF)
 	//PIC16C621A (317-0363-COM)
 	//(sticker 253-5508-0363)
-	ROM_LOAD("317-0363-com.pic", 0x00, 0x4000, NO_DUMP )
+	ROM_LOAD("317-0363-com.pic", 0x00, 0x4000, CRC(ffecccf8) SHA1(b2087b742390cebdaab41ee36dd2b52be970757a) )
 
 	ROM_REGION( 0x4000, "satl_pic", ROMREGION_ERASEFF)
 	//PIC16C621A (317-0364-COM)
@@ -8322,7 +8338,7 @@ ROM_START( dragntr )
 	ROM_REGION( 0x4000, "pic", ROMREGION_ERASEFF)
 	//PIC16C621A (317-0363-COM)
 	//(sticker 253-5508-0363)
-	ROM_LOAD("317-0363-com.pic", 0x00, 0x4000, NO_DUMP )
+	ROM_LOAD("317-0363-com.pic", 0x00, 0x4000, CRC(ffecccf8) SHA1(b2087b742390cebdaab41ee36dd2b52be970757a) )
 
 	ROM_REGION( 0x4000, "satl_pic", ROMREGION_ERASEFF)
 	//PIC16C621A (317-0364-COM)
@@ -8611,8 +8627,8 @@ ROM_START( hopper )
 	ROM_LOAD( "315-6358a.ic2", 0x000000, 0x020008, CRC(ef442e67) SHA1(70ac91e2ca1ff2dfba48d566e4de68bd8b82f282) )
 
 	// actual ROM board doesnt have X76F100 EEPROM, it seems simulated by Actel FPGA
-	ROM_REGION(0x84, "some_eeprom", 0)
-	ROM_LOAD( "sflash.bin",   0x000000, 0x000084, CRC(ddedf494) SHA1(f1529615711a9871051cd09c2a9b95c90d356874) )
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0x000000, 0x200, CRC(908d4a14) SHA1(d43868fdb4a315a19fefcf822f324f2c5594b01b) )
 
 	// 840-0130    2002     317-0339-COM   Naomi
 	ROM_PARAMETER( ":rom_board:key", "1e5bb0cd" )
@@ -8710,8 +8726,8 @@ ROM_START( clubkprz )
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
 
 	// actual ROM board doesnt have X76F100 EEPROM, it seems simulated by Actel FPGA
-	ROM_REGION(0x84, "some_eeprom", 0)
-	ROM_LOAD( "at25010.ic3s", 0x000000, 0x000084, CRC(0142d8be) SHA1(5922b6c47b12b19e1fa7bbe9aae391905038a7ff) )
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0x000000, 0x200, CRC(3dcd86c4) SHA1(2a203b11c4c38e05a2ab23b6322471b11f07857d) )
 
 	// 840-0129    2003     317-0368-COM   Naomi 2
 	ROM_PARAMETER( ":rom_board:key", "997681fe" )
@@ -8743,8 +8759,8 @@ ROM_START( clubkpzb )
 	ROM_COPY( "rom_board", 0x1000000, 0x400000, 0xc00000 )
 
 	// actual ROM board doesnt have X76F100 EEPROM, it seems simulated by Actel FPGA
-	ROM_REGION(0x84, "some_eeprom", 0)
-	ROM_LOAD( "sflash.bin",   0x000000, 0x000084, CRC(afff6471) SHA1(c1e1d349ff25191eba09cd7d7186fbe2c6565b81) )
+	ROM_REGION(0x200, "some_eeprom", 0)
+	ROM_LOAD( "25lc040.ic13s", 0x000000, 0x200, CRC(377d1805) SHA1(6f77fcb2cc54e8500f5cc1046de453f1184ab216) )
 
 	// 840-0137    2004     317-0368-COM   Naomi 2
 	ROM_PARAMETER( ":rom_board:key", "997681fe")
@@ -9402,6 +9418,8 @@ ROM_START( xtrmhnt2 )
 	ROM_LOAD( "flash128.ic4s", 0x400000, 0x1000000, CRC(866ed675) SHA1(2c4c06935b7ab1876e640cede51713b841833567) )
 ROM_END
 
+// Sammy AM3AHC-01 type board
+// Build:Jan 24 2005 14:12:29
 ROM_START( anmlbskt )
 	AW_BIOS
 
@@ -9410,10 +9428,26 @@ ROM_START( anmlbskt )
 	// U1 Populated, Empty
 	ROM_LOAD( "vm2001f01.u4",  0x1000000, 0x800000, CRC(7cb2e7c3) SHA1(8b4e46cf19fbc1d613af75c52faebefb2776280b) )
 	ROM_LOAD( "vm2001f01.u2",  0x1800000, 0x800000, CRC(386070a1) SHA1(bf46980ea822b4cfe67c622f0104bf793031f4ad) )
-	ROM_LOAD( "vm2001f01.u15", 0x2000000, 0x800000, CRC(2bb1be28) SHA1(fda7967d6c0341a608c52087ae3d461554760435) )
+	ROM_LOAD( "vm2001f01.u15", 0x2000000, 0x800000, CRC(2bb1be28) SHA1(fda7967d6c0341a608c52087ae3d461554760435) ) // data not belongs to this game, possible some other game data leftovers
 	// U17 Populated, Empty
 	// U14 Populated, Empty
 	// U16 Populated, Empty
+
+	ROM_REGION( 4, "rom_key", 0 )
+	ROM_LOAD( "vm2001f01.bin", 0, 4, CRC(d8d6c32e) SHA1(255a437bdb4bb8372167f33f0ca1668bcd74ea32) )
+ROM_END
+
+// Sega 171-8355A type board
+// Build:Jan 19 2005 13:09:07
+ROM_START( anmlbskta )
+	AW_BIOS
+
+	ROM_REGION( 0x4000000, "rom_board", ROMREGION_ERASEFF)
+	ROM_LOAD( "u3",  0x0000000, 0x1000000, CRC(cd082af3) SHA1(d0bcce79fc9bdce04ebfe57fe8b5f7c59ef5fdf3) )
+	ROM_LOAD( "u1",  0x1000000, 0x1000000, CRC(4a2a01d3) SHA1(20d98b137efec539451c0573b2928c3a92be5743) ) // identical to parent set U4+U2
+	ROM_LOAD( "u4",  0x2000000, 0x1000000, CRC(646e9773) SHA1(dd081a9a42edca956f96124545772d4687ca2113) ) // data not belongs to this game, more looks like random trash
+	ROM_LOAD( "u2",  0x3000000, 0x1000000, CRC(b9162d97) SHA1(7f561617fa0538da554ad6f6c4d6a20e739491dc) ) // data not belongs to this game, more looks like random trash
+	// U14-U17 not populated
 
 	ROM_REGION( 4, "rom_key", 0 )
 	ROM_LOAD( "vm2001f01.bin", 0, 4, CRC(d8d6c32e) SHA1(255a437bdb4bb8372167f33f0ca1668bcd74ea32) )
@@ -10114,6 +10148,7 @@ ROM_END
 // 0024  Virtua Fighter 4 Evolution (GDS-0024)
 /* 0024A */ GAME( 2002, vf4evoa,  vf4evo,  naomi2gd, naomi,   naomi2_state, naomi2,  ROT0, "Sega", "Virtua Fighter 4 Evolution (Japan) (GDS-0024A)", GAME_FLAGS )
 /* 0024B */ GAME( 2002, vf4evo,   naomi2,  naomi2gd, naomi,   naomi2_state, naomi2,  ROT0, "Sega", "Virtua Fighter 4 Evolution (Version B) (Japan) (GDS-0024B)", GAME_FLAGS )
+// 0024C Virtua Fighter 4 Evolution (Version B) (Japan) (GDS-0024C)
 /* 0025  */ GAME( 2002, initdexpo,initdexp,naomi2gd, naomi,   naomi2_state, naomi2,  ROT0, "Sega", "Initial D Arcade Stage (Export) (GDS-0025)", GAME_FLAGS )
 /* 0025A */ GAME( 2002, initdexp, naomi2,  naomi2gd, naomi,   naomi2_state, naomi2,  ROT0, "Sega", "Initial D Arcade Stage (Export) (Rev A) (GDS-0025A)", GAME_FLAGS )
 /* 0026  */ GAME( 2002, initdv2jo,initdv2j,naomi2gd, naomi,   naomi2_state, naomi2,  ROT0, "Sega", "Initial D Arcade Stage Ver. 2 (Japan) (GDS-0026)", GAME_FLAGS )
@@ -10255,7 +10290,8 @@ GAME( 2004, kofnwj,    kofnw,    aw2c, aw2c, atomiswave_state, atomiswave, ROT0,
 GAME( 2004, ftspeed,   awbios,   aw1c, aw1w, atomiswave_state, atomiswave, ROT0,   "Sammy",                    "Faster Than Speed", GAME_FLAGS )                                // Aug 24 2004 18:40:24
 GAME( 2004, xtrmhunt,  awbios,   aw2c, aw2c, atomiswave_state, atomiswave, ROT0,   "Sammy",                    "Extreme Hunting", GAME_FLAGS )                                  // Nov 23 2004 10:14:14
 GAME( 2005, rumblf2p,  rumblef2, aw2c, aw2c, atomiswave_state, atomiswave, ROT0,   "Sammy / Dimps",            "The Rumble Fish 2 (prototype)", GAME_FLAGS )                    // Jan 11 2005 14:31:05
-GAME( 2005, anmlbskt,  awbios,   aw2c, aw2c, atomiswave_state, atomiswave, ROT270, "MOSS / Sammy",             "Animal Basket", GAME_FLAGS )                                    // Jan 24 2005 14:12:29
+GAME( 2005, anmlbskta, anmlbskt, aw2c, aw2c, atomiswave_state, atomiswave, ROT270, "MOSS / Sammy",             "Animal Basket (19 Jan 2005)", GAME_FLAGS )                      // Jan 19 2005 13:09:07
+GAME( 2005, anmlbskt,  awbios,   aw2c, aw2c, atomiswave_state, atomiswave, ROT270, "MOSS / Sammy",             "Animal Basket (24 Jan 2005)", GAME_FLAGS )                      // Jan 24 2005 14:12:29
 GAME( 2005, vfurlong,  awbios,   aw2c, aw2c, atomiswave_state, atomiswave, ROT0,   "Progress / Sammy",         "Net Select Horse Racing: Victory Furlong", GAME_FLAGS )         // Mar 02 2005 22:10:33
 GAME( 2005, rumblef2,  awbios,   aw2c, aw2c, atomiswave_state, atomiswave, ROT0,   "Sammy / Dimps",            "The Rumble Fish 2", GAME_FLAGS )                                // Mar 04 2005 19:26:32
 GAME( 2005, ngbc,      awbios,   aw2c, aw2c, atomiswave_state, atomiswave, ROT0,   "Sammy / SNK Playmore",     "NeoGeo Battle Coliseum", GAME_FLAGS )                           // Jun 25 2005 17:00:38
