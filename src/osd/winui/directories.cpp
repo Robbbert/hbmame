@@ -306,11 +306,11 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 		t_s = ui_wstring_from_utf8(s);
 		if( !t_s )
 			return FALSE;
+		/* Copy the string to our own buffer so that we can mutilate it */
+		_tcscpy(buf, t_s);
+
 		if (IsMultiDir(i))
 		{
-			/* Copy the string to our own buffer so that we can mutilate it */
-			_tcscpy(buf, t_s);
-
 			g_pDirInfo[i].m_Path = (tPath*)malloc(sizeof(tPath));
 			if (!g_pDirInfo[i].m_Path)
 				goto error;
@@ -327,7 +327,12 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 		}
 		else
 		{
-			DirInfo_SetDir(g_pDirInfo, i, -1, t_s);
+			// multi not supported so get first directory only
+			token = _tcstok(buf, TEXT(";"));
+			if (token)
+				DirInfo_SetDir(g_pDirInfo, i, -1, token);
+			else
+				DirInfo_SetDir(g_pDirInfo, i, -1, t_s);
 		}
 		free(t_s);
 		t_s = NULL;

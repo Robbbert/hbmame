@@ -339,16 +339,16 @@ static int load_datafile_text(const game_driver *drv, char *buffer, int bufsize,
  *
  *      NOTE: For efficiency the indices are never freed (intentional leak).
  **************************************************************************/
-static int load_driver_history(const game_driver *drv, char *buffer, int bufsize, int filenum)
+static int load_driver_history(const game_driver *drv, char *buffer, int bufsize, const char* datsdir, int filenum)
 {
 	int history = 0;
 
 	*buffer = 0;
 
 	if (filenum)
-		snprintf(filename, ARRAY_LENGTH(filename), "%s\\sysinfo.dat", GetDatsDir());
+		snprintf(filename, ARRAY_LENGTH(filename), "%s\\sysinfo.dat", datsdir);
 	else
-		snprintf(filename, ARRAY_LENGTH(filename), "%s\\history.dat", GetDatsDir());
+		snprintf(filename, ARRAY_LENGTH(filename), "%s\\history.dat", datsdir);
 
 	/* try to open history datafile */
 	if (filenum)
@@ -430,7 +430,7 @@ static int load_driver_history(const game_driver *drv, char *buffer, int bufsize
 	return (history == 0);
 }
 
-static int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, int filenum)
+static int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsize, const char* datsdir, int filenum)
 {
 	machine_config config(*drv, MameUIGlobal());
 	const game_driver *parent = NULL;
@@ -443,15 +443,15 @@ static int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsiz
 	switch (filenum)
 	{
 		case 0:
-			snprintf(filename, ARRAY_LENGTH(filename), "%s\\mameinfo.dat", GetDatsDir());
+			snprintf(filename, ARRAY_LENGTH(filename), "%s\\mameinfo.dat", datsdir);
 			strcat(buffer, "\n**** MAMEINFO: ****\n\n");
 			break;
 		case 1:
-			snprintf(filename, ARRAY_LENGTH(filename), "%s\\messinfo.dat", GetDatsDir());
+			snprintf(filename, ARRAY_LENGTH(filename), "%s\\messinfo.dat", datsdir);
 			strcat(buffer, "\n**** MESSINFO: ****\n\n");
 			break;
 		case 2:
-			snprintf(filename, ARRAY_LENGTH(filename), "%s\\gameinit.dat", GetDatsDir());
+			snprintf(filename, ARRAY_LENGTH(filename), "%s\\gameinit.dat", datsdir);
 			strcat(buffer, "\n**** GAMEINIT: ****\n\n");
 			break;
 		default:
@@ -771,7 +771,7 @@ static int load_driver_mameinfo(const game_driver *drv, char *buffer, int bufsiz
 	return (mameinfo == 0);
 }
 
-static int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufsize, int filenum)
+static int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufsize, const char* datsdir, int filenum)
 {
 	int drivinfo = 0;
 	char source_file[40];
@@ -782,9 +782,9 @@ static int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufs
 	*buffer = 0;
 
 	if (filenum)
-		snprintf(filename, ARRAY_LENGTH(filename), "%s\\messinfo.dat", GetDatsDir());
+		snprintf(filename, ARRAY_LENGTH(filename), "%s\\messinfo.dat", datsdir);
 	else
-		snprintf(filename, ARRAY_LENGTH(filename), "%s\\mameinfo.dat", GetDatsDir());
+		snprintf(filename, ARRAY_LENGTH(filename), "%s\\mameinfo.dat", datsdir);
 
 	/* Print source code file */
 	snprintf(tmp, ARRAY_LENGTH(tmp), "\n\nSOURCE: %s\n\n", source_file);
@@ -847,12 +847,12 @@ static int load_driver_driverinfo(const game_driver *drv, char *buffer, int bufs
 	return (drivinfo == 0);
 }
 
-static int load_driver_command(const game_driver *drv, char *buffer, int bufsize)
+static int load_driver_command(const game_driver *drv, char *buffer, int bufsize, const char* datsdir)
 {
 	int command = 0;
 
 	*buffer = 0;
-	snprintf(filename, ARRAY_LENGTH(filename), "%s\\command.dat", GetDatsDir());
+	snprintf(filename, ARRAY_LENGTH(filename), "%s\\command.dat", datsdir);
 	strcat(buffer, "\n**** COMMAND: ****\n\n");
 
 	/* try to open command datafile */
@@ -894,12 +894,12 @@ static int load_driver_command(const game_driver *drv, char *buffer, int bufsize
 	return (command == 0);
 }
 
-static int load_driver_scoreinfo(const game_driver *drv, char *buffer, int bufsize)
+static int load_driver_scoreinfo(const game_driver *drv, char *buffer, int bufsize, const char* datsdir)
 {
 	int scoreinfo = 0;
 
 	*buffer = 0;
-	snprintf(filename, ARRAY_LENGTH(filename), "%s\\story.dat", GetDatsDir());
+	snprintf(filename, ARRAY_LENGTH(filename), "%s\\story.dat", datsdir);
 
 	/* try to open story datafile */
 	if (ParseOpen(filename))
@@ -950,32 +950,40 @@ char * GetGameHistory(int driver_index)
 	
 	memset(&buffer, 0, sizeof(buffer));
 	memset(&dataBuf, 0, sizeof(dataBuf));
+	const char * datsdir = 0;
+	char buf[400];
+	strcpy(buf, GetDatsDir());
+	const char* t1 = strtok(buf, ";");
+	if (t1)
+		datsdir = t1; // the first path of many
+	else
+		datsdir = buf; // the only path
 
-	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 2) == 0)
+	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 2) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_history(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 0) == 0)
+	if (load_driver_history(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 0) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_history(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 1) == 0)
+	if (load_driver_history(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 1) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 0) == 0)
+	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 0) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_driverinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 0) == 0)
+	if (load_driver_driverinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 0) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 1) == 0)
+	if (load_driver_mameinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 1) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_driverinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), 1) == 0)
+	if (load_driver_driverinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir, 1) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_command(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer)) == 0)
+	if (load_driver_command(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir) == 0)
 		strcat(dataBuf, buffer);
 
-	if (load_driver_scoreinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer)) == 0)
+	if (load_driver_scoreinfo(&driver_list::driver(driver_index), buffer, ARRAY_LENGTH(buffer), datsdir) == 0)
 		strcat(dataBuf, buffer);
 
 	return ConvertToWindowsNewlines(dataBuf);

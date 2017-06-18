@@ -1133,13 +1133,14 @@ void SetSampleDirs(const char* paths)
 const char * GetIniDir(void)
 {
 	const char *ini_dir;
-	const char *s;
+//	const char *s;
 
-	ini_dir = global.value(OPTION_INIPATH);
-	while((s = strchr(ini_dir, ';')) != NULL)
-		ini_dir = s + 1;
-
-	//ini_dir = "ini\0";
+//	ini_dir = global.value(OPTION_INIPATH);
+//	while((s = strchr(ini_dir, ';')) != NULL)
+//	{
+//		ini_dir = s + 1;
+//	}
+	ini_dir = "ini\0";
 	return ini_dir;
 
 }
@@ -1383,13 +1384,7 @@ void SetBgDir (const char* path)
 
 const char * GetDatsDir(void)
 {
-	const char* t = settings.value( MUIOPTION_DATS_DIRECTORY);
-	const char* t1 = strtok((char*)t, ";");
-	if (t1)
-		return t1;
-	else
-		return t;
-	//return settings.value( MUIOPTION_DATS_DIRECTORY);
+	return settings.value( MUIOPTION_DATS_DIRECTORY);
 	//return mewui.value(OPTION_HISTORY_PATH);
 }
 
@@ -1397,7 +1392,7 @@ void SetDatsDir(const char *path)
 {
 	std::string error_string;
 	settings.set_value(MUIOPTION_DATS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
-	//mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE, error_string);
+	mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE, error_string);
 }
 
 const char* GetFolderDir(void)
@@ -2767,7 +2762,8 @@ BOOL GetSWSortReverse(void)
 	return MameUISettings().bool_value(MESSUI_SW_SORT_REVERSED);
 }
 
-void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *dev, const char *software)
+
+void SetSelectedSoftware(int driver_index, const device_image_interface *dev, const char *software)
 {
 	std::string opt_name = dev->instance_name();
 	windows_options o;
@@ -2780,6 +2776,7 @@ void SetSelectedSoftware(int driver_index, const machine_config *config, const d
 
 	load_options(o, OPTIONS_GAME, driver_index);
 	o.set_value(opt_name.c_str(), software, OPTION_PRIORITY_CMDLINE,error_string);
+	o.image_options()[opt_name] = software;
 	save_options(o, OPTIONS_GAME, driver_index);
 }
 
