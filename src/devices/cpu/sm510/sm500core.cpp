@@ -30,12 +30,13 @@ ADDRESS_MAP_END
 
 // device definitions
 sm500_device::sm500_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
-	: sm500_device(mconfig, SM500, tag, owner, clock, 1 /* stack levels */, 11 /* prg width */, ADDRESS_MAP_NAME(program_1_2k), 6 /* data width */, ADDRESS_MAP_NAME(data_4x10x4))
+	: sm500_device(mconfig, SM500, tag, owner, clock, 1 /* stack levels */, 6 /* o mask */, 11 /* prg width */, ADDRESS_MAP_NAME(program_1_2k), 6 /* data width */, ADDRESS_MAP_NAME(data_4x10x4))
 {
 }
 
-sm500_device::sm500_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data)
-	: sm510_base_device(mconfig, type, tag, owner, clock, stack_levels, prgwidth, program, datawidth, data)
+sm500_device::sm500_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock, int stack_levels, int o_mask, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data)
+	: sm510_base_device(mconfig, type, tag, owner, clock, stack_levels, prgwidth, program, datawidth, data),
+	m_o_mask(o_mask)
 {
 }
 
@@ -77,7 +78,7 @@ void sm500_device::execute_one()
 		case 0x70: op_ssr(); break;
 
 		case 0x80: case 0x90: case 0xa0: case 0xb0:
-			op_t(); break; // aka tr
+			op_tr(); break;
 		case 0xc0: case 0xd0: case 0xe0: case 0xf0:
 			op_trs(); break;
 
