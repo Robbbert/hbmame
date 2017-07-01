@@ -40,7 +40,7 @@ public:
 
 		// 1:Rom, 2:Sample, 3:Cache, 4:Play Count, 5:Play Time
 		entry[0].defvalue    = "-1;-1;-1";
-		entry[0].flags       = OPTION_STRING;
+		entry[0].type        = OPTION_STRING;
 		entry[0].description = NULL;
 
 		for (int i = 0; i < m_total; i++)
@@ -57,8 +57,7 @@ public:
 		osd_file::error filerr = file.open(filename);
 		if (filerr == osd_file::error::NONE)
 		{
-			std::string error_string;
-			m_info.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+			m_info.parse_ini_file(file, OPTION_PRIORITY_CMDLINE, true, true);
 		}
 
 		load_settings();
@@ -120,12 +119,11 @@ public:
 	void save_settings(void)
 	{
 		std::string value_str;
-		std::string error_string;
 
 		for (int i = 0; i < m_total; i++)
 		{
 			value_str = string_format("%d;%d;%d;%d;%d", m_list[i].rom, m_list[i].sample, m_list[i].cache, m_list[i].play_count, m_list[i].play_time);
-			m_info.set_value(driver_list::driver(i).name, value_str.c_str(), OPTION_PRIORITY_CMDLINE, error_string);
+			m_info.set_value(driver_list::driver(i).name, value_str.c_str(), OPTION_PRIORITY_CMDLINE);
 		}
 	}
 

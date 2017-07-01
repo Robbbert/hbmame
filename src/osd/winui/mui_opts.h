@@ -109,6 +109,7 @@ void OptionsExit(void);
 #define OPTIONS_TYPE_GLOBAL -1
 #define OPTIONS_TYPE_FOLDER -2
 
+bool AreOptionsEqual(windows_options &opts1, windows_options &opts2);
 void SetDirectories(windows_options &opts);
 
 void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
@@ -500,7 +501,7 @@ int  GetSLSortColumn(void);
 void SetSLSortReverse(BOOL reverse);
 BOOL GetSLSortReverse(void);
 
-void SetSelectedSoftware(int driver_index, const machine_config *config, const device_image_interface *device, const char *software);
+void SetSelectedSoftware(int driver_index, const device_image_interface *device, const char *software);
 
 void SetCurrentSoftwareTab(const char *shortname);
 const char *GetCurrentSoftwareTab(void);

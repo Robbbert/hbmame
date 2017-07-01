@@ -213,7 +213,7 @@ static void ResetToDefaults(windows_options &opts, int priority);
     Internal variables
  ***************************************************************************/
 
-static mame_options mameopts; // core options
+static emu_options mameopts; // core options
 static ui_options mewui; // ui.ini
 static winui_options settings; // mameui.ini
 
@@ -397,7 +397,7 @@ winui_options::winui_options()
 void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
 {
 	if (driver_index >= 0)
-		mameopts.set_system_name(opts, driver_list::driver(driver_index).name);
+		mameopts.set_system_name(driver_list::driver(driver_index).name);
 }
 
 BOOL OptionsInit()
@@ -457,7 +457,8 @@ windows_options & MameUIGlobal(void)
 // Restore ui settings to factory
 void ResetGUI(void)
 {
-	settings.revert(OPTION_PRIORITY_NORMAL);
+	winui_options orig_settings;
+	settings.copy_from(orig_settings);
 	// Save the new MAMEui.ini
 	SaveOptions();
 }
@@ -507,8 +508,7 @@ static void options_set_color(winui_options &opts, const char *name, COLORREF va
 	{
 		snprintf(value_str, ARRAY_LENGTH(value_str), "%d,%d,%d", (((int) value) >>  0) & 0xFF, (((int) value) >>  8) & 0xFF, (((int) value) >> 16) & 0xFF);
 	}
-	std::string error_string;
-	opts.set_value(name, value_str, OPTION_PRIORITY_CMDLINE,error_string);
+	opts.set_value(name, value_str, OPTION_PRIORITY_CMDLINE);
 }
 
 static COLORREF options_get_color_default(winui_options &opts, const char *name, int default_color)
@@ -546,8 +546,7 @@ static input_seq *options_get_input_seq(winui_options &opts, const char *name)
 
 void SetViewMode(int val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_LIST_MODE, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_LIST_MODE, val, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetViewMode(void)
@@ -557,8 +556,7 @@ int GetViewMode(void)
 
 void SetGameCheck(BOOL game_check)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_CHECK_GAME, game_check, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_CHECK_GAME, game_check, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetGameCheck(void)
@@ -568,8 +566,7 @@ BOOL GetGameCheck(void)
 
 void SetJoyGUI(BOOL use_joygui)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_JOYSTICK_IN_INTERFACE, use_joygui, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_JOYSTICK_IN_INTERFACE, use_joygui, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetJoyGUI(void)
@@ -579,8 +576,7 @@ BOOL GetJoyGUI(void)
 
 void SetKeyGUI(BOOL use_keygui)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_KEYBOARD_IN_INTERFACE, use_keygui, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_KEYBOARD_IN_INTERFACE, use_keygui, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetKeyGUI(void)
@@ -590,8 +586,7 @@ BOOL GetKeyGUI(void)
 
 void SetCycleScreenshot(int cycle_screenshot)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_CYCLE_SCREENSHOT, cycle_screenshot, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_CYCLE_SCREENSHOT, cycle_screenshot, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetCycleScreenshot(void)
@@ -601,8 +596,7 @@ int GetCycleScreenshot(void)
 
 void SetStretchScreenShotLarger(BOOL stretch)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_STRETCH_SCREENSHOT_LARGER, stretch, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_STRETCH_SCREENSHOT_LARGER, stretch, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetStretchScreenShotLarger(void)
@@ -612,8 +606,7 @@ BOOL GetStretchScreenShotLarger(void)
 
 void SetScreenshotBorderSize(int size)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SCREENSHOT_BORDER_SIZE, size, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SCREENSHOT_BORDER_SIZE, size, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetScreenshotBorderSize(void)
@@ -633,8 +626,7 @@ COLORREF GetScreenshotBorderColor(void)
 
 void SetFilterInherit(BOOL inherit)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_INHERIT_FILTER, inherit, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_INHERIT_FILTER, inherit, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetFilterInherit(void)
@@ -644,8 +636,7 @@ BOOL GetFilterInherit(void)
 
 void SetOffsetClones(BOOL offset)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_OFFSET_CLONES, offset, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_OFFSET_CLONES, offset, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetOffsetClones(void)
@@ -655,8 +646,7 @@ BOOL GetOffsetClones(void)
 
 void SetSavedFolderID(UINT val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_DEFAULT_FOLDER_ID, (int) val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_DEFAULT_FOLDER_ID, (int) val, OPTION_PRIORITY_CMDLINE);
 }
 
 UINT GetSavedFolderID(void)
@@ -666,8 +656,7 @@ UINT GetSavedFolderID(void)
 
 void SetShowScreenShot(BOOL val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SHOW_IMAGE_SECTION, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SHOW_IMAGE_SECTION, val, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetShowScreenShot(void)
@@ -677,8 +666,7 @@ BOOL GetShowScreenShot(void)
 
 void SetShowSoftware(BOOL val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SHOW_SOFTWARE_SECTION, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SHOW_SOFTWARE_SECTION, val, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetShowSoftware(void)
@@ -688,8 +676,7 @@ BOOL GetShowSoftware(void)
 
 void SetShowFolderList(BOOL val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SHOW_FOLDER_SECTION, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SHOW_FOLDER_SECTION, val, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetShowFolderList(void)
@@ -769,15 +756,13 @@ void SetShowFolder(int folder,BOOL show)
 			}
 		}
 	}
-	std::string error_string;
-	settings.set_value(MUIOPTION_HIDE_FOLDERS, str, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_HIDE_FOLDERS, str, OPTION_PRIORITY_CMDLINE);
 	DeleteBits(show_folder_flags);
 }
 
 void SetShowStatusBar(BOOL val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SHOW_STATUS_BAR, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SHOW_STATUS_BAR, val, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetShowStatusBar(void)
@@ -787,8 +772,7 @@ BOOL GetShowStatusBar(void)
 
 void SetShowTabCtrl (BOOL val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SHOW_TABS, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SHOW_TABS, val, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetShowTabCtrl (void)
@@ -798,8 +782,7 @@ BOOL GetShowTabCtrl (void)
 
 void SetShowToolBar(BOOL val)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SHOW_TOOLBAR, val, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SHOW_TOOLBAR, val, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetShowToolBar(void)
@@ -809,8 +792,7 @@ BOOL GetShowToolBar(void)
 
 void SetCurrentTab(const char *shortname)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_CURRENT_TAB, shortname, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_CURRENT_TAB, shortname, OPTION_PRIORITY_CMDLINE);
 }
 
 const char *GetCurrentTab(void)
@@ -820,8 +802,7 @@ const char *GetCurrentTab(void)
 
 void SetDefaultGame(const char *name)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_DEFAULT_GAME, name, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_DEFAULT_GAME, name, OPTION_PRIORITY_CMDLINE);
 }
 
 const char *GetDefaultGame(void)
@@ -831,11 +812,10 @@ const char *GetDefaultGame(void)
 
 void SetWindowArea(const AREA *area)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_WINDOW_X, area->x, OPTION_PRIORITY_CMDLINE,error_string);
-	settings.set_value(MUIOPTION_WINDOW_Y, area->y, OPTION_PRIORITY_CMDLINE,error_string);
-	settings.set_value(MUIOPTION_WINDOW_WIDTH, area->width, OPTION_PRIORITY_CMDLINE,error_string);
-	settings.set_value(MUIOPTION_WINDOW_HEIGHT, area->height, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_WINDOW_X, area->x, OPTION_PRIORITY_CMDLINE);
+	settings.set_value(MUIOPTION_WINDOW_Y, area->y, OPTION_PRIORITY_CMDLINE);
+	settings.set_value(MUIOPTION_WINDOW_WIDTH, area->width, OPTION_PRIORITY_CMDLINE);
+	settings.set_value(MUIOPTION_WINDOW_HEIGHT, area->height, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetWindowArea(AREA *area)
@@ -848,8 +828,7 @@ void GetWindowArea(AREA *area)
 
 void SetWindowState(UINT state)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_WINDOW_STATE, (int)state, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_WINDOW_STATE, (int)state, OPTION_PRIORITY_CMDLINE);
 }
 
 UINT GetWindowState(void)
@@ -869,8 +848,7 @@ void SetCustomColor(int iIndex, COLORREF uColor)
 	custom_color[iIndex] = uColor;
 
 	CusColorEncodeString(custom_color, buffer);
-	std::string error_string;
-	settings.set_value(MUIOPTION_CUSTOM_COLOR, buffer, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_CUSTOM_COLOR, buffer, OPTION_PRIORITY_CMDLINE);
 }
 
 COLORREF GetCustomColor(int iIndex)
@@ -891,8 +869,7 @@ void SetListFont(const LOGFONT *font)
 {
 	char font_string[10000];
 	FontEncodeString(font, font_string);
-	std::string error_string;
-	settings.set_value(MUIOPTION_LIST_FONT, font_string, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_LIST_FONT, font_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetListFont(LOGFONT *font)
@@ -946,8 +923,7 @@ void SetShowTab(int tab,BOOL show)
 		show_tab_flags &= ~(1 << tab);
 
 	TabFlagsEncodeString(show_tab_flags, buffer);
-	std::string error_string;
-	settings.set_value(MUIOPTION_HIDE_TABS, buffer, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_HIDE_TABS, buffer, OPTION_PRIORITY_CMDLINE);
 }
 
 // don't delete the last one
@@ -973,19 +949,17 @@ int GetHistoryTab(void)
 
 void SetHistoryTab(int tab, BOOL show)
 {
-	std::string error_string;
 	if (show)
-		settings.set_value(MUIOPTION_HISTORY_TAB, tab, OPTION_PRIORITY_CMDLINE,error_string);
+		settings.set_value(MUIOPTION_HISTORY_TAB, tab, OPTION_PRIORITY_CMDLINE);
 	else
-		settings.set_value(MUIOPTION_HISTORY_TAB, TAB_NONE, OPTION_PRIORITY_CMDLINE,error_string);
+		settings.set_value(MUIOPTION_HISTORY_TAB, TAB_NONE, OPTION_PRIORITY_CMDLINE);
 }
 
 void SetColumnWidths(int width[])
 {
 	char column_width_string[80];
 	ColumnEncodeStringWithCount(width, column_width_string, COLUMN_MAX);
-	std::string error_string;
-	settings.set_value(MUIOPTION_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetColumnWidths(int width[])
@@ -1010,8 +984,7 @@ void SetSplitterPos(int splitterId, int pos)
 		splitter[splitterId] = pos;
 
 		SplitterEncodeString(splitter, buffer);
-		std::string error_string;
-		settings.set_value(MUIOPTION_SPLITTERS, buffer, OPTION_PRIORITY_CMDLINE,error_string);
+		settings.set_value(MUIOPTION_SPLITTERS, buffer, OPTION_PRIORITY_CMDLINE);
 	}
 }
 
@@ -1034,8 +1007,7 @@ void SetColumnOrder(int order[])
 {
 	char column_order_string[80];
 	ColumnEncodeStringWithCount(order, column_order_string, COLUMN_MAX);
-	std::string error_string;
-	settings.set_value(MUIOPTION_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetColumnOrder(int order[])
@@ -1049,8 +1021,7 @@ void SetColumnShown(int shown[])
 {
 	char column_shown_string[80];
 	ColumnEncodeStringWithCount(shown, column_shown_string, COLUMN_MAX);
-	std::string error_string;
-	settings.set_value(MUIOPTION_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetColumnShown(int shown[])
@@ -1062,8 +1033,7 @@ void GetColumnShown(int shown[])
 
 void SetSortColumn(int column)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetSortColumn(void)
@@ -1073,8 +1043,7 @@ int GetSortColumn(void)
 
 void SetSortReverse(BOOL reverse)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetSortReverse(void)
@@ -1104,8 +1073,7 @@ const char* GetRomDirs(void)
 
 void SetRomDirs(const char* paths)
 {
-	std::string error_string;
-	global.set_value(OPTION_MEDIAPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_MEDIAPATH, paths, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetHashDirs(void)
@@ -1115,8 +1083,7 @@ const char* GetHashDirs(void)
 
 void SetHashDirs(const char* paths)
 {
-	std::string error_string;
-	global.set_value(OPTION_HASHPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_HASHPATH, paths, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetSampleDirs(void)
@@ -1126,8 +1093,7 @@ const char* GetSampleDirs(void)
 
 void SetSampleDirs(const char* paths)
 {
-	std::string error_string;
-	global.set_value(OPTION_SAMPLEPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_SAMPLEPATH, paths, OPTION_PRIORITY_CMDLINE);
 }
 
 const char * GetIniDir(void)
@@ -1147,8 +1113,7 @@ const char * GetIniDir(void)
 
 void SetIniDir(const char *path)
 {
-	std::string error_string;
-	global.set_value(OPTION_INIPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_INIPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetCtrlrDir(void)
@@ -1158,8 +1123,7 @@ const char* GetCtrlrDir(void)
 
 void SetCtrlrDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_CTRLRPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_CTRLRPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetSWDir(void)
@@ -1169,8 +1133,7 @@ const char* GetSWDir(void)
 
 void SetSWDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_SWPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_SWPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetCfgDir(void)
@@ -1180,8 +1143,7 @@ const char* GetCfgDir(void)
 
 void SetCfgDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_CFG_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_CFG_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetNvramDir(void)
@@ -1191,8 +1153,7 @@ const char* GetNvramDir(void)
 
 void SetNvramDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_NVRAM_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_NVRAM_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetInpDir(void)
@@ -1202,8 +1163,7 @@ const char* GetInpDir(void)
 
 void SetInpDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_INPUT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_INPUT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetImgDir(void)
@@ -1213,8 +1173,7 @@ const char* GetImgDir(void)
 
 void SetImgDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_SNAPSHOT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_SNAPSHOT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetStateDir(void)
@@ -1224,8 +1183,7 @@ const char* GetStateDir(void)
 
 void SetStateDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_STATE_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_STATE_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetArtDir(void)
@@ -1235,8 +1193,7 @@ const char* GetArtDir(void)
 
 void SetArtDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_ARTPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_ARTPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetFontDir(void)
@@ -1246,8 +1203,7 @@ const char* GetFontDir(void)
 
 void SetFontDir(const char* paths)
 {
-	std::string error_string;
-	global.set_value(OPTION_FONTPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_FONTPATH, paths, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetCrosshairDir(void)
@@ -1257,8 +1213,7 @@ const char* GetCrosshairDir(void)
 
 void SetCrosshairDir(const char* paths)
 {
-	std::string error_string;
-	global.set_value(OPTION_CROSSHAIRPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_CROSSHAIRPATH, paths, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetFlyerDir(void)
@@ -1268,8 +1223,7 @@ const char* GetFlyerDir(void)
 
 void SetFlyerDir(const char* path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_FLYERS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_FLYERS_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetCabinetDir(void)
@@ -1279,8 +1233,7 @@ const char* GetCabinetDir(void)
 
 void SetCabinetDir(const char* path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_CABINETS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_CABINETS_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetMarqueeDir(void)
@@ -1290,8 +1243,7 @@ const char* GetMarqueeDir(void)
 
 void SetMarqueeDir(const char* path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_MARQUEES_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_MARQUEES_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetTitlesDir(void)
@@ -1301,8 +1253,7 @@ const char* GetTitlesDir(void)
 
 void SetTitlesDir(const char* path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_TITLES_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_TITLES_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char * GetControlPanelDir(void)
@@ -1312,8 +1263,7 @@ const char * GetControlPanelDir(void)
 
 void SetControlPanelDir(const char *path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_CPANELS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_CPANELS_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char * GetPcbDir(void)
@@ -1323,8 +1273,7 @@ const char * GetPcbDir(void)
 
 void SetPcbDir(const char *path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_PCBS_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_PCBS_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetPluginsDir(void)
@@ -1334,8 +1283,7 @@ const char* GetPluginsDir(void)
 
 void SetPluginsDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_PLUGINSPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_PLUGINSPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetLangDir(void)
@@ -1345,8 +1293,7 @@ const char* GetLangDir(void)
 
 void SetLangDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_LANGUAGEPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_LANGUAGEPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char * GetDiffDir(void)
@@ -1356,8 +1303,7 @@ const char * GetDiffDir(void)
 
 void SetDiffDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_DIFF_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_DIFF_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetIconsDir(void)
@@ -1367,8 +1313,7 @@ const char* GetIconsDir(void)
 
 void SetIconsDir(const char* path)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_ICONS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_ICONS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetBgDir (void)
@@ -1378,8 +1323,7 @@ const char* GetBgDir (void)
 
 void SetBgDir (const char* path)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_BACKGROUND_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_BACKGROUND_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char * GetDatsDir(void)
@@ -1390,9 +1334,8 @@ const char * GetDatsDir(void)
 
 void SetDatsDir(const char *path)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_DATS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE,error_string);
-	mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE, error_string);
+	settings.set_value(MUIOPTION_DATS_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
+	mewui.set_value(OPTION_HISTORY_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetFolderDir(void)
@@ -1402,8 +1345,7 @@ const char* GetFolderDir(void)
 
 void SetFolderDir(const char* path)
 {
-	std::string error_string;
-	mewui.set_value(OPTION_EXTRAINI_PATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	mewui.set_value(OPTION_EXTRAINI_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetCheatDir(void)
@@ -1413,8 +1355,7 @@ const char* GetCheatDir(void)
 
 void SetCheatDir(const char* path)
 {
-	std::string error_string;
-	global.set_value(OPTION_CHEATPATH, path, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_CHEATPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetSnapName(void)
@@ -1424,8 +1365,7 @@ const char* GetSnapName(void)
 
 void SetSnapName(const char* pattern)
 {
-	std::string error_string;
-	global.set_value(OPTION_SNAPNAME, pattern, OPTION_PRIORITY_CMDLINE,error_string);
+	global.set_value(OPTION_SNAPNAME, pattern, OPTION_PRIORITY_CMDLINE);
 }
 
 void ResetGameOptions(int driver_index)
@@ -1746,8 +1686,7 @@ static void SetUIJoy(const char *option_name, int joycodeIndex, int val)
 
 	joycodes[joycodeIndex] = val;
 	ColumnEncodeStringWithCount(joycodes, buffer, ARRAY_LENGTH(joycodes));
-	std::string error_string;
-	settings.set_value(option_name, buffer, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(option_name, buffer, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetUIJoyUp(int joycodeIndex)
@@ -1887,8 +1826,7 @@ const char * GetExecCommand(void)
 
 void SetExecCommand(char *cmd)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_EXEC_COMMAND, cmd, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_EXEC_COMMAND, cmd, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetExecWait(void)
@@ -1898,8 +1836,7 @@ int GetExecWait(void)
 
 void SetExecWait(int wait)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_EXEC_WAIT, wait, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_EXEC_WAIT, wait, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetHideMouseOnStartup(void)
@@ -1909,8 +1846,7 @@ BOOL GetHideMouseOnStartup(void)
 
 void SetHideMouseOnStartup(BOOL hide)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_HIDE_MOUSE, hide, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_HIDE_MOUSE, hide, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetRunFullScreen(void)
@@ -1920,8 +1856,7 @@ BOOL GetRunFullScreen(void)
 
 void SetRunFullScreen(BOOL fullScreen)
 {
-	std::string error_string;
-	settings.set_value(MUIOPTION_FULL_SCREEN, fullScreen, OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_FULL_SCREEN, fullScreen, OPTION_PRIORITY_CMDLINE);
 }
 
 /***************************************************************************
@@ -2159,8 +2094,7 @@ static void LoadSettingsFile(ui_options &opts, const char *filename)
 	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
 	if (filerr == osd_file::error::NONE)
 	{
-		std::string error_string;
-		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
 		file.reset();
 	}
 }
@@ -2173,8 +2107,7 @@ static void LoadSettingsFile(winui_options &opts, const char *filename)
 	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
 	if (filerr == osd_file::error::NONE)
 	{
-		std::string error_string;
-		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
 		file.reset();
 	}
 }
@@ -2187,8 +2120,7 @@ static void LoadSettingsFile(windows_options &opts, const char *filename)
 	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
 	if (filerr == osd_file::error::NONE)
 	{
-		std::string error_string;
-		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, OPTION_PRIORITY_CMDLINE, error_string);
+		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
 		file.reset();
 	}
 }
@@ -2266,22 +2198,21 @@ static void LoadOptionsAndSettings(void)
 
 void SetDirectories(windows_options &opts)
 {
-	std::string error_string;
-	opts.set_value(OPTION_MEDIAPATH, GetRomDirs(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_SAMPLEPATH, GetSampleDirs(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_INIPATH, GetIniDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_CFG_DIRECTORY, GetCfgDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_SNAPSHOT_DIRECTORY, GetImgDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_INPUT_DIRECTORY, GetInpDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_STATE_DIRECTORY, GetStateDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_ARTPATH, GetArtDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_NVRAM_DIRECTORY, GetNvramDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_CTRLRPATH, GetCtrlrDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_CHEATPATH, GetCheatDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_CROSSHAIRPATH, GetCrosshairDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_FONTPATH, GetFontDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_DIFF_DIRECTORY, GetDiffDir(), OPTION_PRIORITY_CMDLINE, error_string);
-	opts.set_value(OPTION_SNAPNAME, GetSnapName(), OPTION_PRIORITY_CMDLINE, error_string);
+	opts.set_value(OPTION_MEDIAPATH, GetRomDirs(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_SAMPLEPATH, GetSampleDirs(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_INIPATH, GetIniDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_CFG_DIRECTORY, GetCfgDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_SNAPSHOT_DIRECTORY, GetImgDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_INPUT_DIRECTORY, GetInpDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_STATE_DIRECTORY, GetStateDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_ARTPATH, GetArtDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_NVRAM_DIRECTORY, GetNvramDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_CTRLRPATH, GetCtrlrDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_CHEATPATH, GetCheatDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_CROSSHAIRPATH, GetCrosshairDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_FONTPATH, GetFontDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_DIFF_DIRECTORY, GetDiffDir(), OPTION_PRIORITY_CMDLINE);
+	opts.set_value(OPTION_SNAPNAME, GetSnapName(), OPTION_PRIORITY_CMDLINE);
 }
 
 // not used
@@ -2441,7 +2372,7 @@ static void AddFolderFlags(winui_options &opts)
 
 	entries[0].name = NULL;
 	entries[0].defvalue = NULL;
-	entries[0].flags = OPTION_HEADER;
+	entries[0].type = OPTION_HEADER;
 	entries[0].description = "FOLDER FILTERS";
 	opts.add_entries(entries);
 
@@ -2476,8 +2407,7 @@ static void AddFolderFlags(winui_options &opts)
 			opts.add_entries(entries);
 
 			// store entry
-			std::string error_string;
-			opts.set_value(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags), OPTION_PRIORITY_CMDLINE,error_string);
+			opts.set_value(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags), OPTION_PRIORITY_CMDLINE);
 
 			// increment counter
 			num_entries++;
@@ -2543,8 +2473,7 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 		if (game_num > -1)
 		{
 			// global swpath serves a different purpose than for games, so blank it out
-			std::string error_string;
-			opts.set_value(OPTION_SWPATH, "", OPTION_PRIORITY_CMDLINE,error_string);
+			opts.set_value(OPTION_SWPATH, "", OPTION_PRIORITY_CMDLINE);
 			// Lastly, gamename.ini
 			if (driver)
 			{
@@ -2597,7 +2526,8 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 static void ResetToDefaults(windows_options &opts, int priority)
 {
 	// iterate through the options setting each one back to the default value.
-	opts.revert(priority);
+	windows_options orig_settings;
+	opts.copy_from(orig_settings);
 }
 
 int GetDriverCache(int driver_index)
@@ -2617,8 +2547,7 @@ BOOL RequiredDriverCache(void)
 	if ( strcmp(settings.value(MUIOPTION_VERSION), GetVersionString()) != 0 )
 		ret = true;
 
-	std::string error_string;
-	settings.set_value(MUIOPTION_VERSION, GetVersionString(), OPTION_PRIORITY_CMDLINE,error_string);
+	settings.set_value(MUIOPTION_VERSION, GetVersionString(), OPTION_PRIORITY_CMDLINE);
 
 	return ret;
 }
@@ -2632,8 +2561,7 @@ void SetSLColumnOrder(int order[])
 {
 	char column_order_string[80];
 	ColumnEncodeStringWithCount(order, column_order_string, SL_COLUMN_MAX);
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SL_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetSLColumnOrder(int order[])
@@ -2647,8 +2575,7 @@ void SetSLColumnShown(int shown[])
 {
 	char column_shown_string[80];
 	ColumnEncodeStringWithCount(shown, column_shown_string, SL_COLUMN_MAX);
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SL_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetSLColumnShown(int shown[])
@@ -2662,8 +2589,7 @@ void SetSLColumnWidths(int width[])
 {
 	char column_width_string[80];
 	ColumnEncodeStringWithCount(width, column_width_string, SL_COLUMN_MAX);
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SL_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetSLColumnWidths(int width[])
@@ -2675,8 +2601,7 @@ void GetSLColumnWidths(int width[])
 
 void SetSLSortColumn(int column)
 {
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SL_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SL_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetSLSortColumn(void)
@@ -2686,8 +2611,7 @@ int GetSLSortColumn(void)
 
 void SetSLSortReverse(BOOL reverse)
 {
-	std::string error_string;
-	MameUISettings().set_value( MESSUI_SL_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value( MESSUI_SL_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetSLSortReverse(void)
@@ -2699,8 +2623,7 @@ void SetSWColumnOrder(int order[])
 {
 	char column_order_string[80];
 	ColumnEncodeStringWithCount(order, column_order_string, SW_COLUMN_MAX);
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SW_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_COLUMN_ORDER, column_order_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetSWColumnOrder(int order[])
@@ -2714,8 +2637,7 @@ void SetSWColumnShown(int shown[])
 {
 	char column_shown_string[80];
 	ColumnEncodeStringWithCount(shown, column_shown_string, SW_COLUMN_MAX);
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SW_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_COLUMN_SHOWN, column_shown_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetSWColumnShown(int shown[])
@@ -2729,8 +2651,7 @@ void SetSWColumnWidths(int width[])
 {
 	char column_width_string[80];
 	ColumnEncodeStringWithCount(width, column_width_string, SW_COLUMN_MAX);
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SW_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_COLUMN_WIDTHS, column_width_string, OPTION_PRIORITY_CMDLINE);
 }
 
 void GetSWColumnWidths(int width[])
@@ -2742,8 +2663,7 @@ void GetSWColumnWidths(int width[])
 
 void SetSWSortColumn(int column)
 {
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SW_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SW_SORT_COLUMN, column, OPTION_PRIORITY_CMDLINE);
 }
 
 int GetSWSortColumn(void)
@@ -2753,8 +2673,7 @@ int GetSWSortColumn(void)
 
 void SetSWSortReverse(BOOL reverse)
 {
-	std::string error_string;
-	MameUISettings().set_value( MESSUI_SW_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value( MESSUI_SW_SORT_REVERSED, reverse, OPTION_PRIORITY_CMDLINE);
 }
 
 BOOL GetSWSortReverse(void)
@@ -2767,7 +2686,6 @@ void SetSelectedSoftware(int driver_index, const device_image_interface *dev, co
 {
 	std::string opt_name = dev->instance_name();
 	windows_options o;
-	std::string error_string;
 
 	if (LOG_SOFTWARE)
 	{
@@ -2775,15 +2693,14 @@ void SetSelectedSoftware(int driver_index, const device_image_interface *dev, co
 	}
 
 	load_options(o, OPTIONS_GAME, driver_index);
-	o.set_value(opt_name.c_str(), software, OPTION_PRIORITY_CMDLINE,error_string);
-	o.image_options()[opt_name] = software;
+	o.set_value(opt_name.c_str(), software, OPTION_PRIORITY_CMDLINE);
+	//o.image_option(opt_name).specify(software);
 	save_options(o, OPTIONS_GAME, driver_index);
 }
 
 void SetCurrentSoftwareTab(const char *shortname)
 {
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SOFTWARE_TAB, shortname, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SOFTWARE_TAB, shortname, OPTION_PRIORITY_CMDLINE);
 }
 
 const char *GetCurrentSoftwareTab(void)
@@ -2798,7 +2715,20 @@ const char* GetSLDir(void)
 
 void SetSLDir(const char* paths)
 {
-	std::string error_string;
-	MameUISettings().set_value(MESSUI_SLPATH, paths, OPTION_PRIORITY_CMDLINE,error_string);
+	MameUISettings().set_value(MESSUI_SLPATH, paths, OPTION_PRIORITY_CMDLINE);
 }
 
+bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
+{
+	for (auto &curentry : opts1.entries())
+	{
+		if (curentry->type() != OPTION_HEADER)
+		{
+			const char *value = curentry->value();
+			const char *comp = opts2.value(curentry->name().c_str());
+			if (value && strcmp(value, comp) != 0)
+				return false;
+		}
+	}
+	return true;
+}
