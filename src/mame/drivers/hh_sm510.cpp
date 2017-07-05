@@ -6,7 +6,7 @@
   Sharp SM5xx family handhelds.
 
   TODO:
-  - improve LCD segments in SVGs for: gnw_mc25, gnw_eg26, gnw_jr55, gnw_mw56, exospace
+  - improve LCD segments in SVGs for: gnw_mc25, gnw_eg26, exospace
   - SVG background/foreground vector graphics where possible. Doesn't apply to eg. the
     Konami games where MAME's SVG renderer needs to add support for embedded images.
   - confirm gnw_mc25/gnw_eg26 rom (dumped from Soviet clone, but pretty confident that it's same)
@@ -853,13 +853,13 @@ static MACHINE_CONFIG_START( jr55 )
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_top", "svg_top")
 	MCFG_SCREEN_REFRESH_RATE(50)
-	MCFG_SCREEN_SIZE(1920/2, 1225/2)
-	MCFG_SCREEN_VISIBLE_AREA(0, 1920/2-1, 0, 1225/2-1)
+	MCFG_SCREEN_SIZE(1920/2, 1229/2)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1920/2-1, 0, 1229/2-1)
 
 	MCFG_SCREEN_SVG_ADD("screen_bottom", "svg_bottom")
 	MCFG_SCREEN_REFRESH_RATE(50)
-	MCFG_SCREEN_SIZE(1920/2, 1261/2)
-	MCFG_SCREEN_VISIBLE_AREA(0, 1920/2-1, 0, 1261/2-1)
+	MCFG_SCREEN_SIZE(1920/2, 1238/2)
+	MCFG_SCREEN_VISIBLE_AREA(0, 1920/2-1, 0, 1238/2-1)
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_sm510_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_gnw_dualv)
@@ -935,13 +935,13 @@ static MACHINE_CONFIG_START( mw56 )
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_left", "svg_left")
 	MCFG_SCREEN_REFRESH_RATE(50)
-	MCFG_SCREEN_SIZE(2087/2, 1440/2)
-	MCFG_SCREEN_VISIBLE_AREA(0, 2087/2-1, 0, 1440/2-1)
+	MCFG_SCREEN_SIZE(2258/2, 1440/2)
+	MCFG_SCREEN_VISIBLE_AREA(0, 2258/2-1, 0, 1440/2-1)
 
 	MCFG_SCREEN_SVG_ADD("screen_right", "svg_right")
 	MCFG_SCREEN_REFRESH_RATE(50)
-	MCFG_SCREEN_SIZE(2079/2, 1440/2)
-	MCFG_SCREEN_VISIBLE_AREA(0, 2079/2-1, 0, 1440/2-1)
+	MCFG_SCREEN_SIZE(2261/2, 1440/2)
+	MCFG_SCREEN_VISIBLE_AREA(0, 2261/2-1, 0, 1440/2-1)
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_sm510_state, display_decay_tick, attotime::from_msec(1))
 	MCFG_DEFAULT_LAYOUT(layout_gnw_dualh)
@@ -1329,11 +1329,11 @@ ROM_START( gnw_jr55 )
 	ROM_REGION( 0x1000, "maincpu", 0 )
 	ROM_LOAD( "jr-55_cms54c_kms560", 0x0000, 0x1000, CRC(46aed0ae) SHA1(72f75ccbd84aea094148c872fc7cc1683619a18a) )
 
-	ROM_REGION( 207397, "svg_top", 0)
-	ROM_LOAD( "gnw_jr55_top.svg", 0, 207397, CRC(715b5bf3) SHA1(2b4ba476ecb2f02835df651a94d6a8b8be74112d) )
+	ROM_REGION( 261499, "svg_top", 0)
+	ROM_LOAD( "gnw_jr55_top.svg", 0, 261499, CRC(3e48708f) SHA1(fc35bd4022327f2061d054c23316d2d6412b25b7) )
 
-	ROM_REGION( 200030, "svg_bottom", 0)
-	ROM_LOAD( "gnw_jr55_bottom.svg", 0, 200030, CRC(0cfefd3f) SHA1(516802d53334582e6c25c96d60afed11351bb1ca) )
+	ROM_REGION( 389658, "svg_bottom", 0)
+	ROM_LOAD( "gnw_jr55_bottom.svg", 0, 389658, CRC(0a5eb4b2) SHA1(498aded148401a624a4ed215126e0d0b27d25d44) )
 ROM_END
 
 
@@ -1341,11 +1341,11 @@ ROM_START( gnw_mw56 )
 	ROM_REGION( 0x1000, "maincpu", 0 )
 	ROM_LOAD( "mw-56", 0x0000, 0x1000, CRC(385e59da) SHA1(2f79281bdf2f2afca2fb5bd7b9a3beeffc9c4eb7) )
 
-	ROM_REGION( 100251, "svg_left", 0)
-	ROM_LOAD( "gnw_mw56_left.svg", 0, 100251, CRC(bca1048b) SHA1(a9b213cf9243c9e332619afac125f0549cf40757) )
+	ROM_REGION( 165537, "svg_left", 0)
+	ROM_LOAD( "gnw_mw56_left.svg", 0, 165537, CRC(42fe7fb8) SHA1(91bfb64a1a9f84696acc5cc8c6e7faced5301016) )
 
-	ROM_REGION( 85767, "svg_right", 0)
-	ROM_LOAD( "gnw_mw56_right.svg", 0, 85767, CRC(336a3b59) SHA1(73d9985b199146c48ec854967e075047ae1d22da) )
+	ROM_REGION( 224535, "svg_right", 0)
+	ROM_LOAD( "gnw_mw56_right.svg", 0, 224535, CRC(c87fbf47) SHA1(07c3676aaec42ddfd73d3331de415627bd8d0093) )
 ROM_END
 
 
