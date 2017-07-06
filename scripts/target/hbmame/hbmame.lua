@@ -43,6 +43,7 @@ CPUS["TMS32010"] = true
 CPUS["TMS32031"] = true
 CPUS["TMS340X0"] = true
 CPUS["PIC16C5X"] = true
+CPUS["UPD7810"] = true
 CPUS["V810"] = true
 CPUS["Z180"] = true
 CPUS["Z80"] = true
@@ -700,6 +701,10 @@ files {
 	MAME_DIR .. "src/mame/audio/taito_en.cpp",
 	MAME_DIR .. "src/mame/machine/taitoio.cpp",
 	MAME_DIR .. "src/mame/video/taito_helper.cpp",
+	MAME_DIR .. "src/mame/machine/cchip.cpp",
+	MAME_DIR .. "src/mame/machine/cchip.h",
+	MAME_DIR .. "src/mame/machine/cchip_dev.cpp",
+	MAME_DIR .. "src/mame/machine/cchip_dev.h",
 	MAME_DIR .. "src/mame/video/pc080sn.cpp",
 	MAME_DIR .. "src/mame/video/pc090oj.cpp",
 	MAME_DIR .. "src/mame/video/tc0100scn.cpp",
