@@ -784,7 +784,7 @@ static MACHINE_CONFIG_START( opwolf )
 	MCFG_CPU_ADD("audiocpu", Z80, SOUND_CPU_CLOCK ) /* 4 MHz */
 	MCFG_CPU_PROGRAM_MAP(opwolf_sound_z80_map)
 
-	MCFG_TAITO_CCHIP_DEV_ADD("cchip", XTAL_12MHz / 2) /* ? MHz */
+	MCFG_TAITO_CCHIP_ADD("cchip", XTAL_12MHz / 2) /* ? MHz */
 
 	MCFG_QUANTUM_TIME(attotime::from_hz(600))   /* 10 CPU slices per frame - enough for the sound CPU to read all commands */
 
@@ -918,6 +918,31 @@ MACHINE_CONFIG_END
                     DRIVERS
 ***************************************************************************/
 
+/* 
+
+Note about current c-chip eprom dump 
+
+the current dump is bad because data with address bit 0x200 set is missing (always read out as 0xff)
+
+you can however locate some of the tables used by the current simulation code in the rom
+
+for example
+
+Offset(h) 00 01 02 03 04 05 06 07 08 09 0A 0B
+00001128                 07 80 02 09 03 00 4C
+00001134  01 00 04 00 10 07 80 02 09 03 00 4C 
+00001140  01 40 04 00 20                      
+
+is the following data from machine/opwolf.cpp
+
+static const uint16_t level_data_04[] = {
+  0x0780, 0x0209, 0x0300,   0x4c01, 0x0004, 0x0010,
+  0x0780, 0x0209, 0x0300,   0x4c01, 0x4004, 0x0020,
+
+however without the correct dump of the cchip eprom we can't run the actual cchip code
+
+*/
+
 ROM_START( opwolf )
 	ROM_REGION( 0x40000, "maincpu", 0 )     /* 256k for 68000 code */
 	ROM_LOAD16_BYTE( "b20-05-02.40",  0x00000, 0x10000, CRC(3ffbfe3a) SHA1(e41257e6af18bab4e36267a0c25a6aaa742972d2) )
@@ -929,7 +954,7 @@ ROM_START( opwolf )
 	ROM_LOAD( "b20-07.10",  0x00000, 0x10000, CRC(45c7ace3) SHA1(06f7393f6b973b7735c27e8380cb4148650cfc16) )
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
-	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, NO_DUMP )
+	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, BAD_DUMP CRC(57165ffb) SHA1(e47e1bf309eb4285fede3a35b98e2fdeab2d7345) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
 	ROM_LOAD( "b20-13.13",  0x00000, 0x80000, CRC(f6acdab1) SHA1(716b94ab3fa330ecf22df576f6a9f47a49c7554a) )    /* SCR tiles (8 x 8) */
@@ -957,7 +982,7 @@ ROM_START( opwolfa )
 	ROM_LOAD( "b20-07.10",  0x00000, 0x10000, CRC(45c7ace3) SHA1(06f7393f6b973b7735c27e8380cb4148650cfc16) )
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
-	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, NO_DUMP )
+	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, BAD_DUMP CRC(57165ffb) SHA1(e47e1bf309eb4285fede3a35b98e2fdeab2d7345) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
 	ROM_LOAD( "b20-13.13",  0x00000, 0x80000, CRC(f6acdab1) SHA1(716b94ab3fa330ecf22df576f6a9f47a49c7554a) )    /* SCR tiles (8 x 8) */
@@ -980,7 +1005,7 @@ ROM_START( opwolfj )
 	ROM_LOAD( "b20-07.10",  0x00000, 0x10000, CRC(45c7ace3) SHA1(06f7393f6b973b7735c27e8380cb4148650cfc16) )
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
-	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, NO_DUMP )
+	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, BAD_DUMP CRC(57165ffb) SHA1(e47e1bf309eb4285fede3a35b98e2fdeab2d7345) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
 	ROM_LOAD( "b20-13.13",  0x00000, 0x80000, CRC(f6acdab1) SHA1(716b94ab3fa330ecf22df576f6a9f47a49c7554a) )    /* SCR tiles (8 x 8) */
@@ -1003,7 +1028,7 @@ ROM_START( opwolfjsc )
 	ROM_LOAD( "b20-07.10",  0x00000, 0x10000, CRC(45c7ace3) SHA1(06f7393f6b973b7735c27e8380cb4148650cfc16) )
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
-	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, NO_DUMP )
+	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, BAD_DUMP CRC(57165ffb) SHA1(e47e1bf309eb4285fede3a35b98e2fdeab2d7345) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
 	ROM_LOAD( "b20-13.13",  0x00000, 0x80000, CRC(f6acdab1) SHA1(716b94ab3fa330ecf22df576f6a9f47a49c7554a) )    /* SCR tiles (8 x 8) */
@@ -1026,7 +1051,7 @@ ROM_START( opwolfu ) /* Taito TC0030 C-Chip labeled B20-18 (yes, it has a specif
 	ROM_LOAD( "b20-07.10",  0x00000, 0x10000, CRC(45c7ace3) SHA1(06f7393f6b973b7735c27e8380cb4148650cfc16) )
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
-	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, NO_DUMP )
+	ROM_LOAD( "cchip_b20-18", 0x0000, 0x2000, BAD_DUMP CRC(57165ffb) SHA1(e47e1bf309eb4285fede3a35b98e2fdeab2d7345) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
 	ROM_LOAD( "b20-13.13",  0x00000, 0x80000, CRC(f6acdab1) SHA1(716b94ab3fa330ecf22df576f6a9f47a49c7554a) )    /* SCR tiles (8 x 8) */
