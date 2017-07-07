@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 #ifndef SCREENSHOT_H
@@ -11,8 +12,7 @@ typedef struct _mybitmapinfo
 	int bmColors;
 } MYBITMAPINFO, *LPMYBITMAPINFO;
 
-extern BOOL LoadScreenShotEx(int nGame, LPCSTR lpSoftwareName, int nType);
-extern BOOL LoadScreenShot(int nGame, int nType);
+extern BOOL LoadScreenShot(int nGame, LPCSTR lpSoftwareName, int nType);
 extern HANDLE GetScreenShotHandle(void);
 extern int GetScreenShotWidth(void);
 extern int GetScreenShotHeight(void);
