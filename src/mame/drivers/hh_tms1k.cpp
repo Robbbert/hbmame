@@ -127,8 +127,9 @@
   - some of the games rely on the fact that faster/longer strobed leds appear brighter,
     eg. tc4/h2hfootb(offense), bankshot(cue ball), ...
   - stopthiep: unable to start a game (may be intentional?)
-  - 7in1ss: in 2-player mode, game select and skill select can be configured
-    after selecting a game?
+  - 7in1ss: in 2-player mode, game select and skill select can be configured after selecting a game?
+  - arrball: shot button is unresponsive sometimes, maybe BTANB? no video of game on Youtube
+    ROM is good, PLAs are good, input mux is good
   - bship discrete sound, netlist is documented
   - finish bshipb SN76477 sound
   - improve elecbowl driver
@@ -153,7 +154,8 @@
 // internal artwork
 #include "7in1ss.lh"
 #include "amaztron.lh" // clickable
-#include "arcmania.lh"
+#include "arcmania.lh" // clickable
+#include "arrball.lh"
 #include "astro.lh"
 #include "bankshot.lh"
 #include "bcheetah.lh"
@@ -558,13 +560,15 @@ MACHINE_CONFIG_END
 /***************************************************************************
 
   A-One LSI Arrange Ball
+  * PCB label Kaken, PT-249
   * TMS1000NLL MP0166 (die label 1000B, MP0166)
   * 2-digit 7seg LED display + 22 LEDs, 1-bit sound
 
   known releases:
   - Japan/World: Arrange Ball (black case)
-  - USA(1): Computer Impulse, published by LJN (white case)
-  - USA(2): Zingo (model 60-2123), published by Tandy (red case)
+  - USA(1): Zingo (model 60-2123), published by Tandy (red case)
+  - USA(2): Computer Impulse, published by LJN (white case)
+  - Germany: Fixball, unknown publisher, same as LJN version
 
 ***************************************************************************/
 
@@ -575,6 +579,7 @@ public:
 		: hh_tms1k_state(mconfig, type, tag)
 	{ }
 
+	void prepare_display();
 	DECLARE_WRITE16_MEMBER(write_r);
 	DECLARE_WRITE16_MEMBER(write_o);
 	DECLARE_READ8_MEMBER(read_k);
@@ -582,24 +587,50 @@ public:
 
 // handlers
 
+void arrball_state::prepare_display()
+{
+	set_display_segmask(0x10, 0x7f);
+	set_display_segmask(0x20, 0x06); // left digit only segments B and C
+	display_matrix(7, 7, m_o, m_r);
+}
+
 WRITE16_MEMBER(arrball_state::write_r)
 {
+	// R8: input mux (always set)
+	m_inp_mux = data >> 8 & 1;
+
+	// R9,R10: speaker out
+	m_speaker->level_w(data >> 9 & 3);
+
+	// R0-R6: digit/led select
+	m_r = data;
+	prepare_display();
 }
 
 WRITE16_MEMBER(arrball_state::write_o)
 {
+	// O0-O6: digit segments/led data
+	m_o = data;
+	prepare_display();
 }
 
 READ8_MEMBER(arrball_state::read_k)
 {
-	return 0;
+	// K: multiplexed inputs (actually just 1)
+	return read_inputs(1);
 }
 
 
 // config
 
 static INPUT_PORTS_START( arrball )
-
+	PORT_START("IN.0") // R8
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Shot")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Stop")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_CONFNAME( 0x08, 0x00, "Speed" )
+	PORT_CONFSETTING(    0x00, "Slow" )
+	PORT_CONFSETTING(    0x08, "Fast" )
 INPUT_PORTS_END
 
 static const s16 arrball_speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
@@ -613,7 +644,7 @@ static MACHINE_CONFIG_START( arrball )
 	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(arrball_state, write_o))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
-	//MCFG_DEFAULT_LAYOUT(layout_arrball)
+	MCFG_DEFAULT_LAYOUT(layout_arrball)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -9467,7 +9498,7 @@ CONS( 1979, simonf,     simon,     0, simon,     simon,     simon_state,     0, 
 CONS( 1979, ssimon,     0,         0, ssimon,    ssimon,    ssimon_state,    0, "Milton Bradley", "Super Simon", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1979, bigtrak,    0,         0, bigtrak,   bigtrak,   bigtrak_state,   0, "Milton Bradley", "Big Trak", MACHINE_SUPPORTS_SAVE | MACHINE_MECHANICAL ) // ***
 CONS( 1981, mbdtower,   0,         0, mbdtower,  mbdtower,  mbdtower_state,  0, "Milton Bradley", "Dark Tower (Milton Bradley)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_MECHANICAL ) // ***
-CONS( 1983, arcmania,   0,         0, arcmania,  arcmania,  arcmania_state,  0, "Milton Bradley", "Electronic Arcade Mania (Arcade Machine)", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK ) // ***
+CONS( 1983, arcmania,   0,         0, arcmania,  arcmania,  arcmania_state,  0, "Milton Bradley", "Electronic Arcade Mania (Arcade Machine)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_REQUIRES_ARTWORK ) // ***
 
 CONS( 1977, cnsector,   0,         0, cnsector,  cnsector,  cnsector_state,  0, "Parker Brothers", "Code Name: Sector", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_NO_SOUND_HW ) // ***
 CONS( 1978, merlin,     0,         0, merlin,    merlin,    merlin_state,    0, "Parker Brothers", "Merlin - The Electronic Wizard", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
