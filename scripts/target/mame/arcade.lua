@@ -472,6 +472,7 @@ MACHINES["MB87078"] = true
 --MACHINES["MB8795"] = true
 MACHINES["MB89352"] = true
 MACHINES["MB89371"] = true
+--MACHINES["MC14411"] = true
 MACHINES["MC146818"] = true
 MACHINES["MC2661"] = true
 MACHINES["MC6843"] = true
@@ -4425,7 +4426,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/bgt.cpp",
 	MAME_DIR .. "src/mame/drivers/bingoman.cpp",
 	MAME_DIR .. "src/mame/drivers/bingor.cpp",
-	MAME_DIR .. "src/mame/drivers/blitz.cpp",
 	MAME_DIR .. "src/mame/drivers/blitz68k.cpp",
 	MAME_DIR .. "src/mame/drivers/buster.cpp",
 	MAME_DIR .. "src/mame/drivers/calomega.cpp",

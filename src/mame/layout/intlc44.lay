@@ -66,6 +66,7 @@ Intel INTELLEC® 4/MOD 40 layout
 	<element name="label_complete"><text string="COMPLETE"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 	<element name="label_pointer"><text string="POINTER"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 	<element name="label_valid"><text string="VALID"><color red="1.0" green="1.0" blue="1.0" /></text></element>
+	<element name="label_cpu"><text string="CPU"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 
 	<element name="label_cm_ram"><text string="CM-RAM"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 
@@ -82,9 +83,9 @@ Intel INTELLEC® 4/MOD 40 layout
 	<element name="label_incr"><text string="INCR"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 	<element name="label_load"><text string="LOAD"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 
-	<element name="label_stop"><text string="STOP"><color red="1.0" green="1.0" blue="1.0" /></text></element>
-	<element name="label_single"><text string="SINGLE"><color red="1.0" green="1.0" blue="1.0" /></text></element>
-	<element name="label_step"><text string="STEP"><color red="1.0" green="1.0" blue="1.0" /></text></element>
+	<element name="label_hold"><text string="HOLD"><color red="1.0" green="1.0" blue="1.0" /></text></element>
+	<element name="label_one"><text string="ONE"><color red="1.0" green="1.0" blue="1.0" /></text></element>
+	<element name="label_shot"><text string="SHOT"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 
 	<element name="label_write"><text string="WRITE"><color red="1.0" green="1.0" blue="1.0" /></text></element>
 
@@ -139,6 +140,9 @@ Intel INTELLEC® 4/MOD 40 layout
 	<element name="label_search_ctrl">
 		<text string="SEARCH ADDRESS CONTROL" align="1"><color red="1.0" green="1.0" blue="1.0" /></text>
 	</element>
+	<element name="label_test">
+		<text string="TEST" align="1"><color red="1.0" green="1.0" blue="1.0" /></text>
+	</element>
 	<element name="label_cma">
 		<text string="CMA" align="1"><color red="1.0" green="1.0" blue="1.0" /></text>
 	</element>
@@ -171,7 +175,7 @@ Intel INTELLEC® 4/MOD 40 layout
 		<cpanel element="label_complete"><bounds left="561" top="71" right="610" bottom="78" /></cpanel>
 		<cpanel element="label_pointer"><bounds left="623" top="63" right="672" bottom="70" /></cpanel>
 		<cpanel element="label_valid"><bounds left="623" top="71" right="672" bottom="78" /></cpanel>
-		<cpanel element="label_run"><bounds left="611" top="71" right="626" bottom="78" /></cpanel>
+		<cpanel element="label_cpu"><bounds left="611" top="71" right="626" bottom="78" /></cpanel>
 
 		<cpanel element="label_instruction"><bounds left="72" top="104" right="350" bottom="112" /></cpanel>
 		<cpanel element="label_m1"><bounds left="81" top="112" right="185" bottom="119" /></cpanel>
@@ -255,9 +259,10 @@ Intel INTELLEC® 4/MOD 40 layout
 		<cpanel element="label_incr"><bounds left="323" top="312" right="348" bottom="319" /></cpanel>
 		<cpanel element="label_load"><bounds left="354" top="312" right="379" bottom="319" /></cpanel>
 
-		<cpanel element="label_stop"><bounds left="448" top="312" right="473" bottom="319" /></cpanel>
-		<cpanel element="label_single"><bounds left="479" top="304" right="504" bottom="311" /></cpanel>
-		<cpanel element="label_step"><bounds left="479" top="312" right="504" bottom="319" /></cpanel>
+		<cpanel element="label_test"><bounds left="446" top="296" right="506" bottom="304" /></cpanel>
+		<cpanel element="label_hold"><bounds left="448" top="312" right="473" bottom="319" /></cpanel>
+		<cpanel element="label_one"><bounds left="479" top="304" right="504" bottom="311" /></cpanel>
+		<cpanel element="label_shot"><bounds left="479" top="312" right="504" bottom="319" /></cpanel>
 
 		<cpanel element="label_cma"><bounds left="571" top="296" right="631" bottom="304" /></cpanel>
 		<cpanel element="label_write"><bounds left="604" top="312" right="629" bottom="319" /></cpanel>
@@ -540,7 +545,7 @@ Intel INTELLEC® 4/MOD 40 layout
 		<cpanel element="label_complete"><bounds left="561" top="71" right="610" bottom="78" /></cpanel>
 		<cpanel element="label_pointer"><bounds left="623" top="63" right="672" bottom="70" /></cpanel>
 		<cpanel element="label_valid"><bounds left="623" top="71" right="672" bottom="78" /></cpanel>
-		<cpanel element="label_run"><bounds left="611" top="71" right="626" bottom="78" /></cpanel>
+		<cpanel element="label_cpu"><bounds left="611" top="71" right="626" bottom="78" /></cpanel>
 
 		<cpanel element="label_instruction"><bounds left="72" top="104" right="350" bottom="112" /></cpanel>
 		<cpanel element="label_m1"><bounds left="81" top="112" right="185" bottom="119" /></cpanel>
@@ -624,9 +629,10 @@ Intel INTELLEC® 4/MOD 40 layout
 		<cpanel element="label_incr"><bounds left="323" top="312" right="348" bottom="319" /></cpanel>
 		<cpanel element="label_load"><bounds left="354" top="312" right="379" bottom="319" /></cpanel>
 
-		<cpanel element="label_stop"><bounds left="448" top="312" right="473" bottom="319" /></cpanel>
-		<cpanel element="label_single"><bounds left="479" top="304" right="504" bottom="311" /></cpanel>
-		<cpanel element="label_step"><bounds left="479" top="312" right="504" bottom="319" /></cpanel>
+		<cpanel element="label_test"><bounds left="446" top="296" right="506" bottom="304" /></cpanel>
+		<cpanel element="label_hold"><bounds left="448" top="312" right="473" bottom="319" /></cpanel>
+		<cpanel element="label_one"><bounds left="479" top="304" right="504" bottom="311" /></cpanel>
+		<cpanel element="label_shot"><bounds left="479" top="312" right="504" bottom="319" /></cpanel>
 
 		<cpanel element="label_cma"><bounds left="571" top="296" right="631" bottom="304" /></cpanel>
 		<cpanel element="label_write"><bounds left="604" top="312" right="629" bottom="319" /></cpanel>
