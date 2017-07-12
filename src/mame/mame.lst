@@ -9795,7 +9795,11 @@ commandou                       // 5/1985 (c) 1985 + Data East license (US)
 commandou2                      // 5/1985 (c) 1985 + Data East license (US)
 sinvasn                         // Europe original?
 sinvasnb                        // bootleg
-mercenario          // bootleg
+mercenario                      // bootleg
+
+@source:compc.cpp
+compc10                         // 1984 Commodore PC-10, PC-20 and PC-30
+pc10iii                         // 1987 Commodore PC-10 III
 
 @source:compgolf.cpp
 compgolf                        // (c) 1985 Data East Corporation (Japan)
@@ -13733,6 +13737,7 @@ falcnwldc                       // (c) 1983, Falcon
 genie                           // (c) 198? Video Fun Games Ltd.
 geniea                          // 198?, Unknown
 goldnpkb                        // (c) 1981 Bonanza
+goldnpkc                        // Bootleg
 goldnpkr                        // (c) 1981 Bonanza
 goodluck                        // Unknown
 maverik                         // 198?, Unknown
@@ -15071,6 +15076,7 @@ instantm                        //
 instruct                        //
 
 @source:intellec4.cpp
+intlc44                         //
 intlc440                        //
 
 @source:interact.cpp
@@ -30051,7 +30057,6 @@ ataripc1                        // Atari PC1
 ataripc3                        // Atari PC3
 bw230                           // 1985 Bondwell (CGA)
 compc1                          // 1984 Commodore PC-1
-compc10							// 1984 Commodore PC-10, PC-20 and PC-30
 dgone                           // 1984 Data General/One
 eagle1600                       //
 ibm5550                         //
@@ -30060,7 +30065,6 @@ mbc16                           // Sanyo MBC-16
 mc1702                          //
 mk88                            //
 olivm15                         //
-pc10iii                         // 1987 Commodore PC-10 III
 pc7000                          // 1985 Sharp PC-7000
 poisk2                          //
 sicpc1605                       //
@@ -32870,6 +32874,7 @@ stratgys                        // GX306 (c) 1981 Stern
 stratgyx                        // GX306 (c) 1981 Konami
 strongx                         // bootleg
 tazmani2                        // (c) 1982 Stern
+tazmani3                        // bootleg (Rodmar)
 
 @source:scorpion.cpp
 bestzx                          //
@@ -38130,6 +38135,7 @@ corv_la1                        //
 corv_lx1                        //
 corv_lx2                        //
 corv_px4                        //
+dh_lf2                          //
 dh_lx2                          //
 fs_lx2                          //
 fs_lx4                          //

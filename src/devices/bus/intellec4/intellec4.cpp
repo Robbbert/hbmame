@@ -13,26 +13,67 @@ DEFINE_DEVICE_TYPE_NS(INTELLEC4_UNIV_BUS,  bus::intellec4, univ_bus_device,  "in
 
 namespace bus { namespace intellec4 {
 
+/***********************************************************************
+    SLOT DEVICE
+***********************************************************************/
+
 univ_slot_device::univ_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, INTELLEC4_UNIV_SLOT, tag, owner, clock)
 	, device_slot_interface(mconfig, *this)
+	, m_bus(*this, finder_base::DUMMY_TAG)
 {
 }
 
+
+/*----------------------------------
+  configuration helpers
+----------------------------------*/
 
 void univ_slot_device::set_bus_tag(device_t &device, char const *tag)
 {
+	downcast<univ_slot_device &>(device).m_bus.set_tag(tag);
 }
 
+
+/*----------------------------------
+  device_t implementation
+----------------------------------*/
+
+void univ_slot_device::device_validity_check(validity_checker &valid) const
+{
+	device_t *const card(get_card_device());
+	if (card && !dynamic_cast<device_univ_card_interface *>(card))
+		osd_printf_error("Card device %s (%s) does not implement device_univ_card_interface\n", card->tag(), card->name());
+}
 
 void univ_slot_device::device_start()
 {
+	device_t *const card_device(get_card_device());
+	device_univ_card_interface *const univ_card(dynamic_cast<device_univ_card_interface *>(card_device));
+	if (card_device && !univ_card)
+		throw emu_fatalerror("univ_slot_device: card device %s (%s) does not implement device_univ_card_interface\n", card_device->tag(), card_device->name());
+	if (univ_card)
+		univ_card->set_bus(*m_bus);
 }
 
 
 
+/***********************************************************************
+    BUS DEVICE
+***********************************************************************/
+
 univ_bus_device::univ_bus_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, INTELLEC4_UNIV_BUS, tag, owner, clock)
+	, m_rom_device(*this, finder_base::DUMMY_TAG)
+	, m_rom_ports_device(*this, finder_base::DUMMY_TAG)
+	, m_memory_device(*this, finder_base::DUMMY_TAG)
+	, m_status_device(*this, finder_base::DUMMY_TAG)
+	, m_ram_ports_device(*this, finder_base::DUMMY_TAG)
+	, m_rom_space(-1)
+	, m_rom_ports_space(-1)
+	, m_memory_space(-1)
+	, m_status_space(-1)
+	, m_ram_ports_space(-1)
 	, m_stop_out_cb(*this)
 	, m_test_out_cb(*this)
 	, m_reset_4002_out_cb(*this)
@@ -45,6 +86,50 @@ univ_bus_device::univ_bus_device(machine_config const &mconfig, char const *tag,
 	std::fill(std::begin(m_cards), std::end(m_cards), nullptr);
 }
 
+
+/*----------------------------------
+  address space configuration
+----------------------------------*/
+
+void univ_bus_device::set_rom_space(device_t &device, char const *tag, int space)
+{
+	univ_bus_device &bus(downcast<univ_bus_device &>(device));
+	bus.m_rom_device.set_tag(tag);
+	bus.m_rom_space = space;
+}
+
+void univ_bus_device::set_rom_ports_space(device_t &device, char const *tag, int space)
+{
+	univ_bus_device &bus(downcast<univ_bus_device &>(device));
+	bus.m_rom_ports_device.set_tag(tag);
+	bus.m_rom_ports_space = space;
+}
+
+void univ_bus_device::set_memory_space(device_t &device, char const *tag, int space)
+{
+	univ_bus_device &bus(downcast<univ_bus_device &>(device));
+	bus.m_memory_device.set_tag(tag);
+	bus.m_memory_space = space;
+}
+
+void univ_bus_device::set_status_space(device_t &device, char const *tag, int space)
+{
+	univ_bus_device &bus(downcast<univ_bus_device &>(device));
+	bus.m_status_device.set_tag(tag);
+	bus.m_status_space = space;
+}
+
+void univ_bus_device::set_ram_ports_space(device_t &device, char const *tag, int space)
+{
+	univ_bus_device &bus(downcast<univ_bus_device &>(device));
+	bus.m_ram_ports_device.set_tag(tag);
+	bus.m_ram_ports_space = space;
+}
+
+
+/*----------------------------------
+  input lines
+----------------------------------*/
 
 WRITE_LINE_MEMBER(univ_bus_device::sync_in)
 {
@@ -89,12 +174,74 @@ WRITE_LINE_MEMBER(univ_bus_device::reset_4002_in)
 }
 
 
+/*----------------------------------
+  device_t implementation
+----------------------------------*/
+
+void univ_bus_device::device_validity_check(validity_checker &valid) const
+{
+	if (m_rom_device && !m_rom_device->space_config(m_rom_space))
+		osd_printf_error("ROM space device %s (%s) lacks address space %d config\n", m_rom_device->device().tag(), m_rom_device->device().name(), m_rom_space);
+	if (m_rom_ports_device && !m_rom_ports_device->space_config(m_rom_ports_space))
+		osd_printf_error("ROM ports space device %s (%s) lacks address space %d config\n", m_rom_ports_device->device().tag(), m_rom_ports_device->device().name(), m_rom_ports_space);
+	if (m_memory_device && !m_memory_device->space_config(m_memory_space))
+		osd_printf_error("Memory space device %s (%s) lacks address space %d config\n", m_memory_device->device().tag(), m_memory_device->device().name(), m_memory_space);
+	if (m_status_device && !m_status_device->space_config(m_status_space))
+		osd_printf_error("Status space device %s (%s) lacks address space %d config\n", m_status_device->device().tag(), m_status_device->device().name(), m_status_space);
+	if (m_ram_ports_device && !m_ram_ports_device->space_config(m_ram_ports_space))
+		osd_printf_error("RAM ports space device %s (%s) lacks address space %d config\n", m_ram_ports_device->device().tag(), m_ram_ports_device->device().name(), m_ram_ports_space);
+}
+
 void univ_bus_device::device_start()
 {
 	m_stop_out_cb.resolve_safe();
 	m_test_out_cb.resolve_safe();
 	m_reset_4002_out_cb.resolve_safe();
 	m_user_reset_out_cb.resolve_safe();
+}
+
+
+/*----------------------------------
+  helpers for cards
+----------------------------------*/
+
+unsigned univ_bus_device::add_card(device_univ_card_interface &card)
+{
+	for (unsigned i = 0; ARRAY_LENGTH(m_cards) > i; ++i)
+	{
+		if (!m_cards[i])
+		{
+			m_cards[i] = &card;
+			return i;
+		}
+	}
+	throw emu_fatalerror("univ_bus_device: maximum number of cards (%u) exceeded\n", unsigned(ARRAY_LENGTH(m_cards)));
+}
+
+
+
+/***********************************************************************
+    CARD INTERFACE
+***********************************************************************/
+
+device_univ_card_interface::device_univ_card_interface(const machine_config &mconfig, device_t &device)
+	: device_slot_card_interface(mconfig, device)
+	, m_bus(nullptr)
+	, m_index(~unsigned(0))
+{
+}
+
+
+void device_univ_card_interface::interface_pre_start()
+{
+	if (!m_bus)
+		throw device_missing_dependencies();
+}
+
+
+void device_univ_card_interface::set_bus(univ_bus_device &bus)
+{
+	m_index = (m_bus = &bus)->add_card(*this);
 }
 
 } } // namespace bus::intellec4

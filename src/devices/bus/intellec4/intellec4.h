@@ -84,6 +84,29 @@ I/O 0...I/O 3           I/O lines to 4289 on CPU board (bidirectional I/O data)
 other pins connected between universal slots but not connected to CPU or control cards
 pins 73 and 74 are connected between cards but not otherwise used on MOD 4 systems
 interrupt request/acknowledge are supposedly connected somewhere on MOD 40 systems
+
+Cards can install handlers in the ROM, ROM ports, memory, status, and
+RAM ports spaces.
+
+For the ROM space, cards can install handlers for monitor and/or PROM
+mode:
+0x0000-0x0fff   /ENABLE MON PROM asserted
+0x1000-0x1fff   /PROM asserted
+
+For the ROM ports space, cards can install handlers for monitor mode,
+PROM mode, and/or neither (RAM mode or two switches pressed at once):
+0x0000-0x07ff   /ENABLE MON PROM asserted
+0x0800-0x0fff   /PROM asserted
+0x1000-0x17ff   neither asserted
+
+It's assumed that the memory, status and RAM ports space are only used
+for 4002 memories, and cards don't use the program storage selection
+lines to enable/disable them.  These spaces correspond directly to the
+CPU's view.
+
+Some of the cards can also be used in INTELLEC® 8 systems, using a
+different set of pins.  No provisions are made for using the same class
+to implement the card in both systems.
 */
 #ifndef MAME_BUS_INTELLEC4_INTELLEC4_H
 #define MAME_BUS_INTELLEC4_INTELLEC4_H
@@ -94,11 +117,26 @@ interrupt request/acknowledge are supposedly connected somewhere on MOD 40 syste
 #define MCFG_INTELLEC4_UNIV_SLOT_ADD(bus_tag, slot_tag, clock, slot_intf, def_slot) \
 		MCFG_DEVICE_ADD(slot_tag, INTELLEC4_UNIV_SLOT, clock) \
 		MCFG_DEVICE_SLOT_INTERFACE(slot_intf, def_slot, false) \
-		bus::intellec4::univ_slot_device::set_bus_tag(*device, bus_tag);
+		bus::intellec4::univ_slot_device::set_bus_tag(*device, "^" bus_tag);
 
 #define MCFG_INTELLEC4_UNIV_SLOT_REMOVE(slot_tag) \
 		MCFG_DEVICE_REMOVE(slot_tag)
 
+
+#define MCFG_INTELLEC4_UNIV_BUS_ROM_SPACE(tag, space) \
+		bus::intellec4::univ_bus_device::set_rom_space(*device, "^" tag, space);
+
+#define MCFG_INTELLEC4_UNIV_BUS_ROM_PORTS_SPACE(tag, space) \
+		bus::intellec4::univ_bus_device::set_rom_ports_space(*device, "^" tag, space);
+
+#define MCFG_INTELLEC4_UNIV_BUS_MEMORY_SPACE(tag, space) \
+		bus::intellec4::univ_bus_device::set_memory_space(*device, "^" tag, space);
+
+#define MCFG_INTELLEC4_UNIV_BUS_STATUS_SPACE(tag, space) \
+		bus::intellec4::univ_bus_device::set_status_space(*device, "^" tag, space);
+
+#define MCFG_INTELLEC4_UNIV_BUS_RAM_PORTS_SPACE(tag, space) \
+		bus::intellec4::univ_bus_device::set_ram_ports_space(*device, "^" tag, space);
 
 #define MCFG_INTELLEC4_UNIV_BUS_STOP_CB(obj) \
 		bus::intellec4::univ_bus_device::set_stop_out_cb(*device, DEVCB_##obj);
@@ -130,14 +168,27 @@ public:
 
 protected:
 	// device_t implementation
+	virtual void device_validity_check(validity_checker &valid) const override ATTR_COLD;
 	virtual void device_start() override;
+
+private:
+	required_device<univ_bus_device>    m_bus;
 };
 
 
 class univ_bus_device : public device_t
 {
 public:
-	// configuration helpers
+	friend class device_univ_card_interface;
+
+	// address space configuration
+	static void set_rom_space(device_t &device, char const *tag, int space);
+	static void set_rom_ports_space(device_t &device, char const *tag, int space);
+	static void set_memory_space(device_t &device, char const *tag, int space);
+	static void set_status_space(device_t &device, char const *tag, int space);
+	static void set_ram_ports_space(device_t &device, char const *tag, int space);
+
+	// callback configuration
 	template <typename Obj> static devcb_base &set_stop_out_cb(device_t &device, Obj &&cb)
 	{ return downcast<univ_bus_device &>(device).m_stop_out_cb.set_callback(std::forward<Obj>(cb)); }
 	template <typename Obj> static devcb_base &set_test_out_cb(device_t &device, Obj &&cb)
@@ -165,9 +216,19 @@ public:
 
 protected:
 	// device_t implementation
+	virtual void device_validity_check(validity_checker &valid) const override ATTR_COLD;
 	virtual void device_start() override;
 
 private:
+	// helpers for cards
+	unsigned add_card(device_univ_card_interface &card);
+
+	// finding address spaces
+	required_device<device_memory_interface>    m_rom_device, m_rom_ports_device;
+	required_device<device_memory_interface>    m_memory_device, m_status_device, m_ram_ports_device;
+	int                                         m_rom_space, m_rom_ports_space;
+	int                                         m_memory_space, m_status_space, m_ram_ports_space;
+
 	// output line callbacks
 	devcb_write_line    m_stop_out_cb;
 	devcb_write_line    m_test_out_cb;
@@ -184,6 +245,20 @@ private:
 
 class device_univ_card_interface : public device_slot_card_interface
 {
+protected:
+	friend class univ_slot_device;
+	friend class univ_bus_device;
+
+	device_univ_card_interface(const machine_config &mconfig, device_t &device);
+
+	// device_interface implementation
+	void interface_pre_start() override;
+
+private:
+	void set_bus(univ_bus_device &bus);
+
+	univ_bus_device *m_bus;
+	unsigned        m_index;
 };
 
 } } // namespace bus::intellec4
