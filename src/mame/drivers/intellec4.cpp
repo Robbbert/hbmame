@@ -23,18 +23,26 @@
  MOD 40 jumpered to provide TEST line control rather than 4040 STOP
  and SINGLE STEP features.
 
+ The MOD 40 repurposes the pins originally used for ROM 1 input port
+ lines to expose stop/interrupt request/acknowledge.  It's pretty
+ obvious that the MOD 40 was designed as a minimal modification.  A
+ set of X1 display LEDs would have been fantastic, as it would show the
+ contents of the accumulator with the 4040 CPU, while the X3 LEDs really
+ aren't very useful.  However, since the 4004 just echoes M2 during X1,
+ the control board has no provision for latching data during this cycle
+ and would have required significant layout changes to cater for this.
+
  Set the terminal for 110 1/8/N/2 to talk to the monitor.
  It only accepts uppercase letters, digits, comma, and carriage return.
  Paper tape reader run/stop is sent to RTS on the serial port.
 
  TODO:
- * Default terminal serial settings
- * 4702A programmer
  * Universal slot cards
- * Image device for paper tape reader?
  * Expose general-purpose I/O?
  */
 #include "emu.h"
+
+#include "machine/imm6_76.h"
 
 #include "bus/intellec4/intellec4.h"
 #include "bus/rs232/rs232.h"
@@ -60,9 +68,15 @@ public:
 	DECLARE_WRITE8_MEMBER(pm_write);
 
 	DECLARE_READ8_MEMBER(rom0_in);
+	DECLARE_READ8_MEMBER(rom2_in);
+	DECLARE_READ8_MEMBER(rom3_in);
 	DECLARE_READ8_MEMBER(rome_in);
 	DECLARE_READ8_MEMBER(romf_in);
 
+	DECLARE_WRITE8_MEMBER(rom0_out);
+	DECLARE_WRITE8_MEMBER(rom1_out);
+	DECLARE_WRITE8_MEMBER(rom2_out);
+	DECLARE_WRITE8_MEMBER(rom3_out);
 	DECLARE_WRITE8_MEMBER(rome_out);
 	DECLARE_WRITE8_MEMBER(romf_out);
 
@@ -84,6 +98,8 @@ public:
 	DECLARE_INPUT_CHANGED_MEMBER(sw_load);
 	DECLARE_INPUT_CHANGED_MEMBER(sw_cma_enable);
 	DECLARE_INPUT_CHANGED_MEMBER(sw_cma_write);
+	DECLARE_INPUT_CHANGED_MEMBER(sw_prgm_pwr);
+	DECLARE_INPUT_CHANGED_MEMBER(sw_do_enable);
 
 protected:
 	intellec4_state(machine_config const &mconfig, device_type type, char const *tag)
@@ -94,11 +110,13 @@ protected:
 		, m_sw_mode(*this, "MODE")
 		, m_program_banks(*this, "prgbank")
 		, m_rom_port_banks(*this, "rpbank")
+		, m_prom_programmer(*this, "promprg")
 		, m_tty(*this, "tty")
 		, m_memory(*this, "memory"), m_status(*this, "status")
 		, m_sw_control(*this, "CONTROL")
 		, m_sw_addr_data(*this, "ADDRDAT")
 		, m_sw_passes(*this, "PASSES")
+		, m_sw_prom_prgm(*this, "PROM")
 	{
 	}
 
@@ -134,7 +152,10 @@ private:
 		BIT_SW_INCR,
 		BIT_SW_LOAD,
 		BIT_SW_CMA_ENABLE,
-		BIT_SW_CMA_WRITE
+		BIT_SW_CMA_WRITE,
+
+		BIT_SW_PRGM_PWR = 0,
+		BIT_SW_DATA_OUT_ENABLE
 	};
 
 	TIMER_CALLBACK_MEMBER(reset_expired);
@@ -151,16 +172,21 @@ private:
 	void reset_panel();
 
 	required_device<address_map_bank_device>    m_program_banks, m_rom_port_banks;
+	required_device<intel_imm6_76_device>       m_prom_programmer;
 	required_device<rs232_port_device>          m_tty;
 
 	required_shared_ptr<u8>     m_memory, m_status;
 	required_ioport             m_sw_control, m_sw_addr_data, m_sw_passes;
+	required_ioport             m_sw_prom_prgm;
 
 	emu_timer   *m_reset_timer = nullptr;
 
 	// program memory access
 	u8      m_ram_page = 0U, m_ram_data = 0U;
 	bool    m_ram_write = false;
+
+	// PROM programmer
+	u8      m_prom_addr = 0U, m_prom_data = 0U;
 
 	// control board state
 	bool    m_cpu_reset = false;
@@ -204,10 +230,13 @@ ADDRESS_MAP_START(intellec4_program_banks, mcs40_cpu_device_base::AS_ROM, 8, int
 ADDRESS_MAP_END
 
 ADDRESS_MAP_START(intellec4_rom_port_banks, mcs40_cpu_device_base::AS_ROM_PORTS, 8, intellec4_state)
-	ADDRESS_MAP_UNMAP_LOW
+	ADDRESS_MAP_UNMAP_HIGH
 
 	// 0x0000...0x07ff MON
-	AM_RANGE(0x0000, 0x000f) AM_MIRROR(0x1f00) AM_READ(rom0_in)
+	AM_RANGE(0x0000, 0x000f) AM_MIRROR(0x1f00) AM_READWRITE(rom0_in, rom0_out)
+	AM_RANGE(0x0010, 0x001f) AM_MIRROR(0x1f00) AM_WRITE(rom1_out)
+	AM_RANGE(0x0020, 0x002f) AM_MIRROR(0x1f00) AM_READWRITE(rom2_in, rom2_out)
+	AM_RANGE(0x0030, 0x003f) AM_MIRROR(0x1f00) AM_READWRITE(rom3_in, rom3_out)
 	AM_RANGE(0x00e0, 0x00ef) AM_MIRROR(0x1f00) AM_READWRITE(rome_in, rome_out)
 	AM_RANGE(0x00f0, 0x00ff) AM_MIRROR(0x1f00) AM_READWRITE(romf_in, romf_out)
 
@@ -234,7 +263,7 @@ ADDRESS_MAP_START(intellec4_ram_memory, mcs40_cpu_device_base::AS_RAM_MEMORY, 8,
 ADDRESS_MAP_END
 
 ADDRESS_MAP_START(intellec4_rom_ports, mcs40_cpu_device_base::AS_ROM_PORTS, 8, intellec4_state)
-	ADDRESS_MAP_UNMAP_LOW
+	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0x07ff) AM_DEVICE("rpbank", address_map_bank_device, amap8)
 ADDRESS_MAP_END
 
@@ -258,6 +287,17 @@ ADDRESS_MAP_END
   Common machine configuration
 ----------------------------------*/
 
+DEVICE_INPUT_DEFAULTS_START(tty)
+	DEVICE_INPUT_DEFAULTS("RS232_TXBAUD",    0x00ff, RS232_BAUD_110)
+	DEVICE_INPUT_DEFAULTS("RS232_RXBAUD",    0x00ff, RS232_BAUD_110)
+	DEVICE_INPUT_DEFAULTS("RS232_STARTBITS", 0x00ff, RS232_STARTBITS_1)
+	DEVICE_INPUT_DEFAULTS("RS232_DATABITS",  0x00ff, RS232_DATABITS_8)
+	DEVICE_INPUT_DEFAULTS("RS232_PARITY",    0x00ff, RS232_PARITY_NONE)
+	DEVICE_INPUT_DEFAULTS("RS232_STOPBITS",  0x00ff, RS232_STOPBITS_2)
+	DEVICE_INPUT_DEFAULTS("TERM_CONF",       0x01c0, 0x0000)
+	DEVICE_INPUT_DEFAULTS("FLOW_CONTROL",    0x0001, 0x0000)
+DEVICE_INPUT_DEFAULTS_END
+
 MACHINE_CONFIG_START(intellec4)
 	MCFG_DEVICE_ADD("prgbank", ADDRESS_MAP_BANK, 0)
 	MCFG_DEVICE_PROGRAM_MAP(intellec4_program_banks)
@@ -273,7 +313,11 @@ MACHINE_CONFIG_START(intellec4)
 	MCFG_ADDRESS_MAP_BANK_ADDRBUS_WIDTH(14)
 	MCFG_ADDRESS_MAP_BANK_STRIDE(0x1000)
 
+	MCFG_DEVICE_ADD("promprg", INTEL_IMM6_76, 0)
+
 	MCFG_RS232_PORT_ADD("tty", default_rs232_devices, "terminal")
+	MCFG_DEVICE_CARD_DEVICE_INPUT_DEFAULTS("terminal",   tty)
+	MCFG_DEVICE_CARD_DEVICE_INPUT_DEFAULTS("null_modem", tty)
 
 	MCFG_DEVICE_ADD("bus", INTELLEC4_UNIV_BUS, 518000. / 7)
 	MCFG_INTELLEC4_UNIV_BUS_ROM_SPACE("prgbank", AS_PROGRAM)
@@ -283,8 +327,8 @@ MACHINE_CONFIG_START(intellec4)
 	MCFG_INTELLEC4_UNIV_BUS_RAM_PORTS_SPACE("maincpu", mcs40_cpu_device_base::AS_RAM_PORTS)
 	MCFG_INTELLEC4_UNIV_BUS_RESET_4002_CB(WRITELINE(intellec4_state, bus_reset_4002))
 	MCFG_INTELLEC4_UNIV_BUS_USER_RESET_CB(WRITELINE(intellec4_state, bus_user_reset))
-	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j7",  518000. / 7, intellec4_univ_cards, nullptr)
-	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j8",  518000. / 7, intellec4_univ_cards, nullptr)
+	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j7",  518000. / 7, intellec4_univ_cards, "imm4_90")
+	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j8",  518000. / 7, intellec4_univ_cards, "imm6_26")
 	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j9",  518000. / 7, intellec4_univ_cards, nullptr)
 	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j10", 518000. / 7, intellec4_univ_cards, nullptr)
 	MCFG_INTELLEC4_UNIV_SLOT_ADD("bus", "j11", 518000. / 7, intellec4_univ_cards, nullptr)
@@ -339,6 +383,12 @@ INPUT_PORTS_START(intellec4)
 	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_TOGGLE PORT_NAME("PASSES 1")
 	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_TOGGLE PORT_NAME("PASSES 2")
 	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_TOGGLE PORT_NAME("PASSES 3")
+
+	PORT_START("PROM")
+	PORT_BIT( 0x0001, IP_ACTIVE_LOW,  IPT_KEYPAD ) PORT_TOGGLE PORT_NAME("PRGM PROM PWR")                                 PORT_CHANGED_MEMBER(DEVICE_SELF, intellec4_state, sw_prgm_pwr,    nullptr)
+	PORT_CONFNAME( 0x0002, 0x0002, "PROM PROGRAMMER DATA OUT ENABLE" )                                                    PORT_CHANGED_MEMBER(DEVICE_SELF, intellec4_state, sw_do_enable,   nullptr)
+	PORT_CONFSETTING(      0x0000, DEF_STR(Off) )
+	PORT_CONFSETTING(      0x0002, DEF_STR(On)  )
 INPUT_PORTS_END
 
 
@@ -461,7 +511,19 @@ WRITE8_MEMBER(intellec4_state::pm_write)
 READ8_MEMBER(intellec4_state::rom0_in)
 {
 	// bit 0 of this port is ANDed with the TTY input
-	return m_tty->rxd_r() ? 0x00U : 0x01U;
+	return m_tty->rxd_r() ? 0x0eU : 0x0fU;
+}
+
+READ8_MEMBER(intellec4_state::rom2_in)
+{
+	// lower nybble of PROM programmer data
+	return m_prom_programmer->do_r() & 0x0fU;
+}
+
+READ8_MEMBER(intellec4_state::rom3_in)
+{
+	// upper nybble of PROM programmer data
+	return (m_prom_programmer->do_r() >> 4) & 0x0fU;
 }
 
 READ8_MEMBER(intellec4_state::rome_in)
@@ -474,6 +536,34 @@ READ8_MEMBER(intellec4_state::romf_in)
 {
 	// lower nybble of RAM data latch
 	return m_ram_data & 0x0fU;
+}
+
+WRITE8_MEMBER(intellec4_state::rom0_out)
+{
+	// lower nybble of PROM programmer address
+	m_prom_addr = (m_prom_addr & 0xf0U) | (data & 0x0fU);
+	m_prom_programmer->a_w(m_prom_addr);
+}
+
+WRITE8_MEMBER(intellec4_state::rom1_out)
+{
+	// upper nybble of PROM programmer address
+	m_prom_addr = (m_prom_addr & 0x0fU) | ((data << 4) & 0xf0U);
+	m_prom_programmer->a_w(m_prom_addr);
+}
+
+WRITE8_MEMBER(intellec4_state::rom2_out)
+{
+	// lower nybble of PROM programmer data
+	m_prom_data = (m_prom_data & 0xf0U) | (data & 0x0fU);
+	m_prom_programmer->di_w(m_prom_data);
+}
+
+WRITE8_MEMBER(intellec4_state::rom3_out)
+{
+	// upper nybble of PROM programmer data
+	m_prom_data = (m_prom_data & 0x0fU) | ((data << 4) & 0xf0U);
+	m_prom_programmer->di_w(m_prom_data);
 }
 
 WRITE8_MEMBER(intellec4_state::rome_out)
@@ -498,6 +588,10 @@ WRITE8_MEMBER(intellec4_state::ram1_out)
 {
 	// bit 0 of this port controls the paper tape motor (0 = stop, 1 = run)
 	m_tty->write_rts(BIT(~data, 0));
+
+	// bits 1 and 2 of this port enable PROM write
+	m_prom_programmer->r_w_a(BIT(~data, 1));
+	m_prom_programmer->r_w(BIT(~data, 2));
 }
 
 
@@ -628,6 +722,16 @@ INPUT_CHANGED_MEMBER(intellec4_state::sw_cma_write)
 		m_cma_write = m_cma_enable;
 }
 
+INPUT_CHANGED_MEMBER(intellec4_state::sw_prgm_pwr)
+{
+	m_prom_programmer->prgm_prom_pwr(newval);
+}
+
+INPUT_CHANGED_MEMBER(intellec4_state::sw_do_enable)
+{
+	m_prom_programmer->data_out_enable(newval);
+}
+
 
 /*----------------------------------
   driver_device implementation
@@ -640,6 +744,9 @@ void intellec4_state::driver_start()
 	save_item(NAME(m_ram_page));
 	save_item(NAME(m_ram_data));
 	save_item(NAME(m_ram_write));
+
+	save_item(NAME(m_prom_addr));
+	save_item(NAME(m_prom_data));
 
 	save_item(NAME(m_cpu_reset));
 	save_item(NAME(m_ff_prg_mode));
@@ -704,6 +811,13 @@ void intellec4_state::driver_reset()
 	m_cpu->set_input_line(INPUT_LINE_RESET, m_cpu_reset ? ASSERT_LINE : CLEAR_LINE);
 	m_bus->cpu_reset_in(m_cpu_reset ? 0 : 1);
 	m_bus->reset_4002_in((m_cpu_reset && m_sw_reset_mode) ? 0 : 1);
+
+	// set up the PROM programmer
+	ioport_value const sw_prom_prgm(m_sw_prom_prgm->read());
+	m_prom_programmer->data_out_enable(BIT(sw_prom_prgm, BIT_SW_DATA_OUT_ENABLE));
+	m_prom_programmer->data_in_positive(1); // not jumpered in, onboard pullup
+	m_prom_programmer->data_out_positive(0); // jumpered to ground
+	m_prom_programmer->prgm_prom_pwr(BIT(sw_prom_prgm, BIT_SW_PRGM_PWR));
 
 	// set front panel LEDs
 	machine().output().set_value("led_status_ptr_valid", m_pointer_valid);
@@ -942,7 +1056,7 @@ private:
 	// current state of signals from bus
 	bool    m_bus_test = false;
 
-    // current state of front panel switches
+	// current state of front panel switches
 	bool    m_sw_hold = false;
 };
 
@@ -1340,6 +1454,11 @@ ROM_END
 
 } // anonymous namespace
 
+
+/***********************************************************************
+    Machine definitions
+***********************************************************************/
+
 //    YEAR   NAME      PARENT  COMPAT  MACHINE   INPUT  STATE        INIT  COMPANY  FULLNAME             FLAGS
-COMP( 1973?, intlc44,  0,      0,      mod4,     mod4,  mod4_state,  0,    "Intel", "INTELLEC 4/MOD 4",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_CLICKABLE_ARTWORK | MACHINE_SUPPORTS_SAVE )
-COMP( 1974?, intlc440, 0,      0,      mod40,    mod40, mod40_state, 0,    "Intel", "INTELLEC 4/MOD 40", MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_CLICKABLE_ARTWORK | MACHINE_SUPPORTS_SAVE )
+COMP( 1973?, intlc44,  0,      0,      mod4,     mod4,  mod4_state,  0,    "Intel", "INTELLEC 4/MOD 4",  MACHINE_NO_SOUND_HW | MACHINE_CLICKABLE_ARTWORK | MACHINE_SUPPORTS_SAVE )
+COMP( 1974?, intlc440, 0,      0,      mod40,    mod40, mod40_state, 0,    "Intel", "INTELLEC 4/MOD 40", MACHINE_NO_SOUND_HW | MACHINE_CLICKABLE_ARTWORK | MACHINE_SUPPORTS_SAVE )
