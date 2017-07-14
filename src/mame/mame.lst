@@ -17175,6 +17175,7 @@ konin                           //
 
 @source:konmedal.cpp
 tsukande
+ddboy
 
 @source:kontest.cpp
 kontest                         // GX800 (c) 198? (Japan)
@@ -29407,6 +29408,8 @@ mc_sam60
 vgtablet
 gprnrs1
 gprnrs16
+vgpocket
+vgpmini
 
 @source:newbrain.cpp
 newbrain                        //
@@ -30357,6 +30360,7 @@ pepk1069                        // (c) 1987 IGT - International Game Technology
 pepp0001                        // (c) 1987 IGT - International Game Technology
 pepp0002                        // (c) 1987 IGT - International Game Technology
 pepp0002a                       // (c) 1987 IGT - International Game Technology
+pepp0006                        // (c) 1987 IGT - International Game Technology
 pepp0008                        // (c) 1987 IGT - International Game Technology
 pepp0008a                       // (c) 1987 IGT - International Game Technology
 pepp0008b                       // (c) 1987 IGT - International Game Technology
