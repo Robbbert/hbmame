@@ -542,7 +542,7 @@ lua_engine::lua_engine()
 {
 	m_machine = nullptr;
 	m_lua_state = luaL_newstate();  /* create state */
-	m_sol_state = new sol::state_view(m_lua_state); // create sol view
+	m_sol_state = std::make_unique<sol::state_view>(m_lua_state); // create sol view
 
 	luaL_checkversion(m_lua_state);
 	lua_gc(m_lua_state, LUA_GCSTOP, 0);  /* stop collector during initialization */
@@ -1445,6 +1445,7 @@ void lua_engine::initialize()
 			"skip_this_frame", &video_manager::skip_this_frame,
 			"speed_factor", &video_manager::speed_factor,
 			"speed_percent", &video_manager::speed_percent,
+			"frame_update", &video_manager::frame_update,
 			"frameskip", sol::property(&video_manager::frameskip, &video_manager::set_frameskip),
 			"throttled", sol::property(&video_manager::throttled, &video_manager::set_throttled),
 			"throttle_rate", sol::property(&video_manager::throttle_rate, &video_manager::set_throttle_rate));
@@ -1867,8 +1868,13 @@ bool lua_engine::frame_hook()
 
 void lua_engine::close()
 {
-	lua_settop(m_lua_state, 0);  /* clear stack */
-	lua_close(m_lua_state);
+	m_sol_state.reset();
+	if (m_lua_state)
+	{
+		lua_settop(m_lua_state, 0);  /* clear stack */
+		lua_close(m_lua_state);
+		m_lua_state = nullptr;
+	}
 }
 
 void lua_engine::resume(void *ptr, int nparam)

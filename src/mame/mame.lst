@@ -8855,6 +8855,7 @@ bbredux                         // bootleg / hack
 boblbobl                        // bootleg
 boblcave                        // hack
 bub68705                        // bootleg
+bublboblp                       // Prototype (c) 1986 Taito Corporation
 bublbobl                        // A78 (c) 1986 Taito Corporation
 bublbobl1                       // A78 (c) 1986 Taito Corporation
 bublboblb                       // bootleg
@@ -10505,15 +10506,24 @@ airraid                         // (c) 1987 Seibu Kaihatsu
 cshooter                        // (c) 1987 JKH (bootleg)
 
 @source:csplayh5.cpp
+aimode							// (c) 1999
 bikiniko                        // (c) 1999
 csplayh1                        // (c) 1995
 csplayh5                        // (c) 1998
+csplayh6						// (c) 1999
 csplayh7                        // (c) 1999
 fuudol                          // (c) 2000
 junai                           // (c) 1998
 junai2                          // (c) 1998
+mogitate						// (c) 1998
+nichidvd						//
+nichisel						// (c) 2000
+mjgalpri						// (c) 1998
 mjmania                         // (c) 1999
+pokoachu						// (c) 1999
+renaimj							// (c) 1999
 thenanpa                        // (c) 1999
+tsuwaku							// (c) 2000
 
 @source:cswat.cpp
 cswat                           // (c) 1984
@@ -12615,6 +12625,9 @@ fmtownsmx                       // FM-Towns II MX
 fmtownssj                       // FM-Towns II SJ
 fmtownsux                       // 1991.11 FM-Towns II UX
 
+@source:fontwriter.cpp
+fw700ger						// (c) Sharp
+
 @source:foodf.cpp
 foodf                           // 136020           (c) 1982        // made by Gencomp
 foodf1                          // 136020           (c) 1982        // made by Gencomp
@@ -12663,6 +12676,7 @@ fresh                           // (c) Chain Leisure
 
 @source:fromanc2.cpp
 fromanc2                        // (c) 1995 Video System Co. (Japan)
+fromanc2o                       // (c) 1995 Video System Co. (Japan)
 fromanc4                        // (c) 1998 Video System Co. (Japan)
 fromancr                        // (c) 1995 Video System Co. (Japan)
 
@@ -14552,6 +14566,7 @@ ktmnt                           // Konami
 ktopgun                         // Konami
 nupogodi                        // Elektronika
 tddragon                        // Tiger
+tsjam                           // Tiger
 tsonic                          // Tiger
 
 @source:hh_tms1k.cpp
@@ -34093,7 +34108,7 @@ b3rinsya                        // b9805 (c) 1997 Sigma
 dashhero                        // b9811 (c) 1999 Sigma
 dodghero                        // b9802 (c) 1997 Sigma
 gegege                          // b9804 (c) 1997 Sigma / Banpresto
-gocowboy                        // (c) 2000 Sammy
+gocowboy                        // (c) 2003 Sammy
 haekaka                         // (c) 2001 Sammy
 itazuram                        // (c) 2000 Sammy
 pepsiman                        // b9806 (c) 1997 Sigma
@@ -34287,6 +34302,7 @@ iron                            // bootleg
 kinstb                          // bootleg
 mk3snes                         // bootleg
 sblast2b                        // bootleg
+legendsb                        // bootleg
 
 @source:snk.cpp
 alphamis                        // (c) 1985
