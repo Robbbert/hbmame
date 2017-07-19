@@ -323,6 +323,7 @@ VIDEOS["PSX"] = true
 VIDEOS["RAMDAC"] = true
 --VIDEOS["S2636"] = true
 VIDEOS["SAA5050"] = true
+--VIDEOS["SDA5708"] = true
 VIDEOS["SCN2674"] = true
 --VIDEOS["SED1200"] = true
 --VIDEOS["SED1330"] = true
@@ -2853,6 +2854,8 @@ files {
 	MAME_DIR .. "src/mame/includes/nbmj9195.h",
 	MAME_DIR .. "src/mame/video/nbmj9195.cpp",
 	MAME_DIR .. "src/mame/drivers/nightgal.cpp",
+	MAME_DIR .. "src/mame/audio/nichisnd.cpp",
+	MAME_DIR .. "src/mame/audio/nichisnd.h",
 	MAME_DIR .. "src/mame/drivers/niyanpai.cpp",
 	MAME_DIR .. "src/mame/includes/niyanpai.h",
 	MAME_DIR .. "src/mame/video/niyanpai.cpp",
