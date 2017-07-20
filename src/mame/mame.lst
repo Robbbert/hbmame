@@ -137,6 +137,7 @@ intruder                        // (c) 1980 GamePlan (Taito)
 invaddlx                        // 852 [1980] Midway
 invader4                        // bootleg
 invaderl                        // bootleg
+invadernc                       // bootleg (Nas Corp)
 invadersem                      // Electromar
 invadpt2                        // 852 [1980] Taito
 invadpt2br                      // Taito do Brasil
@@ -862,6 +863,7 @@ acrnsys1                        // 1979 Acorn System 1 (Microcomputer Kit)
 @source:actfancr.cpp
 actfancr                        // (c) 1989 Data East Corporation (World)
 actfancr1                       // (c) 1989 Data East Corporation (World)
+actfancr2                       // (c) 1989 Data East Corporation (World)
 actfancrj                       // (c) 1989 Data East Corporation (Japan)
 triothep                        // (c) 1989 Data East Corporation (World)
 triothepj                       // (c) 1989 Data East Corporation (Japan)
@@ -13673,6 +13675,8 @@ gvrxpsup                        // Global VR XP OS Update/Install - 06/11/02
 gvrxpsys                        // Global VR XP OS Install - 09/30/01
 hyperv2                         // Hyper V2 (Global VR) Install - 06/12/02
 hyperv2a                        // Hyper V2 (Global VR) Install - 09/30/01
+nfs                             // Need for Speed - 4 Cab Link (2 Discs) (v1.0.1 Rev B)
+nfsgt                           // Need for Speed GT (Hard Drive+2 Discs) (v1.1.0 Rev C)
 nfsug                           // Need For Speed: Underground Install (2 Discs) (v1.1)
 
 @source:gluck2.cpp
@@ -32183,6 +32187,7 @@ retofinv                        // A37 (c) 1985 Taito Corporation
 retofinvb                       // bootleg
 retofinvb1                      // bootleg
 retofinvb2                      // bootleg
+retofinvb3                      // bootleg
 
 @source:rex6000.cpp
 ds2                             //
@@ -36414,7 +36419,8 @@ insectxj                        // B97 (c) 1989 Taito Corporation (Japan)
 jpopnics                        // (c)1992 NICs, based on Plump Pop code
 kabukiz                         // B50 (c) 1988 Taito Corporation Japan (World)
 kabukizj                        // B50 (c) 1988 Taito Corporation (Japan)
-kageki                          // B35 (c) 1988 Taito America Corporation + Romstar license (US)
+kageki                          // B35 (c) 1988 Taito Corporation
+kagekiu                         // B35 (c) 1988 Taito America Corporation + Romstar license (US)
 kagekih                         // B35 (c) 1992 (hack)
 kagekij                         // B35 (c) 1988 Taito Corporation (Japan)
 plumppop                        // A98 (c) 1987 Taito Corporation (Japan)
@@ -37386,6 +37392,7 @@ vt240                           // 1983 Digital Equipment Corporation
 
 @source:vt320.cpp
 vt320                           // 1987 Digital Equipment Corporation
+vt330                           // 1987 Digital Equipment Corporation
 
 @source:vt520.cpp
 vt520                           // 1994 Digital Equipment Corporation
