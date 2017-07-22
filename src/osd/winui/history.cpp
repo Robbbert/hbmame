@@ -25,7 +25,7 @@
  *      - Software comes first, followed by Game then Source.
 ***************************************************************************/
 // license:BSD-3-Clause
-// copyright-holders:Chris Kirmse, Mike Haaland, René Single, Mamesick
+// copyright-holders:Chris Kirmse, Mike Haaland, René Single, Mamesick, Robbbert
 
 #include <windows.h>
 #include <fstream>
@@ -90,7 +90,7 @@ const HSOURCEINFO m_sourceInfo[MAX_HFILES] =
 
 const HSOURCEINFO m_swInfo[MAX_HFILES] =
 {
-	{ "history.dat",  "\n**** :HISTORY item: ****\n\n",     "$bio" },
+	{ "history.dat",  "\n**** :HISTORY item: ",     "$bio" },
 	{ NULL },
 	{ NULL },
 	{ NULL },
@@ -176,24 +176,29 @@ static bool create_index(std::ifstream &fp, int filenum)
 	return true;
 }
 
-static std::string load_datafile_text(std::ifstream &fp, std::streampos offset, const char *tag)
+static std::string load_datafile_text(std::ifstream &fp, std::string keycode, int filenum, const char *tag)
 {
 	std::string readbuf;
 
-	fp.seekg(offset);
-	std::string file_line;
-
-	/* read text until buffer is full or end of entry is encountered */
-	while (std::getline(fp, file_line))
+	auto search = mymap[filenum].find(keycode);
+	if (search != mymap[filenum].end())
 	{
-		//printf("%s\n",file_line.c_str());
-		if (file_line.find("$end")==0)
-			break;
+		std::streampos offset = mymap[filenum].find(keycode)->second;
+		fp.seekg(offset);
+		std::string file_line;
 
-		if (file_line.find(tag)==0)
-			continue;
+		/* read text until buffer is full or end of entry is encountered */
+		while (std::getline(fp, file_line))
+		{
+			//printf("%s\n",file_line.c_str());
+			if (file_line.find("$end")==0)
+				break;
 
-		readbuf.append(file_line).append("\n");
+			if (file_line.find(tag)==0)
+				continue;
+
+			readbuf.append(file_line).append("\n");
+		}
 	}
 
 	return readbuf;
@@ -209,7 +214,6 @@ std::string load_swinfo(const game_driver *drv, const char* datsdir, std::string
 	// datafile name
 	std::string buf, filename = datsdir + std::string("\\") + m_swInfo[filenum].filename;
 	std::ifstream fp (filename);
-	std::streampos position;
 
 	/* try to open datafile */
 	if (create_index(fp, filenum))
@@ -218,17 +222,11 @@ std::string load_swinfo(const game_driver *drv, const char* datsdir, std::string
 		std::string ssys = software.substr(0, i);
 		std::string ssoft = software.substr(i+1);
 		std::string first = std::string("$") + ssys + std::string("=") + ssoft;
-		// find pointer
-		auto search = mymap[filenum].find(first);
-		if (search != mymap[filenum].end())
-		{
-			position = mymap[filenum].find(first)->second;
-			// get info on software
-			buf = load_datafile_text(fp, position, m_gameInfo[filenum].descriptor);
-		}
+		// get info on software
+		buf = load_datafile_text(fp, first, filenum, m_swInfo[filenum].descriptor);
 
 		if (!buf.empty())
-			buffer.append(m_gameInfo[filenum].header).append(buf).append("\n\n\n");
+			buffer.append(m_swInfo[filenum].header).append(ssoft).append("\n").append(buf).append("\n\n\n");
 
 		fp.close();
 	}
@@ -246,20 +244,13 @@ std::string load_gameinfo(const game_driver *drv, const char* datsdir, int filen
 	// datafile name
 	std::string buf, filename = datsdir + std::string("\\") + m_gameInfo[filenum].filename;
 	std::ifstream fp (filename);
-	std::streampos position;
 
 	/* try to open datafile */
 	if (create_index(fp, filenum))
 	{
 		std::string first = std::string("$info=")+drv->name;
-		// find pointer
-		auto search = mymap[filenum].find(first);
-		if (search != mymap[filenum].end())
-		{
-			position = mymap[filenum].find(first)->second;
-			// get info on game
-			buf = load_datafile_text(fp, position, m_gameInfo[filenum].descriptor);
-		}
+		// get info on game
+		buf = load_datafile_text(fp, first, filenum, m_gameInfo[filenum].descriptor);
 
 		// if nothing, and it's a clone, and it's allowed, try the parent
 		if (buf.empty() && m_gameInfo[filenum].bClone)
@@ -269,12 +260,7 @@ std::string load_gameinfo(const game_driver *drv, const char* datsdir, int filen
 			{
 				drv = &driver_list::driver(g);
 				first = std::string("$info=")+drv->name;
-				search = mymap[filenum].find(first);
-				if (search != mymap[filenum].end())
-				{
-					position = mymap[filenum].find(first)->second;
-					buf = load_datafile_text(fp, position, m_gameInfo[filenum].descriptor);
-				}
+				buf = load_datafile_text(fp, first, filenum, m_gameInfo[filenum].descriptor);
 			}
 		}
 
@@ -297,7 +283,6 @@ std::string load_sourceinfo(const game_driver *drv, const char* datsdir, int fil
 	// datafile name
 	std::string buf, filename = datsdir + std::string("\\") + m_sourceInfo[filenum].filename;
 	std::ifstream fp (filename);
-	std::streampos position;
 
 	std::string source = drv->type.source();
 	size_t i = source.find_last_of("/");
@@ -306,14 +291,8 @@ std::string load_sourceinfo(const game_driver *drv, const char* datsdir, int fil
 	if (create_index(fp, filenum))
 	{
 		std::string first = std::string("$info=")+source;
-		// find pointer
-		auto search = mymap[filenum].find(first);
-		if (search != mymap[filenum].end())
-		{
-			position = mymap[filenum].find(first)->second;
-			// get info on game
-			buf = load_datafile_text(fp, position, m_sourceInfo[filenum].descriptor);
-		}
+		// get info on game driver source
+		buf = load_datafile_text(fp, first, filenum, m_sourceInfo[filenum].descriptor);
 
 		if (!buf.empty())
 			buffer.append(m_sourceInfo[filenum].header).append(source).append("\n").append(buf).append("\n\n\n");
