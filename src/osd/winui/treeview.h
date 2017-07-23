@@ -30,6 +30,7 @@
     SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
 
 #endif /* defined(__GNUC__) */
+#include "bitmask.h"
 
 /***************************************************************************
     Folder And Filter Definitions

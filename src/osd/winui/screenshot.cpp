@@ -259,22 +259,17 @@ static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE
 
 static osd_file::error OpenRawDIBFile(const char *dir_name, const char *filename, util::core_file::ptr &file)
 {
-	osd_file::error filerr;
-
 	// clear out result
 	file = NULL;
 
 	// look for the raw file
 	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(filename);
-	filerr = util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file);
-
-	return filerr;
+	return util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file);
 }
 
 static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name, const char *filename, util::core_file::ptr &file, void **buffer)
 {
 	osd_file::error filerr = osd_file::error::NOT_FOUND;
-	util::archive_file::error ziperr;
 	util::archive_file::ptr zip;
 
 	// clear out result
@@ -282,15 +277,12 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 
 	// look into zip file
 	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".zip";
-	ziperr = util::archive_file::open_zip(fname, zip);
-
-	if (ziperr == util::archive_file::error::NONE)
+	if (util::archive_file::open_zip(fname, zip) == util::archive_file::error::NONE)
 	{
 		if (zip->search(filename, false) >= 0)
 		{
 			*buffer = malloc(zip->current_uncompressed_length());
-			ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
-			if (ziperr == util::archive_file::error::NONE)
+			if (zip->decompress(*buffer, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
 				filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
 		}
 		zip.reset();
@@ -298,15 +290,12 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 	else
 	{
 		fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".7z";
-		ziperr = util::archive_file::open_7z(fname, zip);
-
-		if (ziperr == util::archive_file::error::NONE)
+		if (util::archive_file::open_7z(fname, zip) == util::archive_file::error::NONE)
 		{
 			if (zip->search(filename, false) >= 0)
 			{
 				*buffer = malloc(zip->current_uncompressed_length());
-				ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
-				if (ziperr == util::archive_file::error::NONE)
+				if (zip->decompress(*buffer, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
 					filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
 			}
 			zip.reset();
@@ -366,7 +355,6 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	strcpy(tempfile, filename);
 	char* system_name = strtok(tempfile, ":");
 	char* file_name = strtok(NULL, ":");
-
 	void *buffer = NULL;
 	std::string fname;
 

@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
@@ -12,28 +13,16 @@
 // standard windows headers
 #include <windows.h>
 #include <windowsx.h>
-#include <shellapi.h>
-#include <commctrl.h>
-#include <commdlg.h>
-#include <stdlib.h>
-#include <assert.h>
 
 // MAME/MAMEUI headers
-#include <stdlib.h>
 #include "resource.h"
 #include "mui_opts.h"
-#include "winui.h"
-
-#ifdef __GNUC__
-#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
-#endif
 
 // Returns TRUE if successful
 static int DoExchangeItem(HWND hFrom, HWND hTo, int nMinItem)
 {
 	LV_ITEM lvi;
 	TCHAR buf[80];
-	BOOL b_res = 0;
 
 	lvi.iItem = ListView_GetNextItem(hFrom, -1, LVIS_SELECTED | LVIS_FOCUSED);
 	if (lvi.iItem < nMinItem)
@@ -50,7 +39,8 @@ static int DoExchangeItem(HWND hFrom, HWND hTo, int nMinItem)
 	if (ListView_GetItem(hFrom, &lvi))
 	{
 		// Add this item to the Show and delete it from Available
-		b_res = ListView_DeleteItem(hFrom, lvi.iItem);
+		BOOL b_res = ListView_DeleteItem(hFrom, lvi.iItem);
+		b_res++;
 		lvi.iItem = ListView_GetItemCount(hTo);
 		(void)ListView_InsertItem(hTo, &lvi);
 		ListView_SetItemState(hTo, lvi.iItem, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
@@ -63,12 +53,8 @@ static int DoExchangeItem(HWND hFrom, HWND hTo, int nMinItem)
 static void DoMoveItem( HWND hWnd, BOOL bDown)
 {
 	LV_ITEM lvi;
-	TCHAR buf[80];
-	int nMaxpos = 0;
-	BOOL b_res = 0;
-
 	lvi.iItem = ListView_GetNextItem(hWnd, -1, LVIS_SELECTED | LVIS_FOCUSED);
-	nMaxpos = ListView_GetItemCount(hWnd);
+	int nMaxpos = ListView_GetItemCount(hWnd);
 	if (lvi.iItem == -1 ||
 		(lvi.iItem <  2 && bDown == FALSE) || // Disallow moving First column
 		(lvi.iItem == 0 && bDown == TRUE)  || // ""
@@ -77,14 +63,17 @@ static void DoMoveItem( HWND hWnd, BOOL bDown)
 		SetFocus(hWnd);
 		return;
 	}
+
+	TCHAR buf[80];
 	lvi.iSubItem   = 0;
-	lvi.mask	   = LVIF_PARAM | LVIF_TEXT;
+	lvi.mask       = LVIF_PARAM | LVIF_TEXT;
 	lvi.pszText    = buf;
 	lvi.cchTextMax = ARRAY_LENGTH(buf);
 	if (ListView_GetItem(hWnd, &lvi))
 	{
 		// Add this item to the Show and delete it from Available
-		b_res = ListView_DeleteItem(hWnd, lvi.iItem);
+		BOOL b_res = ListView_DeleteItem(hWnd, lvi.iItem);
+		b_res++;
 		lvi.iItem += (bDown) ? 1 : -1;
 		(void)ListView_InsertItem(hWnd,&lvi);
 		ListView_SetItemState(hWnd, lvi.iItem, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
@@ -116,7 +105,6 @@ INT_PTR InternalColumnDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 	int i, nCount = 0;
 	LV_ITEM lvi;
 	DWORD dwShowStyle, dwAvailableStyle, dwView = 0;
-	BOOL b_res = 0;
 
 	switch (Msg)
 	{
@@ -385,7 +373,8 @@ INT_PTR InternalColumnDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 						lvi.mask     = LVIF_PARAM;
 						lvi.pszText  = 0;
 						lvi.iItem    = i;
-						b_res = ListView_GetItem(hShown, &lvi);
+						BOOL b_res = ListView_GetItem(hShown, &lvi);
+						b_res++;
 						order[nCount++]   = lvi.lParam;
 						shown[lvi.lParam] = TRUE;
 					}
@@ -395,7 +384,8 @@ INT_PTR InternalColumnDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 						lvi.mask     = LVIF_PARAM;
 						lvi.pszText  = 0;
 						lvi.iItem    = i;
-						b_res = ListView_GetItem(hAvailable, &lvi);
+						BOOL b_res = ListView_GetItem(hAvailable, &lvi);
+						b_res++;
 						order[nCount++]   = lvi.lParam;
 						shown[lvi.lParam] = FALSE;
 					}
@@ -429,11 +419,8 @@ INT_PTR CALLBACK ColumnDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 {
 	static int shown[COLUMN_MAX];
 	static int order[COLUMN_MAX];
-	extern const LPCTSTR column_names[COLUMN_MAX]; // from winui.c, should improve
+	extern const LPCTSTR column_names[COLUMN_MAX]; // from winui.cpp, should improve
 
-	return InternalColumnDialogProc(hDlg, Msg, wParam, lParam, COLUMN_MAX,
-		shown, order, column_names, GetRealColumnOrder, GetColumnInfo, SetColumnInfo);
+	return InternalColumnDialogProc(hDlg, Msg, wParam, lParam, COLUMN_MAX, shown, order, column_names, GetRealColumnOrder, GetColumnInfo, SetColumnInfo);
 }
-
-
 

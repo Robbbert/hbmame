@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-  layout.c
+  layout.cpp
 
   MAME specific TreeView definitions (and maybe more in the future)
 
@@ -24,7 +24,7 @@
 #include "help.h"
 #include "mui_audit.h"
 #include "properties.h"
-//#define MESS
+
 
 static BOOL FilterAvailable(int driver_index);
 
@@ -95,7 +95,7 @@ extern const FOLDERDATA g_folderData[] =
 //	{"CPU",             "cpu",               FOLDER_CPU,          IDI_CPU,                  0,             0,            CreateCPUFolders },
 //	{"Sound",           "sound",             FOLDER_SND,          IDI_SOUND,                0,             0,            CreateSoundFolders },
 //	{"Dumping Status",  "dumping",           FOLDER_DUMPING,      IDI_FOLDER,               0,             0,            CreateDumpingFolders },
-	{"BIOS",            "bios",              FOLDER_BIOS,         IDI_FOLDER,               0,             0,            CreateBIOSFolders,          DriverIsBios,            TRUE },
+//	{"BIOS",            "bios",              FOLDER_BIOS,         IDI_FOLDER,               0,             0,            CreateBIOSFolders,          DriverIsBios,            TRUE },
 	{"CHD",             "harddisk",          FOLDER_HARDDISK,     IDI_HARDDISK,             0,             0,            NULL,                       DriverIsHarddisk,        TRUE },
 	{"Samples",         "samples",           FOLDER_SAMPLES,      IDI_FOLDER,               0,             0,            NULL,                       DriverUsesSamples,       TRUE },
 	{"Working",         "working",           FOLDER_WORKING,      IDI_WORKING,              F_WORKING,     F_NONWORKING, NULL,                       DriverIsBroken,          FALSE },
@@ -237,6 +237,7 @@ extern const ICONDATA g_iconData[] =
 	{ IDI_WIN_SNAP,          "snapshot" },
 	{ IDI_WIN_PRIN,          "printer" },
 	{ IDI_WIN_HARD,          "hard" },
+	{ IDI_WIN_MIDI,          "midi" },
 	{ 0 }
 };
 #else
@@ -253,7 +254,7 @@ extern const ICONDATA g_iconData[] =
 
 #ifdef MESS
 extern const TCHAR g_szPlayGameString[] = TEXT("&Run %s");
-extern const char g_szGameCountString[] = "%d systems";
+extern const char g_szGameCountString[] = "%d machines";
 #else
 extern const TCHAR g_szPlayGameString[] = TEXT("&Play %s");
 extern const char g_szGameCountString[] = "%d games";

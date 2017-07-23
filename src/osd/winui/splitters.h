@@ -38,8 +38,7 @@ void    OnMouseMove(HWND hWnd, UINT nFlags, POINTS p);
 void    OnLButtonDown(HWND hWnd, UINT nFlags, POINTS p);
 void    OnLButtonUp(HWND hWnd, UINT nFlags, POINTS p);
 void    OnSizeSplitter(HWND hWnd);
-void    AddSplitter(HWND hWnd, HWND hWndLeft, HWND hWndRight,
-                    void (*func)(HWND hWnd,LPRECT lpRect));
+void    AddSplitter(HWND hWnd, HWND hWndLeft, HWND hWndRight, void (*func)(HWND hWnd,LPRECT lpRect));
 void    RecalcSplitters(void);
 void    AdjustSplitter2Rect(HWND hWnd, LPRECT lpRect);
 void    AdjustSplitter1Rect(HWND hWnd, LPRECT lpRect);

@@ -13,16 +13,13 @@
 // standard windows headers
 #include <windows.h>
 #include <windowsx.h>
-#include <commctrl.h>
 
 // standard C headers
-#include <stdio.h>
 #include <tchar.h>
 
 // MAME/MAMEUI headers
 #include "winui.h"
 #include "winutf8.h"
-#include "strconv.h"
 #include "audit.h"
 #include "resource.h"
 #include "mui_opts.h"
@@ -50,7 +47,7 @@ static const char * StatusString(int iStatus);
     Internal variables
  ***************************************************************************/
 
-#define MAX_AUDITBOX_TEXT	0x7FFFFFFE
+#define MAX_AUDITBOX_TEXT   0x7FFFFFFE
 
 static volatile HWND hAudit;
 static volatile int rom_index = 0;
@@ -78,7 +75,6 @@ static int strcatprintf(std::string &str, const char *format, ...)
 
 void AuditDialog(HWND hParent, int choice)
 {
-	HMODULE hModule = NULL;
 	rom_index         = 0;
 	roms_correct      = -1; // ___empty must not be counted
 	roms_incorrect    = 0;
@@ -88,7 +84,7 @@ void AuditDialog(HWND hParent, int choice)
 	m_choice = choice;
 
 	//RS use Riched32.dll
-	hModule = LoadLibrary(TEXT("Riched32.dll"));
+	HMODULE hModule = LoadLibrary(TEXT("Riched32.dll"));
 	if( hModule )
 	{
 		DialogBox(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_AUDIT),hParent,AuditWindowProc);
@@ -96,9 +92,7 @@ void AuditDialog(HWND hParent, int choice)
 		hModule = NULL;
 	}
 	else
-	{
 		MessageBox(GetMainWindow(),TEXT("Unable to Load Riched32.dll"),TEXT("Error"), MB_OK | MB_ICONERROR);
-	}
 }
 
 void InitGameAudit(int gameIndex)
@@ -218,16 +212,14 @@ static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 		{
 			if (rom_index != -1)
 			{
-				sprintf(buffer, "Checking Set %s - %s",
-					driver_list::driver(rom_index).name, driver_list::driver(rom_index).type.fullname());
+				sprintf(buffer, "Checking Set %s - %s", driver_list::driver(rom_index).name, driver_list::driver(rom_index).type.fullname());
 				win_set_window_text_utf8((HWND)hDlg, buffer);
 				ProcessNextRom();
 			}
 			else
 			if (sample_index != -1)
 			{
-				sprintf(buffer, "Checking Set %s - %s",
-					driver_list::driver(sample_index).name, driver_list::driver(sample_index).type.fullname());
+				sprintf(buffer, "Checking Set %s - %s", driver_list::driver(sample_index).name, driver_list::driver(sample_index).type.fullname());
 				win_set_window_text_utf8((HWND)hDlg, buffer);
 				ProcessNextSample();
 			}
@@ -246,7 +238,6 @@ static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPAR
 {
 	static HANDLE hThread;
 	static DWORD dwThreadID = 0;
-	DWORD dwExitCode = 0;
 	HWND hEdit;
 
 	switch (Msg)
@@ -255,17 +246,17 @@ static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPAR
 		hAudit = hDlg;
 		//RS 20030613 Set Bkg of RichEdit Ctrl
 		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
-		if (hEdit != NULL)
+		if (hEdit)
 		{
 			SendMessage( hEdit, EM_SETBKGNDCOLOR, FALSE, GetSysColor(COLOR_BTNFACE) );
 			// MSH - Set to max
 			SendMessage( hEdit, EM_SETLIMITTEXT, MAX_AUDITBOX_TEXT, 0 );
-
 		}
+
 		SendDlgItemMessage(hDlg, IDC_ROMS_PROGRESS,    PBM_SETRANGE, 0, MAKELPARAM(0, driver_list::total()));
 		SendDlgItemMessage(hDlg, IDC_SAMPLES_PROGRESS, PBM_SETRANGE, 0, MAKELPARAM(0, driver_list::total()));
-		bPaused = FALSE;
-		bCancel = FALSE;
+		bPaused = false;
+		bCancel = false;
 		rom_index = 0;
 		hThread = CreateThread(NULL, 0, AuditThreadProc, hDlg, 0, &dwThreadID);
 		return 1;
@@ -273,10 +264,11 @@ static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPAR
 		switch (LOWORD(wParam))
 		{
 		case IDCANCEL:
-			bPaused = FALSE;
+			bPaused = false;
 			if (hThread)
 			{
-				bCancel = TRUE;
+				bCancel = true;
+				DWORD dwExitCode = 0;
 				if (GetExitCodeThread(hThread, &dwExitCode) && (dwExitCode == STILL_ACTIVE))
 				{
 					PostMessage(hDlg, WM_COMMAND, wParam, lParam);
@@ -292,12 +284,12 @@ static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPAR
 			if (bPaused)
 			{
 				SendDlgItemMessage(hAudit, IDPAUSE, WM_SETTEXT, 0, (LPARAM)TEXT("Pause"));
-				bPaused = FALSE;
+				bPaused = false;
 			}
 			else
 			{
 				SendDlgItemMessage(hAudit, IDPAUSE, WM_SETTEXT, 0, (LPARAM)TEXT("Continue"));
-				bPaused = TRUE;
+				bPaused = true;
 			}
 			break;
 		}
@@ -429,15 +421,9 @@ static void ProcessNextSample()
 
 static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 {
-	HWND hEdit;
-	va_list marker;
-	char buffer[8000];
-	TCHAR* t_s;
-	int textLength = 0;
-
 	//RS 20030613 Different Ids for Property Page and Dialog
 	// so see which one's currently instantiated
-	hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
+	HWND hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
 	if (hEdit ==  NULL)
 		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP);
 
@@ -447,28 +433,26 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 		return;
 	}
 
+	va_list marker;
 	va_start(marker, fmt);
-
+	char buffer[8000];
 	vsprintf(buffer, fmt, marker);
-
 	va_end(marker);
 
-	t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(buffer));
+	TCHAR* t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(buffer));
 	if( !t_s || _tcscmp(TEXT(""), t_s) == 0)
 		return;
 
-	textLength = Edit_GetTextLength(hEdit);
+	int textLength = Edit_GetTextLength(hEdit);
 	Edit_SetSel(hEdit, textLength, textLength);
-	SendMessage( hEdit, EM_REPLACESEL, FALSE, (WPARAM)(LPCTSTR)win_tstring_strdup(t_s) );
+	SendMessage( hEdit, EM_REPLACESEL, false, (WPARAM)(LPCTSTR)win_tstring_strdup(t_s) );
 
 	free(t_s);
 }
 
 static const char * StatusString(int iStatus)
 {
-	static const char *ptr;
-
-	ptr = "Unknown";
+	static const char *ptr = "Unknown";
 
 	switch (iStatus)
 	{

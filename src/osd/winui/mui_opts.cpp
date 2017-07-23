@@ -202,7 +202,7 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MESSUI_SW_SORT_REVERSED       "sw_sort_reversed"
 #define MESSUI_SW_SORT_COLUMN         "sw_sort_column"
 #define MESSUI_SOFTWARE_TAB           "current_software_tab"
-#define MESSUI_SLPATH                 "slpath"
+//#define MESSUI_SLPATH                 "slpath"
 
 
 /***************************************************************************
@@ -286,7 +286,7 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground", OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
-	{ MESSUI_SLPATH,                          "software", OPTION_STRING, NULL },
+//	{ MESSUI_SLPATH,                          "software", OPTION_STRING, NULL },
 	{ NULL,                                   NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
 	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,                  "KEYCODE_DOWN",                     OPTION_STRING,          NULL },
@@ -2311,7 +2311,7 @@ void LoadFolderFlags(void)
 			ptr = folder_name;
 			while (*ptr && *ptr != '\0')
 			{
-				if (*ptr == ' ')
+				if ((*ptr == ' ') || (*ptr == '-'))
 				{
 					*ptr = '_';
 				}
@@ -2345,7 +2345,7 @@ void LoadFolderFlags(void)
 			ptr = folder_name;
 			while (*ptr && *ptr != '\0')
 			{
-				if (*ptr == ' ')
+				if ((*ptr == ' ') || (*ptr == '-'))
 				{
 					*ptr = '_';
 				}
@@ -2393,7 +2393,7 @@ static void AddFolderFlags(winui_options &opts)
 			ptr = folder_name;
 			while (*ptr && *ptr != '\0')
 			{
-				if (*ptr == ' ')
+				if ((*ptr == ' ') || (*ptr == '-'))
 				{
 					*ptr = '_';
 				}
@@ -2450,7 +2450,6 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 	const game_driver *driver = NULL;
 	if (game_num > -1)
 		driver = &driver_list::driver(game_num);
-	CreateGameOptions(opts, opt_type, game_num);
 
 	// Try base ini first
 	std::string fname = std::string(emulator_info::get_configname()).append(".ini");
@@ -2692,6 +2691,8 @@ void SetSelectedSoftware(int driver_index, const device_image_interface *dev, co
 		dprintf("SetSelectedSoftware(): dev=%p (\'%s\') software='%s'\n", dev, driver_list::driver(driver_index).name, software);
 	}
 
+	const char* name = driver_list::driver(driver_index).name;
+	o.set_value(OPTION_SYSTEMNAME, name, OPTION_PRIORITY_CMDLINE);
 	load_options(o, OPTIONS_GAME, driver_index);
 	o.set_value(opt_name.c_str(), software, OPTION_PRIORITY_CMDLINE);
 	//o.image_option(opt_name).specify(software);
@@ -2708,15 +2709,15 @@ const char *GetCurrentSoftwareTab(void)
 	return MameUISettings().value(MESSUI_SOFTWARE_TAB);
 }
 
-const char* GetSLDir(void)
-{
-	return MameUISettings().value(MESSUI_SLPATH);
-}
+//const char* GetSLDir(void)
+//{
+//	return MameUISettings().value(MESSUI_SLPATH);
+//}
 
-void SetSLDir(const char* paths)
-{
-	MameUISettings().set_value(MESSUI_SLPATH, paths, OPTION_PRIORITY_CMDLINE);
-}
+//void SetSLDir(const char* paths)
+//{
+//	MameUISettings().set_value(MESSUI_SLPATH, paths, OPTION_PRIORITY_CMDLINE);
+//}
 
 bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
 {

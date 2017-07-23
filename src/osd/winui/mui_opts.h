@@ -45,12 +45,8 @@ enum
 	COLUMN_PLAYTIME,
 	COLUMN_CLONE,
 	COLUMN_TRACKBALL,
-#ifdef SHOW_COLUMN_SAMPLES
 	COLUMN_SAMPLES,
-#endif
-#ifdef SHOW_COLUMN_ROMS
 	COLUMN_ROMS,
-#endif
 	COLUMN_MAX
 };
 
@@ -64,17 +60,17 @@ typedef struct
 
 typedef struct
 {
-	char* screen;
-	char* aspect;
-	char* resolution;
-	char* view;
+	char *screen;
+	char *aspect;
+	char *resolution;
+	char *view;
 } ScreenParams;
 
 // List of artwork types to display in the screen shot area
 enum
 {
-	// these must match array of strings image_tabs_long_name in options.c
-	// if you add new Tabs, be sure to also add them to the ComboBox init in dialogs.c
+	// these must match array of strings image_tabs_long_name in mui_opts.cpp
+	// if you add new Tabs, be sure to also add them to the ComboBox init in dialogs.cpp
 	TAB_SCREENSHOT = 0,
 	TAB_FLYER,
 	TAB_CABINET,
@@ -117,94 +113,92 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 
 void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
 
-winui_options & MameUISettings(void);
-windows_options & MameUIGlobal(void);
+winui_options &MameUISettings(void);
+windows_options &MameUIGlobal(void);
 
 void LoadFolderFlags(void);
 
 // Start interface to directories.h
-const char* GetRomDirs(void);
-void SetRomDirs(const char* paths);
+const char *GetRomDirs(void);
+void SetRomDirs(const char *paths);
 
-const char* GetSampleDirs(void);
-void  SetSampleDirs(const char* paths);
+const char *GetSampleDirs(void);
+void  SetSampleDirs(const char *paths);
 
-const char* GetArtDir(void);
-void SetArtDir(const char* path);
+const char *GetArtDir(void);
+void SetArtDir(const char *path);
 
-const char* GetCabinetDir(void);
-void SetCabinetDir(const char* path);
+const char *GetCabinetDir(void);
+void SetCabinetDir(const char *path);
 
-const char* GetCheatDir(void);
-void SetCheatDir(const char* path);
+const char *GetCheatDir(void);
+void SetCheatDir(const char *path);
 
-const char* GetCfgDir(void);
-void SetCfgDir(const char* path);
+const char *GetCfgDir(void);
+void SetCfgDir(const char *path);
 
-const char* GetControlPanelDir(void);
-void SetControlPanelDir(const char* path);
+const char *GetControlPanelDir(void);
+void SetControlPanelDir(const char *path);
 
-const char* GetCtrlrDir(void);
-void SetCtrlrDir(const char* path);
+const char *GetCtrlrDir(void);
+void SetCtrlrDir(const char *path);
 
-const char* GetCrosshairDir(void);
-void SetCrosshairDir(const char* paths);
+const char *GetCrosshairDir(void);
+void SetCrosshairDir(const char *paths);
 
-const char* GetDatsDir(void);
+const char *GetDatsDir(void);
 void SetDatsDir(const char *path);
 
-const char* GetFlyerDir(void);
-void SetFlyerDir(const char* path);
+const char *GetFlyerDir(void);
+void SetFlyerDir(const char *path);
 
-const char* GetFolderDir(void);
-void SetFolderDir(const char* path);
+const char *GetFolderDir(void);
+void SetFolderDir(const char *path);
 
-const char* GetFontDir(void);
-void SetFontDir(const char* paths);
+const char *GetFontDir(void);
+void SetFontDir(const char *paths);
 
-const char* GetHashDirs(void);
-void SetHashDirs(const char* paths);
+const char *GetHashDirs(void);
+void SetHashDirs(const char *paths);
 
-const char* GetDiffDir(void);
-void SetDiffDir(const char* path);
+const char *GetDiffDir(void);
+void SetDiffDir(const char *path);
 
-const char* GetIconsDir(void);
-void SetIconsDir(const char* path);
+const char *GetIconsDir(void);
+void SetIconsDir(const char *path);
 
-const char* GetIniDir(void);
+const char *GetIniDir(void);
 void SetIniDir(const char *path);
 
-const char* GetInpDir(void);
-void SetInpDir(const char* path);
+const char *GetInpDir(void);
+void SetInpDir(const char *path);
 
-const char* GetLangDir(void);
-void SetLangDir(const char* path);
+const char *GetLangDir(void);
+void SetLangDir(const char *path);
 
-const char* GetMarqueeDir(void);
-void SetMarqueeDir(const char* path);
+const char *GetMarqueeDir(void);
+void SetMarqueeDir(const char *path);
 
-const char* GetNvramDir(void);
-void SetNvramDir(const char* path);
+const char *GetNvramDir(void);
+void SetNvramDir(const char *path);
 
-const char* GetPcbDir(void);
-void SetPcbDir(const char* path);
+const char *GetPcbDir(void);
+void SetPcbDir(const char *path);
 
-const char* GetPluginsDir(void);
-void SetPluginsDir(const char* path);
+const char *GetPluginsDir(void);
+void SetPluginsDir(const char *path);
 
-const char* GetImgDir(void);
-void SetImgDir(const char* path);
+const char *GetImgDir(void);
+void SetImgDir(const char *path);
 
-const char* GetStateDir(void);
-void SetStateDir(const char* path);
+const char *GetStateDir(void);
+void SetStateDir(const char *path);
 
-const char* GetTitlesDir(void);
-void SetTitlesDir(const char* path);
+const char *GetTitlesDir(void);
+void SetTitlesDir(const char *path);
 
-const char* GetSLDir(void);
-void SetSLDir(const char* path);
-const char* GetSWDir(void);
-void SetSWDir(const char* path);
+const char *GetSWDir(void);
+void SetSWDir(const char *path);
 // End interface to directories.h
 
 void SaveOptions(void);
@@ -326,17 +320,17 @@ int  GetSortColumn(void);
 void SetSortReverse(BOOL reverse);
 BOOL GetSortReverse(void);
 
-const char* GetLanguageUI(void);
+const char *GetLanguageUI(void);
 
 bool GetEnablePlugins(void);
 
-const char* GetPlugins(void);
+const char *GetPlugins(void);
 
-const char* GetSnapName(void);
-void SetSnapName(const char* pattern);
+const char *GetSnapName(void);
+void SetSnapName(const char *pattern);
 
-const char* GetBgDir(void);
-void SetBgDir(const char* path);
+const char *GetBgDir(void);
+void SetBgDir(const char *path);
 
 void ResetGameOptions(int driver_index);
 
@@ -441,8 +435,8 @@ void SetUIJoyHistoryDown(int joycodeIndex, int val);
 int GetUIJoyExec(int joycodeIndex);
 void SetUIJoyExec(int joycodeIndex, int val);
 
-const char* GetExecCommand(void);
-void SetExecCommand(char* cmd);
+const char *GetExecCommand(void);
+void SetExecCommand(char *cmd);
 
 int GetExecWait(void);
 void SetExecWait(int wait);
@@ -454,7 +448,7 @@ BOOL GetRunFullScreen(void);
 void SetRunFullScreen(BOOL fullScreen);
 
 void ColumnEncodeStringWithCount(const int *value, char *str, int count);
-void ColumnDecodeStringWithCount(const char* str, int *value, int count);
+void ColumnDecodeStringWithCount(const char *str, int *value, int count);
 
 int GetDriverCache(int driver_index);
 void SetDriverCache(int driver_index, int val);

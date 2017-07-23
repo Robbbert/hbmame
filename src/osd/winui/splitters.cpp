@@ -4,7 +4,7 @@
 
  /***************************************************************************
 
-  splitters.c
+  splitters.cpp
 
   Splitter GUI code. - Tree, splitter, list, splitter, pict
 
@@ -48,11 +48,11 @@ BOOL InitSplitters(void)
 		goto error;
 	memset(nSplitterOffset, 0, sizeof(int) * nSplitterCount);
 
-	return TRUE;
+	return true;
 
 error:
 	SplittersExit();
-	return FALSE;
+	return false;
 }
 
 void SplittersExit(void)
@@ -74,12 +74,10 @@ void SplittersExit(void)
 static void CalcSplitter(HWND hWnd, LPHZSPLITTER lpSplitter)
 {
 	POINT p = {0,0};
-	RECT leftRect, rightRect;
-	int dragWidth;
-
 	ClientToScreen(hWnd, &p);
 
 	GetWindowRect(lpSplitter->m_hWnd, &lpSplitter->m_dragRect);
+	RECT leftRect, rightRect;
 	GetWindowRect(lpSplitter->m_hWndLeft, &leftRect);
 	GetWindowRect(lpSplitter->m_hWndRight, &rightRect);
 
@@ -87,7 +85,7 @@ static void CalcSplitter(HWND hWnd, LPHZSPLITTER lpSplitter)
 	OffsetRect(&leftRect, -p.x, -p.y);
 	OffsetRect(&rightRect, -p.x, -p.y);
 
-	dragWidth = lpSplitter->m_dragRect.right - lpSplitter->m_dragRect.left;
+	int dragWidth = lpSplitter->m_dragRect.right - lpSplitter->m_dragRect.left;
 
 	lpSplitter->m_limitRect.left = leftRect.left + 20;
 	lpSplitter->m_limitRect.right = rightRect.right - 20;
@@ -148,9 +146,7 @@ void OnSizeSplitter(HWND hWnd)
 	RECT rWindowRect;
 	POINT p = {0,0};
 	int i;
-	int nSplitterCount;
-
-	nSplitterCount = GetSplitterCount();
+	int nSplitterCount = GetSplitterCount();
 
 	if (firstTime)
 	{
@@ -234,14 +230,14 @@ static void StartTracking(HWND hWnd, UINT hitArea)
 {
 	if (!bTracking && lpCurSpltr != 0 && hitArea == SPLITTER_HITITEM)
 	{
-		// Ensure we have and updated cursor structure
+		// Ensure we have an updated cursor structure
 		CalcSplitter(hWnd, lpCurSpltr);
 		// Draw the first splitter shadow
 		OnInvertTracker(hWnd, &lpCurSpltr->m_dragRect);
 		// Capture the mouse
 		SetCapture(hWnd);
 		// Set tracking to TRUE
-		bTracking = TRUE;
+		bTracking = true;
 		SetCursor(hSplitterCursor);
 	}
 }
@@ -255,30 +251,28 @@ static void StopTracking(HWND hWnd)
 		// Release the mouse
 		ReleaseCapture();
 		// set tracking to false
-		bTracking = FALSE;
+		bTracking = false;
 		SetCursor(LoadCursor(0, IDC_ARROW));
 		// set the new splitter position
 		nSplitterOffset[currentSplitter] = lpCurSpltr->m_dragRect.left;
 		// Redraw the screen area
 		ResizePickerControls(hWnd);
 		UpdateScreenShot();
-		InvalidateRect(GetMainWindow(),NULL,TRUE);
+		InvalidateRect(GetMainWindow(), NULL, true);
 	}
 }
 
 static UINT SplitterHitTest(HWND hWnd, POINTS p)
 {
-	RECT  rect;
 	POINT pt;
-	int   i;
-
 	pt.x = p.x;
 	pt.y = p.y;
 
 	// Check which area we hit
 	ClientToScreen(hWnd, &pt);
 
-	for (i = 0; i < numSplitters; i++)
+	RECT  rect;
+	for (int i = 0; i < numSplitters; i++)
 	{
 		GetWindowRect(splitter[i].m_hWnd, &rect);
 		if (PtInRect(&rect, pt))
@@ -298,14 +292,12 @@ void OnMouseMove(HWND hWnd, UINT nFlags, POINTS p)
 {
 	if (bTracking) // move the tracking image
 	{
-		int nWidth;
-		RECT rect;
 		POINT pt;
-
 		pt.x = (int)p.x;
 		pt.y = (int)p.y;
 
 		ClientToScreen(hWnd, &pt);
+		RECT rect;
 		GetWindowRect(hWnd, &rect);
 		if (! PtInRect(&rect, pt))
 		{
@@ -322,7 +314,7 @@ void OnMouseMove(HWND hWnd, UINT nFlags, POINTS p)
 		OnInvertTracker(hWnd, &lpCurSpltr->m_dragRect);
 
 		// calc the new one based on p.x draw it
-		nWidth = lpCurSpltr->m_dragRect.right - lpCurSpltr->m_dragRect.left;
+		int nWidth = lpCurSpltr->m_dragRect.right - lpCurSpltr->m_dragRect.left;
 		lpCurSpltr->m_dragRect.right = pt.x + nWidth / 2;
 		lpCurSpltr->m_dragRect.left  = pt.x - nWidth / 2;
 

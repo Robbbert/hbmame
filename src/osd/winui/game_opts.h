@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 #ifndef __GAME_OPTS_H__
@@ -146,7 +147,7 @@ public:
 
 private:
 	core_options m_info;
-	int         m_total;
+	int          m_total;
 
 	struct driver_options
 	{

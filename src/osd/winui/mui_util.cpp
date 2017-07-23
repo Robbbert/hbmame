@@ -13,7 +13,6 @@
 #include <shellapi.h>
 
 // standard C headers
-#include <stdio.h>
 #include <tchar.h>
 
 // MAME/MAMEUI headers
@@ -23,7 +22,6 @@
 #include "unzip.h"
 #include "sound/samples.h"
 #include "winutf8.h"
-#include "strconv.h"
 #include "winui.h"
 #include "mui_util.h"
 #include "mui_opts.h"
@@ -31,7 +29,6 @@
 #include "machine/ram.h"
 
 #include <shlwapi.h>
-#include <vector>
 
 /***************************************************************************
     function prototypes
@@ -91,11 +88,11 @@ enum
 */
 void __cdecl ErrorMsg(const char* fmt, ...)
 {
-	static FILE*	pFile = NULL;
-	DWORD			dwWritten;
-	char			buf[5000];
-	char			buf2[5000];
-	va_list 		va;
+	static FILE* pFile = NULL;
+	DWORD dwWritten;
+	char buf[5000];
+	char buf2[5000];
+	va_list va;
 
 	va_start(va, fmt);
 
@@ -123,7 +120,7 @@ void __cdecl ErrorMsg(const char* fmt, ...)
 
 void __cdecl dprintf(const char* fmt, ...)
 {
-	char	buf[5000];
+	char buf[5000];
 	va_list va;
 
 	va_start(va, fmt);
@@ -137,8 +134,8 @@ void __cdecl dprintf(const char* fmt, ...)
 
 UINT GetDepth(HWND hWnd)
 {
-	UINT	nBPP;
-	HDC 	hDC;
+	UINT nBPP;
+	HDC hDC;
 
 	hDC = GetDC(hWnd);
 
@@ -206,21 +203,18 @@ LONG GetCommonControlVersion()
 
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
-	HINSTANCE hErr;
-	LPCTSTR   msg = 0;
-	LPTSTR    tName;
-
-	tName = ui_wstring_from_utf8(cName);
+	LPTSTR tName = ui_wstring_from_utf8(cName);
 	if( !tName )
 		return;
 
-	hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
+	HINSTANCE hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
 	if ((uintptr_t)hErr > 32)
 	{
 		free(tName);
 		return;
 	}
 
+	LPCTSTR msg = 0;
 	switch((uintptr_t)hErr)
 	{
 	case 0:
@@ -337,26 +331,36 @@ int numberOfSpeakers(const machine_config *config)
 
 static void SetDriversInfo(void)
 {
-	int ndriver;
 	int cache = -1;
 	int total = driver_list::total();
 	struct DriversInfo *gameinfo = NULL;
 
-	for (ndriver = 0; ndriver < total; ndriver++)
+	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
 		gameinfo = &drivers_info[ndriver];
-		cache    = (gameinfo->screenCount & DRIVER_CACHE_SCREEN);
-		if (gameinfo->isClone)			cache += DRIVER_CACHE_CLONE;
-		if (gameinfo->isHarddisk)		cache += DRIVER_CACHE_HARDDISK;
-		if (gameinfo->hasOptionalBIOS)	cache += DRIVER_CACHE_BIOS;
-		if (gameinfo->isStereo)			cache += DRIVER_CACHE_STEREO;
-		if (gameinfo->isVector)			cache += DRIVER_CACHE_VECTOR;
-		if (gameinfo->usesRoms)			cache += DRIVER_CACHE_ROMS;
-		if (gameinfo->usesSamples)		cache += DRIVER_CACHE_SAMPLES;
-		if (gameinfo->usesTrackball)	cache += DRIVER_CACHE_TRACKBALL;
-		if (gameinfo->usesLightGun)		cache += DRIVER_CACHE_LIGHTGUN;
-		if (gameinfo->usesMouse)		cache += DRIVER_CACHE_MOUSE;
-		if (gameinfo->hasRam)           cache += DRIVER_CACHE_RAM;
+		cache = (gameinfo->screenCount & DRIVER_CACHE_SCREEN);
+		if (gameinfo->isClone)
+			cache += DRIVER_CACHE_CLONE;
+		if (gameinfo->isHarddisk)
+			cache += DRIVER_CACHE_HARDDISK;
+		if (gameinfo->hasOptionalBIOS)
+			cache += DRIVER_CACHE_BIOS;
+		if (gameinfo->isStereo)
+			cache += DRIVER_CACHE_STEREO;
+		if (gameinfo->isVector)
+			cache += DRIVER_CACHE_VECTOR;
+		if (gameinfo->usesRoms)
+			cache += DRIVER_CACHE_ROMS;
+		if (gameinfo->usesSamples)
+			cache += DRIVER_CACHE_SAMPLES;
+		if (gameinfo->usesTrackball)
+			cache += DRIVER_CACHE_TRACKBALL;
+		if (gameinfo->usesLightGun)
+			cache += DRIVER_CACHE_LIGHTGUN;
+		if (gameinfo->usesMouse)
+			cache += DRIVER_CACHE_MOUSE;
+		if (gameinfo->hasRam)
+			cache += DRIVER_CACHE_RAM;
 
 		SetDriverCache(ndriver, cache);
 	}
@@ -364,14 +368,13 @@ static void SetDriversInfo(void)
 
 static void InitDriversInfo(void)
 {
-	int ndriver;
 	int num_speakers;
 	int total = driver_list::total();
 	const game_driver *gamedrv = NULL;
 	struct DriversInfo *gameinfo = NULL;
 	const rom_entry *region, *rom;
 
-	for (ndriver = 0; ndriver < total; ndriver++)
+	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
 		gamedrv = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
@@ -389,15 +392,15 @@ static void InitDriversInfo(void)
 		for (device_t &device : device_iterator(config.root_device()))
 			for (region = rom_first_region(device); region; region = rom_next_region(region))
 				if (ROMREGION_ISDISKDATA(region))
-					gameinfo->isHarddisk = TRUE;
+					gameinfo->isHarddisk = true;
 
-		gameinfo->hasOptionalBIOS = FALSE;
+		gameinfo->hasOptionalBIOS = false;
 		if (gamedrv->rom)
 		{
 			auto rom_entries = rom_build_entries(gamedrv->rom);
 			for (rom = rom_entries.data(); !ROMENTRY_ISEND(rom); rom++)
 				if (ROMENTRY_ISSYSTEM_BIOS(rom))
-					gameinfo->hasOptionalBIOS = TRUE;
+					gameinfo->hasOptionalBIOS = true;
 		}
 
 		num_speakers = numberOfSpeakers(&config);
@@ -405,20 +408,20 @@ static void InitDriversInfo(void)
 		gameinfo->isStereo = (num_speakers > 1);
 		gameinfo->screenCount = numberOfScreens(&config);
 		gameinfo->isVector = isDriverVector(&config); // ((drv.video_attributes & VIDEO_TYPE_VECTOR) != 0);
-		gameinfo->usesRoms = FALSE;
+		gameinfo->usesRoms = false;
 		for (device_t &device : device_iterator(config.root_device()))
 			for (region = rom_first_region(device); region; region = rom_next_region(region))
 				for (rom = rom_first_file(region); rom; rom = rom_next_file(rom))
-					gameinfo->usesRoms = TRUE;
+					gameinfo->usesRoms = true;
 
-		gameinfo->usesSamples = FALSE;
+		gameinfo->usesSamples = false;
 
 		samples_device_iterator iter(config.root_device());
 		if (iter.first())
-			gameinfo->usesSamples = TRUE;
+			gameinfo->usesSamples = true;
 
-		gameinfo->usesTrackball = FALSE;
-		gameinfo->usesLightGun = FALSE;
+		gameinfo->usesTrackball = false;
+		gameinfo->usesLightGun = false;
 		if (gamedrv->ipt)
 		{
 			ioport_list portlist;
@@ -435,14 +438,12 @@ static void InitDriversInfo(void)
 					type = field.type();
 					if (type == IPT_END)
 						break;
-					if (type == IPT_DIAL || type == IPT_PADDLE ||
-						type == IPT_TRACKBALL_X || type == IPT_TRACKBALL_Y ||
-						type == IPT_AD_STICK_X || type == IPT_AD_STICK_Y)
-						gameinfo->usesTrackball = TRUE;
+					if (type == IPT_DIAL || type == IPT_PADDLE || type == IPT_TRACKBALL_X || type == IPT_TRACKBALL_Y || type == IPT_AD_STICK_X || type == IPT_AD_STICK_Y)
+						gameinfo->usesTrackball = true;
 					if (type == IPT_LIGHTGUN_X || type == IPT_LIGHTGUN_Y)
-						gameinfo->usesLightGun = TRUE;
+						gameinfo->usesLightGun = true;
 					if (type == IPT_MOUSE_X || type == IPT_MOUSE_Y)
-						gameinfo->usesMouse = TRUE;
+						gameinfo->usesMouse = true;
 				}
 			}
 		}
@@ -453,19 +454,18 @@ static void InitDriversInfo(void)
 
 static int InitDriversCache(void)
 {
-	int cache = -1;
-	int total = driver_list::total();
-	const game_driver *gamedrv = NULL;
-	struct DriversInfo *gameinfo = NULL;
-	int ndriver;
-
 	if (RequiredDriverCache())
 	{
 		InitDriversInfo();
 		return 0;
 	}
 
-	for (ndriver = 0; ndriver < total; ndriver++)
+	int cache = -1;
+	int total = driver_list::total();
+	const game_driver *gamedrv = NULL;
+	struct DriversInfo *gameinfo = NULL;
+
+	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
 		gamedrv  = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
@@ -620,11 +620,10 @@ BOOL StringIsSuffixedBy(const char *s, const char *suffix)
 
 BOOL SafeIsAppThemed(void)
 {
-	BOOL bResult = FALSE;
-	HMODULE hThemes;
+	BOOL bResult = false;
 	BOOL (WINAPI *pfnIsAppThemed)(void);
 
-	hThemes = LoadLibrary(TEXT("uxtheme.dll"));
+	HMODULE hThemes = LoadLibrary(TEXT("uxtheme.dll"));
 	if (hThemes)
 	{
 		pfnIsAppThemed = (BOOL (WINAPI *)(void)) GetProcAddress(hThemes, "IsAppThemed");
@@ -687,9 +686,8 @@ TCHAR* win_tstring_strdup(LPCTSTR str)
 //  win_create_file_utf8
 //============================================================
 
-HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD sharemode,
-							LPSECURITY_ATTRIBUTES securityattributes, DWORD creationdisposition,
-							DWORD flagsandattributes, HANDLE templatehandle)
+HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD sharemode, LPSECURITY_ATTRIBUTES securityattributes,
+							DWORD creationdisposition, DWORD flagsandattributes, HANDLE templatehandle)
 {
 	HANDLE result = 0;
 	TCHAR* t_filename = ui_wstring_from_utf8(filename);
@@ -711,7 +709,6 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 {
 	DWORD result = 0;
 	TCHAR* t_buffer = NULL;
-	char* utf8_buffer = NULL;
 
 	if( bufferlength > 0 ) {
 		t_buffer = (TCHAR*)malloc((bufferlength * sizeof(TCHAR)) + 1);
@@ -721,6 +718,7 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 
 	result = GetCurrentDirectory(bufferlength, t_buffer);
 
+	char* utf8_buffer = NULL;
 	if( bufferlength > 0 ) {
 		utf8_buffer = ui_utf8_from_wstring(t_buffer);
 		if( !utf8_buffer ) {

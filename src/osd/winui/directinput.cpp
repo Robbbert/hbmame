@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-  directinput.c
+  directinput.cpp
 
   Direct Input routines.
 
@@ -13,7 +13,6 @@
 #include <windows.h>
 
 // MAME/MAMEUI headers
-#include "emu.h"
 #include "mui_util.h" // For ErrorMsg
 #include "directinput.h"
 
@@ -56,32 +55,27 @@ typedef HRESULT (WINAPI *dic_proc)(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINP
 
 BOOL DirectInputInitialize()
 {
-	HRESULT hr;
-	UINT error_mode = 0;
-	dic_proc dic;
-
-	if (hDLL != NULL)
+	if (hDLL)
 		return TRUE;
 
-	hDLL = NULL;
-
 	/* Turn off error dialog for this call */
-	error_mode = SetErrorMode(0);
+	UINT error_mode = SetErrorMode(0);
 	hDLL = LoadLibrary(TEXT("dinput.dll"));
 	SetErrorMode(error_mode);
 
 	if (hDLL == NULL)
 		return FALSE;
 
+	dic_proc dic;
 #ifdef UNICODE
 	dic = (dic_proc)GetProcAddress((HINSTANCE)hDLL, "DirectInputCreateW");
 #else
 	dic = (dic_proc)GetProcAddress((HINSTANCE)hDLL, "DirectInputCreateA");
 #endif
 	if (dic == NULL)
-		return FALSE;
+		return false;
 
-	hr = dic(GetModuleHandle(NULL), 0x0700, &di, NULL);	// setup DIRECT INPUT 7 for the GUI
+	HRESULT hr = dic(GetModuleHandle(NULL), 0x0700, &di, NULL);	// setup DIRECT INPUT 7 for the GUI
 
 	if (FAILED(hr))
 	{
@@ -91,10 +85,10 @@ BOOL DirectInputInitialize()
 		{
 			ErrorMsg("DirectInputCreate failed! error=%x\n", (unsigned int)hr);
 			di = NULL;
-			return FALSE;
+			return false;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 /****************************************************************************

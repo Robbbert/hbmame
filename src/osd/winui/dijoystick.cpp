@@ -1,9 +1,10 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 /***************************************************************************
 
-  dijoystick.c
+  dijoystick.cpp
 
  ***************************************************************************/
 
@@ -11,8 +12,6 @@
 #include <windows.h>
 
 // standard C headers
-#include <stdio.h>
-#include <math.h>
 #include <tchar.h>
 
 // MAMEUI headers
@@ -20,7 +19,6 @@
 #include "directinput.h"
 #include "dijoystick.h"
 #include "mui_util.h" // For ErrorMsg
-#include "dxdecode.h" // for DirectXDecodeError
 
 /***************************************************************************
     function prototypes
@@ -97,9 +95,9 @@ static BOOL CALLBACK DIJoystick_EnumAxisObjectsProc(LPCDIDEVICEOBJECTINSTANCE lp
 static BOOL CALLBACK DIJoystick_EnumPOVObjectsProc(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
 static BOOL CALLBACK DIJoystick_EnumButtonObjectsProc(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
 static void ClearJoyState(DIJOYSTATE *pdijs);
-
 static void InitJoystick(joystick_type *joystick);
 static void ExitJoystick(joystick_type *joystick);
+const char * DirectXDecodeError(HRESULT errorval);
 
 /***************************************************************************
     Internal variables
@@ -118,25 +116,18 @@ static const GUID guidNULL = {0, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0}};
 */
 static int DIJoystick_init(void)
 {
-	DWORD i = 0;
-	HRESULT hr;
-	LPDIRECTINPUT di = GetDirectInput();
-
 	This.use_count++;
-
 	This.num_joysticks = 0;
 
+	LPDIRECTINPUT di = GetDirectInput();
 	if (di == NULL)
 	{
 		ErrorMsg("DirectInput not initialized");
-		return 0;
+		return 1;
 	}
 
 	/* enumerate for joystick devices */
-	hr = IDirectInput_EnumDevices(di, DIDEVTYPE_JOYSTICK,
-				 (LPDIENUMDEVICESCALLBACK)DIJoystick_EnumDeviceProc,
-				 NULL,
-				 DIEDFL_ATTACHEDONLY  );
+	HRESULT hr = IDirectInput_EnumDevices(di, DIDEVTYPE_JOYSTICK, (LPDIENUMDEVICESCALLBACK)DIJoystick_EnumDeviceProc, NULL, DIEDFL_ATTACHEDONLY );
 	if (FAILED(hr))
 	{
 		ErrorMsg("DirectInput EnumDevices() failed: %s", DirectXDecodeError(hr));
@@ -144,17 +135,13 @@ static int DIJoystick_init(void)
 	}
 
 	/* create each joystick device, enumerate each joystick for axes, etc */
-	for (i = 0; i < This.num_joysticks; i++)
-	{
+	for (DWORD i = 0; i < This.num_joysticks; i++)
 		InitJoystick(&This.joysticks[i]);
-	}
 
 	/* Are there any joysticks attached? */
 	if (This.num_joysticks < 1)
-	{
 		/*ErrorMsg("DirectInput EnumDevices didn't find any joysticks");*/
-		return 0;
-	}
+		return 1;
 
 	return 0;
 }
@@ -164,14 +151,11 @@ static int DIJoystick_init(void)
 */
 static void DIJoystick_exit(void)
 {
-	DWORD i = 0;
-
 	This.use_count--;
-
 	if (This.use_count > 0)
 		return;
 
-	for (i = 0; i < This.num_joysticks; i++)
+	for (DWORD i = 0; i < This.num_joysticks; i++)
 		ExitJoystick(&This.joysticks[i]);
 
 	This.num_joysticks = 0;
@@ -180,11 +164,9 @@ static void DIJoystick_exit(void)
 static void DIJoystick_poll_joysticks(void)
 {
 	HRESULT hr;
-	DWORD i = 0;
-
 	This.m_bCoinSlot = 0;
 
-	for (i = 0; i < This.num_joysticks; i++)
+	for (DWORD i = 0; i < This.num_joysticks; i++)
 	{
 		/* start by clearing the structure, then fill it in if possible */
 
@@ -202,9 +184,8 @@ static void DIJoystick_poll_joysticks(void)
 		if (FAILED(hr))
 		{
 			if (hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED)
-			{
 				hr = IDirectInputDevice2_Acquire(This.joysticks[i].did);
-			}
+
 			continue;
 		}
 	}
@@ -217,17 +198,11 @@ static void DIJoystick_poll_joysticks(void)
 
 static int DIJoystick_is_joy_pressed(int joycode)
 {
-	int joy_num = 0;
-	int stick = 0;
 	int axis = 0;
 	int dir = 0;
-
-	DIJOYSTATE dijs;
-
 	int value = 0;
 	int dz = 60;
-
-	joy_num = GET_JOYCODE_JOY(joycode);
+	int joy_num = GET_JOYCODE_JOY(joycode);
 
 	/* do we have as many sticks? */
 	if (joy_num == 0 || This.num_joysticks < joy_num)
@@ -237,9 +212,9 @@ static int DIJoystick_is_joy_pressed(int joycode)
 	if (This.joysticks[joy_num].use_joystick == FALSE)
 		return 0;
 
-	dijs = This.joysticks[joy_num].dijs;
+	DIJOYSTATE dijs = This.joysticks[joy_num].dijs;
 
-	stick = GET_JOYCODE_STICK(joycode);
+	int stick = GET_JOYCODE_STICK(joycode);
 
 	if (stick == JOYCODE_STICK_BTN)
 	{
@@ -310,52 +285,43 @@ static int DIJoystick_is_joy_pressed(int joycode)
 
 static BOOL DIJoystick_Available(void)
 {
-	static BOOL bBeenHere = FALSE;
-	static BOOL bAvailable = FALSE;
-	HRESULT hr;
-	GUID guidDevice = guidNULL;
-	LPDIRECTINPUTDEVICE didTemp;
-	LPDIRECTINPUTDEVICE didJoystick;
+	static BOOL bBeenHere = false;
+	static BOOL bAvailable = false;
 	LPDIRECTINPUT di = GetDirectInput();
 
 	if (di == NULL)
-	{
-		return FALSE;
-	}
+		return false;
 
-	if (bBeenHere == FALSE)
-		bBeenHere = TRUE;
+	if (bBeenHere == false)
+		bBeenHere = true;
 	else
 		return bAvailable;
 
 	/* enumerate for joystick devices */
-	hr = IDirectInput_EnumDevices(di, DIDEVTYPE_JOYSTICK, inputEnumDeviceProc, &guidDevice, DIEDFL_ATTACHEDONLY);
+	GUID guidDevice = guidNULL;
+	HRESULT hr = IDirectInput_EnumDevices(di, DIDEVTYPE_JOYSTICK, inputEnumDeviceProc, &guidDevice, DIEDFL_ATTACHEDONLY );
 	if (FAILED(hr))
 	{
-		return FALSE;
+		return false;
 	}
 
 	/* Are there any joysticks attached? */
 	if (IsEqualGUID(guidDevice, guidNULL))
-	{
-		return FALSE;
-	}
+		return false;
 
+	LPDIRECTINPUTDEVICE didTemp;
 	hr = IDirectInput_CreateDevice(di, guidDevice, &didTemp, NULL);
 	if (FAILED(hr))
-	{
-		return FALSE;
-	}
+		return false;
 
 	/* Determine if DX5 is available by a QI for a DX5 interface. */
+	LPDIRECTINPUTDEVICE didJoystick;
 	hr = IDirectInputDevice_QueryInterface(didTemp, IID_IDirectInputDevice2, (void**)&didJoystick);
 	if (FAILED(hr))
-	{
-		bAvailable = FALSE;
-	}
+		bAvailable = false;
 	else
 	{
-		bAvailable = TRUE;
+		bAvailable = true;
 		IDirectInputDevice_Release(didJoystick);
 	}
 
@@ -407,18 +373,14 @@ BOOL CALLBACK DIJoystick_EnumDeviceProc(LPDIDEVICEINSTANCE pdidi, LPVOID pv)
 static BOOL CALLBACK DIJoystick_EnumAxisObjectsProc(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef)
 {
 	joystick_type* joystick = (joystick_type*)pvRef;
-	DIPROPRANGE diprg;
-	HRESULT hr;
-
 	joystick->axes[joystick->num_axes].guid = lpddoi->guidType;
-
 	joystick->axes[joystick->num_axes].name = (TCHAR *)malloc((_tcslen(lpddoi->tszName) + 1) * sizeof(TCHAR));
 	_tcscpy(joystick->axes[joystick->num_axes].name, lpddoi->tszName);
-
 	joystick->axes[joystick->num_axes].offset = lpddoi->dwOfs;
 
 	/*ErrorMsg("got axis %s, offset %i",lpddoi->tszName, lpddoi->dwOfs);*/
 
+	DIPROPRANGE diprg;
 	diprg.diph.dwSize = sizeof(diprg);
 	diprg.diph.dwHeaderSize = sizeof(diprg.diph);
 	diprg.diph.dwObj = lpddoi->dwOfs;
@@ -426,7 +388,7 @@ static BOOL CALLBACK DIJoystick_EnumAxisObjectsProc(LPCDIDEVICEOBJECTINSTANCE lp
 	diprg.lMin = 0;
 	diprg.lMax = 255;
 
-	hr = IDirectInputDevice2_SetProperty(joystick->did, DIPROP_RANGE, &diprg.diph);
+	HRESULT hr = IDirectInputDevice2_SetProperty(joystick->did, DIPROP_RANGE, &diprg.diph);
 	if (FAILED(hr)) /* if this fails, don't use this axis */
 	{
 		free(joystick->axes[joystick->num_axes].name);
@@ -436,10 +398,7 @@ static BOOL CALLBACK DIJoystick_EnumAxisObjectsProc(LPCDIDEVICEOBJECTINSTANCE lp
 
 #ifdef JOY_DEBUG
 	if (FAILED(hr))
-	{
-		ErrorMsg("DirectInput SetProperty() joystick axis %s failed - %s\n",
-			joystick->axes[joystick->num_axes].name, DirectXDecodeError(hr));
-	}
+		ErrorMsg("DirectInput SetProperty() joystick axis %s failed - %s\n", joystick->axes[joystick->num_axes].name, DirectXDecodeError(hr));
 #endif
 
 	/* Set axis dead zone to 0; we need accurate #'s for analog joystick reading. */
@@ -448,10 +407,7 @@ static BOOL CALLBACK DIJoystick_EnumAxisObjectsProc(LPCDIDEVICEOBJECTINSTANCE lp
 
 #ifdef JOY_DEBUG
 	if (FAILED(hr))
-	{
-		ErrorMsg("DirectInput SetProperty() joystick axis %s dead zone failed - %s\n",
-			joystick->axes[joystick->num_axes].name, DirectXDecodeError(hr));
-	}
+		ErrorMsg("DirectInput SetProperty() joystick axis %s dead zone failed - %s\n", joystick->axes[joystick->num_axes].name, DirectXDecodeError(hr));
 #endif
 
 	joystick->num_axes++;
@@ -494,19 +450,15 @@ static void ClearJoyState(DIJOYSTATE *pdijs)
 
 static void InitJoystick(joystick_type *joystick)
 {
-	LPDIRECTINPUTDEVICE didTemp;
-	HRESULT hr;
-	LPDIRECTINPUT di = GetDirectInput();
-
-	joystick->use_joystick = FALSE;
-
+	joystick->use_joystick = false;
 	joystick->did = NULL;
 	joystick->num_axes = 0;
-
 	joystick->is_light_gun = (_tcscmp(joystick->name, TEXT("ACT LABS GS (ACT LABS GS)")) == 0);
 
 	/* get a did1 interface first... */
-	hr = IDirectInput_CreateDevice(di, joystick->guidDevice, &didTemp, NULL);
+	LPDIRECTINPUT di = GetDirectInput();
+	LPDIRECTINPUTDEVICE didTemp;
+	HRESULT hr = IDirectInput_CreateDevice(di, joystick->guidDevice, &didTemp, NULL);
 	if (FAILED(hr))
 	{
 		ErrorMsg("DirectInput CreateDevice() joystick failed: %s\n", DirectXDecodeError(hr));
@@ -604,26 +556,203 @@ static void InitJoystick(joystick_type *joystick)
 
 static void ExitJoystick(joystick_type *joystick)
 {
-	DWORD i = 0;
-
-	if (joystick->did != NULL)
+	if (joystick->did)
 	{
 		IDirectInputDevice_Unacquire(joystick->did);
 		IDirectInputDevice_Release(joystick->did);
 		joystick->did = NULL;
 	}
 
-	for (i = 0; i < joystick->num_axes; i++)
+	for (DWORD i = 0; i < joystick->num_axes; i++)
 	{
 		if (joystick->axes[i].name)
 			free(joystick->axes[i].name);
 		joystick->axes[i].name = NULL;
 	}
 
-	if (joystick->name != NULL)
+	if (joystick->name)
 	{
 		free(joystick->name);
 		joystick->name = NULL;
 	}
+}
+
+/***************************************************************************
+    DXdecode stuff
+ ***************************************************************************/
+
+typedef struct tagERRORCODE
+{
+	HRESULT     hr;
+	const char *szError;
+} ERRORCODE, * LPERRORCODE;
+
+#include <ddraw.h>
+static const ERRORCODE g_ErrorCode[] =
+{
+	{   DDERR_ALREADYINITIALIZED,           "DDERR_ALREADYINITIALIZED"},
+	{   DDERR_CANNOTATTACHSURFACE,          "DDERR_CANNOTATTACHSURFACE"},
+	{   DDERR_CANNOTDETACHSURFACE,          "DDERR_CANNOTDETACHSURFACE"},
+	{   DDERR_CURRENTLYNOTAVAIL,            "DDERR_CURRENTLYNOTAVAIL"},
+	{   DDERR_EXCEPTION,                    "DDERR_EXCEPTION"},
+	{   DDERR_GENERIC,                      "DDERR_GENERIC"},
+	{   DDERR_HEIGHTALIGN,                  "DDERR_HEIGHTALIGN"},
+	{   DDERR_INCOMPATIBLEPRIMARY,          "DDERR_INCOMPATIBLEPRIMARY"},
+	{   DDERR_INVALIDCAPS,                  "DDERR_INVALIDCAPS"},
+	{   DDERR_INVALIDCLIPLIST,              "DDERR_INVALIDCLIPLIST"},
+	{   DDERR_INVALIDMODE,                  "DDERR_INVALIDMODE"},
+	{   DDERR_INVALIDOBJECT,                "DDERR_INVALIDOBJECT"},
+	{   DDERR_INVALIDPARAMS,                "DDERR_INVALIDPARAMS"},
+	{   DDERR_INVALIDPIXELFORMAT,           "DDERR_INVALIDPIXELFORMAT"},
+	{   DDERR_INVALIDRECT,                  "DDERR_INVALIDRECT"},
+	{   DDERR_LOCKEDSURFACES,               "DDERR_LOCKEDSURFACES"},
+	{   DDERR_NO3D,                         "DDERR_NO3D"},
+	{   DDERR_NOALPHAHW,                    "DDERR_NOALPHAHW"},
+	{   DDERR_NOCLIPLIST,                   "DDERR_NOCLIPLIST"},
+	{   DDERR_NOCOLORCONVHW,                "DDERR_NOCOLORCONVHW"},
+	{   DDERR_NOCOOPERATIVELEVELSET,        "DDERR_NOCOOPERATIVELEVELSET"},
+	{   DDERR_NOCOLORKEY,                   "DDERR_NOCOLORKEY"},
+	{   DDERR_NOCOLORKEYHW,                 "DDERR_NOCOLORKEYHW"},
+	{   DDERR_NODIRECTDRAWSUPPORT,          "DDERR_NODIRECTDRAWSUPPORT"},
+	{   DDERR_NOEXCLUSIVEMODE,              "DDERR_NOEXCLUSIVEMODE"},
+	{   DDERR_NOFLIPHW,                     "DDERR_NOFLIPHW"},
+	{   DDERR_NOGDI,                        "DDERR_NOGDI"},
+	{   DDERR_NOMIRRORHW,                   "DDERR_NOMIRRORHW"},
+	{   DDERR_NOTFOUND,                     "DDERR_NOTFOUND"},
+	{   DDERR_NOOVERLAYHW,                  "DDERR_NOOVERLAYHW"},
+	{   DDERR_NORASTEROPHW,                 "DDERR_NORASTEROPHW"},
+	{   DDERR_NOROTATIONHW,                 "DDERR_NOROTATIONHW"},
+	{   DDERR_NOSTRETCHHW,                  "DDERR_NOSTRETCHHW"},
+	{   DDERR_NOT4BITCOLOR,                 "DDERR_NOT4BITCOLOR"},
+	{   DDERR_NOT4BITCOLORINDEX,            "DDERR_NOT4BITCOLORINDEX"},
+	{   DDERR_NOT8BITCOLOR,                 "DDERR_NOT8BITCOLOR"},
+	{   DDERR_NOTEXTUREHW,                  "DDERR_NOTEXTUREHW"},
+	{   DDERR_NOVSYNCHW,                    "DDERR_NOVSYNCHW"},
+	{   DDERR_NOZBUFFERHW,                  "DDERR_NOZBUFFERHW"},
+	{   DDERR_NOZOVERLAYHW,                 "DDERR_NOZOVERLAYHW"},
+	{   DDERR_OUTOFCAPS,                    "DDERR_OUTOFCAPS"},
+	{   DDERR_OUTOFMEMORY,                  "DDERR_OUTOFMEMORY"},
+	{   DDERR_OUTOFVIDEOMEMORY,             "DDERR_OUTOFVIDEOMEMORY"},
+	{   DDERR_OVERLAYCANTCLIP,              "DDERR_OVERLAYCANTCLIP"},
+	{   DDERR_OVERLAYCOLORKEYONLYONEACTIVE, "DDERR_OVERLAYCOLORKEYONLYONEACTIVE"},
+	{   DDERR_PALETTEBUSY,                  "DDERR_PALETTEBUSY"},
+	{   DDERR_COLORKEYNOTSET,               "DDERR_COLORKEYNOTSET"},
+	{   DDERR_SURFACEALREADYATTACHED,       "DDERR_SURFACEALREADYATTACHED"},
+	{   DDERR_SURFACEALREADYDEPENDENT,      "DDERR_SURFACEALREADYDEPENDENT"},
+	{   DDERR_SURFACEBUSY,                  "DDERR_SURFACEBUSY"},
+	{   DDERR_CANTLOCKSURFACE,              "DDERR_CANTLOCKSURFACE"},
+	{   DDERR_SURFACEISOBSCURED,            "DDERR_SURFACEISOBSCURED"},
+	{   DDERR_SURFACELOST,                  "DDERR_SURFACELOST"},
+	{   DDERR_SURFACENOTATTACHED,           "DDERR_SURFACENOTATTACHED"},
+	{   DDERR_TOOBIGHEIGHT,                 "DDERR_TOOBIGHEIGHT"},
+	{   DDERR_TOOBIGSIZE,                   "DDERR_TOOBIGSIZE"},
+	{   DDERR_TOOBIGWIDTH,                  "DDERR_TOOBIGWIDTH"},
+	{   DDERR_UNSUPPORTED,                  "DDERR_UNSUPPORTED"},
+	{   DDERR_UNSUPPORTEDFORMAT,            "DDERR_UNSUPPORTEDFORMAT"},
+	{   DDERR_UNSUPPORTEDMASK,              "DDERR_UNSUPPORTEDMASK"},
+	{   DDERR_VERTICALBLANKINPROGRESS,      "DDERR_VERTICALBLANKINPROGRESS"},
+	{   DDERR_WASSTILLDRAWING,              "DDERR_WASSTILLDRAWING"},
+	{   DDERR_XALIGN,                       "DDERR_XALIGN"},
+	{   DDERR_INVALIDDIRECTDRAWGUID,        "DDERR_INVALIDDIRECTDRAWGUID"},
+	{   DDERR_DIRECTDRAWALREADYCREATED,     "DDERR_DIRECTDRAWALREADYCREATED"},
+	{   DDERR_NODIRECTDRAWHW,               "DDERR_NODIRECTDRAWHW"},
+	{   DDERR_PRIMARYSURFACEALREADYEXISTS,  "DDERR_PRIMARYSURFACEALREADYEXISTS"},
+	{   DDERR_NOEMULATION,                  "DDERR_NOEMULATION"},
+	{   DDERR_REGIONTOOSMALL,               "DDERR_REGIONTOOSMALL"},
+	{   DDERR_CLIPPERISUSINGHWND,           "DDERR_CLIPPERISUSINGHWND"},
+	{   DDERR_NOCLIPPERATTACHED,            "DDERR_NOCLIPPERATTACHED"},
+	{   DDERR_NOHWND,                       "DDERR_NOHWND"},
+	{   DDERR_HWNDSUBCLASSED,               "DDERR_HWNDSUBCLASSED"},
+	{   DDERR_HWNDALREADYSET,               "DDERR_HWNDALREADYSET"},
+	{   DDERR_NOPALETTEATTACHED,            "DDERR_NOPALETTEATTACHED"},
+	{   DDERR_NOPALETTEHW,                  "DDERR_NOPALETTEHW"},
+	{   DDERR_BLTFASTCANTCLIP,              "DDERR_BLTFASTCANTCLIP"},
+	{   DDERR_NOBLTHW,                      "DDERR_NOBLTHW"},
+	{   DDERR_NODDROPSHW,                   "DDERR_NODDROPSHW"},
+	{   DDERR_OVERLAYNOTVISIBLE,            "DDERR_OVERLAYNOTVISIBLE"},
+	{   DDERR_NOOVERLAYDEST,                "DDERR_NOOVERLAYDEST"},
+	{   DDERR_INVALIDPOSITION,              "DDERR_INVALIDPOSITION"},
+	{   DDERR_NOTAOVERLAYSURFACE,           "DDERR_NOTAOVERLAYSURFACE"},
+	{   DDERR_EXCLUSIVEMODEALREADYSET,      "DDERR_EXCLUSIVEMODEALREADYSET"},
+	{   DDERR_NOTFLIPPABLE,                 "DDERR_NOTFLIPPABLE"},
+	{   DDERR_CANTDUPLICATE,                "DDERR_CANTDUPLICATE"},
+	{   DDERR_NOTLOCKED,                    "DDERR_NOTLOCKED"},
+	{   DDERR_CANTCREATEDC,                 "DDERR_CANTCREATEDC"},
+	{   DDERR_NODC,                         "DDERR_NODC"},
+	{   DDERR_WRONGMODE,                    "DDERR_WRONGMODE"},
+	{   DDERR_IMPLICITLYCREATED,            "DDERR_IMPLICITLYCREATED"},
+	{   DDERR_NOTPALETTIZED,                "DDERR_NOTPALETTIZED"},
+	{   DDERR_UNSUPPORTEDMODE,              "DDERR_UNSUPPORTEDMODE"},
+	{   DDERR_NOMIPMAPHW,                   "DDERR_NOMIPMAPHW"},
+	{   DDERR_INVALIDSURFACETYPE,           "DDERR_INVALIDSURFACETYPE"},
+
+	{   DDERR_NOOPTIMIZEHW,                 "DDERR_NOOPTIMIZEHW"},
+	{   DDERR_NOTLOADED,                    "DDERR_NOTLOADED"},
+
+	{   DDERR_DCALREADYCREATED,             "DDERR_DCALREADYCREATED"},
+
+	{   DDERR_NONONLOCALVIDMEM,             "DDERR_NONONLOCALVIDMEM"},
+	{   DDERR_CANTPAGELOCK,                 "DDERR_CANTPAGELOCK"},
+	{   DDERR_CANTPAGEUNLOCK,               "DDERR_CANTPAGEUNLOCK"},
+	{   DDERR_NOTPAGELOCKED,                "DDERR_NOTPAGELOCKED"},
+
+	{   DDERR_MOREDATA,                     "DDERR_MOREDATA"},
+	{   DDERR_VIDEONOTACTIVE,               "DDERR_VIDEONOTACTIVE"},
+	{   DDERR_DEVICEDOESNTOWNSURFACE,       "DDERR_DEVICEDOESNTOWNSURFACE"},
+	{   DDERR_NOTINITIALIZED,               "DDERR_NOTINITIALIZED"},
+
+	{   DIERR_OLDDIRECTINPUTVERSION,        "DIERR_OLDDIRECTINPUTVERSION" },
+	{   DIERR_BETADIRECTINPUTVERSION,       "DIERR_BETADIRECTINPUTVERSION" },
+	{   DIERR_BADDRIVERVER,                 "DIERR_BADDRIVERVER" },
+	{   DIERR_DEVICENOTREG,                 "DIERR_DEVICENOTREG" },
+	{   DIERR_NOTFOUND,                     "DIERR_NOTFOUND" },
+	{   DIERR_OBJECTNOTFOUND,               "DIERR_OBJECTNOTFOUND" },
+	{   DIERR_INVALIDPARAM,                 "DIERR_INVALIDPARAM" },
+	{   DIERR_NOINTERFACE,                  "DIERR_NOINTERFACE" },
+	{   DIERR_GENERIC,                      "DIERR_GENERIC" },
+	{   DIERR_OUTOFMEMORY,                  "DIERR_OUTOFMEMORY" },
+	{   DIERR_UNSUPPORTED,                  "DIERR_UNSUPPORTED" },
+	{   DIERR_NOTINITIALIZED,               "DIERR_NOTINITIALIZED" },
+	{   DIERR_ALREADYINITIALIZED,           "DIERR_ALREADYINITIALIZED" },
+	{   DIERR_NOAGGREGATION,                "DIERR_NOAGGREGATION" },
+	{   DIERR_OTHERAPPHASPRIO,              "DIERR_OTHERAPPHASPRIO" },
+	{   DIERR_INPUTLOST,                    "DIERR_INPUTLOST" },
+	{   DIERR_ACQUIRED,                     "DIERR_ACQUIRED" },
+	{   DIERR_NOTACQUIRED,                  "DIERR_NOTACQUIRED" },
+	{   DIERR_READONLY,                     "DIERR_READONLY" },
+	{   DIERR_HANDLEEXISTS,                 "DIERR_HANDLEEXISTS" },
+	{   E_PENDING,                          "E_PENDING" },
+	{   (HRESULT)DIERR_INSUFFICIENTPRIVS,   "DIERR_INSUFFICIENTPRIVS" },
+	{   (HRESULT)DIERR_DEVICEFULL,          "DIERR_DEVICEFULL" },
+	{   (HRESULT)DIERR_MOREDATA,            "DIERR_MOREDATA" },
+	{   (HRESULT)DIERR_NOTDOWNLOADED,       "DIERR_NOTDOWNLOADED" },
+	{   (HRESULT)DIERR_HASEFFECTS,          "DIERR_HASEFFECTS" },
+	{   (HRESULT)DIERR_NOTEXCLUSIVEACQUIRED,"DIERR_NOTEXCLUSIVEACQUIRED" },
+	{   (HRESULT)DIERR_INCOMPLETEEFFECT,    "DIERR_INCOMPLETEEFFECT" },
+	{   (HRESULT)DIERR_NOTBUFFERED,         "DIERR_NOTBUFFERED" },
+	{   (HRESULT)DIERR_EFFECTPLAYING,       "DIERR_EFFECTPLAYING" },
+	//{   (HRESULT)DIERR_UNPLUGGED,           "DIERR_UNPLUGGED" },
+
+	{   E_NOINTERFACE,                      "E_NOINTERFACE" }
+
+};
+
+
+/****************************************************************************
+   DirectXDecodeError:  Return a string description of the given DirectX
+   error code.
+*****************************************************************************/
+const char * DirectXDecodeError(HRESULT errorval)
+{
+	for (int i = 0; i < (sizeof(g_ErrorCode) / sizeof(g_ErrorCode[0])); i++)
+	{
+		if (g_ErrorCode[i].hr == errorval)
+		{
+			return g_ErrorCode[i].szError;
+		}
+	}
+	static char tmp[64];
+	sprintf(tmp, "UNKNOWN: 0x%x", (unsigned int)errorval);
+	return tmp;
 }
 

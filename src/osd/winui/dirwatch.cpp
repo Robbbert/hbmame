@@ -1,18 +1,13 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 // standard windows headers
 #include <windows.h>
 
-// standard C headers
-#include <string.h>
-#include <tchar.h>
-
 // MAME/MAMEUI headers
 #include "dirwatch.h"
-#include "emu.h"
 #include "mui_util.h"
-#include "strconv.h"
 
 typedef BOOL (WINAPI *READDIRECTORYCHANGESFUNC)(HANDLE hDirectory, LPVOID lpBuffer,
 		DWORD nBufferLength, BOOL bWatchSubtree, DWORD dwNotifyFilter,
@@ -90,8 +85,7 @@ static void DirWatcher_FreeEntry(struct DirWatcherEntry *pEntry)
 
 
 
-static BOOL DirWatcher_WatchDirectory(PDIRWATCHER pWatcher, int nIndex, int nSubIndex,
-	LPCSTR pszPath, BOOL bWatchSubtree)
+static BOOL DirWatcher_WatchDirectory(PDIRWATCHER pWatcher, int nIndex, int nSubIndex, LPCSTR pszPath, BOOL bWatchSubtree)
 {
 	struct DirWatcherEntry *pEntry;
 	HANDLE hDir;
@@ -121,12 +115,12 @@ static BOOL DirWatcher_WatchDirectory(PDIRWATCHER pWatcher, int nIndex, int nSub
 	pWatcher->pEntries = pEntry;
 
 	DirWatcher_SetupWatch(pWatcher, pEntry);
-	return TRUE;
+	return true;
 
 error:
 	if (pEntry)
 		DirWatcher_FreeEntry(pEntry);
-	return FALSE;
+	return false;
 }
 
 
@@ -134,37 +128,31 @@ error:
 static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEntry)
 {
 	LPSTR pszFileName;
-	LPSTR pszFullFileName;
 	BOOL bPause = 0;
 	HANDLE hFile;
-	int nTries = 0;
-	TCHAR* t_filename;
 
 	{
-		int nLength;
-		nLength = WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, NULL, 0, NULL, NULL);
+		int nLength = WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, NULL, 0, NULL, NULL);
 		pszFileName = (LPSTR) alloca(nLength * sizeof(*pszFileName));
 		WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, pszFileName, nLength, NULL, NULL);
 	}
 
 	// get the full path to this new file
-	pszFullFileName = (LPSTR) alloca(strlen(pEntry->szDirPath) + strlen(pszFileName) + 2);
+	LPSTR pszFullFileName = (LPSTR) alloca(strlen(pEntry->szDirPath) + strlen(pszFileName) + 2);
 	strcpy(pszFullFileName, pEntry->szDirPath);
 	strcat(pszFullFileName, "\\");
 	strcat(pszFullFileName, pszFileName);
 
 	// attempt to busy wait until any result other than ERROR_SHARING_VIOLATION
 	// is generated
-	nTries = 100;
+	int nTries = 100;
 	do
 	{
-		hFile = win_create_file_utf8(pszFullFileName, GENERIC_READ,
-			FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+		hFile = win_create_file_utf8(pszFullFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 		if (hFile != INVALID_HANDLE_VALUE)
 			CloseHandle(hFile);
 
-		bPause = (nTries--) && (hFile == INVALID_HANDLE_VALUE)
-			&& (GetLastError() == ERROR_SHARING_VIOLATION);
+		bPause = (nTries--) && (hFile == INVALID_HANDLE_VALUE) && (GetLastError() == ERROR_SHARING_VIOLATION);
 		if (bPause)
 			Sleep(10);
 	}
@@ -173,13 +161,10 @@ static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEnt
 	// send the message (assuming that we have a target)
 	if (pWatcher->hwndTarget)
 	{
-		t_filename = ui_wstring_from_utf8(pszFileName);
+		TCHAR* t_filename = ui_wstring_from_utf8(pszFileName);
 		if( !t_filename )
 			return;
-		SendMessage(pWatcher->hwndTarget,
-			pWatcher->nMessage,
-			(pEntry->nIndex << 16) | (pEntry->nSubIndex << 0),
-			(LPARAM)(LPCTSTR) win_tstring_strdup(t_filename));
+		SendMessage(pWatcher->hwndTarget, pWatcher->nMessage, (pEntry->nIndex << 16) | (pEntry->nSubIndex << 0), (LPARAM)(LPCTSTR) win_tstring_strdup(t_filename));
 		free(t_filename);
 	}
 
@@ -190,8 +175,7 @@ static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEnt
 
 static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 {
-	LPSTR pszPathList;
-	LPSTR s;
+	LPSTR pszPathList, s;
 	int nSubIndex = 0;
 	PDIRWATCHER pWatcher = (PDIRWATCHER) lpParameter;
 	struct DirWatcherEntry *pEntry;
@@ -265,8 +249,8 @@ static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 
 PDIRWATCHER DirWatcher_Init(HWND hwndTarget, UINT nMessage)
 {
-	struct DirWatcher *pWatcher = NULL;
 	DWORD nThreadID = 0;
+	struct DirWatcher *pWatcher = NULL;
 
 	// This feature does not exist on Win9x
 	if (GetVersion() >= 0x80000000)
@@ -321,7 +305,7 @@ BOOL DirWatcher_Watch(PDIRWATCHER pWatcher, WORD nIndex, LPCSTR pszPathList, BOO
 
 	WaitForSingleObject(pWatcher->hResponseEvent, INFINITE);
 	LeaveCriticalSection(&pWatcher->crit);
-	return TRUE;
+	return true;
 }
 
 
@@ -334,7 +318,7 @@ void DirWatcher_Free(PDIRWATCHER pWatcher)
 	if (pWatcher->hThread)
 	{
 		EnterCriticalSection(&pWatcher->crit);
-		pWatcher->bQuit = TRUE;
+		pWatcher->bQuit = true;
 		SetEvent(pWatcher->hRequestEvent);
 		WaitForSingleObject(pWatcher->hThread, 1000);
 		LeaveCriticalSection(&pWatcher->crit);
