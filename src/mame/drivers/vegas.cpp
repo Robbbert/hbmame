@@ -290,6 +290,7 @@
 #include "video/voodoo_pci.h"
 #include "screen.h"
 
+#include "sf2049.lh"
 
 /*************************************
  *
@@ -957,7 +958,7 @@ CUSTOM_INPUT_MEMBER(vegas_state::i40_r)
 		break;
 	}
 	//if (m_i40_data & 0x1000)
-	//	printf("%08X: i40_r: select: %x index: %d data: %x\n", machine().device("maincpu")->safe_pc(), m_i40_data, index, data);
+	//  printf("%08X: i40_r: select: %x index: %d data: %x\n", machine().device("maincpu")->safe_pc(), m_i40_data, index, data);
 	//m_i40_data &= ~0x1000;
 	return data;
 }
@@ -974,8 +975,27 @@ WRITE32_MEMBER(vegas_state::wheel_board_w)
 	uint8_t op = (data >> 8) & 0x3;
 	uint8_t arg = data & 0xff;
 
-	if (valid && flag && op == 2)
-		m_keypad_select = arg;
+	if (valid && flag)
+	{
+		switch (op)
+		{
+		case 0x0:
+			machine().output().set_value("wheel", arg); // target wheel angle. signed byte.
+			break;
+
+		case 0x1:
+			for (uint8_t bit = 0; bit < 8; bit++)
+				machine().output().set_lamp_value(bit, (arg >> bit) & 0x1);
+
+			/* leader lamp bit is included in every write, for some reason. */
+			machine().output().set_lamp_value(8, (data >> 12) & 0x1);
+			break;
+
+		case 0x2:
+			m_keypad_select = arg;
+			break;
+		}
+	}
 }
 
 CUSTOM_INPUT_MEMBER(vegas_state::keypad_r)
@@ -1621,7 +1641,7 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( gauntleg, vegas )
 	MCFG_DEVICE_ADD("dcs", DCS2_AUDIO_2104, 0)
 	MCFG_DCS2_AUDIO_DRAM_IN_MB(4)
-    MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0b5d)
+	MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0b5d)
 
 	MCFG_DEVICE_ADD("ioasic", MIDWAY_IOASIC, 0)
 	MCFG_MIDWAY_IOASIC_SHUFFLE(MIDWAY_IOASIC_CALSPEED)
@@ -1634,7 +1654,7 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( gauntdl, vegas )
 	MCFG_DEVICE_ADD("dcs", DCS2_AUDIO_2104, 0)
 	MCFG_DCS2_AUDIO_DRAM_IN_MB(4)
-    MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0b5d)
+	MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0b5d)
 
 	MCFG_DEVICE_ADD("ioasic", MIDWAY_IOASIC, 0)
 	MCFG_MIDWAY_IOASIC_SHUFFLE(MIDWAY_IOASIC_GAUNTDL)
@@ -1647,7 +1667,7 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( warfa, vegas250 )
 	MCFG_DEVICE_ADD("dcs", DCS2_AUDIO_2104, 0)
 	MCFG_DCS2_AUDIO_DRAM_IN_MB(4)
-    MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0b5d)
+	MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0b5d)
 
 	MCFG_DEVICE_ADD("ioasic", MIDWAY_IOASIC, 0)
 	MCFG_MIDWAY_IOASIC_SHUFFLE(MIDWAY_IOASIC_MACE)
@@ -1660,7 +1680,7 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( tenthdeg, vegas )
 	MCFG_DEVICE_ADD("dcs", DCS2_AUDIO_2115, 0)
 	MCFG_DCS2_AUDIO_DRAM_IN_MB(4)
-    MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0afb)
+	MCFG_DCS2_AUDIO_POLLING_OFFSET(0x0afb)
 
 	MCFG_DEVICE_ADD("ioasic", MIDWAY_IOASIC, 0)
 	MCFG_MIDWAY_IOASIC_SHUFFLE(MIDWAY_IOASIC_GAUNTDL)
@@ -2186,9 +2206,9 @@ GAME( 2000, nbagold ,   0,        nbagold,  nbashowt, vegas_state, nbanfl,   ROT
 
 
 /* Durango + Denver SIO + Voodoo 3 */
-GAME( 1998, sf2049,     0,        sf2049,   sf2049,   vegas_state, sf2049,   ROT0, "Atari Games",   "San Francisco Rush 2049", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 1998, sf2049se,   sf2049,   sf2049se, sf2049se, vegas_state, sf2049se, ROT0, "Atari Games",   "San Francisco Rush 2049: Special Edition", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 1998, sf2049te,   sf2049,   sf2049te, sf2049,   vegas_state, sf2049te, ROT0, "Atari Games",   "San Francisco Rush 2049: Tournament Edition", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE)
+GAMEL( 1998, sf2049,     0,        sf2049,   sf2049,   vegas_state, sf2049,   ROT0, "Atari Games",   "San Francisco Rush 2049", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_sf2049 )
+GAMEL( 1998, sf2049se,   sf2049,   sf2049se, sf2049se, vegas_state, sf2049se, ROT0, "Atari Games",   "San Francisco Rush 2049: Special Edition", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_sf2049 )
+GAMEL( 1998, sf2049te,   sf2049,   sf2049te, sf2049,   vegas_state, sf2049te, ROT0, "Atari Games",   "San Francisco Rush 2049: Tournament Edition", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_sf2049 )
 
 /* Durango + Vegas SIO + Voodoo 3 */
 GAME( 2000, cartfury,   0,        cartfury, cartfury, vegas_state, cartfury, ROT0, "Midway Games",  "Cart Fury", MACHINE_NO_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
