@@ -397,7 +397,6 @@ MACHINES["CR589"] = true
 MACHINES["CS4031"] = true
 MACHINES["CS8221"] = true
 MACHINES["CXD1095"] = true
-MACHINES["DM9334"] = true
 MACHINES["DP8390"] = true
 --MACHINES["DS1204"] = true
 MACHINES["DS1302"] = true
@@ -561,6 +560,7 @@ MACHINES["TTL74161"] = true
 MACHINES["TTL74164"] = true
 MACHINES["TTL74175"] = true
 MACHINES["TTL74181"] = true
+MACHINES["TTL74259"] = true
 MACHINES["TTL7474"] = true
 MACHINES["UPD1990A"] = true
 --MACHINES["UPD4992"] = true
@@ -896,6 +896,7 @@ FORMATS["ZX81_P"] = true
 --------------------------------------------------
 function linkProjects_mame_mess(_target, _subtarget)
 	links {
+		"access",
 		"acorn",
 		"act",
 		"adc",
@@ -952,6 +953,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"einis",
 		"elektor",
 		"elektrka",
+		"elektron",
 		"ensoniq",
 		"enterprise",
 		"entex",
@@ -1299,6 +1301,11 @@ files {
 --------------------------------------------------
 -- manufacturer-specific groupings for drivers
 --------------------------------------------------
+
+createMESSProjects(_target, _subtarget, "access")
+files {
+	MAME_DIR .. "src/mame/drivers/acvirus.cpp",
+}
 
 createMESSProjects(_target, _subtarget, "acorn")
 files {
@@ -1879,6 +1886,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/ec65.cpp",
 	MAME_DIR .. "src/mame/drivers/elekscmp.cpp",
 	MAME_DIR .. "src/mame/drivers/junior.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "elektron")
+files {
+	MAME_DIR .. "src/mame/drivers/elektronmono.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "ensoniq")

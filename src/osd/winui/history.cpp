@@ -40,6 +40,7 @@
 #include "sound/samples.h"
 #define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
 
+
 /****************************************************************************
  *      struct definitions
  ****************************************************************************/
@@ -107,7 +108,6 @@ std::map<std::string, std::streampos> mymap[MAX_HFILES];
 
 static bool create_index(std::ifstream &fp, int filenum)
 {
-	size_t i;
 	if (!fp.good())
 		return false;
 	// get file size
@@ -127,6 +127,7 @@ static bool create_index(std::ifstream &fp, int filenum)
 		char t1 = file_line[0];
 		if ((std::count(file_line.begin(),file_line.end(),'=') == 1) && (t1 == '$')) // line must start with $ and contain one =
 		{
+
 			// tellg is buggy, we need to rewind the pointer to the previous $
 			int position = fp.tellg(); // get bugged info
 			fp.seekg(position); // position file to wrong place
@@ -137,40 +138,25 @@ static bool create_index(std::ifstream &fp, int filenum)
 				fp.seekg(position);
 				c = fp.get();
 			}
-			// now start
-			i = std::count(file_line.begin(),file_line.end(),',');
-			if (i)
+
+			// now start by removing all spaces
+			file_line.erase(remove_if(file_line.begin(), file_line.end(), ::isspace), file_line.end());
+			char s[file_line.length()];
+			strcpy(s, file_line.c_str());
+
+			const char* first = strtok(s, "=");  // get first part of key
+			char* second = strtok(NULL, ",");    // get second part
+			while (second)
 			{
-				// line has commas, split up to separate keys
-				size_t j = file_line.find('=');
-				first = file_line.substr(0, j+1);
-				file_line.erase(0, j+1);
-				for (size_t k = 0; k < i; k++)
-				{
-					// remove leading space in command.dat
-					t1 = file_line[0];
-					if (t1 == ' ')
-						file_line.erase(0,1);
-					// find first comma
-					j = file_line.find(',');
-					if (j != std::string::npos)
-					{
-						second = file_line.substr(0, j);
-						file_line.erase(0, j+1);
-					}
-					else
-						second = file_line;
-					// store into index
-					mymap[filenum][first + second] = position;
-				}
+				// store into index
+				mymap[filenum][std::string(first) + std::string("=") + std::string(second)] = position;
+				second = strtok(NULL, ",");
 			}
-			else
-				mymap[filenum][file_line] = position;
 		}
 		std::getline(fp, file_line);
 	}
 	// check contents
-//	if (filenum == 3)
+//	if (filenum == 0)
 //	for (auto const &it : mymap[filenum])
 //		printf("%s = %X\n", it.first.c_str(), int(it.second));
 	return true;
@@ -626,24 +612,29 @@ char * GetGameHistory(int driver_index, std::string software)
 			sw_valid = (i != std::string::npos) ? true : false;
 		}
 
-		for (int filenum = 0; filenum < MAX_HFILES; filenum++)
+		if (datsdir && osd::directory::open(datsdir))
 		{
-			if (sw_valid)
-				fullbuf.append(load_swinfo(&driver_list::driver(driver_index), datsdir, software, filenum));
-			fullbuf.append(load_gameinfo(&driver_list::driver(driver_index), datsdir, filenum));
-			fullbuf.append(load_sourceinfo(&driver_list::driver(driver_index), datsdir, filenum));
+			for (int filenum = 0; filenum < MAX_HFILES; filenum++)
+			{
+				if (sw_valid)
+					fullbuf.append(load_swinfo(&driver_list::driver(driver_index), datsdir, software, filenum));
+				fullbuf.append(load_gameinfo(&driver_list::driver(driver_index), datsdir, filenum));
+				fullbuf.append(load_sourceinfo(&driver_list::driver(driver_index), datsdir, filenum));
+			}
 		}
-
-		fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index)));
+		else
+			fullbuf = "\nThe path to your dat files is invalid.\n\n\n";
 	}
 	else
-		fullbuf = "Unable to display info due to a configuration error";
+		fullbuf = "\nUnable to display info due to an internal error.\n\n\n";
+
+	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index)));
 
 	return ConvertToWindowsNewlines(fullbuf.c_str());
 }
 
 // For Arcade-only builds
-char * GetArcadeHistory(int driver_index)
+char * GetGameHistory(int driver_index)
 {
 	std::string fullbuf;
 	if (validate_datfiles())
@@ -653,16 +644,21 @@ char * GetArcadeHistory(int driver_index)
 		// only want first path
 		const char* datsdir = strtok(buf, ";");
 
-		for (int filenum = 0; filenum < MAX_HFILES; filenum++)
+		if (datsdir && osd::directory::open(datsdir))
 		{
-			fullbuf.append(load_gameinfo(&driver_list::driver(driver_index), datsdir, filenum));
-			fullbuf.append(load_sourceinfo(&driver_list::driver(driver_index), datsdir, filenum));
+			for (int filenum = 0; filenum < MAX_HFILES; filenum++)
+			{
+				fullbuf.append(load_gameinfo(&driver_list::driver(driver_index), datsdir, filenum));
+				fullbuf.append(load_sourceinfo(&driver_list::driver(driver_index), datsdir, filenum));
+			}
 		}
-
-		fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index)));
+		else
+			fullbuf = "\nThe path to your dat files is invalid.\n\n\n";
 	}
 	else
-		fullbuf = "Unable to display info due to a configuration error";
+		fullbuf = "\nUnable to display info due to an internal error.\n\n\n";
+
+	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index)));
 
 	return ConvertToWindowsNewlines(fullbuf.c_str());
 }

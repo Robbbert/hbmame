@@ -147,8 +147,8 @@ UINT GetDepth(HWND hWnd)
 }
 
 /*
- * Return TRUE if comctl32.dll is version 4.71 or greater
- * otherwise return FALSE.
+ * Return true if comctl32.dll is version 4.71 or greater
+ * otherwise return false.
  */
 LONG GetCommonControlVersion()
 {
@@ -312,9 +312,9 @@ BOOL isDriverVector(const machine_config *config)
 	if (screen)
 	{
 		if (SCREEN_TYPE_VECTOR == screen->screen_type())
-			return TRUE;
+			return true;
 	}
-	return FALSE;
+	return false;
 }
 
 int numberOfScreens(const machine_config *config)
@@ -383,8 +383,8 @@ static void InitDriversInfo(void)
 		gameinfo->isClone = (GetParentRomSetIndex(gamedrv) != -1);
 		gameinfo->isBroken = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
 		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
-		gameinfo->isHarddisk = FALSE;
-		gameinfo->isVertical = (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
+		gameinfo->isHarddisk = false;
+		gameinfo->isVertical = (gamedrv->flags & ORIENTATION_SWAP_XY) ? true : false;
 
 		ram_device_iterator iter1(config.root_device());
 		gameinfo->hasRam = (iter1.first() );
@@ -414,11 +414,11 @@ static void InitDriversInfo(void)
 				for (rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 					gameinfo->usesRoms = true;
 
-		gameinfo->usesSamples = false;
+		gameinfo->usesSamples = true;
 
 		samples_device_iterator iter(config.root_device());
-		if (iter.first())
-			gameinfo->usesSamples = true;
+		if (iter.count() == 0)
+			gameinfo->usesSamples = false;
 
 		gameinfo->usesTrackball = false;
 		gameinfo->usesLightGun = false;
@@ -479,7 +479,7 @@ static int InitDriversCache(void)
 
 		gameinfo->isBroken  = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
 		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
-		gameinfo->isVertical        =  (gamedrv->flags & ORIENTATION_SWAP_XY) ? TRUE : FALSE;
+		gameinfo->isVertical        =  (gamedrv->flags & ORIENTATION_SWAP_XY) ? true : false;
 		gameinfo->screenCount       =   cache & DRIVER_CACHE_SCREEN;
 		gameinfo->isClone           = ((cache & DRIVER_CACHE_CLONE)     != 0);
 		gameinfo->isHarddisk        = ((cache & DRIVER_CACHE_HARDDISK)  != 0);
@@ -531,17 +531,17 @@ BOOL DriverIsHarddisk(int driver_index)
 
 BOOL DriverIsBios(int driver_index)
 {
-	return ( driver_list::driver(driver_index).flags & MACHINE_IS_BIOS_ROOT ) ? TRUE : FALSE;
+	return ( driver_list::driver(driver_index).flags & MACHINE_IS_BIOS_ROOT ) ? true : false;
 }
 
 BOOL DriverIsMechanical(int driver_index)
 {
-	return ( driver_list::driver(driver_index).flags & MACHINE_MECHANICAL ) ? TRUE : FALSE;
+	return ( driver_list::driver(driver_index).flags & MACHINE_MECHANICAL ) ? true : false;
 }
 
 BOOL DriverIsArcade(int driver_index)
 {
-	return ( driver_list::driver(driver_index).flags & MACHINE_TYPE_ARCADE ) ? TRUE : FALSE;
+	return ((driver_list::driver(driver_index).flags & machine_flags::MASK_TYPE) == machine_flags::TYPE_ARCADE);
 }
 
 BOOL DriverHasOptionalBIOS(int driver_index)

@@ -198,7 +198,7 @@ static void UpdateDirectoryList(HWND hDlg)
 	HWND hCombo = GetDlgItem(hDlg, IDC_DIR_COMBO);
 
 	/* Remove previous */
-	bool b_res = ListView_DeleteAllItems(hList);
+	BOOL b_res = ListView_DeleteAllItems(hList);
 
 	/* Update list */
 	LV_ITEM Item;

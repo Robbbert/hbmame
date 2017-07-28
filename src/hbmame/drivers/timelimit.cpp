@@ -46,6 +46,13 @@ static MACHINE_CONFIG_START( timelimit )
 
 	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
 
+	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // IC15
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(timelimt_state, nmi_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q2_OUT_CB(WRITELINE(timelimt_state, coin_lockout_w))
+	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(INPUTLINE("audiocpu", INPUT_LINE_RESET)) MCFG_DEVCB_INVERT
+	MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(NOOP) // probably flip screen
+	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(NOOP) // probably flip screen
+
 	MCFG_WATCHDOG_ADD("watchdog")
 
 	/* video hardware */

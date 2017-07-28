@@ -27,7 +27,7 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM AM_WRITENOP         /* the only area different for each CPU */
 	AM_RANGE(0x6800, 0x6807) AM_READ(bosco_dsw_r)
 	AM_RANGE(0x6800, 0x681f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x6820, 0x6827) AM_WRITE(bosco_latch_w)                        /* misc latches */
+	AM_RANGE(0x6820, 0x6827) AM_DEVWRITE("misclatch", ls259_device, write_d0)
 	AM_RANGE(0x6830, 0x6830) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
 	AM_RANGE(0x7000, 0x70ff) AM_DEVREAD("06xx", namco_06xx_device, data_r) AM_WRITE(galaga_sample_w)
 	AM_RANGE(0x7100, 0x7100) AM_DEVREADWRITE("06xx", namco_06xx_device, ctrl_r, ctrl_w)
@@ -35,8 +35,7 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
 	AM_RANGE(0x8800, 0x8bff) AM_RAM AM_SHARE("galaga_ram1")
 	AM_RANGE(0x9000, 0x93ff) AM_RAM AM_SHARE("galaga_ram2")
 	AM_RANGE(0x9800, 0x9bff) AM_RAM AM_SHARE("galaga_ram3")
-	AM_RANGE(0xa000, 0xa005) AM_WRITEONLY AM_SHARE("starcontrol")
-	AM_RANGE(0xa007, 0xa007) AM_WRITE(galaga_flip_screen_w)
+	AM_RANGE(0xa000, 0xa007) AM_DEVWRITE("videolatch", ls259_device, write_d0)
 ADDRESS_MAP_END
 
 static MACHINE_CONFIG_DERIVED( galagost, galaga )

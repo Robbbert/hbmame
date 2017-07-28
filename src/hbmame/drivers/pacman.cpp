@@ -39,6 +39,7 @@
 #include "pacman.h"
 #include "sound/namco.h"
 #include "machine/nvram.h"
+#include "machine/74259.h"
 
 
 
@@ -76,9 +77,9 @@
  *
  *************************************/
 
-WRITE8_MEMBER(pacman_state::irq_mask_w)
+WRITE_LINE_MEMBER(pacman_state::irq_mask_w)
 {
-	m_irq_mask = data & 1;
+	m_irq_mask = state;
 }
 
 WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
@@ -129,21 +130,26 @@ INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
  *
  *************************************/
 
-WRITE8_MEMBER(pacman_state::pacman_leds_w)
+WRITE_LINE_MEMBER(pacman_state::led1_w)
 {
-	output().set_led_value(offset, BIT(data, 0));
+	output().set_led_value(0, state);
+}
+
+WRITE_LINE_MEMBER(pacman_state::led2_w)
+{
+	output().set_led_value(1, state);
 }
 
 
-WRITE8_MEMBER(pacman_state::pacman_coin_counter_w)
+WRITE_LINE_MEMBER(pacman_state::coin_counter_w)
 {
-	machine().bookkeeping().coin_counter_w(offset, BIT(data, 0));
+	machine().bookkeeping().coin_counter_w(0, state);
 }
 
 
-WRITE8_MEMBER(pacman_state::pacman_coin_lockout_global_w)
+WRITE_LINE_MEMBER(pacman_state::coin_lockout_global_w)
 {
-	machine().bookkeeping().coin_lockout_global_w(~data & 1);
+	machine().bookkeeping().coin_lockout_global_w(!state);
 }
 
 
@@ -159,20 +165,14 @@ READ8_MEMBER( pacman_state::pacman_read_nop )
  *************************************/
 
 static ADDRESS_MAP_START( pacman_map, AS_PROGRAM, 8, pacman_state )
-	ADDRESS_MAP_GLOBAL_MASK(0x7fff)		/* A15 not connected at the CPU */
+	ADDRESS_MAP_GLOBAL_MASK(0x7fff)   /* A15 not connected at the CPU */
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x2000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x2000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
 	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0x2000) AM_READ(pacman_read_nop)
 	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0x2000) AM_RAM
 	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0x2000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5000) AM_WRITE(irq_mask_w)
-	AM_RANGE(0x5001, 0x5001) AM_DEVWRITE("namco", namco_device, pacman_sound_enable_w)
-	AM_RANGE(0x5002, 0x5002) AM_WRITENOP
-	AM_RANGE(0x5003, 0x5003) AM_WRITE(pacman_flipscreen_w)
-	AM_RANGE(0x5004, 0x5005) AM_WRITE(pacman_leds_w)
-	AM_RANGE(0x5006, 0x5006) AM_WRITENOP // AM_WRITE(pacman_coin_lockout_global_w)
-	AM_RANGE(0x5007, 0x5007) AM_WRITE(pacman_coin_counter_w)
+	AM_RANGE(0x5000, 0x5007) AM_DEVWRITE("mainlatch", addressable_latch_device, write_d0)
 	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
 	AM_RANGE(0x5070, 0x5080) AM_WRITENOP
@@ -190,13 +190,7 @@ static ADDRESS_MAP_START( woodpek_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0xa000) AM_READ(pacman_read_nop)
 	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0xa000) AM_RAM
 	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0xa000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5000) AM_MIRROR(0x8000) AM_WRITE(irq_mask_w)
-	AM_RANGE(0x5001, 0x5001) AM_MIRROR(0x8000) AM_DEVWRITE("namco", namco_device, pacman_sound_enable_w)
-	AM_RANGE(0x5002, 0x5002) AM_MIRROR(0x8000) AM_WRITENOP
-	AM_RANGE(0x5003, 0x5003) AM_MIRROR(0x8000) AM_WRITE(pacman_flipscreen_w)
-	AM_RANGE(0x5004, 0x5005) AM_MIRROR(0x8000) AM_WRITE(pacman_leds_w)
-	AM_RANGE(0x5006, 0x5006) AM_MIRROR(0x8000) AM_WRITENOP // AM_WRITE(pacman_coin_lockout_global_w)
-	AM_RANGE(0x5007, 0x5007) AM_MIRROR(0x8000) AM_WRITE(pacman_coin_counter_w)
+	AM_RANGE(0x5000, 0x5007) AM_DEVWRITE("mainlatch", ls259_device, write_d0)
 	AM_RANGE(0x5040, 0x505f) AM_MIRROR(0x8000) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
 	AM_RANGE(0x5060, 0x506f) AM_MIRROR(0x8000) AM_WRITEONLY AM_SHARE("spriteram2")
 	AM_RANGE(0x5070, 0x5080) AM_MIRROR(0x8000) AM_WRITENOP
@@ -438,6 +432,15 @@ static MACHINE_CONFIG_START( pacman )
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_VBLANK_INIT("screen", 16)
+
+	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // 74LS259 at 8K or 4099 at 7K
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(pacman_state, irq_mask_w))
+	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(DEVWRITELINE("namco", namco_device, pacman_sound_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(pacman_state, flipscreen_w))
+	//MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(pacman_state, led1_w))
+	//MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(pacman_state, led2_w))
+	//MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(WRITELINE(pacman_state, coin_lockout_global_w))
+	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(pacman_state, coin_counter_w))
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)

@@ -2884,7 +2884,7 @@ static void UpdateHistory(void)
 
 	if (GetSelectedPick() >= 0)
 	{
-		char *histText = GetArcadeHistory(Picker_GetSelectedItem(hwndList));
+		char *histText = GetGameHistory(Picker_GetSelectedItem(hwndList));
 
 		have_history = (histText && histText[0]) ? true : false;
 		win_set_window_text_utf8(GetDlgItem(hMain, IDC_HISTORY), histText);
