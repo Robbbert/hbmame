@@ -1201,6 +1201,11 @@ void menu_select_game::general_info(const game_driver *driver, std::string &buff
 	else
 		str << _("Driver is Parent\t\n");
 
+	if (flags.has_analog())
+		str << _("Analog Controls\tYes\n");
+	if (flags.has_keyboard())
+		str << _("Keyboard\tYes\n");
+
 	if (flags.machine_flags() & machine_flags::NOT_WORKING)
 		str << _("Overall\tNOT WORKING\n");
 	else if ((flags.unemulated_features() | flags.imperfect_features()) & device_t::feature::PROTECTION)
@@ -1272,6 +1277,11 @@ void menu_select_game::general_info(const game_driver *driver, std::string &buff
 		str << _("WAN\tUnimplemented\n");
 	else if (flags.imperfect_features() & device_t::feature::WAN)
 		str << _("WAN\tImperfect\n");
+
+	if (flags.unemulated_features() & device_t::feature::TIMING)
+		str << _("Timing\tUnimplemented\n");
+	else if (flags.imperfect_features() & device_t::feature::TIMING)
+		str << _("Timing\tImperfect\n");
 
 	util::stream_format(str, _("Mechanical Machine\t%1$s\n"), ((flags.machine_flags() & machine_flags::MECHANICAL) ? _("Yes") : _("No")));
 	util::stream_format(str, _("Requires Artwork\t%1$s\n"), ((flags.machine_flags() & machine_flags::REQUIRES_ARTWORK) ? _("Yes") : _("No")));
