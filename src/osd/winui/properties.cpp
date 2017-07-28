@@ -233,68 +233,62 @@ BOOL PropSheetFilter_Vector(const machine_config *drv, const game_driver *gamedr
 /* Help IDs - moved to auto-generated helpids.c */
 extern const DWORD dwHelpIDs[];
 
-static struct ComboBoxVideo
+typedef struct
 {
 	const TCHAR* m_pText;
 	const char* m_pData;
-} g_ComboBoxVideo[] =
-{
-	{ TEXT("Auto"),                 "auto"    },
-	{ TEXT("GDI"),                  "gdi"     },
-#ifdef UI_DIRECTDRAW
-	{ TEXT("DirectDraw"),           "ddraw"   }, // removed 20160217
-#endif
-	{ TEXT("Direct3D"),             "d3d"     },
-	{ TEXT("BGFX"),                 "bgfx"    },
-	{ TEXT("OpenGL"),               "opengl"  },
-};
-#define NUMVIDEO (sizeof(g_ComboBoxVideo) / sizeof(g_ComboBoxVideo[0]))
+}
+DUALCOMBOSTR;
 
-static struct ComboBoxSound
-{
-	const TCHAR* m_pText;
-	const char* m_pData;
-} g_ComboBoxSound[] =
-{
-	{ TEXT("None"),                 "none"    },
-	{ TEXT("Auto"),                 "auto"    },
-	{ TEXT("DirectSound"),          "dsound"  },
-	{ TEXT("PortAudio"),            "portaudio" },
-//	{ TEXT("XAudio2"),              "xaudio2" },     // invalid option
-};
-#define NUMSOUND (sizeof(g_ComboBoxSound) / sizeof(g_ComboBoxSound[0]))
-#ifdef D3DVERSION
-static struct ComboBoxD3DVersion
+typedef struct
 {
 	const TCHAR* m_pText;
 	const int m_pData;
-} g_ComboBoxD3DVersion[] =
+}
+DUALCOMBOINT;
+
+const DUALCOMBOSTR g_ComboBoxVideo[] =
 {
-	{ TEXT("Version 9"),           9   },
-//	{ TEXT("Version 8"),           8   },
+	{ TEXT("Auto"),             "auto"    },
+	{ TEXT("GDI"),              "gdi"     },
+#ifdef UI_DIRECTDRAW
+	{ TEXT("DirectDraw"),       "ddraw"   }, // removed 20160217
+#endif
+	{ TEXT("Direct3D"),         "d3d"     },
+	{ TEXT("BGFX"),             "bgfx"    },
+	{ TEXT("OpenGL"),           "opengl"  },
+};
+#define NUMVIDEO (sizeof(g_ComboBoxVideo) / sizeof(g_ComboBoxVideo[0]))
+
+const DUALCOMBOSTR g_ComboBoxSound[] =
+{
+	{ TEXT("None"),             "none"    },
+	{ TEXT("Auto"),             "auto"    },
+	{ TEXT("DirectSound"),      "dsound"  },
+	{ TEXT("PortAudio"),        "portaudio" },
+//	{ TEXT("XAudio2"),          "xaudio2" },     // invalid option
+};
+#define NUMSOUND (sizeof(g_ComboBoxSound) / sizeof(g_ComboBoxSound[0]))
+#ifdef D3DVERSION
+const DUALCOMBOINT g_ComboBoxD3DVersion[] =
+{
+	{ TEXT("Version 9"),        9   },
+//	{ TEXT("Version 8"),        8   },
 };
 
 #define NUMD3DVERSIONS (sizeof(g_ComboBoxD3DVersion) / sizeof(g_ComboBoxD3DVersion[0]))
 #define WINOPTION_D3DVERSION "9"
 #endif
-static struct ComboBoxSelectScreen
+const DUALCOMBOINT g_ComboBoxSelectScreen[] =
 {
-	const TCHAR* m_pText;
-	const int m_pData;
-} g_ComboBoxSelectScreen[] =
-{
-	{ TEXT("Screen 0"),             0    },
-	{ TEXT("Screen 1"),             1    },
-	{ TEXT("Screen 2"),             2    },
-	{ TEXT("Screen 3"),             3    },
+	{ TEXT("Screen 0"),         0 },
+	{ TEXT("Screen 1"),         1 },
+	{ TEXT("Screen 2"),         2 },
+	{ TEXT("Screen 3"),         3 },
 };
 #define NUMSELECTSCREEN (sizeof(g_ComboBoxSelectScreen) / sizeof(g_ComboBoxSelectScreen[0]))
 
-static struct ComboBoxView
-{
-	const TCHAR* m_pText;
-	const char* m_pData;
-} g_ComboBoxView[] =
+const DUALCOMBOSTR g_ComboBoxView[] =
 {
 	{ TEXT("Auto"),             "auto"        },
 	{ TEXT("Standard"),         "standard"    },
@@ -305,26 +299,18 @@ static struct ComboBoxView
 
 
 
-static struct ComboBoxDevices
+const DUALCOMBOSTR g_ComboBoxDevice[] =
 {
-	const TCHAR* m_pText;
-	const char* m_pData;
-} g_ComboBoxDevice[] =
-{
-	{ TEXT("None"),                  "none"      },
-	{ TEXT("Keyboard"),              "keyboard"  },
-	{ TEXT("Mouse"),                 "mouse"     },
-	{ TEXT("Joystick"),              "joystick"  },
-	{ TEXT("Lightgun"),              "lightgun"  },
+	{ TEXT("None"),             "none"      },
+	{ TEXT("Keyboard"),         "keyboard"  },
+	{ TEXT("Mouse"),            "mouse"     },
+	{ TEXT("Joystick"),         "joystick"  },
+	{ TEXT("Lightgun"),         "lightgun"  },
 };
 
 #define NUMDEVICES (sizeof(g_ComboBoxDevice) / sizeof(g_ComboBoxDevice[0]))
 
-static struct ComboBoxSnapView
-{
-	const TCHAR* m_pText;
-	const char* m_pData;
-} g_ComboBoxSnapView[] =
+const DUALCOMBOSTR g_ComboBoxSnapView[] =
 {
 	{ TEXT("Internal"),         "internal"    },
 	{ TEXT("Auto"),             "auto"        },
@@ -587,58 +573,101 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 /*********************************************************************
  * Local Functions
  *********************************************************************/
+#define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
 
 /* Build CPU info string */
-static char *GameInfoCPU(UINT nIndex)
+static char *GameInfoCPU(int nIndex)
 {
-	static char buf[1024];
-	machine_config config(driver_list::driver(nIndex),pCurrentOpts);
-	ZeroMemory(buf, sizeof(buf));
+	machine_config config(driver_list::driver(nIndex), MameUIGlobal());
+	execute_interface_iterator cpuiter(config.root_device());
+	std::unordered_set<std::string> exectags;
+	static char buffer[1024];
 
-	for (device_execute_interface &cpu : execute_interface_iterator(config.root_device()))
+	memset(&buffer, 0, sizeof(buffer));
+
+	for (device_execute_interface &exec : cpuiter)
 	{
-		if (cpu.device().clock() >= 1000000)
-			sprintf(&buf[strlen(buf)], "%s %d.%06d MHz", cpu.device().name(), cpu.device().clock() / 1000000, cpu.device().clock() % 1000000);
-		else
-			sprintf(&buf[strlen(buf)], "%s %d.%03d kHz", cpu.device().name(), cpu.device().clock() / 1000, cpu.device().clock() % 1000);
+		if (!exectags.insert(exec.device().tag()).second)
+			continue;
 
-		strcat(buf, "\n");
+		char temp[300];
+		int count = 1;
+		int clock = exec.device().clock();
+		const char *name = exec.device().name();
+
+		for (device_execute_interface &scan : cpuiter)
+		{
+			if (exec.device().type() == scan.device().type() && strcmp(name, scan.device().name()) == 0 && clock == scan.device().clock())
+				if (exectags.insert(scan.device().tag()).second)
+					count++;
+		}
+
+		if (count > 1)
+		{
+			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%d x ", count);
+			strcat(buffer, temp);
+		}
+
+		if (clock >= 1000000)
+			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%s %d.%06d MHz\r\n", name, clock / 1000000, clock % 1000000);
+		else
+			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%s %d.%03d kHz\r\n", name, clock / 1000, clock % 1000);
+
+		strcat(buffer, temp);
 	}
 
-	return buf;
+	return buffer;
 }
 
 /* Build Sound system info string */
-static char *GameInfoSound(UINT nIndex)
+static char *GameInfoSound(int nIndex)
 {
-	static char buf[1024];
+	machine_config config(driver_list::driver(nIndex), MameUIGlobal());
+	sound_interface_iterator sounditer(config.root_device());
+	std::unordered_set<std::string> soundtags;
+	static char buffer[1024];
 
-	buf[0] = 0;
+	memset(&buffer, 0, sizeof(buffer));
 
-	machine_config config(driver_list::driver(nIndex),pCurrentOpts);
-
-	/* iterate over sound chips */
-	for (device_sound_interface &sound : sound_interface_iterator(config.root_device()))
+	for (device_sound_interface &sound : sounditer)
 	{
-		char tmpname[1024];
+		if (!soundtags.insert(sound.device().tag()).second)
+				continue;
 
-		sprintf(tmpname,"%s",sound.device().name());
-
+		char temp[300];
+		int count = 1;
 		int clock = sound.device().clock();
+		const char *name = sound.device().name();
 
-		sprintf(&buf[strlen(buf)],"%s",tmpname);
+		for (device_sound_interface &scan : sounditer)
+		{
+			if (sound.device().type() == scan.device().type() && strcmp(name, scan.device().name()) == 0 && clock == scan.device().clock())
+				if (soundtags.insert(scan.device().tag()).second)
+					count++;
+		}
+
+		if (count > 1)
+		{
+			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%d x ", count);
+			strcat(buffer, temp);
+		}
+
+		strcat(buffer, name);
 
 		if (clock)
 		{
 			if (clock >= 1000000)
-				sprintf(&buf[strlen(buf)]," %d.%06d MHz", clock / 1000000, clock % 1000000);
+				snprintf(temp, WINUI_ARRAY_LENGTH(temp), " %d.%06d MHz", clock / 1000000, clock % 1000000);
 			else
-				sprintf(&buf[strlen(buf)]," %d.%03d kHz", clock / 1000, clock % 1000);
+				snprintf(temp, WINUI_ARRAY_LENGTH(temp), " %d.%03d kHz", clock / 1000, clock % 1000);
+
+			strcat(buffer, temp);
 		}
 
-		strcat(buf,"\n");
+		strcat(buffer, "\r\n");
 	}
-	return buf;
+
+	return buffer;
 }
 
 /* Build Display info string */
@@ -937,7 +966,7 @@ HWND hWnd;
 		}
 #endif
 
-		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_TITLE), GameInfoTitle(g_nPropertyMode, g_nGame));
+		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_TITLE),         GameInfoTitle(g_nPropertyMode, g_nGame));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_MANUFACTURED),  GameInfoManufactured(g_nGame));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_STATUS),        GameInfoStatus(g_nGame, false));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_CPU),           GameInfoCPU(g_nGame));
