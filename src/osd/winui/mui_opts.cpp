@@ -1441,18 +1441,15 @@ int GetPlayCount(int driver_index)
 static void ResetPlayVariable(int driver_index, const char *play_variable)
 {
 	if (driver_index < 0)
-	{
 		/* all games */
 		for (int i = 0; i< driver_list::total(); i++)
-		{
 			ResetPlayVariable(i, play_variable);
-		}
-	}
 	else
 	{
 		if (strcmp(play_variable, "count") == 0)
 			game_opts.play_count(driver_index, 0);
-		else if (strcmp(play_variable, "time") == 0)
+		else
+		if (strcmp(play_variable, "time") == 0)
 			game_opts.play_time(driver_index, 0);
 	}
 }
@@ -1480,17 +1477,19 @@ void IncrementPlayTime(int driver_index,int playtime)
 void GetTextPlayTime(int driver_index, char *buf)
 {
 
-	assert(0 <= driver_index && driver_index < driver_list::total());
-	int temp = GetPlayTime(driver_index);
-	int hour = temp / 3600;
-	temp = temp - 3600*hour;
-	int minute = temp / 60; //Calc Minutes
-	int second = temp - 60*minute;
+	if (0 <= driver_index && driver_index < driver_list::total())
+	{
+		int second = GetPlayTime(driver_index);
+		int hour = second / 3600;
+		second -= 3600*hour;
+		int minute = second / 60; //Calc Minutes
+		second -= 60*minute;
 
-	if (hour == 0)
-		sprintf(buf, "%d:%02d", minute, second );
-	else
-		sprintf(buf, "%d:%02d:%02d", hour, minute, second );
+		if (hour == 0)
+			sprintf(buf, "%d:%02d", minute, second );
+		else
+			sprintf(buf, "%d:%02d:%02d", hour, minute, second );
+	}
 }
 
 input_seq* Get_ui_key_up(void)

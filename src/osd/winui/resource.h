@@ -263,8 +263,7 @@
 #define IDC_AUDIO_LATENCY_TEXT          1191
 #define IDC_STRETCH_SCREENSHOT_LARGER   1192
 #define IDC_FILTER_INHERIT              1193
-#define IDC_RESET_PLAYTIME              1194
-#define IDC_RESET_PLAYCOUNT             1195
+#define IDC_RESET_PLAYSTATS             1194
 #define IDC_INHERITED                   1196
 #define IDC_KEY_GUI                     1197
 #define IDC_RELOAD                      1198
@@ -343,6 +342,7 @@
 #define IDI_WIN_CYLN                    2110
 #define IDI_WIN_PTAP                    2111
 #define IDI_WIN_PCRD                    2112
+#define IDI_WIN_MIDI                    2113
 #define ID_MESS_OPEN_SOFTWARE           2200
 #define IDD_PROP_SOFTWARE               2202
 #define IDD_PROP_CONFIGURATION          2203

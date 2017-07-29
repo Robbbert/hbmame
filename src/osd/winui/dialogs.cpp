@@ -293,13 +293,9 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 			SetKeyGUI(Button_GetCheck(GetDlgItem(hDlg, IDC_KEY_GUI)));
 			SetHideMouseOnStartup(Button_GetCheck(GetDlgItem(hDlg,IDC_HIDE_MOUSE)));
 
-			if( Button_GetCheck(GetDlgItem(hDlg,IDC_RESET_PLAYCOUNT ) ) )
+			if( Button_GetCheck(GetDlgItem(hDlg,IDC_RESET_PLAYSTATS ) ) )
 			{
 				ResetPlayCount( -1 );
-				bRedrawList = true;
-			}
-			if( Button_GetCheck(GetDlgItem(hDlg,IDC_RESET_PLAYTIME ) ) )
-			{
 				ResetPlayTime( -1 );
 				bRedrawList = true;
 			}

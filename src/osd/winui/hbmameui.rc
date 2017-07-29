@@ -617,7 +617,7 @@ BEGIN
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,169,25,SS_NOPREFIX
 
     CONTROL         "Run in a window",IDC_WINDOWED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,40,69,10,0,HIDC_WINDOWED
-    CONTROL         "Start out maximized",IDC_MAXIMIZE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,52,74,10,0,HIDC_MAXIMIZE
+    CONTROL         "Start out maximized",IDC_MAXIMIZE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,52,80,10,0,HIDC_MAXIMIZE
     CONTROL         "Enforce aspect ratio",IDC_KEEPASPECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,64,77,10,0,HIDC_KEEPASPECT
     CONTROL         "Throttle",IDC_THROTTLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,76,39,10,0,HIDC_THROTTLE
 
@@ -641,7 +641,7 @@ BEGIN
     CONTROL         "Slider1",IDC_PAUSEBRIGHT,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,10,203,71,10,0,HIDC_PAUSEBRIGHT
     RTEXT           "0.65",IDC_PAUSEBRIGHTDISP,84,202,14,11,SS_CENTERIMAGE | NOT WS_GROUP
 
-    GROUPBOX        "Videomode",IDC_STATIC,113,40,102,28
+    GROUPBOX        "Video Mode",IDC_STATIC,113,40,102,28
     COMBOBOX        IDC_VIDEO_MODE,119,50,90,50,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP,0,HIDC_VIDEO_MODE
 
     GROUPBOX        "Rotation",IDC_STATIC,113,71,102,55
@@ -672,7 +672,7 @@ BEGIN
 
     GROUPBOX        "",IDC_STATIC,4,40,211,155
 
-    GROUPBOX        "Soundmode",IDC_STATIC,60,50,100,28
+    GROUPBOX        "Sound Mode",IDC_STATIC,60,50,100,28
     COMBOBOX        IDC_SOUND_MODE,66,60,88,50,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP,0,HIDC_VIDEO_MODE
 
     CONTROL         "Use samples",IDC_SAMPLES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,60,84,55,10,0,HIDC_SAMPLES
@@ -1009,55 +1009,31 @@ EXSTYLE WS_EX_CONTEXTHELP
 CAPTION "Interface Options"
 FONT 8, "Tahoma"
 BEGIN
-    GROUPBOX        "Game Selection",IDC_STATIC,6,4,189,194
-    CONTROL         "&Search for new games on start",IDC_START_GAME_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,16,111,10,0,
-                    HIDC_START_GAME_CHECK
-    CONTROL         "Allow game selection by a &joystick (requires restart)",
-                    IDC_JOY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,
-                    174,10,0,HIDC_JOY_GUI
-    CONTROL         "Allow game selection by custom &key sequences",
-                    IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,
-                    166,10
-    CONTROL         "Hide &mouse cursor (requires restart)",IDC_HIDE_MOUSE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,126,10,0,
-                    HIDC_HIDE_MOUSE
-    CONTROL         "Inheritable Filters",IDC_FILTER_INHERIT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,100,68,10
-    CONTROL         "No offset for clones missing parent in view",
-                    IDC_NOOFFSET_CLONES,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,14,114,148,10
+    GROUPBOX        "Machine Selection",IDC_STATIC,6,4,189,194
+    CONTROL         "&Search for new machines on start",IDC_START_GAME_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,16,120,10,0,HIDC_START_GAME_CHECK
+    CONTROL         "Allow selection by &joystick (requires restart)",IDC_JOY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,180,10,0,HIDC_JOY_GUI
+    CONTROL         "Allow selection by custom &key sequences",IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,176,10
+    CONTROL         "Hide &mouse cursor (requires restart)",IDC_HIDE_MOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,136,10,0,HIDC_HIDE_MOUSE
+    CONTROL         "Inheritable Filters",IDC_FILTER_INHERIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,100,68,10
+    CONTROL         "No offset for clones missing parent in view",IDC_NOOFFSET_CLONES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,114,148,10
     GROUPBOX        "Show History on Tab",IDC_STATIC,14,128,173,28
-    COMBOBOX        IDC_HISTORY_TAB,57,138,88,50,CBS_DROPDOWNLIST |
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_HISTORY_TAB,57,138,88,50,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Snapshot Pattern",IDC_STATIC,202,4,170,28
     GROUPBOX        "Bookkeeping",IDC_STATIC,202,36,170,43
-    CONTROL         "Reset all Playcounts",IDC_RESET_PLAYCOUNT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,210,48,80,10
-    CONTROL         "Reset all Play Times",IDC_RESET_PLAYTIME,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,210,62,79,10
+    CONTROL         "Reset all Play Statistics",IDC_RESET_PLAYSTATS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,210,48,100,10
     GROUPBOX        "Screenshot Area",IDC_STATIC,202,83,170,115
     CONTROL         "S&tretch screenshot larger than natural size",
-                    IDC_STRETCH_SCREENSHOT_LARGER,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,210,95,148,10,0,
-                    HIDC_STRETCH_SCREENSHOT_LARGER
-    GROUPBOX        "Screenshot Cycletime in Seconds",IDC_STATIC,210,109,154,
-                    28
-    CONTROL         "Slider1",IDC_CYCLETIMESEC,"msctls_trackbar32",TBS_BOTH |
-                    TBS_NOTICKS | WS_TABSTOP,218,121,120,10,0,
-                    HIDC_CYCLETIMESEC
+                    IDC_STRETCH_SCREENSHOT_LARGER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,210,95,148,10,0,HIDC_STRETCH_SCREENSHOT_LARGER
+    GROUPBOX        "Screenshot Cycletime in Seconds",IDC_STATIC,210,109,154,28
+    CONTROL         "Slider1",IDC_CYCLETIMESEC,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,218,121,120,10,0,HIDC_CYCLETIMESEC
     RTEXT           "60",IDC_CYCLETIMESECTXT,340,120,13,10,SS_CENTERIMAGE
     GROUPBOX        "Screenshot Bordersize",IDC_STATIC,210,141,154,28
-    CONTROL         "Slider1",IDC_SCREENSHOT_BORDERSIZE,"msctls_trackbar32",
-                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,218,153,120,10
-    RTEXT           "100",IDC_SCREENSHOT_BORDERSIZETXT,340,152,13,10,
-                    SS_CENTERIMAGE
-    PUSHBUTTON      "Set Screenshot Border Color",IDC_SCREENSHOT_BORDERCOLOR,
-                    210,176,154,14
+    CONTROL         "Slider1",IDC_SCREENSHOT_BORDERSIZE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,218,153,120,10
+    RTEXT           "100",IDC_SCREENSHOT_BORDERSIZETXT,340,152,13,10,SS_CENTERIMAGE
+    PUSHBUTTON      "Set Screenshot Border Color",IDC_SCREENSHOT_BORDERCOLOR,210,176,154,14
     DEFPUSHBUTTON   "&OK",IDOK,136,204,50,14
     PUSHBUTTON      "&Cancel",IDCANCEL,192,204,50,14
-    COMBOBOX        IDC_SNAPNAME,209,14,155,60,CBS_DROPDOWNLIST | WS_VSCROLL |
-                    WS_TABSTOP,0,HIDC_SNAPNAME
+    COMBOBOX        IDC_SNAPNAME,209,14,155,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP,0,HIDC_SNAPNAME
 END
 
 IDD_CUSTOM_FILE DIALOG DISCARDABLE 0, 0, 190, 135
