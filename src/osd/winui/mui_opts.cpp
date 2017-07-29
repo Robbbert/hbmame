@@ -202,7 +202,6 @@ static void ResetToDefaults(windows_options &opts, int priority);
 #define MESSUI_SW_SORT_REVERSED       "sw_sort_reversed"
 #define MESSUI_SW_SORT_COLUMN         "sw_sort_column"
 #define MESSUI_SOFTWARE_TAB           "current_software_tab"
-//#define MESSUI_SLPATH                 "slpath"
 
 
 /***************************************************************************
@@ -286,7 +285,6 @@ const options_entry winui_options::s_option_entries[] =
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground", OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
-//	{ MESSUI_SLPATH,                          "software", OPTION_STRING, NULL },
 	{ NULL,                                   NULL,       OPTION_HEADER,     "NAVIGATION KEY CODES" },
 	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,                  "KEYCODE_DOWN",                     OPTION_STRING,          NULL },
@@ -501,13 +499,10 @@ static void options_set_color(winui_options &opts, const char *name, COLORREF va
 	char value_str[32];
 
 	if (value == (COLORREF) -1)
-	{
 		snprintf(value_str, ARRAY_LENGTH(value_str), "%d", (int) value);
-	}
 	else
-	{
 		snprintf(value_str, ARRAY_LENGTH(value_str), "%d,%d,%d", (((int) value) >>  0) & 0xFF, (((int) value) >>  8) & 0xFF, (((int) value) >> 16) & 0xFF);
-	}
+
 	opts.set_value(name, value_str, OPTION_PRIORITY_CMDLINE);
 }
 
@@ -516,6 +511,7 @@ static COLORREF options_get_color_default(winui_options &opts, const char *name,
 	COLORREF value = options_get_color(opts, name);
 	if (value == (COLORREF) -1)
 		value = GetSysColor(default_color);
+
 	return value;
 }
 
@@ -2470,12 +2466,12 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 
 		if (game_num > -1)
 		{
-			// global swpath serves a different purpose than for games, so blank it out
-			opts.set_value(OPTION_SWPATH, "", OPTION_PRIORITY_CMDLINE);
 			// Lastly, gamename.ini
 			if (driver)
 			{
 				fname = std::string(GetIniDir()) + PATH_SEPARATOR + std::string(driver->name).append(".ini");
+				const char* name = driver_list::driver(game_num).name;
+				opts.set_value(OPTION_SYSTEMNAME, name, OPTION_PRIORITY_CMDLINE);
 				LoadSettingsFile(opts, fname.c_str());
 			}
 		}
@@ -2707,16 +2703,6 @@ const char *GetCurrentSoftwareTab(void)
 {
 	return MameUISettings().value(MESSUI_SOFTWARE_TAB);
 }
-
-//const char* GetSLDir(void)
-//{
-//	return MameUISettings().value(MESSUI_SLPATH);
-//}
-
-//void SetSLDir(const char* paths)
-//{
-//	MameUISettings().set_value(MESSUI_SLPATH, paths, OPTION_PRIORITY_CMDLINE);
-//}
 
 bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
 {
