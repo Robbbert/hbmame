@@ -362,7 +362,7 @@ static void Picker_InternalResetColumnDisplay(HWND hWnd, BOOL bFirstTime)
 			{
 				res = ListView_InsertColumn(hWnd, nColumn, &lvc);
 				pPickerInfo->pnColumnsOrder[nColumn] = order[i];
-				//dprintf("Visible column %d: Logical column %d; Width=%d\n", nColumn, order[i], widths[order[i]]);
+				//printf("Visible column %d: Logical column %d; Width=%d\n", nColumn, order[i], widths[order[i]]);
 				nColumn++;
 			}
 		}

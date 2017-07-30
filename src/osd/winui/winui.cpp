@@ -854,8 +854,28 @@ public:
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
 			win_message_box_utf8(!osd_common_t::s_window_list.empty() ? std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
 		}
-		else
-			chain_output(channel, msg, args);
+//		else
+//			chain_output(channel, msg, args);   // goes down the black hole
+		// LOG all messages
+		FILE *pFile;
+		pFile = fopen("winui.log", "a");
+		vfprintf(pFile, msg, args);
+		fclose (pFile);
+/*  List of output types:
+		case OSD_OUTPUT_CHANNEL_ERROR:
+		case OSD_OUTPUT_CHANNEL_WARNING:
+			vfprintf(stderr, msg, args);     // send errors and warnings to standard error (=console)
+			break;
+		case OSD_OUTPUT_CHANNEL_INFO:
+		case OSD_OUTPUT_CHANNEL_LOG:
+			vfprintf(stdout, msg, args);     // send info and logging to standard output (=console)
+			break;
+		case OSD_OUTPUT_CHANNEL_VERBOSE:
+			if (verbose()) vfprintf(stdout, msg, args);      // send verbose (2nd half) to console if enabled (first half lost)
+			break;
+		case OSD_OUTPUT_CHANNEL_DEBUG:   // only for debug builds
+			vfprintf(stdout, msg, args);
+*/
 	}
 };
 
@@ -977,6 +997,9 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 
 int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
+	// delete old log file, ignore any error
+	unlink("winui.log");
+
 	if (__argc != 1)
 	{
 		/* Rename main because gcc will use it instead of WinMain even with -mwindows */

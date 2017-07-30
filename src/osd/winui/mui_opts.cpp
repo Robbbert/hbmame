@@ -2683,7 +2683,7 @@ void SetSelectedSoftware(int driver_index, const device_image_interface *dev, co
 
 	if (LOG_SOFTWARE)
 	{
-		dprintf("SetSelectedSoftware(): dev=%p (\'%s\') software='%s'\n", dev, driver_list::driver(driver_index).name, software);
+		printf("SetSelectedSoftware(): dev=%p (\'%s\') software='%s'\n", dev, driver_list::driver(driver_index).name, software);
 	}
 
 	const char* name = driver_list::driver(driver_index).name;
