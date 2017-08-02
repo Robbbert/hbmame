@@ -5,7 +5,7 @@
 #ifndef DIRECTORIES_H
 #define DIRECTORIES_H
 
-/* Dialog return codes */
+/* Dialog return codes - do these do anything??? */
 #define DIRDLG_ROMS         0x0010
 #define DIRDLG_SAMPLES      0x0020
 #define DIRDLG_INI          0x0040
@@ -36,7 +36,6 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "ROMs",                  GetRomDirs,         SetRomDirs,         TRUE,  DIRDLG_ROMS },
 	{ "Samples",               GetSampleDirs,      SetSampleDirs,      TRUE,  DIRDLG_SAMPLES },
 	{ "Software File Base",    GetSWDir,           SetSWDir,           FALSE, DIRDLG_SW }, // core cannot handle multiple path, even though we can.
-//	{ "Software List Base",    GetSLDir,           SetSLDir,           FALSE, DIRDLG_SL },   // no longer used, 2017-07-14
 	{ "Artwork",               GetArtDir,          SetArtDir,          TRUE, 0 },
 	{ "Cabinets",              GetCabinetDir,      SetCabinetDir,      TRUE, 0 },
 	{ "Cheats",                GetCheatDir,        SetCheatDir,        TRUE, DIRDLG_CHEAT },

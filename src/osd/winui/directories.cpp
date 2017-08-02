@@ -129,33 +129,31 @@ static BOOL IsMultiDir(int nType)
 
 static void DirInfo_SetDir(tDirInfo *pInfo, int nType, int nItem, LPCTSTR pText)
 {
+	TCHAR *t_s;
+	TCHAR *t_pOldText;
+
 	if (IsMultiDir(nType))
 	{
-		//assert(nItem >= 0);
+		assert(nItem >= 0);
 		_tcscpy(DirInfo_Path(pInfo, nType, nItem), pText);
-		DirInfo_SetModified(pInfo, nType, true);
+		DirInfo_SetModified(pInfo, nType, TRUE);
 	}
 	else
 	{
-		TCHAR* t_s = win_tstring_strdup(pText);
+		t_s = win_tstring_strdup(pText);
 		if (!t_s)
 			return;
-		TCHAR* t_pOldText = pInfo[nType].m_tDirectory;
+		t_pOldText = pInfo[nType].m_tDirectory;
 		if (t_pOldText)
 			free(t_pOldText);
-		pInfo[nType].m_tDirectory = t_s;
-		free(t_s);
+		pInfo[nType].m_tDirectory = t_s; // don't free t_s else directory name is corrupted
 	}
 }
 
 static TCHAR* DirInfo_Dir(tDirInfo *pInfo, int nType)
 {
-	//assert(!IsMultiDir(nType));
-	TCHAR* t = pInfo[nType].m_tDirectory;
 	// if a multipath exists in a single-path-only area then truncate it
-	TCHAR* i = _tcstok(t, TEXT(";"));
-	i++;
-	return t;
+	return _tcstok(pInfo[nType].m_tDirectory, TEXT(";"));
 }
 
 static TCHAR* DirInfo_Path(tDirInfo *pInfo, int nType, int nItem)
