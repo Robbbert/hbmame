@@ -55,6 +55,8 @@ class UpdateQueries(object):
     ADD_SYSTEM = 'INSERT INTO system (id, year, manufacturer) VALUES (?, ?, ?)'
     ADD_CLONEOF = 'INSERT INTO cloneof (id, parent) VALUES (?, ?)'
     ADD_ROMOF = 'INSERT INTO romof (id, parent) VALUES (?, ?)'
+    ADD_BIOSSET = 'INSERT INTO biosset (machine, name, description) VALUES (?, ?, ?)'
+    ADD_BIOSSETDEFAULT = 'INSERT INTO biossetdefault (id) VALUES (?)'
     ADD_DIPSWITCH = 'INSERT INTO dipswitch (machine, isconfig, name, tag, mask) VALUES (?, ?, ?, ?, ?)'
     ADD_DIPLOCATION = 'INSERT INTO diplocation (dipswitch, bit, name, num, inverted) VALUES (?, ?, ?, ?, ?)'
     ADD_DIPVALUE = 'INSERT INTO dipvalue (dipswitch, name, value, isdefault) VALUES (?, ?, ?, ?)'
@@ -184,6 +186,14 @@ class QueryCursor(object):
                 'WHERE machine.shortname = ?',
                 (machine, ))
 
+    def get_biossets(self, machine):
+        return self.dbcurs.execute(
+                'SELECT biosset.name AS name, biosset.description AS description, COUNT(biossetdefault.id) AS isdefault ' \
+                'FROM biosset LEFT JOIN biossetdefault USING (id) ' \
+                'WHERE biosset.machine = ? ' \
+                'GROUP BY biosset.id',
+                (machine, ))
+
     def get_devices_referenced(self, machine):
         return self.dbcurs.execute(
                 'SELECT machine.shortname AS shortname, machine.description AS description, sourcefile.filename AS sourcefile ' \
@@ -196,6 +206,13 @@ class QueryCursor(object):
                 'SELECT machine.shortname AS shortname, machine.description AS description, sourcefile.filename AS sourcefile ' \
                 'FROM machine JOIN sourcefile ON machine.sourcefile = sourcefile.id ' \
                 'WHERE machine.id IN (SELECT machine FROM devicereference WHERE device = ?)',
+                (device, ))
+
+    def get_compatible_slots(self, device):
+        return self.dbcurs.execute(
+                'SELECT machine.shortname AS shortname, machine.description AS description, slot.name AS slot, slotoption.name AS slotoption, sourcefile.filename AS sourcefile ' \
+                'FROM slotoption JOIN slot ON slotoption.slot = slot.id JOIN machine on slot.machine = machine.id JOIN sourcefile ON machine.sourcefile = sourcefile.id '
+                'WHERE slotoption.device = ?',
                 (device, ))
 
     def get_sourcefile_id(self, filename):
@@ -282,6 +299,14 @@ class UpdateCursor(object):
 
     def add_romof(self, machine, parent):
         self.dbcurs.execute(UpdateQueries.ADD_ROMOF, (machine, parent))
+        return self.dbcurs.lastrowid
+
+    def add_biosset(self, machine, name, description):
+        self.dbcurs.execute(UpdateQueries.ADD_BIOSSET, (machine, name, description))
+        return self.dbcurs.lastrowid
+
+    def add_biossetdefault(self, biosset):
+        self.dbcurs.execute(UpdateQueries.ADD_BIOSSETDEFAULT, (biosset, ))
         return self.dbcurs.lastrowid
 
     def add_devicereference(self, machine, device):
