@@ -15,7 +15,7 @@ ROM_START( bbaladar )
 	ROM_LOAD( "bbaladar.5",   0x10000, 0x8000, CRC(16386e9a) SHA1(77fa3f5ecce5c79ba52098c0870482459926b415) )
 	ROM_LOAD( "bbaladar.4",   0x18000, 0x8000, CRC(0c4bcb07) SHA1(3e3f7fa098d6be61d265cab5258dbd0e279bd8ed) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -49,7 +49,7 @@ ROM_START( bb2bmh )
 	ROM_LOAD( "a78-06.51", 	  0x00000, 0x08000, CRC(32c8305b) SHA1(6bf69b3edfbefd33cd670a762b4bf0b39629a220) )
 	ROM_LOAD( "bb2bmh-05.52",    0x10000, 0x10000, CRC(d286f2e9) SHA1(ac293aa5bb3973738c7a48ce78c523154d650ded) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "bb2bmh-08.37",    0x0000, 0x08000, CRC(ebce6c5c) SHA1(bd99a67a044763567c443b174115aae89957a60c) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -81,7 +81,7 @@ ROM_START( bbhackv1 )
 	ROM_LOAD( "a78-06.51", 	  0x00000, 0x08000, CRC(32c8305b) SHA1(6bf69b3edfbefd33cd670a762b4bf0b39629a220) )
 	ROM_LOAD( "bbhackv1-05.52",  0x10000, 0x10000, CRC(8da82422) SHA1(385ccd427b101255bc865af0802672b4d8432339) )
 	
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "bbhackv1-08.37",  0x0000, 0x08000, CRC(419caf60) SHA1(95d680c2be15e813081d3f78f17c5d97eda8b60b) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -115,7 +115,7 @@ ROM_START( bbredux1 )
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
 	ROM_LOAD( "bb4.1",        0x18000, 0x8000, CRC(19a5a0fa) SHA1(e7fff3643d7922a494ad8118d1a0f74e52443f9f) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -144,14 +144,14 @@ ROM_START( bbredux1 )
 	ROM_LOAD( "pal16l8.u4",  0x0400, 0x0104, CRC(077d20a8) SHA1(8e568ffd6f66c3dd61708dd0f3be9c2ed488ae4b) )
 ROM_END
 
-// When you die for the last time, it momentarily says says press P1. Do so, to continue.
+// When you die for the last time, it momentarily says press P1. Do so, to continue.
 ROM_START( bbredux2 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bb3.2",        0x00000, 0x8000, CRC(198dc44e) SHA1(de9538b47703c468f85ba318deb8aa0b65174a26) )
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
 	ROM_LOAD( "bb4.2",        0x18000, 0x8000, CRC(9b819b62) SHA1(79d7208cb81fa36ed317f4776b1eda3082b1a21c) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -187,7 +187,7 @@ ROM_START( bbredux3 )
 	ROM_LOAD( "bb5",          0x10000, 0x8000, CRC(d29d3444) SHA1(3db694a6ba2ba2ed85d31c2bc4c7c94911b99b85) )
 	ROM_LOAD( "bb4.3",        0x18000, 0x8000, CRC(3f350047) SHA1(7e23d1c9b1a29760d96dcc7f7784ae610ac860d9) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -216,13 +216,14 @@ ROM_START( bbredux3 )
 	ROM_LOAD( "pal16l8.u4",  0x0400, 0x0104, CRC(077d20a8) SHA1(8e568ffd6f66c3dd61708dd0f3be9c2ed488ae4b) )
 ROM_END
 
+// issues since 2017-08-06: music keeps dropping out, reboots if you press ctrl instead of 1 at level select screen
 ROM_START( sboblboblh )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bb3.u28",      0x00000, 0x08000, CRC(c23cd704) SHA1(a389ecc8d55d1b0c915fd3814d93338b9e402701) )
 	ROM_LOAD( "bb5.s",        0x10000, 0x08000, CRC(13118eb1) SHA1(5a5da40c2cc82420f70bc58ffa32de1088c6c82f) )
 	ROM_LOAD( "bbb-4.rom",    0x18000, 0x08000, CRC(94c75591) SHA1(7698bc4b7d20e554a73a489cd3a15ae61b350e37) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -251,7 +252,7 @@ ROM_START( bublbobf )
 	ROM_LOAD( "bublbobf-06.51",    0x00000, 0x08000, CRC(9ced3d8f) SHA1(d445f218fca822e7083a9347abd4a4e049b6555b) )
 	ROM_LOAD( "bublbobf-05.52",    0x10000, 0x10000, CRC(56197d88) SHA1(b1b750df33835df012b2550585edcd6ea58db186) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "a78-08.37",    0x0000, 0x08000, CRC(ae11a07b) SHA1(af7a335c8da637103103cc274e077f123908ebb7) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
@@ -279,11 +280,11 @@ ROM_START( bublbobf )
 ROM_END
 
 
-GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, bublbobl, ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, bublbobl, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, bublbobl, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, bublbobl, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, bublbobl, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, common , ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, common , ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, common , ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, common , ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, common , ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, common , ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, common , ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, common , ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
