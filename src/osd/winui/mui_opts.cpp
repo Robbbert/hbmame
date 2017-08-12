@@ -1336,12 +1336,12 @@ void SetDatsDir(const char *path)
 
 const char* GetFolderDir(void)
 {
-	return mewui.value(OPTION_EXTRAINI_PATH);
+	return mewui.value(OPTION_CATEGORYINI_PATH);
 }
 
 void SetFolderDir(const char* path)
 {
-	mewui.set_value(OPTION_EXTRAINI_PATH, path, OPTION_PRIORITY_CMDLINE);
+	mewui.set_value(OPTION_CATEGORYINI_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 const char* GetCheatDir(void)
