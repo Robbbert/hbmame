@@ -699,6 +699,7 @@ BUSES["PC_KBD"] = true
 BUSES["PET"] = true
 BUSES["PLUS4"] = true
 BUSES["POFO"] = true
+BUSES["PSI_KEYBOARD"] = true
 BUSES["PSX_CONTROLLER"] = true
 BUSES["QL"] = true
 BUSES["RS232"] = true
@@ -2472,6 +2473,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/vboy.cpp",
 	MAME_DIR .. "src/mame/audio/vboy.cpp",
 	MAME_DIR .. "src/mame/audio/vboy.h",
+	MAME_DIR .. "src/mame/drivers/gamecube.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "nokia")
