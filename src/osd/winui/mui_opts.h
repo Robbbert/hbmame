@@ -208,9 +208,6 @@ int  GetViewMode(void);
 void SetGameCheck(BOOL game_check);
 BOOL GetGameCheck(void);
 
-void SetVersionCheck(BOOL version_check);
-BOOL GetVersionCheck(void);
-
 void SetJoyGUI(BOOL use_joygui);
 BOOL GetJoyGUI(void);
 

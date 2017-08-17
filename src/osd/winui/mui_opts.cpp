@@ -2165,13 +2165,15 @@ void SetDriverCache(int driver_index, int val)
 BOOL RequiredDriverCache(void)
 {
 	bool ret = false;
+	int m_total = driver_list::total();
 
-	printf("Checking version string %s : %s\n",settings.getter(MUIOPTION_VERSION).c_str(), GetVersionString());
-	if ( strcmp(settings.getter(MUIOPTION_VERSION).c_str(), GetVersionString()) != 0 )
+	if (m_total != settings.int_value(MUIOPTION_TOTAL))
+	{
 		ret = true;
+		settings.setter(MUIOPTION_TOTAL, m_total);
+	}
 
-	settings.setter(MUIOPTION_VERSION, GetVersionString());
-
+	printf("RequiredDriverCache returns %d\n", ret);
 	return ret;
 }
 
