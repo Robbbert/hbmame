@@ -243,9 +243,11 @@ void TabView_CalculateNextTab(HWND hwndTabView)
 
 void TabView_Reset(HWND hwndTabView)
 {
+	printf("TabView_Reset: A\n");fflush(stdout);
 	struct TabViewInfo *pTabViewInfo;
 	pTabViewInfo = GetTabViewInfo(hwndTabView);
 
+	printf("TabView_Reset: B\n");fflush(stdout);
 	BOOL b_res = TabCtrl_DeleteAllItems(hwndTabView);
 	b_res++;
 
@@ -254,6 +256,7 @@ void TabView_Reset(HWND hwndTabView)
 	tci.mask = TCIF_TEXT;
 	tci.cchTextMax = 20;
 
+	printf("TabView_Reset: C\n");fflush(stdout);
 	for (int i = 0; i < pTabViewInfo->nTabCount; i++)
 	{
 		if (!pTabViewInfo->pCallbacks->pfnGetShowTab || pTabViewInfo->pCallbacks->pfnGetShowTab(i))
@@ -267,13 +270,16 @@ void TabView_Reset(HWND hwndTabView)
 			free(t_text);
 		}
 	}
+	printf("TabView_Reset: E\n");fflush(stdout);
 	TabView_UpdateSelection(hwndTabView);
+	printf("TabView_Reset: Finished\n");fflush(stdout);
 }
 
 
 BOOL SetupTabView(HWND hwndTabView, const struct TabViewOptions *pOptions)
 {
-	assert(hwndTabView);
+	//assert(hwndTabView);
+	printf("SetupTabView: A\n");fflush(stdout);
 	struct TabViewInfo *pTabViewInfo;
 
 	// Allocate the list view struct
@@ -282,22 +288,28 @@ BOOL SetupTabView(HWND hwndTabView, const struct TabViewOptions *pOptions)
 		return false;
 
 	// And fill it out
+	printf("SetupTabView: B\n");fflush(stdout);
 	memset(pTabViewInfo, 0, sizeof(*pTabViewInfo));
 	pTabViewInfo->pCallbacks = pOptions->pCallbacks;
 	pTabViewInfo->nTabCount = pOptions->nTabCount;
 
 	// Hook in our wndproc and userdata pointer
+	printf("SetupTabView: C\n");fflush(stdout);
 	LONG_PTR l = GetWindowLongPtr(hwndTabView, GWLP_WNDPROC);
 	pTabViewInfo->pfnParentWndProc = (WNDPROC) l;
 	SetWindowLongPtr(hwndTabView, GWLP_USERDATA, (LONG_PTR) pTabViewInfo);
 	SetWindowLongPtr(hwndTabView, GWLP_WNDPROC, (LONG_PTR) TabViewWndProc);
 
+	printf("SetupTabView: D\n");fflush(stdout);
 	BOOL bShowTabView = pTabViewInfo->pCallbacks->pfnGetShowTabCtrl ? pTabViewInfo->pCallbacks->pfnGetShowTabCtrl() : true;
+	printf("SetupTabView: E\n");fflush(stdout);
 	ShowWindow(hwndTabView, bShowTabView ? SW_SHOW : SW_HIDE);
 
+	printf("SetupTabView: F\n");fflush(stdout);
 	TabView_Reset(hwndTabView);
 	if (pTabViewInfo->pCallbacks->pfnOnSelectionChanged)
 		pTabViewInfo->pCallbacks->pfnOnSelectionChanged();
+	printf("SetupTabView: Finished\n");fflush(stdout);
 	return true;
 }
 

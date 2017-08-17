@@ -89,16 +89,6 @@ enum
 // (that's how many options we have after MAX_TAB_TYPES)
 #define TAB_SUBTRACT 3
 
-class winui_options : public core_options
-{
-public:
-	// construction/destruction
-	winui_options();
-
-private:
-	static const options_entry s_option_entries[];
-};
-
 BOOL OptionsInit(void);
 void OptionsExit(void);
 
@@ -106,98 +96,98 @@ void OptionsExit(void);
 #define OPTIONS_TYPE_FOLDER -2
 
 bool AreOptionsEqual(windows_options &opts1, windows_options &opts2);
+void OptionsCopy(windows_options &source, windows_options &dest);
 void SetDirectories(windows_options &opts);
 
-void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
+void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num, bool set_system_name);
 void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 
 void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
 
-winui_options &MameUISettings(void);
 windows_options &MameUIGlobal(void);
 
 void LoadFolderFlags(void);
 
 // Start interface to directories.h
-const char *GetRomDirs(void);
+const string GetRomDirs(void);
 void SetRomDirs(const char *paths);
 
-const char *GetSampleDirs(void);
-void  SetSampleDirs(const char *paths);
+const string GetSampleDirs(void);
+void SetSampleDirs(const char *paths);
 
-const char *GetArtDir(void);
+const string GetArtDir(void);
 void SetArtDir(const char *path);
 
-const char *GetCabinetDir(void);
+const string GetCabinetDir(void);
 void SetCabinetDir(const char *path);
 
-const char *GetCheatDir(void);
+const string GetCheatDir(void);
 void SetCheatDir(const char *path);
 
-const char *GetCfgDir(void);
+const string GetCfgDir(void);
 void SetCfgDir(const char *path);
 
-const char *GetControlPanelDir(void);
+const string GetControlPanelDir(void);
 void SetControlPanelDir(const char *path);
 
-const char *GetCtrlrDir(void);
+const string GetCtrlrDir(void);
 void SetCtrlrDir(const char *path);
 
-const char *GetCrosshairDir(void);
+const string GetCrosshairDir(void);
 void SetCrosshairDir(const char *paths);
 
-const char *GetDatsDir(void);
+const string GetDatsDir(void);
 void SetDatsDir(const char *path);
 
-const char *GetFlyerDir(void);
+const string GetFlyerDir(void);
 void SetFlyerDir(const char *path);
 
-const char *GetFolderDir(void);
+const string GetFolderDir(void);
 void SetFolderDir(const char *path);
 
-const char *GetFontDir(void);
+const string GetFontDir(void);
 void SetFontDir(const char *paths);
 
-const char *GetHashDirs(void);
+const string GetHashDirs(void);
 void SetHashDirs(const char *paths);
 
-const char *GetDiffDir(void);
+const string GetDiffDir(void);
 void SetDiffDir(const char *path);
 
-const char *GetIconsDir(void);
+const string GetIconsDir(void);
 void SetIconsDir(const char *path);
 
 const char *GetIniDir(void);
 void SetIniDir(const char *path);
 
-const char *GetInpDir(void);
+const string GetInpDir(void);
 void SetInpDir(const char *path);
 
-const char *GetLangDir(void);
+const string GetLangDir(void);
 void SetLangDir(const char *path);
 
-const char *GetMarqueeDir(void);
+const string GetMarqueeDir(void);
 void SetMarqueeDir(const char *path);
 
-const char *GetNvramDir(void);
+const string GetNvramDir(void);
 void SetNvramDir(const char *path);
 
-const char *GetPcbDir(void);
+const string GetPcbDir(void);
 void SetPcbDir(const char *path);
 
-const char *GetPluginsDir(void);
+const string GetPluginsDir(void);
 void SetPluginsDir(const char *path);
 
-const char *GetImgDir(void);
+const string GetImgDir(void);
 void SetImgDir(const char *path);
 
-const char *GetStateDir(void);
+const string GetStateDir(void);
 void SetStateDir(const char *path);
 
-const char *GetTitlesDir(void);
+const string GetTitlesDir(void);
 void SetTitlesDir(const char *path);
 
-const char *GetSWDir(void);
+const string GetSWDir(void);
 void SetSWDir(const char *path);
 // End interface to directories.h
 
@@ -329,7 +319,7 @@ const char *GetPlugins(void);
 const char *GetSnapName(void);
 void SetSnapName(const char *pattern);
 
-const char *GetBgDir(void);
+const string GetBgDir(void);
 void SetBgDir(const char *path);
 
 void ResetGameOptions(int driver_index);
@@ -447,9 +437,6 @@ void SetHideMouseOnStartup(BOOL hide);
 BOOL GetRunFullScreen(void);
 void SetRunFullScreen(BOOL fullScreen);
 
-void ColumnEncodeStringWithCount(const int *value, char *str, int count);
-void ColumnDecodeStringWithCount(const char *str, int *value, int count);
-
 int GetDriverCache(int driver_index);
 void SetDriverCache(int driver_index, int val);
 BOOL RequiredDriverCache(void);
@@ -495,7 +482,7 @@ int  GetSLSortColumn(void);
 void SetSLSortReverse(BOOL reverse);
 BOOL GetSLSortReverse(void);
 
-void SetSelectedSoftware(int driver_index, const device_image_interface *device, const char *software);
+void SetSelectedSoftware(int driver_index, string opt_name, const char *software);
 
 void SetCurrentSoftwareTab(const char *shortname);
 const char *GetCurrentSoftwareTab(void);

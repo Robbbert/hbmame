@@ -24,7 +24,7 @@
 typedef struct
 {
 	LPCSTR   lpName;
-	LPCSTR   (*pfnGetTheseDirs)(void);
+	const std::string   (*pfnGetTheseDirs)(void);
 	void     (*pfnSetTheseDirs)(LPCSTR lpDirs);
 	BOOL     bMulti;
 	int      nDirDlgFlags;

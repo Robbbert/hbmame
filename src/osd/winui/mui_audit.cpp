@@ -429,7 +429,8 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 
 	if (hEdit == NULL)
 	{
-		printf("audit detailsprintf() can't find any audit control\n");
+		// Auditing via F5 - no window to display the results
+		//printf("audit detailsprintf() can't find any audit control\n");
 		return;
 	}
 

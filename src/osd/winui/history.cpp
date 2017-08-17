@@ -601,7 +601,8 @@ char * GetGameHistory(int driver_index, std::string software)
 	{
 		// Get the path to dat files
 		char buf[400];
-		strcpy(buf, GetDatsDir());
+		std::string t = GetDatsDir();
+		strcpy(buf, t.c_str());
 		// only want first path
 		const char* datsdir = strtok(buf, ";");
 		// validate software
@@ -640,7 +641,8 @@ char * GetGameHistory(int driver_index)
 	if (validate_datfiles())
 	{
 		char buf[400];
-		strcpy(buf, GetDatsDir());
+		std::string t = GetDatsDir();
+		strcpy(buf, t.c_str());
 		// only want first path
 		const char* datsdir = strtok(buf, ";");
 

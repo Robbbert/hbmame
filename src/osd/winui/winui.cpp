@@ -879,7 +879,7 @@ public:
 	}
 };
 
-static std::wstring s2ws(const std::string& s)
+static std::wstring s2ws(const string& s)
 {
 	int len;
 	int slength = (int)s.length() + 1;
@@ -968,7 +968,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	if (playopts_apply == 0x57)
 	{
 		windows_options o;
-		load_options(o, OPTIONS_GAME, nGameIndex);
+		load_options(o, OPTIONS_GAME, nGameIndex, 0);
 		if (playopts->record)
 			o.set_value(OPTION_RECORD, "", OPTION_PRIORITY_CMDLINE);
 		if (playopts->playback)
@@ -1003,8 +1003,8 @@ int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (__argc != 1)
 	{
 		/* Rename main because gcc will use it instead of WinMain even with -mwindows */
-		extern int utf8_main(std::vector<std::string> &args);
-		std::vector<std::string> utf8_argv(__argc);
+		extern int utf8_main(std::vector<string> &args);
+		std::vector<string> utf8_argv(__argc);
 
 		/* convert arguments to UTF-8 */
 		for (int i = 0; i < __argc; i++)
@@ -1141,24 +1141,39 @@ HICON LoadIconFromFile(const char *iconname)
 	struct stat file_stat;
 	char tmpStr[MAX_PATH];
 	char tmpIcoName[MAX_PATH];
-	const char* sDirName = GetImgDir();
-	PBYTE bufferPtr;
+	PBYTE bufferPtr = 0;
 	util::archive_file::ptr zip;
-	int res = 0;
 
-	sprintf(tmpStr, "%s/%s.ico", GetIconsDir(), iconname);
+	const string t = GetIconsDir();
+	sprintf(tmpStr, "%s/%s.ico", t.c_str(), iconname);
 	if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
 	{
-		sprintf(tmpStr, "%s/%s.ico", sDirName, iconname);
-		if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
+		sprintf(tmpStr, "%s/icons.zip", t.c_str());
+		sprintf(tmpIcoName, "%s.ico", iconname);
+
+		if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
 		{
-			sprintf(tmpStr, "%s/icons.zip", GetIconsDir());
+			if (zip->search(tmpIcoName, false) >= 0)
+			{
+				bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
+				if (bufferPtr)
+				{
+					if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
+						hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
+
+					free(bufferPtr);
+				}
+			}
+			zip.reset();
+		}
+		else
+		{
+			sprintf(tmpStr, "%s/icons.7z", t.c_str());
 			sprintf(tmpIcoName, "%s.ico", iconname);
 
-			if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
+			if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
 			{
-				res = zip->search(tmpIcoName, false);
-				if (res >= 0)
+				if (zip->search(tmpIcoName, false) >= 0)
 				{
 					bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
 					if (bufferPtr)
@@ -1171,32 +1186,11 @@ HICON LoadIconFromFile(const char *iconname)
 				}
 				zip.reset();
 			}
-			else
-			{
-				sprintf(tmpStr, "%s/icons.7z", GetIconsDir());
-				sprintf(tmpIcoName, "%s.ico", iconname);
-
-				if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
-				{
-					res = zip->search(tmpIcoName, false);
-					if (res >= 0)
-					{
-						bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
-						if (bufferPtr)
-						{
-							if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
-								hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
-
-							free(bufferPtr);
-						}
-					}
-					zip.reset();
-				}
-			}
 		}
 	}
 	return hIcon;
 }
+
 
 /* Return the number of folders with options */
 void SetNumOptionFolders(int count)
@@ -1552,7 +1546,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	extern const FILTER_ITEM g_filterList[];
 	LONG common_control_version = GetCommonControlVersion();
 	int validity_failed = 0;
-	TCHAR* t_inpdir = NULL;
 	LONG_PTR l;
 
 	if (!OptionsInit())
@@ -1590,23 +1583,17 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	xpControl = (common_control_version >= PACKVERSION(6,0));
 	if (oldControl)
 	{
-		char buf[] = MAMEUINAME " has detected an old version of comctl32.dll\n\n"
-					 "Game Properties, many configuration options and\n"
-					 "features are not available without an updated DLL\n\n";
+		char buf[] = MAMEUINAME " has detected an old version of comctl32.dll.\n\n"
+					"Various features are not available without an updated DLL.\n\n";
 
-		win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Warning", MB_OK | MB_ICONWARNING);
+		win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Error", MB_OK | MB_ICONWARNING);
+		return false;
 	}
 
 	g_mame32_message = RegisterWindowMessage(TEXT("MAME32"));
 
 	HelpInit();
 
-	t_inpdir = ui_wstring_from_utf8(GetInpDir());
-	if( ! t_inpdir )
-		return false;
-
-	_tcscpy(last_directory,t_inpdir);
-	free(t_inpdir);
 	hMain = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), 0, NULL);
 	if (hMain == NULL)
 	{
@@ -3948,7 +3935,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_TOOLBAR_EDIT:
 		{
-			std::string buf;
+			string buf;
 			HWND hToolbarEdit;
 
 			buf = win_get_window_text_utf8(hwndCtl);
@@ -4241,16 +4228,15 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_OPTIONS_BG:
 		{
-			// More c++ stupidity with strings
 			// Get the path from the existing filename; if no filename go to root
 			TCHAR* t_bgdir = TEXT(".");
-			const char *s = GetBgDir();
-			std::string as;
-			util::zippath_parent(as, s);
+			const string s = GetBgDir();
+			string as;
+			util::zippath_parent(as, s.c_str());
 			size_t t1 = as.length()-1;
-			if (as[t1] == '\\') as[t1]='\0';
+			if (as[t1] == '\\') as.substr(0, t1-1);
 			t1 = as.find(':');
-			if (t1 > 0)
+			if (t1 != string::npos)
 				t_bgdir = ui_wstring_from_utf8(as.c_str());
 
 			OPENFILENAME OFN;
@@ -4440,10 +4426,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				printf("%X: %ls\n",g_helpInfo[i].bIsHtmlHelp, g_helpInfo[i].lpFile);
 				if (i == 1) // get current whatsnew.txt from mamedev.org
 				{
-					std::string version = std::string(GetVersionString()); // turn version string into std
+					string version = string(GetVersionString()); // turn version string into std
 					version.erase(1,1); // take out the decimal point
-					version.erase(4, std::string::npos); // take out the date
-					std::string url = "http://mamedev.org/releases/whatsnew_" + version + ".txt"; // construct url
+					version.erase(4, string::npos); // take out the date
+					string url = "http://mamedev.org/releases/whatsnew_" + version + ".txt"; // construct url
 					std::wstring stemp = s2ws(url); // convert to wide string (yeah, typical c++ mess)
 					LPCWSTR result = stemp.c_str(); // then convert to const wchar_t*
 					ShellExecute(hMain, TEXT("open"), result, TEXT(""), NULL, SW_SHOWNORMAL); // show web page
@@ -4675,7 +4661,7 @@ static void InitListView()
 
 	res = ListView_SetTextBkColor(hwndList, CLR_NONE);
 	res = ListView_SetBkColor(hwndList, CLR_NONE);
-	t_bgdir = ui_wstring_from_utf8(GetBgDir());
+	t_bgdir = ui_wstring_from_utf8(GetBgDir().c_str());
 	if( !t_bgdir )
 		return;
 
@@ -4690,9 +4676,10 @@ static void InitListView()
 
 	// Allow selection to change the default saved game
 	bListReady = true;
-	free(t_bgdir);
 	res++;
+	free(t_bgdir);
 }
+
 
 static void AddDriverIcon(int nItem,int default_icon_index)
 {
@@ -5057,7 +5044,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	BOOL success;
 	UINT16 i;
 	OPENFILENAME ofn;
-	std::string dirname;
+	string dirname;
 	TCHAR* t_filename;
 	TCHAR t_filename_buffer[MAX_PATH]  = {0, };
 	char *utf8_filename;
@@ -5114,21 +5101,6 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 		ofn.lpstrFilter   = TEXT("scripts (*.txt,*.dat)\0*.txt;*.dat;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("txt");
 		dirname = GetInpDir();
-		break;
-	case FILETYPE_CHEAT_FILE :
-		ofn.lpstrFilter   = TEXT("cheats (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("dat");
-		dirname = ".";
-		break;
-	case FILETYPE_HISTORY_FILE :
-		ofn.lpstrFilter   = TEXT("history (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("dat");
-		dirname = ".";
-		break;
-	case FILETYPE_MAMEINFO_FILE :
-		ofn.lpstrFilter   = TEXT("mameinfo (*.dat)\0*.dat;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("dat");
-		dirname = ".";
 		break;
 	}
 	ofn.lpstrCustomFilter = NULL;
@@ -5254,7 +5226,7 @@ static void MamePlayBackGame()
 			return;
 		}
 
-		std::string const sysname = header.get_sysname();
+		string const sysname = header.get_sysname();
 		nGame = -1;
 		for (int i = 0; i < driver_list::total(); i++) // find game and play it
 		{

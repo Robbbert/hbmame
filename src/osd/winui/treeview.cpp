@@ -1923,34 +1923,29 @@ static int InitExtraFolders(void)
 	struct stat stat_buffer;
 	struct _finddata_t files;
 	int i, count = 0;
-	long hLong;
 	char* ext;
 	char buf[256];
 	char curdir[MAX_PATH];
-	const char* dir = GetFolderDir();
-
+	const std::string    t = GetFolderDir();
+	const char *dir = t.c_str();
 	memset(ExtraFolderData, 0, (MAX_EXTRA_FOLDERS * MAX_EXTRA_SUBFOLDERS)* sizeof(LPEXFOLDERDATA));
 
 	/* NPW 9-Feb-2003 - MSVC stat() doesn't like stat() called with an empty string */
-	if (dir[0] == '\0')
+	if (!dir)
 		dir = ".";
 
 	// Why create the directory if it doesn't exist, just return 0 folders.
 	if (stat(dir, &stat_buffer) != 0)
-	{
 		return 0; // _mkdir(dir);
-	}
 
 	_getcwd(curdir, MAX_PATH);
 
 	chdir(dir);
 
-	hLong = _findfirst("*", &files);
+	long hLong = _findfirst("*", &files);
 
 	for (i = 0; i < MAX_EXTRA_FOLDERS; i++)
-	{
 		ExtraFolderIcons[i] = NULL;
-	}
 
 	numExtraIcons = 0;
 
@@ -2093,9 +2088,8 @@ BOOL TryAddExtraFolderAndChildren(int parent_index)
 
 	/* "folder\title.ini" */
 
-	sprintf( fname, "%s\\%s.ini",
-		GetFolderDir(),
-		ExtraFolderData[id]->m_szTitle);
+	const std::string t = GetFolderDir();
+	sprintf( fname, "%s\\%s.ini", t.c_str(), ExtraFolderData[id]->m_szTitle);
 
 	fp = fopen(fname, "r");
 	if (fp == NULL)
@@ -2259,8 +2253,9 @@ BOOL TryRenameCustomFolder(LPTREEFOLDER lpFolder, const char *new_name)
 
 	// a parent extra folder was renamed, so rename the file
 
-	snprintf(new_filename,ARRAY_LENGTH(new_filename),"%s\\%s.ini",GetFolderDir(),new_name);
-	snprintf(filename,ARRAY_LENGTH(filename),"%s\\%s.ini",GetFolderDir(),lpFolder->m_lpTitle);
+	const std::string t = GetFolderDir();
+	snprintf(new_filename,ARRAY_LENGTH(new_filename),"%s\\%s.ini", t.c_str(), new_name);
+	snprintf(filename,ARRAY_LENGTH(filename),"%s\\%s.ini", t.c_str(), lpFolder->m_lpTitle);
 
 	retval = win_move_file_utf8(filename,new_filename);
 
@@ -2349,7 +2344,8 @@ BOOL TrySaveExtraFolder(LPTREEFOLDER lpFolder)
 	}
 	/* "folder\title.ini" */
 
-	snprintf( fname, sizeof(fname), "%s\\%s.ini", GetFolderDir(), extra_folder->m_szTitle);
+	const std::string t = GetFolderDir();
+	snprintf( fname, sizeof(fname), "%s\\%s.ini", t.c_str(), extra_folder->m_szTitle);
 
 	fp = fopen(fname, "wt");
 	if (fp == NULL)

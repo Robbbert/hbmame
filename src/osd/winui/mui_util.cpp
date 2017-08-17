@@ -60,7 +60,8 @@ struct DriversInfo
 	bool hasRam;
 };
 
-static std::vector<DriversInfo>	drivers_info;
+static std::vector<DriversInfo> drivers_info;
+static bool bFirst = true;
 
 
 enum
@@ -368,6 +369,7 @@ static void SetDriversInfo(void)
 
 static void InitDriversInfo(void)
 {
+	printf("InitDriversInfo: A\n");fflush(stdout);
 	int num_speakers;
 	int total = driver_list::total();
 	const game_driver *gamedrv = NULL;
@@ -379,8 +381,7 @@ static void InitDriversInfo(void)
 		gamedrv = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
 		machine_config config(*gamedrv, MameUIGlobal());
-
-		gameinfo->isClone = (GetParentRomSetIndex(gamedrv) != -1);
+		gameinfo->isClone = (driver_list::clone(ndriver) == -1) ? false : true;
 		gameinfo->isBroken = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
 		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
 		gameinfo->isHarddisk = false;
@@ -450,21 +451,26 @@ static void InitDriversInfo(void)
 	}
 
 	SetDriversInfo();
+	printf("InitDriversInfo: Finished\n");fflush(stdout);
 }
 
 static int InitDriversCache(void)
 {
+	printf("InitDriversCache: A\n");fflush(stdout);
 	if (RequiredDriverCache())
 	{
+		printf("InitDriversCache: B\n");fflush(stdout);
 		InitDriversInfo();
 		return 0;
 	}
 
+	printf("InitDriversCache: C\n");fflush(stdout);
 	int cache = -1;
 	int total = driver_list::total();
 	const game_driver *gamedrv = NULL;
 	struct DriversInfo *gameinfo = NULL;
 
+	printf("InitDriversCache: D\n");fflush(stdout);
 	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
 		gamedrv  = &driver_list::driver(ndriver);
@@ -473,6 +479,7 @@ static int InitDriversCache(void)
 
 		if (cache == -1)
 		{
+			printf("InitDriversCache: F\n");fflush(stdout);
 			InitDriversInfo();
 			break;
 		}
@@ -494,20 +501,19 @@ static int InitDriversCache(void)
 		gameinfo->hasRam            = ((cache & DRIVER_CACHE_RAM)       != 0);
 	}
 
+	printf("InitDriversCache: Finished\n");fflush(stdout);
 	return 0;
 }
 
 static struct DriversInfo* GetDriversInfo(int driver_index)
 {
-	static bool bFirst = true;
-
 	if (bFirst)
 	{
 		bFirst = false;
 
 		drivers_info.clear();
 		drivers_info.reserve(driver_list::total());
-
+		printf("DriversInfo: B\n");fflush(stdout);
 		InitDriversCache();
 	}
 

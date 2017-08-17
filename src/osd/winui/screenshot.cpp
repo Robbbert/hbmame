@@ -306,6 +306,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	util::core_file::ptr file = NULL;
 	char fullpath[400];
 	const char* zip_name;
+	std::string t;
 
 	if (pPal)
 		DeletePalette(pPal);
@@ -313,31 +314,31 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	switch (pic_type)
 	{
 		case TAB_SCREENSHOT:
-			strcpy(fullpath, GetImgDir());
+			t = GetImgDir();
 			zip_name = "snap";
 			break;
 		case TAB_FLYER:
-			strcpy(fullpath, GetFlyerDir());
+			t = GetFlyerDir();
 			zip_name = "flyers";
 			break;
 		case TAB_CABINET:
-			strcpy(fullpath, GetCabinetDir());
+			t = GetCabinetDir();
 			zip_name = "cabinets";
 			break;
 		case TAB_MARQUEE:
-			strcpy(fullpath, GetMarqueeDir());
+			t = GetMarqueeDir();
 			zip_name = "marquees";
 			break;
 		case TAB_TITLE:
-			strcpy(fullpath, GetTitlesDir());
+			t = GetTitlesDir();
 			zip_name = "titles";
 			break;
 		case TAB_CONTROL_PANEL:
-			strcpy(fullpath, GetControlPanelDir());
+			t = GetControlPanelDir();
 			zip_name = "cpanel";
 			break;
 		case TAB_PCB:
-			strcpy(fullpath, GetPcbDir());
+			t = GetPcbDir();
 			zip_name = "pcb";
 			break;
 		default :
@@ -346,6 +347,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	}
 
 	// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
+	strcpy(fullpath, t.c_str());
 	char tempfile [400];
 	strcpy(tempfile, filename);
 	char* system_name = strtok(tempfile, ":");
@@ -485,8 +487,10 @@ HBITMAP DIBToDDB(HDC hDC, HANDLE hDIB, LPMYBITMAPINFO desc)
 BOOL LoadScreenShot(int nGame, LPCSTR lpSoftwareName, int nType)
 {
 	/* Delete the last ones */
+	//printf("LoadScreenShot: A\n");fflush(stdout);
 	FreeScreenShot();
 
+	//printf("LoadScreenShot: B\n");fflush(stdout);
 	BOOL loaded = false;
 	BOOL isclone = DriverIsClone(nGame);
 	int nParentIndex = -1;
@@ -494,18 +498,26 @@ BOOL LoadScreenShot(int nGame, LPCSTR lpSoftwareName, int nType)
 		nParentIndex = GetParentIndex(&driver_list::driver(nGame));
 
 	// If software item, see if picture exist (correct parent is passed in lpSoftwareName)
+	//printf("LoadScreenShot: C\n");fflush(stdout);
 	if (lpSoftwareName)
 		loaded = LoadDIB(lpSoftwareName, &m_hDIB, &m_hPal, nType);
 
 	// If game, see if picture exist. Or, if no picture for the software, use game's picture.
+	//printf("LoadScreenShot: D\n");fflush(stdout);
 	if (!loaded)
 	{
+		//printf("LoadScreenShot: E\n");fflush(stdout);
 		loaded = LoadDIB(driver_list::driver(nGame).name, &m_hDIB, &m_hPal, nType);
 		// none? try parent
+		//printf("LoadScreenShot: F\n");fflush(stdout);
 		if (!loaded && isclone)
+		{
+			//printf("LoadScreenShot: G\n");fflush(stdout);
 			loaded = LoadDIB(driver_list::driver(nParentIndex).name, &m_hDIB, &m_hPal, nType);
+		}
 	}
 
+	//printf("LoadScreenShot: K\n");fflush(stdout);
 	if (loaded)
 	{
 		HDC hdc = GetDC(GetMainWindow());
@@ -513,6 +525,7 @@ BOOL LoadScreenShot(int nGame, LPCSTR lpSoftwareName, int nType)
 		ReleaseDC(GetMainWindow(),hdc);
 	}
 
+	printf("LoadScreenShot: Finished\n");fflush(stdout);
 	return loaded;
 }
 

@@ -251,7 +251,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	RECT rectClient;
 	LVCOLUMN LVCol;
 	int i = 0;
-	LPCSTR s;
+	std::string s;
 	TCHAR *token;
 	TCHAR buf[MAX_PATH * MAX_DIRS];
 	TCHAR* t_s = NULL;
@@ -292,7 +292,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	for (i = 0; i < nDirInfoCount; i++)
 	{
 		s = g_directoryInfo[i].pfnGetTheseDirs();
-		t_s = ui_wstring_from_utf8(s);
+		t_s = ui_wstring_from_utf8(s.c_str());
 		if( !t_s )
 			return false;
 		/* Copy the string to our own buffer so that we can mutilate it */
