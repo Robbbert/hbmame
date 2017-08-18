@@ -90,7 +90,6 @@ enum
 #define TAB_SUBTRACT 3
 
 BOOL OptionsInit(void);
-void OptionsExit(void);
 
 #define OPTIONS_TYPE_GLOBAL -1
 #define OPTIONS_TYPE_FOLDER -2
@@ -102,7 +101,7 @@ void SetDirectories(windows_options &opts);
 void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num, bool set_system_name);
 void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num);
 
-void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
+void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index);
 
 windows_options &MameUIGlobal(void);
 

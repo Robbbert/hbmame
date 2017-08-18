@@ -258,7 +258,7 @@ static osd_file::error OpenRawDIBFile(const char *dir_name, const char *filename
 	file = NULL;
 
 	// look for the raw file
-	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(filename);
+	string fname = string(dir_name) + PATH_SEPARATOR + string(filename);
 	return util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file);
 }
 
@@ -271,7 +271,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 	file = NULL;
 
 	// look into zip file
-	std::string fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".zip";
+	string fname = string(dir_name) + PATH_SEPARATOR + string(zip_name) + ".zip";
 	if (util::archive_file::open_zip(fname, zip) == util::archive_file::error::NONE)
 	{
 		if (zip->search(filename, false) >= 0)
@@ -284,7 +284,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 	}
 	else
 	{
-		fname = std::string(dir_name) + PATH_SEPARATOR + std::string(zip_name) + ".7z";
+		fname = string(dir_name) + PATH_SEPARATOR + string(zip_name) + ".7z";
 		if (util::archive_file::open_7z(fname, zip) == util::archive_file::error::NONE)
 		{
 			if (zip->search(filename, false) >= 0)
@@ -306,7 +306,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	util::core_file::ptr file = NULL;
 	char fullpath[400];
 	const char* zip_name;
-	std::string t;
+	string t;
 
 	if (pPal)
 		DeletePalette(pPal);
@@ -353,7 +353,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	char* system_name = strtok(tempfile, ":");
 	char* file_name = strtok(NULL, ":");
 	void *buffer = NULL;
-	std::string fname;
+	string fname;
 
 	// Support multiple paths
 	char* partpath = strtok(fullpath, ";");
@@ -367,20 +367,20 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 		if (file_name)
 		{
 			// Try dir/system/game.png
-			fname = std::string(system_name) + PATH_SEPARATOR + std::string(file_name) + ".png";
+			fname = string(system_name) + PATH_SEPARATOR + string(file_name) + ".png";
 			filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 
 			// Try dir/system.zip/game.png
 			if (filerr != osd_file::error::NONE)
 			{
-				fname = std::string(file_name) + ".png";
+				fname = string(file_name) + ".png";
 				filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
 			}
 
 			// Try dir/system.zip/system/game.png
 			if (filerr != osd_file::error::NONE)
 			{
-				fname = std::string(system_name) + "/" + std::string(file_name) + ".png";
+				fname = string(system_name) + "/" + string(file_name) + ".png";
 				filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
 			}
 
@@ -394,7 +394,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 		// give up on software-specific, try dir/system.png
 		if (filerr != osd_file::error::NONE)
 		{
-			fname = std::string(system_name) + ".png";
+			fname = string(system_name) + ".png";
 			filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 		}
 
@@ -404,19 +404,19 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			if (filerr != osd_file::error::NONE)
 			{
 				//%g/%i
-				fname = std::string(system_name) + PATH_SEPARATOR + "0000.png";
+				fname = string(system_name) + PATH_SEPARATOR + "0000.png";
 				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 			}
 			if (filerr != osd_file::error::NONE)
 			{
 				//%g%i
-				fname = std::string(system_name) + "0000.png";
+				fname = string(system_name) + "0000.png";
 				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 			}
 			if (filerr != osd_file::error::NONE)
 			{
 				//%g/%g%i
-				fname = std::string(system_name) + PATH_SEPARATOR + std::string(system_name) + "0000.png";
+				fname = string(system_name) + PATH_SEPARATOR + string(system_name) + "0000.png";
 				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 			}
 		}
@@ -424,7 +424,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 		// Try dir/zipfile/system.png
 		if (filerr != osd_file::error::NONE)
 		{
-			fname = std::string(system_name) + ".png";
+			fname = string(system_name) + ".png";
 			filerr = OpenZipDIBFile(partpath, zip_name, fname.c_str(), file, &buffer);
 		}
 
@@ -538,7 +538,7 @@ BOOL LoadDIBBG(HGLOBAL *phDIB, HPALETTE *pPal)
 		DeletePalette(pPal);
 
 	// look for the raw file
-	std::string fname = GetBgDir();
+	string fname = GetBgDir();
 	if (util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file) == osd_file::error::NONE)
 	{
 		success = png_read_bitmap_gui(*file, phDIB, pPal);

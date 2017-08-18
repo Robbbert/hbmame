@@ -2,10 +2,8 @@
 // MASTER
 //****************************************************************************
 
-#ifndef WINUI_OPTS_H
-#define WINUI_OPTS_H
-
-#include <fstream>
+#ifndef WINUI_UIOPTS_H
+#define WINUI_UIOPTS_H
 
 #define MUIOPTION_LIST_MODE                      "list_mode"
 #define MUIOPTION_CHECK_GAME                     "check_game"
@@ -240,7 +238,7 @@ const WINUIOPTS option_entries[] =
 	{ "$end" }
 };
 
-class winui_options
+class winui_ui_options
 {
 	std::map<std::string, std::string> m_list;
 	const char *m_filename;
@@ -279,7 +277,7 @@ class winui_options
 
 public:
 	// construction/destruction
-	winui_options()
+	winui_ui_options()
 	{
 		// set up default values
 		for (int i = 0; option_entries[i].name != "$end"; i++)
@@ -362,5 +360,5 @@ public:
 	}
 };
 
-#endif //  WINUI_OPTS_H
+#endif //  WINUI_UIOPTS_H
 

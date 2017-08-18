@@ -2,11 +2,10 @@
 // MASTER
 //****************************************************************************
 
-#ifndef __GAME_OPTS_H__
-#define __GAME_OPTS_H__
+#ifndef WINUI_GAMEOPTS_H
+#define WINUI_GAMEOPTS_H
 
-#include <fstream>
-class game_options
+class winui_game_options
 {
 	int m_total;
 
@@ -72,7 +71,7 @@ class game_options
 
 public:
 	// construction/destruction
-	game_options()
+	winui_game_options()
 	{
 		m_total = driver_list::total();
 		m_list.reserve(m_total);

@@ -42,7 +42,7 @@
 #endif
 
 
-static std::string g_FilterText;
+static string g_FilterText;
 
 #define NUM_EXCLUSIONS  12
 
@@ -370,7 +370,7 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 	static DWORD dwFilters;
 	static DWORD dwpFilters;
 	static LPCFOLDERDATA lpFilterRecord;
-	std::string strText;
+	string strText;
 	int i = 0;
 
 	switch (Msg)

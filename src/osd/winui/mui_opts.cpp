@@ -21,8 +21,10 @@
 #include "emu.h"
 #include "ui/moptions.h"
 #include "drivenum.h"
+#include <fstream>      // for *_opts.h (below)
 #include "game_opts.h"  // this must be under emu.h and drivenum.h
-#include "winui_opts.h"
+#include "ui_opts.h"
+//#include "ini_opts.h"   // not ready yet
 #include "winui.h"
 #include "mui_util.h"
 #include "treeview.h"
@@ -41,7 +43,7 @@
 
 static void LoadSettingsFile(windows_options &opts, const char *filename);
 static void SaveSettingsFile(windows_options &opts, const char *filename);
-static void LoadSettingsFile(ui_options &opts, const char *filename);
+static void LoadSettingsFile(ui_options &opts, const char *filename); // mewui
 
 static string CusColorEncodeString(const COLORREF *value);
 static void CusColorDecodeString(string ss, COLORREF *value);
@@ -84,11 +86,9 @@ static void ResetToDefaults(windows_options &opts, int priority);
 
 static emu_options mameopts; // core options
 static ui_options mewui; // ui.ini
-static winui_options settings; // mameui.ini
-
+static winui_ui_options settings; // mameui.ini
 static windows_options global; // Global 'default' options
-
-static game_options game_opts;
+static winui_game_options game_opts;    // game stats
 
 
 #if 0
@@ -141,7 +141,7 @@ static const char *const image_tabs_short_name[MAX_TAB_TYPES] =
 /***************************************************************************
     External functions
  ***************************************************************************/
-void CreateGameOptions(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
+void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
 {
 	if (driver_index >= 0)
 		mameopts.set_system_name(driver_list::driver(driver_index).name);
@@ -185,15 +185,6 @@ BOOL OptionsInit()
 
 	return TRUE;
 
-}
-
-void OptionsExit(void)
-{
-}
-
-winui_options & MameUISettings(void)
-{
-	return settings;
 }
 
 windows_options & MameUIGlobal(void)
@@ -1778,6 +1769,7 @@ static void TabFlagsDecodeString(string ss, int *data)
 	}
 }
 
+// load mewui settings
 static void LoadSettingsFile(ui_options &opts, const char *filename)
 {
 	osd_file::error filerr;
@@ -1791,6 +1783,7 @@ static void LoadSettingsFile(ui_options &opts, const char *filename)
 	}
 }
 
+// load a game ini
 static void LoadSettingsFile(windows_options &opts, const char *filename)
 {
 	osd_file::error filerr;

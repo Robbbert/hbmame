@@ -1912,8 +1912,6 @@ static void Win32UI_exit()
 
 	FreeScreenShot();
 
-	OptionsExit();
-
 	HelpExit();
 
 	pool_free_lib(mameui_pool);

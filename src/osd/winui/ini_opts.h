@@ -2,11 +2,8 @@
 // MASTER
 //****************************************************************************
 
-#ifndef INI_OPTS_H
-#define INI_OPTS_H
-
-#include <fstream>
-
+#ifndef WINUI_INIOPTS_H
+#define WINUI_INIOPTS_H
 
 typedef struct
 {
@@ -318,7 +315,7 @@ const INIOPTS option_entries[] =
 	{ "$end" }
 };
 
-class ini_options
+class winui_ini_options
 {
 	std::map<std::string, std::string> m_list;
 	const char *m_filename;
@@ -357,7 +354,7 @@ class ini_options
 
 public:
 	// construction/destruction
-	ini_options()
+	winui_ini_options()
 	{
 		// set up default values
 		for (int i = 0; option_entries[i].name != "$end"; i++)

@@ -2,8 +2,8 @@
 // MASTER
 //****************************************************************************
 
-#ifndef SCREENSHOT_H
-#define SCREENSHOT_H
+#ifndef WINUI_SCREENSHOT_H
+#define WINUI_SCREENSHOT_H
 
 typedef struct _mybitmapinfo
 {
@@ -23,4 +23,35 @@ extern BOOL ScreenShotLoaded(void);
 extern BOOL LoadDIBBG(HGLOBAL *phDIB, HPALETTE *pPal);
 extern HBITMAP DIBToDDB(HDC hDC, HANDLE hDIB, LPMYBITMAPINFO desc);
 
+#if 0
+typedef struct
+{
+	TEXT            tabtext;
+	const char*     zipname;
+	int             tabenum;
+	const string    (*pfnGetTheseDirs)(void);
+}
+SSINFO;
+
+const SSINFO m_ssInfo[] =
+{
+	{ "Snapshot",       "snap",      TAB_SCREENSHOT,     GetImgDir          },
+	{ "Flyer",          "flyers",    TAB_FLYER,          GetFlyerDir        },
+	{ "Cabinet",        "cabinets",  TAB_CABINET,        GetCabinetDir      },
+	{ "Marquee",        "marquees",  TAB_MARQUEE,        GetMarqueeDir      },
+	{ "Title",          "titles",    TAB_TITLE,          GetTitleDir        },
+	{ "Control Panel",  "cpanel",    TAB_CONTROL_PANEL,  GetControlPanelDir },
+	{ "PCB",            "pcb",       TAB_PCB,            GetPcbDir          },
+};
+
+/* if adding a new tab, need to also update:
+- dialogs.cpp (~190, ~217)         (history on tab or not)
+- winui.cpp   MameCommand  (~4173) (action the mouse click in the menu)
+- mameui/messui.rc                 (show in menu)
+- ui_opts.h                        (tab enabled or not)
+- resource.h
+- mui_opts.cpp/h                   (directory get function)
+*/
+
+#endif
 #endif
