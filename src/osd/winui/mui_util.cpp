@@ -716,7 +716,8 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 	DWORD result = 0;
 	TCHAR* t_buffer = NULL;
 
-	if( bufferlength > 0 ) {
+	if( bufferlength > 0 )
+	{
 		t_buffer = (TCHAR*)malloc((bufferlength * sizeof(TCHAR)) + 1);
 		if( !t_buffer )
 			return result;
@@ -725,9 +726,11 @@ DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer)
 	result = GetCurrentDirectory(bufferlength, t_buffer);
 
 	char* utf8_buffer = NULL;
-	if( bufferlength > 0 ) {
+	if( bufferlength > 0 )
+	{
 		utf8_buffer = ui_utf8_from_wstring(t_buffer);
-		if( !utf8_buffer ) {
+		if( !utf8_buffer )
+		{
 			free(t_buffer);
 			return result;
 		}

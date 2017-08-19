@@ -122,23 +122,12 @@ static bool create_index(std::ifstream &fp, int filenum)
 	fp.seekg(0);
 	std::string file_line, first, second;
 	std::getline(fp, file_line);
+	int position = file_line.size() + 2; // tellg is buggy, this works and is faster
 	while (fp.good())
 	{
 		char t1 = file_line[0];
 		if ((std::count(file_line.begin(),file_line.end(),'=') == 1) && (t1 == '$')) // line must start with $ and contain one =
 		{
-
-			// tellg is buggy, we need to rewind the pointer to the previous $
-			int position = fp.tellg(); // get bugged info
-			fp.seekg(position); // position file to wrong place
-			int c = fp.get(); // now scan backwards until $ found
-			while(c != 0x24)
-			{
-				position--;
-				fp.seekg(position);
-				c = fp.get();
-			}
-
 			// now start by removing all spaces
 			file_line.erase(remove_if(file_line.begin(), file_line.end(), ::isspace), file_line.end());
 			char s[file_line.length()];
@@ -154,6 +143,7 @@ static bool create_index(std::ifstream &fp, int filenum)
 			}
 		}
 		std::getline(fp, file_line);
+		position += (file_line.size() + 2);
 	}
 	// check contents
 //	if (filenum == 0)
