@@ -13,7 +13,6 @@
 #define DIRDLG_IMG          0x0400
 #define DIRDLG_INP          0x0800
 #define DIRDLG_CTRLR        0x1000
-#define DIRDLG_SL           0x2000
 #define DIRDLG_SW           0x4000
 #define DIRDLG_CHEAT        0x8000
 

@@ -587,6 +587,9 @@ bool validate_datfiles(void)
 char * GetGameHistory(int driver_index, std::string software)
 {
 	std::string fullbuf;
+	if (driver_index < 0)
+			return ConvertToWindowsNewlines(fullbuf.c_str());
+
 	if (validate_datfiles())
 	{
 		// Get the path to dat files
@@ -628,6 +631,9 @@ char * GetGameHistory(int driver_index, std::string software)
 char * GetGameHistory(int driver_index)
 {
 	std::string fullbuf;
+	if (driver_index < 0)
+			return ConvertToWindowsNewlines(fullbuf.c_str());
+
 	if (validate_datfiles())
 	{
 		char buf[400];

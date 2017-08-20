@@ -709,6 +709,9 @@ static char *GameInfoScreen(UINT nIndex)
 const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 {
 	static char buffer[1024];
+	if (driver_index < 0)
+		return buffer;
+
 	int audit_result = GetRomAuditResults(driver_index);
 	memset(buffer,0,sizeof(char)*1024);
 	if ( bRomStatus )

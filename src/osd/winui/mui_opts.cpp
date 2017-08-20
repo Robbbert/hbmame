@@ -427,7 +427,7 @@ static void GetsShowFolderFlags(LPBITS bits)
 
 	SetAllBits(bits, TRUE);
 
-	token = strtok(s,", \t");
+	token = strtok(s,",");
 	int j;
 	while (token)
 	{
@@ -439,7 +439,7 @@ static void GetsShowFolderFlags(LPBITS bits)
 				break;
 			}
 		}
-		token = strtok(NULL,", \t");
+		token = strtok(NULL,",");
 	}
 }
 
