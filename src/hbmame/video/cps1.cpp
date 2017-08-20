@@ -2178,11 +2178,19 @@ void cps_state::cps1_build_palette( const uint16_t* const palette_base )
 				// from my understanding of the schematics, when the 'brightness'
 				// component is set to 0 it should reduce brightness to 1/3
 
-				bright = 0x0f + ((palette >> 12) << 1);
+				// HBMAME start
+				u8 b_adj = 0x0f;
+				u8 b_div = 0x1e + b_adj;
+				bright = b_adj + ((palette >> 12) << 1);
 
-				r = ((palette >> 8) & 0x0f) * 0x11 * bright / 0x2d;
-				g = ((palette >> 4) & 0x0f) * 0x11 * bright / 0x2d;
-				b = ((palette >> 0) & 0x0f) * 0x11 * bright / 0x2d;
+				// New code to get rid of grey squares
+				r = (palette >> 8) & 0x0f;
+				g = (palette >> 4) & 0x0f;
+				b = palette & 0x0f;
+				r = (r > 1) ? r * 0x11 * bright / b_div : 0;
+				g = (g > 1) ? g * 0x11 * bright / b_div : 0;
+				b = (b > 1) ? b * 0x11 * bright / b_div : 0;
+				// HBMAME end
 
 				m_palette->set_pen_color (0x200 * page + offset, rgb_t(r, g, b));
 			}
