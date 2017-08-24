@@ -51,6 +51,8 @@ const SSINFO m_ssInfo[] =
 - ui_opts.h                        (tab enabled or not)
 - resource.h
 - mui_opts.cpp/h                   (directory get function)
+- mui_opts.h                       enum of names
+- mui_opts.cpp                     image_tabs_long_name
 */
 
 #endif
