@@ -417,6 +417,16 @@ BOOL GetShowFolderList(void)
 	return settings.bool_value(MUIOPTION_SHOW_FOLDER_SECTION);
 }
 
+void SetShowExtraFolders(BOOL val)
+{
+	settings.setter(MUIOPTION_EXTRA_FOLDERS, val);
+}
+
+BOOL GetShowExtraFolders(void)
+{
+	return settings.bool_value(MUIOPTION_EXTRA_FOLDERS);
+}
+
 static void GetsShowFolderFlags(LPBITS bits)
 {
 	char s[2000];

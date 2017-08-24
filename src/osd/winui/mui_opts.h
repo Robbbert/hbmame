@@ -243,6 +243,9 @@ BOOL GetShowSoftware(void);
 void SetShowFolderList(BOOL val);
 BOOL GetShowFolderList(void);
 
+void SetShowExtraFolders(BOOL val);
+BOOL GetShowExtraFolders(void);
+
 BOOL GetShowFolder(int folder);
 void SetShowFolder(int folder,BOOL show);
 

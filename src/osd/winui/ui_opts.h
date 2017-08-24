@@ -5,6 +5,7 @@
 #ifndef WINUI_UIOPTS_H
 #define WINUI_UIOPTS_H
 
+#define MUIOPTION_EXTRA_FOLDERS                  "extra_folders"
 #define MUIOPTION_LIST_MODE                      "list_mode"
 #define MUIOPTION_CHECK_GAME                     "check_game"
 #define MUIOPTION_JOYSTICK_IN_INTERFACE          "joystick_in_interface"
@@ -132,6 +133,7 @@ WINUIOPTS;
 const WINUIOPTS option_entries[] =
 {
 	{ MUIOPTION_TOTAL,                        "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_EXTRA_FOLDERS,                "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_DEFAULT_GAME,                 MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
 	{ MUIOPTION_DEFAULT_FOLDER_ID,            "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SHOW_IMAGE_SECTION,           "1",        OPTION_BOOLEAN,    NULL },
