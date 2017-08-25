@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-  mui_util.c
+  mui_util.cpp
 
  ***************************************************************************/
 
@@ -27,6 +27,7 @@
 #include "mui_opts.h"
 #include "drivenum.h"
 #include "machine/ram.h"
+#include "ui/info.h"
 
 #include <shlwapi.h>
 
@@ -381,11 +382,15 @@ static void InitDriversInfo(void)
 		gamedrv = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
 		machine_config config(*gamedrv, MameUIGlobal());
-		gameinfo->isClone = (driver_list::clone(ndriver) == -1) ? false : true;
-		gameinfo->isBroken = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
-		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
+		ui::machine_static_info const info(machine_config(*gamedrv, MameUIGlobal()));
+		bool const have_parent(strcmp(gamedrv->parent, "0"));
+		auto const parent_idx(have_parent ? driver_list::find(gamedrv->parent) : -1);
+		gameinfo->isClone = ( !have_parent || (0 > parent_idx) || (driver_list::driver(parent_idx).flags & machine_flags::IS_BIOS_ROOT)) ? false : true;
+		gameinfo->isBroken = ((info.machine_flags() & (MACHINE_NOT_WORKING | MACHINE_MECHANICAL)) ||
+			(info.unemulated_features() & device_t::feature::PROTECTION)) ? true : false;
+		gameinfo->supportsSaveState = (info.machine_flags() & MACHINE_SUPPORTS_SAVE) ? true : false;
 		gameinfo->isHarddisk = false;
-		gameinfo->isVertical = (gamedrv->flags & ORIENTATION_SWAP_XY) ? true : false;
+		gameinfo->isVertical = (info.machine_flags() & ORIENTATION_SWAP_XY) ? true : false;
 
 		ram_device_iterator iter1(config.root_device());
 		gameinfo->hasRam = (iter1.first() );
@@ -484,9 +489,12 @@ static int InitDriversCache(void)
 			break;
 		}
 
-		gameinfo->isBroken  = (gamedrv->flags & (MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_MECHANICAL)) ? true : false;
-		gameinfo->supportsSaveState = ((gamedrv->flags & MACHINE_SUPPORTS_SAVE) != 0);
-		gameinfo->isVertical        =  (gamedrv->flags & ORIENTATION_SWAP_XY) ? true : false;
+		ui::machine_static_info const info(machine_config(*gamedrv, MameUIGlobal()));
+
+		gameinfo->isBroken = ((info.machine_flags() & (MACHINE_NOT_WORKING | MACHINE_MECHANICAL)) ||
+			(info.unemulated_features() & device_t::feature::PROTECTION)) ? true : false;
+		gameinfo->supportsSaveState =  (info.machine_flags() & MACHINE_SUPPORTS_SAVE) ? true : false;
+		gameinfo->isVertical        =  (info.machine_flags() & ORIENTATION_SWAP_XY) ? true : false;
 		gameinfo->screenCount       =   cache & DRIVER_CACHE_SCREEN;
 		gameinfo->isClone           = ((cache & DRIVER_CACHE_CLONE)     != 0);
 		gameinfo->isHarddisk        = ((cache & DRIVER_CACHE_HARDDISK)  != 0);

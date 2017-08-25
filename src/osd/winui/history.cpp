@@ -38,6 +38,7 @@
 #include "mui_util.h"
 #include "mui_opts.h"
 #include "sound/samples.h"
+#include "ui/info.h"
 #define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
 
 
@@ -283,6 +284,7 @@ std::string load_sourceinfo(const game_driver *drv, const char* datsdir, int fil
 // General hardware information
 std::string load_driver_geninfo(const game_driver *drv)
 {
+	ui::machine_static_info const info(machine_config(*drv, MameUIGlobal()));
 	machine_config config(*drv, MameUIGlobal());
 	const game_driver *parent = NULL;
 	char name[512];
@@ -290,37 +292,37 @@ std::string load_driver_geninfo(const game_driver *drv)
 	std::string buffer = "\n**** :GENERAL MACHINE INFO: ****\n\n";
 
 	/* List the game info 'flags' */
-	if (drv->flags & MACHINE_NOT_WORKING)
+	if (info.machine_flags() & MACHINE_NOT_WORKING)
 		buffer.append("This game doesn't work properly\n");
 
-	if (drv->flags & MACHINE_UNEMULATED_PROTECTION)
+	if (info.unemulated_features() & device_t::feature::PROTECTION)
 		buffer.append("This game has protection which isn't fully emulated.\n");
 
-	if (drv->flags & MACHINE_IMPERFECT_GRAPHICS)
+	if (info.imperfect_features() & device_t::feature::GRAPHICS)
 		buffer.append("The video emulation isn't 100% accurate.\n");
 
-	if (drv->flags & MACHINE_WRONG_COLORS)
+	if (info.unemulated_features() & device_t::feature::PALETTE)
 		buffer.append("The colors are completely wrong.\n");
 
-	if (drv->flags & MACHINE_IMPERFECT_COLORS)
+	if (info.imperfect_features() & device_t::feature::PALETTE)
 		buffer.append("The colors aren't 100% accurate.\n");
 
-	if (drv->flags & MACHINE_NO_SOUND)
+	if (info.unemulated_features() & device_t::feature::SOUND)
 		buffer.append("This game lacks sound.\n");
 
-	if (drv->flags & MACHINE_IMPERFECT_SOUND)
+	if (info.imperfect_features() & device_t::feature::SOUND)
 		buffer.append("The sound emulation isn't 100% accurate.\n");
 
-	if (drv->flags & MACHINE_SUPPORTS_SAVE)
+	if (info.machine_flags() & MACHINE_SUPPORTS_SAVE)
 		buffer.append("Save state support.\n");
 
-	if (drv->flags & MACHINE_MECHANICAL)
+	if (info.machine_flags() & MACHINE_MECHANICAL)
 		buffer.append("This game contains mechanical parts.\n");
 
-	if (drv->flags & MACHINE_IS_INCOMPLETE)
+	if (info.machine_flags() & MACHINE_IS_INCOMPLETE)
 		buffer.append("This game was never completed.\n");
 
-	if (drv->flags & MACHINE_NO_SOUND_HW)
+	if (info.machine_flags() & MACHINE_NO_SOUND_HW)
 		buffer.append("This game has no sound hardware.\n");
 
 	buffer.append("\n");

@@ -1019,38 +1019,29 @@ void CreateDeficiencyFolders(int parent_index)
 
 	for (jj = 0; jj < nGames; jj++)
 	{
-		if (driver_list::driver(jj).flags & MACHINE_WRONG_COLORS)
-		{
+		if (driver_list::driver(jj).type.unemulated_features() & device_t::feature::PALETTE)
 			AddGame(lpWrongCol,jj);
-		}
-		if (driver_list::driver(jj).flags & MACHINE_UNEMULATED_PROTECTION)
-		{
+
+		if (driver_list::driver(jj).type.unemulated_features() & device_t::feature::PROTECTION)
 			AddGame(lpProt,jj);
-		}
-		if (driver_list::driver(jj).flags & MACHINE_IMPERFECT_COLORS)
-		{
+
+		if (driver_list::driver(jj).type.imperfect_features() & device_t::feature::PALETTE)
 			AddGame(lpImpCol,jj);
-		}
-		if (driver_list::driver(jj).flags & MACHINE_IMPERFECT_GRAPHICS)
-		{
+
+		if (driver_list::driver(jj).type.imperfect_features() & device_t::feature::GRAPHICS)
 			AddGame(lpImpGraph,jj);
-		}
-		if (driver_list::driver(jj).flags & MACHINE_NO_SOUND)
-		{
+
+		if (driver_list::driver(jj).type.unemulated_features() & device_t::feature::SOUND)
 			AddGame(lpMissSnd,jj);
-		}
-		if (driver_list::driver(jj).flags & MACHINE_IMPERFECT_SOUND)
-		{
+
+		if (driver_list::driver(jj).type.imperfect_features() & device_t::feature::SOUND)
 			AddGame(lpImpSnd,jj);
-		}
+
 		if (driver_list::driver(jj).flags & MACHINE_NO_COCKTAIL)
-		{
 			AddGame(lpFlip,jj);
-		}
+
 		if (driver_list::driver(jj).flags & MACHINE_REQUIRES_ARTWORK)
-		{
 			AddGame(lpArt,jj);
-		}
 	}
 }
 
