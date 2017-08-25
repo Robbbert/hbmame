@@ -10,8 +10,8 @@ driver by David Haywood & Angelo Salese
 many thanks to Charles MacDonald for the schematics / documentation of this HW.
 
 TODO:
- - extra protection for Night Gal Summer (ports 0x6000-3 for z80);
- - Fix Sweet Gal/Sexy Gal layer clearances;
+ - Fix Sweet Gal/Sexy Gal/Sexy Gal Tropical layer clearances (more protection?);
+ - Understand why Night Gal Summer title screen gets wiped out (protection issue);
  - NMI origin for Sexy Gal / Night Gal Summer
  - unemulated WAIT pin for Z80, MCU asserts it when accessing communication RAM
 
@@ -67,6 +67,7 @@ public:
 	uint8_t m_nsc_latch;
 	uint8_t m_z80_latch;
 	uint8_t m_mux_data;
+	uint8_t m_pal_bank;
 	emu_timer *m_z80_wait_ack_timer;
 
 	required_shared_ptr<uint8_t> m_comms_ram;
@@ -89,7 +90,8 @@ public:
 	DECLARE_WRITE8_MEMBER(output_w);
 	DECLARE_DRIVER_INIT(ngalsumr);
 	DECLARE_DRIVER_INIT(royalqn);
-	DECLARE_WRITE8_MEMBER(ngalsumr_unk_w);
+	DECLARE_WRITE8_MEMBER(ngalsumr_prot_latch_w);
+	DECLARE_READ8_MEMBER(ngalsumr_prot_value_r);
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
@@ -140,13 +142,12 @@ uint32_t nightgal_state::screen_update_nightgal(screen_device &screen, bitmap_in
 		for (x = cliprect.min_x; x <= cliprect.max_x; x += 2)
 		{
 			uint32_t srcpix = *src++;
-			*dst++ = m_palette->pen(srcpix & 0xf);
-			*dst++ = m_palette->pen((srcpix >> 4) & 0xf);
+			*dst++ = m_palette->pen((srcpix & 0xf) | m_pal_bank);
+			*dst++ = m_palette->pen(((srcpix >> 4) & 0xf) | m_pal_bank);
 		}
 	}
 
 	copybitmap(bitmap, *m_tmp_bitmap, flip_screen(), flip_screen(),0,0, cliprect);
-
 	return 0;
 }
 
@@ -242,12 +243,15 @@ void nightgal_state::z80_wait_assert_cb()
 READ8_MEMBER(nightgal_state::royalqn_comm_r)
 {
 	z80_wait_assert_cb();
+	machine().scheduler().synchronize(); // force resync
+
 	return (m_comms_ram[offset] & 0x80) | (0x7f); //bits 6-0 are undefined, presumably open bus
 }
 
 WRITE8_MEMBER(nightgal_state::royalqn_comm_w)
 {
 	z80_wait_assert_cb();
+	machine().scheduler().synchronize(); // force resync
 	m_comms_ram[offset] = data & 0x80;
 }
 
@@ -307,11 +311,13 @@ WRITE8_MEMBER(nightgal_state::output_w)
 	/*
 	Doesn't match Charles notes?
 	--x- ---- unknown, set by Royal Queen on gameplay
+	---- x--- color bank, used by Sexy Gal Tropical
 	---- -x-- flip screen
-	---- ---x out counter
+	---- --x- out counter
 	*/
 	machine().bookkeeping().coin_counter_w(0, data & 0x02);
 	flip_screen_set((data & 0x04) == 0);
+	m_pal_bank = (data & 0x08) << 1;
 }
 
 /********************************************
@@ -368,8 +374,7 @@ ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( sexygal_nsc_map, AS_PROGRAM, 8, nightgal_state )
 	AM_IMPORT_FROM( common_nsc_map )
-
-	AM_RANGE(0x0080, 0x0086) AM_DEVWRITE("blitter", jangou_blitter_device, alt_process_w)
+	AM_RANGE(0x0080, 0x0086) AM_DEVICE("blitter",jangou_blitter_device, blit_v2_regs)
 	AM_RANGE(0x1000, 0x13ff) AM_MIRROR(0x2c00) AM_READWRITE(royalqn_comm_r, royalqn_comm_w) AM_SHARE("comms_ram")
 	AM_RANGE(0xc000, 0xdfff) AM_MIRROR(0x2000) AM_ROM AM_REGION("subrom", 0)
 ADDRESS_MAP_END
@@ -377,7 +382,7 @@ ADDRESS_MAP_END
 static ADDRESS_MAP_START( sgaltrop_nsc_map, AS_PROGRAM, 8, nightgal_state )
 	AM_IMPORT_FROM( common_nsc_map )
 
-	AM_RANGE(0x0080, 0x0086) AM_DEVWRITE("blitter", jangou_blitter_device, alt_process_w)
+	AM_RANGE(0x0080, 0x0086) AM_DEVICE("blitter",jangou_blitter_device, blit_v2_regs)
 	AM_RANGE(0x1000, 0x13ff) AM_MIRROR(0x2c00) AM_READWRITE(royalqn_comm_r, royalqn_comm_w) AM_SHARE("comms_ram")
 	AM_RANGE(0xc000, 0xffff) AM_ROM AM_REGION("subrom", 0)
 ADDRESS_MAP_END
@@ -411,7 +416,7 @@ ADDRESS_MAP_END
 static ADDRESS_MAP_START( royalqn_nsc_map, AS_PROGRAM, 8, nightgal_state )
 	AM_IMPORT_FROM( common_nsc_map )
 
-	AM_RANGE(0x0080, 0x0086) AM_DEVWRITE("blitter", jangou_blitter_device, process_w)
+	AM_RANGE(0x0080, 0x0086) AM_DEVICE("blitter",jangou_blitter_device, blit_v1_regs)
 	AM_RANGE(0x1000, 0x13ff) AM_MIRROR(0x2c00) AM_READWRITE(royalqn_comm_r, royalqn_comm_w)
 	AM_RANGE(0x4000, 0x4000) AM_NOP
 	AM_RANGE(0x8000, 0x8000) AM_NOP //open bus or protection check
@@ -655,7 +660,6 @@ static INPUT_PORTS_START( sexygal )
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("blitter", jangou_blitter_device, status_r)
-
 INPUT_PORTS_END
 
 void nightgal_state::machine_start()
@@ -665,7 +669,7 @@ void nightgal_state::machine_start()
 	save_item(NAME(m_nsc_latch));
 	save_item(NAME(m_z80_latch));
 	save_item(NAME(m_mux_data));
-
+	save_item(NAME(m_pal_bank));
 	save_item(NAME(m_blit_raw_data));
 }
 
@@ -699,7 +703,7 @@ static MACHINE_CONFIG_START( royalqn )
 	MCFG_SCREEN_UPDATE_DRIVER(nightgal_state, screen_update_nightgal)
 	MCFG_SCREEN_PALETTE("palette")
 
-	MCFG_PALETTE_ADD("palette", 0x10)
+	MCFG_PALETTE_ADD("palette", 0x20)
 	MCFG_PALETTE_INIT_OWNER(nightgal_state, nightgal)
 
 	/* sound hardware */
@@ -940,7 +944,7 @@ ROM_START( sexygal )
 	ROM_LOAD( "13.s7b",  0x04000, 0x04000, CRC(5eb75f56) SHA1(b7d81d786d1ac8d65a6a122140954eb89d76e8b4) )
 	ROM_LOAD( "14.s6b",  0x08000, 0x04000, CRC(b4a2497b) SHA1(7231f57b4548899c886625e883b9972c0f30e9f2) )
 
-	ROM_REGION( 0x20000, "gfx", 0 )
+	ROM_REGION( 0x40000, "gfx", ROMREGION_ERASEFF )
 	ROM_LOAD( "2.3c",  0x00000, 0x04000, CRC(f719e09d) SHA1(c78411b4f974b3dd261d51e522e086fc30a96fcb) )
 	ROM_LOAD( "3.3d",  0x04000, 0x04000, CRC(a84d9a89) SHA1(91d5978e35ba4acf9353a13ec22c22aeb8a35f12) )
 	ROM_LOAD( "4.3e",  0x08000, 0x04000, CRC(f1cdbedb) SHA1(caacf2887a3a05e498d57d570a1e9873f95a5d5f) )
@@ -949,6 +953,10 @@ ROM_START( sexygal )
 	ROM_LOAD( "7.3jk", 0x14000, 0x04000, CRC(c88f68b8) SHA1(512019f465c298ba8fbf0f6c285a9b0d6c8f7411) )
 	ROM_LOAD( "8.3kl", 0x18000, 0x04000, CRC(4631e092) SHA1(961b10b556defe9e4ba84180149bb2ef4042dbe9) )
 	ROM_LOAD( "9.3m",  0x1c000, 0x04000, CRC(198df711) SHA1(adf9531ee7058db2314811aba7568bd332632947) )
+	ROM_FILL(          0x20000, 0x20000, 0x11 )
+	//ROM_FILL(          0x28000, 0x08000, 0x22 )
+	//ROM_FILL(          0x30000, 0x08000, 0x33 )
+	//ROM_FILL(          0x38000, 0x08000, 0x44 )
 
 	ROM_REGION( 0x20, "proms", 0 )
 	ROM_LOAD( "sg.7e", 0x00, 0x20, CRC(5786a035) SHA1(29d95a6fb076d64ca217206fcadde51993830a88) )
@@ -967,7 +975,7 @@ ROM_START( sweetgal )
 	ROM_LOAD( "v2_13.bin",  0x04000, 0x04000, CRC(60785a0d) SHA1(71eaec3512c0b18b93c083c1808eec51cfd4f520) )
 	ROM_LOAD( "v2_14.bin",  0x08000, 0x04000, CRC(149e84c1) SHA1(5c4e18637bef2f31bc3578cae6525fb6280fbc06) )
 
-	ROM_REGION( 0x20000, "gfx", 0 )
+	ROM_REGION( 0x40000, "gfx", 0 )
 	ROM_LOAD( "2.3c",  0x00000, 0x04000, CRC(3a3d78f7) SHA1(71e35529f30c43ee8ec2363f85fe17042f1d304e) ) // sldh
 	ROM_LOAD( "3.3d",  0x04000, 0x04000, CRC(c6f9b884) SHA1(32d6fe1906a3f1f528f30dbd3f89971b2ea1925b) ) // sldh
 	// all roms below match sexygal
@@ -977,6 +985,7 @@ ROM_START( sweetgal )
 	ROM_LOAD( "7.3jk", 0x14000, 0x04000, CRC(c88f68b8) SHA1(512019f465c298ba8fbf0f6c285a9b0d6c8f7411) )
 	ROM_LOAD( "8.3kl", 0x18000, 0x04000, CRC(4631e092) SHA1(961b10b556defe9e4ba84180149bb2ef4042dbe9) )
 	ROM_LOAD( "9.3m",  0x1c000, 0x04000, CRC(198df711) SHA1(adf9531ee7058db2314811aba7568bd332632947) )
+	ROM_FILL(          0x20000, 0x20000, 0x11 )
 
 	ROM_REGION( 0x20, "proms", 0 )
 	ROM_LOAD( "sg.7e", 0x00, 0x20, CRC(5786a035) SHA1(29d95a6fb076d64ca217206fcadde51993830a88) )
@@ -1034,14 +1043,23 @@ ROM_START( ngalsumr )
 	ROM_LOAD( "2s.ic6", 0x04000, 0x04000, CRC(ca2a735f) SHA1(5980525a67fb0ffbfa04b82d805eee2463236ce3) )
 	ROM_LOAD( "3s.ic5", 0x08000, 0x04000, CRC(5cf15267) SHA1(72e4b2aa59a50af6b1b25d5279b3b125bfe06d86) )
 
-	ROM_REGION( 0x20000, "gfx", ROMREGION_ERASEFF )
+	ROM_REGION( 0x40000, "gfx", ROMREGION_ERASEFF )
 	ROM_LOAD( "1.3a",  0x00000, 0x04000, CRC(9626f812) SHA1(ca7162811a0ba05dfaa2aa8cc93a2e898b326e9e) )
 	ROM_LOAD( "3.3d",  0x04000, 0x04000, CRC(2fb2ec0b) SHA1(2f1735e33906783b8c0b283455a2a079431e6f11) )
 	ROM_LOAD( "5.3h",  0x08000, 0x04000, CRC(feaca6a3) SHA1(6658c01ac5769e8317a1c7eec6802e7c96885710) )
 	ROM_LOAD( "2.3c",  0x10000, 0x04000, CRC(0d59cf7a) SHA1(600bc70d29853fb936f8adaef048d925cbae0ce9) )
+	ROM_RELOAD(        0x20000, 0x04000 )
 	ROM_LOAD( "4.3f",  0x14000, 0x04000, CRC(c7b85199) SHA1(1c4ed2faf82f45d8a23c168793b02969f1201df6) )
+	ROM_RELOAD(        0x24000, 0x04000 )
 	ROM_LOAD( "6.3l",  0x18000, 0x04000, CRC(de9e05f8) SHA1(724468eade222b513b7f39f0a24515f343428130) )
+	ROM_RELOAD(        0x28000, 0x04000 )
+	ROM_RELOAD(        0x0c000, 0x04000 ) // gameplay elements
+	// debug code
+	ROM_FILL(          0x1c000, 0x04000, 0x22 )
+	ROM_FILL(          0x2c000, 0x04000, 0x33 )
+	ROM_FILL(          0x30000, 0x10000, 0x44 )
 
+	
 	ROM_REGION( 0x20, "proms", 0 )
 	ROM_LOAD( "ng2.6u", 0x00, 0x20, CRC(0162a24a) SHA1(f7e1623c5bca3725f2e59ae2096b9bc42e0363bf) )
 ROM_END
@@ -1095,12 +1113,20 @@ ROM_START(sgaltrop)
 	ROM_LOAD( "2.3b",  0x4000, 0x4000, CRC(1723d18d) SHA1(8447c8838941559e5496d2e0834884c27a46375c) )
 	ROM_LOAD( "3.3c",  0x8000, 0x4000, CRC(cdb2057b) SHA1(e60b46813e082ede0694f28f0c2c7a7fdf323ac9) )
 
-	ROM_REGION( 0x40000, "gfx", ROMREGION_ERASEFF )
+	ROM_REGION( 0x80000, "gfx", ROMREGION_ERASEFF )
 	ROM_LOAD( "4.3e",  0x00000, 0x08000, CRC(e10a3c91) SHA1(f77f85527afd59d57cd9cf1deb68c22e35722c78) )
-	ROM_LOAD( "5.3f",  0x08000, 0x08000, CRC(ec482f8e) SHA1(d4d6f618400949141a84ac981ad548ded105bfef) )
-	ROM_LOAD( "6.3h",  0x10000, 0x08000, CRC(571e5f93) SHA1(ef9e27a2121a0d63ac9aa5e4168c73c39d06c60a) )
-	ROM_LOAD( "7.3k",  0x20000, 0x08000, CRC(bd76eb88) SHA1(43cc8269a539153601619381c5dd0c50dd8d6a00) )
-	ROM_LOAD( "8.3n",  0x30000, 0x08000, CRC(5029a16f) SHA1(a89ac8283b3e487d9be5f1a8a1e37ba0bf0cd654) )
+	ROM_LOAD( "7.3k",  0x10000, 0x08000, CRC(bd76eb88) SHA1(43cc8269a539153601619381c5dd0c50dd8d6a00) )
+	ROM_LOAD( "5.3f",  0x20000, 0x08000, CRC(ec482f8e) SHA1(d4d6f618400949141a84ac981ad548ded105bfef) )
+	// next two are unconfirmed
+	ROM_LOAD( "6.3h",  0x30000, 0x08000, CRC(571e5f93) SHA1(ef9e27a2121a0d63ac9aa5e4168c73c39d06c60a) )
+	ROM_RELOAD(        0x08000, 0x08000 ) // attract mode, after a demo match
+	ROM_LOAD( "8.3n",  0x40000, 0x08000, CRC(5029a16f) SHA1(a89ac8283b3e487d9be5f1a8a1e37ba0bf0cd654) )
+	ROM_RELOAD(        0x18000, 0x08000 ) // gal select
+	// debug code, to be removed at some point
+	ROM_FILL(          0x28000, 0x08000, 0x33 )
+	ROM_FILL(          0x38000, 0x08000, 0x44 )
+	ROM_FILL(          0x48000, 0x08000, 0x55 )
+	ROM_FILL(          0x50000, 0x30000, 0x66 )
 
 	ROM_REGION( 0x20, "proms", 0 )
 	ROM_LOAD( "gt.7f", 0x00, 0x20, CRC(59e36d6e) SHA1(2e0f3d4809ec727518e6ec883f67ede8831681bf) )
@@ -1115,14 +1141,61 @@ DRIVER_INIT_MEMBER(nightgal_state,royalqn)
 	ROM[0x027f] = 0x02;
 }
 
-WRITE8_MEMBER(nightgal_state::ngalsumr_unk_w)
+// Night Gal Summer uses a protection latch device to get some layer clearances width/height values.
+WRITE8_MEMBER(nightgal_state::ngalsumr_prot_latch_w)
 {
-	//m_z80_latch = data;
+	m_z80_latch = data;
+}
+
+READ8_MEMBER(nightgal_state::ngalsumr_prot_value_r)
+{	
+	switch(m_z80_latch)
+	{	
+		case 0:
+			return 0;
+		case 1:
+			return 0x14;
+	
+		case 0x4: // cpu hand height on winning
+			return 62;
+		
+		case 0x3: // game over msg height
+			return 12;
+		case 0xf: // game over msg width
+			return 255;
+			
+		case 0xa: // girl width (title screen)
+			return 0x40;
+		case 0xb: // girl height (title screen)
+			return 0x60;
+			
+		case 0xc: // score table blink width
+			return 80;
+		case 0x2: // score table blink height
+			return 8;
+		
+		case 0x6: // player hand height on losing
+			return 28;
+		case 0x7: // player discards height on losing
+			return 38;
+		
+		case 0xd: // player discards width on losing
+			return 142;
+		case 0xe: // player hand width on losing
+			return 200;
+		case 0xff:
+			return 0;
+	}
+		
+	printf("%02x\n",m_z80_latch);
+
+	return 0;
 }
 
 DRIVER_INIT_MEMBER(nightgal_state,ngalsumr)
 {
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x6000, 0x6000, write8_delegate(FUNC(nightgal_state::ngalsumr_unk_w), this) );
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x6000, 0x6000, write8_delegate(FUNC(nightgal_state::ngalsumr_prot_latch_w), this) );
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x6001, 0x6001, read8_delegate(FUNC(nightgal_state::ngalsumr_prot_value_r), this) );
 	// 0x6003 some kind of f/f state
 }
 
@@ -1135,6 +1208,6 @@ GAME( 1984, royalqn,  0,        royalqn, sexygal, nightgal_state, royalqn,  ROT0
 GAME( 1985, sexygal,  0,        sexygal, sexygal, nightgal_state, 0,        ROT0, "Nichibutsu",   "Sexy Gal (Japan 850501 SXG 1-00)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1985, sweetgal, sexygal,  sexygal, sexygal, nightgal_state, 0,        ROT0, "Nichibutsu",   "Sweet Gal (Japan 850510 SWG 1-02)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 /* Type 3 HW */
-GAME( 1985, ngalsumr, 0,        ngalsumr,sexygal, nightgal_state, ngalsumr, ROT0, "Nichibutsu",   "Night Gal Summer (Japan 850702 NGS 0-01)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1985, ngalsumr, 0,        ngalsumr,sexygal, nightgal_state, ngalsumr, ROT0, "Nichibutsu",   "Night Gal Summer [BET] (Japan 850702 NGS 0-01)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // protection
 /* Type 4 HW */
 GAME( 1985, sgaltrop, 0,        sgaltrop,sexygal, nightgal_state, 0,        ROT0, "Nichibutsu",   "Sexy Gal Tropical [BET] (Japan 850805 SXG T-02)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
