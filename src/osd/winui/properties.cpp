@@ -117,7 +117,6 @@ b) Exit the dialog.
 #include "winutf8.h"
 #include "directories.h"
 #include "sound/samples.h"
-#include "ui/info.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
@@ -684,7 +683,7 @@ static char *GameInfoScreen(UINT nIndex)
 				char tmpbuf[256];
 				const rectangle &visarea = screen.visible_area();
 
-				if (driver_list::driver(nIndex).flags & ORIENTATION_SWAP_XY)
+				if (BIT(GetDriverCacheLower(nIndex), 2)) //ORIENTATION_SWAP_XY
 				{
 					sprintf(tmpbuf,"%d x %d (V) %f Hz\n",
 							visarea.max_y - visarea.min_y + 1,
@@ -713,63 +712,63 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 	if (driver_index < 0)
 		return buffer;
 
-	const game_driver *drv = &driver_list::driver(driver_index);
-	ui::machine_static_info const info(machine_config(*drv, MameUIGlobal()));
 	int audit_result = GetRomAuditResults(driver_index);
+	uint32_t cache = GetDriverCacheLower(driver_index);
 	memset(buffer,0,sizeof(char)*1024);
 	if ( bRomStatus )
 	{
 		if (IsAuditResultKnown(audit_result) == false)
 			strcpy(buffer, "Unknown");
-		else if (IsAuditResultYes(audit_result))
+		else
+		if (IsAuditResultYes(audit_result))
 		{
 			if (DriverIsBroken(driver_index))
 			{
 				strcpy(buffer, "Not working");
 
-				if (info.unemulated_features() & device_t::feature::PROTECTION)
+				if (BIT(cache, 22))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Game protection isn't fully emulated");
 				}
-				if (info.unemulated_features() & device_t::feature::PALETTE)
+				if (BIT(cache, 21))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Colors are completely wrong");
 				}
-				if (info.imperfect_features() & device_t::feature::PALETTE)
+				if (BIT(cache, 20))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Colors aren't 100% accurate");
 				}
-				if (info.imperfect_features() & device_t::feature::GRAPHICS)
+				if (BIT(cache, 18))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Video emulation isn't 100% accurate");
 				}
-				if (info.unemulated_features() & device_t::feature::SOUND)
+				if (BIT(cache, 17))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Game lacks sound");
 				}
-				if (info.imperfect_features() & device_t::feature::SOUND)
+				if (BIT(cache, 16))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Sound emulation isn't 100% accurate");
 				}
-				if (info.machine_flags() & MACHINE_NO_COCKTAIL)
+				if (BIT(cache, 8))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Screen flipping is not supported");
 				}
-				if (info.machine_flags() & MACHINE_REQUIRES_ARTWORK)
+				if (BIT(cache, 10))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
@@ -780,49 +779,49 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 			{
 				strcpy(buffer, "Working");
 
-				if (info.unemulated_features() & device_t::feature::PROTECTION)
+				if (BIT(cache, 22))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Game protection isn't fully emulated");
 				}
-				if (info.unemulated_features() & device_t::feature::PALETTE)
+				if (BIT(cache, 21))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Colors are completely wrong");
 				}
-				if (info.imperfect_features() & device_t::feature::PALETTE)
+				if (BIT(cache, 20))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Colors aren't 100% accurate");
 				}
-				if (info.imperfect_features() & device_t::feature::GRAPHICS)
+				if (BIT(cache, 18))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Video emulation isn't 100% accurate");
 				}
-				if (info.unemulated_features() & device_t::feature::SOUND)
+				if (BIT(cache, 17))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Game lacks sound");
 				}
-				if (info.imperfect_features() & device_t::feature::SOUND)
+				if (BIT(cache, 16))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Sound emulation isn't 100% accurate");
 				}
-				if (info.machine_flags() & MACHINE_NO_COCKTAIL)
+				if (BIT(cache, 8))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
 					strcat(buffer, "Screen flipping is not supported");
 				}
-				if (info.machine_flags() & MACHINE_REQUIRES_ARTWORK)
+				if (BIT(cache, 10))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
@@ -842,49 +841,49 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 		else
 			strcpy(buffer, "Working");
 
-		if (info.unemulated_features() & device_t::feature::PROTECTION)
+		if (BIT(cache, 22))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Game protection isn't fully emulated");
 		}
-		if (info.unemulated_features() & device_t::feature::PALETTE)
+		if (BIT(cache, 21))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Colors are completely wrong");
 		}
-		if (info.imperfect_features() & device_t::feature::PALETTE)
+		if (BIT(cache, 20))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Colors aren't 100% accurate");
 		}
-		if (info.imperfect_features() & device_t::feature::GRAPHICS)
+		if (BIT(cache, 18))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Video emulation isn't 100% accurate");
 		}
-		if (info.unemulated_features() & device_t::feature::SOUND)
+		if (BIT(cache, 17))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Game lacks sound");
 		}
-		if (info.imperfect_features() & device_t::feature::SOUND)
+		if (BIT(cache, 16))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Sound emulation isn't 100% accurate");
 		}
-		if (info.machine_flags() & MACHINE_NO_COCKTAIL)
+		if (BIT(cache, 8))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");
 			strcat(buffer, "Screen flipping is not supported");
 		}
-		if (info.machine_flags() & MACHINE_REQUIRES_ARTWORK)
+		if (BIT(cache, 10))
 		{
 			if (*buffer != '\0')
 				strcat(buffer, "\r\n");

@@ -27,7 +27,6 @@
 #include "mui_opts.h"
 #include "drivenum.h"
 #include "machine/ram.h"
-#include "ui/info.h"
 
 #include <shlwapi.h>
 
@@ -312,10 +311,9 @@ BOOL isDriverVector(const machine_config *config)
 	const screen_device *screen  = config->first_screen();
 
 	if (screen)
-	{
 		if (SCREEN_TYPE_VECTOR == screen->screen_type())
 			return true;
-	}
+
 	return false;
 }
 
@@ -379,18 +377,17 @@ static void InitDriversInfo(void)
 
 	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
+		uint32_t cache = GetDriverCacheLower(ndriver);
 		gamedrv = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
 		machine_config config(*gamedrv, MameUIGlobal());
-		ui::machine_static_info const info(machine_config(*gamedrv, MameUIGlobal()));
 		bool const have_parent(strcmp(gamedrv->parent, "0"));
 		auto const parent_idx(have_parent ? driver_list::find(gamedrv->parent) : -1);
-		gameinfo->isClone = ( !have_parent || (0 > parent_idx) || (driver_list::driver(parent_idx).flags & machine_flags::IS_BIOS_ROOT)) ? false : true;
-		gameinfo->isBroken = ((info.machine_flags() & (MACHINE_NOT_WORKING | MACHINE_MECHANICAL)) ||
-			(info.unemulated_features() & device_t::feature::PROTECTION)) ? true : false;
-		gameinfo->supportsSaveState = (info.machine_flags() & MACHINE_SUPPORTS_SAVE) ? true : false;
+		gameinfo->isClone = ( !have_parent || (0 > parent_idx) || BIT(GetDriverCacheLower(parent_idx),9)) ? false : true;
+		gameinfo->isBroken = (cache & 0x404040) ? true : false;  // (MACHINE_NOT_WORKING | MACHINE_MECHANICAL | protection)
+		gameinfo->supportsSaveState = BIT(cache, 7);  //MACHINE_SUPPORTS_SAVE
 		gameinfo->isHarddisk = false;
-		gameinfo->isVertical = (info.machine_flags() & ORIENTATION_SWAP_XY) ? true : false;
+		gameinfo->isVertical = BIT(cache, 2);  //ORIENTATION_SWAP_XY
 
 		ram_device_iterator iter1(config.root_device());
 		gameinfo->hasRam = (iter1.first() );
@@ -470,43 +467,39 @@ static int InitDriversCache(void)
 	}
 
 	printf("InitDriversCache: C\n");fflush(stdout);
-	int cache = -1;
+	uint32_t cache_lower, cache_upper;
 	int total = driver_list::total();
-	const game_driver *gamedrv = NULL;
 	struct DriversInfo *gameinfo = NULL;
 
 	printf("InitDriversCache: D\n");fflush(stdout);
 	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
-		gamedrv  = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
-		cache    = GetDriverCache(ndriver);
+		cache_lower = GetDriverCacheLower(ndriver);
+		cache_upper = GetDriverCacheUpper(ndriver);
 
-		if (cache == -1)
-		{
-			printf("InitDriversCache: F\n");fflush(stdout);
-			InitDriversInfo();
-			break;
-		}
+		//if (cache == 0)
+		//{
+		//	printf("InitDriversCache: F\n");fflush(stdout);
+		//	InitDriversInfo();
+		//	break;
+		//}
 
-		ui::machine_static_info const info(machine_config(*gamedrv, MameUIGlobal()));
-
-		gameinfo->isBroken = ((info.machine_flags() & (MACHINE_NOT_WORKING | MACHINE_MECHANICAL)) ||
-			(info.unemulated_features() & device_t::feature::PROTECTION)) ? true : false;
-		gameinfo->supportsSaveState =  (info.machine_flags() & MACHINE_SUPPORTS_SAVE) ? true : false;
-		gameinfo->isVertical        =  (info.machine_flags() & ORIENTATION_SWAP_XY) ? true : false;
-		gameinfo->screenCount       =   cache & DRIVER_CACHE_SCREEN;
-		gameinfo->isClone           = ((cache & DRIVER_CACHE_CLONE)     != 0);
-		gameinfo->isHarddisk        = ((cache & DRIVER_CACHE_HARDDISK)  != 0);
-		gameinfo->hasOptionalBIOS   = ((cache & DRIVER_CACHE_BIOS)      != 0);
-		gameinfo->isStereo          = ((cache & DRIVER_CACHE_STEREO)    != 0);
-		gameinfo->isVector          = ((cache & DRIVER_CACHE_VECTOR)    != 0);
-		gameinfo->usesRoms          = ((cache & DRIVER_CACHE_ROMS)      != 0);
-		gameinfo->usesSamples       = ((cache & DRIVER_CACHE_SAMPLES)   != 0);
-		gameinfo->usesTrackball     = ((cache & DRIVER_CACHE_TRACKBALL) != 0);
-		gameinfo->usesLightGun      = ((cache & DRIVER_CACHE_LIGHTGUN)  != 0);
-		gameinfo->usesMouse         = ((cache & DRIVER_CACHE_MOUSE)     != 0);
-		gameinfo->hasRam            = ((cache & DRIVER_CACHE_RAM)       != 0);
+		gameinfo->isBroken          =  (cache_lower & 0x404040) ? true : false; //MACHINE_NOT_WORKING | MACHINE_MECHANICAL | protection
+		gameinfo->supportsSaveState =  BIT(cache_lower, 7) ? true : false;  //MACHINE_SUPPORTS_SAVE
+		gameinfo->isVertical        =  BIT(cache_lower, 2) ? true : false;  //ORIENTATION_XY
+		gameinfo->screenCount       =   cache_upper & DRIVER_CACHE_SCREEN;
+		gameinfo->isClone           = ((cache_upper & DRIVER_CACHE_CLONE)     != 0);
+		gameinfo->isHarddisk        = ((cache_upper & DRIVER_CACHE_HARDDISK)  != 0);
+		gameinfo->hasOptionalBIOS   = ((cache_upper & DRIVER_CACHE_BIOS)      != 0);
+		gameinfo->isStereo          = ((cache_upper & DRIVER_CACHE_STEREO)    != 0);
+		gameinfo->isVector          = ((cache_upper & DRIVER_CACHE_VECTOR)    != 0);
+		gameinfo->usesRoms          = ((cache_upper & DRIVER_CACHE_ROMS)      != 0);
+		gameinfo->usesSamples       = ((cache_upper & DRIVER_CACHE_SAMPLES)   != 0);
+		gameinfo->usesTrackball     = ((cache_upper & DRIVER_CACHE_TRACKBALL) != 0);
+		gameinfo->usesLightGun      = ((cache_upper & DRIVER_CACHE_LIGHTGUN)  != 0);
+		gameinfo->usesMouse         = ((cache_upper & DRIVER_CACHE_MOUSE)     != 0);
+		gameinfo->hasRam            = ((cache_upper & DRIVER_CACHE_RAM)       != 0);
 	}
 
 	printf("InitDriversCache: Finished\n");fflush(stdout);
@@ -545,17 +538,17 @@ BOOL DriverIsHarddisk(int driver_index)
 
 BOOL DriverIsBios(int driver_index)
 {
-	return ( driver_list::driver(driver_index).flags & MACHINE_IS_BIOS_ROOT ) ? true : false;
+	return BIT(GetDriverCacheLower(driver_index), 9);
 }
 
 BOOL DriverIsMechanical(int driver_index)
 {
-	return ( driver_list::driver(driver_index).flags & MACHINE_MECHANICAL ) ? true : false;
+	return BIT(GetDriverCacheLower(driver_index), 14);
 }
 
 BOOL DriverIsArcade(int driver_index)
 {
-	return ((driver_list::driver(driver_index).flags & machine_flags::MASK_TYPE) == machine_flags::TYPE_ARCADE);
+	return ((GetDriverCacheLower(driver_index) & 3) == 0) ? true: false;  //TYPE_ARCADE
 }
 
 BOOL DriverHasOptionalBIOS(int driver_index)

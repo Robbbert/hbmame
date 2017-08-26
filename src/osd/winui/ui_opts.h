@@ -107,8 +107,6 @@
 #define MUIDEFAULT_SPLITTERS                     "164,800"
 #endif
 
-#define MUIOPTION_TOTAL                        "total"
-
 #define MESSUI_SL_COLUMN_SHOWN        "sl_column_shown"
 #define MESSUI_SL_COLUMN_WIDTHS       "sl_column_widths"
 #define MESSUI_SL_COLUMN_ORDER        "sl_column_order"
@@ -132,7 +130,6 @@ WINUIOPTS;
 // UI options in MAMEui.ini
 const WINUIOPTS option_entries[] =
 {
-	{ MUIOPTION_TOTAL,                        "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_EXTRA_FOLDERS,                "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_DEFAULT_GAME,                 MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
 	{ MUIOPTION_DEFAULT_FOLDER_ID,            "0",        OPTION_INTEGER,                 NULL },

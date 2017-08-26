@@ -436,8 +436,9 @@ void SetHideMouseOnStartup(BOOL hide);
 BOOL GetRunFullScreen(void);
 void SetRunFullScreen(BOOL fullScreen);
 
-int GetDriverCache(int driver_index);
-void SetDriverCache(int driver_index, int val);
+uint32_t GetDriverCacheLower(int driver_index);
+uint32_t GetDriverCacheUpper(int driver_index);
+void SetDriverCache(int driver_index, uint32_t val);
 BOOL RequiredDriverCache(void);
 
 // from optionsms.h (MESSUI)

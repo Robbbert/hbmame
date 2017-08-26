@@ -38,7 +38,7 @@
 #include "mui_util.h"
 #include "mui_opts.h"
 #include "sound/samples.h"
-#include "ui/info.h"
+
 #define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
 
 
@@ -282,9 +282,8 @@ std::string load_sourceinfo(const game_driver *drv, const char* datsdir, int fil
 
 
 // General hardware information
-std::string load_driver_geninfo(const game_driver *drv)
+std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 {
-	ui::machine_static_info const info(machine_config(*drv, MameUIGlobal()));
 	machine_config config(*drv, MameUIGlobal());
 	const game_driver *parent = NULL;
 	char name[512];
@@ -292,37 +291,38 @@ std::string load_driver_geninfo(const game_driver *drv)
 	std::string buffer = "\n**** :GENERAL MACHINE INFO: ****\n\n";
 
 	/* List the game info 'flags' */
-	if (info.machine_flags() & MACHINE_NOT_WORKING)
+	uint32_t cache = GetDriverCacheLower(drvindex);
+	if (BIT(cache, 6))
 		buffer.append("This game doesn't work properly\n");
 
-	if (info.unemulated_features() & device_t::feature::PROTECTION)
+	if (BIT(cache, 22))
 		buffer.append("This game has protection which isn't fully emulated.\n");
 
-	if (info.imperfect_features() & device_t::feature::GRAPHICS)
+	if (BIT(cache, 18))
 		buffer.append("The video emulation isn't 100% accurate.\n");
 
-	if (info.unemulated_features() & device_t::feature::PALETTE)
+	if (BIT(cache, 21))
 		buffer.append("The colors are completely wrong.\n");
 
-	if (info.imperfect_features() & device_t::feature::PALETTE)
+	if (BIT(cache, 20))
 		buffer.append("The colors aren't 100% accurate.\n");
 
-	if (info.unemulated_features() & device_t::feature::SOUND)
+	if (BIT(cache, 17))
 		buffer.append("This game lacks sound.\n");
 
-	if (info.imperfect_features() & device_t::feature::SOUND)
+	if (BIT(cache, 16))
 		buffer.append("The sound emulation isn't 100% accurate.\n");
 
-	if (info.machine_flags() & MACHINE_SUPPORTS_SAVE)
+	if (BIT(cache, 7))
 		buffer.append("Save state support.\n");
 
-	if (info.machine_flags() & MACHINE_MECHANICAL)
+	if (BIT(cache, 14))
 		buffer.append("This game contains mechanical parts.\n");
 
-	if (info.machine_flags() & MACHINE_IS_INCOMPLETE)
+	if (BIT(cache, 15))
 		buffer.append("This game was never completed.\n");
 
-	if (info.machine_flags() & MACHINE_NO_SOUND_HW)
+	if (BIT(cache, 13))
 		buffer.append("This game has no sound hardware.\n");
 
 	buffer.append("\n");
@@ -624,7 +624,7 @@ char * GetGameHistory(int driver_index, std::string software)
 	else
 		fullbuf = "\nUnable to display info due to an internal error.\n\n\n";
 
-	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index)));
+	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index), driver_index));
 
 	return ConvertToWindowsNewlines(fullbuf.c_str());
 }
@@ -658,7 +658,7 @@ char * GetGameHistory(int driver_index)
 	else
 		fullbuf = "\nUnable to display info due to an internal error.\n\n\n";
 
-	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index)));
+	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index), driver_index));
 
 	return ConvertToWindowsNewlines(fullbuf.c_str());
 }

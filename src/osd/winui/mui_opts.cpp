@@ -20,16 +20,17 @@
 // MAME/MAMEUI headers
 #include "emu.h"
 #include "ui/moptions.h"
+#include "ui/info.h"
 #include "drivenum.h"
+#include "winui.h"
+#include "mui_opts.h"
 #include <fstream>      // for *_opts.h (below)
 #include "game_opts.h"  // this must be under emu.h and drivenum.h
 #include "ui_opts.h"
 //#include "ini_opts.h"   // not ready yet
-#include "winui.h"
 #include "mui_util.h"
 #include "treeview.h"
 #include "splitters.h"
-#include "mui_opts.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
@@ -149,42 +150,12 @@ void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_inde
 
 BOOL OptionsInit()
 {
-#if 0
-// keep in case we need per-game options in the future
-	// set up per game options
-	{
-		char buffer[128];
-		int i, j;
-		int game_option_count = 0;
-
-		while(perGameOptions[game_option_count].name)
-			game_option_count++;
-
-		for (i = 0; i < driver_list::total(); i++)
-		{
-			for (j = 0; j < game_option_count; j++)
-			{
-				options_entry entry[2] = { { 0 }, { 0 } };
-				snprintf(buffer, ARRAY_LENGTH(buffer), "%s%s", driver_list::driver(i).name, perGameOptions[j].name);
-
-				entry[0].name = core_strdup(buffer);
-				entry[0].defvalue = perGameOptions[j].defvalue;
-				entry[0].flags = perGameOptions[j].flags;
-				entry[0].description = perGameOptions[j].description;
-				settings.add_entries(entry);
-			}
-		}
-	}
-#endif
-
 	// set up global options
 	settings.load_file(UI_INI_FILENAME);                    // parse MAMEUI.ini
 	LoadSettingsFile(mewui, MEWUI_FILENAME);                // parse UI.INI
 	game_opts.load_file(GAMEINFO_INI_FILENAME);             // parse MAME_g.ini
 	load_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS, 0);   // parse MAME.INI
-
 	return TRUE;
-
 }
 
 windows_options & MameUIGlobal(void)
@@ -2155,29 +2126,31 @@ static void ResetToDefaults(windows_options &opts, int priority)
 	OptionsCopy(dummy, opts);
 }
 
-int GetDriverCache(int driver_index)
+uint32_t GetDriverCacheLower(int driver_index)
 {
-	return game_opts.cache(driver_index);
+	if (driver_index >= 0)
+		return game_opts.cache_lower(driver_index);
+	else
+		return 0;
 }
 
-void SetDriverCache(int driver_index, int val)
+uint32_t GetDriverCacheUpper(int driver_index)
 {
-	game_opts.cache(driver_index, val);
+	if (driver_index >= 0)
+		return game_opts.cache_upper(driver_index);
+	else
+		return 0;
+}
+
+void SetDriverCache(int driver_index, uint32_t val)
+{
+	if (driver_index >= 0)
+		game_opts.cache_upper(driver_index, val);
 }
 
 BOOL RequiredDriverCache(void)
 {
-	bool ret = false;
-	int m_total = driver_list::total();
-
-	if (m_total != settings.int_value(MUIOPTION_TOTAL))
-	{
-		ret = true;
-		settings.setter(MUIOPTION_TOTAL, m_total);
-	}
-
-	printf("RequiredDriverCache returns %d\n", ret);
-	return ret;
+	return game_opts.rebuild();
 }
 
 // from optionsms.cpp (MESSUI)

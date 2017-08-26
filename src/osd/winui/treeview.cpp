@@ -1019,28 +1019,29 @@ void CreateDeficiencyFolders(int parent_index)
 
 	for (jj = 0; jj < nGames; jj++)
 	{
-		if (driver_list::driver(jj).type.unemulated_features() & device_t::feature::PALETTE)
+		uint32_t cache = GetDriverCacheLower(jj);
+		if (BIT(cache, 21))
 			AddGame(lpWrongCol,jj);
 
-		if (driver_list::driver(jj).type.unemulated_features() & device_t::feature::PROTECTION)
+		if (BIT(cache, 22))
 			AddGame(lpProt,jj);
 
-		if (driver_list::driver(jj).type.imperfect_features() & device_t::feature::PALETTE)
+		if (BIT(cache, 20))
 			AddGame(lpImpCol,jj);
 
-		if (driver_list::driver(jj).type.imperfect_features() & device_t::feature::GRAPHICS)
+		if (BIT(cache, 18))
 			AddGame(lpImpGraph,jj);
 
-		if (driver_list::driver(jj).type.unemulated_features() & device_t::feature::SOUND)
+		if (BIT(cache, 17))
 			AddGame(lpMissSnd,jj);
 
-		if (driver_list::driver(jj).type.imperfect_features() & device_t::feature::SOUND)
+		if (BIT(cache, 16))
 			AddGame(lpImpSnd,jj);
 
-		if (driver_list::driver(jj).flags & MACHINE_NO_COCKTAIL)
+		if (BIT(cache, 8))
 			AddGame(lpFlip,jj);
 
-		if (driver_list::driver(jj).flags & MACHINE_REQUIRES_ARTWORK)
+		if (BIT(cache, 10))
 			AddGame(lpArt,jj);
 	}
 }
