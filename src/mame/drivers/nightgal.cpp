@@ -381,12 +381,16 @@ WRITE8_MEMBER(nightgal_state::sexygal_audionmi_w)
 }
 
 
-static ADDRESS_MAP_START( sexygal_map, AS_PROGRAM, 8, nightgal_state )
+static ADDRESS_MAP_START( sweetgal_map, AS_PROGRAM, 8, nightgal_state )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0x807f) AM_RAM AM_SHARE("sound_ram")
-	AM_RANGE(0xa000, 0xa000) AM_WRITE(sexygal_audioff_w)
 	AM_RANGE(0xe000, 0xefff) AM_READWRITE(royalqn_comm_r, royalqn_comm_w) AM_SHARE("comms_ram")
 	AM_RANGE(0xf000, 0xffff) AM_RAM
+ADDRESS_MAP_END
+
+static ADDRESS_MAP_START( sexygal_map, AS_PROGRAM, 8, nightgal_state )
+	AM_RANGE(0xa000, 0xa000) AM_WRITE(sexygal_audioff_w)
+	AM_IMPORT_FROM(sweetgal_map)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( common_sexygal_io, AS_IO, 8, nightgal_state )
@@ -787,6 +791,14 @@ static MACHINE_CONFIG_DERIVED( sexygal, royalqn )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.40)
 MACHINE_CONFIG_END
 
+static MACHINE_CONFIG_DERIVED( sweetgal, sexygal )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(sweetgal_map)
+
+	// doesn't have the extra NSC8105 (so how does this play samples?)
+	MCFG_DEVICE_REMOVE("audiocpu")
+MACHINE_CONFIG_END
+
 static MACHINE_CONFIG_DERIVED( ngalsumr, royalqn )
 	MCFG_CPU_MODIFY("maincpu")
 	// TODO: happens from protection device
@@ -1027,10 +1039,6 @@ ROM_START( sweetgal )
 	ROM_REGION( 0x2000, "subrom", 0 )
 	ROM_LOAD( "1.3a",  0x0000, 0x2000, CRC(5342c757) SHA1(b4ff84c45bd2c6a6a468f1d0daaf5b19c4dbf8fe) ) // sldh
 
-	ROM_REGION( 0x4000, "audiorom", 0)
-	// taken from sexygal, none of the samples ROMs has code, maybe it doesn't have the extra CPU as well (no access to the extra ports)
-	ROM_LOAD( "14.s6b",  0x00000, 0x04000, BAD_DUMP CRC(b4a2497b) SHA1(7231f57b4548899c886625e883b9972c0f30e9f2) )
-
 	ROM_REGION( 0xc000, "samples", 0 ) // sound samples
 	ROM_LOAD( "v2_12.bin",  0x00000, 0x04000, CRC(66a35be2) SHA1(4f0d73d753387acacc5ccc90e91d848a5ecce55e) )
 	ROM_LOAD( "v2_13.bin",  0x04000, 0x04000, CRC(60785a0d) SHA1(71eaec3512c0b18b93c083c1808eec51cfd4f520) )
@@ -1267,7 +1275,7 @@ GAME( 1984, royalngt, ngtbunny, royalqn, sexygal, nightgal_state, 0,        ROT0
 GAME( 1984, royalqn,  0,        royalqn, sexygal, nightgal_state, royalqn,  ROT0, "Royal Denshi", "Royal Queen [BET] (Japan 841010 RQ 0-07)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 /* Type 2 HW */
 GAME( 1985, sexygal,  0,        sexygal, sexygal, nightgal_state, 0,        ROT0, "Nichibutsu",   "Sexy Gal (Japan 850501 SXG 1-00)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1985, sweetgal, sexygal,  sexygal, sexygal, nightgal_state, 0,        ROT0, "Nichibutsu",   "Sweet Gal (Japan 850510 SWG 1-02)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1985, sweetgal, sexygal,  sweetgal, sexygal, nightgal_state, 0,       ROT0, "Nichibutsu",   "Sweet Gal (Japan 850510 SWG 1-02)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 /* Type 3 HW */
 GAME( 1985, ngalsumr, 0,        ngalsumr,sexygal, nightgal_state, ngalsumr, ROT0, "Nichibutsu",   "Night Gal Summer [BET] (Japan 850702 NGS 0-01)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // protection
 /* Type 4 HW */
