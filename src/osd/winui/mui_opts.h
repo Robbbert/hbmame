@@ -234,15 +234,6 @@ BOOL GetOffsetClones(void);
 void SetSavedFolderID(UINT val);
 UINT GetSavedFolderID(void);
 
-void SetShowScreenShot(BOOL val);
-BOOL GetShowScreenShot(void);
-
-void SetShowSoftware(BOOL val);
-BOOL GetShowSoftware(void);
-
-void SetShowFolderList(BOOL val);
-BOOL GetShowFolderList(void);
-
 void SetShowExtraFolders(BOOL val);
 BOOL GetShowExtraFolders(void);
 
@@ -258,17 +249,20 @@ BOOL GetShowToolBar(void);
 void SetShowTabCtrl(BOOL val);
 BOOL GetShowTabCtrl(void);
 
-void SetCurrentTab(const char *shortname);
-const char *GetCurrentTab(void);
+void SetCurrentTab(int val);
+int GetCurrentTab(void);
 
-void SetDefaultGame(const char *name);
-const char *GetDefaultGame(void);
+void SetDefaultGame(int val);
+int GetDefaultGame(void);
 
 void SetWindowArea(const AREA *area);
 void GetWindowArea(AREA *area);
 
 void SetWindowState(UINT state);
 UINT GetWindowState(void);
+
+void SetWindowPanes(int val);
+UINT GetWindowPanes(void);
 
 void SetColumnWidths(int widths[]);
 void GetColumnWidths(int widths[]);
@@ -339,6 +333,8 @@ void GetTextPlayTime(int driver_index,char *buf);
 void ResetPlayTime(int driver_index);
 
 const char * GetVersionString(void);
+
+bool DriverHasSoftware(int drvindex);
 
 void SaveDefaultOptions(void);
 
@@ -484,8 +480,8 @@ BOOL GetSLSortReverse(void);
 
 void SetSelectedSoftware(int driver_index, string opt_name, const char *software);
 
-void SetCurrentSoftwareTab(const char *shortname);
-const char *GetCurrentSoftwareTab(void);
+void SetCurrentSoftwareTab(int val);
+int GetCurrentSoftwareTab(void);
 
 
 #endif

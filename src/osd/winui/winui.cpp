@@ -478,7 +478,6 @@ static int  progBarStep;
 static BOOL bDoGameCheck = false;
 
 /* Tree control variables */
-static BOOL bShowTree      = 1;
 static BOOL bShowToolBar   = 1;
 static BOOL bShowStatusBar = 1;
 static BOOL bShowTabCtrl   = 1;
@@ -1208,6 +1207,7 @@ const char * GetSearchText(void)
 /* Sets the treeview and listviews sizes in accordance with their visibility and the splitters */
 static void ResizeTreeAndListViews(BOOL bResizeHidden)
 {
+	bool bShowPicture = BIT(GetWindowPanes(), 3);
 	int nLastWidth = 0;
 	int nLastWidth2 = 0;
 	int nLeftWindowWidth = 0;
@@ -1224,7 +1224,7 @@ static void ResizeTreeAndListViews(BOOL bResizeHidden)
 		rect.top += topMargin;
 
 	/* Tree control */
-	ShowWindow(GetDlgItem(hMain, IDC_TREE), bShowTree ? SW_SHOW : SW_HIDE);
+	ShowWindow(GetDlgItem(hMain, IDC_TREE), BIT(GetWindowPanes(), 0) ? SW_SHOW : SW_HIDE);
 
 	for (int i = 0; g_splitterInfo[i].nSplitterWindow; i++)
 	{
@@ -1234,7 +1234,7 @@ static void ResizeTreeAndListViews(BOOL bResizeHidden)
 			nLeftWindowWidth = nSplitterOffset[i] - SPLITTER_WIDTH/2 - nLastWidth;
 
 			/* special case for the rightmost pane when the screenshot is gone */
-			if (!GetShowScreenShot() && !g_splitterInfo[i+1].nSplitterWindow)
+			if (!bShowPicture && !g_splitterInfo[i+1].nSplitterWindow)
 				nLeftWindowWidth = rect.right - nLastWidth;
 
 			/* woah?  are we overlapping ourselves? */
@@ -1279,18 +1279,9 @@ void UpdateScreenShot(void)
 	if (bShowToolBar)
 		rect.top += topMargin;
 
-	if (GetShowScreenShot())
-	{
-		//nWidth = nSplitterOffset[GetSplitterCount() - 1];
-		CheckMenuItem(GetMenu(hMain),ID_VIEW_PICTURE_AREA, MF_CHECKED);
-		ToolBar_CheckButton(s_hToolBar, ID_VIEW_PICTURE_AREA, MF_CHECKED);
-	}
-	else
-	{
-		//nWidth = rect.right;
-		CheckMenuItem(GetMenu(hMain),ID_VIEW_PICTURE_AREA, MF_UNCHECKED);
-		ToolBar_CheckButton(s_hToolBar, ID_VIEW_PICTURE_AREA, MF_UNCHECKED);
-	}
+	BOOL bShowImage = BIT(GetWindowPanes(), 3); // ss
+	CheckMenuItem(GetMenu(hMain), ID_VIEW_PICTURE_AREA, bShowImage ? MF_CHECKED : MF_UNCHECKED);
+	ToolBar_CheckButton(s_hToolBar, ID_VIEW_PICTURE_AREA, bShowImage ? MF_CHECKED : MF_UNCHECKED);
 
 	ResizeTreeAndListViews(false);
 
@@ -1305,7 +1296,7 @@ void UpdateScreenShot(void)
 
 	// setup the picture area
 
-	if (GetShowScreenShot())
+	if (bShowImage)
 	{
 		DWORD dwStyle;
 		DWORD dwStyleEx;
@@ -1372,7 +1363,7 @@ void ResizePickerControls(HWND hWnd)
 		firstTime = false;
 	}
 	else
-		doSSControls = GetShowScreenShot();
+		doSSControls = BIT(GetWindowPanes(), 3);
 
 	if (bShowStatusBar)
 		rect.bottom -= bottomMargin;
@@ -1707,7 +1698,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	idle_work    = true;
 	game_index   = 0;
 
-	bShowTree      = GetShowFolderList();
+	BOOL bShowTree = BIT(GetWindowPanes(), 0);
 	bShowToolBar   = GetShowToolBar();
 	bShowStatusBar = GetShowStatusBar();
 	bShowTabCtrl   = GetShowTabCtrl();
@@ -2052,7 +2043,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			/* Save the users current game options and default game */
 			nItem = Picker_GetSelectedItem(hwndList);
 			if (nItem >= 0)
-				SetDefaultGame(ModifyThe(driver_list::driver(nItem).name));
+				SetDefaultGame(nItem);
 
 			/* hide window to prevent orphan empty rectangles on the taskbar */
 			/* ShowWindow(hWnd,SW_HIDE); */
@@ -2905,7 +2896,7 @@ static void UpdateHistory(void)
 		win_set_window_text_utf8(GetDlgItem(hMain, IDC_HISTORY), histText);
 	}
 
-	if (have_history && GetShowScreenShot()
+	if (have_history && BIT(GetWindowPanes(), 3)
 		&& ((TabView_GetCurrentTab(hTabCtrl) == TAB_HISTORY) ||
 			(TabView_GetCurrentTab(hTabCtrl) == GetHistoryTab() && GetShowTab(TAB_HISTORY) == false) ||
 			(TAB_ALL == GetHistoryTab() && GetShowTab(TAB_HISTORY) == false) ))
@@ -2997,9 +2988,8 @@ static void EnableSelection(int nGame)
 		EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_ENABLED);
 
 	if (bProgressShown && bListReady == true)
-	{
-		SetDefaultGame(ModifyThe(driver_list::driver(nGame).name));
-	}
+		SetDefaultGame(nGame);
+
 	have_selection = true;
 
 	UpdateScreenShot();
@@ -3896,12 +3886,15 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_VIEW_FOLDERS:
-		bShowTree = !bShowTree;
-		SetShowFolderList(bShowTree);
+	{
+		int val = GetWindowPanes() ^ 1;
+		BOOL bShowTree = BIT(val, 0);
+		SetWindowPanes(val);
 		CheckMenuItem(GetMenu(hMain), ID_VIEW_FOLDERS, (bShowTree) ? MF_CHECKED : MF_UNCHECKED);
 		ToolBar_CheckButton(s_hToolBar, ID_VIEW_FOLDERS, (bShowTree) ? MF_CHECKED : MF_UNCHECKED);
 		UpdateScreenShot();
 		break;
+	}
 
 	case ID_VIEW_TOOLBARS:
 		bShowToolBar = !bShowToolBar;
@@ -4482,15 +4475,12 @@ static void LoadBackgroundBitmap()
 
 static void ResetColumnDisplay(BOOL first_time)
 {
-	int driver_index;
-
 	if (!first_time)
 		Picker_ResetColumnDisplay(hwndList);
 
 	ResetListView();
 
-	driver_index = GetGameNameIndex(GetDefaultGame());
-	Picker_SetSelectedItem(hwndList, driver_index);
+	Picker_SetSelectedItem(hwndList, GetDefaultGame());
 }
 
 static int GamePicker_GetItemImage(HWND hwndPicker, int nItem)
@@ -5519,13 +5509,13 @@ static void MamePlayGameWithOptions(int nGame, const play_options *playopts)
 /* Toggle ScreenShot ON/OFF */
 static void ToggleScreenShot(void)
 {
-	BOOL showScreenShot = GetShowScreenShot();
-
-	SetShowScreenShot((showScreenShot) ? false : true);
+	UINT val = GetWindowPanes() ^ 8;
+	BOOL show = BIT(val, 3);
+	SetWindowPanes(val);
 	UpdateScreenShot();
 
 	/* Redraw list view */
-	if (hBackground && showScreenShot)
+	if (hBackground && show)
 		InvalidateRect(hwndList, NULL, false);
 }
 
@@ -6537,7 +6527,7 @@ static void SwitchFullScreenMode(void)
 		SetMenu(hMain, LoadMenu(hInst,MAKEINTRESOURCE(IDR_UI_MENU)));
 
 		// Refresh the checkmarks
-		CheckMenuItem(GetMenu(hMain), ID_VIEW_FOLDERS, GetShowFolderList() ? MF_CHECKED : MF_UNCHECKED);
+		CheckMenuItem(GetMenu(hMain), ID_VIEW_FOLDERS, BIT(GetWindowPanes(), 0) ? MF_CHECKED : MF_UNCHECKED);
 		CheckMenuItem(GetMenu(hMain), ID_VIEW_TOOLBARS, GetShowToolBar() ? MF_CHECKED : MF_UNCHECKED);
 		CheckMenuItem(GetMenu(hMain), ID_VIEW_STATUS, GetShowStatusBar() ? MF_CHECKED : MF_UNCHECKED);
 		CheckMenuItem(GetMenu(hMain), ID_VIEW_PAGETAB, GetShowTabCtrl() ? MF_CHECKED : MF_UNCHECKED);

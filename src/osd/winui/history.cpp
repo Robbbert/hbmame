@@ -131,7 +131,7 @@ static bool create_index(std::ifstream &fp, int filenum)
 		{
 			// now start by removing all spaces
 			file_line.erase(remove_if(file_line.begin(), file_line.end(), ::isspace), file_line.end());
-			char s[file_line.length()];
+			char s[file_line.length()+1];
 			strcpy(s, file_line.c_str());
 
 			const char* first = strtok(s, "=");  // get first part of key

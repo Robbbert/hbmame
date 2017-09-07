@@ -17,8 +17,6 @@
 #define MUIOPTION_INHERIT_FILTER                 "inherit_filter"
 #define MUIOPTION_OFFSET_CLONES                  "offset_clones"
 #define MUIOPTION_DEFAULT_FOLDER_ID              "default_folder_id"
-#define MUIOPTION_SHOW_IMAGE_SECTION             "show_image_section"
-#define MUIOPTION_SHOW_FOLDER_SECTION            "show_folder_section"
 #define MUIOPTION_HIDE_FOLDERS                   "hide_folders"
 #define MUIOPTION_SHOW_STATUS_BAR                "show_status_bar"
 #define MUIOPTION_SHOW_TABS                      "show_tabs"
@@ -29,6 +27,7 @@
 #define MUIOPTION_WINDOW_WIDTH                   "window_width"
 #define MUIOPTION_WINDOW_HEIGHT                  "window_height"
 #define MUIOPTION_WINDOW_STATE                   "window_state"
+#define MUIOPTION_WINDOW_PANES                   "window_panes"
 #define MUIOPTION_CUSTOM_COLOR                   "custom_color"
 #define MUIOPTION_LIST_FONT                      "list_font"
 #define MUIOPTION_TEXT_COLOR                     "text_color"
@@ -94,17 +93,16 @@
 #define MUIOPTION_EXEC_WAIT                      "exec_wait"
 #define MUIOPTION_HIDE_MOUSE                     "hide_mouse"
 #define MUIOPTION_FULL_SCREEN                    "full_screen"
-#define MUIOPTION_SHOW_SOFTWARE_SECTION          "show_software_section"
 #define MUIOPTION_UI_KEY_VIEW_SOFTWARE_AREA      "ui_key_view_software_area"
 
 #ifdef MESS
 #define MUIOPTION_DEFAULT_GAME                   "default_system"
-#define MUIDEFAULT_SELECTION                     "3do"
-#define MUIDEFAULT_SPLITTERS                     "133,625,806"
+#define MUIDEFAULT_SELECTION                     "0"
+#define MUIDEFAULT_SPLITTERS                     "133,1125,1706"
 #else
 #define MUIOPTION_DEFAULT_GAME                   "default_machine"
-#define MUIDEFAULT_SELECTION                     "puckman"
-#define MUIDEFAULT_SPLITTERS                     "164,800"
+#define MUIDEFAULT_SELECTION                     "0"
+#define MUIDEFAULT_SPLITTERS                     "164,1700"
 #endif
 
 #define MESSUI_SL_COLUMN_SHOWN        "sl_column_shown"
@@ -121,40 +119,38 @@
 
 typedef struct
 {
-	std::string   name;
-	std::string   value;
-	const core_options::option_type         unused1;
-	char*          unused2;
+	std::string                      name;      // name of the option
+	std::string                      value;     // initial value if ini file not found
+	const core_options::option_type  unused1;   // option type (unused)
+	char*                            unused2;   // help text (unused)
 }
 WINUIOPTS;
 // UI options in MAMEui.ini
 const WINUIOPTS option_entries[] =
 {
 	{ MUIOPTION_EXTRA_FOLDERS,                "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_DEFAULT_GAME,                 MUIDEFAULT_SELECTION, OPTION_STRING,       NULL },
+	{ MUIOPTION_DEFAULT_GAME,                 MUIDEFAULT_SELECTION, OPTION_INTEGER,       NULL },
 	{ MUIOPTION_DEFAULT_FOLDER_ID,            "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SHOW_IMAGE_SECTION,           "1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_FULL_SCREEN,                  "0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_CURRENT_TAB,                  "0",        OPTION_STRING,                 NULL },
-	{ MESSUI_SOFTWARE_TAB,                    "0",        OPTION_STRING, NULL },
-	{ MUIOPTION_SHOW_TOOLBAR,                 "1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_STATUS_BAR,              "1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_FOLDERS,                 "",         OPTION_STRING,                 NULL },
-	{ MUIOPTION_SHOW_FOLDER_SECTION,          "1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_SHOW_TABS,                    "1",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_HIDE_TABS,                    "marquee, title, cpanel, pcb, history", OPTION_STRING, NULL },
+	{ MUIOPTION_FULL_SCREEN,                  "0",        OPTION_BOOLEAN,                 NULL },
+	{ MUIOPTION_CURRENT_TAB,                  "0",        OPTION_STRING,                  NULL },
+	{ MESSUI_SOFTWARE_TAB,                    "0",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SHOW_TOOLBAR,                 "1",        OPTION_BOOLEAN,                 NULL },
+	{ MUIOPTION_SHOW_STATUS_BAR,              "1",        OPTION_BOOLEAN,                 NULL },
+	{ MUIOPTION_HIDE_FOLDERS,                 "",         OPTION_STRING,                  NULL },
+	{ MUIOPTION_SHOW_TABS,                    "1",        OPTION_BOOLEAN,                 NULL },
+	{ MUIOPTION_HIDE_TABS,                    "marquee, title, cpanel, pcb",  OPTION_STRING, NULL },
 	{ MUIOPTION_HISTORY_TAB,                  "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SHOW_SOFTWARE_SECTION,        "1",        OPTION_BOOLEAN,    NULL },
 	{ MUIOPTION_SORT_COLUMN,                  "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_SORT_REVERSED,                "0",        OPTION_BOOLEAN,    NULL },
-	{ MUIOPTION_WINDOW_X,                     "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_Y,                     "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_WIDTH,                 "1024",      OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_WINDOW_HEIGHT,                "768",      OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_SORT_REVERSED,                "0",        OPTION_BOOLEAN,                 NULL },
+	{ MUIOPTION_WINDOW_X,                     "0",        OPTION_INTEGER,                 NULL },  // main window position, left
+	{ MUIOPTION_WINDOW_Y,                     "0",        OPTION_INTEGER,                 NULL },  // main window position, top
+	{ MUIOPTION_WINDOW_WIDTH,                 "2000",     OPTION_INTEGER,                 NULL },  // main window width
+	{ MUIOPTION_WINDOW_HEIGHT,                "1000",     OPTION_INTEGER,                 NULL },  // main window height
 	{ MUIOPTION_WINDOW_STATE,                 "1",        OPTION_INTEGER,                 NULL },
+	{ MUIOPTION_WINDOW_PANES,                 "15",       OPTION_INTEGER,                 NULL },  // which windows are visible: bit 0 = tree, bit 1 = list, bit 2 = sw, bit 3 = images
 	{ MUIOPTION_TEXT_COLOR,                   "-1",       OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_CLONE_COLOR,                  "-1",       OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_CUSTOM_COLOR,                 "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", OPTION_STRING, NULL },
+	{ MUIOPTION_CUSTOM_COLOR,                 "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", OPTION_STRING, NULL }, // colour codes of the 16 custom colours (set in clone font dialog)
 	/* ListMode needs to be before ColumnWidths settings */
 	{ MUIOPTION_LIST_MODE,                    "5",       OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SPLITTERS,                    MUIDEFAULT_SPLITTERS, OPTION_STRING,       NULL },
@@ -184,7 +180,7 @@ const WINUIOPTS option_entries[] =
 	{ MUIOPTION_SCREENSHOT_BORDER_COLOR,      "-1",       OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_EXEC_COMMAND,                 "",         OPTION_STRING,                 NULL },
 	{ MUIOPTION_EXEC_WAIT,                    "0",        OPTION_INTEGER,                 NULL },
-	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground", OPTION_STRING,                 NULL },
+	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground\\bkground.png", OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
 	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
@@ -350,7 +346,11 @@ public:
 
 	int int_value(const char* name)
 	{
-		return std::stoi(getter(name));
+		string t = getter(name);
+		if (t.empty())
+			return 0;
+		else
+			return std::atoll(t.c_str());
 	}
 
 	bool bool_value(const char* name)

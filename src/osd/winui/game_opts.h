@@ -8,15 +8,15 @@
 class winui_game_options
 {
 	int m_total;
-	uint64_t m_cache;
+	uint32_t m_cache;
 	bool m_rebuild;
 
 	struct driver_options
 	{
 		int rom;
 		int sample;
-		uint64_t cache_lower;
-		uint64_t cache_upper;
+		uint32_t cache_lower;
+		uint32_t cache_upper;
 		int play_count;
 		int play_time;
 	};
@@ -37,7 +37,7 @@ class winui_game_options
 			return true;
 
 		// check that totals match
-		int total = std::stoll(file_line);
+		int total = std::atoll(file_line.c_str());
 		if (total == m_total)
 			m_rebuild = false;
 
@@ -58,23 +58,22 @@ class winui_game_options
 				{
 					char* data = strtok(NULL, ",");    // get next part
 					if (data)
-						m_list[index].rom = std::stoll(data);
+						m_list[index].rom = std::atoll(data);
 					data = strtok(NULL, ",");    // get next part
 					if (data)
-						m_list[index].sample = std::stoll(data);
+						m_list[index].sample = std::atoll(data);
 					data = strtok(NULL, ",");    // get next part
 					if (data)
-					{
-						m_cache = std::stoll(data);
-						m_list[index].cache_lower = m_cache & 0xffffffff;
-						m_list[index].cache_upper = m_cache >> 32;
-					}
+						m_list[index].cache_lower = std::atoll(data);
 					data = strtok(NULL, ",");    // get next part
 					if (data)
-						m_list[index].play_count = std::stoll(data);
+						m_list[index].cache_upper = std::atoll(data);
 					data = strtok(NULL, ",");    // get next part
 					if (data)
-						m_list[index].play_time = std::stoll(data);
+						m_list[index].play_count = std::atoll(data);
+					data = strtok(NULL, ",");    // get next part
+					if (data)
+						m_list[index].play_time = std::atoll(data);
 				}
 			}
 			else
@@ -183,30 +182,30 @@ public:
 
 				ft = info.imperfect_features();
 				// BIT 16 = IMPERFECT_SOUND
-				t = (ft & device_t::feature::SOUND) ? 1 : 0;
+				t = (ft & device_t::feature::SOUND) ? 1 : 0; // 0x10000
 				m_cache |= (t << 16);
 				// BIT 18 = IMPERFECT_GRAPHICS
-				t = (ft & device_t::feature::GRAPHICS) ? 1 : 0;
+				t = (ft & device_t::feature::GRAPHICS) ? 1 : 0; // 0x40000
 				m_cache |= (t << 18);
 				// BIT 20 = IMPERFECT_COLOUR
-				t = (ft & device_t::feature::PALETTE) ? 1 : 0;
+				t = (ft & device_t::feature::PALETTE) ? 1 : 0; // 0x100000
 				m_cache |= (t << 20);
 				// BIT 22 = PROTECTION
-				t = (ft & device_t::feature::PROTECTION) ? 1 : 0;
+				t = (ft & device_t::feature::PROTECTION) ? 1 : 0; // 0x400000
 				m_cache |= (t << 22);
 				// BIT 23 = IMPERFECT_CONTROLS
-				t = (ft & device_t::feature::CONTROLS) ? 1 : 0;
+				t = (ft & device_t::feature::CONTROLS) ? 1 : 0; // 0x800000
 				m_cache |= (t << 23);
 
 				ft = info.unemulated_features();
 				// BIT 17 = NO_SOUND
-				t = (ft & device_t::feature::SOUND) ? 1 : 0;
+				t = (ft & device_t::feature::SOUND) ? 1 : 0; // 0x20000
 				m_cache |= (t << 17);
 				// BIT 19 = NO_GRAPHICS
-				t = (ft & device_t::feature::GRAPHICS) ? 1 : 0;
+				t = (ft & device_t::feature::GRAPHICS) ? 1 : 0; // 0x80000
 				m_cache |= (t << 19);
 				// BIT 21 = NO_COLOUR
-				t = (ft & device_t::feature::PALETTE) ? 1 : 0;
+				t = (ft & device_t::feature::PALETTE) ? 1 : 0; // 0x200000
 				m_cache |= (t << 21);
 
 				m_list[i].cache_lower = m_cache;
@@ -221,11 +220,11 @@ public:
 		for (int i = 0; i < m_total; i++)
 		{
 			// 1:Rom, 2:Sample, 3:Cache, 4:Play Count, 5:Play Time
-			m_cache = m_list[i].cache_lower | (m_list[i].cache_upper << 32);
 			inistring.append(driver_list::driver(i).name).append("\t");
 			inistring.append(std::to_string(m_list[i].rom)).append(",");
 			inistring.append(std::to_string(m_list[i].sample)).append(",");
-			inistring.append(std::to_string(m_cache)).append(",");
+			inistring.append(std::to_string(m_list[i].cache_lower)).append(",");
+			inistring.append(std::to_string(m_list[i].cache_upper)).append(",");
 			inistring.append(std::to_string(m_list[i].play_count)).append(",");
 			inistring.append(std::to_string(m_list[i].play_time)).append(",\n");
 		}

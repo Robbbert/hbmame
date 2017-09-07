@@ -175,9 +175,9 @@ void OnSizeSplitter(HWND hWnd)
 		if ((i > 0) && (nSplitterOffset[i] <= nSplitterOffset[i-1]))
 			bMustChange = true;
 #ifdef MESS
-		if ((i==1)&&(!GetShowSoftware()))
+		if ((i==1)&&(!BIT(GetWindowPanes(), 2))) // sw
 			bMustChange = false;
-		if ((i==2)&&(!GetShowScreenShot()))
+		if ((i==2)&&(!BIT(GetWindowPanes(), 3))) // images
 			bMustChange = false;
 #endif
 		if (bMustChange)

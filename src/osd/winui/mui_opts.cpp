@@ -25,7 +25,7 @@
 #include "winui.h"
 #include "mui_opts.h"
 #include <fstream>      // for *_opts.h (below)
-#include "game_opts.h"  // this must be under emu.h and drivenum.h
+#include "game_opts.h"
 #include "ui_opts.h"
 //#include "ini_opts.h"   // not ready yet
 #include "mui_util.h"
@@ -358,36 +358,6 @@ UINT GetSavedFolderID(void)
 	return (UINT) settings.int_value(MUIOPTION_DEFAULT_FOLDER_ID);
 }
 
-void SetShowScreenShot(BOOL val)
-{
-	settings.setter(MUIOPTION_SHOW_IMAGE_SECTION, val);
-}
-
-BOOL GetShowScreenShot(void)
-{
-	return settings.bool_value(MUIOPTION_SHOW_IMAGE_SECTION);
-}
-
-void SetShowSoftware(BOOL val)
-{
-	settings.setter(MUIOPTION_SHOW_SOFTWARE_SECTION, val);
-}
-
-BOOL GetShowSoftware(void)
-{
-	return settings.bool_value(MUIOPTION_SHOW_SOFTWARE_SECTION);
-}
-
-void SetShowFolderList(BOOL val)
-{
-	settings.setter(MUIOPTION_SHOW_FOLDER_SECTION, val);
-}
-
-BOOL GetShowFolderList(void)
-{
-	return settings.bool_value(MUIOPTION_SHOW_FOLDER_SECTION);
-}
-
 void SetShowExtraFolders(BOOL val)
 {
 	settings.setter(MUIOPTION_EXTRA_FOLDERS, val);
@@ -502,24 +472,26 @@ BOOL GetShowToolBar(void)
 	return settings.bool_value( MUIOPTION_SHOW_TOOLBAR);
 }
 
-void SetCurrentTab(const char *shortname)
+void SetCurrentTab(int val)
 {
-	settings.setter(MUIOPTION_CURRENT_TAB, shortname);
+	settings.setter(MUIOPTION_CURRENT_TAB, val);
 }
 
-const char *GetCurrentTab(void)
+int GetCurrentTab(void)
 {
-	return settings.getter(MUIOPTION_CURRENT_TAB).c_str();
+	return settings.int_value(MUIOPTION_CURRENT_TAB);
 }
 
-void SetDefaultGame(const char *name)
+void SetDefaultGame(int val)
 {
-	settings.setter(MUIOPTION_DEFAULT_GAME, name);
+	if (val < 0)
+		val = 0;
+	settings.setter(MUIOPTION_DEFAULT_GAME, val);
 }
 
-const char *GetDefaultGame(void)
+int GetDefaultGame(void)
 {
-	return settings.getter(MUIOPTION_DEFAULT_GAME).c_str();
+	return settings.int_value(MUIOPTION_DEFAULT_GAME);
 }
 
 void SetWindowArea(const AREA *area)
@@ -546,6 +518,16 @@ void SetWindowState(UINT state)
 UINT GetWindowState(void)
 {
 	return settings.int_value(MUIOPTION_WINDOW_STATE);
+}
+
+void SetWindowPanes(int val)
+{
+	settings.setter(MUIOPTION_WINDOW_PANES, val & 15);
+}
+
+UINT GetWindowPanes(void)
+{
+	return settings.int_value(MUIOPTION_WINDOW_PANES) & 15;
 }
 
 void SetCustomColor(int iIndex, COLORREF uColor)
@@ -987,7 +969,11 @@ void SetDiffDir(const char* path)
 
 const string GetIconsDir(void)
 {
-	return settings.getter(MUIOPTION_ICONS_DIRECTORY);
+	string t = settings.getter(MUIOPTION_ICONS_DIRECTORY);
+	if (t.empty())
+		return "icons";
+	else
+		return settings.getter(MUIOPTION_ICONS_DIRECTORY);
 }
 
 void SetIconsDir(const char* path)
@@ -997,7 +983,11 @@ void SetIconsDir(const char* path)
 
 const string GetBgDir (void)
 {
-	return settings.getter(MUIOPTION_BACKGROUND_DIRECTORY);
+	string t = settings.getter(MUIOPTION_BACKGROUND_DIRECTORY);
+	if (t.empty())
+		return "bkground\\bkground.png";
+	else
+		return settings.getter(MUIOPTION_BACKGROUND_DIRECTORY);
 }
 
 void SetBgDir (const char* path)
@@ -1007,7 +997,11 @@ void SetBgDir (const char* path)
 
 const string GetDatsDir(void)
 {
-	return settings.getter(MUIOPTION_DATS_DIRECTORY);
+	string t = settings.getter(MUIOPTION_DATS_DIRECTORY);
+	if (t.empty())
+		return "dats";
+	else
+		return settings.getter(MUIOPTION_DATS_DIRECTORY);
 	//return mewui.value(OPTION_HISTORY_PATH);
 }
 
@@ -2118,6 +2112,23 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 }
 
 
+// See if this driver has software support
+bool DriverHasSoftware(int drvindex)
+{
+	if (drvindex < 0)
+		return 0;
+	windows_options o;
+	load_options(o, OPTIONS_GAME, drvindex, 1);
+	machine_config config(driver_list::driver(drvindex), o);
+
+	for (device_image_interface &img : image_interface_iterator(config.root_device()))
+		if (img.user_loadable())
+			return 1;
+
+	return 0;
+}
+
+
 // Reset the given windows_options to their default settings.
 static void ResetToDefaults(windows_options &opts, int priority)
 {
@@ -2281,14 +2292,14 @@ void SetSelectedSoftware(int driver_index, string opt_name, const char *software
 	}
 }
 
-void SetCurrentSoftwareTab(const char *shortname)
+void SetCurrentSoftwareTab(int val)
 {
-	settings.setter(MESSUI_SOFTWARE_TAB, shortname);
+	settings.setter(MESSUI_SOFTWARE_TAB, val);
 }
 
-const char *GetCurrentSoftwareTab(void)
+int GetCurrentSoftwareTab(void)
 {
-	return settings.getter(MESSUI_SOFTWARE_TAB).c_str();
+	return settings.int_value(MESSUI_SOFTWARE_TAB);
 }
 
 bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)

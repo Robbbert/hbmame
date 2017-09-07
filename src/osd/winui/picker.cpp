@@ -637,7 +637,7 @@ int Picker_GetSelectedItem(HWND hWnd)
 {
 	int nItem = ListView_GetNextItem(hWnd, -1, LVIS_SELECTED | LVIS_FOCUSED);
 	if (nItem < 0)
-		return 0;
+		return nItem;
 
 	LV_ITEM lvi;
 	memset(&lvi, 0, sizeof(lvi));
@@ -667,8 +667,7 @@ void Picker_SetSelectedPick(HWND hWnd, int nIndex)
 	if (nIndex > -1)
 		ListView_SetItemState(hWnd, nIndex, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
 	// Bring the game into view
-	BOOL res = ListView_EnsureVisible(hWnd, nIndex, false);
-	res++;
+	(void)ListView_EnsureVisible(hWnd, nIndex, false);
 }
 
 
