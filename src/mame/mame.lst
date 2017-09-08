@@ -12108,6 +12108,7 @@ ironfort                        // (c) 1998 Eolith
 ironfortj                       // (c) 1998 Eolith
 landbrk                         // (c) 1999 Eolith
 landbrka                        // (c) 1999 Eolith
+landbrkb						// (c) 1999 Eolith
 linkypip                        // (c) 1998 Eolith
 nhidctch                        // (c) 1999 Eolith
 penfan                          // (c) 1999 Eolith
@@ -15212,6 +15213,7 @@ irobot                          // 136029           (c) 1983
 dairesya                        // GX560 (c) 1986 (Japan)
 farwest                         // bootleg
 ironhors                        // GX560 (c) 1986
+ironhorsh                       // GX560 (c) 1986
 
 @source:isbc.cpp
 isbc286                         //
