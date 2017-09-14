@@ -156,6 +156,9 @@ void SetDiffDir(const char *path);
 const string GetIconsDir(void);
 void SetIconsDir(const char *path);
 
+const string GetImgDir(void);
+void SetImgDir(const char *path);
+
 const char *GetIniDir(void);
 void SetIniDir(const char *path);
 
@@ -164,6 +167,9 @@ void SetInpDir(const char *path);
 
 const string GetLangDir(void);
 void SetLangDir(const char *path);
+
+const string GetManualsDir(void);
+void SetManualsDir(const char* path);
 
 const string GetMarqueeDir(void);
 void SetMarqueeDir(const char *path);
@@ -177,9 +183,6 @@ void SetPcbDir(const char *path);
 const string GetPluginsDir(void);
 void SetPluginsDir(const char *path);
 
-const string GetImgDir(void);
-void SetImgDir(const char *path);
-
 const string GetStateDir(void);
 void SetStateDir(const char *path);
 
@@ -188,6 +191,9 @@ void SetTitlesDir(const char *path);
 
 const string GetSWDir(void);
 void SetSWDir(const char *path);
+
+const string GetVideoDir(void);
+void SetVideoDir(const char *path);
 // End interface to directories.h
 
 void SaveOptions(void);
@@ -436,6 +442,9 @@ uint32_t GetDriverCacheLower(int driver_index);
 uint32_t GetDriverCacheUpper(int driver_index);
 void SetDriverCache(int driver_index, uint32_t val);
 BOOL RequiredDriverCache(void);
+BOOL DriverIsComputer(int driver_index);
+BOOL DriverIsConsole(int driver_index);
+BOOL DriverIsModified(int driver_index);
 
 // from optionsms.h (MESSUI)
 

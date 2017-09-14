@@ -29,23 +29,6 @@
 static BOOL FilterAvailable(int driver_index);
 
 #ifdef MESS
-#include "drivenum.h"
-
-static BOOL DriverIsComputer(int driver_index)
-{
-	return ((driver_list::driver(driver_index).flags & machine_flags::MASK_TYPE) == machine_flags::TYPE_COMPUTER);
-}
-
-static BOOL DriverIsConsole(int driver_index)
-{
-	return ((driver_list::driver(driver_index).flags & machine_flags::MASK_TYPE) == machine_flags::TYPE_CONSOLE);
-}
-
-static BOOL DriverIsModified(int driver_index)
-{
-	return (driver_list::driver(driver_index).flags & MACHINE_UNOFFICIAL) ? true : false;
-}
-
 extern const FOLDERDATA g_folderData[] =
 {
 	{"All Systems",     "allgames",          FOLDER_ALLGAMES,     IDI_FOLDER,               0,             0,            0, NULL,                       NULL,                    TRUE },

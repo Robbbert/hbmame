@@ -170,7 +170,6 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 	int nTabCount = 0;
 	int nPatternCount = 0;
 	int value = 0;
-	const char* snapname = NULL;
 
 	switch (Msg)
 	{
@@ -227,21 +226,23 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_SNAPNAME), nPatternCount, "%g/%i");
 		//Default to this setting
 		(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), nPatternCount++);
-		snapname = GetSnapName();
-		if (core_stricmp(snapname,"%g" )==0) {
-			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 0);
-		}
-		if (core_stricmp(snapname,"%g%i" )==0) {
-			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 1);
-		}
-		if (core_stricmp(snapname,"%g/%g" )==0) {
-			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 2);
-		}
-		if (core_stricmp(snapname,"%g/%g%i" )==0) {
-			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 3);
-		}
-		if (core_stricmp(snapname,"%g/%i" )==0) {
-			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 4);
+
+		{
+			const char* snapname = GetSnapName();
+			if (core_stricmp(snapname,"%g" )==0)
+				(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 0);
+			else
+			if (core_stricmp(snapname,"%g%i" )==0)
+				(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 1);
+			else
+			if (core_stricmp(snapname,"%g/%g" )==0)
+				(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 2);
+			else
+			if (core_stricmp(snapname,"%g/%g%i" )==0)
+				(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 3);
+			else
+			if (core_stricmp(snapname,"%g/%i" )==0)
+				(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_SNAPNAME), 4);
 		}
 
 		SendDlgItemMessage(hDlg, IDC_SCREENSHOT_BORDERSIZE, TBM_SETRANGE, (WPARAM)false, (LPARAM)MAKELONG(0, 100)); /* [0, 100] */

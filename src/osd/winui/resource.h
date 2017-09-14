@@ -438,6 +438,12 @@
 #define ID_OPTIONS_MAMEINFO             40100
 #define ID_OPTIONS_HISTORY              40101
 #define ID_VIEW_SOFTWARE_AREA           40102
+#define ID_MANUAL                       40108
+#define ID_VIDEO_SNAP                   40109
+#define ID_PLAY_VIDEO                   40110
+#define ID_PLAY_AUDIO                   40111
+#define ID_PLAY_MNG                     40112
+#define ID_PLAY_M1                      40113
 #define IDC_STATIC                      -1
 
 // Next default values for new objects

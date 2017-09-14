@@ -43,6 +43,8 @@
 #define MUIOPTION_ICONS_DIRECTORY                "icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY           "background_directory"
 #define MUIOPTION_DATS_DIRECTORY                 "dats_directory"
+#define MUIOPTION_VIDEO_DIRECTORY                "video_directory"
+#define MUIOPTION_MANUALS_DIRECTORY              "manuals_directory"
 #define MUIOPTION_UI_KEY_UP                      "ui_key_up"
 #define MUIOPTION_UI_KEY_DOWN                    "ui_key_down"
 #define MUIOPTION_UI_KEY_LEFT                    "ui_key_left"
@@ -183,6 +185,8 @@ const WINUIOPTS option_entries[] =
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground\\bkground.png", OPTION_STRING,                 NULL },
 	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
+	{ MUIOPTION_VIDEO_DIRECTORY,              "video",     OPTION_STRING,                 NULL },
+	{ MUIOPTION_MANUALS_DIRECTORY,            "manuals",     OPTION_STRING,                 NULL },
 	{ MUIOPTION_UI_KEY_UP,                    "KEYCODE_UP",                        OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_DOWN,                  "KEYCODE_DOWN",                     OPTION_STRING,          NULL },
 	{ MUIOPTION_UI_KEY_LEFT,                  "KEYCODE_LEFT",                     OPTION_STRING,          NULL },

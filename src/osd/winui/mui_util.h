@@ -20,6 +20,7 @@ extern void DisplayTextFile(HWND hWnd, const char *cName);
 /* Check for old version of comctl32.dll */
 extern LONG GetCommonControlVersion(void);
 
+void ShellExecuteCommon(HWND hWnd, const char *cName);
 extern char * MyStrStrI(const char* pFirst, const char* pSrch);
 extern char * ConvertToWindowsNewlines(const char *source);
 

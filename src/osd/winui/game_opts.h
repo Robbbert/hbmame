@@ -103,23 +103,88 @@ public:
 			m_list[i] = option;
 	}
 
-	int  rom(int index)                       { return m_list[index].rom; }
-	void rom(int index, int val)              { m_list[index].rom = val; }
+	int  rom(int index)
+	{
+		if (index >= 0)
+			return m_list[index].rom;
+		else
+			return 0;
+	}
 
-	int  sample(int index)                    { return m_list[index].sample; }
-	void sample(int index, int val)           { m_list[index].sample = val; }
+	void rom(int index, int val)
+	{
+		if (index >= 0)
+			m_list[index].rom = val;
+	}
 
-	uint32_t cache_lower(int index)           { return m_list[index].cache_lower; }
-	uint32_t cache_upper(int index)           { return m_list[index].cache_upper; }
-	void cache_upper(int index, uint32_t val) { m_list[index].cache_upper = val; }
+	int  sample(int index)
+	{
+		if (index >= 0)
+			return m_list[index].sample;
+		else
+			return 0;
+	}
 
-	int  play_count(int index)                { return m_list[index].play_count; }
-	void play_count(int index, int val)       { m_list[index].play_count = val; }
+	void sample(int index, int val)
+	{
+		if (index >= 0)
+			m_list[index].sample = val;
+	}
 
-	int  play_time(int index)                 { return m_list[index].play_time; }
-	void play_time(int index, int val)        { m_list[index].play_time = val; }
+	uint32_t cache_lower(int index)
+	{
+		if (index >= 0)
+			return m_list[index].cache_lower;
+		else
+			return 0;
+	}
 
-	bool rebuild()                            { return m_rebuild; }
+	uint32_t cache_upper(int index)
+	{
+		if (index >= 0)
+			return m_list[index].cache_upper;
+		else
+			return 0;
+	}
+
+	void cache_upper(int index, uint32_t val)
+	{
+		if (index >= 0)
+			m_list[index].cache_upper = val;
+	}
+
+	int  play_count(int index)
+	{
+		if (index >= 0)
+			return m_list[index].play_count;
+		else
+			return 0;
+	}
+
+	void play_count(int index, int val)
+	{
+		if (index >= 0)
+			m_list[index].play_count = val;
+	}
+
+	int  play_time(int index)
+	{
+		if (index >= 0)
+			return m_list[index].play_time;
+		else
+			return 0;
+	}
+
+	void play_time(int index, int val)
+	{
+		if (index >= 0)
+			m_list[index].play_time = val;
+	}
+
+	bool rebuild()
+	{
+		return m_rebuild;
+	}
 
 	void load_file(const char *filename)
 	{

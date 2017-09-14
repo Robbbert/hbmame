@@ -133,6 +133,92 @@ void __cdecl dprintf(const char* fmt, ...)
 	va_end(va);
 }
 
+//============================================================
+//  winui_message_box_utf8
+//============================================================
+
+int winui_message_box_utf8(HWND hWnd, const char *text, const char *caption, UINT type)
+{
+	int result = IDCANCEL;
+	wchar_t *t_text = ui_wstring_from_utf8(text);
+	wchar_t *t_caption = ui_wstring_from_utf8(caption);
+
+	if (!t_text)
+		return result;
+
+	if (!t_caption)
+	{
+		free(t_text);
+		return result;
+	}
+
+	result = MessageBox(hWnd, t_text, t_caption, type);
+	free(t_text);
+	free(t_caption);
+	return result;
+}
+
+void ErrorMessageBox(const char *fmt, ...)
+{
+	char buf[1024];
+	va_list ptr;
+
+	va_start(ptr, fmt);
+	vsnprintf(buf, ARRAY_LENGTH(buf), fmt, ptr);
+	winui_message_box_utf8(GetMainWindow(), buf, MAMEUINAME, MB_ICONERROR | MB_OK);
+	va_end(ptr);
+}
+
+void ShellExecuteCommon(HWND hWnd, const char *cName)
+{
+	wchar_t *tName = ui_wstring_from_utf8(cName);
+
+	if(!tName)
+		return;
+
+	HINSTANCE hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
+
+	if ((uintptr_t)hErr > 32)
+	{
+		free(tName);
+		return;
+	}
+
+	const char *msg = NULL;
+	switch((uintptr_t)hErr)
+	{
+	case 0:
+		msg = "The Operating System is out of memory or resources.";
+		break;
+
+	case ERROR_FILE_NOT_FOUND:
+		msg = "The specified file was not found.";
+		break;
+
+	case SE_ERR_NOASSOC :
+		msg = "There is no application associated with the given filename extension.";
+		break;
+
+	case SE_ERR_OOM :
+		msg = "There was not enough memory to complete the operation.";
+		break;
+
+	case SE_ERR_PNF :
+		msg = "The specified path was not found.";
+		break;
+
+	case SE_ERR_SHARE :
+		msg = "A sharing violation occurred.";
+		break;
+
+	default:
+		msg = "Unknown error.";
+	}
+
+	ErrorMessageBox("%s\r\nPath: '%s'", msg, cName);
+	free(tName);
+}
+
 UINT GetDepth(HWND hWnd)
 {
 	UINT nBPP;
@@ -331,34 +417,45 @@ int numberOfSpeakers(const machine_config *config)
 
 static void SetDriversInfo(void)
 {
-	int cache = -1;
+	uint32_t cache;
 	int total = driver_list::total();
 	struct DriversInfo *gameinfo = NULL;
 
 	for (int ndriver = 0; ndriver < total; ndriver++)
 	{
 		gameinfo = &drivers_info[ndriver];
-		cache = (gameinfo->screenCount & DRIVER_CACHE_SCREEN);
+		cache = gameinfo->screenCount & DRIVER_CACHE_SCREEN;
+
 		if (gameinfo->isClone)
 			cache += DRIVER_CACHE_CLONE;
+
 		if (gameinfo->isHarddisk)
 			cache += DRIVER_CACHE_HARDDISK;
+
 		if (gameinfo->hasOptionalBIOS)
 			cache += DRIVER_CACHE_BIOS;
+
 		if (gameinfo->isStereo)
 			cache += DRIVER_CACHE_STEREO;
+
 		if (gameinfo->isVector)
 			cache += DRIVER_CACHE_VECTOR;
+
 		if (gameinfo->usesRoms)
 			cache += DRIVER_CACHE_ROMS;
+
 		if (gameinfo->usesSamples)
 			cache += DRIVER_CACHE_SAMPLES;
+
 		if (gameinfo->usesTrackball)
 			cache += DRIVER_CACHE_TRACKBALL;
+
 		if (gameinfo->usesLightGun)
 			cache += DRIVER_CACHE_LIGHTGUN;
+
 		if (gameinfo->usesMouse)
 			cache += DRIVER_CACHE_MOUSE;
+
 		if (gameinfo->hasRam)
 			cache += DRIVER_CACHE_RAM;
 
@@ -381,10 +478,11 @@ static void InitDriversInfo(void)
 		gamedrv = &driver_list::driver(ndriver);
 		gameinfo = &drivers_info[ndriver];
 		machine_config config(*gamedrv, MameUIGlobal());
+
 		bool const have_parent(strcmp(gamedrv->parent, "0"));
 		auto const parent_idx(have_parent ? driver_list::find(gamedrv->parent) : -1);
 		gameinfo->isClone = ( !have_parent || (0 > parent_idx) || BIT(GetDriverCacheLower(parent_idx),9)) ? false : true;
-		gameinfo->isBroken = (cache & 0x404040) ? true : false;  // (MACHINE_NOT_WORKING | MACHINE_MECHANICAL | protection)
+		gameinfo->isBroken = (cache & 0x4040) ? true : false;  // (MACHINE_NOT_WORKING | MACHINE_MECHANICAL)
 		gameinfo->supportsSaveState = BIT(cache, 7);  //MACHINE_SUPPORTS_SAVE
 		gameinfo->isHarddisk = false;
 		gameinfo->isVertical = BIT(cache, 2);  //ORIENTATION_SWAP_XY
@@ -417,14 +515,13 @@ static void InitDriversInfo(void)
 				for (rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 					gameinfo->usesRoms = true;
 
-		gameinfo->usesSamples = true;
-
 		samples_device_iterator iter(config.root_device());
-		if (iter.count() == 0)
-			gameinfo->usesSamples = false;
+		gameinfo->usesSamples = iter.count() ? true : false;
 
 		gameinfo->usesTrackball = false;
 		gameinfo->usesLightGun = false;
+		gameinfo->usesMouse = false;
+
 		if (gamedrv->ipt)
 		{
 			ioport_list portlist;
@@ -478,14 +575,7 @@ static int InitDriversCache(void)
 		cache_lower = GetDriverCacheLower(ndriver);
 		cache_upper = GetDriverCacheUpper(ndriver);
 
-		//if (cache == 0)
-		//{
-		//	printf("InitDriversCache: F\n");fflush(stdout);
-		//	InitDriversInfo();
-		//	break;
-		//}
-
-		gameinfo->isBroken          =  (cache_lower & 0x404040) ? true : false; //MACHINE_NOT_WORKING | MACHINE_MECHANICAL | protection
+		gameinfo->isBroken          =  (cache_lower & 0x4040) ? true : false; //MACHINE_NOT_WORKING | MACHINE_MECHANICAL
 		gameinfo->supportsSaveState =  BIT(cache_lower, 7) ? true : false;  //MACHINE_SUPPORTS_SAVE
 		gameinfo->isVertical        =  BIT(cache_lower, 2) ? true : false;  //ORIENTATION_XY
 		gameinfo->screenCount       =   cache_upper & DRIVER_CACHE_SCREEN;
