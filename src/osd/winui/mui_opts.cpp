@@ -346,6 +346,16 @@ BOOL GetShowExtraFolders(void)
 	return settings.bool_value(MUIOPTION_EXTRA_FOLDERS);
 }
 
+void SetOverrideRedX(BOOL val)
+{
+	settings.setter(MUIOPTION_OVERRIDE_REDX, val);
+}
+
+BOOL GetOverrideRedX(void)
+{
+	return settings.bool_value(MUIOPTION_OVERRIDE_REDX);
+}
+
 static void GetsShowFolderFlags(LPBITS bits)
 {
 	char s[2000];
@@ -2270,6 +2280,11 @@ BOOL DriverIsConsole(int driver_index)
 BOOL DriverIsModified(int driver_index)
 {
 	return BIT(game_opts.cache_lower(driver_index), 12);
+}
+
+BOOL DriverIsImperfect(int driver_index)
+{
+	return (game_opts.cache_lower(driver_index) & 0xff0000) ? true : false; // (NO|IMPERFECT) (CONTROLS|PALETTE|SOUND|GRAPHICS)
 }
 
 // from optionsms.cpp (MESSUI)

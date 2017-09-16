@@ -5,6 +5,7 @@
 #ifndef WINUI_UIOPTS_H
 #define WINUI_UIOPTS_H
 
+#define MUIOPTION_OVERRIDE_REDX                  "override_redx"
 #define MUIOPTION_EXTRA_FOLDERS                  "extra_folders"
 #define MUIOPTION_LIST_MODE                      "list_mode"
 #define MUIOPTION_CHECK_GAME                     "check_game"
@@ -130,6 +131,7 @@ WINUIOPTS;
 // UI options in MAMEui.ini
 const WINUIOPTS option_entries[] =
 {
+	{ MUIOPTION_OVERRIDE_REDX,                "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_EXTRA_FOLDERS,                "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_DEFAULT_GAME,                 MUIDEFAULT_SELECTION, OPTION_INTEGER,       NULL },
 	{ MUIOPTION_DEFAULT_FOLDER_ID,            "0",        OPTION_INTEGER,                 NULL },

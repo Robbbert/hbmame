@@ -243,6 +243,9 @@ UINT GetSavedFolderID(void);
 void SetShowExtraFolders(BOOL val);
 BOOL GetShowExtraFolders(void);
 
+void SetOverrideRedX(BOOL val);
+BOOL GetOverrideRedX(void);
+
 BOOL GetShowFolder(int folder);
 void SetShowFolder(int folder,BOOL show);
 
@@ -445,6 +448,7 @@ BOOL RequiredDriverCache(void);
 BOOL DriverIsComputer(int driver_index);
 BOOL DriverIsConsole(int driver_index);
 BOOL DriverIsModified(int driver_index);
+BOOL DriverIsImperfect(int driver_index);
 
 // from optionsms.h (MESSUI)
 

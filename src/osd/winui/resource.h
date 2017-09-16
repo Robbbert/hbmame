@@ -91,6 +91,7 @@
 #define IDD_PROP_CONTROLLER             185
 #define IDD_PROP_SCREEN                 187
 #define IDD_PROP_DEBUG                  188
+#define IDI_WIN_IMPERFECT               198
 #define IDI_SOUNDTAB                    666
 #define IDC_LIST                        1000
 #define IDC_JOYSTICK                    1003
@@ -322,6 +323,7 @@
 #define IDC_SNAPSIZETEXT                1252
 #define IDC_SNAPSIZEX                   1253
 #define IDC_FILTER_MECHANICAL           1254
+#define IDC_OVERRIDE_REDX               1352
 #define IDC_SPLITTER3                   2000
 #define IDC_SWTAB                       2001
 #define IDC_SWLIST                      2002

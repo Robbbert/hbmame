@@ -105,7 +105,7 @@ public:
 
 	int  rom(int index)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			return m_list[index].rom;
 		else
 			return 0;
@@ -113,13 +113,13 @@ public:
 
 	void rom(int index, int val)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			m_list[index].rom = val;
 	}
 
 	int  sample(int index)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			return m_list[index].sample;
 		else
 			return 0;
@@ -127,13 +127,13 @@ public:
 
 	void sample(int index, int val)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			m_list[index].sample = val;
 	}
 
 	uint32_t cache_lower(int index)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			return m_list[index].cache_lower;
 		else
 			return 0;
@@ -141,7 +141,7 @@ public:
 
 	uint32_t cache_upper(int index)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			return m_list[index].cache_upper;
 		else
 			return 0;
@@ -149,13 +149,13 @@ public:
 
 	void cache_upper(int index, uint32_t val)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			m_list[index].cache_upper = val;
 	}
 
 	int  play_count(int index)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			return m_list[index].play_count;
 		else
 			return 0;
@@ -163,13 +163,13 @@ public:
 
 	void play_count(int index, int val)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			m_list[index].play_count = val;
 	}
 
 	int  play_time(int index)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			return m_list[index].play_time;
 		else
 			return 0;
@@ -177,7 +177,7 @@ public:
 
 	void play_time(int index, int val)
 	{
-		if (index >= 0)
+		if ((index >= 0) && (index < m_total))
 			m_list[index].play_time = val;
 	}
 

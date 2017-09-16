@@ -764,14 +764,14 @@ static ResizeItem main_resize_items[] =
 	{ RA_HWND, { 0 },            false, RA_LEFT  | RA_RIGHT  | RA_TOP,     &toolbar_resize },
 	{ RA_HWND, { 0 },            false, RA_LEFT  | RA_RIGHT  | RA_BOTTOM,  NULL },
 	{ RA_ID,   { IDC_DIVIDER },  false, RA_LEFT  | RA_RIGHT  | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_TREE },     true,	RA_LEFT  | RA_BOTTOM | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_LIST },     true,	RA_ALL,                            NULL },
-	{ RA_ID,   { IDC_SPLITTER }, false,	RA_LEFT  | RA_BOTTOM | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_SPLITTER2 },false,	RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_SSFRAME },  false,	RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_SSPICTURE },false,	RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_HISTORY },  true,	RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
-	{ RA_ID,   { IDC_SSTAB },    false,	RA_RIGHT | RA_TOP,                 NULL },
+	{ RA_ID,   { IDC_TREE },     true,  RA_LEFT  | RA_BOTTOM | RA_TOP,     NULL },
+	{ RA_ID,   { IDC_LIST },     true,  RA_ALL,                            NULL },
+	{ RA_ID,   { IDC_SPLITTER }, false, RA_LEFT  | RA_BOTTOM | RA_TOP,     NULL },
+	{ RA_ID,   { IDC_SPLITTER2 },false, RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
+	{ RA_ID,   { IDC_SSFRAME },  false, RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
+	{ RA_ID,   { IDC_SSPICTURE },false, RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
+	{ RA_ID,   { IDC_HISTORY },  true,  RA_RIGHT | RA_BOTTOM | RA_TOP,     NULL },
+	{ RA_ID,   { IDC_SSTAB },    false, RA_RIGHT | RA_TOP,                 NULL },
 	{ RA_END,  { 0 },            false, 0,                                 NULL }
 };
 
@@ -842,6 +842,15 @@ class mameui_output_error : public osd_output
 public:
 	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args)
 	{
+		if (channel == OSD_OUTPUT_CHANNEL_VERBOSE)
+		{
+			FILE *pFile;
+			pFile = fopen("verbose.log", "a");
+			vfprintf(pFile, msg, args);fflush(pFile);
+			fclose (pFile);
+			return;
+		}
+
 		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
 		{
 			char buffer[1024];
@@ -851,14 +860,15 @@ public:
 				winwindow_toggle_full_screen();
 
 			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
-			win_message_box_utf8(!osd_common_t::s_window_list.empty() ? std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
+			win_message_box_utf8(!osd_common_t::s_window_list.empty() ?
+				std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
 		}
 //		else
 //			chain_output(channel, msg, args);   // goes down the black hole
 		// LOG all messages
 		FILE *pFile;
 		pFile = fopen("winui.log", "a");
-		vfprintf(pFile, msg, args);
+		vfprintf(pFile, msg, args);fflush(pFile);
 		fclose (pFile);
 /*  List of output types:
 		case OSD_OUTPUT_CHANNEL_ERROR:
@@ -880,9 +890,8 @@ public:
 
 static std::wstring s2ws(const string& s)
 {
-	int len;
 	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0); 
+	int len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0); 
 	wchar_t* buf = new wchar_t[len];
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	std::wstring r(buf);
@@ -997,6 +1006,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	// delete old log file, ignore any error
+	unlink("verbose.log");
 	unlink("winui.log");
 
 	if (__argc != 1)
@@ -3608,9 +3618,7 @@ static void ResetListView()
 
 static void UpdateGameList(BOOL bUpdateRomAudit, BOOL bUpdateSampleAudit)
 {
-	int i;
-
-	for (i = 0; i < driver_list::total(); i++)
+	for (int i = 0; i < driver_list::total(); i++)
 	{
 		if (bUpdateRomAudit && DriverUsesRoms(i))
 			SetRomAuditResults(i, UNKNOWN);
@@ -3618,9 +3626,9 @@ static void UpdateGameList(BOOL bUpdateRomAudit, BOOL bUpdateSampleAudit)
 			SetSampleAuditResults(i, UNKNOWN);
 	}
 
-	idle_work	 = true;
+	idle_work = true;
 	bDoGameCheck = true;
-	game_index	 = 0;
+	game_index = 0;
 
 	ReloadIcons();
 
@@ -4780,10 +4788,8 @@ static void ReloadIcons(void)
 	ImageList_RemoveAll(hLarge);
 
 	if (icon_index)
-	{
-		for (i=0;i<driver_list::total();i++)
+		for (i=0; i<driver_list::total(); i++)
 			icon_index[i] = 0; // these are indices into hSmall
-	}
 
 	for (i = 0; g_iconData[i].icon_name; i++)
 	{
@@ -5652,28 +5658,40 @@ static int GetIconForDriver(int nItem)
 	if (DriverUsesRoms(nItem))
 	{
 		int audit_result = GetRomAuditResults(nItem);
-		if (IsAuditResultKnown(audit_result) == false)
+		if (audit_result == -1)
 			return 2;
-#ifdef SHOW_MISSING_ROMS_ICON
+		else
 		if (IsAuditResultYes(audit_result))
 			iconRoms = 1;
 		else
 			iconRoms = 0;
-#endif
 	}
 
 	// iconRoms is now either 0 (no roms), 1 (roms), or 2 (unknown)
-	// these are indices into icon_names, which maps into our image list, also must match IDI_WIN_NOROMS + iconRoms
-	// Show Red-X if the ROMs are present and flagged as NOT WORKING
-	if (iconRoms == 1 && DriverIsBroken(nItem))
-		iconRoms = FindIconIndex(IDI_WIN_REDX);
 
-	// show clone icon if we have roms and game is working
-	if (iconRoms == 1 && DriverIsClone(nItem))
-		iconRoms = FindIconIndex(IDI_WIN_CLONE);
+	/* these are indices into icon_names, which maps into our image list
+     * also must match IDI_WIN_NOROMS + iconRoms
+     */
+
+	if (iconRoms == 1)
+	{
+		// Show Red-X if the ROMs are present and flagged as NOT WORKING
+		if (DriverIsBroken(nItem))
+			iconRoms = FindIconIndex(IDI_WIN_REDX);  // iconRoms now = 4
+		else
+		// Show imperfect if the ROMs are present and flagged as imperfect
+		if (DriverIsImperfect(nItem))
+			iconRoms = FindIconIndex(IDI_WIN_IMPERFECT); // iconRoms now = 5
+		else
+		// show clone icon if we have roms and game is working
+		if (DriverIsClone(nItem))
+			iconRoms = FindIconIndex(IDI_WIN_CLONE); // iconRoms now = 3
+	}
 
 	// if we have the roms, then look for a custom per-game icon to override
-	if (iconRoms == 1 || iconRoms == 3)
+	// not 2, because this indicates F5 must be done; not 0, because this indicates roms are missing; only use 4 if user chooses it
+	BOOL redx = GetOverrideRedX() & (iconRoms == 4);
+	if (iconRoms == 1 || iconRoms == 3 || iconRoms == 5 || redx)
 	{
 		if (icon_index[nItem] == 0)
 			AddDriverIcon(nItem,iconRoms);

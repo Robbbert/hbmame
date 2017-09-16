@@ -212,6 +212,7 @@ extern const ICONDATA g_iconData[] =
 	{ IDI_WIN_UNKNOWN,       "unknown" },
 	{ IDI_WIN_CLONE,         "clone" },
 	{ IDI_WIN_REDX,          "warning" },
+	{ IDI_WIN_IMPERFECT,     "imperfect" },
 	{ IDI_WIN_NOROMSNEEDED,  "noromsneeded" },
 	{ IDI_WIN_MISSINGOPTROM, "missingoptrom" },
 	{ IDI_WIN_FLOP,          "floppy" },
@@ -231,6 +232,7 @@ extern const ICONDATA g_iconData[] =
 	{ IDI_WIN_UNKNOWN,       "unknown" },
 	{ IDI_WIN_CLONE,         "clone" },
 	{ IDI_WIN_REDX,          "warning" },
+	{ IDI_WIN_IMPERFECT,     "imperfect" },
 	{ 0 }
 };
 #endif
