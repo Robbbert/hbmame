@@ -19,6 +19,7 @@ class winui_game_options
 		uint32_t cache_upper;
 		int play_count;
 		int play_time;
+		int game_number;
 	};
 
 	std::vector<driver_options> m_list;
@@ -74,6 +75,7 @@ class winui_game_options
 					data = strtok(NULL, ",");    // get next part
 					if (data)
 						m_list[index].play_time = std::atoll(data);
+					m_list[index].game_number = index;
 				}
 			}
 			else
@@ -291,7 +293,8 @@ public:
 			inistring.append(std::to_string(m_list[i].cache_lower)).append(",");
 			inistring.append(std::to_string(m_list[i].cache_upper)).append(",");
 			inistring.append(std::to_string(m_list[i].play_count)).append(",");
-			inistring.append(std::to_string(m_list[i].play_time)).append(",\n");
+			inistring.append(std::to_string(m_list[i].play_time)).append(",");
+			inistring.append(std::to_string(m_list[i].game_number)).append("\n");
 		}
 
 		std::ofstream outfile (filename, std::ios::out | std::ios::trunc);

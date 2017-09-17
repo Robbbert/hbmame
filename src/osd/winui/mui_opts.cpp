@@ -132,10 +132,15 @@ void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_inde
 BOOL OptionsInit()
 {
 	// set up global options
+	printf("OptionsInit: About to load %s\n",UI_INI_FILENAME);
 	settings.load_file(UI_INI_FILENAME);                    // parse MAMEUI.ini
+	printf("OptionsInit: About to load %s\n",MEWUI_FILENAME);
 	LoadSettingsFile(mewui, MEWUI_FILENAME);                // parse UI.INI
+	printf("OptionsInit: About to load %s\n",GAMEINFO_INI_FILENAME);
 	game_opts.load_file(GAMEINFO_INI_FILENAME);             // parse MAME_g.ini
+	printf("OptionsInit: About to load Global Options\n");
 	load_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS, 0);   // parse MAME.INI
+	printf("OptionsInit: Finished\n");
 	return TRUE;
 }
 
