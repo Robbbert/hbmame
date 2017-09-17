@@ -84,7 +84,7 @@ public:
 		, m_uart2(*this, "uart2")
 	{ }
 
-	DECLARE_WRITE_LINE_MEMBER( clock_tick );
+	DECLARE_WRITE_LINE_MEMBER(clock_tick);
 
 private:
 	virtual void machine_reset() override;
@@ -123,6 +123,8 @@ WRITE_LINE_MEMBER( pimps_state::clock_tick )
 {
 	m_uart1->write_txc(state);
 	m_uart1->write_rxc(state);
+	m_uart2->write_txc(state);
+	m_uart2->write_rxc(state);
 }
 
 // baud is not documented, we will use 9600
