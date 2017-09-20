@@ -12251,6 +12251,8 @@ waveterm                        //
 
 @source:europc.cpp
 europc                          // 1988 Schneider Euro PC (CGA or Hercules)
+europc2							// 1989 Schneider Euro PC II
+euroxt							// Schneider Euro XT
 
 @source:eva.cpp
 eva11                           //
@@ -12324,6 +12326,7 @@ yukon1                          // (c) 1989
 attckexd                        // (c) 1977 Exidy
 attckexd2                       // (c) 1977 Exidy
 deathrac                        // (c) 1976 Exidy
+rhunting                        // bootleg of deathrac
 
 @source:exp85.cpp
 exp85                           //
