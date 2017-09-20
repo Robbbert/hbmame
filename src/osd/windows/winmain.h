@@ -261,6 +261,7 @@ class windows_osd_interface : public osd_common_t
 #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 	// Access to exception filter static method
 	friend int main(int argc, char *argv[]);
+	friend int main_(int argc, char *argv[]); //HBMAME
 #endif
 
 public:

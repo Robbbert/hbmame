@@ -1012,15 +1012,8 @@ int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (__argc != 1)
 	{
 		/* Rename main because gcc will use it instead of WinMain even with -mwindows */
-		extern int utf8_main(std::vector<string> &args);
-		std::vector<string> utf8_argv(__argc);
-
-		/* convert arguments to UTF-8 */
-		for (int i = 0; i < __argc; i++)
-			utf8_argv[i] = ui_utf8_from_wstring(__targv[i]);
-
-		/* run utf8_main */
-		exit(utf8_main(utf8_argv));
+		extern int main_(int argc, char *argv[]);
+		exit(main_(__argc, __argv));
 	}
 	if (!Win32UI_init(hInstance, lpCmdLine, nCmdShow))
 		return 1;

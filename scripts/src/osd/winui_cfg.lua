@@ -4,7 +4,7 @@ defines {
 	"OSD_WINDOWS",
 	"USE_SDL=0",
 	--"WIN95_MULTIMON"
-	"main=utf8_main",
+	--"main=main_",
 	"_WIN32_WINNT=0x0501",
 	"USE_QTDEBUG=0",
 	"WIN32_LEAN_AND_MEAN",

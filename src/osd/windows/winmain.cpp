@@ -275,7 +275,50 @@ const options_entry windows_options::s_option_entries[] =
 //============================================================
 //  main
 //============================================================
+//HBMAME start
+int main_(int argc, char *argv[])
+{
+	std::vector<std::string> args = osd_get_command_line(argc, argv);
 
+	// use small output buffers on non-TTYs (i.e. pipes)
+	if (!isatty(fileno(stdout)))
+		setvbuf(stdout, (char *) nullptr, _IOFBF, 64);
+	if (!isatty(fileno(stderr)))
+		setvbuf(stderr, (char *) nullptr, _IOFBF, 64);
+
+	// initialize common controls
+	InitCommonControls();
+
+	// set a handler to catch ctrl-c
+	SetConsoleCtrlHandler(control_handler, TRUE);
+
+	// Initialize crash diagnostics
+	diagnostics_module::get_instance()->init_crash_diagnostics();
+
+	// parse config and cmdline options
+	DWORD result;
+	{
+		windows_options options;
+		windows_osd_interface osd(options);
+		// if we're a GUI app, out errors to message boxes
+		// Initialize this after the osd interface so that we are first in the
+		// output order
+		winui_output_error winerror;
+		if (win_is_gui_application() || is_double_click_start(args.size()))
+		{
+			// if we are a GUI app, output errors to message boxes
+			osd_output::push(&winerror);
+			// make sure any console window that opened on our behalf is nuked
+			FreeConsole();
+		}
+		osd.register_options();
+		result = emulator_info::start_frontend(options, osd, args);
+		osd_output::pop(&winerror);
+	}
+
+	return result;
+}
+//HBMAME end
 int main(int argc, char *argv[])
 {
 	std::vector<std::string> args = osd_get_command_line(argc, argv);
