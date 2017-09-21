@@ -1,6 +1,6 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
-
+// NOTE: ifdef MESS doesn't work here
 #ifndef TREEVIEW_H
 #define TREEVIEW_H
 
@@ -31,6 +31,7 @@
 
 #endif /* defined(__GNUC__) */
 #include "bitmask.h"
+#include <stdint.h>
 
 /***************************************************************************
     Folder And Filter Definitions
@@ -42,11 +43,11 @@ typedef struct
 	const char *short_name;  // for saving in the .ini
 	UINT        m_nFolderId; // ID
 	UINT        m_nIconId; // if >= 0, resource id of icon (IDI_xxx), otherwise index in image list
-	BOOL        m_process;
 	DWORD       m_dwUnset; // Excluded filters
 	DWORD       m_dwSet;   // Implied filters
+	BOOL        m_process;      // 1 = process only if enabled
 	void        (*m_pfnCreateFolders)(int parent_index); // Constructor for special folders
-	BOOL        (*m_pfnQuery)(int nDriver);              // Query function
+	BOOL        (*m_pfnQuery)(uint32_t nDriver);              // Query function
 	BOOL        m_bExpectedResult;                       // Expected query result
 } FOLDERDATA, *LPFOLDERDATA;
 
@@ -56,7 +57,7 @@ typedef struct
 {
 	DWORD m_dwFilterType;				/* Filter value */
 	DWORD m_dwCtrlID;					/* Control ID that represents it */
-	BOOL (*m_pfnQuery)(int nDriver);	/* Query function */
+	BOOL (*m_pfnQuery)(uint32_t nDriver);	/* Query function */
 	BOOL m_bExpectedResult;				/* Expected query result */
 } FILTER_ITEM, *LPFILTER_ITEM;
 
@@ -70,20 +71,19 @@ void CreateManufacturerFolders(int parent_index);
 void CreateYearFolders(int parent_index);
 void CreateSourceFolders(int parent_index);
 void CreateScreenFolders(int parent_index);
+void CreateResolutionFolders(int parent_index);
+void CreateFPSFolders(int parent_index);
+void CreateBIOSFolders(int parent_index);
 void CreateCPUFolders(int parent_index);
 void CreateSoundFolders(int parent_index);
 void CreateOrientationFolders(int parent_index);
 void CreateDeficiencyFolders(int parent_index);
 void CreateDumpingFolders(int parent_index);
-void CreateBIOSFolders(int parent_index);
-void CreateFPSFolders(int parent_index);
-void CreateResolutionFolders(int parent_index);
 
 /***************************************************************************/
 
 #define MAX_EXTRA_FOLDERS 256
 #define MAX_EXTRA_SUBFOLDERS 256
-#define SHOW_UNAVAILABLE_FOLDER
 
 /* TreeView structures */
 enum
@@ -91,9 +91,7 @@ enum
 	FOLDER_NONE = 0,
 	FOLDER_ALLGAMES,
 	FOLDER_AVAILABLE,
-#ifdef SHOW_UNAVAILABLE_FOLDER
 	FOLDER_UNAVAILABLE,
-#endif
 	FOLDER_MANUFACTURER,
 	FOLDER_YEAR,
 	FOLDER_SOURCE,
@@ -105,6 +103,8 @@ enum
 	FOLDER_ORIGINAL,
 	FOLDER_CLONES,
 	FOLDER_RASTER,
+	FOLDER_RESOLUTION,
+	FOLDER_FPS,
 	FOLDER_VECTOR,
 	FOLDER_TRACKBALL,
 	FOLDER_LIGHTGUN,
@@ -114,14 +114,16 @@ enum
 	FOLDER_DUMPING,
 	FOLDER_SAVESTATE,
 	FOLDER_BIOS,
-	FOLDER_RESOLUTION,
-	FOLDER_FPS,
 	FOLDER_HORIZONTAL,
 	FOLDER_VERTICAL,
 	FOLDER_SCREENS,
 	FOLDER_MECHANICAL,
 	FOLDER_NONMECHANICAL,
-	MAX_FOLDERS
+	FOLDER_CONSOLE,
+	FOLDER_COMPUTER,
+	FOLDER_MODIFIED,
+	FOLDER_MOUSE,
+	MAX_FOLDERS,
 };
 
 typedef enum
@@ -139,11 +141,9 @@ typedef enum
 	F_MECHANICAL    = 0x00000400,
 	F_ARCADE        = 0x00000800,
 	F_MESS          = 0x00001000,
-#ifdef MESS
 	F_COMPUTER      = 0x00002000,
 	F_CONSOLE       = 0x00004000,
 	F_MODIFIED      = 0x00008000,
-#endif
 	F_MASK          = 0x0000FFFF,
 	F_INIEDIT       = 0x00010000, // There is an .ini that can be edited. MSH 20070811
 	F_CUSTOM        = 0x01000000  // for current .ini custom folders
@@ -190,7 +190,7 @@ void ResetWhichGamesInFolders(void);
 
 LPCFOLDERDATA FindFilter(DWORD folderID);
 
-bool GameFiltered(int nGame, DWORD dwFlags);
+BOOL GameFiltered(int nGame, DWORD dwFlags);
 BOOL GetParentFound(int nGame);
 
 LPCFILTER_ITEM GetFilterList(void);

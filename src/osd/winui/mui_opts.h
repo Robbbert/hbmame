@@ -326,24 +326,24 @@ void SetBgDir(const char *path);
 
 void ResetGameOptions(int driver_index);
 
-int GetRomAuditResults(int driver_index);
-void SetRomAuditResults(int driver_index, int audit_results);
+int GetRomAuditResults(uint32_t driver_index);
+void SetRomAuditResults(uint32_t driver_index, int audit_results);
 
-int GetSampleAuditResults(int driver_index);
-void SetSampleAuditResults(int driver_index, int audit_results);
+int GetSampleAuditResults(uint32_t driver_index);
+void SetSampleAuditResults(uint32_t driver_index, int audit_results);
 
-void IncrementPlayCount(int driver_index);
-int GetPlayCount(int driver_index);
+void IncrementPlayCount(uint32_t driver_index);
+uint32_t GetPlayCount(uint32_t driver_index);
 void ResetPlayCount(int driver_index);
 
-void IncrementPlayTime(int driver_index,int playtime);
-int GetPlayTime(int driver_index);
-void GetTextPlayTime(int driver_index,char *buf);
+void IncrementPlayTime(uint32_t driver_index, uint32_t playtime);
+uint32_t GetPlayTime(uint32_t driver_index);
+void GetTextPlayTime(uint32_t driver_index, char *buf);
 void ResetPlayTime(int driver_index);
 
 const char * GetVersionString(void);
 
-bool DriverHasSoftware(int drvindex);
+bool DriverHasSoftware(uint32_t drvindex);
 
 void SaveDefaultOptions(void);
 
@@ -441,14 +441,14 @@ void SetHideMouseOnStartup(BOOL hide);
 BOOL GetRunFullScreen(void);
 void SetRunFullScreen(BOOL fullScreen);
 
-uint32_t GetDriverCacheLower(int driver_index);
-uint32_t GetDriverCacheUpper(int driver_index);
-void SetDriverCache(int driver_index, uint32_t val);
+uint32_t GetDriverCacheLower(uint32_t driver_index);
+uint32_t GetDriverCacheUpper(uint32_t driver_index);
+void SetDriverCache(uint32_t driver_index, uint32_t val);
 BOOL RequiredDriverCache(void);
-BOOL DriverIsComputer(int driver_index);
-BOOL DriverIsConsole(int driver_index);
-BOOL DriverIsModified(int driver_index);
-BOOL DriverIsImperfect(int driver_index);
+BOOL DriverIsComputer(uint32_t driver_index);
+BOOL DriverIsConsole(uint32_t driver_index);
+BOOL DriverIsModified(uint32_t driver_index);
+BOOL DriverIsImperfect(uint32_t driver_index);
 
 // from optionsms.h (MESSUI)
 

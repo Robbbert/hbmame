@@ -132,15 +132,15 @@ void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_inde
 BOOL OptionsInit()
 {
 	// set up global options
-	printf("OptionsInit: About to load %s\n",UI_INI_FILENAME);
+	printf("OptionsInit: About to load %s\n",UI_INI_FILENAME);fflush(stdout);
 	settings.load_file(UI_INI_FILENAME);                    // parse MAMEUI.ini
-	printf("OptionsInit: About to load %s\n",MEWUI_FILENAME);
+	printf("OptionsInit: About to load %s\n",MEWUI_FILENAME);fflush(stdout);
 	LoadSettingsFile(mewui, MEWUI_FILENAME);                // parse UI.INI
-	printf("OptionsInit: About to load %s\n",GAMEINFO_INI_FILENAME);
+	printf("OptionsInit: About to load %s\n",GAMEINFO_INI_FILENAME);fflush(stdout);
 	game_opts.load_file(GAMEINFO_INI_FILENAME);             // parse MAME_g.ini
-	printf("OptionsInit: About to load Global Options\n");
+	printf("OptionsInit: About to load Global Options\n");fflush(stdout);
 	load_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS, 0);   // parse MAME.INI
-	printf("OptionsInit: Finished\n");
+	printf("OptionsInit: Finished\n");fflush(stdout);
 	return TRUE;
 }
 
@@ -475,6 +475,7 @@ int GetCurrentTab(void)
 	return settings.int_value(MUIOPTION_CURRENT_TAB);
 }
 
+// Need int here in case no games were in the list at exit
 void SetDefaultGame(int val)
 {
 	if (val < 0)
@@ -1165,57 +1166,51 @@ void SetFolderDir(const char* path)
 }
 
 // ***************************************************************** MAME_g.INI settings **************************************************************************
-int GetRomAuditResults(int driver_index)
+int GetRomAuditResults(uint32_t driver_index)
 {
 	return game_opts.rom(driver_index);
 }
 
-void SetRomAuditResults(int driver_index, int audit_results)
+void SetRomAuditResults(uint32_t driver_index, int audit_results)
 {
 	game_opts.rom(driver_index, audit_results);
 }
 
-int  GetSampleAuditResults(int driver_index)
+int GetSampleAuditResults(uint32_t driver_index)
 {
 	return game_opts.sample(driver_index);
 }
 
-void SetSampleAuditResults(int driver_index, int audit_results)
+void SetSampleAuditResults(uint32_t driver_index, int audit_results)
 {
 	game_opts.sample(driver_index, audit_results);
 }
 
-static void IncrementPlayVariable(int driver_index, const char *play_variable, int increment)
+static void IncrementPlayVariable(uint32_t driver_index, const char *play_variable, uint32_t increment)
 {
-	int count = 0;
-
 	if (strcmp(play_variable, "count") == 0)
-	{
-		count = game_opts.play_count(driver_index);
-		game_opts.play_count(driver_index, count + increment);
-	}
-	else if (strcmp(play_variable, "time") == 0)
-	{
-		count = game_opts.play_time(driver_index);
-		game_opts.play_time(driver_index, count + increment);
-	}
+		game_opts.play_count(driver_index, game_opts.play_count(driver_index) + increment);
+	else
+	if (strcmp(play_variable, "time") == 0)
+		game_opts.play_time(driver_index, game_opts.play_time(driver_index) + increment);
 }
 
-void IncrementPlayCount(int driver_index)
+void IncrementPlayCount(uint32_t driver_index)
 {
 	IncrementPlayVariable(driver_index, "count", 1);
 }
 
-int GetPlayCount(int driver_index)
+uint32_t GetPlayCount(uint32_t driver_index)
 {
 	return game_opts.play_count(driver_index);
 }
 
+// int needed here so we can reset all games
 static void ResetPlayVariable(int driver_index, const char *play_variable)
 {
 	if (driver_index < 0)
 		/* all games */
-		for (int i = 0; i< driver_list::total(); i++)
+		for (uint32_t i = 0; i < driver_list::total(); i++)
 			ResetPlayVariable(i, play_variable);
 	else
 	{
@@ -1227,35 +1222,37 @@ static void ResetPlayVariable(int driver_index, const char *play_variable)
 	}
 }
 
+// int needed here so we can reset all games
 void ResetPlayCount(int driver_index)
 {
 	ResetPlayVariable(driver_index, "count");
 }
 
+// int needed here so we can reset all games
 void ResetPlayTime(int driver_index)
 {
 	ResetPlayVariable(driver_index, "time");
 }
 
-int GetPlayTime(int driver_index)
+uint32_t GetPlayTime(uint32_t driver_index)
 {
 	return game_opts.play_time(driver_index);
 }
 
-void IncrementPlayTime(int driver_index,int playtime)
+void IncrementPlayTime(uint32_t driver_index, uint32_t playtime)
 {
 	IncrementPlayVariable(driver_index, "time", playtime);
 }
 
-void GetTextPlayTime(int driver_index, char *buf)
+void GetTextPlayTime(uint32_t driver_index, char *buf)
 {
 
-	if (0 <= driver_index && driver_index < driver_list::total())
+	if (driver_index < driver_list::total())
 	{
-		int second = GetPlayTime(driver_index);
-		int hour = second / 3600;
+		uint32_t second = GetPlayTime(driver_index);
+		uint32_t hour = second / 3600;
 		second -= 3600*hour;
-		int minute = second / 60; //Calc Minutes
+		uint8_t minute = second / 60; //Calc Minutes
 		second -= 60*minute;
 
 		if (hour == 0)
@@ -2219,17 +2216,18 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 
 
 // See if this driver has software support
-bool DriverHasSoftware(int drvindex)
+bool DriverHasSoftware(uint32_t drvindex)
 {
-	if (drvindex < 0)
-		return 0;
-	windows_options o;
-	load_options(o, OPTIONS_GAME, drvindex, 1);
-	machine_config config(driver_list::driver(drvindex), o);
+	if (drvindex < driver_list::total())
+	{
+		windows_options o;
+		load_options(o, OPTIONS_GAME, drvindex, 1);
+		machine_config config(driver_list::driver(drvindex), o);
 
-	for (device_image_interface &img : image_interface_iterator(config.root_device()))
-		if (img.user_loadable())
-			return 1;
+		for (device_image_interface &img : image_interface_iterator(config.root_device()))
+			if (img.user_loadable())
+				return 1;
+	}
 
 	return 0;
 }
@@ -2243,26 +2241,19 @@ static void ResetToDefaults(windows_options &opts, int priority)
 	OptionsCopy(dummy, opts);
 }
 
-uint32_t GetDriverCacheLower(int driver_index)
+uint32_t GetDriverCacheLower(uint32_t driver_index)
 {
-	if (driver_index >= 0)
-		return game_opts.cache_lower(driver_index);
-	else
-		return 0;
+	return game_opts.cache_lower(driver_index);
 }
 
-uint32_t GetDriverCacheUpper(int driver_index)
+uint32_t GetDriverCacheUpper(uint32_t driver_index)
 {
-	if (driver_index >= 0)
-		return game_opts.cache_upper(driver_index);
-	else
-		return 0;
+	return game_opts.cache_upper(driver_index);
 }
 
-void SetDriverCache(int driver_index, uint32_t val)
+void SetDriverCache(uint32_t driver_index, uint32_t val)
 {
-	if (driver_index >= 0)
-		game_opts.cache_upper(driver_index, val);
+	game_opts.cache_upper(driver_index, val);
 }
 
 BOOL RequiredDriverCache(void)
@@ -2270,24 +2261,24 @@ BOOL RequiredDriverCache(void)
 	return game_opts.rebuild();
 }
 
-BOOL DriverIsComputer(int driver_index)
+BOOL DriverIsComputer(uint32_t driver_index)
 {
 	uint32_t cache = game_opts.cache_lower(driver_index) & 3;
 	return (cache == 2) ? true : false;
 }
 
-BOOL DriverIsConsole(int driver_index)
+BOOL DriverIsConsole(uint32_t driver_index)
 {
 	uint32_t cache = game_opts.cache_lower(driver_index) & 3;
 	return (cache == 1) ? true : false;
 }
 
-BOOL DriverIsModified(int driver_index)
+BOOL DriverIsModified(uint32_t driver_index)
 {
 	return BIT(game_opts.cache_lower(driver_index), 12);
 }
 
-BOOL DriverIsImperfect(int driver_index)
+BOOL DriverIsImperfect(uint32_t driver_index)
 {
 	return (game_opts.cache_lower(driver_index) & 0xff0000) ? true : false; // (NO|IMPERFECT) (CONTROLS|PALETTE|SOUND|GRAPHICS)
 }

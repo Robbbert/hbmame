@@ -2163,8 +2163,8 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			char szFileName[32];
 			char *s;
 			int nGameIndex;
-			int (*pfnGetAuditResults)(int driver_index) = NULL;
-			void (*pfnSetAuditResults)(int driver_index, int audit_results) = NULL;
+			int (*pfnGetAuditResults)(uint32_t driver_index) = NULL;
+			void (*pfnSetAuditResults)(uint32_t driver_index, int audit_results) = NULL;
 
 			switch(HIWORD(wParam))
 			{

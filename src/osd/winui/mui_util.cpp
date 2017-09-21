@@ -384,7 +384,7 @@ char * ConvertToWindowsNewlines(const char *source)
  * This assumes their is a pathname passed to the function
  * like src\drivers\blah.c
  */
-const char * GetDriverFilename(int nIndex)
+const char * GetDriverFilename(uint32_t nIndex)
 {
 	static char tmp[40];
 	std::string driver = core_filename_extract_base(driver_list::driver(nIndex).type.source());
@@ -418,10 +418,10 @@ int numberOfSpeakers(const machine_config *config)
 static void SetDriversInfo(void)
 {
 	uint32_t cache;
-	int total = driver_list::total();
+	uint32_t total = driver_list::total();
 	struct DriversInfo *gameinfo = NULL;
 
-	for (int ndriver = 0; ndriver < total; ndriver++)
+	for (uint32_t ndriver = 0; ndriver < total; ndriver++)
 	{
 		gameinfo = &drivers_info[ndriver];
 		cache = gameinfo->screenCount & DRIVER_CACHE_SCREEN;
@@ -467,12 +467,12 @@ static void InitDriversInfo(void)
 {
 	printf("InitDriversInfo: A\n");fflush(stdout);
 	int num_speakers;
-	int total = driver_list::total();
+	uint32_t total = driver_list::total();
 	const game_driver *gamedrv = NULL;
 	struct DriversInfo *gameinfo = NULL;
 	const rom_entry *region, *rom;
 
-	for (int ndriver = 0; ndriver < total; ndriver++)
+	for (uint32_t ndriver = 0; ndriver < total; ndriver++)
 	{
 		uint32_t cache = GetDriverCacheLower(ndriver);
 		gamedrv = &driver_list::driver(ndriver);
@@ -483,7 +483,7 @@ static void InitDriversInfo(void)
 		auto const parent_idx(have_parent ? driver_list::find(gamedrv->parent) : -1);
 		gameinfo->isClone = ( !have_parent || (0 > parent_idx) || BIT(GetDriverCacheLower(parent_idx),9)) ? false : true;
 		gameinfo->isBroken = (cache & 0x4040) ? true : false;  // (MACHINE_NOT_WORKING | MACHINE_MECHANICAL)
-		gameinfo->supportsSaveState = BIT(cache, 7);  //MACHINE_SUPPORTS_SAVE
+		gameinfo->supportsSaveState = BIT(cache, 7) ^ 1;  //MACHINE_SUPPORTS_SAVE
 		gameinfo->isHarddisk = false;
 		gameinfo->isVertical = BIT(cache, 2);  //ORIENTATION_SWAP_XY
 
@@ -565,18 +565,18 @@ static int InitDriversCache(void)
 
 	printf("InitDriversCache: C\n");fflush(stdout);
 	uint32_t cache_lower, cache_upper;
-	int total = driver_list::total();
+	uint32_t total = driver_list::total();
 	struct DriversInfo *gameinfo = NULL;
 
 	printf("InitDriversCache: D\n");fflush(stdout);
-	for (int ndriver = 0; ndriver < total; ndriver++)
+	for (uint32_t ndriver = 0; ndriver < total; ndriver++)
 	{
 		gameinfo = &drivers_info[ndriver];
 		cache_lower = GetDriverCacheLower(ndriver);
 		cache_upper = GetDriverCacheUpper(ndriver);
 
 		gameinfo->isBroken          =  (cache_lower & 0x4040) ? true : false; //MACHINE_NOT_WORKING | MACHINE_MECHANICAL
-		gameinfo->supportsSaveState =  BIT(cache_lower, 7) ? true : false;  //MACHINE_SUPPORTS_SAVE
+		gameinfo->supportsSaveState =  BIT(cache_lower, 7) ? false : true;  //MACHINE_SUPPORTS_SAVE
 		gameinfo->isVertical        =  BIT(cache_lower, 2) ? true : false;  //ORIENTATION_XY
 		gameinfo->screenCount       =   cache_upper & DRIVER_CACHE_SCREEN;
 		gameinfo->isClone           = ((cache_upper & DRIVER_CACHE_CLONE)     != 0);
@@ -596,14 +596,15 @@ static int InitDriversCache(void)
 	return 0;
 }
 
-static struct DriversInfo* GetDriversInfo(int driver_index)
+static struct DriversInfo* GetDriversInfo(uint32_t driver_index)
 {
 	if (bFirst)
 	{
 		bFirst = false;
 
 		drivers_info.clear();
-		drivers_info.reserve(driver_list::total());
+		drivers_info.resize(driver_list::total());
+		std::fill(drivers_info.begin(), drivers_info.end(), DriversInfo{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 		printf("DriversInfo: B\n");fflush(stdout);
 		InitDriversCache();
 	}
@@ -611,92 +612,92 @@ static struct DriversInfo* GetDriversInfo(int driver_index)
 	return &drivers_info[driver_index];
 }
 
-BOOL DriverIsClone(int driver_index)
+BOOL DriverIsClone(uint32_t driver_index)
 {
 	 return GetDriversInfo(driver_index)->isClone;
 }
 
-BOOL DriverIsBroken(int driver_index)
+BOOL DriverIsBroken(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->isBroken;
 }
 
-BOOL DriverIsHarddisk(int driver_index)
+BOOL DriverIsHarddisk(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->isHarddisk;
 }
 
-BOOL DriverIsBios(int driver_index)
+BOOL DriverIsBios(uint32_t driver_index)
 {
 	return BIT(GetDriverCacheLower(driver_index), 9);
 }
 
-BOOL DriverIsMechanical(int driver_index)
+BOOL DriverIsMechanical(uint32_t driver_index)
 {
 	return BIT(GetDriverCacheLower(driver_index), 14);
 }
 
-BOOL DriverIsArcade(int driver_index)
+BOOL DriverIsArcade(uint32_t driver_index)
 {
 	return ((GetDriverCacheLower(driver_index) & 3) == 0) ? true: false;  //TYPE_ARCADE
 }
 
-BOOL DriverHasOptionalBIOS(int driver_index)
+BOOL DriverHasOptionalBIOS(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->hasOptionalBIOS;
 }
 
-BOOL DriverIsStereo(int driver_index)
+BOOL DriverIsStereo(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->isStereo;
 }
 
-int DriverNumScreens(int driver_index)
+int DriverNumScreens(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->screenCount;
 }
 
-BOOL DriverIsVector(int driver_index)
+BOOL DriverIsVector(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->isVector;
 }
 
-BOOL DriverUsesRoms(int driver_index)
+BOOL DriverUsesRoms(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->usesRoms;
 }
 
-BOOL DriverUsesSamples(int driver_index)
+BOOL DriverUsesSamples(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->usesSamples;
 }
 
-BOOL DriverUsesTrackball(int driver_index)
+BOOL DriverUsesTrackball(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->usesTrackball;
 }
 
-BOOL DriverUsesLightGun(int driver_index)
+BOOL DriverUsesLightGun(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->usesLightGun;
 }
 
-BOOL DriverUsesMouse(int driver_index)
+BOOL DriverUsesMouse(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->usesMouse;
 }
 
-BOOL DriverSupportsSaveState(int driver_index)
+BOOL DriverSupportsSaveState(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->supportsSaveState;
 }
 
-BOOL DriverIsVertical(int driver_index)
+BOOL DriverIsVertical(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->isVertical;
 }
 
-BOOL DriverHasRam(int driver_index)
+BOOL DriverHasRam(uint32_t driver_index)
 {
 	return GetDriversInfo(driver_index)->hasRam;
 }

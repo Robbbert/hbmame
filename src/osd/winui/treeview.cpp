@@ -343,7 +343,7 @@ void ResetWhichGamesInFolders(void)
 
 
 /* Used to build the GameList */
-bool GameFiltered(int nGame, DWORD dwMask)
+BOOL GameFiltered(int nGame, DWORD dwMask)
 {
 	int i;
 	LPTREEFOLDER lpFolder = GetCurrentFolder();

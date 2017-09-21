@@ -26,7 +26,10 @@
 #include "properties.h"
 
 
-static BOOL FilterAvailable(int driver_index);
+static BOOL FilterAvailable(uint32_t driver_index)
+{
+	return !DriverUsesRoms(driver_index) || IsAuditResultYes(GetRomAuditResults(driver_index));
+}
 
 #ifdef MESS
 extern const FOLDERDATA g_folderData[] =
@@ -244,8 +247,3 @@ extern const char g_szGameCountString[] = "%d machines";
 extern const TCHAR g_szPlayGameString[] = TEXT("&Play %s");
 extern const char g_szGameCountString[] = "%d games";
 #endif
-
-static BOOL FilterAvailable(int driver_index)
-{
-	return !DriverUsesRoms(driver_index) || IsAuditResultYes(GetRomAuditResults(driver_index));
-}
