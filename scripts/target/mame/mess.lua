@@ -269,6 +269,7 @@ SOUNDS["MEA8000"] = true
 --SOUNDS["DAC76"] = true
 --SOUNDS["MM5837"] = true
 SOUNDS["DAVE"] = true
+--SOUNDS["LC7535"] = true
 
 --------------------------------------------------
 -- specify available video cores
@@ -378,6 +379,7 @@ MACHINES["ADC1213X"] = true
 MACHINES["AICARTC"] = true
 MACHINES["AM2847"] = true
 MACHINES["AM53CF96"] = true
+MACHINES["AM9513"] = true
 MACHINES["AM9517A"] = true
 MACHINES["AMIGAFDC"] = true
 MACHINES["AT_KEYBC"] = true
@@ -1148,6 +1150,10 @@ function createMESSProjects(_target, _subtarget, _name)
 		GEN_DIR  .. "mess/layout",
 		GEN_DIR  .. "mame/layout",
 	}
+
+	includedirs {
+		ext_includedir("zlib")
+	}
 end
 
 function createProjects_mame_mess(_target, _subtarget)
@@ -1386,6 +1392,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/altos5.cpp",
 	MAME_DIR .. "src/mame/drivers/altos486.cpp",
 	MAME_DIR .. "src/mame/drivers/altos8600.cpp",
+	MAME_DIR .. "src/mame/machine/acs8600_ics.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "ami")
