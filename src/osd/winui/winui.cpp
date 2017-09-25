@@ -3226,7 +3226,7 @@ static void check_for_GUI_action(void)
 			case ID_GAME_PROPERTIES:
 			case ID_CONTEXT_FILTERS:
 			case ID_UI_START:
-				KeyboardStateClear(); /* beacuse whe won't receive KeyUp mesage when we loose focus */
+				KeyboardStateClear(); /* because whe won't receive KeyUp mesage when we lose focus */
 				break;
 			default:
 				break;
@@ -3385,11 +3385,6 @@ static void KeyboardKeyUp(int syskey, int vk_code, int special)
 
 static void PollGUIJoystick()
 {
-	// For the exec timer, will keep track of how long the button has been pressed
-	static int exec_counter = 0;
-	const char* exec_command;
-	TCHAR* t_exec_command;
-
 	if (in_emulation)
 		return;
 
@@ -3398,99 +3393,86 @@ static void PollGUIJoystick()
 
 	g_pJoyGUI->poll_joysticks();
 
-
 	// User pressed UP
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyUp(0), GetUIJoyUp(1), GetUIJoyUp(2),GetUIJoyUp(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyUp(0), GetUIJoyUp(1), GetUIJoyUp(2), GetUIJoyUp(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_UP, 0);
-	}
 
 	// User pressed DOWN
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyDown(0), GetUIJoyDown(1), GetUIJoyDown(2),GetUIJoyDown(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyDown(0), GetUIJoyDown(1), GetUIJoyDown(2), GetUIJoyDown(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_DOWN, 0);
-	}
 
 	// User pressed LEFT
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyLeft(0), GetUIJoyLeft(1), GetUIJoyLeft(2),GetUIJoyLeft(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyLeft(0), GetUIJoyLeft(1), GetUIJoyLeft(2), GetUIJoyLeft(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_LEFT, 0);
-	}
 
 	// User pressed RIGHT
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyRight(0), GetUIJoyRight(1), GetUIJoyRight(2),GetUIJoyRight(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyRight(0), GetUIJoyRight(1), GetUIJoyRight(2), GetUIJoyRight(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_RIGHT, 0);
-	}
 
 	// User pressed START GAME
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyStart(0), GetUIJoyStart(1), GetUIJoyStart(2),GetUIJoyStart(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyStart(0), GetUIJoyStart(1), GetUIJoyStart(2), GetUIJoyStart(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_START, 0);
-	}
 
 	// User pressed PAGE UP
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyPageUp(0), GetUIJoyPageUp(1), GetUIJoyPageUp(2),GetUIJoyPageUp(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyPageUp(0), GetUIJoyPageUp(1), GetUIJoyPageUp(2), GetUIJoyPageUp(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_PGUP, 0);
-	}
 
 	// User pressed PAGE DOWN
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyPageDown(0), GetUIJoyPageDown(1), GetUIJoyPageDown(2),GetUIJoyPageDown(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyPageDown(0), GetUIJoyPageDown(1), GetUIJoyPageDown(2), GetUIJoyPageDown(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_PGDOWN, 0);
-	}
 
 	// User pressed HOME
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyHome(0), GetUIJoyHome(1), GetUIJoyHome(2),GetUIJoyHome(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyHome(0), GetUIJoyHome(1), GetUIJoyHome(2), GetUIJoyHome(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_HOME, 0);
-	}
 
 	// User pressed END
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyEnd(0), GetUIJoyEnd(1), GetUIJoyEnd(2),GetUIJoyEnd(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyEnd(0), GetUIJoyEnd(1), GetUIJoyEnd(2), GetUIJoyEnd(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_END, 0);
-	}
 
 	// User pressed CHANGE SCREENSHOT
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoySSChange(0), GetUIJoySSChange(1), GetUIJoySSChange(2),GetUIJoySSChange(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoySSChange(0), GetUIJoySSChange(1), GetUIJoySSChange(2), GetUIJoySSChange(3))))
 		SendMessage(hMain, WM_COMMAND, IDC_SSFRAME, 0);
-	}
 
 	// User pressed SCROLL HISTORY UP
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyHistoryUp(0), GetUIJoyHistoryUp(1), GetUIJoyHistoryUp(2),GetUIJoyHistoryUp(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyHistoryUp(0), GetUIJoyHistoryUp(1), GetUIJoyHistoryUp(2), GetUIJoyHistoryUp(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_HISTORY_UP, 0);
-	}
 
 	// User pressed SCROLL HISTORY DOWN
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyHistoryDown(0), GetUIJoyHistoryDown(1), GetUIJoyHistoryDown(2),GetUIJoyHistoryDown(3))))
-	{
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyHistoryDown(0), GetUIJoyHistoryDown(1), GetUIJoyHistoryDown(2), GetUIJoyHistoryDown(3))))
 		SendMessage(hMain, WM_COMMAND, ID_UI_HISTORY_DOWN, 0);
-	}
 
-  // User pressed EXECUTE COMMANDLINE
-	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyExec(0), GetUIJoyExec(1), GetUIJoyExec(2),GetUIJoyExec(3))))
+	// For the exec timer, will keep track of how long the button has been pressed
+	static int exec_counter = 0;
+
+	// User pressed EXECUTE COMMANDLINE
+	// Note: this option is not documented, nor supported in the GUI.
+	if (g_pJoyGUI->is_joy_pressed(JOYCODE(GetUIJoyExec(0), GetUIJoyExec(1), GetUIJoyExec(2), GetUIJoyExec(3))))
 	{
-		if (++exec_counter >= GetExecWait()) // Button has been pressed > exec timeout
+		// validate
+		int execwait = GetExecWait();
+		if (execwait < 1)
+			return;
+		if (++exec_counter >= execwait) // Button has been pressed > exec timeout
 		{
-			PROCESS_INFORMATION pi;
-			STARTUPINFO si;
+			// validate
+			string exec_command = GetExecCommand();
+			if (exec_command.empty())
+				return;
+			TCHAR *t_exec_command = ui_wstring_from_utf8(exec_command.c_str());
+			if( !t_exec_command )
+				return;
 
 			// Reset counter
 			exec_counter = 0;
 
+			STARTUPINFO si;
 			ZeroMemory( &si, sizeof(si) );
-			ZeroMemory( &pi, sizeof(pi) );
 			si.dwFlags = STARTF_FORCEONFEEDBACK;
 			si.cb = sizeof(si);
 
-			exec_command = GetExecCommand();
-			t_exec_command = ui_wstring_from_utf8(exec_command);
-			if( !t_exec_command )
-				return;
+			PROCESS_INFORMATION pi;
+			ZeroMemory( &pi, sizeof(pi) );
+
 			CreateProcess(NULL, t_exec_command, NULL, NULL, false, 0, NULL, NULL, &si, &pi);
 
 			free(t_exec_command);
@@ -4096,23 +4078,25 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_GAME_PROPERTIES:
 		if (!oldControl && (current_game >= 0))
-		{
-			folder = GetFolderByName(FOLDER_SOURCE, GetDriverFilename(current_game) );
-			InitPropertyPage(hInst, hwnd, GetSelectedPickItemIcon(), OPTIONS_GAME, folder->m_nFolderId, current_game);
-		}
+			InitPropertyPageToPage(hInst, hwnd, GetSelectedPickItemIcon(), OPTIONS_GAME, -1, current_game, PROPERTIES_PAGE);
+
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
 		break;
 
+	// NOT WORKING
 	case ID_FOLDER_PROPERTIES:
 		if (!oldControl && (current_game >= 0))
 		{
 			OPTIONS_TYPE curOptType = OPTIONS_SOURCE;
 			folder = GetSelectedFolder();
-			if(folder->m_nFolderId == FOLDER_VECTOR)
-				curOptType = OPTIONS_VECTOR;
+			if (folder)
+			{
+				if(folder->m_nFolderId == FOLDER_VECTOR)
+					curOptType = OPTIONS_VECTOR;
 
-			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), curOptType, folder->m_nFolderId, current_game);
+				InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), curOptType, folder->m_nFolderId, current_game);
+			}
 		}
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
@@ -4121,8 +4105,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	case ID_FOLDER_SOURCEPROPERTIES:
 		if (!oldControl && (current_game >= 0))
 		{
-			folder = GetFolderByName(FOLDER_SOURCE, GetDriverFilename(current_game) );
-			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), (folder->m_nFolderId == FOLDER_VECTOR) ? OPTIONS_VECTOR : OPTIONS_SOURCE , folder->m_nFolderId, current_game);
+			//InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), (folder->m_nFolderId == FOLDER_VECTOR) ? OPTIONS_VECTOR : OPTIONS_SOURCE , -1, current_game);
+			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), OPTIONS_SOURCE, -1, current_game);
 		}
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
@@ -5788,7 +5772,6 @@ static void UpdateMenu(HMENU hMenu)
 
 	LPTREEFOLDER lpFolder = GetCurrentFolder();
 	int i;
-	//const char *pParent;
 	TCHAR* t_description;
 
 	if (have_selection)
@@ -5838,20 +5821,15 @@ static void UpdateMenu(HMENU hMenu)
 	}
 	//pParent = GetFolderNameByID(lpFolder->m_nParent+1);
 
-	if (lpFolder->m_dwFlags & F_INIEDIT)
-		EnableMenuItem(hMenu,ID_FOLDER_PROPERTIES,MF_ENABLED);
-	else
-		EnableMenuItem(hMenu,ID_FOLDER_PROPERTIES,MF_GRAYED);
+	EnableMenuItem(hMenu, ID_FOLDER_PROPERTIES, (lpFolder->m_dwFlags & F_INIEDIT) ? MF_ENABLED : MF_GRAYED);
 
-	CheckMenuRadioItem(hMenu, ID_VIEW_TAB_SCREENSHOT, ID_VIEW_TAB_HISTORY,
-					   ID_VIEW_TAB_SCREENSHOT + TabView_GetCurrentTab(hTabCtrl), MF_BYCOMMAND);
+	CheckMenuRadioItem(hMenu, ID_VIEW_TAB_SCREENSHOT, ID_VIEW_TAB_HISTORY, ID_VIEW_TAB_SCREENSHOT + TabView_GetCurrentTab(hTabCtrl), MF_BYCOMMAND);
 
 	// set whether we're showing the tab control or not
 	if (bShowTabCtrl)
 		CheckMenuItem(hMenu,ID_VIEW_PAGETAB,MF_BYCOMMAND | MF_CHECKED);
 	else
 		CheckMenuItem(hMenu,ID_VIEW_PAGETAB,MF_BYCOMMAND | MF_UNCHECKED);
-
 
 	for (i=0;i<MAX_TAB_TYPES;i++)
 	{
@@ -5875,69 +5853,67 @@ static void UpdateMenu(HMENU hMenu)
 		else
 			CheckMenuItem(hMenu,ID_CONTEXT_SHOW_FOLDER_START + i,MF_BYCOMMAND | MF_UNCHECKED);
 	}
-
 }
 
 void InitTreeContextMenu(HMENU hTreeMenu)
 {
-	MENUITEMINFO mii;
-	HMENU hMenu;
-	int i;
 	extern const FOLDERDATA g_folderData[];
 
+	MENUITEMINFO mii;
 	ZeroMemory(&mii,sizeof(mii));
 	mii.cbSize = sizeof(mii);
-
 	mii.wID = -1;
 	mii.fMask = MIIM_SUBMENU | MIIM_ID;
 
-	hMenu = GetSubMenu(hTreeMenu, 0);
+	HMENU hMenu = GetSubMenu(hTreeMenu, 0);
 
 	if (GetMenuItemInfo(hMenu,3,true,&mii) == false)
 	{
-		dprintf("can't find show folders context menu\n");
+		printf("can't find show folders context menu\n");fflush(stdout);
 		return;
 	}
 
 	if (mii.hSubMenu == NULL)
 	{
-		dprintf("can't find submenu for show folders context menu\n");
+		printf("can't find submenu for show folders context menu\n");fflush(stdout);
 		return;
 	}
 
 	hMenu = mii.hSubMenu;
 
-	for (i=0;g_folderData[i].m_lpTitle;i++)
+	for (int i=0; g_folderData[i].m_lpTitle; i++)
 	{
-		TCHAR* t_title = ui_wstring_from_utf8(g_folderData[i].m_lpTitle);
-		if( !t_title )
-			return;
+		if (!g_folderData[i].m_process)
+		{
+			TCHAR* t_title = ui_wstring_from_utf8(g_folderData[i].m_lpTitle);
+			if( !t_title )
+				return;
 
-		mii.fMask = MIIM_TYPE | MIIM_ID;
-		mii.fType = MFT_STRING;
-		mii.dwTypeData = t_title;
-		mii.cch = _tcslen(mii.dwTypeData);
-		mii.wID = ID_CONTEXT_SHOW_FOLDER_START + g_folderData[i].m_nFolderId;
+			mii.fMask = MIIM_TYPE | MIIM_ID;
+			mii.fType = MFT_STRING;
+			mii.dwTypeData = t_title;
+			mii.cch = _tcslen(mii.dwTypeData);
+			mii.wID = ID_CONTEXT_SHOW_FOLDER_START + g_folderData[i].m_nFolderId;
 
+			// menu in resources has one empty item (needed for the submenu to setup properly)
+			// so overwrite this one, append after
+			if (i == 0)
+				SetMenuItemInfo(hMenu,ID_CONTEXT_SHOW_FOLDER_START,false,&mii);
+			else
+				InsertMenuItem(hMenu,i,false,&mii);
 
-		// menu in resources has one empty item (needed for the submenu to setup properly)
-		// so overwrite this one, append after
-		if (i == 0)
-			SetMenuItemInfo(hMenu,ID_CONTEXT_SHOW_FOLDER_START,false,&mii);
-		else
-			InsertMenuItem(hMenu,i,false,&mii);
-
-		free(t_title);
+			free(t_title);
+		}
 	}
-
 }
+
 
 void InitBodyContextMenu(HMENU hBodyContextMenu)
 {
-	if (Picker_GetSelectedItem(hwndList) < 0)
+	int current_game = Picker_GetSelectedItem(hwndList);
+	if (current_game < 0)
 		return;
 
-	LPTREEFOLDER lpFolder;
 	TCHAR tmp[30];
 	MENUITEMINFO mii;
 	ZeroMemory(&mii,sizeof(mii));
@@ -5948,8 +5924,8 @@ void InitBodyContextMenu(HMENU hBodyContextMenu)
 		dprintf("can't find show folders context menu\n");
 		return;
 	}
-	lpFolder = GetFolderByName(FOLDER_SOURCE, GetDriverFilename(Picker_GetSelectedItem(hwndList)) );
-	_sntprintf(tmp,ARRAY_LENGTH(tmp),TEXT("Properties for %s"),lpFolder->m_lptTitle );
+
+	_sntprintf(tmp,ARRAY_LENGTH(tmp),TEXT("Properties for %s"), ui_wstring_from_utf8(GetDriverFilename(current_game) ));
 	mii.fMask = MIIM_TYPE | MIIM_ID;
 	mii.fType = MFT_STRING;
 	mii.dwTypeData = tmp;
@@ -5960,8 +5936,7 @@ void InitBodyContextMenu(HMENU hBodyContextMenu)
 	// menu in resources has one default item
 	// so overwrite this one
 	SetMenuItemInfo(hBodyContextMenu,ID_FOLDER_SOURCEPROPERTIES,false,&mii);
-	if( ! DriverIsVector(Picker_GetSelectedItem(hwndList) ) )
-		EnableMenuItem(hBodyContextMenu, ID_FOLDER_VECTORPROPERTIES, MF_GRAYED);
+	EnableMenuItem(hBodyContextMenu, ID_FOLDER_VECTORPROPERTIES, DriverIsVector(current_game) ? MF_ENABLED : MF_GRAYED);
 }
 
 

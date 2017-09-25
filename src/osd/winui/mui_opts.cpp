@@ -129,6 +129,14 @@ void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_inde
 		mameopts.set_system_name(driver_list::driver(driver_index).name);
 }
 
+string GetGameName(uint32_t driver_index)
+{
+	if (driver_index < driver_list::total())
+		return driver_list::driver(driver_index).name;
+	else
+		return "0";
+}
+
 BOOL OptionsInit()
 {
 	// set up global options
@@ -171,13 +179,11 @@ const char * GetImageTabShortName(int tab_index)
 
 static COLORREF options_get_color(const char *name)
 {
-	const char *value_str;
 	unsigned int r = 0, g = 0, b = 0;
 	COLORREF value;
+	const string val = settings.getter(name);
 
-	value_str = settings.getter(name).c_str();
-
-	if (sscanf(value_str, "%u,%u,%u", &r, &g, &b) == 3)
+	if (sscanf(val.c_str(), "%u,%u,%u", &r, &g, &b) == 3)
 		value = RGB(r,g,b);
 	else
 		value = (COLORREF) - 1;
@@ -215,11 +221,10 @@ static void options_set_color_default(const char *name, COLORREF value, int defa
 
 static input_seq *options_get_input_seq(const char *name)
 {
-/*  static input_seq seq;
-	const char *seq_string;
-
-	seq_string = settings.getter(name).c_str();
-	input_seq_from_tokens(NULL, seq_string, &seq);  // HACK
+/*
+	static input_seq seq;
+	string val = settings.getter(name);
+	input_seq_from_tokens(NULL, seq_string.c_str(), &seq);  // HACK
 	return &seq;*/
 	return NULL;
 }
@@ -341,16 +346,6 @@ UINT GetSavedFolderID(void)
 	return (UINT) settings.int_value(MUIOPTION_DEFAULT_FOLDER_ID);
 }
 
-void SetShowExtraFolders(BOOL val)
-{
-	settings.setter(MUIOPTION_EXTRA_FOLDERS, val);
-}
-
-BOOL GetShowExtraFolders(void)
-{
-	return settings.bool_value(MUIOPTION_EXTRA_FOLDERS);
-}
-
 void SetOverrideRedX(BOOL val)
 {
 	settings.setter(MUIOPTION_OVERRIDE_REDX, val);
@@ -361,17 +356,18 @@ BOOL GetOverrideRedX(void)
 	return settings.bool_value(MUIOPTION_OVERRIDE_REDX);
 }
 
-static void GetsShowFolderFlags(LPBITS bits)
+static LPBITS GetShowFolderFlags(LPBITS bits)
 {
-	char s[2000];
-	extern const FOLDERDATA g_folderData[];
-	char *token;
-
-	snprintf(s, ARRAY_LENGTH(s), "%s", settings.getter(MUIOPTION_HIDE_FOLDERS).c_str());
-
 	SetAllBits(bits, TRUE);
 
-	token = strtok(s,",");
+	string val = settings.getter(MUIOPTION_HIDE_FOLDERS);
+	if (val.empty())
+		return bits;
+
+	extern const FOLDERDATA g_folderData[];
+	char s[val.size()+1];
+	snprintf(s, val.size()+1, "%s", val.c_str());
+	char *token = strtok(s, ",");
 	int j;
 	while (token)
 	{
@@ -385,18 +381,19 @@ static void GetsShowFolderFlags(LPBITS bits)
 		}
 		token = strtok(NULL,",");
 	}
+	return bits;
 }
 
 BOOL GetShowFolder(int folder)
 {
 	LPBITS show_folder_flags = NewBits(MAX_FOLDERS);
-	GetsShowFolderFlags(show_folder_flags);
+	show_folder_flags = GetShowFolderFlags(show_folder_flags);
 	BOOL result = TestBit(show_folder_flags, folder);
 	DeleteBits(show_folder_flags);
 	return result;
 }
 
-void SetShowFolder(int folder,BOOL show)
+void SetShowFolder(int folder, BOOL show)
 {
 	LPBITS show_folder_flags = NewBits(MAX_FOLDERS);
 	int i = 0, j = 0;
@@ -404,7 +401,7 @@ void SetShowFolder(int folder,BOOL show)
 	string str;
 	extern const FOLDERDATA g_folderData[];
 
-	GetsShowFolderFlags(show_folder_flags);
+	show_folder_flags = GetShowFolderFlags(show_folder_flags);
 
 	if (show)
 		SetBit(show_folder_flags, folder);
@@ -1573,6 +1570,7 @@ void SetUIJoyHistoryDown(int joycodeIndex, int val)
 	SetUIJoy(MUIOPTION_UI_JOY_HISTORY_DOWN, joycodeIndex, val);
 }
 
+// exec functions start: these are unsupported
 void SetUIJoyExec(int joycodeIndex, int val)
 {
 	SetUIJoy(MUIOPTION_UI_JOY_EXEC, joycodeIndex, val);
@@ -1583,11 +1581,12 @@ int GetUIJoyExec(int joycodeIndex)
 	return GetUIJoy(MUIOPTION_UI_JOY_EXEC, joycodeIndex);
 }
 
-const char * GetExecCommand(void)
+const string GetExecCommand(void)
 {
-	return settings.getter(MUIOPTION_EXEC_COMMAND).c_str();
+	return settings.getter(MUIOPTION_EXEC_COMMAND);
 }
 
+// not used
 void SetExecCommand(char *cmd)
 {
 	settings.setter(MUIOPTION_EXEC_COMMAND, cmd);
@@ -1602,10 +1601,11 @@ void SetExecWait(int wait)
 {
 	settings.setter(MUIOPTION_EXEC_WAIT, wait);
 }
+// exec functions end
 
 BOOL GetHideMouseOnStartup(void)
 {
-	return settings.bool_value( MUIOPTION_HIDE_MOUSE);
+	return settings.bool_value(MUIOPTION_HIDE_MOUSE);
 }
 
 void SetHideMouseOnStartup(BOOL hide)
@@ -2429,7 +2429,13 @@ bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
 		{
 			const char *value = curentry->value();
 			const char *comp = opts2.value(curentry->name().c_str());
-			if (value && strcmp(value, comp) != 0)
+			if (!value && !comp) // both empty, they are the same
+			{}
+			else
+			if (!value || !comp) // only one empty, they are different
+				return false;
+			else
+			if (strcmp(value, comp) != 0) // both not empty, do proper compare
 				return false;
 		}
 	}

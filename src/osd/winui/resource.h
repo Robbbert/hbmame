@@ -220,7 +220,6 @@
 #define IDC_SYNCREFRESH                 1142
 #define IDC_USE_MOUSE                   1143
 #define IDC_THROTTLE                    1144
-#define IDC_EXTRA_FOLDERS               1145
 #define IDC_VOLUMETEXT                  1146
 #define IDC_REFRESH                     1148
 #define IDC_REFRESHTEXT                 1149

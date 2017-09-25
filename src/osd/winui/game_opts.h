@@ -153,7 +153,7 @@ public:
 		std::fill(m_list.begin(), m_list.end(), driver_options{0, -1, -1, 0, 0, 0, 0});
 	}
 
-	int  rom(uint32_t index)
+	int rom(uint32_t index)
 	{
 		if (index < m_total)
 			return m_list[index].rom;
@@ -167,7 +167,7 @@ public:
 			m_list[index].rom = val;
 	}
 
-	int  sample(uint32_t index)
+	int sample(uint32_t index)
 	{
 		if (index < m_total)
 			return m_list[index].sample;

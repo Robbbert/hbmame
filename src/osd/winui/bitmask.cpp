@@ -68,7 +68,7 @@ BOOL TestBit(LPBITS lpBits, UINT nBit)
 		return FALSE;
 
 	mask = maskTable[nBit & 7];
-	return	(lpBits->m_lpBits[offset] & mask) ? TRUE : FALSE;
+	return (lpBits->m_lpBits[offset] & mask) ? TRUE : FALSE;
 }
 
 /* Set the 'nBit'th bit */

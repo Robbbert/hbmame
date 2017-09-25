@@ -240,9 +240,6 @@ BOOL GetOffsetClones(void);
 void SetSavedFolderID(UINT val);
 UINT GetSavedFolderID(void);
 
-void SetShowExtraFolders(BOOL val);
-BOOL GetShowExtraFolders(void);
-
 void SetOverrideRedX(BOOL val);
 BOOL GetOverrideRedX(void);
 
@@ -429,7 +426,7 @@ void SetUIJoyHistoryDown(int joycodeIndex, int val);
 int GetUIJoyExec(int joycodeIndex);
 void SetUIJoyExec(int joycodeIndex, int val);
 
-const char *GetExecCommand(void);
+const string GetExecCommand(void);
 void SetExecCommand(char *cmd);
 
 int GetExecWait(void);
@@ -449,6 +446,7 @@ BOOL DriverIsComputer(uint32_t driver_index);
 BOOL DriverIsConsole(uint32_t driver_index);
 BOOL DriverIsModified(uint32_t driver_index);
 BOOL DriverIsImperfect(uint32_t driver_index);
+string GetGameName(uint32_t driver_index);
 
 // from optionsms.h (MESSUI)
 

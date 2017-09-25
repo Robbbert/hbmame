@@ -342,6 +342,7 @@ IDI_WIN_NOROMS          ICON                    "res\\win_noro.ico"
 IDI_WIN_UNKNOWN         ICON                    "res\\win_unkn.ico"
 IDI_WIN_CLONE           ICON                    "res\\win_clone.ico"
 IDI_WIN_REDX            ICON                    "res\\win_redx.ico"
+IDI_WIN_IMPERFECT       ICON                    "res\\win_imp.ico"
 IDI_FOLDER_AVAILABLE    ICON                    "res\\foldavail.ico"
 IDI_FOLDER              ICON                    "res\\folder.ico"
 IDI_FOLDER_MANUFACTURER ICON                    "res\\foldmanu.ico"
@@ -368,7 +369,7 @@ IDI_HEADER_UP           ICON                    "res\\header_up.ico"
 IDI_HEADER_DOWN         ICON                    "res\\header_down.ico"
 
 IDI_WIN_NOROMSNEEDED    ICON                    "res\\win_nrnd.ico"
-IDI_WIN_MISSINGOPTROM	ICON                    "res\\win_noor.ico"
+IDI_WIN_MISSINGOPTROM   ICON                    "res\\win_noor.ico"
 IDI_WIN_FLOP            ICON                    "res\\win_flop.ico"
 IDI_WIN_CASS            ICON                    "res\\win_cass.ico"
 IDI_WIN_SERL            ICON                    "res\\win_serl.ico"
@@ -1074,7 +1075,7 @@ BEGIN
     CONTROL         "&Search for new machines on start",IDC_START_GAME_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,16,120,10,0,HIDC_START_GAME_CHECK
     CONTROL         "Allow selection by &joystick (requires restart)",IDC_JOY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,180,10,0,HIDC_JOY_GUI
     CONTROL         "Allow selection by custom &key sequences",IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,176,10
-    CONTROL         "Display extra folders (CPU, FPS, etc)",IDC_EXTRA_FOLDERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,58,176,10
+    CONTROL         "Override Not Working icon with driver icon",IDC_OVERRIDE_REDX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,72,168,10
     CONTROL         "Hide &mouse cursor (requires restart)",IDC_HIDE_MOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,136,10,0,HIDC_HIDE_MOUSE
     CONTROL         "Inheritable Filters",IDC_FILTER_INHERIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,100,68,10
     CONTROL         "No offset for clones missing parent in view",IDC_NOOFFSET_CLONES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,114,148,10
