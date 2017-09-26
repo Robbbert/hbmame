@@ -258,8 +258,8 @@ BOOL GetShowTabCtrl(void);
 void SetCurrentTab(int val);
 int GetCurrentTab(void);
 
-void SetDefaultGame(int val);
-int GetDefaultGame(void);
+void SetDefaultGame(uint32_t val);
+uint32_t GetDefaultGame(void);
 
 void SetWindowArea(const AREA *area);
 void GetWindowArea(AREA *area);
@@ -442,6 +442,7 @@ uint32_t GetDriverCacheLower(uint32_t driver_index);
 uint32_t GetDriverCacheUpper(uint32_t driver_index);
 void SetDriverCache(uint32_t driver_index, uint32_t val);
 BOOL RequiredDriverCache(void);
+void ForceRebuild(void);
 BOOL DriverIsComputer(uint32_t driver_index);
 BOOL DriverIsConsole(uint32_t driver_index);
 BOOL DriverIsModified(uint32_t driver_index);

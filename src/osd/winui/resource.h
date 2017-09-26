@@ -387,6 +387,7 @@
 #define ID_VIEW_BYTIMESPLAYED           40039
 #define ID_VIEW_LINEUPICONS             40040
 #define ID_UPDATE_GAMELIST              40042
+#define ID_UPDATE_CACHE                 40043
 #define ID_SORT_ASCENDING               40045
 #define ID_SORT_DESCENDING              40046
 #define ID_CUSTOMIZE_FIELDS             40048

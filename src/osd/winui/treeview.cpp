@@ -1578,11 +1578,14 @@ BOOL InitFolders(void)
 	// built-in top level folders
 	for (i = 0; g_lpFolderData[i].m_lpTitle; i++)
 	{
-		LPCFOLDERDATA fData = &g_lpFolderData[i];
-		/* get the saved folder flags */
-		dwFolderFlags = GetFolderFlags(numFolders);
-		/* create the folder */
-		AddFolder(NewFolder(fData->m_lpTitle, fData->m_nFolderId, -1, fData->m_nIconId, dwFolderFlags));
+		if (RequiredDriverCache() || (!RequiredDriverCache() && !g_lpFolderData[i].m_process))
+		{
+			LPCFOLDERDATA fData = &g_lpFolderData[i];
+			/* get the saved folder flags */
+			dwFolderFlags = GetFolderFlags(numFolders);
+			/* create the folder */
+			AddFolder(NewFolder(fData->m_lpTitle, fData->m_nFolderId, -1, fData->m_nIconId, dwFolderFlags));
+		}
 	}
 
 	numExtraFolders = InitExtraFolders();
@@ -1590,12 +1593,17 @@ BOOL InitFolders(void)
 	for (i = 0; i < numExtraFolders; i++)
 	{
 		LPEXFOLDERDATA  fExData = ExtraFolderData[i];
-
 		// OR in the saved folder flags
 		dwFolderFlags = fExData->m_dwFlags | GetFolderFlags(numFolders);
-		// create the folder
-		//dprintf("creating top level custom folder with icon %i\n",fExData->m_nIconId);
-		AddFolder(NewFolder(fExData->m_szTitle,fExData->m_nFolderId,fExData->m_nParent, fExData->m_nIconId,dwFolderFlags));
+		// create the folder, but if we are building the cache, the name must not be a pre-built one
+		int k = 0;
+		if (RequiredDriverCache())
+			for (int j = 0; g_lpFolderData[j].m_lpTitle; j++)
+				if (strcmp(fExData->m_szTitle, g_lpFolderData[j].m_lpTitle)==0)
+					k++;
+
+		if (k == 0)
+			AddFolder(NewFolder(fExData->m_szTitle,fExData->m_nFolderId,fExData->m_nParent, fExData->m_nIconId,dwFolderFlags));
 	}
 
 // creates child folders of all the top level folders, including custom ones
@@ -2442,29 +2450,41 @@ static void SaveExternalFolders(int parent_index, const char *fname)
 	char s[val.size()+1];
 	strcpy(s, val.c_str());
 	char *fdir = strtok(s, ";"); // get first dir
-	string filename = fdir + string("\\") + fname + string(".ini");
 
-	int i = 0;
-	LPTREEFOLDER lpFolder = treeFolders[parent_index];
-	TREEFOLDER *folder_data;
-
+	// create directory if needed
 	wchar_t *temp = ui_wstring_from_utf8(fdir);
-	CreateDirectory(temp, NULL);
+	BOOL res = CreateDirectory(temp, NULL);
 	free(temp);
+	if (!res)
+	{
+		if (GetLastError() == ERROR_PATH_NOT_FOUND)
+		{
+			printf("SaveExternalFolders: Unable to create the directory \"%s\".\n",fdir);
+			return;
+		}
+	}
+
+	// create/truncate file
+	string filename = fdir + string("\\") + fname + string(".ini");
 	FILE *f = fopen(filename.c_str(), "w");
-
 	if (f == NULL)
+	{
+		printf("SaveExternalFolders: Unable to open file %s for writing.\n",filename.c_str());
 		return;
+	}
 
+	// Populate the file
 	fprintf(f, "[FOLDER_SETTINGS]\n");
 	fprintf(f, "RootFolderIcon custom\n");
 	fprintf(f, "SubFolderIcon custom\n");
 
 	/* need to loop over all our TREEFOLDERs--first the root one, then each child.
 	start with the root */
-	folder_data = lpFolder;
+	LPTREEFOLDER lpFolder = treeFolders[parent_index];
+	TREEFOLDER *folder_data = lpFolder;
 	fprintf(f, "\n[ROOT_FOLDER]\n");
 
+	int i;
 	for (i = 0; i < driver_list::total(); i++)
 	{
 		if (TestBit(folder_data->m_lpGameBits, i))
@@ -2489,6 +2509,7 @@ static void SaveExternalFolders(int parent_index, const char *fname)
 	}
 
 	fclose(f);
+	printf("SaveExternalFolders: Saved file %s.\n",filename.c_str());
 }
 
 /* End of source file */

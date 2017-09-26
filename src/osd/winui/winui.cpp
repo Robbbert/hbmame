@@ -3613,6 +3613,20 @@ static void UpdateGameList(BOOL bUpdateRomAudit, BOOL bUpdateSampleAudit)
 	Picker_ResetIdle(hwndList);
 }
 
+static void UpdateCache()
+{
+	int current_id = GetCurrentFolderID(); // remember selected folder
+	SetWindowRedraw(hwndList, false);   // stop screen updating
+	ForceRebuild();          // tell system that cache needs redoing
+	(void)OptionsInit();      // reload options and fix game cache
+	//extern const FOLDERDATA g_folderData[];
+	//extern const FILTER_ITEM g_filterList[];
+	//InitTree(g_folderData, g_filterList);         // redo folders... This crashes, leave out for now
+	ResetTreeViewFolders();                      // something with folders
+	SelectTreeViewFolder(current_id);            // select previous folder
+	SetWindowRedraw(hwndList, true);             // refresh screen
+}
+
 UINT_PTR CALLBACK CFHookProc(
   HWND hdlg,      // handle to dialog box
   UINT uiMsg,     // message identifier
@@ -4134,6 +4148,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_UPDATE_GAMELIST:
 		UpdateGameList(true, true);
+		break;
+
+	case ID_UPDATE_CACHE:
+		UpdateCache();
 		break;
 
 	case ID_OPTIONS_FONT:

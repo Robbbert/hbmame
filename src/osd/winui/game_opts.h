@@ -236,6 +236,11 @@ public:
 		return m_rebuild;
 	}
 
+	void force_rebuild()
+	{
+		m_rebuild = true;
+	}
+
 	void load_file(const char *filename)
 	{
 		std::ifstream infile (filename);
