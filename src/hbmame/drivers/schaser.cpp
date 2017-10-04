@@ -29,6 +29,7 @@ Changes:
 #include "emu.h"
 #include "cpu/i8085/i8085.h"
 #include "machine/mb14241.h"
+#include "machine/timer.h"
 #include "sound/sn76477.h"
 #include "sound/discrete.h"
 #include "screen.h"
