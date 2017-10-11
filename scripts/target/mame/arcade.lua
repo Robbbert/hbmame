@@ -550,6 +550,7 @@ MACHINES["SCUDSP"] = true
 --MACHINES["SECFLASH"] = true
 MACHINES["SERFLASH"] = true
 MACHINES["SMC91C9X"] = true
+MACHINES["SEGA_SCU"] = true
 MACHINES["SMPC"] = true
 MACHINES["STVCD"] = true
 MACHINES["TC0091LVC"] = true
@@ -3409,6 +3410,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/seibuspi.cpp",
 	MAME_DIR .. "src/mame/includes/seibuspi.h",
 	MAME_DIR .. "src/mame/video/seibuspi.cpp",
+	MAME_DIR .. "src/mame/drivers/seibucats.cpp",
 	MAME_DIR .. "src/mame/drivers/sengokmj.cpp",
 	MAME_DIR .. "src/mame/drivers/stfight.cpp",
 	MAME_DIR .. "src/mame/video/stfight_dev.cpp",
@@ -3679,6 +3681,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/gladiatr.cpp",
 	MAME_DIR .. "src/mame/includes/gladiatr.h",
 	MAME_DIR .. "src/mame/video/gladiatr.cpp",
+	MAME_DIR .. "src/mame/drivers/gokidetor.cpp",
 	MAME_DIR .. "src/mame/drivers/grchamp.cpp",
 	MAME_DIR .. "src/mame/includes/grchamp.h",
 	MAME_DIR .. "src/mame/audio/grchamp.cpp",
