@@ -267,7 +267,7 @@ public:
 					t = 3;
 				m_cache = t;
 				// BIT 2 = SWAP_XY
-				t = ((info.machine_flags() & machine_flags::MASK_ORIENTATION) == machine_flags::SWAP_XY) ? 0x0004 : 0;
+				t = (drv->flags & ORIENTATION_SWAP_XY) ? 0x0004 : 0;
 				m_cache |= t;
 				// BIT 6 = NOT_WORKING
 				t = (info.machine_flags() & machine_flags::NOT_WORKING) ? 0x0040 : 0;
