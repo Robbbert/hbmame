@@ -27,9 +27,9 @@ TIMER_CALLBACK_MEMBER(cps3_hbmame::fastboot_timer_callback)
 {
 	uint32_t *rom =  (uint32_t*)m_decrypted_gamerom;
 
-	m_maincpu->set_state_int(SH2_PC, rom[0]);
-	m_maincpu->set_state_int(SH2_R15, rom[1]);
-	m_maincpu->set_state_int(SH2_VBR, 0x6000000);
+	m_maincpu->set_state_int(SH4_PC, rom[0]);
+	m_maincpu->set_state_int(SH4_R15, rom[1]);
+	m_maincpu->set_state_int(SH4_VBR, 0x6000000);
 }
 
 void cps3_hbmame::hb_unscramble()
