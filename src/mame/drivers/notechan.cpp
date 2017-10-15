@@ -157,14 +157,6 @@
   Technical info:
 
 
-  Error codes:
-
-  E0 - PCB error, check ROM/RAM.
-  E1 - Home position sensor error.
-  E2 - Output sensor error.
-  C0 - Freebie / Giveaway (??).
-
-
   DIP Switches:
 
   +-----------------------------------+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -225,10 +217,10 @@
 
   Letter and number displayed alternately on the play count display.
 
-  C0 and prize out LED      Prizes out.
-  E0                        PCB failure.
-  E1                        Home position sensor failure.
-  E2                        Output sensor failure.
+  C0 (and prize out LED):   Prizes out.
+  E0:                       PCB failure, check ROM/RAM.
+  E1:                       Home position sensor failure.
+  E2:                       Output sensor failure.
 
 -------------------------------------------------------------------
 
@@ -431,9 +423,9 @@ static INPUT_PORTS_START( notechan )
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-1") PORT_CODE(KEYCODE_A)  // Note (1)
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-2") PORT_CODE(KEYCODE_S)  // Note (2)
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-3") PORT_CODE(KEYCODE_D)  // Note (3)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-4") PORT_CODE(KEYCODE_F)
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-5") PORT_CODE(KEYCODE_G)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-6") PORT_CODE(KEYCODE_H)
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-4") PORT_CODE(KEYCODE_F)  // ↘
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-5") PORT_CODE(KEYCODE_G)  //  ⇒ Note (4)
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-6") PORT_CODE(KEYCODE_H)  // ↗
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-7") PORT_CODE(KEYCODE_J)
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("2-8") PORT_CODE(KEYCODE_K)
 
@@ -464,6 +456,9 @@ static INPUT_PORTS_START( notechan )
 
   (3) Pulsing this input activates port FAh-D1 (lamp 17) and triggers sample #01 (cling).
       Maybe it's the 'coin-in' button.
+
+  (4) Pulsing these three lines together (D3-D4-D5) trigger a partial sample (not recog-
+      nized) constantly.
 
 */
 	PORT_START("DSW")
