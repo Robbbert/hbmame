@@ -8711,6 +8711,7 @@ bishi                           // GX575 (c) 1996 (Japan)
 sbishi                          // GX675 (c) 1998 (Japan)
 sbishik                         // GX675 (c) 1998 (Korea)
 sbishika                        // GX675 (c) 1998 (Korea)
+dobouchn                        // 
 
 @source:bitgraph.cpp
 bitgrpha                        //
@@ -8961,6 +8962,7 @@ zavigaj                         // (c)
 blackjck                        //
 bowarrow                        //
 eightbll                        //
+eightblo                        //
 evelknie                        //
 freedom                         //
 matahari                        //
@@ -8976,6 +8978,7 @@ blakpyra                        //
 blbeauty                        //
 bmx                             //
 bullseye                        //
+bullseyn                        //
 centaur                         //
 cobrap                          //
 cosflash                        //
@@ -12563,6 +12566,7 @@ feagv11                         //
 feagv2                          //
 feagv2a                         //
 feagv7                          //
+feagv7a                         //
 feagv9                          //
 fex68k                          //
 fex68km2                        //
@@ -14869,6 +14873,7 @@ homez80                         //
 
 @source:horizon.cpp
 nshrz                           //
+nshrz2mhz                       //
 vector1                         //
 
 @source:hornet.cpp
@@ -17118,6 +17123,7 @@ kaypro4a                        // Kaypro 4 - 4/84
 kaypro4p88                      // Kaypro 4 - 4/83 w/plus88 board installed
 kayproii                        // Kaypro II - 2/83
 omni2                           // Omni II
+omni4							// Omni 4
 robie                           // Kaypro Robie
 
 @source:kc.cpp
@@ -17612,6 +17618,7 @@ teamqb2                         // (c) 1988 Leland
 upyoural                        // (c) 1987 Cinematronics
 viper                           // (c) 1988 Leland
 wseries                         // (c) 1985 Cinematronics
+wseries0                        // (c) 1985 Cinematronics
 asylum                          // (c) 1991 Leland
 ataxx                           // (c) 1990 Leland
 ataxxa                          // (c) 1990 Leland
@@ -34940,6 +34947,7 @@ princess                        //
 stars                           //
 stingray                        //
 trident                         //
+tridento                        //
 wildfyre                        //
 
 @source:st_mp200.cpp
@@ -34948,6 +34956,7 @@ biggame                         //
 blkshpsq                        //
 catacomp                        //
 cheetah                         //
+cheetahb                        //
 dragfist                        //
 flight2k                        //
 freefall                        //
@@ -35012,10 +35021,26 @@ tomcatsw                        // (proto)          (c) 1983
 @source:statriv2.cpp
 bbchall                         // (c) 1986 Status Games
 bigcsino                        // (c) 1984 Status Games
-cstrip                          // (c) 1984 Status Games
-cstripix                        // (c) 1985 Status Games
-cstripviii                      // (c) 1985 Status Games
-cstripxi                        // (c) 1988 Status Games
+cs1_spp                         //
+cs1_spp2                        //
+cs10_sps                        //
+cs11_sps                        //
+cs11_sps2                       //
+cs11_ssp                        //
+cs12_sps                        //
+cs2_sps                         //
+cs3_qps                         //
+cs5_spp                         //
+cs5_ssp                         //
+cs6_sps                         //
+cs6_ssp                         //
+cs8_spp                         //
+cs8_sps                         //
+cs8_ssp                         //
+cs9_qps                         //
+cs9_spp                         //
+cspe_qps                        //
+csv1_qps                        //
 funcsino                        // (c) 1981 Status Games
 hangman                         // (c) 1984 Status Games
 nsupertr3                       // (c) 1988 Status Games
