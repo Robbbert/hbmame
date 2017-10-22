@@ -2673,19 +2673,26 @@ void voodoo_device::raster_##name(void *destbase, int32_t y, const poly_extent *
 		}                                                                       \
 																				\
 		/* X clipping */                                                        \
+		tempclip = vd->reg[clipLeftRight].u & 0x3ff;                             \
+		/* Check for start outsize of clipping boundary */                        \
+		if (startx >= tempclip)                                                  \
+		{                                                                       \
+			stats->pixels_in += stopx - startx;                               \
+			vd->stats.total_clipped += stopx - startx;                         \
+			return;                                               \
+		}                                                                       \
+		if (stopx > tempclip)                                                  \
+		{                                                                       \
+			stats->pixels_in += stopx - tempclip;                               \
+			vd->stats.total_clipped += stopx - tempclip;                         \
+			stopx = tempclip;                                               \
+		}                                                                       \
 		tempclip = (vd->reg[clipLeftRight].u >> 16) & 0x3ff;                     \
 		if (startx < tempclip)                                                  \
 		{                                                                       \
 			stats->pixels_in += tempclip - startx;                              \
 			vd->stats.total_clipped += tempclip - startx;                        \
 			startx = tempclip;                                                  \
-		}                                                                       \
-		tempclip = vd->reg[clipLeftRight].u & 0x3ff;                             \
-		if (stopx >= tempclip)                                                  \
-		{                                                                       \
-			stats->pixels_in += stopx - tempclip;                               \
-			vd->stats.total_clipped += stopx - tempclip;                         \
-			stopx = tempclip - 1;                                               \
 		}                                                                       \
 	}                                                                           \
 																				\
@@ -2766,12 +2773,12 @@ void voodoo_device::raster_##name(void *destbase, int32_t y, const poly_extent *
 		if (ALPHAMODE_ALPHATEST(ALPHAMODE))                                              \
 			if (!alphaTest(vd->reg[alphaMode].rgb.a, stats, ALPHAMODE, color.get_a()))   \
 				goto skipdrawdepth;                                                      \
-		                                                                                 \
+																						 \
 		/* perform fogging */                                                            \
 		preFog.set(color);                                                               \
 		if (FOGMODE_ENABLE_FOG(FOGMODE))                                                                         \
 			applyFogging(vd, FBZMODE, FOGMODE, FBZCOLORPATH, x, dither4, wfloat, color, iterz, iterw, iterargb); \
-																				                                 \
+																												 \
 		/* perform alpha blending */                                                \
 		if (ALPHAMODE_ALPHABLEND(ALPHAMODE))                                                            \
 			alphaBlend(FBZMODE, ALPHAMODE, x, dither, dest[x], depth, preFog, color, vd->fbi.rgb565); \

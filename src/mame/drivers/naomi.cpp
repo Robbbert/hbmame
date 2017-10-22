@@ -1217,7 +1217,7 @@ D4564323        - NEC uPD4564323G5-A10 512K x 32 x 4 (64MBit) SDRAM (SSOP86)
 D4721           - NEC uPD4721 RS232 Line Driver Receiver IC (SSOP20)
 PCM1725U        - Burr-Brown PCM1725U 16Bit Digital to Analog Converter (SOIC14)
 2100            - New Japan Radio Co. Ltd. NJM2100 Dual Op Amp (SOIC8)
-ROMEO           - Sammy AX0201A01 'ROMEO' 4111-00000501 0250 K13 custom ASIC (TQFP100)
+ROMEO           - Sammy AX0201A01 'ROMEO' 4111-00000501 0250 K13 rebadged Fujitsu MBCG61723P-102 TP2H50 - CG61P series CMOS Gate Array ASIC (TQFP100)
 315-6232        - SEGA 315-6232 custom ASIC (QFP100)
 315-6258        - SEGA 315-6258 custom ASIC (QFP56)
 315-6267        - SEGA 315-6267 custom ASIC (BGAxxx)
@@ -1956,7 +1956,7 @@ static ADDRESS_MAP_START( aw_map, AS_PROGRAM, 64, atomiswave_state )
 	AM_RANGE(0x08000000, 0x0bffffff) AM_NOP // 'Unassigned'
 
 	/* Area 3 */
-	AM_RANGE(0x0c000000, 0x0cffffff) AM_RAM AM_SHARE("dc_ram") 
+	AM_RANGE(0x0c000000, 0x0cffffff) AM_RAM AM_SHARE("dc_ram")
 	AM_RANGE(0x0d000000, 0x0dffffff) AM_RAM AM_SHARE("dc_ram") // extra ram on Naomi (mirror on DC)
 	AM_RANGE(0x0e000000, 0x0effffff) AM_RAM AM_SHARE("dc_ram") // mirror
 	AM_RANGE(0x0f000000, 0x0fffffff) AM_RAM AM_SHARE("dc_ram") // mirror
@@ -2699,9 +2699,9 @@ MACHINE_RESET_MEMBER(naomi_state,naomi)
 	MCFG_CPU_PROGRAM_MAP(naomi_map)
 	MCFG_CPU_IO_MAP(naomi_port)
 	MCFG_CPU_FORCE_NO_DRC()
-	
+
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", dc_state, dc_scanline, "screen", 0, 1)
-	
+
 	MCFG_CPU_ADD("soundcpu", ARM7, ((XTAL_33_8688MHz*2)/3)/8)   // AICA bus clock is 2/3rds * 33.8688.  ARM7 gets 1 bus cycle out of each 8.
 	MCFG_CPU_PROGRAM_MAP(dc_audio_map)
 
@@ -10212,6 +10212,7 @@ ROM_END
 /* 0170    */ GAME( 2007, pokasuka,  manicpnc, naomim4, naomi,   naomi_state, naomi,   ROT0, "Sega", "Pokasuka Ghost! (Japan)", GAME_FLAGS )
 /* 0175    */ GAME( 2007, asndynmt,  naomi,    naomim4, naomi,   naomi_state, naomi,   ROT0, "Sega", "Asian Dynamite / Dynamite Deka EX", GAME_FLAGS )
 /* 0177    */ GAME( 2007, rhytngk,   naomi,    naomim4, naomi,   naomi_state, naomi,   ROT0, "Sega / Nintendo - J.P ROOM", "Rhythm Tengoku (Japan)", GAME_FLAGS )
+// 0180 Mushiking IV (World)
 /* 0186    */ GAME( 2009, shorsepr,  naomi,    naomim4, naomi,   naomi_state, naomi,  ROT270,"Sega", "Star Horse Progress Returns (satellite)", GAME_FLAGS )
 // 0xxx Mushiking 2K3 1ST (Japan)
 // 0xxx Mushiking 2K4 1ST (Japan)

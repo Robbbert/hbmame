@@ -664,6 +664,7 @@ BUSES["ECONET"] = true
 BUSES["ELECTRON"] = true
 BUSES["EP64"] = true
 BUSES["EPSON_SIO"] = true
+BUSES["GAMATE"] = true
 BUSES["GAMEBOY"] = true
 BUSES["GAMEGEAR"] = true
 BUSES["GBA"] = true
@@ -3467,8 +3468,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/fk1.cpp",
 	MAME_DIR .. "src/mame/drivers/ft68m.cpp",
 	MAME_DIR .. "src/mame/drivers/gamate.cpp",
-	MAME_DIR .. "src/mame/audio/gamate.cpp",
-	MAME_DIR .. "src/mame/audio/gamate.h",
+	MAME_DIR .. "src/mame/video/gamate.cpp",
+	MAME_DIR .. "src/mame/video/gamate.h",
 	MAME_DIR .. "src/mame/drivers/gameking.cpp",
 	MAME_DIR .. "src/mame/drivers/gimix.cpp",
 	MAME_DIR .. "src/mame/drivers/goupil.cpp",
