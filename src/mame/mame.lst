@@ -300,6 +300,9 @@ ac1scch                         // 1984 Amateurcomputer AC1 SCCH
 @source:accomm.cpp
 accomm                          // 1986 Acorn Computer
 
+@source:acd.cpp
+acd                             //
+
 @source:aceex.cpp
 aceex2814
 
@@ -1087,6 +1090,9 @@ al8800bt                        //
 @source:alto2.cpp
 alto2                           //
 
+@source:altos2.cpp
+altos2                          // Altos II terminal
+
 @source:altos5.cpp
 altos5                          //
 
@@ -1180,6 +1186,9 @@ videomat                        // 1990 bootleg
 
 @source:ampro.cpp
 ampro                           //
+
+@source:ampscarp.cpp
+ampscarp                        // Motorola Amps Car Phone
 
 @source:amspdwy.cpp
 amspdwy                         // no copyright notice, but (c) 1987 Enerdyne Technologies, Inc.
@@ -2483,6 +2492,7 @@ laststar                        // (proto)          (c) 1984
 antiairc                        // (c) 1975 Atari
 crashnsc                        // (c) 1975 Atari
 gtrak10                         // (c) 1974 Atari / Kee
+gtrak10a                        // (c) 1974 Atari / Kee
 gtrak20                         // (c) 1974 Atari / Kee
 indy4                           // (c) 1976 Atari / Kee
 indy800                         // (c) 1975 Atari / Kee
@@ -2561,7 +2571,8 @@ tajmah                          // Tajmahal
 att4425                         //
 
 @source:attache.cpp
-attache                         //
+attache                         // (c) 1982 Otrona
+attache816                      // (c) 1983 Otrona
 
 @source:attckufo.cpp
 attckufo                        // (c) 1980 Ryoto Electric Co.
@@ -9785,7 +9796,7 @@ cocoe                           // Color Computer (Extended BASIC 1.0)
 cp400                           // Prologica CP400
 lzcolor64                       // Digiponto LZ Color64
 mx1600                          // Dynacom MX-1600
-t4426                           // Terco T4426 CNC programming station
+t4426                           // Terco 4426 CNC programming station
 
 @source:coco3.cpp
 coco3                           // Color Computer 3 (NTSC)
@@ -10614,6 +10625,7 @@ tsarevna                        //
 tsarevnaa                       //
 
 @source:cv1k.cpp
+akatana                         // (c) 2010 Cave (AMI license) - 2010/ 8/13 MASTER VER.
 ddpdfk                          // (c) 2008 Cave (AMI license) - 2008/06/23  MASTER VER 1.5
 ddpdfk10                        // (c) 2008 Cave (AMI license) - 2008/05/16  MASTER VER
 deathsml                        // (c) 2007 Cave (AMI license) - 2007/10/09 MASTER VER
@@ -12082,7 +12094,6 @@ egghunt                         // (c) 1995 Invi Image
 
 @source:einstein.cpp
 einst256                        //
-einstei2                        //
 einstein                        //
 
 @source:electra.cpp
@@ -13590,6 +13601,7 @@ pwrflip                         // (c) 1994 Excellent System
 amuse                           // (c) 1982 Greyhound Electronics
 amuse1                          // (c) 1982 Greyhound Electronics
 amuse1a                         // (c) 1983 Greyhound Electronics
+bigjoke                         // (c) 1987 Greyhound Electronics
 findout                         // (c) 1987 [Elettronolo]
 geimulti                        // (c) 1992 Grayhound Electronics
 gepoker                         // (c) 1984 Greyhound Electronics
@@ -14542,6 +14554,9 @@ hg_frd                          // Fruit Deuce
 @source:hazeltin.cpp
 hazl1500                        // Hazeltine 1500 (c) 1977
 
+@source:hazeltine.cpp
+hazeltine                       // Hazeltine Esprit
+
 @source:hcastle.cpp
 akumajou                        // GX768 (c) 1988 (Japan)
 akumajoun                       // GX768 (c) 1988 (Japan)
@@ -15203,7 +15218,11 @@ hector1                         //
 interact                        //
 
 @source:interpro.cpp
-ip2800                          // Intergraph InterPro 28xx workstation
+ip2000                          // Intergraph InterPro/InterServe 20x0
+ip2400                          // Intergraph InterPro/InterServe 24x0
+ip2500                          // Intergraph InterPro/InterServe 25x0
+ip2700                          // Intergraph InterPro/InterServe 27x0
+ip2800                          // Intergraph InterPro/InterServe 28x0
 
 @source:intrscti.cpp
 intrscti                        // ????
@@ -17684,6 +17703,9 @@ yellowcbj                       // (c) 1984
 @source:liberatr.cpp
 liberatr                        // 136012           (c) 1982
 liberatr2                       // 136012           (c) 1982
+
+@source:lilith.cpp
+lilith                          //
 
 @source:limenko.cpp
 dynabomb                        // (c) 2000 Limenko
@@ -30993,6 +31015,9 @@ pexmp022                        // (c) 1997 IGT - International Game Technology
 pexmp026                        // (c) 1997 IGT - International Game Technology
 pexmp030                        // (c) 1997 IGT - International Game Technology
 
+@source:perq.cpp
+perq                            //
+
 @source:pes.cpp
 pes                             //
 
@@ -31723,6 +31748,9 @@ powerinsb                       // (c) 1993 Atlus (bootleg of USA version)
 powerinsj                       // (c) 1993 Atlus (Japan)
 powerinsp                       // prototype
 
+@source:powerstack.cpp
+powerstk                        // Motorola Powerstack II
+
 @source:pp01.cpp
 pp01                            //
 
@@ -31974,6 +32002,7 @@ daraku                          // (c) 1998
 dragnblz                        // (c) 2000
 gnbarich                        // (c) 2001
 gunbird2                        // (c) 1998
+gunbird2a                       // (c) 1998
 mjgtaste                        // (c) 2002
 s1945ii                         // (c) 1997
 s1945iii                        // (c) 1999
@@ -34654,6 +34683,9 @@ sorcererd                       // Sorcerer with floppies
 @source:sothello.cpp
 sothello                        // (c) 1986 Success / Fujiwara.
 
+@source:solbourne.cpp
+sols5e                          // Solbourne Series 5E computer workstation
+
 @source:spacefb.cpp
 spacebrd                        // bootleg
 spacedem                        // (c) 1980 Fortrek + made by Nintendo
@@ -36220,6 +36252,9 @@ temptube                        // (hack)
 @source:terak.cpp
 terak                           //
 
+@source:terco.cpp
+t4490                           // Terco 4490 Mill CNC Control (c) 1986
+
 @source:terracre.cpp
 amatelas                        // (c) 1986
 amazon                          // (c) 1986
@@ -36893,6 +36928,10 @@ trs80l2                         // TRS-80 Model I - Level II BASIC
 trs80m3                         // TRS-80 Model III - Radio Shack/Tandy
 trs80m4                         //
 trs80m4p                        //
+cp500                           // Prologica CP500
+
+@source:trs80dt1.cpp
+trs80dt1                        // TRS-80 Data Terminal 1
 
 @source:trs80m2.cpp
 trs80m16                        //
@@ -36924,6 +36963,9 @@ ts803h                          //
 @source:ts816.cpp
 ts816                           //
 
+@source:ts3000.cpp
+ts3000                          // Televideo TS-3000
+
 @source:tsamurai.cpp
 alphaxz                         // AZ  (c) 1986 Ed/Wood Place
 ladymstr                        // A49 (c) 1985 Taito
@@ -36947,6 +36989,9 @@ prose2ko                        //
 @source:ttchamp.cpp
 ttchamp                         //
 ttchampa                        //
+
+@source:tti.cpp
+tti                             //
 
 @source:tubep.cpp
 rjammer                         // (c) 1984 + Alice
@@ -37286,6 +37331,9 @@ vector4                         //
 @source:vectrex.cpp
 raaspec                         // (c) Roy Abel & Associates 1984
 vectrex                         // General Consumer Electric Vectrex - 1982-1984
+
+@source:vectrix.cpp
+vectrix                         // (c) 19?? Olympia?
 
 @source:vega.cpp
 vega                            // (c) 19?? Olympia?
@@ -38473,6 +38521,9 @@ wwfsstaru7                      // TA-0024 (c) 1989 (US, newer)
 wwfsstaru6                      // TA-0024 (c) 1989 (US)
 wwfsstaru4                      // TA-0024 (c) 1989 (US)
 
+@source:wyse.cpp
+wyse                            //
+
 @source:wyvernf0.cpp
 wyvernf0                        // A39 (c) 1985 Taito Corporation (Japan)
 
@@ -38863,6 +38914,9 @@ zrt80                           //
 
 @source:zsbc3.cpp
 zsbc3                           //
+
+@source:zt8802.cpp
+zt8802                          // (c) 19?? Olympia?
 
 @source:zwackery.cpp
 zwackery                        // (c) 1984
