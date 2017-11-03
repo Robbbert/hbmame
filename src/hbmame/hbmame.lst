@@ -566,8 +566,8 @@ ffightbla
 kodb
 
 	/* flower */
-flower
-flowerj
+//flower
+//flowerj
 
 	/* galaga */
 galaga		//parent
@@ -1502,7 +1502,7 @@ superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
 	/* marinedt */
-marinedt
+//marinedt
 
 	/* mario */
 mario		//parent
