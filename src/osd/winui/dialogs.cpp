@@ -41,10 +41,38 @@
 #define snprintf _snprintf
 #endif
 
+static struct ComboBoxHistoryTab
+{
+	const wchar_t*	m_pText;
+	const int		m_pData;
+} g_ComboBoxHistoryTab[] = 
+{
+	{ TEXT("Artwork"),			TAB_ARTWORK },
+	{ TEXT("Boss"),				TAB_BOSSES },
+	{ TEXT("Cabinet"),			TAB_CABINET },
+	{ TEXT("Control Panel"),	TAB_CONTROL_PANEL },
+	{ TEXT("Cover"),			TAB_COVER },
+	{ TEXT("End"),				TAB_ENDS },
+	{ TEXT("Flyer"),			TAB_FLYER },
+	{ TEXT("Game Over"),		TAB_GAMEOVER },
+	{ TEXT("How To"),			TAB_HOWTO },
+	{ TEXT("Logo"),				TAB_LOGO },
+	{ TEXT("Marquee"),			TAB_MARQUEE },
+	{ TEXT("PCB"),				TAB_PCB },
+	{ TEXT("Scores"),			TAB_SCORES },
+	{ TEXT("Select"),			TAB_SELECT },
+	{ TEXT("Snapshot"),			TAB_SCREENSHOT },
+	{ TEXT("Title"),			TAB_TITLE },
+	{ TEXT("Versus"),			TAB_VERSUS },
+	{ TEXT("All"),				TAB_ALL },
+	{ TEXT("None"),				TAB_NONE }
+};
+
 
 static string g_FilterText;
 
 #define NUM_EXCLUSIONS  12
+#define NUMHISTORYTAB   ARRAY_LENGTH(g_ComboBoxHistoryTab)
 
 /* Pairs of filters that exclude each other */
 static DWORD filterExclusion[NUM_EXCLUSIONS] =
@@ -167,7 +195,6 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 	BOOL bRedrawList = false;
 	int nCurSelection = 0;
 	int nHistoryTab = 0;
-	int nTabCount = 0;
 	int nPatternCount = 0;
 	int value = 0;
 
@@ -190,30 +217,18 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 		Button_SetCheck(GetDlgItem(hDlg,IDC_STRETCH_SCREENSHOT_LARGER), GetStretchScreenShotLarger());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_FILTER_INHERIT), GetFilterInherit());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_NOOFFSET_CLONES), GetOffsetClones());
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Snapshot"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_SCREENSHOT);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Flyer"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_FLYER);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Cabinet"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_CABINET);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Marquee"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_MARQUEE);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Title"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_TITLE);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("Control Panel"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_CONTROL_PANEL);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("PCB"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_PCB);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("All"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_ALL);
-		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_HISTORY_TAB), TEXT("None"));
-		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), nTabCount++, TAB_NONE);
-		if (GetHistoryTab() < MAX_TAB_TYPES) {
+
+		for (int i = 0; i < NUMHISTORYTAB; i++)
+		{
+			(void)ComboBox_InsertString(GetDlgItem(hDlg, IDC_HISTORY_TAB), i, g_ComboBoxHistoryTab[i].m_pText);
+			(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_HISTORY_TAB), i, g_ComboBoxHistoryTab[i].m_pData);
+		}
+
+		if (GetHistoryTab() < MAX_TAB_TYPES)
 			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_HISTORY_TAB), GetHistoryTab());
-		}
-		else {
+		else
 			(void)ComboBox_SetCurSel(GetDlgItem(hDlg, IDC_HISTORY_TAB), GetHistoryTab()-TAB_SUBTRACT);
-		}
+
 		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_SNAPNAME), TEXT("Gamename"));
 		(void)ComboBox_SetItemData(GetDlgItem(hDlg, IDC_SNAPNAME), nPatternCount++, "%g");
 		(void)ComboBox_AddString(GetDlgItem(hDlg, IDC_SNAPNAME), TEXT("Gamename + Increment"));

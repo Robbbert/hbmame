@@ -659,7 +659,7 @@ static const GUISequence GUISequenceControl[]=
 	{"gui_key_view_tab_marquee",     input_seq(),  ID_VIEW_TAB_MARQUEE,       Get_ui_key_view_tab_marquee },
 	{"gui_key_view_tab_screenshot",  input_seq(),  ID_VIEW_TAB_SCREENSHOT,    Get_ui_key_view_tab_screenshot },
 	{"gui_key_view_tab_title",       input_seq(),  ID_VIEW_TAB_TITLE,         Get_ui_key_view_tab_title },
-	{"gui_key_view_tab_pcb",         input_seq(),  ID_VIEW_TAB_PCB, 	    Get_ui_key_view_tab_pcb },
+	{"gui_key_view_tab_pcb",         input_seq(),  ID_VIEW_TAB_PCB,           Get_ui_key_view_tab_pcb },
 	{"gui_key_quit",                 input_seq(),  ID_FILE_EXIT,              Get_ui_key_quit },
 };
 
@@ -3998,33 +3998,53 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 		// ScreenShot Context Menu
 		// select current tab
-	case ID_VIEW_TAB_SCREENSHOT :
-	case ID_VIEW_TAB_FLYER :
-	case ID_VIEW_TAB_CABINET :
-	case ID_VIEW_TAB_MARQUEE :
-	case ID_VIEW_TAB_TITLE :
-	case ID_VIEW_TAB_CONTROL_PANEL :
-	case ID_VIEW_TAB_PCB :
+	case ID_VIEW_TAB_SCREENSHOT:
+	case ID_VIEW_TAB_TITLE:
+	case ID_VIEW_TAB_SCORES:
+	case ID_VIEW_TAB_HOWTO:
+	case ID_VIEW_TAB_SELECT:
+	case ID_VIEW_TAB_VERSUS:
+	case ID_VIEW_TAB_BOSSES:
+	case ID_VIEW_TAB_COVER:
+	case ID_VIEW_TAB_ENDS:
+	case ID_VIEW_TAB_GAMEOVER:
+	case ID_VIEW_TAB_LOGO:
+	case ID_VIEW_TAB_ARTWORK:
+	case ID_VIEW_TAB_FLYER:
+	case ID_VIEW_TAB_CABINET:
+	case ID_VIEW_TAB_MARQUEE:
+	case ID_VIEW_TAB_CONTROL_PANEL:
+	case ID_VIEW_TAB_PCB:
 	case ID_VIEW_TAB_HISTORY:
 		if (id == ID_VIEW_TAB_HISTORY && GetShowTab(TAB_HISTORY) == false)
 			break;
 
-		TabView_SetCurrentTab(hTabCtrl, id - ID_VIEW_TAB_SCREENSHOT);
+		TabView_SetCurrentTab(hTabCtrl, id - ID_VIEW_TAB_ARTWORK);
 		UpdateScreenShot();
 		TabView_UpdateSelection(hTabCtrl);
 		break;
 
 		// toggle tab's existence
-	case ID_TOGGLE_TAB_SCREENSHOT :
-	case ID_TOGGLE_TAB_FLYER :
-	case ID_TOGGLE_TAB_CABINET :
-	case ID_TOGGLE_TAB_MARQUEE :
-	case ID_TOGGLE_TAB_TITLE :
-	case ID_TOGGLE_TAB_CONTROL_PANEL :
-	case ID_TOGGLE_TAB_PCB :
-	case ID_TOGGLE_TAB_HISTORY :
+	case ID_TOGGLE_TAB_SCREENSHOT:
+	case ID_TOGGLE_TAB_TITLE:
+	case ID_TOGGLE_TAB_SCORES:
+	case ID_TOGGLE_TAB_HOWTO:
+	case ID_TOGGLE_TAB_SELECT:
+	case ID_TOGGLE_TAB_VERSUS:
+	case ID_TOGGLE_TAB_BOSSES:
+	case ID_TOGGLE_TAB_COVER:
+	case ID_TOGGLE_TAB_ENDS:
+	case ID_TOGGLE_TAB_GAMEOVER:
+	case ID_TOGGLE_TAB_LOGO:
+	case ID_TOGGLE_TAB_ARTWORK:
+	case ID_TOGGLE_TAB_FLYER:
+	case ID_TOGGLE_TAB_CABINET:
+	case ID_TOGGLE_TAB_MARQUEE:
+	case ID_TOGGLE_TAB_CONTROL_PANEL:
+	case ID_TOGGLE_TAB_PCB:
+	case ID_TOGGLE_TAB_HISTORY:
 	{
-		int toggle_flag = id - ID_TOGGLE_TAB_SCREENSHOT;
+		int toggle_flag = id - ID_TOGGLE_TAB_ARTWORK;
 
 		if (AllowedToSetShowTab(toggle_flag,!GetShowTab(toggle_flag)) == false)
 		{
@@ -5841,7 +5861,7 @@ static void UpdateMenu(HMENU hMenu)
 
 	EnableMenuItem(hMenu, ID_FOLDER_PROPERTIES, (lpFolder->m_dwFlags & F_INIEDIT) ? MF_ENABLED : MF_GRAYED);
 
-	CheckMenuRadioItem(hMenu, ID_VIEW_TAB_SCREENSHOT, ID_VIEW_TAB_HISTORY, ID_VIEW_TAB_SCREENSHOT + TabView_GetCurrentTab(hTabCtrl), MF_BYCOMMAND);
+	CheckMenuRadioItem(hMenu, ID_VIEW_TAB_ARTWORK, ID_VIEW_TAB_HISTORY, ID_VIEW_TAB_ARTWORK + TabView_GetCurrentTab(hTabCtrl), MF_BYCOMMAND);
 
 	// set whether we're showing the tab control or not
 	if (bShowTabCtrl)
@@ -5853,15 +5873,15 @@ static void UpdateMenu(HMENU hMenu)
 	{
 		// disable menu items for tabs we're not currently showing
 		if (GetShowTab(i))
-			EnableMenuItem(hMenu,ID_VIEW_TAB_SCREENSHOT + i,MF_BYCOMMAND | MF_ENABLED);
+			EnableMenuItem(hMenu,ID_VIEW_TAB_ARTWORK + i,MF_BYCOMMAND | MF_ENABLED);
 		else
-			EnableMenuItem(hMenu,ID_VIEW_TAB_SCREENSHOT + i,MF_BYCOMMAND | MF_GRAYED);
+			EnableMenuItem(hMenu,ID_VIEW_TAB_ARTWORK + i,MF_BYCOMMAND | MF_GRAYED);
 
 		// check toggle menu items
 		if (GetShowTab(i))
-			CheckMenuItem(hMenu, ID_TOGGLE_TAB_SCREENSHOT + i,MF_BYCOMMAND | MF_CHECKED);
+			CheckMenuItem(hMenu, ID_TOGGLE_TAB_ARTWORK + i,MF_BYCOMMAND | MF_CHECKED);
 		else
-			CheckMenuItem(hMenu, ID_TOGGLE_TAB_SCREENSHOT + i,MF_BYCOMMAND | MF_UNCHECKED);
+			CheckMenuItem(hMenu, ID_TOGGLE_TAB_ARTWORK + i,MF_BYCOMMAND | MF_UNCHECKED);
 	}
 
 	for (i=0;i<MAX_FOLDERS;i++)

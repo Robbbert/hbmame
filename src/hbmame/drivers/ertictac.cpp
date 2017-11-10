@@ -50,4 +50,4 @@ ROM_START( armdemo )
 	ROM_REGION(0x200000, "vram", ROMREGION_ERASE00)
 ROM_END
 
-GAME( 1990, armdemo, 0, ertictac, ertictac, driver_device, 0, ROT0, "Charles Doty", "Demo - ARM" , MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW )
+GAME( 1990, armdemo, 0, ertictac, ertictac, ertictac_state, 0, ROT0, "Charles Doty", "Demo - ARM" , MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW )

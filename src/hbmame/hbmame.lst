@@ -565,10 +565,6 @@ ffightbl
 ffightbla
 kodb
 
-	/* flower */
-//flower
-//flowerj
-
 	/* galaga */
 galaga		//parent
 xevious		//parent
@@ -1500,9 +1496,6 @@ superpcn 	/* Blue Justice */
 superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
-
-	/* marinedt */
-//marinedt
 
 	/* mario */
 mario		//parent

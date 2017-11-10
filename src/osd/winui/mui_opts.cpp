@@ -97,25 +97,45 @@ static winui_game_options game_opts;    // game stats
 // (TAB_...)
 static const char *const image_tabs_long_name[MAX_TAB_TYPES] =
 {
-	"Snapshot",
-	"Flyer",
+	"Artwork",
+	"Boss",
 	"Cabinet",
-	"Marquee",
-	"Title",
 	"Control Panel",
+	"Cover",
+	"End",
+	"Flyer",
+	"Game Over",
+	"How To",
+	"Logo",
+	"Marquee",
 	"PCB",
-	"History",
+	"Scores",
+	"Select",
+	"Snapshot",
+	"Title",
+	"Versus",
+	"History"
 };
 
 static const char *const image_tabs_short_name[MAX_TAB_TYPES] =
 {
-	"snapshot",
-	"flyer",
+	"artpreview",
+	"boss",
 	"cabinet",
-	"marquee",
-	"title",
 	"cpanel",
+	"cover",
+	"end",
+	"flyer",
+	"gameover",
+	"howto",
+	"logo",
+	"marquee",
 	"pcb",
+	"scores",
+	"select",
+	"snap",
+	"title",
+	"versus",
 	"history"
 };
 
@@ -486,7 +506,7 @@ uint32_t GetDefaultGame(void)
 	int val = driver_list::find(t.c_str());
 	if (val < 0)
 		val = 0;
-	return uint32_t(val);
+	return val;
 }
 
 void SetWindowArea(const AREA *area)
@@ -1051,6 +1071,20 @@ void SetCheatDir(const char* path)
 	global.set_value(OPTION_CHEATPATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
+const string GetHLSLDir(void)
+{
+	const char* t = global.value(WINOPTION_HLSLPATH);
+	if (t)
+		return string(global.value(WINOPTION_HLSLPATH));
+	else
+		return "hlsl";
+}
+
+void SetHLSLDir(const char* path)
+{
+	global.set_value(WINOPTION_HLSLPATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
 const char* GetSnapName(void)
 {
 	return global.value(OPTION_SNAPNAME);
@@ -1062,6 +1096,146 @@ void SetSnapName(const char* pattern)
 }
 
 // ***************************************************************** UI.INI settings **************************************************************************
+const string GetScoresDir(void)
+{
+	const char* t = mewui.value(OPTION_SCORES_PATH);
+	if (t)
+		return string(mewui.value(OPTION_SCORES_PATH));
+	else
+		return "scores";
+}
+
+void SetScoresDir(const char *path)
+{
+	mewui.set_value(OPTION_SCORES_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetBossesDir(void)
+{
+	const char* t = mewui.value(OPTION_BOSSES_PATH);
+	if (t)
+		return string(mewui.value(OPTION_BOSSES_PATH));
+	else
+		return "bosses";
+}
+
+void SetBossesDir(const char *path)
+{
+	mewui.set_value(OPTION_BOSSES_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetCoversDir(void)
+{
+	const char* t = mewui.value(OPTION_COVER_PATH);
+	if (t)
+		return string(mewui.value(OPTION_COVER_PATH));
+	else
+		return "covers";
+}
+
+void SetCoversDir(const char *path)
+{
+	mewui.set_value(OPTION_COVER_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetVersusDir(void)
+{
+	const char* t = mewui.value(OPTION_VERSUS_PATH);
+	if (t)
+		return string(mewui.value(OPTION_VERSUS_PATH));
+	else
+		return "versus";
+}
+
+void SetVersusDir(const char *path)
+{
+	mewui.set_value(OPTION_VERSUS_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetEndsDir(void)
+{
+	const char* t = mewui.value(OPTION_ENDS_PATH);
+	if (t)
+		return string(mewui.value(OPTION_ENDS_PATH));
+	else
+		return "ends";
+}
+
+void SetEndsDir(const char *path)
+{
+	mewui.set_value(OPTION_ENDS_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetGameOverDir(void)
+{
+	const char* t = mewui.value(OPTION_GAMEOVER_PATH);
+	if (t)
+		return string(mewui.value(OPTION_GAMEOVER_PATH));
+	else
+		return "gameover";
+}
+
+void SetGameOverDir(const char *path)
+{
+	mewui.set_value(OPTION_GAMEOVER_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetHowToDir(void)
+{
+	const char* t = mewui.value(OPTION_HOWTO_PATH);
+	if (t)
+		return string(mewui.value(OPTION_HOWTO_PATH));
+	else
+		return "howto";
+}
+
+void SetHowToDir(const char *path)
+{
+	mewui.set_value(OPTION_HOWTO_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetSelectDir(void)
+{
+	const char* t = mewui.value(OPTION_SELECT_PATH);
+	if (t)
+		return string(mewui.value(OPTION_SELECT_PATH));
+	else
+		return "select";
+}
+
+void SetSelectDir(const char *path)
+{
+	mewui.set_value(OPTION_SELECT_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetLogoDir(void)
+{
+	const char* t = mewui.value(OPTION_LOGOS_PATH);
+	if (t)
+		return string(mewui.value(OPTION_LOGOS_PATH));
+	else
+		return "logo";
+}
+
+void SetLogoDir(const char *path)
+{
+	mewui.set_value(OPTION_LOGOS_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
+const string GetArtworkDir(void)
+{
+	const char* t = mewui.value(OPTION_ARTPREV_PATH);
+	if (t)
+		return string(mewui.value(OPTION_ARTPREV_PATH));
+	else
+		return "artpreview";
+}
+
+void SetArtworkDir(const char *path)
+{
+	mewui.set_value(OPTION_ARTPREV_PATH, path, OPTION_PRIORITY_CMDLINE);
+}
+
 const string GetFlyerDir(void)
 {
 	const char* t = mewui.value(OPTION_FLYERS_PATH);

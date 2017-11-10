@@ -313,33 +313,73 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 
 	switch (pic_type)
 	{
-		case TAB_SCREENSHOT:
-			t = GetImgDir();
-			zip_name = "snap";
+		case TAB_ARTWORK:
+			t = GetArtworkDir();
+			zip_name = "artpreview";
 			break;
-		case TAB_FLYER:
-			t = GetFlyerDir();
-			zip_name = "flyers";
+		case TAB_BOSSES:
+			t = GetBossesDir();
+			zip_name = "bosses";
 			break;
 		case TAB_CABINET:
 			t = GetCabinetDir();
 			zip_name = "cabinets";
 			break;
+		case TAB_CONTROL_PANEL:
+			t = GetControlPanelDir();
+			zip_name = "cpanel";
+			break;
+		case TAB_COVER:
+			t = GetCoversDir();
+			zip_name = "covers";
+			break;
+		case TAB_ENDS:
+			t = GetEndsDir();
+			zip_name = "ends";
+			break;
+		case TAB_FLYER:
+			t = GetFlyerDir();
+			zip_name = "flyers";
+			break;
+		case TAB_GAMEOVER:
+			t = GetGameOverDir();
+			zip_name = "gameover";
+			break;
+		case TAB_HOWTO:
+			t = GetHowToDir();
+			zip_name = "howto";
+			break;
+		case TAB_LOGO:
+			t = GetLogoDir();
+			zip_name = "logo";
+			break;
 		case TAB_MARQUEE:
 			t = GetMarqueeDir();
 			zip_name = "marquees";
+			break;
+		case TAB_PCB:
+			t = GetPcbDir();
+			zip_name = "pcb";
+			break;
+		case TAB_SCORES:
+			t = GetScoresDir();
+			zip_name = "scores";
+			break;
+		case TAB_SCREENSHOT:
+			t = GetImgDir();
+			zip_name = "snap";
+			break;
+		case TAB_SELECT:
+			t = GetSelectDir();
+			zip_name = "select";
 			break;
 		case TAB_TITLE:
 			t = GetTitlesDir();
 			zip_name = "titles";
 			break;
-		case TAB_CONTROL_PANEL:
-			t = GetControlPanelDir();
-			zip_name = "cpanel";
-			break;
-		case TAB_PCB:
-			t = GetPcbDir();
-			zip_name = "pcb";
+		case TAB_VERSUS:
+			t = GetVersusDir();
+			zip_name = "versus";
 			break;
 		default :
 			// in case a non-image tab gets here, which can happen

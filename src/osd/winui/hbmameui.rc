@@ -85,14 +85,24 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "S&how Pictures"
         BEGIN
-            MENUITEM "&Snapshot",                   ID_TOGGLE_TAB_SCREENSHOT
-            MENUITEM "&Flyer",                      ID_TOGGLE_TAB_FLYER
-            MENUITEM "&Cabinet",                    ID_TOGGLE_TAB_CABINET
-            MENUITEM "&Marquee",                    ID_TOGGLE_TAB_MARQUEE
-            MENUITEM "&Title",                      ID_TOGGLE_TAB_TITLE
-            MENUITEM "Control &Panel",              ID_TOGGLE_TAB_CONTROL_PANEL
-            MENUITEM "PC&B",                        ID_TOGGLE_TAB_PCB
-            MENUITEM "&History",                    ID_TOGGLE_TAB_HISTORY
+            MENUITEM "Artwork",                     ID_TOGGLE_TAB_ARTWORK
+            MENUITEM "Boss",                        ID_TOGGLE_TAB_BOSSES
+            MENUITEM "Cabinet",                     ID_TOGGLE_TAB_CABINET
+            MENUITEM "Control Panel",               ID_TOGGLE_TAB_CONTROL_PANEL
+            MENUITEM "Cover",                       ID_TOGGLE_TAB_COVER
+            MENUITEM "End",                         ID_TOGGLE_TAB_ENDS
+            MENUITEM "Flyer",                       ID_TOGGLE_TAB_FLYER
+            MENUITEM "Game Over",                   ID_TOGGLE_TAB_GAMEOVER
+            MENUITEM "History",                     ID_TOGGLE_TAB_HISTORY
+            MENUITEM "How To",                      ID_TOGGLE_TAB_HOWTO
+            MENUITEM "Logo",                        ID_TOGGLE_TAB_LOGO
+            MENUITEM "Marquee",                     ID_TOGGLE_TAB_MARQUEE
+            MENUITEM "PCB",                         ID_TOGGLE_TAB_PCB
+            MENUITEM "Scores",                      ID_TOGGLE_TAB_SCORES
+            MENUITEM "Select",                      ID_TOGGLE_TAB_SELECT
+            MENUITEM "Snapshot",                    ID_TOGGLE_TAB_SCREENSHOT
+            MENUITEM "Title",                       ID_TOGGLE_TAB_TITLE
+            MENUITEM "Versus",                      ID_TOGGLE_TAB_VERSUS
         END
         MENUITEM SEPARATOR
         MENUITEM "L&arge Icons",                ID_VIEW_LARGE_ICON
@@ -202,25 +212,44 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "S&how Pictures"
         BEGIN
-            MENUITEM "&Snapshot",                   ID_TOGGLE_TAB_SCREENSHOT
-            MENUITEM "&Flyer",                      ID_TOGGLE_TAB_FLYER
-            MENUITEM "&Cabinet",                    ID_TOGGLE_TAB_CABINET
-            MENUITEM "&Marquee",                    ID_TOGGLE_TAB_MARQUEE
-            MENUITEM "&Title",                      ID_TOGGLE_TAB_TITLE
-            MENUITEM "Control &Panel",              ID_TOGGLE_TAB_CONTROL_PANEL
-
-            MENUITEM "PC&B",                        ID_TOGGLE_TAB_PCB
-            MENUITEM "&History",                    ID_TOGGLE_TAB_HISTORY
+            MENUITEM "Artwork",                     ID_TOGGLE_TAB_ARTWORK
+            MENUITEM "Boss",                        ID_TOGGLE_TAB_BOSSES
+            MENUITEM "Cabinet",                     ID_TOGGLE_TAB_CABINET
+            MENUITEM "Control Panel",               ID_TOGGLE_TAB_CONTROL_PANEL
+            MENUITEM "Cover",                       ID_TOGGLE_TAB_COVER
+            MENUITEM "End",                         ID_TOGGLE_TAB_ENDS
+            MENUITEM "Flyer",                       ID_TOGGLE_TAB_FLYER
+            MENUITEM "Game Over",                   ID_TOGGLE_TAB_GAMEOVER
+            MENUITEM "History",                     ID_TOGGLE_TAB_HISTORY
+            MENUITEM "How To",                      ID_TOGGLE_TAB_HOWTO
+            MENUITEM "Logo",                        ID_TOGGLE_TAB_LOGO
+            MENUITEM "Marquee",                     ID_TOGGLE_TAB_MARQUEE
+            MENUITEM "PCB",                         ID_TOGGLE_TAB_PCB
+            MENUITEM "Scores",                      ID_TOGGLE_TAB_SCORES
+            MENUITEM "Select",                      ID_TOGGLE_TAB_SELECT
+            MENUITEM "Snapshot",                    ID_TOGGLE_TAB_SCREENSHOT
+            MENUITEM "Title",                       ID_TOGGLE_TAB_TITLE
+            MENUITEM "Versus",                      ID_TOGGLE_TAB_VERSUS
         END
         MENUITEM SEPARATOR
-        MENUITEM "&Snapshot",                   ID_VIEW_TAB_SCREENSHOT
-        MENUITEM "&Flyer",                      ID_VIEW_TAB_FLYER
-        MENUITEM "&Cabinet",                    ID_VIEW_TAB_CABINET
-        MENUITEM "&Marquee",                    ID_VIEW_TAB_MARQUEE
-        MENUITEM "&Title",                      ID_VIEW_TAB_TITLE
-        MENUITEM "Control &Panel",              ID_VIEW_TAB_CONTROL_PANEL
-        MENUITEM "PC&B",                        ID_VIEW_TAB_PCB
-        MENUITEM "&History",                    ID_VIEW_TAB_HISTORY
+            MENUITEM "Artwork",                     ID_VIEW_TAB_ARTWORK
+            MENUITEM "Boss",                        ID_VIEW_TAB_BOSSES
+            MENUITEM "Cabinet",                     ID_VIEW_TAB_CABINET
+            MENUITEM "Control Panel",               ID_VIEW_TAB_CONTROL_PANEL
+            MENUITEM "Cover",                       ID_VIEW_TAB_COVER
+            MENUITEM "End",                         ID_VIEW_TAB_ENDS
+            MENUITEM "Flyer",                       ID_VIEW_TAB_FLYER
+            MENUITEM "Game Over",                   ID_VIEW_TAB_GAMEOVER
+            MENUITEM "History",                     ID_VIEW_TAB_HISTORY
+            MENUITEM "How To",                      ID_VIEW_TAB_HOWTO
+            MENUITEM "Logo",                        ID_VIEW_TAB_LOGO
+            MENUITEM "Marquee",                     ID_VIEW_TAB_MARQUEE
+            MENUITEM "PCB",                         ID_VIEW_TAB_PCB
+            MENUITEM "Scores",                      ID_VIEW_TAB_SCORES
+            MENUITEM "Select",                      ID_VIEW_TAB_SELECT
+            MENUITEM "Snapshot",                    ID_VIEW_TAB_SCREENSHOT
+            MENUITEM "Title",                       ID_VIEW_TAB_TITLE
+            MENUITEM "Versus",                      ID_VIEW_TAB_VERSUS
     END
 END
 

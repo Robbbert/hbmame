@@ -45,7 +45,7 @@ const SSINFO m_ssInfo[] =
 };
 
 /* if adding a new tab, need to also update:
-- dialogs.cpp (~190, ~217)         (history on tab or not)
+- dialogs.cpp (~50)                (history on tab or not)
 - winui.cpp   MameCommand  (~4173) (action the mouse click in the menu)
 - mameui/messui.rc                 (show in menu)
 - ui_opts.h                        (tab enabled or not)
@@ -53,6 +53,7 @@ const SSINFO m_ssInfo[] =
 - mui_opts.cpp/h                   (directory get function)
 - mui_opts.h                       enum of names
 - mui_opts.cpp                     image_tabs_long_name
+- screenshot.cpp (~316)            (choose image to display)
 */
 
 #endif

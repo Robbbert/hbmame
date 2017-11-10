@@ -402,23 +402,7 @@
 #define ID_CONTEXT_REMOVE_CUSTOM        40058
 #define ID_GAME_AUDIT                   40059
 #define ID_CONTEXT_SELECT_RANDOM        40060
-#define ID_VIEW_TAB_SCREENSHOT          40062
-#define ID_VIEW_TAB_FLYER               40063
-#define ID_VIEW_TAB_CABINET             40064
-#define ID_VIEW_TAB_MARQUEE             40065
-#define ID_VIEW_TAB_TITLE               40066
-#define ID_VIEW_TAB_CONTROL_PANEL       40067
-#define ID_VIEW_TAB_PCB                 40068
-#define ID_VIEW_TAB_HISTORY             40069
 #define ID_OPTIONS_BG                   40070
-#define ID_TOGGLE_TAB_SCREENSHOT        40071
-#define ID_TOGGLE_TAB_FLYER             40072
-#define ID_TOGGLE_TAB_CABINET           40073
-#define ID_TOGGLE_TAB_MARQUEE           40074
-#define ID_TOGGLE_TAB_TITLE             40075
-#define ID_TOGGLE_TAB_CONTROL_PANEL     40076
-#define ID_TOGGLE_TAB_PCB               40077
-#define ID_TOGGLE_TAB_HISTORY           40078
 #define ID_VIEW_FULLSCREEN              40079
 #define ID_CONTEXT_RESET_PLAYSTATS      40081
 #define ID_FOLDER_PROPERTIES            40082
@@ -446,6 +430,42 @@
 #define ID_PLAY_AUDIO                   40111
 #define ID_PLAY_MNG                     40112
 #define ID_PLAY_M1                      40113
+#define ID_VIEW_TAB_ARTWORK             40120
+#define ID_VIEW_TAB_BOSSES              40121
+#define ID_VIEW_TAB_CABINET             40122
+#define ID_VIEW_TAB_CONTROL_PANEL       40123
+#define ID_VIEW_TAB_COVER               40124
+#define ID_VIEW_TAB_ENDS                40125
+#define ID_VIEW_TAB_FLYER               40126
+#define ID_VIEW_TAB_GAMEOVER            40127
+#define ID_VIEW_TAB_HOWTO               40128
+#define ID_VIEW_TAB_LOGO                40129
+#define ID_VIEW_TAB_MARQUEE             40130
+#define ID_VIEW_TAB_PCB                 40131
+#define ID_VIEW_TAB_SCORES              40132
+#define ID_VIEW_TAB_SELECT              40133
+#define ID_VIEW_TAB_SCREENSHOT          40134
+#define ID_VIEW_TAB_TITLE               40135
+#define ID_VIEW_TAB_VERSUS              40136
+#define ID_VIEW_TAB_HISTORY             40137
+#define ID_TOGGLE_TAB_ARTWORK           40150
+#define ID_TOGGLE_TAB_BOSSES            40151
+#define ID_TOGGLE_TAB_CABINET           40152
+#define ID_TOGGLE_TAB_CONTROL_PANEL     40153
+#define ID_TOGGLE_TAB_COVER             40154
+#define ID_TOGGLE_TAB_ENDS              40155
+#define ID_TOGGLE_TAB_FLYER             40156
+#define ID_TOGGLE_TAB_GAMEOVER          40157
+#define ID_TOGGLE_TAB_HOWTO             40158
+#define ID_TOGGLE_TAB_LOGO              40159
+#define ID_TOGGLE_TAB_MARQUEE           40160
+#define ID_TOGGLE_TAB_PCB               40161
+#define ID_TOGGLE_TAB_SCORES            40162
+#define ID_TOGGLE_TAB_SELECT            40163
+#define ID_TOGGLE_TAB_SCREENSHOT        40164
+#define ID_TOGGLE_TAB_TITLE             40165
+#define ID_TOGGLE_TAB_VERSUS            40166
+#define ID_TOGGLE_TAB_HISTORY           40167
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -453,10 +473,10 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_3D_CONTROLS                     1
+#define _APS_3D_CONTROLS                1
 #define _APS_NEXT_RESOURCE_VALUE        192
-#define _APS_NEXT_COMMAND_VALUE         40103
-#define _APS_NEXT_CONTROL_VALUE         1337
+#define _APS_NEXT_COMMAND_VALUE         40157
+#define _APS_NEXT_CONTROL_VALUE         1353
 #define _APS_NEXT_SYMED_VALUE           93
 #endif
 #endif

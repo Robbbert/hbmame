@@ -140,7 +140,7 @@ const WINUIOPTS option_entries[] =
 	{ MUIOPTION_SHOW_STATUS_BAR,              "1",        OPTION_BOOLEAN,                 NULL },
 	{ MUIOPTION_HIDE_FOLDERS,                 "",         OPTION_STRING,                  NULL },
 	{ MUIOPTION_SHOW_TABS,                    "1",        OPTION_BOOLEAN,                 NULL },
-	{ MUIOPTION_HIDE_TABS,                    "marquee, title, cpanel, pcb",  OPTION_STRING, NULL },
+	{ MUIOPTION_HIDE_TABS,                    "artpreview,boss,cpanel,cover,end,flyer,gameover,howto,logo,marquee,pcb,scores,select,title,versus",  OPTION_STRING, NULL },
 	{ MUIOPTION_HISTORY_TAB,                  "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SORT_COLUMN,                  "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_SORT_REVERSED,                "0",        OPTION_BOOLEAN,                 NULL },

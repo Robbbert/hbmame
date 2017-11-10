@@ -71,15 +71,24 @@ enum
 {
 	// these must match array of strings image_tabs_long_name in mui_opts.cpp
 	// if you add new Tabs, be sure to also add them to the ComboBox init in dialogs.cpp
-	TAB_SCREENSHOT = 0,
-	TAB_FLYER,
+	TAB_ARTWORK = 0,
+	TAB_BOSSES,
 	TAB_CABINET,
-	TAB_MARQUEE,
-	TAB_TITLE,
 	TAB_CONTROL_PANEL,
+	TAB_COVER,
+	TAB_ENDS,
+	TAB_FLYER,
+	TAB_GAMEOVER,
+	TAB_HOWTO,
+	TAB_LOGO,
+	TAB_MARQUEE,
 	TAB_PCB,
+	TAB_SCORES,
+	TAB_SELECT,
+	TAB_SCREENSHOT,
+	TAB_TITLE,
+	TAB_VERSUS,
 	TAB_HISTORY,
-
 	MAX_TAB_TYPES,
 	BACKGROUND,
 	TAB_ALL,
@@ -117,6 +126,12 @@ void SetSampleDirs(const char *paths);
 const string GetArtDir(void);
 void SetArtDir(const char *path);
 
+const string GetArtworkDir(void);
+void SetArtworkDir(const char *path);
+
+const string GetBossesDir(void);
+void SetBossesDir(const char *path);
+
 const string GetCabinetDir(void);
 void SetCabinetDir(const char *path);
 
@@ -129,6 +144,9 @@ void SetCfgDir(const char *path);
 const string GetControlPanelDir(void);
 void SetControlPanelDir(const char *path);
 
+const string GetCoversDir(void);
+void SetCoversDir(const char *path);
+
 const string GetCtrlrDir(void);
 void SetCtrlrDir(const char *path);
 
@@ -137,6 +155,12 @@ void SetCrosshairDir(const char *paths);
 
 const string GetDatsDir(void);
 void SetDatsDir(const char *path);
+
+const string GetDiffDir(void);
+void SetDiffDir(const char *path);
+
+const string GetEndsDir(void);
+void SetEndsDir(const char *path);
 
 const string GetFlyerDir(void);
 void SetFlyerDir(const char *path);
@@ -147,11 +171,17 @@ void SetFolderDir(const char *path);
 const string GetFontDir(void);
 void SetFontDir(const char *paths);
 
+const string GetGameOverDir(void);
+void SetGameOverDir(const char *path);
+
 const string GetHashDirs(void);
 void SetHashDirs(const char *paths);
 
-const string GetDiffDir(void);
-void SetDiffDir(const char *path);
+const string GetHLSLDir(void);
+void SetHLSLDir(const char *path);
+
+const string GetHowToDir(void);
+void SetHowToDir(const char *path);
 
 const string GetIconsDir(void);
 void SetIconsDir(const char *path);
@@ -168,6 +198,9 @@ void SetInpDir(const char *path);
 const string GetLangDir(void);
 void SetLangDir(const char *path);
 
+const string GetLogoDir(void);
+void SetLogoDir(const char *path);
+
 const string GetManualsDir(void);
 void SetManualsDir(const char* path);
 
@@ -183,17 +216,27 @@ void SetPcbDir(const char *path);
 const string GetPluginsDir(void);
 void SetPluginsDir(const char *path);
 
+const string GetScoresDir(void);
+void SetScoresDir(const char *path);
+
 const string GetStateDir(void);
 void SetStateDir(const char *path);
 
 const string GetTitlesDir(void);
 void SetTitlesDir(const char *path);
 
+const string GetSelectDir(void);
+void SetSelectDir(const char *path);
+
 const string GetSWDir(void);
 void SetSWDir(const char *path);
 
+const string GetVersusDir(void);
+void SetVersusDir(const char *path);
+
 const string GetVideoDir(void);
 void SetVideoDir(const char *path);
+
 // End interface to directories.h
 
 void SaveOptions(void);
