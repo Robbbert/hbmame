@@ -214,8 +214,8 @@ static ADDRESS_MAP_START( hostmem, AS_PROGRAM, 16, micro3d_state )
 	AM_RANGE(0x980000, 0x980001) AM_DEVREADWRITE8("adc", adc0844_device, read, write, 0x00ff)
 	AM_RANGE(0x9a0000, 0x9a0007) AM_DEVREADWRITE("vgb", tms34010_device, host_r, host_w)
 	AM_RANGE(0x9c0000, 0x9c0001) AM_NOP                 /* Lamps */
-	AM_RANGE(0x9e0000, 0x9e002f) AM_DEVREADWRITE8("mc68901", mc68901_device, read, write, 0xff00)
-	AM_RANGE(0xa00000, 0xa0003f) AM_DEVREADWRITE8("duart68681", mc68681_device, read, write, 0xff00)
+	AM_RANGE(0x9e0000, 0x9e002f) AM_DEVREADWRITE8("mfp", mc68901_device, read, write, 0xff00)
+	AM_RANGE(0xa00000, 0xa0003f) AM_DEVREADWRITE8("duart", mc68681_device, read, write, 0xff00)
 	AM_RANGE(0xa20000, 0xa20001) AM_READ(micro3d_encoder_h_r)
 	AM_RANGE(0xa40002, 0xa40003) AM_READ(micro3d_encoder_l_r)
 ADDRESS_MAP_END
@@ -319,18 +319,21 @@ static MACHINE_CONFIG_START( micro3d )
 	MCFG_MCS51_SERIAL_TX_CB(WRITE8(micro3d_state, data_from_i8031))
 	MCFG_MCS51_SERIAL_RX_CB(READ8(micro3d_state, data_to_i8031))
 
-	MCFG_MC68681_ADD("duart68681", XTAL_3_6864MHz)
+	MCFG_MC68681_ADD("duart", XTAL_3_6864MHz)
 	MCFG_MC68681_IRQ_CALLBACK(WRITELINE(micro3d_state, duart_irq_handler))
 	MCFG_MC68681_A_TX_CALLBACK(DEVWRITELINE("monitor", rs232_port_device, write_txd))
 	MCFG_MC68681_B_TX_CALLBACK(WRITELINE(micro3d_state, duart_txb))
 	MCFG_MC68681_INPORT_CALLBACK(READ8(micro3d_state, duart_input_r))
 	MCFG_MC68681_OUTPORT_CALLBACK(WRITE8(micro3d_state, duart_output_w))
 
-	MCFG_DEVICE_ADD("mc68901", MC68901, 4000000)
+	MCFG_DEVICE_ADD("mfp", MC68901, 4000000)
 	MCFG_MC68901_TIMER_CLOCK(4000000)
 	MCFG_MC68901_RX_CLOCK(0)
 	MCFG_MC68901_TX_CLOCK(0)
 	MCFG_MC68901_OUT_IRQ_CB(INPUTLINE("maincpu", M68K_IRQ_4))
+	//MCFG_MC68901_OUT_TAO_CB(DEVWRITELINE("mfp", mc68901_device, rc_w))
+	//MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("mfp", mc68901_device, tc_w))
+	MCFG_MC68901_OUT_TCO_CB(DEVWRITELINE("mfp", mc68901_device, tbi_w))
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
@@ -344,10 +347,10 @@ static MACHINE_CONFIG_START( micro3d )
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_RS232_PORT_ADD("monitor", default_rs232_devices, nullptr)
-	MCFG_RS232_RXD_HANDLER(DEVWRITELINE("duart68681", mc68681_device, rx_a_w))
+	MCFG_RS232_RXD_HANDLER(DEVWRITELINE("duart", mc68681_device, rx_a_w))
 
 	MCFG_ADC0844_ADD("adc")
-	MCFG_ADC0844_INTR_CB(DEVWRITELINE("mc68901", mc68901_device, i3_w))
+	MCFG_ADC0844_INTR_CB(DEVWRITELINE("mfp", mc68901_device, i3_w))
 	MCFG_ADC0844_CH1_CB(IOPORT("THROTTLE"))
 	MCFG_ADC0844_CH2_CB(READ8(micro3d_state, adc_volume_r))
 
@@ -370,7 +373,7 @@ static MACHINE_CONFIG_START( micro3d )
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( tankbatl, micro3d )
+MACHINE_CONFIG_DERIVED( botss11, micro3d )
 	MCFG_DEVICE_MODIFY("adc")
 	MCFG_ADC0844_CH1_CB(NOOP)
 MACHINE_CONFIG_END
@@ -660,8 +663,8 @@ ROM_END
  *
  *************************************/
 
-GAME( 1991, f15se,    0,     micro3d,  f15se,    micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "F-15 Strike Eagle (rev. 2.2 02/25/91)",          MACHINE_IMPERFECT_SOUND )
-GAME( 1991, f15se21,  f15se, micro3d,  f15se,    micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "F-15 Strike Eagle (rev. 2.1 02/04/91)",          MACHINE_IMPERFECT_SOUND )
-GAME( 1992, botss,    0,     micro3d,  botss,    micro3d_state, botss,   ROT0, "Microprose Games Inc.", "Battle of the Solar System (rev. 1.1a 7/23/92)", MACHINE_IMPERFECT_SOUND )
-GAME( 1992, botss11,  botss, micro3d,  botss11,  micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "Battle of the Solar System (rev. 1.1 3/24/92)",  MACHINE_IMPERFECT_SOUND )
-GAME( 1992, tankbatl, 0,     tankbatl, tankbatl, micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "Tank Battle (prototype rev. 4/21/92)",           MACHINE_IMPERFECT_SOUND )
+GAME( 1991, f15se,    0,     micro3d, f15se,    micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "F-15 Strike Eagle (rev. 2.2 02/25/91)",          MACHINE_IMPERFECT_SOUND )
+GAME( 1991, f15se21,  f15se, micro3d, f15se,    micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "F-15 Strike Eagle (rev. 2.1 02/04/91)",          MACHINE_IMPERFECT_SOUND )
+GAME( 1992, botss,    0,     micro3d, botss,    micro3d_state, botss,   ROT0, "Microprose Games Inc.", "Battle of the Solar System (rev. 1.1a 7/23/92)", MACHINE_IMPERFECT_SOUND )
+GAME( 1992, botss11,  botss, botss11, botss11,  micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "Battle of the Solar System (rev. 1.1 3/24/92)",  MACHINE_IMPERFECT_SOUND )
+GAME( 1992, tankbatl, 0,     botss11, tankbatl, micro3d_state, micro3d, ROT0, "Microprose Games Inc.", "Tank Battle (prototype rev. 4/21/92)",           MACHINE_IMPERFECT_SOUND )

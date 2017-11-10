@@ -251,6 +251,11 @@ WRITE8_MEMBER(ppking_state::ppking_adpcm_w)
 	m_msm->vclk_w (BIT(data, 4));   // bit 4
 }
 
+WRITE8_MEMBER(ppking_state::cpu2_irq_ack_w)
+{
+	m_subcpu->set_input_line(0, CLEAR_LINE);
+}
+
 WRITE8_MEMBER(gladiatr_state_base::adpcm_command_w)
 {
 	m_soundlatch->write(space,0,data);
@@ -267,7 +272,6 @@ WRITE_LINE_MEMBER(gladiatr_state_base::flipscreen_w)
 {
 	flip_screen_set(state);
 }
-
 
 #if 1
 /* !!!!! patch to IRQ timing for 2nd CPU !!!!! */
@@ -417,7 +421,24 @@ inline bool ppking_state::mcu_parity_check()
 	return true;
 }
 
-/**/
+inline void ppking_state::mcu_input_check()
+{
+	if(m_mcu[0].txd == 0x41)
+	{
+		m_mcu[0].state = 1;
+		//m_mcu[0].packet_type = 0;
+	}
+	else if(m_mcu[0].txd == 0x42)
+	{
+		m_mcu[0].state = 2;
+		//m_mcu[0].packet_type = 0;
+		//machine().debug_break();
+	}
+	else if(m_mcu[0].txd == 0x44)
+	{
+		m_mcu[0].state = 3;
+	}
+}
 
 READ8_MEMBER(ppking_state::ppking_qx0_r)
 {
@@ -440,26 +461,23 @@ READ8_MEMBER(ppking_state::ppking_qx0_r)
 				else
 				{
 					m_mcu[0].rxd = ((ioport("SYSTEM")->read()) & 0x9f);
-				}
-				
-				//printf("%02x\n",m_mcu[0].rxd);
-				
+				}				
 
 				break;
 			}
 			
 			case 2:
 			{
-				//m_mcu[0].packet_type^=1;
-				//if(m_mcu[0].packet_type & 1)
-				//{
-				//	m_mcu[0].rxd = ((ioport("P2")->read()) & 0x9f);
-				//}
-				//else
+				m_mcu[0].packet_type^=1;
+				if(m_mcu[0].packet_type & 1)
+				{
+					// Host wants this from time to time, otherwise huge input lag happens periodically (protection?)
+					m_mcu[0].rxd = 0x17;
+				}
+				else
 				{
 					m_mcu[0].rxd = ((ioport("P1")->read()) & 0x3f);
 					m_mcu[0].rxd |= ((ioport("SYSTEM")->read()) & 0x80);
-					
 				}
 				
 				break;
@@ -467,12 +485,13 @@ READ8_MEMBER(ppking_state::ppking_qx0_r)
 			
 			case 3:
 			{
-				//m_mcu[0].packet_type^=1;
-				//if(m_mcu[0].packet_type & 1)
-				//{
-				//	m_mcu[0].rxd = ((ioport("P2")->read()) & 0x9f);
-				//}
-				//else
+				m_mcu[0].packet_type^=1;
+				if(m_mcu[0].packet_type & 1)
+				{
+					// same as above for player 2
+					m_mcu[0].rxd = 0x17;
+				}
+				else
 				{
 					m_mcu[0].rxd = ((ioport("P2")->read()) & 0x3f);
 					m_mcu[0].rxd |= ((ioport("SYSTEM")->read()) & 0x80);
@@ -515,21 +534,14 @@ WRITE8_MEMBER(ppking_state::ppking_qx0_w)
 				*/
 				m_mcu[0].rxd = 0x40;
 				m_mcu[0].rst = 0;
-				//m_mcu[0].state = 0;
 				break;
 			case 2:
-				m_mcu[0].rxd = 0;
-				//m_mcu[0].rxd = ((ioport("DSW2")->read() & 0x1f) << 2);
-				//m_mcu[0].rxd|= mcu_parity_check() == true ? 0 : 1;
+				m_mcu[0].rxd = ((ioport("DSW2")->read() & 0x1f) << 2);
 				m_mcu[0].rst = 0;
-				//m_mcu[0].state = 0;
 				break;
 			case 3:
-				m_mcu[0].rxd = 0;
-				//m_mcu[0].rxd = (ioport("DSW1")->read() & 0x1f) << 2;
+				mcu_input_check();
 				m_mcu[0].rst = 1;
-				//m_mcu[0].txd = 0;
-				//m_mcu[0].state = 0;
 				break;
 
 			default:
@@ -544,27 +556,8 @@ WRITE8_MEMBER(ppking_state::ppking_qx0_w)
 		m_mcu[1].rst = 0;
 		m_soundlatch2->write(space, 0, data & 0xff);
 
-		if(m_mcu[0].txd == 0x41)
-		{
-			m_mcu[0].state = 1;
-			//m_mcu[0].packet_type = 0;
-		}
-		else if(m_mcu[0].txd == 0x42)
-		{
-			m_mcu[0].state = 2;
-			//m_mcu[0].packet_type = 0;
-			//machine().debug_break();
-		}
-		else if(m_mcu[0].txd == 0x44)
-		{
-			m_mcu[0].state = 3;
-		}
-		else
-		{
-//			if(data != 0x60)
-//			printf("%02x\n",data);
-			//m_mcu[0].state = 0;
-		}
+		mcu_input_check();
+
 	}
 }
 
@@ -575,10 +568,6 @@ WRITE8_MEMBER(ppking_state::ppking_qx1_w)
 		if(data == 0xf0)
 			m_mcu[1].rst = 1;
 	}
-}
-
-WRITE8_MEMBER(ppking_state::ppking_qx2_w)
-{
 }
 
 WRITE8_MEMBER(ppking_state::ppking_qx3_w)
@@ -598,18 +587,7 @@ READ8_MEMBER(ppking_state::ppking_qx1_r)
 	return m_soundlatch2->read(space,0);
 }
 
-READ8_MEMBER(ppking_state::ppking_qx2_r)
-{
-	return machine().rand();
-}
-
 READ8_MEMBER(ppking_state::ppking_qx3_r)
-{
-	return machine().rand()&0xf;
-}
-
-// a mirror of any of above?
-READ8_MEMBER(ppking_state::ppking_qxunk_r)
 {
 	if(offset == 1)
 		return 1;
@@ -617,16 +595,24 @@ READ8_MEMBER(ppking_state::ppking_qxunk_r)
 	return 0;
 }
 
-WRITE8_MEMBER(ppking_state::ppking_qxunk_w)
+// serial communication with another board (COMU in service mode)
+// NMI is used to acquire data from the other board,
+// either sent via 1->0 poll of the 0xc003 port or by reading 0xc0c0 (former more likely)
+READ8_MEMBER(ppking_state::ppking_qxcomu_r)
+{
+	if(offset == 1)
+		return 1;
+	
+	return 0;
+}
+
+WRITE8_MEMBER(ppking_state::ppking_qxcomu_w)
 {
 	// ...
 }
 
 MACHINE_RESET_MEMBER(ppking_state, ppking)
-{
-	m_data1 = m_data2 = 0;
-	m_flag1 = m_flag2 = 1;
-	
+{	
 	// yes, it expects to read DSW1 without sending commands first ...
 	m_mcu[0].rxd = (ioport("DSW1")->read() & 0x1f) << 2;;
 	m_mcu[0].rst = 0;
@@ -656,16 +642,15 @@ static ADDRESS_MAP_START( ppking_cpu1_io, AS_IO, 8, ppking_state )
 	AM_RANGE(0xc000, 0xc007) AM_DEVWRITE("mainlatch", ls259_device, write_d0)
 //	AM_RANGE(0xc004, 0xc004) AM_NOP // WRITE(ppking_irq_patch_w)
 	AM_RANGE(0xc09e, 0xc09f) AM_READ(ppking_qx0_r) AM_WRITE(ppking_qx0_w)
-	AM_RANGE(0xc0bf, 0xc0bf) AM_NOP
-	AM_RANGE(0xc0c0, 0xc0c1) AM_READ(ppking_qxunk_r) AM_WRITE(ppking_qxunk_w)
+	AM_RANGE(0xc0bf, 0xc0bf) AM_NOP // watchdog
+	AM_RANGE(0xc0c0, 0xc0c1) AM_READ(ppking_qxcomu_r) AM_WRITE(ppking_qxcomu_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( ppking_cpu2_io, AS_IO, 8, ppking_state )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x01) AM_DEVREADWRITE("ymsnd", ym2203_device, read, write)
 	AM_RANGE(0x20, 0x21) AM_READ(ppking_qx1_r) AM_WRITE(ppking_qx1_w)
-	AM_RANGE(0x40, 0x40) AM_READNOP
-	AM_RANGE(0x60, 0x61) AM_READWRITE(ppking_qx2_r,ppking_qx2_w) // unaccessed, probably leftover
+	AM_RANGE(0x40, 0x40) AM_WRITE(cpu2_irq_ack_w)
 	AM_RANGE(0x80, 0x81) AM_READWRITE(ppking_qx3_r,ppking_qx3_w)
 	AM_RANGE(0xe0, 0xe0) AM_WRITE(adpcm_command_w)
 ADDRESS_MAP_END
@@ -760,42 +745,42 @@ static INPUT_PORTS_START( ppking )
 	PORT_DIPNAME( 0x08, 0x08, "VS Mode (link)" ) PORT_DIPLOCATION("SW1:4") // unemulated
 	PORT_DIPSETTING(    0x08, DEF_STR( No ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Demo_Sounds ) ) PORT_DIPLOCATION("SW1:3")
-	PORT_DIPSETTING(    0x10, DEF_STR( Yes ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Demo_Sounds ) ) PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( No ) )
 	PORT_BIT( 0xe0, IP_ACTIVE_HIGH, IPT_UNUSED )
 	
-	// cabinet (upright/cocktail) & coinage, not currently working (see above)
 	PORT_START("DSW2")
-	PORT_DIPNAME( 0x01, 0x00, "DSW2" )
-	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	// TODO: coinage not working (controlled by MCU)
+	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Coin_A ) ) PORT_DIPLOCATION("SW2:8,7")
+	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( 1C_2C ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( 1C_4C ) )
+	PORT_DIPSETTING(    0x03, DEF_STR( 1C_5C ) )
+	PORT_DIPNAME( 0x0c, 0x00, DEF_STR( Coin_B ) ) PORT_DIPLOCATION("SW2:6,5")
+	PORT_DIPSETTING(    0x00, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( 3C_1C ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( 4C_1C ) )
+	PORT_DIPSETTING(    0x0c, DEF_STR( 5C_1C ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Cabinet ) ) PORT_DIPLOCATION("SW2:4")
+	PORT_DIPSETTING(    0x00, DEF_STR( Upright ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( Cocktail ) )
 	PORT_BIT( 0xe0, IP_ACTIVE_HIGH, IPT_UNUSED )
 	
 	PORT_START("DSW3")
 	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Free_Play ) ) PORT_DIPLOCATION("SW3:1")
 	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( Yes ) )
-	PORT_DIPNAME( 0x02, 0x00, "Round" ) PORT_DIPLOCATION("SW3:2")
-	PORT_DIPSETTING(    0x00, "Normal" )
-	PORT_DIPSETTING(    0x02, "Free" )
-	PORT_DIPNAME( 0x04, 0x00, "Backup Clear" ) PORT_DIPLOCATION("SW3:3")
+	// Round -> Normal/Round Free in manual, allows player to continue playing even if he loses
+	PORT_DIPNAME( 0x02, 0x00, "Win Round even when losing (Cheat)" ) PORT_DIPLOCATION("SW3:2")
+	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( Yes ) )
+	// Happens at reset
+	PORT_DIPNAME( 0x04, 0x00, "Backup RAM Clear" ) PORT_DIPLOCATION("SW3:3")
 	PORT_DIPSETTING(    0x04, DEF_STR( Yes ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
-	PORT_DIPUNUSED_DIPLOC( 0x08, 0x08, "SW3:4" )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Flip_Screen ) ) PORT_DIPLOCATION("SW3:5")
+	PORT_DIPUNUSED_DIPLOC( 0x08, 0x00, "SW3:4" )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Flip_Screen ) ) PORT_DIPLOCATION("SW3:5")
 	PORT_DIPSETTING(    0x10, DEF_STR( Yes ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
 	PORT_BIT( 0x60, IP_ACTIVE_HIGH, IPT_UNUSED )
@@ -959,7 +944,7 @@ static MACHINE_CONFIG_START( ppking )
 	MCFG_CPU_ADD("sub", Z80, XTAL_12MHz/4) /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(cpu2_map)
 	MCFG_CPU_IO_MAP(ppking_cpu2_io)
-	MCFG_CPU_PERIODIC_INT_DRIVER(ppking_state,  irq0_line_hold, 60)
+	MCFG_CPU_PERIODIC_INT_DRIVER(ppking_state,  irq0_line_assert, 60)
 
 	MCFG_CPU_ADD("audiocpu", M6809, XTAL_12MHz/16) /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(ppking_cpu3_map)
@@ -973,16 +958,18 @@ static MACHINE_CONFIG_START( ppking )
 	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(ppking_state, spritebuffer_w))
 //	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE(gladiatr_state, spritebank_w))
 //	MCFG_ADDRESSABLE_LATCH_Q2_OUT_CB(MEMBANK("bank1"))
+//	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(ppking_state, nmi_mask_w))
 //	MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(INPUTLINE("sub", INPUT_LINE_RESET)) // shadowed by aforementioned hack
 //  Q6 used
 	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(ppking_state, flipscreen_w))
 	
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
-	MCFG_SCREEN_SIZE(32*8, 32*8)
-	MCFG_SCREEN_VISIBLE_AREA(0*8, 32*8-1, 2*8, 30*8-1)
+//	MCFG_SCREEN_REFRESH_RATE(60)
+//	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
+//	MCFG_SCREEN_SIZE(32*8, 32*8)
+//	MCFG_SCREEN_VISIBLE_AREA(0*8, 32*8-1, 2*8, 30*8-1)
+	MCFG_SCREEN_RAW_PARAMS(XTAL_12MHz/2,384,0,256,264,16,240) // assume same as Arkanoid
 	MCFG_SCREEN_UPDATE_DRIVER(ppking_state, screen_update_ppking)
 	MCFG_SCREEN_PALETTE("palette")
 
@@ -1000,7 +987,7 @@ static MACHINE_CONFIG_START( ppking )
 	MCFG_SOUND_ADD("ymsnd", YM2203, XTAL_12MHz/8) /* verified on pcb */
 	MCFG_YM2203_IRQ_HANDLER(WRITELINE(gladiatr_state_base, ym_irq))
 	MCFG_AY8910_PORT_A_READ_CB(READ8(ppking_state, ppking_f1_r))
-	MCFG_AY8910_PORT_B_READ_CB(READ8(ppking_state, ppking_f1_r))
+	MCFG_AY8910_PORT_B_READ_CB(IOPORT("DSW3")) /* port B read */
 	MCFG_SOUND_ROUTE(0, "mono", 0.60)
 	MCFG_SOUND_ROUTE(1, "mono", 0.60)
 	MCFG_SOUND_ROUTE(2, "mono", 0.60)
@@ -1476,14 +1463,11 @@ DRIVER_INIT_MEMBER(ppking_state, ppking)
 	rom[0x845] = 0x00;
 	rom[0x846] = 0x00;
 	rom[0x847] = 0x00;
-	
-	save_item(NAME(m_data1));
-	save_item(NAME(m_data2));
 }
 
 
 
-GAME( 1985, ppking,   0,        ppking,   ppking,   ppking_state,   ppking,   ROT90, "Taito America Corporation", "Ping-Pong King", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_NO_COCKTAIL | MACHINE_NODEVICE_LAN )
+GAME( 1985, ppking,   0,        ppking,   ppking,   ppking_state,   ppking,   ROT90, "Taito America Corporation", "Ping-Pong King", MACHINE_IMPERFECT_SOUND | MACHINE_NO_COCKTAIL | MACHINE_NODEVICE_LAN )
 GAME( 1986, gladiatr, 0,        gladiatr, gladiatr, gladiatr_state, gladiatr, ROT0,  "Allumer / Taito America Corporation", "Gladiator (US)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, ogonsiro, gladiatr, gladiatr, gladiatr, gladiatr_state, gladiatr, ROT0,  "Allumer / Taito Corporation", "Ougon no Shiro (Japan)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, greatgur, gladiatr, gladiatr, gladiatr, gladiatr_state, gladiatr, ROT0,  "Allumer / Taito Corporation", "Great Gurianos (Japan?)", MACHINE_SUPPORTS_SAVE )
