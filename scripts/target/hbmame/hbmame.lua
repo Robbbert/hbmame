@@ -127,6 +127,7 @@ MACHINES["6821PIA"] = true
 MACHINES["68681"] = true
 MACHINES["I8257"] = true
 MACHINES["AAKARTDEV"] = true
+MACHINES["ADC0844"] = true
 MACHINES["BANKDEV"] = true
 MACHINES["CXD1095"] = true
 MACHINES["EEPROMDEV"] = true
@@ -777,8 +778,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
 --	MAME_DIR .. "src/hbmame/drivers/atari_s1.cpp",
 --	MAME_DIR .. "src/mame/machine/genpin.cpp",
---	MAME_DIR .. "src/hbmame/drivers/flower.cpp",
---	MAME_DIR .. "src/hbmame/drivers/marinedt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
