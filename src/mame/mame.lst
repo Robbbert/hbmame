@@ -21232,6 +21232,7 @@ monzagpb                        // bootleg
 
 @source:moo.cpp
 bucky                           // GX173 (c) 1992 (World)
+buckyaa                         // GX173 (c) 1992 (Asia)
 buckyaab                        // GX173 (c) 1992 (Asia)
 buckyea                         // GX173 (c) 1992 (World)
 buckyjaa                        // GX173 (c) 1992 (Japan)
@@ -28945,11 +28946,12 @@ moeru                           // 2002.12 Moeru Casinyo
 mok                             // 2002.03.06 The Maze of the Kings
 monkeyba                        // 2001.05 Monkey Ball
 mslug6                          // 2006.02 Metal Slug 6
-mtkob2                          // 2003.02 MushiKing The King Of Beetle (World)
 mushi2k4                        // 2004.?? MushiKing The King Of Beetles 2004 Second (Japan)
 mushi2k5                        // 2005.?? MushiKing The King Of Beetles 2005 First (Japan)
+mushike                         // 2004.?? MushiKing The King Of Beetle (World)
 mushi2eo                        // 2005.?? Mushiking The King Of Beetles II / III / III+ (Ver. 1.001) (World)
 mushik2e                        // 2005.?? Mushiking The King Of Beetles II / III / III+ (Ver. 2.001) (World)
+mushik4e                        // 2007.?? Mushiking The King Of Beetles IV / V / VI (World)
 mvsc2                           // 2000.03 Marvel Vs. Capcom 2 New Age of Heroes (Export, Korea) (Rev A)
 mvsc2u                          // 2000.03 Marvel Vs. Capcom 2 New Age of Heroes (USA) (Rev A)
 naomi                           // 1998.?? Naomi BIOS
@@ -36122,6 +36124,7 @@ batlgear                        // E68 (c) 1999 Taito
 batlgr2                         // E87 (c) 2000 Taito (2.04J)
 batlgr2a                        // E87 (c) 2000 Taito (2.01J)
 landhigh                        // E82 (c) 1999 Taito
+landhigha                       // E82 (c) 1999 Taito
 pwrshovl                        // E74 (c) 1999 Taito
 pwrshovla                       //
 raizpin                         // F14 (c) 2002 Taito

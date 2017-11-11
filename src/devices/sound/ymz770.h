@@ -12,10 +12,6 @@
 #pragma once
 
 //**************************************************************************
-//  CONSTANTS
-//**************************************************************************
-
-//**************************************************************************
 //  INTERFACE CONFIGURATION MACROS
 //**************************************************************************
 
@@ -69,7 +65,8 @@ protected:
 	uint8_t m_cur_reg;
 	uint8_t m_mute;         // mute chip
 	uint8_t m_doen;         // digital output enable
-	uint8_t m_vlma;         // overall AAM volume
+	uint8_t m_vlma;         // overall volume L0/R0
+	uint8_t m_vlma1;        // overall volume L1/R1
 	uint8_t m_bsl;          // boost level
 	uint8_t m_cpl;          // clip limiter
 	required_region_ptr<uint8_t> m_rom;
@@ -79,6 +76,8 @@ protected:
 		uint16_t phrase;
 		uint8_t pan;
 		uint8_t pan_delay;
+		uint8_t pan1;
+		uint8_t pan1_delay;
 		uint8_t volume;
 		uint8_t volume_delay;
 		uint8_t volume2;
@@ -97,10 +96,10 @@ protected:
 	struct ymz_sequence
 	{
 		uint16_t sequence;
-		uint8_t seqcontrol;
-		uint8_t seqdelay;
-		uint8_t *seqdata;
-		bool is_seq_playing;
+		uint8_t control;
+		uint8_t delay;
+		uint8_t *data;
+		bool is_playing;
 	};
 
 	ymz_channel m_channels[16];
@@ -117,7 +116,7 @@ public:
 
 	DECLARE_READ8_MEMBER(read);
 protected:
-	virtual void internal_reg_write(uint8_t reg, uint8_t data) override; 
+	virtual void internal_reg_write(uint8_t reg, uint8_t data) override;
 	virtual uint32_t get_phrase_offs(int phrase) override { int ph = phrase * 4; return ((m_rom[ph] & 0x0f) << 24 | m_rom[ph + 1] << 16 | m_rom[ph + 2] << 8 | m_rom[ph + 3]) * 2; };
 	virtual uint32_t get_seq_offs(int sqn) override { int sq = sqn * 4 + 0x2000; return ((m_rom[sq] & 0x0f) << 24 | m_rom[sq + 1] << 16 | m_rom[sq + 2] << 8 | m_rom[sq + 3]) * 2; };
 	virtual void sequencer() override {};
