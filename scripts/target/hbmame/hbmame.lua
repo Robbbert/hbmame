@@ -570,7 +570,6 @@ files {
 	MAME_DIR .. "src/mame/video/mario.cpp",
 	MAME_DIR .. "src/mame/audio/nl_mario.cpp",
 	MAME_DIR .. "src/mame/audio/nl_mario.h",
-	MAME_DIR .. "src/hbmame/drivers/mmagic.cpp",
 	MAME_DIR .. "src/hbmame/drivers/playch10.cpp",
 	MAME_DIR .. "src/mame/machine/playch10.cpp",
 	MAME_DIR .. "src/mame/video/playch10.cpp",

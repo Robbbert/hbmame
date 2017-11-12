@@ -1574,9 +1574,6 @@ mkla4d		/* MK protection hack */
 	/* mitchell */
 mitcdemo	/* Charles Doty */
 
-	/* mmagic */
-mmagic		// with sound
-
 	/* model2 */
 srallyc		//parent
 srallyp		// Kyle Hodgetts Sega Rally Pro Drivin'
