@@ -57,6 +57,14 @@ WRITE8_MEMBER(chqflag_state::chqflag_bankswitch_w)
 	/* other bits unknown/unused */
 }
 
+inline void chqflag_state::update_background_shadows(uint8_t data)
+{
+	double brt = (data & 0x80) ? PALETTE_DEFAULT_SHADOW_FACTOR : 1.0;
+
+	for (int i = 512; i < 1024; i++)
+		m_palette->set_pen_contrast(i, brt);
+}
+
 WRITE8_MEMBER(chqflag_state::chqflag_vreg_w)
 {
 	/* bits 0 & 1 = coin counters */
@@ -71,21 +79,25 @@ WRITE8_MEMBER(chqflag_state::chqflag_vreg_w)
 	/* Bits 3 and 7 are set in night stages, where the background should get darker and */
 	/* the headlight (which have the shadow bit set) become highlights */
 	/* Maybe one of the bits inverts the SHAD line while the other darkens the background. */
-	if (data & 0x08)
-		m_palette->set_shadow_factor(1 / PALETTE_DEFAULT_SHADOW_FACTOR);
-	else
-		m_palette->set_shadow_factor(PALETTE_DEFAULT_SHADOW_FACTOR);
-
+	/*
+	 * Update according to a reference:
+	 * 0x00 is certainly shadow (car pit-in shadow when zoomed in/clouds before rain)
+	 * 0x80 is used when rain shows up (which should be white/highlighted)
+	 * 0x88 is for when night shows up (max amount of highlight)
+	 * 0x08 is used at dawn after 0x88 state
+	 * The shadow part looks ugly when rain starts/ends pouring (-> black colored with a setting of 0x00), 
+	 * apparently the reference shows dimmed background when car pits in which maybe translates in a 
+	 * global zoomed sprite that gets clipped in emulation?
+	 */
+	const float shadow_factors[4] = {PALETTE_DEFAULT_SHADOW_FACTOR, 1.33f, 1.66f, 2.0f };
+	m_palette->set_shadow_factor(shadow_factors[((data & 0x80) >> 6) | ((data & 0x08) >> 3)]);
+	
 	if ((data & 0x80) != m_last_vreg)
 	{
-		double brt = (data & 0x80) ? PALETTE_DEFAULT_SHADOW_FACTOR : 1.0;
-		int i;
-
 		m_last_vreg = data & 0x80;
 
 		/* only affect the background */
-		for (i = 512; i < 1024; i++)
-			m_palette->set_pen_contrast(i, brt);
+		update_background_shadows(data);
 	}
 
 //if ((data & 0xf8) && (data & 0xf8) != 0x88)
@@ -286,6 +298,7 @@ void chqflag_state::machine_reset()
 	m_analog_ctrl = 0;
 	m_accel = 0;
 	m_wheel = 0;
+	update_background_shadows(0);
 }
 
 static MACHINE_CONFIG_START( chqflag )
