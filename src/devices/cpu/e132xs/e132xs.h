@@ -108,6 +108,18 @@ protected:
 		LIMM = 1
 	};
 
+	enum shift_type
+	{
+		N_LO = 0,
+		N_HI = 1
+	};
+
+	enum sign_mode
+	{
+		IS_UNSIGNED = 0,
+		IS_SIGNED = 1
+	};
+
 	// construction/destruction
 	hyperstone_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock,
 						const device_type type, uint32_t prg_data_width, uint32_t io_data_width, address_map_constructor internal_map);
@@ -149,7 +161,6 @@ protected:
 	uint32_t  m_local_regs[64];
 
 	/* internal stuff */
-	uint32_t  m_ppc;          // previous pc
 	uint16_t  m_op;           // opcode
 	uint32_t  m_trap_entry;   // entry point to get trap address
 
@@ -209,18 +220,8 @@ private:
 	uint32_t decode_const();
 
 	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_chk();
-	void hyperstone_movd_global_global();
-	void hyperstone_movd_global_local();
-	void hyperstone_movd_local_global();
-	void hyperstone_movd_local_local();
-	void hyperstone_divu_global_global();
-	void hyperstone_divu_global_local();
-	void hyperstone_divu_local_global();
-	void hyperstone_divu_local_local();
-	void hyperstone_divs_global_global();
-	void hyperstone_divs_global_local();
-	void hyperstone_divs_local_global();
-	void hyperstone_divs_local_local();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_movd();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL, sign_mode SIGNED> void hyperstone_divsu();
 	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_xm();
 	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_mask();
 	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_sum();
@@ -249,71 +250,39 @@ private:
 	template <reg_bank DST_GLOBAL, imm_size IMM_LONG> void hyperstone_andni();
 	template <reg_bank DST_GLOBAL, imm_size IMM_LONG> void hyperstone_ori();
 	template <reg_bank DST_GLOBAL, imm_size IMM_LONG> void hyperstone_xori();
-	void hyperstone_shrdi();
+	template <shift_type HI_N> void hyperstone_shrdi();
 	void hyperstone_shrd();
 	void hyperstone_shr();
-	void hyperstone_shri_global();
-	void hyperstone_shri_local();
-	void hyperstone_sardi();
+	template <shift_type HI_N, reg_bank DST_GLOBAL> void hyperstone_shri();
+	template <shift_type HI_N> void hyperstone_sardi();
 	void hyperstone_sard();
 	void hyperstone_sar();
-	void hyperstone_sari_global();
-	void hyperstone_sari_local();
-	void hyperstone_shldi();
+	template <shift_type HI_N, reg_bank DST_GLOBAL> void hyperstone_sari();
+	template <shift_type HI_N> void hyperstone_shldi();
 	void hyperstone_shld();
 	void hyperstone_shl();
-	void hyperstone_shli_global();
-	void hyperstone_shli_local();
+	template <shift_type HI_N, reg_bank DST_GLOBAL> void hyperstone_shli();
 	void hyperstone_testlz();
 	void hyperstone_rol();
-	void hyperstone_ldxx1_global_global();
-	void hyperstone_ldxx1_global_local();
-	void hyperstone_ldxx1_local_global();
-	void hyperstone_ldxx1_local_local();
-	void hyperstone_ldxx2_global_global();
-	void hyperstone_ldxx2_global_local();
-	void hyperstone_ldxx2_local_global();
-	void hyperstone_ldxx2_local_local();
-	void hyperstone_stxx1_global_global();
-	void hyperstone_stxx1_global_local();
-	void hyperstone_stxx1_local_global();
-	void hyperstone_stxx1_local_local();
-	void hyperstone_stxx2_global_global();
-	void hyperstone_stxx2_global_local();
-	void hyperstone_stxx2_local_global();
-	void hyperstone_stxx2_local_local();
-	void hyperstone_mulu_global_global();
-	void hyperstone_mulu_global_local();
-	void hyperstone_mulu_local_global();
-	void hyperstone_mulu_local_local();
-	void hyperstone_muls_global_global();
-	void hyperstone_muls_global_local();
-	void hyperstone_muls_local_global();
-	void hyperstone_muls_local_local();
-	void hyperstone_mul_global_global();
-	void hyperstone_mul_global_local();
-	void hyperstone_mul_local_global();
-	void hyperstone_mul_local_local();
-	void hyperstone_set_global();
-	void hyperstone_set_local();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_ldxx1();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_ldxx2();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_stxx1();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_stxx2();
 
-	void hyperstone_ldwr_global_local();
-	void hyperstone_ldwr_local_local();
-	void hyperstone_lddr_global_local();
-	void hyperstone_lddr_local_local();
-	void hypesrtone_ldwp_global_local();
-	void hypesrtone_ldwp_local_local();
-	void hyperstone_lddp_global_local();
-	void hyperstone_lddp_local_local();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL, sign_mode SIGNED> void hyperstone_mulsu();
+	template <reg_bank DST_GLOBAL, reg_bank SRC_GLOBAL> void hyperstone_mul();
 
-	void hyperstone_stwr_global();
-	void hyperstone_stwr_local();
-	void hyperstone_stdr_global();
-	void hyperstone_stdr_local();
-	void hyperstone_stwp_global_local();
-	void hyperstone_stwp_local_local();
-	void hyperstone_stdp_global_local();
-	void hyperstone_stdp_local_local();
+	template <shift_type HI_N, reg_bank DST_GLOBAL> void hyperstone_set();
+
+	template <reg_bank SRC_GLOBAL> void hyperstone_ldwr();
+	template <reg_bank SRC_GLOBAL> void hyperstone_lddr();
+	template <reg_bank SRC_GLOBAL> void hypesrtone_ldwp();
+	template <reg_bank SRC_GLOBAL> void hyperstone_lddp();
+
+	template <reg_bank SRC_GLOBAL> void hyperstone_stwr();
+	template <reg_bank SRC_GLOBAL> void hyperstone_stdr();
+	template <reg_bank SRC_GLOBAL> void hyperstone_stwp();
+	template <reg_bank SRC_GLOBAL> void hyperstone_stdp();
 
 	void hyperstone_dbv();
 	void hyperstone_dbnv();

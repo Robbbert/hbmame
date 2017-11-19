@@ -32,7 +32,7 @@
 
  TODO:
  - some wrong cycle counts
-
+ - verify register wrapping with sregf/dregf on hardware
  CHANGELOG:
 
  Pierpaolo Prazzoli
@@ -101,10 +101,6 @@
  Pierpaolo Prazzoli
     - Same fix in get_const
 
- Ryan Holtz - 02/27/04
-    - Fixed delayed branching
-    - const_val for CALL should always have bit 0 clear
-
  Pierpaolo Prazzoli - 02/25/04
     - Fixed some wrong addresses to address local registers instead of memory
     - Fixed FRAME and RET instruction
@@ -133,83 +129,15 @@
       (From the doc: A Call, Trap or Software instruction increments the FP and sets FL
       to 6, thus creating a new stack frame with the length of 6 registers).
 
- Ryan Holtz - 10/25/03
-    - Fixed CALL enough that it at least jumps to the right address, no word
-      yet as to whether or not it's working enough to return.
-    - Added get_lrconst() to get the const value for the CALL operand, since
-      apparently using immediate_value() was wrong. The code is ugly, but it
-      works properly. Vampire 1/2 now gets far enough to try to test its RAM.
-    - Just from looking at it, CALL apparently doesn't frame properly. I'm not
-      sure about FRAME, but perhaps it doesn't work properly - I'm not entirely
-      positive. The return address when vamphalf's memory check routine is
-      called at FFFFFD7E is stored in register L8, and then the RET instruction
-      at the end of the routine uses L1 as the return address, so that might
-      provide some clues as to how it works.
-    - I'd almost be willing to bet money that there's no framing at all since
-      the values in L0 - L15 as displayed by the debugger would change during a
-      CALL or FRAME operation. I'll look when I'm in the mood.
-    - The mood struck me, and I took a look at set_local_register and GET_L_REG.
-      Apparently no matter what the current frame pointer is they'll always use
-      local_regs[0] through local_regs[15].
-
- Ryan Holtz - 08/20/03
-    - Added H flag support for MOV and MOVI
-    - Changed init routine to set S flag on boot. Apparently the CPU defaults to
-      supervisor mode as opposed to user mode when it powers on, as shown by the
-      vamphalf power-on routines. Makes sense, too, since if the machine booted
-      in user mode, it would be impossible to get into supervisor mode.
-
  Pierpaolo Prazzoli - 08/19/03
     - Added check for D_BIT and S_BIT where PC or SR must or must not be denoted.
       (movd, divu, divs, ldxx1, ldxx2, stxx1, stxx2, mulu, muls, set, mul
       call, chk)
 
- Ryan Holtz - 08/17/03
-    - Working on support for H flag, nothing quite done yet
-    - Added trap Range Error for CHK PC, PC
-    - Fixed relative jumps, they have to be taken from the opcode following the
-      jump instead of the jump opcode itself.
-
  Pierpaolo Prazzoli - 08/17/03
     - Fixed get_pcrel() when OP & 0x80 is set.
     - Decremented PC by 2 also in MOV, ADD, ADDI, SUM, SUB and added the check if
       D_BIT is not set. (when pc is changed they are implicit branch)
-
- Ryan Holtz - 08/17/03
-    - Implemented a crude hack to set FL in the SR to 6, since according to the docs
-      that's supposed to happen each time a trap occurs, apparently including when
-      the processor starts up. The 3rd opcode executed in vamphalf checks to see if
-      the FL flag in SR 6, so it's apparently the "correct" behaviour despite the
-      docs not saying anything on it. If FL is not 6, the branch falls through and
-      encounters a CHK PC, L2, which at that point will always throw a range trap.
-      The range trap vector contains 00000000 (CHK PC, PC), which according to the
-      docs will always throw a range trap (which would effectively lock the system).
-      This revealed a bug: CHK PC, PC apparently does not throw a range trap, which
-      needs to be fixed. Now that the "correct" behaviour is hacked in with the FL
-      flags, it reveals yet another bug in that the branch is interpreted as being
-      +0x8700. This means that the PC then wraps around to 000082B0, give or take
-      a few bytes. While it does indeed branch to valid code, I highly doubt that
-      this is the desired effect. Check for signed/unsigned relative branch, maybe?
-
- Ryan Holtz - 08/16/03
-    - Fixed the debugger at least somewhat so that it displays hex instead of decimal,
-      and so that it disassembles opcodes properly.
-    - Fixed hyperstone_execute() to increment PC *after* executing the opcode instead of
-      before. This is probably why vamphalf was booting to fffffff8, but executing at
-      fffffffa instead.
-    - Changed execute_trap to decrement PC by 2 so that the next opcode isn't skipped
-      after a trap
-    - Changed execute_br to decrement PC by 2 so that the next opcode isn't skipped
-      after a branch
-    - Changed hyperstone_movi to decrement PC by 2 when G0 (PC) is modified so that the
-      next opcode isn't skipped after a branch
-    - Changed hyperstone_movi to default to a uint32_t being moved into the register
-      as opposed to a uint8_t. This is wrong, the bit width is quite likely to be
-      dependent on the n field in the Rimm instruction type. However, vamphalf uses
-      MOVI G0,[FFFF]FBAC (n=$13) since there's apparently no absolute branch opcode.
-      What kind of CPU is this that it doesn't have an absolute jump in its branch
-      instructions and you have to use an immediate MOV to do an abs. jump!?
-    - Replaced usage of logerror() with smf's verboselog()
 
 *********************************************************************/
 
@@ -697,6 +625,8 @@ void hyperstone_device::set_global_register(uint8_t code, uint32_t val)
 #define S_BIT                   ((OP & 0x100) >> 8)
 #define D_BIT                   ((OP & 0x200) >> 9)
 #define N_VALUE                 (((OP & 0x100) >> 4) | (OP & 0x0f))
+#define HI_N_VALUE				(0x10 | (OP & 0x0f))
+#define LO_N_VALUE				(OP & 0x0f)
 #define N_OP_MASK               (m_op & 0x10f)
 #define DST_CODE                ((OP & 0xf0) >> 4)
 #define SRC_CODE                (OP & 0x0f)
@@ -838,7 +768,6 @@ void hyperstone_device::execute_br()
 	const int32_t offset = decode_pcrel();
 	check_delay_PC();
 
-	PPC = PC;
 	PC += offset;
 	SR &= ~M_MASK;
 
@@ -866,7 +795,6 @@ void hyperstone_device::execute_trap(uint32_t addr)
 	SET_L(1);
 	SET_S(1);
 
-	PPC = PC;
 	PC = addr;
 
 	m_icount -= m_clock_cycles_2;
@@ -875,27 +803,19 @@ void hyperstone_device::execute_trap(uint32_t addr)
 
 void hyperstone_device::execute_int(uint32_t addr)
 {
-	uint8_t reg;
-	uint32_t oldSR;
-	reg = GET_FP + GET_FL;
-
+	const uint8_t reg = GET_FP + GET_FL;
 	SET_ILC(m_instruction_length);
-
-	oldSR = SR;
+	const uint32_t oldSR = SR;
 
 	SET_FL(2);
 	SET_FP(reg);
 
-	set_local_register(0, (PC & 0xfffffffe) | GET_S);
-	set_local_register(1, oldSR);
+	m_local_regs[(0 + reg) & 0x3f] = (PC & ~1) | GET_S;
+	m_local_regs[(1 + reg) & 0x3f] = oldSR;
 
-	SET_M(0);
-	SET_T(0);
-	SET_L(1);
-	SET_S(1);
-	SET_I(1);
+	SR &= ~(M_MASK | T_MASK);
+	SR |= (L_MASK | S_MASK | I_MASK);
 
-	PPC = PC;
 	PC = addr;
 
 	m_icount -= m_clock_cycles_2;
@@ -904,29 +824,21 @@ void hyperstone_device::execute_int(uint32_t addr)
 /* TODO: mask Parity Error and Extended Overflow exceptions */
 void hyperstone_device::execute_exception(uint32_t addr)
 {
-	uint8_t reg;
-	uint32_t oldSR;
-	reg = GET_FP + GET_FL;
-
+	const uint8_t reg = GET_FP + GET_FL;
 	SET_ILC(m_instruction_length);
-
-	oldSR = SR;
+	const uint32_t oldSR = SR;
 
 	SET_FP(reg);
 	SET_FL(2);
 
-	set_local_register(0, (PC & 0xfffffffe) | GET_S);
-	set_local_register(1, oldSR);
+	m_local_regs[(0 + reg) & 0x3f] = (PC & ~1) | GET_S;
+	m_local_regs[(1 + reg) & 0x3f] = oldSR;
 
-	SET_M(0);
-	SET_T(0);
-	SET_L(1);
-	SET_S(1);
+	SR &= ~(M_MASK | T_MASK);
+	SR |= (L_MASK | S_MASK);
 
-	PPC = PC;
 	PC = addr;
 
-	LOG("EXCEPTION! PPC = %08X PC = %08X\n",PPC-2,PC-2);
 	m_icount -= m_clock_cycles_2;
 }
 
@@ -963,7 +875,6 @@ void hyperstone_device::execute_software()
 	SR &= ~(M_MASK | T_MASK);
 	SR |= L_MASK;
 
-	PPC = PC;
 	PC = addr;
 
 	m_icount -= m_clock_cycles_6;
@@ -1098,7 +1009,6 @@ void hyperstone_device::init(int scale_mask)
 {
 	memset(m_global_regs, 0, sizeof(uint32_t) * 32);
 	memset(m_local_regs, 0, sizeof(uint32_t) * 64);
-	m_ppc = 0;
 	m_op = 0;
 	m_trap_entry = 0;
 	m_clock_scale_mask = 0;
@@ -1249,7 +1159,6 @@ void hyperstone_device::init(int scale_mask)
 
 	save_item(NAME(m_global_regs));
 	save_item(NAME(m_local_regs));
-	save_item(NAME(m_ppc));
 	save_item(NAME(m_trap_entry));
 	save_item(NAME(m_delay_pc));
 	save_item(NAME(m_instruction_length));
@@ -1602,7 +1511,7 @@ void hyperstone_device::hyperstone_reserved()
 
 void hyperstone_device::hyperstone_do()
 {
-	fatalerror("Executed hyperstone_do instruction. PC = %08X\n", PPC);
+	fatalerror("Executed hyperstone_do instruction. PC = %08X\n", PC-4);
 }
 
 //-------------------------------------------------
@@ -1621,7 +1530,6 @@ void hyperstone_device::execute_run()
 	{
 		uint32_t oldh = SR & 0x00000020;
 
-		PPC = PC;   /* copy PC to previous PC */
 		debugger_instruction_hook(this, PC);
 
 		OP = READ_OP(PC);
@@ -1635,18 +1543,18 @@ void hyperstone_device::execute_run()
 			case 0x01: hyperstone_chk<GLOBAL, LOCAL>(); break;
 			case 0x02: hyperstone_chk<LOCAL, GLOBAL>(); break;
 			case 0x03: hyperstone_chk<LOCAL, LOCAL>(); break;
-			case 0x04: hyperstone_movd_global_global(); break;
-			case 0x05: hyperstone_movd_global_local(); break;
-			case 0x06: hyperstone_movd_local_global(); break;
-			case 0x07: hyperstone_movd_local_local(); break;
-			case 0x08: hyperstone_divu_global_global(); break;
-			case 0x09: hyperstone_divu_global_local(); break;
-			case 0x0a: hyperstone_divu_local_global(); break;
-			case 0x0b: hyperstone_divu_local_local(); break;
-			case 0x0c: hyperstone_divs_global_global(); break;
-			case 0x0d: hyperstone_divs_global_local(); break;
-			case 0x0e: hyperstone_divs_local_global(); break;
-			case 0x0f: hyperstone_divs_local_local(); break;
+			case 0x04: hyperstone_movd<GLOBAL, GLOBAL>(); break;
+			case 0x05: hyperstone_movd<GLOBAL, LOCAL>(); break;
+			case 0x06: hyperstone_movd<LOCAL, GLOBAL>(); break;
+			case 0x07: hyperstone_movd<LOCAL, LOCAL>(); break;
+			case 0x08: hyperstone_divsu<GLOBAL, GLOBAL, IS_UNSIGNED>(); break;
+			case 0x09: hyperstone_divsu<GLOBAL, LOCAL, IS_UNSIGNED>(); break;
+			case 0x0a: hyperstone_divsu<LOCAL, GLOBAL, IS_UNSIGNED>(); break;
+			case 0x0b: hyperstone_divsu<LOCAL, LOCAL, IS_UNSIGNED>(); break;
+			case 0x0c: hyperstone_divsu<GLOBAL, GLOBAL, IS_SIGNED>(); break;
+			case 0x0d: hyperstone_divsu<GLOBAL, LOCAL, IS_SIGNED>(); break;
+			case 0x0e: hyperstone_divsu<LOCAL, GLOBAL, IS_SIGNED>(); break;
+			case 0x0f: hyperstone_divsu<LOCAL, LOCAL, IS_SIGNED>(); break;
 			case 0x10: hyperstone_xm<GLOBAL, GLOBAL>(); break;
 			case 0x11: hyperstone_xm<GLOBAL, LOCAL>(); break;
 			case 0x12: hyperstone_xm<LOCAL, GLOBAL>(); break;
@@ -1759,70 +1667,70 @@ void hyperstone_device::execute_run()
 			case 0x7d: hyperstone_xori<GLOBAL, LIMM>(); break;
 			case 0x7e: hyperstone_xori<LOCAL, SIMM>(); break;
 			case 0x7f: hyperstone_xori<LOCAL, LIMM>(); break;
-			case 0x80: hyperstone_shrdi(); break;
-			case 0x81: hyperstone_shrdi(); break;
+			case 0x80: hyperstone_shrdi<N_LO>(); break;
+			case 0x81: hyperstone_shrdi<N_HI>(); break;
 			case 0x82: hyperstone_shrd(); break;
 			case 0x83: hyperstone_shr(); break;
-			case 0x84: hyperstone_sardi(); break;
-			case 0x85: hyperstone_sardi(); break;
+			case 0x84: hyperstone_sardi<N_LO>(); break;
+			case 0x85: hyperstone_sardi<N_HI>(); break;
 			case 0x86: hyperstone_sard(); break;
 			case 0x87: hyperstone_sar(); break;
-			case 0x88: hyperstone_shldi(); break;
-			case 0x89: hyperstone_shldi(); break;
+			case 0x88: hyperstone_shldi<N_LO>(); break;
+			case 0x89: hyperstone_shldi<N_HI>(); break;
 			case 0x8a: hyperstone_shld(); break;
 			case 0x8b: hyperstone_shl(); break;
 			case 0x8c: hyperstone_reserved(); break;
 			case 0x8d: hyperstone_reserved(); break;
 			case 0x8e: hyperstone_testlz(); break;
 			case 0x8f: hyperstone_rol(); break;
-			case 0x90: hyperstone_ldxx1_global_global(); break;
-			case 0x91: hyperstone_ldxx1_global_local(); break;
-			case 0x92: hyperstone_ldxx1_local_global(); break;
-			case 0x93: hyperstone_ldxx1_local_local(); break;
-			case 0x94: hyperstone_ldxx2_global_global(); break;
-			case 0x95: hyperstone_ldxx2_global_local(); break;
-			case 0x96: hyperstone_ldxx2_local_global(); break;
-			case 0x97: hyperstone_ldxx2_local_local(); break;
-			case 0x98: hyperstone_stxx1_global_global(); break;
-			case 0x99: hyperstone_stxx1_global_local(); break;
-			case 0x9a: hyperstone_stxx1_local_global(); break;
-			case 0x9b: hyperstone_stxx1_local_local(); break;
-			case 0x9c: hyperstone_stxx2_global_global(); break;
-			case 0x9d: hyperstone_stxx2_global_local(); break;
-			case 0x9e: hyperstone_stxx2_local_global(); break;
-			case 0x9f: hyperstone_stxx2_local_local(); break;
-			case 0xa0: hyperstone_shri_global(); break;
-			case 0xa1: hyperstone_shri_global(); break;
-			case 0xa2: hyperstone_shri_local(); break;
-			case 0xa3: hyperstone_shri_local(); break;
-			case 0xa4: hyperstone_sari_global(); break;
-			case 0xa5: hyperstone_sari_global(); break;
-			case 0xa6: hyperstone_sari_local(); break;
-			case 0xa7: hyperstone_sari_local(); break;
-			case 0xa8: hyperstone_shli_global(); break;
-			case 0xa9: hyperstone_shli_global(); break;
-			case 0xaa: hyperstone_shli_local(); break;
-			case 0xab: hyperstone_shli_local(); break;
+			case 0x90: hyperstone_ldxx1<GLOBAL, GLOBAL>(); break;
+			case 0x91: hyperstone_ldxx1<GLOBAL, LOCAL>(); break;
+			case 0x92: hyperstone_ldxx1<LOCAL, GLOBAL>(); break;
+			case 0x93: hyperstone_ldxx1<LOCAL, LOCAL>(); break;
+			case 0x94: hyperstone_ldxx2<GLOBAL, GLOBAL>(); break;
+			case 0x95: hyperstone_ldxx2<GLOBAL, LOCAL>(); break;
+			case 0x96: hyperstone_ldxx2<LOCAL, GLOBAL>(); break;
+			case 0x97: hyperstone_ldxx2<LOCAL, LOCAL>(); break;
+			case 0x98: hyperstone_stxx1<GLOBAL, GLOBAL>(); break;
+			case 0x99: hyperstone_stxx1<GLOBAL, LOCAL>(); break;
+			case 0x9a: hyperstone_stxx1<LOCAL, GLOBAL>(); break;
+			case 0x9b: hyperstone_stxx1<LOCAL, LOCAL>(); break;
+			case 0x9c: hyperstone_stxx2<GLOBAL, GLOBAL>(); break;
+			case 0x9d: hyperstone_stxx2<GLOBAL, LOCAL>(); break;
+			case 0x9e: hyperstone_stxx2<LOCAL, GLOBAL>(); break;
+			case 0x9f: hyperstone_stxx2<LOCAL, LOCAL>(); break;
+			case 0xa0: hyperstone_shri<N_LO, GLOBAL>(); break;
+			case 0xa1: hyperstone_shri<N_HI, GLOBAL>(); break;
+			case 0xa2: hyperstone_shri<N_LO, LOCAL>(); break;
+			case 0xa3: hyperstone_shri<N_HI, LOCAL>(); break;
+			case 0xa4: hyperstone_sari<N_LO, GLOBAL>(); break;
+			case 0xa5: hyperstone_sari<N_HI, GLOBAL>(); break;
+			case 0xa6: hyperstone_sari<N_LO, LOCAL>(); break;
+			case 0xa7: hyperstone_sari<N_HI, LOCAL>(); break;
+			case 0xa8: hyperstone_shli<N_LO, GLOBAL>(); break;
+			case 0xa9: hyperstone_shli<N_HI, GLOBAL>(); break;
+			case 0xaa: hyperstone_shli<N_LO, LOCAL>(); break;
+			case 0xab: hyperstone_shli<N_HI, LOCAL>(); break;
 			case 0xac: hyperstone_reserved(); break;
 			case 0xad: hyperstone_reserved(); break;
 			case 0xae: hyperstone_reserved(); break;
 			case 0xaf: hyperstone_reserved(); break;
-			case 0xb0: hyperstone_mulu_global_global(); break;
-			case 0xb1: hyperstone_mulu_global_local(); break;
-			case 0xb2: hyperstone_mulu_local_global(); break;
-			case 0xb3: hyperstone_mulu_local_local(); break;
-			case 0xb4: hyperstone_muls_global_global(); break;
-			case 0xb5: hyperstone_muls_global_local(); break;
-			case 0xb6: hyperstone_muls_local_global(); break;
-			case 0xb7: hyperstone_muls_local_local(); break;
-			case 0xb8: hyperstone_set_global(); break;
-			case 0xb9: hyperstone_set_global(); break;
-			case 0xba: hyperstone_set_local(); break;
-			case 0xbb: hyperstone_set_local(); break;
-			case 0xbc: hyperstone_mul_global_global(); break;
-			case 0xbd: hyperstone_mul_global_local(); break;
-			case 0xbe: hyperstone_mul_local_global(); break;
-			case 0xbf: hyperstone_mul_local_local(); break;
+			case 0xb0: hyperstone_mulsu<GLOBAL, GLOBAL, IS_UNSIGNED>(); break;
+			case 0xb1: hyperstone_mulsu<GLOBAL, LOCAL, IS_UNSIGNED>(); break;
+			case 0xb2: hyperstone_mulsu<LOCAL, GLOBAL, IS_UNSIGNED>(); break;
+			case 0xb3: hyperstone_mulsu<LOCAL, LOCAL, IS_UNSIGNED>(); break;
+			case 0xb4: hyperstone_mulsu<GLOBAL, GLOBAL, IS_SIGNED>(); break;
+			case 0xb5: hyperstone_mulsu<GLOBAL, LOCAL, IS_SIGNED>(); break;
+			case 0xb6: hyperstone_mulsu<LOCAL, GLOBAL, IS_SIGNED>(); break;
+			case 0xb7: hyperstone_mulsu<LOCAL, LOCAL, IS_SIGNED>(); break;
+			case 0xb8: hyperstone_set<N_LO, GLOBAL>(); break;
+			case 0xb9: hyperstone_set<N_HI, GLOBAL>(); break;
+			case 0xba: hyperstone_set<N_LO, LOCAL>(); break;
+			case 0xbb: hyperstone_set<N_HI, LOCAL>(); break;
+			case 0xbc: hyperstone_mul<GLOBAL, GLOBAL>(); break;
+			case 0xbd: hyperstone_mul<GLOBAL, LOCAL>(); break;
+			case 0xbe: hyperstone_mul<LOCAL, GLOBAL>(); break;
+			case 0xbf: hyperstone_mul<LOCAL, LOCAL>(); break;
 			case 0xc0: execute_software(); break; // fadd
 			case 0xc1: execute_software(); break; // faddd
 			case 0xc2: execute_software(); break; // fsub
@@ -1839,22 +1747,22 @@ void hyperstone_device::execute_run()
 			case 0xcd: execute_software(); break; // fcvtd
 			case 0xce: hyperstone_extend(); break;
 			case 0xcf: hyperstone_do(); break;
-			case 0xd0: hyperstone_ldwr_global_local(); break;
-			case 0xd1: hyperstone_ldwr_local_local(); break;
-			case 0xd2: hyperstone_lddr_global_local(); break;
-			case 0xd3: hyperstone_lddr_local_local(); break;
-			case 0xd4: hypesrtone_ldwp_global_local(); break;
-			case 0xd5: hypesrtone_ldwp_local_local(); break;
-			case 0xd6: hyperstone_lddp_global_local(); break;
-			case 0xd7: hyperstone_lddp_local_local(); break;
-			case 0xd8: hyperstone_stwr_global(); break;
-			case 0xd9: hyperstone_stwr_local(); break;
-			case 0xda: hyperstone_stdr_global(); break;
-			case 0xdb: hyperstone_stdr_local(); break;
-			case 0xdc: hyperstone_stwp_global_local(); break;
-			case 0xdd: hyperstone_stwp_local_local(); break;
-			case 0xde: hyperstone_stdp_global_local(); break;
-			case 0xdf: hyperstone_stdp_local_local(); break;
+			case 0xd0: hyperstone_ldwr<GLOBAL>(); break;
+			case 0xd1: hyperstone_ldwr<LOCAL>(); break;
+			case 0xd2: hyperstone_lddr<GLOBAL>(); break;
+			case 0xd3: hyperstone_lddr<LOCAL>(); break;
+			case 0xd4: hypesrtone_ldwp<GLOBAL>(); break;
+			case 0xd5: hypesrtone_ldwp<LOCAL>(); break;
+			case 0xd6: hyperstone_lddp<GLOBAL>(); break;
+			case 0xd7: hyperstone_lddp<LOCAL>(); break;
+			case 0xd8: hyperstone_stwr<GLOBAL>(); break;
+			case 0xd9: hyperstone_stwr<LOCAL>(); break;
+			case 0xda: hyperstone_stdr<GLOBAL>(); break;
+			case 0xdb: hyperstone_stdr<LOCAL>(); break;
+			case 0xdc: hyperstone_stwp<GLOBAL>(); break;
+			case 0xdd: hyperstone_stwp<LOCAL>(); break;
+			case 0xde: hyperstone_stdp<GLOBAL>(); break;
+			case 0xdf: hyperstone_stdp<LOCAL>(); break;
 			case 0xe0: hyperstone_dbv(); break;
 			case 0xe1: hyperstone_dbnv(); break;
 			case 0xe2: hyperstone_dbe(); break;

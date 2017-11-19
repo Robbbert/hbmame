@@ -92,25 +92,23 @@ WRITE8_MEMBER( univac_state::port43_w )
 
 READ8_MEMBER( univac_state::vram_r )
 {
-	offs_t offs = (offset & 0x1fff) ^ (BIT(offset, 13) ? 0x2000 : 0) ^ (m_screen_num ? 0x2000 : 0);
-	return m_p_videoram[offs];
+	return m_p_videoram[offset ^ (m_screen_num ? 0x2000 : 0)];
 }
 
 WRITE8_MEMBER( univac_state::vram_w )
 {
-	offs_t offs = (offset & 0x1fff) ^ (BIT(offset, 13) ? 0x2000 : 0) ^ (m_screen_num ? 0x2000 : 0);
-	m_p_videoram[offs] = data;
+	m_p_videoram[offset ^ (m_screen_num ? 0x2000 : 0)] = data;
 }
 
 
-static ADDRESS_MAP_START(uts20_mem, AS_PROGRAM, 8, univac_state)
+static ADDRESS_MAP_START( mem_map, AS_PROGRAM, 8, univac_state )
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE( 0x0000, 0x4fff ) AM_ROM AM_REGION("roms", 0)
 	AM_RANGE( 0x8000, 0xbfff ) AM_READWRITE(vram_r,vram_w)
 	AM_RANGE( 0xc000, 0xffff ) AM_RAM AM_SHARE("videoram")
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( uts20_io, AS_IO, 8, univac_state)
+static ADDRESS_MAP_START( io_map, AS_IO, 8, univac_state )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("uart", z80sio_device, cd_ba_r, cd_ba_w)
@@ -185,9 +183,9 @@ static const z80_daisy_config daisy_chain[] =
 
 static MACHINE_CONFIG_START( uts20 )
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",Z80, XTAL_4MHz) // unknown clock
-	MCFG_CPU_PROGRAM_MAP(uts20_mem)
-	MCFG_CPU_IO_MAP(uts20_io)
+	MCFG_CPU_ADD("maincpu", Z80, XTAL_4MHz) // unknown clock
+	MCFG_CPU_PROGRAM_MAP(mem_map)
+	MCFG_CPU_IO_MAP(io_map)
 	MCFG_Z80_DAISY_CHAIN(daisy_chain)
 
 	/* video hardware */
@@ -220,6 +218,10 @@ static MACHINE_CONFIG_START( uts20 )
 
 	MCFG_DEVICE_ADD("uart", Z80SIO, XTAL_4MHz)
 	MCFG_Z80SIO_OUT_INT_CB(INPUTLINE("maincpu", INPUT_LINE_IRQ0))
+	MCFG_Z80SIO_OUT_TXDA_CB(DEVWRITELINE("uart", z80sio_device, rxa_w)) // FIXME: hacked in permanent loopback to pass test
+	MCFG_Z80SIO_OUT_TXDB_CB(DEVWRITELINE("uart", z80sio_device, rxb_w)) // FIXME: hacked in permanent loopback to pass test
+	MCFG_Z80SIO_OUT_WRDYB_CB(DEVWRITELINE("uart", z80sio_device, dcdb_w)) // FIXME: hacked in permanent loopback to pass test
+	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("uart", z80sio_device, ctsb_w)) // FIXME: hacked in permanent loopback to pass test
 
 	/* Sound */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
@@ -238,8 +240,7 @@ ROM_START( uts20 )
 	ROM_LOAD( "uts20e.rom", 0x4000, 0x1000, CRC(0dfc8062) SHA1(cd681020bfb4829d4cebaf1b5bf618e67b55bda3) )
 	// Patches, see notes at top.
 	ROM_FILL(0x2bd,1,0xaf) // test 2
-	ROM_FILL(0x48f1,1,0xa3) // test 5, patch unused byte to fix checksum
-	ROM_FILL(0x928,1,0x00) // upon failure keep going
+	ROM_FILL(0x48f1,1,0xa6) // test 5, patch unused byte to fix checksum
 
 	/* character generator not dumped, using the one from 'c10' for now */
 	ROM_REGION( 0x2000, "chargen", 0 )

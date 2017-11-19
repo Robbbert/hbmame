@@ -9334,6 +9334,7 @@ mazinger                        // (c) 1994 Banpresto (country is in EEPROM)
 mazingerj                       // (c) 1994 Banpresto (country is in EEPROM)
 metmqstr                        // (c) 1995 Banpresto / Pandorabox
 nmaster                         // (c) 1995 Banpresto / Pandorabox
+paceight                        // (c) 1996 Namco
 pacslot                         // (c) 1996 Namco
 plegends                        // (c) 1994 Atlus
 plegendsj                       // (c) 1994 Atlus
@@ -28567,6 +28568,7 @@ chocovdr                        // 2002.10 Uchuu Daisakusen : Chocovader Contact
 gamshara                        // 2002.08 Gamshara (10021 Ver.A)
 gamsharaj                       // 2002.08 Gamshara (10021 Ver.A)
 gjspace                         // 2001.12 Gekitoride-Jong Space (10011 Ver.A)
+g13jnc                          // 2001.?? Golgo 13: Juusei no Chinkonka (Japan, GLT1 VER.A)
 gunbalina                       // 2000.12 Gunbalina (GNN1 Ver.A)
 knpuzzle                        // 2001.12 Kotoba no Puzzle Mojipittan (KPM1 Ver.A)
 konotako                        // 2003.?? Kono Tako (10021 Ver.A)
@@ -31238,8 +31240,8 @@ thegladpcb                      //
 @source:pgm2.cpp
 ddpdojh                         //
 kov2nl                          // (c) 2008
-kov2nlo                         //
-kov2nloa                        //
+kov2nl_301                      //
+kov2nl_300                      //
 kov3                            //
 kov3_102                        //
 kov3_100                        //
@@ -36296,6 +36298,28 @@ terak                           //
 @source:terco.cpp
 t4490                           // Terco 4490 Mill CNC Control (c) 1986
 
+@source:terminals.cpp
+aaa
+att630
+cit220p
+d461
+hp700_92
+hp2622a
+mt5510
+mt420
+qvt70
+qvt102
+qvt103
+qvt190
+qvt201
+tr175
+v100
+v102
+vp60
+vp122
+vt420
+zephyr
+
 @source:terracre.cpp
 amatelas                        // (c) 1986
 amazon                          // (c) 1986
@@ -38565,6 +38589,10 @@ wwfsstaru4                      // TA-0024 (c) 1989 (US)
 
 @source:wyse.cpp
 wy50                            // WY-50
+wy55                            // WY-55
+wy60                            // WY-60
+wy85                            // WY-85
+wy150                           // WY-150
 wy160                           // WY-160
 wy30p                           // WY-30+
 

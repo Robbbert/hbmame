@@ -380,8 +380,8 @@ void arm7_cpu_device::HandleBranch(uint32_t insn, bool h_bit)
 		off |= (insn & 0x01000000) >> 23;
 	}
 
-	/* Save PC into LR if this is a branch with link */
-	if (insn & INSN_BL)
+	/* Save PC into LR if this is a branch with link or a BLX */
+	if ((insn & INSN_BL) || ((m_archRev >= 5) && ((insn & 0xfe000000) == 0xfa000000)))
 	{
 		SetRegister(14, R15 + 4);
 	}
@@ -1653,6 +1653,18 @@ void arm7_cpu_device::arm7ops_0123(uint32_t insn)
 	/* Branch and Exchange (BX) */
 	if ((insn & 0x0ffffff0) == 0x012fff10)     // bits 27-4 == 000100101111111111110001
 	{
+		R15 = GetRegister(insn & 0x0f);
+		// If new PC address has A0 set, switch to Thumb mode
+		if (R15 & 1) {
+			set_cpsr(GET_CPSR|T_MASK);
+			R15--;
+		}
+	}
+	else if ((insn & 0x0ff000f0) == 0x01200030)	// BLX Rn - v5
+	{
+		// save link address
+		SetRegister(14, R15 + 4);
+
 		R15 = GetRegister(insn & 0x0f);
 		// If new PC address has A0 set, switch to Thumb mode
 		if (R15 & 1) {
