@@ -125,6 +125,7 @@ channelf.cpp
 chaos.cpp
 chessmst.cpp
 chesstrv.cpp
+cit220.cpp
 clcd.cpp
 cm1800.cpp
 cmi.cpp
@@ -150,6 +151,7 @@ cxgz80.cpp
 cxhumax.cpp
 cybiko.cpp
 czk80.cpp
+d400.cpp
 d6800.cpp
 d6809.cpp
 dai.cpp
@@ -345,6 +347,7 @@ lwriter.cpp
 lynx.cpp
 m20.cpp
 m24.cpp
+m3.cpp
 m5.cpp
 m6805evs.cpp
 m68705prg.cpp
@@ -381,6 +384,7 @@ mikro80.cpp
 mikromik.cpp
 mikrosha.cpp
 mightyframe.cpp
+milwaukee.cpp
 mini2440.cpp
 minicom.cpp
 miniforce.cpp

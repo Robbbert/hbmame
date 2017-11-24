@@ -4,10 +4,14 @@
 
 Univac Terminals
 
+2009-05-25 Skeleton driver
+
 The terminals are models UTS20, UTS30, UTS40, UTS50 and SVT1120,
 however only the UTS20 is dumped (program roms only).
 
-2009-05-25 Skeleton driver
+There were other terminals (Uniscope 100/200/300/400) and UTS60, but
+they had different hardware. Uniscope models are believed to use the i8080,
+and the UTS60 was a colour graphics terminal with a MC68000 and 2 floppy drives.
 
 The terminal has 2 screens selectable by the operator with the Fn + 1-2
 buttons. Thus the user can have two sessions open at once, to different
@@ -20,21 +24,30 @@ This driver is all guesswork; Unisys never released technical info
 to customers. All parts on the PCBs have internal Unisys part numbers
 instead of the manufacturer's numbers.
 
+Notes:
+* Port $C6 probably controls serial loopback
+  - at a guess, bit 0 enables loopback on both channels
+* The NVRAM is 4 bits wide on the LSBs, but (0x81) & 0x10 does something
+  - NVRAM nybbles are read/written on the LSBs of 64 ports 0x80 to 0xb4
+  - Nybbles are packed/unpacked into 32 bytes starting at 0xd7d7
+  - On boot it reads (0x81) & 0x10, and if set preserves 0xd831 to 0xd863
+  - This has to be some kind of warm boot detection, but how does it work?
+
 ****************************************************************************/
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "cpu/z80/z80daisy.h"
+#include "machine/clock.h"
 #include "machine/nvram.h"
 #include "machine/z80ctc.h"
 #include "machine/z80sio.h"
-#include "machine/clock.h"
-#include "screen.h"
 #include "sound/beep.h"
+#include "screen.h"
 #include "speaker.h"
 
 #define LOG_GENERAL (1U << 0)
-#define LOG_PARITY	(1U << 1)
+#define LOG_PARITY  (1U << 1)
 
 //#define VERBOSE (LOG_GENERAL | LOG_PARITY)
 #include "logmacro.h"
@@ -54,6 +67,7 @@ public:
 		, m_beep(*this, "beeper")
 		, m_p_chargen(*this, "chargen")
 		, m_p_videoram(*this, "videoram")
+		, m_p_nvram(*this, "nvram")
 		, m_bank_mask(0)
 		, m_parity_check(0)
 		, m_parity_poison(0)
@@ -64,6 +78,7 @@ public:
 	DECLARE_READ8_MEMBER(bank_r);
 	DECLARE_WRITE8_MEMBER(ram_w);
 	DECLARE_WRITE8_MEMBER(bank_w);
+	DECLARE_WRITE8_MEMBER(nvram_w);
 
 	DECLARE_WRITE8_MEMBER(port43_w);
 	DECLARE_WRITE8_MEMBER(portc4_w);
@@ -77,7 +92,7 @@ protected:
 	virtual void device_post_load() override;
 
 private:
-	required_device<cpu_device>		m_maincpu;
+	required_device<cpu_device>     m_maincpu;
 	required_device<nvram_device>   m_nvram;
 	required_device<z80ctc_device>  m_ctc;
 	required_device<z80sio_device>  m_uart;
@@ -85,6 +100,7 @@ private:
 
 	required_region_ptr<u8> m_p_chargen;
 	required_shared_ptr<u8> m_p_videoram;
+	required_shared_ptr<u8> m_p_nvram;
 	std::unique_ptr<u8 []>  m_p_parity;
 
 	u16 m_bank_mask;
@@ -127,6 +143,13 @@ WRITE8_MEMBER( univac_state::ram_w )
 WRITE8_MEMBER( univac_state::bank_w )
 {
 	space.write_byte((0xc000 | offset) ^ m_bank_mask, data);
+}
+
+WRITE8_MEMBER( univac_state::nvram_w )
+{
+	// NVRAM is four bits wide, accessed in the low nybble
+	// It's simplest to hack it when writing to make the upper bits read back high on the open bus
+	m_p_nvram[offset] = data | 0xf0;
 }
 
 WRITE8_MEMBER( univac_state::port43_w )
@@ -175,7 +198,7 @@ static ADDRESS_MAP_START( io_map, AS_IO, 8, univac_state )
 	AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("uart", z80sio_device, cd_ba_r, cd_ba_w)
 	AM_RANGE(0x20, 0x23) AM_DEVREADWRITE("ctc", z80ctc_device, read, write)
 	AM_RANGE(0x43, 0x43) AM_WRITE(port43_w)
-	AM_RANGE(0x80, 0xbf) AM_RAM AM_SHARE("nvram")
+	AM_RANGE(0x80, 0xbf) AM_RAM_WRITE(nvram_w) AM_SHARE("nvram")
 	AM_RANGE(0xc4, 0xc4) AM_WRITE(portc4_w)
 	AM_RANGE(0xe6, 0xe6) AM_WRITE(porte6_w)
 ADDRESS_MAP_END
@@ -222,8 +245,7 @@ void univac_state::device_post_load()
 uint32_t univac_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	uint8_t y,ra,chr,gfx;
-	uint16_t sy=0,ma=0,x;
-	uint8_t *videoram = m_p_videoram;//^ m_bank_mask;
+	uint16_t sy=0,x,ma=0; //m_bank_mask; (it isn't port43 that selects the screen)
 
 	m_framecnt++;
 
@@ -235,7 +257,7 @@ uint32_t univac_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap
 
 			for (x = ma; x < ma + 80; x++)
 			{
-				chr = videoram[x];
+				chr = m_p_videoram[x];
 
 				/* Take care of 'corner' characters */
 				if (((chr == 0x1c) || (chr == 0x1d)) && (m_framecnt & 16))
@@ -258,6 +280,24 @@ uint32_t univac_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap
 	}
 	return 0;
 }
+
+/* F4 Character Displayer */
+static const gfx_layout c10_charlayout =
+{
+	8, 9,                   /* 8 x 9 characters */
+	512,                    /* 512 characters */
+	1,                  /* 1 bits per pixel */
+	{ 0 },                  /* no bitplanes */
+	/* x offsets */
+	{ 0, 1, 2, 3, 4, 5, 6, 7 },
+	/* y offsets */
+	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8, 8*8 },
+	8*16                    /* every char takes 16 bytes */
+};
+
+static GFXDECODE_START( c10 )
+	GFXDECODE_ENTRY( "chargen", 0x0000, c10_charlayout, 0, 1 )
+GFXDECODE_END
 
 static const z80_daisy_config daisy_chain[] =
 {
@@ -282,6 +322,7 @@ static MACHINE_CONFIG_START( uts20 )
 	MCFG_SCREEN_VISIBLE_AREA(0, 639, 0, 249)
 	MCFG_SCREEN_PALETTE("palette")
 	MCFG_PALETTE_ADD_MONOCHROME("palette")
+	MCFG_GFXDECODE_ADD("gfxdecode", "palette", c10)
 
 	MCFG_NVRAM_ADD_1FILL("nvram")
 
@@ -290,10 +331,6 @@ static MACHINE_CONFIG_START( uts20 )
 	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("ctc", z80ctc_device, trg1))
 	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("ctc", z80ctc_device, trg2))
 	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("ctc", z80ctc_device, trg3))
-
-	//MCFG_DEVICE_ADD("uart_clock", CLOCK, 307200)
-	//MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("uart", z80sio_device, txcb_w))
-	//MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("uart", z80sio_device, rxcb_w))
 
 	MCFG_DEVICE_ADD("ctc", Z80CTC, XTAL_4MHz)
 	MCFG_Z80CTC_INTR_CB(INPUTLINE("maincpu", INPUT_LINE_IRQ0))
@@ -311,7 +348,7 @@ static MACHINE_CONFIG_START( uts20 )
 	/* Sound */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_SOUND_ADD("beeper", BEEP, 950) // guess
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.10)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.05)
 MACHINE_CONFIG_END
 
 
@@ -327,6 +364,40 @@ ROM_START( uts20 )
 	/* character generator not dumped, using the one from 'c10' for now */
 	ROM_REGION( 0x2000, "chargen", 0 )
 	ROM_LOAD("c10_char.bin", 0x0000, 0x2000, BAD_DUMP CRC(cb530b6f) SHA1(95590bbb433db9c4317f535723b29516b9b9fcbf) )
+	// create special unisys gfx
+	ROM_FILL(0x1C0, 0x30, 0)
+	// left corner
+	ROM_FILL(0x1C0, 1, 0xF8)
+	ROM_FILL(0x1C1, 1, 0xF0)
+	ROM_FILL(0x1C2, 1, 0xE0)
+	ROM_FILL(0x1C3, 1, 0xC0)
+	ROM_FILL(0x1C4, 1, 0x80)
+	// right corner
+	ROM_FILL(0x1D0, 1, 0x1F)
+	ROM_FILL(0x1D1, 1, 0x0F)
+	ROM_FILL(0x1D2, 1, 0x07)
+	ROM_FILL(0x1D3, 1, 0x03)
+	ROM_FILL(0x1D4, 1, 0x01)
+	// SOE
+	ROM_FILL(0x1E0, 1, 0x80)
+	ROM_FILL(0x1E1, 1, 0xC0)
+	ROM_FILL(0x1E2, 1, 0xE0)
+	ROM_FILL(0x1E3, 1, 0xF0)
+	ROM_FILL(0x1E4, 1, 0xF8)
+	ROM_FILL(0x1E5, 1, 0xF0)
+	ROM_FILL(0x1E6, 1, 0xE0)
+	ROM_FILL(0x1E7, 1, 0xC0)
+	ROM_FILL(0x1E8, 1, 0x80)
+	// cursor
+	ROM_FILL(0x000, 1, 0x7F)
+	ROM_FILL(0x001, 1, 0x7E)
+	ROM_FILL(0x002, 1, 0x7C)
+	ROM_FILL(0x003, 1, 0x79)
+	ROM_FILL(0x004, 1, 0x73)
+	ROM_FILL(0x005, 1, 0x67)
+	ROM_FILL(0x006, 1, 0x4F)
+	ROM_FILL(0x007, 1, 0x1F)
+	ROM_FILL(0x008, 1, 0x7F)
 ROM_END
 
 /* Driver */
