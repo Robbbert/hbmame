@@ -14,14 +14,12 @@ mc8030: very little info available. The area from FFD8-FFFF is meant for
 interrupt vectors and so on, but most of it is zeroes. Appears the keyboard
 is an ascii keyboard with built-in beeper. It communicates via the SIO.
 The asp ctc needs at least 2 triggers. The purpose of the zve pio is unknown.
-The system uses interrupts for various things, but none of that is working.
-
-Looks like maybe a sio bug is preventing the keyboard from working.
 
 ****************************************************************************/
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
+#include "cpu/z80/z80daisy.h"
 #include "screen.h"
 #include "machine/clock.h"
 #include "bus/rs232/rs232.h"
@@ -76,7 +74,7 @@ static ADDRESS_MAP_START( io_map, AS_IO, 8, mc8030_state )
 	AM_RANGE(0x84, 0x87) AM_MIRROR(0xff00) AM_DEVREADWRITE("zve_pio", z80pio_device, read, write) // PIO unknown usage
 	AM_RANGE(0x88, 0x8f) AM_MIRROR(0xff00) AM_WRITE(zve_write_protect_w)
 	AM_RANGE(0xc0, 0xcf) AM_SELECT(0xff00) AM_WRITE(vis_w)
-	AM_RANGE(0xd0, 0xd3) AM_MIRROR(0xff00) AM_DEVREADWRITE("asp_sio", z80sio_device, cd_ba_r, cd_ba_w) // keyboard & IFSS?
+	AM_RANGE(0xd0, 0xd3) AM_MIRROR(0xff00) AM_DEVREADWRITE("asp_sio", z80sio_device, ba_cd_r, ba_cd_w) // keyboard & IFSS?
 	AM_RANGE(0xd4, 0xd7) AM_MIRROR(0xff00) AM_DEVREADWRITE("asp_ctc", z80ctc_device, read, write) // sio bauds, KMBG? and kbd
 	AM_RANGE(0xd8, 0xdb) AM_MIRROR(0xff00) AM_DEVREADWRITE("asp_pio", z80pio_device, read, write) // external bus
 	AM_RANGE(0xe0, 0xef) AM_MIRROR(0xff00) AM_WRITE(eprom_prog_w)
@@ -106,9 +104,11 @@ WRITE8_MEMBER( mc8030_state::vis_w )
 	// reg B
 	//
 	uint16_t addr = ((offset & 0xff00) >> 2) | ((offset & 0x08) << 2) | (data >> 3);
-	static const uint8_t val[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
-	int c = offset & 1;
-	m_p_videoram[addr] = m_p_videoram[addr] | (val[data & 7]*c);
+	u8 c = 1 << (data & 7);
+	if (BIT(offset, 0))
+		m_p_videoram[addr] |= c;
+	else
+		m_p_videoram[addr] &= ~c;
 }
 
 WRITE8_MEMBER( mc8030_state::eprom_prog_w )
@@ -231,6 +231,7 @@ static MACHINE_CONFIG_START( mc8030 )
 	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("asp_sio", z80sio_device, rxca_w))
 
 	MCFG_DEVICE_ADD("asp_sio", Z80SIO, 4800)
+	MCFG_Z80SIO_OUT_INT_CB(INPUTLINE("maincpu", INPUT_LINE_IRQ0))
 	// SIO CH A in = keyboard; out = beeper; CH B = IFSS (??)
 	MCFG_Z80SIO_OUT_TXDA_CB(DEVWRITELINE("rs232", rs232_port_device, write_txd))
 	MCFG_Z80SIO_OUT_DTRA_CB(DEVWRITELINE("rs232", rs232_port_device, write_dtr))
