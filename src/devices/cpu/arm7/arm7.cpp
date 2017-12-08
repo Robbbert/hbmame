@@ -555,7 +555,7 @@ bool arm7_cpu_device::memory_translate(int spacenum, int intention, offs_t &addr
 void arm7_cpu_device::device_start()
 {
 	m_program = &space(AS_PROGRAM);
-	m_direct = &m_program->direct();
+	m_direct = m_program->direct<0>();
 
 	save_item(NAME(m_r));
 	save_item(NAME(m_pendingIrq));
@@ -929,83 +929,14 @@ void arm7_cpu_device::execute_set_input(int irqline, int state)
 }
 
 
-offs_t arm7_cpu_device::disasm_disassemble(std::ostream &stream, offs_t pc, const uint8_t *oprom, const uint8_t *opram, uint32_t options)
+util::disasm_interface *arm7_cpu_device::create_disassembler()
 {
-	extern CPU_DISASSEMBLE( arm7arm );
-	extern CPU_DISASSEMBLE( arm7thumb );
-	extern CPU_DISASSEMBLE( arm7arm_be );
-	extern CPU_DISASSEMBLE( arm7thumb_be );
+	return new arm7_disassembler(this);
+}
 
-	uint8_t fetched_op[4];
-	uint32_t op = 0;
-	int prefetch_index = get_insn_prefetch_index(pc);
-	if (prefetch_index < 0)
-	{
-		memcpy(fetched_op, oprom, 4);
-		if (T_IS_SET(m_r[eCPSR]))
-		{
-			if ( m_endian == ENDIANNESS_BIG )
-			{
-				return CPU_DISASSEMBLE_NAME(arm7thumb_be)(this, stream, pc, fetched_op, opram, options);
-			}
-			else
-			{
-				return CPU_DISASSEMBLE_NAME(arm7thumb)(this, stream, pc, fetched_op, opram, options);
-			}
-		}
-		else
-		{
-			if ( m_endian == ENDIANNESS_BIG )
-			{
-				return CPU_DISASSEMBLE_NAME(arm7arm_be)(this, stream, pc, fetched_op, opram, options);
-			}
-			else
-			{
-				return CPU_DISASSEMBLE_NAME(arm7arm)(this, stream, pc, fetched_op, opram, options);
-			}
-		}
-	}
-	else
-	{
-		op = m_insn_prefetch_buffer[prefetch_index];
-		if (T_IS_SET(m_r[eCPSR]))
-		{
-			if (m_endian == ENDIANNESS_BIG)
-			{
-				op >>= ((pc & 2) ? 0 : 16);
-				fetched_op[1] = op & 0xff;
-				fetched_op[0] = (op >> 8) & 0xff;
-				return CPU_DISASSEMBLE_NAME(arm7thumb_be)(this, stream, pc, fetched_op, opram, options);
-			}
-			else
-			{
-				op >>= ((pc & 2) ? 16 : 0);
-				fetched_op[0] = op & 0xff;
-				fetched_op[1] = (op >> 8) & 0xff;
-				return CPU_DISASSEMBLE_NAME(arm7thumb)(this, stream, pc, fetched_op, opram, options);
-			}
-		}
-		else
-		{
-			if (m_endian == ENDIANNESS_BIG)
-			{
-				fetched_op[3] = op & 0xff;
-				fetched_op[2] = (op >> 8) & 0xff;
-				fetched_op[1] = (op >> 16) & 0xff;
-				fetched_op[0] = (op >> 24) & 0xff;
-				return CPU_DISASSEMBLE_NAME(arm7arm_be)(this, stream, pc, fetched_op, opram, options);
-			}
-			else
-			{
-				fetched_op[0] = op & 0xff;
-				fetched_op[1] = (op >> 8) & 0xff;
-				fetched_op[2] = (op >> 16) & 0xff;
-				fetched_op[3] = (op >> 24) & 0xff;
-				return CPU_DISASSEMBLE_NAME(arm7arm)(this, stream, pc, fetched_op, opram, options);
-			}
-		}
-	}
-	return 0;
+bool arm7_cpu_device::get_t_flag() const
+{
+	return T_IS_SET(m_r[eCPSR]);
 }
 
 
@@ -1486,9 +1417,9 @@ uint32_t arm946es_cpu_device::arm7_cpu_read32(uint32_t addr)
 	return result;
 }
 
-uint16_t arm946es_cpu_device::arm7_cpu_read16(uint32_t addr)
+uint32_t arm946es_cpu_device::arm7_cpu_read16(uint32_t addr)
 {
-	uint16_t result;
+	uint32_t result;
 
 	if ((addr >= cp15_itcm_base) && (addr <= cp15_itcm_end))
 	{
@@ -1507,7 +1438,7 @@ uint16_t arm946es_cpu_device::arm7_cpu_read16(uint32_t addr)
 
 	if (addr & 1)
 	{
-		result = ((result >> 8) & 0xff) | ((result & 0xff) << 8);
+		result = ((result >> 8) & 0xff) | ((result & 0xff) << 24);
 	}
 
 	return result;
@@ -1636,9 +1567,9 @@ uint32_t arm7_cpu_device::arm7_cpu_read32(uint32_t addr)
 	return result;
 }
 
-uint16_t arm7_cpu_device::arm7_cpu_read16(uint32_t addr)
+uint32_t arm7_cpu_device::arm7_cpu_read16(uint32_t addr)
 {
-	uint16_t result;
+	uint32_t result;
 
 	if( COPRO_CTRL & COPRO_CTRL_MMU_EN )
 	{
@@ -1652,7 +1583,7 @@ uint16_t arm7_cpu_device::arm7_cpu_read16(uint32_t addr)
 
 	if (addr & 1)
 	{
-		result = ((result >> 8) & 0xff) | ((result & 0xff) << 8);
+		result = ((result >> 8) & 0xff) | ((result & 0xff) << 24);
 	}
 
 	return result;

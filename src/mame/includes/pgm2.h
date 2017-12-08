@@ -42,11 +42,17 @@ public:
 	{ }
 
 	DECLARE_READ32_MEMBER(unk_startup_r);
+	DECLARE_READ32_MEMBER(rtc_r);
 	DECLARE_WRITE32_MEMBER(fg_videoram_w);
 	DECLARE_WRITE32_MEMBER(bg_videoram_w);
 
 	DECLARE_READ32_MEMBER(orleg2_speedup_r);
 	DECLARE_READ32_MEMBER(kov2nl_speedup_r);
+
+	DECLARE_READ8_MEMBER(encryption_r);
+	DECLARE_WRITE8_MEMBER(encryption_w);
+	DECLARE_WRITE32_MEMBER(encryption_do_w);
+	DECLARE_WRITE32_MEMBER(sprite_encryption_w);
 
 	DECLARE_DRIVER_INIT(kov2nl);
 	DECLARE_DRIVER_INIT(orleg2);
@@ -55,6 +61,7 @@ public:
 	DECLARE_DRIVER_INIT(kov3_104);
 	DECLARE_DRIVER_INIT(kov3_102);
 	DECLARE_DRIVER_INIT(kov3_100);
+	DECLARE_DRIVER_INIT(kof98umh);
 
 	uint32_t screen_update_pgm2(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	DECLARE_WRITE_LINE_MEMBER(screen_vblank_pgm2);
@@ -71,7 +78,6 @@ private:
 	TILE_GET_INFO_MEMBER(get_fg_tile_info);
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
 
-	void pgm_create_dummy_internal_arm_region();
 	void decrypt_kov3_module(uint32_t addrxor, uint16_t dataxor);
 
 	tilemap_t    *m_fg_tilemap;
@@ -90,6 +96,13 @@ private:
 
 	uint32_t m_sprites_mask_mask;
 	uint32_t m_sprites_colour_mask;
+	
+	void common_encryption_init();
+	uint8_t m_encryption_table[0x100];
+	int m_has_decrypted;	// so we only do it once.
+	uint32_t m_spritekey;
+	uint32_t m_realspritekey;
+	int m_sprite_predecrypted;
 
 	// devices
 	required_device<cpu_device> m_maincpu;

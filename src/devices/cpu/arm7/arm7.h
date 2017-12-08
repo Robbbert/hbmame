@@ -23,6 +23,8 @@
 
 #pragma once
 
+#include "arm7dasm.h"
+
 #include "cpu/drcfe.h"
 #include "cpu/drcuml.h"
 #include "cpu/drcumlsh.h"
@@ -49,7 +51,7 @@
  *  PUBLIC FUNCTIONS
  ***************************************************************************************************/
 
-class arm7_cpu_device : public cpu_device
+class arm7_cpu_device : public cpu_device, public arm7_disassembler::config
 {
 public:
 	// construction/destruction
@@ -130,9 +132,8 @@ protected:
 	virtual void state_string_export(const device_state_entry &entry, std::string &str) const override;
 
 	// device_disasm_interface overrides
-	virtual uint32_t disasm_min_opcode_bytes() const override { return 2; }
-	virtual uint32_t disasm_max_opcode_bytes() const override { return 4; }
-	virtual offs_t disasm_disassemble(std::ostream &stream, offs_t pc, const uint8_t *oprom, const uint8_t *opram, uint32_t options) override;
+	virtual util::disasm_interface *create_disassembler() override;
+	virtual bool get_t_flag() const override;
 
 	address_space_config m_program_config;
 
@@ -161,7 +162,7 @@ protected:
 	int m_icount;
 	endianness_t m_endian;
 	address_space *m_program;
-	direct_read_data *m_direct;
+	direct_read_data<0> *m_direct;
 
 	/* Coprocessor Registers */
 	uint32_t m_control;
@@ -235,7 +236,7 @@ protected:
 	virtual void arm7_cpu_write16(uint32_t addr, uint16_t data);
 	virtual void arm7_cpu_write8(uint32_t addr, uint8_t data);
 	virtual uint32_t arm7_cpu_read32(uint32_t addr);
-	virtual uint16_t arm7_cpu_read16(uint32_t addr);
+	virtual uint32_t arm7_cpu_read16(uint32_t addr);
 	virtual uint8_t arm7_cpu_read8(uint32_t addr);
 
 	// Coprocessor support
@@ -622,7 +623,7 @@ public:
 	virtual void arm7_cpu_write16(uint32_t addr, uint16_t data) override;
 	virtual void arm7_cpu_write8(uint32_t addr, uint8_t data) override;
 	virtual uint32_t arm7_cpu_read32(uint32_t addr) override;
-	virtual uint16_t arm7_cpu_read16(uint32_t addr) override;
+	virtual uint32_t arm7_cpu_read16(uint32_t addr) override;
 	virtual uint8_t arm7_cpu_read8(uint32_t addr) override;
 
 private:
