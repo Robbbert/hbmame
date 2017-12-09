@@ -85,6 +85,8 @@ if dstfile is not None:
 else:
     fp = sys.stdout
 
+legal_copyright = "Copyright Nicola Salmoria and the MAME team"
+
 if build == "mess":
     # MESS
     author = "MESS Team"
@@ -95,6 +97,17 @@ if build == "mess":
     original_filename = "MESS"
     product_name = "MESS"
     bundle_identifier = "org.mamedev.mess"
+elif build == "hbmame":
+    # HBMAME
+    author = "Robbbert and the MAME team"
+    legal_copyright = author
+    comments = "Homebrew MAME"
+    company_name = "MAME Team"
+    file_description = "HBMAME"
+    internal_name = "HBMAME"
+    original_filename = "HBMAME"
+    product_name = "HBMAME"
+    bundle_identifier = "org.mamedev.hbmame"
 else:
     # MAME
     author = "Nicola Salmoria and the MAME Team"
@@ -105,8 +118,6 @@ else:
     original_filename = "MAME" if build == "mame" else build
     product_name = "MAME" if build == "mame" else build
     bundle_identifier = "org.mamedev." + build
-
-legal_copyright = "Copyright Nicola Salmoria and the MAME team"
 
 if outfmt == 'rc':
     fp.write('VS_VERSION_INFO VERSIONINFO\n')

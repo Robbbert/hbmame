@@ -7,7 +7,7 @@
 //============================================================
 
 #include <windows.h>
-//#include "mamevers.rc"
+#include "hbmamevers.rc"
 
 1                       24      MOVEABLE PURE   "hbmame.man"
 
