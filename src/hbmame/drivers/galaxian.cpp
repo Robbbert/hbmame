@@ -148,26 +148,26 @@ DRIVER_INIT_MEMBER( galaxian_state, trukker )
 
 	/* the first ROM of the second CPU has data lines D0 and D1 swapped. Decode it. */
 	uint8_t *ROM = memregion("audiocpu")->base();
-	for (i = 0;i < 0x800;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0;i < 0x800;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in the alphabetic characters */
 	ROM = memregion("gfx1")->base();
-	for (i = 0;i < 0x160;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0;i < 0x160;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* remove extraneous dot from steam rollers */
 	for (i = 0x1a0;i < 0x200;i++) ROM[i] = ROM[i] & 0xfc;
 
 	/* fix gfx error in sinking turtle */
-	for (i = 0x4c0;i < 0x4e0;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0x4c0;i < 0x4e0;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error on left side of home bases */
-	ROM[0x234] = BITSWAP8(ROM[0x234],7,6,5,4,3,2,0,1);
+	ROM[0x234] = bitswap<8>(ROM[0x234],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in (c) sign and in square symbol */
-	for (i = 0x270;i < 0x27f;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0x270;i < 0x27f;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in 200-point sign */
-	for (i = 0x330;i < 0x337;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0x330;i < 0x337;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 }
 
 

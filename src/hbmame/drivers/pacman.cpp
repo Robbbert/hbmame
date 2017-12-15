@@ -520,7 +520,7 @@ static uint8_t hbmame_pacplus_decode(offs_t addr, uint8_t e)
 		method ^= 1;
 
 	tbl = swap_xor_table[method];
-	return BITSWAP8(e,tbl[0],tbl[1],tbl[2],tbl[3],tbl[4],tbl[5],tbl[6],tbl[7]) ^ tbl[8];
+	return bitswap<8>(e,tbl[0],tbl[1],tbl[2],tbl[3],tbl[4],tbl[5],tbl[6],tbl[7]) ^ tbl[8];
 }
 
 DRIVER_INIT_MEMBER(pacman_state,pacplus)
@@ -540,10 +540,10 @@ void pacman_state::eyes_decode(uint8_t *data)
 	uint8_t swapbuffer[8];
 
 	for (j = 0; j < 8; j++)
-		swapbuffer[j] = data[BITSWAP16(j,15,14,13,12,11,10,9,8,7,6,5,4,3,0,1,2)];
+		swapbuffer[j] = data[bitswap<16>(j,15,14,13,12,11,10,9,8,7,6,5,4,3,0,1,2)];
 
 	for (j = 0; j < 8; j++)
-		data[j] = BITSWAP8(swapbuffer[j],7,4,5,6,3,2,1,0);
+		data[j] = bitswap<8>(swapbuffer[j],7,4,5,6,3,2,1,0);
 }
 
 DRIVER_INIT_MEMBER(pacman_state,eyes)
@@ -555,7 +555,7 @@ DRIVER_INIT_MEMBER(pacman_state,eyes)
 	/* Data lines D3 and D5 swapped */
 	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 	for (i = 0; i < 0x4000; i++)
-		RAM[i] = BITSWAP8(RAM[i],7,6,3,4,5,2,1,0);
+		RAM[i] = bitswap<8>(RAM[i],7,6,3,4,5,2,1,0);
 
 
 	/* Graphics ROMs */

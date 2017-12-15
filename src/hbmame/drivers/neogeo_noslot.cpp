@@ -8494,7 +8494,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3pcb)
 	{
 		uint8_t* rom = memregion("audiocpu")->base();
 		for (int i = 0; i < 0x90000; i++)
-			rom[i] = BITSWAP8(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
+			rom[i] = bitswap<8>(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
 	}
 
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);

@@ -34,7 +34,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kf2k1pa )
 
 	/* S-rom has its own unique encryption */
 	for( i = 0; i < sx_size; i++ )
-		rom[ i ] = BITSWAP8( rom[ i ], 3, 2, 4, 5, 1, 6, 0, 7 );
+		rom[ i ] = bitswap<8>( rom[ i ], 3, 2, 4, 5, 1, 6, 0, 7 );
 }
 
 

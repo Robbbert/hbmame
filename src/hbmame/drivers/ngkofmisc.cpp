@@ -44,7 +44,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof10thu )
 	// We unscramble the lower 6 address lines of the program rom.
 	for( i = 0; i < tsize / 2; i++ )
 	{
-		ofst = BITSWAP8( (i & 0x0000ff), 7, 6, 2, 3, 4, 5, 0, 1 ) | (i & 0xffff00);
+		ofst = bitswap<8>( (i & 0x0000ff), 7, 6, 2, 3, 4, 5, 0, 1 ) | (i & 0xffff00);
 		memcpy( &rom[ ofst * 2 ], &trom[ i * 2 ], 2 );
 	}
 

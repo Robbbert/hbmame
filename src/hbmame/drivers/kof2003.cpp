@@ -96,7 +96,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3pcd ) // decrypted C & decrypted Bios
 	// Extra m1 decryption
 	uint8_t* rom = memregion("audiocpu")->base();
 	for (int i = 0; i < 0x90000; i++)
-		rom[i] = BITSWAP8(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
+		rom[i] = bitswap<8>(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
 
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sma_prot->kf2k3pcb_decrypt_s1data(spr_region, spr_region_size, fix_region, fix_region_size);
