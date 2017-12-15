@@ -496,6 +496,7 @@ WRITE32_MEMBER(seattle_state::interrupt_config_w)
 {
 	int irq;
 	COMBINE_DATA(&m_interrupt_config);
+	//logerror("interrupt_config_w: m_interrupt_config=%08x\n", m_interrupt_config);
 
 	/* VBLANK: clear anything pending on the old IRQ */
 	if (m_vblank_irq_num != 0)
@@ -1295,14 +1296,17 @@ static INPUT_PORTS_START( sfrush )
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON14 ) PORT_NAME("Track 2") PORT_PLAYER(1) /* track 2 */
 	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_BUTTON15 ) PORT_NAME("Track 3") PORT_PLAYER(1) /* track 3 */
 	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_BUTTON16 ) PORT_NAME("Track 4") PORT_PLAYER(1) /* track 4 */
-	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("1st Gear") PORT_PLAYER(1) /* 1st gear */
-	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("2nd Gear") PORT_PLAYER(1) /* 2nd gear */
-	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("3rd Gear") PORT_PLAYER(1) /* 3rd gear */
-	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_BUTTON7 ) PORT_NAME("4th Gear") PORT_PLAYER(1) /* 4th gear */
+	PORT_BIT( 0x0f00, IP_ACTIVE_LOW, IPT_SPECIAL) PORT_CUSTOM_MEMBER(DEVICE_SELF, seattle_state, gearshift_r, "GEAR" )
 	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_VOLUME_DOWN )
 	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_VOLUME_UP )
 	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_UNUSED )
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("GEAR")
+	PORT_BIT( 0x1, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("1st Gear") PORT_PLAYER(1) /* 1st gear */
+	PORT_BIT( 0x2, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("2nd Gear") PORT_PLAYER(1) /* 2nd gear */
+	PORT_BIT( 0x4, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("3rd Gear") PORT_PLAYER(1) /* 3rd gear */
+	PORT_BIT( 0x8, IP_ACTIVE_HIGH, IPT_BUTTON7 ) PORT_NAME("4th Gear") PORT_PLAYER(1) /* 4th gear */
 
 	PORT_MODIFY("IN2")
 	PORT_BIT( 0xffff, IP_ACTIVE_LOW, IPT_UNUSED )
@@ -2632,7 +2636,7 @@ GAME(  1996, mace,       0,        mace,      mace,     seattle_state, mace,    
 GAME(  1997, macea,      mace,     mace,      mace,     seattle_state, mace,     ROT0, "Atari Games",  "Mace: The Dark Age (HDD 1.0a)", MACHINE_SUPPORTS_SAVE )
 GAMEL( 1996, sfrush,     0,        sfrush,    sfrush,   seattle_state, sfrush,   ROT0, "Atari Games",  "San Francisco Rush (boot rom L 1.0)", MACHINE_SUPPORTS_SAVE, layout_sfrush )
 GAMEL( 1996, sfrusha,    sfrush,   sfrush,    sfrush,   seattle_state, sfrush,   ROT0, "Atari Games",  "San Francisco Rush (boot rom L 1.06A)", MACHINE_SUPPORTS_SAVE, layout_sfrush )
-GAMEL( 1996, sfrushrk,   0,        sfrushrk,  sfrushrk, seattle_state, sfrushrk, ROT0, "Atari Games",  "San Francisco Rush: The Rock (boot rom L 1.0, GUTS Oct 6 1997 / MAIN Oct 16 1997)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_sfrush )
+GAMEL( 1996, sfrushrk,   0,        sfrushrk,  sfrushrk, seattle_state, sfrushrk, ROT0, "Atari Games",  "San Francisco Rush: The Rock (boot rom L 1.0, GUTS Oct 6 1997 / MAIN Oct 16 1997)", MACHINE_SUPPORTS_SAVE, layout_sfrush )
 GAMEL( 1996, sfrushrkw,  sfrushrk, sfrushrkw, sfrush,   seattle_state, sfrushrk, ROT0, "Atari Games",  "San Francisco Rush: The Rock (Wavenet, boot rom L 1.38, GUTS Aug 19 1997 / MAIN Aug 19 1997)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_sfrush )
 GAMEL( 1996, sfrushrkwo, sfrushrk, sfrushrkw, sfrush,   seattle_state, sfrushrk, ROT0, "Atari Games",  "San Francisco Rush: The Rock (Wavenet, boot rom L 1.38, GUTS Aug 6 1997 / MAIN Aug 5 1997)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_sfrush )
 GAMEL( 1998, calspeed,   0,        calspeed,  calspeed, seattle_state, calspeed, ROT0, "Atari Games",  "California Speed (Version 2.1a Apr 17 1998, GUTS 1.25 Apr 17 1998 / MAIN Apr 17 1998)", MACHINE_SUPPORTS_SAVE, layout_calspeed )
