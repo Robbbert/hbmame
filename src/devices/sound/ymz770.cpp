@@ -10,6 +10,7 @@
 -----
 TODO:
 - What does channel ATBL mean?
+- SAC (Simple Access Codes) what it for and how used ?
  770:
 - verify if pan 100% correct
 - sequencer timers and triggers not implemented (seems used in Deathsmiles ending tune)
@@ -500,9 +501,7 @@ void ymz774_device::internal_reg_write(uint8_t reg, uint8_t data)
 				m_channels[ch].is_playing = true;
 			}
 			else
-			{
 				m_channels[ch].is_playing = false;
-			}
 			break;
 		case 0x58: // Pause / Resume
 			if (data) logerror("pause/resume unimplemented %02X %02X\n", reg, data);
@@ -559,19 +558,18 @@ void ymz774_device::internal_reg_write(uint8_t reg, uint8_t data)
 			case 0x98: // Off trigger, bit4 = on/off, bits0-3 channel (end sequence when channel playback ends)
 				if (data) logerror("SEQ Off trigger unimplemented %02X %02X\n", reg, data);
 				break;
-			case 0xa0: // stop channel mask H and L, what it for ? stop chanels immediatelly or when sequence ends (so far assuming later) ?
+			case 0xa0: // stop channel mask H and L (when sequence stopped)
 			case 0xa8:
 				sq = (reg >> 1) & 7;
 				if (reg & 1)
 					m_sequences[sq].stopchan = (m_sequences[sq].stopchan & 0xff00) | data;
 				else
 					m_sequences[sq].stopchan = (m_sequences[sq].stopchan & 0x00ff) | (data << 8);
-				if (data) logerror("Check me: SEQ Stop Channels used %02X %02X\n", reg, data);
 				break;
-			case 0xb0:
+			case 0xb0: // SQC number
 				m_sqcs[sq].sqc = data;
 				break;
-			case 0xb8:
+			case 0xb8: // SQC start / stop
 				if (data)
 				{
 					//logerror("SQC %d start (%s)\n", sq, m_sqcs[sq].is_playing ? "playing" : "stopped");
@@ -583,7 +581,7 @@ void ymz774_device::internal_reg_write(uint8_t reg, uint8_t data)
 				{
 					//logerror("SQC %d stop (%s)\n", sq, m_sqcs[sq].is_playing ? "playing" : "stopped");
 					m_sqcs[sq].is_playing = false;
-					// stop SEQ too, is this right ? at least kof98umh never manually stop SEQ
+					// stop SEQ too, and stop channels
 					if (m_sequences[sq].is_playing)
 						for (int ch = 0; ch < 16; ch++)
 							if (m_sequences[sq].stopchan & (1 << ch))
@@ -591,7 +589,7 @@ void ymz774_device::internal_reg_write(uint8_t reg, uint8_t data)
 					m_sequences[sq].is_playing = false;
 				}
 				break;
-			case 0xc0:
+			case 0xc0: // SQC loop (255 = infinite)
 				m_sqcs[sq].loop = data;
 				break;
 			default:
@@ -631,6 +629,7 @@ void ymz774_device::sequencer()
 
 		if (sqc.is_playing && !sqc.is_waiting)
 		{
+			// SQC consists of 4 byte records: SEQ num H, SEQ num L, SEQ Loop count, End flag (0xff)
 			sequence.sequence = ((get_rom_byte(sqc.offset) << 8) | get_rom_byte(sqc.offset + 1)) & 0xfff;
 			sqc.offset += 2;
 			sequence.loop = get_rom_byte(sqc.offset++);
@@ -654,9 +653,7 @@ void ymz774_device::sequencer()
 		if (sequence.is_playing)
 		{
 			if (sequence.delay > 0)
-			{
 				--sequence.delay;
-			}
 			else
 			{
 				int reg = get_rom_byte(sequence.offset++);
@@ -664,7 +661,7 @@ void ymz774_device::sequencer()
 				switch (reg)
 				{
 				case 0xff: // end
-					for (int ch = 0; ch < 16; ch++)	// check this
+					for (int ch = 0; ch < 16; ch++)	// might be wrong, ie not needed in case of loop
 						if (sequence.stopchan & (1 << ch))
 							m_channels[ch].is_playing = false;
 					if (sequence.loop)

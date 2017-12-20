@@ -524,7 +524,7 @@ MACHINES["PCF8593"] = true
 MACHINES["PCI"] = true
 MACHINES["PCKEYBRD"] = true
 MACHINES["PIC8259"] = true
---MACHINES["PIT68230"] = true
+MACHINES["PIT68230"] = true
 MACHINES["PIT8253"] = true
 MACHINES["PLA"] = true
 --MACHINES["PROFILE"] = true
@@ -731,6 +731,7 @@ FORMATS["BASICDSK"] = true
 function linkProjects_mame_arcade(_target, _subtarget)
 	links {
 		"acorn",
+		"adp",
 		"alba",
 		"alliedl",
 		"alpha",
@@ -906,6 +907,13 @@ files {
 	MAME_DIR .. "src/mame/machine/archimds.cpp",
 	MAME_DIR .. "src/mame/includes/archimds.h",
 	MAME_DIR .. "src/mame/video/archimds.cpp",
+}
+
+createMAMEProjects(_target, _subtarget, "adp")
+files {
+	MAME_DIR .. "src/mame/drivers/adp.cpp",
+	MAME_DIR .. "src/mame/drivers/manohman.cpp",
+	MAME_DIR .. "src/mame/drivers/stellafr.cpp",
 }
 
 createMAMEProjects(_target, _subtarget, "alba")
@@ -4416,7 +4424,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/acefruit.cpp",
 	MAME_DIR .. "src/mame/drivers/aces1.cpp",
 	MAME_DIR .. "src/mame/drivers/acesp.cpp",
-	MAME_DIR .. "src/mame/drivers/adp.cpp",
 	MAME_DIR .. "src/mame/drivers/age_candy.cpp",
 	MAME_DIR .. "src/mame/drivers/alinvade.cpp",
 	MAME_DIR .. "src/mame/drivers/amaticmg.cpp",
@@ -4615,7 +4622,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/malzak.cpp",
 	MAME_DIR .. "src/mame/includes/malzak.h",
 	MAME_DIR .. "src/mame/video/malzak.cpp",
-	MAME_DIR .. "src/mame/drivers/manohman.cpp",
 	MAME_DIR .. "src/mame/drivers/marywu.cpp",
 	MAME_DIR .. "src/mame/drivers/mcatadv.cpp",
 	MAME_DIR .. "src/mame/includes/mcatadv.h",
@@ -4715,7 +4721,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/ssingles.cpp",
 	MAME_DIR .. "src/mame/drivers/sstrangr.cpp",
 	MAME_DIR .. "src/mame/drivers/statriv2.cpp",
-	MAME_DIR .. "src/mame/drivers/stellafr.cpp",
 	MAME_DIR .. "src/mame/drivers/stuntair.cpp",
 	MAME_DIR .. "src/mame/drivers/su2000.cpp",
 	MAME_DIR .. "src/mame/drivers/subhuntr.cpp",

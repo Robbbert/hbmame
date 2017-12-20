@@ -89,7 +89,6 @@ enum
 	XTAL_4_9152MHz      = 4915200,
 	XTAL_5MHz           = 5000000,      /* Mutant Night */
 	XTAL_5_0688MHz      = 5068800,      /* Usually used as MC2661 or COM8116 baud rate clock */
-	XTAL_5_3586MHz      = 5358600,      /* Eltec EurocomII */
 	XTAL_5_46MHz        = 5460000,      /* ec1840 and ec1841 keyboard */
 	XTAL_5_5296MHz      = 5529600,      /* Kontron PSI98 keyboard */
 	XTAL_5_626MHz       = 5626000,      /* RCA CDP1869 PAL dot clock */
@@ -127,6 +126,7 @@ enum
 	XTAL_10_595MHz      = 10595000,     /* Mad Alien */
 	XTAL_10_6875MHz     = 10687500,     /* BBC Bridge Companion */
 	XTAL_10_69425MHz    = 10694250,     /* Xerox 820 */
+	XTAL_10_7172MHz     = 10717200,     /* Eltec EurocomII */
 	XTAL_10_730MHz      = 10730000,     /* Ruleta RE-900 VDP Clock */
 	XTAL_10_733MHz      = 10733000,     /* The Fairyland Story */
 	XTAL_10_738635MHz   = 10738635,     /* TMS9918 family (3x NTSC subcarrier) */
@@ -168,10 +168,12 @@ enum
 	XTAL_14_7456MHz     = 14745600,     /* Namco System 12 & System Super 22/23 for JVS */
 	XTAL_14_916MHz      = 14916000,     /* ADDS Viewpoint 122 */
 	XTAL_15MHz          = 15000000,     /* Sinclair QL, Amusco Poker */
+	XTAL_15_1488MHz     = 15148800,     /* Zentec 9002/9003 */
 	XTAL_15_30072MHz    = 15300720,     /* Microterm 420 */
 	XTAL_15_36MHz       = 15360000,     /* Visual 1050 */
 	XTAL_15_4MHz        = 15400000,     /* DVK KSM */
 	XTAL_15_468MHz      = 15468480,     /* Bank Panic h/w, Sega G80 */
+	XTAL_15_582MHz      = 15582000,     /* Zentec Zephyr */
 	XTAL_15_8976MHz     = 15897600,     /* IAI Swyft */
 	XTAL_15_92MHz       = 15920000,     /* HP Integral PC */
 	XTAL_15_9744MHz     = 15974400,     /* Osborne 1 (9600 * 52 * 32) */
@@ -271,7 +273,6 @@ enum
 	XTAL_44_4528MHz     = 44452800,     /* TeleVideo 965 */
 	XTAL_45MHz          = 45000000,     /* Eolith with Hyperstone CPUs */
 	XTAL_45_158MHz      = 45158000,     /* Sega Model 2A video board, Model 3 CPU board */
-	XTAL_45_582MHz      = 45582000,     /* Zentec Zephyr */
 	XTAL_45_6192MHz     = 45619200,     /* DEC VK100 */
 	XTAL_45_8304MHz     = 45830400,     /* Microterm 5510 */
 	XTAL_47_736MHz      = 47736000,     /* Visual 100 */

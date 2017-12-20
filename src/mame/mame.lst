@@ -887,7 +887,6 @@ viruscl                         // (c) 2004 Access Gmbh
 adam                            // Coleco Adam
 
 @source:adp.cpp
-backgamn                        // (c) 1990
 fashiong                        // (c) 1997
 fashiong2                       // (c) 1997
 fstation                        // (c) 2000
@@ -1133,6 +1132,7 @@ am_mg33i                        // (c) Amatic
 am_mg34i                        // (c) Amatic
 am_mg35i                        // (c) Amatic
 am_mg3a                         // (c) 2000 Amatic
+am_mg4v                         // (c) 2000 Amatic
 suprstar                        // (c) 1996 Amatic
 
 @source:ambush.cpp
@@ -1468,6 +1468,7 @@ checkma5                        // (c) 2001
 chickna5                        // (c) 1996
 chickna5b                       // (c) 1996
 chickna5u                       // (c) 1998
+chickna5ua                      // (c) 1998
 chickna5qld                     // (c) 1998
 coralrc2                        // (c) 1998
 cuckoo                          // (c) 1998
@@ -1493,6 +1494,8 @@ eldorda5                        // (c) 1998
 eforsta5                        // (c) 1995
 eforsta5ce                      // (c) 2000
 eforsta5u                       // (c) 1997
+eforsta5ua                      // (c) 1997
+eforsta5ub                      // (c) 2000
 fastfort                        // (c) 1998
 fortellr                        // (c) 2000
 fortfvr                         // (c) 2001
@@ -1542,6 +1545,7 @@ marmagicu                       // (c) 2000
 marmagicua                      // (c) 2000
 minemine                        // (c) 1996
 minemineu                       // (c) 1996
+minemineua                      // (c) 1996
 monmouse                        // (c) 1997
 monmousea                       // (c) 1997
 montree                         // (c) 2001
@@ -1571,6 +1575,7 @@ pengpayd                        // (c) 1995
 pengpayu                        // (c) 1997
 pengpayua                       // (c) 1997
 pengpayub                       // (c) 1997
+pengpayuc                       // (c) 2001
 pengpuck                        // (c) 2001
 penpir                          // (c) 1998
 penpira                         // (c) 1998
@@ -1590,6 +1595,8 @@ qnilecea                        // (c) 2001
 qniled                          // (c) 1999
 qnilenl                         // (c) 2000
 qnileu                          // (c) 1997
+qnileua                         // (c) 1997
+qnileub                         // (c) 2001
 qnilev                          // (c) 1997
 qnilemax                        // (c) 1999
 qtbird                          // (c) 1994
@@ -1637,6 +1644,9 @@ wildbill                        // (c) 1996
 wldangel                        // (c) 1996
 wcougar                         // (c) 1996
 wcougaru                        // (c) 1997
+wcougarua                       // (c) 1997
+wcougarub                       // (c) 1997
+wcougaruc                       // (c) 1997
 wcoyote                         // (c) 2001
 wizways                         // (c) 1996
 wnpost                          // (c) 1997
@@ -2668,6 +2678,7 @@ botanic                         // (c) 1983
 botanicf                        // (c) 1984
 pickin                          // (c) 1983
 sbagman                         // (c) 1984
+sbagmani                        // (c) 1984 + Itisa license
 sbagmans                        // (c) 1984 + Stern license
 squaitsa                        // (c) 1985
 
@@ -9746,6 +9757,9 @@ citycon                         // (c) 1985 Jaleco
 citycona                        // (c) 1985 Jaleco
 cruisin                         // (c) 1985 Jaleco/Kitkorp
 
+@source:ckz80.cpp
+ckmaster                        //
+
 @source:clayshoo.cpp
 clayshoo                        // [1979 Allied Leisure]
 
@@ -10675,7 +10689,7 @@ espgal2                         // (c) 2005 Cave (AMI license) - 2005/11/14 MAST
 futari10                        // (c) 2006 Cave (AMI license) - 2006/10/23 MASTER VER.
 futari15                        // (c) 2006 Cave (AMI license) - 2006/12/8.MASTER VER. 1.54.
 futari15a                       // (c) 2006 Cave (AMI license) - 2006/12/8 MASTER VER 1.54
-futaribl                        // (c) 2007 Cave (AMI license) - 2009/11/27 INTERNATIONAL BL
+futaribl                        // (c) 2007 Cave (AMI license) - 2009/11/27 INTERNATIONAL BL - Another Ver
 futariblj                       // (c) 2007 Cave (AMI license) - 2007/12/11 BLACK LABEL VER
 ibara                           // (c) 2005 Cave (AMI license) - 2005/03/22 MASTER VER..
 ibarablk                        // (c) 2005 Cave (AMI license) - 2006/02/06. MASTER VER.
@@ -13736,7 +13750,8 @@ giclassvr
 
 @source:gijoe.cpp
 gijoe                           // GX069 (c) 1991 (World)
-gijoea                          // GX069 (c) 1991 (World)
+gijoea                          // GX069 (c) 1991 (Asia)
+gijoeea                         // GX069 (c) 1991 (World)
 gijoej                          // GX069 (c) 1991 (Japan)
 gijoeu                          // GX069 (c) 1991 (US)
 
@@ -14639,6 +14654,8 @@ einvaderc                       // Entex
 funjacks                        // Mattel
 funrlgl                         // Mattel
 h2hbaskb                        // Coleco
+h2hhockey                       // Coleco
+h2hsoccer                       // Coleco
 lchicken                        // LJN
 lightfgt                        // Milton Bradley
 mdallas                         // Mattel
@@ -14732,6 +14749,7 @@ tgaiden                         // Tiger
 tgaunt                          // Tiger
 tjdredd                         // Tiger
 tkarnov                         // Tiger
+tmkombat                        // Tiger
 trobhood                        // Tiger
 trobocop2                       // Tiger
 tshadow                         // Tiger
@@ -14985,6 +15003,9 @@ hp165ka0                        //
 @source:hp2100.cpp
 hp2100                          // HP 2100 and HP 1000
 
+@source:hp2620.cpp
+hp2622a                         //
+
 @source:hp48.cpp
 hp38g                           //
 hp39g                           //
@@ -15000,6 +15021,9 @@ hp49gp                          // HP 49G+
 
 @source:hp64k.cpp
 hp64k                           //
+
+@source:hp64k.cpp
+hp700_92                        //
 
 @source:hp9845.cpp
 hp9835a                         //
@@ -18277,6 +18301,7 @@ malzak                          // (c) 1980? Kitronix
 malzak2                         // (c) 1980? Kitronix
 
 @source:manohman.cpp
+backgamn                        // (c) 1990
 manohman                        // 199?, Merkur.
 
 @source:mappy.cpp
@@ -28384,6 +28409,8 @@ mx2178                          //
 
 @source:myb3k.cpp
 myb3k                           //
+jb3000                          //
+stepone                         //
 
 @source:mycom.cpp
 mycom                           //
@@ -29954,6 +29981,9 @@ supercon                        //
 
 @source:novag68k.cpp
 diablo68                        //
+
+@source:novagf8.cpp
+ccdelta1                        //
 
 @source:novagmcs48.cpp
 nocto                           //
@@ -34060,6 +34090,8 @@ zombraidp                       // (c) 1995 American Sammy
 zombraidpj                      // (c) 1995 Sammy Industries Co.,Ltd.
 
 @source:seta2.cpp
+ablast                          // (c) 2000 Subsino
+ablastb                         //bootleg
 deerhunt                        // (c) 2000 Sammy USA Corporation
 deerhunta                       // (c) 2000 Sammy USA Corporation
 deerhuntb                       // (c) 2000 Sammy USA Corporation
@@ -34080,7 +34112,6 @@ myangel2                        // (c) 1997 Namco
 staraudi                        // (c) 1997 Namco
 namcostr                        // (c) 2000 Namco
 penbros                         // (c) 2000 Subsino
-penbrosk                        // bootleg
 pzlbowl                         // (c) 1999 Nihon System / Moss
 reelquak                        // (c) 1997 <unknown>
 telpacfl                        // (c) 1996 Sunsoft
@@ -36392,8 +36423,6 @@ t4490                           // Terco 4490 Mill CNC Control (c) 1986
 
 @source:terminals.cpp
 aaa
-hp700_92
-hp2622a
 qvt70
 qvt102
 qvt103
@@ -36406,7 +36435,6 @@ tv965
 v100
 v102
 vt420
-zephyr
 
 @source:terracre.cpp
 amatelas                        // (c) 1986
@@ -37510,6 +37538,7 @@ roadburn1                       // (c) 1999 Atari Games
 sf2049                          // (c) 1999 Atari Games
 sf2049se                        // (c) 1999 Atari Games
 sf2049te                        // (c) 1999 Atari Games
+sf2049tea                       // (c) 1999 Atari Games
 tenthdeg                        // (c) 1998 Atari Games (prototype)
 warfa                           // (c) 1999 Atari Games
 warfaa                          // (c) 1999 Atari Games
@@ -38253,6 +38282,7 @@ strknew                         //
 strxt_fr                        //
 strxt_gr                        //
 strxt_it                        //
+strxt_it_101                    //
 strxt_sp                        //
 strxt_uk                        //
 swtril41                        //
@@ -38560,6 +38590,7 @@ br_l1                           //
 br_l3                           //
 br_l4                           //
 br_p17                          //
+cftbl_l2                        //
 cftbl_l3                        //
 cftbl_l4                        //
 drac_l1                         //
@@ -38953,6 +38984,9 @@ zerozone                        // (c) 1993 Comad
 
 @source:zexall.cpp
 zexall                          // zexall z80 test suite with kevtris' preloader/serial interface at 0000-00ff
+
+@source:zms8085.cpp
+zephyr                          //
 
 @source:zn.cpp
 1on1gov                         // 1 on 1 Government (JAPAN)

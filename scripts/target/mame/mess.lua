@@ -424,7 +424,7 @@ MACHINES["1MB5"] = true
 MACHINES["I2CMEM"] = true
 MACHINES["I7220"] = true
 MACHINES["I80130"] = true
-MACHINES["I8089"] = true
+MACHINES["I8087"] = true
 MACHINES["I8155"] = true
 MACHINES["I8212"] = true
 MACHINES["I8214"] = true
@@ -955,6 +955,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"cccp",
 		"cce",
 		"ccs",
+		"chessking",
 		"chromatics",
 		"chrysler",
 		"coleco",
@@ -1727,6 +1728,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/ccs300.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "chessking")
+files {
+	MAME_DIR .. "src/mame/drivers/ckz80.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "chromatics")
 files {
 	MAME_DIR .. "src/mame/drivers/cgc7900.cpp",
@@ -2146,6 +2152,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/hp_ipc.cpp",
 	MAME_DIR .. "src/mame/drivers/hp80.cpp",
 	MAME_DIR .. "src/mame/drivers/hp2100.cpp",
+	MAME_DIR .. "src/mame/drivers/hp2620.cpp",
+	MAME_DIR .. "src/mame/drivers/hp700.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "hec2hrp")
@@ -2540,6 +2548,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/novag6502.cpp",
 	MAME_DIR .. "src/mame/includes/novagbase.h",
 	MAME_DIR .. "src/mame/drivers/novag68k.cpp",
+	MAME_DIR .. "src/mame/drivers/novagf8.cpp",
 	MAME_DIR .. "src/mame/drivers/novagmcs48.cpp",
 	MAME_DIR .. "src/mame/drivers/ssystem3.cpp",
 	MAME_DIR .. "src/mame/includes/ssystem3.h",
@@ -3627,6 +3636,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/xor100.cpp",
 	MAME_DIR .. "src/mame/includes/xor100.h",
 	MAME_DIR .. "src/mame/drivers/xavix.cpp",
+	MAME_DIR .. "src/mame/drivers/zms8085.cpp",
 	MAME_DIR .. "src/mame/drivers/zorba.cpp",
 	MAME_DIR .. "src/mame/includes/zorba.h",
 	MAME_DIR .. "src/mame/machine/zorbakbd.cpp",

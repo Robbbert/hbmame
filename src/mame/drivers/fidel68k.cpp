@@ -182,7 +182,6 @@ B0000x-xxxxxx: see V7, -800000
 #include "cpu/m68000/m68000.h"
 #include "machine/ram.h"
 #include "machine/nvram.h"
-#include "machine/timer.h"
 #include "sound/volt_reg.h"
 #include "speaker.h"
 
@@ -300,7 +299,7 @@ WRITE8_MEMBER(fidel68k_state::fdes68k_lcd_w)
 DRIVER_INIT_MEMBER(fidel68k_state, fdes2265)
 {
 	u16 *rom = (u16*)memregion("maincpu")->base();
-	unsigned const len = memregion("maincpu")->bytes() / 2;
+	const u32 len = memregion("maincpu")->bytes() / 2;
 
 	// descramble data lines
 	for (int i = 0; i < len; i++)

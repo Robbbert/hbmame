@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
 <softwarelist name="ibm5170_cdrom" description="IBM PC/AT CD-ROM images">
-	
+
 	<!--                                         -->
 	<!--                  Games                  -->
 	<!--                                         -->
@@ -33,7 +33,19 @@
 		</part>
 	</software>
 
-	
+  <software name="arampage">
+		<description>Alien Rampage (v1.13)</description>
+		<year>1996</year>
+		<publisher>Softdisk</publisher>
+		<info name="version" value="1.13" />
+		<part name="cdrom" interface="cdrom">
+			<feature name="disk_label" value="Alien Rampage" />
+			<diskarea name="cdrom">
+				<disk name="arampage" sha1="88ae86b0837bc5fba7a3585a506d5ad24161b001" />
+			</diskarea>
+		</part>
+	</software>
+
 	<!-- Windows 95, Direct X 3.0 (in cdrom under Instdx.exe) -->
 	<software name="arabkid">
 		<description>Arabian Kid</description>
@@ -46,51 +58,7 @@
 			</diskarea>
 		</part>
 	</software>
-	
-	<!-- Pentium class 200 MHz / Direct X 7.0 / Windows 95 -->
-	<!-- TODO: invalid opcode exception after install -->
-	<software name="boorball" supported="no">
-		<description>Boorp's Balls</description>
-		<year>2001</year>
-		<publisher>Xpiral / TSY</publisher>
-		<info name="alt_title" value="ブーアプス　ボール" />
-		<part name="cdrom" interface="cdrom">
-			<diskarea name="cdrom">
-				<disk name="booaps" sha1="58d2602ca37c40041a6b504857d4c3057e52e94d" />
-			</diskarea>
-		</part>
-	</software>
 
-	<!-- Pentium class 166 MHz / Direct X 7.0 -->
-	<!-- Windows 95/98/ME -->
-	<!-- TODO: some transparency issues -->
-	<software name="dobupanic" supported="partial">
-		<description>Doka Chan No Building Panic (Japan)</description>
-		<year>2001</year>
-		<publisher>MSD-JAPAN / Salva Corporation / D-YAMA</publisher>
-		<info name="alt_title" value="どかちゃんのビルパニック" />
-		<part name="cdrom" interface="cdrom">
-			<diskarea name="cdrom">
-				<disk name="bpanic" sha1="141b67f93b4d96be7c064d3603a5b961ed56f23b" />
-			</diskarea>
-		</part>
-	</software>
-
-	
-	<!-- Windows 95 -->
-	<!-- 256 colors minimum -->
-	<software name="doom2j">
-		<description>Doom II for Windows 95 (Japan)</description>
-		<year>1996</year>
-		<publisher>Id Software / Imagineer</publisher>
-		<info name="alt_title" value="ドゥームＩＩ" />
-		<part name="cdrom" interface="cdrom">
-			<diskarea name="cdrom">
-				<disk name="doom2j" sha1="61dd4c9a81d4d354a14533dcbd257a5bcffd22c6" />
-			</diskarea>
-		</part>
-	</software>
-	
 	<!-- Untouched image from original CD created with an ASUS DRW-1814BLT (EAC drive sample read offset reported as +6)
 	   If you subtract 0x18 (4 * 6) bytes from a .wav extracted from this CHD the audio matches a rip done with EAC (verified) -->
 	<software name="krondor">
@@ -112,6 +80,74 @@
 		<part name="cdrom" interface="cdrom">
 			<diskarea name="cdrom">
 				<disk name="betrayal_at_krondor_1998" sha1="d58acdb5bc10c2ad9a4b6dd51438102785c44216" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- Pentium class 200 MHz / Direct X 7.0 / Windows 95 -->
+	<!-- TODO: invalid opcode exception after install -->
+	<software name="boorball" supported="no">
+		<description>Boorp's Balls</description>
+		<year>2001</year>
+		<publisher>Xpiral / TSY</publisher>
+		<info name="alt_title" value="ブーアプス　ボール" />
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="booaps" sha1="58d2602ca37c40041a6b504857d4c3057e52e94d" />
+			</diskarea>
+		</part>
+	</software>
+  
+  <!-- Requires VESA driver to install and play -->
+	<software name="crusader">
+		<description>Crusader - No Remorse (v1.23)</description>
+		<year>1996</year>
+		<publisher>Origin</publisher>
+		<info name="version" value="1.23" />
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="crusader" sha1="fcf090cd321fd299339b8848ca4b723ef5a28475" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- Pentium class 166 MHz / Direct X 7.0 -->
+	<!-- Windows 95/98/ME -->
+	<!-- TODO: some transparency issues -->
+	<software name="dobupanic" supported="partial">
+		<description>Doka Chan No Building Panic (Japan)</description>
+		<year>2001</year>
+		<publisher>MSD-JAPAN / Salva Corporation / D-YAMA</publisher>
+		<info name="alt_title" value="どかちゃんのビルパニック" />
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="bpanic" sha1="141b67f93b4d96be7c064d3603a5b961ed56f23b" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- Windows 95 -->
+	<!-- 256 colors minimum -->
+	<software name="doom2j">
+		<description>Doom II for Windows 95 (Japan)</description>
+		<year>1996</year>
+		<publisher>Id Software / Imagineer</publisher>
+		<info name="alt_title" value="ドゥームＩＩ" />
+
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="doom2j" sha1="61dd4c9a81d4d354a14533dcbd257a5bcffd22c6" />
+			</diskarea>
+		</part>
+	</software>
+
+	<software name="ironbld">
+		<description>Iron Blood</description>
+		<year>1996</year>
+		<publisher>Microforum</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="ironbld" sha1="45f44fa1a8feb98daba2b7befb6a8360ad39b352" />
 			</diskarea>
 		</part>
 	</software>
@@ -143,13 +179,27 @@
 				<disk name="kings_quest_6_enhanced" sha1="0d237ee8c2d15be3b47f3676eddce41a00bca094" />
 			</diskarea>
 		</part>
-	</software>	
+	</software>
 
+	<!-- DOS 5.0 / Windows 3.1 -->
+	<!-- Pentium class 166 MHz + 32 MB RAM -->
+	<software name="kingsq8i" supported="no">
+		<description>King's Quest - La Maschera dell'Eternità</description>
+		<year>1998</year>
+		<publisher>Sierra</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="mask" sha1="07c511088e8b7e5773b3126a72b4781af5c3c5df" />
+			</diskarea>
+		</part>
+	</software>
+	
 	<!-- Windows 3.1/95 -->
+	<!-- Simulmondo is credited when you finish the game -->
 	<software name="noiangi">
 		<description>Noi Siamo Angeli (Italian)</description>
 		<year>1997</year>
-		<publisher>Smile Interactive</publisher>
+		<publisher>Smile Interactive / Simulmondo</publisher>
 		<part name="cdrom" interface="cdrom">
 			<diskarea name="cdrom">
 				<!-- no disc label, arbitrary renamed -->
@@ -161,14 +211,14 @@
 	<software name="noiangd" cloneof="noiangi">
 		<description>We Are Angels - Ein Engel schlägt zu! (German)</description>
 		<year>1997</year>
-		<publisher>Smile Interactive</publisher>
+		<publisher>Smile Interactive / Simulmondo</publisher>
 		<part name="cdrom" interface="cdrom">
 			<diskarea name="cdrom">
 				<disk name="970618_1330" sha1="29ea81c4760934194099fbd0c2a94239b487a400" />
 			</diskarea>
 		</part>
 	</software>
-	
+
 	<!-- Windows 3.1 / Mac LCIII -->
 	<software name="orgaslave">
 		<description>Orgaslave</description>
@@ -187,6 +237,18 @@
 		</part>
 	</software>	
 
+	<!-- Windows 3.1 -->
+	<software name="paulymou" supported="partial">
+		<description>Pauly Mouse (Japan)</description>
+		<year>1995</year>
+		<publisher>CDWare / Fuji International Enterprises</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="pmouse" sha1="c135e153fc7f9accfa4d1c2fa9213e8587af24fc" />
+			</diskarea>			
+		</part>
+	</software>
+
 	<!-- Can't install to hard disk, can't save game, default text speed is very slow on 486 -->
 	<!-- (set option 5 from 100 to 0 to make text and voices to sync) -->
 	<software name="pompei" supported="partial">
@@ -197,10 +259,10 @@
 			<feature name="disk_label" value="CD0141" />
 			<diskarea name="cdrom">
 				<disk name="pompei" sha1="964c914b8580a21b2f1a54e9329336ead243598b" />
-			</diskarea>			
+			</diskarea>
 		</part>
 	</software>
-
+ 
 	<software name="prototyp">
 		<description>Prototype</description>
 		<year>1995</year>
@@ -214,6 +276,49 @@
 		</part>
 	</software>
 	
+	<!-- DOS 5.0 / Windows 95 -->
+	<!-- TODO: return errno 1 under DOS and MSCDEX -->
+	<software name="rayman" supported="partial">
+		<description>Rayman (US v1.21)</description>
+		<year>1995</year>
+		<publisher>Ubi Soft</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="rayman" sha1="7e2eeda69210a4d862f3f3b29c8b984d4aa443fd" />
+			</diskarea>
+		</part>
+	</software>
+
+	<software name="rise2dc" supported="partial">
+		<description>Rise 2 Resurrection - Director's Cut</description>
+		<year>1995</year>
+		<publisher>Acclaim</publisher>
+		<part name="cdrom1" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="rise 2 resurrection - director's cut (disc 1)" sha1="cd62b2bde9355b2625d8bdeaece3ec2ccfff5310" />
+			</diskarea>
+		</part>
+		<part name="cdrom2" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="rise 2 resurrection - director's cut (disc 2)" sha1="e6c6c4876d18fbb5916ed13885f1ea614aad05eb" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- Windows 95 / Mac OS Japan AppleTalk 7.5 -->
+	<!-- Requires 16-bit True Color and 800x600 screen resolution -->
+	<software name="segata" supported="partial">
+		<description>Segata Sanshirou Choujin Densetsu</description>
+		<year>1998</year>
+		<publisher>Sega</publisher>
+		<info name="alt_title" value="せがた三四郎超人伝説" />
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="segata" sha1="0d7a6d9a7143d0309d44c1356f68c15a05949257" />
+			</diskarea>
+		</part>
+	</software>
+
 	<software name="sideline">
 		<description>Sideline</description>
 		<year>1996</year>
@@ -226,7 +331,7 @@
 			</diskarea>
 		</part>
 	</software>
-	
+
 	<!-- Windows 3.1 -->
 	<!-- TODO: gfx shift issue on 256 color mode -->
 	<software name="spaceinv" supported="partial">
@@ -237,6 +342,17 @@
 			<feature name="disk_label" value="Sideline" />
 			<diskarea name="cdrom">
 				<disk name="si_4" sha1="0827a8a8f6602fd0947396b9ef96e449eb7a4d5c" />
+			</diskarea>
+		</part>
+	</software>
+
+	<software name="turricn2">
+		<description>Turrican II - The Final Fight</description>
+		<year>1996</year>
+		<publisher>Factor 5</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="turricn2" sha1="7efd6bd06b9c05ea1be1d2f2f7538954e044b5c9" />
 			</diskarea>
 		</part>
 	</software>
@@ -253,7 +369,7 @@
 			</diskarea>
 		</part>
 	</software>
-	
+
 	<software name="v16rise">
 		<description>Viper -V16- RISE (International)</description>
 		<year>2001</year>
@@ -264,11 +380,22 @@
 			</diskarea>
 		</part>
 	</software>
-	
+
+	<software name="zyclunt" supported="no">
+		<description>Zyclunt</description>
+		<year>1995</year>
+		<publisher>Phantagram</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="zyclunt" sha1="cc6e69cdd5bdda70361778c3515571114a97b662" />
+			</diskarea>
+		</part>
+	</software>
+
 	<!--                                         -->
 	<!-- Drivers / Utilities / Operating Systems -->
 	<!--                                         -->
-	
+
 	<software name="acercpr" supported="no">
 		<!-- Floppy dumped via Kryoflux, three tracks show as modified -->
 		<description>Acer CPR</description>
@@ -286,6 +413,55 @@
 			<feature name="disk_label" value="Hard Drive Recovery" />
 			<diskarea name="cdrom">
 				<disk name="acercpr" sha1="a0f073387e661318eae2d1fdd30dfb116d1295ae" />
+			</diskarea>
+		</part>
+	</software>
+
+	<software name="lexz22z32">
+		<description>Z22 / Z32 Color Jetprinter</description>
+		<year>2000</year>
+		<publisher>Lexmark</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="Lexmark Z22 Z32" sha1="e8e39d2a15ffb1c7d675b98d06fb7c8bad5892e5" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- Win 3.1 / 95 -->
+	<!-- Mac OS with System 7.0 -->
+	<!-- includes unknown type scanner driver-->
+	<software name="muscan">
+		<description>Power of Scanning</description>
+		<year>1997</year>
+		<publisher>Mustek</publisher>
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="mustek_scanner" sha1="5f708270ed5885c07a49fadc79ab3ffed420af52" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<software name="nasfdu12">
+		<description>NASLite NAS Server Operating System (v1.x)</description>
+		<year>2004</year>
+		<publisher>Server Elements</publisher>
+
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="naslite-fdu-v1.2" sha1="cb996013c327fd6d5c323fd03f8e9c8061cb4820" />
+			</diskarea>
+		</part>
+	</software>
+
+	<software name="pcdos2k">
+		<description>PC DOS 2000</description>
+		<year>1998</year>
+		<publisher>IBM</publisher>
+
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="pcdos2k" sha1="ae69e305e82f24d908296ba9f45a1321a1c9dd58" />
 			</diskarea>
 		</part>
 	</software>
@@ -319,30 +495,6 @@
 		</part>
 	</software>
 
-	<software name="pcdos2k">
-		<description>PC DOS 2000</description>
-		<year>1998</year>
-		<publisher>IBM</publisher>
-
-		<part name="cdrom" interface="cdrom">
-			<diskarea name="cdrom">
-				<disk name="pcdos2k" sha1="ae69e305e82f24d908296ba9f45a1321a1c9dd58" />
-			</diskarea>
-		</part>
-	</software>
-
-	<software name="win31sdk">
-		<description>Windows Software Development Kit Version 3.1</description>
-		<year>1992</year>
-		<publisher>Microsoft</publisher>
-
-		<part name="cdrom" interface="cdrom">
-			<diskarea name="cdrom">
-				<disk name="050-151-320" sha1="4840cb3624e4032456434e099cd0362bc278e680" />
-			</diskarea>
-		</part>
-	</software>
-
 	<software name="win31ddk">
 		<description>Windows Device Development Kit Version 3.1</description>
 		<year>1992</year>
@@ -351,18 +503,6 @@
 		<part name="cdrom" interface="cdrom">
 			<diskarea name="cdrom">
 				<disk name="win31ddk" sha1="0208c3299cb206ea8b9b7d99e75131661898bae2" />
-			</diskarea>
-		</part>
-	</software>
-
-	<software name="win31rk">
-		<description>Windows Resource Kit for Operating System Version 3.1</description>
-		<year>1992</year>
-		<publisher>Microsoft</publisher>
-
-		<part name="cdrom" interface="cdrom">
-			<diskarea name="cdrom">
-				<disk name="win31rk" sha1="0813d90cf00e296676ecd0259cd425ab50670e8a" />
 			</diskarea>
 		</part>
 	</software>
@@ -379,14 +519,26 @@
 		</part>
 	</software>
 
-	<software name="nasfdu12">
-		<description>NASLite NAS Server Operating System (v1.x)</description>
-		<year>2004</year>
-		<publisher>Server Elements</publisher>
+	<software name="win31rk">
+		<description>Windows Resource Kit for Operating System Version 3.1</description>
+		<year>1992</year>
+		<publisher>Microsoft</publisher>
 
 		<part name="cdrom" interface="cdrom">
 			<diskarea name="cdrom">
-				<disk name="naslite-fdu-v1.2" sha1="cb996013c327fd6d5c323fd03f8e9c8061cb4820" />
+				<disk name="win31rk" sha1="0813d90cf00e296676ecd0259cd425ab50670e8a" />
+			</diskarea>
+		</part>
+	</software>
+
+	<software name="win31sdk">
+		<description>Windows Software Development Kit Version 3.1</description>
+		<year>1992</year>
+		<publisher>Microsoft</publisher>
+
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="050-151-320" sha1="4840cb3624e4032456434e099cd0362bc278e680" />
 			</diskarea>
 		</part>
 	</software>
@@ -489,4 +641,5 @@
 			</diskarea>
 		</part>
 	</software>
+
 </softwarelist>
