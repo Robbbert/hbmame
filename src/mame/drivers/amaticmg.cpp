@@ -26,7 +26,7 @@
 
   1x Unknown 40-pins IC (maybe 6845).
   1x Altera EPM5130LC (84-pins).
-  1x KS82C55A (2x PPI).
+  1x KS82C55A (8255A PPI variant).
   1x Unknown 40-pins IC (maybe another PPI).
 
   1x Dallas DS1236-10 (micro manager).
@@ -449,7 +449,6 @@ public:
 	uint8_t m_nmi_mask;
 	DECLARE_WRITE8_MEMBER(out_a_w);
 	DECLARE_WRITE8_MEMBER(out_c_w);
-	DECLARE_DRIVER_INIT(ama8000_4_v);
 	DECLARE_DRIVER_INIT(ama8000_3_o);
 	DECLARE_DRIVER_INIT(ama8000_2_i);
 	DECLARE_DRIVER_INIT(ama8000_2_v);
@@ -481,21 +480,21 @@ void amaticmg_state::video_start()
 uint32_t amaticmg_state::screen_update_amaticmg(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	gfx_element *gfx = m_gfxdecode->gfx(0);
-	int y,x;
+	int y, x;
 	int count = 0;
 
-	for (y=0;y<32;y++)
+	for (y = 0; y < 32; y++)
 	{
-		for (x=0;x<96;x++)
+		for (x = 0; x < 96; x++)
 		{
 			uint16_t tile = m_vram[count];
 			uint8_t color;
 
-			tile += ((m_attr[count]&0x0f)<<8);
+			tile += ((m_attr[count] & 0x0f) << 8);
 			/* TODO: this looks so out of place ... */
-			color = (m_attr[count]&0xf0)>>3;
+			color = (m_attr[count] & 0xf0) >> 3;
 
-			gfx->opaque(bitmap,cliprect,tile,color,0,0,x*4,y*8);
+			gfx->opaque(bitmap, cliprect, tile, color, 0, 0, x * 4, y * 8);
 			count++;
 		}
 	}
@@ -506,20 +505,20 @@ uint32_t amaticmg_state::screen_update_amaticmg(screen_device &screen, bitmap_in
 uint32_t amaticmg_state::screen_update_amaticmg2(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	gfx_element *gfx = m_gfxdecode->gfx(0);
-	int y,x;
+	int y, x;
 	int count = 16;
 
-	for (y=0;y<32;y++)
+	for (y = 0; y < 32; y++)
 	{
-		for (x=0;x<96;x++)
+		for (x = 0; x < 96; x++)
 		{
 			uint16_t tile = m_vram[count];
 			uint8_t color;
 
-			tile += ((m_attr[count]&0xff)<<8);
+			tile += ((m_attr[count] & 0xff) << 8);
 			color = 0;
 
-			gfx->opaque(bitmap,cliprect,tile,color,0,0,x*4,y*8);
+			gfx->opaque(bitmap, cliprect, tile, color, 0, 0, x * 4, y * 8);
 			count++;
 		}
 	}
@@ -644,8 +643,6 @@ static ADDRESS_MAP_START( amaticmg_map, AS_PROGRAM, 8, amaticmg_state )
 	AM_RANGE(0x8000, 0x9fff) AM_RAM // AM_SHARE("nvram")
 	AM_RANGE(0xa000, 0xafff) AM_RAM AM_SHARE("vram")
 	AM_RANGE(0xb000, 0xbfff) AM_RAM AM_SHARE("attr")
-//  AM_RANGE(0xa010, 0xafff) AM_RAM AM_SHARE("vram")
-//  AM_RANGE(0xb010, 0xbfff) AM_RAM AM_SHARE("attr")
 	AM_RANGE(0xc000, 0xffff) AM_ROMBANK("bank1")
 ADDRESS_MAP_END
 
@@ -658,10 +655,8 @@ static ADDRESS_MAP_START( amaticmg_portmap, AS_IO, 8, amaticmg_state )
 	AM_RANGE(0x61, 0x61) AM_DEVREADWRITE("crtc", mc6845_device, register_r, register_w)
 	AM_RANGE(0x80, 0x80) AM_WRITE(unk80_w)
 	AM_RANGE(0xc0, 0xc0) AM_WRITE(rombank_w)
-//  AM_RANGE(0x00, 0x00) AM_DEVREADWRITE("ppi8255_2", ppi8255_device, read, write)
 //  AM_RANGE(0x00, 0x00) AM_DEVWRITE("dac1", dac_byte_interface, write)
 //  AM_RANGE(0x00, 0x00) AM_DEVWRITE("dac2", dac_byte_interface, write)
-
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( amaticmg2_portmap, AS_IO, 8, amaticmg_state )
@@ -674,15 +669,21 @@ static ADDRESS_MAP_START( amaticmg2_portmap, AS_IO, 8, amaticmg_state )
 	AM_RANGE(0x61, 0x61) AM_DEVREADWRITE("crtc", mc6845_device, register_r, register_w) // 0f for mg_iii_vger_3.64_v_8309
 	AM_RANGE(0xc0, 0xc0) AM_WRITE(rombank_w)
 	AM_RANGE(0xe6, 0xe6) AM_WRITE(nmi_mask_w)
+	AM_RANGE(0xe8, 0xeb) AM_DEVREADWRITE("ppi8255_2", i8255_device, read, write)
 ADDRESS_MAP_END
 
-
-/*
-    Unknown R/W
-    -----------
-
-
-*/
+static ADDRESS_MAP_START( amaticmg4_portmap, AS_IO, 8, amaticmg_state )
+	ADDRESS_MAP_GLOBAL_MASK(0xff)
+//  ADDRESS_MAP_UNMAP_HIGH
+	AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("ppi8255_0", i8255_device, read, write)
+	AM_RANGE(0x04, 0x07) AM_DEVREADWRITE("ppi8255_1", i8255_device, read, write)
+	AM_RANGE(0x08, 0x0b) AM_DEVREADWRITE("ppi8255_2", i8255_device, read, write)
+	AM_RANGE(0x50, 0x51) AM_DEVWRITE("ymsnd", ym3812_device, write)
+	AM_RANGE(0x0e, 0x0e) AM_DEVWRITE("crtc", mc6845_device, address_w)
+	AM_RANGE(0x0f, 0x0f) AM_DEVREADWRITE("crtc", mc6845_device, register_r, register_w)
+//	AM_RANGE(0xc0, 0xc0) AM_WRITE(rombank_w)
+	AM_RANGE(0xe6, 0xe6) AM_WRITE(nmi_mask_w)
+ADDRESS_MAP_END
 
 
 /************************************
@@ -825,7 +826,7 @@ static MACHINE_CONFIG_START( amaticmg )
 	MCFG_CPU_ADD("maincpu", Z80, CPU_CLOCK)     /* WRONG! */
 	MCFG_CPU_PROGRAM_MAP(amaticmg_map)
 	MCFG_CPU_IO_MAP(amaticmg_portmap)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", amaticmg_state,  nmi_line_pulse) // no NMI mask?
+	MCFG_CPU_VBLANK_INT_DRIVER("screen", amaticmg_state, nmi_line_pulse) // no NMI mask?
 
 //  MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -839,8 +840,6 @@ static MACHINE_CONFIG_START( amaticmg )
 	MCFG_I8255_OUT_PORTA_CB(WRITE8(amaticmg_state, out_a_w))
 	MCFG_I8255_IN_PORTB_CB(IOPORT("SW1"))
 	MCFG_I8255_OUT_PORTC_CB(WRITE8(amaticmg_state, out_c_w))
-
-//  MCFG_DEVICE_ADD("ppi8255_2", I8255A, 0)
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -880,6 +879,26 @@ static MACHINE_CONFIG_DERIVED( amaticmg2, amaticmg )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_IO_MAP(amaticmg2_portmap)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", amaticmg_state,  amaticmg2_irq)
+
+	MCFG_DEVICE_ADD("ppi8255_2", I8255A, 0)	// MG4: 0x89 -> A:out; B:out; C(h):in; C(l):in.
+
+	MCFG_SCREEN_MODIFY("screen")
+	MCFG_SCREEN_UPDATE_DRIVER(amaticmg_state, screen_update_amaticmg2)
+
+	MCFG_GFXDECODE_MODIFY("gfxdecode", amaticmg2)
+	MCFG_PALETTE_MODIFY("palette")
+	MCFG_PALETTE_ENTRIES(0x10000)
+	MCFG_PALETTE_INIT_OWNER(amaticmg_state,amaticmg2)
+MACHINE_CONFIG_END
+
+
+static MACHINE_CONFIG_DERIVED( amaticmg4, amaticmg )
+
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_IO_MAP(amaticmg4_portmap)
+	MCFG_CPU_VBLANK_INT_DRIVER("screen", amaticmg_state,  amaticmg2_irq)
+
+	MCFG_DEVICE_ADD("ppi8255_2", I8255A, 0)	// MG4: 0x89 -> A:out; B:out; C(h):in; C(l):in.
 
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(amaticmg_state, screen_update_amaticmg2)
@@ -1071,13 +1090,13 @@ ROM_END
 void amaticmg_state::encf(uint8_t ciphertext, int address, uint8_t &plaintext, int &newaddress)
 {
 	int aux = address & 0xfff;
-	aux = aux ^ (aux>>6);
-	aux = ((aux<<6) | (aux>>6)) & 0xfff;
-	uint8_t aux2 = bitswap<8>(aux, 9,10,4,1,6,0,7,3);
-	aux2 ^= aux2>>4;
-	aux2 = (aux2<<4) | (aux2>>4);
-	ciphertext ^= ciphertext<<4;
-	plaintext = (ciphertext<<4) | (ciphertext>>4);
+	aux = aux ^ (aux >> 6);
+	aux = ((aux << 6) | (aux >> 6)) & 0xfff;
+	uint8_t aux2 = bitswap<8>(aux, 9, 10, 4, 1, 6, 0, 7, 3);
+	aux2 ^= aux2 >> 4;
+	aux2 = (aux2 << 4) | (aux2 >> 4);
+	ciphertext ^= ciphertext << 4;
+	plaintext = (ciphertext << 4) | (ciphertext >> 4);
 	plaintext ^= aux2;
 	newaddress = (address & ~0xfff) | aux;
 }
@@ -1094,7 +1113,7 @@ void amaticmg_state::decrypt(int key1, int key2)
 	for (int i = 0; i < len; i++)
 	{
 		encf(src[i], i, plaintext, newaddress);
-		dest[newaddress^(key1^(key1>>6))] = plaintext^key2;
+		dest[newaddress ^ (key1 ^ (key1 >> 6))] = plaintext ^ key2;
 	}
 }
 
@@ -1118,11 +1137,6 @@ DRIVER_INIT_MEMBER(amaticmg_state,ama8000_3_o)
 	decrypt(0x56e, 0xa7);
 }
 
-DRIVER_INIT_MEMBER(amaticmg_state,ama8000_4_v)
-{
-	// Needs proper decryption 
-}
-
 
 /************************************
 *           Game Drivers            *
@@ -1133,9 +1147,9 @@ GAMEL( 1996, suprstar, 0,        amaticmg,  amaticmg, amaticmg_state, ama8000_1_
 GAME(  2000, am_mg24,  0,        amaticmg2, amaticmg, amaticmg_state, ama8000_2_i, ROT0,  "Amatic Trading GmbH", "Multi Game I (V.Ger 2.4)",    MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
 GAME(  2000, am_mg24a, 0,        amaticmg2, amaticmg, amaticmg_state, ama8000_2_i, ROT0,  "Amatic Trading GmbH", "Multi Game I (unknown V2.4)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )  // needs proper decryption.
 GAME(  2000, am_mg3,   0,        amaticmg2, amaticmg, amaticmg_state, ama8000_2_i, ROT0,  "Amatic Trading GmbH", "Multi Game III (V.Ger 3.5)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
-GAME(  2000, am_mg3a,  0,        amaticmg2, amaticmg, amaticmg_state, ama8000_2_v, ROT0,  "Amatic Trading GmbH", "Multi Game III (V.Ger 3.64)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
+GAME(  2000, am_mg3a,  0,        amaticmg4, amaticmg, amaticmg_state, ama8000_2_v, ROT0,  "Amatic Trading GmbH", "Multi Game III (V.Ger 3.64)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
 GAME(  2000, am_mg35i, 0,        amaticmg2, amaticmg, amaticmg_state, ama8000_3_o, ROT0,  "Amatic Trading GmbH", "Multi Game III (S.Ita 3.5)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
 GAME(  2000, am_mg34i, am_mg35i, amaticmg2, amaticmg, amaticmg_state, ama8000_3_o, ROT0,  "Amatic Trading GmbH", "Multi Game III (S.Ita 3.4)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
 GAME(  2000, am_mg33i, am_mg35i, amaticmg2, amaticmg, amaticmg_state, ama8000_3_o, ROT0,  "Amatic Trading GmbH", "Multi Game III (S.Ita 3.3)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
 GAME(  2000, am_mg31i, am_mg35i, amaticmg2, amaticmg, amaticmg_state, ama8000_3_o, ROT0,  "Amatic Trading GmbH", "Multi Game III (S.Ita 3.1)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
-GAME(  2000, am_mg4v,  0,        amaticmg2, amaticmg, amaticmg_state, ama8000_4_v, ROT0,  "Amatic Trading GmbH", "Multi Game IV (V.Ger 3.44)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
+GAME(  2000, am_mg4v,  0,        amaticmg4, amaticmg, amaticmg_state, ama8000_2_v, ROT0,  "Amatic Trading GmbH", "Multi Game IV (V.Ger 3.44)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_WRONG_COLORS | MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
