@@ -38408,7 +38408,8 @@ wmg                             // Williams 6in1 Multigame, Clay Cowgill
 @source:wms.cpp
 btippers                        // Big Tippers (Russian)
 cashcrop                        // Cash Crop (Russian)
-filthyr                         // Filthy Rich (Russian)
+filthyr                         // Filthy Rich (English) - (c) 1997 WMS
+filthyrr                        // Filthy Rich (Russian) - (c) 1997 WMS
 hottop                          // Hot Toppings (English)
 hottopa                         // Hot Toppings (Russian?)
 inwinner                        // In Winner (Russian)
@@ -38417,14 +38418,17 @@ leprgld                         // Leprecorns Gold (Russian)
 leprglds                        // Leprecorns Gold (Spanish)
 lol                             // Life of Luxury (Russian)
 lovewin                         // Love To Win (Russian)
-mtburn                          // Money To Burn (Russian)
+mtburn                          // Money To Burn (English)
+mtburnr                         // Money To Burn (Russian)
 otchart                         // Off The Charts (Russian)
 perfect                         // Perfect Game (Russian)
-reelemin                        // Reel 'Em In (Russian)
+reelemin                        // Reel 'Em In (English) - (c) 1997 WMS
+reeleminr                       // Reel 'Em In (Russian) - (c) 1997 WMS
 sonoth                          // Sum Of Nothing (Russian)
 swingin                         // Swingin' Green (Russian)
 wdun                            // Who Dunnit (Russian)
-winbid                          // Winning Bid (Russian)
+winbid                          // Winning Bid (English)
+winbidr                         // Winning Bid (Russian)
 wldstrek                        // Wild Streak (Russian)
 wms                             // Set Chips
 wmsa                            //

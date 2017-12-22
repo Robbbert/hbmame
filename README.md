@@ -3,7 +3,10 @@ What is HBMAME?
 
 HBMAME stands for Home Brew MAME.
 
-HBMAME's purpose is to preserve homebrew games written for arcade machines or arcade emulators. All the documentation of the hardware can be found in the MAME source.
+HBMAME's has 2 purposes:
+Firstly is to preserve homebrew games written for arcade machines or arcade emulators.
+Secondly is to include worthwhile hacks of arcade games.
+All the documentation of the hardware can be found in the MAME source.
 
 How to compile
 ==============
