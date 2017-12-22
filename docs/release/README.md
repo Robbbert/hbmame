@@ -45,3 +45,9 @@ Information about the MAME license particulars and disclaimers can be found at h
 
 Information about the WINUI portion can be found at https://github.com/Robbbert/mameui/blob/master/docs/winui_license.txt
 
+
+Warning to trolls
+=================
+
+If this online facility gets abused again, it will be removed permanently.
+
