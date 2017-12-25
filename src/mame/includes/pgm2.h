@@ -28,6 +28,7 @@ public:
 		m_lineram(*this, "lineram"),
 		m_sp_zoom(*this, "sp_zoom"),
 		m_mainram(*this, "mainram"),
+		m_romboard_ram(*this, "romboard_ram"),
 		m_fg_videoram(*this, "fg_videoram"),
 		m_bg_videoram(*this, "bg_videoram"),
 		m_sp_videoram(*this, "sp_videoram"),
@@ -57,10 +58,12 @@ public:
 	DECLARE_WRITE8_MEMBER(shareram_w);
 	DECLARE_WRITE16_MEMBER(vbl_ack_w);
 	DECLARE_WRITE16_MEMBER(unk30120014_w);
-	
+
 	DECLARE_READ32_MEMBER(orleg2_speedup_r);
 	DECLARE_READ32_MEMBER(kov2nl_speedup_r);
 	DECLARE_READ32_MEMBER(kof98umh_speedup_r);
+	DECLARE_READ32_MEMBER(ddpdojh_speedup_r);
+	DECLARE_READ32_MEMBER(ddpdojh_speedup2_r);
 
 	DECLARE_READ8_MEMBER(encryption_r);
 	DECLARE_WRITE8_MEMBER(encryption_w);
@@ -109,10 +112,10 @@ private:
 
 	uint32_t m_sprites_mask_mask;
 	uint32_t m_sprites_colour_mask;
-	
+
 	void common_encryption_init();
 	uint8_t m_encryption_table[0x100];
-	int m_has_decrypted;	// so we only do it once.
+	int m_has_decrypted;    // so we only do it once.
 	uint32_t m_spritekey;
 	uint32_t m_realspritekey;
 	int m_sprite_predecrypted;
@@ -125,12 +128,15 @@ private:
 	uint8_t m_mcu_last_cmd;
 	void mcu_command(address_space &space, bool is_command);
 
+	std::vector<uint8_t> m_encrypted_copy;
+
 	// devices
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
 	required_shared_ptr<uint32_t> m_lineram;
 	required_shared_ptr<uint32_t> m_sp_zoom;
 	required_shared_ptr<uint32_t> m_mainram;
+	optional_shared_ptr<uint32_t> m_romboard_ram;
 	required_shared_ptr<uint32_t> m_fg_videoram;
 	required_shared_ptr<uint32_t> m_bg_videoram;
 	required_shared_ptr<uint32_t> m_sp_videoram;

@@ -1646,21 +1646,16 @@ void debugger_commands::execute_stateload(int ref, const std::vector<std::string
 
 void debugger_commands::execute_rewind(int ref, const std::vector<std::string> &params)
 {
-	if (!m_machine.save().rewind()->enabled())
-	{
-		m_console.printf("Rewind not enabled\n");
-		return;
-	}
-
-	m_machine.rewind_step();
-
-	// clear all PC & memory tracks
-	for (device_t &device : device_iterator(m_machine.root_device()))
-	{
-		device.debug()->track_pc_data_clear();
-		device.debug()->track_mem_data_clear();
-	}
-	m_console.printf("Rewind step attempted.  Please refer to window message popup for results.\n");
+	bool success = m_machine.rewind_step();
+	if (success)
+		// clear all PC & memory tracks
+		for (device_t &device : device_iterator(m_machine.root_device()))
+		{
+			device.debug()->track_pc_data_clear();
+			device.debug()->track_mem_data_clear();
+		}
+	else
+		m_console.printf("Rewind error occured.  See error.log for details.\n");
 }
 
 
@@ -2783,7 +2778,7 @@ void debugger_commands::execute_history(int ref, const std::vector<std::string> 
 	}
 
 	debug_disasm_buffer buffer(space->device());
-	
+
 	for (int index = 0; index < (int) count; index++)
 	{
 		offs_t pc = debug->history_pc(-index);

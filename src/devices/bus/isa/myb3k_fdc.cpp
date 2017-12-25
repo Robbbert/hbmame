@@ -16,7 +16,7 @@
 
     Step/One service manuals: http://nivelleringslikaren.eu/stepone/
 
-   TODO: 
+   TODO:
    - Verify FDC4710 as soon as we find a 160Kb floppy image
    - Add FDC4712 8" as soon as we get a visual or schematics on it
    - Reduce code duplication by introducing a base class, once all are emulated
@@ -34,7 +34,7 @@
 #define LOG_READ    (1U << 1)
 #define LOG_CMD     (1U << 2)
 
-//#define VERBOSE (LOG_GENERAL | LOG_CMD | LOG_READ)
+//#define VERBOSE (LOG_GENERAL | LOG_CMD)
 //#define LOG_OUTPUT_STREAM std::cout
 
 #include "logmacro.h"
@@ -52,14 +52,14 @@ DEFINE_DEVICE_TYPE(ISA8_MYB3K_FDC4710, isa8_myb3k_fdc4710_device, "isa8_myb3k_fd
 DEFINE_DEVICE_TYPE(ISA8_MYB3K_FDC4711, isa8_myb3k_fdc4711_device, "isa8_myb3k_fdc4711", "FDC4711 DSDD Floppy Disk Controller")
 
 DEVICE_ADDRESS_MAP_START(map, 8, isa8_myb3k_fdc4710_device)
-//	AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("fdc", mb8876_device, read, write) AM_MIRROR(0x500)
+//  AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("fdc", mb8876_device, read, write) AM_MIRROR(0x500)
 	AM_RANGE(0x00, 0x03) AM_READ(myb3k_inv_fdc_data_r) AM_WRITE(myb3k_inv_fdc_data_w) AM_MIRROR(0x500)
 	AM_RANGE(0x04, 0x04) AM_WRITE(myb3k_fdc_command) AM_MIRROR(0x500)
 	AM_RANGE(0x05, 0x05) AM_READ(myb3k_fdc_status) AM_MIRROR(0x500)
 ADDRESS_MAP_END
 
 DEVICE_ADDRESS_MAP_START(map, 8, isa8_myb3k_fdc4711_device)
-//	AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("fdc", fd1791_device, read, write) AM_MIRROR(0x500)
+//  AM_RANGE(0x00, 0x03) AM_DEVREADWRITE("fdc", fd1791_device, read, write) AM_MIRROR(0x500)
 	AM_RANGE(0x00, 0x03) AM_READ(myb3k_inv_fdc_data_r) AM_WRITE(myb3k_inv_fdc_data_w) AM_MIRROR(0x500)
 	AM_RANGE(0x04, 0x04) AM_WRITE(myb3k_fdc_command) AM_MIRROR(0x500)
 	AM_RANGE(0x05, 0x05) AM_READ(myb3k_fdc_status) AM_MIRROR(0x500)
@@ -113,7 +113,7 @@ MACHINE_CONFIG_END
 
 #if 0
 MACHINE_CONFIG_MEMBER( isa8_myb3k_fdc4712_device::device_add_mconfig )
-	MCFG_DEVICE_ADD("fdc", FD1791, XTAL_15_9744MHz / 8) 
+	MCFG_DEVICE_ADD("fdc", FD1791, XTAL_15_9744MHz / 8)
 	MCFG_WD_FDC_INTRQ_CALLBACK(WRITELINE(isa8_myb3k_fdc4712_device, irq_w))
 	MCFG_WD_FDC_DRQ_CALLBACK(WRITELINE(isa8_myb3k_fdc4712_device, drq_w))
 	MCFG_FLOPPY_DRIVE_ADD("fdc:0", myb3k_8inch_floppies, "8dsdd", isa8_myb3k_fdc4712_device::myb3k_floppy_formats)
@@ -221,12 +221,12 @@ WRITE_LINE_MEMBER( isa8_myb3k_fdc4711_device::drq_w )
 //-------------------------------------------------
 uint8_t isa8_myb3k_fdc4710_device::dack_r(int line)
 {
-	return m_fdc->data_r();
+	return ~(m_fdc->data_r());
 }
 
 uint8_t isa8_myb3k_fdc4711_device::dack_r(int line)
 {
-	return m_fdc->data_r();
+	return ~(m_fdc->data_r());
 }
 
 //-------------------------------------------------
@@ -297,15 +297,16 @@ WRITE8_MEMBER( isa8_myb3k_fdc4711_device::myb3k_inv_fdc_data_w )
 #define FDC_DRIVE_SEL  0x03
 WRITE8_MEMBER( isa8_myb3k_fdc4710_device::myb3k_fdc_command )
 {
+	data = ~data;
 	LOG("%s: %02x\n", FUNCNAME, data);
-	LOGCMD(" - Drive %d\n", data & FDC_DRIVE_SEL);
-	LOGCMD(" - Side  %d\n", (data & FDC_SIDE_SEL) == 0 ? 0 : 1);
-	LOGCMD(" - Motor %s\n", (data & FDC_MOTOR_ON) ? "ON" : "OFF");
+	LOGCMD(" - Drive %d\n", ~data & FDC_DRIVE_SEL);
+	LOGCMD(" - Side  %d\n", (data & FDC_SIDE_SEL) ? 0 : 1);
+	LOGCMD(" - Motor %s\n", (data & FDC_MOTOR_ON) ? "OFF" : "ON");
 	LOGCMD(" - Density %s\n", (data & FDC_DDEN) ? "FM" : "MFM");
 
 	floppy_image_device *floppy = nullptr;
 
-	switch(data & FDC_DRIVE_SEL)
+	switch(~data & FDC_DRIVE_SEL) // Y0-Y3 on a '139 maps to drive 4 to 1 respectively
 	{
 	case 0:floppy = m_fdd0->get_device(); break;
 	case 1:floppy = m_fdd1->get_device(); break;
@@ -315,8 +316,8 @@ WRITE8_MEMBER( isa8_myb3k_fdc4710_device::myb3k_fdc_command )
 	{
 		LOGCMD(" - Floppy found\n");
 		m_fdc->set_floppy(floppy);
-		floppy->ss_w((data & FDC_SIDE_SEL) ? 1 : 0);
-		floppy->mon_w((data & FDC_MOTOR_ON) ? 0 : 1);
+		floppy->ss_w((data & FDC_SIDE_SEL) ? 0 : 1);
+		floppy->mon_w((data & FDC_MOTOR_ON) ? 1 : 0); // Active low and inverter on incomming data line
 	}
 	else
 	{
@@ -327,15 +328,16 @@ WRITE8_MEMBER( isa8_myb3k_fdc4710_device::myb3k_fdc_command )
 
 WRITE8_MEMBER( isa8_myb3k_fdc4711_device::myb3k_fdc_command )
 {
+	data = ~data;
 	LOG("%s: %02x\n", FUNCNAME, data);
-	LOGCMD(" - Drive %d\n", data & FDC_DRIVE_SEL);
-	LOGCMD(" - Side  %d\n", (data & FDC_SIDE_SEL) == 0 ? 0 : 1);
-	LOGCMD(" - Motor %s\n", (data & FDC_MOTOR_ON) ? "ON" : "OFF");
+	LOGCMD(" - Drive %d\n", ~data & FDC_DRIVE_SEL);
+	LOGCMD(" - Side  %d\n", (data & FDC_SIDE_SEL) ? 0 : 1);
+	LOGCMD(" - Motor %s\n", (data & FDC_MOTOR_ON) ? "OFF" : "ON");
 	LOGCMD(" - Density %s\n", (data & FDC_DDEN) ? "FM" : "MFM");
 
 	floppy_image_device *floppy = nullptr;
 
-	switch(data & FDC_DRIVE_SEL)
+	switch(~data & FDC_DRIVE_SEL) // Y0-Y3 on a '139 maps to drive 4 to 1 respectively
 	{
 	case 0:floppy = m_fdd0->get_device(); break;
 	case 1:floppy = m_fdd1->get_device(); break;
@@ -347,8 +349,8 @@ WRITE8_MEMBER( isa8_myb3k_fdc4711_device::myb3k_fdc_command )
 	{
 		LOGCMD(" - Floppy found\n");
 		m_fdc->set_floppy(floppy);
-		floppy->ss_w((data & FDC_SIDE_SEL) ? 1 : 0);
-		floppy->mon_w((data & FDC_MOTOR_ON) ? 0 : 1);
+		floppy->ss_w((data & FDC_SIDE_SEL) ? 0 : 1);
+		floppy->mon_w((data & FDC_MOTOR_ON) ? 1 : 0); // Active low and inverter on incomming data line
 	}
 	else
 	{
