@@ -21,12 +21,6 @@ or
 make TARGET=hbmame OSD=winui
 ```
 
-Please read compile instructions at docs/compile.doc
-=======
-
-
-For Windows users, we provide a ready-made [build environment](http://mamedev.org/tools/) based on MinGW-w64. [Visual Studio builds](http://wiki.mamedev.org/index.php?title=Building_MAME_using_Microsoft_Visual_Studio_compilers) are also possible.
-
 
 Where can I find out more?
 ==========================
