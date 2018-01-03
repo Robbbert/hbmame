@@ -264,7 +264,7 @@ WRITE8_MEMBER(mcr3_state::maxrpm_op6_w)
 
 	/* when both the write and the enable are low, it's a write to the ADC0844 */
 	if (!(data & 0x40) && !(data & 0x20))
-		m_maxrpm_adc->write(space, 0, bitswap<8>(m_maxrpm_adc_control, 7, 6, 5, 4, 2, 3, 1, 0));
+		m_maxrpm_adc->write(space, 0, bitswap<4>(m_maxrpm_adc_control, 2, 3, 1, 0));
 
 	/* low 5 bits control the turbo CS */
 	m_turbo_cheap_squeak->write(space, offset, data);
@@ -466,7 +466,7 @@ READ8_MEMBER(mcr3_state::turbotag_kludge_r)
 	/* Unfortunately, the game refuses to start if any bad ROM is   */
 	/* found; to work around this, we catch the checksum byte read  */
 	/* and modify it to what we know we will be getting.            */
-	if (space.device().safe_pcbase() == 0xb29)
+	if (m_maincpu->pcbase() == 0xb29)
 		return 0x82;
 	else
 		return 0x92;

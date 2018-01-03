@@ -14,7 +14,7 @@
   - tispeak: TI Speak & Spell series gen. 1
 
   Let's use this driver for a list of known devices and their serials,
-  excluding TI's own products.
+  excluding TI's own products(they didn't use "MP" codes).
 
   serial   device    etc.
 --------------------------------------------------------------------
@@ -138,6 +138,7 @@
   - bship discrete sound, netlist is documented
   - finish bshipb SN76477 sound
   - improve elecbowl driver
+  - is alphie(patent) the same as the final version?
 
 ***************************************************************************/
 
@@ -158,6 +159,7 @@
 
 // internal artwork
 #include "7in1ss.lh"
+#include "alphie.lh"
 #include "amaztron.lh" // clickable
 #include "arcmania.lh" // clickable
 #include "arrball.lh"
@@ -218,6 +220,7 @@
 #include "tc4.lh"
 #include "tcfball.lh"
 #include "tcfballa.lh"
+#include "timaze.lh"
 #include "xl25.lh" // clickable
 #include "zodiac.lh"
 
@@ -7527,6 +7530,128 @@ MACHINE_CONFIG_END
 
 /***************************************************************************
 
+  Playskool Alphie
+  * TMS1000 (label not known yet)
+  * 5 LEDs, 1-bit sound
+
+  This is an educational toy robot for young kids. It has 2 sliding arms:
+  the left arm(Alphie's right arm) is for questions, the other for answers.
+  Cardboard inlays are used for arm position labels.
+
+  There are 4 play modes:
+  - S symbol: Alphie answers questions. The answers are always the same,
+    no matter the inlay: Q1=A3, Q2=A5, Q3=A4, Q4=A1, Q5=A2.
+  - * symbol: used with Lunar Landing board game
+  - X symbol: used with Robot Land board game
+  - music note: play a selection of 5 tunes
+
+***************************************************************************/
+
+class alphie_state : public hh_tms1k_state
+{
+public:
+	alphie_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	TIMER_DEVICE_CALLBACK_MEMBER(show_arm_position);
+
+	DECLARE_WRITE16_MEMBER(write_r);
+	DECLARE_WRITE16_MEMBER(write_o);
+	DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+TIMER_DEVICE_CALLBACK_MEMBER(alphie_state::show_arm_position)
+{
+	// arm position 1(up) to 5(down)
+	output().set_value("q_pos", 32 - count_leading_zeros(m_inp_matrix[1]->read()));
+	output().set_value("a_pos", 32 - count_leading_zeros(m_inp_matrix[2]->read()));
+}
+
+WRITE16_MEMBER(alphie_state::write_r)
+{
+	// R1-R5, input mux (using d5 for Vss)
+	m_inp_mux = (data >> 1 & 0x1f) | 0x20;
+
+	// R6-R10: leds
+	display_matrix(5, 1, data >> 6, 1);
+
+	// R0: power off on falling edge (turn back on with button)
+	if (~data & m_r & 1)
+		power_off();
+
+	m_r = data;
+}
+
+WRITE16_MEMBER(alphie_state::write_o)
+{
+	// O?: speaker out
+	m_speaker->level_w(data & 1);
+}
+
+READ8_MEMBER(alphie_state::read_k)
+{
+	// K: multiplexed inputs, rotated matrix
+	return read_rotated_inputs(6);
+}
+
+
+// config
+
+static const ioport_value alphie_armpos_table[5] = { 0x01, 0x02, 0x04, 0x08, 0x10 };
+
+static INPUT_PORTS_START( alphie )
+	PORT_START("IN.0") // K1
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_tms1k_state, power_button, (void *)true)
+
+	PORT_START("IN.1") // K2
+	PORT_BIT( 0x1f, 0x00, IPT_POSITIONAL_V ) PORT_PLAYER(2) PORT_POSITIONS(5) PORT_REMAP_TABLE(alphie_armpos_table) PORT_SENSITIVITY(10) PORT_KEYDELTA(1) PORT_CENTERDELTA(0) PORT_NAME("Question Arm")
+
+	PORT_START("IN.2") // K4
+	PORT_BIT( 0x1f, 0x00, IPT_POSITIONAL_V ) PORT_POSITIONS(5) PORT_REMAP_TABLE(alphie_armpos_table) PORT_SENSITIVITY(10) PORT_KEYDELTA(1) PORT_CENTERDELTA(0) PORT_NAME("Answer Arm")
+
+	PORT_START("IN.3") // K8
+	PORT_CONFNAME( 0x0f, 0x01, "Activity" )
+	PORT_CONFSETTING(    0x01, "Questions" )
+	PORT_CONFSETTING(    0x02, "Lunar Landing" )
+	PORT_CONFSETTING(    0x04, "Robot Land" )
+	PORT_CONFSETTING(    0x08, "Tunes" )
+INPUT_PORTS_END
+
+// output PLA is guessed
+static const u16 alphie_output_pla[0x20] =
+{
+	0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+	0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1
+};
+
+static MACHINE_CONFIG_START( alphie )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1000, 350000) // approximation
+	MCFG_TMS1XXX_OUTPUT_PLA(alphie_output_pla)
+	MCFG_TMS1XXX_READ_K_CB(READ8(alphie_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(alphie_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(alphie_state, write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("arm_position", alphie_state, show_arm_position, attotime::from_msec(50))
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_alphie)
+
+	/* sound hardware */
+	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SOUND_ADD("speaker", SPEAKER_SOUND, 0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
   Tandy Radio Shack Championship Football (model 60-2150)
   * PCB label CYG-316
   * TMS1100NLL MP1193 (die label 1100B, MP1193)
@@ -8114,6 +8239,85 @@ static MACHINE_CONFIG_START( speechp )
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_SOUND_ADD("speech", S14001A, 25000) // approximation
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.75)
+MACHINE_CONFIG_END
+
+
+
+
+
+/***************************************************************************
+
+  Texas Instruments maze game (unreleased, from patent GB2040172A)
+  * TMS1000 (development version)
+  * 1 7seg LED digit, no sound
+
+  The title of this game is unknown, the patent describes it simply as a maze game.
+  Several electronic maze game concepts are listed in the patent. The PCB schematic
+  and program source code is included for one of them: A predefined 12*8 maze,
+  walls close to the player are displayed on a 7seg digit.
+
+  In the end Texas Instruments didn't release any electronic maze game. This version
+  is too simple and obviously unfinished, start and goal positions are always the same
+  and there is a lot of ROM space left for more levels.
+
+***************************************************************************/
+
+class timaze_state : public hh_tms1k_state
+{
+public:
+	timaze_state(const machine_config &mconfig, device_type type, const char *tag)
+		: hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	DECLARE_WRITE16_MEMBER(write_r);
+	DECLARE_WRITE16_MEMBER(write_o);
+	DECLARE_READ8_MEMBER(read_k);
+};
+
+// handlers
+
+WRITE16_MEMBER(timaze_state::write_r)
+{
+	// R0: input mux
+	m_inp_mux = data & 1;
+}
+
+WRITE16_MEMBER(timaze_state::write_o)
+{
+	// O3210: 7seg EGCD?
+	set_display_segmask(1, 0x5c);
+	display_matrix(8, 1, bitswap<8>(data, 7,1,6,0,3,2,5,4), 1);
+}
+
+READ8_MEMBER(timaze_state::read_k)
+{
+	// K: multiplexed inputs
+	return read_inputs(1);
+}
+
+
+// config
+
+static INPUT_PORTS_START( timaze )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_16WAY
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_16WAY
+INPUT_PORTS_END
+
+static MACHINE_CONFIG_START( timaze )
+
+	/* basic machine hardware */
+	MCFG_CPU_ADD("maincpu", TMS1000, 200000) // approximation - RC osc. R=80K, C=27pF
+	MCFG_TMS1XXX_READ_K_CB(READ8(timaze_state, read_k))
+	MCFG_TMS1XXX_WRITE_R_CB(WRITE16(timaze_state, write_r))
+	MCFG_TMS1XXX_WRITE_O_CB(WRITE16(timaze_state, write_o))
+
+	MCFG_TIMER_DRIVER_ADD_PERIODIC("display_decay", hh_tms1k_state, display_decay_tick, attotime::from_msec(1))
+	MCFG_DEFAULT_LAYOUT(layout_timaze)
+
+	/* no sound! */
 MACHINE_CONFIG_END
 
 
@@ -9776,6 +9980,17 @@ ROM_START( lostreas )
 ROM_END
 
 
+ROM_START( alphie )
+	ROM_REGION( 0x0400, "maincpu", 0 )
+	ROM_LOAD( "us4280809", 0x0000, 0x0400, CRC(f8f14013) SHA1(bf31b929fcbcb189bbe4623104e1da0a639b5954) ) // from patent US4280809, should be good
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1000_common2_micro.pla", 0, 867, BAD_DUMP CRC(d33da3cf) SHA1(13c4ebbca227818db75e6db0d45b66ba5e207776) ) // not in patent description
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1000_alphie_output.pla", 0, 365, NO_DUMP ) // "
+ROM_END
+
+
 ROM_START( tcfball )
 	ROM_REGION( 0x0800, "maincpu", 0 )
 	ROM_LOAD( "mp1193", 0x0000, 0x0800, CRC(7d9f446f) SHA1(bb6af47b42d989494f21475a73f072cddf58c99f) )
@@ -9830,6 +10045,17 @@ ROM_START( speechp )
 
 	ROM_REGION( 0x0800, "speech", 0 )
 	ROM_LOAD("s14007-a", 0x0000, 0x0800, CRC(543b46d4) SHA1(99daf7fe3354c378b4bd883840c9bbd22b22ebe7) )
+ROM_END
+
+
+ROM_START( timaze )
+	ROM_REGION( 0x0400, "maincpu", 0 )
+	ROM_LOAD( "gb2040172a", 0x0000, 0x0400, CRC(0bab4dc6) SHA1(c9d40649fbb27a8b7cf7460d66c7e217b63376f0) ) // from patent GB2040172A, verified with source code
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1000_common2_micro.pla", 0, 867, BAD_DUMP CRC(d33da3cf) SHA1(13c4ebbca227818db75e6db0d45b66ba5e207776) ) // not in patent, use default one
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1000_timaze_output.pla", 0, 365, BAD_DUMP CRC(f0f36970) SHA1(a6ad1f5e804ac98e5e1a1d07466b3db3a8d6c256) ) // described in patent, but unsure about pin order
 ROM_END
 
 
@@ -9994,12 +10220,16 @@ CONS( 1980, splitsec,   0,         0, splitsec,  splitsec,  splitsec_state,  0, 
 CONS( 1982, mmerlin,    0,         0, mmerlin,   mmerlin,   mmerlin_state,   0, "Parker Brothers", "Master Merlin", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1982, lostreas,   0,         0, lostreas,  lostreas,  lostreas_state,  0, "Parker Brothers", "Lost Treasure - The Electronic Deep-Sea Diving Game (Electronic Dive-Control Center)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // ***
 
+CONS( 1978, alphie,     0,         0, alphie,    alphie,    alphie_state,    0, "Playskool", "Alphie - The Electronic Robot (patent)", MACHINE_SUPPORTS_SAVE ) // ***
+
 CONS( 1980, tcfball,    0,         0, tcfball,   tcfball,   tcfball_state,   0, "Tandy Radio Shack", "Championship Football (model 60-2150)", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, tcfballa,   tcfball,   0, tcfballa,  tcfballa,  tcfballa_state,  0, "Tandy Radio Shack", "Championship Football (model 60-2151)", MACHINE_SUPPORTS_SAVE )
 CONS( 1981, tandy12,    0,         0, tandy12,   tandy12,   tandy12_state,   0, "Tandy Radio Shack", "Tandy-12: Computerized Arcade", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // some of the minigames: ***
 CONS( 1982, monkeysee,  0,         0, monkeysee, monkeysee, monkeysee_state, 0, "Tandy Radio Shack", "Monkey See (1982 version)", MACHINE_SUPPORTS_SAVE )
 
 COMP( 1976, speechp,    0,         0, speechp,   speechp,   speechp_state,   0, "Telesensory Systems, Inc.", "Speech+", MACHINE_SUPPORTS_SAVE )
+
+CONS( 1979, timaze,     0,         0, timaze,    timaze,    timaze_state,    0, "Texas Instruments", "unknown electronic maze game (patent)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW )
 
 CONS( 1979, copycat,    0,         0, copycat,   copycat,   copycat_state,   0, "Tiger Electronics", "Copy Cat (model 7-520)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1989, copycatm2,  copycat,   0, copycatm2, copycatm2, copycatm2_state, 0, "Tiger Electronics", "Copy Cat (model 7-522)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )

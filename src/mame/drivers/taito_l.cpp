@@ -356,7 +356,7 @@ WRITE8_MEMBER(taitol_state::rambankswitch_w)
 		}
 		else
 		{
-			logerror("unknown rambankswitch %d, %02x (%04x)\n", offset, data, space.device().safe_pc());
+			logerror("unknown rambankswitch %d, %02x (%04x)\n", offset, data, m_main_cpu->pc());
 			m_current_notifier[offset] = nullptr;
 			m_current_base[offset] = m_empty_ram;
 		}
@@ -424,14 +424,6 @@ READ8_MEMBER(taitol_state::mcu_control_r)
 //  logerror("mcu control read (%04x)\n", space.device().safe_pc());
 	return 0x1;
 }
-
-#if 0
-WRITE8_MEMBER(taitol_state::sound_w)
-{
-	logerror("Sound_w %02x (%04x)\n", data, space.device().safe_pc());
-}
-#endif
-
 
 WRITE_LINE_MEMBER(champwr_state::msm5205_vck)
 {
@@ -1723,30 +1715,20 @@ static MACHINE_CONFIG_START( plotting )
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
 	MCFG_SOUND_ADD("ymsnd", YM2203, XTAL_13_33056MHz/4) /* verified on pcb */
-	MCFG_AY8910_PORT_A_READ_CB(DEVREAD8("dswmuxl", ls157_device, output_r)) MCFG_DEVCB_MASK(0x0f)
-	MCFG_DEVCB_CHAIN_INPUT(DEVREAD8("dswmuxh", ls157_device, output_r)) MCFG_DEVCB_RSHIFT(-4) MCFG_DEVCB_MASK(0xf0)
-	MCFG_AY8910_PORT_B_READ_CB(DEVREAD8("inmuxl", ls157_device, output_r)) MCFG_DEVCB_MASK(0x0f)
-	MCFG_DEVCB_CHAIN_INPUT(DEVREAD8("inmuxh", ls157_device, output_r)) MCFG_DEVCB_RSHIFT(-4) MCFG_DEVCB_MASK(0xf0)
+	MCFG_AY8910_PORT_A_READ_CB(DEVREAD8("dswmux", ls157_x2_device, output_r))
+	MCFG_AY8910_PORT_B_READ_CB(DEVREAD8("inmux", ls157_x2_device, output_r))
 	MCFG_SOUND_ROUTE(0, "mono", 0.20)
 	MCFG_SOUND_ROUTE(1, "mono", 0.20)
 	MCFG_SOUND_ROUTE(2, "mono", 0.20)
 	MCFG_SOUND_ROUTE(3, "mono", 0.80)
 
-	MCFG_DEVICE_ADD("dswmuxl", LS157, 0)
+	MCFG_DEVICE_ADD("dswmux", LS157_X2, 0)
 	MCFG_74157_A_IN_CB(IOPORT("DSWA"))
 	MCFG_74157_B_IN_CB(IOPORT("DSWB"))
 
-	MCFG_DEVICE_ADD("dswmuxh", LS157, 0)
-	MCFG_74157_A_IN_CB(IOPORT("DSWA")) MCFG_DEVCB_RSHIFT(4)
-	MCFG_74157_B_IN_CB(IOPORT("DSWB")) MCFG_DEVCB_RSHIFT(4)
-
-	MCFG_DEVICE_ADD("inmuxl", LS157, 0)
+	MCFG_DEVICE_ADD("inmux", LS157_X2, 0)
 	MCFG_74157_A_IN_CB(IOPORT("IN0"))
 	MCFG_74157_B_IN_CB(IOPORT("IN1"))
-
-	MCFG_DEVICE_ADD("inmuxh", LS157, 0)
-	MCFG_74157_A_IN_CB(IOPORT("IN0")) MCFG_DEVCB_RSHIFT(4)
-	MCFG_74157_B_IN_CB(IOPORT("IN1")) MCFG_DEVCB_RSHIFT(4)
 MACHINE_CONFIG_END
 
 
@@ -1794,10 +1776,8 @@ static MACHINE_CONFIG_DERIVED( palamed, plotting )
 	MCFG_AY8910_PORT_A_READ_CB(IOPORT("DSWA"))
 	MCFG_AY8910_PORT_B_READ_CB(IOPORT("DSWB"))
 
-	MCFG_DEVICE_REMOVE("dswmuxl")
-	MCFG_DEVICE_REMOVE("dswmuxh")
-	MCFG_DEVICE_REMOVE("inmuxl")
-	MCFG_DEVICE_REMOVE("inmuxh")
+	MCFG_DEVICE_REMOVE("dswmux")
+	MCFG_DEVICE_REMOVE("inmux")
 MACHINE_CONFIG_END
 
 
@@ -1816,10 +1796,8 @@ static MACHINE_CONFIG_DERIVED( cachat, plotting )
 	MCFG_AY8910_PORT_A_READ_CB(IOPORT("DSWA"))
 	MCFG_AY8910_PORT_B_READ_CB(IOPORT("DSWB"))
 
-	MCFG_DEVICE_REMOVE("dswmuxl")
-	MCFG_DEVICE_REMOVE("dswmuxh")
-	MCFG_DEVICE_REMOVE("inmuxl")
-	MCFG_DEVICE_REMOVE("inmuxh")
+	MCFG_DEVICE_REMOVE("dswmux")
+	MCFG_DEVICE_REMOVE("inmux")
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START( evilston )

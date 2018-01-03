@@ -59,11 +59,20 @@ public:
 	DECLARE_WRITE16_MEMBER(vbl_ack_w);
 	DECLARE_WRITE16_MEMBER(unk30120014_w);
 
+	DECLARE_WRITE32_MEMBER(pio_sodr_w);
+	DECLARE_WRITE32_MEMBER(pio_codr_w);
+	DECLARE_READ32_MEMBER(pio_pdsr_r);
+	DECLARE_WRITE32_MEMBER(module_scramble_w);
+	DECLARE_READ_LINE_MEMBER(module_data_r);
+	DECLARE_WRITE_LINE_MEMBER(module_data_w);
+	DECLARE_WRITE_LINE_MEMBER(module_clk_w);
+
 	DECLARE_READ32_MEMBER(orleg2_speedup_r);
 	DECLARE_READ32_MEMBER(kov2nl_speedup_r);
 	DECLARE_READ32_MEMBER(kof98umh_speedup_r);
-	DECLARE_READ32_MEMBER(ddpdojh_speedup_r);
-	DECLARE_READ32_MEMBER(ddpdojh_speedup2_r);
+	DECLARE_READ32_MEMBER(ddpdojt_speedup_r);
+	DECLARE_READ32_MEMBER(ddpdojt_speedup2_r);
+	DECLARE_READ32_MEMBER(kov3_speedup_r);
 
 	DECLARE_READ8_MEMBER(encryption_r);
 	DECLARE_WRITE8_MEMBER(encryption_w);
@@ -72,7 +81,7 @@ public:
 
 	DECLARE_DRIVER_INIT(kov2nl);
 	DECLARE_DRIVER_INIT(orleg2);
-	DECLARE_DRIVER_INIT(ddpdojh);
+	DECLARE_DRIVER_INIT(ddpdojt);
 	DECLARE_DRIVER_INIT(kov3);
 	DECLARE_DRIVER_INIT(kov3_104);
 	DECLARE_DRIVER_INIT(kov3_102);
@@ -105,8 +114,8 @@ private:
 
 	void skip_sprite_chunk(int &palette_offset, uint32_t maskdata, int reverse);
 	void draw_sprite_pixel(const rectangle &cliprect, int palette_offset, int realx, int realy, int pal);
-	void draw_sprite_chunk(const rectangle &cliprect, int &palette_offset, int x, int realy, int sizex, int xdraw, int pal, uint32_t maskdata, uint32_t zoomx_bits, int growx, int &realxdraw, int realdraw_inc, int palette_inc);
-	void draw_sprite_line(const rectangle &cliprect, int &mask_offset, int &palette_offset, int x, int realy, int flipx, int reverse, int sizex, int pal, int zoomybit, int zoomx_bits, int growx);
+	void draw_sprite_chunk(const rectangle &cliprect, int &palette_offset, int x, int realy, int sizex, int xdraw, int pal, uint32_t maskdata, uint32_t zoomx_bits, int repeats, int &realxdraw, int realdraw_inc, int palette_inc);
+	void draw_sprite_line(const rectangle &cliprect, int &mask_offset, int &palette_offset, int x, int realy, int flipx, int reverse, int sizex, int pal, int zoomybit, int zoomx_bits, int xrepeats);
 	void draw_sprites(screen_device &screen, const rectangle &cliprect, uint32_t* spriteram);
 	void copy_sprites_from_bitmap(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect, int pri);
 
@@ -129,6 +138,16 @@ private:
 	void mcu_command(address_space &space, bool is_command);
 
 	std::vector<uint8_t> m_encrypted_copy;
+
+	uint32_t pio_out_data;
+	uint32_t module_addr_xor, module_data_xor;
+	const uint8_t *module_key;
+	uint32_t module_in_latch;
+	uint32_t module_out_latch;
+	int module_prev_state;
+	int module_clk_cnt;
+	uint8_t module_rcv_buf[10];
+	uint8_t module_send_buf[9];
 
 	// devices
 	required_device<cpu_device> m_maincpu;

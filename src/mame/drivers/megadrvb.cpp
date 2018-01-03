@@ -305,12 +305,12 @@ WRITE16_MEMBER(md_boot_state::aladmdb_w )
 	  - aladmdb_w : 1b2d18 - data = aa00 (only once on reset)
 	  - aladmdb_w : 1b2d42 - data = 0000 (only once on reset)
 	*/
-	logerror("aladmdb_w : %06x - data = %04x\n",space.device().safe_pc(),data);
+	logerror("aladmdb_w : %06x - data = %04x\n",m_maincpu->pc(),data);
 }
 
 READ16_MEMBER(md_boot_state::aladmdb_r )
 {
-	if (space.device().safe_pc()==0x1b2a56)
+	if (m_maincpu->pc()==0x1b2a56)
 	{
 		m_aladmdb_mcu_port = ioport("MCU")->read();
 
@@ -319,11 +319,11 @@ READ16_MEMBER(md_boot_state::aladmdb_r )
 		else
 			return (0x100); //MCU status, needed if you fall into a pitfall
 	}
-	if (space.device().safe_pc()==0x1b2a72) return 0x0000;
-	if (space.device().safe_pc()==0x1b2d24) return (ioport("MCU")->read() & 0x00f0) | 0x1200;    // difficulty
-	if (space.device().safe_pc()==0x1b2d4e) return 0x0000;
+	if (m_maincpu->pc()==0x1b2a72) return 0x0000;
+	if (m_maincpu->pc()==0x1b2d24) return (ioport("MCU")->read() & 0x00f0) | 0x1200;    // difficulty
+	if (m_maincpu->pc()==0x1b2d4e) return 0x0000;
 
-	logerror("aladbl_r : %06x\n",space.device().safe_pc());
+	logerror("aladbl_r : %06x\n",m_maincpu->pc());
 
 	return 0x0000;
 }
@@ -354,7 +354,7 @@ READ16_MEMBER(md_boot_state::topshoot_200051_r )
 // jzth protection
 WRITE16_MEMBER(md_boot_state::bl_710000_w)
 {
-	int pc = space.device().safe_pc();
+	int pc = m_maincpu->pc();
 
 	logerror("%06x writing to bl_710000_w %04x %04x\n", pc, data, mem_mask);
 
@@ -410,7 +410,7 @@ WRITE16_MEMBER(md_boot_state::bl_710000_w)
 READ16_MEMBER(md_boot_state::bl_710000_r)
 {
 	uint16_t ret;
-	int pc = space.device().safe_pc();
+	int pc = m_maincpu->pc();
 	logerror("%06x reading from bl_710000_r\n", pc);
 
 	if (m_protcount==6) { ret = 0xe; }

@@ -32,9 +32,9 @@ static constexpr uint8_t skew_bits_value[4] = { 0, 1, 2, 2 };
 
 
 DEFINE_DEVICE_TYPE(TMS9927, tms9927_device, "tms9927", "TMS9927 VTC")
-DEFINE_DEVICE_TYPE(CRT5027, crt5027_device, "crt5027", "CRT5027")
-DEFINE_DEVICE_TYPE(CRT5037, crt5037_device, "crt5037", "CRT5037")
-DEFINE_DEVICE_TYPE(CRT5057, crt5057_device, "crt5057", "CRT5057")
+DEFINE_DEVICE_TYPE(CRT5027, crt5027_device, "crt5027", "CRT5027 VTAC")
+DEFINE_DEVICE_TYPE(CRT5037, crt5037_device, "crt5037", "CRT5037 VTAC")
+DEFINE_DEVICE_TYPE(CRT5057, crt5057_device, "crt5057", "CRT5057 VTAC")
 
 tms9927_device::tms9927_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: tms9927_device(mconfig, TMS9927, tag, owner, clock)
@@ -216,7 +216,6 @@ WRITE8_MEMBER( tms9927_device::write )
 
 		case 0x0c:  /* LOAD CURSOR CHARACTER ADDRESS */
 		case 0x0d:  /* LOAD CURSOR ROW ADDRESS */
-osd_printf_debug("Cursor address changed\n");
 			m_reg[offset - 0x0c + 7] = data;
 			/* Recomputing parameters here will break the scrollup on the Attachè
 			   and probably other machines due to m_start_datarow being reset ! */

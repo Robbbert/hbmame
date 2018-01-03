@@ -1466,10 +1466,10 @@ chariotc                        // (c) 1998
 chariotcv                       // (c) 1998
 checkma5                        // (c) 2001
 chickna5                        // (c) 1996
-chickna5b                       // (c) 1996
+chickna5ql                      // (c) 1998
 chickna5u                       // (c) 1998
 chickna5ua                      // (c) 1998
-chickna5qld                     // (c) 1998
+chickna5v                       // (c) 1996
 coralrc2                        // (c) 1998
 cuckoo                          // (c) 1998
 cuckoou                         // (c) 2000
@@ -1482,10 +1482,10 @@ dimtouch                        // (c) 1997
 dolphntr                        // (c) 1996
 dolphntra                       // (c) 1996
 dolphntrb                       // (c) 1996
-dolphntru                       // (c) 1996
 dolphntrce                      // (c) 1999
 dolphntrcea                     // (c) 1999
 dolphntrceb                     // (c) 1999
+dolphntru                       // (c) 1996
 dreamwv                         // (c) 1997
 drgneye                         // (c) 1997
 dynajack                        // (c) 2000
@@ -1493,16 +1493,16 @@ dynajacku                       // (c) 2001
 eldorda5                        // (c) 1998
 eforsta5                        // (c) 1995
 eforsta5ce                      // (c) 2000
+eforsta5cea                     // (c) 2000
 eforsta5u                       // (c) 1997
 eforsta5ua                      // (c) 1997
-eforsta5ub                      // (c) 2000
 fastfort                        // (c) 1998
 fortellr                        // (c) 2000
 fortfvr                         // (c) 2001
 gambler                         // (c) 1998
 geisha                          // (c) 2001
 genmagi                         // (c) 1999
-glizardu                        // (c) 2001
+glizrdce                        // (c) 2001
 gnomeatw                        // (c) 1998
 goldpyr                         // (c) 1997
 goldpyra                        // (c) 1997
@@ -1522,7 +1522,7 @@ jumpjoey                        // (c) 1996
 jungjuic                        // (c) 1996
 kgalah                          // (c) 1995
 kgalaha                         // (c) 1995
-kgalahu                         // (c) 2001
+kgalahce                        // (c) 2001
 kgbirda5                        // (c) 1994
 koalamnt                        // (c) 2001
 kookabuk                        // (c) 1998
@@ -1571,11 +1571,11 @@ pengpay                         // (c) 1997
 pengpaya                        // (c) 1996
 pengpayb                        // (c) 1997
 pengpayc                        // (c) 1995
+pengpayce                       // (c) 2001
 pengpayd                        // (c) 1995
 pengpayu                        // (c) 1997
 pengpayua                       // (c) 1997
 pengpayub                       // (c) 1997
-pengpayuc                       // (c) 2001
 pengpuck                        // (c) 2001
 penpir                          // (c) 1998
 penpira                         // (c) 1998
@@ -1592,11 +1592,11 @@ qnilebr                         // (c) 2002
 qnilec                          // (c) 1997
 qnilece                         // (c) 2001
 qnilecea                        // (c) 2001
+qnileceb                        // (c) 2001
 qniled                          // (c) 1999
 qnilenl                         // (c) 2000
 qnileu                          // (c) 1997
 qnileua                         // (c) 1997
-qnileub                         // (c) 2001
 qnilev                          // (c) 1997
 qnilemax                        // (c) 1999
 qtbird                          // (c) 1994
@@ -8840,8 +8840,8 @@ bloodbroj                       // (c) 1990 Tad
 bloodbroja                      // (c) 1990 Tad
 bloodbrou                       // (c) 1990 Tad + Fabtek license
 skysmash                        // (c) 1990 Nihon System Inc.
-weststory                       // bootleg
-weststorya                      // bootleg
+weststry                        // bootleg
+weststrya                       // bootleg
 
 @source:blstroid.cpp
 blstroid                        // 136057           (c) 1987
@@ -9270,6 +9270,10 @@ lynx128k                        //
 lynx48k                         //
 lynx96k                         //
 
+@source:candela.cpp
+can09t                          //
+can09                           //
+
 @source:canon_s80.cpp
 canons80                        //
 
@@ -9378,18 +9382,24 @@ plegendsj                       // (c) 1994 Atlus
 ppsatan                         // (c) 1996 <unknown>
 pwrinst2                        // (c) 1994 Atlus
 pwrinst2j                       // (c) 1994 Atlus
-sailormn                        // (c) 1995 Banpresto (country is in EEPROM)
-sailormnh                       // (c) 1995 Banpresto (country is in EEPROM)
-sailormnj                       // (c) 1995 Banpresto (country is in EEPROM)
-sailormnk                       // (c) 1995 Banpresto (country is in EEPROM)
-sailormno                       // (c) 1995 Banpresto (country is in EEPROM)
-sailormnoh                      // (c) 1995 Banpresto (country is in EEPROM)
-sailormnoj                      // (c) 1995 Banpresto (country is in EEPROM)
-sailormnok                      // (c) 1995 Banpresto (country is in EEPROM)
-sailormnot                      // (c) 1995 Banpresto (country is in EEPROM)
-sailormnou                      // (c) 1995 Banpresto (country is in EEPROM)
-sailormnt                       // (c) 1995 Banpresto (country is in EEPROM)
-sailormnu                       // (c) 1995 Banpresto (country is in EEPROM)
+sailormn                        // (c) 1995 Banpresto (Ver. 95/03/22B, country is in EEPROM)
+sailormnh                       // (c) 1995 Banpresto (Ver. 95/03/22B, country is in EEPROM)
+sailormnj                       // (c) 1995 Banpresto (Ver. 95/03/22B, country is in EEPROM)
+sailormnk                       // (c) 1995 Banpresto (Ver. 95/03/22B, country is in EEPROM)
+sailormnn                       // (c) 1995 Banpresto (Ver. 95/03/22, country is in EEPROM)
+sailormnnh                      // (c) 1995 Banpresto (Ver. 95/03/22, country is in EEPROM)
+sailormnnj                      // (c) 1995 Banpresto (Ver. 95/03/22, country is in EEPROM)
+sailormnnk                      // (c) 1995 Banpresto (Ver. 95/03/22, country is in EEPROM)
+sailormnnt                      // (c) 1995 Banpresto (Ver. 95/03/22, country is in EEPROM)
+sailormnnu                      // (c) 1995 Banpresto (Ver. 95/03/22, country is in EEPROM)
+sailormno                       // (c) 1995 Banpresto (Ver. 95/03/21, country is in EEPROM)
+sailormnoh                      // (c) 1995 Banpresto (Ver. 95/03/21, country is in EEPROM)
+sailormnoj                      // (c) 1995 Banpresto (Ver. 95/03/21, country is in EEPROM)
+sailormnok                      // (c) 1995 Banpresto (Ver. 95/03/21, country is in EEPROM)
+sailormnot                      // (c) 1995 Banpresto (Ver. 95/03/21, country is in EEPROM)
+sailormnou                      // (c) 1995 Banpresto (Ver. 95/03/21, country is in EEPROM)
+sailormnt                       // (c) 1995 Banpresto (Ver. 95/03/22B, country is in EEPROM)
+sailormnu                       // (c) 1995 Banpresto (Ver. 95/03/22B, country is in EEPROM)
 tekkenbs                        // (c) 1998 Namco
 tekkencw                        // (c) 1997 Namco
 theroes                         // (c) 2001 Primetek Investments
@@ -10760,6 +10770,9 @@ cybikov1                        // Cybiko Wireless Intertainment System - Classi
 cybikov2                        // Cybiko Wireless Intertainment System - Classic V2
 cybikoxt                        // Cybiko Wireless Intertainment System - Xtreme
 
+@source:cybstorm.cpp
+cybstorm                        // (proto)          (c) 1993
+
 @source:cyclemb.cpp
 cyclemb                         // P0  (c) 1984 Taito Corporation [+ Seta]
 skydest                         // PD0 (c) 1985 Taito Corporation
@@ -11312,9 +11325,6 @@ xfilesk                         // (c) 1999 dgPIX Entertainment Inc (censored fo
 @source:didact.cpp
 md6802                          //
 mp68a                           //
-e100                            //
-can09t                          //
-can09                           //
 
 @source:dietgo.cpp
 dietgo                          // MAY (c) 1993
@@ -11655,6 +11665,9 @@ dyndukea                        // (c) 1989 Seibu Kaihatsu (25JUL89)
 dyndukej                        // (c) 1989 Seibu Kaihatsu (03SEP89
 dyndukeja                       // (c) 1989 Seibu Kaihatsu (25JUL89)
 dyndukeu                        // (c) 1989 Seibu Kaihatsu + Fabtek license (25JUL89)
+
+@source:e100.cpp
+e100                            //
 
 @source:eacc.cpp
 eacc                            //
@@ -12888,6 +12901,7 @@ jolycdic                        // 1993 bootleg
 jolycdid                        // 1990 bootleg
 jolycdie                        // 1990 bootleg
 jolycdif                        // 1990 bootleg
+jolycdig                        // 1993 bootleg
 jolycdit                        // 199? bootleg
 jolycdsp                        // (c) 1992 TAB-Austria
 jolycmzs                        // (c) 1993 MZS Tech
@@ -14719,14 +14733,14 @@ uspbball                        // US Games
 
 @source:hh_sm510.cpp
 exospace                        // Elektronika
-gnw_bx301                       // Nintendo
-gnw_dj101                       // Nintendo
-gnw_dm53                        // Nintendo
-gnw_eg26                        // Nintendo
-gnw_jr55                        // Nintendo
-gnw_mc25                        // Nintendo
-gnw_ml102                       // Nintendo
-gnw_mw56                        // Nintendo
+gnw_boxing                      // Nintendo
+gnw_dkjr                        // Nintendo
+gnw_dkong2                      // Nintendo
+gnw_egg                         // Nintendo
+gnw_mario                       // Nintendo
+gnw_mariocm                     // Nintendo
+gnw_mmouse                      // Nintendo
+gnw_mickdon                     // Nintendo
 kbilly                          // Konami
 kblades                         // Konami
 kbucky                          // Konami
@@ -14738,6 +14752,7 @@ kloneran                        // Konami
 knfl                            // Konami
 ktmnt                           // Konami
 ktopgun                         // Konami
+nummunch                        // VTech
 nupogodi                        // Elektronika
 taltbeast                       // Tiger
 tapollo13                       // Tiger
@@ -14747,6 +14762,7 @@ tbtoads                         // Tiger
 tddragon                        // Tiger
 tgaiden                         // Tiger
 tgaunt                          // Tiger
+tigarden                        // Tronica
 tjdredd                         // Tiger
 tkarnov                         // Tiger
 tmchammer                       // Tiger
@@ -14763,6 +14779,7 @@ tswampt                         // Tiger
 
 @source:hh_tms1k.cpp
 7in1ss                          // Tiger Electronics
+alphie                          // Playskool
 arcmania                        // Milton Bradley
 arrball                         // A-One LSI
 amaztron                        // Coleco
@@ -14830,6 +14847,7 @@ tbreakup                        // Tomy
 tc4                             // Coleco
 tcfball                         // Tandy Radio Shack
 tcfballa                        // Tandy Radio Shack
+timaze                          // Texas Instruments
 xl25                            // Vulcan
 zodiac                          // Coleco
 
@@ -15477,6 +15495,7 @@ timekill121                     // (c) 1992 Strata/Incredible Technologies
 timekill131                     // (c) 1992 Strata/Incredible Technologies
 timekill132i                    // (c) 1992 Strata/Incredible Technologies
 wcbowl                          // (c) 1995 Incredible Technologies
+wcbowl10                        // (c) 1995 Incredible Technologies
 wcbowl11                        // (c) 1995 Incredible Technologies
 wcbowl12                        // (c) 1995 Incredible Technologies
 wcbowl13                        // (c) 1995 Incredible Technologies
@@ -15604,6 +15623,7 @@ jgz80                           // Jade JGZ-80
 
 @source:jaguar.cpp
 a51mxr3k                        // ??           (c) 1998
+a51mxr3ka                       // ??           (c) 1998
 area51                          // 136105           (c) 1995
 area51a                         // 136105           (c) 1995
 area51mx                        // 136105           (c) 1998
@@ -28538,7 +28558,8 @@ knckheadjp                      // (c) 1992 (Japan)
 numanath                        // (c) 1993 (World)
 numanathj                       // (c) 1993 (Japan)
 quiztou                         // (c) 1993 (Japan)
-swcourt                         // (c) 1992 (Japan)
+swcourt                         // (c) 1992 (World)
+swcourtb                        // bootleg (Playmark?)
 swcourtj                        // (c) 1992 (Japan)
 tinklpit                        // (c) 1993 (Japan)
 xday2                           // (c) 1995 (Japan)
@@ -28794,6 +28815,7 @@ finallapjb                      // 87.12 Final Lap
 finallapjc                      // 87.12 Final Lap
 finehour                        // (c) 1989 (Japan)
 fourtrax                        // 89.11
+fourtraxa                       // 89.11
 gollygho                        // 91.7  Golly Ghost
 kyukaidk                        // (c) 1990 (Japan, new version)
 kyukaidko                       // (c) 1990 (Japan, old version)
@@ -31351,11 +31373,14 @@ theglad101                      //
 thegladpcb                      //
 
 @source:pgm2.cpp
-ddpdojh                         //
+ddpdojt                         // (c) 2010
 kov2nl                          // (c) 2008
 kov2nl_301                      //
 kov2nl_300                      //
-kov3                            //
+kov2nl_302cn                    //
+kov2nl_301cn                    //
+kov2nl_300cn                    //
+kov3                            // (c) 2011
 kov3_102                        //
 kov3_100                        //
 orleg2                          // (c) 2007
@@ -32330,6 +32355,10 @@ quizpun2                        // (c) 1989 Space Computer System of Korea
 @source:quizshow.cpp
 quizshow                        // 005464           1976/04 [2650]
 
+@source:qvt6800.cpp
+qvt102                          //
+qvt190                          //
+
 @source:qx10.cpp
 qx10                            //
 
@@ -33268,6 +33297,9 @@ stratgyx                        // GX306 (c) 1981 Konami
 strongx                         // bootleg
 tazmani2                        // (c) 1982 Stern
 tazmani3                        // bootleg (Rodmar)
+
+@source:scopus.cpp
+sagitta180                      // 1979?
 
 @source:scorpion.cpp
 bestzx                          //
@@ -36431,17 +36463,11 @@ t4490                           // Terco 4490 Mill CNC Control (c) 1986
 @source:terminals.cpp
 aaa
 qvt70
-qvt102
 qvt103
-qvt190
 qvt201
-tr175
 tv912c
 tv955
 tv965
-v100
-v102
-vt420
 
 @source:terracre.cpp
 amatelas                        // (c) 1986
@@ -36972,7 +36998,7 @@ shippumd                        // (c) 1994 Raizing/8ing
 snowbro2                        // TP-033 (c) 1994 Hanafram
 snowbro2b                       //
 sstriker                        // (c) 1993 Raizing
-sstrikera                       // (c) 1993 Raizing
+sstrikerk                       // (c) 1993 Raizing
 tekipaki                        // TP-020 (c) 1991 Toaplan
 tekipakit                       // TP-020 (c) 1991 Toaplan (location test)
 truxton2                        // TP-024 (c) 1992 Toaplan
@@ -37032,6 +37058,9 @@ toypop                          // (c) 1986
 tp84                            // GX388 (c) 1984
 tp84a                           // GX388 (c) 1984
 tp84b                           // GX388 (c) 1984
+
+@source:tr175.cpp
+tr175                           // Relisys
 
 @source:tr606.cpp
 tr606                           // Roland
@@ -37410,6 +37439,12 @@ ut88mini                        //
 
 @source:uzebox.cpp
 uzebox                          //
+
+@source:v100.cpp
+v100                            //
+
+@source:v102.cpp
+v102                            //
 
 @source:v1050.cpp
 v1050                           //
@@ -37865,6 +37900,7 @@ vt320                           // 1987 Digital Equipment Corporation
 vt330                           // 1987 Digital Equipment Corporation
 
 @source:vt520.cpp
+vt420                           // 1990 Digital Equipment Corporation
 vt520                           // 1994 Digital Equipment Corporation
 
 @source:vta2000.cpp
@@ -38413,36 +38449,36 @@ wizta                           // (c) 1985 Taito Corporation
 wmg                             // Williams 6in1 Multigame, Clay Cowgill
 
 @source:wms.cpp
-btippers                        // Big Tippers (Russian)
-cashcrop                        // Cash Crop (Russian)
-filthyr                         // Filthy Rich (English) - (c) 1997 WMS
-filthyrr                        // Filthy Rich (Russian) - (c) 1997 WMS
-hottop                          // Hot Toppings (English)
-hottopa                         // Hot Toppings (Russian?)
-inwinner                        // In Winner (Russian)
-jptparty                        // Jackpot Party (Russian)
-leprgld                         // Leprecorns Gold (Russian)
-leprglds                        // Leprecorns Gold (Spanish)
-lol                             // Life of Luxury (Russian)
-lovewin                         // Love To Win (Russian)
-mtburn                          // Money To Burn (English)
-mtburnr                         // Money To Burn (Russian)
-otchart                         // Off The Charts (Russian)
-perfect                         // Perfect Game (Russian)
-reelemin                        // Reel 'Em In (English) - (c) 1997 WMS
-reeleminr                       // Reel 'Em In (Russian) - (c) 1997 WMS
-sonoth                          // Sum Of Nothing (Russian)
-swingin                         // Swingin' Green (Russian)
-wdun                            // Who Dunnit (Russian)
-winbid                          // Winning Bid (English)
-winbidr                         // Winning Bid (Russian)
-wldstrek                        // Wild Streak (Russian)
-wms                             // Set Chips
-wmsa                            //
-wmsb                            //
-wmsboom                         // Boom (Russian)
-wmstopb                         // Top Banana (Russian)
-yukongld                        // Yukon Gold (Russian)
+btippers                        // (c) 2001 WMS - Big Tippers (Russian)
+cashcrop                        // (c) 2000 WMS - Cash Crop (Russian)
+filthyr                         // (c) 1997 WMS - Filthy Rich (English)
+filthyrr                        // (c) 1997 WMS - Filthy Rich (Russian)
+hottop                          // (c) 2003 WMS - Hot Toppings (English)
+hottopa                         // (c) 2001 WMS - Hot Toppings (Russian?)
+inwinner                        // (c) 1998 WMS - Instant Winner (Russian)
+jptparty                        // (c) 1998 WMS - Jackpot Party (Russian)
+leprgld                         // (c) 2001 WMS - Leprechaun's Gold (Russian)
+leprglds                        // (c) 2001 WMS - Leprechaun's Gold (Spanish)
+lol                             // (c) 2000 WMS - Life of Luxury (Russian)
+lovewin                         // (c) 2001 WMS - Love To Win (Russian)
+mtburn                          // (c) 2001 WMS - Money To Burn (English)
+mtburnr                         // (c) 2000 WMS - Money To Burn (Russian)
+otchart                         // (c) 2000 WMS - Off The Charts (Russian)
+perfect                         // (c) 2000 WMS - Perfect Game (Russian)
+reelemin                        // (c) 1997 WMS - Reel 'Em In (English)
+reeleminr                       // (c) 1997 WMS - Reel 'Em In (Russian)
+sonoth                          // (c) 200? WMS - Something For Nothing (Russian)
+swingin                         // (c) 2000 WMS - Swingin In The Green (Russian)
+wdun                            // (c) 1999 WMS - Who Dunnit (Russian)
+winbid                          // (c) 2000 WMS - Winning Bid (English)
+winbidr                         // (c) 1999 WMS - Winning Bid (Russian)
+wldstrek                        // (c) 2000 WMS - Wild Streak (Russian)
+wms                             // Clear/Set Chip
+wmsa                            // Clear/Set Chip
+wmsb                            // Clear/Set Chip
+wmsboom                         // (c) 1998 WMS - Boom (Russian)
+wmstopb                         // (c) 1999 WMS - Top Banana (Russian)
+yukongld                        // (c) 2000 WMS - Yukon Gold (Russian)
 
 @source:wolfpack.cpp
 wolfpack                        // ?????? prototype         [6502]
@@ -39157,3 +39193,7 @@ vgmplay
 @source:ldplayer.cpp
 simldv1000                      // Pioneer LD-V1000
 simpr8210                       // Pioneer PR-8210
+
+@source:odyssey.cpp
+odyssey
+

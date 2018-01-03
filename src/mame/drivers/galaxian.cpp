@@ -707,7 +707,7 @@ WRITE8_MEMBER(galaxian_state::irq_enable_w)
 
 	/* if CLEAR is held low, we must make sure the interrupt signal is clear */
 	if (!m_irq_enabled)
-		space.device().execute().set_input_line(m_irq_line, CLEAR_LINE);
+		m_maincpu->set_input_line(m_irq_line, CLEAR_LINE);
 }
 
 /*************************************
@@ -1407,7 +1407,7 @@ READ8_MEMBER(galaxian_state::jumpbug_protection_r)
 		case 0x0235:  return 0x02;
 		case 0x0311:  return 0xff;  /* not checked */
 	}
-	logerror("Unknown protection read. Offset: %04X  PC=%04X\n",0xb000+offset,space.device().safe_pc());
+	logerror("Unknown protection read. Offset: %04X  PC=%04X\n",0xb000+offset,m_maincpu->pc());
 	return 0xff;
 }
 
@@ -1434,7 +1434,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(galaxian_state::checkmaj_irq0_gen)
 
 READ8_MEMBER(galaxian_state::checkmaj_protection_r)
 {
-	switch (space.device().safe_pc())
+	switch (m_maincpu->pc())
 	{
 		case 0x0f15:  return 0xf5;
 		case 0x0f8f:  return 0x7c;
@@ -1443,7 +1443,7 @@ READ8_MEMBER(galaxian_state::checkmaj_protection_r)
 		case 0x10f1:  return 0xaa;
 		case 0x1402:  return 0xaa;
 		default:
-			logerror("Unknown protection read. PC=%04X\n",space.device().safe_pc());
+			logerror("Unknown protection read. PC=%04X\n", m_maincpu->pc());
 	}
 
 	return 0;
@@ -1680,31 +1680,6 @@ static ADDRESS_MAP_START( zigzag_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x7007, 0x7007) AM_MIRROR(0x07f8) AM_WRITE(galaxian_flip_screen_y_w)
 	AM_RANGE(0x7800, 0x7800) AM_MIRROR(0x07ff) AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
 ADDRESS_MAP_END
-
-
-/* map derived from schematics */
-#if 0
-static ADDRESS_MAP_START( dambustr_map, AS_PROGRAM, 8, galaxian_state )
-	ADDRESS_MAP_UNMAP_HIGH
-	AM_RANGE(0x0000, 0x7fff) AM_ROM
-//  AM_RANGE(0x8000, 0x8000) AM_WRITE(dambustr_bg_color_w)
-//  AM_RANGE(0x8001, 0x8001) AM_WRITE(dambustr_bg_split_line_w)
-	AM_RANGE(0xc000, 0xc3ff) AM_MIRROR(0x0400) AM_RAM
-	AM_RANGE(0xd000, 0xd3ff) AM_MIRROR(0x0400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0xd800, 0xd8ff) AM_MIRROR(0x0700) AM_RAM_WRITE(galaxian_objram_w) AM_SHARE("spriteram")
-	AM_RANGE(0xe000, 0xe000) AM_MIRROR(0x07ff) AM_READ_PORT("IN0")
-	AM_RANGE(0xe004, 0xe007) AM_MIRROR(0x07f8) AM_DEVWRITE("cust", galaxian_sound_device, lfo_freq_w)
-	AM_RANGE(0xe800, 0xe800) AM_MIRROR(0x07ff) AM_READ_PORT("IN1")
-	AM_RANGE(0xe800, 0xe807) AM_MIRROR(0x07f8) AM_DEVWRITE("cust", galaxian_sound_device, sound_w)
-	AM_RANGE(0xf000, 0xf000) AM_MIRROR(0x07ff) AM_READ_PORT("IN2")
-	AM_RANGE(0xf001, 0xf001) AM_MIRROR(0x07f8) AM_WRITE(irq_enable_w)
-	AM_RANGE(0xf004, 0xf004) AM_MIRROR(0x07f8) AM_WRITE(galaxian_stars_enable_w)
-	AM_RANGE(0xf006, 0xf006) AM_MIRROR(0x07f8) AM_WRITE(galaxian_flip_screen_x_w)
-	AM_RANGE(0xf007, 0xf007) AM_MIRROR(0x07f8) AM_WRITE(galaxian_flip_screen_y_w)
-	AM_RANGE(0xf800, 0xf800) AM_MIRROR(0x07ff) AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
-	AM_RANGE(0xf800, 0xf800) AM_MIRROR(0x07ff) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
-ADDRESS_MAP_END
-#endif
 
 
 /* map derived from schematics */

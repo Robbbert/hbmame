@@ -425,6 +425,7 @@ MACHINES["E0516"] = true
 MACHINES["E05A03"] = true
 MACHINES["E05A30"] = true
 MACHINES["EEPROMDEV"] = true
+--MACHINES["ER1400"] = true
 MACHINES["ER2055"] = true
 MACHINES["F3853"] = true
 --MACHINES["HD63450"] = true
@@ -1073,6 +1074,9 @@ files {
 	MAME_DIR .. "src/mame/includes/cyberbal.h",
 	MAME_DIR .. "src/mame/audio/cyberbal.cpp",
 	MAME_DIR .. "src/mame/video/cyberbal.cpp",
+	MAME_DIR .. "src/mame/drivers/cybstorm.cpp",
+	MAME_DIR .. "src/mame/includes/cybstorm.h",
+	MAME_DIR .. "src/mame/video/cybstorm.cpp",
 	MAME_DIR .. "src/mame/drivers/destroyr.cpp",
 	MAME_DIR .. "src/mame/drivers/dragrace.cpp",
 	MAME_DIR .. "src/mame/includes/dragrace.h",
@@ -4663,6 +4667,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/notechan.cpp",
 	MAME_DIR .. "src/mame/drivers/nsg6809.cpp",
 	MAME_DIR .. "src/mame/drivers/nsmpoker.cpp",
+	MAME_DIR .. "src/mame/drivers/odyssey.cpp",
 	MAME_DIR .. "src/mame/drivers/oneshot.cpp",
 	MAME_DIR .. "src/mame/includes/oneshot.h",
 	MAME_DIR .. "src/mame/video/oneshot.cpp",

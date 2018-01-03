@@ -826,9 +826,9 @@ READ32_MEMBER(model2_state::copro_fifo_r)
 		if (m_tgpx4->is_fifoout0_empty())
 		{
 			/* Reading from empty FIFO causes the i960 to enter wait state */
-			downcast<i960_cpu_device &>(space.device()).i960_stall();
+			downcast<i960_cpu_device &>(*m_maincpu).i960_stall();
 			/* spin the main cpu and let the TGP catch up */
-			space.device().execute().spin_until_time(attotime::from_usec(100));
+			m_maincpu->spin_until_time(attotime::from_usec(100));
 			printf("stalled\n");
 		}
 		else
@@ -882,9 +882,9 @@ WRITE32_MEMBER(model2_state::copro_fifo_w)
 			if (m_tgpx4->is_fifoin_full())
 			{
 				/* Writing to full FIFO causes the i960 to enter wait state */
-				downcast<i960_cpu_device &>(space.device()).i960_stall();
+				downcast<i960_cpu_device &>(*m_maincpu).i960_stall();
 				/* spin the main cpu and let the TGP catch up */
-				space.device().execute().spin_until_time(attotime::from_usec(100));
+				m_maincpu->spin_until_time(attotime::from_usec(100));
 				printf("write stalled\n");
 			}
 			else
@@ -1073,7 +1073,7 @@ READ32_MEMBER(model2_state::geo_r)
 	}
 
 //  fatalerror("geo_r: %08X, %08X\n", address, mem_mask);
-	osd_printf_debug("geo_r: PC:%08x - %08X\n", space.device().safe_pc(), address);
+	osd_printf_debug("geo_r: PC:%08x - %08X\n", m_maincpu->pc(), address);
 
 	return 0;
 }
@@ -1305,7 +1305,7 @@ WRITE32_MEMBER(model2_state::model2_serial_w)
 			m_scsp->midi_in(space, 0, data&0xff, 0);
 
 			// give the 68k time to notice
-			space.device().execute().spin_until_time(attotime::from_usec(40));
+			m_maincpu->spin_until_time(attotime::from_usec(40));
 		}
 	}
 	if (ACCESSING_BITS_16_23 && (offset == 0))
@@ -1343,7 +1343,7 @@ READ32_MEMBER(model2_state::model2_5881prot_r)
 			retval <<= 16;
 		}
 	}
-	else logerror("Unhandled Protection READ @ %x mask %x (PC=%x)\n", offset, mem_mask, space.device().safe_pc());
+	else logerror("Unhandled Protection READ @ %x mask %x (PC=%x)\n", offset, mem_mask, m_maincpu->pc());
 
 	logerror("model2_5881prot_r %08x: %08x (%08x)\n", offset*4, retval, mem_mask);
 
@@ -1374,7 +1374,7 @@ WRITE32_MEMBER(model2_state::model2_5881prot_w)
 		printf("subkey %08x (%08x)\n", data, mem_mask);
 		m_cryptdevice->set_subkey(data&0xffff);
 	}
-	else printf("Unhandled Protection WRITE %x @ %x mask %x (PC=%x)\n", data, offset, mem_mask, space.device().safe_pc());
+	else printf("Unhandled Protection WRITE %x @ %x mask %x (PC=%x)\n", data, offset, mem_mask, m_maincpu->pc());
 
 }
 
@@ -6135,16 +6135,16 @@ GAME( 1994, vcop,            0, model2o, vcop,    model2_state,  0,        ROT0,
 GAME( 1994, vcopa,        vcop, model2o, vcop,    model2_state,  0,        ROT0, "Sega",   "Virtua Cop (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 
 // Model 2A-CRX (TGPs, SCSP sound board)
+GAME( 1994, vf2,              0, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2 (Version 2.1)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1994, vf2b,           vf2, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2 (Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1994, vf2a,           vf2, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2 (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1994, vf2o,           vf2, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, manxtt,           0, manxttdx,     manxtt,   model2_state, 0,       ROT0, "Sega",   "Manx TT Superbike - DX (Revision D)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, manxttc,          0, manxtt,       manxtt,   model2_state, 0,       ROT0, "Sega",   "Manx TT Superbike - Twin (Revision C)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, srallyc,          0, srallyc,      srallyc,  model2_state, srallyc, ROT0, "Sega",   "Sega Rally Championship - Twin/DX (Revision C)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, srallycb,   srallyc, srallyc,      srallyc,  model2_state, srallyc, ROT0, "Sega",   "Sega Rally Championship - Twin/DX (Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, srallycdx,  srallyc, srallyc,      srallyc,  model2_state, srallyc, ROT0, "Sega",   "Sega Rally Championship - DX (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, srallycdxa, srallyc, srallyc,      srallyc,  model2_state, srallyc, ROT0, "Sega",   "Sega Rally Championship - DX", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1995, vf2,              0, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2 (Version 2.1)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1995, vf2b,           vf2, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2 (Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1995, vf2a,           vf2, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2 (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1995, vf2o,           vf2, model2a,      model2,   model2_state, 0,       ROT0, "Sega",   "Virtua Fighter 2", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, vcop2,            0, model2a,      vcop2,    model2_state, 0,       ROT0, "Sega",   "Virtua Cop 2", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, skytargt,         0, model2a,      skytargt, model2_state, 0,       ROT0, "Sega",   "Sky Target", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, doaa,           doa, model2a_0229, model2,   model2_state, doa,     ROT0, "Sega",   "Dead or Alive (Model 2A, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
@@ -6190,6 +6190,7 @@ GAME( 1996, stcc,             0,    stcc,      model2,   model2_state, 0,       
 GAME( 1996, stccb,         stcc,    stcc,      model2,   model2_state, 0,       ROT0, "Sega",   "Sega Touring Car Championship (Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, stcca,         stcc,    stcc,      model2,   model2_state, 0,       ROT0, "Sega",   "Sega Touring Car Championship (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, waverunr,         0, model2c,      model2,   model2_state, 0,       ROT0, "Sega",   "Wave Runner (Japan, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1997, bel,              0, model2c,      bel,      model2_state, 0,       ROT0, "Sega / EPL Productions", "Behind Enemy Lines", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, hotd,             0, model2c,      vcop2,    model2_state, 0,       ROT0, "Sega",   "The House of the Dead", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, overrev,          0, overrev2c,    srallyc,  model2_state, 0,       ROT0, "Jaleco", "Over Rev (Model 2C, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, rascot2,          0, model2c,      model2,   model2_state, 0,       ROT0, "Sega",   "Royal Ascot II", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
@@ -6198,5 +6199,4 @@ GAME( 1997, topskatr,         0, model2c,      model2,   model2_state, 0,       
 GAME( 1997, topskatru, topskatr, model2c,      model2,   model2_state, 0,       ROT0, "Sega",   "Top Skater (USA, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, topskatruo,topskatr, model2c,      model2,   model2_state, 0,       ROT0, "Sega",   "Top Skater (USA)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, topskatrj, topskatr, model2c,      model2,   model2_state, 0,       ROT0, "Sega",   "Top Skater (Japan)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1998, bel,              0, model2c,      bel,      model2_state, 0,       ROT0, "Sega / EPL Productions", "Behind Enemy Lines", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1998, dynamcopc, dynamcop, model2c_5881, model2,   model2_state, genprot, ROT0, "Sega",   "Dynamite Cop (USA, Model 2C)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )

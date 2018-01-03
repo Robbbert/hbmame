@@ -561,7 +561,7 @@ READ8_MEMBER(taitojc_state::mcu_comm_r)
 			return m_mcu_comm_main | 0x14;
 
 		default:
-			logerror("mcu_comm_r: %02X at %08X\n", offset, space.device().safe_pc());
+			logerror("mcu_comm_r: %02X at %08X\n", offset, m_maincpu->pc());
 			break;
 	}
 
@@ -582,7 +582,7 @@ WRITE8_MEMBER(taitojc_state::mcu_comm_w)
 			break;
 
 		default:
-			logerror("mcu_comm_w: %02X, %02X at %08X\n", offset, data, space.device().safe_pc());
+			logerror("mcu_comm_w: %02X, %02X at %08X\n", offset, data, m_maincpu->pc());
 			break;
 	}
 }
@@ -1139,16 +1139,16 @@ MACHINE_CONFIG_END
 
 READ16_MEMBER(taitojc_state::taitojc_dsp_idle_skip_r)
 {
-	if (space.device().safe_pc() == 0x404c)
-		space.device().execute().spin_until_time(attotime::from_usec(500));
+	if (m_dsp->pc() == 0x404c)
+		m_dsp->spin_until_time(attotime::from_usec(500));
 
 	return m_dsp_shared_ram[0x7f0];
 }
 
 READ16_MEMBER(taitojc_state::dendego2_dsp_idle_skip_r)
 {
-	if (space.device().safe_pc() == 0x402e)
-		space.device().execute().spin_until_time(attotime::from_usec(500));
+	if (m_dsp->pc() == 0x402e)
+		m_dsp->spin_until_time(attotime::from_usec(500));
 
 	return m_dsp_shared_ram[0x7f0];
 }

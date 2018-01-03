@@ -136,7 +136,7 @@ WRITE16_MEMBER(seta2_state::sound_bank_w)
 		int banks = (memregion( "x1snd" )->bytes() - 0x100000) / 0x20000;
 		if (data >= banks)
 		{
-			logerror("CPU #0 PC %06X: invalid sound bank %04X\n",space.device().safe_pc(),data);
+			logerror("CPU #0 PC %06X: invalid sound bank %04X\n",m_maincpu->pc(),data);
 			data %= banks;
 		}
 		memcpy(ROM + offset * 0x20000, ROM + 0x100000 + data * 0x20000, 0x20000);
@@ -944,7 +944,7 @@ READ16_MEMBER(seta2_state::funcube_coins_r)
 
 	if ( m_funcube_coin_start_cycles )
 	{
-		uint64_t elapsed = downcast<cpu_device *>(&space.device())->total_cycles() - m_funcube_coin_start_cycles;
+		uint64_t elapsed = m_sub->total_cycles() - m_funcube_coin_start_cycles;
 
 		if ( elapsed < coin_total_cycles/2 )
 			coin_bit0 = 0;
@@ -956,7 +956,7 @@ READ16_MEMBER(seta2_state::funcube_coins_r)
 	else
 	{
 		if (!(ret & 1))
-			m_funcube_coin_start_cycles = downcast<cpu_device *>(&space.device())->total_cycles();
+			m_funcube_coin_start_cycles = m_sub->total_cycles();
 	}
 
 	return (ret & ~7) | (hopper_bit << 2) | (coin_bit1 << 1) | coin_bit0;
@@ -2510,6 +2510,7 @@ static MACHINE_CONFIG_START( seta2 )
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DEVICE("tmp68301",tmp68301_device,irq_callback)
 
 	MCFG_DEVICE_ADD("tmp68301", TMP68301, 0)
+	MCFG_TMP68301_CPU("maincpu")
 
 	MCFG_WATCHDOG_ADD("watchdog")
 
@@ -2786,6 +2787,7 @@ static MACHINE_CONFIG_START( namcostr )
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DEVICE("tmp68301",tmp68301_device,irq_callback)
 
 	MCFG_DEVICE_ADD("tmp68301", TMP68301, 0)  // does this have a ticket dispenser?
+	MCFG_TMP68301_CPU("maincpu")
 
 	// video hardware
 	MCFG_SCREEN_ADD("screen", RASTER)
