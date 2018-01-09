@@ -48,6 +48,7 @@ debugger_cpu::debugger_cpu(running_machine &machine)
 	, m_visiblecpu(nullptr)
 	, m_breakcpu(nullptr)
 	, m_symtable(nullptr)
+	, m_vblank_occurred(false)
 	, m_execution_state(EXECUTION_STATE_STOPPED)
 	, m_stop_when_not_device(nullptr)
 	, m_bpindex(1)
@@ -87,7 +88,15 @@ debugger_cpu::debugger_cpu(running_machine &machine)
 	}
 
 	/* first CPU is visible by default */
-	m_visiblecpu = m_machine.firstcpu;
+	for (device_t &device : device_iterator(m_machine.root_device()))
+	{
+		auto *cpu = dynamic_cast<cpu_device *>(&device);
+		if (cpu != nullptr)
+		{
+			m_visiblecpu = cpu;
+			break;
+		}
+	}
 
 	/* add callback for breaking on VBLANK */
 	if (m_machine.first_screen() != nullptr)
