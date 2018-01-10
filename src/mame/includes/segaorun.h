@@ -93,7 +93,7 @@ public:
 	CUSTOM_INPUT_MEMBER( bankmotor_pos_r );
 	TIMER_DEVICE_CALLBACK_MEMBER(bankmotor_update);
 
-protected:
+//protected: // HBMAME
 	// timer IDs
 	enum
 	{

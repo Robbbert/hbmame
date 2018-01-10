@@ -98,7 +98,6 @@ SOUNDS["SP0250"] = true
 SOUNDS["CDDA"] = true
 SOUNDS["ICS2115"] = true
 SOUNDS["ST0016"] = true
-SOUNDS["VOLT_REG"] = true
 SOUNDS["VOTRAX"] = true
 SOUNDS["DIGITALKER"] = true
 SOUNDS["MULTIPCM"] = true -- model2

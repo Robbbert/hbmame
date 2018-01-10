@@ -4,10 +4,13 @@ What's new in HBMAME
 2018-0x-xx 0.19x
 ----------------
 
+- added missing rom to dkongpac
 
 
 New Working Games
 -----------------
+- [outrunm]         Out Run (with music) by cmonkey
+- [scroller]        Horizontal Scroll demo on pacman hardware by Hurray Banana
 - [mk2v28b1]        Mortal Kombat II ver 2.8 beta
 - [umk3r13b1]       Ultimate Mortal Kombat 3 rev 1.3 beta 1
 
