@@ -14779,6 +14779,7 @@ tsfight2                        // Tiger
 tshadow                         // Tiger
 tsharr2                         // Tiger
 tsjam                           // Tiger
+tskelwarr                       // Tiger
 tsonic                          // Tiger
 tswampt                         // Tiger
 tvindictr                       // Tiger
@@ -35339,6 +35340,9 @@ twinbratb                       // (c) 1995
 
 @source:stratos.cpp
 stratos                         // Kasparov Stratos Chess Computer
+
+@source:strkzn.cpp
+strkzn                          // (c) 1994 Purple Star
 
 @source:strnskil.cpp
 banbam                          // TVG16 (c) 1984 Sun Electronics
