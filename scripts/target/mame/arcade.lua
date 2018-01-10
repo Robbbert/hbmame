@@ -491,6 +491,7 @@ MACHINES["MCCS1850"] = true
 MACHINES["M68307"] = true
 MACHINES["M68340"] = true
 MACHINES["MCF5206E"] = true
+MACHINES["METERS"] = true
 MACHINES["MICROTOUCH"] = true
 --MACHINES["MIOT6530"] = true
 --MACHINES["MM58167"] = true
@@ -559,6 +560,7 @@ MACHINES["SMPC"] = true
 MACHINES["STVCD"] = true
 MACHINES["TC0091LVC"] = true
 MACHINES["TE7750"] = true
+MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMP68301"] = true
 --MACHINES["TMS5501"] = true
@@ -870,16 +872,12 @@ function createProjects_mame_arcade(_target, _subtarget)
 
 createMAMEProjects(_target, _subtarget, "shared")
 files {
-	MAME_DIR .. "src/mame/machine/meters.cpp",
-	MAME_DIR .. "src/mame/machine/meters.h",
 	MAME_DIR .. "src/mame/machine/nmk112.cpp",
 	MAME_DIR .. "src/mame/machine/nmk112.h",
 	MAME_DIR .. "src/mame/machine/pcshare.cpp",
 	MAME_DIR .. "src/mame/machine/pcshare.h",
 	MAME_DIR .. "src/mame/machine/segacrpt_device.cpp",
 	MAME_DIR .. "src/mame/machine/segacrpt_device.h",
-	MAME_DIR .. "src/mame/machine/ticket.cpp",
-	MAME_DIR .. "src/mame/machine/ticket.h",
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
 	MAME_DIR .. "src/mame/video/avgdvg.h",
 	MAME_DIR .. "src/mame/video/awpvid.cpp",

@@ -151,6 +151,7 @@ MACHINES["NETLIST"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
 MACHINES["TE7750"] = true
+MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMS1024"] = true -- docastle
 MACHINES["TMS6100"] = true
@@ -216,7 +217,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"toaplan",
 		"univers",
 		"valadon",
-		"shared",
+--		"shared",
 		"misc",
 	}
 end
@@ -255,10 +256,10 @@ function createProjects_hbmame_hbmame(_target, _subtarget)
 -- shared across a number of drivers
 --------------------------------------------------
 
-createHBMAMEProjects(_target, _subtarget, "shared")
-files {
-	MAME_DIR .. "src/mame/machine/ticket.cpp",
-}
+--createHBMAMEProjects(_target, _subtarget, "shared")
+--files {
+--	MAME_DIR .. "src/devices/machine/ticket.cpp",
+--}
 
 --------------------------------------------------
 -- manufacturer-specific groupings for drivers
