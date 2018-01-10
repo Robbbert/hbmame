@@ -30,6 +30,7 @@ public:
 		m_gfxdecode(*this, "gfxdecode"),
 		m_palette(*this, "palette"),
 		m_patched_opcodes(*this, "patched_opcodes")
+		, m_p_maincpu(*this, "maincpu") // HBMAME
 		, m_io_fake(*this, "FAKE") // HBMAME
 	{ }
 
@@ -46,6 +47,7 @@ public:
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 	optional_shared_ptr<uint8_t> m_patched_opcodes;
+	optional_region_ptr<u8> m_p_maincpu; // HBMAME
 	optional_ioport m_io_fake; // HBMAME
 
 	uint8_t m_cannonb_bit_to_read;
@@ -63,6 +65,9 @@ public:
 	int m_xoffsethack;
 	uint8_t m_inv_spr;
 	uint8_t m_irq_mask;
+	uint8_t m_maketrax_counter;
+	uint8_t m_maketrax_offset;
+	int m_maketrax_disable_protection;
 
 	DECLARE_WRITE8_MEMBER(pacman_interrupt_vector_w);
 	DECLARE_WRITE8_MEMBER(piranha_interrupt_vector_w);
@@ -74,6 +79,7 @@ public:
 	DECLARE_WRITE8_MEMBER(alibaba_sound_w);
 	DECLARE_READ8_MEMBER(alibaba_mystery_1_r);
 	DECLARE_READ8_MEMBER(alibaba_mystery_2_r);
+	DECLARE_WRITE8_MEMBER(maketrax_protection_w);
 	DECLARE_READ8_MEMBER(maketrax_special_port2_r);
 	DECLARE_READ8_MEMBER(maketrax_special_port3_r);
 	DECLARE_READ8_MEMBER(korosuke_special_port2_r);
@@ -150,6 +156,7 @@ public:
 	DECLARE_VIDEO_START(s2650games);
 	DECLARE_MACHINE_RESET(mschamp);
 	DECLARE_MACHINE_RESET(superabc);
+	DECLARE_MACHINE_RESET(maketrax);
 	DECLARE_VIDEO_START(pengo);
 	DECLARE_VIDEO_START(jrpacman);
 	uint32_t screen_update_pacman(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
@@ -159,7 +166,6 @@ public:
 	INTERRUPT_GEN_MEMBER(s2650_interrupt);
 	void init_save_state();
 	void jrpacman_mark_tile_dirty( int offset );
-	void maketrax_rom_decode();
 	void korosuke_rom_decode();
 	void eyes_decode(uint8_t *data);
 	void mspacman_install_patches(uint8_t *ROM);
@@ -219,5 +225,6 @@ public:
 	DECLARE_DRIVER_INIT(multipac);
 	DECLARE_DRIVER_INIT(pm4n1);
 	DECLARE_DRIVER_INIT(pengo);
+	uint8_t hbmame_pacplus_decode(offs_t addr, uint8_t e);
 // END HBMAME
 };

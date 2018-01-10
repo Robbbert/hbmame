@@ -203,9 +203,6 @@ static ADDRESS_MAP_START( woodpek_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xff00, 0xffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( patched_opcodes_map, AS_OPCODES, 8, pacman_state )
-	AM_RANGE(0x0000, 0x3fff) AM_MIRROR(0x8000) AM_ROM AM_SHARE("patched_opcodes")
-ADDRESS_MAP_END
 /*************************************
  *
  *  Main CPU port handlers
@@ -474,10 +471,6 @@ static MACHINE_CONFIG_DERIVED( woodpek, pacman )
 	MCFG_CPU_PROGRAM_MAP(woodpek_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pacmanp, pacman )
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_DECRYPTED_OPCODES_MAP(patched_opcodes_map)
-MACHINE_CONFIG_END
 
 /*************************************
  *
@@ -485,7 +478,7 @@ MACHINE_CONFIG_END
  *
  *************************************/
 
-static uint8_t hbmame_pacplus_decode(offs_t addr, uint8_t e)
+uint8_t pacman_state::hbmame_pacplus_decode(offs_t addr, uint8_t e)
 {
 	static const unsigned char swap_xor_table[6][9] =
 	{
