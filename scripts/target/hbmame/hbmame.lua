@@ -77,6 +77,7 @@ SOUNDS["NES_APU"] = true
 SOUNDS["ASTROCADE"] = true
 SOUNDS["NAMCO_15XX"] = true
 SOUNDS["NAMCO_52XX"] = true
+SOUNDS["TC8830F"] = true -- timeplt
 SOUNDS["TMS36XX"] = true
 SOUNDS["TMS5110"] = true
 SOUNDS["TMS5220"] = true
@@ -436,6 +437,9 @@ files {
 	MAME_DIR .. "src/mame/video/pooyan.cpp",
 	MAME_DIR .. "src/hbmame/drivers/shaolins.cpp",
 	MAME_DIR .. "src/mame/video/shaolins.cpp",
+	MAME_DIR .. "src/hbmame/drivers/timeplt.cpp",
+	MAME_DIR .. "src/mame/audio/timeplt.cpp",
+	MAME_DIR .. "src/mame/video/timeplt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tmnt.cpp",
 	MAME_DIR .. "src/mame/video/tmnt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/trackfld.cpp",

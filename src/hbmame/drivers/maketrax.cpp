@@ -74,7 +74,9 @@ READ8_MEMBER(pacman_state::maketrax_special_port3_r)
 
 WRITE8_MEMBER(pacman_state::piranha_interrupt_vector_w)
 {
-	if (data == 0xfa) data = 0x78;
+	if (data == 0xfa)
+		data = 0x78;
+
 	m_maincpu->set_input_line_vector(0, data );
 }
 
@@ -384,6 +386,18 @@ ROM_START( dderby )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( deathstar ) // No text, no scores. From level 3, you need to use a 2nd joystick (RDFG keys).
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "deathstar.1",  0x0000, 0x1000, CRC(decc3963) SHA1(cbc291c767def5c92b82d6e00ebb5e61e45cbc41) )
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
+	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( eyes )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "eyes.7d",      0x0000, 0x1000, CRC(3b09ac89) SHA1(a8f1c918da74495bb73172f39364dada38ae4713) )
@@ -404,7 +418,7 @@ ROM_END
 
 /* E204 - Rockola presents and copyright notice are all removed. Where it should say "EYES" on title screen,
           it has some corrupt gfx instead. The rest is fine. */
-ROM_START( eyesb )	/* E204 */
+ROM_START( eyesb )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "eyesb.7d",     0x0000, 0x1000, CRC(7e7dd02d) SHA1(a0026fec57c089dd500efa107b0e884ed9edd4d6) )
 	ROM_LOAD( "eyesb.7f",     0x1000, 0x1000, CRC(d6d73eb5) SHA1(b0c51afc09dd62bdda70710d57ae5b90a5e981ac) )
@@ -538,18 +552,6 @@ ROM_START( pacmatri )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "at.5e",        0x0000, 0x1000, CRC(EEB359BF) SHA1(36F153B5CE53475FD144AF50E4BD67B0E0B3A01F) )
 	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958FEDF9) SHA1(4A937AC02216EA8C96477D4A15522070507FB599) )
-
-	PACMAN_PROMS
-ROM_END
-
-ROM_START( deathstar ) // No text, no scores. From level 3, you need to use a 2nd joystick (RDFG keys).
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "deathstar.1",  0x0000, 0x1000, CRC(decc3963) SHA1(cbc291c767def5c92b82d6e00ebb5e61e45cbc41) )
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
-	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
-	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
-	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
 
 	PACMAN_PROMS
 ROM_END

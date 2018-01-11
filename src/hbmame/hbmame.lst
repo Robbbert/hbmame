@@ -2935,6 +2935,10 @@ terracrc
 timelimt		//parent
 timelimit		// dink colour hack
 
+	/* timeplt */
+timeplt				// parent
+timepltdiag
+
 	/* tmnt */
 ssriders	//parent
 ssridersaex

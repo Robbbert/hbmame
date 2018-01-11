@@ -133,7 +133,7 @@ CUSTOM_INPUT_MEMBER(timeplt_state::chkun_hopper_status_r)
 
 static ADDRESS_MAP_START( timeplt_main_map, AS_PROGRAM, 8, timeplt_state )
 	ADDRESS_MAP_UNMAP_HIGH
-	AM_RANGE(0x0000, 0x5fff) AM_ROM
+	AM_RANGE(0x0000, 0x7fff) AM_ROM // HBMAME
 	AM_RANGE(0xa000, 0xa3ff) AM_RAM_WRITE(colorram_w) AM_SHARE("colorram")
 	AM_RANGE(0xa400, 0xa7ff) AM_RAM_WRITE(videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0xa800, 0xafff) AM_RAM
