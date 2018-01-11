@@ -67,7 +67,7 @@ asukac			// chinese
 atarisy1		//bios
 indytemp		//parent
 ataris1hw
-//ataris1rt
+ataris1rt
 
 	/* atari_s1 */
 //atarians	//parent
@@ -1571,6 +1571,7 @@ umk3r13b1	/* UMK3 1.3 public beta 1 */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
 umk3te2		/* UMK3 Tournament Edition 2.0.035 */
 umk3z		/* UMK3 1.2 Zeus hack */
+umk3ze
 
 	/* midyunit */
 mkla4d		/* MK protection hack */

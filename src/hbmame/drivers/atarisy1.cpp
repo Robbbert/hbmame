@@ -33,11 +33,12 @@ ROM_END
 GAME( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
 
 
+// It runs, the output appears in the videoram (A03xxx), but screen stays black. Works on real hardware.
+
 ROM_START( ataris1rt )
 	ROM_REGION( 0x88000, "maincpu", 0 )
-	MOTHERBOARD_BIOS
-	ROM_LOAD16_BYTE( "ataris1rt.432",   0x10001, 0x04000, CRC(63b94bd5) SHA1(fe3c41a33cd8e70d04744055488d8e94d4a70caf) )
-	ROM_LOAD16_BYTE( "ataris1rt.431",   0x10000, 0x04000, CRC(86713619) SHA1(26e0348e91d10d9c7380736194bb8cb933765293) )
+	ROM_LOAD16_BYTE("ataris1rt.l13", 0x00000, 0x04000, CRC(86713619) SHA1(26e0348e91d10d9c7380736194bb8cb933765293) )
+	ROM_LOAD16_BYTE("ataris1rt.l12", 0x00001, 0x04000, CRC(63b94bd5) SHA1(fe3c41a33cd8e70d04744055488d8e94d4a70caf) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "136036.153",   0x4000, 0x4000, CRC(95294641) SHA1(00f90a0d49d2c77d5288080036f81a74ad31f8bc) )

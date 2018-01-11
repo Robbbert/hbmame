@@ -4,7 +4,6 @@ What's new in HBMAME
 2018-0x-xx 0.19x
 ----------------
 
-- added missing rom to dkongpac
 
 
 New Working Games
