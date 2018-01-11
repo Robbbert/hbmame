@@ -432,6 +432,8 @@ files {
 	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nemesis.cpp",
 	MAME_DIR .. "src/mame/video/nemesis.cpp",
+	MAME_DIR .. "src/hbmame/drivers/pooyan.cpp",
+	MAME_DIR .. "src/mame/video/pooyan.cpp",
 	MAME_DIR .. "src/hbmame/drivers/shaolins.cpp",
 	MAME_DIR .. "src/mame/video/shaolins.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tmnt.cpp",

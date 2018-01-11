@@ -67,6 +67,7 @@ asukac			// chinese
 atarisy1		//bios
 indytemp		//parent
 ataris1hw
+//ataris1rt
 
 	/* atari_s1 */
 //atarians	//parent
@@ -2783,6 +2784,10 @@ pc_dk			/* NES->PC-10 */
 pc_pacm			/* NES->PC-10 */
 pc_gyrus		/* NES->PC-10 */
 pc_skykd		/* NES->PC-10 */
+
+	/* pooyan */
+pooyan				// parent
+pooyandiag
 
 	/* powerins */
 powerins		//parent
