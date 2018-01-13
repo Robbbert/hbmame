@@ -926,7 +926,7 @@
 	</software>
 
 	<!-- "CDROM not ISO9660 or High Sierra" when trying to DIR it -->
-	<software name="blowaway" supported="no">
+	<software name="blowawayd" supported="no">
 		<description>Blown Away (Germany)</description>
 		<year>1997</year>
 		<publisher>Magellan</publisher>
@@ -1733,7 +1733,7 @@
 		</part>
 	</software>
 	
-	<!-- partial version, contains about half of the game and bundled with sound cards etc. --> 
+	<!-- kind of a demo version, contains about half of the game, supposed to be bundled with sound cards etc. --> 
 	<software name="cyberian" cloneof="cyberia">
 		<description>Cyberia - Mission Norway (OEM v1.87)</description>
 		<year>1994</year>
@@ -1742,7 +1742,7 @@
 
 		<part name="cdrom" interface="cdrom">
 			<diskarea name="cdrom">
-				<disk name="cyberia - mission norway v1.87 (1994)(interplay)(m3)[oem]" sha1="1" />
+				<disk name="cyberia - mission norway v1.87 (1994)(interplay)(m3)[oem]" sha1="3bc4126a28807bd9199a4070de1ae02b6c4e00f3" />
 			</diskarea>
 		</part>
 	</software>
@@ -1784,6 +1784,60 @@
 			</diskarea>
 		</part>
 	</software>
+
+	<!-- DOS -->
+	<software name="cycleman">
+		<description>Cyclemania</description>
+		<year>1994</year>
+		<publisher>Accolade</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="cyclemania (1994)(accolade)" sha1="947d0ff25be8668d43fbabb31b23092b6c6510e7" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- DOS -->
+	<!-- TODO: "Disk write failed" on install -->
+	<software name="darker" supported="no">
+		<description>Darker</description>
+		<year>1995</year>
+		<publisher>Psygnosis / S.I.E.E</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="darker (1995)(psygnosis)" sha1="8aa77f5c75589480055174e22ce66f767e7ce52e" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<!-- TODO: selecting SB16 hangs on the sound test -->
+	<software name="detritus" supported="partial">
+		<description>Detritus - The Daemon's Quest</description>
+		<year>1996</year>
+		<publisher>Manyk / Myndgaemz</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="detritus - the daemon's quest (1996)(manyk)" sha1="b9dc8d31ddedf4e6c189f4481ecc40b2784d29de" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<software name="discdeep">
+		<description>Discoveries of the Deep</description>
+		<year>1996</year>
+		<publisher>SoftKey</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="discoveries of the deep (1996)(softkey)" sha1="b55f1cc746f5efce727e83c06a31c6ac743da628" />
+			</diskarea>
+		</part>
+	</software>
 	
 	<!-- Pentium class 166 MHz / Direct X 7.0 -->
 	<!-- Windows 95/98/ME -->
@@ -1814,6 +1868,45 @@
 		</part>
 	</software>
 
+	<!-- DOS -->
+	<software name="dungkrem">
+		<description>Dungeons of Kremlin (English, Russia)</description>
+		<year>1995</year>
+		<publisher>NewCom</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="dungeons of kremlin (1995)(newcom)(en-ru)" sha1="39f7a573cd92b3992e5d298c37c307f8060cd2a1" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- distributed for free by the Art Department Werbeagentur GmbH -->
+	<!-- TODO: SB16 fails detecting for DS2 -->
+	<software name="dunksc12" supported="partial">
+		<description>Dunkle Schatten 1 &amp; 2 (Germany)</description>
+		<year>1996</year>
+		<publisher>BMI</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="dunkle schatten 1 &amp; 2 (1996)(bmi)(de)[compilation]" sha1="fa3a2584edc1ca152e3d352a5a7ed8ab740a2c67" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<software name="ecoquest">
+		<description>EcoQuest 1 - The Search for Cetus</description>
+		<year>1992</year>
+		<publisher>Sierra</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="ecoquest 1 - the search for cetus (1992)(sierra)" sha1="8e1452f6caf66f51eb5c57230cce19aef254916b" />
+			</diskarea>
+		</part>
+	</software>
+	
 	<software name="elecpop">
 		<description>Electronic Popple (Japan)</description>
 		<year>1997</year>
@@ -1826,6 +1919,119 @@
 		</part>
 	</software>
 
+	<!-- DOS 5.0 -->
+	<!-- 486 class CPU -->
+	<software name="enemystr">
+		<description>Enemy Star</description>
+		<year>1999</year>
+		<publisher>Midas</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="enemy star (1999)(midas)" sha1="c34f71fd3b51976fd372619e1f6f298b53f6f48f" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<software name="ericurdy">
+		<description>Eric the Unready</description>
+		<year>1997</year>
+		<publisher>Legend Entertainment</publisher>
+		<info name="version" value="1.0" />
+
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="eric the unready (1997)(legend)" sha1="212771b1cd6622403c24d6bbbee0af7e5069f649" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<!-- TODO: sound requires EMM manager -->
+	<software name="escdlrum" supported="partial">
+		<description>Escape from Delirium</description>
+		<year>1997</year>
+		<publisher>Magicom Multimedia / Virtual X-Perience</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="escape from delirium (1997)(magicom multimedia)" sha1="d851ad199db4e9a8aa97ff3a90c7f7e5067aac06" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- DOS -->
+	<!-- requires 600k of free memory -->
+	<!-- has manual copy protection -->
+	<software name="f1gp">
+		<description>Formula One Grand Prix</description>
+		<year>1996</year>
+		<publisher>Microprose</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="formula one grand prix (1996)(microprose)" sha1="1ef7e2d077ce28578efcbbe9fd6e2b4c197cd6eb" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<!-- TODO: several elements are black colored (EGA mode) -->
+	<software name="f29ret" supported="no">
+		<description>F-29 Retaliator</description>
+		<year>1995</year>
+		<publisher>Hit Squad</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="f-29 retaliator (1995)(hit squad)" sha1="d3b66cdf19b871decf81a9d5718d290f4c3648b4" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<software name="fpbbal94">
+		<description>Front Page Sports - Baseball '94</description>
+		<year>1994</year>
+		<publisher>Sierra</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="front page sports - baseball '94 (1994)(sierra)" sha1="685dffa916c07d70e45a6f31a762a567bbfe1269" />
+			</diskarea>
+		</part>
+	</software>
+	
+	<!-- DOS -->
+	<!-- wants 595k of free memory, bootmake.bat doesn't seem to work properly -->
+	<software name="franklod" supported="no">
+		<description>Frankenstein - Life or Death</description>
+		<year>1995</year>
+		<publisher>Merit Studios</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="frankenstein - life or death (1995)(merit studios)" sha1="22869181022fb89a00f563e41599b833678f2975" />
+			</diskarea>
+		</part>
+	</software>
+
+	<!-- DOS -->
+	<!-- TODO: runtime check failure -->
+	<software name="fwmigolf" supported="no">
+		<description>Fuzzy's World of Miniature Space Golf</description>
+		<year>2000</year>
+		<publisher>Manaccom</publisher>
+		<info name="version" value="1.01r" />
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="fuzzy's world of miniature space golf (2000)(manaccom)" sha1="24759143001f23279037226779a90476de3df4c3" />
+			</diskarea>
+		</part>
+	</software>
+	
 	<!-- Windows 95/98 -->
 	<!-- TODO: create character screen is unusable (sets up True Color Mode) -->
 	<software name="geo" supported="no">
@@ -2146,6 +2352,20 @@
 		</part>
 	</software>
 
+	<!-- Windows 3.x -->
+	<!-- TODO: 256 colors shifting issue, sound is too slow? -->
+	<software name="plumber" supported="partial">
+		<description>Plumber don't Wear Ties</description>
+		<year>1993</year>
+		<publisher>Kirin Entertainment</publisher>
+		
+		<part name="cdrom" interface="cdrom">
+			<diskarea name="cdrom">
+				<disk name="plumber" sha1="275872f0cf2f5ebcf05ff91865b341e73dbf1972" />
+			</diskarea>
+		</part>
+	</software>
+	
 	<!-- Windows 95 -->
 	<software name="poipon">
 		<description>PoiPon (Japan)</description>
