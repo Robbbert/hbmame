@@ -172,7 +172,7 @@ NUM YEAR COMPANY                 TITLE
 439 2013 Cristiano Bei           Primo demo
 440 2013 Cristiano Bei           Neo Geo Galaga demo
 441 2013 Cristiano Bei           Neo Geo Sound Test
-442
+442 2017 Cristiano Bei           Bad Apple demo
 443
 444 2012 M.Priewe                Santaball
 445*2014 M.Priewe                Doom in the Deep (in development)
@@ -1415,6 +1415,31 @@ ROM_START( neotest )
 ROM_END
 
 
+// 442 : Bad Apple demo by BEY
+// No colours
+ROM_START( neobadapple )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD( "442.p1", 0x000000, 0x09e0f, CRC(c8068de3) SHA1(f240b23f5f2aed998ebcbb95680225e3e35a8051) )
+	ROM_LOAD16_WORD( "442.p2", 0x100000, 0xeeb5c, CRC(f5fe8e16) SHA1(68398a9719eb9f4e42668991384683965c5787bf) )
+	ROM_LOAD16_WORD( "442.p3", 0x200000, 0xf4764, CRC(a70f49bd) SHA1(1b8a70e0f5467ea750586e3c0cb7a6188dc482d2) )
+	ROM_LOAD16_WORD( "442.p4", 0x300000, 0xf4764, CRC(dbf6bc37) SHA1(ecfdfa79811d586ace3577ccb7bc1c535482fe84) )
+	ROM_LOAD16_WORD( "442.p5", 0x400000, 0x8122c, CRC(55ca8ba8) SHA1(899d974765d28b342d2fa0ce5e66734a09278ed0) )
+
+	NEO_SFIX_128K( "063-s1.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
+
+	NEO_BIOS_AUDIO_128K( "442.m1", CRC(ad7f4d47) SHA1(8700ed799c013db270c5b80002c23733dfaaa534) )
+
+	ROM_REGION( 0x300000, "ymsnd", 0 )
+	ROM_LOAD( "442.v1", 0x000000, 0x300000, CRC(ce9bf279) SHA1(d14133414570d30ac477c226771175fa4b54073b) )
+
+	ROM_REGION( 0x1800000, "sprites", 0 )
+	ROM_LOAD16_WORD( "442.c1",  0x000000, 0x5a3b80, CRC(5fd2d36d) SHA1(13a045627029ade7a1e0f5cdcce3bf2b92de9559) )
+	ROM_LOAD16_WORD( "442.c2",  0x600000, 0x5bb580, CRC(5cbbc6e0) SHA1(aad04b9b7cdf7c3951006b39676ee4ee989338b0) )
+	ROM_LOAD16_WORD( "442.c3",  0xc00000, 0x5b1200, CRC(befd5392) SHA1(49f0610b9a4e1bdbb881c2156f01631cc45915c1) )
+	ROM_LOAD16_WORD( "442.c4",  0x1200000, 0x2c7480, CRC(e4b70cf5) SHA1(af717a650dbde0c4a852f8ee87a1d55ac9349172) )
+ROM_END
+
+
 // 444 : Santaball by M.Priewe.
 // Press 1 to play a game of Pong.
 // If the game misbehaves, read the FAQ.
@@ -1812,6 +1837,7 @@ GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 20??, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, neobadapple,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
