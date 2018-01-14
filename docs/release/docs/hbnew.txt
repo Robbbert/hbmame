@@ -8,6 +8,7 @@ What's new in HBMAME
 
 New Working Games
 -----------------
+- [doubledrsp]      Double Dragon (Special 2017 v1.0.0311)
 - [mk2v28b1]        Mortal Kombat II ver 2.8 beta
 - [outrunm]         Out Run (with music) by cmonkey
 - [pooyandiag]      Pooyan Diagnostics by Shoestring
