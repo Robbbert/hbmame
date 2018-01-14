@@ -51,6 +51,7 @@ public:
 	DECLARE_DRIVER_INIT(kof2k3pcd);
 	DECLARE_DRIVER_INIT(kof10thu);
 	DECLARE_DRIVER_INIT(kogd);
+	DECLARE_DRIVER_INIT(lbsp);
 	DECLARE_DRIVER_INIT(matrima);
 	DECLARE_DRIVER_INIT(matrimd);
 	DECLARE_DRIVER_INIT(matrmehc);
@@ -114,6 +115,17 @@ ADDRESS_MAP_END
 static MACHINE_CONFIG_DERIVED( samsho2sp, neogeo_noslot )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
+MACHINE_CONFIG_END
+
+// used by lbsp
+ADDRESS_MAP_START( lbsp_map, AS_PROGRAM, 16, neogeo_state )
+	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x700000) // extra rom
+	AM_IMPORT_FROM( main_map_noslot )
+ADDRESS_MAP_END
+
+static MACHINE_CONFIG_DERIVED( lbsp, neogeo_noslot )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(lbsp_map)
 MACHINE_CONFIG_END
 
 /******************************************************************************/

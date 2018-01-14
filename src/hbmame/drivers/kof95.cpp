@@ -1,9 +1,10 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+// The King of Fighters '95
 
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof95sp )
+DRIVER_INIT_MEMBER( neogeo_hbmame, kof95sp ) // thx FBA
 {
 	DRIVER_INIT_CALL(neogeo);
 	uint32_t i;
