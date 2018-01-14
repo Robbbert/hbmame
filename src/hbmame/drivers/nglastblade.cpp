@@ -634,7 +634,7 @@ ROM_START( lb2ehu ) /* The Last Blade 2 - Enhance by UNKNOWN - (Can choose Kaede
 	ROM_LOAD16_BYTE( "243-c6.c6",  0x2000001, 0x800000, CRC(ec9c36d0) SHA1(e145e9e359000dda6e1dfe95a996bc6d29cfca21) )
 ROM_END
 
-ROM_START( lb2pl )
+ROM_START( lb2pl ) // FBA = lastbld2eh; Unlock "EX" mode (highlight Speed and press C) & Enable hidden characters
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "243pl.p1", 0x000000, 0x100000, CRC(8AF4B6E2) SHA1(2ea9a364bd7614eb93c5cbb3f571765c7af3af71) )
 	ROM_LOAD16_WORD_SWAP( "243pl.p2", 0x100000, 0x400000, CRC(EEF07572) SHA1(ba20c498dbdc2a1d664e5a3aeb3ffcd128c2a248) )

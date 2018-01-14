@@ -9,6 +9,7 @@ What's new in HBMAME
 New Working Games
 -----------------
 - [doubledrsp]      Double Dragon (Special 2017 v1.0.0311)
+- [kof2k2pl17]      Kof 2002 (Plus 2017)
 - [kof95sp]         Kof '95 (Special 2017 v1.0.0627)
 - [kof95sp2]        Kof '95 (Special 2017 v1.0.0613)
 - [lbsp]            The Last Blade (Special 2017 v1.0.0701)

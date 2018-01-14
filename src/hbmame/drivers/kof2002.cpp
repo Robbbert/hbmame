@@ -67,6 +67,26 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2ps2a )
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 }
 
+DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k2pl17 )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
+	uint32_t i;
+	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	for (i = 0; i < 0x100000/2; i++)
+	{
+		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
+		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
+	}
+	for (i = 0x700000/2; i < 0x720000/2; i++)
+	{
+		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
+		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
+	}
+	rom[0x700178/2] = 0x4e75;
+}
+
 
 
 ROM_START( kof200215 ) // all confirmed
@@ -2436,6 +2456,31 @@ ROM_START( kof2k2pjw ) /* The King of Fighters 2002 - Enhance by Jason/K3 and We
 	ROM_LOAD16_BYTE( "265-c8.c8", 0x3000001, 0x800000, CRC(ab0bb549) SHA1(d23afb60b7f831f7d4a98ad3c4a00ee19877a1ce) )
 ROM_END
 
+ROM_START( kof2k2pl17 ) // KOF2k2plus2017
+	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265pl17.p1", 0x000000, 0x100000, CRC(bd94702d) SHA1(85f1c0930ebf160eeb0995c00eab9bfd896b87e3) )
+	ROM_LOAD16_WORD_SWAP( "265pl17.p2", 0x100000, 0x500000, CRC(76e75315) SHA1(f95cc585676a3d2d49b4249fea3872fd7f4af5ef) )
+	ROM_LOAD16_WORD_SWAP( "265pl17.p3", 0x700000, 0x020000, CRC(6bfe80b0) SHA1(2ea3e2ed1bf5e20c256a41dd5c1160e945fa333e) )
+
+	NEO_SFIX_128K( "265pl17.s1", CRC(96bdd036) SHA1(62baba893e10dbed5c5099040b07432c0737be42) )
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265-m1.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265-v1.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
+	ROM_LOAD( "265-v2.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265pl17.c1", 0x0000000, 0x800000, CRC(93cf6345) SHA1(1e4194556082ed29bab45a5ccf42022c9c9515b0) )
+	ROM_LOAD16_BYTE( "265pl17.c2", 0x0000001, 0x800000, CRC(d7373d66) SHA1(ed1040e2433480c89ffbae4dc854984cc734e15d) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265d.c7", 0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
+	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
+ROM_END
+
 ROM_START( kof2k2plb ) /* bootleg - same as MAME kf2k2pls except m1 & s1 are different */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "2k2-p1p.bin",0x000000, 0x100000, CRC(3ab03781) SHA1(86946c19f1c4d9ab5cde86688d698bf63118a39d) )
@@ -3666,6 +3711,7 @@ GAME( 2002, kof2k2ori,   kof2002, neogeo_noslot, neogeo, neogeo_state,        ne
 GAME( 2002, kof2k2ori2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof2002 (Orochi's Iori by (FCHT) - Remixed by NEHT (Set 2))", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2pa,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2dbh,ROT0, "hack", "Kof2002 (Plus (hack 2))", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2pjw,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Jason/K3 and Wesker", "Kof2002 Plus (Jason/K3 and Wesker)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k2pl17,  kof2002, lbsp,          neogeo, neogeo_hbmame,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus 2017 (2017-12-25)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k2dbh,ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2pr,    kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - 030607)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_hbmame,       kof2002m, ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - 030607 Older?)", MACHINE_SUPPORTS_SAVE )
