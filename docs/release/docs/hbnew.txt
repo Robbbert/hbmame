@@ -14,6 +14,7 @@ New Working Games
 - [mk2v28b1]        Mortal Kombat II ver 2.8 beta
 - [outrunm]         Out Run (with music) by cmonkey
 - [pooyandiag]      Pooyan Diagnostics by Shoestring
+- [samsho4sp]       Samurai Shodown IV (Special 2017)
 - [samsho2sp5]      Samurai Shodown II (Special 2017 v1.1)
 - [scroller]        Horizontal Scroll demo on pacman hardware by Hurray Banana
 - [umk3r13b1]       Ultimate Mortal Kombat 3 rev 1.3 beta 1
