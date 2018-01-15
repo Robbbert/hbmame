@@ -1073,40 +1073,40 @@ bool renderer_d3d9::device_verify_caps()
 	// verify device capabilities
 	if (!(caps.DevCaps & D3DDEVCAPS_CANRENDERAFTERFLIP))
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not support rendering after a page\n");
-		osd_printf_error("flip.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support rendering after a page\n");
+		osd_printf_verbose("flip.\n");
 		success = false;
 	}
 
 	if (!(caps.DevCaps & D3DDEVCAPS_HWRASTERIZATION))
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not support hardware rendering.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support hardware rendering.\n");
 		success = false;
 	}
 
 	// verify texture operation capabilities
 	if (!(caps.TextureOpCaps & D3DTEXOPCAPS_MODULATE))
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not support modulate-type blending.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support modulate-type blending.\n");
 		success = false;
 	}
-#if 0
+
 	if (caps.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL)
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not fully support non-power-of-two\n");
-		osd_printf_error("textures.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not fully support non-power-of-two\n");
+		osd_printf_verbose("textures.\n");
 		success = false;
 	}
 
 	if (caps.TextureCaps & D3DPTEXTURECAPS_POW2)
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not support non-power-of-two textures.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support non-power-of-two textures.\n");
 		success = false;
 	}
-#endif
+
 	if (caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not support non-square textures.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support non-square textures.\n");
 		success = false;
 	}
 
@@ -1114,16 +1114,16 @@ bool renderer_d3d9::device_verify_caps()
 	result = d3dintf->d3dobj->CheckDeviceFormat(m_adapter, D3DDEVTYPE_HAL, m_pixformat, 0, D3DRTYPE_TEXTURE, D3DFMT_A8R8G8B8);
 	if (FAILED(result))
 	{
-		osd_printf_error("Direct3D Error: Your graphics card does not support the A8R8G8B8 texture format.\n");
+		osd_printf_verbose("Direct3D Error: Your graphics card does not support the A8R8G8B8 texture format.\n");
 		success = false;
 	}
 
 	if (!success)
 	{
-		osd_printf_error("This feature or features are required to use the Direct3D renderer. Please\n");
-		osd_printf_error("select another renderer using the -video option or contact the MAME developers\n");
-		osd_printf_error("with information about your system.\n");
-		return false;
+		osd_printf_verbose("This feature or features are required to use the Direct3D renderer. Please\n");
+		osd_printf_verbose("select another renderer using the -video option or contact the MAME developers\n");
+		osd_printf_verbose("with information about your system.\n");
+		//return false;
 	}
 
 	m_gamma_supported = ((caps.Caps2 & D3DCAPS2_FULLSCREENGAMMA) != 0);
