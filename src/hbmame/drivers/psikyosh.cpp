@@ -52,3 +52,46 @@ ROM_END
 /*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
 GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "hack", "Strikers 1945 III (hack R3)", MACHINE_SUPPORTS_SAVE )
+
+//PSmame
+
+ROM_START( darakuhc01 )
+	/* main program */
+	ROM_REGION( 0x200000, "maincpu", 0)
+	ROM_LOAD32_WORD_SWAP( "4_proghc01.u18", 0x000002, 0x080000, CRC(a599fe9f) SHA1(12680fcab83b5cc3b53b19372096a97067e58fdc) )
+	ROM_LOAD32_WORD_SWAP( "3_proghc01.u17", 0x000000, 0x080000, CRC(2033dd8b) SHA1(b787b4f94b268f8585edc2ffa75dc2ccba5ad6f8) )
+	ROM_LOAD16_WORD_SWAP( "prog.u16",     0x100000, 0x100000, CRC(3742e990) SHA1(dd4b8777e57245151b3d520ed1bdab207530420b) )
+
+	ROM_REGION( 0x3400000, "gfx1", 0 )
+	ROM_LOAD32_WORD( "0l.u4",  0x0000000, 0x400000, CRC(565d8427) SHA1(090ce9213c530d29e488cfb89bb39fd7169985d5) )
+	ROM_LOAD32_WORD( "0h.u13", 0x0000002, 0x400000, CRC(9a602630) SHA1(ab176490b36aec7ce30d1cf20b57c02c926c59d3) )
+	ROM_LOAD32_WORD( "1l.u3",  0x0800000, 0x400000, CRC(ac5ce8e1) SHA1(7df6a04ea2530cc669581474e8b8ee6f59caae1b) )
+	ROM_LOAD32_WORD( "1h.u12", 0x0800002, 0x400000, CRC(b0a59f7b) SHA1(8704705aa0977f11da8bcdafae6e2531190878d0) )
+	ROM_LOAD32_WORD( "2l.u2",  0x1000000, 0x400000, CRC(2daa03b2) SHA1(475badc60cbd26786242d685a3d7dbaf385862a8) )
+	ROM_LOAD32_WORD( "2h.u20", 0x1000002, 0x400000, CRC(e98e185a) SHA1(124d5fcf6cfb1faf70d665b687564bf6589d17c4) )
+	ROM_LOAD32_WORD( "3l.u1",  0x1800000, 0x400000, CRC(1d372aa1) SHA1(e5965a1d8919409a314dfd56482a848d6ab9f5ac) )
+	ROM_LOAD32_WORD( "3h.u19", 0x1800002, 0x400000, CRC(597f3f15) SHA1(62bf74ed29732e6cc1979458745cdb53a8edddf3) )
+	ROM_LOAD32_WORD( "4l.u10", 0x2000000, 0x400000, CRC(e3d58cd8) SHA1(9482d0b71f840d72b20029804cfc8dca207462de) )
+	ROM_LOAD32_WORD( "4h.u31", 0x2000002, 0x400000, CRC(aebc9cd0) SHA1(c20a1f9851ace74e00f1a0746e0c9e751ccec336) )
+	ROM_LOAD32_WORD( "5l.u9",  0x2800000, 0x400000, CRC(eab5a50b) SHA1(76ce96e89afc438bafb9f8caa86eb48fb7e4e154) )
+	ROM_LOAD32_WORD( "5h.u30", 0x2800002, 0x400000, CRC(f157474f) SHA1(89509f0772a40829070cea708c21438ff61d1019) )
+	ROM_LOAD32_WORD( "6l.u8",  0x3000000, 0x200000, CRC(9f008d1b) SHA1(9607e09bde430eefe126569a6e251114bc8f754b) )
+	ROM_LOAD32_WORD( "6h.u37", 0x3000002, 0x200000, CRC(acd2d0e3) SHA1(dee96bdf3b8efde1298b73c5e7dd62abcdc101cf) )
+
+	ROM_REGION( 0x400000, "ymf", 0 ) /* Samples */
+	ROM_LOAD( "sound.u32", 0x000000, 0x400000, CRC(ef2c781d) SHA1(1313f082f6dbe4da0efaf261226085eb7325667f) )
+
+	ROM_REGION( 0x100, "eeprom", 0 )
+	ROM_LOAD( "eeprom-daraku.bin", 0x0000, 0x0100, CRC(a9715297) SHA1(fcd32b936e0d05bad4ba4969ddec24aae7768cea) )
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+//Daraku Tenshi
+GAME( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, ps3, ROT0,   "Hacks", "Daraku Tenshi (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+

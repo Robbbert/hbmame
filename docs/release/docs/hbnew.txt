@@ -21,6 +21,8 @@ New Working Games
 - [samsho2sp5]      Samurai Shodown II (Special 2017 v1.1)
 - [scroller]        Horizontal Scroll demo on pacman hardware by Hurray Banana
 - [umk3r13b1]       Ultimate Mortal Kombat 3 rev 1.3 beta 1
+- [wofs32]          Tenchi wo Kurau II (Chinese hack: BOSS Cho Unparalleled Edition)
+- [wofs33]          Tenchi wo Kurau II (Chinese hack: Bloody Plus Hack Zhanghw511)
 
 
 

@@ -331,3 +331,34 @@ GAME( 2001, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_hbmame,       s
 GAME( 2001, sengoku3s,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Sjx", "Sengoku 3 (Evolution v1.0 hack by Sjx (FCHT))", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame
+
+
+ /*********************************
+           Sengoku 3 
+**********************************/
+
+ROM_START( sengoku3s01 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "261hc01.p1", 0x000000, 0x200000, CRC(29092ccb) SHA1(03983a49d0dd5400ad531fdf3948aae572299169) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_128K( "261k.m1", CRC(36ed9cdd) SHA1(78a7d755e9e9f52255ac6228d9d402fd6a02c126) )
+
+	ROM_REGION( 0x0e00000, "ymsnd", 0 )
+	ROM_LOAD( "261-v1.v1", 0x000000, 0x400000, CRC(64c30081) SHA1(f9ebd20cf59b72e864b7274c1bdb6d99ecaf4595) )
+	ROM_LOAD( "261-v2.v2", 0x400000, 0x400000, CRC(392a9c47) SHA1(7ab90a54089236ca6c3ef1af8e566a8025d38159) )
+	ROM_LOAD( "261-v3.v3", 0x800000, 0x400000, CRC(c1a7ebe3) SHA1(1d7bb481451f5ee0457e954bb5210300182c3c9c) )
+	ROM_LOAD( "261-v4.v4", 0xc00000, 0x200000, CRC(9000d085) SHA1(11157b355ab4eb6627e9f322ed875332d3d77349) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "261-c1.c1", 0x0000000, 0x800000, CRC(ded84d9c) SHA1(d960523b813d4fae06d716298d4e431a5c77a0c5) )
+	ROM_LOAD16_BYTE( "261-c2.c2", 0x0000001, 0x800000, CRC(b8eb4348) SHA1(619d24312549932959481fa58f43f11c048e1ca5) )
+	ROM_LOAD16_BYTE( "261-c3.c3", 0x1000000, 0x800000, CRC(84e2034a) SHA1(38ec4ae4b86933a25c9a03799b8cade4b1346401) )
+	ROM_LOAD16_BYTE( "261-c4.c4", 0x1000001, 0x800000, CRC(0b45ae53) SHA1(a19fb21408ab633aee8bbf38bf43b5e26766b355) )
+ROM_END
+
+GAME( 2001, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )

@@ -89,3 +89,29 @@ GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,
 GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga, ROT270, "Zack", "Battle Garegga (Europe / USA / Japan / Asia) (Zakk version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
 GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
+
+//PSmame
+
+ROM_START( snowbro2xs )
+	ROM_REGION( 0x080000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "pro-4xs", 0x000000, 0x080000, CRC(1ad75ae7) SHA1(4c9d7480df4b94aaee5616939547456a0c560f19) )
+
+	ROM_REGION( 0x300000, "gp9001", 0 )
+	ROM_LOAD( "rom2-l", 0x000000, 0x100000, CRC(e9d366a9) SHA1(e87e3966fce3395324b90db6c134b3345104c04b) )
+	ROM_LOAD( "rom2-h", 0x100000, 0x080000, CRC(9aab7a62) SHA1(611f6a15fdbac5d3063426a365538c1482e996bf) )
+	ROM_LOAD( "rom3-l", 0x180000, 0x100000, CRC(eb06e332) SHA1(7cd597bfffc153d178530c0f0903bebd751c9dd1) )
+	ROM_LOAD( "rom3-h", 0x280000, 0x080000, CRC(df4a952a) SHA1(b76af61c8437caca573ff1312832898666a611aa) )
+
+	ROM_REGION( 0x80000, "oki", 0 )
+	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(638f341e) SHA1(aa3fca25f099339ece1878ea730c5e9f18ec4823) )
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
+GAME( 1994, snowbro2xs,   snowbro2,        snowbro2, snowbro2, driver_device,   0,       ROT0,   "Hacks", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
+
