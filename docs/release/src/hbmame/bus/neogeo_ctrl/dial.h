@@ -52,7 +52,7 @@ private:
 
 
 // device type definition
-extern const device_type NEOGEO_DIAL;
+DECLARE_DEVICE_TYPE(NEOGEO_DIAL, neogeo_dial_device)
 
 
 #endif

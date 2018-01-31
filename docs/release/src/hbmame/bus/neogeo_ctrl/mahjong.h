@@ -26,7 +26,7 @@ class neogeo_mjctrl_ac_device : public device_t,
 {
 public:
 	// construction/destruction
-	neogeo_mjctrl_ac_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
+	neogeo_mjctrl_ac_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 	neogeo_mjctrl_ac_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
@@ -68,8 +68,8 @@ private:
 
 
 // device type definition
-extern const device_type NEOGEO_MJCTRL;
-extern const device_type NEOGEO_MJCTRL_AC;
+DECLARE_DEVICE_TYPE(NEOGEO_MJCTRL, neogeo_mjctrl_device)
+DECLARE_DEVICE_TYPE(NEOGEO_MJCTRL_AC, neogeo_mjctrl_ac_device)
 
 
 #endif

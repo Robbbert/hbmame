@@ -3,11 +3,11 @@
 #include "neogeo.h"
 
 
-const device_type NGBOOTLEG_PROT = device_creator<ngbootleg_prot_device>;
+DEFINE_DEVICE_TYPE(NGBOOTLEG_PROT, ngbootleg_prot_device, "ngbootleg_prot", "NeoGeo Protection (Bootleg)")
 
 
 ngbootleg_prot_device::ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, NGBOOTLEG_PROT, "NeoGeo Protection (Bootleg)", tag, owner, clock, "ngbootleg_prot", __FILE__)
+	: device_t(mconfig, NGBOOTLEG_PROT, tag, owner, clock)
 	, kof2k3_overlay(0)
 	, m_mainrom(nullptr)
 	, m_fixedrom(nullptr)
@@ -62,7 +62,7 @@ void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(uint8_t* fixed, uint32_t f
 	else if (value == 2)
 	{
 		for( i = 0; i < sx_size; i++ )
-			rom[ i ] = BITSWAP8( rom[ i ], 7, 6, 0, 4, 3, 2, 1, 5 );
+			rom[ i ] = bitswap<8>( rom[ i ], 7, 6, 0, 4, 3, 2, 1, 5 );
 	}
 }
 
@@ -117,7 +117,7 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof10th_custom_w )
 	}
 	else
 	{ // Write S data on-the-fly
-		m_fixedrom[offset] = BITSWAP8(data,7,6,0,4,3,2,1,5);
+		m_fixedrom[offset] = bitswap<8>(data,7,6,0,4,3,2,1,5);
 	}
 }
 
@@ -152,7 +152,7 @@ void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neo
 	memcpy(m_cartridge_ram2, cpurom + 0xe0000, 0x20000);
 
 	// HACK: only save this at device_start (not allowed later)
-	if (machine().phase() <= MACHINE_PHASE_INIT)
+	if (machine().phase() <= machine_phase::INIT)
 		save_pointer(NAME(m_fixedrom), 0x40000);
 }
 
@@ -167,7 +167,7 @@ void ngbootleg_prot_device::decrypt_kof10th(uint8_t* cpurom, uint32_t cpurom_siz
 
 	for (i = 0; i < 0x900000; i++)
 	{
-		j = BITSWAP24(i,23,22,21,20,19,18,17,16,15,14,13,12,11,2,9,8,7,1,5,4,3,10,6,0);
+		j = bitswap<24>(i,23,22,21,20,19,18,17,16,15,14,13,12,11,2,9,8,7,1,5,4,3,10,6,0);
 		src[j] = dst[i];
 	}
 
@@ -224,7 +224,7 @@ void ngbootleg_prot_device::kf2k5uni_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 	{
 		for (j = 0; j < 0x80; j+=2)
 		{
-			ofst = BITSWAP8(j, 0, 3, 4, 5, 6, 1, 2, 7);
+			ofst = bitswap<8>(j, 0, 3, 4, 5, 6, 1, 2, 7);
 			memcpy(&dst[j], src + i + ofst, 2);
 		}
 		memcpy(src + i, &dst[0], 0x80);
@@ -239,7 +239,7 @@ void ngbootleg_prot_device::kf2k5uni_sx_decrypt(uint8_t* fixedrom, uint32_t fixe
 	uint8_t *srom = fixedrom;
 
 	for (i = 0; i < 0x20000; i++)
-		srom[i] = BITSWAP8(srom[i], 4, 5, 6, 7, 0, 1, 2, 3);
+		srom[i] = bitswap<8>(srom[i], 4, 5, 6, 7, 0, 1, 2, 3);
 }
 
 void ngbootleg_prot_device::kf2k5uni_mx_decrypt(uint8_t* audiorom, uint32_t audiorom_size)
@@ -248,7 +248,7 @@ void ngbootleg_prot_device::kf2k5uni_mx_decrypt(uint8_t* audiorom, uint32_t audi
 	uint8_t *mrom = audiorom;
 
 	for (i = 0; i < 0x30000; i++)
-		mrom[i] = BITSWAP8(mrom[i], 4, 5, 6, 7, 0, 1, 2, 3);
+		mrom[i] = bitswap<8>(mrom[i], 4, 5, 6, 7, 0, 1, 2, 3);
 }
 
 void ngbootleg_prot_device::decrypt_kf2k5uni(uint8_t* cpurom, uint32_t cpurom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
@@ -286,7 +286,7 @@ void ngbootleg_prot_device::kof2002b_gfx_decrypt(uint8_t *src, int size)
 		for ( j = 0; j < 0x200; j++ )
 		{
 			int n = (j & 0x38) >> 3;
-			int ofst = BITSWAP16(j, 15, 14, 13, 12, 11, 10, 9, t[n][0], t[n][1], t[n][2], 5, 4, 3, t[n][3], t[n][4], t[n][5]);
+			int ofst = bitswap<16>(j, 15, 14, 13, 12, 11, 10, 9, t[n][0], t[n][1], t[n][2], 5, 4, 3, t[n][3], t[n][4], t[n][5]);
 			memcpy( src+i+ofst*128, &dst[j*128], 128 );
 		}
 	}
@@ -309,7 +309,7 @@ void ngbootleg_prot_device::kf2k2mp_decrypt(uint8_t* cpurom, uint32_t cpurom_siz
 	{
 		for (j = 0; j < 0x80 / 2; j++)
 		{
-			int ofst = BITSWAP8( j, 6, 7, 2, 3, 4, 5, 0, 1 );
+			int ofst = bitswap<8>( j, 6, 7, 2, 3, 4, 5, 0, 1 );
 			memcpy(dst + j * 2, src + i + ofst * 2, 2);
 		}
 		memcpy(src + i, dst, 0x80);
@@ -480,7 +480,7 @@ void ngbootleg_prot_device::ct2k3sp_sx_decrypt( uint8_t* fixedrom, uint32_t fixe
 	memcpy( &buf[0], rom, rom_size );
 
 	for( i = 0; i < rom_size; i++ ){
-		ofst = BITSWAP24( (i & 0x1ffff), 23, 22, 21, 20, 19, 18, 17, 3, 0,  1,  4,  2, 13, 14, 16, 15, 5,  6, 11, 10,  9,  8,  7, 12 );
+		ofst = bitswap<24>( (i & 0x1ffff), 23, 22, 21, 20, 19, 18, 17, 3, 0,  1,  4,  2, 13, 14, 16, 15, 5,  6, 11, 10,  9,  8,  7, 12 );
 
 		ofst += (i >> 17) << 17;
 
@@ -586,7 +586,7 @@ void ngbootleg_prot_device::lans2004_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsn
 {
 	uint8_t *rom = ymsndrom;
 	for (uint8_t i = 0; i < 0xA00000; i++)
-		rom[i] = BITSWAP8(rom[i], 0, 1, 5, 4, 3, 2, 6, 7);
+		rom[i] = bitswap<8>(rom[i], 0, 1, 5, 4, 3, 2, 6, 7);
 }
 
 void ngbootleg_prot_device::lans2004_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
@@ -682,7 +682,7 @@ void ngbootleg_prot_device::svcboot_px_decrypt(uint8_t* cpurom, uint32_t cpurom_
 
 	for( i = 0; i < size / 2; i++ )
 	{
-		ofst = BITSWAP8( (i & 0x0000ff), 7, 6, 1, 0, 3, 2, 5, 4 );
+		ofst = bitswap<8>( (i & 0x0000ff), 7, 6, 1, 0, 3, 2, 5, 4 );
 		ofst += (i & 0xffff00);
 		memcpy( &src[ i * 2 ], &dst[ ofst * 2 ], 0x02 );
 	}
@@ -705,7 +705,7 @@ void ngbootleg_prot_device::svcboot_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_s
 		int bit1 = bitswap4_tbl[ idx ][ 1 ];
 		int bit2 = bitswap4_tbl[ idx ][ 2 ];
 		int bit3 = bitswap4_tbl[ idx ][ 3 ];
-		ofst = BITSWAP8( (i & 0x0000ff), 7, 6, 5, 4, bit3, bit2, bit1, bit0 );
+		ofst = bitswap<8>( (i & 0x0000ff), 7, 6, 5, 4, bit3, bit2, bit1, bit0 );
 		ofst += (i & 0xfffff00);
 		memcpy( &src[ i * 0x80 ], &dst[ ofst * 0x80 ], 0x80 );
 	}
@@ -724,7 +724,7 @@ void ngbootleg_prot_device::svcplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom_
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < size / 2; i++ )
 	{
-		ofst = BITSWAP24( (i & 0xfffff), 0x17, 0x16, 0x15, 0x14, 0x13, 0x00, 0x01, 0x02, 0x0f, 0x0e, 0x0d, 0x0c,
+		ofst = bitswap<24>( (i & 0xfffff), 0x17, 0x16, 0x15, 0x14, 0x13, 0x00, 0x01, 0x02, 0x0f, 0x0e, 0x0d, 0x0c,
 			0x0b, 0x0a, 0x09, 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x10, 0x11, 0x12 );
 		ofst ^= 0x0f0007;
 		ofst += (i & 0xff00000);
@@ -771,7 +771,7 @@ void ngbootleg_prot_device::svcsplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < size / 2; i++ )
 	{
-		ofst = BITSWAP16( (i & 0x007fff), 0x0f, 0x00, 0x08, 0x09, 0x0b, 0x0a, 0x0c, 0x0d, 0x04, 0x03, 0x01, 0x07, 0x06, 0x02, 0x05, 0x0e );
+		ofst = bitswap<16>( (i & 0x007fff), 0x0f, 0x00, 0x08, 0x09, 0x0b, 0x0a, 0x0c, 0x0d, 0x04, 0x03, 0x01, 0x07, 0x06, 0x02, 0x05, 0x0e );
 		ofst += (i & 0x078000);
 		ofst += sec[ (i & 0xf80000) >> 19 ] << 19;
 		memcpy( &src[ i * 2 ], &dst[ ofst * 2 ], 0x02 );
@@ -875,7 +875,7 @@ void ngbootleg_prot_device::kf2k3pl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_
 	{
 		memcpy(&tmp[0], &rom16[i], 0x100000);
 		for (j = 0; j < 0x100000/2; j++)
-			rom16[i+j] = tmp[BITSWAP24(j,23,22,21,20,19,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18)];
+			rom16[i+j] = tmp[bitswap<24>(j,23,22,21,20,19,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18)];
 	}
 
 	/* patched by Altera protection chip on PCB */
@@ -912,7 +912,7 @@ void ngbootleg_prot_device::kf2k3upl_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 
 		for( i = 0; i < 0x2000 / 2; i++ )
 		{
-			ofst = (i & 0xff00) + BITSWAP8( (i & 0x00ff), 7, 6, 0, 4, 3, 2, 1, 5 );
+			ofst = (i & 0xff00) + bitswap<8>( (i & 0x00ff), 7, 6, 0, 4, 3, 2, 1, 5 );
 			memcpy( &rom[ i * 2 ], &buf[ ofst * 2 ], 2 );
 		}
 	}
@@ -935,7 +935,7 @@ void ngbootleg_prot_device::samsho5b_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 
 	for( i = 0; i < px_size / 2; i++ )
 	{
-		ofst = BITSWAP8( (i & 0x000ff), 7, 6, 5, 4, 3, 0, 1, 2 );
+		ofst = bitswap<8>( (i & 0x000ff), 7, 6, 5, 4, 3, 0, 1, 2 );
 		ofst += (i & 0xfffff00);
 		ofst ^= 0x060005;
 		memcpy( &rom[ i * 2 ], &buf[ ofst * 2 ], 0x02 );
@@ -954,14 +954,14 @@ void ngbootleg_prot_device::samsho5b_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsn
 	uint8_t *rom = ymsndrom;
 
 	for( int i = 0; i < vx_size; i++ )
-		rom[ i ] = BITSWAP8( rom[ i ], 0, 1, 5, 4, 3, 2, 6, 7 );
+		rom[ i ] = bitswap<8>( rom[ i ], 0, 1, 5, 4, 3, 2, 6, 7 );
 }
 
 
 /* Matrimelee / Shin Gouketsuji Ichizoku Toukon (bootleg) */
 
 
-#define MATRIMBLZ80( i ) ( i^(BITSWAP8(i&0x3,4,3,1,2,0,7,6,5)<<8) )
+#define MATRIMBLZ80( i ) ( i^(bitswap<8>(i&0x3,4,3,1,2,0,7,6,5)<<8) )
 
 void ngbootleg_prot_device::matrimbl_decrypt(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size)
 {
@@ -1006,11 +1006,11 @@ void ngbootleg_prot_device::matrimbl_decrypt(uint8_t* sprrom, uint32_t sprrom_si
 
 /***********************************************************************************************************************************/
 
-const device_type KOG_PROT = device_creator<kog_prot_device>;
+DEFINE_DEVICE_TYPE(KOG_PROT, kog_prot_device, "kog_prot", "NeoGeo Protection (King of Gladiator)")
 
 
 kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, KOG_PROT, "NeoGeo Protection (King of Gladiator)", tag, owner, clock, "kog_prot", __FILE__)
+	: device_t(mconfig, KOG_PROT, tag, owner, clock)
 	, m_jumper(*this, "JUMPER")
 	{ }
 
@@ -1107,11 +1107,11 @@ ioport_constructor kog_prot_device::device_input_ports() const
 /***********************************************************************************************************************************/
 
 
-const device_type CMC_PROT = device_creator<cmc_prot_device>;
+DEFINE_DEVICE_TYPE(CMC_PROT, cmc_prot_device, "cmc_prot", "NeoGeo Protection (CMC)")
 
 
 cmc_prot_device::cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, CMC_PROT, "NeoGeo Protection (CMC)", tag, owner, clock, "cmc_prot", __FILE__)
+	: device_t(mconfig, CMC_PROT, tag, owner, clock)
 	, type0_t03(nullptr)
 	, type0_t12(nullptr)
 	, type1_t03(nullptr)
@@ -1702,15 +1702,15 @@ int cmc_prot_device::m1_address_scramble(int address, uint16_t key)
 	int block = (address>>16)&7;
 	int aux = address&0xffff;
 
-	aux ^= BITSWAP16(key,12,0,2,4,8,15,7,13,10,1,3,6,11,9,14,5);
-	aux = BITSWAP16(aux,
+	aux ^= bitswap<16>(key,12,0,2,4,8,15,7,13,10,1,3,6,11,9,14,5);
+	aux = bitswap<16>(aux,
 		p1[block][15],p1[block][14],p1[block][13],p1[block][12],
 		p1[block][11],p1[block][10],p1[block][9],p1[block][8],
 		p1[block][7],p1[block][6],p1[block][5],p1[block][4],
 		p1[block][3],p1[block][2],p1[block][1],p1[block][0]);
 		aux ^= m1_address_0_7_xor[(aux>>8)&0xff];
 	aux ^= m1_address_8_15_xor[aux&0xff]<<8;
-	aux = BITSWAP16(aux, 7,15,14,6,5,13,12,4,11,3,10,2,9,1,8,0);
+	aux = bitswap<16>(aux, 7,15,14,6,5,13,12,4,11,3,10,2,9,1,8,0);
 
 	return (block<<16)|aux;
 }
@@ -1773,11 +1773,11 @@ void cmc_prot_device::neogeo_cmc50_m1_decrypt(uint8_t* romcrypt, uint32_t romcry
 
 /***********************************************************************************************************************************/
 
-const device_type FATFURY2_PROT = device_creator<fatfury2_prot_device>;
+DEFINE_DEVICE_TYPE(FATFURY2_PROT, fatfury2_prot_device, "fatfury2_prot", "NeoGeo Protection (Fatal Fury 2)")
 
 
 fatfury2_prot_device::fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, FATFURY2_PROT, "NeoGeo Protection (Fatal Fury 2)", tag, owner, clock, "fatfury2_prot", __FILE__)
+	: device_t(mconfig, FATFURY2_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	, m_fatfury2_prot_data(0)
 	{ }
@@ -1880,11 +1880,11 @@ void fatfury2_prot_device::fatfury2_install_protection(cpu_device* maincpu, neog
 /***********************************************************************************************************************************/
 
 
-const device_type KOF2002_PROT = device_creator<kof2002_prot_device>;
+DEFINE_DEVICE_TYPE(KOF2002_PROT, kof2002_prot_device, "kof2002_prot", "NeoGeo Protection (KOF2002)")
 
 
 kof2002_prot_device::kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, KOF2002_PROT, "NeoGeo Protection (KOF2002)", tag, owner, clock, "kof2002_prot", __FILE__)
+	: device_t(mconfig, KOF2002_PROT, tag, owner, clock)
 	{ }
 
 
@@ -1939,11 +1939,11 @@ void kof2002_prot_device::samsh5sp_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_
 
 /***********************************************************************************************************************************/
 
-const device_type KOF98_PROT = device_creator<kof98_prot_device>;
+DEFINE_DEVICE_TYPE(KOF98_PROT, kof98_prot_device, "kof98_prot", "NeoGeo Protection (KOF98)")
 
 
 kof98_prot_device::kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, KOF98_PROT, "NeoGeo Protection (KOF98)", tag, owner, clock, "kof98_prot", __FILE__)
+	: device_t(mconfig, KOF98_PROT, tag, owner, clock)
 	, kof98_prot_state(0)
 	{ }
 
@@ -2068,11 +2068,11 @@ void kof98_prot_device::install_kof98_protection(cpu_device* maincpu)
 /***********************************************************************************************************************************/
 
 
-const device_type MSLUGX_PROT = device_creator<mslugx_prot_device>;
+DEFINE_DEVICE_TYPE(MSLUGX_PROT, mslugx_prot_device, "mslugx_prot", "NeoGeo Protection (Metal Slug X)")
 
 
 mslugx_prot_device::mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, MSLUGX_PROT, "NeoGeo Protection (Metal Slug X)", tag, owner, clock, "mslugx_prot", __FILE__)
+	: device_t(mconfig, MSLUGX_PROT, tag, owner, clock)
 	, m_mslugx_counter(0)
 	, m_mslugx_command(0)
 	{ }
@@ -2160,11 +2160,11 @@ void mslugx_prot_device::mslugx_install_protection(cpu_device* maincpu)
 /***********************************************************************************************************************************/
 
 
-const device_type PCM2_PROT = device_creator<pcm2_prot_device>;
+DEFINE_DEVICE_TYPE(PCM2_PROT, pcm2_prot_device, "pcm2_prot", "NeoGeo Protection (NEOPCM2)")
 
 
 pcm2_prot_device::pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, PCM2_PROT, "NeoGeo Protection (NEOPCM2)", tag, owner, clock, "pcm2_prot", __FILE__)
+	: device_t(mconfig, PCM2_PROT, tag, owner, clock)
 	{ }
 
 
@@ -2226,7 +2226,7 @@ void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
 	memcpy(&buf[0], src, 0x1000000);
 	for (i=0; i<0x1000000; i++)
 	{
-		j = BITSWAP24(i,23,22,21,20,19,18,17,0,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,16);
+		j = bitswap<24>(i,23,22,21,20,19,18,17,0,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,16);
 		j ^= addrs[value][1];
 		d=((i + addrs[value][0]) & 0xffffff);
 		src[j] = buf[d] ^ xordata[value][j & 0x7];
@@ -2236,11 +2236,11 @@ void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
 /***********************************************************************************************************************************/
 
 
-const device_type PVC_PROT = device_creator<pvc_prot_device>;
+DEFINE_DEVICE_TYPE(PVC_PROT, pvc_prot_device, "pvc_prot", "NeoGeo Protection (PVC)")
 
 
 pvc_prot_device::pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, PVC_PROT, "NeoGeo Protection (PVC)", tag, owner, clock, "pvc_prot", __FILE__)
+	: device_t(mconfig, PVC_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	{ }
 
@@ -2341,7 +2341,7 @@ void pvc_prot_device::mslug5_decrypt_68k(uint8_t* rom, uint32_t size)
 	{
 		uint16_t rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
-		rom16 = BITSWAP16( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
+		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
 		rom[BYTE_XOR_LE(i+2)] = rom16>>8;
 	}
@@ -2350,13 +2350,13 @@ void pvc_prot_device::mslug5_decrypt_68k(uint8_t* rom, uint32_t size)
 
 	for( i = 0; i < 0x0100000 / 0x10000; i++ )
 	{
-		ofst = (i & 0xf0) + BITSWAP8( (i & 0x0f), 7, 6, 5, 4, 1, 0, 3, 2 );
+		ofst = (i & 0xf0) + bitswap<8>( (i & 0x0f), 7, 6, 5, 4, 1, 0, 3, 2 );
 		memcpy( &rom[ i * 0x10000 ], &buf[ ofst * 0x10000 ], 0x10000 );
 	}
 
 	for( i = 0x100000; i < 0x800000; i += 0x100 )
 	{
-		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00700) + (BITSWAP8( ((i & 0x0ff000) >> 12), 5, 4, 7, 6, 1, 0, 3, 2 ) << 12);
+		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00700) + (bitswap<8>( ((i & 0x0ff000) >> 12), 5, 4, 7, 6, 1, 0, 3, 2 ) << 12);
 		memcpy( &rom[ i ], &buf[ ofst ], 0x100 );
 	}
 
@@ -2385,7 +2385,7 @@ void pvc_prot_device::svc_px_decrypt(uint8_t* rom, uint32_t size)
 	{
 		uint16_t rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
-		rom16 = BITSWAP16( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
+		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
 		rom[BYTE_XOR_LE(i+2)] = rom16>>8;
 	}
@@ -2394,13 +2394,13 @@ void pvc_prot_device::svc_px_decrypt(uint8_t* rom, uint32_t size)
 
 	for( i = 0; i < 0x0100000 / 0x10000; i++ )
 	{
-		ofst = (i & 0xf0) + BITSWAP8( (i & 0x0f), 7, 6, 5, 4, 2, 3, 0, 1 );
+		ofst = (i & 0xf0) + bitswap<8>( (i & 0x0f), 7, 6, 5, 4, 2, 3, 0, 1 );
 		memcpy( &rom[ i * 0x10000 ], &buf[ ofst * 0x10000 ], 0x10000 );
 	}
 
 	for( i = 0x100000; i < 0x800000; i += 0x100 )
 	{
-		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00a00) + (BITSWAP8( ((i & 0x0ff000) >> 12), 4, 5, 6, 7, 1, 0, 3, 2 ) << 12);
+		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00a00) + (bitswap<8>( ((i & 0x0ff000) >> 12), 4, 5, 6, 7, 1, 0, 3, 2 ) << 12);
 		memcpy( &rom[ i ], &buf[ ofst ], 0x100 );
 	}
 
@@ -2427,20 +2427,20 @@ void pvc_prot_device::kf2k3pcb_decrypt_68k(uint8_t* rom, uint32_t size)
 	{
 		uint16_t rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
-		rom16 = BITSWAP16( rom16, 15, 14, 13, 12, 4, 5, 6, 7, 8, 9, 10, 11, 3, 2, 1, 0 );
+		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 4, 5, 6, 7, 8, 9, 10, 11, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
 		rom[BYTE_XOR_LE(i+2)] = rom16>>8;
 	}
 
 	for( i = 0; i < 0x0100000 / 0x10000; i++ )
 	{
-		ofst = (i & 0xf0) + BITSWAP8( (i & 0x0f), 7, 6, 5, 4, 1, 0, 3, 2 );
+		ofst = (i & 0xf0) + bitswap<8>( (i & 0x0f), 7, 6, 5, 4, 1, 0, 3, 2 );
 		memcpy( &buf[ i * 0x10000 ], &rom[ ofst * 0x10000 ], 0x10000 );
 	}
 
 	for( i = 0x100000; i < 0x900000; i += 0x100 )
 	{
-		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00300) + (BITSWAP8( ((i & 0x0ff000) >> 12), 4, 5, 6, 7, 1, 0, 3, 2 ) << 12);
+		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00300) + (bitswap<8>( ((i & 0x0ff000) >> 12), 4, 5, 6, 7, 1, 0, 3, 2 ) << 12);
 		memcpy( &buf[ i ], &rom[ ofst ], 0x100 );
 	}
 
@@ -2472,20 +2472,20 @@ void pvc_prot_device::kof2003_decrypt_68k(uint8_t* rom, uint32_t size)
 	{
 		uint16_t rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
-		rom16 = BITSWAP16( rom16, 15, 14, 13, 12, 5, 4, 7, 6, 9, 8, 11, 10, 3, 2, 1, 0 );
+		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 5, 4, 7, 6, 9, 8, 11, 10, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
 		rom[BYTE_XOR_LE(i+2)] = rom16>>8;
 	}
 
 	for( i = 0; i < 0x0100000 / 0x10000; i++ )
 	{
-		ofst = (i & 0xf0) + BITSWAP8((i & 0x0f), 7, 6, 5, 4, 0, 1, 2, 3);
+		ofst = (i & 0xf0) + bitswap<8>((i & 0x0f), 7, 6, 5, 4, 0, 1, 2, 3);
 		memcpy( &buf[ i * 0x10000 ], &rom[ ofst * 0x10000 ], 0x10000 );
 	}
 
 	for( i = 0x100000; i < 0x900000; i += 0x100)
 	{
-		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00800) + (BITSWAP8( ((i & 0x0ff000) >> 12), 4, 5, 6, 7, 1, 0, 3, 2 ) << 12);
+		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00800) + (bitswap<8>( ((i & 0x0ff000) >> 12), 4, 5, 6, 7, 1, 0, 3, 2 ) << 12);
 		memcpy( &buf[ i ], &rom[ ofst ], 0x100 );
 	}
 
@@ -2517,20 +2517,20 @@ void pvc_prot_device::kof2003h_decrypt_68k(uint8_t* rom, uint32_t size)
 	{
 		uint16_t rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
-		rom16 = BITSWAP16( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
+		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
 		rom[BYTE_XOR_LE(i+2)] = rom16>>8;
 	}
 
 	for( i = 0; i < 0x0100000 / 0x10000; i++ )
 	{
-		ofst = (i & 0xf0) + BITSWAP8((i & 0x0f), 7, 6, 5, 4, 1, 0, 3, 2);
+		ofst = (i & 0xf0) + bitswap<8>((i & 0x0f), 7, 6, 5, 4, 1, 0, 3, 2);
 		memcpy( &buf[ i * 0x10000 ], &rom[ ofst * 0x10000 ], 0x10000 );
 	}
 
 	for( i = 0x100000; i < 0x900000; i += 0x100)
 	{
-		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00400) + (BITSWAP8( ((i & 0x0ff000) >> 12), 6, 7, 4, 5, 0, 1, 2, 3 ) << 12);
+		ofst = (i & 0xf000ff) + ((i & 0x000f00) ^ 0x00400) + (bitswap<8>( ((i & 0x0ff000) >> 12), 6, 7, 4, 5, 0, 1, 2, 3 ) << 12);
 		memcpy( &buf[ i ], &rom[ ofst ], 0x100 );
 	}
 
@@ -2542,11 +2542,11 @@ void pvc_prot_device::kof2003h_decrypt_68k(uint8_t* rom, uint32_t size)
 /***********************************************************************************************************************************/
 
 
-const device_type SBP_PROT = device_creator<sbp_prot_device>;
+DEFINE_DEVICE_TYPE(SBP_PROT, sbp_prot_device, "sbp_prot", "NeoGeo Protection (Super Bubble Pop)")
 
 
 sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, SBP_PROT, "NeoGeo Protection (Super Bubble Pop)", tag, owner, clock, "sbp_prot", __FILE__)
+	: device_t(mconfig, SBP_PROT, tag, owner, clock)
 	, m_mainrom(nullptr)
 	{ }
 
@@ -2557,7 +2557,7 @@ READ16_MEMBER( sbp_prot_device::sbp_lowerrom_r )
 {
 	uint16_t* rom = (uint16_t*)m_mainrom;
 	uint16_t origdata = rom[(offset+(0x200/2))];
-	uint16_t data =  BITSWAP16(origdata, 11,10,9,8,15,14,13,12,3,2,1,0,7,6,5,4);
+	uint16_t data =  bitswap<16>(origdata, 11,10,9,8,15,14,13,12,3,2,1,0,7,6,5,4);
 	int realoffset = 0x200+(offset*2);
 	logerror("sbp_lowerrom_r offset %08x data %04x\n", realoffset, data );
 
@@ -2612,11 +2612,11 @@ void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpuro
 /***********************************************************************************************************************************/
 
 
-const device_type SMA_PROT = device_creator<sma_prot_device>;
+DEFINE_DEVICE_TYPE(SMA_PROT, sma_prot_device, "sma_prot", "NeoGeo SMA Cartridge")
 
 
 sma_prot_device::sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, SMA_PROT, "NeoGeo SMA Cartridge", tag, owner, clock, "sma_prot", __FILE__)
+	: device_t(mconfig, SMA_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	, m_sma_rng(0)
 	{ }
@@ -2861,7 +2861,7 @@ void sma_prot_device::kof99_decrypt_68k(uint8_t* base)
 	uint16_t *rom = (uint16_t *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
-		rom[i] = BITSWAP16(rom[i],13,7,3,0,9,4,5,6,1,12,8,14,10,11,2,15);
+		rom[i] = bitswap<16>(rom[i],13,7,3,0,9,4,5,6,1,12,8,14,10,11,2,15);
 
 	/* swap address lines for the banked part */
 	for (i = 0;i < 0x600000/2;i+=0x800/2)
@@ -2869,13 +2869,13 @@ void sma_prot_device::kof99_decrypt_68k(uint8_t* base)
 		uint16_t buffer[0x800/2];
 		memcpy(buffer, &rom[i], 0x800);
 		for (j = 0; j < 0x800/2; j++)
-			rom[i+j] = buffer[BITSWAP24(j,23,22,21,20,19,18,17,16,15,14,13,12,11,10,6,2,4,9,8,3,1,7,0,5)];
+			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,13,12,11,10,6,2,4,9,8,3,1,7,0,5)];
 	}
 
 	/* swap address lines & relocate fixed part */
 	rom = (uint16_t *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
-		rom[i] = rom[0x700000/2 + BITSWAP24(i,23,22,21,20,19,18,11,6,14,17,16,5,8,10,12,0,4,3,2,7,9,15,13,1)];
+		rom[i] = rom[0x700000/2 + bitswap<24>(i,23,22,21,20,19,18,11,6,14,17,16,5,8,10,12,0,4,3,2,7,9,15,13,1)];
 }
 
 
@@ -2887,12 +2887,12 @@ void sma_prot_device::garou_decrypt_68k(uint8_t* base)
 	uint16_t *rom = (uint16_t *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
-		rom[i] = BITSWAP16(rom[i],13,12,14,10,8,2,3,1,5,9,11,4,15,0,6,7);
+		rom[i] = bitswap<16>(rom[i],13,12,14,10,8,2,3,1,5,9,11,4,15,0,6,7);
 
 	/* swap address lines & relocate fixed part */
 	rom = (uint16_t *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
-		rom[i] = rom[0x710000/2 + BITSWAP24(i,23,22,21,20,19,18,4,5,16,14,7,9,6,13,17,15,3,1,2,12,11,8,10,0)];
+		rom[i] = rom[0x710000/2 + bitswap<24>(i,23,22,21,20,19,18,4,5,16,14,7,9,6,13,17,15,3,1,2,12,11,8,10,0)];
 
 	/* swap address lines for the banked part */
 	rom = (uint16_t *)(base + 0x100000);
@@ -2901,7 +2901,7 @@ void sma_prot_device::garou_decrypt_68k(uint8_t* base)
 		uint16_t buffer[0x8000/2];
 		memcpy(buffer,&rom[i],0x8000);
 		for (j = 0;j < 0x8000/2;j++)
-			rom[i+j] = buffer[BITSWAP24(j,23,22,21,20,19,18,17,16,15,14,9,4,8,3,13,6,2,7,0,12,1,11,10,5)];
+			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,9,4,8,3,13,6,2,7,0,12,1,11,10,5)];
 	}
 }
 
@@ -2914,12 +2914,12 @@ void sma_prot_device::garouh_decrypt_68k(uint8_t* base)
 	uint16_t *rom = (uint16_t *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
-		rom[i] = BITSWAP16(rom[i],14,5,1,11,7,4,10,15,3,12,8,13,0,2,9,6);
+		rom[i] = bitswap<16>(rom[i],14,5,1,11,7,4,10,15,3,12,8,13,0,2,9,6);
 
 	/* swap address lines & relocate fixed part */
 	rom = (uint16_t *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
-		rom[i] = rom[0x7f8000/2 + BITSWAP24(i,23,22,21,20,19,18,5,16,11,2,6,7,17,3,12,8,14,4,0,9,1,10,15,13)];
+		rom[i] = rom[0x7f8000/2 + bitswap<24>(i,23,22,21,20,19,18,5,16,11,2,6,7,17,3,12,8,14,4,0,9,1,10,15,13)];
 
 	/* swap address lines for the banked part */
 	rom = (uint16_t *)(base + 0x100000);
@@ -2928,7 +2928,7 @@ void sma_prot_device::garouh_decrypt_68k(uint8_t* base)
 		uint16_t buffer[0x8000/2];
 		memcpy(buffer,&rom[i],0x8000);
 		for (j = 0;j < 0x8000/2;j++)
-			rom[i+j] = buffer[BITSWAP24(j,23,22,21,20,19,18,17,16,15,14,12,8,1,7,11,3,13,10,6,9,5,4,0,2)];
+			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,12,8,1,7,11,3,13,10,6,9,5,4,0,2)];
 	}
 }
 
@@ -2941,12 +2941,12 @@ void sma_prot_device::mslug3_decrypt_68k(uint8_t* base)
 	uint16_t *rom = (uint16_t *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
-		rom[i] = BITSWAP16(rom[i],4,11,14,3,1,13,0,7,2,8,12,15,10,9,5,6);
+		rom[i] = bitswap<16>(rom[i],4,11,14,3,1,13,0,7,2,8,12,15,10,9,5,6);
 
 	/* swap address lines & relocate fixed part */
 	rom = (uint16_t *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
-		rom[i] = rom[0x5d0000/2 + BITSWAP24(i,23,22,21,20,19,18,15,2,1,13,3,0,9,6,16,4,11,5,7,12,17,14,10,8)];
+		rom[i] = rom[0x5d0000/2 + bitswap<24>(i,23,22,21,20,19,18,15,2,1,13,3,0,9,6,16,4,11,5,7,12,17,14,10,8)];
 
 	/* swap address lines for the banked part */
 	rom = (uint16_t *)(base + 0x100000);
@@ -2955,7 +2955,7 @@ void sma_prot_device::mslug3_decrypt_68k(uint8_t* base)
 		uint16_t buffer[0x10000/2];
 		memcpy(buffer,&rom[i],0x10000);
 		for (j = 0;j < 0x10000/2;j++)
-			rom[i+j] = buffer[BITSWAP24(j,23,22,21,20,19,18,17,16,15,2,11,0,14,6,4,13,8,9,3,10,7,5,12,1)];
+			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,2,11,0,14,6,4,13,8,9,3,10,7,5,12,1)];
 	}
 }
 
@@ -2968,7 +2968,7 @@ void sma_prot_device::kof2000_decrypt_68k(uint8_t* base)
 	uint16_t *rom = (uint16_t *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
-		rom[i] = BITSWAP16(rom[i],12,8,11,3,15,14,7,0,10,13,6,5,9,2,1,4);
+		rom[i] = bitswap<16>(rom[i],12,8,11,3,15,14,7,0,10,13,6,5,9,2,1,4);
 
 	/* swap address lines for the banked part */
 	for (i = 0;i < 0x63a000/2;i+=0x800/2)
@@ -2976,13 +2976,13 @@ void sma_prot_device::kof2000_decrypt_68k(uint8_t* base)
 		uint16_t buffer[0x800/2];
 		memcpy(buffer,&rom[i],0x800);
 		for (j = 0;j < 0x800/2;j++)
-			rom[i+j] = buffer[BITSWAP24(j,23,22,21,20,19,18,17,16,15,14,13,12,11,10,4,1,3,8,6,2,7,0,9,5)];
+			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,13,12,11,10,4,1,3,8,6,2,7,0,9,5)];
 	}
 
 	/* swap address lines & relocate fixed part */
 	rom = (uint16_t *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
-		rom[i] = rom[0x73a000/2 + BITSWAP24(i,23,22,21,20,19,18,8,4,15,13,3,14,16,2,6,17,7,12,10,0,5,11,1,9)];
+		rom[i] = rom[0x73a000/2 + bitswap<24>(i,23,22,21,20,19,18,8,4,15,13,3,14,16,2,6,17,7,12,10,0,5,11,1,9)];
 }
 
 // From here are not sma decrypts, it's a convenient place to store them **************************************************
@@ -3001,7 +3001,7 @@ void sma_prot_device::svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 	for( i = 0; i < rom_size; i += 4 )
 	{
 		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
-		rom32 = BITSWAP32( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
+		rom32 = bitswap<32>( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
 			0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
 		buf[i]   = rom32       & 0xff;
 		buf[i+1] = (rom32>>8)  & 0xff;
@@ -3011,7 +3011,7 @@ void sma_prot_device::svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 
 	for( i = 0; i < rom_size / 4; i++ )
 	{
-		ofst =  BITSWAP24( (i & 0x1fffff), 0x17, 0x16, 0x15, 0x04, 0x0b, 0x0e, 0x08, 0x0c, 0x10, 0x00, 0x0a, 0x13,
+		ofst =  bitswap<24>( (i & 0x1fffff), 0x17, 0x16, 0x15, 0x04, 0x0b, 0x0e, 0x08, 0x0c, 0x10, 0x00, 0x0a, 0x13,
 			0x03, 0x06, 0x02, 0x07, 0x0d, 0x01, 0x11, 0x09, 0x14, 0x0f, 0x12, 0x05 );
 		ofst ^= 0x0c8923;
 		ofst += (i & 0xffe00000);
@@ -3024,7 +3024,7 @@ void sma_prot_device::svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 void sma_prot_device::svcpcb_s1data_decrypt(uint8_t* rom, uint32_t rom_size)
 {
 	for( int i = 0; i < rom_size; i++ ) // Decrypt S
-		rom[ i ] = BITSWAP8( rom[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
+		rom[ i ] = bitswap<8>( rom[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
 }
 
 
@@ -3042,7 +3042,7 @@ void sma_prot_device::kf2k3pcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 	for ( i = 0; i < rom_size; i +=4 )
 	{
 		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
-		rom32 = BITSWAP32( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
+		rom32 = bitswap<32>( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
 			0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
 		buf[i]   =  rom32      & 0xff;
 		buf[i+1] = (rom32>>8)  & 0xff;
@@ -3052,7 +3052,7 @@ void sma_prot_device::kf2k3pcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 
 	for ( i = 0; i < rom_size; i+=4 )
 	{
-		ofst = BITSWAP24( (i & 0x7fffff), 0x17, 0x15, 0x0a, 0x14, 0x13, 0x16, 0x12, 0x11, 0x10, 0x0f, 0x0e, 0x0d,
+		ofst = bitswap<24>( (i & 0x7fffff), 0x17, 0x15, 0x0a, 0x14, 0x13, 0x16, 0x12, 0x11, 0x10, 0x0f, 0x0e, 0x0d,
 			0x0c, 0x0b, 0x09, 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00 );
 		ofst += (i & 0xff800000);
 		memcpy( &rom[ ofst ], &buf[ i ], 0x04 );
@@ -3079,7 +3079,7 @@ void sma_prot_device::kf2k3pcb_decrypt_s1data(uint8_t* rom, uint32_t rom_size, u
 		dst[ i ] = src[ (i & ~0x1f) + ((i & 7) << 2) + ((~i & 8) >> 2) + ((i & 0x10) >> 4) ];
 
 	for( i = 0; i < fixed_size; i++ )
-		fixed[ i ] = BITSWAP8( fixed[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
+		fixed[ i ] = bitswap<8>( fixed[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
 }
 
 

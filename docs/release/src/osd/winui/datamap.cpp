@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 
 //============================================================
@@ -14,24 +15,17 @@
 #include <tchar.h>
 
 // standard C headers
-#include <stdlib.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <assert.h>
-#include <math.h>
 
 // MAME/MAMEUI headers
 #include "mui_opts.h"
-#include "corestr.h"
-#include "strconv.h"
 #include "datamap.h"
 #include "winutf8.h"
-#include "emu.h"
 
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
 #endif
+
 
 //============================================================
 //  TYPE DEFINITIONS
@@ -91,12 +85,9 @@ typedef void (*datamap_default_callback)(datamap *map, HWND control, windows_opt
 
 static datamap_entry *find_entry(datamap *map, int dlgitem);
 static control_type get_control_type(HWND control);
-static int control_operation(datamap *map, HWND dialog, windows_options *opts,
-	datamap_entry *entry, datamap_callback_type callback_type);
-static void read_control(datamap *map, HWND control, windows_options *opts,
-	datamap_entry *entry, const char *option_name);
-static void populate_control(datamap *map, HWND control, windows_options *opts,
-	datamap_entry *entry, const char *option_name);
+static int control_operation(datamap *map, HWND dialog, windows_options *opts, datamap_entry *entry, datamap_callback_type callback_type);
+static void read_control(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name);
+static void populate_control(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name);
 static char *tztrim(float float_value);
 
 
@@ -107,7 +98,6 @@ static char *tztrim(float float_value);
 datamap *datamap_create(void)
 {
 	datamap *map = (datamap *)malloc(sizeof(*map));
-
 	if (!map)
 		return NULL;
 
@@ -135,7 +125,11 @@ void datamap_free(datamap *map)
 void datamap_add(datamap *map, int dlgitem, datamap_entry_type type, const char *option_name)
 {
 	// sanity check for too many entries
-	assert(map->entry_count < ARRAY_LENGTH(map->entries));
+	if (!(map->entry_count < ARRAY_LENGTH(map->entries)))
+	{
+		printf("Datamap.cpp Line __LINE__ too many entries\n");
+		return;
+	}
 
 	// add entry to the datamap
 	memset(&map->entries[map->entry_count], 0, sizeof(map->entries[map->entry_count]));
@@ -295,13 +289,11 @@ void datamap_update_all_controls(datamap *map, HWND dialog, windows_options *opt
 static datamap_entry *find_entry(datamap *map, int dlgitem)
 {
 	for (int i = 0; i < map->entry_count; i++)
-	{
 		if (map->entries[i].dlgitem == dlgitem)
 			return &map->entries[i];
-	}
 
 	// should not reach here
-	assert(FALSE);
+	printf("Datamap.cpp line __LINE__ couldn't find an entry\n");
 	return NULL;
 }
 
@@ -332,7 +324,6 @@ static control_type get_control_type(HWND control)
 	else
 		type = CT_UNKNOWN;
 
-	assert(type != CT_UNKNOWN);
 	return type;
 }
 
@@ -344,24 +335,24 @@ static control_type get_control_type(HWND control)
 
 static BOOL is_control_displayonly(HWND control)
 {
-	BOOL displayonly = 0;
+	BOOL displayonly = false;
 	switch(get_control_type(control))
 	{
 		case CT_STATIC:
-			displayonly = TRUE;
+			displayonly = true;
 			break;
 
 		case CT_EDIT:
-			displayonly = (GetWindowLong(control, GWL_STYLE) & ES_READONLY) ? TRUE : FALSE;
+			displayonly = (GetWindowLong(control, GWL_STYLE) & ES_READONLY) ? true : false;
 			break;
 
 		default:
-			displayonly = FALSE;
+			displayonly = false;
 			break;
 	}
 
 	if (!IsWindowEnabled(control))
-		displayonly = TRUE;
+		displayonly = true;
 	return displayonly;
 }
 
@@ -375,9 +366,8 @@ static void broadcast_changes(datamap *map, HWND dialog, windows_options *opts, 
 {
 	HWND other_control;
 	const char *that_option_name;
-	int i;
 
-	for (i = 0; i < map->entry_count; i++)
+	for (int i = 0; i < map->entry_count; i++)
 	{
 		// search for an entry with the same option_name, but is not the exact
 		// same entry
@@ -386,7 +376,7 @@ static void broadcast_changes(datamap *map, HWND dialog, windows_options *opts, 
 		{
 			// we've found a control sharing the same option; populate it
 			other_control = GetDlgItem(dialog, map->entries[i].dlgitem);
-			if (other_control != NULL)
+			if (other_control)
 				populate_control(map, other_control, opts, &map->entries[i], that_option_name);
 		}
 	}
@@ -398,8 +388,7 @@ static void broadcast_changes(datamap *map, HWND dialog, windows_options *opts, 
 //  control_operation
 //============================================================
 
-static int control_operation(datamap *map, HWND dialog, windows_options *opts,
-	datamap_entry *entry, datamap_callback_type callback_type)
+static int control_operation(datamap *map, HWND dialog, windows_options *opts, datamap_entry *entry, datamap_callback_type callback_type)
 {
 	static const datamap_default_callback default_callbacks[DCT_COUNT] =
 	{
@@ -407,40 +396,37 @@ static int control_operation(datamap *map, HWND dialog, windows_options *opts,
 		populate_control,
 		NULL
 	};
-	HWND control;
 	int result = 0;
 	const char *option_name;
 	char option_name_buffer[64];
 	char option_value[1024] = {0, };
 
-	control = GetDlgItem(dialog, entry->dlgitem);
-	if (control != NULL)
+	HWND control = GetDlgItem(dialog, entry->dlgitem);
+	if (control)
 	{
 		// don't do anything if we're reading from a display-only control
 		if ((callback_type != DCT_READ_CONTROL) || !is_control_displayonly(control))
 		{
 			// figure out the option_name
-			if (entry->get_option_name != NULL)
+			if (entry->get_option_name)
 			{
 				option_name_buffer[0] = '\0';
 				entry->get_option_name(map, dialog, control, option_name_buffer, ARRAY_LENGTH(option_name_buffer));
 				option_name = option_name_buffer;
 			}
 			else
-			{
 				option_name = entry->option_name;
-			}
 
 			// if reading, get the option value, solely for the purposes of comparison
-			if ((callback_type == DCT_READ_CONTROL) && (option_name != NULL))
+			if ((callback_type == DCT_READ_CONTROL) && option_name)
 				snprintf(option_value, ARRAY_LENGTH(option_value), "%s", opts->value(option_name));
 
-			if (entry->callbacks[callback_type] != NULL)
+			if (entry->callbacks[callback_type])
 			{
 				// use custom callback
 				result = entry->callbacks[callback_type](map, dialog, control, opts, option_name);
 			}
-			else if (default_callbacks[callback_type] && (option_name != NULL))
+			else if (default_callbacks[callback_type] && option_name)
 			{
 				// use default callback
 				default_callbacks[callback_type](map, control, opts, entry, option_name);
@@ -453,7 +439,7 @@ static int control_operation(datamap *map, HWND dialog, windows_options *opts,
 					// For callbacks that returned TRUE, do not broadcast_changes.
 					if (!result) {
 						// do a check to see if the control changed
-						result = (option_name != NULL) && (strcmp(option_value, opts->value(option_name)) != 0);
+						result = (option_name) && (strcmp(option_value, opts->value(option_name)) != 0);
 						if (result)
 						{
 							// the value has changed; we may need to broadcast the change
@@ -482,9 +468,8 @@ static float trackbar_value_from_position(datamap_entry *entry, int position)
 	float position_f = position;
 
 	if (entry->use_trackbar_options)
-	{
 		position_f = (position_f * entry->trackbar_increments) + entry->trackbar_min;
-	}
+
 	return position_f;
 }
 
@@ -497,9 +482,8 @@ static float trackbar_value_from_position(datamap_entry *entry, int position)
 static int trackbar_position_from_value(datamap_entry *entry, float value)
 {
 	if (entry->use_trackbar_options)
-	{
 		value = floor((value - entry->trackbar_min) / entry->trackbar_increments + 0.5);
-	}
+
 	return (int) value;
 }
 
@@ -517,14 +501,13 @@ static void read_control(datamap *map, HWND control, windows_options *opts, data
 	const char *string_value;
 	int selected_index = 0;
 	int trackbar_pos = 0;
-	std::string error;
 	// use default read value behavior
 	switch(get_control_type(control))
 	{
 		case CT_BUTTON:
-			assert(entry->type == DM_BOOL);
+			//assert(entry->type == DM_BOOL);
 			bool_value = Button_GetCheck(control);
-			opts->set_value(option_name, bool_value, OPTION_PRIORITY_CMDLINE,error);
+			opts->set_value(option_name, bool_value, OPTION_PRIORITY_CMDLINE);
 			break;
 
 		case CT_COMBOBOX:
@@ -535,12 +518,12 @@ static void read_control(datamap *map, HWND control, windows_options *opts, data
 				{
 					case DM_INT:
 						int_value = (int) ComboBox_GetItemData(control, selected_index);
-						opts->set_value(option_name, int_value, OPTION_PRIORITY_CMDLINE,error);
+						opts->set_value(option_name, int_value, OPTION_PRIORITY_CMDLINE);
 						break;
 
 					case DM_STRING:
 						string_value = (const char *) ComboBox_GetItemData(control, selected_index);
-						opts->set_value(option_name, string_value ? string_value : "", OPTION_PRIORITY_CMDLINE,error);
+						opts->set_value(option_name, string_value ? string_value : "", OPTION_PRIORITY_CMDLINE);
 						break;
 
 					default:
@@ -557,14 +540,14 @@ static void read_control(datamap *map, HWND control, windows_options *opts, data
 				case DM_INT:
 					int_value = (int) float_value;
 					if (int_value != opts->int_value(option_name)) {
-						opts->set_value(option_name, int_value, OPTION_PRIORITY_CMDLINE,error);
+						opts->set_value(option_name, int_value, OPTION_PRIORITY_CMDLINE);
 					}
 					break;
 
 				case DM_FLOAT:
 					// Use tztrim(float_value) or we get trailing zero's that break options_equal().
 					if (float_value != opts->float_value(option_name)) {
-						opts->set_value(option_name, tztrim(float_value), OPTION_PRIORITY_CMDLINE,error);
+						opts->set_value(option_name, tztrim(float_value), OPTION_PRIORITY_CMDLINE);
 					}
 					break;
 
@@ -755,26 +738,26 @@ static char *tztrim(float float_value)
 {
 	static char tz_string[20];
 	char float_string[20];
-	char *ptr;
 	int i = 0;
 
 	sprintf(float_string, "%f", float_value);
 
-	ptr = float_string;
+	char* ptr = float_string;
 
 	// Copy before the '.'
-	while (*ptr && *ptr != '.') {
+	while (*ptr && *ptr != '.')
 		tz_string[i++] = *ptr++;
-	}
+
 	// add the '.' and the next digit
-	if (*ptr == '.') {
+	if (*ptr == '.')
+	{
 		tz_string[i++] = *ptr++;
 		tz_string[i++] = *ptr++;
 	}
 	// Keep copying until we hit a '0'
-	while (*ptr && *ptr != '0') {
+	while (*ptr && *ptr != '0')
 		tz_string[i++] = *ptr++;
-	}
+
 	// Null terminate
 	tz_string[i] = '\0';
 	return tz_string;

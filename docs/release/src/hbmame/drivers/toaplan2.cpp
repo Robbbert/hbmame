@@ -85,7 +85,130 @@ ROM_END
 
 
 
-GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun, ROT270, "Eezezy", "Batsugun Transparent (HACK BY EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga,ROT270, "Zack", "Battle Garegga (Europe / USA / Japan / Asia) (Zakk version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   driver_device,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   driver_device,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (HACK BY EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga, ROT270, "Zack", "Battle Garegga (Europe / USA / Japan / Asia) (Zakk version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
+
+//PSmame
+
+ROM_START( snowbro2xs )
+	ROM_REGION( 0x080000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "pro-4xs", 0x000000, 0x080000, CRC(1ad75ae7) SHA1(4c9d7480df4b94aaee5616939547456a0c560f19) )
+
+	ROM_REGION( 0x300000, "gp9001", 0 )
+	ROM_LOAD( "rom2-l", 0x000000, 0x100000, CRC(e9d366a9) SHA1(e87e3966fce3395324b90db6c134b3345104c04b) )
+	ROM_LOAD( "rom2-h", 0x100000, 0x080000, CRC(9aab7a62) SHA1(611f6a15fdbac5d3063426a365538c1482e996bf) )
+	ROM_LOAD( "rom3-l", 0x180000, 0x100000, CRC(eb06e332) SHA1(7cd597bfffc153d178530c0f0903bebd751c9dd1) )
+	ROM_LOAD( "rom3-h", 0x280000, 0x080000, CRC(df4a952a) SHA1(b76af61c8437caca573ff1312832898666a611aa) )
+
+	ROM_REGION( 0x80000, "oki", 0 )
+	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(638f341e) SHA1(aa3fca25f099339ece1878ea730c5e9f18ec4823) )
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
+GAME( 1994, snowbro2xs,   snowbro2,        snowbro2, snowbro2, driver_device,   0,       ROT0,   "Hacks", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame
+
+
+ /***************************************
+	      Mahou Daisakusen
+***************************************/
+
+ROM_START( mahoudais01 )
+	ROM_REGION( 0x080000, "maincpu", 0 )            /* Main 68K code */
+	ROM_LOAD16_WORD_SWAP( "ra_ma_01_01.u65", 0x000000, 0x080000, CRC(970ccc5c) SHA1(c87cab83bde0284e631f02e50068407fee81d941) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )            /* Sound Z80 code */
+	ROM_LOAD( "ra-ma-01_02.u66", 0x00000, 0x10000, CRC(eabfa46d) SHA1(402c99ebf88f9025f74f0a28ced22b7882a65eb3) )
+
+	ROM_REGION( 0x200000, "gp9001", 0 )
+	ROM_LOAD( "ra-ma01-rom2hc01.u2",  0x000000, 0x100000, CRC(865bd232) SHA1(5e8f26b16356c314e244e939ebe696598c1e260d) )
+	ROM_LOAD( "ra-ma01-rom3hc01.u1",  0x100000, 0x100000, CRC(Be068595) SHA1(3e0f9179fce5d9337c18021debe3954157657568) )
+
+	ROM_REGION( 0x008000, "text", 0 )
+	ROM_LOAD( "ra_ma_01_05hc01.u81",  0x000000, 0x008000, CRC(46f03623) SHA1(47cac08f147329a868828f94a1044d8511911b28) )
+
+	ROM_REGION( 0x40000, "oki", 0 )         /* ADPCM Samples */
+	ROM_LOAD( "ra-ma01-rom1.u57", 0x00000, 0x40000, CRC(6edb2ab8) SHA1(e3032e8eda2686f30df4b7a088c5a4d4d45782ed) )
+ROM_END
+
+ /***************************************
+	     Shippu Mahou Daisakusen
+***************************************/
+
+ROM_START( shippumds01 )
+	ROM_REGION( 0x100000, "maincpu", 0 )            /* Main 68K code */
+	ROM_LOAD16_BYTE( "ma02rom1.bin", 0x000000, 0x080000, CRC(a678b149) SHA1(8c1a631e023dbba0a3fa6cd1b7d10dec1663213a) )
+	ROM_LOAD16_BYTE( "ma02rom0.bin", 0x000001, 0x080000, CRC(f226a212) SHA1(526acf3d05fdc88054a772fbea3de2af532bf3d2) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )            /* Sound Z80 code */
+	ROM_LOAD( "ma02rom2.bin", 0x00000, 0x10000, CRC(dde8a57e) SHA1(f522a3f17e229c71512464349760a9e27778bf6a) )
+
+	ROM_REGION( 0x400000, "gp9001", 0 )
+	ROM_LOAD( "ma02rom3.bin",  0x000000, 0x200000, CRC(0e797142) SHA1(a480ccd151e49b886d3175a6deff56e1f2c26c3e) )
+	ROM_LOAD( "ma02rom4.bin",  0x200000, 0x200000, CRC(72a6fa53) SHA1(ce92e65205b84361cfb90305a61e9541b5c4dc2f) )
+
+	ROM_REGION( 0x008000, "text", 0 )
+	ROM_LOAD( "ma02rom5hc01.bin",  0x000000, 0x008000, CRC(116ae559) SHA1(99b25c4ee9bbed8f23c5b5bf4a0a34ff8773c273) )
+
+	ROM_REGION( 0x80000, "oki", 0 )         /* ADPCM Samples */
+	ROM_LOAD( "ma02rom6.bin", 0x00000, 0x80000, CRC(199e7cae) SHA1(0f5e13cc8ec42c80bb4bbff90aba29cdb15213d4) )
+ROM_END
+
+ /***************************************
+	         Snow Bros 2
+***************************************/
+
+ROM_START( snowbro2s01 )
+	ROM_REGION( 0x080000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "pro-4hc01", 0x000000, 0x080000, CRC(1ad75ae7) SHA1(4c9d7480df4b94aaee5616939547456a0c560f19) )
+
+	ROM_REGION( 0x300000, "gp9001", 0 )
+	ROM_LOAD( "rom2-l", 0x000000, 0x100000, CRC(e9d366a9) SHA1(e87e3966fce3395324b90db6c134b3345104c04b) )
+	ROM_LOAD( "rom2-h", 0x100000, 0x080000, CRC(9aab7a62) SHA1(611f6a15fdbac5d3063426a365538c1482e996bf) )
+	ROM_LOAD( "rom3-l", 0x180000, 0x100000, CRC(eb06e332) SHA1(7cd597bfffc153d178530c0f0903bebd751c9dd1) )
+	ROM_LOAD( "rom3-h", 0x280000, 0x080000, CRC(df4a952a) SHA1(b76af61c8437caca573ff1312832898666a611aa) )
+
+	ROM_REGION( 0x80000, "oki", 0 )
+	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(638f341e) SHA1(aa3fca25f099339ece1878ea730c5e9f18ec4823) )
+ROM_END
+
+ROM_START( snowbro2s02 )
+	ROM_REGION( 0x080000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "pro-4hc02", 0x000000, 0x080000, CRC(2f219f0a) SHA1(49057ca9f736cd7c8c4588554599250b4aaf6cd1) )
+
+	ROM_REGION( 0x300000, "gp9001", 0 )
+	ROM_LOAD( "rom2-l", 0x000000, 0x100000, CRC(e9d366a9) SHA1(e87e3966fce3395324b90db6c134b3345104c04b) )
+	ROM_LOAD( "rom2-h", 0x100000, 0x080000, CRC(9aab7a62) SHA1(611f6a15fdbac5d3063426a365538c1482e996bf) )
+	ROM_LOAD( "rom3-l", 0x180000, 0x100000, CRC(eb06e332) SHA1(7cd597bfffc153d178530c0f0903bebd751c9dd1) )
+	ROM_LOAD( "rom3-h", 0x280000, 0x080000, CRC(df4a952a) SHA1(b76af61c8437caca573ff1312832898666a611aa) )
+
+	ROM_REGION( 0x80000, "oki", 0 )
+	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(638f341e) SHA1(aa3fca25f099339ece1878ea730c5e9f18ec4823) )
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
+// Mahou Daisakusen 
+GAME( 1993, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state,  0,       ROT270, "Hacks", "Mahou Daisakusen (Japan)(Translation-Chinese)", MACHINE_SUPPORTS_SAVE )
+// Shippu Mahou Daisakusen
+GAME( 1994, shippumds01,  kingdmgp,        shippumd, shippumd, toaplan2_state,  0,       ROT270, "Hacks", "Shippu Mahou Daisakusen (Japan)(Translation-English)", MACHINE_SUPPORTS_SAVE )
+// Snow Bros 2
+GAME( 1994, snowbro2s01,  snowbro2,        snowbro2, snowbro2, toaplan2_state,  0,       ROT0,   "Hacks", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, snowbro2s02,  snowbro2,        snowbro2, snowbro2, toaplan2_state,  0,       ROT0,   "Hacks", "Snow Bros 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
+
+

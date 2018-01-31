@@ -16,9 +16,9 @@ premake.make.linkoptions_after = false;
 function maintargetosdoptions(_target,_subtarget)
 	osdmodulestargetconf()
 
-	configuration { "mingw*-gcc" }
-		linkoptions {
-			"-municode",
+	configuration { "mingw*" }
+		links {
+			"mingw32",
 		}
 
 	configuration { }
@@ -167,6 +167,8 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/debugger/win/disasmwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/editwininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/editwininfo.h",
+		MAME_DIR .. "src/osd/modules/debugger/win/logviewinfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/logviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/logwininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/logwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/memoryviewinfo.cpp",

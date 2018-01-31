@@ -21,8 +21,6 @@
 #endif
 
 #define SEARCH_PROMPT ""
-#define SHOW_COLUMN_ROMS
-#define SHOW_COLUMN_SAMPLES
 
 enum
 {
@@ -43,9 +41,6 @@ enum
 	FILETYPE_EFFECT_FILES,
 	FILETYPE_JOYMAP_FILES,
 	FILETYPE_DEBUGSCRIPT_FILES,
-	FILETYPE_CHEAT_FILE,
-	FILETYPE_HISTORY_FILE,
-	FILETYPE_MAMEINFO_FILE
 };
 
 
@@ -58,6 +53,9 @@ typedef struct
 extern TCHAR last_directory[MAX_PATH];
 
 typedef BOOL (WINAPI *common_file_dialog_proc)(LPOPENFILENAME lpofn);
+
+typedef std::string string;
+
 BOOL CommonFileDialog(common_file_dialog_proc cfd,char *filename, int filetype);
 
 HWND GetMainWindow(void);
@@ -99,9 +97,7 @@ int GetGameNameIndex(const char *name);
 void SetStatusBarText(int part_index, const char *message);
 void SetStatusBarTextF(int part_index, const char *fmt, ...) ATTR_PRINTF(2,3);
 
-int MameUIMain(HINSTANCE	hInstance,
-                   LPWSTR    lpCmdLine,
-                   int      nCmdShow);
+int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow);
 
 BOOL MouseHasBeenMoved(void);
 

@@ -5,11 +5,11 @@
 #define PROPERTIES_H
 
 /* Get title string to display in the top of the property page,
- * Called also in ui_audit.c
+ * Called also in ui_audit.cpp
  */
 char* GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex);
 
-/* Called in winui.c to create the property page */
+/* Called in winui.cpp to create the property page */
 void InitPropertyPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYPE opt_type, int folder_id, int game_num);
 
 #define PROPERTIES_PAGE 0
@@ -29,7 +29,7 @@ typedef struct
 {
 	BOOL bOnDefaultPage;
 //	BOOL (*pfnFilterProc)(const machine_config *drv, const game_driver *gamedrv);
-	BOOL (*pfnFilterProc)(int driver_index);
+	BOOL (*pfnFilterProc)(uint32_t driver_index);
 	DWORD dwDlgID;
 	DLGPROC pfnDlgProc;
 } PROPERTYSHEETINFO;
@@ -46,7 +46,7 @@ int PropertiesCurrentGame(HWND hDlg);
 // from propertiesms.h (MESSUI)
 
 BOOL MessPropertiesCommand(HWND hWnd, WORD wNotifyCode, WORD wID, BOOL *changed);
-
+BOOL g_bModifiedSoftwarePaths = FALSE;
 INT_PTR CALLBACK GameMessOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam);
 BOOL PropSheetFilter_Config(const machine_config *drv, const game_driver *gamedrv);
 

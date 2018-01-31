@@ -270,6 +270,18 @@ end
 
 --------------------------------------------------
 --
+--@src/devices/video/nt7534.h,VIDEOS["NT7534"] = true
+--------------------------------------------------
+
+if (VIDEOS["NT7534"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/video/nt7534.cpp",
+		MAME_DIR .. "src/devices/video/nt7534.h",
+	}
+end
+
+--------------------------------------------------
+--
 --@src/devices/video/hd44102.h,VIDEOS["HD44102"] = true
 --------------------------------------------------
 
@@ -708,6 +720,17 @@ end
 
 --------------------------------------------------
 --
+--@src/devices/video/sda5708.h,VIDEOS["SDA5708"] = true
+--------------------------------------------------
+if (VIDEOS["SDA5708"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/video/sda5708.cpp",
+		MAME_DIR .. "src/devices/video/sda5708.h",
+	}
+end
+
+--------------------------------------------------
+--
 --@src/devices/video/snes_ppu.h,VIDEOS["SNES_PPU"] = true
 --------------------------------------------------
 if (VIDEOS["SNES_PPU"]~=null) then
@@ -982,6 +1005,43 @@ if (VIDEOS["PPU2C0X"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/video/ppu2c0x.cpp",
 		MAME_DIR .. "src/devices/video/ppu2c0x.h",
+		MAME_DIR .. "src/devices/video/ppu2c0x_vt.cpp",
+		MAME_DIR .. "src/devices/video/ppu2c0x_vt.h",
 	}
 end
 
+--------------------------------------------------
+--
+--@src/devices/video/bt459.h,VIDEOS["BT459"] = true
+--------------------------------------------------
+
+if (VIDEOS["BT459"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/video/bt459.cpp",
+		MAME_DIR .. "src/devices/video/bt459.h",
+	}
+end
+
+--------------------------------------------------
+--
+--@src/devices/video/imagetek_i4100.h,VIDEOS["I4100"] = true
+--------------------------------------------------
+
+if (VIDEOS["I4100"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/video/imagetek_i4100.cpp",
+		MAME_DIR .. "src/devices/video/imagetek_i4100.h",
+	}
+end
+
+--------------------------------------------------
+--
+--@src/devices/video/dp8510.h,VIDEOS["DP8510"] = true
+--------------------------------------------------
+
+if (VIDEOS["DP8510"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/video/dp8510.cpp",
+		MAME_DIR .. "src/devices/video/dp8510.h",
+	}
+end

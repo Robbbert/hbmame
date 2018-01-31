@@ -8,8 +8,8 @@ struct TabViewCallbacks
 {
 	// Options retrieval
 	BOOL (*pfnGetShowTabCtrl)(void);
-	void (*pfnSetCurrentTab)(LPCSTR pszShortName);
-	LPCSTR (*pfnGetCurrentTab)(void);
+	void (*pfnSetCurrentTab)(int val);
+	int (*pfnGetCurrentTab)(void);
 	void (*pfnSetShowTab)(int nTab, BOOL show);
 	int (*pfnGetShowTab)(int nTab);
 

@@ -36,13 +36,14 @@ CPUS["MCS48"] = true
 CPUS["MCS51"] = true
 CPUS["NEC"] = true
 CPUS["S2650"] = true
-CPUS["SH2"] = true
+CPUS["SH"] = true
 CPUS["SSP1601"] = true
 CPUS["TLCS90"] = true
 CPUS["TMS32010"] = true
 CPUS["TMS32031"] = true
 CPUS["TMS340X0"] = true
 CPUS["PIC16C5X"] = true
+CPUS["UPD7810"] = true
 CPUS["V810"] = true
 CPUS["Z180"] = true
 CPUS["Z80"] = true
@@ -51,13 +52,48 @@ CPUS["Z80"] = true
 -- specify available sound cores
 --------------------------------------------------
 
-SOUNDS["SAMPLES"] = true
+SOUNDS["ASTROCADE"] = true
+SOUNDS["AY8910"] = true
+SOUNDS["BEEP"] = true
+SOUNDS["CDDA"] = true
 SOUNDS["DAC"] = true
 SOUNDS["DMADAC"] = true
-SOUNDS["SPEAKER"] = true
-SOUNDS["BEEP"] = true
+SOUNDS["DIGITALKER"] = true
 SOUNDS["DISCRETE"] = true
-SOUNDS["AY8910"] = true
+SOUNDS["ES5505"] = true
+SOUNDS["HC55516"] = true
+SOUNDS["ICS2115"] = true
+SOUNDS["K005289"] = true
+SOUNDS["K007232"] = true
+SOUNDS["K051649"] = true
+SOUNDS["K053260"] = true
+SOUNDS["K054539"] = true
+SOUNDS["MPEG_AUDIO"] = true -- model2
+SOUNDS["MSM5205"] = true
+SOUNDS["MULTIPCM"] = true -- model2
+SOUNDS["NAMCO_15XX"] = true
+SOUNDS["NAMCO_52XX"] = true
+SOUNDS["NES_APU"] = true
+SOUNDS["OKIM6295"] = true
+SOUNDS["POKEY"] = true
+SOUNDS["QSOUND"] = true
+SOUNDS["RF5C68"] = true
+SOUNDS["SAMPLES"] = true
+SOUNDS["SCSP"] = true -- model2
+SOUNDS["SEGAPCM"] = true
+SOUNDS["SN76477"] = true
+SOUNDS["SN76496"] = true
+SOUNDS["SP0250"] = true
+SOUNDS["SPEAKER"] = true
+SOUNDS["ST0016"] = true
+SOUNDS["TC8830F"] = true -- timeplt
+SOUNDS["TMS36XX"] = true
+SOUNDS["TMS5110"] = true
+SOUNDS["TMS5220"] = true
+SOUNDS["UPD7759"] = true
+SOUNDS["VLM5030"] = true
+SOUNDS["VOLT_REG"] = true
+SOUNDS["VOTRAX"] = true
 SOUNDS["YM2151"] = true
 SOUNDS["YM2203"] = true
 SOUNDS["YM2413"] = true
@@ -69,40 +105,6 @@ SOUNDS["YM3526"] = true
 SOUNDS["YMF262"] = true
 SOUNDS["YMF278B"] = true
 SOUNDS["YMZ280B"] = true
-SOUNDS["SN76477"] = true
-SOUNDS["SN76496"] = true
-SOUNDS["POKEY"] = true
-SOUNDS["NES_APU"] = true
-SOUNDS["ASTROCADE"] = true
-SOUNDS["NAMCO_15XX"] = true
-SOUNDS["NAMCO_52XX"] = true
-SOUNDS["TMS36XX"] = true
-SOUNDS["TMS5110"] = true
-SOUNDS["TMS5220"] = true
-SOUNDS["VLM5030"] = true
-SOUNDS["MSM5205"] = true
-SOUNDS["OKIM6295"] = true
-SOUNDS["UPD7759"] = true
-SOUNDS["HC55516"] = true
-SOUNDS["K005289"] = true
-SOUNDS["K007232"] = true
-SOUNDS["K051649"] = true
-SOUNDS["K053260"] = true
-SOUNDS["K054539"] = true
-SOUNDS["SEGAPCM"] = true
-SOUNDS["RF5C68"] = true
-SOUNDS["QSOUND"] = true
-SOUNDS["ES5505"] = true
-SOUNDS["SP0250"] = true
-SOUNDS["CDDA"] = true
-SOUNDS["ICS2115"] = true
-SOUNDS["ST0016"] = true
-SOUNDS["VOLT_REG"] = true
-SOUNDS["VOTRAX"] = true
-SOUNDS["DIGITALKER"] = true
-SOUNDS["MULTIPCM"] = true -- model2
-SOUNDS["SCSP"] = true -- model2
-SOUNDS["MPEG_AUDIO"] = true -- model2
 
 --------------------------------------------------
 -- specify available video cores
@@ -126,6 +128,7 @@ MACHINES["6821PIA"] = true
 MACHINES["68681"] = true
 MACHINES["I8257"] = true
 MACHINES["AAKARTDEV"] = true
+MACHINES["ADC0844"] = true
 MACHINES["BANKDEV"] = true
 MACHINES["CXD1095"] = true
 MACHINES["EEPROMDEV"] = true
@@ -135,21 +138,28 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8251"] = true
 MACHINES["I8255"] = true
+MACHINES["INPUT_MERGER"] = true
 MACHINES["INTELFLASH"] = true
 MACHINES["GEN_LATCH"] = true
 MACHINES["LATCH8"] = true
 MACHINES["LDPR8210"] = true
+MACHINES["MB8421"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
+MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
+MACHINES["TE7750"] = true
+MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMS1024"] = true -- docastle
 MACHINES["TMS6100"] = true
 MACHINES["TTL74157"] = true
+MACHINES["TTL74259"] = true
 MACHINES["UPD1990A"] = true
+MACHINES["UPD4701"] = true
 MACHINES["UPD4992"] = true
 MACHINES["V3021"] = true
 MACHINES["WATCHDOG"] = true
@@ -208,7 +218,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"toaplan",
 		"univers",
 		"valadon",
-		"shared",
+--		"shared",
 		"misc",
 	}
 end
@@ -247,10 +257,10 @@ function createProjects_hbmame_hbmame(_target, _subtarget)
 -- shared across a number of drivers
 --------------------------------------------------
 
-createHBMAMEProjects(_target, _subtarget, "shared")
-files {
-	MAME_DIR .. "src/mame/machine/ticket.cpp",
-}
+--createHBMAMEProjects(_target, _subtarget, "shared")
+--files {
+--	MAME_DIR .. "src/devices/machine/ticket.cpp",
+--}
 
 --------------------------------------------------
 -- manufacturer-specific groupings for drivers
@@ -424,8 +434,13 @@ files {
 	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nemesis.cpp",
 	MAME_DIR .. "src/mame/video/nemesis.cpp",
+	MAME_DIR .. "src/hbmame/drivers/pooyan.cpp",
+	MAME_DIR .. "src/mame/video/pooyan.cpp",
 	MAME_DIR .. "src/hbmame/drivers/shaolins.cpp",
 	MAME_DIR .. "src/mame/video/shaolins.cpp",
+	MAME_DIR .. "src/hbmame/drivers/timeplt.cpp",
+	MAME_DIR .. "src/mame/audio/timeplt.cpp",
+	MAME_DIR .. "src/mame/video/timeplt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tmnt.cpp",
 	MAME_DIR .. "src/mame/video/tmnt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/trackfld.cpp",
@@ -562,7 +577,6 @@ files {
 	MAME_DIR .. "src/mame/video/mario.cpp",
 	MAME_DIR .. "src/mame/audio/nl_mario.cpp",
 	MAME_DIR .. "src/mame/audio/nl_mario.h",
-	MAME_DIR .. "src/hbmame/drivers/mmagic.cpp",
 	MAME_DIR .. "src/hbmame/drivers/playch10.cpp",
 	MAME_DIR .. "src/mame/machine/playch10.cpp",
 	MAME_DIR .. "src/mame/video/playch10.cpp",
@@ -688,7 +702,7 @@ files {
 	MAME_DIR .. "src/mame/video/taito_f2.cpp",
 	MAME_DIR .. "src/hbmame/drivers/taito_f3.cpp",
 	MAME_DIR .. "src/mame/video/taito_f3.cpp",
-	MAME_DIR .. "src/mame/machine/cchip.cpp",
+	MAME_DIR .. "src/mame/machine/taitocchip.cpp",
 	MAME_DIR .. "src/hbmame/drivers/volfied.cpp",
 	MAME_DIR .. "src/mame/machine/volfied.cpp",
 	MAME_DIR .. "src/mame/video/volfied.cpp",
@@ -770,8 +784,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
 --	MAME_DIR .. "src/hbmame/drivers/atari_s1.cpp",
 --	MAME_DIR .. "src/mame/machine/genpin.cpp",
-	MAME_DIR .. "src/hbmame/drivers/flower.cpp",
-	MAME_DIR .. "src/hbmame/drivers/marinedt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",

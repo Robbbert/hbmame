@@ -31,7 +31,7 @@ INTERRUPT_GEN_MEMBER(timelimt_hbmame::hb_irq)
 	}
 }
 
-static MACHINE_CONFIG_START( timelimit, timelimt_hbmame )
+static MACHINE_CONFIG_START( timelimit )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", Z80, 5000000)   /* 5.000 MHz */
@@ -45,6 +45,13 @@ static MACHINE_CONFIG_START( timelimit, timelimt_hbmame )
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", timelimt_state,  irq0_line_hold) /* ? */
 
 	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
+
+	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // IC15
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(timelimt_state, nmi_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q2_OUT_CB(WRITELINE(timelimt_state, coin_lockout_w))
+	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(INPUTLINE("audiocpu", INPUT_LINE_RESET)) MCFG_DEVCB_INVERT
+	MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(NOOP) // probably flip screen
+	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(NOOP) // probably flip screen
 
 	MCFG_WATCHDOG_ADD("watchdog")
 
@@ -104,4 +111,4 @@ ROM_START( timelimit )
 	ROM_LOAD( "clr.57", 0x0040, 0x0020, CRC(aaa6f23e) SHA1(9fcb6af82f725517e8eff86d748701f836a05eba) )
 ROM_END
 
-GAME( 2017, timelimit, timelimt, timelimit, timelimt, driver_device, 0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, 0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )

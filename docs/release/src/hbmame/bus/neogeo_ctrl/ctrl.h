@@ -103,8 +103,8 @@ protected:
 
 
 // device type definition
-extern const device_type NEOGEO_CONTROL_PORT;
-extern const device_type NEOGEO_CTRL_EDGE_CONNECTOR;
+DECLARE_DEVICE_TYPE(NEOGEO_CONTROL_PORT, neogeo_control_port_device)
+DECLARE_DEVICE_TYPE(NEOGEO_CTRL_EDGE_CONNECTOR, neogeo_ctrl_edge_port_device)
 
 
 //**************************************************************************

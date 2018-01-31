@@ -13,6 +13,8 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_LOAD16_BYTE( "c04-19.6",     0xc0000, 0x20000, CRC(231493ae) SHA1(2658e6556fd0e75ddd0f0b8628cfa5237c187a06) )
 	ROM_LOAD16_BYTE( "c04-21.8",     0xc0001, 0x20000, CRC(8598d38e) SHA1(4ec1b819586b50e2f6aff2aaa5e3b06704b9bec2) )
 
+	ROM_REGION( 0x2000, "cchip:cchip_eprom", ROMREGION_ERASE00 )
+
 	ROM_REGION( 0xc0000, "gfx1", 0 )
 	ROM_LOAD16_BYTE( "c04-16.2g",    0x00000, 0x20000, CRC(1c6963a9) SHA1(2dc4b6838c95497e019c03582a8f7ecb48fa97a8) )
 	ROM_LOAD16_BYTE( "c04-18.4g",    0x00001, 0x20000, CRC(67ea587f) SHA1(2b43ba53cc563d3462a4bec430427f92290f2b23) )
@@ -25,6 +27,10 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "c04-06.71",           0x0000, 0x8000,   CRC(b70106b2) SHA1(d71062f9d9b11492e13fc93982b95883f564f902) )
+
+	ROM_REGION( 0x00400, "proms", 0 )   /* unused PROMs */
+	ROM_LOAD_OPTIONAL( "c04-4-1.3", 0x00000, 0x00200, CRC(ab9fae65) SHA1(e2b29606aa63e42e041d3c47216551f62846bd99) )
+	ROM_LOAD_OPTIONAL( "c04-5.75",  0x00200, 0x00200, CRC(2763ec89) SHA1(1e8339e21ee35b526d8604a21cfed9a1ac6455e8) )
 ROM_END
 
-GAME( 2005, volfiedg, volfied, volfied, volfied, driver_device, 0, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, volfiedg, volfied, volfied, volfied, volfied_state, 0, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )

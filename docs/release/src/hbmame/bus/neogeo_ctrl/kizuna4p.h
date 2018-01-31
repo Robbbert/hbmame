@@ -55,7 +55,7 @@ private:
 
 
 // device type definition
-extern const device_type NEOGEO_KIZ4P;
+DECLARE_DEVICE_TYPE(NEOGEO_KIZ4P, neogeo_kizuna4p_device)
 
 
 #endif

@@ -63,11 +63,13 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Loa&d Savestate...",          ID_FILE_LOADSTATE
         MENUITEM SEPARATOR
-
         MENUITEM "Pr&operties",                 ID_GAME_PROPERTIES
         MENUITEM SEPARATOR
         MENUITEM "Audi&t existing sets",        ID_FILE_AUDIT_X
         MENUITEM "&Audit all sets",             ID_FILE_AUDIT
+        MENUITEM SEPARATOR
+        MENUITEM "&Refresh Roms\tF5",           ID_UPDATE_GAMELIST
+        MENUITEM "Refresh Cache",               ID_UPDATE_CACHE
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_FILE_EXIT
     END
@@ -83,15 +85,24 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "S&how Pictures"
         BEGIN
-            MENUITEM "&Snapshot",                   ID_TOGGLE_TAB_SCREENSHOT
-            MENUITEM "&Flyer",                      ID_TOGGLE_TAB_FLYER
-            MENUITEM "&Cabinet",                    ID_TOGGLE_TAB_CABINET
-            MENUITEM "&Marquee",                    ID_TOGGLE_TAB_MARQUEE
-            MENUITEM "&Title",                      ID_TOGGLE_TAB_TITLE
-            MENUITEM "Control &Panel",              ID_TOGGLE_TAB_CONTROL_PANEL
-
-            MENUITEM "PC&B",                        ID_TOGGLE_TAB_PCB
-            MENUITEM "&History",                    ID_TOGGLE_TAB_HISTORY
+            MENUITEM "Artwork",                     ID_TOGGLE_TAB_ARTWORK
+            MENUITEM "Boss",                        ID_TOGGLE_TAB_BOSSES
+            MENUITEM "Cabinet",                     ID_TOGGLE_TAB_CABINET
+            MENUITEM "Control Panel",               ID_TOGGLE_TAB_CONTROL_PANEL
+            MENUITEM "Cover",                       ID_TOGGLE_TAB_COVER
+            MENUITEM "End",                         ID_TOGGLE_TAB_ENDS
+            MENUITEM "Flyer",                       ID_TOGGLE_TAB_FLYER
+            MENUITEM "Game Over",                   ID_TOGGLE_TAB_GAMEOVER
+            MENUITEM "History",                     ID_TOGGLE_TAB_HISTORY
+            MENUITEM "How To",                      ID_TOGGLE_TAB_HOWTO
+            MENUITEM "Logo",                        ID_TOGGLE_TAB_LOGO
+            MENUITEM "Marquee",                     ID_TOGGLE_TAB_MARQUEE
+            MENUITEM "PCB",                         ID_TOGGLE_TAB_PCB
+            MENUITEM "Scores",                      ID_TOGGLE_TAB_SCORES
+            MENUITEM "Select",                      ID_TOGGLE_TAB_SELECT
+            MENUITEM "Snapshot",                    ID_TOGGLE_TAB_SCREENSHOT
+            MENUITEM "Title",                       ID_TOGGLE_TAB_TITLE
+            MENUITEM "Versus",                      ID_TOGGLE_TAB_VERSUS
         END
         MENUITEM SEPARATOR
         MENUITEM "L&arge Icons",                ID_VIEW_LARGE_ICON
@@ -111,7 +122,6 @@ BEGIN
         END
         MENUITEM "Line &Up Icons",              ID_VIEW_LINEUPICONS
         MENUITEM SEPARATOR
-        MENUITEM "&Refresh\tF5",                ID_UPDATE_GAMELIST
         MENUITEM "&Custom Filters...\tCtrl+F",  ID_CONTEXT_FILTERS
         MENUITEM "Customi&ze Fields...",        ID_CUSTOMIZE_FIELDS
     END
@@ -145,6 +155,8 @@ BEGIN
         MENUITEM "&Play",                       ID_FILE_PLAY
         MENUITEM SEPARATOR
         MENUITEM "Play and &Record Input...",   ID_FILE_PLAY_RECORD
+        MENUITEM "Play ProgettoSnaps MP4 movie",ID_VIDEO_SNAP
+        MENUITEM "Read the PDF Manual",         ID_MANUAL
         MENUITEM SEPARATOR
         MENUITEM "&Add to Custom Folder...",    ID_CONTEXT_ADD_CUSTOM
         MENUITEM "R&emove From This Folder",    ID_CONTEXT_REMOVE_CUSTOM
@@ -200,25 +212,44 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "S&how Pictures"
         BEGIN
-            MENUITEM "&Snapshot",                   ID_TOGGLE_TAB_SCREENSHOT
-            MENUITEM "&Flyer",                      ID_TOGGLE_TAB_FLYER
-            MENUITEM "&Cabinet",                    ID_TOGGLE_TAB_CABINET
-            MENUITEM "&Marquee",                    ID_TOGGLE_TAB_MARQUEE
-            MENUITEM "&Title",                      ID_TOGGLE_TAB_TITLE
-            MENUITEM "Control &Panel",              ID_TOGGLE_TAB_CONTROL_PANEL
-
-            MENUITEM "PC&B",                        ID_TOGGLE_TAB_PCB
-            MENUITEM "&History",                    ID_TOGGLE_TAB_HISTORY
+            MENUITEM "Artwork",                     ID_TOGGLE_TAB_ARTWORK
+            MENUITEM "Boss",                        ID_TOGGLE_TAB_BOSSES
+            MENUITEM "Cabinet",                     ID_TOGGLE_TAB_CABINET
+            MENUITEM "Control Panel",               ID_TOGGLE_TAB_CONTROL_PANEL
+            MENUITEM "Cover",                       ID_TOGGLE_TAB_COVER
+            MENUITEM "End",                         ID_TOGGLE_TAB_ENDS
+            MENUITEM "Flyer",                       ID_TOGGLE_TAB_FLYER
+            MENUITEM "Game Over",                   ID_TOGGLE_TAB_GAMEOVER
+            MENUITEM "History",                     ID_TOGGLE_TAB_HISTORY
+            MENUITEM "How To",                      ID_TOGGLE_TAB_HOWTO
+            MENUITEM "Logo",                        ID_TOGGLE_TAB_LOGO
+            MENUITEM "Marquee",                     ID_TOGGLE_TAB_MARQUEE
+            MENUITEM "PCB",                         ID_TOGGLE_TAB_PCB
+            MENUITEM "Scores",                      ID_TOGGLE_TAB_SCORES
+            MENUITEM "Select",                      ID_TOGGLE_TAB_SELECT
+            MENUITEM "Snapshot",                    ID_TOGGLE_TAB_SCREENSHOT
+            MENUITEM "Title",                       ID_TOGGLE_TAB_TITLE
+            MENUITEM "Versus",                      ID_TOGGLE_TAB_VERSUS
         END
         MENUITEM SEPARATOR
-        MENUITEM "&Snapshot",                   ID_VIEW_TAB_SCREENSHOT
-        MENUITEM "&Flyer",                      ID_VIEW_TAB_FLYER
-        MENUITEM "&Cabinet",                    ID_VIEW_TAB_CABINET
-        MENUITEM "&Marquee",                    ID_VIEW_TAB_MARQUEE
-        MENUITEM "&Title",                      ID_VIEW_TAB_TITLE
-        MENUITEM "Control &Panel",              ID_VIEW_TAB_CONTROL_PANEL
-        MENUITEM "PC&B",                        ID_VIEW_TAB_PCB
-        MENUITEM "&History",                    ID_VIEW_TAB_HISTORY
+            MENUITEM "Artwork",                     ID_VIEW_TAB_ARTWORK
+            MENUITEM "Boss",                        ID_VIEW_TAB_BOSSES
+            MENUITEM "Cabinet",                     ID_VIEW_TAB_CABINET
+            MENUITEM "Control Panel",               ID_VIEW_TAB_CONTROL_PANEL
+            MENUITEM "Cover",                       ID_VIEW_TAB_COVER
+            MENUITEM "End",                         ID_VIEW_TAB_ENDS
+            MENUITEM "Flyer",                       ID_VIEW_TAB_FLYER
+            MENUITEM "Game Over",                   ID_VIEW_TAB_GAMEOVER
+            MENUITEM "History",                     ID_VIEW_TAB_HISTORY
+            MENUITEM "How To",                      ID_VIEW_TAB_HOWTO
+            MENUITEM "Logo",                        ID_VIEW_TAB_LOGO
+            MENUITEM "Marquee",                     ID_VIEW_TAB_MARQUEE
+            MENUITEM "PCB",                         ID_VIEW_TAB_PCB
+            MENUITEM "Scores",                      ID_VIEW_TAB_SCORES
+            MENUITEM "Select",                      ID_VIEW_TAB_SELECT
+            MENUITEM "Snapshot",                    ID_VIEW_TAB_SCREENSHOT
+            MENUITEM "Title",                       ID_VIEW_TAB_TITLE
+            MENUITEM "Versus",                      ID_VIEW_TAB_VERSUS
     END
 END
 
@@ -345,6 +376,7 @@ IDI_WIN_NOROMS          ICON                    "res\\win_noro.ico"
 IDI_WIN_UNKNOWN         ICON                    "res\\win_unkn.ico"
 IDI_WIN_CLONE           ICON                    "res\\win_clone.ico"
 IDI_WIN_REDX            ICON                    "res\\win_redx.ico"
+IDI_WIN_IMPERFECT       ICON                    "res\\win_imp.ico"
 IDI_FOLDER_AVAILABLE    ICON                    "res\\foldavail.ico"
 IDI_FOLDER              ICON                    "res\\folder.ico"
 IDI_FOLDER_MANUFACTURER ICON                    "res\\foldmanu.ico"
@@ -617,7 +649,7 @@ BEGIN
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,169,25,SS_NOPREFIX
 
     CONTROL         "Run in a window",IDC_WINDOWED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,40,69,10,0,HIDC_WINDOWED
-    CONTROL         "Start out maximized",IDC_MAXIMIZE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,52,74,10,0,HIDC_MAXIMIZE
+    CONTROL         "Start out maximized",IDC_MAXIMIZE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,52,80,10,0,HIDC_MAXIMIZE
     CONTROL         "Enforce aspect ratio",IDC_KEEPASPECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,64,77,10,0,HIDC_KEEPASPECT
     CONTROL         "Throttle",IDC_THROTTLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,76,39,10,0,HIDC_THROTTLE
 
@@ -641,7 +673,7 @@ BEGIN
     CONTROL         "Slider1",IDC_PAUSEBRIGHT,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,10,203,71,10,0,HIDC_PAUSEBRIGHT
     RTEXT           "0.65",IDC_PAUSEBRIGHTDISP,84,202,14,11,SS_CENTERIMAGE | NOT WS_GROUP
 
-    GROUPBOX        "Videomode",IDC_STATIC,113,40,102,28
+    GROUPBOX        "Video Mode",IDC_STATIC,113,40,102,28
     COMBOBOX        IDC_VIDEO_MODE,119,50,90,50,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP,0,HIDC_VIDEO_MODE
 
     GROUPBOX        "Rotation",IDC_STATIC,113,71,102,55
@@ -672,7 +704,7 @@ BEGIN
 
     GROUPBOX        "",IDC_STATIC,4,40,211,155
 
-    GROUPBOX        "Soundmode",IDC_STATIC,60,50,100,28
+    GROUPBOX        "Sound Mode",IDC_STATIC,60,50,100,28
     COMBOBOX        IDC_SOUND_MODE,66,60,88,50,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP,0,HIDC_VIDEO_MODE
 
     CONTROL         "Use samples",IDC_SAMPLES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,60,84,55,10,0,HIDC_SAMPLES
@@ -1009,55 +1041,32 @@ EXSTYLE WS_EX_CONTEXTHELP
 CAPTION "Interface Options"
 FONT 8, "Tahoma"
 BEGIN
-    GROUPBOX        "Game Selection",IDC_STATIC,6,4,189,194
-    CONTROL         "&Search for new games on start",IDC_START_GAME_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,16,111,10,0,
-                    HIDC_START_GAME_CHECK
-    CONTROL         "Allow game selection by a &joystick (requires restart)",
-                    IDC_JOY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,
-                    174,10,0,HIDC_JOY_GUI
-    CONTROL         "Allow game selection by custom &key sequences",
-                    IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,
-                    166,10
-    CONTROL         "Hide &mouse cursor (requires restart)",IDC_HIDE_MOUSE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,126,10,0,
-                    HIDC_HIDE_MOUSE
-    CONTROL         "Inheritable Filters",IDC_FILTER_INHERIT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,100,68,10
-    CONTROL         "No offset for clones missing parent in view",
-                    IDC_NOOFFSET_CLONES,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,14,114,148,10
+    GROUPBOX        "Machine Selection",IDC_STATIC,6,4,189,194
+    CONTROL         "&Search for new machines on start",IDC_START_GAME_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,16,120,10,0,HIDC_START_GAME_CHECK
+    CONTROL         "Allow selection by &joystick (requires restart)",IDC_JOY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,180,10,0,HIDC_JOY_GUI
+    CONTROL         "Allow selection by custom &key sequences",IDC_KEY_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,44,176,10
+    CONTROL         "Override Not Working icon with driver icon",IDC_OVERRIDE_REDX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,72,168,10
+    CONTROL         "Hide &mouse cursor (requires restart)",IDC_HIDE_MOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,136,10,0,HIDC_HIDE_MOUSE
+    CONTROL         "Inheritable Filters",IDC_FILTER_INHERIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,100,68,10
+    CONTROL         "No offset for clones missing parent in view",IDC_NOOFFSET_CLONES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,114,148,10
     GROUPBOX        "Show History on Tab",IDC_STATIC,14,128,173,28
-    COMBOBOX        IDC_HISTORY_TAB,57,138,88,50,CBS_DROPDOWNLIST |
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_HISTORY_TAB,57,138,88,50,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Snapshot Pattern",IDC_STATIC,202,4,170,28
     GROUPBOX        "Bookkeeping",IDC_STATIC,202,36,170,43
-    CONTROL         "Reset all Playcounts",IDC_RESET_PLAYCOUNT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,210,48,80,10
-    CONTROL         "Reset all Play Times",IDC_RESET_PLAYTIME,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,210,62,79,10
+    CONTROL         "Reset all Play Statistics",IDC_RESET_PLAYSTATS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,210,48,100,10
     GROUPBOX        "Screenshot Area",IDC_STATIC,202,83,170,115
     CONTROL         "S&tretch screenshot larger than natural size",
-                    IDC_STRETCH_SCREENSHOT_LARGER,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,210,95,148,10,0,
-                    HIDC_STRETCH_SCREENSHOT_LARGER
-    GROUPBOX        "Screenshot Cycletime in Seconds",IDC_STATIC,210,109,154,
-                    28
-    CONTROL         "Slider1",IDC_CYCLETIMESEC,"msctls_trackbar32",TBS_BOTH |
-                    TBS_NOTICKS | WS_TABSTOP,218,121,120,10,0,
-                    HIDC_CYCLETIMESEC
+                    IDC_STRETCH_SCREENSHOT_LARGER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,210,95,148,10,0,HIDC_STRETCH_SCREENSHOT_LARGER
+    GROUPBOX        "Screenshot Cycletime in Seconds",IDC_STATIC,210,109,154,28
+    CONTROL         "Slider1",IDC_CYCLETIMESEC,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,218,121,120,10,0,HIDC_CYCLETIMESEC
     RTEXT           "60",IDC_CYCLETIMESECTXT,340,120,13,10,SS_CENTERIMAGE
     GROUPBOX        "Screenshot Bordersize",IDC_STATIC,210,141,154,28
-    CONTROL         "Slider1",IDC_SCREENSHOT_BORDERSIZE,"msctls_trackbar32",
-                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,218,153,120,10
-    RTEXT           "100",IDC_SCREENSHOT_BORDERSIZETXT,340,152,13,10,
-                    SS_CENTERIMAGE
-    PUSHBUTTON      "Set Screenshot Border Color",IDC_SCREENSHOT_BORDERCOLOR,
-                    210,176,154,14
+    CONTROL         "Slider1",IDC_SCREENSHOT_BORDERSIZE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,218,153,120,10
+    RTEXT           "100",IDC_SCREENSHOT_BORDERSIZETXT,340,152,13,10,SS_CENTERIMAGE
+    PUSHBUTTON      "Set Screenshot Border Color",IDC_SCREENSHOT_BORDERCOLOR,210,176,154,14
     DEFPUSHBUTTON   "&OK",IDOK,136,204,50,14
     PUSHBUTTON      "&Cancel",IDCANCEL,192,204,50,14
-    COMBOBOX        IDC_SNAPNAME,209,14,155,60,CBS_DROPDOWNLIST | WS_VSCROLL |
-                    WS_TABSTOP,0,HIDC_SNAPNAME
+    COMBOBOX        IDC_SNAPNAME,209,14,155,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP,0,HIDC_SNAPNAME
 END
 
 IDD_CUSTOM_FILE DIALOG DISCARDABLE 0, 0, 190, 135

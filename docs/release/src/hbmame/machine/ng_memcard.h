@@ -59,7 +59,7 @@ private:
 
 
 // device type definition
-extern const device_type NG_MEMCARD;
+DECLARE_DEVICE_TYPE(NG_MEMCARD, ng_memcard_device)
 
 
 #endif  /* __NG_MEMCARD_H__ */

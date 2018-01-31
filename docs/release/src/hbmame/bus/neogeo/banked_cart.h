@@ -7,7 +7,7 @@
 #ifndef __NEOGEO_BANKED_CART__
 #define __NEOGEO_BANKED_CART__
 
-extern const device_type NEOGEO_BANKED_CART;
+DECLARE_DEVICE_TYPE(NEOGEO_BANKED_CART, neogeo_banked_cart_device)
 
 #define MCFG_NEOGEO_BANKED_CART_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, NEOGEO_BANKED_CART, 0)

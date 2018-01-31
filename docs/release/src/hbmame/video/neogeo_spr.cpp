@@ -7,11 +7,11 @@
 #include "neogeo_spr.h"
 #include "screen.h"
 
-const device_type NEOGEO_SPRITE = device_creator<neosprite_device>;
+DEFINE_DEVICE_TYPE(NEOGEO_SPRITE, neosprite_device, "neosprite", "Neo-Geo Sprites")
 
 neosprite_device::neosprite_device
 	(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, NEOGEO_SPRITE, "Neo-Geo Sprites", tag, owner, clock, "neosprite", __FILE__)
+	: device_t(mconfig, NEOGEO_SPRITE, tag, owner, clock)
 	, m_bppshift(4)
 	, m_spritegfx8(nullptr)
 	{ }

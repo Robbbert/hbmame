@@ -221,7 +221,7 @@ ROM_START( dkongpac )
 	ROM_LOAD( "c_5et_g.bin",  0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
 	ROM_LOAD( "c_5ct_g.bin",  0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
 	ROM_LOAD( "c_5bt_g.bin",  0x2000, 0x1000, CRC(1c97d324) SHA1(c7966261f3a1d3296927e0b6ee1c58039fc53c1f) )
-	ROM_LOAD( "c_5at_g.bin",  0x3000, 0x1000, CRC(b9005ac0) SHA1(3fe3599f6fa7c496f782053ddf7bacb453d197c4) )
+	ROM_LOAD( "dkongpac.5a",  0x3000, 0x1000, CRC(56d28137) SHA1(62ad0783df4a4d8a7c45693966858b69343045ff) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
@@ -274,11 +274,11 @@ ROM_END
 
 
 
-GAME( 2013, dkong2m,   dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, dkongex,   dkong, dkong2b, dkongex, driver_device, 0, ROT90, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, dkongp,    dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, dkongpac,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, dkrainbow, dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, dkrdemo,   dkong, dkong2b, dkrdemo, driver_device, 0, ROT90, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kong2600,  dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, nadkong,   dkong, dkong2b, dkong,   driver_device, 0, ROT90, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, dkong2m,   dkong, dkong2b, dkong,   dkong_state,  0, ROT90, "Hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, dkongex,   dkong, dkong2b, dkongex, dkong_state,  0, ROT90, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, dkongp,    dkong, dkong2b, dkong,   dkong_state,  0, ROT90, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, dkongpac,  dkong, dkong2b, dkong,   dkong_state,  0, ROT90, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkrainbow, dkong, dkong2b, dkong,   dkong_state,  0, ROT90, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkrdemo,   dkong, dkong2b, dkrdemo, dkong_state,  0, ROT90, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kong2600,  dkong, dkong2b, dkong,   dkong_state,  0, ROT90, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, nadkong,   dkong, dkong2b, dkong,   dkong_state,  0, ROT90, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )

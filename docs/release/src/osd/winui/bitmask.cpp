@@ -1,4 +1,5 @@
 // For licensing and usage information, read docs/winui_license.txt
+// MASTER
 //****************************************************************************
 /* bitmask.c - Bitmask support routines - MSH 11/19/1998 */
 
@@ -10,7 +11,6 @@
 
 // MAME/MAMEUI headers
 #include "bitmask.h"
-#include "emu.h"
 /* Bit routines */
 static UCHAR maskTable[8] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
 
@@ -59,7 +59,7 @@ BOOL TestBit(LPBITS lpBits, UINT nBit)
 	UINT offset;
 	UCHAR mask;
 
-	if (!lpBits || !lpBits->m_lpBits)
+	if (nBit < 0 || !lpBits || !lpBits->m_lpBits)
 		return FALSE;
 
 	offset = nBit >> 3;
@@ -68,7 +68,7 @@ BOOL TestBit(LPBITS lpBits, UINT nBit)
 		return FALSE;
 
 	mask = maskTable[nBit & 7];
-	return	(lpBits->m_lpBits[offset] & mask) ? TRUE : FALSE;
+	return (lpBits->m_lpBits[offset] & mask) ? TRUE : FALSE;
 }
 
 /* Set the 'nBit'th bit */
@@ -77,7 +77,7 @@ void SetBit(LPBITS lpBits, UINT nBit)
 	UINT offset;
 	UCHAR mask;
 
-	if (!lpBits || !lpBits->m_lpBits)
+	if (nBit < 0 || !lpBits || !lpBits->m_lpBits)
 		return;
 
 	offset = nBit >> 3;
@@ -95,7 +95,7 @@ void ClearBit(LPBITS lpBits, UINT nBit)
 	UINT offset;
 	UCHAR mask;
 
-	if (!lpBits || !lpBits->m_lpBits)
+	if (nBit < 0 || !lpBits || !lpBits->m_lpBits)
 		return;
 
 	offset = nBit >> 3;

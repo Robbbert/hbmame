@@ -49,5 +49,5 @@ ROM_START( pickinpi )
 	ROM_LOAD( "6331-1pi.3r",  0x0020, 0x0020, CRC(47fadc93) SHA1(3ba46957e664a2ea639a97a0c199a9636861ca50) )
 ROM_END
 
-GAME(1991, bagturbo, bagman, bagman, bagman, bagman_state,  bagman, ROT270, "Tim Arcadecollecting", "Bagman Turbo (Stern set 1) [c]", 0 ) // http://www.arcadecollecting.com/hacks/bagman
-GAME(1983, pickinpi, pickin, pickin, pickin,  driver_device, 0,      ROT270, "Pi", "Pickin' (Color Hack)", 0 )
+GAME(1991, bagturbo, bagman, bagman, bagman, bagman_state, 0, ROT270, "Tim Arcadecollecting", "Bagman Turbo (Stern set 1) [c]", 0 ) // http://www.arcadecollecting.com/hacks/bagman
+GAME(1983, pickinpi, pickin, pickin, pickin, bagman_state, 0, ROT270, "Pi", "Pickin' (Color Hack)", 0 )

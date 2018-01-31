@@ -20,29 +20,30 @@ extern void DisplayTextFile(HWND hWnd, const char *cName);
 /* Check for old version of comctl32.dll */
 extern LONG GetCommonControlVersion(void);
 
+void ShellExecuteCommon(HWND hWnd, const char *cName);
 extern char * MyStrStrI(const char* pFirst, const char* pSrch);
 extern char * ConvertToWindowsNewlines(const char *source);
 
-extern const char * GetDriverFilename(int nIndex);
+extern const char * GetDriverFilename(uint32_t nIndex);
 
-BOOL DriverIsClone(int driver_index);
-BOOL DriverIsBroken(int driver_index);
-BOOL DriverIsHarddisk(int driver_index);
-BOOL DriverHasOptionalBIOS(int driver_index);
-BOOL DriverIsStereo(int driver_index);
-BOOL DriverIsVector(int driver_index);
-int  DriverNumScreens(int driver_index);
-BOOL DriverIsBios(int driver_index);
-BOOL DriverUsesRoms(int driver_index);
-BOOL DriverUsesSamples(int driver_index);
-BOOL DriverUsesTrackball(int driver_index);
-BOOL DriverUsesLightGun(int driver_index);
-BOOL DriverUsesMouse(int driver_index);
-BOOL DriverSupportsSaveState(int driver_index);
-BOOL DriverIsVertical(int driver_index);
-BOOL DriverIsMechanical(int driver_index);
-BOOL DriverIsArcade(int driver_index);
-BOOL DriverHasRam(int driver_index);
+BOOL DriverIsClone(uint32_t driver_index);
+BOOL DriverIsBroken(uint32_t driver_index);
+BOOL DriverIsHarddisk(uint32_t driver_index);
+BOOL DriverHasOptionalBIOS(uint32_t driver_index);
+BOOL DriverIsStereo(uint32_t driver_index);
+BOOL DriverIsVector(uint32_t driver_index);
+int DriverNumScreens(uint32_t driver_index);
+BOOL DriverIsBios(uint32_t driver_index);
+BOOL DriverUsesRoms(uint32_t driver_index);
+BOOL DriverUsesSamples(uint32_t driver_index);
+BOOL DriverUsesTrackball(uint32_t driver_index);
+BOOL DriverUsesLightGun(uint32_t driver_index);
+BOOL DriverUsesMouse(uint32_t driver_index);
+BOOL DriverSupportsSaveState(uint32_t driver_index);
+BOOL DriverIsVertical(uint32_t driver_index);
+BOOL DriverIsMechanical(uint32_t driver_index);
+BOOL DriverIsArcade(uint32_t driver_index);
+BOOL DriverHasRam(uint32_t driver_index);
 
 int isDriverVector(const machine_config *config);
 int numberOfSpeakers(const machine_config *config);

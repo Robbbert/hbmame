@@ -5,11 +5,11 @@
 
 
 
-const device_type NEOGEO_BANKED_CART = device_creator<neogeo_banked_cart_device>;
+DEFINE_DEVICE_TYPE(NEOGEO_BANKED_CART, neogeo_banked_cart_device, "neogeo_banked_cart", "NeoGeo Banked Cartridge")
 
 
 neogeo_banked_cart_device::neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, NEOGEO_BANKED_CART, "NeoGeo Banked Cartridge", tag, owner, clock, "neogeo_banked_cart", __FILE__),
+	: device_t(mconfig, NEOGEO_BANKED_CART, tag, owner, clock),
 	m_bank_cartridge(nullptr),
 	m_main_cpu_bank_address(0),
 	m_region(nullptr),

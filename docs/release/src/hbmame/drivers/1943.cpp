@@ -61,3 +61,76 @@ ROM_START( 1943h )
 ROM_END
 
 GAME( 1987, 1943h, 1943,  1943, 1943, _1943_state, 1943, ROT270, "Capcom", "1943: The Battle of Midway (US, Rev C) (hacked)", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame
+
+
+ROM_START( 1943kais01 )
+	ROM_REGION( 0x30000, "maincpu", 0 ) /* 64k for code + 128k for the banked ROMs images */
+	ROM_LOAD( "bmk01.12dhc01", 0x00000, 0x08000, CRC(03036734) SHA1(cdde7a2ebe4be0d99de2d2dc39625e7d3976ee9b) )
+	ROM_LOAD( "bmk02.13d", 0x10000, 0x10000, CRC(2ebbc8c5) SHA1(3be5ad061411642723e3f2bcb7b3c3caa11ee15f) )
+	ROM_LOAD( "bmk03.14d", 0x20000, 0x10000, CRC(475a6ac5) SHA1(fa07a855ba9173b6f81641c806ec7d938b0c282e) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "bmk05.4k", 0x00000, 0x8000, CRC(25f37957) SHA1(1e50c2a920eb3b5c881843686db857e9fee5ba1d) )
+
+	ROM_REGION( 0x10000, "mcu", 0 ) /*  C8751H-88 MCU Code */
+	ROM_LOAD( "bm.7k", 0x00000, 0x10000 , NO_DUMP ) /* can't be dumped */
+
+	ROM_REGION( 0x8000, "gfx1", 0 )
+	ROM_LOAD( "bmk04.5h", 0x00000, 0x8000, CRC(884a8692) SHA1(027aa8c868dc07ccd9e27705031107881aef4b91) )   /* characters */
+
+	ROM_REGION( 0x40000, "gfx2", 0 ) /* Yes, BM15 & BM19 are NOT BMK */
+	ROM_LOAD( "bm15.10f",  0x00000, 0x8000, CRC(6b1a0443) SHA1(32337c840ccd6815fd5844c194365c58d708f6dc) )  /* bg tiles */
+	ROM_LOAD( "bmk16.11f", 0x08000, 0x8000, CRC(9416fe0d) SHA1(92fbc8fffa4497747ab80abe20eef361f6525114) )
+	ROM_LOAD( "bmk17.12f", 0x10000, 0x8000, CRC(3d5acab9) SHA1(887d45b648fda952ae2137579f383ab8ede1facd) )
+	ROM_LOAD( "bmk18.14f", 0x18000, 0x8000, CRC(7b62da1d) SHA1(1926109a2ab2f550ca87b0d2af73abd2b4a7498d) )
+	ROM_LOAD( "bm19.10j",  0x20000, 0x8000, CRC(868ababc) SHA1(1c7be905f53c63bad25fbbd9b3cf82d2c7749bc3) )
+	ROM_LOAD( "bmk20.11j", 0x28000, 0x8000, CRC(b90364c1) SHA1(104bc02237eeead84c7f35462186d0a1af8761bc) )
+	ROM_LOAD( "bmk21.12j", 0x30000, 0x8000, CRC(8c7fe74a) SHA1(8846b57d7f47c10ab1f505c359ecf36dcbacb011) )
+	ROM_LOAD( "bmk22.14j", 0x38000, 0x8000, CRC(d5ef8a0e) SHA1(2e42b1fbbfe823a33740a56d1334657db56d24d2) )
+
+	ROM_REGION( 0x10000, "gfx3", 0 )
+	ROM_LOAD( "bmk24.14k", 0x00000, 0x8000, CRC(bf186ef2) SHA1(cacbb8a61f8a64c3ba4ffde5ca6f07fe120b9a7e) )  /* fg tiles */
+	ROM_LOAD( "bmk25.14l", 0x08000, 0x8000, CRC(a755faf1) SHA1(8ee286d6ad7454ae34971f5891ddba4b76c244b0) )
+
+	ROM_REGION( 0x40000, "gfx4", 0 )
+	ROM_LOAD( "bmk06.10a", 0x00000, 0x8000, CRC(5f7e38b3) SHA1(33f69ebe91a0ee45d9107171fed26da475aaab3a) )  /* sprites */
+	ROM_LOAD( "bmk07.11a", 0x08000, 0x8000, CRC(ff3751fd) SHA1(bc942ddd46e7b147115e8ac22d24c2d018a7c373) )
+	ROM_LOAD( "bmk08.12a", 0x10000, 0x8000, CRC(159d51bd) SHA1(746aa49b18aff0eaf2fb875c573d455416d45a1d) )
+	ROM_LOAD( "bmk09.14a", 0x18000, 0x8000, CRC(8683e3d2) SHA1(591dc4811b226fe11cd5441ecb51aa3e95e68ac5) )
+	ROM_LOAD( "bmk10.10c", 0x20000, 0x8000, CRC(1e0d9571) SHA1(44ea9603020e9ab717e3e506f7ecf288506c0502) )
+	ROM_LOAD( "bmk11.11c", 0x28000, 0x8000, CRC(f1fc5ee1) SHA1(4ffc8e57734d3b59df695b86070511f1c447b992) )
+	ROM_LOAD( "bmk12.12c", 0x30000, 0x8000, CRC(0f50c001) SHA1(0e6367d3f0ba39a00ee0fa6e42ae9d43d12da23d) )
+	ROM_LOAD( "bmk13.14c", 0x38000, 0x8000, CRC(fd1acf8e) SHA1(88477ff1e5fbbca251d8cd4f241b42618ba64a80) )
+
+	ROM_REGION( 0x10000, "gfx5", 0 )    /* tilemaps */
+	ROM_LOAD( "bmk14.5f", 0x0000, 0x8000, CRC(cf0f5a53) SHA1(dc50f3f937f52910dbd0cedbc232acfed0aa6a42) )    /* front background */
+	ROM_LOAD( "bmk23.8k", 0x8000, 0x8000, CRC(17f77ef9) SHA1(8ebb4b440042436ec2db52bad808cced832db77c) )    /* back background */
+
+	ROM_REGION( 0x0c00, "proms", 0 )
+	ROM_LOAD( "bmk1.12a",  0x0000, 0x0100, CRC(e001ea33) SHA1(4204bdf87820ac84bab2a1b5571a2ee28c4cdfc5) )   /* red component */
+	ROM_LOAD( "bmk2.13a",  0x0100, 0x0100, CRC(af34d91a) SHA1(94bc6514c980fdd1cb013ff0819d6f32464c581c) )   /* green component */
+	ROM_LOAD( "bmk3.14a",  0x0200, 0x0100, CRC(43e9f6ef) SHA1(e1f58368fe0bd9b53f6c286ce5009b218a5197dc) )   /* blue component */
+	ROM_LOAD( "bmk5.7f",   0x0300, 0x0100, CRC(41878934) SHA1(8f28210ab1d409c89600169a136b74a706001cdf) )   /* char lookup table */
+	ROM_LOAD( "bmk10.7l",  0x0400, 0x0100, CRC(de44b748) SHA1(0694fb19d98ccda728424436fc7350da7b5bd05e) )   /* foreground lookup table */
+	ROM_LOAD( "bmk9.6l",   0x0500, 0x0100, CRC(59ea57c0) SHA1(f961c7e9981cc819c2adf4efdc977841d284a3a2) )   /* foreground palette bank */
+	ROM_LOAD( "bmk12.12m", 0x0600, 0x0100, CRC(8765f8b0) SHA1(f32bab8e3587434b864fe97da9423f2335ccba2e) )   /* background lookup table */
+	ROM_LOAD( "bmk11.12l", 0x0700, 0x0100, CRC(87a8854e) SHA1(0cbc601b736d566d625867d65e0f7b2abb535c65) )   /* background palette bank */
+	ROM_LOAD( "bmk8.8c",   0x0800, 0x0100, CRC(dad17e2d) SHA1(fdb18ddc7574153bb7e27ba08b04b9dc87061c02) )   /* sprite lookup table */
+	ROM_LOAD( "bmk7.7c",   0x0900, 0x0100, CRC(76307f8d) SHA1(8d655e2a5c50541795316d924b2f18b55f4b9571) )   /* sprite palette bank */
+	ROM_LOAD( "bm4.12c",   0x0a00, 0x0100, CRC(91a8a2e1) SHA1(9583c87eff876f04bc2ccf7218cd8081f1bcdb94) )   /* priority encoder / palette selector (not used) */
+	ROM_LOAD( "bm6.4b",    0x0b00, 0x0100, CRC(0eaf5158) SHA1(bafd4108708f66cd7b280e47152b108f3e254fc9) )   /* video timing (not used) */
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// 1943 Kai: Midway Kaisen
+GAME( 1987, 1943kais01,   1943kai,     1943,   1943, _1943_state,  1943, ROT270,  "Hacks",  "1943 Kai: Midway Kaisen (Japan)(Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+

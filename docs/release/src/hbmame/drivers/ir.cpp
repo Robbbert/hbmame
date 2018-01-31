@@ -496,7 +496,7 @@ uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap,
 	return 0;
 }
 
-static MACHINE_CONFIG_START( ir, ir_state )
+static MACHINE_CONFIG_START( ir )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
@@ -544,4 +544,4 @@ ROM_START( ir )
 	ROM_LOAD( "colour.bin",  0x0000, 0x0800, CRC(7de74988) SHA1(0b8c94b2bfdbc3921d60aad765df8af611f3fdd7) )
 ROM_END
 
-GAME( 1980?,ir, invrvnge, ir, ir, driver_device, 0, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980?,ir, invrvnge, ir, ir, ir_state, 0, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )

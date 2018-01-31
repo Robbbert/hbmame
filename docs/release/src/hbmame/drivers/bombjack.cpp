@@ -91,6 +91,52 @@ ROM_START( bombjred )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
 ROM_END
 
-GAME( 1984, bmbjckgr, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "hack", "Bomb Jack (Greek)", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, bombjckb, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "hack", "Bomb Jack (Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, bombjred, bombjack, bombjack, bombjack, driver_device, 0, ROT90, "hack", "Bomb Jack Red", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bmbjckgr, bombjack, bombjack, bombjack, bombjack_state, 0, ROT90, "hack", "Bomb Jack (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bombjckb, bombjack, bombjack, bombjack, bombjack_state, 0, ROT90, "hack", "Bomb Jack (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, bombjred, bombjack, bombjack, bombjack, bombjack_state, 0, ROT90, "hack", "Bomb Jack Red", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame
+
+
+ROM_START( bombjacks01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "09_j01bhc01.bin",  0x0000, 0x2000, CRC(fe674884) SHA1(e7ce4527dd0d84c6430c962648f82319a27c9e5b) )
+	ROM_LOAD( "10_l01b.bin",  0x2000, 0x2000, CRC(52a1e5fb) SHA1(e1cdc4b4efbc6c7a1e4fa65019486617f2acba1b) )
+	ROM_LOAD( "11_m01b.bin",  0x4000, 0x2000, CRC(b68a062a) SHA1(43bae56494ac0202aaa8f1ed5c1ed1bff775b2b8) )
+	ROM_LOAD( "12_n01bhc01.bin",  0x6000, 0x2000, CRC(ff6627cd) SHA1(918aa40ef0d9b01cd1714c751f69edf6cb0415de) )
+	ROM_LOAD( "13.1rhc01",        0xc000, 0x2000, CRC(e8d84fa1) SHA1(c14e91c7e82fca2fb81d03d531f33a399dc34282) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )    /* 64k for sound board */
+	ROM_LOAD( "01_h03t.bin",  0x0000, 0x2000, CRC(8407917d) SHA1(318face9f7a7ab6c7eeac773995040425e780aaf) )
+
+	ROM_REGION( 0x3000, "chars", 0 )
+	ROM_LOAD( "03_e08thc01.bin",  0x0000, 0x1000, CRC(dd7e96eb) SHA1(31fde4df2733cc795f5fd64edd090f2f016ab6ac) )    /* chars */
+	ROM_LOAD( "04_h08thc01.bin",  0x1000, 0x1000, CRC(7c06a2ac) SHA1(71f34dd84cff1b8de7cfe2796b5acad6b85c88b6) )
+	ROM_LOAD( "05_k08thc01.bin",  0x2000, 0x1000, CRC(d4e5be07) SHA1(386edf85b110215c8bb2005006338bad1c799491) )
+
+	ROM_REGION( 0x6000, "tiles", 0 )
+	ROM_LOAD( "06_l08t.bin",  0x0000, 0x2000, CRC(51eebd89) SHA1(515128a3971fcb97b60c5b6bdd2b03026aec1921) )    /* background tiles */
+	ROM_LOAD( "07_n08t.bin",  0x2000, 0x2000, CRC(9dd98e9d) SHA1(6db6006a6e20ff7c243d88293ca53681c4703ea5) )
+	ROM_LOAD( "08_r08t.bin",  0x4000, 0x2000, CRC(3155ee7d) SHA1(e7897dca4c145f10b7d975b8ef0e4d8aa9354c25) )
+
+	ROM_REGION( 0x6000, "sprites", 0 )
+	ROM_LOAD( "16_m07bhc01.bin",  0x0000, 0x2000, CRC(36317f2a) SHA1(bdeb62f50fc40562062df8d5571a39526609e8eb) )    /* sprites */
+	ROM_LOAD( "15_l07bhc01.bin",  0x2000, 0x2000, CRC(e53e8335) SHA1(a61269d3a75afd38cfc8920a7a21dae0128e2ed8) )
+	ROM_LOAD( "14_j07bhc01.bin",  0x4000, 0x2000, CRC(21c7d648) SHA1(239663b31027d5a49edcafac92b3e8e175b2edf2) )
+
+	ROM_REGION( 0x1000, "gfx4", 0 ) /* background tilemaps */
+	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
+ROM_END
+
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Bomb Jack
+GAME( 1984, bombjacks01,  bombjack,        bombjack, bombjack, bombjack_state, 0, ROT90, "Hacks", "Bomb Jack (Translation-Chinese)", MACHINE_SUPPORTS_SAVE )
+

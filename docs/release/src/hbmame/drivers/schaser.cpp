@@ -29,6 +29,7 @@ Changes:
 #include "emu.h"
 #include "cpu/i8085/i8085.h"
 #include "machine/mb14241.h"
+#include "machine/timer.h"
 #include "sound/sn76477.h"
 #include "sound/discrete.h"
 #include "screen.h"
@@ -277,7 +278,7 @@ WRITE8_MEMBER(sc_state::port03_w)
 		m_sn->amplitude_res_w(RES_K(200));
 
 	m_sn->enable_w(!(m_555_is_low | m_explosion));
-	m_sn->one_shot_cap_voltage_w(!(m_555_is_low | m_explosion) ? 0 : SN76477_EXTERNAL_VOLTAGE_DISCONNECT);
+	m_sn->one_shot_cap_voltage_w(!(m_555_is_low | m_explosion) ? 0 : sn76477_device::EXTERNAL_VOLTAGE_DISCONNECT);
 	m_sn->mixer_b_w(m_explosion);
 }
 
@@ -323,7 +324,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(sc_state::schaser_effect_555_cb)
 	}
 	m_555_timer->adjust(new_time, effect);
 	m_sn->enable_w(!(m_555_is_low | m_explosion));
-	m_sn->one_shot_cap_voltage_w(!(m_555_is_low | m_explosion) ? 0 : SN76477_EXTERNAL_VOLTAGE_DISCONNECT);
+	m_sn->one_shot_cap_voltage_w(!(m_555_is_low | m_explosion) ? 0 : sn76477_device::EXTERNAL_VOLTAGE_DISCONNECT);
 }
 
 
@@ -543,7 +544,7 @@ static INPUT_PORTS_START( schasercv )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( schasercv, sc_state )
+static MACHINE_CONFIG_START( schasercv )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
 	MCFG_CPU_PROGRAM_MAP(schaser_map)
@@ -599,4 +600,4 @@ ROM_START( schasrcv )
 	ROM_LOAD( "10",           0x4400, 0x0400, CRC(037edb99) SHA1(f2fc5e61f962666e7f6bb81753ac24ea0b97e581) )
 ROM_END
 
-GAME( 1979, schasrcv, 0, schasercv, schasercv, driver_device, 0, ROT270, "Taito", "Space Chaser (CV version)(Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS )
+GAME( 1979, schasrcv, 0, schasercv, schasercv, sc_state, 0, ROT270, "Taito", "Space Chaser (CV version)(Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS )

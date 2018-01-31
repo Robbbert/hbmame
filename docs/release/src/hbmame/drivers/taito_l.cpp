@@ -65,8 +65,77 @@ ROM_START( tldemo2 )
 	ROM_LOAD16_BYTE( "tldemo2.ic8", 0x00001, 0x10000, CRC(33e70f71) SHA1(5a0caa0912dd7d76dd7e788e21b4cc7f320156ad) )
 ROM_END
 
-GAME( 2007, evilstonfr,  evilston, evilston,  evilston, driver_device, 0, ROT270, "Arkatrad", "Evil Stone (French)", MACHINE_IMPERFECT_SOUND )
-GAME( 2015, sokoban,     0,        plotting,  plotting, driver_device, 0, ROT0,   "cmonkey", "Sokoban LE", 0 )
-GAME( 2015, speccies,    0,        plotting,  plotting, driver_device, 0, ROT0,   "Sokurah", "Speccies 2", 0 )
-GAME( 2014, tldemo,      0,        plotting,  plotting, driver_device, 0, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
-GAME( 2015, tldemo2,     0,        plotting,  plotting, driver_device, 0, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
+GAME( 2007, evilstonfr,  evilston, evilston,  evilston, taitol_2cpu_state,  0, ROT270, "Arkatrad", "Evil Stone (French)", MACHINE_IMPERFECT_SOUND )
+GAME( 2015, sokoban,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Sokoban LE", 0 )
+GAME( 2015, speccies,    0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "Sokurah", "Speccies 2", 0 )
+GAME( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
+GAME( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
+
+
+//PSmame
+
+
+  /****************************************
+              Evil Stone
+*****************************************/
+
+ROM_START( evilstons01 )
+	ROM_REGION( 0x40000, "maincpu", 0 )
+	ROM_LOAD( "c67-03fr.ic2", 0x00000, 0x20000, CRC(3fa7e884) SHA1(94716256c199b5f347bbe122d04adbab1a54b1ce) )
+	ROM_LOAD( "c67-04hc01.ic6",  0x20000, 0x20000, CRC(50c46efa) SHA1(42671d4d1290b84cc32b5e0b21708c8a148d44b2) )
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "c67-05.ic22", 0x00000, 0x20000, CRC(94d3a642) SHA1(af20aa5bb60a45c05eb1deba23ba30e6640ca235) )
+
+	ROM_REGION( 0x100000, "gfx1", 0 )
+	ROM_LOAD( "c67-01.ic1",  0x00000, 0x80000, CRC(2f351bf4) SHA1(0fb37abf3413cd11baece1c9bbca5a51b0f28938) )
+	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
+ROM_END
+
+  /****************************************
+              Kuri Kinton
+*****************************************/
+
+ROM_START( kurikintjs01 )
+	ROM_REGION( 0x40000, "maincpu", 0 )
+	ROM_LOAD( "b42-05hc01.ic2",  0x00000, 0x20000, CRC(b0656c45) SHA1(777a9206ac8bc3a519000c35cbab58dafec461f5) )
+	ROM_LOAD( "b42-06hc01.ic6",  0x20000, 0x20000, CRC(677547d9) SHA1(56c2befe20182d5241580fae3787abf506df2b6f) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "b42-07.ic22", 0x00000, 0x10000, CRC(0f2719c0) SHA1(f870335a75f236f0059522f9a577dee7ca3acb2f) )
+
+	ROM_REGION( 0x100000, "gfx1", 0 )
+	ROM_LOAD( "b42-01hc01.ic1",  0x00000, 0x80000, CRC(592c6d20) SHA1(4c5d58e23855a905064049a7758706778a81f129) )
+	ROM_LOAD( "b42-02hc01.ic5",  0x80000, 0x80000, CRC(cd5fc143) SHA1(5a5a6e674a47786ed9c843cefacf307429df9933) )
+ROM_END
+
+  /****************************************
+              Plotting
+*****************************************/
+
+ROM_START( plottingas01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "plot01hc01.ic10", 0x00000, 0x10000, CRC(134e39a3) SHA1(c3ec3ed35b3fb39d780369a4c50beb6e4ccaaff2) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD16_BYTE( "b96-02hc01.ic9", 0x00000, 0x10000, CRC(78b05c85) SHA1(384626d0ef246702cdf6869bedee42fa18c2f438) )
+	ROM_LOAD16_BYTE( "b96-03hc01.ic8", 0x00001, 0x10000, CRC(ef56d689) SHA1(16391444b2e50accfd81e5bf35bf2b5f74e3d138) )
+
+	ROM_REGION( 0x0200, "plds", 0 )
+	ROM_LOAD( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )  /* derived, but verified  Pal Stamped B86-04 */
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Evil Stone
+GAME( 1990, evilstons01,  evilston,        evilston,  evilston,  taitol_2cpu_state, 0,         ROT270, "Hacks.", "Evil Stone (Translation French V2)", 0 )
+// Kuri Kinton
+GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, 0,         ROT0,   "Hacks", "Kuri Kinton (Translation Chinese)", 0 )
+// Plotting
+GAME( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, plottinga, ROT0,   "Hacks", "Plotting (World set 2, protected)(Translation Chinese)", 0 )
+

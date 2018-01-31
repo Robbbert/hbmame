@@ -32,3 +32,32 @@ ROM_END
 
 GAME( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame
+
+
+  /****************************************
+        Vs. Dr. Mario
+*****************************************/
+
+ROM_START( drmarios01 )
+	ROM_REGION( 0x20000,"maincpu", 0 ) /* 6502 memory */
+	ROM_LOAD( "dmhc01-uiprg",  0x10000, 0x10000, CRC(a0c56a2a) SHA1(0aeb5ff1f8c6308f723e88003ea6282914d22121) )
+
+	ROM_REGION( 0x8000,"gfx1", 0 ) /* PPU memory */
+	ROM_LOAD( "dmhc01-u3chr",  0x0000, 0x8000, CRC(ac94c651) SHA1(9ac7c97501d915c6f0041de3be421423f5de0448) )
+
+	PALETTE_2C04_0003
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Vs. Dr. Mario
+GAME( 1990, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "Hacks",               "Vs. Dr. Mario (Translation Chinese)",                   0 )
+

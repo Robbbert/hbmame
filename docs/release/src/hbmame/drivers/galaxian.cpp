@@ -148,26 +148,26 @@ DRIVER_INIT_MEMBER( galaxian_state, trukker )
 
 	/* the first ROM of the second CPU has data lines D0 and D1 swapped. Decode it. */
 	uint8_t *ROM = memregion("audiocpu")->base();
-	for (i = 0;i < 0x800;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0;i < 0x800;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in the alphabetic characters */
 	ROM = memregion("gfx1")->base();
-	for (i = 0;i < 0x160;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0;i < 0x160;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* remove extraneous dot from steam rollers */
 	for (i = 0x1a0;i < 0x200;i++) ROM[i] = ROM[i] & 0xfc;
 
 	/* fix gfx error in sinking turtle */
-	for (i = 0x4c0;i < 0x4e0;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0x4c0;i < 0x4e0;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error on left side of home bases */
-	ROM[0x234] = BITSWAP8(ROM[0x234],7,6,5,4,3,2,0,1);
+	ROM[0x234] = bitswap<8>(ROM[0x234],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in (c) sign and in square symbol */
-	for (i = 0x270;i < 0x27f;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0x270;i < 0x27f;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 
 	/* fix gfx error in 200-point sign */
-	for (i = 0x330;i < 0x337;i++) ROM[i] = BITSWAP8(ROM[i],7,6,5,4,3,2,0,1);
+	for (i = 0x330;i < 0x337;i++) ROM[i] = bitswap<8>(ROM[i],7,6,5,4,3,2,0,1);
 }
 
 
@@ -854,3 +854,37 @@ GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_state, jumpbug,  RO
 GAME( 1982, monstrz,  0,        sfx,      sfx,      galaxian_state, sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_state, pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_state, nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame
+
+
+ROM_START( amidar1s01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "amidar.2c",    0x0000, 0x1000, CRC(c294bf27) SHA1(399325bf1559e8cdbddf7cfbf0dc739f9ed72ef0) )
+	ROM_LOAD( "amidar.2e",    0x1000, 0x1000, CRC(e6e96826) SHA1(e9c4f8c594640424b456505e676352a98b758c03) )
+	ROM_LOAD( "amidarhc01.2f",    0x2000, 0x1000, CRC(000da382) SHA1(383973843215e8510ce97e8b295049736dd21979) )
+	ROM_LOAD( "amidar.2h",    0x3000, 0x1000, CRC(1be170bd) SHA1(c047bc393b297c0d47668a5f6f4870e3fac937ef) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "amidar.5c",    0x0000, 0x1000, CRC(c4b66ae4) SHA1(9d09dbde4019f7be3abe0815b0e06d542c01c255) )
+	ROM_LOAD( "amidar.5d",    0x1000, 0x1000, CRC(806785af) SHA1(c8c85e3a6a204feccd7859b4527bd649e96134b4) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "amidar.5f",    0x0000, 0x0800, CRC(5e51e84d) SHA1(dfe84db7e2b1a45a1d484fcf37291f536bc5324c) )
+	ROM_LOAD( "amidar.5h",    0x0800, 0x0800, CRC(2f7f1c30) SHA1(83c330eca20dfcc6a4099001943b9ed7a7c3db5b) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "amidar.clr",   0x0000, 0x0020, CRC(f940dcc3) SHA1(1015e56f37c244a850a8f4bf0e36668f047fd46d) )
+ROM_END
+
+/*************************************
+ *
+ *  Game driver(s)
+ *
+ *************************************/
+// Proyecto Shadows Mame Build Plus
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Amidar
+GAME( 1981, amidar1s01,     amidar,   turtles,    amidar,     galaxian_state, turtles,    ROT90,  "Hacks", "Amidar (Translation-French)", MACHINE_SUPPORTS_SAVE )
+

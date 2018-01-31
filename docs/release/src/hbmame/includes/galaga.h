@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Nicola Salmoria
+// copyright-holders:Robbbert
 #include "../mame/includes/galaga.h"
 #include "sound/samples.h"
 #include "machine/namco06.h"

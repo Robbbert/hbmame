@@ -12,7 +12,7 @@
 //  DEVICE DEFINITIONS
 //**************************************************************************
 
-const device_type NEOGEO_DIAL = device_creator<neogeo_dial_device>;
+DEFINE_DEVICE_TYPE(NEOGEO_DIAL, neogeo_dial_device, "neogeo_dial", "SNK Neo Geo Dial Controller")
 
 
 static INPUT_PORTS_START( neogeo_dial )
@@ -61,7 +61,7 @@ ioport_constructor neogeo_dial_device::device_input_ports() const
 //-------------------------------------------------
 
 neogeo_dial_device::neogeo_dial_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
-					device_t(mconfig, NEOGEO_DIAL, "SNK Neo Geo Dial Controller", tag, owner, clock, "neogeo_dial", __FILE__),
+					device_t(mconfig, NEOGEO_DIAL, tag, owner, clock),
 					device_neogeo_ctrl_edge_interface(mconfig, *this),
 					m_joy1(*this, "JOY1"),
 					m_joy2(*this, "JOY2"),

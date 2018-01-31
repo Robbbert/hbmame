@@ -9,7 +9,7 @@
 #ifndef __NEOGEO_PROT__
 #define __NEOGEO_PROT__
 
-extern const device_type NGBOOTLEG_PROT;
+DECLARE_DEVICE_TYPE(NGBOOTLEG_PROT, ngbootleg_prot_device)
 
 #define MCFG_NGBOOTLEG_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, NGBOOTLEG_PROT, 0)
@@ -91,7 +91,7 @@ protected:
 };
 
 
-extern const device_type KOG_PROT;
+DECLARE_DEVICE_TYPE(KOG_PROT, kog_prot_device)
 
 #define MCFG_KOG_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, KOG_PROT, 0)
@@ -116,7 +116,7 @@ protected:
 };
 
 
-extern const device_type CMC_PROT;
+DECLARE_DEVICE_TYPE(CMC_PROT, cmc_prot_device)
 
 #define MCFG_CMC_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, CMC_PROT, 0)
@@ -188,7 +188,7 @@ protected:
 };
 
 
-extern const device_type FATFURY2_PROT;
+DECLARE_DEVICE_TYPE(FATFURY2_PROT, fatfury2_prot_device)
 
 #define MCFG_FATFURY2_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, FATFURY2_PROT, 0)
@@ -214,7 +214,7 @@ protected:
 };
 
 
-extern const device_type KOF2002_PROT;
+DECLARE_DEVICE_TYPE(KOF2002_PROT, kof2002_prot_device)
 
 #define MCFG_KOF2002_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, KOF2002_PROT, 0)
@@ -237,7 +237,7 @@ protected:
 };
 
 
-extern const device_type KOF98_PROT;
+DECLARE_DEVICE_TYPE(KOF98_PROT, kof98_prot_device)
 
 #define MCFG_KOF98_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, KOF98_PROT, 0)
@@ -262,7 +262,7 @@ protected:
 };
 
 
-extern const device_type MSLUGX_PROT;
+DECLARE_DEVICE_TYPE(MSLUGX_PROT, mslugx_prot_device)
 
 #define MCFG_MSLUGX_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, MSLUGX_PROT, 0)
@@ -288,7 +288,7 @@ protected:
 };
 
 
-extern const device_type PCM2_PROT;
+DECLARE_DEVICE_TYPE(PCM2_PROT, pcm2_prot_device)
 
 #define MCFG_PCM2_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, PCM2_PROT, 0)
@@ -309,7 +309,7 @@ protected:
 };
 
 
-extern const device_type PVC_PROT;
+DECLARE_DEVICE_TYPE(PVC_PROT, pvc_prot_device)
 
 #define MCFG_PVC_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, PVC_PROT, 0)
@@ -343,7 +343,7 @@ protected:
 };
 
 
-extern const device_type SBP_PROT;
+DECLARE_DEVICE_TYPE(SBP_PROT, sbp_prot_device)
 
 #define MCFG_SBP_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, SBP_PROT, 0)
@@ -367,7 +367,7 @@ protected:
 	virtual void device_reset() override;
 };
 
-extern const device_type SMA_PROT;
+DECLARE_DEVICE_TYPE(SMA_PROT, sma_prot_device)
 
 #define MCFG_SMA_PROT_ADD(_tag) \
 	MCFG_DEVICE_ADD(_tag, SMA_PROT, 0)

@@ -1,17 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 #include "../mame/drivers/dotrikun.cpp"
-//#include "screen.h"
 #include "speaker.h"
-
-// http://www.chrismcovell.com/dottorikun.html
-
-ROM_START( dotrimjr )
-	ROM_REGION( 0x4000, "maincpu", 0 )
-	ROM_LOAD( "dotrimjr.bin", 0x0000, 0x4000, CRC(4ba6d2f5) SHA1(db805e9121ecbd41fac4593b58d7f071e7dbc720) )
-ROM_END
-
-GAMEL( 2016, dotrimjr, 0, dotrikun, dotrikun, driver_device, 0, ROT0, "Chris Covell", "Dottori-Man Jr", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+#include "machine/nvram.h"
+#include "sound/beep.h"
 
 
 /***************************************************************************
@@ -96,15 +88,13 @@ and the ending scene by setting the pc to 0F30.
 - Merged back into dotrikun driver (August 2016)
 
 Colours:
-	White (normal play / attract mode)
-	Yellow (new record time)
-	Green (new record level - must be at least level 3)
-	Purple (stepped on a bomb)
-	Red (game over)
+* White (normal play / attract mode)
+* Yellow (new record time)
+* Green (new record level - must be at least level 3)
+* Purple (stepped on a bomb)
+* Red (game over)
 
 ***************************************************************************/
-#include "machine/nvram.h"
-#include "sound/beep.h"
 
 class mineswp_state : public dotrikun_state
 {
@@ -171,7 +161,7 @@ void mineswp_state::machine_start()
 	m_beep->set_state(0);
 }
 
-static MACHINE_CONFIG_DERIVED_CLASS( mineswp, dotrikun, mineswp_state )
+static MACHINE_CONFIG_DERIVED( mineswp, dotrikun )
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)
@@ -205,4 +195,4 @@ ROM_START( mineswp )
 ROM_END
 
 
-GAMEL( 1998, mineswp, 0, mineswp, dotrikun, driver_device, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )

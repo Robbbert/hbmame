@@ -14,7 +14,7 @@ static ADDRESS_MAP_START( main_map_noslot, AS_PROGRAM, 16, neogeo_state )
 ADDRESS_MAP_END
 
 
-static MACHINE_CONFIG_DERIVED_CLASS( neogeo_noslot, neogeo_arcade, neogeo_noslot_state ) // no slot config (legacy mame)
+static MACHINE_CONFIG_DERIVED( neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 
@@ -37,7 +37,7 @@ static MACHINE_CONFIG_DERIVED_CLASS( neogeo_noslot, neogeo_arcade, neogeo_noslot
 	MCFG_SBP_PROT_ADD("sbp_prot")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED_CLASS( neogeo_kog, neogeo_arcade, neogeo_noslot_kog_state )
+static MACHINE_CONFIG_DERIVED( neogeo_kog, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 
@@ -8494,7 +8494,7 @@ DRIVER_INIT_MEMBER(neogeo_noslot_state,kf2k3pcb)
 	{
 		uint8_t* rom = memregion("audiocpu")->base();
 		for (int i = 0; i < 0x90000; i++)
-			rom[i] = BITSWAP8(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
+			rom[i] = bitswap<8>(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
 	}
 
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
