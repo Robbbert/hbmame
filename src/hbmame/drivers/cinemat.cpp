@@ -18,11 +18,29 @@ of the screen. Moving the mouse to the right will revert to changing colours aga
 
 #include "../mame/drivers/cinemat.cpp"
 
-static MACHINE_CONFIG_DERIVED( bbugtest, cinemat_jmi_32k )
+class cinemat_hbmame : public cinemat_state
+{
+public:
+	cinemat_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: cinemat_state(mconfig, type, tag)
+		{ }
+
+	void bbugtest(machine_config &config);
+	DECLARE_DRIVER_INIT(bbugtest);
+};
+
+MACHINE_CONFIG_DERIVED( cinemat_hbmame::bbugtest, cinemat_jmi_32k )
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_VISIBLE_AREA(0, 1024, 0, 788)
-	MCFG_VIDEO_START_OVERRIDE(cinemat_state,cinemat_color)
+	MCFG_VIDEO_START_OVERRIDE(cinemat_state, cinemat_color)
 MACHINE_CONFIG_END
+
+DRIVER_INIT_MEMBER(cinemat_hbmame, bbugtest)
+{
+	m_maincpu->space(AS_IO).install_read_handler(0x0c, 0x0f, read8_delegate(FUNC(cinemat_state::boxingb_dial_r),this));
+}
+
+
 
 /*************************************
  *
@@ -44,4 +62,4 @@ ROM_START( bbugtest )
 	ROM_LOAD("prom.e8",  0x180, 0x020, CRC(791ec9e1) SHA1(6f7fcce4aa3be9020595235568381588adaab88e) )
 ROM_END
 
-GAME(1981, bbugtest, 0, bbugtest, boxingb, cinemat_state, boxingb, ORIENTATION_FLIP_Y, "Test Rom", "Test Rom - Boxing Bugs", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
+GAME(1981, bbugtest, 0, bbugtest, boxingb, cinemat_hbmame, bbugtest, ORIENTATION_FLIP_Y, "Test Rom", "Test Rom - Boxing Bugs", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )

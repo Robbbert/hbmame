@@ -2,7 +2,7 @@
 // copyright-holders:Aaron Giles, Phil Bennett
 /*************************************************************************
 
-	Atari Cyberstorm hardware
+    Atari Cyberstorm hardware
 
 *************************************************************************/
 
@@ -39,7 +39,7 @@ public:
 	TILE_GET_INFO_MEMBER(get_playfield_tile_info);
 	TILE_GET_INFO_MEMBER(get_playfield2_tile_info);
 	TILEMAP_MAPPER_MEMBER(playfield_scan);
-	
+
 	DECLARE_DRIVER_INIT(cybstorm);
 	DECLARE_MACHINE_START(cybstorm);
 	DECLARE_MACHINE_RESET(cybstorm);
@@ -48,4 +48,6 @@ public:
 	uint32_t screen_update_cybstorm(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	static const atari_motion_objects_config s_mob_config;
+	void cybstorm(machine_config &config);
+	void round2(machine_config &config);
 };

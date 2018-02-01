@@ -1243,8 +1243,8 @@ static ADDRESS_MAP_START( common_map, AS_PROGRAM, 16, namcos21_state )
 	AM_RANGE(0x480000, 0x4807ff) AM_READWRITE(namcos21_depthcue_r,namcos21_depthcue_w) /* Air Combat */
 	AM_RANGE(0x700000, 0x71ffff) AM_READWRITE(c355_obj_ram_r,c355_obj_ram_w)
 	AM_RANGE(0x720000, 0x720007) AM_READWRITE(c355_obj_position_r,c355_obj_position_w)
-	AM_RANGE(0x740000, 0x74ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
-	AM_RANGE(0x750000, 0x75ffff) AM_RAM_DEVWRITE("palette", palette_device, write_ext) AM_SHARE("palette_ext")
+	AM_RANGE(0x740000, 0x74ffff) AM_RAM_DEVWRITE("palette", palette_device, write16) AM_SHARE("palette")
+	AM_RANGE(0x750000, 0x75ffff) AM_RAM_DEVWRITE("palette", palette_device, write16_ext) AM_SHARE("palette_ext")
 	AM_RANGE(0x760000, 0x760001) AM_READWRITE(namcos21_video_enable_r,namcos21_video_enable_w)
 	AM_RANGE(0x800000, 0x8fffff) AM_ROM AM_REGION("data", 0)
 	AM_RANGE(0x900000, 0x90ffff) AM_RAM AM_SHARE("sharedram")
@@ -1255,20 +1255,20 @@ static ADDRESS_MAP_START( common_map, AS_PROGRAM, 16, namcos21_state )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( master_map, AS_PROGRAM, 16, namcos21_state )
+	AM_IMPORT_FROM( common_map )
 	AM_RANGE(0x000000, 0x0fffff) AM_ROM
 	AM_RANGE(0x100000, 0x10ffff) AM_RAM /* private work RAM */
 	AM_RANGE(0x180000, 0x183fff) AM_READWRITE8(namcos2_68k_eeprom_r,namcos2_68k_eeprom_w,0x00ff)
 	AM_RANGE(0x1c0000, 0x1fffff) AM_DEVICE("master_intc", namco_c148_device, map)
 	AM_RANGE(0x200000, 0x20ffff) AM_READWRITE(dspram16_r,dspram16_w<true>) AM_SHARE("dspram16")
-	AM_IMPORT_FROM( common_map )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( slave_map, AS_PROGRAM, 16, namcos21_state )
+	AM_IMPORT_FROM( common_map )
 	AM_RANGE(0x000000, 0x07ffff) AM_ROM
 	AM_RANGE(0x100000, 0x13ffff) AM_RAM /* private work RAM */
 	AM_RANGE(0x1c0000, 0x1fffff) AM_DEVICE("slave_intc", namco_c148_device, map)
 	AM_RANGE(0x200000, 0x20ffff) AM_READWRITE(dspram16_r,dspram16_w<false>) AM_SHARE("dspram16")
-	AM_IMPORT_FROM( common_map )
 ADDRESS_MAP_END
 
 
@@ -1503,8 +1503,8 @@ static ADDRESS_MAP_START( winrun_gpu_map, AS_PROGRAM, 16, namcos21_state )
 	AM_RANGE(0x180000, 0x19ffff) AM_RAM /* work RAM */
 	AM_RANGE(0x1c0000, 0x1fffff) AM_DEVICE("gpu_intc", namco_c148_device, map)
 	AM_RANGE(0x200000, 0x20ffff) AM_RAM AM_SHARE("gpu_comram")
-	AM_RANGE(0x400000, 0x40ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
-	AM_RANGE(0x410000, 0x41ffff) AM_RAM_DEVWRITE("palette", palette_device, write_ext) AM_SHARE("palette_ext")
+	AM_RANGE(0x400000, 0x40ffff) AM_RAM_DEVWRITE("palette", palette_device, write16) AM_SHARE("palette")
+	AM_RANGE(0x410000, 0x41ffff) AM_RAM_DEVWRITE("palette", palette_device, write16_ext) AM_SHARE("palette_ext")
 	AM_RANGE(0x600000, 0x6fffff) AM_ROM AM_REGION("gdata", 0)
 	AM_RANGE(0xc00000, 0xcfffff) AM_READWRITE(winrun_gpu_videoram_r,winrun_gpu_videoram_w)
 	AM_RANGE(0xd00000, 0xd0000f) AM_READWRITE(winrun_gpu_register_r,winrun_gpu_register_w)
@@ -1537,6 +1537,7 @@ ADDRESS_MAP_END
 /*************************************************************/
 
 static ADDRESS_MAP_START( mcu_map, AS_PROGRAM, 8, namcos21_state )
+	AM_RANGE(0x0000, 0x003f) AM_RAM
 	AM_RANGE(0x0000, 0x0000) AM_READNOP
 	AM_RANGE(0x0001, 0x0001) AM_READ_PORT("PORTB")          /* p1,p2 start */
 	AM_RANGE(0x0002, 0x0002) AM_READ_PORT("PORTC")          /* coins */
@@ -1544,7 +1545,6 @@ static ADDRESS_MAP_START( mcu_map, AS_PROGRAM, 8, namcos21_state )
 	AM_RANGE(0x0007, 0x0007) AM_READ_PORT("PORTH")          /* fire buttons */
 	AM_RANGE(0x0010, 0x0010) AM_READWRITE(namcos2_mcu_analog_ctrl_r,namcos2_mcu_analog_ctrl_w)
 	AM_RANGE(0x0011, 0x0011) AM_READWRITE(namcos2_mcu_analog_port_r,namcos2_mcu_analog_port_w)
-	AM_RANGE(0x0000, 0x003f) AM_RAM
 	AM_RANGE(0x0040, 0x01bf) AM_RAM
 	AM_RANGE(0x01c0, 0x1fff) AM_ROM
 	AM_RANGE(0x2000, 0x2000) AM_READ_PORT("DSW")
@@ -1566,8 +1566,8 @@ ADDRESS_MAP_END
 static ADDRESS_MAP_START( driveyes_common_map, AS_PROGRAM, 16, namcos21_state )
 	AM_RANGE(0x700000, 0x71ffff) AM_READWRITE(c355_obj_ram_r,c355_obj_ram_w)
 	AM_RANGE(0x720000, 0x720007) AM_READWRITE(c355_obj_position_r,c355_obj_position_w)
-	AM_RANGE(0x740000, 0x74ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
-	AM_RANGE(0x750000, 0x75ffff) AM_RAM_DEVWRITE("palette", palette_device, write_ext) AM_SHARE("palette_ext")
+	AM_RANGE(0x740000, 0x74ffff) AM_RAM_DEVWRITE("palette", palette_device, write16) AM_SHARE("palette")
+	AM_RANGE(0x750000, 0x75ffff) AM_RAM_DEVWRITE("palette", palette_device, write16_ext) AM_SHARE("palette_ext")
 	AM_RANGE(0x760000, 0x760001) AM_READWRITE(namcos21_video_enable_r,namcos21_video_enable_w)
 	AM_RANGE(0x800000, 0x8fffff) AM_ROM AM_REGION("data", 0)
 	AM_RANGE(0x900000, 0x90ffff) AM_RAM AM_SHARE("sharedram")
@@ -1577,6 +1577,7 @@ static ADDRESS_MAP_START( driveyes_common_map, AS_PROGRAM, 16, namcos21_state )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( driveyes_master_map, AS_PROGRAM, 16, namcos21_state )
+	AM_IMPORT_FROM( driveyes_common_map )
 	AM_RANGE(0x000000, 0x03ffff) AM_ROM
 	AM_RANGE(0x100000, 0x10ffff) AM_RAM /* private work RAM */
 	AM_RANGE(0x180000, 0x183fff) AM_READWRITE8(namcos2_68k_eeprom_r,namcos2_68k_eeprom_w,0x00ff)
@@ -1587,14 +1588,13 @@ static ADDRESS_MAP_START( driveyes_master_map, AS_PROGRAM, 16, namcos21_state )
 	AM_RANGE(0x3c0000, 0x3c1fff) AM_READWRITE(winrun_68k_dspcomram_r,winrun_68k_dspcomram_w)
 	AM_RANGE(0x400000, 0x400001) AM_WRITE(pointram_control_w)
 	AM_RANGE(0x440000, 0x440001) AM_READWRITE(pointram_data_r,pointram_data_w)
-	AM_IMPORT_FROM( driveyes_common_map )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( driveyes_slave_map, AS_PROGRAM, 16, namcos21_state )
+	AM_IMPORT_FROM( driveyes_common_map )
 	AM_RANGE(0x000000, 0x03ffff) AM_ROM
 	AM_RANGE(0x100000, 0x10ffff) AM_RAM /* private work RAM */
 	AM_RANGE(0x1c0000, 0x1fffff) AM_DEVICE("slave_intc", namco_c148_device, map)
-	AM_IMPORT_FROM( driveyes_common_map )
 ADDRESS_MAP_END
 
 /*************************************************************/
@@ -1871,7 +1871,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(namcos21_state::screen_scanline)
 	}
 }
 
-static MACHINE_CONFIG_START( configure_c148_standard )
+MACHINE_CONFIG_START(namcos21_state::configure_c148_standard)
 	MCFG_NAMCO_C148_ADD("master_intc","maincpu",true)
 	namco_c148_device::link_c148_device(*device,"slave_intc");
 	MCFG_NAMCO_C148_EXT1_CB(WRITE8(namcos21_state, sound_reset_w))
@@ -1882,7 +1882,7 @@ static MACHINE_CONFIG_START( configure_c148_standard )
 
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( namcos21 )
+MACHINE_CONFIG_START(namcos21_state::namcos21)
 	MCFG_CPU_ADD("maincpu", M68000,12288000) /* Master */
 	MCFG_CPU_PROGRAM_MAP(master_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", namcos21_state, screen_scanline, "screen", 0, 1)
@@ -1949,7 +1949,7 @@ static MACHINE_CONFIG_START( namcos21 )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_START( driveyes )
+MACHINE_CONFIG_START(namcos21_state::driveyes)
 	MCFG_CPU_ADD("maincpu", M68000,12288000) /* Master */
 	MCFG_CPU_PROGRAM_MAP(driveyes_master_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", namcos21_state, screen_scanline, "screen", 0, 1)
@@ -2009,7 +2009,7 @@ static MACHINE_CONFIG_START( driveyes )
 	MCFG_SOUND_ROUTE(1, "rspeaker", 0.30)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( winrun )
+MACHINE_CONFIG_START(namcos21_state::winrun)
 	MCFG_CPU_ADD("maincpu", M68000,12288000) /* Master */
 	MCFG_CPU_PROGRAM_MAP(winrun_master_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", namcos21_state, screen_scanline, "screen", 0, 1)

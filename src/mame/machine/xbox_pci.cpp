@@ -62,8 +62,8 @@ void nv2a_host_device::device_reset()
 DEFINE_DEVICE_TYPE(NV2A_RAM, nv2a_ram_device, "nv2a_ram", "NV2A Memory Controller - SDRAM")
 
 DEVICE_ADDRESS_MAP_START(config_map, 32, nv2a_ram_device)
-	AM_RANGE(0x6c, 0x6f) AM_READWRITE(config_register_r, config_register_w)
 	AM_INHERIT_FROM(pci_device::config_map)
+	AM_RANGE(0x6c, 0x6f) AM_READWRITE(config_register_r, config_register_w)
 ADDRESS_MAP_END
 
 nv2a_ram_device::nv2a_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
@@ -701,7 +701,7 @@ void mcpx_ide_device::device_reset()
 	pci_device::device_reset();
 }
 
-MACHINE_CONFIG_MEMBER(mcpx_ide_device::device_add_mconfig)
+MACHINE_CONFIG_START(mcpx_ide_device::device_add_mconfig)
 	MCFG_DEVICE_ADD("ide", BUS_MASTER_IDE_CONTROLLER, 0)
 	MCFG_ATA_INTERFACE_IRQ_HANDLER(WRITELINE(mcpx_ide_device, ide_interrupt))
 	MCFG_BUS_MASTER_IDE_CONTROLLER_SPACE("maincpu", AS_PROGRAM)

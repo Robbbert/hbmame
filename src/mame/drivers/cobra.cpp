@@ -842,6 +842,7 @@ public:
 	INTERRUPT_GEN_MEMBER(cobra_vblank);
 	void cobra_video_exit();
 	int decode_debug_state_value(int v);
+	void cobra(machine_config &config);
 };
 
 void cobra_renderer::render_color_scan(int32_t scanline, const extent_t &extent, const cobra_polydata &extradata, int threadid)
@@ -3318,11 +3319,11 @@ void cobra_state::machine_reset()
 	dmadac_set_frequency(&m_dmadac[1], 1, 44100);
 }
 
-static MACHINE_CONFIG_START( cobra )
+MACHINE_CONFIG_START(cobra_state::cobra)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", PPC603, 100000000)      /* 603EV, 100? MHz */
-	MCFG_PPC_BUS_FREQUENCY(XTAL_66_6667MHz)  /* Multiplier 1.5, Bus = 66MHz, Core = 100MHz */
+	MCFG_PPC_BUS_FREQUENCY(XTAL(66'666'700))  /* Multiplier 1.5, Bus = 66MHz, Core = 100MHz */
 	MCFG_CPU_PROGRAM_MAP(cobra_main_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cobra_state,  cobra_vblank)
 
@@ -3330,7 +3331,7 @@ static MACHINE_CONFIG_START( cobra )
 	MCFG_CPU_PROGRAM_MAP(cobra_sub_map)
 
 	MCFG_CPU_ADD("gfxcpu", PPC604, 100000000)       /* 604, 100? MHz */
-	MCFG_PPC_BUS_FREQUENCY(XTAL_66_6667MHz)   /* Multiplier 1.5, Bus = 66MHz, Core = 100MHz */
+	MCFG_PPC_BUS_FREQUENCY(XTAL(66'666'700))   /* Multiplier 1.5, Bus = 66MHz, Core = 100MHz */
 	MCFG_CPU_PROGRAM_MAP(cobra_gfx_map)
 
 	MCFG_QUANTUM_TIME(attotime::from_hz(15005))
@@ -3353,7 +3354,7 @@ static MACHINE_CONFIG_START( cobra )
 
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_RF5C400_ADD("rfsnd", XTAL_16_9344MHz)
+	MCFG_RF5C400_ADD("rfsnd", XTAL(16'934'400))
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 

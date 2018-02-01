@@ -81,6 +81,10 @@ public:
 	DECLARE_DRIVER_INIT(shockt2w);
 	DECLARE_DRIVER_INIT(svchb);
 	DECLARE_DRIVER_INIT(svcpcd);
+	void no_watchdog(machine_config &config);
+	void samsho2sp(machine_config &config);
+	void lbsp(machine_config &config);
+	void hbmame_kog(machine_config &config);
 private:
 	optional_device<kog_prot_device> m_kog_prot;
 };
@@ -101,7 +105,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 
 
 
-static MACHINE_CONFIG_DERIVED( no_watchdog, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo_hbmame::no_watchdog, neogeo_noslot )
 	MCFG_WATCHDOG_MODIFY("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
 MACHINE_CONFIG_END
@@ -110,10 +114,10 @@ MACHINE_CONFIG_END
 // used by samsho2sp, doubledrsp
 ADDRESS_MAP_START( samsho2sp_map, AS_PROGRAM, 16, neogeo_state )
 	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x200000) // extra rom
-	AM_IMPORT_FROM( main_map_noslot )
+	AM_IMPORT_FROM( main_map_noslot1 )
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( samsho2sp, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo_hbmame::samsho2sp, neogeo_noslot )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
 MACHINE_CONFIG_END
@@ -121,10 +125,10 @@ MACHINE_CONFIG_END
 // used by lbsp
 ADDRESS_MAP_START( lbsp_map, AS_PROGRAM, 16, neogeo_state )
 	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x700000) // extra rom
-	AM_IMPORT_FROM( main_map_noslot )
+	AM_IMPORT_FROM( main_map_noslot1 )
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( lbsp, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo_hbmame::lbsp, neogeo_noslot )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(lbsp_map)
 MACHINE_CONFIG_END
@@ -152,8 +156,8 @@ MACHINE_CONFIG_END
 #include "nglastblade.cpp"
 #include "ngrbff.cpp"
 #include "ngrotd.cpp"
-#include "ngsamsho.cpp"
-#include "ngsengoku.cpp"
-#include "ngsvc.cpp"
+//#include "ngsamsho.cpp"
+//#include "ngsengoku.cpp"
+//#include "ngsvc.cpp"
 #include "ngwh.cpp"
 

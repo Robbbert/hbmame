@@ -32,6 +32,7 @@ public:
 
 	DECLARE_READ8_MEMBER(special_r);
 
+	void zephyr(machine_config &config);
 private:
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
@@ -83,13 +84,13 @@ ADDRESS_MAP_END
 static INPUT_PORTS_START( zephyr )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( zephyr )
-	MCFG_CPU_ADD("maincpu", I8085A, XTAL_15_582MHz / 2) // divider not verified
+MACHINE_CONFIG_START(zms8085_state::zephyr)
+	MCFG_CPU_ADD("maincpu", I8085A, XTAL(15'582'000) / 2) // divider not verified
 	MCFG_CPU_PROGRAM_MAP(mem_map)
 	MCFG_CPU_IO_MAP(io_map)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_15_582MHz, 980, 0, 800, 265, 0, 250)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(15'582'000), 980, 0, 800, 265, 0, 250)
 	MCFG_SCREEN_UPDATE_DRIVER(zms8085_state, screen_update)
 MACHINE_CONFIG_END
 

@@ -1207,6 +1207,7 @@ GAME( 2000, kof2kzs,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,       ko
 
 //PSmame
 
+#ifdef PTR64
 
 ROM_START( kof2000s01 ) 
 	ROM_REGION( 0x900000, "maincpu", 0 )
@@ -3301,4 +3302,4 @@ GAME( 2017, kof2000ds40,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,     
 GAME( 2017, kof2000ds41,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Orochi)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2000ds42,    kof2000,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Unlimited Credits In Console Mode)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 
-
+#endif

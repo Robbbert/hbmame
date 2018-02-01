@@ -253,6 +253,16 @@ public:
 	void vbowl_gfx_decrypt();
 	void drgnwrld_gfx_decrypt();
 	void prot_mem_range_set();
+	void igs011_base(machine_config &config);
+	void drgnwrld(machine_config &config);
+	void nkishusp(machine_config &config);
+	void wlcc(machine_config &config);
+	void vbowl(machine_config &config);
+	void vbowlhk(machine_config &config);
+	void xymg(machine_config &config);
+	void lhb2(machine_config &config);
+	void lhb(machine_config &config);
+	void drgnwrld_igs012(machine_config &config);
 };
 
 
@@ -2579,6 +2589,8 @@ static ADDRESS_MAP_START( drgnwrld, AS_PROGRAM, 16, igs011_state )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( drgnwrld_igs012, AS_PROGRAM, 16, igs011_state )
+	AM_IMPORT_FROM(drgnwrld)
+
 	// IGS012
 	AM_RANGE( 0x001600, 0x00160f ) AM_WRITE(igs012_prot_swap_w      )   AM_MIRROR(0x01c000) // swap (a5 / 55)
 	AM_RANGE( 0x001610, 0x00161f ) AM_READ(igs012_prot_r            )   AM_MIRROR(0x01c000) // read (mode 0)
@@ -2596,8 +2608,6 @@ static ADDRESS_MAP_START( drgnwrld_igs012, AS_PROGRAM, 16, igs011_state )
 
 	AM_RANGE( 0x902000, 0x902fff ) AM_WRITE(igs012_prot_reset_w )   // reset?
 //  AM_RANGE( 0x902000, 0x902005 ) AM_WRITE(igs012_prot_fake_r )
-
-	AM_IMPORT_FROM(drgnwrld)
 ADDRESS_MAP_END
 
 
@@ -2622,6 +2632,8 @@ WRITE16_MEMBER(igs011_state::lhb_okibank_w)
 }
 
 static ADDRESS_MAP_START( lhb, AS_PROGRAM, 16, igs011_state )
+	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
+
 //  lhb: IGS011 protection dynamically mapped at 834x
 //  AM_RANGE( 0x008340, 0x008347 ) AM_WRITE(igs011_prot1_w )
 //  AM_RANGE( 0x008348, 0x008349 ) AM_READ ( igs011_prot1_r )
@@ -2633,7 +2645,6 @@ static ADDRESS_MAP_START( lhb, AS_PROGRAM, 16, igs011_state )
 	AM_RANGE( 0x010600, 0x0107ff ) AM_READ(lhb_igs011_prot2_r           )
 	// no reset
 
-	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
 	AM_RANGE( 0x100000, 0x103fff ) AM_RAM AM_SHARE("nvram")
 	AM_RANGE( 0x200000, 0x200fff ) AM_RAM AM_SHARE("priority_ram")
 	AM_RANGE( 0x300000, 0x3fffff ) AM_READWRITE(igs011_layers_r, igs011_layers_w )
@@ -2662,6 +2673,8 @@ static ADDRESS_MAP_START( lhb, AS_PROGRAM, 16, igs011_state )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( xymg, AS_PROGRAM, 16, igs011_state )
+	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
+
 //  xymg: IGS011 protection dynamically mapped at 834x
 //  AM_RANGE( 0x008340, 0x008347 ) AM_WRITE(igs011_prot1_w )
 //  AM_RANGE( 0x008348, 0x008349 ) AM_READ ( igs011_prot1_r )
@@ -2673,7 +2686,6 @@ static ADDRESS_MAP_START( xymg, AS_PROGRAM, 16, igs011_state )
 	AM_RANGE( 0x010600, 0x0107ff ) AM_READ(lhb_igs011_prot2_r           )   // read
 	// no reset
 
-	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
 	AM_RANGE( 0x100000, 0x103fff ) AM_RAM
 	AM_RANGE( 0x1f0000, 0x1f3fff ) AM_RAM AM_SHARE("nvram") // extra ram
 	AM_RANGE( 0x200000, 0x200fff ) AM_RAM AM_SHARE("priority_ram")
@@ -2740,6 +2752,8 @@ ADDRESS_MAP_END
 
 
 static ADDRESS_MAP_START( lhb2, AS_PROGRAM, 16, igs011_state )
+	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
+
 //  lhb2: IGS011 protection dynamically mapped at 1ff8x
 //  AM_RANGE( 0x01ff80, 0x01ff87 ) AM_WRITE(igs011_prot1_w )
 //  AM_RANGE( 0x01ff88, 0x01ff89 ) AM_READ ( igs011_prot1_r )
@@ -2749,7 +2763,6 @@ static ADDRESS_MAP_START( lhb2, AS_PROGRAM, 16, igs011_state )
 	AM_RANGE( 0x020400, 0x0205ff ) AM_READ(lhb2_igs011_prot2_r          )   // read
 	AM_RANGE( 0x020600, 0x0207ff ) AM_WRITE(igs011_prot2_reset_w        )   // reset (55)
 
-	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
 	AM_RANGE( 0x100000, 0x103fff ) AM_RAM AM_SHARE("nvram")
 	AM_RANGE( 0x200000, 0x200001 ) AM_DEVREADWRITE8("oki", okim6295_device, read, write, 0x00ff )
 	AM_RANGE( 0x204000, 0x204003 ) AM_DEVWRITE8("ymsnd", ym2413_device, write, 0x00ff)
@@ -2780,6 +2793,8 @@ ADDRESS_MAP_END
 
 
 static ADDRESS_MAP_START( nkishusp, AS_PROGRAM, 16, igs011_state )
+	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
+
 //  nkishusp: IGS011 protection dynamically mapped at 1ff8x
 //  AM_RANGE( 0x01ff80, 0x01ff87 ) AM_WRITE(igs011_prot1_w )
 //  AM_RANGE( 0x01ff88, 0x01ff89 ) AM_READ ( igs011_prot1_r )
@@ -2790,7 +2805,6 @@ static ADDRESS_MAP_START( nkishusp, AS_PROGRAM, 16, igs011_state )
 	AM_RANGE( 0x023400, 0x0235ff ) AM_READ(lhb2_igs011_prot2_r          )   // read
 	AM_RANGE( 0x023600, 0x0237ff ) AM_WRITE(igs011_prot2_reset_w        )   // reset (55)
 
-	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
 	AM_RANGE( 0x100000, 0x103fff ) AM_RAM AM_SHARE("nvram")
 	AM_RANGE( 0x200000, 0x200001 ) AM_DEVREADWRITE8("oki", okim6295_device, read, write, 0x00ff )
 	AM_RANGE( 0x204000, 0x204003 ) AM_DEVWRITE8("ymsnd", ym2413_device, write, 0x00ff)
@@ -2883,6 +2897,8 @@ WRITE16_MEMBER(igs011_state::vbowl_link_2_w){ }
 WRITE16_MEMBER(igs011_state::vbowl_link_3_w){ }
 
 static ADDRESS_MAP_START( vbowl, AS_PROGRAM, 16, igs011_state )
+	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
+
 //  vbowl: IGS011 protection dynamically mapped at 834x
 //  AM_RANGE( 0x008340, 0x008347 ) AM_WRITE(igs011_prot1_w )
 //  AM_RANGE( 0x008348, 0x008349 ) AM_READ(igs011_prot1_r )
@@ -2910,7 +2926,6 @@ static ADDRESS_MAP_START( vbowl, AS_PROGRAM, 16, igs011_state )
 	AM_RANGE( 0x902000, 0x902fff ) AM_WRITE(igs012_prot_reset_w )   // reset?
 //  AM_RANGE( 0x902000, 0x902005 ) AM_WRITE(igs012_prot_fake_r )
 
-	AM_RANGE( 0x000000, 0x07ffff ) AM_ROM
 	AM_RANGE( 0x100000, 0x103fff ) AM_RAM AM_SHARE("nvram")
 	AM_RANGE( 0x200000, 0x200fff ) AM_RAM AM_SHARE("priority_ram")
 	AM_RANGE( 0x300000, 0x3fffff ) AM_READWRITE(igs011_layers_r, igs011_layers_w )
@@ -2952,9 +2967,9 @@ ADDRESS_MAP_END
 
 
 static ADDRESS_MAP_START( vbowlhk, AS_PROGRAM, 16, igs011_state )
+	AM_IMPORT_FROM(vbowl)
 	AM_RANGE( 0x800000, 0x800003 ) AM_WRITE(vbowlhk_igs003_w )
 	AM_RANGE( 0x50f600, 0x50f7ff ) AM_READ(vbowlhk_igs011_prot2_r         )   // read
-	AM_IMPORT_FROM(vbowl)
 ADDRESS_MAP_END
 
 
@@ -4138,8 +4153,8 @@ static GFXDECODE_START( igs011_hi )
 GFXDECODE_END
 #endif
 
-static MACHINE_CONFIG_START( igs011_base )
-	MCFG_CPU_ADD("maincpu",M68000, XTAL_22MHz/3)
+MACHINE_CONFIG_START(igs011_state::igs011_base)
+	MCFG_CPU_ADD("maincpu",M68000, XTAL(22'000'000)/3)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -4158,7 +4173,7 @@ static MACHINE_CONFIG_START( igs011_base )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", XTAL_22MHz/21, PIN7_HIGH)
+	MCFG_OKIM6295_ADD("oki", XTAL(22'000'000)/21, PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
@@ -4168,17 +4183,17 @@ TIMER_DEVICE_CALLBACK_MEMBER( igs011_state::lev5_timer_irq_cb )
 	m_maincpu->set_input_line(5, HOLD_LINE);
 }
 
-static MACHINE_CONFIG_DERIVED( drgnwrld, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::drgnwrld, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(drgnwrld)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, irq6_line_hold)
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("timer_irq", igs011_state, lev5_timer_irq_cb, attotime::from_hz(240)) // lev5 frequency drives the music tempo
 
-	MCFG_SOUND_ADD("ymsnd", YM3812, XTAL_3_579545MHz)
+	MCFG_SOUND_ADD("ymsnd", YM3812, XTAL(3'579'545))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 2.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( drgnwrld_igs012, drgnwrld )
+MACHINE_CONFIG_DERIVED(igs011_state::drgnwrld_igs012, drgnwrld)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(drgnwrld_igs012)
 MACHINE_CONFIG_END
@@ -4201,7 +4216,7 @@ TIMER_DEVICE_CALLBACK_MEMBER( igs011_state::lhb_timer_irq_cb )
 	m_maincpu->set_input_line(5, HOLD_LINE);
 }
 
-static MACHINE_CONFIG_DERIVED( lhb, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::lhb, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(lhb)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, lhb_vblank_irq)
@@ -4217,7 +4232,7 @@ TIMER_DEVICE_CALLBACK_MEMBER( igs011_state::lev3_timer_irq_cb )
 }
 
 
-static MACHINE_CONFIG_DERIVED( wlcc, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::wlcc, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(wlcc)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, irq6_line_hold)
@@ -4226,7 +4241,7 @@ MACHINE_CONFIG_END
 
 
 
-static MACHINE_CONFIG_DERIVED( xymg, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::xymg, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(xymg)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, irq6_line_hold)
@@ -4235,7 +4250,7 @@ MACHINE_CONFIG_END
 
 
 
-static MACHINE_CONFIG_DERIVED( lhb2, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::lhb2, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(lhb2)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, irq6_line_hold)
@@ -4243,13 +4258,13 @@ static MACHINE_CONFIG_DERIVED( lhb2, igs011_base )
 
 //  MCFG_GFXDECODE_ADD("gfxdecode", "palette", igs011_hi)
 
-	MCFG_SOUND_ADD("ymsnd", YM2413, XTAL_3_579545MHz)
+	MCFG_SOUND_ADD("ymsnd", YM2413, XTAL(3'579'545))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 2.0)
 MACHINE_CONFIG_END
 
 
 
-static MACHINE_CONFIG_DERIVED( nkishusp, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::nkishusp, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(nkishusp)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, irq6_line_hold)
@@ -4259,7 +4274,7 @@ static MACHINE_CONFIG_DERIVED( nkishusp, igs011_base )
 
 //  MCFG_GFXDECODE_ADD("gfxdecode", "palette", igs011_hi)
 
-	MCFG_SOUND_ADD("ymsnd", YM2413, XTAL_3_579545MHz)
+	MCFG_SOUND_ADD("ymsnd", YM2413, XTAL(3'579'545))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 2.0)
 MACHINE_CONFIG_END
 
@@ -4270,7 +4285,7 @@ WRITE_LINE_MEMBER(igs011_state::sound_irq)
 //   m_maincpu->set_input_line(3, state);
 }
 
-static MACHINE_CONFIG_DERIVED( vbowl, igs011_base )
+MACHINE_CONFIG_DERIVED(igs011_state::vbowl, igs011_base)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(vbowl)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", igs011_state, irq6_line_hold)
@@ -4288,7 +4303,7 @@ static MACHINE_CONFIG_DERIVED( vbowl, igs011_base )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 5.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( vbowlhk, vbowl )
+MACHINE_CONFIG_DERIVED(igs011_state::vbowlhk, vbowl)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(vbowlhk)
 MACHINE_CONFIG_END

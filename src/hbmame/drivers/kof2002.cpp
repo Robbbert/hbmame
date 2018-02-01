@@ -3765,6 +3765,7 @@ GAME( 2002, kof2k2xxx,   kof2002, neogeo_noslot, neogeo, neogeo_state,        ne
 
 //PSmame
 
+#ifdef PTR64
 
 ROM_START( kof2002s01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -13302,3 +13303,4 @@ GAME( 2017, kof2k2s28,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2017, kof2k2s29,      kof2002,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof2002 (Description Of Unknown Origin 29)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2k2s30,      kof2002,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof2002 (Description Of Unknown Origin 30)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
 
+#endif

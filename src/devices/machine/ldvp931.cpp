@@ -285,8 +285,8 @@ const tiny_rom_entry *phillips_22vp931_device::device_rom_region() const
 //  device_add_mconfig - add device configuration
 //-------------------------------------------------
 
-MACHINE_CONFIG_MEMBER( phillips_22vp931_device::device_add_mconfig )
-	MCFG_CPU_ADD("vp931", I8049, XTAL_11MHz)
+MACHINE_CONFIG_START(phillips_22vp931_device::device_add_mconfig)
+	MCFG_CPU_ADD("vp931", I8049, XTAL(11'000'000))
 	MCFG_CPU_IO_MAP(vp931_portmap)
 	MCFG_MCS48_PORT_P1_IN_CB(READ8(phillips_22vp931_device, i8049_port1_r))
 	MCFG_MCS48_PORT_P1_OUT_CB(WRITE8(phillips_22vp931_device, i8049_port1_w))

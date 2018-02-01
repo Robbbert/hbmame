@@ -17,6 +17,7 @@ public:
 	DECLARE_DRIVER_INIT(sfiii3n);
 	DECLARE_MACHINE_RESET(redeartn);
 	TIMER_CALLBACK_MEMBER(fastboot_timer_callback);
+	void redeartn(machine_config &config);
 
 private:
 	void hb_unscramble();
@@ -238,7 +239,7 @@ MACHINE_RESET_MEMBER( cps3_hbmame, redeartn )
 	copy_from_nvram();
 }
 
-static MACHINE_CONFIG_DERIVED( redeartn, redearth )
+MACHINE_CONFIG_DERIVED( cps3_hbmame::redeartn, redearth )
 	MCFG_MACHINE_RESET_OVERRIDE(cps3_hbmame, redeartn)
 MACHINE_CONFIG_END
 

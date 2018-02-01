@@ -79,6 +79,7 @@ public:
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
+	void spacmissx(machine_config &config);
 };
 
 static const discrete_dac_r1_ladder spacmissx_music_dac =
@@ -404,7 +405,7 @@ static const char *const invaders_sample_names[] =
 };
 
 
-static MACHINE_CONFIG_START( spacmissx )
+MACHINE_CONFIG_START( sm_state::spacmissx )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
 	MCFG_CPU_PROGRAM_MAP(spacmissx_map)

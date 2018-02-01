@@ -5800,7 +5800,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(model3_state::model3_interrupt)
 	}
 }
 
-static MACHINE_CONFIG_START( model3_10 )
+MACHINE_CONFIG_START(model3_state::model3_10)
 	MCFG_CPU_ADD("maincpu", PPC603E, 66000000)
 	MCFG_PPC_BUS_FREQUENCY(66000000)   /* Multiplier 1, Bus = 66MHz, Core = 66MHz */
 	MCFG_CPU_PROGRAM_MAP(model3_10_mem)
@@ -5816,7 +5816,7 @@ static MACHINE_CONFIG_START( model3_10 )
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 	MCFG_NVRAM_ADD_1FILL("backup")
-	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL_32_768kHz) // internal oscillator
+	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL(32'768)) // internal oscillator
 
 
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -5848,7 +5848,7 @@ static MACHINE_CONFIG_START( model3_10 )
 	MCFG_LEGACY_SCSI_PORT("scsi")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( model3_15 )
+MACHINE_CONFIG_START(model3_state::model3_15)
 	MCFG_CPU_ADD("maincpu", PPC603E, 100000000)
 	MCFG_PPC_BUS_FREQUENCY(66000000)       /* Multiplier 1.5, Bus = 66MHz, Core = 100MHz */
 	MCFG_CPU_PROGRAM_MAP(model3_mem)
@@ -5862,7 +5862,7 @@ static MACHINE_CONFIG_START( model3_15 )
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 	MCFG_NVRAM_ADD_1FILL("backup")
-	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL_32_768kHz) // internal oscillator
+	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL(32'768)) // internal oscillator
 
 
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -5896,7 +5896,7 @@ static MACHINE_CONFIG_START( model3_15 )
 	MCFG_M3COMM_ADD("comm_board")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED(scud, model3_15)
+MACHINE_CONFIG_DERIVED(model3_state::scud, model3_15)
 	MCFG_DSBZ80_ADD(DSBZ80_TAG)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
@@ -5909,7 +5909,7 @@ static MACHINE_CONFIG_DERIVED(scud, model3_15)
 	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE("uart", i8251_device, write_rxc))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START(model3_20)
+MACHINE_CONFIG_START(model3_state::model3_20)
 	MCFG_CPU_ADD("maincpu", PPC603R, 166000000)
 	MCFG_PPC_BUS_FREQUENCY(66000000)    /* Multiplier 2.5, Bus = 66MHz, Core = 166MHz */
 	MCFG_CPU_PROGRAM_MAP(model3_mem)
@@ -5923,7 +5923,7 @@ static MACHINE_CONFIG_START(model3_20)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 	MCFG_NVRAM_ADD_1FILL("backup")
-	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL_32_768kHz) // internal oscillator
+	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL(32'768)) // internal oscillator
 
 
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -5949,12 +5949,12 @@ static MACHINE_CONFIG_START(model3_20)
 	MCFG_M3COMM_ADD("comm_board")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED(model3_20_5881, model3_20)
+MACHINE_CONFIG_DERIVED(model3_state::model3_20_5881, model3_20)
 	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
 	MCFG_SET_READ_CALLBACK(model3_state, crypt_read_callback)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START(model3_21)
+MACHINE_CONFIG_START(model3_state::model3_21)
 	MCFG_CPU_ADD("maincpu", PPC603R, 166000000)
 	MCFG_PPC_BUS_FREQUENCY(66000000)    /* Multiplier 2.5, Bus = 66MHz, Core = 166MHz */
 	MCFG_CPU_PROGRAM_MAP(model3_mem)
@@ -5968,7 +5968,7 @@ static MACHINE_CONFIG_START(model3_21)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 	MCFG_NVRAM_ADD_1FILL("backup")
-	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL_32_768kHz) // internal oscillator
+	MCFG_DEVICE_ADD("rtc", RTC72421, XTAL(32'768)) // internal oscillator
 
 
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -6009,7 +6009,7 @@ uint16_t model3_state::crypt_read_callback(uint32_t addr)
 	return dat;
 }
 
-static MACHINE_CONFIG_DERIVED( model3_21_5881, model3_21 )
+MACHINE_CONFIG_DERIVED(model3_state::model3_21_5881, model3_21)
 	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
 	MCFG_SET_READ_CALLBACK(model3_state, crypt_read_callback)
 MACHINE_CONFIG_END

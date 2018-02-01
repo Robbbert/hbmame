@@ -49,7 +49,7 @@
  *
  *************************************/
 
-#define MASTER_CLOCK		(XTAL_18_432MHz)
+#define MASTER_CLOCK		18432000
 
 #define PIXEL_CLOCK		(MASTER_CLOCK/3)
 
@@ -420,7 +420,7 @@ GFXDECODE_END
  *
  *************************************/
 
-static MACHINE_CONFIG_START( pacman )
+MACHINE_CONFIG_START( pacman_state::pacman )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", Z80, MASTER_CLOCK/6)
@@ -457,7 +457,7 @@ static MACHINE_CONFIG_START( pacman )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pacmanx, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::pacmanx, pacman )
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
@@ -466,7 +466,7 @@ static MACHINE_CONFIG_DERIVED( pacmanx, pacman )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( woodpek, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::woodpek, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(woodpek_map)
 MACHINE_CONFIG_END

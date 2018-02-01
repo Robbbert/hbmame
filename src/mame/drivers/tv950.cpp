@@ -51,7 +51,7 @@
 #define RS232A_TAG  "rs232a"
 #define RS232B_TAG  "rs232b"
 
-#define MASTER_CLOCK XTAL_23_814MHz
+#define MASTER_CLOCK XTAL(23'814'000)
 
 class tv950_state : public driver_device
 {
@@ -75,6 +75,7 @@ public:
 	DECLARE_WRITE8_MEMBER(row_addr_w);
 	DECLARE_WRITE_LINE_MEMBER(via_crtc_reset_w);
 
+	void tv950(machine_config &config);
 private:
 	uint8_t m_via_row;
 	uint8_t m_attr_row;
@@ -267,7 +268,7 @@ MC6845_UPDATE_ROW( tv950_state::crtc_update_row )
 	m_row = (m_row + 1) % 250;
 }
 
-static MACHINE_CONFIG_START( tv950 )
+MACHINE_CONFIG_START(tv950_state::tv950)
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M6502, MASTER_CLOCK/14)
 	MCFG_CPU_PROGRAM_MAP(tv950_mem)
@@ -303,7 +304,7 @@ static MACHINE_CONFIG_START( tv950 )
 	MCFG_DEVICE_ADD(ACIA3_TAG, MOS6551, 0)
 	MCFG_MOS6551_XTAL(MASTER_CLOCK/13)
 
-	MCFG_DEVICE_ADD("kbd", I8748, XTAL_5_7143MHz)
+	MCFG_DEVICE_ADD("kbd", I8748, XTAL(5'714'300))
 MACHINE_CONFIG_END
 
 /* ROM definition */

@@ -778,19 +778,19 @@ INPUT_PORTS_END
  *
  *************************************/
 
-static MACHINE_CONFIG_START( amerdart )
+MACHINE_CONFIG_START(coolpool_state::amerdart)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", TMS34010, XTAL_40MHz)
+	MCFG_CPU_ADD("maincpu", TMS34010, XTAL(40'000'000))
 	MCFG_CPU_PROGRAM_MAP(amerdart_map)
 	MCFG_TMS340X0_HALT_ON_RESET(false) /* halt on reset */
-	MCFG_TMS340X0_PIXEL_CLOCK(XTAL_40MHz/12) /* pixel clock */
+	MCFG_TMS340X0_PIXEL_CLOCK(XTAL(40'000'000)/12) /* pixel clock */
 	MCFG_TMS340X0_PIXELS_PER_CLOCK(2) /* pixels per clock */
 	MCFG_TMS340X0_SCANLINE_RGB32_CB(coolpool_state, amerdart_scanline) /* scanline callback (rgb32) */
 	MCFG_TMS340X0_TO_SHIFTREG_CB(coolpool_state, to_shiftreg)  /* write to shiftreg function */
 	MCFG_TMS340X0_FROM_SHIFTREG_CB(coolpool_state, from_shiftreg) /* read from shiftreg function */
 
-	MCFG_CPU_ADD("dsp", TMS32015, XTAL_40MHz/2)
+	MCFG_CPU_ADD("dsp", TMS32015, XTAL(40'000'000)/2)
 	MCFG_CPU_PROGRAM_MAP(amerdart_dsp_pgm_map)
 	/* Data Map is internal to the CPU */
 	MCFG_CPU_IO_MAP(amerdart_dsp_io_map)
@@ -804,7 +804,7 @@ static MACHINE_CONFIG_START( amerdart )
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_40MHz/6, 212*2, 0, 161*2, 262, 0, 241)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(40'000'000)/6, 212*2, 0, 161*2, 262, 0, 241)
 	MCFG_SCREEN_UPDATE_DEVICE("maincpu", tms34010_device, tms340x0_rgb32)
 
 	/* sound hardware */
@@ -815,19 +815,19 @@ static MACHINE_CONFIG_START( amerdart )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_START( coolpool )
+MACHINE_CONFIG_START(coolpool_state::coolpool)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", TMS34010, XTAL_40MHz)
+	MCFG_CPU_ADD("maincpu", TMS34010, XTAL(40'000'000))
 	MCFG_CPU_PROGRAM_MAP(coolpool_map)
 	MCFG_TMS340X0_HALT_ON_RESET(false) /* halt on reset */
-	MCFG_TMS340X0_PIXEL_CLOCK(XTAL_40MHz/6) /* pixel clock */
+	MCFG_TMS340X0_PIXEL_CLOCK(XTAL(40'000'000)/6) /* pixel clock */
 	MCFG_TMS340X0_PIXELS_PER_CLOCK(1) /* pixels per clock */
 	MCFG_TMS340X0_SCANLINE_RGB32_CB(coolpool_state, coolpool_scanline) /* scanline callback (rgb32) */
 	MCFG_TMS340X0_TO_SHIFTREG_CB(coolpool_state, to_shiftreg)  /* write to shiftreg function */
 	MCFG_TMS340X0_FROM_SHIFTREG_CB(coolpool_state, from_shiftreg) /* read from shiftreg function */
 
-	MCFG_CPU_ADD("dsp", TMS32026,XTAL_40MHz)
+	MCFG_CPU_ADD("dsp", TMS32026,XTAL(40'000'000))
 	MCFG_CPU_PROGRAM_MAP(coolpool_dsp_pgm_map)
 	MCFG_CPU_IO_MAP(coolpool_dsp_io_map)
 	MCFG_TMS32025_BIO_IN_CB(READ16(coolpool_state, dsp_bio_line_r))
@@ -843,7 +843,7 @@ static MACHINE_CONFIG_START( coolpool )
 	MCFG_TLC34076_ADD("tlc34076", TLC34076_6_BIT)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_40MHz/6, 424, 0, 320, 262, 0, 240)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(40'000'000)/6, 424, 0, 320, 262, 0, 240)
 	MCFG_SCREEN_UPDATE_DEVICE("maincpu", tms34010_device, tms340x0_rgb32)
 
 	/* sound hardware */
@@ -854,7 +854,7 @@ static MACHINE_CONFIG_START( coolpool )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( 9ballsht, coolpool )
+MACHINE_CONFIG_DERIVED(coolpool_state::_9ballsht, coolpool)
 
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(nballsht_map)
@@ -1181,11 +1181,11 @@ DRIVER_INIT_MEMBER(coolpool_state,9ballsht)
  *
  *************************************/
 
-GAME( 1989, amerdart,  0,        amerdart, amerdart, coolpool_state, amerdart, ROT0, "Ameri",                               "AmeriDarts (set 1)",           MACHINE_SUPPORTS_SAVE )
-GAME( 1989, amerdart2, amerdart, amerdart, amerdart, coolpool_state, amerdart, ROT0, "Ameri",                               "AmeriDarts (set 2)",           MACHINE_SUPPORTS_SAVE )
-GAME( 1989, amerdart3, amerdart, amerdart, amerdart, coolpool_state, amerdart, ROT0, "Ameri",                               "AmeriDarts (set 3)",           MACHINE_SUPPORTS_SAVE )
-GAME( 1992, coolpool,  0,        coolpool, coolpool, coolpool_state, coolpool, ROT0, "Catalina",                            "Cool Pool",                    0 )
-GAME( 1993, 9ballsht,  0,        9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout (set 1)",      0 )
-GAME( 1993, 9ballsht2, 9ballsht, 9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout (set 2)",      0 )
-GAME( 1993, 9ballsht3, 9ballsht, 9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout (set 3)",      0 )
-GAME( 1993, 9ballshtc, 9ballsht, 9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout Championship", 0 )
+GAME( 1989, amerdart,  0,        amerdart,  amerdart, coolpool_state, amerdart, ROT0, "Ameri",                               "AmeriDarts (set 1)",           MACHINE_SUPPORTS_SAVE )
+GAME( 1989, amerdart2, amerdart, amerdart,  amerdart, coolpool_state, amerdart, ROT0, "Ameri",                               "AmeriDarts (set 2)",           MACHINE_SUPPORTS_SAVE )
+GAME( 1989, amerdart3, amerdart, amerdart,  amerdart, coolpool_state, amerdart, ROT0, "Ameri",                               "AmeriDarts (set 3)",           MACHINE_SUPPORTS_SAVE )
+GAME( 1992, coolpool,  0,        coolpool,  coolpool, coolpool_state, coolpool, ROT0, "Catalina",                            "Cool Pool",                    0 )
+GAME( 1993, 9ballsht,  0,        _9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout (set 1)",      0 )
+GAME( 1993, 9ballsht2, 9ballsht, _9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout (set 2)",      0 )
+GAME( 1993, 9ballsht3, 9ballsht, _9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout (set 3)",      0 )
+GAME( 1993, 9ballshtc, 9ballsht, _9ballsht, 9ballsht, coolpool_state, 9ballsht, ROT0, "E-Scape EnterMedia (Bundra license)", "9-Ball Shootout Championship", 0 )

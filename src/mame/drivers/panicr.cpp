@@ -124,12 +124,13 @@ public:
 	void draw_sprites(bitmap_ind16 &bitmap,const rectangle &cliprect );
 
 	TIMER_DEVICE_CALLBACK_MEMBER(scanline);
+	void panicr(machine_config &config);
 };
 
 
-#define MASTER_CLOCK    XTAL_16MHz
-#define SOUND_CLOCK     XTAL_14_31818MHz
-#define TC15_CLOCK      XTAL_12MHz
+#define MASTER_CLOCK    XTAL(16'000'000)
+#define SOUND_CLOCK     XTAL(14'318'181)
+#define TC15_CLOCK      XTAL(12'000'000)
 
 
 /***************************************************************************
@@ -606,7 +607,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(panicr_state::scanline)
 		m_maincpu->set_input_line_and_vector(0, HOLD_LINE, 0xc8/4);
 }
 
-static MACHINE_CONFIG_START( panicr )
+MACHINE_CONFIG_START(panicr_state::panicr)
 	MCFG_CPU_ADD("maincpu", V20,MASTER_CLOCK/2) /* Sony 8623h9 CXQ70116D-8 (V20 compatible) */
 	MCFG_CPU_PROGRAM_MAP(panicr_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", panicr_state, scanline, "screen", 0, 1)

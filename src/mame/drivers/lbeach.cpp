@@ -79,6 +79,7 @@ public:
 	virtual void video_start() override;
 	DECLARE_PALETTE_INIT(lbeach);
 	uint32_t screen_update_lbeach(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	void lbeach(machine_config &config);
 };
 
 
@@ -216,8 +217,8 @@ READ8_MEMBER(lbeach_state::lbeach_in2_r)
 
 static ADDRESS_MAP_START( lbeach_map, AS_PROGRAM, 8, lbeach_state )
 	AM_RANGE(0x0000, 0x00ff) AM_RAM AM_SHARE("nvram")
-	AM_RANGE(0x4000, 0x4000) AM_READ(lbeach_in1_r)
 	AM_RANGE(0x4000, 0x41ff) AM_RAM_WRITE(lbeach_bg_vram_w) AM_SHARE("bg_vram")
+	AM_RANGE(0x4000, 0x4000) AM_READ(lbeach_in1_r)
 	AM_RANGE(0x4200, 0x43ff) AM_RAM
 	AM_RANGE(0x4400, 0x47ff) AM_RAM_WRITE(lbeach_fg_vram_w) AM_SHARE("fg_vram")
 	AM_RANGE(0x8000, 0x8000) AM_READ(lbeach_in2_r)
@@ -324,10 +325,10 @@ void lbeach_state::machine_reset()
 {
 }
 
-static MACHINE_CONFIG_START( lbeach )
+MACHINE_CONFIG_START(lbeach_state::lbeach)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M6800, XTAL_16MHz / 32) // Motorola MC6800P, 500kHz
+	MCFG_CPU_ADD("maincpu", M6800, XTAL(16'000'000) / 32) // Motorola MC6800P, 500kHz
 	MCFG_CPU_PROGRAM_MAP(lbeach_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", lbeach_state, nmi_line_pulse)
 

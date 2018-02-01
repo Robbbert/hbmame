@@ -643,7 +643,7 @@ P0-122A
    X1-010    6264
 
     CONN1          X1-011(x2)     X1-002A
-                   X1-012(x2)     X1-001A
+       ADC0834     X1-012(x2)     X1-001A
 
                                             3V_BATT
                                                     4464
@@ -1733,7 +1733,6 @@ ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( calibr50_map, AS_PROGRAM, 16, seta_state )
 	AM_RANGE(0x000000, 0x09ffff) AM_ROM                             // ROM
-	AM_RANGE(0xff0000, 0xffffff) AM_RAM                             // RAM
 	AM_RANGE(0x100000, 0x100001) AM_READ(ipl2_ack_r)
 	AM_RANGE(0x200000, 0x200fff) AM_RAM                             // NVRAM
 	AM_RANGE(0x300000, 0x300001) AM_READWRITE(ipl1_ack_r, ipl1_ack_w)
@@ -1757,6 +1756,8 @@ static ADDRESS_MAP_START( calibr50_map, AS_PROGRAM, 16, seta_state )
 	AM_RANGE(0xb00000, 0xb00001) AM_DEVREAD8("soundlatch2", generic_latch_8_device, read, 0x00ff) // From Sub CPU
 	AM_RANGE(0xb00000, 0xb00001) AM_DEVWRITE8("soundlatch", generic_latch_8_device, write, 0x00ff) // To Sub CPU
 /**/AM_RANGE(0xc00000, 0xc00001) AM_RAM                             // ? $4000
+
+	AM_RANGE(0xff0000, 0xffffff) AM_RAM                             // RAM
 ADDRESS_MAP_END
 
 
@@ -1995,10 +1996,10 @@ static ADDRESS_MAP_START( wrofaero_map, AS_PROGRAM, 16, seta_state )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( zombraid_map, AS_PROGRAM, 16, seta_state )
+	AM_IMPORT_FROM( wrofaero_map )
 	AM_RANGE(0x300000, 0x30ffff) AM_RAM AM_SHARE("nvram")           // actually 8K x8 SRAM
 	AM_RANGE(0xf00000, 0xf00001) AM_WRITE(zombraid_gun_w)
 	AM_RANGE(0xf00002, 0xf00003) AM_READ(zombraid_gun_r)
-	AM_IMPORT_FROM( wrofaero_map )
 ADDRESS_MAP_END
 
 READ16_MEMBER(seta_state::zingzipbl_unknown_r)
@@ -2547,8 +2548,8 @@ static ADDRESS_MAP_START( kamenrid_map, AS_PROGRAM, 16, seta_state )
 	AM_RANGE(0x500004, 0x500007) AM_READ(seta_dsw_r)                // DSW
 	AM_RANGE(0x500008, 0x500009) AM_READ_PORT("COINS")              // Coins
 	AM_RANGE(0x50000c, 0x50000d) AM_DEVREADWRITE("watchdog", watchdog_timer_device, reset16_r, reset16_w)    // xx Watchdog? (sokonuke)
-	AM_RANGE(0x600004, 0x600005) AM_WRITE(ipl1_ack_w)
 	AM_RANGE(0x600000, 0x600005) AM_RAM_WRITE(seta_vregs_w) AM_SHARE("vregs")   // ? Coin Lockout + Video Registers
+	AM_RANGE(0x600004, 0x600005) AM_WRITE(ipl1_ack_w)
 	AM_RANGE(0x600006, 0x600007) AM_WRITE(ipl2_ack_w)
 	AM_RANGE(0x700000, 0x7003ff) AM_RAM                             // Palette RAM (tested)
 	AM_RANGE(0x700400, 0x700fff) AM_RAM AM_SHARE("paletteram")  // Palette
@@ -2577,8 +2578,8 @@ static ADDRESS_MAP_START( madshark_map, AS_PROGRAM, 16, seta_state )
 	AM_RANGE(0x500004, 0x500005) AM_READ_PORT("COINS")              // Coins
 	AM_RANGE(0x500008, 0x50000b) AM_READ(seta_dsw_r)                // DSW
 	AM_RANGE(0x50000c, 0x50000d) AM_DEVWRITE("watchdog", watchdog_timer_device, reset16_w)
-	AM_RANGE(0x600004, 0x600005) AM_WRITE(ipl1_ack_w)
 	AM_RANGE(0x600000, 0x600005) AM_RAM_WRITE(seta_vregs_w) AM_SHARE("vregs")   // ? Coin Lockout + Video Registers
+	AM_RANGE(0x600004, 0x600005) AM_WRITE(ipl1_ack_w)
 	AM_RANGE(0x600006, 0x600007) AM_WRITE(ipl2_ack_w)
 	AM_RANGE(0x700400, 0x700fff) AM_RAM AM_SHARE("paletteram")  // Palette
 	AM_RANGE(0x800000, 0x803fff) AM_RAM_WRITE(seta_vram_0_w) AM_SHARE("vram_0") // VRAM 0&1
@@ -7750,7 +7751,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(seta_state::tndrcade_sub_interrupt)
 		m_subcpu->set_input_line(0, HOLD_LINE);
 }
 
-static MACHINE_CONFIG_START( tndrcade )
+MACHINE_CONFIG_START(seta_state::tndrcade)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -7804,7 +7805,7 @@ MACHINE_CONFIG_END
 
 /* twineagl lev 3 = lev 2 + lev 1 ! */
 
-static MACHINE_CONFIG_START( twineagl )
+MACHINE_CONFIG_START(seta_state::twineagl)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -7850,14 +7851,14 @@ MACHINE_CONFIG_END
 
 /* downtown lev 3 = lev 2 + lev 1 ! */
 
-static MACHINE_CONFIG_START( downtown )
+MACHINE_CONFIG_START(seta_state::downtown)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz/2) /* verified on pcb */
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000)/2) /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(downtown_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("m_scantimer", seta_state, seta_interrupt_1_and_2, "screen", 0, 1)
 
-	MCFG_CPU_ADD("sub", M65C02, XTAL_16MHz/8) /* verified on pcb */
+	MCFG_CPU_ADD("sub", M65C02, XTAL(16'000'000)/8) /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(downtown_sub_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("s_scantimer", seta_state, seta_sub_interrupt, "screen", 0, 1)
 
@@ -7918,7 +7919,7 @@ MACHINE_START_MEMBER(seta_state, usclssic)
 }
 
 
-static MACHINE_CONFIG_START( usclssic )
+MACHINE_CONFIG_START(seta_state::usclssic)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -7985,15 +7986,15 @@ MACHINE_CONFIG_END
     Test mode shows a 16ms and 4ms counters. I wonder if every game has
     5 ints per frame */
 
-static MACHINE_CONFIG_START( calibr50 )
+MACHINE_CONFIG_START(seta_state::calibr50)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz/2) /* verified on pcb */
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000)/2) /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(calibr50_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", seta_state, calibr50_interrupt, "screen", 0, 1)
 	MCFG_WATCHDOG_ADD("watchdog")
 
-	MCFG_CPU_ADD("sub", M65C02, XTAL_16MHz/8) /* verified on pcb */
+	MCFG_CPU_ADD("sub", M65C02, XTAL(16'000'000)/8) /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(calibr50_sub_map)
 	MCFG_CPU_PERIODIC_INT_DRIVER(seta_state, irq0_line_assert, 4*60)  // IRQ: 4/frame
 
@@ -8042,7 +8043,7 @@ MACHINE_CONFIG_END
 
 /* metafox lev 3 = lev 2 + lev 1 ! */
 
-static MACHINE_CONFIG_START( metafox )
+MACHINE_CONFIG_START(seta_state::metafox)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -8086,7 +8087,7 @@ MACHINE_CONFIG_END
                                 Athena no Hatena?
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( atehate )
+MACHINE_CONFIG_START(seta_state::atehate)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8129,7 +8130,7 @@ MACHINE_CONFIG_END
     samples are bankswitched
 */
 
-static MACHINE_CONFIG_START( blandia )
+MACHINE_CONFIG_START(seta_state::blandia)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8166,7 +8167,7 @@ static MACHINE_CONFIG_START( blandia )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( blandiap )
+MACHINE_CONFIG_START(seta_state::blandiap)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8208,7 +8209,7 @@ MACHINE_CONFIG_END
                                 Block Carnival
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( blockcar )
+MACHINE_CONFIG_START(seta_state::blockcar)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -8255,7 +8256,7 @@ static ADDRESS_MAP_START( blockcarb_sound_portmap, AS_IO, 8, seta_state )
 //  AM_RANGE(0xc0, 0xc0) AM_MIRROR(0x3f) AM_DEVREAD("soundlatch", generic_latch_8_device, read)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( blockcarb, blockcar )
+MACHINE_CONFIG_DERIVED(seta_state::blockcarb, blockcar)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -8279,10 +8280,10 @@ MACHINE_CONFIG_END
                                 Daioh
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( daioh )
+MACHINE_CONFIG_START(seta_state::daioh)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz)   /* 16 MHz, MC68000-16, Verified from PCB */
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000))   /* 16 MHz, MC68000-16, Verified from PCB */
 	MCFG_CPU_PROGRAM_MAP(daioh_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", seta_state, seta_interrupt_1_and_2, "screen", 0, 1)
 
@@ -8307,7 +8308,7 @@ static MACHINE_CONFIG_START( daioh )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("x1snd", X1_010, XTAL_16MHz)   /* 16 MHz, Verified from PCB audio */
+	MCFG_SOUND_ADD("x1snd", X1_010, XTAL(16'000'000))   /* 16 MHz, Verified from PCB audio */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
@@ -8316,10 +8317,10 @@ MACHINE_CONFIG_END
                        Daioh (prototype)
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( daiohp )
+MACHINE_CONFIG_START(seta_state::daiohp)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz)   /* 16 MHz, MC68000-16, Verified from PCB */
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000))   /* 16 MHz, MC68000-16, Verified from PCB */
 	MCFG_CPU_PROGRAM_MAP(daiohp_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", seta_state, seta_interrupt_1_and_2, "screen", 0, 1)
 
@@ -8344,7 +8345,7 @@ static MACHINE_CONFIG_START( daiohp )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("x1snd", X1_010, XTAL_16MHz)   /* 16 MHz, Verified from PCB audio */
+	MCFG_SOUND_ADD("x1snd", X1_010, XTAL(16'000'000))   /* 16 MHz, Verified from PCB audio */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
@@ -8358,7 +8359,7 @@ MACHINE_CONFIG_END
     lev 2 drives the game
 */
 
-static MACHINE_CONFIG_START( drgnunit )
+MACHINE_CONFIG_START(seta_state::drgnunit)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -8394,7 +8395,7 @@ MACHINE_CONFIG_END
 /*  Same as qzkklogy, but with a 16MHz CPU and different
     layout for the layer's tiles    */
 
-static MACHINE_CONFIG_START( qzkklgy2 )
+MACHINE_CONFIG_START(seta_state::qzkklgy2)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8445,10 +8446,10 @@ TIMER_DEVICE_CALLBACK_MEMBER(setaroul_state::interrupt)
 	// lev 6: RS232
 }
 
-static MACHINE_CONFIG_START( setaroul )
+MACHINE_CONFIG_START(setaroul_state::setaroul)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz/2) /* 8 MHz */
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000)/2) /* 8 MHz */
 	MCFG_CPU_PROGRAM_MAP(setaroul_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", setaroul_state, interrupt, "screen", 0, 1)
 	MCFG_WATCHDOG_ADD("watchdog")
@@ -8462,7 +8463,7 @@ static MACHINE_CONFIG_START( setaroul )
 	MCFG_NVRAM_ADD_RANDOM_FILL("nvram")
 
 	/* devices */
-	MCFG_DEVICE_ADD("rtc", UPD4992, XTAL_32_768kHz) // ! Actually D4911C !
+	MCFG_DEVICE_ADD("rtc", UPD4992, XTAL(32'768)) // ! Actually D4911C !
 	MCFG_DEVICE_ADD ("acia0", ACIA6850, 0)
 	MCFG_TICKET_DISPENSER_ADD("hopper", attotime::from_msec(150), TICKET_MOTOR_ACTIVE_HIGH, TICKET_STATUS_ACTIVE_LOW )
 
@@ -8486,7 +8487,7 @@ static MACHINE_CONFIG_START( setaroul )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_SOUND_ADD("x1snd", X1_010, XTAL_16MHz)   /* 16 MHz */
+	MCFG_SOUND_ADD("x1snd", X1_010, XTAL(16'000'000))   /* 16 MHz */
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 
@@ -8498,7 +8499,7 @@ MACHINE_CONFIG_END
                                 Eight Force
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( eightfrc )
+MACHINE_CONFIG_START(seta_state::eightfrc)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8541,7 +8542,7 @@ MACHINE_CONFIG_END
     lev 1 == lev 3 (writes to $500000, bit 4 -> 1 then 0)
     lev 2 drives the game
 */
-static MACHINE_CONFIG_START( extdwnhl )
+MACHINE_CONFIG_START(seta_state::extdwnhl)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8599,7 +8600,7 @@ MACHINE_START_MEMBER(seta_state,wrofaero){ uPD71054_timer_init(); }
     lev 2: VBlank
     lev 4: Sound (generated by a timer mapped at $d00000-6 ?)
 */
-static MACHINE_CONFIG_START( gundhara )
+MACHINE_CONFIG_START(seta_state::gundhara)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8648,7 +8649,7 @@ MACHINE_CONFIG_END
                                 Zombie Raid
 ***************************************************************************/
 
-static MACHINE_CONFIG_DERIVED( zombraid, gundhara )
+MACHINE_CONFIG_DERIVED(seta_state::zombraid, gundhara)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -8668,7 +8669,7 @@ MACHINE_CONFIG_END
     lev 1 == lev 3 (writes to $500000, bit 4 -> 1 then 0)
     lev 2 drives the game
 */
-static MACHINE_CONFIG_START( jjsquawk )
+MACHINE_CONFIG_START(seta_state::jjsquawk)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8704,7 +8705,7 @@ static MACHINE_CONFIG_START( jjsquawk )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( jjsquawb )
+MACHINE_CONFIG_START(seta_state::jjsquawb)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8744,7 +8745,7 @@ MACHINE_CONFIG_END
 ***************************************************************************/
 
 /*  kamenrid: lev 2 by vblank, lev 4 by timer */
-static MACHINE_CONFIG_START( kamenrid )
+MACHINE_CONFIG_START(seta_state::kamenrid)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8787,7 +8788,7 @@ MACHINE_CONFIG_END
 
 /* The CPU clock has been verified/measured, PCB only has one OSC and it's 14.318180 MHz */
 
-static MACHINE_CONFIG_START( orbs )
+MACHINE_CONFIG_START(seta_state::orbs)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 14318180/2) /* 7.143 MHz */
@@ -8827,7 +8828,7 @@ MACHINE_CONFIG_END
                   Kero Kero Keroppi no Issyoni Asobou
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( keroppij )
+MACHINE_CONFIG_START(seta_state::keroppij)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 14318180/2) /* 7.143 MHz */
@@ -8862,7 +8863,7 @@ static MACHINE_CONFIG_START( keroppij )
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( keroppi, keroppij )
+MACHINE_CONFIG_DERIVED(seta_state::keroppi, keroppij)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", tndrcade)
 MACHINE_CONFIG_END
 
@@ -8870,7 +8871,7 @@ MACHINE_CONFIG_END
                                 Krazy Bowl
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( krzybowl )
+MACHINE_CONFIG_START(seta_state::krzybowl)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8916,7 +8917,7 @@ MACHINE_CONFIG_END
 ***************************************************************************/
 
 /*  madshark: lev 2 by vblank, lev 4 by timer */
-static MACHINE_CONFIG_START( madshark )
+MACHINE_CONFIG_START(seta_state::madshark)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -8962,7 +8963,7 @@ MACHINE_CONFIG_END
 ***************************************************************************/
 
 /*  magspeed: lev 2 by vblank, lev 4 by timer */
-static MACHINE_CONFIG_START( magspeed )
+MACHINE_CONFIG_START(seta_state::magspeed)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9007,7 +9008,7 @@ MACHINE_CONFIG_END
 
 /* msgundam lev 2 == lev 6 ! */
 
-static MACHINE_CONFIG_START( msgundam )
+MACHINE_CONFIG_START(seta_state::msgundam)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9050,7 +9051,7 @@ MACHINE_CONFIG_END
                             Oishii Puzzle
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( oisipuzl )
+MACHINE_CONFIG_START(seta_state::oisipuzl)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9089,7 +9090,7 @@ MACHINE_CONFIG_END
 
 /* same as oisipuzl but with different interrupts and sound */
 
-static MACHINE_CONFIG_START( triplfun )
+MACHINE_CONFIG_START(seta_state::triplfun)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9126,7 +9127,7 @@ MACHINE_CONFIG_END
                             Pro Mahjong Kiwame
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( kiwame )
+MACHINE_CONFIG_START(seta_state::kiwame)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9173,7 +9174,7 @@ MACHINE_CONFIG_END
 
 /* pretty much like wrofaero, but ints are 1&2, not 2&4 */
 
-static MACHINE_CONFIG_START( rezon )
+MACHINE_CONFIG_START(seta_state::rezon)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9214,7 +9215,7 @@ MACHINE_CONFIG_END
 
 /*  thunderl lev 2 = lev 3 - other levels lead to an error */
 
-static MACHINE_CONFIG_START( thunderl )
+MACHINE_CONFIG_START(seta_state::thunderl)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -9262,7 +9263,7 @@ static ADDRESS_MAP_START( thunderlbl_sound_portmap, AS_IO, 8, seta_state )
 ADDRESS_MAP_END
 
 
-static MACHINE_CONFIG_DERIVED( thunderlbl, thunderl )
+MACHINE_CONFIG_DERIVED(seta_state::thunderlbl, thunderl)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -9284,7 +9285,7 @@ static MACHINE_CONFIG_DERIVED( thunderlbl, thunderl )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_START( wiggie )
+MACHINE_CONFIG_START(seta_state::wiggie)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -9322,12 +9323,12 @@ static MACHINE_CONFIG_START( wiggie )
 	MCFG_GENERIC_LATCH_DATA_PENDING_CB(INPUTLINE("audiocpu", 0))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( superbar, wiggie )
+MACHINE_CONFIG_DERIVED(seta_state::superbar, wiggie)
 
 	MCFG_GFXDECODE_MODIFY("gfxdecode", superbar)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( wits )
+MACHINE_CONFIG_START(seta_state::wits)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -9364,7 +9365,7 @@ MACHINE_CONFIG_END
                     Ultraman Club / SD Gundam Neo Battling
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( umanclub )
+MACHINE_CONFIG_START(seta_state::umanclub)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9401,7 +9402,7 @@ MACHINE_CONFIG_END
                             Ultra Toukond Densetsu
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( utoukond )
+MACHINE_CONFIG_START(seta_state::utoukond)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9452,7 +9453,7 @@ MACHINE_CONFIG_END
                                 War of Aero
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( wrofaero )
+MACHINE_CONFIG_START(seta_state::wrofaero)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9506,7 +9507,7 @@ MACHINE_CONFIG_END
    at int 1 is necessary: it plays the background music.
 */
 
-static MACHINE_CONFIG_START( zingzip )
+MACHINE_CONFIG_START(seta_state::zingzip)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9544,7 +9545,7 @@ static MACHINE_CONFIG_START( zingzip )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( zingzipbl, zingzip )
+MACHINE_CONFIG_DERIVED(seta_state::zingzipbl, zingzip)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", zingzipbl)
 
 	MCFG_DEVICE_REMOVE("maincpu")
@@ -9563,7 +9564,7 @@ MACHINE_CONFIG_END
                                 Pairs Love
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( pairlove )
+MACHINE_CONFIG_START(seta_state::pairlove)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000/2) /* 8 MHz */
@@ -9611,7 +9612,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(seta_state::crazyfgt_interrupt)
 		m_maincpu->set_input_line(1, HOLD_LINE);
 }
 
-static MACHINE_CONFIG_START( crazyfgt )
+MACHINE_CONFIG_START(seta_state::crazyfgt)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 16000000)   /* 16 MHz */
@@ -9672,10 +9673,10 @@ TIMER_DEVICE_CALLBACK_MEMBER(jockeyc_state::interrupt)
 		m_maincpu->set_input_line(6, HOLD_LINE);
 }
 
-static MACHINE_CONFIG_START( jockeyc )
+MACHINE_CONFIG_START(jockeyc_state::jockeyc)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz/2) // TMP68000N-8
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000)/2) // TMP68000N-8
 	MCFG_CPU_PROGRAM_MAP(jockeyc_map)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", jockeyc_state, interrupt, "screen", 0, 1)
 	MCFG_WATCHDOG_ADD("watchdog")
@@ -9688,7 +9689,7 @@ static MACHINE_CONFIG_START( jockeyc )
 	MCFG_NVRAM_ADD_RANDOM_FILL("nvram")
 
 	/* devices */
-	MCFG_DEVICE_ADD("rtc", UPD4992, XTAL_32_768kHz) // ! Actually D4911C !
+	MCFG_DEVICE_ADD("rtc", UPD4992, XTAL(32'768)) // ! Actually D4911C !
 	MCFG_DEVICE_ADD ("acia0", ACIA6850, 0)
 	MCFG_TICKET_DISPENSER_ADD("hopper1", attotime::from_msec(150), TICKET_MOTOR_ACTIVE_HIGH, TICKET_STATUS_ACTIVE_LOW )
 	MCFG_TICKET_DISPENSER_ADD("hopper2", attotime::from_msec(150), TICKET_MOTOR_ACTIVE_HIGH, TICKET_STATUS_ACTIVE_LOW )
@@ -9725,9 +9726,9 @@ MACHINE_CONFIG_END
                              International Toote
 ***************************************************************************/
 
-static MACHINE_CONFIG_DERIVED( inttoote, jockeyc )
+MACHINE_CONFIG_DERIVED(jockeyc_state::inttoote, jockeyc)
 	MCFG_DEVICE_REMOVE("maincpu")
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_16MHz) // TMP68HC000N-16
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000)) // TMP68HC000N-16
 	MCFG_CPU_PROGRAM_MAP(inttoote_map)
 
 	// I/O board (not hooked up yet)

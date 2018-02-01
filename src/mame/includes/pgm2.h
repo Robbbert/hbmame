@@ -94,6 +94,7 @@ public:
 	DECLARE_DRIVER_INIT(kov3);
 	DECLARE_DRIVER_INIT(kov3_104);
 	DECLARE_DRIVER_INIT(kov3_102);
+	DECLARE_DRIVER_INIT(kov3_101);
 	DECLARE_DRIVER_INIT(kov3_100);
 	DECLARE_DRIVER_INIT(kof98umh);
 
@@ -104,6 +105,10 @@ public:
 	INTERRUPT_GEN_MEMBER(igs_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(igs_interrupt2);
 
+	void pgm2_ramrom(machine_config &config);
+	void pgm2_lores(machine_config &config);
+	void pgm2(machine_config &config);
+	void pgm2_hires(machine_config &config);
 private:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;

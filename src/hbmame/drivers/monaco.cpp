@@ -287,6 +287,7 @@ public:
 	DECLARE_MACHINE_RESET(monaco);
 	DECLARE_VIDEO_START(monaco);
 	uint32_t screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	void monaco(machine_config &config);
 private:
 	struct monaco_gfx *m_monaco_gfx;
 	enum monaco_mode m_monaco_mode;
@@ -1429,7 +1430,7 @@ MACHINE_RESET_MEMBER( monaco_state, monaco )
 	GameOver();
 }
 
-static MACHINE_CONFIG_START( monaco )
+MACHINE_CONFIG_START( monaco_state::monaco )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD ("maincpu", Z80, 200) /* fake */

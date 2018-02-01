@@ -123,7 +123,7 @@ void atari_fdc_device::atari_load_proc(device_image_interface &image, bool is_cr
 {
 	int id = atari_fdc_get_drive(&image.device());
 	int size, i;
-	
+
 	if (id == -1)
 		return;
 
@@ -796,6 +796,6 @@ void atari_fdc_device::device_start()
 //  device_add_mconfig - add device configuration
 //-------------------------------------------------
 
-MACHINE_CONFIG_MEMBER( atari_fdc_device::device_add_mconfig )
+MACHINE_CONFIG_START(atari_fdc_device::device_add_mconfig)
 	MCFG_LEGACY_FLOPPY_4_DRIVES_ADD(atari_floppy_interface)
 MACHINE_CONFIG_END

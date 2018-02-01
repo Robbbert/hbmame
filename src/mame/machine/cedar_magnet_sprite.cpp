@@ -49,10 +49,9 @@ READ8_MEMBER(cedar_magnet_sprite_device::exzisus_hack_r)
 
 
 static ADDRESS_MAP_START( cedar_magnet_sprite_map, AS_PROGRAM, 8, cedar_magnet_sprite_device )
-	AM_RANGE(0x00400, 0x007ff) AM_READ(exzisus_hack_r)
-
 	AM_RANGE(0x00000, 0x0ffff) AM_DEVICE("sp_sub_ram", address_map_bank_device, amap8)
 
+	AM_RANGE(0x00400, 0x007ff) AM_READ(exzisus_hack_r)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( cedar_magnet_sprite_io, AS_IO, 8, cedar_magnet_sprite_device )
@@ -199,7 +198,7 @@ WRITE8_MEMBER(cedar_magnet_sprite_device::sprite_port9c_w)
 //  printf("%s:sprite_port9c_w %02x\n", machine().describe_context(), data);
 }
 
-MACHINE_CONFIG_MEMBER( cedar_magnet_sprite_device::device_add_mconfig )
+MACHINE_CONFIG_START(cedar_magnet_sprite_device::device_add_mconfig)
 	MCFG_CPU_ADD("spritecpu", Z80,4000000)
 	MCFG_CPU_PROGRAM_MAP(cedar_magnet_sprite_map)
 	MCFG_CPU_IO_MAP(cedar_magnet_sprite_io)

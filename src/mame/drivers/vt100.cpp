@@ -74,6 +74,9 @@ public:
 	uint32_t screen_update_vt100(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	INTERRUPT_GEN_MEMBER(vt100_vertical_interrupt);
 	IRQ_CALLBACK_MEMBER(vt100_irq_callback);
+	void vt102(machine_config &config);
+	void vt100(machine_config &config);
+	void vt180(machine_config &config);
 };
 
 
@@ -259,9 +262,9 @@ static GFXDECODE_START( vt100 )
 	GFXDECODE_ENTRY( "chargen", 0x0000, vt100_charlayout, 0, 1 )
 GFXDECODE_END
 
-static MACHINE_CONFIG_START( vt100 )
+MACHINE_CONFIG_START(vt100_state::vt100)
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",I8080, XTAL_24_8832MHz / 9)
+	MCFG_CPU_ADD("maincpu",I8080, XTAL(24'883'200) / 9)
 	MCFG_CPU_PROGRAM_MAP(vt100_mem)
 	MCFG_CPU_IO_MAP(vt100_io)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", vt100_state,  vt100_vertical_interrupt)
@@ -269,8 +272,8 @@ static MACHINE_CONFIG_START( vt100 )
 
 	/* video hardware */
 	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green())
-	MCFG_SCREEN_RAW_PARAMS(XTAL_24_0734MHz*2/3, 102*10, 0, 80*10, 262, 0, 25*10)
-	//MCFG_SCREEN_RAW_PARAMS(XTAL_24_0734MHz, 170*9, 0, 132*9, 262, 0, 25*10)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(24'073'400)*2/3, 102*10, 0, 80*10, 262, 0, 25*10)
+	//MCFG_SCREEN_RAW_PARAMS(XTAL(24'073'400), 170*9, 0, 132*9, 262, 0, 25*10)
 	MCFG_SCREEN_UPDATE_DRIVER(vt100_state, screen_update_vt100)
 	MCFG_SCREEN_PALETTE("vt100_video:palette")
 
@@ -279,7 +282,7 @@ static MACHINE_CONFIG_START( vt100 )
 
 	MCFG_DEFAULT_LAYOUT( layout_vt100 )
 
-	MCFG_DEVICE_ADD("vt100_video", VT100_VIDEO, XTAL_24_0734MHz)
+	MCFG_DEVICE_ADD("vt100_video", VT100_VIDEO, XTAL(24'073'400))
 	MCFG_VT_SET_SCREEN("screen")
 	MCFG_VT_CHARGEN("chargen")
 	MCFG_VT_VIDEO_RAM_CALLBACK(READ8(vt100_state, vt100_read_video_ram_r))
@@ -295,7 +298,7 @@ static MACHINE_CONFIG_START( vt100 )
 	MCFG_RS232_RXD_HANDLER(DEVWRITELINE("i8251", i8251_device, write_rxd))
 	MCFG_RS232_DSR_HANDLER(DEVWRITELINE("i8251", i8251_device, write_dsr))
 
-	MCFG_DEVICE_ADD(COM5016T_TAG, COM8116, 5068800/*XTAL_24_8832MHz / 9*/) // COM5016T-013, 2.7648Mhz Clock, currently hacked wrongly
+	MCFG_DEVICE_ADD(COM5016T_TAG, COM8116, 5068800/*XTAL(24'883'200) / 9*/) // COM5016T-013, 2.7648Mhz Clock, currently hacked wrongly
 	MCFG_COM8116_FR_HANDLER(DEVWRITELINE("i8251", i8251_device, write_rxc))
 	MCFG_COM8116_FT_HANDLER(DEVWRITELINE("i8251", i8251_device, write_txc))
 
@@ -305,14 +308,14 @@ static MACHINE_CONFIG_START( vt100 )
 	MCFG_VT100_KEYBOARD_INT_CALLBACK(WRITELINE(vt100_state, keyboard_int_w))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( vt180, vt100 )
-	MCFG_CPU_ADD("z80cpu", Z80, XTAL_24_8832MHz / 9)
+MACHINE_CONFIG_DERIVED(vt100_state::vt180, vt100)
+	MCFG_CPU_ADD("z80cpu", Z80, XTAL(24'883'200) / 9)
 	MCFG_CPU_PROGRAM_MAP(vt180_mem)
 	MCFG_CPU_IO_MAP(vt180_io)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( vt102, vt100 )
-	MCFG_CPU_REPLACE("maincpu",I8085A, XTAL_24_8832MHz / 9)
+MACHINE_CONFIG_DERIVED(vt100_state::vt102, vt100)
+	MCFG_CPU_REPLACE("maincpu",I8085A, XTAL(24'883'200) / 9)
 	MCFG_CPU_PROGRAM_MAP(vt100_mem)
 	MCFG_CPU_IO_MAP(vt100_io)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", vt100_state,  vt100_vertical_interrupt)

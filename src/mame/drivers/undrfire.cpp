@@ -413,7 +413,7 @@ static ADDRESS_MAP_START( undrfire_map, AS_PROGRAM, 32, undrfire_state )
 	AM_RANGE(0x830000, 0x83002f) AM_DEVREADWRITE("tc0480scp", tc0480scp_device, ctrl_long_r, ctrl_long_w)
 	AM_RANGE(0x900000, 0x90ffff) AM_DEVREADWRITE("tc0100scn", tc0100scn_device, long_r, long_w)        /* 6bpp tilemaps */
 	AM_RANGE(0x920000, 0x92000f) AM_DEVREADWRITE("tc0100scn", tc0100scn_device, ctrl_long_r, ctrl_long_w)
-	AM_RANGE(0xa00000, 0xa0ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
+	AM_RANGE(0xa00000, 0xa0ffff) AM_RAM_DEVWRITE("palette", palette_device, write32) AM_SHARE("palette")
 	AM_RANGE(0xb00000, 0xb003ff) AM_RAM                         /* single bytes, blending ??? */
 	AM_RANGE(0xd00000, 0xd00003) AM_WRITE(rotate_control_w)     /* perhaps port based rotate control? */
 	AM_RANGE(0xf00000, 0xf00007) AM_READ(undrfire_lightgun_r)   /* stick coords read at $11b2-bc */
@@ -432,7 +432,7 @@ static ADDRESS_MAP_START( cbombers_cpua_map, AS_PROGRAM, 32, undrfire_state )
 	AM_RANGE(0x830000, 0x83002f) AM_DEVREADWRITE("tc0480scp", tc0480scp_device, ctrl_long_r, ctrl_long_w)
 	AM_RANGE(0x900000, 0x90ffff) AM_DEVREADWRITE("tc0100scn", tc0100scn_device, long_r, long_w)        /* 6bpp tilemaps */
 	AM_RANGE(0x920000, 0x92000f) AM_DEVREADWRITE("tc0100scn", tc0100scn_device, ctrl_long_r, ctrl_long_w)
-	AM_RANGE(0xa00000, 0xa0ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
+	AM_RANGE(0xa00000, 0xa0ffff) AM_RAM_DEVWRITE("palette", palette_device, write32) AM_SHARE("palette")
 	AM_RANGE(0xb00000, 0xb0000f) AM_RAM /* ? */
 	AM_RANGE(0xc00000, 0xc00007) AM_RAM /* LAN controller? */
 	AM_RANGE(0xd00000, 0xd00003) AM_WRITE(rotate_control_w)     /* perhaps port based rotate control? */
@@ -621,10 +621,10 @@ INTERRUPT_GEN_MEMBER(undrfire_state::undrfire_interrupt)
 	device.execute().set_input_line(4, HOLD_LINE);
 }
 
-static MACHINE_CONFIG_START( undrfire )
+MACHINE_CONFIG_START(undrfire_state::undrfire)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68EC020, XTAL_40MHz/2) /* 20 MHz - NOT verified */
+	MCFG_CPU_ADD("maincpu", M68EC020, XTAL(40'000'000)/2) /* 20 MHz - NOT verified */
 	MCFG_CPU_PROGRAM_MAP(undrfire_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", undrfire_state,  undrfire_interrupt)
 
@@ -674,14 +674,14 @@ static MACHINE_CONFIG_START( undrfire )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_START( cbombers )
+MACHINE_CONFIG_START(undrfire_state::cbombers)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68EC020, XTAL_40MHz/2) /* 20 MHz - NOT verified */
+	MCFG_CPU_ADD("maincpu", M68EC020, XTAL(40'000'000)/2) /* 20 MHz - NOT verified */
 	MCFG_CPU_PROGRAM_MAP(cbombers_cpua_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", undrfire_state,  irq4_line_hold)
 
-	MCFG_CPU_ADD("sub", M68000, XTAL_32MHz/2)   /* 16 MHz */
+	MCFG_CPU_ADD("sub", M68000, XTAL(32'000'000)/2)   /* 16 MHz */
 	MCFG_CPU_PROGRAM_MAP(cbombers_cpub_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", undrfire_state,  irq4_line_hold)
 

@@ -1,16 +1,14 @@
 // license:BSD-3-Clause
 // copyright-holders:David Haywood
 
+#ifndef MAME_INCLUDES_MEGADRIV_ACBL_H
+#define MAME_INCLUDES_MEGADRIV_ACBL_H
+
 class md_boot_state : public md_base_state
 {
 public:
 	md_boot_state(const machine_config &mconfig, device_type type, const char *tag)
 	: md_base_state(mconfig, type, tag) { m_protcount = 0;}
-
-	// bootleg specific
-	int m_aladmdb_mcu_port;
-
-	int m_protcount;
 
 	DECLARE_DRIVER_INIT(aladmdb);
 	DECLARE_DRIVER_INIT(mk3mdb);
@@ -32,4 +30,18 @@ public:
 
 	DECLARE_MACHINE_START(md_bootleg) { MACHINE_START_CALL_MEMBER(megadriv); m_vdp->stop_timers(); }
 	DECLARE_MACHINE_START(md_6button);
+	void megadrvb(machine_config &config);
+	void megadrvb_6b(machine_config &config);
+	void md_bootleg(machine_config &config);
+	void puckpkmn(machine_config &config);
+	void jzth(machine_config &config);
+	void puckpkmna(machine_config &config);
+
+private:
+	// bootleg specific
+	int m_aladmdb_mcu_port;
+
+	int m_protcount;
 };
+
+#endif // MAME_INCLUDES_MEGADRIV_ACBL_H

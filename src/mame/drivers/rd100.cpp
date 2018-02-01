@@ -36,6 +36,7 @@ public:
 	DECLARE_MACHINE_RESET(rd100);
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	void rd100(machine_config &config);
 private:
 	required_device<cpu_device> m_maincpu;
 };
@@ -94,9 +95,9 @@ MACHINE_RESET_MEMBER( rd100_state, rd100 )
 {
 }
 
-static MACHINE_CONFIG_START( rd100 )
+MACHINE_CONFIG_START(rd100_state::rd100)
 	// basic machine hardware
-	MCFG_CPU_ADD("maincpu", MC6809, XTAL_4MHz) // MC6809P???
+	MCFG_CPU_ADD("maincpu", MC6809, XTAL(4'000'000)) // MC6809P???
 	MCFG_CPU_PROGRAM_MAP(mem_map)
 
 	MCFG_MACHINE_RESET_OVERRIDE(rd100_state, rd100)

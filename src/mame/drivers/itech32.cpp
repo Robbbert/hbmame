@@ -906,7 +906,7 @@ static ADDRESS_MAP_START( timekill_map, AS_PROGRAM, 16, itech32_state )
 	AM_RANGE(0x078000, 0x078001) AM_WRITE(sound_data_w)
 	AM_RANGE(0x080000, 0x08007f) AM_READWRITE(itech32_video_r, itech32_video_w) AM_SHARE("video")
 	AM_RANGE(0x0a0000, 0x0a0001) AM_WRITE(int1_ack_w)
-	AM_RANGE(0x0c0000, 0x0c7fff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
+	AM_RANGE(0x0c0000, 0x0c7fff) AM_RAM_DEVWRITE("palette", palette_device, write16) AM_SHARE("palette")
 	AM_RANGE(0x100000, 0x17ffff) AM_ROM AM_REGION("user1", 0) AM_SHARE("main_rom")
 ADDRESS_MAP_END
 
@@ -973,11 +973,11 @@ WRITE32_MEMBER(itech32_state::test2_w)
 #endif
 
 static ADDRESS_MAP_START( drivedge_map, AS_PROGRAM, 32, itech32_state )
+	AM_RANGE(0x000000, 0x03ffff) AM_MIRROR(0x40000) AM_RAM AM_SHARE("nvram")
 #if LOG_DRIVEDGE_UNINIT_RAM
 AM_RANGE(0x000100, 0x0003ff) AM_MIRROR(0x40000) AM_READWRITE(test1_r, test1_w)
 AM_RANGE(0x000c00, 0x007fff) AM_MIRROR(0x40000) AM_READWRITE(test2_r, test2_w)
 #endif
-	AM_RANGE(0x000000, 0x03ffff) AM_MIRROR(0x40000) AM_RAM AM_SHARE("nvram")
 	AM_RANGE(0x080000, 0x080003) AM_READ_PORT("80000")
 	AM_RANGE(0x082000, 0x082003) AM_READ_PORT("82000")
 	AM_RANGE(0x084000, 0x084003) AM_READWRITE(sound_data32_r, sound_data32_w)
@@ -988,7 +988,7 @@ AM_RANGE(0x000c00, 0x007fff) AM_MIRROR(0x40000) AM_READWRITE(test2_r, test2_w)
 	AM_RANGE(0x08e000, 0x08e003) AM_READ_PORT("8e000") AM_WRITENOP
 	AM_RANGE(0x100000, 0x10000f) AM_WRITE(drivedge_zbuf_control_w) AM_SHARE("drivedge_zctl")
 	AM_RANGE(0x180000, 0x180003) AM_WRITE(drivedge_color0_w)
-	AM_RANGE(0x1a0000, 0x1bffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
+	AM_RANGE(0x1a0000, 0x1bffff) AM_RAM_DEVWRITE("palette", palette_device, write32) AM_SHARE("palette")
 	AM_RANGE(0x1c0000, 0x1c0003) AM_WRITENOP
 	AM_RANGE(0x1e0000, 0x1e0113) AM_READWRITE(itech020_video_r, itech020_video_w) AM_SHARE("video")
 	AM_RANGE(0x1e4000, 0x1e4003) AM_WRITE(tms_reset_assert_w)
@@ -1026,7 +1026,7 @@ static ADDRESS_MAP_START( itech020_map, AS_PROGRAM, 32, itech32_state )
 	AM_RANGE(0x480000, 0x480003) AM_WRITE(sound_data32_w)
 	AM_RANGE(0x500000, 0x5000ff) AM_READWRITE(itech020_video_r, itech020_video_w) AM_SHARE("video")
 	AM_RANGE(0x578000, 0x57ffff) AM_READNOP             /* touched by protection */
-	AM_RANGE(0x580000, 0x59ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
+	AM_RANGE(0x580000, 0x59ffff) AM_RAM_DEVWRITE("palette", palette_device, write32) AM_SHARE("palette")
 	AM_RANGE(0x600000, 0x603fff) AM_RAM AM_SHARE("nvram")
 /* ? */ AM_RANGE(0x61ff00, 0x61ffff) AM_WRITENOP            /* Unknown Writes */
 	AM_RANGE(0x680000, 0x680003) AM_READ(itech020_prot_result_r) AM_WRITENOP
@@ -1671,7 +1671,7 @@ INPUT_PORTS_END
  *
  *************************************/
 
-static MACHINE_CONFIG_START( timekill )
+MACHINE_CONFIG_START(itech32_state::timekill)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, CPU_CLOCK)
@@ -1717,7 +1717,7 @@ static MACHINE_CONFIG_START( timekill )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( bloodstm, timekill )
+MACHINE_CONFIG_DERIVED(itech32_state::bloodstm, timekill)
 
 	/* basic machine hardware */
 
@@ -1732,7 +1732,7 @@ static MACHINE_CONFIG_DERIVED( bloodstm, timekill )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( drivedge, timekill )
+MACHINE_CONFIG_DERIVED(itech32_state::drivedge, timekill)
 
 	/* basic machine hardware */
 
@@ -1760,7 +1760,7 @@ static MACHINE_CONFIG_DERIVED( drivedge, timekill )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( sftm, timekill )
+MACHINE_CONFIG_DERIVED(itech32_state::sftm, timekill)
 
 	/* basic machine hardware */
 
@@ -1781,7 +1781,7 @@ static MACHINE_CONFIG_DERIVED( sftm, timekill )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( tourny, sftm )
+MACHINE_CONFIG_DERIVED(itech32_state::tourny, sftm)
 
 	/* basic machine hardware */
 
@@ -1799,6 +1799,11 @@ MACHINE_CONFIG_END
 /* Maximum sftm code size */
 #undef  CODE_SIZE
 #define CODE_SIZE   0x0400000
+
+/*
+NOTE: There is known to exist a Time Killer rom board P/N 1049 REV1 that uses 20 4Mbit EPROMs numbered GROM00 through GROM19
+instead of the 4 4Mbit EPROMs and 4 16Mbit MASK ROMs shown below as found on rom board P/N 1051 REV0
+*/
 
 ROM_START( timekill )
 	ROM_REGION16_BE( 0x80000, "user1", 0 )

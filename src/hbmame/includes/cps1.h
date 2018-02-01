@@ -17,7 +17,6 @@
 #include "machine/timer.h"
 #include "cpu/m68000/m68000.h"
 #include "screen.h"
-#include "speaker.h"
 
 // Video raw params
 // measured clocks:
@@ -31,7 +30,7 @@
     Frame size: 262 scanlines
     Refresh rate: 59.63 MHz.
 */
-#define CPS_PIXEL_CLOCK  (XTAL_16MHz/2)
+#define CPS_PIXEL_CLOCK  (XTAL(16'000'000)/2)
 
 #define CPS_HTOTAL       (512)
 #define CPS_HBEND        (64)
@@ -135,6 +134,7 @@ public:
 		m_region_stars(*this, "stars")
 	{ }
 
+	//HBMAME start
 	// cps config for new
 	int m_cpsb_addr;
 	int m_cpsb_value;
@@ -155,6 +155,7 @@ public:
 	u8 m_scrollx2;
 	u8 m_scrollx3;
 	u32 m_bank_type[32];
+	//HBMAME end
 
 	/* memory pointers */
 	// cps1
@@ -207,7 +208,6 @@ public:
 	int          m_objram_bank;
 
 	/* misc */
-	int          m_dial[2];     // forgottn
 	int          m_readpaddle;  // pzloop2
 	int          m_cps2networkpresent;
 	int          m_cps2digitalvolumelevel;
@@ -235,12 +235,12 @@ public:
 	int          m_palette_align;
 	int          m_palette_size;
 	int          m_stars_rom_size;
-	uint8_t      m_empty_tile[32*32];
+	uint8_t        m_empty_tile[32*32];
 	int          m_cps_version;
 
 	/* fcrash video config */
-	uint8_t      m_layer_enable_reg;
-	uint8_t      m_layer_mask_reg[4];
+	uint8_t        m_layer_enable_reg;
+	uint8_t        m_layer_mask_reg[4];
 	int          m_layer_scroll1x_offset;
 	int          m_layer_scroll2x_offset;
 	int          m_layer_scroll3x_offset;
@@ -270,10 +270,6 @@ public:
 	DECLARE_READ16_MEMBER(cps1_in1_r);
 	DECLARE_READ16_MEMBER(cps1_in2_r);
 	DECLARE_READ16_MEMBER(cps1_in3_r);
-	DECLARE_READ16_MEMBER(forgottn_dial_0_r);
-	DECLARE_READ16_MEMBER(forgottn_dial_1_r);
-	DECLARE_WRITE16_MEMBER(forgottn_dial_0_reset_w);
-	DECLARE_WRITE16_MEMBER(forgottn_dial_1_reset_w);
 	DECLARE_WRITE8_MEMBER(cps1_snd_bankswitch_w);
 	DECLARE_WRITE16_MEMBER(cps1_soundlatch_w);
 	DECLARE_WRITE16_MEMBER(cps1_soundlatch2_w);
@@ -310,7 +306,6 @@ public:
 	DECLARE_DRIVER_INIT(sf2rb2);
 	DECLARE_DRIVER_INIT(sf2thndr);
 	DECLARE_DRIVER_INIT(dinohunt);
-	DECLARE_DRIVER_INIT(forgottn);
 	DECLARE_DRIVER_INIT(sf2hack);
 	DECLARE_DRIVER_INIT(slammast);
 	DECLARE_DRIVER_INIT(pang3b);
@@ -353,6 +348,7 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
+	IRQ_CALLBACK_MEMBER(cps1_int_ack);
 	TIMER_DEVICE_CALLBACK_MEMBER(cps2_interrupt);
 	TIMER_CALLBACK_MEMBER(cps2_update_digital_volume);
 
@@ -437,8 +433,42 @@ public:
 	DECLARE_READ16_MEMBER(joy_or_paddle_ecofghtr_r);
 	DECLARE_WRITE_LINE_MEMBER(m5205_int1);
 	DECLARE_WRITE_LINE_MEMBER(m5205_int2);
+	void cps2(machine_config &config);
+	void gigaman2(machine_config &config);
+	void dead_cps2(machine_config &config);
+	void cawingbl(machine_config &config);
+	void sf2mdt(machine_config &config);
+	void sf2m1(machine_config &config);
+	void kodb(machine_config &config);
+	void varthb(machine_config &config);
+	void sgyxz(machine_config &config);
+	void punipic(machine_config &config);
+	void dinopic(machine_config &config);
+	void slampic(machine_config &config);
+	void sf2b(machine_config &config);
+	void knightsb(machine_config &config);
+	void fcrash(machine_config &config);
+	void sf2m10(machine_config &config);
+	void sf2m3(machine_config &config);
+	void forgottn(machine_config &config);
+	void ganbare(machine_config &config);
+	void qsound(machine_config &config);
+	void cps1_12MHz(machine_config &config);
+	void wofhfh(machine_config &config);
+	void cps1_10MHz(machine_config &config);
+	void pang3(machine_config &config);
 // HBMAME start
 
+	void wofsf2(machine_config &config);
+	void daimakb(machine_config &config);
+	void sk2h3(machine_config &config);
+	void sk2h31(machine_config &config);
+	void sk2h35(machine_config &config);
+	void cps1frog(machine_config &config);
+	void sk2h1q(machine_config &config);
+	void sk2h31q(machine_config &config);
+	void cawingb(machine_config &config);
+	void captcommb2(machine_config &config);
 	DECLARE_WRITE16_MEMBER(dinoh_sound_command_w);
 	DECLARE_WRITE16_MEMBER(daimakb_layer_w);
 	DECLARE_WRITE16_MEMBER(daimakb_palctrl_w);
@@ -463,8 +493,6 @@ public:
 };
 
 /*----------- defined in drivers/cps1.c -----------*/
-
-MACHINE_CONFIG_EXTERN(cps1_12MHz);
 
 ADDRESS_MAP_EXTERN( qsound_sub_map, 8 );
 

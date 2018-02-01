@@ -36,6 +36,7 @@ public:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	void ampex(machine_config &config);
 private:
 	required_device<cpu_device> m_maincpu;
 	required_region_ptr<u8> m_p_chargen;
@@ -60,16 +61,16 @@ ADDRESS_MAP_END
 static INPUT_PORTS_START( ampex )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( ampex )
-	MCFG_CPU_ADD("maincpu", Z80, XTAL_23_814MHz / 9) // clocked by 8224?
+MACHINE_CONFIG_START(ampex_state::ampex)
+	MCFG_CPU_ADD("maincpu", Z80, XTAL(23'814'000) / 9) // clocked by 8224?
 	MCFG_CPU_PROGRAM_MAP(mem_map)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_23_814MHz / 2, 105 * CHAR_WIDTH, 0, 80 * CHAR_WIDTH, 270, 0, 250)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(23'814'000) / 2, 105 * CHAR_WIDTH, 0, 80 * CHAR_WIDTH, 270, 0, 250)
 	MCFG_SCREEN_UPDATE_DRIVER(ampex_state, screen_update)
 
 	// FIXME: dot clock should be divided by char width
-	MCFG_DEVICE_ADD("vtac", CRT5037, XTAL_23_814MHz / 2)
+	MCFG_DEVICE_ADD("vtac", CRT5037, XTAL(23'814'000) / 2)
 	MCFG_TMS9927_CHAR_WIDTH(CHAR_WIDTH)
 	MCFG_VIDEO_SET_SCREEN("screen")
 MACHINE_CONFIG_END

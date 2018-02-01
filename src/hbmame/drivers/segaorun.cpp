@@ -244,6 +244,7 @@ public:
 	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
 	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
 	DECLARE_DRIVER_INIT(init);
+	void outrunm(machine_config &config);
 
 private:
 
@@ -282,7 +283,7 @@ static ADDRESS_MAP_START( soundbank_map, AS_PROGRAM, 8, outrunm_state )
 	AM_RANGE(0x0000, 0x1ffff) AM_ROM AM_REGION("soundcpu", 0)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( outrunm, outrun )
+MACHINE_CONFIG_DERIVED( outrunm_state::outrunm, outrun )
 	MCFG_CPU_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
 	MCFG_CPU_PROGRAM_MAP(sound_map_banked)
 	MCFG_CPU_IO_MAP(sound_portmap_banked)

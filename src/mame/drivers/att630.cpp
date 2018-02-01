@@ -21,6 +21,7 @@ public:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	void att630(machine_config &config);
 private:
 	required_device<cpu_device> m_maincpu;
 };
@@ -43,17 +44,17 @@ ADDRESS_MAP_END
 static INPUT_PORTS_START( att630 )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( att630 )
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_40MHz / 4) // clock not confirmed
+MACHINE_CONFIG_START(att630_state::att630)
+	MCFG_CPU_ADD("maincpu", M68000, XTAL(40'000'000) / 4) // clock not confirmed
 	MCFG_CPU_PROGRAM_MAP(mem_map)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_87_18336MHz, 1376, 0, 1024, 1056, 0, 1024)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(87'183'360), 1376, 0, 1024, 1056, 0, 1024)
 	MCFG_SCREEN_UPDATE_DRIVER(att630_state, screen_update)
 
-	MCFG_DEVICE_ADD("duart1", SCN2681, XTAL_3_6864MHz)
+	MCFG_DEVICE_ADD("duart1", SCN2681, XTAL(3'686'400))
 
-	MCFG_DEVICE_ADD("duart2", SCN2681, XTAL_3_6864MHz)
+	MCFG_DEVICE_ADD("duart2", SCN2681, XTAL(3'686'400))
 MACHINE_CONFIG_END
 
 

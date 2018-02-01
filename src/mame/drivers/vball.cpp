@@ -93,7 +93,7 @@ VBlank = 58Hz
 #include "sound/okim6295.h"
 #include "speaker.h"
 
-#define MAIN_CLOCK      XTAL_12MHz
+#define MAIN_CLOCK      XTAL(12'000'000)
 #define CPU_CLOCK           MAIN_CLOCK / 6
 #define PIXEL_CLOCK     MAIN_CLOCK / 2
 
@@ -394,7 +394,7 @@ static GFXDECODE_START( vb )
 GFXDECODE_END
 
 
-static MACHINE_CONFIG_START( vball )
+MACHINE_CONFIG_START(vball_state::vball)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M6502, CPU_CLOCK)   /* 2 MHz - measured by guru but it makes the game far far too slow ?! */

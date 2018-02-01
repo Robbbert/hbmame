@@ -721,7 +721,7 @@ GFXDECODE_END
 
 /* These drivers are for multiple games in one package */
 
-static MACHINE_CONFIG_DERIVED( 96in1, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::_96in1, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(madpac_map)
 	MCFG_CPU_IO_MAP(96in1_writeport)
@@ -731,7 +731,7 @@ static MACHINE_CONFIG_DERIVED( 96in1, pacman )
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( 96in1b, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::_96in1b, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(madpac_map)
 	MCFG_CPU_IO_MAP(96in1b_writeport)
@@ -747,7 +747,7 @@ static MACHINE_CONFIG_DERIVED( 96in1b, pacman )
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( hackypac, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::hackypac, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(hackypac_map)
 	MCFG_CPU_IO_MAP(hackypac_writeport)
@@ -762,7 +762,7 @@ static MACHINE_CONFIG_DERIVED( hackypac, pacman )
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( madpac, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::madpac, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(madpac_map)
 	MCFG_CPU_IO_MAP(madpac_writeport)
@@ -778,27 +778,27 @@ static MACHINE_CONFIG_DERIVED( madpac, pacman )
 	MCFG_NVRAM_ADD_0FILL("nvram")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mspaceur, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::mspaceur, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mspaceur_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mspaceur)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mschamp, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::mschamp, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mschamp_map)
 	MCFG_CPU_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mschampx, pacmanx )
+MACHINE_CONFIG_DERIVED( pacman_state::mschampx, pacmanx )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mschamp_map)
 	MCFG_CPU_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( multipac, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::multipac, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(multipac_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, multipac)
@@ -812,14 +812,14 @@ static MACHINE_CONFIG_DERIVED( multipac, pacman )
 	MCFG_GFXDECODE_MODIFY("gfxdecode", multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pm4n1, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::pm4n1, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pm4n1c, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::pm4n1c, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
@@ -827,12 +827,12 @@ static MACHINE_CONFIG_DERIVED( pm4n1c, pacman )
 	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pm4n1d, pm4n1c )
+MACHINE_CONFIG_DERIVED( pacman_state::pm4n1d, pm4n1c )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1d_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( superabc, pacman )
+MACHINE_CONFIG_DERIVED( pacman_state::superabc, pacman )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(superabc_map)
 	MCFG_NVRAM_ADD_0FILL("nvram")
@@ -1868,10 +1868,10 @@ GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  0,        ROT
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2005, 96in1,    madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1c,   madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1a,   madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1b,   madpac,   96in1b,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state,  madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
 

@@ -15,9 +15,9 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cthd2k3a )
 }
 
 // This fixes the Cart Jumper in KOGD
-static MACHINE_CONFIG_DERIVED( hbmame_kog, neogeo_arcade )
+MACHINE_CONFIG_DERIVED( neogeo_hbmame::hbmame_kog, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_CPU_PROGRAM_MAP(main_map_noslot1)
 	MCFG_KOG_PROT_ADD("kog_prot")
 
 	//joystick controller

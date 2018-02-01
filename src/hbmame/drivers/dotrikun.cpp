@@ -105,6 +105,7 @@ public:
 	{ }
 
 	DECLARE_WRITE8_MEMBER(mineswp_color_w);
+	void mineswp(machine_config &config);
 private:
 	virtual void machine_start() override;
 	required_device<beep_device> m_beep;
@@ -161,7 +162,7 @@ void mineswp_state::machine_start()
 	m_beep->set_state(0);
 }
 
-static MACHINE_CONFIG_DERIVED( mineswp, dotrikun )
+MACHINE_CONFIG_DERIVED( mineswp_state::mineswp, dotrikun )
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)

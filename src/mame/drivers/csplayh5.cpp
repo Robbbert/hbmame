@@ -41,7 +41,7 @@
 #include "audio/nichisnd.h"
 
 #define USE_H8 0
-#define DVD_CLOCK XTAL_27MHz
+#define DVD_CLOCK XTAL(27'000'000)
 
 class csplayh5_state : public driver_device
 {
@@ -102,6 +102,7 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(csplayh5_vdp0_interrupt);
 
 	void general_init(int patchaddress, int patchvalue);
+	void csplayh5(machine_config &config);
 };
 
 
@@ -352,7 +353,7 @@ WRITE16_MEMBER(csplayh5_state::tmp68301_parallel_port_w)
 }
 
 
-static MACHINE_CONFIG_START( csplayh5 )
+MACHINE_CONFIG_START(csplayh5_state::csplayh5)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",M68000,16000000) /* TMP68301-16 */
@@ -377,9 +378,9 @@ static MACHINE_CONFIG_START( csplayh5 )
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
 	/* video hardware */
-	MCFG_V9958_ADD("v9958", "screen", 0x20000, XTAL_21_4772MHz) // typical 9958 clock, not verified
+	MCFG_V9958_ADD("v9958", "screen", 0x20000, XTAL(21'477'272)) // typical 9958 clock, not verified
 	MCFG_V99X8_INTERRUPT_CALLBACK(WRITELINE(csplayh5_state, csplayh5_vdp0_interrupt))
-	MCFG_V99X8_SCREEN_ADD_NTSC("screen", "v9958", XTAL_21_4772MHz)
+	MCFG_V99X8_SCREEN_ADD_NTSC("screen", "v9958", XTAL(21'477'272))
 
 	/* sound hardware */
 	MCFG_NICHISND_ADD("nichisnd")

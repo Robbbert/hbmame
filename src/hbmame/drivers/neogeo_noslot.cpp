@@ -7,16 +7,16 @@
 
 
 
-static ADDRESS_MAP_START( main_map_noslot, AS_PROGRAM, 16, neogeo_state )
+static ADDRESS_MAP_START( main_map_noslot1, AS_PROGRAM, 16, neogeo_noslot_state )
+	AM_IMPORT_FROM( neogeo_main_map )
 	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
 	AM_RANGE(0x000080, 0x0fffff) AM_ROM
-	AM_IMPORT_FROM( neogeo_main_map )
 ADDRESS_MAP_END
 
 
-static MACHINE_CONFIG_DERIVED( neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
+MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_noslot2, neogeo_arcade ) // no slot config (legacy mame)
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_CPU_PROGRAM_MAP(main_map_noslot1)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -37,53 +37,53 @@ static MACHINE_CONFIG_DERIVED( neogeo_noslot, neogeo_arcade ) // no slot config 
 	MCFG_SBP_PROT_ADD("sbp_prot")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( neogeo_kog, neogeo_arcade )
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+//MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_kog, neogeo_arcade )
+//	MCFG_CPU_MODIFY("maincpu")
+//	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
 
 	//no mahjong controller
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
+//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
 
-	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
-	MCFG_KOG_PROT_ADD("kog_prot")
-MACHINE_CONFIG_END
+//	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
+//	MCFG_KOG_PROT_ADD("kog_prot")
+//MACHINE_CONFIG_END
 
 // these basically correspond to the cabinets which were available in arcades:
 // with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
-static MACHINE_CONFIG_DERIVED( neogeo_mj, neogeo_noslot )
+//MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_mj, neogeo_noslot )
 
 	//no joystick panel
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "", true)
+//	MCFG_DEVICE_REMOVE("edge")
+//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "", true)
 
 	//P1 mahjong controller
-	MCFG_DEVICE_REMOVE("ctrl1")
-	MCFG_DEVICE_REMOVE("ctrl2")
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "mahjong", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
-MACHINE_CONFIG_END
+//	MCFG_DEVICE_REMOVE("ctrl1")
+//	MCFG_DEVICE_REMOVE("ctrl2")
+//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "mahjong", true)
+//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+//MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( neogeo_dial, neogeo_noslot )
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
-MACHINE_CONFIG_END
+//MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_dial, neogeo_noslot )
+//	MCFG_DEVICE_REMOVE("edge")
+//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
+//MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( neogeo_imaze, neogeo_noslot )
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
-MACHINE_CONFIG_END
+//MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_imaze, neogeo_noslot )
+//	MCFG_DEVICE_REMOVE("edge")
+//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
+//MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( neogeo_kiz4p, neogeo_noslot )
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
-MACHINE_CONFIG_END
+//MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_kiz4p, neogeo_noslot )
+//	MCFG_DEVICE_REMOVE("edge")
+//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
+//MACHINE_CONFIG_END
 
 // this is used by V-Liner, which handles differently inputs...
-static MACHINE_CONFIG_DERIVED( neogeo_noctrl, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo_noslot_state::neogeo_noctrl, neogeo_noslot )
 	MCFG_DEVICE_REMOVE("ctrl1")
 	MCFG_DEVICE_REMOVE("ctrl2")
 MACHINE_CONFIG_END

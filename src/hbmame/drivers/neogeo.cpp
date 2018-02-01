@@ -1303,7 +1303,7 @@ DRIVER_INIT_MEMBER(neogeo_state,mvs)
  *
  *************************************/
 
-MACHINE_CONFIG_START( neogeo_base )
+MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
@@ -1341,16 +1341,15 @@ MACHINE_CONFIG_START( neogeo_base )
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED( neogeo_arcade, neogeo_base )
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_arcade, neogeo_base )
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK))
-	MCFG_UPD4990A_ADD("upd4990a", XTAL_32_768kHz, NOOP, NOOP)
+	MCFG_UPD4990A_ADD("upd4990a", 32'768, NOOP, NOOP)
 	MCFG_NVRAM_ADD_0FILL("saveram")
 	MCFG_NEOGEO_MEMCARD_ADD("memcard")
 MACHINE_CONFIG_END
 
-
-static MACHINE_CONFIG_DERIVED( mvs, neogeo_arcade )
+MACHINE_CONFIG_DERIVED( neogeo_state::mvs, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_slot)
 
@@ -1360,7 +1359,113 @@ static MACHINE_CONFIG_DERIVED( mvs, neogeo_arcade )
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", false)
 MACHINE_CONFIG_END
 
+static ADDRESS_MAP_START( main_map_noslot, AS_PROGRAM, 16, neogeo_state )
+	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
+	AM_RANGE(0x000080, 0x0fffff) AM_ROM
+	AM_IMPORT_FROM( neogeo_main_map )
+ADDRESS_MAP_END
 
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+
+	//joystick controller
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+
+	//no mahjong controller
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+
+	MCFG_MSLUGX_PROT_ADD("mslugx_prot")
+	MCFG_SMA_PROT_ADD("sma_prot")
+	MCFG_CMC_PROT_ADD("cmc_prot")
+	MCFG_PCM2_PROT_ADD("pcm2_prot")
+	MCFG_PVC_PROT_ADD("pvc_prot")
+	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
+	MCFG_KOF2002_PROT_ADD("kof2002_prot")
+	MCFG_FATFURY2_PROT_ADD("fatfury2_prot")
+	MCFG_KOF98_PROT_ADD("kof98_prot")
+	MCFG_SBP_PROT_ADD("sbp_prot")
+MACHINE_CONFIG_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kog, neogeo_arcade )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+
+	//joystick controller
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+
+	//no mahjong controller
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+
+	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
+	MCFG_KOG_PROT_ADD("kog_prot")
+MACHINE_CONFIG_END
+
+// these basically correspond to the cabinets which were available in arcades:
+// with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_mj, neogeo_noslot )
+
+	//no joystick panel
+	MCFG_DEVICE_REMOVE("edge")
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "", true)
+
+	//P1 mahjong controller
+	MCFG_DEVICE_REMOVE("ctrl1")
+	MCFG_DEVICE_REMOVE("ctrl2")
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "mahjong", true)
+	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+MACHINE_CONFIG_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_dial, neogeo_noslot )
+	MCFG_DEVICE_REMOVE("edge")
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
+MACHINE_CONFIG_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_imaze, neogeo_noslot )
+	MCFG_DEVICE_REMOVE("edge")
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
+MACHINE_CONFIG_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kiz4p, neogeo_noslot )
+	MCFG_DEVICE_REMOVE("edge")
+	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
+MACHINE_CONFIG_END
+
+// this is used by V-Liner, which handles differently inputs...
+MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noctrl, neogeo_noslot )
+	MCFG_DEVICE_REMOVE("ctrl1")
+	MCFG_DEVICE_REMOVE("ctrl2")
+MACHINE_CONFIG_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::no_watchdog, neogeo_noslot )
+	MCFG_WATCHDOG_MODIFY("watchdog")
+	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
+MACHINE_CONFIG_END
+#if 0
+// used by samsho2sp, doubledrsp
+ADDRESS_MAP_START( samsho2sp_map, AS_PROGRAM, 16, neogeo_state )
+	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x200000) // extra rom
+	AM_IMPORT_FROM( main_map_noslot )
+ADDRESS_MAP_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::samsho2sp, neogeo_noslot )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
+MACHINE_CONFIG_END
+
+// used by lbsp
+ADDRESS_MAP_START( lbsp_map, AS_PROGRAM, 16, neogeo_state )
+	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x700000) // extra rom
+	AM_IMPORT_FROM( main_map_noslot )
+ADDRESS_MAP_END
+
+MACHINE_CONFIG_DERIVED( neogeo_state::lbsp, neogeo_noslot )
+	MCFG_CPU_MODIFY("maincpu")
+	MCFG_CPU_PROGRAM_MAP(lbsp_map)
+MACHINE_CONFIG_END
+#endif
 
 /* dummy entry for the dummy bios driver */
 ROM_START( neogeo )

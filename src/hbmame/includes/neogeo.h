@@ -90,6 +90,19 @@ public:
 
 	optional_device<neogeo_banked_cart_device> m_banked_cart;
 
+	void neogeo_base(machine_config &config);
+	void neogeo_arcade(machine_config &config);
+	void mvs(machine_config &config);
+	void neogeo_noslot(machine_config &config);
+	void neogeo_kog(machine_config &config);
+	void neogeo_mj(machine_config &config);
+	void neogeo_dial(machine_config &config);
+	void neogeo_imaze(machine_config &config);
+	void neogeo_kiz4p(machine_config &config);
+	void neogeo_noctrl(machine_config &config);
+	void no_watchdog(machine_config &config);
+	void samsho2sp(machine_config &config);
+	void lbsp(machine_config &config);
 protected:
 	void neogeo_postload();
 	void update_interrupts();
@@ -284,6 +297,14 @@ class neogeo_noslot_state : public neogeo_state
 	DECLARE_DRIVER_INIT(sbp);
 	DECLARE_DRIVER_INIT(irrmaze);
 
+	void neogeo_noslot2(machine_config &config);
+	void neogeo_kog(machine_config &config);
+	void neogeo_mj(machine_config &config);
+	void neogeo_dial(machine_config &config);
+	void neogeo_imaze(machine_config &config);
+	void neogeo_kiz4p(machine_config &config);
+	void neogeo_noctrl(machine_config &config);
+
 	void install_banked_bios();
 
 	// legacy
@@ -318,8 +339,6 @@ public:
 
 /*----------- defined in drivers/neogeo.c -----------*/
 
-MACHINE_CONFIG_EXTERN( neogeo_base );
-MACHINE_CONFIG_EXTERN( neogeo_arcade );
 INPUT_PORTS_EXTERN(neogeo);
 ADDRESS_MAP_EXTERN(neogeo_main_map,16);
 

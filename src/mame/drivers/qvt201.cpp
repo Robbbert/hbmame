@@ -27,6 +27,7 @@ public:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	void qvt201(machine_config &config);
 private:
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
@@ -53,17 +54,17 @@ ADDRESS_MAP_END
 static INPUT_PORTS_START( qvt201 )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( qvt201 )
-	MCFG_CPU_ADD("maincpu", Z80, XTAL_3_6864MHz)
+MACHINE_CONFIG_START(qvt201_state::qvt201)
+	MCFG_CPU_ADD("maincpu", Z80, XTAL(3'686'400))
 	MCFG_CPU_PROGRAM_MAP(mem_map) // IORQ is not used at all
 
-	MCFG_DEVICE_ADD("duart", SCN2681, XTAL_3_6864MHz) // XTAL not directly connected
+	MCFG_DEVICE_ADD("duart", SCN2681, XTAL(3'686'400)) // XTAL not directly connected
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_48_654MHz / 3, 102 * 10, 0, 80 * 10, 265, 0, 250)
-	//MCFG_SCREEN_RAW_PARAMS(XTAL_48_654MHz / 2, 170 * 9, 0, 132 * 9, 265, 0, 250)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(48'654'000) / 3, 102 * 10, 0, 80 * 10, 265, 0, 250)
+	//MCFG_SCREEN_RAW_PARAMS(XTAL(48'654'000) / 2, 170 * 9, 0, 132 * 9, 265, 0, 250)
 	MCFG_SCREEN_UPDATE_DRIVER(qvt201_state, screen_update)
 
 	//MCFG_DEVICE_ADD("crtc", SCN2672, CHAR_CLOCK)

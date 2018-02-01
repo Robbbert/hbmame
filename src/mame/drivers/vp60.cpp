@@ -25,6 +25,7 @@ public:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	void vp60(machine_config &config);
 private:
 	required_device<cpu_device> m_maincpu;
 	required_region_ptr<u8> m_p_chargen;
@@ -50,16 +51,16 @@ ADDRESS_MAP_END
 static INPUT_PORTS_START( vp60 )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( vp60 )
-	MCFG_CPU_ADD("maincpu", I8051, XTAL_10_920MHz)
+MACHINE_CONFIG_START(vp60_state::vp60)
+	MCFG_CPU_ADD("maincpu", I8051, XTAL(10'920'000))
 	MCFG_CPU_PROGRAM_MAP(mem_map)
 	MCFG_CPU_IO_MAP(io_map)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_25_92MHz, 1350, 0, 1056, 320, 0, 300) // dimensions guessed
+	MCFG_SCREEN_RAW_PARAMS(XTAL(25'920'000), 1350, 0, 1056, 320, 0, 300) // dimensions guessed
 	MCFG_SCREEN_UPDATE_DRIVER(vp60_state, screen_update)
 
-	MCFG_CPU_ADD("kbdcpu", I8035, XTAL_3_579545MHz) // 48-300-010 XTAL
+	MCFG_CPU_ADD("kbdcpu", I8035, XTAL(3'579'545)) // 48-300-010 XTAL
 	MCFG_CPU_PROGRAM_MAP(kbd_map)
 MACHINE_CONFIG_END
 

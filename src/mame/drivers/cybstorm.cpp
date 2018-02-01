@@ -2,15 +2,15 @@
 // copyright-holders:Aaron Giles, Phil Bennett
 /***************************************************************************
 
-	Atari Cyberstorm hardware
+    Atari Cyberstorm hardware
 
-	driver by Aaron Giles and Phil Bennett
+    driver by Aaron Giles and Phil Bennett
 
-	Games supported:
-		* Cyberstorm (prototype) (1993)
+    Games supported:
+        * Cyberstorm (prototype) (1993)
 
-	Known bugs:
-		* STAIN effect not 100% correct
+    Known bugs:
+        * STAIN effect not 100% correct
 
 ***************************************************************************/
 
@@ -25,7 +25,7 @@
 
 /*************************************
  *
- *	Initialization
+ *  Initialization
  *
  *************************************/
 
@@ -52,7 +52,7 @@ MACHINE_RESET_MEMBER(cybstorm_state,cybstorm)
 
 /*************************************
  *
- *	I/O handling
+ *  I/O handling
  *
  *************************************/
 
@@ -82,20 +82,20 @@ WRITE32_MEMBER(cybstorm_state::latch_w)
 
 /*************************************
  *
- *	Main CPU memory handlers
+ *  Main CPU memory handlers
  *
  *************************************/
 
 
 /*************************************
  *
- *	Memory maps
+ *  Memory maps
  *
  *************************************/
 
 static ADDRESS_MAP_START( main_map, AS_PROGRAM, 32, cybstorm_state )
 	AM_RANGE(0x000000, 0x1fffff) AM_ROM
-	AM_RANGE(0x200000, 0x20ffff) AM_RAM_DEVWRITE("palette", palette_device, write) AM_SHARE("palette")
+	AM_RANGE(0x200000, 0x20ffff) AM_RAM_DEVWRITE("palette", palette_device, write32) AM_SHARE("palette")
 	AM_RANGE(0x3effc0, 0x3effff) AM_DEVREADWRITE16("vad", atari_vad_device, control_read, control_write, 0xffffffff)
 	AM_RANGE(0x3f0000, 0x3fffff) AM_DEVICE16("vadbank", address_map_bank_device, amap16, 0xffffffff)
 	AM_RANGE(0x9f0000, 0x9f0003) AM_READ_PORT("9F0000")
@@ -104,7 +104,7 @@ static ADDRESS_MAP_START( main_map, AS_PROGRAM, 32, cybstorm_state )
 	AM_RANGE(0x9f0040, 0x9f0043) AM_DEVWRITE8("jsa", atari_jsa_iii_device, main_command_w, 0x00ff0000)
 	AM_RANGE(0x9f0050, 0x9f0053) AM_WRITE(latch_w)
 	AM_RANGE(0xfb0000, 0xfb0003) AM_DEVWRITE("watchdog", watchdog_timer_device, reset32_w)
-	AM_RANGE(0xfc0000, 0xfc0003) AM_DEVWRITE("eeprom", eeprom_parallel_28xx_device, unlock_write)
+	AM_RANGE(0xfc0000, 0xfc0003) AM_DEVWRITE("eeprom", eeprom_parallel_28xx_device, unlock_write32)
 	AM_RANGE(0xfd0000, 0xfd0fff) AM_DEVREADWRITE8("eeprom", eeprom_parallel_28xx_device, read, write, 0xff00ff00)
 	AM_RANGE(0xfe0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
@@ -114,7 +114,7 @@ static ADDRESS_MAP_START( vadbank_map, AS_PROGRAM, 16, cybstorm_state )
 	AM_RANGE(0x002000, 0x003fff) AM_RAM_DEVWRITE("vad", atari_vad_device, playfield_latched_lsb_w) AM_SHARE("vad:playfield")
 	AM_RANGE(0x004000, 0x005fff) AM_RAM_DEVWRITE("vad", atari_vad_device, playfield_upper_w) AM_SHARE("vad:playfield_ext")
 	AM_RANGE(0x006000, 0x007fff) AM_RAM AM_SHARE("vad:mob")
-	AM_RANGE(0x008000, 0x008fef) AM_DEVWRITE("vad", atari_vad_device, alpha_w) AM_SHARE("vad:alpha")
+	AM_RANGE(0x008000, 0x008eff) AM_DEVWRITE("vad", atari_vad_device, alpha_w) AM_SHARE("vad:alpha")
 	AM_RANGE(0x008f00, 0x008f7f) AM_RAM AM_SHARE("vad:eof")
 	AM_RANGE(0x008f80, 0x008fff) AM_RAM AM_SHARE("vad:mob:slip")
 	AM_RANGE(0x009000, 0x00ffff) AM_RAM
@@ -124,7 +124,7 @@ ADDRESS_MAP_END
 
 /*************************************
  *
- *	Port definitions
+ *  Port definitions
  *
  *************************************/
 
@@ -178,7 +178,7 @@ INPUT_PORTS_END
 
 /*************************************
  *
- *	Graphics definitions
+ *  Graphics definitions
  *
  *************************************/
 
@@ -219,20 +219,20 @@ static const gfx_layout molayout =
 
 
 static GFXDECODE_START( cybstorm )
-	GFXDECODE_ENTRY( "gfx2", 0, pflayout,     0, 16 )		/* sprites & playfield */
-	GFXDECODE_ENTRY( "gfx3", 0, molayout,  4096, 64 )		/* sprites & playfield */
-	GFXDECODE_ENTRY( "gfx1", 0, anlayout, 16384, 64 )		/* characters 8x8 */
+	GFXDECODE_ENTRY( "gfx2", 0, pflayout,     0, 16 )       /* sprites & playfield */
+	GFXDECODE_ENTRY( "gfx3", 0, molayout,  4096, 64 )       /* sprites & playfield */
+	GFXDECODE_ENTRY( "gfx1", 0, anlayout, 16384, 64 )       /* characters 8x8 */
 GFXDECODE_END
 
 
 
 /*************************************
  *
- *	Machine driver
+ *  Machine driver
  *
  *************************************/
 
-static MACHINE_CONFIG_START( round2 )
+MACHINE_CONFIG_START(cybstorm_state::round2)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68EC020, ATARI_CLOCK_14MHz)
@@ -275,7 +275,7 @@ static MACHINE_CONFIG_START( round2 )
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED( cybstorm, round2 )
+MACHINE_CONFIG_DERIVED(cybstorm_state::cybstorm, round2)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
@@ -289,18 +289,18 @@ MACHINE_CONFIG_END
 
 /*************************************
  *
- *	ROM definition(s)
+ *  ROM definition(s)
  *
  *************************************/
 
 ROM_START( cybstorm )
-	ROM_REGION( 0x200000, "maincpu", 0 )	/* 6*128k for 68020 code */
+	ROM_REGION( 0x200000, "maincpu", 0 )    /* 6*128k for 68020 code */
 	ROM_LOAD32_BYTE( "st_11.22.prog.6a",    0x000000, 0x080000, CRC(8b112ee9) SHA1(cd8367c47c653b8a1ba236c354f009f4297d521d) )
 	ROM_LOAD32_BYTE( "st_11.22.prog.8a",    0x000001, 0x080000, CRC(36b7cec9) SHA1(c9c2ba6df1fc849200e0c66a7cbc292e8b0b22f3) )
 	ROM_LOAD32_BYTE( "st_11.22.prog2.13a",  0x000002, 0x080000, CRC(1318f2c5) SHA1(929fbe96621852a10b7072490e1e554cdb2f20d8) )
 	ROM_LOAD32_BYTE( "st_11.22.prog.16a",   0x000003, 0x080000, CRC(4ae586a8) SHA1(daa803ed38f6582677b397e744dd8f5f60cfb508) )
 
-	ROM_REGION( 0x14000, "jsa:cpu", 0 )	/* 64k + 16k for 6502 code */
+	ROM_REGION( 0x14000, "jsa:cpu", 0 ) /* 64k + 16k for 6502 code */
 	ROM_LOAD( "st_11.22.6502",     0x010000, 0x004000, CRC(947421b2) SHA1(72b2b66122e779135f1f5af794e4d8513ccbbef6) )
 	ROM_CONTINUE(             0x004000, 0x00c000 )
 
@@ -343,7 +343,7 @@ ROM_START( cybstorm )
 	ROM_LOAD( "st_11.22.mo34",0x980000, 0x080000, CRC(b8b0c8b6) SHA1(f47218a4d94aa151964687a6e4c02f2b3065fdd3) )
 	ROM_LOAD( "st_11.22.mo35",0xb80000, 0x080000, CRC(f0b9cf9d) SHA1(7ce30b05c1ee02346e8f568f36274b46d1ed99c4) )
 
-	ROM_REGION( 0x100000, "jsa:oki1", 0 )	/* 1MB for ADPCM */
+	ROM_REGION( 0x100000, "jsa:oki1", 0 )   /* 1MB for ADPCM */
 	ROM_LOAD( "st_11.22.5a",    0x000000, 0x080000, CRC(d469692c) SHA1(b7d94c042cf9f28ea65d44f5305d56459562d209) )
 
 	ROM_REGION( 0x100000, "jsa:oki2", 0 )    /* 1MB for ADPCM */
@@ -354,7 +354,7 @@ ROM_END
 
 /*************************************
  *
- *	Driver initialization
+ *  Driver initialization
  *
  *************************************/
 
@@ -367,7 +367,7 @@ DRIVER_INIT_MEMBER(cybstorm_state, cybstorm)
 
 /*************************************
  *
- *	Game driver(s)
+ *  Game driver(s)
  *
  *************************************/
 

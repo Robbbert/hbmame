@@ -82,10 +82,10 @@
 #include "screen.h"
 
 
-#define MAIN_CLOCK        XTAL_40MHz          // Pletronics 40.000 MHz. Crystal. Used for CPU clock.
-#define VIDEO_CLOCK       XTAL_14_31818MHz    // Pletronics MP49 14.31818 MHz. Crystal. Used in common VGA ISA cards.
+#define MAIN_CLOCK        XTAL(40'000'000)          // Pletronics 40.000 MHz. Crystal. Used for CPU clock.
+#define VIDEO_CLOCK       XTAL(14'318'181)    // Pletronics MP49 14.31818 MHz. Crystal. Used in common VGA ISA cards.
 
-#define UART_CLOCK        XTAL_1_8432MHz      // Seems UART clock, since allows integer division to common baud rates.
+#define UART_CLOCK        XTAL(1'843'200)      // Seems UART clock, since allows integer division to common baud rates.
 												// (16 * 115200 baud, 192 * 9600 baud, 1536 * 1200 baud, etc...)
 
 
@@ -101,6 +101,7 @@ public:
 	DECLARE_READ8_MEMBER(test_r);
 		uint32_t screen_update_wms(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
+		void wms(machine_config &config);
 protected:
 
 	// devices
@@ -168,7 +169,7 @@ static GFXDECODE_START( wms )
 GFXDECODE_END
 
 
-static MACHINE_CONFIG_START( wms )
+MACHINE_CONFIG_START(wms_state::wms)
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", I80188, MAIN_CLOCK )    // AMD N80C188-20, ( 40 MHz. internally divided by 2)
 	MCFG_CPU_PROGRAM_MAP(wms_map)

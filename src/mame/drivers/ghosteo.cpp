@@ -132,6 +132,9 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(s3c2410_i2c_scl_w );
 	DECLARE_READ_LINE_MEMBER(s3c2410_i2c_sda_r );
 	DECLARE_WRITE_LINE_MEMBER(s3c2410_i2c_sda_w );
+	void ghosteo(machine_config &config);
+	void touryuu(machine_config &config);
+	void bballoon(machine_config &config);
 };
 
 
@@ -611,7 +614,7 @@ void ghosteo_state::machine_reset()
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x4d000010, 0x4d000013,read32_delegate(FUNC(ghosteo_state::bballoon_speedup_r), this));
 }
 
-static MACHINE_CONFIG_START( ghosteo )
+MACHINE_CONFIG_START(ghosteo_state::ghosteo)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", ARM9, 200000000)
@@ -650,7 +653,7 @@ static MACHINE_CONFIG_START( ghosteo )
 
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 
-	MCFG_SOUND_ADD("qs1000", QS1000, XTAL_24MHz)
+	MCFG_SOUND_ADD("qs1000", QS1000, XTAL(24'000'000))
 	MCFG_QS1000_EXTERNAL_ROM(true)
 	MCFG_QS1000_IN_P1_CB(READ8(ghosteo_state, qs1000_p1_r))
 	MCFG_QS1000_OUT_P1_CB(WRITE8(ghosteo_state, qs1000_p1_w))
@@ -660,14 +663,14 @@ static MACHINE_CONFIG_START( ghosteo )
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( bballoon, ghosteo )
+MACHINE_CONFIG_DERIVED(ghosteo_state::bballoon, ghosteo)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(bballoon_map)
 	MCFG_I2CMEM_ADD("i2cmem")
 	MCFG_I2CMEM_DATA_SIZE(256)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( touryuu, ghosteo )
+MACHINE_CONFIG_DERIVED(ghosteo_state::touryuu, ghosteo)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(touryuu_map)
 	MCFG_I2CMEM_ADD("i2cmem")

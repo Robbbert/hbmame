@@ -242,9 +242,17 @@ WRITE8_MEMBER( tms9927_device::write )
 		case 0x03:  /* SKEW BITS / DATA ROWS PER FRAME */
 		case 0x04:  /* SCAN LINES / FRAME */
 		case 0x05:  /* VERTICAL DATA START */
-		case 0x06:  /* LAST DISPLAYED DATA ROW */
 			m_reg[offset] = data;
 			recompute_parameters(false);
+			break;
+
+		case 0x06:  /* LAST DISPLAYED DATA ROW */
+			// TVI-912 writes to this register frequently
+			if (m_reg[offset] != data)
+			{
+				m_reg[offset] = data;
+				recompute_parameters(false);
+			}
 			break;
 
 		case 0x0c:  /* LOAD CURSOR CHARACTER ADDRESS */
@@ -271,7 +279,8 @@ READ8_MEMBER( tms9927_device::read )
 			return m_reg[offset - 0x08 + 7];
 
 		default:
-			generic_access(space, offset);
+			if (!machine().side_effect_disabled())
+				generic_access(space, offset);
 			break;
 	}
 	return 0xff;
@@ -284,22 +293,10 @@ READ_LINE_MEMBER(tms9927_device::bl_r)
 }
 
 
-bool tms9927_device::screen_reset()
-{
-	return m_reset;
-}
-
-
-int tms9927_device::upscroll_offset()
-{
-	return m_start_datarow;
-}
-
-
-bool tms9927_device::cursor_bounds(rectangle &bounds)
+bool tms9927_device::cursor_bounds(rectangle &bounds) const
 {
 	int cursorx = CURSOR_CHAR_ADDRESS;
-	int cursory = CURSOR_ROW_ADDRESS;
+	int cursory = (CURSOR_ROW_ADDRESS + DATA_ROWS_PER_FRAME - m_start_datarow) % DATA_ROWS_PER_FRAME;
 
 	bounds.min_x = cursorx * m_hpixels_per_column;
 	bounds.max_x = bounds.min_x + m_hpixels_per_column - 1;
@@ -362,8 +359,12 @@ void tms9927_device::recompute_parameters(bool postload)
 
 	m_hsyn = false;
 	if (!m_write_hsyn.isnull())
+	{
+		m_write_hsyn(0);
 		m_hsync_timer->adjust(screen().time_until_pos(m_vsyn_start, m_hsyn_start));
+	}
 
 	m_vsyn = false;
+	m_write_vsyn(0);
 	m_vsync_timer->adjust(screen().time_until_pos(m_vsyn_start, m_hsyn_start));
 }

@@ -20,7 +20,7 @@
 #include "sound/volt_reg.h"
 #include "speaker.h"
 
-#define MAIN_CLOCK_X1 XTAL_1_9968MHz
+#define MAIN_CLOCK_X1 XTAL(1'996'800)
 #define QUEUE_SIZE 32768
 
 //**************************************************************************
@@ -53,7 +53,7 @@ WRITE_LINE_MEMBER(pc9801_86_device::sound_irq)
 //  device_add_mconfig - add device configuration
 //-------------------------------------------------
 
-MACHINE_CONFIG_MEMBER( pc9801_86_device::device_add_mconfig )
+MACHINE_CONFIG_START(pc9801_86_device::device_add_mconfig)
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 	MCFG_SOUND_ADD("opna", YM2608, MAIN_CLOCK_X1*4) // unknown clock / divider
 	MCFG_YM2608_IRQ_HANDLER(WRITELINE(pc9801_86_device, sound_irq))

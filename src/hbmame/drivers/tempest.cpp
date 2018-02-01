@@ -590,9 +590,11 @@ public:
 		, m_maincpu(*this, "maincpu")
 	{ }
 
+	void tempmg(machine_config &config);
 	DECLARE_WRITE8_MEMBER(tempmg_rombank_w);
 	DECLARE_MACHINE_RESET(tempmg);
 	DECLARE_DRIVER_INIT(tempmg);
+private:
 	required_device<cpu_device> m_maincpu;
 };
 
@@ -646,7 +648,7 @@ static ADDRESS_MAP_START( tempmg_map, AS_PROGRAM, 8, tempmg_state )
 	AM_RANGE(0xf800, 0xffff) AM_ROMBANK("bank2")
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( tempmg, tempest ) // new cfg, old cfg, new class
+MACHINE_CONFIG_DERIVED( tempmg_state::tempmg, tempest ) // new cfg, old cfg, new class
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(tempmg_map)
 	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
@@ -773,7 +775,7 @@ GAME( 2000, tmptwst2, tempest, tempest, tempest, tempest_state,  0,      ROT270,
 GAME( 2000, tmptwst3, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tmptwst4, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tempestm, tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,  tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,   tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, vbrakout, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptlm,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, tvortex,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )

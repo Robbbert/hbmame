@@ -1537,6 +1537,8 @@ READ8_MEMBER(model2_state::model2o_in_r)
 
 /* original Model 2 overrides */
 static ADDRESS_MAP_START( model2o_mem, AS_PROGRAM, 32, model2_state )
+	AM_IMPORT_FROM(model2_base_mem)
+
 	AM_RANGE(0x00200000, 0x0021ffff) AM_RAM
 	AM_RANGE(0x00220000, 0x0023ffff) AM_ROM AM_REGION("maincpu", 0x20000)
 
@@ -1559,8 +1561,6 @@ static ADDRESS_MAP_START( model2o_mem, AS_PROGRAM, 32, model2_state )
 	AM_RANGE(0x01c00110, 0x01c00113) AM_READ8(virtuacop_lightgun_offscreen_r, 0x00ff00ff)
 	AM_RANGE(0x01c00200, 0x01c002ff) AM_RAM AM_SHARE("backup2")
 	AM_RANGE(0x01c80000, 0x01c80003) AM_READWRITE(model2_serial_r, model2_serial_w)
-
-	AM_IMPORT_FROM(model2_base_mem)
 ADDRESS_MAP_END
 
 /* TODO: read by Sonic the Fighters (bit 1), unknown purpose */
@@ -1574,6 +1574,8 @@ READ32_MEMBER(model2_state::copro_status_r)
 
 /* 2A-CRX overrides */
 static ADDRESS_MAP_START( model2a_crx_mem, AS_PROGRAM, 32, model2_state )
+	AM_IMPORT_FROM(model2_base_mem)
+
 	AM_RANGE(0x00200000, 0x0023ffff) AM_RAM
 
 	AM_RANGE(0x00804000, 0x00807fff) AM_READWRITE(geo_prg_r, geo_prg_w)
@@ -1597,12 +1599,12 @@ static ADDRESS_MAP_START( model2a_crx_mem, AS_PROGRAM, 32, model2_state )
 	AM_RANGE(0x01c0001c, 0x01c0001f) AM_WRITE(analog_2b_w)
 	AM_RANGE(0x01c00040, 0x01c00043) AM_WRITENOP
 	AM_RANGE(0x01c80000, 0x01c80003) AM_READWRITE(model2_serial_r, model2_serial_w)
-
-	AM_IMPORT_FROM(model2_base_mem)
 ADDRESS_MAP_END
 
 /* 2B-CRX overrides */
 static ADDRESS_MAP_START( model2b_crx_mem, AS_PROGRAM, 32, model2_state )
+	AM_IMPORT_FROM(model2_base_mem)
+
 	AM_RANGE(0x00200000, 0x0023ffff) AM_RAM
 
 	AM_RANGE(0x00804000, 0x00807fff) AM_READWRITE(geo_prg_r, geo_prg_w)
@@ -1634,12 +1636,12 @@ static ADDRESS_MAP_START( model2b_crx_mem, AS_PROGRAM, 32, model2_state )
 	AM_RANGE(0x01c0001c, 0x01c0001f) AM_WRITE(analog_2b_w)
 	AM_RANGE(0x01c00040, 0x01c00043) AM_WRITENOP
 	AM_RANGE(0x01c80000, 0x01c80003) AM_READWRITE(model2_serial_r, model2_serial_w)
-
-	AM_IMPORT_FROM(model2_base_mem)
 ADDRESS_MAP_END
 
 /* 2C-CRX overrides */
 static ADDRESS_MAP_START( model2c_crx_mem, AS_PROGRAM, 32, model2_state )
+	AM_IMPORT_FROM(model2_base_mem)
+
 	AM_RANGE(0x00200000, 0x0023ffff) AM_RAM
 
 	AM_RANGE(0x00804000, 0x00807fff) AM_READWRITE(geo_prg_r, geo_prg_w)
@@ -1660,8 +1662,6 @@ static ADDRESS_MAP_START( model2c_crx_mem, AS_PROGRAM, 32, model2_state )
 	AM_RANGE(0x01c00014, 0x01c00017) AM_WRITE(hotd_lightgun_w)
 	AM_RANGE(0x01c0001c, 0x01c0001f) AM_WRITE(analog_2b_w)
 	AM_RANGE(0x01c80000, 0x01c80003) AM_READWRITE(model2_serial_r, model2_serial_w )
-
-	AM_IMPORT_FROM(model2_base_mem)
 ADDRESS_MAP_END
 
 /* Input definitions */
@@ -2128,10 +2128,10 @@ ADDRESS_MAP_END
 
 /*****************************************************************************/
 
-#define VIDEO_CLOCK         XTAL_32MHz
+#define VIDEO_CLOCK         XTAL(32'000'000)
 
 /* original Model 2 */
-static MACHINE_CONFIG_START( model2o )
+MACHINE_CONFIG_START(model2_state::model2o)
 	MCFG_CPU_ADD("maincpu", I960, 25000000)
 	MCFG_CPU_PROGRAM_MAP(model2o_mem)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", model2_state, model2_interrupt, "screen", 0, 1)
@@ -2171,11 +2171,11 @@ static MACHINE_CONFIG_START( model2o )
 
 	MCFG_VIDEO_START_OVERRIDE(model2_state,model2)
 
-	MCFG_SEGAM1AUDIO_ADD("m1audio")
+	MCFG_SEGAM1AUDIO_ADD(M1AUDIO_TAG)
 	MCFG_SEGAM1AUDIO_RXD_HANDLER(DEVWRITELINE("uart", i8251_device, write_rxd))
 
 	MCFG_DEVICE_ADD("uart", I8251, 8000000) // uPD71051C, clock unknown
-	MCFG_I8251_TXD_HANDLER(DEVWRITELINE("m1audio", segam1audio_device, write_txd))
+	MCFG_I8251_TXD_HANDLER(DEVWRITELINE(M1AUDIO_TAG, segam1audio_device, write_txd))
 
 	MCFG_CLOCK_ADD("uart_clock", 500000) // 16 times 31.25MHz (standard Sega/MIDI sound data rate)
 	MCFG_CLOCK_SIGNAL_HANDLER(DEVWRITELINE("uart", i8251_device, write_txc))
@@ -2213,8 +2213,8 @@ static ADDRESS_MAP_START( drive_io_map, AS_IO, 8, model2_state )
 	AM_RANGE(0x80, 0x83) AM_DEVREADWRITE("driveadc", msm6253_device, d0_r, address_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_START( sj25_0207_01 )
-	MCFG_CPU_ADD("drivecpu", Z80, XTAL_8MHz/2) // confirmed
+MACHINE_CONFIG_START(model2_state::sj25_0207_01)
+	MCFG_CPU_ADD("drivecpu", Z80, XTAL(8'000'000)/2) // confirmed
 	MCFG_CPU_PROGRAM_MAP(drive_map)
 	MCFG_CPU_IO_MAP(drive_io_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", model2_state,  irq0_line_hold)
@@ -2229,12 +2229,12 @@ static MACHINE_CONFIG_START( sj25_0207_01 )
 	MCFG_DEVICE_ADD("driveadc", MSM6253, 0)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( daytona, model2o )
+MACHINE_CONFIG_DERIVED(model2_state::daytona, model2o)
 	MCFG_FRAGMENT_ADD(sj25_0207_01)
 MACHINE_CONFIG_END
 
 /* 2A-CRX */
-static MACHINE_CONFIG_START( model2a )
+MACHINE_CONFIG_START(model2_state::model2a)
 	MCFG_CPU_ADD("maincpu", I960, 25000000)
 	MCFG_CPU_PROGRAM_MAP(model2a_crx_mem)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", model2_state, model2_interrupt, "screen", 0, 1)
@@ -2292,16 +2292,16 @@ static MACHINE_CONFIG_START( model2a )
 	MCFG_M2COMM_ADD("m2comm")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( manxtt, model2a )
+MACHINE_CONFIG_DERIVED(model2_state::manxtt, model2a)
 	MCFG_MACHINE_START_OVERRIDE(model2_state,srallyc)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( manxttdx, manxtt ) /* Includes a Model 1 Sound board for additional sounds - Deluxe version only */
-	MCFG_SEGAM1AUDIO_ADD("m1audio")
+MACHINE_CONFIG_DERIVED(model2_state::manxttdx, manxtt) /* Includes a Model 1 Sound board for additional sounds - Deluxe version only */
+	MCFG_SEGAM1AUDIO_ADD(M1AUDIO_TAG)
 	MCFG_SEGAM1AUDIO_RXD_HANDLER(DEVWRITELINE("uart", i8251_device, write_rxd))
 
 	MCFG_DEVICE_MODIFY("uart")
-	MCFG_I8251_TXD_HANDLER(DEVWRITELINE("m1audio", segam1audio_device, write_txd))
+	MCFG_I8251_TXD_HANDLER(DEVWRITELINE(M1AUDIO_TAG, segam1audio_device, write_txd))
 MACHINE_CONFIG_END
 
 uint16_t model2_state::crypt_read_callback(uint32_t addr)
@@ -2310,23 +2310,23 @@ uint16_t model2_state::crypt_read_callback(uint32_t addr)
 	return ((dat&0xff00)>>8)|((dat&0x00ff)<<8);
 }
 
-static MACHINE_CONFIG_DERIVED( model2a_5881, model2a )
+MACHINE_CONFIG_DERIVED(model2_state::model2a_5881, model2a)
 	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
 	MCFG_SET_READ_CALLBACK(model2_state, crypt_read_callback)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( model2a_0229, model2a )
+MACHINE_CONFIG_DERIVED(model2_state::model2a_0229, model2a)
 	MCFG_DEVICE_ADD("317_0229", SEGA315_5838_COMP, 0)
 //  MCFG_SET_5838_READ_CALLBACK(model2_state, crypt_read_callback)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( srallyc, model2a )
+MACHINE_CONFIG_DERIVED(model2_state::srallyc, model2a)
 	MCFG_MACHINE_START_OVERRIDE(model2_state,srallyc)
 	MCFG_FRAGMENT_ADD(sj25_0207_01)
 MACHINE_CONFIG_END
 
 /* 2B-CRX */
-static MACHINE_CONFIG_START( model2b )
+MACHINE_CONFIG_START(model2_state::model2b)
 	MCFG_CPU_ADD("maincpu", I960, 25000000)
 	MCFG_CPU_PROGRAM_MAP(model2b_crx_mem)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", model2_state, model2_interrupt, "screen", 0, 1)
@@ -2388,17 +2388,17 @@ static MACHINE_CONFIG_START( model2b )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( model2b_5881, model2b )
+MACHINE_CONFIG_DERIVED(model2_state::model2b_5881, model2b)
 	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
 	MCFG_SET_READ_CALLBACK(model2_state, crypt_read_callback)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( model2b_0229, model2b )
+MACHINE_CONFIG_DERIVED(model2_state::model2b_0229, model2b)
 	MCFG_DEVICE_ADD("317_0229", SEGA315_5838_COMP, 0)
 //  MCFG_SET_5838_READ_CALLBACK(model2_state, crypt_read_callback)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( indy500, model2b )
+MACHINE_CONFIG_DERIVED(model2_state::indy500, model2b)
 	MCFG_MACHINE_START_OVERRIDE(model2_state,srallyc)
 MACHINE_CONFIG_END
 
@@ -2413,7 +2413,7 @@ static ADDRESS_MAP_START( rchase2_ioport_map, AS_IO, 8, model2_state )
 	AM_RANGE(0x00, 0x07) AM_DEVREADWRITE("ioexp", cxd1095_device, read, write)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( rchase2, model2b )
+MACHINE_CONFIG_DERIVED(model2_state::rchase2, model2b)
 	MCFG_CPU_ADD("iocpu", Z80, 4000000)
 	MCFG_CPU_PROGRAM_MAP(rchase2_iocpu_map)
 	MCFG_CPU_IO_MAP(rchase2_ioport_map)
@@ -2427,7 +2427,7 @@ static ADDRESS_MAP_START( copro_tgpx4_map, AS_PROGRAM, 64, model2_state )
 ADDRESS_MAP_END
 
 /* 2C-CRX */
-static MACHINE_CONFIG_START( model2c )
+MACHINE_CONFIG_START(model2_state::model2c)
 	MCFG_CPU_ADD("maincpu", I960, 25000000)
 	MCFG_CPU_PROGRAM_MAP(model2c_crx_mem)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", model2_state, model2c_interrupt, "screen", 0, 1)
@@ -2481,7 +2481,7 @@ static MACHINE_CONFIG_START( model2c )
 	MCFG_M2COMM_ADD("m2comm")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( stcc, model2c )
+MACHINE_CONFIG_DERIVED(model2_state::stcc, model2c)
 	MCFG_DSBZ80_ADD(DSBZ80_TAG)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
@@ -2490,12 +2490,12 @@ static MACHINE_CONFIG_DERIVED( stcc, model2c )
 	MCFG_I8251_TXD_HANDLER(DEVWRITELINE(DSBZ80_TAG, dsbz80_device, write_txd))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( model2c_5881, model2c )
+MACHINE_CONFIG_DERIVED(model2_state::model2c_5881, model2c)
 	MCFG_DEVICE_ADD("315_5881", SEGA315_5881_CRYPT, 0)
 	MCFG_SET_READ_CALLBACK(model2_state, crypt_read_callback)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( overrev2c, model2c )
+MACHINE_CONFIG_DERIVED(model2_state::overrev2c, model2c)
 	MCFG_MACHINE_START_OVERRIDE(model2_state,srallyc)
 MACHINE_CONFIG_END
 
@@ -6082,6 +6082,7 @@ GAME( 1998, dyndeka2,  dynamcop, model2a_5881, model2,   model2_state, genprot, 
 GAME( 1998, pltkidsa,   pltkids, model2a_5881, model2,   model2_state, pltkids, ROT0, "Psikyo", "Pilot Kids (Model 2A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 
 // Model 2B-CRX (SHARC, SCSP sound board)
+GAME( 1994, rchase2,          0, rchase2,      rchase2, model2_state, rchase2,  ROT0, "Sega",   "Rail Chase 2 (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1994, vstriker,         0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Virtua Striker (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1994, vstrikero, vstriker, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Virtua Striker", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, fvipers,          0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Fighting Vipers (Revision D)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
@@ -6090,6 +6091,8 @@ GAME( 1995, gunblade,         0, model2b,      model2,  model2_state, 0,        
 GAME( 1995, indy500,          0, indy500,      srallyc, model2_state, 0,        ROT0, "Sega",   "INDY 500 Twin (Revision A, Newer)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, indy500d,   indy500, indy500,      srallyc, model2_state, 0,        ROT0, "Sega",   "INDY 500 Deluxe (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, indy500to,  indy500, indy500,      srallyc, model2_state, 0,        ROT0, "Sega",   "INDY 500 Twin (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1995, von,              0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Cyber Troopers Virtual-On (USA, Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1995, vonj,           von, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Cyber Troopers Virtual-On (Japan, Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, schamp,           0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Sonic Championship (USA)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, sfight,      schamp, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Sonic the Fighters (Japan)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, lastbrnx,         0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Last Bronx (Export, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
@@ -6097,8 +6100,6 @@ GAME( 1996, lastbrnxu, lastbrnx, model2b,      model2,  model2_state, 0,        
 GAME( 1996, lastbrnxj, lastbrnx, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Last Bronx (Japan, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, doa,              0, model2b_0229, model2,  model2_state, doa,      ROT0, "Sega",   "Dead or Alive (Model 2B, Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, sgt24h,           0, indy500,      srallyc, model2_state, sgt24h,   ROT0, "Jaleco", "Super GT 24h", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1996, von,              0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Cyber Troopers Virtual-On (USA, Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1996, vonj,           von, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Cyber Troopers Virtual-On (Japan, Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1996, dynabb,           0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Dynamite Baseball", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, dynabb97,         0, model2b,      model2,  model2_state, 0,        ROT0, "Sega",   "Dynamite Baseball 97 (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1997, overrevb,   overrev, indy500,      srallyc, model2_state, 0,        ROT0, "Jaleco", "Over Rev (Model 2B, Revision B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
@@ -6107,7 +6108,6 @@ GAME( 1997, zerogunj,   zerogun, model2b_5881, model2,  model2_state, zerogun,  
 GAME( 1998, dynamcopb, dynamcop, model2b_5881, model2,  model2_state, genprot,  ROT0, "Sega",   "Dynamite Cop (Export, Model 2B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1998, dyndeka2b, dynamcop, model2b_5881, model2,  model2_state, genprot,  ROT0, "Sega",   "Dynamite Deka 2 (Japan, Model 2B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1998, pltkids,          0, model2b_5881, model2,  model2_state, pltkids,  ROT0, "Psikyo", "Pilot Kids (Model 2B, Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1995, rchase2,          0, rchase2,      rchase2, model2_state, rchase2,  ROT0, "Sega",   "Rail Chase 2 (Revision A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS )
 
 // Model 2C-CRX (TGPx4, SCSP sound board)
 GAME( 1996, skisuprg,         0, model2c,      model2,   model2_state, 0,       ROT0, "Sega",   "Sega Ski Super G", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_GRAPHICS|MACHINE_UNEMULATED_PROTECTION )

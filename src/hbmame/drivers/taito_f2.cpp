@@ -2,7 +2,19 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/taito_f2.cpp"
 
-static MACHINE_CONFIG_START( f2demo )
+class taitof2_hbmame : public taitof2_state
+{
+public:
+	taitof2_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: taitof2_state(mconfig, type, tag)
+		{ }
+
+	void f2demo(machine_config &config);
+
+private:
+};
+
+MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 24000000/2) /* 12 MHz */
@@ -82,7 +94,7 @@ ROM_START( f2demo )
 	/* no Delta-T samples */
 ROM_END
 
-GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_state, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame

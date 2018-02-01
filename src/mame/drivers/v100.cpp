@@ -47,6 +47,7 @@ public:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	void v100(machine_config &config);
 private:
 	virtual void machine_start() override;
 
@@ -207,35 +208,35 @@ static INPUT_PORTS_START( v100 )
 INPUT_PORTS_END
 
 
-static MACHINE_CONFIG_START( v100 )
-	MCFG_CPU_ADD("maincpu", Z80, XTAL_47_736MHz / 12) // divider not verified
+MACHINE_CONFIG_START(v100_state::v100)
+	MCFG_CPU_ADD("maincpu", Z80, XTAL(47'736'000) / 12) // divider not verified
 	MCFG_CPU_PROGRAM_MAP(mem_map)
 	MCFG_CPU_IO_MAP(io_map)
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(v100_state, irq_ack)
 
-	MCFG_DEVICE_ADD("usart1", I8251, XTAL_47_736MHz / 12) // divider not verified
+	MCFG_DEVICE_ADD("usart1", I8251, XTAL(47'736'000) / 12) // divider not verified
 
 	MCFG_DEVICE_ADD("brg1", COM8116, 5068800) // TODO: clock and divisors for this customized variant
 	MCFG_COM8116_FR_HANDLER(DEVWRITELINE("usart1", i8251_device, write_rxc))
 	MCFG_COM8116_FT_HANDLER(DEVWRITELINE("usart1", i8251_device, write_txc))
 
-	MCFG_DEVICE_ADD("usart2", I8251, XTAL_47_736MHz / 12)
+	MCFG_DEVICE_ADD("usart2", I8251, XTAL(47'736'000) / 12)
 
 	MCFG_DEVICE_ADD("brg2", COM8116, 5068800)
 	MCFG_COM8116_FR_HANDLER(DEVWRITELINE("usart2", i8251_device, write_rxc))
 	MCFG_COM8116_FT_HANDLER(DEVWRITELINE("usart2", i8251_device, write_txc))
 
 	MCFG_SCREEN_ADD("screen", RASTER)
-	//MCFG_SCREEN_RAW_PARAMS(XTAL_47_736MHz / 2, 102 * CHAR_WIDTH, 0, 80 * CHAR_WIDTH, 260, 0, 240)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_47_736MHz, 170 * CHAR_WIDTH, 0, 132 * CHAR_WIDTH, 312, 0, 240)
+	//MCFG_SCREEN_RAW_PARAMS(XTAL(47'736'000) / 2, 102 * CHAR_WIDTH, 0, 80 * CHAR_WIDTH, 260, 0, 240)
+	MCFG_SCREEN_RAW_PARAMS(XTAL(47'736'000), 170 * CHAR_WIDTH, 0, 132 * CHAR_WIDTH, 312, 0, 240)
 	MCFG_SCREEN_UPDATE_DRIVER(v100_state, screen_update)
 
 	// FIXME: dot clock should be divided by char width
-	MCFG_DEVICE_ADD("vtac", CRT5037, XTAL_47_736MHz)
+	MCFG_DEVICE_ADD("vtac", CRT5037, XTAL(47'736'000))
 	MCFG_TMS9927_CHAR_WIDTH(CHAR_WIDTH)
 	MCFG_VIDEO_SET_SCREEN("screen")
 
-	MCFG_DEVICE_ADD("picu", I8214, XTAL_47_736MHz / 12)
+	MCFG_DEVICE_ADD("picu", I8214, XTAL(47'736'000) / 12)
 	MCFG_I8214_INT_CALLBACK(ASSERTLINE("maincpu", 0))
 
 	MCFG_DEVICE_ADD("ppi", I8255, 0)

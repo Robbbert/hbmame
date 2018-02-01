@@ -109,6 +109,7 @@ public:
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void ir(machine_config &config);
 
 private:
 
@@ -496,7 +497,7 @@ uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap,
 	return 0;
 }
 
-static MACHINE_CONFIG_START( ir )
+MACHINE_CONFIG_START( ir_state::ir )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)

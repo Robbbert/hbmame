@@ -38,7 +38,7 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
 	AM_RANGE(0xa000, 0xa007) AM_DEVWRITE("videolatch", ls259_device, write_d0)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( galagost, galaga )
+MACHINE_CONFIG_DERIVED( galaga_hbmame::galagost, galaga )
 	MCFG_CPU_MODIFY( "maincpu" )
 	MCFG_CPU_PROGRAM_MAP(galagost_map)
 

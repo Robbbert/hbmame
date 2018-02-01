@@ -679,6 +679,8 @@ WRITE32_MEMBER(apollo_state::apollo_f8_w){
  ***************************************************************************/
 
 static ADDRESS_MAP_START(dn3500_map, AS_PROGRAM, 32, apollo_state )
+		AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
+
 		AM_RANGE(0x000000, 0x00ffff) AM_ROM /* boot ROM  */
 		AM_RANGE(0x000000, 0x00ffff) AM_WRITE(apollo_rom_w)
 		AM_RANGE(0x010000, 0x0100ff) AM_READWRITE16(apollo_csr_status_register_r, apollo_csr_status_register_w, 0xffffffff)
@@ -719,10 +721,10 @@ static ADDRESS_MAP_START(dn3500_map, AS_PROGRAM, 32, apollo_state )
 //      AM_RANGE(0x0e000000, 0x0fffffff) FPA address space
 
 //      AM_RANGE(0xf8000000, 0xffffffff) AM_READWRITE(apollo_f8_r, apollo_f8_w)
-		AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START(dsp3500_map, AS_PROGRAM, 32, apollo_state )
+		AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 		AM_RANGE(0x000000, 0x00ffff) AM_ROM /* boot ROM  */
 		AM_RANGE(0x000000, 0x00ffff) AM_WRITE(apollo_rom_w)
 		AM_RANGE(0x010000, 0x0100ff) AM_READWRITE16(apollo_csr_status_register_r, apollo_csr_status_register_w, 0xffffffff)
@@ -751,10 +753,11 @@ static ADDRESS_MAP_START(dsp3500_map, AS_PROGRAM, 32, apollo_state )
 		AM_RANGE(ATBUS_MEMORY_BASE, ATBUS_MEMORY_END) AM_READWRITE16(apollo_atbus_memory_r, apollo_atbus_memory_w, 0xffffffff)
 
 //      AM_RANGE(0xf8000000, 0xffffffff) AM_READWRITE(apollo_f8_r, apollo_f8_w)
-		AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START(dn3000_map, AS_PROGRAM, 32, apollo_state )
+		AM_RANGE(0x000000, 0xffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
+
 		AM_RANGE(0x000000, 0x007fff) AM_ROM /* boot ROM  */
 		AM_RANGE(0x000000, 0x007fff) AM_WRITE(apollo_rom_w)
 		AM_RANGE(0x008000, 0x0080ff) AM_READWRITE16(apollo_csr_status_register_r, apollo_csr_status_register_w, 0xffffffff)
@@ -783,11 +786,11 @@ static ADDRESS_MAP_START(dn3000_map, AS_PROGRAM, 32, apollo_state )
 		AM_RANGE(DN3000_RAM_BASE, DN3000_RAM_END) AM_RAM_WRITE(ram_with_parity_w) AM_SHARE("messram")
 
 		AM_RANGE(ATBUS_MEMORY_BASE, ATBUS_MEMORY_END) AM_READWRITE16(apollo_atbus_memory_r, apollo_atbus_memory_w, 0xffffffff)
-
-		AM_RANGE(0x000000, 0xffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START(dsp3000_map, AS_PROGRAM, 32, apollo_state )
+		AM_RANGE(0x000000, 0xffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
+
 		AM_RANGE(0x000000, 0x007fff) AM_ROM /* boot ROM  */
 		AM_RANGE(0x000000, 0x007fff) AM_WRITE(apollo_rom_w)
 		AM_RANGE(0x008000, 0x0080ff) AM_READWRITE16(apollo_csr_status_register_r, apollo_csr_status_register_w, 0xffffffff)
@@ -811,12 +814,11 @@ static ADDRESS_MAP_START(dsp3000_map, AS_PROGRAM, 32, apollo_state )
 		AM_RANGE(DN3000_RAM_BASE, DN3000_RAM_END) AM_RAM_WRITE(ram_with_parity_w) AM_SHARE("messram")
 
 		AM_RANGE(ATBUS_MEMORY_BASE, ATBUS_MEMORY_END) AM_READWRITE16(apollo_atbus_memory_r, apollo_atbus_memory_w, 0xffffffff)
-
-		AM_RANGE(0x000000, 0xffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 ADDRESS_MAP_END
 
 
 static ADDRESS_MAP_START(dn5500_map, AS_PROGRAM, 32, apollo_state )
+	AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 	AM_RANGE(0x000000, 0x00ffff) AM_ROM /* boot ROM  */
 	AM_RANGE(0x000000, 0x00ffff) AM_WRITE(apollo_rom_w)
 	AM_RANGE(0x010000, 0x0100ff) AM_READWRITE16(apollo_csr_status_register_r, apollo_csr_status_register_w, 0xffffffff)
@@ -860,10 +862,10 @@ static ADDRESS_MAP_START(dn5500_map, AS_PROGRAM, 32, apollo_state )
 //  AM_RANGE(0x0e000000, 0x0fffffff) FPA address space
 
 //  AM_RANGE(0xf8000000, 0xffffffff) AM_READWRITE(apollo_f8_r, apollo_f8_w)
-	AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START(dsp5500_map, AS_PROGRAM, 32, apollo_state )
+	AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 	AM_RANGE(0x000000, 0x00ffff) AM_ROM /* boot ROM  */
 	AM_RANGE(0x000000, 0x00ffff) AM_WRITE(apollo_rom_w)
 	AM_RANGE(0x010000, 0x0100ff) AM_READWRITE16(apollo_csr_status_register_r, apollo_csr_status_register_w, 0xffffffff)
@@ -896,7 +898,6 @@ static ADDRESS_MAP_START(dsp5500_map, AS_PROGRAM, 32, apollo_state )
 
 	AM_RANGE(0x07000000, 0x0700FFFF) AM_READWRITE8(dn5500_io_protection_map_r, dn5500_io_protection_map_w, 0xffffffff )
 //  AM_RANGE(0xf8000000, 0xffffffff) AM_READWRITE(apollo_f8_r, apollo_f8_w)
-	AM_RANGE(0x00000000, 0xffffffff) AM_READWRITE(apollo_unmapped_r, apollo_unmapped_w)
 ADDRESS_MAP_END
 
 /***************************************************************************
@@ -1050,7 +1051,7 @@ READ_LINE_MEMBER( apollo_state::apollo_kbd_is_german )
  MACHINE DRIVERS
  ***************************************************************************/
 
-static MACHINE_CONFIG_START( dn3500 )
+MACHINE_CONFIG_START(apollo_state::dn3500)
 	/* basic machine hardware */
 	MCFG_CPU_ADD(MAINCPU, M68030, 25000000) /* 25 MHz 68030 */
 	MCFG_CPU_PROGRAM_MAP(dn3500_map)
@@ -1076,7 +1077,7 @@ static MACHINE_CONFIG_START( dn3500 )
 #endif
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( dsp3500 )
+MACHINE_CONFIG_START(apollo_state::dsp3500)
 	MCFG_CPU_ADD(MAINCPU, M68030, 25000000) /* 25 MHz 68030 */
 	MCFG_CPU_PROGRAM_MAP(dsp3500_map)
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(apollo_state,apollo_irq_acknowledge)
@@ -1098,7 +1099,7 @@ static MACHINE_CONFIG_START( dsp3500 )
 	MCFG_DEFAULT_LAYOUT( layout_apollo_dsp )
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn3500_19i, dn3500 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn3500_19i, dn3500)
 	/* video hardware 19" monochrome */
 	MCFG_APOLLO_MONO19I_ADD(APOLLO_SCREEN_TAG)
 	MCFG_DEVICE_ADD(APOLLO_KBD_TAG, APOLLO_KBD, 0)
@@ -1106,7 +1107,7 @@ static MACHINE_CONFIG_DERIVED( dn3500_19i, dn3500 )
 	MCFG_APOLLO_KBD_GERMAN_CALLBACK(READLINE(apollo_state, apollo_kbd_is_german))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn3500_15i, dn3500 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn3500_15i, dn3500)
 	/* video hardware is 15" monochrome or color */
 	MCFG_APOLLO_GRAPHICS_ADD(APOLLO_SCREEN_TAG)
 	MCFG_DEVICE_ADD(APOLLO_KBD_TAG, APOLLO_KBD, 0)
@@ -1114,7 +1115,7 @@ static MACHINE_CONFIG_DERIVED( dn3500_15i, dn3500 )
 	MCFG_APOLLO_KBD_GERMAN_CALLBACK(READLINE(apollo_state, apollo_kbd_is_german))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn3000, dn3500 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn3000, dn3500)
 	MCFG_CPU_REPLACE(MAINCPU, M68020PMMU, 12000000) /* 12 MHz */
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(apollo_state,apollo_irq_acknowledge)
 	MCFG_CPU_PROGRAM_MAP(dn3000_map)
@@ -1124,7 +1125,7 @@ static MACHINE_CONFIG_DERIVED( dn3000, dn3500 )
 	MCFG_RAM_EXTRA_OPTIONS("4M")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( dsp3000 )
+MACHINE_CONFIG_START(apollo_state::dsp3000)
 	MCFG_CPU_ADD(MAINCPU, M68020PMMU, 12000000) /* 12 MHz */
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(apollo_state,apollo_irq_acknowledge)
 	MCFG_CPU_PROGRAM_MAP(dsp3000_map)
@@ -1149,7 +1150,7 @@ static MACHINE_CONFIG_START( dsp3000 )
 	MCFG_DEFAULT_LAYOUT( layout_apollo_dsp )
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn3000_19i, dn3000 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn3000_19i, dn3000)
 	/* video hardware 19" monochrome */
 	MCFG_APOLLO_MONO19I_ADD(APOLLO_SCREEN_TAG)
 	MCFG_DEVICE_ADD(APOLLO_KBD_TAG, APOLLO_KBD, 0)
@@ -1157,7 +1158,7 @@ static MACHINE_CONFIG_DERIVED( dn3000_19i, dn3000 )
 	MCFG_APOLLO_KBD_GERMAN_CALLBACK(READLINE(apollo_state, apollo_kbd_is_german))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn3000_15i, dn3000 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn3000_15i, dn3000)
 	/* video hardware 15" monochrome */
 	MCFG_APOLLO_GRAPHICS_ADD(APOLLO_SCREEN_TAG)
 	MCFG_DEVICE_ADD(APOLLO_KBD_TAG, APOLLO_KBD, 0)
@@ -1165,12 +1166,12 @@ static MACHINE_CONFIG_DERIVED( dn3000_15i, dn3000 )
 	MCFG_APOLLO_KBD_GERMAN_CALLBACK(READLINE(apollo_state, apollo_kbd_is_german))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn5500, dn3500 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn5500, dn3500)
 	MCFG_CPU_REPLACE(MAINCPU, M68040, 25000000) /* 25 MHz */
 	MCFG_CPU_PROGRAM_MAP(dn5500_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( dsp5500 )
+MACHINE_CONFIG_START(apollo_state::dsp5500)
 	MCFG_CPU_ADD(MAINCPU, M68040, 25000000) /* 25 MHz */
 	MCFG_CPU_PROGRAM_MAP(dsp5500_map)
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(apollo_state,apollo_irq_acknowledge)
@@ -1187,7 +1188,7 @@ static MACHINE_CONFIG_START( dsp5500 )
 	MCFG_DEFAULT_LAYOUT( layout_apollo_dsp )
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn5500_19i, dn5500 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn5500_19i, dn5500)
 	/* video hardware 19" monochrome */
 	MCFG_APOLLO_MONO19I_ADD(APOLLO_SCREEN_TAG)
 	MCFG_DEVICE_ADD(APOLLO_KBD_TAG, APOLLO_KBD, 0)
@@ -1195,7 +1196,7 @@ static MACHINE_CONFIG_DERIVED( dn5500_19i, dn5500 )
 	MCFG_APOLLO_KBD_GERMAN_CALLBACK(READLINE(apollo_state, apollo_kbd_is_german))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( dn5500_15i, dn5500 )
+MACHINE_CONFIG_DERIVED(apollo_state::dn5500_15i, dn5500)
 	/* video hardware 15" monochrome */
 	MCFG_APOLLO_GRAPHICS_ADD(APOLLO_SCREEN_TAG)
 	MCFG_DEVICE_ADD(APOLLO_KBD_TAG, APOLLO_KBD, 0)

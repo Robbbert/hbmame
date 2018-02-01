@@ -510,8 +510,8 @@ Reference video: https://www.youtube.com/watch?v=R5OeC6Wc_yI
 #include "speaker.h"
 
 
-#define MASTER_CLOCK        (XTAL_12MHz)
-#define SOUND_CLOCK         (XTAL_3_579545MHz)
+#define MASTER_CLOCK        (XTAL(12'000'000))
+#define SOUND_CLOCK         (XTAL(3'579'545))
 
 
 
@@ -623,9 +623,9 @@ ADDRESS_MAP_END
  *************************************/
 
 static ADDRESS_MAP_START( williams2_common_map, AS_PROGRAM, 8, williams2_state )
+	AM_RANGE(0x0000, 0xbfff) AM_RAM AM_SHARE("videoram")
 	AM_RANGE(0x0000, 0x7fff) AM_READ_BANK("bank1")
 	AM_RANGE(0x8000, 0x87ff) AM_DEVICE("bank8000", address_map_bank_device, amap8)
-	AM_RANGE(0x0000, 0xbfff) AM_RAM AM_SHARE("videoram")
 	AM_RANGE(0xc000, 0xc7ff) AM_RAM_WRITE(williams2_tileram_w) AM_SHARE("williams2_tile")
 	AM_RANGE(0xc800, 0xc87f) AM_WRITE(williams2_bank_select_w)
 	AM_RANGE(0xc880, 0xc887) AM_MIRROR(0x0078) AM_WRITE(williams_blitter_w)
@@ -1448,7 +1448,7 @@ GFXDECODE_END
  *
  *************************************/
 
-static MACHINE_CONFIG_START( williams )
+MACHINE_CONFIG_START(williams_state::williams)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", MC6809E, MASTER_CLOCK/3/4)
@@ -1498,7 +1498,7 @@ static MACHINE_CONFIG_START( williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( defender, williams )
+MACHINE_CONFIG_DERIVED(williams_state::defender, williams)
 
 	/* basic machine hardware */
 
@@ -1523,14 +1523,14 @@ static MACHINE_CONFIG_DERIVED( defender, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( jin, defender ) // needs a different screen size or the credit text is clipped
+MACHINE_CONFIG_DERIVED(williams_state::jin, defender) // needs a different screen size or the credit text is clipped
 	/* basic machine hardware */
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_VISIBLE_AREA(0, 315, 7, 247-1)
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( williams_muxed, williams )
+MACHINE_CONFIG_DERIVED(williams_state::williams_muxed, williams)
 
 	/* basic machine hardware */
 
@@ -1554,7 +1554,7 @@ static MACHINE_CONFIG_DERIVED( williams_muxed, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( spdball, williams )
+MACHINE_CONFIG_DERIVED(williams_state::spdball, williams)
 
 	/* basic machine hardware */
 
@@ -1565,7 +1565,7 @@ static MACHINE_CONFIG_DERIVED( spdball, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( lottofun, williams )
+MACHINE_CONFIG_DERIVED(williams_state::lottofun, williams)
 
 	/* basic machine hardware */
 
@@ -1578,7 +1578,7 @@ static MACHINE_CONFIG_DERIVED( lottofun, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( sinistar, williams )
+MACHINE_CONFIG_DERIVED(williams_state::sinistar, williams)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -1598,7 +1598,7 @@ static MACHINE_CONFIG_DERIVED( sinistar, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( playball, williams )
+MACHINE_CONFIG_DERIVED(williams_state::playball, williams)
 
 	/* basic machine hardware */
 
@@ -1620,7 +1620,7 @@ static MACHINE_CONFIG_DERIVED( playball, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( blastkit, williams )
+MACHINE_CONFIG_DERIVED(blaster_state::blastkit, williams)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -1647,7 +1647,7 @@ static MACHINE_CONFIG_DERIVED( blastkit, williams )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( blaster, blastkit )
+MACHINE_CONFIG_DERIVED(blaster_state::blaster, blastkit)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("soundcpu_b", M6808, SOUND_CLOCK) // internal clock divider of 4, effective frequency is 894.886kHz
@@ -1693,7 +1693,7 @@ static MACHINE_CONFIG_DERIVED( blaster, blastkit )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_START( williams2 )
+MACHINE_CONFIG_START(williams2_state::williams2)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", MC6809E, MASTER_CLOCK/3/4)
@@ -1756,7 +1756,7 @@ static MACHINE_CONFIG_START( williams2 )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( inferno, williams2 )
+MACHINE_CONFIG_DERIVED(williams2_state::inferno, williams2)
 	MCFG_DEVICE_MODIFY("pia_0")
 	MCFG_PIA_READPA_HANDLER(DEVREAD8("mux", ls157_x2_device, output_r))
 	MCFG_PIA_CA2_HANDLER(DEVWRITELINE("mux", ls157_x2_device, select_w))
@@ -1767,7 +1767,7 @@ static MACHINE_CONFIG_DERIVED( inferno, williams2 )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( mysticm, williams2 )
+MACHINE_CONFIG_DERIVED(williams2_state::mysticm, williams2)
 
 	/* basic machine hardware */
 
@@ -1782,7 +1782,7 @@ static MACHINE_CONFIG_DERIVED( mysticm, williams2 )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( tshoot, williams2 )
+MACHINE_CONFIG_DERIVED(tshoot_state::tshoot, williams2)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -1809,7 +1809,7 @@ static MACHINE_CONFIG_DERIVED( tshoot, williams2 )
 MACHINE_CONFIG_END
 
 
-static MACHINE_CONFIG_DERIVED( joust2, williams2 )
+MACHINE_CONFIG_DERIVED(joust2_state::joust2, williams2)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")

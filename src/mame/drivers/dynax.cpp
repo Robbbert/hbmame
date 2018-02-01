@@ -429,9 +429,9 @@ static ADDRESS_MAP_START( nanajign_mem_map, AS_PROGRAM, 8, dynax_state )
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( mjdialq2_mem_map, AS_PROGRAM, 8, dynax_state )
+	AM_RANGE( 0x0000, 0x7fff ) AM_ROM
 	AM_RANGE( 0x0800, 0x0fff ) AM_RAM
 	AM_RANGE( 0x1000, 0x1fff ) AM_RAM AM_SHARE("nvram")
-	AM_RANGE( 0x0000, 0x7fff ) AM_ROM
 	AM_RANGE( 0x8000, 0xffff ) AM_ROMBANK("bank1")
 ADDRESS_MAP_END
 
@@ -599,8 +599,8 @@ static ADDRESS_MAP_START( hjingi_mem_map, AS_PROGRAM, 8, dynax_state )
 	AM_RANGE( 0x0000, 0x01ff ) AM_ROM
 	AM_RANGE( 0x0200, 0x1fff ) AM_RAM AM_SHARE("nvram")
 	AM_RANGE( 0x2000, 0x7fff ) AM_ROM
-	AM_RANGE( 0x8000, 0xffff ) AM_ROMBANK("bank1")
 	AM_RANGE( 0x8000, 0xffff ) AM_DEVICE("bankdev", address_map_bank_device, amap8)
+	AM_RANGE( 0x8000, 0xffff ) AM_ROMBANK("bank1")
 ADDRESS_MAP_END
 
 static ADDRESS_MAP_START( hjingi_banked_map, AS_PROGRAM, 8, dynax_state )
@@ -4182,10 +4182,10 @@ MACHINE_START_MEMBER(dynax_state,hanamai)
                                 Castle Of Dracula
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( cdracula )
+MACHINE_CONFIG_START(dynax_state::cdracula)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", Z80, XTAL_21_4772MHz/4) /* 5.3693175MHz measured */
+	MCFG_CPU_ADD("maincpu", Z80, XTAL(21'477'272)/4) /* 5.3693175MHz measured */
 	MCFG_CPU_PROGRAM_MAP(cdracula_mem_map)
 	MCFG_CPU_IO_MAP(cdracula_io_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", dynax_state,  sprtmtch_vblank_interrupt)   /* IM 0 needs an opcode on the data bus */
@@ -4217,7 +4217,7 @@ static MACHINE_CONFIG_START( cdracula )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_OKIM6295_ADD("oki", XTAL_4MHz / 4, PIN7_HIGH) /* 1MHz measured */
+	MCFG_OKIM6295_ADD("oki", XTAL(4'000'000) / 4, PIN7_HIGH) /* 1MHz measured */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.80)
 MACHINE_CONFIG_END
 
@@ -4226,7 +4226,7 @@ MACHINE_CONFIG_END
                                 Hana no Mai
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( hanamai )
+MACHINE_CONFIG_START(dynax_state::hanamai)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",Z80,22000000 / 4)    /* 5.5MHz */
@@ -4290,10 +4290,10 @@ MACHINE_CONFIG_END
                                 Hana Oriduru
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( hnoridur )
+MACHINE_CONFIG_START(dynax_state::hnoridur)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",Z80,XTAL_22MHz / 4)    /* 5.5MHz */
+	MCFG_CPU_ADD("maincpu",Z80,XTAL(22'000'000) / 4)    /* 5.5MHz */
 	MCFG_CPU_PROGRAM_MAP(hnoridur_mem_map)
 	MCFG_CPU_IO_MAP(hnoridur_io_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", dynax_state,  sprtmtch_vblank_interrupt)   /* IM 0 needs an opcode on the data bus */
@@ -4335,14 +4335,14 @@ static MACHINE_CONFIG_START( hnoridur )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("aysnd", AY8912, XTAL_22MHz / 16)
+	MCFG_SOUND_ADD("aysnd", AY8912, XTAL(22'000'000) / 16)
 	MCFG_AY8910_PORT_A_READ_CB(IOPORT("DSW0"))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.20)
 
-	MCFG_SOUND_ADD("ym2413", YM2413, XTAL_3_579545MHz)
+	MCFG_SOUND_ADD("ym2413", YM2413, XTAL(3'579'545))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 
-	MCFG_SOUND_ADD("msm", MSM5205, XTAL_384kHz)
+	MCFG_SOUND_ADD("msm", MSM5205, XTAL(384'000))
 	MCFG_MSM5205_VCLK_CB(WRITELINE(dynax_state, adpcm_int))          /* IRQ handler */
 	MCFG_MSM5205_PRESCALER_SELECTOR(S48_4B)      /* 8 KHz, 4 Bits  */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
@@ -4353,10 +4353,10 @@ MACHINE_CONFIG_END
                                 Hana Jingi
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( hjingi )
+MACHINE_CONFIG_START(dynax_state::hjingi)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",Z80, XTAL_22MHz / 4)
+	MCFG_CPU_ADD("maincpu",Z80, XTAL(22'000'000) / 4)
 	MCFG_CPU_PROGRAM_MAP(hjingi_mem_map)
 	MCFG_CPU_IO_MAP(hjingi_io_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", dynax_state,  sprtmtch_vblank_interrupt)   /* IM 0 needs an opcode on the data bus */
@@ -4400,14 +4400,14 @@ static MACHINE_CONFIG_START( hjingi )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("aysnd", AY8912, XTAL_22MHz / 16)
+	MCFG_SOUND_ADD("aysnd", AY8912, XTAL(22'000'000) / 16)
 	MCFG_AY8910_PORT_A_READ_CB(IOPORT("DSW0"))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.20)
 
-	MCFG_SOUND_ADD("ym2413", YM2413, XTAL_3_579545MHz )
+	MCFG_SOUND_ADD("ym2413", YM2413, XTAL(3'579'545) )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 
-	MCFG_SOUND_ADD("msm", MSM5205, XTAL_384kHz )
+	MCFG_SOUND_ADD("msm", MSM5205, XTAL(384'000) )
 	MCFG_MSM5205_VCLK_CB(WRITELINE(dynax_state, adpcm_int))          /* IRQ handler */
 	MCFG_MSM5205_PRESCALER_SELECTOR(S48_4B)      /* 8 KHz, 4 Bits  */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
@@ -4418,7 +4418,7 @@ MACHINE_CONFIG_END
                                 Sports Match
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( sprtmtch )
+MACHINE_CONFIG_START(dynax_state::sprtmtch)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", Z80,22000000 / 4)   /* 5.5MHz */
@@ -4470,7 +4470,7 @@ MACHINE_CONFIG_END
                             Mahjong Friday
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( mjfriday )
+MACHINE_CONFIG_START(dynax_state::mjfriday)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",Z80,24000000/4)  /* 6 MHz? */
@@ -4519,7 +4519,7 @@ MACHINE_CONFIG_END
                             Mahjong Dial Q2
 ***************************************************************************/
 
-static MACHINE_CONFIG_DERIVED( mjdialq2, mjfriday )
+MACHINE_CONFIG_DERIVED(dynax_state::mjdialq2, mjfriday)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -4547,7 +4547,7 @@ INTERRUPT_GEN_MEMBER(dynax_state::yarunara_clock_interrupt)
 	sprtmtch_update_irq();
 }
 
-static MACHINE_CONFIG_DERIVED( yarunara, hnoridur )
+MACHINE_CONFIG_DERIVED(dynax_state::yarunara, hnoridur)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -4566,16 +4566,16 @@ static MACHINE_CONFIG_DERIVED( yarunara, hnoridur )
 	MCFG_SCREEN_VISIBLE_AREA(0, 336-1, 8, 256-1-8-1)
 
 	/* devices */
-	MCFG_DEVICE_ADD("rtc", MSM6242, XTAL_32_768kHz)
+	MCFG_DEVICE_ADD("rtc", MSM6242, XTAL(32'768))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mjangels, yarunara )
+MACHINE_CONFIG_DERIVED(dynax_state::mjangels, yarunara)
 	MCFG_DEVICE_MODIFY("bankdev")
 	MCFG_DEVICE_PROGRAM_MAP(mjangels_banked_map)
 	MCFG_ADDRESS_MAP_BANK_ADDR_WIDTH(21)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( quiztvqq, mjangels )
+MACHINE_CONFIG_DERIVED(dynax_state::quiztvqq, mjangels)
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -4587,7 +4587,7 @@ MACHINE_CONFIG_END
                             Mahjong Campus Hunting
 ***************************************************************************/
 
-static MACHINE_CONFIG_DERIVED( mcnpshnt, hnoridur )
+MACHINE_CONFIG_DERIVED(dynax_state::mcnpshnt, hnoridur)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mcnpshnt_mem_map)
 	MCFG_CPU_IO_MAP(mcnpshnt_io_map)
@@ -4600,7 +4600,7 @@ MACHINE_CONFIG_END
                             7jigen
 ***************************************************************************/
 
-static MACHINE_CONFIG_DERIVED( nanajign, hnoridur )
+MACHINE_CONFIG_DERIVED(dynax_state::nanajign, hnoridur)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(nanajign_mem_map)
 	MCFG_CPU_IO_MAP(nanajign_io_map)
@@ -4628,7 +4628,7 @@ MACHINE_START_MEMBER(dynax_state,jantouki)
 }
 
 
-static MACHINE_CONFIG_START( jantouki )
+MACHINE_CONFIG_START(dynax_state::jantouki)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",Z80,22000000 / 4)    /* 5.5MHz */
@@ -4695,10 +4695,10 @@ static MACHINE_CONFIG_START( jantouki )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 
 	/* devices */
-	MCFG_DEVICE_ADD("rtc", MSM6242, XTAL_32_768kHz)
+	MCFG_DEVICE_ADD("rtc", MSM6242, XTAL(32'768))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( janyuki, jantouki )
+MACHINE_CONFIG_DERIVED(dynax_state::janyuki, jantouki)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_INIT_OWNER(dynax_state,janyuki)         // static palette
 MACHINE_CONFIG_END
@@ -4721,8 +4721,8 @@ void dynax_state::mjelctrn_update_irq()
 	cpu.trg2(1);
 }
 
-static MACHINE_CONFIG_DERIVED( mjelctrn, hnoridur )
-	MCFG_CPU_REPLACE("maincpu", TMPZ84C015, XTAL_22MHz / 4)
+MACHINE_CONFIG_DERIVED(dynax_state::mjelctrn, hnoridur)
+	MCFG_CPU_REPLACE("maincpu", TMPZ84C015, XTAL(22'000'000) / 4)
 	MCFG_CPU_PROGRAM_MAP(nanajign_mem_map)
 	MCFG_CPU_IO_MAP(mjelctrn_io_map)
 
@@ -4741,7 +4741,7 @@ static MACHINE_CONFIG_DERIVED( mjelctrn, hnoridur )
 	MCFG_VIDEO_START_OVERRIDE(dynax_state,mjelctrn)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mjembase, mjelctrn )
+MACHINE_CONFIG_DERIVED(dynax_state::mjembase, mjelctrn)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_IO_MAP(mjembase_io_map)
 	MCFG_TMPZ84C015_IN_PA_CB(IOPORT("DSW1"))
@@ -4765,7 +4765,7 @@ MACHINE_CONFIG_END
     0x40 is vblank
     0x46 is a periodic irq? */
 
-static MACHINE_CONFIG_DERIVED( neruton, mjelctrn )
+MACHINE_CONFIG_DERIVED(dynax_state::neruton, mjelctrn)
 	MCFG_VIDEO_START_OVERRIDE(dynax_state,neruton)
 MACHINE_CONFIG_END
 
@@ -4792,7 +4792,7 @@ WRITE_LINE_MEMBER(dynax_state::tenkai_blitter_ack_w)
 }
 
 
-static MACHINE_CONFIG_START( tenkai )
+MACHINE_CONFIG_START(dynax_state::tenkai)
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",TMP91640, 21472700 / 2)
@@ -4851,17 +4851,17 @@ static MACHINE_CONFIG_START( tenkai )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 
 	/* devices */
-	MCFG_DEVICE_ADD("rtc", MSM6242, XTAL_32_768kHz)
+	MCFG_DEVICE_ADD("rtc", MSM6242, XTAL(32'768))
 	MCFG_MSM6242_OUT_INT_HANDLER(INPUTLINE("maincpu", INPUT_LINE_IRQ2))
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( majrjhdx, tenkai )
+MACHINE_CONFIG_DERIVED(dynax_state::majrjhdx, tenkai)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(512)
 	MCFG_PALETTE_INIT_OWNER(dynax_state,sprtmtch)            // static palette
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mjreach, tenkai )
+MACHINE_CONFIG_DERIVED(dynax_state::mjreach, tenkai)
 	MCFG_DEVICE_MODIFY("mainlatch")
 	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(dynax_state, flipscreen_w)) // not inverted
 MACHINE_CONFIG_END
@@ -4870,10 +4870,10 @@ MACHINE_CONFIG_END
                                 Mahjong Gekisha
 ***************************************************************************/
 
-static MACHINE_CONFIG_START( gekisha )
+MACHINE_CONFIG_START(dynax_state::gekisha)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",TMP90841, XTAL_10MHz )   // ?
+	MCFG_CPU_ADD("maincpu",TMP90841, XTAL(10'000'000) )   // ?
 	MCFG_CPU_PROGRAM_MAP(gekisha_map)
 	MCFG_TLCS90_PORT_P4_WRITE_CB(WRITE8(dynax_state, gekisha_p4_w))
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", dynax_state,  irq0_line_hold)
@@ -4915,12 +4915,12 @@ static MACHINE_CONFIG_START( gekisha )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("aysnd", AY8910, XTAL_24MHz / 16)    // ?
+	MCFG_SOUND_ADD("aysnd", AY8910, XTAL(24'000'000) / 16)    // ?
 	MCFG_AY8910_PORT_A_READ_CB(READ8(dynax_state, tenkai_dsw_r))
 	MCFG_AY8910_PORT_B_WRITE_CB(WRITE8(dynax_state, tenkai_dswsel_w))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.20)
 
-	MCFG_SOUND_ADD("ym2413", YM2413, XTAL_24MHz / 8) // ?
+	MCFG_SOUND_ADD("ym2413", YM2413, XTAL(24'000'000) / 8) // ?
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

@@ -33,7 +33,7 @@ static ADDRESS_MAP_START( fourplay_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x7800, 0x7800) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( fourplay, galaxian )
+MACHINE_CONFIG_DERIVED( galaxian_state::fourplay, galaxian )
 	/* info can be found at http://www.ionpool.net/arcade/galaxian_hacks/fourplay.htm */
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -92,7 +92,7 @@ static ADDRESS_MAP_START( jumpbugx_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x7800, 0x7800) AM_MIRROR(0x07ff) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( jumpbugx, jumpbug )
+MACHINE_CONFIG_DERIVED( galaxian_state::jumpbugx, jumpbug )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(jumpbugx_map)
 	MCFG_FRAGMENT_ADD(galaxian_audio)
@@ -195,7 +195,7 @@ static ADDRESS_MAP_START( tst_frog_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0xc000, 0xffff) AM_READWRITE(frogger_ppi8255_r, frogger_ppi8255_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( tst_frog, frogger )
+MACHINE_CONFIG_DERIVED( galaxian_state::tst_frog, frogger )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(tst_frog_map)
 	MCFG_DEVICE_REMOVE("watchdog")
@@ -236,7 +236,7 @@ static GFXDECODE_START( videight )
 	GFXDECODE_SCALE( "gfx1", 0x0000, galaxian_spritelayout, 0, 8*32, GALAXIAN_XSCALE,1)
 GFXDECODE_END
 
-static MACHINE_CONFIG_DERIVED( videight, galaxian )
+MACHINE_CONFIG_DERIVED( galaxian_state::videight, galaxian )
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")

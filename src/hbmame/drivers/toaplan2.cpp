@@ -113,7 +113,7 @@ ROM_END
  *************************************/
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
-GAME( 1994, snowbro2xs,   snowbro2,        snowbro2, snowbro2, driver_device,   0,       ROT0,   "Hacks", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, snowbro2xs,   snowbro2,        snowbro2, snowbro2, toaplan2_state,   0,       ROT0,   "Hacks", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame

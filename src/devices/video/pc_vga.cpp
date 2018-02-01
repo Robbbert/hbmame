@@ -1422,7 +1422,7 @@ void vga_device::recompute_params()
 	if(vga.miscellaneous_output & 8)
 		logerror("Warning: VGA external clock latch selected\n");
 	else
-		recompute_params_clock(1, (vga.miscellaneous_output & 0xc) ? XTAL_28_63636MHz : XTAL_25_1748MHz);
+		recompute_params_clock(1, ((vga.miscellaneous_output & 0xc) ? XTAL(28'636'363) : XTAL(25'174'800)).value());
 }
 
 void vga_device::crtc_reg_write(uint8_t index, uint8_t data)
@@ -2219,53 +2219,17 @@ WRITE8_MEMBER(vga_device::mem_linear_w)
 	vga.memory[offset % vga.svga_intf.vram_size] = data;
 }
 
-MACHINE_CONFIG_START( pcvideo_vga )
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_25_1748MHz,900,0,640,526,0,480)
-	MCFG_SCREEN_UPDATE_DEVICE("vga", vga_device, screen_update)
-
-	MCFG_PALETTE_ADD("palette", 0x100)
-	MCFG_DEVICE_ADD("vga", VGA, 0)
-MACHINE_CONFIG_END
-
-MACHINE_CONFIG_START( pcvideo_trident_vga )
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_25_1748MHz,900,0,640,526,0,480)
-	MCFG_SCREEN_UPDATE_DEVICE("vga", trident_vga_device, screen_update)
-
-	MCFG_PALETTE_ADD("palette", 0x100)
-	MCFG_DEVICE_ADD("vga", TRIDENT_VGA, 0)
-MACHINE_CONFIG_END
-
-MACHINE_CONFIG_START( pcvideo_gamtor_vga )
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_25_1748MHz,900,0,640,526,0,480)
-	MCFG_SCREEN_UPDATE_DEVICE("vga", gamtor_vga_device, screen_update)
-
-	MCFG_PALETTE_ADD("palette", 0x100)
-	MCFG_DEVICE_ADD("vga", GAMTOR_VGA, 0)
-MACHINE_CONFIG_END
-
-MACHINE_CONFIG_START( pcvideo_s3_vga )
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_25_1748MHz,900,0,640,526,0,480)
-	MCFG_SCREEN_UPDATE_DEVICE("vga", s3_vga_device, screen_update)
-
-	MCFG_PALETTE_ADD("palette", 0x100)
-	MCFG_DEVICE_ADD("vga", S3_VGA, 0)
-MACHINE_CONFIG_END
-
 
 //-------------------------------------------------
 //  device_add_mconfig - add device configuration
 //-------------------------------------------------
 
-MACHINE_CONFIG_MEMBER( ati_vga_device::device_add_mconfig )
+MACHINE_CONFIG_START(ati_vga_device::device_add_mconfig)
 	MCFG_MACH8_ADD_OWNER("8514a")
 	MCFG_EEPROM_SERIAL_93C46_ADD("ati_eeprom")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_MEMBER( s3_vga_device::device_add_mconfig )
+MACHINE_CONFIG_START(s3_vga_device::device_add_mconfig)
 	MCFG_8514A_ADD_OWNER("8514a")
 MACHINE_CONFIG_END
 
@@ -2286,22 +2250,22 @@ void tseng_vga_device::tseng_define_video_mode()
 	switch(((et4k.aux_ctrl << 1) & 4)|(vga.miscellaneous_output & 0xc)>>2)
 	{
 		case 0:
-			xtal = XTAL_25_1748MHz;
+			xtal = XTAL(25'174'800).value();
 			break;
 		case 1:
-			xtal = XTAL_28_63636MHz;
+			xtal = XTAL(28'636'363).value();
 			break;
 		case 2:
 			xtal = 16257000*2; //2xEGA clock
 			break;
 		case 3:
-			xtal = XTAL_40MHz;
+			xtal = XTAL(40'000'000).value();
 			break;
 		case 4:
-			xtal = XTAL_36MHz;
+			xtal = XTAL(36'000'000).value();
 			break;
 		case 5:
-			xtal = XTAL_45MHz;
+			xtal = XTAL(45'000'000).value();
 			break;
 		case 6:
 			xtal = 31000000;
@@ -2799,7 +2763,7 @@ uint8_t s3_vga_device::s3_crtc_reg_read(uint8_t index)
 void s3_vga_device::s3_define_video_mode()
 {
 	int divisor = 1;
-	int xtal = (vga.miscellaneous_output & 0xc) ? XTAL_28_63636MHz : XTAL_25_1748MHz;
+	int xtal = ((vga.miscellaneous_output & 0xc) ? XTAL(28'636'363) : XTAL(25'174'800)).value();
 	double freq;
 
 	if((vga.miscellaneous_output & 0xc) == 0x0c)
@@ -5172,26 +5136,18 @@ uint16_t ati_vga_device::offset()
 }
 
 
-void ati_vga_device::ati_define_video_mode()
+void ati_vga_device::set_dot_clock()
 {
 	int clock;
 	uint8_t clock_type;
 	int div = ((ati.ext_reg[0x38] & 0xc0) >> 6) + 1;
 	int divisor = 1;
 
-	svga.rgb8_en = 0;
-	svga.rgb15_en = 0;
-	svga.rgb16_en = 0;
-	svga.rgb32_en = 0;
-
-	if(ati.ext_reg[0x30] & 0x20)
-		svga.rgb8_en = 1;
-
 	clock_type = ((ati.ext_reg[0x3e] & 0x10)>>1) | ((ati.ext_reg[0x39] & 0x02)<<1) | ((vga.miscellaneous_output & 0x0c)>>2);
 	switch(clock_type)
 	{
 	case 0:
-		clock = XTAL_42_9545MHz;
+		clock = XTAL(42'954'545).value();
 		break;
 	case 1:
 		clock = 48771000;
@@ -5200,7 +5156,7 @@ void ati_vga_device::ati_define_video_mode()
 		clock = 16657000;
 		break;
 	case 3:
-		clock = XTAL_36MHz;
+		clock = XTAL(36'000'000).value();
 		break;
 	case 4:
 		clock = 50350000;
@@ -5218,7 +5174,7 @@ void ati_vga_device::ati_define_video_mode()
 		clock = 30240000;
 		break;
 	case 9:
-		clock = XTAL_32MHz;
+		clock = XTAL(32'000'000).value();
 		break;
 	case 10:
 		clock = 37500000;
@@ -5227,7 +5183,7 @@ void ati_vga_device::ati_define_video_mode()
 		clock = 39000000;
 		break;
 	case 12:
-		clock = XTAL_40MHz;
+		clock = XTAL(40'000'000).value();
 		break;
 	case 13:
 		clock = 56644000;
@@ -5239,11 +5195,25 @@ void ati_vga_device::ati_define_video_mode()
 		clock = 65000000;
 		break;
 	default:
-		clock = XTAL_42_9545MHz;
+		clock = XTAL(42'954'545).value();
 		logerror("Invalid dot clock %i selected.\n",clock_type);
 	}
 //  logerror("ATI: Clock select type %i (%iHz / %i)\n",clock_type,clock,div);
 	recompute_params_clock(divisor,clock / div);
+
+}
+
+void ati_vga_device::ati_define_video_mode()
+{
+	svga.rgb8_en = 0;
+	svga.rgb15_en = 0;
+	svga.rgb16_en = 0;
+	svga.rgb32_en = 0;
+
+	if(ati.ext_reg[0x30] & 0x20)
+		svga.rgb8_en = 1;
+
+	set_dot_clock();
 }
 
 READ8_MEMBER(ati_vga_device::mem_r)
@@ -5553,6 +5523,36 @@ READ16_MEMBER(ibm8514a_device::ibm8514_subcontrol_r)
 	return ibm8514.subctrl;
 }
 
+/*  22E8 (W)
+ * Display Control
+ *  bits 1-2: Line skip control - 0=bits 1-2 skipped, 1=bit 2 skipped
+ *  bit    3: Double scan
+ *  bit    4: Interlace
+ *  bits 5-6: Emable Display - 0=no change, 1=enable 8514/A, 2 or 3=8514/A reset
+ */
+WRITE16_MEMBER(ibm8514a_device::ibm8514_display_ctrl_w)
+{
+	ibm8514.display_ctrl = data & 0x7e;
+	switch(data & 0x60)
+	{
+		case 0x00:
+			break;  // do nothing
+		case 0x20:
+			ibm8514.enabled = true;  // enable 8514/A
+			break;
+		case 0x40:
+		case 0x60:  // reset (does this disable the 8514/A?)
+			ibm8514.enabled = false;
+			break;
+	}
+}
+
+WRITE16_MEMBER(ibm8514a_device::ibm8514_advfunc_w)
+{
+	ibm8514.advfunction_ctrl = data;
+	ibm8514.passthrough = data & 0x0001;
+}
+
 READ16_MEMBER(ibm8514a_device::ibm8514_htotal_r)
 {
 	return ibm8514.htotal;
@@ -5745,6 +5745,13 @@ WRITE16_MEMBER(mach8_device::mach8_scratch1_w)
 	if(LOG_8514) logerror("Mach8: Scratch Pad 1 write %04x\n",data);
 }
 
+WRITE16_MEMBER(mach8_device::mach8_crt_pitch_w)
+{
+	mach8.crt_pitch = data & 0x00ff;
+	m_vga->set_offset(mach8.crt_pitch);
+	if(LOG_8514) logerror("Mach8: CRT pitch write %04x\n",mach8.crt_pitch);
+}
+
 WRITE16_MEMBER(mach8_device::mach8_ge_offset_l_w)
 {
 	mach8.ge_offset = (mach8.ge_offset & 0x0f0000) | data;
@@ -5759,8 +5766,8 @@ WRITE16_MEMBER(mach8_device::mach8_ge_offset_h_w)
 
 WRITE16_MEMBER(mach8_device::mach8_ge_pitch_w)
 {
-	mach8.ge_pitch = mach8.ge_offset & 0x00ff;
-	if(LOG_8514) logerror("Mach8: Graphics Engine pitch write %05x\n",mach8.ge_pitch);
+	mach8.ge_pitch = data & 0x00ff;
+	if(LOG_8514) logerror("Mach8: Graphics Engine pitch write %04x\n",mach8.ge_pitch);
 }
 
 WRITE16_MEMBER(mach8_device::mach8_scan_x_w)
@@ -5872,4 +5879,19 @@ bit    0  SHARE_CLOCK. If set the Mach8 shares clock with the VGA
 READ16_MEMBER(mach8_device::mach8_config2_r)
 {
 	return 0x0002;
+}
+
+/* 7AEE (W)   Mach 8 (16-bit)
+ * bits    0-2  Monitor Alias - Monitor ID
+ * bit       3  Enable reporting of Monitor Alias
+ * bit      12  EEPROM Data Out
+ * bit      13  EEPROM Clock
+ * bit      14  EEPROM Chip Select
+ * bit      15  EEPROM Select (Enables read/write of external EEPROM)
+ */
+WRITE16_MEMBER(mach8_device::mach8_ge_ext_config_w)
+{
+	mach8.ge_ext_config = data;
+	if(data & 0x8000)
+		popmessage("EEPROM enabled via 7AEE");
 }

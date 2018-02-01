@@ -8,7 +8,7 @@
  * Lars Bjorklund. They constructed a series of microcomputers for educational purposes such as "Mikrodator 6802",
  * Esselte 100 and the Candela computer for the swedish schools to educate the students in assembly programming
  * and BASIC for electro mechanical applications such as stepper motors, simple process control, buttons
- * and LED:s. Didact designs were marketed by Esselte Studium to the swedish schools. 
+ * and LED:s. Didact designs were marketed by Esselte Studium to the swedish schools.
  *
  * The Esselte 1000 was an educational package based on Apple II plus software and litterature
  * but the relation to Didact is at this point unknown so it is probably a pure Esselte software production.
@@ -186,6 +186,7 @@ class md6802_state : public didact_state
 
 	virtual void machine_reset() override;
 	virtual void machine_start() override;
+	void md6802(machine_config &config);
 protected:
 	required_device<pia6821_device> m_pia1;
 	required_device<pia6821_device> m_pia2;
@@ -367,6 +368,7 @@ class mp68a_state : public didact_state
 
 	virtual void machine_reset() override;
 	virtual void machine_start() override;
+	void mp68a(machine_config &config);
 protected:
 	required_device<pia6820_device> m_pia1;
 	required_device<pia6820_device> m_pia2;
@@ -585,8 +587,8 @@ TIMER_DEVICE_CALLBACK_MEMBER(didact_state::scan_artwork)
 	}
 }
 
-static MACHINE_CONFIG_START( md6802 )
-	MCFG_CPU_ADD("maincpu", M6802, XTAL_4MHz)
+MACHINE_CONFIG_START(md6802_state::md6802)
+	MCFG_CPU_ADD("maincpu", M6802, XTAL(4'000'000))
 	MCFG_CPU_PROGRAM_MAP(md6802_map)
 	MCFG_DEFAULT_LAYOUT(layout_md6802)
 
@@ -618,7 +620,7 @@ static MACHINE_CONFIG_START( md6802 )
 	MCFG_RS232_PORT_ADD("rs232", default_rs232_devices, nullptr)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( mp68a )
+MACHINE_CONFIG_START(mp68a_state::mp68a)
 	// Clock source is based on a N9602N Dual Retriggerable Resettable Monostable Multivibrator oscillator at aprox 505KHz.
 	// Trimpot seems broken/stuck at 5K Ohm thu. ROM code 1Ms delay loops suggest 1MHz+
 	MCFG_CPU_ADD("maincpu", M6800, 505000)

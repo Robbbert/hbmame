@@ -99,8 +99,8 @@ namespace {
 }
 
 // **** Constants ****
-constexpr unsigned SYS_CLOCK = XTAL_4_9152MHz;
-constexpr unsigned VIDEO_DOT_CLOCK   = XTAL_21_06MHz;
+constexpr auto SYS_CLOCK = XTAL(4'915'200);
+constexpr auto VIDEO_DOT_CLOCK   = XTAL(21'060'000);
 constexpr unsigned VIDEO_VIS_ROWS    = 24;
 constexpr unsigned VIDEO_TOT_ROWS    = 25;
 constexpr unsigned VIDEO_VIS_COLS    = 80;
@@ -152,6 +152,8 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(async_txd_w);
 
 	TIMER_DEVICE_CALLBACK_MEMBER(timer_beep_exp);
+
+	void hp2645(machine_config &config);
 protected:
 	required_device<i8080a_cpu_device> m_cpu;
 	required_device<timer_device> m_timer_10ms;
@@ -708,7 +710,7 @@ void hp2645_state::update_async_control(uint8_t new_control)
 		if (new_rate_idx == 0) {
 			rxc_txc_freq = 0.0;
 		} else {
-			rxc_txc_freq = double(SYS_CLOCK) / baud_rate_divisors[ new_rate_idx ];
+			rxc_txc_freq = SYS_CLOCK.dvalue() / baud_rate_divisors[ new_rate_idx ];
 		}
 		m_uart->set_receiver_clock(rxc_txc_freq);
 		m_uart->set_transmitter_clock(rxc_txc_freq);
@@ -974,7 +976,7 @@ static ADDRESS_MAP_START(cpu_io_map , AS_IO , 8 , hp2645_state)
 	AM_RANGE(0x00 , 0xff) AM_WRITE(mode_byte_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_START(hp2645)
+MACHINE_CONFIG_START(hp2645_state::hp2645)
 	MCFG_CPU_ADD("cpu" , I8080A , SYS_CLOCK / 2)
 	MCFG_CPU_PROGRAM_MAP(cpu_mem_map)
 	MCFG_CPU_IO_MAP(cpu_io_map)

@@ -78,6 +78,7 @@ public:
 	TIMER_DEVICE_CALLBACK_MEMBER(schaser_effect_555_cb);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void schasercv(machine_config &config);
 private:
 
 	bool m_flip_screen;
@@ -544,7 +545,7 @@ static INPUT_PORTS_START( schasercv )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( schasercv )
+MACHINE_CONFIG_START( sc_state::schasercv )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
 	MCFG_CPU_PROGRAM_MAP(schaser_map)
