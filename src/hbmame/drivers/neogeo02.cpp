@@ -7,11 +7,11 @@
 #include "machine/watchdog.h"
 
 // set up a hbmame-specific derived class, instead of hacking into src/mame/includes/neogeo.h
-class neogeo_hbmame : public neogeo_state
+class neogeo2_hbmame : public neogeo2_state
 {
 public:
-	neogeo_hbmame(const machine_config &mconfig, device_type type, const char *tag)
-		: neogeo_state(mconfig, type, tag)
+	neogeo2_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: neogeo2_state(mconfig, type, tag)
 		, m_kog_prot(*this, "kog_prot")
 	{}
 
@@ -52,7 +52,6 @@ public:
 	DECLARE_DRIVER_INIT(kof2k3pcd);
 	DECLARE_DRIVER_INIT(kof10thu);
 	DECLARE_DRIVER_INIT(kogd);
-	DECLARE_DRIVER_INIT(lbsp);
 	DECLARE_DRIVER_INIT(matrima);
 	DECLARE_DRIVER_INIT(matrimd);
 	DECLARE_DRIVER_INIT(matrmehc);
@@ -81,18 +80,19 @@ public:
 	DECLARE_DRIVER_INIT(shockt2w);
 	DECLARE_DRIVER_INIT(svchb);
 	DECLARE_DRIVER_INIT(svcpcd);
+	void hbmame_kog(machine_config &config);
 private:
 	optional_device<kog_prot_device> m_kog_prot;
 };
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, cmc42sfix )
+DRIVER_INIT_MEMBER( neogeo2_hbmame, cmc42sfix )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
+DRIVER_INIT_MEMBER( neogeo2_hbmame, cmc50sfix )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -103,28 +103,28 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, cmc50sfix )
 /******************************************************************************/
 
 
-///#include "neogeohb.cpp"
-///#include "neogeo1.cpp"
-#include "kof94.cpp"
-#include "kof95.cpp"
-#include "kof96.cpp"
-#include "kof97.cpp"
-#include "kof98.cpp"
-#include "kof99.cpp"
-//#include "kof2000.cpp"
-//#include "kof2001.cpp"
-//#include "kof2002.cpp"
-//#include "kof2003.cpp"
-///#include "mgd2.cpp"
-#include "mslug.cpp"
-///#include "ngdoubledr.cpp"
-///#include "nggaroup.cpp"
-///#include "ngkofmisc.cpp"
-///#include "nglastblade.cpp"
-///#include "ngrbff.cpp"
-///#include "ngrotd.cpp"
-///#include "ngsamsho.cpp"
-///#include "ngsengoku.cpp"
-///#include "ngsvc.cpp"
-///#include "ngwh.cpp"
+#include "neogeohb.cpp"
+#include "neogeo1.cpp"
+///#include "kof94.cpp"
+///#include "kof95.cpp"
+///#include "kof96.cpp"
+///#include "kof97.cpp"
+///#include "kof98.cpp"
+///#include "kof99.cpp"
+#include "kof2000.cpp"
+#include "kof2001.cpp"
+#include "kof2002.cpp"
+#include "kof2003.cpp"
+#include "mgd2.cpp"
+///#include "mslug.cpp"
+#include "ngdoubledr.cpp"
+#include "nggaroup.cpp"
+#include "ngkofmisc.cpp"
+#include "nglastblade.cpp"
+#include "ngrbff.cpp"
+#include "ngrotd.cpp"
+#include "ngsamsho.cpp"
+#include "ngsengoku.cpp"
+#include "ngsvc.cpp"
+#include "ngwh.cpp"
 

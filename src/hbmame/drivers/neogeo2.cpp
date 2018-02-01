@@ -455,13 +455,11 @@
 
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
-#include "includes/neogeo.h"
+#include "includes/neogeo2.h"
 #include "machine/nvram.h"
 #include "machine/watchdog.h"
 #include "cpu/z80/z80.h"
 #include "sound/2610intf.h"
-//#include "softlist.h"
-//#include "neogeo.lh"
 
 
 #define LOG_VIDEO_SYSTEM         (0)
@@ -487,7 +485,7 @@
 #define IRQ2CTRL_AUTOLOAD_REPEAT    (0x80)
 
 
-void neogeo_state::adjust_display_position_interrupt_timer()
+void neogeo2_state::adjust_display_position_interrupt_timer()
 {
 	attotime period = attotime::from_ticks((uint64_t)m_display_counter + 1, NEOGEO_PIXEL_CLOCK);
 	if (LOG_VIDEO_SYSTEM) logerror("adjust_display_position_interrupt_timer  current y: %02x  current x: %02x   target y: %x  target x: %x\n", m_screen->vpos(), m_screen->hpos(), (m_display_counter + 1) / NEOGEO_HTOTAL, (m_display_counter + 1) % NEOGEO_HTOTAL);
@@ -496,13 +494,13 @@ void neogeo_state::adjust_display_position_interrupt_timer()
 }
 
 
-void neogeo_state::neogeo_set_display_position_interrupt_control( uint16_t data )
+void neogeo2_state::neogeo_set_display_position_interrupt_control( uint16_t data )
 {
 	m_display_position_interrupt_control = data;
 }
 
 
-void neogeo_state::neogeo_set_display_counter_msb( uint16_t data )
+void neogeo2_state::neogeo_set_display_counter_msb( uint16_t data )
 {
 	m_display_counter = (m_display_counter & 0x0000ffff) | ((uint32_t)data << 16);
 
@@ -510,7 +508,7 @@ void neogeo_state::neogeo_set_display_counter_msb( uint16_t data )
 }
 
 
-void neogeo_state::neogeo_set_display_counter_lsb( uint16_t data )
+void neogeo2_state::neogeo_set_display_counter_lsb( uint16_t data )
 {
 	m_display_counter = (m_display_counter & 0xffff0000) | data;
 
@@ -524,7 +522,7 @@ void neogeo_state::neogeo_set_display_counter_lsb( uint16_t data )
 }
 
 
-void neogeo_state::update_interrupts()
+void neogeo2_state::update_interrupts()
 {
 	m_maincpu->set_input_line(3, m_irq3_pending ? ASSERT_LINE : CLEAR_LINE);
 	m_maincpu->set_input_line(m_raster_level, m_display_position_interrupt_pending ? ASSERT_LINE : CLEAR_LINE);
@@ -532,7 +530,7 @@ void neogeo_state::update_interrupts()
 }
 
 
-void neogeo_state::neogeo_acknowledge_interrupt( uint16_t data )
+void neogeo2_state::neogeo_acknowledge_interrupt( uint16_t data )
 {
 	if (data & 0x01)
 		m_irq3_pending = 0;
@@ -545,7 +543,7 @@ void neogeo_state::neogeo_acknowledge_interrupt( uint16_t data )
 }
 
 
-TIMER_CALLBACK_MEMBER(neogeo_state::display_position_interrupt_callback)
+TIMER_CALLBACK_MEMBER(neogeo2_state::display_position_interrupt_callback)
 {
 	if (LOG_VIDEO_SYSTEM) logerror("--- Scanline @ %d,%d\n", m_screen->vpos(), m_screen->hpos());
 
@@ -565,7 +563,7 @@ TIMER_CALLBACK_MEMBER(neogeo_state::display_position_interrupt_callback)
 }
 
 
-TIMER_CALLBACK_MEMBER(neogeo_state::display_position_vblank_callback)
+TIMER_CALLBACK_MEMBER(neogeo2_state::display_position_vblank_callback)
 {
 	if (m_display_position_interrupt_control & IRQ2CTRL_AUTOLOAD_VBLANK)
 	{
@@ -578,7 +576,7 @@ TIMER_CALLBACK_MEMBER(neogeo_state::display_position_vblank_callback)
 }
 
 
-TIMER_CALLBACK_MEMBER(neogeo_state::vblank_interrupt_callback)
+TIMER_CALLBACK_MEMBER(neogeo2_state::vblank_interrupt_callback)
 {
 	if (LOG_VIDEO_SYSTEM) logerror("+++ VBLANK @ %d,%d\n", m_screen->vpos(), m_screen->hpos());
 
@@ -590,15 +588,15 @@ TIMER_CALLBACK_MEMBER(neogeo_state::vblank_interrupt_callback)
 }
 
 
-void neogeo_state::create_interrupt_timers()
+void neogeo2_state::create_interrupt_timers()
 {
-	m_display_position_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_state::display_position_interrupt_callback),this));
-	m_display_position_vblank_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_state::display_position_vblank_callback),this));
-	m_vblank_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo_state::vblank_interrupt_callback),this));
+	m_display_position_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo2_state::display_position_interrupt_callback),this));
+	m_display_position_vblank_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo2_state::display_position_vblank_callback),this));
+	m_vblank_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(neogeo2_state::vblank_interrupt_callback),this));
 }
 
 
-void neogeo_state::start_interrupt_timers()
+void neogeo2_state::start_interrupt_timers()
 {
 	m_vblank_interrupt_timer->adjust(m_screen->time_until_pos(NEOGEO_VBSTART) + NEOGEO_VBLANK_IRQ_HTIM);
 	m_display_position_vblank_timer->adjust(m_screen->time_until_pos(NEOGEO_VBSTART) + NEOGEO_VBLANK_RELOAD_HTIM);
@@ -612,12 +610,12 @@ void neogeo_state::start_interrupt_timers()
  *
  *************************************/
 
-void neogeo_state::audio_cpu_check_nmi()
+void neogeo2_state::audio_cpu_check_nmi()
 {
 	m_audiocpu->set_input_line(INPUT_LINE_NMI, (m_audio_cpu_nmi_enabled && m_audio_cpu_nmi_pending) ? ASSERT_LINE : CLEAR_LINE);
 }
 
-WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
+WRITE8_MEMBER(neogeo2_state::audio_cpu_enable_nmi_w)
 {
 	// out ($08) enables the nmi, out ($18) disables it
 	m_audio_cpu_nmi_enabled = !(offset & 0x10);
@@ -632,22 +630,22 @@ WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
  *
  *************************************/
 
-READ16_MEMBER(neogeo_state::in0_r)
+READ16_MEMBER(neogeo2_state::in0_r)
 {
 	return ((m_edge->in0_r(space, offset) & m_ctrl1->ctrl_r(space, offset)) << 8) | m_dsw->read();
 }
 
-READ16_MEMBER(neogeo_state::in1_r)
+READ16_MEMBER(neogeo2_state::in1_r)
 {
 	return ((m_edge->in1_r(space, offset) & m_ctrl2->ctrl_r(space, offset)) << 8) | 0xff;
 }
 
-CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_start_r)
+CUSTOM_INPUT_MEMBER(neogeo2_state::kizuna4p_start_r)
 {
 	return (m_edge->read_start_sel() & 0x05) | ~0x05;
 }
 
-WRITE8_MEMBER(neogeo_state::io_control_w)
+WRITE8_MEMBER(neogeo2_state::io_control_w)
 {
 	switch (offset)
 	{
@@ -697,7 +695,7 @@ WRITE8_MEMBER(neogeo_state::io_control_w)
  *
  *************************************/
 
-READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
+READ16_MEMBER(neogeo2_state::neogeo_unmapped_r)
 {
 	uint16_t ret;
 
@@ -724,13 +722,13 @@ READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
  *
  *************************************/
 
-void neogeo_state::set_save_ram_unlock( uint8_t data )
+void neogeo2_state::set_save_ram_unlock( uint8_t data )
 {
 	m_save_ram_unlocked = data;
 }
 
 
-WRITE16_MEMBER(neogeo_state::save_ram_w)
+WRITE16_MEMBER(neogeo2_state::save_ram_w)
 {
 	if (m_save_ram_unlocked)
 		COMBINE_DATA(&m_save_ram[offset]);
@@ -744,7 +742,7 @@ WRITE16_MEMBER(neogeo_state::save_ram_w)
  *
  *************************************/
 
-CUSTOM_INPUT_MEMBER(neogeo_state::get_memcard_status)
+CUSTOM_INPUT_MEMBER(neogeo2_state::get_memcard_status)
 {
 	// D0 and D1 are memcard 1 and 2 presence indicators, D2 indicates memcard
 	// write protect status (we are always write enabled)
@@ -752,7 +750,7 @@ CUSTOM_INPUT_MEMBER(neogeo_state::get_memcard_status)
 }
 
 
-READ16_MEMBER(neogeo_state::memcard_r)
+READ16_MEMBER(neogeo2_state::memcard_r)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
@@ -767,7 +765,7 @@ READ16_MEMBER(neogeo_state::memcard_r)
 }
 
 
-WRITE16_MEMBER(neogeo_state::memcard_w)
+WRITE16_MEMBER(neogeo2_state::memcard_w)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
@@ -784,7 +782,7 @@ WRITE16_MEMBER(neogeo_state::memcard_w)
  *
  *************************************/
 
-WRITE8_MEMBER(neogeo_state::audio_command_w)
+WRITE8_MEMBER(neogeo2_state::audio_command_w)
 {
 	m_soundlatch->write(space, 0, data);
 
@@ -796,7 +794,7 @@ WRITE8_MEMBER(neogeo_state::audio_command_w)
 }
 
 
-READ8_MEMBER(neogeo_state::audio_command_r)
+READ8_MEMBER(neogeo2_state::audio_command_r)
 {
 	uint8_t ret = m_soundlatch->read(space, 0);
 
@@ -807,7 +805,7 @@ READ8_MEMBER(neogeo_state::audio_command_r)
 }
 
 
-CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
+CUSTOM_INPUT_MEMBER(neogeo2_state::get_audio_result)
 {
 	uint8_t ret = m_soundlatch2->read(m_audiocpu->space(AS_PROGRAM), 0);
 
@@ -817,7 +815,7 @@ CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
 
 
 
-void neogeo_state::neogeo_main_cpu_banking_init()
+void neogeo2_state::neogeo_main_cpu_banking_init()
 {
 	m_use_cart_vectors = 0;
 
@@ -834,7 +832,7 @@ void neogeo_state::neogeo_main_cpu_banking_init()
  *
  *************************************/
 
-READ8_MEMBER(neogeo_state::audio_cpu_bank_select_r)
+READ8_MEMBER(neogeo2_state::audio_cpu_bank_select_r)
 {
 	m_bank_audio_cart[offset & 3]->set_entry(offset >> 8);
 
@@ -842,7 +840,7 @@ READ8_MEMBER(neogeo_state::audio_cpu_bank_select_r)
 }
 
 
-void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
+void neogeo2_state::neogeo_audio_cpu_banking_init(int set_entry)
 {
 	if (m_type == NEOGEO_CD) return;
 
@@ -901,7 +899,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
  *
  *************************************/
 
-WRITE8_MEMBER(neogeo_state::system_control_w)
+WRITE8_MEMBER(neogeo2_state::system_control_w)
 {
 	uint8_t bit = (offset >> 3) & 0x01;
 
@@ -955,7 +953,7 @@ WRITE8_MEMBER(neogeo_state::system_control_w)
  *
  *************************************/
 
-void neogeo_state::set_outputs(  )
+void neogeo2_state::set_outputs(  )
 {
 	static const uint8_t led_map[0x10] =
 		{ 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x58,0x4c,0x62,0x69,0x78,0x00 };
@@ -973,7 +971,7 @@ void neogeo_state::set_outputs(  )
 }
 
 
-void neogeo_state::set_output_latch( uint8_t data )
+void neogeo2_state::set_output_latch( uint8_t data )
 {
 	/* looks like the LEDs are set on the
 	   falling edge */
@@ -997,7 +995,7 @@ void neogeo_state::set_output_latch( uint8_t data )
 }
 
 
-void neogeo_state::set_output_data( uint8_t data )
+void neogeo2_state::set_output_data( uint8_t data )
 {
 	m_output_data = data;
 }
@@ -1010,19 +1008,19 @@ void neogeo_state::set_output_data( uint8_t data )
  *
  *************************************/
 
-DRIVER_INIT_MEMBER(neogeo_state,neogeo)
+DRIVER_INIT_MEMBER(neogeo2_state,neogeo)
 {
 	m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
 
 	m_sprgen->m_fixed_layer_bank_type = 0;
 
 	// install controllers
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16_delegate(FUNC(neogeo_state::in0_r), this));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16_delegate(FUNC(neogeo_state::in1_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16_delegate(FUNC(neogeo2_state::in0_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16_delegate(FUNC(neogeo2_state::in1_r), this));
 }
 
 
-void neogeo_state::neogeo_postload()
+void neogeo2_state::neogeo_postload()
 {
 	m_bank_audio_main->set_entry(m_use_cart_audio);
 
@@ -1030,7 +1028,7 @@ void neogeo_state::neogeo_postload()
 }
 
 
-void neogeo_state::machine_start()
+void neogeo2_state::machine_start()
 {
 	m_type = NEOGEO_MVS;
 
@@ -1075,7 +1073,7 @@ void neogeo_state::machine_start()
 	save_item(NAME(m_use_cart_vectors));
 	save_item(NAME(m_use_cart_audio));
 
-	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_state::neogeo_postload), this));
+	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo2_state::neogeo_postload), this));
 
 	m_sprgen->set_screen(m_screen);
 	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
@@ -1091,7 +1089,7 @@ void neogeo_state::machine_start()
  *
  *************************************/
 
-void neogeo_state::machine_reset()
+void neogeo2_state::machine_reset()
 {
 	offs_t offs;
 	address_space &space = m_maincpu->space(AS_PROGRAM);
@@ -1115,7 +1113,7 @@ void neogeo_state::machine_reset()
 	m_recurse = false;
 }
 
-READ16_MEMBER(neogeo_state::banked_vectors_r)
+READ16_MEMBER(neogeo2_state::banked_vectors_r)
 {
 	if (!m_use_cart_vectors)
 	{
@@ -1130,12 +1128,12 @@ READ16_MEMBER(neogeo_state::banked_vectors_r)
 
 }
 
-READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_r)
+READ16_MEMBER(neogeo2_state::neogeo_slot_rom_low_r)
 {
 	return 0;
 }
 
-READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
+READ16_MEMBER(neogeo2_state::neogeo_slot_rom_low_bectors_r)
 {
 	if (!m_use_cart_vectors)
 	{
@@ -1156,7 +1154,7 @@ READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
  *
  *************************************/
 
-ADDRESS_MAP_START( neogeo_main_map, AS_PROGRAM, 16, neogeo_state )
+ADDRESS_MAP_START( neogeo_main_map2, AS_PROGRAM, 16, neogeo2_state )
 
 	AM_RANGE(0x100000, 0x10ffff) AM_MIRROR(0x0f0000) AM_RAM
 	/* some games have protection devices in the 0x200000 region, it appears to map to cart space, not surprising, the ROM is read here too */
@@ -1178,7 +1176,7 @@ ADDRESS_MAP_START( neogeo_main_map, AS_PROGRAM, 16, neogeo_state )
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( main_map_slot, AS_PROGRAM, 16, neogeo_state )
+static ADDRESS_MAP_START( main_map_slot2, AS_PROGRAM, 16, neogeo2_state )
 	AM_RANGE(0x000000, 0x00007f) AM_READ(neogeo_slot_rom_low_bectors_r)
 	AM_RANGE(0x000080, 0x0fffff) AM_READ(neogeo_slot_rom_low_r)
 	AM_RANGE(0x200000, 0x2fffff) AM_ROMBANK("cartridge")
@@ -1192,7 +1190,7 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( audio_map, AS_PROGRAM, 8, neogeo_state )
+static ADDRESS_MAP_START( audio_map2, AS_PROGRAM, 8, neogeo2_state )
 	AM_RANGE(0x0000, 0x7fff) AM_ROMBANK("audio_main")
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("audio_8000")
 	AM_RANGE(0xc000, 0xdfff) AM_ROMBANK("audio_c000")
@@ -1209,7 +1207,7 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( audio_io_map, AS_IO, 8, neogeo_state )
+static ADDRESS_MAP_START( audio_io_map2, AS_IO, 8, neogeo2_state )
 	AM_RANGE(0x00, 0x00) AM_MIRROR(0xff00) AM_READ(audio_command_r) AM_DEVWRITE("soundlatch", generic_latch_8_device, clear_w)
 	AM_RANGE(0x04, 0x07) AM_MIRROR(0xff00) AM_DEVREADWRITE("ymsnd", ym2610_device, read, write)
 	AM_RANGE(0x08, 0x08) AM_MIRROR(0xff00) AM_SELECT(0x0010) AM_WRITE(audio_cpu_enable_nmi_w)
@@ -1226,7 +1224,7 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-INPUT_PORTS_START( neogeo )
+INPUT_PORTS_START( neogeo2 )
 	PORT_START("DSW")
 	PORT_DIPNAME( 0x01, 0x01, "Setting Mode" ) PORT_DIPLOCATION("SW:1")
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
@@ -1258,7 +1256,7 @@ INPUT_PORTS_START( neogeo )
 	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Next Game") PORT_CODE(KEYCODE_3)
 	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Previous Game") PORT_CODE(KEYCODE_4)
-	PORT_BIT( 0x7000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state, get_memcard_status, nullptr)
+	PORT_BIT( 0x7000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo2_state, get_memcard_status, nullptr)
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_SPECIAL ) /* Hardware type (AES=0, MVS=1). Some games check this and show a piracy warning screen if the hardware and BIOS don't match */
 
 	PORT_START("AUDIO/COIN")
@@ -1270,7 +1268,7 @@ INPUT_PORTS_START( neogeo )
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_SPECIAL ) /* what is this? When ACTIVE_HIGH + IN4 bit 6 ACTIVE_LOW MVS-4 slot is detected */
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("upd4990a", upd1990a_device, tp_r)
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("upd4990a", upd1990a_device, data_out_r)
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,get_audio_result, nullptr)
+	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo2_state,get_audio_result, nullptr)
 
 	PORT_START("TEST")
 	PORT_BIT( 0x003f, IP_ACTIVE_HIGH, IPT_UNUSED )
@@ -1278,18 +1276,18 @@ INPUT_PORTS_START( neogeo )
 	PORT_SERVICE_NO_TOGGLE( 0x0080, IP_ACTIVE_LOW )
 	PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNUSED )
 INPUT_PORTS_END
-
+#if 0
 static INPUT_PORTS_START( neogeo_6slot )
 	PORT_INCLUDE( neogeo )
 
 	PORT_MODIFY("TEST")
 	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_SPECIAL )
 INPUT_PORTS_END
+#endif
 
 
 
-
-DRIVER_INIT_MEMBER(neogeo_state,mvs)
+DRIVER_INIT_MEMBER(neogeo2_state,mvs)
 {
 	DRIVER_INIT_CALL(neogeo);
 }
@@ -1303,22 +1301,22 @@ DRIVER_INIT_MEMBER(neogeo_state,mvs)
  *
  *************************************/
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_base )
+MACHINE_CONFIG_START( neogeo2_state::neogeo_base )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(neogeo_main_map)
+	MCFG_CPU_PROGRAM_MAP(neogeo_main_map2)
 
 	MCFG_CPU_ADD("audiocpu", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(audio_map)
-	MCFG_CPU_IO_MAP(audio_io_map)
+	MCFG_CPU_PROGRAM_MAP(audio_map2)
+	MCFG_CPU_IO_MAP(audio_io_map2)
 
 	/* video hardware */
 	//MCFG_DEFAULT_LAYOUT(layout_neogeo)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(neogeo_state, screen_update_neogeo)
+	MCFG_SCREEN_UPDATE_DRIVER(neogeo2_state, screen_update_neogeo)
 
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
@@ -1341,7 +1339,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_arcade, neogeo_base )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_arcade, neogeo_base )
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK))
 	MCFG_UPD4990A_ADD("upd4990a", 32'768, NOOP, NOOP)
@@ -1349,9 +1347,9 @@ MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_arcade, neogeo_base )
 	MCFG_NEOGEO_MEMCARD_ADD("memcard")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::mvs, neogeo_arcade )
+MACHINE_CONFIG_DERIVED( neogeo2_state::mvs, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_slot)
+	MCFG_CPU_PROGRAM_MAP(main_map_slot2)
 
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge, "joy", false)
 
@@ -1359,15 +1357,15 @@ MACHINE_CONFIG_DERIVED( neogeo_state::mvs, neogeo_arcade )
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", false)
 MACHINE_CONFIG_END
 
-static ADDRESS_MAP_START( main_map_noslot, AS_PROGRAM, 16, neogeo_state )
-	AM_IMPORT_FROM( neogeo_main_map )
+static ADDRESS_MAP_START( main_map_noslot2, AS_PROGRAM, 16, neogeo2_state )
+	AM_IMPORT_FROM( neogeo_main_map2 )
 	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
 	AM_RANGE(0x000080, 0x0fffff) AM_ROM
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_CPU_PROGRAM_MAP(main_map_noslot2)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -1388,9 +1386,9 @@ MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noslot, neogeo_arcade ) // no slot 
 	MCFG_SBP_PROT_ADD("sbp_prot")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kog, neogeo_arcade )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_kog, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_CPU_PROGRAM_MAP(main_map_noslot2)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -1405,7 +1403,7 @@ MACHINE_CONFIG_END
 
 // these basically correspond to the cabinets which were available in arcades:
 // with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_mj, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_mj, neogeo_noslot )
 
 	//no joystick panel
 	MCFG_DEVICE_REMOVE("edge")
@@ -1418,55 +1416,55 @@ MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_mj, neogeo_noslot )
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_dial, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_dial, neogeo_noslot )
 	MCFG_DEVICE_REMOVE("edge")
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_imaze, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_imaze, neogeo_noslot )
 	MCFG_DEVICE_REMOVE("edge")
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kiz4p, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_kiz4p, neogeo_noslot )
 	MCFG_DEVICE_REMOVE("edge")
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
 MACHINE_CONFIG_END
 
 // this is used by V-Liner, which handles differently inputs...
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noctrl, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::neogeo_noctrl, neogeo_noslot )
 	MCFG_DEVICE_REMOVE("ctrl1")
 	MCFG_DEVICE_REMOVE("ctrl2")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::no_watchdog, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::no_watchdog2, neogeo_noslot )
 	MCFG_WATCHDOG_MODIFY("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
 MACHINE_CONFIG_END
 
 // used by samsho2sp, doubledrsp
-ADDRESS_MAP_START( samsho2sp_map, AS_PROGRAM, 16, neogeo_state )
-	AM_IMPORT_FROM( main_map_noslot )
+ADDRESS_MAP_START( samsho2sp2_map, AS_PROGRAM, 16, neogeo2_state )
+	AM_IMPORT_FROM( main_map_noslot2 )
 	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x200000) // extra rom
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::samsho2sp, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::samsho2sp2, neogeo_noslot )
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
+	MCFG_CPU_PROGRAM_MAP(samsho2sp2_map)
 MACHINE_CONFIG_END
 
 // used by lbsp
-ADDRESS_MAP_START( lbsp_map, AS_PROGRAM, 16, neogeo_state )
-	AM_IMPORT_FROM( main_map_noslot )
+ADDRESS_MAP_START( lbsp2_map, AS_PROGRAM, 16, neogeo2_state )
+	AM_IMPORT_FROM( main_map_noslot2 )
 	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x700000) // extra rom
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::lbsp, neogeo_noslot )
+MACHINE_CONFIG_DERIVED( neogeo2_state::lbsp2, neogeo_noslot )
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(lbsp_map)
+	MCFG_CPU_PROGRAM_MAP(lbsp2_map)
 MACHINE_CONFIG_END
 
-
+#if 0
 /* dummy entry for the dummy bios driver */
 ROM_START( neogeo )
 	NEOGEO_BIOS
@@ -1493,4 +1491,5 @@ ROM_END
 
 
 /*    YEAR  NAME        PARENT    COMPAT    MACHINE   INPUT     INIT    */
-CONS( 1990, neogeo,     0,        0,        mvs,      neogeo_6slot,   neogeo_state, mvs,  "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+CONS( 1990, neogeo,     0,        0,        mvs,      neogeo_6slot,   neogeo2_state, mvs,  "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+#endif

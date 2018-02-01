@@ -21,10 +21,10 @@
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.
 #define NEOGEO_VBLANK_IRQ_HTIM (attotime::from_ticks(56+2, NEOGEO_MASTER_CLOCK))
 
-class neogeo_state : public driver_device
+class neogeo2_state : public driver_device
 {
 public:
-	neogeo_state(const machine_config &mconfig, device_type type, const char *tag)
+	neogeo2_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_banked_cart(*this, "banked_cart")
 		, m_maincpu(*this, "maincpu")
@@ -111,9 +111,9 @@ public:
 	void neogeo_imaze(machine_config &config);
 	void neogeo_kiz4p(machine_config &config);
 	void neogeo_noctrl(machine_config &config);
-	void no_watchdog(machine_config &config);
-	void samsho2sp(machine_config &config);
-	void lbsp(machine_config &config);
+	void no_watchdog2(machine_config &config);
+	void samsho2sp2(machine_config &config);
+	void lbsp2(machine_config &config);
 protected:
 	void neogeo_postload();
 	void update_interrupts();
@@ -287,7 +287,8 @@ public:
 	DECLARE_DRIVER_INIT(lans2004);
 	DECLARE_DRIVER_INIT(sbp);
 	DECLARE_DRIVER_INIT(irrmaze);
-	DECLARE_DRIVER_INIT(kof95sp);
+	DECLARE_DRIVER_INIT(lbsp);
+	DECLARE_DRIVER_INIT(dbdrsp);
 
 	void install_banked_bios();
 
