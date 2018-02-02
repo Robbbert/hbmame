@@ -19,8 +19,8 @@ galagax 		/* Jerky - Chris Moore hack of 1942 */
 	/* 1943 */
 1943			//parent
 1943h			/* Hacked to have the vendor name and phone number */
-// waiting for roms
-//1943kais01
+1943kai			//parent
+1943kais01
 
 	/* 8080bw */
 invaders		//parent
@@ -90,8 +90,7 @@ bombjack		//parent
 bmbjckgr		/* Vag @ GreekRoms */
 bombjckb		/* bootleg */
 bombjred		/* hack by unknown French person */
-// waiting for roms
-//bombjacks01
+bombjacks01
 
 
 	/* btime */
@@ -117,8 +116,7 @@ bbredux2		/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3		/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
 bublbobf 		/* Arkatrad */
 sboblboblh 		/* level select hack */
-// waiting for roms
-//bublbobls01
+bublbobls01
 
 	/* bwidow */
 spacwarp		/* Jeff Hendrix - Proto on Space Duel HW */
