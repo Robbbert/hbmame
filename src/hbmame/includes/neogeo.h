@@ -288,6 +288,8 @@ public:
 	DECLARE_DRIVER_INIT(sbp);
 	DECLARE_DRIVER_INIT(irrmaze);
 	DECLARE_DRIVER_INIT(kof95sp);
+	DECLARE_DRIVER_INIT(dbdrsp);
+	DECLARE_DRIVER_INIT(lbsp);
 
 	void install_banked_bios();
 

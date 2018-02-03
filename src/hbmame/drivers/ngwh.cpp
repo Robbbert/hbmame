@@ -368,23 +368,23 @@ ROM_END
 
 
 
-GAME( 1995, whpb,      whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpb2,     whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char - 2 with Icons)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpbh,     whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpbho,    whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Boss Hack - Older - Has bug)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpbho2,   whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char - Old - BugFix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpeh,     whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Creamymami, Dodowang, Fighters Kim", "World Heroes Perfect (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpeho,    whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Creamymami, Dodowang, Fighters Kim", "World Heroes Perfect (Add Char - Pow hack - Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whphez,    whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Zeng_K", "World Heroes Perfect (Boss hack by Zeng_K)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whpsp,     whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Yashional", "World Heroes Perfect (Special Boss hack by Yashional)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, whpss,     whp,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Eddids", "World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 2007-12-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpb,      whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpb2,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char - 2 with Icons)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpbh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpbho,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang", "World Heroes Perfect (Boss Hack - Older - Has bug)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpbho2,   whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char - Old - BugFix)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpeh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang, Fighters Kim", "World Heroes Perfect (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpeho,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang, Fighters Kim", "World Heroes Perfect (Add Char - Pow hack - Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whphez,    whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Zeng_K", "World Heroes Perfect (Boss hack by Zeng_K)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whpsp,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Yashional", "World Heroes Perfect (Special Boss hack by Yashional)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, whpss,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Eddids", "World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 2007-12-25)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, wh1bs,     wh1,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Yumeji", "World Heroes (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wh1bs,     wh1,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Yumeji", "World Heroes (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1993, wh2bs,     wh2,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "Yumeji", "World Heroes 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, wh2ey,     wh2,  neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (ADM-007)(ADH-007)(old set)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wh2jb,     wh2j, neogeo_noslot, neogeo, neogeo2_state, neogeo, ROT0, "0days", "World Heroes 2 Jet (Boss hack by 0days (EGCG))", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, wh2bs,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Yumeji", "World Heroes 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, wh2ey,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (ADM-007)(ADH-007)(old set)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wh2jb,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "0days", "World Heroes 2 Jet (Boss hack by 0days (EGCG))", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -760,19 +760,19 @@ ROM_END
 
 
  // World Heroes Perfect
-GAME( 2017, whps01,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Always Maximum Hero Power)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps02,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Add Character Boss)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps03,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Add Character Boss Set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps04,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Add Character Boss Set 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps05,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps06,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Maximum Hero Power)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps07,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Moved To Modify V1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, whps08,         whp,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Moved To Modify V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps01,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Always Maximum Hero Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps02,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Add Character Boss)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps03,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Add Character Boss Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps04,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Add Character Boss Set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps05,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps06,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Maximum Hero Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps07,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Moved To Modify V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, whps08,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes Perfect (Moved To Modify V2)", MACHINE_SUPPORTS_SAVE )
  // World Heroes 2 Jet
-GAME( 2017, wh1s01,         wh1,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Enable Hidden Characters Alt)(ALM-005)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, wh1s02,         wh1,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Move Simplified)(ALM-005)", MACHINE_SUPPORTS_SAVE ) //No funciona(Crasheo)
-GAME( 2017, wh1hs01,        wh1,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Enable Hidden Characters)(ALM-005)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, wh1has01,       wh1,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Enable Hidden Characters Alt V2)(set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, wh2s01,         wh2j,     neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes 2 Jet (Enable Hidden Characters V1)(ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, wh2s02,         wh2,      neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes 2 (Easy Special Attacks)(ALM-006)(ALH-006)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, wh2s03,         wh2j,     neogeo_noslot, neogeo, neogeo2_state,         neogeo,   ROT0,  "Hacks",     "World Heroes 2 Jet (Easy Special Attacks Alt)(ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, wh1s01,         wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Enable Hidden Characters Alt)(ALM-005)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, wh1s02,         wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Move Simplified)(ALM-005)", MACHINE_SUPPORTS_SAVE ) //No funciona(Crasheo)
+GAME( 2017, wh1hs01,        wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Enable Hidden Characters)(ALM-005)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, wh1has01,       wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes (Enable Hidden Characters Alt V2)(set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, wh2s01,         wh2j,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes 2 Jet (Enable Hidden Characters V1)(ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, wh2s02,         wh2,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes 2 (Easy Special Attacks)(ALM-006)(ALH-006)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, wh2s03,         wh2j,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",     "World Heroes 2 Jet (Easy Special Attacks Alt)(ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )

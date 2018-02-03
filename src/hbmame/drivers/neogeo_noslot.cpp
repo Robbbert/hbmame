@@ -6,89 +6,6 @@
 #include "includes/neogeo.h"
 
 
-#if 0
-static ADDRESS_MAP_START( main_map_noslot1, AS_PROGRAM, 16, neogeo_state )
-	AM_IMPORT_FROM( neogeo_main_map )
-	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
-	AM_RANGE(0x000080, 0x0fffff) AM_ROM
-ADDRESS_MAP_END
-
-
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noslot2, neogeo_arcade ) // no slot config (legacy mame)
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot1)
-
-	//joystick controller
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
-
-	//no mahjong controller
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
-
-	MCFG_MSLUGX_PROT_ADD("mslugx_prot")
-	MCFG_SMA_PROT_ADD("sma_prot")
-	MCFG_CMC_PROT_ADD("cmc_prot")
-	MCFG_PCM2_PROT_ADD("pcm2_prot")
-	MCFG_PVC_PROT_ADD("pvc_prot")
-	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
-	MCFG_KOF2002_PROT_ADD("kof2002_prot")
-	MCFG_FATFURY2_PROT_ADD("fatfury2_prot")
-	MCFG_KOF98_PROT_ADD("kof98_prot")
-	MCFG_SBP_PROT_ADD("sbp_prot")
-MACHINE_CONFIG_END
-
-//MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kog, neogeo_arcade )
-//	MCFG_CPU_MODIFY("maincpu")
-//	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
-
-	//joystick controller
-//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
-
-	//no mahjong controller
-//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
-//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
-
-//	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
-//	MCFG_KOG_PROT_ADD("kog_prot")
-//MACHINE_CONFIG_END
-
-// these basically correspond to the cabinets which were available in arcades:
-// with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
-//MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_mj, neogeo_noslot )
-
-	//no joystick panel
-//	MCFG_DEVICE_REMOVE("edge")
-//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "", true)
-
-	//P1 mahjong controller
-//	MCFG_DEVICE_REMOVE("ctrl1")
-//	MCFG_DEVICE_REMOVE("ctrl2")
-//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "mahjong", true)
-//	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
-//MACHINE_CONFIG_END
-
-//MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_dial, neogeo_noslot )
-//	MCFG_DEVICE_REMOVE("edge")
-//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
-//MACHINE_CONFIG_END
-
-//MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_imaze, neogeo_noslot )
-//	MCFG_DEVICE_REMOVE("edge")
-//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
-//MACHINE_CONFIG_END
-
-//MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kiz4p, neogeo_noslot )
-//	MCFG_DEVICE_REMOVE("edge")
-//	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
-//MACHINE_CONFIG_END
-
-// this is used by V-Liner, which handles differently inputs...
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noctrl, neogeo_noslot )
-	MCFG_DEVICE_REMOVE("ctrl1")
-	MCFG_DEVICE_REMOVE("ctrl2")
-MACHINE_CONFIG_END
-#endif
-
 /*************************************
  *
  *  Official sets
@@ -206,7 +123,7 @@ static INPUT_PORTS_START( dualbios )
 	PORT_DIPSETTING(    0x04, DEF_STR( Japan ) )
 INPUT_PORTS_END
 
-#if 0
+
 static INPUT_PORTS_START( mjneogeo )
 	PORT_INCLUDE( neogeo )
 
@@ -7815,7 +7732,7 @@ ROM_START( lasthope )
 	ROM_LOAD16_BYTE( "NGDT-300-C3.bin", 0x800000, 0x400000, CRC(50cc21cf) SHA1(0350aaef480c5fa12e68e540a4c974dbf5870add) )
 	ROM_LOAD16_BYTE( "NGDT-300-C4.bin", 0x800001, 0x400000, CRC(8486ad9e) SHA1(19a2a73c825687e0cb9fd62bde00db91b5409529))
 ROM_END
-#endif
+
 
 /*************************************
  *
@@ -8877,7 +8794,7 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3pcb)
     SAMURAI SHODOWN V SPECIAL                                   Fighting        SNK P/Yuki Ent  MVS Cartridge:2004/04/22
                                                                                                 NEOGEO ROM-cart:2004/07/15
 ****************************************************************************/
-#if 0
+
 /*    YEAR  NAME        PARENT    MACHINE          INPUT   INIT            MONITOR */
 /* SNK */
 GAME( 1990, nam1975,    neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "NAM-1975 (NGM-001)(NGH-001)", MACHINE_SUPPORTS_SAVE )
@@ -9205,7 +9122,7 @@ GAME( 2005, lasthope,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neoge
 
 /* NEOBITZ */
 // Knight's Chance (c)2014 - MVS/AES
-#endif
+
 
 
 #include "../hbmame/drivers/neogeo0.cpp"

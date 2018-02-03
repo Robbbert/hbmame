@@ -1157,7 +1157,6 @@ READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
  *************************************/
 
 ADDRESS_MAP_START( neogeo_main_map, AS_PROGRAM, 16, neogeo_state )
-
 	AM_RANGE(0x100000, 0x10ffff) AM_MIRROR(0x0f0000) AM_RAM
 	/* some games have protection devices in the 0x200000 region, it appears to map to cart space, not surprising, the ROM is read here too */
 	AM_RANGE(0x300080, 0x300081) AM_MIRROR(0x01ff7e) AM_READ_PORT("TEST")
@@ -1179,11 +1178,11 @@ ADDRESS_MAP_END
 
 
 static ADDRESS_MAP_START( main_map_slot, AS_PROGRAM, 16, neogeo_state )
+	AM_IMPORT_FROM( neogeo_main_map )
 	AM_RANGE(0x000000, 0x00007f) AM_READ(neogeo_slot_rom_low_bectors_r)
 	AM_RANGE(0x000080, 0x0fffff) AM_READ(neogeo_slot_rom_low_r)
 	AM_RANGE(0x200000, 0x2fffff) AM_ROMBANK("cartridge")
 //  AM_RANGE(0x2ffff0, 0x2fffff) AM_WRITE(main_cpu_bank_select_w)
-	AM_IMPORT_FROM( neogeo_main_map )
 ADDRESS_MAP_END
 
 /*************************************
