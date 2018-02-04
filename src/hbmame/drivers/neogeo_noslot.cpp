@@ -2,7 +2,6 @@
 // copyright-holders:Bryan McPhail,Ernesto Corvi,Andrew Prime,Zsolt Vasvari, Robbbert
 // thanks-to:Fuzz
 
-#include "emu.h"
 #include "includes/neogeo.h"
 
 

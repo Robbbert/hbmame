@@ -453,15 +453,8 @@
 
 ****************************************************************************/
 
-#include "emu.h"
-#include "cpu/m68000/m68000.h"
 #include "includes/neogeo.h"
-#include "machine/nvram.h"
-#include "machine/watchdog.h"
-#include "cpu/z80/z80.h"
-#include "sound/2610intf.h"
-//#include "softlist.h"
-//#include "neogeo.lh"
+#include "neogeo.lh"
 
 
 #define LOG_VIDEO_SYSTEM         (0)
@@ -1313,7 +1306,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	MCFG_CPU_IO_MAP(audio_io_map)
 
 	/* video hardware */
-	//MCFG_DEFAULT_LAYOUT(layout_neogeo)
+	MCFG_DEFAULT_LAYOUT(layout_neogeo)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)

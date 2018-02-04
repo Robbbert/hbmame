@@ -4,7 +4,6 @@
 
 /******************************************************************************/
 
-#include "machine/watchdog.h"
 
 // set up a hbmame-specific derived class, instead of hacking into src/mame/includes/neogeo.h
 class neogeo_hbmame : public neogeo_state

@@ -7,6 +7,12 @@
 
 *************************************************************************/
 
+#include "emu.h"
+#include "cpu/m68000/m68000.h"
+#include "cpu/z80/z80.h"
+#include "machine/nvram.h"
+#include "machine/watchdog.h"
+#include "sound/2610intf.h"
 #include "machine/upd1990a.h"
 #include "machine/ng_memcard.h"
 #include "machine/gen_latch.h"
