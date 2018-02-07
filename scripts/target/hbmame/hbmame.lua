@@ -306,6 +306,8 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "capcom")
 files {
+	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
+	MAME_DIR .. "src/mame/video/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1942.cpp",
 	MAME_DIR .. "src/mame/video/1942.cpp",
 	MAME_DIR .. "src/hbmame/drivers/blktiger.cpp",
@@ -372,6 +374,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "igs")
 files {
+	MAME_DIR .. "src/hbmame/drivers/igs011.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pgm.cpp",
 	MAME_DIR .. "src/mame/video/pgm.cpp",
 	MAME_DIR .. "src/mame/machine/pgmprot_igs027a_type1.cpp",
@@ -430,6 +433,8 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "konami")
 files {
+	MAME_DIR .. "src/hbmame/drivers/gradius3.cpp",
+	MAME_DIR .. "src/mame/video/gradius3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1943.cpp",
 	MAME_DIR .. "src/mame/video/1943.cpp",
 	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
@@ -615,12 +620,16 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "psikyo")
 files {
+	MAME_DIR .. "src/hbmame/drivers/psikyo.cpp",
+	MAME_DIR .. "src/mame/video/psikyo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/psikyosh.cpp",
 	MAME_DIR .. "src/mame/video/psikyosh.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "sega")
 files {
+	MAME_DIR .. "src/hbmame/drivers/segas24.cpp",
+	MAME_DIR .. "src/mame/video/segas24.cpp",
 	MAME_DIR .. "src/mame/machine/megadriv.cpp",
 	MAME_DIR .. "src/mame/drivers/megaplay.cpp",
 	MAME_DIR .. "src/mame/drivers/megatech.cpp",
@@ -684,6 +693,11 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "taito")
 files {
+	MAME_DIR .. "src/hbmame/drivers/mexico86.cpp",
+	MAME_DIR .. "src/mame/machine/mexico86.cpp",
+	MAME_DIR .. "src/mame/video/mexico86.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ikage.cpp",
+	MAME_DIR .. "src/mame/video/lkage.cpp",
 	MAME_DIR .. "src/hbmame/drivers/arkanoid.cpp",
 	MAME_DIR .. "src/mame/machine/arkanoid.cpp",
 	MAME_DIR .. "src/mame/video/arkanoid.cpp",
@@ -727,6 +741,11 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
 files {
+	MAME_DIR .. "src/hbmame/drivers/solomon.cpp",
+	MAME_DIR .. "src/mame/video/solomon.cpp",
+	MAME_DIR .. "src/hbmame/drivers/tecmosys.cpp",
+	MAME_DIR .. "src/mame/machine/tecmosys.cpp",
+	MAME_DIR .. "src/mame/video/tecmosys.cpp",
 	MAME_DIR .. "src/mame/video/tecmo_spr.cpp",
 	MAME_DIR .. "src/mame/video/tecmo_mix.cpp",
 	MAME_DIR .. "src/mame/video/tecmo_mix.h",
@@ -746,6 +765,8 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
 files {
+	MAME_DIR .. "src/hbmame/drivers/snowbros.cpp",
+	MAME_DIR .. "src/mame/video/snowbros.cpp",
 	MAME_DIR .. "src/mame/drivers/toaplan1.cpp",
 	MAME_DIR .. "src/mame/machine/toaplan1.cpp",
 	MAME_DIR .. "src/mame/video/toaplan1.cpp",

@@ -1026,10 +1026,12 @@ qbertb
 vbert
 
 	/* gradius3 */
-//gradius3s01
+gradius3				//parent
+gradius3s01
 
 	/* igs011 */
-//lhb2s01
+lhb2					//parent
+lhb2s01
 
 	/* ir */
 ir			// extra sounds
@@ -3348,7 +3350,8 @@ airwolf		//parent
 airwolffr	// french
 
 	/* lkage */
-//lkages01
+lkage					//parent
+lkages01
 
 	/* m52 */
 alpha1v		// Kyle Hodgetts
@@ -3417,7 +3420,8 @@ sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
 	/* mexico86 */
-//kikikais01
+kikikai					//parent
+kikikais01
 
 	/* mgd2 */
 bstarsd		/* 0002 (c) 1990 SNK */
@@ -7014,8 +7018,9 @@ powerinsbs01
 powerinsbs02
 
 	/* psikyo */
-//tengais01
-//tengaijs01
+tengai					//parent
+tengais01
+tengaijs01
 
 	/* psikyosh */
 s1945ii			//parent
@@ -7072,11 +7077,13 @@ altbeastfr	// french - Arkatrad
 altbeasts01
 
 	/* segas24 */
-//ggrounds01
-//ggroundjs01
+gground					//parent
+ggrounds01
+ggroundjs01
 
 	/* sf */
-//sfs01
+//sf						//parent
+//sfs01      // freezes in attract mode
 
 	/* shaolins */
 kicker		//parent
@@ -7093,11 +7100,13 @@ renju		//parent
 renjuk		/* Korean Translation */
 
 	/* snowbros */
-//snowbross01
-//snowbross02
+snowbros					//parent
+snowbross01
+snowbross02
 
 	/* solomon */
-//solomonjs01
+solomon						//parent
+solomonjs01
 
 	/* spacmiss */
 spacmissx	// extra sounds
@@ -7200,7 +7209,8 @@ fstarfrc	//parent
 fstarfrcc
 
 	/* Tecmosys */
-//tkdenshos01
+tkdensho				//parent
+tkdenshos01
 
 	/* tehkanwc */
 tehkanwc	//parent
