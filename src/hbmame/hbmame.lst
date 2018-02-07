@@ -6033,144 +6033,144 @@ svchx26
 svchx27
 svchx28
 svchx29
-//svcboots01
-//svcboots02
-//svcboots03
-//svcboots04
-//svcboots05
-//svcboots06
-//svcboots07
-//svcboots08
-//svcboots09
-//svcboots10
-//svcboots11
-//svcboots12
-//svcboots13
-//svcboots14
-//svcboots15
-//svcboots16
-//svcboots17
-//svcboots18
+svcboots01
+svcboots02
+svcboots03
+svcboots04
+svcboots05
+svcboots06
+svcboots07
+svcboots08
+svcboots09
+svcboots10
+//svcboots11  // files missing
+//svcboots12  // files missing
+svcboots13
+svcboots14
+svcboots15
+svcboots16
+svcboots17
+svcboots18
 //svcboots19
-//svcboots20
-//svcboots21
-//svcboots22
-//svcboots23
-//svcboots24
-//svcboots25
+svcboots20
+svcboots21
+svcboots22
+//svcboots23  // files missing
+svcboots24
+svcboots25
 //svcboots26
 //svcboots27
-//svcboots28
-//svcboots29
-//svcboots30
-//svcboots31
-//svcboots32
-//svcboots33
-//svcboots34
-//svcboots35
-//svcboots36
-//svcboots37
+svcboots28
+svcboots29
+svcboots30
+svcboots31
+svcboots32
+svcboots33
+svcboots34
+svcboots35
+svcboots36
+svcboots37
 //svcboots38
-//svcpcbs01
-//svcpcbs02
-//svcpcbs03
-//svcpcbs04
-//svcpcbs05
-////svcpcbs06
-////svcpcbs07
-//svcpcbs08
-//svcpcbs09
-//svcpcbs10
-//svcpcbs11
-//svcpcbs12
-//svcpcbs13
-//svcpcbs14
-//svcpcbs15
-//svcpcbs16
-//svcpcbas01
-//svcpcbas02
-//svcpcbas03
-//svcpcbas04
-//svcpluss01
-//svcpluss02
-//svcpluss03
-//svcpluss04
-//svcpluss05
-//svcpluss06
-//svcpluss07
-//svcpluss08
-//svcpluss09
-//svcpluss10
-//svcpluss11
-//svcpluss12
-//svcpluss13
-//svcpluss14
-//svcpluss15
-//svcpluss16
-//svcpluss17
-//svcpluss18
-//svcpluss19
-//svcpluss20
-//svcpluss21
-//svcpluss22
-//svcpluss23
-//svcpluss24
-//svcpluss25
-//svcpluss26
-//svcpluss27
-//svcpluss28
-//svcpluss29
-//svcplusas01
-//svcplusas02
-//svcplusas03
-//svcplusas04
-//svcplusas05
-//svcplusas06
-//svcplusas07
-//svcplusas08
-//svcplusas09
-//svcplusas10
-//svcplusas11
-//svcplusas12
-//svcplusas13
-//svcplusas14
-//svcplusas15
-//svcplusas16
-//svcplusas17
-//svcplusas18
-//svcplusas19
-//svcplusas20
-//svcplusas21
-//svcplusas22
-//svcplusas23
-//svcplusas24
-//svcplusas25
+svcpcbs01
+svcpcbs02
+svcpcbs03
+svcpcbs04
+svcpcbs05
+//svcpcbs06
+//svcpcbs07
+svcpcbs08
+svcpcbs09
+svcpcbs10
+svcpcbs11
+svcpcbs12
+svcpcbs13
+svcpcbs14
+svcpcbs15
+svcpcbs16
+//svcpcbas01  // file missing
+svcpcbas02
+svcpcbas03
+svcpcbas04
+svcpluss01
+svcpluss02
+svcpluss03
+svcpluss04
+svcpluss05
+svcpluss06
+svcpluss07
+svcpluss08
+svcpluss09
+svcpluss10
+svcpluss11
+svcpluss12
+svcpluss13
+svcpluss14
+svcpluss15
+svcpluss16
+svcpluss17
+svcpluss18
+svcpluss19
+svcpluss20
+svcpluss21
+svcpluss22
+svcpluss23
+svcpluss24
+svcpluss25
+svcpluss26
+svcpluss27
+svcpluss28
+svcpluss29
+svcplusas01
+//svcplusas02  // file missing
+svcplusas03
+svcplusas04
+svcplusas05
+svcplusas06
+svcplusas07
+svcplusas08
+svcplusas09
+svcplusas10
+svcplusas11
+svcplusas12
+svcplusas13
+svcplusas14
+svcplusas15
+svcplusas16
+svcplusas17
+svcplusas18
+svcplusas19
+svcplusas20
+svcplusas21
+svcplusas22
+svcplusas23
+svcplusas24
+svcplusas25
 //svcplusas26
-//svcplusas27
+svcplusas27
 //svcplusas28
 //svcplusas29
-//svcsplus01
-//svcsplus02
-//svcsplus03
-//svcsplus04
-//svcsplus05
-//svcsplus06
-//svcsplus07
-//svcsplus08
-//svcsplus09
-//svcsplus10
-//svcsplus11
-//svcsplus12
-//svcsplus13
-//svcsplus14
-//svcsplus15
-//svcsplus16
-//svcsplus17
-//svcdwt01
-//svcdwt02
-//svcdwt03
-//svcdwt04
-//svcdwt05
+svcsplus01
+svcsplus02
+svcsplus03
+svcsplus04
+svcsplus05
+svcsplus06
+svcsplus07
+svcsplus08
+svcsplus09
+svcsplus10
+svcsplus11
+//svcsplus12  // files missing
+svcsplus13
+svcsplus14
+svcsplus15
+svcsplus16
+svcsplus17
+svcdwt01
+svcdwt02
+svcdwt03
+svcdwt04
+svcdwt05
 
 	/* ngwh */
 whpb
@@ -6193,16 +6193,16 @@ wh2jb
 //whps02
 //whps03
 //whps04
-//whps05
-//whps06
-//whps07
-//whps08
+whps05
+whps06
+whps07
+whps08
 //wh1s01
-//wh1hs01
-//wh1has01
+wh1hs01
+wh1has01
 //wh2s01
-//wh2s02
-//wh2s03
+wh2s02
+wh2s03
 
 	/* nmk16 */
 //tdragon			//parent
@@ -7006,12 +7006,12 @@ powerins		//parent
 powernbr		// Brazil translation
 // waiting for roms
 //powerns01
-//powerns02
-//powerinss01
-//powerinsas01
-//powerinsas02
-//powerinsbs01
-//powerinsbs02
+powerns02
+powerinss01
+powerinsas01
+powerinsas02
+powerinsbs01
+powerinsbs02
 
 	/* psikyo */
 //tengais01
@@ -7022,12 +7022,14 @@ s1945ii			//parent
 s1945iiex
 s1945iii		//parent
 s1945sr3
+// waiting on roms
 //daraku		//parent
-//darakuhc01 need roms
 //darakuhc01
-//gunbird2s01
-//s1945iiis01
-//soldivids01
+gunbird2		//parent
+gunbird2s01
+s1945iiis01
+soldivid		//parent
+soldivids01
 
 	/* rallyx */
 rallyx			//parent
@@ -7065,9 +7067,9 @@ astrob		//parent
 astrob2h
 
 	/* segas16b */
-//altbeast	//parent
-//altbeastfr	// french - Arkatrad - not working
-//altbeasts01
+altbeast	//parent
+altbeastfr	// french - Arkatrad
+altbeasts01
 
 	/* segas24 */
 //ggrounds01
@@ -7115,14 +7117,22 @@ bubbleb 	/* pbobble USA Region Hack */
 	/* taito_f2 */
 f2demo		/* Charles Doty */
 // waiting for roms
-//cameltryjs01
-//deadconxjs01
-//dondokodjs01
-//gunfrontjs01
-//megablstjs01
-//mizubakus01
-//runarks01
-//thundfoxjs01
+cameltry			//parent
+cameltryjs01		// bad gfx in title
+deadconx			//parent
+deadconxjs01
+dondokod			//parent
+dondokodjs01
+gunfront			//parent
+gunfrontjs01
+megablst			//parent
+megablstjs01
+liquidk				//parent
+mizubakus01
+growl				//parent
+runarks01
+thundfox			//parent
+thundfoxjs01
 
 	/* taito_f3 */
 cleopatr	//parent
@@ -7138,19 +7148,27 @@ gekiridoc
 landmakh
 pbobl2xh
 // waiting for roms
-//cleopatrs01
-//akkanvdrs01
-//arabianmjs01
-//bubsymphjs01
-//dankugas01
-//dankugas02
-//elvactrjs01
-//gseekerjs01
-//kaiserkns01
-//kaiserknjs01
-//kaiserknjs02
-//landmakrs01
-//lightbrjs01
+spcinv95			//parent
+akkanvdrs01
+arabianm			//parent
+arabianmjs01
+bublbob2			//parent
+bubsymphjs01
+cleopatrs01
+dankuga				//parent
+dankugas01
+dankugas02
+elvactr				//parent
+elvactrjs01
+gseeker				//parent
+gseekerjs01
+kaiserkn			//parent
+kaiserkns01
+kaiserknjs01
+kaiserknjs02
+landmakrs01
+lightbr				//parent
+lightbrjs01
 
 	/* taito_l */
 evilston	//parent
@@ -7160,9 +7178,11 @@ speccies	// Speccies 2 by Sokurah
 tldemo		// cmonkey
 tldemo2		// cmonkey
 // waiting on roms
-//evilstons01
-//kurikintjs01
-//plottingas01
+evilstons01
+kurikint				//parent
+kurikintjs01
+plotting				//parent
+plottingas01
 
 	/* tecmo */
 gemini		//parent
@@ -7170,9 +7190,10 @@ geminit		/* Twisty Hack */
 rygar		//parent
 rygark		/* Korean Translation */
 // waiting on roms
-//geminis01
-//rygarjs01
-//silkworms01
+geminis01
+rygarjs01
+silkworm				//parent
+silkworms01
 
 	/* tecmo16 */
 fstarfrc	//parent
@@ -7222,10 +7243,11 @@ timepltdiag
 ssriders	//parent
 ssridersaex
 // waiting on roms
-//ssridersudas01
-//tmnt2s01
-//tmnt2s02
-//tmnt2as01
+ssridersudas01
+tmnt2					//parent
+tmnt2s01
+tmnt2s02
+tmnt2as01
 
 	/* toaplan1 */
 fireshrk	//parent
@@ -7240,11 +7262,11 @@ batsugun	//parent
 batsugunt
 bgaregga	//parent
 bgareggz
-//snowbro2		//parent
-//mahoudais01
-//shippumds01
+snowbro2		//parent
+mahoudais01				// bad gfx on title
+shippumds01				// bad gfx on title
 //snowbro2s01               //Snow Bros 2 (Todos los Roms Hacks Coleccion)
-//snowbro2s02
+snowbro2s02
 
 	/* trackfld */
 trackfld	//parent
@@ -7264,8 +7286,8 @@ volfiedg	/* Vag @ GreekRoms 2005 */
 suprmrio	//parent
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
-// waiting on roms
-//drmarios01
+drmario					//parent
+drmarios01
 
 	/* wc90 */
 pac90
@@ -7286,12 +7308,4 @@ wmg
 	/* yiear */
 yiear		//parent
 nacho		/* Gatinho - Nacho Libre */
-
-
-/*
-neogeo roms to be found
-mslug3b6			//parent
-ms4plus				//parent
-neobombe			//parent
-*/
 
