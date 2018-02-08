@@ -6405,8 +6405,6 @@ alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
 	/* pgm */
 pgm			//required bios
 ket
-//kov			//parent
-//kov2		//parent
 kovplus
 kovsh
 kov2p
@@ -6509,33 +6507,32 @@ kovsh19			// rugal 98
 //kov2s21
 //kov2s22
 //kov2s23
-//kov2p204s03
-//kov2p204s04
-//kov2p204s05
-//kov2p204s06
-//kov2p204s07
-//kov2p204s08
-//kov2p204s09
-//kov2p204s10
-//kov2p204s11
-//kov2p204s12
-//kov2p204s13
-//kov2p204s14
-//kov2p204s15
-//kov2p204s16
-//kov2p204s17
-//kov2p204s18
-//kov2p204s19
-//kov2p204s20
-//kov2p204s21
-//kov2p204s22
+kov2p204s03
+kov2p204s04
+kov2p204s05
+kov2p204s06
+kov2p204s07
+kov2p204s08
+kov2p204s09
+kov2p204s10
+kov2p204s11
+kov2p204s12
+kov2p204s13
+kov2p204s14
+kov2p204s15
+kov2p204s16
+kov2p204s17
+kov2p204s18
+kov2p204s19
+kov2p204s20
+kov2p204s21
+kov2p204s22
 //kov2h01
 //kov2h02
 //kov2h03
 //kov2h04
 //kov2h05
 //kov2h06
-//killblds01
 //kovs01
 //kovs02
 //kovs03
@@ -6618,65 +6615,65 @@ kovsh19			// rugal 98
 //kovs83
 //kovs84
 //kovs85
-//kovplus01
-//kovplus03
-//kovplus04
-//kovplus05
-//kovplus06
-//kovplus07
-//kovplus08
-//kovplus09
-//kovplus10
-//kovplus11
-//kovplus12
-//kovplus13
-//kovplus14
-//kovplus15
-//kovplus16
-//kovplus17
-//kovplus18
-//kovplus19
-//kovplus20
-//kovplus21
-//kovplus22
-//kovplus23
-//kovplus24
-//kovplus25
-//kovplus26
-//kovplus27
-//kovplus28
-//kovplus29
-//kovplus30
-//kovplus31
-//kovplus32
-//kovplus33
-//kovplus34
-//kovplus35
-//kovplus36
-//kovplus37
-//kovplus38
-//kovplus39
-//kovplus40
-//kovplus41
-//kovplus42
-//kovplus43
-//kovplus44
-//kovplus45
-//kovplus46
-//kovplus47
-//kovplus48
-//kovplus49
-//kovplus50
-//kovplus51
-//kovplus52
-//kovplus53
-//kovplus54
-//kovplus55
-//kovplus56
-//kovplus57
-//kovplus58
-//kovplus59
-//kovplus60
+kovplus01  // bad gfx on char select screen
+kovplus03  // illegal instruction in attract mode
+kovplus04  // illegal instruction starting 2nd attract
+kovplus05  // bad gfx on credit/char-select screens
+kovplus06  // bad gfx on credit screen
+kovplus07
+//kovplus08   // files missing
+//kovplus09   // files missing
+//kovplus10   // files missing
+//kovplus11   // files missing
+//kovplus12   // files missing
+//kovplus13   // files missing
+//kovplus14   // files missing
+//kovplus15   // files missing
+//kovplus16   // files missing
+//kovplus17   // files missing
+//kovplus18   // files missing
+//kovplus19   // files missing
+//kovplus20   // files missing
+kovplus21
+kovplus22
+kovplus23   // bad role in attract mode
+kovplus24
+kovplus25
+kovplus26
+kovplus27
+kovplus28
+//kovplus29   // files missing
+//kovplus30   // files missing
+kovplus31
+kovplus32
+kovplus33
+kovplus34
+kovplus35
+//kovplus36   // files missing
+//kovplus37   // files missing
+kovplus38
+//kovplus39   // files missing
+//kovplus40   // files missing
+//kovplus41   // files missing
+//kovplus42   // files missing
+//kovplus43   // files missing
+//kovplus44   // files missing
+kovplus45
+//kovplus46   // files missing
+kovplus47
+kovplus48
+kovplus49
+//kovplus50   // files missing
+//kovplus51   // files missing
+//kovplus52   // files missing
+//kovplus53   // files missing
+kovplus54
+kovplus55
+kovplus56
+kovplus57
+kovplus58
+//kovplus59   // files missing
+//kovplus60   // files missing
 //kovplus61
 //kovplus62
 //kovplus63
@@ -6882,6 +6879,7 @@ kovsh19			// rugal 98
 //kovsho10
 //kovsho11
 //kovqhs01
+//killblds01
 //martmasthc01
 //orlegends01
 //orlegends02
