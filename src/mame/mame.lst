@@ -10625,6 +10625,7 @@ wizzard                         //
 @source:crystal.cpp
 crysbios                        //
 crysking                        // 2001 Brezzasoft. Crystal of the kings
+crzclass                        // 200? TJF
 crzyddz2                        // 2006 Sealy
 ddz                             // 200?
 donghaer                        //
@@ -14680,9 +14681,9 @@ ctstein                         // Castle Toy
 einvaderc                       // Entex
 funjacks                        // Mattel
 funrlgl                         // Mattel
-h2hbaskb                        // Coleco
-h2hhockey                       // Coleco
-h2hsoccer                       // Coleco
+h2hbaskbc                       // Coleco
+h2hhockeyc                      // Coleco
+h2hsoccerc                      // Coleco
 lchicken                        // LJN
 lightfgt                        // Milton Bradley
 mdallas                         // Mattel
@@ -14842,6 +14843,7 @@ gpoker                          // Gakken
 h2hbaseb                        // Coleco
 h2hboxing                       // Coleco
 h2hfootb                        // Coleco
+h2hhockey                       // Coleco
 horseran                        // Mattel
 lostreas                        // Parker Bros
 matchnum                        // A-One LSI
@@ -17996,10 +17998,12 @@ avengers                        // 2/1987 (c) 1987 (US)
 avengers2                       // 2/1987 (c) 1987 (US)
 buraiken                        // 2/1987 (c) 1987 (Japan)
 buraikenb                       // 2/1987 (c) 1987 (Japan)
+fball                           //
 lwings                          // 11/1986 (c) 1986
 lwings2                         // 11/1986 (c) 1986
 lwingsb                         // 11/1986 (c) 1986 (bootleg)
 lwingsj                         // 11/1986 (c) 1986
+lwingsja                        // 11/1986 (c) 1986
 sectionz                        // 12/1985 (c) 1985
 sectionza                       // 12/1985 (c) 1985
 trojan                          // 4/1986 (c) 1986 (US)
@@ -18007,7 +18011,6 @@ trojana                         // 4/1986 (c) 1986 (US)
 trojanb                         // bootleg
 trojanj                         // 4/1986 (c) 1986 (Japan)
 trojanr                         // 4/1986 (c) 1986 + Romstar
-fball                        //
 
 @source:lwriter.cpp
 lwriter                         // Apple LaserWriter
@@ -38936,9 +38939,9 @@ xsleenaj                        // TA-0019 (c) 1986
 @source:xavix.cpp
 taitons1                        //
 xavtenni                        //
-rad_ping						//
-rad_mtrk						//
-rad_bb2							//
+rad_ping                        //
+rad_mtrk                        //
+rad_bb2                         //
 
 @source:xbox.cpp
 xbox                            //
