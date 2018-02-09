@@ -2542,6 +2542,8 @@ files {
 	MAME_DIR .. "src/mame/audio/vboy.cpp",
 	MAME_DIR .. "src/mame/audio/vboy.h",
 	MAME_DIR .. "src/mame/drivers/gamecube.cpp",
+	MAME_DIR .. "src/mame/machine/m6502_vtscr.cpp",
+	MAME_DIR .. "src/mame/machine/m6502_vtscr.h",
 }
 
 createMESSProjects(_target, _subtarget, "nokia")
@@ -2704,7 +2706,7 @@ files {
 	MAME_DIR .. "src/mame/machine/nl_prodigy.h",
 }
 includedirs {
-	MAME_DIR .. "3rdparty/rapidjson/include",
+	ext_includedir("rapidjson"),
 }
 
 createMESSProjects(_target, _subtarget, "psion")
@@ -3398,6 +3400,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/socrates.cpp",
 	MAME_DIR .. "src/mame/audio/socrates.cpp",
 	MAME_DIR .. "src/mame/audio/socrates.h",
+	MAME_DIR .. "src/mame/drivers/inteladv.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "wang")

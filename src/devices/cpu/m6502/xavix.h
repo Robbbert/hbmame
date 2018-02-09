@@ -29,6 +29,7 @@ public:
 	O(callf_xa3);
 	O(retf_imp);
 	O(brk_xav_imp);
+	O(rti_xav_imp);
 
 	typedef device_delegate<uint8_t (int which, int half)> xavix_interrupt_vector_delegate;
 
@@ -70,7 +71,7 @@ protected:
 
 	virtual void device_start() override;
 	virtual void device_reset() override;
-	virtual void state_export(const device_state_entry &entry) override;
+	virtual offs_t pc_to_external(u16 pc) override;
 
 private:
 	xavix_interrupt_vector_delegate m_vector_callback;
