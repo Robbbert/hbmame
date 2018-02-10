@@ -6475,15 +6475,16 @@ kovsh3
 kovsh18			// gem fighters
 kovsh19			// rugal 98
 // waiting for roms
+kov					//parent
 //kov2                      //parent
 //killbld                   //parent
 //kovshp                    //parent
 //oldsplus                  //parent
 //olds                      //parent
 //martmast                  //parent
-//kovss01
-//kov100s01
-//kov115s01
+kovss01
+kov100s01
+kov115s01
 //kov2s01
 //kov2s02
 //kov2s03
@@ -6602,22 +6603,22 @@ kov2p204s22
 //kovs69
 //kovs70
 //kovs71
-//kovs72
-//kovs73
-//kovs74
-//kovs75
-//kovs76
-//kovs77
-//kovs78
-//kovs80
-//kovs81
-//kovs82
-//kovs83
-//kovs84
-//kovs85
+//kovs72   // files missing
+kovs73
+kovs74
+//kovs75   // ingame crash
+kovs76
+kovs77
+kovs78
+kovs80
+kovs81
+kovs82
+kovs83
+kovs84   // bad gfx
+kovs85
 kovplus01  // bad gfx on char select screen
-kovplus03  // illegal instruction in attract mode
-kovplus04  // illegal instruction starting 2nd attract
+//kovplus03  // ingame crash
+//kovplus04  // ingame crash
 kovplus05  // bad gfx on credit/char-select screens
 kovplus06  // bad gfx on credit screen
 kovplus07
@@ -6636,7 +6637,7 @@ kovplus07
 //kovplus20   // files missing
 kovplus21
 kovplus22
-kovplus23   // bad role in attract mode
+//kovplus23   // ingame crash
 kovplus24
 kovplus25
 kovplus26
@@ -6709,7 +6710,7 @@ kovplus92
 kovplus93
 kovplus94
 kovplus95
-//kovplus96   // exception occurred
+//kovplus96   // ingame crash
 //kovplus97   // files missing
 kovplus98
 kovplus99
@@ -6790,83 +6791,83 @@ kovplus158
 //kovsh019
 //kovsh020
 //kovsh021
-//kovsh022
-//kovsh023
-//kovsh024
-//kovsh025
-//kovsh026
-//kovsh027
-//kovsh028
-//kovsh029
-//kovsh030
-//kovsh031
-//kovsh032
-//kovsh033
-//kovsh034
-//kovsh035
-//kovsh036
-//kovsh037
-//kovsh038
-//kovsh039
-//kovsh040
-//kovsh041
-//kovsh042
-//kovsh043
-//kovsh044
-//kovsh045
-//kovsh046
-//kovsh047
-//kovsh048
-//kovsh049
-//kovsh050
-//kovsh052
-//kovsh053
-//kovsh054
-//kovsh055
-//kovsh057
-//kovsh058
-//kovsh063
-//kovsh064
-//kovsh065
-//kovsh066
-//kovsh067
-//kovsh068
-//kovsh069
-//kovsh070
-//kovsh071
-//kovsh072
-//kovsh073
-//kovsh074
-//kovsh075
-//kovsh076
-//kovsh077
-//kovsh078
-//kovsh079
-//kovsh080
-//kovsh081
-//kovsh082
-//kovsh083
-//kovsh084
-//kovsh085
-//kovsh086
-//kovsh087
-//kovsh088
-//kovsh089
-//kovsh090
-//kovsh091
-//kovsh092
-//kovsh093
-//kovsh094
-//kovsh095
-//kovsh096
-//kovsh097
-//kovsh098
-//kovsh099
-//kovshx01
-//kovshx02
-//kovshx03
-//kovshx04
-//kovshx05
+kovsh022
+kovsh023   // bad gfx
+//kovsh024   // ingame crash
+kovsh025
+//kovsh026   // files missing
+kovsh027
+kovsh028
+kovsh029
+kovsh030
+//kovsh031   // files missing
+//kovsh032   // files missing
+//kovsh033   // files missing
+//kovsh034   // files missing
+//kovsh035   // files missing
+//kovsh036   // files missing
+kovsh037
+//kovsh038   // files missing
+//kovsh039   // files missing
+//kovsh040   // files missing
+//kovsh041   // files missing
+//kovsh042   // files missing
+//kovsh043   // files missing
+//kovsh044   // files missing
+//kovsh045   // files missing
+//kovsh046   // files missing
+//kovsh047   // files missing
+//kovsh048   // files missing
+//kovsh049   // files missing
+//kovsh050   // files missing
+//kovsh052   // ingame crash
+kovsh053
+kovsh054
+//kovsh055   // files missing
+//kovsh057   // files missing
+//kovsh058   // files missing
+//kovsh063   // files missing
+//kovsh064   // files missing
+//kovsh065   // files missing
+//kovsh066   // files missing
+//kovsh067   // files missing
+//kovsh068   // files missing
+//kovsh069   // files missing
+//kovsh070   // files missing
+kovsh071   // bad gfx
+kovsh072
+//kovsh073   // files missing
+//kovsh074   // files missing
+//kovsh075   // files missing
+//kovsh076   // ingame crash
+//kovsh077   // files missing
+kovsh078
+kovsh079
+kovsh080
+kovsh081
+//kovsh082   // files missing
+kovsh083
+//kovsh084   // files missing
+//kovsh085   // files missing
+//kovsh086   // files missing
+kovsh087
+kovsh088
+kovsh089
+kovsh090
+kovsh091
+kovsh092
+kovsh093
+kovsh094
+kovsh095
+kovsh096
+kovsh097
+kovsh098   // bad gfx
+kovsh099
+kovshx01
+kovshx02
+//kovshx03   // files missing
+//kovshx04   // files missing
+kovshx05   // bad gfx
 //kovsho01
 //kovsho02
 //kovsho03
