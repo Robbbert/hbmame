@@ -249,6 +249,8 @@ public:
 	uint32_t copro_fifoout_pop(address_space &space, uint32_t offset, uint32_t mem_mask);
 	void copro_fifoout_push(device_t *device, uint32_t data,uint32_t offset,uint32_t mem_mask);
 
+	void model2_3d_frame_start( void );
+	void geo_parse( void );
 	void model2_3d_frame_end( bitmap_rgb32 &bitmap, const rectangle &cliprect );
 
 	void model2_timers(machine_config &config);
@@ -271,6 +273,20 @@ public:
 	void sj25_0207_01(machine_config &config);
 	void srallyc(machine_config &config);
 	void stcc(machine_config &config);
+	void copro_sharc_map(address_map &map);
+	void copro_tgp_map(address_map &map);
+	void copro_tgpx4_map(address_map &map);
+	void drive_io_map(address_map &map);
+	void drive_map(address_map &map);
+	void geo_sharc_map(address_map &map);
+	void model2_base_mem(address_map &map);
+	void model2_snd(address_map &map);
+	void model2a_crx_mem(address_map &map);
+	void model2b_crx_mem(address_map &map);
+	void model2c_crx_mem(address_map &map);
+	void model2o_mem(address_map &map);
+	void rchase2_iocpu_map(address_map &map);
+	void rchase2_ioport_map(address_map &map);
 };
 
 
