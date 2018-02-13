@@ -1,6 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
 // kof96ep has an extra rom with crossed wires which overrides part of the

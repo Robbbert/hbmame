@@ -231,6 +231,7 @@ NUM YEAR COMPANY                 TITLE
 
 *********************************************************************************************************/
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state, fr2ch )

@@ -6,6 +6,7 @@
 //              There's a nude woman at the right side.
 //              Sometimes the 6 women in the centre can also be nude.
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state,  cthd2k3a )

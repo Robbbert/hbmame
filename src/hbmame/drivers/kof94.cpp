@@ -1,6 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
 ROM_START( kof94b ) /* The King of Fighters '94 - Hack by Ydmis - (Can choose Rugal) */

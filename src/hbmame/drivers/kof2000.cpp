@@ -1,6 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
+
+
 DRIVER_INIT_MEMBER( neogeo_state, kof2000d )
 {
 	DRIVER_INIT_CALL(neogeo);

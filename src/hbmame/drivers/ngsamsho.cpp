@@ -2,6 +2,8 @@
 // copyright-holders:Robbbert
 // Samurai Shodown / Samurai Spirits
 
+#include "includes/neogeo.h"
+
 
 DRIVER_INIT_MEMBER( neogeo_state, sam5hb )
 {

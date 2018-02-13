@@ -1,6 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
 ROM_START( kof98aas ) // Asamiya Athena 99 Style by Ivex

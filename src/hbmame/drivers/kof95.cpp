@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // The King of Fighters '95
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state, kof95sp ) // thx FBA

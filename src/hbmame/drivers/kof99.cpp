@@ -1,6 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
 // Rules: no encryption, has s1 rom -> neogeo_state,neogeo

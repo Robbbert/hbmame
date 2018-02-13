@@ -26,6 +26,20 @@
 // On scanline 224, /VBLANK goes low 56 mclks (14 pixels) from the rising edge of /HSYNC.
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.
 #define NEOGEO_VBLANK_IRQ_HTIM (attotime::from_ticks(56+2, NEOGEO_MASTER_CLOCK))
+	// macros allow code below to be copy+pasted into slot devices more easily
+#define cpuregion memregion("maincpu")->base()
+#define cpuregion_size memregion("maincpu")->bytes()
+#define spr_region memregion("sprites")->base()
+#define spr_region_size memregion("sprites")->bytes()
+#define fix_region memregion("fixed")->base()
+#define fix_region_size memregion("fixed")->bytes()
+#define ym_region memregion("ymsnd")->base()
+#define ym_region_size memregion("ymsnd")->bytes()
+#define audiocpu_region memregion("audiocpu")->base()
+#define audio_region_size memregion("audiocpu")->bytes()
+#define audiocrypt_region memregion("audiocrypt")->base()
+#define audiocrypt_region_size memregion("audiocrypt")->bytes()
+
 
 class neogeo_state : public driver_device
 {
@@ -394,6 +408,8 @@ public:
 /*----------- defined in drivers/neogeo.c -----------*/
 
 INPUT_PORTS_EXTERN(neogeo);
+INPUT_PORTS_EXTERN(jockeygp);
+INPUT_PORTS_EXTERN(dualbios);
 
 /*************************************
  *

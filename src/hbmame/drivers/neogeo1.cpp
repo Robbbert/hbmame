@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // Neogeo hacks that don't warrant their own file
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state, jckeygpd)

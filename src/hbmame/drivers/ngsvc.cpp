@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // SVCCHAOS SNK vs Capcom
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state, svchb )

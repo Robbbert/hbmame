@@ -1,5 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+
+#include "includes/neogeo.h"
+
+
 #if 0
 DRIVER_INIT_MEMBER( neogeo_state, mslugx )
 {

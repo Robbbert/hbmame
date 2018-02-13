@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // Double Dragon
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state, dbdrsp )

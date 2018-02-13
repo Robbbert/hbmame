@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // The Last Blade
 
+#include "includes/neogeo.h"
 
 
 DRIVER_INIT_MEMBER( neogeo_state, lbsp ) // thx FBA

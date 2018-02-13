@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // Fatal Fury 1,2,3,special ; Real Bout Fatal Fury 1,2,special
 
+#include "includes/neogeo.h"
 
 
 ROM_START( fatfurspb )

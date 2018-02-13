@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // World Heroes hacks
 
+#include "includes/neogeo.h"
 
 
 ROM_START( whpb ) /* World Heroes Perfect - Hack by Creamymami and Dodowang - (Can choose Gokuu, Neo-Dio and Zeus) */
