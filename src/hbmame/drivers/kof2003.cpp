@@ -3,7 +3,7 @@
 
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof2003b ) // hacks of kf2k3bl
+DRIVER_INIT_MEMBER( neogeo_state, kof2003b ) // hacks of kf2k3bl
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_bootleg_prot->kf2k3bl_install_protection(m_maincpu, m_banked_cart, cpuregion, cpuregion_size);
@@ -31,7 +31,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2003b ) // hacks of kf2k3bl
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size, 1);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof2003hb ) // hacks of kof2003
+DRIVER_INIT_MEMBER( neogeo_state, kof2003hb ) // hacks of kof2003
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2; // for those sets with 512k of s1
@@ -74,7 +74,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2003hb ) // hacks of kof2003
 	}
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3hd )
+DRIVER_INIT_MEMBER( neogeo_state, kof2k3hd )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -85,7 +85,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3hd )
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof2k3pcd ) // decrypted C & decrypted Bios
+DRIVER_INIT_MEMBER( neogeo_state, kof2k3pcd ) // decrypted C & decrypted Bios
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -726,31 +726,31 @@ ROM_END
 
 
 
-GAME( 2003, kof2003d,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003hb, ROT0, "hack", "Kof2003 (Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2003d,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003hb, ROT0, "hack", "Kof2003 (Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2003f,   kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 Original (Fully Decrypted - Fixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2003rebh,kof2003,  no_watchdog,   neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (hack rebh)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3b,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "Gledson01", "Kof2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3bl2,  kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "hack", "Kof2003 (Bootleg Boss hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3br,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003hb, ROT0, "Neogeo BR team", "Kof2003 Portuguese Brazilian Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3b,    kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "Gledson01", "Kof2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3bl2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "hack", "Kof2003 (Bootleg Boss hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3br,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003hb, ROT0, "Neogeo BR team", "Kof2003 Portuguese Brazilian Hack", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3bs1,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3bs2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3bs3,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3bs4,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3d,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003hb, ROT0, "hack", "Kof2003 (NGM-2710)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3d,    kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003hb, ROT0, "hack", "Kof2003 (NGM-2710)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3evo,  kof2003,  no_watchdog,   neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (Evolution 1.4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3gc,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "Gledson01", "Kof2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3hd,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2k3hd,  ROT0, "hack", "Kof2003 (NGH-2710)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3gc,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "Gledson01", "Kof2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3hd,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2k3hd,  ROT0, "hack", "Kof2003 (NGH-2710)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3nd,   kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3nrx,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Kof2003 (Neoragex)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3pcd,  kf2k3pcb, neogeo_noslot, neogeo, neogeo_hbmame,       kof2k3pcd, ROT0, "hack", "Kof2003 (Japan, JAMMA PCB / decrypted C&Bios)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3pcd,  kf2k3pcb, neogeo_noslot, neogeo, neogeo_state,       kof2k3pcd, ROT0, "hack", "Kof2003 (Japan, JAMMA PCB / decrypted C&Bios)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3pch,  kf2k3pcb, neogeo_noslot, neogeo, neogeo_state, kf2k3pcb,  ROT0, "ZKW", "Kof2003 (Boss hack remixed by ZKW japan jamma pcb)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, kof2k3ps2,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (PS2 2008-03-03 beta 1.0 (EGCG/FCHT))", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, kof2k3ps3,  kof2003,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (PS2 2008-10-31 (EGCG/FCHT))", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof2k3ryu,  kof2003,  no_watchdog,   neogeo, neogeo_state,        neogeo,    ROT0, "Iori Yagami", "Kof2003 (Ryu Hack by Iori Yagami)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3sc,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "SHIPDS", "Kof2003 (Color changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3ss,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "hack", "Kof2003 (Silver Style Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3tc,   kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "T.Com", "Kof2003 (Char color changed for Kyo (2P/4P), DUOLON (4P), K' (4P) )", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2k3zgf,  kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,       kof2003b,  ROT0, "Zhaolu94", "Kof2003 (Attack cremation green)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3sc,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "SHIPDS", "Kof2003 (Color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3ss,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "hack", "Kof2003 (Silver Style Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3tc,   kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "T.Com", "Kof2003 (Char color changed for Kyo (2P/4P), DUOLON (4P), K' (4P) )", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2k3zgf,  kof2003,  neogeo_noslot, neogeo, neogeo_state,       kof2003b,  ROT0, "Zhaolu94", "Kof2003 (Attack cremation green)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -5669,36 +5669,36 @@ GAME( 2017, kof2003s39,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2
 GAME( 2017, kof2003s40,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Hacks",    "Kof2003 (Replace Time Border And Font Into PS2 Style)(NGM-2710)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2003s41,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Hacks",    "Kof2003 (Unlimited Credits in Console Mode)(NGM-2710)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2003s43,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Hacks",    "Kof2003 (Captain Super Kill Unified)(NGM-2710)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds01,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Portuguese Edition)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds02,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Simplified Chinese Access Menu)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds03,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Kami Team)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds04,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Portrait)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds05,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Always Chance Ok)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds06,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Enable Zoom)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds07,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Evolution 1.4)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds08,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Unlock Leader Special Move)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds09,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (PlayStation 2 Beta)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds10,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (PS2 Style Portraits)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds11,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Fix Adel & Mukai's Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds12,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Add Kagra-twins' Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds13,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Enhanced Power Mode)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds14,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Easy Active V1)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds15,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Easy Active V2)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds16,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Take Off Athena's Bikini)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds17,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Color Change V1)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds18,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace All Chars' Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds19,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace Some Chars' Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds20,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace Mukai's Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds21,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds22,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Violet Fire)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds23,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Transparency Blood Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds24,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Chest Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds25,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Gun Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds26,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Blood Alt)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds27,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Blood Alt 02)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds28,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (The Selection Interface Changes Randomly)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds29,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Red Blood)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2003ds30,    kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003hb, ROT0, "Hacks",    "Kof2003 (PS2 Style)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds01,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Portuguese Edition)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Simplified Chinese Access Menu)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds03,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Kami Team)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds04,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Portrait)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds05,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Always Chance Ok)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds06,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Enable Zoom)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds07,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Evolution 1.4)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds08,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Unlock Leader Special Move)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds09,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (PlayStation 2 Beta)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds10,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (PS2 Style Portraits)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds11,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Fix Adel & Mukai's Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds12,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Add Kagra-twins' Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds13,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Enhanced Power Mode)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds14,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Easy Active V1)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds15,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Easy Active V2)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds16,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Take Off Athena's Bikini)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds17,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Color Change V1)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds18,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace All Chars' Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds19,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace Some Chars' Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds20,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace Mukai's Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds21,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Replace Color)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds22,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Violet Fire)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds23,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Transparency Blood Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds24,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Chest Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds25,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Gun Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds26,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Blood Alt)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds27,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Blood Alt 02)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds28,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (The Selection Interface Changes Randomly)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds29,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (Red Blood)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2003ds30,    kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003hb, ROT0, "Hacks",    "Kof2003 (PS2 Style)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kf2k3bls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Hacks",    "Kof2003 (Portuguese Edition)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kf2k3bls02,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Hacks",    "Kof2003 (Always Change Ok)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kf2k3bls03,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Hacks",    "Kof2003 (Enable Zoom)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
@@ -5815,10 +5815,10 @@ GAME( 2017, kf2k3upls26,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 GAME( 2017, kf2k3upls27,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "Hacks", "Kof2004 Ultra Plus (PS2 Style)(KOF2003 bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kf2k3upls28,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "Hacks", "Kof2004 Ultra Plus (Transparency)(KOF2003 bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kf2k3upls29,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "Hacks", "Kof2004 Ultra Plus (Unlimited Credits In Console Mode)(KOF2003 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2k3s01,      kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 01 )", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2k3s02,      kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 02 )", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2k3s03,      kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 03 )", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2k3s04,      kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 04 )", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2k3s05,      kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 05 )", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2k3s06,      kof2003,  neogeo_noslot, neogeo, neogeo_hbmame,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 06 )", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k3s01,      kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 01 )", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k3s02,      kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 02 )", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k3s03,      kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 03 )", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k3s04,      kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 04 )", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k3s05,      kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 05 )", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2k3s06,      kof2003,  neogeo_noslot, neogeo, neogeo_state,        kof2003b,  ROT0, "Hacks",    "Kof2003 ( Description Of Unknown Origin 06 )", MACHINE_SUPPORTS_SAVE )
 

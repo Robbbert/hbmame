@@ -2193,7 +2193,7 @@ DRIVER_INIT_MEMBER(pgm_arm_type1_state,kovboot)
 }
 #endif
 
-//PSmame (c) galston90
+//PSmame (c) gaston90
 
  /****************************************
         The Killing Blade

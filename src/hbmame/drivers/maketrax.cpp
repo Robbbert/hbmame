@@ -94,7 +94,7 @@ WRITE8_MEMBER(pacman_state::piranha_interrupt_vector_w)
  *
  *************************************/
 
-static ADDRESS_MAP_START( piranha_writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::piranha_writeport )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_WRITE(piranha_interrupt_vector_w)
 ADDRESS_MAP_END

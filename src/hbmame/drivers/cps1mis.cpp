@@ -92,7 +92,7 @@ WRITE16_MEMBER(cps_state::daimakb_layer_w)
 
 ***************************************************************************/
 
-static ADDRESS_MAP_START( daimakb_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::daimakb_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800001) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800006, 0x800007) AM_WRITE(cps1_soundlatch_w) /* Sound command */
@@ -108,7 +108,7 @@ static ADDRESS_MAP_START( daimakb_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sk2h35_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sk2h35_map )
 /* unknown addresses (all write): 930008-930807. No 3rd player controls. NVRAM doesn't work */
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800001) AM_READ_PORT("IN1")            /* Player input ports */
@@ -127,7 +127,7 @@ static ADDRESS_MAP_START( sk2h35_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( cps1frog_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::cps1frog_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800001) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
@@ -139,7 +139,7 @@ static ADDRESS_MAP_START( cps1frog_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sk2h1q_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sk2h1q_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_RAM AM_SHARE("cps_a_regs")  /* CPS-A custom */
@@ -158,7 +158,7 @@ static ADDRESS_MAP_START( sk2h1q_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sk2h3_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sk2h3_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_RAM AM_SHARE("cps_a_regs")  /* CPS-A custom */
@@ -175,7 +175,7 @@ static ADDRESS_MAP_START( sk2h3_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sk2h31q_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sk2h31q_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_WRITE(cps1_cps_a_w) AM_SHARE("cps_a_regs")  /* Output ports */
@@ -194,7 +194,7 @@ static ADDRESS_MAP_START( sk2h31q_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sk2h31_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sk2h31_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_WRITE(cps1_cps_a_w) AM_SHARE("cps_a_regs")  /* Output ports */
@@ -211,7 +211,7 @@ static ADDRESS_MAP_START( sk2h31_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( wofsf2_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::wofsf2_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800007) AM_READ_PORT("IN1")
 	AM_RANGE(0x800018, 0x80001f) AM_READ(cps1_hack_dsw_r)
@@ -686,7 +686,7 @@ MACHINE_CONFIG_DERIVED( cps_state::sk2h1q, cps1frog )
 
 	MCFG_CPU_REPLACE("audiocpu", Z80, 8'000'000 )
 	MCFG_CPU_PROGRAM_MAP(qsound_sub_map)
-	MCFG_CPU_DECRYPTED_OPCODES_MAP(qsound_decrypted_opcodes_map)
+	MCFG_CPU_OPCODES_MAP(qsound_decrypted_opcodes_map)
 	MCFG_CPU_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250)    /* ?? */
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)

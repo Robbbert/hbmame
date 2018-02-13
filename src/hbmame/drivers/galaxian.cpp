@@ -9,7 +9,7 @@
  *
  *************************************/
 
-static ADDRESS_MAP_START( fourplay_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::fourplay_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x47ff) AM_RAM
 	AM_RANGE(0x5000, 0x53ff) AM_MIRROR(0x0400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
@@ -85,7 +85,7 @@ INPUT_PORTS_END
  *
  ***********************************************************/
 
-static ADDRESS_MAP_START( jumpbugx_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::jumpbugx_map )
 	AM_IMPORT_FROM(jumpbug_map)
 /* HBMAME - added next lines */
 	AM_RANGE(0x6800, 0x6807) AM_MIRROR(0x07f8) AM_DEVWRITE("cust", galaxian_sound_device, sound_w)
@@ -180,7 +180,7 @@ DRIVER_INIT_MEMBER( galaxian_state, trukker )
  *
  ***************************************************************/
 
-static ADDRESS_MAP_START( tst_frog_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::tst_frog_map )
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x8000, 0x87ff) AM_RAM
@@ -209,7 +209,7 @@ MACHINE_CONFIG_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( videight_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::videight_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x47ff) AM_RAM
 	AM_RANGE(0x5000, 0x53ff) AM_MIRROR(0x400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")

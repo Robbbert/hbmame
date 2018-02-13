@@ -3,7 +3,7 @@
 
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof97pla )
+DRIVER_INIT_MEMBER( neogeo_state, kof97pla )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
@@ -2203,7 +2203,7 @@ GAME( 1997, kof97pjc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 1997, kof97phl,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Liyang1983", "Kof'97 (Plus Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 PLUS set 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97pl3,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 PLUS set 3", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_hbmame,kof97pla, ROT0, "bootleg", "Kof'97 PLUS set 1", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_state,kof97pla, ROT0, "bootleg", "Kof'97 PLUS set 1", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "ZKW", "Kof'97 PLUS (Black Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof97plus, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 PLUS 2006", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "KOF1996", "Kof'97 Practice Mode", MACHINE_SUPPORTS_SAVE )

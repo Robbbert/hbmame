@@ -4,19 +4,19 @@
 
 
 // Rules: no encryption, has s1 rom -> neogeo_state,neogeo
-// no s1 rom -> neogeo_hbmame,cmc42sfix
+// no s1 rom -> neogeo_state,cmc42sfix
 // encrypted gfx -> m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
 // encrypted gfx and no s1 rom -> above plus m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size, KOF99_GFX_KEY);
 
 // encrypted gfx and has s1 rom
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof99bh )
+DRIVER_INIT_MEMBER( neogeo_state, kof99bh )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
 }
 
 // encrypted except for cx roms
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof99d )
+DRIVER_INIT_MEMBER( neogeo_state, kof99d )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sma_prot->kof99_decrypt_68k(cpuregion);
@@ -2927,7 +2927,7 @@ GAME( 2015, kof99ae20150711,   kof99,    neogeo_noslot, neogeo, neogeo_state, ne
 GAME( 2016, kof99ae20160411,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2016-04-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof99ae20160419,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2016-04-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof99aes,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition Special", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99bh,    kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "Dodowang", "Kof'99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99bh,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "Dodowang", "Kof'99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, kof99bhp2,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kof1996", "Kof'99 (Perfect Boss Edition hack by Kof1996 2009-10-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99bhs,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Striker Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99bs,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Boss Hack - DC version by FightChina KOF Hackteamwork)", MACHINE_SUPPORTS_SAVE )
@@ -2936,7 +2936,7 @@ GAME( 1999, kof99ch,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,  
 GAME( 1999, kof99chf,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "Kof'99 (Diff Moves set 3 - Fixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof99co,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ivex", "Kof'99 COMBO 2006 (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof99co2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ivex", "Kof'99 COMBO 2006 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99d,     kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99d,   ROT0, "SNK", "Kof'99 Millennium Battle (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99d,     kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99d,   ROT0, "SNK", "Kof'99 Millennium Battle (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99eh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "Kof'99 (4 Add Char - Ultra kill start max set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ehr,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99eur,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (Yashional)", MACHINE_SUPPORTS_SAVE )
@@ -2957,7 +2957,7 @@ GAME( 2003, kof99jh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,  
 GAME( 2003, kof99jho,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "Kof'99 (3 Add Char - Simple moves rev - Athena style changed 2003-09-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof99lb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "lb70", "Kof'99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99m,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "MasakiAnton", "Kof'99 (2 Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix,ROT0, "SNK", "Kof'99 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "SNK", "Kof'99 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ndh,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ndis,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 REMIX PRO (ndis)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99nevo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Chl, Robert", "Kof'99 (Evolution Revision hack by Chl, Robert)", MACHINE_SUPPORTS_SAVE )
@@ -2973,29 +2973,29 @@ GAME( 1999, kof99r,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,  
 GAME( 1999, kof99rd,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (Red Evil Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99rev,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 OKUHOSHI HACK (Revolution Merry Christmas set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99revo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Okuhoshi", "Kof'99 (Christmas Revolution v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99roll,  kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix,ROT0, "KofOnTeam", "Kof'99 (Advanced Roll (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof99rp,    kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.07a 2004-12-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99roll,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "KofOnTeam", "Kof'99 (Advanced Roll (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof99rp,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.07a 2004-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof99rp0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FGCH", "Kof'99 REMIX PRO (Edition v1.07a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp1,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.02 final1 2003-10-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp2,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01c 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp3,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01b 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp4,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a2 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp5,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp6,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp7,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp8,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp9,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rpa,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rpb,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rpc,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof99rpp,   kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO PLUS (Diff Moves v1.02 final 2004-03-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp1,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.02 final1 2003-10-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp2,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01c 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp3,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01b 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp4,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a2 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp5,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp6,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp7,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp8,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rp9,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rpa,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rpb,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof99rpc,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof99rpp,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99bh,  ROT0, "FCHT", "Kof'99 Remix PRO PLUS (Diff Moves v1.02 final 2004-03-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99rr,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99seh,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami and Ydmis", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99sp,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "ZKW", "Kof'99 (Super Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99spd,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99,    ROT0, "Star07", "Kof'99 (Special Dialogue hack by Star07)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99sr,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Summer Revolution)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99srr,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose", "Kof'99 (Super Remix Red)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99srr1,  kof99,    neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix,ROT0, "hack", "Kof'99 (Super Remix Red Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99srr1,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "hack", "Kof'99 (Super Remix Red Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99the4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 The 4 Flame Manipulators (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99the42, kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 The 4 Flame Manipulators (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99,    ROT0, "hack", "Kof'99 (hack vor)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

@@ -245,6 +245,9 @@ public:
 	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
 	DECLARE_DRIVER_INIT(init);
 	void outrunm(machine_config &config);
+	void sound_map_banked(address_map &map);
+	void sound_portmap_banked(address_map &map);
+	void soundbank_map(address_map &map);
 
 private:
 
@@ -262,14 +265,14 @@ WRITE8_MEMBER( outrunm_state::sound_rombank1_w )
 	m_soundbank->set_bank(1);
 }
 
-static ADDRESS_MAP_START( sound_map_banked, AS_PROGRAM, 8, outrunm_state )
+ADDRESS_MAP_START( outrunm_state::sound_map_banked )
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0xefff) AM_DEVICE("soundbank", address_map_bank_device, amap8)
 	AM_RANGE(0xf000, 0xf0ff) AM_MIRROR(0x0700) AM_DEVREADWRITE("pcm", segapcm_device, sega_pcm_r, sega_pcm_w)
 	AM_RANGE(0xf800, 0xffff) AM_RAM
  ADDRESS_MAP_END
  
-static ADDRESS_MAP_START( sound_portmap_banked, AS_IO, 8, outrunm_state )
+ADDRESS_MAP_START( outrunm_state::sound_portmap_banked )
 	ADDRESS_MAP_UNMAP_HIGH
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x01) AM_MIRROR(0x3e) AM_DEVREADWRITE("ymsnd", ym2151_device, read, write)
@@ -278,7 +281,7 @@ static ADDRESS_MAP_START( sound_portmap_banked, AS_IO, 8, outrunm_state )
 	AM_RANGE(0xc0, 0xff) AM_WRITE(sound_rombank1_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( soundbank_map, AS_PROGRAM, 8, outrunm_state )
+ADDRESS_MAP_START( outrunm_state::soundbank_map )
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0x1ffff) AM_ROM AM_REGION("soundcpu", 0)
 ADDRESS_MAP_END

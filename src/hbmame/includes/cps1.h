@@ -457,6 +457,33 @@ public:
 	void wofhfh(machine_config &config);
 	void cps1_10MHz(machine_config &config);
 	void pang3(machine_config &config);
+	void cps2_map(address_map &map);
+	void dead_cps2_map(address_map &map);
+	void decrypted_opcodes_map(address_map &map);
+	void dinopic_map(address_map &map);
+	void fcrash_map(address_map &map);
+	void forgottn_map(address_map &map);
+	void knightsb_map(address_map &map);
+	void knightsb_z80map(address_map &map);
+	void kodb_sound_map(address_map &map);
+	void main_map(address_map &map);
+	void punipic_map(address_map &map);
+	void qsound_decrypted_opcodes_map(address_map &map);
+	void qsound_main_map(address_map &map);
+	void qsound_sub_map(address_map &map);
+	void sf2b_map(address_map &map);
+	void sf2m10_map(address_map &map);
+	void sf2m1_map(address_map &map);
+	void sf2m3_map(address_map &map);
+	void sf2mdt_map(address_map &map);
+	void sf2mdt_z80map(address_map &map);
+	void sgyxz_map(address_map &map);
+	void sgyxz_sound_map(address_map &map);
+	void wofabl_map(address_map &map);
+	void slampic_map(address_map &map);
+	void sound_map(address_map &map);
+	void sub_map(address_map &map);
+	void varthb_map(address_map &map);
 // HBMAME start
 
 	void wofsf2(machine_config &config);
@@ -469,6 +496,15 @@ public:
 	void sk2h31q(machine_config &config);
 	void cawingb(machine_config &config);
 	void captcommb2(machine_config &config);
+	void daimakb_map(address_map &map);
+	void sk2h35_map(address_map &map);
+	void cps1frog_map(address_map &map);
+	void sk2h1q_map(address_map &map);
+	void sk2h3_map(address_map &map);
+	void sk2h31q_map(address_map &map);
+	void sk2h31_map(address_map &map);
+	void wofsf2_map(address_map &map);
+	void captcommb2_map(address_map &map);
 	DECLARE_WRITE16_MEMBER(dinoh_sound_command_w);
 	DECLARE_WRITE16_MEMBER(daimakb_layer_w);
 	DECLARE_WRITE16_MEMBER(daimakb_palctrl_w);
@@ -493,8 +529,6 @@ public:
 };
 
 /*----------- defined in drivers/cps1.c -----------*/
-
-ADDRESS_MAP_EXTERN( qsound_sub_map, 8 );
 
 GFXDECODE_EXTERN( cps1 );
 

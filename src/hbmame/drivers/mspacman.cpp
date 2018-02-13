@@ -158,7 +158,7 @@ WRITE8_MEMBER( pacman_state::zolatimer_w )	/* to stop it hanging when game reset
 
 
 /* Same as woodhack, plus it has nvram, and some extra ram at fffc */
-static ADDRESS_MAP_START( mspachi_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::mspachi_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -179,7 +179,7 @@ static ADDRESS_MAP_START( mspachi_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xfffc, 0xffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( mspacii_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::mspacii_map )
 	/* do not use UNMAP_HIGH (protection issues) */
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
@@ -201,7 +201,11 @@ static ADDRESS_MAP_START( mspacii_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xfffc, 0xffff) AM_WRITENOP
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( mspacman_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::mspacman_map )
+	/* start with 0000-3fff and 8000-bfff mapped to the ROMs */
+	AM_RANGE(0x0000, 0xffff) AM_ROMBANK("bank1")
+	AM_RANGE(0x4000, 0x7fff) AM_MIRROR(0x8000) AM_UNMAP
+
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
 	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0xa000) AM_READ(pacman_read_nop) AM_WRITENOP
@@ -227,15 +231,11 @@ static ADDRESS_MAP_START( mspacman_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x3ff8, 0x3fff) AM_READWRITE(mspacman_enable_decode_r_0x3ff8,mspacman_enable_decode_w)
 	AM_RANGE(0x8000, 0x8007) AM_READWRITE(mspacman_disable_decode_r_0x8000,mspacman_disable_decode_w)
 	AM_RANGE(0x97f0, 0x97f7) AM_READWRITE(mspacman_disable_decode_r_0x97f0,mspacman_disable_decode_w)
-
-	/* start with 0000-3fff and 8000-bfff mapped to the ROMs */
-	AM_RANGE(0x4000, 0x7fff) AM_MIRROR(0x8000) AM_UNMAP
-	AM_RANGE(0x0000, 0xffff) AM_ROMBANK("bank1")
 ADDRESS_MAP_END
 
 
 /* For Dave Widel's hacks */
-static ADDRESS_MAP_START( widel_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::widel_map )
 	/* bace and dderby set 5000-5FFF to zero for no apparent reason */
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
@@ -260,7 +260,7 @@ static ADDRESS_MAP_START( widel_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xf000, 0xffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( zolapac_io, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::zolapac_io )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_READ(zolatimer_r)
 	AM_RANGE(0x10, 0x10) AM_WRITENOP		/* writes 0 at reset */

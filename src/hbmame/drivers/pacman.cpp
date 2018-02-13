@@ -164,7 +164,7 @@ READ8_MEMBER( pacman_state::pacman_read_nop )
  *
  *************************************/
 
-static ADDRESS_MAP_START( pacman_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::pacman_map )
 	ADDRESS_MAP_GLOBAL_MASK(0x7fff)   /* A15 not connected at the CPU */
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x2000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
@@ -183,7 +183,7 @@ static ADDRESS_MAP_START( pacman_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0x50c0, 0x50c0) AM_READ_PORT("DSW2")
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( woodpek_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::woodpek_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -209,7 +209,7 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::io_map )
 	AM_RANGE(0x0000, 0xffff) AM_WRITE(pacman_interrupt_vector_w)
 ADDRESS_MAP_END
 
@@ -425,7 +425,7 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", Z80, MASTER_CLOCK/6)
 	MCFG_CPU_PROGRAM_MAP(pacman_map)
-	MCFG_CPU_IO_MAP(writeport)
+	MCFG_CPU_IO_MAP(io_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_VBLANK_INIT("screen", 16)

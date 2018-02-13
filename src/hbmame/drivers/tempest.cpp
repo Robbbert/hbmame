@@ -591,6 +591,7 @@ public:
 	{ }
 
 	void tempmg(machine_config &config);
+	void tempmg_map(address_map &map);
 	DECLARE_WRITE8_MEMBER(tempmg_rombank_w);
 	DECLARE_MACHINE_RESET(tempmg);
 	DECLARE_DRIVER_INIT(tempmg);
@@ -622,7 +623,7 @@ DRIVER_INIT_MEMBER( tempmg_state, tempmg )
 	tempmg_rombank_w (space, 0,0);
 }
 
-static ADDRESS_MAP_START( tempmg_map, AS_PROGRAM, 8, tempmg_state )
+ADDRESS_MAP_START( tempmg_state::tempmg_map )
 	AM_RANGE(0x0000, 0x07ff) AM_RAM
 	AM_RANGE(0x0800, 0x080f) AM_WRITEONLY AM_SHARE("colorram")
 	AM_RANGE(0x0c00, 0x0c00) AM_READ_PORT("IN0")

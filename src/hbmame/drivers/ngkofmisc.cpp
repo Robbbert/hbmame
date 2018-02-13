@@ -8,20 +8,20 @@
 
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, cthd2k3a )
+DRIVER_INIT_MEMBER( neogeo_state,  cthd2k3a )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_bootleg_prot->decrypt_cthd2003(spr_region, spr_region_size, audiocpu_region,audio_region_size, fix_region, fix_region_size);
 }
 
 // This fixes the Cart Jumper in KOGD
-static ADDRESS_MAP_START( main_map1, AS_PROGRAM, 16, neogeo_hbmame )
+ADDRESS_MAP_START( neogeo_state::main_map1 )
 	AM_IMPORT_FROM( neogeo_main_map )
 	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
 	AM_RANGE(0x000080, 0x0fffff) AM_ROM
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_hbmame::hbmame_kog, neogeo_arcade )
+MACHINE_CONFIG_DERIVED( neogeo_state::hbmame_kog, neogeo_arcade )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map1)
 	MCFG_KOG_PROT_ADD("kog_prot")
@@ -34,13 +34,13 @@ MACHINE_CONFIG_DERIVED( neogeo_hbmame::hbmame_kog, neogeo_arcade )
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
 MACHINE_CONFIG_END
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kogd )
+DRIVER_INIT_MEMBER( neogeo_state, kogd )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_kog_prot->kog_install_protection(m_maincpu);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof10thu )
+DRIVER_INIT_MEMBER( neogeo_state, kof10thu )
 {
 	uint32_t tsize = m_region_maincpu->bytes();
 	uint8_t *rom = m_region_maincpu->base();
@@ -919,7 +919,7 @@ ROM_END
 
 
 GAME( 2003, cthd2k3b,   neogeo,   neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_hbmame, cthd2k3a,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2k3a,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix v1.2 (Diff Move - 030823)", MACHINE_SUPPORTS_SAVE )
@@ -936,18 +936,18 @@ GAME( 2004, kof2k4seb,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neog
 GAME( 2004, kof2k4spl,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Plus", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof10thbr,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Neogeo BR Team", "Kof 10th Anniversary (Brazil by NeogeoBRteam)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_hbmame, kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack d16)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack d16)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kf10thep,  ROT0, "hack", "Kof 10th Anniversary Extra Plus (hack 15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_hbmame, kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack u)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack u)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (portuguese edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_hbmame, kogd,      ROT0, "hack", "King of Gladiator (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "hack", "King of Gladiator (fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kogf,       kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, koggv,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "hack", "King of Gladiator (Green Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame, kogd,      ROT0, "hack", "King of Gladiator MIX PLUS-EX", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "hack", "King of Gladiator MIX PLUS-EX", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "hack", "King of Gladiator PLUS (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame, kogd,      ROT0, "hack", "King of Gladiator PLUS (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame, kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "hack", "King of Gladiator PLUS (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix by KalceTin (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2004, kf2k4pls,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf2k4pls, ROT0, "hack", "Kof2004 Special Edition Plus", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2004, kof10thd,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kof10thd, ROT0, "hack", "Kof 10th Anniversary (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )

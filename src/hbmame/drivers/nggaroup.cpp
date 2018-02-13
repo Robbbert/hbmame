@@ -4,7 +4,7 @@
 
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, garoud )
+DRIVER_INIT_MEMBER( neogeo_state, garoud )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -310,7 +310,7 @@ ROM_END
 
 
 GAME( 1999, garoub,    garou,    neogeo_noslot, neogeo, neogeo_state, garou,  ROT0, "Ydmis", "Garou - Mark of the Wolves (Boss hack by Ydmis)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_hbmame,       garoud, ROT0, "hack","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_state,       garoud, ROT0, "hack","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "MU", "Garou - Mark of the Wolves (proto) (Approach to Arcade by MU v5.0a)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, garoupeh,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (proto) (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
