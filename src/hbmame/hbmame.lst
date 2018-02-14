@@ -6480,8 +6480,9 @@ kov					//parent
 //killbld                   //parent
 //kovshp                    //parent
 //oldsplus                  //parent
-//olds                      //parent
+olds                      //parent
 //martmast                  //parent
+theglad				//parent
 kovss01
 kov100s01
 kov115s01
@@ -6905,17 +6906,17 @@ kovshx05   // bad gfx
 //orlegends21
 //orlegends22
 //orlegends23
-//orlegends25
-//orlegends26
-//orlegends27
-//orlegends28
+orlegends25
+orlegends26
+orlegends27
+orlegends28
 //oldsplus01
 //oldsplus02
 //oldsplus03
 //oldsplus04
 //olds100s01
-//olds01
-//orlegend111cs01
+olds01
+orlegend111cs01
 //orlegendcs01
 //orlegendcs02
 //orlegendcs03
@@ -6975,8 +6976,8 @@ kovshx05   // bad gfx
 //orlegendcs62
 //orlegendcs63
 //orlegendcs64
-//theglads01
-//theglads02
+theglads01
+theglads02
 
 	/* phoenix */
 phoenix			//parent

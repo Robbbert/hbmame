@@ -16787,7 +16787,7 @@ GAME( 2004, kovsho11,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_
 //Martial Masters
 GAME( 2001, martmasthc01, martmast, pgm_arm_type2,      martmast, pgm_arm_type2_state, martmast,   ROT0,   "Hack", "Martial Masters (ver. 104, 102, 102US)(Boss Hack By 0 Days (EGHT))", MACHINE_SUPPORTS_SAVE )
 //Oriental Legend Special
-GAME( 1998, olds01,      olds,      pgm_028_025_ol,     olds, pgm_028_025_state,       olds,       ROT0,   "Hack", "Oriental Legend Special / Xi You Shi E Zhuan Super (ver. 101, Korean Board)(Enhanced power)", MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+GAME( 1998, olds01,      olds,      pgm_028_025_ol,     olds, pgm_028_025_state,       olds,       ROT0,   "Hack", "Oriental Legend Special / Xi You Shi E Zhuan Super (ver. 101, Korean Board)(Enhanced power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, olds100s01,  olds,      pgm,                pgm,      pgm_state,           pgm,        ROT0,   "Hack", "Oriental Legend Special (ver. 100, set 1)(Collection Of Hacks Set 01)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Plus
 GAME( 1997, orlegends01, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 126) (Description Of Unknown Origin 01)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
