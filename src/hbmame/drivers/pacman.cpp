@@ -457,7 +457,8 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( pacman_state::pacmanx, pacman )
+MACHINE_CONFIG_START( pacman_state::pacmanx )
+	pacman(config);
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
@@ -466,7 +467,8 @@ MACHINE_CONFIG_DERIVED( pacman_state::pacmanx, pacman )
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED( pacman_state::woodpek, pacman )
+MACHINE_CONFIG_START( pacman_state::woodpek )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(woodpek_map)
 MACHINE_CONFIG_END

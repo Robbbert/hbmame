@@ -214,11 +214,13 @@ INPUT_PORTS_END
  *
  *************************************/
 
-MACHINE_CONFIG_DERIVED( pacman_state::maketrax, pacman )
+MACHINE_CONFIG_START( pacman_state::maketrax )
+	pacman(config);
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state,maketrax)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( pacman_state::piranha, pacman )
+MACHINE_CONFIG_START( pacman_state::piranha )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_IO_MAP(piranha_writeport)
 MACHINE_CONFIG_END

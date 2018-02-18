@@ -1653,7 +1653,8 @@ MACHINE_CONFIG_START( cps_state::cawingb )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 // HBMAME end
-MACHINE_CONFIG_DERIVED( cps_state::cawingbl, fcrash )
+MACHINE_CONFIG_START( cps_state::cawingbl )
+	fcrash(config);
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state,  irq6_line_hold) /* needed to write to scroll values */
@@ -1749,7 +1750,8 @@ MACHINE_CONFIG_START( cps_state::sf2mdt )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::sf2b, sf2mdt)
+MACHINE_CONFIG_START( cps_state::sf2b )
+	sf2mdt(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(sf2b_map)
 MACHINE_CONFIG_END

@@ -239,7 +239,8 @@ MACHINE_RESET_MEMBER( cps3_hbmame, redeartn )
 	copy_from_nvram();
 }
 
-MACHINE_CONFIG_DERIVED( cps3_hbmame::redeartn, redearth )
+MACHINE_CONFIG_START( cps3_hbmame::redeartn )
+	redearth(config);
 	MCFG_MACHINE_RESET_OVERRIDE(cps3_hbmame, redeartn)
 MACHINE_CONFIG_END
 

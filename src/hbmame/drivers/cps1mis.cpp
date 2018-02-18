@@ -617,27 +617,32 @@ INPUT_PORTS_END
 ********************************************************************/
 
 
-MACHINE_CONFIG_DERIVED( cps_state::wofsf2, wofhfh )
+MACHINE_CONFIG_START( cps_state::wofsf2 )
+	wofhfh(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(wofsf2_map)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::daimakb, cps1_10MHz)
+MACHINE_CONFIG_START( cps_state::daimakb )
+	cps1_10MHz(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(daimakb_map)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::sk2h3, wofhfh)
+MACHINE_CONFIG_START( cps_state::sk2h3 )
+	wofhfh(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(sk2h3_map)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::sk2h31, wofhfh)
+MACHINE_CONFIG_START( cps_state::sk2h31 )
+	wofhfh(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(sk2h31_map)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::sk2h35, qsound)
+MACHINE_CONFIG_START( cps_state::sk2h35 )
+	qsound(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(sk2h35_map)
 MACHINE_CONFIG_END
@@ -677,7 +682,8 @@ MACHINE_CONFIG_START( cps_state::cps1frog )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::sk2h1q, cps1frog )
+MACHINE_CONFIG_START( cps_state::sk2h1q )
+	cps1frog(config);
 
 	/* basic machine hardware */
 	MCFG_CPU_REPLACE("maincpu", M68000, 12'000'000 )
@@ -705,7 +711,8 @@ MACHINE_CONFIG_DERIVED( cps_state::sk2h1q, cps1frog )
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( cps_state::sk2h31q, sk2h1q )
+MACHINE_CONFIG_START( cps_state::sk2h31q )
+	sk2h1q(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(sk2h31q_map)
 MACHINE_CONFIG_END

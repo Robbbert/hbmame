@@ -164,7 +164,8 @@ void mineswp_state::machine_start()
 	m_beep->set_state(0);
 }
 
-MACHINE_CONFIG_DERIVED( mineswp_state::mineswp, dotrikun )
+MACHINE_CONFIG_START( mineswp_state::mineswp )
+	dotrikun(config);
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)

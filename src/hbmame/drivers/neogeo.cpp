@@ -1335,7 +1335,8 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_arcade, neogeo_base )
+MACHINE_CONFIG_START( neogeo_state::neogeo_arcade )
+	neogeo_base(config);
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK))
 	MCFG_UPD4990A_ADD("upd4990a", 32'768, NOOP, NOOP)
@@ -1343,7 +1344,8 @@ MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_arcade, neogeo_base )
 	MCFG_NEOGEO_MEMCARD_ADD("memcard")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::mvs, neogeo_arcade )
+MACHINE_CONFIG_START( neogeo_state::mvs )
+	neogeo_arcade(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_slot)
 
@@ -1359,7 +1361,8 @@ ADDRESS_MAP_START( neogeo_state::main_map_noslot )
 	AM_RANGE(0x000080, 0x0fffff) AM_ROM
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noslot, neogeo_arcade ) // no slot config (legacy mame)
+MACHINE_CONFIG_START( neogeo_state::neogeo_noslot )
+	neogeo_arcade(config); // no slot config (legacy mame)
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 
@@ -1382,7 +1385,8 @@ MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noslot, neogeo_arcade ) // no slot 
 	MCFG_SBP_PROT_ADD("sbp_prot")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kog, neogeo_arcade )
+MACHINE_CONFIG_START( neogeo_state::neogeo_kog )
+	neogeo_arcade(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
 
@@ -1399,7 +1403,8 @@ MACHINE_CONFIG_END
 
 // these basically correspond to the cabinets which were available in arcades:
 // with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_mj, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::neogeo_mj )
+	neogeo_noslot(config);
 
 	//no joystick panel
 	MCFG_DEVICE_REMOVE("edge")
@@ -1412,28 +1417,33 @@ MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_mj, neogeo_noslot )
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_dial, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::neogeo_dial )
+	neogeo_noslot(config);
 	MCFG_DEVICE_REMOVE("edge")
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_imaze, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::neogeo_imaze )
+	neogeo_noslot(config);
 	MCFG_DEVICE_REMOVE("edge")
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_kiz4p, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::neogeo_kiz4p )
+	neogeo_noslot(config);
 	MCFG_DEVICE_REMOVE("edge")
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
 MACHINE_CONFIG_END
 
 // this is used by V-Liner, which handles differently inputs...
-MACHINE_CONFIG_DERIVED( neogeo_state::neogeo_noctrl, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::neogeo_noctrl )
+	neogeo_noslot(config);
 	MCFG_DEVICE_REMOVE("ctrl1")
 	MCFG_DEVICE_REMOVE("ctrl2")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::no_watchdog, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::no_watchdog )
+	neogeo_noslot(config);
 	MCFG_WATCHDOG_MODIFY("watchdog")
 	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
 MACHINE_CONFIG_END
@@ -1444,7 +1454,8 @@ ADDRESS_MAP_START( neogeo_state::samsho2sp_map )
 	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x200000) // extra rom
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::samsho2sp, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::samsho2sp )
+	neogeo_noslot(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
 MACHINE_CONFIG_END
@@ -1455,7 +1466,8 @@ ADDRESS_MAP_START( neogeo_state::lbsp_map )
 	AM_RANGE(0x900000, 0x91ffff) AM_ROM AM_REGION("maincpu", 0x700000) // extra rom
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::lbsp, neogeo_noslot )
+MACHINE_CONFIG_START( neogeo_state::lbsp )
+	neogeo_noslot(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(lbsp_map)
 MACHINE_CONFIG_END

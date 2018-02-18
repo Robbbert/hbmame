@@ -29,7 +29,8 @@ public:
 	DECLARE_DRIVER_INIT(bbugtest);
 };
 
-MACHINE_CONFIG_DERIVED( cinemat_hbmame::bbugtest, cinemat_jmi_32k )
+MACHINE_CONFIG_START( cinemat_hbmame::bbugtest )
+	cinemat_jmi_32k(config);
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_VISIBLE_AREA(0, 1024, 0, 788)
 	MCFG_VIDEO_START_OVERRIDE(cinemat_state, cinemat_color)

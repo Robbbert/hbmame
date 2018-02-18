@@ -22,7 +22,8 @@ ADDRESS_MAP_START( neogeo_state::main_map1 )
 	AM_RANGE(0x000080, 0x0fffff) AM_ROM
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( neogeo_state::hbmame_kog, neogeo_arcade )
+MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
+	neogeo_arcade(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(main_map1)
 	MCFG_KOG_PROT_ADD("kog_prot")

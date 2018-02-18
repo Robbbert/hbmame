@@ -286,7 +286,8 @@ ADDRESS_MAP_START( outrunm_state::soundbank_map )
 	AM_RANGE(0x0000, 0x1ffff) AM_ROM AM_REGION("soundcpu", 0)
 ADDRESS_MAP_END
 
-MACHINE_CONFIG_DERIVED( outrunm_state::outrunm, outrun )
+MACHINE_CONFIG_START( outrunm_state::outrunm )
+	outrun(config);
 	MCFG_CPU_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
 	MCFG_CPU_PROGRAM_MAP(sound_map_banked)
 	MCFG_CPU_IO_MAP(sound_portmap_banked)
