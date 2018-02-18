@@ -1700,7 +1700,7 @@ MACHINE_CONFIG_START(itech32_state::timekill)
 
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
 	MCFG_SOUND_ADD("ensoniq", ES5506, SOUND_CLOCK)
 	MCFG_ES5506_REGION0("ensoniq.0")
@@ -1708,7 +1708,8 @@ MACHINE_CONFIG_START(itech32_state::timekill)
 	MCFG_ES5506_REGION2("ensoniq.2")
 	MCFG_ES5506_REGION3("ensoniq.3")
 	MCFG_ES5506_CHANNELS(1)               /* channels */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.1)
+	MCFG_SOUND_ROUTE(0, "rspeaker", 0.1)  /* swapped stereo */
+	MCFG_SOUND_ROUTE(1, "lspeaker", 0.1)
 
 	/* via */
 	MCFG_DEVICE_ADD("via6522_0", VIA6522, SOUND_CLOCK/8)
@@ -1717,7 +1718,8 @@ MACHINE_CONFIG_START(itech32_state::timekill)
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED(itech32_state::bloodstm, timekill)
+MACHINE_CONFIG_START(itech32_state::bloodstm)
+	timekill(config);
 
 	/* basic machine hardware */
 
@@ -1732,7 +1734,8 @@ MACHINE_CONFIG_DERIVED(itech32_state::bloodstm, timekill)
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED(itech32_state::drivedge, timekill)
+MACHINE_CONFIG_START(itech32_state::drivedge)
+	timekill(config);
 
 	/* basic machine hardware */
 
@@ -1757,10 +1760,18 @@ MACHINE_CONFIG_DERIVED(itech32_state::drivedge, timekill)
 
 	MCFG_MACHINE_RESET_OVERRIDE(itech32_state,drivedge)
 	MCFG_QUANTUM_TIME(attotime::from_hz(6000))
+
+	MCFG_SPEAKER_STANDARD_STEREO("left_back", "right_back")
+	
+	MCFG_SOUND_MODIFY("ensoniq")
+	MCFG_ES5506_CHANNELS(2)               /* channels */
+	MCFG_SOUND_ROUTE(2, "right_back", 0.1)  /* swapped stereo */
+	MCFG_SOUND_ROUTE(3, "left_back", 0.1)
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED(itech32_state::sftm, timekill)
+MACHINE_CONFIG_START(itech32_state::sftm)
+	timekill(config);
 
 	/* basic machine hardware */
 
@@ -1781,7 +1792,8 @@ MACHINE_CONFIG_DERIVED(itech32_state::sftm, timekill)
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_DERIVED(itech32_state::tourny, sftm)
+MACHINE_CONFIG_START(itech32_state::tourny)
+	sftm(config);
 
 	/* basic machine hardware */
 

@@ -336,13 +336,13 @@ WRITE8_MEMBER( c1p_state::osi630_ctrl_w )
 
 	*/
 
-	m_beep->set_state(BIT(data, 1));
+	m_beeper->set_state(BIT(data, 1));
 }
 
 WRITE8_MEMBER( c1p_state::osi630_sound_w )
 {
 	if (data != 0)
-		m_beep->set_clock(49152 / data);
+		m_beeper->set_clock(49152 / data);
 }
 
 /* Disk Drive */
@@ -712,7 +712,7 @@ MACHINE_CONFIG_START(sb2m600_state::osi600)
 	MCFG_CPU_PROGRAM_MAP(osi600_mem)
 
 	/* video hardware */
-	MCFG_FRAGMENT_ADD(osi600_video)
+	osi600_video(config);
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", osi)
 
 	/* sound hardware */
@@ -743,7 +743,7 @@ MACHINE_CONFIG_START(uk101_state::uk101)
 	MCFG_CPU_PROGRAM_MAP(uk101_mem)
 
 	/* video hardware */
-	MCFG_FRAGMENT_ADD(uk101_video)
+	uk101_video(config);
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", osi)
 
 	/* cassette ACIA */
@@ -768,7 +768,7 @@ MACHINE_CONFIG_START(c1p_state::c1p)
 	MCFG_CPU_PROGRAM_MAP(c1p_mem)
 
 	/* video hardware */
-	MCFG_FRAGMENT_ADD(osi630_video)
+	osi630_video(config);
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", osi)
 
 	/* sound hardware */
@@ -799,7 +799,8 @@ MACHINE_CONFIG_START(c1p_state::c1p)
 	MCFG_RAM_EXTRA_OPTIONS("20K")
 MACHINE_CONFIG_END
 
-MACHINE_CONFIG_DERIVED(c1pmf_state::c1pmf, c1p)
+MACHINE_CONFIG_START(c1pmf_state::c1pmf)
+	c1p(config);
 	MCFG_CPU_MODIFY(M6502_TAG)
 	MCFG_CPU_PROGRAM_MAP(c1pmf_mem)
 
@@ -867,7 +868,7 @@ ROM_END
 
 /* Driver Initialization */
 
-void sb2m600_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+void c1p_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
 {
 	switch (id)
 	{

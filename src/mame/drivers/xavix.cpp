@@ -1,8 +1,8 @@
 // license:BSD-3-Clause
-// copyright-holders:Angelo Salese
+// copyright-holders:David Haywood, Angelo Salese
 /***************************************************************************
 
-    Skeleton driver for XaviX TV PNP console and childs (Let's! Play TV Classic)
+    Preliminary driver for XaviX TV PNP console and childs (Let's! Play TV Classic)
 
     CPU is an M6502 derivative with added opcodes for far-call handling
 
@@ -46,18 +46,19 @@ public:
 		m_mainram(*this, "mainram"),
 		m_spr_attr0(*this, "spr_attr0"),
 		m_spr_attr1(*this, "spr_attr1"),
-		m_spr_ypos(*this, "spr_attr2"),
-		m_spr_xpos(*this, "spr_attr3"),
-		m_spr_attr5(*this, "spr_attr5"),
-		m_spr_attr6(*this, "spr_attr6"),
-		m_spr_attr7(*this, "spr_attr7"),
+		m_spr_ypos(*this, "spr_ypos"),
+		m_spr_xpos(*this, "spr_xpos"),
+		m_spr_addr_lo(*this, "spr_addr_lo"),
+		m_spr_addr_md(*this, "spr_addr_md"),
+		m_spr_addr_hi(*this, "spr_addr_hi"),
 		m_palram1(*this, "palram1"),
 		m_palram2(*this, "palram2"),
 		m_spr_attra(*this, "spr_attra"),
 		m_palette(*this, "palette"),
 		m_in0(*this, "IN0"),
 		m_in1(*this, "IN1"),
-		m_gfxdecode(*this, "gfxdecode")
+		m_gfxdecode(*this, "gfxdecode"),
+		m_alt_addressing(0)
 	{ }
 
 	// devices
@@ -94,16 +95,52 @@ public:
 	DECLARE_WRITE8_MEMBER(irq_vector1_lo_w);
 	DECLARE_WRITE8_MEMBER(irq_vector1_hi_w);
 
+	DECLARE_READ8_MEMBER(xavix_6ff0_r);
+	DECLARE_WRITE8_MEMBER(xavix_6ff0_w);
+
+	DECLARE_READ8_MEMBER(xavix_6ff8_r);
+	DECLARE_WRITE8_MEMBER(xavix_6ff8_w);
+
+	DECLARE_READ8_MEMBER(xavix_75f0_r);
+	DECLARE_WRITE8_MEMBER(xavix_75f0_w);
+
+	DECLARE_READ8_MEMBER(xavix_75f1_r);
+	DECLARE_WRITE8_MEMBER(xavix_75f1_w);
+
 	DECLARE_READ8_MEMBER(xavix_75f4_r);
 	DECLARE_READ8_MEMBER(xavix_75f5_r);
+	DECLARE_READ8_MEMBER(xavix_75f6_r);
 	DECLARE_WRITE8_MEMBER(xavix_75f6_w);
+
 	DECLARE_WRITE8_MEMBER(xavix_75f7_w);
+
+	DECLARE_READ8_MEMBER(xavix_75f8_r);
 	DECLARE_WRITE8_MEMBER(xavix_75f8_w);
-	DECLARE_WRITE8_MEMBER(xavix_75f9_w);
-	DECLARE_WRITE8_MEMBER(xavix_75ff_w);
+
 	DECLARE_READ8_MEMBER(xavix_75f9_r);
+	DECLARE_WRITE8_MEMBER(xavix_75f9_w);
+
+	DECLARE_READ8_MEMBER(xavix_75fa_r);
+	DECLARE_WRITE8_MEMBER(xavix_75fa_w);
+	DECLARE_READ8_MEMBER(xavix_75fb_r);
+	DECLARE_WRITE8_MEMBER(xavix_75fb_w);
+	DECLARE_READ8_MEMBER(xavix_75fc_r);
+	DECLARE_WRITE8_MEMBER(xavix_75fc_w);
+	DECLARE_READ8_MEMBER(xavix_75fd_r);
+	DECLARE_WRITE8_MEMBER(xavix_75fd_w);
+
+	DECLARE_WRITE8_MEMBER(xavix_75fe_w);
+	DECLARE_WRITE8_MEMBER(xavix_75ff_w);
+
+	DECLARE_WRITE8_MEMBER(xavix_6fc0_w);
+	DECLARE_WRITE8_MEMBER(tmap1_regs_w);
+	DECLARE_WRITE8_MEMBER(xavix_6fd8_w);
+	DECLARE_WRITE8_MEMBER(tmap2_regs_w);
+	DECLARE_READ8_MEMBER(tmap2_regs_r);
 
 	DECLARE_READ8_MEMBER(pal_ntsc_r);
+
+	DECLARE_READ8_MEMBER(xavix_4000_r);
 
 	DECLARE_READ8_MEMBER(mult_r);
 	DECLARE_WRITE8_MEMBER(mult_param_w);
@@ -112,6 +149,7 @@ public:
 	TIMER_DEVICE_CALLBACK_MEMBER(scanline_cb);
 
 	DECLARE_DRIVER_INIT(xavix);
+	DECLARE_DRIVER_INIT(taitons1);
 
 	void xavix_map(address_map &map);
 protected:
@@ -144,6 +182,22 @@ private:
 	uint8_t m_vid_dma_param1[2];
 	uint8_t m_vid_dma_param2[2];
 
+	uint8_t m_tmap1_regs[8];
+	uint8_t m_tmap2_regs[8];
+
+	uint8_t m_6ff0;
+	uint8_t m_6ff8;
+
+	uint8_t m_75f0;
+	uint8_t m_75f1;
+
+	uint8_t m_75f6;
+	uint8_t m_75f8;
+	uint8_t m_75fa;
+	uint8_t m_75fb;
+	uint8_t m_75fc;
+	uint8_t m_75fd;
+
 	uint8_t get_vectors(int which, int half);
 
 	required_shared_ptr<uint8_t> m_mainram;
@@ -153,9 +207,9 @@ private:
 	required_shared_ptr<uint8_t> m_spr_ypos;
 	required_shared_ptr<uint8_t> m_spr_xpos;
 
-	required_shared_ptr<uint8_t> m_spr_attr5;
-	required_shared_ptr<uint8_t> m_spr_attr6;
-	required_shared_ptr<uint8_t> m_spr_attr7;
+	required_shared_ptr<uint8_t> m_spr_addr_lo;
+	required_shared_ptr<uint8_t> m_spr_addr_md;
+	required_shared_ptr<uint8_t> m_spr_addr_hi;
 
 	required_shared_ptr<uint8_t> m_palram1;
 	required_shared_ptr<uint8_t> m_palram2;
@@ -171,10 +225,63 @@ private:
 
 	void handle_palette(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	double hue2rgb(double p, double q, double t);
+	void draw_tile(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int tile, int bpp, int xpos, int ypos, int drawheight, int drawwidth, int flipx, int flipy, int pal, int opaque);
+	void draw_tilemap(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int which);
+	void draw_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	int m_rgnlen;
 	uint8_t* m_rgn;
+
+	// variables used by rendering
+	int m_tmp_dataaddress;
+	int m_tmp_databit;
+	void set_data_address(int address, int bit);
+	uint8_t get_next_bit();
+	uint8_t get_next_byte();
+
+	int get_current_address_byte();
+
+	int m_alt_addressing;
 };
+
+void xavix_state::set_data_address(int address, int bit)
+{
+	m_tmp_dataaddress = address;
+	m_tmp_databit = bit;
+}
+
+uint8_t xavix_state::get_next_bit()
+{
+	uint8_t bit = m_rgn[m_tmp_dataaddress & (m_rgnlen - 1)];
+	bit = bit >> m_tmp_databit;
+	bit &= 1;
+
+	m_tmp_databit++;
+
+	if (m_tmp_databit == 8)
+	{
+		m_tmp_databit = 0;
+		m_tmp_dataaddress++;
+	}
+
+	return bit;
+}
+
+uint8_t xavix_state::get_next_byte()
+{
+	uint8_t dat = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		dat |= (get_next_bit() << i);
+	}
+	return dat;
+}
+
+int xavix_state::get_current_address_byte()
+{
+	return m_tmp_dataaddress;
+}
+
 
 void xavix_state::video_start()
 {
@@ -207,13 +314,13 @@ void xavix_state::handle_palette(screen_device &screen, bitmap_ind16 &bitmap, co
 		int h_raw = (dat & 0x001f) >> 0;
 
 		//if (h_raw > 24)
-		//	printf("hraw >24 (%02x)\n", h_raw);
+		//	logerror("hraw >24 (%02x)\n", h_raw);
 
 		//if (l_raw > 17)
-		//	printf("lraw >17 (%02x)\n", l_raw);
+		//	logerror("lraw >17 (%02x)\n", l_raw);
 
 		//if (sl_raw > 7)
-		//	printf("sl_raw >5 (%02x)\n", sl_raw);
+		//	logerror("sl_raw >5 (%02x)\n", sl_raw);
 
 		double l = (double)l_raw / 17.0f;
 		double s = (double)sl_raw / 7.0f;
@@ -241,58 +348,355 @@ void xavix_state::handle_palette(screen_device &screen, bitmap_ind16 &bitmap, co
 	}
 }
 
-
-uint32_t xavix_state::screen_update( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect )
+void xavix_state::draw_tilemap(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int which)
 {
-	handle_palette(screen, bitmap, cliprect);
+	int alt_tileaddressing = 0;
 
-	// why are the first two logos in Monster Truck stored as tilemaps in main ram?
-	// test mode isn't? is the code meant to process them instead? - there are no sprites in the sprite list at the time (and only one in test mode)
-	gfx_element *gfx = m_gfxdecode->gfx(1);
-	int count = 0;
-	for (int y = 0; y < 16; y++)
+	int ydimension = 0;
+	int xdimension = 0;
+	int ytilesize = 0;
+	int xtilesize = 0;
+	int offset_multiplier = 0;
+	int opaque = 0;
+
+	uint8_t* tileregs;
+	address_space& mainspace = m_maincpu->space(AS_PROGRAM);
+
+	// all this is likely controlled by tilemap registers
+	if (which == 0)
 	{
-		for (int x = 0; x < 16; x++)
+		tileregs = m_tmap1_regs;
+		ydimension = 16;
+		xdimension = 16;
+		ytilesize = 16;
+		xtilesize = 16;
+		offset_multiplier = 32;
+		opaque = 1;
+	}
+	else
+	{
+		tileregs = m_tmap2_regs;
+		ydimension = 32;
+		xdimension = 32;
+		ytilesize = 8;
+		xtilesize = 8;
+		offset_multiplier = 8;
+		opaque = 0;
+	}
+
+	if (tileregs[0x7] & 0x02)
+		alt_tileaddressing = 1;
+	else
+		alt_tileaddressing = 0;
+
+	if (tileregs[0x7] & 0x80)
+	{
+		// there's a tilemap register to specify base in main ram, although in the monster truck test mode it points to an unmapped region
+		// and expected a fixed layout, still need to handle that.
+		int count;
+
+		count = tileregs[0x0]<<8;
+		for (int y = 0; y < ydimension; y++)
 		{
-			int tile = m_mainram[count++];
-			
-			int gfxbase = (m_spr_attra[1] << 8) | (m_spr_attra[0]);
-			// upper bit is often set, maybe just because it relies on mirroring, maybe other purpose
+			for (int x = 0; x < xdimension; x++)
+			{
+				int bpp, pal, scrolly, scrollx;
+				int tile = mainspace.read_byte(count);
+				tile |= mainspace.read_byte(count + (ydimension*xdimension)) << 8;
+				count++;
 
-			tile += (gfxbase<<1);
+				bpp = (tileregs[0x3] & 0x0e) >> 1;
+				bpp++;
+				pal = (tileregs[0x6] & 0xf0) >> 4;
+				scrolly = tileregs[0x5];
+				scrollx = tileregs[0x4];
 
-			gfx->opaque(bitmap,cliprect,tile,0,0,0,x*16,y*16);
+				int basereg;
+				int flipx = 0;
+				int flipy = 0;
+				int gfxbase;
+
+				// tile 0 is always skipped, doesn't even point to valid data packets in alt mode
+				// this is consistent with the top layer too
+				// should we draw as solid in solid layer?
+				if (tile == 0)
+					continue;
+
+				const int debug_packets = 0;
+				int test = 0;
+
+				if (!alt_tileaddressing)
+				{
+					basereg = 0;
+					gfxbase = (m_spr_attra[(basereg * 2) + 1] << 16) | (m_spr_attra[(basereg * 2)] << 8);
+
+					tile = tile * (offset_multiplier * bpp);
+					tile += gfxbase;
+				}
+				else
+				{
+					if (debug_packets) printf("for tile %04x (at %d %d): ", tile, (((x * 16) + scrollx) & 0xff), (((y * 16) + scrolly) & 0xff));
+
+
+					basereg = (tile & 0xf000) >> 12;
+					tile &= 0x0fff;
+					gfxbase = (m_spr_attra[(basereg * 2) + 1] << 16) | (m_spr_attra[(basereg * 2)] << 8);
+
+					tile += gfxbase;
+					set_data_address(tile, 0);
+
+					// there seems to be a packet stored before the tile?!
+					// the offset used for flipped sprites seems to specifically be changed so that it picks up an extra byte which presumably triggers the flipping
+					uint8_t byte1 = 0;
+					int done = 0;
+					int skip = 0;
+
+					do
+					{
+						byte1 = get_next_byte();
+
+						if (debug_packets) printf(" %02x, ", byte1);
+
+						if (skip == 1)
+						{
+							skip = 0;
+							//test = 1;
+						}
+						else if ((byte1 & 0x0f) == 0x01)
+						{
+							// used
+						}
+						else if ((byte1 & 0x0f) == 0x03)
+						{
+							// causes next byte to be skipped??
+							skip = 1;
+						}
+						else if ((byte1 & 0x0f) == 0x05)
+						{
+							// the upper bits are often 0x00, 0x10, 0x20, 0x30, why?
+							flipx = 1;
+						}
+						else if ((byte1 & 0x0f) == 0x06) // there must be other finish conditions too because sometimes this fails..
+						{
+							// tile data will follow after this, always?
+							pal = (byte1 & 0xf0) >> 4;
+							done = 1;
+						}
+						else if ((byte1 & 0x0f) == 0x07)
+						{
+							// causes next byte to be skipped??
+							skip = 1;
+						}
+						else if ((byte1 & 0x0f) == 0x09)
+						{
+							// used
+						}
+						else if ((byte1 & 0x0f) == 0x0a)
+						{
+							// not seen
+						}
+						else if ((byte1 & 0x0f) == 0x0b)
+						{
+							// used
+						}
+						else if ((byte1 & 0x0f) == 0x0c)
+						{
+							// not seen
+						}
+						else if ((byte1 & 0x0f) == 0x0d)
+						{
+							// used
+						}
+						else if ((byte1 & 0x0f) == 0x0e)
+						{
+							// not seen
+						}
+						else if ((byte1 & 0x0f) == 0x0f)
+						{
+							// used
+						}
+
+					} while (done == 0);
+					if (debug_packets) printf("\n");
+					tile = get_current_address_byte();
+				}
+
+				if (test == 1) pal = machine().rand() & 0xf;
+
+
+				draw_tile(screen, bitmap, cliprect, tile, bpp, (x * xtilesize) + scrollx, ((y * ytilesize) - 16) - scrolly, xtilesize, ytilesize, flipx, flipy, pal, opaque);
+				draw_tile(screen, bitmap, cliprect, tile, bpp, (x * xtilesize) + scrollx, (((y * ytilesize) - 16) - scrolly) + 256, xtilesize, ytilesize, flipx, flipy, pal, opaque); // wrap-y
+				draw_tile(screen, bitmap, cliprect, tile, bpp, ((x * xtilesize) + scrollx) - 256, ((y * ytilesize) - 16) - scrolly, xtilesize, ytilesize, flipx, flipy, pal, opaque); // wrap-x
+				draw_tile(screen, bitmap, cliprect, tile, bpp, ((x * xtilesize) + scrollx) - 256, (((y * ytilesize) - 16) - scrolly) + 256, xtilesize, ytilesize, flipx, flipy, pal, opaque); // wrap-y and x
+			}
 		}
 	}
-	
-	//printf("frame\n");
-	for (int i = 0; i < 0x100; i++)
+}
+
+void xavix_state::draw_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+{
+	//logerror("frame\n");
+	// priority doesn't seem to be based on list order, there are bad sprite-sprite priorities with either forward or reverse
+
+	for (int i = 0xff; i >= 0; i--)
 	{
+		/* attribute 0 bits
+		   pppp bbb-    p = palette, b = bpp
+
+		   attribute 1 bits
+		   ---- ss-f    s = size, f = flipx
+		*/
+
 		int ypos = m_spr_ypos[i];
 		int xpos = m_spr_xpos[i];
-		int tile = m_spr_attr6[i];
-		tile += 0x4b00;
+		int tile = (m_spr_addr_hi[i] << 16) | (m_spr_addr_md[i] << 8) | m_spr_addr_lo[i];
+		int attr0 = m_spr_attr0[i];
+		int attr1 = m_spr_attr1[i];
+
+		int pal = (attr0 & 0xf0) >> 4;
+		int flipx = (attr1 & 0x01);
+
+		int drawheight = 16;
+		int drawwidth = 16;
+
+		tile &= (m_rgnlen - 1);
+
+		// taito nostalgia 1 also seems to use a different addressing, is it selectable or is the chip different?
+		// taito nost attr1 is 84 / 80 / 88 / 8c for the various elements of the xavix logo.  monster truck uses ec / fc / dc / 4c / 5c / 6c (final 6 sprites ingame are 00 00 f0 f0 f0 f0, radar?)
+
+		if ((attr1 & 0x0c) == 0x0c)
+		{
+			drawheight = 16;
+			drawwidth = 16;
+			if (m_alt_addressing)
+				tile = tile * 128;
+		}
+		else if ((attr1 & 0x0c) == 0x08)
+		{
+			drawheight = 16;
+			drawwidth = 8;
+			xpos += 4;
+			if (m_alt_addressing)
+				tile = tile * 64;
+		}
+		else if ((attr1 & 0x0c) == 0x04)
+		{
+			drawheight = 8;
+			drawwidth = 16;
+			ypos -= 4;
+			if (m_alt_addressing)
+				tile = tile * 64;
+		}
+		else if ((attr1 & 0x0c) == 0x00)
+		{
+			drawheight = 8;
+			drawwidth = 8;
+			xpos += 4;
+			ypos -= 4;
+			if (m_alt_addressing)
+				tile = tile * 32;
+		}
+
+		if (m_alt_addressing)
+			tile += 0xd8000;
 
 		ypos = 0xff - ypos;
 
 		xpos -= 136;
-		ypos -= 192;
+		ypos -= 152;
 
+		xpos &= 0xff;
+		ypos &= 0xff;
 
-		xpos &=0xff;
-		ypos &=0xff;
+		if (ypos >=192)
+			ypos -= 256;
 
-		//if (!(ypos & 1))
-		
-		gfx->transpen(bitmap,cliprect,tile,10,0,0,xpos,ypos,0);
+		int bpp = 1;
+
+		bpp = (attr0 & 0x0e) >> 1;
+		bpp += 1;
+
+		draw_tile(screen, bitmap, cliprect, tile, bpp, xpos, ypos, drawheight, drawwidth, flipx, 0, pal, 0);
+		draw_tile(screen, bitmap, cliprect, tile, bpp, xpos-256, ypos, drawheight, drawwidth, flipx, 0, pal, 0); // wrap-x
+		draw_tile(screen, bitmap, cliprect, tile, bpp, xpos, ypos-256, drawheight, drawwidth, flipx, 0, pal, 0); // wrap-y
+		draw_tile(screen, bitmap, cliprect, tile, bpp, xpos-256, ypos-256, drawheight, drawwidth, flipx, 0, pal, 0); // wrap-x,y
 
 		/*
 		if ((m_spr_ypos[i] != 0x81) && (m_spr_ypos[i] != 0x80) && (m_spr_ypos[i] != 0x00))
 		{
-			printf("sprite with enable? %02x attr0 %02x attr1 %02x attr3 %02x attr5 %02x attr6 %02x attr7 %02x\n", m_spr_ypos[i], m_spr_attr0[i], m_spr_attr1[i], m_spr_xpos[i], m_spr_attr5[i], m_spr_attr6[i], m_spr_attr7[i] );
+			logerror("sprite with enable? %02x attr0 %02x attr1 %02x attr3 %02x attr5 %02x attr6 %02x attr7 %02x\n", m_spr_ypos[i], m_spr_attr0[i], m_spr_attr1[i], m_spr_xpos[i], m_spr_addr_lo[i], m_spr_addr_md[i], m_spr_addr_hi[i] );
 		}
 		*/
 	}
+}
+
+void xavix_state::draw_tile(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int tile, int bpp, int xpos, int ypos, int drawheight, int drawwidth, int flipx, int flipy, int pal, int opaque)
+{
+	// set the address here so we can increment in bits in the draw function
+	set_data_address(tile, 0);
+
+	for (int y = 0; y < drawheight; y++)
+	{
+		int row;
+		if (flipy)
+		{
+			row = ypos + (drawheight-1) - y;
+		}
+		else
+		{
+			row = ypos + y;
+		}
+
+		for (int x = 0; x < drawwidth; x++)
+		{
+
+			int col;
+
+			if (flipx)
+			{
+				col = xpos + (drawwidth-1) - x;
+			}
+			else
+			{
+				col = xpos + x;
+			}
+
+			uint8_t dat = 0;
+
+			for (int i = 0; i < bpp; i++)
+			{
+				dat |= (get_next_bit() << i);
+			}
+
+			if ((row >= cliprect.min_y && row <= cliprect.max_y) && (col >= cliprect.min_x && col <= cliprect.max_x))
+			{
+				uint16_t* rowptr;
+
+				rowptr = &bitmap.pix16(row);
+				
+				if (opaque)
+				{
+					rowptr[col] = (dat + (pal << 4)) & 0xff;
+				}
+				else
+				{
+					if (dat)
+						rowptr[col] = (dat + (pal << 4)) & 0xff;
+				}
+			}
+		}
+	}
+}
+
+uint32_t xavix_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+{
+	handle_palette(screen, bitmap, cliprect);
+
+	bitmap.fill(0, cliprect);
+
+	draw_tilemap(screen,bitmap,cliprect,0);
+	draw_sprites(screen,bitmap,cliprect);
+	draw_tilemap(screen,bitmap,cliprect,1);
 
 	return 0;
 }
@@ -427,31 +831,164 @@ TIMER_DEVICE_CALLBACK_MEMBER(xavix_state::scanline_cb)
 
 INTERRUPT_GEN_MEMBER(xavix_state::interrupt)
 {
-//	if (m_irq_enable_data != 0)
-//		m_maincpu->set_input_line(INPUT_LINE_IRQ0,HOLD_LINE);
+	//	if (m_irq_enable_data != 0)
+	//		m_maincpu->set_input_line(INPUT_LINE_IRQ0,HOLD_LINE);
 
 	if (m_irq_enable_data != 0)
-		m_maincpu->set_input_line(INPUT_LINE_NMI,PULSE_LINE);
+	{
+		m_maincpu->set_input_line(INPUT_LINE_NMI, PULSE_LINE);
+	}
+}
+
+
+
+READ8_MEMBER(xavix_state::xavix_6ff0_r)
+{
+	//logerror("%s: xavix_6ff0_r\n", machine().describe_context());
+	return m_6ff0;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_6ff0_w)
+{
+	// expected to return data written
+	m_6ff0 = data;
+	//logerror("%s: xavix_6ff0_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_6ff8_r)
+{
+	//logerror("%s: xavix_6ff8_r\n", machine().describe_context());
+	return m_6ff8;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_6ff8_w)
+{
+	// I think this is something to do with IRQ ack / enable
+	m_6ff8 = data;
+	logerror("%s: xavix_6ff8_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_75f0_r)
+{
+	logerror("%s: xavix_75f0_r\n", machine().describe_context());
+	return m_75f0;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75f0_w)
+{
+	// expected to return data written
+	m_75f0 = data;
+	logerror("%s: xavix_75f0_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_75f1_r)
+{
+	logerror("%s: xavix_75f1_r\n", machine().describe_context());
+	return m_75f1;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75f1_w)
+{
+	// expected to return data written
+	m_75f1 = data;
+	logerror("%s: xavix_75f1_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_75f6_r)
+{
+	logerror("%s: xavix_75f6_w\n", machine().describe_context());
+	return m_75f6;
 }
 
 WRITE8_MEMBER(xavix_state::xavix_75f6_w)
 {
+	// expected to return data written
+	m_75f6 = data;
 	logerror("%s: xavix_75f6_w %02x\n", machine().describe_context(), data);
 }
+
+READ8_MEMBER(xavix_state::xavix_75fa_r)
+{
+	logerror("%s: xavix_75fa_w\n", machine().describe_context());
+	return m_75fa;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75fa_w)
+{
+	// expected to return data written
+	m_75fa = data;
+	logerror("%s: xavix_75fa_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_75fb_r)
+{
+	logerror("%s: xavix_75fb_w\n", machine().describe_context());
+	return m_75fb;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75fb_w)
+{
+	// expected to return data written
+	m_75fb = data;
+	logerror("%s: xavix_75fb_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_75fc_r)
+{
+	logerror("%s: xavix_75fc_w\n", machine().describe_context());
+	return m_75fc;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75fc_w)
+{
+	// expected to return data written
+	m_75fc = data;
+	logerror("%s: xavix_75fc_w %02x\n", machine().describe_context(), data);
+}
+
+READ8_MEMBER(xavix_state::xavix_75fd_r)
+{
+	logerror("%s: xavix_75fd_w\n", machine().describe_context());
+	return m_75fd;
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75fd_w)
+{
+	// expected to return data written
+	m_75fd = data;
+	logerror("%s: xavix_75fd_w %02x\n", machine().describe_context(), data);
+}
+
+
+
+
 
 WRITE8_MEMBER(xavix_state::xavix_75f7_w)
 {
 	logerror("%s: xavix_75f7_w %02x\n", machine().describe_context(), data);
 }
 
+READ8_MEMBER(xavix_state::xavix_75f8_r)
+{
+	logerror("%s: xavix_75f8_r\n", machine().describe_context());
+	return m_75f8;
+}
+
 WRITE8_MEMBER(xavix_state::xavix_75f8_w)
 {
+	// expected to return data written
+	m_75f8 = data;
 	logerror("%s: xavix_75f8_w %02x\n", machine().describe_context(), data);
 }
 
 WRITE8_MEMBER(xavix_state::xavix_75f9_w)
 {
 	logerror("%s: xavix_75f9_w %02x\n", machine().describe_context(), data);
+}
+
+WRITE8_MEMBER(xavix_state::xavix_75fe_w)
+{
+	logerror("%s: xavix_75fe_w %02x\n", machine().describe_context(), data);
 }
 
 WRITE8_MEMBER(xavix_state::xavix_75ff_w)
@@ -615,7 +1152,130 @@ READ8_MEMBER(xavix_state::pal_ntsc_r)
 {
 	// only seen 0x10 checked in code
 	// in monster truck the tile base address gets set based on this, there are 2 copies of the test screen in rom, one for pal, one for ntsc, see 1854c
-	return 0x10;
+	return 0x00; // NTSC
+	//return 0x10; // PAL
+}
+
+WRITE8_MEMBER(xavix_state::xavix_6fc0_w) // also related to tilemap 1?
+{
+	logerror("%s: xavix_6fc0_w data %02x\n", machine().describe_context(), data);
+}
+
+WRITE8_MEMBER(xavix_state::tmap1_regs_w)
+{
+	/*
+	   0x0 seems to be where the tilemap is in ram (02 in monster truck, 0f in ekara)
+	       it gets set to 0x40 in monster truck test mode, which is outside of ram but test mode requires a fixed 'column scan' layout
+		   so that might be special
+
+	   0x1 unknown   (gets set to 0x03 on the course select, uninitialzied before that)
+
+	   0x2 unused?
+
+	   0x3 ---- bbb-     - = ?   b = bpp    (0x36 xavix logo, 0x3c title screen, 0x36 course select)
+
+	   0x4 and 0x5 are scroll
+
+	   0x6 pppp ----     p = palette  - = ?   (0x02 xavix logo, 0x01 course select)
+
+	   0x7 could be mode (16x16, 8x8 etc.)
+	        0x00 is disabled?
+	        0x80 means 16x16 tiles
+			0x81 might be 8x8 tiles
+			0x93 course / mode select bg / ingame (weird addressing?)
+
+
+	 */
+
+	/*
+	    6aff base registers
+		-- ingame
+
+		ae 80
+		02 80
+		02 90
+		02 a0
+		02 b0
+		02 c0
+		02 d0
+		02 e0
+
+		02 00
+		04 80
+		04 90
+		04 a0
+		04 b0
+		04 c0
+		04 d0
+		04 e0
+
+		-- menu
+		af 80
+		27 80
+		27 90
+		27 a0
+		27 b0
+		27 c0
+		27 d0
+		27 e0
+
+		27 00
+		00 80
+		00 90
+		00 a0
+		00 b0
+		00 c0
+		00 d0
+		00 e0
+	*/
+
+
+	if ((offset != 0x4) && (offset != 0x5))
+	{
+		logerror("%s: tmap1_regs_w offset %02x data %02x\n", machine().describe_context(), offset, data);
+	}
+
+	COMBINE_DATA(&m_tmap1_regs[offset]);
+}
+
+WRITE8_MEMBER(xavix_state::xavix_6fd8_w) // also related to tilemap 2?
+{
+	// possibly just a mirror of tmap2_regs_w, at least it writes 0x04 here which would be the correct
+	// base address to otherwise write at tmap2_regs_w offset 0
+	tmap2_regs_w(space,offset,data);
+
+	//logerror("%s: xavix_6fd8_w data %02x\n", machine().describe_context(), data);
+}
+
+WRITE8_MEMBER(xavix_state::tmap2_regs_w)
+{
+	// same as above but for 2nd tilemap
+	if ((offset != 0x4) && (offset != 0x5))
+	{
+		//logerror("%s: tmap2_regs_w offset %02x data %02x\n", machine().describe_context(), offset, data);
+	}
+
+	COMBINE_DATA(&m_tmap2_regs[offset]);
+}
+
+READ8_MEMBER(xavix_state::tmap2_regs_r)
+{
+	// does this return the same data or a status?
+
+	logerror("%s: tmap2_regs_r offset %02x\n", offset, machine().describe_context());
+	return m_tmap2_regs[offset];
+}
+
+READ8_MEMBER(xavix_state::xavix_4000_r)
+{
+	if (offset < 0x100)
+	{
+		return ((offset>>4) | (offset<<4));
+	}
+	else
+	{
+		return 0x00;
+	}
 }
 
 // DATA reads from 0x8000-0xffff are banked by byte 0xff of 'ram' (this is handled in the CPU core)
@@ -624,35 +1284,32 @@ ADDRESS_MAP_START(xavix_state::xavix_map)
 	AM_RANGE(0x000000, 0x0001ff) AM_RAM
 	AM_RANGE(0x000200, 0x003fff) AM_RAM AM_SHARE("mainram")
 
+	// this might not be a real area, the tilemap base register gets set to 0x40 in monster truck service mode, and expects a fixed layout.
+	// As that would point at this address maybe said layout is being read from here, or maybe it's just a magic tilemap register value that doesn't read address space at all.
+	AM_RANGE(0x004000, 0x0041ff) AM_READ(xavix_4000_r)	
+
 	// 6xxx ranges are the video hardware
 	// appears to be 256 sprites (shares will be renamed once their purpose is known)
 	AM_RANGE(0x006000, 0x0060ff) AM_RAM AM_SHARE("spr_attr0")
 	AM_RANGE(0x006100, 0x0061ff) AM_RAM AM_SHARE("spr_attr1")
-	AM_RANGE(0x006200, 0x0062ff) AM_RAM AM_SHARE("spr_attr2") // cleared to 0x8f0 by both games, maybe enable registers?
-	AM_RANGE(0x006300, 0x0063ff) AM_RAM AM_SHARE("spr_attr3")
+	AM_RANGE(0x006200, 0x0062ff) AM_RAM AM_SHARE("spr_ypos") // cleared to 0x80 by both games, maybe enable registers?
+	AM_RANGE(0x006300, 0x0063ff) AM_RAM AM_SHARE("spr_xpos")
 	AM_RANGE(0x006400, 0x0064ff) AM_RAM // 6400 range unused by code, does it exist?
-	AM_RANGE(0x006500, 0x0065ff) AM_RAM AM_SHARE("spr_attr5")
-	AM_RANGE(0x006600, 0x0066ff) AM_RAM AM_SHARE("spr_attr6")
-	AM_RANGE(0x006700, 0x0067ff) AM_RAM AM_SHARE("spr_attr7")
+	AM_RANGE(0x006500, 0x0065ff) AM_RAM AM_SHARE("spr_addr_lo")
+	AM_RANGE(0x006600, 0x0066ff) AM_RAM AM_SHARE("spr_addr_md")
+	AM_RANGE(0x006700, 0x0067ff) AM_RAM AM_SHARE("spr_addr_hi")
 	AM_RANGE(0x006800, 0x0068ff) AM_RAM AM_SHARE("palram1") // written with 6900
 	AM_RANGE(0x006900, 0x0069ff) AM_RAM AM_SHARE("palram2") // startup (taitons1)
 	AM_RANGE(0x006a00, 0x006a1f) AM_RAM AM_SHARE("spr_attra") // test mode, pass flag 0x20
 
-	/*
-	AM_RANGE(0x006fc0, 0x006fc0) AM_WRITENOP // startup
+	
+	AM_RANGE(0x006fc0, 0x006fc0) AM_WRITE(xavix_6fc0_w) // startup (maybe this is a mirror of tmap1_regs_w)
 
-	AM_RANGE(0x006fc8, 0x006fc8) AM_WRITENOP
-	AM_RANGE(0x006fc9, 0x006fc9) AM_WRITENOP
-	AM_RANGE(0x006fca, 0x006fca) AM_WRITENOP
-	AM_RANGE(0x006fcb, 0x006fcb) AM_WRITENOP
-	AM_RANGE(0x006fcc, 0x006fcc) AM_WRITENOP
-	AM_RANGE(0x006fcd, 0x006fcd) AM_WRITENOP
-	AM_RANGE(0x006fce, 0x006fce) AM_WRITENOP
-	AM_RANGE(0x006fcf, 0x006fcf) AM_WRITENOP
+	AM_RANGE(0x006fc8, 0x006fcf) AM_WRITE(tmap1_regs_w) // video registers
 
-	//AM_RANGE(0x006fd7, 0x006fd7) AM_READNOP AM_WRITENOP
-	AM_RANGE(0x006fd8, 0x006fd8) AM_WRITENOP // startup (taitons1)
-	*/
+	AM_RANGE(0x006fd0, 0x006fd7) AM_READWRITE(tmap2_regs_r, tmap2_regs_w)
+	AM_RANGE(0x006fd8, 0x006fd8) AM_WRITE(xavix_6fd8_w) // startup (mirror of tmap2_regs_w?)
+	
 	AM_RANGE(0x006fe0, 0x006fe0) AM_READWRITE(vid_dma_trigger_r, vid_dma_trigger_w) // after writing to 6fe1/6fe2 and 6fe5/6fe6 rad_mtrk writes 0x43/0x44 here then polls on 0x40   (see function call at c273) write values are hardcoded, similar code at 18401
 	AM_RANGE(0x006fe1, 0x006fe2) AM_WRITE(vid_dma_params_1_w)
 	AM_RANGE(0x006fe5, 0x006fe6) AM_WRITE(vid_dma_params_2_w)
@@ -660,38 +1317,38 @@ ADDRESS_MAP_START(xavix_state::xavix_map)
 	// function in rad_mtrk at 0184b7 uses this
 	AM_RANGE(0x006fe8, 0x006fe8) AM_RAM // r/w tested
 	AM_RANGE(0x006fe9, 0x006fe9) AM_RAM // r/w tested
-	AM_RANGE(0x006fea, 0x006fea) AM_WRITENOP 
+	//AM_RANGE(0x006fea, 0x006fea) AM_WRITENOP 
 
-	AM_RANGE(0x006ff0, 0x006ff0) AM_RAM // r/w tested
-	AM_RANGE(0x006ff1, 0x006ff1) AM_WRITENOP // startup - cleared in interrupt 0
-	AM_RANGE(0x006ff2, 0x006ff2) AM_WRITENOP // set to 07 after clearing above things in interrupt 0
+	AM_RANGE(0x006ff0, 0x006ff0) AM_READWRITE(xavix_6ff0_r, xavix_6ff0_w) // r/w tested
+	//AM_RANGE(0x006ff1, 0x006ff1) AM_WRITENOP // startup - cleared in interrupt 0
+	//AM_RANGE(0x006ff2, 0x006ff2) AM_WRITENOP // set to 07 after clearing above things in interrupt 0
 
-	AM_RANGE(0x006ff8, 0x006ff8) AM_RAM // always seems to be a read/store or read/modify/store
+	AM_RANGE(0x006ff8, 0x006ff8) AM_READWRITE(xavix_6ff8_r, xavix_6ff8_w) // always seems to be a read/store or read/modify/store
 	AM_RANGE(0x006ff9, 0x006ff9) AM_READ(pal_ntsc_r)
 
 	// 7xxx ranges system controller?
 
-	AM_RANGE(0x0075f0, 0x0075f0) AM_RAM // r/w tested read/written 8 times in a row
-	AM_RANGE(0x0075f1, 0x0075f1) AM_RAM // r/w tested read/written 8 times in a row
+	AM_RANGE(0x0075f0, 0x0075f0) AM_READWRITE(xavix_75f0_r, xavix_75f0_w) // r/w tested read/written 8 times in a row
+	AM_RANGE(0x0075f1, 0x0075f1) AM_READWRITE(xavix_75f1_r, xavix_75f1_w) // r/w tested read/written 8 times in a row
+	AM_RANGE(0x0075f3, 0x0075f3) AM_RAM
 	AM_RANGE(0x0075f4, 0x0075f4) AM_READ(xavix_75f4_r) // related to 75f0 (read after writing there - rad_mtrk)
 	AM_RANGE(0x0075f5, 0x0075f5) AM_READ(xavix_75f5_r) // related to 75f1 (read after writing there - rad_mtrk)
 
 	// taitons1 after 75f7/75f8
-	AM_RANGE(0x0075f6, 0x0075f6) AM_RAM // r/w tested AM_WRITE(xavix_75f6_w)
+	AM_RANGE(0x0075f6, 0x0075f6) AM_READWRITE(xavix_75f6_r, xavix_75f6_w) // r/w tested 
 	// taitons1 written as a pair
-	//AM_RANGE(0x0075f7, 0x0075f7) AM_WRITE(xavix_75f7_w)
-	AM_RANGE(0x0075f8, 0x0075f8) AM_RAM // r/w tested AM_WRITE(xavix_75f8_w)
+	AM_RANGE(0x0075f7, 0x0075f7) AM_WRITE(xavix_75f7_w)
+	AM_RANGE(0x0075f8, 0x0075f8) AM_READWRITE(xavix_75f8_r, xavix_75f8_w) // r/w tested 
 	// taitons1 written after 75f6, then read
-	//AM_RANGE(0x0075f9, 0x0075f9) AM_READWRITE(xavix_75f9_r, xavix_75f9_w)
+	AM_RANGE(0x0075f9, 0x0075f9) AM_READWRITE(xavix_75f9_r, xavix_75f9_w)
 	// at another time
-	AM_RANGE(0x0075fa, 0x0075fa) AM_RAM // r/w tested
-	AM_RANGE(0x0075fb, 0x0075fb) AM_RAM // r/w tested
-	AM_RANGE(0x0075fc, 0x0075fc) AM_RAM // r/w tested
-
-	AM_RANGE(0x0075fd, 0x0075fd) AM_RAM // r/w tested
-	//AM_RANGE(0x0075fe, 0x0075fe) AM_WRITENOP
+	AM_RANGE(0x0075fa, 0x0075fa) AM_READWRITE(xavix_75fa_r, xavix_75fa_w) // r/w tested
+	AM_RANGE(0x0075fb, 0x0075fb) AM_READWRITE(xavix_75fb_r, xavix_75fb_w) // r/w tested
+	AM_RANGE(0x0075fc, 0x0075fc) AM_READWRITE(xavix_75fc_r, xavix_75fc_w) // r/w tested
+	AM_RANGE(0x0075fd, 0x0075fd) AM_READWRITE(xavix_75fd_r, xavix_75fd_w) // r/w tested
+	AM_RANGE(0x0075fe, 0x0075fe) AM_WRITE(xavix_75fe_w)
 	// taitons1 written other 75xx operations
-	//AM_RANGE(0x0075ff, 0x0075ff) AM_WRITE(xavix_75ff_w)
+	AM_RANGE(0x0075ff, 0x0075ff) AM_WRITE(xavix_75ff_w)
 
 	//AM_RANGE(0x007810, 0x007810) AM_WRITENOP // startup
 
@@ -720,7 +1377,7 @@ ADDRESS_MAP_START(xavix_state::xavix_map)
 	//AM_RANGE(0x007a80, 0x007a80) AM_WRITENOP
 
 	//AM_RANGE(0x007b80, 0x007b80) AM_READNOP
-	//AM_RANGE(0x007b81, 0x007b81) AM_WRITENOP
+	//AM_RANGE(0x007b81, 0x007b81) AM_WRITENOP // every frame?
 	//AM_RANGE(0x007b82, 0x007b82) AM_WRITENOP
 
 	//AM_RANGE(0x007c01, 0x007c01) AM_RAM // r/w tested
@@ -901,6 +1558,37 @@ void xavix_state::machine_reset()
 	m_irq_vector0_hi_data = 0;
 	m_irq_vector1_lo_data = 0;
 	m_irq_vector1_hi_data = 0;
+
+	m_6ff0 = 0;
+	m_6ff8 = 0;
+
+	m_75f0 = 0;
+	m_75f1 = 0;
+
+	m_75f6 = 0;
+	m_75f8 = 0;
+	m_75fa = 0;
+	m_75fb = 0;
+	m_75fc = 0;
+	m_75fd = 0;
+
+	for (int i = 0; i < 3; i++)
+		m_multparams[i] = 0;
+
+	for (int i = 0; i < 2; i++)
+		m_multresults[i] = 0;
+
+	for (int i = 0; i < 2; i++)
+	{
+		m_vid_dma_param1[i] = 0;
+		m_vid_dma_param2[i] = 0;
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		m_tmap1_regs[i] = 0;
+		m_tmap2_regs[i] = 0;
+	}
 }
 
 typedef device_delegate<uint8_t (int which, int half)> xavix_interrupt_vector_delegate;
@@ -942,7 +1630,7 @@ MACHINE_CONFIG_START(xavix_state::xavix)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500))
 	MCFG_SCREEN_UPDATE_DRIVER(xavix_state, screen_update)
 	MCFG_SCREEN_SIZE(32*8, 32*8)
-	MCFG_SCREEN_VISIBLE_AREA(0*8, 32*8-1, 0*8, 28*8-1)
+	MCFG_SCREEN_VISIBLE_AREA(1*8, 31*8-1, 0*8, 28*8-1)
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", xavix)
@@ -963,6 +1651,13 @@ DRIVER_INIT_MEMBER(xavix_state,xavix)
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	space.install_rom(0x8000, m_rgnlen, ((~(m_rgnlen-1))<<1)&0xffffff, m_rgn+0x8000);
 }
+
+DRIVER_INIT_MEMBER(xavix_state, taitons1)
+{
+	DRIVER_INIT_CALL(xavix);
+	m_alt_addressing = 1;
+}
+
 
 /***************************************************************************
 
@@ -1007,7 +1702,7 @@ ROM_END
 
 /* Standalone TV Games */
 
-CONS( 2006, taitons1,  0,   0,  xavix,  xavix,   xavix_state, xavix, "Bandai / SSD Company LTD / Taito", "Let's! TV Play Classic - Taito Nostalgia 1", MACHINE_IS_SKELETON )
+CONS( 2006, taitons1,  0,   0,  xavix,  xavix,    xavix_state, taitons1, "Bandai / SSD Company LTD / Taito", "Let's! TV Play Classic - Taito Nostalgia 1", MACHINE_IS_SKELETON )
 
 CONS( 2000, rad_ping,  0,   0,  xavix,  xavix,    xavix_state, xavix, "Radica / SSD Company LTD / Simmer Technology", "Play TV Ping Pong", MACHINE_IS_SKELETON ) // "Simmer Technology" is also known as "Hummer Technology Co., Ltd"
 CONS( 2003, rad_mtrk,  0,   0,  xavix,  rad_mtrk, xavix_state, xavix, "Radica / SSD Company LTD",                     "Play TV Monster Truck", MACHINE_IS_SKELETON )
