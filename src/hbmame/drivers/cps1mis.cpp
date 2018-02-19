@@ -14429,7 +14429,7 @@ GAME( 1991, knightsh04,    knights,  cps1_10MHz, knights,  cps_state,   cps1,   
 GAME( 1991, knightsh05,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Round Table Samurai Chop Version)(World 911127)", MACHINE_SUPPORTS_SAVE )
 // Mercs
 GAME( 1990, mercs01,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Hacks", "Mercs (Ex Super Version)(World 900302)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, mercs02,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Hacks", "Senjou no Ookami II (Japan 900302)(Translation-Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, mercs02,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Hacks", "Senjou no Ookami II (Japan 900302)(Translation-Chinese)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Muscle Bomber Duo: Ultimate Team Battle
 GAME( 1993, mbombrds01,    mbombrd,  qsound,     slammast, cps_state,   slammast, ROT0,   "Hacks", "Muscle Bomber Duo: Ultimate Team Battle (Region Hack-Asia Version)(World 931206)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, mbombrds02,    mbombrd,  qsound,     slammast, cps_state,   slammast, ROT0,   "Hacks", "Muscle Bomber Duo: Ultimate Team Battle (Region Hack-Hispanic Version)(World 931206)", MACHINE_SUPPORTS_SAVE )

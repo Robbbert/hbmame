@@ -182,7 +182,9 @@ ffight		// parent
 ghouls		// parent
 kod			// parent
 knights		// parent
+mbombrd			//parent
 megaman		// parent
+mercs			//parent
 pnickj		// parent
 punisher	// parent
 sf2			// parent
@@ -464,12 +466,12 @@ knightsh02
 knightsh03
 knightsh04
 knightsh05
-//mercs01
-//mercs02
-//mbombrds01
-//mbombrds02
-//mbombrds03
-//mbombrds04
+mercs01
+mercs02				// bad gfx on white house
+mbombrds01
+mbombrds02
+mbombrds03
+mbombrds04
 //punishers01
 //punishers02
 punishers03
@@ -5201,10 +5203,10 @@ wjammersk
 zupapad
 //diggerma duplicate name, to check
 // waiting on roms
-//androduns01
-//aof2s01
-//aof2s02
-//aof2s03
+androduns01
+aof2s01
+aof2s02
+aof2s03
 aof2s04
 aof2as01
 aof2as02
@@ -6917,65 +6919,65 @@ orlegends28
 //olds100s01
 olds01
 orlegend111cs01
-//orlegendcs01
-//orlegendcs02
-//orlegendcs03
-//orlegendcs04
-//orlegendcs05
-//orlegendcs06
-//orlegendcs07
-//orlegendcs08
-//orlegendcs09
-//orlegendcs10
-//orlegendcs11
-//orlegendcs12
-//orlegendcs13
-//orlegendcs14
-//orlegendcs16
-//orlegendcs17
-//orlegendcs18
-//orlegendcs19
-//orlegendcs20
-//orlegendcs21
-//orlegendcs22
-//orlegendcs23
-//orlegendcs24
-//orlegendcs25
-//orlegendcs26
-//orlegendcs28
-//orlegendcs29
-//orlegendcs30
-//orlegendcs31
-//orlegendcs32
-//orlegendcs33
-//orlegendcs34
-//orlegendcs35
-//orlegendcs36
-//orlegendcs37
-//orlegendcs38
-//orlegendcs39
-//orlegendcs41
-//orlegendcs42
-//orlegendcs43
-//orlegendcs44
-//orlegendcs45
-//orlegendcs46
-//orlegendcs47
-//orlegendcs49
-//orlegendcs50
-//orlegendcs51
-//orlegendcs52
-//orlegendcs53
-//orlegendcs54
-//orlegendcs55
-//orlegendcs56
-//orlegendcs57
-//orlegendcs58
-//orlegendcs60
-//orlegendcs61
-//orlegendcs62
-//orlegendcs63
-//orlegendcs64
+orlegendcs01
+orlegendcs02
+orlegendcs03
+orlegendcs04
+orlegendcs05
+orlegendcs06
+orlegendcs07
+orlegendcs08
+orlegendcs09
+orlegendcs10
+orlegendcs11
+orlegendcs12
+orlegendcs13
+orlegendcs14
+orlegendcs16
+orlegendcs17
+orlegendcs18
+orlegendcs19
+orlegendcs20
+orlegendcs21
+orlegendcs22
+orlegendcs23
+orlegendcs24
+orlegendcs25
+orlegendcs26
+orlegendcs28
+orlegendcs29
+orlegendcs30
+orlegendcs31
+orlegendcs32
+orlegendcs33
+orlegendcs34
+orlegendcs35
+orlegendcs36
+orlegendcs37
+orlegendcs38
+orlegendcs39
+//orlegendcs41		// stuck in setup menu
+orlegendcs42
+orlegendcs43
+orlegendcs44
+orlegendcs45
+orlegendcs46
+orlegendcs47
+orlegendcs49
+orlegendcs50
+orlegendcs51
+orlegendcs52
+orlegendcs53
+orlegendcs54
+orlegendcs55
+orlegendcs56
+orlegendcs57
+orlegendcs58
+orlegendcs60
+orlegendcs61
+orlegendcs62
+orlegendcs63
+orlegendcs64
 theglads01
 theglads02
 
