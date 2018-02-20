@@ -14452,7 +14452,7 @@ GAME( 1992, sf2ces02,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,   
 GAME( 1992, sf2ces03,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Hacks", "Street Fighter II': Champion Edition (Do Not Force)(World 920513)", MACHINE_SUPPORTS_SAVE ) 
 GAME( 1992, sf2ces04,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Hacks", "Street Fighter II': Champion Edition (Sangigel's Whirlwind To Sit Simplified)(World 920513)", MACHINE_SUPPORTS_SAVE ) 
 GAME( 1992, sf2ces05,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Hacks", "Street Fighter II': Champion Edition (Vega Lifts The Main Scene Crawl Limit)(World 920513)", MACHINE_SUPPORTS_SAVE ) 
-GAME( 1992, sf2koryus01,   sf2ce,    cps1_12MHz, sf2hack,  cps_state,   sf2hack,  ROT0,   "Hacks", "Street Fighter II': Champion Edition (Huaping Repair)(Xiang Long, Chinese bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2koryus01,   sf2ce,    cps1_12MHz, sf2hack,  cps_state,   sf2hack,  ROT0,   "Hacks", "Street Fighter II': Champion Edition (Huaping Repair)(Xiang Long, Chinese bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Saturday Night Slam Masters
 GAME( 1993, slammasts01,      slammast, qsound,     slammast, cps_state,   slammast, ROT0,   "Hacks", "Saturday Night Slam Masters (Region Hack-Asia Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, slammasts02,      slammast, qsound,     slammast, cps_state,   slammast, ROT0,   "Hacks", "Saturday Night Slam Masters (Region Hack-Asia Version (Buggy))", MACHINE_SUPPORTS_SAVE )
