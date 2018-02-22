@@ -30,9 +30,12 @@ public:
 		m_dmac(*this, "dmac"),
 		m_fd(*this, "fdc:%u", 0),
 		m_pal(*this, "palette"),
+		m_chrpal(*this, "chrpal"),
 		m_rtc(*this, "rtc"),
+		m_screen(*this, "screen"),
 		m_chrrom(*this, "char"),
-		m_vram(*this, "vram")
+		m_cvram(*this, "cvram"),
+		m_gvram(*this, "gvram")
 	{ }
 
 	void duet16(machine_config &config);
@@ -53,6 +56,7 @@ private:
 	DECLARE_WRITE8_MEMBER(rtc_w);
 	DECLARE_READ8_MEMBER(rtc_stat_r);
 	DECLARE_WRITE8_MEMBER(rtc_addr_w);
+	DECLARE_READ16_MEMBER(sysstat_r);
 	DECLARE_WRITE_LINE_MEMBER(rtc_d0_w);
 	DECLARE_WRITE_LINE_MEMBER(rtc_d1_w);
 	DECLARE_WRITE_LINE_MEMBER(rtc_d2_w);
@@ -68,9 +72,12 @@ private:
 	required_device<am9517a_device> m_dmac;
 	required_device_array<floppy_connector, 2> m_fd;
 	required_device<palette_device> m_pal;
+	required_device<palette_device> m_chrpal;
 	required_device<msm58321_device> m_rtc;
+	required_device<screen_device> m_screen;
 	required_memory_region m_chrrom;
-	required_shared_ptr<u16> m_vram;
+	required_shared_ptr<u16> m_cvram;
+	required_shared_ptr<u16> m_gvram;
 	u8 m_dmapg, m_dispctrl;
 	u8 m_rtc_d;
 	bool m_rtc_busy, m_rtc_irq, m_itm_irq;
@@ -131,10 +138,15 @@ WRITE_LINE_MEMBER(duet16_state::hrq_w)
 	m_dmac->hack_w(state);
 }
 
+READ16_MEMBER(duet16_state::sysstat_r)
+{
+	return 0xb484;
+}
+
 ADDRESS_MAP_START(duet16_state::duet16_mem)
-	AM_RANGE(0x00000, 0x9ffff) AM_RAM
-	AM_RANGE(0xb8000, 0xbffff) AM_RAM
-	AM_RANGE(0xc0000, 0xc0fff) AM_RAM AM_SHARE("vram")
+	AM_RANGE(0x00000, 0x8ffff) AM_RAM
+	AM_RANGE(0xa8000, 0xbffff) AM_RAM AM_SHARE("gvram")
+	AM_RANGE(0xc0000, 0xc0fff) AM_RAM AM_SHARE("cvram")
 	AM_RANGE(0xf8000, 0xf801f) AM_READWRITE8(dmapg_r, dmapg_w, 0x00ff)
 	AM_RANGE(0xf8000, 0xf801f) AM_DEVREADWRITE8("dmac", am9517a_device, read, write, 0xff00)
 	AM_RANGE(0xf8020, 0xf8023) AM_READWRITE8(pic_r, pic_w, 0x00ff)
@@ -149,6 +161,7 @@ ADDRESS_MAP_START(duet16_state::duet16_mem)
 	AM_RANGE(0xf8100, 0xf8103) AM_DEVICE8("fdc", upd765a_device, map, 0x00ff)
 	AM_RANGE(0xf8120, 0xf8121) AM_READWRITE8(rtc_r, rtc_w, 0x00ff)
 	AM_RANGE(0xf8160, 0xf819f) AM_WRITE8(pal_w, 0xffff)
+	AM_RANGE(0xf8200, 0xf8201) AM_READ(sysstat_r)
 	AM_RANGE(0xf8220, 0xf8221) AM_WRITE8(fdcctrl_w, 0x00ff)
 	AM_RANGE(0xf8260, 0xf8261) AM_WRITE8(rtc_addr_w, 0x00ff)
 	AM_RANGE(0xf8280, 0xf8281) AM_READ8(rtc_stat_r, 0x00ff)
@@ -173,25 +186,49 @@ WRITE8_MEMBER(duet16_state::dispctrl_w)
 
 MC6845_UPDATE_ROW(duet16_state::crtc_update_row)
 {
-	const rgb_t bg = 0;
-	u32 *p = &bitmap.pix32(y);
-
+	u8 *gvram = (u8 *)&m_gvram[0];
 	for(int i = 0; i < x_count; i++)
 	{
-		u16 offset = (ma + i) & 0x1fff;
-		u8 chr = m_vram[offset] & 0xff;
-		u8 attr = m_vram[offset] >> 8;
+		u16 coffset = (ma + i) & 0x07ff;
+		u16 goffset = ((coffset * 16) + ra) & 0x7fff;
+		u8 g2 = gvram[goffset];
+		u8 g1 = gvram[goffset + 0x08000];
+		u8 g0 = gvram[goffset + 0x10000];
+		u8 chr = m_cvram[coffset] & 0xff;
+		u8 attr = m_cvram[coffset] >> 8;
 		u8 data = m_chrrom->base()[(chr * 16) + ra + (BIT(m_dispctrl, 3) * 0x1000)];
-		rgb_t fg = m_pal->pen_color(attr & 7);
+		if(BIT(attr, 6))
+		{
+			if(!(i & 1))
+				data = bitswap<8>(data, 7, 7, 6, 6, 5, 5, 4, 4);
+			else
+				data = bitswap<8>(data, 3, 3, 2, 2, 1, 1, 0, 0);
+		}
+		if(BIT(attr, 4) && (m_screen->frame_number() & 32)) // ~1.7 Hz
+			data = 0;
+		if(BIT(attr, 3))
+			data ^= 0xff;
+		if(BIT(attr, 5) && (ra > 12)) // underline start?
+		{
+			attr |= 7;
+			data = 0xff;
+		}
+		if((i == cursor_x) && (m_screen->frame_number() & 16)) // ~3.4 Hz
+			data ^= 0xff;
 
-		*p = (data & 0x80) ? fg : bg; p++;
-		*p = (data & 0x40) ? fg : bg; p++;
-		*p = (data & 0x20) ? fg : bg; p++;
-		*p = (data & 0x10) ? fg : bg; p++;
-		*p = (data & 0x08) ? fg : bg; p++;
-		*p = (data & 0x04) ? fg : bg; p++;
-		*p = (data & 0x02) ? fg : bg; p++;
-		*p = (data & 0x01) ? fg : bg; p++;
+		rgb_t fg = m_chrpal->pen_color(attr & 7);
+
+		for(int xi = 0; xi < 8; xi++)
+		{
+			rgb_t color;
+			if((data & (0x80 >> xi)) && BIT(m_dispctrl, 1))
+				color = fg;
+			else if(BIT(m_dispctrl, 0))
+				color = m_pal->pen_color((BIT(g2, xi) << 2) | (BIT(g1, xi) << 1) | BIT(g0, xi));
+			else
+				color = 0;
+			bitmap.pix32(y, (i * 8) + xi) = color;
+		}
 	}
 }
 
@@ -231,8 +268,8 @@ WRITE_LINE_MEMBER(duet16_state::rtc_busy_w)
 READ8_MEMBER(duet16_state::rtc_r)
 {
 	u8 ret;
-	m_rtc->read_w(ASSERT_LINE);
 	m_rtc->cs2_w(ASSERT_LINE);
+	m_rtc->read_w(ASSERT_LINE);
 	ret = m_rtc_d;
 	m_rtc->read_w(CLEAR_LINE);
 	m_rtc->cs2_w(CLEAR_LINE);
@@ -241,12 +278,12 @@ READ8_MEMBER(duet16_state::rtc_r)
 
 WRITE8_MEMBER(duet16_state::rtc_w)
 {
-	m_rtc->write_w(ASSERT_LINE);
-	m_rtc->cs2_w(ASSERT_LINE);
 	m_rtc->d0_w(data & 1 ? ASSERT_LINE : CLEAR_LINE);
 	m_rtc->d1_w(data & 2 ? ASSERT_LINE : CLEAR_LINE);
 	m_rtc->d2_w(data & 4 ? ASSERT_LINE : CLEAR_LINE);
 	m_rtc->d3_w(data & 8 ? ASSERT_LINE : CLEAR_LINE);
+	m_rtc->cs2_w(ASSERT_LINE);
+	m_rtc->write_w(ASSERT_LINE);
 	m_rtc->write_w(CLEAR_LINE);
 	m_rtc->cs2_w(CLEAR_LINE);
 }
@@ -256,17 +293,17 @@ READ8_MEMBER(duet16_state::rtc_stat_r)
 	m_rtc_irq = false;
 	if(!m_itm_irq)
 		m_pic->ir0_w(CLEAR_LINE);
-	return (m_rtc_busy ? 0 : 0x80);
+	return (m_rtc_busy ? 0x80 : 0);
 }
 
 WRITE8_MEMBER(duet16_state::rtc_addr_w)
 {
-	m_rtc->address_write_w(ASSERT_LINE);
-	m_rtc->cs2_w(ASSERT_LINE);
 	m_rtc->d0_w(data & 1 ? ASSERT_LINE : CLEAR_LINE);
 	m_rtc->d1_w(data & 2 ? ASSERT_LINE : CLEAR_LINE);
 	m_rtc->d2_w(data & 4 ? ASSERT_LINE : CLEAR_LINE);
 	m_rtc->d3_w(data & 8 ? ASSERT_LINE : CLEAR_LINE);
+	m_rtc->cs2_w(ASSERT_LINE);
+	m_rtc->address_write_w(ASSERT_LINE);
 	m_rtc->address_write_w(CLEAR_LINE);
 	m_rtc->cs2_w(CLEAR_LINE);
 }
@@ -370,8 +407,9 @@ MACHINE_CONFIG_START(duet16_state::duet16)
 	MCFG_MC6845_UPDATE_ROW_CB(duet16_state, crtc_update_row)
 
 	MCFG_PALETTE_ADD("palette", 8)
+	MCFG_PALETTE_ADD_3BIT_BRG("chrpal")
 
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", duet16)
+	MCFG_GFXDECODE_ADD("gfxdecode", "chrpal", duet16)
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_REFRESH_RATE(60)
@@ -385,7 +423,7 @@ MACHINE_CONFIG_START(duet16_state::duet16)
 	MCFG_MSM58321_D2_HANDLER(WRITELINE(duet16_state, rtc_d2_w))
 	MCFG_MSM58321_D3_HANDLER(WRITELINE(duet16_state, rtc_d3_w))
 	MCFG_MSM58321_BUSY_HANDLER(WRITELINE(duet16_state, rtc_busy_w))
-	MCFG_MSM58321_YEAR0(2000)
+	MCFG_MSM58321_YEAR0(1980)
 	MCFG_MSM58321_DEFAULT_24H(true)
 MACHINE_CONFIG_END
 
