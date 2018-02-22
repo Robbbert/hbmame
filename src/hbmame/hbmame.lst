@@ -127,8 +127,7 @@ ddonpacha		// trap15 hack
 pwrinst2		//parent
 pwrinst2h		/* 2013 Hack by TT */
 pwrinst2z
-// waiting on roms
-//pwrinst2s01
+pwrinst2s01
 plegends			//parent
 plegendsjs01
 gaia			//parent
@@ -499,9 +498,9 @@ varths01
 varths02
 //varths03  // file missing
 willows01
-//wofh01
-//wofh02
-//wofh03
+//wofh01 // black screen
+//wofh02 // black screen
+//wofh03 // black screen
 //wofs01 // black screen
 //wofs02 // black screen
 //wofs03 // black screen
@@ -1504,7 +1503,7 @@ kof97h15
 kof97h16
 kof97h18
 kof97h19
-//kof97h20   // files missing
+kof97h20
 kof97h21
 //kof97hx01
 //kof97hx02
@@ -1965,7 +1964,7 @@ kof98s24
 kof98s25
 kof98s27
 kof98s28
-//kof98s29  // files missing
+kof98s29
 kof98s30
 kof98s31
 kof98s32
@@ -5938,7 +5937,7 @@ svcs14
 svcs15
 svcs16
 svcs17
-//svcs18
+svcs18
 svcs19
 svcs20
 svcs21
@@ -5949,7 +5948,7 @@ svcs25
 svcs26
 svcs27
 svcs28
-//svcs29
+svcs29
 svcs30
 svcs31
 svcs32
@@ -5978,13 +5977,13 @@ svcs54
 svcs55
 svcs56
 svcs57
-//svcs58
+svcs58
 svcs59
 svcs60
 svcs61
 svcs62
 svcs63
-//svcs64
+svcs64
 svcs65
 svcs66
 svcs67
@@ -6081,8 +6080,8 @@ svcpcbs02
 svcpcbs03
 svcpcbs04
 svcpcbs05
-//svcpcbs06  // files missing
-//svcpcbs07  // files missing
+svcpcbs06
+svcpcbs07
 svcpcbs08
 svcpcbs09
 svcpcbs10
@@ -6478,10 +6477,10 @@ kovsh19			// rugal 98
 kov					//parent
 kov2                      //parent
 killbld                   //parent
-//kovshp                    //parent
-//oldsplus                  //parent
+kovshp                    //parent
+oldsplus                  //parent
 olds                      //parent
-//martmast                  //parent
+martmast                  //parent
 theglad				//parent
 kovss01
 kov100s01
@@ -6589,22 +6588,22 @@ kovs53
 kovs54
 kovs55
 kovs56
-//kovs57
-//kovs58
-//kovs59
-//kovs60
-//kovs61
-//kovs62
-//kovs63
-//kovs64
-//kovs65
-//kovs66
-//kovs67
-//kovs68
-//kovs69
-//kovs70
-//kovs71
-//kovs72   // files missing
+kovs57
+kovs58
+kovs59
+kovs60
+kovs61
+//kovs62   // causes emu to freeze
+kovs63
+kovs64
+kovs65
+kovs66
+kovs67
+kovs68
+kovs69
+kovs70
+kovs71
+kovs72
 kovs73
 kovs74
 //kovs75   // ingame crash
@@ -6772,26 +6771,26 @@ kovplus155
 kovplus156   // bad gfx
 //kovplus157   // files missing
 kovplus158
-//kovsh01
-//kovsh02
-//kovsh03
-//kovsh04
-//kovsh05
-//kovsh06
-//kovsh07
-//kovsh08
-//kovsh09
-//kovsh010
-//kovsh011
-//kovsh012
-//kovsh013
-//kovsh015
-//kovsh016
-//kovsh017
-//kovsh018
-//kovsh019
-//kovsh020
-//kovsh021
+kovsh01
+kovsh02
+kovsh03
+kovsh04
+kovsh05
+kovsh06
+kovsh07
+kovsh08
+kovsh09
+kovsh010
+kovsh011
+kovsh012
+kovsh013
+kovsh015
+kovsh016
+kovsh017
+//kovsh018   // ingame crash
+kovsh019
+kovsh020
+kovsh021
 kovsh022
 kovsh023   // bad gfx
 //kovsh024   // ingame crash
@@ -6869,49 +6868,49 @@ kovshx02
 //kovshx03   // files missing
 //kovshx04   // files missing
 kovshx05   // bad gfx
-//kovsho01
-//kovsho02
-//kovsho03
-//kovsho04
-//kovsho05
-//kovsho06
-//kovsho07
-//kovsho08
-//kovsho09
-//kovsho10
-//kovsho11
+kovsho01
+kovsho02
+kovsho03
+kovsho04
+kovsho05
+kovsho06
+kovsho07
+kovsho08
+kovsho09
+kovsho10
+kovsho11
 kovqhs01
 killblds01
-//martmasthc01
-//oldsplus01
-//oldsplus02
-//oldsplus03
-//oldsplus04
-//olds100s01
+martmasthc01
+oldsplus01
+oldsplus02
+oldsplus03
+oldsplus04
+olds100s01
 olds01
-//orlegends01
-//orlegends02
-//orlegends03
-//orlegends04
-//orlegends05
-//orlegends06
-//orlegends07
-//orlegends08
-//orlegends09
-//orlegends10
-//orlegends11
-//orlegends12
-//orlegends13
-//orlegends14
-//orlegends15
-//orlegends16
-//orlegends17
-//orlegends18
-//orlegends19
-//orlegends20
-//orlegends21
-//orlegends22
-//orlegends23
+orlegends01
+//orlegends02   // ingame crash
+orlegends03
+//orlegends04   // ingame crash
+orlegends05
+//orlegends06   // stuck in setup menu
+orlegends07
+//orlegends08   // stuck in setup menu
+orlegends09
+orlegends10
+orlegends11
+orlegends12
+orlegends13
+orlegends14
+orlegends15
+orlegends16
+orlegends17
+orlegends18
+orlegends19
+orlegends20
+orlegends21
+orlegends22
+//orlegends23   // stuck in setup menu
 orlegends25
 orlegends26
 orlegends27
