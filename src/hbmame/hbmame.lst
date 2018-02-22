@@ -550,8 +550,8 @@ wofs45
 wofr101
 wofr102
 wofr103
-//wofr104 // illegal instruction during attract mode
-//wofr107 // illegal instruction during attract mode
+//wofr104 // ingame crash
+//wofr107 // ingame crash
 wofr108
 wofr109
 wofj02
@@ -559,9 +559,9 @@ wofj03
 wofj04
 wofj05
 wofj06
-//wofj07 // illegal instruction during attract mode
-//wofj08 // illegal instruction during attract mode
-//wofj09 // illegal instruction during attract mode
+//wofj07 // ingame crash
+//wofj08 // ingame crash
+//wofj09 // ingame crash
 wofj10
 wofj11
 wofj12
@@ -1158,7 +1158,7 @@ kof95s13
 kof95s14
 kof95s15
 kof95s16
-//kof95s17
+kof95s17
 kof95s18
 kof95s19
 kof95s20
@@ -6476,8 +6476,8 @@ kovsh18			// gem fighters
 kovsh19			// rugal 98
 // waiting for roms
 kov					//parent
-//kov2                      //parent
-//killbld                   //parent
+kov2                      //parent
+killbld                   //parent
 //kovshp                    //parent
 //oldsplus                  //parent
 olds                      //parent
@@ -6486,29 +6486,29 @@ theglad				//parent
 kovss01
 kov100s01
 kov115s01
-//kov2s01
-//kov2s02
-//kov2s03
-//kov2s04
-//kov2s05
-//kov2s06
-//kov2s07
-//kov2s08
-//kov2s09
-//kov2s10
-//kov2s11
-//kov2s12
-//kov2s13
-//kov2s14
-//kov2s15
-//kov2s16
-//kov2s17
-//kov2s18
-//kov2s19
-//kov2s20
-//kov2s21
-//kov2s22
-//kov2s23
+kov2s01
+kov2s02
+kov2s03
+kov2s04
+kov2s05
+kov2s06
+kov2s07
+kov2s08
+kov2s09
+kov2s10
+kov2s11
+kov2s12
+kov2s13
+kov2s14
+kov2s15
+kov2s16
+kov2s17
+kov2s18
+kov2s19
+kov2s20
+kov2s21
+kov2s22
+kov2s23
 kov2p204s03
 kov2p204s04
 kov2p204s05
@@ -6529,66 +6529,66 @@ kov2p204s19
 kov2p204s20
 kov2p204s21
 kov2p204s22
-//kov2h01
-//kov2h02
-//kov2h03
-//kov2h04
-//kov2h05
-//kov2h06
-//kovs01
-//kovs02
-//kovs03
-//kovs04
-//kovs05
-//kovs06
-//kovs07
-//kovs08
-//kovs09
-//kovs10
-//kovs11
-//kovs12
-//kovs13
-//kovs15
-//kovs16
-//kovs17
-//kovs18
-//kovs19
-//kovs20
-//kovs21
-//kovs22
-//kovs23
-//kovs24
-//kovs25
-//kovs26
-//kovs27
-//kovs28
-//kovs29
-//kovs30
-//kovs31
-//kovs32
-//kovs33
-//kovs34
-//kovs35
-//kovs36
-//kovs37
-//kovs38
-//kovs39
-//kovs40
-//kovs41
-//kovs42
-//kovs43
-//kovs44
-//kovs45
-//kovs47
-//kovs48
-//kovs49
-//kovs50
-//kovs51
-//kovs52
-//kovs53
-//kovs54
-//kovs55
-//kovs56
+kov2h01
+kov2h02
+kov2h03
+kov2h04
+kov2h05
+kov2h06
+//kovs01  // ingame crash
+kovs02
+kovs03
+kovs04
+kovs05
+kovs06
+//kovs07  // ingame crash
+//kovs08  // causes emu to freeze
+kovs09
+kovs10
+kovs11
+kovs12
+kovs13
+kovs15
+//kovs16  // ingame crash
+kovs17
+kovs18
+//kovs19  // ingame crash
+kovs20
+kovs21
+kovs22
+kovs23
+kovs24
+kovs25
+kovs26
+//kovs27  // goes berserk
+kovs28
+kovs29
+kovs30
+kovs31  // bad gfx
+kovs32
+kovs33
+kovs34
+kovs35
+kovs36
+kovs37
+kovs38
+kovs39  // bad gfx
+kovs40
+//kovs41  // very bad gfx
+kovs42
+kovs43
+kovs44
+kovs45
+kovs47
+kovs48
+kovs49
+kovs50
+kovs51
+kovs52
+kovs53
+kovs54
+kovs55
+kovs56
 //kovs57
 //kovs58
 //kovs59
@@ -6880,9 +6880,15 @@ kovshx05   // bad gfx
 //kovsho09
 //kovsho10
 //kovsho11
-//kovqhs01
-//killblds01
+kovqhs01
+killblds01
 //martmasthc01
+//oldsplus01
+//oldsplus02
+//oldsplus03
+//oldsplus04
+//olds100s01
+olds01
 //orlegends01
 //orlegends02
 //orlegends03
@@ -6910,12 +6916,6 @@ orlegends25
 orlegends26
 orlegends27
 orlegends28
-//oldsplus01
-//oldsplus02
-//oldsplus03
-//oldsplus04
-//olds100s01
-olds01
 orlegend111cs01
 orlegendcs01
 orlegendcs02
@@ -7125,7 +7125,6 @@ bubbleb 	/* pbobble USA Region Hack */
 
 	/* taito_f2 */
 f2demo		/* Charles Doty */
-// waiting for roms
 cameltry			//parent
 cameltryjs01		// bad gfx in title
 deadconx			//parent
@@ -7156,7 +7155,6 @@ gekiridh
 gekiridoc
 landmakh
 pbobl2xh
-// waiting for roms
 spcinv95			//parent
 akkanvdrs01
 arabianm			//parent
@@ -7186,7 +7184,6 @@ sokoban		// Sokoban LE by cmonkey
 speccies	// Speccies 2 by Sokurah
 tldemo		// cmonkey
 tldemo2		// cmonkey
-// waiting on roms
 evilstons01
 kurikint				//parent
 kurikintjs01
@@ -7198,7 +7195,6 @@ gemini		//parent
 geminit		/* Twisty Hack */
 rygar		//parent
 rygark		/* Korean Translation */
-// waiting on roms
 geminis01
 rygarjs01
 silkworm				//parent
@@ -7252,7 +7248,6 @@ timepltdiag
 	/* tmnt */
 ssriders	//parent
 ssridersaex
-// waiting on roms
 ssridersudas01
 tmnt2					//parent
 tmnt2s01
