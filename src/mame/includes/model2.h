@@ -144,7 +144,7 @@ public:
 	uint8_t m_lightgun_mux;
 
 	DECLARE_READ8_MEMBER(model2_crx_in_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(srallyc_gearbox_r);
+	DECLARE_CUSTOM_INPUT_MEMBER(daytona_gearbox_r);
 	DECLARE_CUSTOM_INPUT_MEMBER(rchase2_devices_r);
 	DECLARE_READ32_MEMBER(timers_r);
 	DECLARE_WRITE32_MEMBER(timers_w);
@@ -260,12 +260,12 @@ public:
 	void geo_sharc_map(address_map &map);
 	void model2_base_mem(address_map &map);
 	void model2_snd(address_map &map);
-	
+
 	uint8_t m_gamma_table[256];
-	
+
 protected:
 	virtual void video_start() override;
-	
+
 private:
 	bool m_render_unk;
 	bool m_render_mode;
@@ -276,7 +276,7 @@ private:
  * Model 2
  *
  *****************************/
- 
+
 class model2o_state : public model2_state
 {
 public:
@@ -288,7 +288,7 @@ public:
 	DECLARE_READ8_MEMBER(model2o_in_r);
 	DECLARE_READ32_MEMBER(fifoctrl_r);
 
-	void daytona(machine_config &config);	
+	void daytona(machine_config &config);
 	void model2o(machine_config &config);
 	void model2o_mem(address_map &map);
 };
@@ -311,7 +311,7 @@ public:
 	void model2o_maxx_mem(address_map &map);
 
 private:
-	int m_maxxstate;	
+	int m_maxxstate;
 };
 
 /*****************************
@@ -326,7 +326,7 @@ public:
 	model2a_state(const machine_config &mconfig, device_type type, const char *tag)
 		: model2_state(mconfig, type, tag)
 	{}
-	
+
 	void manxtt(machine_config &config);
 	void manxttdx(machine_config &config);
 	void model2a(machine_config &config);
@@ -371,7 +371,7 @@ public:
 	model2c_state(const machine_config &mconfig, device_type type, const char *tag)
 		: model2_state(mconfig, type, tag)
 	{}
-	
+
 	void model2c(machine_config &config);
 	void model2c_5881(machine_config &config);
 	void overrev2c(machine_config &config);

@@ -10145,7 +10145,6 @@ sf2accp2                        // hack
 sf2amf                          // bootleg
 sf2amf2                         // bootleg
 sf2bhh                          // hack
-sf2bhh2                         // hack?
 sf2ce                           // 13/05/1992 (c) 1992 (World)
 sf2ceblp                        // hack
 sf2cebltw                       // hack
@@ -10153,7 +10152,8 @@ sf2ceea                         // 13/03/1992 (c) 1992 (World)
 sf2ceja                         // 22/03/1992 (c) 1992 (Japan)
 sf2cejb                         // 13/05/1992 (c) 1992 (Japan)
 sf2cejc                         // 03/08/1992 (c) 1992 (Japan)
-sf2ceupl                       // 03/08/1992 (c) 1992 (Japan)
+sf2cet                          // 13/03/1992 (c) 1992 (Taiwan)
+sf2ceupl                        // 03/08/1992 (c) 1992 (Japan)
 sf2ceua                         // 13/03/1992 (c) 1992 (USA)
 sf2ceub                         // 13/05/1992 (c) 1992 (USA)
 sf2ceuc                         // 03/08/1992 (c) 1992 (USA)
@@ -13237,6 +13237,7 @@ moonwar                         // (c) 1981 Stern
 moonwara                        // (c) 1981 Stern
 mshuttle                        // (c) 1981 Nichibutsu
 mshuttle2                       // (c) 1981 Nichibutsu
+mshuttlea                       // (c) 1981 Nichibutsu
 mshuttlej                       // (c) 1981 Nichibutsu
 mshuttlej2                      // (c) 1981 Nichibutsu
 ncentury                        // bootleg (Petaco S.A.)
@@ -17694,6 +17695,7 @@ ladybug                         // 8110 (c) 1981
 ladybugb                        // bootleg
 ladybugb2                       // bootleg
 snapjack                        // ???? (c)
+sraider                         // ???? (c) 1982 Universal
 
 @source:ladyfrog.cpp
 ladyfrog                        // (c) 1990 Mondial Games
@@ -30205,7 +30207,7 @@ olibochu                        // M47 (c) 1981 + "GDI presents"
 olybossb                        // Olympia BOSS B
 olybossc                        // Olympia BOSS C
 olybossd                        // Olympia BOSS D
-bossa85							// Olympia BOSS A 8085
+bossa85                         // Olympia BOSS A 8085
 bossb85                         // Olympia BOSS B 8085
 
 @source:omegrace.cpp
@@ -32686,7 +32688,6 @@ redclashk                       // (c) Kaneko (bootleg?)
 zerohour                        // 8011 (c) Universal
 zerohoura                       // 8011 (c) Universal
 zerohouri                       //
-sraider                         // ???? (c) 1982 Universal
 
 @source:relief.cpp
 relief                          // 136093           (c) 1992
@@ -36527,7 +36528,7 @@ tb303                           // Roland
 
 @source:tbowl.cpp
 tbowl                           // 6206 - (c) 1987 Tecmo
-tbowla							//
+tbowla                          //
 tbowlj                          // 6206 - (c) 1987 Tecmo
 tbowlp                          // Suspected proto of Japanese version for US Market
 
@@ -38977,14 +38978,14 @@ xsleenaj                        // TA-0019 (c) 1986
 taitons1                        //
 rad_ping                        //
 rad_mtrk                        //
-rad_mtrkp						//
+rad_mtrkp                       //
 rad_bb2                         //
 rad_box                         //
-rad_boxp						//
+rad_boxp                        //
 rad_crdn                        //
-rad_crdnp						//
-rad_bass						//
-rad_bassp						//
+rad_crdnp                       //
+rad_bass                        //
+rad_bassp                       //
 eka_strt                        //
 xavtenni                        //
 ttv_sw                          //

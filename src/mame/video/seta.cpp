@@ -382,7 +382,7 @@ TILE_GET_INFO_MEMBER(seta_state::twineagl_get_tile_info)
 	SET_TILE_INFO_MEMBER(1, (code & 0x3fff), attr & 0x1f, TILE_FLIPXY((code & 0xc000) >> 14) );
 }
 
-template<int Layer, int Offset> 
+template<int Layer, int Offset>
 TILE_GET_INFO_MEMBER(seta_state::get_tile_info)
 {
 	int gfx = 1 + Layer;
@@ -482,7 +482,7 @@ VIDEO_START_MEMBER(seta_state,seta_1_layer)
 			16,16, 64,32 );
 
 	m_color_mode_shift = 4;
-	
+
 	for (int bank = 0; bank < 2; bank++)
 		m_tilemap[0][bank]->set_transparent_pen(0);
 }
@@ -519,7 +519,7 @@ VIDEO_START_MEMBER(seta_state,twineagl_1_layer)
 	m_tilemap[0][1] = &machine().tilemap().create(
 			*m_gfxdecode, tilemap_get_info_delegate(FUNC(seta_state::twineagl_get_tile_info<0x1000>),this), TILEMAP_SCAN_ROWS,
 			16,16, 64,32 );
-			
+
 	for (int bank = 0; bank < 2; bank++)
 		m_tilemap[0][bank]->set_transparent_pen(0);
 }
@@ -827,23 +827,16 @@ uint32_t seta_state::screen_update_seta_no_layers(screen_device &screen, bitmap_
 /* For games with 1 or 2 tilemaps */
 void seta_state::seta_layers_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int sprite_bank_size, int sprite_setac )
 {
-	int layers_ctrl = -1;
-	int bank[2], x[2], y[2];
-	int layer;
-
-	int order   =   0;
-	int flip    =   m_seta001->is_flipped();
-
 	const rectangle &visarea = screen.visible_area();
 	int vis_dimy = visarea.max_y - visarea.min_y + 1;
 
 	// check tilemaps color modes
 
-	for (layer = 0; layer < 2; layer++)
+	for (int layer = 0; layer < 2; layer++)
 	{
-		if(m_tilemap[layer][0])
+		if (m_tilemap[layer][0])
 		{
-			if(m_current_tilemap_mode[layer] != (m_vctrl[layer][ 4/2 ] & 0x10))
+			if (m_current_tilemap_mode[layer] != (m_vctrl[layer][ 4/2 ] & 0x10))
 			{
 				m_current_tilemap_mode[layer] = m_vctrl[layer][ 4/2 ] & 0x10;
 				for (int bank = 0; bank < 2; bank++)
@@ -852,11 +845,11 @@ void seta_state::seta_layers_update(screen_device &screen, bitmap_ind16 &bitmap,
 		}
 	}
 
-	flip ^= m_tilemaps_flip;
+	int const flip = m_seta001->is_flipped() ^ m_tilemaps_flip;
+	machine().tilemap().set_flip_all(flip ? (TILEMAP_FLIPX | TILEMAP_FLIPY) : 0);
 
-	machine().tilemap().set_flip_all(flip ? (TILEMAP_FLIPX|TILEMAP_FLIPY) : 0 );
-
-	for (layer = 0; layer < 2; layer++)
+	int bank[2]{ 0, 0 }, x[2]{ 0, 0 }, y[2]{ 0, 0 };
+	for (int layer = 0; layer < 2; layer++)
 	{
 		if (m_tilemap[layer][0])
 		{
@@ -897,27 +890,25 @@ void seta_state::seta_layers_update(screen_device &screen, bitmap_ind16 &bitmap,
 		}
 	}
 
-	if (m_tilemap[1][0])
-		order   =   m_vregs[ 2/2 ];
-
-
+	unsigned layers_ctrl = ~0U;
 #ifdef MAME_DEBUG
-if (screen.machine().input().code_pressed(KEYCODE_Z))
-{   int msk = 0;
-	if (screen.machine().input().code_pressed(KEYCODE_Q))   msk |= 1;
-	if (screen.machine().input().code_pressed(KEYCODE_W))   msk |= 2;
-	if (screen.machine().input().code_pressed(KEYCODE_A))   msk |= 8;
-	if (msk != 0) layers_ctrl &= msk;
+	if (screen.machine().input().code_pressed(KEYCODE_Z))
+	{   int msk = 0;
+		if (screen.machine().input().code_pressed(KEYCODE_Q))   msk |= 1;
+		if (screen.machine().input().code_pressed(KEYCODE_W))   msk |= 2;
+		if (screen.machine().input().code_pressed(KEYCODE_A))   msk |= 8;
+		if (msk != 0) layers_ctrl &= msk;
 
-	if (m_tilemap[1][0])
-		popmessage("VR:%04X-%04X-%04X L0:%04X L1:%04X",
-			m_vregs[0], m_vregs[1], m_vregs[2], m_vctrl[0][4/2], m_vctrl[1][4/2]);
-	else if (m_tilemap[0][0])    popmessage("L0:%04X", m_vctrl[0][4/2]);
-}
+		if (m_tilemap[1][0])
+			popmessage("VR:%04X-%04X-%04X L0:%04X L1:%04X",
+				m_vregs[0], m_vregs[1], m_vregs[2], m_vctrl[0][4/2], m_vctrl[1][4/2]);
+		else if (m_tilemap[0][0])    popmessage("L0:%04X", m_vctrl[0][4/2]);
+	}
 #endif
 
 	bitmap.fill(0, cliprect);
 
+	int const order = m_tilemap[1][0] ? m_vregs[ 2/2 ] : 0;
 	if (order & 1)  // swap the layers?
 	{
 		if (m_tilemap[1][bank[1]])
@@ -929,7 +920,7 @@ if (screen.machine().input().code_pressed(KEYCODE_Z))
 		{
 			if (layers_ctrl & 8)        m_seta001->draw_sprites(screen, bitmap,cliprect,sprite_bank_size, sprite_setac);
 
-			if(order & 4)
+			if (order & 4)
 			{
 				popmessage("Missing palette effect. Contact MAMETesters.");
 			}
@@ -938,7 +929,7 @@ if (screen.machine().input().code_pressed(KEYCODE_Z))
 		}
 		else
 		{
-			if(order & 4)
+			if (order & 4)
 			{
 				popmessage("Missing palette effect. Contact MAMETesters.");
 			}
@@ -956,7 +947,7 @@ if (screen.machine().input().code_pressed(KEYCODE_Z))
 		{
 			if (layers_ctrl & 8)        m_seta001->draw_sprites(screen, bitmap,cliprect,sprite_bank_size, sprite_setac);
 
-			if((order & 4) && m_paletteram[1] != nullptr)
+			if ((order & 4) && m_paletteram[1] != nullptr)
 			{
 				draw_tilemap_palette_effect(bitmap, cliprect, m_tilemap[1][bank[1]], x[1], y[1], 2 + ((m_vctrl[1][ 4/2 ] & 0x10) >> m_color_mode_shift), flip);
 			}
@@ -975,7 +966,7 @@ if (screen.machine().input().code_pressed(KEYCODE_Z))
 		}
 		else
 		{
-			if((order & 4) && m_paletteram[1] != nullptr)
+			if ((order & 4) && m_paletteram[1] != nullptr)
 			{
 				draw_tilemap_palette_effect(bitmap, cliprect, m_tilemap[1][bank[1]], x[1], y[1], 2 + ((m_vctrl[1][ 4/2 ] & 0x10) >> m_color_mode_shift), flip);
 			}
