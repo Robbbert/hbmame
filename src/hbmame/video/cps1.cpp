@@ -1139,7 +1139,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
 	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
-	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
 	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },			//works
 	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },			//works
 	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
@@ -1414,8 +1413,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"punishers03", CPS_B_21_QS3, mapper_PS63B },
 	{"punishers04", CPS_B_21_QS3, mapper_PS63B },
 	{"punishers05", CPS_B_21_QS3, mapper_PS63B },
-    {"punisherjs01",   CPS_B_21_QS3, mapper_PS63B },
-    {"punisherjs02",   CPS_B_21_QS3, mapper_PS63B },
+	{"punisherjs01",   CPS_B_21_QS3, mapper_PS63B },
+	{"punisherjs02",   CPS_B_21_QS3, mapper_PS63B },
 	{"punisherus01",   CPS_B_21_QS3, mapper_PS63B },
 	{"sf2ceeas01",  CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceeas02",  CPS_B_21_DEF, mapper_S9263B, 0x36 },

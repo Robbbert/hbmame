@@ -4417,7 +4417,7 @@ GAME( 2017, ninjamass01,    ninjamas, neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2017, ninjamass02,    ninjamas, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Ninja Master's - haoh-ninpo-cho (Command Change V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ninjamass03,    ninjamas, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Ninja Master's - haoh-ninpo-cho (Command Change V2)", MACHINE_SUPPORTS_SAVE )
  // Nightmare in the Dark
-GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state,  nitd,      ROT0, "Hacks",    "Nightmare in the Dark (The Versión French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state,  nitd,      ROT0, "Hacks",    "Nightmare in the Dark (French Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitds02,        nitd,     neogeo_noslot, neogeo, neogeo_state,  nitd,      ROT0, "Hacks",    "Nightmare in the Dark (Translation French V2)" , MACHINE_SUPPORTS_SAVE )
  // Prehistoric Isle 2
 GAME( 2017, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state,   preisle2, ROT0, "Hacks",    "Prehistoric Isle 2 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
