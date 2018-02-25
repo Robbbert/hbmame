@@ -4,6 +4,12 @@
 #include "includes/neogeo.h"
 
 
+DRIVER_INIT_MEMBER( neogeo_state, kof2002s98 )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
+}
+
 DRIVER_INIT_MEMBER( neogeo_state, kof2002d )
 {
 	DRIVER_INIT_CALL(neogeo);
@@ -13034,7 +13040,7 @@ GAME( 2017, kof2002s94,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2
 GAME( 2017, kof2002s95,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Hacks",    "Kof2002 (Sakazaki Hidden Trick Small Change)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2002s96,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Hacks",    "Kof2002 (Always Have Super Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2002s97,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Hacks",    "Kof2002 (Enable Hidden Characters v3 (Alt))(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2007, kof2002s98,     kof2002,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof2002 (PS2)(Alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, kof2002s98,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002s98,    ROT0, "Hacks",    "Kof2002 (PS2)(Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2002bs01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Hacks",    "Kof2002 (Remix Ultra 3.0)(bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2002bs02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Hacks",    "Kof2002 (Enable Hidden Characters V3)(bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2002bs03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Hacks",    "Kof2002 (Enable Hidden Characters V4)(bootleg)", MACHINE_SUPPORTS_SAVE )

@@ -2918,7 +2918,7 @@ kof2002s94
 kof2002s95
 kof2002s96
 //kof2002s97   // files missing
-//kof2002s98    // bad sound
+kof2002s98
 //kof2002bs01
 //kof2002bs02
 //kof2002bs03
@@ -3470,13 +3470,11 @@ mk2v28b1	// Mortal Kombat II v2.8 beta 1
 umk2te50	// Ultimate MKII Tournament Edition r5.0.050
 umk2te51	// Ultimate MKII Tournament Edition r5.0.051
 umk2te52	// Ultimate MKII Tournament Edition r5.0.052
-// waiting for roms
 mks01
 mk2fr01
 mk2fr02                   //Mortal Kombat II (Todos los Roms Hacks Coleccion)
 mk2fr03                   //Mortal Kombat II (Todos los Roms Hacks Coleccion)
 mk2fr04
-
 
 	/* midwunit */
 umk3		//parent
@@ -7003,7 +7001,6 @@ pooyandiag
 	/* powerins */
 powerins		//parent
 powernbr		// Brazil translation
-// waiting for roms
 powerns01
 powerns02
 powerinss01
@@ -7022,7 +7019,6 @@ s1945ii			//parent
 s1945iiex
 s1945iii		//parent
 s1945sr3
-// waiting on roms
 daraku		//parent
 darakuhc01
 gunbird2		//parent
