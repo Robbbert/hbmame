@@ -48,6 +48,13 @@ DRIVER_INIT_MEMBER( neogeo_state, sam5hb )
 	}
 }
 
+DRIVER_INIT_MEMBER( neogeo_state, sam5sphb2 ) // for samsh5spds11
+{
+	// decrypt c roms
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, SAMSHO5SP_GFX_KEY);
+	DRIVER_INIT_CALL(sam5sphb);
+}
+
 DRIVER_INIT_MEMBER( neogeo_state, sam5sphb )
 {
 	DRIVER_INIT_CALL(neogeo);
@@ -4815,7 +4822,7 @@ ROM_START( samsho5s58 )
 	ROM_LOAD16_BYTE( "270-c8.c8", 0x3000001, 0x800000, CRC(02c530a6) SHA1(7a3fafa6075506c6ef78cc4ec2cb72118ec83cb9) )
 ROM_END
 
-ROM_START( samsho5s59 )
+ROM_START( samsho5s59 ) // same as samsho5b but different s1
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ssv-p2.bin", 0x000000, 0x400000, CRC(5023067f) SHA1(b1d682fa7d158f19664356a919da6572e8cfeee0) )
 	ROM_LOAD16_WORD_SWAP( "ssv-p1.bin", 0x400000, 0x400000, CRC(b6cbe386) SHA1(99c2407361116c2b2c5fe72df53e05c5f99163c1) )
@@ -5350,7 +5357,7 @@ ROM_END
 
 ROM_START( samsh5spds10 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "272hc10-p1.p1",  0x000000, 0x400000, CRC( ) SHA1(3f8d14a7df1beb96204e8d59003a543e02c68a77) )
+	ROM_LOAD16_WORD_SWAP( "272hc10-p1.p1",  0x000000, 0x400000, CRC(f6e3123b) SHA1(3f8d14a7df1beb96204e8d59003a543e02c68a77) )
 	ROM_LOAD16_WORD_SWAP( "272-p2.sp2", 0x400000, 0x400000, CRC(63492ea6) SHA1(6ba946acb62c63ed61a42fe72b7fff3828883bcc) )
 
 	NEO_SFIX_MT_128K
@@ -5386,14 +5393,14 @@ ROM_START( samsh5spds11 )
 	ROM_LOAD( "272-v2.v2", 0x800000, 0x800000, CRC(4ba507f1) SHA1(728d139da3fe8a391fd8be4d24bb7fdd4bf9548a) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "272dhc11.c1", 0x0000000, 0x800000, CRC(b5367490) SHA1(2b5c1609583fb3707df4e7604e39e314dd621a4b) )
-	ROM_LOAD16_BYTE( "272dhc11.c2", 0x0000001, 0x800000, CRC(3e44ad99) SHA1(e33369b87966b894acf4d4cc94f7a4ece3cce244) )
-	ROM_LOAD16_BYTE( "272dhc11.c3", 0x1000000, 0x800000, CRC(10958470) SHA1(c5d570bb51fe75d9e6cd964eef6ac629509dd957) )
-	ROM_LOAD16_BYTE( "272dhc11.c4", 0x1000001, 0x800000, CRC(d19e5958) SHA1(17c27b96278a8b17c5c531eb2fc1f268ec7e1157) )
-	ROM_LOAD16_BYTE( "272dhc11.c5", 0x2000000, 0x800000, CRC(8fe12735) SHA1(fb7b4f82b5acd9e2a168609f0521e064c03b03fa) )
-	ROM_LOAD16_BYTE( "272dhc11.c6", 0x2000001, 0x800000, CRC(95ead78e) SHA1(b9a5c9c0952b906f78e1c2a1e39562e2f4c69523) )
-	ROM_LOAD16_BYTE( "272dhc11.c7", 0x3000000, 0x800000, CRC(f8b2734f) SHA1(6655a34360be440d14f28dcab308279caaebe608) )
-	ROM_LOAD16_BYTE( "272dhc11.c8", 0x3000001, 0x800000, CRC(d7cdab09) SHA1(78d7e7346d745bbd4650dd0032b4121078e4635c) )
+	ROM_LOAD16_BYTE( "272hc11.c1", 0x0000000, 0x800000, CRC(b5367490) SHA1(2b5c1609583fb3707df4e7604e39e314dd621a4b) )
+	ROM_LOAD16_BYTE( "272hc11.c2", 0x0000001, 0x800000, CRC(3e44ad99) SHA1(e33369b87966b894acf4d4cc94f7a4ece3cce244) )
+	ROM_LOAD16_BYTE( "272hc11.c3", 0x1000000, 0x800000, CRC(10958470) SHA1(c5d570bb51fe75d9e6cd964eef6ac629509dd957) )
+	ROM_LOAD16_BYTE( "272hc11.c4", 0x1000001, 0x800000, CRC(d19e5958) SHA1(17c27b96278a8b17c5c531eb2fc1f268ec7e1157) )
+	ROM_LOAD16_BYTE( "272hc11.c5", 0x2000000, 0x800000, CRC(8fe12735) SHA1(fb7b4f82b5acd9e2a168609f0521e064c03b03fa) )
+	ROM_LOAD16_BYTE( "272hc11.c6", 0x2000001, 0x800000, CRC(95ead78e) SHA1(b9a5c9c0952b906f78e1c2a1e39562e2f4c69523) )
+	ROM_LOAD16_BYTE( "272hc11.c7", 0x3000000, 0x800000, CRC(f8b2734f) SHA1(6655a34360be440d14f28dcab308279caaebe608) )
+	ROM_LOAD16_BYTE( "272hc11.c8", 0x3000001, 0x800000, CRC(d7cdab09) SHA1(78d7e7346d745bbd4650dd0032b4121078e4635c) )
 ROM_END
 
 ROM_START( samsh5sphds01 )
@@ -5982,7 +5989,7 @@ GAME( 2017, samsho5s55,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sams
 GAME( 2017, samsho5s56,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V - Spirits Zero (Enable Hidden Characters V2 - Color Patch)(Samsho5h)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho5s57,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V - Spirits Zero (Null Boundary Plus)(Samsho5h)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho5s58,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V - Spirits Zero (Unlimited Credits In Console Mode)(Samsho5h)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, samsho5s59,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V / Samurai Spirits Zero (Power Style)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, samsho5s59,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5b,  ROT0,  "Hacks",    "Samurai Shodown V / Samurai Spirits Zero (Power Style)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho5s60,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V / Samurai Spirits Zero (Hidden Characters - Color Patch)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho5s61,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V / Samurai Spirits Zero (Hidden Characters - Poppy As Challenger Patch)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho5s62,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Hacks",    "Samurai Shodown V / Samurai Spirits Zero (Added portraits For Yumeji, Sankuro And Gaoh Alt)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
@@ -6006,7 +6013,7 @@ GAME( 2017, samsh5spds07,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5s
 GAME( 2017, samsh5spds08,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (Easy Nanatsu No Tachi Alt) (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsh5spds09,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (Fix Bug Alt) (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsh5spds10,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (Add Practice Mode) (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, samsh5spds11,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (Zero Style Life Gauge) (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, samsh5spds11,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb2, ROT0,        "Hacks", "Samurai Shodown V Special (Zero Style Life Gauge)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsh5sphds01,  samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (1st release, censored)(Unlock Fatality V1.02)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsh5sphds02,  samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (1st release, censored)(Unlimited Credits In Console Mode)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsh5sphds03,  samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0,         "Hacks", "Samurai Shodown V Special (1st release, censored)(Unlock fatality v1)(decrypted C)", MACHINE_SUPPORTS_SAVE )

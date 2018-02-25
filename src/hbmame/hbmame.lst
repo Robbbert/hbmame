@@ -1244,7 +1244,6 @@ kof96ru2
 kof96rw
 kof96ryu
 kof96seh
-// waiting on roms
 kof96s01
 kof96s02
 kof96s03
@@ -1663,7 +1662,7 @@ kof97hx158
 kof97hx159
 kof97hx160
 //kof97hx162
-kof97hx163   // neogeo logo bad gfx
+kof97hx163
 kof97hx164
 kof97hx165
 kof97hx166
@@ -3786,7 +3785,7 @@ mslug4s35
 mslug4s36
 mslug4s37
 mslug4s38
-//mslug4s39  // bad s-layer, rom problem
+mslug4s39
 mslug4s40
 mslug4s41
 mslug4s42
@@ -5271,7 +5270,6 @@ doubledre2
 doubledres
 doubledrhp
 doubledrsp
-// waiting on roms
 doubledrs01
 doubledrs02
 doubledrs03
@@ -5290,7 +5288,6 @@ garoupfu
 garoupfp
 garoupx11
 garoupy1
-// waiting on roms
 garoups01
 garoups02
 garoups03
@@ -5820,7 +5817,7 @@ samsho5s55
 samsho5s56
 samsho5s57
 samsho5s58
-//samsho5s59 // access violation at start
+samsho5s59
 samsho5s60
 samsho5s61
 //samsho5s62  // files missing
@@ -5842,8 +5839,8 @@ samsh5spds06
 samsh5spds07
 samsh5spds08
 samsh5spds09
-//samsh5spds10  // file missing
-//samsh5spds11  // bad gfx
+samsh5spds10
+samsh5spds11
 samsh5sphds01
 samsh5sphds02
 samsh5sphds03
@@ -5879,7 +5876,6 @@ sengoku3pl
 sengoku3s
 sengoku3ya
 sengoku3yk
-// waiting on roms
 sengoku3s01
 sengoku3s02
 sengoku3s03
