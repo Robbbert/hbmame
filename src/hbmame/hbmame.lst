@@ -455,7 +455,7 @@ dinos63
 dinos66
 dinos67
 dinos68
-//ffights01
+ffights01
 koduhc01
 koduhc02
 koduhc03
@@ -496,7 +496,7 @@ striders01
 //sfzchs02  // parent missing
 varths01
 varths02
-//varths03  // file missing
+varths03
 willows01
 //wofh01 // black screen
 //wofh02 // black screen
@@ -544,7 +544,7 @@ wofs40
 wofs41
 wofs42
 wofs43
-//wofs44  // frankenset, not working
+//wofs44  // totally corrupt, not working
 wofs45
 wofr101
 wofr102
@@ -838,7 +838,7 @@ sfzjs05
 ssf2e01
 ssf2j01
 ssf2j02
-//ssf2j03  // files missing
+ssf2j03
 ssf2tas01
 ssf2tas02
 vsav2s01
@@ -1172,7 +1172,7 @@ kof95s28
 kof95s29
 kof95s32
 //kof95s33    // they refuse to fight
-//kof95s34    // file missing
+//kof95s34    // reboots after 15 seconds
 kof95hs01
 kof95hs02
 kof95hs03
@@ -1407,7 +1407,6 @@ kof97yl2
 kof97yo
 kof97z
 kof97zm
-// waiting on roms
 //kof97s01   // only get 1 second to fight
 //kof97s02   // only get 1 second to fight
 kof97s04
@@ -1504,14 +1503,14 @@ kof97h18
 kof97h19
 kof97h20
 kof97h21
-//kof97hx01
-//kof97hx02
-//kof97hx03
+kof97hx01
+kof97hx02
+kof97hx03
 kof97hx04
-//kof97hx05
+kof97hx05
 kof97hx06
 kof97hx07
-//kof97hx08
+kof97hx08
 kof97hx09
 kof97hx10
 kof97hx11
@@ -1546,17 +1545,17 @@ kof97hx39
 kof97hx40
 kof97hx41
 kof97hx42
-//kof97hx43
+kof97hx43
 kof97hx44
 kof97hx45
 kof97hx46
 kof97hx47
 kof97hx48
-//kof97hx49
+kof97hx49
 kof97hx50
-//kof97hx51
-//kof97hx52   // file missing
-//kof97hx53   // files missing
+kof97hx51
+kof97hx52
+kof97hx53
 kof97hx54
 kof97hx55
 kof97hx57
@@ -1567,18 +1566,18 @@ kof97hx61
 kof97hx62
 kof97hx63
 kof97hx64
-//kof97hx65   // files missing
+kof97hx65
 kof97hx66
 kof97hx67
-//kof97hx68   // files missing
+kof97hx68
 kof97hx69
-//kof97hx70
-//kof97hx71
-//kof97hx72   // files missing
+kof97hx70
+kof97hx71
+kof97hx72
 kof97hx73
 kof97hx74
 kof97hx75
-//kof97hx76
+kof97hx76
 kof97hx77
 kof97hx78
 kof97hx79
@@ -1591,16 +1590,16 @@ kof97hx85
 kof97hx86
 kof97hx87
 kof97hx88
-//kof97hx89
+kof97hx89
 kof97hx90
 kof97hx91
-//kof97hx92 // file missing
+kof97hx92
 kof97hx93
 kof97hx94
-//kof97hx95
+kof97hx95
 kof97hx96
 kof97hx97
-//kof97hx98
+kof97hx98
 kof97hx99
 kof97hx100
 kof97hx101
@@ -1609,7 +1608,7 @@ kof97hx103
 kof97hx104
 kof97hx105
 kof97hx106
-//kof97hx107
+kof97hx107
 kof97hx108
 kof97hx109
 kof97hx110
@@ -1629,16 +1628,16 @@ kof97hx124
 kof97hx125
 kof97hx126
 kof97hx127
-//kof97hx128
+kof97hx128
 kof97hx129
 kof97hx130
-//kof97hx131
+kof97hx131
 kof97hx133
 kof97hx134
-//kof97hx135  // files missing
+kof97hx135
 kof97hx136
 kof97hx137
-//kof97hx138
+kof97hx138
 kof97hx139
 kof97hx140
 kof97hx141
@@ -1651,7 +1650,7 @@ kof97hx147
 kof97hx148
 kof97hx149
 kof97hx150
-//kof97hx151
+kof97hx151
 kof97hx152
 kof97hx153
 kof97hx154
@@ -1661,7 +1660,7 @@ kof97hx157
 kof97hx158
 kof97hx159
 kof97hx160
-//kof97hx162
+kof97hx162
 kof97hx163
 kof97hx164
 kof97hx165
@@ -1672,14 +1671,14 @@ kof97hx169
 kof97hx170
 kof97hx171
 kof97hx172
-//kof97hx173
+kof97hx173
 kof97hx174
 kof97hx175
 kof97hx176
 kof97hx177
 kof97hx178
 kof97hx179
-//kof97hx180
+kof97hx180
 kof97hx181
 kof97hx182
 kof97hx183
@@ -1701,7 +1700,7 @@ kof97hx199
 kof97hx200
 kof97hx201
 kof97hx202
-//kof97hx203  // files missing
+//kof97hx203   // only get 1 second to fight
 kof97hx204
 kof97hx205
 kof97hx206
@@ -1983,7 +1982,7 @@ kof98s48
 kof98s49
 kof98s50
 kof98s51
-//kof98s52  // files missing
+//kof98s52   // only get 1 second to fight
 kof98s53
 kof98s54
 kof98s55
@@ -1992,15 +1991,15 @@ kof98h10
 kof98h11
 kof98h12
 kof98h13
-//kof98h15
+kof98h15
 kof98h16
-//kof98h17
+kof98h17
 kof98h18
 kof98h19
 kof98hh01
 kof98hh02
-//kof98hh03
-//kof98hh04  // files missing
+kof98hh03
+kof98hh04
 kof98hh05
 kof98hh06
 kof98hh07
@@ -2017,11 +2016,11 @@ kof98hh17
 kof98hh18
 kof98hh19
 kof98hh20
-//kof98hh21
-//kof98hh22
-//kof98hh23
+kof98hh21
+//kof98hh22   // only get 1 second to fight
+kof98hh23
 kof98hh24
-//kof98hh25
+kof98hh25
 kof98hh26
 kof98hh27
 kof98hh28
@@ -2031,11 +2030,11 @@ kof98hh31
 kof98hh32
 kof98hh33
 kof98hh34
-//kof98hh35
+kof98hh35
 kof98hh36
-//kof98hh37
+kof98hh37
 kof98hh38
-//kof98hh39
+kof98hh39
 kof98hh40
 kof98hh41
 kof98hh44
@@ -2060,7 +2059,7 @@ kof98hh64
 kof98hh65
 kof98hh66
 kof98hh67
-//kof98hh68  // files missing
+//kof98hh68   // only get 1 second to fight
 kof98hh69
 kof98hh71
 kof98hh72
@@ -2193,7 +2192,7 @@ kof99s08
 kof99s09
 kof99s10
 kof99s11
-//kof99s12  // files missing
+kof99s12
 kof99s13
 kof99s15
 kof99s16
@@ -2202,7 +2201,7 @@ kof99s18
 kof99s19
 kof99s20
 kof99s21
-//kof99s22
+//kof99s22  // files missing
 kof99h01
 kof99h02
 kof99h03
@@ -2376,7 +2375,7 @@ kof99ks48
 kof99ks49
 kof99ks50
 kof99ks51
-//kof99ks52  // file missing
+kof99ks52
 kof99ks53
 kof99ps01
 kof99ps02
@@ -2385,7 +2384,7 @@ kof99ps04
 kof99ps05
 kof99ps06
 kof99ps07
-//kof99ps08
+kof99ps08
 kof99ps09
 kof99ps10
 kof99ps11
@@ -2460,82 +2459,82 @@ kof2kyg
 kof2kz
 kof2kzs
 // waiting on roms
-//kof2000s01
-//kof2000s02
-//kof2000s03
-//kof2000s04
-//kof2000s05
-//kof2000s06
-//kof2000s07
-//kof2000s08
-//kof2000s09
-//kof2000s10
-//kof2000s11
-//kof2000s12
-//kof2000s13
-//kof2000s14
-//kof2000s15
-//kof2000s16
-//kof2000s17
-//kof2000s18
-//kof2000s19
-//kof2000s20
-//kof2000s21
-//kof2000s22
-//kof2000s23
-//kof2000s24
-//kof2000s25
-//kof2000s26
-//kof2000s27
-//kof2000s28
-//kof2000s29
-//kof2000s30
-//kof2000s31
+kof2000s01
+kof2000s02
+kof2000s03
+kof2000s04
+kof2000s05
+kof2000s06
+kof2000s07
+kof2000s08
+kof2000s09
+kof2000s10
+kof2000s11
+kof2000s12
+kof2000s13
+kof2000s14
+kof2000s15
+kof2000s16
+kof2000s17
+kof2000s18
+kof2000s19
+kof2000s20
+kof2000s21
+//kof2000s22   // files missing
+kof2000s23
+kof2000s24
+kof2000s25
+kof2000s26
+kof2000s27
+kof2000s28
+kof2000s29
+kof2000s30
+kof2000s31
 kof2000s32
 //kof2000n01  // files missing
 kof2000n02
 kof2000n03
-//kof2000ds01
-//kof2000ds02
-//kof2000ds03
-//kof2000ds04
-//kof2000ds05
-//kof2000ds06
-//kof2000ds07
-//kof2000ds08
-//kof2000ds10
-//kof2000ds11
-//kof2000ds12
-//kof2000ds13
-//kof2000ds14
-//kof2000ds15
-//kof2000ds16
-//kof2000ds17
-//kof2000ds18
-//kof2000ds19
-//kof2000ds20
-//kof2000ds21
-//kof2000ds22
-//kof2000ds23
-//kof2000ds24
-//kof2000ds25
-//kof2000ds26
-//kof2000ds27
-//kof2000ds28
-//kof2000ds29
-//kof2000ds30
-//kof2000ds31
-//kof2000ds32
-//kof2000ds33
-//kof2000ds34
-//kof2000ds35
-//kof2000ds36
-//kof2000ds37
-//kof2000ds38
-//kof2000ds39
-//kof2000ds40
-//kof2000ds41
-//kof2000ds42
+kof2000ds01
+kof2000ds02
+kof2000ds03
+kof2000ds04
+kof2000ds05
+kof2000ds06
+kof2000ds07
+kof2000ds08
+kof2000ds10
+kof2000ds11
+kof2000ds12
+kof2000ds13
+kof2000ds14
+kof2000ds15
+kof2000ds16
+kof2000ds17
+kof2000ds18
+kof2000ds19
+kof2000ds20
+kof2000ds21
+kof2000ds22
+kof2000ds23
+kof2000ds24
+kof2000ds25
+kof2000ds26
+kof2000ds27
+kof2000ds28
+kof2000ds29
+kof2000ds30
+kof2000ds31
+kof2000ds32
+kof2000ds33
+kof2000ds34
+kof2000ds35
+kof2000ds36
+kof2000ds37
+kof2000ds38
+kof2000ds39
+kof2000ds40
+kof2000ds41
+kof2000ds42
 
 	/* kof2001 */
 kof2001d
@@ -2623,57 +2622,57 @@ kof2k1z2
 //kf2k1pa
 //kf2k1pls
 // waiting on roms
-//kof2001s02
-//kof2001s03
-//kof2001s04
-//kof2001s05
-//kof2001s06
-//kof2001s07
-//kof2001s08
-//kof2001s09
-//kof2001s10
-//kof2001s11
-//kof2001s12
-//kof2001s13
-//kof2001s14
-//kof2001s15
-//kof2001s16
-//kof2001s17
-//kof2001s18
-//kof2001s19
+kof2001s02
+kof2001s03
+kof2001s04
+kof2001s05
+kof2001s06
+kof2001s07
+kof2001s08
+kof2001s09
+kof2001s10
+kof2001s11
+kof2001s12
+kof2001s13
+kof2001s14
+kof2001s15
+kof2001s16
+kof2001s17
+kof2001s18
+kof2001s19
 kof2001s20
-//kof2001ds01
-//kof2001ds02
-//kof2001hs01
-//kof2001hs02
-//kof2001hs03
-//kof2001hs04
-//kof2001hs05
-//kof2001hs06
-//kof2001hs07
-//kof2001hs08
-//kof2001hs09
-//kof2001hs10
-//kof2001hs11
-//kof2001hs12
-//kof2001hs13
-//kof2001hs14
-//kof2001hs15
-//kof2001hs16
-//kof2001hs17
-//kof2001hs18
-//kof2001hs19
-//kof2001hs20
-//kof2001hs21
-//kof2001hs22
-//kof2001hs23
+kof2001ds01
+kof2001ds02
+kof2001hs01
+kof2001hs02
+kof2001hs03
+kof2001hs04
+kof2001hs05
+kof2001hs06
+kof2001hs07
+kof2001hs08
+kof2001hs09
+kof2001hs10
+kof2001hs11
+kof2001hs12
+kof2001hs13
+kof2001hs14
+kof2001hs15
+kof2001hs16
+kof2001hs17
+kof2001hs18
+kof2001hs19
+kof2001hs20
+kof2001hs21
+kof2001hs22
+kof2001hs23
 kof2001hs24
 kof2001hs25
 kof2001hs26
 kof2001hs27
 kof2001hs28
 kof2001hs29
-//kof2001hs30  // file missing
+//kof2001hs30  // access violation
 
 	/* kof2002 */
 kof200215
@@ -2821,90 +2820,90 @@ kof2k2wuk // no sound in attract mode
 kof2k2xxx
 //kf2k2plc
 // waiting on roms
-//kof2002s01
-//kof2002s02
-//kof2002s03
-//kof2002s04
-//kof2002s05
-//kof2002s06
-//kof2002s07
-//kof2002s08
-//kof2002s09
-//kof2002s10
-//kof2002s11
-//kof2002s12
-//kof2002s13
-//kof2002s14
-//kof2002s15
-//kof2002s16
-//kof2002s17
-//kof2002s18
-//kof2002s19
-//kof2002s20
-//kof2002s21
-//kof2002s22
-//kof2002s23
-//kof2002s24
-//kof2002s25
-//kof2002s26
-//kof2002s27
-//kof2002s28
-//kof2002s29
-//kof2002s30
-//kof2002s31
-//kof2002s32
-//kof2002s33
-//kof2002s34
-//kof2002s35
-//kof2002s36
-//kof2002s37
-//kof2002s38
-//kof2002s39
-//kof2002s40
-//kof2002s41
-//kof2002s42
-//kof2002s43
-//kof2002s44
-//kof2002s45
-//kof2002s46
-//kof2002s47
-//kof2002s48
-//kof2002s49
-//kof2002s50
-//kof2002s51
-//kof2002s52
-//kof2002s53
-//kof2002s54
-//kof2002s55
-//kof2002s56
-//kof2002s57
-//kof2002s58
-//kof2002s59
-//kof2002s60
-//kof2002s61
-//kof2002s62
-//kof2002s63
-//kof2002s64
-//kof2002s65
-//kof2002s66
-//kof2002s67
-//kof2002s68
-//kof2002s69
-//kof2002s70
-//kof2002s71
-//kof2002s72
-//kof2002s73
-//kof2002s74
-//kof2002s75
-//kof2002s76
-//kof2002s77
-//kof2002s78
-//kof2002s79
-//kof2002s80
-//kof2002s81
-//kof2002s82
-//kof2002s83
-//kof2002s84 // file missing
+kof2002s01
+kof2002s02
+kof2002s03
+kof2002s04
+kof2002s05
+kof2002s06   // 2k4se
+kof2002s07   // 2k4se
+kof2002s08   // 2k4se
+kof2002s09
+kof2002s10
+kof2002s11
+kof2002s12
+kof2002s13
+kof2002s14
+kof2002s15
+kof2002s16
+kof2002s17
+kof2002s18
+kof2002s19
+kof2002s20
+kof2002s21 // no sound in attract mode
+kof2002s22
+kof2002s23
+kof2002s24
+kof2002s25
+kof2002s26
+kof2002s27
+kof2002s28
+kof2002s29
+kof2002s30
+kof2002s31
+kof2002s32
+kof2002s33
+kof2002s34
+kof2002s35
+kof2002s36
+kof2002s37
+kof2002s38
+kof2002s39
+kof2002s40
+kof2002s41
+kof2002s42
+kof2002s43
+kof2002s44
+kof2002s45
+kof2002s46
+kof2002s47
+kof2002s48
+kof2002s49
+kof2002s50
+kof2002s51
+kof2002s52
+kof2002s53
+kof2002s54
+kof2002s55
+kof2002s56
+kof2002s57
+kof2002s58
+kof2002s59
+kof2002s60
+kof2002s61
+kof2002s62
+kof2002s63
+kof2002s64
+kof2002s65
+kof2002s66
+kof2002s67
+kof2002s68
+kof2002s69
+kof2002s70
+kof2002s71
+kof2002s72
+kof2002s73
+kof2002s74
+kof2002s75
+kof2002s76
+kof2002s77
+kof2002s78
+kof2002s79
+kof2002s80
+kof2002s81
+kof2002s82
+kof2002s83
+kof2002s84
 kof2002s85
 kof2002s86
 kof2002s87
@@ -2917,64 +2916,64 @@ kof2002s93
 kof2002s94
 kof2002s95
 kof2002s96
-//kof2002s97   // files missing
+kof2002s97
 kof2002s98
-//kof2002bs01
-//kof2002bs02
-//kof2002bs03
-//kof2002bs04
-//kof2002bs05
-//kof2002bs07
-//kof2002bs08
-//kof2002bs09
-//kof2002bs10
-//kof2002bs11
-//kof2002bs12
-//kof2002bs13
-//kof2002bs14
-//kof2002bs15
-//kof2002bs16
-//kof2002bs17
-//kof2002bs18
-//kof2002bs19
-//kof2002bs20
-//kof2002bs21
-//kof2002bs22
-//kof2002bs23
-//kof2002bs24
-//kof2002bs25
-//kof2002ds01
-//kof2002ds02
-//kof2002ds03
-//kof2002ds04
-//kof2002ds05
-//kof2002ds06
-//kof2002ds07
-//kof2002ds08
-//kof2002ds09
-//kof2002ds10
-//kof2002ds11
-//kof2002ds12
-//kof2002ds13
-//kof2002ds14
-//kof2002ds15
-//kof2002ds16
-//kof2002ds17
-//kof2002ds18
-//kof2002ds19
-//kof2002ds20
-//kof2002ds21
-//kof2002ds22
-//kof2002ds23
-//kof2002ds24
-//kof2002ds25
-//kof2002ds26
-//kof2002ds27
-//kof2002ds28
-//kof2002ds29
-//kof2002ds30
-//kof2002ds31
-//kof2002ds32
+//kof2002bs01   bad gfx
+kof2002bs02
+kof2002bs03
+kof2002bs04
+kof2002bs05
+kof2002bs07
+kof2002bs08
+kof2002bs09
+kof2002bs10
+kof2002bs11
+kof2002bs12
+kof2002bs13
+kof2002bs14
+kof2002bs15
+kof2002bs16
+kof2002bs17
+kof2002bs18
+kof2002bs19
+kof2002bs20
+kof2002bs21
+kof2002bs22
+kof2002bs23
+kof2002bs24
+kof2002bs25
+kof2002ds01
+kof2002ds02
+kof2002ds03 // 2k4se
+kof2002ds04 // 2k4se
+kof2002ds05 // 2k4se
+//kof2002ds06    bad gfx
+kof2002ds07
+kof2002ds08
+kof2002ds09
+kof2002ds10
+kof2002ds11
+kof2002ds12
+kof2002ds13
+kof2002ds14
+kof2002ds15
+//kof2002ds16   no sound
+//kof2002ds17   no sound
+kof2002ds18
+kof2002ds19
+kof2002ds20
+kof2002ds21
+kof2002ds22
+kof2002ds23
+kof2002ds24
+kof2002ds25
+kof2002ds26
+kof2002ds27
+kof2002ds28
+kof2002ds29
+kof2002ds30
+kof2002ds31
+kof2002ds32
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -3151,77 +3150,77 @@ kof2k3zgf
 //kof2k3pd
 //kof2k3upd
 // waiting on roms
-//kof2003s01
-//kof2003s02
-//kof2003s03
-//kof2003s04
-//kof2003s05
-//kof2003s06
-//kof2003s07
-//kof2003s08
-//kof2003s09
-//kof2003s10
-//kof2003s11
-//kof2003s12
-//kof2003s13
-//kof2003s14
-//kof2003s15
-//kof2003s16
-//kof2003s17
-//kof2003s18
-//kof2003s19
-//kof2003s20
-//kof2003s21
-//kof2003s22
-//kof2003s23
-//kof2003s24
-//kof2003s25
-//kof2003s26
-//kof2003s27
-//kof2003s28
-//kof2003s29
-//kof2003s30
-//kof2003s31
-//kof2003s32
-//kof2003s34
-//kof2003s35
-//kof2003s36
-//kof2003s37
-//kof2003s38
-//kof2003s39
-//kof2003s40
-//kof2003s41
+kof2003s01   // bad gfx in counter
+kof2003s02
+kof2003s03
+kof2003s04
+kof2003s05
+kof2003s06
+kof2003s07
+kof2003s08
+kof2003s09
+kof2003s10
+kof2003s11
+kof2003s12
+kof2003s13
+kof2003s14
+kof2003s15
+kof2003s16
+kof2003s17
+kof2003s18
+kof2003s19
+kof2003s20
+kof2003s21
+kof2003s22
+kof2003s23
+kof2003s24
+kof2003s25
+kof2003s26
+kof2003s27
+kof2003s28
+kof2003s29
+kof2003s30
+kof2003s31
+kof2003s32
+kof2003s34
+kof2003s35
+kof2003s36
+kof2003s37
+kof2003s38
+kof2003s39
+kof2003s40
+kof2003s41
 kof2003s43
-//kof2003ds01
-//kof2003ds02
-//kof2003ds03
-//kof2003ds04
-//kof2003ds05
-//kof2003ds06
-//kof2003ds07
-//kof2003ds08
-//kof2003ds09
-//kof2003ds10
-//kof2003ds11
-//kof2003ds12
-//kof2003ds13
-//kof2003ds14
-//kof2003ds15
-//kof2003ds16
-//kof2003ds17
-//kof2003ds18
-//kof2003ds19
-//kof2003ds20
-//kof2003ds21
-//kof2003ds22
-//kof2003ds23
-//kof2003ds24
-//kof2003ds25
-//kof2003ds26
-//kof2003ds27
-//kof2003ds28
-//kof2003ds29
-//kof2003ds30
+kof2003ds01
+kof2003ds02
+kof2003ds03
+kof2003ds04
+kof2003ds05
+kof2003ds06
+kof2003ds07
+kof2003ds08
+kof2003ds09
+kof2003ds10
+kof2003ds11
+kof2003ds12
+kof2003ds13
+kof2003ds14
+kof2003ds15
+kof2003ds16
+kof2003ds17
+kof2003ds18
+kof2003ds19
+kof2003ds20
+kof2003ds21
+kof2003ds22
+kof2003ds23
+kof2003ds24
+kof2003ds25
+kof2003ds26
+kof2003ds27
+kof2003ds28
+kof2003ds29
+kof2003ds30
 kf2k3bls01
 kf2k3bls02
 kf2k3bls03
@@ -3317,7 +3316,7 @@ kf2k3upls05
 kf2k3upls06
 kf2k3upls07
 kf2k3upls08
-//kf2k3upls09
+kf2k3upls09   // kof2004
 kf2k3upls10
 kf2k3upls11
 kf2k3upls12
@@ -3692,7 +3691,7 @@ mslug3s24
 mslug3s25
 mslug3s26
 mslug3s27
-//mslug3s28  // files missing
+mslug3s28  // ms6
 mslug3s29
 mslug3s30
 mslug3s31
@@ -3719,7 +3718,7 @@ mslug3s51 // ms6
 mslug3s52 // ms6
 mslug3s53 // ms6
 mslug3s54 // ms6
-//mslug3s55 // crashes just after start
+//mslug3s55 // reboot just after start
 mslug3s56
 mslug3s57
 mslug3s58
@@ -3823,7 +3822,7 @@ mslug4s76
 mslug4s77
 mslug4s78
 mslug4s79
-//mslug4s80 // files missing
+mslug4s80
 mslug4s81
 mslug5s01
 mslug5s02
@@ -3898,7 +3897,7 @@ mslug5s70
 mslug5s71
 mslug5s72
 mslug5s73
-//mslug5s74   // crash at start
+//mslug5s74   // reboot at start
 mslug5s75
 mslug5s76
 mslug5s77
@@ -4075,7 +4074,7 @@ mslugxz25
 mslugxz27
 mslugxz28
 mslugxz29
-//mslugxz30  // files missing
+mslugxz30
 mslugxz31
 mslugxz32
 mslugxj01
@@ -5198,7 +5197,6 @@ wjammersf
 wjammersk
 zupapad
 //diggerma duplicate name, to check
-// waiting on roms
 androduns01
 aof2s01
 aof2s02
@@ -5214,7 +5212,7 @@ breakers01
 breakrevs01
 fightfevs01
 fightfevs02
-//fightfevas01
+fightfevas01
 galaxyfs01
 galaxyfs02
 gowcaizrs01
@@ -5397,7 +5395,7 @@ kof10ths13
 kof10ths14
 kf2k5unis01
 kf2k5unis02
-//kf2k5unis03  // files missing
+kf2k5unis03
 kf2k5unis04
 kf2k5unis05
 kf2k5unis06
@@ -5467,7 +5465,6 @@ lb2te
 lb2uh
 lb2wh
 lb2yd
-// waiting on roms
 lastblads01
 lastblads02
 lastblads03
@@ -5499,14 +5496,14 @@ lastbladhs05
 lastbladhs07
 lastbladhs09
 lastbladhs10
-//lastbladhs11
-//lastbladhs12
-//lastbladhs13
-//lastsolds01
-//lastsolds02
-//lastsolds03
-//lastsolds04
-//lastsolds05
+lastbladhs11
+lastbladhs12
+lastbladhs13
+lastsolds01
+lastsolds02
+lastsolds03
+lastsolds04
+lastsolds05
 lastsolds06
 lastsolds07
 lastsolds08
@@ -5515,7 +5512,7 @@ lastbld2s02
 lastbld2s03
 lastbld2s04
 lastbld2s05
-//lastbld2s06
+lastbld2s06
 lastbld2s07
 lastbld2s08
 lastbld2s09
@@ -5604,7 +5601,6 @@ rotdhfw
 rotdhfwb
 rotdnd
 rotdyc
-// waiting on roms
 rotds01
 rotds02
 rotds03
@@ -5622,7 +5618,7 @@ rotds14
 rotds15
 rotds16
 rotds17
-//rotdds01
+rotdds01
 rotdds02
 
 	/* ngsamsho */
@@ -5696,11 +5692,10 @@ samsh5spn
 samsh5spnd
 samsh5spnh3
 samsh5spnzk
-// waiting on roms
-//fswords01
-//fswordss01
-//fswordss02
-//fswordss03 // file missing
+fswords01
+fswordss01
+fswordss02
+fswordss03
 samshos01
 samshos02
 samshos03
@@ -5726,8 +5721,8 @@ samsho2s14
 samsho2s15
 samsho2s17
 samsho2s18
-//samsho2ks01  // files missing
-//samsho2ks02  // files missing
+samsho2ks01
+samsho2ks02
 samsho3s01
 samsho3s02
 samsho3s03
@@ -5756,7 +5751,7 @@ samsho4s08
 samsho4s09
 samsho4s10
 samsho4s11
-//samsho4s12
+samsho4s12
 samsho5s01
 samsho5s02
 samsho5s03
@@ -5818,7 +5813,7 @@ samsho5s58
 samsho5s59
 samsho5s60
 samsho5s61
-//samsho5s62  // files missing
+samsho5s62
 samsho5s63
 samsho5s64
 samsh5sp01
@@ -5997,11 +5992,11 @@ svcs81
 svcs82
 svcs83
 svcs84
-//svcpcbzs04
-//svcpcbzs06
-//svcpcbzs10
-//svcsxplus05
-//svcsxplus06
+svcpcbzs04
+svcpcbzs06
+svcpcbzs10
+svcsxplus05
+svcsxplus06
 svchx01  // bad gfx on main logo
 svchx02
 svchx03
@@ -6041,23 +6036,23 @@ svcboots07
 svcboots08
 svcboots09
 svcboots10
-//svcboots11  // files missing
-//svcboots12  // files missing
+svcboots11
+svcboots12
 svcboots13
 svcboots14
 svcboots15
 svcboots16
 svcboots17
 svcboots18
-//svcboots19
+svcboots19
 svcboots20
 svcboots21
 svcboots22
-//svcboots23  // files missing
+svcboots23
 svcboots24
 svcboots25
-//svcboots26
-//svcboots27
+svcboots26
+svcboots27
 svcboots28
 svcboots29
 svcboots30
@@ -6068,7 +6063,7 @@ svcboots34
 svcboots35
 svcboots36
 svcboots37
-//svcboots38
+svcboots38
 svcpcbs01
 svcpcbs02
 svcpcbs03
@@ -6085,7 +6080,7 @@ svcpcbs13
 svcpcbs14
 svcpcbs15
 svcpcbs16
-//svcpcbas01  // file missing
+svcpcbas01
 svcpcbas02
 svcpcbas03
 svcpcbas04
@@ -6119,7 +6114,7 @@ svcpluss27
 svcpluss28
 svcpluss29
 svcplusas01
-//svcplusas02  // file missing
+//svcplusas02  // file missing (wrong sha1)
 svcplusas03
 svcplusas04
 svcplusas05
@@ -6143,10 +6138,10 @@ svcplusas22
 svcplusas23
 svcplusas24
 svcplusas25
-//svcplusas26
+svcplusas26
 svcplusas27
-//svcplusas28
-//svcplusas29
+svcplusas28
+svcplusas29
 svcsplus01
 svcsplus02
 svcsplus03
@@ -6158,7 +6153,7 @@ svcsplus08
 svcsplus09
 svcsplus10
 svcsplus11
-//svcsplus12  // files missing
+svcsplus12
 svcsplus13
 svcsplus14
 svcsplus15
@@ -6616,7 +6611,7 @@ kovplus01  // bad gfx on char select screen
 kovplus05  // bad gfx on credit/char-select screens
 kovplus06  // bad gfx on credit screen
 kovplus07
-//kovplus08   // files missing
+//kovplus08   // ingame crash
 //kovplus09   // files missing
 //kovplus10   // files missing
 //kovplus11   // files missing
@@ -6628,7 +6623,7 @@ kovplus07
 //kovplus17   // files missing
 //kovplus18   // files missing
 //kovplus19   // files missing
-//kovplus20   // files missing
+kovplus20
 kovplus21
 kovplus22
 //kovplus23   // ingame crash
@@ -6647,21 +6642,21 @@ kovplus35
 //kovplus36   // files missing
 //kovplus37   // files missing
 kovplus38
-//kovplus39   // files missing
-//kovplus40   // files missing
-//kovplus41   // files missing
-//kovplus42   // files missing
-//kovplus43   // files missing
-//kovplus44   // files missing
+kovplus39
+kovplus40
+kovplus41
+kovplus42
+kovplus43
+kovplus44
 kovplus45
 //kovplus46   // files missing
 kovplus47
 kovplus48
 kovplus49
-//kovplus50   // files missing
+kovplus50
 //kovplus51   // files missing
-//kovplus52   // files missing
-//kovplus53   // files missing
+kovplus52
+kovplus53
 kovplus54
 kovplus55
 kovplus56
@@ -6677,7 +6672,7 @@ kovplus61
 kovplus66   // bad gfx
 kovplus67   // bad gfx, no high scores
 kovplus68
-//kovplus69   // files missing
+//kovplus69   // causes emu to freeze
 kovplus70
 kovplus71
 kovplus72
@@ -6705,7 +6700,7 @@ kovplus93
 kovplus94
 kovplus95
 //kovplus96   // ingame crash
-//kovplus97   // files missing
+kovplus97
 kovplus98
 kovplus99
 kovplus100
@@ -6733,32 +6728,32 @@ kovplus121
 kovplus122
 kovplus123
 kovplus124
-//kovplus125   // files missing
-//kovplus126   // files missing
+kovplus125
+kovplus126
 kovplus127
-//kovplus128   // files missing
+kovplus128
 kovplus129
-//kovplus130   // files missing
+kovplus130
 kovplus131
 kovplus132
-//kovplus134   // files missing
+kovplus134
 kovplus135
-//kovplus136   // files missing
-//kovplus137   // files missing
-//kovplus138   // files missing
+kovplus136
+kovplus137
+kovplus138
 kovplus139   // bad gfx
-//kovplus140   // files missing
-//kovplus141   // files missing
+kovplus140
+kovplus141
 kovplus143
 kovplus144
 kovplus145
 kovplus146
 kovplus147
-//kovplus148   // files missing
-//kovplus149   // files missing
+kovplus148
+kovplus149
 kovplus150
 kovplus151
-//kovplus152   // files missing
+kovplus152
 //kovplus153   // files missing
 //kovplus154   // files missing
 kovplus155
@@ -6789,61 +6784,61 @@ kovsh022
 kovsh023   // bad gfx
 //kovsh024   // ingame crash
 kovsh025
-//kovsh026   // files missing
+kovsh026
 kovsh027
 kovsh028
 kovsh029
 kovsh030
-//kovsh031   // files missing
-//kovsh032   // files missing
-//kovsh033   // files missing
+kovsh031
+kovsh032
+kovsh033
 //kovsh034   // files missing
-//kovsh035   // files missing
+kovsh035
 //kovsh036   // files missing
 kovsh037
-//kovsh038   // files missing
-//kovsh039   // files missing
-//kovsh040   // files missing
-//kovsh041   // files missing
-//kovsh042   // files missing
-//kovsh043   // files missing
-//kovsh044   // files missing
-//kovsh045   // files missing
-//kovsh046   // files missing
-//kovsh047   // files missing
-//kovsh048   // files missing
-//kovsh049   // files missing
-//kovsh050   // files missing
+kovsh038
+kovsh039
+kovsh040
+kovsh041
+kovsh042
+kovsh043
+kovsh044
+kovsh045
+kovsh046
+kovsh047
+kovsh048
+kovsh049
+kovsh050
 //kovsh052   // ingame crash
 kovsh053
 kovsh054
-//kovsh055   // files missing
-//kovsh057   // files missing
-//kovsh058   // files missing
+kovsh055
+kovsh057
+kovsh058
 //kovsh063   // files missing
 //kovsh064   // files missing
-//kovsh065   // files missing
-//kovsh066   // files missing
+kovsh065
+kovsh066
 //kovsh067   // files missing
 //kovsh068   // files missing
-//kovsh069   // files missing
-//kovsh070   // files missing
+kovsh069
+kovsh070
 kovsh071   // bad gfx
 kovsh072
-//kovsh073   // files missing
-//kovsh074   // files missing
-//kovsh075   // files missing
+kovsh073
+kovsh074
+kovsh075
 //kovsh076   // ingame crash
 //kovsh077   // files missing
 kovsh078
 kovsh079
 kovsh080
 kovsh081
-//kovsh082   // files missing
+kovsh082
 kovsh083
-//kovsh084   // files missing
-//kovsh085   // files missing
-//kovsh086   // files missing
+kovsh084
+kovsh085
+kovsh086
 kovsh087
 kovsh088
 kovsh089
@@ -6859,8 +6854,8 @@ kovsh098   // bad gfx
 kovsh099
 kovshx01
 kovshx02
-//kovshx03   // files missing
-//kovshx04   // files missing
+kovshx03
+kovshx04
 kovshx05   // bad gfx
 kovsho01
 kovsho02
@@ -7261,7 +7256,7 @@ bgareggz
 snowbro2		//parent
 mahoudais01				// bad gfx on title
 shippumds01				// bad gfx on title
-//snowbro2s01               //Snow Bros 2 (Todos los Roms Hacks Coleccion)
+snowbro2s01
 snowbro2s02
 
 	/* trackfld */
