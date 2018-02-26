@@ -120,14 +120,14 @@ GAME( 1994, snowbro2xs,   snowbro2,        snowbro2, snowbro2, toaplan2_state,  
 
 
  /***************************************
-	      Mahou Daisakusen
+      Mahou Daisakusen
 ***************************************/
 
 ROM_START( mahoudais01 )
-	ROM_REGION( 0x080000, "maincpu", 0 )            /* Main 68K code */
+	ROM_REGION( 0x080000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ra_ma_01_01.u65", 0x000000, 0x080000, CRC(970ccc5c) SHA1(c87cab83bde0284e631f02e50068407fee81d941) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )            /* Sound Z80 code */
+	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "ra-ma-01_02.u66", 0x00000, 0x10000, CRC(eabfa46d) SHA1(402c99ebf88f9025f74f0a28ced22b7882a65eb3) )
 
 	ROM_REGION( 0x200000, "gp9001", 0 )
@@ -137,20 +137,20 @@ ROM_START( mahoudais01 )
 	ROM_REGION( 0x008000, "text", 0 )
 	ROM_LOAD( "ra_ma_01_05hc01.u81",  0x000000, 0x008000, CRC(46f03623) SHA1(47cac08f147329a868828f94a1044d8511911b28) )
 
-	ROM_REGION( 0x40000, "oki", 0 )         /* ADPCM Samples */
+	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "ra-ma01-rom1.u57", 0x00000, 0x40000, CRC(6edb2ab8) SHA1(e3032e8eda2686f30df4b7a088c5a4d4d45782ed) )
 ROM_END
 
  /***************************************
-	     Shippu Mahou Daisakusen
+     Shippu Mahou Daisakusen
 ***************************************/
 
 ROM_START( shippumds01 )
-	ROM_REGION( 0x100000, "maincpu", 0 )            /* Main 68K code */
+	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "ma02rom1.bin", 0x000000, 0x080000, CRC(a678b149) SHA1(8c1a631e023dbba0a3fa6cd1b7d10dec1663213a) )
 	ROM_LOAD16_BYTE( "ma02rom0.bin", 0x000001, 0x080000, CRC(f226a212) SHA1(526acf3d05fdc88054a772fbea3de2af532bf3d2) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )            /* Sound Z80 code */
+	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "ma02rom2.bin", 0x00000, 0x10000, CRC(dde8a57e) SHA1(f522a3f17e229c71512464349760a9e27778bf6a) )
 
 	ROM_REGION( 0x400000, "gp9001", 0 )
@@ -160,7 +160,7 @@ ROM_START( shippumds01 )
 	ROM_REGION( 0x008000, "text", 0 )
 	ROM_LOAD( "ma02rom5hc01.bin",  0x000000, 0x008000, CRC(116ae559) SHA1(99b25c4ee9bbed8f23c5b5bf4a0a34ff8773c273) )
 
-	ROM_REGION( 0x80000, "oki", 0 )         /* ADPCM Samples */
+	ROM_REGION( 0x80000, "oki", 0 )
 	ROM_LOAD( "ma02rom6.bin", 0x00000, 0x80000, CRC(199e7cae) SHA1(0f5e13cc8ec42c80bb4bbff90aba29cdb15213d4) )
 ROM_END
 

@@ -755,7 +755,6 @@ vsavd
 vsav2d
 xmcotar1d
 xmvsfu1d
-// waiting for roms
 19xxs01
 19xxjrs01
 1944s01
@@ -1140,7 +1139,6 @@ kof95sp
 kof95sp2
 kof95xg
 kof95y
-// waiting on roms
 kof95s01
 kof95s02
 kof95s03
@@ -1936,7 +1934,6 @@ kof98xi
 kof98y
 kof98yh
 kof98zy
-// waiting on roms
 kof98s01
 kof98s02
 kof98s03
@@ -2181,7 +2178,6 @@ kof99xxx
 kof99y
 kof99yb
 kof99yd
-// waiting on roms
 kof99s01
 kof99s02
 kof99s03
@@ -2201,7 +2197,7 @@ kof99s18
 kof99s19
 kof99s20
 kof99s21
-//kof99s22  // files missing
+//kof99s22  // inactivated
 kof99h01
 kof99h02
 kof99h03
@@ -2458,7 +2454,6 @@ kof2kyd
 kof2kyg
 kof2kz
 kof2kzs
-// waiting on roms
 kof2000s01
 kof2000s02
 kof2000s03
@@ -2480,7 +2475,7 @@ kof2000s18
 kof2000s19
 kof2000s20
 kof2000s21
-//kof2000s22   // files missing
+//kof2000s22   // inactivated
 kof2000s23
 kof2000s24
 kof2000s25
@@ -2491,7 +2486,7 @@ kof2000s29
 kof2000s30
 kof2000s31
 kof2000s32
-//kof2000n01  // files missing
+kof2000n01
 kof2000n02
 kof2000n03
 kof2000ds01
@@ -2621,7 +2616,6 @@ kof2k1z1
 kof2k1z2
 //kf2k1pa
 //kf2k1pls
-// waiting on roms
 kof2001s02
 kof2001s03
 kof2001s04
@@ -2819,7 +2813,6 @@ kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
 //kf2k2plc
-// waiting on roms
 kof2002s01
 kof2002s02
 kof2002s03
@@ -2918,7 +2911,7 @@ kof2002s95
 kof2002s96
 kof2002s97
 kof2002s98
-//kof2002bs01   bad gfx
+kof2002bs01 //  bad gfx, unplayable
 kof2002bs02
 kof2002bs03
 kof2002bs04
@@ -2947,7 +2940,7 @@ kof2002ds02
 kof2002ds03 // 2k4se
 kof2002ds04 // 2k4se
 kof2002ds05 // 2k4se
-//kof2002ds06    bad gfx
+kof2002ds06
 kof2002ds07
 kof2002ds08
 kof2002ds09
@@ -2957,8 +2950,8 @@ kof2002ds12
 kof2002ds13
 kof2002ds14
 kof2002ds15
-//kof2002ds16   no sound
-//kof2002ds17   no sound
+kof2002ds16
+kof2002ds17
 kof2002ds18
 kof2002ds19
 kof2002ds20
@@ -3149,7 +3142,6 @@ kof2k3zgf
 //kof2k3bd
 //kof2k3pd
 //kof2k3upd
-// waiting on roms
 kof2003s01   // bad gfx in counter
 kof2003s02
 kof2003s03
@@ -3603,7 +3595,6 @@ mslug5w
 ms5boot
 ms5pcbd
 ms5sp
-// waiting for roms
 mslugs01
 mslugs02
 mslugs03
@@ -5331,7 +5322,6 @@ kogplus
 kogplus1
 kogplusf
 kogsm
-// waiting on roms
 ct2k3k3s01
 ct2k3k3s02
 ct2k3k3s03
@@ -5908,7 +5898,6 @@ svcsplus2016
 svcspryu
 svcstdse
 svcxlb
-// waiting on roms
 svcs01
 svcs02
 svcs03
@@ -6114,7 +6103,7 @@ svcpluss27
 svcpluss28
 svcpluss29
 svcplusas01
-//svcplusas02  // file missing (wrong sha1)
+svcplusas02
 svcplusas03
 svcplusas04
 svcplusas05
@@ -6462,14 +6451,13 @@ kovsh3
 //kovsh17
 kovsh18			// gem fighters
 kovsh19			// rugal 98
-// waiting for roms
 kov					//parent
-kov2                      //parent
-killbld                   //parent
-kovshp                    //parent
-oldsplus                  //parent
-olds                      //parent
-martmast                  //parent
+kov2				//parent
+killbld				//parent
+kovshp				//parent
+oldsplus			//parent
+olds				//parent
+martmast			//parent
 theglad				//parent
 kovss01
 kov100s01
@@ -7112,7 +7100,7 @@ bubbleb 	/* pbobble USA Region Hack */
 	/* taito_f2 */
 f2demo		/* Charles Doty */
 cameltry			//parent
-cameltryjs01		// bad gfx in title
+cameltryjs01
 deadconx			//parent
 deadconxjs01
 dondokod			//parent
