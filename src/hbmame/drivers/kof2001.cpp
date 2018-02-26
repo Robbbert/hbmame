@@ -4,6 +4,14 @@
 #include "includes/neogeo.h"
 
 
+DRIVER_INIT_MEMBER( neogeo_state, kof2001hs30 )
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
 DRIVER_INIT_MEMBER( neogeo_state, kof2001d )
 {
 	DRIVER_INIT_CALL(neogeo);
@@ -3647,6 +3655,6 @@ GAME( 2017, kof2001hs26,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2
 GAME( 2017, kof2001hs27,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Hacks",    "Kof2001 (Hidden Characters - Boss Fixed Version)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2001hs28,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Hacks",    "Kof2001 (The Largest Stock Of Energy)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof2001hs29,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Hacks",    "Kof2001 (Simplify The Move 1)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2001hs30,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Hacks",    "Kof2001 (Move Simplified)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof2001hs30,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hs30,   ROT0, "Hacks",    "Kof2001 (Move Simplified)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 
 

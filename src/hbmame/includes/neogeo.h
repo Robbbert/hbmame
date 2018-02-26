@@ -142,8 +142,6 @@ public:
 	void samsho2sp_map(address_map &map);
 	void lbsp_map(address_map &map);
 	void main_map1(address_map &map);
-	//void woodpek_map(address_map &map);
-	//void woodpek_map(address_map &map);
 
 protected:
 	void neogeo_postload();
@@ -270,6 +268,7 @@ public:
 	DECLARE_DRIVER_INIT(kof2000);
 	DECLARE_DRIVER_INIT(kof2000n);
 	DECLARE_DRIVER_INIT(kof2001);
+	DECLARE_DRIVER_INIT(kof2001hs30);
 	DECLARE_DRIVER_INIT(cthd2003);
 	DECLARE_DRIVER_INIT(ct2k3sp);
 	DECLARE_DRIVER_INIT(ct2k3sa);
