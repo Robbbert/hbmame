@@ -78,6 +78,9 @@ public:
 	TIMER_DEVICE_CALLBACK_MEMBER(schaser_effect_555_cb);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void schasercv(machine_config &config);
+	void mem_map(address_map &map);
+	void io_map(address_map &map);
 private:
 
 	bool m_flip_screen;
@@ -487,14 +490,14 @@ WRITE8_MEMBER( sc_state::colour_w )
 	m_p_colorram[offset & 0x1f9f] = data;
 }
 
-static ADDRESS_MAP_START( schaser_map, AS_PROGRAM, 8, sc_state )
+ADDRESS_MAP_START( sc_state::mem_map )
 	AM_RANGE(0x0000, 0x1fff) AM_ROM
 	AM_RANGE(0x2000, 0x3fff) AM_RAM AM_SHARE("ram")
 	AM_RANGE(0x4000, 0x5fff) AM_ROM
 	AM_RANGE(0xc000, 0xdfff) AM_SHARE("colorram") AM_WRITE(colour_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( schasercv_io_map, AS_IO, 8, sc_state )
+ADDRESS_MAP_START( sc_state::io_map )
 	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
 	AM_RANGE(0x02, 0x02) AM_READ(port02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
 	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(port03_w)
@@ -544,11 +547,11 @@ static INPUT_PORTS_START( schasercv )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-static MACHINE_CONFIG_START( schasercv )
+MACHINE_CONFIG_START( sc_state::schasercv )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(schaser_map)
-	MCFG_CPU_IO_MAP(schasercv_io_map)
+	MCFG_CPU_PROGRAM_MAP(mem_map)
+	MCFG_CPU_IO_MAP(io_map)
 	MCFG_MACHINE_START_OVERRIDE(sc_state,sc)
 	MCFG_MACHINE_RESET_OVERRIDE(sc_state,sc)
 

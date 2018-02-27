@@ -1,9 +1,10 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, rotdb )
+DRIVER_INIT_MEMBER( neogeo_state, rotdb )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -12,7 +13,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, rotdb )
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 16);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, rotdd )
+DRIVER_INIT_MEMBER( neogeo_state, rotdd )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -20,7 +21,7 @@ DRIVER_INIT_MEMBER( neogeo_hbmame, rotdd )
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 16);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, rotdnd )
+DRIVER_INIT_MEMBER( neogeo_state, rotdnd )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -566,29 +567,29 @@ ROM_END
 
 
 
-GAME( 2002, rotdb,     rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdb1,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdnd, ROT0, "hack", "Rage of the Dragons (Boss Hack)2", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdbh,    rotd, neogeo_noslot, neogeo, neogeo_noslot_state, rotd,   ROT0, "Dodowang", "Rage of the Dragons (Boss hack by Dodowang)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdbr,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "hack", "Rage of the Dragons (Portuguese)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdbr1,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "hack", "Rage of the Dragons (Portuguese) (Alt Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdbr2,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "hack", "Rage of the Dragons (Portuguese) (Alt Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdb,     rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdb1,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdnd, ROT0, "hack", "Rage of the Dragons (Boss Hack)2", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdbh,    rotd, neogeo_noslot, neogeo, neogeo_state, rotd,   ROT0, "Dodowang", "Rage of the Dragons (Boss hack by Dodowang)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdbr,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "hack", "Rage of the Dragons (Portuguese)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdbr1,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "hack", "Rage of the Dragons (Portuguese) (Alt Set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdbr2,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "hack", "Rage of the Dragons (Portuguese) (Alt Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdbr2d,  rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Rage of the Dragons - Portuguese/Brazilian Hack ver 2.0", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdcre,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Creamymami and Unk", "Rage of the Dragons (Console mode enabled - Always pow max - No change wait)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdcreb,  rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Creamymami, Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdd,     rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdd,  ROT0, "Evoga / Playmore", "Rage of the Dragons (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotddh,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdd,  ROT0, "hack", "Rage of the Dragons (hack dh)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdeh,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Ydmis", "Rage of the Dragons (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdehc,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Creamymami, FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdfw,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdfy,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdh2b,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdhab,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "HappyAsr", "Rage of the Dragons (Add Char - Console mode enabled - Char menu changed - Char choose twice)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdcre,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami and Unk", "Rage of the Dragons (Console mode enabled - Always pow max - No change wait)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdcreb,  rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami, Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdd,     rotd, neogeo_noslot, neogeo, neogeo_state,       rotdd,  ROT0, "Evoga / Playmore", "Rage of the Dragons (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotddh,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdd,  ROT0, "hack", "Rage of the Dragons (hack dh)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdeh,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Ydmis", "Rage of the Dragons (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdehc,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami, FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdfw,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdfy,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdh2b,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdhab,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "HappyAsr", "Rage of the Dragons (Add Char - Console mode enabled - Char menu changed - Char choose twice)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdhab1,  rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Rage of the Dragons (Hack, Hero AES) [EGCG]", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdhar,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "HappyAsr", "Rage of the Dragons (Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdhfw,   rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "FWNL", "Rage of the Dragons (Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdhar,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "HappyAsr", "Rage of the Dragons (Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdhfw,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL", "Rage of the Dragons (Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdnd,    rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Evoga / Playmore Corporation", "Rage of the Dragons (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, rotdyc,    rotd, neogeo_noslot, neogeo, neogeo_hbmame,       rotdb,  ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotdyc,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -1034,22 +1035,22 @@ ROM_END
 
 
 
-GAME( 2016, rotds01,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enhanced power v1)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds02,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V1)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds03,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V2)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds04,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V3)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds05,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V4)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds06,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 01)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds07,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Switch characters)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds08,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Power Max Alternative Set 04)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds09,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enhanced power v2)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds10,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 03)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds11,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Same Character In A Team)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds12,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Added Character Alternative set 04)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds13,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 04)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds14,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Added Character Plus Alternative)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, rotds15,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 05)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rotds16,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Translation Portuguese)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rotds17,        rotd,     neogeo_noslot, neogeo, neogeo_noslot_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Easy Move)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds01,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enhanced power v1)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds02,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V1)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds03,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V2)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds04,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V3)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds05,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V4)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds06,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 01)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds07,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Switch characters)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds08,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Power Max Alternative Set 04)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds09,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Enhanced power v2)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds10,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 03)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds11,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Same Character In A Team)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds12,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Added Character Alternative set 04)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds13,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 04)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds14,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Added Character Plus Alternative)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, rotds15,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 05)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, rotds16,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Translation Portuguese)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, rotds17,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Easy Move)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, rotdds02,       rotd,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Rage of the Dragons (Portuguese/Brazilian Hack ver 3.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rotdds01,       rotd,     neogeo_noslot, neogeo, neogeo_hbmame,        rotdd,     ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, rotdds01,       rotd,     neogeo_noslot, neogeo, neogeo_state,        rotdd,     ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )

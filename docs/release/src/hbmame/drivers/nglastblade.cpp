@@ -2,9 +2,10 @@
 // copyright-holders:Robbbert
 // The Last Blade
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, lbsp ) // thx FBA
+DRIVER_INIT_MEMBER( neogeo_state, lbsp ) // thx FBA
 {
 	DRIVER_INIT_CALL(neogeo);
 	uint32_t i;
@@ -767,8 +768,8 @@ GAME( 1997, lbeho,     lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, R
 GAME( 1997, lbha,      lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Robert", "Last Blade (Boss hack, Alternate Set)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbseh,     lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami, Kurouri, Ydmis", "Last Blade (3 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbsk,      lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "EGCG", "Last Blade Special Moves Revision Final (EGCG)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lbsp,      lastblad, lbsp,          neogeo, neogeo_hbmame, lbsp,   ROT0, "GSC2007", "Last Blade (Special v1.0.0701)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lbsp2,     lastblad, lbsp,          neogeo, neogeo_hbmame, lbsp,   ROT0, "GSC2007", "Last Blade (Special v1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lbsp,      lastblad, lbsp,         neogeo, neogeo_state,  lbsp,   ROT0, "GSC2007", "Last Blade (Special v1.0.0701)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lbsp2,     lastblad, lbsp,         neogeo, neogeo_state,  lbsp,   ROT0, "GSC2007", "Last Blade (Special v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lby,       lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Last Blade (Add Musashi)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1998, lb2a,      lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Alphax2", "Last Blade 2 (Add Kouryu)", MACHINE_SUPPORTS_SAVE )

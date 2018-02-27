@@ -1,9 +1,10 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof97pla )
+DRIVER_INIT_MEMBER( neogeo_state, kof97pla )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
@@ -2203,7 +2204,7 @@ GAME( 1997, kof97pjc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 GAME( 1997, kof97phl,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Liyang1983", "Kof'97 (Plus Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 PLUS set 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97pl3,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 PLUS set 3", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_hbmame,kof97pla, ROT0, "bootleg", "Kof'97 PLUS set 1", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_state,kof97pla, ROT0, "bootleg", "Kof'97 PLUS set 1", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "ZKW", "Kof'97 PLUS (Black Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof97plus, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Kof'97 PLUS 2006", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "KOF1996", "Kof'97 Practice Mode", MACHINE_SUPPORTS_SAVE )
@@ -11004,8 +11005,8 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '97
-GAME( 2016, kof97s01,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 01)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s02,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 02)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s01,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 01)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s02,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 02)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s04,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 04)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s07,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 07)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s08,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 08)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
@@ -11024,22 +11025,22 @@ GAME( 2016, kof97s27,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2016, kof97s28,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 28)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s29,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Boss PS Special Blue Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s30,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 30)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s32,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (BT Version V1.1)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s32,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (BT Version V1.1)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s33,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (BT Version v2.0)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s34,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 34)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s34,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 34)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s35,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Blocking Version Hack By Ivex 07/02/10)(NGM-2320)", MACHINE_SUPPORTS_SAVE ) //Duplicado
 GAME( 2016, kof97s39,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 39)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s40,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 40)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s41,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 41)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s42,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 42)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s43,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 43)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s44,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 44)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s45,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 45)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s43,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 43)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s44,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 44)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s45,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 45)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s46,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 46)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s47,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 47)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s48,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Hyper Plus Hack By LRHT)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s49,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 49)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s50,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 50)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s50,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 50)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s51,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 51)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s52,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 52)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s53,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 53)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
@@ -11081,11 +11082,11 @@ GAME( 2016, kof97s91,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2016, kof97s92,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 92)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s93,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Extra/Sexy Edition/Dragon Edition/Set)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s94,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 94)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s95,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 95)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s95,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 95)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s96,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 96)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97s97,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 97)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s98,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Evolution Hack By Yashional 19/12/08)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97s99,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 99)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s98,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Evolution Hack By Yashional 19/12/08)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof97s99,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin 99)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97h04,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Unknown Origin H 04)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97h05,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Unfinished Colors Revision)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97h06,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Golden Blood Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )

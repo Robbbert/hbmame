@@ -2,9 +2,10 @@
 // copyright-holders:Robbbert
 // Double Dragon
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, dbdrsp )
+DRIVER_INIT_MEMBER( neogeo_state, dbdrsp )
 {
 	DRIVER_INIT_CALL(neogeo);
 	uint32_t i;
@@ -304,7 +305,7 @@ GAME( 1995, dbdy,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neog
 GAME( 1995, doubledre2,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "hack", "Double Dragon Q (Boss hack Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, doubledres,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "hack", "Double Dragon (Boss hack Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Blackheart", "Double Dragon (Boss Hack Perfect Edition hack by Blackheart 2009-09-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, doubledrsp,     doubledr, samsho2sp,     neogeo, neogeo_hbmame, dbdrsp, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, doubledrsp,     doubledr, samsho2sp,     neogeo, neogeo_state,  dbdrsp, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame

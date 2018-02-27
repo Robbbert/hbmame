@@ -109,6 +109,9 @@ public:
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void ir(machine_config &config);
+	void main_map(address_map &map);
+	void io_map(address_map &map);
 
 private:
 
@@ -135,14 +138,14 @@ READ8_MEMBER(ir_state::port02_r)
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
 
-static ADDRESS_MAP_START( main_map, AS_PROGRAM, 8, ir_state )
+ADDRESS_MAP_START( ir_state::main_map )
 	ADDRESS_MAP_GLOBAL_MASK(0x7fff)
 	AM_RANGE(0x0000, 0x1fff) AM_ROM AM_WRITENOP
 	AM_RANGE(0x2000, 0x3fff) AM_MIRROR(0x4000) AM_RAM AM_SHARE("ram")
 	AM_RANGE(0x4000, 0x5fff) AM_ROM AM_WRITENOP
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( invrvnge_io_map, AS_IO, 8, ir_state )
+ADDRESS_MAP_START( ir_state::io_map )
 	AM_RANGE(0x00, 0x00) AM_READ_PORT("IN0")
 	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
 	AM_RANGE(0x02, 0x02) AM_READ(port02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
@@ -152,7 +155,7 @@ static ADDRESS_MAP_START( invrvnge_io_map, AS_IO, 8, ir_state )
 	AM_RANGE(0x06, 0x06) AM_WRITENOP //(watchdog_reset_w)
 ADDRESS_MAP_END
 
-//static ADDRESS_MAP_START( invrvnge_sound_map, AS_PROGRAM, 8, ir_state )
+//ADDRESS_MAP_START( ir_state::sound_map )
 //	ADDRESS_MAP_UNMAP_HIGH
 //	AM_RANGE(0x0000, 0xffff) AM_ROM // dummy prg map, TODO: decrypt ROM
 //ADDRESS_MAP_END
@@ -496,12 +499,12 @@ uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap,
 	return 0;
 }
 
-static MACHINE_CONFIG_START( ir )
+MACHINE_CONFIG_START( ir_state::ir )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
 	MCFG_CPU_PROGRAM_MAP(main_map)
-	MCFG_CPU_IO_MAP(invrvnge_io_map)
+	MCFG_CPU_IO_MAP(io_map)
 	MCFG_MACHINE_START_OVERRIDE(ir_state, ir)
 	MCFG_MACHINE_RESET_OVERRIDE(ir_state, ir)
 
@@ -511,7 +514,7 @@ static MACHINE_CONFIG_START( ir )
 	MCFG_SCREEN_UPDATE_DRIVER(ir_state, screen_update_ir)
 
 	//MCFG_CPU_ADD("audiocpu", M6808, XTAL_4MHz/2) // MC6808P
-	//MCFG_CPU_PROGRAM_MAP(invrvnge_sound_map)
+	//MCFG_CPU_PROGRAM_MAP(sound_map)
 
 	/* add shifter */
 	MCFG_MB14241_ADD("mb14241")

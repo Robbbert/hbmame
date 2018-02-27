@@ -1,9 +1,10 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, sengo3d )
+DRIVER_INIT_MEMBER( neogeo_state, sengo3d )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
@@ -318,19 +319,19 @@ ROM_END
 
 
 GAME( 2007, sengokucd,   sengoku,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3d,   sengoku3, neogeo_noslot, neogeo, neogeo_hbmame,       cmc42sfix, ROT0, "SNK", "Sengoku 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "hack", "Sengoku 3 (hack eb)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3eh,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "hack", "Sengoku 3 (Evolution Special hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "HappyAsr","Sengoku 3 (Add Char - Select USA and Brazil)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3kc,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "Fighters Kim", "Sengoku 3 (Char color changed - 80%)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3d,   sengoku3, neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "SNK", "Sengoku 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (hack eb)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3eh,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (Evolution Special hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "HappyAsr","Sengoku 3 (Add Char - Select USA and Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3kc,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Fighters Kim", "Sengoku 3 (Char color changed - 80%)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3p,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Krysofun", "Sengoku 3/Sengoku legends 2001 EX Super Version", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_hbmame,       sengo3d,   ROT0, "Player-X", "Sengoku 3 / Sengoku Densho 2001 Plus (Hack by Player-X)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_state,       sengo3d,   ROT0, "Player-X", "Sengoku 3 / Sengoku Densho 2001 Plus (Hack by Player-X)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3s,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Sjx", "Sengoku 3 (Evolution v1.0 hack by Sjx (FCHT))", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -542,12 +543,12 @@ ROM_END
 
 
  // Sengoku 3
-GAME( 2017, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s02,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s03,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s04,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s05,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V4)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s06,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Unlock All Stages)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s07,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Lock Combo Counter And Power)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s08,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Color Modification V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_noslot_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Color Modification V2)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s02,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s03,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V2)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s04,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V3)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s05,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (EX Super Version V4)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s06,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Unlock All Stages)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s07,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Lock Combo Counter And Power)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s08,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Color Modification V1)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Color Modification V2)" , MACHINE_SUPPORTS_SAVE )

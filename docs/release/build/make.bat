@@ -1,6 +1,6 @@
 //goto start0
-if exist scripts\minimaws\minimaws.sqlite3 del scripts\minimaws\minimaws.sqlite3
-del hbmameui.sym
+@if exist scripts\minimaws\minimaws.sqlite3 del scripts\minimaws\minimaws.sqlite3
+@del hbmameui.sym
 :start
 del hbmameui.exe
 if exist hbmameui.exe goto start

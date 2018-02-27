@@ -23,7 +23,7 @@ static const char *const galagost_sample_names[] =
 	0   /* end of array */
 };
 
-static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
+ADDRESS_MAP_START( galaga_hbmame::galagost_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM AM_WRITENOP         /* the only area different for each CPU */
 	AM_RANGE(0x6800, 0x6807) AM_READ(bosco_dsw_r)
 	AM_RANGE(0x6800, 0x681f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
@@ -38,7 +38,8 @@ static ADDRESS_MAP_START( galagost_map, AS_PROGRAM, 8, galaga_hbmame )
 	AM_RANGE(0xa000, 0xa007) AM_DEVWRITE("videolatch", ls259_device, write_d0)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( galagost, galaga )
+MACHINE_CONFIG_START( galaga_hbmame::galagost )
+	galaga(config);
 	MCFG_CPU_MODIFY( "maincpu" )
 	MCFG_CPU_PROGRAM_MAP(galagost_map)
 

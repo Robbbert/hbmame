@@ -105,6 +105,9 @@ public:
 	{ }
 
 	DECLARE_WRITE8_MEMBER(mineswp_color_w);
+	void mineswp(machine_config &config);
+	void mineswp_map(address_map &map);
+	void mineswp_io(address_map &map);
 private:
 	virtual void machine_start() override;
 	required_device<beep_device> m_beep;
@@ -135,7 +138,7 @@ WRITE8_MEMBER( mineswp_state::mineswp_color_w )
     Address maps
 
 *******************************************************************/
-static ADDRESS_MAP_START( mineswp_map, AS_PROGRAM, 8, mineswp_state )
+ADDRESS_MAP_START( mineswp_state::mineswp_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x8000, 0x85ff) AM_RAM_WRITE(vram_w) AM_SHARE("vram")
 	AM_RANGE(0x8600, 0x86df) AM_RAM
@@ -143,7 +146,7 @@ static ADDRESS_MAP_START( mineswp_map, AS_PROGRAM, 8, mineswp_state )
 	AM_RANGE(0x8700, 0x87ff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( mineswp_io, AS_IO, 8, mineswp_state )
+ADDRESS_MAP_START( mineswp_state::mineswp_io )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_MIRROR(0xff) AM_READ_PORT("INPUTS") AM_WRITE(mineswp_color_w)
 ADDRESS_MAP_END
@@ -161,7 +164,8 @@ void mineswp_state::machine_start()
 	m_beep->set_state(0);
 }
 
-static MACHINE_CONFIG_DERIVED( mineswp, dotrikun )
+MACHINE_CONFIG_START( mineswp_state::mineswp )
+	dotrikun(config);
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mineswp_map)

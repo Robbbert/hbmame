@@ -94,7 +94,7 @@ WRITE8_MEMBER(pacman_state::piranha_interrupt_vector_w)
  *
  *************************************/
 
-static ADDRESS_MAP_START( piranha_writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::piranha_writeport )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_WRITE(piranha_interrupt_vector_w)
 ADDRESS_MAP_END
@@ -214,11 +214,13 @@ INPUT_PORTS_END
  *
  *************************************/
 
-static MACHINE_CONFIG_DERIVED( maketrax, pacman )
+MACHINE_CONFIG_START( pacman_state::maketrax )
+	pacman(config);
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state,maketrax)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( piranha, pacman )
+MACHINE_CONFIG_START( pacman_state::piranha )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_IO_MAP(piranha_writeport)
 MACHINE_CONFIG_END

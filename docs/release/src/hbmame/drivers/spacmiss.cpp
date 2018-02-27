@@ -79,6 +79,9 @@ public:
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
+	void spacmissx(machine_config &config);
+	void mem_map(address_map &map);
+	void io_map(address_map &map);
 };
 
 static const discrete_dac_r1_ladder spacmissx_music_dac =
@@ -370,14 +373,14 @@ READ8_MEMBER(sm_state::spacmissx_02_r)
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
 
-static ADDRESS_MAP_START( spacmissx_map, AS_PROGRAM, 8, sm_state )
+ADDRESS_MAP_START( sm_state::mem_map )
 	ADDRESS_MAP_GLOBAL_MASK(0x7fff)
 	AM_RANGE(0x0000, 0x1fff) AM_ROM AM_WRITENOP
 	AM_RANGE(0x2000, 0x3fff) AM_MIRROR(0x4000) AM_RAM AM_SHARE("ram")
 	AM_RANGE(0x4000, 0x5fff) AM_ROM AM_WRITENOP
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( spacmissx_io_map, AS_IO, 8, sm_state )
+ADDRESS_MAP_START( sm_state::io_map )
 	AM_RANGE(0x00, 0x00) AM_READ_PORT("IN0")
 	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
 	AM_RANGE(0x02, 0x02) AM_READ(spacmissx_02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
@@ -404,11 +407,11 @@ static const char *const invaders_sample_names[] =
 };
 
 
-static MACHINE_CONFIG_START( spacmissx )
+MACHINE_CONFIG_START( sm_state::spacmissx )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(spacmissx_map)
-	MCFG_CPU_IO_MAP(spacmissx_io_map)
+	MCFG_CPU_PROGRAM_MAP(mem_map)
+	MCFG_CPU_IO_MAP(io_map)
 	MCFG_MACHINE_START_OVERRIDE(sm_state,sm)
 	MCFG_MACHINE_RESET_OVERRIDE(sm_state,sm)
 

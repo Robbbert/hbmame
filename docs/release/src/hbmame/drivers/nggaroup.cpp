@@ -2,9 +2,10 @@
 // copyright-holders:Robbbert
 // Garou Mark of the Wolves: mostly hacks of the prototype
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, garoud )
+DRIVER_INIT_MEMBER( neogeo_state, garoud )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -309,8 +310,8 @@ ROM_END
 
 
 
-GAME( 1999, garoub,    garou,    neogeo_noslot, neogeo, neogeo_noslot_state, garou,  ROT0, "Ydmis", "Garou - Mark of the Wolves (Boss hack by Ydmis)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_hbmame,       garoud, ROT0, "hack","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoub,    garou,    neogeo_noslot, neogeo, neogeo_state, garou,  ROT0, "Ydmis", "Garou - Mark of the Wolves (Boss hack by Ydmis)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_state,       garoud, ROT0, "hack","Garou - Mark of the Wolves (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "MU", "Garou - Mark of the Wolves (proto) (Approach to Arcade by MU v5.0a)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, garoupeh,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (proto) (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (proto) (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
@@ -540,9 +541,9 @@ ROM_END
 
 GAME( 2017, garoups01,      garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Description Of Unknown Origin 01)(prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, garoups02,      garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Description Of Unknown Origin 02)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, garoups03,      garou,    neogeo_noslot, neogeo, neogeo_noslot_state,  garou,     ROT0, "Hacks",    "Garou - Mark of the Wolves (Infinite Power)(NGM-2530)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, garouhs01,      garou,    neogeo_noslot, neogeo, neogeo_noslot_state,  garouh,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Enable Grant & Kain In Arcade Mode)(NGM-2530)(NGH-2530)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, garouhs02,      garou,    neogeo_noslot, neogeo, neogeo_noslot_state,  garouh,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Get Maximum Power On A Valid Attack, Being Attacked Or On A Special move)(NGM-2530)(NGH-2530)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, garoups03,      garou,    neogeo_noslot, neogeo, neogeo_state,  garou,     ROT0, "Hacks",    "Garou - Mark of the Wolves (Infinite Power)(NGM-2530)(prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, garouhs01,      garou,    neogeo_noslot, neogeo, neogeo_state,  garouh,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Enable Grant & Kain In Arcade Mode)(NGM-2530)(NGH-2530)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, garouhs02,      garou,    neogeo_noslot, neogeo, neogeo_state,  garouh,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Get Maximum Power On A Valid Attack, Being Attacked Or On A Special move)(NGM-2530)(NGH-2530)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, garoupsi01,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Enhanced Power V1)(prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, garoupsi02,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Easy Special Attacks)(prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, garoupsi03,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Garou - Mark of the Wolves (Bug Patch v2)(prototype)", MACHINE_SUPPORTS_SAVE )

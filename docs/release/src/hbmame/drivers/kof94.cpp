@@ -1,6 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
 ROM_START( kof94b ) /* The King of Fighters '94 - Hack by Ydmis - (Can choose Rugal) */
@@ -205,7 +206,6 @@ ROM_END
 
 ROM_START( kof94h ) 
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	// rom missing
 	ROM_LOAD16_WORD_SWAP( "055h.p1", 0x100000, 0x100000, CRC(2b0bc82d) SHA1(131906f00ed3c5854e251518c3074b3c19cb23d5) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
@@ -1064,28 +1064,28 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '94
-GAME( 2016, kof94s01,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 01)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s02,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Power Maxs)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s03,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 02)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s04,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Color Fix)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s05,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 03)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s06,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 04)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s07,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 05)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s08,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 06)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s09,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 07)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s10,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 08)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s11,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Korean Translation)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s12,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 10)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s13,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 11)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s14,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 12)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s15,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Enhanced Power)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof94s16,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Fix Boss's Error)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s17,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Unlimit Special Moves)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s18,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Enable Hidden Characters V2)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s19,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Color Mod)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Color Mod font change)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Unlimited Credits In Console Mode)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Super Kill Unified)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s23,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Move Simplified)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s01,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s02,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Power Maxs)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s03,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s04,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Color Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s05,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s06,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s07,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s08,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 06)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s09,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s10,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s11,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Korean Translation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s12,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s13,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s14,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Description Of Unknown Origin 12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s15,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, kof94s16,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Fix Boss's Error)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s17,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s18,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s19,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Color Mod)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Color Mod font change)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s23,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'94 (Move Simplified)", MACHINE_SUPPORTS_SAVE )
 
 

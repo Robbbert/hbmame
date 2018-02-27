@@ -6,18 +6,26 @@
 //              There's a nude woman at the right side.
 //              Sometimes the 6 women in the centre can also be nude.
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, cthd2k3a )
+DRIVER_INIT_MEMBER( neogeo_state,  cthd2k3a )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_bootleg_prot->decrypt_cthd2003(spr_region, spr_region_size, audiocpu_region,audio_region_size, fix_region, fix_region_size);
 }
 
 // This fixes the Cart Jumper in KOGD
-static MACHINE_CONFIG_DERIVED( hbmame_kog, neogeo_arcade )
+ADDRESS_MAP_START( neogeo_state::main_map1 )
+	AM_IMPORT_FROM( neogeo_main_map )
+	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
+	AM_RANGE(0x000080, 0x0fffff) AM_ROM
+ADDRESS_MAP_END
+
+MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
+	neogeo_arcade(config);
 	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_CPU_PROGRAM_MAP(main_map1)
 	MCFG_KOG_PROT_ADD("kog_prot")
 
 	//joystick controller
@@ -28,13 +36,13 @@ static MACHINE_CONFIG_DERIVED( hbmame_kog, neogeo_arcade )
 	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
 MACHINE_CONFIG_END
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kogd )
+DRIVER_INIT_MEMBER( neogeo_state, kogd )
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_kog_prot->kog_install_protection(m_maincpu);
 }
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof10thu )
+DRIVER_INIT_MEMBER( neogeo_state, kof10thu )
 {
 	uint32_t tsize = m_region_maincpu->bytes();
 	uint8_t *rom = m_region_maincpu->base();
@@ -912,37 +920,37 @@ ROM_END
 
 
 
-GAME( 2003, cthd2k3b,   neogeo,   neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_hbmame,           cthd2k3a,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix v1.2 (Diff Move - 030823)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (hack spi)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_noslot_state,     cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4mp,   kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic PLUS", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4omg,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "KofOnTeam", "Kof Special Edition 2004 (Omega v0.5 (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, kof2k4ru,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "MVS Hacks PSP", "Kof Special Edition 2004 REMIX ULTRA V2.6F", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4se1,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (hack 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4se2,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (hack 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4seb,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "Dragon Co.", "Kof Special Edition 2004 (portuguese)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4spl,  kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Plus", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thbr,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "Neogeo BR Team", "Kof 10th Anniversary (Brazil by NeogeoBRteam)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_hbmame,           kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack d16)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_noslot_state,     kf10thep,  ROT0, "hack", "Kof 10th Anniversary Extra Plus (hack 15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_hbmame,           kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack u)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (portuguese edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,            neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "hack", "King of Gladiator (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogf,       kof97,    neogeo_kog,        neogeo, neogeo_noslot_kog_state, kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, koggv,      kof97,    neogeo_kog,        neogeo, neogeo_noslot_kog_state, kog,       ROT0, "hack", "King of Gladiator (Green Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "hack", "King of Gladiator MIX PLUS-EX", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_noslot_kog_state, kog,       ROT0, "hack", "King of Gladiator PLUS (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "hack", "King of Gladiator PLUS (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_hbmame,           kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_noslot_kog_state, kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix by KalceTin (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, cthd2k3b,   neogeo,   neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2k3a,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix v1.2 (Diff Move - 030823)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (hack spi)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4mp,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic PLUS", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4omg,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "KofOnTeam", "Kof Special Edition 2004 (Omega v0.5 (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, kof2k4ru,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "MVS Hacks PSP", "Kof Special Edition 2004 REMIX ULTRA V2.6F", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4se1,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (hack 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4se2,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (hack 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4seb,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Dragon Co.", "Kof Special Edition 2004 (portuguese)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4spl,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thbr,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Neogeo BR Team", "Kof 10th Anniversary (Brazil by NeogeoBRteam)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack d16)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kf10thep,  ROT0, "hack", "Kof 10th Anniversary Extra Plus (hack 15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "hack", "Kof 10th Anniversary UNIQUE (hack u)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (portuguese edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary UNIQUE (decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "hack", "King of Gladiator (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogf,       kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, koggv,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "hack", "King of Gladiator (Green Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "hack", "King of Gladiator MIX PLUS-EX", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "hack", "King of Gladiator PLUS (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "hack", "King of Gladiator PLUS (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition by Zxbdragon & Ryu)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix by KalceTin (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2004, kf2k4pls,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf2k4pls, ROT0, "hack", "Kof2004 Special Edition Plus", MACHINE_SUPPORTS_SAVE )
 ///GAME( 2004, kof10thd,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kof10thd, ROT0, "hack", "Kof 10th Anniversary (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 
@@ -1851,39 +1859,39 @@ ROM_END
 
 
 
-GAME( 2017, ct2k3k3s01,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 01)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s02,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 02)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s03,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 03)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s04,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 04)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s05,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 05)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s06,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V1)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s07,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V1 Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s08,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V1 Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s09,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V2)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s10,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V2 Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s11,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V2 Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s12,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod Tcwlee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s13,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod Tcwlee Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s14,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod Tcwlee Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s15,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (colormod V2 Tcwlee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s16,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V2 Tcwlee Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s17,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V2 Tcwlee Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s18,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colors V3 Tcwlee Kanyero)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s19,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colors V3 Tcwlee Kanyero Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s20,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colors V3 Tcwlee Kanyero Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s21,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Jason Hack)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s22,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Original Restoration Blood Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s23,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Original Restoration Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s24,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Original Restoration Iceblue Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s25,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V1 Tcwlee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s26,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V2 Tcwlee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s27,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Blood Ayane Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s28,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s29,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Iceblue Zhangshee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s30,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Jack 0x)(KOF2001)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ct2k3k3s31,     cthd2k3b, neogeo_noslot, neogeo, neogeo_noslot_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 06)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s01,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 01)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s02,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 02)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s03,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 03)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s04,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 04)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s05,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 05)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s06,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V1)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s07,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V1 Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s08,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V1 Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s09,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V2)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s10,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V2 Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s11,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colours And Green Timecounter Kanyero V2 Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s12,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod Tcwlee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s13,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod Tcwlee Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s14,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod Tcwlee Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s15,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (colormod V2 Tcwlee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s16,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V2 Tcwlee Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s17,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V2 Tcwlee Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s18,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colors V3 Tcwlee Kanyero)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s19,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colors V3 Tcwlee Kanyero Blood Ayane)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s20,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colors V3 Tcwlee Kanyero Iceblue Zhangshee)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s21,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Jason Hack)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s22,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Original Restoration Blood Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s23,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Original Restoration Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s24,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Original Restoration Iceblue Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s25,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V1 Tcwlee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s26,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V2 Tcwlee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s27,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Blood Ayane Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s28,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s29,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Iceblue Zhangshee Fixed)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s30,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Colormod V3 Tcwlee Jack 0x)(KOF2001)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ct2k3k3s31,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Description Of Unknown Origin 06)(KOF2001)", MACHINE_SUPPORTS_SAVE )
  // King of Gladiator
-GAME( 2017, kogs01,         kof97,    neogeo_kog,    neogeo, neogeo_noslot_kog_state, kog,    ROT0, "Hacks",    "King of Gladiator (Fix v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kogs02,         kof97,    neogeo_kog,    neogeo, neogeo_noslot_kog_state, kog,    ROT0, "Hacks",    "King of Gladiator (Fix v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kogs03,         kof97,    neogeo_kog,    neogeo, neogeo_noslot_kog_state, kog,    ROT0, "Hacks",    "King of Gladiator (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kogs04,         kof97,    neogeo_kog,    neogeo, neogeo_noslot_kog_state, kog,    ROT0, "Hacks",    "King of Gladiator (Simplify The Move Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kogs01,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "Hacks",    "King of Gladiator (Fix v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kogs02,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "Hacks",    "King of Gladiator (Fix v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kogs03,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "Hacks",    "King of Gladiator (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kogs04,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "Hacks",    "King of Gladiator (Simplify The Move Version)", MACHINE_SUPPORTS_SAVE )

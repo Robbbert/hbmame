@@ -287,6 +287,8 @@ public:
 	DECLARE_MACHINE_RESET(monaco);
 	DECLARE_VIDEO_START(monaco);
 	uint32_t screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	void monaco(machine_config &config);
+	void monaco_map(address_map &map);
 private:
 	struct monaco_gfx *m_monaco_gfx;
 	enum monaco_mode m_monaco_mode;
@@ -1065,9 +1067,9 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 
 /*********************************************/
 
-static ADDRESS_MAP_START( monaco_map, AS_PROGRAM, 8, monaco_state )/* fake */
+ADDRESS_MAP_START( monaco_state::monaco_map )/* fake */
 	AM_RANGE(0x0000, 0xefff) AM_ROM
-	AM_RANGE(0xf000, 0xffff) AM_READWRITE(monaco_ram_r,monaco_ram_w) AM_SHARE("ram") /* scores need 4000 bytes */
+	AM_RANGE(0xf000, 0xffff) AM_READWRITE(monaco_ram_r, monaco_ram_w) AM_SHARE("ram") /* scores need 4000 bytes */
 ADDRESS_MAP_END
 
 static INPUT_PORTS_START( monaco )
@@ -1429,7 +1431,7 @@ MACHINE_RESET_MEMBER( monaco_state, monaco )
 	GameOver();
 }
 
-static MACHINE_CONFIG_START( monaco )
+MACHINE_CONFIG_START( monaco_state::monaco )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD ("maincpu", Z80, 200) /* fake */

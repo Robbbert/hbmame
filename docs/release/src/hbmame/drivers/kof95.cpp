@@ -2,9 +2,10 @@
 // copyright-holders:Robbbert
 // The King of Fighters '95
 
+#include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof95sp ) // thx FBA
+DRIVER_INIT_MEMBER( neogeo_state, kof95sp ) // thx FBA
 {
 	DRIVER_INIT_CALL(neogeo);
 	uint32_t i;
@@ -440,8 +441,8 @@ GAME( 1995, kof95neo,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo
 GAME( 1995, kof95pjc,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "TcwLee", "Kof'95 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95ru,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Jason/K3", "Kof'95 KOF REMIX PRO (Diff Moves ultra rev v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95seh,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Kof'95 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof95sp,   kof95,    samsho2sp,       neogeo,  neogeo_hbmame, kof95sp,  ROT0, "GSC2007", "Kof'95 (Special v1.0.0627)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof95sp2,  kof95,    samsho2sp,       neogeo,  neogeo_hbmame, kof95sp,  ROT0, "GSC2007", "Kof'95 (Special v1.0.0613)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof95sp,   kof95,    samsho2sp,       neogeo,  neogeo_state,  kof95sp,  ROT0, "GSC2007", "Kof'95 (Special v1.0.0627)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof95sp2,  kof95,    samsho2sp,       neogeo,  neogeo_state,  kof95sp,  ROT0, "GSC2007", "Kof'95 (Special v1.0.0613)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95xg,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "PPX Hack Team", "Kof'95 (Boss)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95y,    kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 

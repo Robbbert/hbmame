@@ -149,19 +149,19 @@ MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
 
 
 
-static ADDRESS_MAP_START( 96in1_writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::_96in1_writeport )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_WRITE(pacman_interrupt_vector_w)
 	AM_RANGE(0x01, 0x01) AM_WRITE(m96in1_rombank_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( 96in1b_writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::_96in1b_writeport )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_WRITE(pacman_interrupt_vector_w)
 	AM_RANGE(0x01, 0x01) AM_WRITE(m96in1b_rombank_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( hackypac_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::hackypac_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -182,7 +182,7 @@ static ADDRESS_MAP_START( hackypac_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xfffc, 0xffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( hackypac_writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::hackypac_writeport )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_WRITE(pacman_interrupt_vector_w)
 	AM_RANGE(0x01, 0x01) AM_WRITE(hackypac_rombank_w)
@@ -190,7 +190,7 @@ static ADDRESS_MAP_START( hackypac_writeport, AS_IO, 8, pacman_state )
 	AM_RANGE(0x04, 0x04) AM_WRITENOP			/* colorbank select, not used due to a bug */
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( madpac_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::madpac_map )
 	/* Mirrors in the 50xx range are needed by Zigzag */
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
@@ -212,14 +212,14 @@ static ADDRESS_MAP_START( madpac_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xf800, 0xffff) AM_RAM				/* various games use this */
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( madpac_writeport, AS_IO, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::madpac_writeport )
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x00, 0x00) AM_WRITE(pacman_interrupt_vector_w)
 	AM_RANGE(0x01, 0x01) AM_WRITE(madpac_rombank_w)
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( mspaceur_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::mspaceur_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -240,7 +240,7 @@ static ADDRESS_MAP_START( mspaceur_map, AS_PROGRAM, 8, pacman_state )
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( mschamp_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::mschamp_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -262,7 +262,7 @@ static ADDRESS_MAP_START( mschamp_map, AS_PROGRAM, 8, pacman_state )
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( multipac_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::multipac_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -287,7 +287,7 @@ static ADDRESS_MAP_START( multipac_map, AS_PROGRAM, 8, pacman_state )
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( pm4n1_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::pm4n1_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -307,7 +307,7 @@ static ADDRESS_MAP_START( pm4n1_map, AS_PROGRAM, 8, pacman_state )
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( pm4n1c_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::pm4n1c_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -328,7 +328,7 @@ static ADDRESS_MAP_START( pm4n1c_map, AS_PROGRAM, 8, pacman_state )
 ADDRESS_MAP_END
 
 
-static ADDRESS_MAP_START( pm4n1d_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::pm4n1d_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -348,7 +348,7 @@ static ADDRESS_MAP_START( pm4n1d_map, AS_PROGRAM, 8, pacman_state )
 	AM_RANGE(0xe004, 0xe006) AM_WRITENOP	// mirror of 5004-5006
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( superabc_map, AS_PROGRAM, 8, pacman_state )
+ADDRESS_MAP_START( pacman_state::superabc_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
 	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
@@ -721,20 +721,22 @@ GFXDECODE_END
 
 /* These drivers are for multiple games in one package */
 
-static MACHINE_CONFIG_DERIVED( 96in1, pacman )
+MACHINE_CONFIG_START( pacman_state::_96in1 )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(96in1_writeport)
+	MCFG_CPU_IO_MAP(_96in1_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( 96in1b, pacman )
+MACHINE_CONFIG_START( pacman_state::_96in1b )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(96in1b_writeport)
+	MCFG_CPU_IO_MAP(_96in1b_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1b)
 	MCFG_PALETTE_MODIFY("palette")
@@ -747,7 +749,8 @@ static MACHINE_CONFIG_DERIVED( 96in1b, pacman )
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( hackypac, pacman )
+MACHINE_CONFIG_START( pacman_state::hackypac )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(hackypac_map)
 	MCFG_CPU_IO_MAP(hackypac_writeport)
@@ -762,7 +765,8 @@ static MACHINE_CONFIG_DERIVED( hackypac, pacman )
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( madpac, pacman )
+MACHINE_CONFIG_START( pacman_state::madpac )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(madpac_map)
 	MCFG_CPU_IO_MAP(madpac_writeport)
@@ -778,27 +782,31 @@ static MACHINE_CONFIG_DERIVED( madpac, pacman )
 	MCFG_NVRAM_ADD_0FILL("nvram")
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mspaceur, pacman )
+MACHINE_CONFIG_START( pacman_state::mspaceur )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mspaceur_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mspaceur)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mschamp, pacman )
+MACHINE_CONFIG_START( pacman_state::mschamp )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mschamp_map)
 	MCFG_CPU_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( mschampx, pacmanx )
+MACHINE_CONFIG_START( pacman_state::mschampx )
+	pacmanx(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(mschamp_map)
 	MCFG_CPU_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( multipac, pacman )
+MACHINE_CONFIG_START( pacman_state::multipac )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(multipac_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, multipac)
@@ -812,14 +820,16 @@ static MACHINE_CONFIG_DERIVED( multipac, pacman )
 	MCFG_GFXDECODE_MODIFY("gfxdecode", multipac)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pm4n1, pacman )
+MACHINE_CONFIG_START( pacman_state::pm4n1 )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pm4n1c, pacman )
+MACHINE_CONFIG_START( pacman_state::pm4n1c )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
@@ -827,12 +837,14 @@ static MACHINE_CONFIG_DERIVED( pm4n1c, pacman )
 	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( pm4n1d, pm4n1c )
+MACHINE_CONFIG_START( pacman_state::pm4n1d )
+	pm4n1c(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(pm4n1d_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( superabc, pacman )
+MACHINE_CONFIG_START( pacman_state::superabc )
+	pacman(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(superabc_map)
 	MCFG_NVRAM_ADD_0FILL("nvram")
@@ -1868,10 +1880,10 @@ GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  0,        ROT
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2005, 96in1,    madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1c,   madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1a,   madpac,   96in1,    96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1b,   madpac,   96in1b,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state,  madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
 

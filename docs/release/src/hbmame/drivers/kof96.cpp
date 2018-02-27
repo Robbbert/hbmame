@@ -1,12 +1,13 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 
+#include "includes/neogeo.h"
 
 
 // kof96ep has an extra rom with crossed wires which overrides part of the
 // main p1 rom. This init unscrambles the extra rom and inserts the new
 // code into the correct place.
-DRIVER_INIT_MEMBER( neogeo_hbmame, kof96ep )
+DRIVER_INIT_MEMBER( neogeo_state, kof96ep )
 {
 	DRIVER_INIT_CALL(neogeo);
 	int i,j;
@@ -1529,7 +1530,7 @@ GAME( 1996, kof96cr,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 GAME( 1996, kof96de,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Dragon Edition set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96dr1,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Dragon Edition set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96eh,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Pow hack ABC set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_hbmame, kof96ep,  ROT0, "bootleg", "Kof'96 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_state, kof96ep,  ROT0, "bootleg", "Kof'96 (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96ep2,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Bootleg / Hack Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96ep3,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Kof'96 (Bootleg / Hack Set 3 All Boss)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof96evo,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker, FGCH", "Kof'96 WESKER HACK (Evolution)", MACHINE_SUPPORTS_SAVE ) // Moves and style rev

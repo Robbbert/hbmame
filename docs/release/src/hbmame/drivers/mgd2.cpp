@@ -17,6 +17,7 @@
    These games run the same as the usual MAME ones, except for alpham2 which has extra sound
    roms. This produces extra sounds, such as the ticking sound as soon as the game starts. */
 
+#include "includes/neogeo.h"
 
 ROM_START( 2020bbd )
 	ROM_REGION( 0x100000, "maincpu", 0 )

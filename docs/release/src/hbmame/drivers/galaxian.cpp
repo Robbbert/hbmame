@@ -9,7 +9,7 @@
  *
  *************************************/
 
-static ADDRESS_MAP_START( fourplay_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::fourplay_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x47ff) AM_RAM
 	AM_RANGE(0x5000, 0x53ff) AM_MIRROR(0x0400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
@@ -33,7 +33,8 @@ static ADDRESS_MAP_START( fourplay_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0x7800, 0x7800) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( fourplay, galaxian )
+MACHINE_CONFIG_START( galaxian_state::fourplay )
+	galaxian(config);
 	/* info can be found at http://www.ionpool.net/arcade/galaxian_hacks/fourplay.htm */
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
@@ -85,17 +86,18 @@ INPUT_PORTS_END
  *
  ***********************************************************/
 
-static ADDRESS_MAP_START( jumpbugx_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::jumpbugx_map )
 	AM_IMPORT_FROM(jumpbug_map)
 /* HBMAME - added next lines */
 	AM_RANGE(0x6800, 0x6807) AM_MIRROR(0x07f8) AM_DEVWRITE("cust", galaxian_sound_device, sound_w)
 	AM_RANGE(0x7800, 0x7800) AM_MIRROR(0x07ff) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( jumpbugx, jumpbug )
+MACHINE_CONFIG_START( galaxian_state::jumpbugx )
+	jumpbug(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(jumpbugx_map)
-	MCFG_FRAGMENT_ADD(galaxian_audio)
+	galaxian_audio(config);
 MACHINE_CONFIG_END
 
 
@@ -180,7 +182,7 @@ DRIVER_INIT_MEMBER( galaxian_state, trukker )
  *
  ***************************************************************/
 
-static ADDRESS_MAP_START( tst_frog_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::tst_frog_map )
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0x3fff) AM_ROM
 	AM_RANGE(0x8000, 0x87ff) AM_RAM
@@ -195,7 +197,8 @@ static ADDRESS_MAP_START( tst_frog_map, AS_PROGRAM, 8, galaxian_state )
 	AM_RANGE(0xc000, 0xffff) AM_READWRITE(frogger_ppi8255_r, frogger_ppi8255_w)
 ADDRESS_MAP_END
 
-static MACHINE_CONFIG_DERIVED( tst_frog, frogger )
+MACHINE_CONFIG_START( galaxian_state::tst_frog )
+	frogger(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(tst_frog_map)
 	MCFG_DEVICE_REMOVE("watchdog")
@@ -209,7 +212,7 @@ MACHINE_CONFIG_END
  *
  *************************************/
 
-static ADDRESS_MAP_START( videight_map, AS_PROGRAM, 8, galaxian_state )
+ADDRESS_MAP_START( galaxian_state::videight_map )
 	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
 	AM_RANGE(0x4000, 0x47ff) AM_RAM
 	AM_RANGE(0x5000, 0x53ff) AM_MIRROR(0x400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
@@ -236,7 +239,8 @@ static GFXDECODE_START( videight )
 	GFXDECODE_SCALE( "gfx1", 0x0000, galaxian_spritelayout, 0, 8*32, GALAXIAN_XSCALE,1)
 GFXDECODE_END
 
-static MACHINE_CONFIG_DERIVED( videight, galaxian )
+MACHINE_CONFIG_START( galaxian_state::videight )
+	galaxian(config);
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")

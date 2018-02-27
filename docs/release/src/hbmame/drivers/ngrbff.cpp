@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 // Fatal Fury 1,2,3,special ; Real Bout Fatal Fury 1,2,special
 
+#include "includes/neogeo.h"
 
 
 ROM_START( fatfurspb )
@@ -639,7 +640,7 @@ GAME( 1993, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1993, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX Team hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, fatfury2b,     fatfury2, neogeo_noslot, neogeo, neogeo_noslot_state, fatfury2,  ROT0, "Yumeji", "Fatal Fury 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, fatfury2b,     fatfury2, neogeo_noslot, neogeo, neogeo_state, fatfury2,  ROT0, "Yumeji", "Fatal Fury 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1995, fatfury3b,     fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Fatal Fury 3 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fatfury3bd,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
@@ -1420,9 +1421,9 @@ GAME( 2017, fatfurspas03,   fatfursp, neogeo_noslot, neogeo, neogeo_state,      
  // Fatal Fury 1
 GAME( 1991, fatfury1s01,    fatfury1, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury - King of Fighters (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 2
-GAME( 2017, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_noslot_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_noslot_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_noslot_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 3
 GAME( 2017, fatfury3s01,    fatfury3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury 3 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, fatfury3s02,    fatfury3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury 3 (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )

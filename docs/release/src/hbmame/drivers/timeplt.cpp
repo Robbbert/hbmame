@@ -22,7 +22,7 @@ ROM_START( timepltdiag )
 	ROM_LOAD( "tm3",          0x4000, 0x2000, CRC(ff4e0d83) SHA1(ef98a1abb45b22d7498a0aca520f43bbee248b22) )
 	ROM_LOAD( "diag.5h",      0x6000, 0x2000, CRC(020eac50) SHA1(5459248dbd590393936af4ceef8fabc4a30b0315) )
 
-	ROM_REGION( 0x10000, "tpsound", 0 )
+	ROM_REGION( 0x10000, "timeplt_audio:tpsound", 0 )
 	ROM_LOAD( "tm7",          0x0000, 0x1000, CRC(d66da813) SHA1(408fca4515e8af84211df3e204c8776b2f8adb23) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )

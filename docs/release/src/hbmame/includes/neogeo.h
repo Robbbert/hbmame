@@ -7,6 +7,12 @@
 
 *************************************************************************/
 
+#include "emu.h"
+#include "cpu/m68000/m68000.h"
+#include "cpu/z80/z80.h"
+#include "machine/nvram.h"
+#include "machine/watchdog.h"
+#include "sound/2610intf.h"
 #include "machine/upd1990a.h"
 #include "machine/ng_memcard.h"
 #include "machine/gen_latch.h"
@@ -20,36 +26,61 @@
 // On scanline 224, /VBLANK goes low 56 mclks (14 pixels) from the rising edge of /HSYNC.
 // Two mclks after /VBLANK goes low, the hardware sets a pending IRQ1 flip-flop.
 #define NEOGEO_VBLANK_IRQ_HTIM (attotime::from_ticks(56+2, NEOGEO_MASTER_CLOCK))
+	// macros allow code below to be copy+pasted into slot devices more easily
+#define cpuregion memregion("maincpu")->base()
+#define cpuregion_size memregion("maincpu")->bytes()
+#define spr_region memregion("sprites")->base()
+#define spr_region_size memregion("sprites")->bytes()
+#define fix_region memregion("fixed")->base()
+#define fix_region_size memregion("fixed")->bytes()
+#define ym_region memregion("ymsnd")->base()
+#define ym_region_size memregion("ymsnd")->bytes()
+#define audiocpu_region memregion("audiocpu")->base()
+#define audio_region_size memregion("audiocpu")->bytes()
+#define audiocrypt_region memregion("audiocrypt")->base()
+#define audiocrypt_region_size memregion("audiocrypt")->bytes()
+
 
 class neogeo_state : public driver_device
 {
 public:
 	neogeo_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag),
-		m_banked_cart(*this, "banked_cart"),
-		m_maincpu(*this, "maincpu"),
-		m_audiocpu(*this, "audiocpu"),
-		m_region_maincpu(*this, "maincpu"),
-		m_region_sprites(*this, "sprites"),
-		m_region_fixed(*this, "fixed"),
-		m_region_fixedbios(*this, "fixedbios"),
-		m_bank_audio_main(*this, "audio_main"),
-		m_upd4990a(*this, "upd4990a"),
-		m_save_ram(*this, "saveram"),
-		m_screen(*this, "screen"),
-		m_palette(*this, "palette"),
-		m_memcard(*this, "memcard"),
-		m_dsw(*this, "DSW"),
-		m_trackx(*this, "TRACK_X"),
-		m_tracky(*this, "TRACK_Y"),
-		m_edge(*this, "edge"),
-		m_ctrl1(*this, "ctrl1"),
-		m_ctrl2(*this, "ctrl2"),
-		m_sprgen(*this, "spritegen"),
-		m_soundlatch(*this, "soundlatch"),
-		m_soundlatch2(*this, "soundlatch2"),
-		m_use_cart_vectors(0),
-		m_use_cart_audio(0)
+		: driver_device(mconfig, type, tag)
+		, m_banked_cart(*this, "banked_cart")
+		, m_maincpu(*this, "maincpu")
+		, m_audiocpu(*this, "audiocpu")
+		, m_region_maincpu(*this, "maincpu")
+		, m_region_sprites(*this, "sprites")
+		, m_region_fixed(*this, "fixed")
+		, m_region_fixedbios(*this, "fixedbios")
+		, m_bank_audio_main(*this, "audio_main")
+		, m_upd4990a(*this, "upd4990a")
+		, m_save_ram(*this, "saveram")
+		, m_screen(*this, "screen")
+		, m_palette(*this, "palette")
+		, m_memcard(*this, "memcard")
+		, m_dsw(*this, "DSW")
+		, m_trackx(*this, "TRACK_X")
+		, m_tracky(*this, "TRACK_Y")
+		, m_edge(*this, "edge")
+		, m_ctrl1(*this, "ctrl1")
+		, m_ctrl2(*this, "ctrl2")
+		, m_sprgen(*this, "spritegen")
+		, m_soundlatch(*this, "soundlatch")
+		, m_soundlatch2(*this, "soundlatch2")
+		, m_use_cart_vectors(0)
+		, m_use_cart_audio(0)
+		, m_mslugx_prot(*this, "mslugx_prot")
+		, m_sma_prot(*this, "sma_prot")
+		, m_cmc_prot(*this, "cmc_prot")
+		, m_pcm2_prot(*this, "pcm2_prot")
+		, m_pvc_prot(*this, "pvc_prot")
+		, m_bootleg_prot(*this, "bootleg_prot")
+		, m_kof2002_prot(*this, "kof2002_prot")
+		, m_fatfury2_prot(*this, "fatfury2_prot")
+		, m_kof98_prot(*this, "kof98_prot")
+		, m_sbp_prot(*this, "sbp_prot")
+		, m_kog_prot(*this, "kog_prot")
 	{ }
 
 	DECLARE_WRITE8_MEMBER(io_control_w);
@@ -89,6 +120,28 @@ public:
 	DECLARE_DRIVER_INIT(mvs);
 
 	optional_device<neogeo_banked_cart_device> m_banked_cart;
+
+	void neogeo_base(machine_config &config);
+	void neogeo_arcade(machine_config &config);
+	void mvs(machine_config &config);
+	void neogeo_noslot(machine_config &config);
+	void neogeo_kog(machine_config &config);
+	void neogeo_mj(machine_config &config);
+	void neogeo_dial(machine_config &config);
+	void neogeo_imaze(machine_config &config);
+	void neogeo_kiz4p(machine_config &config);
+	void neogeo_noctrl(machine_config &config);
+	void no_watchdog(machine_config &config);
+	void samsho2sp(machine_config &config);
+	void lbsp(machine_config &config);
+	void neogeo_main_map(address_map &map);
+	void main_map_slot(address_map &map);
+	void audio_map(address_map &map);
+	void audio_io_map(address_map &map);
+	void main_map_noslot(address_map &map);
+	void samsho2sp_map(address_map &map);
+	void lbsp_map(address_map &map);
+	void main_map1(address_map &map);
 
 protected:
 	void neogeo_postload();
@@ -200,26 +253,6 @@ public:
 	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_r);
 	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_bectors_r);
 
-};
-
-
-class neogeo_noslot_state : public neogeo_state
-{
-	public:
-		neogeo_noslot_state(const machine_config &mconfig, device_type type, const char *tag)
-			: neogeo_state(mconfig, type, tag),
-			/* legacy cartridge specifics */
-			m_mslugx_prot(*this, "mslugx_prot"),
-			m_sma_prot(*this, "sma_prot"),
-			m_cmc_prot(*this, "cmc_prot"),
-			m_pcm2_prot(*this, "pcm2_prot"),
-			m_pvc_prot(*this, "pvc_prot"),
-			m_bootleg_prot(*this, "bootleg_prot"),
-			m_kof2002_prot(*this, "kof2002_prot"),
-			m_fatfury2_prot(*this, "fatfury2_prot"),
-			m_kof98_prot(*this, "kof98_prot"),
-			m_sbp_prot(*this, "sbp_prot") {}
-
 	DECLARE_DRIVER_INIT(fatfury2);
 	DECLARE_DRIVER_INIT(zupapa);
 	DECLARE_DRIVER_INIT(kof98);
@@ -235,6 +268,7 @@ class neogeo_noslot_state : public neogeo_state
 	DECLARE_DRIVER_INIT(kof2000);
 	DECLARE_DRIVER_INIT(kof2000n);
 	DECLARE_DRIVER_INIT(kof2001);
+	DECLARE_DRIVER_INIT(kof2001hs30);
 	DECLARE_DRIVER_INIT(cthd2003);
 	DECLARE_DRIVER_INIT(ct2k3sp);
 	DECLARE_DRIVER_INIT(ct2k3sa);
@@ -249,6 +283,7 @@ class neogeo_noslot_state : public neogeo_state
 	DECLARE_DRIVER_INIT(rotd);
 	DECLARE_DRIVER_INIT(kof2002);
 	DECLARE_DRIVER_INIT(kof2002b);
+	DECLARE_DRIVER_INIT(kof2002hb);
 	DECLARE_DRIVER_INIT(kf2k2pls);
 	DECLARE_DRIVER_INIT(kf2k2mp);
 	DECLARE_DRIVER_INIT(kf2k2mp2);
@@ -297,31 +332,79 @@ class neogeo_noslot_state : public neogeo_state
 	optional_device<fatfury2_prot_device> m_fatfury2_prot;
 	optional_device<kof98_prot_device> m_kof98_prot;
 	optional_device<sbp_prot_device> m_sbp_prot;
-};
-
-class neogeo_noslot_kog_state : public neogeo_state
-{
 public:
-	neogeo_noslot_kog_state(const machine_config &mconfig, device_type type, const char *tag)
-		: neogeo_state(mconfig, type, tag),
-		/* legacy cartridge specifics */
-		m_bootleg_prot(*this, "bootleg_prot"),
-		m_kog_prot(*this, "kog_prot") {}
-
 
 	DECLARE_DRIVER_INIT(kog);
 
-	// legacy
-	optional_device<ngbootleg_prot_device> m_bootleg_prot;
 	optional_device<kog_prot_device> m_kog_prot;
+	void hbmame_kog(machine_config &config);
+	DECLARE_DRIVER_INIT(cmc42sfix);
+	DECLARE_DRIVER_INIT(cmc50sfix);
+	DECLARE_DRIVER_INIT(cthd2k3a);
+	DECLARE_DRIVER_INIT(dbdrsp);
+	DECLARE_DRIVER_INIT(fr2ch);
+	DECLARE_DRIVER_INIT(garoud);
+	DECLARE_DRIVER_INIT(jckeygpd);
+	DECLARE_DRIVER_INIT(kof95sp);
+	DECLARE_DRIVER_INIT(kof96ep);
+	DECLARE_DRIVER_INIT(kof97pla);
+	DECLARE_DRIVER_INIT(kof99bh);
+	DECLARE_DRIVER_INIT(kof99d);
+	DECLARE_DRIVER_INIT(kof2000d);
+	DECLARE_DRIVER_INIT(kof2000h);
+	DECLARE_DRIVER_INIT(kof2000m);
+	DECLARE_DRIVER_INIT(kof2kbsd);
+	DECLARE_DRIVER_INIT(kof2knd);
+	DECLARE_DRIVER_INIT(kof2kxxx);
+	DECLARE_DRIVER_INIT(kof2001d);
+	DECLARE_DRIVER_INIT(kof2001m);
+	DECLARE_DRIVER_INIT(kf2k1pls);
+	DECLARE_DRIVER_INIT(kf2k1pa);
+	DECLARE_DRIVER_INIT(kof2k2bd);
+	DECLARE_DRIVER_INIT(kof2k2pl17);
+	DECLARE_DRIVER_INIT(kof2003b);
+	DECLARE_DRIVER_INIT(kof2003hb);
+	DECLARE_DRIVER_INIT(kof2k3hd);
+	DECLARE_DRIVER_INIT(kof2k3pcd);
+	DECLARE_DRIVER_INIT(kof10thu);
+	DECLARE_DRIVER_INIT(kogd);
+	DECLARE_DRIVER_INIT(lbsp);
+	DECLARE_DRIVER_INIT(matrima);
+	DECLARE_DRIVER_INIT(matrimd);
+	DECLARE_DRIVER_INIT(matrmehc);
+	DECLARE_DRIVER_INIT(mslug3d);
+	DECLARE_DRIVER_INIT(mslug3fr);
+	DECLARE_DRIVER_INIT(mslug3n);
+	DECLARE_DRIVER_INIT(mslug4d);
+	DECLARE_DRIVER_INIT(mslug4dh);
+	DECLARE_DRIVER_INIT(mslug4it);
+	DECLARE_DRIVER_INIT(mslug4m);
+	DECLARE_DRIVER_INIT(mslug5b);
+	DECLARE_DRIVER_INIT(mslug5d);
+	DECLARE_DRIVER_INIT(mslug5hd);
+	DECLARE_DRIVER_INIT(mslug5nd);
+	DECLARE_DRIVER_INIT(ms5pcbd);
+	DECLARE_DRIVER_INIT(mslug5d1);
+	DECLARE_DRIVER_INIT(mslug5fr1);
+	DECLARE_DRIVER_INIT(ms5boot);
+	DECLARE_DRIVER_INIT(pnyaad);
+	DECLARE_DRIVER_INIT(rotdb);
+	DECLARE_DRIVER_INIT(rotdd);
+	DECLARE_DRIVER_INIT(rotdnd);
+	DECLARE_DRIVER_INIT(sam5hb);
+	DECLARE_DRIVER_INIT(sam5sphb);
+	DECLARE_DRIVER_INIT(sam5sphb2);
+	DECLARE_DRIVER_INIT(sengo3d);
+	DECLARE_DRIVER_INIT(shockt2w);
+	DECLARE_DRIVER_INIT(svchb);
+	DECLARE_DRIVER_INIT(svcpcd);
 };
 
 /*----------- defined in drivers/neogeo.c -----------*/
 
-MACHINE_CONFIG_EXTERN( neogeo_base );
-MACHINE_CONFIG_EXTERN( neogeo_arcade );
 INPUT_PORTS_EXTERN(neogeo);
-ADDRESS_MAP_EXTERN(neogeo_main_map,16);
+INPUT_PORTS_EXTERN(jockeygp);
+INPUT_PORTS_EXTERN(dualbios);
 
 /*************************************
  *

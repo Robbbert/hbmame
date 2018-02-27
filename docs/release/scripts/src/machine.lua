@@ -397,6 +397,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/74165.h,MACHINES["TTL74165"] = true
+---------------------------------------------------
+
+if (MACHINES["TTL74165"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/74165.cpp",
+		MAME_DIR .. "src/devices/machine/74165.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/74166.h,MACHINES["TTL74166"] = true
 ---------------------------------------------------
 
@@ -608,6 +620,18 @@ if (MACHINES["AM9517A"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/am9517a.cpp",
 		MAME_DIR .. "src/devices/machine/am9517a.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/am9519.h,MACHINES["AM9519"] = true
+---------------------------------------------------
+
+if (MACHINES["AM9519"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/am9519.cpp",
+		MAME_DIR .. "src/devices/machine/am9519.h",
 	}
 end
 
@@ -2313,6 +2337,18 @@ if (MACHINES["R64H156"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/64h156.cpp",
 		MAME_DIR .. "src/devices/machine/64h156.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/rstbuf.h,MACHINES["RSTBUF"] = true
+---------------------------------------------------
+
+if (MACHINES["RSTBUF"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/rstbuf.cpp",
+		MAME_DIR .. "src/devices/machine/rstbuf.h",
 	}
 end
 

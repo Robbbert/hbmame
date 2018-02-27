@@ -96,6 +96,7 @@ slampic: no sound. A priority problem between sprites and crowd.
 #include "sound/ym2151.h"
 #include "sound/okim6295.h"
 #include "machine/eepromser.h"
+#include "speaker.h"
 
 WRITE16_MEMBER( cps_state::fcrash_soundlatch_w )
 {
@@ -662,7 +663,7 @@ uint32_t cps_state::screen_update_fcrash(screen_device &screen, bitmap_ind16 &bi
 }
 
 
-static ADDRESS_MAP_START( knightsb_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::knightsb_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800001) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800002, 0x800003) AM_READ_PORT("IN2")            /* Player 3 controls */
@@ -680,7 +681,7 @@ static ADDRESS_MAP_START( knightsb_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( dinopic_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::dinopic_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800007) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800006, 0x800007) AM_WRITE(cps1_soundlatch_w)    /* Sound command */
@@ -699,7 +700,7 @@ static ADDRESS_MAP_START( dinopic_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( fcrash_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::fcrash_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_RAM AM_SHARE("cps_a_regs")  /* CPS-A custom */
@@ -712,7 +713,7 @@ static ADDRESS_MAP_START( fcrash_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( punipic_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::punipic_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800007) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800006, 0x800007) AM_WRITE(cps1_soundlatch_w)    /* Sound command */
@@ -730,7 +731,7 @@ static ADDRESS_MAP_START( punipic_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM AM_SHARE("mainram")
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sf2m1_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sf2m1_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800007) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800006, 0x800007) AM_WRITE(cps1_soundlatch_w)    /* Sound command */
@@ -747,7 +748,7 @@ static ADDRESS_MAP_START( sf2m1_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sf2mdt_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sf2mdt_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x708100, 0x7081ff) AM_WRITE(sf2mdta_layer_w)
 	AM_RANGE(0x70c000, 0x70c001) AM_READ_PORT("IN1")
@@ -762,7 +763,7 @@ static ADDRESS_MAP_START( sf2mdt_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sf2b_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sf2b_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x708100, 0x7081ff) AM_WRITE(sf2mdta_layer_w)
 	AM_RANGE(0x70c000, 0x70c001) AM_READ_PORT("IN1")
@@ -777,7 +778,7 @@ static ADDRESS_MAP_START( sf2b_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sgyxz_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::sgyxz_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800030, 0x800031) AM_WRITE(cps1_coinctrl_w)
 	AM_RANGE(0x800100, 0x80013f) AM_RAM AM_SHARE("cps_a_regs")  /* CPS-A custom */
@@ -793,7 +794,7 @@ static ADDRESS_MAP_START( sgyxz_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( slampic_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::slampic_map )
 	AM_RANGE(0x000000, 0x3fffff) AM_ROM
 	AM_RANGE(0x800006, 0x800007) AM_WRITENOP //AM_WRITE(cps1_soundlatch2_w)
 	AM_RANGE(0x800000, 0x800007) AM_READ_PORT("IN1")            /* Player input ports */
@@ -813,7 +814,7 @@ static ADDRESS_MAP_START( slampic_map, AS_PROGRAM, 16, cps_state )
 	AM_RANGE(0xff0000, 0xffffff) AM_RAM
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sound_map, AS_PROGRAM, 8, cps_state )
+ADDRESS_MAP_START( cps_state::sound_map )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
 	AM_RANGE(0xd000, 0xd7ff) AM_RAM
@@ -825,7 +826,7 @@ static ADDRESS_MAP_START( sound_map, AS_PROGRAM, 8, cps_state )
 	AM_RANGE(0xec00, 0xec00) AM_WRITE(fcrash_msm5205_1_data_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( kodb_sound_map, AS_PROGRAM, 8, cps_state )
+ADDRESS_MAP_START( cps_state::kodb_sound_map )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
 	AM_RANGE(0xd000, 0xd7ff) AM_RAM
@@ -834,7 +835,7 @@ static ADDRESS_MAP_START( kodb_sound_map, AS_PROGRAM, 8, cps_state )
 	AM_RANGE(0xe800, 0xe800) AM_DEVREAD("soundlatch", generic_latch_8_device, read)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sf2mdt_z80map, AS_PROGRAM, 8, cps_state )
+ADDRESS_MAP_START( cps_state::sf2mdt_z80map )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
 	AM_RANGE(0xd000, 0xd7ff) AM_RAM
@@ -845,7 +846,7 @@ static ADDRESS_MAP_START( sf2mdt_z80map, AS_PROGRAM, 8, cps_state )
 	AM_RANGE(0xe800, 0xe800) AM_WRITE(fcrash_msm5205_1_data_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( knightsb_z80map, AS_PROGRAM, 8, cps_state )
+ADDRESS_MAP_START( cps_state::knightsb_z80map )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
 	AM_RANGE(0xcffe, 0xcfff) AM_WRITENOP // writes lots of data
@@ -857,7 +858,7 @@ static ADDRESS_MAP_START( knightsb_z80map, AS_PROGRAM, 8, cps_state )
 	AM_RANGE(0xe800, 0xe800) AM_WRITE(fcrash_msm5205_1_data_w)
 ADDRESS_MAP_END
 
-static ADDRESS_MAP_START( sgyxz_sound_map, AS_PROGRAM, 8, cps_state )
+ADDRESS_MAP_START( cps_state::sgyxz_sound_map )
 	AM_RANGE(0x0000, 0x7fff) AM_ROM
 	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
 	AM_RANGE(0xd000, 0xd7ff) AM_RAM
@@ -1558,7 +1559,7 @@ MACHINE_RESET_MEMBER(cps_state,fcrash)
 	m_sample_select2 = 0;
 }
 
-static MACHINE_CONFIG_START( fcrash )
+MACHINE_CONFIG_START( cps_state::fcrash )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 10000000)
@@ -1614,34 +1615,22 @@ static MACHINE_CONFIG_START( fcrash )
 MACHINE_CONFIG_END
 
 // HBMAME start
-static ADDRESS_MAP_START( sub_map, AS_PROGRAM, 8, cps_state )
-	AM_RANGE(0x0000, 0x7fff) AM_ROM
-	AM_RANGE(0x8000, 0xbfff) AM_ROMBANK("bank1")
-	AM_RANGE(0xd000, 0xd7ff) AM_RAM
-	AM_RANGE(0xf000, 0xf001) AM_DEVREADWRITE("2151", ym2151_device, read, write)
-	AM_RANGE(0xf002, 0xf002) AM_DEVREADWRITE("oki", okim6295_device, read, write)
-	AM_RANGE(0xf004, 0xf004) AM_WRITE(cps1_snd_bankswitch_w)
-	AM_RANGE(0xf006, 0xf006) AM_WRITE(cps1_oki_pin7_w) /* controls pin 7 of OKI chip */
-	AM_RANGE(0xf008, 0xf008) AM_DEVREAD("soundlatch", generic_latch_8_device, read) /* Sound command */
-	AM_RANGE(0xf00a, 0xf00a) AM_DEVREAD("soundlatch2", generic_latch_8_device, read) /* Sound timer fade */
-ADDRESS_MAP_END
-
-static MACHINE_CONFIG_START( cawingb )
+MACHINE_CONFIG_START( cps_state::cawingb )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_10MHz )    /* verified on pcb */
+	MCFG_CPU_ADD("maincpu", M68000, 10'000'000 )    /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(fcrash_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state,  irq6_line_hold) /* needed to write to scroll values */
 
-	MCFG_CPU_ADD("audiocpu", Z80, XTAL_3_579545MHz)  /* verified on pcb */
+	MCFG_CPU_ADD("audiocpu", Z80, 3'579'545)  /* verified on pcb */
 	MCFG_CPU_PROGRAM_MAP(sub_map)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, cawingbl)
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(XTAL_16MHz/2, 518, 64, 448, 259, 16, 240)
+	MCFG_SCREEN_RAW_PARAMS(8'000'000, 518, 64, 448, 259, 16, 240)
 	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_fcrash)
 	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(cps_state, screen_vblank_cps1))
 	MCFG_SCREEN_PALETTE("palette")
@@ -1655,16 +1644,17 @@ static MACHINE_CONFIG_START( cawingb )
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
 
-	MCFG_YM2151_ADD("2151", XTAL_3_579545MHz)  /* verified on pcb */
+	MCFG_YM2151_ADD("2151", 3'579'545)  /* verified on pcb */
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, PIN7_HIGH)
+	MCFG_OKIM6295_ADD("oki", 1'000'000, PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 // HBMAME end
-static MACHINE_CONFIG_DERIVED( cawingbl, fcrash )
+MACHINE_CONFIG_START( cps_state::cawingbl )
+	fcrash(config);
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state,  irq6_line_hold) /* needed to write to scroll values */
@@ -1672,7 +1662,7 @@ static MACHINE_CONFIG_DERIVED( cawingbl, fcrash )
 	MCFG_MACHINE_START_OVERRIDE(cps_state, cawingbl)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( kodb )
+MACHINE_CONFIG_START( cps_state::kodb )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 10000000)
@@ -1703,17 +1693,17 @@ static MACHINE_CONFIG_START( kodb )
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 
-	MCFG_YM2151_ADD("2151", XTAL_3_579545MHz)  /* verified on pcb */
+	MCFG_YM2151_ADD("2151", 3'579'545)  /* verified on pcb */
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
 	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_OKIM6295_ADD("oki", 1'000'000, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( sf2mdt )
+MACHINE_CONFIG_START( cps_state::sf2mdt )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 12000000)
@@ -1760,12 +1750,13 @@ static MACHINE_CONFIG_START( sf2mdt )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_DERIVED( sf2b, sf2mdt)
+MACHINE_CONFIG_START( cps_state::sf2b )
+	sf2mdt(config);
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(sf2b_map)
 MACHINE_CONFIG_END
 
-static MACHINE_CONFIG_START( knightsb )
+MACHINE_CONFIG_START( cps_state::knightsb )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 24000000 / 2)
@@ -2167,7 +2158,7 @@ MACHINE_START_MEMBER(cps_state, dinopic)
 	m_sprite_x_offset = 0;
 }
 
-static MACHINE_CONFIG_START( dinopic )
+MACHINE_CONFIG_START( cps_state::dinopic )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 12000000)
@@ -2325,7 +2316,7 @@ DRIVER_INIT_MEMBER(cps_state, dinopic)
 // sound cpu is (239 V 249521 VC5006 KABUKI DL-030P-110V) - recycled Kabuki Z80 from genuine Capcom HW?
 // 3x8 dsws
 
-static MACHINE_CONFIG_START( sgyxz )
+MACHINE_CONFIG_START( cps_state::sgyxz )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 12000000)
 	MCFG_CPU_PROGRAM_MAP(sgyxz_map)
@@ -2354,13 +2345,13 @@ static MACHINE_CONFIG_START( sgyxz )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_YM2151_ADD("2151", XTAL_3_579545MHz)  /* verified on pcb */
+	MCFG_YM2151_ADD("2151", 3'579'545)  /* verified on pcb */
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
 	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_OKIM6295_ADD("oki", 1'000'000, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
@@ -2415,7 +2406,7 @@ MACHINE_START_MEMBER(cps_state, punipic)
 	m_sprite_x_offset = 0;
 }
 
-static MACHINE_CONFIG_START( punipic )
+MACHINE_CONFIG_START( cps_state::punipic )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 12000000)
@@ -2608,14 +2599,14 @@ DRIVER_INIT_MEMBER(cps_state, punipic3)
 
 // ************************************************************************* SF2M1
 
-static MACHINE_CONFIG_START( sf2m1 )
+MACHINE_CONFIG_START( cps_state::sf2m1 )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL_12MHz )
+	MCFG_CPU_ADD("maincpu", M68000, 12'000'000 )
 	MCFG_CPU_PROGRAM_MAP(sf2m1_map)
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
 
-	MCFG_CPU_ADD("audiocpu", Z80, XTAL_3_579545MHz)
+	MCFG_CPU_ADD("audiocpu", Z80, 3'579'545)
 	MCFG_CPU_PROGRAM_MAP(sgyxz_sound_map)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state,sf2m1)
@@ -2633,11 +2624,11 @@ static MACHINE_CONFIG_START( sf2m1 )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_YM2151_ADD("2151", XTAL_3_579545MHz)
+	MCFG_YM2151_ADD("2151", 3'579'545)
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
-	MCFG_OKIM6295_ADD("oki", XTAL_16MHz/4/4, PIN7_HIGH)
+	MCFG_OKIM6295_ADD("oki", 1'000'000, PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
@@ -2939,7 +2930,7 @@ MACHINE_START_MEMBER(cps_state, slampic)
 	m_sprite_x_offset = 0;
 }
 
-static MACHINE_CONFIG_START( slampic )
+MACHINE_CONFIG_START( cps_state::slampic )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 12000000)
@@ -3056,7 +3047,7 @@ GAME( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, cps1,     ROT0,
 
 GAME( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", MACHINE_SUPPORTS_SAVE )
 
-static ADDRESS_MAP_START( captcommb2_map, AS_PROGRAM, 16, cps_state )
+ADDRESS_MAP_START( cps_state::captcommb2_map )
 	AM_RANGE(0x000000, 0x1fffff) AM_ROM
 	AM_RANGE(0x800000, 0x800001) AM_READ_PORT("IN1")            /* Player input ports */
 	AM_RANGE(0x800018, 0x80001f) AM_READ(cps1_dsw_r)            /* System input ports / Dip Switches */
@@ -3081,7 +3072,7 @@ MACHINE_START_MEMBER(cps_state, captcommb2)
 	save_item(NAME(m_sample_select2));
 }
 
-static MACHINE_CONFIG_START( captcommb2 )
+MACHINE_CONFIG_START( cps_state::captcommb2 )
 
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", M68000, 10000000)
@@ -3138,14 +3129,14 @@ ROM_START( captcommb2 )
 	ROM_LOAD16_BYTE( "2.bin",   0x100001, 0x40000, CRC(73c99709) SHA1(e122e3771b698c44fb998589af0542b1f2a3876a) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "cap.bin",     0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-5m.3a
-	ROMX_LOAD( "cbp.bin",     0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-7m.5a
-	ROMX_LOAD( "ccp.bin",     0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-1m.4a
-	ROMX_LOAD( "cdp.bin",     0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-3m.6a
-	ROMX_LOAD( "cai.bin",     0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-6m.7a
-	ROMX_LOAD( "cbi.bin",     0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-8m.9a
-	ROMX_LOAD( "cci.bin",     0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-2m.8a
-	ROMX_LOAD( "cdi.bin",     0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )	// == cc-4m.10a
+	ROMX_LOAD( "cap.bin",     0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cbp.bin",     0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ccp.bin",     0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cdp.bin",     0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cai.bin",     0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cbi.bin",     0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cci.bin",     0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cdi.bin",     0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
 
 	ROM_REGION( 0x50000, "audiocpu", 0 ) /* Sound program + samples  */
 	ROM_LOAD( "1.bin",        0x00000, 0x40000, CRC(aed2f4bd) SHA1(3bd567dc350bf6ac3a349548790ad49eb5bd8307) )
