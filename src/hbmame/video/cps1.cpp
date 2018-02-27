@@ -1128,6 +1128,7 @@ static const struct CPS1config cps1_config_table[]=
 // HBMAME
 	{"captcocc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
 	{"captcovs",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		// nw
+	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },							// nw
 	{"kodd",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
 	{"kodud",       CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			// nw
@@ -1136,7 +1137,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
 	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
 	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
 	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },			//works
