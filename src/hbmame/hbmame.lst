@@ -1088,7 +1088,7 @@ kof94cg
 kof94cn
 kof94cyk
 kof94eh
-//kof94h // file missing
+kof94h
 kof94k
 kof94kh
 kof94qaq
@@ -6600,17 +6600,17 @@ kovplus05  // bad gfx on credit/char-select screens
 kovplus06  // bad gfx on credit screen
 kovplus07
 //kovplus08   // ingame crash
-//kovplus09   // files missing
-//kovplus10   // files missing
-//kovplus11   // files missing
-//kovplus12   // files missing
-//kovplus13   // files missing
-//kovplus14   // files missing
-//kovplus15   // files missing
-//kovplus16   // files missing
-//kovplus17   // files missing
-//kovplus18   // files missing
-//kovplus19   // files missing
+kovplus09
+//kovplus10   // ingame crash
+kovplus11
+kovplus12
+kovplus13
+//kovplus14   // ingame crash
+kovplus15
+//kovplus16   // ingame crash
+kovplus17
+kovplus18
+//kovplus19   // ingame crash
 kovplus20
 kovplus21
 kovplus22
@@ -6620,15 +6620,15 @@ kovplus25
 kovplus26
 kovplus27
 kovplus28
-//kovplus29   // files missing
-//kovplus30   // files missing
+//kovplus29   // ingame crash
+kovplus30
 kovplus31
 kovplus32
 kovplus33
 kovplus34
 kovplus35
-//kovplus36   // files missing
-//kovplus37   // files missing
+//kovplus36   // ingame crash
+kovplus37
 kovplus38
 kovplus39
 kovplus40
@@ -6637,12 +6637,12 @@ kovplus42
 kovplus43
 kovplus44
 kovplus45
-//kovplus46   // files missing
+kovplus46
 kovplus47
 kovplus48
 kovplus49
 kovplus50
-//kovplus51   // files missing
+kovplus51
 kovplus52
 kovplus53
 kovplus54
@@ -6650,13 +6650,13 @@ kovplus55
 kovplus56
 kovplus57
 kovplus58
-//kovplus59   // files missing
-//kovplus60   // files missing
+kovplus59
+kovplus60
 kovplus61
-//kovplus62   // files missing
-//kovplus63   // files missing
-//kovplus64   // files missing
-//kovplus65   // files missing
+kovplus62
+//kovplus63   // ingame crash
+//kovplus64   // ingame crash
+kovplus65
 kovplus66   // bad gfx
 kovplus67   // bad gfx, no high scores
 kovplus68
@@ -6742,11 +6742,11 @@ kovplus149
 kovplus150
 kovplus151
 kovplus152
-//kovplus153   // files missing
-//kovplus154   // files missing
+kovplus153   // ingame crash
+kovplus154
 kovplus155
 kovplus156   // bad gfx
-//kovplus157   // files missing
+kovplus157
 kovplus158
 kovsh01
 kovsh02
@@ -6780,9 +6780,9 @@ kovsh030
 kovsh031
 kovsh032
 kovsh033
-//kovsh034   // files missing
+kovsh034
 kovsh035
-//kovsh036   // files missing
+kovsh036
 kovsh037
 kovsh038
 kovsh039
@@ -6803,8 +6803,8 @@ kovsh054
 kovsh055
 kovsh057
 kovsh058
-//kovsh063   // files missing
-//kovsh064   // files missing
+kovsh063
+kovsh064
 kovsh065
 kovsh066
 //kovsh067   // files missing
@@ -6817,7 +6817,7 @@ kovsh073
 kovsh074
 kovsh075
 //kovsh076   // ingame crash
-//kovsh077   // files missing
+//kovsh077   // ingame crash
 kovsh078
 kovsh079
 kovsh080
