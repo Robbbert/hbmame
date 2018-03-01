@@ -92,7 +92,6 @@ bombjckb		/* bootleg */
 bombjred		/* hack by unknown French person */
 bombjacks01
 
-
 	/* btime */
 btime			//parent
 brubber			//parent
@@ -196,11 +195,11 @@ wof			// parent
 
 	/* cps1mis */
 3wondrud
-//captcocc // not working
+captcocc // broken;not working
 captcomc		// chinese
 captcomh
 captcoud
-//captcovs // not working
+captcovs // broken;not working
 cawingb
 cps1demo		/* Charles Doty */
 cps1frog		/* Charles Doty */
@@ -224,26 +223,26 @@ dinoh			/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinoha			/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohb			/* 1993 Cadillacs and Dinosaurs (Hack) */
 dinohp
-//dinohx // crashes in the "underground", demo sound only works on first run.
+dinohx			// broken
 dinojp			// 2010 Pipi899, RockWall, Zhyxxxx
 dinorp
-//dinosf2
+dinosf2
 dinoslice
 dinouphp
 dinoz			/* Boss Hack */
 ffightb
 knight21		// debug
-//knightsa		// - rom missing
+//knightsa		// rom missing
 knightsb2
 knightsh		/* 1991 Knights of the Round (Hack) */
 knightsha		/* 1991 Knights of the Round (Hack) */
 knightsjb
 knightsro		// Sebastian Mihai - Romanian translation 2015
 knightud
-//kodd // not working
+kodd // broken;not working
 kodh
 kodsp
-//kodud // not working
+//kodud // freezes; broken; not working
 pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb		/* Found in neht build */
 punisherf		/* Flash version 24/7/2009 by Zhyxxxx */
@@ -348,8 +347,8 @@ tk2h11		// wofjmjp
 tk2h12		// wofjpsrw
 tk2h13		// wofjrabh
 tk2h14		// wofjrlb
-//tk2h15		// wofjrpbs exception in first demo
-//tk2h16		// wofjv10s exception in first demo
+//tk2h15		// wof.key missing; wofjrpbs exception in first demo
+//tk2h16		// wof.key missing; wofjv10s exception in first demo
 tk2h17		// wofjzcr1
 tk2h18		// wofjzero
 tk2p2		// wofch_v3
@@ -478,7 +477,7 @@ punishers04
 punishers05
 punisherjs01
 punisherjs02
-//punisherus01 // black screen
+punisherus01 // broken; black screen
 sf2ceeas01
 sf2ceeas02
 sf2ces01
@@ -498,59 +497,59 @@ varths01
 varths02
 varths03
 willows01
-//wofh01 // black screen
-//wofh02 // black screen
-//wofh03 // black screen
-//wofs01 // black screen
-//wofs02 // black screen
-//wofs03 // black screen
+wofh01 // broken; black screen
+wofh02 // broken; black screen
+wofh03 // broken; black screen
+wofs01 // broken; black screen
+wofs02 // broken; black screen
+wofs03 // broken; black screen
 wofs04
-//wofs05 // black screen
+wofs05 // broken; black screen
 wofs06
 wofs07
-//wofs08  // ingame crash
+wofs08  // ingame crash
 wofs09
 wofs10
 wofs11
-//wofs12 // black screen
+wofs12 // broken; black screen
 wofs13
 wofs14
 wofs15
 wofs16
-//wofs17 // black screen
+wofs17 // broken; black screen
 wofs18
 wofs19
 wofs20
 wofs21
-wofs22  // bad gfx
+wofs22  // broken; bad gfx
 wofs23
 wofs24
 wofs25
 wofs26
 wofs27
-//wofs28 // ingame crash
+wofs28 // ingame crash
 wofs29
 wofs30
 wofs31
 wofs32
 wofs33
-wofs34  // bad gfx
+wofs34  // broken; bad gfx
 wofs35
-//wofs36 // black screen
-//wofs37 // black screen
-//wofs38 // black screen
+wofs36 // broken; black screen
+wofs37 // broken; black screen
+wofs38 // broken; black screen
 wofs39
 wofs40
 wofs41
 wofs42
 wofs43
-//wofs44  // totally corrupt, not working
+wofs44  // broken; totally corrupt, not working
 wofs45
 wofr101
 wofr102
 wofr103
-//wofr104 // ingame crash
-//wofr107 // ingame crash
+wofr104 // ingame crash
+wofr107 // ingame crash
 wofr108
 wofr109
 wofj02
@@ -558,9 +557,9 @@ wofj03
 wofj04
 wofj05
 wofj06
-//wofj07 // ingame crash
-//wofj08 // ingame crash
-//wofj09 // ingame crash
+wofj07 // ingame crash
+wofj08 // ingame crash
+wofj09 // ingame crash
 wofj10
 wofj11
 wofj12
@@ -664,8 +663,8 @@ mshvsfjphp
 mshyh
 mvscjemb
 mvscjphp
-//mvscrcp // reboots shortly after start
-//mvscuh // reboots shortly after start
+mvscrcp // reboots shortly after start
+mvscuh // reboots shortly after start
 pfghtjrm
 suicide		/* Razoola */
 suicide2	/* Razoola */
@@ -927,7 +926,7 @@ dotriman
 mineswp			/* Minesweeper */
 
 	/* ertictac */
-//armdemo		/* Charles Doty */  // totally broken
+armdemo		/* Charles Doty */  // totally broken
 
 	/* exidy */
 targ			//parent
@@ -1170,8 +1169,8 @@ kof95s27
 kof95s28
 kof95s29
 kof95s32
-//kof95s33    // they refuse to fight
-//kof95s34    // reboots after 15 seconds
+kof95s33    // they refuse to fight
+kof95s34    // reboots after 15 seconds
 kof95hs01
 kof95hs02
 kof95hs03
@@ -1406,8 +1405,8 @@ kof97yl2
 kof97yo
 kof97z
 kof97zm
-//kof97s01   // only get 1 second to fight
-//kof97s02   // only get 1 second to fight
+kof97s01   // only get 1 second to fight
+kof97s02   // only get 1 second to fight
 kof97s04
 kof97s07
 kof97s08
@@ -1426,22 +1425,22 @@ kof97s27
 kof97s28
 kof97s29
 kof97s30
-//kof97s32   // only get 1 second to fight
+kof97s32   // only get 1 second to fight
 kof97s33
-//kof97s34   // only get 1 second to fight
+kof97s34   // only get 1 second to fight
 kof97s35
 kof97s39
 kof97s40
 kof97s41
 kof97s42
-//kof97s43   // only get 1 second to fight
-//kof97s44   // only get 1 second to fight
-//kof97s45   // only get 1 second to fight
+kof97s43   // only get 1 second to fight
+kof97s44   // only get 1 second to fight
+kof97s45   // only get 1 second to fight
 kof97s46
 kof97s47
 kof97s48
 kof97s49
-//kof97s50   // only get 1 second to fight
+kof97s50   // only get 1 second to fight
 kof97s51
 kof97s52
 kof97s53
@@ -1483,11 +1482,11 @@ kof97s91
 kof97s92
 kof97s93
 kof97s94
-//kof97s95   // only get 1 second to fight
+kof97s95   // only get 1 second to fight
 kof97s96
 kof97s97
-//kof97s98   // only get 1 second to fight
-//kof97s99   // only get 1 second to fight
+kof97s98   // only get 1 second to fight
+kof97s99   // only get 1 second to fight
 kof97h04
 kof97h05
 kof97h06
@@ -1699,7 +1698,7 @@ kof97hx199
 kof97hx200
 kof97hx201
 kof97hx202
-//kof97hx203   // only get 1 second to fight
+kof97hx203   // only get 1 second to fight
 kof97hx204
 kof97hx205
 kof97hx206
@@ -1798,7 +1797,7 @@ kof98ae20160308 //black splashes all over fight scene where cars speed past
 kof98ae20160827 //black splashes all over fight scene where cars speed past
 kof98bge
 kof98bh
-//kof98bvi   // reboots in first demo
+kof98bvi   // reboots in first demo
 kof98c2006
 kof98c20060214 // date cannot be confirmed
 kof98c20070720 // sometimes reboots itself
@@ -1953,7 +1952,7 @@ kof98s16
 kof98s17
 kof98s18
 kof98s20
-//kof98s21   // only get 1 second to fight
+kof98s21   // only get 1 second to fight
 kof98s22
 kof98s23
 kof98s24
@@ -1964,23 +1963,23 @@ kof98s29
 kof98s30
 kof98s31
 kof98s32
-//kof98s33   // only get 1 second to fight
+kof98s33   // only get 1 second to fight
 kof98s34
-//kof98s35   // only get 1 second to fight
+kof98s35   // only get 1 second to fight
 kof98s36
 kof98s37
 kof98s38
 kof98s39
 kof98s41
 kof98s44
-//kof98s45   // only get 1 second to fight
-//kof98s46   // only get 1 second to fight
+kof98s45   // only get 1 second to fight
+kof98s46   // only get 1 second to fight
 kof98s47
 kof98s48
 kof98s49
 kof98s50
 kof98s51
-//kof98s52   // only get 1 second to fight
+kof98s52   // only get 1 second to fight
 kof98s53
 kof98s54
 kof98s55
@@ -2015,7 +2014,7 @@ kof98hh18
 kof98hh19
 kof98hh20
 kof98hh21
-//kof98hh22   // only get 1 second to fight
+kof98hh22   // only get 1 second to fight
 kof98hh23
 kof98hh24
 kof98hh25
@@ -2057,7 +2056,7 @@ kof98hh64
 kof98hh65
 kof98hh66
 kof98hh67
-//kof98hh68   // only get 1 second to fight
+kof98hh68   // only get 1 second to fight
 kof98hh69
 kof98hh71
 kof98hh72
@@ -2166,7 +2165,7 @@ kof99srr
 kof99srr1
 kof99the4
 kof99the42
-//kof99vor // corrupt gfx
+kof99vor // corrupt gfx
 kof99wet
 kof99wh1
 kof99wh2
@@ -2183,7 +2182,7 @@ kof99s01
 kof99s02
 kof99s03
 kof99s04
-//kof99s05   // only get 1 second to fight
+kof99s05   // only get 1 second to fight
 kof99s07
 kof99s08
 kof99s09
@@ -2676,7 +2675,7 @@ kof2002x
 kof2k2ath
 kof2k2b // no sound in attract mode
 kof2k2b1
-kof2k2bd //not working
+kof2k2bd //broken; not working
 kof2k2bh
 kof2k2bjh
 kof2k2bjo
@@ -3576,7 +3575,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
-//mslug4lw // not working - p roms are encrypted
+mslug4lw // broken; not working - p roms are encrypted
 mslug4nd
 mslug4sp
 mslug5b
@@ -3585,7 +3584,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-//mslug5fu // not working - p roms are encrypted
+mslug5fu // broken; not working - p roms are encrypted
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -3710,7 +3709,7 @@ mslug3s51 // ms6
 mslug3s52 // ms6
 mslug3s53 // ms6
 mslug3s54 // ms6
-//mslug3s55 // reboot just after start
+mslug3s55 // reboot just after start
 mslug3s56
 mslug3s57
 mslug3s58
@@ -3759,7 +3758,7 @@ mslug4s19
 mslug4s21
 mslug4s22
 mslug4s23
-//mslug4s24   // freezes in attract mode
+mslug4s24   // freezes in attract mode
 mslug4s25
 mslug4s26
 mslug4s27
@@ -3889,7 +3888,7 @@ mslug5s70
 mslug5s71
 mslug5s72
 mslug5s73
-//mslug5s74   // reboot at start
+mslug5s74   // reboot at start
 mslug5s75
 mslug5s76
 mslug5s77
@@ -4925,7 +4924,7 @@ pbobblen		// 083
 pnyaa			// 267
 //popbounc		// 237  not needed
 preisle2		// 255
-//pspikes2		// 068  not needed
+pspikes2		// 068  not needed
 //pulstar		// 089
 puzzledp		// 202
 puzzldpr		// 235
@@ -5008,8 +5007,8 @@ iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
-//lhopecd //not working
-//lhopecdh // not working
+lhopecd //broken; not working
+lhopecdh // broken; not working
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
@@ -5097,7 +5096,7 @@ gpilotscd
 gpilotse
 gpilotspx
 ironcladb
-//ironcladcd // not working
+ironcladcd // broken; not working
 jockeygpd
 joyjoycd
 joyjoycd1
@@ -5152,7 +5151,7 @@ pbobblendx
 pnyaad
 preisle2d
 preisle2px
-//pspikes2cd // not working
+pspikes2cd // broken; not working
 ragnagrdbe
 ragnagrdbs
 ragnagrdeh
@@ -5310,7 +5309,7 @@ kof2k4spl
 kof2k8uni
 //kof10thbr
 //kof10thd
-//kof10thd16 // not working, p1 needs unscrambling
+kof10thd16 // broken; not working, p1 needs unscrambling
 kof10thep15
 kof10thu
 kof10thub
@@ -6187,8 +6186,8 @@ wh2s02
 wh2s03
 
 	/* nmk16 */
-//tdragon			//parent
-//tdragonp		// trap15 - not working
+tdragon			//parent
+tdragonp		// trap15 - not working
 tdragon2		//parent
 tdragon2p		// trap15
 
@@ -6400,8 +6399,7 @@ ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 orlegendh
-//kovassg
-//kovdf
+//kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
 kov2h1
 kov2h2
@@ -6414,42 +6412,42 @@ kovph3
 kovph4
 kovph5
 kovph6
-//kovph7
+kovph7      // broken
 kovph8
-//kovph9
-//kovph10
+kovph9      // broken
+kovph10     // broken
 kovph11
 kovph12
 kovph13
 kovph14
 kovph15
-//kovph16
+kovph16     // broken
 kovph17
 kovph18
-//kovph19
-//kovph20
-//kovph21
-//kovph22
-//kovph23
+kovph19     // broken
+kovph20     // broken
+kovph21     // broken
+kovph22     // broken
+//kovph23   // rom missing
 kovph24		// was kvplusjq
 kovph25		// was kovplusq
 kovsh1
 kovsh2
 kovsh3
-//kovsh4	// all of these are encrypted, not working
-//kovsh5
-//kovsh6
-//kovsh7
-//kovsh8
-//kovsh9
-//kovsh10
-//kovsh11
-//kovsh12
-//kovsh13
-//kovsh14
-//kovsh15
-//kovsh16
-//kovsh17
+//kovsh4	// rom missing
+kovsh5     // broken
+kovsh6     // broken
+kovsh7     // broken
+kovsh8     // broken
+//kovsh9   // rom missing
+//kovsh10  // roms missing
+kovsh11    // broken
+//kovsh12  // roms missing
+//kovsh13  // roms missing
+//kovsh14  // roms missing
+//kovsh15  // rom missing
+kovsh16  // broken
+kovsh17  // broken
 kovsh18			// gem fighters
 kovsh19			// rugal 98
 kov					//parent
@@ -6512,13 +6510,13 @@ kov2h03
 kov2h04
 kov2h05
 kov2h06
-//kovs01  // ingame crash
+kovs01  // ingame crash
 kovs02
 kovs03
 kovs04
 kovs05
 kovs06
-//kovs07  // ingame crash
+kovs07  // ingame crash
 //kovs08  // causes emu to freeze
 kovs09
 kovs10
@@ -6526,10 +6524,10 @@ kovs11
 kovs12
 kovs13
 kovs15
-//kovs16  // ingame crash
+kovs16  // ingame crash
 kovs17
 kovs18
-//kovs19  // ingame crash
+kovs19  // ingame crash
 kovs20
 kovs21
 kovs22
@@ -6537,7 +6535,7 @@ kovs23
 kovs24
 kovs25
 kovs26
-//kovs27  // goes berserk
+kovs27  // goes berserk
 kovs28
 kovs29
 kovs30
@@ -6551,7 +6549,7 @@ kovs37
 kovs38
 kovs39  // bad gfx
 kovs40
-//kovs41  // very bad gfx
+kovs41  // very bad gfx
 kovs42
 kovs43
 kovs44
@@ -6571,7 +6569,7 @@ kovs58
 kovs59
 kovs60
 kovs61
-//kovs62   // causes emu to freeze
+kovs62   // causes emu to freeze
 kovs63
 kovs64
 kovs65
@@ -6584,7 +6582,7 @@ kovs71
 kovs72
 kovs73
 kovs74
-//kovs75   // ingame crash
+kovs75   // ingame crash
 kovs76
 kovs77
 kovs78
@@ -6595,40 +6593,40 @@ kovs83
 kovs84   // bad gfx
 kovs85
 kovplus01  // bad gfx on char select screen
-//kovplus03  // ingame crash
-//kovplus04  // ingame crash
+kovplus03  // ingame crash
+kovplus04  // ingame crash
 kovplus05  // bad gfx on credit/char-select screens
 kovplus06  // bad gfx on credit screen
 kovplus07
-//kovplus08   // ingame crash
+kovplus08   // ingame crash
 kovplus09
-//kovplus10   // ingame crash
+kovplus10   // ingame crash
 kovplus11
 kovplus12
 kovplus13
-//kovplus14   // ingame crash
+kovplus14   // ingame crash
 kovplus15
-//kovplus16   // ingame crash
+kovplus16   // ingame crash
 kovplus17
 kovplus18
-//kovplus19   // ingame crash
+kovplus19   // ingame crash
 kovplus20
 kovplus21
 kovplus22
-//kovplus23   // ingame crash
+kovplus23   // ingame crash
 kovplus24
 kovplus25
 kovplus26
 kovplus27
 kovplus28
-//kovplus29   // ingame crash
+kovplus29   // ingame crash
 kovplus30
 kovplus31
 kovplus32
 kovplus33
 kovplus34
 kovplus35
-//kovplus36   // ingame crash
+kovplus36   // ingame crash
 kovplus37
 kovplus38
 kovplus39
@@ -6655,13 +6653,13 @@ kovplus59
 kovplus60
 kovplus61
 kovplus62
-//kovplus63   // ingame crash
-//kovplus64   // ingame crash
+kovplus63   // ingame crash
+kovplus64   // ingame crash
 kovplus65
 kovplus66   // bad gfx
 kovplus67   // bad gfx, no high scores
 kovplus68
-//kovplus69   // causes emu to freeze
+kovplus69   // causes emu to freeze
 kovplus70
 kovplus71
 kovplus72
@@ -6688,7 +6686,7 @@ kovplus92
 kovplus93
 kovplus94
 kovplus95
-//kovplus96   // ingame crash
+kovplus96   // ingame crash
 kovplus97
 kovplus98
 kovplus99
@@ -6765,13 +6763,13 @@ kovsh013
 kovsh015
 kovsh016
 kovsh017
-//kovsh018   // ingame crash
+kovsh018   // ingame crash
 kovsh019
 kovsh020
 kovsh021
 kovsh022
 kovsh023   // bad gfx
-//kovsh024   // ingame crash
+kovsh024   // ingame crash
 kovsh025
 kovsh026
 kovsh027
@@ -6798,7 +6796,7 @@ kovsh047
 kovsh048
 kovsh049
 kovsh050
-//kovsh052   // ingame crash
+kovsh052   // ingame crash
 kovsh053
 kovsh054
 kovsh055
@@ -6817,8 +6815,8 @@ kovsh072
 kovsh073
 kovsh074
 kovsh075
-//kovsh076   // ingame crash
-//kovsh077   // ingame crash
+kovsh076   // ingame crash
+kovsh077   // ingame crash
 kovsh078
 kovsh079
 kovsh080
@@ -6867,13 +6865,13 @@ oldsplus04
 olds100s01
 olds01
 orlegends01
-//orlegends02   // ingame crash
+orlegends02   // ingame crash
 orlegends03
-//orlegends04   // ingame crash
+orlegends04   // ingame crash
 orlegends05
-//orlegends06   // stuck in setup menu
+orlegends06   // stuck in setup menu
 orlegends07
-//orlegends08   // stuck in setup menu
+orlegends08   // stuck in setup menu
 orlegends09
 orlegends10
 orlegends11
@@ -6888,7 +6886,7 @@ orlegends19
 orlegends20
 orlegends21
 orlegends22
-//orlegends23   // stuck in setup menu
+orlegends23   // stuck in setup menu
 orlegends25
 orlegends26
 orlegends27
@@ -6931,7 +6929,7 @@ orlegendcs36
 orlegendcs37
 orlegendcs38
 orlegendcs39
-//orlegendcs41		// stuck in setup menu
+orlegendcs41		// stuck in setup menu
 orlegendcs42
 orlegendcs43
 orlegendcs44
@@ -7057,8 +7055,8 @@ ggrounds01
 ggroundjs01
 
 	/* sf */
-//sf						//parent
-//sfs01      // freezes in attract mode
+sf						//parent
+sfs01      // freezes in attract mode
 
 	/* shaolins */
 kicker		//parent
@@ -7125,7 +7123,7 @@ landmakr	//parent
 pbobble2	//parent
 cleopath
 driusgxh
-//f3demo		/* Antiriad (a demo made for Raine, not tested on real hardware) - not working */
+f3demo		/* Antiriad (a demo made for Raine, not tested on real hardware) - not working */
 gekiridh
 gekiridoc
 landmakh

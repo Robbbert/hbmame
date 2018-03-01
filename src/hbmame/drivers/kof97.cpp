@@ -11298,7 +11298,7 @@ GAME( 2017, kof97hx199,     kof97,    neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2017, kof97hx200,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Dream 97)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof97hx201,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Repair Big Serpent 1)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof97hx202,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Repair Big Serpent 2)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof97hx203,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Strongest VS Strongest Official Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof97hx203,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Strongest VS Strongest Official Version)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof97hx204,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Strongest Beta 2)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof97hx205,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Overall Change Alt)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, kof97hx206,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Enable 3 Hidden Characters)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
