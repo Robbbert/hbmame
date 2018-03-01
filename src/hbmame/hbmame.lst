@@ -187,6 +187,7 @@ pnickj		// parent
 punisher	// parent
 sf2			// parent
 sf2ce		// parent
+sfzch			//parent
 slammast	// parent
 strider		// parent
 varth		// parent
@@ -347,8 +348,8 @@ tk2h11		// wofjmjp
 tk2h12		// wofjpsrw
 tk2h13		// wofjrabh
 tk2h14		// wofjrlb
-//tk2h15		// wof.key missing; wofjrpbs exception in first demo
-//tk2h16		// wof.key missing; wofjv10s exception in first demo
+tk2h15		// wofjrpbs; ingame crash
+tk2h16		// wofjv10s; ingame crash
 tk2h17		// wofjzcr1
 tk2h18		// wofjzero
 tk2p2		// wofch_v3
@@ -491,8 +492,8 @@ slammasts02
 slammasts03
 slammasts04
 striders01
-//sfzchs01  // parent missing
-//sfzchs02  // parent missing
+sfzchs01
+sfzchs02
 varths01
 varths02
 varths03

@@ -5421,7 +5421,7 @@ ROM_START( tk2h15 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "wof.key", 0x0000, 0x0080, CRC(522c909c) SHA1(e0d40a36bec025402590caaffcbc4e718748348a) )
+	ROM_LOAD ( "wof.key", 0x000000, 0x000080, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
 ROM_START( tk2h16 )
@@ -5450,7 +5450,7 @@ ROM_START( tk2h16 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "wof.key", 0x0000, 0x0080, CRC(522c909c) SHA1(e0d40a36bec025402590caaffcbc4e718748348a) )
+	ROM_LOAD ( "wof.key", 0x000000, 0x000080, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
 // same as tk2h1 except first rom
