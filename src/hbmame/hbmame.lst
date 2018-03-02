@@ -234,7 +234,7 @@ dinoz			/* Boss Hack */
 ffightb
 knight21		// debug
 //knightsa		// rom missing
-knightsb2
+knightshb2
 knightsh		/* 1991 Knights of the Round (Hack) */
 knightsha		/* 1991 Knights of the Round (Hack) */
 knightsjb
@@ -361,7 +361,6 @@ woffr		/* Neo-Arc French Trans */
 wofr1h
 wofsf2
 wofud
-// from here will be added when roms found
 3wonders01
 3wonders02
 captcomms01
@@ -3576,7 +3575,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
-mslug4lw // broken; not working - p roms are encrypted
+//mslug4lw // roms missing
 mslug4nd
 mslug4sp
 mslug5b
@@ -3585,7 +3584,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-mslug5fu // broken; not working - p roms are encrypted
+//mslug5fu // roms missing
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -6386,9 +6385,9 @@ ket
 kovplus
 kovsh
 kov2p
-pgemeni		/* Blastar */
-pgmdemo		/* Charles Doty */
-pgmfrog		/* Rastersoft */
+pgemeni		/* HB Blastar */
+pgmdemo		/* HB Charles Doty */
+pgmfrog		/* HB Rastersoft */
 ketarr		// trap15 hack
 ketarrb		// trap15 hack
 ketarr10	// trap15 hack
@@ -7031,10 +7030,10 @@ retofinv4		/* Paul Smith hack */
 schasrcv		// extra sounds
 
 	/* segac2 */
-c2frog
+c2frog					// HB
 
 	/* segaorun */
-outrun		//parent
+outrun					//parent
 outrunen
 outrunen0
 outrunen1
@@ -7042,13 +7041,12 @@ outrunen2
 outrunm
 
 	/* segag80r */
-astrob		//parent
+astrob					//parent
 astrob2h
 
 	/* segas16b */
-altbeast	//parent
-altbeastfr	// french - Arkatrad
-altbeasts01
+altbeast				//parent
+altbeastfr
 
 	/* segas24 */
 gground					//parent
@@ -7057,107 +7055,107 @@ ggroundjs01
 
 	/* sf */
 sf						//parent
-sfs01      // freezes in attract mode
+sfs01					// freezes in attract mode
 
 	/* shaolins */
-kicker		//parent
-kfjohnny	/* hack by Smitdogg*/
+kicker					//parent
+kfjohnny
 
 	/* skimaxx */
-skimaxx		// Kyle Hodgetts
+skimaxx
 
 	/* snk6502 */
-vantris		/* (c) 1998 Norbert Kehrer */
+vantris
 
 	/* simple_st0016 */
-renju		//parent
-renjuk		/* Korean Translation */
+renju					//parent
+renjuk
 
 	/* snowbros */
-snowbros					//parent
+snowbros				//parent
 snowbross01
 snowbross02
 
 	/* solomon */
-solomon						//parent
+solomon					//parent
 solomonjs01
 
 	/* spacmiss */
-spacmissx	// extra sounds
+spacmissx				// extra sounds
 
 	/* system1 */
-wbml		//parent
-wbmlbit		/* Italian Translation */
-wbmlkb		/* Korean Translation */
+wbml					//parent
+wbmlbit
+wbmlkb
 
 	/* system16 */
-sys16dem	// Charles Doty
+sys16dem				// HB
 
 	/* taito_b */
-pbobble		//parent
-bubbleb 	/* pbobble USA Region Hack */
+pbobble					//parent
+bubbleb
 
 	/* taito_f2 */
-f2demo		/* Charles Doty */
-cameltry			//parent
+f2demo					// HB
+cameltry				//parent
 cameltryjs01
-deadconx			//parent
+deadconx				//parent
 deadconxjs01
-dondokod			//parent
+dondokod				//parent
 dondokodjs01
-gunfront			//parent
+gunfront				//parent
 gunfrontjs01
-megablst			//parent
+megablst				//parent
 megablstjs01
-liquidk				//parent
+liquidk					//parent
 mizubakus01
-growl				//parent
+growl					//parent
 runarks01
-thundfox			//parent
+thundfox				//parent
 thundfoxjs01
 
 	/* taito_f3 */
-cleopatr	//parent
-dariusg		//parent
-gekiridn	//parent
-landmakr	//parent
-pbobble2	//parent
+cleopatr				//parent
+dariusg					//parent
+gekiridn				//parent
+landmakr				//parent
+pbobble2				//parent
 cleopath
 driusgxh
-f3demo		/* Antiriad (a demo made for Raine, not tested on real hardware) - not working */
+f3demo					/* HB Antiriad (a demo made for Raine, not tested on real hardware) - not working */
 gekiridh
 gekiridoc
 landmakh
 pbobl2xh
-spcinv95			//parent
+spcinv95				//parent
 akkanvdrs01
-arabianm			//parent
+arabianm				//parent
 arabianmjs01
-bublbob2			//parent
+bublbob2				//parent
 bubsymphjs01
 cleopatrs01
-dankuga				//parent
+dankuga					//parent
 dankugas01
 dankugas02
-elvactr				//parent
+elvactr					//parent
 elvactrjs01
-gseeker				//parent
+gseeker					//parent
 gseekerjs01
-kaiserkn			//parent
+kaiserkn				//parent
 kaiserkns01
 kaiserknjs01
 kaiserknjs02
 landmakrs01
-lightbr				//parent
+lightbr					//parent
 lightbrjs01
 
 	/* taito_l */
-evilston	//parent
-evilstonfr	// French
-sokoban		// Sokoban LE by cmonkey
-speccies	// Speccies 2 by Sokurah
-tldemo		// cmonkey
-tldemo2		// cmonkey
+evilston				//parent
+evilstonfr
+sokoban					// HB Sokoban LE by cmonkey
+speccies				// HB Speccies 2 by Sokurah
+tldemo					// HB cmonkey
+tldemo2					// HB cmonkey
 evilstons01
 kurikint				//parent
 kurikintjs01
@@ -7165,17 +7163,17 @@ plotting				//parent
 plottingas01
 
 	/* tecmo */
-gemini		//parent
-geminit		/* Twisty Hack */
-rygar		//parent
-rygark		/* Korean Translation */
+gemini					//parent
+geminit
+rygar					//parent
+rygark
 geminis01
 rygarjs01
 silkworm				//parent
 silkworms01
 
 	/* tecmo16 */
-fstarfrc	//parent
+fstarfrc				//parent
 fstarfrcc
 
 	/* Tecmosys */
@@ -7183,14 +7181,14 @@ tkdensho				//parent
 tkdenshos01
 
 	/* tehkanwc */
-tehkanwc	//parent
+tehkanwc				//parent
 ballonwc
 tehkangc
 tankwc
-twc_gr		/* Vag @ GreekRoms */
+twc_gr
 
 	/* tempest */
-tempest		//parent
+tempest					//parent
 tempall
 temped		/* Tempest TempEd Hack */
 tempestm
@@ -7208,7 +7206,7 @@ aliensv		/* Tempest Prototype */
 aliensva	/* Tempest Prototype */
 
 	/* terracre */
-terracre	//parent
+terracre				//parent
 terracrc
 
 	/* timelimit */
