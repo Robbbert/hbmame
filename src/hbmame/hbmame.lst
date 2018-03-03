@@ -69,7 +69,7 @@ asukac			// chinese
 atarisy1		//bios
 indytemp		//parent
 ataris1hw
-//ataris1rt   //black screen
+ataris1rt				//black screen
 
 	/* atari_s1 */
 //atarians	//parent
@@ -118,7 +118,7 @@ sboblboblh 		/* level select hack */
 bublbobls01
 
 	/* bwidow */
-spacwarp		/* Jeff Hendrix - Proto on Space Duel HW */
+spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
 	/* cave */
 ddonpach		//parent
@@ -196,23 +196,23 @@ wof			// parent
 
 	/* cps1mis */
 3wondrud
-captcocc // broken;not working
-captcomc		// chinese
+captcocc		// broken
+captcomc
 captcomh
 captcoud
-captcovs // broken;not working
+captcovs		// broken
 cawingb
-cps1demo		/* Charles Doty */
-cps1frog		/* Charles Doty */
-cps1testm		/* Cal2 */
-cps1testma		/* Cal2 */
-cps1tests		/* Cal2 */
-cps1testsa		/* Cal2 */
-daimakb			/* Found in Mame Plus */
+cps1demo		/* HB Charles Doty */
+cps1frog		/* HB Charles Doty */
+cps1testm		/* HB Cal2 */
+cps1testma		/* HB Cal2 */
+cps1tests		/* HB Cal2 */
+cps1testsa		/* HB Cal2 */
+daimakb
 dino08h2
 dino08h3
 dino08hp
-dinob			/* 1993 Cadillacs and Dinosaurs (bootleg) */
+dinob
 dinobt
 dinobtpp
 dinocgba
@@ -220,33 +220,33 @@ dinocgbb
 dinocgbc
 dinoeh
 dinoex
-dinoh			/* 1993 Cadillacs and Dinosaurs (Hack) */
-dinoha			/* 1993 Cadillacs and Dinosaurs (Hack) */
-dinohb			/* 1993 Cadillacs and Dinosaurs (Hack) */
+dinoh
+dinoha
+dinohb
 dinohp
-dinohx			// broken
-dinojp			// 2010 Pipi899, RockWall, Zhyxxxx
+dinohx
+dinojp
 dinorp
 dinosf2
 dinoslice
 dinouphp
-dinoz			/* Boss Hack */
+dinoz
 ffightb
-knight21		// debug
+knight21
 //knightsa		// rom missing
 knightshb2
-knightsh		/* 1991 Knights of the Round (Hack) */
-knightsha		/* 1991 Knights of the Round (Hack) */
+knightsh
+knightsha
 knightsjb
-knightsro		// Sebastian Mihai - Romanian translation 2015
+knightsro
 knightud
-kodd // broken;not working
+kodd			// broken
 kodh
 kodsp
-//kodud // freezes; broken; not working
+//kodud			// freezes; broken; not working
 pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
-punisherb		/* Found in neht build */
-punisherf		/* Flash version 24/7/2009 by Zhyxxxx */
+punisherb
+punisherf
 punisherje1
 punisherjh
 punisherjh1
@@ -497,119 +497,119 @@ varths01
 varths02
 varths03
 willows01
-wofh01 // broken; black screen
-wofh02 // broken; black screen
-wofh03 // broken; black screen
-wofs01 // broken; black screen
-wofs02 // broken; black screen
-wofs03 // broken; black screen
-wofs04
-wofs05 // broken; black screen
-wofs06
-wofs07
-wofs08  // ingame crash
-wofs09
-wofs10
-wofs11
-wofs12 // broken; black screen
-wofs13
-wofs14
-wofs15
-wofs16
-wofs17 // broken; black screen
-wofs18
-wofs19
-wofs20
-wofs21
-wofs22  // broken; bad gfx
-wofs23
-wofs24
-wofs25
-wofs26
-wofs27
-wofs28 // ingame crash
-wofs29
-wofs30
-wofs31
-wofs32
-wofs33
-wofs34  // broken; bad gfx
-wofs35
-wofs36 // broken; black screen
-wofs37 // broken; black screen
-wofs38 // broken; black screen
-wofs39
-wofs40
-wofs41
-wofs42
-wofs43
-wofs44  // broken; totally corrupt, not working
-wofs45
-wofr101
-wofr102
-wofr103
-wofr104 // ingame crash
-wofr107 // ingame crash
-wofr108
-wofr109
-wofj02
-wofj03
-wofj04
-wofj05
-wofj06
-wofj07 // ingame crash
-wofj08 // ingame crash
-wofj09 // ingame crash
-wofj10
-wofj11
-wofj12
-wofj13
-wofj14
-wofj15
-wofj16
-wofj17
-wofj18
-wofj19
-wofj20
-wofj21
-wofj22
-wofj23
-wofj24
-wofj25
-wofj26
-wofj27
-wofj28
-wofj29
-wofj30
-wofj31
-wofj32
-wofj33
-wofj34
-wofj35
-wofj36
-wofj37
-wofj38
-wofj39
-wofj40
-wofj41
-wofj42 // bad gfx in attract mode
-wofj43
-wofj44
-wofj45
-wofj46
-wofj47
-wofj48
-wofj49
-wofj50
-wofj51
-wofj52
-wofj53
-wofj54
-wofj55 // bad gfx on title screen
-wofj56
-wofj57
-wofhl01
-wofhl02
+wofh01  // broken; black screen
+wofh02  // broken; black screen
+wofh03  // broken; black screen
+wofs01  // broken; black screen
+wofs02  // broken; black screen
+wofs03  // broken; black screen
+wofs04  // tk2
+wofs05  // broken; black screen
+wofs06  // tk2
+wofs07  // tk2
+wofs08  // tk2; ingame crash
+wofs09  // wof
+wofs10  // tk2
+wofs11  // tk2
+wofs12  // broken; black screen
+wofs13  // tk2
+wofs14  // tk2
+wofs15  // tk2
+wofs16  // wof
+wofs17  // broken; black screen
+wofs18  // tk2
+wofs19  // tk2
+wofs20  // tk2
+wofs21  // tk2
+wofs22  // bad gfx; to decide if tk2 or wof
+wofs23  // tk2
+wofs24  // tk2
+wofs25  // tk2
+wofs26  // tk2
+wofs27  // wof
+wofs28  // tk2; ingame crash
+wofs29  // tk2
+wofs30  // tk2
+wofs31  // rom problem
+wofs32  // rom problem
+wofs33  // tk2
+wofs34  // tk2; broken; bad gfx
+wofs35  // tk2
+wofs36  // broken; black screen
+wofs37  // broken; black screen
+wofs38  // broken; black screen
+wofs39  // sk2
+wofs40  // tk2
+wofs41  // wof
+wofs42  // wof
+wofs43  // wof
+wofs44  // wof; broken; totally corrupt, not working
+wofs45  // sk2
+wofr101 // wof
+wofr102 // tk2; goes into setup menu by itself at start
+wofr103 // wof
+wofr104 // wof; ingame crash
+wofr107 // wof; ingame crash
+wofr108 // wof
+wofr109 // wof
+wofj02  // tk2
+wofj03  // tk2
+wofj04  // tk2
+wofj05  // tk2
+wofj06  // tk2
+wofj07  // tk2; ingame crash
+wofj08  // tk2; ingame crash
+wofj09  // tk2; ingame crash
+wofj10  // tk2
+wofj11  // tk2
+wofj12  // tk2
+wofj13  // tk2
+wofj14  // tk2
+wofj15  // tk2
+wofj16  // tk2
+wofj17  // tk2
+wofj18  // tk2
+wofj19  // tk2
+wofj20  // tk2
+wofj21  // tk2
+wofj22  // tk2
+wofj23  // tk2
+wofj24  // tk2
+wofj25  // tk2
+wofj26  // tk2
+wofj27  // tk2
+wofj28  // tk2
+wofj29  // tk2
+wofj30  // tk2
+wofj31  // tk2
+wofj32  // tk2
+wofj33  // tk2
+wofj34  // tk2
+wofj35  // tk2
+wofj36  // tk2
+wofj37  // tk2
+wofj38  // tk2
+wofj39  // tk2
+wofj40  // tk2
+wofj41  // tk2
+wofj42  // tk2; bad gfx in attract mode
+wofj43  // tk2
+wofj44  // tk2
+wofj45  // tk2
+wofj46  // tk2
+wofj47  // tk2
+wofj48  // tk2
+wofj49  // tk2
+wofj50  // tk2
+wofj51  // tk2
+wofj52  // tk2
+wofj53  // tk2
+wofj54  // tk2
+wofj55  // tk2; bad gfx on title screen
+wofj56  // tk2
+wofj57  // tk2
+wofhl01 // sk3
+wofhl02 // sk3
 
 	/* cps2 */
 // CPS2 PARENTS ***

@@ -782,6 +782,9 @@ ROM_START( captcocc )
 	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
 	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD_OPTIONAL( "captcomm.key", 0x000000, 0x000080, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
 ROM_START( captcomc )
@@ -895,6 +898,9 @@ ROM_START( captcovs )
 	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
 	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x000000, 0x000080, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
 
@@ -1622,7 +1628,7 @@ ROM_START( dinohx )
 	ROM_LOAD( "cd-q4.4k",      0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "dino.key", 0x000000, 0x000080, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD ( "dinoh.key", 0x000000, 0x000080, CRC(67862673) SHA1(9ae7446231da7fd6355e1f22ac3fb974c3775600) )
 ROM_END
 
 ROM_START( dinojp )
@@ -5797,7 +5803,7 @@ GAME( 1993, dinoh,       dino,     qsound,     dinohz,   cps_state, dinoh,    RO
 GAME( 1997, dinoha,      dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, dinohb,      dino,     qsound,     dinohz,   cps_state, dinohb,   ROT0,   "hack", "Cadillacs and Dinosaurs (hack set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, dinohp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Hack by Pipi899 set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, dinohx,      dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "Winuxx", "Cadillacs and Dinosaurs (Revised hack by Winuxx)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, dinohx,      dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "Winuxx", "Cadillacs and Dinosaurs (Revised hack by Winuxx)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinojp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs Kyouryuu-Shinseiki Plus (2010-02-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, dinorp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Hack by Pipi899 set 2 2008-08-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinosf2,     dino,     wofsf2,     dino,     cps_state, dinohunt, ROT0,   "Arcadefixer", "Cadillacs and Dinosaurs (sf2 conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
