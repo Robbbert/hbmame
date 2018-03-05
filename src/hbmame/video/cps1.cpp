@@ -51,7 +51,7 @@ After that, the remainder of the file is binary zeroes.
             Configuration table:
 
 ********************************************************************/
-#define WRITE_FILE 1
+#define WRITE_FILE 0
 
 /* Game specific data */
 
