@@ -10202,7 +10202,7 @@ ROM_START( wofs02 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofs03 )
+ROM_START( sk3p4 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2j_23hc03.8f", 0x000000, 0x80000, CRC(4d3bc95f) SHA1(e960b03e93d213bc336a650f5336b20c263a74f9) )
 	ROM_LOAD16_WORD_SWAP( "tk2j_22hc03.7f", 0x080000, 0x80000, CRC(60a6702d) SHA1(a33b566f95f6241fb316a9ce87520a840e974b3a) )
@@ -11204,7 +11204,7 @@ ROM_START( wofs36 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofs37 )
+ROM_START( sk3p5 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2hc37_23c.8f", 0x000000, 0x80000, CRC(214b8367) SHA1(4c18766aa54fe15341fd30f6d23a71129854a7df) )
 	ROM_IGNORE(0x3d4fe8)
@@ -11235,7 +11235,7 @@ ROM_START( wofs37 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofs38 )
+ROM_START( sk3p6 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2hc38_23c.8f", 0x000000, 0x80000, CRC(06c90133) SHA1(6b8e0334191358306633298563a87ccc7732ceb4) )
 	ROM_IGNORE(0x3d4f4f)
@@ -13300,7 +13300,7 @@ ROM_START( wofr109 )
 	ROM_LOAD ( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
-ROM_START( wofhl01 )
+ROM_START( sk3p7 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2(ch)_23hc01.8f", 0x000000, 0x80000, CRC(3af13d5a) SHA1(a33f73f7d2547c2b1e5cd72a355732fd981f675d) )
 	ROM_LOAD16_WORD_SWAP( "tk2(ch)_22hc01.7f", 0x080000, 0x80000, CRC(1ee37ef0) SHA1(5eccdfae38c67ff60d5329cbd1e0ded304f61537) )
@@ -13329,7 +13329,7 @@ ROM_START( wofhl01 )
 	ROM_LOAD( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofhl02 )
+ROM_START( sk3p8 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2(ch)_23hc02.8f", 0x000000, 0x80000, CRC(64b80f07) SHA1(7efd1636f875a8d029ae229d97b4e5d8f2065858) )
 	ROM_LOAD16_WORD_SWAP( "tk2(ch)_22hc02.7f", 0x080000, 0x80000, CRC(87b8f045) SHA1(83b8d261e993d7885ddd58282227b95a66e6f17f) )
@@ -14554,6 +14554,12 @@ GAME( 1993, punishers05,   punisher, qsound,     punisher, cps_state,   punisher
 GAME( 1993, punisherjs01,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "Hacks", "The Punisher (Time No Decrease)(Japan 930422)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjs02,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "Hacks", "The Punisher (100 Second For Every Scene)(Japan 930422)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherus01,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "Hacks", "The Punisher (Lock Double Mode)(USA 930422)", MACHINE_SUPPORTS_SAVE )
+// Sangokushi III
+GAME( 2010, sk3p4,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi 3 (Chinese hack: Gaiden Kakou-On S Revence Dx)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, sk3p5,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi 3 (Chinese hack: Description Of Unknown Origin 24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, sk3p6,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi 3 (Chinese hack: Description Of Unknown Origin 25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, sk3p7,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Hacks", "Sangokushi 3 (Chinese hack: Description Of Unknown Origin H 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, sk3p8,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Hacks", "Sangokushi 3 (Chinese hack: Description Of Unknown Origin H 02)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter II': Champion Edition
 GAME( 1992, sf2ceeas01,    sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Hacks", "Street Fighter II': Champion Edition (Vega Lifts The Scene To Crawl)(World 920513)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ceeas02,    sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Hacks", "Street Fighter II': Champion Edition (Zangief Cyclone Simplification)(World 920513)", MACHINE_SUPPORTS_SAVE )
@@ -14582,7 +14588,6 @@ GAME( 1989, willows01,     willow,   cps1_10MHz, willow,   cps_state,   cps1,   
 // Warriors of Fate
 GAME( 1992, wofs01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Warriors of Fate (Enhanced Game Hacks)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi II (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wofs03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau III (Chinese hack: Gaiden Kakou-On S Revence Dx)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs04,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Max Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs05,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi II (New Start)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE  )
 GAME( 1992, wofs06,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
@@ -14616,8 +14621,6 @@ GAME( 1992, wofs34,        wof,      qsound,     wof,      cps_state,   wof,    
 GAME( 1992, wofs33,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Bloody Plus Hack Zhanghw511)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs35,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: BOSS Riboud Unparalleled Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs36,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Description Of Unknown Origin 23)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wofs37,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Description Of Unknown Origin 24)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wofs38,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Description Of Unknown Origin 25)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs39,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi II (Asia 921005)(Easy Spinning Pile Driver)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs40,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Super Sword-Energy V1)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs41,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Warriors of Fate (Easy Spinning Pile Driver)", MACHINE_SUPPORTS_SAVE )
@@ -14627,7 +14630,7 @@ GAME( 1992, wofs44,        wof,      qsound,     wof,      cps_state,   wof,    
 GAME( 1992, wofs45,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Sangokushi II (Change Character)(Asia 921005)", MACHINE_SUPPORTS_SAVE ) 
 // Tenchi wo Kurau II: Sekiheki no Tatakai
 GAME( 1992, wofj02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Lock Three-Person Model First Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wofj03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Lock Three People Model Perfect Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wofj03,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Lock Three People Model Perfect Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofj04,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Player's Anger)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofj05,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Angry Upgrade)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofj06,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II: Sekiheki no Tatakai (Zhao Yun Strengthened)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
@@ -14690,9 +14693,6 @@ GAME( 1992, wofr104,       wof,      qsound,     wof,      cps_state,   wof,    
 GAME( 1992, wofr107,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofr108,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Warriors of Fate (Zhang Fei Vampire First Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofr109,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hacks", "Warriors of Fate (Zhang Fei vampire Second Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
-
-GAME( 1994, wofhl01,       wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Description Of Unknown Origin H 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wofhl02,       wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Hacks", "Tenchi wo Kurau II (Chinese hack: Description Of Unknown Origin H 02)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
 GAME( 1999, wofh01,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Hacks", "Sangokushi II (Asia 921005)(Description Of Unknown Origin HH 01)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1999, wofh02,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Hacks", "Sangokushi III Part 1 2010 (Tenchi wo Kurau II Hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

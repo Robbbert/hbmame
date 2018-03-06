@@ -255,52 +255,52 @@ punisherud1
 punisherud2
 sf2bhj
 sf2c			// sf2, chinese
-sf2cebr			/* hack, Brasil   920313 */
-sf2ced			/* hack, Hispanic 990804 */
-sf2ceda			/* hack, Hispanic 990804 */
-sf2ceh			/* hack, Hispanic 990804 */
+sf2cebr
+sf2ced
+sf2ceda
+sf2ceh
 sf2cehk
 sf2cehp
 sf2cejem
 sf2jbh			// sf2jbh2014
-sf2koryuh		/* Hack by TT */
-sf2h9			/* Found in Mame Plus */
-sf2h10			/* Found in Mame Plus */
-sf2h11			/* Found in Mame Plus */
-sf2h12			/* Found in Mame Plus */
-sf2h13			/* hack */
-sf2pun			/* Drakon, Punishment Edition v1 Final */
-sf2sl73a		/* Drakon, Sheng Long v7.3a */
+sf2koryuh
+sf2h9
+sf2h10
+sf2h11
+sf2h12
+sf2h13
+sf2pun
+sf2sl73a
 sf2th
 sf2tha
-sf2tlona		/* hack, Tu Long set 1 */
-sf2tlonb		/* hack, Tu Long set 2 */
-sf2tlonc		/* hack, Tu Long set 3 */
-sf2turyu		/* hack, Tu Long prototype */
+sf2tlona
+sf2tlonb
+sf2tlonc
+sf2turyu
 sf2yyc3d5
 sf2yyc3g
 sf2yyc6
-sk2h1 			/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h1
 sk2h1q			// qsound version of sk2h1
-sk2h2			/* 1999  Legend of Three Kingdoms' Heroes / Sanguo Yingxiong Zhuan */
+sk2h2
 sk2h2q
 sk2h3			// mame sgyxz for testing
 sk2h4q
 sk2h5q
 sk2h6q
-sk2h11		/* 1992 Sangokushi II (Hack 1) */
-sk2h12		/* 1992 Sangokushi II (Hack 2) */
-sk2h13		/* 1992 Sangokushi II (Hack 3) */
-sk2h14		/* Chinese language */
+sk2h11
+sk2h12
+sk2h13
+sk2h14
 sk2h15		// wofaehp
 sk2h16		// wofahp2
-sk2h21		/* 1997  Three Sword Masters / San Jian Sheng */
-sk2h22		// San Jian Sheng (Chinese bootleg of Sangokushi II
-sk2h31		/* 1997  Three Holy Swords / San Sheng Jian */
-sk2h32		/* 1997  Three Holy Swords / San Sheng Jian */
-sk2h33		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-sk2h34		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
-sk2h35		/* 1995  Holy Sword Three Kingdoms / Sheng Jian San Guo */
+sk2h21
+sk2h22
+sk2h31
+sk2h32
+sk2h33
+sk2h34
+sk2h35
 sk2h31q
 sk2h32q
 sk2h33q
@@ -308,6 +308,11 @@ sk2h34q
 sk3p1		// wofchdx
 sk3p2		// wofchdx1
 sk3p3		// wofchdx2
+sk3p4   // wofs03
+sk3p5   // wofs37
+sk3p6   // wofs38
+sk3p7   // wofhl01
+sk3p8   // wofhl02
 slammastud
 stridergf	// fix unwanted black specks
 stridergh	// as above, and uncensored
@@ -357,7 +362,7 @@ tk2p3		// wofchspp
 wofb
 wofch		// tk2p1
 wofes
-woffr		/* Neo-Arc French Trans */
+woffr
 wofr1h
 wofsf2
 wofud
@@ -502,7 +507,6 @@ wofh02  // broken; black screen
 wofh03  // broken; black screen
 wofs01  // wof
 wofs02  // sk2
-wofs03  // sk3
 wofs04  // tk2
 wofs05  // sk2; no sound
 wofs06  // tk2
@@ -536,8 +540,6 @@ wofs33  // tk2
 wofs34  // tk2; bad title screen
 wofs35  // tk2
 wofs36  // wof; bad title screen
-wofs37  // sk3
-wofs38  // sk3
 wofs39  // sk2
 wofs40  // tk2
 wofs41  // wof
@@ -608,8 +610,6 @@ wofj54  // tk2
 wofj55  // tk2; bad title screen
 wofj56  // tk2
 wofj57  // tk2
-wofhl01 // sk3
-wofhl02 // sk3
 
 	/* cps2 */
 // CPS2 PARENTS ***
