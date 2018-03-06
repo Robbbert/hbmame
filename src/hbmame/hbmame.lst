@@ -502,28 +502,28 @@ willows01
 wofh01  // broken; black screen
 wofh02  // broken; black screen
 wofh03  // broken; black screen
-wofs01  // broken; black screen
-wofs02  // broken; black screen
-wofs03  // broken; black screen
+wofs01  // wof
+wofs02  // sk2
+wofs03  // sk3
 wofs04  // tk2
-wofs05  // broken; black screen
+wofs05  // sk2; no sound
 wofs06  // tk2
 wofs07  // tk2
 wofs08  // tk2; ingame crash
 wofs09  // wof
 wofs10  // tk2
 wofs11  // tk2
-wofs12  // broken; black screen
+wofs12  // sk2
 wofs13  // tk2
 wofs14  // tk2
 wofs15  // tk2
 wofs16  // wof
-wofs17  // broken; black screen
+wofs17  // sk2
 wofs18  // tk2
 wofs19  // tk2
 wofs20  // tk2
 wofs21  // tk2
-wofs22  // bad gfx; to decide if tk2 or wof
+wofs22  // tk2; bad title screen
 wofs23  // tk2
 wofs24  // tk2
 wofs25  // tk2
@@ -535,17 +535,17 @@ wofs30  // tk2
 wofs31  // rom problem
 wofs32  // rom problem
 wofs33  // tk2
-wofs34  // tk2; broken; bad gfx
+wofs34  // tk2; bad title screen
 wofs35  // tk2
-wofs36  // broken; black screen
-wofs37  // broken; black screen
-wofs38  // broken; black screen
+wofs36  // wof; bad title screen
+wofs37  // sk3
+wofs38  // sk3
 wofs39  // sk2
 wofs40  // tk2
 wofs41  // wof
 wofs42  // wof
 wofs43  // wof
-wofs44  // wof; broken; totally corrupt, not working
+wofs44  // wof; bad gfx; ingame crash
 wofs45  // sk2
 wofr101 // wof
 wofr102 // tk2; goes into setup menu by itself at start
@@ -607,7 +607,7 @@ wofj51  // tk2
 wofj52  // tk2
 wofj53  // tk2
 wofj54  // tk2
-wofj55  // tk2; bad gfx on title screen
+wofj55  // tk2; bad title screen
 wofj56  // tk2
 wofj57  // tk2
 wofhl01 // sk3
@@ -690,7 +690,7 @@ sfz3jsep
 sfzjboss
 sfzjyh
 sgemfch
-spf2tb		// boss hack
+spf2tb
 ssf2tfp
 ssf2tfr
 ssf2tpls
@@ -868,12 +868,12 @@ sfiiipmp
 sfiii2bh
 sfiii2np
 sfiii2pl
-sfiii3an		// hack
+sfiii3an
 sfiii3bh
 sfiii3mh
 sfiii3ng
 sfiii3np
-sfiii4rd		// hack
+sfiii4rd
 jojos01
 jojos02
 jojos03

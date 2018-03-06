@@ -1297,21 +1297,6 @@ static const struct CPS1config cps1_config_table[]=
 	//{"wofh01",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
 	//{"wofh02",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
 	//{"wofh03",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
-	//{"wofs01",      CPS_B_21_DEF, mapper_TK263B },
-	//{"wofs02",      CPS_B_21_DEF, mapper_TK263B },
-	//{"wofs03",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs05",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs08",      CPS_B_21_QS1, mapper_TK263B },
-	{"wofs12",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs17",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs22",      CPS_B_21_QS1, mapper_TK263B },
-	{"wofs31",      CPS_B_21_QS1, mapper_TK263B },
-	{"wofs32",      CPS_B_21_QS1, mapper_TK263B },
-	{"wofs34",      CPS_B_21_QS1, mapper_TK263B },
-	{"wofs36",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs37",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs38",      CPS_B_21_DEF, mapper_TK263B },
-	{"wofs44",      CPS_B_21_DEF, mapper_TK263B },
 	//{"wofr105",     CPS_B_21_DEF, mapper_TK263B },    // not exist
 	//{"wofr106",     CPS_B_21_DEF, mapper_TK263B },    // not exist
 	//{"wofj01",      CPS_B_21_QS1, mapper_TK263B },    // not exist
