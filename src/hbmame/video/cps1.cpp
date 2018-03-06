@@ -1293,7 +1293,6 @@ static const struct CPS1config cps1_config_table[]=
 #endif
 	// HBMAME end
 	// PSMame Build Plus
-	{"sf2koryus01",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
 	//{"wofh01",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
 	//{"wofh02",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
 	//{"wofh03",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
