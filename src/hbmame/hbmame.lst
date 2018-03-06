@@ -233,7 +233,7 @@ dinoslice
 dinouphp
 dinoz
 ffightb
-ffightjh01		// broken; black screen
+ffightjh01
 knight21
 //knightsa		// rom missing
 knightshb2
@@ -242,10 +242,10 @@ knightsha
 knightsjb
 knightsro
 knightud
-kodd			// broken
+kodd			// roms not matching; no gfx in attract mode
 kodh
 kodsp
-//kodud			// freezes; broken; not working
+kodud			// roms not matching; no gfx in attract mode
 pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb
 punisherf
@@ -487,7 +487,7 @@ sf2ces02
 sf2ces03
 sf2ces04
 sf2ces05
-sf2koryus01 // imperfect graphics
+sf2koryus01
 slammasts01
 slammasts02
 slammasts03
