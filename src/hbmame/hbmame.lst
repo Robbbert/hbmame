@@ -288,14 +288,19 @@ sk2h3			// mame sgyxz for testing
 sk2h4q
 sk2h5q
 sk2h6q
+sk2h10  // wofs45
 sk2h11
 sk2h12
 sk2h13
 sk2h14
 sk2h15		// wofaehp
 sk2h16		// wofahp2
+sk2h17  // wofs02
+sk2h18  // wofs12
+sk2h19  // wofs39
 sk2h21
 sk2h22
+sk2h23  // wofs17
 sk2h31
 sk2h32
 sk2h33
@@ -305,6 +310,7 @@ sk2h31q
 sk2h32q
 sk2h33q
 sk2h34q
+sk2h41  // wofs05; no sound
 sk3p1		// wofchdx
 sk3p2		// wofchdx1
 sk3p3		// wofchdx2
@@ -588,22 +594,16 @@ wofh01  // broken; black screen
 wofh02  // broken; black screen
 wofh03  // broken; black screen
 wofs01  // wof
-wofs02  // sk2
-wofs05  // sk2; no sound
 wofs09  // wof
-wofs12  // sk2
 wofs16  // wof
-wofs17  // sk2
 wofs27  // wof
 wofs31  // rom problem
 wofs32  // rom problem
 wofs36  // wof; bad title screen
-wofs39  // sk2
 wofs41  // wof
 wofs42  // wof
 wofs43  // wof
 wofs44  // wof; bad gfx; ingame crash
-wofs45  // sk2
 wofr101 // wof
 wofr103 // wof
 wofr104 // wof; ingame crash
