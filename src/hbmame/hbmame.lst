@@ -357,6 +357,88 @@ tk2h15		// wofjrpbs; ingame crash
 tk2h16		// wofjv10s; ingame crash
 tk2h17		// wofjzcr1
 tk2h18		// wofjzero
+tk2h19  // wofs04
+tk2h20  // wofs06
+tk2h21  // wofs07
+tk2h22  // wofs08; ingame crash
+tk2h23  // wofs10
+tk2h24  // wofs11
+tk2h25  // wofs13
+tk2h26  // wofs14
+tk2h27  // wofs15
+tk2h28  // wofs18
+tk2h29  // wofs19
+tk2h30  // wofs20
+tk2h31  // wofs21
+tk2h32  // wofs22; bad title screen
+tk2h33  // wofs23
+tk2h34  // wofs24
+tk2h35  // wofs25
+tk2h36  // wofs26
+tk2h37  // wofs28; ingame crash
+tk2h38  // wofs29
+tk2h39  // wofs30
+tk2h40  // wofs33
+tk2h41  // wofs34; bad title screen
+tk2h42  // wofs35
+tk2h43  // wofs40
+tk2h44  // wofr102; goes into setup menu by itself at start
+tk2h45  // wofj02
+tk2h46  // wofj03
+tk2h47  // wofj04
+tk2h48  // wofj05
+tk2h49  // wofj06
+tk2h50  // wofj07; ingame crash
+tk2h51  // wofj08; ingame crash
+tk2h52  // wofj09; ingame crash
+tk2h53  // wofj10
+tk2h54  // wofj11
+tk2h55  // wofj12
+tk2h56  // wofj13
+tk2h57  // wofj14
+tk2h58  // wofj15
+tk2h59  // wofj16
+tk2h60  // wofj17
+tk2h61  // wofj18
+tk2h62  // wofj19
+tk2h63  // wofj20
+tk2h64  // wofj21
+tk2h65  // wofj22
+tk2h66  // wofj23
+tk2h67  // wofj24
+tk2h68  // wofj25
+tk2h69  // wofj26
+tk2h70  // wofj27
+tk2h71  // wofj28
+tk2h72  // wofj29
+tk2h73  // wofj30
+tk2h74  // wofj31
+tk2h75  // wofj32
+tk2h76  // wofj33
+tk2h77  // wofj34
+tk2h78  // wofj35
+tk2h79  // wofj36
+tk2h80  // wofj37
+tk2h81  // wofj38
+tk2h82  // wofj39
+tk2h83  // wofj40
+tk2h84  // wofj41
+tk2h85  // wofj42; bad gfx in attract mode
+tk2h86  // wofj43
+tk2h87  // wofj44
+tk2h88  // wofj45
+tk2h89  // wofj46
+tk2h90  // wofj47
+tk2h91  // wofj48
+tk2h92  // wofj49
+tk2h93  // wofj50
+tk2h94  // wofj51
+tk2h95  // wofj52
+tk2h96  // wofj53
+tk2h97  // wofj54
+tk2h98  // wofj55; bad title screen
+tk2h99  // wofj56
+tk2h100 // wofj57
 tk2p2		// wofch_v3
 tk2p3		// wofchspp
 wofb
@@ -507,109 +589,27 @@ wofh02  // broken; black screen
 wofh03  // broken; black screen
 wofs01  // wof
 wofs02  // sk2
-wofs04  // tk2
 wofs05  // sk2; no sound
-wofs06  // tk2
-wofs07  // tk2
-wofs08  // tk2; ingame crash
 wofs09  // wof
-wofs10  // tk2
-wofs11  // tk2
 wofs12  // sk2
-wofs13  // tk2
-wofs14  // tk2
-wofs15  // tk2
 wofs16  // wof
 wofs17  // sk2
-wofs18  // tk2
-wofs19  // tk2
-wofs20  // tk2
-wofs21  // tk2
-wofs22  // tk2; bad title screen
-wofs23  // tk2
-wofs24  // tk2
-wofs25  // tk2
-wofs26  // tk2
 wofs27  // wof
-wofs28  // tk2; ingame crash
-wofs29  // tk2
-wofs30  // tk2
 wofs31  // rom problem
 wofs32  // rom problem
-wofs33  // tk2
-wofs34  // tk2; bad title screen
-wofs35  // tk2
 wofs36  // wof; bad title screen
 wofs39  // sk2
-wofs40  // tk2
 wofs41  // wof
 wofs42  // wof
 wofs43  // wof
 wofs44  // wof; bad gfx; ingame crash
 wofs45  // sk2
 wofr101 // wof
-wofr102 // tk2; goes into setup menu by itself at start
 wofr103 // wof
 wofr104 // wof; ingame crash
 wofr107 // wof; ingame crash
 wofr108 // wof
 wofr109 // wof
-wofj02  // tk2
-wofj03  // tk2
-wofj04  // tk2
-wofj05  // tk2
-wofj06  // tk2
-wofj07  // tk2; ingame crash
-wofj08  // tk2; ingame crash
-wofj09  // tk2; ingame crash
-wofj10  // tk2
-wofj11  // tk2
-wofj12  // tk2
-wofj13  // tk2
-wofj14  // tk2
-wofj15  // tk2
-wofj16  // tk2
-wofj17  // tk2
-wofj18  // tk2
-wofj19  // tk2
-wofj20  // tk2
-wofj21  // tk2
-wofj22  // tk2
-wofj23  // tk2
-wofj24  // tk2
-wofj25  // tk2
-wofj26  // tk2
-wofj27  // tk2
-wofj28  // tk2
-wofj29  // tk2
-wofj30  // tk2
-wofj31  // tk2
-wofj32  // tk2
-wofj33  // tk2
-wofj34  // tk2
-wofj35  // tk2
-wofj36  // tk2
-wofj37  // tk2
-wofj38  // tk2
-wofj39  // tk2
-wofj40  // tk2
-wofj41  // tk2
-wofj42  // tk2; bad gfx in attract mode
-wofj43  // tk2
-wofj44  // tk2
-wofj45  // tk2
-wofj46  // tk2
-wofj47  // tk2
-wofj48  // tk2
-wofj49  // tk2
-wofj50  // tk2
-wofj51  // tk2
-wofj52  // tk2
-wofj53  // tk2
-wofj54  // tk2
-wofj55  // tk2; bad title screen
-wofj56  // tk2
-wofj57  // tk2
 
 	/* cps2 */
 // CPS2 PARENTS ***
