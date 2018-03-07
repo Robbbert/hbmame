@@ -11,9 +11,15 @@ in the unlikely hope that others may provide assistance in getting them going.
 New Games (in addition to above)
 ---------------------------------
 - [3wondersb01]     3 Wonders bootleg
-- [asurabusbh]      Asura Buster hack
+- [alpines01]       Alpine (Translation Chinese)
+- [amidars01]       Amidar (Translation French)
+- [asurablds01]     Asura Blade - Sword of Dynasty (Energy Mode Max)
+- [asurablds02]     Asura Blade - Sword of Dynasty (Enable hidden characters)
+- [asurabuss01]     Asura Buster hack
 - [ataris1rt]       Atari System 1 Ram Tester (not working)
 - [bangbeadd]       Bang Bead (decrypted)
+- [bloodbros01]     Blood Bros (Ex Super version)
+- [cabals01]        Cabal (Ex Super version)
 - [deroons01]       Deroon DeroDero hack
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)

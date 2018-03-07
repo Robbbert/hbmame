@@ -785,7 +785,10 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/taito_l.cpp",
 	MAME_DIR .. "src/mame/video/taito_l.cpp",
 	MAME_DIR .. "src/mame/machine/taito68705interface.cpp",
-	MAME_DIR .. "src/mame/machine/taito68705interface.h",
+	MAME_DIR .. "src/mame/machine/taitosjsec.cpp",
+	MAME_DIR .. "src/hbmame/drivers/taitosj.cpp",
+	MAME_DIR .. "src/mame/machine/taitosj.cpp",
+	MAME_DIR .. "src/mame/video/taitosj.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")

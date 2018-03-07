@@ -7109,6 +7109,10 @@ wbmlkb
 	/* system16 */
 sys16dem				// HB
 
+	/* taitosj */
+alpine					//parent
+alpines01
+
 	/* taito_b */
 pbobble					//parent
 bubbleb
