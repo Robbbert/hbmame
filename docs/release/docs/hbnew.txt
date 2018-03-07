@@ -20,6 +20,7 @@ New Games (in addition to above)
 - [bangbeadd]       Bang Bead (decrypted)
 - [bloodbros01]     Blood Bros (Ex Super version)
 - [cabals01]        Cabal (Ex Super version)
+- [contrajs01]      Contra (Translation Chinese)
 - [deroons01]       Deroon DeroDero hack
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)

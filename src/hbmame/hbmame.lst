@@ -179,6 +179,10 @@ commando	//parent
 comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
+	/* contra */
+contra					//parent
+contrajs01
+
 	/* cps1 */
 3wonders	// parent
 captcomm	// parent
