@@ -13,6 +13,7 @@ New Games (in addition to above)
 - [3wondersb01]     3 Wonders bootleg
 - [asurabusbh]      Asura Buster hack
 - [ataris1rt]       Atari System 1 Ram Tester (not working)
+- [bangbeadd]       Bang Bead (decrypted)
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)
 
