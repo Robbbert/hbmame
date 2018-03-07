@@ -7038,15 +7038,15 @@ nrallyv			/* New Rally-X (vertical) */
 
 	/* rastan */
 rastan			//parent
-rastandh		/* Neil Pearce Hack */	
-rastand2		/* Neil Pearce Hack */
-rastaneh		/* Neil Pearce Hack */
-rastane2		/* Neil Pearce Hack */
-rastwack		/* Vogel Hack */
+rastandh
+rastand2
+rastaneh
+rastane2
+rastwack
 
 	/* retofinv */
 retofinv		//parent
-retofinv4		/* Paul Smith hack */
+retofinv4
 
 	/* schaser */
 schasrcv		// extra sounds
@@ -7074,6 +7074,10 @@ altbeastfr
 gground					//parent
 ggrounds01
 ggroundjs01
+
+@source:segas32.cpp
+ga2						//parent
+ga2s01
 
 	/* sf */
 sf						//parent

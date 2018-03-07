@@ -55,6 +55,7 @@ LAYOUTS += \
 	$(SRC)/mame/layout/maze.lay \
 	$(SRC)/mame/layout/phantom2.lay \
 	$(SRC)/mame/layout/playch10.lay \
+	$(SRC)/mame/layout/radr.lay \
 	$(SRC)/mame/layout/seawolf.lay \
 	$(SRC)/mame/layout/shuttlei.lay \
 	$(SRC)/mame/layout/spacecom.lay \

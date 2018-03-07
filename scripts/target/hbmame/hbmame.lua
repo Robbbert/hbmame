@@ -44,7 +44,9 @@ CPUS["TMS32010"] = true
 CPUS["TMS32031"] = true
 CPUS["TMS340X0"] = true
 CPUS["PIC16C5X"] = true
+CPUS["UPD7725"] = true  -- segas32
 CPUS["UPD7810"] = true
+CPUS["V60"] = true  -- segas32
 CPUS["V810"] = true
 CPUS["Z180"] = true
 CPUS["Z80"] = true
@@ -148,6 +150,7 @@ MACHINES["LDPR8210"] = true
 MACHINES["MB8421"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
+MACHINES["MB89352"] = true  -- segas32
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
@@ -677,6 +680,10 @@ files {
 	MAME_DIR .. "src/mame/video/sega16sp.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segas16b.cpp",
 	MAME_DIR .. "src/mame/video/segas16b.cpp",
+	MAME_DIR .. "src/hbmame/drivers/segas32.cpp",
+	MAME_DIR .. "src/mame/machine/segas32.cpp",
+	MAME_DIR .. "src/mame/video/segas32.cpp",
+	MAME_DIR .. "src/mame/machine/s32comm.cpp",
 	MAME_DIR .. "src/mame/machine/m2comm.cpp", -- from here, for model2
 	MAME_DIR .. "src/mame/audio/dsbz80.cpp",
 	MAME_DIR .. "src/hbmame/drivers/model2.cpp",
