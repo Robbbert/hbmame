@@ -5,7 +5,7 @@ What's new in HBMAME
 ----------------
 
 Non-working games until now have been deactivated. These games are now enabled,
-in the faint hope that others may provide assistance in getting them going.
+in the unlikely hope that others may provide assistance in getting them going.
 
 
 New Games (in addition to above)
