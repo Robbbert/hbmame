@@ -1,6 +1,35 @@
 What's new in HBMAME
 ====================
 
+2018-03-28 0.196
+----------------
+
+Non-working games until now have been deactivated. These games are now enabled,
+in the faint hope that others may provide assistance in getting them going.
+
+
+New Games (in addition to above)
+---------------------------------
+- [3wondersb01]     3 Wonders bootleg
+- [asurabusbh]      Asura Buster hack
+- [ataris1rt]       Atari System 1 Ram Tester (not working)
+- [ffightjh01]      Final Fight (hack Super Plus)
+- [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)
+
+
+
+2018-02-27 0.195
+----------------
+
+PSmame Plus was merged into HBMAME.
+
+
+New Working Games
+-----------------
+Over 4000 new games were added
+
+
+
 2018-01-31 0.193
 ----------------
 

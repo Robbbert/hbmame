@@ -197,6 +197,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"cinemat",
 		"dataeast",
 		"exidy",
+		"fuuki",
 		"gottlieb",
 		"igs",
 		"irem",
@@ -365,6 +366,15 @@ files {
 	MAME_DIR .. "src/mame/audio/exidy.cpp",
 	MAME_DIR .. "src/mame/video/exidy.cpp",
 	MAME_DIR .. "src/mame/audio/targ.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "fuuki")
+files {
+	MAME_DIR .. "src/hbmame/drivers/fuukifg3.cpp",
+	MAME_DIR .. "src/mame/includes/fuukifg3.h",
+	MAME_DIR .. "src/mame/video/fuukifg3.cpp",
+	MAME_DIR .. "src/mame/video/fuukifg.cpp",
+	MAME_DIR .. "src/mame/video/fuukifg.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "gottlieb")
