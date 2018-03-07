@@ -215,6 +215,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"phoenix",
 		"psikyo",
 		"sega",
+		"seibu",
 		"seta",
 		"snk",
 		"taito",
@@ -712,6 +713,18 @@ files {
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.h",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.h",
+}
+
+createHBMAMEProjects(_target, _subtarget, "seibu")
+files {
+	MAME_DIR .. "src/hbmame/drivers/bloodbro.cpp",
+	MAME_DIR .. "src/mame/includes/bloodbro.h",
+	MAME_DIR .. "src/mame/video/bloodbro.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cabal.cpp",
+	MAME_DIR .. "src/mame/includes/cabal.h",
+	MAME_DIR .. "src/mame/video/cabal.cpp",
+	MAME_DIR .. "src/mame/video/seibu_crtc.cpp",
+	MAME_DIR .. "src/mame/video/seibu_crtc.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")

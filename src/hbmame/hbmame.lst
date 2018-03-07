@@ -85,6 +85,10 @@ pickinpi		/* Color Hack by Pi */
 blktiger		//parent
 blkdrgonk		/* Korean Translation */
 
+	/* bloodbro */
+bloodbro				//parent
+bloodbros01
+
 	/* bombjack */
 bombjack		//parent
 bmbjckgr		/* Vag @ GreekRoms */
@@ -119,6 +123,10 @@ bublbobls01
 
 	/* bwidow */
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
+
+	/* cabal */
+cabal					//parent
+cabals01
 
 	/* cave */
 ddonpach		//parent
