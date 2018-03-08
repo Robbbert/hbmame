@@ -24576,13 +24576,6 @@ GAME( 2016, mslug3s46,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 GAME( 2016, mslug3s47,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Hacks",    "Metal Slug 3 (Non Encrypted P)(Start Special Weapons Laser Alternative Set)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, mslug3s48,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Hacks",    "Metal Slug 3 (Non Encrypted P)(Start Special Weapons Satellite Alternative Set)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, mslug3s49,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Hacks",    "Metal Slug 3 (Non Encrypted P)(Start Special Weapons Super Grenade Alternative Set)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, ms6s01,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Much Improved Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ms6s02,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Bootleg Alternative Set)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ms6s03,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Add Grenades Ammo To 99)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ms6s04,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Become Big mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ms6s05,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ms6s06,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ms6s07,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Weapon Ammo 999)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug3s55,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Hacks",    "Metal Slug 3 (Ex Super Version V1)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug3s56,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Hacks",    "Metal Slug 3 (99 grenades)(NGM-2560)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug3s57,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Hacks",    "Metal Slug 3 (Big Mode)" , MACHINE_SUPPORTS_SAVE )
@@ -24610,6 +24603,14 @@ GAME( 2017, mslug3s78,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 GAME( 2017, mslug3s79,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Hacks",    "Metal Slug 3 (NEO ARC French Traduction Set 01)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug3s80,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Hacks",    "Metal Slug 3 (Non Encrypted P)(Start Special Weapons Rocket Launcher Set)(NGH-2560)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug3s81,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Hacks",    "Metal Slug 3 (Out Of Blue)(NGH-2560)" , MACHINE_SUPPORTS_SAVE )
+
+GAME( 2016, ms6s01,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Much Improved Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ms6s02,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Bootleg Alternative Set)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ms6s03,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Add Grenades Ammo To 99)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ms6s04,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Become Big mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ms6s05,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ms6s06,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ms6s07,         mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Hacks",    "Metal Slug 6 (Weapon Ammo 999)", MACHINE_SUPPORTS_SAVE )
 
 
  /********************************************

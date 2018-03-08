@@ -1288,7 +1288,35 @@ DRIVER_INIT_MEMBER(neogeo_state,mvs)
 	DRIVER_INIT_CALL(neogeo);
 }
 
+// Fixed
+const gfx_layout charlayout =
+{
+	8,8,			/* 8 x 8 chars */
+	RGN_FRAC(1,1),
+	4,				/* 4 bits per pixel */
+	{ 0, 1, 2, 3 },    /* planes are packed in a nibble */
+	{ 33*4, 32*4, 49*4, 48*4, 1*4, 0*4, 17*4, 16*4 },
+	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8 },
+	32*8	/* 32 bytes per char */
+};
 
+// Sprites
+const gfx_layout tilelayout =
+{
+	16,16,	 /* 16*16 sprites */
+	RGN_FRAC(1,1),
+	4,
+	{ GFX_RAW },
+	{ 0 },		/* org displacement */
+	{ 8*8 },	/* line modulo */
+	128*8		/* char modulo */
+};
+
+GFXDECODE_START( neogeo )
+	GFXDECODE_ENTRY( "fixed",     0x0000, charlayout, 0, 0x1fff )
+	GFXDECODE_ENTRY( "fixedbios", 0x0000, charlayout, 0, 0x1fff )
+	//GFXDECODE_ENTRY( "sprites",   0x0000, tilelayout, 0, 0x1fff )  // not working
+GFXDECODE_END
 
 
 /*************************************
@@ -1314,6 +1342,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
 	MCFG_SCREEN_UPDATE_DRIVER(neogeo_state, screen_update_neogeo)
 
+	MCFG_GFXDECODE_ADD( "gfxdecode", "palette", neogeo)
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
 
