@@ -3687,7 +3687,6 @@ mslug3s06
 mslug3s08
 mslug3s09
 mslug3s10
-mslug3s11 // ms6
 mslug3s12
 mslug3s13
 mslug3s14
@@ -3704,7 +3703,6 @@ mslug3s24
 mslug3s25
 mslug3s26
 mslug3s27
-mslug3s28  // ms6
 mslug3s29
 mslug3s30
 mslug3s31
@@ -3726,11 +3724,6 @@ mslug3s46
 mslug3s47
 mslug3s48
 mslug3s49
-mslug3s50 // ms6
-mslug3s51 // ms6
-mslug3s52 // ms6
-mslug3s53 // ms6
-mslug3s54 // ms6
 mslug3s55 // reboot just after start
 mslug3s56
 mslug3s57
@@ -3926,6 +3919,13 @@ mslug5s86
 mslug5s87
 mslug5s88
 mslug5s89
+ms6s01 // mslug3s11
+ms6s02 // mslug3s28
+ms6s03 // mslug3s50
+ms6s04 // mslug3s51
+ms6s05 // mslug3s52
+ms6s06 // mslug3s53
+ms6s07 // mslug3s54
 mslugxs01
 mslugxs02
 mslugxs03
