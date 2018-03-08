@@ -15,17 +15,21 @@ New Games (in addition to above)
 - [amidars01]       Amidar (Translation French)
 - [asurablds01]     Asura Blade - Sword of Dynasty (Energy Mode Max)
 - [asurablds02]     Asura Blade - Sword of Dynasty (Enable hidden characters)
-- [asurabuss01]     Asura Buster hack
+- [asurabuss01]
 - [ataris1rt]       Atari System 1 Ram Tester (not working)
 - [bangbeadd]       Bang Bead (decrypted)
 - [bloodbros01]     Blood Bros (Ex Super version)
 - [cabals01]        Cabal (Ex Super version)
 - [contrajs01]      Contra (Translation Chinese)
-- [deroons01]       Deroon DeroDero hack
+- [deroons01]
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [ga2s01]          Golden Axe: The Revenge of Death Adder (unprotected)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)
-- [punisherjs03]    Punisher hack
+- [mslugs18]        Metal Slug (Plus Plus)
+- [mslug3s82]
+- [mslug3s83]
+- [mslug3s84]       Metal Slug 3 (Super Plus 2018)
+- [punisherjs03]
 - [rbffss07]        Real Bout Fatal Fury Special (Ultra Edition)
 
 
