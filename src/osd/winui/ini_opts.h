@@ -331,7 +331,7 @@ class winui_ini_options
 		{
 			if (is_ready)
 			{
-				char s[file_line.length()];
+				char s[file_line.length()+1];
 				strcpy(s, file_line.c_str());
 
 				const char* name = strtok(s, "\t");  // get adjustment name

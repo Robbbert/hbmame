@@ -540,8 +540,8 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 		}
 	}
 
-	char source_file[40], tmp[100];
 	std::string temp = core_filename_extract_base(drv->type.source(), false);
+	char source_file[temp.size()+1], tmp[2048];
 	strcpy(source_file, temp.c_str());
 	snprintf(tmp, WINUI_ARRAY_LENGTH(tmp), "\nGENERAL SOURCE INFO: %s\n", temp.c_str());
 	buffer.append(tmp);
@@ -595,8 +595,8 @@ char * GetGameHistory(int driver_index, std::string software)
 	if (validate_datfiles())
 	{
 		// Get the path to dat files
-		char buf[400];
 		std::string t = GetDatsDir();
+		char buf[t.size()+1];
 		strcpy(buf, t.c_str());
 		// only want first path
 		const char* datsdir = strtok(buf, ";");
@@ -638,8 +638,8 @@ char * GetGameHistory(int driver_index)
 
 	if (validate_datfiles())
 	{
-		char buf[400];
 		std::string t = GetDatsDir();
+		char buf[t.size()+1];
 		strcpy(buf, t.c_str());
 		// only want first path
 		const char* datsdir = strtok(buf, ";");

@@ -2199,7 +2199,7 @@ void LoadFolderFlags(void)
 
 		if (lpFolder)
 		{
-			char folder_name[256];
+			char folder_name[2048];
 			char *ptr;
 
 			// Convert spaces to underscores
@@ -2227,7 +2227,7 @@ void LoadFolderFlags(void)
 
 		if (lpFolder)
 		{
-			char folder_name[256];
+			char folder_name[2048];
 
 			// Convert spaces to underscores
 			strcpy(folder_name, lpFolder->m_lpTitle);
@@ -2260,7 +2260,7 @@ static void AddFolderFlags()
 		lpFolder = GetFolder(i);
 		if (lpFolder && (lpFolder->m_dwFlags & F_MASK) != 0)
 		{
-			char folder_name[256];
+			char folder_name[2048];
 
 			// Convert spaces to underscores
 			strcpy(folder_name, lpFolder->m_lpTitle);

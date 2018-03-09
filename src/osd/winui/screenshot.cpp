@@ -304,7 +304,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 {
 	osd_file::error filerr = osd_file::error::NOT_FOUND; // defined in osdcore.h
 	util::core_file::ptr file = NULL;
-	char fullpath[400];
+	char fullpath[2048];
 	const char* zip_name;
 	string t;
 
@@ -388,7 +388,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 
 	// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
 	strcpy(fullpath, t.c_str());
-	char tempfile [400];
+	char tempfile[2048];
 	strcpy(tempfile, filename);
 	char* system_name = strtok(tempfile, ":");
 	char* file_name = strtok(NULL, ":");
