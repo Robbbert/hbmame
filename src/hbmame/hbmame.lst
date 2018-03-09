@@ -4028,6 +4028,8 @@ mslug4s79
 mslug4s80
 mslug4s81
 mslug4s82
+mslug4s83  // not working; p rom block-encrypted
+mslug4s84
 
 @source:mslug5.cpp
 mslug5b

@@ -1,39 +1,41 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-
+// Metal Slug 4
 #include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4d )
+DRIVER_INIT_MEMBER( neogeo_state, mslug4hb ) // hacks of mslug4
 {
 	DRIVER_INIT_CALL(neogeo);
 	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
-}
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4dh )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-}
+	// decrypt m1 if needed
+	if (memregion("audiocrypt"))
+		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4it )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
-	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
-}
+	// decrypt v roms if needed
+	u8 *ram = memregion("ymsnd")->base();
+	if (ram[0x20] != 0x99)
+	{
+		//printf("ym=%X\n",ram[0x20]);
+		m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
+	}
 
-DRIVER_INIT_MEMBER( neogeo_state, mslug4m )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
+	// decrypt c roms if needed
+	ram = memregion("sprites")->base();
+	if (ram[0] != 0)
+	{
+		//printf("Sprites=%X\n",ram[0]);
+		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
+	}
+
+	// if no s rom, copy info from end of c roms
+	ram = memregion("fixed")->base();
+	if (ram[0x100] == 0)
+	{
+		//printf("Fixed1=%X\n",ram[0x100]);
+		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	}
 }
 
 #if 0
@@ -59,6 +61,7 @@ ROM_START( mslug4 )
 	ROM_LOAD16_BYTE( "263-c6.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
 #endif
+
 ROM_START( mslug4d )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263-p1.p1",  0x000000, 0x100000, CRC(27e4def3) SHA1(a08785e8145981bb6b5332a3b2df7eb321253cca) )
@@ -444,23 +447,23 @@ ROM_END
 
 
 // Metal Slug 4
-GAME( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4d,  ROT0, "Mega", "Metal Slug 4 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4dh, ROT0, "HappyASR [EGCG]", "Metal Slug 4 Super D Version", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 4 Super D Version (Hack by HappyASR [EGCG])", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 6)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami", "Metal Slug 4 (Style remix Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Arkatrad", "Metal Slug 4 (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4it, ROT0, "Evoboy", "Metal Slug 4 (Italian)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 4 (Italian)2", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state,       mslug4m,  ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 4 (LW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4,   ROT0, "hack", "Metal Slug 4 (SP)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Mega", "Metal Slug 4 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 Super D Version", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 4 Super D Version (Hack by HappyASR [EGCG])", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix 030414 set 6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style remix Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Italian)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 4 (Italian)2", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 4 (LW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "hack", "Metal Slug 4 (SP)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame (c) gaston90 used with permission
@@ -2238,6 +2241,52 @@ ROM_START( mslug4s82 )  // mslug4nd with some new roms
 	ROM_LOAD16_BYTE( "263s82.c6", 0x2000001, 0x800000, CRC(6b4517bc) SHA1(1c255ce59d5f6e797f7057dbbb1079f8c8c4a858) )
 ROM_END
 
+ROM_START( mslug4s83 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263s83.p1",  0x000000, 0x100000, CRC(ac75c892) SHA1(2657896aa6211abf7ec69df1865aeba906c07599) )
+	ROM_LOAD16_WORD_SWAP( "263-p2.sp2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "263-m1.m1", CRC(46ac8228) SHA1(5aeea221050c98e4bb0f16489ce772bf1c80f787) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263-v1.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
+	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263-c1.c1", 0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
+	ROM_LOAD16_BYTE( "263-c2.c2", 0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
+	ROM_LOAD16_BYTE( "263-c3.c3", 0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
+	ROM_LOAD16_BYTE( "263-c4.c4", 0x1000001, 0x800000, CRC(942cfb44) SHA1(d9b46c71726383c4581fb042e63897e5a3c92d1b) )
+	ROM_LOAD16_BYTE( "263-c5.c5", 0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
+	ROM_LOAD16_BYTE( "263-c6.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
+ROM_END
+
+ROM_START( mslug4s84 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263s84.p1",  0x000000, 0x100000, CRC(d4830ca5) SHA1(579f425677bffabff0c765a089727b4dc98d0bb3) )
+	ROM_LOAD16_WORD_SWAP( "263-p2.sp2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_MSLUG( "263s84.s1", CRC(07ff87ce) SHA1(96ddb439de2a26bf9869015d7fb19129d40f3fd9) )
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "263-m1.m1", CRC(46ac8228) SHA1(5aeea221050c98e4bb0f16489ce772bf1c80f787) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263-v1.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
+	ROM_LOAD( "263-v2.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263-c1.c1", 0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
+	ROM_LOAD16_BYTE( "263-c2.c2", 0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
+	ROM_LOAD16_BYTE( "263-c3.c3", 0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
+	ROM_LOAD16_BYTE( "263-c4.c4", 0x1000001, 0x800000, CRC(942cfb44) SHA1(d9b46c71726383c4581fb042e63897e5a3c92d1b) )
+	ROM_LOAD16_BYTE( "263-c5.c5", 0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
+	ROM_LOAD16_BYTE( "263-c6.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
+ROM_END
+
+
+
 /*************************************
  *
  *  Game driver(s)
@@ -2247,84 +2296,86 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 
 // Metal Slug 4
-GAME( 2016, mslug4s01,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Shotgun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s02,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Handgun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s03,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Fire Bomb)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s04,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start 99 Bomb)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s05,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Stone)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s06,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s07,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Rocket Launcher)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s08,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Shotgun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s09,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Drop Shot)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s10,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Enemy Chaser )", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s11,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Flame Shot)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s12,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun Alternative Set)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s13,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Iron Lizard)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s14,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Laser Gun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s15,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Rocket Launcher)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s16,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Mobile Sattelite)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s17,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Thunder Cloud)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s18,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (NEO ARC French Traduction Set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s19,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (NEO ARC French Traduction Set 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s21,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Two Machine Gun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s22,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s23,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s24,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (PPX Team Hack, Remixed By ZKW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s25,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun + Fire Bomb)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s26,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s27,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Thunder Cloud Alternative Set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s28,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Start Special Weapons Thunder Cloud)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s29,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Flame Shot)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s30,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Laser Gun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s31,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons EmmaCannon Alternative Set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s32,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Double Machine Gun Alternative Set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s33,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (Spacial Gun Hack by IsmaMj)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug4s34,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4m,   ROT0, "Hacks",    "Metal Slug 4 (New Weapon Home Super Grenade)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s01,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Shotgun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s02,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Handgun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s03,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Fire Bomb)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s04,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start 99 Bomb)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s05,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Stone)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s06,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s07,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Rocket Launcher)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s08,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Shotgun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s09,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Drop Shot)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s10,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Enemy Chaser )", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s11,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Flame Shot)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s12,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun Alternative Set)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s13,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Iron Lizard)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s14,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Laser Gun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s15,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Rocket Launcher)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s16,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Mobile Sattelite)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s17,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Thunder Cloud)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s18,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (NEO ARC French Traduction Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s19,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (NEO ARC French Traduction Set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s21,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Two Machine Gun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s22,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s23,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s24,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (PPX Team Hack, Remixed By ZKW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s25,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun + Fire Bomb)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s26,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s27,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Thunder Cloud Alternative Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s28,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Start Special Weapons Thunder Cloud)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s29,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Flame Shot)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s30,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Laser Gun)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s31,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons EmmaCannon Alternative Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s32,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Double Machine Gun Alternative Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s33,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Spacial Gun Hack by IsmaMj)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug4s34,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (New Weapon Home Super Grenade)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug4s35,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Metal Slug 4 (Last Bullet)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4d,   ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 01 HH(decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s37,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s38,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s39,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Start Special Fire Bomb)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s41,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Start Special Stone)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s42,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s44,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ms4plus,   ROT0, "Hacks",    "Metal Slug 4 Plus (Bootleg Alternative)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s45,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Change Character)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s46,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Change Weapon)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s47,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Change Zombie)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s48,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Ex Super Version V1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s49,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Ex Super Version V2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s50,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Neo Arc French Traduction Set 01)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s51,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Quick Go Next Mission)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s52,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Unlimited Credits In Console Mode)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s53,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (War Chariot V1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s54,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (War Chariot V2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s56,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (99 Grenades)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s57,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Big Mode)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s58,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Fire Bomb)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s59,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Bomb Stone)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s60,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Ex Super Version V1)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s61,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Prisoner Never Lost)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s62,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Flame Shot)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s63,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Heavy Machine Gun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s64,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Laser)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s65,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Rocket Launcher)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s66,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Shotgun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s67,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Cannon)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s68,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Drop Shot)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s69,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Dual Machine Gun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s70,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Enemy Chaser)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s71,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Flame Shot)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s72,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s73,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Iron Lizard)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s74,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Laser)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s75,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Rocket Launcher)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s76,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Satellite)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s77,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Shotgun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s78,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Super Grenade)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s79,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Thunder Cloud)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Description Of Unknown Origin 01 HH(decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s37,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s38,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s39,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Start Special Fire Bomb)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s41,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Start Special Stone)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s42,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s44,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (Bootleg Alternative)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s45,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Change Character)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s46,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Change Weapon)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s47,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Change Zombie)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s48,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Ex Super Version V1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s49,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Ex Super Version V2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s50,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Neo Arc French Traduction Set 01)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s51,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Quick Go Next Mission)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s52,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Unlimited Credits In Console Mode)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s53,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (War Chariot V1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s54,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (War Chariot V2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s56,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (99 Grenades)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s57,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Big Mode)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s58,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Fire Bomb)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s59,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Bomb Stone)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s60,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Ex Super Version V1)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s61,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Prisoner Never Lost)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s62,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Flame Shot)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s63,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Heavy Machine Gun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s64,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Laser)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s65,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Rocket Launcher)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s66,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Big Shotgun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s67,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Cannon)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s68,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Drop Shot)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s69,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Dual Machine Gun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s70,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Enemy Chaser)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s71,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Flame Shot)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s72,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Heavy Machine Gun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s73,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Iron Lizard)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s74,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Laser)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s75,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Rocket Launcher)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s76,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Satellite)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s77,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Shotgun)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s78,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Super Grenade)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s79,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Start Special Weapons Thunder Cloud)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug4s80,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Metal Slug 4 (Last Bullet V2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug4s81,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4,    ROT0, "Hacks",    "Metal Slug 4 (Fix The Black Background Of Title)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug4s82,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Metal Slug 4 (unknown hack s82)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug4s81,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Fix The Black Background Of Title)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4s82,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Metal Slug 4 (unknown hack s82)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4s83,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Plus (unknown hack s83)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug4s84,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 Magic Plus", MACHINE_SUPPORTS_SAVE )
 
