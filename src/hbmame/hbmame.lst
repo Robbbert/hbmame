@@ -4138,6 +4138,10 @@ mslug5s86
 mslug5s87
 mslug5s88
 mslug5s89
+mslug5s90   // not working; scrambled gfx
+mslug5s91
+mslug5s92   // not working; p1 encrypted (same as 5fu)
+mslug5s93
 
 @source:mslugx.cpp
 mslugxce
