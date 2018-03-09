@@ -1,70 +1,55 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-
+// Metal Slug 5
 #include "includes/neogeo.h"
 
+DRIVER_INIT_MEMBER( neogeo_state, mslug5hb ) // hacks of mslug5
+{
+	DRIVER_INIT_CALL(neogeo);
+	m_sprgen->m_fixed_layer_bank_type = 2; // for those sets with 512k of s1
+
+	// decrypt p roms if needed
+	u8 *ram = memregion("maincpu")->base();
+	if (ram[0x100] != 0x45)
+	{
+		//printf("Maincpu=%X\n",ram[0x100]);fflush(stdout);
+		m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
+		m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
+	}
+
+	// decrypt m1 if needed
+	if (memregion("audiocrypt"))
+		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+
+	// decrypt v roms if needed
+	ram = memregion("ymsnd")->base();
+	if (ram[0x60] != 0x82)
+	{
+		//printf("ym=%X\n",ram[0x60]);
+		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
+	}
+
+	// decrypt c roms if needed
+	ram = memregion("sprites")->base();
+	if (ram[0] != 0)
+	{
+		//printf("Sprites=%X\n",ram[0]);
+		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
+	}
+
+	// if no s rom, copy info from end of c roms
+	ram = memregion("fixed")->base();
+	if (ram[0x100] == 0)
+	{
+		//printf("Fixed1=%X\n",ram[0x100]);
+		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+	}
+}
 
 DRIVER_INIT_MEMBER( neogeo_state, mslug5b )
 {
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	DRIVER_INIT_CALL(mslug5hb);
 	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug5d )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug5hd )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
-	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug5d1 )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug5fr1 )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
-	m_sprgen->m_fixed_layer_bank_type = 1;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-}
-
-DRIVER_INIT_MEMBER( neogeo_state, ms5boot )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 2;
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-}
-
-
-DRIVER_INIT_MEMBER( neogeo_state, mslug5nd )
-{
-	DRIVER_INIT_CALL(neogeo);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 DRIVER_INIT_MEMBER( neogeo_state, ms5pcbd )
@@ -107,19 +92,18 @@ ROM_START( mslug5 )
 	ROM_LOAD16_BYTE( "268-c8c.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
 ROM_END
 #endif
+
 ROM_START( ms5boot ) /* Bootleg / Hack of Metal Slug 5 */
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	// not sure if it's actually bad, or some weird protection
-	ROM_LOAD16_WORD_SWAP( "268boot.p1", 0x000000, 0x100000, BAD_DUMP CRC(e6d297af) SHA1(5bb3f72ce26e3f46c523b955f425056eb246e855) )
-	// this one fixes all the issues
 	ROM_LOAD16_WORD_SWAP( "268nd.p1", 0x000000, 0x100000, CRC(ca50afdf) SHA1(e3780b77f20d139a0dcaa2ded2c6ee323b8b4279) )
 	ROM_LOAD16_WORD_SWAP( "268boot.p2", 0x100000, 0x100000, CRC(3fc46cfa) SHA1(f20d3d359f6cdbf6aabb6920020621b02bafee91) )
 	ROM_CONTINUE(0x300000, 0x100000 )
 	ROM_LOAD16_WORD_SWAP( "268boot.p3", 0x200000, 0x100000, CRC(742c955a) SHA1(96c0f08b1f2f6877f5169a96c13b67f3be6082c6) )
 	ROM_CONTINUE(0x400000, 0x100000 )
 
-	NEO_SFIX_MT_512K
-	//NEO_SFIX_MSLUG( "268boot.s1", CRC(52a8c09b) SHA1(3a90d8e44aa7cbc79945f8ece0e2fb9ce3e5a4c7) ) // corrupt?
+	NEO_SFIX_MT_128K
+	ROM_LOAD( "268boot.s1", 0x10000, 0x10000, CRC(52a8c09b) SHA1(3a90d8e44aa7cbc79945f8ece0e2fb9ce3e5a4c7) )
+	ROM_CONTINUE(           0x00000, 0x10000 )
 
 	NEO_BIOS_AUDIO_256K( "268boot.m1", CRC(792e07c1) SHA1(117516e8ec9026c7682ab27857aab6639bef5835) )
 
@@ -554,23 +538,23 @@ ROM_START( mslug5nd )
 ROM_END
 
 // Metal Slug 5
-GAME( 2003, mslug5b,   mslug5,   neogeo_noslot, neogeo, neogeo_state,       mslug5b,  ROT0, "bootleg", "Metal Slug 5 (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5d,   mslug5,   neogeo_noslot, neogeo, neogeo_state,       mslug5d,  ROT0, "hack", "Metal Slug 5 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5d1,  mslug5,   neogeo_noslot, neogeo, neogeo_state,       mslug5d1, ROT0, "hack", "Metal Slug 5 (NGM-2680) (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5f,   mslug5,   neogeo_noslot, neogeo, neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (F)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo, neogeo_state,       mslug5fr1,ROT0, "NEO-ARC", "Metal Slug 5 (French Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5fu,  mslug5,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 5 (FU)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5hd,  mslug5,   neogeo_noslot, neogeo, neogeo_state,       mslug5hd, ROT0, "hack", "Metal Slug 5 (NGH-2680) (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5l9a, mslug5,   neogeo_noslot, neogeo, neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 Level 9 Hack (Ver A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5l9b, mslug5,   neogeo_noslot, neogeo, neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 Level 9 Hack (Ver B)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5lvf, mslug5,   neogeo_noslot, neogeo, neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (LVF)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5lvnc,mslug5,   neogeo_noslot, neogeo, neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (LVNC)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5nd,  mslug5,   neogeo_noslot, neogeo, neogeo_state,       mslug5nd, ROT0, "hack", "Metal Slug 5 (decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5w,   mslug5,   neogeo_noslot, neogeo, neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (W)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5boot,   mslug5,   neogeo_noslot, neogeo, neogeo_state,       ms5boot,  ROT0, "bootleg", "Metal Slug 5 (Bootleg Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5pcbd,   ms5pcb,   neogeo_noslot, dualbios, neogeo_state,     ms5pcbd,  ROT0, "hack", "Metal Slug 5 (JAMMA PCB) decrypted", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5sp,     mslug5,   neogeo_noslot, neogeo, neogeo_state, ms5plus,  ROT0, "hack", "Metal Slug 5 PLUS (SP)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5b,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5b,  ROT0, "bootleg", "Metal Slug 5 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5d,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "hack", "Metal Slug 5 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5d1,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "hack", "Metal Slug 5 (NGM-2680) (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5f,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (F)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "NEO-ARC", "Metal Slug 5 (French Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5fu,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 5 (FU)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5hd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "hack", "Metal Slug 5 (NGH-2680) (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5l9a, mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 Level 9 Hack (Ver A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5l9b, mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 Level 9 Hack (Ver B)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5lvf, mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (LVF)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5lvnc,mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (LVNC)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5nd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "hack", "Metal Slug 5 (decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5w,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (W)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5boot,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Bootleg Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5pcbd,   ms5pcb,   neogeo_noslot, dualbios, neogeo_state, ms5pcbd,  ROT0, "hack", "Metal Slug 5 (JAMMA PCB) decrypted", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5sp,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "hack", "Metal Slug 5 PLUS (SP)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame (c) gaston90 used with permission
@@ -1138,22 +1122,15 @@ ROM_START( mslug5s24 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1170,22 +1147,15 @@ ROM_START( mslug5s25 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1202,22 +1172,15 @@ ROM_START( mslug5s26 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1234,22 +1197,15 @@ ROM_START( mslug5s27 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1266,22 +1222,15 @@ ROM_START( mslug5s28 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1298,22 +1247,15 @@ ROM_START( mslug5s29 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1330,22 +1272,15 @@ ROM_START( mslug5s30 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1362,22 +1297,15 @@ ROM_START( mslug5s31 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1394,22 +1322,15 @@ ROM_START( mslug5s32 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1426,22 +1347,15 @@ ROM_START( mslug5s33 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1458,22 +1372,15 @@ ROM_START( mslug5s34 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1490,22 +1397,15 @@ ROM_START( mslug5s35 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1522,22 +1422,15 @@ ROM_START( mslug5s36 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1554,22 +1447,15 @@ ROM_START( mslug5s37 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1586,22 +1472,15 @@ ROM_START( mslug5s38 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1618,22 +1497,15 @@ ROM_START( mslug5s39 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1650,22 +1522,15 @@ ROM_START( mslug5s40 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1682,22 +1547,15 @@ ROM_START( mslug5s41 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1714,22 +1572,15 @@ ROM_START( mslug5s42 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1746,22 +1597,15 @@ ROM_START( mslug5s43 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1778,22 +1622,15 @@ ROM_START( mslug5s44 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -1810,22 +1647,15 @@ ROM_START( mslug5s45 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -2010,22 +1840,15 @@ ROM_START( mslug5s53 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -2042,22 +1865,15 @@ ROM_START( mslug5s54 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -2074,22 +1890,15 @@ ROM_START( mslug5s55 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
-	ROM_Y_ZOOM
-
-	ROM_REGION( 0x20000, "fixed", 0 )
-	ROM_LOAD("ms5-s1p.bin", 0x000000, 0x20000, CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
-	ROM_REGION( 0x20000, "fixedbios", 0 )
-	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "ms5-s1p.bin", CRC(21e04432) SHA1(10057a2aa487087f7143d1d69fdad978a6bef0f7) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268-m1.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-
 	ROM_LOAD( "268-v1c.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
 	ROM_LOAD( "268-v2c.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-
 	ROM_LOAD16_BYTE( "268-c1c.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
 	ROM_LOAD16_BYTE( "268-c2c.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
 	ROM_LOAD16_BYTE( "268-c3c.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
@@ -2924,29 +2733,29 @@ ROM_END
  // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 //Metal Slug 5
-GAME( 2017, mslug5s01,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Flame Shot)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s02,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Heavy Machine Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s03,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Laser Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s04,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Rocket Launcher)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s05,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Shotgun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s06,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Drop Shot)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s07,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Enemy Chaser)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s08,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Flame Shot)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s09,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start 99 Fire Bombs)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s10,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Heavy Machine Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s11,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Iron Lizardkl)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s12,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Prisoner Never Lost)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s13,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Rocket Launcherk)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s14,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Stone)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s15,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Handgun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s16,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start 99 Stone)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s17,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start 99 Bombs)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s18,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Description Of Unknown Origin 01)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s19,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Blue Version + Start Special Weapons Big Enemy Chaser + 99 Big Stone)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s20,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Two Machine Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s21,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Laser Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s22,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Shotgun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s23,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d,   ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Super Grenade)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s01,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Flame Shot)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s02,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Heavy Machine Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s03,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Laser Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s04,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Rocket Launcher)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s05,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Big Shotgun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s06,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Drop Shot)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s07,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Enemy Chaser)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s08,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Flame Shot)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s09,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start 99 Fire Bombs)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s10,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Heavy Machine Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s11,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Iron Lizardkl)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s12,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Prisoner Never Lost)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s13,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Rocket Launcherk)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s14,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Stone)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s15,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Handgun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s16,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start 99 Stone)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s17,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start 99 Bombs)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s18,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Description Of Unknown Origin 01)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s19,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Blue Version + Start Special Weapons Big Enemy Chaser + 99 Big Stone)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s20,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Two Machine Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s21,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Laser Gun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s22,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Shotgun)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s23,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Start Special Weapons Super Grenade)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s24,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  ms5plus,   ROT0, "Hacks",    "Metal Slug 5 Plus (Start Special Weapons Handgun)(bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s25,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  ms5plus,   ROT0, "Hacks",    "Metal Slug 5 Plus (Start Special Weapons Big Flame Shot)(bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s26,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  ms5plus,   ROT0, "Hacks",    "Metal Slug 5 Plus (Start Special Weapons Big Heavy Machine Gun)(bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -2979,14 +2788,14 @@ GAME( 2017, mslug5s52,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslu
 GAME( 2017, mslug5s53,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  ms5plus,   ROT0, "Hacks",    "Metal Slug 5 Plus (Big Mode)(bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s54,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  ms5plus,   ROT0, "Hacks",    "Metal Slug 5 Plus (Ex Super Version V1)(bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s55,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  ms5plus,   ROT0, "Hacks",    "Metal Slug 5 Plus (Unlimited Credits In Console Mode)(bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s56,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Change Character)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s57,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Change Weapon And Bomb)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s58,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V1)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s59,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V2)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s60,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V3)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s61,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V4)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s62,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (Quick Go Next Mission)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug5s63,      mslug5,   neogeo_noslot, neogeo, neogeo_state,        mslug5d1,  ROT0, "Hacks",    "Metal Slug 5 (War Chariot)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s56,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Change Character)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s57,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Change Weapon And Bomb)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s58,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V1)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s59,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V2)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s60,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V3)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s61,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Color Modcolor Modification V4)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s62,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (Quick Go Next Mission)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug5s63,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5hb,  ROT0, "Hacks",    "Metal Slug 5 (War Chariot)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s64,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5,    ROT0, "Hacks",    "Metal Slug 5 (99 Grenades)(MSLUG5H)(NGM-2680)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s65,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5,    ROT0, "Hacks",    "Metal Slug 5 (Big Mode)(MSLUG5H)(NGM-2680)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mslug5s66,      mslug5,   neogeo_noslot, neogeo, neogeo_state,  mslug5,    ROT0, "Hacks",    "Metal Slug 5 (Start Special Fire Bomb)(MSLUG5H)(NGM-2680)", MACHINE_SUPPORTS_SAVE )
