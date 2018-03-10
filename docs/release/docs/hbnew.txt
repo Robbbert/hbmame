@@ -7,6 +7,8 @@ What's new in HBMAME
 Non-working games until now have been deactivated. These games are now enabled,
 in the unlikely hope that others may provide assistance in getting them going.
 
+Neogeo - added F4 displayer of text (s1) roms
+
 
 New Games (in addition to above)
 ---------------------------------
@@ -39,6 +41,9 @@ New Games (in addition to above)
 - [mslug5s92]       (not working)
 - [mslug5s93]
 - [mslug5s94]       Metal Slug 5 (Plus Red)
+- [mspacpbla]       Ms Pac-man Super Plus
+- [ottopza]
+- [pacandroid]      Pac Android
 - [punisherjs03]
 - [rbffss07]        Real Bout Fatal Fury Special (Ultra Edition)
 

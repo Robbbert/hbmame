@@ -726,8 +726,8 @@ ROM_START( msatk2ad )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "mspacatk.2",   0x1000, 0x1000, CRC(0af09d31) SHA1(6ff73e4da4910bcd2ca3aa299d8ffad23f8abf79) )
-	ROM_LOAD( "boot3",   	  0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
-	ROM_LOAD( "boot4",   	  0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "boot4",        0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
 	ROM_LOAD( "mspacat2.5",   0x8000, 0x1000, CRC(5a72a7a6) SHA1(aa54bf865e024fe00a8aefce6bc5086e90d71a54) )
 	ROM_LOAD( "mspacat2.6",   0x9000, 0x1000, CRC(bd0c3e94) SHA1(1b01ed6eab2c31bb874d1e51e773d0c130de7b75) )
 
@@ -740,10 +740,10 @@ ROM_END
 
 ROM_START( msatkad )
 	ROM_REGION( 0x10000, "maincpu", 0 )	
-	ROM_LOAD( "boot1",   	  0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
+	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "mspacatk.2",   0x1000, 0x1000, CRC(0af09d31) SHA1(6ff73e4da4910bcd2ca3aa299d8ffad23f8abf79) )
-	ROM_LOAD( "boot3",   	  0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
-	ROM_LOAD( "boot4",   	  0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "boot4",        0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
 	ROM_LOAD( "mspacatk.5",   0x8000, 0x1000, CRC(e6e06954) SHA1(ee5b266b1cc178df31fc1da5f66ef4911c653dda) )
 	ROM_LOAD( "mspacatk.6",   0x9000, 0x1000, CRC(3b5db308) SHA1(c1ba630cb8fb665c4881a6cce9d3b0d4300bd0eb) )
 
@@ -1195,7 +1195,7 @@ ROM_START( mspac6m )
 	ROM_LOAD( "mspac6m.5",    0x8000, 0x1000, CRC(d0bd89d9) SHA1(c47e96d68d7e88e906b416c24ce926b76689f22d) )
 	ROM_LOAD( "mspac6m.6",    0x9000, 0x1000, CRC(c5662407) SHA1(98827bda653b6d1d6984082c706247392ab706d2) )
 
-	ROM_REGION( 0x2000, "gfx1" , 0 )	
+	ROM_REGION( 0x2000, "gfx1" , 0 )
 	ROM_LOAD( "mspac6m.5e",   0x0000, 0x0800, CRC(2850148a) SHA1(4257a5dd4ad27d4a6bfae71bbe2564026bdaebb2) )
 	ROM_LOAD( "mspac6m.5h",   0x0800, 0x0800, CRC(6c3c6ebb) SHA1(3f19e9a20e202fda139324ef03991af99516aeef) )
 	ROM_LOAD( "mspac6m.5f",   0x1000, 0x0800, CRC(5596b345) SHA1(0320eb1f7e39dbd438be2f488f43f5b11e13f438) )
@@ -1240,10 +1240,10 @@ ROM_END
 
 ROM_START( mspacat2 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "boot1",   	  0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
+	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "mspacatk.2",   0x1000, 0x1000, CRC(0af09d31) SHA1(6ff73e4da4910bcd2ca3aa299d8ffad23f8abf79) )
 	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
-	ROM_LOAD( "boot4",   	  0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
+	ROM_LOAD( "boot4",        0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
 	ROM_LOAD( "mspacat2.5",   0x8000, 0x1000, CRC(5a72a7a6) SHA1(aa54bf865e024fe00a8aefce6bc5086e90d71a54) )
 	ROM_LOAD( "mspacat2.6",   0x9000, 0x1000, CRC(bd0c3e94) SHA1(1b01ed6eab2c31bb874d1e51e773d0c130de7b75) )
 
@@ -1271,7 +1271,7 @@ ROM_START( mspacatb )
 ROM_END
 
 ROM_START( mspacatx )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1363,13 +1363,13 @@ ROM_START( mspacii )
 	ROM_LOAD( "mspacii.1",    0x0000, 0x1000, CRC(df673b57) SHA1(93ee4e8f9751db5f7d3c35988fcb8ae8037464ed) )
 	ROM_LOAD( "mspacii.2",    0x1000, 0x1000, CRC(7591f606) SHA1(0aead0ac5af602269df8732c5763147cdb543b8d) )
 	ROM_LOAD( "mspacii.3",    0x2000, 0x1000, CRC(c8ef1a7f) SHA1(0c9a28bbe63d7d44511a13316937a21b8846543e) )
-	ROM_LOAD( "mspacii.4",	  0x3000, 0x1000, CRC(d498f435) SHA1(c041841b1349d8d5c2d560aed54c4aeb8adfddb8) )
+	ROM_LOAD( "mspacii.4",    0x3000, 0x1000, CRC(d498f435) SHA1(c041841b1349d8d5c2d560aed54c4aeb8adfddb8) )
 	ROM_LOAD( "mspacii.5",    0x8000, 0x1000, CRC(fbbc3d2e) SHA1(dc4337d7f0961e048a433021f670da6d314bd663) )
 	ROM_LOAD( "mspacii.6",    0x9000, 0x1000, CRC(aa3887c5) SHA1(0e20cb686383156a9883749568c8e57c15c3ae44) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "mspacii.5e",   0x0000, 0x1000, CRC(04333722) SHA1(bb179d5302b26b815b5d7eff14865e7b4f8a6880) )
- 	ROM_LOAD( "5f",		  0x1000, 0x1000, CRC(615af909) SHA1(fd6a1dde780b39aea76bf1c4befa5882573c2ef4) )
+ 	ROM_LOAD( "5f",           0x1000, 0x1000, CRC(615af909) SHA1(fd6a1dde780b39aea76bf1c4befa5882573c2ef4) )
 
 	PACMAN_PROMS
 ROM_END
@@ -1442,7 +1442,7 @@ ROM_START( mspacj )
 	ROM_LOAD( "mspacj.7f",    0x0000, 0x0020, CRC(3545e7e9) SHA1(b866b02579438afb11296e5c53a32c6425bd044d) )
 	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
 
-	ROM_REGION( 0x0200, "namco", 0 )	
+	ROM_REGION( 0x0200, "namco", 0 )
 	ROM_LOAD( "mspacj.1m",    0x0000, 0x0100, CRC(640e455c) SHA1(c3f7d132cf8f1ec3334366b6891fca74450a577e) )
 	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
@@ -1464,7 +1464,7 @@ ROM_START( mspacmab )
 ROM_END
 
 ROM_START( mspacman )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1528,7 +1528,7 @@ ROM_START( mspacmap )
 ROM_END
 
 ROM_START( mspacmat )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1576,7 +1576,7 @@ ROM_START( mspacmbg )
 ROM_END
 
 ROM_START( mspacmbx )
-	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
 	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
@@ -1592,7 +1592,7 @@ ROM_START( mspacmbx )
 ROM_END
 
 ROM_START( mspacmfx )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacmanf.6f",   0x1000, 0x1000, CRC(720dc3ee) SHA1(7224d7acfa0144b681c71d7734a7337189835361) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1609,7 +1609,7 @@ ROM_START( mspacmfx )
 ROM_END
 
 ROM_START( mspacmnf )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacfast.6f",   0x1000, 0x1000, CRC(720dc3ee) SHA1(7224d7acfa0144b681c71d7734a7337189835361) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1626,7 +1626,7 @@ ROM_START( mspacmnf )
 ROM_END
 
 ROM_START( mspacmnn )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1643,7 +1643,7 @@ ROM_START( mspacmnn )
 ROM_END
 
 ROM_START( mspacmnx )
-	ROM_REGION( 0x20000, "maincpu", 0 )	/* 64k for code+64k for decrypted code */
+	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1707,6 +1707,22 @@ ROM_START( mspacpbl )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( mspacpbla )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "mspacpbla.1",  0x0000, 0x1000, CRC(69c02827) SHA1(12b675ab56cb9f3184a6a6bd280eafbab4ceb5b2) )
+	ROM_LOAD( "mspacpbl.2",   0x1000, 0x1000, CRC(5426636c) SHA1(35cdd13e917c2d1e11086745de6dc3b85bf1fdbb) )
+	ROM_LOAD( "mspacpbl.3",   0x2000, 0x1000, CRC(60c890a1) SHA1(c1fbaedb212449803f5b506ac6f8e258644e4536) )
+	ROM_LOAD( "mspacpbla.4",  0x3000, 0x1000, CRC(1b842eed) SHA1(cce01ce78caab1243784c444fdb991c87257d0ce) )
+	ROM_LOAD( "mspacpbl.5",   0x8000, 0x1000, CRC(85a44e94) SHA1(59b2249f6834ee4634e9fb8daa53739e80654c85) )
+	ROM_LOAD( "mspacpbla.6",  0x9000, 0x1200, CRC(59a9a6ec) SHA1(d046c97503f502bbe491949e5210bfc86df1c310) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "mspacpbla.5e", 0x0000, 0x1000, CRC(0e25eef4) SHA1(14dba424c48232e5c38e17c3e758146127c5f91d) )
+	ROM_LOAD( "mspacpbla.5f", 0x1000, 0x1000, CRC(1604f097) SHA1(a4bf512e4ef5d09c61c59116b7f381036b70a647) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( mspacpls )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
@@ -1724,7 +1740,7 @@ ROM_START( mspacpls )
 ROM_END
 
 ROM_START( mspacplx )
-	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "mspacatk.2",   0x1000, 0x1000, CRC(0af09d31) SHA1(6ff73e4da4910bcd2ca3aa299d8ffad23f8abf79) )
 	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
@@ -1771,6 +1787,24 @@ ROM_START( mspacrip )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "mspacrip.5e",  0x0000, 0x1000, CRC(5aa9eb83) SHA1(da2500ed81873c2d96501d136c7d9478155e0d33) )
 	ROM_LOAD( "mspacrip.5f",  0x1000, 0x1000, CRC(ceb3785d) SHA1(c3cc1475ca0b1725497cd03ab116c18d57dba127) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( pacandroid )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
+	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
+	ROM_LOAD( "robot.3",      0x2000, 0x1000, CRC(1ae6f796) SHA1(7d0e0fbf7379d8df7c48b9eccfa0bc0defeec5f9) )
+	ROM_LOAD( "robot.4",      0x3000, 0x1000, CRC(39c6da70) SHA1(22efc2631c679a79122428bd1b9da81ea00edcd4) )
+	ROM_LOAD( "robot.5",      0x8000, 0x1000, CRC(655796dd) SHA1(cc4747e4572b2a1d01a407adbb20d94799d81e76) )
+	ROM_LOAD( "robot.6",      0x9000, 0x1000, CRC(cf89c337) SHA1(26c9fd31238ee8ce1e1a6aabdaab1b8dab3c45a4) )
+	// this rom came in the zipfile, what's it for?
+	ROM_LOAD_OPTIONAL( "robot.7",      0xA000, 0x1000, CRC(de5ca79d) SHA1(0b6fc656a944af87fcb66f3815873aa4ab1b3e5b) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "robot.5e",     0x0000, 0x1000, CRC(38958ef7) SHA1(59d303febe9dff2dcc217f53901a9c6f0681a1e7) )
+	ROM_LOAD( "robot.5f",     0x1000, 0x1000, CRC(9ede8477) SHA1(2f59cb1ad3c9bb187a54fea678d6a82f31411ce0) )
 
 	PACMAN_PROMS
 ROM_END
@@ -2033,6 +2067,22 @@ ROM_START( ottopz )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( ottopza )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ottopz.1",     0x0000, 0x1000, CRC(35b94585) SHA1(6a8350efbd6fab30b22365c6a2ed7e23f47af0e6) )
+	ROM_LOAD( "ottopza.2",    0x1000, 0x1000, CRC(890fc087) SHA1(dcd8a245468457dd307f1e8cf29cc5d4a21aebe7) )
+	ROM_LOAD( "ottopz.3",     0x2000, 0x1000, CRC(6f0c25bd) SHA1(f4cabdb7462310c14ecde5db9f586360ac1829f4) )
+	ROM_LOAD( "ottopza.4",    0x3000, 0x1000, CRC(6dd61478) SHA1(c4c4ffed32bfcb8bb3b0ba35bf9b2f52bbd09385) )
+	ROM_LOAD( "ottopz.5",     0x8000, 0x1000, CRC(098c2a09) SHA1(cf0e69c891dbc8b448c359abf3e869d0aaba02df) )
+	ROM_LOAD( "ottopz.6",     0x9000, 0x1000, CRC(367e5c05) SHA1(15bed84c6480fab5e7bcbbd1dbb2b8919ac1dca5) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "ottopz.5e",    0x0000, 0x1000, CRC(046d76fb) SHA1(44f607dbed727a0ae5152da67b6953ba9619566f) )
+	ROM_LOAD( "ottopz.5f",    0x1000, 0x1000, CRC(402e194d) SHA1(01867241edd28f25aa7be1d4004bb2c73979d8d0) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( pacatk )
 	ROM_REGION( 0x20000, "maincpu", 0 ) /* 64k for code+64k for decrypted code */
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -2085,7 +2135,7 @@ ROM_START( pacgalu )
 ROM_END
 
 ROM_START( pacgalx )
-	ROM_REGION( 0x10000, "maincpu", 0 )	/* 64k for code */
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
 	ROM_LOAD( "mscrzyma.3",   0x2000, 0x1000, CRC(513f4d5c) SHA1(ae011b89422bd8cbb80389814500bc1427f6ecb2) )
@@ -2382,6 +2432,70 @@ ROM_START( zolavect )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( mspacmans01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
+	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "s01.4",        0x3000, 0x1000, CRC(0127cbb5) SHA1(920ed77f2fe0d962965c1269d4b2ec1e096e5c10) )
+	ROM_LOAD( "boot5",        0x8000, 0x1000, CRC(8c3e6de6) SHA1(fed6e9a2b210b07e7189a18574f6b8c4ec5bb49b) )
+	ROM_LOAD( "s01.6",        0x9000, 0x1000, CRC(b1ad3a59) SHA1(6153d39917f0cfa13fe5e15198d360c2dbe5914d) )
+
+	ROM_REGION( 0x2000, "gfx1" , 0 )
+	ROM_LOAD( "s01.5e",       0x0000, 0x1000, CRC(73cb7028) SHA1(44c3e7de28dd04d2b08fd21d20e91e73a4781f87) )
+	ROM_LOAD( "s01.5f",       0x1000, 0x1000, CRC(38506811) SHA1(7471bfab185141718f6e5f684538bd45c5acd3b8) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( mspacmans02 )
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
+	ROM_LOAD( "fastplus.2",   0x1000, 0x1000, CRC(a8d6c227) SHA1(b5891f911bb054ca2547e663a3c27c93897f2075) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "s01.4",        0x3000, 0x1000, CRC(0127cbb5) SHA1(920ed77f2fe0d962965c1269d4b2ec1e096e5c10) )
+	ROM_LOAD( "boot5",        0x8000, 0x1000, CRC(8c3e6de6) SHA1(fed6e9a2b210b07e7189a18574f6b8c4ec5bb49b) )
+	ROM_LOAD( "s01.6",        0x9000, 0x1000, CRC(b1ad3a59) SHA1(6153d39917f0cfa13fe5e15198d360c2dbe5914d) )
+
+	ROM_REGION( 0x2000, "gfx1" , 0 )
+	ROM_LOAD( "s01.5e",       0x0000, 0x1000, CRC(73cb7028) SHA1(44c3e7de28dd04d2b08fd21d20e91e73a4781f87) )
+	ROM_LOAD( "s01.5f",       0x1000, 0x1000, CRC(38506811) SHA1(7471bfab185141718f6e5f684538bd45c5acd3b8) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( mspacmans03 )
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
+	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "s03.4",        0x3000, 0x1000, CRC(3bccac4e) SHA1(065d72f46296c39732e8af2bca344ae0ff71fbb9) )
+	ROM_LOAD( "boot5",        0x8000, 0x1000, CRC(8c3e6de6) SHA1(fed6e9a2b210b07e7189a18574f6b8c4ec5bb49b) )
+	ROM_LOAD( "s01.6",        0x9000, 0x1000, CRC(b1ad3a59) SHA1(6153d39917f0cfa13fe5e15198d360c2dbe5914d) )
+
+	ROM_REGION( 0x2000, "gfx1" , 0 )
+	ROM_LOAD( "s01.5e",       0x0000, 0x1000, CRC(73cb7028) SHA1(44c3e7de28dd04d2b08fd21d20e91e73a4781f87) )
+	ROM_LOAD( "s01.5f",       0x1000, 0x1000, CRC(38506811) SHA1(7471bfab185141718f6e5f684538bd45c5acd3b8) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( mspacmans04 )
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
+	ROM_LOAD( "fastplus.2",   0x1000, 0x1000, CRC(a8d6c227) SHA1(b5891f911bb054ca2547e663a3c27c93897f2075) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "s03.4",        0x3000, 0x1000, CRC(3bccac4e) SHA1(065d72f46296c39732e8af2bca344ae0ff71fbb9) )
+	ROM_LOAD( "boot5",        0x8000, 0x1000, CRC(8c3e6de6) SHA1(fed6e9a2b210b07e7189a18574f6b8c4ec5bb49b) )
+	ROM_LOAD( "s01.6",        0x9000, 0x1000, CRC(b1ad3a59) SHA1(6153d39917f0cfa13fe5e15198d360c2dbe5914d) )
+
+	ROM_REGION( 0x2000, "gfx1" , 0 )
+	ROM_LOAD( "s01.5e",       0x0000, 0x1000, CRC(73cb7028) SHA1(44c3e7de28dd04d2b08fd21d20e91e73a4781f87) )
+	ROM_LOAD( "s01.5f",       0x1000, 0x1000, CRC(38506811) SHA1(7471bfab185141718f6e5f684538bd45c5acd3b8) )
+
+	PACMAN_PROMS
+ROM_END
+
 /*************************************
  *
  *  Game drivers
@@ -2452,6 +2566,7 @@ GAME( 2014, ottop1,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT9
 GAME( 2014, ottop2,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Scott Lawrence", "Otto Project P2", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ottop3,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Scott Lawrence", "Otto Project P3", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ottopz,   mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "Scott Lawrence", "Otto Project PZ", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, ottopza,  mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "hack", "Crazy Otto - The Original Ms Pacman (hack of ottopz)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, superp4g, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Scott Lawrence", "Otto Project P4G", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, superp4m, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Scott Lawrence", "Otto Project P4M", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, womanp5,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Scott Lawrence", "Otto Project P5", MACHINE_SUPPORTS_SAVE )
@@ -2521,7 +2636,9 @@ GAME( 1981, mspacj,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT9
 GAME( 2007, mspacmap, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "Don Hodges", "Ms. Pacman (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mspacmbg, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (single rom)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, mspacpbl, mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "Dav/PMP", "Ms. Pac Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacpbla,mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "Mameplus", "Ms. Pac Man (Super) Plus", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mspacrip, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "R3mer", "Ms. Pac-Mortem", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, pacandroid, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Pac Android", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mspacsup, mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "[Midway]", "Super Ms. Pac-Man", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mssilad,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman After Dark (Sil)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, msultra,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "PacFan", "Ms. Ultra Pacman", MACHINE_SUPPORTS_SAVE )
@@ -2541,4 +2658,9 @@ GAME( 2000, zolapac,  mspacman, zolapac,  mspacman, pacman_state, 0,        ROT9
 GAME( 2000, zolaslow, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Slow)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, zolatunl, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Tunnels)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, zolavect, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Tqwn Amusement", "Vector Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans01, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (hack s01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans02, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (Fast)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans03, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans04, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
+
 

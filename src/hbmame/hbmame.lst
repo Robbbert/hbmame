@@ -5002,6 +5002,7 @@ mspacmbg
 mspacnes	/* T-Bone hack of Ms. Pac-Man */
 mspacp		/* Blue Justice */
 mspacpbl	/* Dav/PMP bootleg */
+mspacpbla
 mspacren	/* T-Bone hack of Ms. Pac-Man */
 mspacrip	/* R3mer hack of Ms. Pac-Man */
 mspacsup	/* Super Ms. Pac-Man */
@@ -5020,6 +5021,8 @@ ottop1
 ottop2
 ottop3
 ottopz
+ottopza
+pacandroid
 pacatk		/* Widel's Games */
 pacgalu
 pacgent
@@ -5044,6 +5047,10 @@ zolapac		/* PacMAME Hacks */
 zolaslow	/* PacMAME Hacks */
 zolatunl	/* PacMAME Hacks */
 zolavect	/* PacMAME Hacks */
+mspacmans01
+mspacmans02
+mspacmans03
+mspacmans04
 	/* "Pacman hardware" games (hires hacks) */
 mschampx
 mspacmnx
