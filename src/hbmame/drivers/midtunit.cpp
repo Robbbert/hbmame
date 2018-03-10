@@ -257,7 +257,6 @@ ROM_START( umk2te52 )
 	ROM_RELOAD(                0x900000, 0x80000 )
 	ROM_LOAD16_BYTE( "su7.l1", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
 	ROM_RELOAD(                0xb00000, 0x80000 )
-	/* su8 and su9 are unpopulated */
 
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "uj12.l52", 0x00000, 0x80000, CRC(a027088c) SHA1(10aced067d8e3a5fe905c07e2ee27904e3dd8855) )
@@ -359,19 +358,19 @@ GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "A
 GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "hack", "Mortal Kombat II v2.8 beta 1", MACHINE_SUPPORTS_SAVE )
 
-//PSmame (c) galston90
+//PSmame (c) gaston90
 
 ROM_START( mks01 )
-	ROM_REGION( 0x50000, "adpcm:cpu", 0 )   /* sound CPU */
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
 	ROM_LOAD( "mks-u3.rom", 0x10000, 0x40000, CRC(c615844c) SHA1(5732f9053a5f73b0cc3b0166d7dc4430829d5bc7) )
 
-	ROM_REGION( 0x100000, "adpcm:oki", 0 )  /* ADPCM */
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
 	ROM_LOAD( "mks-u12.rom", 0x00000, 0x40000, CRC(258bd7f9) SHA1(463890b23f17350fb9b8a85897b0777c45bc2d54) )
 	ROM_RELOAD(              0x40000, 0x40000 )
 	ROM_LOAD( "mks-u13.rom", 0x80000, 0x40000, CRC(7b7ec3b6) SHA1(6eec1b90d4a4855f34a7ebfbf93f3358d5627db4) )
 	ROM_RELOAD(              0xc0000, 0x40000 )
 
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )   /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "mkt-uj12hc01.bin", 0x00000, 0x80000, CRC(2f47f224) SHA1(44c10853696507e0c73eaeb1d5bda095af9ae62f) )
 	ROM_LOAD16_BYTE( "mkt-ug12hc01.bin", 0x00001, 0x80000, CRC(39dd89b7) SHA1(e2cfa470ed07824de2d1d43b7a6e7fb4bb8dacf3) )
 

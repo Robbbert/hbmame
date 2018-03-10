@@ -1975,7 +1975,7 @@ GAME( 2009, xmvsfrm,    xmvsf,    cps2,      cps2_2p6b, cps_state, cps2, ROT0, "
 GAME( 1996, xmvsfryh,   xmvsf,    cps2,      cps2_2p6b, cps_state, cps2, ROT0, "Ydmis", "X-Men Vs. Street Fighter (ST Char hack by Ydmis)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame (c) galston90 used with permission
+//PSmame (c) gaston90 used with permission
 
  /****************************************************
            19XX The War Against Destiny

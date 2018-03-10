@@ -31,6 +31,14 @@ New Games (in addition to above)
 - [mslug3s82]
 - [mslug3s83]
 - [mslug3s84]       Metal Slug 3 (Super Plus 2018)
+- [mslug4s82]
+- [mslug4s83]       (not working)
+- [mslug4s84]
+- [mslug5s90]       (not working)
+- [mslug5s91]
+- [mslug5s92]       (not working)
+- [mslug5s93]
+- [mslug5s94]       Metal Slug 5 (Plus Red)
 - [punisherjs03]
 - [rbffss07]        Real Bout Fatal Fury Special (Ultra Edition)
 

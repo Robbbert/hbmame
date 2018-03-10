@@ -44,7 +44,7 @@ ROM_END
 
 GAME( 2006, powernbr,  powerins, powerins, powerins, powerins_state, 0, ROT0, "Neogeo BR team", "Power Instinct (Brasil)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
 
-//PSmame galston90
+//PSmame gaston90
 
  /****************************************************
                   Power Instinct

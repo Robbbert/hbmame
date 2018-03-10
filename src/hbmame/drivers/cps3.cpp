@@ -1307,7 +1307,7 @@ GAME( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   RO
 GAME( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )
 
 
-//PSmame (c) galston90
+//PSmame (c) gaston90
 
  /****************************************
          JoJo's Bizarre Adventure
