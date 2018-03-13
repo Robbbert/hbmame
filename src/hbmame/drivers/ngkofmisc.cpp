@@ -12,7 +12,24 @@
 DRIVER_INIT_MEMBER( neogeo_state,  cthd2k3a )
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_bootleg_prot->decrypt_cthd2003(spr_region, spr_region_size, audiocpu_region,audio_region_size, fix_region, fix_region_size);
+
+	u8 nBank[] = {
+		0x06, 0x02, 0x04, 0x05, 0x01, 0x03, 0x00, 0x07,
+		0x27, 0x0E, 0x1C, 0x15, 0x1B, 0x17, 0x0A, 0x0F,
+		0x16, 0x14, 0x23, 0x0B, 0x22, 0x26, 0x08, 0x24,
+		0x21, 0x13, 0x1A, 0x0C, 0x19, 0x1D, 0x25, 0x10,
+		0x09, 0x20, 0x18, 0x1F, 0x1E, 0x12, 0x0D, 0x11
+	};
+
+	u8 *src = cpuregion;
+	std::vector<u8> dst( cpuregion_size );
+
+	for (int i = 0; i < 0x500000 / 0x20000; i++) 
+		memcpy (&dst[i * 0x20000], src + nBank[i] * 0x20000, 0x20000);
+
+	memcpy (src, &dst[0], 0x500000);
+
+	m_bootleg_prot->decrypt_cthd2003(spr_region, spr_region_size, audiocpu_region, audio_region_size, fix_region, fix_region_size);
 }
 
 // This fixes the Cart Jumper in KOGD
@@ -63,52 +80,8 @@ DRIVER_INIT_MEMBER( neogeo_state, kof10thu )
 
 ROM_START( cthd2k3a )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "360a.p1", 0x0c0000, 0x020000, CRC(1185fe39) SHA1(f7ce0878180858c359f125990fd750ec846f42dd) )
-	ROM_CONTINUE( 0x040000, 0x020000 )
-	ROM_CONTINUE( 0x020000, 0x020000 )
-	ROM_CONTINUE( 0x0a0000, 0x020000 )
-	ROM_CONTINUE( 0x080000, 0x020000 )
-	ROM_CONTINUE( 0x060000, 0x020000 )
-	ROM_CONTINUE( 0x000000, 0x020000 )
-	ROM_CONTINUE( 0x0e0000, 0x020000 )
-	ROM_FILL( 0xed00e, 1, 0x4e)
-	ROM_FILL( 0xed00f, 1, 0x71)
-	ROM_FILL( 0xed394, 1, 0x4e)
-	ROM_FILL( 0xed395, 1, 0x71)
-	ROM_FILL( 0xa2b7e, 1, 0x4e)
-	ROM_FILL( 0xa2b7f, 1, 0x71)
-	ROM_LOAD16_WORD_SWAP( "360a.p2", 0x4E0000, 0x020000, CRC(ea71faf7) SHA1(5d1bb12d04a5e2db6f48b59cae5f9b02acaeb976) )
-	ROM_CONTINUE( 0x1c0000, 0x020000 )
-	ROM_CONTINUE( 0x380000, 0x020000 )
-	ROM_CONTINUE( 0x2a0000, 0x020000 )
-	ROM_CONTINUE( 0x360000, 0x020000 )
-	ROM_CONTINUE( 0x2e0000, 0x020000 )
-	ROM_CONTINUE( 0x140000, 0x020000 )
-	ROM_CONTINUE( 0x1e0000, 0x020000 )
-	ROM_CONTINUE( 0x2c0000, 0x020000 )
-	ROM_CONTINUE( 0x280000, 0x020000 )
-	ROM_CONTINUE( 0x460000, 0x020000 )
-	ROM_CONTINUE( 0x160000, 0x020000 )
-	ROM_CONTINUE( 0x440000, 0x020000 )
-	ROM_CONTINUE( 0x4c0000, 0x020000 )
-	ROM_CONTINUE( 0x100000, 0x020000 )
-	ROM_CONTINUE( 0x480000, 0x020000 )
-	ROM_CONTINUE( 0x420000, 0x020000 )
-	ROM_CONTINUE( 0x260000, 0x020000 )
-	ROM_CONTINUE( 0x340000, 0x020000 )
-	ROM_CONTINUE( 0x180000, 0x020000 )
-	ROM_CONTINUE( 0x320000, 0x020000 )
-	ROM_CONTINUE( 0x3a0000, 0x020000 )
-	ROM_CONTINUE( 0x4a0000, 0x020000 )
-	ROM_CONTINUE( 0x200000, 0x020000 )
-	ROM_CONTINUE( 0x120000, 0x020000 )
-	ROM_CONTINUE( 0x400000, 0x020000 )
-	ROM_CONTINUE( 0x300000, 0x020000 )
-	ROM_CONTINUE( 0x3e0000, 0x020000 )
-	ROM_CONTINUE( 0x3c0000, 0x020000 )
-	ROM_CONTINUE( 0x240000, 0x020000 )
-	ROM_CONTINUE( 0x1a0000, 0x020000 )
-	ROM_CONTINUE( 0x220000, 0x020000 )
+	ROM_LOAD16_WORD_SWAP( "360a.p1", 0x000000, 0x100000, CRC(1185fe39) SHA1(f7ce0878180858c359f125990fd750ec846f42dd) )
+	ROM_LOAD16_WORD_SWAP( "360a.p2", 0x100000, 0x400000, CRC(ea71faf7) SHA1(5d1bb12d04a5e2db6f48b59cae5f9b02acaeb976) )
 
 	NEO_SFIX_128K( "360a.s1", CRC(174ccffd) SHA1(8067e4d79ac91f5c18855793840f41c30825cbb4) )
 
@@ -155,6 +128,32 @@ ROM_START( cthd2k3b ) /* Crouching Tiger Hidden Dragon 2003 - Hack by HunterX Ha
 	ROM_LOAD16_BYTE( "5003-c6.bin", 0x2000001, 0x800000, CRC(613197f9) SHA1(6d1fefa1be81b79e251e55a1352544c0298e4674) )
 	ROM_LOAD16_BYTE( "5003-c7.bin", 0x3000000, 0x800000, CRC(64ddfe0f) SHA1(361f3f4618009bf6419961266eb9ab5002bef53c) )
 	ROM_LOAD16_BYTE( "5003-c8.bin", 0x3000001, 0x800000, CRC(917a1439) SHA1(6f28d1d7c6edee1283f25e632c69204dbebe40af) )
+ROM_END
+
+ROM_START( cthd2k3d )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360d.p1", 0x000000, 0x100000, CRC(f75508d8) SHA1(c6611061f19c7b7eeafd0a36c084e6d437607781) )
+	ROM_LOAD16_WORD_SWAP( "360d.p2", 0x100000, 0x400000, CRC(eba65bda) SHA1(e66755cb11e8b16f1af68c1439dd0ec485573c10) )
+
+	NEO_SFIX_128K( "360d.s1", CRC(fc1f3809) SHA1(238bcb33cb1a1cb695f2532b04b4a7c639aad895) )
+
+	NEO_BIOS_AUDIO_128K( "360d.m1", CRC(526cccab) SHA1(f7931f42e6f27c3da1902a552a983ca588e2418b) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262-v1-08-e0.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "262-v2-08-e0.v2", 0x400000, 0x400000, CRC(003f1843) SHA1(bdd58837ad542548bd4053c262f558af88e3b989) )
+	ROM_LOAD( "262-v3-08-e0.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262-v4-08-e0.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360d.c1", 0x0000000, 0x800000, CRC(29fd9108) SHA1(97e0c01692bffddf5c157c6a9e56573861029335) )
+	ROM_LOAD16_BYTE( "360d.c2", 0x0000001, 0x800000, CRC(f58d4d3e) SHA1(d4276d4c9424fad2966cb3d49ac8f330b12ef7b6) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360d.c7", 0x3000000, 0x800000, CRC(6f1effab) SHA1(a131bece8510f403ff1af4a52a03258a9714de4a) )
+	ROM_LOAD16_BYTE( "360d.c8", 0x3000001, 0x800000, CRC(39550d3a) SHA1(8dbf219da2b39642c316164b8c28bcb350346250) )
 ROM_END
 
 ROM_START( ct2k3eh ) /* Crouching Tiger Hidden Dragon 2003 - Enhance by Fighters Kim and HunterX Hacker - (Can choose Zero and Igniz - power hack) */
@@ -339,6 +338,34 @@ ROM_START( ct2k3ys )
 	ROM_LOAD16_BYTE( "5003-c7.bin", 0x3000000, 0x800000, CRC(64ddfe0f) SHA1(361f3f4618009bf6419961266eb9ab5002bef53c) )
 	ROM_LOAD16_BYTE( "5003-c8.bin", 0x3000001, 0x800000, CRC(917a1439) SHA1(6f28d1d7c6edee1283f25e632c69204dbebe40af) )
 ROM_END
+
+ROM_START( ct2k3spd )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360spd.p1", 0x000000, 0x100000, CRC(013a509d) SHA1(c61c9b777e6e062b5f4ad87cdb78e9ca05e9bfb9) )
+	ROM_LOAD16_WORD_SWAP( "360d.p2", 0x100000, 0x400000, CRC(eba65bda) SHA1(e66755cb11e8b16f1af68c1439dd0ec485573c10) )
+
+	NEO_SFIX_128K( "360spd.s1", CRC(b86c8ba0) SHA1(cfb8f317c061899343f2c80ea16da131fd50a6e7) )
+
+	NEO_BIOS_AUDIO_128K( "360d.m1", CRC(526cccab) SHA1(f7931f42e6f27c3da1902a552a983ca588e2418b) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262-v1-08-e0.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "262-v2-08-e0.v2", 0x400000, 0x400000, CRC(003f1843) SHA1(bdd58837ad542548bd4053c262f558af88e3b989) )
+	ROM_LOAD( "262-v3-08-e0.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262-v4-08-e0.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360d.c1", 0x0000000, 0x800000, CRC(29fd9108) SHA1(97e0c01692bffddf5c157c6a9e56573861029335) )
+	ROM_LOAD16_BYTE( "360d.c2", 0x0000001, 0x800000, CRC(f58d4d3e) SHA1(d4276d4c9424fad2966cb3d49ac8f330b12ef7b6) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360d.c7", 0x3000000, 0x800000, CRC(6f1effab) SHA1(a131bece8510f403ff1af4a52a03258a9714de4a) )
+	ROM_LOAD16_BYTE( "360d.c8", 0x3000001, 0x800000, CRC(39550d3a) SHA1(8dbf219da2b39642c316164b8c28bcb350346250) )
+ROM_END
+
+
 
 
 ROM_START( kof2k4mp )
@@ -922,10 +949,12 @@ ROM_END
 
 GAME( 2003, cthd2k3b,   neogeo,   neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2k3a,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, cthd2k3d,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix v1.2 (Diff Move - 030823)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ct2k3spd,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 Super Plus (decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (hack spi)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)", MACHINE_SUPPORTS_SAVE )
