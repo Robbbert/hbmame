@@ -952,7 +952,6 @@ teetertfp		// free play hack
 exerion		//parent
 exerionj	/* Japanese version */
 exeriongr	/* Vag @ GreekRoms 2004 */
-//irion    // mame test
 
 	/* fcrash */
 fcrash
@@ -3358,20 +3357,20 @@ kof2k3s04
 kof2k3s05
 kof2k3s06
 
-	/* kyugo */
+@source:kyugo.cpp
 airwolf		//parent
 airwolffr	// french
 
-	/* lkage */
+@source:lkage.cpp
 lkage					//parent
 lkages01
 
-	/* m52 */
+@source:m52.cpp
 alpha1v		// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
-	/* maketrax */
+@source:maketrax.cpp
 eyes		//parent
 aa			/* Widel's Games */
 abscam		// GL 1982
@@ -3403,7 +3402,7 @@ tst_pacm
 wavybug
 zap			/* Widel's Games */
 
-	/* mappy */
+@source:mappy.cpp
 mappy		//parent
 superpac	//parent
 crackhea 	/* Cary Barnhard hack of Mappy */
@@ -3415,11 +3414,11 @@ superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
-	/* mario */
+@source:mario.cpp
 mario		//parent
 cenmario 
 
-	/* mcr */
+@source:mcr.cpp
 shollow		//parent
 tron		//parent
 tapper		//parent
@@ -3428,15 +3427,15 @@ shtron		/* Jerronimo */
 stapper		/* Tapper Simpsons Hack */
 stapper1	/* Tapper Simpsons Hack ver .81 */
 
-	/* mcr3 */
+@source:mcr3.cpp
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
-	/* mexico86 */
+@source:mexico86.cpp
 kikikai					//parent
 kikikais01
 
-	/* mgd2 */
+@source:mgd2.cpp
 bstarsd		/* 0002 (c) 1990 SNK */
 tpgolfd		/* 0003 (c) 1990 SNK */
 maglordd	/* 0005 (c) 1990 Alpha Denshi Co. */
@@ -3470,7 +3469,7 @@ androdund	/* 0049 (c) 1992 Visco */
 ncommandd	/* 0050 (c) 1992 Alpha Denshi Co. */
 wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 
-	/* midtunit */
+@source:midtunit.cpp
 mk			//parent
 mkfr		// french
 mkturbod	/* MK protection hack */
@@ -3502,20 +3501,20 @@ umk3r13b1213
 umk3r13b201
 umk3r13bf
 
-	/* midyunit */
+@source:midyunit.cpp
 mkla4d		/* MK protection hack */
 
-	/* mitchell */
+@source:mitchell.cpp
 mitcdemo	/* Charles Doty */
 
-	/* model2 */
+@source:model2.cpp
 srallyc		//parent
 srallyp		// Kyle Hodgetts Sega Rally Pro Drivin'
 
-	/* monaco */
+@source:monaco.cpp
 monaco
 
-	/* mrdo */
+@source:mrdo.cpp
 mrdo		//parent
 mrdigdo		/* Justin Clark hack of Mr. Do! */
 mrdofast	/* Speedup hack from Evil Exidy*/
