@@ -23,6 +23,9 @@ New Games (in addition to above)
 - [bloodbros01]     Blood Bros (Ex Super version)
 - [cabals01]        Cabal (Ex Super version)
 - [contrajs01]      Contra (Translation Chinese)
+- [ct2k3spd]
+- [cthd2k3a]
+- [cthd2k3d]
 - [deroons01]
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [ga2s01]          Golden Axe: The Revenge of Death Adder (unprotected)
