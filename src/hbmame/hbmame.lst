@@ -9,20 +9,20 @@
 ****************************************************************************
 
 
-	/* 1942 */
+@source:1942.cpp
 1942			//parent
 1942h
 1942c64			// 1942 with C64 sounds (by minwah)
 1942fpa			// 1942 with free play (by cmonkey)
 galagax 		/* Jerky - Chris Moore hack of 1942 */
 
-	/* 1943 */
+@source:1943.cpp
 1943			//parent
 1943h			/* Hacked to have the vendor name and phone number */
 1943kai			//parent
 1943kais01
 
-	/* 8080bw */
+@source:8080bw.cpp
 invaders		//parent
 tst_invd		// test rom
 invmulti		//parent
@@ -37,66 +37,66 @@ invmultis3a
 invmultit3d
 invrvnge		//parent for ir
 
-	/* arkanoid */
+@source:arkanoid.cpp
 arkanoid		//parent
 akblc2dx		/* hack */
 akgcdx			/* hack */
 aktaytdx		/* hack */
 arkll32			/* LLMAME 32 */
 
-	/* asteroid */
+@source:asteroid.cpp
 asteroid		//parent
 asteroid6		/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer		// star destroyer, hack of asteroid2
 //amg			// test only
 
-	/* astrocde */
+@source:astrocde.cpp
 tst_gorf		/* Gorf test rom */
 tst_gor1		/* Gorf test rom */
 tst_wow2		/* Wow test rom */
 tst_wow3		/* Wow test rom */
 
-	/* astrof */
+@source:astrof.cpp
 astrof			//parent
 astrofbl		/* Black Background */
 
-	/* asuka */
+@source:asuka.cpp
 asuka			//parent
 asukac			// chinese
 
-	/* atarisy1 */
+@source:atarisy1.cpp
 atarisy1		//bios
 indytemp		//parent
 ataris1hw
 ataris1rt				//black screen
 
-	/* atari_s1 */
+@source:atari_s1.cpp
 //atarians	//parent
 //atarianb	/* hack for emulators */
 
-	/* bagman */
+@source:bagman.cpp
 bagman			//parent
 bagturbo
 pickin			//parent
 pickinpi		/* Color Hack by Pi */
 
-	/* blktiger */
+@source:blktiger.cpp
 blktiger		//parent
 blkdrgonk		/* Korean Translation */
 
-	/* bloodbro */
+@source:bloodbro.cpp
 bloodbro				//parent
 bloodbros01
 
-	/* bombjack */
+@source:bombjack.cpp
 bombjack		//parent
 bmbjckgr		/* Vag @ GreekRoms */
 bombjckb		/* bootleg */
 bombjred		/* hack by unknown French person */
 bombjacks01
 
-	/* btime */
+@source:btime.cpp
 btime			//parent
 brubber			//parent
 lnc				//parent
@@ -105,7 +105,7 @@ pnc				/* Pac N Chase */
 stictime		/* Marks Hack of btime */
 vecbtime		/* T-Bone hack of Burgertime */
 
-	/* bublbobl */
+@source:bublbobl.cpp
 bublbobl		//parent
 boblcave
 bublcave
@@ -121,14 +121,14 @@ bublbobf 		/* Arkatrad */
 sboblboblh 		/* level select hack */
 bublbobls01
 
-	/* bwidow */
+@source:bwidow.cpp
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
-	/* cabal */
+@source:cabal.cpp
 cabal					//parent
 cabals01
 
-	/* cave */
+@source:cave.cpp
 ddonpach		//parent
 ddonpacha		// trap15 hack
 pwrinst2		//parent
@@ -144,11 +144,11 @@ metmqstrs01
 theroes
 theroes01
 
-	/* cball */
+@source:cball.cpp
 cball			//parent
 cballfix		// With MASH 'fixed' gfx rom
 
-	/* cclimber */
+@source:cclimber.cpp
 ckong			//parent
 cclimber		//parent
 tongypac
@@ -157,7 +157,7 @@ ckonga2
 ckonga3
 cclimbrm		/* Tim Arcadecollecting Modded Version */
 
-	/* centiped */
+@source:centiped.cpp
 centiped	//parent
 milliped	//parent
 astroped	/* Twisty Hack of Centipede */
@@ -171,19 +171,19 @@ vectrped	/* T-Bone hack of Centipede */
 centipb		/* bootleg of centipdb */
 magworm2	/* bootleg of magworm */
 
-	/* cinemat */
+@source:cinemat.cpp
 bbugtest	/* Test Rom */
 
-	/* commando */
+@source:commando.cpp
 commando	//parent
 comdelux	/* Twisty Hack */
 comdlux1	/* Twisty Hack */
 
-	/* contra */
+@source:contra.cpp
 contra					//parent
 contrajs01
 
-	/* cps1 */
+@source:cps1.cpp
 3wonders	// parent
 captcomm	// parent
 cawing		// parent
@@ -629,7 +629,7 @@ wofr107 // wof; ingame crash
 wofr108 // wof
 wofr109 // wof
 
-	/* cps2 */
+@source:cps2.cpp
 // CPS2 PARENTS ***
 1944
 19xx
@@ -864,7 +864,7 @@ xmcotaj2s01
 xmvsfs01
 xmvsfjs01
 
-	/* cps3 */
+@source:cps3.cpp
 jojo			//parent
 jojoba			//parent
 redearth		//parent
@@ -913,13 +913,13 @@ sfiii3ns03
 sfiii3ns04
 sfiii3nrs01
 
-	/* dec0 */
+@source:dec0.cpp
 baddudes		//parent
 baddudef		/* Arkatrad */
 decodemo		/* Charles Doty */
 baddudes01      // bad text
 
-	/* dkong */
+@source:dkong.cpp
 dkong			//parent
 dkong2m
 dkongex			/* Jeff's Hack with Foundry Level */
@@ -934,31 +934,31 @@ dkrdemo
 kong2600		/* Vic Twenty George hack of Donkey Kong */
 nadkong
 
-	/* docastle */
+@source:docastle.cpp
 dorunrun		//parent
 sdreturn
 
-	/* dotrikun */
+@source:dotrikun.cpp
 dotrikun		//parent
 dotrikun2
 dotriman
 mineswp			/* Minesweeper */
 
-	/* ertictac */
+@source:ertictac.cpp
 armdemo		/* Charles Doty */  // totally broken
 
-	/* exidy */
+@source:exidy.cpp
 targ			//parent
 targtest		// Targ Test Rom
 teetert			//parent
 teetertfp		// free play hack
 
-	/* exerion */
+@source:exerion.cpp
 exerion		//parent
 exerionj	/* Japanese version */
 exeriongr	/* Vag @ GreekRoms 2004 */
 
-	/* fcrash */
+@source:fcrash.cpp
 fcrash
 captcommb2
 dinopic3
@@ -966,14 +966,14 @@ ffightbl
 ffightbla
 kodb
 
-	/* fuukifg3 */
+@source:fuukifg3.cpp
 asurabld				//parent
 asurablds01
 asurablds02
 asurabus				//parent
 asurabuss01
 
-	/* galaga */
+@source:galaga.cpp
 galaga		//parent
 xevious		//parent
 galagads
@@ -1006,7 +1006,7 @@ xevious5	/* Xevious 2005 */
 xeviblk		/* Xevious Black */
 sxeviouss01
 
-	/* galaxian */
+@source:galaxian.cpp
 amidar		//parent
 mooncrst	//parent
 pisces		//parent
@@ -1038,34 +1038,34 @@ vectrgal	/* T-Bone hack of Galaxian */
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 
-	/* gauntlet */
+@source:gauntlet.cpp
 gaunt2		//parent
 gaunt2ls	// Orange Elf - new levels
 gaunt2s		/* Speed Hack */
 gaunt2f		// graphics hack
 
-	/* gottlieb */
+@source:gottlieb.cpp
 qbert		//parent
 711qbert	/* Hack of Mello Yellow QBert */
 pbert
 qbertb
 vbert
 
-	/* gradius3 */
+@source:gradius3.cpp
 gradius3				//parent
 gradius3s01
 
-	/* igs011 */
+@source:igs011.cpp
 lhb2					//parent
 lhb2s01
 
-	/* ir */
+@source:ir.cpp
 ir			// extra sounds
 
-	/* itech8 */
+@source:itech8.cpp
 itecdemo	/* Charles Doty */
 
-	/* jrpacman */
+@source:jrpacman.cpp
 jrpacman	//parent
 jr1000		/* Blue Justice */
 jr1000_2	/* Blue Justice */
@@ -1101,12 +1101,12 @@ jrcheat
 jrspeed
 jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
-	/* kaneko */
+@source:kaneko.cpp
 shogwarr		//parent
 fjbusterbh
 shogwarrbh
 
-	/* kof94 */
+@source:kof94.cpp
 kof94b
 kof94bc
 kof94blk
@@ -1149,7 +1149,7 @@ kof94s21
 kof94s22
 kof94s23
 
-	/* kof95 */
+@source:kof95.cpp
 kof95b
 kof95bln
 kof95brz
@@ -1208,7 +1208,7 @@ kof95hs07
 kof95hs08
 kof95hs09
 
-	/* kof96 */
+@source:kof96.cpp
 kof96a
 kof96ae
 kof96ae1
@@ -1339,7 +1339,7 @@ kof96s72
 kof96s73
 kof96s74
 
-	/* kof97 */
+@source:kof97.cpp
 kof97aa
 kof97ae
 kof97ae1
@@ -1813,7 +1813,7 @@ kof97plss17
 kof97plss18
 kof97plss19
 
-	/* kof98 */
+@source:kof98.cpp
 kof98aas
 //kof98ae //test only, do not enable
 kof98ae0 //black splashes all over fight scene where cars speed past
@@ -2095,7 +2095,7 @@ kof98xz05
 kof98xz06
 kof98xz07
 
-	/* kof99 */
+@source:kof99.cpp
 kof99ab
 kof99ae		/* Anniversary Edition */
 kof99ae0
@@ -2438,7 +2438,7 @@ kof99ps35
 kof99ps36
 kof99ps37
 
-	/* kof2000 */
+@source:kof2000.cpp
 kof2000d
 kof2000ev
 kof2000r
@@ -2558,7 +2558,7 @@ kof2000ds40
 kof2000ds41
 kof2000ds42
 
-	/* kof2001 */
+@source:kof2001.cpp
 kof2001d
 kof2001n
 kof2k1ay
@@ -2695,7 +2695,7 @@ kof2001hs28
 kof2001hs29
 kof2001hs30
 
-	/* kof2002 */
+@source:kof2002.cpp
 kof200215
 kof2002d
 kof2002x
@@ -3140,7 +3140,7 @@ kof2k2s28
 kof2k2s29
 kof2k2s30 // no sound in attract mode
 
-	/* kof2003 */
+@source:kof2003.cpp
 kof2003d
 kof2003f
 kof2003rebh
