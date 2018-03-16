@@ -93,8 +93,6 @@ struct CPS1config
 	int in2_addr;
 	int in3_addr;
 	int out2_addr;
-
-	int bootleg_kludge;
 };
 
 
@@ -149,7 +147,6 @@ public:
 	int m_in2_addr;
 	int m_in3_addr;
 	int m_out2_addr;
-	int m_bootleg_kludge;
 	u8 m_scrollx1;
 	u8 m_scrollx2;
 	u8 m_scrollx3;
