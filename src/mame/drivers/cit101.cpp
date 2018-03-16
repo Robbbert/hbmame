@@ -4,12 +4,49 @@
 
 Skeleton driver for first-generation C. Itoh video terminals.
 
+CIT-101 (released December 1980)
+    C. Itoh's first terminal, based on DEC VT100. ANSI X3.64 and V52 compatible.
+    12-inch monochrome screen displaying 24 lines of 80 or 132 characters.
+    8 x 10 character cell, 10 x 10 (80 columns)/9 x 10 (132 columns) display cell.
+    15,600 Hz horizontal frequency; 50 Hz/60 Hz vertical frequency selectable.
+    Cursor may be selected as blinking or solid block/underline, or invisible.
+    7 or 8 bit ASCII characters.
+    RS232-C or 20 mA current loop communications and auxiliary (printer) ports.
+    85-key detachable keyboard with 7 LEDs and settable key click.
+CIT-80 (released September 1981)
+    "Entry-level version" of CIT-101.
+    12-inch monochrome screen displaying 24 lines of 80 characters.
+    7-bit characters only.
+CIT-161 (released 1982)
+    Colorized version of the CIT-101.
+    12-inch color screen displaying 24 lines of 80 or 132 characters.
+    64 combinations of 8 colors are programmable.
+CIT-500 (released 1982)
+    Word processing terminal with full page display.
+    15-inch vertically oriented monochrome screen with tilt/swivel.
+    64 lines of 80 characters (interlaced).
+    105-key keyboard.
+CIT-101e (released 1983)
+    Ergonomic redesign of CIT-101.
+    Competitive with DEC VT220 (which was released several months later).
+    14-inch monochrome screen with tilt/swivel, 24 lines of 80 or 132 characters.
+    85-key low-profile keyboard.
+CIG-201
+    Plug-in graphics card for CIT-101 and CIT-101e.
+    Compatible with Tektronix 4010/4014.
+CIG-261
+    Plug-in color graphics card for CIT-161.
+    Compatible with Tektronix 4010/4014.
+CIG-267
+    Plug-in color graphics card for CIT-161.
+    Compatible with Tektronix 4027A.
+
 ************************************************************************************************************************************/
 
 #include "emu.h"
 //#include "bus/rs232/rs232.h"
 #include "cpu/i8085/i8085.h"
-//#include "machine/er2055.h"
+#include "machine/er2055.h"
 #include "machine/i8251.h"
 #include "machine/pit8253.h"
 #include "machine/i8255.h"
@@ -23,6 +60,7 @@ public:
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
 		, m_screen(*this, "screen")
+		, m_nvr(*this, "nvr")
 		, m_chargen(*this, "chargen")
 	{ }
 
@@ -30,11 +68,17 @@ public:
 private:
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
+	DECLARE_WRITE8_MEMBER(nvr_address_w);
+	DECLARE_READ8_MEMBER(nvr_data_r);
+	DECLARE_WRITE8_MEMBER(nvr_data_w);
+	DECLARE_WRITE8_MEMBER(nvr_control_w);
+
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
 
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
+	required_device<er2055_device> m_nvr;
 	required_region_ptr<u8> m_chargen;
 };
 
@@ -44,6 +88,27 @@ u32 cit101_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, con
 	return 0;
 }
 
+
+WRITE8_MEMBER(cit101_state::nvr_address_w)
+{
+	m_nvr->set_address(data & 0x3f);
+	m_nvr->set_clk(BIT(data, 6));
+}
+
+READ8_MEMBER(cit101_state::nvr_data_r)
+{
+	return m_nvr->data();
+}
+
+WRITE8_MEMBER(cit101_state::nvr_data_w)
+{
+	m_nvr->set_data(data);
+}
+
+WRITE8_MEMBER(cit101_state::nvr_control_w)
+{
+	m_nvr->set_control(BIT(data, 5), !BIT(data, 4), BIT(data, 7), BIT(data, 6));
+}
 
 void cit101_state::mem_map(address_map &map)
 {
@@ -56,14 +121,21 @@ void cit101_state::mem_map(address_map &map)
 	map(0xfc21, 0xfc21).rw("usart1", FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
 	map(0xfc40, 0xfc40).rw("usart2", FUNC(i8251_device::data_r), FUNC(i8251_device::data_w));
 	map(0xfc41, 0xfc41).rw("usart2", FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
-	map(0xfc60, 0xfc60).noprw(); // ER2055 data?
+	map(0xfc60, 0xfc63).rw("ppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0xfc80, 0xfc83).w("pit0", FUNC(pit8253_device::write));
 	map(0xfcc0, 0xfcc3).w("pit1", FUNC(pit8253_device::write));
 }
 
 void cit101_state::io_map(address_map &map)
 {
+	map(0x00, 0x00).rw("usart0", FUNC(i8251_device::data_r), FUNC(i8251_device::data_w));
+	map(0x01, 0x01).rw("usart0", FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
+	map(0x20, 0x20).rw("usart1", FUNC(i8251_device::data_r), FUNC(i8251_device::data_w));
+	map(0x21, 0x21).rw("usart1", FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
+	map(0x40, 0x40).rw("usart2", FUNC(i8251_device::data_r), FUNC(i8251_device::data_w));
+	map(0x41, 0x41).rw("usart2", FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
 	map(0x60, 0x63).rw("ppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
+	map(0xa0, 0xa0).nopw(); // ?
 	map(0xe0, 0xe0).noprw(); // ?
 }
 
@@ -93,8 +165,12 @@ MACHINE_CONFIG_START(cit101_state::cit101)
 	MCFG_DEVICE_ADD("pit1", PIT8253, 0) // NEC D8253C-2
 
 	MCFG_DEVICE_ADD("ppi", I8255A, 0) // NEC D8255AC-2
+	MCFG_I8255_OUT_PORTA_CB(WRITE8(cit101_state, nvr_address_w))
+	MCFG_I8255_IN_PORTB_CB(READ8(cit101_state, nvr_data_r))
+	MCFG_I8255_OUT_PORTB_CB(WRITE8(cit101_state, nvr_data_w))
+	MCFG_I8255_OUT_PORTC_CB(WRITE8(cit101_state, nvr_control_w))
 
-	//MCFG_DEVICE_ADD("nvr", ER2055, 0)
+	MCFG_DEVICE_ADD("nvr", ER2055, 0)
 MACHINE_CONFIG_END
 
 
@@ -109,4 +185,4 @@ ROM_START( cit101 )
 	ROM_LOAD( "1H (5H 1 02) Char ROM.BIN", 0x0000, 0x1000, CRC(ee0ff889) SHA1(a74ada19d19041b29e1b49aaf57ba7d9d54575e1) )
 ROM_END
 
-COMP( 1981, cit101, 0, 0, cit101, cit101, cit101_state, 0, "C. Itoh", "CIT-101", MACHINE_IS_SKELETON )
+COMP( 1980, cit101, 0, 0, cit101, cit101, cit101_state, 0, "C. Itoh Electronics", "CIT-101", MACHINE_IS_SKELETON )
