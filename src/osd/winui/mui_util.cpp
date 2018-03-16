@@ -394,7 +394,7 @@ const char * GetDriverFilename(uint32_t nIndex)
 
 BOOL isDriverVector(const machine_config *config)
 {
-	const screen_device *screen  = config->first_screen();
+	const screen_device *screen = screen_device_iterator(config->root_device()).first();
 
 	if (screen)
 		if (SCREEN_TYPE_VECTOR == screen->screen_type())

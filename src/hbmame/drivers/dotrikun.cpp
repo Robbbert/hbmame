@@ -138,18 +138,18 @@ WRITE8_MEMBER( mineswp_state::mineswp_color_w )
     Address maps
 
 *******************************************************************/
-ADDRESS_MAP_START( mineswp_state::mineswp_map )
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x8000, 0x85ff) AM_RAM_WRITE(vram_w) AM_SHARE("vram")
-	AM_RANGE(0x8600, 0x86df) AM_RAM
-	AM_RANGE(0x86e0, 0x86ff) AM_RAM AM_SHARE("nvram")
-	AM_RANGE(0x8700, 0x87ff) AM_RAM
-ADDRESS_MAP_END
+void mineswp_state::mineswp_map(address_map &map) {
+	map(0x0000,0x3fff).rom();
+	map(0x8000,0x85ff).ram().w(this,FUNC(mineswp_state::vram_w)).share("vram");
+	map(0x8600,0x86df).ram();
+	map(0x86e0,0x86ff).ram().share("nvram");
+	map(0x8700,0x87ff).ram();
+}
 
-ADDRESS_MAP_START( mineswp_state::mineswp_io )
-	ADDRESS_MAP_GLOBAL_MASK(0xff)
-	AM_RANGE(0x00, 0x00) AM_MIRROR(0xff) AM_READ_PORT("INPUTS") AM_WRITE(mineswp_color_w)
-ADDRESS_MAP_END
+void mineswp_state::mineswp_io(address_map &map) {
+	map.global_mask(0xff);
+	map(0x00,0x00).mirror(0xff).portr("INPUTS").w(this,FUNC(mineswp_state::mineswp_color_w));
+}
 
 
 

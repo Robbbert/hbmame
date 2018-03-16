@@ -16,28 +16,28 @@ ROM_START( deroons01 )  // deroona
 
 	ROM_REGION( 0x2200, "cpu2", ROMREGION_ERASE00 )
 
-	ROM_REGION( 0x2000000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "t101.uah1", 0x0000000, 0x200000, CRC(74baf845) SHA1(935d2954ba227a894542be492654a2750198e1bc) )
 	ROM_LOAD16_BYTE( "t102.ual1", 0x0000001, 0x200000, CRC(1a02c4a3) SHA1(5155eeaef009fc9a9f258e3e54ca2a7f78242df5) )
 	ROM_LOAD16_BYTE( "t103.ubl1", 0x0800001, 0x400000, CRC(84e7da88) SHA1(b5c3234f33bb945cc9762b91db087153a0589cfb) )
 	ROM_LOAD16_BYTE( "t104.ucl1", 0x1000001, 0x200000, CRC(66eb611a) SHA1(64435d35677fea3c06fdb03c670f3f63ee481c02) )
 
-	ROM_REGION( 0x100000, "gfx2", 0 )
+	ROM_REGION( 0x100000, "layer0", 0 )
 	ROM_LOAD( "t301.ubd1", 0x000000, 0x100000, CRC(8b026177) SHA1(3887856bdaec4d9d3669fe3bc958ef186fbe9adb) )
 
-	ROM_REGION( 0x100000, "gfx3", ROMREGION_ERASE00)
+	ROM_REGION( 0x100000, "layer1", ROMREGION_ERASE00)
 
-	ROM_REGION( 0x100000, "gfx4", 0 )
+	ROM_REGION( 0x100000, "layer2", 0 )
 	ROM_LOAD( "t201.ubb1", 0x000000, 0x100000, CRC(d5a087ac) SHA1(5098160ce7719d93e3edae05f6edd317d4c61f0d) )
 
-	ROM_REGION( 0x100000, "gfx5", 0 )
+	ROM_REGION( 0x100000, "layer3", 0 )
 	ROM_LOAD( "t202.ubc1", 0x000000, 0x100000, CRC(f051dae1) SHA1(f5677c07fe644b3838657370f0309fb09244c619) )
 
 	ROM_REGION( 0x200000, "ymz", 0 )
 	ROM_LOAD( "t401.uya1", 0x000000, 0x200000, CRC(92111992) SHA1(ae27e11ae76dec0b9892ad32e1a8bf6ab11f2e6c) )
 
-	ROM_REGION( 0x100000, "oki", 0 )
-	ROM_LOAD( "t501.uad1", 0x080000, 0x080000, CRC(2fbcfe27) SHA1(f25c830322423f0959a36955edb563a6150f2142) )
+	ROM_REGION( 0x80000, "oki", 0 )
+	ROM_LOAD( "t501.uad1", 0x00000, 0x80000, CRC(2fbcfe27) SHA1(f25c830322423f0959a36955edb563a6150f2142) )
 ROM_END
 
 /****************************************
@@ -54,7 +54,7 @@ ROM_START( tkdenshos01 )
 
 	ROM_REGION( 0x2200, "cpu2", ROMREGION_ERASE00 )
 
-	ROM_REGION( 0x4000000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x4000000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "ae100h.ah1",    0x0000000, 0x0400000, CRC(06be252b) SHA1(08d1bb569fd2e66e2c2f47da7780b31945232e62) )
 	ROM_LOAD16_BYTE( "ae100.al1",     0x0000001, 0x0400000, CRC(009cdff4) SHA1(fd88f07313d14fd4429b09a1e8d6b595df3b98e5) )
 	ROM_LOAD16_BYTE( "ae101h.bh1",    0x0800000, 0x0400000, CRC(f2469eff) SHA1(ba49d15cc7949437ba9f56d9b425a5f0e62137df) )
@@ -65,24 +65,24 @@ ROM_START( tkdenshos01 )
 	ROM_LOAD16_BYTE( "ae105.fl1",     0x2800001, 0x0400000, CRC(b7f9ebc1) SHA1(987f664072b43a578b39fa6132aaaccc5fe5bfc2) )
 	ROM_LOAD16_BYTE( "ae106.gl1",     0x3000001, 0x0200000, CRC(7c50374b) SHA1(40865913125230122072bb13f46fb5fb60c088ea) )
 
-	ROM_REGION( 0x080000, "gfx2", 0 )
+	ROM_REGION( 0x080000, "layer0", 0 )
 	ROM_LOAD( "ae300w36.bd1",  0x000000, 0x080000, CRC(e829f29e) SHA1(e56bfe2669ed1d1ae394c644def426db129d97e3) )
 
-	ROM_REGION( 0x100000, "gfx3", 0 )
+	ROM_REGION( 0x100000, "layer1", 0 )
 	ROM_LOAD( "ae200w74.ba1",  0x000000, 0x100000, CRC(c1645041) SHA1(323670a6aa2a4524eb968cc0b4d688098ffeeb12) )
 
-	ROM_REGION( 0x100000, "gfx4", 0 )
+	ROM_REGION( 0x100000, "layer2", 0 )
 	ROM_LOAD( "ae201w75.bb1",  0x000000, 0x100000, CRC(3f63bdff) SHA1(0d3d57fdc0ec4bceef27c11403b3631d23abadbf) )
 
-	ROM_REGION( 0x100000, "gfx5", 0 )
+	ROM_REGION( 0x100000, "layer3", 0 )
 	ROM_LOAD( "ae202w76.bc1",  0x000000, 0x100000, CRC(5cc857ca) SHA1(2553fb5220433acc15dfb726dc064fe333e51d88) )
 
 	ROM_REGION( 0x400000, "ymz", 0 )
 	ROM_LOAD( "ae400t23.ya1", 0x000000, 0x200000, CRC(c6ffb043) SHA1(e0c6c5f6b840f63c9a685a2c3be66efa4935cbeb) )
 	ROM_LOAD( "ae401t24.yb1", 0x200000, 0x200000, CRC(d83f1a73) SHA1(412b7ac9ff09a984c28b7d195330d78c4aac3dc5) )
 
-	ROM_REGION( 0x100000, "oki", 0 )
-	ROM_LOAD( "ae500w07.ad1", 0x080000, 0x080000, CRC(3734f92c) SHA1(048555b5aa89eaf983305c439ba08d32b4a1bb80) )
+	ROM_REGION( 0x80000, "oki", 0 )
+	ROM_LOAD( "ae500w07.ad1", 0x00000, 0x80000, CRC(3734f92c) SHA1(048555b5aa89eaf983305c439ba08d32b4a1bb80) )
 ROM_END
 
 /*************************************
@@ -91,5 +91,5 @@ ROM_END
  *
  *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT          MONITOR COMPANY       FULLNAME FLAGS */
-GAME( 1995, deroons01,    deroon,   deroon, deroon, tecmosys_state, deroon,     ROT0, "hack", "Deroon DeroDero (unknown hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tkdenshos01,  tkdensho, deroon, deroon, tecmosys_state, tkdensho,   ROT0, "Hacks", "Toukidenshou - Angel Eyes (VER. 960614)(Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "hack", "Deroon DeroDero (unknown hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, tkdensho,   ROT0, "Hacks", "Toukidenshou - Angel Eyes (VER. 960614)(Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )

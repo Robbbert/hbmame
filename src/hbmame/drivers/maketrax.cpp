@@ -55,7 +55,7 @@ READ8_MEMBER(pacman_state::maketrax_special_port2_r)
 
 READ8_MEMBER(pacman_state::maketrax_special_port3_r)
 {
- 
+
 	if (m_maketrax_disable_protection == 0)
 		return m_p_maincpu[0xebd + m_maketrax_offset*2];
 
@@ -94,10 +94,10 @@ WRITE8_MEMBER(pacman_state::piranha_interrupt_vector_w)
  *
  *************************************/
 
-ADDRESS_MAP_START( pacman_state::piranha_writeport )
-	ADDRESS_MAP_GLOBAL_MASK(0xff)
-	AM_RANGE(0x00, 0x00) AM_WRITE(piranha_interrupt_vector_w)
-ADDRESS_MAP_END
+void pacman_state::piranha_writeport(address_map &map) {
+	map.global_mask(0xff);
+	map(0x00,0x00).w(this,FUNC(pacman_state::piranha_interrupt_vector_w));
+}
 
 
 /*************************************

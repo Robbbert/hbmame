@@ -158,114 +158,114 @@ WRITE8_MEMBER( pacman_state::zolatimer_w )	/* to stop it hanging when game reset
 
 
 /* Same as woodhack, plus it has nvram, and some extra ram at fffc */
-ADDRESS_MAP_START( pacman_state::mspachi_map )
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0xa000) AM_RAM AM_SHARE("nvram")
-	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0xa000) AM_RAM
-	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0xa000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5007) AM_DEVWRITE("mainlatch", addressable_latch_device, write_d0)
-	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
-	AM_RANGE(0x5070, 0x5080) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x5000, 0x5000) AM_READ_PORT("IN0")
-	AM_RANGE(0x5040, 0x5040) AM_READ_PORT("IN1")
-	AM_RANGE(0x5080, 0x5080) AM_READ_PORT("DSW1")
-	AM_RANGE(0x50c0, 0x50c0) AM_READ_PORT("DSW2")
-	AM_RANGE(0x7000, 0x70ff) AM_RAM
-	AM_RANGE(0x8000, 0xbfff) AM_ROM
-	AM_RANGE(0xfffc, 0xffff) AM_RAM
-ADDRESS_MAP_END
+void pacman_state::mspachi_map(address_map &map) {
+	map(0x0000,0x3fff).rom();
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).ram().share("nvram");
+	map(0x4c00,0x4fef).mirror(0xa000).ram();
+	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
+	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5060,0x506f).writeonly().share("spriteram2");
+	map(0x5070,0x5080).nopw();
+	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x5000,0x5000).portr("IN0");
+	map(0x5040,0x5040).portr("IN1");
+	map(0x5080,0x5080).portr("DSW1");
+	map(0x50c0,0x50c0).portr("DSW2");
+	map(0x7000,0x70ff).ram();
+	map(0x8000,0xbfff).rom();
+	map(0xfffc,0xffff).ram();
+}
 
-ADDRESS_MAP_START( pacman_state::mspacii_map )
+void pacman_state::mspacii_map(address_map &map) {
 	/* do not use UNMAP_HIGH (protection issues) */
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0xa000) AM_READ(pacman_read_nop)
-	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0xa000) AM_RAM
-	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0xa000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5007) AM_MIRROR(0x8000) AM_DEVWRITE("mainlatch", addressable_latch_device, write_d0)
-	AM_RANGE(0x5040, 0x505f) AM_MIRROR(0x8000) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x5060, 0x506f) AM_MIRROR(0x8000) AM_WRITEONLY AM_SHARE("spriteram2")
-	AM_RANGE(0x5070, 0x5080) AM_MIRROR(0x8000) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x5000, 0x5000) AM_MIRROR(0x8000) AM_READ_PORT("IN0")
-	AM_RANGE(0x5040, 0x5040) AM_MIRROR(0x8000) AM_READ_PORT("IN1")
-	AM_RANGE(0x504d, 0x506f) AM_READ(mspacii_prot_r)
-	AM_RANGE(0x5080, 0x5080) AM_MIRROR(0x8000) AM_READ_PORT("DSW1")
-	AM_RANGE(0x50c0, 0x50c0) AM_MIRROR(0x8000) AM_READ_PORT("DSW2")
-	AM_RANGE(0x8000, 0x9fff) AM_ROM
-	AM_RANGE(0xfffc, 0xffff) AM_WRITENOP
-ADDRESS_MAP_END
+	map(0x0000,0x3fff).rom();
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4c00,0x4fef).mirror(0xa000).ram();
+	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
+	map(0x5000,0x5007).mirror(0x8000).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5040,0x505f).mirror(0x8000).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5060,0x506f).mirror(0x8000).writeonly().share("spriteram2");
+	map(0x5070,0x5080).mirror(0x8000).nopw();
+	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x5000,0x5000).mirror(0x8000).portr("IN0");
+	map(0x5040,0x5040).mirror(0x8000).portr("IN1");
+	map(0x504d,0x506f).r(this,FUNC(pacman_state::mspacii_prot_r));
+	map(0x5080,0x5080).mirror(0x8000).portr("DSW1");
+	map(0x50c0,0x50c0).mirror(0x8000).portr("DSW2");
+	map(0x8000,0x9fff).rom();
+	map(0xfffc,0xffff).nopw();
+}
 
-ADDRESS_MAP_START( pacman_state::mspacman_map )
+void pacman_state::mspacman_map(address_map &map) {
 	/* start with 0000-3fff and 8000-bfff mapped to the ROMs */
-	AM_RANGE(0x0000, 0xffff) AM_ROMBANK("bank1")
-	AM_RANGE(0x4000, 0x7fff) AM_MIRROR(0x8000) AM_UNMAP
+	map(0x0000,0xffff).bankr("bank1");
+	map(0x4000,0x7fff).mirror(0x8000);
 
-	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0xa000) AM_READ(pacman_read_nop) AM_WRITENOP
-	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0xa000) AM_RAM
-	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0xa000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5007) AM_MIRROR(0xaf38) AM_DEVWRITE("mainlatch", addressable_latch_device, write_d0)
-	AM_RANGE(0x5040, 0x505f) AM_MIRROR(0xaf00) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x5060, 0x506f) AM_MIRROR(0xaf00) AM_WRITEONLY AM_SHARE("spriteram2")
-	AM_RANGE(0x5070, 0x507f) AM_MIRROR(0xaf00) AM_WRITENOP
-	AM_RANGE(0x5080, 0x5080) AM_MIRROR(0xaf3f) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x5000, 0x5000) AM_MIRROR(0xaf3f) AM_READ_PORT("IN0")
-	AM_RANGE(0x5040, 0x5040) AM_MIRROR(0xaf3f) AM_READ_PORT("IN1")
-	AM_RANGE(0x5080, 0x5080) AM_MIRROR(0xaf3f) AM_READ_PORT("DSW1")
-	AM_RANGE(0x50c0, 0x50c0) AM_MIRROR(0xaf3f) AM_READ_PORT("DSW2")
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(this,FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4c00,0x4fef).mirror(0xa000).ram();
+	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
+	map(0x5000,0x5007).mirror(0xaf38).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5040,0x505f).mirror(0xaf00).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5060,0x506f).mirror(0xaf00).writeonly().share("spriteram2");
+	map(0x5070,0x507f).mirror(0xaf00).nopw();
+	map(0x5080,0x5080).mirror(0xaf3f).nopw();
+	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x5000,0x5000).mirror(0xaf3f).portr("IN0");
+	map(0x5040,0x5040).mirror(0xaf3f).portr("IN1");
+	map(0x5080,0x5080).mirror(0xaf3f).portr("DSW1");
+	map(0x50c0,0x50c0).mirror(0xaf3f).portr("DSW2");
 
 	/* overlay decode enable/disable on top */
-	AM_RANGE(0x0038, 0x003f) AM_READWRITE(mspacman_disable_decode_r_0x0038,mspacman_disable_decode_w)
-	AM_RANGE(0x03b0, 0x03b7) AM_READWRITE(mspacman_disable_decode_r_0x03b0,mspacman_disable_decode_w)
-	AM_RANGE(0x1600, 0x1607) AM_READWRITE(mspacman_disable_decode_r_0x1600,mspacman_disable_decode_w)
-	AM_RANGE(0x2120, 0x2127) AM_READWRITE(mspacman_disable_decode_r_0x2120,mspacman_disable_decode_w)
-	AM_RANGE(0x3ff0, 0x3ff7) AM_READWRITE(mspacman_disable_decode_r_0x3ff0,mspacman_disable_decode_w)
-	AM_RANGE(0x3ff8, 0x3fff) AM_READWRITE(mspacman_enable_decode_r_0x3ff8,mspacman_enable_decode_w)
-	AM_RANGE(0x8000, 0x8007) AM_READWRITE(mspacman_disable_decode_r_0x8000,mspacman_disable_decode_w)
-	AM_RANGE(0x97f0, 0x97f7) AM_READWRITE(mspacman_disable_decode_r_0x97f0,mspacman_disable_decode_w)
-ADDRESS_MAP_END
+	map(0x0038,0x003f).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x0038),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x03b0,0x03b7).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x03b0),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x1600,0x1607).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x1600),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x2120,0x2127).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x2120),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x3ff0,0x3ff7).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x3ff0),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x3ff8,0x3fff).rw(this,FUNC(pacman_state::mspacman_enable_decode_r_0x3ff8),FUNC(pacman_state::mspacman_enable_decode_w));
+	map(0x8000,0x8007).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x8000),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x97f0,0x97f7).rw(this,FUNC(pacman_state::mspacman_disable_decode_r_0x97f0),FUNC(pacman_state::mspacman_disable_decode_w));
+}
 
 
 /* For Dave Widel's hacks */
-ADDRESS_MAP_START( pacman_state::widel_map )
+void pacman_state::widel_map(address_map &map) {
 	/* bace and dderby set 5000-5FFF to zero for no apparent reason */
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x8000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0x8000) AM_READ(pacman_read_nop)
-	AM_RANGE(0x4c00, 0x4fef) AM_RAM
-	AM_RANGE(0x4ff0, 0x4fff) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5007) AM_DEVWRITE("mainlatch", addressable_latch_device, write_d0)
-	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
-	AM_RANGE(0x5070, 0x5080) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x5000, 0x5000) AM_READ_PORT("IN0")
-	AM_RANGE(0x5040, 0x5040) AM_READ_PORT("IN1")
-	AM_RANGE(0x5080, 0x5080) AM_READ_PORT("DSW1")
-	AM_RANGE(0x50c0, 0x50c0) AM_READ_PORT("DSW2")	/* DSW2 - not used */
-	AM_RANGE(0x5103, 0x5103) AM_WRITENOP			/* aa */
-	AM_RANGE(0x5c0e, 0x5c0e) AM_RAM				/* mrmrspac */
-	AM_RANGE(0x5fff, 0x5fff) AM_READNOP			/* aa */
-	AM_RANGE(0x8000, 0x9fff) AM_ROM				/* only really needed by mrmrspac */
-	AM_RANGE(0xd000, 0xd000) AM_RAM				/* mrmrspac */
-	AM_RANGE(0xf000, 0xffff) AM_RAM
-ADDRESS_MAP_END
+	map(0x0000,0x3fff).rom();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4c00,0x4fef).ram();
+	map(0x4ff0,0x4fff).ram().share("spriteram");
+	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5060,0x506f).writeonly().share("spriteram2");
+	map(0x5070,0x5080).nopw();
+	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x5000,0x5000).portr("IN0");
+	map(0x5040,0x5040).portr("IN1");
+	map(0x5080,0x5080).portr("DSW1");
+	map(0x50c0,0x50c0).portr("DSW2");  /* DSW2 - not used */
+	map(0x5103,0x5103).nopw();  /* aa */
+	map(0x5c0e,0x5c0e).ram();  /* mrmrspac */
+	map(0x5fff,0x5fff).nopr();  /* aa */
+	map(0x8000,0x9fff).rom();  /* only really needed by mrmrspac */
+	map(0xd000,0xd000).ram();  /* mrmrspac */
+	map(0xf000,0xffff).ram();
+}
 
-ADDRESS_MAP_START( pacman_state::zolapac_io )
-	ADDRESS_MAP_GLOBAL_MASK(0xff)
-	AM_RANGE(0x00, 0x00) AM_READ(zolatimer_r)
-	AM_RANGE(0x10, 0x10) AM_WRITENOP		/* writes 0 at reset */
-	AM_RANGE(0x11, 0x11) AM_WRITE(zolatimer_w)
-ADDRESS_MAP_END
+void pacman_state::zolapac_io(address_map &map) {
+	map.global_mask(0xff);
+	map(0x00,0x00).r(this,FUNC(pacman_state::zolatimer_r));
+	map(0x10,0x10).nopw();  /* writes 0 at reset */
+	map(0x11,0x11).w(this,FUNC(pacman_state::zolatimer_w));
+}
 
 
 /*************************************

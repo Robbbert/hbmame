@@ -164,44 +164,44 @@ READ8_MEMBER( pacman_state::pacman_read_nop )
  *
  *************************************/
 
-ADDRESS_MAP_START( pacman_state::pacman_map )
-	ADDRESS_MAP_GLOBAL_MASK(0x7fff)   /* A15 not connected at the CPU */
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0x2000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0x2000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0x2000) AM_READ(pacman_read_nop)
-	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0x2000) AM_RAM
-	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0x2000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5007) AM_DEVWRITE("mainlatch", addressable_latch_device, write_d0)
-	AM_RANGE(0x5040, 0x505f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x5060, 0x506f) AM_WRITEONLY AM_SHARE("spriteram2")
-	AM_RANGE(0x5070, 0x5080) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x5000, 0x5000) AM_READ_PORT("IN0")
-	AM_RANGE(0x5040, 0x5040) AM_READ_PORT("IN1")
-	AM_RANGE(0x5080, 0x5080) AM_READ_PORT("DSW1")
-	AM_RANGE(0x50c0, 0x50c0) AM_READ_PORT("DSW2")
-ADDRESS_MAP_END
+void pacman_state::pacman_map(address_map &map) {
+	map.global_mask(0x7fff);   /* A15 not connected at the CPU */
+	map(0x0000,0x3fff).rom();
+	map(0x4000,0x43ff).mirror(0x2000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x2000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x2000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4c00,0x4fef).mirror(0x2000).ram();
+	map(0x4ff0,0x4fff).mirror(0x2000).ram().share("spriteram");
+	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5060,0x506f).writeonly().share("spriteram2");
+	map(0x5070,0x5080).nopw();
+	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x5000,0x5000).portr("IN0");
+	map(0x5040,0x5040).portr("IN1");
+	map(0x5080,0x5080).portr("DSW1");
+	map(0x50c0,0x50c0).portr("DSW2");
+}
 
-ADDRESS_MAP_START( pacman_state::woodpek_map )
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x4000, 0x43ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x4400, 0x47ff) AM_MIRROR(0xa000) AM_RAM_WRITE(pacman_colorram_w) AM_SHARE("colorram")
-	AM_RANGE(0x4800, 0x4bff) AM_MIRROR(0xa000) AM_READ(pacman_read_nop)
-	AM_RANGE(0x4c00, 0x4fef) AM_MIRROR(0xa000) AM_RAM
-	AM_RANGE(0x4ff0, 0x4fff) AM_MIRROR(0xa000) AM_RAM AM_SHARE("spriteram")
-	AM_RANGE(0x5000, 0x5007) AM_DEVWRITE("mainlatch", ls259_device, write_d0)
-	AM_RANGE(0x5040, 0x505f) AM_MIRROR(0x8000) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x5060, 0x506f) AM_MIRROR(0x8000) AM_WRITEONLY AM_SHARE("spriteram2")
-	AM_RANGE(0x5070, 0x5080) AM_MIRROR(0x8000) AM_WRITENOP
-	AM_RANGE(0x50c0, 0x50c0) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x5000, 0x5000) AM_MIRROR(0x8000) AM_READ_PORT("IN0")
-	AM_RANGE(0x5040, 0x5040) AM_MIRROR(0x8000) AM_READ_PORT("IN1")
-	AM_RANGE(0x5080, 0x5080) AM_MIRROR(0x8000) AM_READ_PORT("DSW1")
-	AM_RANGE(0x50c0, 0x50c0) AM_MIRROR(0x8000) AM_READ_PORT("DSW2")
-	AM_RANGE(0x8000, 0xbfff) AM_ROM
-	AM_RANGE(0xff00, 0xffff) AM_RAM
-ADDRESS_MAP_END
+void pacman_state::woodpek_map(address_map &map) {
+	map(0x0000,0x3fff).rom();
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4c00,0x4fef).mirror(0xa000).ram();
+	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
+	map(0x5000,0x5007).w("mainlatch",FUNC(ls259_device::write_d0));
+	map(0x5040,0x505f).mirror(0x8000).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5060,0x506f).mirror(0x8000).writeonly().share("spriteram2");
+	map(0x5070,0x5080).mirror(0x8000).nopw();
+	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x5000,0x5000).mirror(0x8000).portr("IN0");
+	map(0x5040,0x5040).mirror(0x8000).portr("IN1");
+	map(0x5080,0x5080).mirror(0x8000).portr("DSW1");
+	map(0x50c0,0x50c0).mirror(0x8000).portr("DSW2");
+	map(0x8000,0xbfff).rom();
+	map(0xff00,0xffff).ram();
+}
 
 /*************************************
  *
@@ -209,9 +209,9 @@ ADDRESS_MAP_END
  *
  *************************************/
 
-ADDRESS_MAP_START( pacman_state::io_map )
-	AM_RANGE(0x0000, 0xffff) AM_WRITE(pacman_interrupt_vector_w)
-ADDRESS_MAP_END
+void pacman_state::io_map(address_map &map) {
+	map(0x0000,0xffff).w(this,FUNC(pacman_state::pacman_interrupt_vector_w));
+}
 
 /*************************************
  *

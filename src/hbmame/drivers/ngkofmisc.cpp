@@ -24,7 +24,7 @@ DRIVER_INIT_MEMBER( neogeo_state,  cthd2k3a )
 	u8 *src = cpuregion;
 	std::vector<u8> dst( cpuregion_size );
 
-	for (int i = 0; i < 0x500000 / 0x20000; i++) 
+	for (int i = 0; i < 0x500000 / 0x20000; i++)
 		memcpy (&dst[i * 0x20000], src + nBank[i] * 0x20000, 0x20000);
 
 	memcpy (src, &dst[0], 0x500000);
@@ -33,11 +33,11 @@ DRIVER_INIT_MEMBER( neogeo_state,  cthd2k3a )
 }
 
 // This fixes the Cart Jumper in KOGD
-ADDRESS_MAP_START( neogeo_state::main_map1 )
-	AM_IMPORT_FROM( neogeo_main_map )
-	AM_RANGE(0x000000, 0x00007f) AM_READ(banked_vectors_r)
-	AM_RANGE(0x000080, 0x0fffff) AM_ROM
-ADDRESS_MAP_END
+void neogeo_state::main_map1(address_map &map) {
+	neogeo_main_map(map);
+	map(0x000000,0x00007f).r(this,FUNC(neogeo_state::banked_vectors_r));
+	map(0x000080,0x0fffff).rom();
+}
 
 MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
 	neogeo_arcade(config);

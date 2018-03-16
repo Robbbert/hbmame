@@ -414,7 +414,7 @@ static const dasm_table_entry dasm_table[] =
 	{ "sh2",             be,  0, []() -> util::disasm_interface * { return new sh_disassembler(false); } },
 	{ "sh4",             le,  0, []() -> util::disasm_interface * { return new sh_disassembler(true); } },
 	{ "sh4be",           be,  0, []() -> util::disasm_interface * { return new sh_disassembler(true); } },
-	{ "sharc",           le, -2, []() -> util::disasm_interface * { return new sharc_disassembler; } },
+	{ "sharc",           le, -3, []() -> util::disasm_interface * { return new sharc_disassembler; } },
 	{ "sm500",           le,  0, []() -> util::disasm_interface * { return new sm500_disassembler; } },
 	{ "sm510",           le,  0, []() -> util::disasm_interface * { return new sm510_disassembler; } },
 	{ "sm511",           le,  0, []() -> util::disasm_interface * { return new sm511_disassembler; } },
@@ -776,7 +776,7 @@ unidasm_data_buffer::unidasm_data_buffer(util::disasm_interface *_disasm, const 
 		case -2:
 			lr8 = [](offs_t pc) -> u8 { abort(); };
 			lr16 = [](offs_t pc) -> u16 { abort(); };
-			lr32 = [this](offs_t pc) -> u16 {
+			lr32 = [this](offs_t pc) -> u32 {
 				const u32 *p = get_ptr<u32>(pc);
 				return p ?
 				p[0]
