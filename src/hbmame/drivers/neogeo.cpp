@@ -1206,8 +1206,8 @@ void neogeo_state::audio_map(address_map &map) {
 void neogeo_state::audio_io_map(address_map &map) {
 	map(0x00,0x00).mirror(0xff00).r(this,FUNC(neogeo_state::audio_command_r)).w("soundlatch",FUNC(generic_latch_8_device::clear_w));
 	map(0x04,0x07).mirror(0xff00).rw("ymsnd",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
-	map(0x08,0x08).mirror(0xff00).w(this,FUNC(neogeo_state::audio_cpu_enable_nmi_w));
-	map(0x08,0x0b).mirror(0x00f0).r(this,FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(this,FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(this,FUNC(neogeo_state::audio_cpu_bank_select_r));
 	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2",FUNC(generic_latch_8_device::write));
 }
 
