@@ -5,7 +5,7 @@ What's new in HBMAME
 ----------------
 
 Non-working games until now have been deactivated. These games are now enabled,
-in the unlikely hope that others may provide assistance in getting them going.
+in the possible hope that others may provide assistance in getting them going.
 
 Neogeo - added F4 displayer of text (s1) roms
 
@@ -37,6 +37,11 @@ New Games (in addition to above)
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [ga2s01]          Golden Axe: The Revenge of Death Adder (unprotected)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)
+- [kof10thd]
+- [kof2k4mp2]
+- [kof2k4pls]
+- [kof96s75]
+- [kof96s76]
 - [lbsp3]           Last Blade (Super Plus)
 - [mslugr*]         Metal Slug 175 hacks
 - [mslugs18]        Metal Slug (Plus Plus)

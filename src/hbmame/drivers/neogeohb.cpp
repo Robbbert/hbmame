@@ -122,6 +122,7 @@ NUM YEAR COMPANY          TITLE
 364 2004 SNK?             King of Fighters 2004 EX (hack of kof2003)
 365 2004 Dragon Co, Ltd   King of Fighters Special Edition 2004 (hack of kof2002)
 366 2008 SNK?             King of Fighters 10th Anniversary 2008 (hack of kof10th) (original number 5009)
+367 2005 SNK?             King of Fighters 10th Anniversary 2005 (hack of kof10th) (original number 5006)
 
 
 

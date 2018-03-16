@@ -5575,16 +5575,17 @@ ct2k3spi
 ct2k3xx
 ct2k3ys
 kof2k4mp
+kof2k4mp2
 kof2k4omg
+kof2k4pls
 kof2k4ru // no sound in attract mode
 kof2k4se1
 kof2k4se2
-//kof2k4pls
 kof2k4seb
 kof2k4spl
 kof2k8uni
-//kof10thbr
-//kof10thd
+kof10thbr   // broken; not working; p1 needs unscrambling
+kof10thd
 kof10thd16 // broken; not working, p1 needs unscrambling
 kof10thep15
 kof10thu
