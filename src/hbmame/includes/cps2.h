@@ -1,14 +1,15 @@
 // license:BSD-3-Clause
-// copyright-holders:Paul Leaman
+// copyright-holders:Robbbert
 /***************************************************************************
 
-   Capcom CPS1/2 hardware
+   Capcom CPS2 hardware
 
 ***************************************************************************/
 
 #ifndef _CPS1_H_
 #define _CPS1_H_
 
+#include "emu.h"
 #include "sound/msm5205.h"
 #include "sound/qsound.h"
 #include "sound/okim6295.h"
@@ -97,10 +98,10 @@ struct CPS1config
 };
 
 
-class cps1_state : public driver_device
+class cps2_state : public driver_device
 {
 public:
-	cps1_state(const machine_config &mconfig, device_type type, const char *tag)
+	cps2_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 		m_mainram(*this, "mainram"),
 		m_gfxram(*this, "gfxram"),
@@ -122,8 +123,6 @@ public:
 		m_audiocpu(*this, "audiocpu"),
 		m_oki(*this, "oki"),
 		m_m48t35(*this,"m48t35"),
-		m_msm_1(*this, "msm1"),
-		m_msm_2(*this, "msm2"),
 		m_gfxdecode(*this, "gfxdecode"),
 		m_screen(*this, "screen"),
 		m_palette(*this, "palette"),
@@ -219,13 +218,6 @@ public:
 	int          m_ecofghtr_dial_last0;
 	int          m_ecofghtr_dial_last1;
 
-
-	/* fcrash sound hw */
-	int          m_sample_buffer1;
-	int          m_sample_buffer2;
-	int          m_sample_select1;
-	int          m_sample_select2;
-
 	/* video config (never changed after video_start) */
 	const struct CPS1config *m_game_config;
 	int          m_scroll_size;
@@ -238,25 +230,11 @@ public:
 	uint8_t        m_empty_tile[32*32];
 	int          m_cps_version;
 
-	/* fcrash video config */
-	uint8_t        m_layer_enable_reg;
-	uint8_t        m_layer_mask_reg[4];
-	int          m_layer_scroll1x_offset;
-	int          m_layer_scroll2x_offset;
-	int          m_layer_scroll3x_offset;
-	int          m_sprite_base;
-	int          m_sprite_list_end_marker;
-	int          m_sprite_x_offset;
-	std::unique_ptr<uint16_t[]> m_bootleg_sprite_ram;
-	std::unique_ptr<uint16_t[]> m_bootleg_work_ram;
-
 	/* devices */
 	required_device<m68000_base_device> m_maincpu;
 	optional_device<cpu_device> m_audiocpu;
 	optional_device<okim6295_device> m_oki;
 	optional_device<m48t35_device> m_m48t35;
-	optional_device<msm5205_device> m_msm_1;    // fcrash
-	optional_device<msm5205_device> m_msm_2;    // fcrash
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<screen_device> m_screen;
 	required_device<palette_device> m_palette;
@@ -278,11 +256,6 @@ public:
 	DECLARE_READ16_MEMBER(qsound_sharedram2_r);
 	DECLARE_WRITE16_MEMBER(qsound_sharedram2_w);
 	DECLARE_WRITE8_MEMBER(qsound_banksw_w);
-	DECLARE_READ16_MEMBER(sf2rb_prot_r);
-	DECLARE_READ16_MEMBER(sf2rb2_prot_r);
-	DECLARE_READ16_MEMBER(sf2dongb_prot_r);
-	DECLARE_READ16_MEMBER(sf2ceblp_prot_r);
-	DECLARE_WRITE16_MEMBER(sf2ceblp_prot_w);
 	DECLARE_READ16_MEMBER(cps1_dsw_r);
 	DECLARE_WRITE16_MEMBER(cps1_coinctrl_w);
 	DECLARE_READ16_MEMBER(qsound_sharedram1_r);
@@ -299,25 +272,8 @@ public:
 	DECLARE_WRITE16_MEMBER(cps2_objram1_w);
 	DECLARE_WRITE16_MEMBER(cps2_objram2_w);
 	DECLARE_WRITE8_MEMBER(cps1_oki_pin7_w);
-	DECLARE_WRITE16_MEMBER(sf2m1_layer_w);
-	DECLARE_WRITE16_MEMBER(sf2m3_layer_w);
-	DECLARE_READ16_MEMBER(dinohunt_sound_r);
-	DECLARE_DRIVER_INIT(sf2rb);
-	DECLARE_DRIVER_INIT(sf2rb2);
-	DECLARE_DRIVER_INIT(sf2thndr);
-	DECLARE_DRIVER_INIT(dinohunt);
-	DECLARE_DRIVER_INIT(sf2hack);
-	DECLARE_DRIVER_INIT(slammast);
-	DECLARE_DRIVER_INIT(pang3b);
-	DECLARE_DRIVER_INIT(pang3);
-	DECLARE_DRIVER_INIT(sf2ee);
-	DECLARE_DRIVER_INIT(sf2m8);
-	DECLARE_DRIVER_INIT(cps1);
-	DECLARE_DRIVER_INIT(dino);
-	DECLARE_DRIVER_INIT(punisher);
-	DECLARE_DRIVER_INIT(wof);
-	DECLARE_DRIVER_INIT(ganbare);
 	DECLARE_DRIVER_INIT(cps2_video);
+	DECLARE_DRIVER_INIT(cps1);
 	DECLARE_DRIVER_INIT(cps2);
 	DECLARE_DRIVER_INIT(cps2nc);
 	DECLARE_DRIVER_INIT(cps2crypt);
@@ -334,16 +290,14 @@ public:
 	TILE_GET_INFO_MEMBER(get_tile0_info);
 	TILE_GET_INFO_MEMBER(get_tile1_info);
 	TILE_GET_INFO_MEMBER(get_tile2_info);
-	DECLARE_MACHINE_START(cps1);
-	DECLARE_VIDEO_START(cps1);
 	DECLARE_MACHINE_START(common);
 	DECLARE_MACHINE_START(cps2);
+	DECLARE_VIDEO_START(cps);
+	DECLARE_VIDEO_START(cps1);
 	DECLARE_VIDEO_START(cps2);
 	DECLARE_MACHINE_START(qsound);
 	DECLARE_MACHINE_START(ganbare);
 	DECLARE_MACHINE_RESET(cps);
-	DECLARE_VIDEO_START(cps);
-	DECLARE_MACHINE_START(sf2m1);
 	uint32_t screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
@@ -353,53 +307,6 @@ public:
 	TIMER_CALLBACK_MEMBER(cps2_update_digital_volume);
 
 	void kabuki_setup(void (*decode)(uint8_t *src, uint8_t *dst));
-
-	/* fcrash handlers */
-	DECLARE_DRIVER_INIT(kodb);
-	DECLARE_DRIVER_INIT(cawingbl);
-	DECLARE_DRIVER_INIT(dinopic);
-	DECLARE_DRIVER_INIT(knightsb);
-	DECLARE_DRIVER_INIT(punipic);
-	DECLARE_DRIVER_INIT(punipic3);
-	DECLARE_DRIVER_INIT(sf2m1);
-	DECLARE_DRIVER_INIT(sf2mdt);
-	DECLARE_DRIVER_INIT(sf2mdta);
-	DECLARE_DRIVER_INIT(sf2mdtb);
-	DECLARE_DRIVER_INIT(sf2b);
-	DECLARE_DRIVER_INIT(slampic);
-	DECLARE_MACHINE_START(fcrash);
-	DECLARE_MACHINE_RESET(fcrash);
-	DECLARE_MACHINE_START(cawingbl);
-	DECLARE_MACHINE_START(dinopic);
-	DECLARE_MACHINE_START(knightsb);
-	DECLARE_MACHINE_START(kodb);
-	DECLARE_MACHINE_START(punipic);
-	DECLARE_MACHINE_START(sf2mdt);
-	DECLARE_MACHINE_START(slampic);
-	DECLARE_MACHINE_START(sgyxz);
-	DECLARE_WRITE16_MEMBER(cawingbl_soundlatch_w);
-	DECLARE_WRITE16_MEMBER(dinopic_layer_w);
-	DECLARE_WRITE16_MEMBER(dinopic_layer2_w);
-	DECLARE_WRITE16_MEMBER(knightsb_layer_w);
-	DECLARE_WRITE16_MEMBER(kodb_layer_w);
-	DECLARE_WRITE16_MEMBER(punipic_layer_w);
-	DECLARE_WRITE16_MEMBER(sf2mdt_layer_w);
-	DECLARE_WRITE16_MEMBER(sf2mdta_layer_w);
-	DECLARE_WRITE16_MEMBER(slampic_layer_w);
-	DECLARE_WRITE16_MEMBER(fcrash_soundlatch_w);
-	DECLARE_WRITE8_MEMBER(fcrash_snd_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(sf2mdt_snd_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(knightsb_snd_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(fcrash_msm5205_0_data_w);
-	DECLARE_WRITE8_MEMBER(fcrash_msm5205_1_data_w);
-	DECLARE_WRITE16_MEMBER(varthb_layer_w);
-	uint32_t screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void fcrash_update_transmasks();
-	void fcrash_render_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void fcrash_render_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer, int primask);
-	void fcrash_render_high_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer);
-	void fcrash_build_palette();
-
 
 	/* cps video */
 	inline uint16_t *cps1_base( int offset, int boundary );
@@ -419,7 +326,6 @@ public:
 	void cps2_set_sprite_priorities();
 	void cps2_objram_latch();
 	uint16_t *cps2_objbase();
-
 
 	/* cps2 driver */
 	void init_digital_volume();
@@ -484,63 +390,10 @@ public:
 	void sound_map(address_map &map);
 	void sub_map(address_map &map);
 	void varthb_map(address_map &map);
-// HBMAME start
-
-	void wofsf2(machine_config &config);
-	void daimakb(machine_config &config);
-	void sk2h3(machine_config &config);
-	void sk2h31(machine_config &config);
-	void sk2h35(machine_config &config);
-	void cps1frog(machine_config &config);
-	void sk2h1q(machine_config &config);
-	void sk2h31q(machine_config &config);
-	void cawingb(machine_config &config);
-	void captcommb2(machine_config &config);
-	void daimakb_map(address_map &map);
-	void sk2h35_map(address_map &map);
-	void cps1frog_map(address_map &map);
-	void sk2h1q_map(address_map &map);
-	void sk2h3_map(address_map &map);
-	void sk2h31q_map(address_map &map);
-	void sk2h31_map(address_map &map);
-	void wofsf2_map(address_map &map);
-	void captcommb2_map(address_map &map);
-	DECLARE_WRITE16_MEMBER(dinoh_sound_command_w);
-	DECLARE_WRITE16_MEMBER(daimakb_layer_w);
-	DECLARE_WRITE16_MEMBER(daimakb_palctrl_w);
-	DECLARE_DRIVER_INIT(dinoeh);
-	DECLARE_DRIVER_INIT(dinoh);
-	DECLARE_DRIVER_INIT(dinoz);
-	DECLARE_DRIVER_INIT(dinohb);
-	DECLARE_DRIVER_INIT(punisherb);
-	DECLARE_DRIVER_INIT(sf2h9);
-	DECLARE_DRIVER_INIT(sf2h13);
-	DECLARE_DRIVER_INIT(sk2h1);
-	DECLARE_DRIVER_INIT(sk2h1q);
-	DECLARE_DRIVER_INIT(sk2h3);
-	DECLARE_DRIVER_INIT(sk2h21);
-	DECLARE_DRIVER_INIT(sk2h22);
-	DECLARE_DRIVER_INIT(sk2h31);
-	DECLARE_DRIVER_INIT(sk2h35);
-	DECLARE_DRIVER_INIT(wofb);
-	DECLARE_MACHINE_START(captcommb2);
-
-// HBMAME end
 };
 
 /*----------- defined in drivers/cps1.c -----------*/
 
 GFXDECODE_EXTERN( cps1 );
-
-INPUT_PORTS_EXTERN( dino );
-INPUT_PORTS_EXTERN( knights );
-INPUT_PORTS_EXTERN( punisher );
-INPUT_PORTS_EXTERN( sf2 );
-INPUT_PORTS_EXTERN( slammast );
-INPUT_PORTS_EXTERN( varth );
-// HBMAME start
-INPUT_PORTS_EXTERN( captcomm );
-// HBMAME end
-
 
 #endif
