@@ -5,11 +5,12 @@
     WE|AT&T DSP16 series emulator
 
 ***************************************************************************/
-
 #ifndef MAME_CPU_DSP16_DSP16_H
 #define MAME_CPU_DSP16_DSP16_H
 
 #pragma once
+
+#include "dsp16dis.h"
 
 #include <utility>
 
@@ -63,7 +64,7 @@
 		downcast<dsp16_device_base &>(*device).set_pods_cb(DEVCB_##obj);
 
 
-class dsp16_device_base : public cpu_device
+class dsp16_device_base : public cpu_device, protected dsp16_disassembler::cpu
 {
 public:
 	DECLARE_WRITE_LINE_MEMBER(exm_w);
@@ -138,9 +139,14 @@ protected:
 	// device_state_interface implementation
 	virtual void state_import(device_state_entry const &entry) override;
 	virtual void state_export(device_state_entry const &entry) override;
+	virtual void state_string_export(device_state_entry const &entry, std::string &str) const override;
 
 	// device_disasm_interface implementation
 	virtual util::disasm_interface *create_disassembler() override;
+
+	// dsp16_disassembler::cpu implementation
+	virtual predicate check_con(offs_t pc, u16 op) const override;
+	virtual predicate check_branch(offs_t pc) const override;
 
 	// for specialisations to override
 	virtual void external_memory_enable(address_space &space, bool enable) = 0;
@@ -207,6 +213,9 @@ private:
 	friend sio_flags &operator&=(sio_flags &, sio_flags);
 	friend sio_flags &operator|=(sio_flags &, sio_flags);
 
+	// recompiler helpers
+	class frontend;
+
 	// internal address maps
 	void program_map(address_map &map);
 
@@ -219,7 +228,7 @@ private:
 	void yaau_write(u16 op, s16 value);
 	void yaau_write_z(u16 op);
 	u64 dau_f1(u16 op);
-	u64 dau_f2(u16 op);
+	void dau_f2(u16 op);
 
 	// inline helpers
 	static bool op_interruptible(u16 op);
@@ -236,7 +245,7 @@ private:
 	void set_dau_at(u16 op, s16 value);
 	u64 set_dau_psw_flags(s64 d);
 	u64 get_dau_p_aligned() const;
-	bool op_dau_con(u16 op);
+	bool op_dau_con(u16 op, bool inc);
 
 	// flag accessors
 	bool dau_auc_sat(u16 a) const { return bool(BIT(m_dau_auc, 2 + a)); }
@@ -380,6 +389,7 @@ private:
 	u16         m_sio_ofsr;     // 16 bits
 	u8          m_sio_clk;
 	u8          m_sio_clk_div;
+	u8          m_sio_clk_res;
 	u8          m_sio_ld;
 	u8          m_sio_ld_div;
 	sio_flags   m_sio_flags;
@@ -394,6 +404,7 @@ private:
 	// fake registers for the debugger
 	u16         m_cache_pcbase;
 	u16         m_st_pcbase;
+	u16         m_st_genflags;
 	s16         m_st_yh, m_st_ah[2];
 	u16         m_st_yl, m_st_al[2];
 };
