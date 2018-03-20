@@ -23,9 +23,12 @@ New Games (in addition to above)
 - [bloodbros01]     Blood Bros (Ex Super version)
 - [cabals01]        Cabal (Ex Super version)
 - [contrajs01]      Contra (Translation Chinese)
+- [ct2k3k3s*]       Crouching Tiger Hidden Dragon - 17 hacks
 - [ct2k3spd]
 - [cthd2k3a]
+- [cthd2k3as01]
 - [cthd2k3d]
+- [cthd2k3d*]       Crouching Tiger Hidden Dragon - 12 hacks
 - [deroons01]
 - [dinopic3]
 - [dinos69]
@@ -37,14 +40,20 @@ New Games (in addition to above)
 - [ffightjh01]      Final Fight (hack Super Plus)
 - [ga2s01]          Golden Axe: The Revenge of Death Adder (unprotected)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)
+- [kof2k4plss*]     KOF Special Edition 2004 Plus - 20 hacks
 - [kof10thd]
+- [kof10thds01]
+- [kof10thds02]
+- [kof10thds03]
+- [kof10thds04]
 - [kof2k4mp2]
 - [kof2k4pls]
 - [kof96s75]
 - [kof96s76]
 - [lbsp3]           Last Blade (Super Plus)
-- [mslugr*]         Metal Slug 175 hacks
+- [mslugr*]         Metal Slug - 175 hacks
 - [mslugs18]        Metal Slug (Plus Plus)
+- [mslug2r*]        Metal Slug 2 - 314 hacks
 - [mslug3s82]
 - [mslug3s83]
 - [mslug3s84]       Metal Slug 3 (Super Plus 2018)
