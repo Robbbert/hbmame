@@ -2644,8 +2644,6 @@ kof2k1st2
 kof2k1wh
 kof2k1z1
 kof2k1z2
-//kf2k1pa
-//kf2k1pls
 kof2001s02
 kof2001s03
 kof2001s04
@@ -2705,7 +2703,7 @@ kof2002x
 kof2k2ath
 kof2k2b // no sound in attract mode
 kof2k2b1
-kof2k2bd //broken; not working
+kof2k2bd // s1 needs decrypting, another used for now
 kof2k2bh
 kof2k2bjh
 kof2k2bjo
@@ -2785,7 +2783,9 @@ kof2k2mpu
 kof2k2ngp
 kof2k2nu
 kof2k2olp
+kof2k2om
 kof2k2omg
+kof2k2omg5
 kof2k2omg8
 kof2k2omg9
 kof2k2omg9b
@@ -2794,6 +2794,7 @@ kof2k2or
 kof2k2ori
 kof2k2ori2
 kof2k2pa
+kof2k2pfo
 kof2k2pjw // no sound in attract mode
 kof2k2pl17
 kof2k2plb
