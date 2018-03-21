@@ -7,7 +7,7 @@
 DRIVER_INIT_MEMBER( neogeo_state, kof2002hb ) // hacks of kof2002
 {
 	DRIVER_INIT_CALL(neogeo);
-	m_sprgen->m_fixed_layer_bank_type = 1;
+	m_sprgen->m_fixed_layer_bank_type = 1; // only meaningful if s1 > 128k
 
 	// decrypt p roms if needed
 	u8 *ram = memregion("maincpu")->base();
