@@ -954,15 +954,15 @@ void neogeo_state::set_outputs(  )
 		{ 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x58,0x4c,0x62,0x69,0x78,0x00 };
 
 	/* EL */
-	output().set_digit_value(0, led_map[m_el_value]);
+	m_out_digit[0] = led_map[m_el_value];
 
 	/* LED1 */
-	output().set_digit_value(1, led_map[m_led1_value >> 4]);
-	output().set_digit_value(2, led_map[m_led1_value & 0x0f]);
+	m_out_digit[1] = led_map[m_led1_value >> 4];
+	m_out_digit[2] = led_map[m_led1_value & 0x0f];
 
 	/* LED2 */
-	output().set_digit_value(3, led_map[m_led2_value >> 4]);
-	output().set_digit_value(4, led_map[m_led2_value & 0x0f]);
+	m_out_digit[3] = led_map[m_led2_value >> 4];
+	m_out_digit[4] = led_map[m_led2_value & 0x0f];
 }
 
 
@@ -1025,8 +1025,8 @@ void neogeo_state::neogeo_postload()
 
 void neogeo_state::machine_start()
 {
+	m_out_digit.resolve();
 	m_type = NEOGEO_MVS;
-
 
 	/* set the initial main CPU bank */
 	neogeo_main_cpu_banking_init();

@@ -81,6 +81,7 @@ public:
 		, m_kof98_prot(*this, "kof98_prot")
 		, m_sbp_prot(*this, "sbp_prot")
 		, m_kog_prot(*this, "kog_prot")
+		, m_out_digit(*this, "digit%u", 0U)
 	{ }
 
 	DECLARE_WRITE8_MEMBER(io_control_w);
@@ -335,6 +336,7 @@ public:
 	DECLARE_DRIVER_INIT(kog);
 
 	optional_device<kog_prot_device> m_kog_prot;
+	output_finder<5> m_out_digit;
 	void hbmame_kog(machine_config &config);
 	DECLARE_DRIVER_INIT(cmc42sfix);
 	DECLARE_DRIVER_INIT(cmc50sfix);
@@ -361,6 +363,7 @@ public:
 	DECLARE_DRIVER_INIT(kof2k2pl17);
 	DECLARE_DRIVER_INIT(kof2003b);
 	DECLARE_DRIVER_INIT(kof2003hb);
+	DECLARE_DRIVER_INIT(kof2k3fd);
 	DECLARE_DRIVER_INIT(kof2k3hd);
 	DECLARE_DRIVER_INIT(kof2k3pcd);
 	DECLARE_DRIVER_INIT(kof2k4pls);
