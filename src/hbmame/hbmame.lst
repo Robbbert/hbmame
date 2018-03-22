@@ -1443,9 +1443,11 @@ kof97s11
 kof97s12
 kof97s14
 kof97s16
+kof97s17
 kof97s18
 kof97s19
 kof97s20
+kof97s21
 kof97s23
 kof97s24
 kof97s25
@@ -1475,6 +1477,7 @@ kof97s52
 kof97s53
 kof97s54
 kof97s55
+kof97s56
 kof97s57
 kof97s58
 kof97s59
@@ -1516,6 +1519,12 @@ kof97s96
 kof97s97
 kof97s98   // only get 1 second to fight
 kof97s99   // only get 1 second to fight
+kof97s100  // bad gfx now & then
+kof97s101
+kof97s102
+kof97s103
+kof97s104
+kof97s105  // only get 1 second to fight
 kof97h04
 kof97h05
 kof97h06

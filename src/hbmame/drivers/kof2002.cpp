@@ -47,7 +47,7 @@ DRIVER_INIT_MEMBER( neogeo_state, kof2002hb ) // hacks of kof2002
 }
 
 
-// S1-rom is scrambled. This code looks right but doesn't work.
+// S1-rom is scrambled. Not understood as yet.
 DRIVER_INIT_MEMBER( neogeo_state, kof2k2bd )
 {
 	DRIVER_INIT_CALL(neogeo);
