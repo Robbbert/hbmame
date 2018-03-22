@@ -2843,7 +2843,6 @@ kof2k2ul
 kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
-//kf2k2plc
 kof2002s01
 kof2002s02
 kof2002s03
@@ -3157,12 +3156,14 @@ kof2k3bs3
 kof2k3bs4
 kof2k3d
 kof2k3evo
+kof2k3fd
 kof2k3gc
 kof2k3hd
 kof2k3nd
 kof2k3nrx
 kof2k3pcd
 kof2k3pch
+kof2k3plr
 kof2k3ps2
 kof2k3ps3
 kof2k3ryu
@@ -3170,9 +3171,6 @@ kof2k3sc
 kof2k3ss
 kof2k3tc
 kof2k3zgf
-//kof2k3bd
-//kof2k3pd
-//kof2k3upd
 kof2003s01   // bad gfx in counter
 kof2003s02
 kof2003s03
@@ -3332,40 +3330,43 @@ kf2k3pcbs27
 kf2k3pcbs28
 kf2k3pcbs29
 kf2k3upls01
-kf2k3upls02
-kf2k3upls03
-kf2k3upls04
-kf2k3upls05
-kf2k3upls06
-kf2k3upls07
-kf2k3upls08
-kf2k3upls09   // kof2004
-kf2k3upls10
-kf2k3upls11
-kf2k3upls12
-kf2k3upls13
-kf2k3upls14
-kf2k3upls15
-kf2k3upls16
-kf2k3upls17
-kf2k3upls18
-kf2k3upls19
-kf2k3upls20
-kf2k3upls21
-kf2k3upls22
-kf2k3upls23
-kf2k3upls24
-kf2k3upls25
-kf2k3upls26
-kf2k3upls27
-kf2k3upls28
-kf2k3upls29
 kof2k3s01
 kof2k3s02
 kof2k3s03
 kof2k3s04
 kof2k3s05
 kof2k3s06
+// kof2004EX hack of kof2003
+kof2004pd  // hero
+kof2004upls01
+kof2004upls02
+kof2004upls03
+kof2004upls04
+kof2004upls05
+kof2004upls06
+kof2004upls07
+kof2004upls08
+kof2004upls09
+kof2004upls10
+kof2004upls11
+kof2004upls12
+kof2004upls13
+kof2004upls14
+kof2004upls15
+kof2004upls16
+kof2004upls17
+kof2004upls18
+kof2004upls19
+kof2004upls20
+kof2004upls21
+kof2004upls22
+kof2004upls23
+kof2004upls24
+kof2004upls25
+kof2004upls26
+kof2004upls27
+kof2004upls28
+kof2004upls29
 
 @source:kyugo.cpp
 airwolf		//parent

@@ -41,6 +41,12 @@ New Games (in addition to above)
 - [ga2s01]          Golden Axe: The Revenge of Death Adder (unprotected)
 - [jojobaner1s04]   JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)
 - [kof2k1nd]
+- [kof2k2om]
+- [kof2k2omg5]
+- [kof2k3fd]
+- [kof2k3plr]       (not working)
+- [kof2004pd]       KOF 2004 EX Hero
+- [kof2004upls01]   KOF 2004 EX Ultra Plus
 - [kof2k4plss*]     KOF Special Edition 2004 Plus - 20 hacks
 - [kof10thd]
 - [kof10thds01]
