@@ -66,6 +66,14 @@ New Games (in addition to above)
 - [kof97s103]
 - [kof97s104]
 - [kof97s105]       (not working)
+- [kof98c20170303]
+- [kof98c20170408]
+- [kof98c20170601]
+- [kof98c20170612]
+- [kof98c20180228]
+- [kof98pfe]
+- [kof98s56]
+- [kof98s57]        (not working)
 - [lbsp3]           Last Blade (Super Plus)
 - [mslugr*]         Metal Slug - 175 hacks
 - [mslugs18]        Metal Slug (Plus Plus)
