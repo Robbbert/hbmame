@@ -107,6 +107,14 @@ New Games (in addition to above)
 - [pacandroid]      Pac Android
 - [punisherjs03]
 - [rbffss07]        Real Bout Fatal Fury Special (Ultra Edition)
+- [samsh5sp07]
+- [samsh5sp10]
+- [samsho2s14]
+- [samsho2s19]
+- [samsho5s65]
+- [samsho5s66]
+- [samsho5s67]
+- [savageres04]
 - [umk3r13b101]     Ultimate Mortal Kombat 3 (rev 1.3 beta 1.01)
 - [umk3r13b1213]    Ultimate Mortal Kombat 3 (rev 1.3 beta 1.2.13)
 - [umk3r13b201]     Ultimate Mortal Kombat 3 (rev 1.3 beta 2.01)
