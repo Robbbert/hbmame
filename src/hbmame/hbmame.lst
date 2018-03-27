@@ -5903,6 +5903,7 @@ zintrckbh
 zintrkcd	/* 211 (c) 1996 ADK / SNK */
 zintrkcd1
 zintrkm
+zintricks01
 
 @source:neogeo1.cpp
 2020bbcd
@@ -6090,6 +6091,7 @@ savageres02
 savageres03
 savageres04
 sdodgebs01
+sdodgebs02
 
 @source:ngdoubledr.cpp
 dbdehy
@@ -6887,6 +6889,9 @@ svcs81
 svcs82
 svcs83
 svcs84
+svcs85
+svcs86
+svcs87
 svcpcbzs04
 svcpcbzs06
 svcpcbzs10
