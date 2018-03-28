@@ -1,7 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-
 #include "../mame/drivers/atarisy1.cpp"
+
+
+
 ROM_START( ataris1hw )
 	ROM_REGION( 0x88000, "maincpu", 0 )
 	MOTHERBOARD_BIOS
@@ -30,7 +32,6 @@ ROM_START( ataris1hw )
 	MOTHERBOARD_PROMS
 ROM_END
 
-GAME( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
 
 
 // It runs, the output appears in the videoram (A03xxx), but screen stays black. Works on real hardware.
@@ -62,4 +63,7 @@ ROM_START( ataris1rt )
 	MOTHERBOARD_PROMS
 ROM_END
 
+
+
+GAME( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
 GAME( 2017, ataris1rt, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "GadgetFreak", "Atari System 1 Ram Tester", MACHINE_NOT_WORKING )

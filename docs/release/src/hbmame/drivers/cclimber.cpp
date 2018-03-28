@@ -32,13 +32,9 @@ ROM_START( cclimbrm )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
 	ROM_LOAD( "cc06",         0x0000, 0x0800, CRC(481b64cc) SHA1(3f35c545fc784ed4f969aba2d7be6e13a5ae32b7) )
-	/* empty hole - Crazy Kong has an additional ROM here */
 	ROM_LOAD( "cc04",         0x2000, 0x0800, CRC(332347cb) SHA1(4115ca32af73f1791635b7d9e093bf77088a8222) )
-	/* empty hole - Crazy Kong has an additional ROM here */
 	ROM_LOAD( "cc05",         0x1000, 0x0800, CRC(2c33b760) SHA1(2edea8fe13376fbd51a5586d97aba3b30d78e94b) )
-	/* empty hole - Crazy Kong has an additional ROM here */
 	ROM_LOAD( "cc03",         0x3000, 0x0800, CRC(4e4b3658) SHA1(0d39a8cb5cd6cf06008be60707f9b277a8a32a2d) )
-	/* empty hole - Crazy Kong has an additional ROM here */
 
 	ROM_REGION( 0x1000, "gfx2", 0 )
 	ROM_LOAD( "cc02",         0x0000, 0x0800, CRC(14f3ecc9) SHA1(a1b5121abfbe8f07580eb3fa6384352d239a3d75) )

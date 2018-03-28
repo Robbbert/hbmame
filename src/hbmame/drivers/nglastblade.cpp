@@ -1492,7 +1492,7 @@ ROM_END
 
 ROM_START( lastbladhs01 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc01-pg1.p1", 0x000000, 0x100000, CRC(f1a5a2f8) SHA1(8430d981fe7235b72a2e273a561060a3b6a0daa7) )
+	ROM_LOAD16_WORD_SWAP( "234hc01.p1", 0x000000, 0x100000, CRC(f1a5a2f8) SHA1(8430d981fe7235b72a2e273a561060a3b6a0daa7) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1516,7 +1516,7 @@ ROM_END
 
 ROM_START( lastbladhs02 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc02-pg1.p1", 0x000000, 0x100000, CRC(a9cd5a7c) SHA1(fe12df6f5ab111d1d0610083925cebe312f064ac) )
+	ROM_LOAD16_WORD_SWAP( "234hc02.p1", 0x000000, 0x100000, CRC(a9cd5a7c) SHA1(fe12df6f5ab111d1d0610083925cebe312f064ac) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1540,7 +1540,7 @@ ROM_END
 
 ROM_START( lastbladhs03 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc03-pg1.p1", 0x000000, 0x100000, CRC(07a98a03) SHA1(dfeb879d14ba5cd2d89c07752dff019a177ecfa1) )
+	ROM_LOAD16_WORD_SWAP( "234hc03.p1", 0x000000, 0x100000, CRC(07a98a03) SHA1(dfeb879d14ba5cd2d89c07752dff019a177ecfa1) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1564,7 +1564,7 @@ ROM_END
 
 ROM_START( lastbladhs04 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc04-pg1.p1", 0x000000, 0x100000, CRC(e8c68698) SHA1(5377cd3eb7253c2418b7a691b0f806b5854e5e6f) )
+	ROM_LOAD16_WORD_SWAP( "234hc04.p1", 0x000000, 0x100000, CRC(e8c68698) SHA1(5377cd3eb7253c2418b7a691b0f806b5854e5e6f) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1588,7 +1588,7 @@ ROM_END
 
 ROM_START( lastbladhs05 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc05-pg1.p1", 0x000000, 0x100000, CRC(ae0aa4ff) SHA1(4a214e07d0b2796431e6e5841ee0069d8379852f) )
+	ROM_LOAD16_WORD_SWAP( "234hc05.p1", 0x000000, 0x100000, CRC(ae0aa4ff) SHA1(4a214e07d0b2796431e6e5841ee0069d8379852f) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1612,7 +1612,7 @@ ROM_END
 
 ROM_START( lastbladhs07 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc07-pg1.p1", 0x000000, 0x100000, CRC(491496f0) SHA1(1d47cec9df3c51d5f4bd8217854941d039623c06) )
+	ROM_LOAD16_WORD_SWAP( "234hc07.p1", 0x000000, 0x100000, CRC(491496f0) SHA1(1d47cec9df3c51d5f4bd8217854941d039623c06) )
 	ROM_LOAD16_WORD_SWAP( "234hc07-p2.sp2", 0x100000, 0x400000, CRC(f80aeee8) SHA1(8a10da46be8ac8fff7ec18940c8bb912bd48d8cd) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1636,7 +1636,7 @@ ROM_END
 
 ROM_START( lastbladhs09 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc09-pg1.p1", 0x000000, 0x100000, CRC(cf17f773) SHA1(41d93be04ead541b9193c6bed07a8ecc6f7f3238) )
+	ROM_LOAD16_WORD_SWAP( "234hc09.p1", 0x000000, 0x100000, CRC(cf17f773) SHA1(41d93be04ead541b9193c6bed07a8ecc6f7f3238) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1660,7 +1660,7 @@ ROM_END
 
 ROM_START( lastbladhs10 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc10-pg1.p1", 0x000000, 0x100000, CRC(f650e534) SHA1(b61376375279162d2d333d808a30696ae553fb99) )
+	ROM_LOAD16_WORD_SWAP( "234hc10.p1", 0x000000, 0x100000, CRC(f650e534) SHA1(b61376375279162d2d333d808a30696ae553fb99) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1684,7 +1684,7 @@ ROM_END
 
 ROM_START( lastbladhs11 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc11-pg1.p1", 0x000000, 0x100000, CRC(f446d22a) SHA1(9e14466849d70ba1f85931bde62de44e61a872e9) )
+	ROM_LOAD16_WORD_SWAP( "234hc11.p1", 0x000000, 0x100000, CRC(f446d22a) SHA1(9e14466849d70ba1f85931bde62de44e61a872e9) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1708,7 +1708,7 @@ ROM_END
 
 ROM_START( lastbladhs12 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc12-pg1.p1", 0x000000, 0x100000, CRC(5d6a1d49) SHA1(79f94778c9d47f42405d9bd8bcdbe723d5d66d48) )
+	ROM_LOAD16_WORD_SWAP( "234hc12.p1", 0x000000, 0x100000, CRC(5d6a1d49) SHA1(79f94778c9d47f42405d9bd8bcdbe723d5d66d48) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1732,7 +1732,7 @@ ROM_END
 
 ROM_START( lastbladhs13 ) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234hc13-pg1.p1", 0x000000, 0x100000, CRC(de392c42) SHA1(4d23a68bf623e69c59f9890cb6b4025d5b3229b0) )
+	ROM_LOAD16_WORD_SWAP( "234hc13.p1", 0x000000, 0x100000, CRC(de392c42) SHA1(4d23a68bf623e69c59f9890cb6b4025d5b3229b0) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1756,7 +1756,7 @@ ROM_END
 
 ROM_START( lastsolds06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "134hc06-p1k.p1", 0x000000, 0x100000, CRC(15749e87) SHA1(49ebb695d2933e68eff94532faf228065cbd6ead) )
+	ROM_LOAD16_WORD_SWAP( "134hc06.p1", 0x000000, 0x100000, CRC(15749e87) SHA1(49ebb695d2933e68eff94532faf228065cbd6ead) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1780,7 +1780,7 @@ ROM_END
 
 ROM_START( lastsolds07 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "134hc07-p1k.p1", 0x000000, 0x100000, CRC(a9f1fd29) SHA1(d73d2f4323cbb712345741384bcd681761563d39) )
+	ROM_LOAD16_WORD_SWAP( "134hc07.p1", 0x000000, 0x100000, CRC(a9f1fd29) SHA1(d73d2f4323cbb712345741384bcd681761563d39) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1804,7 +1804,7 @@ ROM_END
 
 ROM_START( lastsolds08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "134hc08-p1k.p1", 0x000000, 0x100000, CRC(0d6323e1) SHA1(3ad55039fa059ee6b724b6bf38f8460ed82ed32f) )
+	ROM_LOAD16_WORD_SWAP( "134hc08.p1", 0x000000, 0x100000, CRC(0d6323e1) SHA1(3ad55039fa059ee6b724b6bf38f8460ed82ed32f) )
 	ROM_LOAD16_WORD_SWAP( "234-p2.sp2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
 
 	NEO_SFIX_128K( "234-s1.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -1832,7 +1832,7 @@ ROM_END
 
 ROM_START( lastbld2s01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc01-pg1.p1",  0x000000, 0x100000, CRC(4962b464) SHA1(9e3888ef6f60f32c417e19b048e7bed706730913) )
+	ROM_LOAD16_WORD_SWAP( "243hc01.p1",  0x000000, 0x100000, CRC(4962b464) SHA1(9e3888ef6f60f32c417e19b048e7bed706730913) )
 	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -1856,7 +1856,7 @@ ROM_END
 
 ROM_START( lastbld2s02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc02-pg1.p1",  0x000000, 0x100000, CRC(5b4b2722) SHA1(bc0cf49b926b795e58f4df7e71363582f07b9797) )
+	ROM_LOAD16_WORD_SWAP( "243hc02.p1",  0x000000, 0x100000, CRC(5b4b2722) SHA1(bc0cf49b926b795e58f4df7e71363582f07b9797) )
 	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -1880,7 +1880,7 @@ ROM_END
 
 ROM_START( lastbld2s03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc03-pg1.p1",  0x000000, 0x100000, CRC(434ebbd0) SHA1(7e6c9f7bee5d77ed3d553347eca1045f7e248694) )
+	ROM_LOAD16_WORD_SWAP( "243hc03.p1",  0x000000, 0x100000, CRC(434ebbd0) SHA1(7e6c9f7bee5d77ed3d553347eca1045f7e248694) )
 	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -1904,7 +1904,7 @@ ROM_END
 
 ROM_START( lastbld2s04 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc04-pg1.p1",  0x000000, 0x100000, CRC(fff332d1) SHA1(383bfc8a866670c23c7d6aa1fcfceb875ae3e8f2) )
+	ROM_LOAD16_WORD_SWAP( "243hc04.p1",  0x000000, 0x100000, CRC(fff332d1) SHA1(383bfc8a866670c23c7d6aa1fcfceb875ae3e8f2) )
 	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -1928,7 +1928,7 @@ ROM_END
 
 ROM_START( lastbld2s05 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc05-pg1.p1",  0x000000, 0x100000, CRC(000f6f84) SHA1(ab7d7a53f1432f63bb61c47a9f656dfa5c4a5d7a) )
+	ROM_LOAD16_WORD_SWAP( "243hc05.p1",  0x000000, 0x100000, CRC(000f6f84) SHA1(ab7d7a53f1432f63bb61c47a9f656dfa5c4a5d7a) )
 	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -1952,7 +1952,7 @@ ROM_END
 
 ROM_START( lastbld2s06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc06-pg1.p1",  0x000000, 0x100000, CRC(bdc9daaa) SHA1(83d6a84da1aef8d4cb6e5b5de74c3258e9ead07b) )
+	ROM_LOAD16_WORD_SWAP( "243hc06.p1",  0x000000, 0x100000, CRC(bdc9daaa) SHA1(83d6a84da1aef8d4cb6e5b5de74c3258e9ead07b) )
 	ROM_LOAD16_WORD_SWAP( "243-pg2.sp2", 0x100000, 0x400000, CRC(add4a30b) SHA1(7db62564db49fe0218cbb35b119d62582a24d658) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -1976,7 +1976,7 @@ ROM_END
 
 ROM_START( lastbld2s07 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc07-pg1.p1",  0x000000, 0x100000, CRC(e2171444) SHA1(5604e5a961ba9a87da6c5a55f434d959e86b5b62) )
+	ROM_LOAD16_WORD_SWAP( "243hc07.p1",  0x000000, 0x100000, CRC(e2171444) SHA1(5604e5a961ba9a87da6c5a55f434d959e86b5b62) )
 	ROM_LOAD16_WORD_SWAP( "243pl.p2", 0x100000, 0x400000, CRC(EEF07572) SHA1(ba20c498dbdc2a1d664e5a3aeb3ffcd128c2a248) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -2000,7 +2000,7 @@ ROM_END
 
 ROM_START( lastbld2s08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc08-pg1.p1",  0x000000, 0x100000, CRC(c2ea59d1) SHA1(42baa970827b7f5868dd18873050f277ad939539) )
+	ROM_LOAD16_WORD_SWAP( "243hc08.p1",  0x000000, 0x100000, CRC(c2ea59d1) SHA1(42baa970827b7f5868dd18873050f277ad939539) )
 	ROM_LOAD16_WORD_SWAP( "243hc08.p2", 0x100000, 0x400000, CRC(801af324) SHA1(8fbb32e6934b95478bb856f91c016d2618ea71fa) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -2024,7 +2024,7 @@ ROM_END
 
 ROM_START( lastbld2s09 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc09-pg1.p1",  0x000000, 0x100000, CRC(a9c0c129) SHA1(fc95a69f224b5532aa8829978904f9099d1b2d47) )
+	ROM_LOAD16_WORD_SWAP( "243hc09.p1",  0x000000, 0x100000, CRC(a9c0c129) SHA1(fc95a69f224b5532aa8829978904f9099d1b2d47) )
 	ROM_LOAD16_WORD_SWAP( "243hc09.p2", 0x100000, 0x400000, CRC(ad489305) SHA1(d5de86ad93c54310d796609a1f73bd4f48e19447) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -2048,7 +2048,7 @@ ROM_END
 
 ROM_START( lastbld2s10 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc10-pg1.p1",  0x000000, 0x100000, CRC(f6380375) SHA1(d9bc21138148b5d5b3139f0c3ac663cf83c6e12f) )
+	ROM_LOAD16_WORD_SWAP( "243hc10.p1",  0x000000, 0x100000, CRC(f6380375) SHA1(d9bc21138148b5d5b3139f0c3ac663cf83c6e12f) )
 	ROM_LOAD16_WORD_SWAP( "243pl.p2", 0x100000, 0x400000, CRC(EEF07572) SHA1(ba20c498dbdc2a1d664e5a3aeb3ffcd128c2a248) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
@@ -2072,8 +2072,32 @@ ROM_END
 
 ROM_START( lastbld2s11 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "243hc11-pg1.p1",  0x000000, 0x100000, CRC(796b0419) SHA1(87dc4145da46703cf68f29e348e44e00c006a443) )
+	ROM_LOAD16_WORD_SWAP( "243hc11.p1",  0x000000, 0x100000, CRC(796b0419) SHA1(87dc4145da46703cf68f29e348e44e00c006a443) )
 	ROM_LOAD16_WORD_SWAP( "243hc08.p2", 0x100000, 0x400000, CRC(801af324) SHA1(8fbb32e6934b95478bb856f91c016d2618ea71fa) )
+
+	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
+
+	NEO_BIOS_AUDIO_128K( "243-m1.m1", CRC(acf12d10) SHA1(6e6b98cc1fa44f24a5168877559b0055e6957b60) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "243-v1.v1", 0x000000, 0x400000, CRC(f7ee6fbb) SHA1(55137bcabeeb590e40a9b8a7c07dd106e4d12a90) )
+	ROM_LOAD( "243-v2.v2", 0x400000, 0x400000, CRC(aa9e4df6) SHA1(a0b91f63e2552a8ad9e0d1af00e2c38288637161) )
+	ROM_LOAD( "243-v3.v3", 0x800000, 0x400000, CRC(4ac750b2) SHA1(585a154acc67bd84ea5b944686b78ed082b768d9) )
+	ROM_LOAD( "243-v4.v4", 0xc00000, 0x400000, CRC(f5c64ba6) SHA1(2eac455def8c27090862cc042f65a3a8aad88283) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "243-c1.c1", 0x0000000, 0x800000, CRC(5839444d) SHA1(0616921c4cce20422563578bd0e806d359508599) )
+	ROM_LOAD16_BYTE( "243-c2.c2", 0x0000001, 0x800000, CRC(dd087428) SHA1(ca27fdb60425664956a18c021ea465f452fb1527) )
+	ROM_LOAD16_BYTE( "243-c3.c3", 0x1000000, 0x800000, CRC(6054cbe0) SHA1(ec2f65e9c930250ee25fd064ee5ae76a7a9c61d9) )
+	ROM_LOAD16_BYTE( "243-c4.c4", 0x1000001, 0x800000, CRC(8bd2a9d2) SHA1(0935df65cd2b0891a708bcc0f1c188148058d4b5) )
+	ROM_LOAD16_BYTE( "243-c5.c5", 0x2000000, 0x800000, CRC(6a503dcf) SHA1(23241b16d7e20f923d41186b29487ab922c7f530) )
+	ROM_LOAD16_BYTE( "243-c6.c6", 0x2000001, 0x800000, CRC(ec9c36d0) SHA1(e145e9e359000dda6e1dfe95a996bc6d29cfca21) )
+ROM_END
+
+ROM_START( lastbld2s12 )
+	ROM_REGION( 0x500000, "maincpu", 0 ) // lastbld2eh : px confirmed
+	ROM_LOAD16_WORD_SWAP( "243hc12.p1",  0x000000, 0x100000, CRC(6c8867d2) SHA1(7f71f3f609fcb0b4206d4782436317a2617e6da5) )
+	ROM_LOAD16_WORD_SWAP( "243pl.p2", 0x100000, 0x400000, CRC(EEF07572) SHA1(ba20c498dbdc2a1d664e5a3aeb3ffcd128c2a248) )
 
 	NEO_SFIX_128K( "243-s1.s1", CRC(c9cd2298) SHA1(a9a18b5347f9dbe29a2ccb63fd4c8fd19537bf8b) )
 
@@ -2097,57 +2121,58 @@ ROM_END
 
 
  // Last Blade
-GAME( 2017, lastblads01,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 01)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads02,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 02)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads03,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 03)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads04,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 04)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads05,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 05)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads07,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters V1.0 Plus)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads08,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters V2 Plus)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads01,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads02,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads03,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads04,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads05,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads07,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters V1.0 Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads08,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters V2 Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds01,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Enable Hidden Characters V1 Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds02,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Enable Hidden Characters V2 Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds03,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds04,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Super Kaede with No Health Drain)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds05,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Enhanced Power V1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads16,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 07)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads17,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Max Power Set 08)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads16,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads17,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Max Power Set 08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastblads18,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads19,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Description Of Unknown Origin 10)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads20,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters v1)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads21,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters V1 plus)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads22,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable hidden characters V2 plus)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads23,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters v2)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads24,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Unlimit Special Moves)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads25,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enhanced Power V?)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads26,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enhanced power V2 Alt)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads27,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Super kill The Relative Unity Of Submarine)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads28,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Color Change)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads29,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Xiao Wuzang Weapons Color)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastblads30,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Super Kaede With No Health Drain)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastblads34,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters V1 Plus)(Alt)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs01,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters V1)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs02,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enhanced power V1)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs03,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enhanced power V2)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs04,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Ultimate Simplified Version)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs05,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Color Mod)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs07,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (PLUS Version)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs09,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Hidden Characters-Super Kaede Fixed)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs10,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Hidden Characters-Enable Hidden Characters V1 Plus 2)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs11,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Super Kaede with No Health Drain V1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs12,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Unlimit Special Moves V1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbladhs13,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (Enable Hidden Characters V2)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads19,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Description Of Unknown Origin 10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads20,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads21,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters V1 plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads22,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable hidden characters V2 plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads23,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads24,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads25,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enhanced Power V?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads26,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enhanced power V2 Alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads27,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Super kill The Relative Unity Of Submarine)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads28,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Color Change)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads29,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Xiao Wuzang Weapons Color)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastblads30,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Super Kaede With No Health Drain)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, lastblads34,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters V1 Plus)(Alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs01,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs02,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enhanced power V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs03,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enhanced power V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs04,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Ultimate Simplified Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs05,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Color Mod)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs07,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (PLUS Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs09,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Hidden Characters-Super Kaede Fixed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs10,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Hidden Characters-Enable Hidden Characters V1 Plus 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs11,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Super Kaede with No Health Drain V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs12,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Unlimit Special Moves V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbladhs13,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds06,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds07,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lastsolds08,    lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Soldier (Korean release of The Last Blade)(Color Mod)", MACHINE_SUPPORTS_SAVE )
  // The Last Blade 2
-GAME( 2017, lastbld2s01,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Unlimited Credits In Console Mode)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s02,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Enable Hidden Characters V1)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s03,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Enable Hidden Characters V3)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s04,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Unlimit Special Moves)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s05,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Enhanced Power V1)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s06,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Enhanced Power V2)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s07,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Optimization Of The Motion Version)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s08,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Optimization Move Out)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s09,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Bug Fix Version)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s10,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Enable Hidden Characters v5)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, lastbld2s11,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (Simplify Moves)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s01,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s02,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s03,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Enable Hidden Characters V3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s04,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s05,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Enhanced Power V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s06,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Enhanced Power V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s07,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Optimization Of The Motion Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s08,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Optimization Move Out)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s09,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Bug Fix Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s10,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Enable Hidden Characters v5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, lastbld2s11,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (Simplify Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, lastbld2s12,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "The Last Blade 2 (enhanced)", MACHINE_SUPPORTS_SAVE )

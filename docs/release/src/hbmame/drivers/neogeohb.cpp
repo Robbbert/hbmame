@@ -122,6 +122,7 @@ NUM YEAR COMPANY          TITLE
 364 2004 SNK?             King of Fighters 2004 EX (hack of kof2003)
 365 2004 Dragon Co, Ltd   King of Fighters Special Edition 2004 (hack of kof2002)
 366 2008 SNK?             King of Fighters 10th Anniversary 2008 (hack of kof10th) (original number 5009)
+367 2005 SNK?             King of Fighters 10th Anniversary 2005 (hack of kof10th) (original number 5006)
 
 
 
@@ -439,6 +440,22 @@ ROM_START( zintrckbh )
 	ROM_LOAD16_WORD_SWAP( "211h.p1", 0x000000, 0x100000, CRC(328af665) SHA1(ece74116955ecb9ec40ac90913d496836ecc82cf) )
 
 	NEO_SFIX_128K( "zin-s1.bin", CRC(a7ab0e81) SHA1(f0649819b96cea79b05411e0b15c8edc677d79ba) )
+
+	NEO_BIOS_AUDIO_128K( "zin-m1.bin", CRC(fd9627ca) SHA1(b640c1f1ff466f734bb1cb5d7b589cb7e8a55346) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "zin-v1.bin", 0x000000, 0x200000, CRC(c09f74f1) SHA1(d0b56a780a6eba85ff092240b1f1cc6718f17c21) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "zin-c1.bin", 0x000000, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
+	ROM_LOAD16_BYTE( "zin-c2.bin", 0x000001, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
+ROM_END
+
+ROM_START( zintricks01 ) // all confirmed : same as zintrckb except s1
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "zin-p1.bin", 0x000000, 0x100000, CRC(06c8fca7) SHA1(b7bf38965c3d0db4d7a9684d14cac94a45b4a45b))
+
+	NEO_SFIX_128K( "211s01.s1", CRC(07948446) SHA1(10df47a2bb515f06c75d0077fee89f7193626d7b) )
 
 	NEO_BIOS_AUDIO_128K( "zin-m1.bin", CRC(fd9627ca) SHA1(b640c1f1ff466f734bb1cb5d7b589cb7e8a55346) )
 
@@ -1159,9 +1176,39 @@ ROM_END
 
 
 // 430 : Teenage Mutant Ninja Turtles intro from Raregame
-ROM_START( tmnti )	/* you must use unibios to select Japan Console */
+ROM_START( tmnti ) /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "430.p1", 0x000000, 0x800000, CRC(2d5066ff) SHA1(e1109c1e7532fa167ba5c9c90648d019740efd8e) )
+
+	NEO_SFIX_64K( "426.s1", CRC(3dc5c1ef) SHA1(fa194481524cd95ec7188fef0857ef4d2435d7eb) )
+
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
+
+	ROM_REGION( 0x20000, "audiocpu", 0 )
+	ROM_LOAD( "430.m1", 0x0000, 0x2000, CRC(953542ef) SHA1(95e93833b938b8d374d29f925777cf296468ae9e) )
+	ROM_RELOAD( 0x10000, 0x2000 )
+
+	ROM_REGION( 0x094900, "ymsnd", 0 )
+	ROM_LOAD( "430.v1", 0x000000, 0x094900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "430.c1", 0x0000000, 0x400000, CRC(ae1735c1) SHA1(a7a943fb088bccbd5e2c0fa34766bab8169000fa) )
+	ROM_LOAD16_BYTE( "430.c2", 0x0000001, 0x400000, CRC(344281b5) SHA1(a7de77ce07bcd87ba6348278e9c2a61e0f96a499) )
+	ROM_LOAD16_BYTE( "430.c3", 0x0800000, 0x400000, CRC(1058a648) SHA1(878384e1bb8e7666723935a6270d61d3015fe475) )
+	ROM_LOAD16_BYTE( "430.c4", 0x0800001, 0x400000, CRC(1c6ba1b0) SHA1(065f059ef412c69c1a6e7d96e0d41d4151802c95) )
+	ROM_LOAD16_BYTE( "430.c5", 0x1000000, 0x400000, CRC(73a89fb0) SHA1(6b17c878cf6e33f98f3d0779e908264a95a186ba) )
+	ROM_LOAD16_BYTE( "430.c6", 0x1000001, 0x400000, CRC(a139246a) SHA1(facc1caa4f5e4f8476df75c3f68802184072a8ee) )
+	ROM_LOAD16_BYTE( "430.c7", 0x1800000, 0x400000, CRC(ed957842) SHA1(0066baf544b87f7d99334401a93c239ce151df50) )
+	ROM_LOAD16_BYTE( "430.c8", 0x1800001, 0x400000, CRC(8c15d91b) SHA1(4b4d4fd2302c43a5c82bb849803d13d43947a695) )
+ROM_END
+
+ROM_START( tmntia ) /* you must use unibios to select Japan Console */
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "430a.p1", 0x000000, 0x800000, CRC(ed4f5fec) SHA1(6f3d00137b44ab2734d84bc6cea4ea58b9b2350d) )
 
 	NEO_SFIX_64K( "426.s1", CRC(3dc5c1ef) SHA1(fa194481524cd95ec7188fef0857ef4d2435d7eb) )
 
@@ -1753,9 +1800,9 @@ ROM_START( lhcdb )
 	ROM_LOAD16_BYTE( "802cd.c3", 0x800000, 0x400000, CRC(28ec7555) SHA1(f094739272e6017a7193fa96cde3c1ed573a66b6) )
 	ROM_LOAD16_BYTE( "802cd.c4", 0x800001, 0x400000, CRC(8b7c236b) SHA1(1cb3fe81f433a2180c85be935e340da3c55aafdb) )
 ROM_END
-ROM_START( lhcdba ) // v3 rom is different
+ROM_START( lhcdba ) // v3,p1 rom are different, but same bugs as above
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "802cd.p1", 0x000000, 0x100000, CRC(83e7b181) SHA1(eb13909c0b062d56d20cbdfe75abf6139eae9ee0) )
+	ROM_LOAD16_WORD_SWAP( "802cda.p1", 0x000000, 0x100000, CRC(0f7405d7) SHA1(3858564413be0bbbcb1c970de8f66bedc7d1ac6a) )
 
 	NEO_SFIX_128K( "802cd.s1", CRC(298495d6) SHA1(c217aba6c1916d2e5337bb5c17d979b11a53582e) )
 
@@ -1814,6 +1861,7 @@ GAME( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "ZinTricK (s01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Face / NCI", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
@@ -1878,5 +1926,6 @@ GAME( 2000, syscheck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 GAME( 20??, test01,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NGF", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles Intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles Intro (alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_SUPPORTS_SAVE )

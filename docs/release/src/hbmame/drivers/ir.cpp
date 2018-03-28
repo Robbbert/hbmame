@@ -138,22 +138,22 @@ READ8_MEMBER(ir_state::port02_r)
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
 
-ADDRESS_MAP_START( ir_state::main_map )
-	ADDRESS_MAP_GLOBAL_MASK(0x7fff)
-	AM_RANGE(0x0000, 0x1fff) AM_ROM AM_WRITENOP
-	AM_RANGE(0x2000, 0x3fff) AM_MIRROR(0x4000) AM_RAM AM_SHARE("ram")
-	AM_RANGE(0x4000, 0x5fff) AM_ROM AM_WRITENOP
-ADDRESS_MAP_END
+void ir_state::main_map(address_map &map) {
+	map.global_mask(0x7fff);
+	map(0x0000,0x1fff).rom().nopw();
+	map(0x2000,0x3fff).mirror(0x4000).ram().share("ram");
+	map(0x4000,0x5fff).rom().nopw();
+}
 
-ADDRESS_MAP_START( ir_state::io_map )
-	AM_RANGE(0x00, 0x00) AM_READ_PORT("IN0")
-	AM_RANGE(0x01, 0x01) AM_READ_PORT("IN1")
-	AM_RANGE(0x02, 0x02) AM_READ(port02_r) AM_DEVWRITE("mb14241", mb14241_device, shift_count_w)
-	AM_RANGE(0x03, 0x03) AM_DEVREAD("mb14241", mb14241_device, shift_result_r) AM_WRITE(port03_w)
-	AM_RANGE(0x04, 0x04) AM_DEVWRITE("mb14241", mb14241_device, shift_data_w)
-	AM_RANGE(0x05, 0x05) AM_WRITE(port05_w)
-	AM_RANGE(0x06, 0x06) AM_WRITENOP //(watchdog_reset_w)
-ADDRESS_MAP_END
+void ir_state::io_map(address_map &map) {
+	map(0x00,0x00).portr("IN0");
+	map(0x01,0x01).portr("IN1");
+	map(0x02,0x02).r(this,FUNC(ir_state::port02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
+	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(this,FUNC(ir_state::port03_w));
+	map(0x04,0x04).w("mb14241",FUNC(mb14241_device::shift_data_w));
+	map(0x05,0x05).w(this,FUNC(ir_state::port05_w));
+	map(0x06,0x06).nopw();  //(watchdog_reset_w)
+}
 
 //ADDRESS_MAP_START( ir_state::sound_map )
 //	ADDRESS_MAP_UNMAP_HIGH

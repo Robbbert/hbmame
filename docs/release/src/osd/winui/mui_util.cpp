@@ -386,7 +386,7 @@ char * ConvertToWindowsNewlines(const char *source)
  */
 const char * GetDriverFilename(uint32_t nIndex)
 {
-	static char tmp[40];
+	static char tmp[2048];
 	std::string driver = core_filename_extract_base(driver_list::driver(nIndex).type.source());
 	strcpy(tmp, driver.c_str());
 	return tmp;
@@ -394,7 +394,7 @@ const char * GetDriverFilename(uint32_t nIndex)
 
 BOOL isDriverVector(const machine_config *config)
 {
-	const screen_device *screen  = config->first_screen();
+	const screen_device *screen = screen_device_iterator(config->root_device()).first();
 
 	if (screen)
 		if (SCREEN_TYPE_VECTOR == screen->screen_type())

@@ -265,26 +265,26 @@ WRITE8_MEMBER( outrunm_state::sound_rombank1_w )
 	m_soundbank->set_bank(1);
 }
 
-ADDRESS_MAP_START( outrunm_state::sound_map_banked )
-	ADDRESS_MAP_UNMAP_HIGH
-	AM_RANGE(0x0000, 0xefff) AM_DEVICE("soundbank", address_map_bank_device, amap8)
-	AM_RANGE(0xf000, 0xf0ff) AM_MIRROR(0x0700) AM_DEVREADWRITE("pcm", segapcm_device, sega_pcm_r, sega_pcm_w)
-	AM_RANGE(0xf800, 0xffff) AM_RAM
- ADDRESS_MAP_END
- 
-ADDRESS_MAP_START( outrunm_state::sound_portmap_banked )
-	ADDRESS_MAP_UNMAP_HIGH
-	ADDRESS_MAP_GLOBAL_MASK(0xff)
-	AM_RANGE(0x00, 0x01) AM_MIRROR(0x3e) AM_DEVREADWRITE("ymsnd", ym2151_device, read, write)
-	AM_RANGE(0x40, 0x7f) AM_READ(sound_data_r)
-	AM_RANGE(0x80, 0xbf) AM_WRITE(sound_rombank0_w)
-	AM_RANGE(0xc0, 0xff) AM_WRITE(sound_rombank1_w)
-ADDRESS_MAP_END
+void outrunm_state::sound_map_banked(address_map &map) {
+	map.unmap_value_high();
+	map(0x0000,0xefff).m("soundbank",FUNC(address_map_bank_device::amap8));
+	map(0xf000,0xf0ff).mirror(0x0700).rw("pcm",FUNC(segapcm_device::sega_pcm_r),FUNC(segapcm_device::sega_pcm_w));
+	map(0xf800,0xffff).ram();
+}
 
-ADDRESS_MAP_START( outrunm_state::soundbank_map )
-	ADDRESS_MAP_UNMAP_HIGH
-	AM_RANGE(0x0000, 0x1ffff) AM_ROM AM_REGION("soundcpu", 0)
-ADDRESS_MAP_END
+void outrunm_state::sound_portmap_banked(address_map &map) {
+	map.unmap_value_high();
+	map.global_mask(0xff);
+	map(0x00,0x01).mirror(0x3e).rw("ymsnd",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
+	map(0x40,0x7f).r("mapper",FUNC(sega_315_5195_mapper_device::pread));
+	map(0x80,0xbf).w(this,FUNC(outrunm_state::sound_rombank0_w));
+	map(0xc0,0xff).w(this,FUNC(outrunm_state::sound_rombank1_w));
+}
+
+void outrunm_state::soundbank_map(address_map &map) {
+	map.unmap_value_high();
+	map(0x0000,0x1ffff).rom().region("soundcpu",0);
+}
 
 MACHINE_CONFIG_START( outrunm_state::outrunm )
 	outrun(config);

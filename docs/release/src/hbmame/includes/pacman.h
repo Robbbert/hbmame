@@ -63,7 +63,7 @@ public:
 	void vanvan_portmap(address_map &map);
 	void woodpek_map(address_map &map);
 	void writeport(address_map &map);
-private:
+protected:
 	optional_device<namco_device> m_namco_sound;
 	required_device<watchdog_timer_device> m_watchdog;
 	optional_shared_ptr<uint8_t> m_spriteram;
@@ -77,7 +77,7 @@ private:
 	required_device<palette_device> m_palette;
 	optional_region_ptr<u8> m_p_maincpu; // HBMAME
 	optional_ioport m_io_fake; // HBMAME
-
+private:
 	uint8_t m_cannonb_bit_to_read;
 	int m_mystery;
 	uint8_t m_counter;

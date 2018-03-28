@@ -391,6 +391,31 @@ ROM_START( rbffspy ) /* Real Bout Fatal Fury Special - Enhance by Ydmis - (Ultra
 	ROM_LOAD16_BYTE( "223-c8.c8", 0x1800001, 0x400000, CRC(5ad62102) SHA1(e28cc9840caed2a1a8bd65a03bef05231071040c) )
 ROM_END
 
+ROM_START( rbffss07 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "223s07.p1",  0x000000, 0x100000, CRC(778d0486) SHA1(28711e9f3f2c36a920fbf62802ef79c5899ad859) )
+	ROM_LOAD16_WORD_SWAP( "223-p2.sp2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
+
+	NEO_SFIX_128K( "223-s1.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
+
+	NEO_BIOS_AUDIO_128K( "223-m1.m1", CRC(3fee46bf) SHA1(e750f85233953853618fcdff980a4721af1710a3) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "223-v1.v1", 0x000000, 0x400000, CRC(76673869) SHA1(78a26afa29f73de552ffabdbf3fc4bf26be8ae9e) )
+	ROM_LOAD( "223-v2.v2", 0x400000, 0x400000, CRC(7a275acd) SHA1(8afe87ce822614262b72a90b371fc79155ac0d0c) )
+	ROM_LOAD( "223-v3.v3", 0x800000, 0x400000, CRC(5a797fd2) SHA1(94958e334f86d4d71059af8138f255b8d97a3b01) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "223-c1.c1", 0x0000000, 0x400000, CRC(ebab05e2) SHA1(0d60a8b631e3a3dcfbfdd7779dee081c9548ec39) )
+	ROM_LOAD16_BYTE( "223-c2.c2", 0x0000001, 0x400000, CRC(641868c3) SHA1(aa1aeb661842276b3326bfa4f1456f75bfecd52e) )
+	ROM_LOAD16_BYTE( "223-c3.c3", 0x0800000, 0x400000, CRC(ca00191f) SHA1(96977febfcc513e1848d7029ff169cdf51104038) )
+	ROM_LOAD16_BYTE( "223-c4.c4", 0x0800001, 0x400000, CRC(1f23d860) SHA1(e18df52f898a51074e07a0b8c6e75873e7cde35e) )
+	ROM_LOAD16_BYTE( "223-c5.c5", 0x1000000, 0x400000, CRC(321e362c) SHA1(39bd189334278f266124c97c6f70995f6f171cea) )
+	ROM_LOAD16_BYTE( "223-c6.c6", 0x1000001, 0x400000, CRC(d8fcef90) SHA1(bbccacb27f1e587bc144fe7ce68bd7b327ceaaee) )
+	ROM_LOAD16_BYTE( "223-c7.c7", 0x1800000, 0x400000, CRC(bc80dd2d) SHA1(086f372015eede88c6c578595fe915e28a589d2f) )
+	ROM_LOAD16_BYTE( "223-c8.c8", 0x1800001, 0x400000, CRC(5ad62102) SHA1(e28cc9840caed2a1a8bd65a03bef05231071040c) )
+ROM_END
+
 ROM_START( rbffsud ) /* Real Bout Fatal Fury Special - Enhance by Dodowang - (All charcaters ultra kill style change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "223ud.p1",   0x000000, 0x100000, CRC(b173df6b) SHA1(2c03eeee842b6a583a352c5414633ffc9a430fbf) )
@@ -655,6 +680,7 @@ GAME( 1996, rbffsehd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1996, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, rbffspecbs,    rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Real Bout Fatal Fury Special (Boss hack Yumeji)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, rbffspy,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury Special (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, rbffss07,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special (Ultra Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, rbffsud,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1998, rbff2b,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred)", MACHINE_SUPPORTS_SAVE )
@@ -1119,7 +1145,7 @@ ROM_END
 
 ROM_START( rbff1as01 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "095hs01-p1.p1",  0x000000, 0x100000, CRC(fa5e3c0f) SHA1(6391ad22eabf0246aa3b9f6d9f821cd58d2e5c71) )
+	ROM_LOAD16_WORD_SWAP( "095ud.p1",  0x000000, 0x100000, CRC(fa5e3c0f) SHA1(6391ad22eabf0246aa3b9f6d9f821cd58d2e5c71) )
 	ROM_LOAD16_WORD_SWAP( "095-p2.sp2", 0x100000, 0x200000, CRC(cc15826e) SHA1(44d6ac6c0ca697a6f367dcfd809b1e1771cb0635) )
 	ROM_LOAD16_WORD_SWAP( "095-epr.ep1", 0x000000, 0x080000, CRC(be0060a3) SHA1(fa741d34898ad5004a23e280139d1446f1a082c7) )
 

@@ -1224,8 +1224,7 @@ void CreateResolutionFolders(int parent_index)
 	for (jj = 0; jj < nGames; jj++)
 	{
 		machine_config config(driver_list::driver(jj), MameUIGlobal());
-		const screen_device *screen;
-		screen = config.first_screen();
+		const screen_device *screen = screen_device_iterator(config.root_device()).first();
 		if (screen != NULL)
 		{
 			const rectangle &visarea = screen->visible_area();
@@ -1293,9 +1292,8 @@ void CreateFPSFolders(int parent_index)
 	{
 		float f;
 		machine_config config(driver_list::driver(i), MameUIGlobal());
-		const screen_device *screen;
-		screen = config.first_screen();
-		if (screen != NULL)
+		const screen_device *screen = screen_device_iterator(config.root_device()).first();
+		if (screen)
 		{
 			f = ATTOSECONDS_TO_HZ(screen->refresh_attoseconds());
 

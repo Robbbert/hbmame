@@ -9,29 +9,29 @@
  *
  *************************************/
 
-ADDRESS_MAP_START( galaxian_state::fourplay_map )
-	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
-	AM_RANGE(0x4000, 0x47ff) AM_RAM
-	AM_RANGE(0x5000, 0x53ff) AM_MIRROR(0x0400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x5800, 0x58ff) AM_MIRROR(0x0700) AM_RAM_WRITE(galaxian_objram_w) AM_SHARE("spriteram")
-	AM_RANGE(0x6000, 0x6000) AM_READ_PORT("IN0")
-	AM_RANGE(0x6800, 0x6800) AM_READ_PORT("IN1")
-	AM_RANGE(0x7000, 0x7000) AM_READ_PORT("IN2")
-	AM_RANGE(0x7800, 0x7fff) AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
-	AM_RANGE(0x6000, 0x6001) AM_WRITE(start_lamp_w)
-	AM_RANGE(0x6002, 0x6002) AM_WRITENOP // AM_WRITE(coin_lock_w)
-	AM_RANGE(0x6003, 0x6003) AM_WRITE(coin_count_0_w)
-	AM_RANGE(0x6004, 0x6007) AM_DEVWRITE("cust", galaxian_sound_device, lfo_freq_w)
-	AM_RANGE(0x6800, 0x6807) AM_DEVWRITE("cust", galaxian_sound_device, sound_w)
-	AM_RANGE(0x7001, 0x7001) AM_WRITE(irq_enable_w)
-	AM_RANGE(0x7002, 0x7003) AM_WRITE(fourplay_rombank_w)
-	AM_RANGE(0x7004, 0x7004) AM_WRITE(galaxian_stars_enable_w)
-	AM_RANGE(0x7005, 0x7005) AM_WRITENOP /* bit 3 of rombank select - always 0 */
-	AM_RANGE(0x7006, 0x7006) AM_WRITE(galaxian_flip_screen_x_w)
-	AM_RANGE(0x7007, 0x7007) AM_WRITE(galaxian_flip_screen_y_w)
-	AM_RANGE(0x7008, 0x7008) AM_WRITENOP /* bit 4 of rombank select - always 0 */
-	AM_RANGE(0x7800, 0x7800) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
-ADDRESS_MAP_END
+void galaxian_state::fourplay_map(address_map &map) {
+	map(0x0000,0x3fff).bankr("bank1");
+	map(0x4000,0x47ff).ram();
+	map(0x5000,0x53ff).mirror(0x0400).ram().w(this,FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x0700).ram().w(this,FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0x6000,0x6000).portr("IN0");
+	map(0x6800,0x6800).portr("IN1");
+	map(0x7000,0x7000).portr("IN2");
+	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
+	map(0x6000,0x6001).w(this,FUNC(galaxian_state::start_lamp_w));
+	map(0x6002,0x6002).nopw();  // AM_WRITE(coin_lock_w)
+	map(0x6003,0x6003).w(this,FUNC(galaxian_state::coin_count_0_w));
+	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
+	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
+	map(0x7001,0x7001).w(this,FUNC(galaxian_state::irq_enable_w));
+	map(0x7002,0x7003).w(this,FUNC(galaxian_state::fourplay_rombank_w));
+	map(0x7004,0x7004).w(this,FUNC(galaxian_state::galaxian_stars_enable_w));
+	map(0x7005,0x7005).nopw();  /* bit 3 of rombank select - always 0 */
+	map(0x7006,0x7006).w(this,FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(this,FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
+	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
+}
 
 MACHINE_CONFIG_START( galaxian_state::fourplay )
 	galaxian(config);
@@ -86,12 +86,12 @@ INPUT_PORTS_END
  *
  ***********************************************************/
 
-ADDRESS_MAP_START( galaxian_state::jumpbugx_map )
-	AM_IMPORT_FROM(jumpbug_map)
+void galaxian_state::jumpbugx_map(address_map &map) {
+	jumpbug_map(map);
 /* HBMAME - added next lines */
-	AM_RANGE(0x6800, 0x6807) AM_MIRROR(0x07f8) AM_DEVWRITE("cust", galaxian_sound_device, sound_w)
-	AM_RANGE(0x7800, 0x7800) AM_MIRROR(0x07ff) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
-ADDRESS_MAP_END
+	map(0x6800,0x6807).mirror(0x07f8).w("cust",FUNC(galaxian_sound_device::sound_w));
+	map(0x7800,0x7800).mirror(0x07ff).w("cust",FUNC(galaxian_sound_device::pitch_w));
+}
 
 MACHINE_CONFIG_START( galaxian_state::jumpbugx )
 	jumpbug(config);
@@ -182,20 +182,20 @@ DRIVER_INIT_MEMBER( galaxian_state, trukker )
  *
  ***************************************************************/
 
-ADDRESS_MAP_START( galaxian_state::tst_frog_map )
-	ADDRESS_MAP_UNMAP_HIGH
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
-	AM_RANGE(0x8000, 0x87ff) AM_RAM
-	AM_RANGE(0x8800, 0x8800) AM_READNOP //AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
-	AM_RANGE(0xa800, 0xabff) AM_MIRROR(0x0400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0xb000, 0xb0ff) AM_MIRROR(0x0700) AM_RAM_WRITE(galaxian_objram_w) AM_SHARE("spriteram")
-	AM_RANGE(0xb808, 0xb808) AM_MIRROR(0x07e3) AM_WRITE(irq_enable_w)
-	AM_RANGE(0xb80c, 0xb80c) AM_MIRROR(0x07e3) AM_WRITE(galaxian_flip_screen_y_w)
-	AM_RANGE(0xb810, 0xb810) AM_MIRROR(0x07e3) AM_WRITE(galaxian_flip_screen_x_w)
-	AM_RANGE(0xb818, 0xb818) AM_MIRROR(0x07e3) AM_WRITE(coin_count_0_w) /* IOPC7 */
-	AM_RANGE(0xb81c, 0xb81c) AM_MIRROR(0x07e3) AM_WRITE(coin_count_1_w) /* POUT1 */
-	AM_RANGE(0xc000, 0xffff) AM_READWRITE(frogger_ppi8255_r, frogger_ppi8255_w)
-ADDRESS_MAP_END
+void galaxian_state::tst_frog_map(address_map &map) {
+	map.unmap_value_high();
+	map(0x0000,0x3fff).rom();
+	map(0x8000,0x87ff).ram();
+	map(0x8800,0x8800).nopr();  //AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
+	map(0xa800,0xabff).mirror(0x0400).ram().w(this,FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0xb000,0xb0ff).mirror(0x0700).ram().w(this,FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0xb808,0xb808).mirror(0x07e3).w(this,FUNC(galaxian_state::irq_enable_w));
+	map(0xb80c,0xb80c).mirror(0x07e3).w(this,FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0xb810,0xb810).mirror(0x07e3).w(this,FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0xb818,0xb818).mirror(0x07e3).w(this,FUNC(galaxian_state::coin_count_0_w));  /* IOPC7 */
+	map(0xb81c,0xb81c).mirror(0x07e3).w(this,FUNC(galaxian_state::coin_count_1_w));  /* POUT1 */
+	map(0xc000,0xffff).rw(this,FUNC(galaxian_state::frogger_ppi8255_r),FUNC(galaxian_state::frogger_ppi8255_w));
+}
 
 MACHINE_CONFIG_START( galaxian_state::tst_frog )
 	frogger(config);
@@ -212,27 +212,27 @@ MACHINE_CONFIG_END
  *
  *************************************/
 
-ADDRESS_MAP_START( galaxian_state::videight_map )
-	AM_RANGE(0x0000, 0x3fff) AM_ROMBANK("bank1")
-	AM_RANGE(0x4000, 0x47ff) AM_RAM
-	AM_RANGE(0x5000, 0x53ff) AM_MIRROR(0x400) AM_RAM_WRITE(galaxian_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x5800, 0x58ff) AM_MIRROR(0x700) AM_RAM_WRITE(galaxian_objram_w) AM_SHARE("spriteram")
-	AM_RANGE(0x6000, 0x6000) AM_READ_PORT("IN0")
-	AM_RANGE(0x6800, 0x6800) AM_READ_PORT("IN1")
-	AM_RANGE(0x7000, 0x7000) AM_READ_PORT("IN2")
-	AM_RANGE(0x7800, 0x7fff) AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
-	AM_RANGE(0x6000, 0x6002) AM_WRITE(videight_gfxbank_w)
-	AM_RANGE(0x6003, 0x6003) AM_WRITE(coin_count_0_w)
-	AM_RANGE(0x6004, 0x6007) AM_DEVWRITE("cust", galaxian_sound_device, lfo_freq_w)
-	AM_RANGE(0x6800, 0x6807) AM_DEVWRITE("cust", galaxian_sound_device, sound_w)
-	AM_RANGE(0x6808, 0x68ff) AM_WRITENOP
-	AM_RANGE(0x7001, 0x7001) AM_WRITE(irq_enable_w)
-	AM_RANGE(0x7002, 0x7005) AM_WRITE(videight_rombank_w)
-	AM_RANGE(0x7006, 0x7006) AM_WRITE(galaxian_flip_screen_x_w)
-	AM_RANGE(0x7007, 0x7007) AM_WRITE(galaxian_flip_screen_y_w)
-	AM_RANGE(0x7008, 0x7008) AM_WRITENOP			/* bit 4 of rombank select - always 0 */
-	AM_RANGE(0x7800, 0x7800) AM_DEVWRITE("cust", galaxian_sound_device, pitch_w)
-ADDRESS_MAP_END
+void galaxian_state::videight_map(address_map &map) {
+	map(0x0000,0x3fff).bankr("bank1");
+	map(0x4000,0x47ff).ram();
+	map(0x5000,0x53ff).mirror(0x400).ram().w(this,FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x700).ram().w(this,FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0x6000,0x6000).portr("IN0");
+	map(0x6800,0x6800).portr("IN1");
+	map(0x7000,0x7000).portr("IN2");
+	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
+	map(0x6000,0x6002).w(this,FUNC(galaxian_state::videight_gfxbank_w));
+	map(0x6003,0x6003).w(this,FUNC(galaxian_state::coin_count_0_w));
+	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
+	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
+	map(0x6808,0x68ff).nopw();
+	map(0x7001,0x7001).w(this,FUNC(galaxian_state::irq_enable_w));
+	map(0x7002,0x7005).w(this,FUNC(galaxian_state::videight_rombank_w));
+	map(0x7006,0x7006).w(this,FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(this,FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
+	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
+}
 
 static GFXDECODE_START( videight )
 	GFXDECODE_SCALE( "gfx1", 0x0000, galaxian_charlayout,   0, 8*32, GALAXIAN_XSCALE,1)
@@ -665,6 +665,26 @@ ROM_START( amidargr )
 	ROM_LOAD( "amidar.clr",   0x0000, 0x0020, CRC(f940dcc3) SHA1(1015e56f37c244a850a8f4bf0e36668f047fd46d) )
 ROM_END
 
+ROM_START( amidars01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "amidar.2c",    0x0000, 0x1000, CRC(c294bf27) SHA1(399325bf1559e8cdbddf7cfbf0dc739f9ed72ef0) )
+	ROM_LOAD( "amidar.2e",    0x1000, 0x1000, CRC(e6e96826) SHA1(e9c4f8c594640424b456505e676352a98b758c03) )
+	ROM_LOAD( "s01.2f",       0x2000, 0x1000, CRC(000da382) SHA1(383973843215e8510ce97e8b295049736dd21979) )
+	ROM_LOAD( "amidar.2h",    0x3000, 0x1000, CRC(1be170bd) SHA1(c047bc393b297c0d47668a5f6f4870e3fac937ef) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "amidar.5c",    0x0000, 0x1000, CRC(c4b66ae4) SHA1(9d09dbde4019f7be3abe0815b0e06d542c01c255) )
+	ROM_LOAD( "amidar.5d",    0x1000, 0x1000, CRC(806785af) SHA1(c8c85e3a6a204feccd7859b4527bd649e96134b4) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "amidar.5f",    0x0000, 0x0800, CRC(5e51e84d) SHA1(dfe84db7e2b1a45a1d484fcf37291f536bc5324c) )
+	ROM_LOAD( "amidar.5h",    0x0800, 0x0800, CRC(2f7f1c30) SHA1(83c330eca20dfcc6a4099001943b9ed7a7c3db5b) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "amidar.clr",   0x0000, 0x0020, CRC(f940dcc3) SHA1(1015e56f37c244a850a8f4bf0e36668f047fd46d) )
+ROM_END
+
+
 #define rom_jumpbugx rom_jumpbug
 
 
@@ -823,6 +843,7 @@ GAME( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_state, frogger,  RO
 /* Amidar */
 GAME( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "Arkatrad", "Amidar (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "Arkatrad", "Amidar (Translation-French)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Scramble */
@@ -858,37 +879,4 @@ GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_state, jumpbug,  RO
 GAME( 1982, monstrz,  0,        sfx,      sfx,      galaxian_state, sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_state, pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_state, nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
-
-
-//PSmame
-
-
-ROM_START( amidar1s01 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "amidar.2c",    0x0000, 0x1000, CRC(c294bf27) SHA1(399325bf1559e8cdbddf7cfbf0dc739f9ed72ef0) )
-	ROM_LOAD( "amidar.2e",    0x1000, 0x1000, CRC(e6e96826) SHA1(e9c4f8c594640424b456505e676352a98b758c03) )
-	ROM_LOAD( "amidarhc01.2f",    0x2000, 0x1000, CRC(000da382) SHA1(383973843215e8510ce97e8b295049736dd21979) )
-	ROM_LOAD( "amidar.2h",    0x3000, 0x1000, CRC(1be170bd) SHA1(c047bc393b297c0d47668a5f6f4870e3fac937ef) )
-
-	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "amidar.5c",    0x0000, 0x1000, CRC(c4b66ae4) SHA1(9d09dbde4019f7be3abe0815b0e06d542c01c255) )
-	ROM_LOAD( "amidar.5d",    0x1000, 0x1000, CRC(806785af) SHA1(c8c85e3a6a204feccd7859b4527bd649e96134b4) )
-
-	ROM_REGION( 0x1000, "gfx1", 0 )
-	ROM_LOAD( "amidar.5f",    0x0000, 0x0800, CRC(5e51e84d) SHA1(dfe84db7e2b1a45a1d484fcf37291f536bc5324c) )
-	ROM_LOAD( "amidar.5h",    0x0800, 0x0800, CRC(2f7f1c30) SHA1(83c330eca20dfcc6a4099001943b9ed7a7c3db5b) )
-
-	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "amidar.clr",   0x0000, 0x0020, CRC(f940dcc3) SHA1(1015e56f37c244a850a8f4bf0e36668f047fd46d) )
-ROM_END
-
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Amidar
-GAME( 1981, amidar1s01,     amidar,   turtles,    amidar,     galaxian_state, turtles,    ROT90,  "Hacks", "Amidar (Translation-French)", MACHINE_SUPPORTS_SAVE )
 

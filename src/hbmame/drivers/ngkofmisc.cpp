@@ -4781,6 +4781,32 @@ ROM_START( cthd2k3ds12 )
 	ROM_LOAD16_BYTE( "360d.c8", 0x3000001, 0x800000, CRC(39550d3a) SHA1(8dbf219da2b39642c316164b8c28bcb350346250) )
 ROM_END
 
+ROM_START( cthd2k3ds13 ) // ct2k3ad : all confirmed except v1,v3,v4
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360ds13.p1", 0x000000, 0x100000, CRC(83783954) SHA1(963a352bdc755b7c9cdf6b5f1c6b4f790061d6c3) )
+	ROM_LOAD16_WORD_SWAP( "360ds13.p2", 0x100000, 0x400000, CRC(84b0b164) SHA1(1d7de20d8fc71c2e74a4fda17a2f41e2a6f027ba) )
+
+	NEO_SFIX_128K( "360ds13.s1", CRC(956d8273) SHA1(15a0b51a194d6bddfa87d772837a4569fad59760) )
+
+	NEO_BIOS_AUDIO_128K( "360ds13.m1", CRC(3ee21b7e) SHA1(6d74b2154f2b955c0f355306427b5b308acf6bff) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262-v1-08-e0.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "360a.v2",         0x400000, 0x400000, CRC(2b498449) SHA1(8e2b01dd17dbf4498a197bda8ce3e08cdf785f12) )
+	ROM_LOAD( "262-v3-08-e0.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262-v4-08-e0.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360ds13.c1", 0x0000000, 0x800000, CRC(eddd5e2f) SHA1(2af647a57ec12ed60c37a3469adf3e58cb6728c6) )
+	ROM_LOAD16_BYTE( "360ds13.c2", 0x0000001, 0x800000, CRC(23d8d1d6) SHA1(b831e2d506bf8c1436b48d34fc6e2d321602434d) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360ds13.c7", 0x3000000, 0x800000, CRC(4f50e1ae) SHA1(676ecba2b3c5f1def2822559c1c1299d4eae503f) )
+	ROM_LOAD16_BYTE( "360ds13.c8", 0x3000001, 0x800000, CRC(4f5f09bf) SHA1(1c2d66e793f7943c2c3bbc8390d455001f07baa4) )
+ROM_END
+
 ROM_START( cthd2k3as01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "360axs01.p1", 0x000000, 0x100000, CRC(c5e2a470) SHA1(2f59b7d01f7dc0b1d11ef2e243ab2fed1858beba) )
@@ -5492,6 +5518,7 @@ GAME( 2018, cthd2k3ds09,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neog
 GAME( 2018, cthd2k3ds10,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Icy blue style)(decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, cthd2k3ds11,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Some Team Color change v4)(decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, cthd2k3ds12,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Blood Version)(decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, cthd2k3ds13,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (ds13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, cthd2k3as01,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2k3a,  ROT0, "Hacks",    "Crouching Tiger Hidden Dragon 2003 (Unlimited Credits in Console Mode)(set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, kof10thds01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof 10th Anniversary (All Team Battle Extra Plus)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, kof10thds02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof 10th Anniversary (All Team Battle 2005 Unique)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )

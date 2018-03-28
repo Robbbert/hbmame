@@ -278,6 +278,7 @@ public:
 		, m_p_ram(*this, "ram")
 		, m_gfxdecode(*this, "gfxdecode")
 		, m_palette(*this, "palette")
+		, m_out_digit(*this, "digit%u", 0U)
 		{ }
 
 	DECLARE_READ8_MEMBER(monaco_ram_r);
@@ -384,6 +385,7 @@ private:
 	required_shared_ptr<uint8_t> m_p_ram;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
+	output_finder<105> m_out_digit;
 };
 
 
@@ -615,7 +617,7 @@ void monaco_state::update_computer_cars( void )
 		sy = m_ypos[i];
 
 		if( ( m_dy[i]<0 && sy<top_inset ) ||
-		    (	m_dy[i]>0 && sy+16>SCREEN_HEIGHT-bottom_inset ) )
+			( m_dy[i]>0 && sy+16>SCREEN_HEIGHT-bottom_inset ) )
 		{
 			m_dy[i] *= -1;
 		}
@@ -1067,10 +1069,10 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 
 /*********************************************/
 
-ADDRESS_MAP_START( monaco_state::monaco_map )/* fake */
-	AM_RANGE(0x0000, 0xefff) AM_ROM
-	AM_RANGE(0xf000, 0xffff) AM_READWRITE(monaco_ram_r, monaco_ram_w) AM_SHARE("ram") /* scores need 4000 bytes */
-ADDRESS_MAP_END
+void monaco_state::monaco_map(address_map &map) {/* fake */
+	map(0x0000,0xefff).rom();
+	map(0xf000,0xffff).rw(this,FUNC(monaco_state::monaco_ram_r),FUNC(monaco_state::monaco_ram_w)).share("ram");  /* scores need 4000 bytes */
+}
 
 static INPUT_PORTS_START( monaco )
 	PORT_START("IN0") /* fake */
@@ -1462,7 +1464,7 @@ MACHINE_CONFIG_END
 /*****************************************************************/
 
 ROM_START( monaco )
-	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASE00 )	/* fake */
+	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASE00 ) /* fake */
 
 	ROM_REGION( 0x3000, "gfx1", 0 )
 	ROM_LOAD( "pr125", 512*0,  512, CRC(7a66ed4c) SHA1(514e129c334a551b931c90b063b073a9b4bdffc3) ) /* light data */
@@ -1484,21 +1486,21 @@ ROM_START( monaco )
 	ROM_LOAD( "pr141", 512*16, 512, CRC(99934236) SHA1(ec271f3e690d5c57ead9132b22b9b1b966e4d170) ) /* bridge-pillar */
 
 	ROM_REGION( 32*3, "proms", 0 )
-	ROM_LOAD( "prm38",	0*32, 32, CRC(82dd0a0f) SHA1(3e7e475c3270853d70c1fe90a773172532b60cfb) )	/* acceleration related */
-	ROM_LOAD( "prm39",	1*32, 32, CRC(6acfa0da) SHA1(1e56da4cdf71a095eac29878969b831babac222b) )	/* regulates opponent car speed */
+	ROM_LOAD( "prm38", 0*32, 32, CRC(82dd0a0f) SHA1(3e7e475c3270853d70c1fe90a773172532b60cfb) ) /* acceleration related */
+	ROM_LOAD( "prm39", 1*32, 32, CRC(6acfa0da) SHA1(1e56da4cdf71a095eac29878969b831babac222b) ) /* regulates opponent car speed */
 
-//	ROM_LOAD( "prm-40",	2*32, 32, CRC(8030dac8) )
-/*	PR40 is in the Fanfare sound circuit and seems to access the particular
- *	notes for the fanfare sound (so PR40 may contain timing and pointer info
- *	on the melody).  The switch (SW1) I mentioned before that helped in tuning
- *	the fanfare sound with the 6 pots seems to help in making the tuning of each
- *	pot for output of one of three audio frequencies (262, 330, 392 Hz),
- *	instead of having to tune to 6 different frequencies (a production/test
- *	equipment issue).
- *	In any case, if we get a good sample of this fanfare sound, we will not
- *	need to bother with this circuit or PR40.  As far a I have seen, the
- *	fanfare sound only comes up at the end of the game if you have a top five
- *	score and possibly when you plug in the game.
+//  ROM_LOAD( "prm-40", 2*32, 32, CRC(8030dac8) )
+/*  PR40 is in the Fanfare sound circuit and seems to access the particular
+ *  notes for the fanfare sound (so PR40 may contain timing and pointer info
+ *  on the melody).  The switch (SW1) I mentioned before that helped in tuning
+ *  the fanfare sound with the 6 pots seems to help in making the tuning of each
+ *  pot for output of one of three audio frequencies (262, 330, 392 Hz),
+ *  instead of having to tune to 6 different frequencies (a production/test
+ *  equipment issue).
+ *  In any case, if we get a good sample of this fanfare sound, we will not
+ *  need to bother with this circuit or PR40.  As far a I have seen, the
+ *  fanfare sound only comes up at the end of the game if you have a top five
+ *  score and possibly when you plug in the game.
  */
 ROM_END
 
@@ -2025,7 +2027,7 @@ static const uint8_t led_map[12] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7
 
 void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 {
-	int i;
+	int i; // must be signed
 	uint32_t data;
 
 //	data = m_speed;
@@ -2043,35 +2045,35 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	data = m_led_high1>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output().set_digit_value(i+10, led_map[data%10]);
+		m_out_digit[10+i] = led_map[data%10];
 		data = data/10;
 	}
 
 	data = m_led_high2>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output().set_digit_value(i+20, led_map[data%10]);
+		m_out_digit[20+i] = led_map[data%10];
 		data = data/10;
 	}
 
 	data = m_led_high3>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output().set_digit_value(i+30, led_map[data%10]);
+		m_out_digit[30+i] = led_map[data%10];
 		data = data/10;
 	}
 
 	data = m_led_high4>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output().set_digit_value(i+40, led_map[data%10]);
+		m_out_digit[40+i] = led_map[data%10];
 		data = data/10;
 	}
 
 	data = m_led_high5>>8;
 	for( i=3; i>=0; i-- )
 	{
-		output().set_digit_value(i+50, led_map[data%10]);
+		m_out_digit[50+i] = led_map[data%10];
 		data = data/10;
 	}
 
@@ -2084,15 +2086,14 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //			0,SCREEN_HEIGHT-6-i*6,
 //			NULL, TRANSPARENCY_NONE,0 );
 
-		output().set_digit_value(i, led_map[data%10]);
-
+		m_out_digit[i] = led_map[data%10];
 		data = data/10;
 	}
 
 	data = m_led_plays;
 	for( i=2; i>=0; i-- )
 	{
-		output().set_digit_value(i+60, led_map[data%10]);
+		m_out_digit[60+i] = led_map[data%10];
 		data = data/10;
 	}
 
@@ -2101,11 +2102,11 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	{
 		if (data == 0xffff)
 		{
-			output().set_digit_value(i+70, 0);		/* make it blank */
+			m_out_digit[70+i] = 0;   // make it blank
 		}
 		else
 		{
-			output().set_digit_value(i+70, led_map[data%10]);
+			m_out_digit[70+i] = led_map[data%10];
 			data = data/10;
 		}
 	}
@@ -2119,21 +2120,21 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //			9,SCREEN_HEIGHT-6-i*6,
 //			NULL, TRANSPARENCY_NONE,0 );
 //
-		output().set_digit_value(i+80, led_map[data%10]);
+		m_out_digit[80+i] = led_map[data%10];
 		data = data/10;
 	}
 
 	data = m_led_gear;
 	for( i=0; i>=0; i-- )
 	{
-		output().set_digit_value(i+90, led_map[10+data%10]);
+		m_out_digit[90+i] = led_map[10+data%10];
 		data = data/10;
 	}
 
 	data = m_led_lives;
 	for( i=0; i>=0; i-- )
 	{
-		output().set_digit_value(i+100, led_map[data%10]);
+		m_out_digit[100+i] = led_map[data%10];
 		data = data/10;
 	}
 
@@ -2145,8 +2146,7 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //			0,1, /* no flip */
 //			18,SCREEN_HEIGHT-6-i*6 );
 
-		output().set_digit_value(i+4, led_map[data%10]);
-
+		m_out_digit[i+4] = led_map[data%10];
 		data = data/10;
 	}
 }
@@ -2180,12 +2180,12 @@ uint32_t monaco_state::screen_update_monaco(screen_device &screen, bitmap_ind16 
 
 VIDEO_START_MEMBER( monaco_state, monaco )
 {
-	int i;
+	m_out_digit.resolve();
 
 	m_palette->set_pen_color( 0, 0x00,0x00,0x00 ); /* black (tire) */
 	m_palette->set_pen_color( 1, 0xff,0xff,0xff ); /* white (trim) */
 	/* computer car */
-	for( i=0; i<NUM_COMPUTER_CAR_TYPES; i++ )
+	for( u8 i=0; i<NUM_COMPUTER_CAR_TYPES; i++ )
 	{
 		const unsigned char clut[3*NUM_COMPUTER_CAR_TYPES] =
 		{

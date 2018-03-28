@@ -107,6 +107,8 @@ vecbtime		/* T-Bone hack of Burgertime */
 
 @source:bublbobl.cpp
 bublbobl		//parent
+bublboblu
+bub68705a
 boblcave
 bublcave
 bublcave10
@@ -2029,6 +2031,7 @@ kof98s54
 kof98s55
 kof98s56
 kof98s57
+kof98s58
 kof98h04
 kof98h10
 kof98h11
@@ -2528,7 +2531,7 @@ kof2000s18
 kof2000s19
 kof2000s20
 kof2000s21
-//kof2000s22   // inactivated
+//kof2000s22   // roms missing
 kof2000s23
 kof2000s24
 kof2000s25
@@ -2539,6 +2542,7 @@ kof2000s29
 kof2000s30
 kof2000s31
 kof2000s32
+kof2000s33
 kof2000n01
 kof2000n02
 kof2000n03
@@ -5896,6 +5900,7 @@ syscheck
 test01		// MVS Test 01 by Furrtek
 timesupd	// CeL
 tmnti		/* TMNT intro */
+tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 ww2demo
@@ -6229,6 +6234,7 @@ cthd2k3ds09
 cthd2k3ds10
 cthd2k3ds11
 cthd2k3ds12
+cthd2k3ds13
 cthd2k3as01
 kogs01
 kogs02
@@ -6409,6 +6415,7 @@ lastbld2s08
 lastbld2s09
 lastbld2s10
 lastbld2s11
+lastbld2s12
 
 @source:ngrbff.cpp
 fatfury2b

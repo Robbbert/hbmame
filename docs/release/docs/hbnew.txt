@@ -21,11 +21,14 @@ New Games (in addition to above)
 - [ataris1rt]       Atari System 1 Ram Tester (not working)
 - [bangbeadd]       Bang Bead (decrypted)
 - [bloodbros01]     Blood Bros (Ex Super version)
+- [bub68705a]
+- [bublboblu]
 - [cabals01]        Cabal (Ex Super version)
 - [contrajs01]      Contra (Translation Chinese)
 - [ct2k3k3s*]       Crouching Tiger Hidden Dragon - 17 hacks
 - [ct2k3spd]
 - [cthd2k3a]
+- [cthd2k3ds13]
 - [cthd2k3as01]
 - [cthd2k3d]
 - [cthd2k3d*]       Crouching Tiger Hidden Dragon - 12 hacks
@@ -46,6 +49,7 @@ New Games (in addition to above)
 - [kof2k2omg5]
 - [kof2k3fd]
 - [kof2k3plr]       (not working)
+- [kof2000s33]
 - [kof2004pd]       KOF 2004 EX Hero
 - [kof2004upls01]   KOF 2004 EX Ultra Plus
 - [kof2k4plss*]     KOF Special Edition 2004 Plus - 20 hacks
@@ -74,7 +78,8 @@ New Games (in addition to above)
 - [kof98c20180228]
 - [kof98pfe]
 - [kof98s56]
-- [kof98s57]        (not working)
+- [kof98s57]
+- [kof98s58]
 - [kof99s23]
 - [kof99s24]        Kof'99 (Red Storm Edition Unsimplified by Kalcetin)
 - [kof99s25]        (not working)
@@ -82,11 +87,11 @@ New Games (in addition to above)
 - [kof99s27]        (not working)
 - [kof99s28]
 - [kof99s29]        (not working)
-- [lbsp3]           Last Blade (Super Plus)
+- [lastbld2s12]
+- [lbsp3]           Last Blade (Super Plus)]
 - [mslugr*]         Metal Slug - 175 hacks
 - [mslugs18]        Metal Slug (Plus Plus)
-- [mslug2r*]        Metal Slug 2 - 314 hacks
-- [mslug2r*]        Metal Slug 2 - 225 hacks
+- [mslug2r*]        Metal Slug 2 - 539 hacks
 - [mslug3s82]
 - [mslug3s83]
 - [mslug3s84]       Metal Slug 3 (Super Plus 2018)
@@ -119,6 +124,7 @@ New Games (in addition to above)
 - [svcs85]          Chaos Koryu
 - [svcs86]          Super Koryu
 - [svcs87]
+- [tmntia]
 - [umk3r13b101]     Ultimate Mortal Kombat 3 (rev 1.3 beta 1.01)
 - [umk3r13b1213]    Ultimate Mortal Kombat 3 (rev 1.3 beta 1.2.13)
 - [umk3r13b201]     Ultimate Mortal Kombat 3 (rev 1.3 beta 2.01)

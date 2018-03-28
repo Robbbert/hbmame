@@ -23,20 +23,20 @@ static const char *const galagost_sample_names[] =
 	0   /* end of array */
 };
 
-ADDRESS_MAP_START( galaga_hbmame::galagost_map )
-	AM_RANGE(0x0000, 0x3fff) AM_ROM AM_WRITENOP         /* the only area different for each CPU */
-	AM_RANGE(0x6800, 0x6807) AM_READ(bosco_dsw_r)
-	AM_RANGE(0x6800, 0x681f) AM_DEVWRITE("namco", namco_device, pacman_sound_w)
-	AM_RANGE(0x6820, 0x6827) AM_DEVWRITE("misclatch", ls259_device, write_d0)
-	AM_RANGE(0x6830, 0x6830) AM_DEVWRITE("watchdog", watchdog_timer_device, reset_w)
-	AM_RANGE(0x7000, 0x70ff) AM_DEVREAD("06xx", namco_06xx_device, data_r) AM_WRITE(galaga_sample_w)
-	AM_RANGE(0x7100, 0x7100) AM_DEVREADWRITE("06xx", namco_06xx_device, ctrl_r, ctrl_w)
-	AM_RANGE(0x8000, 0x87ff) AM_RAM_WRITE(galaga_videoram_w) AM_SHARE("videoram")
-	AM_RANGE(0x8800, 0x8bff) AM_RAM AM_SHARE("galaga_ram1")
-	AM_RANGE(0x9000, 0x93ff) AM_RAM AM_SHARE("galaga_ram2")
-	AM_RANGE(0x9800, 0x9bff) AM_RAM AM_SHARE("galaga_ram3")
-	AM_RANGE(0xa000, 0xa007) AM_DEVWRITE("videolatch", ls259_device, write_d0)
-ADDRESS_MAP_END
+void galaga_hbmame::galagost_map(address_map &map) {
+	map(0x0000,0x3fff).rom().nopw();  /* the only area different for each CPU */
+	map(0x6800,0x6807).r(this,FUNC(galaga_hbmame::bosco_dsw_r));
+	map(0x6800,0x681f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x6820,0x6827).w("misclatch",FUNC(ls259_device::write_d0));
+	map(0x6830,0x6830).w("watchdog",FUNC(watchdog_timer_device::reset_w));
+	map(0x7000,0x70ff).r("06xx",FUNC(namco_06xx_device::data_r)).w(this,FUNC(galaga_hbmame::galaga_sample_w));
+	map(0x7100,0x7100).rw("06xx",FUNC(namco_06xx_device::ctrl_r),FUNC(namco_06xx_device::ctrl_w));
+	map(0x8000,0x87ff).ram().w(this,FUNC(galaga_hbmame::galaga_videoram_w)).share("videoram");
+	map(0x8800,0x8bff).ram().share("galaga_ram1");
+	map(0x9000,0x93ff).ram().share("galaga_ram2");
+	map(0x9800,0x9bff).ram().share("galaga_ram3");
+	map(0xa000,0xa007).w("videolatch",FUNC(ls259_device::write_d0));
+}
 
 MACHINE_CONFIG_START( galaga_hbmame::galagost )
 	galaga(config);
@@ -1158,7 +1158,7 @@ ROM_START( sxeviouss01 )
 	ROM_LOAD( "xvi_17.4p",    0x2000, 0x2000, CRC(dfb587ce) SHA1(acff2bf5cde85a16cdc98a52cdea11f77fadf25a) )    /* sprite set #2, planes 0/1 */
 	ROM_LOAD( "xvi_16.4n",    0x4000, 0x1000, CRC(605ca889) SHA1(3bf380ef76c03822a042ecc73b5edd4543c268ce) )    /* sprite set #3, planes 0/1 */
 	ROM_LOAD( "xvip_16.4n",   0x5000, 0x1000, CRC(00babaa1) SHA1(b946510a9c5b6c1dd6e6bab1ba3217a9d449a477) )
-	ROM_FILL(                 0x9000, 0x1000, 0x00 )  
+	ROM_FILL(                 0x9000, 0x1000, 0x00 )
 
 	ROM_REGION( 0x4000, "gfx4", 0 ) /* background tilemaps */
 	ROM_LOAD( "xvip_9.2a",    0x0000, 0x1000, CRC(529aecf0) SHA1(60c18f834933e01ecd22aa652d39a5d1a9a0fe0f) )
