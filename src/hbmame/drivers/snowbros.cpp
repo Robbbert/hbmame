@@ -1,6 +1,7 @@
 // Proyecto De Inicio:"2016/2017"
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/snowbros.cpp"
+#include "../mame/video/kan_pand.cpp"
 
 /***************************************
 	Proyecto Shadows Mame Build Plus
