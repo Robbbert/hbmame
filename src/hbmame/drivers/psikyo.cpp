@@ -1,6 +1,6 @@
 // Proyecto De Inicio:"2016/2017"
 // Derechos Del Autor:Gaston90
-#include "../mame/drivers/Psikyo.cpp"
+#include "../mame/drivers/psikyo.cpp"
 
 /***************************************
 	Proyecto Shadows Mame Build Plus
