@@ -91,7 +91,7 @@ TODO:
 
 - The meaning of blitter commands 43 and 8c is not understood.
 
-- quizchq: it locks up, some samples are played at the wrong pitch
+- quizchq: some samples are played at the wrong pitch (which ones?)
 
 - quiz365 protection
 
@@ -124,7 +124,6 @@ Notes:
 #include "machine/gen_latch.h"
 #include "machine/msm6242.h"
 #include "machine/nvram.h"
-#include "machine/timer.h"
 
 #include "speaker.h"
 
@@ -1946,7 +1945,7 @@ void ddenlovr_state::quiz365_map(address_map &map)
 
 	map(0x200c02, 0x200c03).r(this, FUNC(ddenlovr_state::quiz365_protection_r));                          // Protection
 	map(0x200e0a, 0x200e0d).w(this, FUNC(ddenlovr_state::quiz365_protection_w));                         // Protection
-//  AM_RANGE(0x201000, 0x2017ff) AM_WRITEONLY                                      // ?
+//  map(0x201000, 0x2017ff) AM_WRITEONLY                                      // ?
 
 	map(0x300201, 0x300201).w(this, FUNC(ddenlovr_state::ddenlovr_select2_w));
 	map(0x300203, 0x300203).w(this, FUNC(ddenlovr_state::quiz365_coincounter_w));                        // Coin Counters + more stuff written on startup
@@ -2000,7 +1999,7 @@ void ddenlovr_state::ddenlovj_map(address_map &map)
 	map(0x000000, 0x07ffff).rom(); // ROM
 
 	map(0x200000, 0x2003ff).w(this, FUNC(ddenlovr_state::rongrong_palette_w)).umask16(0x00ff);
-//  AM_RANGE(0x201000, 0x2017ff) AM_WRITEONLY                                      // ? B0 on startup, then 00
+//  map(0x201000, 0x2017ff) AM_WRITEONLY                                      // ? B0 on startup, then 00
 
 	map(0x300040, 0x300047).w(this, FUNC(ddenlovr_state::ddenlovr_palette_base_w)).umask16(0x00ff);
 	map(0x300048, 0x30004f).w(this, FUNC(ddenlovr_state::ddenlovr_palette_mask_w)).umask16(0x00ff);
@@ -2059,7 +2058,7 @@ void ddenlovr_state::ddenlovrk_map(address_map &map)
 	map(0x200000, 0x200001).rw(this, FUNC(ddenlovr_state::ddenlovrk_protection2_r), FUNC(ddenlovr_state::ddenlovrk_protection2_w)).share("protection2");
 
 	map(0xd00000, 0xd003ff).w(this, FUNC(ddenlovr_state::rongrong_palette_w)).umask16(0x00ff);
-//  AM_RANGE(0xd01000, 0xd017ff) AM_RAM                                                    // ? B0 on startup, then 00
+//  map(0xd01000, 0xd017ff) AM_RAM                                                    // ? B0 on startup, then 00
 
 	map(0xe00040, 0xe00047).w(this, FUNC(ddenlovr_state::ddenlovr_palette_base_w)).umask16(0x00ff);
 	map(0xe00048, 0xe0004f).w(this, FUNC(ddenlovr_state::ddenlovr_palette_mask_w)).umask16(0x00ff);
@@ -2095,7 +2094,7 @@ void ddenlovr_state::ddenlovr_map(address_map &map)
 	map(0x300001, 0x300001).w(this, FUNC(ddenlovr_state::ddenlovr_oki_bank_w));
 
 	map(0xd00000, 0xd003ff).w(this, FUNC(ddenlovr_state::rongrong_palette_w)).umask16(0x00ff);
-//  AM_RANGE(0xd01000, 0xd017ff) AM_RAM                                                   // ? B0 on startup, then 00
+//  map(0xd01000, 0xd017ff) AM_RAM                                                   // ? B0 on startup, then 00
 
 	map(0xe00040, 0xe00047).w(this, FUNC(ddenlovr_state::ddenlovr_palette_base_w)).umask16(0x00ff);
 	map(0xe00048, 0xe0004f).w(this, FUNC(ddenlovr_state::ddenlovr_palette_mask_w)).umask16(0x00ff);
@@ -2820,14 +2819,14 @@ void ddenlovr_state::kotbinyo_portmap(address_map &map)
 	map(0x83, 0x84).r(this, FUNC(ddenlovr_state::hanakanz_gfxrom_r));
 	map(0xa0, 0xa1).w("ym2413", FUNC(ym2413_device::write));
 	map(0xb0, 0xb0).portr("SYSTEM");
-//  AM_RANGE(0xb1, 0xb2) AM_READ(hanakanz_keyb_r)
+//  map(0xb1, 0xb2) AM_READ(hanakanz_keyb_r)
 	map(0xb1, 0xb1).portr("KEYB0");
 	map(0xb2, 0xb2).portr("KEYB1");
 	map(0xb3, 0xb3).w(this, FUNC(ddenlovr_state::hanakanz_coincounter_w));
-//  AM_RANGE(0xb4, 0xb4) AM_WRITE(hanakanz_keyb_w)
+//  map(0xb4, 0xb4) AM_WRITE(hanakanz_keyb_w)
 	map(0xb6, 0xb6).r(this, FUNC(ddenlovr_state::hanakanz_rand_r));
 	map(0xc0, 0xc0).rw(m_oki, FUNC(okim6295_device::read), FUNC(okim6295_device::write));
-//  AM_RANGE(0xe0, 0xef) AM_DEVREADWRITE("rtc", msm6242_device, read, write)
+//  map(0xe0, 0xef) AM_DEVREADWRITE("rtc", msm6242_device, read, write)
 }
 
 
@@ -2845,14 +2844,14 @@ void ddenlovr_state::kotbinsp_portmap(address_map &map)
 	map(0x83, 0x84).r(this, FUNC(ddenlovr_state::hanakanz_gfxrom_r));
 	map(0xa0, 0xa1).w("ym2413", FUNC(ym2413_device::write));
 	map(0x90, 0x90).portr("SYSTEM");
-//  AM_RANGE(0x91, 0x91) AM_READ(hanakanz_keyb_r)
+//  map(0x91, 0x91) AM_READ(hanakanz_keyb_r)
 	map(0x91, 0x91).portr("KEYB0");
 	map(0x92, 0x92).portr("KEYB1");
 	map(0x93, 0x93).w(this, FUNC(ddenlovr_state::hanakanz_coincounter_w));
-//  AM_RANGE(0x94, 0x94) AM_WRITE(hanakanz_keyb_w)
+//  map(0x94, 0x94) AM_WRITE(hanakanz_keyb_w)
 	map(0x96, 0x96).r(this, FUNC(ddenlovr_state::hanakanz_rand_r));
 	map(0xc0, 0xc0).rw(m_oki, FUNC(okim6295_device::read), FUNC(okim6295_device::write));
-//  AM_RANGE(0xe0, 0xef) AM_DEVREADWRITE("rtc", msm6242_device, read, write)
+//  map(0xe0, 0xef) AM_DEVREADWRITE("rtc", msm6242_device, read, write)
 }
 
 
@@ -4326,10 +4325,11 @@ void ddenlovr_state::htengoku_mem_map(address_map &map)
 	map(0x8000, 0xffff).m(m_bankdev, FUNC(address_map_bank_device::amap8));
 }
 
-ADDRESS_MAP_START(dynax_state::htengoku_banked_map)
-	AM_RANGE(0x00000, 0x3ffff) AM_ROM AM_REGION("maincpu", 0x10000)
-	AM_RANGE(0x80000, 0x801ff) AM_WRITE(tenkai_palette_w)
-ADDRESS_MAP_END
+void dynax_state::htengoku_banked_map(address_map &map)
+{
+	map(0x00000, 0x3ffff).rom().region("maincpu", 0x10000);
+	map(0x80000, 0x801ff).w(this, FUNC(dynax_state::tenkai_palette_w));
+}
 
 MACHINE_CONFIG_START(ddenlovr_state::htengoku)
 
@@ -13037,8 +13037,8 @@ GAME( 1993, mjmyorn2,  0,        mjmyornt,  mjmyorn2, ddenlovr_state, 0,        
 GAME( 1992, mjmyornt,  mjmyorn2, mjmyornt,  mjmyornt, ddenlovr_state, 0,        ROT0, "Dynax",                                       "Mahjong The Mysterious Orient",                                   MACHINE_NO_COCKTAIL  )
 GAME( 1993, funkyfig,  0,        funkyfig,  funkyfig, ddenlovr_state, 0,        ROT0, "Nakanihon / East Technology (Taito license)", "The First Funky Fighter (USA, Canada, Mexico / Japan, set 1)",    MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_GRAPHICS ) // scrolling, priority?
 GAME( 1993, funkyfiga, funkyfig, funkyfig,  funkyfig, ddenlovr_state, 0,        ROT0, "Nakanihon / East Technology (Taito license)", "The First Funky Fighter (USA, Canada, Mexico / Japan, set 2)",    MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_GRAPHICS ) // ""
-GAME( 1993, quizchq,   0,        quizchq,   quizchq,  ddenlovr_state, 0,        ROT0, "Nakanihon",                                   "Quiz Channel Question (Ver 1.00) (Japan)",                        MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING )
-GAME( 1993, quizchql,  quizchq,  quizchq,   quizchq,  ddenlovr_state, 0,        ROT0, "Nakanihon (Laxan license)",                   "Quiz Channel Question (Ver 1.23) (Taiwan?)",                      MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING )
+GAME( 1993, quizchq,   0,        quizchq,   quizchq,  ddenlovr_state, 0,        ROT0, "Nakanihon",                                   "Quiz Channel Question (Ver 1.00) (Japan)",                        MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1993, quizchql,  quizchq,  quizchq,   quizchq,  ddenlovr_state, 0,        ROT0, "Nakanihon (Laxan license)",                   "Quiz Channel Question (Ver 1.23) (Taiwan?)",                      MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 GAME( 1993, animaljr,  0,        mmpanic,   animaljr, ddenlovr_state, 0,        ROT0, "Nakanihon / East Technology (Taito license)", "Exciting Animal Land Jr. (USA)",                                  MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_SOUND )
 GAME( 1993, animaljrs, animaljr, mmpanic,   animaljr, ddenlovr_state, 0,        ROT0, "Nakanihon / East Technology (Taito license)", "Animalandia Jr. (Spanish)",                                       MACHINE_NO_COCKTAIL  | MACHINE_IMPERFECT_SOUND )
 GAME( 1993, animaljrj, animaljr, mmpanic,   animaljr, ddenlovr_state, 0,        ROT0, "Nakanihon / East Technology (Taito license)", "Waiwai Animal Land Jr. (Japan)",                                  MACHINE_NO_COCKTAIL  )
