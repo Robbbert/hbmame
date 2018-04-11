@@ -701,6 +701,7 @@ files {
 	MAME_DIR .. "src/mame/video/segaic24.cpp",
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
+	MAME_DIR .. "src/mame/machine/m1io.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")
