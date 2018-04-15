@@ -148,41 +148,14 @@ ROM_START( orlegendh )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0100.u1",     0x400000, 0x200000, CRC(e5c36c83) SHA1(50c6f66770e8faa3df349f7d68c407a7ad021716) )
 ROM_END
-#if 0
-ROM_START( kovassg ) // encrypted
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p0600.assg", 0x100000, 0x400000, CRC(b9885d5c) SHA1(be55e6b3639fbf30e4cbc1bb24e388fd2ad74382) )
 
-	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
-
-	ROM_REGION( 0x1c00000, "sprcol", 0 )
-	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
-	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
-	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
-	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
-
-	ROM_REGION( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
-	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
-
-	ROM_REGION( 0x800000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
-ROM_END
-#endif
 ROM_START( kovassg )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "assg_v315cn.rom", 0x100000, 0x400000, CRC(b9885d5c) SHA1(be55e6b3639fbf30e4cbc1bb24e388fd2ad74382) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
 
 	ROM_REGION( 0xc00000, "tiles",  0 )
 	PGM_VIDEO_BIOS
@@ -1241,7 +1214,7 @@ ROM_START( kovsh7 ) // set has 3 p roms (all encrypted, and 2 b601 roms, and 1 a
 	ROM_LOAD16_WORD_SWAP( "p0600h.sh7",   0x100000, 0x400000, CRC(7c05aa5c) SHA1(85aa625187f79a4a7401386ffb6ea3c2492e1be3) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -1647,6 +1620,7 @@ GAME( 1997, orlegendcs, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state
 GAME( 2006, pgemeni,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Blastar", "P-Gemeni", MACHINE_SUPPORTS_SAVE ) // has no sound
 GAME( 1997, pgmdemo,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
 GAME( 2006, pgmfrog,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kovassg,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kov,    ROT0,   "bootleg", "Knights of Valour: Aoshi Sanguo / Sangoku Senki: Aoshi Sanguo (ver. 315CN)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) /* need internal rom of IGS027A */
 GAME( 1999, kovdf,      kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hack", "Knights of Valour (hack set df)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kovsgqyzc,  kovplus,   pgm_arm_type1_sim,  sango_ch, pgm_arm_type1_state, kovboot,    ROT0,   "bootleg", "Knights of Valour: SanGuo QunYingZhuan / Sangoku Senki: SanGuo QunYingZhuan (bootleg, set 4)", MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 GAME( 2001, kov2h1,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus (hack set 1)", MACHINE_SUPPORTS_SAVE )
@@ -13308,7 +13282,7 @@ ROM_START( kovsho01 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc01.132",   0x100000, 0x400000, CRC(8102c945) SHA1(f2f168974fe1b1b2d345456d3f2ce90d8f8a5221) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.134", 0x000000, 0x04000, BAD_DUMP CRC(7ece721c) SHA1(3aa11f11803643f9aa4bdafa35421626d066c4e9) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.134", 0x000000, 0x04000, BAD_DUMP CRC(7ece721c) SHA1(3aa11f11803643f9aa4bdafa35421626d066c4e9) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13335,7 +13309,7 @@ ROM_START( kovsho02 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc02.132",   0x100000, 0x400000, CRC(51f2fd47) SHA1(8bb7330c576995578f986a5dacab831caa736d5e) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.134", 0x000000, 0x04000, BAD_DUMP CRC(7ece721c) SHA1(3aa11f11803643f9aa4bdafa35421626d066c4e9) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.134", 0x000000, 0x04000, BAD_DUMP CRC(7ece721c) SHA1(3aa11f11803643f9aa4bdafa35421626d066c4e9) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13362,7 +13336,7 @@ ROM_START( kovsho03 )
 	ROM_LOAD16_WORD_SWAP( "p0600h03.132",   0x100000, 0x400000, CRC(4958c43f) SHA1(31852f58e89f53b2ff7196b033771c42fee6338e) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.134", 0x000000, 0x04000, BAD_DUMP CRC(7ece721c) SHA1(3aa11f11803643f9aa4bdafa35421626d066c4e9) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.134", 0x000000, 0x04000, BAD_DUMP CRC(7ece721c) SHA1(3aa11f11803643f9aa4bdafa35421626d066c4e9) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13389,7 +13363,7 @@ ROM_START( kovsho04 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc04.132",   0x100000, 0x400000, CRC(14f0ce80) SHA1(c155d9104fbe257d77789bedccb018a6677b149c) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.132", 0x000000, 0x04000, BAD_DUMP CRC(0d87d4a1) SHA1(bc981c20da426143c5e49d9fadf680b185002dd1) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.132", 0x000000, 0x04000, BAD_DUMP CRC(0d87d4a1) SHA1(bc981c20da426143c5e49d9fadf680b185002dd1) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13416,7 +13390,7 @@ ROM_START( kovsho05 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc05.132",   0x100000, 0x400000, CRC(5399b60e) SHA1(7c896961177a66b0e5e79f2f97ba25a7fa8e9500) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.132", 0x000000, 0x04000, BAD_DUMP CRC(0d87d4a1) SHA1(bc981c20da426143c5e49d9fadf680b185002dd1) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.132", 0x000000, 0x04000, BAD_DUMP CRC(0d87d4a1) SHA1(bc981c20da426143c5e49d9fadf680b185002dd1) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13443,7 +13417,7 @@ ROM_START( kovsho06 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc06.132",   0x100000, 0x400000, CRC(96d87c9d) SHA1(55cc1bced4f3990b55295de5de8d6b9be48fd2b3) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.133", 0x000000, 0x04000, BAD_DUMP CRC(b3123ccb) SHA1(ac13a9a3bcf86ea7dfd93e58e4b6772a9ca5ab35) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.133", 0x000000, 0x04000, BAD_DUMP CRC(b3123ccb) SHA1(ac13a9a3bcf86ea7dfd93e58e4b6772a9ca5ab35) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13470,7 +13444,7 @@ ROM_START( kovsho07 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc07.132",   0x100000, 0x454F4C, CRC(e153264e) SHA1(28697741308d4670b3c078f3c13ef107810edbdd) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovshc07_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(8427c690) SHA1(e08ac566e98fa604fb819ce6c7871e112969f305) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovshc07_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(8427c690) SHA1(e08ac566e98fa604fb819ce6c7871e112969f305) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13497,7 +13471,7 @@ ROM_START( kovsho08 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc08.132",   0x100000, 0x454F4A, CRC(843d3523) SHA1(3f1d331e6b315efd881df8dde54d6f11edd0a08f) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovshc08_v100_china.132", 0x000000, 0x04000, BAD_DUMP CRC(9af4d680) SHA1(5512504272a0940274f3cf7cd8e15ff4fa9d594b) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovshc08_v100_china.132", 0x000000, 0x04000, BAD_DUMP CRC(9af4d680) SHA1(5512504272a0940274f3cf7cd8e15ff4fa9d594b) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13524,7 +13498,7 @@ ROM_START( kovsho09 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc014.132",   0x100000, 0x454F84, CRC(a360fdf7) SHA1(2820c24ef9134b198976fde70f3eccc574b06c00) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -13578,7 +13552,7 @@ ROM_START( kovsho11 )
 	ROM_LOAD16_WORD_SWAP( "p0600hc11.132",   0x100000, 0x454F46, CRC(2c4ed676) SHA1(7f30986859604f5ab90b22ac39614995f53ce7ce) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "kovsh11_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(537b628d) SHA1(013be0cbff49ccca97d0fcb2df3e70da1dfeca3a) ) // this is the kovsh ARM rom, we intercept and modify protection calls
+	ROM_LOAD( "kovsh11_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(537b628d) SHA1(013be0cbff49ccca97d0fcb2df3e70da1dfeca3a) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
