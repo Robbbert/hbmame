@@ -72,14 +72,14 @@ WRITE16_MEMBER(neogeo_banked_cart_device::main_cpu_bank_select_w)
 	uint32_t len = m_region_size;
 
 	if ((len <= 0x100000) && (data & 0x07))
-		logerror("PC %06x: warning: bankswitch to %02x but no banks available\n", space.device().safe_pc(), data);
+		logerror("PC %06x: warning: bankswitch to %02x but no banks available\n", machine().describe_context(), data);
 	else
 	{
 		bank_address = ((data & 0x07) + 1) * 0x100000;
 
 		if (bank_address >= len)
 		{
-			logerror("PC %06x: warning: bankswitch to empty bank %02x\n", space.device().safe_pc(), data);
+			logerror("PC %06x: warning: bankswitch to empty bank %02x\n", machine().describe_context(), data);
 			bank_address = 0x100000;
 		}
 

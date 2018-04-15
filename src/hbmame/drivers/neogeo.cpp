@@ -678,7 +678,7 @@ WRITE8_MEMBER(neogeo_state::io_control_w)
 //  case 0x33: break; // coin lockout
 
 		default:
-			logerror("PC: %x  Unmapped I/O control write.  Offset: %x  Data: %x\n", space.device().safe_pc(), offset, data);
+			logerror("PC: %x  Unmapped I/O control write.  Offset: %x  Data: %x\n", machine().describe_context(), offset, data);
 			break;
 	}
 }
@@ -703,7 +703,7 @@ READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
 	else
 	{
 		m_recurse = true;
-		ret = space.read_word(space.device().safe_pc());
+		ret = space.read_word(m_maincpu->pc());
 		m_recurse = false;
 	}
 	return ret;
@@ -933,11 +933,11 @@ WRITE8_MEMBER(neogeo_state::system_control_w)
 		case 0x02: // memory card 1: write enable/disable
 		case 0x03: // memory card 2: write disable/enable
 		case 0x04: // memory card: register select enable/set to normal (what does it mean?)
-			logerror("PC: %x  Unmapped system control write.  Offset: %x  Data: %x\n", space.device().safe_pc(), offset & 0x07, bit);
+			logerror("PC: %x  Unmapped system control write.  Offset: %x  Data: %x\n", machine().describe_context(), offset & 0x07, bit);
 			break;
 	}
 
-	if (LOG_VIDEO_SYSTEM && ((offset & 0x07) != 0x06)) logerror("PC: %x  System control write.  Offset: %x  Data: %x\n", space.device().safe_pc(), offset & 0x07, bit);
+	if (LOG_VIDEO_SYSTEM && ((offset & 0x07) != 0x06)) logerror("PC: %x  System control write.  Offset: %x  Data: %x\n", machine().describe_context(), offset & 0x07, bit);
 }
 
 
