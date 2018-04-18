@@ -699,9 +699,10 @@ files {
 	MAME_DIR .. "src/mame/machine/model2.cpp",
 	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
 	MAME_DIR .. "src/mame/video/segaic24.cpp",
+	MAME_DIR .. "src/mame/machine/315_5338a.cpp",
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
-	MAME_DIR .. "src/mame/machine/m1io.cpp",
+	MAME_DIR .. "src/mame/machine/model1io.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")
