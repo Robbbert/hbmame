@@ -276,7 +276,7 @@ static INPUT_PORTS_START( sicv )
 	/* Dummy port for cocktail mode */
 	INVADERS_CAB_TYPE_PORT
 INPUT_PORTS_END
-
+#if 0
 
 
 /*******************************************************/
@@ -364,7 +364,7 @@ static INPUT_PORTS_START( invadrmr )
 	PORT_DIPSETTING(    0x08, "3000" ) /* This is different to invaders */
 INPUT_PORTS_END
 
-
+#endif
 
 /*******************************************************/
 /*                                                     */
@@ -435,7 +435,7 @@ MACHINE_CONFIG_START(_8080bw_state::invadpt2)
 	invaders_samples_audio(config);
 MACHINE_CONFIG_END
 
-
+#if 0
 
 /*******************************************************/
 /*                                                     */
@@ -3397,7 +3397,7 @@ DRIVER_INIT_MEMBER(_8080bw_state,attackfc)
 }
 
 
-
+#endif
 /*****************************************************
 
  Space Invaders Multigame kit, Braze Technologies,
@@ -3536,7 +3536,7 @@ DRIVER_INIT_MEMBER(_8080bw_state,invmulti)
 	membank("bank2")->set_entry(0);
 }
 
-
+#if 0
 
 /**************************************************************************************************************/
 
@@ -3697,6 +3697,7 @@ ROM_START( sinvemag )
 	ROM_LOAD( "emag_si.e",    0x1800, 0x0400, CRC(c4e80586) SHA1(3d427d5a2eea3c911ec7bd055e06e6747ce5e84d) )
 	ROM_LOAD( "emag_si.f",    0x1c00, 0x0400, CRC(077f5ef2) SHA1(625de6839073ac4c904f949efc1b2e0afea5d676) )
 ROM_END
+#endif
 
 ROM_START( tst_invd )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -3704,8 +3705,11 @@ ROM_START( tst_invd )
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
 	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
+
+	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF )        /* color maps player 1/player 2 */
 ROM_END
 
+#if 0
 ROM_START( alieninv )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "alieninv.h",   0x0000, 0x0800, CRC(6ad601c3) SHA1(9fc88698f98ce43992a5044d28d3e19751f82772) )
@@ -4561,7 +4565,7 @@ ROM_START( ultrainv )
 	ROM_LOAD( "in-06.bin",   0x1c00, 0x0400, CRC(d958478c) SHA1(9df38c400c500b45d306d52fe74cd4d5ca92c0f0) )
 ROM_END
 
-
+#endif
 ROM_START( invmulti )
 	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 ) // decrypted rom goes here
 
@@ -4631,7 +4635,7 @@ ROM_START( invmultip )
 	ROM_REGION( 0x20000, "user1", 0 )
 	ROM_LOAD("s10.bin",  0x00000, 0x20000, CRC(1b43e4d3) SHA1(c50decd9caaec7f2d8b3ba74f718372d31bc1c3b) )
 ROM_END
-
+#if 0
 
 ROM_START( rollingc )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -5180,6 +5184,9 @@ GAMEL(1978, swipeout,   invaders, spcewars,  sicv,      _8080bw_state,  0,      
 GAMEL(1978, invader4,   invaders, invaders,  sicv,      mw8080bw_state, 0,        ROT270, "bootleg", "Space Invaders Part Four", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAME( 1978, darthvdr,   invaders, darthvdr,  darthvdr,  _8080bw_state,  0,        ROT270, "bootleg", "Darth Vader (bootleg of Space Invaders)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
 GAMEL(19??, tst_invd,   invaders, invaders,  sicv,      mw8080bw_state, 0,        ROT0,   "<unknown>", "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE, layout_invaders )
+#endif
+GAME( 19??, tst_invd,   invaders, invadpt2,  invadpt2,   _8080bw_state, 0,        ROT0,   "<unknown>", "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE )
+#if 0
 
 // other Taito
 GAME( 1979, invadpt2,   0,        invadpt2,  invadpt2,  _8080bw_state,  0,        ROT270, "Taito", "Space Invaders Part II (Taito)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
@@ -5269,7 +5276,7 @@ GAMEL(1980, gunchamp,   0,        claybust,  gunchamp,  _8080bw_state,  0,      
 GAME( 1980?,astropal,   0,        astropal,  astropal,  _8080bw_state,  0,        ROT0,   "Sidam?", "Astropal", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
 
 GAMEL(1979?,attackfc,   0,        attackfc,  attackfc,  _8080bw_state,  attackfc, ROT0,   "Electronic Games Systems", "Attack Force", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND, layout_attackfc )
-
+#endif
 GAME( 2002, invmulti,   0,        invmulti,  invmulti,  _8080bw_state,  invmulti, ROT270, "hack (Braze Technologies)", "Space Invaders Multigame (M8.03D)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, invmultim3a,invmulti, invmulti,  invmulti,  _8080bw_state,  invmulti, ROT270, "hack (Braze Technologies)", "Space Invaders Multigame (M8.03A)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, invmultim2c,invmulti, invmulti,  invmulti,  _8080bw_state,  invmulti, ROT270, "hack (Braze Technologies)", "Space Invaders Multigame (M8.02C)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

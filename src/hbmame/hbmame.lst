@@ -35,7 +35,6 @@ invmultis1a
 invmultis2a
 invmultis3a
 invmultit3d
-invrvnge		//parent for ir
 
 @source:arkanoid.cpp
 arkanoid		//parent
