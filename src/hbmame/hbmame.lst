@@ -924,6 +924,10 @@ sfiii3nrs01
 deathsml				//parent
 deathsmlh01
 
+@source:dbz.cpp
+dbz2				//parent
+dbz2h01
+
 @source:dec0.cpp
 baddudes		//parent
 baddudef		/* Arkatrad */
@@ -7692,4 +7696,8 @@ wmg
 @source:yiear.cpp
 yiear		//parent
 nacho		/* Gatinho - Nacho Libre */
+
+@source:zn.cpp
+coh1002m		//parent
+doapph01
 

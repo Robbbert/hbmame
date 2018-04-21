@@ -2,12 +2,10 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/pgm.cpp"
 /**************************************************************************************
-Problem sets not included:
 
-KOV Zero 2000: only change is 2 gfx roms, and the result has bad gfx
+HOMEBREW
 
 **************************************************************************************/
-
 ROM_START( pgemeni )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
@@ -93,6 +91,15 @@ ROM_START( ketarrb )
 	ROM_LOAD( "ket_defaults.nv", 0x0000000, 0x020000, CRC(3ca892d8) SHA1(67430df5217e453ae8140c5653deeadfad8fa684) )
 ROM_END
 
+/**************************************************************************************
+HACKS: Most of these don't work, due to cpu exceptions, or encryption.
+Also seems to be lots of bugs, and sets with a bunch of incompatible roms
+
+Problem sets not included:
+
+KOV Zero 2000: only change is 2 gfx roms, and the result has bad gfx
+
+**************************************************************************************/
 // This crashes in attract mode, but if you start a game before that happens, then it plays ok
 ROM_START( orlegendcs )
 	ROM_REGION( 0x600000, "maincpu", 0 )

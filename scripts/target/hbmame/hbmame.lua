@@ -35,7 +35,9 @@ CPUS["MB86233"] = true -- model2
 CPUS["MB86235"] = true -- model2
 CPUS["MCS48"] = true
 CPUS["MCS51"] = true
+CPUS["MN10200"] = true
 CPUS["NEC"] = true
+CPUS["PSX"] = true
 CPUS["S2650"] = true
 CPUS["SH"] = true
 CPUS["SSP1601"] = true
@@ -89,6 +91,7 @@ SOUNDS["SN76477"] = true
 SOUNDS["SN76496"] = true
 SOUNDS["SP0250"] = true
 SOUNDS["SPEAKER"] = true
+SOUNDS["SPU"] = true -- zn
 SOUNDS["ST0016"] = true
 SOUNDS["TC8830F"] = true -- timeplt
 SOUNDS["TMS36XX"] = true
@@ -107,9 +110,11 @@ SOUNDS["YM2612"] = true
 SOUNDS["YM3812"] = true
 SOUNDS["YM3526"] = true
 SOUNDS["YMF262"] = true
+SOUNDS["YMF271"] = true -- zn
 SOUNDS["YMF278B"] = true
 SOUNDS["YMZ280B"] = true
 SOUNDS["YMZ770"] = true -- cv1k
+SOUNDS["ZSG2"] = true -- zn
 
 --------------------------------------------------
 -- specify available video cores
@@ -123,19 +128,20 @@ VIDEOS["SEGA315_5124"] = true
 VIDEOS["SEGA315_5313"] = true
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
+VIDEOS["PSX"] = true
 
 --------------------------------------------------
 -- specify available machine cores
 --------------------------------------------------
 
 MACHINES["6522VIA"] = true
-MACHINES["RIOT6532"] = true
 MACHINES["6821PIA"] = true
 MACHINES["68681"] = true
-MACHINES["I8257"] = true
+MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["ADC0808"] = true
 MACHINES["ADC0844"] = true
+MACHINES["AT28C16"] = true -- zn
 MACHINES["BANKDEV"] = true
 MACHINES["CXD1095"] = true
 MACHINES["EEPROMDEV"] = true
@@ -145,12 +151,16 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8251"] = true
 MACHINES["I8255"] = true
+MACHINES["IDE"] = true
 MACHINES["INPUT_MERGER"] = true
 MACHINES["INTELFLASH"] = true
 MACHINES["GEN_FIFO"] = true
 MACHINES["GEN_LATCH"] = true
+MACHINES["I8257"] = true
+MACHINES["K053252"] = true
 MACHINES["LATCH8"] = true
 MACHINES["LDPR8210"] = true
+MACHINES["MB3773"] = true
 MACHINES["MB8421"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
@@ -158,6 +168,7 @@ MACHINES["MB89352"] = true  -- segas32
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
+MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
 MACHINES["RTC9701"] = true -- cv1k
@@ -227,6 +238,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"seibu",
 		"seta",
 		"snk",
+		"sony",
 		"taito",
 		"tehkan",
 		"toaplan",
@@ -457,6 +469,8 @@ createHBMAMEProjects(_target, _subtarget, "konami")
 files {
 	MAME_DIR .. "src/hbmame/drivers/contra.cpp",
 	MAME_DIR .. "src/mame/video/contra.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dbz.cpp",
+	MAME_DIR .. "src/mame/video/dbz.cpp",
 	MAME_DIR .. "src/hbmame/drivers/gradius3.cpp",
 	MAME_DIR .. "src/mame/video/gradius3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1943.cpp",
@@ -484,10 +498,13 @@ files {
 	MAME_DIR .. "src/mame/video/k007121.cpp",
 	MAME_DIR .. "src/mame/video/k051960.cpp",
 	MAME_DIR .. "src/mame/video/k052109.cpp",
+	MAME_DIR .. "src/mame/video/k053246_k053247_k055673.cpp",
 	MAME_DIR .. "src/mame/video/k053251.cpp",
 	MAME_DIR .. "src/mame/video/k053244_k053245.cpp",
 	MAME_DIR .. "src/mame/video/k054000.cpp",
+	MAME_DIR .. "src/mame/video/k054156_k054157_k056832.cpp",
 	MAME_DIR .. "src/mame/video/k053936.cpp",
+	MAME_DIR .. "src/mame/video/k055555.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "midway")
@@ -740,6 +757,14 @@ files {
 	MAME_DIR .. "src/mame/video/snk6502.cpp",
 }
 
+createHBMAMEProjects(_target, _subtarget, "sony")
+files {
+	MAME_DIR .. "src/hbmame/drivers/zn.cpp",
+	MAME_DIR .. "src/mame/machine/znmcu.cpp",
+	MAME_DIR .. "src/mame/machine/cat702.cpp",
+	MAME_DIR .. "src/mame/audio/rax.cpp",
+}
+
 createHBMAMEProjects(_target, _subtarget, "taito")
 files {
 	MAME_DIR .. "src/hbmame/drivers/mexico86.cpp",
@@ -787,6 +812,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/taitosj.cpp",
 	MAME_DIR .. "src/mame/machine/taitosj.cpp",
 	MAME_DIR .. "src/mame/video/taitosj.cpp",
+	MAME_DIR .. "src/mame/audio/taito_zm.cpp", -- zn
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
