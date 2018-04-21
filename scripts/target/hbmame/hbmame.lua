@@ -109,16 +109,18 @@ SOUNDS["YM3526"] = true
 SOUNDS["YMF262"] = true
 SOUNDS["YMF278B"] = true
 SOUNDS["YMZ280B"] = true
+SOUNDS["YMZ770"] = true -- cv1k
 
 --------------------------------------------------
 -- specify available video cores
 --------------------------------------------------
 
-VIDEOS["SEGA315_5124"] = true
-VIDEOS["SEGA315_5313"] = true
 VIDEOS["BUFSPRITE"] = true
+VIDEOS["EPIC12"] = true -- cv1k
 VIDEOS["HD63484"] = true
 VIDEOS["MC6845"] = true
+VIDEOS["SEGA315_5124"] = true
+VIDEOS["SEGA315_5313"] = true
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
 
@@ -158,6 +160,8 @@ MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
+MACHINES["RTC9701"] = true -- cv1k
+MACHINES["SERFLASH"] = true -- cv1k
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
@@ -339,6 +343,7 @@ createHBMAMEProjects(_target, _subtarget, "cave")
 files {
 	MAME_DIR .. "src/hbmame/drivers/cave.cpp",
 	MAME_DIR .. "src/mame/video/cave.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cv1k.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cinemat")
@@ -355,6 +360,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/btime.cpp",
 	MAME_DIR .. "src/mame/machine/btime.cpp",
 	MAME_DIR .. "src/mame/video/btime.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cninja.cpp",
+	MAME_DIR .. "src/mame/video/cninja.cpp",
 	MAME_DIR .. "src/hbmame/drivers/dec0.cpp",
 	MAME_DIR .. "src/mame/machine/dec0.cpp",
 	MAME_DIR .. "src/mame/video/dec0.cpp",
@@ -364,6 +371,12 @@ files {
 	MAME_DIR .. "src/mame/video/pcktgal.cpp",
 	MAME_DIR .. "src/mame/video/decbac06.cpp",
 	MAME_DIR .. "src/mame/video/decmxc06.cpp",
+	MAME_DIR .. "src/mame/video/deco16ic.cpp", -- cninja
+	MAME_DIR .. "src/mame/machine/deco104.cpp",  -- cninja
+	MAME_DIR .. "src/mame/machine/deco146.cpp", -- cninja
+	MAME_DIR .. "src/mame/video/decospr.cpp",  -- cninja
+	MAME_DIR .. "src/mame/machine/deco_irq.cpp",  -- cninja
+	MAME_DIR .. "src/mame/machine/decocrpt.cpp",  -- cninja
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
@@ -437,7 +450,7 @@ files {
 	MAME_DIR .. "src/mame/machine/kaneko_hit.cpp",
 	MAME_DIR .. "src/mame/machine/kaneko_calc3.cpp",
 	MAME_DIR .. "src/mame/machine/kaneko_toybox.cpp",
-	MAME_DIR .. "src/mame/video/kan_pand.cpp",  -- thise needed for linux compile
+	MAME_DIR .. "src/mame/video/kan_pand.cpp",  -- this needed for linux compile
 }
 
 createHBMAMEProjects(_target, _subtarget, "konami")

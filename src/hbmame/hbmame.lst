@@ -6,7 +6,7 @@
 
     List of all enabled drivers in the system.
 
-****************************************************************************
+******************************************************************************/
 
 
 @source:1942.cpp
@@ -176,6 +176,10 @@ magworm2	/* bootleg of magworm */
 @source:cinemat.cpp
 bbugtest	/* Test Rom */
 
+@source:cninja.cpp
+mutantf					//parent
+deathbrdh01
+
 @source:commando.cpp
 commando	//parent
 comdelux	/* Twisty Hack */
@@ -236,6 +240,7 @@ dinoex
 dinoh
 dinoha
 dinohb
+dinohc
 dinohp
 dinohx
 dinojp
@@ -914,6 +919,10 @@ sfiii3ns02
 sfiii3ns03
 sfiii3ns04
 sfiii3nrs01
+
+@source:cv1k.cpp
+deathsml				//parent
+deathsmlh01
 
 @source:dec0.cpp
 baddudes		//parent
