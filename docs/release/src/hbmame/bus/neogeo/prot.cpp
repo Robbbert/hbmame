@@ -632,19 +632,19 @@ void ngbootleg_prot_device::lans2004_decrypt_68k(uint8_t* cpurom, uint32_t cpuro
 
 READ16_MEMBER( ngbootleg_prot_device::mslug5_prot_r )
 {
-	logerror("PC %06x: access protected\n",space.device().safe_pc());
+	logerror("PC %06x: access protected\n",machine().describe_context());
 	return 0xa0;
 }
 
 WRITE16_MEMBER( ngbootleg_prot_device::ms5plus_bankswitch_w )
 {
 	int bankaddress;
-	logerror("offset: %06x PC %06x: set banking %04x\n",offset,space.device().safe_pc(),data);
+	logerror("offset: %06x PC %06x: set banking %04x\n",offset,machine().describe_context(),data);
 	if ((offset == 0)&&(data == 0xa0))
 	{
 		bankaddress=0xa0;
 		m_bankdev->neogeo_set_main_cpu_bank_address(bankaddress);
-		logerror("offset: %06x PC %06x: set banking %04x\n\n",offset,space.device().safe_pc(),bankaddress);
+		logerror("offset: %06x PC %06x: set banking %04x\n\n",offset,machine().describe_context(),bankaddress);
 	}
 	else if(offset == 2)
 	{
@@ -652,7 +652,7 @@ WRITE16_MEMBER( ngbootleg_prot_device::ms5plus_bankswitch_w )
 		//data=data&7;
 		bankaddress=data*0x100000;
 		m_bankdev->neogeo_set_main_cpu_bank_address(bankaddress);
-		logerror("offset: %06x PC %06x: set banking %04x\n\n",offset,space.device().safe_pc(),bankaddress);
+		logerror("offset: %06x PC %06x: set banking %04x\n\n",offset,machine().describe_context(),bankaddress);
 	}
 }
 
@@ -1813,7 +1813,7 @@ READ16_MEMBER( fatfury2_prot_device::fatfury2_protection_16_r )
 			return ((res & 0xf0) >> 4) | ((res & 0x0f) << 4);
 
 		default:
-			logerror("unknown protection read at pc %06x, offset %08x\n", space.device().safe_pc(), offset << 1);
+			logerror("unknown protection read at pc %06x, offset %08x\n", machine().describe_context(), offset << 1);
 			return 0;
 	}
 }
@@ -1858,7 +1858,7 @@ WRITE16_MEMBER( fatfury2_prot_device::fatfury2_protection_16_w )
 			break;
 
 		default:
-			logerror("unknown protection write at pc %06x, offset %08x, data %02x\n", space.device().safe_pc(), offset, data);
+			logerror("unknown protection write at pc %06x, offset %08x, data %02x\n", machine().describe_context(), offset, data);
 			break;
 	}
 }
@@ -2042,17 +2042,17 @@ WRITE16_MEMBER( kof98_prot_device::kof98_prot_w )
 	switch (data)
 	{
 	case 0x0090:
-		logerror ("%06x kof98 - protection 0x0090x\n", space.device().safe_pc());
+		logerror ("%06x kof98 - protection 0x0090x\n", machine().describe_context());
 		kof98_prot_state = 1;
 		break;
 
 	case 0x00f0:
-		logerror ("%06x kof98 - protection 0x00f0x\n", space.device().safe_pc());
+		logerror ("%06x kof98 - protection 0x00f0x\n", machine().describe_context());
 		kof98_prot_state = 2;
 		break;
 
 	default: // 00aa is written, but not needed?
-		logerror ("%06x kof98 - unknown protection write %04x\n", space.device().safe_pc(), data);
+		logerror ("%06x kof98 - unknown protection write %04x\n", machine().describe_context(), data);
 		break;
 	}
 }
@@ -2117,7 +2117,7 @@ WRITE16_MEMBER( mslugx_prot_device::mslugx_protection_16_w )
 		break;
 
 		default:
-			logerror("unknown protection write at pc %06x, offset %08x, data %02x\n", space.device().safe_pc(), offset << 1, data);
+			logerror("unknown protection write at pc %06x, offset %08x, data %02x\n", machine().describe_context(), offset << 1, data);
 		break;
 	}
 }
@@ -2142,7 +2142,7 @@ READ16_MEMBER( mslugx_prot_device::mslugx_protection_16_r )
 		break;
 
 		default:
-			logerror("unknown protection read at pc %06x, offset %08x\n", space.device().safe_pc(), offset << 1);
+			logerror("unknown protection read at pc %06x, offset %08x\n", machine().describe_context(), offset << 1);
 		break;
 	}
 

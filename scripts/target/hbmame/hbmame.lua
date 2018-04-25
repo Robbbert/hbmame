@@ -631,6 +631,7 @@ files {
 	MAME_DIR .. "src/mame/video/cclimber.cpp",
 	MAME_DIR .. "src/hbmame/drivers/terracre.cpp",
 	MAME_DIR .. "src/mame/video/terracre.cpp",
+	MAME_DIR .. "src/mame/machine/nb1412m2.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "nintendo")

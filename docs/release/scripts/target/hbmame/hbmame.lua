@@ -35,7 +35,9 @@ CPUS["MB86233"] = true -- model2
 CPUS["MB86235"] = true -- model2
 CPUS["MCS48"] = true
 CPUS["MCS51"] = true
+CPUS["MN10200"] = true
 CPUS["NEC"] = true
+CPUS["PSX"] = true
 CPUS["S2650"] = true
 CPUS["SH"] = true
 CPUS["SSP1601"] = true
@@ -89,6 +91,7 @@ SOUNDS["SN76477"] = true
 SOUNDS["SN76496"] = true
 SOUNDS["SP0250"] = true
 SOUNDS["SPEAKER"] = true
+SOUNDS["SPU"] = true -- zn
 SOUNDS["ST0016"] = true
 SOUNDS["TC8830F"] = true -- timeplt
 SOUNDS["TMS36XX"] = true
@@ -107,32 +110,38 @@ SOUNDS["YM2612"] = true
 SOUNDS["YM3812"] = true
 SOUNDS["YM3526"] = true
 SOUNDS["YMF262"] = true
+SOUNDS["YMF271"] = true -- zn
 SOUNDS["YMF278B"] = true
 SOUNDS["YMZ280B"] = true
+SOUNDS["YMZ770"] = true -- cv1k
+SOUNDS["ZSG2"] = true -- zn
 
 --------------------------------------------------
 -- specify available video cores
 --------------------------------------------------
 
-VIDEOS["SEGA315_5124"] = true
-VIDEOS["SEGA315_5313"] = true
 VIDEOS["BUFSPRITE"] = true
+VIDEOS["EPIC12"] = true -- cv1k
 VIDEOS["HD63484"] = true
 VIDEOS["MC6845"] = true
+VIDEOS["SEGA315_5124"] = true
+VIDEOS["SEGA315_5313"] = true
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
+VIDEOS["PSX"] = true
 
 --------------------------------------------------
 -- specify available machine cores
 --------------------------------------------------
 
 MACHINES["6522VIA"] = true
-MACHINES["RIOT6532"] = true
 MACHINES["6821PIA"] = true
 MACHINES["68681"] = true
-MACHINES["I8257"] = true
+MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
+MACHINES["ADC0808"] = true
 MACHINES["ADC0844"] = true
+MACHINES["AT28C16"] = true -- zn
 MACHINES["BANKDEV"] = true
 MACHINES["CXD1095"] = true
 MACHINES["EEPROMDEV"] = true
@@ -142,11 +151,16 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8251"] = true
 MACHINES["I8255"] = true
+MACHINES["IDE"] = true
 MACHINES["INPUT_MERGER"] = true
 MACHINES["INTELFLASH"] = true
+MACHINES["GEN_FIFO"] = true
 MACHINES["GEN_LATCH"] = true
+MACHINES["I8257"] = true
+MACHINES["K053252"] = true
 MACHINES["LATCH8"] = true
 MACHINES["LDPR8210"] = true
+MACHINES["MB3773"] = true
 MACHINES["MB8421"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
@@ -154,8 +168,11 @@ MACHINES["MB89352"] = true  -- segas32
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
+MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
+MACHINES["RTC9701"] = true -- cv1k
+MACHINES["SERFLASH"] = true -- cv1k
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
@@ -221,6 +238,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"seibu",
 		"seta",
 		"snk",
+		"sony",
 		"taito",
 		"tehkan",
 		"toaplan",
@@ -337,6 +355,7 @@ createHBMAMEProjects(_target, _subtarget, "cave")
 files {
 	MAME_DIR .. "src/hbmame/drivers/cave.cpp",
 	MAME_DIR .. "src/mame/video/cave.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cv1k.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cinemat")
@@ -353,6 +372,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/btime.cpp",
 	MAME_DIR .. "src/mame/machine/btime.cpp",
 	MAME_DIR .. "src/mame/video/btime.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cninja.cpp",
+	MAME_DIR .. "src/mame/video/cninja.cpp",
 	MAME_DIR .. "src/hbmame/drivers/dec0.cpp",
 	MAME_DIR .. "src/mame/machine/dec0.cpp",
 	MAME_DIR .. "src/mame/video/dec0.cpp",
@@ -362,6 +383,12 @@ files {
 	MAME_DIR .. "src/mame/video/pcktgal.cpp",
 	MAME_DIR .. "src/mame/video/decbac06.cpp",
 	MAME_DIR .. "src/mame/video/decmxc06.cpp",
+	MAME_DIR .. "src/mame/video/deco16ic.cpp", -- cninja
+	MAME_DIR .. "src/mame/machine/deco104.cpp",  -- cninja
+	MAME_DIR .. "src/mame/machine/deco146.cpp", -- cninja
+	MAME_DIR .. "src/mame/video/decospr.cpp",  -- cninja
+	MAME_DIR .. "src/mame/machine/deco_irq.cpp",  -- cninja
+	MAME_DIR .. "src/mame/machine/decocrpt.cpp",  -- cninja
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
@@ -435,13 +462,15 @@ files {
 	MAME_DIR .. "src/mame/machine/kaneko_hit.cpp",
 	MAME_DIR .. "src/mame/machine/kaneko_calc3.cpp",
 	MAME_DIR .. "src/mame/machine/kaneko_toybox.cpp",
-	MAME_DIR .. "src/mame/video/kan_pand.cpp",  -- thise needed for linux compile
+	MAME_DIR .. "src/mame/video/kan_pand.cpp",  -- this needed for linux compile
 }
 
 createHBMAMEProjects(_target, _subtarget, "konami")
 files {
 	MAME_DIR .. "src/hbmame/drivers/contra.cpp",
 	MAME_DIR .. "src/mame/video/contra.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dbz.cpp",
+	MAME_DIR .. "src/mame/video/dbz.cpp",
 	MAME_DIR .. "src/hbmame/drivers/gradius3.cpp",
 	MAME_DIR .. "src/mame/video/gradius3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1943.cpp",
@@ -469,10 +498,13 @@ files {
 	MAME_DIR .. "src/mame/video/k007121.cpp",
 	MAME_DIR .. "src/mame/video/k051960.cpp",
 	MAME_DIR .. "src/mame/video/k052109.cpp",
+	MAME_DIR .. "src/mame/video/k053246_k053247_k055673.cpp",
 	MAME_DIR .. "src/mame/video/k053251.cpp",
 	MAME_DIR .. "src/mame/video/k053244_k053245.cpp",
 	MAME_DIR .. "src/mame/video/k054000.cpp",
+	MAME_DIR .. "src/mame/video/k054156_k054157_k056832.cpp",
 	MAME_DIR .. "src/mame/video/k053936.cpp",
+	MAME_DIR .. "src/mame/video/k055555.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "midway")
@@ -599,6 +631,7 @@ files {
 	MAME_DIR .. "src/mame/video/cclimber.cpp",
 	MAME_DIR .. "src/hbmame/drivers/terracre.cpp",
 	MAME_DIR .. "src/mame/video/terracre.cpp",
+	MAME_DIR .. "src/mame/machine/nb1412m2.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "nintendo")
@@ -697,8 +730,10 @@ files {
 	MAME_DIR .. "src/mame/machine/model2.cpp",
 	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
 	MAME_DIR .. "src/mame/video/segaic24.cpp",
+	MAME_DIR .. "src/mame/machine/315_5338a.cpp",
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
+	MAME_DIR .. "src/mame/machine/model1io.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")
@@ -721,6 +756,14 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/snk6502.cpp",
 	MAME_DIR .. "src/mame/audio/snk6502.cpp",
 	MAME_DIR .. "src/mame/video/snk6502.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "sony")
+files {
+	MAME_DIR .. "src/hbmame/drivers/zn.cpp",
+	MAME_DIR .. "src/mame/machine/znmcu.cpp",
+	MAME_DIR .. "src/mame/machine/cat702.cpp",
+	MAME_DIR .. "src/mame/audio/rax.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "taito")
@@ -770,6 +813,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/taitosj.cpp",
 	MAME_DIR .. "src/mame/machine/taitosj.cpp",
 	MAME_DIR .. "src/mame/video/taitosj.cpp",
+	MAME_DIR .. "src/mame/audio/taito_zm.cpp", -- zn
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")

@@ -2275,7 +2275,7 @@ ROM_START( dinopic2 )
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "27c4000-m12481-4.bin",   0x000000, 0x40000, CRC(f3c2c98d) SHA1(98ae51a67fa4159456a4a205eebdd8d1775888d1), ROM_SKIP(7) )
 	ROM_CONTINUE(                        0x000004, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-3.bin",   0x000001, 0x40000, BAD_DUMP CRC(417a4816) SHA1(5268f6667ff550a949a08f94171966f5d841c6b2), ROM_SKIP(7) ) // this one is a perfect match, unlike dinopic set
+	ROMX_LOAD( "8.bin",   0x000001, 0x40000, CRC(d574befc) SHA1(56482e7a9aa8439f30e3cf72311495ce677a083d), ROM_SKIP(7) )
 	ROM_CONTINUE(                        0x000005, 0x40000)
 	ROMX_LOAD( "27c4000-m12481-2.bin",   0x000002, 0x40000, CRC(55ef0adc) SHA1(3b5551ae76ae80882d37fc70a1031a57885d6840), ROM_SKIP(7) )
 	ROM_CONTINUE(                        0x000006, 0x40000)
@@ -2312,6 +2312,8 @@ DRIVER_INIT_MEMBER(cps_state, dinopic)
 	DRIVER_INIT_CALL(cps1);
 }
 
+// see code around BB3A6. If protection fails then it jumps to 100000 which causes an exception.
+// After fixing that, the picture is offset to the left, no sound, no sprites. Eprom required @ F1C006.
 ROM_START( dinopic3 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "cad_28",   0x000000, 0x040000, CRC(97dc3d86) SHA1(8dbe9dab5682933b3ea2bfcd066f5f4503aad009) )
@@ -2341,23 +2343,13 @@ ROM_START( dinopic3 )
 	ROMX_LOAD( "cad_23",   0x200006, 0x040000, CRC(f07c16f2) SHA1(422ae1bcfe0a6704e374800d2af8cda69bd03138), ROM_SKIP(7) )
 	ROMX_LOAD( "cad_13",   0x200007, 0x040000, CRC(07a564b4) SHA1(7be9f1a52eaa523a386d91d12ec0ddca716c363c), ROM_SKIP(7) )
 
-	//ROM_REGION( 0x18000, "audiocpu", 0 ) // first and 2nd half identical
-	//ROM_LOAD( "cad_09",    0x00000, 0x08000, CRC(46546432) SHA1(c37527f663713464f837295625345d485855122e) )
-	//ROM_CONTINUE(              0x10000, 0x08000 )
+	ROM_REGION( 0x18000, "audiocpu", 0 ) // first and 2nd half identical
+	ROM_LOAD( "cad_09",    0x00000, 0x08000, CRC(46546432) SHA1(c37527f663713464f837295625345d485855122e) )
+	ROM_CONTINUE(              0x10000, 0x08000 )
 
-	//ROM_REGION( 0x40000, "oki", 0 )
-	//ROM_LOAD( "cad_18",    0x00000, 0x20000, CRC(bd12c2ce) SHA1(4bb4d854be7aff2516241ba56f431a5464854be2) )
-	//ROM_LOAD( "cad_19",    0x20000, 0x20000, CRC(9233de5a) SHA1(c20f596648963ddf62a4452741cc9ad8b11f2ca2) )
-
-	ROM_REGION( 0x28000, "audiocpu", 0 )
-	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
-	ROM_CONTINUE(           0x10000, 0x18000 )
-
-	ROM_REGION( 0x200000, "qsound", 0 )
-	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
-	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
-	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
-	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cad_18",    0x00000, 0x20000, CRC(bd12c2ce) SHA1(4bb4d854be7aff2516241ba56f431a5464854be2) )
+	ROM_LOAD( "cad_19",    0x20000, 0x20000, CRC(9233de5a) SHA1(c20f596648963ddf62a4452741cc9ad8b11f2ca2) )
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
