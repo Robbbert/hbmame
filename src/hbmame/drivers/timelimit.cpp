@@ -108,8 +108,8 @@ ROM_START( timelimit )
 
 	ROM_REGION( 0x0060, "proms", 0 )
 	ROM_LOAD( "clr.35", 0x0000, 0x0020, CRC(9c9e6073) SHA1(98496175bf19a8cdb0018705bc1a2193b8a782e1) )
-	ROM_LOAD( "clr.48", 0x0020, 0x0020, CRC(813e17c7) SHA1(25a65d8a841538748348368ebcfce101976406a9) )
-	ROM_LOAD( "clr.57", 0x0040, 0x0020, CRC(aaa6f23e) SHA1(9fcb6af82f725517e8eff86d748701f836a05eba) )
+	ROM_LOAD( "clrt.48", 0x0020, 0x0020, CRC(813e17c7) SHA1(25a65d8a841538748348368ebcfce101976406a9) )
+	ROM_LOAD( "clrt.57", 0x0040, 0x0020, CRC(aaa6f23e) SHA1(9fcb6af82f725517e8eff86d748701f836a05eba) )
 ROM_END
 
 GAME( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, 0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )

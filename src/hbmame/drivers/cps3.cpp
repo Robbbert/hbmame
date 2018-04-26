@@ -2033,7 +2033,7 @@ ROM_END
 
 ROM_START( sfiiins01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
-	ROM_LOAD( "sfiii_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(ca2b715f) SHA1(86319987f9af4afd272a2488e73de8382743cb37) ) // this is a different VERSION of the bios compared to all other sets, not just an alt region code
+	ROM_LOAD( "sfiii_asia_nocd.29f400s.u2", 0x000000, 0x080000, CRC(ca2b715f) SHA1(86319987f9af4afd272a2488e73de8382743cb37) ) // this is a different VERSION of the bios compared to all other sets, not just an alt region code
 
 	ROM_REGION( 0x200000, "simm1.0", 0 )
 	ROM_LOAD( "sfiii-simm1.001", 0x00000, 0x200000, CRC(0beaed86) SHA1(005ce04373448b3e1674c60f1d859f2ad43ad45c) )
@@ -2086,7 +2086,7 @@ ROM_END
 
 ROM_START( sfiiins02 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
-	ROM_LOAD( "sfiii_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(ca2b715f) SHA1(86319987f9af4afd272a2488e73de8382743cb37) ) // this is a different VERSION of the bios compared to all other sets, not just an alt region code
+	ROM_LOAD( "sfiii_asia_nocd.29f400s.u2", 0x000000, 0x080000, CRC(ca2b715f) SHA1(86319987f9af4afd272a2488e73de8382743cb37) ) // this is a different VERSION of the bios compared to all other sets, not just an alt region code
 
 	ROM_REGION( 0x200000, "simm1.0", 0 )
 	ROM_LOAD( "sfiii-simm1.0", 0x00000, 0x200000, CRC(cfc9e45a) SHA1(5d9061f76680642e730373e3ac29b24926dc5c0c) )
