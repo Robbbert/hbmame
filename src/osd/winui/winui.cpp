@@ -851,18 +851,34 @@ public:
 			return;
 		}
 
+		int s_action = 0;
+		char buffer[4096];
+		vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
+
 		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
 		{
-			char buffer[1024];
+			s_action = 0x80;
+		}
+		else
+		if (channel == OSD_OUTPUT_CHANNEL_WARNING)
+		{
+			if (strstr(buffer, "WRONG"))
+			{
+				s_action = 0x81;
+			}
+		}
 
+		if (s_action)
+		{
 			// if we are in fullscreen mode, go to windowed mode
 			if ((video_config.windowed == 0) && !osd_common_t::s_window_list.empty())
 				winwindow_toggle_full_screen();
 
-			vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);printf("%s\n",buffer);
 			win_message_box_utf8(!osd_common_t::s_window_list.empty() ?
-				std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window() : hMain, buffer, MAMEUINAME, MB_ICONERROR | MB_OK);
+				std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window() :
+					hMain, buffer, MAMEUINAME, (BIT(s_action, 0) ? MB_ICONINFORMATION : MB_ICONERROR) | MB_OK);
 		}
+
 //		else
 //			chain_output(channel, msg, args);   // goes down the black hole
 		// LOG all messages
