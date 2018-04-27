@@ -274,6 +274,16 @@ class winui_ui_options
 		return;
 	}
 
+	bool ends_with_filter(const std::string &str)
+	{
+		string ending = "_filters";
+		u8 endl = ending.length();
+		u8 strl = str.length();
+		if (strl < endl)
+			return false;
+		return str.compare(strl - endl, endl, ending) == 0;
+	}
+
 public:
 	// construction/destruction
 	winui_ui_options()
@@ -336,8 +346,27 @@ public:
 
 	void setter(const char* name, int value)
 	{
-		m_list[name] = std::to_string(value);
-		save_file(m_filename);
+		u8 s_write = 3;
+		// filters: only want an entry if a filter is applied
+		if (ends_with_filter(name))
+		{
+			if (value == 0)
+			{
+				if (m_list.find(name) == m_list.end())
+					s_write = 0; // there is no entry so do nothing
+				else
+					s_write = 2; // delete the existing entry
+			}
+		}
+		if (s_write)
+		{
+			if (s_write == 2)
+				m_list.erase(m_list.find(name)); // delete
+			else
+				m_list[name] = std::to_string(value); // add or update
+
+			save_file(m_filename);
+		}
 	}
 
 	std::string getter(const char* name)
