@@ -432,7 +432,7 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 
 	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // 74LS259 at 8K or 4099 at 7K
 	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(pacman_state, irq_mask_w))
-	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(DEVWRITELINE("namco", namco_device, pacman_sound_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(DEVWRITELINE("namco", namco_device, sound_enable_w))
 	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(pacman_state, flipscreen_w))
 	//MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(pacman_state, led1_w))
 	//MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(pacman_state, led2_w))

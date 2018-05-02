@@ -90,7 +90,7 @@ MACHINE_RESET_MEMBER( pacman_state, 96in1 )
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	m96in1_rombank_w( space, 0,0 );
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, hackypac )
@@ -98,14 +98,14 @@ MACHINE_RESET_MEMBER( pacman_state, hackypac )
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	multipac_gfxbank_w( space, 0,0 );
 	hackypac_rombank_w( space, 0,0 );
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, madpac )
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	madpac_rombank_w( space, 0,0 );
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, mschamp )
@@ -126,7 +126,7 @@ MACHINE_RESET_MEMBER( pacman_state, multipac )
 	multipac_rombank_w( space, 0, 0);
 	multipac_gfxbank_w( space, 0, 0);
 	multipac_palbank_w( space, 0, 0);
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 static uint8_t curr_bank = 0;
@@ -144,7 +144,7 @@ MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
 	pm4n1_rombank_w(space, 0, 0);
 	pm4n1_rombank_w(space, 1, 0);
 	pm4n1_rombank_w(space, 2, 0);
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 
