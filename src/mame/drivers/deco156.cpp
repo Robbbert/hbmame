@@ -330,9 +330,9 @@ DECOSPR_PRIORITY_CB_MEMBER(deco156_state::pri_callback)
 MACHINE_CONFIG_START(deco156_state::hvysmsh)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", ARM, 28000000) /* Unconfirmed */
-	MCFG_CPU_PROGRAM_MAP(hvysmsh_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", deco156_state,  deco32_vbl_interrupt)
+	MCFG_DEVICE_ADD("maincpu", ARM, 28000000) /* Unconfirmed */
+	MCFG_DEVICE_PROGRAM_MAP(hvysmsh_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", deco156_state,  deco32_vbl_interrupt)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 
@@ -371,11 +371,11 @@ MACHINE_CONFIG_START(deco156_state::hvysmsh)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_OKIM6295_ADD("oki1", 28000000/28, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki1", OKIM6295, 28000000/28, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 1.0)
 
-	MCFG_OKIM6295_ADD("oki2", 28000000/14, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki2", OKIM6295, 28000000/14, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 0.35)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 0.35)
 MACHINE_CONFIG_END
@@ -383,9 +383,9 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(deco156_state::wcvol95)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", ARM, 28000000) /* Unconfirmed */
-	MCFG_CPU_PROGRAM_MAP(wcvol95_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", deco156_state,  deco32_vbl_interrupt)
+	MCFG_DEVICE_ADD("maincpu", ARM, 28000000) /* Unconfirmed */
+	MCFG_DEVICE_PROGRAM_MAP(wcvol95_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", deco156_state,  deco32_vbl_interrupt)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 
@@ -424,7 +424,7 @@ MACHINE_CONFIG_START(deco156_state::wcvol95)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_SOUND_ADD("ymz", YMZ280B, 28000000 / 2)
+	MCFG_DEVICE_ADD("ymz", YMZ280B, 28000000 / 2)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END

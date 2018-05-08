@@ -124,7 +124,7 @@ static const discrete_mixer_desc mix1 =
  * Fleet movement
  ************************************************/
 
-DISCRETE_SOUND_START(spacmissx)
+DISCRETE_SOUND_START(spacmissx_disc)
 /******************************************************************************
  *
  * Background Hum
@@ -409,9 +409,9 @@ static const char *const invaders_sample_names[] =
 
 MACHINE_CONFIG_START( sm_state::spacmissx )
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(mem_map)
-	MCFG_CPU_IO_MAP(io_map)
+	MCFG_DEVICE_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(mem_map)
+	MCFG_DEVICE_IO_MAP(io_map)
 	MCFG_MACHINE_START_OVERRIDE(sm_state,sm)
 	MCFG_MACHINE_RESET_OVERRIDE(sm_state,sm)
 
@@ -425,11 +425,11 @@ MACHINE_CONFIG_START( sm_state::spacmissx )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("samples", SAMPLES, 0)
+	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
 	MCFG_SAMPLES_CHANNELS(6)
 	MCFG_SAMPLES_NAMES(invaders_sample_names)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-	MCFG_DISCRETE_ADD("discrete", 0, spacmissx)
+	MCFG_DEVICE_ADD("discrete", DISCRETE, spacmissx_disc)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

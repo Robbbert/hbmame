@@ -651,8 +651,8 @@ void tempmg_state::tempmg_map(address_map &map) {
 
 MACHINE_CONFIG_START( tempmg_state::tempmg )
 	tempest(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(tempmg_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(tempmg_map)
 	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
 MACHINE_CONFIG_END
 

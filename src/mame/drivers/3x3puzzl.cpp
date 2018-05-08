@@ -388,9 +388,9 @@ void _3x3puzzle_state::machine_reset()
 MACHINE_CONFIG_START(_3x3puzzle_state::_3x3puzzle)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",M68000,MAIN_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(_3x3puzzle_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", _3x3puzzle_state,  irq4_line_hold)
+	MCFG_DEVICE_ADD("maincpu",M68000,MAIN_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(_3x3puzzle_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", _3x3puzzle_state,  irq4_line_hold)
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -407,7 +407,7 @@ MACHINE_CONFIG_START(_3x3puzzle_state::_3x3puzzle)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", XTAL(4'000'000)/4, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(4'000'000)/4, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

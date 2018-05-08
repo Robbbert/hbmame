@@ -549,9 +549,9 @@ INPUT_PORTS_END
 
 MACHINE_CONFIG_START( sc_state::schasercv )
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(mem_map)
-	MCFG_CPU_IO_MAP(io_map)
+	MCFG_DEVICE_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(mem_map)
+	MCFG_DEVICE_IO_MAP(io_map)
 	MCFG_MACHINE_START_OVERRIDE(sc_state,sc)
 	MCFG_MACHINE_RESET_OVERRIDE(sc_state,sc)
 
@@ -566,7 +566,7 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("snsnd", SN76477, 0)
+	MCFG_DEVICE_ADD("snsnd", SN76477, 0)
 	MCFG_SN76477_NOISE_PARAMS(RES_K(47), RES_K(330), CAP_P(470)) // noise + filter
 	MCFG_SN76477_DECAY_RES(RES_M(2.2))                   // decay_res
 	MCFG_SN76477_ATTACK_PARAMS(CAP_U(1.0), RES_K(4.7))   // attack_decay_cap + attack_res
@@ -580,9 +580,9 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	MCFG_SN76477_MIXER_PARAMS(0, 0, 0)                   // mixer A, B, C
 	MCFG_SN76477_ENVELOPE_PARAMS(1, 0)                   // envelope 1, 2
 	MCFG_SN76477_ENABLE(1)                               // enable
-	MCFG_SOUND_ROUTE_EX(0, "discrete", 1.0, 0)
+	MCFG_SOUND_ROUTE(0, "discrete", 1.0, 0)
 
-	MCFG_SOUND_ADD("discrete", DISCRETE, 0)
+	MCFG_DEVICE_ADD("discrete", DISCRETE, 0)
 	MCFG_DISCRETE_INTF(schaser)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 

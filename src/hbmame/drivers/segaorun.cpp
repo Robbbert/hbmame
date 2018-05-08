@@ -288,9 +288,9 @@ void outrunm_state::soundbank_map(address_map &map) {
 
 MACHINE_CONFIG_START( outrunm_state::outrunm )
 	outrun(config);
-	MCFG_CPU_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
-	MCFG_CPU_PROGRAM_MAP(sound_map_banked)
-	MCFG_CPU_IO_MAP(sound_portmap_banked)
+	MCFG_DEVICE_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
+	MCFG_DEVICE_PROGRAM_MAP(sound_map_banked)
+	MCFG_DEVICE_IO_MAP(sound_portmap_banked)
 
 	MCFG_DEVICE_ADD("soundbank", ADDRESS_MAP_BANK, 0)
 	MCFG_DEVICE_PROGRAM_MAP(soundbank_map)

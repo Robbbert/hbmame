@@ -636,12 +636,12 @@ void kickgoal_state::oki_map(address_map &map)
 MACHINE_CONFIG_START(kickgoal_state::kickgoal)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)   /* 12 MHz */
-	MCFG_CPU_PROGRAM_MAP(kickgoal_program_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", kickgoal_state,  irq6_line_hold)
-	MCFG_CPU_PERIODIC_INT_DRIVER(kickgoal_state, kickgoal_interrupt,  240)
+	MCFG_DEVICE_ADD("maincpu", M68000, 12000000)   /* 12 MHz */
+	MCFG_DEVICE_PROGRAM_MAP(kickgoal_program_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", kickgoal_state,  irq6_line_hold)
+	MCFG_DEVICE_PERIODIC_INT_DRIVER(kickgoal_state, kickgoal_interrupt,  240)
 
-	MCFG_CPU_ADD("audiocpu", PIC16C57, 12000000/4)  /* 3MHz ? */
+	MCFG_DEVICE_ADD("audiocpu", PIC16C57, 12000000/4)  /* 3MHz ? */
 	MCFG_DEVICE_DISABLE()   /* Disabled since the internal rom isn't dumped */
 	/* Program and Data Maps are internal to the MCU */
 
@@ -668,7 +668,7 @@ MACHINE_CONFIG_START(kickgoal_state::kickgoal)
 
 	//MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 
-	MCFG_OKIM6295_ADD("oki", 12000000/8, PIN7_LOW)
+	MCFG_DEVICE_ADD("oki", OKIM6295, 12000000/8, okim6295_device::PIN7_LOW)
 	MCFG_DEVICE_ADDRESS_MAP(0, oki_map)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.80)
 MACHINE_CONFIG_END
@@ -676,11 +676,11 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(kickgoal_state::actionhw)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL(12'000'000)) /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(kickgoal_program_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", kickgoal_state,  irq6_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(12'000'000)) /* verified on pcb */
+	MCFG_DEVICE_PROGRAM_MAP(kickgoal_program_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", kickgoal_state,  irq6_line_hold)
 
-	MCFG_CPU_ADD("audiocpu", PIC16C57, XTAL(12'000'000)/3)    /* verified on pcb */
+	MCFG_DEVICE_ADD("audiocpu", PIC16C57, XTAL(12'000'000)/3)    /* verified on pcb */
 	MCFG_DEVICE_DISABLE() /* Disabled since the internal rom isn't dumped */
 	/* Program and Data Maps are internal to the MCU */
 
@@ -707,7 +707,7 @@ MACHINE_CONFIG_START(kickgoal_state::actionhw)
 
 	//MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 
-	MCFG_OKIM6295_ADD("oki", XTAL(12'000'000)/12, PIN7_HIGH) /* verified on pcb */
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(12'000'000)/12, okim6295_device::PIN7_HIGH) /* verified on pcb */
 	MCFG_DEVICE_ADDRESS_MAP(0, oki_map)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.80)
 MACHINE_CONFIG_END

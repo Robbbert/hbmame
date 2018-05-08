@@ -37,8 +37,8 @@ MACHINE_CONFIG_START( galaxian_state::fourplay )
 	galaxian(config);
 	/* info can be found at http://www.ionpool.net/arcade/galaxian_hacks/fourplay.htm */
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(fourplay_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(fourplay_map)
 
 	/* video hardware */
 	MCFG_GFXDECODE_MODIFY("gfxdecode", gmgalax)
@@ -95,8 +95,8 @@ void galaxian_state::jumpbugx_map(address_map &map) {
 
 MACHINE_CONFIG_START( galaxian_state::jumpbugx )
 	jumpbug(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(jumpbugx_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(jumpbugx_map)
 	galaxian_audio(config);
 MACHINE_CONFIG_END
 
@@ -199,8 +199,8 @@ void galaxian_state::tst_frog_map(address_map &map) {
 
 MACHINE_CONFIG_START( galaxian_state::tst_frog )
 	frogger(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(tst_frog_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(tst_frog_map)
 	MCFG_DEVICE_REMOVE("watchdog")
 MACHINE_CONFIG_END
 
@@ -243,8 +243,8 @@ MACHINE_CONFIG_START( galaxian_state::videight )
 	galaxian(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(videight_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(videight_map)
 
 	/* video hardware */
 	MCFG_GFXDECODE_MODIFY("gfxdecode", videight)

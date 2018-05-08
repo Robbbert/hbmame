@@ -619,44 +619,44 @@ INPUT_PORTS_END
 
 MACHINE_CONFIG_START( cps_state::wofsf2 )
 	wofhfh(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(wofsf2_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(wofsf2_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::daimakb )
 	cps1_10MHz(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(daimakb_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(daimakb_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::sk2h3 )
 	wofhfh(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(sk2h3_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(sk2h3_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::sk2h31 )
 	wofhfh(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(sk2h31_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(sk2h31_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::sk2h35 )
 	qsound(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(sk2h35_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(sk2h35_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::cps1frog )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, 10'000'000 )
-	MCFG_CPU_PROGRAM_MAP(cps1frog_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	MCFG_DEVICE_ADD("maincpu", M68000, 10'000'000 )
+	MCFG_DEVICE_PROGRAM_MAP(cps1frog_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
 
 	/* audio CPU */
-	MCFG_CPU_ADD("audiocpu", Z80, 3'579'545)
-	MCFG_CPU_PROGRAM_MAP(sub_map)
+	MCFG_DEVICE_ADD("audiocpu", Z80, 3'579'545)
+	MCFG_DEVICE_PROGRAM_MAP(sub_map)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, cps1)
 
@@ -664,7 +664,7 @@ MACHINE_CONFIG_START( cps_state::cps1frog )
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(8'000'000, 518, 64, 448, 259, 16, 240)
 	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_cps1)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(cps_state, screen_vblank_cps1))
+	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, cps_state, screen_vblank_cps1))
 	MCFG_SCREEN_PALETTE("palette")
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", cps1)
 	MCFG_PALETTE_ADD("palette", 0xc00)
@@ -674,11 +674,11 @@ MACHINE_CONFIG_START( cps_state::cps1frog )
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
-	MCFG_YM2151_ADD("2151", 3'579'545)
+	MCFG_DEVICE_ADD("2151", YM2151, XTAL(3'579'545))  /* verified on pcb */
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
-	MCFG_OKIM6295_ADD("oki", 1'000'000, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1e6, okim6295_device::PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
@@ -686,14 +686,14 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 	cps1frog(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_REPLACE("maincpu", M68000, 12'000'000 )
-	MCFG_CPU_PROGRAM_MAP(sk2h1q_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	MCFG_DEVICE_REPLACE("maincpu", M68000, 12'000'000 )
+	MCFG_DEVICE_PROGRAM_MAP(sk2h1q_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
 
-	MCFG_CPU_REPLACE("audiocpu", Z80, 8'000'000 )
-	MCFG_CPU_PROGRAM_MAP(qsound_sub_map)
-	MCFG_CPU_OPCODES_MAP(qsound_decrypted_opcodes_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250)    /* ?? */
+	MCFG_DEVICE_REPLACE("audiocpu", Z80, 8'000'000 )
+	MCFG_DEVICE_PROGRAM_MAP(qsound_sub_map)
+	MCFG_DEVICE_OPCODES_MAP(qsound_decrypted_opcodes_map)
+	MCFG_DEVICE_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250)    /* ?? */
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
@@ -706,15 +706,15 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 	MCFG_DEVICE_REMOVE("2151")
 	MCFG_DEVICE_REMOVE("oki")
 
-	MCFG_DEVICE_ADD("qsound", QSOUND, QSOUND_CLOCK)
+	MCFG_DEVICE_ADD("qsound", QSOUND)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::sk2h31q )
 	sk2h1q(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(sk2h31q_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(sk2h31q_map)
 MACHINE_CONFIG_END
 
 

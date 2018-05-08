@@ -256,9 +256,9 @@ void namco_30test_state::machine_start()
 MACHINE_CONFIG_START(namco_30test_state::_30test)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", MC68HC11,MAIN_CLOCK/4)
-	MCFG_CPU_PROGRAM_MAP(namco_30test_map)
-	MCFG_CPU_IO_MAP(namco_30test_io)
+	MCFG_DEVICE_ADD("maincpu", MC68HC11,MAIN_CLOCK/4)
+	MCFG_DEVICE_PROGRAM_MAP(namco_30test_map)
+	MCFG_DEVICE_IO_MAP(namco_30test_io)
 	MCFG_MC68HC11_CONFIG( 0, 768, 0x00 )
 
 
@@ -267,7 +267,7 @@ MACHINE_CONFIG_START(namco_30test_state::_30test)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_OKIM6295_ADD("oki", 1056000, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1056000, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

@@ -62,8 +62,8 @@ void neogeo_state::main_map1(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
 	neogeo_arcade(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map1)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map1)
 	MCFG_KOG_PROT_ADD("kog_prot")
 
 	//joystick controller

@@ -1436,9 +1436,9 @@ MACHINE_RESET_MEMBER( monaco_state, monaco )
 MACHINE_CONFIG_START( monaco_state::monaco )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD ("maincpu", Z80, 200) /* fake */
-	MCFG_CPU_PROGRAM_MAP(monaco_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", monaco_state, monaco_interrupt)
+	MCFG_DEVICE_ADD ("maincpu", Z80, 200) /* fake */
+	MCFG_DEVICE_PROGRAM_MAP(monaco_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", monaco_state, monaco_interrupt)
 	MCFG_MACHINE_RESET_OVERRIDE(monaco_state, monaco)
 
 	/* video hardware */
@@ -1455,7 +1455,7 @@ MACHINE_CONFIG_START( monaco_state::monaco )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("samples", SAMPLES, 0)
+	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
 	MCFG_SAMPLES_CHANNELS(5)
 	MCFG_SAMPLES_NAMES(monaco_sample_names)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.90)

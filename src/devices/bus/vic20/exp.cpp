@@ -230,6 +230,6 @@ void vic20_expansion_cards(device_slot_interface &device)
 
 	// the following need ROMs from the software list
 	device.option_add_internal("standard", VIC20_STD);
-	device.option_add_internal("ieee488", VIC1112).clock(DERIVED_CLOCK(1, 1));
+	device.option_add_internal("ieee488", VIC1112);
 	device.option_add_internal("megacart", VIC20_MEGACART);
 }

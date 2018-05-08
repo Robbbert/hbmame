@@ -40,11 +40,11 @@ void galaga_hbmame::galagost_map(address_map &map) {
 
 MACHINE_CONFIG_START( galaga_hbmame::galagost )
 	galaga(config);
-	MCFG_CPU_MODIFY( "maincpu" )
-	MCFG_CPU_PROGRAM_MAP(galagost_map)
+	MCFG_DEVICE_MODIFY( "maincpu" )
+	MCFG_DEVICE_PROGRAM_MAP(galagost_map)
 
 	/* sound hardware */
-	MCFG_SOUND_ADD("samples", SAMPLES, 0)
+	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
 	MCFG_SAMPLES_CHANNELS(1)
 	MCFG_SAMPLES_NAMES(galagost_sample_names)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.75)

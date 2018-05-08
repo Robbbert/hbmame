@@ -281,14 +281,14 @@ void md_boot_state::puckpkmna_map(address_map &map)
 MACHINE_CONFIG_START(md_boot_state::puckpkmn)
 	md_ntsc(config);
 
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(puckpkmn_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(puckpkmn_map)
 
 	MCFG_MACHINE_START_OVERRIDE(md_boot_state, md_bootleg)
 
 	MCFG_DEVICE_REMOVE("genesis_snd_z80")
 
-	MCFG_OKIM6295_ADD("oki", XTAL(4'000'000) / 4, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(4'000'000) / 4, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 0.25)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker",0.25)
 MACHINE_CONFIG_END
@@ -296,16 +296,16 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(md_boot_state::puckpkmna)
 	puckpkmn(config);
 
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(puckpkmna_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(puckpkmna_map)
 
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(md_boot_state::jzth)
 	puckpkmn(config);
 
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(jzth_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(jzth_map)
 
 MACHINE_CONFIG_END
 

@@ -277,37 +277,37 @@ void pacman_state::zolapac_io(address_map &map) {
 /* only for encrypted sets with 20000 in cpu1 */
 MACHINE_CONFIG_START( pacman_state::mspacman )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mspacman_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mspacman_map)
 MACHINE_CONFIG_END
 
 /* Hires mspacman */
 MACHINE_CONFIG_START( pacman_state::mspacmnx )
 	pacmanx(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mspacman_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mspacman_map)
 MACHINE_CONFIG_END
 
 /* Hires hacks */
 MACHINE_CONFIG_START( pacman_state::woodpekx )
 	pacmanx(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(woodpek_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
 MACHINE_CONFIG_END
 
 /* MSPacman with modified memory maps */
 
 MACHINE_CONFIG_START( pacman_state::mspacii )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mspacii_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mspacii_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::zolapac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(woodpek_map)
-	MCFG_CPU_IO_MAP(zolapac_io)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
+	MCFG_DEVICE_IO_MAP(zolapac_io)
 MACHINE_CONFIG_END
 
 /* These drivers need the watchdog to be removed in order to work */
@@ -320,16 +320,16 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mspachi )
 	pachack(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mspachi_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mspachi_map)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::widel )
 	pachack(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(widel_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(widel_map)
 MACHINE_CONFIG_END
 
 

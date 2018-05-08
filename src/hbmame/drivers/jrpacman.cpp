@@ -231,10 +231,10 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
 	PORT_DIPSETTING(    0x04, "Enabled Always" )
 
-	PORT_START ("CONFIG")
-	PORT_CONFNAME( 0x01, 0x01, "Level" )
-	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
+//	PORT_START ("CONFIG")
+//	PORT_CONFNAME( 0x01, 0x01, "Level" )
+//	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
+//	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
@@ -291,24 +291,24 @@ INTERRUPT_GEN_MEMBER(jrpacman_state::vblank_irq)
 MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", Z80, 18432000/6)    /* 3.072 MHz */
-	MCFG_CPU_PROGRAM_MAP(mem_map)
-	MCFG_CPU_IO_MAP(io_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", jrpacman_state,  vblank_irq)
-//	MCFG_CPU_VBLANK_INT_DRIVER("screen", pacman_state,  vblank_irq) // HBMAME
+	MCFG_DEVICE_ADD("maincpu", Z80, 18432000/6)    /* 3.072 MHz */
+	MCFG_DEVICE_PROGRAM_MAP(mem_map)
+	MCFG_DEVICE_IO_MAP(io_map)
+//	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", jrpacman_state,  vblank_irq)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pacman_state,  vblank_irq) // HBMAME
 
 	MCFG_DEVICE_ADD("latch1", LS259, 0) // 5P
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(jrpacman_state, irq_mask_w))
-	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(DEVWRITELINE("namco", namco_device, sound_enable_w))
-	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(jrpacman_state, flipscreen_w))
-	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(jrpacman_state, coin_counter_w))
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, jrpacman_state, irq_mask_w))
+	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE("namco", namco_device, sound_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(*this, jrpacman_state, flipscreen_w))
+	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(*this, jrpacman_state, coin_counter_w))
 
 	MCFG_DEVICE_ADD("latch2", LS259, 0) // 1H
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(jrpacman_state, pengo_palettebank_w))
-	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE(jrpacman_state, pengo_colortablebank_w))
-	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(jrpacman_state, jrpacman_bgpriority_w))
-	MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(jrpacman_state, jrpacman_charbank_w))
-	MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(jrpacman_state, jrpacman_spritebank_w))
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, jrpacman_state, pengo_palettebank_w))
+	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE(*this, jrpacman_state, pengo_colortablebank_w))
+	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(*this, jrpacman_state, jrpacman_bgpriority_w))
+	MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(*this, jrpacman_state, jrpacman_charbank_w))
+	MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(*this, jrpacman_state, jrpacman_spritebank_w))
 
 	MCFG_WATCHDOG_ADD("watchdog")
 
@@ -329,7 +329,7 @@ MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_SOUND_ADD("namco", NAMCO, 3072000/32)
+	MCFG_DEVICE_ADD("namco", NAMCO, 3072000/32)
 	MCFG_NAMCO_AUDIO_VOICES(3)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END

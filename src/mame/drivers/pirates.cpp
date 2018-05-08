@@ -253,9 +253,9 @@ GFXDECODE_END
 /* Machine Driver + Related bits */
 
 MACHINE_CONFIG_START(pirates_state::pirates)
-	MCFG_CPU_ADD("maincpu", M68000, 16000000) /* 16mhz */
-	MCFG_CPU_PROGRAM_MAP(pirates_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", pirates_state,  irq1_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 16000000) /* 16mhz */
+	MCFG_DEVICE_PROGRAM_MAP(pirates_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pirates_state,  irq1_line_hold)
 
 	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
 
@@ -276,7 +276,7 @@ MACHINE_CONFIG_START(pirates_state::pirates)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_OKIM6295_ADD("oki", 1333333, PIN7_LOW)
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1333333, okim6295_device::PIN7_LOW)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

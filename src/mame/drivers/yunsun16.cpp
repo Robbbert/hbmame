@@ -593,13 +593,13 @@ MACHINE_RESET_MEMBER(yunsun16_state, shocking)
 MACHINE_CONFIG_START(yunsun16_state::magicbub)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000))
-	MCFG_CPU_PROGRAM_MAP(main_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", yunsun16_state,  irq2_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(16'000'000))
+	MCFG_DEVICE_PROGRAM_MAP(main_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", yunsun16_state,  irq2_line_hold)
 
-	MCFG_CPU_ADD("audiocpu", Z80, XTAL(16'000'000)/4)
-	MCFG_CPU_PROGRAM_MAP(sound_map)
-	MCFG_CPU_IO_MAP(sound_port_map)
+	MCFG_DEVICE_ADD("audiocpu", Z80, XTAL(16'000'000)/4)
+	MCFG_DEVICE_PROGRAM_MAP(sound_map)
+	MCFG_DEVICE_IO_MAP(sound_port_map)
 
 
 	/* video hardware */
@@ -618,12 +618,12 @@ MACHINE_CONFIG_START(yunsun16_state::magicbub)
 
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 
-	MCFG_SOUND_ADD("ymsnd", YM3812, XTAL(16'000'000)/4)
+	MCFG_DEVICE_ADD("ymsnd", YM3812, XTAL(16'000'000)/4)
 	MCFG_YM3812_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 0.80)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 0.80)
 
-	MCFG_OKIM6295_ADD("oki", XTAL(16'000'000)/16, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(16'000'000)/16, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 0.80)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 0.80)
 MACHINE_CONFIG_END
@@ -636,9 +636,9 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(yunsun16_state::shocking)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL(16'000'000))
-	MCFG_CPU_PROGRAM_MAP(main_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", yunsun16_state,  irq2_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(16'000'000))
+	MCFG_DEVICE_PROGRAM_MAP(main_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", yunsun16_state,  irq2_line_hold)
 
 	MCFG_MACHINE_START_OVERRIDE(yunsun16_state, shocking)
 	MCFG_MACHINE_RESET_OVERRIDE(yunsun16_state, shocking)
@@ -656,7 +656,7 @@ MACHINE_CONFIG_START(yunsun16_state::shocking)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_OKIM6295_ADD("oki", XTAL(16'000'000)/16, PIN7_HIGH)
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(16'000'000)/16, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 1.0)
 	MCFG_DEVICE_ADDRESS_MAP(0, oki_map)

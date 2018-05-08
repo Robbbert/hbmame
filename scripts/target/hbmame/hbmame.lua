@@ -168,6 +168,7 @@ MACHINES["MB89352"] = true  -- segas32
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
+MACHINES["OUTPUT_LATCH"] = true
 MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
@@ -648,7 +649,6 @@ files {
 	MAME_DIR .. "src/mame/video/playch10.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vsnes.cpp",
 	MAME_DIR .. "src/mame/machine/vsnes.cpp",
-	MAME_DIR .. "src/mame/video/vsnes.cpp",
 	MAME_DIR .. "src/devices/video/ppu2c0x.cpp",
 	MAME_DIR .. "src/devices/machine/z80dma.cpp",
 

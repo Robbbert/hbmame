@@ -120,9 +120,9 @@ GFXDECODE_END
 
 MACHINE_CONFIG_START(jungleyo_state::jungleyo)
 
-	MCFG_CPU_ADD("maincpu", M68000, XTAL(12'000'000))
-	MCFG_CPU_PROGRAM_MAP(jungleyo_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", jungleyo_state,  irq1_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(12'000'000))
+	MCFG_DEVICE_PROGRAM_MAP(jungleyo_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", jungleyo_state,  irq1_line_hold)
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", jungleyo)
 
@@ -139,7 +139,7 @@ MACHINE_CONFIG_START(jungleyo_state::jungleyo)
 
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_OKIM6295_ADD("oki", XTAL(12'000'000)/16, PIN7_HIGH) // clock frequency & pin 7 not verified
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(12'000'000)/16, okim6295_device::PIN7_HIGH) // clock frequency & pin 7 not verified
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 0.47)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 0.47)
 MACHINE_CONFIG_END

@@ -3342,13 +3342,13 @@ MACHINE_START_MEMBER(cps_state,qsound)
 MACHINE_CONFIG_START(cps_state::cps1_10MHz)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL(10'000'000) )    /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(main_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
-	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
+	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(10'000'000) )    /* verified on pcb */
+	MCFG_DEVICE_PROGRAM_MAP(main_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
 
-	MCFG_CPU_ADD("audiocpu", Z80, XTAL(3'579'545))  /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(sub_map)
+	MCFG_DEVICE_ADD("audiocpu", Z80, XTAL(3'579'545))  /* verified on pcb */
+	MCFG_DEVICE_PROGRAM_MAP(sub_map)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state,cps1)
 
@@ -3356,7 +3356,7 @@ MACHINE_CONFIG_START(cps_state::cps1_10MHz)
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(CPS_PIXEL_CLOCK, CPS_HTOTAL, CPS_HBEND, CPS_HBSTART, CPS_VTOTAL, CPS_VBEND, CPS_VBSTART)
 	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_cps1)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(cps_state, screen_vblank_cps1))
+	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, cps_state, screen_vblank_cps1))
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", cps1)
@@ -3370,20 +3370,20 @@ MACHINE_CONFIG_START(cps_state::cps1_10MHz)
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
 
-	MCFG_YM2151_ADD("2151", XTAL(3'579'545))  /* verified on pcb */
+	MCFG_DEVICE_ADD("2151", YM2151, XTAL(3'579'545))  /* verified on pcb */
 	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "mono", 0.35)
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
 	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_OKIM6295_ADD("oki", XTAL(16'000'000)/4/4, PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1'000'000, okim6295_device::PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(cps_state::forgottn )
 	cps1_10MHz(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(forgottn_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(forgottn_map)
 
 	MCFG_DEVICE_ADD("upd4701", UPD4701A, 0)
 	MCFG_UPD4701_PORTX("DIAL0")
@@ -3394,8 +3394,8 @@ MACHINE_CONFIG_START(cps_state::cps1_12MHz )
 	cps1_10MHz(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_CLOCK( XTAL(12'000'000) )    /* verified on pcb */
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_CLOCK( XTAL(12'000'000) )    /* verified on pcb */
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(cps_state::pang3 )
@@ -3409,7 +3409,7 @@ MACHINE_CONFIG_START(cps_state::ganbare )
 	cps1_10MHz(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
+	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", cps_state, ganbare_interrupt, "screen", 0, 1) // need to investigate more
 
 	MCFG_M48T35_ADD("m48t35")
@@ -3419,15 +3419,15 @@ MACHINE_CONFIG_START(cps_state::qsound )
 	cps1_12MHz(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_REPLACE("maincpu", M68000, XTAL(12'000'000) )    /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(qsound_main_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
-	MCFG_CPU_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
+	MCFG_DEVICE_REPLACE("maincpu", M68000, XTAL(12'000'000) )    /* verified on pcb */
+	MCFG_DEVICE_PROGRAM_MAP(qsound_main_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
 
-	MCFG_CPU_REPLACE("audiocpu", Z80, XTAL(8'000'000))  /* verified on pcb */
-	MCFG_CPU_PROGRAM_MAP(qsound_sub_map)
-	MCFG_CPU_OPCODES_MAP(qsound_decrypted_opcodes_map)
-	MCFG_CPU_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250) // measured (cps2.c)
+	MCFG_DEVICE_REPLACE("audiocpu", Z80, XTAL(8'000'000))  /* verified on pcb */
+	MCFG_DEVICE_PROGRAM_MAP(qsound_sub_map)
+	MCFG_DEVICE_OPCODES_MAP(qsound_decrypted_opcodes_map)
+	MCFG_DEVICE_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250) // measured (cps2.c)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
@@ -3442,7 +3442,7 @@ MACHINE_CONFIG_START(cps_state::qsound )
 	MCFG_DEVICE_REMOVE("2151")
 	MCFG_DEVICE_REMOVE("oki")
 
-	MCFG_DEVICE_ADD("qsound", QSOUND, QSOUND_CLOCK)
+	MCFG_DEVICE_ADD("qsound", QSOUND)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_CONFIG_END
@@ -3456,14 +3456,14 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(cps_state::sf2m3 )
 	cps1_12MHz(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(sf2m3_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(sf2m3_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(cps_state::sf2m10 )
 	cps1_12MHz(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(sf2m10_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(sf2m10_map)
 MACHINE_CONFIG_END
 
 

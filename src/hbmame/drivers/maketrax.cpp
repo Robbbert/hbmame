@@ -221,8 +221,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::piranha )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_IO_MAP(piranha_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_IO_MAP(piranha_writeport)
 MACHINE_CONFIG_END
 
 

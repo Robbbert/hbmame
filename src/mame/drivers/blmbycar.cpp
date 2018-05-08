@@ -350,9 +350,9 @@ MACHINE_RESET_MEMBER(blmbycar_state,blmbycar)
 MACHINE_CONFIG_START(blmbycar_state::blmbycar)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, XTAL(24'000'000)/2)   /* 12MHz */
-	MCFG_CPU_PROGRAM_MAP(blmbycar_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", blmbycar_state,  irq1_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(24'000'000)/2)   /* 12MHz */
+	MCFG_DEVICE_PROGRAM_MAP(blmbycar_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", blmbycar_state,  irq1_line_hold)
 
 	MCFG_MACHINE_START_OVERRIDE(blmbycar_state,blmbycar)
 	MCFG_MACHINE_RESET_OVERRIDE(blmbycar_state,blmbycar)
@@ -374,7 +374,7 @@ MACHINE_CONFIG_START(blmbycar_state::blmbycar)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_OKIM6295_ADD("oki", XTAL(1'000'000), PIN7_HIGH) // clock frequency & pin 7 not verified
+	MCFG_DEVICE_ADD("oki", OKIM6295, XTAL(1'000'000), okim6295_device::PIN7_HIGH) // clock frequency & pin 7 not verified
 	MCFG_DEVICE_ADDRESS_MAP(0, blmbycar_oki_map)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 1.0)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 1.0)
@@ -397,8 +397,8 @@ MACHINE_CONFIG_START(blmbycar_state::watrball)
 	blmbycar(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(watrball_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(watrball_map)
 
 	MCFG_MACHINE_START_OVERRIDE(blmbycar_state,watrball)
 	MCFG_MACHINE_RESET_OVERRIDE(blmbycar_state,watrball)

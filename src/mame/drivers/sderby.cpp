@@ -601,9 +601,9 @@ GFXDECODE_END
 
 MACHINE_CONFIG_START(sderby_state::sderby)
 
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)
-	MCFG_CPU_PROGRAM_MAP(sderby_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 12000000)
+	MCFG_DEVICE_PROGRAM_MAP(sderby_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -620,15 +620,15 @@ MACHINE_CONFIG_START(sderby_state::sderby)
 	MCFG_PALETTE_FORMAT(RRRRRGGGGGBBBBBx)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", 1056000, PIN7_HIGH) /* clock frequency & pin 7 not verified */
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1056000, okim6295_device::PIN7_HIGH) /* clock frequency & pin 7 not verified */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sderby_state::sderbya)
 
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)
-	MCFG_CPU_PROGRAM_MAP(sderbya_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 12000000)
+	MCFG_DEVICE_PROGRAM_MAP(sderbya_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -645,15 +645,15 @@ MACHINE_CONFIG_START(sderby_state::sderbya)
 	MCFG_PALETTE_FORMAT(RRRRRGGGGGBBBBBx)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", 1056000, PIN7_HIGH) /* clock frequency & pin 7 not verified */
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1056000, okim6295_device::PIN7_HIGH) /* clock frequency & pin 7 not verified */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sderby_state::luckboom)
 
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)
-	MCFG_CPU_PROGRAM_MAP(luckboom_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", sderby_state,  irq4_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 12000000)
+	MCFG_DEVICE_PROGRAM_MAP(luckboom_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", sderby_state,  irq4_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -670,15 +670,15 @@ MACHINE_CONFIG_START(sderby_state::luckboom)
 	MCFG_PALETTE_FORMAT(RRRRRGGGGGBBBBBx)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", 1056000, PIN7_HIGH) /* clock frequency & pin 7 not verified */
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1056000, okim6295_device::PIN7_HIGH) /* clock frequency & pin 7 not verified */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sderby_state::spacewin)
 
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)
-	MCFG_CPU_PROGRAM_MAP(spacewin_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 12000000)
+	MCFG_DEVICE_PROGRAM_MAP(spacewin_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -695,15 +695,15 @@ MACHINE_CONFIG_START(sderby_state::spacewin)
 	MCFG_PALETTE_FORMAT(RRRRRGGGGGBBBBBx)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", 1056000, PIN7_HIGH) /* clock frequency & pin 7 not verified */
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1056000, okim6295_device::PIN7_HIGH) /* clock frequency & pin 7 not verified */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sderby_state::shinygld)
 
-	MCFG_CPU_ADD("maincpu", M68000, 24_MHz_XTAL / 2) // verified
-	MCFG_CPU_PROGRAM_MAP(shinygld_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", sderby_state, irq4_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 24_MHz_XTAL / 2) // verified
+	MCFG_DEVICE_PROGRAM_MAP(shinygld_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", sderby_state, irq4_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -720,15 +720,15 @@ MACHINE_CONFIG_START(sderby_state::shinygld)
 	MCFG_PALETTE_FORMAT(RRRRRGGGGGBBBBBx)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", 1.056_MHz_XTAL, PIN7_HIGH) /* clock frequency & pin 7 verified */
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1.056_MHz_XTAL, okim6295_device::PIN7_HIGH) /* clock frequency & pin 7 verified */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sderby_state::pmroulet)
 
-	MCFG_CPU_ADD("maincpu", M68000, 12000000)
-	MCFG_CPU_PROGRAM_MAP(roulette_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, 12000000)
+	MCFG_DEVICE_PROGRAM_MAP(roulette_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", sderby_state,  irq2_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -745,7 +745,7 @@ MACHINE_CONFIG_START(sderby_state::pmroulet)
 	MCFG_PALETTE_FORMAT(RRRRRGGGGGBBBBBx)
 
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_OKIM6295_ADD("oki", 1056000, PIN7_HIGH) /* clock frequency & pin 7 not verified */
+	MCFG_DEVICE_ADD("oki", OKIM6295, 1056000, okim6295_device::PIN7_HIGH) /* clock frequency & pin 7 not verified */
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

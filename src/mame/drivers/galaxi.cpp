@@ -62,7 +62,7 @@ public:
 		m_lamps(*this, "lamp%u", 1U),
 		m_bg3_xscroll(8),
 		m_bg3_yscroll(0)
-		{ }
+	{ }
 
 	void galaxi(machine_config &config);
 	void lastfour(machine_config &config);
@@ -465,9 +465,9 @@ void galaxi_state::machine_reset()
 MACHINE_CONFIG_START(galaxi_state::galaxi)
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(galaxi_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", galaxi_state,  irq4_line_hold)
+	MCFG_DEVICE_ADD("maincpu", M68000, CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(galaxi_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", galaxi_state,  irq4_line_hold)
 
 	MCFG_NVRAM_ADD_0FILL("nvram")
 
@@ -487,7 +487,7 @@ MACHINE_CONFIG_START(galaxi_state::galaxi)
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_OKIM6295_ADD("oki", SND_CLOCK, PIN7_LOW)  // ?
+	MCFG_DEVICE_ADD("oki", OKIM6295, SND_CLOCK, okim6295_device::PIN7_LOW)  // ?
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 
@@ -496,7 +496,7 @@ MACHINE_CONFIG_START(galaxi_state::magjoker)
 	galaxi(config);
 
 	/* sound hardware */
-	MCFG_SOUND_MODIFY("oki")
+	MCFG_DEVICE_MODIFY("oki")
 
 	/* ADPCM samples are recorded with extremely low volume */
 	MCFG_SOUND_ROUTES_RESET()
@@ -508,8 +508,8 @@ MACHINE_CONFIG_START(galaxi_state::lastfour)
 	galaxi(config);
 
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(lastfour_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(lastfour_map)
 MACHINE_CONFIG_END
 
 

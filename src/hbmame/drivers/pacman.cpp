@@ -423,21 +423,21 @@ GFXDECODE_END
 MACHINE_CONFIG_START( pacman_state::pacman )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", Z80, MASTER_CLOCK/6)
-	MCFG_CPU_PROGRAM_MAP(pacman_map)
-	MCFG_CPU_IO_MAP(io_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
+	MCFG_DEVICE_ADD("maincpu", Z80, MASTER_CLOCK/6)
+	MCFG_DEVICE_PROGRAM_MAP(pacman_map)
+	MCFG_DEVICE_IO_MAP(io_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_VBLANK_INIT("screen", 16)
 
 	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // 74LS259 at 8K or 4099 at 7K
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(pacman_state, irq_mask_w))
-	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(DEVWRITELINE("namco", namco_device, sound_enable_w))
-	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(pacman_state, flipscreen_w))
-	//MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(pacman_state, led1_w))
-	//MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(pacman_state, led2_w))
-	//MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(WRITELINE(pacman_state, coin_lockout_global_w))
-	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(pacman_state, coin_counter_w))
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, pacman_state, irq_mask_w))
+	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE("namco", namco_device, sound_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(*this, pacman_state, flipscreen_w))
+	//MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(*this, pacman_state, led1_w))
+	//MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(*this, pacman_state, led2_w))
+	//MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(WRITELINE(*this, pacman_state, coin_lockout_global_w))
+	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(*this, pacman_state, coin_counter_w))
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -452,7 +452,7 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("namco", NAMCO, MASTER_CLOCK/6/32)
+	MCFG_DEVICE_ADD("namco", NAMCO, MASTER_CLOCK/6/32)
 	MCFG_NAMCO_AUDIO_VOICES(3)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
@@ -469,8 +469,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::woodpek )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(woodpek_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
 MACHINE_CONFIG_END
 
 

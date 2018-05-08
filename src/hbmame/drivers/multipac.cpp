@@ -723,9 +723,9 @@ GFXDECODE_END
 
 MACHINE_CONFIG_START( pacman_state::_96in1 )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(_96in1_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
+	MCFG_DEVICE_IO_MAP(_96in1_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
@@ -734,9 +734,9 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::_96in1b )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(_96in1b_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
+	MCFG_DEVICE_IO_MAP(_96in1b_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1b)
 	MCFG_PALETTE_MODIFY("palette")
@@ -751,9 +751,9 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::hackypac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(hackypac_map)
-	MCFG_CPU_IO_MAP(hackypac_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(hackypac_map)
+	MCFG_DEVICE_IO_MAP(hackypac_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, hackypac)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", hackypac)
 	MCFG_PALETTE_MODIFY("palette")
@@ -767,9 +767,9 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::madpac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(madpac_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
+	MCFG_DEVICE_IO_MAP(madpac_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
@@ -784,31 +784,31 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mspaceur )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mspaceur_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mspaceur_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mspaceur)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mschamp )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mschamp_map)
-	MCFG_CPU_IO_MAP(zolapac_io)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mschamp_map)
+	MCFG_DEVICE_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mschampx )
 	pacmanx(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mschamp_map)
-	MCFG_CPU_IO_MAP(zolapac_io)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mschamp_map)
+	MCFG_DEVICE_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::multipac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(multipac_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(multipac_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, multipac)
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
@@ -822,16 +822,16 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1 )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(pm4n1_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(pm4n1_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1c )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(pm4n1c_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
@@ -839,14 +839,14 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1d )
 	pm4n1c(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(pm4n1d_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(pm4n1d_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::superabc )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(superabc_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(superabc_map)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 	MCFG_GFXDECODE_MODIFY("gfxdecode", superabc)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)

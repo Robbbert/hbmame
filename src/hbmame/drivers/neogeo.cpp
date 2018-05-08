@@ -1328,12 +1328,12 @@ GFXDECODE_END
 MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(neogeo_main_map)
+	MCFG_DEVICE_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(neogeo_main_map)
 
-	MCFG_CPU_ADD("audiocpu", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(audio_map)
-	MCFG_CPU_IO_MAP(audio_io_map)
+	MCFG_DEVICE_ADD("audiocpu", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(audio_io_map)
 
 	/* video hardware */
 	MCFG_DEFAULT_LAYOUT(layout_neogeo)
@@ -1354,7 +1354,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
 
-	MCFG_SOUND_ADD("ymsnd", YM2610, NEOGEO_YM2610_CLOCK)
+	MCFG_DEVICE_ADD("ymsnd", YM2610, NEOGEO_YM2610_CLOCK)
 	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "lspeaker", 0.28)
 	MCFG_SOUND_ROUTE(0, "rspeaker", 0.28)
@@ -1375,8 +1375,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::mvs )
 	neogeo_arcade(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_slot)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map_slot)
 
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge, "joy", false)
 
@@ -1392,8 +1392,8 @@ void neogeo_state::main_map_noslot(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_noslot )
 	neogeo_arcade(config); // no slot config (legacy mame)
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -1416,8 +1416,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_kog )
 	neogeo_arcade(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -1485,8 +1485,8 @@ void neogeo_state::samsho2sp_map(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::samsho2sp )
 	neogeo_noslot(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(samsho2sp_map)
 MACHINE_CONFIG_END
 
 // used by lbsp
@@ -1497,8 +1497,8 @@ void neogeo_state::lbsp_map(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::lbsp )
 	neogeo_noslot(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(lbsp_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(lbsp_map)
 MACHINE_CONFIG_END
 
 
