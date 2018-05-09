@@ -424,7 +424,7 @@ MACHINE_CONFIG_START( sm_state::spacmissx )
 	MCFG_MB14241_ADD("mb14241")
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
 	MCFG_SAMPLES_CHANNELS(6)
 	MCFG_SAMPLES_NAMES(invaders_sample_names)

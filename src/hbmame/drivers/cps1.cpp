@@ -3365,7 +3365,7 @@ MACHINE_CONFIG_START(cps_state::cps1_10MHz)
 	MCFG_VIDEO_START_OVERRIDE(cps_state, cps1)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
@@ -3435,7 +3435,8 @@ MACHINE_CONFIG_START(cps_state::qsound )
 
 	/* sound hardware */
 	MCFG_DEVICE_REMOVE("mono")
-	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
+	SPEAKER(config, "lspeaker").front_left();
+	SPEAKER(config, "rspeaker").front_right();
 
 	//MCFG_DEVICE_REMOVE("soundlatch")   // HBMAME
 	//MCFG_DEVICE_REMOVE("soundlatch2")  // HBMAME

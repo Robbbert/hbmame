@@ -41,7 +41,8 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	MCFG_VIDEO_START_OVERRIDE(taitof2_state,taitof2_megab)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
+	SPEAKER(config, "lspeaker").front_left();
+	SPEAKER(config, "rspeaker").front_right();
 
 	MCFG_DEVICE_ADD("ymsnd", YM2610, 24000000/3) /* Was 16000000/2, but only a 24Mhz OSC */
 	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))

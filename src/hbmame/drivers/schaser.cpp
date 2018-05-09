@@ -564,7 +564,7 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	MCFG_MB14241_ADD("mb14241")
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 
 	MCFG_DEVICE_ADD("snsnd", SN76477, 0)
 	MCFG_SN76477_NOISE_PARAMS(RES_K(47), RES_K(330), CAP_P(470)) // noise + filter

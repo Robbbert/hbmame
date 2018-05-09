@@ -70,7 +70,7 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_PALETTE_INIT_OWNER(timelimt_state, timelimt)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 

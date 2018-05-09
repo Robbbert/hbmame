@@ -520,7 +520,7 @@ MACHINE_CONFIG_START( ir_state::ir )
 	MCFG_MB14241_ADD("mb14241")
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 
 	//MCFG_DEVICE_ADD("ay1", AY8910, XTAL_4MHz/2)
 	//MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.5)
