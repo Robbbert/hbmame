@@ -45,6 +45,19 @@ ROM_START( speccies )
 	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
+ROM_START( sqij )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sqij.ic10",     0x00000, 0xf000, CRC(214ba802) SHA1(39c1d66178d409ccf41194f99c765d2a98727bf9) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD16_BYTE( "sqij.ic9", 0x00000, 0x10000, CRC(c4de729b) SHA1(58e4c8d8af121dd25eba737cc1917841bc3ec6f5) )
+	ROM_LOAD16_BYTE( "sqij.ic8", 0x00001, 0x10000, CRC(978df42d) SHA1(51d7310591c68ec12178b606f0779915f15de8a0) )
+
+	// came with the zipfile but not used
+	ROM_REGION( 0x0200, "plds", 0 )
+	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
+ROM_END
+
 ROM_START( tldemo )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tldemo.ic10",   0x00000, 0x56a4, CRC(fda3d418) SHA1(e0171cc1c035d1f800702c3766825b63f6acd291) )
@@ -68,6 +81,7 @@ ROM_END
 GAME( 2007, evilstonfr,  evilston, evilston,  evilston, taitol_2cpu_state,  0, ROT270, "Arkatrad", "Evil Stone (French)", MACHINE_IMPERFECT_SOUND )
 GAME( 2015, sokoban,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Sokoban LE", 0 )
 GAME( 2015, speccies,    0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "Sokurah", "Speccies 2", 0 )
+GAME( 2018, sqij,        0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "Sokurah", "SQIJ!", 0 )
 GAME( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
 GAME( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
 
@@ -133,7 +147,7 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Evil Stone
-GAME( 1990, evilstons01,  evilston,        evilston,  evilston,  taitol_2cpu_state, 0,         ROT270, "Hacks.", "Evil Stone (Translation French V2)", 0 )
+GAME( 1990, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, 0,         ROT270, "Hacks.", "Evil Stone (Translation French V2)", 0 )
 // Kuri Kinton
 GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, 0,         ROT0,   "Hacks", "Kuri Kinton (Translation Chinese)", 0 )
 // Plotting
