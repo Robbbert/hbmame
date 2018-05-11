@@ -212,7 +212,7 @@ varth		// parent
 willow		// parent
 wof			// parent
 
-	/* cps1mis */
+@source:cps1mis.cpp
 3wondersb01
 3wondrud
 captcomc
@@ -985,8 +985,10 @@ kodb
 asurabld				//parent
 asurablds01
 asurablds02
+asurablds03
 asurabus				//parent
 asurabuss01
+asurabuss02
 
 @source:galaga.cpp
 galaga		//parent
@@ -5539,7 +5541,9 @@ aof2as04
 aof3ks01
 aof3ks02
 breakers01
+breakers02
 breakrevs01
+breakrevs02
 fightfevs01
 fightfevs02
 fightfevas01
@@ -5551,11 +5555,17 @@ kabukikls01
 kabukikls02
 kabukikls03
 kabukikls04
+kabukikls05
+kabukikls06
+kabukikls07
 kizunas01
 kizunas02
 kizunas03
 kizunas04
+kizunas05
 karnovres01
+magdrop3s01
+magdrop3s02
 matrims01
 matrims02
 matrims03
@@ -5567,6 +5577,7 @@ matrims08
 matrims09
 matrims10
 matrims11
+matrims12
 miexchngs01
 neobombes01
 neobombes02
@@ -5574,17 +5585,22 @@ neocup98s01
 ninjamass01
 ninjamass02
 ninjamass03
-magdrop3s01
+ninjamass04
 nitds01
 nitds02
 preisle2s01
 ragnagrds01
+ragnagrds02
+ragnagrds03
+s1945ps01
 savageres01
 savageres02
 savageres03
 savageres04
+savageres05
 sdodgebs01
 sdodgebs02
+sdodgebs03
 
 @source:ngdoubledr.cpp
 dbdehy
@@ -5603,6 +5619,8 @@ doubledrs02
 doubledrs03
 doubledrs04
 doubledrs05
+doubledrs06
+doubledrs07
 
 @source:nggaroup.cpp
 garoub
@@ -5624,6 +5642,7 @@ garouhs02
 garoupsi01
 garoupsi02
 garoupsi03
+garoupsi04
 
 @source:ngkofmisc.cpp
 cthd2k3a
@@ -5710,6 +5729,16 @@ ct2k3k3s45
 ct2k3k3s46
 ct2k3k3s47
 ct2k3k3s48
+ct2k3k3s49
+ct2k3k3s50
+ct2k3k3s51
+ct2k3k3s52
+ct2k3k3s53
+ct2k3k3s54
+ct2k3k3s55
+ct2k3k3s56
+ct2k3k3s57
+ct2k3k3s58
 cthd2k3ds01
 cthd2k3ds02
 cthd2k3ds03
@@ -5884,6 +5913,10 @@ lastbladhs10
 lastbladhs11
 lastbladhs12
 lastbladhs13
+lastbladhs14
+lastbladhs15
+lastbladhs16
+lastbladhs17
 lastsolds01
 lastsolds02
 lastsolds03
@@ -5904,6 +5937,8 @@ lastbld2s09
 lastbld2s10
 lastbld2s11
 lastbld2s12
+lastbld2s13
+lastbld2s14
 
 @source:ngrbff.cpp
 fatfury2b
@@ -6005,6 +6040,7 @@ rotds14
 rotds15
 rotds16
 rotds17
+rotds18
 rotdds01
 rotdds02
 
@@ -6584,12 +6620,14 @@ whps05
 whps06
 whps07
 whps08
+whps09
 wh1s01
 wh1hs01
 wh1has01
 wh2s01
 wh2s02
 wh2s03
+wh2s04
 
 @source:nmk16.cpp
 tdragon			//parent

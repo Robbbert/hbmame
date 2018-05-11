@@ -985,6 +985,29 @@ ROM_START( rotds17 )
 	ROM_LOAD16_BYTE( "264.c8", 0x3000001, 0x800000, CRC(c5edb5c4) SHA1(253378c8739daa5da4edb15eff7050820b2b3755) )
 ROM_END
 
+ROM_START( rotds18 )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "264hc18.p1", 0x000000, 0x800000, CRC(5bc34049) SHA1(8e5ea9a0b8073b75706323b22bcd35c2cc34036f) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "264.m1", CRC(4dbd7b43) SHA1(6b63756b0d2d30bbf13fbd219833c81fd060ef96) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "264.v1", 0x000000, 0x800000, CRC(fa005812) SHA1(73723126dab5a640ac11955ed6da1bf7a91394f5) )
+	ROM_LOAD( "264.v2", 0x800000, 0x800000, CRC(c3dc8bf0) SHA1(a105e37262d9500a30fb8a5dac05aa4fab2562a3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "264hc18.c1", 0x0000000, 0x800000, CRC(b4d9e124) SHA1(130a4227553d72d8e6dbd46cab052703e3e17a13) )
+	ROM_LOAD16_BYTE( "264hc18.c2", 0x0000001, 0x800000, CRC(af3b6b6a) SHA1(24afdc358db486d1ba463bb4fdb473c6417312a8) )
+	ROM_LOAD16_BYTE( "264hc18.c3", 0x1000000, 0x800000, CRC(e398d08e) SHA1(7a979d02fda92bf64845ff34bf54976d280d89b9) )
+	ROM_LOAD16_BYTE( "264hc18.c4", 0x1000001, 0x800000, CRC(d3902a89) SHA1(dca65715b94cf836bc273f00a0ec03ce1698a6e1) )
+	ROM_LOAD16_BYTE( "264hc18.c5", 0x2000000, 0x800000, CRC(cdd6bb80) SHA1(574f2e0ef2db818b71f50567e0ec9af0ad957353) )
+	ROM_LOAD16_BYTE( "264hc18.c6", 0x2000001, 0x800000, CRC(9a1b3316) SHA1(ee34703161cacfadef49ebfcae1072f6cf1173aa) )
+	ROM_LOAD16_BYTE( "264hc18.c7", 0x3000000, 0x800000, CRC(448aa07d) SHA1(569e7dc825d6419c9b10d5d7121c4c556098e7fa) )
+	ROM_LOAD16_BYTE( "264hc18.c8", 0x3000001, 0x800000, CRC(29ee5c04) SHA1(a208d6e02ba444aa96b9712b43a4d673087010c1) )
+ROM_END
+
 ROM_START( rotdds01 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "264hc05.p1", 0x000000, 0x800000, CRC(44889313) SHA1(45b7cbdb9cdc57f0218d372558aaae5fb87766f6) )
@@ -1052,5 +1075,6 @@ GAME( 2016, rotds14,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd
 GAME( 2016, rotds15,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Description Of Unknown Origin 05)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, rotds16,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Translation Portuguese)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, rotds17,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Easy Move)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rotdds02,       rotd,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Rage of the Dragons (Portuguese/Brazilian Hack ver 3.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rotdds01,       rotd,     neogeo_noslot, neogeo, neogeo_state,        rotdd,     ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, rotds18,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Hacks",    "Rage of the Dragons (Super Remix Edition 1.0)(NGM-264?)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, rotdds02,       rotd,     neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Rage of the Dragons (Portuguese/Brazilian Hack ver 3.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, rotdds01,       rotd,     neogeo_noslot, neogeo, neogeo_state,  rotdd,     ROT0, "Hacks",    "Rage of the Dragons (Enable Hidden Characters & Boss V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
