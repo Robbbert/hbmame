@@ -4426,17 +4426,17 @@ ROM_END
 // Andro Dunos
 GAME( 2017, androduns01,    androdun, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Andro Dunos (Hacks Alt)", MACHINE_SUPPORTS_SAVE )
 // Art of Fighting 2
-GAME( 2016, aof2s01,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2 (Boss, Yumeji Hack)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, aof2s02,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2 (Description Of Unknown Origin 01)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, aof2s03,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2 (Description Of Unknown Origin 02)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, aof2s04,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2 (Hidden Characters Added Palette For Hidden Characters)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, aof2as01,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2A (Enable Hidden Characters In Arcade Mode)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, aof2as02,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2A (Enable Hidden Characters In Arcade Mode V2)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, aof2as03,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2A (Added Palette For Hidden Characters)(NGH-056)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, aof2as04,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 / Ryuuko No Ken 2A (Added palette For hidden Characters V2)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, aof2s01,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 (Boss, Yumeji Hack)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, aof2s02,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 (Description Of Unknown Origin 01)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, aof2s03,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 (Description Of Unknown Origin 02)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, aof2s04,        aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2 (Hidden Characters Added Palette For Hidden Characters)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, aof2as01,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2A (Enable Hidden Characters In Arcade Mode)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, aof2as02,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2A (Enable Hidden Characters In Arcade Mode V2)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, aof2as03,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2A (Added Palette For Hidden Characters)(NGH-056)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, aof2as04,       aof2,     neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Art of Fighting 2A (Added palette For hidden Characters V2)(NGH-056)", MACHINE_SUPPORTS_SAVE )
 // Art of Fighting 3
-GAME( 2017, aof3ks01,       aof3,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",    "Art of Fighting 3 - The Path of the Warrior (Enable Hidden Characters In Arcade Mode V1)(Korean release)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, aof3ks02,       aof3,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",    "Art of Fighting 3 - The Path of the Warrior (Enable Hidden Characters In Arcade Mode V2)(Korean release)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, aof3ks01,       aof3,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",    "Art of Fighting 3 (Enable Hidden Characters In Arcade Mode V1)(Korean release)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, aof3ks02,       aof3,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Hacks",    "Art of Fighting 3 (Enable Hidden Characters In Arcade Mode V2)(Korean release)", MACHINE_SUPPORTS_SAVE )
 // Breakers
 GAME( 2017, breakers01,     breakers, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Breakers(Mode Easy)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, breakrevs01,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Breakers Revenge (Mode Easy)", MACHINE_SUPPORTS_SAVE )
@@ -4445,44 +4445,44 @@ GAME( 2017, fightfevs01,    fightfev, neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2017, fightfevs02,    fightfev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fight Fever (Fixed Kanji Display Of Some Special Attacks)(set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, fightfevas01,   fightfev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fight Fever (Enable Hidden Characters)(set 2)", MACHINE_SUPPORTS_SAVE )
  // Galaxy Fight
-GAME( 2017, galaxyfs01,     galaxyfg, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Galaxy Fight - Universal Warriors(Add Character To Select)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, galaxyfs02,     galaxyfg, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Galaxy Fight - Universal Warriors(Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, galaxyfs01,     galaxyfg, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Galaxy Fight (Add Character To Select)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, galaxyfs02,     galaxyfg, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Galaxy Fight (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
  // Voltage Fighter
 GAME( 2017, gowcaizrs01,    gowcaizr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer(Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, gowcaizrs02,    gowcaizr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer(Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
  // Far East of Eden
-GAME( 2017, kabukikls01,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden - Kabuki Klash (Add Character To Select)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kabukikls02,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden - Kabuki Klash (Boss Hacks)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kabukikls03,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden - Kabuki Klash (Enhanced Power V2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kabukikls04,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden - Kabuki Klash (Color Modification V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kabukikls01,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden (Add Character To Select)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kabukikls02,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden (Boss Hacks)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kabukikls03,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden (Enhanced Power V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kabukikls04,    kabukikl, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Far East of Eden (Color Modification V2)", MACHINE_SUPPORTS_SAVE )
  // Kizuna Encounter
-GAME( 2017, kizunas01,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter - (Unlimited Power v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kizunas02,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter - (Unlimited Power v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kizunas03,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter - (Unlimited Power v3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kizunas04,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter - (Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kizunas01,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter (Unlimited Power v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kizunas02,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter (Unlimited Power v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kizunas03,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter (Unlimited Power v3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kizunas04,      kizuna,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kizuna Encounter (Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
  // Karnov's Revenge
 GAME( 2017, karnovres01,    karnovr,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Karnov's Revenge (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
  // Magical Drop III
- GAME( 1997, magdrop3s01,   magdrop3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Magical Drop III (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, magdrop3s01,   magdrop3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Magical Drop III (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
  // Matrimelee
 GAME( 2016, matrims01,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Add Character Alpha Set 01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Add Character Alpha Set 02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, matrims03,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Max Power) ", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, matrims04,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, matrims05,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, matrims06,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Super Plus + Add Character + Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, matrims06,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Super Plus+)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, matrims07,      matrim,   neogeo_noslot, neogeo, neogeo_state,        matrima,   ROT0, "Hacks",    "Matrimelee (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrims08,      matrim,   neogeo_noslot, neogeo, neogeo_state,  matrim,    ROT0, "Hacks",    "Matrimelee (Enable Hidden Menu)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrims09,      matrim,   neogeo_noslot, neogeo, neogeo_state,  matrim,    ROT0, "Hacks",    "Matrimelee (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrims10,      matrim,   neogeo_noslot, neogeo, neogeo_state,  matrim,    ROT0, "Hacks",    "Matrimelee (Maximum Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrims11,      matrim,   neogeo_noslot, neogeo, neogeo_state,  matrim,    ROT0, "Hacks",    "Matrimelee (Power Lv 3)", MACHINE_SUPPORTS_SAVE )
   // Money Puzzle Exchanger
-GAME( 2017, miexchngs01,    miexchng, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Money Puzzle Exchanger / Money Idol Exchanger (Translation French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, miexchngs01,    miexchng, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Money Puzzle Exchanger (Translation French)", MACHINE_SUPPORTS_SAVE )
  // Neo Bomberman
 GAME( 2017, neobombes01,    neobombe, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Neo Bomberman (Ex Super)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, neobombes02,    neobombe, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Neo Bomberman (Ex Super V2)", MACHINE_SUPPORTS_SAVE )
  // Neo-Geo Cup '98
-GAME( 2017, neocup98s01,    neocup98, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Neo-Geo Cup '98 - The Road to the Victory (Translation Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, neocup98s01,    neocup98, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Neo-Geo Cup '98 (Translation Korean)", MACHINE_SUPPORTS_SAVE )
  // Ninja Master's
 GAME( 2017, ninjamass01,    ninjamas, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Ninja Master's (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ninjamass02,    ninjamas, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Ninja Master's (Command Change V1)", MACHINE_SUPPORTS_SAVE )
@@ -4491,9 +4491,9 @@ GAME( 2017, ninjamass03,    ninjamas, neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state,  nitd,      ROT0, "Hacks",    "Nightmare in the Dark (French Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitds02,        nitd,     neogeo_noslot, neogeo, neogeo_state,  nitd,      ROT0, "Hacks",    "Nightmare in the Dark (Translation French V2)" , MACHINE_SUPPORTS_SAVE )
  // Prehistoric Isle 2
-GAME( 2017, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state,   preisle2, ROT0, "Hacks",    "Prehistoric Isle 2 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state,         preisle2, ROT0, "Hacks",    "Prehistoric Isle 2 (Hack (Set 01))", MACHINE_SUPPORTS_SAVE )
  // Ragnagard
-GAME( 2017, ragnagrds01,    ragnagrd, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Ragnagard (Siu Shenquan Technology Unified Simplified V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ragnagrds01,    ragnagrd, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Operation Ragnagard (Siu Shenquan Technology Unified Simplified V2)", MACHINE_SUPPORTS_SAVE )
  // Savage Reign
 GAME( 2017, savageres01,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Savage Reign (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, savageres02,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Savage Reign (Unlimited Super Moves)", MACHINE_SUPPORTS_SAVE )
