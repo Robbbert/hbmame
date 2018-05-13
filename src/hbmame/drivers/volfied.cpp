@@ -33,4 +33,4 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_LOAD_OPTIONAL( "c04-5.75",  0x00200, 0x00200, CRC(2763ec89) SHA1(1e8339e21ee35b526d8604a21cfed9a1ac6455e8) )
 ROM_END
 
-GAME( 2005, volfiedg, volfied, volfied, volfied, volfied_state, 0, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, volfiedg, volfied, volfied, volfied, volfied_state, 0, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )

@@ -214,10 +214,10 @@ ROM_START( outrunen2 )
 	ROM_RELOAD( 0x58000, 0x08000 )
 ROM_END
 
-GAMEL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
-GAMEL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
-GAMEL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
-GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
+HACKL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
+HACKL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
+HACKL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
+HACKL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
 
 
 /***************************** OUTRUNM *********************************************/
@@ -243,7 +243,7 @@ public:
 
 	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
 	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
-	DECLARE_DRIVER_INIT(init);
+	void init_init();
 	void outrunm(machine_config &config);
 	void sound_map_banked(address_map &map);
 	void sound_portmap_banked(address_map &map);
@@ -299,9 +299,9 @@ MACHINE_CONFIG_START( outrunm_state::outrunm )
 	MCFG_ADDRESS_MAP_BANK_STRIDE(0x10000)
 MACHINE_CONFIG_END
 
-DRIVER_INIT_MEMBER(outrunm_state,init)
+void outrunm_state::init_init()
 {
-	DRIVER_INIT_CALL(generic);
+	init_generic();
 	m_custom_io_r = read16_delegate(FUNC(segaorun_state::outrun_custom_io_r), this);
 	m_custom_io_w = write16_delegate(FUNC(segaorun_state::outrun_custom_io_w), this);
 }
@@ -360,5 +360,5 @@ ROM_START( outrunm )
 	ROM_RELOAD(               0x58000, 0x08000 )
 ROM_END
 
-GAMEL(2016, outrunm, outrun, outrunm, outrun, outrunm_state, init, ROT0, "cmonkey", "Out Run (sitdown/upright, Rev B) (added music)", 0, layout_outrun ) // March? 2016
+HACKL(2016, outrunm, outrun, outrunm, outrun, outrunm_state, init, ROT0, "cmonkey", "Out Run (sitdown/upright, Rev B) (added music)", 0, layout_outrun ) // March? 2016
 

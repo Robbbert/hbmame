@@ -31,7 +31,7 @@ ROM_START( altbeastfr )
 	ROM_LOAD( "317-0078.c2", 0x00000, 0x1000, CRC(8101925f) SHA1(a45d772ebe2fd1a577a6ccac8c6c76bb622258bb) )
 ROM_END
 
-GAME( 1988, altbeastfr, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "Arkatrad", "Altered Beast (French)", 0 )
+HACK( 1988, altbeastfr, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "Arkatrad", "Altered Beast (French)", 0 )
 
 
 //PSmame altbeasts01 is the same

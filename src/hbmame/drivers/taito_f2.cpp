@@ -93,7 +93,7 @@ ROM_START( f2demo )
 	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
 ROM_END
 
-GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -333,19 +333,19 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Cameltry
-GAME( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, cameltry, ROT0,   "Hacks",         "Cameltry (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, cameltry, ROT0,   "Hacks",         "Cameltry (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-GAME( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Dead Connection (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Dead Connection (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-GAME( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Hacks",         "Don Doko Don (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Hacks",         "Don Doko Don (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
-GAME( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Hacks",         "Gun Frontier (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Hacks",         "Gun Frontier (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-GAME( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, 0,        ROT0,   "Hacks",         "Mega Blast (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, 0,        ROT0,   "Hacks",         "Mega Blast (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
-GAME( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, 0,        ROT0,   "Hacks",         "Mizubaku Daibouken (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, 0,        ROT0,   "Hacks",         "Mizubaku Daibouken (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Runark
-GAME( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, 0,        ROT0,   "Hacks",         "Runark (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, 0,        ROT0,   "Hacks",         "Runark (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Thunder Fox
-GAME( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Thunder Fox (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Thunder Fox (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 

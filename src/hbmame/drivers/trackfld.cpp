@@ -38,7 +38,7 @@ ROM_END
 HACK by The Gameland Crew (http://www.gameland.gr)
 Maddog, Whacker, Badge, Geoanas */
 
-GAME( 2004, athens04, trackfld, trackfld, trackfld, trackfld_state, trackfld, ROT0, "Gameland.gr", "Athens 2004", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, athens04, trackfld, trackfld, trackfld, trackfld_state, trackfld, ROT0, "Gameland.gr", "Athens 2004", MACHINE_SUPPORTS_SAVE )
 
 ROM_START( tst_trkfld )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -72,4 +72,4 @@ ROM_START( tst_trkfld )
 ROM_END
 
 // http://www.jammarcade.net/track-field-test-rom-beta/
-GAME( 2015, tst_trkfld, trackfld, trackfld, trackfld, trackfld_state, trackfld, ROT0, "Shoestring", "Test Rom - Track and Field", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, tst_trkfld, trackfld, trackfld, trackfld, trackfld_state, trackfld, ROT0, "Shoestring", "Test Rom - Track and Field", MACHINE_SUPPORTS_SAVE )

@@ -55,4 +55,4 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Solomon no Kagi
-GAME( 1986, solomonjs01, solomon, solomon, solomon, solomon_state, 0, ROT0, "Hacks", "Solomon no Kagi (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1986, solomonjs01, solomon, solomon, solomon, solomon_state, 0, ROT0, "Hacks", "Solomon no Kagi (Translation Chinese)", MACHINE_SUPPORTS_SAVE )

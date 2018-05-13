@@ -50,4 +50,4 @@ ROM_END
 
 
 
-GAME( 2000?, srallyp,  srallyc, srallyc, srallyc, model2a_state, 0, ROT0, "Kyle Hodgetts", "Sega Rally Pro Drivin'", 0 )
+HACK( 2000?, srallyp,  srallyc, srallyc, srallyc, model2a_state, 0, ROT0, "Kyle Hodgetts", "Sega Rally Pro Drivin'", 0 )

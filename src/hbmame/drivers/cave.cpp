@@ -89,8 +89,8 @@ ROM_START( pwrinst2z )
 	ROM_LOAD( "g02.u56", 0x240000, 0x200000, CRC(9ff50dda) SHA1(1121685e387c20e228032f2b0f5cbb606376fc15) )
 ROM_END
 
-GAME( 2013, pwrinst2h, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "TT", "Power Instinct 2 (hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "hack", "Power Instinct 2 (unknown hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, pwrinst2h, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "TT", "Power Instinct 2 (hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "hack", "Power Instinct 2 (unknown hack)", MACHINE_SUPPORTS_SAVE )
 
 // From PScave
 
@@ -295,13 +295,13 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // Gaia Crusaders
-GAME( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     gaia,     ROT0,         "Hacks",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+HACK( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     gaia,     ROT0,         "Hacks",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
 // Metamoqester
-GAME( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     metmqstr, ROT0,         "Hacks",  "Metamoqester (Translation-Korean)",   MACHINE_SUPPORTS_SAVE )
+HACK( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     metmqstr, ROT0,         "Hacks",  "Metamoqester (Translation-Korean)",   MACHINE_SUPPORTS_SAVE )
 // Thunder Heroes
-GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     gaia,      ROT0,        "Hacks",  "Thunder Heroes (Select Characters)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+HACK( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     gaia,      ROT0,        "Hacks",  "Thunder Heroes (Select Characters)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
 // Power Instinct 2
-GAME( 2017, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Hacks",  "Power Instinct 2 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Hacks",  "Power Instinct 2 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 // Gouketsuji Gaiden
-GAME( 2017, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Hacks",  "Gouketsuji Gaiden (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Hacks",  "Gouketsuji Gaiden (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 

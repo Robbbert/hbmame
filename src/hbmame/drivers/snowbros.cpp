@@ -64,5 +64,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Snow Bros. - Nick & Tom
-GAME( 1990, snowbross01,   snowbros,        snowbros,    snowbros, snowbros_state, 0,    ROT0, "Hacks",                        "Snow Bros. - Nick & Tom (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, snowbross02,   snowbros,        snowbros,    snowbros, snowbros_state, 0,    ROT0, "Hacks",                        "Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6A)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, snowbross01,   snowbros,        snowbros,    snowbros, snowbros_state, 0,    ROT0, "Hacks",                        "Snow Bros. - Nick & Tom (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, snowbross02,   snowbros,        snowbros,    snowbros, snowbros_state, 0,    ROT0, "Hacks",                        "Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6A)", MACHINE_SUPPORTS_SAVE )

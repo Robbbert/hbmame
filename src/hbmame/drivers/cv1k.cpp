@@ -17,5 +17,5 @@ ROM_START( deathsmlh01 )
 ROM_END
 
 // CA017  Deathsmiles
-GAME( 2007, deathsmlh01, deathsml, cv1k,   cv1k, cv1k_state, deathsml,  ROT0,   "Cave (AMI license)", "Death Smiles (Hidden elements full open + character enhancement)", 0 )
+HACK( 2007, deathsmlh01, deathsml, cv1k,   cv1k, cv1k_state, deathsml,  ROT0,   "Cave (AMI license)", "Death Smiles (Hidden elements full open + character enhancement)", 0 )
 

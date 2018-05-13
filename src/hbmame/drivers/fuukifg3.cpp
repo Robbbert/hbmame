@@ -178,9 +178,9 @@ ROM_END
 
 
 
-GAME( 1998, asurablds01, asurabld, fuuki32, asurabld, fuuki32_state, 0, ROT0, "hack", "Asura Blade - Sword of Dynasty (Energy Mode Max)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, asurablds02, asurabld, fuuki32, asurabld, fuuki32_state, 0, ROT0, "hack", "Asura Blade - Sword of Dynasty (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, asurablds03, asurabld, fuuki32, asurabld, fuuki32_state, 0, ROT0, "hack", "Asura Blade - Sword of Dynasty (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, asurabuss01, asurabus, fuuki32, asurabusa,fuuki32_state, 0, ROT0, "hack", "Asura Buster (unknown hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, asurabuss02, asurabus, fuuki32, asurabusa,fuuki32_state, 0, ROT0, "hack", "Asura Buster (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, asurablds01, asurabld, fuuki32, asurabld, fuuki32_state, 0, ROT0, "hack", "Asura Blade - Sword of Dynasty (Energy Mode Max)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, asurablds02, asurabld, fuuki32, asurabld, fuuki32_state, 0, ROT0, "hack", "Asura Blade - Sword of Dynasty (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, asurablds03, asurabld, fuuki32, asurabld, fuuki32_state, 0, ROT0, "hack", "Asura Blade - Sword of Dynasty (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, asurabuss01, asurabus, fuuki32, asurabusa,fuuki32_state, 0, ROT0, "hack", "Asura Buster (unknown hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, asurabuss02, asurabus, fuuki32, asurabusa,fuuki32_state, 0, ROT0, "hack", "Asura Buster (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 

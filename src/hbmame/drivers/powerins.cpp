@@ -42,7 +42,7 @@ ROM_START( powernbr )
 	ROM_LOAD( "20.u54",       0x000100, 0x0100, CRC(38bd0e2f) SHA1(20d311869642cd96bb831fdf4a458e0d872f03eb) )
 ROM_END
 
-GAME( 2006, powernbr,  powerins, powerins, powerins, powerins_state, 0, ROT0, "Neogeo BR team", "Power Instinct (Brasil)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
+HACK( 2006, powernbr,  powerins, powerins, powerins, powerins_state, 0, ROT0, "Neogeo BR team", "Power Instinct (Brasil)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
 
 //PSmame gaston90
 
@@ -328,11 +328,11 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY         FULLNAME FLAGS */
 //Power Instinct
-GAME( 2006, powerns01,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, powerns02,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, powerinss01,    powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA)(Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, powerinsas01,   powerins, powerinsa,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 1)(Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, powerinsas02,   powerins, powerinsa,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 1)(Translation-Portuguese)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, powerinsbs01,   powerins, powerinsb,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 2)(Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, powerinsbs02,   powerins, powerinsb,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 2)(Translation-Portuguese)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, powerns01,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, powerns02,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, powerinss01,    powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA)(Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, powerinsas01,   powerins, powerinsa,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 1)(Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, powerinsas02,   powerins, powerinsa,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 1)(Translation-Portuguese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, powerinsbs01,   powerins, powerinsb,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 2)(Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, powerinsbs02,   powerins, powerinsb,     powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (USA, bootleg set 2)(Translation-Portuguese)", MACHINE_SUPPORTS_SAVE )
 

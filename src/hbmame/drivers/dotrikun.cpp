@@ -199,4 +199,4 @@ ROM_START( mineswp )
 ROM_END
 
 
-GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+HACKL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )

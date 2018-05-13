@@ -47,4 +47,4 @@ ROM_END
  *
  *************************************/
 
-GAME( 2015, timepltdiag, timeplt, timeplt,  timeplt,  timeplt_state, 0, ROT90,  "Shoestring", "Time Pilot Tester", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, timepltdiag, timeplt, timeplt,  timeplt,  timeplt_state, 0, ROT90,  "Shoestring", "Time Pilot Tester", MACHINE_SUPPORTS_SAVE )

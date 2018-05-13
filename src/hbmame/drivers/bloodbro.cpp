@@ -33,4 +33,4 @@ ROM_START( bloodbros01 )
 	ROM_LOAD( "cb006.u083.6c", 0x0000, 0x0100, CRC(b2b89a74) SHA1(1878823801048d677aef9702feedd5bf775e62d0) ) // N82S135N
 ROM_END
 
-GAME( 1990, bloodbros01,  bloodbro, bloodbro, bloodbro, bloodbro_state, 0, ROT0, "hack", "Blood Bros (Ex Super version)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+HACK( 1990, bloodbros01,  bloodbro, bloodbro, bloodbro, bloodbro_state, 0, ROT0, "hack", "Blood Bros (Ex Super version)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

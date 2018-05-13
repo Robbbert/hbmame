@@ -30,8 +30,8 @@ ROM_START( suprsktr )
 	PALETTE_2C04_0004("ppu1:palette")
 ROM_END
 
-GAME( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
-GAME( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
+HACK( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
+HACK( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
 
 
 //PSmame
@@ -59,5 +59,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Vs. Dr. Mario
-GAME( 1990, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "Hacks", "Vs. Dr. Mario (Translation Chinese)", 0 )
+HACK( 1990, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "Hacks", "Vs. Dr. Mario (Translation Chinese)", 0 )
 

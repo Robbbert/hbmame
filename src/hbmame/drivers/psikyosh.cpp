@@ -50,8 +50,8 @@ ROM_END
 
 
 /*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
-GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "hack", "Strikers 1945 III (hack R3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "hack", "Strikers 1945 III (hack R3)", MACHINE_SUPPORTS_SAVE )
 
 //PSmame
 
@@ -173,11 +173,11 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Daraku Tenshi
-GAME( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, ps3, ROT0,   "Hacks", "Daraku Tenshi (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, ps3, ROT0,   "Hacks", "Daraku Tenshi (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 // Gunbird 2
-GAME( 1998, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, ps5, ROT270, "Hacks", "Gunbird 2 (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, ps5, ROT270, "Hacks", "Gunbird 2 (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 // Strikers 1945 III
-GAME( 1999, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "Hacks", "Strikers 1945 III (Japan)(Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "Hacks", "Strikers 1945 III (Japan)(Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 // Sol Divide - The Sword Of Darkness
-GAME( 1997, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, ps3, ROT0,   "Psikyo", "Sol Divide - The Sword Of Darkness (Translation-French)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, ps3, ROT0,   "Psikyo", "Sol Divide - The Sword Of Darkness (Translation-French)", MACHINE_SUPPORTS_SAVE )
 

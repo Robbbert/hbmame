@@ -214,13 +214,13 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-GAME( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Ver 2.3C 1995/09/21)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Ver 2.3C 1995/09/21)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )
 
 
   /****************************************
@@ -722,26 +722,26 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Cleopatra Fortune
-GAME( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Hacks",         "Cleopatra Fortune (Ver 2.1J)(Translation-Chinese)", 0 )
+HACK( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Hacks",         "Cleopatra Fortune (Ver 2.1J)(Translation-Chinese)", 0 )
 // Akkanbeder
-GAME( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Hacks",         "Akkanbeder (Ver 2.5J 1995/06/14)(Translation-Chinese)", 0 )
+HACK( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Hacks",         "Akkanbeder (Ver 2.5J 1995/06/14)(Translation-Chinese)", 0 )
 // Arabian Magic
-GAME( 1992, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Hacks",         "Arabian Magic (Ver 1.0J 1992/07/06)(Translation-Chinese)", 0 )
+HACK( 1992, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Hacks",         "Arabian Magic (Ver 1.0J 1992/07/06)(Translation-Chinese)", 0 )
 // Bubble Symphony
-GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Hacks",         "Bubble Symphony (Ver 2.5J 1994/10/05)(Translation-Chinese)", 0 )
+HACK( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Hacks",         "Bubble Symphony (Ver 2.5J 1994/10/05)(Translation-Chinese)", 0 )
 // Dan-Ku-Ga
-GAME( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Dan-Ku-Ga Plus ++(Ver 0.0J 1994/12/13, prototype)", 0 )
-GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Dan-Ku-Ga (Ver 0.0J 1994/12/13, prototype)(Enable Hidden Characters)", 0 )
+HACK( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Dan-Ku-Ga Plus ++(Ver 0.0J 1994/12/13, prototype)", 0 )
+HACK( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Dan-Ku-Ga (Ver 0.0J 1994/12/13, prototype)(Enable Hidden Characters)", 0 )
 // Elevator Action Returns
-GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Hacks",         "Elevator Action Returns (Ver 2.2J 1995/02/20)(Translation-Chinese)", 0 )
+HACK( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Hacks",         "Elevator Action Returns (Ver 2.2J 1995/02/20)(Translation-Chinese)", 0 )
 // Grid Seeker: Project Storm Hammer
-GAME( 1992, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Hacks",         "Grid Seeker: Project Storm Hammer (Ver 1.3J)(Translation-Chinese)", 0 )
+HACK( 1992, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Hacks",         "Grid Seeker: Project Storm Hammer (Ver 1.3J)(Translation-Chinese)", 0 )
 // Kaiser Knuckle
-GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle (Ver 2.1O 1994/07/29)(Enable Hidden Characters)", 0 )
-GAME( 1994, kaiserknjs01,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle Plus ++ (Ver 2.1J 1994/07/29)", 0 )
-GAME( 1994, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle (Ver 2.1J 1994/07/29)(Enable Hidden Characters)", 0 )
+HACK( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle (Ver 2.1O 1994/07/29)(Enable Hidden Characters)", 0 )
+HACK( 1994, kaiserknjs01,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle Plus ++ (Ver 2.1J 1994/07/29)", 0 )
+HACK( 1994, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle (Ver 2.1J 1994/07/29)(Enable Hidden Characters)", 0 )
 // Land Maker
-GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Hacks",         "Land Maker (Ver 2.01J 1998/06/01)(Translation-Chinese)", 0 )
+HACK( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Hacks",         "Land Maker (Ver 2.01J 1998/06/01)(Translation-Chinese)", 0 )
 // Light Bringer
-GAME( 1993, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Hacks",         "Light Bringer (Ver 2.1J 1994/02/18)(Translation-Chinese)", 0 )
+HACK( 1993, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Hacks",         "Light Bringer (Ver 2.1J 1994/02/18)(Translation-Chinese)", 0 )
 

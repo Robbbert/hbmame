@@ -13,7 +13,7 @@ ROM_START( terracrc )
 	ROM_LOAD16_BYTE( "terracrc.5",  0x18000, 0x4000, CRC(a1bea44f) SHA1(cda2f0f7feac9060f86392704907b86cb5857b47) )
 	ROM_LOAD16_BYTE( "1a_9b.rom",   0x18001, 0x4000, CRC(69227b56) SHA1(58c8aa4baa1f5ddfc151f5ed6284a06e87866dd7) )
 	ROM_FILL(0x1c16,1,1)
-	ROM_FILL(0x1c17,1,0x1c)	// bypass rom checksum - one of the roms might be bad
+	ROM_FILL(0x1c17,1,0x1c) // bypass rom checksum - one of the roms might be bad
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "bk2_11.15b",   0x0000, 0x4000, CRC(604c3b11) SHA1(c01d1ddae40fa8b65dfc72f959942cb9664a548b) )
@@ -47,4 +47,4 @@ ROM_START( terracrc )
 	ROM_LOAD( "bk2_5.4e",     0x0000, 0x0100, CRC(2c43991f) SHA1(312112832bee511b0545524295aa9bc2e756db0f) )
 ROM_END
 
-GAME( 1985, terracrc, terracre, ym3526, terracre, terracre_state, 0, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 1985, terracrc, terracre, ym3526, terracre, terracre_state, 0, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )

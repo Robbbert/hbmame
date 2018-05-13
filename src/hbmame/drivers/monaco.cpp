@@ -283,7 +283,7 @@ public:
 
 	DECLARE_READ8_MEMBER(monaco_ram_r);
 	DECLARE_WRITE8_MEMBER(monaco_ram_w);
-	DECLARE_DRIVER_INIT(monaco);
+	void init_monaco();
 	INTERRUPT_GEN_MEMBER(monaco_interrupt);
 	DECLARE_MACHINE_RESET(monaco);
 	DECLARE_VIDEO_START(monaco);
@@ -1504,7 +1504,7 @@ ROM_START( monaco )
  */
 ROM_END
 
-DRIVER_INIT_MEMBER( monaco_state, monaco )
+void monaco_state::init_monaco()
 {
 	int i;
 	const double dy_table[5] =
@@ -1532,7 +1532,7 @@ DRIVER_INIT_MEMBER( monaco_state, monaco )
 }
 
 /*          rom     parent  machine inp     init */
-GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )
+HACKL( 1979, monaco, 0, monaco, monaco, monaco_state, monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )
 
 
 
