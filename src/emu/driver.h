@@ -22,11 +22,39 @@
 //  CONFIGURATION MACROS
 //**************************************************************************
 
+// HBMAME start
+// core machine callbacks
+#define MCFG_MACHINE_START_OVERRIDE(_class, _func) \
+	driver_device::static_set_callback(config.root_device(), driver_device::CB_MACHINE_START, driver_callback_delegate(&_class::MACHINE_START_NAME(_func), this));
+
+#define MCFG_MACHINE_RESET_OVERRIDE(_class, _func) \
+	driver_device::static_set_callback(config.root_device(), driver_device::CB_MACHINE_RESET, driver_callback_delegate(&_class::MACHINE_RESET_NAME(_func), this));
+
+// core video callbacks
+#define MCFG_VIDEO_START_OVERRIDE(_class, _func) \
+	driver_device::static_set_callback(config.root_device(), driver_device::CB_VIDEO_START, driver_callback_delegate(&_class::VIDEO_START_NAME(_func), this));
+// HBMAME end
 
 //**************************************************************************
 //  OTHER MACROS
 //**************************************************************************
 
+// HBMAME start
+#define MACHINE_START_NAME(name)    machine_start_##name
+#define MACHINE_START_CALL_MEMBER(name) MACHINE_START_NAME(name)()
+#define DECLARE_MACHINE_START(name) void MACHINE_START_NAME(name)() ATTR_COLD
+#define MACHINE_START_MEMBER(cls,name) void cls::MACHINE_START_NAME(name)()
+
+#define MACHINE_RESET_NAME(name)    machine_reset_##name
+#define MACHINE_RESET_CALL_MEMBER(name) MACHINE_RESET_NAME(name)()
+#define DECLARE_MACHINE_RESET(name) void MACHINE_RESET_NAME(name)()
+#define MACHINE_RESET_MEMBER(cls,name) void cls::MACHINE_RESET_NAME(name)()
+
+#define VIDEO_START_NAME(name)      video_start_##name
+#define VIDEO_START_CALL_MEMBER(name)       VIDEO_START_NAME(name)()
+#define DECLARE_VIDEO_START(name)   void VIDEO_START_NAME(name)() ATTR_COLD
+#define VIDEO_START_MEMBER(cls,name) void cls::VIDEO_START_NAME(name)()
+// HBMAME end
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -74,7 +102,7 @@ public:
 
 	// dummy driver_init callback
 	void empty_init();
-	void init_0() {empty_init();} // HBMAME
+	void init_0() { } // HBMAME
 
 	// memory helpers
 	address_space &generic_space() const { return machine().dummy_space(); }

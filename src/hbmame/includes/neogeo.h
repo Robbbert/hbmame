@@ -221,7 +221,6 @@ protected:
 	// video hardware, including maincpu interrupts
 	// TODO: make into a device
 	virtual void video_start() override;
-	virtual void video_reset() override;
 
 	emu_timer  *m_display_position_interrupt_timer;
 	emu_timer  *m_display_position_vblank_timer;
