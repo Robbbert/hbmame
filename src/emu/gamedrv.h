@@ -183,25 +183,6 @@ extern game_driver const GAME_NAME(NAME)                                \
 	machine_flags::type(u32((MONITOR) | (FLAGS) | MACHINE_TYPE_ARCADE)),\
 	#NAME                                                               \
 };
-
-// standard macro with additional layout
-#define HACKL(YEAR,NAME,PARENT,MACHINE,INPUT,CLASS,INIT,MONITOR,COMPANY,FULLNAME,FLAGS,LAYOUT) \
-GAME_DRIVER_TRAITS(NAME,FULLNAME)                                       \
-extern game_driver const GAME_NAME(NAME)                                \
-{                                                                       \
-	GAME_DRIVER_TYPE(NAME, CLASS, FLAGS),                               \
-	#PARENT,                                                            \
-	#YEAR,                                                              \
-	COMPANY,                                                            \
-	[] (machine_config &config, device_t &owner) { downcast<CLASS &>(owner).MACHINE(config); }, \
-	INPUT_PORTS_NAME(INPUT),                                            \
-	[] (device_t &owner) { downcast<CLASS &>(owner).init_##INIT(); },   \
-	ROM_NAME(NAME),                                                     \
-	nullptr,                                                            \
-	&LAYOUT,                                                            \
-	machine_flags::type(u32((MONITOR) | (FLAGS) | MACHINE_TYPE_ARCADE)),\
-	#NAME                                                               \
-};
 // HBMAME end
 
 // standard GAME() macro

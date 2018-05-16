@@ -677,37 +677,37 @@ void pacman_state::init_superabc()
  Graphics layouts
  ********************************/
 
-static GFXDECODE_START( 96in1 )
+static GFXDECODE_START( gfx_96in1 )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x10000, spritelayout, 0, 32 )
 GFXDECODE_END
 
-static GFXDECODE_START( 96in1b )
+static GFXDECODE_START( gfx_96in1b )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 8*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x20000, spritelayout, 0, 8*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( hackypac )
+static GFXDECODE_START( gfx_hackypac )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 9*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x40000, spritelayout, 0, 9*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( madpac )
+static GFXDECODE_START( gfx_madpac )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 16*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x20000, spritelayout, 0, 16*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( multipac )
+static GFXDECODE_START( gfx_multipac )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 4*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x10000, spritelayout, 0, 4*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( pm4n1 )
+static GFXDECODE_START( gfx_pm4n1 )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x05000, spritelayout, 0, 32 )
 GFXDECODE_END
 
-static GFXDECODE_START( superabc )
+static GFXDECODE_START( gfx_superabc )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x08000, spritelayout, 0, 32 )
 GFXDECODE_END
@@ -727,7 +727,7 @@ MACHINE_CONFIG_START( pacman_state::_96in1 )
 	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
 	MCFG_DEVICE_IO_MAP(_96in1_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
@@ -738,7 +738,7 @@ MACHINE_CONFIG_START( pacman_state::_96in1b )
 	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
 	MCFG_DEVICE_IO_MAP(_96in1b_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1b)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1b)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(128*8)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*8)
@@ -755,7 +755,7 @@ MACHINE_CONFIG_START( pacman_state::hackypac )
 	MCFG_DEVICE_PROGRAM_MAP(hackypac_map)
 	MCFG_DEVICE_IO_MAP(hackypac_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, hackypac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", hackypac)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_hackypac)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(128*9)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*9)		// colour banks * 128 colour lookup codes (4a rom)
@@ -778,7 +778,7 @@ MACHINE_CONFIG_START( pacman_state::madpac )
 	MCFG_PALETTE_ENTRIES(128*16)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*16)
 	MCFG_PALETTE_INIT_OWNER(pacman_state, multipac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", madpac)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_madpac)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 MACHINE_CONFIG_END
 
@@ -817,7 +817,7 @@ MACHINE_CONFIG_START( pacman_state::multipac )
 	MCFG_PALETTE_ENTRIES(128*4)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*4)
 	MCFG_PALETTE_INIT_OWNER(pacman_state,multipac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", multipac)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_multipac)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1 )
@@ -825,7 +825,7 @@ MACHINE_CONFIG_START( pacman_state::pm4n1 )
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(pm4n1_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1c )
@@ -834,7 +834,7 @@ MACHINE_CONFIG_START( pacman_state::pm4n1c )
 	MCFG_DEVICE_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
-	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1d )
@@ -848,7 +848,7 @@ MACHINE_CONFIG_START( pacman_state::superabc )
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(superabc_map)
 	MCFG_NVRAM_ADD_0FILL("nvram")
-	MCFG_GFXDECODE_MODIFY("gfxdecode", superabc)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_superabc)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 

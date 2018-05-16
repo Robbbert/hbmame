@@ -1312,7 +1312,7 @@ const gfx_layout tilelayout =
 	128*8		/* char modulo */
 };
 
-GFXDECODE_START( neogeo )
+GFXDECODE_START( gfx_neogeo )
 	GFXDECODE_ENTRY( "fixed",     0x0000, charlayout, 0, 0x1fff )
 	GFXDECODE_ENTRY( "fixedbios", 0x0000, charlayout, 0, 0x1fff )
 	//GFXDECODE_ENTRY( "sprites",   0x0000, tilelayout, 0, 0x1fff )  // not working
@@ -1342,7 +1342,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
 	MCFG_SCREEN_UPDATE_DRIVER(neogeo_state, screen_update_neogeo)
 
-	MCFG_GFXDECODE_ADD( "gfxdecode", "palette", neogeo)
+	MCFG_DEVICE_ADD( "gfxdecode", GFXDECODE, "palette", gfx_neogeo)
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
 

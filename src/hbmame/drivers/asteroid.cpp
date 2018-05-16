@@ -64,7 +64,7 @@ ROM_END
 
 
 HACK( 1979, asteroid6,  asteroid, asteroid, asteroid, asteroid_state, 0, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", MACHINE_SUPPORTS_SAVE )
-HACKL(1980, astdelux4,  asteroid, astdelux, astdelu4, asteroid_state, 0, ROT0, "Atari", "Asteroids Deluxe (Unknown Revision) [h]", MACHINE_SUPPORTS_SAVE, layout_astdelux )
+GAMEL(1980, astdelux4,  asteroid, astdelux, astdelu4, asteroid_state, init_0, ROT0, "Atari", "Asteroids Deluxe (Unknown Revision) [h]", MACHINE_SUPPORTS_SAVE, layout_astdelux )
 HACK( 1979, starslayer, asteroid, asteroid, asteroid, asteroid_state, 0, ROT0, "Nufekop", "Starslayer (hack of Asteroids (rev 2))", MACHINE_SUPPORTS_SAVE )
 
 

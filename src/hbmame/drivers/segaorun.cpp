@@ -214,10 +214,10 @@ ROM_START( outrunen2 )
 	ROM_RELOAD( 0x58000, 0x08000 )
 ROM_END
 
-HACKL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
-HACKL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
-HACKL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
-HACKL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
+GAMEL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
+GAMEL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
+GAMEL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
+GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
 
 
 /***************************** OUTRUNM *********************************************/
@@ -360,5 +360,5 @@ ROM_START( outrunm )
 	ROM_RELOAD(               0x58000, 0x08000 )
 ROM_END
 
-HACKL(2016, outrunm, outrun, outrunm, outrun, outrunm_state, init, ROT0, "cmonkey", "Out Run (sitdown/upright, Rev B) (added music)", 0, layout_outrun ) // March? 2016
+GAMEL(2016, outrunm, outrun, outrunm, outrun, outrunm_state, init_init, ROT0, "cmonkey", "Out Run (sitdown/upright, Rev B) (added music)", 0, layout_outrun ) // March? 2016
 

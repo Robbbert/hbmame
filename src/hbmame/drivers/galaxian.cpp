@@ -41,7 +41,7 @@ MACHINE_CONFIG_START( galaxian_state::fourplay )
 	MCFG_DEVICE_PROGRAM_MAP(fourplay_map)
 
 	/* video hardware */
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gmgalax)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_gmgalax)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(64)
 MACHINE_CONFIG_END
@@ -234,7 +234,7 @@ void galaxian_state::videight_map(address_map &map) {
 	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
 }
 
-static GFXDECODE_START( videight )
+static GFXDECODE_START( gfx_videight )
 	GFXDECODE_SCALE( "gfx1", 0x0000, galaxian_charlayout,   0, 8*32, GALAXIAN_XSCALE,1)
 	GFXDECODE_SCALE( "gfx1", 0x0000, galaxian_spritelayout, 0, 8*32, GALAXIAN_XSCALE,1)
 GFXDECODE_END
@@ -247,7 +247,7 @@ MACHINE_CONFIG_START( galaxian_state::videight )
 	MCFG_DEVICE_PROGRAM_MAP(videight_map)
 
 	/* video hardware */
-	MCFG_GFXDECODE_MODIFY("gfxdecode", videight)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_videight)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(8*32)
 MACHINE_CONFIG_END

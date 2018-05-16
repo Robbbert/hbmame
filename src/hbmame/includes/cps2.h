@@ -391,6 +391,6 @@ public:
 
 /*----------- defined in drivers/cps1.c -----------*/
 
-GFXDECODE_EXTERN( cps1 );
+extern gfx_decode_entry const gfx_cps1[];
 
 #endif

@@ -1380,28 +1380,28 @@ static gfx_layout belt_layout = {
 	0x80
 };
 
-static GFXDECODE_START( monaco )
-	GFXDECODE_ENTRY( "gfx1", 0x0100, unknown_layout,	0x00, 1)	/* PR125: unused; police car? */
-	GFXDECODE_ENTRY( "gfx1", 0x0200, explode_layout,	RED_CLUT, 2)	/* PR126: explosion */
-	GFXDECODE_ENTRY( "gfx1", 0x0400, player_layout,	PLAYER_CLUT, 1)	/* PR127: player's car */
-	GFXDECODE_ENTRY( "gfx1", 0x0600, player_layout,	PLAYER_CLUT, 1)	/* PR128: swerving (rough road) */
-	GFXDECODE_ENTRY( "gfx1", 0x0800, player_layout,	PLAYER_CLUT, 1)	/* PR129: spinout1 */
-	GFXDECODE_ENTRY( "gfx1", 0x0a00, player_layout,	PLAYER_CLUT, 1)	/* PR130: spinout2 */
-	GFXDECODE_ENTRY( "gfx1", 0x0c00, explode_layout,	CYAN_CLUT, 1)	/* PR131: spray */
-	GFXDECODE_ENTRY( "gfx1", 0x0e00, computer_layout,	0x00, 5)	/* PR132: computer car A,B */
-	GFXDECODE_ENTRY( "gfx1", 0x1000, text_layout,	CYAN_CLUT, 2)	/* PR133: text */
-	GFXDECODE_ENTRY( "gfx1", 0x1200, tree_layout,	TREE_CLUT, 1)	/* PR134: tree */
-	GFXDECODE_ENTRY( "gfx1", 0x1300, tree_layout,	TREE_CLUT, 1)	/* PR134: grass */
-	GFXDECODE_ENTRY( "gfx1", 0x1400, tree_layout,	SHRUB_CLUT, 1)	/* PR135: shrub */
-	GFXDECODE_ENTRY( "gfx1", 0x1600, house_layout,	HOUSE_CLUT, 1)	/* PR136: house */
-	GFXDECODE_ENTRY( "gfx1", 0x1800, tunnel_layout,	RED_CLUT, 1)	/* PR137: tunnel */
-	GFXDECODE_ENTRY( "gfx1", 0x1900, pool_layout,	CYAN_CLUT, 1)	/* PR137: pool (oil slick) */
-	GFXDECODE_ENTRY( "gfx1", 0x1900, belt_layout,	GRASS_CLUT, 2)	/* PR137: red/green belt */
-	GFXDECODE_ENTRY( "gfx1", 0x1a00, rescue_layout,	RESCUE_CLUT, 1)	/* PR138: rescue car */
-	GFXDECODE_ENTRY( "gfx1", 0x1c00, signal_layout,	YELLOW_CLUT, 1)	/* PR139: bridge signal (yellow on black)*/
-	GFXDECODE_ENTRY( "gfx1", 0x1c00, dummy_layout,	PLAYER_CLUT, 1)	/* PR139: dummy car */
-	GFXDECODE_ENTRY( "gfx1", 0x1e00, bridge_layout,	WATER_CLUT, 1)	/* PR140: bridge-water */
-	GFXDECODE_ENTRY( "gfx1", 0x2000, bridge_layout,	WATER_CLUT, 1)	/* PR141: bridge-pillar */
+static GFXDECODE_START( gfx_monaco )
+	GFXDECODE_ENTRY( "gfx1", 0x0100, unknown_layout,  0x00, 1)	/* PR125: unused; police car? */
+	GFXDECODE_ENTRY( "gfx1", 0x0200, explode_layout,  RED_CLUT, 2)	/* PR126: explosion */
+	GFXDECODE_ENTRY( "gfx1", 0x0400, player_layout,   PLAYER_CLUT, 1)	/* PR127: player's car */
+	GFXDECODE_ENTRY( "gfx1", 0x0600, player_layout,   PLAYER_CLUT, 1)	/* PR128: swerving (rough road) */
+	GFXDECODE_ENTRY( "gfx1", 0x0800, player_layout,   PLAYER_CLUT, 1)	/* PR129: spinout1 */
+	GFXDECODE_ENTRY( "gfx1", 0x0a00, player_layout,   PLAYER_CLUT, 1)	/* PR130: spinout2 */
+	GFXDECODE_ENTRY( "gfx1", 0x0c00, explode_layout,  CYAN_CLUT, 1)	/* PR131: spray */
+	GFXDECODE_ENTRY( "gfx1", 0x0e00, computer_layout, 0x00, 5)	/* PR132: computer car A,B */
+	GFXDECODE_ENTRY( "gfx1", 0x1000, text_layout,     CYAN_CLUT, 2)	/* PR133: text */
+	GFXDECODE_ENTRY( "gfx1", 0x1200, tree_layout,     TREE_CLUT, 1)	/* PR134: tree */
+	GFXDECODE_ENTRY( "gfx1", 0x1300, tree_layout,     TREE_CLUT, 1)	/* PR134: grass */
+	GFXDECODE_ENTRY( "gfx1", 0x1400, tree_layout,     SHRUB_CLUT, 1)	/* PR135: shrub */
+	GFXDECODE_ENTRY( "gfx1", 0x1600, house_layout,    HOUSE_CLUT, 1)	/* PR136: house */
+	GFXDECODE_ENTRY( "gfx1", 0x1800, tunnel_layout,   RED_CLUT, 1)	/* PR137: tunnel */
+	GFXDECODE_ENTRY( "gfx1", 0x1900, pool_layout,     CYAN_CLUT, 1)	/* PR137: pool (oil slick) */
+	GFXDECODE_ENTRY( "gfx1", 0x1900, belt_layout,     GRASS_CLUT, 2)	/* PR137: red/green belt */
+	GFXDECODE_ENTRY( "gfx1", 0x1a00, rescue_layout,   RESCUE_CLUT, 1)	/* PR138: rescue car */
+	GFXDECODE_ENTRY( "gfx1", 0x1c00, signal_layout,   YELLOW_CLUT, 1)	/* PR139: bridge signal (yellow on black)*/
+	GFXDECODE_ENTRY( "gfx1", 0x1c00, dummy_layout,    PLAYER_CLUT, 1)	/* PR139: dummy car */
+	GFXDECODE_ENTRY( "gfx1", 0x1e00, bridge_layout,   WATER_CLUT, 1)	/* PR140: bridge-water */
+	GFXDECODE_ENTRY( "gfx1", 0x2000, bridge_layout,   WATER_CLUT, 1)	/* PR141: bridge-pillar */
 GFXDECODE_END
 
 static const char *const monaco_sample_names[] =
@@ -1450,7 +1450,7 @@ MACHINE_CONFIG_START( monaco_state::monaco )
 	MCFG_VIDEO_START_OVERRIDE(monaco_state, monaco)
 	MCFG_SCREEN_UPDATE_DRIVER(monaco_state, screen_update_monaco)
 	MCFG_SCREEN_PALETTE("palette")
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", monaco)
+	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_monaco)
 	MCFG_PALETTE_ADD("palette", 160)
 
 	/* sound hardware */
@@ -1532,7 +1532,7 @@ void monaco_state::init_monaco()
 }
 
 /*          rom     parent  machine inp     init */
-HACKL( 1979, monaco, 0, monaco, monaco, monaco_state, monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )
+GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, init_monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )
 
 
 

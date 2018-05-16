@@ -402,12 +402,12 @@ static gfx_layout xspritelayout =
 };
 
 
-static GFXDECODE_START( pacman )
+static GFXDECODE_START( gfx_pacman )
 	GFXDECODE_ENTRY( "gfx1", 0x0000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x1000, spritelayout, 0, 32 )
 GFXDECODE_END
 
-static GFXDECODE_START( pacmanx )
+static GFXDECODE_START( gfx_pacmanx )
 	GFXDECODE_ENTRY( "gfx1", 0x0000, xtilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x4000, xspritelayout, 0, 32 )
 GFXDECODE_END
@@ -448,7 +448,7 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 128*4)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32)
 	MCFG_PALETTE_INIT_OWNER(pacman_state,pacman)
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", pacman)
+	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_pacman)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -463,7 +463,7 @@ MACHINE_CONFIG_START( pacman_state::pacmanx )
 	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacmanx)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", pacmanx)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pacmanx)
 MACHINE_CONFIG_END
 
 

@@ -269,7 +269,7 @@ static const gfx_layout spritelayout =
 };
 
 
-static GFXDECODE_START( jrpacman )
+static GFXDECODE_START( gfx_jrpacman )
 	GFXDECODE_ENTRY( "gfx1", 0x0000, tilelayout,   0, 128 )
 	GFXDECODE_ENTRY( "gfx1", 0x2000, spritelayout, 0, 128 )
 GFXDECODE_END
@@ -321,7 +321,7 @@ MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 	MCFG_SCREEN_UPDATE_DRIVER(jrpacman_state, screen_update_pacman)
 	MCFG_VIDEO_START_OVERRIDE(jrpacman_state,jrpacman)
 	MCFG_SCREEN_PALETTE("palette")
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", jrpacman)
+	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_jrpacman)
 	MCFG_PALETTE_ADD("palette", 128*4)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32)
 	MCFG_PALETTE_INIT_OWNER(jrpacman_state,pacman)
