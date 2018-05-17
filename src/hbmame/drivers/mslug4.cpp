@@ -3149,4 +3149,30 @@ HACK( 2018, mslug4hqyv04,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  m
 HACK( 2018, mslug4hqyv05,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Hacks",    "Metal Slug 4 (Version Qing Youlan)(POW never lose)(MSLUG4H))", MACHINE_SUPPORTS_SAVE )
 
 
+ROM_START( mslug4n27 ) 
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263nn27.p1", 0x000000, 0x100000, CRC(50ee2908) SHA1(1cc9c92f0e87e35d8a1124acf54acb4fa33e3b67) )
+	ROM_LOAD16_WORD_SWAP( "263nn27.p2", 0x100000, 0x800000, CRC(1d268350) SHA1(296ae402c9ff1c6cfc70629aacba539dfd479cfd) )
+
+	NEO_SFIX_128K( "263.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
+
+	NEO_BIOS_AUDIO_128K( "263nd.m1", CRC(ef5db532) SHA1(4aeba9e206b8f309610eb7e1891644f39aa61830) )
+
+	ROM_REGION( 0x1400000, "ymsnd", 0 )
+	ROM_LOAD( "263lw.v1", 0x000000, 0x400000, CRC(8cb5a9ef) SHA1(272ad312f8694acf9190ebf48d1c8a5fec73c130) )
+	ROM_LOAD( "263lw.v2", 0x400000, 0x400000, CRC(94217b1e) SHA1(c468a192e2ec0952a20cfd9e391cf6c12346efb3) )
+	ROM_LOAD( "263lw.v3", 0x800000, 0x400000, CRC(7616fcec) SHA1(83006094379d0373b967603dcaa1cec69c2f746f) )
+	ROM_LOAD( "263nn25.v4", 0xC00000, 0x800000, CRC(35e79379) SHA1(7db3ccc72e008976a238af7ec3880969ed5dc893) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263lw.c3", 0x1000000, 0x800000, CRC(e296612c) SHA1(57eb1861b738247aaf0643641268f676b71ed025) )
+	ROM_LOAD16_BYTE( "263lw.c4", 0x1000001, 0x800000, CRC(c22e3ad0) SHA1(11ce301d4e5b4b1b76e2b82d18c4a9b8b56eeb20) )
+	ROM_LOAD16_BYTE( "263lw.c5", 0x2000000, 0x400000, CRC(288cd91f) SHA1(a195be13d4ef19705cd3f08be1ec8cdacb29f159) )
+	ROM_LOAD16_BYTE( "263lw.c6", 0x2000001, 0x400000, CRC(b015aeee) SHA1(24e12e72b82eea9e52a4cefc774efb3bd7db822f) )
+ROM_END
+
+HACK( 2018, mslug4n27,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Gaston90",    "Metal Slug 4 (Last Bullet)(Edition Extreme Difficulty)", MACHINE_SUPPORTS_SAVE )
+
 
