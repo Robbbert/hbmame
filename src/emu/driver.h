@@ -123,6 +123,7 @@ public:
 
 	// dummy driver_init callback
 	void empty_init();
+	void init_0() { }     // HBMAME
 
 	// memory helpers
 	address_space &generic_space() const { return machine().dummy_space(); }
