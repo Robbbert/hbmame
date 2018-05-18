@@ -21,17 +21,13 @@ of the screen. Moving the mouse to the right will revert to changing colours aga
 class cinemat_hbmame : public cinemat_color_state
 {
 public:
-	cinemat_hbmame(const machine_config &mconfig, device_type type, const char *tag)
-		: cinemat_color_state(mconfig, type, tag)
-		{ }
+	using cinemat_color_state::cinemat_color_state;
 
-	void init_bbugtest();
+	void init_bbugtest()
+	{
+		m_maincpu->space(AS_IO).install_read_handler(0x0c, 0x0f, read8_delegate(FUNC(cinemat_hbmame::boxingb_dial_r),this));
+	}
 };
-
-void cinemat_hbmame::init_bbugtest()
-{
-	m_maincpu->space(AS_IO).install_read_handler(0x0c, 0x0f, read8_delegate(FUNC(cinemat_hbmame::boxingb_dial_r),this));
-}
 
 
 
