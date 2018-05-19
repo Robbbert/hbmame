@@ -98,7 +98,7 @@ public:
 	void sound_map(address_map &map);
 	void sound_portmap(address_map &map);
 	void sub_map(address_map &map);
-//protected: // HBMAME
+protected:
 	// timer IDs
 	enum
 	{

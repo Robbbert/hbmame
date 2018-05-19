@@ -63,9 +63,9 @@ ROM_START( astdelux4 )
 ROM_END
 
 
-HACK( 1979, asteroid6,  asteroid, asteroid, asteroid, asteroid_state, 0, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, asteroid6,  asteroid, asteroid, asteroid, asteroid_state, init_0, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", MACHINE_SUPPORTS_SAVE )
 GAMEL(1980, astdelux4,  asteroid, astdelux, astdelu4, asteroid_state, init_0, ROT0, "Atari", "Asteroids Deluxe (Unknown Revision) [h]", MACHINE_SUPPORTS_SAVE, layout_astdelux )
-HACK( 1979, starslayer, asteroid, asteroid, asteroid, asteroid_state, 0, ROT0, "Nufekop", "Starslayer (hack of Asteroids (rev 2))", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, starslayer, asteroid, asteroid, asteroid, asteroid_state, init_0, ROT0, "Nufekop", "Starslayer (hack of Asteroids (rev 2))", MACHINE_SUPPORTS_SAVE )
 
 
 /*********************************************************************************************************************/
@@ -86,7 +86,7 @@ public:
 //		, m_p_ram(*this, "ram")
 	{ }
 
-	DECLARE_DRIVER_INIT(amg);
+	void init_amg();
 };
 
 ROM_START( amg )
@@ -108,7 +108,7 @@ ROM_START( amg )
 	ROM_REGION( 0x20000, "user3", ROMREGION_ERASEFF )
 ROM_END
 
-DRIVER_INIT_MEMBER( amg_state, amg )
+void amg_state::init_amg()
 {
 	UINT8 *src = memregion("user2")->base();
 //	int len = memregion("user1")->bytes();
@@ -140,6 +140,6 @@ DRIVER_INIT_MEMBER( amg_state, amg )
 }
 
 
-HACK( 2002, amg, asteroid, asteroid, asteroid, amg_state, amg, ROT0, "Braze", "Asteroids Multigame", MACHINE_NOT_WORKING )
+GAME( 2002, amg, asteroid, asteroid, asteroid, amg_state, init_amg, ROT0, "Braze", "Asteroids Multigame", MACHINE_NOT_WORKING )
 #endif
 

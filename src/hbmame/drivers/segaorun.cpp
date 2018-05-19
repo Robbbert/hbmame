@@ -229,8 +229,6 @@ GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0
 //  The PAL/GAL/PLS chip which handles the z80 address/io
 //  decoding has to be replaced and 3 flying wires added.
 
-// segaorun.h - have to make all members public (comment out "protected:")
-
 #include "machine/bankdev.h"
 
 class outrunm_state : public segaorun_state
@@ -241,16 +239,16 @@ public:
 		, m_soundbank(*this, "soundbank")
 		{ }
 
-	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
-	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
 	void init_init();
 	void outrunm(machine_config &config);
-	void sound_map_banked(address_map &map);
-	void sound_portmap_banked(address_map &map);
-	void soundbank_map(address_map &map);
 
 private:
 
+	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
+	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
+	void sound_map_banked(address_map &map);
+	void sound_portmap_banked(address_map &map);
+	void soundbank_map(address_map &map);
 	required_device<address_map_bank_device> m_soundbank;
 };
 
@@ -302,8 +300,8 @@ MACHINE_CONFIG_END
 void outrunm_state::init_init()
 {
 	init_generic();
-	m_custom_io_r = read16_delegate(FUNC(segaorun_state::outrun_custom_io_r), this);
-	m_custom_io_w = write16_delegate(FUNC(segaorun_state::outrun_custom_io_w), this);
+	m_custom_io_r = read16_delegate(FUNC(outrunm_state::outrun_custom_io_r), this);
+	m_custom_io_w = write16_delegate(FUNC(outrunm_state::outrun_custom_io_w), this);
 }
 
 ROM_START( outrunm )

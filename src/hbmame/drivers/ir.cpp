@@ -99,6 +99,10 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
+	void ir(machine_config &config);
+
+private:
+
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
@@ -109,12 +113,8 @@ public:
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	void ir(machine_config &config);
 	void main_map(address_map &map);
 	void io_map(address_map &map);
-
-private:
-
 	bool       m_flip_screen;
 	bool       m_screen_red;
 	emu_timer  *m_interrupt_timer;

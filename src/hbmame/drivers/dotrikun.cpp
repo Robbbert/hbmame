@@ -104,11 +104,13 @@ public:
 		, m_beep(*this, "beeper")
 	{ }
 
-	DECLARE_WRITE8_MEMBER(mineswp_color_w);
 	void mineswp(machine_config &config);
+
+private:
+
 	void mineswp_map(address_map &map);
 	void mineswp_io(address_map &map);
-private:
+	DECLARE_WRITE8_MEMBER(mineswp_color_w);
 	virtual void machine_start() override;
 	required_device<beep_device> m_beep;
 };

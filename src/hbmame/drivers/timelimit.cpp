@@ -28,7 +28,7 @@ INTERRUPT_GEN_MEMBER(timelimt_hbmame::hb_irq)
 	{
 		m_irq_state = (m_irq_state) ? false : true;
 		if (m_irq_state)
-			device.execute().set_input_line(INPUT_LINE_NMI, PULSE_LINE);
+			device.execute().pulse_input_line(INPUT_LINE_NMI, attotime::zero);
 	}
 }
 
@@ -112,4 +112,4 @@ ROM_START( timelimit )
 	ROM_LOAD( "clrt.57", 0x0040, 0x0020, CRC(aaa6f23e) SHA1(9fcb6af82f725517e8eff86d748701f836a05eba) )
 ROM_END
 
-HACK( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, 0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, init_0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )

@@ -591,11 +591,13 @@ public:
 	{ }
 
 	void tempmg(machine_config &config);
+	void init_tempmg();
+
+private:
+
 	void tempmg_map(address_map &map);
 	DECLARE_WRITE8_MEMBER(tempmg_rombank_w);
 	DECLARE_MACHINE_RESET(tempmg);
-	void init_tempmg();
-private:
 	required_device<cpu_device> m_maincpu;
 };
 

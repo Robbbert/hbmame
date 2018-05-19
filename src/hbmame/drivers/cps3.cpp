@@ -5,9 +5,7 @@
 class cps3_hbmame : public cps3_state
 {
 public:
-	cps3_hbmame(const machine_config &mconfig, device_type type, const char *tag)
-		: cps3_state(mconfig, type, tag)
-		{ }
+	using cps3_state::cps3_state;
 
 	void init_jojon();
 	void init_jojoban();
@@ -15,11 +13,12 @@ public:
 	void init_sfiiin();
 	void init_sfiii2n();
 	void init_sfiii3n();
-	DECLARE_MACHINE_RESET(redeartn);
-	TIMER_CALLBACK_MEMBER(fastboot_timer_callback);
 	void redeartn(machine_config &config);
 
 private:
+
+	DECLARE_MACHINE_RESET(redeartn);
+	TIMER_CALLBACK_MEMBER(fastboot_timer_callback);
 	void hb_unscramble();
 	emu_timer* m_fastboot_timer;
 };

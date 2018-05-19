@@ -66,6 +66,10 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
+	void schasercv(machine_config &config);
+
+private:
+
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
@@ -77,12 +81,9 @@ public:
 	DECLARE_MACHINE_RESET(sc);
 	TIMER_DEVICE_CALLBACK_MEMBER(schaser_effect_555_cb);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
-	uint32_t screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	void schasercv(machine_config &config);
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
-private:
-
+	uint32_t screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	bool m_flip_screen;
 	bool m_sound_enabled;
 	bool m_explosion;

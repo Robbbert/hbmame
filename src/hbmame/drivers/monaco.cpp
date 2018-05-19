@@ -281,16 +281,16 @@ public:
 		, m_out_digit(*this, "digit%u", 0U)
 		{ }
 
+	void init_monaco();
+	void monaco(machine_config &config);
+private:
 	DECLARE_READ8_MEMBER(monaco_ram_r);
 	DECLARE_WRITE8_MEMBER(monaco_ram_w);
-	void init_monaco();
 	INTERRUPT_GEN_MEMBER(monaco_interrupt);
 	DECLARE_MACHINE_RESET(monaco);
 	DECLARE_VIDEO_START(monaco);
-	uint32_t screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void monaco(machine_config &config);
 	void monaco_map(address_map &map);
-private:
+	uint32_t screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	struct monaco_gfx *m_monaco_gfx;
 	enum monaco_mode m_monaco_mode;
 	uint32_t monaco_word_r (uint16_t offset);

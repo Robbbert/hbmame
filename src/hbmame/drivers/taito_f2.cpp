@@ -5,13 +5,9 @@
 class taitof2_hbmame : public taitof2_state
 {
 public:
-	taitof2_hbmame(const machine_config &mconfig, device_type type, const char *tag)
-		: taitof2_state(mconfig, type, tag)
-		{ }
+	using taitof2_state::taitof2_state;
 
 	void f2demo(machine_config &config);
-
-private:
 };
 
 MACHINE_CONFIG_START( taitof2_hbmame::f2demo )

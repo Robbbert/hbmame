@@ -48,22 +48,16 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
-	/* device/memory pointers */
-	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<uint8_t> m_p_ram;
-	required_device<discrete_device> m_discrete;
-	required_device<samples_device> m_samples;
-	required_device<screen_device> m_screen;
+	void spacmissx(machine_config &config);
+
+private:
 
 	bool m_flip_screen;
 	bool m_screen_red;
 	bool m_sound_enabled;
 	uint8_t m_port_1_last_extra;
 	uint8_t m_port_2_last_extra;
-
-	/* timer */
 	emu_timer   *m_interrupt_timer;
-
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
@@ -79,9 +73,13 @@ public:
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
-	void spacmissx(machine_config &config);
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
+	required_device<cpu_device> m_maincpu;
+	required_shared_ptr<uint8_t> m_p_ram;
+	required_device<discrete_device> m_discrete;
+	required_device<samples_device> m_samples;
+	required_device<screen_device> m_screen;
 };
 
 static const discrete_dac_r1_ladder spacmissx_music_dac =
