@@ -453,23 +453,6 @@ public:
 
 void vegas_state::machine_start()
 {
-	/* identify our sound board */
-	if (machine().device("dcs:dsio") != nullptr) {
-		m_dcs_idma_cs = 6;
-		if (LOG_SIO)
-			logerror("Found dsio\n");
-	}
-	else if (machine().device("dcs:denver") != nullptr) {
-		m_dcs_idma_cs = 7;
-		if (LOG_SIO)
-			logerror("Found denver\n");
-	}
-	else {
-		m_dcs_idma_cs = 0;
-		if (LOG_SIO)
-			logerror("Did not find dcs2 sound board\n");
-	}
-
 	/* set the fastest DRC options, but strict verification */
 	m_maincpu->mips3drc_set_options(MIPS3DRC_FASTEST_OPTIONS + MIPS3DRC_STRICT_VERIFY + MIPS3DRC_FLUSH_PC);
 
@@ -488,18 +471,31 @@ void vegas_state::machine_start()
 	save_item(NAME(m_keypad_select));
 	save_item(NAME(m_gear));
 	save_item(NAME(m_wheel_calibrated));
+
+	/* identify our sound board */
+	if (m_dcs->get_rev() == dcs_audio_device::REV_DSIO) {
+		m_dcs_idma_cs = 6;
+		if (LOG_SIO)
+			logerror("Found dsio\n");
+	}
+	else if (m_dcs->get_rev() == dcs_audio_device::REV_DENV) {
+		m_dcs_idma_cs = 7;
+		if (LOG_SIO)
+			logerror("Found denver\n");
+	}
+	else {
+		m_dcs_idma_cs = 0;
+		if (LOG_SIO)
+			logerror("Did not find dcs2 sound board\n");
+	}
 }
 
 
 void vegas_state::machine_reset()
 {
+	m_dcs->reset_w(1);
+	m_dcs->reset_w(0);
 
-	/* reset the DCS system if we have one */
-	if (machine().device("dcs") != nullptr)
-	{
-		m_dcs->reset_w(1);
-		m_dcs->reset_w(0);
-	}
 	// Clear CPU IO registers
 	memset(m_cpuio_data, 0, ARRAY_LENGTH(m_cpuio_data));
 	// Clear SIO registers
@@ -582,7 +578,7 @@ READ32_MEMBER( vegas_state::timekeeper_r )
 		result = (result & ~0xff000000) | (m_timekeeper->read(space, offset * 4 + 3, 0xff) << 24);
 	if (offset * 4 >= 0x7ff0) {
 		// Initial RTC check expects reads to the RTC to take some time
-		machine().device<cpu_device>("maincpu")->eat_cycles(30);
+		m_maincpu->eat_cycles(30);
 		if (LOG_TIMEKEEPER) logerror("%s: timekeeper_r(%04X & %08X) = %08X\n", machine().describe_context(), offset * 4, mem_mask, result);
 	}
 	return result;
@@ -1742,7 +1738,7 @@ MACHINE_CONFIG_START(vegas_state::vegascore)
 	MCFG_IDE_PCI_IRQ_HANDLER(WRITELINE(PCI_ID_NILE, vrc5074_device, pci_intr_d))
 	//MCFG_IDE_PCI_SET_PIF(0x8f)
 
-	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_2, ":maincpu")
+	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_2, ":maincpu", ":screen")
 	MCFG_VOODOO_PCI_FBMEM(2)
 	MCFG_VOODOO_PCI_TMUMEM(4, 4)
 	MCFG_DEVICE_MODIFY(PCI_ID_VIDEO":voodoo")
@@ -1789,7 +1785,7 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(vegas_state::vegasban)
 	vegas32m(config);
 	MCFG_DEVICE_REMOVE(PCI_ID_VIDEO)
-	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_BANSHEE, ":maincpu")
+	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_BANSHEE, ":maincpu", ":screen")
 	MCFG_VOODOO_PCI_FBMEM(16)
 	MCFG_DEVICE_MODIFY(PCI_ID_VIDEO":voodoo")
 	MCFG_VOODOO_VBLANK_CB(WRITELINE(*this, vegas_state, vblank_assert))
@@ -1804,7 +1800,7 @@ MACHINE_CONFIG_START(vegas_state::vegasv3)
 	MCFG_MIPS3_SYSTEM_CLOCK(vegas_state::SYSTEM_CLOCK)
 
 	MCFG_DEVICE_REMOVE(PCI_ID_VIDEO)
-	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_3, ":maincpu")
+	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_3, ":maincpu", ":screen")
 	MCFG_VOODOO_PCI_FBMEM(16)
 	MCFG_DEVICE_MODIFY(PCI_ID_VIDEO":voodoo")
 	MCFG_VOODOO_VBLANK_CB(WRITELINE(*this, vegas_state, vblank_assert))
@@ -1823,7 +1819,7 @@ MACHINE_CONFIG_START(vegas_state::denver)
 	MCFG_VRC5074_SET_CS(8, vegas_state::vegas_cs8_map)
 
 	MCFG_DEVICE_REMOVE(PCI_ID_VIDEO)
-	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_3, ":maincpu")
+	MCFG_VOODOO_PCI_ADD(PCI_ID_VIDEO, TYPE_VOODOO_3, ":maincpu", ":screen")
 	MCFG_VOODOO_PCI_FBMEM(16)
 	MCFG_DEVICE_MODIFY(PCI_ID_VIDEO":voodoo")
 	MCFG_VOODOO_VBLANK_CB(WRITELINE(":", vegas_state, vblank_assert))

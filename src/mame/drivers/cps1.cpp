@@ -3362,6 +3362,7 @@ GFXDECODE_END
 
 MACHINE_START_MEMBER(cps_state,common)
 {
+	m_led_cboard.resolve();
 }
 
 MACHINE_START_MEMBER(cps_state,cps1)
@@ -3398,8 +3399,6 @@ MACHINE_CONFIG_START(cps_state::cps1_10MHz)
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_cps1)
 	MCFG_PALETTE_ADD("palette", 0xc00)
-
-	MCFG_VIDEO_START_OVERRIDE(cps_state, cps1)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

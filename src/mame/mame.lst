@@ -365,6 +365,7 @@ ac1sstrka                       //
 ac1sstrkb                       //
 ac1taklv                        // Take It Or Leave It (Ace)
 ac1totb                         // Top Of The Bill (Ace)
+ac1unk                          // ???
 ac1xpres                        // Xpress (Pcp)
 
 @source:acesp.cpp
@@ -17946,6 +17947,7 @@ ataxxj                          // (c) 1990 Leland
 brutforc                        // (c) 1991 Leland
 indyheat                        // (c) 1991 Leland
 wsf                             // (c) 1990 Leland
+wsf3                            // (c) 1990 Leland
 
 @source:lemmings.cpp
 lemmings                        // prototype (c) 1991 Data East USA (US)
@@ -18555,6 +18557,10 @@ masao                           // bootleg
 
 @source:markham.cpp
 markham                         // TVG14 (c) 1983 Sun Electronics
+banbam                          // TVG16 (c) 1984 Sun Electronics
+guiness                         // TVG15 (c) 1984 Sun Electronics
+pettanp                         // TVG16 (c) 1984 Sun Electronics (Japan)
+strnskil                        // TVG15 (c) 1984 Sun Electronics
 
 @source:marywu.cpp
 marywu                          //
@@ -34267,6 +34273,7 @@ emjtrapz                        // (c) 2001 Seibu Kaihatsu / CATS
 batlball                        // (c) 1995 Seibu Kaihatsu (Tuning License)
 batlballa                       // (c) 1995 Seibu Kaihatsu (Metrotainment License)
 batlballe                       // (c) 1995 Seibu Kaihatsu (Metrotainment License)
+batlballo                       // (c) 1995 Seibu Kaihatsu (Tuning License)
 batlballu                       // (c) 1995 Seibu Kaihatsu (Fabtek license)
 ejanhs                          // (c) 1996 Seibu Kaihatsu
 ejsakura                        // (c) 1999 Seibu Kaihatsu
@@ -35617,12 +35624,6 @@ stratos                         // Kasparov Stratos Chess Computer
 
 @source:strkzn.cpp
 strkzn                          // (c) 1994 Purple Star
-
-@source:strnskil.cpp
-banbam                          // TVG16 (c) 1984 Sun Electronics
-guiness                         // TVG15 (c) 1984 Sun Electronics
-pettanp                         // TVG16 (c) 1984 Sun Electronics (Japan)
-strnskil                        // TVG15 (c) 1984 Sun Electronics
 
 @source:studio2.cpp
 apollo80                        //
