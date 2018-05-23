@@ -57,7 +57,9 @@ public:
 			m_tenspot_game_dsw(*this, {"IN2_GAME0", "IN2_GAME1", "IN2_GAME2", "IN2_GAME3", "IN2_GAME4", "IN2_GAME5", "IN2_GAME6", "IN2_GAME7", "IN2_GAME8", "IN2_GAME9"}),
 			m_spriteram(*this, "spriteram"),
 			m_videoram(*this, "videoram"),
-			m_decrypted_opcodes(*this, "decrypted_opcodes") { }
+			m_decrypted_opcodes(*this, "decrypted_opcodes")
+		, m_lamp(*this, "lamp%u", 0U)
+		{ }
 
 	required_device<cpu_device> m_maincpu;
 	optional_device<cpu_device> m_audiocpu;
@@ -78,6 +80,7 @@ public:
 	required_shared_ptr<uint8_t> m_spriteram;
 	required_shared_ptr<uint8_t> m_videoram;
 	optional_shared_ptr<uint8_t> m_decrypted_opcodes;
+	output_finder<2> m_lamp;
 
 	int m_bullets_base;
 	int m_sprites_base;

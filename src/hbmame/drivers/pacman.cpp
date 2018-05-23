@@ -132,12 +132,12 @@ INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
 
 WRITE_LINE_MEMBER(pacman_state::led1_w)
 {
-	output().set_led_value(0, state);
+	//output().set_led_value(0, state);     // fix later
 }
 
 WRITE_LINE_MEMBER(pacman_state::led2_w)
 {
-	output().set_led_value(1, state);
+	//output().set_led_value(1, state);     // fix later
 }
 
 
