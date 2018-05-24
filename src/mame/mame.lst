@@ -13503,6 +13503,9 @@ gcbr                            // (c) 2002 Nintendo
 gamekin3                        //
 gameking                        //
 
+@source:gamemasters.cpp
+gmsshoot                        // (c) 1989 GameMasters
+
 @source:gameplan.cpp
 challeng                        // (c) 1981 Centuri
 kaos                            // (c) 1981
@@ -37797,6 +37800,7 @@ mrdig                           // (c) 2000 Sun
 mrkicker                        // (c) 2001 Semicom
 mrkickera                       // (c) 2001 Semicom
 newxpang                        // (c) 1999 F2 System
+worldadv                        // (c) 1999 F2 System
 puzlbang                        // (c) 1999 Omega System
 puzlbanga                       // (c) 1999 Omega System
 suplup                          // (c) 1999 Omega System
