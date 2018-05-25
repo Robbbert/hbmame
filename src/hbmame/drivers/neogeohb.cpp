@@ -143,7 +143,7 @@ NUM YEAR COMPANY                 TITLE
 409 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
 410 2006 Blastar                 Codename: Blut Engel
 411 2006 Blastar                 NGEM2K
-412 2002 Neodev                  Neo Pong
+412 2018 Blastar                 NGYM2610
 413 2001 Rastersoft              WW2 demo
 414 2005 Rastersoft              Frog Feast demo
 415 2006 Rastersoft              Frog Feast
@@ -200,7 +200,7 @@ NUM YEAR COMPANY                 TITLE
 466*                             4-player input test
 467 2011 Furrtek                 Sprite Experimenter
 468*n/r  Neobitz                 Submarine Shooter (in development)
-469
+469 2002 Neodev                  Neo Pong
 470 2015 freem                   ADPCM-B Playback Demo
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
 472 2015 freem                   ADPCM-A Playback Demo
@@ -768,38 +768,24 @@ ROM_START( ngem2k )
 ROM_END
 
 
-// 412 : Neo Pong by Neodev (c) 2002
-// MAME bug : On the title screen, there's a vertical blank area that slowly moves from left to right
-ROM_START( neopong ) // v1.1
+// 412 : NGYM2610 by Blastar (c) 2018
+ROM_START( ngym2610 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "412.p1", 0x000000, 0x020000, CRC(9f35e29d) SHA1(261ce9305950debbc2fe088a45ab0fa83d6cf10d) )
+	ROM_LOAD16_WORD_SWAP( "412.p1", 0x000000, 0x100000, CRC(61c31db6) SHA1(7f43848b5a5ad321849e3c80f640449ba73c3716) )
 
-	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+	NEO_SFIX_128K( "412.s1", CRC(64030dbd) SHA1(9ff13be4b37e0c0985163bb58e5d3d9f0aa392be) )
 
-	NEO_BIOS_AUDIO_128K( "412.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
+	NEO_BIOS_AUDIO_128K( "412.m1", CRC(494bf458) SHA1(f6e2bc2c57f9c8bd9233f98663ba6707f2c0a4d9) )
 
-	ROM_REGION( 0x200000, "ymsnd", 0 )
-	ROM_LOAD( "412.v1", 0x000000, 0x200000, CRC(6c31223c) SHA1(ede3a2806d7d872a0f737626a23ecce200b534e6) )
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "412.v1", 0x000000, 0x1000000, CRC(cb87831f) SHA1(22572f4dbe3a85fe05d0818efeb90611b1078245) )
+
+	ROM_REGION( 0x1000000, "ymsnd.deltat", 0 )
+	ROM_LOAD( "412.v21", 0x000000, 0x1000000, CRC(23f83969) SHA1(c29fd0a8ab2b2f8511f8724221c2614dea026503) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "412.c1", 0x000000, 0x100000, CRC(f5a57d1a) SHA1(781170ae439f48fcbcee6af4cb3a1367dbb70498) )
-	ROM_LOAD16_BYTE( "412.c2", 0x000001, 0x100000, CRC(affde64e) SHA1(25ba8b4f6f961027d97d35f13cebeaee2dbb6f5a) )
-ROM_END
-
-ROM_START( neoponga ) // v1.0, has no sound, does not satisfy the watchdog
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "412a.p1", 0x000000, 0x020000, CRC(31b724d7) SHA1(e374613609aeda64b547d8ce38d2078b6ed55ad5) )
-
-	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
-
-	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
-
-	ROM_REGION( 0x80000, "ymsnd", 0 )
-	ROM_LOAD( "202.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "412a.c1", 0x000000, 0x100000, CRC(d7587282) SHA1(6fbc317dede78265dc4cfd2a6d79968320b8fd50) )
-	ROM_LOAD16_BYTE( "412a.c2", 0x000001, 0x100000, CRC(fefc9d06) SHA1(f191bcd3683a184b5a7d6046156e0b2bca231e95) )
+	ROM_LOAD16_BYTE( "412.c1", 0x000000, 0x100000, CRC(c8050090) SHA1(7168328582c5ce336b58d662fbb59c2d382bf30e) )
+	ROM_LOAD16_BYTE( "412.c2", 0x000001, 0x100000, CRC(908d8b09) SHA1(7abd2ab313cbe1b859151b606b3e8facaa2fca25) )
 ROM_END
 
 
@@ -871,7 +857,7 @@ ROM_START( neodemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "416.p1", 0x000000, 0x080000, CRC(fbfce2a4) SHA1(53472533456e131bee9fa792996b4110999b5c21) )
 
-	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
 	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
 
@@ -965,7 +951,7 @@ ROM_START( neo3d )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "421.p1", 0x000000, 0x080000, CRC(791f6042) SHA1(d44848322d08daad91c67c7dc7e9ee985d582b2b) )
 
-	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
 	NEO_BIOS_AUDIO_128K( "421.m1", CRC(7e74cc1f) SHA1(2855577a9785baa4076567de0b37fc0d0117abe5) )
 
@@ -1339,7 +1325,7 @@ ROM_START( neobubble )
 	// This rom does nothing, just a black screen
 	//ROM_LOAD16_WORD_SWAP( "438a.p1", 0x000000, 0x080000, CRC(cbd8204d) SHA1(d0cbf0b3c4a160fdf0d598fe77b52024d438d595) )
 
-	NEO_SFIX_128K( "412.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
 	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
 
@@ -1594,6 +1580,41 @@ ROM_START( spriteex )
 	ROM_CONTINUE( 0x400000, 0x200000 )
 	ROM_LOAD16_BYTE( "467.c2", 0x000001, 0x200000, CRC(c8a4d037) SHA1(6541074be8493bf2c7b869e8dbdb39f3309dcaf7) )
 	ROM_CONTINUE( 0x400001, 0x200000 )
+ROM_END
+
+
+// 469 : Neo Pong by Neodev (c) 2002
+// MAME bug : On the title screen, there's a vertical blank area that slowly moves from left to right
+ROM_START( neopong ) // v1.1
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "469.p1", 0x000000, 0x020000, CRC(9f35e29d) SHA1(261ce9305950debbc2fe088a45ab0fa83d6cf10d) )
+
+	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+
+	NEO_BIOS_AUDIO_128K( "469.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "469.v1", 0x000000, 0x200000, CRC(6c31223c) SHA1(ede3a2806d7d872a0f737626a23ecce200b534e6) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "469.c1", 0x000000, 0x100000, CRC(f5a57d1a) SHA1(781170ae439f48fcbcee6af4cb3a1367dbb70498) )
+	ROM_LOAD16_BYTE( "469.c2", 0x000001, 0x100000, CRC(affde64e) SHA1(25ba8b4f6f961027d97d35f13cebeaee2dbb6f5a) )
+ROM_END
+
+ROM_START( neoponga ) // v1.0, has no sound, does not satisfy the watchdog
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "469a.p1", 0x000000, 0x020000, CRC(31b724d7) SHA1(e374613609aeda64b547d8ce38d2078b6ed55ad5) )
+
+	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+
+	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
+
+	ROM_REGION( 0x80000, "ymsnd", 0 )
+	ROM_LOAD( "202.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "469a.c1", 0x000000, 0x100000, CRC(d7587282) SHA1(6fbc317dede78265dc4cfd2a6d79968320b8fd50) )
+	ROM_LOAD16_BYTE( "469a.c2", 0x000001, 0x100000, CRC(fefc9d06) SHA1(f191bcd3683a184b5a7d6046156e0b2bca231e95) )
 ROM_END
 
 
@@ -1911,6 +1932,7 @@ HACK( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ngym2610,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NeoGeo YM2610 Test", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
