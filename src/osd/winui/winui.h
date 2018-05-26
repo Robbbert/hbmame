@@ -20,7 +20,7 @@
 #define MAMEUINAME MAMENAME "UI32"
 #endif
 
-#define SEARCH_PROMPT ""
+#define SEARCH_PROMPT "<search here>"
 
 enum
 {
