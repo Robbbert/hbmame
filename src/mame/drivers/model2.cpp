@@ -100,12 +100,12 @@
 #include "machine/315_5296.h"
 #include "machine/315_5649.h"
 #include "machine/model1io.h"
-#include "machine/model1io2.h"
+//#include "machine/model1io2.h"
 #include "sound/2612intf.h"
 #include "video/segaic24.h"
 #include "speaker.h"
 
-#include "model1io2.lh"
+//#include "model1io2.lh"
 
 /* Timers - these count down at 25 MHz and pull IRQ2 when they hit 0 */
 READ32_MEMBER(model2_state::timers_r)
@@ -2594,7 +2594,7 @@ MACHINE_CONFIG_START(model2o_state::vcop)
 	model2o(config);
 
 	MCFG_DEVICE_REMOVE("ioboard")
-
+#if 0
 	MCFG_DEVICE_ADD("ioboard", SEGA_MODEL1IO2, 0)
 	MCFG_DEVICE_BIOS("epr17181");
 	MCFG_MODEL1IO2_READ_CB(READ8("dpram", mb8421_device, left_r))
@@ -2609,6 +2609,7 @@ MACHINE_CONFIG_START(model2o_state::vcop)
 	MCFG_MODEL1IO2_LIGHTGUN_P2Y_TAG("P2_Y")
 
 	MCFG_DEFAULT_LAYOUT(layout_model1io2)
+#endif
 MACHINE_CONFIG_END
 
 /* 2A-CRX */

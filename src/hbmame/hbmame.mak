@@ -53,6 +53,7 @@ LAYOUTS += \
 	$(SRC)/mame/layout/invaders.lay \
 	$(SRC)/mame/layout/lagunar.lay \
 	$(SRC)/mame/layout/maze.lay \
+	$(SRC)/mame/layout/model1io2.lay \
 	$(SRC)/mame/layout/phantom2.lay \
 	$(SRC)/mame/layout/playch10.lay \
 	$(SRC)/mame/layout/radr.lay \
