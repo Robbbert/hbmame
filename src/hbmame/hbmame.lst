@@ -7942,7 +7942,7 @@ kof10ths13
 kof10ths14
 kof10thds01
 kof10thds02
-//kof10thds03     // roms missing
+kof10thds03
 kof10thds04
 kf2k5unis01
 kf2k5unis02
@@ -7984,25 +7984,25 @@ kof2k4ses26
 kof2k4ses27
 kof2k4ses28
 kof2k4ses29
-//kof2k4plss01        // roms missing
-//kof2k4plss02        // roms missing
-//kof2k4plss03        // roms missing
-//kof2k4plss04        // roms missing
-//kof2k4plss06        // roms missing
-//kof2k4plss07        // roms missing
-//kof2k4plss08        // roms missing
-//kof2k4plss09        // roms missing
-//kof2k4plss10        // roms missing
-//kof2k4plss11        // roms missing
-//kof2k4plss12        // roms missing
-//kof2k4plss13        // roms missing
-//kof2k4plss14        // roms missing
-//kof2k4plss15        // roms missing
-//kof2k4plss16        // roms missing
-//kof2k4plss17        // roms missing
-//kof2k4plss18        // roms missing
-//kof2k4plss19        // roms missing
-//kof2k4plss20        // roms missing
+kof2k4plss01
+kof2k4plss02
+kof2k4plss03
+kof2k4plss04
+kof2k4plss06
+kof2k4plss07
+kof2k4plss08
+kof2k4plss09
+kof2k4plss10
+kof2k4plss11
+kof2k4plss12
+kof2k4plss13
+kof2k4plss14
+kof2k4plss15
+kof2k4plss16
+kof2k4plss17
+kof2k4plss18
+kof2k4plss19
+kof2k4plss20
 
 @source:nglastblade.cpp
 lba
