@@ -2,23 +2,7 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/gradius3.cpp"
 
-/***************************************
-	Proyecto Shadows Mame Build Plus
-***************************************/
-
-/******************************************************************************************
-   Muchos Roms De Mi Proyecto Shadow Se Estará Deshabilitado. Por
-   Los Motivo Es Que Se Empezó Agregar En El HBMame Oficial, Lo Cual Me Veré
-   Obligado Deshabilitando Porque Si No Se Estaría Duplicado Archivo De Roms.
-******************************************************************************************/
-
-/*****************************************
- *
- *         ROM Definición(s)
- *
- ****************************************/
- 
-  /****************************************
+/****************************************
                 Gradius III
 *****************************************/
 
@@ -69,4 +53,4 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gradius III
-GAME( 1989, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, 0, ROT0, "Konami", "Gradius III (Japan, Secret fighters)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, 0, ROT0, "Konami", "Gradius III (Japan, Secret fighters)", MACHINE_SUPPORTS_SAVE )

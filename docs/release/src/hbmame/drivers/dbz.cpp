@@ -32,4 +32,4 @@ ROM_START( dbz2h01 )
 	ROM_LOAD( "pcm.7c", 0x000000, 0x40000, CRC(b58c884a) SHA1(0e2a7267e9dff29c9af25558081ec9d56629bc43) )
 ROM_END
 
-GAME( 1994, dbz2h01, dbz2, dbz, dbz2, dbz_state, dbz2, ROT0, "hack", "Dragon Ball Z 2 - Super Battle (Infinite Lives)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
+HACK( 1994, dbz2h01, dbz2, dbz, dbz2, dbz_state, dbz2, ROT0, "hack", "Dragon Ball Z 2 - Super Battle (Infinite Lives)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test

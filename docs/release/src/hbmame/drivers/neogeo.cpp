@@ -1003,7 +1003,7 @@ void neogeo_state::set_output_data( uint8_t data )
  *
  *************************************/
 
-DRIVER_INIT_MEMBER(neogeo_state,neogeo)
+void neogeo_state::init_neogeo()
 {
 	m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
 
@@ -1283,9 +1283,9 @@ INPUT_PORTS_END
 
 
 
-DRIVER_INIT_MEMBER(neogeo_state,mvs)
+void neogeo_state::init_mvs()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 }
 
 // Fixed
@@ -1312,7 +1312,7 @@ const gfx_layout tilelayout =
 	128*8		/* char modulo */
 };
 
-GFXDECODE_START( neogeo )
+GFXDECODE_START( gfx_neogeo )
 	GFXDECODE_ENTRY( "fixed",     0x0000, charlayout, 0, 0x1fff )
 	GFXDECODE_ENTRY( "fixedbios", 0x0000, charlayout, 0, 0x1fff )
 	//GFXDECODE_ENTRY( "sprites",   0x0000, tilelayout, 0, 0x1fff )  // not working
@@ -1328,12 +1328,12 @@ GFXDECODE_END
 MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(neogeo_main_map)
+	MCFG_DEVICE_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(neogeo_main_map)
 
-	MCFG_CPU_ADD("audiocpu", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(audio_map)
-	MCFG_CPU_IO_MAP(audio_io_map)
+	MCFG_DEVICE_ADD("audiocpu", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(audio_io_map)
 
 	/* video hardware */
 	MCFG_DEFAULT_LAYOUT(layout_neogeo)
@@ -1342,19 +1342,20 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
 	MCFG_SCREEN_UPDATE_DRIVER(neogeo_state, screen_update_neogeo)
 
-	MCFG_GFXDECODE_ADD( "gfxdecode", "palette", neogeo)
+	MCFG_DEVICE_ADD( "gfxdecode", GFXDECODE, "palette", gfx_neogeo)
 	/* 4096 colors * two banks * normal and shadow */
 	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
 
 	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE, 0)
 
 	/* audio hardware */
-	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
+	SPEAKER(config, "lspeaker").front_left();
+	SPEAKER(config, "rspeaker").front_right();
 
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
 
-	MCFG_SOUND_ADD("ymsnd", YM2610, NEOGEO_YM2610_CLOCK)
+	MCFG_DEVICE_ADD("ymsnd", YM2610, NEOGEO_YM2610_CLOCK)
 	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "lspeaker", 0.28)
 	MCFG_SOUND_ROUTE(0, "rspeaker", 0.28)
@@ -1375,8 +1376,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::mvs )
 	neogeo_arcade(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_slot)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map_slot)
 
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge, "joy", false)
 
@@ -1392,8 +1393,8 @@ void neogeo_state::main_map_noslot(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_noslot )
 	neogeo_arcade(config); // no slot config (legacy mame)
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -1416,8 +1417,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_kog )
 	neogeo_arcade(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(main_map_noslot)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
 	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
@@ -1485,8 +1486,8 @@ void neogeo_state::samsho2sp_map(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::samsho2sp )
 	neogeo_noslot(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(samsho2sp_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(samsho2sp_map)
 MACHINE_CONFIG_END
 
 // used by lbsp
@@ -1497,8 +1498,8 @@ void neogeo_state::lbsp_map(address_map &map) {
 
 MACHINE_CONFIG_START( neogeo_state::lbsp )
 	neogeo_noslot(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(lbsp_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(lbsp_map)
 MACHINE_CONFIG_END
 
 
@@ -1511,9 +1512,9 @@ MACHINE_CONFIG_END
 
 /*********************************************** SMA + CMC42 */
 
-DRIVER_INIT_MEMBER(neogeo_state,kof99)
+void neogeo_state::init_kof99()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sma_prot->kof99_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
@@ -1521,9 +1522,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kof99)
 	m_sma_prot->kof99_install_protection(m_maincpu,m_banked_cart);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,garou)
+void neogeo_state::init_garou()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sma_prot->garou_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, GAROU_GFX_KEY);
@@ -1531,9 +1532,9 @@ DRIVER_INIT_MEMBER(neogeo_state,garou)
 	m_sma_prot->garou_install_protection(m_maincpu,m_banked_cart);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,garouh)
+void neogeo_state::init_garouh()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sma_prot->garouh_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, GAROU_GFX_KEY);
@@ -1541,9 +1542,9 @@ DRIVER_INIT_MEMBER(neogeo_state,garouh)
 	m_sma_prot->garouh_install_protection(m_maincpu,m_banked_cart);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug3)
+void neogeo_state::init_mslug3()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sma_prot->mslug3_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
@@ -1553,9 +1554,9 @@ DRIVER_INIT_MEMBER(neogeo_state,mslug3)
 
 /*********************************************** SMA + CMC50 */
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2000)
+void neogeo_state::init_kof2000()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sma_prot->kof2000_decrypt_68k(cpuregion);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -1566,73 +1567,73 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2000)
 
 /*********************************************** CMC42 */
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug3h)
+void neogeo_state::init_mslug3h()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ganryu)
+void neogeo_state::init_ganryu()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, GANRYU_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,s1945p)
+void neogeo_state::init_s1945p()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, S1945P_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,preisle2)
+void neogeo_state::init_preisle2()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, PREISLE2_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,bangbead)
+void neogeo_state::init_bangbead()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, BANGBEAD_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,nitd)
+void neogeo_state::init_nitd()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, NITD_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,sengoku3)
+void neogeo_state::init_sengoku3()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, SENGOKU3_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,zupapa)
+void neogeo_state::init_zupapa()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, ZUPAPA_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof99k)
+void neogeo_state::init_kof99k()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF99_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
@@ -1641,18 +1642,18 @@ DRIVER_INIT_MEMBER(neogeo_state,kof99k)
 /*********************************************** CMC50 */
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2000n)
+void neogeo_state::init_kof2000n()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2001)
+void neogeo_state::init_kof2001()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
@@ -1662,9 +1663,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2001)
 /*********************************************** CMC50 + PCM2 */
 
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug4)
+void neogeo_state::init_mslug4()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1; /* USA violent content screen is wrong -- not a bug, confirmed on real hardware! */
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
@@ -1673,9 +1674,9 @@ DRIVER_INIT_MEMBER(neogeo_state,mslug4)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,rotd)
+void neogeo_state::init_rotd()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 16);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -1683,9 +1684,9 @@ DRIVER_INIT_MEMBER(neogeo_state,rotd)
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,pnyaa)
+void neogeo_state::init_pnyaa()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 4);
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -1696,9 +1697,9 @@ DRIVER_INIT_MEMBER(neogeo_state,pnyaa)
 /*********************************************** CMC50 + PCM2 + prg scramble */
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2002)
+void neogeo_state::init_kof2002()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -1706,9 +1707,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2002)
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,matrim)
+void neogeo_state::init_matrim()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->matrim_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 1);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -1717,9 +1718,9 @@ DRIVER_INIT_MEMBER(neogeo_state,matrim)
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,samsho5)
+void neogeo_state::init_samsho5()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->samsho5_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 4);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -1729,9 +1730,9 @@ DRIVER_INIT_MEMBER(neogeo_state,samsho5)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,samsh5sp)
+void neogeo_state::init_samsh5sp()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->samsh5sp_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -1743,9 +1744,9 @@ DRIVER_INIT_MEMBER(neogeo_state,samsh5sp)
 /*********************************************** CMC50 + PCM2 + PVC */
 
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug5)
+void neogeo_state::init_mslug5()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
 	m_sprgen->m_fixed_layer_bank_type = 1;
@@ -1756,9 +1757,9 @@ DRIVER_INIT_MEMBER(neogeo_state,mslug5)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,svc)
+void neogeo_state::init_svc()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 3);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -1769,9 +1770,9 @@ DRIVER_INIT_MEMBER(neogeo_state,svc)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2003)
+void neogeo_state::init_kof2003()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pvc_prot->kof2003_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -1781,9 +1782,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2003)
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2003h)
+void neogeo_state::init_kof2003h()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pvc_prot->kof2003h_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_sprgen->m_fixed_layer_bank_type = 2;
@@ -1795,35 +1796,35 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2003h)
 
 /*********************************************** misc carts */
 
-DRIVER_INIT_MEMBER(neogeo_state,mslugx)
+void neogeo_state::init_mslugx()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_mslugx_prot->mslugx_install_protection(m_maincpu);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,fatfury2)
+void neogeo_state::init_fatfury2()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_fatfury2_prot->fatfury2_install_protection(m_maincpu,m_banked_cart);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof98)
+void neogeo_state::init_kof98()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof98_prot->kof98_decrypt_68k(cpuregion, cpuregion_size);
 	m_kof98_prot->install_kof98_protection(m_maincpu);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,sbp)
+void neogeo_state::init_sbp()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sbp_prot->sbp_install_protection(m_maincpu, cpuregion, cpuregion_size);
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,jockeygp)
+void neogeo_state::init_jockeygp()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, JOCKEYGP_GFX_KEY);
@@ -1836,7 +1837,7 @@ DRIVER_INIT_MEMBER(neogeo_state,jockeygp)
 //  m_maincpu->space(AS_PROGRAM).install_read_port(0x2c0000, 0x2c0001, "IN6");
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,vliner)
+void neogeo_state::init_vliner()
 {
 	m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
 
@@ -1853,109 +1854,109 @@ DRIVER_INIT_MEMBER(neogeo_state,vliner)
 
 /*********************************************** bootlegs */
 
-DRIVER_INIT_MEMBER(neogeo_state,garoubl)
+void neogeo_state::init_garoubl()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
 	m_bootleg_prot->neogeo_bootleg_cx_decrypt(spr_region, spr_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,cthd2003)
+void neogeo_state::init_cthd2003()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->decrypt_cthd2003(spr_region, spr_region_size, audiocpu_region,audio_region_size, fix_region, fix_region_size);
 	m_bootleg_prot->patch_cthd2003(m_maincpu,m_banked_cart, cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ct2k3sp)
+void neogeo_state::init_ct2k3sp()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->decrypt_ct2k3sp(spr_region, spr_region_size, audiocpu_region,audio_region_size, fix_region, fix_region_size);
 	m_bootleg_prot->patch_cthd2003(m_maincpu,m_banked_cart, cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ct2k3sa)
+void neogeo_state::init_ct2k3sa()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->decrypt_ct2k3sa(spr_region, spr_region_size, audiocpu_region,audio_region_size);
 	m_bootleg_prot->patch_ct2k3sa(cpuregion, cpuregion_size);
 }
 
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kf10thep)
+void neogeo_state::init_kf10thep()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->kf10thep_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k5uni)
+void neogeo_state::init_kf2k5uni()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->decrypt_kf2k5uni(cpuregion, cpuregion_size, audiocpu_region,audio_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2k4se)
+void neogeo_state::init_kof2k4se()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->decrypt_kof2k4se_68k(cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcplus)
+void neogeo_state::init_svcplus()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->svcplus_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->svcboot_cx_decrypt(spr_region, spr_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size, 1);
 	m_bootleg_prot->svcplus_px_hack(cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,svcplusa)
+void neogeo_state::init_svcplusa()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->svcplusa_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->svcboot_cx_decrypt(spr_region, spr_region_size);
 	m_bootleg_prot->svcplus_px_hack(cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,samsho5b)
+void neogeo_state::init_samsho5b()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->samsho5b_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->samsho5b_vx_decrypt(ym_region, ym_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 	m_bootleg_prot->neogeo_bootleg_cx_decrypt(spr_region, spr_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof97oro)
+void neogeo_state::init_kof97oro()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->kof97oro_px_decode(cpuregion, cpuregion_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 	m_bootleg_prot->neogeo_bootleg_cx_decrypt(spr_region, spr_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,lans2004)
+void neogeo_state::init_lans2004()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->lans2004_decrypt_68k(cpuregion, cpuregion_size);
 	m_bootleg_prot->lans2004_vx_decrypt(ym_region, ym_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 	m_bootleg_prot->neogeo_bootleg_cx_decrypt(spr_region, spr_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof10th)
+void neogeo_state::init_kof10th()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->decrypt_kof10th(cpuregion, cpuregion_size);
 	m_bootleg_prot->install_kof10th_protection(m_maincpu,m_banked_cart, cpuregion, cpuregion_size, fix_region, fix_region_size);
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kog)
+void neogeo_state::init_kog()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 
 	m_kog_prot->kog_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
@@ -1968,17 +1969,17 @@ DRIVER_INIT_MEMBER(neogeo_state,kog)
 /*********************************************** bootlegs - can use original prot */
 
 
-DRIVER_INIT_MEMBER(neogeo_state,ms4plus)
+void neogeo_state::init_ms4plus()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG4_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_snk_1999(ym_region, ym_region_size, 8);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k2pls)
+void neogeo_state::init_kf2k2pls()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -1988,16 +1989,16 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k2pls)
 /*********************************************** bootleg hybrid */
 
 
-DRIVER_INIT_MEMBER(neogeo_state,mslug3b6)
+void neogeo_state::init_mslug3b6()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
 	m_cmc_prot->cmc42_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG3_GFX_KEY);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kof2002b)
+void neogeo_state::init_kof2002b()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -2005,9 +2006,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kof2002b)
 	m_bootleg_prot->kof2002b_gfx_decrypt(fix_region,0x20000);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp)
+void neogeo_state::init_kf2k2mp()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->kf2k2mp_decrypt(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -2015,9 +2016,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp)
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp2)
+void neogeo_state::init_kf2k2mp2()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->kf2k2mp2_px_decrypt(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
@@ -2025,9 +2026,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k2mp2)
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,matrimbl)
+void neogeo_state::init_matrimbl()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_kof2002_prot->matrim_decrypt_68k(cpuregion, cpuregion_size);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_bootleg_prot->matrimbl_decrypt(spr_region, spr_region_size, audiocpu_region,audio_region_size);
@@ -2035,9 +2036,9 @@ DRIVER_INIT_MEMBER(neogeo_state,matrimbl)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,ms5plus)
+void neogeo_state::init_ms5plus()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, MSLUG5_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 2);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
@@ -2048,18 +2049,18 @@ DRIVER_INIT_MEMBER(neogeo_state,ms5plus)
 
 
 
-DRIVER_INIT_MEMBER(neogeo_state,svcboot)
+void neogeo_state::init_svcboot()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->svcboot_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->svcboot_cx_decrypt(spr_region, spr_region_size);
 	m_pvc_prot->install_pvc_protection(m_maincpu,m_banked_cart);
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,svcsplus)
+void neogeo_state::init_svcsplus()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_bootleg_prot->svcsplus_px_decrypt(cpuregion, cpuregion_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
 	m_bootleg_prot->svcboot_cx_decrypt(spr_region, spr_region_size);
@@ -2069,18 +2070,18 @@ DRIVER_INIT_MEMBER(neogeo_state,svcsplus)
 
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3bl)
+void neogeo_state::init_kf2k3bl()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
 	m_bootleg_prot->kf2k3bl_install_protection(m_maincpu,m_banked_cart, cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3pl)
+void neogeo_state::init_kf2k3pl()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_bootleg_prot->kf2k3pl_px_decrypt(cpuregion, cpuregion_size);
@@ -2088,9 +2089,9 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3pl)
 	m_bootleg_prot->kf2k3pl_install_protection(m_maincpu,m_banked_cart, cpuregion, cpuregion_size);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3upl)
+void neogeo_state::init_kf2k3upl()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
 	m_bootleg_prot->kf2k3upl_px_decrypt(cpuregion, cpuregion_size);
@@ -2117,9 +2118,9 @@ INPUT_CHANGED_MEMBER(neogeo_state::select_bios)
 	membank("bankedbios")->set_entry(newval ? 0 : 1);
 }
 
-DRIVER_INIT_MEMBER(neogeo_state,ms5pcb)
+void neogeo_state::init_ms5pcb()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 
 	m_pvc_prot->mslug5_decrypt_68k(cpuregion, cpuregion_size);
 	m_sma_prot->svcpcb_gfx_decrypt(spr_region, spr_region_size);
@@ -2134,9 +2135,9 @@ DRIVER_INIT_MEMBER(neogeo_state,ms5pcb)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,svcpcb)
+void neogeo_state::init_svcpcb()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 
 	m_pvc_prot->svc_px_decrypt(cpuregion, cpuregion_size);
 	m_sma_prot->svcpcb_gfx_decrypt(spr_region, spr_region_size);
@@ -2151,9 +2152,9 @@ DRIVER_INIT_MEMBER(neogeo_state,svcpcb)
 }
 
 
-DRIVER_INIT_MEMBER(neogeo_state,kf2k3pcb)
+void neogeo_state::init_kf2k3pcb()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_pvc_prot->kf2k3pcb_decrypt_68k(cpuregion, cpuregion_size);
 	m_sma_prot->kf2k3pcb_gfx_decrypt(spr_region, spr_region_size);
 	m_sma_prot->kf2k3pcb_sp1_decrypt((uint16_t*)memregion("mainbios")->base());
@@ -2177,16 +2178,16 @@ DRIVER_INIT_MEMBER(neogeo_state,kf2k3pcb)
 	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0x080000, memregion("mainbios")->base());  // 512k bios
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, cmc42sfix )
+void neogeo_state::init_cmc42sfix()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, cmc50sfix )
+void neogeo_state::init_cmc50sfix()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
@@ -2217,5 +2218,5 @@ ROM_START( neogeo )
 ROM_END
 
 
-/*    YEAR  NAME        PARENT    COMPAT    MACHINE   INPUT     INIT    */
-CONS( 1990, neogeo,     0,        0,        mvs,      neogeo_6slot,   neogeo_state, mvs,  "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+/*    YEAR  NAME        PARENT    MACHINE   INPUT     INIT    */
+HACK( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, mvs,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )

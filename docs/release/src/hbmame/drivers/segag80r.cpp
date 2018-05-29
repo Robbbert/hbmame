@@ -35,4 +35,4 @@ ROM_START( astrob2h ) // same as astrob2 except u2 and u4
 	ROM_LOAD( "812a.speech-u3", 0x1800, 0x0800, CRC(410ad0d2) SHA1(9b5f05bb64a6ecfe3543025a10c6ec67de797333) )
 ROM_END
 
-GAME( 1981, astrob2h, astrob, astrob, astrob2, segag80r_state, astrob, ROT270, "Clay Cowgill", "Astro Blaster (ver 2 Hack)", 0 )
+HACK( 1981, astrob2h, astrob, astrob, astrob2, segag80r_state, astrob, ROT270, "Clay Cowgill", "Astro Blaster (ver 2 Hack)", 0 )

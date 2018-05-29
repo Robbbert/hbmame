@@ -15,14 +15,14 @@ ROM_START( ballonwc )
 	ROM_LOAD( "twc-6.bin",    0x0000, 0x4000, CRC(e3112be2) SHA1(7859e51b4312dc5df01c88e1d97cf608abc7ca72) )
 
 	ROM_REGION( 0x04000, "gfx1", 0 )
-	ROM_LOAD( "twc-12.bin",   0x00000, 0x4000, CRC(a9e274f8) SHA1(02b46e1b149a856f0be74a23faaeb792935b66c7) )	/* fg tiles */
+	ROM_LOAD( "twc-12.bin",   0x00000, 0x4000, CRC(a9e274f8) SHA1(02b46e1b149a856f0be74a23faaeb792935b66c7) )
 
 	ROM_REGION( 0x10000, "gfx2", 0 )
-	ROM_LOAD( "blwc-8.bin",   0x00000, 0x8000, CRC(a0f75389) SHA1(60c5117430ac3471768efd0341ea533f49e8b1bd) )	/* sprites */
+	ROM_LOAD( "blwc-8.bin",   0x00000, 0x8000, CRC(a0f75389) SHA1(60c5117430ac3471768efd0341ea533f49e8b1bd) )
 	ROM_LOAD( "twc-7.bin",    0x08000, 0x8000, CRC(59faebe7) SHA1(85dad90928369601e039467d575750539410fcf6) )
 
 	ROM_REGION( 0x10000, "gfx3", 0 )
-	ROM_LOAD( "twc-11.bin",   0x00000, 0x8000, CRC(669389fc) SHA1(a93e8455060ce5242cb65f78e47b4840aa13ab13) )	/* bg tiles */
+	ROM_LOAD( "twc-11.bin",   0x00000, 0x8000, CRC(669389fc) SHA1(a93e8455060ce5242cb65f78e47b4840aa13ab13) )
 	ROM_LOAD( "twc-9.bin",    0x08000, 0x8000, CRC(347ef108) SHA1(bb9c2f51d65f28655404e10c3be44d7ade98711b) )
 
 	ROM_REGION( 0x8000, "adpcm", 0 )	/* ADPCM samples */
@@ -42,14 +42,14 @@ ROM_START( tehkangc )
 	ROM_LOAD( "twc-6.bin",    0x0000, 0x4000, CRC(e3112be2) SHA1(7859e51b4312dc5df01c88e1d97cf608abc7ca72) )
 
 	ROM_REGION( 0x04000, "gfx1", 0 )
-	ROM_LOAD( "tgc-12.bin",   0x00000, 0x4000, CRC(dbf5cede) SHA1(ec2d21f62ab331ce64c7765f6b05a8c3c69e8ddd) )	/* fg tiles */
+	ROM_LOAD( "tgc-12.bin",   0x00000, 0x4000, CRC(dbf5cede) SHA1(ec2d21f62ab331ce64c7765f6b05a8c3c69e8ddd) )
 
 	ROM_REGION( 0x10000, "gfx2", 0 )
-	ROM_LOAD( "tgc-8.bin",    0x00000, 0x8000, CRC(1177c8a0) SHA1(be0e0c763f2ac08ede546884e616073eb9a5517d) )	/* sprites */
+	ROM_LOAD( "tgc-8.bin",    0x00000, 0x8000, CRC(1177c8a0) SHA1(be0e0c763f2ac08ede546884e616073eb9a5517d) )
 	ROM_LOAD( "tgc-7.bin",    0x08000, 0x8000, CRC(7f01d5a4) SHA1(4494ca82c9d16a4047591de7b588a8ab53ce5170) )
 
 	ROM_REGION( 0x10000, "gfx3", 0 )
-	ROM_LOAD( "twc-11.bin",   0x00000, 0x8000, CRC(669389fc) SHA1(a93e8455060ce5242cb65f78e47b4840aa13ab13) )	/* bg tiles */
+	ROM_LOAD( "twc-11.bin",   0x00000, 0x8000, CRC(669389fc) SHA1(a93e8455060ce5242cb65f78e47b4840aa13ab13) )
 	ROM_LOAD( "twc-9.bin",    0x08000, 0x8000, CRC(347ef108) SHA1(bb9c2f51d65f28655404e10c3be44d7ade98711b) )
 
 	ROM_REGION( 0x8000, "adpcm", 0 )	/* ADPCM samples */
@@ -110,10 +110,10 @@ ROM_START( twc_gr )
 	ROM_LOAD( "twc-5.bin",    0x0000, 0x4000, CRC(444b5544) SHA1(0786d6d9ada7fe49c8ab9751b049095474d2e598) )
 ROM_END
 
-GAME( 1985, ballonwc, tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "Grand Master Peter", "Ballon World Cup", MACHINE_SUPPORTS_SAVE )
-GAME( 1985, tehkangc, tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "Grand Master Peter", "Tehkan Greek Cup", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, tankwc,   tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "Kazzy", "Tank World Cup", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, twc_gr,   tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "GreekRoms", "Tehkan World Cup (Greek)", MACHINE_SUPPORTS_SAVE )
+HACK( 1985, ballonwc, tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "Grand Master Peter", "Ballon World Cup", MACHINE_SUPPORTS_SAVE )
+HACK( 1985, tehkangc, tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "Grand Master Peter", "Tehkan Greek Cup", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, tankwc,   tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "Kazzy", "Tank World Cup", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, twc_gr,   tehkanwc, tehkanwc, tehkanwc, tehkanwc_state, 0, ROT0,  "GreekRoms", "Tehkan World Cup (Greek)", MACHINE_SUPPORTS_SAVE )
 
 /* Notes on E602 - Tehkan World Cup (set 3 bootleg) (1986)
 	- Year is 1986 instead of 1985 - seems this is possibly the Spanish version

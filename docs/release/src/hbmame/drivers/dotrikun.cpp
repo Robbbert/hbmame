@@ -104,11 +104,13 @@ public:
 		, m_beep(*this, "beeper")
 	{ }
 
-	DECLARE_WRITE8_MEMBER(mineswp_color_w);
 	void mineswp(machine_config &config);
+
+private:
+
 	void mineswp_map(address_map &map);
 	void mineswp_io(address_map &map);
-private:
+	DECLARE_WRITE8_MEMBER(mineswp_color_w);
 	virtual void machine_start() override;
 	required_device<beep_device> m_beep;
 };
@@ -167,15 +169,15 @@ void mineswp_state::machine_start()
 MACHINE_CONFIG_START( mineswp_state::mineswp )
 	dotrikun(config);
 	/* basic machine hardware */
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mineswp_map)
-	MCFG_CPU_IO_MAP(mineswp_io)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mineswp_map)
+	MCFG_DEVICE_IO_MAP(mineswp_io)
 
 	MCFG_NVRAM_ADD_1FILL("nvram")
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("beeper", BEEP, 950) // guess
+	SPEAKER(config, "mono").front_center();
+	MCFG_DEVICE_ADD("beeper", BEEP, 950) // guess
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.40)
 MACHINE_CONFIG_END
 
@@ -199,4 +201,4 @@ ROM_START( mineswp )
 ROM_END
 
 
-GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, 0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, init_0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )

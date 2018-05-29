@@ -95,5 +95,5 @@ ROM_END
  *************************************/
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// 1943 Kai: Midway Kaisen
-GAME( 1987, sfs01,   sf,  sfus, sfus, sf_state, 0, ROT0, "Hacks", "Street Fighter (US, set 1(PLus))", MACHINE_SUPPORTS_SAVE )
+HACK( 1987, sfs01,   sf,  sfus, sfus, sf_state, 0, ROT0, "Hacks", "Street Fighter (US, set 1(PLus))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+

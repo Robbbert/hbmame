@@ -4,50 +4,50 @@
 #include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2000d )
+void neogeo_state::init_kof2000d()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_sma_prot->kof2000_decrypt_68k(cpuregion);
 	m_sma_prot->kof2000_install_protection(m_maincpu, m_banked_cart);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2000h )
+void neogeo_state::init_kof2000h()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_sma_prot->kof2000_install_protection(m_maincpu, m_banked_cart);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2000m )
+void neogeo_state::init_kof2000m()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2kbsd )
+void neogeo_state::init_kof2kbsd()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2kxxx )
+void neogeo_state::init_kof2kxxx()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2000_GFX_KEY);
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
-DRIVER_INIT_MEMBER( neogeo_state, kof2knd )
+void neogeo_state::init_kof2knd()
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
@@ -1163,48 +1163,48 @@ ROM_START( kof2kzs ) /* The King of Fighters 2000 - Hack by UNKNOWN - (MVS prote
 ROM_END
 
 
-GAME( 2000, kof2000d,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000d,  ROT0, "SNK", "Kof2000 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2000ev,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000,   ROT0, "hack", "Kof2000 (unknown ev)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2000r,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000,   ROT0, "hack", "Kof2000 (KOF REMIX PRO)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kbh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000h,  ROT0, "Dodowang","Kof2000 (Add Char - Zero has icon)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kbj,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3", "Kof2000 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kbsd,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2kbsd,  ROT0, "Eddids / EGHT", "Kof2000 Boss Striker Pro ( Eddids, EGHT )", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kce,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kch,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Chase", "Kof2000 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kcp,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2keh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kehr,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Add Char - Diff Moves - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVOLUTION (v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo1,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVOLUTION (v1.01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo2,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVO (Evolution v1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kevo3,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "FCHT-EGHT", "Kof2000 EVOLUTION (v1.3 by FCHT-EGHT)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kgold,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Anndy", "Kof2000 (Char color changed - Gold)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kgbh,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       cmc50sfix, ROT0, "hack", "Kof2000 (Boss Hack - Gold Color Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kice,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Zhangshee", "Kof2000 (Char color changed - Ice blue)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kiori,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "ZKW", "Kof2000 (Iori Orochi by ZKW)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kjlc,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jui Lee", "Kof2000 (Char color changed for Athena 2P and Kula 2P)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kkf1,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - MVS protection rem set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kkvs,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "KVS", "Kof2000 (Add Char - MVS protection rem set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kkzs,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2knd,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "hack", "Kof2000 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kpjc,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kpjc1,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix - Entire role change)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kpjc2,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix v. 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kpjc3,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color changed - Striker not Perfect 030302)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kpls,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Guangzhou Game Team", "Kof2000 PLUS (by Guangzhou Game Team)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2krm,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2krp,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "FCHT", "Kof2000 Remix Pro (Diff Moves v1.0a 031103 - Beta)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kryu,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Iori Yagami", "Kof2000 EVX TION (Ryu Hack by Iori Yagami)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kseh,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - Ultra kill start max - Super pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kst,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "KOF1995", "Kof2000 (Add Char - Boss striker moves changed - Similar to kof2kevo from FGCH)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kwh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Wesker", "Kof2000 (Diff Moves for Takuma)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kwh2,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Wesker", "Kof2000 (Diff Moves for Jhun)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kxxx,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2kxxx,  ROT0, "Crispy", "Kof2000 XXX (Crispy SP Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2ky,     kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Ydmis", "Kof2000 (Add Kula)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kyd,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Dodowang and Ydmis", "Kof2000 (Style change - Select 2 Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kyg,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kz,     kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Ydmis", "Kof2000 (Add Zero)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2kzs,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000d,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000d,  ROT0, "SNK", "Kof2000 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000ev,  kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000,   ROT0, "hack", "Kof2000 (unknown ev)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000r,   kof2000,  neogeo_noslot, neogeo, neogeo_state, kof2000,   ROT0, "hack", "Kof2000 (KOF REMIX PRO)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kbh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000h,  ROT0, "Dodowang","Kof2000 (Add Char - Zero has icon)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kbj,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3", "Kof2000 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kbsd,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2kbsd,  ROT0, "Eddids / EGHT", "Kof2000 Boss Striker Pro ( Eddids, EGHT )", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kce,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kch,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Chase", "Kof2000 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kcp,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Char color changed set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2keh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kehr,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Add Char - Diff Moves - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kevo,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVOLUTION (v1.2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kevo1,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVOLUTION (v1.01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kevo2,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jason/K3 and Wesker", "Kof2000 EVO (Evolution v1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kevo3,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "FCHT-EGHT", "Kof2000 EVOLUTION (v1.3 by FCHT-EGHT)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kgold,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Anndy", "Kof2000 (Char color changed - Gold)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kgbh,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       cmc50sfix, ROT0, "hack", "Kof2000 (Boss Hack - Gold Color Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kice,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Zhangshee", "Kof2000 (Char color changed - Ice blue)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kiori,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "ZKW", "Kof2000 (Iori Orochi by ZKW)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kjlc,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Jui Lee", "Kof2000 (Char color changed for Athena 2P and Kula 2P)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kkf1,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - MVS protection rem set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kkvs,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "KVS", "Kof2000 (Add Char - MVS protection rem set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kkzs,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2knd,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "hack", "Kof2000 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kpjc,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kpjc1,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix - Entire role change)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kpjc2,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix v. 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kpjc3,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color changed - Striker not Perfect 030302)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kpls,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Guangzhou Game Team", "Kof2000 PLUS (by Guangzhou Game Team)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2krm,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2krp,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "FCHT", "Kof2000 Remix Pro (Diff Moves v1.0a 031103 - Beta)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kryu,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Iori Yagami", "Kof2000 EVX TION (Ryu Hack by Iori Yagami)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kseh,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - Ultra kill start max - Super pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kst,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "KOF1995", "Kof2000 (Add Char - Boss striker moves changed - Similar to kof2kevo from FGCH)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kwh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Wesker", "Kof2000 (Diff Moves for Takuma)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kwh2,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Wesker", "Kof2000 (Diff Moves for Jhun)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kxxx,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2kxxx,  ROT0, "Crispy", "Kof2000 XXX (Crispy SP Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2ky,     kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Ydmis", "Kof2000 (Add Kula)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kyd,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Dodowang and Ydmis", "Kof2000 (Style change - Select 2 Add Char)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kyg,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kz,     kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Ydmis", "Kof2000 (Add Zero)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2kzs,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 4)", MACHINE_SUPPORTS_SAVE )
 
 
 
@@ -2494,7 +2494,7 @@ ROM_END
 
 ROM_START( kof2000ds14 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "257dhc01.p1",  0x000000, 0x100000, CRC(b0bb1240) SHA1(1ec17a9588981d562bf765d2aab2518aa1fa86a6) )
+	ROM_LOAD16_WORD_SWAP( "257dhc14.p1",  0x000000, 0x100000, CRC(b0bb1240) SHA1(1ec17a9588981d562bf765d2aab2518aa1fa86a6) )
 	ROM_LOAD16_WORD_SWAP( "257n.p2",  0x100000, 0x400000, CRC(693c2c5e) SHA1(dc9121b7369ef46596343cac055a00aec81704d4) )
 
 	NEO_SFIX_MT_512K
@@ -3254,81 +3254,81 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2000
-GAME( 2017, kof2000s01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Evolution 1.2 Alt)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s02,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s03,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s04,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s05,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V4)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s06,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V5)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s07,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s08,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s09,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Add Boss ST Color)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s10,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Fix Boss ST Broken V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s11,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Fix Boss ST Broken V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s12,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s13,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s14,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s15,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Power)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s16,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Free ST)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s17,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Free special move)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s18,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Golden Style)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s19,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Icy Blue Style)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s20,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Color Change V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s21,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Color Change V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s22,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Bikini-Athena)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s23,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s24,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s25,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s26,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v4)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s27,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v5)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s28,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v6)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s29,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (The Style Of Kyo'S D)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s30,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Orochi Alt)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s31,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000s32,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Investment Skills Hit)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2knd,    ROT0, "Hacks",    "Kof2000 (s33)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000n01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Hacks",    "Kof2000 (Translation Chinese)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000n02,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Hacks",    "Kof2000 (BOSS Striker Perfect Edtion)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000n03,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Hacks",    "Kof2000 (Simplify The Move)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds01,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Translation Chinese)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds02,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (BOSS Striker 1.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds03,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Evolution 1.2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds04,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Remix Pro 1.00a)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds05,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (XXX)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds06,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds07,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds08,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds10,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds11,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds12,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds13,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Add Boss ST Color)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds14,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Fix Boss ST Broken)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds15,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Bugfix For Zero's Special Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds16,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds17,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds18,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds19,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Power)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds20,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Free ST)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds21,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Free Special Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds22,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Yagami Nunnery Add '97 Shavings Wind)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds23,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Move Correction)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds24,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Remix)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds25,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (No Length Limit For Robert's Special Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds26,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Icy Blue Style Alt)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds27,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Golden Style)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds28,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds29,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds30,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds31,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds32,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Bikini-Athena)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds33,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds34,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds35,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds36,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds37,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds38,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V6)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds39,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Chaos Revision)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds40,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (The Style Of Kyo's D)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds41,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Orochi)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof2000ds42,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Unlimited Credits In Console Mode)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Evolution 1.2 Alt)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s02,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s03,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s04,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s05,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V4)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s06,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V5)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s07,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s08,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s09,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Add Boss ST Color)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s10,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Fix Boss ST Broken V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s11,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Fix Boss ST Broken V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s12,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s13,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s14,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s15,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Enhanced Power)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s16,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Free ST)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s17,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Free special move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s18,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Golden Style)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s19,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Icy Blue Style)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s20,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Color Change V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s21,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Color Change V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s22,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Bikini-Athena)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s23,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s24,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s25,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s26,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v4)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s27,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v5)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s28,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar v6)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s29,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (The Style Of Kyo'S D)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s30,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Orochi Alt)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s31,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000s32,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Hacks",    "Kof2000 (Investment Skills Hit)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2knd,    ROT0, "Hacks",    "Kof2000 (s33)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000n01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Hacks",    "Kof2000 (Translation Chinese)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000n02,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Hacks",    "Kof2000 (BOSS Striker Perfect Edtion)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000n03,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Hacks",    "Kof2000 (Simplify The Move)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds01,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Translation Chinese)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds02,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (BOSS Striker 1.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds03,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Evolution 1.2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds04,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Remix Pro 1.00a)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds05,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (XXX)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds06,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds07,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds08,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds10,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enable Hidden Characters V5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds11,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds12,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Zero Striker Moves V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds13,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Add Boss ST Color)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds14,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Fix Boss ST Broken)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds15,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Bugfix For Zero's Special Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds16,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds17,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds18,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Counter & Armor Mode V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds19,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Enhanced Power)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds20,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Free ST)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds21,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Free Special Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds22,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Yagami Nunnery Add '97 Shavings Wind)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds23,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Move Correction)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds24,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Remix)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds25,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (No Length Limit For Robert's Special Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds26,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Icy Blue Style Alt)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds27,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Golden Style)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds28,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds29,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds30,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds31,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Color Change v4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds32,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Bikini-Athena)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds33,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds34,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds35,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds36,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds37,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds38,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Half Transparency Life Bar V6)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds39,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Chaos Revision)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds40,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (The Style Of Kyo's D)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds41,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Orochi)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2000ds42,    kof2000,  neogeo_noslot, neogeo, neogeo_state,        kof2knd,   ROT0, "Hacks",    "Kof2000 (Unlimited Credits In Console Mode)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 

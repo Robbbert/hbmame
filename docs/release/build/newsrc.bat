@@ -7,6 +7,7 @@ md %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src\version.cpp
 copy /Y %from%\src\emu\validity.cpp %to%\src\emu
 copy /Y %from%\src\emu\digfx.h %to%\src\emu
+copy /Y %from%\src\emu\driver.h %to%\src\emu
 copy /Y %from%\src\emu\emuopts.* %to%\src\emu
 copy /Y %from%\src\emu\gamedrv.h %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
@@ -22,6 +23,7 @@ copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
 
 md %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
+copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
 
 md %to%\src\hbmame
 xcopy /E /Y %from%\src\hbmame %to%\src\hbmame

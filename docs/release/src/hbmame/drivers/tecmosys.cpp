@@ -91,5 +91,5 @@ ROM_END
  *
  *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT          MONITOR COMPANY       FULLNAME FLAGS */
-GAME( 1995, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "hack", "Deroon DeroDero (unknown hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, tkdensho,   ROT0, "Hacks", "Toukidenshou - Angel Eyes (VER. 960614)(Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "hack", "Deroon DeroDero (unknown hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, tkdensho,   ROT0, "Hacks", "Toukidenshou - Angel Eyes (VER. 960614)(Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )

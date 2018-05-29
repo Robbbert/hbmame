@@ -660,38 +660,38 @@ ROM_END
 
 
 
-GAME( 1993, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Fatal Fury Special / Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury Special (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX Team hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Fatal Fury Special / Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury Special (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX Team hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Add Ryo)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, fatfury2b,     fatfury2, neogeo_noslot, neogeo, neogeo_state, fatfury2,  ROT0, "Yumeji", "Fatal Fury 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, fatfury2b,     fatfury2, neogeo_noslot, neogeo, neogeo_state, fatfury2,  ROT0, "Yumeji", "Fatal Fury 2 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1995, fatfury3b,     fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Fatal Fury 3 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fatfury3bd,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fatfury3bh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury 3 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fatfury3eh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Add Char - Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, fatfury3b,     fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Fatal Fury 3 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, fatfury3bd,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, fatfury3bh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury 3 (Boss hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, fatfury3eh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Add Char - Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1995, rbff1ud,       rbff1,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, rbff1ud,       rbff1,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1996, rbffsb,        rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffseh,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffsehd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed - 5 Add Char)", MACHINE_SUPPORTS_SAVE ) // Geese Howard, Andy B. EX, Blue Mary EX, Billy K. EX and Tung Fu Rue EX
-GAME( 1996, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffspecbs,    rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Real Bout Fatal Fury Special (Boss hack Yumeji)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffspy,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury Special (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, rbffss07,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special (Ultra Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffsud,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffsb,        rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffseh,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffsehd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed - 5 Add Char)", MACHINE_SUPPORTS_SAVE ) // Geese Howard, Andy B. EX, Blue Mary EX, Billy K. EX and Tung Fu Rue EX
+HACK( 1996, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffspecbs,    rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Real Bout Fatal Fury Special (Boss hack Yumeji)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffspy,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury Special (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, rbffss07,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special (Ultra Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffsud,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1998, rbff2b,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2bh,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (Add Alfred with Icon)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2eh,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2ehc,      rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury 2 (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2eh2,      rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Ydmis", "Real Bout Fatal Fury 2 (Add Alfred - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2eho,      rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred) (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2fc,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eddids - FCHT", "Real Bout Fatal Fury 2 (Enable Alfred v3 & Color Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2ud,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (P1 and P2 Add Alfred [Terry, hold B+C and press A] - Ultra kill style change)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2y,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (P1 only Add Alfred [Terry, hold B+C and press A])", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2b,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2bh,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (Add Alfred with Icon)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2eh,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2ehc,      rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury 2 (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2eh2,      rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Ydmis", "Real Bout Fatal Fury 2 (Add Alfred - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2eho,      rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred) (Old)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2fc,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eddids - FCHT", "Real Bout Fatal Fury 2 (Enable Alfred v3 & Color Fix)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2ud,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (P1 and P2 Add Alfred [Terry, hold B+C and press A] - Ultra kill style change)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, rbff2y,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (P1 only Add Alfred [Terry, hold B+C and press A])", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -941,7 +941,7 @@ ROM_END
 
 ROM_START( rbffss01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc01.p1",    0x000000, 0x100000, CRC(4df29f36) SHA1(52283fca222c49b10d305fb6366cd0fa5a209f70) )
+	ROM_LOAD16_WORD_SWAP( "223s01.p1",    0x000000, 0x100000, CRC(4df29f36) SHA1(52283fca222c49b10d305fb6366cd0fa5a209f70) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -966,7 +966,7 @@ ROM_END
 
 ROM_START( rbffss02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc02.p1",    0x000000, 0x100000, CRC(9891af09) SHA1(f246dcee8aa9db7121140f615bab1f85f90d4137) )
+	ROM_LOAD16_WORD_SWAP( "223s02.p1",    0x000000, 0x100000, CRC(9891af09) SHA1(f246dcee8aa9db7121140f615bab1f85f90d4137) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -991,7 +991,7 @@ ROM_END
 
 ROM_START( rbffss03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc03.p1",    0x000000, 0x100000, CRC(0eeae674) SHA1(35bc24dcb424a8ed0be4a315f558c1720d5bd572) )
+	ROM_LOAD16_WORD_SWAP( "223s03.p1",    0x000000, 0x100000, CRC(0eeae674) SHA1(35bc24dcb424a8ed0be4a315f558c1720d5bd572) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -1016,7 +1016,7 @@ ROM_END
 
 ROM_START( rbffss04 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc04.p1",    0x000000, 0x100000, CRC(47d31402) SHA1(68c9f358c6429a8e8b003aff052ddb92751d004d) )
+	ROM_LOAD16_WORD_SWAP( "223s04.p1",    0x000000, 0x100000, CRC(47d31402) SHA1(68c9f358c6429a8e8b003aff052ddb92751d004d) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -1041,7 +1041,7 @@ ROM_END
 
 ROM_START( rbffss05 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc05.p1",    0x000000, 0x100000, CRC(e8eadfa5) SHA1(3314ee9adb6e9384a49b09a15d6fffbb15c39872) )
+	ROM_LOAD16_WORD_SWAP( "223s05.p1",    0x000000, 0x100000, CRC(e8eadfa5) SHA1(3314ee9adb6e9384a49b09a15d6fffbb15c39872) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -1066,7 +1066,7 @@ ROM_END
 
 ROM_START( rbffss06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc06.p1",    0x000000, 0x100000, CRC(69ccffde) SHA1(d541041dc8b758b65c17841bc84e67f066c339d4) )
+	ROM_LOAD16_WORD_SWAP( "223s06.p1",    0x000000, 0x100000, CRC(69ccffde) SHA1(d541041dc8b758b65c17841bc84e67f066c339d4) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -1091,7 +1091,7 @@ ROM_END
 
 ROM_START( rbffspecs01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "223hc01.p1",  0x000000, 0x100000, CRC(6d0c7d0a) SHA1(6e08b86dd176c5acc4f59b98bdaac52e1e8fb3fc) )
+	ROM_LOAD16_WORD_SWAP( "223ss01.p1",  0x000000, 0x100000, CRC(6d0c7d0a) SHA1(6e08b86dd176c5acc4f59b98bdaac52e1e8fb3fc) )
 	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
@@ -1117,7 +1117,7 @@ ROM_END
 ROM_START( rbffspecs02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "223.p1",  0x000000, 0x100000, CRC(f84a2d1d) SHA1(fc19225d9dbdb6bd0808023ee32c7829f6ffdef6) )
-	ROM_LOAD16_WORD_SWAP( "223hc01.p2", 0x100000, 0x400000, CRC(fd3338c1) SHA1(e0a5ed9549150aa10e4b49cb8f35b65864b6b840) )
+	ROM_LOAD16_WORD_SWAP( "223ss01.p2", 0x100000, 0x400000, CRC(fd3338c1) SHA1(e0a5ed9549150aa10e4b49cb8f35b65864b6b840) )
 
 	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
 
@@ -1319,7 +1319,7 @@ ROM_END
 
 ROM_START( rbff2hs01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "240hc01.p1", 0x000000, 0x100000, CRC(a72182ef) SHA1(dc23b3e536f2f7b91d05a552b0eb4dce28f94f12) )
+	ROM_LOAD16_WORD_SWAP( "240hs01.p1", 0x000000, 0x100000, CRC(a72182ef) SHA1(dc23b3e536f2f7b91d05a552b0eb4dce28f94f12) )
 	ROM_LOAD16_WORD_SWAP( "240.p2", 0x100000, 0x400000, CRC(960aa88d) SHA1(3d9e785891871af90313f178dca2724633406674) )
 
 	NEO_SFIX_128K( "240.s1", CRC(da3b40de) SHA1(e6bf74e057ac6fe1f249a7547f13ba7fbc694561) )
@@ -1343,7 +1343,7 @@ ROM_END
 
 ROM_START( rbff2hs02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "240hc02.p1", 0x000000, 0x100000, CRC(b93c45ca) SHA1(266c81a0e3829fd88babb0746cbdca4dc2905b5f) )
+	ROM_LOAD16_WORD_SWAP( "240hs02.p1", 0x000000, 0x100000, CRC(b93c45ca) SHA1(266c81a0e3829fd88babb0746cbdca4dc2905b5f) )
 	ROM_LOAD16_WORD_SWAP( "240fc.p2", 0x100000, 0x400000, CRC(C063193D) SHA1(3321d90f93b1f7bf423a20b780b453a756e041be) )
 
 	NEO_SFIX_128K( "240.s1", CRC(da3b40de) SHA1(e6bf74e057ac6fe1f249a7547f13ba7fbc694561) )
@@ -1367,7 +1367,7 @@ ROM_END
 
 ROM_START( rbff2hs03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "240hc03.p1", 0x000000, 0x100000, CRC(dfb286b0) SHA1(f71557a2304638e938d73f7df39397c356fee879) )
+	ROM_LOAD16_WORD_SWAP( "240hs03.p1", 0x000000, 0x100000, CRC(dfb286b0) SHA1(f71557a2304638e938d73f7df39397c356fee879) )
 	ROM_LOAD16_WORD_SWAP( "240.p2", 0x100000, 0x400000, CRC(960aa88d) SHA1(3d9e785891871af90313f178dca2724633406674) )
 
 	NEO_SFIX_128K( "240.s1", CRC(da3b40de) SHA1(e6bf74e057ac6fe1f249a7547f13ba7fbc694561) )
@@ -1391,7 +1391,7 @@ ROM_END
 
 ROM_START( rbff2hs04 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "240hc04.p1", 0x000000, 0x100000, CRC(d9e5c5a6) SHA1(dd2acdd0924ab8659f8da4e11b517fa9fc4cc7d9) )
+	ROM_LOAD16_WORD_SWAP( "240hs04.p1", 0x000000, 0x100000, CRC(d9e5c5a6) SHA1(dd2acdd0924ab8659f8da4e11b517fa9fc4cc7d9) )
 	ROM_LOAD16_WORD_SWAP( "240.p2", 0x100000, 0x400000, CRC(960aa88d) SHA1(3d9e785891871af90313f178dca2724633406674) )
 
 	NEO_SFIX_128K( "240.s1", CRC(da3b40de) SHA1(e6bf74e057ac6fe1f249a7547f13ba7fbc694561) )
@@ -1415,7 +1415,7 @@ ROM_END
 
 ROM_START( rbff2hs05 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "240hc05.p1", 0x000000, 0x100000, CRC(ce0593df) SHA1(b64d81d444f97dfb760b4f420be305c48052279e) )
+	ROM_LOAD16_WORD_SWAP( "240hs05.p1", 0x000000, 0x100000, CRC(ce0593df) SHA1(b64d81d444f97dfb760b4f420be305c48052279e) )
 	ROM_LOAD16_WORD_SWAP( "240.p2", 0x100000, 0x400000, CRC(960aa88d) SHA1(3d9e785891871af90313f178dca2724633406674) )
 
 	NEO_SFIX_128K( "240.s1", CRC(da3b40de) SHA1(e6bf74e057ac6fe1f249a7547f13ba7fbc694561) )
@@ -1440,39 +1440,39 @@ ROM_END
 
 
  // Fatal Fury Special
-GAME( 2017, fatfursps01,    fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special / Garou Densetsu Special (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfurspas01,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special / Garou Densetsu Special (Hidden Characters-Enable Ryo Sakazaki v1)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfurspas02,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special / Garou Densetsu Special (Hidden Characters-Enable Ryo Sakazaki v2)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfurspas03,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special / Garou Densetsu Special (Hidden Characters-Enable Ryo Sakazaki v3)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfursps01,    fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfurspas01,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special (Hidden Characters-Enable Ryo Sakazaki v1)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfurspas02,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special (Hidden Characters-Enable Ryo Sakazaki v2)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfurspas03,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury Special (Hidden Characters-Enable Ryo Sakazaki v3)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 1
-GAME( 1991, fatfury1s01,    fatfury1, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury - King of Fighters (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, fatfury1s01,    fatfury1, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury - King of Fighters (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 2
-GAME( 2017, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 / Garou Densetsu 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,  fatfury2,  ROT0, "Hacks",    "Fatal Fury 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 3
-GAME( 2017, fatfury3s01,    fatfury3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury 3 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, fatfury3s02,    fatfury3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury 3 (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfury3s01,    fatfury3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury 3 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, fatfury3s02,    fatfury3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fatal Fury 3 (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
  // Real Bout Fatal Fury Special
-GAME( 2017, rbffss01,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffss02,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffss03,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffss04,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Enable Hidden Characters & Boss)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffss05,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Enable Hidden Characters & Boss V2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffss06,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Optimize The Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffspecs01,    rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbffspecs02,    rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Optimize The Move V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffss01,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffss02,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Description Of Unknown Origin 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffss03,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Description Of Unknown Origin 03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffss04,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Enable Hidden Characters & Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffss05,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Enable Hidden Characters & Boss V2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffss06,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Optimize The Move)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffspecs01,    rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbffspecs02,    rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury Special (Optimize The Move V1)", MACHINE_SUPPORTS_SAVE )
  // Real Bout Fatal Fury
- GAME( 2017, rbff1as01,     rbff1,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury / Real Bout Garou Densetsu (Easy Moves)(Bug Fix Revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff1as01,     rbff1,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury (Easy Moves)(Bug Fix Revision)", MACHINE_SUPPORTS_SAVE )
  // Real Bout Fatal Fury 2
-GAME( 2017, rbff2bs01,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Max Power Set 01)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2bs02,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Description Of Unknown Origin 01)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2bs03,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Infinite Power)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2bs04,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Enable Hidden Characters & Boss)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2bs05,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Optimize The Move V1)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2bs06,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Optimize The Move V2)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2hs01,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Enable Hidden Characters & Boss Alt 01)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2hs02,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Enable Hidden Characters & Boss Alt 03)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2hs03,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Fix Alfred's Player 2 Color)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2hs04,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Enhanced Power)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, rbff2hs05,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Hidden Characters - Fix Alfred's player 2 color)(NGH-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2bs01,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Max Power Set 01)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2bs02,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (Description Of Unknown Origin 01)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2bs03,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Infinite Power)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2bs04,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Enable Hidden Characters & Boss)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2bs05,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Optimize The Move V1)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2bs06,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Optimize The Move V2)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2hs01,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Enable Hidden Characters & Boss Alt 01)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2hs02,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Enable Hidden Characters & Boss Alt 03)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2hs03,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Fix Alfred's Player 2 Color)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2hs04,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Enhanced Power)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, rbff2hs05,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Real Bout Fatal Fury 2 (Hidden Characters - Fix Alfred's player 2 color)(NGH-2400)", MACHINE_SUPPORTS_SAVE )

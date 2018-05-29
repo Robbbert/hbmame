@@ -45,4 +45,4 @@ ROM_END
  *************************************/
 
 //    YEAR, NAME,        PARENT, MACHINE,INPUT,  CLASS,      INIT,MONITOR,  COMPANY,        FULLNAME,     FLAGS
-GAME( 2017, pooyandiag,  pooyan, pooyan, pooyan, pooyan_state, 0, ROT90,  "Shoestring", "Pooyan Tester", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, pooyandiag,  pooyan, pooyan, pooyan, pooyan_state, 0, ROT90,  "Shoestring", "Pooyan Tester", MACHINE_SUPPORTS_SAVE )

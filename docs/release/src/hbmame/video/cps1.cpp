@@ -1680,9 +1680,9 @@ WRITE16_MEMBER(cps_state::cps1_cps_b_w)
 			if (m_cpsb_value == 0x0402)    // Mercs (CN2 connector)
 			{
 				machine().bookkeeping().coin_lockout_w(2, ~data & 0x01);
-				output().set_led_value(0, data & 0x02);
-				output().set_led_value(1, data & 0x04);
-				output().set_led_value(2, data & 0x08);
+				//output().set_led_value(0, data & 0x02);  fix later
+				//output().set_led_value(1, data & 0x04);
+				//output().set_led_value(2, data & 0x08);
 			}
 			else    // kod, captcomm, knights
 			{
@@ -1747,7 +1747,7 @@ void cps_state::cps2_gfx_decode()
 }
 
 
-DRIVER_INIT_MEMBER(cps_state,cps1)
+void cps_state::init_cps1()
 {
 	m_scanline1 = 0;
 	m_scanline2 = 0;
@@ -1757,21 +1757,6 @@ DRIVER_INIT_MEMBER(cps_state,cps1)
 	m_objram_bank = 0;
 }
 
-
-#if 0
-DRIVER_INIT_MEMBER(cps_state,cps2_video)
-{
-	cps2_gfx_decode();
-
-	m_scanline1 = 262;
-	m_scanline2 = 262;
-	m_scancalls = 0;
-	m_last_sprite_offset = 0;
-	m_cps2_last_sprite_offset = 0;
-	m_pri_ctrl = 0;
-	m_objram_bank = 0;
-}
-#endif
 
 void cps_state::cps1_get_video_base()
 {

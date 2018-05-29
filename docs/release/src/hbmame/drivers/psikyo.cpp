@@ -72,5 +72,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // 1943 Kai: Midway Kaisen
-GAME( 1996, tengais01,    tengai,   s1945,    tengai,   psikyo_state, tengai,   ROT0,   "Hacks",  "Tengai (Ex Super version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tengaijs01,   tengai,   s1945,    tengaij,  psikyo_state, tengai,   ROT0,   "Hacks",  "Sengoku Blade: Sengoku Ace Episode II / Tengai (Ex Super version)", MACHINE_SUPPORTS_SAVE ) 
+HACK( 1996, tengais01,    tengai,   s1945,    tengai,   psikyo_state, tengai,   ROT0,   "Hacks",  "Tengai (Ex Super version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, tengaijs01,   tengai,   s1945,    tengaij,  psikyo_state, tengai,   ROT0,   "Hacks",  "Sengoku Blade: Sengoku Ace Episode II / Tengai (Ex Super version)", MACHINE_SUPPORTS_SAVE ) 

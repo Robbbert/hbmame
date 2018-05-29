@@ -90,7 +90,7 @@ MACHINE_RESET_MEMBER( pacman_state, 96in1 )
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	m96in1_rombank_w( space, 0,0 );
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, hackypac )
@@ -98,14 +98,14 @@ MACHINE_RESET_MEMBER( pacman_state, hackypac )
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	multipac_gfxbank_w( space, 0,0 );
 	hackypac_rombank_w( space, 0,0 );
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, madpac )
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	madpac_rombank_w( space, 0,0 );
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, mschamp )
@@ -126,7 +126,7 @@ MACHINE_RESET_MEMBER( pacman_state, multipac )
 	multipac_rombank_w( space, 0, 0);
 	multipac_gfxbank_w( space, 0, 0);
 	multipac_palbank_w( space, 0, 0);
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 static uint8_t curr_bank = 0;
@@ -144,7 +144,7 @@ MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
 	pm4n1_rombank_w(space, 0, 0);
 	pm4n1_rombank_w(space, 1, 0);
 	pm4n1_rombank_w(space, 2, 0);
-	m_namco_sound->pacman_sound_enable_w(0);
+	m_namco_sound->sound_enable_w(0);
 }
 
 
@@ -621,27 +621,27 @@ INPUT_PORTS_END
  *
  *************************************/
 
-DRIVER_INIT_MEMBER( pacman_state, 96in1 )
+void pacman_state::init_96in1()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 16, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 16, &RAM[0x14000], 0x8000);
 }
 
-DRIVER_INIT_MEMBER( pacman_state, madpac )
+void pacman_state::init_madpac()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 32, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 32, &RAM[0x14000], 0x8000);
 }
 
-DRIVER_INIT_MEMBER( pacman_state, mspaceur )
+void pacman_state::init_mspaceur()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank2")->configure_entries(0, 2, &RAM[0x10000], 0x2000);
 }
 
-DRIVER_INIT_MEMBER( pacman_state, multipac )
+void pacman_state::init_multipac()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	RAM[0x10000] = 0xED;	/* It seems that IM0 is not working properly in MAME */
@@ -654,14 +654,14 @@ DRIVER_INIT_MEMBER( pacman_state, multipac )
 	membank("bank1")->set_entry(0);
 }
 
-DRIVER_INIT_MEMBER( pacman_state, pm4n1 )
+void pacman_state::init_pm4n1()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 5, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 5, &RAM[0x14000], 0x8000);
 }
 
-DRIVER_INIT_MEMBER( pacman_state, superabc )
+void pacman_state::init_superabc()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x10000], 0x10000);
@@ -677,37 +677,37 @@ DRIVER_INIT_MEMBER( pacman_state, superabc )
  Graphics layouts
  ********************************/
 
-static GFXDECODE_START( 96in1 )
+static GFXDECODE_START( gfx_96in1 )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x10000, spritelayout, 0, 32 )
 GFXDECODE_END
 
-static GFXDECODE_START( 96in1b )
+static GFXDECODE_START( gfx_96in1b )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 8*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x20000, spritelayout, 0, 8*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( hackypac )
+static GFXDECODE_START( gfx_hackypac )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 9*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x40000, spritelayout, 0, 9*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( madpac )
+static GFXDECODE_START( gfx_madpac )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 16*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x20000, spritelayout, 0, 16*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( multipac )
+static GFXDECODE_START( gfx_multipac )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 4*32 )
 	GFXDECODE_ENTRY( "gfx1", 0x10000, spritelayout, 0, 4*32 )
 GFXDECODE_END
 
-static GFXDECODE_START( pm4n1 )
+static GFXDECODE_START( gfx_pm4n1 )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x05000, spritelayout, 0, 32 )
 GFXDECODE_END
 
-static GFXDECODE_START( superabc )
+static GFXDECODE_START( gfx_superabc )
 	GFXDECODE_ENTRY( "gfx1", 0x00000, tilelayout,   0, 32 )
 	GFXDECODE_ENTRY( "gfx1", 0x08000, spritelayout, 0, 32 )
 GFXDECODE_END
@@ -723,22 +723,22 @@ GFXDECODE_END
 
 MACHINE_CONFIG_START( pacman_state::_96in1 )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(_96in1_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
+	MCFG_DEVICE_IO_MAP(_96in1_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::_96in1b )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(_96in1b_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
+	MCFG_DEVICE_IO_MAP(_96in1b_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", 96in1b)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1b)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(128*8)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*8)
@@ -751,11 +751,11 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::hackypac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(hackypac_map)
-	MCFG_CPU_IO_MAP(hackypac_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(hackypac_map)
+	MCFG_DEVICE_IO_MAP(hackypac_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, hackypac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", hackypac)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_hackypac)
 	MCFG_PALETTE_MODIFY("palette")
 	MCFG_PALETTE_ENTRIES(128*9)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*9)		// colour banks * 128 colour lookup codes (4a rom)
@@ -767,9 +767,9 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::madpac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(madpac_map)
-	MCFG_CPU_IO_MAP(madpac_writeport)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
+	MCFG_DEVICE_IO_MAP(madpac_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
@@ -778,37 +778,37 @@ MACHINE_CONFIG_START( pacman_state::madpac )
 	MCFG_PALETTE_ENTRIES(128*16)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*16)
 	MCFG_PALETTE_INIT_OWNER(pacman_state, multipac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", madpac)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_madpac)
 	MCFG_NVRAM_ADD_0FILL("nvram")
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mspaceur )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mspaceur_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mspaceur_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mspaceur)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mschamp )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mschamp_map)
-	MCFG_CPU_IO_MAP(zolapac_io)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mschamp_map)
+	MCFG_DEVICE_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mschampx )
 	pacmanx(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(mschamp_map)
-	MCFG_CPU_IO_MAP(zolapac_io)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(mschamp_map)
+	MCFG_DEVICE_IO_MAP(zolapac_io)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::multipac )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(multipac_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(multipac_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, multipac)
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
@@ -817,38 +817,38 @@ MACHINE_CONFIG_START( pacman_state::multipac )
 	MCFG_PALETTE_ENTRIES(128*4)
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*4)
 	MCFG_PALETTE_INIT_OWNER(pacman_state,multipac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", multipac)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_multipac)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1 )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(pm4n1_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(pm4n1_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1c )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(pm4n1c_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	MCFG_NVRAM_ADD_0FILL("nvram")
-	MCFG_GFXDECODE_MODIFY("gfxdecode", pm4n1)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1d )
 	pm4n1c(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(pm4n1d_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(pm4n1d_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::superabc )
 	pacman(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(superabc_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(superabc_map)
 	MCFG_NVRAM_ADD_0FILL("nvram")
-	MCFG_GFXDECODE_MODIFY("gfxdecode", superabc)
+	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_superabc)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
@@ -1875,31 +1875,31 @@ ROM_END
  *
  *************************************/
 
-GAME( 1995, mschamp,  mspacman, mschamp,  mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, mschamp,  mspacman, mschamp,  mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state,  madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state,  madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
 
 /* Other Misc Hacks */
 
-GAME( 1993, mspaceur, mspacman, mspaceur, mspacman, pacman_state,  mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi10,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi11,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi13,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
-GAME( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, mspaceur, mspacman, mspaceur, mspacman, pacman_state,  mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, multi10,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, multi11,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, multi13,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
+HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )

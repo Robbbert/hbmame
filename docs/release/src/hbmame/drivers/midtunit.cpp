@@ -347,16 +347,16 @@ ROM_START( mk2fr )
 ROM_END
 
 
-GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (rev L3.3 (prototype))", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Arkatrad", "Mortal Kombat (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "hack", "Mortal Kombat II v2.8 beta 1", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (rev L3.3 (prototype))", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Arkatrad", "Mortal Kombat (French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "hack", "Mortal Kombat II v2.8 beta 1", MACHINE_SUPPORTS_SAVE )
 
 //PSmame (c) gaston90
 
@@ -546,11 +546,11 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
-GAME( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Hacks", "Mortal Kombat (NEO ARC French Traduction Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Hacks", "Mortal Kombat (NEO ARC French Traduction Set 01)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat II
-GAME( 2007, mk2fr01,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2fr02,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2fr03,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2fr04,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mk2fr01,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mk2fr02,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mk2fr03,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mk2fr04,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Hacks", "Mortal Kombat II (NEO ARC French Traduction Set 04)", MACHINE_SUPPORTS_SAVE )
 
 

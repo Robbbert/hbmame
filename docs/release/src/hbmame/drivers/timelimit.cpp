@@ -28,28 +28,28 @@ INTERRUPT_GEN_MEMBER(timelimt_hbmame::hb_irq)
 	{
 		m_irq_state = (m_irq_state) ? false : true;
 		if (m_irq_state)
-			device.execute().set_input_line(INPUT_LINE_NMI, PULSE_LINE);
+			device.execute().pulse_input_line(INPUT_LINE_NMI, attotime::zero);
 	}
 }
 
 MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", Z80, 5000000)   /* 5.000 MHz */
-	MCFG_CPU_PROGRAM_MAP(main_map)
-	MCFG_CPU_IO_MAP(main_io_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", timelimt_hbmame, hb_irq)
+	MCFG_DEVICE_ADD("maincpu", Z80, 5000000)   /* 5.000 MHz */
+	MCFG_DEVICE_PROGRAM_MAP(main_map)
+	MCFG_DEVICE_IO_MAP(main_io_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", timelimt_hbmame, hb_irq)
 
-	MCFG_CPU_ADD("audiocpu", Z80,18432000/6)    /* 3.072 MHz */
-	MCFG_CPU_PROGRAM_MAP(sound_map)
-	MCFG_CPU_IO_MAP(sound_io_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", timelimt_state,  irq0_line_hold) /* ? */
+	MCFG_DEVICE_ADD("audiocpu", Z80,18432000/6)    /* 3.072 MHz */
+	MCFG_DEVICE_PROGRAM_MAP(sound_map)
+	MCFG_DEVICE_IO_MAP(sound_io_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", timelimt_state,  irq0_line_hold) /* ? */
 
 	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
 
 	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // IC15
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(timelimt_state, nmi_enable_w))
-	MCFG_ADDRESSABLE_LATCH_Q2_OUT_CB(WRITELINE(timelimt_state, coin_lockout_w))
+	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, timelimt_state, nmi_enable_w))
+	MCFG_ADDRESSABLE_LATCH_Q2_OUT_CB(WRITELINE(*this, timelimt_state, coin_lockout_w))
 	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(INPUTLINE("audiocpu", INPUT_LINE_RESET)) MCFG_DEVCB_INVERT
 	MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(NOOP) // probably flip screen
 	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(NOOP) // probably flip screen
@@ -65,20 +65,20 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_SCREEN_UPDATE_DRIVER(timelimt_state, screen_update)
 	MCFG_SCREEN_PALETTE("palette")
 
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", timelimt)
+	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_timelimt)
 	MCFG_PALETTE_ADD("palette", 64+32)
 	MCFG_PALETTE_INIT_OWNER(timelimt_state, timelimt)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 
 	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
 
-	MCFG_SOUND_ADD("ay1", AY8910, 18432000/12)
+	MCFG_DEVICE_ADD("ay1", AY8910, 18432000/12)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 
-	MCFG_SOUND_ADD("ay2", AY8910, 18432000/12)
-	MCFG_AY8910_PORT_A_READ_CB(DEVREAD8("soundlatch", generic_latch_8_device, read))
+	MCFG_DEVICE_ADD("ay2", AY8910, 18432000/12)
+	MCFG_AY8910_PORT_A_READ_CB(READ8("soundlatch", generic_latch_8_device, read))
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
 MACHINE_CONFIG_END
 
@@ -108,8 +108,8 @@ ROM_START( timelimit )
 
 	ROM_REGION( 0x0060, "proms", 0 )
 	ROM_LOAD( "clr.35", 0x0000, 0x0020, CRC(9c9e6073) SHA1(98496175bf19a8cdb0018705bc1a2193b8a782e1) )
-	ROM_LOAD( "clr.48", 0x0020, 0x0020, CRC(813e17c7) SHA1(25a65d8a841538748348368ebcfce101976406a9) )
-	ROM_LOAD( "clr.57", 0x0040, 0x0020, CRC(aaa6f23e) SHA1(9fcb6af82f725517e8eff86d748701f836a05eba) )
+	ROM_LOAD( "clrt.48", 0x0020, 0x0020, CRC(813e17c7) SHA1(25a65d8a841538748348368ebcfce101976406a9) )
+	ROM_LOAD( "clrt.57", 0x0040, 0x0020, CRC(aaa6f23e) SHA1(9fcb6af82f725517e8eff86d748701f836a05eba) )
 ROM_END
 
-GAME( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, 0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, init_0, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )

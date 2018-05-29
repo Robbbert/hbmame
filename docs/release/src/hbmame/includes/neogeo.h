@@ -46,6 +46,8 @@ class neogeo_state : public driver_device
 public:
 	neogeo_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
+		, m_use_cart_vectors(0)
+		, m_use_cart_audio(0)
 		, m_banked_cart(*this, "banked_cart")
 		, m_maincpu(*this, "maincpu")
 		, m_audiocpu(*this, "audiocpu")
@@ -68,8 +70,6 @@ public:
 		, m_sprgen(*this, "spritegen")
 		, m_soundlatch(*this, "soundlatch")
 		, m_soundlatch2(*this, "soundlatch2")
-		, m_use_cart_vectors(0)
-		, m_use_cart_audio(0)
 		, m_mslugx_prot(*this, "mslugx_prot")
 		, m_sma_prot(*this, "sma_prot")
 		, m_cmc_prot(*this, "cmc_prot")
@@ -83,6 +83,147 @@ public:
 		, m_kog_prot(*this, "kog_prot")
 		, m_out_digit(*this, "digit%u", 0U)
 	{ }
+
+	void hbmame_kog(machine_config &config);
+	void lbsp(machine_config &config);
+	void mvs(machine_config &config);
+	void neogeo_arcade(machine_config &config);
+	void neogeo_base(machine_config &config);
+	void neogeo_dial(machine_config &config);
+	void neogeo_imaze(machine_config &config);
+	void neogeo_kiz4p(machine_config &config);
+	void neogeo_kog(machine_config &config);
+	void neogeo_mj(machine_config &config);
+	void neogeo_noctrl(machine_config &config);
+	void neogeo_noslot(machine_config &config);
+	void no_watchdog(machine_config &config);
+	void samsho2sp(machine_config &config);
+
+	void init_bangbead();
+	void init_cmc42sfix();
+	void init_cmc50sfix();
+	void init_ct2k3sp();
+	void init_ct2k3sa();
+	void init_cthd2003();
+	void init_cthd2k3a();
+	void init_dbdrsp();
+	void init_fatfury2();
+	void init_fr2ch();
+	void init_ganryu();
+	void init_garou();
+	void init_garouh();
+	void init_garoubl();
+	void init_garoud();
+	void init_irrmaze();
+	void init_jckeygpd();
+	void init_jockeygp();
+	void init_kf10thep();
+	void init_kf2k1pa();
+	void init_kf2k2mp();
+	void init_kf2k2mp2();
+	void init_kf2k2pls();
+	void init_kf2k3bl();
+	void init_kf2k3pcb();
+	void init_kf2k3pl();
+	void init_kf2k3upl();
+	void init_kf2k5uni();
+	void init_kof10th();
+	void init_kof10thu();
+	void init_kof2k2bd();
+	void init_kof2k2pl17();
+	void init_kof2k3fd();
+	void init_kof2k3hd();
+	void init_kof2k3pcd();
+	void init_kof2k4pls();
+	void init_kof2k4se();
+	void init_kof2kbsd();
+	void init_kof2knd();
+	void init_kof2kxxx();
+	void init_kof95sp();
+	void init_kof96ep();
+	void init_kof97pla();
+	void init_kof97oro();
+	void init_kof98();
+	void init_kof98pfe();
+	void init_kof99();
+	void init_kof99hb();
+	void init_kof99k();
+	void init_kof2000();
+	void init_kof2000d();
+	void init_kof2000h();
+	void init_kof2000m();
+	void init_kof2000n();
+	void init_kof2001();
+	void init_kof2001hb();
+	void init_kof2002();
+	void init_kof2002b();
+	void init_kof2002hb();
+	void init_kof2003();
+	void init_kof2003h();
+	void init_kof2003b();
+	void init_kof2003hb();
+	void init_kog();
+	void init_kogd();
+	void init_lans2004();
+	void init_lbsp();
+	void init_matrim();
+	void init_matrima();
+	void init_matrimbl();
+	void init_matrimd();
+	void init_matrmehc();
+	void init_mslug3();
+	void init_mslug3b6();
+	void init_mslug3d();
+	void init_mslug3fr();
+	void init_mslug3h();
+	void init_mslug3n();
+	void init_mslug4();
+	void init_mslug4hb();
+	void init_mslug5();
+	void init_mslug5b();
+	void init_mslug5hb();
+	void init_mslugx();
+	void init_ms4plus();
+	void init_ms5pcb();
+	void init_ms5pcbd();
+	void init_ms5plus();
+	void init_mvs();
+	void init_neogeo();
+	void init_nitd();
+	void init_pnyaa();
+	void init_pnyaad();
+	void init_preisle2();
+	void init_rotd();
+	void init_rotdb();
+	void init_rotdd();
+	void init_rotdnd();
+	void init_s1945p();
+	void init_sam5hb();
+	void init_sam5sphb();
+	void init_sam5sphb2();
+	void init_samsh5sp();
+	void init_samsho5();
+	void init_samsho5b();
+	void init_sbp();
+	void init_sengo3d();
+	void init_sengoku3();
+	void init_shockt2w();
+	void init_svc();
+	void init_svchb();
+	void init_svcboot();
+	void init_svcpcb();
+	void init_svcpcd();
+	void init_svcplus();
+	void init_svcplusa();
+	void init_svcsplus();
+	void init_vliner();
+	void init_zupapa();
+	DECLARE_CUSTOM_INPUT_MEMBER(get_memcard_status);
+	DECLARE_CUSTOM_INPUT_MEMBER(get_audio_result);
+	DECLARE_CUSTOM_INPUT_MEMBER(kizuna4p_start_r);
+	DECLARE_INPUT_CHANGED_MEMBER(select_bios);
+
+private:
 
 	DECLARE_WRITE8_MEMBER(io_control_w);
 	DECLARE_READ16_MEMBER(memcard_r);
@@ -100,41 +241,14 @@ public:
 	READ16_MEMBER(banked_vectors_r);
 	DECLARE_READ16_MEMBER(in0_r);
 	DECLARE_READ16_MEMBER(in1_r);
-
-	void set_slot_number(int slot);
-
-	DECLARE_CUSTOM_INPUT_MEMBER(get_memcard_status);
-	DECLARE_CUSTOM_INPUT_MEMBER(get_audio_result);
+	DECLARE_WRITE16_MEMBER(save_ram_w);
 
 	TIMER_CALLBACK_MEMBER(display_position_interrupt_callback);
 	TIMER_CALLBACK_MEMBER(display_position_vblank_callback);
 	TIMER_CALLBACK_MEMBER(vblank_interrupt_callback);
 
-	// MVS-specific
-	DECLARE_WRITE16_MEMBER(save_ram_w);
-	DECLARE_CUSTOM_INPUT_MEMBER(kizuna4p_start_r);
-	DECLARE_INPUT_CHANGED_MEMBER(select_bios);
-
 	uint32_t screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
-	DECLARE_DRIVER_INIT(neogeo);
-	DECLARE_DRIVER_INIT(mvs);
-
-	optional_device<neogeo_banked_cart_device> m_banked_cart;
-
-	void neogeo_base(machine_config &config);
-	void neogeo_arcade(machine_config &config);
-	void mvs(machine_config &config);
-	void neogeo_noslot(machine_config &config);
-	void neogeo_kog(machine_config &config);
-	void neogeo_mj(machine_config &config);
-	void neogeo_dial(machine_config &config);
-	void neogeo_imaze(machine_config &config);
-	void neogeo_kiz4p(machine_config &config);
-	void neogeo_noctrl(machine_config &config);
-	void no_watchdog(machine_config &config);
-	void samsho2sp(machine_config &config);
-	void lbsp(machine_config &config);
 	void neogeo_main_map(address_map &map);
 	void main_map_slot(address_map &map);
 	void audio_map(address_map &map);
@@ -144,7 +258,6 @@ public:
 	void lbsp_map(address_map &map);
 	void main_map1(address_map &map);
 
-protected:
 	void neogeo_postload();
 	void update_interrupts();
 	void create_interrupt_timers();
@@ -170,30 +283,10 @@ protected:
 	void set_output_latch( uint8_t data );
 	void set_output_data( uint8_t data );
 
-
-	// device overrides
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 
-	// devices
-	required_device<cpu_device> m_maincpu;
-	required_device<cpu_device> m_audiocpu;
-
-	// memory
-	required_memory_region m_region_maincpu;
-	required_memory_region m_region_sprites;
-	required_memory_region m_region_fixed;
-	optional_memory_region m_region_fixedbios;
-	optional_memory_bank   m_bank_audio_main; // optional because of neocd
 	memory_bank           *m_bank_audio_cart[4];
-
-	// MVS-specific devices
-	optional_device<upd4990a_device> m_upd4990a;
-	optional_shared_ptr<uint16_t> m_save_ram;
-
-	required_device<screen_device> m_screen;
-	optional_device<palette_device> m_palette;
-	optional_device<ng_memcard_device> m_memcard;
 
 	// configuration
 	enum {NEOGEO_MVS, NEOGEO_AES, NEOGEO_CD} m_type;
@@ -211,17 +304,7 @@ protected:
 	uint8_t      m_led1_value;
 	uint8_t      m_led2_value;
 
-	optional_ioport m_dsw;
-	optional_ioport m_trackx;
-	optional_ioport m_tracky;
-	optional_device<neogeo_ctrl_edge_port_device> m_edge;
-	optional_device<neogeo_control_port_device> m_ctrl1;
-	optional_device<neogeo_control_port_device> m_ctrl2;
-
-	// video hardware, including maincpu interrupts
-	// TODO: make into a device
 	virtual void video_start() override;
-	virtual void video_reset() override;
 
 	emu_timer  *m_display_position_interrupt_timer;
 	emu_timer  *m_display_position_vblank_timer;
@@ -234,9 +317,6 @@ protected:
 	uint8_t      m_vblank_level;
 	uint8_t      m_raster_level;
 
-	required_device<neosprite_device> m_sprgen;
-	optional_device<generic_latch_8_device> m_soundlatch;
-	optional_device<generic_latch_8_device> m_soundlatch2;
 	uint16_t get_video_control(  );
 
 	// color/palette related
@@ -246,81 +326,35 @@ protected:
 	int          m_screen_shadow;
 	int          m_palette_bank;
 
-	int m_use_cart_vectors;
-	int m_use_cart_audio;
-
-
-public:
 	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_r);
 	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_bectors_r);
 
-	DECLARE_DRIVER_INIT(fatfury2);
-	DECLARE_DRIVER_INIT(zupapa);
-	DECLARE_DRIVER_INIT(kof98);
-	DECLARE_DRIVER_INIT(mslugx);
-	DECLARE_DRIVER_INIT(kof99);
-	DECLARE_DRIVER_INIT(kof99k);
-	DECLARE_DRIVER_INIT(garou);
-	DECLARE_DRIVER_INIT(garouh);
-	DECLARE_DRIVER_INIT(garoubl);
-	DECLARE_DRIVER_INIT(mslug3);
-	DECLARE_DRIVER_INIT(mslug3h);
-	DECLARE_DRIVER_INIT(mslug3b6);
-	DECLARE_DRIVER_INIT(kof2000);
-	DECLARE_DRIVER_INIT(kof2000n);
-	DECLARE_DRIVER_INIT(kof2001);
-	DECLARE_DRIVER_INIT(cthd2003);
-	DECLARE_DRIVER_INIT(ct2k3sp);
-	DECLARE_DRIVER_INIT(ct2k3sa);
-	DECLARE_DRIVER_INIT(mslug4);
-	DECLARE_DRIVER_INIT(ms4plus);
-	DECLARE_DRIVER_INIT(ganryu);
-	DECLARE_DRIVER_INIT(s1945p);
-	DECLARE_DRIVER_INIT(preisle2);
-	DECLARE_DRIVER_INIT(bangbead);
-	DECLARE_DRIVER_INIT(nitd);
-	DECLARE_DRIVER_INIT(sengoku3);
-	DECLARE_DRIVER_INIT(rotd);
-	DECLARE_DRIVER_INIT(kof2002);
-	DECLARE_DRIVER_INIT(kof2002b);
-	DECLARE_DRIVER_INIT(kf2k2pls);
-	DECLARE_DRIVER_INIT(kf2k2mp);
-	DECLARE_DRIVER_INIT(kf2k2mp2);
-	DECLARE_DRIVER_INIT(kof10th);
-	DECLARE_DRIVER_INIT(kf10thep);
-	DECLARE_DRIVER_INIT(kf2k5uni);
-	DECLARE_DRIVER_INIT(kof2k4se);
-	DECLARE_DRIVER_INIT(matrim);
-	DECLARE_DRIVER_INIT(matrimbl);
-	DECLARE_DRIVER_INIT(pnyaa);
-	DECLARE_DRIVER_INIT(mslug5);
-	DECLARE_DRIVER_INIT(ms5pcb);
-	DECLARE_DRIVER_INIT(ms5plus);
-	DECLARE_DRIVER_INIT(svcpcb);
-	DECLARE_DRIVER_INIT(svc);
-	DECLARE_DRIVER_INIT(svcboot);
-	DECLARE_DRIVER_INIT(svcplus);
-	DECLARE_DRIVER_INIT(svcplusa);
-	DECLARE_DRIVER_INIT(svcsplus);
-	DECLARE_DRIVER_INIT(samsho5);
-	DECLARE_DRIVER_INIT(samsho5b);
-	DECLARE_DRIVER_INIT(kf2k3pcb);
-	DECLARE_DRIVER_INIT(kof2003);
-	DECLARE_DRIVER_INIT(kof2003h);
-	DECLARE_DRIVER_INIT(kf2k3bl);
-	DECLARE_DRIVER_INIT(kf2k3pl);
-	DECLARE_DRIVER_INIT(kf2k3upl);
-	DECLARE_DRIVER_INIT(samsh5sp);
-	DECLARE_DRIVER_INIT(jockeygp);
-	DECLARE_DRIVER_INIT(vliner);
-	DECLARE_DRIVER_INIT(kof97oro);
-	DECLARE_DRIVER_INIT(lans2004);
-	DECLARE_DRIVER_INIT(sbp);
-	DECLARE_DRIVER_INIT(irrmaze);
-
 	void install_banked_bios();
 
-	// legacy
+	int m_use_cart_vectors;
+	int m_use_cart_audio;
+	optional_device<neogeo_banked_cart_device> m_banked_cart;
+	required_device<cpu_device> m_maincpu;
+	required_device<cpu_device> m_audiocpu;
+	required_memory_region m_region_maincpu;
+	required_memory_region m_region_sprites;
+	required_memory_region m_region_fixed;
+	optional_memory_region m_region_fixedbios;
+	optional_memory_bank   m_bank_audio_main; // optional because of neocd
+	optional_device<upd4990a_device> m_upd4990a;
+	optional_shared_ptr<uint16_t> m_save_ram;
+	required_device<screen_device> m_screen;
+	optional_device<palette_device> m_palette;
+	optional_device<ng_memcard_device> m_memcard;
+	optional_ioport m_dsw;
+	optional_ioport m_trackx;
+	optional_ioport m_tracky;
+	optional_device<neogeo_ctrl_edge_port_device> m_edge;
+	optional_device<neogeo_control_port_device> m_ctrl1;
+	optional_device<neogeo_control_port_device> m_ctrl2;
+	required_device<neosprite_device> m_sprgen;
+	optional_device<generic_latch_8_device> m_soundlatch;
+	optional_device<generic_latch_8_device> m_soundlatch2;
 	optional_device<mslugx_prot_device> m_mslugx_prot;
 	optional_device<sma_prot_device> m_sma_prot;
 	optional_device<cmc_prot_device> m_cmc_prot;
@@ -331,66 +365,8 @@ public:
 	optional_device<fatfury2_prot_device> m_fatfury2_prot;
 	optional_device<kof98_prot_device> m_kof98_prot;
 	optional_device<sbp_prot_device> m_sbp_prot;
-public:
-
-	DECLARE_DRIVER_INIT(kog);
-
 	optional_device<kog_prot_device> m_kog_prot;
 	output_finder<5> m_out_digit;
-	void hbmame_kog(machine_config &config);
-	DECLARE_DRIVER_INIT(cmc42sfix);
-	DECLARE_DRIVER_INIT(cmc50sfix);
-	DECLARE_DRIVER_INIT(cthd2k3a);
-	DECLARE_DRIVER_INIT(dbdrsp);
-	DECLARE_DRIVER_INIT(fr2ch);
-	DECLARE_DRIVER_INIT(garoud);
-	DECLARE_DRIVER_INIT(jckeygpd);
-	DECLARE_DRIVER_INIT(kof95sp);
-	DECLARE_DRIVER_INIT(kof96ep);
-	DECLARE_DRIVER_INIT(kof97pla);
-	DECLARE_DRIVER_INIT(kof98pfe);
-	DECLARE_DRIVER_INIT(kof99hb);
-	DECLARE_DRIVER_INIT(kof2000d);
-	DECLARE_DRIVER_INIT(kof2000h);
-	DECLARE_DRIVER_INIT(kof2000m);
-	DECLARE_DRIVER_INIT(kof2kbsd);
-	DECLARE_DRIVER_INIT(kof2knd);
-	DECLARE_DRIVER_INIT(kof2kxxx);
-	DECLARE_DRIVER_INIT(kf2k1pa);
-	DECLARE_DRIVER_INIT(kof2001hb);
-	DECLARE_DRIVER_INIT(kof2002hb);
-	DECLARE_DRIVER_INIT(kof2k2bd);
-	DECLARE_DRIVER_INIT(kof2k2pl17);
-	DECLARE_DRIVER_INIT(kof2003b);
-	DECLARE_DRIVER_INIT(kof2003hb);
-	DECLARE_DRIVER_INIT(kof2k3fd);
-	DECLARE_DRIVER_INIT(kof2k3hd);
-	DECLARE_DRIVER_INIT(kof2k3pcd);
-	DECLARE_DRIVER_INIT(kof2k4pls);
-	DECLARE_DRIVER_INIT(kof10thu);
-	DECLARE_DRIVER_INIT(kogd);
-	DECLARE_DRIVER_INIT(lbsp);
-	DECLARE_DRIVER_INIT(matrima);
-	DECLARE_DRIVER_INIT(matrimd);
-	DECLARE_DRIVER_INIT(matrmehc);
-	DECLARE_DRIVER_INIT(mslug3d);
-	DECLARE_DRIVER_INIT(mslug3fr);
-	DECLARE_DRIVER_INIT(mslug3n);
-	DECLARE_DRIVER_INIT(mslug4hb);
-	DECLARE_DRIVER_INIT(mslug5b);
-	DECLARE_DRIVER_INIT(mslug5hb);
-	DECLARE_DRIVER_INIT(ms5pcbd);
-	DECLARE_DRIVER_INIT(pnyaad);
-	DECLARE_DRIVER_INIT(rotdb);
-	DECLARE_DRIVER_INIT(rotdd);
-	DECLARE_DRIVER_INIT(rotdnd);
-	DECLARE_DRIVER_INIT(sam5hb);
-	DECLARE_DRIVER_INIT(sam5sphb);
-	DECLARE_DRIVER_INIT(sam5sphb2);
-	DECLARE_DRIVER_INIT(sengo3d);
-	DECLARE_DRIVER_INIT(shockt2w);
-	DECLARE_DRIVER_INIT(svchb);
-	DECLARE_DRIVER_INIT(svcpcd);
 };
 
 /*----------- defined in drivers/neogeo.c -----------*/
@@ -435,63 +411,72 @@ INPUT_PORTS_EXTERN(dualbios);
 		ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_OPTIONAL | ROM_BIOS(bios+1)) /* Note '+1' */
 
 #define NEOGEO_UNIBIOS(x) \
-	ROM_SYSTEM_BIOS( x+ 0, "unibios32", "Universe Bios (Hack, Ver. 3.2)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 0, "uni-bios_3_2.rom",  0x00000, 0x020000, CRC(a4e8b9b3) SHA1(c92f18c3f1edda543d264ecd0ea915240e7c8258) ) /* Universe Bios v3.2 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 1, "unibios31", "Universe Bios (Hack, Ver. 3.1)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 1, "uni-bios_3_1.rom",  0x00000, 0x020000, CRC(0c58093f) SHA1(29329a3448c2505e1ff45ffa75e61e9693165153) ) /* Universe Bios v3.1 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 2, "unibios30", "Universe Bios (Hack, Ver. 3.0)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 2, "uni-bios_3_0.rom",  0x00000, 0x020000, CRC(a97c89a9) SHA1(97a5eff3b119062f10e31ad6f04fe4b90d366e7f) ) /* Universe Bios v3.0 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 3, "unibios23", "Universe Bios (Hack, Ver. 2.3)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 3, "uni-bios_2_3.rom",  0x00000, 0x020000, CRC(27664eb5) SHA1(5b02900a3ccf3df168bdcfc98458136fd2b92ac0) ) /* Universe Bios v2.3 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 4, "unibios23o", "Universe Bios (Hack, Ver. 2.3, older?)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 4, "uni-bios_2_3o.rom", 0x00000, 0x020000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) ) /* Universe Bios v2.3 (hack) alt version, withdrawn? */ \
-	ROM_SYSTEM_BIOS( x+ 5, "unibios22", "Universe Bios (Hack, Ver. 2.2)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 5, "uni-bios_2_2.rom",  0x00000, 0x020000, CRC(2d50996a) SHA1(5241a4fb0c63b1a23fd1da8efa9c9a9bd3b4279c) ) /* Universe Bios v2.2 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 6, "unibios21", "Universe Bios (Hack, Ver. 2.1)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 6, "uni-bios_2_1.rom",  0x00000, 0x020000, CRC(8dabf76b) SHA1(c23732c4491d966cf0373c65c83c7a4e88f0082c) ) /* Universe Bios v2.1 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 7, "unibios20", "Universe Bios (Hack, Ver. 2.0)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 7, "uni-bios_2_0.rom",  0x00000, 0x020000, CRC(0c12c2ad) SHA1(37bcd4d30f3892078b46841d895a6eff16dc921e) ) /* Universe Bios v2.0 (hack) */ \
-	ROM_SYSTEM_BIOS( x+ 8, "unibios13", "Universe Bios (Hack, Ver. 1.3)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 8, "uni-bios_1_3.rom",  0x00000, 0x020000, CRC(b24b44a0) SHA1(eca8851d30557b97c309a0d9f4a9d20e5b14af4e) ) /* Universe Bios v1.3 (hack) */
+	ROM_SYSTEM_BIOS( x+ 0, "unibios33", "Universe Bios (Hack, Ver. 3.3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 0, "uni-bios_3_3.rom",  0x00000, 0x020000, CRC(24858466) SHA1(0ad92efb0c2338426635e0159d1f60b4473d0785) ) /* Universe Bios v3.3 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 1, "unibios32", "Universe Bios (Hack, Ver. 3.2)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 1, "uni-bios_3_2.rom",  0x00000, 0x020000, CRC(a4e8b9b3) SHA1(c92f18c3f1edda543d264ecd0ea915240e7c8258) ) /* Universe Bios v3.2 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 2, "unibios31", "Universe Bios (Hack, Ver. 3.1)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 2, "uni-bios_3_1.rom",  0x00000, 0x020000, CRC(0c58093f) SHA1(29329a3448c2505e1ff45ffa75e61e9693165153) ) /* Universe Bios v3.1 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 3, "unibios30", "Universe Bios (Hack, Ver. 3.0)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 3, "uni-bios_3_0.rom",  0x00000, 0x020000, CRC(a97c89a9) SHA1(97a5eff3b119062f10e31ad6f04fe4b90d366e7f) ) /* Universe Bios v3.0 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 4, "unibios23", "Universe Bios (Hack, Ver. 2.3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 4, "uni-bios_2_3.rom",  0x00000, 0x020000, CRC(27664eb5) SHA1(5b02900a3ccf3df168bdcfc98458136fd2b92ac0) ) /* Universe Bios v2.3 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 5, "unibios23o", "Universe Bios (Hack, Ver. 2.3, older?)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 5, "uni-bios_2_3o.rom", 0x00000, 0x020000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) ) /* Universe Bios v2.3 (hack) alt version, withdrawn? */ \
+	ROM_SYSTEM_BIOS( x+ 6, "unibios22", "Universe Bios (Hack, Ver. 2.2)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 6, "uni-bios_2_2.rom",  0x00000, 0x020000, CRC(2d50996a) SHA1(5241a4fb0c63b1a23fd1da8efa9c9a9bd3b4279c) ) /* Universe Bios v2.2 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 7, "unibios21", "Universe Bios (Hack, Ver. 2.1)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 7, "uni-bios_2_1.rom",  0x00000, 0x020000, CRC(8dabf76b) SHA1(c23732c4491d966cf0373c65c83c7a4e88f0082c) ) /* Universe Bios v2.1 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 8, "unibios20", "Universe Bios (Hack, Ver. 2.0)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 8, "uni-bios_2_0.rom",  0x00000, 0x020000, CRC(0c12c2ad) SHA1(37bcd4d30f3892078b46841d895a6eff16dc921e) ) /* Universe Bios v2.0 (hack) */ \
+	ROM_SYSTEM_BIOS( x+ 9, "unibios13", "Universe Bios (Hack, Ver. 1.3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+ 9, "uni-bios_1_3.rom",  0x00000, 0x020000, CRC(b24b44a0) SHA1(eca8851d30557b97c309a0d9f4a9d20e5b14af4e) ) /* Universe Bios v1.3 (hack) */
 #define NEOGEO_UNIBIOS_1_2_AND_OLDER(x) \
-	ROM_SYSTEM_BIOS( x+ 9, "unibios12", "Universe Bios (Hack, Ver. 1.2)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+ 9, "uni-bios_1_2.rom",  0x00000, 0x020000, CRC(4fa698e9) SHA1(682e13ec1c42beaa2d04473967840c88fd52c75a) ) /* Universe Bios v1.2 (hack) */ \
-	ROM_SYSTEM_BIOS( x+10, "unibios12o", "Universe Bios (Hack, Ver. 1.2, older)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+10, "uni-bios_1_2o.rom", 0x00000, 0x020000, CRC(e19d3ce9) SHA1(af88ef837f44a3af2d7144bb46a37c8512b67770) ) /* Universe Bios v1.2 (hack) alt version */ \
-	ROM_SYSTEM_BIOS( x+11, "unibios11", "Universe Bios (Hack, Ver. 1.1)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+11, "uni-bios_1_1.rom",  0x00000, 0x020000, CRC(5dda0d84) SHA1(4153d533c02926a2577e49c32657214781ff29b7) ) /* Universe Bios v1.1 (hack) */ \
-	ROM_SYSTEM_BIOS( x+12, "unibios10", "Universe Bios (Hack, Ver. 1.0)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( x+12, "uni-bios_1_0.rom",  0x00000, 0x020000, CRC(0ce453a0) SHA1(3b4c0cd26c176fc6b26c3a2f95143dd478f6abf9) ) /* Universe Bios v1.0 (hack) */
+	ROM_SYSTEM_BIOS( x+10, "unibios12", "Universe Bios (Hack, Ver. 1.2)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+10, "uni-bios_1_2.rom",  0x00000, 0x020000, CRC(4fa698e9) SHA1(682e13ec1c42beaa2d04473967840c88fd52c75a) ) /* Universe Bios v1.2 (hack) */ \
+	ROM_SYSTEM_BIOS( x+11, "unibios12o", "Universe Bios (Hack, Ver. 1.2, older)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+11, "uni-bios_1_2o.rom", 0x00000, 0x020000, CRC(e19d3ce9) SHA1(af88ef837f44a3af2d7144bb46a37c8512b67770) ) /* Universe Bios v1.2 (hack) alt version */ \
+	ROM_SYSTEM_BIOS( x+12, "unibios11", "Universe Bios (Hack, Ver. 1.1)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+12, "uni-bios_1_1.rom",  0x00000, 0x020000, CRC(5dda0d84) SHA1(4153d533c02926a2577e49c32657214781ff29b7) ) /* Universe Bios v1.1 (hack) */ \
+	ROM_SYSTEM_BIOS( x+13, "unibios10", "Universe Bios (Hack, Ver. 1.0)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x+13, "uni-bios_1_0.rom",  0x00000, 0x020000, CRC(0ce453a0) SHA1(3b4c0cd26c176fc6b26c3a2f95143dd478f6abf9) ) /* Universe Bios v1.0 (hack) */
 
 #define NEOGEO_BIOS \
 	ROM_REGION16_BE( 0x80000, "mainbios", 0 ) \
 	ROM_SYSTEM_BIOS( 0, "euro", "Europe MVS (Ver. 2)" ) \
-		ROMX_LOAD("euro_s1", 0, 0x20000, CRC(9036d879) SHA1(4f5ed7105b7128794654ce82b51723e16e389543), ROM_GROUPWORD | ROM_REVERSE | ROM_OPTIONAL | ROM_BIOS(1)) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 0, "sp-s2.sp1",         0x00000, 0x020000, CRC(9036d879) SHA1(4f5ed7105b7128794654ce82b51723e16e389543) ) /* 5 Dark Blue - Europe, 1 Slot, has also been found on 2 Slot and 4 Slot (the old hacks were designed for this one) */ \
 	ROM_SYSTEM_BIOS( 1, "euro-s1", "Europe MVS (Ver. 1)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 1, "sp-s.sp1",          0x00000, 0x020000, CRC(c7f2fa45) SHA1(09576ff20b4d6b365e78e6a5698ea450262697cd) ) /* Europe, 4 Slot */ \
-	ROM_SYSTEM_BIOS( 2, "us", "US MVS (Ver. 2?)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 2, "sp-u2.sp1",         0x00000, 0x020000, CRC(e72943de) SHA1(5c6bba07d2ec8ac95776aa3511109f5e1e2e92eb) ) /* US, 2 Slot */ \
-	ROM_SYSTEM_BIOS( 3, "us-e", "US MVS (Ver. 1)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 3, "sp-e.sp1",          0x00000, 0x020000, CRC(2723a5b5) SHA1(5dbff7531cf04886cde3ef022fb5ca687573dcb8) ) /* US, 6 Slot (V5?) */ \
-	ROM_SYSTEM_BIOS( 4, "us-v2", "US MVS (4 slot, Ver 2)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 4, "v2.bin",            0x00000, 0x020000, CRC(62f021f4) SHA1(62d372269e1b3161c64ae21123655a0a22ffd1bb) ) /* US, 4 slot */ \
-	ROM_SYSTEM_BIOS( 5, "asia", "Asia MVS (Ver. 3)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 5, "asia-s3.rom",       0x00000, 0x020000, CRC(91b64be3) SHA1(720a3e20d26818632aedf2c2fd16c54f213543e1) ) /* Asia */ \
-	ROM_SYSTEM_BIOS( 6, "japan", "Japan MVS (Ver. 3)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 6, "vs-bios.rom",       0x00000, 0x020000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) ) /* Japan, Ver 6 VS Bios */ \
-	ROM_SYSTEM_BIOS( 7, "japan-s2", "Japan MVS (Ver. 2)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 7, "sp-j2.sp1",         0x00000, 0x020000, CRC(acede59c) SHA1(b6f97acd282fd7e94d9426078a90f059b5e9dd91) ) /* Japan, Older */ \
-	ROM_SYSTEM_BIOS( 8, "japan-s1", "Japan MVS (Ver. 1)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 8, "sp1.jipan.1024",    0x00000, 0x020000, CRC(9fb0abe4) SHA1(18a987ce2229df79a8cf6a84f968f0e42ce4e59d) ) /* Japan, Older */ \
-	ROM_SYSTEM_BIOS( 9, "mv1c", "NEO-MVH MV1C" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 9, "sp-45.sp1",         0x00000, 0x080000, CRC(03cc9f6a) SHA1(cdf1f49e3ff2bac528c21ed28449cf35b7957dc1) ) /* Latest Asia bios */ \
-	ROM_SYSTEM_BIOS( 10, "japan-j3", "Japan MVS (J3)" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 10, "japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) ) /* Latest Japan bios; correct chip label unknown */ \
-	ROM_SYSTEM_BIOS( 11, "japan-hotel", "Custom Japanese Hotel" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 11, "sp-1v1_3db8c.bin", 0x00000, 0x020000, CRC(162f0ebe) SHA1(fe1c6dd3dfcf97d960065b1bb46c1e11cb7bf271) ) /* 'rare MVS found in japanese hotels' shows v1.3 in test mode */ \
+	ROM_LOAD16_WORD_SWAP_BIOS( 1, "sp-s.sp1",          0x00000, 0x020000, CRC(c7f2fa45) SHA1(09576ff20b4d6b365e78e6a5698ea450262697cd) ) /* 3 Dark Blue - Europe, 4 Slot */ \
 	\
-	NEOGEO_UNIBIOS(12) \
-	NEOGEO_UNIBIOS_1_2_AND_OLDER(12)
+	ROM_SYSTEM_BIOS( 2, "us", "US MVS (Ver. 2?)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 2, "sp-u2.sp1",         0x00000, 0x020000, CRC(e72943de) SHA1(5c6bba07d2ec8ac95776aa3511109f5e1e2e92eb) ) /* 5 Cyan - US, 2 Slot */ \
+	ROM_SYSTEM_BIOS( 3, "us-e", "US MVS (Ver. 1)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 3, "sp-e.sp1",          0x00000, 0x020000, CRC(2723a5b5) SHA1(5dbff7531cf04886cde3ef022fb5ca687573dcb8) ) /* 5 Yellow - US, 6 Slot (V5?) */ \
+	ROM_SYSTEM_BIOS( 4, "us-v2", "US MVS (4 slot, Ver 2)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 4, "v2.bin",            0x00000, 0x020000, CRC(62f021f4) SHA1(62d372269e1b3161c64ae21123655a0a22ffd1bb) ) /* 3 Cyan - US, 4 slot */ \
+	ROM_SYSTEM_BIOS( 5, "us-u3", "US MVS (U3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 5, "sp1-u3.bin",        0x00000, 0x020000, CRC(2025b7a2) SHA1(73d774746196f377111cd7aa051cc8bb5dd948b3) ) /* 2 Green - 6 Slot */ \
+	\
+	ROM_SYSTEM_BIOS( 6, "asia", "Asia MVS (Ver. 3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 6, "asia-s3.rom",       0x00000, 0x020000, CRC(91b64be3) SHA1(720a3e20d26818632aedf2c2fd16c54f213543e1) ) /* 6 Dark Blue - Asia */ \
+	\
+	ROM_SYSTEM_BIOS( 7, "japan", "Japan MVS (Ver. 3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 7, "vs-bios.rom",       0x00000, 0x020000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) ) /* 6 Red - Japan, Ver 6 VS Bios */ \
+	ROM_SYSTEM_BIOS( 8, "japan-s2", "Japan MVS (Ver. 2)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 8, "sp-j2.sp1",         0x00000, 0x020000, CRC(acede59c) SHA1(b6f97acd282fd7e94d9426078a90f059b5e9dd91) ) /* 5 Red - Japan, Older */ \
+	ROM_SYSTEM_BIOS( 9, "japan-s1", "Japan MVS (Ver. 1)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 9, "sp1.jipan.1024",    0x00000, 0x020000, CRC(9fb0abe4) SHA1(18a987ce2229df79a8cf6a84f968f0e42ce4e59d) ) /* 3 Red - Japan, Older */ \
+	ROM_SYSTEM_BIOS( 10, "mv1c", "NEO-MVH MV1C" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 10, "sp-45.sp1",        0x00000, 0x080000, CRC(03cc9f6a) SHA1(cdf1f49e3ff2bac528c21ed28449cf35b7957dc1) ) /* 6 Dark Blue - Latest Asia bios (overdump?) */ \
+	ROM_SYSTEM_BIOS( 11, "japan-j3", "Japan MVS (J3)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 11, "japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) ) /* 6 Red - Latest Japan bios; correct chip label unknown */ \
+	ROM_SYSTEM_BIOS( 12, "japan-hotel", "Custom Japanese Hotel" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 12, "sp-1v1_3db8c.bin", 0x00000, 0x020000, CRC(162f0ebe) SHA1(fe1c6dd3dfcf97d960065b1bb46c1e11cb7bf271) ) /* 6 Red - 'rare MVS found in japanese hotels' shows v1.3 in test mode */ \
+	ROM_SYSTEM_BIOS( 13, "japan-j3a", "Japan MVS (J3, alt)" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( 13, "sp1-j3.bin",       0x00000, 0x020000, CRC(fbc6d469) SHA1(46b2b409b5b68869e367b40c846373623edb632a) ) /* 2 Red - 6 Slot */ \
+	\
+	NEOGEO_UNIBIOS(14) \
+	NEOGEO_UNIBIOS_1_2_AND_OLDER(14)
 
 
 #define NEO_BIOS_AUDIO_64K(name, hash) \

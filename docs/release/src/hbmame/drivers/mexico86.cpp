@@ -55,4 +55,4 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // KiKi KaiKai
-GAME( 1986, kikikais01,  kikikai,        kikikai,  kikikai,  mexico86_state, 0, ROT90, "Hacks",  "KiKi KaiKai (Translation Chinese)",                                 MACHINE_SUPPORTS_SAVE )
+HACK( 1986, kikikais01,  kikikai,        kikikai,  kikikai,  mexico86_state, 0, ROT90, "Hacks",  "KiKi KaiKai (Translation Chinese)",                                 MACHINE_SUPPORTS_SAVE )

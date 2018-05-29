@@ -54,5 +54,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gain Ground
-GAME( 1988, ggrounds01,   gground,  system24_floppy_fd1094, gground,  segas24_state, gground,  ROT270, "Hacks", "Gain Ground (Bug Fix)", 0 )
-GAME( 1988, ggroundjs01,  gground,  system24_floppy_fd1094, gground,  segas24_state, gground,  ROT270, "Hacks", "Gain Ground (V.Japon Bug Fix)", 0 )
+HACK( 1988, ggrounds01,   gground,  system24_floppy_fd1094, gground,  segas24_state, gground,  ROT270, "Hacks", "Gain Ground (Bug Fix)", 0 )
+HACK( 1988, ggroundjs01,  gground,  system24_floppy_fd1094, gground,  segas24_state, gground,  ROT270, "Hacks", "Gain Ground (V.Japon Bug Fix)", 0 )

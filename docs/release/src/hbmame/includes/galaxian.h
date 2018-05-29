@@ -57,7 +57,9 @@ public:
 			m_tenspot_game_dsw(*this, {"IN2_GAME0", "IN2_GAME1", "IN2_GAME2", "IN2_GAME3", "IN2_GAME4", "IN2_GAME5", "IN2_GAME6", "IN2_GAME7", "IN2_GAME8", "IN2_GAME9"}),
 			m_spriteram(*this, "spriteram"),
 			m_videoram(*this, "videoram"),
-			m_decrypted_opcodes(*this, "decrypted_opcodes") { }
+			m_decrypted_opcodes(*this, "decrypted_opcodes")
+		, m_lamp(*this, "lamp%u", 0U)
+		{ }
 
 	required_device<cpu_device> m_maincpu;
 	optional_device<cpu_device> m_audiocpu;
@@ -78,6 +80,7 @@ public:
 	required_shared_ptr<uint8_t> m_spriteram;
 	required_shared_ptr<uint8_t> m_videoram;
 	optional_shared_ptr<uint8_t> m_decrypted_opcodes;
+	output_finder<2> m_lamp;
 
 	int m_bullets_base;
 	int m_sprites_base;
@@ -213,61 +216,61 @@ public:
 	DECLARE_WRITE8_MEMBER(scorpion_digitalker_control_w);
 	DECLARE_WRITE8_MEMBER(kingball_dac_w);
 	DECLARE_WRITE8_MEMBER(moonwar_port_select_w);
-	DECLARE_DRIVER_INIT(galaxian);
-	DECLARE_DRIVER_INIT(nolock);
-	DECLARE_DRIVER_INIT(azurian);
-	DECLARE_DRIVER_INIT(gmgalax);
-	DECLARE_DRIVER_INIT(pisces);
-	DECLARE_DRIVER_INIT(batman2);
-	DECLARE_DRIVER_INIT(frogg);
-	DECLARE_DRIVER_INIT(mooncrst);
-	DECLARE_DRIVER_INIT(mooncrsu);
-	DECLARE_DRIVER_INIT(mooncrgx);
-	DECLARE_DRIVER_INIT(moonqsr);
-	DECLARE_DRIVER_INIT(pacmanbl);
-	DECLARE_DRIVER_INIT(tenspot);
-	DECLARE_DRIVER_INIT(devilfsg);
-	DECLARE_DRIVER_INIT(zigzag);
-	DECLARE_DRIVER_INIT(jumpbug);
-	DECLARE_DRIVER_INIT(checkman);
-	DECLARE_DRIVER_INIT(checkmaj);
-	DECLARE_DRIVER_INIT(dingo);
-	DECLARE_DRIVER_INIT(dingoe);
-	DECLARE_DRIVER_INIT(skybase);
-	DECLARE_DRIVER_INIT(kong);
-	DECLARE_DRIVER_INIT(mshuttle);
-	DECLARE_DRIVER_INIT(mshuttlj);
-	DECLARE_DRIVER_INIT(fantastc);
-	DECLARE_DRIVER_INIT(timefgtr);
-	DECLARE_DRIVER_INIT(kingball);
-	DECLARE_DRIVER_INIT(scorpnmc);
-	DECLARE_DRIVER_INIT(thepitm);
-	DECLARE_DRIVER_INIT(theend);
-	DECLARE_DRIVER_INIT(scramble);
-	DECLARE_DRIVER_INIT(explorer);
-	DECLARE_DRIVER_INIT(mandinga);
-	DECLARE_DRIVER_INIT(sfx);
-	DECLARE_DRIVER_INIT(atlantis);
-	DECLARE_DRIVER_INIT(scobra);
-	DECLARE_DRIVER_INIT(scobrae);
-	DECLARE_DRIVER_INIT(losttomb);
-	DECLARE_DRIVER_INIT(frogger);
-	DECLARE_DRIVER_INIT(froggermc);
-	DECLARE_DRIVER_INIT(froggers);
-	DECLARE_DRIVER_INIT(quaak);
-	DECLARE_DRIVER_INIT(turtles);
-	DECLARE_DRIVER_INIT(scorpion);
-	DECLARE_DRIVER_INIT(anteater);
-	DECLARE_DRIVER_INIT(anteateruk);
-	DECLARE_DRIVER_INIT(superbon);
-	DECLARE_DRIVER_INIT(calipso);
-	DECLARE_DRIVER_INIT(moonwar);
-	DECLARE_DRIVER_INIT(ghostmun);
-	DECLARE_DRIVER_INIT(froggrs);
-	DECLARE_DRIVER_INIT(warofbugg);
-	DECLARE_DRIVER_INIT(jungsub);
-	DECLARE_DRIVER_INIT(victoryc);
-	DECLARE_DRIVER_INIT(victorycb);
+	void init_galaxian();
+	void init_nolock();
+	void init_azurian();
+	void init_gmgalax();
+	void init_pisces();
+	void init_batman2();
+	void init_frogg();
+	void init_mooncrst();
+	void init_mooncrsu();
+	void init_mooncrgx();
+	void init_moonqsr();
+	void init_pacmanbl();
+	void init_tenspot();
+	void init_devilfsg();
+	void init_zigzag();
+	void init_jumpbug();
+	void init_checkman();
+	void init_checkmaj();
+	void init_dingo();
+	void init_dingoe();
+	void init_skybase();
+	void init_kong();
+	void init_mshuttle();
+	void init_mshuttlj();
+	void init_fantastc();
+	void init_timefgtr();
+	void init_kingball();
+	void init_scorpnmc();
+	void init_thepitm();
+	void init_theend();
+	void init_scramble();
+	void init_explorer();
+	void init_mandinga();
+	void init_sfx();
+	void init_atlantis();
+	void init_scobra();
+	void init_scobrae();
+	void init_losttomb();
+	void init_frogger();
+	void init_froggermc();
+	void init_froggers();
+	void init_quaak();
+	void init_turtles();
+	void init_scorpion();
+	void init_anteater();
+	void init_anteateruk();
+	void init_superbon();
+	void init_calipso();
+	void init_moonwar();
+	void init_ghostmun();
+	void init_froggrs();
+	void init_warofbugg();
+	void init_jungsub();
+	void init_victoryc();
+	void init_victorycb();
 	TILE_GET_INFO_MEMBER(bg_get_tile_info);
 	virtual void video_start() override;
 	DECLARE_PALETTE_INIT(galaxian);
@@ -434,9 +437,9 @@ public:
 	DECLARE_WRITE8_MEMBER(fourplay_rombank_w);
 	DECLARE_WRITE8_MEMBER(videight_rombank_w);
 	DECLARE_WRITE8_MEMBER(videight_gfxbank_w);
-	DECLARE_DRIVER_INIT(fourplay);
-	DECLARE_DRIVER_INIT(trukker);
-	DECLARE_DRIVER_INIT(videight);
+	void init_fourplay();
+	void init_trukker();
+	void init_videight();
 	void videight_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x);
 	void videight_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
 //HBMAME end

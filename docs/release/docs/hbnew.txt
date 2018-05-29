@@ -1,6 +1,27 @@
 What's new in HBMAME
 ====================
 
+2018-05-30 0.198
+----------------
+
+
+- Added missing bioses to Neogeo
+- HBMAMEUI: added warning message box if roms have incorrect checksum or length
+- HBMAMEUI: will no longer be worked on in its current form, except to keep it
+compiling. If you want a full-featured front-end, use one of the dozens of
+good ones out there, for example EmuLoader or QMC2.
+
+
+
+New Games
+---------------------------------
+- [mslug*]          Huge number of hacks (added by gaston)
+- [ngym2610]        Neogeo test of YM2610 (by Blastar)
+- [sqij]            SQIJ! (by Sokurah)
+
+
+
+
 2018-04-25 0.197
 ----------------
 

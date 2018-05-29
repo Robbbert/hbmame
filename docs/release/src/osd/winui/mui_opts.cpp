@@ -58,9 +58,6 @@ static void FontDecodeString(string ss, LOGFONT *f);
 static string TabFlagsEncodeString(int data);
 static void TabFlagsDecodeString(string ss, int *data);
 
-static DWORD DecodeFolderFlags(string ss);
-static const char * EncodeFolderFlags(DWORD value);
-
 static string ColumnEncodeStringWithCount(const int *value, int count);
 static void ColumnDecodeStringWithCount(string ss, int *value, int count);
 
@@ -2148,42 +2145,6 @@ DWORD GetFolderFlags(int folder_index)
 	return 0;
 }
 
-
-/* Decode the flags into a DWORD */
-static DWORD DecodeFolderFlags(string ss)
-{
-	const char *buf = ss.c_str();
-	DWORD flags = 0;
-	int shift = 0;
-	const char *ptr = buf;
-
-	while (*ptr && (1 << shift) & F_MASK)
-	{
-		if (*ptr++ == '1')
-			flags |= (1 << shift);
-
-		shift++;
-	}
-	return flags;
-}
-
-/* Encode the flags into a string */
-static const char * EncodeFolderFlags(DWORD value)
-{
-	static char buf[40];
-	int shift = 0;
-
-	memset(buf,'\0', sizeof(buf));
-
-	while ((1 << shift) & F_MASK)
-	{
-		buf[shift] = (value & (1 << shift)) ? '1' : '0';
-		shift++;
-	}
-
-	return buf;
-}
-
 /* MSH 20080813
  * Read the folder filters from MAMEui.ini.  This must only
  * be called AFTER the folders have all been created.
@@ -2199,7 +2160,7 @@ void LoadFolderFlags(void)
 
 		if (lpFolder)
 		{
-			char folder_name[2048];
+			char folder_name[400];
 			char *ptr;
 
 			// Convert spaces to underscores
@@ -2217,7 +2178,7 @@ void LoadFolderFlags(void)
 		}
 	}
 
-	// These are overlaid at the end of our UI ini
+	// These are added to our UI ini
 	// The normal read will skip them.
 
 	// retrieve the stored values
@@ -2227,7 +2188,7 @@ void LoadFolderFlags(void)
 
 		if (lpFolder)
 		{
-			char folder_name[2048];
+			char folder_name[400];
 
 			// Convert spaces to underscores
 			strcpy(folder_name, lpFolder->m_lpTitle);
@@ -2242,7 +2203,7 @@ void LoadFolderFlags(void)
 			string option_name = string(folder_name) + "_filters";
 
 			// get entry and decode it
-			lpFolder->m_dwFlags |= DecodeFolderFlags(settings.getter(option_name.c_str())) & F_MASK;
+			lpFolder->m_dwFlags |= (settings.int_value(option_name.c_str()) & F_MASK);
 		}
 	}
 }
@@ -2258,9 +2219,9 @@ static void AddFolderFlags()
 	for (int i = 0; i < numFolders; i++)
 	{
 		lpFolder = GetFolder(i);
-		if (lpFolder && (lpFolder->m_dwFlags & F_MASK) != 0)
+		if (lpFolder)
 		{
-			char folder_name[2048];
+			char folder_name[400];
 
 			// Convert spaces to underscores
 			strcpy(folder_name, lpFolder->m_lpTitle);
@@ -2276,7 +2237,7 @@ static void AddFolderFlags()
 			string option_name = string(folder_name) + "_filters";
 
 			// store entry
-			settings.setter(option_name.c_str(), EncodeFolderFlags(lpFolder->m_dwFlags));
+			settings.setter(option_name.c_str(), lpFolder->m_dwFlags & F_MASK);
 
 			// increment counter
 			num_entries++;

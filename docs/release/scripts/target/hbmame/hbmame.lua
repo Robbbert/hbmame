@@ -168,6 +168,7 @@ MACHINES["MB89352"] = true  -- segas32
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
+MACHINES["OUTPUT_LATCH"] = true
 MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
@@ -189,6 +190,7 @@ MACHINES["WATCHDOG"] = true
 MACHINES["WD33C93"] = true
 MACHINES["WD_FDC"] = true
 MACHINES["Z80CTC"] = true
+MACHINES["Z80DAISY"] = true
 MACHINES["Z80DART"] = true
 MACHINES["Z80PIO"] = true
 
@@ -648,7 +650,6 @@ files {
 	MAME_DIR .. "src/mame/video/playch10.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vsnes.cpp",
 	MAME_DIR .. "src/mame/machine/vsnes.cpp",
-	MAME_DIR .. "src/mame/video/vsnes.cpp",
 	MAME_DIR .. "src/devices/video/ppu2c0x.cpp",
 	MAME_DIR .. "src/devices/machine/z80dma.cpp",
 
@@ -731,6 +732,7 @@ files {
 	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
 	MAME_DIR .. "src/mame/video/segaic24.cpp",
 	MAME_DIR .. "src/mame/machine/315_5338a.cpp",
+	MAME_DIR .. "src/mame/machine/315_5649.cpp",
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
 	MAME_DIR .. "src/mame/machine/model1io.cpp",

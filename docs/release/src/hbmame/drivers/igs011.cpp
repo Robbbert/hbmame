@@ -44,4 +44,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Long Hu Bang II
-GAME( 1996, lhb2s01,         lhb2,        lhb2,            lhb2,      igs011_state, lhb2,         ROT0, "Hacks",                     "Long Hu Bang II (Hong Kong, V185H)(No AI Cheat)",   MACHINE_SUPPORTS_SAVE )
+HACK( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, lhb2, ROT0, "Hacks", "Long Hu Bang II (Hong Kong, V185H)(No AI Cheat)",   MACHINE_SUPPORTS_SAVE )
+

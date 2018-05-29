@@ -5,24 +5,20 @@
 class taitof2_hbmame : public taitof2_state
 {
 public:
-	taitof2_hbmame(const machine_config &mconfig, device_type type, const char *tag)
-		: taitof2_state(mconfig, type, tag)
-		{ }
+	using taitof2_state::taitof2_state;
 
 	void f2demo(machine_config &config);
-
-private:
 };
 
 MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu", M68000, 24000000/2) /* 12 MHz */
-	MCFG_CPU_PROGRAM_MAP(liquidk_map)
-	MCFG_CPU_VBLANK_INT_DRIVER("screen", taitof2_state,  taitof2_interrupt)
+	MCFG_DEVICE_ADD("maincpu", M68000, 24000000/2) /* 12 MHz */
+	MCFG_DEVICE_PROGRAM_MAP(liquidk_map)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", taitof2_state,  taitof2_interrupt)
 
-	MCFG_CPU_ADD("audiocpu", Z80, 24000000/6)   /* 4 MHz */
-	MCFG_CPU_PROGRAM_MAP(sound_map)
+	MCFG_DEVICE_ADD("audiocpu", Z80, 24000000/6)   /* 4 MHz */
+	MCFG_DEVICE_PROGRAM_MAP(sound_map)
 
 	MCFG_MACHINE_START_OVERRIDE(taitof2_state,f2)
 
@@ -33,17 +29,18 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	MCFG_SCREEN_SIZE(120*8, 32*8)
 	MCFG_SCREEN_VISIBLE_AREA(40*8, 106*8-1, 2*8, 32*8-1)
 	MCFG_SCREEN_UPDATE_DRIVER(taitof2_state, screen_update_taitof2_pri)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(taitof2_state, screen_vblank_partial_buffer_delayed))
+	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, taitof2_state, screen_vblank_partial_buffer_delayed))
 	MCFG_SCREEN_PALETTE("palette")
-	MCFG_GFXDECODE_ADD("gfxdecode", "palette", taitof2)
+	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_taitof2)
 	MCFG_PALETTE_ADD("palette", 4096)
 	MCFG_PALETTE_FORMAT(RRRRGGGGBBBBxxxx)
 	MCFG_VIDEO_START_OVERRIDE(taitof2_state,taitof2_megab)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
+	SPEAKER(config, "lspeaker").front_left();
+	SPEAKER(config, "rspeaker").front_right();
 
-	MCFG_SOUND_ADD("ymsnd", YM2610, 24000000/3) /* Was 16000000/2, but only a 24Mhz OSC */
+	MCFG_DEVICE_ADD("ymsnd", YM2610, 24000000/3) /* Was 16000000/2, but only a 24Mhz OSC */
 	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
 	MCFG_SOUND_ROUTE(0, "lspeaker",  0.25)
 	MCFG_SOUND_ROUTE(0, "rspeaker", 0.25)
@@ -92,7 +89,7 @@ ROM_START( f2demo )
 	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
 ROM_END
 
-GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame
@@ -332,19 +329,19 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Cameltry
-GAME( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, cameltry, ROT0,   "Hacks",         "Cameltry (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, cameltry, ROT0,   "Hacks",         "Cameltry (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-GAME( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Dead Connection (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Dead Connection (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-GAME( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Hacks",         "Don Doko Don (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Hacks",         "Don Doko Don (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
-GAME( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Hacks",         "Gun Frontier (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Hacks",         "Gun Frontier (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-GAME( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, 0,        ROT0,   "Hacks",         "Mega Blast (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, 0,        ROT0,   "Hacks",         "Mega Blast (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
-GAME( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, 0,        ROT0,   "Hacks",         "Mizubaku Daibouken (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, 0,        ROT0,   "Hacks",         "Mizubaku Daibouken (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Runark
-GAME( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, 0,        ROT0,   "Hacks",         "Runark (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, 0,        ROT0,   "Hacks",         "Runark (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 // Thunder Fox
-GAME( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Thunder Fox (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, 0,        ROT0,   "Hacks",         "Thunder Fox (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 

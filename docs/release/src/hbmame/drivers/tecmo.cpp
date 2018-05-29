@@ -69,8 +69,8 @@ ROM_START( rygark ) // same as rygarj except for gfx1
 	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
 ROM_END
 
-GAME( 2002, geminit, gemini, gemini, gemini, tecmo_state, gemini, ROT90, "Twisty", "Gemini Wing Hack", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, rygark,  rygar,  rygar,  rygar,  tecmo_state, rygar,  ROT0,  "Hack", "Rygar (Korean)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, geminit, gemini, gemini, gemini, tecmo_state, gemini, ROT90, "Twisty", "Gemini Wing Hack", MACHINE_SUPPORTS_SAVE )
+HACK( 1986, rygark,  rygar,  rygar,  rygar,  tecmo_state, rygar,  ROT0,  "Hack", "Rygar (Korean)", MACHINE_SUPPORTS_SAVE )
 
 
   /****************************************
@@ -194,10 +194,10 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gemini Wing 
-GAME( 1987, geminis01,    gemini,        gemini,   gemini,   tecmo_state, gemini,   ROT90, "Hacks",   "Gemini Wing (Japan)(Translation Chinese)",          MACHINE_SUPPORTS_SAVE )
+HACK( 1987, geminis01,    gemini,        gemini,   gemini,   tecmo_state, gemini,   ROT90, "Hacks",   "Gemini Wing (Japan)(Translation Chinese)",          MACHINE_SUPPORTS_SAVE )
 // Argus no Senshi
-GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, rygar,    ROT0,  "Hacks",   "Argus no Senshi (Japan)(Translation Chinese)",      MACHINE_SUPPORTS_SAVE )
+HACK( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, rygar,    ROT0,  "Hacks",   "Argus no Senshi (Japan)(Translation Chinese)",      MACHINE_SUPPORTS_SAVE )
 // Silk Worm
-GAME( 1988, silkworms01,  silkworm,        silkworm, silkworm, tecmo_state, silkworm, ROT0,  "Hacks",   "Silk Worm (World)(Translation Chinese)",            MACHINE_SUPPORTS_SAVE )
+HACK( 1988, silkworms01,  silkworm,        silkworm, silkworm, tecmo_state, silkworm, ROT0,  "Hacks",   "Silk Worm (World)(Translation Chinese)",            MACHINE_SUPPORTS_SAVE )
 
 

@@ -99,6 +99,10 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
+	void ir(machine_config &config);
+
+private:
+
 	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
 	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
 	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
@@ -109,12 +113,8 @@ public:
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	void ir(machine_config &config);
 	void main_map(address_map &map);
 	void io_map(address_map &map);
-
-private:
-
 	bool       m_flip_screen;
 	bool       m_screen_red;
 	emu_timer  *m_interrupt_timer;
@@ -502,9 +502,9 @@ uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap,
 MACHINE_CONFIG_START( ir_state::ir )
 
 	/* basic machine hardware */
-	MCFG_CPU_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_CPU_PROGRAM_MAP(main_map)
-	MCFG_CPU_IO_MAP(io_map)
+	MCFG_DEVICE_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(main_map)
+	MCFG_DEVICE_IO_MAP(io_map)
 	MCFG_MACHINE_START_OVERRIDE(ir_state, ir)
 	MCFG_MACHINE_RESET_OVERRIDE(ir_state, ir)
 
@@ -513,19 +513,19 @@ MACHINE_CONFIG_START( ir_state::ir )
 	MCFG_SCREEN_RAW_PARAMS(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART)
 	MCFG_SCREEN_UPDATE_DRIVER(ir_state, screen_update_ir)
 
-	//MCFG_CPU_ADD("audiocpu", M6808, XTAL_4MHz/2) // MC6808P
-	//MCFG_CPU_PROGRAM_MAP(sound_map)
+	//MCFG_DEVICE_ADD("audiocpu", M6808, XTAL_4MHz/2) // MC6808P
+	//MCFG_DEVICE_PROGRAM_MAP(sound_map)
 
 	/* add shifter */
 	MCFG_MB14241_ADD("mb14241")
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	SPEAKER(config, "mono").front_center();
 
-	//MCFG_SOUND_ADD("ay1", AY8910, XTAL_4MHz/2)
+	//MCFG_DEVICE_ADD("ay1", AY8910, XTAL_4MHz/2)
 	//MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.5)
 
-	MCFG_SOUND_ADD("samples", SAMPLES, 0)
+	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
 	MCFG_SAMPLES_CHANNELS(9)
 	MCFG_SAMPLES_NAMES(ir_sample_names)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
@@ -547,4 +547,4 @@ ROM_START( ir )
 	ROM_LOAD( "colour.bin",  0x0000, 0x0800, CRC(7de74988) SHA1(0b8c94b2bfdbc3921d60aad765df8af611f3fdd7) )
 ROM_END
 
-GAME( 1980?,ir, 0, ir, ir, ir_state, 0, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+HACK( 1980?,ir, 0, ir, ir, ir_state, 0, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )

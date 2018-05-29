@@ -214,10 +214,10 @@ ROM_START( outrunen2 )
 	ROM_RELOAD( 0x58000, 0x08000 )
 ROM_END
 
-GAMEL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
-GAMEL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
-GAMEL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
-GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
+GAMEL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
+GAMEL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
+GAMEL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
+GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
 
 
 /***************************** OUTRUNM *********************************************/
@@ -229,8 +229,6 @@ GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, outrun, ROT0, "Ch
 //  The PAL/GAL/PLS chip which handles the z80 address/io
 //  decoding has to be replaced and 3 flying wires added.
 
-// segaorun.h - have to make all members public (comment out "protected:")
-
 #include "machine/bankdev.h"
 
 class outrunm_state : public segaorun_state
@@ -241,16 +239,16 @@ public:
 		, m_soundbank(*this, "soundbank")
 		{ }
 
-	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
-	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
-	DECLARE_DRIVER_INIT(init);
+	void init_init();
 	void outrunm(machine_config &config);
-	void sound_map_banked(address_map &map);
-	void sound_portmap_banked(address_map &map);
-	void soundbank_map(address_map &map);
 
 private:
 
+	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
+	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
+	void sound_map_banked(address_map &map);
+	void sound_portmap_banked(address_map &map);
+	void soundbank_map(address_map &map);
 	required_device<address_map_bank_device> m_soundbank;
 };
 
@@ -288,9 +286,9 @@ void outrunm_state::soundbank_map(address_map &map) {
 
 MACHINE_CONFIG_START( outrunm_state::outrunm )
 	outrun(config);
-	MCFG_CPU_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
-	MCFG_CPU_PROGRAM_MAP(sound_map_banked)
-	MCFG_CPU_IO_MAP(sound_portmap_banked)
+	MCFG_DEVICE_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
+	MCFG_DEVICE_PROGRAM_MAP(sound_map_banked)
+	MCFG_DEVICE_IO_MAP(sound_portmap_banked)
 
 	MCFG_DEVICE_ADD("soundbank", ADDRESS_MAP_BANK, 0)
 	MCFG_DEVICE_PROGRAM_MAP(soundbank_map)
@@ -299,11 +297,11 @@ MACHINE_CONFIG_START( outrunm_state::outrunm )
 	MCFG_ADDRESS_MAP_BANK_STRIDE(0x10000)
 MACHINE_CONFIG_END
 
-DRIVER_INIT_MEMBER(outrunm_state,init)
+void outrunm_state::init_init()
 {
-	DRIVER_INIT_CALL(generic);
-	m_custom_io_r = read16_delegate(FUNC(segaorun_state::outrun_custom_io_r), this);
-	m_custom_io_w = write16_delegate(FUNC(segaorun_state::outrun_custom_io_w), this);
+	init_generic();
+	m_custom_io_r = read16_delegate(FUNC(outrunm_state::outrun_custom_io_r), this);
+	m_custom_io_w = write16_delegate(FUNC(outrunm_state::outrun_custom_io_w), this);
 }
 
 ROM_START( outrunm )
@@ -360,5 +358,5 @@ ROM_START( outrunm )
 	ROM_RELOAD(               0x58000, 0x08000 )
 ROM_END
 
-GAMEL(2016, outrunm, outrun, outrunm, outrun, outrunm_state, init, ROT0, "cmonkey", "Out Run (sitdown/upright, Rev B) (added music)", 0, layout_outrun ) // March? 2016
+GAMEL(2016, outrunm, outrun, outrunm, outrun, outrunm_state, init_init, ROT0, "cmonkey", "Out Run (sitdown/upright, Rev B) (added music)", 0, layout_outrun ) // March? 2016
 

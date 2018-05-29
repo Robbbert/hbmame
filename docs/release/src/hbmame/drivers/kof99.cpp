@@ -4,9 +4,9 @@
 #include "includes/neogeo.h"
 
 
-DRIVER_INIT_MEMBER( neogeo_state, kof99hb ) // hacks of kof99
+void neogeo_state::init_kof99hb() // hacks of kof99
 {
-	DRIVER_INIT_CALL(neogeo);
+	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1; // only meaningful if s1 > 128k
 
 	// decrypt p roms if needed
@@ -40,7 +40,7 @@ DRIVER_INIT_MEMBER( neogeo_state, kof99hb ) // hacks of kof99
 ROM_START( kof99ab ) /* The King of Fighters '99 - Hack by Marcochen/PPX Hack Team - (Rolls moves sideways version) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ab.p1",   0x000000, 0x100000, CRC(8ABC720E) SHA1(3D8FDC2F3AE1F4F1DC121587EF37240C15548280) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -375,7 +375,7 @@ ROM_END
 ROM_START( kof99bh ) /* The King of Fighters '99 - Hack by Dodowang - (Can choose Krizalid and Krizalid' - have icons in character select menu) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ndh.p1",  0x000000, 0x100000, CRC(eedcc5bd) SHA1(8280c4329d666b4831c766853f5334355dc40cc9) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251bh.s1", CRC(b696a8c9) SHA1(3388feab11374a6eca6f1615fdfd93464f86dcee) )
 
@@ -427,7 +427,7 @@ ROM_END
 ROM_START( kof99bhs )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251bhs.p1",  0x000000, 0x100000, CRC(c2d1b2fc) SHA1(016f168e5d657abbfb1b81389b1b1613a225d1ad) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251bh.s1", CRC(b696a8c9) SHA1(3388feab11374a6eca6f1615fdfd93464f86dcee) )
 
@@ -505,7 +505,7 @@ ROM_END
 ROM_START( kof99ch ) /* The King of Fighters '99 - Remix by Chase - (Character move change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ch.p1",   0x000000, 0x100000, CRC(6efd349b) SHA1(f876df9137801125b8f142102d4165295607ba02) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -531,7 +531,7 @@ ROM_END
 ROM_START( kof99chf ) /* The King of Fighters '99 - Remix by Chase - (Character move change - fixed) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251chf.p1",  0x000000, 0x100000, CRC(34387e01) SHA1(cc56d936d931d793a7d02dddf4a4521ed09e1e52) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -636,7 +636,7 @@ ROM_END
 ROM_START( kof99eh ) /* kof99+ : The King of Fighters '99 - Enhance by Ydmis - (Can choose Krizalid, Krizalid', Kyo and Iori - ultra kill start is max) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251eh.p1",   0x000000, 0x100000, CRC(93f05c57) SHA1(e92e18e0572ae313952b2416c76d06c86202f755) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251eh.s1", CRC(46803457) SHA1(685f0b5afd0d9904f6c8fa6052e127297e3d63d4) )
 
@@ -662,7 +662,7 @@ ROM_END
 ROM_START( kof99ehr ) /* The King of Fighters '99 - Remix by Raymonose - (Can choose Krizalid, Krizalid', Kyo and Iori - ultra kill start is max - ultra power hack) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ehr.p1",  0x000000, 0x100000, CRC(08dfc6cb) SHA1(5f3fed5e1c598c580aa33b66aeb92d5d95d2b2e6) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1026,7 +1026,7 @@ ROM_END
 ROM_START( kof99jh ) /* The King of Fighters '99 - Hack by Jason/K3 - (Simple move revision - Athena style change - can choose Krizalid - can choose Kyo and Iori in MVS mode 20031018) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251jh.p1",   0x000000, 0x100000, CRC(855936ca) SHA1(bf788fa7c49cf3365e1e859df3811a5ca0ff69cc) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1052,7 +1052,7 @@ ROM_END
 ROM_START( kof99jho ) /* [OLD] The King of Fighters '99 N - Hack by Jason/K3 - (Simple move revision - Athena style change - can choose Krizalid - can choose Kyo and Iori in MVS mode 20030924) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251jho.p1",  0x000000, 0x100000, CRC(690ea82d) SHA1(2938738e57514a672c79abe1d3696c51f9fdc04d) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1104,7 +1104,7 @@ ROM_END
 ROM_START( kof99m ) /* The King of Fighters '99 - Hack by MasakiAnton - (Can choose Krizalid and Krizalid') */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251m.p1",    0x000000, 0x100000, CRC(e056b767) SHA1(86cc38fa6158aa6b72fe0cb74a43f98ef4b285c6) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1130,7 +1130,7 @@ ROM_END
 ROM_START( kof99nd )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1156,7 +1156,7 @@ ROM_END
 ROM_START( kof99ndh )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251ndh.p1",  0x000000, 0x100000, CRC(eedcc5bd) SHA1(8280c4329d666b4831c766853f5334355dc40cc9) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251bh.s1", CRC(b696a8c9) SHA1(3388feab11374a6eca6f1615fdfd93464f86dcee) )
 
@@ -1416,7 +1416,7 @@ ROM_END
 ROM_START( kof99pt ) /* The King of Fighters '99 - Hack by Creamymami - (Ultra kill hack) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251pt.p1",   0x000000, 0x100000, CRC(c14497cc) SHA1(ce275b3c146b48b40ded3a7754c71b722d6eab67) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1442,7 +1442,7 @@ ROM_END
 ROM_START( kof99r ) /* The King of Fighters '99 - Hack by Raymonose - (General character move change 200310xx) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251r.p1",    0x000000, 0x100000, CRC(7374f261) SHA1(1277e33d4ae4e40b0dbb49c9ac156cd132b6d890) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1546,7 +1546,7 @@ ROM_END
 ROM_START( kof99roll )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251roll.p1", 0x000000, 0x100000, CRC(4afaaadc) SHA1(afb68252a57f4e67aadf7a9eb1b289d1e5d3dc8a) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1650,7 +1650,7 @@ ROM_END
 ROM_START( kof99rp2 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rp101c-b) - Remix PRO by FCHT - (Remix pro 1.01c by FCHT Built 0309h 200309xx) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp2.p1",  0x000000, 0x100000, CRC(07c52235) SHA1(2ca600d7c0d4bf2780c1313f31e23ec767d1f636) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1676,7 +1676,7 @@ ROM_END
 ROM_START( kof99rp3 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rp101b-b) - Remix PRO by FCHT - (Remix pro 1.01b by FCHT Built 0309e 200309xx) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp3.p1",  0x000000, 0x100000, CRC(7e2da123) SHA1(4a5275ccce118244fb02416ef1cca72b71a55b1a) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1702,7 +1702,7 @@ ROM_END
 ROM_START( kof99rp4 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rp101a2-b) - Remix PRO by FCHT - (Remix pro 1.01a2 by FCHT 200309xx) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp4.p1",  0x000000, 0x100000, CRC(0758dfef) SHA1(3a3254a2dcb073da00351921291fb9595a504a3c) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1728,7 +1728,7 @@ ROM_END
 ROM_START( kof99rp5 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rp101a-b) - Remix PRO by FCHT - (Remix pro 1.01a by FCHT 200309xx) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp5.p1", 0x000000, 0x100000, CRC(b00aa815) SHA1(bf199a9977d542b38d953cf9c9347e22f8c31fbb) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1754,7 +1754,7 @@ ROM_END
 ROM_START( kof99rp6 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rp101-b) - Remix PRO by FCHT - (Remix pro 1.01 by FCHT Built 0308b 200309xx) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp6.p1",  0x000000, 0x100000, CRC(9c3308e7) SHA1(e443a8bd184f6fc49f9d288b2884d95a5c7bca63) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1780,7 +1780,7 @@ ROM_END
 ROM_START( kof99rp7 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rpcex-b) - Remix PRO by FCHT - (Remix pro 1.00c by FCHT Built 0308e EX-Version) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp7.p1",  0x000000, 0x100000, CRC(da91f15c) SHA1(64e2b0bc6592b5ca148ccec9f4ccfa0d6ac4aaf7) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1806,7 +1806,7 @@ ROM_END
 ROM_START( kof99rp8 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rpc-b) - Remix PRO by FCHT - (Remix pro 1.00c by FCHT Built 0308e) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp8.p1",  0x000000, 0x100000, CRC(55d97c9a) SHA1(35b176cc4005c07478df1dc99fe40344210e690b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1832,7 +1832,7 @@ ROM_END
 ROM_START( kof99rp9 ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rse-b) - Remix PRO by FCHT - (Remix pro 1.00b by FCHT - Enhance) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rp9.p1",  0x000000, 0x100000, CRC(9ef748b0) SHA1(8f2cccc36d2ce019f8d0e69dec267240978bef4e) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1858,7 +1858,7 @@ ROM_END
 ROM_START( kof99rpa ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rps-b) - Remix PRO by FCHT - (Remix pro 1.00b by FCHT) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rpa.p1",  0x000000, 0x100000, CRC(e390960c) SHA1(992f9ca6bffb34d589287ed1ab3c7a53d5940078) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1884,7 +1884,7 @@ ROM_END
 ROM_START( kof99rpb ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rpe-b) - Remix PRO by FCHT - (Remix pro 1.00a by FCHT - Enhance) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rpb.p1",  0x000000, 0x100000, CRC(69f172ce) SHA1(c40f72d58331cd416154eef6f58d5398effe75ef) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1910,7 +1910,7 @@ ROM_END
 ROM_START( kof99rpc ) /* [OLD][BETA] The King of Fighters '99 N - (kof99rp-b) - Remix PRO by FCHT - (Remix pro 1.00a by FCHT) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rpc.p1",  0x000000, 0x100000, CRC(1496ac72) SHA1(60b4cb55ad8cfa27342b489fd2b53c5d41feea18) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -1962,7 +1962,7 @@ ROM_END
 ROM_START( kof99rr ) /* The King of Fighters '99 - Remix by Raymonose - (Character move change) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251rr.p1",   0x000000, 0x100000, CRC(fd7399b5) SHA1(bac6892fec986942bb02c00fe96d00fc11a0ddda) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -1988,7 +1988,7 @@ ROM_END
 ROM_START( kof99seh ) /* The King of Fighters '99 - Super Enhance Hack by Creamymami and Ydmis - (Can choose Krizalid, Krizalid', Kyo and Iori - ultra power hack - ultra kill start is max) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251seh.p1",  0x000000, 0x100000, CRC(3dd574cf) SHA1(9005041b52e196639f70675abbc8949f3f52e6af) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -2276,7 +2276,7 @@ ROM_END
 ROM_START( kof99y ) /* The King of Fighters '99 - Hack by Ydmis - (Can choose Krizalid, Krizalid', Kyo and Iori) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251y.p1",    0x000000, 0x100000, CRC(17a293ae) SHA1(b0f84a6c7688995eb93e5a4a13a4ca2a4e3645eb) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -2302,7 +2302,7 @@ ROM_END
 ROM_START( kof99yd ) /* The King of Fighters '99 - Hack by Ydmis - (Ultra kill start is max) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251yd.p1",   0x000000, 0x100000, CRC(9caffc4d) SHA1(100bb80ffc9f938b107dbd7994a2b6febd7b3a9c) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -2927,117 +2927,117 @@ ROM_END
 
 
 
-GAME( 1999, kof99ab,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Marcochen/PPX Hack Team", "Kof'99 (Rolls moves sideways ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, kof99ae,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ae0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (unknown date)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2014, kof99ae20140408,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2014-04-08)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, kof99ae20140624,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2014-06-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, kof99ae20150121,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2015-01-21)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, kof99ae20150520,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2015-05-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, kof99ae20150711,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2015-07-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof99ae20160411,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2016-04-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof99ae20160419,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2016-04-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof99aes,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition Special", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99bh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,  ROT0, "Dodowang", "Kof'99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, kof99bhp2,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kof1996", "Kof'99 (Perfect Boss Edition hack by Kof1996 2009-10-08)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99bhs,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Striker Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99bs,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Boss Hack - DC version by FightChina KOF Hackteamwork)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99bs2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Boss Like DC v1.2f (KOF hackteamwork))", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ch,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "Kof'99 (Diff Moves set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99chf,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "Kof'99 (Diff Moves set 3 - Fixed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof99co,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ivex", "Kof'99 COMBO 2006 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof99co2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ivex", "Kof'99 COMBO 2006 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99d,     kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,   ROT0, "SNK", "Kof'99 Millennium Battle (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99eh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,   ROT0, "Ydmis", "Kof'99 (4 Add Char - Ultra kill start max set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ehr,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99eur,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (Yashional)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99eur1,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (old)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99eur2,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, kof99eur3,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (2011-02-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, kof99eur4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 (Evolution Ultra Remix hack by Yashional 2009-07-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ev2,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (Evolution Special)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99evo,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Evolution", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof99fc,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 REMIX PRO (Pro200 Final)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof99fc0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCGH", "Kof'99 REMIX PRO (1.07A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof99fc1,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 REMIX PRO (2.00B)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof99fc2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 REMIX PRO (2.00F)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99fmi,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Marcochen", "Kof'99 Orochi Iori (Hack by marcochen)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99hbi,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Okukochi", "Kof'99 (Happy Birthday to Iori)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, kof99iori,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (hack 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99jh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "Kof'99 (3 Add Char - Simple moves rev - Athena style changed 2003-10-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99jho,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "Kof'99 (3 Add Char - Simple moves rev - Athena style changed 2003-09-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, kof99lb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "lb70", "Kof'99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99m,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "MasakiAnton", "Kof'99 (2 Add Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "SNK", "Kof'99 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ndh,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ndis,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 REMIX PRO (ndis)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99nevo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Chl, Robert", "Kof'99 (Evolution Revision hack by Chl, Robert)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ob,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Orochi's Blood-Another part of Leona & Iori", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99ob2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Orochi's Blood (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99pb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Perfect Boss", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof99pjc1,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed rev 1 2002-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99pjc2,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed rev 2 2003-03-02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99pjc3,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed rev 3 2003-07-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99pjco,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed old)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99pt,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami", "Kof'99 (Ultra kill hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99r,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (Moves changed 0310xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99rd,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (Red Evil Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99rev,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 OKUHOSHI HACK (Revolution Merry Christmas set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99revo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Okuhoshi", "Kof'99 (Christmas Revolution v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99roll,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "KofOnTeam", "Kof'99 (Advanced Roll (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof99rp,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.07a 2004-12-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof99rp0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FGCH", "Kof'99 REMIX PRO (Edition v1.07a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp1,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.02 final1 2003-10-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp2,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01c 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp3,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01b 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp4,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a2 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp5,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp6,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp7,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp8,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rp9,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rpa,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rpb,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof99rpc,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof99rpp,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO PLUS (Diff Moves v1.02 final 2004-03-27)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99rr,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99seh,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami and Ydmis", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99sp,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "ZKW", "Kof'99 (Super Plus)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99spd,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,    ROT0, "Star07", "Kof'99 (Special Dialogue hack by Star07)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99sr,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Summer Revolution)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99srr,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose", "Kof'99 (Super Remix Red)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99srr1,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "hack", "Kof'99 (Super Remix Red Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99the4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 The 4 Flame Manipulators (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99the42, kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 The 4 Flame Manipulators (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,    ROT0, "hack", "Kof'99 (hack vor)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99wet,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (hack colour wet)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99xxx,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Special Boss)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99y,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "Kof'99 (4 Add Char", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99yd,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "Kof'99 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ab,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Marcochen/PPX Hack Team", "Kof'99 (Rolls moves sideways ver)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, kof99ae,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ae0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (unknown date)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof99ae20140408,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2014-04-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof99ae20140624,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2014-06-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kof99ae20150121,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2015-01-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kof99ae20150520,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2015-05-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kof99ae20150711,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2015-07-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof99ae20160411,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2016-04-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof99ae20160419,   kof99,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition (2016-04-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof99aes,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Anniversary Edition Special", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99bh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,  ROT0, "Dodowang", "Kof'99 (2 Add Char with Icons)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof99bhp2,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kof1996", "Kof'99 (Perfect Boss Edition hack by Kof1996 2009-10-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99bhs,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Striker Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99bs,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Boss Hack - DC version by FightChina KOF Hackteamwork)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99bs2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Boss Like DC v1.2f (KOF hackteamwork))", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ch,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "Kof'99 (Diff Moves set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99chf,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Chase", "Kof'99 (Diff Moves set 3 - Fixed)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof99co,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ivex", "Kof'99 COMBO 2006 (set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof99co2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ivex", "Kof'99 COMBO 2006 (set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99d,     kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,   ROT0, "SNK", "Kof'99 Millennium Battle (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99eh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,   ROT0, "Ydmis", "Kof'99 (4 Add Char - Ultra kill start max set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ehr,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99eur,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (Yashional)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99eur1,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (old)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99eur2,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix", MACHINE_SUPPORTS_SAVE )
+HACK( 2011, kof99eur3,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Evolution Ultra Remix (2011-02-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof99eur4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 (Evolution Ultra Remix hack by Yashional 2009-07-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ev2,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (Evolution Special)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99evo,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Evolution", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof99fc,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 REMIX PRO (Pro200 Final)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof99fc0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCGH", "Kof'99 REMIX PRO (1.07A)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof99fc1,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 REMIX PRO (2.00B)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof99fc2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 REMIX PRO (2.00F)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99fmi,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Marcochen", "Kof'99 Orochi Iori (Hack by marcochen)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99hbi,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Okukochi", "Kof'99 (Happy Birthday to Iori)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof99iori,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (hack 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99jh,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "Kof'99 (3 Add Char - Simple moves rev - Athena style changed 2003-10-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99jho,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Jason/K3", "Kof'99 (3 Add Char - Simple moves rev - Athena style changed 2003-09-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, kof99lb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "lb70", "Kof'99 (Hack by lb70)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99m,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "MasakiAnton", "Kof'99 (2 Add Char)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "SNK", "Kof'99 (non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ndh,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ndis,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 REMIX PRO (ndis)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99nevo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Chl, Robert", "Kof'99 (Evolution Revision hack by Chl, Robert)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ob,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Orochi's Blood-Another part of Leona & Iori", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99ob2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 Orochi's Blood (set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99pb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 Perfect Boss", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof99pjc1,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed rev 1 2002-09-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99pjc2,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed rev 2 2003-03-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99pjc3,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed rev 3 2003-07-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99pjco,  kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "TcwLee", "Kof'99 (Char color changed old)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99pt,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami", "Kof'99 (Ultra kill hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99r,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (Moves changed 0310xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99rd,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 (Red Evil Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99rev,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "hack", "Kof'99 OKUHOSHI HACK (Revolution Merry Christmas set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99revo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Okuhoshi", "Kof'99 (Christmas Revolution v1.2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99roll,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "KofOnTeam", "Kof'99 (Advanced Roll (KOFONTEAM))", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof99rp,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.07a 2004-12-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof99rp0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FGCH", "Kof'99 REMIX PRO (Edition v1.07a)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp1,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - v1.02 final1 2003-10-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp2,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01c 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp3,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01b 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp4,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a2 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp5,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01a 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp6,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.01 2003-09-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp7,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e - EX ver.)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp8,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00c built 0308e)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rp9,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rpa,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00b)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rpb,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof99rpc,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO (Diff Moves - Beta v1.00a)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof99rpp,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "FCHT", "Kof'99 Remix PRO PLUS (Diff Moves v1.02 final 2004-03-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99rr,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Raymonose", "Kof'99 (Diff Moves set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99seh,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Creamymami and Ydmis", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99sp,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "ZKW", "Kof'99 (Super Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99spd,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,    ROT0, "Star07", "Kof'99 (Special Dialogue hack by Star07)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99sr,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof'99 (Summer Revolution)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99srr,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose", "Kof'99 (Super Remix Red)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99srr1,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "hack", "Kof'99 (Super Remix Red Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99the4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 The 4 Flame Manipulators (set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99the42, kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Yashional", "Kof'99 The 4 Flame Manipulators (set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state, kof99hb,    ROT0, "hack", "Kof'99 (hack vor)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99wet,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (hack colour wet)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99xxx,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Special Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99y,     kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "Kof'99 (4 Add Char", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99yd,    kof99,    neogeo_noslot, neogeo, neogeo_state, kof99k,   ROT0, "Ydmis", "Kof'99 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
 
 /* Hacks of the Prototype */
-GAME( 1999, kof99evos,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Evolution Balanced)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99hp,    neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "HackPlus", "Kof'99 (proto)(2 Add Char set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, kof99fix,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Happy birthday to Iori special 2009)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99fix1,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Happy Birthday to Iori Special set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99fix2,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Happy Birthday to Iori Special set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99kp,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Fighters Kim", "Kof'99 (proto)(Color changed - 10%)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99phl,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Liyang1983", "Kof'99 (proto)(Plus hack by Liyang1983)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99pk,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KrysoFun", "Kof'99 (proto)(2 Add Char - Based on RS - ver + Fix? data)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99pko,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KrysoFun", "Kof'99 (proto)(2 Add Char - Based on RS - ver without Fix? data)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99pm,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unk", "Kof'99 (proto)(Mengele Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99py,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis","Kof'99 (proto)(2 Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99rs,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Proto RS-ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99rsm,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unk", "Kof'99 (proto)(Mengele Fix for RS-ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99rsp,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unk", "Kof'99 (proto)(Bug Fix for RS-ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99wh1,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99wh2,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves - v.02)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99wh3,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves - v.03)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99wh4,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves - v.04)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99xpsa,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "XPS", "Kof'99 (proto)(00409 XPSLibrary alternate Andy striker voice Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99xpsf,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "XPS", "Kof'99 (proto)(00731 XPSLibrary final Fix 000409 - RS-ver)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99xpsp,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "XPS", "Kof'99 (proto)(00731 XPSLibrary final Fix 000409)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99yb,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Kof'99 (proto)(2 Add Char set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99evos,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Evolution Balanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99hp,    neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "HackPlus", "Kof'99 (proto)(2 Add Char set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof99fix,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Happy birthday to Iori special 2009)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99fix1,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Happy Birthday to Iori Special set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99fix2,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Happy Birthday to Iori Special set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99kp,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Fighters Kim", "Kof'99 (proto)(Color changed - 10%)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99phl,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Liyang1983", "Kof'99 (proto)(Plus hack by Liyang1983)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99pk,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KrysoFun", "Kof'99 (proto)(2 Add Char - Based on RS - ver + Fix? data)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99pko,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KrysoFun", "Kof'99 (proto)(2 Add Char - Based on RS - ver without Fix? data)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99pm,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unk", "Kof'99 (proto)(Mengele Fix)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99py,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis","Kof'99 (proto)(2 Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99rs,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (proto)(Proto RS-ver)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99rsm,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unk", "Kof'99 (proto)(Mengele Fix for RS-ver)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99rsp,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unk", "Kof'99 (proto)(Bug Fix for RS-ver)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99wh1,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99wh2,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves - v.02)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99wh3,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves - v.03)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99wh4,   kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof'99 (proto)(Diff Moves - v.04)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99xpsa,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "XPS", "Kof'99 (proto)(00409 XPSLibrary alternate Andy striker voice Fix)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99xpsf,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "XPS", "Kof'99 (proto)(00731 XPSLibrary final Fix 000409 - RS-ver)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99xpsp,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "XPS", "Kof'99 (proto)(00731 XPSLibrary final Fix 000409)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99yb,    kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Kof'99 (proto)(2 Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 
 
 
@@ -3176,8 +3176,8 @@ ROM_END
 
 ROM_START( kof99s07 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc07.p1",  0x000000, 0x100000, CRC(a31973d7) SHA1(2e0cc954aba90952cd1f452a35c5d5a2506cd373) )
-	ROM_LOAD16_WORD_SWAP( "251hc07.p2", 0x100000, 0x400000, CRC(71e60a1f) SHA1(fe039350109fafcc7eda2668d3758dee3dda0ff2) )
+	ROM_LOAD16_WORD_SWAP( "251s07.p1",  0x000000, 0x100000, CRC(a31973d7) SHA1(2e0cc954aba90952cd1f452a35c5d5a2506cd373) )
+	ROM_LOAD16_WORD_SWAP( "251s07.p2", 0x100000, 0x400000, CRC(71e60a1f) SHA1(fe039350109fafcc7eda2668d3758dee3dda0ff2) )
 
 	NEO_SFIX_128K( "251ndis.s1", CRC(16edaa55) SHA1(d8601a14c703e56c0635e2f7540492b164447d6b) )
 
@@ -3202,8 +3202,8 @@ ROM_END
 
 ROM_START( kof99s08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc09.p1",  0x000000, 0x100000, CRC(43263e84) SHA1(865ea330380f29aea309d1fff87216735958dd5c) )
-	ROM_LOAD16_WORD_SWAP( "251hc08.p2", 0x100000, 0x400000, CRC(ba3e05a7) SHA1(61c086de8b8d783c5ca3e8a970c9214b19f22d46) )
+	ROM_LOAD16_WORD_SWAP( "251s09.p1",  0x000000, 0x100000, CRC(43263e84) SHA1(865ea330380f29aea309d1fff87216735958dd5c) )
+	ROM_LOAD16_WORD_SWAP( "251s08.p2", 0x100000, 0x400000, CRC(ba3e05a7) SHA1(61c086de8b8d783c5ca3e8a970c9214b19f22d46) )
 
 	NEO_SFIX_128K( "251hc08.s1", CRC(141c3221) SHA1(f54ad0ce87cd3fa273be770647d2dcce05d96876) )
 
@@ -3228,7 +3228,7 @@ ROM_END
 
 ROM_START( kof99s09 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc09.p1",  0x000000, 0x100000, CRC(43263e84) SHA1(865ea330380f29aea309d1fff87216735958dd5c) )
+	ROM_LOAD16_WORD_SWAP( "251s09.p1",  0x000000, 0x100000, CRC(43263e84) SHA1(865ea330380f29aea309d1fff87216735958dd5c) )
 	ROM_LOAD16_WORD_SWAP( "251rp.p2", 0x100000, 0x400000, CRC(C923EE2B) SHA1(98B4F40812D5479F7D6E683E5EF4002F4C86785C) )
 
 	NEO_SFIX_128K( "251hc08.s1", CRC(141c3221) SHA1(f54ad0ce87cd3fa273be770647d2dcce05d96876) )
@@ -3254,8 +3254,8 @@ ROM_END
 
 ROM_START( kof99s10 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc10.p1",  0x000000, 0x100000, CRC(b5058c20) SHA1(aa0fb295af195e2ef231bcddbb1240e53e41ee69) )
-	ROM_LOAD16_WORD_SWAP( "251hc08.p2", 0x100000, 0x400000, CRC(ba3e05a7) SHA1(61c086de8b8d783c5ca3e8a970c9214b19f22d46) )
+	ROM_LOAD16_WORD_SWAP( "251s10.p1",  0x000000, 0x100000, CRC(b5058c20) SHA1(aa0fb295af195e2ef231bcddbb1240e53e41ee69) )
+	ROM_LOAD16_WORD_SWAP( "251s08.p2", 0x100000, 0x400000, CRC(ba3e05a7) SHA1(61c086de8b8d783c5ca3e8a970c9214b19f22d46) )
 
 	NEO_SFIX_128K( "251rp.s1", CRC(963D51B3) SHA1(B50A585E1CF7B47052A3D6FD85F47EA739B08BA8) )
 
@@ -3281,7 +3281,7 @@ ROM_END
 ROM_START( kof99s11 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc11.p1",  0x000000, 0x100000, CRC(cf1e98e7) SHA1(ec22ff296a3034d9227ccb95900136a93bd19bad) )
-	ROM_LOAD16_WORD_SWAP( "251hc11.p2", 0x100000, 0x400000, CRC(f38fe174) SHA1(3d4bdd76d137fbec18e5e14ba22eb5a95abaddef) )
+	ROM_LOAD16_WORD_SWAP( "251s11.p2", 0x100000, 0x400000, CRC(f38fe174) SHA1(3d4bdd76d137fbec18e5e14ba22eb5a95abaddef) )
 
 	NEO_SFIX_128K( "251revo.s1", CRC(1b0133fe) SHA1(7f8e743bc0c8384dec12ca7007d32b23fef8875d) )
 
@@ -3306,8 +3306,8 @@ ROM_END
 
 ROM_START( kof99s12 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc12.p1",  0x000000, 0x100000, CRC(bd40389d) SHA1(8b6ae1d46feeae7044acc1b4ff61cc0d7c0d59e3) )
-	ROM_LOAD16_WORD_SWAP( "251hc12.p2", 0x100000, 0x400000, CRC(18f8e9b5) SHA1(450d174378be6bd351cf151ec3ddc51e7d0862a6) )
+	ROM_LOAD16_WORD_SWAP( "251s12.p1",  0x000000, 0x100000, CRC(bd40389d) SHA1(8b6ae1d46feeae7044acc1b4ff61cc0d7c0d59e3) )
+	ROM_LOAD16_WORD_SWAP( "251s12.p2", 0x100000, 0x400000, CRC(18f8e9b5) SHA1(450d174378be6bd351cf151ec3ddc51e7d0862a6) )
 
 	NEO_SFIX_128K( "251hc12.s1", CRC(cf570e5e) SHA1(7196f8334242ac38f34145a370e7889e4e9f14ff) )
 
@@ -3332,7 +3332,7 @@ ROM_END
 
 ROM_START( kof99s13 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc13.p1",  0x000000, 0x100000, CRC(6806bb9a) SHA1(83f52e72ea678d0d84f399a65211987a342c442f) )
+	ROM_LOAD16_WORD_SWAP( "251s13.p1",  0x000000, 0x100000, CRC(6806bb9a) SHA1(83f52e72ea678d0d84f399a65211987a342c442f) )
 	ROM_LOAD16_WORD_SWAP( "251hc14.p2", 0x100000, 0x400000, CRC(d8d74ec0) SHA1(769df8b5eb9ae648dc68d6bb84d8b52c2622a1e1) )
 
 	NEO_SFIX_128K( "251hc14.s1", CRC(b676c8fe) SHA1(b15223fc44e93bde5bfbfa3bef978b05a7117b2b) )
@@ -3358,7 +3358,7 @@ ROM_END
 
 ROM_START( kof99s15 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc15.p1",  0x000000, 0x100000, CRC(3f6791d4) SHA1(84aff0e973b72cefd345c25f06062f5d5861db6d) )
+	ROM_LOAD16_WORD_SWAP( "251s15.p1",  0x000000, 0x100000, CRC(3f6791d4) SHA1(84aff0e973b72cefd345c25f06062f5d5861db6d) )
 	ROM_LOAD16_WORD_SWAP( "251hc14.p2", 0x100000, 0x400000, CRC(d8d74ec0) SHA1(769df8b5eb9ae648dc68d6bb84d8b52c2622a1e1) )
 
 	NEO_SFIX_128K( "251hc14.s1", CRC(b676c8fe) SHA1(b15223fc44e93bde5bfbfa3bef978b05a7117b2b) )
@@ -3384,7 +3384,7 @@ ROM_END
 
 ROM_START( kof99s16 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc16.p1",  0x000000, 0x100000, CRC(d02b17c6) SHA1(2041d5b5835878e3ee80903fa3077bea479b6d43) )
+	ROM_LOAD16_WORD_SWAP( "251s16.p1",  0x000000, 0x100000, CRC(d02b17c6) SHA1(2041d5b5835878e3ee80903fa3077bea479b6d43) )
 	ROM_LOAD16_WORD_SWAP( "251ndis.p2", 0x100000, 0x400000, CRC(c012ff9f) SHA1(ef53386e34464eaaed1fcba3d4d1dcfb269f995c) )
 
 	NEO_SFIX_128K( "251s02.s1", CRC(2c0a314a) SHA1(2ca439e6c2798864d9bade7753d512b64ed34f50) )
@@ -3410,7 +3410,7 @@ ROM_END
 
 ROM_START( kof99s17 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc17.p1",  0x000000, 0x100000, CRC(fa5cf0a7) SHA1(86bdde3a8c08e43b69cc28eee7f0b34ecfd78b76) )
+	ROM_LOAD16_WORD_SWAP( "251s17.p1",  0x000000, 0x100000, CRC(fa5cf0a7) SHA1(86bdde3a8c08e43b69cc28eee7f0b34ecfd78b76) )
 	ROM_LOAD16_WORD_SWAP( "251ndis.p2", 0x100000, 0x400000, CRC(c012ff9f) SHA1(ef53386e34464eaaed1fcba3d4d1dcfb269f995c) )
 
 	NEO_SFIX_128K( "251s02.s1", CRC(2c0a314a) SHA1(2ca439e6c2798864d9bade7753d512b64ed34f50) )
@@ -3436,8 +3436,8 @@ ROM_END
 
 ROM_START( kof99s18 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc18.p1",  0x000000, 0x100000, CRC(04f962cc) SHA1(c44847199baae551111efa32a0b3d886f864305b) )
-	ROM_LOAD16_WORD_SWAP( "251hc18.p2", 0x100000, 0x400000, CRC(86c53edc) SHA1(13b4c435459553312bcf8cb30270ca10c6968265) )
+	ROM_LOAD16_WORD_SWAP( "251s18.p1",  0x000000, 0x100000, CRC(04f962cc) SHA1(c44847199baae551111efa32a0b3d886f864305b) )
+	ROM_LOAD16_WORD_SWAP( "251s18.p2", 0x100000, 0x400000, CRC(86c53edc) SHA1(13b4c435459553312bcf8cb30270ca10c6968265) )
 
 	NEO_SFIX_128K( "251bs.s1", CRC(697c1f85) SHA1(117d12908b060db62716a8ac8a155c8303287746) )
 
@@ -3450,23 +3450,23 @@ ROM_START( kof99s18 )
 	ROM_LOAD( "251.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
 
 	ROM_REGION( 0x6000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "251ae.c1",   0x0000000, 0x800000, CRC(d0048356) SHA1(3a5a381f531751c8469d74b59e9e668d21cbc06b) )
-	ROM_LOAD16_BYTE( "251ae.c2",   0x0000001, 0x800000, CRC(1d405bb0) SHA1(76c4b1d6e5ff0d5814b19203fbdd1f02d663de3e) )
-	ROM_LOAD16_BYTE( "251d.c3",    0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
-	ROM_LOAD16_BYTE( "251d.c4",    0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
-	ROM_LOAD16_BYTE( "251d.c5",    0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
-	ROM_LOAD16_BYTE( "251d.c6",    0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
-	ROM_LOAD16_BYTE( "251hc18.c7",   0x3000000, 0x800000, CRC(1f67c92e) SHA1(a0299f26a2a6a026525040ec6546e4b054fde64a) )
-	ROM_LOAD16_BYTE( "251hc18.c8",   0x3000001, 0x800000, CRC(9f8d41ed) SHA1(f8d30e89f7f2295329abb431a143b764655cc948) )
+	ROM_LOAD16_BYTE( "251ae.c1",    0x0000000, 0x800000, CRC(d0048356) SHA1(3a5a381f531751c8469d74b59e9e668d21cbc06b) )
+	ROM_LOAD16_BYTE( "251ae.c2",    0x0000001, 0x800000, CRC(1d405bb0) SHA1(76c4b1d6e5ff0d5814b19203fbdd1f02d663de3e) )
+	ROM_LOAD16_BYTE( "251d.c3",     0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4",     0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5",     0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6",     0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251hc18.c7",  0x3000000, 0x800000, CRC(1f67c92e) SHA1(a0299f26a2a6a026525040ec6546e4b054fde64a) )
+	ROM_LOAD16_BYTE( "251hc18.c8",  0x3000001, 0x800000, CRC(9f8d41ed) SHA1(f8d30e89f7f2295329abb431a143b764655cc948) )
 	ROM_LOAD16_BYTE( "251hc18.c9",  0x4000000, 0x800000, CRC(c44d430d) SHA1(54082189818ddb51356f60b4212f1de5177b3239) )
 	ROM_LOAD16_BYTE( "251hc18.c10", 0x4000001, 0x800000, CRC(0e5ae418) SHA1(9f1811db741f1b063fb73f5e64ef4e56acd0b25c) )
-	ROM_LOAD16_BYTE( "251aex.c11", 0x5000000, 0x800000, CRC(7fe785c2) SHA1(b49c3ab1ebf89090388c4757f24d1c02c730cc99) )
-	ROM_LOAD16_BYTE( "251aex.c12", 0x5000001, 0x800000, CRC(a7541483) SHA1(3b3f0e67acfae1c3b6c5549ac350d855482f285f) )
+	ROM_LOAD16_BYTE( "251aex.c11",  0x5000000, 0x800000, CRC(7fe785c2) SHA1(b49c3ab1ebf89090388c4757f24d1c02c730cc99) )
+	ROM_LOAD16_BYTE( "251aex.c12",  0x5000001, 0x800000, CRC(a7541483) SHA1(3b3f0e67acfae1c3b6c5549ac350d855482f285f) )
 ROM_END
 
 ROM_START( kof99s19 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251hc19.p1",  0x000000, 0x100000, CRC(e7692e5c) SHA1(7cbff47c4dbcd8e979170c8a56e4d57bd0602e67) )
+	ROM_LOAD16_WORD_SWAP( "251s19.p1",  0x000000, 0x100000, CRC(e7692e5c) SHA1(7cbff47c4dbcd8e979170c8a56e4d57bd0602e67) )
 	ROM_LOAD16_WORD_SWAP( "251hc19.p2", 0x100000, 0x400000, CRC(86c0e2df) SHA1(68210da594aee37981a474ab801201d2533a0225) )
 
 	NEO_SFIX_128K( "251bs.s1", CRC(697c1f85) SHA1(117d12908b060db62716a8ac8a155c8303287746) )
@@ -6023,7 +6023,7 @@ ROM_START( kof99hs07 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc07.p2",  0x500000, 0x400000, CRC(eaf372c7) SHA1(e344605bf96208f1a9f8d673a2ad9175b67c6bb8) )
+	ROM_LOAD16_WORD_SWAP( "251hs07.p2",  0x500000, 0x400000, CRC(eaf372c7) SHA1(e344605bf96208f1a9f8d673a2ad9175b67c6bb8) )
 
 	NEO_SFIX_MT_128K
 
@@ -6077,7 +6077,7 @@ ROM_START( kof99hs09 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kchc09.neo-sma",  0x0c0000, 0x040000, CRC(242d2439) SHA1(895f223490f5184db2b667c6bbb1af4f37931841) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc09.p2",  0x500000, 0x400000, CRC(d2a9e3f2) SHA1(f56fb903dba6b4fe80d34f6e90a4f8e3431dff26) )
+	ROM_LOAD16_WORD_SWAP( "251hs09.p2",  0x500000, 0x400000, CRC(d2a9e3f2) SHA1(f56fb903dba6b4fe80d34f6e90a4f8e3431dff26) )
 
 	NEO_SFIX_MT_128K
 
@@ -6104,7 +6104,7 @@ ROM_START( kof99hs10 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kchc10.neo-sma",  0x0c0000, 0x040000, CRC(098bc286) SHA1(ef24fd07dc203b8711bb8cf5390e34d0a8f5032f) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc10.p2",  0x500000, 0x400000, CRC(629d294d) SHA1(b691764997317f2ebb154835ebcdbedbed8b38a3) )
+	ROM_LOAD16_WORD_SWAP( "251hs10.p2",  0x500000, 0x400000, CRC(629d294d) SHA1(b691764997317f2ebb154835ebcdbedbed8b38a3) )
 
 	NEO_SFIX_MT_128K
 
@@ -6131,7 +6131,7 @@ ROM_START( kof99hs11 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kchc11.neo-sma",  0x0c0000, 0x040000, CRC(e702b32e) SHA1(21522a129675e3f9c89ccaef9c0c939cc59ae866) )
 	ROM_LOAD16_WORD_SWAP( "251hc11.p1",   0x100000, 0x400000, CRC(58556fa4) SHA1(910d8d69b6f5e639fe0882b17001b573725db2c9) )
-	ROM_LOAD16_WORD_SWAP( "251hc11.p2",  0x500000, 0x400000, CRC(98361977) SHA1(b2a3d42e1c1a4e6e8e08b92db5fd6dffb4a3d0b3) )
+	ROM_LOAD16_WORD_SWAP( "251hs11.p2",  0x500000, 0x400000, CRC(98361977) SHA1(b2a3d42e1c1a4e6e8e08b92db5fd6dffb4a3d0b3) )
 
 	NEO_SFIX_MT_128K
 
@@ -6158,7 +6158,7 @@ ROM_START( kof99hs12 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc12.p2",  0x500000, 0x400000, CRC(308f68d1) SHA1(fb3c4aa4be56a2ef38694cccbbfdbe76519f9e32) )
+	ROM_LOAD16_WORD_SWAP( "251hs12.p2",  0x500000, 0x400000, CRC(308f68d1) SHA1(fb3c4aa4be56a2ef38694cccbbfdbe76519f9e32) )
 
 	NEO_SFIX_MT_128K
 
@@ -6347,7 +6347,7 @@ ROM_START( kof99hs19 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc19.p2",  0x500000, 0x400000, CRC(e074e88a) SHA1(3293c9e5b3280adf5d54b8c95461ae9f5bc9c0b0) )
+	ROM_LOAD16_WORD_SWAP( "251hs19.p2",  0x500000, 0x400000, CRC(e074e88a) SHA1(3293c9e5b3280adf5d54b8c95461ae9f5bc9c0b0) )
 
 	NEO_SFIX_MT_128K
 
@@ -6455,7 +6455,7 @@ ROM_START( kof99hs23 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251hc23.p1",   0x100000, 0x400000, CRC(5a8e0bda) SHA1(cfcb4429b0366caef93c497e80393af1539d5fbd) )
-	ROM_LOAD16_WORD_SWAP( "251hc23.p2",  0x500000, 0x400000, CRC(7e11e566) SHA1(6e0b6bc21e3ca3e19c3cc7f6bd3f77b461bf6ecc) )
+	ROM_LOAD16_WORD_SWAP( "251hs23.p2",  0x500000, 0x400000, CRC(7e11e566) SHA1(6e0b6bc21e3ca3e19c3cc7f6bd3f77b461bf6ecc) )
 
 	NEO_SFIX_MT_128K
 
@@ -6644,7 +6644,7 @@ ROM_START( kof99hs30 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc30.p2",  0x500000, 0x400000, CRC(d3de1712) SHA1(cc98c0de61e93a03fe985237815e6efc2b0e8dde) )
+	ROM_LOAD16_WORD_SWAP( "251hs30.p2",  0x500000, 0x400000, CRC(d3de1712) SHA1(cc98c0de61e93a03fe985237815e6efc2b0e8dde) )
 
 	NEO_SFIX_MT_128K
 
@@ -6671,7 +6671,7 @@ ROM_START( kof99hs31 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc31.p2",  0x500000, 0x400000, CRC(957f8623) SHA1(b295e04adb0b9c06903224047d1cd0c4a5fd5fbd) )
+	ROM_LOAD16_WORD_SWAP( "251hs31.p2",  0x500000, 0x400000, CRC(957f8623) SHA1(b295e04adb0b9c06903224047d1cd0c4a5fd5fbd) )
 
 	NEO_SFIX_MT_128K
 
@@ -6968,7 +6968,7 @@ ROM_START( kof99hs42 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc42.p2",  0x500000, 0x400000, CRC(9f6f1830) SHA1(03929846c83b42751c6b9bf9cf89599a66196324) )
+	ROM_LOAD16_WORD_SWAP( "251hs42.p2",  0x500000, 0x400000, CRC(9f6f1830) SHA1(03929846c83b42751c6b9bf9cf89599a66196324) )
 
 	NEO_SFIX_MT_128K
 
@@ -6995,7 +6995,7 @@ ROM_START( kof99hs43 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc43.p2",  0x500000, 0x400000, CRC(a4691dcf) SHA1(698efcd4a83411b72bcc0ef82d54ce9ba997d764) )
+	ROM_LOAD16_WORD_SWAP( "251hs43.p2",  0x500000, 0x400000, CRC(a4691dcf) SHA1(698efcd4a83411b72bcc0ef82d54ce9ba997d764) )
 
 	NEO_SFIX_MT_128K
 
@@ -7076,7 +7076,7 @@ ROM_START( kof99hs46 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "kc.neo-sma",  0x0c0000, 0x040000, CRC(6c9d0647) SHA1(2a0ce62ca6c18007e8fbe1b60475c7874ab79389) )
 	ROM_LOAD16_WORD_SWAP( "251.p1",   0x100000, 0x400000, CRC(006e4532) SHA1(47791ab4044ad55988b1d3412d95b65b91a163c8) )
-	ROM_LOAD16_WORD_SWAP( "251hc46.p2", 0x500000, 0x400000, CRC(eb120210) SHA1(c27bc5f7f5a3b7f9b96eff5d4fa9da6168733b90) )
+	ROM_LOAD16_WORD_SWAP( "251hs46.p2", 0x500000, 0x400000, CRC(eb120210) SHA1(c27bc5f7f5a3b7f9b96eff5d4fa9da6168733b90) )
 
 	NEO_SFIX_MT_128K
 
@@ -7128,7 +7128,7 @@ ROM_END
 ROM_START( kof99ks02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc02.p1",  0x000000, 0x100000, CRC(9e3ef1df) SHA1(f2d0d4883f79f04f846bd5fd6499bae26f24a00c) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7154,7 +7154,7 @@ ROM_END
 ROM_START( kof99ks03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc03.p1",  0x000000, 0x100000, CRC(139493f7) SHA1(90d240c9f3e4f06ea8aeb917f0d09990c7c76716) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7180,7 +7180,7 @@ ROM_END
 ROM_START( kof99ks04 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc04.p1",  0x000000, 0x100000, CRC(16b39384) SHA1(b512ad118ba1b8c6f7eafbec82b67d89f18f8793) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7206,7 +7206,7 @@ ROM_END
 ROM_START( kof99ks05 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc05.p1",  0x000000, 0x100000, CRC(f6ebb8bb) SHA1(c08aac9130526256bfb6eb991afc86237f09f980) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7232,7 +7232,7 @@ ROM_END
 ROM_START( kof99ks06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc06.p1",  0x000000, 0x100000, CRC(decaaabb) SHA1(6d699fb798967771b87171260bc4d0e727d67c9c) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7284,7 +7284,7 @@ ROM_END
 ROM_START( kof99ks08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc08.p1",  0x000000, 0x100000, CRC(19f79912) SHA1(0095a6bfda75926d20dca3707e30b037f909df56) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7388,7 +7388,7 @@ ROM_END
 ROM_START( kof99ks12 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7414,7 +7414,7 @@ ROM_END
 ROM_START( kof99ks13 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc13.p1",  0x000000, 0x100000, CRC(ca8ff61a) SHA1(7180c4212cc12034c661311a4dcc40f159086298) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7440,7 +7440,7 @@ ROM_END
 ROM_START( kof99ks14 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc14.p1",  0x000000, 0x100000, CRC(e5d021ec) SHA1(3358406910c2f05ef7fa97b0f9488b96b59fdffb) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7466,7 +7466,7 @@ ROM_END
 ROM_START( kof99ks15 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc15.p1",  0x000000, 0x100000, CRC(225e4794) SHA1(e1c7dbe276e8301f69205f1fe659610a6db5782b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7492,7 +7492,7 @@ ROM_END
 ROM_START( kof99ks16 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc16.p1",  0x000000, 0x100000, CRC(5ce2f562) SHA1(2bcd61e18d19460b85abaf72729ae997b1a2f16b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7518,7 +7518,7 @@ ROM_END
 ROM_START( kof99ks17 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc17.p1",  0x000000, 0x100000, CRC(1a6c3e26) SHA1(c17c239bcf114896fe2eb469487473d86616a4f2) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7544,7 +7544,7 @@ ROM_END
 ROM_START( kof99ks18 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc18.p1",  0x000000, 0x100000, CRC(a8e01c4b) SHA1(f239f98d003db87fb72f169fa182c1ea360f40bd) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7570,7 +7570,7 @@ ROM_END
 ROM_START( kof99ks19 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc19.p1",  0x000000, 0x100000, CRC(4edabf26) SHA1(d63c76a94ddb416870998b3c03acb2d68b52f4b0) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7596,7 +7596,7 @@ ROM_END
 ROM_START( kof99ks20 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc20.p1",  0x000000, 0x100000, CRC(e5f0a5eb) SHA1(2689342a031e20f6b4387eed0023caa4bcfcd74e) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7622,7 +7622,7 @@ ROM_END
 ROM_START( kof99ks21 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc21.p1",  0x000000, 0x100000, CRC(67bb2344) SHA1(7bc258389bb72f91a22e083e09234a43f1730434) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7908,7 +7908,7 @@ ROM_END
 ROM_START( kof99ks32 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc32.p1",  0x000000, 0x100000, CRC(c539927c) SHA1(f39074fc2340ebc1096911d504ecb7af1024eb93) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7934,7 +7934,7 @@ ROM_END
 ROM_START( kof99ks33 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc33.p1",  0x000000, 0x100000, CRC(ffa43218) SHA1(e9463795f940c4a167f8913066584c2dc673bbc7) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -7986,7 +7986,7 @@ ROM_END
 ROM_START( kof99ks35 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc35.p1",  0x000000, 0x100000, CRC(20e8ac1b) SHA1(dba655fad002960fb122e153ee6d1db15cf1945d) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8038,7 +8038,7 @@ ROM_END
 ROM_START( kof99ks37 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8064,7 +8064,7 @@ ROM_END
 ROM_START( kof99ks38 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8090,7 +8090,7 @@ ROM_END
 ROM_START( kof99ks39 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8116,7 +8116,7 @@ ROM_END
 ROM_START( kof99ks40 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8142,7 +8142,7 @@ ROM_END
 ROM_START( kof99ks41 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8220,7 +8220,7 @@ ROM_END
 ROM_START( kof99ks44 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc44.p1",  0x000000, 0x100000, CRC(1085897a) SHA1(0571ac758b4605e0ebe02276df94fb8034dd9337) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8246,7 +8246,7 @@ ROM_END
 ROM_START( kof99ks45 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc45.p1",  0x000000, 0x100000, CRC(ed4687ce) SHA1(3fe7fee58a63e0946d57d18dfd542ca6effa598c) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8324,7 +8324,7 @@ ROM_END
 ROM_START( kof99ks48 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc48.p1",  0x000000, 0x100000, CRC(e128e60f) SHA1(8c61947b0589b686a5c9528dd4738def7d281e34) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8376,7 +8376,7 @@ ROM_END
 ROM_START( kof99ks50 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc50.p1",  0x000000, 0x100000, CRC(180ad904) SHA1(6502ef58ee16f54da344d2a36f9d68a579a06e52) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8402,7 +8402,7 @@ ROM_END
 ROM_START( kof99ks51 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc51.p1",  0x000000, 0x100000, CRC(b17a9456) SHA1(c1998b085379b33cfb9786c206f950b909e8b392) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -8454,7 +8454,7 @@ ROM_END
 ROM_START( kof99ks53 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251hc53.p1",  0x000000, 0x100000, CRC(42104d42) SHA1(5e0987a942aab01386fb6ae95641b86ac557de72) )
-	ROM_LOAD16_WORD_SWAP( "251.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
+	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
 
@@ -9447,244 +9447,244 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '99
-GAME( 2017, kof99s01,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 01)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s02,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 02)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s03,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 03)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s04,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 04)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s05,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 05)(NGM-2510)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s07,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 07)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s08,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 08)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s09,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 09)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s10,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 10)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s11,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 11)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s12,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 12)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s13,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 13)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s15,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 15)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s16,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 16)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s17,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 17)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s18,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 18)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s19,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 19)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s20,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 20)(NGM-2510)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s21,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 21)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99s22,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Anniversary Edition Hack Updated To Latest Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof99s23,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional", "Kof'99 Anniversary Edition (s23)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof99s24,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional", "Kof'99 (Red Storm Edition Unsimplified by Kalcetin)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, kof99s25,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s25)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2012, kof99s26,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s26)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99s27,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s27)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2012, kof99s28,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, kof99s29,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s29)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive mode)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Remove The Shadow On Krizalid's portrait)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Bosses' Portraits)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Replace Krizalid's Portraits)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Krizalid's Moves)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Re-spell Krizalid's Name While Waiting-Striker)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free Special Move)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free ST)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change K's Moves)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V3)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Orochi)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Background)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Boss)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Backward Rolling)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Special Dialogue)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99es34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(earlier)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h01,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h02,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h03,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h04,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h05,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Remove The Shadow On Krizalid's Portrait)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h06,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Bosses' Portraits On The Character Selection Screen)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h07,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters-Replace Krizalid's Portraits)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h08,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters-Add Krizalid's Moves)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h09,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Re-Spell Krizalid's Name While Waiting-Striker)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h10,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h11,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h12,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free Special Move)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h13,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h14,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free ST)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h15,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change K's Moves)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h16,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (7 Colors Version)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h17,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h18,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h19,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h20,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Red Version)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h21,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Bloody Red Style)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h22,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h23,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h24,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h25,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change Athena's Move)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h26,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h27,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h28,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h29,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h30,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h31,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h32,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Orochi)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h33,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Background)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h34,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Boss)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h35,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Backward Rolling)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h36,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h41,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters Add striker move v1 Alt)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h42,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters Add striker move v2 Alt)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h43,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters Add striker move v3 Alt)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h44,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Kyo's New Moves)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h45,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Choosing Same One)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99h46,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Investment skills Hit)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (DreamCast 1.0)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (DreamCast 1.2F)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Revolution Christmas Edition)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Remix Pro 1.07A)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Remove Shadow)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses' portraits)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Replace Krizalid's Portraits)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Krizalid's Moves)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Fix Krizalid's Name)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked.)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free Special Move)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free ST)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change K's Moves)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Kyo's New Moves)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (7 Colors Version)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Red Version)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Bloody Red Style)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Choosing Same One)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs35,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs36,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs37,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs38,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs39,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs40,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs41,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Orochi)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs42,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Background)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs43,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Boss)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs44,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Backward Rolling)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs45,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Special Dialogue)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99hs46,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (DreamCast 1.2F)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Remove Shadow)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses' Portraits)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Replace Krizalid's Portraits)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Krizalid's Moves)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Fix Krizalid's Name)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Free Special Move)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Free ST)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Add '97 Shavings Wind)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Change K's Moves)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Add Kyo's New Moves)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Yagami Temple Moves To Add)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (7 Colors Version)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V4)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Icy Blue Style)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Bloody Red Style)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks35,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Choosing Same One)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks36,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks37,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks38,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks39,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks40,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks41,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks42,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks43,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Orochi)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks44,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Random Background)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks45,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Random Boss)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks46,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Dodge Imitation kof2000)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks47,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Dodge Imitation kof98)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks48,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Dodge Imitation kof98A)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks49,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Special Dialogue)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks50,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks51,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Robert Hidden Trick)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks52,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Evolution Ultra Remix 2011.12.20)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ks53,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Simplify The Move Version)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Remove Shadow)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Replace Krizalid's)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Krizalid's Moves)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Fix Krizalid's Name)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v1)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v2)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v3)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Free Special Move)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Free ST)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Change K's Moves)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Color Change V1)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Color Change V2)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Color Change V3)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix S1)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Orochi)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Random Background)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Random Boss)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Backward Rolling)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps35,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Special Dialogue)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps36,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof99ps37,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses' Portraits (Alt))(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s01,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 01)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s02,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 02)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s03,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 01))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s04,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 02))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s05,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 03))(NGM-2510)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s07,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 07)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s08,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 04))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s09,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 09)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s10,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 10)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s11,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 11)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s12,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 05))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s13,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 13)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s15,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Description Of Unknown Origin 15)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s16,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 06))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s17,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 07))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s18,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 08))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s19,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 09))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s20,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 10))(NGM-2510)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s21,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 11))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s22,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Anniversary Edition Hack Updated To Latest Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof99s23,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional", "Kof'99 Anniversary Edition (s23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof99s24,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional", "Kof'99 (Red Storm Edition Unsimplified by Kalcetin)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kof99s25,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s25)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kof99s26,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s26)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kof99s27,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s27)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kof99s28,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2011, kof99s29,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (s29)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive mode)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Remove The Shadow On Krizalid's portrait)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Bosses' Portraits)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Replace Krizalid's Portraits)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Krizalid's Moves)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Re-spell Krizalid's Name While Waiting-Striker)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free Special Move)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free ST)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change K's Moves)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V3)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Orochi)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Background)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Boss)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Backward Rolling)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Special Dialogue)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99es34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(earlier)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h01,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h02,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h03,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h04,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h05,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Remove The Shadow On Krizalid's Portrait)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h06,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Bosses' Portraits On The Character Selection Screen)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h07,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters-Replace Krizalid's Portraits)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h08,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters-Add Krizalid's Moves)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h09,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Re-Spell Krizalid's Name While Waiting-Striker)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h10,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h11,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h12,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free Special Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h13,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h14,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free ST)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h15,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change K's Moves)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h16,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (7 Colors Version)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h17,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h18,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h19,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h20,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Red Version)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h21,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Bloody Red Style)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h22,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h23,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h24,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h25,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change Athena's Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h26,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h27,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h28,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h29,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h30,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h31,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h32,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Orochi)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h33,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Background)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h34,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Boss)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h35,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Backward Rolling)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h36,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h41,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters Add striker move v1 Alt)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h42,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters Add striker move v2 Alt)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h43,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters Add striker move v3 Alt)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h44,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Kyo's New Moves)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h45,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Choosing Same One)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99h46,       kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Investment skills Hit)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (DreamCast 1.0)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (DreamCast 1.2F)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Revolution Christmas Edition)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Remix Pro 1.07A)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Remove Shadow)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses' portraits)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Replace Krizalid's Portraits)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Krizalid's Moves)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Hidden Characters - Fix Krizalid's Name)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked.)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free Special Move)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Free ST)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change K's Moves)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Add Kyo's New Moves)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (7 Colors Version)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Color Change V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Red Version)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Bloody Red Style)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Choosing Same One)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs35,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs36,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs37,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs38,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs39,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs40,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs41,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Orochi)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs42,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Background)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs43,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Random Boss)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs44,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Backward Rolling)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs45,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Special Dialogue)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99hs46,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (DreamCast 1.2F)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Striker Move V3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Remove Shadow)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses' Portraits)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Replace Krizalid's Portraits)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Krizalid's Moves)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Fix Krizalid's Name)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Free Special Move)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Free ST)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Add '97 Shavings Wind)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Change K's Moves)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Add Kyo's New Moves)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Yagami Temple Moves To Add)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (7 Colors Version)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Color Change V4)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Icy Blue Style)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Bloody Red Style)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks35,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Choosing Same One)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks36,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks37,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks38,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks39,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks40,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks41,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks42,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks43,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Orochi)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks44,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Random Background)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks45,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Random Boss)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks46,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Dodge Imitation kof2000)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks47,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Dodge Imitation kof98)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks48,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Dodge Imitation kof98A)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks49,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Special Dialogue)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks50,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks51,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Robert Hidden Trick)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks52,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Evolution Ultra Remix 2011.12.20)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ks53,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99k,    ROT0, "Hacks",    "Kof'99 (Simplify The Move Version)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Unlock Intensive Mode)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V3)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Remove Shadow)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps05,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps06,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Replace Krizalid's)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps07,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Krizalid's Moves)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps08,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Fix Krizalid's Name)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps09,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v1)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps10,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v2)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps11,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enhanced Counter & Armor Mode v3)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps12,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power After Attack Or Being Attacked)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps13,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Get Maximum Power At Start Up)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps14,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Free Special Move)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps15,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Power Gauge Upgrade)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps16,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Free ST)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps17,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Change K's Moves)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps18,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Color Change V1)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps19,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Color Change V2)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps20,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Color Change V3)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps21,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix S1)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps22,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix Iori's Bug)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps23,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix Joe's Bug)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps24,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fix Leona's Bug)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps25,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Change Athena's Move)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps26,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V0)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps27,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V1)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps28,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V3)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps29,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Fixed Life Bar V4)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps30,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Enable Hidden Set)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps31,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Orochi)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps32,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Random Background)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps33,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Random Boss)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps34,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Backward Rolling)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps35,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Special Dialogue)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps36,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Unlimited Credits In Console Mode)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99ps37,      kof99,   neogeo_noslot,  neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'99 (Hidden Characters - Add Bosses' Portraits (Alt))(prototype)", MACHINE_SUPPORTS_SAVE )
 
 

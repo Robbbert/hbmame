@@ -62,5 +62,5 @@ ROM_START( shogwarrbh )
 	ROM_LOAD( "fb-003.u44",   0x100000, 0x100000, CRC(0aea4ac5) SHA1(8f3b30e505b0ba51c140a0a2c071680d4fa05db9) )
 ROM_END
 
-GAME( 1992, fjbusterbh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Fujiyama Buster (Japan) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-GAME( 1992, shogwarrbh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Shogun Warriors (World) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+HACK( 1992, fjbusterbh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Fujiyama Buster (Japan) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+HACK( 1992, shogwarrbh, shogwarr, shogwarr, shogwarr, kaneko16_shogwarr_state, shogwarr, ROT0, "e107", "Shogun Warriors (World) Boss Hack by e107", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

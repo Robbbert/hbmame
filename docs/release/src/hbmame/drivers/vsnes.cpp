@@ -13,7 +13,7 @@ ROM_START( mrio2002 )
 	ROM_LOAD( "mrio2002.2b", 0x0000, 0x2000, CRC(1feda640) SHA1(f26be31f43dacdaa9d8bffa75f4fcd9d8d04953a) )
 	ROM_LOAD( "mds-sm4-4__2aor8a_e.2a or 8a",  0x2000, 0x2000, CRC(15506b86) SHA1(69ecf7a3cc8bf719c1581ec7c0d68798817d416f) )
 
-	PALETTE_2C04_0004
+	PALETTE_2C04_0004("ppu1:palette")
 ROM_END
 
 ROM_START( suprsktr )
@@ -27,11 +27,11 @@ ROM_START( suprsktr )
 	ROM_LOAD( "suprsktr.2b", 0x0000, 0x2000, CRC(f3980303) SHA1(b9a25c906d1861c89e2e40e878a34d318daf6619) )
 	ROM_LOAD( "mds-sm4-4__2aor8a_e.2a or 8a",  0x2000, 0x2000, CRC(15506b86) SHA1(69ecf7a3cc8bf719c1581ec7c0d68798817d416f) )
 
-	PALETTE_2C04_0004
+	PALETTE_2C04_0004("ppu1:palette")
 ROM_END
 
-GAME( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
+HACK( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
 
 
 //PSmame
@@ -48,7 +48,7 @@ ROM_START( drmarios01 )
 	ROM_REGION( 0x8000, "gfx1", 0 )
 	ROM_LOAD( "dmhc01-u3chr",  0x0000, 0x8000, CRC(ac94c651) SHA1(9ac7c97501d915c6f0041de3be421423f5de0448) )
 
-	PALETTE_2C04_0003
+	PALETTE_2C04_0003("ppu1:palette")
 ROM_END
 
 /*************************************
@@ -59,5 +59,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Vs. Dr. Mario
-GAME( 1990, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "Hacks",               "Vs. Dr. Mario (Translation Chinese)",                   0 )
+HACK( 1990, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "Hacks", "Vs. Dr. Mario (Translation Chinese)", 0 )
 

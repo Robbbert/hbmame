@@ -591,11 +591,13 @@ public:
 	{ }
 
 	void tempmg(machine_config &config);
+	void init_tempmg();
+
+private:
+
 	void tempmg_map(address_map &map);
 	DECLARE_WRITE8_MEMBER(tempmg_rombank_w);
 	DECLARE_MACHINE_RESET(tempmg);
-	DECLARE_DRIVER_INIT(tempmg);
-private:
 	required_device<cpu_device> m_maincpu;
 };
 
@@ -614,7 +616,7 @@ MACHINE_RESET_MEMBER( tempmg_state, tempmg )
 	tempmg_rombank_w (space, 0,0);
 }
 
-DRIVER_INIT_MEMBER( tempmg_state, tempmg )
+void tempmg_state::init_tempmg()
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	uint8_t *RAM = memregion("maincpu")->base();
@@ -651,8 +653,8 @@ void tempmg_state::tempmg_map(address_map &map) {
 
 MACHINE_CONFIG_START( tempmg_state::tempmg )
 	tempest(config);
-	MCFG_CPU_MODIFY("maincpu")
-	MCFG_CPU_PROGRAM_MAP(tempmg_map)
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(tempmg_map)
 	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
 MACHINE_CONFIG_END
 
@@ -769,18 +771,18 @@ ROM_START( tempmg )
 ROM_END
 
 
-GAME( 2000, temped,   tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tempall,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, temptwst, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tmptwsta, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted (Alt)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tmptwst2, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisty's Revenge", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tmptwst3, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tmptwst4, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tempestm, tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,   tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, vbrakout, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, temptlm,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, tvortex,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, tvortexa, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, aliensv,  tempest, tempest, aliensv, tempest_state,  0,      ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, aliensva, tempest, tempest, aliensv, tempest_state,  0,      ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, temped,   tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, tempall,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, temptwst, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, tmptwsta, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted (Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, tmptwst2, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisty's Revenge", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, tmptwst3, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, tmptwst4, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, tempestm, tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
+HACK( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,   tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, vbrakout, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, temptlm,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, tvortex,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, tvortexa, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, aliensv,  tempest, tempest, aliensv, tempest_state,  0,      ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, aliensva, tempest, tempest, aliensv, tempest_state,  0,      ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )
