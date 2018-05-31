@@ -62,6 +62,7 @@
 #include "machine/tms9914.h"
 #include "sound/sn76496.h"
 #include "bus/hp_dio/hp_dio.h"
+#include "bus/hp_dio/hp98543.h"
 #include "bus/hp_dio/hp98544.h"
 #include "bus/hp_hil/hp_hil.h"
 #include "bus/hp_hil/hil_devices.h"
@@ -201,7 +202,7 @@ void hp9k3xx_state::hp9k3xx_common(address_map &map)
 	map(0x00000000, 0x0001ffff).rom().region("maincpu", 0).w(this, FUNC(hp9k3xx_state::led_w));  // writes to 1fffc are the LED
 
 	map(0x00428000, 0x00428003).rw(m_iocpu, FUNC(upi41_cpu_device::upi41_master_r), FUNC(upi41_cpu_device::upi41_master_w)).umask32(0x00ff00ff);
-	map(0x00470000, 0x0047ffff).rw(this, FUNC(hp9k3xx_state::gpib_r), FUNC(hp9k3xx_state::gpib_w)).umask16(0x00ff);
+	map(0x00470000, 0x0047000f).mirror(0x0000fff0).rw(this, FUNC(hp9k3xx_state::gpib_r), FUNC(hp9k3xx_state::gpib_w)).umask16(0x00ff);
 
 	map(0x005f8000, 0x005f800f).rw(PTM6840_TAG, FUNC(ptm6840_device::read), FUNC(ptm6840_device::write)).umask32(0x00ff00ff);
 
@@ -215,7 +216,7 @@ void hp9k3xx_state::hp9k310_map(address_map &map)
 	map(0x000000, 0x01ffff).rom().region("maincpu", 0).nopw();  // writes to 1fffc are the LED
 
 	map(0x428000, 0x428003).rw(m_iocpu, FUNC(upi41_cpu_device::upi41_master_r), FUNC(upi41_cpu_device::upi41_master_w)).umask16(0x00ff);
-	map(0x470000, 0x47800f).rw(this, FUNC(hp9k3xx_state::gpib_r), FUNC(hp9k3xx_state::gpib_w)).umask16(0x00ff);
+	map(0x470000, 0x47000f).mirror(0x00fff0).rw(this, FUNC(hp9k3xx_state::gpib_r), FUNC(hp9k3xx_state::gpib_w)).umask16(0x00ff);
 
 	map(0x510000, 0x510003).rw(this, FUNC(hp9k3xx_state::buserror16_r), FUNC(hp9k3xx_state::buserror16_w));   // no "Alpha display"
 	map(0x538000, 0x538003).rw(this, FUNC(hp9k3xx_state::buserror16_r), FUNC(hp9k3xx_state::buserror16_w));   // no "Graphics"
@@ -318,9 +319,7 @@ WRITE_LINE_MEMBER(hp9k3xx_state::gpib_irq)
 
 WRITE8_MEMBER(hp9k3xx_state::gpib_w)
 {
-	offset &= 0xf;
-
-	if (offset >= 0x08) {
+	if (offset & 0x08) {
 		m_tms9914->reg8_w(space, offset & 0x07, data);
 		return;
 	}
@@ -331,9 +330,7 @@ READ8_MEMBER(hp9k3xx_state::gpib_r)
 {
 	uint8_t data = 0xff;
 
-	offset &= 0xf;
-
-	if (offset >= 0x8) {
+	if (offset & 0x8) {
 		data = m_tms9914->reg8_r(space, offset & 0x07);
 		return data;
 	}
@@ -433,6 +430,7 @@ READ8_MEMBER(hp9k3xx_state::iocpu_test0_r)
 
 static void dio16_cards(device_slot_interface &device)
 {
+	device.option_add("98543", HPDIO_98543); /* 98543 Medium Resolution Color Card */
 	device.option_add("98544", HPDIO_98544); /* 98544 High Resolution Monochrome Card */
 	device.option_add("98603a", HPDIO_98603A); /* 98603A ROM BASIC (4.0) */
 	device.option_add("98603b", HPDIO_98603B); /* 98603B ROM BASIC (5.1) */

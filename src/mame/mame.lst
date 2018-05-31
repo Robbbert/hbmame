@@ -1305,6 +1305,7 @@ apple2e                         // Jan 1983 Apple //e
 apple2ee                        // Mar 1985 Apple //e Enhanced
 apple2eeuk                      // Mar 1985 Apple //e Enhanced (UK)
 apple2eefr                      // Mar 1985 Apple //e Enhanced (France)
+apple2ees                       // Mar 1985 Apple //e Enhanced (Spain)
 apple2ep                        // Jan 1987 Apple //e Platinum
 apple2euk                       // Jan 1983 Apple //e (UK)
 las128e2                        // ??? Laser 128 EX2
@@ -15679,6 +15680,7 @@ gtg                             // (c) 1990 Strata/Incredible Technologies
 gtg2                            // (c) 1992 Strata/Incredible Technologies
 gtg2j                           // (c) 1991 Strata/Incredible Technologies
 gtg2t                           // (c) 1989 Strata/Incredible Technologies
+gtgj31                          // (c) 1990 Strata/Incredible Technologies
 gtgt                            // (c) 1990 Strata/Incredible Technologies
 gtgt1                           // (c) 1990 Strata/Incredible Technologies
 hstennis                        // (c) 1990 Strata/Incredible Technologies
@@ -29794,6 +29796,7 @@ mslug                           // 0201 (c) 1996 Nazca
 mslug2                          // 0241 (c) 1998 SNK
 mslug2t                         // bootleg
 mslug3                          // 0256 (c) 2000 SNK
+mslug3a                         // 0256 (c) 2000 SNK
 mslug3b6                        // bootleg
 mslug3h                         // 0256 (c) 2000 SNK
 mslug4                          // 0263 (c) 2002 Mega Enterprise
@@ -34319,6 +34322,7 @@ rdftja                          // (c) 1996 Seibu Kaihatsu
 rdftjb                          // (c) 1996 Seibu Kaihatsu
 rdfts                           // (c) 1996 Seibu Kaihatsu (Explorer System Corp.)
 rdftu                           // (c) 1996 Seibu Kaihatsu (Fabtek license)
+rdftua                          // (c) 1996 Seibu Kaihatsu (Fabtek license)
 rfjet                           // (c) 1998 Seibu Kaihatsu (Tuning License)
 rfjet2kc                        // (c) 2000 Seibu Kaihatsu
 rfjeta                          // (c) 1998 Seibu Kaihatsu (Dream Island license)
@@ -34337,6 +34341,7 @@ viprp1k                         // (c) 1995 Seibu Kaihatsu (Dream Island license
 viprp1oj                        // (c) 1995 Seibu Kaihatsu
 viprp1ot                        // (c) 1995 Seibu Kaihatsu (Tuning License)
 viprp1s                         // (c) 1995 Seibu Kaihatsu
+viprp1t                         // (c) 1995 Seibu Kaihatsu (Tuning License)
 viprp1u                         // (c) 1995 Seibu Kaihatsu (Fabtek license)
 viprp1ua                        // (c) 1995 Seibu Kaihatsu (Fabtek license)
 
