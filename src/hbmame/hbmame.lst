@@ -69,7 +69,7 @@ asukac			// chinese
 atarisy1		//bios
 indytemp		//parent
 ataris1hw
-ataris1rt				//black screen
+ataris1rt
 
 @source:atari_s1.cpp
 //atarians	//parent

@@ -1062,7 +1062,7 @@ HACK( 2000, terror,   galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90
 HACK( 2000, vgalaga,  galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Vector Galaga", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, vgalagam, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Vector Galaga Midway", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, vgalagaf, galaga,  galaga,   galaga,   galaga_state,  galaga,  ROT90, "Hack", "Vector Galaga Fast Shoot", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, battlesh, xevious, battles,  xevious,  xevious_state, battles, ROT90, "bootleg", "Battles 2002", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, battlesh, xevious, battles,  xevious,  battles_state, driver_init, ROT90, "bootleg", "Battles 2002", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, gaous,    xevious, xevious,  xevious,  xevious_state, xevious, ROT90, "Namco (Hack)", "Gaous", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, sxvioush, xevious, xevious,  sxevious, xevious_state, xevious, ROT90, "Namco", "Super Xevious 2002", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, xeviblk,  xevious, xevious,  xevious,  xevious_state, xevious, ROT90, "Namco", "Xevious Black", MACHINE_SUPPORTS_SAVE )
