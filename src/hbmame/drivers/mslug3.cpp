@@ -910,7 +910,7 @@ ROM_END
 
 
 // Metal Slug 3
-HACK( 2000, mslug3d,   mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3d,  ROT0, "SNK", "Metal Slug 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, mslug3d,   mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3d,  ROT0, "SNK", "Metal Slug 3 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e02, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e03, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e04, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 04)", MACHINE_SUPPORTS_SAVE )
@@ -932,16 +932,16 @@ HACK( 2000, mslug3e19, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslu
 HACK( 2000, mslug3e20, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e21, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e22, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, mslug3eb,  mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (EB)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2013, mslug3eb,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (Blue Out Of Blue (6.14))" , MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3eha, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3ehs, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug3fr,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug3fro, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French) (Old)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, mslug3hev, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "hack", "Metal Slug 3 (unknown hev)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, mslug3hev, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "hack", "Metal Slug 3 (Enhanced Version 2015)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3kh,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3kho, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3nd,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "SNK", "Metal Slug 3 (NGH-2560)(Fully Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, mslug3v,   mslug3,   neogeo_noslot, neogeo, neogeo_state, mslug3b6, ROT0, "Eezezy", "Metal Slug 3 (Violence Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, mslug3v,   mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3b6, ROT0, "Eezezy", "Metal Slug 3 (Violence Edition)", MACHINE_SUPPORTS_SAVE )
 
 
 

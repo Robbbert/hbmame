@@ -456,24 +456,24 @@ ROM_END
 
 
 // Metal Slug X
-HACK( 1999, mslugxce,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (CE)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxce,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Checkpoints Enemy Bullets Enhanced Remake)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxeb,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (EB)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxeh,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "KrysoFun/KVS", "Metal Slug X (Style remix)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxeh1, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Super Revised Version by KrysoFun)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxex,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Excel version by PlayerX)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxfe,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (FE)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxfe,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Fire Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslugxfr,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (French)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslugxfro, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (French) (Old)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxhp,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Enemy Heavy Plate 2013-06-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslugxit,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Italian - Beta)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxjdkj,mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (JDKJ)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxmfb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (MFB)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxjdkj,mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Live Enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxmfb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Madness Fire bthl Special Edition Enhanced)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Player-X", "Metal Slug X Plus (Hack by Player-X)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxr,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Reset Version 2013-05-28)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxres, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (RES)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxsef, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (SEF)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxres, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (level Reset Special Edition v1.1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxsef, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Special Edition Enhanced Flash Off)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxst,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "EGCG / Stark", "Metal Slug X (Enhanced Version by STARK) [EGCG]", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxsvb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (SVB)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxsvb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (super Enhanced Version Of The Beta 2015)", MACHINE_SUPPORTS_SAVE )
 
 //PSmame (c) gaston90 used with permission
 
