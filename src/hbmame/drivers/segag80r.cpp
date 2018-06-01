@@ -28,11 +28,11 @@ ROM_START( astrob2h ) // same as astrob2 except u2 and u4
 	ROM_REGION( 0x0800, "audiocpu", 0 )
 	ROM_LOAD( "808b.speech-u7", 0x0000, 0x0800, CRC(5988c767) SHA1(3b91a8cd46aa7e714028cc40f700fea32287afb1) )
 
-	ROM_REGION( 0x4000, "speech", 0 )
+	ROM_REGION( 0x4000, SEGASND_SEGASPEECH_REGION, 0 )
 	ROM_LOAD( "809a.speech-u6", 0x0000, 0x0800, CRC(893f228d) SHA1(41c08210d322105f5446cfaa1258c194dd078a34) )
 	ROM_LOAD( "810.speech-u5",  0x0800, 0x0800, CRC(ff0163c5) SHA1(158a12f9bf01d25c7e98f34fce56df51d49e5a85) )
 	ROM_LOAD( "811.speech-u4",  0x1000, 0x0800, CRC(219f3978) SHA1(728edb9251f7cde237fa3b005971366a099c6342) )
 	ROM_LOAD( "812a.speech-u3", 0x1800, 0x0800, CRC(410ad0d2) SHA1(9b5f05bb64a6ecfe3543025a10c6ec67de797333) )
 ROM_END
 
-HACK( 1981, astrob2h, astrob, astrob, astrob2, segag80r_state, astrob, ROT270, "Clay Cowgill", "Astro Blaster (ver 2 Hack)", 0 )
+GAME( 1981, astrob2h, astrob, astrob, astrob2, segag80r_state, init_astrob, ROT270, "Clay Cowgill", "Astro Blaster (ver 2 Hack)", 0 )
