@@ -71,7 +71,7 @@ indytemp		//parent
 ataris1hw
 ataris1rt
 
-@source:atari_s1.cpp
+//@source:atari_s1.cpp
 //atarians	//parent
 //atarianb	/* hack for emulators */
 
