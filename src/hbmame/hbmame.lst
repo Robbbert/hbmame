@@ -71,7 +71,7 @@ indytemp		//parent
 ataris1hw
 ataris1rt
 
-//@source:atari_s1.cpp
+@source:atari_s1.cpp
 //atarians	//parent
 //atarianb	/* hack for emulators */
 
@@ -1339,10 +1339,6 @@ sfzjs02
 sfzjs03
 sfzjs04
 sfzjs05
-ssf2e01
-ssf2j01
-ssf2j02
-ssf2j03
 ssf2tas01
 ssf2tas02
 vsav2s01
@@ -1382,7 +1378,7 @@ jojos02
 jojos03
 jojos04
 jojos05
-jojos06
+jojox01
 jojobaner1s01
 jojobaner1s02
 jojobaner1s03
@@ -1665,24 +1661,8 @@ kof95s11
 kof95s12
 kof95s13
 kof95s14
-kof95s15
-kof95s16
-kof95s17
-kof95s18
-kof95s19
-kof95s20
-kof95s21
-kof95s22
-kof95s23
-kof95s24
-kof95s25
-kof95s26
-kof95s27
-kof95s28
-kof95s29
-kof95s32
-kof95s33    // they refuse to fight
-kof95s34    // reboots after 15 seconds
+kof95s15    // they refuse to fight
+kof95s16    // reboots after 15 seconds
 kof95hs01
 kof95hs02
 kof95hs03
@@ -1760,12 +1740,15 @@ kof96s03
 kof96s04
 kof96s05
 kof96s06
+kof96s07
 kof96s08
 kof96s09
 kof96s10
+kof96s11
 kof96s12
 kof96s13
 kof96s14
+kof96s15
 kof96s16
 kof96s17
 kof96s18
@@ -1779,52 +1762,6 @@ kof96s25
 kof96s26
 kof96s27
 kof96s28
-kof96s29
-kof96s30
-kof96s31
-kof96s32
-kof96s33
-kof96s34
-kof96s35
-kof96s36
-kof96s37
-kof96s38
-kof96s39
-kof96s40
-kof96s41
-kof96s42
-kof96s43
-kof96s44
-kof96s45
-kof96s47
-kof96s48
-kof96s49
-kof96s50
-kof96s51
-kof96s53
-kof96s54
-kof96s55
-kof96s56
-kof96s57
-kof96s58
-kof96s59
-kof96s60
-kof96s61
-kof96s62
-kof96s63
-kof96s64
-kof96s65
-kof96s66
-kof96s67
-kof96s68
-kof96s69
-kof96s70
-kof96s71
-kof96s72
-kof96s73
-kof96s74
-kof96s75
-kof96s76
 
 @source:kof97.cpp
 kof97aa
@@ -1919,14 +1856,21 @@ kof97yl2
 kof97yo
 kof97z
 kof97zm
-kof97s01   // only get 1 second to fight
-kof97s02   // only get 1 second to fight
+kof97s01
+kof97s02
+kof97s03
 kof97s04
+kof97s05
+kof97s06
 kof97s07
 kof97s08
+kof97s09
+kof97s10
 kof97s11
 kof97s12
+kof97s13
 kof97s14
+kof97s15
 kof97s16
 kof97s17
 kof97s18
@@ -1941,89 +1885,20 @@ kof97s27
 kof97s28
 kof97s29
 kof97s30
-kof97s32   // only get 1 second to fight
-kof97s33
-kof97s34   // only get 1 second to fight
-kof97s35
-kof97s39
-kof97s40
-kof97s41
-kof97s42
-kof97s43   // only get 1 second to fight
-kof97s44   // only get 1 second to fight
-kof97s45   // only get 1 second to fight
-kof97s46
-kof97s47
-kof97s48
-kof97s49
-kof97s50   // only get 1 second to fight
-kof97s51
-kof97s52
-kof97s53
-kof97s54
-kof97s55
-kof97s56
-kof97s57
-kof97s58
-kof97s59
-kof97s60
-kof97s61
-kof97s62
-kof97s63
-kof97s64
-kof97s65
-kof97s66
-kof97s67
-kof97s68
-kof97s69
-kof97s70
-kof97s71
-kof97s72
-kof97s73
-kof97s74
-kof97s75
-kof97s76
-kof97s77
-kof97s78
-kof97s79
-kof97s81
-kof97s82
-kof97s83
-kof97s84
-kof97s85
-kof97s86
-kof97s87
-kof97s88
-kof97s90
-kof97s91
-kof97s92
-kof97s93
-kof97s94
-kof97s95   // only get 1 second to fight
-kof97s96
-kof97s97
-kof97s98   // only get 1 second to fight
-kof97s99   // only get 1 second to fight
-kof97s100  // bad gfx now & then
-kof97s101
-kof97s102
-kof97s103
-kof97s104
-kof97s105  // only get 1 second to fight
+kof97h01
+kof97h02
+kof97h03
 kof97h04
 kof97h05
 kof97h06
+kof97h07
 kof97h08
+kof97h09
 kof97h10
 kof97h11
 kof97h12
 kof97h13
-kof97h15
-kof97h16
-kof97h18
-kof97h19
-kof97h20
-kof97h21
+kof97h14
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2473,6 +2348,7 @@ kof98s07
 kof98s08
 kof98s09
 kof98s10
+kof98s11
 kof98s12
 kof98s13
 kof98s14
@@ -2480,51 +2356,24 @@ kof98s15
 kof98s16
 kof98s17
 kof98s18
+kof98s19
 kof98s20
 kof98s21   // only get 1 second to fight
 kof98s22
 kof98s23
 kof98s24
 kof98s25
-kof98s27
-kof98s28
-kof98s29
-kof98s30
-kof98s31
-kof98s32
-kof98s33   // only get 1 second to fight
-kof98s34
-kof98s35   // only get 1 second to fight
-kof98s36
-kof98s37
-kof98s38
-kof98s39
-kof98s41
-kof98s44
-kof98s45   // only get 1 second to fight
-kof98s46   // only get 1 second to fight
-kof98s47
-kof98s48
-kof98s49
-kof98s50
-kof98s51
-kof98s52   // only get 1 second to fight
-kof98s53
-kof98s54
-kof98s55
-kof98s56
-kof98s57
-kof98s58
+kof98s26
+kof98h01
+kof98h02
+kof98h03
 kof98h04
+kof98h05
+kof98h06
+kof98h07
+kof98h08
+kof98h09
 kof98h10
-kof98h11
-kof98h12
-kof98h13
-kof98h15
-kof98h16
-kof98h17
-kof98h18
-kof98h19
 kof98hh01
 kof98hh02
 kof98hh03
@@ -2714,29 +2563,21 @@ kof99s01
 kof99s02
 kof99s03
 kof99s04
-kof99s05   // only get 1 second to fight
+kof99s05
+kof99s06
 kof99s07
 kof99s08
 kof99s09
 kof99s10
 kof99s11
-kof99s12
+// kof99s12 // causes crasheo in the emulator
 kof99s13
+kof99s14
 kof99s15
 kof99s16
 kof99s17
 kof99s18
 kof99s19
-kof99s20   // only get 1 second to fight
-kof99s21
-//kof99s22  // roms missing
-kof99s23
-kof99s24
-kof99s25   // only get 1 second to fight
-kof99s26
-kof99s27   // only get 1 second to fight
-kof99s28
-kof99s29   // only get 1 second to fight
 kof99h01
 kof99h02
 kof99h03
@@ -3842,12 +3683,6 @@ kf2k3pcbs27
 kf2k3pcbs28
 kf2k3pcbs29
 kf2k3upls01
-kof2k3s01
-kof2k3s02
-kof2k3s03
-kof2k3s04
-kof2k3s05
-kof2k3s06
 // kof2004EX hack of kof2003
 kof2004pd  // hero
 kof2004upls01
@@ -4657,7 +4492,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
-mslug4lw // encrypted p roms; not working
+// mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
 mslug4n01
@@ -4872,7 +4707,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-mslug5fu // encrypted p roms; not working
+// mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -6367,8 +6202,6 @@ zupapad
 androduns01
 aof2s01
 aof2s02
-aof2s03
-aof2s04
 aof2as01
 aof2as02
 aof2as03
@@ -6376,16 +6209,12 @@ aof2as04
 aof3ks01
 aof3ks02
 breakers01
-breakers02
 breakrevs01
 breakrevs02
 fightfevs01
 fightfevs02
 fightfevas01
 galaxyfs01
-galaxyfs02
-gowcaizrs01
-gowcaizrs02
 kabukikls01
 kabukikls02
 kabukikls03
@@ -6398,7 +6227,6 @@ kizunas02
 kizunas03
 kizunas04
 kizunas05
-karnovres01
 magdrop3s01
 magdrop3s02
 matrims01
@@ -6408,11 +6236,6 @@ matrims04
 matrims05
 matrims06
 matrims07
-matrims08
-matrims09
-matrims10
-matrims11
-matrims12
 miexchngs01
 neobombes01
 neobombes02
@@ -6423,7 +6246,6 @@ ninjamass03
 ninjamass04
 nitds01
 nitds02
-preisle2s01
 ragnagrds01
 ragnagrds02
 ragnagrds03
@@ -6470,8 +6292,6 @@ garoupfp
 garoupx11
 garoupy1
 garoups01
-garoups02
-garoups03
 garouhs01
 garouhs02
 garoupsi01
@@ -6516,11 +6336,6 @@ kogplus
 kogplus1
 kogplusf
 kogsm
-ct2k3k3s01
-ct2k3k3s02
-ct2k3k3s03
-ct2k3k3s04
-ct2k3k3s05
 ct2k3k3s06
 ct2k3k3s07
 ct2k3k3s08
@@ -6719,24 +6534,16 @@ lastblads02
 lastblads03
 lastblads04
 lastblads05
+lastblads06
 lastblads07
 lastblads08
-lastblads16
-lastblads17
-lastblads18
-lastblads19
-lastblads20
-lastblads21
-lastblads22
-lastblads23
-lastblads24
-lastblads25
-lastblads26
-lastblads27
-lastblads28
-lastblads29
-lastblads30
-lastblads34
+lastblads09
+lastblads10
+lastblads11
+lastblads12
+lastblads13
+lastblads14
+lastblads15
 lastbladhs01
 lastbladhs02
 lastbladhs03
@@ -6806,28 +6613,18 @@ fatfursps01
 fatfurspas01
 fatfurspas02
 fatfurspas03
-fatfury1s01
 fatfury2s01
 fatfury2s02
 fatfury2s03
-fatfury3s01
-fatfury3s02
 rbffss01
 rbffss02
 rbffss03
-rbffss04
-rbffss05
-rbffss06
-rbffss07
 rbffspecs01
 rbffspecs02
-rbff1as01
 rbff2bs01
 rbff2bs02
 rbff2bs03
 rbff2bs04
-rbff2bs05
-rbff2bs06
 rbff2hs01
 rbff2hs02
 rbff2hs03
@@ -6872,10 +6669,6 @@ rotds11
 rotds12
 rotds13
 rotds14
-rotds15
-rotds16
-rotds17
-rotds18
 rotdds01
 rotdds02
 
@@ -6950,7 +6743,6 @@ samsh5spn
 samsh5spnd
 samsh5spnh3
 samsh5spnzk
-fswords01
 fswordss01
 fswordss02
 fswordss03
@@ -6959,9 +6751,6 @@ samshos02
 samshos03
 samshos04
 samshos05
-samshos06
-samshos07
-samshos08
 samsho2s01
 samsho2s02
 samsho2s03
@@ -6971,15 +6760,6 @@ samsho2s06
 samsho2s07
 samsho2s08
 samsho2s09
-samsho2s10
-samsho2s11
-samsho2s12
-samsho2s13
-samsho2s14
-samsho2s15
-samsho2s17
-samsho2s18
-samsho2s19
 samsho2ks01
 samsho2ks02
 samsho3s01
@@ -6995,10 +6775,6 @@ samsho3s10
 samsho3s11
 samsho3s12
 samsho3s13
-samsho3s14
-samsho3s15
-samsho3s16
-samsho3s19
 samsho4s01
 samsho4s02
 samsho4s03
@@ -7008,9 +6784,6 @@ samsho4s06
 samsho4s07
 samsho4s08
 samsho4s09
-samsho4s10
-samsho4s11
-samsho4s12
 samsho5s01
 samsho5s02
 samsho5s03
@@ -7054,39 +6827,7 @@ samsho5s40
 samsho5s41
 samsho5s42
 samsho5s43
-samsho5s44
-samsho5s45
-samsho5s46
-samsho5s47
-samsho5s48
-samsho5s49
-samsho5s50
-samsho5s51
-samsho5s52
-samsho5s53
-samsho5s54
-samsho5s55
-samsho5s56
-samsho5s57
-samsho5s58
-samsho5s59
-samsho5s60
-samsho5s61
-samsho5s62
-samsho5s63
-samsho5s64
-samsho5s65
-samsho5s66
-samsho5s67
 samsh5sp01
-samsh5sp02
-samsh5sp03
-samsh5sp05
-samsh5sp06
-samsh5sp07
-samsh5sp08
-samsh5sp09
-samsh5sp10
 samsh5spds01
 samsh5spds02
 samsh5spds03
@@ -7182,87 +6923,8 @@ svcs07
 svcs08
 svcs09
 svcs10
-svcs11
-svcs12
-svcs13
-svcs14
-svcs15
-svcs16
-svcs17
-svcs18
-svcs19
-svcs20
-svcs21
-svcs22
-svcs23
-svcs24
-svcs25
-svcs26
-svcs27
-svcs28
-svcs29
-svcs30
-svcs31
-svcs32
-svcs33
-svcs34
-svcs35
-svcs36
-svcs37
-svcs38
-svcs39
-svcs40
-svcs41
-svcs42
-svcs43
-svcs44
-svcs45
-svcs46
-svcs47
-svcs48
-svcs49
-svcs50
-svcs51
-svcs52
-svcs53
-svcs54
-svcs55
-svcs56
-svcs57
-svcs58
-svcs59
-svcs60
-svcs61
-svcs62
-svcs63
-svcs64
-svcs65
-svcs66
-svcs67
-svcs68
-svcs69
-svcs70
-svcs71
-svcs72
-svcs73
-svcs74
-svcs75
-svcs77
-svcs78
-svcs79
-svcs80
-svcs81
-svcs82
-svcs83
-svcs84
-svcs85
-svcs86
-svcs87
-svcpcbzs04
-svcpcbzs06
-svcpcbzs10
-svcsxplus05
-svcsxplus06
+svcpcbzs01
+svcpcbzs02
 svchx01  // bad gfx on main logo
 svchx02
 svchx03
@@ -8580,5 +8242,5 @@ nacho		/* Gatinho - Nacho Libre */
 
 @source:zn.cpp
 coh1002m		//parent
-doapph01
+doapph01  //
 

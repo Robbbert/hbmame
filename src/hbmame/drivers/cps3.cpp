@@ -1306,7 +1306,11 @@ HACK( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   RO
 HACK( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )
 
 
-//PSmame (c) gaston90
+//PSmame (c) gaston90 used with permission
+
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
 
  /****************************************
          JoJo's Bizarre Adventure
@@ -1350,7 +1354,7 @@ ROM_START( jojos01 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1399,7 +1403,7 @@ ROM_START( jojos02 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1448,7 +1452,7 @@ ROM_START( jojos03 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1497,7 +1501,7 @@ ROM_START( jojos04 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1546,7 +1550,7 @@ ROM_START( jojos05 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1557,7 +1561,7 @@ ROM_START( jojos05 )
 	ROM_LOAD( "51",  0x2800000, 0x800000, CRC(eedf19ca) SHA1(a7660bf9ff87911afb4f83b64456245059986830) )
 ROM_END
 
-ROM_START( jojos06 )
+ROM_START( jojox01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
 	ROM_LOAD( "jojoba_japan_nocd.29f400.u2", 0x000000, 0x080000, CRC(4dab19f5) SHA1(ba07190e7662937fc267f07285c51e99a45c061e) )
 
@@ -1595,7 +1599,7 @@ ROM_START( jojos06 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10hc01",  0x000000, 0x800000, CRC(3cc6279e) SHA1(7b11edb96af41394fdb20774e2f16e0cc47f0a80) )
+	ROM_LOAD( "10s01",  0x000000, 0x800000, CRC(3cc6279e) SHA1(7b11edb96af41394fdb20774e2f16e0cc47f0a80) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -2829,12 +2833,12 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       CLASS            INIT     MONITOR     COMPANY                 FULLNAME FLAGS */
 // JoJo's Bizarre Adventure
-HACK( 2009, jojos01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Brazil + Power Set 01 )", 0 )
-HACK( 2009, jojos02,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Asia + Power Set 02 )", 0 )
-HACK( 2009, jojos03,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Hispanic + Power Set 03 )", 0 )
-HACK( 2009, jojos04,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Oceania + Power Set 04 )", 0 )
-HACK( 2009, jojos05,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language U.S.A + Power Set 05 )", 0 )
-HACK( 2009, jojos06,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Max Power)", 0 )
+HACK( 2009, jojos01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Brazil)", 0 )
+HACK( 2009, jojos02,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Asia)", 0 )
+HACK( 2009, jojos03,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Hispanic)", 0 )
+HACK( 2009, jojos04,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Oceania)", 0 )
+HACK( 2009, jojos05,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language U.S.A)", 0 )
+HACK( 2009, jojox01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Max Power)", 0 )
 HACK( 1999, jojobaner1s01,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Enable Hidden Characters V1)", 0 )
 HACK( 1999, jojobaner1s02,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Enable Hidden Characters V2)", 0 )
 HACK( 1999, jojobaner1s03,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Infinite Power)", 0 )
@@ -2854,4 +2858,3 @@ HACK( 1999, sfiii3ns02,     sfiii3,   sfiii3,        cps3,       cps3_state,    
 HACK( 1999, sfiii3ns03,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Ex Super Version)", 0 )
 HACK( 1999, sfiii3ns04,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Infinite Power)", 0 )
 HACK( 1999, sfiii3nrs01,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990512, NO CD)(Enable Hidden Characters)", 0 )
-
