@@ -71,7 +71,7 @@ indytemp		//parent
 ataris1hw
 ataris1rt
 
-@source:atari_s1.cpp
+//@source:atari_s1.cpp
 //atarians	//parent
 //atarianb	/* hack for emulators */
 
@@ -2570,7 +2570,7 @@ kof99s08
 kof99s09
 kof99s10
 kof99s11
-// kof99s12 // causes crasheo in the emulator
+kof99s12
 kof99s13
 kof99s14
 kof99s15
