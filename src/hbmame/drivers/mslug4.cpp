@@ -4,7 +4,7 @@
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_mslug4hb() // Unknown of mslug4
+void neogeo_state::init_mslug4hb() // hacks of mslug4
 {
 	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
