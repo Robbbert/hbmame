@@ -3346,14 +3346,14 @@ ROM_START( kof99s11 )
 ROM_END
 
 ROM_START( kof99s12 )
-	ROM_REGION( 0xd00000, "maincpu", 0 )
+	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251h13.p1", 0x000000, 0x100000, CRC(3dad12db) SHA1(0ced53f7719254fd2369f724b659c1e5274d146f) )
-	ROM_LOAD16_WORD_SWAP( "251h13.p2", 0x100000, 0x800000, CRC(f8566133) SHA1(8414b35d5c9e0eb22197f2b403d3626eccb70923) )
-	ROM_LOAD16_WORD_SWAP( "251h13.p3", 0x900000, 0x400000, CRC(bc85cf02) SHA1(a1a8228299a76bf840822d50528a67d4d3c5ac5e) )
-
-	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
+	ROM_LOAD16_WORD_SWAP( "251h13.p2", 0x100000, 0x400000, CRC(f8566133) SHA1(8414b35d5c9e0eb22197f2b403d3626eccb70923) )
+	ROM_LOAD16_WORD_SWAP( "251h13.p3", 0x500000, 0x400000, CRC(bc85cf02) SHA1(a1a8228299a76bf840822d50528a67d4d3c5ac5e) )
 
 	NEO_SFIX_128K( "251aex.s1", CRC(3c31ee43) SHA1(f3bf265ad41037c2317702818136eb08e3ade3a2) )
+
+	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
 
 	ROM_REGION( 0xe00000, "ymsnd", 0 )
 	ROM_LOAD( "251aex.v1", 0x000000, 0x400000, CRC(ceaa3bae) SHA1(ec598f92e7d3b41f38448fee2dd2ee599a482f8f) )
@@ -9256,7 +9256,7 @@ HACK( 2017, kof99s08,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 2017, kof99s09,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 09))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof99s10,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 10))(NGM-2510)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof99s11,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Style Remix (Set 11))(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof99s12,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Anniversary Edition Hack Updated To Latest Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof99s12,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hacks",    "Kof'99 (Anniversary Edition Hack Updated To Latest Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof99s13,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional", "Kof'99 Anniversary Edition (s23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof99s14,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional", "Kof'99 (Red Storm Edition Unsimplified by Kalcetin)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof99s15,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (Style Remix (Set 12))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
