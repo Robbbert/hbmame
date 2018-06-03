@@ -71,7 +71,7 @@ indytemp		//parent
 ataris1hw
 ataris1rt
 
-@source:atari_s1.cpp
+//@source:atari_s1.cpp
 //atarians	//parent
 //atarianb	/* hack for emulators */
 
@@ -307,6 +307,7 @@ sk2h3			// mame sgyxz for testing
 sk2h4q
 sk2h5q
 sk2h6q
+sk2h7q
 sk2h10  // wofs45
 sk2h11
 sk2h12
@@ -470,6 +471,8 @@ tk2h104  // rom problem
 tk2h105  // rom problem
 tk2h106
 tk2h107
+tk2h108
+tk2h109
 tk2p2		// wofch_v3
 tk2p3		// wofchspp
 wofb
@@ -573,6 +576,11 @@ dinos65
 dinos66
 dinos67
 dinos68
+dinos69
+dinos70
+dinos71
+dinos72
+dinos73
 dinox01
 dinox02
 dinox03
@@ -2570,7 +2578,7 @@ kof99s08
 kof99s09
 kof99s10
 kof99s11
-// kof99s12 // causes crasheo in the emulator
+kof99s12
 kof99s13
 kof99s14
 kof99s15
@@ -3900,6 +3908,7 @@ mslugs14
 mslugs15
 mslugs16
 mslugs17
+mslugs18
 mslugrmpl01
 mslugrmpl02
 mslugrmpl03
@@ -3908,6 +3917,28 @@ mslugrmpl05
 mslugrmpl06
 mslugrmpl07
 mslugrmpl08
+mslughp01
+mslughp02
+mslughp03
+mslughp04
+mslughp05
+mslughp06
+mslughp07
+mslughp08
+mslughp09
+mslughp10
+mslughp11
+mslughp12
+mslughp13
+mslughp14
+mslugrmhp01
+mslugrmhp02
+mslugrmhp03
+mslugrmhp04
+mslugrmhp05
+mslugrmhp06
+mslugrmhp07
+mslugrmhp08
 
 @source:mslug2.cpp
 mslug2eh
