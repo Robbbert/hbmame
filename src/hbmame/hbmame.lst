@@ -1271,6 +1271,8 @@ xmvsfu1d
 19xxs01
 19xxjrs01
 1944s01
+avspus01
+avspus02
 csclubs01
 cybotsjs01
 ddsomjs01
@@ -1403,6 +1405,8 @@ sfiii3ns02
 sfiii3ns03
 sfiii3ns04
 sfiii3nrs01
+sfiii3nrs02
+sfiii3nrs03
 
 @source:cv1k.cpp
 deathsml				//parent
@@ -1687,6 +1691,7 @@ kof96ae
 kof96ae1
 kof96ae1a
 kof96ae1b
+kof96ae2
 kof96b
 kof96b1
 kof96bb
@@ -1893,6 +1898,8 @@ kof97s27
 kof97s28
 kof97s29
 kof97s30
+kof97s31
+kof97s32
 kof97h01
 kof97h02
 kof97h03
@@ -2172,6 +2179,7 @@ kof97hx268
 kof97hx269
 kof97hx270
 kof97hx271
+kof97hx272
 kof97plss01
 kof97plss02
 kof97plss03
@@ -6242,6 +6250,7 @@ aof3ks02
 breakers01
 breakrevs01
 breakrevs02
+breakrevs03
 fightfevs01
 fightfevs02
 fightfevas01

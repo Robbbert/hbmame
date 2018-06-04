@@ -9774,10 +9774,10 @@ ROM_START( dinos73 )
 	ROMX_LOAD( "cd3s64.5a",  0x000002, 0x80000, CRC(2461424d) SHA1(6bd933f5cada64671e3a401681724f075f6c260c) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "cd2s64.4a",  0x000004, 0x80000, CRC(6cbac29d) SHA1(676893882172f8b9a281c887750387a683e09bb8) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "cd4s64.6a",  0x000006, 0x80000, CRC(2aa8bdd3) SHA1(5dca5d59ebefe0cb36101ea8f5f82550fe1f93b1) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "cd5s64.7a",  0x200000, 0x80000, CRC(91888b4f) SHA1(e90cfcc4e18eff39000fbab28fab447196ec2ea5) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "cd7s64.9a",  0x200002, 0x80000, CRC(cb47177d) SHA1(5dc9d9b0e0be1665379a9f7f7cc4c37969959233) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "cd6s64.8a",  0x200004, 0x80000, CRC(1b335cb9) SHA1(7b9103858a0627b0f46ec06c13c600513d492c33) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "cd8s64.10a", 0x200006, 0x80000, CRC(a16fa3cf) SHA1(83edecfe0d009867b7a81218a1b4112f5bd788c4) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd5s73.7a",  0x200000, 0x80000, CRC(91888b4f) SHA1(e90cfcc4e18eff39000fbab28fab447196ec2ea5) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd5s73.9a",  0x200002, 0x80000, CRC(cb47177d) SHA1(5dc9d9b0e0be1665379a9f7f7cc4c37969959233) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd5s73.8a",  0x200004, 0x80000, CRC(1b335cb9) SHA1(7b9103858a0627b0f46ec06c13c600513d492c33) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd5s73.10a", 0x200006, 0x80000, CRC(a16fa3cf) SHA1(83edecfe0d009867b7a81218a1b4112f5bd788c4) , ROM_GROUPWORD | ROM_SKIP(6) )
 
 	ROM_REGION( 0x28000, "audiocpu", 0 )
 	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
@@ -29453,9 +29453,9 @@ HACK( 2017, dinos62,       dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2017, dinos63,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Hacks", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2018)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos64,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Speed)(Set 01)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos65,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Speed)(Set 02)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, dinos66,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Description Of Hack Unknown)(Set 01)" , MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID
-HACK( 2018, dinos67,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Description Of Hack Unknown)(Set 02)" , MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID
-HACK( 2018, dinos68,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Description Of Hack Unknown)(Set 03)" , MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID
+HACK( 2018, dinos66,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Description Of Hack Unknown)(Set 01)" , MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
+HACK( 2018, dinos67,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Description Of Hack Unknown)(Set 02)" , MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
+HACK( 2018, dinos68,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Description Of Hack Unknown)(Set 03)" , MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
 HACK( 2018, dinos69,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Tu Fu Zhi Nu)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos70,       dino,     qsound,     dino,     cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs 2011 Plus (2018 Edition Final)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos71,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "Hacks", "Cadillacs and Dinosaurs (Dou Shen Edition 2018)" , MACHINE_SUPPORTS_SAVE )
