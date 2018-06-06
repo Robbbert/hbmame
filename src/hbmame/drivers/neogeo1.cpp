@@ -3314,6 +3314,28 @@ ROM_START( breakrevs02 )
 	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
 ROM_END
 
+ROM_START( breakrevs03 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "245s03.p1", 0x100000, 0x100000, CRC(33bde12a) SHA1(9c173e37562e9f6c2f7effef55cb893b6cba7e81) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
+
+	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
+	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
+
+	ROM_REGION( 0x1400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
+	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
+	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
+	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
+	ROM_LOAD16_BYTE( "245s03.c5", 0x1000000, 0x200000, CRC(28ff1792) SHA1(0cc5c16ac42f52cee74f88235aef0671bee33b4c) )
+	ROM_LOAD16_BYTE( "245s03.c6", 0x1000001, 0x200000, CRC(23c65644) SHA1(9dc74c3075cf0f738b6b41e5e8d89a74a6c9ef07) )
+ROM_END
+
 /****************************************
            Fight Fever
 *****************************************/
@@ -4456,6 +4478,7 @@ HACK( 2017, aof3ks02,       aof3,     neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2017, breakers01,     breakers, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Breakers(Mode Easy)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, breakrevs01,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Breakers Revenge (Mode Easy)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, breakrevs02,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Breakers Revenge (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, breakrevs03,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Breakers Revenge (Description Of Hack Unknown)", MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
  // Fight Fever
 HACK( 2017, fightfevs01,    fightfev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fight Fever (Enable Hidden Characters)(set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, fightfevs02,    fightfev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Fight Fever (Fixed Kanji Display Of Some Special Attacks)(set 1)", MACHINE_SUPPORTS_SAVE )

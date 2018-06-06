@@ -307,6 +307,7 @@ sk2h3			// mame sgyxz for testing
 sk2h4q
 sk2h5q
 sk2h6q
+sk2h7q
 sk2h10  // wofs45
 sk2h11
 sk2h12
@@ -470,6 +471,8 @@ tk2h104  // rom problem
 tk2h105  // rom problem
 tk2h106
 tk2h107
+tk2h108
+tk2h109
 tk2p2		// wofch_v3
 tk2p3		// wofchspp
 wofb
@@ -573,6 +576,11 @@ dinos65
 dinos66
 dinos67
 dinos68
+dinos69
+dinos70
+dinos71
+dinos72
+dinos73
 dinox01
 dinox02
 dinox03
@@ -1263,6 +1271,8 @@ xmvsfu1d
 19xxs01
 19xxjrs01
 1944s01
+avspus01
+avspus02
 csclubs01
 cybotsjs01
 ddsomjs01
@@ -1395,6 +1405,8 @@ sfiii3ns02
 sfiii3ns03
 sfiii3ns04
 sfiii3nrs01
+sfiii3nrs02
+sfiii3nrs03
 
 @source:cv1k.cpp
 deathsml				//parent
@@ -1629,6 +1641,16 @@ kof94s08
 kof94s09
 kof94s10
 kof94s11
+kof94s12
+kof94s13
+kof94s14
+kof94s15
+kof94s16
+kof94s17
+kof94s18
+kof94s19
+kof94s20
+kof94s21
 
 @source:kof95.cpp
 kof95b
@@ -1663,6 +1685,18 @@ kof95s13
 kof95s14
 kof95s15    // they refuse to fight
 kof95s16    // reboots after 15 seconds
+kof95s17
+kof95s18
+kof95s19
+kof95s20
+kof95s21
+kof95s22
+kof95s23
+kof95s24
+kof95s25
+kof95s26
+kof95s27
+kof95s28
 kof95hs01
 kof95hs02
 kof95hs03
@@ -1679,6 +1713,7 @@ kof96ae
 kof96ae1
 kof96ae1a
 kof96ae1b
+kof96ae2
 kof96b
 kof96b1
 kof96bb
@@ -1762,6 +1797,12 @@ kof96s25
 kof96s26
 kof96s27
 kof96s28
+kof96s29
+kof96s30
+kof96s31
+kof96s32
+kof96s33
+kof96s34
 
 @source:kof97.cpp
 kof97aa
@@ -1885,6 +1926,8 @@ kof97s27
 kof97s28
 kof97s29
 kof97s30
+kof97s31
+kof97s32
 kof97h01
 kof97h02
 kof97h03
@@ -2164,6 +2207,7 @@ kof97hx268
 kof97hx269
 kof97hx270
 kof97hx271
+kof97hx272
 kof97plss01
 kof97plss02
 kof97plss03
@@ -2364,6 +2408,25 @@ kof98s23
 kof98s24
 kof98s25
 kof98s26
+kof98s27
+kof98s28
+kof98s29
+kof98s30
+kof98s31
+kof98s32
+kof98s33
+kof98s34
+kof98s35
+kof98s36
+kof98s37
+kof98s38
+kof98s39
+kof98s40
+kof98s41
+kof98s42
+kof98s43
+kof98s44
+kof98s45
 kof98h01
 kof98h02
 kof98h03
@@ -2578,6 +2641,7 @@ kof99s16
 kof99s17
 kof99s18
 kof99s19
+kof99s20
 kof99h01
 kof99h02
 kof99h03
@@ -3900,6 +3964,7 @@ mslugs14
 mslugs15
 mslugs16
 mslugs17
+mslugs18
 mslugrmpl01
 mslugrmpl02
 mslugrmpl03
@@ -3908,6 +3973,28 @@ mslugrmpl05
 mslugrmpl06
 mslugrmpl07
 mslugrmpl08
+mslughp01
+mslughp02
+mslughp03
+mslughp04
+mslughp05
+mslughp06
+mslughp07
+mslughp08
+mslughp09
+mslughp10
+mslughp11
+mslughp12
+mslughp13
+mslughp14
+mslugrmhp01
+mslugrmhp02
+mslugrmhp03
+mslugrmhp04
+mslugrmhp05
+mslugrmhp06
+mslugrmhp07
+mslugrmhp08
 
 @source:mslug2.cpp
 mslug2eh
@@ -6211,6 +6298,7 @@ aof3ks02
 breakers01
 breakrevs01
 breakrevs02
+breakrevs03
 fightfevs01
 fightfevs02
 fightfevas01
@@ -7426,6 +7514,9 @@ kov2s20
 kov2s21
 kov2s22
 kov2s23
+kov2s24
+kov2s25
+kov2s26
 kov2p204s03
 kov2p204s04
 kov2p204s05
@@ -7690,6 +7781,7 @@ kovplus156   // bad gfx
 kovplus157
 kovplus158
 kovplus159
+kovplus160
 kovsh01
 kovsh02
 kovsh03
@@ -7798,6 +7890,9 @@ kovsho08
 kovsho09
 kovsho10
 kovsho11
+kovsho12
+kovsho13
+kovsho14
 kovqhs01
 killblds01
 martmasthc01
@@ -7990,6 +8085,9 @@ astrob2h
 @source:segas16b.cpp
 altbeast				//parent
 altbeastfr
+altbeasts01
+altbeasts02
+altbeast5s01
 
 @source:segas24.cpp
 gground					//parent

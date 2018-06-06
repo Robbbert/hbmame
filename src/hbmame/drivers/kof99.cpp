@@ -3570,6 +3570,37 @@ ROM_START( kof99s19 )
 	ROM_LOAD16_BYTE( "251eur.c8", 0x3000001, 0x800000, CRC(7107b8d5) SHA1(6754113de3eb6a34c1913bb5117dd12d705b961c) )
 ROM_END
 
+ROM_START( kof99s20 )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251h20.p1", 0x000000, 0x100000, CRC(6b187829) SHA1(48d11cc47c6d65e7d9444898c01a2a649d9d098d) )
+	ROM_LOAD16_WORD_SWAP( "251h20.p2", 0x100000, 0x400000, CRC(3697eff6) SHA1(f8d382ae94306b040d62045210c05d899b290dfa) )
+	ROM_LOAD16_WORD_SWAP( "251h20.p3", 0x500000, 0x400000, CRC(56c53cd7) SHA1(6f61b8e6e2fc61a8f5a9b94c974c5045f9fac775) )
+
+	NEO_SFIX_128K( "251ae.s1", CRC(6243a70b) SHA1(452371f20e31c4d79022a128fc5335e951a6af1e) )
+
+	NEO_BIOS_AUDIO_128K( "251ae.m1", CRC(f847e188) SHA1(0b98595a457292b04f518afcc82c2d6b8f249a7b) )
+
+	ROM_REGION( 0xe00000, "ymsnd", 0 )
+	ROM_LOAD( "251aex.v1", 0x000000, 0x400000, CRC(ceaa3bae) SHA1(ec598f92e7d3b41f38448fee2dd2ee599a482f8f) )
+	ROM_LOAD( "251ae.v2",  0x400000, 0x400000, CRC(07d70650) SHA1(70d274771c07215268292f91517ec61634e32611) )
+	ROM_LOAD( "251.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251aex.c1.bin", 0x000000, 0x800000, CRC(497c2e83) SHA1(379887e839dd4e33b41ab634a54789621bdfea98) )
+	ROM_LOAD16_BYTE( "251aex.c2.bin", 0x000001, 0x800000, CRC(0a13eeb7) SHA1(2cb196a955a3472f922d0085cee2ddc0111fdbd3) )
+	ROM_LOAD16_BYTE( "251d.c3",    0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4",    0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5",    0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6",    0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251ae.c7",   0x3000000, 0x800000, CRC(f22760ad) SHA1(a503898d9b6141c76f63b7c505ac78d3575530b2) )
+	ROM_LOAD16_BYTE( "251ae.c8",   0x3000001, 0x800000, CRC(396c3a70) SHA1(6cd0acd05c138ac85ad63a04dfc015a3e70fa572) )
+	ROM_LOAD16_BYTE( "251h20.c9",   0x4000000, 0x800000, CRC(9594e401) SHA1(488adbe6d8609b0093ff81458534b06cfe6e3869) )
+	ROM_LOAD16_BYTE( "251h20.c10",  0x4000001, 0x800000, CRC(a778cdd6) SHA1(f829fb3f527c6aafd108a43ad3931aaac1dd5dd2) )
+	ROM_LOAD16_BYTE( "251aex.c11", 0x5000000, 0x800000, CRC(7fe785c2) SHA1(b49c3ab1ebf89090388c4757f24d1c02c730cc99) )
+	ROM_LOAD16_BYTE( "251aex.c12", 0x5000001, 0x800000, CRC(a7541483) SHA1(3b3f0e67acfae1c3b6c5549ac350d855482f285f) )
+ROM_END
+
 ROM_START( kof99es01 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ka.neo-sma", 0x0c0000, 0x040000, CRC(7766d09e) SHA1(4e0a49d1ad669a62676cb30f527c6590cde80194) )
@@ -9264,6 +9295,7 @@ HACK( 2012, kof99s16,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 1999, kof99s17,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (Style Remix (Set 14))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof99s18,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (Style Remix (Set 15))", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof99s19,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Bismil Hassan",    "Kof'99 (Style Remix (Set 16))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof99s20,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Yashional","Kof'99 Anniversary Edition (2014-11-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof99es01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Unlock Intensive mode)(earlier)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof99es02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V1)(earlier)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof99es03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Hacks",    "Kof'99 (Enable Hidden Characters V2)(earlier)" , MACHINE_SUPPORTS_SAVE )
