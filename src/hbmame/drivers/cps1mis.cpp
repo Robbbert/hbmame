@@ -95,15 +95,15 @@ WRITE16_MEMBER(cps_state::daimakb_layer_w)
 void cps_state::daimakb_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
 	map(0x800000,0x800001).portr("IN1");  /* Player input ports */
-	map(0x800006,0x800007).w(this,FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
-	map(0x800018,0x80001f).r(this,FUNC(cps_state::cps1_hack_dsw_r));  /* System input ports / Dip Switches */
-	map(0x800030,0x800037).w(this,FUNC(cps_state::cps1_coinctrl_w));
-	map(0x800100,0x80013f).w(this,FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
+	map(0x800006,0x800007).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
+	map(0x800018,0x80001f).r(FUNC(cps_state::cps1_hack_dsw_r));  /* System input ports / Dip Switches */
+	map(0x800030,0x800037).w(FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
 	map(0x800166,0x800171).nopw();  // not used
-	map(0xe00000,0xe0003f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");  // dummy region
-	map(0x880000,0x880001).w(this,FUNC(cps_state::daimakb_palctrl_w));
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0x980000,0x98000d).w(this,FUNC(cps_state::daimakb_layer_w));
+	map(0xe00000,0xe0003f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");  // dummy region
+	map(0x880000,0x880001).w(FUNC(cps_state::daimakb_palctrl_w));
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0x980000,0x98000d).w(FUNC(cps_state::daimakb_layer_w));
 	map(0x990000,0x993fff).nopw();  // bootleg sprites, not needed
 	map(0xff0000,0xffffff).ram();
 }
@@ -112,101 +112,101 @@ void cps_state::sk2h35_map(address_map &map) {
 /* unknown addresses (all write): 930008-930807. No 3rd player controls. NVRAM doesn't work */
 	map(0x000000,0x3fffff).rom();
 	map(0x800000,0x800001).portr("IN1");  /* Player input ports */
-	map(0x800018,0x80001f).r(this,FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
+	map(0x800018,0x80001f).r(FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
 	map(0x80001c,0x80001d).portr("EEPROMIN");
-	map(0x800030,0x800037).w(this,FUNC(cps_state::cps1_coinctrl_w));
-	map(0x800100,0x80013f).w(this,FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");  /* CPS-B custom */
-	map(0x800180,0x800187).w(this,FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
-	map(0x800188,0x80018f).w(this,FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0x800030,0x800037).w(FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");  /* CPS-B custom */
+	map(0x800180,0x800187).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
+	map(0x800188,0x80018f).w(FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0x930008,0x930807).nopw();
-	map(0xf18000,0xf19fff).rw(this,FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
+	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
 	map(0xf1ce74,0xf1ce75).nopw();
-	map(0xf1e000,0xf1ffff).rw(this,FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
+	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
 	map(0xff0000,0xffffff).ram();
 }
 
 void cps_state::cps1frog_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
 	map(0x800000,0x800001).portr("IN1");  /* Player input ports */
-	map(0x800030,0x800031).w(this,FUNC(cps_state::cps1_coinctrl_w));
-	map(0x800100,0x80013f).w(this,FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* Output ports */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
-	map(0x800180,0x800187).w(this,FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
-	map(0x800188,0x80018f).w(this,FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0x800030,0x800031).w(FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* Output ports */
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800180,0x800187).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
+	map(0x800188,0x80018f).w(FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xff0000,0xffffff).ram();
 }
 
 void cps_state::sk2h1q_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
-	map(0x800030,0x800031).w(this,FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800030,0x800031).w(FUNC(cps_state::cps1_coinctrl_w));
 	map(0x800100,0x80013f).ram().share("cps_a_regs");  /* CPS-A custom */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
 	map(0x880000,0x880001).portr("IN1");  /* Player input ports */
-	map(0x880006,0x88000d).r(this,FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
+	map(0x880006,0x88000d).r(FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
 	map(0x88000e,0x88000f).nopw();
-	map(0x880e78,0x880e79).r(this,FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
+	map(0x880e78,0x880e79).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
 	map(0x890000,0x890001).nopw();
 	map(0x8bfff6,0x8bfff9).nopr();  /* unknown */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xf18000,0xf19fff).rw(this,FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
-	map(0xf1c004,0xf1c005).w(this,FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
+	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
-	map(0xf1e000,0xf1ffff).rw(this,FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
+	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
 	map(0xff0000,0xffffff).ram();
 }
 
 void cps_state::sk2h3_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
-	map(0x800030,0x800031).w(this,FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800030,0x800031).w(FUNC(cps_state::cps1_coinctrl_w));
 	map(0x800100,0x80013f).ram().share("cps_a_regs");  /* CPS-A custom */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
 	map(0x880000,0x880001).portr("IN1");  /* Player input ports */
-	map(0x880006,0x88000d).r(this,FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
-	map(0x88000e,0x88000f).w(this,FUNC(cps_state::cps1_soundlatch_w));
-	map(0x880e78,0x880e79).r(this,FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
+	map(0x880006,0x88000d).r(FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
+	map(0x88000e,0x88000f).w(FUNC(cps_state::cps1_soundlatch_w));
+	map(0x880e78,0x880e79).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
 	map(0x890000,0x890001).nopw();
 	map(0x8bfff6,0x8bfff9).nopr();  /* unknown */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xf1c004,0xf1c005).w(this,FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
 	map(0xff0000,0xffffff).ram();
 }
 
 void cps_state::sk2h31q_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
-	map(0x800030,0x800031).w(this,FUNC(cps_state::cps1_coinctrl_w));
-	map(0x800100,0x80013f).w(this,FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* Output ports */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800030,0x800031).w(FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* Output ports */
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
 	map(0x880000,0x880001).portr("IN1");  /* Player input ports */
 	map(0x880006,0x880007).nopw();  // soundlatch on non-qsound hw
-	map(0x880008,0x88000f).r(this,FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
-	map(0x880e7e,0x880e7f).r(this,FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
+	map(0x880008,0x88000f).r(FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
+	map(0x880e7e,0x880e7f).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
 	map(0x890000,0x890001).nopw();
 	map(0x8bfff6,0x8bfff9).nopr();  /* unknown */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xf18000,0xf19fff).rw(this,FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
-	map(0xf1c004,0xf1c005).w(this,FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
+	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
-	map(0xf1e000,0xf1ffff).rw(this,FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
+	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
 	map(0xff0000,0xffffff).ram();
 }
 
 void cps_state::sk2h31_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
-	map(0x800030,0x800031).w(this,FUNC(cps_state::cps1_coinctrl_w));
-	map(0x800100,0x80013f).w(this,FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* Output ports */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800030,0x800031).w(FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* Output ports */
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
 	map(0x880000,0x880001).portr("IN1");  /* Player input ports */
-	map(0x880006,0x880007).w(this,FUNC(cps_state::cps1_soundlatch_w));
-	map(0x880008,0x88000f).r(this,FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
-	map(0x880e7e,0x880e7f).r(this,FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
+	map(0x880006,0x880007).w(FUNC(cps_state::cps1_soundlatch_w));
+	map(0x880008,0x88000f).r(FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
+	map(0x880e7e,0x880e7f).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) */
 	map(0x890000,0x890001).nopw();
 	map(0x8bfff6,0x8bfff9).nopr();  /* unknown */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xf1c004,0xf1c005).w(this,FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
 	map(0xff0000,0xffffff).ram();
 }
@@ -214,15 +214,15 @@ void cps_state::sk2h31_map(address_map &map) {
 void cps_state::wofsf2_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
 	map(0x800000,0x800007).portr("IN1");
-	map(0x800018,0x80001f).r(this,FUNC(cps_state::cps1_hack_dsw_r));
-	map(0x800030,0x800037).w(this,FUNC(cps_state::cps1_coinctrl_w));
-	map(0x800100,0x80013f).w(this,FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
-	map(0x800140,0x80017f).rw(this,FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
-	map(0x800180,0x800187).w(this,FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
-	map(0x900000,0x92ffff).ram().w(this,FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
+	map(0x800018,0x80001f).r(FUNC(cps_state::cps1_hack_dsw_r));
+	map(0x800030,0x800037).w(FUNC(cps_state::cps1_coinctrl_w));
+	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
+	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800180,0x800187).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
+	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf18000,0xf19fff).ram();
-	map(0xf1c000,0xf1c001).r(this,FUNC(cps_state::cps1_in2_r));  /* Player 3 controls */
-	map(0xf1c004,0xf1c005).w(this,FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
+	map(0xf1c000,0xf1c001).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls */
+	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
 	map(0xff0000,0xffffff).ram().share("mainram");
 }
@@ -697,7 +697,7 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
-	MCFG_EEPROM_SERIAL_93C46_ADD("eeprom")
+	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_16BIT)
 
 	/* sound hardware */
 	MCFG_DEVICE_REMOVE("mono")

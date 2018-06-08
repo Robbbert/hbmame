@@ -25,13 +25,13 @@ static const char *const galagost_sample_names[] =
 
 void galaga_hbmame::galagost_map(address_map &map) {
 	map(0x0000,0x3fff).rom().nopw();  /* the only area different for each CPU */
-	map(0x6800,0x6807).r(this,FUNC(galaga_hbmame::bosco_dsw_r));
+	map(0x6800,0x6807).r(FUNC(galaga_hbmame::bosco_dsw_r));
 	map(0x6800,0x681f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x6820,0x6827).w("misclatch",FUNC(ls259_device::write_d0));
 	map(0x6830,0x6830).w("watchdog",FUNC(watchdog_timer_device::reset_w));
-	map(0x7000,0x70ff).r("06xx",FUNC(namco_06xx_device::data_r)).w(this,FUNC(galaga_hbmame::galaga_sample_w));
+	map(0x7000,0x70ff).r("06xx",FUNC(namco_06xx_device::data_r)).w(FUNC(galaga_hbmame::galaga_sample_w));
 	map(0x7100,0x7100).rw("06xx",FUNC(namco_06xx_device::ctrl_r),FUNC(namco_06xx_device::ctrl_w));
-	map(0x8000,0x87ff).ram().w(this,FUNC(galaga_hbmame::galaga_videoram_w)).share("videoram");
+	map(0x8000,0x87ff).ram().w(FUNC(galaga_hbmame::galaga_videoram_w)).share("videoram");
 	map(0x8800,0x8bff).ram().share("galaga_ram1");
 	map(0x9000,0x93ff).ram().share("galaga_ram2");
 	map(0x9800,0x9bff).ram().share("galaga_ram3");

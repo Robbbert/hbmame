@@ -12,23 +12,23 @@
 void galaxian_state::fourplay_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
 	map(0x4000,0x47ff).ram();
-	map(0x5000,0x53ff).mirror(0x0400).ram().w(this,FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
-	map(0x5800,0x58ff).mirror(0x0700).ram().w(this,FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0x5000,0x53ff).mirror(0x0400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x0700).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
 	map(0x6000,0x6000).portr("IN0");
 	map(0x6800,0x6800).portr("IN1");
 	map(0x7000,0x7000).portr("IN2");
 	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
-	map(0x6000,0x6001).w(this,FUNC(galaxian_state::start_lamp_w));
+	map(0x6000,0x6001).w(FUNC(galaxian_state::start_lamp_w));
 	map(0x6002,0x6002).nopw();  // AM_WRITE(coin_lock_w)
-	map(0x6003,0x6003).w(this,FUNC(galaxian_state::coin_count_0_w));
+	map(0x6003,0x6003).w(FUNC(galaxian_state::coin_count_0_w));
 	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
 	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
-	map(0x7001,0x7001).w(this,FUNC(galaxian_state::irq_enable_w));
-	map(0x7002,0x7003).w(this,FUNC(galaxian_state::fourplay_rombank_w));
-	map(0x7004,0x7004).w(this,FUNC(galaxian_state::galaxian_stars_enable_w));
+	map(0x7001,0x7001).w(FUNC(galaxian_state::irq_enable_w));
+	map(0x7002,0x7003).w(FUNC(galaxian_state::fourplay_rombank_w));
+	map(0x7004,0x7004).w(FUNC(galaxian_state::galaxian_stars_enable_w));
 	map(0x7005,0x7005).nopw();  /* bit 3 of rombank select - always 0 */
-	map(0x7006,0x7006).w(this,FUNC(galaxian_state::galaxian_flip_screen_x_w));
-	map(0x7007,0x7007).w(this,FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0x7006,0x7006).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
 	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
 	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
 }
@@ -187,14 +187,14 @@ void galaxian_state::tst_frog_map(address_map &map) {
 	map(0x0000,0x3fff).rom();
 	map(0x8000,0x87ff).ram();
 	map(0x8800,0x8800).nopr();  //AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
-	map(0xa800,0xabff).mirror(0x0400).ram().w(this,FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
-	map(0xb000,0xb0ff).mirror(0x0700).ram().w(this,FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
-	map(0xb808,0xb808).mirror(0x07e3).w(this,FUNC(galaxian_state::irq_enable_w));
-	map(0xb80c,0xb80c).mirror(0x07e3).w(this,FUNC(galaxian_state::galaxian_flip_screen_y_w));
-	map(0xb810,0xb810).mirror(0x07e3).w(this,FUNC(galaxian_state::galaxian_flip_screen_x_w));
-	map(0xb818,0xb818).mirror(0x07e3).w(this,FUNC(galaxian_state::coin_count_0_w));  /* IOPC7 */
-	map(0xb81c,0xb81c).mirror(0x07e3).w(this,FUNC(galaxian_state::coin_count_1_w));  /* POUT1 */
-	map(0xc000,0xffff).rw(this,FUNC(galaxian_state::frogger_ppi8255_r),FUNC(galaxian_state::frogger_ppi8255_w));
+	map(0xa800,0xabff).mirror(0x0400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0xb000,0xb0ff).mirror(0x0700).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0xb808,0xb808).mirror(0x07e3).w(FUNC(galaxian_state::irq_enable_w));
+	map(0xb80c,0xb80c).mirror(0x07e3).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0xb810,0xb810).mirror(0x07e3).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0xb818,0xb818).mirror(0x07e3).w(FUNC(galaxian_state::coin_count_0_w));  /* IOPC7 */
+	map(0xb81c,0xb81c).mirror(0x07e3).w(FUNC(galaxian_state::coin_count_1_w));  /* POUT1 */
+	map(0xc000,0xffff).rw(FUNC(galaxian_state::frogger_ppi8255_r),FUNC(galaxian_state::frogger_ppi8255_w));
 }
 
 MACHINE_CONFIG_START( galaxian_state::tst_frog )
@@ -215,21 +215,21 @@ MACHINE_CONFIG_END
 void galaxian_state::videight_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
 	map(0x4000,0x47ff).ram();
-	map(0x5000,0x53ff).mirror(0x400).ram().w(this,FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
-	map(0x5800,0x58ff).mirror(0x700).ram().w(this,FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0x5000,0x53ff).mirror(0x400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x700).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
 	map(0x6000,0x6000).portr("IN0");
 	map(0x6800,0x6800).portr("IN1");
 	map(0x7000,0x7000).portr("IN2");
 	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
-	map(0x6000,0x6002).w(this,FUNC(galaxian_state::videight_gfxbank_w));
-	map(0x6003,0x6003).w(this,FUNC(galaxian_state::coin_count_0_w));
+	map(0x6000,0x6002).w(FUNC(galaxian_state::videight_gfxbank_w));
+	map(0x6003,0x6003).w(FUNC(galaxian_state::coin_count_0_w));
 	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
 	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
 	map(0x6808,0x68ff).nopw();
-	map(0x7001,0x7001).w(this,FUNC(galaxian_state::irq_enable_w));
-	map(0x7002,0x7005).w(this,FUNC(galaxian_state::videight_rombank_w));
-	map(0x7006,0x7006).w(this,FUNC(galaxian_state::galaxian_flip_screen_x_w));
-	map(0x7007,0x7007).w(this,FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0x7001,0x7001).w(FUNC(galaxian_state::irq_enable_w));
+	map(0x7002,0x7005).w(FUNC(galaxian_state::videight_rombank_w));
+	map(0x7006,0x7006).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
 	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
 	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
 }

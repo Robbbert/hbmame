@@ -275,8 +275,8 @@ void outrunm_state::sound_portmap_banked(address_map &map) {
 	map.global_mask(0xff);
 	map(0x00,0x01).mirror(0x3e).rw("ymsnd",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
 	map(0x40,0x7f).r("mapper",FUNC(sega_315_5195_mapper_device::pread));
-	map(0x80,0xbf).w(this,FUNC(outrunm_state::sound_rombank0_w));
-	map(0xc0,0xff).w(this,FUNC(outrunm_state::sound_rombank1_w));
+	map(0x80,0xbf).w(FUNC(outrunm_state::sound_rombank0_w));
+	map(0xc0,0xff).w(FUNC(outrunm_state::sound_rombank1_w));
 }
 
 void outrunm_state::soundbank_map(address_map &map) {

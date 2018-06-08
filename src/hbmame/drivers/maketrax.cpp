@@ -96,7 +96,7 @@ WRITE8_MEMBER(pacman_state::piranha_interrupt_vector_w)
 
 void pacman_state::piranha_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(this,FUNC(pacman_state::piranha_interrupt_vector_w));
+	map(0x00,0x00).w(FUNC(pacman_state::piranha_interrupt_vector_w));
 }
 
 

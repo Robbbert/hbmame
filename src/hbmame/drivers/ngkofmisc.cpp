@@ -56,7 +56,7 @@ void neogeo_state::init_cthd2k3a()
 // This fixes the Cart Jumper in KOGD
 void neogeo_state::main_map1(address_map &map) {
 	neogeo_main_map(map);
-	map(0x000000,0x00007f).r(this,FUNC(neogeo_state::banked_vectors_r));
+	map(0x000000,0x00007f).r(FUNC(neogeo_state::banked_vectors_r));
 	map(0x000080,0x0fffff).rom();
 }
 

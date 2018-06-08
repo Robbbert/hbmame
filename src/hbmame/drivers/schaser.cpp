@@ -495,15 +495,15 @@ void sc_state::mem_map(address_map &map) {
 	map(0x0000,0x1fff).rom();
 	map(0x2000,0x3fff).ram().share("ram");
 	map(0x4000,0x5fff).rom();
-	map(0xc000,0xdfff).share("colorram").w(this,FUNC(sc_state::colour_w));
+	map(0xc000,0xdfff).share("colorram").w(FUNC(sc_state::colour_w));
 }
 
 void sc_state::io_map(address_map &map) {
 	map(0x01,0x01).portr("IN1");
-	map(0x02,0x02).r(this,FUNC(sc_state::port02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
-	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(this,FUNC(sc_state::port03_w));
+	map(0x02,0x02).r(FUNC(sc_state::port02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
+	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(sc_state::port03_w));
 	map(0x04,0x04).w("mb14241",FUNC(mb14241_device::shift_data_w));
-	map(0x05,0x05).w(this,FUNC(sc_state::port05_w));
+	map(0x05,0x05).w(FUNC(sc_state::port05_w));
 	map(0x06,0x06).nopw();  //(watchdog_reset_w)
 }
 

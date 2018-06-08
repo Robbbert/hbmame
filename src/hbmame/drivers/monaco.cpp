@@ -1071,7 +1071,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 
 void monaco_state::monaco_map(address_map &map) {/* fake */
 	map(0x0000,0xefff).rom();
-	map(0xf000,0xffff).rw(this,FUNC(monaco_state::monaco_ram_r),FUNC(monaco_state::monaco_ram_w)).share("ram");  /* scores need 4000 bytes */
+	map(0xf000,0xffff).rw(FUNC(monaco_state::monaco_ram_r),FUNC(monaco_state::monaco_ram_w)).share("ram");  /* scores need 4000 bytes */
 }
 
 static INPUT_PORTS_START( monaco )
