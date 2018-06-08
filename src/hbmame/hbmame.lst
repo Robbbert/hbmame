@@ -1344,6 +1344,7 @@ ssf2tur1s01
 ssf2tur1s02
 ssf2xjs01
 ssf2xjs02
+ssf2js01
 sfzjs01
 sfzjs02
 sfzjs03
@@ -1355,7 +1356,9 @@ vsav2s01
 vsav2s02
 vampjas01
 xmcotaj2s01
+xmcotaj2s02
 xmvsfs01
+xmvsfs02
 xmvsfjs01
 
 @source:cps3.cpp
@@ -1651,6 +1654,8 @@ kof94s18
 kof94s19
 kof94s20
 kof94s21
+kof94s22
+kof94s23
 
 @source:kof95.cpp
 kof95b
