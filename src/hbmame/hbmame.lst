@@ -334,11 +334,11 @@ sk2h41  // wofs05; no sound
 sk3p1		// wofchdx
 sk3p2		// wofchdx1
 sk3p3		// wofchdx2
-sk3p4   // wofs03
-sk3p5   // wofs37
-sk3p6   // wofs38
-sk3p7   // wofhl01
-sk3p8   // wofhl02
+sk3p4  
+sk3p5  
+sk3p6  
+sk3p7  
+sk3p8  
 sk3p9
 slammastud
 stridergf	// fix unwanted black specks
@@ -384,83 +384,83 @@ tk2h15		// wofjrpbs; ingame crash
 tk2h16		// wofjv10s; ingame crash
 tk2h17		// wofjzcr1
 tk2h18		// wofjzero
-tk2h19  // wofs04
-tk2h20  // wofs06
-tk2h21  // wofs07
-tk2h22  // wofs08; ingame crash
-tk2h23  // wofs10
-tk2h24  // wofs11
-tk2h25  // wofs13
-tk2h26  // wofs14
-tk2h27  // wofs15
-tk2h28  // wofs18
-tk2h29  // wofs19
-tk2h30  // wofs20
-tk2h31  // wofs21
-tk2h32  // wofs22; bad title screen
-tk2h33  // wofs23
-tk2h35  // wofs25
-tk2h37  // wofs28; ingame crash
-tk2h38  // wofs29
-tk2h39  // wofs30
-tk2h40  // wofs33
+tk2h19 
+tk2h20 
+tk2h21 
+tk2h22  // ingame crash
+tk2h23 
+tk2h24 
+tk2h25 
+tk2h26 
+tk2h27 
+tk2h28
+tk2h29
+tk2h30
+tk2h31
+tk2h32
+tk2h33
+tk2h35 
+tk2h37  // ingame crash
+tk2h38 
+tk2h39 
+tk2h40 
 tk2h41  // wofs34; bad title screen
-tk2h42  // wofs35
-tk2h43  // wofs40
-tk2h44  // wofr102; goes into setup menu by itself at start
-tk2h45  // wofj02
-tk2h46  // wofj03
-tk2h47  // wofj04
-tk2h48  // wofj05
-tk2h49  // wofj06
+tk2h42 
+tk2h43 
+tk2h44  // goes into setup menu by itself at start
+tk2h45
+tk2h46 
+tk2h47
+tk2h48 
+tk2h49
 tk2h50  // wofj07; ingame crash
 tk2h51  // wofj08; ingame crash
 tk2h52  // wofj09; ingame crash
-tk2h53  // wofj10
-tk2h54  // wofj11
-tk2h55  // wofj12
-tk2h56  // wofj13
-tk2h57  // wofj14
-tk2h58  // wofj15
-tk2h59  // wofj16
-tk2h60  // wofj17
-tk2h61  // wofj18
-tk2h62  // wofj19
-tk2h63  // wofj20
-tk2h64  // wofj21
-tk2h65  // wofj22
-tk2h66  // wofj23
-tk2h67  // wofj24
-tk2h68  // wofj25
-tk2h69  // wofj26
-tk2h70  // wofj27
-tk2h71  // wofj28
-tk2h72  // wofj29
-tk2h73  // wofj30
-tk2h74  // wofj31
-tk2h75  // wofj32
-tk2h76  // wofj33
-tk2h77  // wofj34
-tk2h78  // wofj35
-tk2h79  // wofj36
-tk2h80  // wofj37
-tk2h81  // wofj38
-tk2h82  // wofj39
-tk2h83  // wofj40
-tk2h84  // wofj41
+tk2h53 
+tk2h54 
+tk2h55 
+tk2h56 
+tk2h57 
+tk2h58 
+tk2h59 
+tk2h60 
+tk2h61 
+tk2h62 
+tk2h63
+tk2h64
+tk2h65
+tk2h66 
+tk2h67 
+tk2h68 
+tk2h69 
+tk2h70 
+tk2h71 
+tk2h72 
+tk2h73 
+tk2h74 
+tk2h75 
+tk2h76 
+tk2h77 
+tk2h78  
+tk2h79  
+tk2h80  
+tk2h81 
+tk2h82 
+tk2h83 
+tk2h84  
 tk2h85  // bad gfx in attract mode
-tk2h86  //
-tk2h87  //
-tk2h88  //
-tk2h89  //
-tk2h90  //
-tk2h91  //
-tk2h92  //
-tk2h93  //
-tk2h94  //
-tk2h95  //
-tk2h96  //
-tk2h97  //
+tk2h86  
+tk2h87  
+tk2h88  
+tk2h89  
+tk2h90  
+tk2h91  
+tk2h92  
+tk2h93  
+tk2h94  
+tk2h95  
+tk2h96  
+tk2h97  
 tk2h98  // bad title screen
 tk2h99
 tk2h100
@@ -473,6 +473,7 @@ tk2h106
 tk2h107
 tk2h108
 tk2h109
+tk2h110
 tk2p2		// wofch_v3
 tk2p3		// wofchspp
 wofb
@@ -581,6 +582,7 @@ dinos70
 dinos71
 dinos72
 dinos73
+dinos74
 dinox01
 dinox02
 dinox03
@@ -1702,6 +1704,7 @@ kof95s25
 kof95s26
 kof95s27
 kof95s28
+kof95s29
 kof95hs01
 kof95hs02
 kof95hs03
