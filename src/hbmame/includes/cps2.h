@@ -129,6 +129,7 @@ public:
 		m_decrypted_opcodes(*this, "decrypted_opcodes"),
 		m_region_key(*this, "key"),
 		m_region_stars(*this, "stars")
+		, m_qsound(*this, "qsound")
 	{ }
 
 	//HBMAME start
@@ -240,6 +241,7 @@ public:
 	optional_shared_ptr<uint16_t> m_decrypted_opcodes;
 	optional_memory_region m_region_key;
 	optional_memory_region m_region_stars;
+	optional_device<qsound_device> m_qsound;
 
 	DECLARE_READ16_MEMBER(cps1_hack_dsw_r);
 	DECLARE_READ16_MEMBER(cps1_in1_r);

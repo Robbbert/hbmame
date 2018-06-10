@@ -1623,8 +1623,8 @@ TIMER_CALLBACK_MEMBER(cps2_state::cps2_update_digital_volume)
 	if (m_cps2digitalvolumelevel > 39) m_cps2digitalvolumelevel = 39;
 	if (m_cps2digitalvolumelevel < 0) m_cps2digitalvolumelevel = 0;
 
-	machine().device<qsound_device>("qsound")->set_output_gain(0, m_cps2digitalvolumelevel / 39.0);
-	machine().device<qsound_device>("qsound")->set_output_gain(1, m_cps2digitalvolumelevel / 39.0);
+	m_qsound->set_output_gain(0, m_cps2digitalvolumelevel / 39.0);
+	m_qsound->set_output_gain(1, m_cps2digitalvolumelevel / 39.0);
 }
 
 READ16_MEMBER(cps2_state::cps2_qsound_volume_r)
