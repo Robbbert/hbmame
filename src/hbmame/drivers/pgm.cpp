@@ -3780,6 +3780,100 @@ ROM_START( kov2p204s22 )
 	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
 ROM_END
 
+ROM_START( kov2p204s23 )
+	ROM_REGION( 0xA54F47, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32mhc23.2h1", 0x100000, 0x454F47, CRC(8015801f) SHA1(94c31381eb1f4c3e1752860194251c8b097ca8b5) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	// supplied rom freezes mame when attract mode starts, this one works
+	ROM_LOAD( "kov2p_igs027a_chinahc26.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16hc23.rom", 0x000000, 0x200000,  CRC(c27d1ce1) SHA1(69b732b25cc8e127fa8cc36654b904c0f9f88554) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s24 )
+	ROM_REGION( 0xA54F47, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32mhc24.rom",    0x100000, 0x454F47, CRC(11c8152e) SHA1(44cb00bb90d341f682fea646c5f925990d40d67f) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_chinahc26.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s25 )
+	ROM_REGION( 0xA54F47, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32mhc25.rom",    0x100000, 0x454F47, CRC(5f2fd667) SHA1(a4a27e1948c7df2a9a82cdbfdaf955fec141bb9f) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_chinahc26.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16hc25.rom", 0x000000, 0x200000,  CRC(114cefcf) SHA1(e4e3d040e09d90df040ed5cba974c67c7935b892) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000002, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200hc26.rom",    0x800000, 0x800002, CRC(05dcaf3d) SHA1(c4e26b353f0c9cafabf22296d631165593167965) )
+ROM_END
+
 /***************************************
          Knights of Valour 2      
 ***************************************/
@@ -14677,6 +14771,33 @@ ROM_START( orlegends28 )
 	ROM_LOAD( "m0100.u1",     0x400000, 0x200000, CRC(e5c36c83) SHA1(50c6f66770e8faa3df349f7d68c407a7ad021716) )
 ROM_END
 
+ROM_START( orlegends29 )
+	ROM_REGION( 0x600728, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0103hc29.rom",    0x100000, 0x200728, CRC(faca9018) SHA1(91ad53800ecd8160d3eadf4acc4d7bc560ea95cb) )
+
+	ROM_REGION( 0x800000, "tiles",  0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0100.u8",     0x180000, 0x400000, CRC(61425e1e) SHA1(20753b86fc12003cfd763d903f034dbba8010b32) )
+
+	ROM_REGION( 0x1800000, "sprcol", 0 )
+	ROM_LOAD( "a0100.u5",     0x0000000, 0x400000, CRC(8b3bd88a) SHA1(42db3a60c6ba9d83ebe2008c8047d094027f65a7) )
+	ROM_LOAD( "a0101.u6",     0x0400000, 0x400000, CRC(3b9e9644) SHA1(5b95ec1d25c3bc3504c93547f5adb5ce24376405) )
+	ROM_LOAD( "a0102.u7",     0x0800000, 0x400000, CRC(069e2c38) SHA1(9bddca8c2f5bd80f4abe4e1f062751736dc151dd) )
+	ROM_LOAD( "a0103.u8",     0x0c00000, 0x400000, CRC(4460a3fd) SHA1(cbebdb65c17605853f7d0b298018dd8801a25a58) )
+	ROM_LOAD( "a0104.u11",    0x1000000, 0x400000, CRC(5f8abb56) SHA1(6c1ddc0309862a141aa0c0f63b641aec9257aaee) )
+	ROM_LOAD( "a0105.u12",    0x1400000, 0x400000, CRC(a17a7147) SHA1(44eeb43c6b0ebb829559a20ae357383fbdeecd82) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0100.u9",     0x0000000, 0x400000, CRC(69d2e48c) SHA1(5b5f759007264c07b3b39be8e03a713698e1fc2a) )
+	ROM_LOAD( "b0101.u10",    0x0400000, 0x400000, CRC(0d587bf3) SHA1(5347828b0a6e4ddd7a263663d2c2604407e4d49c) )
+	ROM_LOAD( "b0102.u15",    0x0800000, 0x400000, CRC(43823c1e) SHA1(e10a1a9a81b51b11044934ff702e35d8d7ab1b08) )
+
+	ROM_REGION( 0x600000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0100.u1",     0x400000, 0x200000, CRC(e5c36c83) SHA1(50c6f66770e8faa3df349f7d68c407a7ad021716) )
+ROM_END
+
 ROM_START( orlegend111cs01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
@@ -16541,6 +16662,9 @@ HACK( 2001, kov2p204s19, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_
 HACK( 2001, kov2p204s20, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus - Nine Dragons / Sangoku Senki 2 Plus - Nine Dragons (Military Version Of Strengthening) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, kov2p204s21, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus - Nine Dragons / Sangoku Senki 2 Plus - Nine Dragons (There Is No Time Limit For Reinforcements) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, kov2p204s22, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus - Nine Dragons / Sangoku Senki 2 Plus - Nine Dragons (Quick Set Gas And Infinite Time Reinforcements Props Unlimited) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s23, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus - Nine Dragons / Sangoku Senki 2 Plus - Nine Dragons (Qun Mo Luan Wu Fu Mo Edition) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s24, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus - Nine Dragons / Sangoku Senki 2 Plus - Nine Dragons (Ming Yue Hua Cai) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s25, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Hack", "Knights of Valour 2 Plus - Nine Dragons / Sangoku Senki 2 Plus - Nine Dragons (Tian Wai Shen Bing) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
 // Knights of Valour 2
 HACK( 2000, kov2h01,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Hack", "Knights of Valour 2 / Sangoku Senki 2 (ver. 107, 102, 100HK) (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kov2h02,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Hack", "Knights of Valour 2 / Sangoku Senki 2 (ver. 107, 102, 100HK) (Easy Max Power, Hacks Alternate Set 01)", MACHINE_SUPPORTS_SAVE )
@@ -16938,6 +17062,7 @@ HACK( 1997, orlegends25, orlegend,  pgm_asic3,          orlegend, pgm_asic3_stat
 HACK( 1997, orlegends26, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 126)(Super Qigong)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegends27, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 126)(Super Moves)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegends28, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 126)(Quickly Inflate)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, orlegends29, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 126)(Note Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegend111cs01, orlegend,  pgm_asic3,      orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 111)(Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegendcs01,    orlegend,  pgm_asic3,      orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 112, Chinese Board)(Easy Super Moves)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegendcs02,    orlegend,  pgm_asic3,      orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Hack", "Oriental Legend / Xi You Shi E Zhuan (ver. 112, Chinese Board)(Enhanced Power)", MACHINE_SUPPORTS_SAVE )

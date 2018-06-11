@@ -2123,6 +2123,28 @@ ROM_START( pacgal )
 	PACMAN_SOUND_PROMS
 ROM_END
 
+ROM_START( mspacmabscre )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
+	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
+	ROM_LOAD( "robot.3",      0x2000, 0x1000, CRC(1ae6f796) SHA1(7d0e0fbf7379d8df7c48b9eccfa0bc0defeec5f9) )
+	ROM_LOAD( "boot4",        0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
+	ROM_LOAD( "robot.5",      0x8000, 0x1000, CRC(655796dd) SHA1(cc4747e4572b2a1d01a407adbb20d94799d81e76) )
+	ROM_LOAD( "screen.6",       0x9000, 0x1000, CRC(21538467) SHA1(bae74137fee6bdc1ca07e71df3f83a8c676fb5e6) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "5e",           0x0000, 0x1000, CRC(5c281d01) SHA1(5e8b472b615f12efca3fe792410c23619f067845) )
+	ROM_LOAD( "5f",           0x1000, 0x1000, CRC(615af909) SHA1(fd6a1dde780b39aea76bf1c4befa5882573c2ef4) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "82s123.7f",    0x0000, 0x0020, CRC(2fc650bd) SHA1(8d0268dee78e47c712202b0ec4f1f51109b1f2a5) )
+	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
+
+	ROM_REGION( 0x0200, "namco", 0 )    /* sound PROMs */
+	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
+	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )    /* timing - not used */
+ROM_END
+
 ROM_START( pacgalu )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacgalu.bin",  0x0000, 0x4000, CRC(23a0bd03) SHA1(6ebf7985374a0b0d7402f54c3c9b488fdebeb65e) )
@@ -2512,6 +2534,7 @@ HACK( 1981, mspacmbe, mspacman, woodpek,  mspacman, pacman_state, mspacmbe, ROT9
 HACK( 1981, mspacmnf, mspacman, mspacman, mspacman, pacman_state, mspacman, ROT90, "Midway", "Ms. Pacman (with speedup hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, mspacpls, mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "hack", "Ms. Pacman Plus", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, pacgal,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "hack", "Pac-Gal", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mspacmabscre, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms. Pacman (Split Screen Solved)", MACHINE_SUPPORTS_SAVE )
 
 /* Dave Widel's Games - http://www.widel.com */
 
