@@ -7653,7 +7653,7 @@ HACK( 2017, kof98s17,       kof98,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2017, kof98s18,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 16)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof98s19,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 17)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof98s20,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 18)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof98s21,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 19)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof98s21,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 19)(NGM-2420)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof98s22,       kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 20)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, kof98s23,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'98 (COMBO 2017.07.27)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s24,       kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "Hacks",    "Kof'98 (Description Of Hack Unknown)(Set 21)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
