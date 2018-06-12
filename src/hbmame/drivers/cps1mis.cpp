@@ -5855,11 +5855,11 @@ ROM_END
 
 ***************************************************************************/
 
-HACK( 1991, 3wondrud,    3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     ROT0,   "hack", "Three Wonders (US 910520 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, 3wondersb01, 3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     ROT0,   "bootleg", "Three Wonders (bootleg 01)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomc,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "hack", "Captain Commando (Chinese 911202)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
-HACK( 1991, captcomh,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Capcom", "Captain Commando (Shinwa Hack, World 911014)" , MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcoud,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "hack", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 3wondrud,    3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     ROT0,   "Unknown", "Three Wonders (US 910520 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 3wondersb01, 3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     ROT0,   "bootleg", "Three Wonders (bootleg 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomc,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando(Translation Chinese)(911202)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
+HACK( 2008, captcomh,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Shinwa", "Captain Commando (Ex Super version)(2008-05-10)(World 911014)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcoud,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, cps1demo,    0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Charles Doty", "Demo - CPS1", MACHINE_SUPPORTS_SAVE ) // no sound
 HACK( 2006, cps1frog,    0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Rastersoft", "Frog Feast (CPS1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, cps1tests,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnostic (for sf2ce 2012-10-30)", MACHINE_SUPPORTS_SAVE )
@@ -5890,16 +5890,16 @@ HACK( 2017, dinosf2,     dino,     wofsf2,     dino,     cps_state, dinohunt, RO
 HACK( 1993, dinoslice,   dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (hack set 4)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dinouphp,    dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Lock Triple Mode)(2009-1-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, dinoz,       dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0,   "Unknown", "Cadillacs and Dinosaurs Z (Boss Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1989, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "hack", "Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, ffightjh01,  ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Kofzec", "Final Fight (hack Super Plus)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knight21,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Japan, debug bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsa,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "LB70", "Knights of the Round (AngryUpdate By EEZEZY(LB70))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightshb2,  knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "hack", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh,    knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (hack)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsha,   knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Hack set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsjb,   knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "hack", "Knights of the Round (Japan, bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Whirlwind (Piracy)", "Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, ffightjh01,  ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Kofzec", "Final Fight (Super Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2001, knight21,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1)(2011.07.12)(Japan, debug bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightsa,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "LB70", "Knights of the Round (Angry Update)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightshb2,  knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightsh,    knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (hack)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightsha,   knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "Bootleg", "Knights of the Round (911127 etc bootleg set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightsjb,   knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (Japan, bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, knightsro,   knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Sebastian Mihai", "Knights of the Round (Romanian)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightud,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "hack", "Knights of the Round (US 911127 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightud,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (US 911127 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kodd,        kod,      cps1_10MHz, kod,      cps_state, cps1,     ROT0,   "hack", "The King of Dragons (World 910711 Phoenix Edition)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kodh,        kod,      cps1_10MHz, kodh,     cps_state, cps1,     ROT0,   "Wangy2", "The King of Dragons (ETC 910711 hack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kodsp,       kod,      cps1_10MHz, kod,      cps_state, cps1,     ROT0,   "Bonusjz", "The King of Dragons (Remix Special hack by Bonusjz)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
@@ -24485,6 +24485,33 @@ ROM_START( knightsh06 )
 	ROM_LOAD ( "knights.key", 0x00, 0x80, CRC(a4851689) SHA1(0a96f22a655c3ff9d09d7b84abd7ab5ac5f137e2) )
 ROM_END
 
+ROM_START( knightsjs01 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )  
+	ROM_LOAD16_WORD_SWAP( "kr23js01.8f", 0x00000, 0x80000, CRC(fb24db66) SHA1(dbafd39a5221cdaebef1b89e4d72e673fef625fc) )
+	ROM_LOAD16_WORD_SWAP( "kr_22.7f",  0x80000, 0x80000, CRC(d0b671a9) SHA1(9865472c5fc3f617345e23b5de5a9ba177945b5a) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "krs01.3a",  0x000000, 0x80000, CRC(745611e7) SHA1(33beb1606334abefbe655aa237018abe8ab56000) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-5m.3a
+	ROMX_LOAD( "krs02.4a",  0x000002, 0x80000, CRC(1859515d) SHA1(7bb1b7a09b5189f744f0c29281a4d006dbae8eb7) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-7m.5a
+	ROMX_LOAD( "krs03.5a",  0x000004, 0x80000, CRC(69543f31) SHA1(4bbf5dadef09727f764a3337554f4914181de7fd) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-1m.4a
+	ROMX_LOAD( "krs04.6a",  0x000006, 0x80000, CRC(5d316175) SHA1(89fb72df53d472b6398af16bfb70560901ea9b7c) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-3m.6a
+	ROMX_LOAD( "krs05.7a",  0x200000, 0x80000, CRC(78e32bb7) SHA1(ac61b1f7afc7e64e8058ca0e6c8ad89eae60bb74) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-6m.7a
+	ROMX_LOAD( "krs06.8a",  0x200002, 0x80000, CRC(9425fd46) SHA1(618f37dabea913dd57625e800670848bd5825d11) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-8m.9a
+	ROMX_LOAD( "krs07.9a",  0x200004, 0x80000, CRC(d5e377a1) SHA1(865ca4069682020b45077b8930d058ae265300b4) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-2m.8a
+	ROMX_LOAD( "krs08.10a", 0x200006, 0x80000, CRC(90860da1) SHA1(172b5a7296bf08f812afdff25774bd4b85f89152) , ROM_GROUPWORD | ROM_SKIP(6) ) // == kr-4m.10a
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "kr_09.12a",  0x00000, 0x08000, CRC(5e44d9ee) SHA1(47a7503321be8d52b5c44af838e3bb82ee15a415) )    // == kr_09.11a
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "kr_18.11c",  0x00000, 0x20000, CRC(da69d15f) SHA1(9616207e693bae85705f786cef60b9f6951b5067) )
+	ROM_LOAD( "kr_19.12c",  0x20000, 0x20000, CRC(bfc654e9) SHA1(01b3d92e4dedf55ea3933d387c7ddb9ba2549773) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "knights.key", 0x00, 0x80, CRC(a4851689) SHA1(0a96f22a655c3ff9d09d7b84abd7ab5ac5f137e2) )
+ROM_END
+
 /***************************************
                 mercs
 ***************************************/
@@ -29416,34 +29443,34 @@ ROM_END
  *************************************/
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // Three Wonders
-HACK( 1991, 3wonders01,    3wonders, cps1_10MHz, 3wonders, cps_state,   cps1,     ROT0,   "Hacks", "Three Wonders (Ex Super Version)(World 910520)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, 3wonders02,    3wonders, cps1_10MHz, 3wonders, cps_state,   cps1,     ROT0,   "Hacks", "Three Wonders (Unlimited Life)(World 910520)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 3wonders01,    3wonders, cps1_10MHz, 3wonders, cps_state,   cps1,     ROT0,   "huangxu", "Three Wonders (Ex Super Version)(World 910520)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 3wonders02,    3wonders, cps1_10MHz, 3wonders, cps_state,   cps1,     ROT0,   "Blue-Ray", "Three Wonders (Unlimited Life)(World 910520)", MACHINE_SUPPORTS_SAVE )
 // Captain Commando
-HACK( 2009, captcomms01,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Pipi899", "Captain Commando (Characters Change Hack By Pipi899 2009-01-20)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, captcomms04,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Pipi899", "Captain Commando (1VS4 Hack By Pipi899, Cheat By sssskkkk 2009-04-25)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms05,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Description Of Hack Unknown)(World 911014)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms06,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Ex Super Version)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms07,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Start Get Vehicle)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms08,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Weapon Replace Arms)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms09,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Alternative Changes)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms10,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Boss White Blood)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms11,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Easy Mode)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms12,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Enemy Enhance)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms13,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Hit Attack V1)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms14,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Hit Attack V2)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms15,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Infinite Ammo)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms16,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Infinite Time)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms17,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Infinite Time Stage 5)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms18,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Items Never Disappear)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms19,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Nivel 8 Test)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms20,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Players White Blood)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms21,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Robots White Blood)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms22,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Unlock 1 Vs 4 Mode (New) V2)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms23,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Weapons Flashing)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms24,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (X No Health Drain)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms25,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Hit Attack V1 Alternative)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms26,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Hit Attack V2 Alternative)(World 911202)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, captcomms27,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Hacks", "Captain Commando (Extreme Mode)(World 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, captcomms01,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Pipi899", "Captain Commando (Characters Change)(2009-01-20)(World 911202)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms04,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "sssskkkk", "Captain Commando (Unlock 1 Vs 4 Mode)(2009-04-25)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms05,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Unknown", "Captain Commando (Description Of Hack Unknown)(World 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms06,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "A phone", "Captain Commando (Ex Super Version)(World 911202)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, captcomms07,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "ckc7213 (DDJ)", "Captain Commando (War Chariot And Change Character)(2015-10-12)(World 911202)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, captcomms08,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "ckc7213 (DDJ)", "Captain Commando (Change Weapon 9 Type)(2015-10-12)(World 911202)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, captcomms09,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "winux", "Captain Commando (Baby sitting reinforcement)(2009-04-12)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms10,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Boss White Blood)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms11,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "duckchen，OrochiZ", "Captain Commando (Easy Mode)(2013-06-22)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, captcomms12,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "winux", "Captain Commando (Level Enemy Configuration Changes)(2015-01-12)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, captcomms13,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Big West", "Captain Commando (Catch People Unlimited Hit v1)(2013-10-26)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, captcomms14,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Big West", "Captain Commando (Catch People Unlimited Hit v2)(2013-10-26)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms15,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Infinite Ammo)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms16,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Infinite Time)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms17,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Infinite Time Stage 5)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms18,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Items Never Disappear)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, captcomms19,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Stage 8 Soldier Became Boss Test)(2016-03-06)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms20,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (4 Players White Blood)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms21,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Robots White Blood)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms22,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "sssskkkk", "Captain Commando (Unlock 1 Vs 4 Mode)(New)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms23,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Master Mix + Hollywood East Star Trax", "Captain Commando (Weapons Flashing)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms24,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "RockyWall", "Captain Commando (Put Insurance Can Not Afford To Drop Blood)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms25,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Big West", "Captain Commando (Catch People Unlimited Hit v1)(2013-10-26)(U.S.A 910928)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms26,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Big West", "Captain Commando (Catch People Unlimited Hit v2)(2013-10-26)(U.S.A 910928)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, captcomms27,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Unknown/MasterStiller", "Captain Commando (Extreme Mode)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs and Dinosaurs
 HACK( 200?, dinos01,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Bazooka)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dinos02,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Club)(World 930201)", MACHINE_SUPPORTS_SAVE )
@@ -29995,19 +30022,20 @@ HACK( 2018, dinope48,       dino,     qsound,     dino,     cps_state,   dino,  
 HACK( 2018, dinope49,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(RockyWall & zhyxxxx,Gaston90,Ydmis,Unknown,pipi899)", "Cadillacs and Dinosaurs 2011 Plus(2018 Edition)(Revised Version Remix [23-4-2018])(Set 17)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinope50,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(RockyWall & zhyxxxx,Gaston90,Ydmis,Unknown,pipi899)", "Cadillacs and Dinosaurs 2011 Plus(2018 Edition)(Revised Version Remix [23-4-2018])(Set 18)(World 930201)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
-HACK( 1989, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "Hacks", "Final Fight (World, set 1)(Change Fighter)", MACHINE_SUPPORTS_SAVE )
+HACK( 1989, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (World, set 1)(Change Fighter)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
 HACK( 1991, koduhc01,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Hacks", "The King of Dragons (US 910910 Phoenix Edition (16b/40p))(World 910805)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, koduhc02,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Hacks", "The King of Dragons (Boss Version Of Battle)(World 910805)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, koduhc03,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Hacks", "The King of Dragons (Three Model)(World 910805)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, koduhc04,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Hacks", "The King of Dragons (Unparalleled Version)(World 910805)", MACHINE_SUPPORTS_SAVE )
 // Knights of the Round
-HACK( 1991, knightsh01,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Description Of Hack Unknown)(World 911127)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh02,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Extreme Mode)(World 911127)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh03,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Random Characters, Items, Chaos Into Version V6-2)(World 911127)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh04,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Random Characters, Items, Chaos Into Version V6-3)(World 911127)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh05,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Round Table Samurai Chop Version)(World 911127)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh06,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Hacks", "Knights of the Round (Select Players 3)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, knightsh01,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "EEZEZY(LB70)", "Knights of the Round (Anger upgrade)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, knightsh02,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Unknown/MasterStiller", "Knights of the Round (Extreme Mode)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, knightsh03,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Mr.L", "Knights of the Round (Random Characters, Items, Chaos Into Version V6-2)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, knightsh04,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Mr.L", "Knights of the Round (Random Characters, Items, Chaos Into Version V6-3)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, knightsh05,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Big front", "Knights of the Round (Round Table Samurai Chop Version)(2015-09-14)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, knightsh06,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Unknown", "Knights of the Round (Select Players 3)(World 911127)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, knightsjs01,   knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Unknown", "Knights of the Round (Translation Chinese)(Japan 911127, B-Board 91634B-2)", MACHINE_SUPPORTS_SAVE )
 // Mercs
 HACK( 1990, mercs01,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Hacks", "Mercs (Ex Super Version)(World 900302)", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, mercs02,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Hacks", "Senjou no Ookami II (Japan 900302)(Translation-Chinese)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
