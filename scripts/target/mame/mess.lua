@@ -367,6 +367,7 @@ VIDEOS["MB88303"] = true
 
 MACHINES["AKIKO"] = true
 MACHINES["AUTOCONFIG"] = true
+MACHINES["BUSMOUSE"] = true
 MACHINES["CR511B"] = true
 MACHINES["DMAC"] = true
 MACHINES["GAYLE"] = true
@@ -442,6 +443,7 @@ MACHINES["I8255"] = true
 MACHINES["I8257"] = true
 MACHINES["I8271"] = true
 MACHINES["I8279"] = true
+MACHINES["I8291A"] = true
 MACHINES["I8355"] = true
 MACHINES["IDE"] = true
 MACHINES["IE15"] = true

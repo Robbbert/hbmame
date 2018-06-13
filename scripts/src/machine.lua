@@ -746,6 +746,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/busmouse.h,MACHINES["BUSMOUSE"] = true
+---------------------------------------------------
+
+if (MACHINES["BUSMOUSE"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/busmouse.cpp",
+		MAME_DIR .. "src/devices/machine/busmouse.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/cdp1852.h,MACHINES["CDP1852"] = true
 ---------------------------------------------------
 
@@ -3530,17 +3542,3 @@ if (MACHINES["Z80DAISY"]~=null) then
 		MAME_DIR .. "src/devices/machine/z80daisy_generic.h",
 	}
 end
-
----------------------------------------------------
---
---@src/devices/machine/i8291a.h,MACHINES["I8291A"] = true
----------------------------------------------------
-
-if (MACHINES["I8291A"]~=null) then
-	files {
-		MAME_DIR .. "src/devices/machine/i8291a.cpp",
-		MAME_DIR .. "src/devices/machine/i8291a.h",
-	}
-end
-
-

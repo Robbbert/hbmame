@@ -70,7 +70,10 @@ flagrall                        // ?
 3do                             // 3DO consoles
 3do_pal                         //
 3dobios                         //
+alg3do							//
+md23do                          //
 orbatak                         //
+sht3do							//
 
 @source:3x3puzzl.cpp
 3x3puzzl                        // (c) 199? Ace
@@ -1025,6 +1028,7 @@ zortonbr                        // (c) 1993 Web Picmatic
 alien                           // (c) 2005 Capcom
 pingu                           // (c) 2006 The Pygos Group / Capcom
 dkbanana                        // (c) 2007 Capcom
+dkbanans                        // (c) 2007 Capcom
 
 @source:aliens.cpp
 aliens                          // GX875 (c) 1990 (World)
@@ -32109,6 +32113,7 @@ pokemini                        // Nintendo Pokemon Mini
 poker72                         //
 
 @source:polepos.cpp
+grally                          // bootleg
 polepos                         // (c) 1982
 polepos2                        // (c) 1983
 polepos2a                       // 136014   (c) 1983 + Atari license
