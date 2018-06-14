@@ -308,19 +308,19 @@ sk2h4q
 sk2h5q
 sk2h6q
 sk2h7q
-sk2h10  // wofs45
+sk2h10 
 sk2h11
 sk2h12
 sk2h13
 sk2h14
 sk2h15		// wofaehp
 sk2h16		// wofahp2
-sk2h17  // wofs02
-sk2h18  // wofs12
-sk2h19  // wofs39
+sk2h17 
+sk2h18
+sk2h19
 sk2h21
 sk2h22
-sk2h23  // wofs17
+sk2h23
 sk2h31
 sk2h32
 sk2h33
@@ -474,6 +474,9 @@ tk2h107
 tk2h108
 tk2h109
 tk2h110
+tk2h111
+tk2h112
+tk2h113
 tk2p2		// wofch_v3
 tk2p3		// wofchspp
 wofb
@@ -1106,6 +1109,7 @@ slammasts01
 slammasts02
 slammasts03
 slammasts04
+slammasts05
 striders01
 sfzchs01
 sfzchs02
@@ -1124,13 +1128,55 @@ wofs05
 wofs06
 wofs07
 wofs08
-wofs09  // bad gfx; ingame crash
+wofs09
 wofs10  
 wofs11
-wofs12 // ingame crash
-wofs13 // ingame crash
-wofs14 
-wofs15
+woffs01
+woffs02
+woffs03
+woffs04
+woffs05
+wofchs01
+wofchs02
+wofchs03
+wofchs04
+wofchs05
+wofchs06
+wofchs07
+wofchs08
+wofchs09
+wofchs10
+wofchs11
+wofchs12
+wofchs13
+wofchs14
+wofchs15
+wofchs16
+wofchs17
+wofchs18
+wofchs19
+wofchs20
+wofchs21
+wofchs22
+wofchs23
+wofchs24
+wofchs25
+wofchs26
+wofchs27
+wofchs28
+wofchs29
+wofchs30
+wofchs31
+wofchs33
+wofchs34
+wofchs35
+wofchs36
+wofchs37
+wofchs38
+wofchs39
+wofchs40
+wofchs41
+wofchs42
 
 @source:cps2.cpp
 // CPS2 PARENTS ***
