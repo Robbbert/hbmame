@@ -6,8 +6,8 @@
 
 ***************************************************************************/
 
-#ifndef _CPS1_H_
-#define _CPS1_H_
+#ifndef _CPS2_H_
+#define _CPS2_H_
 
 #include "emu.h"
 #include "sound/msm5205.h"
@@ -17,6 +17,7 @@
 #include "machine/timekpr.h"
 #include "machine/timer.h"
 #include "cpu/m68000/m68000.h"
+#include "emupal.h"
 #include "screen.h"
 
 // Video raw params

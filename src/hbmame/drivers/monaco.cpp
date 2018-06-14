@@ -170,6 +170,7 @@ There is a bunch more things to be done
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "sound/samples.h"
+#include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
 #include "monaco.lh"

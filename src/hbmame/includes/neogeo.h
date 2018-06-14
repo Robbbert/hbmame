@@ -20,6 +20,7 @@
 #include "bus/neogeo/prot.h"
 #include "bus/neogeo/banked_cart.h"
 #include "bus/neogeo_ctrl/ctrl.h"
+#include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
 
