@@ -330,7 +330,12 @@ sk2h31q
 sk2h32q
 sk2h33q
 sk2h34q
-sk2h41  // wofs05; no sound
+sk2h41
+sk2h42
+wofhfhs01
+wofhfhs02
+wofhfhs03
+wofhfhs04
 sk3p1		// wofchdx
 sk3p2		// wofchdx1
 sk3p3		// wofchdx2
@@ -404,7 +409,7 @@ tk2h37  // ingame crash
 tk2h38 
 tk2h39 
 tk2h40 
-tk2h41  // wofs34; bad title screen
+tk2h41  // bad title screen
 tk2h42 
 tk2h43 
 tk2h44  // goes into setup menu by itself at start
@@ -413,9 +418,9 @@ tk2h46
 tk2h47
 tk2h48 
 tk2h49
-tk2h50  // wofj07; ingame crash
-tk2h51  // wofj08; ingame crash
-tk2h52  // wofj09; ingame crash
+tk2h50  // ingame crash
+tk2h51  // ingame crash
+tk2h52  // ingame crash
 tk2h53 
 tk2h54 
 tk2h55 
@@ -1075,7 +1080,7 @@ knightsh05
 knightsh06
 knightsjs01
 mercs01
-mercs02
+mercjs01
 mbombrds01
 mbombrds02
 mbombrds03
@@ -1102,9 +1107,18 @@ sf2ces03
 sf2ces04
 sf2ces05
 sf2js01
+sf2s01
 sf2koryus01
 sf2koryus02
 sf2koryus03
+sf2tlonas01
+sf2tlonas02
+sf2tlonas03
+sf2hfus01
+sf2hfus02
+sf2hfus03
+sf2hfus04
+sf2h11s01
 slammasts01
 slammasts02
 slammasts03
@@ -1120,21 +1134,26 @@ willows01
 wofh01  // broken; black screen
 wofh02  // broken; black screen
 wofh03  // broken; black screen
+wofh04  // broken; black screen
+wofh05  // broken; black screen
+wofh06  // broken; black screen
+wofh07  // broken; black screen
+wofh08  // broken; black screen
+wofus01
+wofus02
+wofus03
 wofs01
 wofs02
 wofs03
-wofs04
+wofs04  //ingame crash
 wofs05
 wofs06
-wofs07
-wofs08
-wofs09
-wofs10  
-wofs11
+wofs07  // broken; black screen
+wofs08  // broken; black screen
 woffs01
 woffs02
-woffs03
-woffs04
+woffs03 //ingame crash
+woffs04 //ingame crash
 woffs05
 wofchs01
 wofchs02
