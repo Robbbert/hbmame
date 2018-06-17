@@ -230,15 +230,15 @@ ROM_END
 
 
 // Metal Slug 2
-HACK( 1998, mslug2eh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2eh0, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Enhanced Revised Version)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2eh1, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2eh2, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2eh3, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2eh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2eh0, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Enhanced Revised Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2eh1, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2eh2, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2eh3, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French) (Old)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (hybrid Bullets version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (hybrid Bullets version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "System11", "Metal Slug 2 Turbo", MACHINE_SUPPORTS_SAVE )
 
 
@@ -249,9 +249,9 @@ HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
       Proyecto Shadows Mame Build Plus
 **********************************************/
 
-/*********************
-    Metal Slug 2
-***********************/
+/*************
+ Metal Slug 2
+***************/
 
 ROM_START( mslug2s01 )
 	ROM_REGION( 0x300000, "maincpu", 0 )

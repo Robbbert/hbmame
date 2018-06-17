@@ -78,15 +78,18 @@ ROM_END
 HACK( 2005, msboot,    mslug,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Nazca", "Metal Slug (Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, mslugeh,   mslug,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug Enhanced", MACHINE_SUPPORTS_SAVE ) // New standard weapon shotgun - 20 bombs instead of 10
 
+
+
+
 //PSmame (c) gaston90 used with permission
 
 /********************************************
     Proyecto Shadows Mame Build Plus
 **********************************************/
 
-/*********************
-     Metal Slug
-***********************/
+/***********
+ Metal Slug
+*************/
 
 ROM_START( mslugs01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
