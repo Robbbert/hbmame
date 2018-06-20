@@ -252,7 +252,7 @@ dinoz
 ffightb
 ffightjh01
 knight21
-//knightsa		// rom missing
+// knightsa	 		// rom missing
 knightshb2
 knightsh
 knightsha
@@ -1078,6 +1078,7 @@ knightsh03
 knightsh04
 knightsh05
 knightsh06
+knightsh07
 knightsjs01
 mercs01
 mercjs01
@@ -1119,6 +1120,8 @@ sf2hfus02
 sf2hfus03
 sf2hfus04
 sf2h11s01
+sf2reds01
+sf2reds02
 slammasts01
 slammasts02
 slammasts03
@@ -1368,6 +1371,7 @@ pfghtjs01
 pfghtjs02
 pfghtjs03
 progearjds01
+progearjds02
 hsf2s01
 hsf2s02
 hsf2js01
@@ -1377,14 +1381,19 @@ sfas01
 sfa2ur1s01
 sfa2ur1s02
 sfa2ur1s03
+sfa2us01
+sfa2us02
+sfa2us03
 sfa3s01
 sfa3s02
+sfa3s03
 sfa3bs01
 sfa3bs02
 sfa3bs03
 sfa3us01
 sfa3us02
 sfa3us03
+sfa3us04
 sfz2als01
 sfz2albs01
 sfz2alhs01
@@ -4688,22 +4697,22 @@ mslug4n24
 mslug4n25
 mslug4n26
 mslug4n27
+mslug4n28
+mslug4n29
+mslug4n30
+mslug4n31
+mslug4n32
+mslug4n33
+mslug4n34
+mslug4n35
+mslug4n36
+mslug4n37
 mslug4pls01
 mslug4pls02
 mslug4pls03
 mslug4pls04
 mslug4pls05
 mslug4pls06
-mslug4hh01
-mslug4hh02
-mslug4hh03
-mslug4hh04
-mslug4hh05
-mslug4hh06
-mslug4hh07
-mslug4hh08
-mslug4hh09
-mslug4hh10
 mslug4hh11
 mslug4hh12
 mslug4hh13
@@ -6929,6 +6938,8 @@ samsho2s06
 samsho2s07
 samsho2s08
 samsho2s09
+samsho2s10
+samsho2s11
 samsho2ks01
 samsho2ks02
 samsho3s01
@@ -6944,6 +6955,7 @@ samsho3s10
 samsho3s11
 samsho3s12
 samsho3s13
+samsho3s14
 samsho4s01
 samsho4s02
 samsho4s03
@@ -6996,6 +7008,12 @@ samsho5s40
 samsho5s41
 samsho5s42
 samsho5s43
+samsho5s44
+samsho5s45
+samsho5s46
+samsho5s47
+samsho5s48
+samsho5s49
 samsh5sp01
 samsh5spds01
 samsh5spds02
@@ -7008,6 +7026,7 @@ samsh5spds08
 samsh5spds09
 samsh5spds10
 samsh5spds11
+samsh5spds12
 samsh5sphds01
 samsh5sphds02
 samsh5sphds03

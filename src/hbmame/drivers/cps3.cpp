@@ -1285,25 +1285,27 @@ ROM_END
 
 
 
-HACK( 2009, jojobbh2,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Boss v2.0 hack by Pipi899 2009-08-08)", 0 )
-HACK( 2009, jojobbss,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Boss hack by Pipi899 2009-07-15)", 0 )
-HACK( 2009, jojobpow,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Power hack by Pipi899 2009-07-15)", 0 )
-HACK( 2009, jojonbss,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Boss hack by Pipi899 2009-07-09)", 0 )
-HACK( 2009, jojonpow,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Power hack by Pipi899 2009-07-11)", 0 )
+HACK( 2009, jojobbh2,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V2)(2009-08-08)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobbss,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V1)(2009-07-15)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobpow,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Infinite Power)(2009-07-15)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojonbss,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Enable Hidden Characters V1)(2009-07-09)(Asia 990108, NO CD)", 0 )
+HACK( 2009, jojonpow,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Infinite Power)(2009-07-11)(Asia 990108, NO CD)", 0 )
 HACK( 1996, redeartn,  0,        redeartn, cps3_ren,  cps3_hbmame, redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
 HACK( 1996, redeartno, redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Capcom", "Red Earth (Euro 961121, NO CD)", 0 )
-HACK( 2009, redearex,  redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version hack by Pipi899 2009-09-08)", 0 )
-HACK( 2009, sfiiibhp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Boss hack by Pipi899 2009-08-08)", 0 )
-HACK( 2009, sfiiipmp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Power hack by Pipi899 2009-07-06)", 0 )
-GAMEL(1997, sfiii2bh,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Yumeji", "Street Fighter III 2nd Impact: Giant Attack (Boss hack by Yumeji)", 0, layout_sfiii2 )
-GAMEL(2009, sfiii2np,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Pipi899", "Street Fighter III 2nd Impact: Giant Attack (Power hack by Pipi899 2009-07-14)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2pl,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Krysofun", "Street Fighter III 2nd Impact: Giant Attack (Plus v1.0 hack by Krysofun)", 0, layout_sfiii2 )
+HACK( 2009, redearex,  redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version)(2009-09-08)(Euro 961121, NO CD)", 0 )
+HACK( 2009, sfiiibhp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Enable Hidden Characters V1)(2009-08-08)(Asia 970204, NO CD, bios set 1)", 0 )
+HACK( 2009, sfiiipmp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Infinite Power)(2009-07-06)(Asia 970204, NO CD, bios set 1)", 0 )
+GAMEL(1997, sfiii2bh,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Yumeji", "Street Fighter III 2nd Impact: Giant Attack (Enable hidden characters)(Alt)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(2009, sfiii2np,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Pipi899", "Street Fighter III 2nd Impact: Giant Attack (Enhanced power)(2009-07-14)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(1997, sfiii2pl,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Krysofun", "Street Fighter III 2nd Impact: Giant Attack (Plus v1.0)(Asia 970930, NO CD)", 0, layout_sfiii2 )
 HACK( 2013, sfiii3an,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: Ford Strike (Japan 990608, NO CD)", 0 )
-HACK( 1999, sfiii3bh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Yumeji", "Street Fighter III 3rd Strike: Fight for the Future (Boss hack by Yumeji)", 0 )
-HACK( 1999, sfiii3mh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "hack", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color hack)", 0 )
-HACK( 2009, sfiii3ng,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating hack by Pipi899 2009-07-14)", 0 )
-HACK( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Power hack by Pipi899 2009-07-14)", 0 )
+HACK( 1999, sfiii3bh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Yumeji", "Street Fighter III 3rd Strike: Fight for the Future (Enable hidden characters)(Alt)(Japan 990608, NO CD)", 0 )
+HACK( 1999, sfiii3mh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "2ch", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color)(Japan 990608, NO CD)", 0 )
+HACK( 2009, sfiii3ng,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating)(2009-07-14)(Japan 990608, NO CD)", 0 )
+HACK( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked)(2009-07-14)(Japan 990608, NO CD)", 0 )
 HACK( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )
+
+
 
 
 //PSmame (c) gaston90 used with permission
@@ -1312,9 +1314,9 @@ HACK( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    RO
          Proyecto Shadows Mame Build Plus
 *****************************************************/
 
- /****************************************
-         JoJo's Bizarre Adventure
-*****************************************/
+ /************************
+ JoJo's Bizarre Adventure
+***************************/
 
 ROM_START( jojos01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -2030,9 +2032,9 @@ ROM_START( jojonr1s02 )
 	ROM_LOAD( "jojo-simm5.1", 0x00000, 0x200000, CRC(734fd162) SHA1(16cdfac74d18a6c2216afb1ce6afbd7f15297c32) )
 ROM_END
 
-  /*************************************************
-        Street Fighter III: New Generation
-**************************************************/
+ /**********************************
+ Street Fighter III: New Generation
+*************************************/
 
 ROM_START( sfiiins01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -2140,9 +2142,9 @@ ROM_START( sfiiins02 )
 	ROM_LOAD( "sfiii-simm5.1", 0x00000, 0x200000, CRC(c6f1c066) SHA1(00de492dd1ef7aef05027a8c501c296b6602e917) )
 ROM_END
 
- /*************************************************
-     Street Fighter III 2nd Impact Giant Attack
-**************************************************/
+ /******************************************
+ Street Fighter III 2nd Impact Giant Attack
+*********************************************/
 
 ROM_START( sfiii2ns01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -2366,9 +2368,9 @@ ROM_START( sfiii2ns03 )
 	ROM_LOAD( "sfiii2-simm5.7", 0x00000, 0x200000, CRC(93ffa199) SHA1(33ec2379f30c6fdf47ba72c1d0cad8bdd02f17df) )
 ROM_END
 
- /*******************************************************
-  Street Fighter III 3rd Strike: Fight for the Future
-********************************************************/
+ /***************************************************
+ Street Fighter III 3rd Strike: Fight for the Future
+******************************************************/
 
 ROM_START( sfiii3ns01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -3015,30 +3017,30 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       CLASS            INIT     MONITOR     COMPANY                 FULLNAME FLAGS */
 // JoJo's Bizarre Adventure
-HACK( 2009, jojos01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Brazil)", 0 )
-HACK( 2009, jojos02,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Asia)", 0 )
-HACK( 2009, jojos03,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Hispanic)", 0 )
-HACK( 2009, jojos04,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Oceania)", 0 )
-HACK( 2009, jojos05,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language U.S.A)", 0 )
-HACK( 2009, jojox01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Max Power)", 0 )
-HACK( 1999, jojobaner1s01,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Enable Hidden Characters V1)", 0 )
-HACK( 1999, jojobaner1s02,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Enable Hidden Characters V2)", 0 )
-HACK( 1999, jojobaner1s03,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Infinite Power)", 0 )
-HACK( 2018, jojobaner1s04,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)", 0 )
-HACK( 1998, jojonr1s01,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "Hacks",    "JoJo's Venture (Asia 990108, NO CD)(Enable Hidden Characters V1)", 0 )
-HACK( 1998, jojonr1s02,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "Hacks",    "JoJo's Venture (Asia 990108, NO CD)(Infinite Power)", 0 )
+HACK( 2009, jojos01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Brazil)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos02,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Asia)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos03,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Hispanic)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos04,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Oceania)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos05,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language U.S.A)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojox01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Max Power)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobaner1s01,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "pipi899",    "JoJo's Bizarre Adventure (Enable Hidden Characters V1)(2009-07-15)(Alt)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobaner1s02,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "pipi899",    "JoJo's Bizarre Adventure (Enable Hidden Characters V2)(2009-08-08)(Alt)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobaner1s03,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "pipi899",    "JoJo's Bizarre Adventure (Infinite Power)(2009-07-15)(Alt)(Euro 990913, NO CD)", 0 )
+HACK( 2018, jojobaner1s04,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Super Plus)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojonr1s01,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "pipi899",    "JoJo's Venture (Enable Hidden Characters V1)(Alt)(2009-07-09)(Asia 990108, NO CD)", 0 )
+HACK( 2009, jojonr1s02,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "pipi899",    "JoJo's Venture (Infinite Power)(2009-07-09)(Alt)(Asia 990108, NO CD)", 0 )
 // Street Fighter III: New Generation
-HACK( 1997, sfiiins01,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "Hacks",    "Street Fighter III: New Generation (Asia 970204, NO CD, bios set 1)(Enable Hidden Characters V1)", 0 )
-HACK( 1997, sfiiins02,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "Hacks",    "Street Fighter III: New Generation (Asia 970204, NO CD, bios set 1)(Infinite Power)", 0 )
+HACK( 2009, sfiiins01,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "pipi899",    "Street Fighter III: New Generation (Enable Hidden Characters V1)(2009-08-08)(Alt)(Asia 970204, NO CD, bios set 1)", 0 )
+HACK( 2009, sfiiins02,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "pipi899",    "Street Fighter III: New Generation (Infinite Power)(2009-07-06)(Alt)(Asia 970204, NO CD, bios set 1)", 0 )
 // Street Fighter III 2nd Impact Giant Attack
-GAMEL(1997, sfiii2ns01,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Hacks",    "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)(Enable Hidden Characters V1)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2ns02,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Hacks",    "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)(Enable Hidden Characters V2)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2ns03,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Hacks",    "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)(Infinite Power)", 0, layout_sfiii2 )
+GAMEL(200?, sfiii2ns01,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "yumeji",    "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V1)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(200?, sfiii2ns02,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "yumeji",    "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V2)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(2009, sfiii2ns03,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "pipi899",    "Street Fighter III 2nd Impact: Giant Attack (Infinite Power)(2009-07-14)(Asia 970930, NO CD)", 0, layout_sfiii2 )
 // Street Fighter III 3rd Strike Fight for the Future
-HACK( 1999, sfiii3ns01,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Characters Makoto)", 0 )
-HACK( 1999, sfiii3ns02,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Enable Hidden Characters V1)", 0 )
-HACK( 1999, sfiii3ns03,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Ex Super Version)", 0 )
-HACK( 1999, sfiii3ns04,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Infinite Power)", 0 )
-HACK( 1999, sfiii3nrs01,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990512, NO CD)(Enable Hidden Characters)", 0 )
-HACK( 1999, sfiii3nrs02,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990512, NO CD)(Description Of Hack Unknown)(Set 01)", 0 )
-HACK( 2015, sfiii3nrs03,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)(Alt)", 0 )
+HACK( 200?, sfiii3ns01,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Characters Makoto)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3ns02,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "yumeji",    "Street Fighter III 3rd Strike: Fight for the Future (Enable Hidden Characters V1)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3ns03,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Ex Super Version)(Japan 990608, NO CD)", 0 )
+HACK( 2009, sfiii3ns04,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "pipi899",    "Street Fighter III 3rd Strike: Fight for the Future (Infinite Power)(2009-07-14)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3nrs01,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Enable Hidden Characters)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3nrs02,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Description Of Hack Unknown)(Set 01)(Japan 990608, NO CD)", 0 )
+HACK( 2015, sfiii3nrs03,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: 4rd Arrange Edition 2013(Japan 990608, NO CD)(Alt)", 0 )
