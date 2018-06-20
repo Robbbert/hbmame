@@ -689,6 +689,7 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 	MCFG_DEVICE_REPLACE("maincpu", M68000, 12'000'000 )
 	MCFG_DEVICE_PROGRAM_MAP(sk2h1q_map)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
 
 	MCFG_DEVICE_REPLACE("audiocpu", Z80, 8'000'000 )
 	MCFG_DEVICE_PROGRAM_MAP(qsound_sub_map)

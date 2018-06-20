@@ -615,7 +615,7 @@ void cps_state::qsound_main_map(address_map &map) {
 	map(0xf1c000,0xf1c001).portr("IN2");  /* Player 3 controls (later games) */
 	map(0xf1c002,0xf1c003).portr("IN3");  /* Player 4 controls ("Muscle Bombers") */
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006, 0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
 	map(0xff0000,0xffffff).ram().share("mainram");
 }
