@@ -3670,7 +3670,7 @@ ROM_START( sk2h6q ) // wofhbw in mame++
 	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
 ROM_END
 
-ROM_START( sk2h7q )
+ROM_START( sk3h1 )
 	ROM_REGION( 0x454F4E, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h7q.800",  0x000000, 0x454F4E, CRC(ccbe4ab5) SHA1(d65109a4da4324a85cd76c37452ccdcc74d0170d) )
 
@@ -5958,7 +5958,7 @@ HACK( 200?, sk2h3,       wof,      sk2h3,      sk2h3,    cps_state, sk2h3,    RO
 HACK( 200?, sk2h4q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H4Q)(Chinese v2.0)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sk2h5q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Revised Version)(2009-09-09)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2006, sk2h6q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Full Level Boss Final)(2006-01-29)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2018, sk2h7q,      wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "Unknown", "Sangokushi II (San Guo Ying Xiong Zhuan Plus)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, sk3h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "Unknown", "Sangokushi 3 (San Guo Ying Xiong Zhuan Plus)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Chaihe", "Sangokushi II (Holly Sword Three Kingdoms (Invincible))(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Sangokushi II (set H12)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Sangokushi II (set H13)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
@@ -31236,7 +31236,7 @@ ROM_END
   Sangokushi II
 ****************/
 
-ROM_START( wofh01 )
+ROM_START( sk2h7 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs01.23",  0x000000, 0x100000, CRC(885594f5) SHA1(e9b259c3544a58b6906814eead7d7ea2d817e0a6) )
 
@@ -31264,7 +31264,7 @@ ROM_START( wofh01 )
 	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
 ROM_END
 
-ROM_START( wofh02 )
+ROM_START( sk3h2 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs02.800",  0x000000, 0x100000, CRC(0882fd47) SHA1(683bef85c75d83731c31e2733bf0369f26414550) )
 
@@ -31292,7 +31292,7 @@ ROM_START( wofh02 )
 	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
 ROM_END
 
-ROM_START( wofh03 )
+ROM_START( sk2h8 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs03.800",  0x000000, 0x100000, CRC(fa96a53b) SHA1(c0d6194ecbab417c7ce83b1af0307ff12cf78404) )
 
@@ -32438,9 +32438,9 @@ HACK( 200?, wofhfhs02,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,   
 HACK( 200?, wofhfhs03,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "King of Destruction", "Huo Feng Huang (Add Enemy Damage Repair)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofhfhs04,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "King of Destruction", "Huo Feng Huang (Riboud Houja attack strengthened)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
 // Warriors of Fate
-HACK( 200?, wofus01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Description Of Hack Unknown)(Set 01)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofus02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Kassar(Chou-Hi)'s Spinning Pile Driver)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofus03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors Of Fate (Easy Kassar's Spinning Pile Driver. Fire, Foods And Swords Anywhere)(Happy Version)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Description Of Hack Unknown)(Set 01)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Kassar(Chou-Hi)'s Spinning Pile Driver)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors Of Fate (Easy Kassar's Spinning Pile Driver. Fire, Foods And Swords Anywhere)(Happy Version)(USA 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, wofs01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Jian Jia Wu Shuang 2016)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms)(Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Combination key To Take Grass Blade Sword)(World 921031)(World 921002)", MACHINE_SUPPORTS_SAVE )
@@ -32455,14 +32455,14 @@ HACK( 200?, woffs03,       wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 200?, woffs04,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Version Region???
 HACK( 200?, woffs05,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
-HACK( 200?, wofh01,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh02,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (The Three Kingdoms III Part 1: Heroes of the Three Kingdoms)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh03,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 02)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh04,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh05,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh06,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "winux", "Sangokushi II (Full Level Boss Special Edition)(2006/04/13)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh07,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "winux", "Sangokushi II (Zhao Yun’s Attack Is Strengthened)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh08,        wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "winuxx", "Sangokushi II (The Revised Version Of The Invincible And Zhao Yun Greatly Enhanced Version Of The Attack)(Asia 921005)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h7,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h8,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 02)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk3h2,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi 3 (The Three Kingdoms III Part 1: Heroes of the Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofh04,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofh05,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofh06,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Full Level Boss Special Edition)(2006/04/13)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofh07,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Zhao Yun’s Attack Is Strengthened)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofh08,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winuxx", "Sangokushi II (The Revised Version Of The Invincible And Zhao Yun Greatly Enhanced Version Of The Attack)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi III
 HACK( 2010, sk3p4,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 (Gaiden Kakou-On S Revence Dx 2010)(Set 03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p5,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 (Gaiden Kakou-On S Revence Dx 2010)(Set 04)", MACHINE_SUPPORTS_SAVE )

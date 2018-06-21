@@ -307,7 +307,8 @@ sk2h3			// mame sgyxz for testing
 sk2h4q
 sk2h5q
 sk2h6q
-sk2h7q
+sk2h7
+sk2h8
 sk2h10 
 sk2h11
 sk2h12
@@ -332,6 +333,8 @@ sk2h33q
 sk2h34q
 sk2h41
 sk2h42
+sk3h1
+sk3h2
 wofhfhs01
 wofhfhs02
 wofhfhs03
@@ -339,11 +342,11 @@ wofhfhs04
 sk3p1		// wofchdx
 sk3p2		// wofchdx1
 sk3p3		// wofchdx2
-sk3p4  
-sk3p5  
-sk3p6  
-sk3p7  
-sk3p8  
+sk3p4
+sk3p5
+sk3p6
+sk3p7
+sk3p8
 sk3p9
 slammastud
 stridergf	// fix unwanted black specks
@@ -389,83 +392,83 @@ tk2h15		// wofjrpbs; ingame crash
 tk2h16		// wofjv10s; ingame crash
 tk2h17		// wofjzcr1
 tk2h18		// wofjzero
-tk2h19 
-tk2h20 
-tk2h21 
+tk2h19
+tk2h20
+tk2h21
 tk2h22  // ingame crash
-tk2h23 
-tk2h24 
-tk2h25 
-tk2h26 
-tk2h27 
+tk2h23
+tk2h24
+tk2h25
+tk2h26
+tk2h27
 tk2h28
 tk2h29
 tk2h30
 tk2h31
 tk2h32
 tk2h33
-tk2h35 
+tk2h35
 tk2h37  // ingame crash
-tk2h38 
-tk2h39 
-tk2h40 
+tk2h38
+tk2h39
+tk2h40
 tk2h41  // bad title screen
-tk2h42 
-tk2h43 
+tk2h42
+tk2h43
 tk2h44  // goes into setup menu by itself at start
 tk2h45
-tk2h46 
+tk2h46
 tk2h47
 tk2h48 
 tk2h49
 tk2h50  // ingame crash
 tk2h51  // ingame crash
 tk2h52  // ingame crash
-tk2h53 
-tk2h54 
-tk2h55 
-tk2h56 
-tk2h57 
-tk2h58 
-tk2h59 
-tk2h60 
-tk2h61 
-tk2h62 
+tk2h53
+tk2h54
+tk2h55
+tk2h56
+tk2h57
+tk2h58
+tk2h59
+tk2h60
+tk2h61
+tk2h62
 tk2h63
 tk2h64
 tk2h65
-tk2h66 
-tk2h67 
-tk2h68 
-tk2h69 
-tk2h70 
-tk2h71 
-tk2h72 
-tk2h73 
-tk2h74 
-tk2h75 
-tk2h76 
-tk2h77 
-tk2h78  
-tk2h79  
-tk2h80  
-tk2h81 
-tk2h82 
-tk2h83 
-tk2h84  
+tk2h66
+tk2h67
+tk2h68
+tk2h69
+tk2h70
+tk2h71
+tk2h72
+tk2h73
+tk2h74
+tk2h75
+tk2h76
+tk2h77
+tk2h78
+tk2h79
+tk2h80
+tk2h81
+tk2h82
+tk2h83
+tk2h84
 tk2h85  // bad gfx in attract mode
-tk2h86  
-tk2h87  
-tk2h88  
-tk2h89  
-tk2h90  
-tk2h91  
-tk2h92  
-tk2h93  
-tk2h94  
-tk2h95  
-tk2h96  
-tk2h97  
+tk2h86
+tk2h87
+tk2h88
+tk2h89
+tk2h90
+tk2h91
+tk2h92
+tk2h93
+tk2h94
+tk2h95
+tk2h96
+tk2h97
 tk2h98  // bad title screen
 tk2h99
 tk2h100
@@ -1135,14 +1138,11 @@ varths01
 varths02
 varths03
 willows01
-wofh01  // broken; black screen
-wofh02  // broken; black screen
-wofh03  // broken; black screen
-wofh04  // broken; black screen
-wofh05  // broken; black screen
-wofh06  // broken; black screen
-wofh07  // broken; black screen
-wofh08  // broken; black screen
+wofh04 // sk2
+wofh05 // sk2
+wofh06 // sk2
+wofh07 // sk2
+wofh08 // sk2
 wofus01
 wofus02
 wofus03
