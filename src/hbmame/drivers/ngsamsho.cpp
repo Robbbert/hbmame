@@ -1906,7 +1906,7 @@ HACK( 200?, samsh5spha, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 HACK( 200?, samsh5sphb, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsh5sphc, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsh5sphd, samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (1st release, censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsh5spn,  samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack", "Samurai Shodown V Special (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsh5spn,  samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Samurai Shodown V Special (fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsh5spnd, samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (2nd release, less censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsh5spnh3,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Eddids / Snk2003", "Samurai Shodown V Special (Enhanced Blood v3.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsh5spnzk,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie / Kof1996", "Samurai Shodown V Special (Hack)(2008-10-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
