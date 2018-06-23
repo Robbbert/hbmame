@@ -1291,14 +1291,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"wofud",       CPS_B_21_DEF, mapper_TK263B },							//works
 #endif
 	// HBMAME end
-	// PSMame Build Plus
-	//{"wofh01",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
-	//{"wofh02",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
-	//{"wofh03",      HACK_H_2,     mapper_TK263B, 0, 0, 0, 0x8F },
-	//{"wofr105",     CPS_B_21_DEF, mapper_TK263B },    // not exist
-	//{"wofr106",     CPS_B_21_DEF, mapper_TK263B },    // not exist
-	//{"wofj01",      CPS_B_21_QS1, mapper_TK263B },    // not exist
-	//PSMame Build Plus End
 	{nullptr}     /* End of table */
 };
 
