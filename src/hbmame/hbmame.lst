@@ -1149,11 +1149,11 @@ wofus03
 wofs01
 wofs02
 wofs03
-wofs04  // incorrect roms
+wofs04
 wofs05
 wofs06
-wofs07  // bad gfx
-wofs08  // bad gfx
+wofs07
+wofs08
 woffs01
 woffs02
 woffs03 //ingame crash
