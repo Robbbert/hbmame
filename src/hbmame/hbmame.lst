@@ -1111,8 +1111,8 @@ sf2ces02
 sf2ces03
 sf2ces04
 sf2ces05
-sf2js01
-sf2s01
+sf2js01  // not working; black screen
+sf2s01  // not working; black screen
 sf2koryus01
 sf2koryus02
 sf2koryus03
@@ -1149,11 +1149,11 @@ wofus03
 wofs01
 wofs02
 wofs03
-wofs04  //ingame crash
+wofs04  // incorrect roms
 wofs05
 wofs06
-wofs07  // broken; black screen
-wofs08  // broken; black screen
+wofs07  // bad gfx
+wofs08  // bad gfx
 woffs01
 woffs02
 woffs03 //ingame crash
