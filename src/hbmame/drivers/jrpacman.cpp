@@ -127,8 +127,8 @@ private:
 
 WRITE8_MEMBER(jrpacman_state::jrpacman_interrupt_vector_w)
 {
-	machine().device("maincpu")->execute().set_input_line_vector(0, data);
-	machine().device("maincpu")->execute().set_input_line(0, CLEAR_LINE);
+	m_maincpu->set_input_line_vector(0, data);
+	m_maincpu->set_input_line(0, CLEAR_LINE);
 }
 
 WRITE_LINE_MEMBER(jrpacman_state::irq_mask_w)
