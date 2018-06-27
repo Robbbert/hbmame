@@ -1285,32 +1285,38 @@ ROM_END
 
 
 
-HACK( 2009, jojobbh2,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Boss v2.0 hack by Pipi899 2009-08-08)", 0 )
-HACK( 2009, jojobbss,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Boss hack by Pipi899 2009-07-15)", 0 )
-HACK( 2009, jojobpow,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Power hack by Pipi899 2009-07-15)", 0 )
-HACK( 2009, jojonbss,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Boss hack by Pipi899 2009-07-09)", 0 )
-HACK( 2009, jojonpow,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Power hack by Pipi899 2009-07-11)", 0 )
+HACK( 2009, jojobbh2,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V2)(2009-08-08)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobbss,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V1)(2009-07-15)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobpow,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Infinite Power)(2009-07-15)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojonbss,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Enable Hidden Characters V1)(2009-07-09)(Asia 990108, NO CD)", 0 )
+HACK( 2009, jojonpow,  jojo,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Infinite Power)(2009-07-11)(Asia 990108, NO CD)", 0 )
 HACK( 1996, redeartn,  0,        redeartn, cps3_ren,  cps3_hbmame, redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
 HACK( 1996, redeartno, redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Capcom", "Red Earth (Euro 961121, NO CD)", 0 )
-HACK( 2009, redearex,  redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version hack by Pipi899 2009-09-08)", 0 )
-HACK( 2009, sfiiibhp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Boss hack by Pipi899 2009-08-08)", 0 )
-HACK( 2009, sfiiipmp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Power hack by Pipi899 2009-07-06)", 0 )
-GAMEL(1997, sfiii2bh,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Yumeji", "Street Fighter III 2nd Impact: Giant Attack (Boss hack by Yumeji)", 0, layout_sfiii2 )
-GAMEL(2009, sfiii2np,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Pipi899", "Street Fighter III 2nd Impact: Giant Attack (Power hack by Pipi899 2009-07-14)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2pl,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Krysofun", "Street Fighter III 2nd Impact: Giant Attack (Plus v1.0 hack by Krysofun)", 0, layout_sfiii2 )
+HACK( 2009, redearex,  redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version)(2009-09-08)(Euro 961121, NO CD)", 0 )
+HACK( 2009, sfiiibhp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Enable Hidden Characters V1)(2009-08-08)(Asia 970204, NO CD, bios set 1)", 0 )
+HACK( 2009, sfiiipmp,  sfiii,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Infinite Power)(2009-07-06)(Asia 970204, NO CD, bios set 1)", 0 )
+GAMEL(1997, sfiii2bh,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Yumeji", "Street Fighter III 2nd Impact: Giant Attack (Enable hidden characters)(Alt)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(2009, sfiii2np,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Pipi899", "Street Fighter III 2nd Impact: Giant Attack (Enhanced power)(2009-07-14)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(1997, sfiii2pl,  sfiii2,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Krysofun", "Street Fighter III 2nd Impact: Giant Attack (Plus v1.0)(Asia 970930, NO CD)", 0, layout_sfiii2 )
 HACK( 2013, sfiii3an,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: Ford Strike (Japan 990608, NO CD)", 0 )
-HACK( 1999, sfiii3bh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Yumeji", "Street Fighter III 3rd Strike: Fight for the Future (Boss hack by Yumeji)", 0 )
-HACK( 1999, sfiii3mh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "hack", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color hack)", 0 )
-HACK( 2009, sfiii3ng,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating hack by Pipi899 2009-07-14)", 0 )
-HACK( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Power hack by Pipi899 2009-07-14)", 0 )
+HACK( 1999, sfiii3bh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Yumeji", "Street Fighter III 3rd Strike: Fight for the Future (Enable hidden characters)(Alt)(Japan 990608, NO CD)", 0 )
+HACK( 1999, sfiii3mh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "2ch", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color)(Japan 990608, NO CD)", 0 )
+HACK( 2009, sfiii3ng,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating)(2009-07-14)(Japan 990608, NO CD)", 0 )
+HACK( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked)(2009-07-14)(Japan 990608, NO CD)", 0 )
 HACK( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )
 
 
-//PSmame (c) gaston90
 
- /****************************************
-         JoJo's Bizarre Adventure
-*****************************************/
+
+//PSmame (c) gaston90 used with permission
+
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
+
+ /************************
+ JoJo's Bizarre Adventure
+***************************/
 
 ROM_START( jojos01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -1350,7 +1356,7 @@ ROM_START( jojos01 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1399,7 +1405,7 @@ ROM_START( jojos02 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1448,7 +1454,7 @@ ROM_START( jojos03 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1497,7 +1503,7 @@ ROM_START( jojos04 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1546,7 +1552,7 @@ ROM_START( jojos05 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10bpow",  0x000000, 0x800000, CRC(d616f8d4) SHA1(665c353fd32183c0bf18b70a48f84f469c00fddc) )
+	ROM_LOAD( "10",  0x000000, 0x800000, CRC(6e2490f6) SHA1(75cbf1e39ad6362a21c937c827e492d927b7cf39) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -1557,7 +1563,7 @@ ROM_START( jojos05 )
 	ROM_LOAD( "51",  0x2800000, 0x800000, CRC(eedf19ca) SHA1(a7660bf9ff87911afb4f83b64456245059986830) )
 ROM_END
 
-ROM_START( jojos06 )
+ROM_START( jojox01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
 	ROM_LOAD( "jojoba_japan_nocd.29f400.u2", 0x000000, 0x080000, CRC(4dab19f5) SHA1(ba07190e7662937fc267f07285c51e99a45c061e) )
 
@@ -1595,7 +1601,7 @@ ROM_START( jojos06 )
 	ROM_REGION( 0x200000, "simm5.7", ROMREGION_ERASEFF )
 
 	ROM_REGION32_BE( USER4REGION_LENGTH, "old4", ROMREGION_ERASEFF )
-	ROM_LOAD( "10hc01",  0x000000, 0x800000, CRC(3cc6279e) SHA1(7b11edb96af41394fdb20774e2f16e0cc47f0a80) )
+	ROM_LOAD( "10s01",  0x000000, 0x800000, CRC(3cc6279e) SHA1(7b11edb96af41394fdb20774e2f16e0cc47f0a80) )
 	ROM_LOAD( "20",  0x800000, 0x800000, CRC(1293892b) SHA1(b1beafac1a9c4b6d0640658af8a3eb359e76eb25) )
 	ROM_REGION16_BE( USER5REGION_LENGTH, "old5", ROMREGION_ERASEFF )
 	ROM_LOAD( "30",  0x0000000, 0x800000, CRC(d25c5005) SHA1(93a19a14783d604bb42feffbe23eb370d11281e8) )
@@ -2026,9 +2032,9 @@ ROM_START( jojonr1s02 )
 	ROM_LOAD( "jojo-simm5.1", 0x00000, 0x200000, CRC(734fd162) SHA1(16cdfac74d18a6c2216afb1ce6afbd7f15297c32) )
 ROM_END
 
-  /*************************************************
-        Street Fighter III: New Generation
-**************************************************/
+ /**********************************
+ Street Fighter III: New Generation
+*************************************/
 
 ROM_START( sfiiins01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -2136,9 +2142,9 @@ ROM_START( sfiiins02 )
 	ROM_LOAD( "sfiii-simm5.1", 0x00000, 0x200000, CRC(c6f1c066) SHA1(00de492dd1ef7aef05027a8c501c296b6602e917) )
 ROM_END
 
- /*************************************************
-     Street Fighter III 2nd Impact Giant Attack
-**************************************************/
+ /******************************************
+ Street Fighter III 2nd Impact Giant Attack
+*********************************************/
 
 ROM_START( sfiii2ns01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -2362,9 +2368,9 @@ ROM_START( sfiii2ns03 )
 	ROM_LOAD( "sfiii2-simm5.7", 0x00000, 0x200000, CRC(93ffa199) SHA1(33ec2379f30c6fdf47ba72c1d0cad8bdd02f17df) )
 ROM_END
 
- /*******************************************************
-  Street Fighter III 3rd Strike: Fight for the Future
-********************************************************/
+ /***************************************************
+ Street Fighter III 3rd Strike: Fight for the Future
+******************************************************/
 
 ROM_START( sfiii3ns01 )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
@@ -2821,6 +2827,188 @@ ROM_START( sfiii3nrs01 )
 	ROM_LOAD( "sfiii3-simm6.7",  0x00000, 0x200000, CRC(cc5f4187) SHA1(248ddace21ed4736a56e92f77cc6ad219d7fef0b) )
 ROM_END
 
+ROM_START( sfiii3nrs02 )
+	ROM_REGION32_BE( 0x080000, "bios", 0 )
+	ROM_LOAD( "sfiii3_japan_nocd.29f400.u2", 0x000000, 0x080000, CRC(1edc6366) SHA1(60b4b9adeb030a33059d74fdf03873029e465b52) )
+
+	ROM_REGION( 0x454F4B, "simm1.0", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.0", 0x00000, 0x454F4B, CRC(11dfd3cd) SHA1(de7cea6021b0e92586531990c70f035d327f581e) )
+	ROM_REGION( 0x454F4C, "simm1.1", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.1", 0x00000, 0x454F4C, CRC(c50585e6) SHA1(9486ae732e229f6bfa6bd4ebdc49802a3cfa5649) )
+	ROM_REGION( 0x454F4F, "simm1.2", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.2", 0x00000, 0x454F4F, CRC(8e011d9b) SHA1(65ec49d694924f8283e53adc3877eab851dd49f0) )
+	ROM_REGION( 0x454F4B, "simm1.3", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.3", 0x00000, 0x454F4B, CRC(dca8d92f) SHA1(bae290f473132df058248c7b012a5e602866a4a2) )
+
+	ROM_REGION( 0x200000, "simm2.0", 0 )
+	ROM_LOAD( "sfiii3-simm2.0",  0x00000, 0x200000, CRC(06eb969e) SHA1(d89f6a6585b76692d57d337f0f8186398fb056da) )
+	ROM_REGION( 0x200000, "simm2.1", 0 )
+	ROM_LOAD( "sfiii3-simm2.1",  0x00000, 0x200000, CRC(e7039f82) SHA1(8e81e66b5a4f45ae14b070a491bde47a6a74499f) )
+	ROM_REGION( 0x200000, "simm2.2", 0 )
+	ROM_LOAD( "sfiii3-simm2.2",  0x00000, 0x200000, CRC(645c96f7) SHA1(06d5a54874d4bf100b776131ec9060da209ad037) )
+	ROM_REGION( 0x200000, "simm2.3", 0 )
+	ROM_LOAD( "sfiii3-simm2.3",  0x00000, 0x200000, CRC(610efab1) SHA1(bbc21ed6ff6220ff6017a3f02ebd9a341fbc9040) )
+
+	ROM_REGION( 0x200000, "simm3.0", 0 )
+	ROM_LOAD( "sfiii3-simm3.0",  0x00000, 0x200000, CRC(7baa1f79) SHA1(3f409df28c24dd7221966b5340d59898ea756b6f) )
+	ROM_REGION( 0x200000, "simm3.1", 0 )
+	ROM_LOAD( "sfiii3-simm3.1",  0x00000, 0x200000, CRC(234bf8fe) SHA1(2191781ae4d726cab28de97f27efa4a13f3bdd69) )
+	ROM_REGION( 0x200000, "simm3.2", 0 )
+	ROM_LOAD( "sfiii3-simm3.2",  0x00000, 0x200000, CRC(d9ebc308) SHA1(af6a0dca77e5181c9f20533a06760a782c5fd51d) )
+	ROM_REGION( 0x200000, "simm3.3", 0 )
+	ROM_LOAD( "sfiii3-simm3.3",  0x00000, 0x200000, CRC(293cba77) SHA1(294604cacdc24261aec4d39e489de91c41fa1758) )
+	ROM_REGION( 0x200000, "simm3.4", 0 )
+	ROM_LOAD( "sfiii3-simm3.4",  0x00000, 0x200000, CRC(6055e747) SHA1(3813852c5a4a5355ef739ca8f0913bbd390b984b) )
+	ROM_REGION( 0x200000, "simm3.5", 0 )
+	ROM_LOAD( "sfiii3-simm3.5",  0x00000, 0x200000, CRC(499aa6fc) SHA1(5b9b6eab3e99ff3e1d7c1f50b9d8bc6a81f3f8a9) )
+	ROM_REGION( 0x200000, "simm3.6", 0 )
+	ROM_LOAD( "sfiii3-simm3.6",  0x00000, 0x200000, CRC(6c13879e) SHA1(de189b0b8f42bc7dd89983e62bc2ecb4237b3277) )
+	ROM_REGION( 0x200000, "simm3.7", 0 )
+	ROM_LOAD( "sfiii3-simm3.7",  0x00000, 0x200000, CRC(cf4f8ede) SHA1(e0fb68fcb0e445f824c62fa828d6e1dcd7e3683a) )
+
+	ROM_REGION( 0x200000, "simm4.0", 0 )
+	ROM_LOAD( "sfiii3-simm4.0",  0x00000, 0x200000, CRC(091fd5ba) SHA1(3327ad7c2623c119bf728af717ea2ce3b74673a9) )
+	ROM_REGION( 0x200000, "simm4.1", 0 )
+	ROM_LOAD( "sfiii3-simm4.1",  0x00000, 0x200000, CRC(0bca8917) SHA1(b7b284e2f16f46d46bcfaae779b232c5b980924f) )
+	ROM_REGION( 0x200000, "simm4.2", 0 )
+	ROM_LOAD( "sfiii3-simm4.2",  0x00000, 0x200000, CRC(a0fd578b) SHA1(100c9db9f00ecd88d518076f5a0822e6ac3695b3) )
+	ROM_REGION( 0x200000, "simm4.3", 0 )
+	ROM_LOAD( "sfiii3-simm4.3",  0x00000, 0x200000, CRC(4bf8c699) SHA1(2c0b4288b5ebc5e54d9e782dfc39eb8c78fd4c21) )
+	ROM_REGION( 0x200000, "simm4.4", 0 )
+	ROM_LOAD( "sfiii3-simm4.4",  0x00000, 0x200000, CRC(137b8785) SHA1(56a579520a8ce2abbf36be57777f024e80474eee) )
+	ROM_REGION( 0x200000, "simm4.5", 0 )
+	ROM_LOAD( "sfiii3-simm4.5",  0x00000, 0x200000, CRC(4fb70671) SHA1(9aba83c18cfc099a5ce18793119bff0c2b9c777f) )
+	ROM_REGION( 0x200000, "simm4.6", 0 )
+	ROM_LOAD( "sfiii3-simm4.6",  0x00000, 0x200000, CRC(832374a4) SHA1(c84629e32fbf47cb7b5b4ee7555bfc2ac9b3857f) )
+	ROM_REGION( 0x200000, "simm4.7", 0 )
+	ROM_LOAD( "sfiii3-simm4.7",  0x00000, 0x200000, CRC(1c88576d) SHA1(0f039944d0c2305999ed5dbd351c3eb87812dc3b) )
+
+	ROM_REGION( 0x200000, "simm5.0", 0 )
+	ROM_LOAD( "sfiii3-simm5.0",  0x00000, 0x200000, CRC(c67d9190) SHA1(d265475244099d0ec153059986f3445c7bd910a3) )
+	ROM_REGION( 0x200000, "simm5.1", 0 )
+	ROM_LOAD( "sfiii3-simm5.1",  0x00000, 0x200000, CRC(6cb79868) SHA1(c94237f30e05bfcb2e23945530c812d9e4c73416) )
+	ROM_REGION( 0x200000, "simm5.2", 0 )
+	ROM_LOAD( "sfiii3-simm5.2",  0x00000, 0x200000, CRC(df69930e) SHA1(c76b7c559a1d5558138afbc796249efa2f49f6a8) )
+	ROM_REGION( 0x200000, "simm5.3", 0 )
+	ROM_LOAD( "sfiii3-simm5.3",  0x00000, 0x200000, CRC(333754e0) SHA1(4c18a569c26524a492ecd6f4c8b3c8e803a077d3) )
+	ROM_REGION( 0x200000, "simm5.4", 0 )
+	ROM_LOAD( "sfiii3-simm5.4",  0x00000, 0x200000, CRC(78f6d417) SHA1(a69577cc5399fcf0a24548661168f27f3e7e8e40) )
+	ROM_REGION( 0x200000, "simm5.5", 0 )
+	ROM_LOAD( "sfiii3-simm5.5",  0x00000, 0x200000, CRC(8ccad9b1) SHA1(f8bda399f87be2497b7ac39e9661f9863bf4f873) )
+	ROM_REGION( 0x454F4A, "simm5.6", 0 )
+	ROM_LOAD( "sfiii3s3-simm5.6",  0x00000, 0x454F4A, CRC(c59e5cc6) SHA1(6d3ca8a319e7f7debcd853d5862ffaa2f760ae5e) )
+	ROM_REGION( 0x454F4A, "simm5.7", 0 )
+	ROM_LOAD( "sfiii3s3-simm5.7",  0x00000, 0x454F4A, CRC(411d6285) SHA1(7cc58774db896801643d2d04e4c6dd956003e9f2) )
+
+	ROM_REGION( 0x200000, "simm6.0", 0 )
+	ROM_LOAD( "sfiii3-simm6.0",  0x00000, 0x200000, CRC(8da69042) SHA1(fd3d08295342635b2136e48d543c9350d287bb22) )
+	ROM_REGION( 0x200000, "simm6.1", 0 )
+	ROM_LOAD( "sfiii3-simm6.1",  0x00000, 0x200000, CRC(1c8c7ac4) SHA1(ac9f8353a4c356ef98aa7c226baba00b01f5a80f) )
+	ROM_REGION( 0x200000, "simm6.2", 0 )
+	ROM_LOAD( "sfiii3-simm6.2",  0x00000, 0x200000, CRC(a671341d) SHA1(636f4c04962bc1e1ddb29d2e01244b00389b234f) )
+	ROM_REGION( 0x200000, "simm6.3", 0 )
+	ROM_LOAD( "sfiii3-simm6.3",  0x00000, 0x200000, CRC(1a990249) SHA1(2acc639e2c0c53bf24096b8620eab090bc25d03b) )
+	ROM_REGION( 0x200000, "simm6.4", 0 )
+	ROM_LOAD( "sfiii3-simm6.4",  0x00000, 0x200000, CRC(20cb39ac) SHA1(7d13a0fea1ef719dd2ff77dfb547d53c6023cc9e) )
+	ROM_REGION( 0x200000, "simm6.5", 0 )
+	ROM_LOAD( "sfiii3-simm6.5",  0x00000, 0x200000, CRC(5f844b2f) SHA1(564e4934f89ed3b92a4c4874519f8f00f3b48696) )
+	ROM_REGION( 0x200000, "simm6.6", 0 )
+	ROM_LOAD( "sfiii3-simm6.6",  0x00000, 0x200000, CRC(450e8d28) SHA1(885db658132aa27926df617ec2d2a1f38abdbb60) )
+	ROM_REGION( 0x200000, "simm6.7", 0 )
+	ROM_LOAD( "sfiii3-simm6.7",  0x00000, 0x200000, CRC(cc5f4187) SHA1(248ddace21ed4736a56e92f77cc6ad219d7fef0b) )
+ROM_END
+
+ROM_START( sfiii3nrs03 )
+	ROM_REGION32_BE( 0x080000, "bios", 0 )
+	ROM_LOAD( "sfiii3_japan_nocd.29f400.u2", 0x000000, 0x080000, CRC(1edc6366) SHA1(60b4b9adeb030a33059d74fdf03873029e465b52) )
+
+	ROM_REGION( 0x454F4B, "simm1.0", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.0", 0x00000, 0x454F4B, CRC(11dfd3cd) SHA1(29b259d595cce0051a903ea8b46f054c2a9fb8b2) )
+	ROM_REGION( 0x454F4C, "simm1.1", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.1", 0x00000, 0x454F4C, CRC(c50585e6) SHA1(6a6fc852c5de629e28547223ec00405b2469bca1) )
+	ROM_REGION( 0x454F4B, "simm1.2", 0 )
+	ROM_LOAD( "sfiii3s04-simm1.2", 0x00000, 0x454F4B, CRC(8e011d9b) SHA1(6d41632c6b4295058fc2e923ef808b22170f29b5) )
+	ROM_REGION( 0x454F4B, "simm1.3", 0 )
+	ROM_LOAD( "sfiii3s03-simm1.3", 0x00000, 0x454F4B, CRC(dca8d92f) SHA1(7cd07ddc75f943f5e5c9dcc1bc4e33459e97fdf3) )
+
+	ROM_REGION( 0x200000, "simm2.0", 0 )
+	ROM_LOAD( "sfiii3-simm2.0", 0x00000, 0x200000, CRC(06eb969e) SHA1(d89f6a6585b76692d57d337f0f8186398fb056da) )
+	ROM_REGION( 0x200000, "simm2.1", 0 )
+	ROM_LOAD( "sfiii3-simm2.1", 0x00000, 0x200000, CRC(e7039f82) SHA1(8e81e66b5a4f45ae14b070a491bde47a6a74499f) )
+	ROM_REGION( 0x200000, "simm2.2", 0 )
+	ROM_LOAD( "sfiii3-simm2.2", 0x00000, 0x200000, CRC(645c96f7) SHA1(06d5a54874d4bf100b776131ec9060da209ad037) )
+	ROM_REGION( 0x200000, "simm2.3", 0 )
+	ROM_LOAD( "sfiii3-simm2.3", 0x00000, 0x200000, CRC(610efab1) SHA1(bbc21ed6ff6220ff6017a3f02ebd9a341fbc9040) )
+
+	ROM_REGION( 0x200000, "simm3.0", 0 )
+	ROM_LOAD( "sfiii3-simm3.0", 0x00000, 0x200000, CRC(7baa1f79) SHA1(3f409df28c24dd7221966b5340d59898ea756b6f) )
+	ROM_REGION( 0x200000, "simm3.1", 0 )
+	ROM_LOAD( "sfiii3-simm3.1", 0x00000, 0x200000, CRC(234bf8fe) SHA1(2191781ae4d726cab28de97f27efa4a13f3bdd69) )
+	ROM_REGION( 0x200000, "simm3.2", 0 )
+	ROM_LOAD( "sfiii3-simm3.2", 0x00000, 0x200000, CRC(d9ebc308) SHA1(af6a0dca77e5181c9f20533a06760a782c5fd51d) )
+	ROM_REGION( 0x200000, "simm3.3", 0 )
+	ROM_LOAD( "sfiii3-simm3.3", 0x00000, 0x200000, CRC(293cba77) SHA1(294604cacdc24261aec4d39e489de91c41fa1758) )
+	ROM_REGION( 0x200000, "simm3.4", 0 )
+	ROM_LOAD( "sfiii3-simm3.4", 0x00000, 0x200000, CRC(6055e747) SHA1(3813852c5a4a5355ef739ca8f0913bbd390b984b) )
+	ROM_REGION( 0x200000, "simm3.5", 0 )
+	ROM_LOAD( "sfiii3-simm3.5", 0x00000, 0x200000, CRC(499aa6fc) SHA1(5b9b6eab3e99ff3e1d7c1f50b9d8bc6a81f3f8a9) )
+	ROM_REGION( 0x200000, "simm3.6", 0 )
+	ROM_LOAD( "sfiii3-simm3.6", 0x00000, 0x200000, CRC(6c13879e) SHA1(de189b0b8f42bc7dd89983e62bc2ecb4237b3277) )
+	ROM_REGION( 0x200000, "simm3.7", 0 )
+	ROM_LOAD( "sfiii3-simm3.7", 0x00000, 0x200000, CRC(cf4f8ede) SHA1(e0fb68fcb0e445f824c62fa828d6e1dcd7e3683a) )
+
+	ROM_REGION( 0x200000, "simm4.0", 0 )
+	ROM_LOAD( "sfiii3-simm4.0", 0x00000, 0x200000, CRC(091fd5ba) SHA1(3327ad7c2623c119bf728af717ea2ce3b74673a9) )
+	ROM_REGION( 0x200000, "simm4.1", 0 )
+	ROM_LOAD( "sfiii3-simm4.1", 0x00000, 0x200000, CRC(0bca8917) SHA1(b7b284e2f16f46d46bcfaae779b232c5b980924f) )
+	ROM_REGION( 0x200000, "simm4.2", 0 )
+	ROM_LOAD( "sfiii3-simm4.2", 0x00000, 0x200000, CRC(a0fd578b) SHA1(100c9db9f00ecd88d518076f5a0822e6ac3695b3) )
+	ROM_REGION( 0x200000, "simm4.3", 0 )
+	ROM_LOAD( "sfiii3-simm4.3", 0x00000, 0x200000, CRC(4bf8c699) SHA1(2c0b4288b5ebc5e54d9e782dfc39eb8c78fd4c21) )
+	ROM_REGION( 0x200000, "simm4.4", 0 )
+	ROM_LOAD( "sfiii3-simm4.4", 0x00000, 0x200000, CRC(137b8785) SHA1(56a579520a8ce2abbf36be57777f024e80474eee) )
+	ROM_REGION( 0x200000, "simm4.5", 0 )
+	ROM_LOAD( "sfiii3-simm4.5", 0x00000, 0x200000, CRC(4fb70671) SHA1(9aba83c18cfc099a5ce18793119bff0c2b9c777f) )
+	ROM_REGION( 0x200000, "simm4.6", 0 )
+	ROM_LOAD( "sfiii3-simm4.6", 0x00000, 0x200000, CRC(832374a4) SHA1(c84629e32fbf47cb7b5b4ee7555bfc2ac9b3857f) )
+	ROM_REGION( 0x200000, "simm4.7", 0 )
+	ROM_LOAD( "sfiii3-simm4.7", 0x00000, 0x200000, CRC(1c88576d) SHA1(0f039944d0c2305999ed5dbd351c3eb87812dc3b) )
+
+	ROM_REGION( 0x200000, "simm5.0", 0 )
+	ROM_LOAD( "sfiii3-simm5.0", 0x00000, 0x200000, CRC(c67d9190) SHA1(d265475244099d0ec153059986f3445c7bd910a3) )
+	ROM_REGION( 0x200000, "simm5.1", 0 )
+	ROM_LOAD( "sfiii3-simm5.1", 0x00000, 0x200000, CRC(6cb79868) SHA1(c94237f30e05bfcb2e23945530c812d9e4c73416) )
+	ROM_REGION( 0x200000, "simm5.2", 0 )
+	ROM_LOAD( "sfiii3-simm5.2", 0x00000, 0x200000, CRC(df69930e) SHA1(c76b7c559a1d5558138afbc796249efa2f49f6a8) )
+	ROM_REGION( 0x200000, "simm5.3", 0 )
+	ROM_LOAD( "sfiii3-simm5.3", 0x00000, 0x200000, CRC(333754e0) SHA1(4c18a569c26524a492ecd6f4c8b3c8e803a077d3) )
+	ROM_REGION( 0x200000, "simm5.4", 0 )
+	ROM_LOAD( "sfiii3-simm5.401", 0x00000, 0x200000, CRC(Ce54bff9) SHA1(0331a0de8ac42dd3df800eaf653922458e2ec8b1) )
+	ROM_REGION( 0x200000, "simm5.5", 0 )
+	ROM_LOAD( "sfiii3-simm5.501", 0x00000, 0x200000, CRC(15c325b2) SHA1(A35303784f8b8bdc6596ab11ca03d9a36fd70ea1) )
+	ROM_REGION( 0x454F4A, "simm5.6", 0 )
+	ROM_LOAD( "sfiii3-simm5s04.6", 0x00000, 0x454F4A, CRC(e6f6c399) SHA1(423fba19e2262081dde61e9e8e0beedb40f95d35) )
+	ROM_REGION( 0x454F4A, "simm5.7", 0 )
+	ROM_LOAD( "sfiii3-simm5s04.7", 0x00000, 0x454F4A, CRC(37ab0379) SHA1(eeb64c1374d8f2272ba32d4afa46ef191a82f7ce) )
+
+	ROM_REGION( 0x200000, "simm6.0", 0 )
+	ROM_LOAD( "sfiii3-simm6.0", 0x00000, 0x200000, CRC(8da69042) SHA1(fd3d08295342635b2136e48d543c9350d287bb22) )
+	ROM_REGION( 0x200000, "simm6.1", 0 )
+	ROM_LOAD( "sfiii3-simm6.1", 0x00000, 0x200000, CRC(1c8c7ac4) SHA1(ac9f8353a4c356ef98aa7c226baba00b01f5a80f) )
+	ROM_REGION( 0x200000, "simm6.2", 0 )
+	ROM_LOAD( "sfiii3-simm6.2", 0x00000, 0x200000, CRC(a671341d) SHA1(636f4c04962bc1e1ddb29d2e01244b00389b234f) )
+	ROM_REGION( 0x200000, "simm6.3", 0 )
+	ROM_LOAD( "sfiii3-simm6.3", 0x00000, 0x200000, CRC(1a990249) SHA1(2acc639e2c0c53bf24096b8620eab090bc25d03b) )
+	ROM_REGION( 0x200000, "simm6.4", 0 )
+	ROM_LOAD( "sfiii3-simm6.4", 0x00000, 0x200000, CRC(20cb39ac) SHA1(7d13a0fea1ef719dd2ff77dfb547d53c6023cc9e) )
+	ROM_REGION( 0x200000, "simm6.5", 0 )
+	ROM_LOAD( "sfiii3-simm6.5", 0x00000, 0x200000, CRC(5f844b2f) SHA1(564e4934f89ed3b92a4c4874519f8f00f3b48696) )
+	ROM_REGION( 0x200000, "simm6.6", 0 )
+	ROM_LOAD( "sfiii3-simm6.6", 0x00000, 0x200000, CRC(450e8d28) SHA1(885db658132aa27926df617ec2d2a1f38abdbb60) )
+	ROM_REGION( 0x200000, "simm6.7", 0 )
+	ROM_LOAD( "sfiii3-simm6.7", 0x00000, 0x200000, CRC(cc5f4187) SHA1(248ddace21ed4736a56e92f77cc6ad219d7fef0b) )
+ROM_END
+
 /*************************************
  *
  *  Game driver(s)
@@ -2829,29 +3017,30 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       CLASS            INIT     MONITOR     COMPANY                 FULLNAME FLAGS */
 // JoJo's Bizarre Adventure
-HACK( 2009, jojos01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Brazil + Power Set 01 )", 0 )
-HACK( 2009, jojos02,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Asia + Power Set 02 )", 0 )
-HACK( 2009, jojos03,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Hispanic + Power Set 03 )", 0 )
-HACK( 2009, jojos04,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language Oceania + Power Set 04 )", 0 )
-HACK( 2009, jojos05,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Language U.S.A + Power Set 05 )", 0 )
-HACK( 2009, jojos06,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Max Power)", 0 )
-HACK( 1999, jojobaner1s01,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Enable Hidden Characters V1)", 0 )
-HACK( 1999, jojobaner1s02,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Enable Hidden Characters V2)", 0 )
-HACK( 1999, jojobaner1s03,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Infinite Power)", 0 )
-HACK( 2018, jojobaner1s04,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Hacks",    "JoJo's Bizarre Adventure (Euro 990913, NO CD)(Super Plus)", 0 )
-HACK( 1998, jojonr1s01,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "Hacks",    "JoJo's Venture (Asia 990108, NO CD)(Enable Hidden Characters V1)", 0 )
-HACK( 1998, jojonr1s02,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "Hacks",    "JoJo's Venture (Asia 990108, NO CD)(Infinite Power)", 0 )
+HACK( 2009, jojos01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Brazil)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos02,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Asia)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos03,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Hispanic)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos04,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language Oceania)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojos05,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Language U.S.A)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojox01,        jojoba,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Max Power)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobaner1s01,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "pipi899",    "JoJo's Bizarre Adventure (Enable Hidden Characters V1)(2009-07-15)(Alt)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobaner1s02,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "pipi899",    "JoJo's Bizarre Adventure (Enable Hidden Characters V2)(2009-08-08)(Alt)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojobaner1s03,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "pipi899",    "JoJo's Bizarre Adventure (Infinite Power)(2009-07-15)(Alt)(Euro 990913, NO CD)", 0 )
+HACK( 2018, jojobaner1s04,  jojoba,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Super Plus)(Euro 990913, NO CD)", 0 )
+HACK( 2009, jojonr1s01,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "pipi899",    "JoJo's Venture (Enable Hidden Characters V1)(Alt)(2009-07-09)(Asia 990108, NO CD)", 0 )
+HACK( 2009, jojonr1s02,     jojo,     jojo,          cps3_jojo,  cps3_state,      jojo,    ROT0,      "pipi899",    "JoJo's Venture (Infinite Power)(2009-07-09)(Alt)(Asia 990108, NO CD)", 0 )
 // Street Fighter III: New Generation
-HACK( 1997, sfiiins01,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "Hacks",    "Street Fighter III: New Generation (Asia 970204, NO CD, bios set 1)(Enable Hidden Characters V1)", 0 )
-HACK( 1997, sfiiins02,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "Hacks",    "Street Fighter III: New Generation (Asia 970204, NO CD, bios set 1)(Infinite Power)", 0 )
+HACK( 2009, sfiiins01,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "pipi899",    "Street Fighter III: New Generation (Enable Hidden Characters V1)(2009-08-08)(Alt)(Asia 970204, NO CD, bios set 1)", 0 )
+HACK( 2009, sfiiins02,      sfiii,    sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "pipi899",    "Street Fighter III: New Generation (Infinite Power)(2009-07-06)(Alt)(Asia 970204, NO CD, bios set 1)", 0 )
 // Street Fighter III 2nd Impact Giant Attack
-GAMEL(1997, sfiii2ns01,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Hacks",    "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)(Enable Hidden Characters V1)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2ns02,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Hacks",    "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)(Enable Hidden Characters V2)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2ns03,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Hacks",    "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)(Infinite Power)", 0, layout_sfiii2 )
+GAMEL(200?, sfiii2ns01,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "yumeji",    "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V1)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(200?, sfiii2ns02,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "yumeji",    "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V2)(Asia 970930, NO CD)", 0, layout_sfiii2 )
+GAMEL(2009, sfiii2ns03,     sfiii2,   sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "pipi899",    "Street Fighter III 2nd Impact: Giant Attack (Infinite Power)(2009-07-14)(Asia 970930, NO CD)", 0, layout_sfiii2 )
 // Street Fighter III 3rd Strike Fight for the Future
-HACK( 1999, sfiii3ns01,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Characters Makoto)", 0 )
-HACK( 1999, sfiii3ns02,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Enable Hidden Characters V1)", 0 )
-HACK( 1999, sfiii3ns03,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Ex Super Version)", 0 )
-HACK( 1999, sfiii3ns04,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)(Infinite Power)", 0 )
-HACK( 1999, sfiii3nrs01,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Hacks",    "Street Fighter III 3rd Strike: Fight for the Future (Japan 990512, NO CD)(Enable Hidden Characters)", 0 )
-
+HACK( 200?, sfiii3ns01,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Characters Makoto)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3ns02,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "yumeji",    "Street Fighter III 3rd Strike: Fight for the Future (Enable Hidden Characters V1)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3ns03,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Ex Super Version)(Japan 990608, NO CD)", 0 )
+HACK( 2009, sfiii3ns04,     sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "pipi899",    "Street Fighter III 3rd Strike: Fight for the Future (Infinite Power)(2009-07-14)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3nrs01,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Enable Hidden Characters)(Japan 990608, NO CD)", 0 )
+HACK( 200?, sfiii3nrs02,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Description Of Hack Unknown)(Set 01)(Japan 990608, NO CD)", 0 )
+HACK( 2015, sfiii3nrs03,    sfiii3,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: 4rd Arrange Edition 2013(Japan 990608, NO CD)(Alt)", 0 )

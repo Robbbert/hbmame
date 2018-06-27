@@ -151,21 +151,21 @@ MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
 
 void pacman_state::_96in1_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(this,FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(this,FUNC(pacman_state::m96in1_rombank_w));
+	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(pacman_state::m96in1_rombank_w));
 }
 
 void pacman_state::_96in1b_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(this,FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(this,FUNC(pacman_state::m96in1b_rombank_w));
+	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(pacman_state::m96in1b_rombank_w));
 }
 
 void pacman_state::hackypac_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -184,18 +184,18 @@ void pacman_state::hackypac_map(address_map &map) {
 
 void pacman_state::hackypac_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(this,FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(this,FUNC(pacman_state::hackypac_rombank_w));
-	map(0x02,0x02).w(this,FUNC(pacman_state::multipac_gfxbank_w));
+	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(pacman_state::hackypac_rombank_w));
+	map(0x02,0x02).w(FUNC(pacman_state::multipac_gfxbank_w));
 	map(0x04,0x04).nopw();  /* colorbank select, not used due to a bug */
 }
 
 void pacman_state::madpac_map(address_map &map) {
 	/* Mirrors in the 50xx range are needed by Zigzag */
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -214,16 +214,16 @@ void pacman_state::madpac_map(address_map &map) {
 
 void pacman_state::madpac_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(this,FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(this,FUNC(pacman_state::madpac_rombank_w));
+	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(pacman_state::madpac_rombank_w));
 }
 
 
 void pacman_state::mspaceur_map(address_map &map) {
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -242,9 +242,9 @@ void pacman_state::mspaceur_map(address_map &map) {
 
 void pacman_state::mschamp_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -264,9 +264,9 @@ void pacman_state::mschamp_map(address_map &map) {
 
 void pacman_state::multipac_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -279,9 +279,9 @@ void pacman_state::multipac_map(address_map &map) {
 	map(0x5080,0x5080).portr("DSW1");
 	map(0x50c0,0x50c0).portr("DSW2");
 	map(0x8000,0x9fff).bankr("bank2");  /* Ms. Pacman */
-	map(0xa000,0xa000).w(this,FUNC(pacman_state::multipac_rombank_w));
-	map(0xa001,0xa001).w(this,FUNC(pacman_state::multipac_gfxbank_w));
-	map(0xa002,0xa003).w(this,FUNC(pacman_state::multipac_palbank_w));
+	map(0xa000,0xa000).w(FUNC(pacman_state::multipac_rombank_w));
+	map(0xa001,0xa001).w(FUNC(pacman_state::multipac_gfxbank_w));
+	map(0xa002,0xa003).w(FUNC(pacman_state::multipac_palbank_w));
 	map(0xa007,0xa007).ram();  /* 0 = get ready to activate rombank(2) */
 	map(0xf000,0xffff).ram();
 }
@@ -289,12 +289,12 @@ void pacman_state::multipac_map(address_map &map) {
 
 void pacman_state::pm4n1_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(this,FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
-	map(0x5004,0x5006).w(this,FUNC(pacman_state::pm4n1_rombank_w));
+	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
@@ -309,12 +309,12 @@ void pacman_state::pm4n1_map(address_map &map) {
 
 void pacman_state::pm4n1c_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x4bff).ram().share("nvram");
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5004,0x5006).w(this,FUNC(pacman_state::pm4n1_rombank_w));
+	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
@@ -330,12 +330,12 @@ void pacman_state::pm4n1c_map(address_map &map) {
 
 void pacman_state::pm4n1d_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x4bff).ram().share("nvram");
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5004,0x5006).w(this,FUNC(pacman_state::pm4n1d_rombank_w));
+	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1d_rombank_w));
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
@@ -350,12 +350,12 @@ void pacman_state::pm4n1d_map(address_map &map) {
 
 void pacman_state::superabc_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x49ff).ram().share("nvram");  /* high scores and work area */
 	map(0x4c00,0x4fef).ram();  /* system ram */
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5006,0x5006).w(this,FUNC(pacman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
+	map(0x5006,0x5006).w(FUNC(pacman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");

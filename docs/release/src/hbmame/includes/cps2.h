@@ -6,8 +6,8 @@
 
 ***************************************************************************/
 
-#ifndef _CPS1_H_
-#define _CPS1_H_
+#ifndef _CPS2_H_
+#define _CPS2_H_
 
 #include "emu.h"
 #include "sound/msm5205.h"
@@ -17,6 +17,7 @@
 #include "machine/timekpr.h"
 #include "machine/timer.h"
 #include "cpu/m68000/m68000.h"
+#include "emupal.h"
 #include "screen.h"
 
 // Video raw params
@@ -129,6 +130,7 @@ public:
 		m_decrypted_opcodes(*this, "decrypted_opcodes"),
 		m_region_key(*this, "key"),
 		m_region_stars(*this, "stars")
+		, m_qsound(*this, "qsound")
 	{ }
 
 	//HBMAME start
@@ -240,6 +242,7 @@ public:
 	optional_shared_ptr<uint16_t> m_decrypted_opcodes;
 	optional_memory_region m_region_key;
 	optional_memory_region m_region_stars;
+	optional_device<qsound_device> m_qsound;
 
 	DECLARE_READ16_MEMBER(cps1_hack_dsw_r);
 	DECLARE_READ16_MEMBER(cps1_in1_r);

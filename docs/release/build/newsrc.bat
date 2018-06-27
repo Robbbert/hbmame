@@ -20,6 +20,7 @@ copy /Y %from%\src\frontend\mame\mameopts.* %to%\src\frontend\mame
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
+copy /Y %from%\src\devices\cpu\m68000\m68k_in.cpp %to%\src\devices\cpu\m68000
 
 md %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers

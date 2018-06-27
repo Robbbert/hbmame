@@ -1,6 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
 #include "../mame/drivers/exidy.cpp"
+#include "../mame/video/victory.cpp"
 
 
 
@@ -44,7 +45,7 @@ ROM_START( teetertfp )
 	ROM_LOAD( "7a-cpu",  0xe000, 0x1000, CRC(84491333) SHA1(db9f8e4c49057a4574a3784d71e627da7f7a4b44) )
 	ROM_LOAD( "6a-cpu",  0xf000, 0x1000, CRC(3600d465) SHA1(84d633e042f73bfd6bf4a4d0ffee1cd2027c65d2) )
 
-	ROM_REGION( 0x8000, "audiocpu", 0 )
+	ROM_REGION( 0x8000, "soundbd:audiocpu", 0 )
 	ROM_LOAD( "3a-ac",  0x5800, 0x0800, CRC(83b8836f) SHA1(ec0e2de62caea61ceff56e924449213997bff8cd) )
 	ROM_LOAD( "4a-ac",  0x6000, 0x0800, CRC(5154c39e) SHA1(e6f011630eb1aa4116a0e5824ad6b65c1be2455f) )
 	ROM_LOAD( "5a-ac",  0x6800, 0x0800, CRC(1e1e3916) SHA1(867e586583e07cd01e0e852f6ea52a040995725d) )

@@ -170,6 +170,7 @@ There is a bunch more things to be done
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "sound/samples.h"
+#include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
 #include "monaco.lh"
@@ -274,6 +275,7 @@ class monaco_state : public driver_device
 public:
 	monaco_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
+		, m_maincpu(*this,"maincpu")
 		, m_samples(*this, "samples")
 		, m_p_ram(*this, "ram")
 		, m_gfxdecode(*this, "gfxdecode")
@@ -381,6 +383,7 @@ private:
 	uint16_t m_led_lives;
 	uint16_t m_led_gear;
 	uint16_t m_led_speed;
+	required_device<cpu_device> m_maincpu;
 	required_device<samples_device> m_samples;
 	required_shared_ptr<uint8_t> m_p_ram;
 	required_device<gfxdecode_device> m_gfxdecode;
@@ -429,7 +432,7 @@ WRITE8_MEMBER( monaco_state::monaco_ram_w )
 
 uint32_t monaco_state::monaco_word_r (uint16_t offset)
 {
-	address_space &space = machine().device("maincpu")->memory().space(AS_PROGRAM);
+	address_space &space = m_maincpu->space(AS_PROGRAM);
 	uint8_t byte0 = monaco_ram_r (space, (offset << 2));
 	uint8_t byte1 = monaco_ram_r (space, (offset << 2) + 1);
 	uint8_t byte2 = monaco_ram_r (space, (offset << 2) + 2);
@@ -439,7 +442,7 @@ uint32_t monaco_state::monaco_word_r (uint16_t offset)
 
 void monaco_state::monaco_word_w (uint16_t offset, uint32_t data)
 {
-	address_space &space = machine().device("maincpu")->memory().space(AS_PROGRAM);
+	address_space &space = m_maincpu->space(AS_PROGRAM);
 	uint8_t byte0 = data & 0xff;
 	uint8_t byte1 = (data & 0xff00) >> 8;
 	uint8_t byte2 = (data & 0xff0000) >> 16;
@@ -1071,7 +1074,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 
 void monaco_state::monaco_map(address_map &map) {/* fake */
 	map(0x0000,0xefff).rom();
-	map(0xf000,0xffff).rw(this,FUNC(monaco_state::monaco_ram_r),FUNC(monaco_state::monaco_ram_w)).share("ram");  /* scores need 4000 bytes */
+	map(0xf000,0xffff).rw(FUNC(monaco_state::monaco_ram_r),FUNC(monaco_state::monaco_ram_w)).share("ram");  /* scores need 4000 bytes */
 }
 
 static INPUT_PORTS_START( monaco )

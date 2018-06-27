@@ -32,12 +32,9 @@ ROM_START( ataris1hw )
 	MOTHERBOARD_PROMS
 ROM_END
 
-
-
-// It runs, the output appears in the videoram (A03xxx), but screen stays black. Works on real hardware.
-
 ROM_START( ataris1rt )
 	ROM_REGION( 0x88000, "maincpu", 0 )
+	MOTHERBOARD_BIOS
 	ROM_LOAD16_BYTE("ataris1rt.l13", 0x00000, 0x04000, CRC(86713619) SHA1(26e0348e91d10d9c7380736194bb8cb933765293) )
 	ROM_LOAD16_BYTE("ataris1rt.l12", 0x00001, 0x04000, CRC(63b94bd5) SHA1(fe3c41a33cd8e70d04744055488d8e94d4a70caf) )
 
@@ -54,6 +51,18 @@ ROM_START( ataris1rt )
 	ROM_LOAD( "136036.139a",   0x010000, 0x08000, CRC(6959604d) SHA1(94f130507981ec01240252ab7b044f6d1e19280e) )
 	ROM_LOAD( "136036.143a",   0x020000, 0x08000, CRC(b6b14274) SHA1(441c0447721afe0aadf320e1b0c40ebf97d0e485) )
 	ROM_LOAD( "136036.147a",   0x030000, 0x08000, CRC(2de2e834) SHA1(ba7640ea7440250152b1be71e65e3480f782011f) )
+	ROM_LOAD( "136036.136",   0x080000, 0x08000, CRC(b2b403aa) SHA1(ead88544d798d07c03fefadf84c87ed104036cfa) )
+	ROM_LOAD( "136036.140",   0x090000, 0x08000, CRC(ec0c19ca) SHA1(a787502e9db79a3c601964cd8c662ff7d0c2f636) )
+	ROM_LOAD( "136036.144",   0x0a0000, 0x08000, CRC(4407df98) SHA1(67eae09121e594bec965b78c44a964a39a2c8772) )
+	ROM_LOAD( "136036.148",   0x0b0000, 0x08000, CRC(70dce06d) SHA1(c50aa9ea9ea70e282ebed54cefa9e51da01d14ca) )
+	ROM_LOAD( "136036.137",   0x100000, 0x08000, CRC(3f352547) SHA1(2a3439bb1ca9cdb80c0bd61cbd5fce60d6ee1fef) )
+	ROM_LOAD( "136036.141",   0x110000, 0x08000, CRC(9cbdffd0) SHA1(ce36e7b9792e41d87f97901b8d0a473835017ae6) )
+	ROM_LOAD( "136036.145",   0x120000, 0x08000, CRC(e828e64b) SHA1(8ad19ee40e6c4caa3a102f967fe93e823c766b5a) )
+	ROM_LOAD( "136036.149",   0x130000, 0x08000, CRC(81503a23) SHA1(9a28ba78f8029395542067f03460d15cbcd7b315) )
+	ROM_LOAD( "136036.138",   0x180000, 0x08000, CRC(48c4d79d) SHA1(c4cd258cd1effbfd62e3270b626271db66095dcb) )
+	ROM_LOAD( "136036.142",   0x190000, 0x08000, CRC(7faae75f) SHA1(e3c3f77aa9ec91d4fcdd2fc5f0a22063eec1afe2) )
+	ROM_LOAD( "136036.146",   0x1a0000, 0x08000, CRC(8ae5a7b5) SHA1(97ddf916c41d6ddd23501e27611a83c912ec9ad2) )
+	ROM_LOAD( "136036.150",   0x1b0000, 0x08000, CRC(a10c4bd9) SHA1(3177f22aff9e18c0f003f3fd1fa4b258308eee07) )
 
 	ROM_REGION( 0x400, "proms", 0 )
 	ROM_LOAD( "136036.152",   0x000, 0x200, CRC(4f96e57c) SHA1(271633a0aacd1d1efe2917728b73e90010c64d2c) )
@@ -66,4 +75,4 @@ ROM_END
 
 
 HACK( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
-HACK( 2017, ataris1rt, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "GadgetFreak", "Atari System 1 Ram Tester", MACHINE_NOT_WORKING )
+HACK( 2017, ataris1rt, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "GadgetFreak", "Atari System 1 Ram Tester", 0 )

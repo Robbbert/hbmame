@@ -167,9 +167,9 @@ READ8_MEMBER( pacman_state::pacman_read_nop )
 void pacman_state::pacman_map(address_map &map) {
 	map.global_mask(0x7fff);   /* A15 not connected at the CPU */
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0x2000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x2000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x2000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x2000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x2000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x2000).r(FUNC(pacman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x2000).ram();
 	map(0x4ff0,0x4fff).mirror(0x2000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -185,9 +185,9 @@ void pacman_state::pacman_map(address_map &map) {
 
 void pacman_state::woodpek_map(address_map &map) {
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(this,FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0xa000).r(this,FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(pacman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0xa000).ram();
 	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(ls259_device::write_d0));
@@ -210,7 +210,7 @@ void pacman_state::woodpek_map(address_map &map) {
  *************************************/
 
 void pacman_state::io_map(address_map &map) {
-	map(0x0000,0xffff).w(this,FUNC(pacman_state::pacman_interrupt_vector_w));
+	map(0x0000,0xffff).w(FUNC(pacman_state::pacman_interrupt_vector_w));
 }
 
 /*************************************

@@ -381,12 +381,12 @@ void sm_state::mem_map(address_map &map) {
 void sm_state::io_map(address_map &map) {
 	map(0x00,0x00).portr("IN0");
 	map(0x01,0x01).portr("IN1");
-	map(0x02,0x02).r(this,FUNC(sm_state::spacmissx_02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
-	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(this,FUNC(sm_state::spacmissx_03_w));
+	map(0x02,0x02).r(FUNC(sm_state::spacmissx_02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
+	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(sm_state::spacmissx_03_w));
 	map(0x04,0x04).w("mb14241",FUNC(mb14241_device::shift_data_w));
-	map(0x05,0x05).w(this,FUNC(sm_state::spacmissx_05_w));
+	map(0x05,0x05).w(FUNC(sm_state::spacmissx_05_w));
 	map(0x06,0x06).nopw();  //(watchdog_reset_w)
-	map(0x07,0x07).w(this,FUNC(sm_state::spacmissx_07_w));
+	map(0x07,0x07).w(FUNC(sm_state::spacmissx_07_w));
 }
 
 static const char *const invaders_sample_names[] =

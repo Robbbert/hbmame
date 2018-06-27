@@ -127,8 +127,8 @@ private:
 
 WRITE8_MEMBER(jrpacman_state::jrpacman_interrupt_vector_w)
 {
-	machine().device("maincpu")->execute().set_input_line_vector(0, data);
-	machine().device("maincpu")->execute().set_input_line(0, CLEAR_LINE);
+	m_maincpu->set_input_line_vector(0, data);
+	m_maincpu->set_input_line(0, CLEAR_LINE);
 }
 
 WRITE_LINE_MEMBER(jrpacman_state::irq_mask_w)
@@ -144,7 +144,7 @@ WRITE_LINE_MEMBER(jrpacman_state::irq_mask_w)
 
 void jrpacman_state::mem_map(address_map &map) {
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x47ff).ram().w(this,FUNC(jrpacman_state::jrpacman_videoram_w)).share("videoram");
+	map(0x4000,0x47ff).ram().w(FUNC(jrpacman_state::jrpacman_videoram_w)).share("videoram");
 	map(0x4800,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x503f).portr("P1");
@@ -154,7 +154,7 @@ void jrpacman_state::mem_map(address_map &map) {
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x5077).w("latch2",FUNC(ls259_device::write_d0));
 	map(0x5080,0x50bf).portr("DSW");
-	map(0x5080,0x5080).w(this,FUNC(jrpacman_state::jrpacman_scroll_w));
+	map(0x5080,0x5080).w(FUNC(jrpacman_state::jrpacman_scroll_w));
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x8000,0xdfff).rom();
 // HBMAME extras
@@ -166,7 +166,7 @@ void jrpacman_state::mem_map(address_map &map) {
 
 void jrpacman_state::io_map(address_map &map) {
 	map.global_mask(0xff);
-	map(0,0).w(this,FUNC(jrpacman_state::jrpacman_interrupt_vector_w));
+	map(0,0).w(FUNC(jrpacman_state::jrpacman_interrupt_vector_w));
 }
 
 

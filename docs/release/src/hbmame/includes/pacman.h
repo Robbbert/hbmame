@@ -3,6 +3,7 @@
 #include "machine/watchdog.h"
 #include "sound/namco.h"
 #include "machine/74259.h"
+#include "emupal.h"
 #include "speaker.h"
 #include "screen.h"
 

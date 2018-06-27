@@ -319,27 +319,33 @@ ROM_END
 
 
 HACK( 2007, sengokucd,   sengoku,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Add Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3d,   sengoku3, neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "SNK", "Sengoku 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (hack eb)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3eh,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (Evolution Special hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "HappyAsr","Sengoku 3 (Add Char - Select USA and Brazil)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3kc,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Fighters Kim", "Sengoku 3 (Char color changed - 80%)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3p,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Krysofun", "Sengoku 3/Sengoku legends 2001 EX Super Version", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_state,       sengo3d,   ROT0, "Player-X", "Sengoku 3 / Sengoku Densho 2001 Plus (Hack by Player-X)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3s,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Sjx", "Sengoku 3 (Evolution v1.0 hack by Sjx (FCHT))", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3d,   sengoku3, neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "SNK", "Sengoku 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unknown", "Sengoku 3 (Green version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3eh,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unknown", "Sengoku 3 (Evolution Special)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "HappyAsr","Sengoku 3 (Add Char - Select USA and Brazil)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3kc,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Fighters Kim", "Sengoku 3 (Char color changed - 80%)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3p,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Krysofun", "Sengoku 3 (Super Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_state,       sengo3d,   ROT0, "Player-X", "Sengoku 3 (Plus)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Sjx", "Sengoku 3 (Evolution v1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame
 
 
- /*********************************
-           Sengoku 3 
-**********************************/
+
+//PSmame (c) gaston90 used with permission
+
+ /********************************************
+     Proyecto Shadows Mame Build Plus
+**********************************************/
+
+ /*********
+ Sengoku 3 
+************/
 
 ROM_START( sengoku3s01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -366,7 +372,6 @@ ROM_START( sengoku3s02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "261hc02-ph1.p1", 0x100000, 0x100000, CRC(448b7afe) SHA1(0eb9558928a126fc81f2c4308b172fc220dfbe56) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
-	/* also found MVS set with p1 label 261-PG1; older revision? */
 
 	NEO_SFIX_MT_128K
 
@@ -389,7 +394,6 @@ ROM_START( sengoku3s03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "261hc03-ph1.p1", 0x100000, 0x100000, CRC(52f02b93) SHA1(8a92fbd67b64417d1a5289696254984c9c6f91c6) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
-	/* also found MVS set with p1 label 261-PG1; older revision? */
 
 	NEO_SFIX_MT_128K
 
@@ -540,15 +544,14 @@ ROM_START( sengoku3s09 )
 	ROM_LOAD16_BYTE( "261.c4", 0x1000001, 0x800000, CRC(0b45ae53) SHA1(a19fb21408ab633aee8bbf38bf43b5e26766b355) )
 ROM_END
 
-
-
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
  // Sengoku 3
-HACK( 2017, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 / Sengoku Densho 2017 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s02,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s03,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (EX Super Version V2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s04,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (EX Super Version V3)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s05,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (EX Super Version V4)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s06,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (Unlock All Stages)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s07,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (Lock Combo Counter And Power)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s08,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (Color Modification V1)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Hacks",    "Sengoku 3 (Color Modification V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Unknown",    "Sengoku 3 (Description Of Hacks Unknown)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s02,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "KrysoFun",    "Sengoku 3 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s03,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "sjx [FCHT]",    "Sengoku 3 (Evolution 1.0)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s04,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "PlayerX",    "Sengoku 3 (Green Blue)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s05,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "PlayerX",    "Sengoku 3 (Green Blue V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s06,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "HappyASR[EGCG]",    "Sengoku 3 (Unlock All Stages)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s07,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Creamymami[EGCG]",    "Sengoku 3 (Lock Combo Counter And Power)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s08,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Flycboy[EGCG]",    "Sengoku 3 (Color Modification V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Kim[FGCH]",    "Sengoku 3 (Color Modification)(Enemy)" , MACHINE_SUPPORTS_SAVE )
