@@ -3036,7 +3036,7 @@ ROM_END
 ROM_START( kov2s24 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p1200hc24.201", 0x100000, 0x40032A, CRC(397476e9) SHA1(52d38b4508cf167bdf3592d8a247b338fc45ffdc) )
+	ROM_LOAD16_WORD_SWAP( "p1200hc24.201", 0x100000, 0x40032A, CRC(397476e9) SHA1(7027720638778775fab88072fbd2cbb8f596b131) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
 	// supplied rom freezes mame when attract mode starts, this one works
