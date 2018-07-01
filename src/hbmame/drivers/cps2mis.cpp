@@ -5286,17 +5286,12 @@ ROM_START( mvsh01 )
 	ROM_LOAD( "mvscu.key",    0x00, 0x14, CRC(a83db333) SHA1(7f7288ceadf233d913728f7c4a8841adcb5994e8) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // 19XX The War Against Destiny
 HACK( 200?, 19xxs01,   19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "DDJ", "19XX The War Against Destiny (Ex Super Version)(USA 951207)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, 19xxjrs01, 19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "Unknown", "19XX: The War Against Destiny (Translation Chinese)(Japan 951207)", MACHINE_SUPPORTS_SAVE )
 // 1944 The Loop Master
-HACK( 200?, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,   "DDJ", "1944: The Loop Master (Strongest Fire Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,   "DDJ", "1944: The Loop Master (Strongest Fire Power)(USA 000620)", MACHINE_SUPPORTS_SAVE )
 //Alien vs. Predator
 HACK( 200?, avspus01,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (1 Vs 3 Plus)(USA 940520)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, avspus02,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (Plus)(USA 940520)", MACHINE_SUPPORTS_SAVE )

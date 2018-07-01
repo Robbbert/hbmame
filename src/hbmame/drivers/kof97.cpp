@@ -9908,11 +9908,6 @@ ROM_START( kof97plss19 )
 	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '97
 HACK( 2016, kof97s01,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Boss PS Special Blue Version)", MACHINE_SUPPORTS_SAVE )
@@ -9938,7 +9933,7 @@ HACK( 2016, kof97s21,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2016, kof97s22,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Hack Unknown)(Set 07)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, kof97s23,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yashional", "Kof'97 (Evolution Hack By Yashional 2008-12-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97s24,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of Hack Unknown)(Set 08)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, kof97s25,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Combo 2010-02-07)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kof97s25,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Unlimited Company)(2010-02-07)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s26,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Super Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s27,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kof-on",   "Kof'97 (Kof-on Team Colour Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof97s28,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Emu_Max",  "Kof'97 (KOF vs SF2)", MACHINE_SUPPORTS_SAVE )
@@ -9960,7 +9955,7 @@ HACK( 2016, kof97h09,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2016, kof97h10,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of HH Hack Unknown)(Set 03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97h11,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Ismamj Hack 2012/Snk 97)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97h12,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Hacked By Emu_Max 1997)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof97h13,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of HH Hack Unknown)(Set 04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof97h13,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Zore)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97h14,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Description Of HH Hack Unknown)(Set 05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof97hx01,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Attack Finished)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof97hx02,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Kof'97 (Translation Korean)", MACHINE_SUPPORTS_SAVE )

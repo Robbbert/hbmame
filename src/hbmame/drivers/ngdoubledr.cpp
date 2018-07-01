@@ -295,25 +295,35 @@ ROM_END
 
 
 
-HACK( 2003, dbdeh,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Add Char - Max ultra kill after hit 2003-04-20)", MACHINE_SUPPORTS_SAVE ) //Based on dbdehy
-HACK( 1995, dbdehy,         doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Double Dragon (Add Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, dbdq,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami", "Double Dragon (Q-ver Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, dbdqb,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Q-ver Char - Add Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, dbdqeh,         doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Q-ver Char - Max ultra kill after hit - Add Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, dbdqp,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami", "Double Dragon (Q-ver Char - Max ultra kill after hit)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, dbdy,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Double Dragon (Add Char - Always in AES mode)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, doubledre2,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "hack", "Double Dragon Q (Boss hack Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, doubledres,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "hack", "Double Dragon (Boss hack Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Blackheart", "Double Dragon (Boss Hack Perfect Edition hack by Blackheart 2009-09-19)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrsp,     doubledr, samsho2sp,     neogeo, neogeo_state,  dbdrsp, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, dbdeh,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Add Char - Max ultra kill after hit 2003-04-20)(Neo-Geo)", MACHINE_SUPPORTS_SAVE ) //Based on dbdehy
+HACK( 200?, dbdehy,         doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Double Dragon (Enable hidden characters v1)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dbdq,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami", "Double Dragon (Cute style portrait)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dbdqb,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Q-ver Char - Add Char)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dbdqeh,         doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Q-ver Char - Max ultra kill after hit - Add Char)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dbdqp,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami", "Double Dragon (Q-ver Char - Max ultra kill after hit)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dbdy,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Double Dragon (Add Char - Always in AES mode)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledre2,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Double Dragon Q (Boss hack Easy Special Attacks)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledres,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Double Dragon (Easy Special Attacks)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Blackheart", "Double Dragon (Perfectly simplified Edition)(2009-09-19)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, doubledrsp,     doubledr, samsho2sp,     neogeo, neogeo_state,  dbdrsp, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame
 
+
+
+// PSmame (c) gaston90 used with permission
+
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
+
+ /*************
+ Double Dragon
+****************/
 
 ROM_START( doubledrs01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082-p1hc01.p1", 0x100000, 0x100000, CRC(92826c06) SHA1(4a6792d705a4be8fa1fc6d559d5d417e8cbf7d40) )
+	ROM_LOAD16_WORD_SWAP( "082s01.p1", 0x100000, 0x100000, CRC(92826c06) SHA1(4a6792d705a4be8fa1fc6d559d5d417e8cbf7d40) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -337,7 +347,7 @@ ROM_END
 
 ROM_START( doubledrs02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082-p1hc02.p1", 0x100000, 0x100000, CRC(07e79085) SHA1(e5eaeb3f83d7aff93a43a3226747f3e2187c6b47) )
+	ROM_LOAD16_WORD_SWAP( "082s02.p1", 0x100000, 0x100000, CRC(07e79085) SHA1(e5eaeb3f83d7aff93a43a3226747f3e2187c6b47) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -361,7 +371,7 @@ ROM_END
 
 ROM_START( doubledrs03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082-p1hc03.p1", 0x100000, 0x100000, CRC(b604d82d) SHA1(5dd932faf201a0e789046369e828bb6b057fc08b) )
+	ROM_LOAD16_WORD_SWAP( "082s03.p1", 0x100000, 0x100000, CRC(b604d82d) SHA1(5dd932faf201a0e789046369e828bb6b057fc08b) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -385,7 +395,7 @@ ROM_END
 
 ROM_START( doubledrs04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082-p1hc04.p1", 0x100000, 0x100000, CRC(322007f6) SHA1(62424c41a1f8f906a0d2421a640ec17dd55fcdb4) )
+	ROM_LOAD16_WORD_SWAP( "082s04.p1", 0x100000, 0x100000, CRC(322007f6) SHA1(62424c41a1f8f906a0d2421a640ec17dd55fcdb4) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -409,7 +419,7 @@ ROM_END
 
 ROM_START( doubledrs05 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082-p1hc05.p1", 0x100000, 0x100000, CRC(e611e2ea) SHA1(d93c1d3020aa434beb4a4949d4fcbbf530c6342d) )
+	ROM_LOAD16_WORD_SWAP( "082s05.p1", 0x100000, 0x100000, CRC(e611e2ea) SHA1(d93c1d3020aa434beb4a4949d4fcbbf530c6342d) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -433,7 +443,7 @@ ROM_END
 
 ROM_START( doubledrs06 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082hc06.p1", 0x100000, 0x100000, CRC(9ddf6676) SHA1(a75f7b5b2ea8995557928f2088d6e9098d7f35b4) )
+	ROM_LOAD16_WORD_SWAP( "082s06.p1", 0x100000, 0x100000, CRC(9ddf6676) SHA1(a75f7b5b2ea8995557928f2088d6e9098d7f35b4) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -457,7 +467,7 @@ ROM_END
 
 ROM_START( doubledrs07 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "082hc07.p1", 0x100000, 0x100000, CRC(9b54e2aa) SHA1(9a67590114a810382a2c905ff5e812dbbef472c7) )
+	ROM_LOAD16_WORD_SWAP( "082s07.p1", 0x100000, 0x100000, CRC(9b54e2aa) SHA1(9a67590114a810382a2c905ff5e812dbbef472c7) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
@@ -480,13 +490,14 @@ ROM_START( doubledrs07 )
 ROM_END
 
 
-
-HACK( 2017, doubledrs01,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Enable Hidden Characters v2)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs02,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Enhanced Power)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs03,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Cancel Charge)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs04,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Black Vesion)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs05,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Random Selection)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs06,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Super Remix Edition 1.0)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs07,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hacks",    "Double Dragon (Super Remix Edition 1.1)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+ // Double Dragon
+HACK( 200?, doubledrs01,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yumeji",    "Double Dragon (Enable Hidden Characters v2)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledrs02,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Double Dragon (Enhanced Power)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledrs03,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "tanchenpeng",    "Double Dragon (Cancel Charge)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledrs04,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Black Vesion)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledrs05,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "gsc2007",    "Double Dragon (Random Selection)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledrs06,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Super Remix Edition 1.0)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, doubledrs07,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Super Remix Edition 1.1)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 
 
