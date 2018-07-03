@@ -1283,8 +1283,6 @@ ROM_START( sfiii4rd )
 	ROM_LOAD( "sfiii3-simm6.7", 0x00000, 0x200000, CRC(cc5f4187) SHA1(248ddace21ed4736a56e92f77cc6ad219d7fef0b) )
 ROM_END
 
-
-
 HACK( 2009, jojobbh2,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V2)(2009-08-08)(Euro 990913, NO CD)", 0 )
 HACK( 2009, jojobbss,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V1)(2009-07-15)(Euro 990913, NO CD)", 0 )
 HACK( 2009, jojobpow,  jojoba,   jojoba,   cps3_jojo, cps3_hbmame, jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Infinite Power)(2009-07-15)(Euro 990913, NO CD)", 0 )
@@ -1304,8 +1302,6 @@ HACK( 1999, sfiii3mh,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   RO
 HACK( 2009, sfiii3ng,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating)(2009-07-14)(Japan 990608, NO CD)", 0 )
 HACK( 2009, sfiii3np,  sfiii3,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked)(2009-07-14)(Japan 990608, NO CD)", 0 )
 HACK( 2013, sfiii4rd,  sfiii3,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition (Japan 990608, NO CD)", 0 )
-
-
 
 
 //PSmame (c) gaston90 used with permission

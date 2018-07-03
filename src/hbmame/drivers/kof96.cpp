@@ -1550,7 +1550,7 @@ HACK( 2007, kof96ae1b, kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 HACK( 2009, kof96ae2,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "EGHT", "Kof'96 (10th Anniversary Edition 2016)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96b,    kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Enable hidden characters)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96b1,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Chl[FGCH]&Jason[FGCH]", "Kof'96 (Remix Changed Move List v1.2)(NGM-214)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof96bb,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 Boss Hack (set 2)(NGM-214)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof96bb,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Boss Hack)(set 2)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96c,    kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Guangzhou Game Team", "Kof'96 (Chinese Ver.1.0)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof96cbi,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "IsmaMj", "Kof'96 (Change Blood For Other Hack)(2011-03-02)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96ckvs, kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "KVS", "Kof'96 (Chinese ver)(NGM-214)", MACHINE_SUPPORTS_SAVE )
@@ -1601,12 +1601,8 @@ HACK( 200?, kof96rss,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 HACK( 200?, kof96ru,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "CHL, Jason/K3", "Kof'96 Remix Ultra (Diff Moves - Ultra kill style changed - Add Char 031203)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96ru2,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "CHL, Jason/K3", "Kof'96 (Remix Ultra v1.1)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96rw,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker", "Kof'96 (Diff Moves)(NGM-214)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof96ryu,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Iori Yagami", "Kof'96 (Ryu Hack by Iori Yagami)(NGM-214)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof96ryu,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Iori Yagami", "Kof'96 (Ryu Hack)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96seh,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Ultra pow hack ABC)(NGM-214)", MACHINE_SUPPORTS_SAVE )
-
-
-
-
 
 
 // PSmame (c) gaston90 used with permission

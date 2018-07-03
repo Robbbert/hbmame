@@ -765,7 +765,7 @@ ROM_START( svcxlb )
 ROM_END
 
 
-
+ // SvC Chaos
 HACK( 200?, svccprw,       svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Wesker", "SvC Chaos (Plus Remix v2.0)(NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcd,          svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos (decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcd1,         svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos (decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
@@ -794,8 +794,6 @@ HACK( 2016, svcsplus2016,  svc,      neogeo_noslot,   neogeo,   neogeo_state,   
 HACK( 200?, svcspryu,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "Unknown", "SvC Plus (Super Koryu)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcstdse,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svc,      ROT0, "kawada7278", "SvC Chaos (Subdue the Dragon Super edition)(NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcxlb,        svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "LB70", "SvC Chaos (Knife Millennium Turbidity v1.0)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
-
-
 
 
 // PSmame (c) gaston90 used with permission

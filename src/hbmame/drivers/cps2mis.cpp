@@ -1927,7 +1927,7 @@ HACK( 200?, mshyh,      msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0, 
 HACK( 2009, mvscjemb,   mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves)(2009-04-24)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mvscjphp,   mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Get maximum power on a valid attack or being attacked)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mvscrcp,    mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "CPS-2 Evolved", "Marvel Vs. Capcom RCP (Euro 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mvscuh,     mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "EGCG", "Marvel Vs. Capcom: Clash of Super Heroes (ExChar hack)(USA 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mvscuh,     mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "EGCG", "Marvel Vs. Capcom: Clash of Super Heroes (Add Boss)(USA 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, mshvsemb,   mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "Marvel Super Heroes Vs. Street Fighter (Easy Moves)(2009-04-23)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mshvsfjh,   mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Yumeji", "Marvel Super Heroes Vs. Street Fighter (Enable Hidden Characters)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mshvsfjphp, mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Super Heroes Vs. Street Fighter (Get maximum power on a valid attack or being attacked)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
@@ -1972,8 +1972,6 @@ HACK( 200?, xmcotajphp, xmcota,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, 
 HACK( 200?, xmvsfjphp,  xmvsf,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "X-Men Vs. Street Fighter (Enhanced power)(Japan 961004)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, xmvsfrm,    xmvsf,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "X-Men Vs. Street Fighter (Easy Moves)(2009-04-22)(Euro 960910)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, xmvsfryh,   xmvsf,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Ydmis", "X-Men Vs. Street Fighter (Change character in battle)(Euro 960910)", MACHINE_SUPPORTS_SAVE )
-
-
 
 
 //PSmame (c) gaston90 used with permission

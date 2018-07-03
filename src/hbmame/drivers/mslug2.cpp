@@ -227,8 +227,6 @@ ROM_START( mslug2t ) /* System11 - Metal Slug 2 Turbo - hack to remove slowdowns
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-
-
 // Metal Slug 2
 HACK( 200?, mslug2eh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug2eh0, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Enhanced Revised Version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
@@ -236,11 +234,10 @@ HACK( 200?, mslug2eh1, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
 HACK( 200?, mslug2eh2, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug2eh3, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (French)(Old)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Traduction French)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Traduction French)(Old)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (Hybrid bullets version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "System11", "Metal Slug 2 Turbo (NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-
 
 
 //PSmame (c) gaston90 used with permission

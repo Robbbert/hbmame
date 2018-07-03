@@ -293,8 +293,6 @@ ROM_START( doubledrsp )
 	ROM_LOAD16_BYTE( "082.c8", 0xc00001, 0x100000, CRC(69a5fa37) SHA1(020e70e0e8b3c5d00a40fe97e418115a3187e50a) )
 ROM_END
 
-
-
 HACK( 2003, dbdeh,          doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami and Ydmis", "Double Dragon (Add Char - Max ultra kill after hit 2003-04-20)(Neo-Geo)", MACHINE_SUPPORTS_SAVE ) //Based on dbdehy
 HACK( 200?, dbdehy,         doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Double Dragon (Enable hidden characters v1)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dbdq,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami", "Double Dragon (Cute style portrait)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
@@ -306,9 +304,6 @@ HACK( 200?, doubledre2,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 200?, doubledres,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Double Dragon (Easy Special Attacks)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Blackheart", "Double Dragon (Perfectly simplified Edition)(2009-09-19)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, doubledrsp,     doubledr, samsho2sp,     neogeo, neogeo_state,  dbdrsp, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-
-
-
 
 
 // PSmame (c) gaston90 used with permission
@@ -488,7 +483,6 @@ ROM_START( doubledrs07 )
 	ROM_LOAD16_BYTE( "082.c7", 0xc00000, 0x100000, CRC(727c4d02) SHA1(8204c7f037d46e0c58f269f9c7a535bc2589f526) )
 	ROM_LOAD16_BYTE( "082.c8", 0xc00001, 0x100000, CRC(69a5fa37) SHA1(020e70e0e8b3c5d00a40fe97e418115a3187e50a) )
 ROM_END
-
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
  // Double Dragon

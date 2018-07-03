@@ -658,8 +658,6 @@ ROM_START( rbff2y ) /* Real Bout Fatal Fury 2 - Hack by Ydmis - (Player 2 goes t
 	ROM_LOAD16_BYTE( "240.c6", 0x2000001, 0x800000, CRC(4609e507) SHA1(bb17f50a377dddb77c1eeda5944a7bcbf0cca5f7) )
 ROM_END
 
-
-
 HACK( 200?, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang[EGCG]", "Fatal Fury Special (Optional hidden characters first edition)(set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury Special (Optional hidden character third edition)(set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX)(set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
@@ -677,7 +675,7 @@ HACK( 200?, rbff1ud,       rbff1,    neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, rbffsb,        rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffseh,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffsehd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed - 5 Add Char)", MACHINE_SUPPORTS_SAVE ) // Geese Howard, Andy B. EX, Blue Mary EX, Billy K. EX and Tung Fu Rue EX
-HACK( 200?, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffspecbs,    rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Real Bout Fatal Fury Special (Enable hidden characters v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffspy,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury Special (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, rbffss07,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special (Ultra Edition)", MACHINE_SUPPORTS_SAVE )
@@ -692,8 +690,6 @@ HACK( 200?, rbff2eho,      rbff2,    neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, rbff2fc,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eddids - FCHT", "Real Bout Fatal Fury 2 (Enable Alfred v3 & Color Fix)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbff2ud,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (P1 and P2 Add Alfred [Terry, hold B+C and press A] - Ultra kill style change)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbff2y,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (P1 only Add Alfred [Terry, hold B+C and press A])(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-
-
 
 
 // PSmame (c) gaston90 used with permission

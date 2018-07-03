@@ -1092,8 +1092,8 @@ HACK( 200?, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd
 HACK( 200?, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ct2k3ad,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003  (The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k4mp,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic PLUS(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k4mp2,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic PLUS Alt (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k4mp,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k4mp2,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic Plus Alt (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4omg,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "KofOnTeam", "Kof Special Edition 2004 (Omega v0.5)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4pls,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2k4pls, ROT0, "bootleg", "Kof2004 Special Edition Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, kof2k4ru,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "MVS Hacks PSP", "Kof Special Edition 2004 (Remix Ultra v2.6F)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -1117,9 +1117,6 @@ HACK( 200?, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,
 HACK( 200?, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Bootleg", "King of Gladiator PLUS (set 2)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
-
-
-
 
 
 // PSmame (c) gaston90 used with permission

@@ -3012,9 +3012,6 @@ HACK( 200?, wjammersk,     wjammers, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 2001, zupapad,       zupapa,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Zupapa! (custom decrypted C)", MACHINE_SUPPORTS_SAVE )
 
 
-
-
-
 // PSmame (c) gaston90 used with permission
 
  /****************************************************

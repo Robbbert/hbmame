@@ -367,8 +367,6 @@ ROM_START( wh2jb )
 	ROM_LOAD16_BYTE( "064.c8", 0xc00001, 0x200000, CRC(fc092367) SHA1(69ff4ae909dd857de3ca8645d63f8b4bde117448) )
 ROM_END
 
-
-
 HACK( 200?, whpb,      whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami, Dodowang", "World Heroes Perfect (Add Char)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, whpb2,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Creamymami[EGCG]", "World Heroes Perfect (Enable hidden characters v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, whpbh,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "Dodowang[EGCG]", "World Heroes Perfect (Enable hidden characters v2)", MACHINE_SUPPORTS_SAVE )
@@ -387,14 +385,7 @@ HACK( 200?, wh2ey,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, 
 HACK( 200?, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (old set)(ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wh2jb,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "0 DAY-S[EGCG]", "World Heroes 2 Jet (Enable hidden characters v1)(ADM-007)(ADH-007)", MACHINE_SUPPORTS_SAVE )
 
-
-																																					   
-
-																																						 
-
-
-																																						 
-																																						 
+														 
 // PSmame (c) gaston90 used with permission
 
  /****************************************************

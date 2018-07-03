@@ -447,8 +447,6 @@ HACK( 200?, kof95xg,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo
 HACK( 200?, kof95y,    kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char set 1)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 
 
-
-
 // PSmame (c) gaston90 used with permission
 
  /****************************************************

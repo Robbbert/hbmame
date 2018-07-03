@@ -1878,11 +1878,11 @@ HACK( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state,fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state,fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Yumeji", "ZinTricK (ExChar hack by Yumeji)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Yumeji", "ZinTricK (Enable Character)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "ZinTricK (s01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "ZinTricK (Unknown Description)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Face / NCI", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
