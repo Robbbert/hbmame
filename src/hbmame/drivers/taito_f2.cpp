@@ -15,12 +15,12 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	/* basic machine hardware */
 	MCFG_DEVICE_ADD("maincpu", M68000, 24000000/2) /* 12 MHz */
 	MCFG_DEVICE_PROGRAM_MAP(liquidk_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", taitof2_state,  taitof2_interrupt)
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", taitof2_hbmame,  taitof2_interrupt)
 
 	MCFG_DEVICE_ADD("audiocpu", Z80, 24000000/6)   /* 4 MHz */
 	MCFG_DEVICE_PROGRAM_MAP(sound_map)
 
-	MCFG_MACHINE_START_OVERRIDE(taitof2_state,f2)
+	MCFG_MACHINE_START_OVERRIDE(taitof2_hbmame,f2)
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -28,13 +28,13 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0)  /* frames per second, vblank duration */)
 	MCFG_SCREEN_SIZE(120*8, 32*8)
 	MCFG_SCREEN_VISIBLE_AREA(40*8, 106*8-1, 2*8, 32*8-1)
-	MCFG_SCREEN_UPDATE_DRIVER(taitof2_state, screen_update_taitof2_pri)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, taitof2_state, screen_vblank_partial_buffer_delayed))
+	MCFG_SCREEN_UPDATE_DRIVER(taitof2_hbmame, screen_update_taitof2_pri)
+	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, taitof2_hbmame, screen_vblank_partial_buffer_delayed))
 	MCFG_SCREEN_PALETTE("palette")
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_taitof2)
 	MCFG_PALETTE_ADD("palette", 4096)
 	MCFG_PALETTE_FORMAT(RRRRGGGGBBBBxxxx)
-	MCFG_VIDEO_START_OVERRIDE(taitof2_state,taitof2_megab)
+	MCFG_VIDEO_START_OVERRIDE(taitof2_hbmame,taitof2_megab)
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();

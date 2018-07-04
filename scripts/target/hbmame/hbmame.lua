@@ -316,7 +316,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/gauntlet.cpp",
 	MAME_DIR .. "src/mame/video/gauntlet.cpp",
 	MAME_DIR .. "src/hbmame/drivers/tempest.cpp",
-	MAME_DIR .. "src/mame/machine/atari_vg.cpp",
 	MAME_DIR .. "src/mame/machine/atarigen.cpp",
 	MAME_DIR .. "src/mame/machine/mathbox.cpp",
 	MAME_DIR .. "src/mame/machine/slapstic.cpp",
