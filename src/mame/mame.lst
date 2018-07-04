@@ -1018,6 +1018,7 @@ maddog2_100                     // (c) 1992
 maddog2_110                     // (c) 1992
 maddog2_202                     // (c) 1992
 maddoga                         // (c) 1990
+marvice							// (c) 1994
 spacepir                        // (c) 1992
 spacepir_14                     // (c) 1992
 wsjr                            // (c) 1991
@@ -9663,6 +9664,7 @@ chessmsta                       //
 chessmstdm                      //
 
 @source:chesstrv.cpp
+boris                           //
 borisdpl                        //
 chesstrv                        //
 
@@ -10620,6 +10622,9 @@ sfiiiu                          // 04/02/1997 (c) 1997 (USA)
 warzard                         // 21/11/1996 (c) 1996 (Japan)
 warzardr1                       // 23/10/1996 (c) 1996 (Japan)
 
+@source:cpzodiac.cpp
+cpzodiac                        //
+
 @source:craft.cpp
 craft                           // Craft, by [lft]
 
@@ -10765,6 +10770,7 @@ pinkswts                        // (c) 2006 Cave (AMI license) - 2006/04/06 MAST
 pinkswtsa                       // (c) 2006 Cave (AMI license) - 2006/04/06 MASTER VER...
 pinkswtsb                       // (c) 2006 Cave (AMI license) - 2006/04/06 MASTER VER.
 pinkswtsx                       // (c) 2006 Cave (AMI license) - 2006/xx/xx MASTER VER.
+pinkswtssc                      // bootleg
 
 @source:cvicny.cpp
 cvicny                          //
@@ -11438,6 +11444,9 @@ popn1                           // GX803 (c) 1998 (Asia)
 popn2                           // GX831 (c) 1998 (Japan)
 popn3                           // GX980 (c) 1999 (Japan)
 popnstage                       // GQ970 (c) 1999 (Japan)
+
+@source:dkmb.cpp
+dkmb
 
 @source:dkong.cpp
 8ballact                        // (c) 1984 Seatongrove Ltd (Magic Eletronics USA license)
@@ -14135,6 +14144,7 @@ aplan                           // bootleg (WeaShing)
 bingowng                        // (c) 1993 Wing Co. Ltd
 bingownga                       // (c) 1993 Wing Co. Ltd
 bonusch                         // (c) 1990 Wing Co. Ltd
+feverch                         // (c) 1990 Wing Co. Ltd
 carb2002                        // bootleg
 carb2003                        // bootleg
 cb3                             // (c) 199? Dyna Electronics
@@ -15463,6 +15473,7 @@ pinmoonl                        //
 @source:inderp.cpp
 centauri
 centauri2
+topaz
 
 @source:indiana.cpp
 indiana                         //
@@ -28085,6 +28096,7 @@ gratia                          // (c) 1996
 gratiaa                         // (c) 1996
 hayaosi2                        // (c) 1993
 hayaosi3                        // (c) 1994
+hayaosi3a                       // (c) 1994
 kirarast                        // (c) 1996
 p47aces                         // (c) 1995
 tetrisp                         // (c) 1995 Jaleco / BPS
@@ -33173,6 +33185,7 @@ esha_ma3                        //
 esha_pa1                        //
 esha_pa4                        //
 esha_pr4                        //
+jokrz_g4                        //
 jokrz_l3                        //
 jokrz_l6                        //
 mousn_l1                        //
@@ -36720,7 +36733,8 @@ vikingt                         //
 
 @source:tatsumi.cpp
 apache3                         // (c) 1988 Tatsumi
-apache3a                        // (c) 1988 Tatsumi + Kana Corporation license
+apache3a                        // (c) 1988 Tatsumi
+apache3b                        // (c) 1988 Tatsumi + Kana Corporation license
 bigfight                        // (c) 1992 Tatsumi
 cyclwarr                        // (c) 1991 Tatsumi
 cyclwarra                       // (c) 1991 Tatsumi
@@ -38947,6 +38961,7 @@ ngg_10                          //
 ngg_13                          //
 ngg_p06                         //
 sc_091                          //
+sc_10                           //
 sc_14                           //
 sc_17                           //
 sc_17n                          //
