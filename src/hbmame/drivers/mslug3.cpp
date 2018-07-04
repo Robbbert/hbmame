@@ -907,8 +907,6 @@ ROM_START( mslug3v ) // extreme violence
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
-
-
 // Metal Slug 3
 HACK( 200?, mslug3d,   mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3d,  ROT0, "SNK", "Metal Slug 3 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3e02, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 02)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
@@ -935,12 +933,12 @@ HACK( 200?, mslug3e22, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslu
 HACK( 2013, mslug3eb,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (Blue Out Of Blue (6.14))(NGM-2560)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3eha, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3ehs, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, mslug3fr,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, mslug3fro, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (French)(Old)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, mslug3fr,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (Traduction French)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug3fro, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (Traduction French)(Old)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3hev, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Unknown", "Metal Slug 3 (Enhanced Version 2015)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3kh,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3kho, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030728)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug3nd,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "SNK", "Metal Slug 3 (NGH-2560)(Fully Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug3nd,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "SNK", "Metal Slug 3 (Fully Decrypted C)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, mslug3v,   mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3b6, ROT0, "Eezezy", "Metal Slug 3 (Violence Edition)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 
 
@@ -3213,6 +3211,33 @@ ROM_START( mslug3h45 )
 	ROM_LOAD16_BYTE( "256.c6",   0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
 	ROM_LOAD16_BYTE( "256.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
+ROM_END
+
+ROM_START( mslug3h46 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "256h46.p1",   0x000000, 0x100000, CRC(fafde0b4) SHA1(3eee501ddebda761d93c49cdea135fdf0aa0dc9c) )
+	ROM_LOAD16_WORD_SWAP( "256h.p2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+
+	NEO_SFIX_MT_512K
+    //NEO_SFIX_128K( "256sold.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
+
+	NEO_BIOS_AUDIO_512K( "256h46.m1", CRC(c84d22f2) SHA1(069d5eafa859acbebc35394344df78ea84055cf7) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
+	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
+	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
+	ROM_LOAD( "256h46.v4", 0xc00000, 0x400000, CRC(b45d9a3b) SHA1(eee342e11865facbbfcaf82b8e16b9e64b8c309c) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "256d.c1",  0x0000000, 0x800000, CRC(3540398c) SHA1(0a96f2360eb26c66bf02bbc6f52230b55cc95e4e) )
+	ROM_LOAD16_BYTE( "256d.c2",  0x0000001, 0x800000, CRC(bdd220f0) SHA1(f52851023f3bc120b05f622af0e0ab1bedc41604) )
+	ROM_LOAD16_BYTE( "256d.c3",  0x1000000, 0x800000, CRC(bfaade82) SHA1(66b07e592c9a9b35567fe463496f8f75c32a7db9) )
+	ROM_LOAD16_BYTE( "256d.c4",  0x1000001, 0x800000, CRC(1463add6) SHA1(4db91b46d6430da272d27d00a6dc0eb25949bea1) )
+	ROM_LOAD16_BYTE( "256d.c5",  0x2000000, 0x800000, CRC(48ca7f28) SHA1(e903876be5fb4fa582c988d74c6bef1c3b9c7083) )
+	ROM_LOAD16_BYTE( "256d.c6",  0x2000001, 0x800000, CRC(806eb36f) SHA1(a412a9cab80c326733dde7652d1db2a46afb3ebb) )
+	ROM_LOAD16_BYTE( "256d.c7",  0x3000000, 0x800000, CRC(9395b809) SHA1(ca9ac9832017094eee3623f0b6c4c4b7b4f1374d) )
+	ROM_LOAD16_BYTE( "256d.c8",  0x3000001, 0x800000, CRC(a369f9d4) SHA1(f8146ea80a1a23da7e7e04c88f778ee9abdfeb5c) )
 ROM_END
 
 ROM_START( mslug3erbo01 )
@@ -12973,6 +12998,7 @@ HACK( 2018, mslug3h42,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2004, mslug3h43,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3fr,  ROT0, "Shyma.X",    "Metal Slug 3 (NEO ARC French Traduction 1)(Set 01)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, mslug3h44,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3fr,  ROT0, "Shyma.X",    "Metal Slug 3 (NEO ARC French Traduction 2)(Set 02)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3h45,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (99 grenades)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug3h46,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3fr,   ROT0, "Unknown",  "Metal Slug 3 (Ghost Wu Zuoma)(Decrypted C)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3erbo01,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown/Shyma.X",    "Metal Slug 3 (Enemy Remake Blue Outer 1st Edition)(NEO ARC French Traduction Set 01)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3erbo02,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown/Shyma.X",    "Metal Slug 3 (Enemy Remake Blue Outer 1st Edition)(NEO ARC French Traduction Set 02)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3erbo03,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown/Eddids[FGCH]",    "Metal Slug 3 (Enemy Remake Blue Outer 1st Edition)(Unlimited Credits In Console Mode)(NGH-2560)", MACHINE_SUPPORTS_SAVE )

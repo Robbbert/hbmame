@@ -542,8 +542,8 @@ HACK( 200?, mslug5b,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5b,
 HACK( 200?, mslug5d,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "Unknown", "Metal Slug 5 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug5d1,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "Unknown", "Metal Slug 5 (NGM-2680)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug5f,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (Battle)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (French)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "NEO-ARC", "Metal Slug 5 (French Edition)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (Traduction French Edition V1)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "NEO-ARC", "Metal Slug 5 (Traduction French Edition V2)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug5fu,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 5 (FU)(Fully Decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //roms 268fu.p1 encrypted, even looking for roms workable, probably lost.
 HACK( 200?, mslug5hd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "Unknown", "Metal Slug 5 (NGH-2680)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug5l9a, mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (Nueva Campaña Beta 0.1)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
@@ -555,8 +555,6 @@ HACK( 200?, mslug5w,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p, 
 HACK( 200?, ms5boot,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Bootleg)(Set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ms5pcbd,   ms5pcb,   neogeo_noslot, dualbios, neogeo_state, ms5pcbd,  ROT0, "Unknown", "Metal Slug 5 (JAMMA PCB) (Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ms5sp,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Unknown", "Metal Slug 5 Plus (super enhanced version)(Bootleg)", MACHINE_SUPPORTS_SAVE )
-
-
 
 
 //PSmame (c) gaston90 used with permission

@@ -8083,7 +8083,7 @@ HACK( 1995, mosyougi,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neoge
 HACK( 1996, overtop,    neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK",              "Over Top", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, ninjamas,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "Ninja Master's - haoh-ninpo-cho", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, twinspri,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "ADK / SNK",        "Twinkle Star Sprites", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, zintrckb,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "hack",             "Zintrick / Oshidashi Zentrix (hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, zintrckb,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "bootleg",             "Zintrick / Oshidashi Zentrix (bootleg of CD version)", MACHINE_SUPPORTS_SAVE )
 
 /* Aicom (was a part of Sammy) / Yumekobo (changed name in 1996) */
 HACK( 1992, viewpoin,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Sammy / Aicom", "Viewpoint", MACHINE_SUPPORTS_SAVE )

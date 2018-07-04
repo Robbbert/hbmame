@@ -444,29 +444,24 @@ ROM_START( mslug4sp ) // all confirmed: same as mslug4 except p roms
 	ROM_LOAD16_BYTE( "263.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
 
-
-
 // Metal Slug 4
-HACK( 200?, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Mega", "Metal Slug 4 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 Super D Version", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "HappyASR [EGCG]", "Metal Slug 4 Super D Version(Alt)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 4)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 5)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 6)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (Traduction French)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (Traduction Italian)(Alt)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (LW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Unknown", "Metal Slug 4 (super enhanced version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
-
-
-
+HACK( 200?, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Mega", "Metal Slug 4 (Decrypted C)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)(Alt)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 3)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 4)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 5)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 6)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (Traduction French)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (Traduction Italian)(Alt)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (LW)(NGM-2630)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Unknown", "Metal Slug 4 (super enhanced version)(NGM-2630)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
 
 
 //PSmame (c) gaston90 used with permission

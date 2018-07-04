@@ -1832,8 +1832,6 @@ ROM_START( samsh5spnzk )
 	ROM_LOAD16_BYTE( "272d.c8", 0x3000001, 0x800000, CRC(cfde7aff) SHA1(25185F471DD35E5D388B75B83D8652085CD5E17D) )
 ROM_END
 
-
-
 HACK( 200?, fswordsb1,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis & Foxy[PHT]", "Fighters Swords (Enable hidden characters v1)(Alt)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordsb2,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "yumeji[2ch]", "Fighters Swords (Enable hidden characters v2)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordsbf,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Fighters Swords (Enable hidden characters v1.0f)(Korean Release)", MACHINE_SUPPORTS_SAVE )
@@ -1885,15 +1883,15 @@ HACK( 2017, samsho4sp,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 HACK( 200?, samsho4wh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "zhangshee & wesker[FGCH]", "Samurai Shodown IV (Enable hidden characters v1)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsho4zk,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie, Kof1996", "Samurai Shodown IV (Unlimited Credits in Console Mode)(2008-10-23)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 200?, samsho5ba,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Unknown", "Samurai Shodown V (Boss hack alt)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho5ba,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Unknown", "Samurai Shodown V (Boss hack)(Set 01)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5bd,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "bootleg", "Samurai Shodown V (bootleg)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho5bh,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Dodowang", "Samurai Shodown V (Boss hack by Dodowang)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho5bh,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Dodowang", "Samurai Shodown V (Boss hack)(Set 02)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5bs,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Eddids", "Samurai Showdown V (Enable Hidden Characters-Add portraits v2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5ch,  samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Dodowang and Wesker", "Samurai Showdown V (Chinese Language and Boss)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5d,   samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5d1,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (NGM-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho5ge,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Shiro", "Samurai Shodown V (Genjuro Evil Edition hack by Shiro)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho5hd,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (NGH-2700)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho5ge,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Shiro", "Samurai Shodown V (Genjuro Evil Edition)(Alt)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho5hd,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (set 2 / Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsho5s2,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "dokx4869", "Samurai Shodown V (Easy special attacks)(2008-08-26)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5x,   samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Samurai Shodown V (XBOX version)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsho5zk,  samsho5,  neogeo_noslot, neogeo, neogeo_state, sam5hb,   ROT0, "zuojie & kof1996", "Samurai Shodown V (Unlimited Credits in Console Mode)(2008-10-23)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
@@ -1910,9 +1908,6 @@ HACK( 200?, samsh5spn,  samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 HACK( 200?, samsh5spnd, samsh5sp, neogeo_noslot, neogeo, neogeo_state, sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (2nd release, less censored)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsh5spnh3,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Eddids / Snk2003", "Samurai Shodown V Special (Enhanced Blood v3.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsh5spnzk,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie / Kof1996", "Samurai Shodown V Special (Hack)(2008-10-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-
-
-
 
 
 //PSmame (c) gaston90 used with permission
