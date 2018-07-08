@@ -1361,6 +1361,8 @@ private:
 			Delegate m_delegate;
 		};
 
+		friend class delegate_builder::wrapped_builder;
+
 		delegate_builder(delegate_builder const &) = delete;
 		delegate_builder &operator=(delegate_builder const &) = delete;
 		delegate_builder &operator=(delegate_builder &&that) = delete;
@@ -1490,6 +1492,8 @@ private:
 			device_execute_interface *m_exec;
 			int const m_linenum;
 		};
+
+		friend class inputline_builder::wrapped_builder;
 
 		inputline_builder(inputline_builder const &) = delete;
 		inputline_builder &operator=(inputline_builder const &) = delete;
@@ -1646,6 +1650,8 @@ private:
 			int const m_value;
 		};
 
+		friend class latched_inputline_builder::wrapped_builder;
+
 		latched_inputline_builder(latched_inputline_builder const &) = delete;
 		latched_inputline_builder &operator=(latched_inputline_builder const &) = delete;
 		latched_inputline_builder &operator=(latched_inputline_builder &&that) = delete;
@@ -1778,6 +1784,8 @@ private:
 			std::string m_tag;
 		};
 
+		friend class ioport_builder::wrapped_builder;
+
 		ioport_builder(ioport_builder const &) = delete;
 		ioport_builder &operator=(ioport_builder const &) = delete;
 		ioport_builder &operator=(ioport_builder &&that) = delete;
@@ -1876,6 +1884,8 @@ private:
 			std::string m_tag;
 		};
 
+		friend class membank_builder::wrapped_builder;
+
 		membank_builder(membank_builder const &) = delete;
 		membank_builder &operator=(membank_builder const &) = delete;
 		membank_builder &operator=(membank_builder &&that) = delete;
@@ -1971,6 +1981,8 @@ private:
 			std::string m_tag;
 		};
 
+		friend class output_builder::wrapped_builder;
+
 		output_builder(output_builder const &) = delete;
 		output_builder &operator=(output_builder const &) = delete;
 		output_builder &operator=(output_builder &&that) = delete;
@@ -2062,6 +2074,8 @@ private:
 			device_t &m_devbase;
 			std::string m_message;
 		};
+
+		friend class log_builder::wrapped_builder;
 
 		log_builder(log_builder const &) = delete;
 		log_builder &operator=(log_builder const &) = delete;
