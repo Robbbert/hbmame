@@ -3267,6 +3267,14 @@ kof2001s19
 kof2001s20
 kof2001ds01
 kof2001ds02
+kof2001ds03
+kof2001ds04
+kof2001ds05
+kof2001ds06
+kof2001ds07
+kof2001ds08
+kof2001ds09
+kof2001ds10
 kof2001hs01
 kof2001hs02
 kof2001hs03
@@ -3297,6 +3305,14 @@ kof2001hs27
 kof2001hs28
 kof2001hs29
 kof2001hs30
+kof2001hs31
+kof2001hs32
+kof2k1pas01
+kof2k1pas02
+kof2k1pas03
+kof2k1plss01
+kof2k1plss02
+kof2k1plss03
 
 @source:kof2002.cpp
 kof200215
@@ -6776,6 +6792,10 @@ ct2k3ads09
 ct2k3ads10
 ct2k3ads11
 ct2k3ads12
+cthd2k3ds13
+ct2k3ads13
+ct2k3spds01
+ct2k3spds02
 kogs01
 kogs02
 kogs03
