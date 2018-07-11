@@ -2845,6 +2845,32 @@ ROM_START( cthd2k3ds12 )
 	ROM_LOAD16_BYTE( "360d.c8", 0x3000001, 0x800000, CRC(39550d3a) SHA1(8dbf219da2b39642c316164b8c28bcb350346250) )
 ROM_END
 
+ROM_START( cthd2k3ds13 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360d.p1", 0x000000, 0x100000, CRC(f75508d8) SHA1(c6611061f19c7b7eeafd0a36c084e6d437607781) )
+	ROM_LOAD16_WORD_SWAP( "360d.p2", 0x100000, 0x400000, CRC(eba65bda) SHA1(e66755cb11e8b16f1af68c1439dd0ec485573c10) )
+
+	NEO_SFIX_128K( "360d.s1", CRC(fc1f3809) SHA1(238bcb33cb1a1cb695f2532b04b4a7c639aad895) )
+
+	NEO_BIOS_AUDIO_128K( "360d.m1", CRC(526cccab) SHA1(f7931f42e6f27c3da1902a552a983ca588e2418b) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "262.v2", 0x400000, 0x400000, CRC(003f1843) SHA1(bdd58837ad542548bd4053c262f558af88e3b989) )
+	ROM_LOAD( "262.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360d.c1", 0x0000000, 0x800000, CRC(29fd9108) SHA1(97e0c01692bffddf5c157c6a9e56573861029335) )
+	ROM_LOAD16_BYTE( "360d.c2", 0x0000001, 0x800000, CRC(f58d4d3e) SHA1(d4276d4c9424fad2966cb3d49ac8f330b12ef7b6) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360ds13.c7", 0x3000000, 0x800000, CRC(05dc301e) SHA1(7aa16ea33c2e3328967fda356fd5ed3963952d78) )
+	ROM_LOAD16_BYTE( "360ds13.c8", 0x3000001, 0x800000, CRC(859e3344) SHA1(f1429470e4b4ed233c904565e819ab5b4d5fdb65) )
+ROM_END
+
 ROM_START( cthd2k3as01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "360axs01.p1", 0x000000, 0x100000, CRC(c5e2a470) SHA1(2f59b7d01f7dc0b1d11ef2e243ab2fed1858beba) )
@@ -3181,6 +3207,84 @@ ROM_START( ct2k3ads12 )
 	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
 	ROM_LOAD16_BYTE( "360k3ad.c7", 0x3000000, 0x800000, CRC(4f50e1ae) SHA1(676ecba2b3c5f1def2822559c1c1299d4eae503f) )
 	ROM_LOAD16_BYTE( "360k3ad.c8", 0x3000001, 0x800000, CRC(4f5f09bf) SHA1(1c2d66e793f7943c2c3bbc8390d455001f07baa4) )
+ROM_END
+
+ROM_START( ct2k3ads13 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360k3ad.p1", 0x000000, 0x100000, CRC(83783954) SHA1(963a352bdc755b7c9cdf6b5f1c6b4f790061d6c3) )
+	ROM_LOAD16_WORD_SWAP( "360k3ad.p2", 0x100000, 0x400000, CRC(84b0b164) SHA1(1d7de20d8fc71c2e74a4fda17a2f41e2a6f027ba) )
+
+	NEO_SFIX_128K( "360k3ad.s1", CRC(956d8273) SHA1(15a0b51a194d6bddfa87d772837a4569fad59760) )
+
+	NEO_BIOS_AUDIO_128K( "360k3ad.m1", CRC(3ee21b7e) SHA1(6d74b2154f2b955c0f355306427b5b308acf6bff) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "360a.v2",         0x400000, 0x400000, CRC(2b498449) SHA1(8e2b01dd17dbf4498a197bda8ce3e08cdf785f12) )
+	ROM_LOAD( "262.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360k3ad.c1", 0x0000000, 0x800000, CRC(eddd5e2f) SHA1(2af647a57ec12ed60c37a3469adf3e58cb6728c6) )
+	ROM_LOAD16_BYTE( "360k3ad.c2", 0x0000001, 0x800000, CRC(23d8d1d6) SHA1(b831e2d506bf8c1436b48d34fc6e2d321602434d) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360k3ads13.c7", 0x3000000, 0x800000, CRC(52e33472) SHA1(2a30333f3cb3dd0dc3dd310e92530e62c2a90c76) )
+	ROM_LOAD16_BYTE( "360k3ads13.c8", 0x3000001, 0x800000, CRC(f322f9f9) SHA1(c1fe5daf234bcfc8891d48f73533afc578ffc122) )
+ROM_END
+
+ROM_START( ct2k3spds01 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360spd.p1", 0x000000, 0x100000, CRC(013a509d) SHA1(c61c9b777e6e062b5f4ad87cdb78e9ca05e9bfb9) )
+	ROM_LOAD16_WORD_SWAP( "360d.p2", 0x100000, 0x400000, CRC(eba65bda) SHA1(e66755cb11e8b16f1af68c1439dd0ec485573c10) )
+
+	NEO_SFIX_128K( "360spd.s1", CRC(b86c8ba0) SHA1(cfb8f317c061899343f2c80ea16da131fd50a6e7) )
+
+	NEO_BIOS_AUDIO_128K( "360d.m1", CRC(526cccab) SHA1(f7931f42e6f27c3da1902a552a983ca588e2418b) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "262.v2", 0x400000, 0x400000, CRC(003f1843) SHA1(bdd58837ad542548bd4053c262f558af88e3b989) )
+	ROM_LOAD( "262.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360d.c1", 0x0000000, 0x800000, CRC(29fd9108) SHA1(97e0c01692bffddf5c157c6a9e56573861029335) )
+	ROM_LOAD16_BYTE( "360d.c2", 0x0000001, 0x800000, CRC(f58d4d3e) SHA1(d4276d4c9424fad2966cb3d49ac8f330b12ef7b6) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360dpds01.c7", 0x3000000, 0x800000, CRC(cae49990) SHA1(31d2397bbeba9010761e66ba4e61b34025affd2c) )
+	ROM_LOAD16_BYTE( "360dpds01.c8", 0x3000001, 0x800000, CRC(bf12b970) SHA1(c100308df01ee263cfa219376f81eec073a54ba3) )
+ROM_END
+
+ROM_START( ct2k3spds02 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "360spd.p1", 0x000000, 0x100000, CRC(013a509d) SHA1(c61c9b777e6e062b5f4ad87cdb78e9ca05e9bfb9) )
+	ROM_LOAD16_WORD_SWAP( "360d.p2", 0x100000, 0x400000, CRC(eba65bda) SHA1(e66755cb11e8b16f1af68c1439dd0ec485573c10) )
+
+	NEO_SFIX_128K( "360spd.s1", CRC(b86c8ba0) SHA1(cfb8f317c061899343f2c80ea16da131fd50a6e7) )
+
+	NEO_BIOS_AUDIO_128K( "360d.m1", CRC(526cccab) SHA1(f7931f42e6f27c3da1902a552a983ca588e2418b) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "262.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "262.v2", 0x400000, 0x400000, CRC(003f1843) SHA1(bdd58837ad542548bd4053c262f558af88e3b989) )
+	ROM_LOAD( "262.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262.v4", 0xc00000, 0x400000, CRC(26ec4dd9) SHA1(8bd68d95a2d913be41a51f51e48dbe3bff5924fb) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "360d.c1", 0x0000000, 0x800000, CRC(29fd9108) SHA1(97e0c01692bffddf5c157c6a9e56573861029335) )
+	ROM_LOAD16_BYTE( "360d.c2", 0x0000001, 0x800000, CRC(f58d4d3e) SHA1(d4276d4c9424fad2966cb3d49ac8f330b12ef7b6) )
+	ROM_LOAD16_BYTE( "360d.c3", 0x1000000, 0x800000, CRC(71b3172d) SHA1(1b742b63e726f537df437df36b1bce35568c092a) )
+	ROM_LOAD16_BYTE( "360d.c4", 0x1000001, 0x800000, CRC(564c70c1) SHA1(c67977f5be5a1cc9fbce4450a844967c019142c0) )
+	ROM_LOAD16_BYTE( "360d.c5", 0x2000000, 0x800000, CRC(8ef8aef9) SHA1(ef464293c4fd720d6f59d243af9b064bc680c9f9) )
+	ROM_LOAD16_BYTE( "360d.c6", 0x2000001, 0x800000, CRC(8a0fd440) SHA1(74428817d08d331a0bdd4a749ea578dff982f028) )
+	ROM_LOAD16_BYTE( "360dpds02.c7", 0x3000000, 0x800000, CRC(6e57ae32) SHA1(87e213e6979a653ec8bce64ea1fb79bf5bfe66b3) )
+	ROM_LOAD16_BYTE( "360dpds02.c8", 0x3000001, 0x800000, CRC(2a6489e3) SHA1(c7c813161f3089a9bb334c7d2f19a6f6419228df) )
 ROM_END
 
  /*****************
@@ -6127,6 +6231,7 @@ HACK( 200?, cthd2k3ds09,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 200?, cthd2k3ds10,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "zhangshee",    "Crouching Tiger Hidden Dragon 2003 (Icy blue style)(The King of Fighters 2001 bootleg / set 1 fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, cthd2k3ds11,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Flycboy[EGCG]",    "Crouching Tiger Hidden Dragon 2003 (Some Team Color change v4)(The King of Fighters 2001 bootleg / set 1 fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, cthd2k3ds12,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "ayane",    "Crouching Tiger Hidden Dragon 2003 (Blood Version)(The King of Fighters 2001 bootleg / set 1 fully decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, cthd2k3ds13,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg / set 1 fully decrypted)(Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, cthd2k3as01,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2k3a,  ROT0, "Eddids[FGCH]",    "Crouching Tiger Hidden Dragon 2003 (Unlimited Credits in Console Mode)(The King of Fighters 2001 bootleg, set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ct2k3ads01,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Hunter X Hacker",    "Crouching Tiger Hidden Dragon 2003 (Hidden Characters Boss V1)(The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ct2k3ads02,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Creamymami[EGCG]",    "Crouching Tiger Hidden Dragon 2003 (Hidden Characters Boss V2)(The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
@@ -6140,6 +6245,9 @@ HACK( 200?, ct2k3ads09,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 200?, ct2k3ads10,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "zhaolu94",    "Crouching Tiger Hidden Dragon 2003 (Color Fix Form Kof2001)(The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ct2k3ads11,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Flycboy[EGCG]",    "Crouching Tiger Hidden Dragon 2003 (Some Team Color Change v4)(The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ct2k3ads12,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Eddids[FGCH]",    "Crouching Tiger Hidden Dragon 2003 (Unlimited Credits in Console Mode)(The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ct2k3ads13,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Eddids[FGCH]",    "Crouching Tiger Hidden Dragon 2003 (Alt)(The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ct2k3spds01,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 Super Plus (Alt)(The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ct2k3spds02,    cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 Super Plus (Alt)(?)(The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
  // King of Gladiator
 HACK( 200?, kogs01,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "zxbdragon&ryu",    "King of Gladiator (Out Of Order Timing)(Fix v1)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kogs02,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "zxbdragon&ryu",    "King of Gladiator (Pneumatic Accumulation Mode)(Fix v2)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )

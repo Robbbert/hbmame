@@ -964,9 +964,8 @@ ROM_END
 ROM_START( kof94s20 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "055s20.p1", 0x100000, 0x100000, CRC(e4fd7f42) SHA1(c8133e22da0310cd01e7983cfab6558c8bbc707c) )
-	ROM_CONTINUE( 0x000000, 0x100000 )
-	ROM_IGNORE( 0x254F64 )
-
+	ROM_CONTINUE( 0x000000, 0x354F64 )
+	
 	NEO_SFIX_128K( "055s20.s1", CRC(29f073b7) SHA1(680aba3844eb9ae95079a5a00f5451e917fb9ec1) )
 
 	NEO_BIOS_AUDIO_128K( "055.m1", CRC(f6e77cf5) SHA1(292a3e3a4918ffe72bd1c41acb927b91844e035e) )
@@ -1067,12 +1066,12 @@ ROM_END
 HACK( 200?, kof94s01,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Power Maxs)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s02,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Color Fix)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s03,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Syberjun",    "Kof'94 (Korean Translation)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof94s04,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Kof'94 (Enhanced Power)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof94s04,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'94 (Enhanced Power)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s05,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Fix Boss's Error)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof94s06,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Kof'94 (Unlimit Special Moves)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof94s06,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'94 (Unlimit Special Moves)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s07,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yumeji",    "Kof'94 (Enable Hidden Characters V2)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s08,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "tcwlee[EGCG]",    "Kof'94 (Color Change)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof94s09,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Kof'94 (Unlimited Credits In Console Mode)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof94s09,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'94 (Unlimited Credits In Console Mode)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s10,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Lichenzhao",    "Kof'94 (Super Kill Unified)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s11,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Move Simplified)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s12,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (Boss Remix)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
