@@ -4980,12 +4980,6 @@ ROM_START( samsh5spnds07 )
 	ROM_LOAD16_BYTE( "272d.c8", 0x3000001, 0x800000, CRC(cfde7aff) SHA1(25185F471DD35E5D388B75B83D8652085CD5E17D) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Samurai Shodown
 HACK( 200?, samshos01,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown (Max Power)(NGM-045)", MACHINE_SUPPORTS_SAVE )
@@ -4999,12 +4993,12 @@ HACK( 200?, samsho2s02,     samsho2,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, samsho2s03,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown II (Move Input Simplified V3)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2s04,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Yashional",    "Samurai Shodown II (Special Boss)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2s05,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "IsmaMj",    "Samurai Shodown II (Xtreme Plus 2011)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho2s06,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "tcwlee[EGCG]",    "Samurai Shodown II (Color Change)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho2s06,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "tcwlee[EGCG]",    "Samurai Shodown II (Color Change)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2s07,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "dokx4869",    "Samurai Shodown II (Move Modeasy Special Attacks Alt V1)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2s08,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "dokx4869",    "Samurai Shodown II (Move Modeasy Special Attacks Alt V2)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho2s09,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown II (Description Of Hack Unknown)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho2s10,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Samurai Shodown II (Demosaic Patch For Kuroko v1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho2s11,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Samurai Shodown II (Demosaic Patch For Kuroko v2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho2s09,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown II (Description Of Hack Unknown)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho2s10,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Samurai Shodown II (Demosaic Patch For Kuroko v1)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho2s11,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Samurai Shodown II (Demosaic Patch For Kuroko v2)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2ks01,    samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Saulabi Spirits (Demosaic Patch For Kuroko v1)(Korean release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2ks02,    samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Saulabi Spirits (Demosaic Patch For Kuroko v2)(Korean release)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown III
