@@ -964,8 +964,9 @@ ROM_END
 ROM_START( kof94s20 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "055s20.p1", 0x100000, 0x100000, CRC(e4fd7f42) SHA1(c8133e22da0310cd01e7983cfab6558c8bbc707c) )
-	ROM_CONTINUE( 0x000000, 0x354F64 )
-	
+	ROM_CONTINUE( 0x000000, 0x100000 )
+	ROM_IGNORE( 0x254F64 )
+
 	NEO_SFIX_128K( "055s20.s1", CRC(29f073b7) SHA1(680aba3844eb9ae95079a5a00f5451e917fb9ec1) )
 
 	NEO_BIOS_AUDIO_128K( "055.m1", CRC(f6e77cf5) SHA1(292a3e3a4918ffe72bd1c41acb927b91844e035e) )
@@ -1082,7 +1083,7 @@ HACK( 2018, kof94s16,       kof94,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, kof94s17,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (Brazilian Edition Remix)(V3)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s18,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (New Remix 2018)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s19,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (New Remix 2018)(Alt)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (Rebout)(NGM-055)(NGH-055)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (Rebout)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Proyecto Kof (Master Stiller)",    "Kof'94 (Xtreme Black v0.8)(Alt)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Color Maximum Font Change)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s23,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "oak2003",    "Kof'94 (Transparent Energy Bar)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
