@@ -214,13 +214,13 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-HACK( 200?, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (Hack)(Ver 2.1J 1996/09/05)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (Hack)(Ver 2.5O 1994/09/19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Ver 2.3C 1995/09/21)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (World Hack)(Ver 2.3O 1995/09/21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation To China)(Ver 2.3J 1995/09/21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (Hack)(Ver 2.01J 1998/06/01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2X (Hack)(Ver 2.3O 1995/07/31)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame (c) gaston90 used with permission

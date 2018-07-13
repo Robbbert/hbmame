@@ -29,4 +29,4 @@ ROM_END
 
 
 
-HACK( 1992, fstarfrcc, fstarfrc, fstarfrc, fstarfrc, tecmo16_state, 0, ROT90, "Tecmo", "Final Star Force (Chinese)", 0 )
+HACK( 200?, fstarfrcc, fstarfrc, fstarfrc, fstarfrc, tecmo16_state, 0, ROT90, "Tecmo", "Final Star Force (Translation Chinese)(US)", 0 )

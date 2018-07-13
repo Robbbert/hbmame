@@ -214,10 +214,10 @@ ROM_START( outrunen2 )
 	ROM_RELOAD( 0x58000, 0x08000 )
 ROM_END
 
-GAMEL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.3", 0, layout_outrun )
-GAMEL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.2", 0, layout_outrun )
-GAMEL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.1", 0, layout_outrun )
-GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run Enhanced Edition v1.0.0", 0, layout_outrun )
+GAMEL(2012, outrunen,  outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run (Enhanced Edition v1.0.3)(sitdown/upright, Rev B)", 0, layout_outrun )
+GAMEL(2012, outrunen2, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run (Enhanced Edition v1.0.2)(sitdown/upright, Rev B)", 0, layout_outrun )
+GAMEL(2012, outrunen1, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run (Enhanced Edition v1.0.1)(sitdown/upright, Rev B)", 0, layout_outrun )
+GAMEL(2012, outrunen0, outrun, outrun, outrun, segaorun_state, init_outrun, ROT0, "Chris White and Darren Finck", "Out Run (Enhanced Edition v1.0.0)(sitdown/upright, Rev B)", 0, layout_outrun )
 
 
 /***************************** OUTRUNM *********************************************/

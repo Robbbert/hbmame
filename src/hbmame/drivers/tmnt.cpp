@@ -30,15 +30,18 @@ ROM_END
 
 
 //    YEAR, NAME,        PARENT,   MACHINE,  INPUT,     INIT,          MONITOR,COMPANY,FULLNAME,FLAGS
-HACK( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, 0, ROT0,   "Pipi899","Sunset Riders (2 Players ver ABD EX Super Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, 0, ROT0,   "Pipi899","Sunset Riders (EX Super Version)(2009-07-28)(2 Players ver ABD)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame
+// PSmame (c) gaston90 used with permission
 
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
 
-  /****************************************
-             Sunset Riders
-*****************************************/
+ /*************
+ Sunset Riders
+****************/
 
 ROM_START( ssridersudas01 )
 	ROM_REGION( 0xc0000, "maincpu", 0 )
@@ -61,13 +64,88 @@ ROM_START( ssridersudas01 )
 	ROM_REGION( 0x100000, "k053260", 0 )
 	ROM_LOAD( "064e06.1d",    0x0000, 0x100000, CRC(59810df9) SHA1(a0affc6330bdbfab1447dc0cf13c20ff708c2c71) )
 
-	ROM_REGION( 0x80, "eeprom", 0 ) // default eeprom to prevent game booting upside down with error
+	ROM_REGION( 0x80, "eeprom", 0 ) 
 	ROM_LOAD( "ssriders_uda.nv", 0x0000, 0x080, CRC(148c6d64) SHA1(38016ba7e29f821a4c0de67a7ddc686d307e4659) )
 ROM_END
 
-  /****************************************
-       Teenage Mutant Ninja Turtles
-*****************************************/
+ROM_START( ssridersebcs01 )
+	ROM_REGION( 0xc0000, "maincpu", 0 ) 
+	ROM_LOAD16_BYTE( "064ebc02s01.8e",  0x000000, 0x40000, CRC(b98e9dd6) SHA1(d278c91449a36d758d0456b32f3ce1b4dee43278) )
+	ROM_LOAD16_BYTE( "064ebc03s01.8g",  0x000001, 0x40000, CRC(a6566ab1) SHA1(9e170117e7865767492a00ca693e99bdabd3082f) )
+	ROM_LOAD16_BYTE( "064eab04.10e", 0x080000, 0x20000, CRC(ef2315bd) SHA1(2c8b11321cb5fdb78d760fabca666c0d8cc5b298) )
+	ROM_LOAD16_BYTE( "064eab05.10g", 0x080001, 0x20000, CRC(51d6fbc4) SHA1(e80de7d155b7f263c48ef4ae2702059be3c18e76) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "064e01.2f",   0x0000, 0x10000, CRC(44b9bc52) SHA1(4654d6e14c6956c40a19cb41155accb63f0da338) )
+
+	ROM_REGION( 0x100000, "k052109", 0 )    
+	ROM_LOAD32_WORD( "064e12.16k",   0x000000, 0x080000, CRC(e2bdc619) SHA1(04449deb267b0beacfa33640b593eb16194aa0d9) )
+	ROM_LOAD32_WORD( "064e11.12k",   0x000002, 0x080000, CRC(2d8ca8b0) SHA1(7c882f79c2402cf75979c681071007d76e4db9ae) )
+
+	ROM_REGION( 0x200000, "k053245", 0 )
+	ROM_LOAD32_WORD( "064e09.7l", 0x000000, 0x100000, CRC(4160c372) SHA1(0b36181e5ccd785c7fb89b9f41e458066a42c3b0) )
+	ROM_LOAD32_WORD( "064e07.3l", 0x000002, 0x100000, CRC(64dd673c) SHA1(bea4d17a71dd21c635866ee69b4892dc9d0ab455) )
+
+	ROM_REGION( 0x100000, "k053260", 0 ) 
+	ROM_LOAD( "064e06.1d",    0x0000, 0x100000, CRC(59810df9) SHA1(a0affc6330bdbfab1447dc0cf13c20ff708c2c71) )
+
+	ROM_REGION( 0x80, "eeprom", 0 ) 
+	ROM_LOAD( "ssriders_ebc.nv", 0x0000, 0x080, CRC(1918e90f) SHA1(edddbe80a5c9dd64411596b1aa4d7fce7b7090ae) )
+ROM_END
+
+ROM_START( ssridersjbds01 )
+	ROM_REGION( 0xc0000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "064jbd02s01.8e",  0x000000, 0x40000, CRC(58948d51) SHA1(ed545ef520d64740ba8ff2b11913de4e6e525b69) )
+	ROM_LOAD16_BYTE( "064jbd03s01.8g",  0x000001, 0x40000, CRC(8ce962cc) SHA1(24f77291d35fc09e11658d3c6cde77833b71dbdf) )
+	ROM_LOAD16_BYTE( "064eab04.10e", 0x080000, 0x20000, CRC(ef2315bd) SHA1(2c8b11321cb5fdb78d760fabca666c0d8cc5b298) )
+	ROM_LOAD16_BYTE( "064eab05.10g", 0x080001, 0x20000, CRC(51d6fbc4) SHA1(e80de7d155b7f263c48ef4ae2702059be3c18e76) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "064e01.2f",   0x0000, 0x10000, CRC(44b9bc52) SHA1(4654d6e14c6956c40a19cb41155accb63f0da338) )
+
+	ROM_REGION( 0x100000, "k052109", 0 ) 
+	ROM_LOAD32_WORD( "064e12.16k",   0x000000, 0x080000, CRC(e2bdc619) SHA1(04449deb267b0beacfa33640b593eb16194aa0d9) )
+	ROM_LOAD32_WORD( "064e11.12k",   0x000002, 0x080000, CRC(2d8ca8b0) SHA1(7c882f79c2402cf75979c681071007d76e4db9ae) )
+
+	ROM_REGION( 0x200000, "k053245", 0 ) 
+	ROM_LOAD32_WORD( "064e09.7l", 0x000000, 0x100000, CRC(4160c372) SHA1(0b36181e5ccd785c7fb89b9f41e458066a42c3b0) )
+	ROM_LOAD32_WORD( "064e07.3l", 0x000002, 0x100000, CRC(64dd673c) SHA1(bea4d17a71dd21c635866ee69b4892dc9d0ab455) )
+
+	ROM_REGION( 0x100000, "k053260", 0 )  
+	ROM_LOAD( "064e06.1d",    0x0000, 0x100000, CRC(59810df9) SHA1(a0affc6330bdbfab1447dc0cf13c20ff708c2c71) )
+
+	ROM_REGION( 0x80, "eeprom", 0 ) 
+	ROM_LOAD( "ssriders_jbd.nv", 0x0000, 0x080, CRC(006200e3) SHA1(a6a0640c1a6d69a41db90f1fc935e97f2fa68553) )
+ROM_END
+
+ROM_START( ssridersubcs01 )
+	ROM_REGION( 0xc0000, "maincpu", 0 ) 
+	ROM_LOAD16_BYTE( "064ubc02s01.8e",  0x000000, 0x40000, CRC(8efeb117) SHA1(ab43b1d37bc758b74f8de6dc3a95d1e70b52efe2) )
+	ROM_LOAD16_BYTE( "064ubc03s01.8g",  0x000001, 0x40000, CRC(5db4f52b) SHA1(5a1355f04f78c92405d650033707e7536340767b) )
+	ROM_LOAD16_BYTE( "064eab04.10e", 0x080000, 0x20000, CRC(ef2315bd) SHA1(2c8b11321cb5fdb78d760fabca666c0d8cc5b298) )
+	ROM_LOAD16_BYTE( "064eab05.10g", 0x080001, 0x20000, CRC(51d6fbc4) SHA1(e80de7d155b7f263c48ef4ae2702059be3c18e76) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "064e01.2f",   0x0000, 0x10000, CRC(44b9bc52) SHA1(4654d6e14c6956c40a19cb41155accb63f0da338) )
+
+	ROM_REGION( 0x100000, "k052109", 0 )   
+	ROM_LOAD32_WORD( "064e12.16k",   0x000000, 0x080000, CRC(e2bdc619) SHA1(04449deb267b0beacfa33640b593eb16194aa0d9) )
+	ROM_LOAD32_WORD( "064e11.12k",   0x000002, 0x080000, CRC(2d8ca8b0) SHA1(7c882f79c2402cf75979c681071007d76e4db9ae) )
+
+	ROM_REGION( 0x200000, "k053245", 0 )  
+	ROM_LOAD32_WORD( "064e09.7l", 0x000000, 0x100000, CRC(4160c372) SHA1(0b36181e5ccd785c7fb89b9f41e458066a42c3b0) )
+	ROM_LOAD32_WORD( "064e07.3l", 0x000002, 0x100000, CRC(64dd673c) SHA1(bea4d17a71dd21c635866ee69b4892dc9d0ab455) )
+
+	ROM_REGION( 0x100000, "k053260", 0 )   
+	ROM_LOAD( "064e06.1d",    0x0000, 0x100000, CRC(59810df9) SHA1(a0affc6330bdbfab1447dc0cf13c20ff708c2c71) )
+
+	ROM_REGION( 0x80, "eeprom", 0 )
+	ROM_LOAD( "ssriders_ubc.nv", 0x0000, 0x080, CRC(31c5504f) SHA1(fa6ed1860122552e94abb27a6ea75f4cb8054e76) )
+ROM_END
+
+ /****************************
+ Teenage Mutant Ninja Turtles
+*******************************/
 
 ROM_START( tmnt2s01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -92,7 +170,7 @@ ROM_START( tmnt2s01 )
 	ROM_REGION( 0x200000, "k053260", 0 )
 	ROM_LOAD( "063b06.1d",  0x0000, 0x200000, CRC(1e510aa5) SHA1(02b9bd6bb6b098026a620e4d671c40a31ad9e318) )
 
-	ROM_REGION( 0x80, "eeprom", 0 ) // default eeprom to prevent game booting upside down with error
+	ROM_REGION( 0x80, "eeprom", 0 )
 	ROM_LOAD( "tmnt2_ada.nv", 0x0000, 0x080, CRC(063068a0) SHA1(c1da5319428fd8fb60305a2d7cc166596b2fe5a4) )
 ROM_END
 
@@ -119,7 +197,7 @@ ROM_START( tmnt2s02 )
 	ROM_REGION( 0x200000, "k053260", 0 )
 	ROM_LOAD( "063b06.1d",  0x0000, 0x200000, CRC(1e510aa5) SHA1(02b9bd6bb6b098026a620e4d671c40a31ad9e318) )
 
-	ROM_REGION( 0x80, "eeprom", 0 ) // default eeprom to prevent game booting upside down with error
+	ROM_REGION( 0x80, "eeprom", 0 )
 	ROM_LOAD( "tmnt2_ada.nv", 0x0000, 0x080, CRC(063068a0) SHA1(c1da5319428fd8fb60305a2d7cc166596b2fe5a4) )
 ROM_END
 
@@ -142,27 +220,23 @@ ROM_START( tmnt2as01 )
 	ROM_LOAD32_WORD( "063b07.3l", 0x000002, 0x100000, CRC(d9bee7bf) SHA1(7bbb65138fbd216b80412783e6f0072742101440) )
 	ROM_LOAD32_WORD( "063b10.7k", 0x200000, 0x080000, CRC(f2dd296e) SHA1(a2aad10bfb0904dd73c2ee11049648c94de7f4d5) )
 	ROM_LOAD32_WORD( "063b08.3k", 0x200002, 0x080000, CRC(3b1ae36f) SHA1(9e69cae8b517497ac77c4d148f56f2bb6a23de89) )
-	/* second half empty */
 
 	ROM_REGION( 0x200000, "k053260", 0 )
 	ROM_LOAD( "063b06.1d",  0x0000, 0x200000, CRC(1e510aa5) SHA1(02b9bd6bb6b098026a620e4d671c40a31ad9e318) )
 
-	ROM_REGION( 0x80, "eeprom", 0 ) // default eeprom to prevent game booting upside down with error
+	ROM_REGION( 0x80, "eeprom", 0 )
 	ROM_LOAD( "tmnt2_ada.nv", 0x0000, 0x080, CRC(063068a0) SHA1(c1da5319428fd8fb60305a2d7cc166596b2fe5a4) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Sunset Riders
-HACK( 1991, ssridersudas01, ssriders, ssriders, ssrid4ps,  tmnt_state, 0,        ROT0,   "Hacks",  "Sunset Riders (4 Players ver EAC)(Ex Super version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersudas01, ssriders, ssriders, ssrid4ps,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(4 Players ver EAC)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersebcs01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(2 Players ver EBC)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersjbds01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(2 Players ver JBD)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersubcs01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(2 Players ver UBC)", MACHINE_SUPPORTS_SAVE )
 // Teenage Mutant Ninja Turtles
-HACK( 1991, tmnt2s01,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Hacks",  "Teenage Mutant Ninja Turtles - Turtles in Time (4 Players ver ADA)(Ex Super version)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, tmnt2s02,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Hacks",  "Teenage Mutant Ninja Turtles - Turtles in Time (4 Players ver ADA)(Start Change Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, tmnt2as01,     tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Hacks",  "Teenage Mutant Ninja Turtles - Turtles in Time (4 Players ver ADA)(Cowabunga Mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tmnt2s01,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Ex Super version)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tmnt2s02,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Start Change Char)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tmnt2as01,     tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Cowabunga Mode)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
 
 

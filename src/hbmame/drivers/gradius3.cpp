@@ -2,9 +2,15 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/gradius3.cpp"
 
-/****************************************
-                Gradius III
-*****************************************/
+// PSmame (c) gaston90 used with permission
+
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
+
+ /***********
+ Gradius III
+**************/
 
 ROM_START( gradius3s01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
@@ -45,12 +51,6 @@ ROM_START( gradius3s01 )
 	ROM_LOAD( "945_l11b.c20", 0x60000, 0x20000, CRC(89ea3baf) SHA1(8edcbaa7969185cfac48c02559826d1b8b081f3f) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gradius III
-HACK( 1989, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, 0, ROT0, "Konami", "Gradius III (Japan, Secret fighters)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, 0, ROT0, "yumeji1768", "Gradius III (Secret fighters)(Japan, program code S)", MACHINE_SUPPORTS_SAVE )

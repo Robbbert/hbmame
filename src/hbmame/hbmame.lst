@@ -8438,6 +8438,7 @@ powernbr
 powerns01
 powerns02
 powerinss01
+powerinss02
 powerinsas01
 powerinsas02
 powerinsbs01
@@ -8687,6 +8688,9 @@ timepltdiag
 ssriders	//parent
 ssridersaex
 ssridersudas01
+ssridersebcs01
+ssridersjbds01
+ssridersubcs01
 tmnt2					//parent
 tmnt2s01
 tmnt2s02
@@ -8706,7 +8710,7 @@ batsugunt
 bgaregga	//parent
 bgareggz
 snowbro2		//parent
-mahoudais01				// bad gfx on title
+mahoudais01
 shippumds01				// bad gfx on title
 snowbro2s01
 snowbro2s02

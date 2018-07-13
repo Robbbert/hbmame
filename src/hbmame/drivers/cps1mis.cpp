@@ -5900,7 +5900,7 @@ HACK( 2017, dinosf2,     dino,     wofsf2,     dino,     cps_state, dinohunt, RO
 HACK( 200?, dinoslice,   dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (Hack set 4)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dinouphp,    dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Lock Triple Mode)(2009-1-15)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, dinoz,       dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0,   "Unknown", "Cadillacs and Dinosaurs Z (Boss Hack)(World 930201)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Whirlwind (Piracy)", "Final Fight (Boss Hack dumped, modified by MPT)(World, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Whirlwind (Piracy)", "Final Fight (Boss Hack dumped)(World, set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, ffightjh01,  ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Kofzec", "Final Fight (Super Plus)(World, set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, knight21,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1)(2011.07.12)(Japan, debug bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, knightsa,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "LB70", "Knights of the Round (Angry Update)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

@@ -2,12 +2,17 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/psikyo.cpp"
 
-/**************************************************
-   Sengoku Blade: Sengoku Ace Episode II / Tengai 
-***************************************************/
+// PSmame (c) gaston90 used with permission
+
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
+
+/**************
+ Sengoku Blade
+****************/
 
 ROM_START( tengais01 )
-
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD32_WORD_SWAP( "5-u40hc01.bin", 0x000000, 0x080000, CRC(aae15ef1) SHA1(e5d056eb0ef26a697544cbeacb5f993217fdbd0a) )
 	ROM_LOAD32_WORD_SWAP( "4-u41hc01.bin", 0x000002, 0x080000, CRC(e8863874) SHA1(f6ac25170516658c368fb86b2b653e3356b42f19) )
@@ -32,11 +37,9 @@ ROM_START( tengais01 )
 
 	ROM_REGION( 0x040000, "spritelut", 0 )
 	ROM_LOAD( "u1.bin",  0x000000, 0x040000, CRC(681d7d55) SHA1(b0b28471440d747adbc4d22d1918f89f6ede1615) )
-
 ROM_END
 
 ROM_START( tengaijs01 )
-
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD32_WORD_SWAP( "2-u40hc01.bin", 0x000000, 0x080000, CRC(eed548eb) SHA1(afe46cd87d75e94c5f22cc4304d5e4ba4ac501e8) )
 	ROM_LOAD32_WORD_SWAP( "3-u41hc01.bin", 0x000002, 0x080000, CRC(d6b62117) SHA1(9e4b457794b3d43e3133667d574c490c3e037a97) )
@@ -61,16 +64,9 @@ ROM_START( tengaijs01 )
 
 	ROM_REGION( 0x040000, "spritelut", 0 )
 	ROM_LOAD( "u1.bin",  0x000000, 0x040000, CRC(681d7d55) SHA1(b0b28471440d747adbc4d22d1918f89f6ede1615) )
-
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// 1943 Kai: Midway Kaisen
-HACK( 1996, tengais01,    tengai,   s1945,    tengai,   psikyo_state, tengai,   ROT0,   "Hacks",  "Tengai (Ex Super version)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, tengaijs01,   tengai,   s1945,    tengaij,  psikyo_state, tengai,   ROT0,   "Hacks",  "Sengoku Blade: Sengoku Ace Episode II / Tengai (Ex Super version)", MACHINE_SUPPORTS_SAVE ) 
+// Tengai
+HACK( 2009, tengais01,    tengai,   s1945,    tengai,   psikyo_state, tengai,   ROT0,   "pipi899",  "Tengai (Ex Super version)(2009-10-31)(World)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tengaijs01,   tengai,   s1945,    tengaij,  psikyo_state, tengai,   ROT0,   "pipi899",  "Sengoku Blade: Sengoku Ace Episode II (Ex Super version)(2009-10-31)", MACHINE_SUPPORTS_SAVE ) 

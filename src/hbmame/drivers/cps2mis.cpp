@@ -5326,9 +5326,9 @@ HACK( 2008, mvscjs01,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2008, mvscjs02,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom Clash of Super Heroes (Move The Order To Modify V2)(2008-07-15)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mvsh01,     mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "0 DAY-S[EGCG]", "Marvel Vs. Capcom (Enable Hi-Speed Venom, Orange Hulk, Gold War Machine, Roll, Shadow Lady, Lilith Morrigan, Onslaught)(Euro 980123)", MACHINE_SUPPORTS_SAVE )
 // Pocket Fighter
-HACK( 200?, pfghtjs01,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "Unknown", "Pocket Fighter (Command Change)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pfghtjs02,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "Unknown", "Pocket Fighter (Enhanced Power)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pfghtjs03,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "Unknown", "Pocket Fighter (Move Mod)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, pfghtjs01,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Command Change)(2008-01-12)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, pfghtjs02,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Enhanced Power)(2008-07-28)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pfghtjs03,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Move Mod)(11-10-2007)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
 // Progear No Arashi
 HACK( 200?, progearjds01, progear,  dead_cps2,cps2_2p3b, cps2_state, cps2,  ROT0, "lb70", "Progear no Arashi (Crazy Fire Version)(bootleg)(Japan 010117 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, progearjds02, progear,  dead_cps2,cps2_2p3b, cps2_state, cps2,  ROT0, "lb70", "Progear no Arashi (Crazy Fire Version V2)(bootleg)(Japan 010117 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
