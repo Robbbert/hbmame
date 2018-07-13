@@ -214,18 +214,24 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-HACK( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "hack",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "hack",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (World Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "hack",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Ver 2.3C 1995/09/21)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "hack",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Ver 2.3C 1995/09/21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (World Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2X (World Hack)", MACHINE_SUPPORTS_SAVE )
 
 
-  /****************************************
-          Cleopatra Fortune
-*****************************************/
+//PSmame (c) gaston90 used with permission
+
+/********************************************
+    Proyecto Shadows Mame Build Plus
+**********************************************/
+
+ /*****************
+ Cleopatra Fortune
+********************/
 
 ROM_START( cleopatrs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -253,9 +259,9 @@ ROM_START( cleopatrs01 )
 	ROM_LOAD16_BYTE("e28-03.bin", 0x000000, 0x200000, CRC(15c7989d) SHA1(7cc63d93e5c1f9f52f889e973bbefd5e6f7ce807) )
 ROM_END
 
-  /****************************************
-                Akkanbeder
-*****************************************/
+ /**********
+ Akkanbeder
+*************/
 
 ROM_START( akkanvdrs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -285,9 +291,9 @@ ROM_START( akkanvdrs01 )
 	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )
 ROM_END
 
-  /****************************************
-                Akkanbeder
-*****************************************/
+ /**********
+ Akkanbeder
+*************/
 
 ROM_START( arabianmjs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -328,9 +334,9 @@ ROM_START( arabianmjs01 )
 	ROM_LOAD( "pal20l8b.70",     0x1000, 0x0144, CRC(92b5b97c) SHA1(653ab0467f71d93eceb8143b124cdedaf1ede750) )
 ROM_END
 
-  /****************************************
-              Bubble Symphony
-*****************************************/
+ /***************
+ Bubble Symphony
+******************/
 
 ROM_START( bubsymphjs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -367,9 +373,9 @@ ROM_START( bubsymphjs01 )
 	ROM_LOAD( "palce16v8q-d77-14.bin", 0x0800, 0x0117, CRC(7427e777) SHA1(e692cedb13e5bc02edc4b25e9dcea51e6715de85) )
 ROM_END
 
-  /****************************************
-              Dan-Ku-Ga
-*****************************************/
+ /*********
+ Dan-Ku-Ga
+************/
 
 ROM_START( dankugas01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -453,9 +459,9 @@ ROM_START( dankugas02 )
 	ROM_LOAD16_BYTE("d84-15.rom", 0xe00000, 0x100000, CRC(31ceb152) SHA1(d9d0bc631a6a726376f566a49605b50485ac7bf4) )
 ROM_END
 
-  /****************************************
-        Elevator Action Returns
-*****************************************/
+ /***********************
+ Elevator Action Returns
+**************************/
 
 ROM_START( elvactrjs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -485,9 +491,9 @@ ROM_START( elvactrjs01 )
 	ROM_LOAD16_BYTE("e02-05.39", 0x400000, 0x200000, CRC(eb729855) SHA1(85253efe794e8b5ffaf16bcb1123bca831e776a5) )
 ROM_END
 
-  /****************************************
-    Grid Seeker: Project Storm Hammer
-*****************************************/
+ /**********************************
+  Grid Seeker: Project Storm Hammer
+*************************************/
 
 ROM_START( gseekerjs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -519,9 +525,9 @@ ROM_START( gseekerjs01 )
 	ROM_LOAD16_BYTE("d40_02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )
 ROM_END
 
-  /****************************************
-             Kaiser Knuckle
-*****************************************/
+ /**************
+ Kaiser Knuckle
+*****************/
 
 ROM_START( kaiserkns01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -646,9 +652,9 @@ ROM_START( kaiserknjs02 )
 	ROM_LOAD16_BYTE("d84-15.rom", 0xe00000, 0x100000, CRC(31ceb152) SHA1(d9d0bc631a6a726376f566a49605b50485ac7bf4) )
 ROM_END
 
-  /****************************************
-               Land Maker
-*****************************************/
+ /**********
+ Land Maker
+*************/
 
 ROM_START( landmakrs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -679,9 +685,9 @@ ROM_START( landmakrs01 )
 	ROM_LOAD16_BYTE("e61-06.40", 0xc00000, 0x200000, CRC(2e717bfe) SHA1(1be54cd2ec65d8fd49a5c09b5d27791fd7a320d4) )
 ROM_END
 
-  /****************************************
-            Light Bringer
-*****************************************/
+ /*************
+ Light Bringer
+****************/
 
 ROM_START( lightbrjs01 )
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -714,34 +720,28 @@ ROM_START( lightbrjs01 )
 	ROM_LOAD16_BYTE("d69-02.bin", 0x400000, 0x200000, CRC(dce28dd7) SHA1(eacfc98349b0608fc1a944c11f0483fb6caa4445) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Cleopatra Fortune
-HACK( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Hacks",         "Cleopatra Fortune (Ver 2.1J)(Translation-Chinese)", 0 )
-// Akkanbeder
-HACK( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Hacks",         "Akkanbeder (Ver 2.5J 1995/06/14)(Translation-Chinese)", 0 )
-// Arabian Magic
-HACK( 1992, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Hacks",         "Arabian Magic (Ver 1.0J 1992/07/06)(Translation-Chinese)", 0 )
-// Bubble Symphony
-HACK( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Hacks",         "Bubble Symphony (Ver 2.5J 1994/10/05)(Translation-Chinese)", 0 )
-// Dan-Ku-Ga
-HACK( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Dan-Ku-Ga Plus ++(Ver 0.0J 1994/12/13, prototype)", 0 )
-HACK( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Dan-Ku-Ga (Ver 0.0J 1994/12/13, prototype)(Enable Hidden Characters)", 0 )
-// Elevator Action Returns
-HACK( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Hacks",         "Elevator Action Returns (Ver 2.2J 1995/02/20)(Translation-Chinese)", 0 )
-// Grid Seeker: Project Storm Hammer
-HACK( 1992, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Hacks",         "Grid Seeker: Project Storm Hammer (Ver 1.3J)(Translation-Chinese)", 0 )
-// Kaiser Knuckle
-HACK( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle (Ver 2.1O 1994/07/29)(Enable Hidden Characters)", 0 )
-HACK( 1994, kaiserknjs01,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle Plus ++ (Ver 2.1J 1994/07/29)", 0 )
-HACK( 1994, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Hacks",         "Kaiser Knuckle (Ver 2.1J 1994/07/29)(Enable Hidden Characters)", 0 )
-// Land Maker
-HACK( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Hacks",         "Land Maker (Ver 2.01J 1998/06/01)(Translation-Chinese)", 0 )
-// Light Bringer
-HACK( 1993, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Hacks",         "Light Bringer (Ver 2.1J 1994/02/18)(Translation-Chinese)", 0 )
+ // Cleopatra Fortune
+HACK( 200?, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",         "Cleopatra Fortune (Translation Chinese)(Ver 2.1J)", 0 )
+ // Akkanbeder
+HACK( 200?, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Unknown",         "Akkanbeder (Translation Chinese)(Ver 2.5J 1995/06/14)", 0 )
+ // Arabian Magic
+HACK( 200?, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese)(Ver 1.0J 1992/07/06)", 0 )
+ // Bubble Symphony
+HACK( 200?, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Unknown",         "Bubble Symphony (Translation Chinese)(Ver 2.5J 1994/10/05)", 0 )
+ // Dan-Ku-Ga
+HACK( 200?, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Dan-Ku-Ga Plus (Ver 0.0J 1994/12/13, prototype)", 0 )
+HACK( 200?, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Dan-Ku-Ga (Enable Hidden Characters)(Ver 0.0J 1994/12/13, prototype)", 0 )
+ // Elevator Action Returns
+HACK( 200?, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Unknown",         "Elevator Action Returns (Translation Chinese)(Ver 2.2J 1995/02/20)", 0 )
+ // Grid Seeker: Project Storm Hammer
+HACK( 200?, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Unknown",         "Grid Seeker: Project Storm Hammer (Translation Chinese)(Ver 1.3J)", 0 )
+ // Kaiser Knuckle
+HACK( 200?, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Kaiser Knuckle (Enable Hidden Characters)(Ver 2.1O 1994/07/29)", 0 )
+HACK( 200?, kaiserknjs01,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Kaiser Knuckle Plus (Ver 2.1J 1994/07/29)", 0 )
+HACK( 200?, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Kaiser Knuckle (Enable Hidden Characters)(Ver 2.1J 1994/07/29)", 0 )
+ // Land Maker
+HACK( 200?, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",         "Land Maker (Translation Chinese)(Ver 2.01J 1998/06/01)", 0 )
+ // Light Bringer
+HACK( 200?, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese)(Ver 2.1J 1994/02/18)", 0 )
 

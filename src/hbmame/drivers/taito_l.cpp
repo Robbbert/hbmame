@@ -86,12 +86,15 @@ HACK( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state,  0, R
 HACK( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
 
 
-//PSmame
+// PSmame (c) gaston90 used with permission
 
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
 
-  /****************************************
-              Evil Stone
-*****************************************/
+ /***********
+  Evil Stone
+**************/
 
 ROM_START( evilstons01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
@@ -106,9 +109,9 @@ ROM_START( evilstons01 )
 	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
 ROM_END
 
-  /****************************************
-              Kuri Kinton
-*****************************************/
+ /***********
+ Kuri Kinton
+**************/
 
 ROM_START( kurikintjs01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
@@ -123,9 +126,9 @@ ROM_START( kurikintjs01 )
 	ROM_LOAD( "b42-02hc01.ic5",  0x80000, 0x80000, CRC(cd5fc143) SHA1(5a5a6e674a47786ed9c843cefacf307429df9933) )
 ROM_END
 
-  /****************************************
-              Plotting
-*****************************************/
+ /********
+ Plotting
+***********/
 
 ROM_START( plottingas01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -136,20 +139,14 @@ ROM_START( plottingas01 )
 	ROM_LOAD16_BYTE( "b96-03hc01.ic8", 0x00001, 0x10000, CRC(ef56d689) SHA1(16391444b2e50accfd81e5bf35bf2b5f74e3d138) )
 
 	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )  /* derived, but verified  Pal Stamped B86-04 */
+	ROM_LOAD( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) ) 
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Evil Stone
-HACK( 1990, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, 0,         ROT270, "Hacks.", "Evil Stone (Translation French V2)", 0 )
+HACK( 2007, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, 0,         ROT270, "S.Arkames.", "Evil Stone (Translation French V2)(11.28.2007)", 0 )
 // Kuri Kinton
-HACK( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, 0,         ROT0,   "Hacks", "Kuri Kinton (Translation Chinese)", 0 )
+HACK( 200?, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, 0,         ROT0,   "Unknown", "Kuri Kinton (Translation Chinese)(Japan)", 0 )
 // Plotting
-HACK( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, plottinga, ROT0,   "Hacks", "Plotting (World set 2, protected)(Translation Chinese)", 0 )
+HACK( 200?, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, plottinga, ROT0,   "Unknown", "Plotting (Translation Chinese)(World set 2, protected)", 0 )
 

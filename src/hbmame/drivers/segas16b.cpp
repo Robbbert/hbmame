@@ -2,9 +2,9 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/segas16b.cpp"
 
-/*************************************
- *      Altered Beast
- *************************************/
+/**************
+ Altered Beast
+ ***************/
 ROM_START( altbeastfr )
 	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "altbeastfr.a7", 0x000000, 0x20000, CRC(309d3a0a) SHA1(646dcafe7ac2831e241eb0643a06f8c32bdba77a) )
@@ -159,17 +159,12 @@ ROM_START( altbeast5s02 )
 	ROM_LOAD( "317-0078.c2", 0x00000, 0x1000, CRC(8101925f) SHA1(a45d772ebe2fd1a577a6ccac8c6c76bb622258bb) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Altered Beast
-HACK( 1988, altbeastfr, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "Arkatrad", "Altered Beast (French)", 0 )
-HACK( 2018, altbeasts01, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "MamePlus", "Altered Beast (Portugues)", 0 )
-HACK( 2018, altbeasts02, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "MamePlus", "Altered Beast (Español)", 0 )
-GAME( 1988, altbeast5s01, altbeast, system16b_fd1094, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (Español) (FD1094 317-0069)", 0 )
+HACK( 1988, altbeastfr, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "S.Arkames", "Altered Beast (language Translation French)(set 8) (8751 317-0078)", 0 )
+HACK( 2018, altbeasts01, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "MamePlus", "Altered Beast (language Translation Portugues)(set 8) (8751 317-0078)", 0 )
+HACK( 2018, altbeasts02, altbeast, system16b_i8751, altbeast, segas16b_state, generic_5521, ROT0, "MamePlus", "Altered Beast (language Translation Español)(set 8) (8751 317-0078)", 0 )
+GAME( 1988, altbeast5s01, altbeast, system16b_fd1094, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (language Translation Español) (FD1094 317-0069)", 0 )
 
 
 

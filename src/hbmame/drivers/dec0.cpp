@@ -106,16 +106,19 @@ HACK( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, hbarrel, ROT0, "
 HACK( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame
+// PSmame (c) gaston90 used with permission
 
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
 
-  /****************************************
-       Bad Dudes vs. Dragonninja
-*****************************************/
+ /*************************
+ Bad Dudes vs. Dragonninja
+****************************/
 
 ROM_START( baddudes01 )
 	ROM_REGION( 0x60000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "ei04-1.3c", 0x00000, 0x10000, CRC(4bf158a7) SHA1(e034f64cec3e8596a2d86dd83462592178f19611) )
+	ROM_LOAD16_BYTE( "baddudef.4",   0x00000, 0x10000, CRC(1a0667ae) SHA1(a530bfe91aa8b489ef7c1368b81983e760d0d993) )
 	ROM_LOAD16_BYTE( "ei01-1hc01.3a", 0x00001, 0x10000, CRC(16e93f7c) SHA1(cedca7089dd31e30d216716240972b30b3f1c262) )
 	ROM_LOAD16_BYTE( "ei06.6c",   0x40000, 0x10000, CRC(3ff8da57) SHA1(eea8125a3eac33d76d22e72b69633eaae138efe5) )
 	ROM_LOAD16_BYTE( "ei03.6a",   0x40001, 0x10000, CRC(f8f2bd94) SHA1(622c66fea00cabb2cce16bf621b07d38a660708d) )
@@ -156,14 +159,6 @@ ROM_START( baddudes01 )
 	ROM_LOAD( "ei08.2c",   0x0000, 0x10000, CRC(3c87463e) SHA1(f17c98507b562e91e9b27599614b3249fe68ff7a) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bad Dudes vs. Dragonninja
-HACK( 1988, baddudes01,     baddudes,        baddudes, baddudes, dec0_state,  hbarrel, ROT0,   "Hacks",         "Bad Dudes vs. Dragonninja (Translation-French)", MACHINE_SUPPORTS_SAVE )
-
-
+HACK( 1988, baddudes01,     baddudes,        baddudes, baddudes, dec0_state,  hbarrel, ROT0,   "S.Arkames",         "Bad Dudes vs. Dragonninja (Translation French)(10.29.2007)(Us)", MACHINE_SUPPORTS_SAVE )

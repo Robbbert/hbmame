@@ -357,12 +357,15 @@ HACK( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, common, RO
 HACK( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, common, ROT0, "bootleg", "Bubble Bobble (bootleg with 68705)(alt)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame
+// PSmame (c) gaston90 used with permission
 
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
 
 ROM_START( bublbobls01 )
 	ROM_REGION( 0x30000, "maincpu", 0 ) // There's no French text in this set
-	ROM_LOAD( "a78-06-1.51",    0x00000, 0x08000, CRC(567934b6) SHA1(b0c4d49fd551f465d148c25c3e80b278835e2f0d) )
+	ROM_LOAD( "bublbobf-06.51",    0x00000, 0x08000, CRC(9ced3d8f) SHA1(d445f218fca822e7083a9347abd4a4e049b6555b) )
 	ROM_LOAD( "a78-05-1hc01.52",    0x10000, 0x10000, CRC(b8f43b09) SHA1(96abd923e712078c70a452ba51513577cc0bdb08) )
 
 	ROM_REGION( 0x10000, "subcpu", 0 )
@@ -392,13 +395,7 @@ ROM_START( bublbobls01 )
 	ROM_LOAD( "a71-25.41",    0x0000, 0x0100, CRC(2d0f8545) SHA1(089c31e2f614145ef2743164f7b52ae35bc06808) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bubble Bobble
-HACK( 2007, bublbobls01,   bublbobl,        bublbobl, bublbobl,   bublbobl_state, common, ROT0,  "Arkatrad",     "Bubble Bobble (Japan, Ver 0.1)(Translation-French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, bublbobls01,   bublbobl,        bublbobl, bublbobl,   bublbobl_state, common, ROT0,  "S.Arkames",     "Bubble Bobble (Translation French)(Japan, Ver 0.1)", MACHINE_SUPPORTS_SAVE )
 
