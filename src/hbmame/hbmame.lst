@@ -7954,29 +7954,41 @@ kov2p204s51
 kov2p204s52
 kov2p204s53
 kov2p204s54
+kov2p204s55
+kov2h01
+kov2h02
+kov2h03
+kov2h04
+kov2h05
+kov2h06
+kov2h07
+kov2h08
+kov2h09
+kov2h10
+kov2h11
 kovpluss01
-kovpluss02  // incompatible with the emulator (ingame crash)
+kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
 kovpluss04  // bad gfx on credit/char-select screens
 kovpluss05
 kovpluss06
 kovpluss07
-kovpluss08   // incompatible with the emulator (ingame crash)
+kovpluss08   // Unstable game in the emulator (ingame crash)
 kovpluss09
-kovpluss10   // incompatible with the emulator (ingame crash)
-kovpluss11   // incompatible with the emulator (ingame crash)
+kovpluss10   // Unstable game in the emulator (ingame crash)
+kovpluss11   // Unstable game in the emulator (ingame crash)
 kovpluss12
 kovpluss13
 kovpluss14
 kovpluss15
 kovpluss16
-kovpluss17   // incompatible with the emulator (ingame crash)
+kovpluss17   // Unstable game in the emulator (ingame crash)
 kovpluss18
 kovpluss19
 kovpluss20
 kovpluss21
-kovpluss22   // incompatible with the emulator (ingame crash)
-kovpluss23   // incompatible with the emulator (ingame crash)
+kovpluss22   // Unstable game in the emulator (ingame crash)
+kovpluss23   // Unstable game in the emulator (ingame crash)
 kovpluss24
 kovpluss25
 kovpluss26
@@ -7991,7 +8003,7 @@ kovpluss34
 kovpluss35
 kovpluss36
 kovpluss37
-kovpluss38  // incompatible with the emulator (ingame crash)
+kovpluss38  // Unstable game in the emulator (ingame crash)
 kovpluss39
 kovpluss40
 kovpluss41
@@ -8021,16 +8033,16 @@ kovpluss64
 kovpluss65
 kovpluss66
 kovpluss67
-kovpluss68  // incompatible with the emulator (ingame crash)
-kovpluss69  // incompatible with the emulator (ingame crash)
-kovpluss70  // incompatible with the emulator (ingame crash)
-kovpluss71  // incompatible with the emulator (ingame crash)
+kovpluss68  // Unstable game in the emulator (ingame crash)
+kovpluss69  // Unstable game in the emulator (ingame crash)
+kovpluss70  // Unstable game in the emulator (ingame crash)
+kovpluss71  // Unstable game in the emulator (ingame crash)
 kovpluss72
 kovpluss73   // bad gfx
 kovpluss74
 kovpluss75
 kovpluss76  // bad gfx on credit screen
-kovpluss77  // incompatible with the emulator (ingame crash)
+kovpluss77  // Unstable game in the emulator (ingame crash)
 kovpluss78  // causes emu to freeze
 kovpluss79
 kovpluss80
@@ -8064,7 +8076,7 @@ kovpluss107
 kovpluss108
 kovpluss109
 kovpluss110
-kovpluss111  // incompatible with the emulator (ingame crash)
+kovpluss111  // Unstable game in the emulator (ingame crash)
 kovpluss112
 kovpluss113
 kovpluss114
@@ -8119,91 +8131,97 @@ kovpluss162
 kovpluss163
 kovpluss164
 kovpluss165
-kov2h01
-kov2h02
-kov2h03
-kov2h04
-kov2h05
-kov2h06
-kov2h07
-kov2h08
-kov2h09
-kov2h10
-kov2h11
-kovs01  // ingame crash
-kovs02
-kovs03
-kovs04
-kovs05
-kovs06
-kovs07  // ingame crash
-//kovs08  // causes emu to freeze
-kovs09
-kovs10
-kovs11
-kovs12
-kovs13
-kovs15
-kovs16  // ingame crash
-kovs17
-kovs23
-kovs26
-kovs27  // goes berserk
-kovs30
-kovs36
-kovs37
-kovs38
-kovs39  // bad gfx
-kovs40
-kovs41  // very bad gfx
-kovs42
-kovs43
-kovs44
-kovs45
-kovs47
-kovs48
-kovs49
-kovs50
-kovs51
-kovs52
-kovs53
-kovs54
-kovs55
-kovs56
-kovs57
-kovs58
-kovs59
-kovs60
-kovs61
-kovs62   // causes emu to freeze
-kovs63
-kovs64
-kovs65
-kovs66
-kovs67
-kovs68
-kovs69
-kovs70
-kovs71
-kovs72
-kovs84   // bad gfx
-kovs85
-kovplus01  // bad gfx on char select screen
-kovplus08   // ingame crash
-kovplus13
-kovplus14   // ingame crash
-kovplus33
-kovplus35
-kovplus38
-kovplus50
-kovplus51
-kovplus53
-kovplus65
-kovplus67   // bad gfx, no high scores
-kovplus145
-kovplus155
-kovplus159
-kovplus160
+kovpluss166
+kovpluss167
+kovpluss168
+kovpluss169
+kovpluss170
+kovpluss171
+kovpluss172
+kovpluss173
+kovpluss174
+kovpluss175
+kovpluss176
+kovpluss177
+kovpluss178  // Unstable game in the emulator(ingame crash)
+kovpluss179
+kovpluss180
+kovpluss181
+kovpluss182
+kovpluss183
+kovpluss184
+kovpluss185
+kovpluss186
+kovpluss187
+kovpluss188
+kovpluss189  // causes emu to freeze
+kovpluss190 
+kovpluss191
+kovpluss192
+kovpluss193
+kovpluss194
+kovpluss195
+kovpluss196
+kovpluss197
+kovpluss198
+kovpluss199
+kovpluss200
+kovpluss201
+kovpluss202
+kovpluss203
+kovpluss204
+kovpluss205  // bad gfx
+kovpluss206  // Unstable game in the emulator(ingame crash)
+kovpluss207
+kovpluss208
+kovpluss209  // very bad gfx
+//kovpluss210  // Unstable game in the emulator (causes emu to freeze)
+kovpluss211
+kovpluss212
+kovpluss213
+kovpluss214
+kovpluss215
+kovpluss216   // Unstable game in the emulator(ingame crash)
+kovpluss217
+// kovpluss218   // Unstable game in the emulator(ingame crash)
+kovpluss219
+kovpluss220
+kovpluss221
+kovpluss222
+kovpluss223
+kovpluss224
+kovpluss225
+kovpluss226
+// kovpluss227   // Unstable game in the emulator(ingame crash)
+kovpluss228
+kovpluss229
+kovpluss230
+kovpluss231
+kovpluss232
+kovpluss233
+kovpluss234
+kovpluss235
+kovpluss236
+// kovpluss237    // Unstable game in the emulator(ingame crash)
+// kovpluss238    // Unstable game in the emulator(ingame crash)
+kovpluss239
+kovpluss240     // Unstable game in the emulator(ingame crash)
+kovpluss241
+kovpluss242
+kovpluss243
+kovpluss244  // goes berserk
+kovpluss245
+kovpluss246
+kovpluss247   // bad gfx
+kovpluss248  // bad gfx on char select screen
+kovpluss249     // Unstable game in the emulator(ingame crash)
+kovpluss250
+kovpluss251
+kovpluss252
+kovpluss253   // bad gfx, no high scores
+kovpluss254
+kovpluss255
+kovplusas01
 kovsh01
 kovsh02
 kovsh03
