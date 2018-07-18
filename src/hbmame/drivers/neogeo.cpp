@@ -1336,7 +1336,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	MCFG_DEVICE_IO_MAP(audio_io_map)
 
 	/* video hardware */
-	MCFG_DEFAULT_LAYOUT(layout_neogeo)
+	config.set_default_layout(layout_neogeo);
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
