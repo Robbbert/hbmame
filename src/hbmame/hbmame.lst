@@ -7852,22 +7852,22 @@ kovph3
 kovph4
 kovph5
 kovph6
-kovph7      // broken
+//kovph7      // broken (causes emu to freeze)
 kovph8
-kovph9      // broken
-kovph10     // broken
+//kovph9      // broken (causes emu to freeze)
+//kovph10     // broken (causes emu to freeze)
 kovph11
 kovph12
 kovph13
 kovph14
 kovph15
-kovph16     // broken
+//kovph16     // broken (causes emu to freeze)
 kovph17
 kovph18
-kovph19     // broken
-kovph20     // broken
-kovph21     // broken
-kovph22     // broken
+//kovph19     // broken (causes emu to freeze)
+//kovph20     // broken (causes emu to freeze)
+//kovph21     // broken (causes emu to freeze)
+//kovph22     // broken (causes emu to freeze)
 //kovph23   // rom missing
 kovph24		// was kvplusjq
 kovph25		// was kovplusq
@@ -7886,8 +7886,8 @@ kovsh11    // broken
 //kovsh13  // roms missing
 //kovsh14  // roms missing
 //kovsh15  // rom missing
-kovsh16  // broken
-kovsh17  // broken
+//kovsh16  // broken (causes emu to freeze)
+//kovsh17  // broken (causes emu to freeze)
 kovsh18			// gem fighters
 kovsh19			// rugal 98
 kov					//parent
@@ -8148,7 +8148,6 @@ kovpluss179
 kovpluss180
 kovpluss181
 kovpluss182
-kovpluss183
 kovpluss184
 kovpluss185
 kovpluss186
@@ -8182,8 +8181,7 @@ kovpluss213
 kovpluss214
 kovpluss215
 kovpluss216   // Unstable game in the emulator(ingame crash)
-kovpluss217
-// kovpluss218   // Unstable game in the emulator(ingame crash)
+//kovpluss218    // Unstable game in the emulator(ingame crash)
 kovpluss219
 kovpluss220
 kovpluss221
@@ -8192,7 +8190,7 @@ kovpluss223
 kovpluss224
 kovpluss225
 kovpluss226
-// kovpluss227   // Unstable game in the emulator(ingame crash)
+//kovpluss227   // Unstable game in the emulator(ingame crash)
 kovpluss228
 kovpluss229
 kovpluss230
@@ -8202,8 +8200,8 @@ kovpluss233
 kovpluss234
 kovpluss235
 kovpluss236
-// kovpluss237    // Unstable game in the emulator(ingame crash)
-// kovpluss238    // Unstable game in the emulator(ingame crash)
+//kovpluss237    // Unstable game in the emulator(ingame crash)
+//kovpluss238    // Unstable game in the emulator(ingame crash)
 kovpluss239
 kovpluss240     // Unstable game in the emulator(ingame crash)
 kovpluss241
@@ -8222,103 +8220,113 @@ kovpluss253   // bad gfx, no high scores
 kovpluss254
 kovpluss255
 kovplusas01
-kovsh01
-kovsh02
-kovsh03
-kovsh04
-kovsh05
-kovsh06
-kovsh07
-kovsh08
-kovsh09
-kovsh010
-kovsh011
-kovsh012
-kovsh013
-kovsh015
-kovsh016
-kovsh017
-kovsh018   // ingame crash
-kovsh019
-kovsh020
-kovsh021
-kovsh022
-kovsh023   // bad gfx
-kovsh024   // ingame crash
-kovsh025
-kovsh026
-kovsh027
-kovsh028
-kovsh029
-kovsh030
-kovsh031
-kovsh032
-kovsh033
-kovsh034
-kovsh035
-kovsh036
-kovsh037
-kovsh038
-kovsh039
-kovsh040
-kovsh041
-kovsh042
-kovsh043
-kovsh044
-kovsh045
-kovsh046
-kovsh047
-kovsh048
-kovsh049
-kovsh050
-kovsh052   // ingame crash
-kovsh053
-kovsh054
-kovsh055
-kovsh057
-kovsh058
-kovsh063
-kovsh064
-kovsh065
-kovsh066
-kovsh067
-kovsh068
-kovsh069
-kovsh070
-kovsh071   // bad gfx
-kovsh072
-kovsh073
-kovsh074
-kovsh075
-kovsh076   // ingame crash
-kovsh077   // ingame crash
-kovsh078
-kovsh079
-kovsh080
-kovsh081
-kovsh082
-kovsh083
-kovsh084
-kovsh085
-kovsh086
-kovsh087
-kovsh088
-kovsh089
-kovsh090
-kovsh091
-kovsh092
-kovsh093
-kovsh094
-kovsh095
-kovsh096
-kovsh097
-kovsh098   // bad gfx
-kovsh099
-kovshx01
-kovshx02
-kovshx03
-kovshx04
-kovshx05   // bad gfx
+kovshs01
+kovshs02
+kovshs03
+kovshs04
+kovshs05
+kovshs06
+kovshs07
+kovshs08
+kovshs09
+kovshs10
+kovshs11
+kovshs12
+kovshs13
+kovshs15
+kovshs16
+kovshs17
+kovshs18   //  Unstable game in the emulator (ingame crash)
+kovshs19
+kovshs20
+kovshs21
+kovshs22
+kovshs23   // bad gfx
+kovshs24   //  Unstable game in the emulator (ingame crash)
+kovshs25
+kovshs26
+kovshs27
+kovshs28
+kovshs29
+kovshs30
+kovshs31
+kovshs32
+kovshs33
+kovshs34
+kovshs35
+kovshs36
+kovshs37
+kovshs38
+kovshs39
+kovshs40
+kovshs41
+kovshs42
+kovshs43
+kovshs44
+kovshs45
+kovshs46
+kovshs47
+kovshs48
+kovshs49
+kovshs50
+kovshs51   //  Unstable game in the emulator (ingame crash)
+kovshs52
+kovshs53
+kovshs54
+kovshs55
+kovshs56
+kovshs57
+kovshs58
+kovshs59
+kovshs60
+kovshs61
+kovshs62
+kovshs63
+kovshs64
+kovshs65   // bad gfx
+kovshs66
+kovshs67
+kovshs68
+kovshs69
+kovshs70   //  Unstable game in the emulator (ingame crash)
+kovshs71   //  Unstable game in the emulator (ingame crash)
+kovshs72
+kovshs73
+kovshs74
+kovshs75
+kovshs76
+kovshs77
+kovshs78
+kovshs79
+kovshs80
+kovshs81
+kovshs82
+kovshs83
+kovshs84
+kovshs85
+kovshs86
+kovshs87
+kovshs88
+kovshs89
+kovshs90
+kovshs91
+kovshs92   // bad gfx
+kovshs93
+kovshs94
+kovshs95
+kovshs96   // bad gfx
+//kovshs97   //  Unstable game in the emulator (ingame crash)
+kovshs98
+//kovshs99    //  Unstable game in the emulator (ingame crash)
+//kovshs100   //  Unstable game in the emulator (ingame crash)
+//kovshs101   //  Unstable game in the emulator (ingame crash)
+//kovshs102   //  Unstable game in the emulator (ingame crash) 
+kovshs103
+kovshs104
+kovshs105    // bad gfx
+kovqhsgs01
+kovqhsgs02
+kovqhsgs03
 kovsho01
 kovsho02
 kovsho03
@@ -8333,7 +8341,17 @@ kovsho11
 kovsho12
 kovsho13
 kovsho14
-kovqhs01
+//kovsho15 //disabled serious problems graphic
+kovsho16
+kovsho17
+kovsho18
+kovsho19
+kovsho20
+kovsho21
+kovsho22
+//kovsho23 //  Unstable game in the emulator (ingame crash)
+//kovsho24 //  Unstable game in the emulator (ingame crash)
+//kovsho25 //  Unstable game in the emulator (ingame crash)
 killblds01
 martmasthc01
 oldsplus01
