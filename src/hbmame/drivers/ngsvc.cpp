@@ -448,7 +448,7 @@ ROM_START( svcplusd ) // only p1,vx,cx confirmed
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "269plusd.p1", 0x000000, 0x600000, CRC(2a57e4d4) SHA1(09fec6b376adfb2b051cd281f66b483e2deffa60) )
 
-	NEO_SFIX_MT_512K // This one contains PLUS logo
+	NEO_SFIX_MT_512K // This one contains Plus logo
 	ROM_LOAD( "269plusb.s1", 0x60000, 0x20000, CRC(06125f98) SHA1(69ba2625c90bb09abf64f6d49d88d2ac2f1ee9ca) )
 	ROM_CONTINUE( 0x40000, 0x20000 )
 	ROM_CONTINUE( 0x20000, 0x20000 )
@@ -779,9 +779,9 @@ HACK( 200?, svclspc,       svc,      neogeo_noslot,   neogeo,   neogeo_state,   
 HACK( 200?, svcnd,         svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos (unknown nd)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcnh,         svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "Unknown", "SvC Chaos (Like PS2 Version old)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcpcbd,       svcpcb,   neogeo_noslot,   dualbios, neogeo_state,       svcpcd,   ROT0, "LG", "SvC Chaos (Change Ryu 2P's color to black)(JAMMA PCB, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, svcplusa2016,  svc,      neogeo_noslot,   neogeo,   neogeo_state,       svcplusa, ROT0, "Unknown", "SvC Chaos PLUS (2016)(bootleg set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, svcplusb,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos PLUS (Bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, svcplusd,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos PLUS (unknown plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, svcplusa2016,  svc,      neogeo_noslot,   neogeo,   neogeo_state,       svcplusa, ROT0, "Unknown", "SvC Chaos Plus (2016)(bootleg set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, svcplusb,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos Plus (Bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, svcplusd,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Unknown", "SvC Chaos Plus (unknown Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcplusg,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "Unknown", "SvC Chaos (Plus Special)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcplusp,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Kawada7278", "SvC Chaos (Plus Purple Fire)(set 1)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcplusp2,     svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Kawada7278", "SvC Chaos (Plus Purple Fire)(set 2)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )

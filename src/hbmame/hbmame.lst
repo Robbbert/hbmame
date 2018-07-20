@@ -7837,7 +7837,7 @@ ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
-orlegendh
+// orlegendh // it is duplicated roms orlegendcs
 kovassg
 //kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
@@ -8521,35 +8521,27 @@ oldsplus01
 oldsplus02
 oldsplus03
 oldsplus04
+oldsplus05
+oldsplus06
+oldsplus07
+oldsplus08
+oldsplus09
+oldsplus10
+oldsplus11
+oldsplus12
+oldsplus13
 orlegends01
-orlegends02   // ingame crash
+orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
-orlegends04   // ingame crash
+orlegends04
 orlegends05
-orlegends06   // stuck in setup menu
+orlegends06
 orlegends07
-orlegends08   // stuck in setup menu
+orlegends08
 orlegends09
 orlegends10
 orlegends11
 orlegends12
-orlegends13
-orlegends14
-orlegends15
-orlegends16
-orlegends17
-orlegends18
-orlegends19
-orlegends20
-orlegends21
-orlegends22
-orlegends23   // stuck in setup menu
-orlegends25
-orlegends26
-orlegends27
-orlegends28
-orlegends29
-orlegend111cs01
 orlegendcs01
 orlegendcs02
 orlegendcs03
@@ -8609,6 +8601,27 @@ orlegendcs61
 orlegendcs62
 orlegendcs63
 orlegendcs64
+orlegendcs65
+orlegendcs66
+orlegendcs67
+orlegendcs68   //  Unstable game in the emulator (ingame crash)
+orlegendcs69
+orlegendcs70   // stuck in setup menu
+orlegendcs71
+orlegendcs72   // stuck in setup menu
+orlegendcs73
+orlegendcs74
+orlegendcs75
+orlegendcs76
+orlegendcs77
+orlegendcs78
+orlegendcs79
+//orlegendcs80   //  Unstable game in the emulator (ingame crash)
+//orlegendcs81   //  Unstable game in the emulator (ingame crash)
+//orlegendcs82   //  Unstable game in the emulator (ingame crash)
+orlegendcs83
+orlegendes01
+orlegend111cs01
 theglads01
 theglads02
 

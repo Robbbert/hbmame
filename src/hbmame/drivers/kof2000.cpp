@@ -1190,7 +1190,7 @@ HACK( 200?, kof2kpjc,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof
 HACK( 200?, kof2kpjc1,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix - Entire role change)(not encrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2kpjc2,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color Fix v. 2)(not encrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2kpjc3,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "TcwLee", "Kof2000 (Color changed - Striker not Perfect 030302)(not encrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2kpls,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Guangzhou Game Team", "Kof2000 (PLUS)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2kpls,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Guangzhou Game Team", "Kof2000 Plus (decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2krm,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "Raymonose", "Kof2000 (Diff Moves)(not encrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2krp,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000m,  ROT0, "FCHT", "Kof2000 (Remix Pro)(Diff Moves v1.0a 031103 - Beta)(not encrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2kryu,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2knd,   ROT0, "Iori Yagami", "Kof2000 (Ryu Hack)(decrypted C)", MACHINE_SUPPORTS_SAVE )

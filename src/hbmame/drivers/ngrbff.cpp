@@ -1227,9 +1227,9 @@ HACK( 200?, fatfurspas03,   fatfursp, neogeo_noslot, neogeo, neogeo_state,      
  // Fatal Fury 1
  HACK( 1991, fatfury1s01,   fatfury1, neogeo_noslot, neogeo, neogeo_state,   neogeo,   ROT0, "yumeji1768", "Fatal Fury (Enable Hidden Characters)(NGM-033)(NGH-033)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 2
-HACK( 200?, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "yumeji[2ch]",    "Fatal Fury 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Optional Hidden Characters And Super Kill Unified)(NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "yumeji[2ch]",    "Fatal Fury 2 (Enable Hidden Characters)(NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Easy Special Attacks)(NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
  // Real Bout Fatal Fury Special
 HACK( 200?, rbffss01,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami & Dodowang[EGCG]",    "Real Bout Fatal Fury Special (Enable Hidden Characters & Boss)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffss02,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]#Dodowang[EGCG]",    "Real Bout Fatal Fury Special (Enable Hidden Characters & Boss V2)", MACHINE_SUPPORTS_SAVE )
