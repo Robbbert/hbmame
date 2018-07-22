@@ -18,8 +18,7 @@ MIPS III/IV emulator.
 #include "divtlb.h"
 #include "cpu/drcfe.h"
 #include "cpu/drcuml.h"
-#include "sonyvu.h"
-
+#include "ps2vu.h"
 
 // NEC VR4300 series is MIPS III with 32-bit address bus and slightly custom COP0/TLB
 DECLARE_DEVICE_TYPE(VR4300BE, vr4300be_device)
