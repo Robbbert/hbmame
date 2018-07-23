@@ -1,6 +1,48 @@
 What's new in HBMAME
 ====================
 
+
+2018-07-2# 0.200
+----------------
+
+New Games
+---------------------------------
+- [aof2s03]           Art of Fighting 2 (Added Palette For Hidden Characters)(Alt)
+- [ct2k3spds01]       Crouching Tiger Hidden Dragon 2003 Super Plus (Alt)
+- [fatfury1s01]       Fatal Fury (Enable Hidden Characters)
+- [karnovrs01]        Karnov's Revenge (Add hidden characters-Enable Bull v2)
+- [kf2k3pls]          Kof2004 Plus / Hero (32 New Roms Added)
+- [kof2k1]            Kof2001 Plus (49 New Roms Added)
+- [kof96*]            Kof'96 (04 New Roms Added)
+- [kof97*]            Kof'97 (94 New Roms Added)
+- [kof98*]            Kof'97 (03 New Roms Added)
+- [kof99*]            Kof'97 (19 New Roms Added)
+- [kof2000*]          Kof'2000 (03 New Roms Added)
+- [kof2001*]          Kof'2001 (11 New Roms Added)
+- [kof2002*]          Kof'2001 (04 New Roms Added)
+- [kov2*]             Knights of Valour 2  (07 New Roms Added)
+- [kov2p*]            Knights of Valour 2 Plus (04 New Roms Added)
+- [kovplus*]          Knights of Valour Plus (25 New Roms Added)
+- [kovqhsg*]          Quanhuang Sanguo Tebie Ban (02 New Roms Added)
+- [kovsh*]            Knights of Valour Super Heroes Plus (52 New Roms Added)
+- [lastbld2*]         Last Blade 2 (02 New Roms Added)
+- [mahoudais01]       Mahou Daisakusen (Translation-Chinese)
+- [mslug2*]           Metal Slug 2 (03 New Roms Added)
+- [mslug3*]           Metal Slug 3 (06 New Roms Added)
+- [mslug5*]           Metal Slug 5 (02 New Roms Added)
+- [mslugX*]           Metal Slug X (04 New Roms Added)
+- [olds100s01]        Oriental Legend Special (Enhanced Power)
+- [oldsplus*]         Oriental Legend 2 (09 New Roms Added)
+- [orlegendcs83]      Oriental Legend (Westward Journey Super Pig)
+- [orlegendes01]      Oriental Legend (Enhanced Power)
+- [plegendsjs02]      Gouketsuji Gaiden (always Have Super Moves)
+- [powerinss02]       Power Instinct (Enable Hidden Character)
+- [preisle2s01]       Prehistoric Isle 2 (Plus)
+- [ssriders*]         Sunset Riders  (03 New Roms Added)
+- [svcpcba*]          SvC Chaos (02 New Roms Added)
+
+
+
 2018-06-27 0.199
 ----------------
 
