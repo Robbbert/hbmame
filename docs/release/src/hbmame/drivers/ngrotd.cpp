@@ -565,15 +565,13 @@ ROM_START( rotdyc ) /* Rage of the Dragons - Hack by Creamymami and Ydmis - (Con
 	ROM_LOAD16_BYTE( "264.c8", 0x3000001, 0x800000, CRC(c5edb5c4) SHA1(253378c8739daa5da4edb15eff7050820b2b3755) )
 ROM_END
 
-
-
 HACK( 200?, rotdb,     rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdb1,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdnd, ROT0, "Unknown", "Rage of the Dragons (Boss Hack)(Set 01)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, rotdbh,    rotd, neogeo_noslot, neogeo, neogeo_state, rotd,   ROT0, "Dodowang", "Rage of the Dragons (Boss Hack)(Set 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, rotdbh,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotd,   ROT0, "Dodowang", "Rage of the Dragons (Boss Hack)(Set 02)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdbr,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "BisonSAS", "Rage of the Dragons (Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdbr1,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "BisonSAS", "Rage of the Dragons (Portuguese) (Alt Set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdbr2,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "BisonSAS", "Rage of the Dragons (Portuguese) (Alt Set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, rotdbr2d,  rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "BisonSAS", "Rage of the Dragons - Portuguese/Brazilian Hack ver 2.0", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, rotdbr2d,  rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "BisonSAS", "Rage of the Dragons (Portuguese/Brazilian Hack ver 2.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdcre,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami and Unk", "Rage of the Dragons (Console mode enabled - Always pow max - No change wait)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdcreb,  rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami, Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Always pow max - No change wait set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdd,     rotd, neogeo_noslot, neogeo, neogeo_state,       rotdd,  ROT0, "Evoga / Playmore", "Rage of the Dragons (decrypted C)", MACHINE_SUPPORTS_SAVE )
@@ -590,9 +588,6 @@ HACK( 200?, rotdhfw,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  
 HACK( 200?, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdnd,    rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Evoga / Playmore Corporation", "Rage of the Dragons (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rotdyc,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE )
-
-
-
 
 
 // PSmame (c) gaston90 used with permission

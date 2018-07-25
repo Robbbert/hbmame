@@ -620,35 +620,35 @@ void tempmg_state::init_tempmg()
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	uint8_t *RAM = memregion("maincpu")->base();
-	membank("bank1")->configure_entries(0, 8, &RAM[0x11000], 0x8000);	// main roms
-	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000);	// vectors
+	membank("bank1")->configure_entries(0, 8, &RAM[0x11000], 0x8000); // main roms
+	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000); // vectors
 	tempmg_rombank_w (space, 0,0);
 }
 
 void tempmg_state::tempmg_map(address_map &map) {
-	map(0x0000,0x07ff).ram();
-	map(0x0800,0x080f).writeonly().share("colorram");
-	map(0x0c00,0x0c00).portr("IN0");
-	map(0x0d00,0x0d00).portr("DSW1");
-	map(0x0e00,0x0e00).portr("DSW2");
-	map(0x2000,0x2fff).ram().share("vectorram").region("maincpu",0x2000);
-	map(0x3000,0x3fff).rom();
-	map(0x4000,0x4000).w(FUNC(tempmg_state::tempest_coin_w));
-	map(0x4800,0x4800).w("avg",FUNC(avg_tempest_device::go_w));
-	map(0x5000,0x5000).w(FUNC(tempmg_state::wdclr_w));
-	map(0x5800,0x5800).w("avg",FUNC(avg_tempest_device::reset_w));
-	map(0x6000,0x603f).w("earom",FUNC(atari_vg_earom_device::write));
-	map(0x6040,0x6040).r("mathbox",FUNC(mathbox_device::status_r)).w("earom",FUNC(atari_vg_earom_device::ctrl_w));
-	map(0x6050,0x6050).r("earom",FUNC(atari_vg_earom_device::read));
-	map(0x6060,0x6060).r("mathbox",FUNC(mathbox_device::lo_r));
-	map(0x6070,0x6070).r("mathbox",FUNC(mathbox_device::hi_r));
-	map(0x6080,0x609f).w("mathbox",FUNC(mathbox_device::go_w));
-	map(0x60c0,0x60cf).rw("pokey1",FUNC(pokey_device::read),FUNC(pokey_device::write));
-	map(0x60d0,0x60df).rw("pokey2",FUNC(pokey_device::read),FUNC(pokey_device::write));
-	map(0x60e0,0x60e0).w(FUNC(tempmg_state::tempest_led_w));
-	map(0x9000,0xdfff).bankr("bank1");
-	map(0xe000,0xe000).w(FUNC(tempmg_state::tempmg_rombank_w));
-	map(0xf800,0xffff).bankr("bank2");
+	map(0x0000, 0x07ff).ram();
+	map(0x0800, 0x080f).writeonly().share("colorram");
+	map(0x0c00, 0x0c00).portr("IN0");
+	map(0x0d00, 0x0d00).portr("DSW1");
+	map(0x0e00, 0x0e00).portr("DSW2");
+	map(0x2000, 0x2fff).ram().share("vectorram").region("maincpu",0x2000);
+	map(0x3000, 0x3fff).rom();
+	map(0x4000, 0x4000).w(FUNC(tempmg_state::tempest_coin_w));
+	map(0x4800, 0x4800).w(m_avg,FUNC(avg_tempest_device::go_w));
+	map(0x5000, 0x5000).w(FUNC(tempmg_state::wdclr_w));
+	map(0x5800, 0x5800).w(m_avg,FUNC(avg_tempest_device::reset_w));
+	map(0x6000, 0x603f).w(FUNC(tempmg_state::earom_write));
+	map(0x6040, 0x6040).r(m_mathbox, FUNC(mathbox_device::status_r)).w(FUNC(tempmg_state::earom_control_w));
+	map(0x6050, 0x6050).r(FUNC(tempmg_state::earom_read));
+	map(0x6060, 0x6060).r(m_mathbox,FUNC(mathbox_device::lo_r));
+	map(0x6070, 0x6070).r(m_mathbox,FUNC(mathbox_device::hi_r));
+	map(0x6080, 0x609f).w(m_mathbox,FUNC(mathbox_device::go_w));
+	map(0x60c0, 0x60cf).rw("pokey1",FUNC(pokey_device::read),FUNC(pokey_device::write));
+	map(0x60d0, 0x60df).rw("pokey2",FUNC(pokey_device::read),FUNC(pokey_device::write));
+	map(0x60e0, 0x60e0).w(FUNC(tempmg_state::tempest_led_w));
+	map(0x9000, 0xdfff).bankr("bank1");
+	map(0xe000, 0xe000).w(FUNC(tempmg_state::tempmg_rombank_w));
+	map(0xf800, 0xffff).bankr("bank2");
 }
 
 MACHINE_CONFIG_START( tempmg_state::tempmg )

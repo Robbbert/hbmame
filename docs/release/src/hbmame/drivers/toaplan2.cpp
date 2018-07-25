@@ -85,17 +85,21 @@ ROM_END
 
 
 
-HACK( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (HACK BY EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga, ROT270, "Zack", "Battle Garegga (Europe / USA / Japan / Asia) (Zakk version)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
-HACK( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
-
-//PSmame
+HACK( 200?, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (HACK BY EEZEZY(LB70))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga, ROT270, "Zack", "Battle Garegga (Zakk version)(Europe / USA / Japan / Asia) (Sat Feb 3 1996)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
 
 
- /***************************************
-      Mahou Daisakusen
-***************************************/
+// PSmame (c) gaston90 used with permission
+
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
+
+ /****************
+ Mahou Daisakusen
+*******************/
 
 ROM_START( mahoudais01 )
 	ROM_REGION( 0x080000, "maincpu", 0 )
@@ -109,15 +113,15 @@ ROM_START( mahoudais01 )
 	ROM_LOAD( "ra-ma01-rom3hc01.u1",  0x100000, 0x100000, CRC(Be068595) SHA1(3e0f9179fce5d9337c18021debe3954157657568) )
 
 	ROM_REGION( 0x008000, "text", 0 )
-	ROM_LOAD( "ra_ma_01_05hc01.u81",  0x000000, 0x008000, CRC(46f03623) SHA1(47cac08f147329a868828f94a1044d8511911b28) )
+	ROM_LOAD( "ra_ma_01_05hc01.u81",  0x000000, 0x008000, CRC(95d5d1dc) SHA1(a42cabb68443fe71702e552754ed0326480e7c98) )
 
 	ROM_REGION( 0x40000, "oki1", 0 )
 	ROM_LOAD( "ra-ma01-rom1.u57", 0x00000, 0x40000, CRC(6edb2ab8) SHA1(e3032e8eda2686f30df4b7a088c5a4d4d45782ed) )
 ROM_END
 
- /***************************************
-     Shippu Mahou Daisakusen
-***************************************/
+ /***********************
+ Shippu Mahou Daisakusen
+**************************/
 
 ROM_START( shippumds01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -138,9 +142,9 @@ ROM_START( shippumds01 )
 	ROM_LOAD( "ma02rom6.bin", 0x00000, 0x80000, CRC(199e7cae) SHA1(0f5e13cc8ec42c80bb4bbff90aba29cdb15213d4) )
 ROM_END
 
- /***************************************
-	         Snow Bros 2
-***************************************/
+ /***********
+ Snow Bros 2
+**************/
 
 ROM_START( snowbro2s01 )
 	ROM_REGION( 0x080000, "maincpu", 0 )
@@ -170,19 +174,13 @@ ROM_START( snowbro2s02 )
 	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(638f341e) SHA1(aa3fca25f099339ece1878ea730c5e9f18ec4823) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
 // Mahou Daisakusen 
-HACK( 1993, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state,  0,       ROT270, "Hacks", "Mahou Daisakusen (Japan)(Translation-Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state,  0,       ROT270, "liujunusa", "Mahou Daisakusen (Translation-Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Shippu Mahou Daisakusen
-HACK( 1994, shippumds01,  kingdmgp,        shippumd, shippumd, toaplan2_state,  0,       ROT270, "Hacks", "Shippu Mahou Daisakusen (Japan)(Translation-English)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, shippumds01,  kingdmgp,        shippumd, shippumd, toaplan2_state,  0,       ROT270, "NeilCorlett", "Shippu Mahou Daisakusen (Translation English)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Snow Bros 2
-HACK( 1994, snowbro2s01,  snowbro2,        snowbro2, snowbro2, toaplan2_state,  0,       ROT0,   "Hacks", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, snowbro2s02,  snowbro2,        snowbro2, snowbro2, toaplan2_state,  0,       ROT0,   "Hacks", "Snow Bros 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, snowbro2s01,  snowbro2,        snowbro2, snowbro2, toaplan2_state,  0,       ROT0,   "RockyWall", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, snowbro2s02,  snowbro2,        snowbro2, snowbro2, toaplan2_state,  0,       ROT0,   "DDJ", "Snow Bros 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
 
 

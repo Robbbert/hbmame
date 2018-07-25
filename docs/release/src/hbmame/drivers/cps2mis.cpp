@@ -1927,7 +1927,7 @@ HACK( 200?, mshyh,      msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0, 
 HACK( 2009, mvscjemb,   mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves)(2009-04-24)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mvscjphp,   mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Get maximum power on a valid attack or being attacked)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mvscrcp,    mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "CPS-2 Evolved", "Marvel Vs. Capcom RCP (Euro 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mvscuh,     mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "EGCG", "Marvel Vs. Capcom: Clash of Super Heroes (ExChar hack)(USA 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mvscuh,     mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "EGCG", "Marvel Vs. Capcom: Clash of Super Heroes (Add Boss)(USA 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, mshvsemb,   mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "Marvel Super Heroes Vs. Street Fighter (Easy Moves)(2009-04-23)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mshvsfjh,   mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Yumeji", "Marvel Super Heroes Vs. Street Fighter (Enable Hidden Characters)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mshvsfjphp, mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Super Heroes Vs. Street Fighter (Get maximum power on a valid attack or being attacked)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
@@ -1972,8 +1972,6 @@ HACK( 200?, xmcotajphp, xmcota,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, 
 HACK( 200?, xmvsfjphp,  xmvsf,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "X-Men Vs. Street Fighter (Enhanced power)(Japan 961004)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, xmvsfrm,    xmvsf,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "X-Men Vs. Street Fighter (Easy Moves)(2009-04-22)(Euro 960910)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, xmvsfryh,   xmvsf,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Ydmis", "X-Men Vs. Street Fighter (Change character in battle)(Euro 960910)", MACHINE_SUPPORTS_SAVE )
-
-
 
 
 //PSmame (c) gaston90 used with permission
@@ -5286,17 +5284,12 @@ ROM_START( mvsh01 )
 	ROM_LOAD( "mvscu.key",    0x00, 0x14, CRC(a83db333) SHA1(7f7288ceadf233d913728f7c4a8841adcb5994e8) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // 19XX The War Against Destiny
 HACK( 200?, 19xxs01,   19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "DDJ", "19XX The War Against Destiny (Ex Super Version)(USA 951207)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, 19xxjrs01, 19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "Unknown", "19XX: The War Against Destiny (Translation Chinese)(Japan 951207)", MACHINE_SUPPORTS_SAVE )
 // 1944 The Loop Master
-HACK( 200?, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,   "DDJ", "1944: The Loop Master (Strongest Fire Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,   "DDJ", "1944: The Loop Master (Strongest Fire Power)(USA 000620)", MACHINE_SUPPORTS_SAVE )
 //Alien vs. Predator
 HACK( 200?, avspus01,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (1 Vs 3 Plus)(USA 940520)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, avspus02,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (Plus)(USA 940520)", MACHINE_SUPPORTS_SAVE )
@@ -5333,9 +5326,9 @@ HACK( 2008, mvscjs01,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2008, mvscjs02,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom Clash of Super Heroes (Move The Order To Modify V2)(2008-07-15)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mvsh01,     mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "0 DAY-S[EGCG]", "Marvel Vs. Capcom (Enable Hi-Speed Venom, Orange Hulk, Gold War Machine, Roll, Shadow Lady, Lilith Morrigan, Onslaught)(Euro 980123)", MACHINE_SUPPORTS_SAVE )
 // Pocket Fighter
-HACK( 200?, pfghtjs01,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "Unknown", "Pocket Fighter (Command Change)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pfghtjs02,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "Unknown", "Pocket Fighter (Enhanced Power)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pfghtjs03,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "Unknown", "Pocket Fighter (Move Mod)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, pfghtjs01,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Command Change)(2008-01-12)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, pfghtjs02,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Enhanced Power)(2008-07-28)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pfghtjs03,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Move Mod)(11-10-2007)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
 // Progear No Arashi
 HACK( 200?, progearjds01, progear,  dead_cps2,cps2_2p3b, cps2_state, cps2,  ROT0, "lb70", "Progear no Arashi (Crazy Fire Version)(bootleg)(Japan 010117 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, progearjds02, progear,  dead_cps2,cps2_2p3b, cps2_state, cps2,  ROT0, "lb70", "Progear no Arashi (Crazy Fire Version V2)(bootleg)(Japan 010117 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )

@@ -376,7 +376,8 @@ ROM_END
 
 ROM_START( mslug4lw )
 	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263lw.p1", 0x000000, 0x100000, CRC(783438fa) SHA1(7c15f902a319fb7c769c21bb1a860216a9691354) )
+	ROM_LOAD16_WORD_SWAP( "263lw.p1", 0x000000, 0x100000, CRC(bf181324) SHA1(619ebc4195746998491de3d204daca50a9156f70) )
+    //ROM_LOAD16_WORD_SWAP( "263lw.p1", 0x000000, 0x100000, CRC(783438fa) SHA1(7c15f902a319fb7c769c21bb1a860216a9691354) ) // Roms Encrypted
 	ROM_LOAD16_WORD_SWAP( "263lw.p2", 0x100000, 0x800000, CRC(5c897ae8) SHA1(d92739fc76b156447ffb3c18a93481d7f036d228) )
 
 	NEO_SFIX_128K( "263.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
@@ -387,7 +388,8 @@ ROM_START( mslug4lw )
 	ROM_LOAD( "263lw.v1", 0x000000, 0x400000, CRC(8cb5a9ef) SHA1(272ad312f8694acf9190ebf48d1c8a5fec73c130) )
 	ROM_LOAD( "263lw.v2", 0x400000, 0x400000, CRC(94217b1e) SHA1(c468a192e2ec0952a20cfd9e391cf6c12346efb3) )
 	ROM_LOAD( "263lw.v3", 0x800000, 0x400000, CRC(7616fcec) SHA1(83006094379d0373b967603dcaa1cec69c2f746f) )
-	ROM_LOAD( "263lw.v4", 0xC00000, 0x800000, CRC(6ac7ed2f) SHA1(4beb76d149e9e3d8b2c760a468d47fca260b2842) )
+	ROM_LOAD( "263nn25.v4", 0xC00000, 0x800000, CRC(35e79379) SHA1(7db3ccc72e008976a238af7ec3880969ed5dc893) )
+	//ROM_LOAD( "263lw.v4", 0xC00000, 0x800000, CRC(6ac7ed2f) SHA1(4beb76d149e9e3d8b2c760a468d47fca260b2842) ) // Roms Encrypted
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
@@ -444,29 +446,24 @@ ROM_START( mslug4sp ) // all confirmed: same as mslug4 except p roms
 	ROM_LOAD16_BYTE( "263.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
 
-
-
 // Metal Slug 4
-HACK( 200?, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Mega", "Metal Slug 4 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 Super D Version", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "HappyASR [EGCG]", "Metal Slug 4 Super D Version(Alt)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 4)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 5)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 6)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (Traduction French)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (Traduction Italian)(Alt)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (LW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Unknown", "Metal Slug 4 (super enhanced version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
-
-
-
+HACK( 200?, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Mega", "Metal Slug 4 (Decrypted C)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4dh1, mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)(Alt)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 3)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 4)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 5)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 6)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (Traduction French)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4i1,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (Traduction Italian)(Alt)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (LW)(NGM-2630)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (fully decrypted)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Unknown", "Metal Slug 4 (super enhanced version)(NGM-2630)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
 
 
 //PSmame (c) gaston90 used with permission

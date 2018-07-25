@@ -2,25 +2,15 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/solomon.cpp"
 
-/***************************************
-	Proyecto Shadows Mame Build Plus
-***************************************/
+// PSmame (c) gaston90 used with permission
 
-/******************************************************************************************
-   Muchos Roms De Mi Proyecto Shadow Se Estará Deshabilitado. Por
-   Los Motivo Es Que Se Empezó Agregar En El HBMame Oficial, Lo Cual Me Veré
-   Obligado Deshabilitando Porque Si No Se Estaría Duplicado Archivo De Roms.
-******************************************************************************************/
-
-/*****************************************
- *
- *         ROM Definición(s)
- *
- ****************************************/
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
  
-  /****************************************
-          Solomon no Kagi
-*****************************************/
+ /***************
+ Solomon no Kagi
+******************/
 
 ROM_START( solomonjs01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -47,12 +37,6 @@ ROM_START( solomonjs01 )
 	ROM_LOAD( "slmn_05hc01.bin",  0x0c000, 0x04000, CRC(5856d9b0) SHA1(509ea27714bbeed72915d854f05a29693a85575c) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Solomon no Kagi
-HACK( 1986, solomonjs01, solomon, solomon, solomon, solomon_state, 0, ROT0, "Hacks", "Solomon no Kagi (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, solomonjs01, solomon, solomon, solomon, solomon_state, 0, ROT0, "Unknown", "Solomon no Kagi (Translation Chinese)", MACHINE_SUPPORTS_SAVE )

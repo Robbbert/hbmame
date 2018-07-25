@@ -2,25 +2,15 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/igs011.cpp"
 
-/***************************************
-	Proyecto Shadows Mame Build Plus
-***************************************/
+// PSmame (c) gaston90 used with permission
 
-/******************************************************************************************
-   Muchos Roms De Mi Proyecto Shadow Se Estará Deshabilitado. Por
-   Los Motivo Es Que Se Empezó Agregar En El HBMame Oficial, Lo Cual Me Veré
-   Obligado Deshabilitando Porque Si No Se Estaría Duplicado Archivo De Roms.
-******************************************************************************************/
-
-/*****************************************
- *
- *         ROM Definición(s)
- *
- ****************************************/
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
  
-  /****************************************
-           Long Hu Bang II
-*****************************************/
+ /***************
+ Long Hu Bang II
+******************/
 
 ROM_START( lhb2s01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -36,13 +26,7 @@ ROM_START( lhb2s01 )
 	ROM_LOAD( "igss0503.u38", 0x00000, 0x80000, CRC(c9609c9c) SHA1(f036e682b792033409966e84292a69275eaa05e5) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Long Hu Bang II
-HACK( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, lhb2, ROT0, "Hacks", "Long Hu Bang II (Hong Kong, V185H)(No AI Cheat)",   MACHINE_SUPPORTS_SAVE )
+HACK( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, lhb2, ROT0, "whistler_wmz", "Long Hu Bang II (No AI Cheat)(Hong Kong, V185H)",   MACHINE_SUPPORTS_SAVE )
 

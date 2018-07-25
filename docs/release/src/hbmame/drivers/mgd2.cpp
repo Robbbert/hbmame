@@ -1167,7 +1167,7 @@ HACK( 1991, burningfd, burningf, neogeo_noslot,   neogeo,   neogeo_state, neogeo
 HACK( 1991, crswordd,  crsword,  neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "Alpha Denshi Co.", "Crossed Swords (MGD2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, cyberlipd, cyberlip, neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK", "Cyber-Lip (MGD2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, eightmand, eightman, neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK / Pallas", "Eight Man (MGD2)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, fatfury1d, fatfury1, neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK", "Fatal Fury - King of Fighters (MGD2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, fatfury1d, fatfury1, neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK", "Fatal Fury (MGD2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, fbfrenzyd, fbfrenzy, neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK", "Football Frenzy (MGD2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, gpilotsd,  gpilots,  neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK", "Ghost Pilots (MGD2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, joyjoyd,   joyjoy,   neogeo_noslot,   neogeo,   neogeo_state, neogeo,   ROT0, "SNK", "Puzzled (MGD2)", MACHINE_SUPPORTS_SAVE )

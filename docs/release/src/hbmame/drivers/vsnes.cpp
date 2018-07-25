@@ -34,12 +34,15 @@ HACK( 2002, mrio2002, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "N
 HACK( 1986, suprsktr, suprmrio, vsnes, suprmrio, vsnes_state, vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
 
 
-//PSmame
+// PSmame (c) gaston90 used with permission
 
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
 
-  /****************************************
-        Vs. Dr. Mario
-*****************************************/
+ /*************
+ Vs. Dr. Mario
+****************/
 
 ROM_START( drmarios01 )
 	ROM_REGION( 0x20000, "maincpu", 0 )
@@ -51,13 +54,7 @@ ROM_START( drmarios01 )
 	PALETTE_2C04_0003("ppu1:palette")
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Vs. Dr. Mario
-HACK( 1990, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "Hacks", "Vs. Dr. Mario (Translation Chinese)", 0 )
+HACK( 2002, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Translation Chinese)(2002-10)", 0 )
 

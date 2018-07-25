@@ -316,8 +316,7 @@ ROM_START( sengoku3yk ) /* Sengoku 3 - Enhance by KrysFun and Ydmis - (Can choos
 	ROM_LOAD16_BYTE( "261.c4", 0x1000001, 0x800000, CRC(0b45ae53) SHA1(a19fb21408ab633aee8bbf38bf43b5e26766b355) )
 ROM_END
 
-
-
+ // Sengoku 3
 HACK( 2007, sengokucd,   sengoku,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
@@ -332,9 +331,6 @@ HACK( 200?, sengoku3pl,  sengoku3, neogeo_noslot, neogeo, neogeo_state,       se
 HACK( 200?, sengoku3s,   sengoku3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Sjx", "Sengoku 3 (Evolution v1.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
-
-
-
 
 
 //PSmame (c) gaston90 used with permission

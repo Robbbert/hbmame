@@ -843,9 +843,9 @@ HACK( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_state, frogger,  RO
 
 
 /* Amidar */
-HACK( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "Arkatrad", "Amidar (French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "S.Arkames", "Amidar (language Translation French)(11.28.2007)(Set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "Arkatrad", "Amidar (Translation-French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "Arkatrad", "Amidar (language Translation French)(11.28.2007)(Set 02)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Scramble */
@@ -854,10 +854,10 @@ HACK( 1998, superdog, scramble, scramble, scramble, galaxian_state, scramble, RO
 
 
 /* Galaxian */
-HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "hack",  "Andromeda", MACHINE_SUPPORTS_SAVE)
+HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Unknown",  "Andromeda", MACHINE_SUPPORTS_SAVE)
 HACK( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_state, galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, galaxiab, galnamco, galaxian, galaxiab, galaxian_state, galaxian, ROT90, "bootleg", "Galaxian", MACHINE_SUPPORTS_SAVE )
-HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "hack", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
+HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Unknown", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_state, galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
 HACK( 1979, galnamco, 0,        galaxian, galaxian, galaxian_state, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )

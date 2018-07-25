@@ -139,6 +139,7 @@ pwrinst2z
 pwrinst2s01
 plegends			//parent
 plegendsjs01
+plegendsjs02
 gaia			//parent
 gaias01
 metmqstr		//parent
@@ -1891,6 +1892,13 @@ kof96s31
 kof96s32
 kof96s33
 kof96s34
+kof96s35
+kof96s36
+kof96s37
+kof96s38
+kof96s39
+kof96s40
+kof96cns01
 
 @source:kof97.cpp
 kof97aa
@@ -2297,6 +2305,79 @@ kof97hx269
 kof97hx270
 kof97hx271
 kof97hx272
+kof97hx273
+kof97hx274
+kof97hx275
+kof97hx276
+kof97hx277
+kof97hx278
+kof97hx279
+kof97hx281
+kof97hx282
+kof97hx285
+kof97hx286
+kof97hx287
+kof97hx289
+kof97hx290
+kof97hx291
+kof97hx292
+kof97hx293
+kof97hx294
+kof97hx295
+kof97hx296
+kof97hx297
+kof97hx298
+kof97hx299
+kof97hx300
+kof97hx302
+kof97hx303
+kof97hx304
+kof97hs01
+kof97hs02
+kof97hs03
+kof97hs04
+kof97hs05
+kof97hs06
+kof97hs07
+kof97hs08
+kof97hs09
+kof97hs10
+kof97hs11
+kof97hs12
+kof97hs13
+kof97hs14
+kof97hs15
+kof97hs16
+kof97hs17
+kof97hs18
+kof97hs19
+kof97hs20
+kof97hs21
+kof97hs22
+kof97hs23
+kof97hs24
+kof97hs25
+kof97hs26
+kof97hs27
+kof97hs28
+kof97hs29
+kof97hs30
+kof97hs31
+kof97hs32
+kof97hs33
+kof97hs34
+kof97hs35
+kof97hs36
+kof97hs37
+kof97hs38
+kof97hs39
+kof97hs40
+kof97hs41
+kof97hs42
+kof97hs43
+kof97hs44
+kof97hs45
+kof97hs46
 kof97plss01
 kof97plss02
 kof97plss03
@@ -2316,6 +2397,34 @@ kof97plss16
 kof97plss17
 kof97plss18
 kof97plss19
+kof97plas01
+kof97plas02
+kof97plas03
+kof97plas04
+kof97plas05
+kof97plas06
+kof97plas07
+kof97xts02
+kof97xts03
+kof97xts04
+kof97xts05
+kof97xts06
+kof97xts07
+kof97xts08
+kof97xts09
+kof97xts10
+kof97xts11
+kof97xts12
+kof97xts13
+kof97xts14
+kof97xts15
+kof97xts16
+kof97xts17
+kof97xts18
+kof97xts21
+kof97xts23
+kof97xts24
+kof97xts25
 
 @source:kof98.cpp
 kof98aas
@@ -2519,18 +2628,11 @@ kof98s44
 kof98s45
 kof98h01
 kof98h02
-kof98h03
-kof98h04
-kof98h05
-kof98h06
-kof98h07
-kof98h08
 kof98h09
 kof98h10
 kof98hh01
 kof98hh02
 kof98hh03
-kof98hh04
 kof98hh05
 kof98hh06
 kof98hh07
@@ -2551,7 +2653,6 @@ kof98hh21
 kof98hh22
 kof98hh23
 kof98hh24
-kof98hh25
 kof98hh26
 kof98hh27
 kof98hh28
@@ -2595,12 +2696,18 @@ kof98hh69
 kof98hh71
 kof98hh72
 kof98hh73
+kof98hh74
 kof98xz01
 kof98xz02
+kof98xz03
 kof98xz04
 kof98xz05
 kof98xz06
 kof98xz07
+kof98xz08
+kof98xz09
+kof98xz10
+kof98xz11
 
 @source:kof99.cpp
 kof99ab
@@ -2782,7 +2889,6 @@ kof99es05
 kof99es06
 kof99es07
 kof99es08
-kof99es09
 kof99es10
 kof99es11
 kof99es12
@@ -2796,11 +2902,6 @@ kof99es19
 kof99es20
 kof99es21
 kof99es22
-kof99es23
-kof99es24
-kof99es25
-kof99es26
-kof99es27
 kof99es28
 kof99es29
 kof99es30
@@ -2822,37 +2923,19 @@ kof99hs11
 kof99hs12
 kof99hs13
 kof99hs14
-kof99hs15
-kof99hs16
 kof99hs17
 kof99hs18
 kof99hs19
 kof99hs20
 kof99hs21
-kof99hs22
 kof99hs23
-kof99hs24
-kof99hs25
-kof99hs26
-kof99hs27
-kof99hs28
-kof99hs29
 kof99hs30
 kof99hs31
 kof99hs32
 kof99hs33
-kof99hs34
-kof99hs35
-kof99hs36
-kof99hs37
-kof99hs38
-kof99hs39
-kof99hs40
-kof99hs41
 kof99hs42
 kof99hs43
 kof99hs44
-kof99hs45
 kof99hs46
 kof99ks01
 kof99ks02
@@ -2865,7 +2948,6 @@ kof99ks08
 kof99ks09
 kof99ks10
 kof99ks11
-kof99ks12
 kof99ks13
 kof99ks14
 kof99ks15
@@ -2890,11 +2972,6 @@ kof99ks33
 kof99ks34
 kof99ks35
 kof99ks36
-kof99ks37
-kof99ks38
-kof99ks39
-kof99ks40
-kof99ks41
 kof99ks42
 kof99ks43
 kof99ks44
@@ -2907,6 +2984,26 @@ kof99ks50
 kof99ks51
 kof99ks52
 kof99ks53
+kof99ks54
+kof99ks55
+kof99ks56
+kof99ks57
+kof99ks58
+kof99ks59
+kof99ks60
+kof99kds01
+kof99kds02
+kof99kds03
+kof99kds04
+kof99kds05
+kof99kds06
+kof99kds07
+kof99kds08
+kof99kds09
+kof99kds10
+kof99kds11
+kof99kds12
+kof99pds01
 kof99ps01
 kof99ps02
 kof99ps03
@@ -3009,7 +3106,7 @@ kof2000s18
 kof2000s19
 kof2000s20
 kof2000s21
-//kof2000s22   // roms missing
+kof2000s22
 kof2000s23
 kof2000s24
 kof2000s25
@@ -3024,6 +3121,34 @@ kof2000s33
 kof2000n01
 kof2000n02
 kof2000n03
+kof2000n04
+kof2000n05
+kof2000n06
+kof2000n07
+kof2000n08
+kof2000n09
+kof2000n10
+kof2000n11
+kof2000n12
+kof2000n13
+kof2000n14
+kof2000n15
+kof2000n16
+kof2000n17
+kof2000n18
+kof2000n19
+kof2000n20
+kof2000n21
+kof2000n22
+kof2000n23
+kof2000n24
+kof2000n25
+kof2000n26
+kof2000n27
+kof2000n28
+kof2000n29
+kof2000n30
+kof2000n31
 kof2000ds01
 kof2000ds02
 kof2000ds03
@@ -3032,39 +3157,10 @@ kof2000ds05
 kof2000ds06
 kof2000ds07
 kof2000ds08
+kof2000ds09
 kof2000ds10
 kof2000ds11
 kof2000ds12
-kof2000ds13
-kof2000ds14
-kof2000ds15
-kof2000ds16
-kof2000ds17
-kof2000ds18
-kof2000ds19
-kof2000ds20
-kof2000ds21
-kof2000ds22
-kof2000ds23
-kof2000ds24
-kof2000ds25
-kof2000ds26
-kof2000ds27
-kof2000ds28
-kof2000ds29
-kof2000ds30
-kof2000ds31
-kof2000ds32
-kof2000ds33
-kof2000ds34
-kof2000ds35
-kof2000ds36
-kof2000ds37
-kof2000ds38
-kof2000ds39
-kof2000ds40
-kof2000ds41
-kof2000ds42
 
 @source:kof2001.cpp
 kof2001d
@@ -3172,6 +3268,14 @@ kof2001s19
 kof2001s20
 kof2001ds01
 kof2001ds02
+kof2001ds03
+kof2001ds04
+kof2001ds05
+kof2001ds06
+kof2001ds07
+kof2001ds08
+kof2001ds09
+kof2001ds10
 kof2001hs01
 kof2001hs02
 kof2001hs03
@@ -3202,6 +3306,14 @@ kof2001hs27
 kof2001hs28
 kof2001hs29
 kof2001hs30
+kof2001hs31
+kof2001hs32
+kof2k1pas01
+kof2k1pas02
+kof2k1pas03
+kof2k1plss01
+kof2k1plss02
+kof2k1plss03
 
 @source:kof2002.cpp
 kof200215
@@ -3448,7 +3560,8 @@ kof2002s95
 kof2002s96
 kof2002s97
 kof2002s98
-kof2002bs01 //  bad gfx, unplayable
+kof2002s99
+kof2002bs01
 kof2002bs02
 kof2002bs03
 kof2002bs04
@@ -3472,6 +3585,7 @@ kof2002bs22
 kof2002bs23
 kof2002bs24
 kof2002bs25
+kof2002bs26
 kof2002ds01
 kof2002ds02
 kof2002ds03 // 2k4se
@@ -3504,6 +3618,8 @@ kof2002ds29
 kof2002ds30
 kof2002ds31
 kof2002ds32
+kof2002ds33
+kof2002ds34
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -3572,6 +3688,8 @@ kf2k2mp2s33
 kf2k2mp2s34
 kf2k2mp2s35
 kf2k2mp2s36
+kf2k2mp2s37
+kf2k2mp2s38
 kf2k2plas01
 kf2k2plas02
 kf2k2plas03
@@ -3620,6 +3738,54 @@ kf2k2plas45
 kf2k2plas46
 kf2k2plas47
 kf2k2plas48
+kof2k2plbs01
+kof2k2plbs02
+kof2k2plbs03
+kof2k2plbs04
+kof2k2plbs05
+kof2k2plbs06
+kof2k2plbs07
+kof2k2plbs08
+kof2k2plbs09
+kof2k2plbs10
+kof2k2plbs11
+kof2k2plbs12
+kof2k2plbs13
+kof2k2plbs14
+kof2k2plbs15
+kof2k2plbs16
+kof2k2plbs17
+kof2k2plbs18
+kof2k2plbs19
+kof2k2plbs20
+kof2k2plbs21
+kof2k2plbs22
+kof2k2plbs23
+kof2k2plcs01
+kof2k2plcs02
+kof2k2plcs03
+kof2k2plcs04
+kof2k2plcs05
+kof2k2plcs06
+kof2k2plcs07
+kof2k2plcs08
+kof2k2plcs09
+kof2k2plcs10
+kof2k2plcs11
+kof2k2plcs12
+kof2k2plcs13
+kof2k2plcs14
+kof2k2plcs15
+kof2k2plcs16
+kof2k2plcs17
+kof2k2plcs18
+kof2k2plcs19
+kof2k2plcs20
+kof2k2plcs21
+kof2k2plcs22
+kof2k2plcs23
+kof2k2ps2as01
+kof2k2ps2as02
 kof2k2s01
 kof2k2s02
 kof2k2s03
@@ -3740,15 +3906,6 @@ kof2003ds18
 kof2003ds19
 kof2003ds20
 kof2003ds21
-kof2003ds22
-kof2003ds23
-kof2003ds24
-kof2003ds25
-kof2003ds26
-kof2003ds27
-kof2003ds28
-kof2003ds29
-kof2003ds30
 kf2k3bls01
 kf2k3bls02
 kf2k3bls03
@@ -3774,6 +3931,15 @@ kf2k3bls22
 kf2k3bls23
 kf2k3bls24
 kf2k3bls25
+kf2k3bls26
+kf2k3bls27
+kf2k3bls28
+kf2k3bls29
+kf2k3bls30
+kf2k3bls31
+kf2k3bls32
+kf2k3bls33
+kf2k3bls34
 kf2k3blas01
 kf2k3blas02
 kf2k3blas03
@@ -3836,9 +4002,40 @@ kf2k3pcbs26
 kf2k3pcbs27
 kf2k3pcbs28
 kf2k3pcbs29
-kf2k3upls01
+kf2k3pls01
+kf2k3pls02
+kf2k3pls03
+kf2k3pls04
+kf2k3pls05
+kf2k3pls06
+kf2k3pls07
+kf2k3pls08
+kf2k3pls09
+kf2k3pls10
+kf2k3pls11
+kf2k3pls12
+kf2k3pls13
+kf2k3pls14
+kf2k3pls15
+kf2k3pls16
+kf2k3pls17
+kf2k3pls18
+kf2k3pls19
+kf2k3pls20
+kf2k3pls21
+kf2k3pls22
+kf2k3pls23
+kf2k3pls24
+kf2k3pls25
+kf2k3pls26
+kf2k3pls27
+kf2k3pls28
+kf2k3pls29
+kf2k3pls30
+kf2k3pls31
 // kof2004EX hack of kof2003
 kof2004pd  // hero
+kof2004upls00
 kof2004upls01
 kof2004upls02
 kof2004upls03
@@ -4120,6 +4317,9 @@ mslug2s23
 mslug2s24
 mslug2s25
 mslug2s26
+mslug2s27
+mslug2s28
+mslug2s29
 mslug2ts01
 mslug2ts02
 mslug2ts03
@@ -4295,6 +4495,7 @@ mslug3nm23
 mslug3nm24
 mslug3nm25
 mslug3nm26
+mslug3nm27
 mslug3h01
 mslug3h02
 mslug3h03
@@ -4340,6 +4541,10 @@ mslug3h42
 mslug3h43
 mslug3h44
 mslug3h45
+mslug3h46
+mslug3h47
+mslug3h48
+mslug3h49
 mslug3erbo01
 mslug3erbo02
 mslug3erbo03
@@ -5021,6 +5226,9 @@ mslug5dh29
 mslug5dh30
 mslug5dh31
 mslug5dh32
+mslug5dh33
+mslug5dh34
+//mslug5dh35 // It does not work
 mslug5bo01
 mslug5bo02
 mslug5bo03
@@ -5411,6 +5619,10 @@ mslugxz53
 mslugxz54
 mslugxz55
 mslugxz56
+mslugxz57
+mslugxz58
+mslugxz59
+mslugxz60
 mslugxervs01
 mslugxervs02
 mslugxervs03
@@ -6446,10 +6658,10 @@ wakuwak7h
 wjammersf
 wjammersk
 zupapad
-//diggerma duplicate name, to check
 androduns01
 aof2s01
 aof2s02
+aof2s03
 aof2as01
 aof2as02
 aof2as03
@@ -6471,6 +6683,7 @@ kabukikls04
 kabukikls05
 kabukikls06
 kabukikls07
+karnovrs01
 kizunas01
 kizunas02
 kizunas03
@@ -6493,8 +6706,10 @@ ninjamass01
 ninjamass02
 ninjamass03
 ninjamass04
+ninjamass05
 nitds01
 nitds02
+preisle2s01
 ragnagrds01
 ragnagrds02
 ragnagrds03
@@ -6560,6 +6775,7 @@ ct2k3spd
 ct2k3spi
 ct2k3xx
 ct2k3ys
+ct2k3ad
 kof2k4mp
 kof2k4mp2
 kof2k4omg
@@ -6650,12 +6866,35 @@ cthd2k3ds09
 cthd2k3ds10
 cthd2k3ds11
 cthd2k3ds12
-cthd2k3ds13
 cthd2k3as01
+ct2k3sps01
+ct2k3ads01
+ct2k3ads02
+ct2k3ads03
+ct2k3ads04
+ct2k3ads05
+ct2k3ads06
+ct2k3ads07
+ct2k3ads08
+ct2k3ads09
+ct2k3ads10
+ct2k3ads11
+ct2k3ads12
+cthd2k3ds13
+ct2k3ads13
+ct2k3spds01
+ct2k3spds02
 kogs01
 kogs02
 kogs03
 kogs04
+kogs05
+kogs06
+kogs07
+kogs08
+kogs09
+kogs10
+kogs11
 kf10theps01
 kf10theps02
 kf10theps03
@@ -6697,6 +6936,7 @@ kf2k5unis08
 kf2k5unis09
 kf2k5unis10
 kf2k5unis11
+kf2k5unis12
 kof2k4ses01
 kof2k4ses02
 kof2k4ses03
@@ -6835,6 +7075,9 @@ lastbld2s11
 lastbld2s12
 lastbld2s13
 lastbld2s14
+lastbld2s15
+lastbld2s16
+lastbld2s17
 
 @source:ngrbff.cpp
 fatfury2b
@@ -6867,6 +7110,7 @@ fatfursps01
 fatfurspas01
 fatfurspas02
 fatfurspas03
+fatfury1s01
 fatfury2s01
 fatfury2s02
 fatfury2s03
@@ -7176,47 +7420,38 @@ svcsplus2016
 svcspryu
 svcstdse
 svcxlb
-svcs01
-svcs02
-svcs03
-svcs04
-svcs05
-svcs06
-svcs07
-svcs08
-svcs09
-svcs10
-svcpcbzs01
-svcpcbzs02
-svchx01  // bad gfx on main logo
-svchx02
-svchx03
-svchx04
-svchx05
-svchx06
-svchx07
-svchx08
-svchx09
-svchx10
-svchx11
-svchx12
-svchx13
-svchx14
-svchx15
-svchx16
-svchx17
-svchx18
-svchx19
-svchx20
-svchx21
-svchx22
-svchx23
-svchx24
-svchx25
-svchx26
-svchx27
-svchx28
-svchx29
+svchs01  // bad gfx on main logo
+svchs02
+svchs03
+svchs04
+svchs05
+svchs06
+svchs07
+svchs08
+svchs09
+svchs10
+svchs11
+svchs12
+svchs13
+svchs14
+svchs15
+svchs16
+svchs17
+svchs18
+svchs19
+svchs20
+svchs21
+svchs22
+svchs23
+svchs24
+svchs25
+svchs26
+svchs27
+svchs28
+svchs29
+svchs30
+svchs31
+svchs32
 svcboots01
 svcboots02
 svcboots03
@@ -7261,7 +7496,6 @@ svcpcbs03
 svcpcbs04
 svcpcbs05
 svcpcbs06
-svcpcbs07
 svcpcbs08
 svcpcbs09
 svcpcbs10
@@ -7275,6 +7509,7 @@ svcpcbas01
 svcpcbas02
 svcpcbas03
 svcpcbas04
+svcpcbas05
 svcpluss01
 svcpluss02
 svcpluss03
@@ -7602,7 +7837,7 @@ ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
-orlegendh
+// orlegendh // it is duplicated roms orlegendcs
 kovassg
 //kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
@@ -7617,22 +7852,22 @@ kovph3
 kovph4
 kovph5
 kovph6
-kovph7      // broken
+//kovph7      // broken (causes emu to freeze)
 kovph8
-kovph9      // broken
-kovph10     // broken
+//kovph9      // broken (causes emu to freeze)
+//kovph10     // broken (causes emu to freeze)
 kovph11
 kovph12
 kovph13
 kovph14
 kovph15
-kovph16     // broken
+//kovph16     // broken (causes emu to freeze)
 kovph17
 kovph18
-kovph19     // broken
-kovph20     // broken
-kovph21     // broken
-kovph22     // broken
+//kovph19     // broken (causes emu to freeze)
+//kovph20     // broken (causes emu to freeze)
+//kovph21     // broken (causes emu to freeze)
+//kovph22     // broken (causes emu to freeze)
 //kovph23   // rom missing
 kovph24		// was kvplusjq
 kovph25		// was kovplusq
@@ -7651,8 +7886,8 @@ kovsh11    // broken
 //kovsh13  // roms missing
 //kovsh14  // roms missing
 //kovsh15  // rom missing
-kovsh16  // broken
-kovsh17  // broken
+//kovsh16  // broken (causes emu to freeze)
+//kovsh17  // broken (causes emu to freeze)
 kovsh18			// gem fighters
 kovsh19			// rugal 98
 kov					//parent
@@ -7663,35 +7898,12 @@ oldsplus			//parent
 olds				//parent
 martmast			//parent
 theglad				//parent
+killblds01
 kovss01
 kov100s01
 kov115s01
-kov2s01
-kov2s02
-kov2s03
-kov2s04
-kov2s05
-kov2s06
-kov2s07
-kov2s08
-kov2s09
-kov2s10
-kov2s11
-kov2s12
-kov2s13
-kov2s14
-kov2s15
-kov2s16
-kov2s17
-kov2s18
-kov2s19
-kov2s20
-kov2s21
-kov2s22
-kov2s23
-kov2s24
-kov2s25
-kov2s26
+kov2p204s01
+kov2p204s02
 kov2p204s03
 kov2p204s04
 kov2p204s05
@@ -7715,348 +7927,407 @@ kov2p204s22
 kov2p204s23
 kov2p204s24
 kov2p204s25
+kov2p204s26
+kov2p204s27
+kov2p204s28
+kov2p204s29
+kov2p204s31
+kov2p204s32
+kov2p204s33
+kov2p204s34
+kov2p204s35
+kov2p204s36
+kov2p204s37
+kov2p204s38
+kov2p204s39
+kov2p204s40
+kov2p204s41
+kov2p204s42
+kov2p204s43
+kov2p204s44
+kov2p204s45
+kov2p204s46
+kov2p204s47
+kov2p204s48
+kov2p204s49
+kov2p204s50
+kov2p204s51
+kov2p204s52
+kov2p204s53
+kov2p204s54
+kov2p204s55
 kov2h01
 kov2h02
 kov2h03
 kov2h04
 kov2h05
 kov2h06
-kovs01  // ingame crash
-kovs02
-kovs03
-kovs04
-kovs05
-kovs06
-kovs07  // ingame crash
-//kovs08  // causes emu to freeze
-kovs09
-kovs10
-kovs11
-kovs12
-kovs13
-kovs15
-kovs16  // ingame crash
-kovs17
-kovs18
-kovs19  // ingame crash
-kovs20
-kovs21
-kovs22
-kovs23
-kovs24
-kovs25
-kovs26
-kovs27  // goes berserk
-kovs28
-kovs29
-kovs30
-kovs31  // bad gfx
-kovs32
-kovs33
-kovs34
-kovs35
-kovs36
-kovs37
-kovs38
-kovs39  // bad gfx
-kovs40
-kovs41  // very bad gfx
-kovs42
-kovs43
-kovs44
-kovs45
-kovs47
-kovs48
-kovs49
-kovs50
-kovs51
-kovs52
-kovs53
-kovs54
-kovs55
-kovs56
-kovs57
-kovs58
-kovs59
-kovs60
-kovs61
-kovs62   // causes emu to freeze
-kovs63
-kovs64
-kovs65
-kovs66
-kovs67
-kovs68
-kovs69
-kovs70
-kovs71
-kovs72
-kovs73
-kovs74
-kovs75   // ingame crash
-kovs76
-kovs77
-kovs78
-kovs80
-kovs81
-kovs82
-kovs83
-kovs84   // bad gfx
-kovs85
-kovplus01  // bad gfx on char select screen
-kovplus03  // ingame crash
-kovplus04  // ingame crash
-kovplus05  // bad gfx on credit/char-select screens
-kovplus06  // bad gfx on credit screen
-kovplus07
-kovplus08   // ingame crash
-kovplus09
-kovplus10   // ingame crash
-kovplus11
-kovplus12
-kovplus13
-kovplus14   // ingame crash
-kovplus15
-kovplus16   // ingame crash
-kovplus17
-kovplus18
-kovplus19   // ingame crash
-kovplus20
-kovplus21
-kovplus22
-kovplus23   // ingame crash
-kovplus24
-kovplus25
-kovplus26
-kovplus27
-kovplus28
-kovplus29   // ingame crash
-kovplus30
-kovplus31
-kovplus32
-kovplus33
-kovplus34
-kovplus35
-kovplus36   // ingame crash
-kovplus37
-kovplus38
-kovplus39
-kovplus40
-kovplus41
-kovplus42
-kovplus43
-kovplus44
-kovplus45
-kovplus46
-kovplus47
-kovplus48
-kovplus49
-kovplus50
-kovplus51
-kovplus52
-kovplus53
-kovplus54
-kovplus55
-kovplus56
-kovplus57
-kovplus58
-kovplus59
-kovplus60
-kovplus61
-kovplus62
-kovplus63   // ingame crash
-kovplus64   // ingame crash
-kovplus65
-kovplus66   // bad gfx
-kovplus67   // bad gfx, no high scores
-kovplus68
-kovplus69   // causes emu to freeze
-kovplus70
-kovplus71
-kovplus72
-kovplus73
-kovplus74
-kovplus75
-kovplus76
-kovplus77
-kovplus78
-kovplus79
-kovplus80
-kovplus81
-kovplus82
-kovplus83
-kovplus84
-kovplus85
-kovplus86
-kovplus87
-kovplus88
-kovplus89
-kovplus90
-kovplus91
-kovplus92
-kovplus93
-kovplus94
-kovplus95
-kovplus96   // ingame crash
-kovplus97
-kovplus98
-kovplus99
-kovplus100
-kovplus101
-kovplus102
-kovplus103
-kovplus104
-kovplus105
-kovplus106
-kovplus107
-kovplus108
-kovplus109
-kovplus110
-kovplus111
-kovplus112
-kovplus113
-kovplus114
-kovplus115
-kovplus116
-kovplus117
-kovplus118
-kovplus119
-kovplus120
-kovplus121
-kovplus122
-kovplus123
-kovplus124
-kovplus125
-kovplus126
-kovplus127
-kovplus128
-kovplus129
-kovplus130
-kovplus131
-kovplus132
-kovplus134
-kovplus135
-kovplus136
-kovplus137
-kovplus138
-kovplus139   // bad gfx
-kovplus140
-kovplus141
-kovplus143
-kovplus144
-kovplus145
-kovplus146
-kovplus147
-kovplus148
-kovplus149
-kovplus150
-kovplus151
-kovplus152
-kovplus153   // ingame crash
-kovplus154
-kovplus155
-kovplus156   // bad gfx
-kovplus157
-kovplus158
-kovplus159
-kovplus160
-kovsh01
-kovsh02
-kovsh03
-kovsh04
-kovsh05
-kovsh06
-kovsh07
-kovsh08
-kovsh09
-kovsh010
-kovsh011
-kovsh012
-kovsh013
-kovsh015
-kovsh016
-kovsh017
-kovsh018   // ingame crash
-kovsh019
-kovsh020
-kovsh021
-kovsh022
-kovsh023   // bad gfx
-kovsh024   // ingame crash
-kovsh025
-kovsh026
-kovsh027
-kovsh028
-kovsh029
-kovsh030
-kovsh031
-kovsh032
-kovsh033
-kovsh034
-kovsh035
-kovsh036
-kovsh037
-kovsh038
-kovsh039
-kovsh040
-kovsh041
-kovsh042
-kovsh043
-kovsh044
-kovsh045
-kovsh046
-kovsh047
-kovsh048
-kovsh049
-kovsh050
-kovsh052   // ingame crash
-kovsh053
-kovsh054
-kovsh055
-kovsh057
-kovsh058
-kovsh063
-kovsh064
-kovsh065
-kovsh066
-kovsh067
-kovsh068
-kovsh069
-kovsh070
-kovsh071   // bad gfx
-kovsh072
-kovsh073
-kovsh074
-kovsh075
-kovsh076   // ingame crash
-kovsh077   // ingame crash
-kovsh078
-kovsh079
-kovsh080
-kovsh081
-kovsh082
-kovsh083
-kovsh084
-kovsh085
-kovsh086
-kovsh087
-kovsh088
-kovsh089
-kovsh090
-kovsh091
-kovsh092
-kovsh093
-kovsh094
-kovsh095
-kovsh096
-kovsh097
-kovsh098   // bad gfx
-kovsh099
-kovshx01
-kovshx02
-kovshx03
-kovshx04
-kovshx05   // bad gfx
+kov2h07
+kov2h08
+kov2h09
+kov2h10
+kov2h11
+kovpluss01
+kovpluss02  // Unstable game in the emulator (ingame crash)
+kovpluss03
+kovpluss04  // bad gfx on credit/char-select screens
+kovpluss05
+kovpluss06
+kovpluss07
+kovpluss08   // Unstable game in the emulator (ingame crash)
+kovpluss09
+kovpluss10   // Unstable game in the emulator (ingame crash)
+kovpluss11   // Unstable game in the emulator (ingame crash)
+kovpluss12
+kovpluss13
+kovpluss14
+kovpluss15
+kovpluss16
+kovpluss17   // Unstable game in the emulator (ingame crash)
+kovpluss18
+kovpluss19
+kovpluss20
+kovpluss21
+kovpluss22   // Unstable game in the emulator (ingame crash)
+kovpluss23   // Unstable game in the emulator (ingame crash)
+kovpluss24
+kovpluss25
+kovpluss26
+kovpluss27
+kovpluss28
+kovpluss29
+kovpluss30   // bad gfx
+kovpluss31   // bad gfx
+kovpluss32
+kovpluss33
+kovpluss34
+kovpluss35
+kovpluss36
+kovpluss37
+kovpluss38  // Unstable game in the emulator (ingame crash)
+kovpluss39
+kovpluss40
+kovpluss41
+kovpluss42
+kovpluss43
+kovpluss44
+kovpluss45
+kovpluss46
+kovpluss47
+kovpluss48
+kovpluss49
+kovpluss50
+kovpluss51
+kovpluss52
+kovpluss53
+kovpluss54
+kovpluss55
+kovpluss56
+kovpluss57
+kovpluss58
+kovpluss59
+kovpluss60
+kovpluss61
+kovpluss62
+kovpluss63
+kovpluss64
+kovpluss65
+kovpluss66
+kovpluss67
+kovpluss68  // Unstable game in the emulator (ingame crash)
+kovpluss69  // Unstable game in the emulator (ingame crash)
+kovpluss70  // Unstable game in the emulator (ingame crash)
+kovpluss71  // Unstable game in the emulator (ingame crash)
+kovpluss72
+kovpluss73   // bad gfx
+kovpluss74
+kovpluss75
+kovpluss76  // bad gfx on credit screen
+kovpluss77  // Unstable game in the emulator (ingame crash)
+kovpluss78  // causes emu to freeze
+kovpluss79
+kovpluss80
+kovpluss81
+kovpluss82
+kovpluss83
+kovpluss84
+kovpluss85
+kovpluss86
+kovpluss87
+kovpluss88
+kovpluss89
+kovpluss90
+kovpluss91
+kovpluss92
+kovpluss93
+kovpluss94
+kovpluss95
+kovpluss96
+kovpluss97
+kovpluss98
+kovpluss99
+kovpluss100
+kovpluss101
+kovpluss102
+kovpluss103
+kovpluss104
+kovpluss105
+kovpluss106
+kovpluss107
+kovpluss108
+kovpluss109
+kovpluss110
+kovpluss111  // Unstable game in the emulator (ingame crash)
+kovpluss112
+kovpluss113
+kovpluss114
+kovpluss115
+kovpluss116
+kovpluss117
+kovpluss118
+kovpluss119
+kovpluss120
+kovpluss121
+kovpluss122
+kovpluss123
+kovpluss124
+kovpluss125
+kovpluss126
+kovpluss127
+kovpluss128
+kovpluss129
+kovpluss130
+kovpluss131
+kovpluss132
+kovpluss133
+kovpluss134
+kovpluss135
+kovpluss136
+kovpluss137
+kovpluss138
+kovpluss139
+kovpluss140
+kovpluss141
+kovpluss142
+kovpluss143
+kovpluss144
+kovpluss145
+kovpluss146
+kovpluss147
+kovpluss148
+kovpluss149
+kovpluss150
+kovpluss151
+kovpluss152
+kovpluss153
+kovpluss154
+kovpluss155   // bad gfx
+kovpluss156
+kovpluss157
+kovpluss158
+kovpluss159
+kovpluss160
+kovpluss161
+kovpluss162
+kovpluss163
+kovpluss164
+kovpluss165
+kovpluss166
+kovpluss167
+kovpluss168
+kovpluss169
+kovpluss170
+kovpluss171
+kovpluss172
+kovpluss173
+kovpluss174
+kovpluss175
+kovpluss176
+kovpluss177
+kovpluss178  // Unstable game in the emulator(ingame crash)
+kovpluss179
+kovpluss180
+kovpluss181
+kovpluss182
+kovpluss184
+kovpluss185
+kovpluss186
+kovpluss187
+kovpluss188
+kovpluss189  // causes emu to freeze
+kovpluss190 
+kovpluss191
+kovpluss192
+kovpluss193
+kovpluss194
+kovpluss195
+kovpluss196
+kovpluss197
+kovpluss198
+kovpluss199
+kovpluss200
+kovpluss201
+kovpluss202
+kovpluss203
+kovpluss204
+kovpluss205  // bad gfx
+kovpluss206  // Unstable game in the emulator(ingame crash)
+kovpluss207
+kovpluss208
+kovpluss209  // very bad gfx
+//kovpluss210  // Unstable game in the emulator (causes emu to freeze)
+kovpluss211
+kovpluss212
+kovpluss213
+kovpluss214
+kovpluss215
+kovpluss216   // Unstable game in the emulator(ingame crash)
+//kovpluss218    // Unstable game in the emulator(ingame crash)
+kovpluss219
+kovpluss220
+kovpluss221
+kovpluss222
+kovpluss223
+kovpluss224
+kovpluss225
+kovpluss226
+//kovpluss227   // Unstable game in the emulator(ingame crash)
+kovpluss228
+kovpluss229
+kovpluss230
+kovpluss231
+kovpluss232
+kovpluss233
+kovpluss234
+kovpluss235
+kovpluss236
+//kovpluss237    // Unstable game in the emulator(ingame crash)
+//kovpluss238    // Unstable game in the emulator(ingame crash)
+kovpluss239
+kovpluss240     // Unstable game in the emulator(ingame crash)
+kovpluss241
+kovpluss242
+kovpluss243
+kovpluss244  // goes berserk
+kovpluss245
+kovpluss246
+kovpluss247   // bad gfx
+kovpluss248  // bad gfx on char select screen
+kovpluss249     // Unstable game in the emulator(ingame crash)
+kovpluss250
+kovpluss251
+kovpluss252
+kovpluss253   // bad gfx, no high scores
+kovpluss254
+kovpluss255
+kovplusas01
+kovshs01
+kovshs02
+kovshs03
+kovshs04
+kovshs05
+kovshs06
+kovshs07
+kovshs08
+kovshs09
+kovshs10
+kovshs11
+kovshs12
+kovshs13
+kovshs15
+kovshs16
+kovshs17
+kovshs18   //  Unstable game in the emulator (ingame crash)
+kovshs19
+kovshs20
+kovshs21
+kovshs22
+kovshs23   // bad gfx
+kovshs24   //  Unstable game in the emulator (ingame crash)
+kovshs25
+kovshs26
+kovshs27
+kovshs28
+kovshs29
+kovshs30
+kovshs31
+kovshs32
+kovshs33
+kovshs34
+kovshs35
+kovshs36
+kovshs37
+kovshs38
+kovshs39
+kovshs40
+kovshs41
+kovshs42
+kovshs43
+kovshs44
+kovshs45
+kovshs46
+kovshs47
+kovshs48
+kovshs49
+kovshs50
+kovshs51   //  Unstable game in the emulator (ingame crash)
+kovshs52
+kovshs53
+kovshs54
+kovshs55
+kovshs56
+kovshs57
+kovshs58
+kovshs59
+kovshs60
+kovshs61
+kovshs62
+kovshs63
+kovshs64
+kovshs65   // bad gfx
+kovshs66
+kovshs67
+kovshs68
+kovshs69
+kovshs70   //  Unstable game in the emulator (ingame crash)
+kovshs71   //  Unstable game in the emulator (ingame crash)
+kovshs72
+kovshs73
+kovshs74
+kovshs75
+kovshs76
+kovshs77
+kovshs78
+kovshs79
+kovshs80
+kovshs81
+kovshs82
+kovshs83
+kovshs84
+kovshs85
+kovshs86
+kovshs87
+kovshs88
+kovshs89
+kovshs90
+kovshs91
+kovshs92   // bad gfx
+kovshs93
+kovshs94
+kovshs95
+kovshs96   // bad gfx
+//kovshs97   //  Unstable game in the emulator (ingame crash)
+kovshs98
+//kovshs99    //  Unstable game in the emulator (ingame crash)
+//kovshs100   //  Unstable game in the emulator (ingame crash)
+//kovshs101   //  Unstable game in the emulator (ingame crash)
+//kovshs102   //  Unstable game in the emulator (ingame crash) 
+kovshs103
+kovshs104
+kovshs105    // bad gfx
+kovqhsgs01
+kovqhsgs02
+kovqhsgs03
 kovsho01
 kovsho02
 kovsho03
@@ -8071,44 +8342,206 @@ kovsho11
 kovsho12
 kovsho13
 kovsho14
-kovqhs01
-killblds01
-martmasthc01
+//kovsho15 //disabled serious problems graphic
+kovsho16
+kovsho17
+kovsho18
+kovsho19
+kovsho20
+kovsho21
+kovsho22
+//kovsho23 //  Unstable game in the emulator (ingame crash)
+//kovsho24 //  Unstable game in the emulator (ingame crash)
+//kovsho25 //  Unstable game in the emulator (ingame crash)
+//kovsho26 //  Unstable game in the emulator (ingame crash)
+//kovsho27 //  Unstable game in the emulator (ingame crash)
+kovsho28
+kovsho29
+kovsho30
+kovsho31
+kovsho32
+kovsho33
+kovsho34
+kovsho35
+kovsho36
+kovsho37
+kovsho38
+kovsho39
+kovsho40
+kovsho41
+kovsho42
+kovsho43
+kovsho44
+kovsho45
+kovsho46
+kovsho47
+kovsho48
+kovsho49
+kovsho50
+kovsho51
+kovsho52
+kovsho53
+kovsho54
+kovsho55
+kovsho56
+kovsho57
+kovsho58
+kovsho59
+kovsho60
+kovsho61
+kovsho62
+kovsho63
+kovsho64
+kovsho65
+kovshxass01
+kovshxass02
+kovshxass03
+martmasts01
+olds01
+olds103ts01
+olds100s01
+//olds100ass01 //  Unstable game in the emulator (ingame crash)
+//olds100ass02 //  Unstable game in the emulator (ingame crash)
+//olds100ass03 //  Unstable game in the emulator (ingame crash)
+//olds100ass04 //  Unstable game in the emulator (ingame crash)
+//olds100ass05 //  Unstable game in the emulator (ingame crash)
+//olds100ass06 //  Unstable game in the emulator (ingame crash)
+//olds100ass07 //  Unstable game in the emulator (ingame crash)
+//olds100ass08 //  Unstable game in the emulator (ingame crash)
+//olds100ass09 //  Unstable game in the emulator (ingame crash)
+//olds100ass10 //  Unstable game in the emulator (ingame crash)
+//olds100ass11 //  Unstable game in the emulator (ingame crash)
+//olds100ass12 //  Unstable game in the emulator (ingame crash)
+//olds100ass13 //  Unstable game in the emulator (ingame crash)
+//olds100ass14 //  Unstable game in the emulator (ingame crash)
+//olds100ass15 //  Unstable game in the emulator (ingame crash)
+//olds100ass16 //  Unstable game in the emulator (ingame crash)
+//olds100ass17 //  Unstable game in the emulator (ingame crash)
+//olds100ass18 //  Unstable game in the emulator (ingame crash)
+//olds100ass19 //  Unstable game in the emulator (ingame crash)
+//olds100ass20 //  Unstable game in the emulator (ingame crash)
+//olds100ass21 //  Unstable game in the emulator (ingame crash)
+//olds100ass22 //  Unstable game in the emulator (ingame crash)
+//olds100ass23 //  Unstable game in the emulator (ingame crash)
+//olds100ass24 //  Unstable game in the emulator (ingame crash)
+//olds100ass25 //  Unstable game in the emulator (ingame crash)
+//olds100ass26 //  Unstable game in the emulator (ingame crash)
+//olds100ass27 //  Unstable game in the emulator (ingame crash)
+//olds100ass28 //  Unstable game in the emulator (ingame crash)
+//olds100ass29 //  Unstable game in the emulator (ingame crash)
+//olds100ass32 //  Unstable game in the emulator (ingame crash)
+//olds100ass33 //  Unstable game in the emulator (ingame crash)
+//olds100ass34 //  Unstable game in the emulator (ingame crash)
+//olds100ass35 //  Unstable game in the emulator (ingame crash)
+//olds100ass36 //  Unstable game in the emulator (ingame crash)
+//olds100ass37 //  Unstable game in the emulator (ingame crash)
+//olds100ass38 //  Unstable game in the emulator (ingame crash)
+//olds100ass39 //  Unstable game in the emulator (ingame crash)
+//olds100ass40 //  Unstable game in the emulator (ingame crash)
+//olds100ass41 //  Unstable game in the emulator (ingame crash)
+//olds100ass42 //  Unstable game in the emulator (ingame crash)
+//olds100ass43 //  Unstable game in the emulator (ingame crash)
+//olds100ass44 //  Unstable game in the emulator (ingame crash)
+//olds100ass45 //  Unstable game in the emulator (ingame crash)
+//olds100ass46 //  Unstable game in the emulator (ingame crash)
+//olds100ass47 //  Unstable game in the emulator (ingame crash)
+//olds100ass48 //  Unstable game in the emulator (ingame crash)
+//olds100ass49 //  Unstable game in the emulator (ingame crash)
+//olds100ass50 //  Unstable game in the emulator (ingame crash)
+//olds100ass51 //  Unstable game in the emulator (ingame crash)
+//olds100ass52 //  Unstable game in the emulator (ingame crash)
+//olds100ass53 //  Unstable game in the emulator (ingame crash)
+//olds100ass54 //  Unstable game in the emulator (ingame crash)
+//olds100ass55 //  Unstable game in the emulator (ingame crash)
+//olds100ass56 //  Unstable game in the emulator (ingame crash)
+//olds100ass57 //  Unstable game in the emulator (ingame crash)
+//olds100ass58 //  Unstable game in the emulator (ingame crash)
+//olds100ass59 //  Unstable game in the emulator (ingame crash)
+//olds100ass60 //  Unstable game in the emulator (ingame crash)
+//olds100ass61 //  Unstable game in the emulator (ingame crash)
+//olds100ass62 //  Unstable game in the emulator (ingame crash)
+//olds100ass63 //  Unstable game in the emulator (ingame crash)
+//olds100ass64 //  Unstable game in the emulator (ingame crash)
+//olds100ass65 //  Unstable game in the emulator (ingame crash)
+//olds100ass66 //  Unstable game in the emulator (ingame crash)
+//olds100ass67 //  Unstable game in the emulator (ingame crash)
+//olds100ass68 //  Unstable game in the emulator (ingame crash)
+//olds100ass69 //  Unstable game in the emulator (ingame crash)
+//olds100ass70 //  Unstable game in the emulator (ingame crash)
+//olds100ass71 //  Unstable game in the emulator (ingame crash)
+//olds100ass72 //  Unstable game in the emulator (ingame crash)
+//olds100ass73 //  Unstable game in the emulator (ingame crash)
+//olds100ass74 //  Unstable game in the emulator (ingame crash)
+//olds100ass75 //  Unstable game in the emulator (ingame crash)
+//olds100ass76 //  Unstable game in the emulator (ingame crash)
+//olds100ass77 //  Unstable game in the emulator (ingame crash)
+//olds100ass78 //  Unstable game in the emulator (ingame crash)
+//olds100ass79 //  Unstable game in the emulator (ingame crash)
+//olds100ass80 //  Unstable game in the emulator (ingame crash)
+//olds100ass81 //  Unstable game in the emulator (ingame crash)
+//olds100ass82 //  Unstable game in the emulator (ingame crash)
+//olds100ass83 //  Unstable game in the emulator (ingame crash)
+//olds100ass84 //  Unstable game in the emulator (ingame crash)
+//olds100ass85 //  Unstable game in the emulator (ingame crash)
+//olds100ass86 //  Unstable game in the emulator (ingame crash)
+//olds100ass87 //  Unstable game in the emulator (ingame crash)
+//olds100ass88 //  Unstable game in the emulator (ingame crash)
+//olds100ass89 //  Unstable game in the emulator (ingame crash)
+//olds100ass90 //  Unstable game in the emulator (ingame crash)
+//olds100ass91 //  Unstable game in the emulator (ingame crash)
+//olds100ass92 //  Unstable game in the emulator (ingame crash)
+//olds100ass93 //  Unstable game in the emulator (ingame crash)
+//olds100ass94 //  Unstable game in the emulator (ingame crash)
+//olds100ass95 //  Unstable game in the emulator (ingame crash)
+//olds100ass96 //  Unstable game in the emulator (ingame crash)
+//olds100ass97 //  Unstable game in the emulator (ingame crash)
+//olds100ass98 //  Unstable game in the emulator (ingame crash)
+//olds100ass99 //  Unstable game in the emulator (ingame crash)
+//olds100ass100 //  Unstable game in the emulator (ingame crash)
+//olds100ass101 //  Unstable game in the emulator (ingame crash)
+//olds100ass102 //  Unstable game in the emulator (ingame crash)
+//olds100ass103 //  Unstable game in the emulator (ingame crash)
+//olds100ass104 //  Unstable game in the emulator (ingame crash)
+//olds100ass105 //  Unstable game in the emulator (ingame crash)
+//olds100ass106 //  Unstable game in the emulator (ingame crash)
+//olds100ass107 //  Unstable game in the emulator (ingame crash)
+//olds100ass108 //  Unstable game in the emulator (ingame crash)
+//olds100ass109 //  Unstable game in the emulator (ingame crash)
+//olds100ass110 //  Unstable game in the emulator (ingame crash)
+//olds100ass111 //  Unstable game in the emulator (ingame crash)
+//olds100ass112 //  Unstable game in the emulator (ingame crash)
+//olds100ass113 //  Unstable game in the emulator (ingame crash)
+//olds100ass114 //  Unstable game in the emulator (ingame crash)
+//olds100ass115 //  Unstable game in the emulator (ingame crash)
+//olds100ass116 //  Unstable game in the emulator (ingame crash)
+//olds100ass117 //  Unstable game in the emulator (ingame crash)
+//olds100ass118 //  Unstable game in the emulator (ingame crash)
+//olds100ass119 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
 oldsplus04
-olds100s01
-olds01
+oldsplus05
+oldsplus06
+oldsplus07
+oldsplus08
+oldsplus09
+oldsplus10
+oldsplus11
+oldsplus12
+oldsplus13
 orlegends01
-orlegends02   // ingame crash
+orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
-orlegends04   // ingame crash
+orlegends04
 orlegends05
-orlegends06   // stuck in setup menu
+orlegends06
 orlegends07
-orlegends08   // stuck in setup menu
+orlegends08
 orlegends09
 orlegends10
 orlegends11
 orlegends12
-orlegends13
-orlegends14
-orlegends15
-orlegends16
-orlegends17
-orlegends18
-orlegends19
-orlegends20
-orlegends21
-orlegends22
-orlegends23   // stuck in setup menu
-orlegends25
-orlegends26
-orlegends27
-orlegends28
-orlegends29
-orlegend111cs01
 orlegendcs01
 orlegendcs02
 orlegendcs03
@@ -8168,6 +8601,27 @@ orlegendcs61
 orlegendcs62
 orlegendcs63
 orlegendcs64
+orlegendcs65
+orlegendcs66
+orlegendcs67
+orlegendcs68   //  Unstable game in the emulator (ingame crash)
+orlegendcs69
+orlegendcs70   // stuck in setup menu
+orlegendcs71
+orlegendcs72   // stuck in setup menu
+orlegendcs73
+orlegendcs74
+orlegendcs75
+orlegendcs76
+orlegendcs77
+orlegendcs78
+orlegendcs79
+//orlegendcs80   //  Unstable game in the emulator (ingame crash)
+//orlegendcs81   //  Unstable game in the emulator (ingame crash)
+//orlegendcs82   //  Unstable game in the emulator (ingame crash)
+orlegendcs83
+orlegendes01
+orlegend111cs01
 theglads01
 theglads02
 
@@ -8203,6 +8657,7 @@ powernbr
 powerns01
 powerns02
 powerinss01
+powerinss02
 powerinsas01
 powerinsas02
 powerinsbs01
@@ -8452,6 +8907,9 @@ timepltdiag
 ssriders	//parent
 ssridersaex
 ssridersudas01
+ssridersebcs01
+ssridersjbds01
+ssridersubcs01
 tmnt2					//parent
 tmnt2s01
 tmnt2s02
@@ -8471,7 +8929,7 @@ batsugunt
 bgaregga	//parent
 bgareggz
 snowbro2		//parent
-mahoudais01				// bad gfx on title
+mahoudais01
 shippumds01				// bad gfx on title
 snowbro2s01
 snowbro2s02
@@ -8520,4 +8978,3 @@ nacho		/* Gatinho - Nacho Libre */
 @source:zn.cpp
 coh1002m		//parent
 doapph01  //
-

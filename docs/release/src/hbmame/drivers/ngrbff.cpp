@@ -658,8 +658,6 @@ ROM_START( rbff2y ) /* Real Bout Fatal Fury 2 - Hack by Ydmis - (Player 2 goes t
 	ROM_LOAD16_BYTE( "240.c6", 0x2000001, 0x800000, CRC(4609e507) SHA1(bb17f50a377dddb77c1eeda5944a7bcbf0cca5f7) )
 ROM_END
 
-
-
 HACK( 200?, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang[EGCG]", "Fatal Fury Special (Optional hidden characters first edition)(set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury Special (Optional hidden character third edition)(set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX)(set 1)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
@@ -677,7 +675,7 @@ HACK( 200?, rbff1ud,       rbff1,    neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, rbffsb,        rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffseh,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Real Bout Fatal Fury Special (Add Geese Howard - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffsehd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury Special (Ultra kill style changed - 5 Add Char)", MACHINE_SUPPORTS_SAVE ) // Geese Howard, Andy B. EX, Blue Mary EX, Billy K. EX and Tung Fu Rue EX
-HACK( 200?, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffspecbs,    rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Real Bout Fatal Fury Special (Enable hidden characters v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffspy,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury Special (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, rbffss07,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special (Ultra Edition)", MACHINE_SUPPORTS_SAVE )
@@ -692,8 +690,6 @@ HACK( 200?, rbff2eho,      rbff2,    neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, rbff2fc,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eddids - FCHT", "Real Bout Fatal Fury 2 (Enable Alfred v3 & Color Fix)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbff2ud,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (P1 and P2 Add Alfred [Terry, hold B+C and press A] - Ultra kill style change)(NGM-2400)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbff2y,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (P1 only Add Alfred [Terry, hold B+C and press A])(NGM-2400)", MACHINE_SUPPORTS_SAVE )
-
-
 
 
 // PSmame (c) gaston90 used with permission
@@ -799,6 +795,30 @@ ROM_START( fatfurspas03 )
 	ROM_LOAD16_BYTE( "058.c4", 0x400001, 0x200000, CRC(4ad066ff) SHA1(4e304646d954d5f7bbabc5d068e85de31d38830f) )
 	ROM_LOAD16_BYTE( "058.c5", 0x800000, 0x200000, CRC(49c5e0bf) SHA1(f3784178f90751990ea47a082a6aa869ee3566c9) )
 	ROM_LOAD16_BYTE( "058.c6", 0x800001, 0x200000, CRC(8ff1f43d) SHA1(6180ceb5412a3e2e34e9513a3283b9f63087f747) )
+ROM_END
+
+ /************
+ Fatal Fury 1
+***************/
+
+ROM_START( fatfury1s01 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "033s01.p1", 0x000000, 0x080000, CRC(fc051e1d) SHA1(515f3f8eb080f794bbde09aa3959a1f01b1b01ef) )
+	ROM_LOAD16_WORD_SWAP( "033.p2", 0x080000, 0x020000, CRC(c473af1c) SHA1(4919eeca20abe807493872ca7c79a5d1f496fe68) )
+
+	NEO_SFIX_128K( "033.s1", CRC(3c3bdf8c) SHA1(2f3e5feed6c27850b2a0f6fae0b97041690e944c) )
+
+	NEO_BIOS_AUDIO_128K( "033.m1", CRC(5be10ffd) SHA1(90a5e6cbbc58a7883cd2a3a597180d631a466882) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "033.v1", 0x000000, 0x100000, CRC(212fd20d) SHA1(120c040db8c01a6f140eea03725448bfa9ca98c2) )
+	ROM_LOAD( "033.v2", 0x100000, 0x100000, CRC(fa2ae47f) SHA1(80d0ba4cd30aab59b6f0db8fa341387bd7388afc) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "033.c1", 0x000000, 0x100000, CRC(74317e54) SHA1(67b9c2814a12603b959612456f59de55f9bf6f57) )
+	ROM_LOAD16_BYTE( "033.c2", 0x000001, 0x100000, CRC(5bb952f3) SHA1(ea964bbcc0408b6ae07cbb5043d003281b1aca15) )
+	ROM_LOAD16_BYTE( "033.c3", 0x200000, 0x100000, CRC(9b714a7c) SHA1(b62bdcede3207d062a89e0a4a9adf706101bb681) )
+	ROM_LOAD16_BYTE( "033.c4", 0x200001, 0x100000, CRC(9397476a) SHA1(a12dbb74020aeb6ebf24ec2abbfba5129cabcb7d) )
 ROM_END
 
  /************
@@ -1204,10 +1224,12 @@ HACK( 200?, fatfursps01,    fatfursp, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, fatfurspas01,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Dodowang[EGCG]",    "Fatal Fury Special (Hidden Characters-Enable Ryo Sakazaki v1)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fatfurspas02,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Tcwlee[EGCG]",    "Fatal Fury Special (Hidden Characters-Enable Ryo Sakazaki v2)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fatfurspas03,   fatfursp, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yumeji[2ch]",    "Fatal Fury Special (Hidden Characters-Enable Ryo Sakazaki v3)(set 2)(NGM-058)(NGH-058)", MACHINE_SUPPORTS_SAVE )
+ // Fatal Fury 1
+ HACK( 1991, fatfury1s01,   fatfury1, neogeo_noslot, neogeo, neogeo_state,   neogeo,   ROT0, "yumeji1768", "Fatal Fury (Enable Hidden Characters)(NGM-033)(NGH-033)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 2
-HACK( 200?, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "yumeji[2ch]",    "Fatal Fury 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Optional Hidden Characters And Super Kill Unified)(NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "yumeji[2ch]",    "Fatal Fury 2 (Enable Hidden Characters)(NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Easy Special Attacks)(NGM-047)(NGH-047)", MACHINE_SUPPORTS_SAVE )
  // Real Bout Fatal Fury Special
 HACK( 200?, rbffss01,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami & Dodowang[EGCG]",    "Real Bout Fatal Fury Special (Enable Hidden Characters & Boss)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, rbffss02,       rbffspec, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]#Dodowang[EGCG]",    "Real Bout Fatal Fury Special (Enable Hidden Characters & Boss V2)", MACHINE_SUPPORTS_SAVE )

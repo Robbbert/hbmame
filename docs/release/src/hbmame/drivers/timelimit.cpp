@@ -43,16 +43,16 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_DEVICE_ADD("audiocpu", Z80,18432000/6)    /* 3.072 MHz */
 	MCFG_DEVICE_PROGRAM_MAP(sound_map)
 	MCFG_DEVICE_IO_MAP(sound_io_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", timelimt_state,  irq0_line_hold) /* ? */
+	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", timelimt_hbmame,  irq0_line_hold) /* ? */
 
 	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
 
-	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // IC15
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, timelimt_state, nmi_enable_w))
-	MCFG_ADDRESSABLE_LATCH_Q2_OUT_CB(WRITELINE(*this, timelimt_state, coin_lockout_w))
-	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(INPUTLINE("audiocpu", INPUT_LINE_RESET)) MCFG_DEVCB_INVERT
-	MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(NOOP) // probably flip screen
-	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(NOOP) // probably flip screen
+	ls259_device &mainlatch(LS259(config, "mainlatch")); // IC15
+	mainlatch.q_out_cb<0>().set(FUNC(timelimt_hbmame::nmi_enable_w));
+	mainlatch.q_out_cb<2>().set(FUNC(timelimt_hbmame::coin_lockout_w));
+	mainlatch.q_out_cb<3>().set_inputline(m_audiocpu, INPUT_LINE_RESET).invert();
+	mainlatch.q_out_cb<6>().set_nop(); // probably flip screen
+	mainlatch.q_out_cb<7>().set_nop(); // probably flip screen
 
 	MCFG_WATCHDOG_ADD("watchdog")
 
@@ -62,12 +62,12 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
 	MCFG_SCREEN_SIZE(32*8, 32*8)
 	MCFG_SCREEN_VISIBLE_AREA(0*8, 32*8-1, 2*8, 30*8-1)
-	MCFG_SCREEN_UPDATE_DRIVER(timelimt_state, screen_update)
+	MCFG_SCREEN_UPDATE_DRIVER(timelimt_hbmame, screen_update)
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_timelimt)
 	MCFG_PALETTE_ADD("palette", 64+32)
-	MCFG_PALETTE_INIT_OWNER(timelimt_state, timelimt)
+	MCFG_PALETTE_INIT_OWNER(timelimt_hbmame, timelimt)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

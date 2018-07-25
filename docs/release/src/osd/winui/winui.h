@@ -10,6 +10,7 @@
 #include "pool.h"
 #include "screenshot.h"
 #include "drivenum.h"
+#include "romload.h"
 
 #define MAMENAME "HBMAME"
 #define UI_INI_FILENAME MAMENAME "UI.ini"
