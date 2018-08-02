@@ -1104,8 +1104,8 @@ HACK( 200?, kof2k4spl,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof2
 HACK( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary 2008 Unique (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof10thbr,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Neogeo BR Team", "Kof 10th Anniversary (Brazil by NeogeoBRteam)(The King of Fighters 2002 bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof10thd,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary (The King of Fighters 2002 bootleg / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "Unknown", "Kof 10th Anniversary Unique (hack d16)(The King of Fighters 2002 bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kf10thep,  ROT0, "Unknown", "Kof 10th Anniversary Extra Plus (hack 15)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "Unknown", "Kof 10th Anniversary Unique (Simplify Edition)(The King of Fighters 2002 bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kf10thep,  ROT0, "Unknown", "Kof 10th Anniversary Extra Plus (Simplify Edition)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_state,  kof10thu,  ROT0, "Unknown", "Kof 10th Anniversary Unique (hack u)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary Unique (Translation portuguese edition)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary Unique (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
@@ -5631,6 +5631,57 @@ ROM_START( kof2k4ses29 )
 	ROM_LOAD16_BYTE( "k2k4s-c5.bin", 0x3000001, 0x800000, CRC(2c912ff9) SHA1(b624a625ea3e221808b7ea43fb0b1a51d8c1853e) )
 ROM_END
 
+ROM_START( kof2k4ses30 )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc30.p1",  0x000000, 0x3BD4C1, CRC(58e6a6cc) SHA1(6e917cd79efcfe34b608040c0a847215fcdbc443))
+	ROM_LOAD16_WORD_SWAP( "k2k4shc30.p2", 0x100000, 0x400000, CRC(35c8ec2f) SHA1(2587a0452d3929820f0c1507d0657683a9a9b125))
+
+	NEO_SFIX_128K( "365omg.s1", CRC(a41ebb8b) SHA1(e7fde454fe3adfdfa1f43f5a0042979e0f43c89f) )
+
+	NEO_BIOS_AUDIO_128K( "5008-m1.bin", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265sm.v1", 0x000000, 0x400000, CRC(8991f6e9) SHA1(ce5afc0169c142d7f98111afbc60b3a9a2e17256) )
+	ROM_LOAD( "265sm.v2", 0x400000, 0x400000, CRC(511e4d2f) SHA1(28190ec86ac2169ab6fad80635ed13cfcf430c65) )
+	ROM_LOAD( "265sm.v3", 0x800000, 0x400000, CRC(1dd8b53a) SHA1(9aa84f145ba07f5f3c3b3fb682eb8a8ab1500b4c) )
+	ROM_LOAD( "265sm.v4", 0xc00000, 0x400000, CRC(63bb5462) SHA1(afc6a085e25bd006f26e16beda4244bc8bc19bb8) )
+
+	ROM_REGION( 0x4000400, "sprites", 0 )
+	ROM_LOAD16_BYTE( "k2k4s-c4.bin", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "k2k4s-c8.bin", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c4", 0x1000001, 0x880400, CRC(72482b25) SHA1(0ad1aaeaa359a0a35f6be84bdb813559c11ddcd2) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c5", 0x2000000, 0x800000, CRC(cef18d97) SHA1(8a42837828f8d69854186fe1bbe6acd520414f8e) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c6", 0x2000001, 0x800000, CRC(cafb6c0a) SHA1(683efa1435c5fc07c357b2530390559980cfb5d9) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c7", 0x3000000, 0x800000, CRC(13d68c11) SHA1(11de1fb01068fecd2b68c64a49be83e1c7a5c790) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c8", 0x3000001, 0x800000, CRC(f155bf30) SHA1(c1ac15ae6d3b8a9f719ff819398685ebd5c42450) )
+ROM_END
+
+ROM_START( kof2k4ses31 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc31.p1",  0x000000, 0x100000, CRC(e0f850e0) SHA1(71082c186f6c47c2515aca04f5027cc6916193e5))
+	ROM_LOAD16_WORD_SWAP( "k2k4s-p1.bin", 0x100000, 0x400000, CRC(e6c50566) SHA1(cc6a3489a3bfeb4dcc65b6ddae0030f7e66fbabe))
+
+	NEO_SFIX_128K( "k2k4s-s1.bin", CRC(a3c9b2d8) SHA1(1472d2cbd7bb73e84824ecf773924007e6117e77) )
+
+	NEO_BIOS_AUDIO_128K( "5008-m1.bin", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "k2k4s-v2.bin", 0x000000, 0x800000, CRC(e4ddfb3f) SHA1(eb8220ab01c16cf9244b7f3f9912bec0db561b85) )
+	ROM_LOAD( "k2k4s-v1.bin", 0x800000, 0x800000, CRC(b887d287) SHA1(f593a5722df6f6fac023d189a739a117e976bb2f) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+
+	ROM_LOAD16_BYTE( "k2k4s-c4.bin", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "k2k4s-c8.bin", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "k2k4shc31-c1.bin", 0x3000000, 0x800000, CRC(dec455b7) SHA1(d2b75a0fb72e38f506d82cba9f368db2ba47a23d) )
+	ROM_LOAD16_BYTE( "k2k4shc31-c5.bin", 0x3000001, 0x800000, CRC(5bbf0048) SHA1(8a8448e44aefd10a3f215ee2dcb452ebee24fbc0) )
+ROM_END
+
 ROM_START( kof2k4plss01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "365plss01.p1", 0x000000, 0x100000, CRC(567bb88e) SHA1(f6f035d5f8d4bd1764458d14782b1bf04e38ed06) )
@@ -6334,6 +6385,8 @@ HACK( 200?, kof2k4ses26,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2k4ses27,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "kof1996",    "Kof Special Edition 2004 (Remove Countdown)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4ses28,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 (Practice Mode Maximum Power)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4ses29,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "Eddids[FGCH]",    "Kof Special Edition 2004 (Unlimited Credits In Console Mode)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k4ses30,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof Special Edition 2004 (Omega v1.0)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k4ses31,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic Plus (Add Boss Hack)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4plss01,   kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "KyoX",    "Kof2004 Special Edition Plus (Translation Portuguese) (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4plss02,   kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "wesker[FGCH]",    "Kof2004 Special Edition Plus (Unluck Max2 v1) (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k4plss03,   kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "Creamymami[EGCG]",    "Kof2004 Special Edition Plus (Unlimited Power) (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )

@@ -1274,6 +1274,28 @@ ROM_START( mslug4n37 )
 	ROM_LOAD16_BYTE( "263.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
 
+ROM_START( mslug4n38 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263nn33.p1",    0x000000, 0x100000, CRC(a3ceab91) SHA1(f0e125e708bb466308e6846bb943022f4b5785a3) )
+	ROM_LOAD16_WORD_SWAP( "263.p2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_64K( "263d.m1", CRC(0c4c42f8) SHA1(b7be47d909f5e4fcfe769ead0653d40e1e708d36) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
+	ROM_LOAD( "263.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nn38.c1", 0x0000000, 0x800000, CRC(4586314e) SHA1(54a4b9731f0a3b48fce8a842b74fb699bfdf32f8) )
+	ROM_LOAD16_BYTE( "263nn38.c2", 0x0000001, 0x800000, CRC(2e10ad0b) SHA1(38215adacd47a48c4640703c8a9f6234235c8ae8) )
+	ROM_LOAD16_BYTE( "263d.c3", 0x1000000, 0x800000, CRC(61af560c) SHA1(aa7bc45e03a6bbd18eb56d118d4932102ccb196a) )
+	ROM_LOAD16_BYTE( "263d.c4", 0x1000001, 0x800000, CRC(f2c544fd) SHA1(179b064f81b49f5808d7a7a5bce28e95b09e5abe) )
+	ROM_LOAD16_BYTE( "263nn38.c5", 0x2000000, 0x800000, CRC(658a0425) SHA1(ad54b9d5219c24f7214d755af520e6409a9314dd) )
+	ROM_LOAD16_BYTE( "263nn38.c6", 0x2000001, 0x800000, CRC(17fb9d89) SHA1(8fd141f3db0ac0cd60157ddbd3d3b2f90fea522b) )
+ROM_END
+
 ROM_START( mslug4pls01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263pls01.bin", 0x000000, 0x100000, CRC(29d28a1f) SHA1(ab73edaea5859b161c6440f03b1f9b1e946f6812) )
@@ -5140,6 +5162,7 @@ HACK( 200?, mslug4n34,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 200?, mslug4n35,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Eddids[FGCH]",    "Metal Slug 4 (Unlimited Credits In Console Mode)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4n36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V1)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4n37,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V2)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug4n38,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown", "Metal Slug 4 (Neo Arc French Traduction Alpha)(Decrypted C)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4pls01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 Plus (Weapons Thunder Cloud)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4pls02,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 Plus (Fire Bomb)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4pls03,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 Plus (Stone)(bootleg)", MACHINE_SUPPORTS_SAVE )
