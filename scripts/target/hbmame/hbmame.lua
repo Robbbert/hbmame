@@ -69,6 +69,7 @@ SOUNDS["ES5505"] = true
 SOUNDS["ESQPUMP"] = true
 SOUNDS["HC55516"] = true
 SOUNDS["ICS2115"] = true
+SOUNDS["IREMGA20"] = true -- m92
 SOUNDS["K005289"] = true
 SOUNDS["K007232"] = true
 SOUNDS["K051649"] = true
@@ -169,6 +170,7 @@ MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
 MACHINES["OUTPUT_LATCH"] = true
+MACHINES["PIC8259"] = true -- m92
 MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
@@ -436,6 +438,9 @@ createHBMAMEProjects(_target, _subtarget, "irem")
 files {
 	MAME_DIR .. "src/hbmame/drivers/m52.cpp",
 	MAME_DIR .. "src/mame/video/m52.cpp",
+	MAME_DIR .. "src/hbmame/drivers/m92.cpp",
+	MAME_DIR .. "src/mame/includes/m92.h",
+	MAME_DIR .. "src/mame/video/m92.cpp",
 	MAME_DIR .. "src/mame/machine/irem_cpu.cpp",
 	MAME_DIR .. "src/mame/audio/nl_kidniki.cpp",
 	MAME_DIR .. "src/mame/audio/irem.cpp",
