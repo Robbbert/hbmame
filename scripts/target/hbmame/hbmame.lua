@@ -19,6 +19,7 @@ CPUS["ARM7"] = true
 CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
 CPUS["ES5510"] = true
+CPUS["H8"] = true -- seta2
 CPUS["H6280"] = true
 CPUS["HD6309"] = true
 CPUS["I8085"] = true
@@ -82,6 +83,7 @@ SOUNDS["NAMCO_15XX"] = true
 SOUNDS["NAMCO_52XX"] = true
 SOUNDS["NES_APU"] = true
 SOUNDS["OKIM6295"] = true
+SOUNDS["OKIM9810"] = true -- seta2
 SOUNDS["POKEY"] = true
 SOUNDS["QSOUND"] = true
 SOUNDS["RF5C68"] = true
@@ -102,6 +104,7 @@ SOUNDS["UPD7759"] = true
 SOUNDS["VLM5030"] = true
 SOUNDS["VOLT_REG"] = true
 SOUNDS["VOTRAX"] = true
+SOUNDS["X1_010"] = true -- seta2
 SOUNDS["YM2151"] = true
 SOUNDS["YM2203"] = true
 SOUNDS["YM2413"] = true
@@ -166,6 +169,7 @@ MACHINES["MB8421"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
 MACHINES["MB89352"] = true  -- segas32
+MACHINES["MCF5206E"] = true -- seta2
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
@@ -179,6 +183,7 @@ MACHINES["SERFLASH"] = true -- cv1k
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
+MACHINES["TMP68301"] = true -- seta2
 MACHINES["TMS1024"] = true -- docastle
 MACHINES["TMS6100"] = true
 MACHINES["TTL74153"] = true
@@ -758,6 +763,9 @@ createHBMAMEProjects(_target, _subtarget, "seta")
 files {
 	MAME_DIR .. "src/mame/machine/st0016.cpp",
 	MAME_DIR .. "src/hbmame/drivers/simple_st0016.cpp",
+	MAME_DIR .. "src/hbmame/drivers/seta2.cpp",
+	MAME_DIR .. "src/mame/includes/seta2.h",
+	MAME_DIR .. "src/mame/video/seta2.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "snk")

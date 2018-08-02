@@ -8635,8 +8635,8 @@ theglads02
 
 @source:phoenix.cpp
 phoenix			//parent
-phoenixg		/* Vag @ GreekRoms */
-phoenixr		/* CYBERYOGI =CO= Windler hack of Phoenix */
+phoenixg		// Vag @ GreekRoms
+phoenixr		// CYBERYOGI =CO= Windler hack of Phoenix
 
 @source:playch10.cpp
 playch10		//bios
@@ -8740,19 +8740,22 @@ ggroundjs01
 ga2						//parent
 ga2s01
 
-	/* sf */
+@source:seta2.cpp
+grdians					//parent
+
+@source:sf.cpp
 sf						//parent
 sfs01					// freezes in attract mode
 
-	/* shaolins */
+@source:shaolins.cpp
 kicker					//parent
 kfjohnny
 
-	/* skimaxx */
-skimaxx
+@source:skimaxx.cpp
+skimaxx					// HB, no parent
 
 @source:snk6502.cpp
-vantris
+vantris					// HB, no parent
 
 @source:simple_st0016.cpp
 renju					//parent
@@ -8962,7 +8965,6 @@ mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 drmario					//parent
 drmarios01
-
 
 @source:vsystem.cpp
 karatblz			//parent
