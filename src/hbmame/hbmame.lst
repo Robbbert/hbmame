@@ -4079,6 +4079,10 @@ alpha1v		// Kyle Hodgetts
 mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
+@source:m92.cpp
+hook			//parent
+nbbatman		//parent
+
 @source:maketrax.cpp
 eyes		//parent
 aa			/* Widel's Games */
@@ -7671,6 +7675,7 @@ homercid	/* David Widel */
 jacman
 jpmmunch	/* JPM bootleg */
 mazeman		/* Sil hack of Pac-Man */
+muckpan
 namcosil	/* Sil hack of Pac-Man (Namco) */
 newpuck2	/* Scotty hack of Pac-Man */
 newpuck3

@@ -40,10 +40,6 @@
 // screenless layouts
 #include "noscreens.lh"
 
-// single screen layouts
-#include "horizont.lh"
-#include "vertical.lh"
-
 // dual screen layouts
 #include "dualhsxs.lh"
 #include "dualhovu.lh"
@@ -54,13 +50,6 @@
 
 // quad screen layouts
 #include "quadhsxs.lh"
-
-// LCD screen layouts
-#include "lcd.lh"
-#include "lcd_rot.lh"
-
-// SVG screen layouts
-#include "svg.lh"
 
 
 namespace {
@@ -85,38 +74,6 @@ std::locale const f_portable_locale("C");
 //**************************************************************************
 //  INLINE HELPERS
 //**************************************************************************
-
-//-------------------------------------------------
-//  gcd - compute the greatest common divisor (GCD)
-//  of two integers using the Euclidean algorithm
-//-------------------------------------------------
-
-template <typename M, typename N>
-constexpr std::common_type_t<M, N> gcd(M a, N b)
-{
-	return b ? gcd(b, a % b) : a;
-}
-
-
-//-------------------------------------------------
-//  reduce_fraction - reduce a fraction by
-//  dividing out common factors
-//-------------------------------------------------
-
-template <typename M, typename N>
-inline void reduce_fraction(M &num, N &den)
-{
-	// search the greatest common divisor
-	auto const div = gcd(num, den);
-
-	// reduce the fraction if a common divisor has been found
-	if (div)
-	{
-		num /= div;
-		den /= div;
-	}
-}
-
 
 //-------------------------------------------------
 //  render_bounds_transform - apply translation/
@@ -172,7 +129,7 @@ private:
 			, m_int_increment(i)
 			, m_shift(s)
 			, m_text_valid(true)
-			, m_incrementing(true)
+			, m_generator(true)
 		{ }
 		entry(std::string &&name, std::string &&t, double i, int s)
 			: m_name(std::move(name))
@@ -180,7 +137,7 @@ private:
 			, m_float_increment(i)
 			, m_shift(s)
 			, m_text_valid(true)
-			, m_incrementing(true)
+			, m_generator(true)
 		{ }
 		entry(entry &&) = default;
 		entry &operator=(entry &&) = default;
@@ -208,7 +165,7 @@ private:
 		}
 
 		std::string const &name() const { return m_name; }
-		bool is_incrementing() const { return m_incrementing; }
+		bool is_generator() const { return m_generator; }
 
 		std::string const &get_text()
 		{
@@ -230,7 +187,7 @@ private:
 
 		void increment()
 		{
-			if (is_incrementing())
+			if (is_generator())
 			{
 				// apply increment
 				if (m_float_increment)
@@ -385,7 +342,7 @@ private:
 		bool m_text_valid = false;
 		bool m_int_valid = false;
 		bool m_float_valid = false;
-		bool m_incrementing = false;
+		bool m_generator = false;
 	};
 
 	using entry_vector = std::vector<entry>;
@@ -430,9 +387,20 @@ private:
 			unsigned i(0U);
 			for (screen_device const &screen : screen_device_iterator(machine().root_device()))
 			{
+				std::pair<u64, u64> const physaspect(screen.physical_aspect());
 				s64 const w(screen.visible_area().width()), h(screen.visible_area().height());
 				s64 xaspect(w), yaspect(h);
-				reduce_fraction(xaspect, yaspect);
+				util::reduce_fraction(xaspect, yaspect);
+
+				tmp.seekp(0);
+				util::stream_format(tmp, "scr%uphysicalxaspect", i);
+				tmp.put('\0');
+				try_insert(&tmp.vec()[0], s64(physaspect.first));
+
+				tmp.seekp(0);
+				util::stream_format(tmp, "scr%uphysicalyaspect", i);
+				tmp.put('\0');
+				try_insert(&tmp.vec()[0], s64(physaspect.second));
 
 				tmp.seekp(0);
 				util::stream_format(tmp, "scr%unativexaspect", i);
@@ -663,7 +631,7 @@ public:
 					throw layout_syntax_error("increment attribute must be a number");
 			}
 
-			// don't allow incrementing parameters to be redefined
+			// don't allow generator parameters to be redefined
 			if (init)
 			{
 				entry_vector::iterator const pos(
@@ -673,7 +641,7 @@ public:
 							name,
 							[] (entry const &lhs, auto const &rhs) { return lhs.name() < rhs; }));
 				if ((m_entries.end() != pos) && (pos->name() == name))
-					throw layout_syntax_error("incrementing parameters must be defined exactly once per scope");
+					throw layout_syntax_error("generator parameters must be defined exactly once per scope");
 
 				std::pair<char const *, char const *> const expanded(expand(start));
 				if (floatincrement)
@@ -700,8 +668,8 @@ public:
 						[] (entry const &lhs, auto const &rhs) { return lhs.name() < rhs; }));
 			if ((m_entries.end() == pos) || (pos->name() != name))
 				m_entries.emplace(pos, std::move(name), std::string(expanded.first, expanded.second));
-			else if (pos->is_incrementing())
-				throw layout_syntax_error("incrementing parameters must be defined exactly once per scope");
+			else if (pos->is_generator())
+				throw layout_syntax_error("generator parameters must be defined exactly once per scope");
 			else
 				pos->set(std::string(expanded.first, expanded.second));
 		}
@@ -709,8 +677,18 @@ public:
 
 	void increment_parameters()
 	{
-		for (entry &e : m_entries)
-			e.increment();
+		m_entries.erase(
+				std::remove_if(
+					m_entries.begin(),
+					m_entries.end(),
+					[] (entry &e)
+					{
+						if (!e.is_generator())
+							return true;
+						e.increment();
+						return false;
+					}),
+				m_entries.end());
 	}
 
 	char const *get_attribute_string(util::xml::data_node const &node, char const *name, char const *defvalue)
@@ -1171,11 +1149,11 @@ void layout_element::element_scale(bitmap_argb32 &dest, bitmap_argb32 &source, c
 		if (curcomp->state() == -1 || curcomp->state() == elemtex->m_state)
 		{
 			// get the local scaled bounds
-			rectangle bounds;
-			bounds.min_x = render_round_nearest(curcomp->bounds().x0 * dest.width());
-			bounds.min_y = render_round_nearest(curcomp->bounds().y0 * dest.height());
-			bounds.max_x = render_round_nearest(curcomp->bounds().x1 * dest.width());
-			bounds.max_y = render_round_nearest(curcomp->bounds().y1 * dest.height());
+			rectangle bounds(
+					render_round_nearest(curcomp->bounds().x0 * dest.width()),
+					render_round_nearest(curcomp->bounds().x1 * dest.width()),
+					render_round_nearest(curcomp->bounds().y0 * dest.height()),
+					render_round_nearest(curcomp->bounds().y1 * dest.height()));
 			bounds &= dest.cliprect();
 
 			// based on the component type, add to the texture
@@ -1220,23 +1198,23 @@ private:
 		ru_imgformat const format = render_detect_image(*m_file, m_dirname.c_str(), m_imagefile.c_str());
 		switch (format)
 		{
-			case RENDUTIL_IMGFORMAT_ERROR:
-				break;
+		case RENDUTIL_IMGFORMAT_ERROR:
+			break;
 
-			case RENDUTIL_IMGFORMAT_PNG:
-				// load the basic bitmap
-				m_hasalpha = render_load_png(m_bitmap, *m_file, m_dirname.c_str(), m_imagefile.c_str());
+		case RENDUTIL_IMGFORMAT_PNG:
+			// load the basic bitmap
+			m_hasalpha = render_load_png(m_bitmap, *m_file, m_dirname.c_str(), m_imagefile.c_str());
+			break;
 
-				// load the alpha bitmap if specified
-				if (m_bitmap.valid() && !m_alphafile.empty())
-					render_load_png(m_bitmap, *m_file, m_dirname.c_str(), m_alphafile.c_str(), true);
-				break;
-
-			default:
-				// try JPG
-				render_load_jpeg(m_bitmap, *m_file, m_dirname.c_str(), m_imagefile.c_str());
-				break;
+		default:
+			// try JPG
+			render_load_jpeg(m_bitmap, *m_file, m_dirname.c_str(), m_imagefile.c_str());
+			break;
 		}
+
+		// load the alpha bitmap if specified
+		if (m_bitmap.valid() && !m_alphafile.empty())
+			render_load_png(m_bitmap, *m_file, m_dirname.c_str(), m_alphafile.c_str(), true);
 
 		// if we can't load the bitmap, allocate a dummy one and report an error
 		if (!m_bitmap.valid())
@@ -1287,9 +1265,9 @@ protected:
 		u32 const inva = (1.0f - color().a) * 255.0f;
 
 		// iterate over X and Y
-		for (u32 y = bounds.min_y; y <= bounds.max_y; y++)
+		for (u32 y = bounds.top(); y <= bounds.bottom(); y++)
 		{
-			for (u32 x = bounds.min_x; x <= bounds.max_x; x++)
+			for (u32 x = bounds.left(); x <= bounds.right(); x++)
 			{
 				u32 finalr = r;
 				u32 finalg = g;
@@ -1340,7 +1318,7 @@ protected:
 		float const ooyradius2 = 1.0f / (yradius * yradius);
 
 		// iterate over y
-		for (u32 y = bounds.min_y; y <= bounds.max_y; y++)
+		for (u32 y = bounds.top(); y <= bounds.bottom(); y++)
 		{
 			float ycoord = ycenter - ((float)y + 0.5f);
 			float xval = xradius * sqrtf(1.0f - (ycoord * ycoord) * ooyradius2);
@@ -1431,31 +1409,31 @@ protected:
 		tempbitmap.fill(rgb_t(0xff,0x00,0x00,0x00));
 
 		// top bar
-		draw_segment_horizontal(tempbitmap, 0 + 2*segwidth/3, bmwidth - 2*segwidth/3, 0 + segwidth/2, segwidth, (state & (1 << 0)) ? onpen : offpen);
+		draw_segment_horizontal(tempbitmap, 0 + 2*segwidth/3, bmwidth - 2*segwidth/3, 0 + segwidth/2, segwidth, BIT(state, 0) ? onpen : offpen);
 
 		// top-right bar
-		draw_segment_vertical(tempbitmap, 0 + 2*segwidth/3, bmheight/2 - segwidth/3, bmwidth - segwidth/2, segwidth, (state & (1 << 1)) ? onpen : offpen);
+		draw_segment_vertical(tempbitmap, 0 + 2*segwidth/3, bmheight/2 - segwidth/3, bmwidth - segwidth/2, segwidth, BIT(state, 1) ? onpen : offpen);
 
 		// bottom-right bar
-		draw_segment_vertical(tempbitmap, bmheight/2 + segwidth/3, bmheight - 2*segwidth/3, bmwidth - segwidth/2, segwidth, (state & (1 << 2)) ? onpen : offpen);
+		draw_segment_vertical(tempbitmap, bmheight/2 + segwidth/3, bmheight - 2*segwidth/3, bmwidth - segwidth/2, segwidth, BIT(state, 2) ? onpen : offpen);
 
 		// bottom bar
-		draw_segment_horizontal(tempbitmap, 0 + 2*segwidth/3, bmwidth - 2*segwidth/3, bmheight - segwidth/2, segwidth, (state & (1 << 3)) ? onpen : offpen);
+		draw_segment_horizontal(tempbitmap, 0 + 2*segwidth/3, bmwidth - 2*segwidth/3, bmheight - segwidth/2, segwidth, BIT(state, 3) ? onpen : offpen);
 
 		// bottom-left bar
-		draw_segment_vertical(tempbitmap, bmheight/2 + segwidth/3, bmheight - 2*segwidth/3, 0 + segwidth/2, segwidth, (state & (1 << 4)) ? onpen : offpen);
+		draw_segment_vertical(tempbitmap, bmheight/2 + segwidth/3, bmheight - 2*segwidth/3, 0 + segwidth/2, segwidth, BIT(state, 4) ? onpen : offpen);
 
 		// top-left bar
-		draw_segment_vertical(tempbitmap, 0 + 2*segwidth/3, bmheight/2 - segwidth/3, 0 + segwidth/2, segwidth, (state & (1 << 5)) ? onpen : offpen);
+		draw_segment_vertical(tempbitmap, 0 + 2*segwidth/3, bmheight/2 - segwidth/3, 0 + segwidth/2, segwidth, BIT(state, 5) ? onpen : offpen);
 
 		// middle bar
-		draw_segment_horizontal(tempbitmap, 0 + 2*segwidth/3, bmwidth - 2*segwidth/3, bmheight/2, segwidth, (state & (1 << 6)) ? onpen : offpen);
+		draw_segment_horizontal(tempbitmap, 0 + 2*segwidth/3, bmwidth - 2*segwidth/3, bmheight/2, segwidth, BIT(state, 6) ? onpen : offpen);
 
 		// apply skew
 		apply_skew(tempbitmap, 40);
 
 		// decimal point
-		draw_segment_decimal(tempbitmap, bmwidth + segwidth/2, bmheight - segwidth/2, segwidth, (state & (1 << 7)) ? onpen : offpen);
+		draw_segment_decimal(tempbitmap, bmwidth + segwidth/2, bmheight - segwidth/2, segwidth, BIT(state, 7) ? onpen : offpen);
 
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color());
@@ -2046,7 +2024,7 @@ protected:
 		tempbitmap.fill(rgb_t(0xff, 0x00, 0x00, 0x00));
 
 		for (int i = 0; i < m_dots; i++)
-			draw_segment_decimal(tempbitmap, ((dotwidth/2 )+ (i * dotwidth)), bmheight/2, dotwidth, (state & (1 << i))?onpen:offpen);
+			draw_segment_decimal(tempbitmap, ((dotwidth / 2) + (i * dotwidth)), bmheight / 2, dotwidth, BIT(state, i) ? onpen : offpen);
 
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color());
@@ -2187,25 +2165,25 @@ protected:
 		{
 			int basey;
 
-			if (m_reelreversed==1)
+			if (m_reelreversed)
 			{
-				basey = bounds.min_y + ((use_state)*(ourheight/num_shown)/(max_state_used/m_numstops)) + curry;
+				basey = bounds.top() + ((use_state)*(ourheight/num_shown)/(max_state_used/m_numstops)) + curry;
 			}
 			else
 			{
-				basey = bounds.min_y - ((use_state)*(ourheight/num_shown)/(max_state_used/m_numstops)) + curry;
+				basey = bounds.top() - ((use_state)*(ourheight/num_shown)/(max_state_used/m_numstops)) + curry;
 			}
 
 			// wrap around...
-			if (basey < bounds.min_y)
+			if (basey < bounds.top())
 				basey += ((max_state_used)*(ourheight/num_shown)/(max_state_used/m_numstops));
-			if (basey > bounds.max_y)
+			if (basey > bounds.bottom())
 				basey -= ((max_state_used)*(ourheight/num_shown)/(max_state_used/m_numstops));
 
 			int endpos = basey+ourheight/num_shown;
 
 			// only render the symbol / text if it's atually in view because the code is SLOW
-			if ((endpos >= bounds.min_y) && (basey <= bounds.max_y))
+			if ((endpos >= bounds.top()) && (basey <= bounds.bottom()))
 			{
 				while (1)
 				{
@@ -2216,7 +2194,7 @@ protected:
 				}
 
 				s32 curx;
-				curx = bounds.min_x + (bounds.width() - width) / 2;
+				curx = bounds.left() + (bounds.width() - width) / 2;
 
 				if (m_file[fruit])
 					if (!m_bitmap[fruit].valid())
@@ -2234,14 +2212,14 @@ protected:
 						{
 							int effy = basey + y;
 
-							if (effy >= bounds.min_y && effy <= bounds.max_y)
+							if (effy >= bounds.top() && effy <= bounds.bottom())
 							{
 								u32 *src = &tempbitmap2.pix32(y);
 								u32 *d = &dest.pix32(effy);
 								for (int x = 0; x < dest.width(); x++)
 								{
 									int effx = x;
-									if (effx >= bounds.min_x && effx <= bounds.max_x)
+									if (effx >= bounds.left() && effx <= bounds.right())
 									{
 										u32 spix = rgb_t(src[x]).a();
 										if (spix != 0)
@@ -2281,14 +2259,14 @@ protected:
 						{
 							int effy = basey + y;
 
-							if (effy >= bounds.min_y && effy <= bounds.max_y)
+							if (effy >= bounds.top() && effy <= bounds.bottom())
 							{
 								u32 *src = &tempbitmap.pix32(y);
 								u32 *d = &dest.pix32(effy);
 								for (int x = 0; x < chbounds.width(); x++)
 								{
-									int effx = curx + x + chbounds.min_x;
-									if (effx >= bounds.min_x && effx <= bounds.max_x)
+									int effx = curx + x + chbounds.left();
+									if (effx >= bounds.left() && effx <= bounds.right())
 									{
 										u32 spix = rgb_t(src[x]).a();
 										if (spix != 0)
@@ -2356,15 +2334,15 @@ private:
 			}
 
 			// wrap around...
-			if (basex < bounds.min_x)
+			if (basex < bounds.left())
 				basex += ((max_state_used)*(ourwidth/num_shown)/(max_state_used/m_numstops));
-			if (basex > bounds.max_x)
+			if (basex > bounds.right())
 				basex -= ((max_state_used)*(ourwidth/num_shown)/(max_state_used/m_numstops));
 
 			int endpos = basex+(ourwidth/num_shown);
 
 			// only render the symbol / text if it's atually in view because the code is SLOW
-			if ((endpos >= bounds.min_x) && (basex <= bounds.max_x))
+			if ((endpos >= bounds.left()) && (basex <= bounds.right()))
 			{
 				while (1)
 				{
@@ -2375,7 +2353,7 @@ private:
 				}
 
 				s32 curx;
-				curx = bounds.min_x;
+				curx = bounds.left();
 
 				if (m_file[fruit])
 					if (!m_bitmap[fruit].valid())
@@ -2393,14 +2371,14 @@ private:
 						{
 							int effy = y;
 
-							if (effy >= bounds.min_y && effy <= bounds.max_y)
+							if (effy >= bounds.top() && effy <= bounds.bottom())
 							{
 								u32 *src = &tempbitmap2.pix32(y);
 								u32 *d = &dest.pix32(effy);
 								for (int x = 0; x < ourwidth/num_shown; x++)
 								{
 									int effx = basex + x;
-									if (effx >= bounds.min_x && effx <= bounds.max_x)
+									if (effx >= bounds.left() && effx <= bounds.right())
 									{
 										u32 spix = rgb_t(src[x]).a();
 										if (spix != 0)
@@ -2442,14 +2420,14 @@ private:
 						{
 							int effy = y;
 
-							if (effy >= bounds.min_y && effy <= bounds.max_y)
+							if (effy >= bounds.top() && effy <= bounds.bottom())
 							{
 								u32 *src = &tempbitmap.pix32(y);
 								u32 *d = &dest.pix32(effy);
 								for (int x = 0; x < chbounds.width(); x++)
 								{
 									int effx = basex + curx + x;
-									if (effx >= bounds.min_x && effx <= bounds.max_x)
+									if (effx >= bounds.left() && effx <= bounds.right())
 									{
 										u32 spix = rgb_t(src[x]).a();
 										if (spix != 0)
@@ -2650,17 +2628,17 @@ void layout_element::component::draw_text(render_font &font, bitmap_argb32 &dest
 	{
 		// left
 		case 1:
-			curx = bounds.min_x;
+			curx = bounds.left();
 			break;
 
 		// right
 		case 2:
-			curx = bounds.max_x - width;
+			curx = bounds.right() - width;
 			break;
 
 		// default to center
 		default:
-			curx = bounds.min_x + (bounds.width() - width) / 2;
+			curx = bounds.left() + (bounds.width() - width) / 2;
 			break;
 	}
 
@@ -2688,15 +2666,15 @@ void layout_element::component::draw_text(render_font &font, bitmap_argb32 &dest
 		// copy the data into the target
 		for (int y = 0; y < chbounds.height(); y++)
 		{
-			int effy = bounds.min_y + y;
-			if (effy >= bounds.min_y && effy <= bounds.max_y)
+			int effy = bounds.top() + y;
+			if (effy >= bounds.top() && effy <= bounds.bottom())
 			{
 				u32 *src = &tempbitmap.pix32(y);
 				u32 *d = &dest.pix32(effy);
 				for (int x = 0; x < chbounds.width(); x++)
 				{
-					int effx = curx + x + chbounds.min_x;
-					if (effx >= bounds.min_x && effx <= bounds.max_x)
+					int effx = curx + x + chbounds.left();
+					if (effx >= bounds.left() && effx <= bounds.right())
 					{
 						u32 spix = rgb_t(src[x]).a();
 						if (spix != 0)
