@@ -438,7 +438,6 @@ files {
 	MAME_DIR .. "src/mame/machine/igs022.cpp",
 	MAME_DIR .. "src/mame/machine/igs028.cpp",
 	MAME_DIR .. "src/hbmame/drivers/lordgun.cpp",
-	MAME_DIR .. "src/mame/includes/lordgun.h",
 	MAME_DIR .. "src/mame/video/lordgun.cpp",
 }
 
@@ -447,7 +446,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/m52.cpp",
 	MAME_DIR .. "src/mame/video/m52.cpp",
 	MAME_DIR .. "src/hbmame/drivers/m92.cpp",
-	MAME_DIR .. "src/mame/includes/m92.h",
 	MAME_DIR .. "src/mame/video/m92.cpp",
 	MAME_DIR .. "src/mame/machine/irem_cpu.cpp",
 	MAME_DIR .. "src/mame/audio/nl_kidniki.cpp",
@@ -758,15 +756,11 @@ files {
 	MAME_DIR .. "src/mame/video/cabal.cpp",
 	MAME_DIR .. "src/mame/video/seibu_crtc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/raiden2.cpp",
-	MAME_DIR .. "src/mame/includes/raiden2.h",
 	MAME_DIR .. "src/mame/machine/r2crypt.cpp",
-	MAME_DIR .. "src/mame/machine/r2crypt.h",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_cmd.hxx",
-	MAME_DIR .. "src/mame/machine/seibucop/seibucop.h",
 	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
-	MAME_DIR .. "src/mame/machine/seibuspi.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")
@@ -774,7 +768,6 @@ files {
 	MAME_DIR .. "src/mame/machine/st0016.cpp",
 	MAME_DIR .. "src/hbmame/drivers/simple_st0016.cpp",
 	MAME_DIR .. "src/hbmame/drivers/seta2.cpp",
-	MAME_DIR .. "src/mame/includes/seta2.h",
 	MAME_DIR .. "src/mame/video/seta2.cpp",
 }
 
@@ -901,15 +894,10 @@ files {
 createHBMAMEProjects(_target, _subtarget, "vsystem")
 files {
 	MAME_DIR .. "src/mame/machine/vs9209.cpp",
-	MAME_DIR .. "src/mame/machine/vs9209.h",
 	MAME_DIR .. "src/mame/video/vsystem_gga.cpp",
-	MAME_DIR .. "src/mame/video/vsystem_gga.h",
 	MAME_DIR .. "src/mame/video/vsystem_spr.cpp",
-	MAME_DIR .. "src/mame/video/vsystem_spr.h",
 	MAME_DIR .. "src/mame/video/vsystem_spr2.cpp",
-	MAME_DIR .. "src/mame/video/vsystem_spr2.h",
 	MAME_DIR .. "src/hbmame/drivers/aerofgt.cpp",
-	MAME_DIR .. "src/mame/includes/aerofgt.h",
 	MAME_DIR .. "src/mame/video/aerofgt.cpp",
 }
 
