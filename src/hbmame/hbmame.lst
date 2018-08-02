@@ -4109,6 +4109,7 @@ kof2k2s66
 kof2k2s67
 kof2k2s68
 kof2k2s69
+kof2k2s70
 
 @source:kof2003.cpp
 kof2003d
@@ -4371,7 +4372,8 @@ lkage					//parent
 lkages01
 
 @source:lordgun.cpp
-aliencha			//parent
+//aliencha			//parent //it is not necessary to have it activated
+//alienchas01       //it did not work
 
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
@@ -4385,8 +4387,14 @@ hooks01
 hooks02
 hooks03
 hooks04
+hooks05
+hookus01
+hookus02
+hookjs01
+hookjs02
 nbbatmans01
 nbbatmans02
+nbbatmanus01
 
 @source:maketrax.cpp
 eyes		//parent
@@ -4856,6 +4864,7 @@ mslug3h48
 mslug3h49
 mslug3h50
 mslug3h51
+mslug3h52
 mslug3erbo01
 mslug3erbo02
 mslug3erbo03
@@ -5935,6 +5944,7 @@ mslugxz57
 mslugxz58
 mslugxz59
 mslugxz60
+mslugxz61
 mslugxervs01
 mslugxervs02
 mslugxervs03
@@ -9093,6 +9103,8 @@ soldivids01
 
 @source:raiden2.cpp
 zeroteam					//parent
+zeroteamcs01
+zeroteamss01
 
 @source:rallyx.cpp
 rallyx			//parent
@@ -9149,6 +9161,10 @@ ga2s01
 grdians					//parent
 grdianss01
 grdianss02
+grdianss03
+grdianss04
+grdianss05
+grdianss06
 
 @source:sf.cpp
 sf						//parent
@@ -9191,6 +9207,8 @@ sys16dem				// HB
 @source:taitosj.cpp
 alpine					//parent
 alpines01
+frontlin				//parent
+frontlins01
 
 @source:taito_b.cpp
 pbobble					//parent
@@ -9376,6 +9394,7 @@ drmarios01
 @source:vsystem.cpp
 karatblz			//parent
 karatblzas01
+karatblzas02
 
 @source:wc90.cpp
 pac90

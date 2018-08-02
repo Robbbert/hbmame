@@ -3,9 +3,10 @@
 #include "../mame/drivers/tecmosys.cpp"
 
 
-/****************************************
-        Deroon DeroDero
-*****************************************/
+/****************
+ Deroon DeroDero
+******************/
+
 ROM_START( deroons01 )  // deroona
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "t.01", 0x00000, 0x80000, CRC(7ad6c740) SHA1(51be70edf30364919c0d1da4a9bdd16bfbace213) )
@@ -40,9 +41,10 @@ ROM_START( deroons01 )  // deroona
 	ROM_LOAD( "t501.uad1", 0x00000, 0x80000, CRC(2fbcfe27) SHA1(f25c830322423f0959a36955edb563a6150f2142) )
 ROM_END
 
-/****************************************
-        1943 Kai Midway Kaisen
-*****************************************/
+/*************
+ Toukidenshou
+***************/
+
 ROM_START( tkdenshos01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "aeprge-2hc01.pal", 0x00000, 0x80000, CRC(56ce787e) SHA1(3fee1acd962246b7f15fc9f578702207836a8e54) )
@@ -85,11 +87,8 @@ ROM_START( tkdenshos01 )
 	ROM_LOAD( "ae500w07.ad1", 0x00000, 0x80000, CRC(3734f92c) SHA1(048555b5aa89eaf983305c439ba08d32b4a1bb80) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT          MONITOR COMPANY       FULLNAME FLAGS */
-HACK( 1995, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "hack", "Deroon DeroDero (unknown hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, tkdensho,   ROT0, "Hacks", "Toukidenshou - Angel Eyes (VER. 960614)(Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+//Toukidenshou
+HACK( 200?, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "Unknown", "Deroon DeroDero (Unknown hack)", MACHINE_SUPPORTS_SAVE )
+//Toukidenshou
+HACK( 200?, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, tkdensho,   ROT0, "yumeji1768", "Toukidenshou (Enable Hidden Characters)(VER. 960614)", MACHINE_SUPPORTS_SAVE )

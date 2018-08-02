@@ -2945,8 +2945,8 @@ HACK( 200?, kizunab,       kizuna,   neogeo_noslot, neogeo, neogeo_state,       
 HACK( 2009, kizunaeh,      kizuna,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Kizuna Encounter (Easy Moves)(2009-02-23)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2004, lans2k4d,      shocktr2, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "bootleg", "Lansquenet 2004 (Shock Troopers - 2nd Squad Bootleg / fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lbowlingcd,    lbowling, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "League Bowling (CD conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lresortpx,     lresort,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Last Resort (Plus Max hack by Xyahzhs)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, lbowlingcd,    lbowling, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "League Bowling (CD to MVS Conversion)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, lresortpx,     lresort,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Last Resort (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2004, magdrop3fr,    magdrop3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Shyma.X", "Magical Drop III (Translation French)(07-29-2004)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, maglordpx,     maglord,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Magician Lord (Plus Max)(NGM-005)", MACHINE_SUPPORTS_SAVE )

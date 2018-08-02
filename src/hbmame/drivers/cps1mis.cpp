@@ -6014,7 +6014,7 @@ HACK( 200?, tk2h6,       wof,      qsound,     wof,      cps_state, wof,      RO
 HACK( 2008, tk2h7,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Group modified version) (2008-01-02)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tk2h8,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Winuxx, Blackheart", "Tenchi wo Kurau II (Heaven and Earth Double Attack Test Version)(2009-12-14)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tk2h9,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Easy Tornado Sitting Second Edition)(2009-01-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h10,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "AXDX", "Tenchi wo Kurau 2 (Sanmei Spiral Counterattack Beta 103)(Japan 921031)(2013-12-26)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h10,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "AXDX", "Tenchi wo Kurau II (Sanmei Spiral Counterattack Beta 103)(Japan 921031)(2013-12-26)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, tk2h11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Change Character)(2010-01-26)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tk2h12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Rockywall", "Tenchi wo Kurau II (Playstation Version hack)(2009-12-09)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tk2h13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Blacheart", "Tenchi wo Kurau II (Modified Time)(2009-12-17)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
