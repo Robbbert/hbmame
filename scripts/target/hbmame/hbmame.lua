@@ -432,6 +432,9 @@ files {
 	MAME_DIR .. "src/mame/machine/igs025.cpp",
 	MAME_DIR .. "src/mame/machine/igs022.cpp",
 	MAME_DIR .. "src/mame/machine/igs028.cpp",
+	MAME_DIR .. "src/mame/drivers/lordgun.cpp",
+	MAME_DIR .. "src/mame/includes/lordgun.h",
+	MAME_DIR .. "src/mame/video/lordgun.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "irem")
