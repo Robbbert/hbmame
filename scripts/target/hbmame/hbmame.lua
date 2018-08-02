@@ -757,6 +757,16 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/cabal.cpp",
 	MAME_DIR .. "src/mame/video/cabal.cpp",
 	MAME_DIR .. "src/mame/video/seibu_crtc.cpp",
+	MAME_DIR .. "src/hbmame/drivers/raiden2.cpp",
+	MAME_DIR .. "src/mame/includes/raiden2.h",
+	MAME_DIR .. "src/mame/machine/r2crypt.cpp",
+	MAME_DIR .. "src/mame/machine/r2crypt.h",
+	MAME_DIR .. "src/mame/machine/seibucop/seibucop.cpp",
+	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
+	MAME_DIR .. "src/mame/machine/seibucop/seibucop_cmd.hxx",
+	MAME_DIR .. "src/mame/machine/seibucop/seibucop.h",
+	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
+	MAME_DIR .. "src/mame/machine/seibuspi.h",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")

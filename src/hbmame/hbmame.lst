@@ -8689,6 +8689,9 @@ s1945iiis01
 soldivid		//parent
 soldivids01
 
+@source:raiden2.cpp
+zeroteam					//parent
+
 @source:rallyx.cpp
 rallyx			//parent
 rxtron			/* Jerky and Sil hack of Rally-X */
