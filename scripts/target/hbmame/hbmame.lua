@@ -248,7 +248,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"toaplan",
 		"univers",
 		"valadon",
---		"shared",
+		"vsystem",
 		"misc",
 	}
 end
@@ -432,7 +432,7 @@ files {
 	MAME_DIR .. "src/mame/machine/igs025.cpp",
 	MAME_DIR .. "src/mame/machine/igs022.cpp",
 	MAME_DIR .. "src/mame/machine/igs028.cpp",
-	MAME_DIR .. "src/mame/drivers/lordgun.cpp",
+	MAME_DIR .. "src/hbmame/drivers/lordgun.cpp",
 	MAME_DIR .. "src/mame/includes/lordgun.h",
 	MAME_DIR .. "src/mame/video/lordgun.cpp",
 }
@@ -878,6 +878,21 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/bagman.cpp",
 	MAME_DIR .. "src/mame/machine/bagman.cpp",
 	MAME_DIR .. "src/mame/video/bagman.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "vsystem")
+files {
+	MAME_DIR .. "src/mame/machine/vs9209.cpp",
+	MAME_DIR .. "src/mame/machine/vs9209.h",
+	MAME_DIR .. "src/mame/video/vsystem_gga.cpp",
+	MAME_DIR .. "src/mame/video/vsystem_gga.h",
+	MAME_DIR .. "src/mame/video/vsystem_spr.cpp",
+	MAME_DIR .. "src/mame/video/vsystem_spr.h",
+	MAME_DIR .. "src/mame/video/vsystem_spr2.cpp",
+	MAME_DIR .. "src/mame/video/vsystem_spr2.h",
+	MAME_DIR .. "src/hbmame/drivers/aerofgt.cpp",
+	MAME_DIR .. "src/mame/includes/aerofgt.h",
+	MAME_DIR .. "src/mame/video/aerofgt.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "misc")

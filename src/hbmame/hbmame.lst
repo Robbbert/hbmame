@@ -8963,6 +8963,10 @@ suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 drmario					//parent
 drmarios01
 
+
+@source:vsystem.cpp
+karatblz			//parent
+
 @source:wc90.cpp
 pac90
 
