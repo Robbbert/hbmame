@@ -14011,7 +14011,7 @@ HACK( 200?, kof2k2s28,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof2k2s29,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Description Of Hack Unknown)(Set 27)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s30,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Description Of Hack Unknown)(Set 28)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s31,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Edition Special)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE ) 
-HACK( 200?, kof2k2s32,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (10th Anniversary • UNIQUE 2008)(decrypted C)", MACHINE_SUPPORTS_SAVE ) 
+HACK( 200?, kof2k2s32,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (10th Anniversary UNIQUE 2008)(decrypted C)", MACHINE_SUPPORTS_SAVE ) 
 HACK( 200?, kof2k2s33,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (3rd Strike Orochi)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE ) 
 HACK( 200?, kof2k2s34,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Merry Christmas Remix Ultra Version)(decrypted C)", MACHINE_SUPPORTS_SAVE ) 
 HACK( 200?, kof2k2s35,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (The Purple Dragons)(Alt)(decrypted C)", MACHINE_SUPPORTS_SAVE )
