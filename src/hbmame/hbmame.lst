@@ -2190,6 +2190,11 @@ kof97s71
 kof97s72
 kof97s73
 kof97s74
+kof97s75
+kof97s76
+kof97s77
+kof97s78
+kof97s79
 kof97h01
 kof97h02
 kof97h03
@@ -6577,6 +6582,7 @@ mspacmans02
 mspacmans03
 mspacmans04
 mspacmabscre
+mspacmadp
 	/* "Pacman hardware" games (hires hacks) */
 mschampx
 mspacmnx

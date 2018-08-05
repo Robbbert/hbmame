@@ -2518,6 +2518,28 @@ ROM_START( mspacmans04 )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( mspacmadp )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacmdp.1",        0x0000, 0x1000, CRC(69c02827) SHA1(12b675ab56cb9f3184a6a6bd280eafbab4ceb5b2) )
+	ROM_LOAD( "pacmdp.2",        0x1000, 0x1000, CRC(e961c8b3) SHA1(f0486c1c49ed7abd9f865c939a5d8fa685125b75) )
+	ROM_LOAD( "pacmdp.3",        0x2000, 0x1000, CRC(e9faa733) SHA1(46a87428b72d9d81e5952e318148d0f8fc94bc51) )
+	ROM_LOAD( "pacmdp.4",        0x3000, 0x1000, CRC(93deebb4) SHA1(7d84ce6f70abc8ec60973430f966019beb1f0346) )
+	ROM_LOAD( "pacmdp.5",        0x8000, 0x1000, CRC(a935866b) SHA1(64b280174b6ac9abed5e6bb7ce631f4c7f3c4b02) )
+	ROM_LOAD( "pacmdp.6",        0x9000, 0x1200, CRC(59aec466) SHA1(14357226551b735d02208492b81d4f90a8eefdc2) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacmdp.5e",           0x0000, 0x1000, CRC(843ff4f5) SHA1(8aa82364d5fbd2692d8c22e4673a27731f9b20e5) )
+	ROM_LOAD( "pacmdp.5f",           0x1000, 0x1000, CRC(aadcfae1) SHA1(800c46b4f08b575082840807d73cd47d0eb9fe00) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "82s123.7f",    0x0000, 0x0020, CRC(2fc650bd) SHA1(8d0268dee78e47c712202b0ec4f1f51109b1f2a5) )
+	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
+
+	ROM_REGION( 0x0200, "namco", 0 )   
+	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
+	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
+
 /*************************************
  *
  *  Game drivers
@@ -2686,4 +2708,6 @@ HACK( 2017, mspacmans02, mspacman, zolapac,  mspacman, pacman_state, 0,        R
 HACK( 2017, mspacmans03, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (Brazil)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mspacmans04, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
 
+/* Others Hacks */
+HACK( 2018, mspacmadp, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "MamePlus", "Ms. Pacman (Pac Droid Plus)", MACHINE_SUPPORTS_SAVE )
 
