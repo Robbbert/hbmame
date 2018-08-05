@@ -2209,6 +2209,7 @@ kof97h11
 kof97h12
 kof97h13
 kof97h14
+kof97h15
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3381,6 +3382,7 @@ kof2000n30
 kof2000n31
 kof2000n32
 kof2000n33
+kof2000n34
 kof2000ds01
 kof2000ds02
 kof2000ds03
@@ -4117,6 +4119,7 @@ kof2k2s67
 kof2k2s68
 kof2k2s69
 kof2k2s70
+kof2k2s71
 
 @source:kof2003.cpp
 kof2003d
@@ -8258,8 +8261,6 @@ martmast			//parent
 theglad				//parent
 killblds01
 kovss01
-//kovss02  // broken (causes emu to freeze)
-//kovss03  // broken (causes emu to freeze)
 kov100s01
 kov115s01
 kov2p204s01
@@ -8612,6 +8613,7 @@ kovpluss277
 //kovpluss279  // Unstable game in the emulator(ingame crash)
 kovpluss280
 kovpluss281
+kovpluss282
 kovplusas01
 kovshs01
 kovshs02
