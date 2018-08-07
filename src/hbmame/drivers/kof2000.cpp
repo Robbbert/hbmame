@@ -3683,7 +3683,7 @@ HACK( 200?, kof2000s29,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2000s30,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "sujianxiong",    "Kof2000 (The Eight Gods Of The Blood Of The Great Snake)(NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000s31,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Eddids",    "Kof2000 (Unlimited Credits In Console Mode)(NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000s32,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "yashional",    "Kof2000 (Investment Skills Hit)(NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2knd,    ROT0, "Unknown",    "Kof2000 (Playsation 2 Hack)(NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2knd,    ROT0, "Unknown",    "Kof2000 (Playsation 2 Hack)(Hack only enable in AES mode)(NGM-2570) (NGH-2570)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000n01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "COGODO",    "Kof2000 (Translation Chinese)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000n02,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Eddids & 0 Day-S，A1",    "Kof2000 (BOSS Striker Perfect Edtion)(not encrypted)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000n03,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000n,  ROT0, "Unknown",    "Kof2000 (Simplify The Move)(not encrypted)" , MACHINE_SUPPORTS_SAVE )

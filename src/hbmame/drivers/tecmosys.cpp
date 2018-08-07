@@ -89,6 +89,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT          MONITOR COMPANY       FULLNAME FLAGS */
 //Toukidenshou
-HACK( 200?, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "Unknown", "Deroon DeroDero (Unknown hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, deroon,     ROT0, "bootleg", "Deroon DeroDero (Unknown hack)", MACHINE_SUPPORTS_SAVE )
 //Toukidenshou
 HACK( 200?, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, tkdensho,   ROT0, "yumeji1768", "Toukidenshou (Enable Hidden Characters)(VER. 960614)", MACHINE_SUPPORTS_SAVE )

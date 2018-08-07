@@ -114,8 +114,8 @@ ROM_START( 1943h )
 	ROM_LOAD( "bm6.4b",   0x0b00, 0x0100, CRC(0eaf5158) SHA1(bafd4108708f66cd7b280e47152b108f3e254fc9) )
 ROM_END
 
-HACK( 1987, 1943b2, 1943,  _1943, 1943, _1943_state, 1943b, ROT270,  "bootleg", "1943: Midway Kaisen (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1987, 1943h,  1943,  _1943, 1943, _1943_state, 1943,  ROT270, "Unknown", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
+HACK( 1987, 1943b2, 1943,  _1943, 1943, _1943_state, 1943b, ROT270,  "bootleg", "1943: Midway Kaisen (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
+HACK( 1987, 1943h,  1943,  _1943, 1943, _1943_state, 1943,  ROT270, "bootleg", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission

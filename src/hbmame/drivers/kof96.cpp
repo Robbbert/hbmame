@@ -1560,7 +1560,7 @@ HACK( 200?, kof96cr,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 HACK( 200?, kof96de,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Dragon Edition set 2)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96dr1,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Dragon Edition set 1)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96eh,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Pow hack ABC set 1)(NGM-214)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_state, kof96ep,  ROT0, "bootleg", "Kof'96 (bootleg)(NGM-214)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_state, kof96ep,  ROT0, "bootleg", "Kof'96 (bootleg / Hack)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96ep2,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Bootleg / Hack Set 2)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96ep3,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Bootleg / Hack Set 3 All Boss)(NGM-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof96evo,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker, FGCH", "Kof'96 (Evolution)(NGM-214)", MACHINE_SUPPORTS_SAVE ) // Moves and style rev

@@ -1112,10 +1112,10 @@ HACK( 200?, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state,  neog
 HACK( 200?, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Unknown", "King of Gladiator (The King of Fighters '97 bootleg)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kogf,       kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Remove the mark of the screen)(The King of Fighters '97 bootleg)(Fix v3)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, koggv,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "Unknown", "King of Gladiator (Green Fire edition)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Unknown", "King of Gladiator mix plus-EX (The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "Bootleg", "King of Gladiator PLUS (set 1)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Bootleg", "King of Gladiator PLUS (set 2)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator PLUS (Fixed Edition)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Unknown", "King of Gladiator mix Plus-EX (The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "Bootleg", "King of Gladiator Plus (set 1)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Bootleg", "King of Gladiator Plus (set 2)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state,  kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator Plus (Fixed Edition)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_state,  kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix)(The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
 
 

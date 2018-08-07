@@ -779,7 +779,7 @@ ROM_START( lb2yd ) /* The Last Blade 2 - Hack by Ydmis - (Ultra kill start is ma
 	ROM_LOAD16_BYTE( "243.c6",  0x2000001, 0x800000, CRC(ec9c36d0) SHA1(e145e9e359000dda6e1dfe95a996bc6d29cfca21) )
 ROM_END
 
-HACK( 200?, lba,       lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "SNK", "Last Blade (set 3)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, lba,       lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "SNK", "Last Blade (set 3)(NGM-2340, alternate board)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lbb,       lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Kurouri, Wesker", "Last Blade (3 Add Char - Wesker mod)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lbboss,    lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Kurouri", "Last Blade (3 Add Char)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lbd,       lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami/Kurouri/Wesker/Ydmis", "Last Blade (Boss hack)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
@@ -2320,7 +2320,7 @@ HACK( 200?, lastbld2s08,    lastbld2, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, lastbld2s09,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "gsc2007",    "Last Blade 2 (Bug Fix Version)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s10,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Last Blade 2 (Enable Hidden Characters v5)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s11,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Simplify Moves)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lastbld2s12,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (enhanced)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, lastbld2s12,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Enhanced)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s13,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Super Remix Edition 1.0)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s14,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Super Remix Edition 1.1)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s15,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade 2 (Enhanced Power V3)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
