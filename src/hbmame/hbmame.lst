@@ -500,6 +500,8 @@ tk2h120
 tk2h121
 tk2h122
 tk2h123
+tk2h124
+tk2h125
 tk2p2		// wofch_v3
 tk2p3		// wofchspp
 wofb
@@ -548,6 +550,7 @@ captcomms36
 captcomms37
 captcomms38
 captcomms39
+captcomms40
 dinos01
 dinos02
 dinos03
@@ -2210,6 +2213,7 @@ kof97h12
 kof97h13
 kof97h14
 kof97h15
+kof97h16
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2556,6 +2560,7 @@ kof97hs50
 kof97hs51
 kof97hs52
 kof97hs53
+kof97hs54
 kof97plss01
 kof97plss02
 kof97plss03
@@ -5581,7 +5586,6 @@ mslug5bo17
 mslug5bo18
 mslug5bo19
 mslug5bo20
-mslug5bo21
 ms5plus01
 ms5plus02
 ms5plus03
@@ -5670,6 +5674,13 @@ mslug5hp19
 mslug5hp20
 mslug5hp21
 mslug5hp22
+mslug5hp23
+mslug5hp24
+mslug5hp25
+mslug5hp26
+mslug5hp27
+mslug5hp28
+mslug5hp29
 mslug5tnc01
 mslug5tnc02
 mslug5tnc03
@@ -5879,6 +5890,62 @@ mslug5rmnm87
 mslug5rmnm88
 mslug5rmnm89
 mslug5rmnm90
+mslug5re00
+mslug5re01
+mslug5re02
+mslug5re03
+mslug5re04
+mslug5re05
+mslug5re06
+mslug5re07
+mslug5re08
+mslug5re09
+mslug5re10
+mslug5re11
+mslug5re12
+mslug5re13
+mslug5re14
+mslug5re15
+mslug5re16
+mslug5re17
+mslug5re18
+mslug5re19
+mslug5re20
+mslug5re21
+mslug5re22
+mslug5re23
+mslug5re24
+mslug5re25
+mslug5re26
+mslug5re27
+mslug5re28
+mslug5re29
+mslug5re30
+mslug5re31
+mslug5re32
+mslug5re33
+mslug5re34
+mslug5re35
+mslug5re36
+mslug5re37
+mslug5re38
+mslug5re39
+mslug5re40
+mslug5re41
+mslug5re42
+mslug5re43
+mslug5re44
+mslug5re45
+mslug5re46
+mslug5re47
+mslug5re48
+mslug5re49
+mslug5re50
+mslug5re51
+mslug5re52
+mslug5re53
+mslug5re54
+mslug5re55
 
 @source:mslugx.cpp
 mslugxce
@@ -8336,6 +8403,7 @@ kov2h09
 kov2h10
 kov2h11
 kov2h12
+kov2h13
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -8616,6 +8684,7 @@ kovpluss277
 kovpluss280
 kovpluss281
 kovpluss282
+kovpluss283
 kovplusas01
 kovshs01
 kovshs02
@@ -9055,6 +9124,7 @@ orlegend111cs01
 theglads01
 theglads02
 theglads03
+theglads04
 theglad100s01
 theglad101s01
 

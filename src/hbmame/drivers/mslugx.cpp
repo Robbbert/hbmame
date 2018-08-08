@@ -467,7 +467,7 @@ HACK( 2013, mslugxhp,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   
 HACK( 2003, mslugxit,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Italian - Beta)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslugxjdkj,mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Live Enhanced)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslugxmfb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Madness Fire bthl Special Edition Enhanced)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X Plus (Plus)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X Plus (NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxr,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "METROID", "Metal Slug X (Reset Version)(2013-05-28)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslugxres, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (level Reset Special Edition v1.1)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslugxsef, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Special Edition Enhanced Flash Off)(NGM-2500)(NGH-2500)", MACHINE_SUPPORTS_SAVE )
