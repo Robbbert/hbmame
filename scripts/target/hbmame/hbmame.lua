@@ -61,6 +61,7 @@ CPUS["Z80"] = true
 SOUNDS["ASTROCADE"] = true
 SOUNDS["AY8910"] = true
 SOUNDS["BEEP"] = true
+SOUNDS["C6280"] = true
 SOUNDS["CDDA"] = true
 SOUNDS["DAC"] = true
 SOUNDS["DMADAC"] = true
