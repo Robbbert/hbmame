@@ -625,7 +625,7 @@ MACHINE_CONFIG_START(thomson_state::to7)
 	MCFG_MACHINE_RESET_OVERRIDE( thomson_state, to7 )
 
 /* cpu */
-	MCFG_DEVICE_ADD("maincpu", MC6809E, 1000000)
+	MCFG_DEVICE_ADD("maincpu", MC6809E, 16_MHz_XTAL / 16)
 	MCFG_DEVICE_PROGRAM_MAP(to7)
 
 	MCFG_INPUT_MERGER_ANY_HIGH("mainirq")
@@ -651,7 +651,7 @@ MACHINE_CONFIG_START(thomson_state::to7)
 /* sound */
 	SPEAKER(config, "speaker").front_center();
 	MCFG_DEVICE_ADD("buzzer", DAC_1BIT, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.5)
-	MCFG_DEVICE_ADD("dac", DAC_6BIT_R2R, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.5) // unknown DAC (6-bit game extension DAC)
+	MCFG_DEVICE_ADD("dac", DAC_6BIT_R2R, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.5) // 6-bit game extension R-2R DAC (R=10K)
 	MCFG_DEVICE_ADD("vref", VOLTAGE_REGULATOR, 0) MCFG_VOLTAGE_REGULATOR_OUTPUT(5.0)
 	MCFG_SOUND_ROUTE(0, "buzzer", 1.0, DAC_VREF_POS_INPUT)
 	MCFG_SOUND_ROUTE(0, "dac", 1.0, DAC_VREF_POS_INPUT) MCFG_SOUND_ROUTE(0, "dac", -1.0, DAC_VREF_NEG_INPUT)
@@ -667,7 +667,7 @@ MACHINE_CONFIG_START(thomson_state::to7)
 	MCFG_CASSETTE_INTERFACE("to_cass")
 
 /* timer */
-	MCFG_DEVICE_ADD("mc6846", MC6846, 0)
+	MCFG_DEVICE_ADD("mc6846", MC6846, 16_MHz_XTAL / 16)
 	MCFG_MC6846_OUT_PORT_CB(WRITE8(*this, thomson_state, to7_timer_port_out))
 	MCFG_MC6846_OUT_CP2_CB(WRITELINE("buzzer", dac_bit_interface, write))
 	MCFG_MC6846_IN_PORT_CB(READ8(*this, thomson_state, to7_timer_port_in))
@@ -675,7 +675,7 @@ MACHINE_CONFIG_START(thomson_state::to7)
 	MCFG_MC6846_IRQ_CB(WRITELINE("mainirq", input_merger_device, in_w<0>))
 
 /* floppy */
-	MCFG_DEVICE_ADD("mc6843", MC6843, 0)
+	MCFG_DEVICE_ADD("mc6843", MC6843, 16_MHz_XTAL / 16 / 2)
 
 	MCFG_DEVICE_ADD(m_floppy_image[0], LEGACY_FLOPPY, 0)
 	MCFG_LEGACY_FLOPPY_CONFIG(thomson_floppy_interface)
@@ -690,7 +690,7 @@ MACHINE_CONFIG_START(thomson_state::to7)
 	MCFG_LEGACY_FLOPPY_CONFIG(thomson_floppy_interface)
 	MCFG_LEGACY_FLOPPY_IDX_CB(WRITELINE(*this, thomson_state, fdc_index_3_w))
 
-	MCFG_DEVICE_ADD("wd2793", WD2793, 1_MHz_XTAL)
+	MCFG_DEVICE_ADD("wd2793", WD2793, 16_MHz_XTAL / 16)
 	MCFG_FLOPPY_DRIVE_ADD("wd2793:0", cd90_640_floppies, "dd", thomson_state::cd90_640_formats)
 	MCFG_FLOPPY_DRIVE_ADD("wd2793:1", cd90_640_floppies, "dd", thomson_state::cd90_640_formats)
 
@@ -1715,6 +1715,8 @@ MACHINE_CONFIG_START(thomson_state::to8)
 
 	MCFG_DEVICE_MODIFY( "maincpu" )
 	MCFG_DEVICE_PROGRAM_MAP ( to8)
+
+	//MCFG_DEVICE_ADD("kbdmcu", MC6804, 11_MHz_XTAL)
 
 	MCFG_DEVICE_MODIFY(THOM_PIA_SYS)
 	MCFG_PIA_READPA_HANDLER(READ8(*this, thomson_state, to8_sys_porta_in))

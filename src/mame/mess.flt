@@ -400,6 +400,7 @@ microkit.cpp
 micronic.cpp
 microtan.cpp
 microterm.cpp
+microterm_f8.cpp
 microvsn.cpp
 mikro80.cpp
 mikromik.cpp
@@ -693,6 +694,7 @@ tek440x.cpp
 tekxp33x.cpp
 terak.cpp
 terco.cpp
+terminal.cpp
 test_t400.cpp
 testconsole.cpp
 tg100.cpp

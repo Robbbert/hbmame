@@ -21137,6 +21137,9 @@ microtan                        // 1979 Microtan 65
 mt420                           //
 mt5510                          //
 
+@source:microterm_f8.cpp
+act5a                           //
+
 @source:microvsn.cpp
 microvsn                        // Milton Bradley
 
@@ -30200,6 +30203,7 @@ grdnstrmk                       // (c) 1998 (Korea)
 grdnstrmv                       // (c) 1998 Apples Industries license
 gunnail                         // (c) 1993 NMK / Tecmo
 hachamf                         // (c) 1991 NMK
+hachamfa                        // (c) 1991 NMK
 hachamfb                        // bootleg
 hotbubl                         // (c) 1998 Pandora (Korea, Nudes)
 hotbubla                        // (c) 1998 Pandora (Korea)
@@ -36884,6 +36888,23 @@ terak                           //
 @source:terco.cpp
 t4490                           // Terco 4490 Mill CNC Control (c) 1986
 
+@source:terminal.cpp
+7951om                          //
+a1010                           //
+alcat258                        //
+alcat7100                       //
+ampex210                        //
+ec7915                          //
+facit4440                       //
+feap90                          //
+ikt5a                           //
+itt9216                         //
+loewe715                        //
+loewed                          //
+t3210                           //
+teleguide                       //
+vdm79322                        //
+
 @source:terracre.cpp
 amatelas                        // (c) 1986
 amazon                          // (c) 1986
@@ -37547,6 +37568,7 @@ avalnc25                        // 2005.08 The Key Of Avalon 2.5 - War of the Ke
 avalnc25a                       // 2005.05 The Key Of Avalon 2.5 - War of the Key (client) (Rev A)
 fzeroax                         // 2003.12 F-Zero AX (Rev E)
 fzeroaxc                        // 2003.06.11 F-Zero AX (Rev C)
+fzeroaxm                        // 2003.09 F-Zero AX Monster Ride
 gekpurya                        // 2003.10 Gekitou Pro Yakyuu Mizushima Shinji All Stars vs. Pro Yakyuu (Rev C)
 gekpuryb                        // 2003.10 Gekitou Pro Yakyuu Mizushima Shinji All Stars vs. Pro Yakyuu (Rev B)
 mkartag2                        // 2007.03 Mario Kart Arcade GP 2 (MK21 Ver.A)
@@ -39250,6 +39272,7 @@ wy50                            // WY-50
 wy55                            // WY-55
 wy60                            // WY-60
 wy85                            // WY-85
+wy120                           // WY-120
 wy150                           // WY-150
 wy160                           // WY-160
 wy30p                           // WY-30+
