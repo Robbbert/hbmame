@@ -1711,6 +1711,20 @@ ROM_START( pacjr4 )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( packetman ) // real dump, hanglyman with the manufacturer name hacked out
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "hangly.6e",    0x0000, 0x1000, CRC(5fe8610a) SHA1(d63eaebd85e10aa6c27bb7f47642dd403eeb6934) )
+	ROM_LOAD( "puckmanh.6f",  0x1000, 0x1000, CRC(61d38c6c) SHA1(1406aacdc9c8a3776e5853d214380ad3124408f4) )
+	ROM_LOAD( "hangly.6h",    0x2000, 0x1000, CRC(4e7ef99f) SHA1(bd42e68b29b4d654dc817782ba00db69b7d2dfe2) )
+	ROM_LOAD( "packetman.6j", 0x3000, 0x1000, CRC(2693f8ac) SHA1(da240af15b41bf253df14a73b2078c679cd01cb3) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( pacm255 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -3626,6 +3640,7 @@ HACK( 2000, pacjr1,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT9
 HACK( 2000, pacjr2,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman Jr. (Maze 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacjr3,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman Jr. (Maze 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacjr4,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman Jr. (Maze 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, packetman,puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "unbranded", "Packetman", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacm255,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman (Fixes 255th Maze)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, pacmanp,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Don Hodges", "Pacman (Patched)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, pacmar,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Mario Pacman", MACHINE_SUPPORTS_SAVE )

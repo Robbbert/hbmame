@@ -2,6 +2,18 @@ What's new in HBMAME
 ====================
 
 
+2018-08-29 0.201
+----------------
+
+New Games
+---------------------------------
+- [muckpan]           Gobbler Muckpan (pacman clone, hacked to work as original roms were mostly bad)
+- [packetman]         Unbranded hack of hanglyman
+
+
+
+
+
 2018-07-25 0.200
 ----------------
 
