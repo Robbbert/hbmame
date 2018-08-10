@@ -1428,8 +1428,8 @@ ROM_END
 ROM_START( mspacj )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "mspacj.cpu",   0x0000, 0x4000, CRC(807f978a) SHA1(19fa46e41ff671b88fb7d5e0a6c8c989a96e3477) )
-	ROM_CONTINUE(		  0x8000, 0x4000)
-	ROM_IGNORE(		  0x8000 )
+	ROM_CONTINUE(             0x8000, 0x4000)
+	ROM_IGNORE(               0x8000 )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "mspacj.gfx",   0x0000, 0x0800, CRC(8ee4a3b0) SHA1(01e3453c99f7a5d78ab083c49c650e898c0dd2ee) )
@@ -1474,6 +1474,19 @@ ROM_START( mspacman )
 	ROM_LOAD( "u7",           0xb000, 0x1000, CRC(c82cd714) SHA1(1d8ac7ad03db2dc4c8c18ade466e12032673f874) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "5e",           0x0000, 0x1000, CRC(5c281d01) SHA1(5e8b472b615f12efca3fe792410c23619f067845) )
+	ROM_LOAD( "5f",           0x1000, 0x1000, CRC(615af909) SHA1(fd6a1dde780b39aea76bf1c4befa5882573c2ef4) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( mspacmanl )  // l = large roms
+	ROM_REGION( 0x20000, "maincpu", 0 )
+	ROM_LOAD( "11.bin",       0x0000, 0x4000, CRC(e51a1416) SHA1(38fb870bac130486a1404aa3c0fa7a0d6dcc8428) )
+	ROM_CONTINUE(             0x8000, 0x4000)
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	//ROM_LOAD( "13.bin",       0x0000, 0x2000, BAD_DUMP CRC(e6446f49) SHA1(572964721d48ac082d3be62a0d04491e9dddc9b8) )
 	ROM_LOAD( "5e",           0x0000, 0x1000, CRC(5c281d01) SHA1(5e8b472b615f12efca3fe792410c23619f067845) )
 	ROM_LOAD( "5f",           0x1000, 0x1000, CRC(615af909) SHA1(fd6a1dde780b39aea76bf1c4befa5882573c2ef4) )
 
@@ -2678,6 +2691,7 @@ HACK( 1998, mspacii,  mspacman, mspacii,  mspacman, pacman_state, 0,        ROT9
 HACK( 1983, mspacit,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman -2", MACHINE_SUPPORTS_SAVE )
 HACK( 1983, mspacit2, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman -3", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, mspacj,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (Jamma? Bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, mspacmanl,mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "unknown", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, mspacmap, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "Don Hodges", "Ms. Pacman (patched)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mspacmbg, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (single rom)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, mspacpbl, mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "Dav/PMP", "Ms. Pac Plus (bootleg)", MACHINE_SUPPORTS_SAVE )

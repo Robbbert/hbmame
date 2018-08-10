@@ -7,6 +7,8 @@ What's new in HBMAME
 
 New Games
 ---------------------------------
+- [mspacmadp]         Pac Droid Plus [by Mameplus]
+- [mspacmanl]         Ms Pac-Man (large roms)(fast)
 - [muckpan]           Gobbler Muckpan (pacman clone, hacked to work as original roms were mostly bad)
 - [packetman]         Unbranded hack of hanglyman
 
