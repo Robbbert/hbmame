@@ -10,11 +10,6 @@
 
     Based on a datasheet obtained from www.freetradezone.com
 
-    The SMI does not have DC0 and DC1, only DC0; as a result, it does
-    not respond to the main CPU's DC0/DC1 swap instruction.  This may
-    lead to two devices responding to the same DC0 address and
-    attempting to place their bytes on the data bus simultaneously!
-
     8-bit shift register:
     Feedback in0 = !((out3 ^ out4) ^ (out5 ^ out7))
     Interrupts are at 0xfe
@@ -97,7 +92,7 @@ void f3853_device::set_interrupt_request_line()
 	if (m_interrupt_req_cb.isnull())
 		return;
 
-	if (m_external_enable && !m_priority_line)
+	if (m_external_enable && !m_priority_line && m_request_flipflop)
 		m_interrupt_req_cb(external_interrupt_vector(), true);
 	else if (m_timer_enable && !m_priority_line && m_request_flipflop)
 		m_interrupt_req_cb(timer_interrupt_vector(), true);

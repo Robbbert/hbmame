@@ -150,7 +150,9 @@ public:
 		A_SCSP_0 = 0x20000000,
 		A_SCSP_1 = 0xa0000000,
 		A_WSWAN_0 = 0x21000000,
+		A_WSWAN_RAM_0 = 0x21000100,
 		A_WSWAN_1 = 0xa1000000,
+		A_WSWAN_RAM_1 = 0xa1000100,
 		A_VSU_VUE_0 = 0x22000000,
 		A_VSU_VUE_1 = 0xa2000000,
 		A_SAA1099_0 = 0x23000000,
@@ -190,6 +192,7 @@ public:
 	template<int Chip> DECLARE_READ8_MEMBER(ymf271_rom_r);
 	template<int Chip> DECLARE_READ8_MEMBER(ymz280b_rom_r);
 	template<int Chip> DECLARE_READ8_MEMBER(multipcm_rom_r);
+	template<int Chip> DECLARE_READ8_MEMBER(c140_rom_r);
 	template<int Chip> DECLARE_READ8_MEMBER(k053260_rom_r);
 	template<int Chip> DECLARE_READ8_MEMBER(okim6295_rom_r);
 	template<int Chip> DECLARE_READ8_MEMBER(k054539_rom_r);
@@ -387,8 +390,10 @@ public:
 	template<int Chip> void multipcm_map(address_map &map);
 	template<int Chip> void okim6295_map(address_map &map);
 	template<int Chip> void k054539_map(address_map &map);
+	template<int Chip> void c140_map(address_map &map);
 	template<int Chip> void k053260_map(address_map &map);
 	template<int Chip> void qsound_map(address_map &map);
+	template<int Chip> void wswan_map(address_map &map);
 	template<int Chip> void es5503_map(address_map &map);
 	template<int Chip> void es5505_map(address_map &map);
 	template<int Chip> void x1_010_map(address_map &map);
@@ -699,6 +704,8 @@ void vgmplay_device::execute_run()
 			uint32_t size = m_io->read_dword(REG_SIZE);
 			if (!size)
 			{
+				logerror("zero length file\n");
+
 				m_pc = 0;
 				m_state = DONE;
 				break;
@@ -855,7 +862,13 @@ void vgmplay_device::execute_run()
 				uint32_t loop_offset = m_file->read_dword(0x1c);
 				if (!loop_offset)
 				{
-					m_state = DONE;
+					if (m_loop)
+						device_reset();
+					else
+					{
+						logerror("done\n");
+						m_state = DONE;
+					}
 					break;
 				}
 
@@ -1310,7 +1323,11 @@ void vgmplay_device::execute_run()
 			case 0xc6:
 			{
 				pulse_act_led(LED_WSWAN);
-				// TODO: Wonderswan memory
+				uint8_t offset = m_file->read_byte(m_pc + 1);
+				if (offset & 0x80)
+					m_io->write_byte(A_WSWAN_RAM_1 + ((offset & 0x7f) << 8) + m_file->read_byte(m_pc + 2), m_file->read_byte(m_pc + 3));
+				else
+					m_io->write_byte(A_WSWAN_RAM_0 + ((offset & 0x7f) << 8) + m_file->read_byte(m_pc + 2), m_file->read_byte(m_pc + 3));
 				m_pc += 4;
 				break;
 			}
@@ -1408,7 +1425,11 @@ void vgmplay_device::execute_run()
 			case 0xd4:
 			{
 				pulse_act_led(LED_C140);
-				// TODO: c140
+				uint8_t offset = m_file->read_byte(m_pc + 1);
+				if (offset & 0x80)
+					m_io->write_byte(A_C140_1 + ((offset & 0x7f) << 8) + m_file->read_byte(m_pc + 2), m_file->read_byte(m_pc + 3));
+				else
+					m_io->write_byte(A_C140_0 + ((offset & 0x7f) << 8) + m_file->read_byte(m_pc + 2), m_file->read_byte(m_pc + 3));
 				m_pc += 4;
 				break;
 			}
@@ -1455,6 +1476,10 @@ void vgmplay_device::execute_run()
 
 			default:
 				logerror("unhandled code %02x (%02x %02x %02x %02x)\n", code, m_file->read_byte(m_pc + 1), m_file->read_byte(m_pc + 2), m_file->read_byte(m_pc + 3), m_file->read_byte(m_pc + 4));
+
+				if (machine().debug_flags & DEBUG_FLAG_ENABLED)
+					debugger_instruction_hook(m_pc);
+
 				m_state = DONE;
 				m_icount = 0;
 				break;
@@ -1463,21 +1488,7 @@ void vgmplay_device::execute_run()
 		}
 		case DONE:
 		{
-			static bool done = false;
-			if (!done && !m_loop)
-			{
-				logerror("done\n");
-				done = true;
-			}
-			else if (m_loop)
-			{
-				device_reset();
-			}
-			else
-			{
-				if (machine().debug_flags & DEBUG_FLAG_ENABLED)
-					debugger_instruction_hook(m_pc);
-			}
+			machine().sound().system_mute(1);
 			m_icount = 0;
 			break;
 		}
@@ -2017,6 +2028,12 @@ READ8_MEMBER(vgmplay_device::k054539_rom_r)
 }
 
 template<int Chip>
+READ8_MEMBER(vgmplay_device::c140_rom_r)
+{
+	return rom_r(Chip, 0x8d, offset);
+}
+
+template<int Chip>
 READ8_MEMBER(vgmplay_device::k053260_rom_r)
 {
 	return rom_r(Chip, 0x8e, offset);
@@ -2359,8 +2376,8 @@ QUICKLOAD_LOAD_MEMBER(vgmplay_state, load_file)
 		if (version >= 0x170 && header_size >= 0xc0 && r32(0xbc))
 			logerror("Warning: file requests an unsupported Extra Header\n");
 
-		if (version >= 0x171 && header_size >= 0xc4 && r32(0xc0))
-			logerror("Warning: file requests an unsupported WonderSwan\n");
+		m_wswan[0]->set_unscaled_clock(version >= 0x161 && header_size >= 0xc4 ? r32(0xc0) & ~0x40000000 : 0);
+		m_wswan[1]->set_unscaled_clock(version >= 0x161 && header_size >= 0xc4 && (r32(0xc0) & 0x40000000) ? r32(0xc0) & ~0x40000000 : 0);
 
 		m_vsu_vue[0]->set_unscaled_clock(version >= 0x161 && header_size >= 0xc8 ? r32(0xc4) & ~0x40000000 : 0);
 		m_vsu_vue[1]->set_unscaled_clock(version >= 0x161 && header_size >= 0xc8 && (r32(0xc4) & 0x40000000) ? r32(0xc4) & ~0x40000000 : 0);
@@ -2397,6 +2414,10 @@ QUICKLOAD_LOAD_MEMBER(vgmplay_state, load_file)
 		for (device_t &child : subdevices())
 			if (child.clock() != 0)
 				logerror("%s %d\n", child.tag(), child.clock());
+
+		//for (auto &stream : machine().sound().streams())
+		//	if (stream->sample_rate() != 0)
+		//		logerror("%s %d\n", stream->device().tag(), stream->sample_rate());
 
 		machine().schedule_soft_reset();
 
@@ -2637,7 +2658,8 @@ void vgmplay_state::soundchips_map(address_map &map)
 	map(vgmplay_device::A_K054539_1, vgmplay_device::A_K054539_1 + 0x22f).w(m_k054539[1], FUNC(k054539_device::write));
 	map(vgmplay_device::A_C6280_0, vgmplay_device::A_C6280_0 + 0xf).w("huc6280.0:psg", FUNC(c6280_device::c6280_w));
 	map(vgmplay_device::A_C6280_1, vgmplay_device::A_C6280_1 + 0xf).w("huc6280.1:psg", FUNC(c6280_device::c6280_w));
-	// TODO: c140
+	map(vgmplay_device::A_C140_0, vgmplay_device::A_C140_0 + 0x1ff).w(m_c140[0], FUNC(c140_device::c140_w));
+	map(vgmplay_device::A_C140_1, vgmplay_device::A_C140_1 + 0x1ff).w(m_c140[1], FUNC(c140_device::c140_w));
 	map(vgmplay_device::A_K053260_0, vgmplay_device::A_K053260_0 + 0x2f).w(m_k053260[0], FUNC(k053260_device::write));
 	map(vgmplay_device::A_K053260_1, vgmplay_device::A_K053260_1 + 0x2f).w(m_k053260[1], FUNC(k053260_device::write));
 	map(vgmplay_device::A_POKEY_0, vgmplay_device::A_POKEY_0 + 0xf).w(m_pokey[0], FUNC(pokey_device::write));
@@ -2646,6 +2668,8 @@ void vgmplay_state::soundchips_map(address_map &map)
 	// TODO: scsp
 	map(vgmplay_device::A_WSWAN_0, vgmplay_device::A_WSWAN_0 + 0xff).w(m_wswan[0], FUNC(wswan_sound_device::port_w));
 	map(vgmplay_device::A_WSWAN_1, vgmplay_device::A_WSWAN_1 + 0xff).w(m_wswan[1], FUNC(wswan_sound_device::port_w));
+	map(vgmplay_device::A_WSWAN_RAM_0, vgmplay_device::A_WSWAN_RAM_0 + 0x3fff).ram().share("wswan_ram.0");
+	map(vgmplay_device::A_WSWAN_RAM_1, vgmplay_device::A_WSWAN_RAM_1 + 0x3fff).ram().share("wswan_ram.1");
 	map(vgmplay_device::A_VSU_VUE_0, vgmplay_device::A_VSU_VUE_0 + 0x5ff).w(m_vsu_vue[0], FUNC(vboysnd_device::write));
 	map(vgmplay_device::A_VSU_VUE_1, vgmplay_device::A_VSU_VUE_1 + 0x5ff).w(m_vsu_vue[1], FUNC(vboysnd_device::write));
 	map(vgmplay_device::A_SAA1099_0, vgmplay_device::A_SAA1099_0 + 1).w(m_saa1099[0], FUNC(saa1099_device::write));
@@ -2723,6 +2747,12 @@ void vgmplay_state::k054539_map(address_map &map)
 }
 
 template<int Chip>
+void vgmplay_state::c140_map(address_map &map)
+{
+	map(0, 0x1fffff).r("vgmplay", FUNC(vgmplay_device::c140_rom_r<Chip>));
+}
+
+template<int Chip>
 void vgmplay_state::k053260_map(address_map &map)
 {
 	map(0, 0x1fffff).r("vgmplay", FUNC(vgmplay_device::k053260_rom_r<Chip>));
@@ -2732,6 +2762,12 @@ template<int Chip>
 void vgmplay_state::qsound_map(address_map &map)
 {
 	map(0, 0xffffff).r("vgmplay", FUNC(vgmplay_device::qsound_rom_r<Chip>));
+}
+
+template<int Chip>
+void vgmplay_state::wswan_map(address_map &map)
+{
+	map(0, 0x3fff).ram().share(Chip ? "wswan_ram.1" : "wswan_ram.0");
 }
 
 template<int Chip>
@@ -3048,10 +3084,12 @@ MACHINE_CONFIG_START(vgmplay_state::vgmplay)
 	m_huc6280[1]->add_route(1, "rspeaker", 1);
 
 	C140(config, m_c140[0], 0);
+	m_c140[0]->set_addrmap(0, &vgmplay_state::c140_map<0>);
 	m_c140[0]->add_route(0, "lspeaker", 0.50);
 	m_c140[0]->add_route(1, "rspeaker", 0.50);
 
 	C140(config, m_c140[1], 0);
+	m_c140[1]->set_addrmap(0, &vgmplay_state::c140_map<1>);
 	m_c140[1]->add_route(0, "lspeaker", 0.50);
 	m_c140[1]->add_route(1, "rspeaker", 0.50);
 
@@ -3086,12 +3124,13 @@ MACHINE_CONFIG_START(vgmplay_state::vgmplay)
 	m_scsp[1]->add_route(0, "lspeaker", 1);
 	m_scsp[1]->add_route(1, "rspeaker", 1);
 
-	// TODO: stop wonderswan using machine().sample_rate()
 	WSWAN_SND(config, m_wswan[0], 0);
+	m_wswan[0]->set_addrmap(0, &vgmplay_state::wswan_map<0>);
 	m_wswan[0]->add_route(0, "lspeaker", 0.50);
 	m_wswan[0]->add_route(1, "rspeaker", 0.50);
 
 	WSWAN_SND(config, m_wswan[1], 0);
+	m_wswan[1]->set_addrmap(0, &vgmplay_state::wswan_map<1>);
 	m_wswan[1]->add_route(0, "lspeaker", 0.50);
 	m_wswan[1]->add_route(1, "rspeaker", 0.50);
 
@@ -3174,8 +3213,6 @@ ROM_START( vgmplay )
 	ROM_REGION( 0x80000, "y8950.1", ROMREGION_ERASE00 )
 	ROM_REGION( 0x80000, "upd7759.0", ROMREGION_ERASE00 )
 	ROM_REGION( 0x80000, "upd7759.1", ROMREGION_ERASE00 )
-	ROM_REGION( 0x80000, "c140.0", ROMREGION_ERASE00 )
-	ROM_REGION( 0x80000, "c141.1", ROMREGION_ERASE00 )
 	ROM_REGION( 0x80000, "scsp", ROMREGION_ERASE00 )
 	// TODO: split up 32x to remove dependencies
 	ROM_REGION( 0x4000, "master", ROMREGION_ERASE00 )
