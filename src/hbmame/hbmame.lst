@@ -551,6 +551,12 @@ captcomms37
 captcomms38
 captcomms39
 captcomms40
+captcomms41
+captcomms42
+captcomms43
+captcomms44
+captcomms45
+captcomms46
 dinos01
 dinos02
 dinos03
@@ -604,7 +610,7 @@ dinos51 // dinoslice
 dinos52 // dinosup
 dinos53 // dinosupfx
 dinos54
-dinos55
+//dinos55 //Duplicado
 dinos56
 dinos57
 dinos58
@@ -686,6 +692,10 @@ dinos133
 dinos134
 dinos135
 dinos136
+dinos137
+dinos138
+dinos139
+dinos140
 dinox01
 dinox02
 dinox03
