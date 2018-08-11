@@ -18,6 +18,9 @@ LAYOUTS += \
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
+	$(SRC)/mame/layout/inttoote.lay \
+	$(SRC)/mame/layout/jockeyc.lay \
+	$(SRC)/mame/layout/setaroul.lay \
 	$(SRC)/mame/layout/gorf.lay \
 	$(SRC)/mame/layout/tenpindx.lay \
 	$(SRC)/mame/layout/spacezap.lay \

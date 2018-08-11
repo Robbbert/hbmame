@@ -9263,6 +9263,10 @@ ggroundjs01
 ga2						//parent
 ga2s01
 
+@source:seta.cpp
+blandia					//parent
+rezon					//parent
+
 @source:seta2.cpp
 grdians					//parent
 grdianss01

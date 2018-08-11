@@ -148,7 +148,9 @@ MACHINES["6821PIA"] = true
 MACHINES["68681"] = true
 MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
+MACHINES["ACIA6850"] = true -- seta
 MACHINES["ADC0808"] = true
+MACHINES["ADC083X"] = true -- seta
 MACHINES["ADC0844"] = true
 MACHINES["AT28C16"] = true -- zn
 MACHINES["BANKDEV"] = true
@@ -180,6 +182,7 @@ MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
 MACHINES["OUTPUT_LATCH"] = true
 MACHINES["PIC8259"] = true -- m92
+MACHINES["PIT8253"] = true -- seta
 MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
@@ -778,8 +781,11 @@ createHBMAMEProjects(_target, _subtarget, "seta")
 files {
 	MAME_DIR .. "src/mame/machine/st0016.cpp",
 	MAME_DIR .. "src/hbmame/drivers/simple_st0016.cpp",
+	MAME_DIR .. "src/hbmame/drivers/seta.cpp",
+	MAME_DIR .. "src/mame/video/seta.cpp",
 	MAME_DIR .. "src/hbmame/drivers/seta2.cpp",
 	MAME_DIR .. "src/mame/video/seta2.cpp",
+	MAME_DIR .. "src/mame/video/seta001.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "snk")
