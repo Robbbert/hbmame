@@ -1626,6 +1626,9 @@ sfiii3nrs03
 deathsml				//parent
 deathsmlh01
 
+@source:deco32.cpp
+fghthist				//parent
+
 @source:dbz.cpp
 dbz2				//parent
 dbz2h01

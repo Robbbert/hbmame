@@ -61,6 +61,7 @@ CPUS["Z80"] = true
 SOUNDS["ASTROCADE"] = true
 SOUNDS["AY8910"] = true
 SOUNDS["BEEP"] = true
+SOUNDS["BSMT2000"] = true -- deco32
 SOUNDS["C6280"] = true
 SOUNDS["CDDA"] = true
 SOUNDS["DAC"] = true
@@ -77,6 +78,7 @@ SOUNDS["K007232"] = true
 SOUNDS["K051649"] = true
 SOUNDS["K053260"] = true
 SOUNDS["K054539"] = true
+SOUNDS["LC7535"] = true -- deco32
 SOUNDS["MPEG_AUDIO"] = true -- model2
 SOUNDS["MSM5205"] = true
 SOUNDS["MULTIPCM"] = true -- model2
@@ -398,6 +400,12 @@ files {
 	MAME_DIR .. "src/mame/video/decospr.cpp",  -- cninja
 	MAME_DIR .. "src/mame/machine/deco_irq.cpp",  -- cninja
 	MAME_DIR .. "src/mame/machine/decocrpt.cpp",  -- cninja
+	MAME_DIR .. "src/hbmame/drivers/deco32.cpp",
+	MAME_DIR .. "src/mame/video/deco32.cpp",
+	MAME_DIR .. "src/mame/audio/decobsmt.cpp", -- deco32
+	MAME_DIR .. "src/mame/video/deco_ace.cpp", -- deco32
+	MAME_DIR .. "src/mame/machine/deco156.cpp", -- deco32
+	MAME_DIR .. "src/mame/video/deco_zoomspr.cpp", -- deco32
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
