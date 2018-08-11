@@ -11284,6 +11284,7 @@ hvysmsh                         // MBG (c) 1993 Data East Corporation (World)
 hvysmsha                        // MBG (c) 1993 Data East Corporation (Asia)
 hvysmshj                        // MBG (c) 1993 Data East Corporation (Japan)
 wcvol95                         // MBX (c) 1993 Data East
+wcvol95j                        // MBX (c) 1993 Data East
 wcvol95x                        // ?
 
 @source:deco32.cpp
@@ -12468,6 +12469,7 @@ strvmstr                        // (c) 1986 Enerdyne Technologies Inc
 @source:eurocom2.cpp
 eurocom2                        //
 waveterm                        //
+microtrol                       //
 
 @source:europc.cpp
 europc                          // 1988 Schneider Euro PC (CGA or Hercules)
@@ -35543,6 +35545,7 @@ tetfight                        // (c) 2001 Sego
 @source:sshangha.cpp
 sshangha                        // (c) 1992 Hot-B
 sshanghab                       // bootleg
+sshanghaj                       // (c) 1992 Hot-B
 
 @source:sshot.cpp
 gunchamps                       // (c) 1980 Model Racing (sshot.cpp)
@@ -38507,11 +38510,12 @@ welltris                        // (c) 1991 Video System Co. (Japan)
 welltrisj                       // (c) 1991 Video System Co. (Japan)
 
 @source:wgp.cpp
-wgp                             // C32 (c) 1989 Taito America Corporation (US)
+wgp                             // C32 (c) 1989 Taito Corporation Japan (World)
 wgp2                            // C73 (c) 1990 Taito Corporation (Japan)
 wgpj                            // C32 (c) 1989 Taito Corporation (Japan)
 wgpjoy                          // C32 (c) 1989 Taito Corporation (Japan)
 wgpjoya                         // C32 (c) 1989 Taito Corporation (Japan)
+wgpu                            // C32 (c) 1989 Taito America Corporation (US)
 
 @source:wheelfir.cpp
 wheelfir                        // (c) 199? TCH
