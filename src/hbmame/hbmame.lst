@@ -1687,6 +1687,9 @@ ffightbl
 ffightbla
 kodb
 
+@source:flstory.cpp
+flstory					//parent
+
 @source:fuukifg3.cpp
 asurabld				//parent
 asurablds01

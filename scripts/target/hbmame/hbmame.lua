@@ -81,6 +81,7 @@ SOUNDS["K054539"] = true
 SOUNDS["LC7535"] = true -- deco32
 SOUNDS["MPEG_AUDIO"] = true -- model2
 SOUNDS["MSM5205"] = true
+SOUNDS["MSM5232"] = true -- flstory
 SOUNDS["MULTIPCM"] = true -- model2
 SOUNDS["NAMCO_15XX"] = true
 SOUNDS["NAMCO_52XX"] = true
@@ -99,6 +100,7 @@ SOUNDS["SP0250"] = true
 SOUNDS["SPEAKER"] = true
 SOUNDS["SPU"] = true -- zn
 SOUNDS["ST0016"] = true
+SOUNDS["TA7630"] = true -- flstory
 SOUNDS["TC8830F"] = true -- timeplt
 SOUNDS["TMS36XX"] = true
 SOUNDS["TMS5110"] = true
@@ -810,6 +812,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/bublbobl.cpp",
 	MAME_DIR .. "src/mame/machine/bublbobl.cpp",
 	MAME_DIR .. "src/mame/video/bublbobl.cpp",
+	MAME_DIR .. "src/hbmame/drivers/flstory.cpp",
+	MAME_DIR .. "src/mame/machine/flstory.cpp",
+	MAME_DIR .. "src/mame/video/flstory.cpp",
 	MAME_DIR .. "src/hbmame/drivers/rastan.cpp",
 	MAME_DIR .. "src/mame/video/rastan.cpp",
 	MAME_DIR .. "src/hbmame/drivers/retofinv.cpp",
