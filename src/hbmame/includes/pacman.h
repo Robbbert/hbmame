@@ -19,6 +19,7 @@ public:
 	pacman_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
+		, m_mainlatch(*this, "mainlatch")
 		, m_namco_sound(*this, "namco")
 		, m_watchdog(*this, "watchdog")
 		, m_spriteram(*this, "spriteram")
@@ -33,8 +34,6 @@ public:
 		, m_p_maincpu(*this, "maincpu") // HBMAME
 		, m_io_fake(*this, "FAKE") // HBMAME
 	{ }
-
-	required_device<cpu_device> m_maincpu;
 
 	void _8bpm_portmap(address_map &map);
 	void alibaba_map(address_map &map);
@@ -65,6 +64,8 @@ public:
 	void woodpek_map(address_map &map);
 	void writeport(address_map &map);
 protected:
+	required_device<cpu_device> m_maincpu;
+	optional_device<ls259_device> m_mainlatch;
 	optional_device<namco_device> m_namco_sound;
 	required_device<watchdog_timer_device> m_watchdog;
 	optional_shared_ptr<uint8_t> m_spriteram;

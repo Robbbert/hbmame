@@ -430,14 +430,14 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_VBLANK_INIT("screen", 16)
 
-	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // 74LS259 at 8K or 4099 at 7K
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, pacman_state, irq_mask_w))
-	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE("namco", namco_device, sound_enable_w))
-	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(*this, pacman_state, flipscreen_w))
-	//MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(*this, pacman_state, led1_w))
-	//MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(*this, pacman_state, led2_w))
-	//MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(WRITELINE(*this, pacman_state, coin_lockout_global_w))
-	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(*this, pacman_state, coin_counter_w))
+	LS259(config, m_mainlatch); // 74LS259 at 8K or 4099 at 7K
+	m_mainlatch->q_out_cb<0>().set(FUNC(pacman_state::irq_mask_w));
+	m_mainlatch->q_out_cb<1>().set("namco", FUNC(namco_device::sound_enable_w));
+	m_mainlatch->q_out_cb<3>().set(FUNC(pacman_state::flipscreen_w));
+	//m_mainlatch->q_out_cb<4>().set_output("led0");
+	//m_mainlatch->q_out_cb<5>().set_output("led1");
+	//m_mainlatch->q_out_cb<6>().set(FUNC(pacman_state::coin_lockout_global_w));
+	m_mainlatch->q_out_cb<7>().set(FUNC(pacman_state::coin_counter_w));
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
