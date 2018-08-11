@@ -75,4 +75,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragon Ball Z 2
-HACK( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, dbz2, ROT0, "Unknown", "Dragon Ball Z 2 - Super Battle (Simple Attack)(2009-03-11)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
+HACK( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, dbz2, ROT0, "Unknown", "Dragon Ball Z 2 - Super Battle (Simple Attack)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test

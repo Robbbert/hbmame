@@ -1,4 +1,4 @@
-What's new in HBMAME
+﻿What's new in HBMAME
 ====================
 
 
@@ -114,6 +114,7 @@ New Games
 - [hookus02]          Hook (Start Change)(US)
 - [hsf2js04]          Hyper Street Fighter II: The Anniversary Edition (Gouki Edition)
 - [karatblzas01]      Karate Blazers (1V4)(World, set 2)
+- [fghthistas01]      Fighter's History (Enable Hidden Characters)
 - [karatblzas02]      Karate Blazers (Super Version v1)(2009-03-11)
 - [kf2k2mp2s39]       Kof2002 Magic Plus II (Hacks Unknown)
 - [kizunas06]         Kizuna Encounter (Arrange Ver. 1.7)(2014/07/16 )
@@ -169,6 +170,7 @@ New Games
 - [kof95hs11]         Kof'95 (Translation Neo-Arc)
 - [kof97h15]          Kof'97 (SvS Crystal Vercion)(Set 3)
 - [kof97h16]          Kof'97 (3 Question Version)
+- [kof97h17]          Kof'97 (SVS)(Ver.2013)
 - [kof97hs47]         Kof'97 (Global Match v1)
 - [kof97hs48]         Kof'97 (Remix)(Ver.?)
 - [kof97hs49]         Kof'97 (KP 2000)(Ver.?)
@@ -296,13 +298,15 @@ New Games
 - [kof2002ds35]       Kof2002 (Description Of Remix Unknown)[GOTVG]
 - [kof2002ds36]       Kof2002 (Enable Hidden Characters V?)(Ver.?)
 - [kof2002s98]        Kof2002 (Omega Playstation Version)
-- [kof2002s100]       Kof2002 (Description Of Hack Unknown 1)[GOTVG](NGM-2650)(NGH-2650)"
-- [kof2002s101]       Kof2002 (Description Of Hack Unknown 2)[GOTVG](NGM-2650)(NGH-2650)"
-- [kof2002s102]       Kof2002 (Ultimate Magic 2 Strengthen Simplified)(NGM-2650)(NGH-2650)"
-- [kof2002s103]       Kof2002 (Challenge To Ultimate Battle)(Magic Plus II, Hack Set 2)(NGM-2650)(NGH-2650)"
-- [kof2002s104]       Kof2002 (Heaven God Race Version v2.0)(NGM-2650)(NGH-2650)"
-- [kof2002s105]       Kof2002 (Heaven God Race Version v1.0)(NGM-2650)(NGH-2650)"
-- [kof2002s106]       Kof2002 (Boss Start Hack)(26-07-2009)(NGM-2650)(NGH-2650)"
+- [kof2002s100]       Kof2002 (Description Of Hack Unknown 1)[GOTVG]
+- [kof2002s101]       Kof2002 (Description Of Hack Unknown 2)[GOTVG]
+- [kof2002s102]       Kof2002 (Ultimate Magic 2 Strengthen Simplified)
+- [kof2002s103]       Kof2002 (Challenge To Ultimate Battle)(Magic Plus II, Hack Set 2)
+- [kof2002s104]       Kof2002 (Heaven God Race Version v2.0)
+- [kof2002s105]       Kof2002 (Heaven God Race Version v1.0)
+- [kof2002s106]       Kof2002 (Boss Start Hack)(26-07-2009)
+- [kof2002s107]       Kof2002 (Integration + Modification)
+- [kof2002s108]       Kof2002 (Magic Enhancement)
 - [kof2003xs01]       Kof2003 (Combo)(bootleg set 1)"
 - [kof2003xs02]       Kof2003 (Hero)(bootleg set 1)"
 - [kov2h12]           Knights of Valour 2 (Hacks Unknown)
@@ -343,7 +347,7 @@ New Games
 - [kovsho77]          Knights of Valour Super Heroes Plus (Troubled Heroes Series V3)
 - [kovsho78]          Knights of Valour Super Heroes Plus (Zhu Shen Huang Hun Li Ming Edition)
 - [mslug3h50]         Metal Slug 3 (Enemy Soldier Reset Prototype)
-- [mslug3h51]         Metal Slug 3 (Enemy Soldier Reset Prototype)
+- [mslug3h51]         Metal Slug 3 (Enemy Soldier Reset Prototype)(Out Of Blue)
 - [mslug3h52]         Metal Slug 3 (Violence Mount version)
 - [mslug3rma01 - 72]  Metal Slug 3 (Enemy Soldier Reset Prototype Revised Remix [24-7-2018])
 - [mslug4n38]         Metal Slug 4 (Neo Arc French Traduction Alpha)
