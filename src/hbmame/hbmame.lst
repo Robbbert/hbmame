@@ -1628,6 +1628,7 @@ deathsmlh01
 
 @source:deco32.cpp
 fghthist				//parent
+fghthistas01
 
 @source:dbz.cpp
 dbz2				//parent
@@ -2230,6 +2231,7 @@ kof97h13
 kof97h14
 kof97h15
 kof97h16
+kof97h17
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3843,6 +3845,8 @@ kof2002s103
 kof2002s104
 kof2002s105
 kof2002s106
+kof2002s107
+kof2002s108
 kof2002bs01
 kof2002bs02
 kof2002bs03
@@ -8896,6 +8900,7 @@ kovsho75
 kovsho76
 kovsho77
 kovsho78
+//kovsho79  // Serious problem graphic
 kovshxass01
 kovshxass02
 kovshxass03
