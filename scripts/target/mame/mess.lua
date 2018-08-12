@@ -964,6 +964,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"act",
 		"adc",
 		"agat",
+		"akai",
 		"alesis",
 		"altos",
 		"ami",
@@ -1434,6 +1435,11 @@ files {
 	MAME_DIR .. "src/mame/includes/apple2.h",
 	MAME_DIR .. "src/mame/video/agat7.cpp",
 	MAME_DIR .. "src/mame/video/agat7.h",
+}
+
+createMESSProjects(_target, _subtarget, "akai")
+files {
+	MAME_DIR .. "src/mame/drivers/mpc3000.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "alesis")
@@ -3764,6 +3770,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/terak.cpp",
 	MAME_DIR .. "src/mame/drivers/terco.cpp",
 	MAME_DIR .. "src/mame/drivers/terminal.cpp",
+	MAME_DIR .. "src/mame/drivers/textelcomp.cpp",
 	MAME_DIR .. "src/mame/drivers/ti630.cpp",
 	MAME_DIR .. "src/mame/drivers/tr175.cpp",
 	MAME_DIR .. "src/mame/drivers/trs80dt1.cpp",
