@@ -1031,6 +1031,11 @@ int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 		extern int main_(int argc, char *argv[]);
 		exit(main_(__argc, __argv));
 	}
+
+	// printf's not allowed before here, else they get into mame queries
+
+	printf("HBMAMEUI starting\n");fflush(stdout);
+
 	if (!Win32UI_init(hInstance, lpCmdLine, nCmdShow))
 		return 1;
 
