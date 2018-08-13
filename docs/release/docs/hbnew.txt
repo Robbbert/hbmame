@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [breakrevs04]       Breakers Revenge (Boss Version)
+- [blandias01]        Blandia (Boss With Simple Attack Edition)
 - [captcomms28]       Captain Commando (Characters Change)(Old Ver.?)(2009-01-20)
 - [captcomms29]       Captain Commando (99 Beaters Edition)(Ver.1 Update 22-09-2017)
 - [captcomms30]       Captain Commando (99 Beaters Edition)(Ver.2 Update 25-11-2017)
@@ -115,6 +116,7 @@ New Games
 - [hsf2js04]          Hyper Street Fighter II: The Anniversary Edition (Gouki Edition)
 - [karatblzas01]      Karate Blazers (1V4)(World, set 2)
 - [fghthistas01]      Fighter's History (Enable Hidden Characters)
+- [flstoryjs01]       The FairyLand Story (Translation Chinese)
 - [karatblzas02]      Karate Blazers (Super Version v1)(2009-03-11)
 - [kf2k2mp2s39]       Kof2002 Magic Plus II (Hacks Unknown)
 - [kizunas06]         Kizuna Encounter (Arrange Ver. 1.7)(2014/07/16 )
@@ -388,6 +390,8 @@ New Games
 - [punishers09]       The Punisher (1 Vs 2 Perfect)(26-03-2018)(Ver.?)
 - [punishers10]       The Punisher (1 Vs 2 Perfect)(18-01-2018)(Ver.?)
 - [ragnagrds04]       Operation Ragnagard (Boss With Simple Attack Edition)
+- [rezons01]          Rezon (3 button version (Fixed Vaws, Rapid Fire))
+- [rezonts01]          Rezon (3 button version (Fixed Vaws, Rapid Fire))
 - [samsh5sp02]        Samurai Shodown V Special (Description Of Unknown Origin)(Set 02)
 - [samsh5sp03]        Samurai Shodown V Special (Description Of Unknown Origin)(J)(Set 03)
 - [samsho5bds01]      Samurai Shodown V (Description Of Hack Unknown)(Set 04)
@@ -404,9 +408,13 @@ New Games
 - [sf2reds03]         Street Fighter II': Champion Edition (Ultra Golden Edition)
 - [sf2s02]            Street Fighter II: The World Warrior (Hacks Unknown)
 - [sf2tlonas04]       Street Fighter II': Champion Edition (Hack Unknown)
+- [sfas02]            Street Fighter Alpha: Warriors' Dreams (Simplified)
+- [sfa2s01]           Street Fighter Alpha 2 (Simplified)
+- [sfa3s04]           Street Fighter Alpha 3 (Simplified)
 - [sfa3dps01]         Street Fighter Alpha 3 (Xiang Long edition)(Chun Li Attack)
 - [sfiii2ns04]        Street Fighter III 2nd Impact: Giant Attack (Boss With Simple Attack Edition)
 - [sfiiins03]         Street Fighter III: New Generation (Simple Attack)
+- [sfz2als02]         Street Fighter Zero 2 Alpha (Simplified)
 - [sfz2aljs07]        Street Fighter Zero 2 Alpha (Dragon Edition v2.1)(2009-04-24)
 - [sfz2aljs08]        Street Fighter Zero 2 Alpha (Hacks Unknown)
 - [sk2h43]            Sangokushi II (Chinese bootleg set 4, 921005 Asia)"

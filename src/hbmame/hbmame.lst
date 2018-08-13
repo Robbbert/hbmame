@@ -1502,15 +1502,18 @@ hsf2js02
 hsf2js03
 hsf2js04
 sfas01
+sfas02
 sfa2ur1s01
 sfa2ur1s02
 sfa2ur1s03
 sfa2us01
 sfa2us02
 sfa2us03
+sfa2s01
 sfa3s01
 sfa3s02
 sfa3s03
+sfa3s04
 sfa3bs01
 sfa3bs02
 sfa3bs03
@@ -1520,6 +1523,7 @@ sfa3us03
 sfa3us04
 sfa3dps01
 sfz2als01
+sfz2als02
 sfz2albs01
 sfz2alhs01
 sfz2aljs01
@@ -1690,6 +1694,7 @@ kodb
 
 @source:flstory.cpp
 flstory					//parent
+flstoryjs01
 
 @source:fuukifg3.cpp
 asurabld				//parent
@@ -8708,6 +8713,7 @@ kovpluss280
 kovpluss281
 kovpluss282
 kovpluss283
+//kovpluss284   // Unstable game in the emulator(ingame crash)
 kovplusas01
 kovshs01
 kovshs02
@@ -9266,7 +9272,10 @@ ga2s01
 
 @source:seta.cpp
 blandia					//parent
+blandias01
 rezon					//parent
+rezons01
+rezonts01
 
 @source:seta2.cpp
 grdians					//parent
