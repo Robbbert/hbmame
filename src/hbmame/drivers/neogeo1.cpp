@@ -2979,13 +2979,13 @@ HACK( 200?, ninjamasha,    ninjamas, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 2009, ninjamashb,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Happy Batter Edition)(2009-09-09)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 200?, nitdd,         nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Eleven / Gavaking", "Nightmare in the Dark (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, nitdfr,        nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (Translation French v1)(decrypted C)", MACHINE_SUPPORTS_SAVE )  // based on decrypted C
-HACK( 2005, nitdfro,       nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (Translation French v2)(11-02-2005)(decrypted C)", MACHINE_SUPPORTS_SAVE )   // based on decrypted C
-HACK( 200?, nitdfro1,      nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark (Traduction French v3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, nitdfr,        nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (Translation French)(decrypted C)", MACHINE_SUPPORTS_SAVE )  // based on decrypted C
+HACK( 2005, nitdfro,       nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (Translation French)(Ver.?)(11-02-2005)(decrypted C)", MACHINE_SUPPORTS_SAVE )   // based on decrypted C
+HACK( 200?, nitdfro1,      nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark (NEO ARC Traduction French)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, nitdpx,        nitd,     neogeo_noslot, neogeo, neogeo_state, nitd,      ROT0, "Xyahzhs", "Nightmare in the Dark (Plus Max)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, nitdsp,        nitd,     neogeo_noslot, neogeo, neogeo_state, nitd,      ROT0, "Unknown", "Nightmare in the Dark (Translation Spanish)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, nitdsp1,       nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Unknown", "Nightmare in the Dark (Translation Spanish.Rev 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, nitdsp2,       nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Meganiuz", "Nightmare in the Dark (Translation Spanish .Rev 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, nitdsp1,       nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Unknown", "Nightmare in the Dark (Translation Spanish.Rev 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, nitdsp2,       nitd,     neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Meganiuz", "Nightmare in the Dark (Translation Spanish.Rev 2)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2009, pbcrazyb1,     pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble Crazy (beta 1)(2009-07-05)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, pbcrazyb2,     pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble Crazy (beta 2)(2009-07-23)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -4744,9 +4744,9 @@ HACK( 200?, ninjamass03,    ninjamas, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, ninjamass04,    ninjamas, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Ninja Master's (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ninjamass05,    ninjamas, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "007325",    "Ninja Master's (Command Change V1)(Alt)", MACHINE_SUPPORTS_SAVE )
  // Nightmare in the Dark
-HACK( 200?, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state,         nitd,      ROT0, "Unknown",    "Nightmare in the Dark (French Version v4)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, nitds02,        nitd,     neogeo_noslot, neogeo, neogeo_state,         nitd,      ROT0, "Ti Dragon / Shyma.X",    "Nightmare in the Dark (French Version v5)(11-02-2005)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, nitds03,        nitd,     neogeo_noslot, neogeo, neogeo_state,         cmc42sfix, ROT0, "Ti Dragon / Shyma.X",    "Nightmare in the Dark (French Version v6)(decrypted C)" , MACHINE_SUPPORTS_SAVE ) // Version Mame Neth
+HACK( 200?, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state,         nitd,      ROT0, "Unknown",    "Nightmare in the Dark (French Version v1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, nitds02,        nitd,     neogeo_noslot, neogeo, neogeo_state,         nitd,      ROT0, "Ti Dragon / Shyma.X",    "Nightmare in the Dark (French Version v2)(11-02-2005)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, nitds03,        nitd,     neogeo_noslot, neogeo, neogeo_state,         cmc42sfix, ROT0, "Ti Dragon / Shyma.X",    "Nightmare in the Dark (French Version v?)(decrypted C)" , MACHINE_SUPPORTS_SAVE ) // Version Mame Neth
 // Prehistoric Isle 2
 HACK( 200?, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state,         cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
  // Ragnagard
