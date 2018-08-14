@@ -30,4 +30,4 @@ ROM_START( contrajs01 )
 ROM_END
 
 
-HACK( 1987, contrajs01, contra, contra, contra, contra_state, 0, ROT90, "Unknown", "Contra (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, contrajs01, contra, contra, contra, contra_state, 0, ROT90, "Unknown", "Contra (Translation Chinese)(Japan, set 1)", MACHINE_SUPPORTS_SAVE )

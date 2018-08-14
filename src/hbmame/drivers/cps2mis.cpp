@@ -1916,7 +1916,7 @@ ROM_END
 HACK( 2000, 1944da,     1944,     dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, 1944fp,     1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (Fire Power Plus)(2011-12-31)(USA 000620)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Lock four person mode)(2009-06-29)(Asia 960619)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, ddsomchs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Unknown", "Dungeons & Dragons: Shadow over Mystara (chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, ddsomchs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Unknown", "Dungeons & Dragons: Shadow over Mystara (Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomhp,    ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Strengthen The Physical Model)(2009-06-15)(Euro 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomjfs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (Change the Final Strike condition)(2009-07-17)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, halfway,    progear,  dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Halfway House", "Halfway to Hell - Progear Red Label (2016-01-17 Red label ver)(bootleg)", MACHINE_SUPPORTS_SAVE )
