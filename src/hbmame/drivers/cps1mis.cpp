@@ -36209,4 +36209,4 @@ HACK( 2010, sk3p6,         wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 2010, sk3p7,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p8,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, sk3p9,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 06)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, sk3p10,        wof,    qsound,     wof,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, sk3p10,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 07)", MACHINE_SUPPORTS_SAVE )
