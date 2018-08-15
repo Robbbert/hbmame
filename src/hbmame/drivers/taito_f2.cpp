@@ -150,9 +150,39 @@ ROM_START( deadconxjs01 )
 	ROM_LOAD( "d28-03.10", 0x000000, 0x100000, CRC(a1804b52) SHA1(f252c473a71a4cf80d9f984fec08e5ae7524a620) )
 ROM_END
 
-  /****************************************
-              Don Doko Don
-*****************************************/
+ /********
+ Dino Rex
+***********/
+
+ROM_START( dinorexs01 )
+	ROM_REGION( 0x300000, "maincpu", 0 )  
+	ROM_LOAD16_BYTE( "d39-14_ph01.9",    0x000000, 0x080000, CRC(c584035b) SHA1(383a7e0efd8b391a140bd7b2b78c9cfcbf88a119) )
+	ROM_LOAD16_BYTE( "d39-16_ph01.8",    0x000001, 0x080000, CRC(a16dd401) SHA1(5e8c540145eceda808857b77334db3869a2c979b) )
+	ROM_LOAD16_WORD_SWAP( "d39-04.6",   0x100000, 0x100000, CRC(3800506d) SHA1(a75067e94071617cd5dafdd0ae0ec096dded520a) )  /* data rom */
+	ROM_LOAD16_WORD_SWAP( "d39-05.7",   0x200000, 0x100000, CRC(e2ec3b5d) SHA1(143b72d0f2f5c40dbaeed1eee0672c3b95c2bda6) )  /* data rom */
+
+	ROM_REGION( 0x100000, "gfx1", 0 ) 
+	ROM_LOAD( "d39-06.2",   0x000000, 0x100000, CRC(52f62835) SHA1(251c4f17bc98a5e81c224864fb81352cf1234377) )
+
+	ROM_REGION( 0x600000, "gfx2", 0 ) 
+	ROM_LOAD( "d39-01.29",  0x000000, 0x200000, CRC(d10e9c7d) SHA1(42c13b271a91fac37be4ea92eb358ad6a6c540cf) )
+	ROM_LOAD( "d39-02.28",  0x200000, 0x200000, CRC(6c304403) SHA1(97cd58bd7d00550b7ed5f77b066216c05206b513) )
+	ROM_LOAD( "d39-03.27",  0x400000, 0x200000, CRC(fc9cdab4) SHA1(ce2dfac922d6ac0f008b7dfb92d76c1671ccabbd) )
+
+	ROM_REGION( 0x1c000, "audiocpu", 0 )   
+	ROM_LOAD( "d39-12.5",   0x00000, 0x04000, CRC(8292c7c1) SHA1(2ff20726f6cc6d98d860d96b8eb3c10f46b87d58) )
+	ROM_CONTINUE(             0x10000, 0x0c000 )   
+
+	ROM_REGION( 0x100000, "ymsnd", 0 ) 
+	ROM_LOAD( "d39-07.10",  0x000000, 0x100000, CRC(28262816) SHA1(6df9a31a2edf1dfc23070b41b1da2c0a9e91d1b0) )
+
+	ROM_REGION( 0x080000, "ymsnd.deltat", 0 )
+	ROM_LOAD( "d39-08.4",   0x000000, 0x080000, CRC(377b8b7b) SHA1(4905ac3b9b52c70afe5f451f860fb9acd81a1dbb) )
+ROM_END
+
+ /************
+ Don Doko Don
+****************/
 
 ROM_START( dondokodjs01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -331,6 +361,8 @@ HACK( 200?, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, camel
 HACK( 200?, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Unknown",         "Dead Connection (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
 HACK( 200?, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Unknown",         "Don Doko Don (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+// Dino Rex
+HACK( 200?, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, 0,        ROT0,   "DDJ",             "Dino Rex (Easy Move)(World)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
 HACK( 200?, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Unknown",         "Gun Frontier (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast

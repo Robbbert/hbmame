@@ -144,6 +144,8 @@ gaia			//parent
 gaias01
 metmqstr		//parent
 metmqstrs01
+metmqstrs02
+metmqstrs03
 theroes
 theroes01
 
@@ -8362,12 +8364,17 @@ kovsh19			// rugal 98
 kov					//parent
 kov2				//parent
 killbld				//parent
+killbldp			//parent
 kovshp				//parent
 oldsplus			//parent
 olds				//parent
 martmast			//parent
 theglad				//parent
 killblds01
+killblds02
+killblds03
+killbldps01
+killbldps02
 kovss01
 kov100s01
 kov115s01
@@ -9295,6 +9302,10 @@ ga2s01
 @source:seta.cpp
 blandia					//parent
 blandias01
+blandias02
+blandias03
+msgundam    			//parent
+msgundams01
 rezon					//parent
 rezons01
 rezonts01
@@ -9364,6 +9375,8 @@ deadconx				//parent
 deadconxjs01
 dondokod				//parent
 dondokodjs01
+dinorex 				//parent
+dinorexs01
 gunfront				//parent
 gunfrontjs01
 megablst				//parent
@@ -9443,6 +9456,9 @@ deroon					//parent
 deroons01 // deroona
 tkdensho				//parent
 tkdenshos01
+tkdenshos02
+tkdenshos03
+tkdenshos04
 
 @source:tehkanwc.cpp
 tehkanwc				//parent
@@ -9500,17 +9516,20 @@ samesamenh	// Trap15
 @source:toaplan2.cpp
 kingdmgp	//parent
 kgpe		/* Neill Corlett hack */
+shippumds01	// bad gfx on title
 sstriker	//parent
 mahoudcn
+mahoudais01
 batsugun	//parent
 batsugunt
 bgaregga	//parent
 bgareggz
-snowbro2		//parent
-mahoudais01
-shippumds01				// bad gfx on title
+snowbro2    //parent
 snowbro2s01
 snowbro2s02
+pipibibs    //parent
+pipibibss01
+pipibibss02
 
 @source:trackfld.cpp
 trackfld	//parent

@@ -2181,13 +2181,10 @@ DRIVER_INIT_MEMBER(pgm_arm_type1_state,kovboot)
 ROM_START( killblds01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_BYTE( "kbhc01.u3",     0x100001, 0x080000, CRC(fb49caf7) SHA1(cdeb5a5dcd1679f66ab81dbb68c3c77324c6a44a) )
-	ROM_LOAD16_BYTE( "kb_u6_v104.u6",     0x100000, 0x080000, CRC(31ecc978) SHA1(82666d534e4151775063af6d39f575faba0f1047) )
-	ROM_LOAD16_BYTE( "kb_u4_v104.u4",     0x200001, 0x080000, CRC(1ed8b2e7) SHA1(331c037640cfc1fe743cd0e65a1156c470b3303e) )
-	ROM_LOAD16_BYTE( "kb_u5_v104.u5",     0x200000, 0x080000, CRC(a0bafc29) SHA1(b20db7c16353c6f87ed3c08c9d037b07336711f1) )
+	ROM_LOAD16_WORD_SWAP( "p0300_v109_ps01.u9", 0x100000, 0x200000, CRC(1e8134e0) SHA1(023588da0da4f5d9edf5a66cb00529bf1aa65870) )
 
-	ROM_REGION( 0x010000, "igs022data", 0 ) /* Protection Data */
-	ROM_LOAD( "kb_u2_v104.u2", 0x000000, 0x010000,  CRC(c970f6d5) SHA1(399fc6f80262784c566363c847dc3fdc4fb37494) )
+	ROM_REGION( 0x010000, "igs022data", 0 ) 
+	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
 
 	ROM_REGION( 0x800000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -2203,15 +2200,149 @@ ROM_START( killblds01 )
 //  ROM_LOAD( "a0304.u4",   0x1600000, 0x0200000,  CRC(3096de1c) SHA1(d010990d21cfda9cb8ab5b4bc0e329c23b7719f5) ) // from lord of gun! unused..
 //  ROM_LOAD( "a0305.u5",   0x1800000, 0x0200000,  CRC(2234531e) SHA1(58a82e31a1c0c1a4dd026576319f4e7ecffd140e) ) // from lord of gun! unused..
 
-	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_REGION( 0x1000000, "sprmask", 0 ) /* Sprite Masks + Colour Indexes */
 	ROM_LOAD( "b0300.u13",    0x0000000, 0x0400000, CRC(7f876981) SHA1(43555a200929ad5ecc42137fc9aeb42dc4f50d20) )
 	ROM_LOAD( "b0302.u14",    0x0400000, 0x0400000, CRC(eea9c502) SHA1(04b3972c7111ea59a3cceab6ad124080c4ce3520) )
 	ROM_LOAD( "b0303.u15",    0x0800000, 0x0200000, CRC(77a9652e) SHA1(2342f643d37945fbda224a5034c013796e5134ca) )
 //  ROM_LOAD( "b0301.u8",     0x0a00000, 0x0200000, CRC(400abe33) SHA1(20de1eb626424ea41bd55eb3cecd6b50be744ee0) ) // from lord of gun! unused..
 
-	ROM_REGION( 0x800000, "ics", 0 )
+	ROM_REGION( 0x800000, "ics", 0 ) /* Samples - (8 bit mono 11025Hz) - */
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0300.u1",     0x400000, 0x400000, CRC(93159695) SHA1(50c5976c9b681bd3d1ebefa3bfa9fe6e72dcb96f) )
+ROM_END
+
+ROM_START( killblds02 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0300_v109_ps02.u9", 0x100000, 0x200000, CRC(d82a1938) SHA1(71ed4109d5e451fed359e826ca53a8ed48e827a7) )
+
+	ROM_REGION( 0x010000, "igs022data", 0 ) 
+	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
+
+	ROM_REGION( 0x800000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0300.u9",   0x0000000, 0x0400000,  CRC(3f9455d3) SHA1(3718ce00ad93975383aafc14e5a74dc297b011a1) )
+	ROM_LOAD( "a0301.u10",  0x0400000, 0x0400000,  CRC(92776889) SHA1(6d677837fefff47bfd1c6166322f69f89989a5e2) )
+	ROM_LOAD( "a0303.u11",  0x0800000, 0x0400000,  CRC(33f5cc69) SHA1(9cacd5058d4bb25b77f71658bbbbd4b38d0a6b6a) )
+	ROM_LOAD( "a0306.u12",  0x0c00000, 0x0400000,  CRC(cc018a8e) SHA1(37752d46f238fb57c0ab5a4f96b1e013f2077347) )
+	ROM_LOAD( "a0307.u2",   0x1000000, 0x0400000,  CRC(bc772e39) SHA1(079cc42a190cb916f02b59bca8fa90e524acefe9) )
+//  ROM_LOAD( "a0302.u3",   0x1400000, 0x0200000,  CRC(a4810e38) SHA1(c31fe641feab2c93795fc35bf71d4f37af1056d4) ) // from lord of gun! unused..
+//  ROM_LOAD( "a0304.u4",   0x1600000, 0x0200000,  CRC(3096de1c) SHA1(d010990d21cfda9cb8ab5b4bc0e329c23b7719f5) ) // from lord of gun! unused..
+//  ROM_LOAD( "a0305.u5",   0x1800000, 0x0200000,  CRC(2234531e) SHA1(58a82e31a1c0c1a4dd026576319f4e7ecffd140e) ) // from lord of gun! unused..
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) /* Sprite Masks + Colour Indexes */
+	ROM_LOAD( "b0300.u13",    0x0000000, 0x0400000, CRC(7f876981) SHA1(43555a200929ad5ecc42137fc9aeb42dc4f50d20) )
+	ROM_LOAD( "b0302.u14",    0x0400000, 0x0400000, CRC(eea9c502) SHA1(04b3972c7111ea59a3cceab6ad124080c4ce3520) )
+	ROM_LOAD( "b0303.u15",    0x0800000, 0x0200000, CRC(77a9652e) SHA1(2342f643d37945fbda224a5034c013796e5134ca) )
+//  ROM_LOAD( "b0301.u8",     0x0a00000, 0x0200000, CRC(400abe33) SHA1(20de1eb626424ea41bd55eb3cecd6b50be744ee0) ) // from lord of gun! unused..
+
+	ROM_REGION( 0x800000, "ics", 0 ) /* Samples - (8 bit mono 11025Hz) - */
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0300.u1",     0x400000, 0x400000, CRC(93159695) SHA1(50c5976c9b681bd3d1ebefa3bfa9fe6e72dcb96f) )
+ROM_END
+
+ROM_START( killblds03 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0300_v109_ps03.u9", 0x100000, 0x200000, CRC(5f44677a) SHA1(b36ed941ad5617749fb0a2913e1718cb6707cf5b) )
+
+	ROM_REGION( 0x010000, "igs022data", 0 ) 
+	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
+
+	ROM_REGION( 0x800000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0300.u9",   0x0000000, 0x0400000,  CRC(3f9455d3) SHA1(3718ce00ad93975383aafc14e5a74dc297b011a1) )
+	ROM_LOAD( "a0301.u10",  0x0400000, 0x0400000,  CRC(92776889) SHA1(6d677837fefff47bfd1c6166322f69f89989a5e2) )
+	ROM_LOAD( "a0303.u11",  0x0800000, 0x0400000,  CRC(33f5cc69) SHA1(9cacd5058d4bb25b77f71658bbbbd4b38d0a6b6a) )
+	ROM_LOAD( "a0306.u12",  0x0c00000, 0x0400000,  CRC(cc018a8e) SHA1(37752d46f238fb57c0ab5a4f96b1e013f2077347) )
+	ROM_LOAD( "a0307.u2",   0x1000000, 0x0400000,  CRC(bc772e39) SHA1(079cc42a190cb916f02b59bca8fa90e524acefe9) )
+//  ROM_LOAD( "a0302.u3",   0x1400000, 0x0200000,  CRC(a4810e38) SHA1(c31fe641feab2c93795fc35bf71d4f37af1056d4) ) // from lord of gun! unused..
+//  ROM_LOAD( "a0304.u4",   0x1600000, 0x0200000,  CRC(3096de1c) SHA1(d010990d21cfda9cb8ab5b4bc0e329c23b7719f5) ) // from lord of gun! unused..
+//  ROM_LOAD( "a0305.u5",   0x1800000, 0x0200000,  CRC(2234531e) SHA1(58a82e31a1c0c1a4dd026576319f4e7ecffd140e) ) // from lord of gun! unused..
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) /* Sprite Masks + Colour Indexes */
+	ROM_LOAD( "b0300.u13",    0x0000000, 0x0400000, CRC(7f876981) SHA1(43555a200929ad5ecc42137fc9aeb42dc4f50d20) )
+	ROM_LOAD( "b0302.u14",    0x0400000, 0x0400000, CRC(eea9c502) SHA1(04b3972c7111ea59a3cceab6ad124080c4ce3520) )
+	ROM_LOAD( "b0303.u15",    0x0800000, 0x0200000, CRC(77a9652e) SHA1(2342f643d37945fbda224a5034c013796e5134ca) )
+//  ROM_LOAD( "b0301.u8",     0x0a00000, 0x0200000, CRC(400abe33) SHA1(20de1eb626424ea41bd55eb3cecd6b50be744ee0) ) // from lord of gun! unused..
+
+	ROM_REGION( 0x800000, "ics", 0 ) /* Samples - (8 bit mono 11025Hz) - */
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0300.u1",     0x400000, 0x400000, CRC(93159695) SHA1(50c5976c9b681bd3d1ebefa3bfa9fe6e72dcb96f) )
+ROM_END
+
+ /**********************
+ The Killing Blade Plus
+*************************/
+
+ROM_START( killbldps01 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v300x.u6",     0x100000, 0x080000, CRC(b7fb8ec9) SHA1(e71b2d74269a82c7155b9818821156e128b68b28) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	/* the first 0x268 bytes of this are EXECUTE ONLY in the original chip, attempting to read them even via the original CPU just returns what is on the bus */
+//  ROM_LOAD( "killbldp_igs027a.bin", 0x000000, 0x04000, CRC(c7868d90) SHA1(335c99933a38b77fcfc3f8004063f35124364f3e) ) // this is the original rom with the first 0x268 bytes from the bootleg - but it doesn't work?
+	/* there are some differences around 0x2e80, investigate - maybe above is badly dumped?, padding at 0x3ac0 is also different */
+	ROM_LOAD( "killbldp_igs027a_alt.bin", 0x000000, 0x04000, CRC(98316b06) SHA1(09be9fad24d68980a0a5beae60ced48012286216) )
+
+	ROM_REGION( 0x800000, "user1", 0 ) 
+	ROM_LOAD( "v300x_ps01.u26", 0x000000, 0x200004,  CRC(144388c8) SHA1(9db146cc4434e90b5d931a9b15b5c3f1e7474a88) )
+
+	ROM_REGION( 0x800000, "tiles", 0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t05701w032.bin",0x180000, 0x400000, CRC(567c714f) SHA1(b25b20e1ec9f077d6f7b9d41723a68d0d461bef2) )
+
+	ROM_REGION( 0x1800000, "sprcol", 0 )
+	ROM_LOAD( "a05701w064.bin",   0x0000000, 0x0800000, CRC(8c0c992c) SHA1(28391e50ca4400060676f1524bd49ede373292da) )
+	ROM_LOAD( "a05702w064.bin",   0x0800000, 0x0800000, CRC(7e5b0f27) SHA1(9e8d69f34c30216925fcb7af87f8b37f703317e7) )
+	ROM_LOAD( "a05703w064.bin",   0x1000000, 0x0800000, CRC(accbdb44) SHA1(d59b2452c7a5b4e666473dc973b73a0f2b4edc13) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b05701w064.bin",   0x0000000, 0x0800000, CRC(a20cdcef) SHA1(029a49971adf1e72ab556a207172bdfbd0b86b03) )
+	ROM_LOAD( "b05702w016.bin",   0x0800000, 0x0200000, CRC(fe7457df) SHA1(d66b1b31102b0210f9faf40e1473cd1511ccaf1f) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "w05701b032.bin",   0x400000, 0x400000, CRC(2d3ae593) SHA1(b9c1d2994be95ba974bc134a3bf115bc9c9c9c16) )
+ROM_END
+
+ROM_START( killbldps02 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v300x.u6",     0x100000, 0x080000, CRC(b7fb8ec9) SHA1(e71b2d74269a82c7155b9818821156e128b68b28) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	/* the first 0x268 bytes of this are EXECUTE ONLY in the original chip, attempting to read them even via the original CPU just returns what is on the bus */
+//  ROM_LOAD( "killbldp_igs027a.bin", 0x000000, 0x04000, CRC(c7868d90) SHA1(335c99933a38b77fcfc3f8004063f35124364f3e) ) // this is the original rom with the first 0x268 bytes from the bootleg - but it doesn't work?
+	/* there are some differences around 0x2e80, investigate - maybe above is badly dumped?, padding at 0x3ac0 is also different */
+	ROM_LOAD( "killbldp_igs027a_alt.bin", 0x000000, 0x04000, CRC(98316b06) SHA1(09be9fad24d68980a0a5beae60ced48012286216) )
+
+	ROM_REGION( 0x800000, "user1", 0 ) 
+	ROM_LOAD( "v300x_ps02.u26", 0x000000, 0x200004,  CRC(2d50157e) SHA1(a3c4c8fcc8e5de22868beb533fab965029fdc16d) )
+
+	ROM_REGION( 0x800000, "tiles", 0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t05701w032.bin",0x180000, 0x400000, CRC(567c714f) SHA1(b25b20e1ec9f077d6f7b9d41723a68d0d461bef2) )
+
+	ROM_REGION( 0x1800000, "sprcol", 0 )
+	ROM_LOAD( "a05701w064.bin",   0x0000000, 0x0800000, CRC(8c0c992c) SHA1(28391e50ca4400060676f1524bd49ede373292da) )
+	ROM_LOAD( "a05702w064.bin",   0x0800000, 0x0800000, CRC(7e5b0f27) SHA1(9e8d69f34c30216925fcb7af87f8b37f703317e7) )
+	ROM_LOAD( "a05703w064.bin",   0x1000000, 0x0800000, CRC(accbdb44) SHA1(d59b2452c7a5b4e666473dc973b73a0f2b4edc13) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b05701w064.bin",   0x0000000, 0x0800000, CRC(a20cdcef) SHA1(029a49971adf1e72ab556a207172bdfbd0b86b03) )
+	ROM_LOAD( "b05702w016.bin",   0x0800000, 0x0200000, CRC(fe7457df) SHA1(d66b1b31102b0210f9faf40e1473cd1511ccaf1f) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "w05701b032.bin",   0x400000, 0x400000, CRC(2d3ae593) SHA1(b9c1d2994be95ba974bc134a3bf115bc9c9c9c16) )
 ROM_END
 
  /*****************
@@ -25763,7 +25894,12 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Killing Blade
-HACK( 200?, killblds01,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "Unknown", "The Killing Blade (Description Of Unknown Origin 01)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds01,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Always Have Super Move)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds02,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Easy Move)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds03,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Enable Hidden Boss)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
+// The Killing Blade Plus
+HACK( 200?, killbldps01, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Easy Move)(China, ver. 300)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killbldps02, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Always Have Super Move)(China, ver. 300)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // Knights of Valour
 HACK( 200?, kovss01,     kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)(ver. 117)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kov100s01,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)(ver. 100)", MACHINE_SUPPORTS_SAVE )
