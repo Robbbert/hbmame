@@ -345,7 +345,7 @@ ROM_START( bub68705a )
 ROM_END
 
 
-HACK( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, common, ROT0, "Aladar", "Bubble Bobble Bootleg", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, common, ROT0, "Aladar", "Bubble Bobble (Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, common, ROT0, "Unknown", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, common, ROT0, "Unknown", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
@@ -354,7 +354,7 @@ HACK( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, common, RO
 HACK( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, common, ROT0, "Unknown", "Super Bobble Bobble (Level Select)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, common, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
 HACK( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)(USA)", MACHINE_SUPPORTS_SAVE )
-HACK( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, common, ROT0, "bootleg", "Bubble Bobble (bootleg with 68705, set 2)(alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)(alt)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission

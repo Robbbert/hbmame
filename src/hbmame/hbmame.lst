@@ -696,6 +696,7 @@ dinos137
 dinos138
 dinos139
 dinos140
+dinos141
 dinox01
 dinox02
 dinox03
@@ -1246,6 +1247,7 @@ sf2puns01
 sf2reds01
 sf2reds02
 sf2reds03
+sf2reds04
 sf2m7s01
 slammasts01
 slammasts02
@@ -1501,16 +1503,28 @@ hsf2js01
 hsf2js02
 hsf2js03
 hsf2js04
+hsf2js05
+hsf2js06
+hsf2js07
+hsf2js08
+hsf2js09
+hsf2js10
+hsf2js11
+hsf2js12
+hsf2js13
 sfas01
+sfas02
 sfa2ur1s01
 sfa2ur1s02
 sfa2ur1s03
 sfa2us01
 sfa2us02
 sfa2us03
+sfa2s01
 sfa3s01
 sfa3s02
 sfa3s03
+sfa3s04
 sfa3bs01
 sfa3bs02
 sfa3bs03
@@ -1520,6 +1534,7 @@ sfa3us03
 sfa3us04
 sfa3dps01
 sfz2als01
+sfz2als02
 sfz2albs01
 sfz2alhs01
 sfz2aljs01
@@ -1690,6 +1705,7 @@ kodb
 
 @source:flstory.cpp
 flstory					//parent
+flstoryjs01
 
 @source:fuukifg3.cpp
 asurabld				//parent
@@ -8355,6 +8371,16 @@ killblds01
 kovss01
 kov100s01
 kov115s01
+kov115s02
+kov115s03
+kov115s04
+kov115s05
+kov115s06
+kov115s07
+kov115s08
+kov115s09
+kov115s10
+kov115s11
 kov2p204s01
 kov2p204s02
 kov2p204s03
@@ -8708,6 +8734,8 @@ kovpluss280
 kovpluss281
 kovpluss282
 kovpluss283
+//kovpluss284   // Unstable game in the emulator(ingame crash)
+kovpluss285
 kovplusas01
 kovshs01
 kovshs02
@@ -9266,7 +9294,10 @@ ga2s01
 
 @source:seta.cpp
 blandia					//parent
+blandias01
 rezon					//parent
+rezons01
+rezonts01
 
 @source:seta2.cpp
 grdians					//parent

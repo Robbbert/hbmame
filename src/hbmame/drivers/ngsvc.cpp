@@ -787,7 +787,7 @@ HACK( 200?, svcplusp,      svc,      neogeo_noslot,   neogeo,   neogeo_state,   
 HACK( 200?, svcplusp2,     svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Kawada7278", "SvC Chaos (Plus Purple Fire)(set 2)(MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcpryu,       svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "Unknown", "SvC Plus (Koryu)(MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcps2,        svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "EGHT", "SvC Chaos (Playstation2 Final 1.02)(MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, svcrm,         svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "Jason", "SvC Remix Ultra(Ver 1.2)(MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, svcrm,         svc,      neogeo_noslot,   neogeo,   neogeo_state,       neogeo,   ROT0, "Jason", "SvC Remix Ultra (Ver 1.2)(MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcryu,        svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Gordon", "SvC Chaos (Ryu BT Revision)(NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcspjoy,      svc,      neogeo_noslot,   neogeo,   neogeo_state,       svchb,    ROT0, "Wesker/Jason/K3", "SvC Chaos (Super Plus)(NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, svcsplus2016,  svc,      neogeo_noslot,   neogeo,   neogeo_state,       svcsplus, ROT0, "Unknown", "SvC Chaos Super Plus (2016)(bootleg)", MACHINE_SUPPORTS_SAVE )
