@@ -45,7 +45,6 @@ private:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
-	F3853_INTERRUPT_REQ_CB(f3853_interrupt);
 	DECLARE_WRITE_LINE_MEMBER(vblank_w);
 
 	DECLARE_READ8_MEMBER(bell_r);
@@ -167,11 +166,6 @@ u32 microterm_f8_state::screen_update(screen_device &screen, bitmap_rgb32 &bitma
 	return 0;
 }
 
-F3853_INTERRUPT_REQ_CB(microterm_f8_state::f3853_interrupt)
-{
-	m_maincpu->set_input_line_and_vector(F8_INPUT_LINE_INT_REQ, level ? ASSERT_LINE : CLEAR_LINE, addr);
-}
-
 WRITE_LINE_MEMBER(microterm_f8_state::vblank_w)
 {
 	if (state)
@@ -243,8 +237,8 @@ READ8_MEMBER(microterm_f8_state::port00_r)
 {
 	u8 flags = m_port00;
 
-	// On-line/Local mode switch?
-	if (BIT(m_special->read(), 1))
+	// Full duplex switch
+	if (!BIT(m_dsw[2]->read(), 0))
 		flags |= 0x02;
 
 	return flags;
@@ -270,6 +264,10 @@ READ8_MEMBER(microterm_f8_state::port01_r)
 	// ???
 	if (!m_screen->vblank())
 		flags |= 0x20;
+
+	// Local mode switch
+	if (!BIT(m_special->read(), 1))
+		flags |= 0x10;
 
 	// Protected field setting
 	flags |= ~m_dsw[2]->read() & 0x06;
@@ -435,7 +433,7 @@ static INPUT_PORTS_START(act5a)
 	PORT_DIPSETTING(0xfe, "19,200")
 
 	PORT_START("DSW3")
-	PORT_DIPNAME(0x001, 0x001, "Conversation Mode") PORT_DIPLOCATION("S3:1")
+	PORT_DIPNAME(0x001, 0x000, "Conversation Mode") PORT_DIPLOCATION("S3:1")
 	PORT_DIPSETTING(0x001, "Half Duplex")
 	PORT_DIPSETTING(0x000, "Full Duplex")
 	PORT_DIPNAME(0x006, 0x006, "Protected Field Attribute") PORT_DIPLOCATION("S3:2,3")
@@ -491,14 +489,15 @@ void microterm_f8_state::act5a(machine_config &config)
 	cpu_device &maincpu(F8(config, "maincpu", 2_MHz_XTAL));
 	maincpu.set_addrmap(AS_PROGRAM, &microterm_f8_state::f8_mem);
 	maincpu.set_addrmap(AS_IO, &microterm_f8_state::f8_io);
+	maincpu.set_irq_acknowledge_callback("smi", FUNC(f3853_device::int_acknowledge));
 
 	f3853_device &smi(F3853(config, "smi", 2_MHz_XTAL));
-	smi.set_interrupt_req_callback(f3853_device::interrupt_req_delegate(FUNC(microterm_f8_state::f3853_interrupt), this));
+	smi.int_req_callback().set_inputline("maincpu", F8_INPUT_LINE_INT_REQ);
 
 	AY51013(config, m_uart);
 	m_uart->read_si_callback().set(m_io, FUNC(rs232_port_device::rxd_r));
 	m_uart->write_so_callback().set("txd", FUNC(input_merger_device::in_w<0>));
-	m_uart->write_dav_callback().set("smi", FUNC(f3853_device::set_external_interrupt_in_line)).invert();
+	m_uart->write_dav_callback().set("smi", FUNC(f3853_device::ext_int_w)).invert();
 	m_uart->set_auto_rdav(true);
 
 	RS232_PORT(config, m_io, default_rs232_devices, nullptr);
