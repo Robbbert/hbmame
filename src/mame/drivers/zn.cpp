@@ -1467,8 +1467,8 @@ MACHINE_CONFIG_START(zn_state::coh1000w)
 	MCFG_RAM_MODIFY("maincpu:ram")
 	MCFG_RAM_DEFAULT_SIZE("8M")
 
-	MCFG_VT83C461_ADD("ide", ata_devices, "hdd", nullptr, true)
-	MCFG_ATA_INTERFACE_IRQ_HANDLER(WRITELINE("maincpu:irq", psxirq_device, intin10))
+	VT83C461(config, m_vt83c461).options(ata_devices, "hdd", nullptr, true);
+	m_vt83c461->irq_handler().set("maincpu:irq", FUNC(psxirq_device::intin10));
 	MCFG_PSX_DMA_CHANNEL_READ( "maincpu", 5, psxdma_device::read_delegate(&zn_state::atpsx_dma_read, this ) )
 	MCFG_PSX_DMA_CHANNEL_WRITE( "maincpu", 5, psxdma_device::write_delegate(&zn_state::atpsx_dma_write, this ) )
 MACHINE_CONFIG_END
@@ -2200,12 +2200,7 @@ MACHINE_CONFIG_START(zn_state::nbajamex)
 	MCFG_MACHINE_START_OVERRIDE(zn_state, nbajamex)
 	MCFG_MACHINE_RESET_OVERRIDE(zn_state, nbajamex)
 
-	MCFG_DEVICE_ADD("nbajamex_bankmap", ADDRESS_MAP_BANK, 0)
-	MCFG_DEVICE_PROGRAM_MAP(nbajamex_bank_map)
-	MCFG_ADDRESS_MAP_BANK_ENDIANNESS(ENDIANNESS_LITTLE)
-	MCFG_ADDRESS_MAP_BANK_DATA_WIDTH(32)
-	MCFG_ADDRESS_MAP_BANK_ADDR_WIDTH(24)
-	MCFG_ADDRESS_MAP_BANK_STRIDE(0x800000)
+	ADDRESS_MAP_BANK(config, "nbajamex_bankmap").set_map(&zn_state::nbajamex_bank_map).set_options(ENDIANNESS_LITTLE, 32, 24, 0x800000);
 
 	MCFG_DEVICE_ADD("rax", ACCLAIM_RAX, 0)
 MACHINE_CONFIG_END
@@ -2218,8 +2213,8 @@ MACHINE_CONFIG_START(zn_state::jdredd)
 	MCFG_DEVICE_MODIFY("gpu")
 	MCFG_PSXGPU_VBLANK_CALLBACK(vblank_state_delegate(&zn_state::jdredd_vblank, this))
 
-	MCFG_ATA_INTERFACE_ADD("ata", ata_devices, "hdd", nullptr, true)
-	MCFG_ATA_INTERFACE_IRQ_HANDLER(WRITELINE("maincpu:irq", psxirq_device, intin10))
+	ata_interface_device &ata(ATA_INTERFACE(config, "ata").options(ata_devices, "hdd", nullptr, true));
+	ata.irq_handler().set("maincpu:irq", FUNC(psxirq_device::intin10));
 MACHINE_CONFIG_END
 
 /*
