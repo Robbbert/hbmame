@@ -9511,6 +9511,7 @@ tmnt2as01
 
 @source:tnzs.cpp
 insectx				// parent
+insectxs01
 
 @source:toaplan1.cpp
 fireshrk	//parent
