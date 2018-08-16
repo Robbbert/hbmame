@@ -9509,6 +9509,9 @@ tmnt2s01
 tmnt2s02
 tmnt2as01
 
+@source:tnzs.cpp
+insectx				// parent
+
 @source:toaplan1.cpp
 fireshrk	//parent
 samesamenh	// Trap15
