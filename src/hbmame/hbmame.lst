@@ -1648,6 +1648,8 @@ fghthist				//parent
 fghthistas01
 
 @source:dbz.cpp
+dbz 				//parent
+dbzs01
 dbz2				//parent
 dbz2h01
 dbz2h02
@@ -8743,6 +8745,7 @@ kovpluss282
 kovpluss283
 //kovpluss284   // Unstable game in the emulator(ingame crash)
 kovpluss285
+kovpluss286
 kovplusas01
 kovshs01
 kovshs02

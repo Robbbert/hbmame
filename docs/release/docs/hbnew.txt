@@ -28,6 +28,7 @@ New Games
 - [captcomms44]       Captain Commando (Stage Select)
 - [captcomms45]       Captain Commando (War Chariot And Change Character)
 - [captcomms46]       Captain Commando (Hit Anywhere)
+- [dbzs01]            Dragon Ball Z (Simple Attack)
 - [dbz2h02]           Dragon Ball Z 2 - Super Battle (Simple Attack)"
 - [dinos76]           Cadillacs and Dinosaurs (Weapon Items Rifle/M-16A1)(Old Ver.?)
 - [dinos77]           Cadillacs and Dinosaurs (Kill Enemies To Get Food Cake)(Old Ver.?)
@@ -363,6 +364,7 @@ New Games
 - [kovpluss282]       Knights of Valour Plus (Wu Shuang 2012 Edition 2017)
 - [kovpluss283]       Knights of Valour Plus (Single Rider Savior)
 - [kovpluss285]       Knights of Valour Plus (Jifang Moon Magic Rain link)
+- [kovpluss286]       Knights of Valour Plus (Hong Bo Fu Wang)
 - [kovsho66]          Knights of Valour Super Heroes Plus (Three Kingdoms Wars)
 - [kovsho67]          Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Ne Zhe Huo Lun)
 - [kovsho68]          Knights of Valour Super Heroes Plus (Troubled Times, Gods, Dusk, Dawn)
