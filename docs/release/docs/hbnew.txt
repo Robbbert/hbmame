@@ -107,6 +107,7 @@ New Games
 - [grdianss04]        Guardians (Super Version v1)
 - [grdianss05]        Guardians (Super Version v2)(2010-07-12)
 - [grdianss06]        Guardians (Super Version v3)(2010-07-12)
+- [ginganins01]       Ginga NinkyouDen (Korean Translation)
 - [hookjs01]          Hook (1V4)(Japan)
 - [hookjs02]          Hook (Start Change)(Japan)
 - [hooks01]           Hook (1V4)(World)

@@ -1793,6 +1793,7 @@ gaunt2f		// graphics hack
 
 @source:ginganin.cpp
 ginganin				//parent
+ginganins01
 
 @source:gottlieb.cpp
 qbert		//parent
