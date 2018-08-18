@@ -46,6 +46,7 @@ CPUS["TLCS90"] = true
 CPUS["TMS32010"] = true
 CPUS["TMS32031"] = true
 CPUS["TMS340X0"] = true
+CPUS["TMS57002"] = true
 CPUS["PIC16C5X"] = true
 CPUS["UPD7725"] = true  -- segas32
 CPUS["UPD7810"] = true
