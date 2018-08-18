@@ -146,6 +146,7 @@ VIDEOS["PSX"] = true
 
 MACHINES["6522VIA"] = true
 MACHINES["6821PIA"] = true
+MACHINES["6840PTM"] = true -- ginganin
 MACHINES["68681"] = true
 MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
@@ -478,6 +479,8 @@ createHBMAMEProjects(_target, _subtarget, "jaleco")
 files {
 	MAME_DIR .. "src/hbmame/drivers/exerion.cpp",
 	MAME_DIR .. "src/mame/video/exerion.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ginganin.cpp",
+	MAME_DIR .. "src/mame/video/ginganin.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "kaneko")
