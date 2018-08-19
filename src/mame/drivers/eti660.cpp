@@ -318,15 +318,18 @@ MACHINE_CONFIG_START(eti660_state::eti660)
 	m_maincpu->q_cb().set(FUNC(eti660_state::q_w));
 	m_maincpu->dma_wr_cb().set(FUNC(eti660_state::dma_w));
 
-	/* video hardware */
-	MCFG_CDP1864_SCREEN_ADD(SCREEN_TAG, XTAL(8'867'238)/5)
-	MCFG_SCREEN_UPDATE_DEVICE(CDP1864_TAG, cdp1864_device, screen_update)
-
-	/* sound hardware */
+	/* video/sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_CDP1864_ADD(CDP1864_TAG, SCREEN_TAG, XTAL(8'867'238)/5, CONSTANT(0), INPUTLINE(CDP1802_TAG, COSMAC_INPUT_LINE_INT), INPUTLINE(CDP1802_TAG, COSMAC_INPUT_LINE_DMAOUT), INPUTLINE(CDP1802_TAG, COSMAC_INPUT_LINE_EF1), NOOP, READLINE(*this, eti660_state, rdata_r), READLINE(*this, eti660_state, bdata_r), READLINE(*this, eti660_state, gdata_r))
-	MCFG_CDP1864_CHROMINANCE(RES_K(2.2), RES_K(1), RES_K(4.7), RES_K(4.7)) // R7, R5, R6, R4
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	CDP1864(config, m_cti, XTAL(8'867'238)/5, SCREEN(config, SCREEN_TAG, SCREEN_TYPE_RASTER));
+	m_cti->inlace_cb().set_constant(0);
+	m_cti->int_cb().set_inputline(m_maincpu, COSMAC_INPUT_LINE_INT);
+	m_cti->dma_out_cb().set_inputline(m_maincpu, COSMAC_INPUT_LINE_DMAOUT);
+	m_cti->efx_cb().set_inputline(m_maincpu, COSMAC_INPUT_LINE_EF1);
+	m_cti->rdata_cb().set(FUNC(eti660_state::rdata_r));
+	m_cti->bdata_cb().set(FUNC(eti660_state::bdata_r));
+	m_cti->gdata_cb().set(FUNC(eti660_state::gdata_r));
+	m_cti->set_chrominance(RES_K(2.2), RES_K(1), RES_K(4.7), RES_K(4.7)); // R7, R5, R6, R4
+	m_cti->add_route(ALL_OUTPUTS, "mono", 0.25);
 
 	/* devices */
 	PIA6821(config, m_pia, 0);
