@@ -2960,7 +2960,7 @@ HACK( 2009, kof99eur4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        ne
 HACK( 200?, kof99ev2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        kof99k,   ROT0, "Unknown", "Kof'99 (Evolution Special)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99evo,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "wesker", "Kof'99 (Evolution  1.0)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof99fc,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose, Jasonly, Eddids, Andy chan, Hiker", "Kof'99 (Remix Pro)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof99fc0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose, Jasonly, Eddids, Andy chan, Hiker", "Kof'99  (Remix Remix 1.07A)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof99fc0,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose, Jasonly, Eddids, Andy chan, Hiker", "Kof'99 (Remix Remix 1.07A)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof99fc1,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose, Jasonly, Eddids, Andy chan, Hiker", "Kof'99 (Remix Remix 2.00B)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof99fc2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Raymonose, Jasonly, Eddids, Andy chan, Hiker", "Kof'99 (Remix Remix 2.00F)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99fmi,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Marcochen", "Kof'99 (Orochi Iori)(NGM-2510)", MACHINE_SUPPORTS_SAVE )

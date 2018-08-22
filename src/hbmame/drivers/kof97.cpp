@@ -13710,7 +13710,7 @@ HACK( 2018, kof97s61,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2006, kof97s62,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Tu She Edition)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s63,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Combo version)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s64,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Plus 2017)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof97s65,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (plus Battle Of The Strong)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof97s65,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Plus Battle Of The Strong)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s66,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (The 11Th Anniversary)(Set 01)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s67,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (The 11Th Anniversary)(Set 02)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s68,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (No Unknown Original 1)(NGM-2320)", MACHINE_SUPPORTS_SAVE )

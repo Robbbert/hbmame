@@ -2924,13 +2924,13 @@ HACK( 200?, gpilotscd,     gpilots,  neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, gpilotse,      gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "kawada7278", "Ghost Pilots (Ex Super version)(NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, gpilotspx,     gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Ghost Pilots (Plus Max)(NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 200?, ironcladb,     ironclad, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Saurus", "Ironclad (conversion from Wii)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ironcladb,     ironclad, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Saurus", "Ironclad (Conversion from Wii)(prototype)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ironcladcd,    ironclad, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Ironclad (CD conversion)(prototype)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 
 HACK( 200?, jockeygpd,     jockeygp, neogeo_noslot, jockeygp, neogeo_state,     jckeygpd,  ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (decrypted C)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 2007, joyjoycd,      joyjoy,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Puzzled (CD conversion)(NGM-021)(NGH-021)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, joyjoycd1,     joyjoy,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Puzzled / Joy Joy Kid (CD conversion)(NGM-021)(NGH-021)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, joyjoycd,      joyjoy,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "SNK", "Puzzled (CD conversion)(Set 1)(NGM-021)(NGH-021)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, joyjoycd1,     joyjoy,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Puzzled (CD conversion)(Set 2)(NGM-021)(NGH-021)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 200?, kabukiklb,     kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis / Creamymami[EGCG]", "Far East of Eden (Add hidden characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kabukikleh,    kabukikl, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Far East of Eden (Enable hidden characters v1)", MACHINE_SUPPORTS_SAVE ) // Manto, Karakuri, Jyashinsai and Lucifeller
@@ -2975,7 +2975,7 @@ HACK( 200?, ninjamaschl,   ninjamas, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, ninjamaseh,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Ninja Master's (Enable hidden characters v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ninjamasehc,   ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami[EGCG]", "Ninja Master's (Enhanced power)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ninjamasehyc,  ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami[EGCG] and Ydmis", "Ninja Master's (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ninjamasha,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's - haoh-ninpo-cho (Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ninjamasha,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ninjamashb,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Happy Batter Edition)(2009-09-09)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 200?, nitdd,         nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Eleven / Gavaking", "Nightmare in the Dark (decrypted C)", MACHINE_SUPPORTS_SAVE )
@@ -2989,9 +2989,9 @@ HACK( 200?, nitdsp2,       nitd,     neogeo_noslot, neogeo, neogeo_state,       
 
 HACK( 2009, pbcrazyb1,     pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble Crazy (beta 1)(2009-07-05)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, pbcrazyb2,     pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble Crazy (beta 2)(2009-07-23)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pbobblenba,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Taito", "Puzzle Bobble / Bust-A-Move (Neo-Geo) (set 3)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pbobblencd,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (Neo-Geo)(CD conversion)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, pbobblendx,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Puzzle Bobble Deluxe / Bust-A-Move Deluxe (Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, pbobblenba,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Taito", "Puzzle Bobble (set 3)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, pbobblencd,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "bootleg", "Puzzle Bobble (CD conversion)(Neo-Geo) (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, pbobblendx,    pbobblen, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Puzzle Bobble Deluxe (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2003, pnyaad,        pnyaa,    neogeo_noslot, neogeo, neogeo_state,       pnyaad,    ROT0, "Aiky", "Pochi & Nyaa (decrypted C Set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, pnyaadd,       pnyaa,    neogeo_noslot, neogeo, neogeo_state,       pnyaad,    ROT0, "Aiky", "Pochi & Nyaa (decrypted C Set 2)", MACHINE_SUPPORTS_SAVE )
@@ -3027,7 +3027,7 @@ HACK( 200?, ssidekicd,     ssideki,  neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, strhoopcd,     strhoop,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Street Hoop (CD conversion)(DEM-004)(DEH-004)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, superspycd,    superspy, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "The Super Spy (CD conversion)(NGM-011)(NGH-011)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 200?, tophuntrpx,    tophuntr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Top Hunter - Roddy & Cathy (Plus Max)(NGM-046)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tophuntrpx,    tophuntr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Top Hunter (Plus Max)(NGM-046)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, tpgolfcd,      tpgolf,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Top Player's Golf (CD conversion)(NGM-003)(NGH-003)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Thrash Rally (CD conversion)(ALM-003)(ALH-003)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, twinsprih,     twinspri, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Twinkle Star Sprites (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
@@ -3858,7 +3858,7 @@ ROM_START( magdrop3s01 )
 	NEO_SFIX_128K( "233.s1", CRC(7399e68a) SHA1(b535ee56a0f0995f04674e676f6aa636ffad26aa) )
 
 	NEO_BIOS_AUDIO_128K( "233.m1", CRC(5beaf34e) SHA1(2905d26945932cddc2dd3a1dc5abba8aa3baee14) )
-
+	
 	ROM_REGION( 0x480000, "ymsnd", 0 )
 	ROM_LOAD( "233.v1", 0x000000, 0x400000, CRC(58839298) SHA1(18cae7bba997c52780761cbf119c4e4b34397a61) )
 	ROM_LOAD( "233.v2", 0x400000, 0x080000, CRC(d5e30df4) SHA1(bbbc0ff5b975471bd682f85976ac4a93f6d44f2e) )

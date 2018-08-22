@@ -87,4 +87,4 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Zero Team
 GAME( 200?, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team (Special Attack)(Taiwan)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
-GAME( 200?, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team Selection(Enhanced Version)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
+GAME( 200?, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team Selection (Enhanced Version)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )

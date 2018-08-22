@@ -1960,7 +1960,7 @@ HACK( 200?, ssf2tpls,   ssf2t,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, 
 HACK( 200?, ssf2xjhy,   ssf2t,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Yumeji", "Super Street Fighter II X: Grand Master Challenge (Choose hidden characters easier)(Japan 940223)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ssf2xjjs,   ssf2t,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Jason[FGCH]", "Super Street Fighter II X: Grand Master Challenge (Retro color)(Japan 940223)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ssf2xjnc,   ssf2t,    cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Shiro", "Super Street Fighter II X: Grand Master Challenge (Nude Cammy)(Japan 940223)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ssf2zhp,    ssf2,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Super Street Fighter II (Zangief instruction simplification)(2009-01-05)(World 930911)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssf2zhp,    ssf2,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Super Street Fighter II: (Zangief instruction simplification)(2009-01-05)(World 930911)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, spf2tb,     spf2t,    cps2,      cps2_2p2b, cps2_state, cps2, ROT0, "Unknown", "Super Puzzle Fighter II Turbo (Boss Hack)(USA 960620)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, suicide,    0,        dead_cps2, cps2_2p2b, cps2_state, cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, suicide2,   suicide,  dead_cps2, cps2_2p2b, cps2_state, cps2, ROT0, "Razoola", "Suicide Test v2", MACHINE_SUPPORTS_SAVE )
@@ -5842,7 +5842,7 @@ HACK( 200?, csclubs01, csclub,   cps2,      cps2_2p3b, cps2_state, cps2, ROT0,  
 // Cyberbots Fullmetal Madness
 HACK( 200?, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,   "pipi899", "Cyberbots Fullmetal Madness (Get Maximum Power On A Valid Attack Or Being Attacked)(Japan 950420)", MACHINE_SUPPORTS_SAVE )
 // Dungeons & Dragons Shadow over Mystara
-HACK( 200?, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons Shadow over Mystara (Translation Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
 HACK( 200?, gigawings01, gigawing, cps2,    cps2_2p2b, cps2_state, cps2, ROT0,   "LB70", "Giga Wing (Ex Super Version V1)(USA 990222)", MACHINE_SUPPORTS_SAVE )
 // Hyper Street Fighter II 
@@ -5876,8 +5876,8 @@ HACK( 200?, mshus01,    msh,      cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2010, mshvsfs01,  mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "kakakawa", "Marvel Super Heroes Vs. Street Fighter (Can Be Substitutions At Any Time)(2010-08-18)(Euro 970625)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, mshvsfjs01, mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Super Heroes Vs. Street Fighter (Move The Order To Modify)(2008-07-21)(Japan 970707)", MACHINE_SUPPORTS_SAVE )
 // Marvel Vs. Capcom Clash of Super Heroes 
-HACK( 2008, mvscjs01,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom Clash of Super Heroes (Move The Order To Modify V1)(2008-07-15)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, mvscjs02,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom Clash of Super Heroes (Move The Order To Modify V2)(2008-07-15)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, mvscjs01,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Move The Order To Modify V1)(2008-07-15)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, mvscjs02,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Move The Order To Modify V2)(2008-07-15)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mvsh01,     mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "0 DAY-S[EGCG]", "Marvel Vs. Capcom (Enable Hi-Speed Venom, Orange Hulk, Gold War Machine, Roll, Shadow Lady, Lilith Morrigan, Onslaught)(Euro 980123)", MACHINE_SUPPORTS_SAVE )
 // Pocket Fighter
 HACK( 2008, pfghtjs01,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Command Change)(2008-01-12)(Japan 970904)", MACHINE_SUPPORTS_SAVE )
@@ -5957,8 +5957,8 @@ HACK( 200?, ssf2js01,   ssf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 200?, ssf2tas01,  ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "shiro", "Super Street Fighter II Turbo (Nude Cammy)(Asia 940223)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ssf2tas02,  ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Jason[FGCH]", "Super Street Fighter II Turbo (Retro Color)(Asia 940223)", MACHINE_SUPPORTS_SAVE )
 // Vampire Savior 2 The Lord of Vampire
-HACK( 2008, vsav2s01,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2 The Lord of Vampire (Command Change)(2008-4-19)(Japan 970913)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, vsav2s02,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2 The Lord of Vampire (Infinite Power)(2008-07-28)(Japan 970913)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, vsav2s01,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2: The Lord of Vampire (Command Change)(2008-4-19)(Japan 970913)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, vsav2s02,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2: The Lord of Vampire (Infinite Power)(2008-07-28)(Japan 970913)", MACHINE_SUPPORTS_SAVE )
 // Vampire: The Night Warriors
 HACK( 200?, vampjas01,  dstlk,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Yumeji", "Vampire: The Night Warriors (Enable Hidden Characters)(2006-05-31)(Japan 940705 alt)", MACHINE_SUPPORTS_SAVE )
 // X-Men Children of the Atom

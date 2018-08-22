@@ -344,10 +344,10 @@ GAME( 200?, hooks01,     hook,        hook,          hook,      m92_state, empty
 GAME( 200?, hooks02,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (Zinc Children's Edition Update 15-05-2018)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, hooks03,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (Zinc Children's Edition Update 02-05-2018)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, hooks04,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (X2 Edition)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 200?, hooks05,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",         "Hook (Start Change)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 200?, hooks05,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",         "Hook (Can Be Substituted For Character)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, hookus01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (plus)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 200?, hookus02,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",         "Hook (Start Change)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 200?, hookjs01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",         "Hook (Start Change)(Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 200?, hookus02,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",         "Hook (Can Be Substituted For Character)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 200?, hookjs01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",         "Hook (Can Be Substituted For Character)(Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 // Ninja Baseball Bat Man
 GAME( 200?, nbbatmans01, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (X2 Edition)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
 GAME( 200?, nbbatmans02, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (1V4)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )

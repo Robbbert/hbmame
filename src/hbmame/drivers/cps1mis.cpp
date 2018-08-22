@@ -5867,7 +5867,7 @@ ROM_END
 
 HACK( 200?, 3wondrud,    3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     ROT0,   "Unknown", "Three Wonders (US 910520 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, 3wondersb01, 3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     ROT0,   "bootleg", "Three Wonders (bootleg set 3, wonder 3 910520 etc)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, captcomc,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando(Translation Chinese)(Japan 911202)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
+HACK( 200?, captcomc,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando (Translation Chinese)(Japan 911202)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
 HACK( 2008, captcomh,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Shinwa", "Captain Commando (Ex Super version)(2008-05-10)(World 911014)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, captcoud,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, cps1demo,    0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Charles Doty", "Demo (CPS1)(Demo)", MACHINE_SUPPORTS_SAVE ) // no sound
@@ -35971,7 +35971,7 @@ HACK( 200?, knightsh11,    knights,  cps1_10MHz, knights,  cps_state,   cps1,   
 HACK( 200?, knightsjs01,   knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Unknown", "Knights of the Round (Translation Chinese)(Japan 911127, B-Board 91634B-2)", MACHINE_SUPPORTS_SAVE )
 // Mercs
 HACK( 200?, mercs01,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "LB70", "Mercs (Crazy Fire Version)(World 900302)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mercjs01,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Unknown", "Senjou no Ookami II(Translation Chinese)(Japan 900302)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mercjs01,       mercs,    cps1_10MHz, mercs,    cps_state,   cps1,     ROT270, "Unknown", "Senjou no Ookami II (Translation Chinese)(Japan 900302)", MACHINE_SUPPORTS_SAVE )
 // Muscle Bomber Duo
 HACK( 200?, mbombrds01,    mbombrd,  qsound,     slammast, cps_state,   slammast, ROT0,   "Creamymami[EGCG]", "Muscle Bomber Duo: Ultimate Team Battle (Region Hack-Asia Version)(World 931206)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mbombrds02,    mbombrd,  qsound,     slammast, cps_state,   slammast, ROT0,   "Creamymami[EGCG]", "Muscle Bomber Duo: Ultimate Team Battle (Region Hack-Hispanic Version)(World 931206)", MACHINE_SUPPORTS_SAVE )
@@ -36066,9 +36066,9 @@ HACK( 200?, tk2h31,        wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 200?, tk2h32,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chibi Battle 2016 Is Really Unparalleled)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h33,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 08)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h35,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 09)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h37,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (BOSS Xu Huang Edition Warriors)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h38,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (BOSS Yan Ming Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h39,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (BOSS Zhang Liao Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h37,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Xu Huang Edition Warriors)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h38,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Yan Ming Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h39,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Zhang Liao Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h40,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chibi Battle 2016 is the world)(Japan 921031)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h41,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 10)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h42,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Lu Bu Wushuang)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
@@ -36133,8 +36133,8 @@ HACK( 200?, tk2h100,       wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 200?, tk2h101,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (War Wolf Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h102,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (San Jian Sheng Plus)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, tk2h103,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (Lidian)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h104,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (BOSS Dian Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h105,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (BOSS Cho Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h104,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Dian Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h105,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tk2h106,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Zhao Wei)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, tk2h107,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Mei Wu Shuang 2017)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, tk2h108,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Warriors of Fate Plus 2 2018)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
