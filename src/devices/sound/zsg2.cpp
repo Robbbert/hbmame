@@ -85,7 +85,7 @@
 
 TODO:
 - Filter and ramping behavior might not be perfect.
-- sometimes clicking
+- sometimes clicking / popping noises
 - memory reads out of range sometimes
 
 */
@@ -97,11 +97,16 @@ TODO:
 #include <fstream>
 #include <cmath>
 
-//#define EMPHASIS_CUTOFF_BASE 0x0800
-//#define EMPHASIS_INITIAL_BIAS 0x00400000
 #define EMPHASIS_INITIAL_BIAS 0
-#define EMPHASIS_OUTPUT_SHIFT (16-11)
-#define SAMPLE_OUTPUT_SHIFT 12
+// Adjusts the cutoff constant of the filter by right-shifting the filter state.
+// The current value gives a -6dB cutoff frequency at about 81.5 Hz, assuming
+// sample playback at 32.552 kHz.
+#define EMPHASIS_FILTER_SHIFT (16-10)
+#define EMPHASIS_ROUNDING 0x20
+// Adjusts the output amplitude by right-shifting the filtered output. Should be
+// kept relative to the filter shift. A too low value will cause clipping, while
+// too high will cause quantization noise.
+#define EMPHASIS_OUTPUT_SHIFT 1
 
 // device type definition
 DEFINE_DEVICE_TYPE(ZSG2, zsg2_device, "zsg2", "ZOOM ZSG-2")
@@ -267,10 +272,10 @@ void zsg2_device::filter_samples(zchan *ch)
 
 	for (int i = 0; i < 4; i++)
 	{
-		ch->samples[i+1] = raw_samples[i];
+		ch->emphasis_filter_state += raw_samples[i]-((ch->emphasis_filter_state+EMPHASIS_ROUNDING)>>EMPHASIS_FILTER_SHIFT);
 
-		ch->emphasis_filter_state += raw_samples[i]-(ch->emphasis_filter_state>>EMPHASIS_OUTPUT_SHIFT);
-		ch->samples[i+1] = ch->emphasis_filter_state >> EMPHASIS_OUTPUT_SHIFT;
+		int32_t sample = ch->emphasis_filter_state >> EMPHASIS_OUTPUT_SHIFT;
+		ch->samples[i+1] = std::min<int32_t>(std::max<int32_t>(sample, -32768), 32767);
 	}
 }
 
@@ -280,7 +285,6 @@ void zsg2_device::filter_samples(zchan *ch)
 
 void zsg2_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
 {
-	// DSP is programmed to expect 24-bit samples! So we're not limiting to 16-bit here
 	for (int i = 0; i < samples; i++)
 	{
 		int32_t mix[4] = {};
@@ -323,6 +327,10 @@ void zsg2_device::sound_stream_update(sound_stream &stream, stream_sample_t **in
 			elem.output_filter_state += (sample - (elem.output_filter_state>>16)) * elem.output_cutoff;
 			sample = elem.output_filter_state >> 16;
 
+			// To prevent DC bias, we need to slowly discharge the filter when the output filter cutoff is 0
+			if(!elem.output_cutoff)
+				elem.output_filter_state >>= 1;
+
 			sample = (sample * elem.vol)>>16;
 
 			for(int output=0; output<4; output++)
@@ -333,7 +341,7 @@ void zsg2_device::sound_stream_update(sound_stream &stream, stream_sample_t **in
 				if (elem.output_gain[output] & 0x80) // perhaps ?
 					output_sample = -output_sample;
 
-				mix[output] += (output_sample * m_gain_tab[output_gain&0x1f]) >> SAMPLE_OUTPUT_SHIFT;
+				mix[output] += (output_sample * m_gain_tab[output_gain&0x1f]) >> 16;
 			}
 
 			// Apply ramping every other update
@@ -346,7 +354,7 @@ void zsg2_device::sound_stream_update(sound_stream &stream, stream_sample_t **in
 		}
 
 		for(int output=0; output<4; output++)
-			outputs[output][i] = mix[output];
+			outputs[output][i] = std::min<int32_t>(std::max<int32_t>(mix[output], -32768), 32767);
 
 	}
 	m_sample_count++;
@@ -523,6 +531,7 @@ void zsg2_device::control_w(int reg, uint16_t data)
 					m_chan[ch].vol = 0; // m_chan[ch].vol_initial;
 					m_chan[ch].vol_delta = 0x0400; // register 06 ?
 					m_chan[ch].output_cutoff = m_chan[ch].output_cutoff_initial;
+					m_chan[ch].output_filter_state = 0;
 				}
 			}
 			break;
