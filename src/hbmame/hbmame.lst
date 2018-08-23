@@ -9331,6 +9331,9 @@ sfs01					// freezes in attract mode
 
 @source:silkroad.cpp
 silkroad				//parent
+silkroads01
+silkroads02
+silkroads03
 
 @source:shaolins.cpp
 kicker					//parent
