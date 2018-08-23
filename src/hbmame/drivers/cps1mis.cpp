@@ -36031,7 +36031,7 @@ HACK( 2018, sf2reds01,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     
 HACK( 2018, sf2reds02,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "MamePlus", "Street Fighter II': Champion Edition (M5 Gold)(Hardest Level)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, sf2reds03,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "MamePlus", "Street Fighter II': Champion Edition (Ultra Golden Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, sf2reds04,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II': Champion Edition (Golden Edition)(Easy Move)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sf2m7s01,      sf2ce,    cps1_12MHz, sf2hack,  cps_state,   sf2hack,  ROT0,   "Unknown", "Street Fighter II': Champion Edition (Hacks Unknown)(M7, bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sf2m7s01,      sf2ce,    cps1_12MHz, sf2hack,  cps_state,   sf2hack,  ROT0,   "Unknown", "Street Fighter II': Champion Edition (Hacks Unknown)(M7, bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 // Saturday Night Slam Masters
 HACK( 200?, slammasts01,   slammast, qsound,     slammast, cps_state,   slammast, ROT0,   "Creamymami[EGCG]", "Saturday Night Slam Masters (Region Hack-Asia Version)(Slam Masters 930713 Ect)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, slammasts02,   slammast, qsound,     slammast, cps_state,   slammast, ROT0,   "Creamymami[EGCG]", "Saturday Night Slam Masters (Region Hack-Asia Version (Buggy))(Slam Masters 930713 Ect)", MACHINE_SUPPORTS_SAVE )
