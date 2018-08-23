@@ -9329,6 +9329,9 @@ grdianss06
 sf						//parent
 sfs01					// freezes in attract mode
 
+@source:silkroad.cpp
+silkroad				//parent
+
 @source:shaolins.cpp
 kicker					//parent
 kfjohnny

@@ -261,6 +261,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"taito",
 		"tehkan",
 		"toaplan",
+		"unico",
 		"univers",
 		"valadon",
 		"vsystem",
@@ -900,6 +901,12 @@ files {
 	MAME_DIR .. "src/mame/drivers/wardner.cpp",
 	MAME_DIR .. "src/mame/video/toaplan_scu.cpp",
 	MAME_DIR .. "src/mame/machine/nmk112.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "unico")
+files {
+	MAME_DIR .. "src/hbmame/drivers/silkroad.cpp",
+	MAME_DIR .. "src/mame/video/silkroad.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "univers")
