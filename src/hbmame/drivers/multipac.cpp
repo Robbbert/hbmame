@@ -728,7 +728,7 @@ MACHINE_CONFIG_START( pacman_state::_96in1 )
 	MCFG_DEVICE_IO_MAP(_96in1_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1)
-	MCFG_NVRAM_ADD_0FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
@@ -744,7 +744,7 @@ MACHINE_CONFIG_START( pacman_state::_96in1b )
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*8)
 	MCFG_PALETTE_INIT_OWNER(pacman_state,multipac)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
-	MCFG_NVRAM_ADD_0FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 MACHINE_CONFIG_END
@@ -779,7 +779,7 @@ MACHINE_CONFIG_START( pacman_state::madpac )
 	MCFG_PALETTE_INDIRECT_ENTRIES(32*16)
 	MCFG_PALETTE_INIT_OWNER(pacman_state, multipac)
 	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_madpac)
-	MCFG_NVRAM_ADD_0FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mspaceur )
@@ -833,7 +833,7 @@ MACHINE_CONFIG_START( pacman_state::pm4n1c )
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
-	MCFG_NVRAM_ADD_0FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
 MACHINE_CONFIG_END
 
@@ -847,7 +847,7 @@ MACHINE_CONFIG_START( pacman_state::superabc )
 	pacman(config);
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(superabc_map)
-	MCFG_NVRAM_ADD_0FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_superabc)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END

@@ -173,7 +173,7 @@ MACHINE_CONFIG_START( mineswp_state::mineswp )
 	MCFG_DEVICE_PROGRAM_MAP(mineswp_map)
 	MCFG_DEVICE_IO_MAP(mineswp_io)
 
-	MCFG_NVRAM_ADD_1FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

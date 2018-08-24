@@ -322,7 +322,7 @@ MACHINE_CONFIG_START( pacman_state::mspachi )
 	pachack(config);
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(mspachi_map)
-	MCFG_NVRAM_ADD_0FILL("nvram")
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 
 MACHINE_CONFIG_END
 
