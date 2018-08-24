@@ -698,7 +698,7 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_16BIT)
+	EEPROM_93C46_16BIT(config, "eeprom");
 
 	/* sound hardware */
 	MCFG_DEVICE_REMOVE("mono")

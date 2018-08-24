@@ -3402,7 +3402,7 @@ MACHINE_CONFIG_START(cps_state::pang3 )
 	cps1_12MHz(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_16BIT)
+	EEPROM_93C46_16BIT(config, "eeprom");
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(cps_state::ganbare )
@@ -3431,7 +3431,7 @@ MACHINE_CONFIG_START(cps_state::qsound )
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_8BIT)
+	EEPROM_93C46_8BIT(config, "eeprom");
 
 	/* sound hardware */
 	MCFG_DEVICE_REMOVE("mono")
@@ -3452,7 +3452,7 @@ MACHINE_CONFIG_START(cps_state::wofhfh )
 	cps1_12MHz(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_8BIT)
+	EEPROM_93C46_8BIT(config, "eeprom");
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(cps_state::sf2m3 )

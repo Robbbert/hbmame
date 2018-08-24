@@ -2172,7 +2172,7 @@ MACHINE_CONFIG_START( cps_state::dinopic )
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, dinopic)
 
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_8BIT)
+	EEPROM_93C46_8BIT(config, "eeprom");
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -2384,7 +2384,7 @@ MACHINE_CONFIG_START( cps_state::sgyxz )
 	MCFG_PALETTE_ADD("palette", 0xc00)
 	MCFG_VIDEO_START_OVERRIDE(cps_state,cps1)
 
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_8BIT)
+	EEPROM_93C46_8BIT(config, "eeprom");
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2462,7 +2462,7 @@ MACHINE_CONFIG_START( cps_state::punipic )
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, punipic)
 
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_8BIT)
+	EEPROM_93C46_8BIT(config, "eeprom");
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -2985,7 +2985,7 @@ MACHINE_CONFIG_START( cps_state::slampic )
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, slampic)
 
-	MCFG_DEVICE_ADD("eeprom", EEPROM_SERIAL_93C46_8BIT)
+	EEPROM_93C46_8BIT(config, "eeprom");
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
