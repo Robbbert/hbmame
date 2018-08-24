@@ -1722,7 +1722,7 @@ ROM_END
 
 ROM_START( mspacpbla )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "mspacpbla.1",  0x0000, 0x1000, CRC(69c02827) SHA1(12b675ab56cb9f3184a6a6bd280eafbab4ceb5b2) )
+	ROM_LOAD( "pacmdp.1",     0x0000, 0x1000, CRC(69c02827) SHA1(12b675ab56cb9f3184a6a6bd280eafbab4ceb5b2) )
 	ROM_LOAD( "mspacpbl.2",   0x1000, 0x1000, CRC(5426636c) SHA1(35cdd13e917c2d1e11086745de6dc3b85bf1fdbb) )
 	ROM_LOAD( "mspacpbl.3",   0x2000, 0x1000, CRC(60c890a1) SHA1(c1fbaedb212449803f5b506ac6f8e258644e4536) )
 	ROM_LOAD( "mspacpbla.4",  0x3000, 0x1000, CRC(1b842eed) SHA1(cce01ce78caab1243784c444fdb991c87257d0ce) )
