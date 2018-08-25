@@ -204,7 +204,7 @@ NUM YEAR COMPANY                 TITLE
 470 2015 freem                   ADPCM-B Playback Demo
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
 472 2015 freem                   ADPCM-A Playback Demo
-473 2015 blastar                 Twister in a mirror intro
+473 2015 Blastar                 Twister in a mirror intro
 474 2015 freem                   Sound-Loop Demo
 475 2016 Kannagi                 Ennemi Sprite Demo
 476 2015 Kannagi                 Neo Fight
@@ -212,6 +212,7 @@ NUM YEAR COMPANY                 TITLE
 478 2016 Mega Shocked            Demo
 479*2016 Luis Miguel Mayor       Tech Demo #1 (Street Fighter 2)
 480 2016 Luis Miguel Mayor       Tech Demo #2
+481 2018 Vasily Familiya         Operation I.G.L.A. demo
 
 
 ********************** 800 to 899 **********************************
@@ -1859,6 +1860,24 @@ ROM_START( ngtd2 )
 	ROM_LOAD16_BYTE( "480.c2", 0x000001, 0x100000, CRC(f16b9ae8) SHA1(cb43089370a77bdd177db7eb6819ed21c994a914) )
 ROM_END
 
+// 481 : Operation I.G.L.A. demo by Vasily Familiya
+// No sound.
+// Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
+ROM_START( igla )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "481.p1", 0x000000, 0x007c82, CRC(1ce5f0ee) SHA1(7ee85f3e1ee5dc4878dbbb26e979f35b4cd5b15c) )
+
+	NEO_SFIX_128K( "481.s1", CRC(e3ab9cde) SHA1(c438deaef29a705f5aa62116ad206ecec4bec282) )
+
+	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD( "481.c1", 0x000000, 0x024a80, CRC(4635f284) SHA1(99e185eb6f8d054c84d4124943419361e4bef342) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -1960,6 +1979,7 @@ HACK( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:Dev.Team", "Last Hope (Neo CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

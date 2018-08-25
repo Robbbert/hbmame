@@ -127,6 +127,7 @@ New Games
 - [hsf2js11]          Hyper Street Fighter II: The Anniversary Edition (Always Have Super Move)
 - [hsf2js12]          Hyper Street Fighter II: The Anniversary Edition (Real Gouki)
 - [hsf2js13]          Hyper Street Fighter II: The Anniversary Edition (Special Move For Zangief)
+- [igla]              Operation I.G.L.A. demo [by Vasily Familiya]
 - [insectxs01]        Insector X (Translation Chinese)
 - [killblds01]        The Killing Blade (Always Have Super Move)
 - [killblds02]        The Killing Blade (Easy Move)
