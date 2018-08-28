@@ -333,12 +333,10 @@ READ8_MEMBER(opwolf_state::z80_input2_r)
 
 WRITE8_MEMBER(opwolf_state::counters_w)
 {
-	//logerror("counters_w data=%2x\n",data );
-	
 	machine().bookkeeping().coin_lockout_w(1, data & 0x80);
 	machine().bookkeeping().coin_lockout_w(0, data & 0x40);
-	machine().bookkeeping().coin_counter_w(1, data & 0x20);
-	machine().bookkeeping().coin_counter_w(0, data & 0x10);
+	machine().bookkeeping().coin_counter_w(1, ~data & 0x20);
+	machine().bookkeeping().coin_counter_w(0, ~data & 0x10);
 }
 
 /******************************************************
@@ -358,11 +356,11 @@ WRITE8_MEMBER(opwolf_state::sound_bankswitch_w)
 void opwolf_state::opwolf_map(address_map &map)
 {
 	map(0x000000, 0x03ffff).rom();
-//	map(0x0f0000, 0x0f07ff).mirror(0xf000).r(FUNC(opwolf_state::opwolf_cchip_data_r));
-//	map(0x0f0802, 0x0f0803).mirror(0xf000).r(FUNC(opwolf_state::opwolf_cchip_status_r));
-//	map(0x0ff000, 0x0ff7ff).w(FUNC(opwolf_state::opwolf_cchip_data_w));
-//	map(0x0ff802, 0x0ff803).w(FUNC(opwolf_state::opwolf_cchip_status_w));
-//	map(0x0ffc00, 0x0ffc01).w(FUNC(opwolf_state::opwolf_cchip_bank_w));
+//  map(0x0f0000, 0x0f07ff).mirror(0xf000).r(FUNC(opwolf_state::opwolf_cchip_data_r));
+//  map(0x0f0802, 0x0f0803).mirror(0xf000).r(FUNC(opwolf_state::opwolf_cchip_status_r));
+//  map(0x0ff000, 0x0ff7ff).w(FUNC(opwolf_state::opwolf_cchip_data_w));
+//  map(0x0ff802, 0x0ff803).w(FUNC(opwolf_state::opwolf_cchip_status_w));
+//  map(0x0ffc00, 0x0ffc01).w(FUNC(opwolf_state::opwolf_cchip_bank_w));
 	map(0x0f0000, 0x0f07ff).mirror(0xf000).rw(m_cchip, FUNC(taito_cchip_device::mem68_r), FUNC(taito_cchip_device::mem68_w)).umask16(0x00ff);
 	map(0x0f0800, 0x0f0fff).mirror(0xf000).rw(m_cchip, FUNC(taito_cchip_device::asic_r), FUNC(taito_cchip_device::asic68_w)).umask16(0x00ff);
 	map(0x100000, 0x107fff).ram();
@@ -1157,7 +1155,7 @@ void opwolf_state::init_opwolf()
 
 	m_opwolf_region = rom[0x03fffe / 2] & 0xff;
 
-	opwolf_cchip_init();
+	//opwolf_cchip_init(); // start old simulation, including periodic timer
 
 	// World & US version have different gun offsets, presumably slightly different gun hardware
 	m_opwolf_gun_xoffs = 0xec - (rom[0x03ffb0 / 2] & 0xff);
