@@ -134,6 +134,6 @@ ROM_END
 
 
 
-HACK( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Todd Bordelon", "Gauntlet II Speed Hack", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
-HACK( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Carl Lloyd-Parker", "Gauntlet II New Levels", MACHINE_SUPPORTS_SAVE )
-HACK( 1986, gaunt2f,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "hack", "Gauntlet II (graphics hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Todd Bordelon", "Gauntlet II (Speed Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
+HACK( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Carl Lloyd-Parker", "Gauntlet II (New Levels)", MACHINE_SUPPORTS_SAVE )
+HACK( 1986, gaunt2f,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Unknown", "Gauntlet II (Graphics Hack)", MACHINE_SUPPORTS_SAVE )

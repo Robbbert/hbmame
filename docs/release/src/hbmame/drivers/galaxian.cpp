@@ -849,7 +849,7 @@ HACK( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_state, turtles,  RO
 
 
 /* Scramble */
-HACK( 1998, offender, scramble, scramble, scramble, galaxian_state, scramble, ROT90, "Chris Henry", "Offender", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, offender, scramble, scramble, scramble, galaxian_state, scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, superdog, scramble, scramble, scramble, galaxian_state, scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
 
 

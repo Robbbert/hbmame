@@ -230,12 +230,12 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Sunset Riders
-HACK( 200?, ssridersudas01, ssriders, ssriders, ssrid4ps,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(4 Players ver EAC)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ssridersebcs01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(2 Players ver EBC)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ssridersjbds01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(2 Players ver JBD)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ssridersubcs01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super version)(2009-07-28)(2 Players ver UBC)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersudas01, ssriders, ssriders, ssrid4ps,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super Version)(2009-07-28)(4 Players ver EAC)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersebcs01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super Version)(2009-07-28)(2 Players ver EBC)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersjbds01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super Version)(2009-07-28)(2 Players ver JBD)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ssridersubcs01, ssriders, ssriders, ssriders,  tmnt_state, 0,        ROT0,   "pipi899",  "Sunset Riders (Ex Super Version)(2009-07-28)(2 Players ver UBC)", MACHINE_SUPPORTS_SAVE )
 // Teenage Mutant Ninja Turtles
-HACK( 200?, tmnt2s01,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Ex Super version)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tmnt2s01,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Ex Super Version)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tmnt2s02,      tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Start Change Char)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, tmnt2as01,     tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, 0,        ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Cowabunga Mode)(4 Players ver ADA)", MACHINE_SUPPORTS_SAVE )
 

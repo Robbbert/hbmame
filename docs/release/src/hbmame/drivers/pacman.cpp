@@ -430,14 +430,14 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	MCFG_WATCHDOG_ADD("watchdog")
 	MCFG_WATCHDOG_VBLANK_INIT("screen", 16)
 
-	MCFG_DEVICE_ADD("mainlatch", LS259, 0) // 74LS259 at 8K or 4099 at 7K
-	MCFG_ADDRESSABLE_LATCH_Q0_OUT_CB(WRITELINE(*this, pacman_state, irq_mask_w))
-	MCFG_ADDRESSABLE_LATCH_Q1_OUT_CB(WRITELINE("namco", namco_device, sound_enable_w))
-	MCFG_ADDRESSABLE_LATCH_Q3_OUT_CB(WRITELINE(*this, pacman_state, flipscreen_w))
-	//MCFG_ADDRESSABLE_LATCH_Q4_OUT_CB(WRITELINE(*this, pacman_state, led1_w))
-	//MCFG_ADDRESSABLE_LATCH_Q5_OUT_CB(WRITELINE(*this, pacman_state, led2_w))
-	//MCFG_ADDRESSABLE_LATCH_Q6_OUT_CB(WRITELINE(*this, pacman_state, coin_lockout_global_w))
-	MCFG_ADDRESSABLE_LATCH_Q7_OUT_CB(WRITELINE(*this, pacman_state, coin_counter_w))
+	LS259(config, m_mainlatch); // 74LS259 at 8K or 4099 at 7K
+	m_mainlatch->q_out_cb<0>().set(FUNC(pacman_state::irq_mask_w));
+	m_mainlatch->q_out_cb<1>().set("namco", FUNC(namco_device::sound_enable_w));
+	m_mainlatch->q_out_cb<3>().set(FUNC(pacman_state::flipscreen_w));
+	//m_mainlatch->q_out_cb<4>().set_output("led0");
+	//m_mainlatch->q_out_cb<5>().set_output("led1");
+	//m_mainlatch->q_out_cb<6>().set(FUNC(pacman_state::coin_lockout_global_w));
+	m_mainlatch->q_out_cb<7>().set(FUNC(pacman_state::coin_counter_w));
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -1292,6 +1292,26 @@ ROM_START( mazeman )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( muckpan ) // Gobbler Muckpan - wrong map, should be newpuck map (used puckman roms because most of the muckpan set was bad)
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "puckman.6e",   0x0000, 0x0800, CRC(f36e88ab) SHA1(813cecf44bf5464b1aed64b36f5047e4c79ba176) )
+	ROM_LOAD( "puckman.6k",   0x0800, 0x0800, CRC(618bd9b3) SHA1(b9ca52b63a49ddece768378d331deebbe34fe177) )
+	ROM_LOAD( "puckman.6f",   0x1000, 0x0800, CRC(7d177853) SHA1(9b5ddaaa8b564654f97af193dbcc29f81f230a25) )
+	ROM_LOAD( "puckman.6m",   0x1800, 0x0800, CRC(d3e8914c) SHA1(c2f00e1773c6864435f29c8b7f44f2ef85d227d3) )
+	ROM_LOAD( "puckman.6h",   0x2000, 0x0800, CRC(6bf4f625) SHA1(afe72fdfec66c145b53ed865f98734686b26e921) )
+	ROM_LOAD( "puckman.6n",   0x2800, 0x0800, CRC(a948ce83) SHA1(08759833f7e0690b2ccae573c929e2a48e5bde7f) )
+	ROM_LOAD( "muckpan.6j",   0x3000, 0x0800, CRC(e1f4f531) SHA1(df8f898df416445330c0ce473e165c2e437da79f) )
+	ROM_LOAD( "muckpan.6p",   0x3800, 0x0800, CRC(1d5b18bf) SHA1(82e17571a8b740884f0a164572c8297896b19e66) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
+	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( namcosil )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "puckmanb.6e",  0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
@@ -1687,6 +1707,20 @@ ROM_START( pacjr4 )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacjr1.5e",    0x0000, 0x1000, CRC(9f3c32d4) SHA1(e7e40207f2a70768ce38cbb1e62c02ca4bed3a14) )
 	ROM_LOAD( "pacjr1.5f",    0x1000, 0x1000, CRC(c2310808) SHA1(84c28a4fc327afcb441daee35acdab6f7613395e) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( packetman ) // real dump, hanglyman with the manufacturer name hacked out
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "hangly.6e",    0x0000, 0x1000, CRC(5fe8610a) SHA1(d63eaebd85e10aa6c27bb7f47642dd403eeb6934) )
+	ROM_LOAD( "puckmanh.6f",  0x1000, 0x1000, CRC(61d38c6c) SHA1(1406aacdc9c8a3776e5853d214380ad3124408f4) )
+	ROM_LOAD( "hangly.6h",    0x2000, 0x1000, CRC(4e7ef99f) SHA1(bd42e68b29b4d654dc817782ba00db69b7d2dfe2) )
+	ROM_LOAD( "packetman.6j", 0x3000, 0x1000, CRC(2693f8ac) SHA1(da240af15b41bf253df14a73b2078c679cd01cb3) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
 
 	PACMAN_PROMS
 ROM_END
@@ -3591,6 +3625,7 @@ HACK( 1981, hmpopey,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT9
 HACK( 2005, homercid, puckman,  pacman,   mspacpls, pacman_state, 0,        ROT90, "David Widel", "Homercide", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, jacman,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Brent Cobb", "Jacman", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, jpmmunch, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "JPM", "Muncher", MACHINE_SUPPORTS_SAVE )
+HACK( 1983, muckpan,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "E.P.", "Muckpan", MACHINE_SUPPORTS_SAVE )
 HACK( 1983, newpuc1,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "E.P.", "Newpuc1 (Italian dump)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, newpuck2, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Sir Scotty", "New Puck-2", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, nwpuc2b,  puckman,  pacman,   newpuc2b, pacman_state, 0,        ROT90, "Linear Elect", "New Puc2 (Set 2)", MACHINE_SUPPORTS_SAVE )
@@ -3605,6 +3640,7 @@ HACK( 2000, pacjr1,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT9
 HACK( 2000, pacjr2,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman Jr. (Maze 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacjr3,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman Jr. (Maze 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacjr4,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman Jr. (Maze 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, packetman,puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "unbranded", "Packetman", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacm255,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Pacman (Fixes 255th Maze)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, pacmanp,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Don Hodges", "Pacman (Patched)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, pacmar,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Midway]", "Mario Pacman", MACHINE_SUPPORTS_SAVE )

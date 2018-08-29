@@ -265,7 +265,7 @@ WRITE8_MEMBER( outrunm_state::sound_rombank1_w )
 
 void outrunm_state::sound_map_banked(address_map &map) {
 	map.unmap_value_high();
-	map(0x0000,0xefff).m("soundbank",FUNC(address_map_bank_device::amap8));
+	map(0x0000,0xefff).m(m_soundbank,FUNC(address_map_bank_device::amap8));
 	map(0xf000,0xf0ff).mirror(0x0700).rw("pcm",FUNC(segapcm_device::sega_pcm_r),FUNC(segapcm_device::sega_pcm_w));
 	map(0xf800,0xffff).ram();
 }
@@ -290,11 +290,12 @@ MACHINE_CONFIG_START( outrunm_state::outrunm )
 	MCFG_DEVICE_PROGRAM_MAP(sound_map_banked)
 	MCFG_DEVICE_IO_MAP(sound_portmap_banked)
 
-	MCFG_DEVICE_ADD("soundbank", ADDRESS_MAP_BANK, 0)
-	MCFG_DEVICE_PROGRAM_MAP(soundbank_map)
-	MCFG_ADDRESS_MAP_BANK_ENDIANNESS(ENDIANNESS_LITTLE)
-	MCFG_ADDRESS_MAP_BANK_DATA_WIDTH(8)
-	MCFG_ADDRESS_MAP_BANK_STRIDE(0x10000)
+	ADDRESS_MAP_BANK(config, m_soundbank, 0);
+	m_soundbank->set_map(&outrunm_state::soundbank_map);
+	m_soundbank->set_endianness(ENDIANNESS_LITTLE);
+	m_soundbank->set_data_width(8);
+	m_soundbank->set_addr_width(17);
+	m_soundbank->set_stride(0x10000);
 MACHINE_CONFIG_END
 
 void outrunm_state::init_init()

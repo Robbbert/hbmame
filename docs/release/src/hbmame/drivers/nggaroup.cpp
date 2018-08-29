@@ -318,7 +318,7 @@ HACK( 200?, garoupfu,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neo
 HACK( 200?, garoupfp,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Rom Fix - Fix Plus)(prototype)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, garoupx11, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Xtreme Plus)(Prototype)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, garoupy,   neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (P1 Add Char)(prototype)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou: Mark of the Wolves [Add selection boss V1](Prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Add selection boss V1)(Prototype)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission

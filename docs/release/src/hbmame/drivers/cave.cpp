@@ -133,7 +133,7 @@ ROM_END
 
 ROM_START( metmqstrs01 )
 	ROM_REGION( 0x280000, "maincpu", 0 )  
-	ROM_LOAD16_WORD_SWAP( "bp947hc01.u25", 0x000000, 0x80000, CRC(748cc514) SHA1(11d882e77a539407c314f087386e50d691a6bc0b) )
+	ROM_LOAD16_WORD_SWAP( "bp947as01.u25", 0x000000, 0x80000, CRC(748cc514) SHA1(11d882e77a539407c314f087386e50d691a6bc0b) )
 	ROM_LOAD16_WORD_SWAP( "bp947a.u28", 0x100000, 0x80000, CRC(8c55decf) SHA1(76c6ce4c8e621273258d31ceb9ec4442fcf1a393) )
 	ROM_LOAD16_WORD_SWAP( "bp947a.u29", 0x200000, 0x80000, CRC(cf0f3f3b) SHA1(49a3c0e7536edd53bbf09353e43e9166d736b3f4) )
 
@@ -164,6 +164,78 @@ ROM_START( metmqstrs01 )
 
 	ROM_REGION( 0x100000, "oki2", 0 )  
 	ROM_LOAD( "bp947a.u37", 0x000000, 0x100000, CRC(c3077c8f) SHA1(0a76316a81b7de78279b859549eb5161a721ac71) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+ROM_END
+
+ROM_START( metmqstrs02 )
+	ROM_REGION( 0x280000, "maincpu", 0 )      
+	ROM_LOAD16_WORD_SWAP( "bp947as02.u25", 0x000000, 0x80000, CRC(1b3f7a53) SHA1(36c23c33eb72a96af08ff104bb3463482c3651f9) )
+	ROM_LOAD16_WORD_SWAP( "bp947a.u28", 0x100000, 0x80000, CRC(8c55decf) SHA1(76c6ce4c8e621273258d31ceb9ec4442fcf1a393) )
+	ROM_LOAD16_WORD_SWAP( "bp947a.u29", 0x200000, 0x80000, CRC(cf0f3f3b) SHA1(49a3c0e7536edd53bbf09353e43e9166d736b3f4) )
+
+	ROM_REGION( 0x40000, "audiocpu", 0 )  
+	ROM_LOAD( "bp947a.u20",  0x00000, 0x40000, CRC(a4a36170) SHA1(ae55094518bd968ea0d04613a133c1421e412012) )
+
+	ROM_REGION( 0x800000 * 2, "sprites0", 0 )
+	ROM_LOAD( "bp947a.u49", 0x000000, 0x200000, CRC(09749531) SHA1(6deeed2712241611ec3202c49a66beed28698af8) )
+	ROM_LOAD( "bp947a.u50", 0x200000, 0x200000, CRC(19cea8b2) SHA1(87fb29458074f0e4852237e0184b8b3b44b0eb29) )
+	ROM_LOAD( "bp947a.u51", 0x400000, 0x200000, CRC(c19bed67) SHA1(ac664a15512c0e8c8b701833aede95f53cd46a45) )
+	ROM_LOAD( "bp947a.u52", 0x600000, 0x200000, CRC(70c64875) SHA1(1c20ab100ccfdf42c97a25e4deb9041b83f5ca8d) )
+
+	ROM_REGION( 0x100000, "layer0", 0 )
+	ROM_LOAD( "bp947a.u48", 0x000000, 0x100000, CRC(04ff6a3d) SHA1(7187db436f7a2ab59a3f5c6ab297b3d740e20f1d) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "layer1", 0 ) 
+	ROM_LOAD( "bp947a.u47", 0x000000, 0x100000, CRC(0de42827) SHA1(05d452ca11a31f941cb8a9b0cbb0b59c6b0cbdcb) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "layer2", 0 )
+	ROM_LOAD( "bp947a.u46", 0x000000, 0x100000, CRC(0f9c906e) SHA1(03872e8be28637df66373bddb04ed91de4f9db75) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "oki1", 0 )  
+	ROM_LOAD( "bp947a.u42", 0x000000, 0x100000, CRC(2ce8ff2a) SHA1(8ef8c5b7d4a0e60c980c2962e75f7977faafa311) )  
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "oki2", 0 ) 
+	ROM_LOAD( "bp947a.u37", 0x000000, 0x100000, CRC(c3077c8f) SHA1(0a76316a81b7de78279b859549eb5161a721ac71) )  
+	ROM_CONTINUE(           0x000000, 0x100000             )
+ROM_END
+
+ROM_START( metmqstrs03 )
+	ROM_REGION( 0x280000, "maincpu", 0 )      
+	ROM_LOAD16_WORD_SWAP( "bp947as03.u25", 0x000000, 0x80000, CRC(43f82b88) SHA1(2240dbd899b3ada4f5e59878aae0c926d85d99ea) )
+	ROM_LOAD16_WORD_SWAP( "bp947a.u28", 0x100000, 0x80000, CRC(8c55decf) SHA1(76c6ce4c8e621273258d31ceb9ec4442fcf1a393) )
+	ROM_LOAD16_WORD_SWAP( "bp947a.u29", 0x200000, 0x80000, CRC(cf0f3f3b) SHA1(49a3c0e7536edd53bbf09353e43e9166d736b3f4) )
+
+	ROM_REGION( 0x40000, "audiocpu", 0 )  
+	ROM_LOAD( "bp947a.u20",  0x00000, 0x40000, CRC(a4a36170) SHA1(ae55094518bd968ea0d04613a133c1421e412012) )
+
+	ROM_REGION( 0x800000 * 2, "sprites0", 0 )
+	ROM_LOAD( "bp947a.u49", 0x000000, 0x200000, CRC(09749531) SHA1(6deeed2712241611ec3202c49a66beed28698af8) )
+	ROM_LOAD( "bp947a.u50", 0x200000, 0x200000, CRC(19cea8b2) SHA1(87fb29458074f0e4852237e0184b8b3b44b0eb29) )
+	ROM_LOAD( "bp947a.u51", 0x400000, 0x200000, CRC(c19bed67) SHA1(ac664a15512c0e8c8b701833aede95f53cd46a45) )
+	ROM_LOAD( "bp947a.u52", 0x600000, 0x200000, CRC(70c64875) SHA1(1c20ab100ccfdf42c97a25e4deb9041b83f5ca8d) )
+
+	ROM_REGION( 0x100000, "layer0", 0 )
+	ROM_LOAD( "bp947a.u48", 0x000000, 0x100000, CRC(04ff6a3d) SHA1(7187db436f7a2ab59a3f5c6ab297b3d740e20f1d) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "layer1", 0 ) 
+	ROM_LOAD( "bp947a.u47", 0x000000, 0x100000, CRC(0de42827) SHA1(05d452ca11a31f941cb8a9b0cbb0b59c6b0cbdcb) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "layer2", 0 )
+	ROM_LOAD( "bp947a.u46", 0x000000, 0x100000, CRC(0f9c906e) SHA1(03872e8be28637df66373bddb04ed91de4f9db75) ) 
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "oki1", 0 )  
+	ROM_LOAD( "bp947a.u42", 0x000000, 0x100000, CRC(2ce8ff2a) SHA1(8ef8c5b7d4a0e60c980c2962e75f7977faafa311) )  
+	ROM_CONTINUE(           0x000000, 0x100000             )
+
+	ROM_REGION( 0x100000, "oki2", 0 ) 
+	ROM_LOAD( "bp947a.u37", 0x000000, 0x100000, CRC(c3077c8f) SHA1(0a76316a81b7de78279b859549eb5161a721ac71) )  
 	ROM_CONTINUE(           0x000000, 0x100000             )
 ROM_END
 
@@ -340,6 +412,8 @@ ROM_END
 HACK( 200?, gaias01,       gaia,     gaia,       gaia,     cave_state,     gaia,     ROT0,         "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
  // Metamoqester
 HACK( 200?, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     metmqstr, ROT0,         "Aneue Bannzai",  "Metamoqester (Translation Korean)(International)",   MACHINE_SUPPORTS_SAVE )
+HACK( 200?, metmqstrs02,   metmqstr, metmqstr,   metmqstr, cave_state,     metmqstr, ROT0,         "DDJ",  "Metamoqester (Always Have Super Move)(International)",   MACHINE_SUPPORTS_SAVE )
+HACK( 200?, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     metmqstr, ROT0,         "DDJ",  "Metamoqester (Easy Move)(International)",   MACHINE_SUPPORTS_SAVE )
  // Thunder Heroes
 HACK( 200?, theroes01,     theroes,  gaia,       theroes,  cave_state,     gaia,      ROT0,        "pipi899",  "Thunder Heroes (Select Characters)(2009-08-19)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
  // Power Instinct 2
