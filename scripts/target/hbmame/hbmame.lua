@@ -41,6 +41,7 @@ CPUS["NEC"] = true
 CPUS["PSX"] = true
 CPUS["S2650"] = true
 CPUS["SH"] = true
+CPUS["SM510"] = true
 CPUS["SSP1601"] = true
 CPUS["TLCS90"] = true
 CPUS["TMS32010"] = true
@@ -949,6 +950,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timelimit.cpp",
 	MAME_DIR .. "src/mame/video/timelimt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
 }
 
 end
