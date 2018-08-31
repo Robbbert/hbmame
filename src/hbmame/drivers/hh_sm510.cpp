@@ -26,6 +26,6 @@ ROM_END
 CONS( 1982, gnw_bride,   0, 0, gnw_dkjr,    gnw_dkjr,    gnw_dkjr_state,    empty_init, "Montrose", "Game & Watch: Bride", MACHINE_SUPPORTS_SAVE )
 CONS( 1982, gnw_squeeze, 0, 0, gnw_mickdon, gnw_mickdon, gnw_mickdon_state, empty_init, "Montrose", "Game & Watch: Squeeze", MACHINE_SUPPORTS_SAVE )
 
-http://montrose.is/games/
+//  http://montrose.is/games/
 
 

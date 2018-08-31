@@ -213,6 +213,7 @@ NUM YEAR COMPANY                 TITLE
 479*2016 Luis Miguel Mayor       Tech Demo #1 (Street Fighter 2)
 480 2016 Luis Miguel Mayor       Tech Demo #2
 481 2018 Vasily Familiya         Operation I.G.L.A. demo
+482 2018 Vasily Familiya         Team Lernit
 
 
 ********************** 800 to 899 **********************************
@@ -1878,6 +1879,24 @@ ROM_START( igla )
 	ROM_LOAD( "481.c1", 0x000000, 0x024a80, CRC(4635f284) SHA1(99e185eb6f8d054c84d4124943419361e4bef342) )
 ROM_END
 
+// 482 : Team Lernit by Vasily Familiya
+// No sound. "Press A to shoot" - doesn't work.
+// Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
+ROM_START( lernit )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "482.p1", 0x000000, 0x00b6f1, CRC(63d5cf31) SHA1(331a65cec376b0c780ec506001b59f74cccbd5a3) )
+
+	NEO_SFIX_128K( "481.s1", CRC(e3ab9cde) SHA1(c438deaef29a705f5aa62116ad206ecec4bec282) )
+
+	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD( "482.c1", 0x000000, 0x047e80, CRC(5e85884b) SHA1(7d7ba5718cddc582f7f2ec20ed8e46e5800589a6) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -1981,6 +2000,7 @@ HACK( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:Dev.Team", "Last Hope (Neo CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

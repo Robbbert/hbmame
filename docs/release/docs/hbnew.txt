@@ -2,6 +2,19 @@
 ====================
 
 
+2018-09-26 0.202
+----------------
+
+New Games
+---------------------------------
+- [gnw_bride]         Game & Watch: Bride [by Montrose]
+- [gnw_squeeze]       Game & Watch: Squeeze [by Montrose]
+- [lernit]            Team Lernit [by Vasily Familiya]
+
+
+
+
+
 2018-08-29 0.201
 ----------------
 
