@@ -699,6 +699,7 @@ dinos138
 dinos139
 dinos140
 dinos141
+dinos142
 dinox01
 dinox02
 dinox03
@@ -1224,6 +1225,7 @@ sf2ceeas02
 sf2ceeas03
 sf2ceeas04
 sf2ceeas05
+sf2ceeas06
 sf2ces01
 sf2ces02
 sf2ces03
@@ -1233,6 +1235,9 @@ sf2js01
 sf2js02
 sf2s01
 sf2s02
+sf2s03
+sf2s04
+sf2s05
 sf2koryus01
 sf2koryus02
 sf2koryus03
@@ -2243,6 +2248,11 @@ kof97s76
 kof97s77
 kof97s78
 kof97s79
+kof97s80
+kof97s81
+kof97s82
+kof97s83
+kof97s84
 kof97h01
 kof97h02
 kof97h03
@@ -4928,6 +4938,7 @@ mslug3h49
 mslug3h50
 mslug3h51
 mslug3h52
+mslug3h53
 mslug3erbo01
 mslug3erbo02
 mslug3erbo03
@@ -7163,7 +7174,6 @@ ninjamass01
 ninjamass02
 ninjamass03
 ninjamass04
-ninjamass05
 nitds01
 nitds02
 nitds03
@@ -8384,6 +8394,7 @@ theglad				//parent
 killblds01
 killblds02
 killblds03
+killblds04
 killbldps01
 killbldps02
 kovss01
@@ -8458,6 +8469,7 @@ kov2p204s58
 kov2p204s59
 kov2p204s60
 kov2p204s61
+kov2p204s62
 kov2h01
 kov2h02
 kov2h03
@@ -8755,6 +8767,7 @@ kovpluss283
 //kovpluss284   // Unstable game in the emulator(ingame crash)
 kovpluss285
 kovpluss286
+kovpluss287
 kovplusas01
 kovshs01
 kovshs02
@@ -9359,6 +9372,7 @@ renjuk
 snowbros				//parent
 snowbross01
 snowbross02
+snowbross03
 
 @source:solomon.cpp
 solomon					//parent
@@ -9600,5 +9614,13 @@ yiear		//parent
 nacho		/* Gatinho - Nacho Libre */
 
 @source:zn.cpp
-coh1002m		//parent
-doapph01  //
+doapp		//parent
+doapph01
+sfex 		//parent
+sfexs01
+sfex2 		//parent
+sfex2s01
+sfex2p		//parent
+sfex2ps01
+sfexp 		//parent
+sfexps01

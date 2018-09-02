@@ -3406,6 +3406,28 @@ ROM_START( mslug3h52 )
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
+ROM_START( mslug3h53 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "256h53.p1",  0x000000, 0x100000, CRC(d33a3d3b) SHA1(2860391a9d4a2bd3a3f217467784be1dbe17f98d) )
+	ROM_LOAD16_WORD_SWAP( "256h50.p2", 0x100000, 0x400000, CRC(7593474c) SHA1(fcdd76013069eff64dc6842c672870854a53c0f2) )
+
+	NEO_SFIX_128K( "256sold.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
+
+	NEO_BIOS_AUDIO_256K( "256sold.m1", CRC(2f88e0c0) SHA1(bf95881d1c8861cba1a154eb26552520a764c5ba) )
+	
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
+	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
+	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
+	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "256sold.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
+	ROM_LOAD16_BYTE( "256sold.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
+	ROM_LOAD16_BYTE( "256sold.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
+	ROM_LOAD16_BYTE( "256sold.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
+ROM_END
+
 ROM_START( mslug3erbo01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256h07.p1",   0x000000, 0x100000, CRC(d7261c62) SHA1(20c6b49446cd3374e2ce2fc82c5b838e5da0e04f) )
@@ -12884,6 +12906,7 @@ HACK( 2018, mslug3h49,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 2018, mslug3h50,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown",    "Metal Slug 3 (Enemy Soldier Reset Prototype)(NGH-2560)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h51,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown",    "Metal Slug 3 (Enemy Soldier Reset Prototype)(Out Of Blue)(NGH-2560)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h52,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown",    "Metal Slug 3 (Violence Mount version)(NGH-2560)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3h53,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown",    "Metal Slug 3 (Super Magic X)(NGH-2560)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3erbo01,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown/Shyma.X",    "Metal Slug 3 (Enemy Soldier Reset Prototype)(NEO ARC French Traduction Set 01)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3erbo02,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown/Shyma.X",    "Metal Slug 3 (Enemy Soldier Reset Prototype)(NEO ARC French Traduction Set 02)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3erbo03,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Unknown/Eddids[FGCH]",    "Metal Slug 3 (Enemy Soldier Reset Prototype)(Unlimited Credits In Console Mode)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
