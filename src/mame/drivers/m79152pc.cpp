@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Miodrag Milanovic
+// copyright-holders:Miodrag Milanovic,AJR
 /***************************************************************************
 
         Mera-Elzab 79152pc
@@ -13,12 +13,17 @@
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "cpu/mcs48/mcs48.h"
+#include "machine/i8212.h"
+#include "machine/pit8253.h"
+#include "machine/i8255.h"
 #include "machine/z80ctc.h"
 #include "machine/z80sio.h"
 #include "machine/clock.h"
+#include "sound/beep.h"
 #include "bus/rs232/rs232.h"
 #include "emupal.h"
 #include "screen.h"
+#include "speaker.h"
 
 
 class m79152pc_state : public driver_device
@@ -31,24 +36,47 @@ public:
 		, m_maincpu(*this, "maincpu")
 		, m_p_chargen(*this, "chargen")
 		, m_uart(*this, "uart")
+		, m_beep(*this, "beep")
 	{ }
 
 	void m79152pc(machine_config &config);
 
 private:
-	uint32_t screen_update_m79152pc(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	DECLARE_WRITE8_MEMBER(beep_w);
+	DECLARE_WRITE_LINE_MEMBER(latch_full_w);
+	DECLARE_READ_LINE_MEMBER(mcu_t0_r);
+
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
 	void mcu_map(address_map &map);
+	void mcu_io_map(address_map &map);
 
-	virtual void machine_reset() override;
 	required_shared_ptr<uint8_t> m_p_videoram;
 	required_shared_ptr<uint8_t> m_p_attributes;
-	required_device<cpu_device> m_maincpu;
+	required_device<z80_device> m_maincpu;
 	required_region_ptr<u8> m_p_chargen;
 	required_device<z80sio_device> m_uart;
+	required_device<beep_device> m_beep;
+
+	bool m_latch_full;
 };
+
+WRITE8_MEMBER(m79152pc_state::beep_w)
+{
+	m_beep->set_state(BIT(offset, 2));
+}
+
+WRITE_LINE_MEMBER(m79152pc_state::latch_full_w)
+{
+	m_latch_full = state == ASSERT_LINE;
+}
+
+READ_LINE_MEMBER(m79152pc_state::mcu_t0_r)
+{
+	return m_latch_full ? 0 : 1;
+}
 
 void m79152pc_state::mem_map(address_map &map)
 {
@@ -65,6 +93,10 @@ void m79152pc_state::io_map(address_map &map)
 	map.global_mask(0xff);
 	map(0x40, 0x43).rw(m_uart, FUNC(z80sio_device::cd_ba_r), FUNC(z80sio_device::cd_ba_w));
 	map(0x44, 0x47).rw("ctc", FUNC(z80ctc_device::read), FUNC(z80ctc_device::write));
+	map(0x48, 0x4b).w("pit", FUNC(pit8253_device::write));
+	map(0x4c, 0x4c).w("mculatch", FUNC(i8212_device::strobe));
+	map(0x54, 0x57).rw("ppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
+	map(0x58, 0x58).select(4).w(FUNC(m79152pc_state::beep_w));
 }
 
 void m79152pc_state::mcu_map(address_map &map)
@@ -72,17 +104,17 @@ void m79152pc_state::mcu_map(address_map &map)
 	map(0x000, 0x7ff).rom().region("mcu", 0);
 }
 
+void m79152pc_state::mcu_io_map(address_map &map)
+{
+	map(0x00, 0x00).mirror(0xff).r("mculatch", FUNC(i8212_device::read));
+}
+
 /* Input ports */
 static INPUT_PORTS_START( m79152pc )
 INPUT_PORTS_END
 
 
-void m79152pc_state::machine_reset()
-{
-	m_uart->ctsb_w(1); // this is checked before writing to port 47.
-}
-
-uint32_t m79152pc_state::screen_update_m79152pc(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t m79152pc_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 // Attributes are unknown so are not implemented
 	uint8_t y,ra,chr,gfx; //,attr;
@@ -134,14 +166,24 @@ static GFXDECODE_START( gfx_m79152pc )
 	GFXDECODE_ENTRY( "chargen", 0x0000, m79152pc_charlayout, 0, 1 )
 GFXDECODE_END
 
+static const z80_daisy_config daisy_chain[] =
+{
+	{ "ctc" },
+	{ "uart" },
+	{ nullptr }
+};
+
 MACHINE_CONFIG_START(m79152pc_state::m79152pc)
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu",Z80, XTAL(4'000'000))
-	MCFG_DEVICE_PROGRAM_MAP(mem_map)
-	MCFG_DEVICE_IO_MAP(io_map)
+	Z80(config, m_maincpu, 4'000'000); // UA880D
+	m_maincpu->set_addrmap(AS_PROGRAM, &m79152pc_state::mem_map);
+	m_maincpu->set_addrmap(AS_IO, &m79152pc_state::io_map);
+	m_maincpu->set_daisy_config(daisy_chain);
 
-	MCFG_DEVICE_ADD("mcu", I8035, 6'000'000)
-	MCFG_DEVICE_PROGRAM_MAP(mcu_map)
+	mcs48_cpu_device &mcu(I8035(config, "mcu", 6'000'000)); // NEC D8035HLC
+	mcu.set_addrmap(AS_PROGRAM, &m79152pc_state::mcu_map);
+	mcu.set_addrmap(AS_IO, &m79152pc_state::mcu_io_map);
+	mcu.t0_in_cb().set(FUNC(m79152pc_state::mcu_t0_r));
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -149,33 +191,53 @@ MACHINE_CONFIG_START(m79152pc_state::m79152pc)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500)) /* not accurate */
 	MCFG_SCREEN_SIZE(640, 300)
 	MCFG_SCREEN_VISIBLE_AREA(0, 640-1, 0, 300-1)
-	MCFG_SCREEN_UPDATE_DRIVER(m79152pc_state, screen_update_m79152pc)
+	MCFG_SCREEN_UPDATE_DRIVER(m79152pc_state, screen_update)
 	MCFG_SCREEN_PALETTE("palette")
+	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE("ctc", z80ctc_device, trg0)) // determines beep duration (probably too slow)
+
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_m79152pc)
 	MCFG_PALETTE_ADD_MONOCHROME("palette")
 
-	clock_device &uart_clock(CLOCK(config, "uart_clock", 153600));
-	uart_clock.signal_handler().set(m_uart, FUNC(z80sio_device::txca_w));
-	uart_clock.signal_handler().append(m_uart, FUNC(z80sio_device::rxca_w));
+	clock_device &baudclk(CLOCK(config, "baudclk", 921600));
+	baudclk.signal_handler().set("ctc", FUNC(z80ctc_device::trg2));
+	baudclk.signal_handler().append("pit", FUNC(pit8253_device::write_clk1));
+	baudclk.signal_handler().append("pit", FUNC(pit8253_device::write_clk2));
 
-	MCFG_DEVICE_ADD("ctc", Z80CTC, XTAL(4'000'000))
-	//MCFG_Z80CTC_INTR_CB(INPUTLINE("maincpu", INPUT_LINE_IRQ0))
+	pit8253_device &pit(PIT8253(config, "pit", 0)); // КР580ВИ53
+	pit.out_handler<1>().set(m_uart, FUNC(z80sio_device::txcb_w));
+	pit.out_handler<2>().set(m_uart, FUNC(z80sio_device::rxcb_w));
 
-	Z80SIO(config, m_uart, XTAL(4'000'000));
-	//m_uart->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
-	m_uart->out_txda_callback().set("rs232", FUNC(rs232_port_device::write_txd));
-	m_uart->out_dtra_callback().set("rs232", FUNC(rs232_port_device::write_dtr));
-	m_uart->out_rtsa_callback().set("rs232", FUNC(rs232_port_device::write_rts));
-	//m_uart->out_txdb_callback().set("rs232a", FUNC(rs232_port_device::write_txd));
-	//m_uart->out_dtrb_callback().set("rs232a", FUNC(rs232_port_device::write_dtr));
-	//m_uart->out_rtsb_callback().set("rs232a", FUNC(rs232_port_device::write_rts));
+	i8212_device &mculatch(I8212(config, "mculatch")); // CEMI UCY74S412
+	mculatch.md_rd_callback().set_constant(0);
+	mculatch.int_wr_callback().set(m_uart, FUNC(z80sio_device::ctsb_w)).invert();
+	mculatch.int_wr_callback().append(FUNC(m79152pc_state::latch_full_w));
 
-	MCFG_DEVICE_ADD("rs232", RS232_PORT, default_rs232_devices, "keyboard")
+	I8255A(config, "ppi"); // NEC D8255AD-2
+
+	z80ctc_device &ctc(Z80CTC(config, "ctc", 4'000'000));
+	ctc.intr_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
+	ctc.zc_callback<2>().set(m_uart, FUNC(z80sio_device::txca_w));
+	ctc.zc_callback<2>().append(m_uart, FUNC(z80sio_device::rxca_w));
+
+	Z80SIO(config, m_uart, 4'000'000); // UB8560D
+	m_uart->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
+	m_uart->out_txda_callback().set("keyboard", FUNC(rs232_port_device::write_txd));
+	m_uart->out_dtra_callback().set("keyboard", FUNC(rs232_port_device::write_dtr));
+	m_uart->out_rtsa_callback().set("keyboard", FUNC(rs232_port_device::write_rts));
+	m_uart->out_txdb_callback().set("modem", FUNC(rs232_port_device::write_txd));
+	m_uart->out_dtrb_callback().set("modem", FUNC(rs232_port_device::write_dtr));
+	m_uart->out_rtsb_callback().set("modem", FUNC(rs232_port_device::write_rts));
+
+	MCFG_DEVICE_ADD("keyboard", RS232_PORT, default_rs232_devices, "keyboard")
 	MCFG_RS232_RXD_HANDLER(WRITELINE(m_uart, z80sio_device, rxa_w))
 	MCFG_RS232_CTS_HANDLER(WRITELINE(m_uart, z80sio_device, ctsa_w))
-	//MCFG_DEVICE_ADD("rs232a", RS232_PORT, default_rs232_devices, "terminal")
-	//MCFG_RS232_RXD_HANDLER(WRITELINE(m_uart, z80sio_device, rxb_w))
+	MCFG_DEVICE_ADD("modem", RS232_PORT, default_rs232_devices, nullptr)
+	MCFG_RS232_RXD_HANDLER(WRITELINE(m_uart, z80sio_device, rxb_w))
 	//MCFG_RS232_CTS_HANDLER(WRITELINE(m_uart, z80sio_device, ctsb_w))
+
+	SPEAKER(config, "mono").front_center();
+	BEEP(config, m_beep, 1000);
+	m_beep->add_route(ALL_OUTPUTS, "mono", 0.50);
 MACHINE_CONFIG_END
 
 /* ROM definition */
@@ -193,4 +255,4 @@ ROM_END
 /* Driver */
 
 //    YEAR  NAME      PARENT  COMPAT  MACHINE   INPUT     CLASS           INIT        COMPANY       FULLNAME         FLAGS
-COMP( ????, m79152pc, 0,      0,      m79152pc, m79152pc, m79152pc_state, empty_init, "Mera-Elzab", "MERA 79152 PC", MACHINE_NOT_WORKING | MACHINE_NO_SOUND)
+COMP( 198?, m79152pc, 0,      0,      m79152pc, m79152pc, m79152pc_state, empty_init, "Mera-Elzab", "MERA 79152 PC", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND)
