@@ -13,7 +13,7 @@ ROM_END
 
 ROM_START( gnw_squeeze )
 	ROM_REGION( 0x1000, "maincpu", 0 )
-	ROM_LOAD( "dm-53_565", 0x0000, 0x1000, CRC(5af50d77) SHA1(d307db5d5b8ab48251d122a7494bd06ea9bebd59) )
+	ROM_LOAD( "squeeze.bin", 0x0000, 0x1000, CRC(5af50d77) SHA1(d307db5d5b8ab48251d122a7494bd06ea9bebd59) )
 
 	ROM_REGION( 126434, "svg_top", 0)
 	ROM_LOAD( "gnw_squeeze_top.svg", 0x0000, 0x41f5, CRC(b23dfd9a) SHA1(202b8112b1c15adcddadb50ea78aa99a8bee214b) )
