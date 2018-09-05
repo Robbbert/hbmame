@@ -208,6 +208,8 @@ public:
 		: driver_device(mconfig, type, tag),
 		m_maincpu(*this, A2_CPU_TAG),
 		m_screen(*this, "screen"),
+		m_scantimer(*this, "scantimer"),
+		m_palette(*this, "palette"),
 		m_ram(*this, RAM_TAG),
 		m_rom(*this, "maincpu"),
 		m_cecbanks(*this, "cecexp"),
@@ -249,6 +251,8 @@ public:
 
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
+	required_device<timer_device> m_scantimer;
+	required_device<palette_device> m_palette;
 	required_device<ram_device> m_ram;
 	required_memory_region m_rom;
 	optional_memory_region m_cecbanks;
@@ -3973,25 +3977,25 @@ static void apple2eaux_cards(device_slot_interface &device)
 
 MACHINE_CONFIG_START(apple2e_state::apple2e)
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M6502, 1021800)     /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2e_map)
-	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", apple2e_state, apple2_interrupt, "screen", 0, 1)
-	MCFG_QUANTUM_TIME(attotime::from_hz(60))
+	M6502(config, m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2e_map);
+	TIMER(config, m_scantimer, 0);
+	m_scantimer->configure_scanline(FUNC(apple2e_state::apple2_interrupt), "screen", 0, 1);
+	config.m_minimum_quantum = attotime::from_hz(60);
 
-	MCFG_DEVICE_ADD(A2_VIDEO_TAG, APPLE2_VIDEO, XTAL(14'318'181))
+	APPLE2_VIDEO(config, m_video, XTAL(14'318'181));
 
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(1021800*14, (65*7)*2, 0, (40*7)*2, 262, 0, 192)
-	MCFG_SCREEN_UPDATE_DRIVER(apple2e_state, screen_update)
-	MCFG_SCREEN_PALETTE("palette")
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(1021800*14, (65*7)*2, 0, (40*7)*2, 262, 0, 192);
+	m_screen->set_screen_update(FUNC(apple2e_state::screen_update));
+	m_screen->set_palette("palette");
 
-	MCFG_PALETTE_ADD("palette", 16)
-	MCFG_PALETTE_INIT_OWNER(apple2e_state, apple2)
+	PALETTE(config, m_palette, 16);
+	m_palette->set_init(DEVICE_SELF, FUNC(apple2e_state::palette_init_apple2));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_DEVICE_ADD(A2_SPEAKER_TAG, SPEAKER_SOUND)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.00)
+	SPEAKER_SOUND(config, A2_SPEAKER_TAG).add_route(ALL_OUTPUTS, "mono", 1.00);
 
 	/* DS1315 for no-slot clock */
 	DS1315(config, m_ds1315, 0).read_backing().set(FUNC(apple2e_state::nsc_backing_r));
@@ -4089,8 +4093,8 @@ void apple2e_state::mprof3(machine_config &config)
 
 MACHINE_CONFIG_START(apple2e_state::apple2ee)
 	apple2e(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2e_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2e_map);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::spectred)
@@ -4104,8 +4108,8 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::tk3000)
 	apple2e(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2e_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2e_map);
 
 //  MCFG_DEVICE_ADD("subcpu", Z80, 1021800)    // schematics are illegible on where the clock comes from, but it *seems* to be the same as the 65C02 clock
 //  MCFG_DEVICE_PROGRAM_MAP(tk3000_kbd_map)
@@ -4113,25 +4117,25 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::apple2ep)
 	apple2e(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2e_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2e_map);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::apple2c)
 	apple2ee(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2c_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2c_map);
 
 	// IIc and friends have no cassette port
-	MCFG_DEVICE_REMOVE(A2_CASSETTE_TAG)
+	config.device_remove(A2_CASSETTE_TAG);
 
-	MCFG_DEVICE_REMOVE("sl1")   // IIc has no slots, of course :)
-	MCFG_DEVICE_REMOVE("sl2")
-	MCFG_DEVICE_REMOVE("sl3")
-	MCFG_DEVICE_REMOVE("sl4")
-	MCFG_DEVICE_REMOVE("sl5")
-	MCFG_DEVICE_REMOVE("sl6")
-	MCFG_DEVICE_REMOVE("sl7")
+	config.device_remove("sl1");   // IIc has no slots, of course :)
+	config.device_remove("sl2");
+	config.device_remove("sl3");
+	config.device_remove("sl4");
+	config.device_remove("sl5");
+	config.device_remove("sl6");
+	config.device_remove("sl7");
 
 	MOS6551(config, m_acia1, 0);
 	m_acia1->set_xtal(XTAL(14'318'181) / 8); // ~1.789 MHz
@@ -4158,7 +4162,7 @@ MACHINE_CONFIG_START(apple2e_state::apple2c)
 	A2BUS_DISKIING(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 
 	MCFG_A2EAUXSLOT_SLOT_REMOVE("aux")
-	MCFG_DEVICE_REMOVE(A2_AUXSLOT_TAG)
+	config.device_remove(A2_AUXSLOT_TAG);
 
 	m_ram->set_default_size("128K").set_extra_options("128K");
 MACHINE_CONFIG_END
@@ -4267,11 +4271,11 @@ static const floppy_interface floppy_interface =
 
 MACHINE_CONFIG_START(apple2e_state::apple2cp)
 	apple2c(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2c_memexp_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2c_memexp_map);
 
-	MCFG_DEVICE_REMOVE("sl4")
-	MCFG_DEVICE_REMOVE("sl6")
+	config.device_remove("sl4");
+	config.device_remove("sl6");
 	MCFG_IWM_ADD(IICP_IWM_TAG, a2cp_interface)
 	MCFG_LEGACY_FLOPPY_APPLE_2_DRIVES_ADD(floppy_interface,15,16)
 	MCFG_LEGACY_FLOPPY_SONY_2_DRIVES_ADDITIONAL_ADD(apple2cp_floppy35_floppy_interface)
@@ -4282,16 +4286,16 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(apple2e_state::apple2c_iwm)
 	apple2c(config);
 
-	MCFG_DEVICE_REMOVE("sl6")
+	config.device_remove("sl6");
 	A2BUS_IWM_FDC(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::apple2c_mem)
 	apple2c(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(apple2c_memexp_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2c_memexp_map);
 
-	MCFG_DEVICE_REMOVE("sl6")
+	config.device_remove("sl6");
 	A2BUS_IWM_FDC(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 
 	m_ram->set_default_size("128K").set_extra_options("128K, 384K, 640K, 896K, 1152K");
@@ -4309,14 +4313,14 @@ const applefdc_interface fdc_interface =
 
 MACHINE_CONFIG_START(apple2e_state::laser128)
 	apple2c(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(laser128_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::laser128_map);
 
 	MCFG_APPLEFDC_ADD(LASER128_UDC_TAG, fdc_interface)
 	MCFG_LEGACY_FLOPPY_APPLE_2_DRIVES_ADD(floppy_interface,15,16)
 
-	MCFG_DEVICE_REMOVE("sl4")
-	MCFG_DEVICE_REMOVE("sl6")
+	config.device_remove("sl4");
+	config.device_remove("sl6");
 
 	A2BUS_LASER128(config, "sl1", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 	A2BUS_LASER128(config, "sl2", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
@@ -4331,14 +4335,14 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::laser128ex2)
 	apple2c(config);
-	MCFG_DEVICE_REPLACE("maincpu", M65C02, 1021800)        /* close to actual CPU frequency of 1.020484 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(laser128_map)
+	M65C02(config.replace(), m_maincpu, 1021800);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::laser128_map);
 
 	MCFG_APPLEFDC_ADD(LASER128_UDC_TAG, fdc_interface)
 	MCFG_LEGACY_FLOPPY_APPLE_2_DRIVES_ADD(floppy_interface,15,16)
 
-	MCFG_DEVICE_REMOVE("sl4")
-	MCFG_DEVICE_REMOVE("sl6")
+	config.device_remove("sl4");
+	config.device_remove("sl6");
 
 	A2BUS_LASER128(config, "sl1", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 	A2BUS_LASER128(config, "sl2", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
@@ -4353,19 +4357,19 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(apple2e_state::ceci)
 	apple2e(config);
-	MCFG_DEVICE_REMOVE("sl1")
-	MCFG_DEVICE_REMOVE("sl2")
-	MCFG_DEVICE_REMOVE("sl3")
-	MCFG_DEVICE_REMOVE("sl4")
-	MCFG_DEVICE_REMOVE("sl5")
-	MCFG_DEVICE_REMOVE("sl6")
-	MCFG_DEVICE_REMOVE("sl7")
+	config.device_remove("sl1");
+	config.device_remove("sl2");
+	config.device_remove("sl3");
+	config.device_remove("sl4");
+	config.device_remove("sl5");
+	config.device_remove("sl6");
+	config.device_remove("sl7");
 
 	A2BUS_DISKIING(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 
 	// there is no aux slot, the "aux" side of the //e is used for additional ROM
 	MCFG_A2EAUXSLOT_SLOT_REMOVE("aux")
-	MCFG_DEVICE_REMOVE(A2_AUXSLOT_TAG)
+	config.device_remove(A2_AUXSLOT_TAG);
 
 	m_ram->set_default_size("64K");
 MACHINE_CONFIG_END
