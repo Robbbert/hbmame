@@ -9354,6 +9354,9 @@ grdianss06
 sf						//parent
 sfs01					// freezes in attract mode
 
+@source:shadfrce.cpp
+shadfrce				//parent
+
 @source:silkroad.cpp
 silkroad				//parent
 silkroads01

@@ -263,6 +263,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"snk",
 		"sony",
 		"taito",
+		"technos",
 		"tehkan",
 		"toaplan",
 		"unico",
@@ -872,6 +873,12 @@ files {
 	MAME_DIR .. "src/mame/machine/taitosj.cpp",
 	MAME_DIR .. "src/mame/video/taitosj.cpp",
 	MAME_DIR .. "src/mame/audio/taito_zm.cpp", -- zn
+}
+
+createHBMAMEProjects(_target, _subtarget, "technos")
+files {
+	MAME_DIR .. "src/hbmame/drivers/shadfrce.cpp",
+	MAME_DIR .. "src/mame/video/shadfrce.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
