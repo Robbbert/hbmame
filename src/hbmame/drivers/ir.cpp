@@ -517,7 +517,7 @@ MACHINE_CONFIG_START( ir_state::ir )
 	//MCFG_DEVICE_PROGRAM_MAP(sound_map)
 
 	/* add shifter */
-	MCFG_MB14241_ADD("mb14241")
+	MB14241(config, "mb14241");
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
