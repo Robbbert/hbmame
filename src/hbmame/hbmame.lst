@@ -9371,6 +9371,9 @@ vantris					// HB, no parent
 renju					//parent
 renjuk
 
+@source:snesb.cpp
+sblast2b				//parent
+
 @source:snowbros.cpp
 snowbros				//parent
 snowbross01

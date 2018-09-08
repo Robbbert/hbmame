@@ -19,6 +19,7 @@ CPUS["ARM7"] = true
 CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
 CPUS["ES5510"] = true
+CPUS["G65816"] = true -- snesb
 CPUS["H8"] = true -- seta2
 CPUS["H6280"] = true
 CPUS["HD6309"] = true
@@ -42,6 +43,7 @@ CPUS["PSX"] = true
 CPUS["S2650"] = true
 CPUS["SH"] = true
 CPUS["SM510"] = true
+CPUS["SPC700"] = true -- snesb
 CPUS["SSP1601"] = true
 CPUS["TLCS90"] = true
 CPUS["TMS32010"] = true
@@ -137,6 +139,7 @@ VIDEOS["HD63484"] = true
 VIDEOS["MC6845"] = true
 VIDEOS["SEGA315_5124"] = true
 VIDEOS["SEGA315_5313"] = true
+VIDEOS["SNES_PPU"] = true -- snesb
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
 VIDEOS["PSX"] = true
@@ -678,6 +681,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/playch10.cpp",
 	MAME_DIR .. "src/mame/machine/playch10.cpp",
 	MAME_DIR .. "src/mame/video/playch10.cpp",
+	MAME_DIR .. "src/mame/machine/snes.cpp",
+	MAME_DIR .. "src/mame/audio/snes_snd.cpp",
+	MAME_DIR .. "src/hbmame/drivers/snesb.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vsnes.cpp",
 	MAME_DIR .. "src/mame/machine/vsnes.cpp",
 	MAME_DIR .. "src/devices/video/ppu2c0x.cpp",
