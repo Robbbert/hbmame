@@ -9293,6 +9293,9 @@ rastwack
 retofinv		//parent
 retofinv4
 
+@source:rohga.cpp
+schmeisr				//parent
+
 @source:schaser.cpp
 schasrcv		// extra sounds
 
