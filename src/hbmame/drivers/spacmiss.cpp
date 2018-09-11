@@ -419,7 +419,7 @@ MACHINE_CONFIG_START( sm_state::spacmissx )
 	MCFG_SCREEN_UPDATE_DRIVER(sm_state, screen_update_spacmissx)
 
 	/* add shifter */
-	MCFG_MB14241_ADD("mb14241")
+	MB14241(config, "mb14241");
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

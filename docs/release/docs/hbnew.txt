@@ -7,11 +7,31 @@
 
 New Games
 ---------------------------------
+- [dinos142]          Cadillacs and Dinosaurs (Fast Fight Blood Battle Version 2018 Tour Version)   
+- [ffightj2s01]       Final Fight (Ming Yun Wu Shuang Edition 2016 [161024] )
 - [gnw_bride]         Game & Watch: Bride [by Montrose]
 - [gnw_squeeze]       Game & Watch: Squeeze [by Montrose]
+- [kof97s80]          Kof'97 (Clone Zero Modified Version)(Fixed Eight Gods Garbled, Fat Lotus Huan + Even Strokes + Big Snake Green Sunshine Two First Free, Went To The Fan Slap Small Bug To Be Repaired)
+- [kof97s81]          Kof'97 (The Martial Arts Myth Test Version 64)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense Dizziness)
+- [kof97s82]          Kof'97 (Wulin Mythology Test Version 65)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
+- [kof97s83]          Kof'97 (The Martial Arts Mythical Test Version 66)(85 Optimized Eight Gods Feet Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)
+- [kof97s84]          Kof'97 (Wulin Mythology Test Version 67)(85 Optimized Eight Gods Feet Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
+- [kof98hh110]        Kof'98 (Combo 2018-05-05)
 - [lernit]            Team Lernit [by Vasily Familiya]
-
-
+- [killblds04]        The Killing Blade (Qun Ying Edition)
+- [kov2p204s62]       Knights of Valour 2 Plus (Feng Ye Yuan Qing)
+- [kov2p204s63]       Knights of Valour 2 Plus (Jun Lin Tian Xia)
+- [kovpluss287]       Knights of Valour Plus (Huo Long Hu Ti)
+- [mslug3h53]         Metal Slug 3 (Super Magic X)
+- [sf2ceeas06]        Street Fighter II': Champion Edition (Insane Edition)
+- [sf2s03]            Street Fighter II: The World Warrior (Easy Move)
+- [sf2s04]            Street Fighter II: The World Warrior (Hit Any Where)
+- [sf2s05]            Street Fighter II: The World Warrior (Magic Throw)
+- [sfexs01]           Street Fighter EX (Enable Hidden Characters)
+- [sfex2s01]          Street Fighter EX2 (Enable Hidden Characters)
+- [sfex2ps01]         Street Fighter EX2 Plus (Enable Hidden Characters)
+- [sfexps01]          Street Fighter EX Plus (Enable Hidden Characters)
+- [snowbross03]       Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6B)
 
 
 

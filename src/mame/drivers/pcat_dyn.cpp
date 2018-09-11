@@ -178,10 +178,9 @@ MACHINE_CONFIG_START(pcat_dyn_state::pcat_dyn)
 
 	pcat_common(config);
 
-	MCFG_DEVICE_REMOVE("rtc")
-	MCFG_DS12885_ADD("rtc")
-	MCFG_MC146818_IRQ_HANDLER(WRITELINE("pic8259_2", pic8259_device, ir0_w))
-	MCFG_MC146818_CENTURY_INDEX(0x32)
+	DS12885(config.replace(), m_mc146818);
+	m_mc146818->irq().set("pic8259_2", FUNC(pic8259_device::ir0_w));
+	m_mc146818->set_century_index(0x32);
 
 	MCFG_DEVICE_ADD("ad1848", AD1848, 0)
 	MCFG_AD1848_IRQ_CALLBACK(WRITELINE("pic8259_1", pic8259_device, ir5_w))
@@ -192,11 +191,12 @@ MACHINE_CONFIG_START(pcat_dyn_state::pcat_dyn)
 
 	NVRAM(config, "nvram").set_custom_handler(FUNC(pcat_dyn_state::nvram_init));
 
-	MCFG_DEVICE_ADD( "ns16550", NS16550, XTAL(1'843'200) )
-	MCFG_INS8250_OUT_TX_CB(WRITELINE("serport", rs232_port_device, write_txd))
-	MCFG_INS8250_OUT_DTR_CB(WRITELINE("serport", rs232_port_device, write_dtr))
-	MCFG_INS8250_OUT_RTS_CB(WRITELINE("serport", rs232_port_device, write_rts))
-	MCFG_INS8250_OUT_INT_CB(WRITELINE("pic8259_1", pic8259_device, ir4_w))
+	ns16550_device &uart(NS16550(config, "ns16550", XTAL(1'843'200)));
+	uart.out_tx_callback().set("serport", FUNC(rs232_port_device::write_txd));
+	uart.out_dtr_callback().set("serport", FUNC(rs232_port_device::write_dtr));
+	uart.out_rts_callback().set("serport", FUNC(rs232_port_device::write_rts));
+	uart.out_int_callback().set("pic8259_1", FUNC(pic8259_device::ir4_w));
+
 	MCFG_DEVICE_ADD( "serport", RS232_PORT, pcat_dyn_com, "msmouse" )
 	MCFG_SLOT_FIXED(true)
 	MCFG_RS232_RXD_HANDLER(WRITELINE("ns16550", ins8250_uart_device, rx_w))

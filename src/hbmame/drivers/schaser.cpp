@@ -562,7 +562,7 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	MCFG_SCREEN_UPDATE_DRIVER(sc_state, screen_update_schasercv)
 
 	/* add shifter */
-	MCFG_MB14241_ADD("mb14241")
+	MB14241(config, "mb14241");
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

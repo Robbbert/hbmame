@@ -5870,7 +5870,7 @@ HACK( 200?, 3wondersb01, 3wonders, cps1_10MHz, 3wonders, cps_state, cps1,     RO
 HACK( 200?, captcomc,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando (Translation Chinese)(Japan 911202)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
 HACK( 2008, captcomh,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Shinwa", "Captain Commando (Ex Super version)(2008-05-10)(World 911014)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, captcoud,    captcomm, cps1_10MHz, captcomm, cps_state, cps1,     ROT0,   "Unknown", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, cps1demo,    0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Charles Doty", "Demo (CPS1)(Demo)", MACHINE_SUPPORTS_SAVE ) // no sound
+HACK( 2000, cps1demo,    0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Charles Doty", "Demo - CPS1", MACHINE_SUPPORTS_SAVE ) // no sound
 HACK( 2006, cps1frog,    0,        cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Rastersoft", "Frog Feast (CPS1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, cps1tests,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnostic (For sf2ce 2012-10-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, cps1testsa,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnostic (For sf2ce 2012-10-29)", MACHINE_SUPPORTS_SAVE )
@@ -5901,7 +5901,7 @@ HACK( 200?, dinoslice,   dino,     qsound,     dino,     cps_state, dino,     RO
 HACK( 2009, dinouphp,    dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Lock Triple Mode)(2009-1-15)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, dinoz,       dino,     qsound,     dinohz,   cps_state, dinoz,    ROT0,   "Unknown", "Cadillacs and Dinosaurs Z (Boss Hack)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Whirlwind (Piracy)", "Final Fight (Boss Hack dumped)(World, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, ffightjh01,  ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Kofzec", "Final Fight (Super Plus)(World, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, ffightjh01,  ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Kofzec", "Final Fight (Ming Yun Wu Shuang Edition 2016 [161026])(World, set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, knight21,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1)(2011.07.12)(Japan, debug bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, knightsa,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "LB70", "Knights of the Round (Angry Update)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, knightshb2,  knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (bootleg)(World 911127)", MACHINE_SUPPORTS_SAVE )
@@ -26727,6 +26727,47 @@ ROM_START( ffights01 )
 	ROM_LOAD( "ffight.key", 0x00, 0x80, CRC(df8b3ef6) SHA1(0dc2af5e95d729ac953405900a25243168251405) )
 ROM_END
 
+ROM_START( ffightj2s01 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "ffj_36a_ps01.12f", 0x00000, 0x20000, CRC(be4b1b78) SHA1(10523e9d77d247719727a8c762a2a3d87acfd7d4) )
+	ROM_LOAD16_BYTE( "ffj_42a_ps01.12h", 0x00001, 0x20000, CRC(c025aaab) SHA1(1090626a0719426629c875dd005c1174f1518712) )
+	ROM_LOAD16_BYTE( "ffj_37a_ps01.13f", 0x40000, 0x20000, CRC(b83525dd) SHA1(3b03e2bf9fe107a31739e2fb1918e39202895d15) )
+	ROM_LOAD16_BYTE( "ffj_43a_ps01.13h", 0x40001, 0x20000, CRC(14359680) SHA1(f815194ea8cb5365493849e83d1ff82c0331f6b7) )
+	ROM_LOAD16_BYTE( "ff_34.10f",   0x80000, 0x20000, CRC(0c8dc3fc) SHA1(edcce3efd9cdd131ef0c96df15a68722d5c3498e) ) 
+	ROM_LOAD16_BYTE( "ff_40.10h",   0x80001, 0x20000, CRC(8075bab9) SHA1(f9c7405133f6fc5557c90e60e8ccc459e4f6fd7d) )
+	ROM_LOAD16_BYTE( "ff_35.11f",   0xc0000, 0x20000, CRC(4a934121) SHA1(3982c261582755a0eac340d6d7ed96e6c263c8b6) )
+	ROM_LOAD16_BYTE( "ff_41.11h",   0xc0001, 0x20000, CRC(2af68154) SHA1(7d549cb38650b4b79c68ad6d0dfcefdd62be4e99) )
+
+	ROM_REGION( 0x200000, "gfx", 0 )
+	ROMX_LOAD( "ff_09.4b",  0x000000, 0x20000, CRC(5b116d0d) SHA1(a24e829fdfa043bd27b508d7cc0788ad80fd180e) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_01.4a",  0x000001, 0x20000, CRC(815b1797) SHA1(549e5eefc8f607fec1c954ba715ff21b8e44a5aa) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_13.9b",  0x000002, 0x20000, CRC(8721a7da) SHA1(39b2b324fd7810342503f23695e423f364a6294d) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_05.9a",  0x000003, 0x20000, CRC(d0fcd4b5) SHA1(97ebcbead0cca7e425143c500c433dbcf9cadcc2) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_24.5e",  0x000004, 0x20000, CRC(a1ab607a) SHA1(56784c028b82d9e2affd9610f56fde57063e4c28) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_17.5c",  0x000005, 0x20000, CRC(2dc18cf4) SHA1(5e3bd895600cd30d561a75a2fcb6cc8bc84f4bd1) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_38.8h",  0x000006, 0x20000, CRC(6535a57f) SHA1(f4da9ec13cad7e3287e34dcceb0eb2d20107bad6) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_32.8f",  0x000007, 0x20000, CRC(c8bc4a57) SHA1(3eaf2b4e910fe1f79154020122d786d23a2e594a) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_10.5b",  0x100000, 0x20000, CRC(624a924a) SHA1(48fd0498f9ed54003bf6578fbcbc8b7e90a195eb) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_02.5a",  0x100001, 0x20000, CRC(5d91f694) SHA1(e0ea9ec82dec985d8bf5e7cebf5fe3d8ef7557b1) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_14.10b", 0x100002, 0x20000, CRC(0a2e9101) SHA1(6c8d550d2066cd53355ccf14ac1fd35914982094) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_06.10a", 0x100003, 0x20000, CRC(1c18f042) SHA1(f708296570fecad82a76dc59744873a2f5568ea1) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_25.7e",  0x100004, 0x20000, CRC(6e8181ea) SHA1(2c32bc0364650ee6ca0d24754a7a3401295ffcd5) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_18.7c",  0x100005, 0x20000, CRC(b19ede59) SHA1(7e79ad9f17b36e042d774bef3bbb44018332ca01) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_39.9h",  0x100006, 0x20000, CRC(9416b477) SHA1(f2310dfcfe960e8b822c07849b594d54dfc2b2ca) , ROM_SKIP(7) )
+	ROMX_LOAD( "ff_33.9f",  0x100007, 0x20000, CRC(7369fa07) SHA1(3b2750fe33729395217c96909b4b6c5f3d6e9943) , ROM_SKIP(7) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 ) 
+	ROM_LOAD( "ff_23.13c",  0x00000, 0x08000, CRC(b8367eb5) SHA1(ec3db29fdd6200e9a8f4f8073a7e34aef731354f) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "ff_30.12e",  0x00000, 0x20000, CRC(375c66e7) SHA1(36189e23209ce4ae5d9cbabd1574540d0591e7b3) )
+	ROM_LOAD( "ff_31.13e",  0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
+ROM_END
+
 /********************
  The King of Dragons
 **********************/
@@ -36124,12 +36165,13 @@ HACK( 2018, dinope48,       dino,     qsound,     dino,     cps_state,   dino,  
 HACK( 2018, dinope49,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(RockyWall & zhyxxxx,Gaston90,Ydmis,Unknown,pipi899)", "Cadillacs and Dinosaurs 2011 Plus (2018 Edition)(Revised Version Remix [23-4-2018])(Set 17)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinope50,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(RockyWall & zhyxxxx,Gaston90,Ydmis,Unknown,pipi899)", "Cadillacs and Dinosaurs 2011 Plus (2018 Edition)(Revised Version Remix [23-4-2018])(Set 18)(World 930201)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
-HACK( 1989, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)(World, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)(World, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ffightj2s01,   ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "Unknown", "Final Fight (Ming Yun Wu Shuang Edition 2016 [161024] )(Japan 900305)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
-HACK( 1991, koduhc01,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (US 910910 Phoenix Edition (16b/40p))(World 910805)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, koduhc02,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (Battle Boss Edition)(World 910805)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, koduhc03,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (3 Player Mode)(World 910805)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, koduhc04,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (Double Edition)(World 910805)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, koduhc01,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (US 910910 Phoenix Edition (16b/40p))(World 910805)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, koduhc02,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (Battle Boss Edition)(World 910805)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, koduhc03,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (3 Player Mode)(World 910805)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, koduhc04,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (Double Edition)(World 910805)", MACHINE_SUPPORTS_SAVE )
 // Knights of the Round
 HACK( 200?, knightsh01,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "EEZEZY(LB70)", "Knights of the Round (Anger upgrade)(World 911127)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, knightsh02,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "Unknown/MasterStiller", "Knights of the Round (Extreme Mode)(World 911127)", MACHINE_SUPPORTS_SAVE )

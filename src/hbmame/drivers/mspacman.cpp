@@ -314,8 +314,7 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pachack )
 	pacman(config);
-	MCFG_WATCHDOG_MODIFY("watchdog")
-	MCFG_WATCHDOG_VBLANK_INIT("screen", 0)
+	subdevice<watchdog_timer_device>("watchdog")->set_vblank_count("screen", 0);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::mspachi )
