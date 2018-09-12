@@ -36,7 +36,8 @@ New Games
 - [sfex2ps01]         Street Fighter EX2 Plus (Enable Hidden Characters)
 - [sfexps01]          Street Fighter EX Plus (Enable Hidden Characters)
 - [snowbross03]       Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6B)
-
+- [wh1s02]            World Heroes (Simple Attack Edition)
+- [wh2s05]            World Heroes 2 (Boss With Simple Attack Edition)
 
 
 2018-08-29 0.201
