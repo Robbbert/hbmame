@@ -2979,6 +2979,7 @@ kof98hh107
 kof98hh108
 kof98hh109
 kof98hh110
+kof98hh111
 kof98xz01
 kof98xz02
 kof98xz03
@@ -9295,6 +9296,7 @@ retofinv4
 
 @source:rohga.cpp
 schmeisr				//parent
+schmeisrs01
 
 @source:schaser.cpp
 schasrcv		// extra sounds
@@ -9356,6 +9358,7 @@ sfs01					// freezes in attract mode
 
 @source:shadfrce.cpp
 shadfrce				//parent
+shadfrces01
 
 @source:silkroad.cpp
 silkroad				//parent
@@ -9379,6 +9382,7 @@ renjuk
 
 @source:snesb.cpp
 sblast2b				//parent
+sblast2bs01
 
 @source:snowbros.cpp
 snowbros				//parent
