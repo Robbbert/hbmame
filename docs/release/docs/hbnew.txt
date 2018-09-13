@@ -17,12 +17,16 @@ New Games
 - [kof97s83]          Kof'97 (The Martial Arts Mythical Test Version 66)(85 Optimized Eight Gods Feet Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)
 - [kof97s84]          Kof'97 (Wulin Mythology Test Version 67)(85 Optimized Eight Gods Feet Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
 - [kof98hh110]        Kof'98 (Combo 2018-05-05)
+- [kof98hh111]        Kof'98 (Easy Combo King Edition)
 - [lernit]            Team Lernit [by Vasily Familiya]
 - [killblds04]        The Killing Blade (Qun Ying Edition)
 - [kov2p204s62]       Knights of Valour 2 Plus (Feng Ye Yuan Qing)
 - [kov2p204s63]       Knights of Valour 2 Plus (Jun Lin Tian Xia)
 - [kovpluss287]       Knights of Valour Plus (Huo Long Hu Ti)
 - [mslug3h53]         Metal Slug 3 (Super Magic X)
+- [sblast2bs01]       Sonic Blast Man 2 Special Turbo (Level Sequence Repair)
+- [shadfrces01]       Shadow Force (Enable All Characters)
+- [schmeisrs01]       Schmeiser Robo (Enable Celberus)
 - [sf2ceeas06]        Street Fighter II': Champion Edition (Insane Edition)
 - [sf2s03]            Street Fighter II: The World Warrior (Easy Move)
 - [sf2s04]            Street Fighter II: The World Warrior (Hit Any Where)
@@ -32,7 +36,8 @@ New Games
 - [sfex2ps01]         Street Fighter EX2 Plus (Enable Hidden Characters)
 - [sfexps01]          Street Fighter EX Plus (Enable Hidden Characters)
 - [snowbross03]       Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6B)
-
+- [wh1s02]            World Heroes (Simple Attack Edition)
+- [wh2s05]            World Heroes 2 (Boss With Simple Attack Edition)
 
 
 2018-08-29 0.201

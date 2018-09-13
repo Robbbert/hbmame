@@ -577,6 +577,8 @@ private:
 	DECLARE_READ32_MEMBER( ram_r );
 	DECLARE_WRITE32_MEMBER( ram_w );
 	DECLARE_READ32_MEMBER( ss1_sl0_id );
+	DECLARE_READ32_MEMBER( ss1_sl1_id );
+	DECLARE_READ32_MEMBER( ss1_sl2_id );
 	DECLARE_READ32_MEMBER( ss1_sl3_id );
 	DECLARE_READ32_MEMBER( timer_r );
 	DECLARE_WRITE32_MEMBER( timer_w );
@@ -636,6 +638,7 @@ private:
 	uint32_t m_buserr[4];
 	uint32_t m_counter[4];
 	uint32_t m_dma[4];
+	bool m_dma_irq;
 	bool m_dma_tc_read;
 	uint32_t m_dma_pack_register;
 	int m_scsi_irq;
@@ -739,10 +742,26 @@ uint32_t sun4_state::read_insn_data_4c(uint8_t asi, address_space &space, uint32
 	{
 		if (!machine().side_effects_disabled())
 		{
-			printf("sun4c: INVALID PTE entry %d %08x accessed!  vaddr=%x PC=%x\n", entry, m_pagemap[entry], offset <<2, m_maincpu->pc());
-			//m_maincpu->trap(SPARC_DATA_ACCESS_EXCEPTION);
-			//m_buserr[0] = 0x88;   // read, invalid PTE
-			//m_buserr[1] = offset<<2;
+			//printf("sun4c: INVALID PTE entry %d %08x accessed!  vaddr=%x PC=%x\n", entry, m_pagemap[entry], offset <<2, m_maincpu->pc());
+			m_maincpu->set_mae();
+			m_buserr[0] |= 0x80;    // invalid PTE
+			m_buserr[0] &= ~0x8000; // read
+			m_buserr[1] = offset<<2;
+			if (mem_mask != ~0 && mem_mask != 0xffff0000 && mem_mask != 0xff000000)
+			{
+				if (mem_mask == 0x0000ffff || mem_mask == 0x0000ff00)
+				{
+					m_buserr[1] |= 2;
+				}
+				else if (mem_mask == 0x00ff0000)
+				{
+					m_buserr[1] |= 1;
+				}
+				else if (mem_mask == 0x000000ff)
+				{
+					m_buserr[1] |= 3;
+				}
+			}
 		}
 		return 0;
 	}
@@ -759,9 +778,9 @@ void sun4_state::write_insn_data_4c(uint8_t asi, address_space &space, uint32_t 
 		if ((!(m_pagemap[entry] & PM_WRITEMASK)) || ((m_pagemap[entry] & PM_SYSMASK) && !(asi & 1)))
 		{
 			printf("sun4c: write protect MMU error (PC=%x)\n", m_maincpu->pc());
-			m_buserr[0] = 0x8040;   // write, protection error
+			m_buserr[0] |= 0x8040;   // write, protection error
 			m_buserr[1] = offset<<2;
-			m_maincpu->set_input_line(SPARC_MAE, ASSERT_LINE);
+			m_maincpu->set_mae();
 			return;
 		}
 
@@ -789,10 +808,25 @@ void sun4_state::write_insn_data_4c(uint8_t asi, address_space &space, uint32_t 
 	}
 	else
 	{
-		printf("sun4c: INVALID PTE entry %d %08x accessed! data=%08x vaddr=%x PC=%x\n", entry, m_pagemap[entry], data, offset <<2, m_maincpu->pc());
-		//m_maincpu->trap(SPARC_DATA_ACCESS_EXCEPTION);
-		//m_buserr[0] = 0x8;    // invalid PTE
-		//m_buserr[1] = offset<<2;
+		//printf("sun4c: INVALID PTE entry %d %08x accessed! data=%08x vaddr=%x PC=%x\n", entry, m_pagemap[entry], data, offset <<2, m_maincpu->pc());
+        m_maincpu->set_mae();
+		m_buserr[0] |= 0x8080;    // write cycle, invalid PTE
+		m_buserr[1] = offset<<2;
+		if (mem_mask != ~0 && mem_mask != 0xffff0000 && mem_mask != 0xff000000)
+		{
+			if (mem_mask == 0x0000ffff || mem_mask == 0x0000ff00)
+			{
+				m_buserr[1] |= 2;
+			}
+			else if (mem_mask == 0x00ff0000)
+			{
+				m_buserr[1] |= 1;
+			}
+			else if (mem_mask == 0x000000ff)
+			{
+				m_buserr[1] |= 3;
+			}
+		}
 	}
 }
 
@@ -825,8 +859,7 @@ READ32_MEMBER( sun4_state::sun4c_mmu_r )
 				return m_system_enable<<24;
 
 			case 6: // bus error register
-				printf("sun4c: read buserror, PC=%x (mask %08x)\n", m_maincpu->pc(), mem_mask);
-				m_maincpu->set_input_line(SPARC_MAE, CLEAR_LINE);
+				//printf("sun4c: read buserror %08x, PC=%x (mask %08x)\n", 0x60000000 | (offset << 2), m_maincpu->pc(), mem_mask);
 				retval = m_buserr[offset & 0xf];
 				m_buserr[offset & 0xf] = 0; // clear on reading
 				return retval;
@@ -965,7 +998,7 @@ WRITE32_MEMBER( sun4_state::sun4c_mmu_w )
 			else if (mem_mask == 0xff000000) segdata = (data >> 24) & 0xff;
 			else logerror("sun4c: writing segment map with unknown mask %08x, PC=%x\n", mem_mask, m_maincpu->pc());
 
-			//printf("sun4: %08x to segment map @ %x (ctx %d entry %d, mem_mask %08x, PC=%x)\n", segdata, offset << 2, m_context, (offset>>16) & 0xfff, mem_mask, m_maincpu->pc());
+			//printf("sun4c: %08x to segment map @ %x (ctx %d entry %d, mem_mask %08x, PC=%x)\n", segdata, offset << 2, m_context, (offset>>16) & 0xfff, mem_mask, m_maincpu->pc());
 			m_segmap[m_context & m_ctx_mask][(offset>>16) & 0xfff] = segdata;   // only 7 bits of the segment are necessary
 		}
 		return;
@@ -973,7 +1006,7 @@ WRITE32_MEMBER( sun4_state::sun4c_mmu_w )
 	case 4: // page map
 		page = (m_segmap[m_context & m_ctx_mask][(offset >> 16) & 0xfff] & m_pmeg_mask) << 6;   // get the PMEG
 		page += (offset >> 10) & 0x3f;  // add the offset
-		//printf("sun4: %08x to page map @ %x (entry %d, mem_mask %08x, PC=%x)\n", data, offset << 2, page, mem_mask, m_maincpu->pc());
+		//printf("sun4c: %08x to page map @ %x (entry %d, mem_mask %08x, PC=%x)\n", data, offset << 2, page, mem_mask, m_maincpu->pc());
 		COMBINE_DATA(&m_pagemap[page]);
 		m_pagemap[page] &= 0xff00ffff;  // these 8 bits are cleared when written and tested as such
 		return;
@@ -1035,10 +1068,26 @@ uint32_t sun4_state::read_insn_data(uint8_t asi, address_space &space, uint32_t 
 	{
 		if (!machine().side_effects_disabled())
 		{
-			printf("sun4: INVALID PTE entry %d %08x accessed!  vaddr=%x PC=%x\n", entry, m_pagemap[entry], offset <<2, m_maincpu->pc());
-			//m_maincpu->trap(SPARC_DATA_ACCESS_EXCEPTION);
-			//m_buserr[0] = 0x88;   // read, invalid PTE
-			//m_buserr[1] = offset<<2;
+			//printf("sun4: INVALID PTE entry %d %08x accessed!  vaddr=%x PC=%x\n", entry, m_pagemap[entry], offset <<2, m_maincpu->pc());
+			m_maincpu->set_mae();
+			m_buserr[0] |= 0x80;    // invalid PTE
+			m_buserr[0] &= ~0x8000; // read
+			m_buserr[1] = offset<<2;
+			if (mem_mask != ~0 && mem_mask != 0xffff0000 && mem_mask != 0xff000000)
+			{
+				if (mem_mask == 0x0000ffff || mem_mask == 0x0000ff00)
+				{
+					m_buserr[1] |= 2;
+				}
+				else if (mem_mask == 0x00ff0000)
+				{
+					m_buserr[1] |= 1;
+				}
+				else if (mem_mask == 0x000000ff)
+				{
+					m_buserr[1] |= 3;
+				}
+			}
 		}
 		return 0;
 	}
@@ -1371,6 +1420,7 @@ void sun4_state::machine_reset()
 	m_irq_reg = 0;
 	m_scc1_int = m_scc2_int = 0;
 	m_scsi_irq = 0;
+	m_dma_irq = false;
 	m_dma_tc_read = false;
 	m_dma_pack_register = 0;
 
@@ -1496,8 +1546,10 @@ void sun4_state::type1space_map(address_map &map)
 	map(0x07200000, 0x07200003).rw(FUNC(sun4_state::fdc_r), FUNC(sun4_state::fdc_w));
 	map(0x08000000, 0x08000003).r(FUNC(sun4_state::ss1_sl0_id));    // slot 0 contains SCSI/DMA/Ethernet
 	map(0x08400000, 0x0840000f).rw(FUNC(sun4_state::dma_r), FUNC(sun4_state::dma_w));
-	map(0x08800000, 0x0880001f).m(m_scsi, FUNC(ncr53c90a_device::map)).umask32(0xff000000);
+	map(0x08800000, 0x0880002f).m(m_scsi, FUNC(ncr53c90a_device::map)).umask32(0xff000000);
 	map(0x08c00000, 0x08c00003).rw(m_lance, FUNC(am79c90_device::regs_r), FUNC(am79c90_device::regs_w));
+	map(0x0a000000, 0x0a000003).r(FUNC(sun4_state::ss1_sl1_id));    // slot 1 contains nothing
+	map(0x0c000000, 0x0c000003).r(FUNC(sun4_state::ss1_sl2_id));    // slot 2 contains nothing
 	map(0x0e000000, 0x0e000003).r(FUNC(sun4_state::ss1_sl3_id));    // slot 3 contains video board
 	map(0x0e800000, 0x0e8fffff).ram().share("bw2_vram");
 }
@@ -1559,6 +1611,8 @@ WRITE8_MEMBER( sun4_state::irq_w )
 	m_irq_reg = data;
 
 	m_maincpu->set_input_line(SPARC_IRQ12, ((m_scc1_int || m_scc2_int) && (m_irq_reg & 0x01)) ? ASSERT_LINE : CLEAR_LINE);
+	if (!(m_irq_reg & 0x01))
+		m_maincpu->set_input_line(SPARC_NMI, CLEAR_LINE);
 }
 
 WRITE_LINE_MEMBER( sun4_state::scc1_int )
@@ -1702,19 +1756,18 @@ void sun4_state::dma_check_interrupts()
 
 	int irq_or_err_pending = (m_dma[DMA_CTRL] & (DMA_INT_PEND | DMA_ERR_PEND)) ? 1 : 0;
 	int irq_enabled = (m_dma[DMA_CTRL] & DMA_INT_EN) ? 1 : 0;
-	if (irq_or_err_pending && irq_enabled)
+	bool old_irq = m_dma_irq;
+	m_dma_irq = irq_or_err_pending && irq_enabled;
+	if (old_irq != m_dma_irq)
 	{
-		m_maincpu->set_input_line(SPARC_IRQ3, ASSERT_LINE);
-	}
-	else
-	{
-		m_maincpu->set_input_line(SPARC_IRQ3, CLEAR_LINE);
+		//logerror("m_dma_irq %d because irq_or_err_pending:%d and irq_enabled:%d\n", m_dma_irq ? 1 : 0, irq_or_err_pending, irq_enabled);
+		m_maincpu->set_input_line(SPARC_IRQ3, m_dma_irq ? ASSERT_LINE : CLEAR_LINE);
 	}
 }
 
 void sun4_state::dma_transfer_write()
 {
-	logerror("DMAing from device to RAM\n");
+	//logerror("DMAing from device to RAM\n");
 
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 
@@ -1723,16 +1776,16 @@ void sun4_state::dma_transfer_write()
 	{
 		int bit_index = (3 - pack_cnt) * 8;
 		uint8_t dma_value = m_scsi->dma_r();
-		logerror("Read from device: %02x, pack count %d\n", dma_value, pack_cnt);
+		//logerror("Read from device: %02x, pack count %d\n", dma_value, pack_cnt);
 		m_dma_pack_register |= dma_value << bit_index;
 
-		//if (m_dma[DMA_CTRL] & DMA_EN_CNT)
+		if (m_dma[DMA_CTRL] & DMA_EN_CNT)
 			m_dma[DMA_BYTE_COUNT]--;
 
 		pack_cnt++;
 		if (pack_cnt == 4)
 		{
-			logerror("Writing pack register %08x to %08x\n", m_dma_pack_register, m_dma[DMA_ADDR]);
+			//logerror("Writing pack register %08x to %08x\n", m_dma_pack_register, m_dma[DMA_ADDR]);
 			if (m_arch == ARCH_SUN4C)
 			{
 				write_insn_data_4c(11, space, m_dma[DMA_ADDR] >> 2, m_dma_pack_register, ~0);
@@ -1754,7 +1807,7 @@ void sun4_state::dma_transfer_write()
 
 void sun4_state::dma_transfer_read()
 {
-	logerror("DMAing from RAM to device\n");
+	//logerror("DMAing from RAM to device\n");
 
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 
@@ -1773,19 +1826,19 @@ void sun4_state::dma_transfer_read()
 				current_word = read_insn_data(11, space, m_dma[DMA_ADDR] >> 2, ~0);
 			}
 			word_cached = true;
-			logerror("Current word: %08x\n", current_word);
+			//logerror("Current word: %08x\n", current_word);
 		}
 
 		int bit_index = (3 - (m_dma[DMA_ADDR] & 3)) * 8;
 		uint8_t dma_value(current_word >> bit_index);
-		logerror("Write to device: %02x\n", dma_value);
+		//logerror("Write to device: %02x\n", dma_value);
 		m_scsi->dma_w(dma_value);
 
 		if ((m_dma[DMA_ADDR] & 3) == 3)
 			word_cached = false;
 
 		m_dma[DMA_ADDR]++;
-		//if (m_dma[DMA_CTRL] & DMA_EN_CNT)
+		if (m_dma[DMA_CTRL] & DMA_EN_CNT)
 			m_dma[DMA_BYTE_COUNT]--;
 	}
 }
@@ -1826,19 +1879,19 @@ WRITE32_MEMBER( sun4_state::dma_w )
 		case DMA_CTRL:
 		{
 			// clear write-only bits
-			logerror("dma_w: ctrl: %08x\n", data);
+			//logerror("dma_w: ctrl: %08x\n", data);
 
 			mem_mask &= (DMA_READ_WRITE);
 			COMBINE_DATA(&m_dma[DMA_CTRL]);
 
 			if (data & DMA_RESET)
 			{
-				logerror("dma_w: reset\n");
+				//logerror("dma_w: reset\n");
 				m_dma[DMA_CTRL] &= ~(DMA_ERR_PEND | DMA_PACK_CNT | DMA_INT_EN | DMA_FLUSH | DMA_DRAIN | DMA_WRITE | DMA_EN_DMA | DMA_REQ_PEND | DMA_EN_CNT | DMA_TC);
 			}
 			else if (data & DMA_FLUSH)
 			{
-				logerror("dma_w: flush\n");
+				//logerror("dma_w: flush\n");
 				m_dma[DMA_CTRL] &= ~(DMA_PACK_CNT | DMA_ERR_PEND | DMA_TC);
 
 				dma_check_interrupts();
@@ -1850,8 +1903,8 @@ WRITE32_MEMBER( sun4_state::dma_w )
 				for (uint8_t i = 0; i < pack_cnt; i++)
 				{
 					const uint32_t bit_index = (3 - i) * 8;
-					const uint32_t value = m_dma_pack_register & (0xff << bit_index);
-					logerror("dma_w: draining %02x to RAM address %08x & %08x\n", value >> bit_index, m_dma[DMA_ADDR], 0xff << (24 - bit_index));
+					//const uint32_t value = m_dma_pack_register & (0xff << bit_index);
+					//logerror("dma_w: draining %02x to RAM address %08x & %08x\n", value >> bit_index, m_dma[DMA_ADDR], 0xff << (24 - bit_index));
 					write_insn_data_4c(11, space, m_dma[DMA_ADDR] >> 2, m_dma_pack_register, 0xff << bit_index);
 					m_dma[DMA_ADDR]++;
 				}
@@ -1866,12 +1919,12 @@ WRITE32_MEMBER( sun4_state::dma_w )
 		}
 
 		case DMA_ADDR:
-			logerror("dma_w: addr: %08x\n", data);
+			//logerror("dma_w: addr: %08x\n", data);
 			m_dma[offset] = data;
 			break;
 
 		case DMA_BYTE_COUNT:
-			logerror("dma_w: byte_count: %08x\n", data);
+			//logerror("dma_w: byte_count: %08x\n", data);
 			m_dma[offset] = data;
 			break;
 
@@ -1882,21 +1935,26 @@ WRITE32_MEMBER( sun4_state::dma_w )
 
 WRITE_LINE_MEMBER( sun4_state::scsi_irq )
 {
+	int old_irq = m_scsi_irq;
 	m_scsi_irq = state;
-	dma_check_interrupts();
+	if (m_scsi_irq != old_irq)
+	{
+		//logerror("scsi_irq %d, checking interrupts\n", state);
+		dma_check_interrupts();
+	}
 }
 
 WRITE_LINE_MEMBER( sun4_state::scsi_drq )
 {
-	logerror("scsi_drq %d\n", state);
+	//logerror("scsi_drq %d\n", state);
 	m_dma[DMA_CTRL] &= ~DMA_REQ_PEND;
 	if (state)
 	{
-		logerror("scsi_drq, DMA pending\n");
+		//logerror("scsi_drq, DMA pending\n");
 		m_dma[DMA_CTRL] |= DMA_REQ_PEND;
-		if (m_dma[DMA_CTRL] & DMA_EN_DMA && m_dma[DMA_BYTE_COUNT])
+		if (m_dma[DMA_CTRL] & DMA_EN_DMA/* && m_dma[DMA_BYTE_COUNT]*/)
 		{
-			logerror("DMA enabled, starting dma\n");
+			//logerror("DMA enabled, starting dma\n");
 			dma_transfer();
 		}
 	}
@@ -1928,6 +1986,26 @@ READ32_MEMBER( sun4_state::ss1_sl0_id )
 READ32_MEMBER( sun4_state::ss1_sl3_id )
 {
 	return 0xfe010101;
+}
+
+// indicate no card exists
+READ32_MEMBER( sun4_state::ss1_sl1_id )
+{
+	m_maincpu->set_mae();
+	m_buserr[0] |= 0x20;    // timeout
+	m_buserr[0] &= ~0x8000; // read
+	m_buserr[1] = 0xffa00000;
+	return 0;
+}
+
+// indicate no card exists
+READ32_MEMBER( sun4_state::ss1_sl2_id )
+{
+	m_maincpu->set_mae();
+	m_buserr[0] |= 0x20;    // timeout
+	m_buserr[0] &= ~0x8000; // read
+	m_buserr[1] = 0xffc00000;
+	return 0;
 }
 
 FLOPPY_FORMATS_MEMBER( sun4_state::floppy_formats )

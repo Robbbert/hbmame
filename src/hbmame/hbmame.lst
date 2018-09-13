@@ -2979,6 +2979,7 @@ kof98hh107
 kof98hh108
 kof98hh109
 kof98hh110
+kof98hh111
 kof98xz01
 kof98xz02
 kof98xz03
@@ -8108,12 +8109,14 @@ whps08
 whps09
 whps10
 wh1s01
+wh1s02
 wh1hs01
 wh1has01
 wh2s01
 wh2s02
 wh2s03
 wh2s04
+wh2s05
 
 @source:nmk16.cpp
 tdragon			//parent
@@ -9295,6 +9298,7 @@ retofinv4
 
 @source:rohga.cpp
 schmeisr				//parent
+schmeisrs01
 
 @source:schaser.cpp
 schasrcv		// extra sounds
@@ -9356,6 +9360,7 @@ sfs01					// freezes in attract mode
 
 @source:shadfrce.cpp
 shadfrce				//parent
+shadfrces01
 
 @source:silkroad.cpp
 silkroad				//parent
@@ -9379,6 +9384,7 @@ renjuk
 
 @source:snesb.cpp
 sblast2b				//parent
+sblast2bs01
 
 @source:snowbros.cpp
 snowbros				//parent
