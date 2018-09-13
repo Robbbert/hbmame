@@ -8109,12 +8109,14 @@ whps08
 whps09
 whps10
 wh1s01
+wh1s02
 wh1hs01
 wh1has01
 wh2s01
 wh2s02
 wh2s03
 wh2s04
+wh2s05
 
 @source:nmk16.cpp
 tdragon			//parent
