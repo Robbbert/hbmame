@@ -40,7 +40,6 @@ private:
 
 	void mem_map(address_map &map) override;
 
-	//required_shared_ptr<uint32_t> m_vram;
 	required_memory_region m_rom;
 	std::unique_ptr<uint32_t[]> m_vram;
 	required_device<screen_device> m_screen;
