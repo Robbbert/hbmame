@@ -23,7 +23,7 @@ New Games
 - [kov2p204s62]       Knights of Valour 2 Plus (Feng Ye Yuan Qing)
 - [kov2p204s63]       Knights of Valour 2 Plus (Jun Lin Tian Xia)
 - [kovpluss287]       Knights of Valour Plus (Huo Long Hu Ti)
-- [mslug3h53]         Metal Slug 3 (Super Magic X)
+- [mslug3h53]         Metal Slug 3 (Enemy Soldier Reset Version Unknown)
 - [sblast2bs01]       Sonic Blast Man 2 Special Turbo (Level Sequence Repair)
 - [shadfrces01]       Shadow Force (Enable All Characters)
 - [schmeisrs01]       Schmeiser Robo (Enable Celberus)
