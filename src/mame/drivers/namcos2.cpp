@@ -447,6 +447,98 @@ Again this board has a different graphics layout, also the protection checks
 are done at $a00000 as opposed to $d00000 on a standard board. Similar
 $a00000 checks have been seen on the Final Lap boards.
 
+
+Custom Chips Notes (moved to here from Stroff's old namcoic.c)
+==================
+
+System 21 here presumably refers to the Winning Run PCB, not the later games?
+
+Custom Chips:                       Final Lap   Assault     LuckyWld    System21    NA1/2       NB1/2
+    C45     Land Generator            *                       *
+    C65     I/O Controller (older)    *           *
+    C67     TMS320C25 (DSP int rom)
+	C68     I/O Controller (newer)                            *           *
+    C70                                                                               *
+    C95                               *           *
+    C102    ROZ:Memory Access Control             *
+    C106    OBJ:X-Axis Zoom Control   *           *
+    C107    Land Line Buffer          *
+    C116    Screen Waveform Generator *           *           *                                   *
+    C121    Yamaha YM2151 Sound Gen   *           *           *
+    C123    GFX:Tile Mem Decoder      *           *           *                                   *
+    C134    OBJ:Address Generator     *           *
+    C135    OBJ:Line matching         *           *
+    C137    Clock Generator IC        *           *           *           *                       *
+    C138                                                                  *
+    C139    Serial I/F Controller     *           *           *           *
+    C140    24 Channel PCM            *           *           *
+    C145    GFX:Tile Memory Access    *           *           *                                   *
+    C146    OBJ:Line Buf Steering     *           *
+    C148    CPU Bus Manager           *           *           *           *
+    C149    Mouse/Trackball Decoder   *           *           *           *
+    C156    Pixel Stream Combo        *           *           *                                   *
+    C160    Control                                                                               *
+    C165                                                                  *
+    C169    ROZ(B)                                            *                                   *
+    C187                                                      *           *                       *
+    C210                                                                              *
+    C215                                                                              *
+    C218                                                                              *
+    C219                                                                              *
+    C329    CPU?                                                                                  *
+    C347    GfxObj                                                                                *
+    C352    PCM                                                                                   *
+    C355    Motion Obj(B)                                     *           *                       *
+    C373    LAND-related                                      *
+    C382                                                                                          *
+    C383                                                                                          *
+    C384    GFX(3)                                                                                *
+    C385                                                                                          *
+    C390    Key Custom                                                                            *
+
+
+General Support
+---------------
+C65  - This is the I/O Microcontroller, handles all input/output devices. 63705 uC, CPU4 in Namco System2.
+C137 - Takes System clock and generates all sub-system clocks, doesn't need emulation, not accessed via CPU
+C139 - Serial Interface Controller
+C148 - Does some Memory Decode, Interrupt Handling, 3 bit PIO port, Bus Controller
+C149 - Does decoding of mouse/trackball input streams for the I/O Controller. (Offset Square wave)
+
+
+Tile Fields Static/Scrolled
+---------------------------
+Combination of these two devices and associated RAM & TileGFX produces a pixel stream that is fed
+into the Pixel stream decoder.
+
+C145 - Tile Screen Memory Access controller
+C123 - Tile Memory decoder Part 1, converts X,Y,Tile into character ROM address index
+
+
+Pixel Stream Decode
+-------------------
+These two devices take the pixel streams from the tilefield generator and the associated graphics board
+and combine them to form an RGB data stream that is fed to the monitor.
+
+C156 - Pixel stream combiner
+Takes tile field & graphics board streams and generates the prioritized pixel, then does the lookup to
+go from palettised to 24bit RGB pixel.
+
+C116 - Screen Waveform Generator
+Takes RGB24 pixel stream from C156 and generates the waveform signals for the monitor, also generates
+the line interrupt and controls screen blanking,shift, etc.
+
+Object Control
+--------------
+C106 - Generates memory output clocks to generate X-Axis Zoom for Line Buffer Writes
+C134 - Object Memory Address Generator. Sequences the sprite memory contents to the hardware.
+C135 - Checks is object is displayed on Current output line.
+C146 - Steers the Decode Object Pixel data to the correct line buffer A or B
+
+ROZ
+---
+C102 - Controls CPU access to ROZ Memory Area.
+
 ***************************************************************************/
 
 #include "emu.h"
@@ -1357,6 +1449,12 @@ static INPUT_PORTS_START( luckywld )
 
 	NAMCOS2_MCU_DIPSW_DEFAULT
 	NAMCOS2_MCU_DIAL_DEFAULT
+
+	PORT_MODIFY("DSW")
+	// this applies to both the World and Japan sets
+	PORT_DIPNAME( 0x40, 0x40, "Show Winners Don't Use Drugs")
+	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( Yes ) )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( sgunner )
@@ -1963,6 +2061,9 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(namcos2_state::finalap3)
 	finallap_c68(config);
+
+	m_c123tmap->set_tile_callback(namco_c123tmap_device::c123_tilemap_delegate(&namcos2_state::TilemapCB_finalap2, this));
+
 	MCFG_VIDEO_START_OVERRIDE(namcos2_state, finalap2)
 MACHINE_CONFIG_END
 
@@ -3803,17 +3904,25 @@ ROM_START( fourtraxj )
 	ROM_LOAD( "fx_voi-1.3m", 0x000000, 0x080000, CRC(6173364f) SHA1(cc426f49b7e87b11f1f51e8e10db7cad87ffb44d) )
 ROM_END
 
-// this is a strange, it's based on the fx2 set, but with one of the 68k pair modified (21 bytes changed) and a unique GFX rom?
-// changes seem to be related to the trackside advertising banners
+/* This is a strange set, it's based on the fx2 set, but with one of the 68k pair modified (21 bytes changed) and a unique GFX ROM
+
+   Changes seem to be related to the trackside advertising banners.  This was around the same time Super Monaco GP was forced to
+   remove 'real' advertising banners, so could be related.
+  
+   The changed graphic ROM has tiles for an additional 'awaiting entry' screen, but it is unclear where they are used,
+   the same tiles in the fx2 set are blank, assuming that one isn't a bad dump.
+
+   Previous dumps of the program / sub CPUs were 0x00 filled instead of 0xff filled in the 2nd half due to a dumping error
+*/
+
 ROM_START( fourtraxa )
 	ROM_REGION( 0x040000, "maincpu", 0 ) /* Master CPU */
-	// the old dump of this set only differed in having a 0x00 fill in the 2nd half instead of a 0xff fill
 	ROM_LOAD16_BYTE( "fx4_mp0a.11d",  0x000000, 0x020000, CRC(f147cd6b) SHA1(7cdadd68d55dd8fa9b19cbee1434d9266ae1f4b9) ) // == fx2_mp0.11d
 	ROM_LOAD16_BYTE( "fx4_mp1a.13d",  0x000001, 0x020000, CRC(d1138c85) SHA1(32bf68ae36f72b84f3c3df28425147b6aaac1edf) )
 
 	ROM_REGION( 0x040000, "slave", 0 ) /* Slave CPU */
-	ROM_LOAD16_BYTE( "fx1_sp0.11k", 0x000000, 0x020000, CRC(41687edd) SHA1(1e79dc9abe5614f836e89b376be1dc70deaac889) )
-	ROM_LOAD16_BYTE( "fx1_sp1.13k", 0x000001, 0x020000, CRC(dbbae326) SHA1(6743054f7796bd5b1d24fa9cf0095544420b2c76) )
+	ROM_LOAD16_BYTE( "fx1_sp0.11k", 0x000000, 0x020000, CRC(48548e78) SHA1(b3a9de8682fe63c1c3ecab3e3f9380a884efd4af) ) // same content as fx2 set, different label
+	ROM_LOAD16_BYTE( "fx1_sp1.13k", 0x000001, 0x020000, CRC(d2861383) SHA1(36be5a8c8a19f35f9a9bd3ef725a83c5e58ccbe0) ) // same content as fx2 set, different label
 
 	ROM_REGION( 0x020000, "audiocpu", 0 ) /* Sound CPU (Banked) */
 	ROM_LOAD( "fx1_sd0.7j", 0x000000, 0x020000, CRC(acccc934) SHA1(98f1a823ba7e3f258a73d5780953f9339d438e1a) )
@@ -4513,7 +4622,7 @@ ROM_START( rthun2j )
 	ROM_REGION( 0x100000, "c140", 0 ) /* Sound voices */
 	ROM_LOAD( "rst1_voi1.bin",  0x000000, 0x080000, CRC(e42027cd) SHA1(fa3a81118c7f112289c27023236dec2e9cbc78b5) )
 	ROM_LOAD( "rst1_voi2.bin",  0x080000, 0x080000, CRC(0c4c2b66) SHA1(7723cbef755439a66d026015596fe1547ccd65b1) )
-		
+
 	/* stuff below isn't used but loaded because it was on the board .. */
 	ROM_REGION( 0x0950, "plds", 0 )
 	ROM_LOAD( "pal12l10.8d",  0x0000, 0x0040, CRC(d3ae64a6) SHA1(8e56f447908246e84d5a79df1a1cd3d5c8a040fb) )
