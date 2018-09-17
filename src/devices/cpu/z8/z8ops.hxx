@@ -308,6 +308,25 @@ INSTRUCTION( cp_IR1_IM )        { mode_IR1_IM(compare) }
 
 void z8_device::decimal_adjust(uint8_t dst)
 {
+	uint8_t data = register_read(dst);
+	uint16_t new_data = data;
+	if (flag(D))
+	{
+		if (flag(H) | ((data&0xf)>9)) new_data-=6;
+		if (flag(C) | (data>0x99)) new_data-=0x60;
+	}
+	else
+	{
+		if (flag(H) | ((data&0xf)>9)) new_data+=6;
+		if (flag(C) | (data>0x99)) new_data+=0x60;
+	}
+
+	set_flag_c(new_data & 0x100);
+	set_flag_s(new_data & 0x80);
+	new_data &= 0xff;
+	set_flag_z(new_data == 0);
+	// officially, v is undefined
+	register_write(dst, new_data);
 }
 
 INSTRUCTION( da_R1 )            { mode_R1(decimal_adjust) }
@@ -502,7 +521,7 @@ void z8_device::call(uint16_t dst)
 	m_pc = dst;
 }
 
-INSTRUCTION( call_IRR1 )        { uint16_t dst = register_pair_read(get_intermediate_register(get_register(fetch()))); call(dst); }
+INSTRUCTION( call_IRR1 )        { uint16_t dst = register_pair_read(get_register(fetch())); call(dst); }
 INSTRUCTION( call_DA )          { uint16_t dst = fetch_word(); call(dst); }
 
 INSTRUCTION( djnz_r1_RA )
@@ -549,7 +568,7 @@ void z8_device::jump(uint16_t dst)
 	m_pc = dst;
 }
 
-INSTRUCTION( jp_IRR1 )          { jump(register_pair_read(IR)); }
+INSTRUCTION( jp_IRR1 )          { jump(register_pair_read(get_register(IM))); }
 
 int z8_device::check_condition_code(int cc)
 {
