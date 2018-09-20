@@ -12324,6 +12324,9 @@ emate                           // (c) 1997 Apple Computer
 @source:embargo.cpp
 embargo                         //
 
+@source:emma2.cpp
+emma2                           // 1979 L.J.Technical Systems
+
 @source:enigma2.cpp
 enigma2                         // (c) 1981 Game Plan (Zilec Electronics license)
 enigma2a                        // (c) 1984 Zilec Electronics (bootleg?)
@@ -15921,6 +15924,10 @@ jankenmn                        // (c) 1985 Sunwise
 
 @source:jantotsu.cpp
 jantotsu                        // (c) 1983 Sanritsu
+
+@source:jazz.cpp
+mmr4000be                       // MIPS Magnum R4000 (big)
+mmr4000le                       // MIPS Magnum R4000 (little)
 
 @source:jchan.cpp
 jchan                           // (c) 1995 Kaneko
@@ -38564,8 +38571,9 @@ twcup90ba                          // bootleg
 hotchase                        // GX763 (c) 1988
 hotchasea                       //
 wecleman                        // GX602 (c) 1986
-weclemana                       // GX602?(c) 1988
-weclemanb                       // GX602 (c) 1986
+weclemana                       // GX602 (c) 1986
+weclemanb                       // GX602?(c) 1988
+weclemanc                       // GX602 (c) 1986
 
 @source:welltris.cpp
 quiz18k                         // (c) 1992 EIM (Welltris hardware)
