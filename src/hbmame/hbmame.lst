@@ -9276,6 +9276,9 @@ s1945iiis01
 soldivid		//parent
 soldivids01
 
+@source:rabbit.cpp
+rabbit						//parent
+
 @source:raiden2.cpp
 zeroteam					//parent
 zeroteamcs01
