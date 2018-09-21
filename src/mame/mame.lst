@@ -14824,6 +14824,10 @@ hg_frd                          // Fruit Deuce
 
 @source:hazeltin.cpp
 hazl1500                        // Hazeltine 1500 (c) 1977
+hazl1552                        // Hazeltine 1552 (c) 1979
+
+@source:hazl1420.cpp
+hazl1420                        // Hazeltine 1420 (c) 1979
 
 @source:hcastle.cpp
 akumajou                        // GX768 (c) 1988 (Japan)
@@ -17990,6 +17994,9 @@ learnwin2                       //
 learnwin1                       //
 learnwinf                       //
 spielmast                       // Yuvo
+
+@source:lee1214.cpp
+lee1214d                        //
 
 @source:legionna.cpp
 cupsoc                          // (c) 1992 Seibu
@@ -29184,7 +29191,7 @@ valkyrie                        // (c) 1989 (Japan)
 aircomb                         // (c) 1992 (US)
 aircombj                        // (c) 1992 (Japan)
 cybsled                         // (c) 1993 (World)
-cybsledj                        // (c) 1993 (Japan)
+cybsleda                        // (c) 1993 (World)
 driveyes                        // (c) 1992?
 solvalou                        // (c) 1991 (Japan)
 starblad                        // (c) 1991 (World)
@@ -36119,7 +36126,8 @@ suprlocoo                       // (c) 1982 Sega
 @source:suprnova.cpp
 cyvern                          // 1998.02 (c) 1998 Kaneko (US)
 cyvernj                         // 1998.02 (c) 1998 Kaneko (Japan)
-galpani4                        // 1996.09 (c) 1996 Kaneko (Japan)
+galpani4                        // 1996.09 (c) 1996 Kaneko (Europe)
+galpani4j                       // 1996.09 (c) 1996 Kaneko (Japan)
 galpani4k                       // 1996.09 (c) 1996 Kaneko (Korea)
 galpanidx                       // 1996.09 (c) 1996 Kaneko (Asia)
 galpanis                        // 1997.04 (c) 1997 Kaneko (Europe)
