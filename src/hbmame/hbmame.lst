@@ -9278,6 +9278,9 @@ soldivids01
 
 @source:rabbit.cpp
 rabbit						//parent
+rabbits01
+rabbits02
+rabbits03
 
 @source:raiden2.cpp
 zeroteam					//parent
