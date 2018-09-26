@@ -427,8 +427,7 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	MCFG_DEVICE_PROGRAM_MAP(pacman_map)
 	MCFG_DEVICE_IO_MAP(io_map)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
-	MCFG_WATCHDOG_ADD("watchdog")
-	MCFG_WATCHDOG_VBLANK_INIT("screen", 16)
+	WATCHDOG_TIMER(config, m_watchdog).set_vblank_count("screen", 16);
 
 	LS259(config, m_mainlatch); // 74LS259 at 8K or 4099 at 7K
 	m_mainlatch->q_out_cb<0>().set(FUNC(pacman_state::irq_mask_w));
