@@ -541,6 +541,7 @@ public:
 		, m_scsibus(*this, "scsibus")
 		, m_scsi(*this, "scsibus:7:ncr53c90a")
 		, m_sbus(*this, "sbus")
+		, m_sbus_slot(*this, "slot%u", 1U)
 		, m_type0space(*this, "type0")
 		, m_type1space(*this, "type1")
 		, m_ram(*this, RAM_TAG)
@@ -550,14 +551,16 @@ public:
 	}
 
 	void sun4c(machine_config &config);
+	void sun4_20(machine_config &config);
 	void sun4_40(machine_config &config);
+	void sun4_50(machine_config &config);
 	void sun4_60(machine_config &config);
+	void sun4_65(machine_config &config);
 	void sun4_75(machine_config &config);
 	void sun4(machine_config &config);
 
 	void init_sun4();
 	void init_sun4c();
-	void init_ss2();
 
 private:
 	virtual void machine_reset() override;
@@ -673,13 +676,14 @@ private:
 	required_device<z80scc_device> m_scc1;
 	required_device<z80scc_device> m_scc2;
 
-	required_device<i82072_device> m_fdc;
+	required_device<upd765_family_device> m_fdc;
 	required_device<floppy_connector> m_floppy;
 	required_device<am79c90_device> m_lance;
 	required_device<nscsi_bus_device> m_scsibus;
 	required_device<ncr53c90a_device> m_scsi;
 
 	optional_device<sbus_device> m_sbus;
+	optional_device_array<sbus_slot_device, 3> m_sbus_slot;
 	optional_device<address_map_bank_device> m_type0space;
 	optional_device<address_map_bank_device> m_type1space;
 	memory_access_cache<2, 0, ENDIANNESS_BIG> *m_type1_cache;
@@ -1145,7 +1149,7 @@ void sun4_state::type1space_map(address_map &map)
 	map(0x03000000, 0x0300000f).rw(FUNC(sun4_state::timer_r), FUNC(sun4_state::timer_w)).mirror(0xfffff0);
 	map(0x05000000, 0x05000003).rw(FUNC(sun4_state::irq_r), FUNC(sun4_state::irq_w));
 	map(0x06000000, 0x0607ffff).rom().region("user1", 0);
-	map(0x07200000, 0x07200003).rw(FUNC(sun4_state::fdc_r), FUNC(sun4_state::fdc_w));
+	map(0x07200000, 0x07200007).rw(FUNC(sun4_state::fdc_r), FUNC(sun4_state::fdc_w));
 	map(0x07400003, 0x07400003).rw(FUNC(sun4_state::auxio_r), FUNC(sun4_state::auxio_w));
 	map(0x08000000, 0x08000003).r(FUNC(sun4_state::ss1_sl0_id));    // slot 0 contains SCSI/DMA/Ethernet
 	map(0x08400000, 0x0840000f).rw(FUNC(sun4_state::dma_r), FUNC(sun4_state::dma_w));
@@ -1209,6 +1213,50 @@ void sun4_state::machine_start()
 	// allocate timer for system reset
 	m_reset_timer = timer_alloc(TIMER_RESET);
 	m_reset_timer->adjust(attotime::never);
+
+	for (int i = 0; i < 16; i++)
+	{
+		save_item(NAME(m_segmap[i]), i);
+		save_item(NAME(m_segmap_masked[i]), i);
+	}
+
+	for (int i = 0; i < 16384; i++)
+	{
+		save_item(NAME(m_pagemap[i].valid), i);
+		save_item(NAME(m_pagemap[i].writable), i);
+		save_item(NAME(m_pagemap[i].supervisor), i);
+		save_item(NAME(m_pagemap[i].uncached), i);
+		save_item(NAME(m_pagemap[i].accessed), i);
+		save_item(NAME(m_pagemap[i].modified), i);
+		save_item(NAME(m_pagemap[i].page), i);
+		save_item(NAME(m_pagemap[i].type), i);
+	}
+
+	save_item(NAME(m_cachetags));
+	save_item(NAME(m_cachedata));
+	save_item(NAME(m_ram_size));
+	save_item(NAME(m_ram_size_words));
+	save_item(NAME(m_context));
+	save_item(NAME(m_context_masked));
+	save_item(NAME(m_system_enable));
+	save_item(NAME(m_fetch_bootrom));
+	save_item(NAME(m_buserr));
+	save_item(NAME(m_page_valid));
+
+	save_item(NAME(m_auxio));
+	save_item(NAME(m_counter));
+	save_item(NAME(m_dma));
+	save_item(NAME(m_dma_irq));
+	save_item(NAME(m_dma_tc_read));
+	save_item(NAME(m_dma_pack_register));
+	save_item(NAME(m_scsi_irq));
+	save_item(NAME(m_fdc_irq));
+
+	save_item(NAME(m_irq_reg));
+	save_item(NAME(m_scc1_int));
+	save_item(NAME(m_scc2_int));
+	save_item(NAME(m_diag));
+	save_item(NAME(m_arch));
 }
 
 READ32_MEMBER( sun4_state::ram_r )
@@ -1300,11 +1348,21 @@ READ8_MEMBER( sun4_state::fdc_r )
 
 	switch(offset)
 	{
-		case 0: // Main Status (R)
+		case 0: // Main Status (R, 82072)
 			return m_fdc->msr_r(space, 0, 0xff);
 
-		case 1: // FIFO Data Port (R)
+		case 1: // FIFO Data Port (R, 82072)
+		case 5: // FIFO Data Port (R, 82077)
 			return m_fdc->fifo_r(space, 0, 0xff);
+
+		case 2: // Digital Output Register (R, 82077)
+			return m_fdc->dor_r(space, 0, 0xff);
+
+		case 4: // Main Status Register (R, 82077)
+			return m_fdc->msr_r(space, 0, 0xff);
+
+		case 7:// Digital Input Register (R, 82077)
+			return m_fdc->dir_r(space, 0, 0xff);
 
 		default:
 			break;
@@ -1317,12 +1375,18 @@ WRITE8_MEMBER( sun4_state::fdc_w )
 {
 	switch(offset)
 	{
-		case 0: // Data Rate Select Register (W)
+		case 0: // Data Rate Select Register (W, 82072)
+		case 4: // Data Rate Select Register (W, 82077)
 			m_fdc->dsr_w(space, 0, data, 0xff);
 			break;
 
-		case 1: // FIFO Data Port (W)
+		case 1: // FIFO Data Port (W, 82072)
+		case 5: // FIFO Data Port (W, 82077)
 			m_fdc->fifo_w(space, 0, data, 0xff);
+			break;
+
+		case 7: // Configuration Control REgister (W, 82077)
+			m_fdc->ccr_w(space, 0, data, 0xff);
 			break;
 
 		default:
@@ -1541,7 +1605,6 @@ void sun4_state::dma_check_interrupts()
 	if (old_irq != m_dma_irq)
 	{
 		//logerror("m_dma_irq %d because irq_or_err_pending:%d and irq_enabled:%d\n", m_dma_irq ? 1 : 0, irq_or_err_pending, irq_enabled);
-		logerror("dma\n");
 		m_maincpu->set_input_line(SPARC_IRQ3, m_dma_irq ? ASSERT_LINE : CLEAR_LINE);
 	}
 }
@@ -1873,11 +1936,11 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sun4_state::sun4c)
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD(m_maincpu, MB86901, 16'670'000)
+	MCFG_DEVICE_ADD(m_maincpu, MB86901, 20'000'000)
 	MCFG_SPARC_ADD_ASI_DESC(sun4c_asi_desc)
 	m_maincpu->set_addrmap(0, &sun4_state::sun4c_debugger_map);
 
-	SUN4C_MMU(config, m_mmu, 16'670'000, 7, 0x7f);
+	SUN4C_MMU(config, m_mmu, 20'000'000, 7, 0x7f);
 	m_mmu->type1_r().set(m_type1space, FUNC(address_map_bank_device::read32));
 	m_mmu->type1_w().set(m_type1space, FUNC(address_map_bank_device::write32));
 	m_mmu->set_cpu(m_maincpu);
@@ -1890,7 +1953,7 @@ MACHINE_CONFIG_START(sun4_state::sun4c)
 
 	M48T02(config, TIMEKEEPER_TAG, 0);
 
-	I82072(config, m_fdc, 24_MHz_XTAL);
+	N82077AA(config, m_fdc, 24_MHz_XTAL);
 	m_fdc->set_ready_line_connected(false);
 	m_fdc->intrq_wr_callback().set(FUNC(sun4_state::fdc_irq));
 	FLOPPY_CONNECTOR(config, m_floppy, sun_floppies, "35hd", sun4_state::floppy_formats);
@@ -1899,7 +1962,7 @@ MACHINE_CONFIG_START(sun4_state::sun4c)
 	ADDRESS_MAP_BANK(config, m_type0space).set_map(&sun4_state::type0space_map).set_options(ENDIANNESS_BIG, 32, 32, 0x80000000);
 
 	// MMU Type 1 device space
-	ADDRESS_MAP_BANK(config, m_type1space).set_map(&sun4_state::type1space_map).set_options(ENDIANNESS_BIG, 32, 32, 0x80000000);
+	ADDRESS_MAP_BANK(config, m_type1space).set_map(&sun4_state::type1space_sbus_map).set_options(ENDIANNESS_BIG, 32, 32, 0x80000000);
 
 	// Ethernet
 	AM79C90(config, m_lance, 10'000'000); // clock is a guess
@@ -1941,7 +2004,23 @@ MACHINE_CONFIG_START(sun4_state::sun4c)
 	MCFG_NSCSI_ADD("scsibus:6", sun_scsi_devices, nullptr, false)
 	MCFG_NSCSI_ADD("scsibus:7", sun_scsi_devices, "ncr53c90a", true)
 	MCFG_SLOT_OPTION_MACHINE_CONFIG("ncr53c90a", [this] (device_t *device) { ncr53c90a(device); })
+
+	// SBus
+	SBUS(config, m_sbus, 20'000'000, "maincpu", "type1");
+	SBUS_SLOT(config, m_sbus_slot[0], 20'000'000, m_sbus, sbus_cards, nullptr);
+	SBUS_SLOT(config, m_sbus_slot[1], 20'000'000, m_sbus, sbus_cards, nullptr);
+	SBUS_SLOT(config, m_sbus_slot[2], 20'000'000, m_sbus, sbus_cards, nullptr);
 MACHINE_CONFIG_END
+
+void sun4_state::sun4_20(machine_config &config)
+{
+	sun4c(config);
+
+	m_sbus_slot[0]->set_fixed(true);
+	m_sbus_slot[1]->set_fixed(true);
+	m_sbus_slot[2]->set_default_option("bwtwo");
+	m_sbus_slot[2]->set_fixed(true);
+}
 
 void sun4_state::sun4_40(machine_config &config)
 {
@@ -1949,49 +2028,57 @@ void sun4_state::sun4_40(machine_config &config)
 
 	m_mmu->set_clock(25'000'000);
 	m_maincpu->set_clock(25'000'000);
-	m_maincpu->set_mmu(m_mmu);
 
-	m_type1space->set_map(&sun4_state::type1space_sbus_map).set_options(ENDIANNESS_BIG, 32, 32, 0x80000000);
+	m_sbus->set_clock(25'000'000);
+	m_sbus_slot[0]->set_clock(25'000'000);
+	m_sbus_slot[1]->set_clock(25'000'000);
+	m_sbus_slot[2]->set_clock(25'000'000);
+	m_sbus_slot[2]->set_default_option("bwtwo");
+	m_sbus_slot[2]->set_fixed(true);
+}
 
-	// SBus
-	SBUS(config, m_sbus, 25'000'000, "maincpu", "type1");
-	SBUS_SLOT(config, "slot1", 25'000'000, m_sbus, sbus_cards, nullptr);
-	SBUS_SLOT(config, "slot2", 25'000'000, m_sbus, sbus_cards, nullptr);
-	SBUS_SLOT(config, "slot3", 25'000'000, m_sbus, sbus_cards, "bwtwo");
+void sun4_state::sun4_50(machine_config &config)
+{
+	sun4c(config);
+
+	m_mmu->set_clock(40'000'000);
+	m_maincpu->set_clock(40'000'000);
+
+	m_sbus->set_clock(20'000'000);
+	m_sbus_slot[0]->set_clock(20'000'000);
+	m_sbus_slot[1]->set_clock(20'000'000);
+	m_sbus_slot[2]->set_clock(20'000'000);
+	m_sbus_slot[2]->set_default_option("turbogx"); // not accurate, should be gxp, not turbogx
+	m_sbus_slot[2]->set_fixed(true);
 }
 
 void sun4_state::sun4_60(machine_config &config)
 {
 	sun4c(config);
+}
 
-	m_mmu->set_clock(20'000'000);
-	m_maincpu->set_clock(20'000'000);
-	m_maincpu->set_mmu(m_mmu);
+void sun4_state::sun4_65(machine_config &config)
+{
+	sun4c(config);
 
-	m_type1space->set_map(&sun4_state::type1space_sbus_map).set_options(ENDIANNESS_BIG, 32, 32, 0x80000000);
+	m_mmu->set_clock(25'000'000);
+	m_maincpu->set_clock(25'000'000);
 
-	// SBus
-	SBUS(config, m_sbus, 20'000'000, "maincpu", "type1");
-	SBUS_SLOT(config, "slot1", 20'000'000, m_sbus, sbus_cards, nullptr);
-	SBUS_SLOT(config, "slot2", 20'000'000, m_sbus, sbus_cards, nullptr);
-	SBUS_SLOT(config, "slot3", 20'000'000, m_sbus, sbus_cards, nullptr);
+	m_sbus->set_clock(25'000'000);
+	m_sbus_slot[0]->set_clock(25'000'000);
+	m_sbus_slot[1]->set_clock(25'000'000);
+	m_sbus_slot[2]->set_clock(25'000'000);
 }
 
 void sun4_state::sun4_75(machine_config &config)
 {
 	sun4c(config);
 
+	m_mmu->set_ctx_mask(0xf);
+	m_mmu->set_pmeg_mask(0xff);
+
 	m_mmu->set_clock(40'000'000);
 	m_maincpu->set_clock(40'000'000);
-	m_maincpu->set_mmu(m_mmu);
-
-	m_type1space->set_map(&sun4_state::type1space_sbus_map).set_options(ENDIANNESS_BIG, 32, 32, 0x80000000);
-
-	// SBus
-	SBUS(config, m_sbus, 20'000'000, "maincpu", "type1");
-	SBUS_SLOT(config, "slot1", 20'000'000, m_sbus, sbus_cards, nullptr);
-	SBUS_SLOT(config, "slot2", 20'000'000, m_sbus, sbus_cards, nullptr);
-	SBUS_SLOT(config, "slot3", 20'000'000, m_sbus, sbus_cards, nullptr);
 }
 
 /*
@@ -2243,11 +2330,6 @@ void sun4_state::init_sun4c()
 	m_arch = ARCH_SUN4C;
 }
 
-void sun4_state::init_ss2()
-{
-	m_arch = ARCH_SUN4C;
-}
-
 /* Drivers */
 
 //    YEAR  NAME      PARENT    COMPAT  MACHINE  INPUT  CLASS       INIT        COMPANY             FULLNAME                       FLAGS
@@ -2257,12 +2339,12 @@ COMP( 1987, sun4_300, 0,        0,      sun4,    sun4,  sun4_state, init_sun4,  
 COMP( 198?, sun4_400, 0,        0,      sun4,    sun4,  sun4_state, init_sun4,  "Sun Microsystems", "Sun 4/4x0",                   MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
 
 // sun4c
-COMP( 1990, sun4_40,  sun4_300, 0,      sun4_40, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation IPC (Sun 4/40)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
-COMP( 1991, sun4_50,  sun4_300, 0,      sun4c,   sun4,  sun4_state, init_ss2,   "Sun Microsystems", "SPARCstation IPX (Sun 4/50)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
-COMP( 199?, sun4_20,  sun4_300, 0,      sun4c,   sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation SLC (Sun 4/20)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
-COMP( 1989, sun4_60,  sun4_300, 0,      sun4_60, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation 1 (Sun 4/60)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
-COMP( 1990, sun4_65,  sun4_300, 0,      sun4c,   sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation 1+ (Sun 4/65)",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
-COMP( 1990, sun4_75,  sun4_300, 0,      sun4_75, sun4,  sun4_state, init_ss2,   "Sun Microsystems", "SPARCstation 2 (Sun 4/75)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+COMP( 1990, sun4_40,  sun4_300, 0,      sun4_40, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation IPC (Sun 4/40)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+COMP( 1991, sun4_50,  sun4_300, 0,      sun4_50, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation IPX (Sun 4/50)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+COMP( 199?, sun4_20,  sun4_300, 0,      sun4_20, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation SLC (Sun 4/20)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+COMP( 1989, sun4_60,  sun4_300, 0,      sun4_60, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation 1 (Sun 4/60)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+COMP( 1990, sun4_65,  sun4_300, 0,      sun4_65, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation 1+ (Sun 4/65)",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+COMP( 1990, sun4_75,  sun4_300, 0,      sun4_75, sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation 2 (Sun 4/75)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
 
 // sun4m (using the SPARC "reference MMU", probably will go to a separate driver)
 COMP( 1992, sun_s10,  sun4_300, 0,      sun4c,   sun4,  sun4_state, init_sun4c, "Sun Microsystems", "SPARCstation 10 (Sun S10)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
