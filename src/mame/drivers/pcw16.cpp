@@ -91,8 +91,8 @@ TODO:
 
 #include "emu.h"
 #include "includes/pcw16.h"
+#include "bus/rs232/hlemouse.h"
 #include "bus/rs232/rs232.h"
-#include "bus/rs232/ser_mouse.h"
 #include "screen.h"
 #include "softlist.h"
 #include "speaker.h"
@@ -1007,7 +1007,7 @@ INPUT_PORTS_END
 
 static void pcw16_com(device_slot_interface &device)
 {
-	device.option_add("msystems_mouse", MSYSTEM_SERIAL_MOUSE);
+	device.option_add("msystems_mouse", MSYSTEMS_HLE_SERIAL_MOUSE);
 }
 
 MACHINE_CONFIG_START(pcw16_state::pcw16)
@@ -1060,11 +1060,11 @@ MACHINE_CONFIG_START(pcw16_state::pcw16)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.00)
 
 	/* printer */
-	MCFG_DEVICE_ADD("lpt", PC_LPT, 0)
-	MCFG_PC_LPT_IRQ_HANDLER(INPUTLINE("maincpu", 0))
+	pc_lpt_device &lpt(PC_LPT(config, "lpt"));
+	lpt.irq_handler().set_inputline(m_maincpu, 0);
 
-	MCFG_PC_FDC_SUPERIO_ADD("fdc")
-	MCFG_UPD765_INTRQ_CALLBACK(WRITELINE(*this, pcw16_state, fdc_interrupt))
+	PC_FDC_SUPERIO(config, m_fdc);
+	m_fdc->intrq_wr_callback().set(FUNC(pcw16_state::fdc_interrupt));
 	MCFG_FLOPPY_DRIVE_ADD("fdc:0", pcw16_floppies, "35hd", pcw16_state::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD("fdc:1", pcw16_floppies, "35hd", pcw16_state::floppy_formats)
 

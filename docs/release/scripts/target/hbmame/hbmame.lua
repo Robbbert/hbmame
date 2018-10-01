@@ -19,6 +19,7 @@ CPUS["ARM7"] = true
 CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
 CPUS["ES5510"] = true
+CPUS["G65816"] = true -- snesb
 CPUS["H8"] = true -- seta2
 CPUS["H6280"] = true
 CPUS["HD6309"] = true
@@ -41,6 +42,8 @@ CPUS["NEC"] = true
 CPUS["PSX"] = true
 CPUS["S2650"] = true
 CPUS["SH"] = true
+CPUS["SM510"] = true
+CPUS["SPC700"] = true -- snesb
 CPUS["SSP1601"] = true
 CPUS["TLCS90"] = true
 CPUS["TMS32010"] = true
@@ -72,6 +75,7 @@ SOUNDS["DISCRETE"] = true
 SOUNDS["ES5505"] = true
 SOUNDS["ESQPUMP"] = true
 SOUNDS["HC55516"] = true
+SOUNDS["I5000_SND"] = true
 SOUNDS["ICS2115"] = true
 SOUNDS["IREMGA20"] = true -- m92
 SOUNDS["K005289"] = true
@@ -136,6 +140,7 @@ VIDEOS["HD63484"] = true
 VIDEOS["MC6845"] = true
 VIDEOS["SEGA315_5124"] = true
 VIDEOS["SEGA315_5313"] = true
+VIDEOS["SNES_PPU"] = true -- snesb
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
 VIDEOS["PSX"] = true
@@ -244,6 +249,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"jaleco",
 		"kaneko",
 		"konami",
+		"metro",
 		"midway",
 		"namco",
 		"neogeo",
@@ -259,6 +265,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"snk",
 		"sony",
 		"taito",
+		"technos",
 		"tehkan",
 		"toaplan",
 		"unico",
@@ -414,6 +421,9 @@ files {
 	MAME_DIR .. "src/mame/video/deco_ace.cpp", -- deco32
 	MAME_DIR .. "src/mame/machine/deco156.cpp", -- deco32
 	MAME_DIR .. "src/mame/video/deco_zoomspr.cpp", -- deco32
+	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
+	MAME_DIR .. "src/mame/video/rohga.cpp",
+	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
@@ -536,6 +546,11 @@ files {
 	MAME_DIR .. "src/mame/video/k054156_k054157_k056832.cpp",
 	MAME_DIR .. "src/mame/video/k053936.cpp",
 	MAME_DIR .. "src/mame/video/k055555.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "metro")
+files {
+	MAME_DIR .. "src/hbmame/drivers/rabbit.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "midway")
@@ -677,6 +692,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/playch10.cpp",
 	MAME_DIR .. "src/mame/machine/playch10.cpp",
 	MAME_DIR .. "src/mame/video/playch10.cpp",
+	MAME_DIR .. "src/mame/machine/snes.cpp",
+	MAME_DIR .. "src/mame/audio/snes_snd.cpp",
+	MAME_DIR .. "src/hbmame/drivers/snesb.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vsnes.cpp",
 	MAME_DIR .. "src/mame/machine/vsnes.cpp",
 	MAME_DIR .. "src/devices/video/ppu2c0x.cpp",
@@ -864,6 +882,12 @@ files {
 	MAME_DIR .. "src/mame/audio/taito_zm.cpp", -- zn
 }
 
+createHBMAMEProjects(_target, _subtarget, "technos")
+files {
+	MAME_DIR .. "src/hbmame/drivers/shadfrce.cpp",
+	MAME_DIR .. "src/mame/video/shadfrce.cpp",
+}
+
 createHBMAMEProjects(_target, _subtarget, "tehkan")
 files {
 	MAME_DIR .. "src/hbmame/drivers/solomon.cpp",
@@ -949,6 +973,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timelimit.cpp",
 	MAME_DIR .. "src/mame/video/timelimt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
 }
 
 end

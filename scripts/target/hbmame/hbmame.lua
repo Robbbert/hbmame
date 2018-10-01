@@ -75,6 +75,7 @@ SOUNDS["DISCRETE"] = true
 SOUNDS["ES5505"] = true
 SOUNDS["ESQPUMP"] = true
 SOUNDS["HC55516"] = true
+SOUNDS["I5000_SND"] = true
 SOUNDS["ICS2115"] = true
 SOUNDS["IREMGA20"] = true -- m92
 SOUNDS["K005289"] = true
@@ -248,6 +249,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"jaleco",
 		"kaneko",
 		"konami",
+		"metro",
 		"midway",
 		"namco",
 		"neogeo",
@@ -544,6 +546,11 @@ files {
 	MAME_DIR .. "src/mame/video/k054156_k054157_k056832.cpp",
 	MAME_DIR .. "src/mame/video/k053936.cpp",
 	MAME_DIR .. "src/mame/video/k055555.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "metro")
+files {
+	MAME_DIR .. "src/hbmame/drivers/rabbit.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "midway")

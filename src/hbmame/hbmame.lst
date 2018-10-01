@@ -1377,6 +1377,8 @@ ddsomavs
 ddsomchs
 ddsomhp
 ddsomjfs
+ddsoma4pp			// not working
+ddtodp				// not working
 halfway		// progear hack by The Halfway House
 mshjphp
 mshvsemb
@@ -9273,6 +9275,12 @@ gunbird2s01
 s1945iiis01
 soldivid		//parent
 soldivids01
+
+@source:rabbit.cpp
+rabbit						//parent
+rabbits01
+rabbits02
+rabbits03
 
 @source:raiden2.cpp
 zeroteam					//parent

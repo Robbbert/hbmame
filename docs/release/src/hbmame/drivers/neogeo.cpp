@@ -1367,8 +1367,7 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_arcade )
 	neogeo_base(config);
-	MCFG_WATCHDOG_ADD("watchdog")
-	MCFG_WATCHDOG_TIME_INIT(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK))
+	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK));
 	MCFG_UPD4990A_ADD("upd4990a", 32'768, NOOP, NOOP)
 	NVRAM(config, "saveram", nvram_device::DEFAULT_ALL_0);
 	MCFG_NEOGEO_MEMCARD_ADD("memcard")
@@ -1474,8 +1473,7 @@ MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::no_watchdog )
 	neogeo_noslot(config);
-	MCFG_WATCHDOG_MODIFY("watchdog")
-	MCFG_WATCHDOG_TIME_INIT(attotime::from_seconds(0.0))
+	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
 MACHINE_CONFIG_END
 
 // used by samsho2sp, doubledrsp
@@ -2211,8 +2209,6 @@ ROM_START( neogeo )
 
 	ROM_REGION( 0x20000, "fixedbios", 0 )
 	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
-
-	ROM_REGION( 0x10000, "ymsnd", ROMREGION_ERASEFF )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
 ROM_END

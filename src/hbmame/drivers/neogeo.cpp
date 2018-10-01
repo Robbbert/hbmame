@@ -1368,7 +1368,7 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START( neogeo_state::neogeo_arcade )
 	neogeo_base(config);
 	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK));
-	MCFG_UPD4990A_ADD("upd4990a", 32'768, NOOP, NOOP)
+	UPD4990A(config, m_upd4990a);
 	NVRAM(config, "saveram", nvram_device::DEFAULT_ALL_0);
 	MCFG_NEOGEO_MEMCARD_ADD("memcard")
 MACHINE_CONFIG_END
@@ -2209,8 +2209,6 @@ ROM_START( neogeo )
 
 	ROM_REGION( 0x20000, "fixedbios", 0 )
 	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
-
-	ROM_REGION( 0x10000, "ymsnd", ROMREGION_ERASEFF )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
 ROM_END

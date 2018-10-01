@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Robbbert
+// copyright-holders:Phil Stroffolino,Robbbert
 /*
 Monaco GP Simulator v0.1
 http://www.jps.net/camilty/monman.htm

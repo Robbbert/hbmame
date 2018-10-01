@@ -18,6 +18,8 @@ LAYOUTS += \
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
+	$(SRC)/mame/layout/gnw_dualh.lay \
+	$(SRC)/mame/layout/gnw_dualv.lay \
 	$(SRC)/mame/layout/inttoote.lay \
 	$(SRC)/mame/layout/jockeyc.lay \
 	$(SRC)/mame/layout/setaroul.lay \

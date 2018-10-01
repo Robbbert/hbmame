@@ -321,7 +321,7 @@ void tandy2k_state::tandy2k_io(address_map &map)
 	map(0x00000, 0x00000).mirror(0x8).rw(FUNC(tandy2k_state::enable_r), FUNC(tandy2k_state::enable_w));
 	map(0x00002, 0x00002).mirror(0x8).w(FUNC(tandy2k_state::dma_mux_w));
 	map(0x00004, 0x00004).mirror(0x8).rw(FUNC(tandy2k_state::fldtc_r), FUNC(tandy2k_state::fldtc_w));
-	map(0x00010, 0x00013).mirror(0xc).rw(m_uart, FUNC(i8251_device::data_r), FUNC(i8251_device::data_w)).umask16(0x00ff);
+	map(0x00010, 0x00013).mirror(0xc).rw(m_uart, FUNC(i8251_device::read), FUNC(i8251_device::write)).umask16(0x00ff);
 	map(0x00030, 0x00033).mirror(0xc).m(m_fdc, FUNC(i8272a_device::map)).umask16(0x00ff);
 	map(0x00040, 0x00047).mirror(0x8).rw(m_pit, FUNC(pit8253_device::read), FUNC(pit8253_device::write)).umask16(0x00ff);
 	map(0x00050, 0x00057).mirror(0x8).rw(m_i8255a, FUNC(i8255_device::read), FUNC(i8255_device::write)).umask16(0x00ff);
@@ -851,11 +851,11 @@ MACHINE_CONFIG_START(tandy2k_state::tandy2k)
 	MCFG_DEVICE_ADD(I8259A_1_TAG, PIC8259, 0)
 	MCFG_PIC8259_OUT_INT_CB(WRITELINE(I80186_TAG, i80186_cpu_device, int1_w))
 
-	MCFG_I8272A_ADD(I8272A_TAG, true)
-	downcast<i8272a_device *>(device)->set_select_lines_connected(true);
-	MCFG_UPD765_INTRQ_CALLBACK(WRITELINE(I8259A_0_TAG, pic8259_device, ir4_w))
-	MCFG_UPD765_DRQ_CALLBACK(WRITELINE(*this, tandy2k_state, fdc_drq_w))
-	MCFG_UPD765_HDL_CALLBACK(WRITELINE(*this, tandy2k_state, fdc_hdl_w))
+	I8272A(config, m_fdc, true);
+	m_fdc->set_select_lines_connected(true);
+	m_fdc->intrq_wr_callback().set(m_pic0, FUNC(pic8259_device::ir4_w));
+	m_fdc->drq_wr_callback().set(FUNC(tandy2k_state::fdc_drq_w));
+	m_fdc->hdl_wr_callback().set(FUNC(tandy2k_state::fdc_hdl_w));
 	MCFG_FLOPPY_DRIVE_ADD(I8272A_TAG ":0", tandy2k_floppies, "525qd", tandy2k_state::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(I8272A_TAG ":1", tandy2k_floppies, "525qd", tandy2k_state::floppy_formats)
 
