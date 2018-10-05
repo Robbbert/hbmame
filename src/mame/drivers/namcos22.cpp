@@ -1166,9 +1166,7 @@
 #include "speaker.h"
 
 
-#define SS22_MASTER_CLOCK   (XTAL(49'152'000))    /* info from Guru */
-
-#define PIXEL_CLOCK         (SS22_MASTER_CLOCK/2)
+#define PIXEL_CLOCK         (49.152_MHz_XTAL/2)
 
 // VSync - 59.9042 Hz
 // HSync - 15.7248 kHz (may be inaccurate)
@@ -2170,129 +2168,127 @@ READ16_MEMBER(namcos22_state::pdp_status_r)
 	return m_dsp_master_bioz;
 }
 
-uint32_t namcos22_state::pdp_polygonram_read(offs_t offs)
-{
-	return m_polygonram[offs & 0x7fff];
-}
-
-void namcos22_state::pdp_polygonram_write(offs_t offs, uint32_t data)
-{
-	m_polygonram[offs & 0x7fff] = data;
-}
-
 READ16_MEMBER(namcos22_state::pdp_begin_r)
 {
-	/* this feature appears to be only used on Super System22 hardware */
-	if (m_is_ss22)
+	/**
+	* This presumably kickstarts the PDP(polygon display parser/processor?)
+	* It parses through the displaylist and sends commands to the 3D render device.
+	* In MAME, this main task is done in simulate_slavedsp instead. Ideally, we'd make the PDP a device with execute_run
+	* Super System 22 supports more than just "goto" and render commands, they are handled here.
+	*/
+	m_dsp_master_bioz = 1;
+	uint16_t offs = (m_is_ss22) ? pdp_polygonram_read(0x7fff) : m_pdp_base;
+
+	if (!m_is_ss22)
+		return 0;
+
+	for (;;)
 	{
-		uint16_t offs = pdp_polygonram_read(0x7fff);
-		m_dsp_master_bioz = 1;
-		for (;;)
+		offs &= 0x7fff;
+		uint16_t start = offs;
+		uint16_t cmd = pdp_polygonram_read(offs++);
+		uint32_t srcAddr;
+		uint32_t dstAddr;
+		uint32_t numWords;
+		uint32_t data;
+		switch (cmd)
 		{
-			uint16_t start = offs;
-			uint16_t cmd = pdp_polygonram_read(offs++);
-			uint32_t srcAddr;
-			uint32_t dstAddr;
-			uint32_t numWords;
-			uint32_t data;
-			switch (cmd)
-			{
-				case 0xfff0:
-					/* NOP? used in 'PDP LOOP TEST' */
-					break;
+			case 0xfff0:
+				// NOP? used in 'PDP LOOP TEST'
+				break;
 
-				case 0xfff5:
-					/* write to point ram */
-					dstAddr = pdp_polygonram_read(offs++); /* 32 bit PointRAM address */
-					data    = pdp_polygonram_read(offs++); /* 24 bit data */
-					point_write(dstAddr, data);
-					break;
+			case 0xfff5:
+				// write to point ram
+				dstAddr = pdp_polygonram_read(offs++); // 32 bit PointRAM address
+				data    = pdp_polygonram_read(offs++); // 24 bit data
+				point_write(dstAddr, data);
+				break;
 
-				case 0xfff6:
-					/* read word from point ram */
-					srcAddr = pdp_polygonram_read(offs++); /* 32 bit PointRAM address */
-					dstAddr = pdp_polygonram_read(offs++); /* CommRAM address; receives 24 bit PointRAM data */
-					data    = point_read(srcAddr);
-					pdp_polygonram_write(dstAddr, data);
-					break;
+			case 0xfff6:
+				/* read word from point ram */
+				srcAddr = pdp_polygonram_read(offs++); // 32 bit PointRAM address
+				dstAddr = pdp_polygonram_read(offs++); // CommRAM address; receives 24 bit PointRAM data
+				data    = point_read(srcAddr);
+				pdp_polygonram_write(dstAddr, data);
+				break;
 
-				case 0xfff7:
-					/* block move (CommRAM to CommRAM) */
-					srcAddr  = pdp_polygonram_read(offs++);
-					dstAddr  = pdp_polygonram_read(offs++);
-					numWords = pdp_polygonram_read(offs++);
-					while (numWords--)
-					{
-						data = pdp_polygonram_read(srcAddr++);
-						pdp_polygonram_write(dstAddr++, data);
-					}
-					break;
+			case 0xfff7:
+				// block move (CommRAM to CommRAM)
+				srcAddr  = pdp_polygonram_read(offs++);
+				dstAddr  = pdp_polygonram_read(offs++);
+				numWords = pdp_polygonram_read(offs++);
+				while (numWords--)
+				{
+					data = pdp_polygonram_read(srcAddr++);
+					pdp_polygonram_write(dstAddr++, data);
+				}
+				break;
 
-				case 0xfffa:
-					/* read block from point ram */
-					srcAddr  = pdp_polygonram_read(offs++); /* 32 bit PointRAM address */
-					dstAddr  = pdp_polygonram_read(offs++); /* CommRAM address; receives data */
-					numWords = pdp_polygonram_read(offs++); /* block size */
-					while (numWords--)
-					{
-						data = point_read(srcAddr++);
-						pdp_polygonram_write(dstAddr++, data);
-					}
-					break;
+			case 0xfffa:
+				// read block from point ram
+				srcAddr  = pdp_polygonram_read(offs++); // 32 bit PointRAM address
+				dstAddr  = pdp_polygonram_read(offs++); // CommRAM address; receives data
+				numWords = pdp_polygonram_read(offs++); // block size
+				while (numWords--)
+				{
+					data = point_read(srcAddr++);
+					pdp_polygonram_write(dstAddr++, data);
+				}
+				break;
 
-				case 0xfffb:
-					/* write block to point ram */
-					dstAddr  = pdp_polygonram_read(offs++); /* 32 bit PointRAM address */
-					numWords = pdp_polygonram_read(offs++); /* block size */
-					while (numWords--)
-					{
-						data = pdp_polygonram_read(offs++); /* 24 bit source data */
-						point_write(dstAddr++, data);
-					}
-					break;
+			case 0xfffb:
+				// write block to point ram
+				dstAddr  = pdp_polygonram_read(offs++); // 32 bit PointRAM address
+				numWords = pdp_polygonram_read(offs++); // block size
+				while (numWords--)
+				{
+					data = pdp_polygonram_read(offs++); // 24 bit source data
+					point_write(dstAddr++, data);
+				}
+				break;
 
-				case 0xfffc:
-					/* point ram to point ram */
-					srcAddr  = pdp_polygonram_read(offs++);
-					dstAddr  = pdp_polygonram_read(offs++);
-					numWords = pdp_polygonram_read(offs++);
-					while (numWords--)
-					{
-						data = point_read(srcAddr++);
-						point_write(dstAddr++, data);
-					}
-					break;
+			case 0xfffc:
+				// point ram to point ram
+				srcAddr  = pdp_polygonram_read(offs++);
+				dstAddr  = pdp_polygonram_read(offs++);
+				numWords = pdp_polygonram_read(offs++);
+				while (numWords--)
+				{
+					data = point_read(srcAddr++);
+					point_write(dstAddr++, data);
+				}
+				break;
 
-				case 0xfffd:
-					/* direct command to render device */
-					// len -> command (eg. BB0003) -> data
-					numWords = pdp_polygonram_read(offs++);
-					while (numWords--)
-					{
-						data = pdp_polygonram_read(offs++);
-						//namcos22_WriteDataToRenderDevice(data);
-					}
-					break;
+			case 0xfffd:
+				// direct command to render device
+				// len -> command (eg. BB0003) -> data
+				numWords = pdp_polygonram_read(offs++);
+				while (numWords--)
+				{
+					data = pdp_polygonram_read(offs++);
+					//namcos22_WriteDataToRenderDevice(data);
+				}
+				break;
 
-				case 0xfffe:
-					/* unknown */
-					data = pdp_polygonram_read(offs++); /* ??? (usually 0x400 or 0) */
-					break;
+			case 0xfffe:
+				// unknown
+				data = pdp_polygonram_read(offs++); // ??? (usually 0x400 or 0)
+				break;
 
-				case 0xffff:
-					/* "goto" command */
-					offs = pdp_polygonram_read(offs);
-					if (offs == start)
-					{
-						/* most commands end with a "goto self" */
-						return 0;
-					}
-					break;
-
-				default:
-					logerror("unknown PDP cmd = 0x%04x!\n", cmd);
+			case 0xffff:
+				// "goto" command
+				offs = pdp_polygonram_read(offs) & 0x7fff;
+				if (offs == start)
+				{
+					// MAME will get stuck with a "goto self", so bail out
+					// in reality, the cpu can overwrite this address or retrigger pdp_begin
 					return 0;
-			}
+				}
+				break;
+
+			default:
+				logerror("unknown PDP cmd = 0x%04x!\n", cmd);
+				return 0;
 		}
 	}
 
@@ -2334,6 +2330,7 @@ WRITE16_MEMBER(namcos22_state::dsp_unk2_w)
 	* Prop Cycle doesn't use this; instead it writes this
 	* addr to the uppermost word of CommRAM.
 	*/
+	m_pdp_base = data;
 }
 
 READ16_MEMBER(namcos22_state::dsp_unk_port3_r)
@@ -2550,7 +2547,7 @@ void namcos22_state::master_dsp_io(address_map &map)
 }
 
 
-READ16_MEMBER(namcos22_state::dsp_bioz_r)
+READ16_MEMBER(namcos22_state::dsp_slave_bioz_r)
 {
 	/* STUB */
 	return 1;
@@ -3368,13 +3365,13 @@ static INPUT_PORTS_START( airco22 )
 	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
 	PORT_START("ADC.0")
-	PORT_BIT( 0xff, 0x80, IPT_AD_STICK_X ) PORT_MINMAX(0x40, 0xc0) PORT_SENSITIVITY(100) PORT_KEYDELTA(2)
+	PORT_BIT( 0xff, 0x80, IPT_AD_STICK_X ) PORT_MINMAX(0x40, 0xc0) PORT_SENSITIVITY(100) PORT_KEYDELTA(3)
 
 	PORT_START("ADC.1")
-	PORT_BIT( 0xff, 0x80, IPT_AD_STICK_Y ) PORT_MINMAX(0x40, 0xc0) PORT_SENSITIVITY(100) PORT_KEYDELTA(2)
+	PORT_BIT( 0xff, 0x80, IPT_AD_STICK_Y ) PORT_MINMAX(0x40, 0xc0) PORT_SENSITIVITY(100) PORT_KEYDELTA(3)
 
 	PORT_START("ADC.2") // throttle stick auto-centers
-	PORT_BIT( 0xff, 0x80, IPT_AD_STICK_Z ) PORT_MINMAX(0x40, 0xc0) PORT_SENSITIVITY(100) PORT_KEYDELTA(2) PORT_NAME("Throttle Stick")
+	PORT_BIT( 0xff, 0x80, IPT_AD_STICK_Z ) PORT_MINMAX(0x40, 0xc0) PORT_SENSITIVITY(100) PORT_KEYDELTA(3) PORT_NAME("Throttle Stick")
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( cybrcycc )
@@ -3713,6 +3710,7 @@ void namcos22_state::machine_reset()
 	master_enable(false);
 	slave_enable(false);
 	m_dsp_irq_enabled = false;
+	if (!m_is_ss22) m_iomcu->set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
 	m_mcu->set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
 
 	m_poly->reset();
@@ -3730,11 +3728,11 @@ void namcos22_state::machine_start()
 MACHINE_CONFIG_START(namcos22_state::namcos22)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68020,SS22_MASTER_CLOCK/2) /* 25 MHz? */
+	MCFG_DEVICE_ADD("maincpu", M68020, 49.152_MHz_XTAL/2) // MC68020RP25E
 	MCFG_DEVICE_PROGRAM_MAP(namcos22_am)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", namcos22_state, namcos22_interrupt)
 
-	tms32025_device& master(TMS32025(config, m_master, SS22_MASTER_CLOCK)); /* ? */
+	tms32025_device& master(TMS32025(config, m_master, 40_MHz_XTAL));
 	master.set_addrmap(AS_PROGRAM, &namcos22_state::master_dsp_program);
 	master.set_addrmap(AS_DATA, &namcos22_state::master_dsp_data);
 	master.set_addrmap(AS_IO, &namcos22_state::master_dsp_io);
@@ -3746,17 +3744,17 @@ MACHINE_CONFIG_START(namcos22_state::namcos22)
 	master.set_vblank_int("screen", FUNC(namcos22_state::dsp_vblank_irq));
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("dsp_serial", namcos22_state, dsp_serial_pulse, attotime::from_hz(SERIAL_IO_PERIOD))
 
-	tms32025_device& slave(TMS32025(config, m_slave, SS22_MASTER_CLOCK)); /* ? */
+	tms32025_device& slave(TMS32025(config, m_slave, 40_MHz_XTAL));
 	slave.set_addrmap(AS_PROGRAM, &namcos22_state::slave_dsp_program);
 	slave.set_addrmap(AS_DATA, &namcos22_state::slave_dsp_data);
 	slave.set_addrmap(AS_IO, &namcos22_state::slave_dsp_io);
-	slave.bio_in_cb().set(FUNC(namcos22_state::dsp_bioz_r));
+	slave.bio_in_cb().set(FUNC(namcos22_state::dsp_slave_bioz_r));
 	slave.hold_in_cb().set(FUNC(namcos22_state::dsp_hold_signal_r));
 	slave.hold_ack_out_cb().set(FUNC(namcos22_state::dsp_hold_ack_w));
 	slave.xf_out_cb().set(FUNC(namcos22_state::dsp_xf_output_w));
 	slave.dx_out_cb().set(FUNC(namcos22_state::slave_serial_io_w));
 
-	MCFG_DEVICE_ADD("mcu", NAMCO_C74, SS22_MASTER_CLOCK/3) // C74 on the CPU board has no periodic interrupts, it runs entirely off Timer A0
+	MCFG_DEVICE_ADD("mcu", NAMCO_C74, 49.152_MHz_XTAL/3) // C74 on the CPU board has no periodic interrupts, it runs entirely off Timer A0
 	MCFG_DEVICE_PROGRAM_MAP( mcu_s22_program)
 	MCFG_DEVICE_IO_MAP( mcu_s22_io)
 
@@ -3779,7 +3777,7 @@ MACHINE_CONFIG_START(namcos22_state::namcos22)
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	MCFG_DEVICE_ADD("c352", C352, SS22_MASTER_CLOCK/2, 288)
+	MCFG_DEVICE_ADD("c352", C352, 49.152_MHz_XTAL/2, 288)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.00)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.00)
 MACHINE_CONFIG_END
@@ -3787,8 +3785,8 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(namcos22_state::cybrcomm)
 	namcos22(config);
 
-	SPEAKER(config, "rear_left", -0.2, 0.0, -0.5);
-	SPEAKER(config, "rear_right", 0.2, 0.0, -0.5);
+	SPEAKER(config, "rear_left").rear_left();
+	SPEAKER(config, "rear_right").rear_right();
 
 	MCFG_DEVICE_MODIFY("c352")
 	MCFG_SOUND_ROUTE(2, "rear_left", 1.00)
@@ -3799,11 +3797,11 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(namcos22_state::namcos22s)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68EC020,SS22_MASTER_CLOCK/2)
+	MCFG_DEVICE_ADD("maincpu", M68EC020, 49.152_MHz_XTAL/2) // MC68EC020FG25
 	MCFG_DEVICE_PROGRAM_MAP(namcos22s_am)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", namcos22_state, namcos22s_interrupt)
 
-	tms32025_device& master(TMS32025(config, m_master, SS22_MASTER_CLOCK));
+	tms32025_device& master(TMS32025(config, m_master, 40_MHz_XTAL));
 	master.set_addrmap(AS_PROGRAM, &namcos22_state::master_dsp_program);
 	master.set_addrmap(AS_DATA, &namcos22_state::master_dsp_data);
 	master.set_addrmap(AS_IO, &namcos22_state::master_dsp_io);
@@ -3815,17 +3813,17 @@ MACHINE_CONFIG_START(namcos22_state::namcos22s)
 	master.set_vblank_int("screen", FUNC(namcos22_state::dsp_vblank_irq));
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("dsp_serial", namcos22_state, dsp_serial_pulse, attotime::from_hz(SERIAL_IO_PERIOD))
 
-	tms32025_device& slave(TMS32025(config, m_slave, SS22_MASTER_CLOCK));
+	tms32025_device& slave(TMS32025(config, m_slave, 40_MHz_XTAL));
 	slave.set_addrmap(AS_PROGRAM, &namcos22_state::slave_dsp_program);
 	slave.set_addrmap(AS_DATA, &namcos22_state::slave_dsp_data);
 	slave.set_addrmap(AS_IO, &namcos22_state::slave_dsp_io);
-	slave.bio_in_cb().set(FUNC(namcos22_state::dsp_bioz_r));
+	slave.bio_in_cb().set(FUNC(namcos22_state::dsp_slave_bioz_r));
 	slave.hold_in_cb().set(FUNC(namcos22_state::dsp_hold_signal_r));
 	slave.hold_ack_out_cb().set(FUNC(namcos22_state::dsp_hold_ack_w));
 	slave.xf_out_cb().set(FUNC(namcos22_state::dsp_xf_output_w));
 	slave.dx_out_cb().set(FUNC(namcos22_state::slave_serial_io_w));
 
-	MCFG_DEVICE_ADD("mcu", M37710S4, SS22_MASTER_CLOCK/3)
+	MCFG_DEVICE_ADD("mcu", M37710S4, 49.152_MHz_XTAL/3)
 	MCFG_DEVICE_PROGRAM_MAP(mcu_program)
 	MCFG_DEVICE_IO_MAP(mcu_io)
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("mcu_irq", namcos22_state, mcu_irq, "screen", 0, 240)
@@ -3845,7 +3843,7 @@ MACHINE_CONFIG_START(namcos22_state::namcos22s)
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	MCFG_DEVICE_ADD("c352", C352, SS22_MASTER_CLOCK/2, 288)
+	MCFG_DEVICE_ADD("c352", C352, 49.152_MHz_XTAL/2, 288)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.00)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.00)
 MACHINE_CONFIG_END
@@ -3853,10 +3851,10 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(namcos22_state::airco22b)
 	namcos22s(config);
 
-	SPEAKER(config, "bodysonic").front_center();
+	SPEAKER(config, "bodysonic").subwoofer();
 
 	MCFG_DEVICE_MODIFY("c352")
-	MCFG_SOUND_ROUTE(2, "bodysonic", 0.50)
+	MCFG_SOUND_ROUTE(2, "bodysonic", 0.50) // to subwoofer
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(namcos22_state::alpine)
@@ -3880,7 +3878,7 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(namcos22_state::cybrcycc)
 	namcos22s(config);
 
-	SPEAKER(config, "tank").front_center();
+	SPEAKER(config, "tank", 0.0, 0.0, 0.0);
 
 	MCFG_DEVICE_MODIFY("c352")
 	MCFG_SOUND_ROUTE(2, "tank", 1.00)
@@ -3889,12 +3887,10 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(namcos22_state::dirtdash)
 	namcos22s(config);
 
-	SPEAKER(config, "road").front_center();
-	SPEAKER(config, "under").front_center();
+	SPEAKER(config, "road", 0.0, 0.0, 0.0);
 
 	MCFG_DEVICE_MODIFY("c352")
-	MCFG_SOUND_ROUTE(2, "road", 1.00)
-	MCFG_SOUND_ROUTE(3, "under", 0.50) // from sound test
+	MCFG_SOUND_ROUTE(3, "road", 1.00)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(namcos22_state::timecris)
@@ -3908,12 +3904,12 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START(namcos22_state::tokyowar)
 	namcos22s(config);
 
-	SPEAKER(config, "seat", 0.0, 0.0, 0.0);
-	SPEAKER(config, "vibration", 0.0, 0.0, 0.0);
+	SPEAKER(config, "vibration").subwoofer();
+	SPEAKER(config, "seat", 0.0, 0.0, -0.5);
 
 	MCFG_DEVICE_MODIFY("c352")
+	MCFG_SOUND_ROUTE(2, "vibration", 0.50) // to "bass shaker"
 	MCFG_SOUND_ROUTE(3, "seat", 1.00)
-	MCFG_SOUND_ROUTE(2, "vibration", 0.50)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(namcos22_state::propcycl)

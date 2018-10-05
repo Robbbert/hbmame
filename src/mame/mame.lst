@@ -13467,8 +13467,9 @@ victorycb                       // (c) Comsoft (bootleg)
 warofbug                        // (c) 1981 Armenia
 warofbugg                       // German Version
 warofbugu                       // (c) 1981 Armenia
-zerotime                        // hack
-zerotimed                       // hack
+zerotime                        // hack (Petaco S.A.)
+zerotimed                       // hack (Datamat)
+zerotimemc                      // hack (Marti Colls)
 zigzagb                         // (c) 1982 LAX (bootleg)
 zigzagb2                        // (c) 1982 LAX (bootleg)
 
@@ -15179,9 +15180,10 @@ sams64_2                        // 005 1998/10/16 Samurai Shodown: Warrior's Rag
 xrally                          // 003 1998/05/13 Xtreme Rally / Off Beat Racer!
 
 @source:holeland.cpp
-crzrally                        // (c) 1985
-crzrallya                       // (c) 1985
-crzrallyg                       // (c) 1985
+crzrally                        // (c) 1985 Tecfri
+crzrallya                       // (c) 1985 Tecfri
+crzrallyg                       // (c) 1985 Gecas
+crzrallyrf                      // (c) 1985 Recreativos Franco
 holeland                        // (c) 1984
 holeland2                       // (c) 1984
 
@@ -31855,7 +31857,8 @@ condor                          // bootleg (Sidam)
 condorn                         // bootleg (S C Novar)
 falcon                          // bootleg
 falconz                         // bootleg
-fenix                           // bootleg
+fenix                           // bootleg (Orio)
+fenixn                          // bootleg (Niemer)
 griffon                         // bootleg (Videotron)
 griffono                        // bootleg (Olympia)
 nextfase                        // bootleg
