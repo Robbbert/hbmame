@@ -176,9 +176,9 @@ NUM YEAR COMPANY                 TITLE
 442 2017 Cristiano Bei           Bad Apple demo
 443
 444 2012 M.Priewe                Santaball
-445*2014 M.Priewe                Doom in the Deep (in development)
+445*2014 M.Priewe                Doom in the Deep (in development or cancelled)
 446 2014 M.Priewe                Monitor Test Tool
-447*2016 M.Priewe                Hypernoid (in development)
+447*2016 M.Priewe                Hypernoid (in development or cancelled)
 448
 449
 450*2012 RKGAMES                 Neo-sprite demo (CD only)
@@ -199,7 +199,7 @@ NUM YEAR COMPANY                 TITLE
 465*     NGD                     NGD::FIGHT
 466*                             4-player input test
 467 2011 Furrtek                 Sprite Experimenter
-468*n/r  Neobitz                 Submarine Shooter (in development)
+468*n/r  Neobitz                 Submarine Shooter (in development or cancelled)
 469 2002 Neodev                  Neo Pong
 470 2015 freem                   ADPCM-B Playback Demo
 471*n/r  tcdev                   Donkey Kong (in development or cancelled)
@@ -214,6 +214,9 @@ NUM YEAR COMPANY                 TITLE
 480 2016 Luis Miguel Mayor       Tech Demo #2
 481 2018 Vasily Familiya         Operation I.G.L.A. demo
 482 2018 Vasily Familiya         Team Lernit
+483 2018 Vasily Familiya         Everlasting Summer: Samantha
+484 2018 Vasily Familiya         Vlad2000
+485 2018 Vasily Familiya         Raroggame
 
 
 ********************** 800 to 899 **********************************
@@ -1897,6 +1900,60 @@ ROM_START( lernit )
 	ROM_LOAD( "482.c1", 0x000000, 0x047e80, CRC(5e85884b) SHA1(7d7ba5718cddc582f7f2ec20ed8e46e5800589a6) )
 ROM_END
 
+// 483 : Everlasting Summer: Samantha by Vasily Familiya
+// No sound. After the 13th screen there's bad gfx corruptions. All the text is in Russian.
+// Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
+ROM_START( samantha )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "483.p1", 0x000000, 0x035651, CRC(709fc946) SHA1(b9190e74ab626a1cdae6c220767e87ad5ddaed53) )
+
+	NEO_SFIX_128K( "483.s1", CRC(2f6c5cff) SHA1(5c429af7b1f1204f961472ba93eee55e68c8c739) )
+
+	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD( "483.c1", 0x000000, 0x0a7000, CRC(d302cab0) SHA1(fa558640fea8c85d7416d74a604a59169447a944) )
+ROM_END
+
+// 484 : Vladivostok 2000 by Vasily Familiya
+// No sound. Some kind of test.
+// Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
+ROM_START( vlad2000 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "484.p1", 0x000000, 0x00de95, CRC(a736301f) SHA1(88f1d19a822ab315c77ba960da13245e058ea23c) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD( "484.c1", 0x000000, 0x05d400, CRC(fe480580) SHA1(c97ca106789ec0640cf76a56cb1fe0ba7dc3114c) )
+ROM_END
+
+// 485 : Ryurik: Poteryannaya by Vasily Familiya
+// No sound. Appears incomplete & not working.
+// Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
+ROM_START( raroggame )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "485.p1", 0x000000, 0x00c269, CRC(7a7bc41c) SHA1(a154477f55380060b0c7b8cda83af250825fbee9) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD( "485.c1", 0x000000, 0x051f80, CRC(423d679f) SHA1(24adcf1d041af512efc3141a33515cb6bc4fe8a7) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -1974,8 +2031,8 @@ ROM_END
 HACK( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state,fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state,fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
@@ -2041,7 +2098,9 @@ HACK( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Ryurik: Poteryannaya", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
@@ -2052,4 +2111,5 @@ HACK( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo)(Alt)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_SUPPORTS_SAVE )
