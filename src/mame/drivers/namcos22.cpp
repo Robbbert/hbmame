@@ -10,6 +10,15 @@
  * - trackmaster@gmx.net (Bjorn Sunder)
  * - team vivanonno
  *
+ * TODO: (for video related issues, see video source file)
+ * - finish slave DSP emulation
+ * - emulate System 22 I/O board C74
+ * - tokyowar tanks are not shootable, same for timecris helicopter, there's still a very small hitbox but almost impossible to hit.
+ * - alpinesa doesn't work, protection related?
+ * - C139 for linked cabinets, as well as in RR fullscale
+ * - confirm DSP and MCU clocks and their IRQ timing
+ *
+ **********************************************************************************************************
  * Input
  *      - input ports require manual calibration through built-in diagnostics (or canned EEPROM)
  *
@@ -17,12 +26,6 @@
  *      - Prop Cycle fan (outputs noted at the right MCU port)
  *      - lamps/LEDs on some cabinets
  *      - time crisis has force feedback for the guns
- *
- * Link
- *      - SCI (link) feature is not yet hooked up
- *
- * CPU Emulation issues
- *      - slave DSP is not yet used in-game
  *
  * Notes:
  *      The "dipswitch" settings are ignored in many games - this isn't a bug.  For example, Prop Cycle software
@@ -1165,23 +1168,23 @@
 #include "sound/c352.h"
 #include "speaker.h"
 
+// 51.2MHz XTAL on video board, pixel clock of 12.8MHz (doubled in MAME because of unemulated interlacing)
+// HSync - 15.7248 kHz -> htotal = 814.001
+// VSync - 59.9042 Hz  -> vtotal = 524.998 (262+263)
+#define PIXEL_CLOCK         (51.2_MHz_XTAL/4*2)
 
-#define PIXEL_CLOCK         (49.152_MHz_XTAL/2)
-
-// VSync - 59.9042 Hz
-// HSync - 15.7248 kHz (may be inaccurate)
-#define HTOTAL              (800)
+#define HTOTAL              (814)
 #define HBEND               (0)
 #define HBSTART             (640)
 
-#define VTOTAL              (512)
+#define VTOTAL              (525)
 #define VBEND               (0)
 #define VBSTART             (480)
 
 
-#define MCU_SPEEDUP         1    /* mcu idle skipping */
-#define SERIAL_IO_PERIOD    (60) /* lower DSP serial I/O period */
-// actual dsp serial freq is unknown, should be much higher than 60hz of course
+#define MCU_SPEEDUP         1     /* mcu idle skipping */
+#define SERIAL_IO_PERIOD    (100) /* lower DSP serial I/O period */
+// actual dsp serial freq is unknown, should be much higher than 100Hz of course
 // serial comms doesn't work yet anyway
 
 /*********************************************************************************************/
@@ -3758,7 +3761,7 @@ MACHINE_CONFIG_START(namcos22_state::namcos22)
 	MCFG_DEVICE_PROGRAM_MAP( mcu_s22_program)
 	MCFG_DEVICE_IO_MAP( mcu_s22_io)
 
-	MCFG_DEVICE_ADD("iomcu", NAMCO_C74, XTAL(6'144'000)) // 6.144MHz XTAL on I/O board, not sure if it has a divider
+	MCFG_DEVICE_ADD("iomcu", NAMCO_C74, 6.144_MHz_XTAL)
 	MCFG_DEVICE_PROGRAM_MAP( iomcu_s22_program)
 	MCFG_DEVICE_IO_MAP( iomcu_s22_io)
 
@@ -3905,7 +3908,7 @@ MACHINE_CONFIG_START(namcos22_state::tokyowar)
 	namcos22s(config);
 
 	SPEAKER(config, "vibration").subwoofer();
-	SPEAKER(config, "seat", 0.0, 0.0, -0.5);
+	SPEAKER(config, "seat").rear_center();
 
 	MCFG_DEVICE_MODIFY("c352")
 	MCFG_SOUND_ROUTE(2, "vibration", 0.50) // to "bass shaker"
