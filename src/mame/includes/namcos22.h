@@ -193,8 +193,8 @@ public:
 		, m_iomcu(*this, "iomcu")
 		, m_shareram(*this, "shareram")
 		, m_eeprom(*this, "eeprom")
-		, m_pSlaveExternalRAM(*this, "slaveextram")
-		, m_pMasterExternalRAM(*this, "masterextram")
+		, m_slave_extram(*this, "slaveextram")
+		, m_master_extram(*this, "masterextram")
 		, m_paletteram(*this, "paletteram")
 		, m_cgram(*this, "cgram")
 		, m_textram(*this, "textram")
@@ -299,8 +299,6 @@ private:
 	DECLARE_WRITE16_MEMBER(namcos22_dspram16_w);
 	DECLARE_READ16_MEMBER(pdp_status_r);
 	DECLARE_READ16_MEMBER(pdp_begin_r);
-	DECLARE_READ16_MEMBER(slave_external_ram_r);
-	DECLARE_WRITE16_MEMBER(slave_external_ram_w);
 	DECLARE_READ16_MEMBER(dsp_hold_signal_r);
 	DECLARE_WRITE16_MEMBER(dsp_hold_ack_w);
 	DECLARE_WRITE16_MEMBER(dsp_xf_output_w);
@@ -315,15 +313,13 @@ private:
 	DECLARE_READ16_MEMBER(dsp_unk8_r);
 	DECLARE_READ16_MEMBER(custom_ic_status_r);
 	DECLARE_READ16_MEMBER(dsp_upload_status_r);
-	DECLARE_READ16_MEMBER(master_external_ram_r);
-	DECLARE_WRITE16_MEMBER(master_external_ram_w);
 	DECLARE_WRITE16_MEMBER(slave_serial_io_w);
 	DECLARE_READ16_MEMBER(master_serial_io_r);
 	DECLARE_WRITE16_MEMBER(dsp_unk_porta_w);
 	DECLARE_WRITE16_MEMBER(dsp_led_w);
 	DECLARE_WRITE16_MEMBER(dsp_unk8_w);
 	DECLARE_WRITE16_MEMBER(master_render_device_w);
-	DECLARE_READ16_MEMBER(dsp_bioz_r);
+	DECLARE_READ16_MEMBER(dsp_slave_bioz_r);
 	DECLARE_READ16_MEMBER(dsp_slave_port3_r);
 	DECLARE_READ16_MEMBER(dsp_slave_port4_r);
 	DECLARE_READ16_MEMBER(dsp_slave_port5_r);
@@ -337,6 +333,8 @@ private:
 	DECLARE_READ8_MEMBER(namcos22_system_controller_r);
 	DECLARE_WRITE8_MEMBER(namcos22s_system_controller_w);
 	DECLARE_WRITE8_MEMBER(namcos22_system_controller_w);
+	DECLARE_READ16_MEMBER(namcos22_shared_r);
+	DECLARE_WRITE16_MEMBER(namcos22_shared_w);
 	DECLARE_READ16_MEMBER(namcos22_keycus_r);
 	DECLARE_WRITE16_MEMBER(namcos22_keycus_w);
 	DECLARE_READ16_MEMBER(namcos22_portbit_r);
@@ -347,8 +345,6 @@ private:
 	DECLARE_READ32_MEMBER(alpinesa_prot_r);
 	DECLARE_WRITE32_MEMBER(alpinesa_prot_w);
 	DECLARE_WRITE32_MEMBER(namcos22s_chipselect_w);
-	DECLARE_READ16_MEMBER(s22mcu_shared_r);
-	DECLARE_WRITE16_MEMBER(s22mcu_shared_w);
 	DECLARE_WRITE8_MEMBER(mcu_port4_w);
 	DECLARE_READ8_MEMBER(mcu_port4_r);
 	DECLARE_WRITE8_MEMBER(mcu_port5_w);
@@ -377,10 +373,10 @@ private:
 	float dspfloat_to_nativefloat(uint32_t val);
 
 	void handle_driving_io();
-	void handle_coinage(int slots, int address_is_odd);
+	void handle_coinage(uint16_t flags);
 	void handle_cybrcomm_io();
-	uint32_t pdp_polygonram_read(offs_t offs);
-	void pdp_polygonram_write(offs_t offs, uint32_t data);
+	inline uint32_t pdp_polygonram_read(offs_t offs) { return m_polygonram[offs & 0x7fff]; }
+	inline void pdp_polygonram_write(offs_t offs, uint32_t data) { m_polygonram[offs & 0x7fff] = data; }
 	void point_write(offs_t offs, uint32_t data);
 	int32_t pointram_read(offs_t offs);
 	inline int32_t point_read(offs_t offs) { offs &= 0x00ffffff; return (offs < m_pointrom_size) ? m_pointrom[offs] : pointram_read(offs); }
@@ -394,24 +390,24 @@ private:
 	void transform_normal(float *nx, float *ny, float *nz, float m[4][4]);
 	void register_normals(int32_t addr, float m[4][4]);
 
-	void blit_single_quad(bitmap_rgb32 &bitmap, uint32_t color, uint32_t addr, float m[4][4], int32_t polyshift, int flags, int packetformat);
-	void blit_quads(bitmap_rgb32 &bitmap, int32_t addr, float m[4][4], int32_t base);
-	void blit_polyobject(bitmap_rgb32 &bitmap, int code, float m[4][4]);
+	void blit_single_quad(uint32_t color, uint32_t addr, float m[4][4], int32_t polyshift, int flags, int packetformat);
+	void blit_quads(int32_t addr, float m[4][4], int32_t base);
+	void blit_polyobject(int code, float m[4][4]);
 
 	void slavesim_handle_bb0003(const int32_t *src);
-	void slavesim_handle_200002(bitmap_rgb32 &bitmap, const int32_t *src);
+	void slavesim_handle_200002(const int32_t *src);
 	void slavesim_handle_300000(const int32_t *src);
 	void slavesim_handle_233002(const int32_t *src);
-	void simulate_slavedsp(bitmap_rgb32 &bitmap);
+	void simulate_slavedsp();
 
 	void init_tables();
 	void update_mixer();
 	void update_palette();
 	void recalc_czram();
 	void draw_direct_poly(const uint16_t *src);
-	void draw_polygons(bitmap_rgb32 &bitmap);
-	void draw_sprites(bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	void draw_sprite_group(bitmap_rgb32 &bitmap, const rectangle &cliprect, const uint32_t *src, const uint32_t *attr, int num_sprites, int deltax, int deltay, int y_lowres);
+	void draw_polygons();
+	void draw_sprites();
+	void draw_sprite_group(const uint32_t *src, const uint32_t *attr, int num_sprites, int deltax, int deltay, int y_lowres);
 	void draw_text_layer(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void namcos22s_mix_text_layer(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect, int prival);
 	void namcos22_mix_text_layer(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -463,10 +459,10 @@ private:
 	required_device<cpu_device> m_slave;
 	required_device<cpu_device> m_mcu;
 	optional_device<cpu_device> m_iomcu;
-	required_shared_ptr<uint32_t> m_shareram;
+	required_shared_ptr<uint16_t> m_shareram;
 	required_device<eeprom_parallel_28xx_device> m_eeprom;
-	required_shared_ptr<uint16_t> m_pSlaveExternalRAM;
-	required_shared_ptr<uint16_t> m_pMasterExternalRAM;
+	required_shared_ptr<uint16_t> m_slave_extram;
+	required_shared_ptr<uint16_t> m_master_extram;
 	required_shared_ptr<uint32_t> m_paletteram;
 	required_shared_ptr<uint32_t> m_cgram;
 	required_shared_ptr<uint32_t> m_textram;
@@ -492,9 +488,10 @@ private:
 	emu_timer *m_ar_tb_interrupt[2];
 	uint16_t m_dsp_master_bioz;
 	std::unique_ptr<uint32_t[]> m_pointram;
-	uint32_t m_old_coin_state;
+	int m_old_coin_state;
 	uint32_t m_credits1;
 	uint32_t m_credits2;
+	uint16_t m_pdp_base;
 	uint32_t m_point_address;
 	uint32_t m_point_data;
 	uint16_t m_SerialDataSlaveToMasterNext;

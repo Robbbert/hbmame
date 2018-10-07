@@ -576,6 +576,7 @@ MACHINES["SMC91C9X"] = true
 MACHINES["SMIOC"] = true
 MACHINES["SEGA_SCU"] = true
 MACHINES["SMPC"] = true
+MACHINES["SPG2XX"] = true
 MACHINES["STVCD"] = true
 MACHINES["SUN4C_MMU"] = true
 MACHINES["TC0091LVC"] = true
@@ -2292,6 +2293,7 @@ files {
 	MAME_DIR .. "src/mame/machine/isbc_208.cpp",
 	MAME_DIR .. "src/mame/machine/isbc_208.h",
 	MAME_DIR .. "src/mame/drivers/rex6000.cpp",
+	MAME_DIR .. "src/mame/drivers/sdk51.cpp",
 	MAME_DIR .. "src/mame/drivers/sdk80.cpp",
 	MAME_DIR .. "src/mame/drivers/sdk85.cpp",
 	MAME_DIR .. "src/mame/drivers/sdk86.cpp",

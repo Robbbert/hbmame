@@ -2,6 +2,17 @@
 ====================
 
 
+2018-10-31 0.203
+----------------
+
+New Games
+---------------------------------
+- [raroggame]         Ryurik: Poteryannaya [by Vasily Familiya]
+- [samantha]          Everlasting Summer: Samantha [by Vasily Familiya]
+- [vlad2000]          Vladivostok 2000 [by Vasily Familiya]
+
+
+
 2018-09-26 0.202
 ----------------
 

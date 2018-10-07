@@ -13467,8 +13467,9 @@ victorycb                       // (c) Comsoft (bootleg)
 warofbug                        // (c) 1981 Armenia
 warofbugg                       // German Version
 warofbugu                       // (c) 1981 Armenia
-zerotime                        // hack
-zerotimed                       // hack
+zerotime                        // hack (Petaco S.A.)
+zerotimed                       // hack (Datamat)
+zerotimemc                      // hack (Marti Colls)
 zigzagb                         // (c) 1982 LAX (bootleg)
 zigzagb2                        // (c) 1982 LAX (bootleg)
 
@@ -15179,9 +15180,10 @@ sams64_2                        // 005 1998/10/16 Samurai Shodown: Warrior's Rag
 xrally                          // 003 1998/05/13 Xtreme Rally / Off Beat Racer!
 
 @source:holeland.cpp
-crzrally                        // (c) 1985
-crzrallya                       // (c) 1985
-crzrallyg                       // (c) 1985
+crzrally                        // (c) 1985 Tecfri
+crzrallya                       // (c) 1985 Tecfri
+crzrallyg                       // (c) 1985 Gecas
+crzrallyrf                      // (c) 1985 Recreativos Franco
 holeland                        // (c) 1984
 holeland2                       // (c) 1984
 
@@ -29937,6 +29939,7 @@ minasan                         // 0027 (c) 1990 Monolith Corp.
 moshougi                        // 0203 (c) 1995 ADK / SNK
 ms4plus                         // bootleg
 ms5plus                         // bootleg
+mvstemp							// development board
 mslug                           // 0201 (c) 1996 Nazca
 mslug2                          // 0241 (c) 1998 SNK
 mslug2t                         // bootleg
@@ -31855,7 +31858,8 @@ condor                          // bootleg (Sidam)
 condorn                         // bootleg (S C Novar)
 falcon                          // bootleg
 falconz                         // bootleg
-fenix                           // bootleg
+fenix                           // bootleg (Orio)
+fenixn                          // bootleg (Niemer)
 griffon                         // bootleg (Videotron)
 griffono                        // bootleg (Olympia)
 nextfase                        // bootleg
@@ -33861,6 +33865,9 @@ spacewin                        //
 @source:sderby2.cpp
 sderby2                         // (c) 1985
 
+@source:sdk51.cpp
+sdk51                           //
+
 @source:sdk80.cpp
 sdk80                           //
 
@@ -34936,6 +34943,7 @@ sg1000m2                        // Sega SG-1000 Mark II (Japan)
 chboxing                        // (c) 1984
 chwrestl                        // (c) 1985
 dokidoki                        // (c) 1985
+sderbys                         // (c) 1984
 sderby2s                        // (c) 1985
 
 @source:sh4robot.cpp

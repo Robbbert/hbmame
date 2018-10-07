@@ -44,6 +44,9 @@
 #include "video/dp8350.h"
 #include "screen.h"
 
+//#define VERBOSE 1
+#include "logmacro.h"
+
 
 //**************************************************************************
 //  GLOBAL VARIABLES
@@ -241,15 +244,9 @@ void dp835x_device::reconfigure_screen()
 	attotime refresh = clocks_to_attotime(lines_per_frame * m_dots_per_line);
 
 	if (m_half_shift)
-	{
-		rectangle visarea(0, 2 * m_dots_per_row - 1, 0, m_video_scan_lines - 1);
-		screen().configure(2 * m_dots_per_line, lines_per_frame, visarea, refresh.as_attoseconds());
-	}
+		screen().configure(2 * m_dots_per_line, lines_per_frame, screen().visible_area(), refresh.as_attoseconds());
 	else
-	{
-		rectangle visarea(0, m_dots_per_row - 1, 0, m_video_scan_lines - 1);
-		screen().configure(m_dots_per_line, lines_per_frame, visarea, refresh.as_attoseconds());
-	}
+		screen().configure(m_dots_per_line, lines_per_frame, screen().visible_area(), refresh.as_attoseconds());
 
 	logerror("Frame rate refresh: %.2f Hz (f%d); horizontal rate scan: %.4f kHz; character rate: %.4f MHz; dot rate: %.5f MHz\n",
 		ATTOSECONDS_TO_HZ(refresh.as_attoseconds()),
@@ -350,7 +347,7 @@ void dp835x_device::register_load(u8 rs, u16 addr)
 
 	case 1:
 		// A = 0, B = 1: Top-of-Page
-		logerror("Top-of-Page Register = %03X\n", addr);
+		LOG("Top-of-Page Register = %03X\n", addr);
 		m_topr = addr;
 		break;
 
@@ -358,19 +355,19 @@ void dp835x_device::register_load(u8 rs, u16 addr)
 		// A = 1, B = 0: Row Start (also Top-of-Page during vertical blanking)
 		if (m_line >= m_video_scan_lines)
 		{
-			logerror("Row Start Register = %03X (redirected to Top-of-Page)\n", addr);
+			LOG("Row Start Register = %03X (redirected to Top-of-Page)\n", addr);
 			m_topr = addr;
 		}
 		else
 		{
-			logerror("Row Start Register = %03X\n", addr);
+			LOG("Row Start Register = %03X\n", addr);
 			m_rsr = addr;
 		}
 		break;
 
 	case 3:
 		// A = 1, B = 1: Cursor
-		logerror("Cursor Register = %03X\n", addr);
+		LOG("Cursor Register = %03X\n", addr);
 		m_cr = addr;
 		break;
 	}
