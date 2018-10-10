@@ -15284,7 +15284,11 @@ hp49gp                          // HP 49G+
 hp64k                           //
 
 @source:hp700.cpp
+hp700_70                        //
 hp700_92                        //
+
+@source:hp9825.cpp
+hp9825b                         // HP 9825B
 
 @source:hp9845.cpp
 hp9835a                         //
@@ -15640,6 +15644,9 @@ dairesya                        // GX560 (c) 1986 (Japan)
 farwest                         // bootleg
 ironhors                        // GX560 (c) 1986
 ironhorsh                       // GX560 (c) 1986
+
+@source:is48x.cpp
+is482                           //
 
 @source:isbc.cpp
 isbc286                         //
@@ -21465,6 +21472,7 @@ qtono1                          // 25/12/1990 (QUIZ 3) (c) 1991 Capcom (Japan)
 sbbros                          // 01/10/1990 (c) 1990 Mitchell + Capcom (US) not listed on Capcom's site
 spang                           // 14/09/1990 (c) 1990 Mitchell (World)
 spangbl                         // bootleg
+spangbl2                        // bootleg
 spangj                          // --/--/1990 (c) 1990 Mitchell (Japan)
 
 @source:mits680b.cpp
