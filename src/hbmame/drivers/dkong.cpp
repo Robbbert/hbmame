@@ -272,13 +272,45 @@ ROM_START( dkrainbow )
 	ROM_LOAD( "rainbow_v.5e", 0x0200, 0x0100, CRC(d9f3005a) SHA1(c4f09f27f5c78d95d31e6af1b8a977b86bbab9a4) )
 ROM_END
 
+ROM_START( dkspkyrmx )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "c_5et_g.bin",  0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
+	ROM_LOAD( "c_5ct_g.bin",  0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
+	ROM_LOAD( "c_5bt_g.bin",  0x2000, 0x1000, CRC(1c97d324) SHA1(c7966261f3a1d3296927e0b6ee1c58039fc53c1f) )
+	ROM_LOAD( "c_5at_g.bin",  0x3000, 0x1000, CRC(b9005ac0) SHA1(3fe3599f6fa7c496f782053ddf7bacb453d197c4) )
+
+	ROM_REGION( 0x10000, "braze", 0 )
+	ROM_LOAD( "dkspkyrmx.bin", 0x0000, 0x8000, CRC(e68c6bfc) SHA1(e68442aadf89d2a783083d0648c95252b6a7ede1) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.sp",    0x0000, 0x0800, CRC(b70b0904) SHA1(ee06b0fd5d6a212e688ef83d04f5529b55cd1245) )
+	ROM_LOAD( "v_3pt.sp",     0x0800, 0x0800, CRC(be8c92c3) SHA1(33b2740cda696dc24f47b33b6427438b31e38125) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.sp",    0x0000, 0x0800, CRC(1d0b3b77) SHA1(4f74cf19e6f74a5686482fde766a5ad45a86af68) )
+	ROM_LOAD( "l_4n_b.sp",    0x0800, 0x0800, CRC(cd717e7c) SHA1(e813c3714abf737e6a9f8d6ec87ec0de85306dc1) )
+	ROM_LOAD( "l_4r_b.sp",    0x1000, 0x0800, CRC(d019732b) SHA1(44f695103579b1583942627434d6f5801f504cb5) )
+	ROM_LOAD( "l_4s_b.sp",    0x1800, 0x0800, CRC(04272273) SHA1(4d66296f228cfc07f12ab7cfd1b7af99bd54e574) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.sp",      0x0000, 0x0100, CRC(a837a227) SHA1(f5ebbedbc86153864b1bcfa26ab35eeb8856c7e0) )
+	ROM_LOAD( "c-2j.sp",      0x0100, 0x0100, CRC(244a89f9) SHA1(4a59233a4bad4c941aa3aad85d895e8c04d34436) )
+	ROM_LOAD( "v-5e.sp",      0x0200, 0x0100, CRC(c70b6f9b) SHA1(e9f465de5e990478e96be1501cb8c5fc16b3c86e) )
+ROM_END
 
 
-HACK( 2013, dkong2m,   dkong, dkong2b, dkong,   dkong_state,  0, ROT270, "Hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, dkongex,   dkong, dkong2b, dkongex, dkong_state,  0, ROT270, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, dkongp,    dkong, dkong2b, dkong,   dkong_state,  0, ROT270, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, dkongpac,  dkong, dkong2b, dkong,   dkong_state,  0, ROT270, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, dkrainbow, dkong, dkong2b, dkong,   dkong_state,  0, ROT270, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, dkrdemo,   dkong, dkong2b, dkrdemo, dkong_state,  0, ROT270, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, kong2600,  dkong, dkong2b, dkong,   dkong_state,  0, ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, nadkong,   dkong, dkong2b, dkong,   dkong_state,  0, ROT270, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
+
+GAME( 2013, dkong2m,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, dkongex,   dkong, dkong2b,   dkongex, dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, dkongp,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkrainbow, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkrdemo,   dkong, dkong2b,   dkrdemo, dkong_state,  empty_init,  ROT270, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, dkspkyrmx, dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "Sock Master", "Donkey Kong Spooky Remix", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kong2600,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, nadkong,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
