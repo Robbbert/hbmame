@@ -58,6 +58,36 @@ ROM_START( 1944fp )
 ROM_END
 
 
+ROM_START( avspud )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "avped.03d", 0x000000, 0x80000, CRC(66aa8aad) SHA1(eb1928393d0dd4cc1a96c00324508f83f36a7622) )
+	ROM_LOAD16_WORD_SWAP( "avped.04d", 0x080000, 0x80000, CRC(579306c2) SHA1(cabee3fdb624e681013a5a57d2a37339b96518fb) )
+	ROM_LOAD16_WORD_SWAP( "avpu.05d",  0x100000, 0x80000, CRC(3d9b92ac) SHA1(218756eec9180df78b5cd01b446d07616b387759) )
+	ROM_LOAD16_WORD_SWAP( "avpu.06",   0x180000, 0x80000, CRC(9c3ec898) SHA1(a5bd67bbb9d9f603092ab34126d94c30e0ddda49) )
+
+	ROM_REGION( 0x1000000, "gfx", 0 )
+	ROMX_LOAD( "avp.13m",   0x0000000, 0x200000, CRC(8f8b5ae4) SHA1(457ce959aa5db3a003de7dda2b3799b2f1ae279b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.15m",   0x0000002, 0x200000, CRC(b00280df) SHA1(bc1291a4a222d410bc99b6f1ed392067d9c3999e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.17m",   0x0000004, 0x200000, CRC(94403195) SHA1(efaad001527a5eba8f626aea9037ac6ef9a2c295) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.19m",   0x0000006, 0x200000, CRC(e1981245) SHA1(809ccb7f10262e227d5e9d9f710e06f0e751f550) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.14m",   0x0800000, 0x200000, CRC(ebba093e) SHA1(77aaf4197d1dae3321cf9c6d2b7967ee54cf3f30) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.16m",   0x0800002, 0x200000, CRC(fb228297) SHA1(ebd02a4ba085dc70c0603662e14d61625fa04648) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.18m",   0x0800004, 0x200000, CRC(34fb7232) SHA1(8b1f15bfa758a61e6ad519af24ca774edc70d194) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "avp.20m",   0x0800006, 0x200000, CRC(f90baa21) SHA1(20a900819a9d321316e3dfd241210725d7191ecf) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "avp.01",   0x00000, 0x08000, CRC(2d3b4220) SHA1(2b2d04d4282550fa9f6e1ad8528f20d1f2ac02eb) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "avp.11m",   0x000000, 0x200000, CRC(83499817) SHA1(e65b0ebd61ddc748842a9d4d92404b5305307623) )
+	ROM_LOAD16_WORD_SWAP( "avp.12m",   0x200000, 0x200000, CRC(f4110d49) SHA1(f27538776cc1ba8213f19f98728ed8c02508d3ac) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+
 ROM_START( ddsomavs )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ddsomavs.03g", 0x000000, 0x80000, CRC(e28c61f2) SHA1(a15ba7e4d1c6e2e2c047e12edefc6b1564464496) )
@@ -1993,6 +2023,7 @@ ROM_END
 
 HACK( 2000, 1944da,     1944,     dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, 1944fp,     1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (Fire Power Plus)(2011-12-31)(USA 000620)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, avspud,     avsp,     dead_cps2, cps2_3p3b, cps2_state, cps2, ROT0, "Razoola", "Alien vs. Predator (USA 940520 Phoenix edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Lock four person mode)(2009-06-29)(Asia 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, ddsomchs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Unknown", "Dungeons & Dragons: Shadow over Mystara (Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomhp,    ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Strengthen The Physical Model)(2009-06-15)(Euro 960619)", MACHINE_SUPPORTS_SAVE )

@@ -10,6 +10,7 @@ Added support for 3rd player for wofch hacks
 
 New Games
 ---------------------------------
+- [avspud]            Alien vs Predator (USA 940520 Phoenix edition)
 - [dkchrmx]           Donkey Kong Christmas Remix [by Sock Master]
 - [dkspkyrmx]         Donkey Kong Spooky Remix [by Sock Master]
 - [raroggame]         Ryurik: Poteryannaya [by Vasily Familiya]
