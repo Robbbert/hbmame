@@ -21,6 +21,8 @@
 #include "sound/okiadpcm.h"
 #include "screen.h"
 
+#define SPG2XX_VISUAL_AUDIO_DEBUG (0)
+
 class spg2xx_device : public device_t, public device_sound_interface
 {
 public:
@@ -42,6 +44,10 @@ public:
 	auto uart_rx() { return m_uart_rx.bind(); }
 
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	void advance_debug_pos();
+	uint32_t debug_screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+#endif
 	DECLARE_WRITE_LINE_MEMBER(vblank);
 
 protected:
@@ -75,7 +81,7 @@ protected:
 	void audio_frame_tick();
 	void audio_beat_tick();
 	void audio_rampdown_tick(const uint32_t channel);
-	void audio_envelope_tick(address_space &space, const uint32_t channel);
+	bool audio_envelope_tick(address_space &space, const uint32_t channel);
 	inline uint32_t get_rampdown_frame_count(const uint32_t channel);
 	inline uint32_t get_envclk_frame_count(const uint32_t channel);
 
@@ -239,16 +245,16 @@ protected:
 		AUDIO_CHAN_OFFSET_MASK		= 0xf0f,
 
 		AUDIO_CHANNEL_ENABLE			= 0x400,
-		AUDIO_CHANNEL_ENABLE_MASK		= 0x003f,
+		AUDIO_CHANNEL_ENABLE_MASK		= 0xffff,
 
 		AUDIO_MAIN_VOLUME				= 0x401,
 		AUDIO_MAIN_VOLUME_MASK			= 0x007f,
 
 		AUDIO_CHANNEL_FIQ_ENABLE		= 0x402,
-		AUDIO_CHANNEL_FIQ_ENABLE_MASK	= 0x003f,
+		AUDIO_CHANNEL_FIQ_ENABLE_MASK	= 0xffff,
 
 		AUDIO_CHANNEL_FIQ_STATUS		= 0x403,
-		AUDIO_CHANNEL_FIQ_STATUS_MASK	= 0x003f,
+		AUDIO_CHANNEL_FIQ_STATUS_MASK	= 0xffff,
 
 		AUDIO_BEAT_BASE_COUNT			= 0x404,
 		AUDIO_BEAT_BASE_COUNT_MASK		= 0x07ff,
@@ -258,19 +264,24 @@ protected:
 		AUDIO_BIS_MASK					= 0x4000,
 		AUDIO_BIE_MASK					= 0x8000,
 
-		AUDIO_ENVCLK					= 0x406,
+		AUDIO_ENVCLK0					= 0x406,
 
-		AUDIO_ENVCLK_HIGH				= 0x407,
-		AUDIO_ENVCLK_HIGH_MASK			= 0x00ff,
+		AUDIO_ENVCLK0_HIGH				= 0x407,
+		AUDIO_ENVCLK0_HIGH_MASK			= 0xffff,
+
+		AUDIO_ENVCLK1					= 0x408,
+
+		AUDIO_ENVCLK1_HIGH				= 0x409,
+		AUDIO_ENVCLK1_HIGH_MASK			= 0xffff,
 
 		AUDIO_ENV_RAMP_DOWN				= 0x40a,
-		AUDIO_ENV_RAMP_DOWN_MASK		= 0x003f,
+		AUDIO_ENV_RAMP_DOWN_MASK		= 0xffff,
 
 		AUDIO_CHANNEL_STOP				= 0x40b,
-		AUDIO_CHANNEL_STOP_MASK			= 0x003f,
+		AUDIO_CHANNEL_STOP_MASK			= 0xffff,
 
 		AUDIO_CHANNEL_ZERO_CROSS		= 0x40c,
-		AUDIO_CHANNEL_ZERO_CROSS_MASK	= 0x003f,
+		AUDIO_CHANNEL_ZERO_CROSS_MASK	= 0xffff,
 
 		AUDIO_CONTROL					= 0x40d,
 		AUDIO_CONTROL_MASK				= 0x9fe8,
@@ -297,7 +308,7 @@ protected:
 		AUDIO_COMPRESS_CTRL_RATIO_MASK		= 0x0007,
 
 		AUDIO_CHANNEL_STATUS			= 0x40f,
-		AUDIO_CHANNEL_STATUS_MASK		= 0x003f,
+		AUDIO_CHANNEL_STATUS_MASK		= 0xffff,
 
 		AUDIO_WAVE_IN_L					= 0x410,
 
@@ -312,19 +323,19 @@ protected:
 		AUDIO_WAVE_OUT_R				= 0x413,
 
 		AUDIO_CHANNEL_REPEAT			= 0x414,
-		AUDIO_CHANNEL_REPEAT_MASK		= 0x003f,
+		AUDIO_CHANNEL_REPEAT_MASK		= 0xffff,
 
 		AUDIO_CHANNEL_ENV_MODE			= 0x415,
-		AUDIO_CHANNEL_ENV_MODE_MASK		= 0x003f,
+		AUDIO_CHANNEL_ENV_MODE_MASK		= 0xffff,
 
 		AUDIO_CHANNEL_TONE_RELEASE		= 0x416,
-		AUDIO_CHANNEL_TONE_RELEASE_MASK	= 0x003f,
+		AUDIO_CHANNEL_TONE_RELEASE_MASK	= 0xffff,
 
 		AUDIO_CHANNEL_ENV_IRQ			= 0x417,
-		AUDIO_CHANNEL_ENV_IRQ_MASK		= 0x003f,
+		AUDIO_CHANNEL_ENV_IRQ_MASK		= 0xffff,
 
 		AUDIO_CHANNEL_PITCH_BEND		= 0x418,
-		AUDIO_CHANNEL_PITCH_BEND_MASK	= 0x003f,
+		AUDIO_CHANNEL_PITCH_BEND_MASK	= 0xffff,
 
 		AUDIO_SOFT_PHASE				= 0x419,
 
@@ -405,14 +416,15 @@ protected:
 	bool m_debug_rates;
 
 	uint16_t m_audio_regs[0x800];
-	uint8_t m_sample_shift[6];
-	uint32_t m_sample_count[6];
-	uint32_t m_sample_addr[6];
-	double m_channel_rate[6];
-	double m_channel_rate_accum[6];
-	uint32_t m_rampdown_frame[6];
-	uint32_t m_envclk_frame[6];
-	uint32_t m_envelope_addr[6];
+	uint8_t m_sample_shift[16];
+	uint32_t m_sample_count[16];
+	uint32_t m_sample_addr[16];
+	double m_channel_rate[16];
+	double m_channel_rate_accum[16];
+	uint32_t m_rampdown_frame[16];
+	uint32_t m_envclk_frame[16];
+	uint32_t m_envelope_addr[16];
+	int m_channel_debug;
 	uint16_t m_audio_curr_beat_base_count;
 
 	uint16_t m_video_regs[0x100];
@@ -438,13 +450,19 @@ protected:
 	emu_timer *m_audio_beat;
 
 	sound_stream *m_stream;
-	oki_adpcm_state m_adpcm[6];
+	oki_adpcm_state m_adpcm[16];
 
 	required_device<cpu_device> m_cpu;
 	required_device<screen_device> m_screen;
 	required_shared_ptr<uint16_t> m_scrollram;
 	required_shared_ptr<uint16_t> m_paletteram;
 	required_shared_ptr<uint16_t> m_spriteram;
+
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	std::unique_ptr<uint8_t[]> m_audio_debug_buffer;
+	uint16_t m_audio_debug_x;
+	required_device<screen_device> m_audio_screen;
+#endif
 
 	static const uint32_t s_rampdown_frame_counts[8];
 	static const uint32_t s_envclk_frame_counts[16];
@@ -453,12 +471,20 @@ protected:
 class spg24x_device : public spg2xx_device
 {
 public:
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	template <typename T, typename U, typename V>
+	spg24x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&cpu_tag, U &&screen_tag, V &&debug_screen_tag)
+#else
 	template <typename T, typename U>
 	spg24x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&cpu_tag, U &&screen_tag)
+#endif
 		: spg24x_device(mconfig, tag, owner, clock)
 	{
 		m_cpu.set_tag(std::forward<T>(cpu_tag));
 		m_screen.set_tag(std::forward<U>(screen_tag));
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+		m_audio_screen.set_tag(std::forward<V>(debug_screen_tag));
+#endif
 	}
 
 	spg24x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -467,12 +493,20 @@ public:
 class spg28x_device : public spg2xx_device
 {
 public:
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	template <typename T, typename U, typename V>
+	spg28x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&cpu_tag, U &&screen_tag, V &&debug_screen_tag)
+#else
 	template <typename T, typename U>
 	spg28x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&cpu_tag, U &&screen_tag)
+#endif
 		: spg28x_device(mconfig, tag, owner, clock)
 	{
 		m_cpu.set_tag(std::forward<T>(cpu_tag));
 		m_screen.set_tag(std::forward<U>(screen_tag));
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+		m_audio_screen.set_tag(std::forward<V>(debug_screen_tag));
+#endif
 	}
 
 	spg28x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);

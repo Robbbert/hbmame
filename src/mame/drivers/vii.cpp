@@ -50,12 +50,26 @@ also on this hardware
     Dream Life                  ?           x16         48          not dumped      no              Sunplus
 
 Detailed list of bugs:
-- When loading a cart from file manager, sometimes it will crash
-- On 'vii_vc1' & 'vii_vc2' cart, the left-right keys are transposed with the up-down keys
-- In the default bios (no cart loaded):
--- The "MOTOR" option in the diagnostic menu does nothing when selected
-- Zone 60 / Wireless 60:
--- Basketball: emulator crashes when starting the game due to jumping to invalid code.
+
+- all systems:
+  Various inaccuracies in samples/envelopes.
+- vsmile:
+  Games loop the first legal screen rather than continuing.
+- walle:
+  Voice sample on the title screen is continually retriggered by the game code.
+  Title screen lacks New Game / Continue Game menu options.
+- rad_skat:
+  Palette issues on the High Score screen.
+- vii:
+  Music does not loop.
+  When loading a cart from file manager, sometimes MAME will crash.
+  The "MOTOR" option in the diagnostic menu does nothing when selected.
+  The "SPEECH IC" option in the diagnostic menu does nothing when selected.
+  On 'vii_vc1' & 'vii_vc2' cart, the left-right keys are transposed with the up-down keys.
+    This is not a bug per se, as the games are played with the controller physically rotated 90 degrees.
+- zone60/wirels60:
+  All Games: Music does not loop.
+  Basketball: MAME fatalerrors when starting the game due to jumping to invalid code.
 
 
 *******************************************************************************/
@@ -82,6 +96,9 @@ public:
 		, device_nvram_interface(mconfig, *this)
 		, m_maincpu(*this, "maincpu")
 		, m_screen(*this, "screen")
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+		, m_debug_screen(*this, "debug_screen")
+#endif
 		, m_spg(*this, "spg")
 		, m_bank(*this, "cart")
 		, m_io_p1(*this, "P1")
@@ -121,6 +138,9 @@ protected:
 
 	required_device<cpu_device> m_maincpu;
 	required_device<screen_device> m_screen;
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	required_device<screen_device> m_debug_screen;
+#endif
 	required_device<spg2xx_device> m_spg;
 	required_memory_bank m_bank;
 
@@ -629,6 +649,14 @@ void spg2xx_game_state::spg2xx_base(machine_config &config)
 	m_screen->screen_vblank().set(m_spg, FUNC(spg2xx_device::vblank));
 	m_screen->screen_vblank().append(FUNC(spg2xx_game_state::poll_controls));
 
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SCREEN(config, m_debug_screen, SCREEN_TYPE_RASTER);
+	m_debug_screen->set_refresh_hz(60);
+	m_debug_screen->set_size(1024, 768);
+	m_debug_screen->set_visarea(0, 1024-1, 0, 768-1);
+	m_debug_screen->set_screen_update("spg", FUNC(spg2xx_device::debug_screen_update));
+#endif
+
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 	m_spg->add_route(ALL_OUTPUTS, "lspeaker", 0.5);
@@ -637,7 +665,11 @@ void spg2xx_game_state::spg2xx_base(machine_config &config)
 
 void spg2xx_game_state::non_spg_base(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
 
 	spg2xx_base(config);
 }
@@ -652,7 +684,12 @@ void spg2xx_game_state::spg2xx_basep(machine_config &config)
 
 void spg2xx_cart_state::vii(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
+
 	spg2xx_base(config);
 
 	m_spg->uart_rx().set(FUNC(spg2xx_cart_state::uart_rx));
@@ -667,7 +704,11 @@ void spg2xx_cart_state::vii(machine_config &config)
 
 void spg2xx_cart_state::vsmile(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
 	spg2xx_base(config);
 
 	m_spg->uart_rx().set(FUNC(spg2xx_cart_state::uart_rx));
@@ -681,7 +722,11 @@ void spg2xx_cart_state::vsmile(machine_config &config)
 
 void spg2xx_game_state::wireless60(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
 	spg2xx_base(config);
 
 	m_spg->uart_rx().set(FUNC(spg2xx_game_state::uart_rx));
@@ -693,7 +738,11 @@ void spg2xx_game_state::wireless60(machine_config &config)
 
 void spg2xx_game_state::jakks(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
 	spg2xx_base(config);
 
 	m_spg->uart_rx().set(FUNC(spg2xx_game_state::uart_rx));
@@ -704,7 +753,11 @@ void spg2xx_game_state::jakks(machine_config &config)
 
 void spg2xx_game_state::rad_skat(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG24X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
 	spg2xx_base(config);
 
 	m_spg->uart_rx().set(FUNC(spg2xx_game_state::uart_rx));
@@ -717,7 +770,11 @@ void spg2xx_game_state::rad_skat(machine_config &config)
 
 void spg2xx_game_state::rad_crik(machine_config &config)
 {
+#if SPG2XX_VISUAL_AUDIO_DEBUG
+	SPG28X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen, m_debug_screen);
+#else
 	SPG28X(config, m_spg, XTAL(27'000'000), m_maincpu, m_screen);
+#endif
 	spg2xx_base(config);
 
 	m_spg->uart_rx().set(FUNC(spg2xx_game_state::uart_rx));
@@ -850,7 +907,7 @@ ROM_START( wlsair60 )
 ROM_END
 
 /*
-Wireless: Hunting Video Game System
+Wireless Hunting Video Game System
 (info provided with dump)
 
 System: Wireless Hunting Video Game System
@@ -938,10 +995,10 @@ CONS( 2005, vsmileg, vsmile, 0, vsmile, vsmile, spg2xx_cart_state, empty_init, "
 CONS( 2005, vsmilef, vsmile, 0, vsmile, vsmile, spg2xx_cart_state, empty_init, "VTech", "V.Smile (France)",  MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING )
 CONS( 2005, vsmileb, 0,      0, vsmile, vsmile, spg2xx_cart_state, empty_init, "VTech", "V.Smile Baby (US)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING )
 
-// Jungle's Soft TV games
-CONS( 2007, vii,      0, 0, vii,        vii,      spg2xx_cart_state, empty_init, "Jungle's Soft / KenSingTon / Siatronics",    "Vii",         MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS ) // motion controls are awkward, but playable for the most part
+// Jungle Soft TV games
+CONS( 2007, vii,      0, 0, vii,        vii,      spg2xx_cart_state, empty_init, "Jungle Soft / KenSingTon / Siatronics",    "Vii",         MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS ) // motion controls are awkward, but playable for the most part
 CONS( 2010, zone60,   0, 0, wireless60, wirels60, spg2xx_game_state, empty_init, "Jungle's Soft / Ultimate Products (HK) Ltd", "Zone 60",     MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
-CONS( 2010, wirels60, 0, 0, wireless60, wirels60, spg2xx_game_state, empty_init, "Jungle's Soft / Kids Station Toys Inc",      "Wireless 60", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
+CONS( 2010, wirels60, 0, 0, wireless60, wirels60, spg2xx_game_state, empty_init, "Jungle Soft / Kids Station Toys Inc",      "Wireless 60", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
 
 // JAKKS Pacific Inc TV games
 CONS( 2004, batmantv, 0, 0, jakks, batman, spg2xx_game_state, empty_init, "JAKKS Pacific Inc / HotGen Ltd", "The Batman", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
@@ -958,4 +1015,4 @@ CONS( 2009, zone40,    0,       0,        non_spg_base, wirels60, spg2xx_game_st
 
 // NAND dumps w/ internal bootstrap. Almost certainly do not fit in this driver, as the SPG2xx can only address up to 4Mwords.
 CONS( 2010, wlsair60,  0,       0,        non_spg_base, wirels60, spg2xx_game_state, empty_init, "Jungle Soft / Kids Station Toys Inc",               "Wireless Air 60",   MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
-CONS( 2011, wrlshunt,  0,       0,        non_spg_base, wirels60, spg2xx_game_state, empty_init, "Hamy / Kids Station Toys Inc",                      "Wireless: Hunting Video Game System", MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
+CONS( 2011, wrlshunt,  0,       0,        non_spg_base, wirels60, spg2xx_game_state, empty_init, "Hamy / Kids Station Toys Inc",                      "Wireless Hunting Video Game System", MACHINE_NO_SOUND | MACHINE_NOT_WORKING )

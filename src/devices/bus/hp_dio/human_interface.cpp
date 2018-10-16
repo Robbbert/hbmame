@@ -41,6 +41,11 @@ void human_interface_device::device_add_mconfig(machine_config &config)
 	keyboard.set_default_option("hp_46021a");
 	keyboard.set_hp_hil_slot(this, "mlc");
 
+	hp_hil_slot_device &mouse(HP_HIL_SLOT(config, "hil2", 0));
+	hp_hil_devices(mouse);
+	mouse.set_default_option("hp_46060b");
+	mouse.set_hp_hil_slot(this, "mlc");
+
 	SPEAKER(config, "mono").front_center();
 	sn76494_device &sound(SN76494(config, "sn76494", 333333));
 	sound.add_route(ALL_OUTPUTS, "mono", 0.75);
@@ -94,12 +99,6 @@ const tiny_rom_entry *human_interface_device::device_rom_region() const
 void human_interface_device::iocpu_map(address_map& map)
 {
 	map(0x0000, 0x07ff).rom().region("iocpu", 0);
-}
-void human_interface_device::map(address_map& map)
-{
-	map(0x00420000, 0x00420003).mirror(0x0000fffc).rw(m_iocpu, FUNC(upi41_cpu_device::upi41_master_r), FUNC(upi41_cpu_device::upi41_master_w)).umask32(0x00ff00ff);
-	map(0x00470000, 0x0047001f).mirror(0x0000ffe0).rw(FUNC(human_interface_device::gpib_r), FUNC(human_interface_device::gpib_w)).umask16(0x00ff);
-
 }
 
 human_interface_device::human_interface_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
@@ -295,8 +294,7 @@ void human_interface_device::dmack_w_in(int channel, uint8_t data)
 {
 	if (channel)
 		return;
-//	FIXME
-//	m_tms9914->reg8_w(memory_space(), 7, data);
+	m_tms9914->reg8_w(*program_space(), 7, data);
 }
 
 uint8_t human_interface_device::dmack_r_in(int channel)

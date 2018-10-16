@@ -5,8 +5,14 @@
 2018-10-31 0.203
 ----------------
 
+Added support for 3rd player for wofch hacks
+
+
 New Games
 ---------------------------------
+- [avspud]            Alien vs Predator (USA 940520 Phoenix edition)
+- [cnbe2018]          Blut Engel 2018 fix [by Blastar]
+- [dkchrmx]           Donkey Kong Christmas Remix [by Sock Master]
 - [dkspkyrmx]         Donkey Kong Spooky Remix [by Sock Master]
 - [raroggame]         Ryurik: Poteryannaya [by Vasily Familiya]
 - [samantha]          Everlasting Summer: Samantha [by Vasily Familiya]

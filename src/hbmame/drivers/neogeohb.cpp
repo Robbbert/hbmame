@@ -217,6 +217,7 @@ NUM YEAR COMPANY                 TITLE
 483 2018 Vasily Familiya         Everlasting Summer: Samantha
 484 2018 Vasily Familiya         Vlad2000
 485 2018 Vasily Familiya         Raroggame
+486 2018 Blastar                 Codename: Blut Engel 2018
 
 
 ********************** 800 to 899 **********************************
@@ -1955,6 +1956,34 @@ ROM_START( raroggame )
 ROM_END
 
 
+// 486 : Codename: Blut Engel by Blastar (c) 2018
+// Bugs: Insert Coin causes reboot
+// Seems original didn't work correctly on MVS, this fixes it. Makes no difference in emulation.
+// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
+ROM_START( cnbe2018 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "486.p1", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) ) // skip header
+	ROM_CONTINUE(0x000000, 0x040000)
+	ROM_IGNORE(0x0e0000)
+
+	ROM_REGION(0x120000, "asis", 0)
+	ROM_LOAD("486.p1", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) )
+	ROM_CONTINUE(0x000000, 0x120000)
+
+	NEO_SFIX_MT(0x10000)
+	ROM_COPY("asis", 0x40000, 0x00000, 0x10000) // srctag, srcoffs, dstoffs, length
+
+	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
+	ROM_COPY("asis", 0x50000, 0x00000, 0x10000)
+
+	ROM_REGION( 0x40000, "ymsnd", 0 )
+	ROM_COPY("asis", 0x60000, 0x00000, 0x40000)
+
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_COPY("asis", 0xa0000, 0x00000, 0x80000)
+ROM_END
+
+
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
 ROM_START( lhcdb )
@@ -2043,6 +2072,7 @@ HACK( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)(Homebrew)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro Demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (NeoGeo)(Homebrew)", MACHINE_SUPPORTS_SAVE )

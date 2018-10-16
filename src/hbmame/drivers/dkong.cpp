@@ -272,6 +272,37 @@ ROM_START( dkrainbow )
 	ROM_LOAD( "rainbow_v.5e", 0x0200, 0x0100, CRC(d9f3005a) SHA1(c4f09f27f5c78d95d31e6af1b8a977b86bbab9a4) )
 ROM_END
 
+ROM_START( dkchrmx )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "c_5et_g.bin",  0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
+	ROM_LOAD( "c_5ct_g.bin",  0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
+	ROM_LOAD( "c_5bt_g.bin",  0x2000, 0x1000, CRC(1c97d324) SHA1(c7966261f3a1d3296927e0b6ee1c58039fc53c1f) )
+	ROM_LOAD( "c_5at_g.bin",  0x3000, 0x1000, CRC(b9005ac0) SHA1(3fe3599f6fa7c496f782053ddf7bacb453d197c4) )
+
+	ROM_REGION( 0x10000, "braze", 0 )
+	ROM_LOAD( "dkchrmx.bin",  0x0000, 0x10000, CRC(e5273cee) SHA1(c440d47e7e3ca356ae1d748cc673393efb2b6c4a) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.ch",    0x0000, 0x0800, CRC(0b92cc7a) SHA1(cd217c2b45a86744c2fc7df8a3b624489e07f01f) )
+	ROM_LOAD( "v_3pt.ch",     0x0800, 0x0800, CRC(6a04f93f) SHA1(b78342f89186c3d2b83fff6fd208afaba4584a5c) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.ch",    0x0000, 0x0800, CRC(c6ddc85f) SHA1(4f19be0904460ec8494bad13b3b55292889e7400) )
+	ROM_LOAD( "l_4n_b.ch",    0x0800, 0x0800, CRC(2cd9cfdf) SHA1(fd9b0b75084661441680188ef3faf233579ceeb7) )
+	ROM_LOAD( "l_4r_b.ch",    0x1000, 0x0800, CRC(c1ea6688) SHA1(3509bb96d2da1f364d0cb4c60636933cdd42f6e3) )
+	ROM_LOAD( "l_4s_b.ch",    0x1800, 0x0800, CRC(9473d658) SHA1(2c5acf47c0ab8bd2e863e9bdea018d17ac4c96c8) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.ch",      0x0000, 0x0100, CRC(c6cee97e) SHA1(6590b6815a0cb19b800bce0f504494217977ae44) )
+	ROM_LOAD( "c-2j.ch",      0x0100, 0x0100, CRC(1f64ac3d) SHA1(0591495a75a301772856c121f34299da4f9df341) )
+	ROM_LOAD( "v-5e.ch",      0x0200, 0x0100, CRC(5a8ca805) SHA1(8e711af73ddb20ed62a9a8b53f1150feab1dc051) )
+ROM_END
+
 ROM_START( dkspkyrmx )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "c_5et_g.bin",  0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
@@ -311,6 +342,7 @@ GAME( 2007, dkongp,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, dkrainbow, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, dkrdemo,   dkong, dkong2b,   dkrdemo, dkong_state,  empty_init,  ROT270, "Sock Master", "Donkey Kong Remix demo 1.8", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, dkchrmx,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "Sock Master", "Donkey Kong Christmas Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dkspkyrmx, dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "Sock Master", "Donkey Kong Spooky Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kong2600,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, nadkong,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
