@@ -10180,6 +10180,7 @@ mswordj                         // 23/06/1990 (c) 1990 (Japan)
 mswordr1                        // 23/06/1990 (c) 1990 (World)
 mswordu                         // 25/07/1990 (c) 1990 (USA)
 mtwins                          // 19/06/1990 (c) 1990 (World)
+mtwinsb                         // bootleg
 nemo                            // 30/11/1990 (c) 1990 (World)
 nemoj                           // 20/11/1990 (c) 1990 (Japan)
 nemor1                          // 09/11/1990 (c) 1990 (World)
@@ -12560,6 +12561,7 @@ crossbow                        // (c) 1983
 hitnmiss                        // (c) 1987
 hitnmiss2                       // (c) 1987
 showdown                        // (c) 1988
+showdown4                       // (c) 1988
 topsecex                        // (c) 1986
 whodunit                        // (c) 1988
 whodunit8                       // (c) 1988
@@ -15857,6 +15859,9 @@ laperlag                        // (c) 2001 Nazionale Elettronica
 mnumber                         // (c) 200? M.M. - B.R.L.
 wcup                            // (c) 2001 Nazionale Elettronica
 wcup14                          // (c) 2001 Nazionale Elettronica
+
+@source:itt1700.cpp
+itt1700                         //
 
 @source:itt3030.cpp
 itt3030                         //
@@ -21641,6 +21646,7 @@ dirtdvlsa                       //
 dirtdvlsj                       //
 eca                             // 1999.10 Kyukyuusya Emergency Call Ambulance
 ecap                            // 1999.12 Emergency Call Ambulance - US proto or location test
+ecaj                            //
 ecau                            //
 fvipers2                        // 1998.04 Fighting Vipers 2
 getbass                         //
@@ -23341,6 +23347,7 @@ m4colossg                       //
 m4ctn                           // Tuppenny Nudger Classic (Mdm?)
 m4ewshft                        // Each Way Shifter
 m4excam                         // Excalibur (Mdm)
+m4excamd                        //
 m4firebl                        // Fireball (Mdm)
 m4firebla                       //
 m4fireblb                       //
@@ -27509,6 +27516,9 @@ v4picdil                        // Piccadilly Nights
 v4psi                           // Prize Space Invaders
 v4psia                          //
 v4psib                          //
+v4psi14d                        //
+v4psi20d                        //
+v4psi214                        //
 v4pztet                         // Prize Tetris
 v4pzteta                        //
 v4quidgr                        // Ten Quid Grid
@@ -27530,6 +27540,7 @@ v4strike2d                      //
 v4striked                       //
 v4sunbst                        // Sunburst
 v4tetrs                         // BwB Tetris v 2.2
+v4tetrs1                        // BwB Tetris v 1.0
 v4time                          // Time Machine
 v4timebn                        // Time Bandit
 v4turnov                        // Turnover
@@ -28951,6 +28962,7 @@ vshoot                          // (c) 1994
 ncv1                            // (c) 1995
 ncv1j                           // (c) 1995 (Japan)
 ncv1j2                          // (c) 1995 (Japan)
+gynotai                         // (c) 1996 (Japan)
 ncv2                            // (c) 1996
 ncv2j                           // (c) 1996 (Japan)
 abcheck                         // (c) 1996 (Japan)
@@ -29259,6 +29271,7 @@ timecris                        // (c) 1995
 timecrisa                       // (c) 1995
 tokyowar                        // (c) 1996
 victlapw                        // (c) 1996
+victlapj                        // (c) 1996
 
 @source:namcos23.cpp
 500gp                           // March 1999
@@ -29954,7 +29967,7 @@ minasan                         // 0027 (c) 1990 Monolith Corp.
 moshougi                        // 0203 (c) 1995 ADK / SNK
 ms4plus                         // bootleg
 ms5plus                         // bootleg
-mvstemp							// development board
+mvstemp                         // development board
 mslug                           // 0201 (c) 1996 Nazca
 mslug2                          // 0241 (c) 1998 SNK
 mslug2t                         // bootleg
@@ -30331,8 +30344,9 @@ spec2k                          // (c) 2000 Yonatech
 spec2kh                         // (c) 2000 Yonatech
 ssmissin                        // (c) 1992 Comad
 stagger1                        // (c) 1998
-strahl                          // UPL-91074 (c) 1992 UPL (Japan)
-strahla                         // UPL-91074 (c) 1992 UPL (Japan)
+strahl                           // UPL-91074 (c) 1992 UPL (World)
+strahlj                          // UPL-91074 (c) 1992 UPL (Japan)
+strahlja                         // UPL-91074 (c) 1992 UPL (Japan)
 tdragon                         // (c) 1991 NMK / Tecmo
 tdragon1                        // (c) 1991 NMK / Tecmo
 tdragon2                        // UPL-93091 (c) 1993 NMK
@@ -31889,6 +31903,7 @@ phoenixc2                       // bootleg
 phoenixc3                       // bootleg
 phoenixc4                       // bootleg
 phoenixdal                      // bootleg D&L (No copyright/title)
+phoenixgu                       // bootleg G. Universal Video
 phoenixha                       // bootleg Hellomat Automaten
 phoenixi                        // bootleg IDI
 phoenixj                        // (c) 1980 Taito
@@ -33810,6 +33825,7 @@ stratgyx                        // GX306 (c) 1981 Konami
 strongx                         // bootleg
 tazmani2                        // (c) 1982 Stern
 tazmani3                        // bootleg (Rodmar)
+tazmaniet                       // bootleg (U.R.V. BBCPE)
 
 @source:scopus.cpp
 sagitta180                      // 1979?
@@ -35959,12 +35975,14 @@ sfish2                          // 1995.11 Sports Fishing 2 (Export)
 sfish2j                         // 1995.08 Sports Fishing 2 (Japan)
 shanhigw                        // 1995.08 Shanghai Banri no Choujou
 shienryu                        // 1997.02 Shienryu (Warashi)
+skychal                         // 2000.04 Sky Challenger
 smleague                        // 1996.04 Super Major League
 sokyugrt                        // 1996.09 Soukyuu Gurentai (Raizing / 8ing)
 sss                             // 1998.12 Steep Slope Sliders (Capcom / Cave / Victor)
 stress                          // 1998.10 Stress Busters
 stvbios                         //
 suikoenb                        // 1995.03 Suiko Enbu (Data East)
+supgoal                         // 1998.12 Nerae Super Goal
 tatacot                         // 1995.?? Tatacot
 techbowl                        // 1997.12 Technical Bowling
 thunt                           // 1997.09 Puzzle & Action Treasure Hunt (Deniam license)
@@ -36357,6 +36375,7 @@ wmatch                          // (c) 1984 (S1)
 
 @source:system16.cpp
 altbeastbl                      //
+altbeastbl2                     //
 astormb2                        // BOOTLEG
 astormbl                        // BOOTLEG
 bayrouteb1                      // (c) 1989 (protected) (bootleg)
