@@ -44,6 +44,8 @@ public:
 
 	auto uart_tx() { return m_uart_tx.bind(); }
 
+	auto chip_select() { return m_chip_sel.bind(); }
+
 	void uart_rx(uint8_t data);
 
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -66,7 +68,7 @@ protected:
 	enum
 	{
 		PAGE_ENABLE_MASK        = 0x0008,
-		PAGE_BLANK_MASK			= 0x0004,
+		PAGE_WALLPAPER_MASK		= 0x0004,
 
 		SPRITE_ENABLE_MASK		= 0x0001,
 		SPRITE_COORD_TL_MASK	= 0x0002,
@@ -455,6 +457,8 @@ protected:
 	devcb_read8 m_eeprom_r;
 
 	devcb_write8 m_uart_tx;
+
+	devcb_write8 m_chip_sel;
 
 	emu_timer *m_tmb1;
 	emu_timer *m_tmb2;

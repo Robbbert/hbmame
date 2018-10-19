@@ -10,6 +10,7 @@
 #include "screen.h"
 #include "speaker.h"
 #include "machine/bankdev.h"
+#include "machine/i2cmem.h"
 
 
 class xavix_state : public driver_device
@@ -34,12 +35,16 @@ public:
 		m_in1(*this, "IN1"),
 		m_region(*this, "REGION"),
 		m_gfxdecode(*this, "gfxdecode"),
-		m_lowbus(*this, "lowbus")
+		m_lowbus(*this, "lowbus"),
+		m_i2cmem(*this, "i2cmem")
 	{ }
 
 	void xavix(machine_config &config);
 	void xavixp(machine_config &config);
 	void xavix2000(machine_config &config);
+
+	void xavix_i2c(machine_config &config);
+	void xavix2000_i2c(machine_config &config);
 
 	void init_xavix();
 
@@ -48,6 +53,8 @@ private:
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	void xavix_map(address_map &map);
+	void xavix_special_map(address_map &map);
+
 	void xavix_lowbus_map(address_map &map);
 
 	INTERRUPT_GEN_MEMBER(interrupt);
@@ -63,6 +70,8 @@ private:
 	DECLARE_WRITE8_MEMBER(main_w);
 	DECLARE_READ8_MEMBER(main2_r);
 	DECLARE_WRITE8_MEMBER(main2_w);
+	DECLARE_READ8_MEMBER(main3_r);
+	DECLARE_WRITE8_MEMBER(main3_w);
 
 	DECLARE_WRITE8_MEMBER(extintrf_7900_w);
 	DECLARE_WRITE8_MEMBER(extintrf_7901_w);
@@ -90,15 +99,15 @@ private:
 	DECLARE_WRITE8_MEMBER(spritefragment_dma_trg_w);
 	DECLARE_READ8_MEMBER(spritefragment_dma_status_r);
 
-	DECLARE_READ8_MEMBER(io_0_r);
-	DECLARE_READ8_MEMBER(io_1_r);
-	DECLARE_READ8_MEMBER(io_2_r);
-	DECLARE_READ8_MEMBER(io_3_r);
+	DECLARE_READ8_MEMBER(io0_data_r);
+	DECLARE_READ8_MEMBER(io1_data_r);
+	DECLARE_READ8_MEMBER(io0_direction_r);
+	DECLARE_READ8_MEMBER(io1_direction_r);
 
-	DECLARE_WRITE8_MEMBER(io_0_w);
-	DECLARE_WRITE8_MEMBER(io_1_w);
-	DECLARE_WRITE8_MEMBER(io_2_w);
-	DECLARE_WRITE8_MEMBER(io_3_w);
+	DECLARE_WRITE8_MEMBER(io0_data_w);
+	DECLARE_WRITE8_MEMBER(io1_data_w);
+	DECLARE_WRITE8_MEMBER(io0_direction_w);
+	DECLARE_WRITE8_MEMBER(io1_direction_w);
 
 	DECLARE_WRITE8_MEMBER(vector_enable_w);
 	DECLARE_WRITE8_MEMBER(nmi_vector_lo_w);
@@ -207,6 +216,11 @@ private:
 	uint8_t m_6ff0;
 	uint8_t m_6ff8;
 
+	uint8_t m_io0_data;
+	uint8_t m_io1_data;
+	uint8_t m_io0_direction;
+	uint8_t m_io1_direction;
+
 	uint8_t m_soundregs[0x10];
 
 	uint8_t m_timer_baseval;
@@ -257,6 +271,7 @@ private:
 	int get_current_address_byte();
 
 	required_device<address_map_bank_device> m_lowbus;
+	optional_device<i2cmem_device> m_i2cmem;
 };
 
 #endif // MAME_INCLUDES_XAVIX_H
