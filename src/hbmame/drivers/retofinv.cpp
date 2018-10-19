@@ -30,11 +30,13 @@ ROM_START( retofinv4 )
 	ROM_LOAD( "4_a37-14.55", 0x0000, 0x2000, CRC(f233c421) SHA1(77da9750f88d032143968104e0b400ed1a07adca) )
 	ROM_LOAD( "4_a37-15.56", 0x2000, 0x2000, CRC(58c3f1c9) SHA1(5e0c46a5cd6adfcccba5cf33271a51a23ff9752a) )
 
-	ROM_REGION( 0x0b00, "proms", 0 )
-	ROM_LOAD( "a37-06.ic13", 0x0000, 0x0100, CRC(e9643b8b) SHA1(7bbb92a42e7c3effb701fc7b2c24f2470f31b063) )
-	ROM_LOAD( "a37-07.ic4",  0x0100, 0x0100, CRC(e8f34e11) SHA1(8f438561b8d46ffff00747ed8baf0ebb6a081615) )
-	ROM_LOAD( "a37-08.ic3",  0x0200, 0x0100, CRC(50030af0) SHA1(e748ae0b8702b7d20fb65c254dceee23246b3d13) )
-	ROM_LOAD( "82s191n",     0x0300, 0x0800, CRC(93c891e3) SHA1(643a0107717b6a434432dda73a0102e6e8adbca7) )
+	ROM_REGION( 0x0300, "palette", 0 )
+	ROM_LOAD( "a37-06.13", 0x0000, 0x0100, CRC(e9643b8b) SHA1(7bbb92a42e7c3effb701fc7b2c24f2470f31b063) )
+	ROM_LOAD( "a37-07.4",  0x0100, 0x0100, CRC(e8f34e11) SHA1(8f438561b8d46ffff00747ed8baf0ebb6a081615) )
+	ROM_LOAD( "a37-08.3",  0x0200, 0x0100, CRC(50030af0) SHA1(e748ae0b8702b7d20fb65c254dceee23246b3d13) )
+
+	ROM_REGION( 0x0800, "clut", 0 )
+	ROM_LOAD( "82s191n",   0x0000, 0x0800, CRC(93c891e3) SHA1(643a0107717b6a434432dda73a0102e6e8adbca7) )
 ROM_END
 
-HACK( 2011, retofinv4, retofinv, retofinv, retofinv, retofinv_state, 0, ROT90, "Paul Smith", "Return of the Invaders (hack)", 0 )
+GAME( 2011, retofinv4, retofinv, retofinvb1, retofinv, retofinv_state, empty_init, ROT90, "Paul Smith", "Return of the Invaders (hack)", 0 )
