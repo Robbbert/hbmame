@@ -30726,6 +30726,7 @@ mspacman                        // (c) 1981 Midway  // made by General Computer
 mspacmanbcc                     // bootleg
 mspacmanbco                     // bootleg
 mspacmanbg                      // bootleg
+mspacmanbg2                     // bootleg
 mspacmanbgd                     // bootleg
 mspacmanblt                     // bootleg
 mspacmanbhe                     // bootleg
@@ -30756,6 +30757,8 @@ pacuman                         // bootleg
 paintrlr                        // 1981 bootleg
 pengojpm                        // bootleg
 pengopac                        // bootleg
+pengomc1                        // bootleg (Marti Colls)
+pengomc2                        // bootleg (Marti Colls)
 pinguinos                       // bootleg
 piranha                         // GL
 piranhah                        // hack
@@ -35280,10 +35283,11 @@ denseib                         // bootleg
 endless                         // bootleg
 ffight2b                        // bootleg
 iron                            // bootleg
+legendsb                        // bootleg
 kinstb                          // bootleg
 mk3snes                         // bootleg
+rushbeat                        // bootleg
 sblast2b                        // bootleg
-legendsb                        // bootleg
 
 @source:snk.cpp
 alphamis                        // (c) 1985
