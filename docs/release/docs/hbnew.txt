@@ -14,6 +14,7 @@ New Games
 - [cnbe2018]          Blut Engel 2018 fix [by Blastar]
 - [dkchrmx]           Donkey Kong Christmas Remix [by Sock Master]
 - [dkspkyrmx]         Donkey Kong Spooky Remix [by Sock Master]
+- [kf2k2ps2re]        The King of Fighters 2002 - PlayStation 2 Hack Ver.1.0 Public Test[by EGCG]
 - [raroggame]         Ryurik: Poteryannaya [by Vasily Familiya]
 - [samantha]          Everlasting Summer: Samantha [by Vasily Familiya]
 - [vlad2000]          Vladivostok 2000 [by Vasily Familiya]
