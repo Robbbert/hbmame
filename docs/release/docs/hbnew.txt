@@ -12,6 +12,7 @@ New Games
 ---------------------------------
 - [avspud]            Alien vs Predator (USA 940520 Phoenix edition)
 - [cnbe2018]          Blut Engel 2018 fix [by Blastar]
+- [ddsprdmo]          Double Dragon SpritePool Demo [by Vasily Familiya]
 - [dkchrmx]           Donkey Kong Christmas Remix [by Sock Master]
 - [dkspkyrmx]         Donkey Kong Spooky Remix [by Sock Master]
 - [kf2k2ps2re]        The King of Fighters 2002 - PlayStation 2 Hack Ver.1.0 Public Test[by EGCG]

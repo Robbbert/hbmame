@@ -218,6 +218,7 @@ NUM YEAR COMPANY                 TITLE
 484 2018 Vasily Familiya         Vlad2000
 485 2018 Vasily Familiya         Raroggame
 486 2018 Blastar                 Codename: Blut Engel 2018
+487 2018 Vasily Familiya         Double Dragon SpritePool Demo
 
 
 ********************** 800 to 899 **********************************
@@ -1878,7 +1879,7 @@ ROM_START( igla )
 
 	NEO_SFIX_128K( "481.s1", CRC(e3ab9cde) SHA1(c438deaef29a705f5aa62116ad206ecec4bec282) )
 
-	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
@@ -1914,7 +1915,7 @@ ROM_START( samantha )
 
 	NEO_SFIX_128K( "483.s1", CRC(2f6c5cff) SHA1(5c429af7b1f1204f961472ba93eee55e68c8c739) )
 
-	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
@@ -1932,7 +1933,7 @@ ROM_START( vlad2000 )
 
 	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
 
-	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
@@ -1950,7 +1951,7 @@ ROM_START( raroggame )
 
 	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
 
-	NEO_BIOS_AUDIO_128K( "480.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) )
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
@@ -1986,6 +1987,28 @@ ROM_START( cnbe2018 )
 	ROM_REGION( 0x80000, "sprites", 0 )
 	ROM_COPY("asis", 0xa0000, 0x00000, 0x80000)
 ROM_END
+
+
+// 487 : Double Dragon SpritePool Demo by Vasily Familiya
+// No sound.
+ROM_START( ddsprdmo )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD( "487.p1", 0x000000, 0x00618f, CRC(c9379981) SHA1(17ca5d41a27daf47887df55596e7bf2955cf9cbf) )
+	ROM_LOAD( "487.p2", 0x100000, 0x028424, CRC(1e717427) SHA1(f605f02f8f35313eeb58dc9858599e4ba8a0c632) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_64K( "487.m1", CRC(360c6863) SHA1(43d0b823859efe10e8d958dc0c32ea38e7a8096c) )
+
+	ROM_REGION( 0x300000, "ymsnd", 0 )
+	ROM_LOAD( "487.v1", 0x000000, 0x100000, CRC(8d9a4aa4) SHA1(52dfbcdb6015e692b5b030c3e44099d51c31d92d) )
+	ROM_LOAD( "487.v2", 0x100000, 0x100000, CRC(5a326fc1) SHA1(18034072a32bd25ee3562ce56d7685ba6db2cd8e) )
+	ROM_LOAD( "487.v3", 0x200000, 0x100000, CRC(c37bb043) SHA1(6fcfeccad763a91c07ce7e2ab8ef5efd4aa7bda9) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD( "487.c1", 0x000000, 0x127000, CRC(092721a3) SHA1(c5b8ce994baf1bbf50727dbab0759cba0d01a719) )
+ROM_END
+
 
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
@@ -2081,6 +2104,7 @@ HACK( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (NeoGeo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dti2,         dti,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales 2 (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
