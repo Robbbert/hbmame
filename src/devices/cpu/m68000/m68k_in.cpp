@@ -1,10 +1,12 @@
 // license:BSD-3-Clause
 // copyright-holders:Karl Stenerud
 /*
-must fix:
-    callm
-    chk
-*/
+ * TODO:
+ * - fix callm
+ * - fix chk
+ * - How does CHK2(byte/word) on address register determine if it's a signed or unsigned compare?
+ */
+
 /* ======================================================================== */
 /* ========================= LICENSING & COPYRIGHT ======================== */
 /* ======================================================================== */
@@ -3588,16 +3590,26 @@ M68KMAKE_OP(chk2cmp2, 8, ., pcdi)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = REG_DA()[(word2 >> 12) & 15] & 0xff;
+		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
 		if(!BIT_F(word2))
-			compare = (int32_t)(int8_t)compare;
+			compare &= 0xff;
 
 		uint32_t ea = EA_PCDI_8();
-		int32_t lower_bound = (int32_t)(int8_t)m68ki_read_pcrel_8(ea);
-		int32_t upper_bound = (int32_t)(int8_t)m68ki_read_pcrel_8(ea + 1);
+		int32_t lower_bound = m68ki_read_pcrel_8(ea);
+		int32_t upper_bound = m68ki_read_pcrel_8(ea + 1);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x80)
+		{
+			lower_bound = (int32_t)(int8_t)lower_bound;
+			upper_bound = (int32_t)(int8_t)upper_bound;
+
+			if(!BIT_F(word2))
+				compare = (int32_t)(int8_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3612,16 +3624,26 @@ M68KMAKE_OP(chk2cmp2, 8, ., pcix)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = REG_DA()[(word2 >> 12) & 15] & 0xff;
+		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
 		if(!BIT_F(word2))
-			compare = (int32_t)(int8_t)compare;
+			compare &= 0xff;
 
 		uint32_t ea = EA_PCIX_8();
-		int32_t lower_bound = (int32_t)(int8_t)m68ki_read_pcrel_8(ea);
-		int32_t upper_bound = (int32_t)(int8_t)m68ki_read_pcrel_8(ea + 1);
+		int32_t lower_bound = m68ki_read_pcrel_8(ea);
+		int32_t upper_bound = m68ki_read_pcrel_8(ea + 1);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x80)
+		{
+			lower_bound = (int32_t)(int8_t)lower_bound;
+			upper_bound = (int32_t)(int8_t)upper_bound;
+
+			if(!BIT_F(word2))
+				compare = (int32_t)(int8_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3636,16 +3658,26 @@ M68KMAKE_OP(chk2cmp2, 8, ., .)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = REG_DA()[(word2 >> 12) & 15] & 0xff;
+		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
 		if(!BIT_F(word2))
-			compare = (int32_t)(int8_t)compare;
+			compare &= 0xff;
 
 		uint32_t ea = M68KMAKE_GET_EA_AY_8;
-		int32_t lower_bound = (int32_t)(int8_t)m68ki_read_8(ea);
-		int32_t upper_bound = (int32_t)(int8_t)m68ki_read_8(ea + 1);
+		int32_t lower_bound = m68ki_read_8(ea);
+		int32_t upper_bound = m68ki_read_8(ea + 1);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x80)
+		{
+			lower_bound = (int32_t)(int8_t)lower_bound;
+			upper_bound = (int32_t)(int8_t)upper_bound;
+
+			if(!BIT_F(word2))
+				compare = (int32_t)(int8_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3660,16 +3692,26 @@ M68KMAKE_OP(chk2cmp2, 16, ., pcdi)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = REG_DA()[(word2 >> 12) & 15] & 0xffff;
+		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
 		if(!BIT_F(word2))
-			compare = (int32_t)(int16_t)compare;
+			compare &= 0xffff;
 
 		uint32_t ea = EA_PCDI_16();
-		int32_t lower_bound = (int32_t)(int16_t)m68ki_read_pcrel_16(ea);
-		int32_t upper_bound = (int32_t)(int16_t)m68ki_read_pcrel_16(ea + 2);
+		int32_t lower_bound = m68ki_read_pcrel_16(ea);
+		int32_t upper_bound = m68ki_read_pcrel_16(ea + 2);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x8000)
+		{
+			lower_bound = (int32_t)(int16_t)lower_bound;
+			upper_bound = (int32_t)(int16_t)upper_bound;
+
+			if(!BIT_F(word2))
+				compare = (int32_t)(int16_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3684,16 +3726,26 @@ M68KMAKE_OP(chk2cmp2, 16, ., pcix)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = REG_DA()[(word2 >> 12) & 15] & 0xffff;
+		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
 		if(!BIT_F(word2))
-			compare = (int32_t)(int16_t)compare;
+			compare &= 0xffff;
 
 		uint32_t ea = EA_PCIX_16();
-		int32_t lower_bound = (int32_t)(int16_t)m68ki_read_pcrel_16(ea);
-		int32_t upper_bound = (int32_t)(int16_t)m68ki_read_pcrel_16(ea + 2);
+		int32_t lower_bound = m68ki_read_pcrel_16(ea);
+		int32_t upper_bound = m68ki_read_pcrel_16(ea + 2);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x8000)
+		{
+			lower_bound = (int32_t)(int16_t)lower_bound;
+			upper_bound = (int32_t)(int16_t)upper_bound;
+
+			if(!BIT_F(word2))
+				compare = (int32_t)(int16_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3708,16 +3760,26 @@ M68KMAKE_OP(chk2cmp2, 16, ., .)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = REG_DA()[(word2 >> 12) & 15] & 0xffff;
+		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
 		if(!BIT_F(word2))
-			compare = (int32_t)(int16_t)compare;
+			compare &= 0xffff;
 
 		uint32_t ea = M68KMAKE_GET_EA_AY_16;
-		int32_t lower_bound = (int32_t)(int16_t)m68ki_read_16(ea);
-		int32_t upper_bound = (int32_t)(int16_t)m68ki_read_16(ea + 2);
+		int32_t lower_bound = m68ki_read_16(ea);
+		int32_t upper_bound = m68ki_read_16(ea + 2);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x8000)
+		{
+			lower_bound = (int32_t)(int16_t)lower_bound;
+			upper_bound = (int32_t)(int16_t)upper_bound;
+
+			if(!BIT_F(word2))
+				compare = (int32_t)(int16_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3732,14 +3794,21 @@ M68KMAKE_OP(chk2cmp2, 32, ., pcdi)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
-
+		int64_t compare = REG_DA()[(word2 >> 12) & 15];
 		uint32_t ea = EA_PCDI_32();
-		int32_t lower_bound = (int32_t)m68ki_read_pcrel_32(ea);
-		int32_t upper_bound = (int32_t)m68ki_read_pcrel_32(ea + 4);
+		int64_t lower_bound = m68ki_read_pcrel_32(ea);
+		int64_t upper_bound = m68ki_read_pcrel_32(ea + 4);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x80000000)
+		{
+			lower_bound = (int64_t)(int32_t)lower_bound;
+			upper_bound = (int64_t)(int32_t)upper_bound;
+			compare = (int64_t)(int32_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3754,14 +3823,21 @@ M68KMAKE_OP(chk2cmp2, 32, ., pcix)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
-
+		int64_t compare = REG_DA()[(word2 >> 12) & 15];
 		uint32_t ea = EA_PCIX_32();
-		int32_t lower_bound = (int32_t)m68ki_read_pcrel_32(ea);
-		int32_t upper_bound = (int32_t)m68ki_read_pcrel_32(ea + 4);
+		int64_t lower_bound = m68ki_read_pcrel_32(ea);
+		int64_t upper_bound = m68ki_read_pcrel_32(ea + 4);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x80000000)
+		{
+			lower_bound = (int64_t)(int32_t)lower_bound;
+			upper_bound = (int64_t)(int32_t)upper_bound;
+			compare = (int64_t)(int32_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
@@ -3776,14 +3852,21 @@ M68KMAKE_OP(chk2cmp2, 32, ., .)
 	if(CPU_TYPE_IS_EC020_PLUS())
 	{
 		uint32_t word2 = OPER_I_16();
-		int32_t compare = (int32_t)REG_DA()[(word2 >> 12) & 15];
-
+		int64_t compare = REG_DA()[(word2 >> 12) & 15];
 		uint32_t ea = M68KMAKE_GET_EA_AY_32;
-		int32_t lower_bound = (int32_t)m68ki_read_32(ea);
-		int32_t upper_bound = (int32_t)m68ki_read_32(ea + 4);
+		int64_t lower_bound = m68ki_read_32(ea);
+		int64_t upper_bound = m68ki_read_32(ea + 4);
 
-		m_not_z_flag = !((upper_bound==compare) | (lower_bound==compare));
+		// for signed compare, the arithmetically smaller value is the lower bound
+		if (lower_bound & 0x80000000)
+		{
+			lower_bound = (int64_t)(int32_t)lower_bound;
+			upper_bound = (int64_t)(int32_t)upper_bound;
+			compare = (int64_t)(int32_t)compare;
+		}
+
 		m_c_flag = (compare >= lower_bound && compare <= upper_bound) ? CFLAG_CLEAR : CFLAG_SET;
+		m_not_z_flag = ((upper_bound == compare) || (lower_bound == compare)) ? 0 : 1;
 
 		if(COND_CS() && BIT_B(word2))
 			m68ki_exception_trap(EXCEPTION_CHK);
