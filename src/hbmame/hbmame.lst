@@ -9652,6 +9652,9 @@ robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1
 
+@source:wiz.cpp
+stinger				//parent
+
 @source:wmg.cpp
 wmg
 

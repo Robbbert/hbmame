@@ -807,6 +807,8 @@ files {
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_cmd.hxx",
 	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
+	MAME_DIR .. "src/hbmame/drivers/wiz.cpp",
+	MAME_DIR .. "src/mame/video/wiz.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")
