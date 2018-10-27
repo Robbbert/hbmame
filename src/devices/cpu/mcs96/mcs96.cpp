@@ -42,7 +42,32 @@ void mcs96_device::device_start()
 	state_add(STATE_GENFLAGS,  "GENFLAGS",  PSW).formatstr("%16s").noshow();
 	state_add(MCS96_PC,        "PC",        PC);
 	state_add(MCS96_PSW,       "PSW",       PSW);
-	state_add(MCS96_R,         "SP",        register_file[0]);
+	state_add(MCS96_INT_PENDING, "INT_PENDING", pending_irq);
+	state_add(MCS96_SP,        "SP",        register_file[0]);
+	state_add(MCS96_AX,        "AX",        register_file[2]);
+	state_add(MCS96_DX,        "DX",        register_file[3]);
+	state_add(MCS96_BX,        "BX",        register_file[4]);
+	state_add(MCS96_CX,        "CX",        register_file[5]);
+	state_add(MCS96_AL,        "AL",        reinterpret_cast<u8 *>(&register_file[2])[BYTE_XOR_LE(0)]).noshow();
+	state_add(MCS96_AH,        "AH",        reinterpret_cast<u8 *>(&register_file[2])[BYTE_XOR_LE(1)]).noshow();
+	state_add(MCS96_DL,        "DL",        reinterpret_cast<u8 *>(&register_file[3])[BYTE_XOR_LE(0)]).noshow();
+	state_add(MCS96_DH,        "DH",        reinterpret_cast<u8 *>(&register_file[3])[BYTE_XOR_LE(1)]).noshow();
+	state_add(MCS96_BL,        "BL",        reinterpret_cast<u8 *>(&register_file[4])[BYTE_XOR_LE(0)]).noshow();
+	state_add(MCS96_BH,        "BH",        reinterpret_cast<u8 *>(&register_file[4])[BYTE_XOR_LE(1)]).noshow();
+	state_add(MCS96_CL,        "CL",        reinterpret_cast<u8 *>(&register_file[5])[BYTE_XOR_LE(0)]).noshow();
+	state_add(MCS96_CH,        "CH",        reinterpret_cast<u8 *>(&register_file[5])[BYTE_XOR_LE(1)]).noshow();
+
+	save_item(NAME(inst_state));
+	save_item(NAME(pending_irq));
+	save_item(NAME(PC));
+	save_item(NAME(PPC));
+	save_item(NAME(PSW));
+	save_item(NAME(OP1));
+	save_item(NAME(OP2));
+	save_item(NAME(OP3));
+	save_item(NAME(OPI));
+	save_item(NAME(TMP));
+	save_item(NAME(irq_requested));
 }
 
 void mcs96_device::device_reset()
@@ -50,7 +75,6 @@ void mcs96_device::device_reset()
 	PC = 0x2080;
 	PPC = PC;
 	PSW = 0;
-	pending_irq = 0x00;
 	irq_requested = false;
 	inst_state = STATE_FETCH;
 }
@@ -82,6 +106,28 @@ void mcs96_device::recompute_bcount(uint64_t event_time)
 void mcs96_device::check_irq()
 {
 	irq_requested = (PSW & pending_irq) && (PSW & F_I);
+}
+
+void mcs96_device::int_mask_w(u8 data)
+{
+	PSW = (PSW & 0xff00) | data;
+	check_irq();
+}
+
+u8 mcs96_device::int_mask_r()
+{
+	return PSW;
+}
+
+void mcs96_device::int_pending_w(u8 data)
+{
+	pending_irq = data;
+	check_irq();
+}
+
+u8 mcs96_device::int_pending_r()
+{
+	return pending_irq;
 }
 
 void mcs96_device::execute_run()

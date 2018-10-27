@@ -3745,6 +3745,7 @@ kof2k2pro
 kof2k2ps2
 kof2k2ps2a
 kof2k2ps2mp
+kf2k2ps2re
 kof2k2pur
 kof2k2ra
 kof2k2rgl // no sound in attract mode
@@ -4443,6 +4444,10 @@ kof2004upls28
 kof2004upls29
 kof2003xs01
 kof2003xs02
+
+@source:konamigx.cpp
+konamigx			//required bios
+dragoona			//parent
 
 @source:kyugo.cpp
 airwolf		//parent
@@ -6593,6 +6598,10 @@ mslugxece22
 mslugxece23
 mslugxece24
 
+@source:mystwarr.cpp
+mtlchamp			//parent
+mmaulers			//parent
+
 @source:mspacman.cpp
 mspacman	//parent
 chtmsatk	/* PacMAME Hacks */
@@ -6930,6 +6939,7 @@ cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
 //csw2 //not working & roms missing
+ddsprdmo
 didemo
 dti			// Duck Tales Intro
 dti2		// Duck Tales Intro
@@ -9414,6 +9424,9 @@ solomonjs01
 @source:spacmiss.cpp
 spacmissx				// extra sounds
 
+@source:ssv.cpp
+survarts				//parent
+
 @source:system1.cpp
 wbml					//parent
 wbmlbit
@@ -9610,6 +9623,9 @@ twincobr	//parent
 twincbu2
 twintwst
 
+@source:vamphalf.cpp
+aoh				//parent
+
 @source:volfied.cpp
 volfied		//parent
 volfiedg	/* Vag @ GreekRoms 2005 */
@@ -9638,6 +9654,9 @@ robotronp	/* Patched to remove the 'in the corner' crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1
+
+@source:wiz.cpp
+stinger				//parent
 
 @source:wmg.cpp
 wmg
