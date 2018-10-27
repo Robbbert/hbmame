@@ -18,6 +18,7 @@ CPUS["ARM"] = true
 CPUS["ARM7"] = true
 CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
+CPUS["E1"] = true -- vamphalf
 CPUS["ES5510"] = true
 CPUS["G65816"] = true -- snesb
 CPUS["H8"] = true -- seta2
@@ -95,6 +96,7 @@ SOUNDS["NES_APU"] = true
 SOUNDS["OKIM6295"] = true
 SOUNDS["OKIM9810"] = true -- seta2
 SOUNDS["POKEY"] = true
+SOUNDS["QS1000"] = true -- vamphalf
 SOUNDS["QSOUND"] = true
 SOUNDS["RF5C68"] = true
 SOUNDS["SAMPLES"] = true
@@ -987,6 +989,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timelimit.cpp",
 	MAME_DIR .. "src/mame/video/timelimt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/vamphalf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
 }
 
