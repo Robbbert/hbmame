@@ -809,6 +809,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/seta2.cpp",
 	MAME_DIR .. "src/mame/video/seta2.cpp",
 	MAME_DIR .. "src/mame/video/seta001.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ssv.cpp",
+	MAME_DIR .. "src/mame/video/ssv.cpp",
+	MAME_DIR .. "src/mame/video/st0020.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "snk")
