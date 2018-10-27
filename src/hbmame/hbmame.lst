@@ -4445,6 +4445,10 @@ kof2004upls29
 kof2003xs01
 kof2003xs02
 
+@source:konamigx.cpp
+konamigx			//required bios
+dragoona			//parent
+
 @source:kyugo.cpp
 airwolf		//parent
 airwolffr	// french
@@ -6594,7 +6598,7 @@ mslugxece22
 mslugxece23
 mslugxece24
 
-@source:mspacman.cpp
+@source:mystwarr.cpp
 mtlchamp			//parent
 mmaulers			//parent
 

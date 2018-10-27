@@ -533,6 +533,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/tmnt.cpp",
 	MAME_DIR .. "src/mame/video/tmnt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/trackfld.cpp",
+	MAME_DIR .. "src/hbmame/drivers/konamigx.cpp",
 	MAME_DIR .. "src/mame/machine/konamigx.cpp",
 	MAME_DIR .. "src/mame/video/konamigx.cpp",
 	MAME_DIR .. "src/mame/machine/konami1.cpp",
