@@ -2543,14 +2543,62 @@ ROM_START( mspacmadp )
 	ROM_LOAD( "pacmdp.5e",           0x0000, 0x1000, CRC(843ff4f5) SHA1(8aa82364d5fbd2692d8c22e4673a27731f9b20e5) )
 	ROM_LOAD( "pacmdp.5f",           0x1000, 0x1000, CRC(aadcfae1) SHA1(800c46b4f08b575082840807d73cd47d0eb9fe00) )
 
-	ROM_REGION( 0x0120, "proms", 0 )
-	ROM_LOAD( "82s123.7f",    0x0000, 0x0020, CRC(2fc650bd) SHA1(8d0268dee78e47c712202b0ec4f1f51109b1f2a5) )
-	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
-
-	ROM_REGION( 0x0200, "namco", 0 )   
-	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
-	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+	PACMAN_PROMS
 ROM_END
+
+ROM_START( mspacatttur )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacmdp.1",        0x0000, 0x1000, CRC(69c02827) SHA1(12b675ab56cb9f3184a6a6bd280eafbab4ceb5b2) )
+	ROM_LOAD( "pacmdp.2",        0x1000, 0x1000, CRC(e961c8b3) SHA1(f0486c1c49ed7abd9f865c939a5d8fa685125b75) )
+	ROM_LOAD( "pacmdp.3",        0x2000, 0x1000, CRC(e9faa733) SHA1(46a87428b72d9d81e5952e318148d0f8fc94bc51) )
+	ROM_LOAD( "mspacatttur.4",   0x3000, 0x1000, CRC(f543117f) SHA1(ba2b13156462562822eabcc990bc8b10bb1d419f) )
+	ROM_LOAD( "pacmdp.5",        0x8000, 0x1000, CRC(a935866b) SHA1(64b280174b6ac9abed5e6bb7ce631f4c7f3c4b02) )
+	ROM_LOAD( "mspacatttur.6",   0x9000, 0x1200, CRC(d13b1805) SHA1(da4c1855abd8e28d3e7700ad12fe23ba4bff5879) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "mspacatttur.5e",  0x0000, 0x1000, CRC(f5740f12) SHA1(0d542e434cc7d0c486b77cb93df286c41216ad4a) )
+	ROM_LOAD( "mspacatttur.5ef", 0x1000, 0x0800, CRC(d48bfefd) SHA1(f2e6292525f263bb4a61b579a20e2b077c329aed) )
+	ROM_LOAD( "mspacatttur.5hj", 0x1800, 0x0800, CRC(e3f22762) SHA1(3e694ac5580e78d5a7d7721149ee764a2f4c6bfa) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( mspacii2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacmdp.1",        0x0000, 0x1000, CRC(69c02827) SHA1(12b675ab56cb9f3184a6a6bd280eafbab4ceb5b2) )
+	ROM_LOAD( "pacmdp.2",        0x1000, 0x1000, CRC(e961c8b3) SHA1(f0486c1c49ed7abd9f865c939a5d8fa685125b75) )
+	ROM_LOAD( "mspacpbl.3",      0x2000, 0x1000, CRC(60c890a1) SHA1(c1fbaedb212449803f5b506ac6f8e258644e4536) )
+	ROM_LOAD( "mspacii2.4",      0x3000, 0x1000, CRC(693ba65e) SHA1(f7ba90b98b89f4daf3d126376c764dc712be8823) )
+	ROM_LOAD( "mspacii2.5",      0x8000, 0x1000, CRC(97331824) SHA1(71e2f3ea435c3f01cf327bf4d49509a23697abe3) )
+	ROM_LOAD( "mspacii2.6",      0x9000, 0x1200, CRC(da8171ad) SHA1(aab1d06d5fce8df9011336c873f26391c8f6c9eb) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "mspacii2.5e",     0x0000, 0x1000, CRC(ff5e7574) SHA1(d2356085028c84366b58e71ef7719535817c5d1e) )
+	ROM_LOAD( "mspacii2.5f",     0x1000, 0x1000, CRC(20ba1b49) SHA1(98793c1d4bbf3b1490fcd6fa56102063e6f3efb3) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "mspacii2.7f",  0x0000, 0x0020, CRC(df9d02f5) SHA1(775b244f8a99b63cfd2d6d68d5a039b3276d6dc6) )
+	ROM_LOAD( "pacplus.4a",   0x0020, 0x0100, CRC(e271a166) SHA1(cf006536215a7a1d488eebc1d8a2e2a8134ce1a6) )
+
+	PACMAN_SOUND_PROMS
+ROM_END
+
+ROM_START( ms2600a )
+	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
+	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
+	ROM_LOAD( "boot3",        0x2000, 0x1000, CRC(1821ee0b) SHA1(5ea4d907dbb2690698db72c4e0b5be4d3e9a7786) )
+	ROM_LOAD( "boot4",        0x3000, 0x1000, CRC(165a9dd8) SHA1(3022a408118fa7420060e32a760aeef15b8a96cf) )
+	ROM_LOAD( "ms2600.5",     0x8000, 0x1000, CRC(4852db05) SHA1(8471e1640164dc311e0180a7a8323208a40cf889) )
+	ROM_LOAD( "ms2600a.6",    0x9000, 0x1000, CRC(2287b7fe) SHA1(cea476a18a12011c6807f88962fe0525e292b2d9) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "ms2600.5e",    0x0000, 0x1000, CRC(6b07b97a) SHA1(981ce12d92c57ed6c908d4b5b9b0c0b079d325db) )
+	ROM_LOAD( "ms2600a.5f",   0x1000, 0x1000, CRC(40f8bcaa) SHA1(9da2b447788aecb3898d403e5d89ebb2f4182fe2) )
+
+	PACMAN_PROMS
+ROM_END
+
 
 /*************************************
  *
@@ -2722,5 +2770,8 @@ HACK( 2017, mspacmans03, mspacman, zolapac,  mspacman, pacman_state, 0,        R
 HACK( 2017, mspacmans04, mspacman, zolapac,  mspacman, pacman_state, 0,        ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
 
 /* Others Hacks */
-HACK( 2018, mspacmadp, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "MamePlus", "Ms. Pacman (Pac Droid Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mspacmadp,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "MamePlus", "Ms. Pacman (Pac Droid Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mspacatttur, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "MamePlus", "Ms. Pac Attack Plus Turbo", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mspacii2,    mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "MamePlus", "Ms. Pacman (Pink Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ms2600a,     mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "MamePlus", "Ms. Pacman (Atari look)", MACHINE_SUPPORTS_SAVE )
 
