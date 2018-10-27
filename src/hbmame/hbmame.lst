@@ -6595,6 +6595,10 @@ mslugxece23
 mslugxece24
 
 @source:mspacman.cpp
+mtlchamp			//parent
+mmaulers			//parent
+
+@source:mspacman.cpp
 mspacman	//parent
 chtmsatk	/* PacMAME Hacks */
 chtmspa		/* PacMAME Hacks */

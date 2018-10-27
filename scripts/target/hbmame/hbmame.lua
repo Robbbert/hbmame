@@ -83,6 +83,7 @@ SOUNDS["K007232"] = true
 SOUNDS["K051649"] = true
 SOUNDS["K053260"] = true
 SOUNDS["K054539"] = true
+SOUNDS["K056800"] = true -- mystwarr
 SOUNDS["LC7535"] = true -- deco32
 SOUNDS["MPEG_AUDIO"] = true -- model2
 SOUNDS["MSM5205"] = true
@@ -176,6 +177,7 @@ MACHINES["GEN_FIFO"] = true
 MACHINES["GEN_LATCH"] = true
 MACHINES["I8257"] = true
 MACHINES["K053252"] = true
+MACHINES["K054321"] = true -- mystwarr
 MACHINES["LATCH8"] = true
 MACHINES["LDPR8210"] = true
 MACHINES["MB3773"] = true
@@ -517,6 +519,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/1943.cpp",
 	MAME_DIR .. "src/mame/video/1943.cpp",
 	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mystwarr.cpp",
+	MAME_DIR .. "src/mame/video/mystwarr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nemesis.cpp",
 	MAME_DIR .. "src/mame/video/nemesis.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pooyan.cpp",
@@ -529,6 +533,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/tmnt.cpp",
 	MAME_DIR .. "src/mame/video/tmnt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/trackfld.cpp",
+	MAME_DIR .. "src/mame/machine/konamigx.cpp",
+	MAME_DIR .. "src/mame/video/konamigx.cpp",
 	MAME_DIR .. "src/mame/machine/konami1.cpp",
 	MAME_DIR .. "src/mame/audio/trackfld.cpp",
 	MAME_DIR .. "src/mame/video/trackfld.cpp",
@@ -537,6 +543,8 @@ files {
 	MAME_DIR .. "src/mame/video/yiear.cpp",
 	MAME_DIR .. "src/mame/video/konami_helper.cpp",
 	MAME_DIR .. "src/mame/video/k007121.cpp",
+	MAME_DIR .. "src/mame/video/k053250.cpp",
+	MAME_DIR .. "src/mame/video/k054338.cpp",
 	MAME_DIR .. "src/mame/video/k051960.cpp",
 	MAME_DIR .. "src/mame/video/k052109.cpp",
 	MAME_DIR .. "src/mame/video/k053246_k053247_k055673.cpp",
