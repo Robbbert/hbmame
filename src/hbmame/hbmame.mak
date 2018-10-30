@@ -67,4 +67,5 @@ LAYOUTS += \
 	$(SRC)/mame/layout/spacecom.lay \
 	$(SRC)/mame/layout/spacwalk.lay \
 	$(SRC)/mame/layout/spcenctr.lay \
+	$(SRC)/mame/layout/yosakdon.lay \
 

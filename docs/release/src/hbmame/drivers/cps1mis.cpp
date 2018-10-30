@@ -653,6 +653,7 @@ MACHINE_CONFIG_START( cps_state::cps1frog )
 	MCFG_DEVICE_ADD("maincpu", M68000, 10'000'000 )
 	MCFG_DEVICE_PROGRAM_MAP(cps1frog_map)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
 
 	/* audio CPU */
 	MCFG_DEVICE_ADD("audiocpu", Z80, 3'579'545)
