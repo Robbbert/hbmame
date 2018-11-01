@@ -14,6 +14,7 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_LOAD16_BYTE( "c04-21.8",     0xc0001, 0x20000, CRC(8598d38e) SHA1(4ec1b819586b50e2f6aff2aaa5e3b06704b9bec2) )
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", ROMREGION_ERASE00 )
+	ROM_LOAD( "cchip_c04-23",        0x0000,  0x2000,  CRC(46b0b479) SHA1(73aa2267eb468c5aa5db67183047e9aef8321215) )
 
 	ROM_REGION( 0xc0000, "gfx1", 0 )
 	ROM_LOAD16_BYTE( "c04-16.2g",    0x00000, 0x20000, CRC(1c6963a9) SHA1(2dc4b6838c95497e019c03582a8f7ecb48fa97a8) )
@@ -33,4 +34,4 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_LOAD_OPTIONAL( "c04-5.75",  0x00200, 0x00200, CRC(2763ec89) SHA1(1e8339e21ee35b526d8604a21cfed9a1ac6455e8) )
 ROM_END
 
-HACK( 2005, volfiedg, volfied, volfied, volfied, volfied_state, 0, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, volfiedg, volfied, volfied, volfied, volfied_state, empty_init, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )

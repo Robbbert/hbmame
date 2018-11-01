@@ -1433,6 +1433,7 @@ xmvsfryh
 19xxd
 armwar1d
 avspd
+avspud
 batcird
 csclub1d
 cybotsud
@@ -1680,6 +1681,8 @@ dkongx
 dkongx11
 dkrainbow
 dkrdemo
+dkchrmx         // Sock Master - Christmas Remix 2017
+dkspkyrmx       // Sock Master - Spooky Remix Halloween Tournament 2018
 kong2600		/* Vic Twenty George hack of Donkey Kong */
 nadkong
 
@@ -3742,6 +3745,7 @@ kof2k2pro
 kof2k2ps2
 kof2k2ps2a
 kof2k2ps2mp
+kf2k2ps2re
 kof2k2pur
 kof2k2ra
 kof2k2rgl // no sound in attract mode
@@ -4440,6 +4444,10 @@ kof2004upls28
 kof2004upls29
 kof2003xs01
 kof2003xs02
+
+@source:konamigx.cpp
+konamigx			//required bios
+dragoona			//parent
 
 @source:kyugo.cpp
 airwolf		//parent
@@ -6590,6 +6598,10 @@ mslugxece22
 mslugxece23
 mslugxece24
 
+@source:mystwarr.cpp
+mtlchamp			//parent
+mmaulers			//parent
+
 @source:mspacman.cpp
 mspacman	//parent
 chtmsatk	/* PacMAME Hacks */
@@ -6717,6 +6729,9 @@ mspacmans03
 mspacmans04
 mspacmabscre
 mspacmadp
+mspacatttur
+mspacii2
+ms2600a
 	/* "Pacman hardware" games (hires hacks) */
 mschampx
 mspacmnx
@@ -6922,10 +6937,12 @@ akiradmo
 beast		/* 2002 (c) 1989 Psygnosis */
 cndi		/* Chip n Dale Intro */
 cnbe
+cnbe2018
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
 //csw2 //not working & roms missing
+ddsprdmo
 didemo
 dti			// Duck Tales Intro
 dti2		// Duck Tales Intro
@@ -6980,7 +6997,9 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
+raroggame
 rci			/* Robocop intro */
+samantha
 santabll
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
@@ -6992,6 +7011,7 @@ tmnti		/* TMNT intro */
 tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
+vlad2000
 ww2demo
 zintrckbh
 zintrkcd	/* 211 (c) 1996 ADK / SNK */
@@ -9407,6 +9427,9 @@ solomonjs01
 @source:spacmiss.cpp
 spacmissx				// extra sounds
 
+@source:ssv.cpp
+survarts				//parent
+
 @source:system1.cpp
 wbml					//parent
 wbmlbit
@@ -9603,6 +9626,9 @@ twincobr	//parent
 twincbu2
 twintwst
 
+@source:vamphalf.cpp
+aoh				//parent
+
 @source:volfied.cpp
 volfied		//parent
 volfiedg	/* Vag @ GreekRoms 2005 */
@@ -9631,6 +9657,9 @@ robotronp	/* Patched to remove the 'in the corner' crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1
+
+@source:wiz.cpp
+stinger				//parent
 
 @source:wmg.cpp
 wmg

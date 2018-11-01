@@ -1368,7 +1368,7 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START( neogeo_state::neogeo_arcade )
 	neogeo_base(config);
 	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK));
-	MCFG_UPD4990A_ADD("upd4990a", 32'768, NOOP, NOOP)
+	UPD4990A(config, m_upd4990a);
 	NVRAM(config, "saveram", nvram_device::DEFAULT_ALL_0);
 	MCFG_NEOGEO_MEMCARD_ADD("memcard")
 MACHINE_CONFIG_END
