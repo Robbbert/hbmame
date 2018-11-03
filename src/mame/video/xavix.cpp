@@ -86,14 +86,20 @@ void xavix_state::handle_palette(screen_device &screen, bitmap_ind16 &bitmap, co
 		//if (h_raw > 24)
 		//  LOG("hraw >24 (%02x)\n", h_raw);
 
-		//if (l_raw > 17)
-		//  LOG("lraw >17 (%02x)\n", l_raw);
+		//if (l_raw > 24)
+		//  LOG("lraw >24 (%02x)\n", l_raw);
 
 		//if (s_raw > 7)
 		//  LOG("s_raw >5 (%02x)\n", s_raw);
 
-		double l = (double)l_raw / 17.0f;
+		double l = (double)l_raw / 24.0f; // ekara and drgqst go up to 23 during fades, expect that to be brightest
+		l = l * (std::atan(1)*2); // does not appear to be a linear curve
+		l = std::sin(l);
+
 		double s = (double)s_raw / 7.0f;
+		s = s * (std::atan(1)*2); // does not appear to be a linear curve
+		s = std::sin(s);
+
 		double h = (double)h_raw / 24.0f; // hue values 24-31 render as transparent
 
 		double r, g, b;
@@ -558,9 +564,6 @@ void xavix_state::draw_sprites_line(screen_device &screen, bitmap_ind16 &bitmap,
 
 			xpos += 128 - 8;
 
-
-
-
 			// Everything except directdirect addressing (Addressing Mode 2) goes through the segment registers?
 			if (alt_addressing != 0)
 			{
@@ -578,15 +581,12 @@ void xavix_state::draw_sprites_line(screen_device &screen, bitmap_ind16 &bitmap,
 				tile += gfxbase;
 			}
 
-
-
-
 			int bpp = 1;
 
 			bpp = (attr0 & 0x0e) >> 1;
 			bpp += 1;
 
-			draw_tile_line(screen, bitmap, cliprect, tile, bpp, xpos, line, drawheight, drawwidth, flipx, flipy, pal, zval, drawline);
+			draw_tile_line(screen, bitmap, cliprect, tile, bpp, xpos + xpos_adjust, line, drawheight, drawwidth, flipx, flipy, pal, zval, drawline);
 
 			/*
 			if ((spr_ypos[i] != 0x81) && (spr_ypos[i] != 0x80) && (spr_ypos[i] != 0x00))
@@ -601,23 +601,27 @@ void xavix_state::draw_sprites_line(screen_device &screen, bitmap_ind16 &bitmap,
 void xavix_state::draw_tile_line(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int tile, int bpp, int xpos, int ypos, int drawheight, int drawwidth, int flipx, int flipy, int pal, int zval, int line)
 {
 	//const pen_t *paldata = m_palette->pens();
-
-	if (flipy)
-		line = drawheight - line;
-
 	if (ypos > cliprect.max_y || ypos < cliprect.min_y)
 		return;
 
 	if ((xpos > cliprect.max_x) || ((xpos + drawwidth) < cliprect.min_x))
 		return;
 
-
 	if ((ypos >= cliprect.min_y && ypos <= cliprect.max_y))
 	{
+		// if bpp>4 then ignore unaligned palette selects bits based on bpp
+		// ttv_lotr uses 5bpp graphics (so 32 colour alignment) but sets palette 0xf (a 16 colour boundary) when it expects palette 0xe
+		if (bpp>4)
+			pal &= (0xf<<(bpp-4));
+
 		int bits_per_tileline = drawwidth * bpp;
 
 		// set the address here so we can increment in bits in the draw function
 		set_data_address(tile, 0);
+
+		if (flipy)
+			line = (drawheight - 1) - line;
+
 		m_tmp_dataaddress = m_tmp_dataaddress + ((line * bits_per_tileline) / 8);
 		m_tmp_databit = (line * bits_per_tileline) % 8;
 
@@ -682,9 +686,6 @@ uint32_t xavix_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap,
 	// not sure what you end up with if you fall through all layers as transparent, so far no issues noticed
 	bitmap.fill(m_palette->black_pen(), cliprect);
 	m_zbuffer.fill(0, cliprect);
-
-
-
 
 	rectangle clip = cliprect;
 
@@ -754,7 +755,8 @@ uint32_t xavix_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap,
 						dat |= (get_next_bit() << i);
 					}
 
-					yposptr[x] = dat + 0x100;
+					if (x < cliprect.max_x)
+						yposptr[x] = dat + 0x100;
 				}
 			}
 
