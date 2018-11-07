@@ -57,8 +57,8 @@ CPUS["ARM7"] = true
 CPUS["JAGUAR"] = true
 CPUS["CUBEQCPU"] = true
 CPUS["ESRIP"] = true
-CPUS["MIPS"] = true
-CPUS["R3000"] = true
+CPUS["MIPS1"] = true
+CPUS["MIPS3"] = true
 CPUS["PSX"] = true
 CPUS["SH"] = true
 CPUS["DSP16"] = true
@@ -278,6 +278,7 @@ SOUNDS["DAVE"] = true
 --SOUNDS["LC7535"] = true
 SOUNDS["UPD934G"] = true
 SOUNDS["IOPSPU"] = true
+SOUNDS["SWP30"] = true
 
 --------------------------------------------------
 -- specify available video cores
@@ -3447,6 +3448,8 @@ files {
 	MAME_DIR .. "src/mame/includes/xavix.h",
 	MAME_DIR .. "src/mame/machine/xavix_mtrk_wheel.cpp",
 	MAME_DIR .. "src/mame/machine/xavix_mtrk_wheel.h",
+	MAME_DIR .. "src/mame/machine/xavix_madfb_ball.cpp",
+	MAME_DIR .. "src/mame/machine/xavix_madfb_ball.h",
 }
 
 createMESSProjects(_target, _subtarget, "ultimachine")

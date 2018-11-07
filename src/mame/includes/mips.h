@@ -7,7 +7,7 @@
 #pragma once
 
 // processors and memory
-#include "cpu/mips/r3000.h"
+#include "cpu/mips/mips1.h"
 #include "cpu/nec/v5x.h"
 #include "machine/ram.h"
 
@@ -98,7 +98,7 @@ private:
 	};
 
 	// processors and memory
-	required_device<r3000_device_base> m_cpu;
+	required_device<r2000a_device> m_cpu;
 	required_device<v50_device> m_iop;
 	required_device<ram_device> m_ram;
 

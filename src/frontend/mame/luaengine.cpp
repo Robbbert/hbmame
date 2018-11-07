@@ -989,7 +989,7 @@ void lua_engine::initialize()
  * item:read_block(offset, count) - read a block of entry values as a string (byte addressing)
  * item:write(offset, value) - write entry value by index
  */
- 
+
 	emu.new_usertype<save_item>("item", sol::call_constructor, sol::initializers([this](save_item &item, int index) {
 					if(!machine().save().indexed_item(index, item.base, item.size, item.count))
 					{
@@ -1727,9 +1727,9 @@ void lua_engine::initialize()
 				}));
 
 /* machine.screens[screen_tag]
- * screen:draw_box(x1, y1, x2, y2, fillcol, linecol) - draw box from (x1, y1)-(x2, y2) colored linecol filled with fillcol
+ * screen:draw_box(x1, y1, x2, y2, fillcol, linecol) - draw box from (x1, y1)-(x2, y2) colored linecol filled with fillcol, color is 32bit argb
  * screen:draw_line(x1, y1, x2, y2, linecol) - draw line from (x1, y1)-(x2, y2) colored linecol
- * screen:draw_text(x || justify, y, message, [opt] color) - draw message at (x, y) or at line y with left, right, center justification
+ * screen:draw_text(x || justify, y, message, [opt] fgcolor, [opt] bgcolor) - draw message at (x, y) or at line y with left, right, center justification
  * screen:height() - screen height
  * screen:width() - screen width
  * screen:orientation() - screen angle, flipx, flipy
@@ -1742,6 +1742,8 @@ void lua_engine::initialize()
  * screen:tag() - screen device tag
  * screen:xscale() - screen x scale factor
  * screen:yscale() - screen y scale factor
+ * screen:pixel(x, y) - get pixel at (x, y) as packed RGB in a u32
+ * screen:pixels() - get whole screen bitmap as string
 */
 
 	sol().registry().new_usertype<screen_device>("screen_dev", "new", sol::no_constructor,
@@ -1763,7 +1765,7 @@ void lua_engine::initialize()
 					y2 = std::min(std::max(0.0f, y2), float(sc_height-1)) / float(sc_height);
 					sdev.container().add_line(x1, y1, x2, y2, UI_LINE_WIDTH, rgb_t(color), PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA));
 				},
-			"draw_text", [this](screen_device &sdev, sol::object xobj, float y, const char *msg, sol::object color) {
+			"draw_text", [this](screen_device &sdev, sol::object xobj, float y, const char *msg, sol::object color, sol::object bcolor) {
 					int sc_width = sdev.visible_area().width();
 					int sc_height = sdev.visible_area().height();
 					auto justify = ui::text_layout::LEFT;
@@ -1787,12 +1789,13 @@ void lua_engine::initialize()
 						return;
 					}
 					rgb_t textcolor = UI_TEXT_COLOR;
-					rgb_t bgcolor = UI_TEXT_BG_COLOR;
+					rgb_t bgcolor = 0;
 					if(color.is<uint32_t>())
 						textcolor = rgb_t(color.as<uint32_t>());
+					if(bcolor.is<uint32_t>())
+						bgcolor = rgb_t(bcolor.as<uint32_t>());
 					mame_machine_manager::instance()->ui().draw_text_full(sdev.container(), msg, x, y, (1.0f - x),
-										justify, ui::text_layout::WORD, mame_ui_manager::NORMAL, textcolor,
-										bgcolor, nullptr, nullptr);
+										justify, ui::text_layout::WORD, mame_ui_manager::OPAQUE_, textcolor, bgcolor);
 				},
 			"height", [](screen_device &sdev) { return sdev.visible_area().height(); },
 			"width", [](screen_device &sdev) { return sdev.visible_area().width(); },
@@ -1853,7 +1856,21 @@ void lua_engine::initialize()
 			"shortname", &screen_device::shortname,
 			"tag", &screen_device::tag,
 			"xscale", &screen_device::xscale,
-			"yscale", &screen_device::yscale);
+			"yscale", &screen_device::yscale,
+			"pixel", [](screen_device &sdev, float x, float y) {
+					return sdev.pixel((s32)x, (s32)y);
+				},
+			"pixels", [](screen_device &sdev, sol::this_state s) {
+					lua_State *L = s;
+					const rectangle &visarea = sdev.visible_area();
+					luaL_Buffer buff;
+					int size = visarea.height() * visarea.width() * 4;
+					u32 *ptr = (u32 *)luaL_buffinitsize(L, &buff, size);
+					sdev.pixels(ptr);
+					luaL_pushresultsize(&buff, size);
+					return sol::make_reference(L, sol::stack_reference(L, -1));
+				}
+			);
 
 /* mame_manager:ui()
  * ui:is_menu_active() - ui menu state
