@@ -114,6 +114,7 @@ public:
 	// conversion to other forms
 	constexpr double as_double() const { return double(m_seconds) + ATTOSECONDS_TO_DOUBLE(m_attoseconds); }
 	constexpr attoseconds_t as_attoseconds() const;
+	constexpr double as_hz() const { return is_never() ? 0.0 : 1.0 / as_double(); }
 	u64 as_ticks(u32 frequency) const;
 	u64 as_ticks(const XTAL &xtal) const { return as_ticks(xtal.value()); }
 	/** Convert to string using at @p precision */
@@ -136,10 +137,10 @@ public:
 	/** Create an attotime from a integer count of nanoseconds @nsec */
 	static constexpr attotime from_nsec(s64 nsec) { return attotime(nsec / 1000000000, (nsec % 1000000000) * (ATTOSECONDS_PER_SECOND / 1000000000)); }
 	/** Create an attotime from at the given frequency @frequency */
-	static attotime from_hz(double frequency) { assert(frequency > 0); double d = 1 / frequency; return attotime(floor(d), modf(d, &d) * ATTOSECONDS_PER_SECOND); }
-	static attotime from_hz(u32 frequency) { return from_hz(double(frequency)); }
-	static attotime from_hz(int frequency) { return from_hz(double(frequency)); }
-	static attotime from_hz(const XTAL &xtal) { return from_hz(xtal.dvalue()); }
+	static attotime from_hz(u32 frequency) { return (frequency > 1) ? attotime(0, HZ_TO_ATTOSECONDS(frequency)) : (frequency == 1) ? attotime(1, 0) : attotime::never; }
+	static attotime from_hz(int frequency) { return (frequency > 0) ? from_hz(u32(frequency)) : attotime::never; }
+	static attotime from_hz(const XTAL &xtal) { return from_hz(xtal.value()); }
+	static attotime from_hz(double frequency) { if (frequency > 0.0) { double i, f = modf(1.0 / frequency, &i); return attotime(i, f * ATTOSECONDS_PER_SECOND); } else return attotime::never; }
 
 	// math
 	attotime &operator+=(const attotime &right);
