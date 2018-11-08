@@ -1,6 +1,29 @@
 ﻿What's new in HBMAME
 ====================
 
+2018-11-28 0.204
+----------------
+
+New Games
+---------------------------------
+- [aohs01]            Age Of Heroes - Silkroad 2 (Easy Move)
+- [aohs02]            Age Of Heroes - Silkroad 2 (No Need Power)
+- [dinos143]          Cadillacs and Dinosaurs (Xue Zhan Edition)
+- [dragoonas01]       Dragoon Might (Always Have Super Move)
+- [dragoonas02]       Dragoon Might (Easy Move)
+- [dragoonas03]       Dragoon Might (Enable Hidden Character)
+- [dragoonas04]       Dragoon Might (Description Unknown)
+- [kov2p204s64]       Knights of Valour 2 Plus (Ling Hun Bo Li)
+- [kov2p204s65]       Knights of Valour 2 Plus (Yi Tong Qun Xiong)
+- [kov2p204s66]       Knights of Valour 2 Plus (Shen Yuan Qun Ying)
+- [mmaulerss01]       Monster Maulers (Easy Move)
+- [mtlchamps01]       Martial Champion (Easy Move)
+- [rabbits04]         Rabbit (Description Unknown)
+- [stinger2s01]       Stinger (Bug fix - Taxiing Speed)(prototype?)
+- [stingers01]        Stinger (Bug fix - Taxiing Speed)
+- [survartss01]       Survival Arts (Easy Move)
+
+
 
 2018-10-31 0.203
 ----------------
