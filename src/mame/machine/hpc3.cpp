@@ -9,95 +9,155 @@
 #include "emu.h"
 #include "machine/hpc3.h"
 
+#define LOG_UNKNOWN		(1 << 0)
+#define LOG_PBUS_DMA	(1 << 1)
+#define LOG_SCSI		(1 << 2)
+#define LOG_SCSI_DMA	(1 << 3)
+#define LOG_ETHERNET	(1 << 4)
+#define LOG_PBUS4		(1 << 5)
+#define LOG_CHAIN		(1 << 6)
+
+#define VERBOSE		(LOG_SCSI_DMA)
+#include "logmacro.h"
+
 DEFINE_DEVICE_TYPE(SGI_HPC3, hpc3_device, "hpc3", "SGI HPC3")
 
 hpc3_device::hpc3_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, SGI_HPC3, tag, owner, clock)
 	, m_maincpu(*this, finder_base::DUMMY_TAG)
 	, m_wd33c93(*this, finder_base::DUMMY_TAG)
+	, m_wd33c93_2(*this, finder_base::DUMMY_TAG)
 	, m_ioc2(*this, finder_base::DUMMY_TAG)
-	, m_dac(*this, finder_base::DUMMY_TAG)
+	, m_ldac(*this, finder_base::DUMMY_TAG)
+	, m_rdac(*this, finder_base::DUMMY_TAG)
 	, m_mainram(*this, ":mainram")
-	, m_unkpbus0(*this, ":unkpbus0")
 {
-}
-
-#define VERBOSE_LEVEL (0)
-
-inline void ATTR_PRINTF(3,4) hpc3_device::verboselog(int n_level, const char *s_fmt, ...)
-{
-	if (VERBOSE_LEVEL >= n_level)
-	{
-		va_list v;
-		char buf[32768];
-		va_start(v, s_fmt);
-		vsprintf(buf, s_fmt, v);
-		va_end(v);
-		logerror("%s: %s", machine().describe_context(), buf);
-	}
 }
 
 void hpc3_device::device_start()
 {
-	m_pbus_dma_timer = timer_alloc(TIMER_PBUS_DMA);
-	m_pbus_dma_timer->adjust(attotime::never);
+	save_item(NAME(m_enetr_nbdp));
+	save_item(NAME(m_enetr_cbp));
+	save_item(NAME(m_pio_config));
+
+	for (uint32_t i = 0; i < 2; i++)
+	{
+		save_item(NAME(m_scsi_dma[i].m_desc), i);
+		save_item(NAME(m_scsi_dma[i].m_addr), i);
+		save_item(NAME(m_scsi_dma[i].m_ctrl), i);
+		save_item(NAME(m_scsi_dma[i].m_length), i);
+		save_item(NAME(m_scsi_dma[i].m_next), i);
+		save_item(NAME(m_scsi_dma[i].m_irq), i);
+		save_item(NAME(m_scsi_dma[i].m_big_endian), i);
+		save_item(NAME(m_scsi_dma[i].m_to_device), i);
+		save_item(NAME(m_scsi_dma[i].m_active), i);
+	}
+
+	for (uint32_t i = 0; i < 8; i++)
+	{
+		save_item(NAME(m_pbus_dma[i].m_active), i);
+		save_item(NAME(m_pbus_dma[i].m_buf_ptr), i);
+		save_item(NAME(m_pbus_dma[i].m_cur_ptr), i);
+		save_item(NAME(m_pbus_dma[i].m_desc_ptr), i);
+		save_item(NAME(m_pbus_dma[i].m_desc_flags), i);
+		save_item(NAME(m_pbus_dma[i].m_next_ptr), i);
+		save_item(NAME(m_pbus_dma[i].m_bytes_left), i);
+		save_item(NAME(m_pbus_dma[i].m_config), i);
+
+		m_pbus_dma[i].m_timer = timer_alloc(TIMER_PBUS_DMA + i);
+		m_pbus_dma[i].m_timer->adjust(attotime::never);
+	}
 }
 
 void hpc3_device::device_reset()
 {
 	m_enetr_nbdp = 0x80000000;
 	m_enetr_cbp = 0x80000000;
-	m_pbus_dma.m_active = 0;
-	m_pbus_dma_timer->adjust(attotime::never);
+
+	memset(m_scsi_dma, 0, sizeof(scsi_dma_t) * 2);
+
+	for (uint32_t i = 0; i < 8; i++)
+	{
+		m_pbus_dma[i].m_active = 0;
+		m_pbus_dma[i].m_cur_ptr = 0;
+		m_pbus_dma[i].m_buf_ptr = 0;
+		m_pbus_dma[i].m_desc_ptr = 0;
+		m_pbus_dma[i].m_desc_flags = 0;
+		m_pbus_dma[i].m_next_ptr = 0;
+		m_pbus_dma[i].m_bytes_left = 0;
+		m_pbus_dma[i].m_config = 0;
+
+		m_pbus_dma[i].m_active = false;
+		m_pbus_dma[i].m_timer->adjust(attotime::never);
+	}
+
+	m_cpu_space = &m_maincpu->space(AS_PROGRAM);
 }
 
 void hpc3_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
 {
 	switch (id)
 	{
-	case TIMER_PBUS_DMA:
-		do_dma(ptr, param);
+	case TIMER_PBUS_DMA+1:
+	case TIMER_PBUS_DMA+2:
+		do_pbus_dma(id - TIMER_PBUS_DMA);
+		break;
+	case TIMER_PBUS_DMA+0:
+	case TIMER_PBUS_DMA+3:
+	case TIMER_PBUS_DMA+4:
+	case TIMER_PBUS_DMA+5:
+	case TIMER_PBUS_DMA+6:
+	case TIMER_PBUS_DMA+7:
+		LOGMASKED(LOG_UNKNOWN, "HPC3: Ignoring active PBUS DMA on channel %d\n", id - TIMER_PBUS_DMA);
 		break;
 	default:
 		assert_always(false, "Unknown id in hpc3_device::device_timer");
 	}
 }
 
-TIMER_CALLBACK_MEMBER(hpc3_device::do_dma)
+void hpc3_device::do_pbus_dma(uint32_t channel)
 {
-	m_pbus_dma_timer->adjust(attotime::never);
+	pbus_dma_t &dma = m_pbus_dma[channel];
 
-	if (m_pbus_dma.m_active)
+	if (dma.m_active && (channel == 1 || channel == 2))
 	{
-		address_space &space = m_maincpu->space(AS_PROGRAM);
-		uint16_t temp16 = space.read_dword(m_pbus_dma.m_cur_ptr) >> 16;
+		uint16_t temp16 = m_cpu_space->read_dword(dma.m_cur_ptr) >> 16;
 		int16_t stemp16 = (int16_t)((temp16 >> 8) | (temp16 << 8));
 
-		m_dac->write(stemp16);
+		if (channel == 1)
+			m_ldac->write(stemp16);
+		else
+			m_rdac->write(stemp16);
 
-		m_pbus_dma.m_cur_ptr += 4;
-		m_pbus_dma.m_words_left -= 4;
+		dma.m_cur_ptr += 4;
+		dma.m_bytes_left -= 4;
 
-		if (m_pbus_dma.m_words_left == 0)
+		if (dma.m_bytes_left == 0)
 		{
-			if (m_pbus_dma.m_next_ptr != 0)
+			if (!BIT(dma.m_desc_flags, 31))
 			{
-				m_pbus_dma.m_desc_ptr = m_pbus_dma.m_next_ptr;
-				logerror("Next PBUS_DMA_DescPtr = %08x\n", m_pbus_dma.m_desc_ptr); fflush(stdout);
-				m_pbus_dma.m_cur_ptr = space.read_dword(m_pbus_dma.m_desc_ptr);
-				m_pbus_dma.m_words_left = space.read_dword(m_pbus_dma.m_desc_ptr + 4);
-				m_pbus_dma.m_next_ptr = space.read_dword(m_pbus_dma.m_desc_ptr + 8);
-				logerror("Next PBUS_DMA_CurPtr = %08x\n", m_pbus_dma.m_cur_ptr); fflush(stdout);
-				logerror("Next PBUS_DMA_WordsLeft = %08x\n", m_pbus_dma.m_words_left); fflush(stdout);
-				logerror("Next PBUS_DMA_NextPtr = %08x\n", m_pbus_dma.m_next_ptr); fflush(stdout);
+				dma.m_desc_ptr = dma.m_next_ptr;
+				LOGMASKED(LOG_PBUS_DMA, "Channel %d Next PBUS_DMA_DescPtr = %08x\n", channel, dma.m_desc_ptr); fflush(stdout);
+				dma.m_cur_ptr = m_cpu_space->read_dword(dma.m_desc_ptr);
+				dma.m_desc_flags = m_cpu_space->read_dword(dma.m_desc_ptr + 4);
+				dma.m_bytes_left = dma.m_desc_flags & 0x7fffffff;
+				dma.m_next_ptr = m_cpu_space->read_dword(dma.m_desc_ptr + 8);
+				LOGMASKED(LOG_PBUS_DMA, "Channel %d Next PBUS_DMA_CurPtr = %08x\n", channel, dma.m_cur_ptr); fflush(stdout);
+				LOGMASKED(LOG_PBUS_DMA, "Channel %d Next PBUS_DMA_BytesLeft = %08x\n", channel, dma.m_bytes_left); fflush(stdout);
+				LOGMASKED(LOG_PBUS_DMA, "Channel %d Next PBUS_DMA_NextPtr = %08x\n", channel, dma.m_next_ptr); fflush(stdout);
 			}
 			else
 			{
-				m_pbus_dma.m_active = 0;
+				dma.m_active = false;
+				dma.m_timer->adjust(attotime::never);
 				return;
 			}
 		}
-		m_pbus_dma_timer->adjust(attotime::from_hz(44100));
+		dma.m_timer->adjust(attotime::from_hz(44100));
+	}
+	else
+	{
+		dma.m_timer->adjust(attotime::never);
 	}
 }
 
@@ -106,19 +166,19 @@ READ32_MEMBER(hpc3_device::hd_enet_r)
 	switch (offset)
 	{
 	case 0x0004/4:
-		//verboselog(machine, 0, "HPC3 SCSI0DESC Read: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, m_scsi0_desc);
-		return m_scsi0_desc;
+		LOGMASKED(LOG_SCSI, "%s: HPC3 SCSI0 Desc Address Read: %08x & %08x\n", machine().describe_context(), m_scsi_dma[0].m_desc, mem_mask);
+		return m_scsi_dma[0].m_desc;
 	case 0x1004/4:
-		//verboselog(machine, 0, "HPC3 SCSI0DMACTRL Read: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, m_scsi0_dma_ctrl);
-		return m_scsi0_dma_ctrl;
+		LOGMASKED(LOG_SCSI, "%s: HPC3 SCSI0 DMA Control Read: %08x & %08x\n", machine().describe_context(), m_scsi_dma[0].m_ctrl, mem_mask);
+		return m_scsi_dma[0].m_ctrl;
 	case 0x4000/4:
-		//verboselog(machine, 2, "HPC3 ENETR CBP Read: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, m_enetr_nbdp);
+		LOGMASKED(LOG_ETHERNET, "%s: HPC3 Ethernet CBP Read: %08x & %08x\n", machine().describe_context(), m_enetr_nbdp, mem_mask);
 		return m_enetr_cbp;
 	case 0x4004/4:
-		//verboselog(machine, 2, "HPC3 ENETR NBDP Read: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, m_enetr_nbdp);
+		LOGMASKED(LOG_ETHERNET, "%s: HPC3 Ethernet NBDP Read: %08x & %08x\n", machine().describe_context(), m_enetr_nbdp, mem_mask);
 		return m_enetr_nbdp;
 	default:
-		//verboselog(machine, 0, "Unknown HPC3 ENET/HDx Read: %08x (%08x)\n", 0x1fb90000 + (offset << 2), mem_mask);
+		LOGMASKED(LOG_UNKNOWN, "%s: Unknown HPC3 ENET/HDx Read: %08x & %08x\n", machine().describe_context(), 0x1fb90000 + (offset << 2), mem_mask);
 		return 0;
 	}
 }
@@ -128,103 +188,148 @@ WRITE32_MEMBER(hpc3_device::hd_enet_w)
 	switch (offset)
 	{
 	case 0x0004/4:
-		//verboselog(machine, 2, "HPC3 SCSI0DESC Write: %08x\n", data);
-		m_scsi0_desc = data;
+		LOGMASKED(LOG_SCSI, "%s: HPC3 SCSI0 Desc Address Write: %08x\n", machine().describe_context(), data);
+		m_scsi_dma[0].m_desc = data;
+		fetch_chain(0);
 		break;
 	case 0x1004/4:
-		//verboselog(machine, 2, "HPC3 SCSI0DMACTRL Write: %08x\n", data);
-		m_scsi0_dma_ctrl = data;
+		LOGMASKED(LOG_SCSI, "%s: HPC3 SCSI0 DMA Control Write: %08x\n", machine().describe_context(), data);
+		m_scsi_dma[0].m_ctrl = data;
+		m_scsi_dma[0].m_to_device = (m_scsi_dma[0].m_ctrl & HPC3_DMACTRL_DIR);
+		m_scsi_dma[0].m_big_endian = (m_scsi_dma[0].m_ctrl & HPC3_DMACTRL_ENDIAN);
+		m_scsi_dma[0].m_active = (m_scsi_dma[0].m_ctrl & HPC3_DMACTRL_ENABLE);
+		m_scsi_dma[0].m_irq = (m_scsi_dma[0].m_ctrl & HPC3_DMACTRL_IRQ);
 		break;
 	case 0x4000/4:
-		//verboselog(machine, 2, "HPC3 ENETR CBP Write: %08x\n", data);
+		LOGMASKED(LOG_ETHERNET, "%s: HPC3 Ethernet CBP Write: %08x\n", machine().describe_context(), data);
 		m_enetr_cbp = data;
 		break;
 	case 0x4004/4:
-		//verboselog(machine, 2, "HPC3 ENETR NBDP Write: %08x\n", data);
+		LOGMASKED(LOG_ETHERNET, "%s: HPC3 Ethernet NBDP Write: %08x\n", machine().describe_context(), data);
 		m_enetr_nbdp = data;
 		break;
 	default:
-		//verboselog(machine, 0, "Unknown HPC3 ENET/HDx write: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, data);
+		LOGMASKED(LOG_UNKNOWN, "%s: Unknown HPC3 ENET/HDx write: %08x = %08x & %08x\n", machine().describe_context(), 0x1fb90000 + (offset << 2), data, mem_mask);
 		break;
 	}
 }
 
-READ32_MEMBER(hpc3_device::hd0_r)
+template<uint32_t index>
+READ32_MEMBER(hpc3_device::hd_r)
 {
 	switch (offset)
 	{
 	case 0x0000/4:
 	case 0x4000/4:
-//      //verboselog(machine, 2, "HPC3 HD0 Status Read: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, nHPC3_hd0_regs[0x17]);
 		if (ACCESSING_BITS_0_7)
 		{
-			return m_wd33c93->read(space, 0);
+			const uint8_t ret = index ? m_wd33c93_2->read(space, 0) : m_wd33c93->read(space, 0);
+			LOGMASKED(LOG_SCSI, "%s: SCSI%d Read 0: %02x\n", machine().describe_context(), index, ret);
+			return ret;
 		}
-		else
-		{
-			return 0;
-		}
+		break;
 	case 0x0004/4:
 	case 0x4004/4:
-//      //verboselog(machine, 2, "HPC3 HD0 Register Read: %08x (%08x): %08x\n", 0x1fb90000 + (offset << 2), mem_mask, nHPC3_hd0_regs[nHPC3_hd0_register]);
 		if (ACCESSING_BITS_0_7)
 		{
-			return m_wd33c93->read(space, 1);
+			const uint8_t ret = index ? m_wd33c93_2->read(space, 1) : m_wd33c93->read(space, 1);
+			LOGMASKED(LOG_SCSI, "%s: SCSI%d Read 1: %02x\n", machine().describe_context(), index, ret);
+			return ret;
 		}
-		else
-		{
-			return 0;
-		}
+		break;
 	default:
-		//verboselog(machine, 0, "Unknown HPC3 HD0 Read: %08x (%08x) [%x] PC=%x\n", 0x1fbc0000 + (offset << 2), mem_mask, offset, m_maincpu->pc());
-		return 0;
+		LOGMASKED(LOG_SCSI | LOG_UNKNOWN, "%s: %s: Unknown HPC3 HD%d Read: %08x & %08x\n", machine().describe_context(), machine().describe_context(),
+			index, 0x1fbc4000 + (offset << 2) + index * 0x8000, mem_mask);
+		break;
 	}
+	return 0;
 }
 
-WRITE32_MEMBER(hpc3_device::hd0_w)
+template<uint32_t index>
+WRITE32_MEMBER(hpc3_device::hd_w)
 {
 	switch (offset)
 	{
-	case 0x0000/4:
-	case 0x4000/4:
-//      //verboselog(machine, 2, "HPC3 HD0 Register Select Write: %08x\n", data);
+	case 0x0000:
 		if (ACCESSING_BITS_0_7)
 		{
-			m_wd33c93->write(space, 0, data & 0x000000ff);
+			LOGMASKED(LOG_SCSI, "%s: SCSI%d Write 0 = %02x\n", machine().describe_context(), index, (uint8_t)data);
+			index ? m_wd33c93_2->write(space, 0, data & 0xff) : m_wd33c93->write(space, 0, data & 0xff);
 		}
 		break;
-	case 0x0004/4:
-	case 0x4004/4:
-//      //verboselog(machine, 2, "HPC3 HD0 Register %d Write: %08x\n", nHPC3_hd0_register, data);
+	case 0x0001:
 		if (ACCESSING_BITS_0_7)
 		{
-			m_wd33c93->write(space, 1, data & 0x000000ff);
+			LOGMASKED(LOG_SCSI, "%s: SCSI%d Write 1 = %02x\n", machine().describe_context(), index, (uint8_t)data);
+			index ? m_wd33c93_2->write(space, 1, data & 0xff) : m_wd33c93->write(space, 1, data & 0xff);
 		}
 		break;
 	default:
-		//verboselog(machine, 0, "Unknown HPC3 HD0 Write: %08x (%08x): %08x\n", 0x1fbc0000 + (offset << 2), mem_mask, data);
+		LOGMASKED(LOG_SCSI | LOG_UNKNOWN, "%s: %s: Unknown HPC3 HD%d Write: %08x = %08x & %08x\n", machine().describe_context(), machine().describe_context(),
+			index, 0x1fbc4000 + (offset << 2) + index * 0x8000, data, mem_mask);
 		break;
 	}
 }
 
+template DECLARE_READ32_MEMBER(hpc3_device::hd_r<0>);
+template DECLARE_READ32_MEMBER(hpc3_device::hd_r<1>);
+template DECLARE_WRITE32_MEMBER(hpc3_device::hd_w<0>);
+template DECLARE_WRITE32_MEMBER(hpc3_device::hd_w<1>);
 
 READ32_MEMBER(hpc3_device::pbus4_r)
 {
+	uint32_t ret = 0;
 	switch (offset)
 	{
+	case 0x0000/4:
+		ret = m_ioc2->get_local0_int_status();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Local0 Interrupt Status Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
 	case 0x0004/4:
-		//verboselog(machine, 2, "HPC3 PBUS4 Unknown 0 Read: (%08x): %08x\n", mem_mask, m_unk0);
-		return m_unk0;
+		ret = m_ioc2->get_local0_int_mask();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Local0 Interrupt Mask Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x0008/4:
+		ret = m_ioc2->get_local1_int_status();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Local1 Interrupt Status Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
 	case 0x000c/4:
-		//verboselog(machine, 2, "Interrupt Controller(?) Read: (%08x): %08x\n", mem_mask, m_ic_unk0);
-		return m_ic_unk0;
+		ret = m_ioc2->get_local1_int_mask();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Local1 Interrupt Mask Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x0010/4:
+		ret = m_ioc2->get_map_int_status();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Mappable Interrupt Status: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
 	case 0x0014/4:
-		//verboselog(machine, 2, "HPC3 PBUS4 Unknown 1 Read: (%08x): %08x\n", mem_mask, m_unk1);
-		return m_unk1;
+		ret = m_ioc2->get_map0_int_mask();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Mapped Interrupt 0 Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x0018/4:
+		ret = m_ioc2->get_map1_int_mask();
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Mapped Interrupt 1 Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x0030/4:
+		ret = m_ioc2->get_pit_reg(0);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Counter 0 Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x0034/4:
+		ret = m_ioc2->get_pit_reg(1);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Counter 1 Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x0038/4:
+		ret = m_ioc2->get_pit_reg(2);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Counter 2 Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
+	case 0x003c/4:
+		ret = m_ioc2->get_pit_reg(3);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Control Read: %08x & %08x\n", machine().describe_context(), ret, mem_mask);
+		break;
 	default:
-		//verboselog(machine, 0, "Unknown HPC3 PBUS4 Read: %08x (%08x)\n", 0x1fbd9000 + (offset << 2), mem_mask);
-		return 0;
+		LOGMASKED(LOG_PBUS4 | LOG_UNKNOWN, "%s: Unknown HPC3 PBUS4 Read: %08x (%08x)\n", machine().describe_context(), 0x1fbd9000 + (offset << 2), mem_mask);
+		break;
 	}
+	return ret;
 }
 
 WRITE32_MEMBER(hpc3_device::pbus4_w)
@@ -232,257 +337,431 @@ WRITE32_MEMBER(hpc3_device::pbus4_w)
 	switch (offset)
 	{
 	case 0x0004/4:
-		//verboselog(machine, 2, "HPC3 PBUS4 Unknown 0 Write: %08x (%08x)\n", data, mem_mask);
-		m_unk0 = data;
+		m_ioc2->set_local0_int_mask(data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Local0 Interrupt Mask Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
 		break;
 	case 0x000c/4:
-		//verboselog(machine, 2, "Interrupt Controller(?) Write: (%08x): %08x\n", mem_mask, data);
-		m_ic_unk0 = data;
+		m_ioc2->set_local1_int_mask(data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Local1 Interrupt Mask Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
 		break;
 	case 0x0014/4:
-		//verboselog(machine, 2, "HPC3 PBUS4 Unknown 1 Write: %08x (%08x)\n", data, mem_mask);
-		m_unk1 = data;
+		m_ioc2->set_map0_int_mask(data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Mapped Interrupt 0 Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
+		break;
+	case 0x0018/4:
+		m_ioc2->set_map1_int_mask(data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Mapped Interrupt 1 Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
+		break;
+	case 0x0020/4:
+		m_ioc2->set_timer_int_clear(data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 INT3 Timer Interrupt Clear Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
+		break;
+	case 0x0030/4:
+		m_ioc2->set_pit_reg(0, (uint8_t)data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Counter 0 Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
+		break;
+	case 0x0034/4:
+		m_ioc2->set_pit_reg(1, (uint8_t)data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Counter 1 Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
+		break;
+	case 0x0038/4:
+		m_ioc2->set_pit_reg(2, (uint8_t)data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Counter 2 Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
+		break;
+	case 0x003c/4:
+		m_ioc2->set_pit_reg(3, (uint8_t)data);
+		LOGMASKED(LOG_PBUS4, "%s: HPC3 PIT Control Write: %08x & %08x\n", machine().describe_context(), data, mem_mask);
 		break;
 	default:
-		//verboselog(machine, 0, "Unknown HPC3 PBUS4 Write: %08x (%08x): %08x\n", 0x1fbd9000 + (offset << 2), mem_mask, data);
+		LOGMASKED(LOG_PBUS4 | LOG_UNKNOWN, "%s: Unknown HPC3 PBUS4 Write: %08x = %08x & %08x\n", machine().describe_context(), 0x1fbd9000 + (offset << 2), data, mem_mask);
 		break;
 	}
 }
 
 READ32_MEMBER(hpc3_device::pbusdma_r)
 {
-	//uint32_t channel = offset / (0x2000/4);
-	//verboselog(machine(), 0, "PBUS DMA Channel %d Read: 0x%08x (%08x)\n", channel, 0x1fb80000 + offset*4, mem_mask);
-	return 0;
+	uint32_t channel = offset / (0x2000/4);
+	LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Read: %08x & %08x\n", machine().describe_context(), channel, 0x1fb80000 + offset*4, mem_mask);
+	pbus_dma_t &dma = m_pbus_dma[channel];
+
+	uint32_t ret = 0;
+	switch (offset & 0x07ff)
+	{
+	case 0x0000/4:
+		ret = dma.m_buf_ptr;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Buffer Pointer Read: %08x & %08x\n", machine().describe_context(), channel, ret, mem_mask);
+		break;
+	case 0x0004/4:
+		ret = dma.m_desc_ptr;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Descriptor Pointer Read: %08x & %08x\n", machine().describe_context(), channel, ret, mem_mask);
+		break;
+	case 0x1000/4:
+		ret = (dma.m_timer->remaining() != attotime::never) ? 2 : 0;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Control Read: %08x & %08x\n", machine().describe_context(), channel, ret, mem_mask);
+		break;
+	default:
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Unknown Read: %08x & %08x\n", machine().describe_context(), channel, 0x1fb80000 + (offset << 2), mem_mask);
+		break;
+	}
+	return ret;
 }
 
 WRITE32_MEMBER(hpc3_device::pbusdma_w)
 {
 	uint32_t channel = offset / (0x2000/4);
+	pbus_dma_t &dma = m_pbus_dma[channel];
 
 	switch (offset & 0x07ff)
 	{
 	case 0x0000/4:
-		//verboselog(machine, 0, "PBUS DMA Channel %d Buffer Pointer Write: 0x%08x\n", channel, data);
-		return;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Buffer Pointer Write: %08x\n", machine().describe_context(), channel, data);
+		dma.m_buf_ptr = data;
+		break;
 	case 0x0004/4:
-		//verboselog(machine, 0, "PBUS DMA Channel %d Descriptor Pointer Write: 0x%08x\n", channel, data);
-		if (channel == 1)
-		{
-			m_pbus_dma.m_desc_ptr = data;
-			logerror("PBUS_DMA_DescPtr = %08x\n", m_pbus_dma.m_desc_ptr); fflush(stdout);
-			m_pbus_dma.m_cur_ptr = space.read_dword(m_pbus_dma.m_desc_ptr);
-			m_pbus_dma.m_words_left = space.read_dword(m_pbus_dma.m_desc_ptr + 4);
-			m_pbus_dma.m_next_ptr = space.read_dword(m_pbus_dma.m_desc_ptr + 8);
-			logerror("PBUS_DMA_CurPtr = %08x\n", m_pbus_dma.m_cur_ptr); fflush(stdout);
-			logerror("PBUS_DMA_WordsLeft = %08x\n", m_pbus_dma.m_words_left); fflush(stdout);
-			logerror("PBUS_DMA_NextPtr = %08x\n", m_pbus_dma.m_next_ptr); fflush(stdout);
-		}
-		return;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Descriptor Pointer Write: %08x\n", machine().describe_context(), channel, data);
+		dma.m_desc_ptr = data;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS_DMA_DescPtr = %08x\n", machine().describe_context(), dma.m_desc_ptr); fflush(stdout);
+		dma.m_cur_ptr = space.read_dword(dma.m_desc_ptr);
+		dma.m_desc_flags = space.read_dword(dma.m_desc_ptr + 4);
+		dma.m_next_ptr = space.read_dword(dma.m_desc_ptr + 8);
+		dma.m_bytes_left = dma.m_desc_flags & 0x7fffffff;
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS_DMA_CurPtr = %08x\n", machine().describe_context(), dma.m_cur_ptr); fflush(stdout);
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS_DMA_BytesLeft = %08x\n", machine().describe_context(), dma.m_bytes_left); fflush(stdout);
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS_DMA_NextPtr = %08x\n", machine().describe_context(), dma.m_next_ptr); fflush(stdout);
+		break;
 	case 0x1000/4:
-		logerror("PBUS DMA Channel %d Control Register Write: 0x%08x\n", channel, data);
+		LOGMASKED(LOG_PBUS_DMA, "%s: PBUS DMA Channel %d Control Register Write: %08x\n", machine().describe_context(), channel, data);
 		if (data & PBUS_CTRL_ENDIAN)
-		{
-			logerror("    Little Endian\n");
-		}
+			LOGMASKED(LOG_PBUS_DMA, "    Little Endian\n");
 		else
-		{
-			logerror("    Big Endian\n");
-		}
+			LOGMASKED(LOG_PBUS_DMA, "    Big Endian\n");
+
 		if (data & PBUS_CTRL_RECV)
-		{
-			logerror("    RX DMA\n");
-		}
+			LOGMASKED(LOG_PBUS_DMA, "    RX DMA\n");
 		else
-		{
-			logerror("    TX DMA\n");
-		}
+			LOGMASKED(LOG_PBUS_DMA, "    TX DMA\n");
+
 		if (data & PBUS_CTRL_FLUSH)
-		{
-			logerror("    Flush for RX\n");
-		}
+			LOGMASKED(LOG_PBUS_DMA, "    Flush for RX\n");
 		if (data & PBUS_CTRL_DMASTART)
-		{
-			logerror("    Start DMA\n");
-		}
+			LOGMASKED(LOG_PBUS_DMA, "    Start DMA\n");
+
 		if (data & PBUS_CTRL_LOAD_EN)
+			LOGMASKED(LOG_PBUS_DMA, "    Load Enable\n");
+
+		LOGMASKED(LOG_PBUS_DMA, "    High Water Mark: %04x bytes\n", (data & PBUS_CTRL_HIGHWATER) >> 8);
+		LOGMASKED(LOG_PBUS_DMA, "    FIFO Begin: Row %04x\n", (data & PBUS_CTRL_FIFO_BEG) >> 16);
+		LOGMASKED(LOG_PBUS_DMA, "    FIFO End: Row %04x\n", (data & PBUS_CTRL_FIFO_END) >> 24);
+
+		if (((data & PBUS_CTRL_DMASTART) && (data & PBUS_CTRL_LOAD_EN)) && (channel == 1 || channel == 2))
 		{
-			logerror("    Load Enable\n");
+			LOGMASKED(LOG_PBUS_DMA, "    Starting DMA\n");
+			dma.m_timer->adjust(attotime::from_hz(44100));
+			dma.m_active = true;
 		}
-		logerror("    High Water Mark: %04x bytes\n", (data & PBUS_CTRL_HIGHWATER) >> 8);
-		logerror("    FIFO Begin: Row %04x\n", (data & PBUS_CTRL_FIFO_BEG) >> 16);
-		logerror("    FIFO End: Rowe %04x\n", (data & PBUS_CTRL_FIFO_END) >> 24);
-		if ((data & PBUS_CTRL_DMASTART) || (data & PBUS_CTRL_LOAD_EN))
-		{
-			m_pbus_dma_timer->adjust(attotime::from_hz(44100));
-			m_pbus_dma.m_active = 1;
-		}
-		return;
+		break;
+	default:
+		LOGMASKED(LOG_PBUS_DMA | LOG_UNKNOWN, "%s: Unknown PBUS DMA Channel %d Write: %08x = %08x & %08x\n", machine().describe_context(), channel, 0x1fb80000 + offset*4, data, mem_mask);
+		break;
 	}
-	logerror("Unknown PBUS DMA Channel %d Write: 0x%08x: 0x%08x (%08x)\n", channel, 0x1fb80000 + offset*4, data, mem_mask);
+}
+
+READ32_MEMBER(hpc3_device::dma_config_r)
+{
+	const uint32_t channel = (offset >> 7) & 7;
+	const uint32_t data = m_pbus_dma[channel].m_config;
+	LOGMASKED(LOG_PBUS_DMA, "%s: Read Channel %d DMA Configuration: %08x & %08x\n", machine().describe_context(), channel, data, mem_mask);
+	return data;
+}
+
+WRITE32_MEMBER(hpc3_device::dma_config_w)
+{
+	const uint32_t channel = (offset >> 7) & 7;
+	COMBINE_DATA(&m_pbus_dma[channel].m_config);
+
+	LOGMASKED(LOG_PBUS_DMA, "%s: Write Channel %d DMA Configuration: %08x & %08x\n", machine().describe_context(), channel, data, mem_mask);
+	LOGMASKED(LOG_PBUS_DMA, "    DMA Read State D3 gio_clk cycles: %d\n", BIT(data, 0) ? 2 : 3);
+	LOGMASKED(LOG_PBUS_DMA, "    DMA Read State D4 gio_clk cycles: %d\n", (data >> 1) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    DMA Read State D5 gio_clk cycles: %d\n", (data >> 5) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    DMA Write State D3 gio_clk cycles: %d\n", BIT(data, 9) ? 2 : 3);
+	LOGMASKED(LOG_PBUS_DMA, "    DMA Write State D4 gio_clk cycles: %d\n", (data >> 10) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    DMA Write State D5 gio_clk cycles: %d\n", (data >> 14) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    Device Bit Width: %d\n", BIT(data, 18) ? 16 : 32);
+	LOGMASKED(LOG_PBUS_DMA, "    Even Address Bytes on %s\n", BIT(data, 19) ? "15..8" : "7..0");
+	LOGMASKED(LOG_PBUS_DMA, "    Device %s Real-Time\n", BIT(data, 21) ? "is" : "is not");
+	LOGMASKED(LOG_PBUS_DMA, "    Burst Count: %d\n", (data >> 22) & 0x1f);
+	LOGMASKED(LOG_PBUS_DMA, "    %sUse Unsynchronized DREQ\n", BIT(data, 27) ? "" : "Do Not ");
+}
+
+READ32_MEMBER(hpc3_device::pio_config_r)
+{
+	uint32_t channel = (offset >> 6) & 15;
+	if (channel >= 10)
+	{
+		channel = (channel & 1) ? 9 : 8;
+	}
+
+	const uint32_t data = m_pio_config[channel];
+	LOGMASKED(LOG_PBUS_DMA, "%s: Read Channel %d PIO Configuration: %08x & %08x\n", machine().describe_context(), channel, data, mem_mask);
+	return data;
+}
+
+WRITE32_MEMBER(hpc3_device::pio_config_w)
+{
+	uint32_t channel = (offset >> 6) & 15;
+	if (channel >= 10)
+	{
+		channel = (channel & 1) ? 9 : 8;
+	}
+
+	COMBINE_DATA(&m_pio_config[channel]);
+	LOGMASKED(LOG_PBUS_DMA, "%s: Write Channel %d PIO Configuration: %08x & %08x\n", machine().describe_context(), channel, data, mem_mask);
+	LOGMASKED(LOG_PBUS_DMA, "    PIO Read State P2 gio_clk cycles: %d\n", BIT(data, 0) ? 1 : 2);
+	LOGMASKED(LOG_PBUS_DMA, "    PIO Read State P3 gio_clk cycles: %d\n", (data >> 1) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    PIO Read State P4 gio_clk cycles: %d\n", (data >> 5) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    PIO Write State P2 gio_clk cycles: %d\n", BIT(data, 9) ? 1 : 2);
+	LOGMASKED(LOG_PBUS_DMA, "    PIO Write State P3 gio_clk cycles: %d\n", (data >> 10) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    PIO Write State P4 gio_clk cycles: %d\n", (data >> 14) & 0xf);
+	LOGMASKED(LOG_PBUS_DMA, "    Device Bit Width: %d\n", BIT(data, 18) ? 16 : 32);
+	LOGMASKED(LOG_PBUS_DMA, "    Even Address Bytes on %s\n", BIT(data, 19) ? "15..8" : "7..0");
 }
 
 READ32_MEMBER(hpc3_device::unkpbus0_r)
 {
+	LOGMASKED(LOG_UNKNOWN, "%s: Unknown PBUS Read: %08x & %08x\n", machine().describe_context(), 0x1fbc8000 + offset*4, mem_mask);
 	return 0;
-	//logerror("Unknown PBUS Read: 0x%08x (%08x)\n", 0x1fbc8000 + offset*4, mem_mask);
-	//return m_unkpbus0[offset];
 }
 
 WRITE32_MEMBER(hpc3_device::unkpbus0_w)
 {
-	//logerror("Unknown PBUS Write: 0x%08x = 0x%08x (%08x)\n", 0x1fbc8000 + offset*4, data, mem_mask);
-	//COMBINE_DATA(&m_unkpbus0[offset]);
+	LOGMASKED(LOG_UNKNOWN, "%s: Unknown PBUS Write: %08x = %08x & %08x\n", machine().describe_context(), 0x1fbc8000 + offset*4, data, mem_mask);
 }
 
-void hpc3_device::dump_chain(address_space &space, uint32_t ch_base)
+void hpc3_device::dump_chain(uint32_t base)
 {
-	logerror("node: %08x %08x %08x (len = %x)\n", space.read_dword(ch_base), space.read_dword(ch_base+4), space.read_dword(ch_base+8), space.read_dword(ch_base+4) & 0x3fff);
+	const uint32_t addr = m_cpu_space->read_dword(base);
+	const uint32_t ctrl = m_cpu_space->read_dword(base+4);
+	const uint32_t next = m_cpu_space->read_dword(base+8);
 
-	if ((space.read_dword(ch_base+8) != 0) && !(space.read_dword(ch_base+4) & 0x80000000))
+	LOGMASKED(LOG_CHAIN, "Chain Node:\n");
+	LOGMASKED(LOG_CHAIN, "    Addr: %08x\n", addr);
+	LOGMASKED(LOG_CHAIN, "    Ctrl: %08x\n", ctrl);
+	LOGMASKED(LOG_CHAIN, "    Next: %08x\n", next);
+
+	if (next != 0 && !BIT(ctrl, 31))
 	{
-		dump_chain(space, space.read_dword(ch_base+8));
+		dump_chain(next);
 	}
 }
 
-void hpc3_device::fetch_chain(address_space &space)
+void hpc3_device::fetch_chain(int channel)
 {
-	m_scsi0_addr = space.read_dword(m_scsi0_desc);
-	m_scsi0_flags = space.read_dword(m_scsi0_desc+4);
-	m_scsi0_byte_count = m_scsi0_flags & 0x3fff;
-	m_scsi0_next_addr = space.read_dword(m_scsi0_desc+8);
-	//logerror("Fetching chain from %08x: %08x %08x %08x (length %04x)\n", m_scsi0_desc, m_scsi0_addr, m_scsi0_flags, m_scsi0_next_addr, m_scsi0_byte_count);
+	scsi_dma_t &dma = m_scsi_dma[channel];
+	dma.m_addr = m_cpu_space->read_dword(dma.m_desc);
+	dma.m_ctrl = m_cpu_space->read_dword(dma.m_desc+4);
+	dma.m_next = m_cpu_space->read_dword(dma.m_desc+8);
+	dma.m_length = dma.m_ctrl & 0x3fff;
+
+	LOGMASKED(LOG_CHAIN, "Fetching chain from %08x:\n", dma.m_desc);
+	LOGMASKED(LOG_CHAIN, "    Addr: %08x\n", dma.m_addr);
+	LOGMASKED(LOG_CHAIN, "    Ctrl: %08x\n", dma.m_ctrl);
+	LOGMASKED(LOG_CHAIN, "    Next: %08x\n", dma.m_next);
 }
 
-bool hpc3_device::decrement_chain(address_space &space)
+void hpc3_device::decrement_chain(int channel)
 {
-	m_scsi0_byte_count--;
-	if (m_scsi0_byte_count == 0)
+	scsi_dma_t &dma = m_scsi_dma[channel];
+	dma.m_length--;
+	if (dma.m_length == 0)
 	{
-		if (BIT(m_scsi0_flags, 31))
+		if (BIT(dma.m_ctrl, 31))
 		{
-			return false;
+			dma.m_active = false;
+			dma.m_ctrl &= ~HPC3_DMACTRL_ENABLE;
+			return;
 		}
-		m_scsi0_desc = m_scsi0_next_addr;
-		fetch_chain(space);
+		dma.m_desc = dma.m_next;
+		fetch_chain(channel);
 	}
-	return true;
 }
 
-WRITE_LINE_MEMBER(hpc3_device::scsi_irq)
+void hpc3_device::scsi_drq(bool state, int channel)
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
+#if 0
+	scsi_dma_t &dma = m_scsi_dma[channel];
 
-	if (state)
+	if (!dma.m_active)
 	{
-		if (m_wd33c93->get_dma_count())
+		LOGMASKED(LOG_SCSI_DMA, "HPC3: SCSI%d DRQ set while no active SCSI DMA!\n", channel);
+		return;
+	}
+
+	if (dma.m_to_device)
+		m_wd33c93->dma_w(m_cpu_space->read_byte(dma.m_big_endian ? BYTE4_XOR_BE(dma.m_addr) : BYTE4_XOR_LE(dma.m_addr)));
+	else
+		m_cpu_space->write_byte(dma.m_big_endian ? BYTE4_XOR_BE(dma.m_addr) : BYTE4_XOR_LE(dma.m_addr), m_wd33c93->dma_r());
+
+	dma.m_addr++;
+	decrement_chain(channel);
+
+	if (!dma.m_active)
+	{
+		// clear HPC3 DMA active flag
+		dma.m_ctrl &= ~HPC3_DMACTRL_ENABLE;
+	}
+#endif
+}
+
+WRITE_LINE_MEMBER(hpc3_device::scsi0_drq)
+{
+	scsi_drq(state, 0);
+}
+
+WRITE_LINE_MEMBER(hpc3_device::scsi1_drq)
+{
+	scsi_drq(state, 1);
+}
+
+void hpc3_device::scsi_dma(int channel)
+{
+	int byte_count = channel ? m_wd33c93_2->get_dma_count() : m_wd33c93->get_dma_count();
+	scsi_dma_t &dma = m_scsi_dma[channel];
+
+	LOGMASKED(LOG_SCSI_DMA, "HPC3: Transferring %d bytes %s %08x %s SCSI0\n",
+		byte_count, dma.m_to_device ? "from" : "to", dma.m_addr, dma.m_to_device ? "to" : "from");
+
+	if (dma.m_irq)
+		LOGMASKED(LOG_SCSI_DMA, "HPC3: Not yet implemented: SCSI DMA IRQ\n");
+
+	uint8_t dma_buffer[512];
+	memset(dma_buffer, 0, 512);
+	if (dma.m_to_device)
+	{
+		// HPC3 DMA: host to device
+		if (byte_count <= 512)
 		{
-			//logerror("m_wd33c93->get_dma_count() is %d\n", m_wd33c93->get_dma_count());
-			if (m_scsi0_dma_ctrl & HPC3_DMACTRL_ENABLE)
+			for (int i = 0; i < byte_count; i++)
 			{
-				if (m_scsi0_dma_ctrl & HPC3_DMACTRL_IRQ)
-					logerror("IP22: Unhandled SCSI DMA IRQ\n");
+				dma_buffer[dma.m_big_endian ? BYTE4_XOR_BE(i) : BYTE4_XOR_LE(i)] = m_cpu_space->read_byte(dma.m_addr);
+				dma.m_addr++;
+				decrement_chain(channel);
+				if (!dma.m_active)
+					break;
 			}
 
-			bool big_endian = (m_scsi0_dma_ctrl & HPC3_DMACTRL_ENDIAN);
-			if (m_scsi0_dma_ctrl & HPC3_DMACTRL_ENABLE)
+			if (channel)
+				m_wd33c93_2->dma_write_data(byte_count, dma_buffer);
+			else
+				m_wd33c93->dma_write_data(byte_count, dma_buffer);
+		}
+		else
+		{
+			while (byte_count)
 			{
-				if (m_scsi0_dma_ctrl & HPC3_DMACTRL_DIR)
+				int sub_count = std::min(512, byte_count);
+
+				for (int i = 0; i < sub_count; i++)
 				{
-					// HPC3 DMA: host to device
-					int byte_count = m_wd33c93->get_dma_count();
-					//dump_chain(space, m_scsi0_desc);
-					fetch_chain(space);
+					dma_buffer[dma.m_big_endian ? BYTE4_XOR_BE(i) : BYTE4_XOR_LE(i)] = m_cpu_space->read_byte(dma.m_addr);
+					dma.m_addr++;
+					decrement_chain(channel);
+					if (!dma.m_active)
+						break;
+				}
 
-					//logerror("DMA to device: %d bytes @ %x\n", byte_count, m_scsi0_addr);
+				if (channel)
+					m_wd33c93_2->dma_write_data(sub_count, dma_buffer);
+				else
+					m_wd33c93->dma_write_data(sub_count, dma_buffer);
 
-					if (byte_count <= 512)
-					{
-						for (int i = 0; i < byte_count; i++)
-						{
-							m_dma_buffer[big_endian ? BYTE4_XOR_BE(i) : BYTE4_XOR_LE(i)] = space.read_byte(m_scsi0_addr+i);
-							if (!decrement_chain(space))
-								break;
-						}
-
-						m_wd33c93->dma_write_data(byte_count, m_dma_buffer);
-					}
-					else
-					{
-						int dstoffs = 0;
-						while (byte_count)
-						{
-							int sub_count = std::min(512, byte_count);
-
-							for (int i = 0; i < sub_count; i++)
-							{
-								m_dma_buffer[big_endian ? BYTE4_XOR_BE(dstoffs+i) : BYTE4_XOR_LE(dstoffs+i)] = space.read_byte(m_scsi0_addr);
-								m_scsi0_addr++;
-								if (!decrement_chain(space))
-									break;
-							}
-
-							m_wd33c93->dma_write_data(sub_count, m_dma_buffer);
-
-							byte_count -= sub_count;
-						}
-					}
-
-					// clear DMA on the controller too
-					m_wd33c93->clear_dma();
+				if (!dma.m_active)
+				{
+					break;
 				}
 				else
 				{
-					// HPC3 DMA: device to host
-					int byte_count = m_wd33c93->get_dma_count();
-					//dump_chain(space, m_scsi0_desc);
-					fetch_chain(space);
-
-	//              logerror("DMA from device: %d words @ %x\n", words, dstoffs);
-
-					if (byte_count < 512)
-					{
-						m_wd33c93->dma_read_data(byte_count, m_dma_buffer);
-
-						for (int i = 0; i < byte_count; i++)
-						{
-							space.write_byte(big_endian ? BYTE4_XOR_BE(m_scsi0_addr+i) : BYTE4_XOR_LE(m_scsi0_addr+i), m_dma_buffer[i]);
-							if (!decrement_chain(space))
-								break;
-						}
-					}
-					else
-					{
-						while (byte_count)
-						{
-							int sub_count = m_wd33c93->dma_read_data(512, m_dma_buffer);
-
-							for (int i = 0; i < sub_count; i++)
-							{
-								space.write_byte(big_endian ? BYTE4_XOR_BE(m_scsi0_addr) : BYTE4_XOR_LE(m_scsi0_addr), m_dma_buffer[i]);
-								m_scsi0_addr++;
-								if (!decrement_chain(space))
-									break;
-							}
-
-							byte_count -= sub_count;
-						}
-					}
-
-					// clear DMA on the controller too
-					m_wd33c93->clear_dma();
+					memset(dma_buffer, 0, sub_count);
+					byte_count -= sub_count;
 				}
 			}
 		}
+	}
+	else
+	{
+		// HPC3 DMA: device to host
+		if (byte_count <= 512)
+		{
+			if (channel)
+				m_wd33c93_2->dma_read_data(byte_count, dma_buffer);
+			else
+				m_wd33c93->dma_read_data(byte_count, dma_buffer);
 
-		// clear HPC3 DMA active flag
-		m_scsi0_dma_ctrl &= ~HPC3_DMACTRL_ENABLE;
+			for (int i = 0; i < byte_count; i++)
+			{
+				m_cpu_space->write_byte(dma.m_big_endian ? BYTE4_XOR_BE(dma.m_addr) : BYTE4_XOR_LE(dma.m_addr), dma_buffer[i]);
+				dma.m_addr++;
+				decrement_chain(channel);
+				if (!dma.m_active)
+					break;
+			}
+		}
+		else
+		{
+			while (byte_count)
+			{
+				int sub_count;
+				if (channel)
+					sub_count = m_wd33c93_2->dma_read_data(512, dma_buffer);
+				else
+					sub_count = m_wd33c93->dma_read_data(512, dma_buffer);
 
-		// set the interrupt
+				for (int i = 0; i < sub_count; i++)
+				{
+					m_cpu_space->write_byte(dma.m_big_endian ? BYTE4_XOR_BE(dma.m_addr) : BYTE4_XOR_LE(dma.m_addr), dma_buffer[i]);
+					dma.m_addr++;
+					decrement_chain(channel);
+					if (!dma.m_active)
+						break;
+				}
+
+				if (!dma.m_active)
+					break;
+				else
+					byte_count -= sub_count;
+			}
+		}
+	}
+
+	// clear DMA on the controller
+	m_wd33c93->clear_dma();
+}
+
+WRITE_LINE_MEMBER(hpc3_device::scsi0_irq)
+{
+	if (state)
+	{
+		if (m_wd33c93->get_dma_count() && m_scsi_dma[0].m_active)
+			scsi_dma(0);
+
 		m_ioc2->raise_local0_irq(ioc2_device::INT3_LOCAL0_SCSI0);
 	}
 	else
 	{
 		m_ioc2->lower_local0_irq(ioc2_device::INT3_LOCAL0_SCSI0);
+	}
+}
+
+WRITE_LINE_MEMBER(hpc3_device::scsi1_irq)
+{
+	if (state)
+	{
+		if (m_wd33c93_2->get_dma_count() && m_scsi_dma[1].m_active)
+			scsi_dma(1);
+
+		m_ioc2->raise_local0_irq(ioc2_device::INT3_LOCAL0_SCSI1);
+	}
+	else
+	{
+		m_ioc2->lower_local0_irq(ioc2_device::INT3_LOCAL0_SCSI1);
 	}
 }
