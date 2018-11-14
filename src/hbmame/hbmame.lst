@@ -700,6 +700,7 @@ dinos139
 dinos140
 dinos141
 dinos142
+dinos143
 dinox01
 dinox02
 dinox03
@@ -4448,6 +4449,10 @@ kof2003xs02
 @source:konamigx.cpp
 konamigx			//required bios
 dragoona			//parent
+dragoonas01
+dragoonas02 
+dragoonas03
+dragoonas04
 
 @source:kyugo.cpp
 airwolf		//parent
@@ -6601,6 +6606,8 @@ mslugxece24
 @source:mystwarr.cpp
 mtlchamp			//parent
 mmaulers			//parent
+mtlchamps01
+mmaulerss01
 
 @source:mspacman.cpp
 mspacman	//parent
@@ -8498,6 +8505,9 @@ kov2p204s60
 kov2p204s61
 kov2p204s62
 kov2p204s63
+kov2p204s64
+kov2p204s65
+kov2p204s66
 kov2h01
 kov2h02
 kov2h03
@@ -8908,6 +8918,7 @@ kovshs109
 kovshs110
 kovshs111
 kovshs112
+// kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
@@ -8990,6 +9001,7 @@ kovsho76
 kovsho77
 kovsho78
 //kovsho79  // Serious problem graphic
+//kovsho80  //  Unstable game in the emulator (ingame crash)
 kovshxass01
 kovshxass02
 kovshxass03
@@ -9301,6 +9313,7 @@ rabbit						//parent
 rabbits01
 rabbits02
 rabbits03
+rabbits04
 
 @source:raiden2.cpp
 zeroteam					//parent
@@ -9429,6 +9442,7 @@ spacmissx				// extra sounds
 
 @source:ssv.cpp
 survarts				//parent
+survartss01
 
 @source:system1.cpp
 wbml					//parent
@@ -9628,6 +9642,8 @@ twintwst
 
 @source:vamphalf.cpp
 aoh				//parent
+aohs01
+aohs02
 
 @source:volfied.cpp
 volfied		//parent
@@ -9660,6 +9676,8 @@ splatsc1
 
 @source:wiz.cpp
 stinger				//parent
+stingers01
+stinger2s01
 
 @source:wmg.cpp
 wmg
