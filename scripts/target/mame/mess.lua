@@ -424,6 +424,7 @@ MACHINES["CS8221"] = true
 MACHINES["CXD1095"] = true
 MACHINES["DP8390"] = true
 MACHINES["DP83932C"] = true
+MACHINES["DP8573"] = true
 --MACHINES["DS1204"] = true
 MACHINES["DS1302"] = true
 MACHINES["DS1315"] = true
@@ -786,6 +787,7 @@ BUSES["SCSI"] = true
 BUSES["SCV"] = true
 BUSES["SEGA8"] = true
 BUSES["SG1000_EXP"] = true
+BUSES["SGIKBD"] = true
 BUSES["SMS_CTRL"] = true
 BUSES["SMS_EXP"] = true
 BUSES["SNES"] = true
@@ -1105,6 +1107,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"multitch",
 		"nakajima",
 		"nascom",
+		"ncd",
 		"ne",
 		"nec",
 		"netronic",
@@ -2567,6 +2570,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/nascom1.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "ncd")
+files {
+	MAME_DIR .. "src/mame/drivers/ncd17c.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "ne")
 files {
 	MAME_DIR .. "src/mame/drivers/z80ne.cpp",
@@ -3319,6 +3327,7 @@ files {
 	MAME_DIR .. "src/mame/video/ti85.cpp",
 	MAME_DIR .. "src/mame/drivers/ti89.cpp",
 	MAME_DIR .. "src/mame/includes/ti89.h",
+	MAME_DIR .. "src/mame/drivers/ti931.cpp",
 	MAME_DIR .. "src/mame/drivers/ti99_2.cpp",
 	MAME_DIR .. "src/mame/drivers/ti99_4x.cpp",
 	MAME_DIR .. "src/mame/drivers/ti99_4p.cpp",
