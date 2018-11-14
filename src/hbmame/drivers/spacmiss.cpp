@@ -181,7 +181,7 @@ DISCRETE_SOUND_END
 
 WRITE8_MEMBER( sm_state::spacmissx_07_w )
 {
-	m_discrete->write(space, NODE_01, data | 0xc0);
+	m_discrete->write(NODE_01, data | 0xc0);
 }
 
 WRITE8_MEMBER(sm_state::spacmissx_03_w)
@@ -198,9 +198,9 @@ WRITE8_MEMBER(sm_state::spacmissx_03_w)
 WRITE8_MEMBER(sm_state::spacmissx_05_w)
 {
 	if (BIT(m_port_1_last_extra, 5))
-		m_discrete->write(space, NODE_02, data & 0x0f);
+		m_discrete->write(NODE_02, data & 0x0f);
 	else
-		m_discrete->write(space, NODE_02, 0);
+		m_discrete->write(NODE_02, 0);
 
 	uint8_t rising_bits = data & ~m_port_2_last_extra;
 
