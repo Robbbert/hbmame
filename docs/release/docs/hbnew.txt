@@ -22,8 +22,28 @@ New Games
 - [stinger2s01]       Stinger (Bug fix - Taxiing Speed)(prototype?)
 - [stingers01]        Stinger (Bug fix - Taxiing Speed)
 - [survartss01]       Survival Arts (Easy Move)
-
-
+- [kof97s85]          Kof'97 (Zore Clone Zero Modified Version)(Even Strokes + Fat Lotus Huanhua + Big Snake Blue, Purple Sunshine Two, First Free, Went To The Fan Slap Small Bug To Be Repaired)
+- [kof97s86]          Kof'97 (Wulin Mythology Dark Snake Test Version 68)(83 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods Crazy Eight + Big Snake Six Hair Color Sun + Protective Light Dizziness)
+- [kof97s87]          Kof'97 (Wulin Mythology Dark Snake Test Version 69)(85 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods, Goritz + Big Snake Six Hair Whitening Sunlight + Protective Light Dizziness)
+- [kof97s88]          Kof'97 (Wulin Mythology Dark Snake Test Version 70)(83 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)
+- [kof97s89]          Kof'97 (Wulin Mythology Dark Snake Test Version 71)(85 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)
+- [kof97s90]          Kof'97 (Wulin Mythology Dark Snake Test Version 72)(83 Big Snakes Heart Teleport, Six Hair Whitening Sunlight + Protective Light Initial Dizziness)
+- [kof97s91]          Kof'97 (Wulin Mythology Dark Snake Test Version 73)(85 Big Snakes Heart Teleport, Six Hair White Sunlight + Protective Light Dizziness)
+- [kof97s92]          Kof'97 (The Martial Arts Mythical Dark Snake Test Version 74)(83 Big Snakes Heart Teleport, Six Hair Colorful Sun + Protective Light First Dizziness)
+- [kof97s93]          Kof'97 (The Martial Arts Mythical Dark Snake Test Version 75)(85 Big Snakes Heart Teleport, Six Hair Color Dense Sunlight + Protective Light First Dizziness)
+- [kof97s94]          Kof'97 (Wulin Mythology Dark Snake Test Version 76)(83 Big Snakes Heart Teleport, Six Purple Red Orange Color Sunlight + Protective Light Initial Dizziness)
+- [kof97s95]          Kof'97 (Wulin Mythology Dark Snake Test Version 77)(85 Big Snakes Heart Teleport, Six Purple Red Orange Color Sunlight + Protective Light Initial Dizziness)
+- [kof97s96]          Kof'97 (Wulin Mythology Dark Snake Test Version 78)(83 Big Snakes Heart Teleport, Six Hair Purple Potato Red Orange Gray Sunlight + Protective Light Initial Dizziness)
+- [kof97s97]          Kof'97 (Wulin Mythology Dark Snake Test Version 79)(85 Big Snakes Heart Teleport, Six Hair Purple Potato Red Gray Sunlight + Protective Light Dizziness)
+- [kof97s98]          Kof'97 (Wulin Mythology Dark Snake Test Version 80)(83 Big Snakes Heart Teleport, Six Hair Blue Water Gray Orange Red Sunlight + Protective Light Initial Dizziness)
+- [kof97s99]          Kof'97 (Wulin Mythology Dark Snake Test Version 81)(85 Big Snakes Heart Teleport, Six Hair Blue Water Gray Orange Red Sunlight + Protective Light Dizziness)
+- [kof97s100]         Kof'97 (Wulin Mythology Dark Snake Test Version 82)(83 Big Snakes Heart Teleport, Six Red, Blue, Gray, Sunlight + Protective Light Dizziness)
+- [kof97s101]         Kof'97 (Wulin Mythology Dark Snake Test Version 83)(85 Big Snakes Heart Teleport, Six Red, Blue, Gray, Sunlight + Protective Light Dizziness)
+- [kof97s102]         Kof'97 (The Martial Arts Mythical Dark Snake Test Version 84)(83 Big Snakes Heart Teleport, Six Blue And Red Sunshine + Protective Light Dizziness)
+- [kof97s103]         Kof'97 (Wulin Mythology Dark Snake Test Version 85)(85 Big Snakes Heart Teleport, Six Blue And Red Sunshine + Protective Light Dizziness)
+- [kof97s104]         Kof'97 (Wulin Mythology Dark Snake Test Version 86)(83 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)
+- [kof97s105]         Kof'97 (Wulin Mythology Dark Snake Test Version 87)(85 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)
+- [kof97s106]         Kof'97 (The Dragon 3.1 Dark Snake Bu Wu Gao IQ)(The Big Snake Crescent Slow Push Defense Special Effect Big Snake Flash)
 
 2018-10-31 0.203
 ----------------
