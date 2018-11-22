@@ -13,15 +13,6 @@ New Games
 - [dragoonas02]       Dragoon Might (Easy Move)
 - [dragoonas03]       Dragoon Might (Enable Hidden Character)
 - [dragoonas04]       Dragoon Might (Description Unknown)
-- [kov2p204s64]       Knights of Valour 2 Plus (Ling Hun Bo Li)
-- [kov2p204s65]       Knights of Valour 2 Plus (Yi Tong Qun Xiong)
-- [kov2p204s66]       Knights of Valour 2 Plus (Shen Yuan Qun Ying)
-- [mmaulerss01]       Monster Maulers (Easy Move)
-- [mtlchamps01]       Martial Champion (Easy Move)
-- [rabbits04]         Rabbit (Description Unknown)
-- [stinger2s01]       Stinger (Bug fix - Taxiing Speed)(prototype?)
-- [stingers01]        Stinger (Bug fix - Taxiing Speed)
-- [survartss01]       Survival Arts (Easy Move)
 - [kof97s85]          Kof'97 (Zore Clone Zero Modified Version)(Even Strokes + Fat Lotus Huanhua + Big Snake Blue, Purple Sunshine Two, First Free, Went To The Fan Slap Small Bug To Be Repaired)
 - [kof97s86]          Kof'97 (Wulin Mythology Dark Snake Test Version 68)(83 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods Crazy Eight + Big Snake Six Hair Color Sun + Protective Light Dizziness)
 - [kof97s87]          Kof'97 (Wulin Mythology Dark Snake Test Version 69)(85 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods, Goritz + Big Snake Six Hair Whitening Sunlight + Protective Light Dizziness)
@@ -44,6 +35,19 @@ New Games
 - [kof97s104]         Kof'97 (Wulin Mythology Dark Snake Test Version 86)(83 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)
 - [kof97s105]         Kof'97 (Wulin Mythology Dark Snake Test Version 87)(85 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)
 - [kof97s106]         Kof'97 (The Dragon 3.1 Dark Snake Bu Wu Gao IQ)(The Big Snake Crescent Slow Push Defense Special Effect Big Snake Flash)
+- [kov2p204s64]       Knights of Valour 2 Plus (Ling Hun Bo Li)
+- [kov2p204s65]       Knights of Valour 2 Plus (Yi Tong Qun Xiong)
+- [kov2p204s66]       Knights of Valour 2 Plus (Shen Yuan Qun Ying)
+- [mmaulerss01]       Monster Maulers (Easy Move)
+- [mtlchamps01]       Martial Champion (Easy Move)
+- [rabbits04]         Rabbit (Description Unknown)
+- [sqij15]            SQIJ! v1.5[by Sokurah]
+- [stinger2s01]       Stinger (Bug fix - Taxiing Speed)(prototype?)
+- [stingers01]        Stinger (Bug fix - Taxiing Speed)
+- [survartss01]       Survival Arts (Easy Move)
+
+
+
 
 2018-10-31 0.203
 ----------------
