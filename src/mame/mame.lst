@@ -89,8 +89,8 @@ casanova                        //
 fieldday                        // A23 (c) 1984 Taito
 undoukai                        // A17 (c) 1984 Taito
 
-@source:4d20.cpp
-4d20                            // (c) SGI 1991
+@source:iris_power.cpp
+4d410                           // (c) SGI 1991
 
 @source:4dpi.cpp
 sgi_ip6                         // IP6: 4D/PI, R2000, 20MHz
@@ -12673,7 +12673,8 @@ royalpk2                        //
 facit4440                       // 1984
 
 @source:falco5220.cpp
-falco5220                       // 1987
+falco5220e                      // 1987
+falco5220s                      // 1989
 
 @source:falcots.cpp
 ts2624                          // 1982
@@ -17650,6 +17651,7 @@ kissp2                          //
 klax                            // 136075           (c) 1989
 klax2                           // 136075           (c) 1989
 klax2bl                         // bootleg
+klax2bl2                        // bootleg
 klax3                           // 136075           (c) 1989
 klaxd                           // 136075           (c) 1989 (Germany)
 klaxj                           // 136075           (c) 1989 (Japan)
@@ -20848,6 +20850,7 @@ sonic2mb                        // MegaDrive-based hack
 srmdb                           // MegaDrive-based hack
 ssf2mdb                         // MegaDrive-based hack
 topshoot                        // (c) 1995 Sun Mixing
+barek3mb                        // MegaDrive-based hack
 
 @source:megadriv_rad.cpp
 rad_sf                          // (c)2004 Radica
@@ -21467,6 +21470,8 @@ minivadr                        // D26 cabinet test board
 @source:mips.cpp
 rc2030                          // MIPS RC2030
 rs2030                          // MIPS RS2030
+rc3230                          // MIPS RC3230
+rs3230                          // MIPS RS3230
 
 @source:mirage.cpp
 mirage                          // (c) 1994 Mitchell
@@ -29841,6 +29846,9 @@ nc200                           // 1993 NC200
 ncd17c                          // 1990 Network Computing Devices
 ncd19                           // 1990 Network Computing Devices
 
+@source:ncdmips.cpp
+hmxpro                          // 1994 Network Computing Devices
+
 @source:nds.cpp
 nds                             // 2004 Nintendo
 
@@ -33797,6 +33805,7 @@ pzlestar                        // (c) 199? Sang Ho Soft
 sexyboom                        // (c) 1992 Sang Ho Soft
 
 @source:sanremmg.cpp
+elsygame                        // Elsy
 elsypokr                        // Elsy
 sanremmg                        // San Remo / Elsy
 
@@ -34323,6 +34332,7 @@ shinobi2d                       //
 shinobi3                        // (c) 1987 (MC-8123B)
 shinobi4                        // (c) 1987 (MC-8123B)
 shinobi5                        // (c) 1987 (Unprotected)
+shinobi6                        // (c) 1987 (Unprotected)
 sjryuko                         // (c) 1988 White Board (FD1094)
 snapper                         // (c) 1990 Philko - korean clone board
 sonicbom                        // (c) 1987 (FD1094)
@@ -39559,6 +39569,7 @@ taitons2                        //
 namcons1                        //
 namcons2                        //
 rad_ping                        //
+rad_pingp                       //
 rad_mtrk                        //
 rad_mtrkp                       //
 rad_bb2                         //

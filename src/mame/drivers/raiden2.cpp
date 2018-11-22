@@ -1444,9 +1444,9 @@ MACHINE_CONFIG_START(raiden2_state::raiden2)
 	MCFG_PALETTE_ADD("palette", 2048)
 	MCFG_PALETTE_FORMAT(xBBBBBGGGGGRRRRR)
 
-	MCFG_DEVICE_ADD("crtc", SEIBU_CRTC, 0)
-	MCFG_SEIBU_CRTC_LAYER_EN_CB(WRITE16(*this, raiden2_state, tilemap_enable_w))
-	MCFG_SEIBU_CRTC_LAYER_SCROLL_CB(WRITE16(*this, raiden2_state, tile_scroll_w))
+	seibu_crtc_device &crtc(SEIBU_CRTC(config, "crtc", 0));
+	crtc.layer_en_callback().set(FUNC(raiden2_state::tilemap_enable_w));
+	crtc.layer_scroll_callback().set(FUNC(raiden2_state::tile_scroll_w));
 
 	MCFG_DEVICE_ADD("raiden2cop", RAIDEN2COP, 0)
 	MCFG_RAIDEN2COP_VIDEORAM_OUT_CB(WRITE16(*this, raiden2_state, m_videoram_private_w))
@@ -1458,10 +1458,10 @@ MACHINE_CONFIG_START(raiden2_state::raiden2)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	MCFG_DEVICE_ADD("ymsnd", YM2151, XTAL(28'636'363)/8)
-	MCFG_YM2151_IRQ_HANDLER(WRITELINE("seibu_sound", seibu_sound_device, fm_irqhandler))
-	MCFG_SOUND_ROUTE(0, "mono", 0.50)
-	MCFG_SOUND_ROUTE(1, "mono", 0.50)
+	ym2151_device &ymsnd(YM2151(config, "ymsnd", XTAL(28'636'363)/8));
+	ymsnd.irq_handler().set(m_seibu_sound, FUNC(seibu_sound_device::fm_irqhandler));
+	ymsnd.add_route(0, "mono", 0.50);
+	ymsnd.add_route(1, "mono", 0.50);
 
 	MCFG_DEVICE_ADD("oki1", OKIM6295, XTAL(28'636'363)/28, okim6295_device::PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.40)
@@ -1521,9 +1521,9 @@ MACHINE_CONFIG_START(raiden2_state::zeroteam)
 	MCFG_PALETTE_ADD("palette", 2048)
 	MCFG_PALETTE_FORMAT(xBBBBBGGGGGRRRRR)
 
-	MCFG_DEVICE_ADD("crtc", SEIBU_CRTC, 0)
-	MCFG_SEIBU_CRTC_LAYER_EN_CB(WRITE16(*this, raiden2_state, tilemap_enable_w))
-	MCFG_SEIBU_CRTC_LAYER_SCROLL_CB(WRITE16(*this, raiden2_state, tile_scroll_w))
+	seibu_crtc_device &crtc(SEIBU_CRTC(config, "crtc", 0));
+	crtc.layer_en_callback().set(FUNC(raiden2_state::tilemap_enable_w));
+	crtc.layer_scroll_callback().set(FUNC(raiden2_state::tile_scroll_w));
 
 	MCFG_DEVICE_ADD("raiden2cop", RAIDEN2COP, 0)
 	MCFG_RAIDEN2COP_VIDEORAM_OUT_CB(WRITE16(*this, raiden2_state, m_videoram_private_w))

@@ -68,6 +68,7 @@ public:
 		: driver_device(mconfig, type, tag),
 		m_in0(*this, "IN0"),
 		m_in1(*this, "IN1"),
+		m_sprite_xhigh_ignore_hack(true),
 		m_maincpu(*this, "maincpu"),
 		m_screen(*this, "screen"),
 		m_mainram(*this, "mainram"),
@@ -345,7 +346,8 @@ private:
 	DECLARE_WRITE8_MEMBER(colmix_l_w);
 	DECLARE_WRITE8_MEMBER(bmp_palram_sh_w);
 	DECLARE_WRITE8_MEMBER(bmp_palram_l_w);
-
+	DECLARE_WRITE8_MEMBER(spriteram_w);
+	bool m_sprite_xhigh_ignore_hack;
 
 	DECLARE_WRITE8_MEMBER(tmap1_regs_w);
 	DECLARE_WRITE8_MEMBER(tmap2_regs_w);
@@ -482,6 +484,7 @@ private:
 	void draw_tilemap_line(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int which, int line);
 	void draw_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void draw_sprites_line(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int line);
+	void decode_inline_header(int &flipx, int &flipy, int &test, int& pal, int debug_packets);
 
 	bitmap_ind16 m_zbuffer;
 
