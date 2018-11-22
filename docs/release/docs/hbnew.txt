@@ -42,7 +42,9 @@ New Games
 - [mslug3x2]          Metal Slug 3 Super Plus 2
 - [mtlchamps01]       Martial Champion (Easy Move)
 - [rabbits04]         Rabbit (Description Unknown)
-- [sqij15]            SQIJ! v1.5[by Sokurah]
+- [shaman16]          Shaman King demo 0.16 [by Vasily Familiya]
+- [shaman17]          Shaman King demo 0.17 [by Vasily Familiya]
+- [sqij15]            SQIJ! v1.5 [by Sokurah]
 - [stinger2s01]       Stinger (Bug fix - Taxiing Speed)(prototype?)
 - [stingers01]        Stinger (Bug fix - Taxiing Speed)
 - [survartss01]       Survival Arts (Easy Move)
