@@ -8,6 +8,7 @@ New Games
 ---------------------------------
 - [aohs01]            Age Of Heroes - Silkroad 2 (Easy Move)
 - [aohs02]            Age Of Heroes - Silkroad 2 (No Need Power)
+- [ddsprdmo1]         Double Dragon SpritePool demo (newer) [by Vasily Familiya]
 - [dinos143]          Cadillacs and Dinosaurs (Xue Zhan Edition)
 - [dragoonas01]       Dragoon Might (Always Have Super Move)
 - [dragoonas02]       Dragoon Might (Easy Move)
