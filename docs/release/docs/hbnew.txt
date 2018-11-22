@@ -39,6 +39,7 @@ New Games
 - [kov2p204s65]       Knights of Valour 2 Plus (Yi Tong Qun Xiong)
 - [kov2p204s66]       Knights of Valour 2 Plus (Shen Yuan Qun Ying)
 - [mmaulerss01]       Monster Maulers (Easy Move)
+- [mslug3x2]          Metal Slug 3 Super Plus 2
 - [mtlchamps01]       Martial Champion (Easy Move)
 - [rabbits04]         Rabbit (Description Unknown)
 - [sqij15]            SQIJ! v1.5[by Sokurah]
