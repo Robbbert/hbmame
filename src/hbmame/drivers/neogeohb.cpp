@@ -2063,6 +2063,21 @@ ROM_START( shaman17 )
 	ROM_LOAD( "488a.c1", 0x000000, 0x3d2e80, CRC(3cabd968) SHA1(b0003037575fce9d1c83860d7db715acd6908630) )
 ROM_END
 
+ROM_START( shaman18 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "488b.p1", 0x000000, 0x068a3e, CRC(fabb2b46) SHA1(41c4db93c20fe7302be5b2516bbfda5931f58cfd) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "488b.c1", 0x000000, 0x3d1780, CRC(effb008f) SHA1(3c2fde77bbd09b57a5a27b01940796ec25c28234) )
+ROM_END
+
 
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
@@ -2217,6 +2232,7 @@ HACK( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, shaman16,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.16", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, shaman17,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.17", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, shaman18,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.18", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )

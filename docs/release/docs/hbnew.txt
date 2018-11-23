@@ -8,7 +8,9 @@ New Games
 ---------------------------------
 - [aohs01]            Age Of Heroes - Silkroad 2 (Easy Move)
 - [aohs02]            Age Of Heroes - Silkroad 2 (No Need Power)
+- [ddsome4ppdec]      Dungeons and Dragons: Shadow over Mystara (USA 960619 Plus)
 - [ddsprdmo1]         Double Dragon SpritePool demo (newer) [by Vasily Familiya]
+- [ddtodpdec]         Dungeons and Dragons: Tower of Doom (EURO 940412 Plus)
 - [dinos143]          Cadillacs and Dinosaurs (Xue Zhan Edition)
 - [dragoonas01]       Dragoon Might (Always Have Super Move)
 - [dragoonas02]       Dragoon Might (Easy Move)
@@ -45,6 +47,7 @@ New Games
 - [rabbits04]         Rabbit (Description Unknown)
 - [shaman16]          Shaman King demo 0.16 [by Vasily Familiya]
 - [shaman17]          Shaman King demo 0.17 [by Vasily Familiya]
+- [shaman18]          Shaman King demo 0.18 [by Vasily Familiya]
 - [sqij15]            SQIJ! v1.5 [by Sokurah]
 - [stinger2s01]       Stinger (Bug fix - Taxiing Speed)(prototype?)
 - [stingers01]        Stinger (Bug fix - Taxiing Speed)
