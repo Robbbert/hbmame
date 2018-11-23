@@ -58,14 +58,14 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	m_tc0220ioc->read_3_callback().set_ioport("IN1");
 	m_tc0220ioc->read_7_callback().set_ioport("IN2");
 
-	MCFG_DEVICE_ADD("tc0100scn", TC0100SCN, 0)
-	MCFG_TC0100SCN_GFX_REGION(1)
-	MCFG_TC0100SCN_TX_REGION(2)
-	MCFG_TC0100SCN_OFFSETS(3, 0)
-	MCFG_TC0100SCN_GFXDECODE("gfxdecode")
-	MCFG_TC0100SCN_PALETTE("palette")
+	TC0100SCN(config, m_tc0100scn, 0);
+	m_tc0100scn->set_gfx_region(1);
+	m_tc0100scn->set_tx_region(2);
+	m_tc0100scn->set_offsets(3, 0);
+	m_tc0100scn->set_gfxdecode_tag(m_gfxdecode);
+	m_tc0100scn->set_palette_tag(m_palette);
 
-	MCFG_TC0360PRI_ADD("tc0360pri")
+	TC0360PRI(config, m_tc0360pri, 0);
 MACHINE_CONFIG_END
 
 // Game has no sound
