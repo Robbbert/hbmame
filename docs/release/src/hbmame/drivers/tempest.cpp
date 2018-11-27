@@ -581,6 +581,7 @@ ROM_START( aliensva ) /* rev 2? */
 ROM_END
 
 /* tempest multigame */
+// 2018-10-31 marked as not working, as it will no longer go into the menu at boot
 
 class tempmg_state : public tempest_state
 {
@@ -603,6 +604,7 @@ private:
 
 WRITE8_MEMBER( tempmg_state::tempmg_rombank_w )
 {
+	data &= 7;
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
@@ -779,7 +781,7 @@ HACK( 2000, tmptwst2, tempest, tempest, tempest, tempest_state,  0,      ROT270,
 HACK( 2000, tmptwst3, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, tmptwst4, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, tempestm, tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,   tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
+HACK( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,   tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1999, vbrakout, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, temptlm,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, tvortex,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
