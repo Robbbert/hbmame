@@ -334,6 +334,11 @@ createHBMAMEProjects(_target, _subtarget, "atari")
 files {
 	MAME_DIR .. "src/hbmame/drivers/asteroid.cpp",
 	MAME_DIR .. "src/mame/machine/asteroid.cpp",
+	MAME_DIR .. "src/hbmame/drivers/atarig42.cpp",
+	MAME_DIR .. "src/mame/video/atarig42.cpp",
+	MAME_DIR .. "src/mame/machine/asic65.cpp",
+	MAME_DIR .. "src/mame/video/atarirle.cpp",
+	MAME_DIR .. "src/mame/audio/atarijsa.cpp",
 	MAME_DIR .. "src/hbmame/drivers/atarisy1.cpp",
 	MAME_DIR .. "src/mame/video/atarisy1.cpp",
 	MAME_DIR .. "src/mame/audio/asteroid.cpp",
