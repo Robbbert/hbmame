@@ -1045,6 +1045,8 @@ pingu                           // (c) 2006 The Pygos Group / Capcom
 dkbanana                        // (c) 2007 Capcom
 dkbanans                        // (c) 2007 Capcom
 dokodemo                        // (c) 2006 Capcom
+masmario                        // (c) 2005 Capcom
+wontame                         // (c) 2008 Capcom
 
 @source:aliens.cpp
 aliens                          // GX875 (c) 1990 (World)
@@ -2771,10 +2773,12 @@ toggle                          // (c) 1985
 trivia12                        // (c) 1984
 triviabb                        // (c) 1984
 triviaes                        // (c) 1984
+triviaes2                       // (c) 1984
 triviag1                        // (c) 1984
 triviag2                        // (c) 1984
 triviasp                        // (c) 1984
 triviayp                        // (c) 1984
+unktp                           // bootleg? 198?
 
 @source:banctec.cpp
 banctec                         // BancTec ESeries panel
@@ -12393,6 +12397,9 @@ klondkp                         // (c) 1999 Eolith
 ep128                           // Enterprise 128
 ep64                            // Enterprise 64
 phc64                           // Hegener & Glaser Mephisto PHC 64
+
+@source:epic14e.cpp
+epic14e                         //
 
 @source:epos.cpp
 catapult                        // (c) 1982
@@ -39921,10 +39928,11 @@ sfex2                           // Street Fighter EX 2 (USA 980526)
 sfex2a                          // Street Fighter EX 2 (ASIA 980312)
 sfex2h                          // Street Fighter EX 2 (HISPANIC 980312)
 sfex2j                          // Street Fighter EX 2 (JAPAN 980312)
-sfex2p                          // Street Fighter EX 2 Plus (USA 990611)
+sfex2p                          // Street Fighter EX 2 Plus (EURO 990611)
 sfex2pa                         // Street Fighter EX 2 Plus (ASIA 990611)
 sfex2ph                         // Street Fighter EX 2 Plus (HISPANIC 990611)
 sfex2pj                         // Street Fighter EX 2 Plus (JAPAN 990611)
+sfex2pu                         // Street Fighter EX 2 Plus (USA 990611)
 sfex2u1                         // Street Fighter EX 2 (USA 980312)
 sfexa                           // Street Fighter EX (ASIA 961219)
 sfexj                           // Street Fighter EX (JAPAN 961130)
