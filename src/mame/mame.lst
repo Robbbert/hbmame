@@ -10274,6 +10274,7 @@ sf2rb                           // hack
 sf2rb2                          // hack
 sf2rb3                          // hack
 sf2red                          // hack
+sf2redp2                        // hack
 sf2rk                           // bootleg
 sf2rules                        // bootleg
 sf2stt                          // bootleg
@@ -35112,6 +35113,9 @@ shangkid                        // (c) 1985 Taiyo + Data East license
 kicker                          // GX477 (c) 1985
 shaolinb                        // bootleg
 shaolins                        // GX477 (c) 1985
+
+@source:shine.cpp
+shine                           // 1983 Shine/1
 
 @source:shisen.cpp
 matchit                         // (c) 1989 Tamtex
