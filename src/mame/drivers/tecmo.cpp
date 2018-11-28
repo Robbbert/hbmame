@@ -244,11 +244,15 @@ void tecmo_state::silkwormp_sound_map(address_map &map)
 	map(0xcc00, 0xcc00).w("soundlatch", FUNC(generic_latch_8_device::acknowledge_w));
 }
 
-void tecmo_state::tecmo_sound_map(address_map &map)
+void tecmo_state::backfirt_sound_map(address_map &map)
 {
 	silkwormp_sound_map(map);
-	map(0x2000, 0x207f).ram();             /* Silkworm set #2 has a custom CPU which */
-												/* writes code to this area */
+	map(0x2000, 0x207f).ram(); // Silkworm set #2 has a custom CPU which writes code to this area
+}
+
+void tecmo_state::tecmo_sound_map(address_map &map)
+{
+	backfirt_sound_map(map);
 	map(0xc000, 0xc000).w(FUNC(tecmo_state::adpcm_start_w));
 	map(0xc400, 0xc400).w(FUNC(tecmo_state::adpcm_end_w));
 	map(0xc800, 0xc800).w(FUNC(tecmo_state::adpcm_vol_w));
@@ -719,14 +723,14 @@ MACHINE_CONFIG_START(tecmo_state::rygar)
 	MCFG_PALETTE_FORMAT(xxxxBBBBRRRRGGGG)
 	MCFG_PALETTE_ENDIANNESS(ENDIANNESS_BIG)
 
-	MCFG_DEVICE_ADD("spritegen", TECMO_SPRITE, 0)
+	TECMO_SPRITE(config, m_sprgen, 0);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
-	MCFG_GENERIC_LATCH_DATA_PENDING_CB(INPUTLINE("soundcpu", INPUT_LINE_NMI))
-	MCFG_GENERIC_LATCH_SEPARATE_ACKNOWLEDGE(true)
+	generic_latch_8_device &soundlatch(GENERIC_LATCH_8(config, "soundlatch"));
+	soundlatch.data_pending_callback().set_inputline(m_soundcpu, INPUT_LINE_NMI);
+	soundlatch.set_separate_acknowledge(true);
 
 	MCFG_DEVICE_ADD("ymsnd", YM3526, XTAL(4'000'000)) /* verified on pcb */
 	MCFG_YM3526_IRQ_HANDLER(INPUTLINE("soundcpu", 0))
@@ -778,7 +782,7 @@ MACHINE_CONFIG_START(tecmo_state::backfirt)
 	/* this pcb has no MSM5205 */
 	MCFG_DEVICE_REMOVE("msm")
 	MCFG_DEVICE_MODIFY("soundcpu")
-	MCFG_DEVICE_PROGRAM_MAP(silkwormp_sound_map)
+	MCFG_DEVICE_PROGRAM_MAP(backfirt_sound_map)
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(tecmo_state::silkwormp)

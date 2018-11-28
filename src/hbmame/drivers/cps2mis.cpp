@@ -220,7 +220,7 @@ ROM_END
 
 
 ROM_START( ddsoma4pp )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	//ROM_LOAD16_WORD_SWAP( "dd2ud.03g", 0x000000, 0x80000, CRC(816f695a) SHA1(5e590d36c04ceac1b48954c0554a733b4c3a5277) )
 	//ROM_LOAD16_WORD_SWAP( "dd2ud.04g", 0x080000, 0x80000, CRC(7cc81c6b) SHA1(2619cb25d5ae62adc5c2292e25c0d33674f5cc13) )
 	//ROM_LOAD16_WORD_SWAP( "dd2.05g",   0x100000, 0x80000, CRC(5eb1991c) SHA1(429a60b5396ff4192904867fbe0524268f0edbcb) )
@@ -248,27 +248,51 @@ ROM_START( ddsoma4pp )
 	ROMX_LOAD( "dd2.18m",   0x1000004, 0x200000, CRC(acddd149) SHA1(7f50de9b2d1cc733594c642be1804190519caffa) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "dd2.20m",   0x1000006, 0x200000, CRC(117fb0c0) SHA1(15c01fa1a71b6469b0e1bde0ce5835c5ff9d938c) , ROM_GROUPWORD | ROM_SKIP(6) )
 
-	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
 	ROM_LOAD( "dd2.01",   0x00000, 0x08000, CRC(99d657e5) SHA1(1528dd6b07a0e79951a35c0457c8a9c9770e9c78) )
 	ROM_CONTINUE(         0x10000, 0x18000 )
 	ROM_LOAD( "dd2.02",   0x28000, 0x20000, CRC(117a3824) SHA1(14f3a12170b601c5466c93af9d2f24e0b386b4e4) )
 
-	ROM_REGION( 0x400000, "qsound", 0 ) /* QSound samples */
+	ROM_REGION( 0x400000, "qsound", 0 )
 	ROM_LOAD16_WORD_SWAP( "dd2.11m",   0x000000, 0x200000, CRC(98d0c325) SHA1(7406e8d943d77c468eb418c4113261f4ab973bbf) )
 	ROM_LOAD16_WORD_SWAP( "dd2.12m",   0x200000, 0x200000, CRC(5ea2e7fa) SHA1(0e6a9fd007f637adcb2226c902394f07de45e803) )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
-	//ROM_LOAD( "ddsoma.key",   0x000000, 0x000014, CRC(8c3cc560) SHA1(ad19e78b938a67c9f5ed0dcd5c68b383e6ce0575) )
-	//ROM_LOAD( "ddsom.key",    0x000000, 0x000014, CRC(541e425d) SHA1(9239f9ad7c2ed0d7d062da2db92b07104b5bb9a7) )
-	//ROM_LOAD( "ddsomu.key",   0x000000, 0x000014, CRC(09ae0f7c) SHA1(c8c4e8298c8a6c37b91f9ae95474a15dfad3e986) )
-	//ROM_LOAD( "ddsomj.key",   0x000000, 0x000014, CRC(d8dadb22) SHA1(e07b50ae464c35439333dd983e2acac48a1ce529) )
-	//ROM_LOAD( "ddsomb.key",   0x000000, 0x000014, CRC(00b4cc49) SHA1(f905cfa6d97741f77994c8c9d0a1164f064f9343) )
-	//ROM_LOAD( "ddsomh.key",   0x000000, 0x000014, CRC(caf6b540) SHA1(c17ea2dab973f54ce2eee457f83c519b86087117) )
+ROM_END
+
+ROM_START( ddsoma4ppdec ) /* Dungeons & Dragons: Shadow over Mystara (Plus decrypted version) */
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "a4pp.dec", 0x000000, 0x400000, CRC(6611a98b) SHA1(6ea5062199c9df600831b57fa279b7d48cfc6900) )
+
+	ROM_REGION16_BE( CODE_SIZE, "user1", 0 )
+	ROM_FILL( 0x000000, 0x100000, 0x00 )
+
+	ROM_REGION( 0x1800000, "gfx", 0 )
+	ROMX_LOAD( "dd2.13m", 0x0000000, 0x400000, CRC(a46b4e6e) SHA1(fb90f42868c581c481b4ceff9f692753fb186b30) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.15m", 0x0000002, 0x400000, CRC(d5fc50fc) SHA1(bc692f17b18bb47a724cd5152377cd5ccd6e184a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.17m", 0x0000004, 0x400000, CRC(837c0867) SHA1(3d6db290a8f76299a23543f0ccf6a7905e1088ac) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.19m", 0x0000006, 0x400000, CRC(bb0ec21c) SHA1(e43ccc1cf63ccd2b504cc9fd701af849a7321914) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.14m", 0x1000000, 0x200000, CRC(6d824ce2) SHA1(0ccfe6c8a944937718e28a1a373b5822c7b7001b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.16m", 0x1000002, 0x200000, CRC(79682ae5) SHA1(ee84f4791c29ce9e2bae06ba3ec47ff4d2cd7054) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.18m", 0x1000004, 0x200000, CRC(acddd149) SHA1(7f50de9b2d1cc733594c642be1804190519caffa) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dd2.20m", 0x1000006, 0x200000, CRC(117fb0c0) SHA1(15c01fa1a71b6469b0e1bde0ce5835c5ff9d938c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "dd2.01", 0x00000, 0x08000, CRC(99d657e5) SHA1(1528dd6b07a0e79951a35c0457c8a9c9770e9c78) )
+	ROM_CONTINUE( 0x10000, 0x18000 )
+	ROM_LOAD( "dd2.02", 0x28000, 0x20000, CRC(117a3824) SHA1(14f3a12170b601c5466c93af9d2f24e0b386b4e4) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "dd2.11m", 0x000000, 0x200000, CRC(98d0c325) SHA1(7406e8d943d77c468eb418c4113261f4ab973bbf) )
+	ROM_LOAD16_WORD_SWAP( "dd2.12m", 0x200000, 0x200000, CRC(5ea2e7fa) SHA1(0e6a9fd007f637adcb2226c902394f07de45e803) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
 ROM_START( ddtodp )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "dape.03c", 0x000000, 0x80000, CRC(c5e37fb2) SHA1(3c33160c8eb1ab2e28ea083c08b36f4d2d573d51) )
 	ROM_LOAD16_WORD_SWAP( "dape.04c", 0x080000, 0x80000, CRC(0a359e5d) SHA1(6a0e57bd5d7c2d24888f6548f66deab4df7b9112) )
 	ROM_LOAD16_WORD_SWAP( "dape.05c", 0x100000, 0x80000, CRC(73b06852) SHA1(52553fd121a96b4b6c9d4d3ef183b361b84258c6) )
@@ -285,16 +309,45 @@ ROM_START( ddtodp )
 	ROMX_LOAD( "dad.18m",   0x800004, 0x100000, CRC(cef393ef) SHA1(830b33c86cc24776d17ad65fa89a3b16c40446a1) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "dad.20m",   0x800006, 0x100000, CRC(8953fe9e) SHA1(f4795beb006335d13e3934aa9760e775eb0bb950) , ROM_GROUPWORD | ROM_SKIP(6) )
 
-	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
 	ROM_LOAD( "dad.01",   0x00000, 0x08000, CRC(3f5e2424) SHA1(4aa744576bc6752c43a90a27a816ebd90076b248) )
 	ROM_CONTINUE(         0x10000, 0x18000 )
 
-	ROM_REGION( 0x400000, "qsound", 0 ) /* QSound samples */
+	ROM_REGION( 0x400000, "qsound", 0 )
 	ROM_LOAD16_WORD_SWAP( "dad.11m",   0x000000, 0x200000, CRC(0c499b67) SHA1(a8ebd8a1cd6dece8344b7cb0439d85843fb97616) )
 	ROM_LOAD16_WORD_SWAP( "dad.12m",   0x200000, 0x200000, CRC(2f0b5a4e) SHA1(8d1ebbb811aa469b0f0d29d719d2b9af28fb63a2) )
 
 	ROM_REGION( 0x20, "key", 0 )
-	ROM_LOAD( "ddtod.key",    0x000000, 0x000014, CRC(41dfca41) SHA1(d5fb970d54dff0ab085778530bae32791cb0f38e) )
+	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+ROM_START( ddtodpdec ) /* Dungeons & Dragons: Tower of Doom (Plus decrypted version) */
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "p.dec", 0x000000, 0x280000, CRC(2b2fcbb7) SHA1(07f790991fbcf60df6cfdafc3ffc957932ad8029) )
+
+	ROM_REGION16_BE( CODE_SIZE, "user1", 0 )
+	ROM_FILL( 0x000000, 0x100000, 0x00 )
+
+	ROM_REGION( 0xc00000, "gfx", 0 )
+	ROMX_LOAD( "dad.13m", 0x000000, 0x200000, CRC(da3cb7d6) SHA1(d59bb53d5f32889eb6eb7f8b1c8781948c97283d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.15m", 0x000002, 0x200000, CRC(92b63172) SHA1(9bed7dbbb17729f2ad3d318396f5335c0bd39937) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.17m", 0x000004, 0x200000, CRC(b98757f5) SHA1(3eead22e097906bf0e1e151cd0a9c75abc5a32d4) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.19m", 0x000006, 0x200000, CRC(8121ce46) SHA1(40c4dc969318d38f0c6d5401c9c64371f51aa12c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.14m", 0x800000, 0x100000, CRC(837e6f3f) SHA1(c060183474fba0e82d765b9f282b84838550dff6) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.16m", 0x800002, 0x100000, CRC(f0916bdb) SHA1(9354d258dd26cbbf12c78ecfc277c357cbdb360e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.18m", 0x800004, 0x100000, CRC(cef393ef) SHA1(830b33c86cc24776d17ad65fa89a3b16c40446a1) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "dad.20m", 0x800006, 0x100000, CRC(8953fe9e) SHA1(f4795beb006335d13e3934aa9760e775eb0bb950) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "dad.01", 0x00000, 0x08000, CRC(3f5e2424) SHA1(4aa744576bc6752c43a90a27a816ebd90076b248) )
+	ROM_CONTINUE( 0x10000, 0x18000 )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "dad.11m", 0x000000, 0x200000, CRC(0c499b67) SHA1(a8ebd8a1cd6dece8344b7cb0439d85843fb97616) )
+	ROM_LOAD16_WORD_SWAP( "dad.12m", 0x200000, 0x200000, CRC(2f0b5a4e) SHA1(8d1ebbb811aa469b0f0d29d719d2b9af28fb63a2) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
 ROM_START( halfway )
@@ -2028,8 +2081,10 @@ HACK( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, 
 HACK( 2014, ddsomchs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Unknown", "Dungeons & Dragons: Shadow over Mystara (Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomhp,    ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Strengthen The Physical Model)(2009-06-15)(Euro 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomjfs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (Change the Final Strike condition)(2009-07-17)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ddsoma4pp,  ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Shadow over Mystara (unknown hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ddtodp,     ddtod,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Tower of Doom (unknown hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+//HACK( 2018, ddsoma4pp,  ddsom,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Shadow over Mystara (unknown hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+//HACK( 2018, ddtodp,     ddtod,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Tower of Doom (unknown hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddsoma4ppdec,  ddsom,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (USA 960619 Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddtodpdec,     ddtod,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (EURO 940412 Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, halfway,    progear,  dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Halfway House", "Halfway to Hell - Progear Red Label (2016-01-17 Red label ver)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mpangjd,    mpang,    dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "Mighty! Pang (Japan 001011 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mshjphp,    msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Super Heroes (Get maximum power on a valid attack or being attacked)(Japan 951117)", MACHINE_SUPPORTS_SAVE )

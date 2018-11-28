@@ -219,6 +219,7 @@ NUM YEAR COMPANY                 TITLE
 485 2018 Vasily Familiya         Raroggame
 486 2018 Blastar                 Codename: Blut Engel 2018
 487 2018 Vasily Familiya         Double Dragon SpritePool Demo
+488 2018 Vasily Familiya         Shaman King demo
 
 
 ********************** 800 to 899 **********************************
@@ -2008,6 +2009,74 @@ ROM_START( ddsprdmo )
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD( "487.c1", 0x000000, 0x127000, CRC(092721a3) SHA1(c5b8ce994baf1bbf50727dbab0759cba0d01a719) )
 ROM_END
+// This one has sound
+ROM_START( ddsprdmo1 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD( "487a.p1", 0x000000, 0x0062bf, CRC(ad865bda) SHA1(10b83b3d90094fc0a1cdec3398c406d741871bac) )
+	ROM_LOAD( "487a.p2", 0x100000, 0x01e190, CRC(2decf0cf) SHA1(73a3b36edaef65ea0936dba7d2556bd06b74cb2c) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_64K( "487.m1", CRC(360c6863) SHA1(43d0b823859efe10e8d958dc0c32ea38e7a8096c) )
+
+	ROM_REGION( 0x300000, "ymsnd", 0 )
+	ROM_LOAD( "487.v1", 0x000000, 0x100000, CRC(8d9a4aa4) SHA1(52dfbcdb6015e692b5b030c3e44099d51c31d92d) )
+	ROM_LOAD( "487.v2", 0x100000, 0x100000, CRC(5a326fc1) SHA1(18034072a32bd25ee3562ce56d7685ba6db2cd8e) )
+	ROM_LOAD( "487.v3", 0x200000, 0x100000, CRC(c37bb043) SHA1(6fcfeccad763a91c07ce7e2ab8ef5efd4aa7bda9) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD( "487a.c1", 0x000000, 0x0b8d00, CRC(1f508463) SHA1(d77c758729b7792d14ddec344a96dd4a07cba023) )
+ROM_END
+
+
+// 488 : Shaman King Demo by Vasily Familiya
+// No sound.
+// Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
+// Same background as igla.
+ROM_START( shaman16 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "488.p1", 0x000000, 0x0682f9, CRC(19223e4e) SHA1(944e1dc661a77bdc80c0b83bd72e988d498e5f23) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "488.c1", 0x000000, 0x3ce380, CRC(1174dafe) SHA1(493fc5da846b1369529a819efe87d4a5438af02f) )
+ROM_END
+
+ROM_START( shaman17 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "488a.p1", 0x000000, 0x06899c, CRC(d09f063e) SHA1(f44f6d778d064043ebf86ea81bc216e11ead23ca) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "488a.c1", 0x000000, 0x3d2e80, CRC(3cabd968) SHA1(b0003037575fce9d1c83860d7db715acd6908630) )
+ROM_END
+
+ROM_START( shaman18 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "488b.p1", 0x000000, 0x068a3e, CRC(fabb2b46) SHA1(41c4db93c20fe7302be5b2516bbfda5931f58cfd) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "488b.c1", 0x000000, 0x3d1780, CRC(effb008f) SHA1(3c2fde77bbd09b57a5a27b01940796ec25c28234) )
+ROM_END
 
 
 
@@ -2104,7 +2173,8 @@ HACK( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (NeoGeo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 1990, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool Demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddsprdmo1,    ddsprdmo, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo (newer)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dti2,         dti,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales 2 (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
@@ -2113,7 +2183,7 @@ HACK( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. Demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
@@ -2156,10 +2226,13 @@ HACK( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Ryurik: Poteryannaya", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Ryurik: Poteryannaya demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, shaman16,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.16", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, shaman17,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.17", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, shaman18,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.18", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
@@ -2169,5 +2242,5 @@ HACK( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo)(Alt)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_SUPPORTS_SAVE )

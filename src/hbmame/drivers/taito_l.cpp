@@ -58,6 +58,19 @@ ROM_START( sqij )
 	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
+ROM_START( sqij15 ) // this version works on real hardware
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sqij15.ic10",     0x00000, 0xf000, CRC(793c8b97) SHA1(66b1a6b6c9cd95f06ca5c23843bf61be0474b659) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD16_BYTE( "sqij.ic9", 0x00000, 0x10000, CRC(c4de729b) SHA1(58e4c8d8af121dd25eba737cc1917841bc3ec6f5) )
+	ROM_LOAD16_BYTE( "sqij.ic8", 0x00001, 0x10000, CRC(978df42d) SHA1(51d7310591c68ec12178b606f0779915f15de8a0) )
+
+	// came with the zipfile but not used
+	ROM_REGION( 0x0200, "plds", 0 )
+	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
+ROM_END
+
 ROM_START( tldemo )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tldemo.ic10",   0x00000, 0x56a4, CRC(fda3d418) SHA1(e0171cc1c035d1f800702c3766825b63f6acd291) )
@@ -82,6 +95,7 @@ HACK( 2007, evilstonfr,  evilston, evilston,  evilston, taitol_2cpu_state,  0, R
 HACK( 2015, sokoban,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Sokoban LE", 0 )
 HACK( 2015, speccies,    0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "Sokurah", "Speccies 2", 0 )
 HACK( 2018, sqij,        0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "Sokurah", "SQIJ!", 0 )
+HACK( 2018, sqij15,      sqij,     plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "Sokurah", "SQIJ! v1.5", 0 )
 HACK( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
 HACK( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state,  0, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
 

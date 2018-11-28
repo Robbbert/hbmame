@@ -65,6 +65,9 @@ astrofbl		/* Black Background */
 asuka			//parent
 asukac			// chinese
 
+@source:atarig42.cpp
+dangerex
+
 @source:atarisy1.cpp
 atarisy1		//bios
 indytemp		//parent
@@ -1378,8 +1381,8 @@ ddsomavs
 ddsomchs
 ddsomhp
 ddsomjfs
-ddsoma4pp			// not working
-ddtodp				// not working
+ddsoma4ppdec
+ddtodpdec
 halfway		// progear hack by The Halfway House
 mshjphp
 mshvsemb
@@ -2260,6 +2263,28 @@ kof97s81
 kof97s82
 kof97s83
 kof97s84
+kof97s85
+kof97s86
+kof97s87
+kof97s88
+kof97s89
+kof97s90
+kof97s91
+kof97s92
+kof97s93
+kof97s94
+kof97s95
+kof97s96
+kof97s97
+kof97s98
+kof97s99
+kof97s100
+kof97s101
+kof97s102
+kof97s103
+kof97s104
+kof97s105
+kof97s106
 kof97h01
 kof97h02
 kof97h03
@@ -4862,6 +4887,7 @@ mslug3kh
 mslug3kho
 mslug3nd
 mslug3v		/* EEZEZY Violence Edition */
+mslug3x2
 ms6s01
 ms6s02
 ms6s03
@@ -6950,6 +6976,7 @@ columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
 //csw2 //not working & roms missing
 ddsprdmo
+ddsprdmo1
 didemo
 dti			// Duck Tales Intro
 dti2		// Duck Tales Intro
@@ -7008,6 +7035,9 @@ raroggame
 rci			/* Robocop intro */
 samantha
 santabll
+shaman16
+shaman17
+shaman18
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
@@ -9524,6 +9554,7 @@ evilstonfr
 sokoban					// HB Sokoban LE by cmonkey
 speccies				// HB Speccies 2 by Sokurah
 sqij					// HB SQIJ by Sokurah
+sqij15					// HB SQIJ v1.5 by Sokurah
 tldemo					// HB cmonkey
 tldemo2					// HB cmonkey
 evilstons01

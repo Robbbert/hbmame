@@ -1189,8 +1189,7 @@ MACHINE_CONFIG_START(ampoker2_state::ampoker2)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_DEVICE_ADD("aysnd", AY8910, MASTER_CLOCK/4)  /* 1.5 MHz, measured */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
+	AY8910(config, "aysnd", MASTER_CLOCK/4).add_route(ALL_OUTPUTS, "mono", 0.30);  /* 1.5 MHz, measured */
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(ampoker2_state::sigma2k)
@@ -1412,34 +1411,34 @@ Arizona 10. This one has way more Italian text than rabbitpk. Also has Arizona i
 
 PCB is marked: "029 lc" on component side ("LC" is the Italian for "Lato Componenti" which translates to "Components Side")
 PCB is marked: "029 ls" and "PKR 92" on solder side ("LS" is the Italian for "Lato Saldature" which translates to "Solders Side")
-PCB is labeled: "8/98rb013" on component side 
+PCB is labeled: "8/98rb013" on component side
 
 Devices
-1x 	TMPZ84C00AP-6 		u1 	8-bit Microprocessor - main
-1x 	KC89C72 		u11 	Programmable Sound Generator - sound
-1x 	PIC16F84-04/P 		on small piggyback at u6 	8bit CMOS Microcontroller (internal ROM not dumped)
-1x 	TDA2003 		u16 	Audio Amplifier - sound
-1x 	oscillator 	6.000MHz 	oz1 	
+1x  TMPZ84C00AP-6       u1  8-bit Microprocessor - main
+1x  KC89C72         u11     Programmable Sound Generator - sound
+1x  PIC16F84-04/P       on small piggyback at u6    8bit CMOS Microcontroller (internal ROM not dumped)
+1x  TDA2003         u16     Audio Amplifier - sound
+1x  oscillator  6.000MHz    oz1
 
 ROMs
-1x 	NM27C256 	2 	dumped
-1x 	M27C512 	1 	dumped
-1x 	AM27S29APC 	u48 	dumped
+1x  NM27C256    2   dumped
+1x  M27C512     1   dumped
+1x  AM27S29APC  u48     dumped
 
 RAMs
-1x 	MB8416A-15L 	u39,u40
-1x 	LC3517B-15 	u7
+1x  MB8416A-15L     u39,u40
+1x  LC3517B-15  u7
 
 PLDs
-2x 	PALCE16V8H-25-PC/4 	u8,u41 	read protected
-1x 	GAL22V10D-25LP 	on small piggyback at u6 	read protected
+2x  PALCE16V8H-25-PC/4  u8,u41  read protected
+1x  GAL22V10D-25LP  on small piggyback at u6    read protected
 
 Others
 1x 28x2 JAMMA edge connector
 1x 10 legs connector (CN1)
 1x trimmer (volume)(P1)
 1x 8 DIP switches bank (DIP)
-1x battery 3.6V (BAT1) 
+1x battery 3.6V (BAT1)
 */
 
 ROM_START( arizna10 )

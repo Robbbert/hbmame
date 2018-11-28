@@ -219,7 +219,7 @@ WRITE8_MEMBER(sc_state::port03_w)
 	The effect sequence is really bizarre, however a pattern exists. */
 
 	m_explosion = BIT(data, 4);
-	if (!m_explosion) m_discrete->write(space, SCHASER_DOT_EN, BIT(data, 1));	/* prevents beep during explosion */
+	if (!m_explosion) m_discrete->write(SCHASER_DOT_EN, BIT(data, 1));      /* prevents beep during explosion */
 
 	if (!m_sound_enabled)				/* sound disabled */
 		m_sound_seq=0;
@@ -295,10 +295,10 @@ WRITE8_MEMBER(sc_state::port05_w)
 	There are no field control bits. Therefore the green mask can never appear.
         The sound is enabled early on the stages that should have the mask. */
 
-	m_discrete->write(space, SCHASER_MUSIC_BIT, BIT(data, 0));
+	m_discrete->write(SCHASER_MUSIC_BIT, BIT(data, 0));
 
 	m_sound_enabled = BIT(data, 4);
-	m_discrete->write(space, SCHASER_SND_EN, m_sound_enabled);
+	m_discrete->write(SCHASER_SND_EN, m_sound_enabled);
 	machine().sound().system_enable(m_sound_enabled);
 
 	machine().bookkeeping().coin_lockout_global_w(BIT(data, 2));

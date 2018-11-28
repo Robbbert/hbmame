@@ -673,12 +673,12 @@ MACHINE_CONFIG_START( cps_state::cps1frog )
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_GENERIC_LATCH_8_ADD("soundlatch")
-	MCFG_GENERIC_LATCH_8_ADD("soundlatch2")
-	MCFG_DEVICE_ADD("2151", YM2151, XTAL(3'579'545))  /* verified on pcb */
-	MCFG_YM2151_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
-	MCFG_SOUND_ROUTE(0, "mono", 0.35)
-	MCFG_SOUND_ROUTE(1, "mono", 0.35)
+	GENERIC_LATCH_8(config, m_soundlatch);
+	GENERIC_LATCH_8(config, m_soundlatch2);
+	ym2151_device &ym2151(YM2151(config, "2151", XTAL(3'579'545)));  /* verified on pcb */
+	ym2151.irq_handler().set_inputline(m_audiocpu, 0);
+	ym2151.add_route(0, "mono", 0.35);
+	ym2151.add_route(1, "mono", 0.35);
 	MCFG_DEVICE_ADD("oki", OKIM6295, 1e6, okim6295_device::PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
 MACHINE_CONFIG_END
@@ -12341,6 +12341,36 @@ ROM_START( dinos142 )
 	ROM_LOAD16_WORD_SWAP( "cdes142.8f", 0x000000, 0x80000, CRC(9916b620) SHA1(52af0720431e545a3faabe6075be54f03678966c) )
 	ROM_LOAD16_WORD_SWAP( "cdes142.7f", 0x080000, 0x80000, CRC(62e4de87) SHA1(2200993e2d51aa34d81465b4ebf0a7bdae90f3c1) )
 	ROM_LOAD16_WORD_SWAP( "cdes142.6f", 0x100000, 0x80000, CRC(25bbba55) SHA1(68f5169f38f7965cb07dd1d10a19de4c003670f9) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinos143 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "cdes143.8f", 0x000000, 0x80000, CRC(bedb6d42) SHA1(0cd8a86865e97a8368511dc0d5035a007507dd93) )
+	ROM_LOAD16_WORD_SWAP( "cdes143.7f", 0x080000, 0x80000, CRC(2b0c7464) SHA1(fe492fafd01bf0fe2f306be51ca9d608e71bcd5e) )
+	ROM_LOAD16_WORD_SWAP( "cdes143.6f", 0x100000, 0x80000, CRC(25f59e7c) SHA1(3d8966ba98daa39e8a830225efe089b59789a206) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -35689,6 +35719,7 @@ HACK( 2018, dinos139,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2018, dinos140,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "DDJ", "Cadillacs and Dinosaurs (Stage Select)(World 930201)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos141,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (Fast Moving, Continuous, Unparalleled 2018-08-13)(World 930201)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos142,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (Fast Fight Blood Battle Version 2018 Tour Version)(World 930201)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, dinos143,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (Xue Zhan Edition)(World 930201)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinox01,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx/Ydmis", "Cadillacs and Dinosaurs (Enemy Replacement Edition)(Korean Edition)(2010-03-10)(Kill Enemies To get Food Barbecue)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinox02,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx/Ydmis", "Cadillacs and Dinosaurs (Enemy Replacement Edition)(Korean Edition)(2010-03-10)(Kill Enemies To get Food Cake)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinox03,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx/Ydmis", "Cadillacs and Dinosaurs (Enemy Replacement Edition)(Korean Edition)(2010-03-10)(Kill Enemies To get Food Lobster)(World 930201)", MACHINE_SUPPORTS_SAVE )
