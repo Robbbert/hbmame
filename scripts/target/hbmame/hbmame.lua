@@ -356,6 +356,8 @@ files {
 	MAME_DIR .. "src/mame/audio/llander.cpp",
 	MAME_DIR .. "src/mame/video/atarimo.cpp",
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
+	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")

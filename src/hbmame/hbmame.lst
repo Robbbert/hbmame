@@ -4611,6 +4611,11 @@ androdund	/* 0049 (c) 1992 Visco */
 ncommandd	/* 0050 (c) 1992 Alpha Denshi Co. */
 wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 
+@source:mhavoc.cpp
+mhavoc				//parent
+mhavocrv			//HB Jess M. Askey
+mhavocpe			//HB Jess M. Askey
+
 @source:midtunit.cpp
 mk			//parent
 mkfr		// french
