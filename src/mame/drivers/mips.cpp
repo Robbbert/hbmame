@@ -143,6 +143,14 @@
 #define VERBOSE 0
 #include "logmacro.h"
 
+namespace {
+
+FLOPPY_FORMATS_MEMBER(mips_floppy_formats)
+	FLOPPY_PC_FORMAT
+FLOPPY_FORMATS_END
+
+} // anonymous namespace
+
 void rx2030_state::machine_start()
 {
 	save_item(NAME(m_mmu));
@@ -232,7 +240,7 @@ void rx2030_state::iop_io_map(address_map &map)
 
 	map(0x0140, 0x0143).rw(m_net, FUNC(am7990_device::regs_r), FUNC(am7990_device::regs_w));
 
-	map(0x0180, 0x018b).lr8("mac", [this](offs_t offset)
+	map(0x0180, 0x018b).lr8("mac", [](offs_t offset)
 	{
 		// Ethernet MAC address (LSB first)
 		static u8 const mac[] = { 0x00, 0x00, 0x6b, 0x12, 0x34, 0x56 };
@@ -479,7 +487,7 @@ void rx2030_state::rx2030(machine_config &config)
 	WD37C65C(config, m_fdc, 16_MHz_XTAL);
 	m_fdc->intrq_wr_callback().set_inputline(m_iop, INPUT_LINE_IRQ6);
 	//m_fdc->drq_wr_callback().set();
-	FLOPPY_CONNECTOR(config, "fdc:0", "35hd", FLOPPY_35_HD, true, &FLOPPY_PC_FORMAT).enable_sound(false);
+	FLOPPY_CONNECTOR(config, "fdc:0", "35hd", FLOPPY_35_HD, true, mips_floppy_formats).enable_sound(false);
 
 	// scsi bus and devices
 	NSCSI_BUS(config, m_scsibus, 0);
@@ -703,7 +711,7 @@ void rx3230_state::rx3230(machine_config &config)
 	I82072(config, m_fdc, 16_MHz_XTAL);
 	m_fdc->intrq_wr_callback().set_inputline(m_cpu, INPUT_LINE_IRQ4);
 	//m_fdc->drq_wr_callback().set();
-	FLOPPY_CONNECTOR(config, "fdc:0", "35hd", FLOPPY_35_HD, true, &FLOPPY_PC_FORMAT).enable_sound(false);
+	FLOPPY_CONNECTOR(config, "fdc:0", "35hd", FLOPPY_35_HD, true, mips_floppy_formats).enable_sound(false);
 
 	// keyboard
 	pc_kbdc_device &kbdc(PC_KBDC(config, "pc_kbdc", 0));
