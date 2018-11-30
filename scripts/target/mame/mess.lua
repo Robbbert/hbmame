@@ -2503,6 +2503,8 @@ createMESSProjects(_target, _subtarget, "mips")
 files {
 	MAME_DIR .. "src/mame/drivers/mips.cpp",
 	MAME_DIR .. "src/mame/includes/mips.h",
+	MAME_DIR .. "src/mame/machine/mips_rambo.h",
+	MAME_DIR .. "src/mame/machine/mips_rambo.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "mit")
@@ -3757,6 +3759,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/harriet.cpp",
 	MAME_DIR .. "src/mame/drivers/hazeltin.cpp",
 	MAME_DIR .. "src/mame/drivers/hazl1420.cpp",
+	MAME_DIR .. "src/mame/drivers/hp3478a.cpp",
 	MAME_DIR .. "src/mame/drivers/hprot1.cpp",
 	MAME_DIR .. "src/mame/drivers/hpz80unk.cpp",
 	MAME_DIR .. "src/mame/drivers/ht68k.cpp",
