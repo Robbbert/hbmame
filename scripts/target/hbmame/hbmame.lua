@@ -621,7 +621,7 @@ files {
 	MAME_DIR .. "src/mame/video/xevious.cpp",
 	MAME_DIR .. "src/hbmame/drivers/galaxian.cpp",
 	MAME_DIR .. "src/mame/audio/galaxian.cpp",
-	MAME_DIR .. "src/hbmame/video/galaxian.cpp",
+	MAME_DIR .. "src/mame/video/galaxian.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",
