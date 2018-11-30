@@ -9604,10 +9604,10 @@ tempall
 temped		/* Tempest TempEd Hack */
 tempestm
 temptwst	/* Twisty Hack */
-tmptwsta	/* Twisty Hack 2000 */
-tmptwst2	/* Twisty Hack */
-tmptwst3	/* Twisty Hack */
-tmptwst4	/* Twisty Hack */
+temptwsta	/* Twisty Hack 2000 */
+temptwst2	/* Twisty Hack */
+temptwst3	/* Twisty Hack */
+temptwst4	/* Twisty Hack */
 vbrakout	/* Clay Cowgill */
 tempmg		/* Clay Cowgill Multi-Tempest */
 temptlm
