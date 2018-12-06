@@ -9,7 +9,9 @@
 
 #include "emu.h"
 #include "midtunit.h"
-#include "midtunit.hxx"
+#include "midtunit.ipp"
+#include "screen.h"
+#include "midtview.ipp"
 
 DEFINE_DEVICE_TYPE(MIDTUNIT_VIDEO, midtunit_video_device, "tunitvid", "Midway T-Unit Video")
 DEFINE_DEVICE_TYPE(MIDWUNIT_VIDEO, midwunit_video_device, "wunitvid", "Midway W-Unit Video")
@@ -23,6 +25,9 @@ midtunit_video_device::midtunit_video_device(const machine_config &mconfig, devi
 	, m_maincpu(*this, finder_base::DUMMY_TAG)
 	, m_palette(*this, finder_base::DUMMY_TAG)
 	, m_gfxrom(*this, finder_base::DUMMY_TAG)
+#if DEBUG_MIDTUNIT_BLITTER
+	, m_debug_palette(*this, "debugpalette")
+#endif
 {
 }
 
@@ -57,6 +62,10 @@ void midtunit_video_device::device_start()
 	/* allocate memory */
 	m_local_videoram = std::make_unique<uint16_t[]>(0x100000/2);
 
+#if DEBUG_MIDTUNIT_BLITTER
+	m_debug_videoram = std::make_unique<uint16_t[]>(0x100000/2);
+#endif
+
 	m_dma_timer = timer_alloc(TIMER_DMA);
 
 	/* reset all the globals */
@@ -87,7 +96,6 @@ void midwunit_video_device::device_start()
 	midtunit_video_device::device_start();
 	m_gfx_rom_large = true;
 }
-
 
 void midxunit_video_device::device_start()
 {
@@ -364,7 +372,11 @@ void midtunit_video_device::dma_draw()
 			width = (m_dma_state.width - m_dma_state.endskip) << 8;
 
 		/* determine destination pointer */
+#if DEBUG_MIDTUNIT_BLITTER
+		d = m_doing_debug_dma ? &m_debug_videoram[sy * 512] : &m_local_videoram[sy * 512];
+#else
 		d = &m_local_videoram[sy * 512];
+#endif
 
 		/* loop until we draw the entire width */
 		while (ix < width)
@@ -606,7 +618,6 @@ WRITE16_MEMBER(midtunit_video_device::midtunit_dma_w)
 
 	/* fill in the rev 2 data */
 	m_dma_state.yflip = (command & 0x20) >> 5;
-	m_dma_state.bpp = bpp;
 	m_dma_state.preskip = (command >> 8) & 3;
 	m_dma_state.postskip = (command >> 10) & 3;
 	m_dma_state.xstep = m_dma_register[DMA_SCALE_X] ? m_dma_register[DMA_SCALE_X] : 0x100;
@@ -621,24 +632,6 @@ WRITE16_MEMBER(midtunit_video_device::midtunit_dma_w)
 	/* determine the offset */
 	uint32_t gfxoffset = m_dma_register[DMA_OFFSETLO] | (m_dma_register[DMA_OFFSETHI] << 16);
 
-if (LOG_DMA)
-{
-	if (machine().input().code_pressed(KEYCODE_L))
-	{
-		logerror("DMA command %04X: (bpp=%d skip=%d xflip=%d yflip=%d preskip=%d postskip=%d)\n",
-				command, (command >> 12) & 7, (command >> 7) & 1, (command >> 4) & 1, (command >> 5) & 1, (command >> 8) & 3, (command >> 10) & 3);
-		logerror("  offset=%08X pos=(%d,%d) w=%d h=%d clip=(%d,%d)-(%d,%d)\n", gfxoffset, m_dma_register[DMA_XSTART], m_dma_register[DMA_YSTART],
-				m_dma_register[DMA_WIDTH], m_dma_register[DMA_HEIGHT], m_dma_register[DMA_LEFTCLIP], m_dma_register[DMA_TOPCLIP], m_dma_register[DMA_RIGHTCLIP], m_dma_register[DMA_BOTCLIP]);
-		logerror("  offset=%08X pos=(%d,%d) w=%d h=%d clip=(%d,%d)-(%d,%d)\n", gfxoffset, m_dma_state.xpos, m_dma_state.ypos,
-				m_dma_state.width, m_dma_state.height, m_dma_state.leftclip, m_dma_state.topclip, m_dma_state.rightclip, m_dma_state.botclip);
-		logerror("  palette=%04X color=%04X lskip=%02X rskip=%02X xstep=%04X ystep=%04X test=%04X config=%04X\n",
-				m_dma_register[DMA_PALETTE], m_dma_register[DMA_COLOR],
-				m_dma_register[DMA_LRSKIP] >> 8, m_dma_register[DMA_LRSKIP] & 0xff,
-				m_dma_register[DMA_SCALE_X], m_dma_register[DMA_SCALE_Y], m_dma_register[DMA_UNKNOWN_E],
-				m_dma_register[DMA_CONFIG]);
-		logerror("----\n");
-	}
-}
 	/* special case: drawing mode C doesn't need to know about any pixel data */
 	if ((command & 0x0f) == 0x0c)
 		gfxoffset = 0;
@@ -654,6 +647,23 @@ if (LOG_DMA)
 	{
 		logerror("DMA source out of range: %08X\n", gfxoffset);
 		goto skipdma;
+	}
+
+	if (LOG_DMA || DEBUG_MIDTUNIT_BLITTER)
+	{
+		if (machine().input().code_pressed(KEYCODE_COLON))
+		{
+			logerror("DMA command %04X: (bpp=%d skip=%d xflip=%d yflip=%d preskip=%d postskip=%d)\n",
+					command, (command >> 12) & 7, (command >> 7) & 1, (command >> 4) & 1, (command >> 5) & 1, (command >> 8) & 3, (command >> 10) & 3);
+			logerror("  offset=%08X pos=(%d,%d) w=%d h=%d clip=(%d,%d)-(%d,%d)\n", gfxoffset, m_dma_state.xpos, m_dma_state.ypos,
+					m_dma_state.width, m_dma_state.height, m_dma_state.leftclip, m_dma_state.topclip, m_dma_state.rightclip, m_dma_state.botclip);
+			logerror("  palette=%04X color=%04X lskip=%02X rskip=%02X xstep=%04X ystep=%04X test=%04X config=%04X\n",
+					m_dma_register[DMA_PALETTE], m_dma_register[DMA_COLOR],
+					m_dma_register[DMA_LRSKIP] >> 8, m_dma_register[DMA_LRSKIP] & 0xff,
+					m_dma_register[DMA_SCALE_X], m_dma_register[DMA_SCALE_Y], m_dma_register[DMA_UNKNOWN_E],
+					m_dma_register[DMA_CONFIG]);
+			logerror("----\n");
+		}
 	}
 
 	/* there seems to be two types of behavior for the DMA chip */
