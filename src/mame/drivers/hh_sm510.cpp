@@ -20,7 +20,6 @@
 #include "emu.h"
 #include "includes/hh_sm510.h"
 
-#include "cpu/sm510/sm510.h"
 #include "cpu/sm510/sm500.h"
 #include "rendlay.h"
 #include "screen.h"
@@ -283,12 +282,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kdribble_state::kdribble)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -355,12 +354,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(ktopgun_state::ktopgun)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -429,11 +428,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kcontra_state::kcontra)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -501,11 +500,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(ktmnt_state::ktmnt)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -570,11 +569,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kgradius_state::kgradius)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -637,11 +636,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kloneran_state::kloneran)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -708,11 +707,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kblades_state::kblades)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -780,11 +779,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(knfl_state::knfl)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -851,11 +850,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kbilly_state::kbilly)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -916,11 +915,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kbucky_state::kbucky)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -985,11 +984,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(kgarfld_state::kgarfld)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -1077,12 +1076,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_mmouse_state::gnw_mmouse)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM5A)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT) // ?
-	MCFG_SM500_WRITE_O_CB(WRITE8(*this, hh_sm510_state, sm500_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_input_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
+	SM5A(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT); // ?
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm500_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_input_w));
+	m_maincpu->read_ba().set_ioport("BA");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -1111,12 +1110,12 @@ MACHINE_CONFIG_START(gnw_mmouse_state::nupogodi)
 	gnw_mmouse(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_REPLACE("maincpu", KB1013VK12)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM500_WRITE_O_CB(WRITE8(*this, hh_sm510_state, sm500_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_input_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
+	KB1013VK12(config.replace(), m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT); // ?
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm500_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_input_w));
+	m_maincpu->read_ba().set_ioport("BA");
 
 	/* video hardware */
 	MCFG_SCREEN_MODIFY("screen")
@@ -1190,14 +1189,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_opanic_state::gnw_opanic)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_top", "svg_top")
@@ -1275,13 +1274,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_dkong_state::gnw_dkong)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_top", "svg_top")
@@ -1355,13 +1354,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_mickdon_state::gnw_mickdon)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r2_w))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r2_w));
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_top", "svg_top")
@@ -1444,14 +1443,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_ghouse_state::gnw_ghouse)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_top", "svg_top")
@@ -1529,13 +1528,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_dkong2_state::gnw_dkong2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_top", "svg_top")
@@ -1614,14 +1613,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_mario_state::gnw_mario)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen_left", "svg_left")
@@ -1706,14 +1705,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_dkjr_state::gnw_dkjr)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -1787,14 +1786,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_mariocm_state::gnw_mariocm)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -1862,13 +1861,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_tfish_state::gnw_tfish)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -1945,12 +1944,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_smb_state::gnw_smb)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2026,12 +2025,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_climber_state::gnw_climber)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2127,13 +2126,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(gnw_boxing_state::gnw_boxing)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2236,14 +2235,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tgaunt_state::tgaunt)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2338,14 +2337,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tddragon_state::tddragon)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2432,14 +2431,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tkarnov_state::tkarnov)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2525,14 +2524,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tvindictr_state::tvindictr)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2641,14 +2640,14 @@ void tgaiden_state::machine_start()
 MACHINE_CONFIG_START(tgaiden_state::tgaiden)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, tgaiden_state, write_r))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(tgaiden_state::write_r));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2730,14 +2729,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tbatman_state::tbatman)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2823,14 +2822,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsharr2_state::tsharr2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -2913,14 +2912,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tstrider_state::tstrider)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3007,14 +3006,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tgoldnaxe_state::tgoldnaxe)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3118,14 +3117,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(trobocop2_state::trobocop2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3225,14 +3224,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(taltbeast_state::taltbeast)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3319,14 +3318,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsf2010_state::tsf2010)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3409,14 +3408,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tswampt_state::tswampt)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3503,14 +3502,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tspidman_state::tspidman)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3597,14 +3596,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(txmen_state::txmen)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3691,14 +3690,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tddragon3_state::tddragon3)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3785,14 +3784,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tflash_state::tflash)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3880,13 +3879,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tmchammer_state::tmchammer)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -3973,14 +3972,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tbtoads_state::tbtoads)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4067,14 +4066,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(thook_state::thook)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4160,14 +4159,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tbttf_state::tbttf)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4256,14 +4255,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(taddams_state::taddams)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4350,14 +4349,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(thalone_state::thalone)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4440,14 +4439,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(txmenpx_state::txmenpx)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4534,14 +4533,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(thalone2_state::thalone2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4623,13 +4622,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsonic_state::tsonic)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, piezo2bit_input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo2bit_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::piezo2bit_input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo2bit_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4716,14 +4715,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(trobocop3_state::trobocop3)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4806,14 +4805,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tdummies_state::tdummies)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4900,14 +4899,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsfight2_state::tsfight2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -4994,14 +4993,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(twworld_state::twworld)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5084,14 +5083,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tjpark_state::tjpark)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5173,13 +5172,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsonic2_state::tsonic2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, piezo2bit_input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo2bit_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::piezo2bit_input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo2bit_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5271,14 +5270,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsddragon_state::tsddragon)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5366,14 +5365,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tdennis_state::tdennis)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5464,14 +5463,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tnmarebc_state::tnmarebc)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, tnmarebc_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(tnmarebc_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5558,14 +5557,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(ttransf2_state::ttransf2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5648,14 +5647,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(topaliens_state::topaliens)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5743,14 +5742,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tmkombat_state::tmkombat)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5837,14 +5836,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tshadow_state::tshadow)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -5931,14 +5930,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tskelwarr_state::tskelwarr)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6026,14 +6025,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tbatfor_state::tbatfor)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6121,14 +6120,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tjdredd_state::tjdredd)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6216,14 +6215,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tapollo13_state::tapollo13)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6311,14 +6310,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tgoldeye_state::tgoldeye)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6401,14 +6400,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tinday_state::tinday)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6491,14 +6490,14 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tsjam_state::tsjam)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510) // no external XTAL
-	MCFG_SM510_R_MASK_OPTION(SM510_R_CONTROL_OUTPUT)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM510(config, m_maincpu); // no external XTAL
+	m_maincpu->set_r_mask_option(sm510_base_device::RMASK_DIRECT);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6581,13 +6580,13 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tbatmana_state::tbatmana)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, piezo2bit_input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo2bit_r1_w))
-	MCFG_SM510_READ_BA_CB(IOPORT("BA"))
-	MCFG_SM510_READ_B_CB(IOPORT("B"))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::piezo2bit_input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo2bit_r1_w));
+	m_maincpu->read_ba().set_ioport("BA");
+	m_maincpu->read_b().set_ioport("B");
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6684,12 +6683,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(tigarden_state::tigarden)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM510)
-	MCFG_SM510_R_MASK_OPTION(2) // confirmed
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM510(config, m_maincpu);
+	m_maincpu->set_r_mask_option(2); // confirmed
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")
@@ -6784,11 +6783,11 @@ INPUT_PORTS_END
 MACHINE_CONFIG_START(nummunch_state::nummunch)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", SM511)
-	MCFG_SM510_WRITE_SEGS_CB(WRITE16(*this, hh_sm510_state, sm510_lcd_segment_w))
-	MCFG_SM510_READ_K_CB(READ8(*this, hh_sm510_state, input_r))
-	MCFG_SM510_WRITE_S_CB(WRITE8(*this, hh_sm510_state, input_w))
-	MCFG_SM510_WRITE_R_CB(WRITE8(*this, hh_sm510_state, piezo_r1_w))
+	SM511(config, m_maincpu);
+	m_maincpu->write_segs().set(FUNC(hh_sm510_state::sm510_lcd_segment_w));
+	m_maincpu->read_k().set(FUNC(hh_sm510_state::input_r));
+	m_maincpu->write_s().set(FUNC(hh_sm510_state::input_w));
+	m_maincpu->write_r().set(FUNC(hh_sm510_state::piezo_r1_w));
 
 	/* video hardware */
 	MCFG_SCREEN_SVG_ADD("screen", "svg")

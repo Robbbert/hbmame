@@ -47,7 +47,6 @@ To do:
 #include "cpu/m6502/m6502.h"
 #include "cpu/m6809/hd6309.h"
 #include "cpu/m6809/m6809.h"
-#include "cpu/mcs51/mcs51.h"
 #include "machine/deco222.h"
 #include "sound/2203intf.h"
 #include "sound/3526intf.h"
@@ -1973,8 +1972,7 @@ MACHINE_CONFIG_START(dec8_state::lastmisn)
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_shackled)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(1024)
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,lastmisn)
 
@@ -2007,13 +2005,13 @@ MACHINE_CONFIG_START(dec8_state::shackled)
 	MCFG_DEVICE_PROGRAM_MAP(ym3526_s_map)
 								/* NMIs are caused by the main CPU */
 
-	MCFG_DEVICE_ADD("mcu", I8751, XTAL(8'000'000))
-	MCFG_MCS51_PORT_P0_IN_CB(READ8(*this, dec8_state, i8751_port0_r))
-	MCFG_MCS51_PORT_P0_OUT_CB(WRITE8(*this, dec8_state, i8751_port0_w))
-	MCFG_MCS51_PORT_P1_IN_CB(READ8(*this, dec8_state, i8751_port1_r))
-	MCFG_MCS51_PORT_P1_OUT_CB(WRITE8(*this, dec8_state, i8751_port1_w))
-	MCFG_MCS51_PORT_P2_OUT_CB(WRITE8(*this, dec8_state, shackled_mcu_to_main_w))
-	MCFG_MCS51_PORT_P3_IN_CB(IOPORT("I8751"))
+	I8751(config, m_mcu, XTAL(8'000'000));
+	m_mcu->port_in_cb<0>().set(FUNC(dec8_state::i8751_port0_r));
+	m_mcu->port_out_cb<0>().set(FUNC(dec8_state::i8751_port0_w));
+	m_mcu->port_in_cb<1>().set(FUNC(dec8_state::i8751_port1_r));
+	m_mcu->port_out_cb<1>().set(FUNC(dec8_state::i8751_port1_w));
+	m_mcu->port_out_cb<2>().set(FUNC(dec8_state::shackled_mcu_to_main_w));
+	m_mcu->port_in_cb<3>().set_ioport("I8751");
 
 //  MCFG_QUANTUM_TIME(attotime::from_hz(100000))
 	MCFG_QUANTUM_PERFECT_CPU("maincpu") // needs heavy sync, otherwise one of the two CPUs will miss an irq and makes the game to hang
@@ -2038,8 +2036,7 @@ MACHINE_CONFIG_START(dec8_state::shackled)
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_shackled)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(1024)
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,shackled)
 
@@ -2069,13 +2066,13 @@ MACHINE_CONFIG_START(dec8_state::gondo)
 	MCFG_DEVICE_PROGRAM_MAP(oscar_s_map)
 								/* NMIs are caused by the main CPU */
 
-	MCFG_DEVICE_ADD("mcu", I8751, XTAL(8'000'000))
-	MCFG_MCS51_PORT_P0_IN_CB(READ8(*this, dec8_state, i8751_port0_r))
-	MCFG_MCS51_PORT_P0_OUT_CB(WRITE8(*this, dec8_state, i8751_port0_w))
-	MCFG_MCS51_PORT_P1_IN_CB(READ8(*this, dec8_state, i8751_port1_r))
-	MCFG_MCS51_PORT_P1_OUT_CB(WRITE8(*this, dec8_state, i8751_port1_w))
-	MCFG_MCS51_PORT_P2_OUT_CB(WRITE8(*this, dec8_state, gondo_mcu_to_main_w))
-	MCFG_MCS51_PORT_P3_IN_CB(IOPORT("I8751"))
+	I8751(config, m_mcu, XTAL(8'000'000));
+	m_mcu->port_in_cb<0>().set(FUNC(dec8_state::i8751_port0_r));
+	m_mcu->port_out_cb<0>().set(FUNC(dec8_state::i8751_port0_w));
+	m_mcu->port_in_cb<1>().set(FUNC(dec8_state::i8751_port1_r));
+	m_mcu->port_out_cb<1>().set(FUNC(dec8_state::i8751_port1_w));
+	m_mcu->port_out_cb<2>().set(FUNC(dec8_state::gondo_mcu_to_main_w));
+	m_mcu->port_in_cb<3>().set_ioport("I8751");
 
 	/* video hardware */
 	MCFG_DEVICE_ADD("spriteram", BUFFERED_SPRITERAM8)
@@ -2098,8 +2095,7 @@ MACHINE_CONFIG_START(dec8_state::gondo)
 	INPUT_MERGER_ALL_HIGH(config, m_nmigate).output_handler().set_inputline(m_maincpu, INPUT_LINE_NMI);
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_gondo)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(1024)
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,gondo)
 
@@ -2129,13 +2125,13 @@ MACHINE_CONFIG_START(dec8_state::garyoret)
 	MCFG_DEVICE_PROGRAM_MAP(oscar_s_map)
 								/* NMIs are caused by the main CPU */
 
-	MCFG_DEVICE_ADD("mcu", I8751, XTAL(8'000'000))
-	MCFG_MCS51_PORT_P0_IN_CB(READ8(*this, dec8_state, i8751_port0_r))
-	MCFG_MCS51_PORT_P0_OUT_CB(WRITE8(*this, dec8_state, i8751_port0_w))
-	MCFG_MCS51_PORT_P1_IN_CB(READ8(*this, dec8_state, i8751_port1_r))
-	MCFG_MCS51_PORT_P1_OUT_CB(WRITE8(*this, dec8_state, i8751_port1_w))
-	MCFG_MCS51_PORT_P2_OUT_CB(WRITE8(*this, dec8_state, gondo_mcu_to_main_w))
-	MCFG_MCS51_PORT_P3_IN_CB(IOPORT("I8751"))
+	I8751(config, m_mcu, XTAL(8'000'000));
+	m_mcu->port_in_cb<0>().set(FUNC(dec8_state::i8751_port0_r));
+	m_mcu->port_out_cb<0>().set(FUNC(dec8_state::i8751_port0_w));
+	m_mcu->port_in_cb<1>().set(FUNC(dec8_state::i8751_port1_r));
+	m_mcu->port_out_cb<1>().set(FUNC(dec8_state::i8751_port1_w));
+	m_mcu->port_out_cb<2>().set(FUNC(dec8_state::gondo_mcu_to_main_w));
+	m_mcu->port_in_cb<3>().set_ioport("I8751");
 
 	/* video hardware */
 	MCFG_DEVICE_ADD("spriteram", BUFFERED_SPRITERAM8)
@@ -2158,8 +2154,7 @@ MACHINE_CONFIG_START(dec8_state::garyoret)
 	INPUT_MERGER_ALL_HIGH(config, m_nmigate).output_handler().set_inputline(m_maincpu, INPUT_LINE_NMI);
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_gondo)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(1024)
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,garyoret)
 
@@ -2189,13 +2184,13 @@ MACHINE_CONFIG_START(dec8_state::ghostb)
 	MCFG_DEVICE_PROGRAM_MAP(dec8_s_map)
 								/* NMIs are caused by the main CPU */
 
-	MCFG_DEVICE_ADD("mcu", I8751, 3000000*4)
-	MCFG_MCS51_PORT_P0_IN_CB(READ8(*this, dec8_state, i8751_port0_r))
-	MCFG_MCS51_PORT_P0_OUT_CB(WRITE8(*this, dec8_state, i8751_port0_w))
-	MCFG_MCS51_PORT_P1_IN_CB(READ8(*this, dec8_state, i8751_port1_r))
-	MCFG_MCS51_PORT_P1_OUT_CB(WRITE8(*this, dec8_state, i8751_port1_w))
-	MCFG_MCS51_PORT_P2_OUT_CB(WRITE8(*this, dec8_state, gondo_mcu_to_main_w))
-	MCFG_MCS51_PORT_P3_IN_CB(IOPORT("I8751"))
+	I8751(config, m_mcu, 3000000*4);
+	m_mcu->port_in_cb<0>().set(FUNC(dec8_state::i8751_port0_r));
+	m_mcu->port_out_cb<0>().set(FUNC(dec8_state::i8751_port0_w));
+	m_mcu->port_in_cb<1>().set(FUNC(dec8_state::i8751_port1_r));
+	m_mcu->port_out_cb<1>().set(FUNC(dec8_state::i8751_port1_w));
+	m_mcu->port_out_cb<2>().set(FUNC(dec8_state::gondo_mcu_to_main_w));
+	m_mcu->port_in_cb<3>().set_ioport("I8751");
 
 	/* video hardware */
 	MCFG_DEVICE_ADD("spriteram", BUFFERED_SPRITERAM8)
@@ -2220,7 +2215,9 @@ MACHINE_CONFIG_START(dec8_state::ghostb)
 	screen.set_palette("palette");
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_ghostb)
-	MCFG_DECO_RMC3_ADD_PROMS("palette","proms",1024) // xxxxBBBBGGGGRRRR with custom weighting
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
+	m_palette->set_prom_region("proms");
+	m_palette->set_init("palette", FUNC(deco_rmc3_device::palette_init_proms));
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,ghostb)
 
 	/* sound hardware */
@@ -2278,8 +2275,7 @@ MACHINE_CONFIG_START(dec8_state::csilver)
 	MCFG_SCREEN_VBLANK_CALLBACK(INPUTLINE("sub", INPUT_LINE_NMI))
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_shackled)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(1024)
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,lastmisn)
 
@@ -2342,8 +2338,7 @@ MACHINE_CONFIG_START(dec8_state::oscar)
 	MCFG_SCREEN_PALETTE("palette")
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_oscar)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(1024)
+	DECO_RMC3(config, m_palette, 0, 1024); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,oscar)
 
@@ -2374,11 +2369,11 @@ MACHINE_CONFIG_START(dec8_state::srdarwin)
 	MCFG_DEVICE_PROGRAM_MAP(dec8_s_map)
 								/* NMIs are caused by the main CPU */
 
-	MCFG_DEVICE_ADD("mcu", I8751, XTAL(8'000'000)) /* unknown frequency */
-	MCFG_MCS51_PORT_P0_IN_CB(READ8(*this, dec8_state, i8751_port0_r))
-	MCFG_MCS51_PORT_P0_OUT_CB(WRITE8(*this, dec8_state, i8751_port0_w))
-	MCFG_MCS51_PORT_P2_OUT_CB(WRITE8(*this, dec8_state, srdarwin_mcu_to_main_w))
-	MCFG_MCS51_PORT_P3_IN_CB(IOPORT("I8751"))
+	I8751(config, m_mcu, XTAL(8'000'000)); /* unknown frequency */
+	m_mcu->port_in_cb<0>().set(FUNC(dec8_state::i8751_port0_r));
+	m_mcu->port_out_cb<0>().set(FUNC(dec8_state::i8751_port0_w));
+	m_mcu->port_out_cb<2>().set(FUNC(dec8_state::srdarwin_mcu_to_main_w));
+	m_mcu->port_in_cb<3>().set_ioport("I8751");
 
 	MCFG_QUANTUM_PERFECT_CPU("maincpu") /* needed for stability with emulated MCU or sometimes commands get missed and game crashes at bosses */
 
@@ -2396,8 +2391,7 @@ MACHINE_CONFIG_START(dec8_state::srdarwin)
 	MCFG_SCREEN_VBLANK_CALLBACK(INPUTLINE("maincpu", INPUT_LINE_NMI))
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_srdarwin)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(144)
+	DECO_RMC3(config, m_palette, 0, 144); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,srdarwin)
 
@@ -2453,8 +2447,7 @@ MACHINE_CONFIG_START(dec8_state::cobracom)
 	MCFG_SCREEN_VBLANK_CALLBACK(INPUTLINE("maincpu", INPUT_LINE_NMI))
 
 	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_cobracom)
-	MCFG_DEVICE_ADD("palette", DECO_RMC3, 0) // xxxxBBBBGGGGRRRR with custom weighting
-	MCFG_DECO_RMC3_SET_PALETTE_SIZE(256)
+	DECO_RMC3(config, m_palette, 0, 256); // xxxxBBBBGGGGRRRR with custom weighting
 
 	MCFG_VIDEO_START_OVERRIDE(dec8_state,cobracom)
 

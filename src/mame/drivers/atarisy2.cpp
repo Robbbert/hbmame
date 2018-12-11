@@ -1185,9 +1185,9 @@ GFXDECODE_END
 MACHINE_CONFIG_START(atarisy2_state::atarisy2)
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", T11, MASTER_CLOCK/2)
-	MCFG_T11_INITIAL_MODE(0x36ff)          /* initial mode word has DAL15,14,11,8 pulled low */
-	MCFG_DEVICE_PROGRAM_MAP(main_map)
+	T11(config, m_maincpu, MASTER_CLOCK/2);
+	m_maincpu->set_initial_mode(0x36ff); /* initial mode word has DAL15,14,11,8 pulled low */
+	m_maincpu->set_addrmap(AS_PROGRAM, &atarisy2_state::main_map);
 
 	M6502(config, m_audiocpu, SOUND_CLOCK/8);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &atarisy2_state::sound_map);
@@ -1218,8 +1218,8 @@ MACHINE_CONFIG_START(atarisy2_state::atarisy2)
 	MCFG_TILEMAP_ADD_STANDARD("playfield", "gfxdecode", 2, atarisy2_state, get_playfield_tile_info, 8,8, SCAN_ROWS, 128,64)
 	MCFG_TILEMAP_ADD_STANDARD_TRANSPEN("alpha", "gfxdecode", 2, atarisy2_state, get_alpha_tile_info, 8,8, SCAN_ROWS, 64,48, 0)
 
-	MCFG_ATARI_MOTION_OBJECTS_ADD("mob", "screen", atarisy2_state::s_mob_config)
-	MCFG_ATARI_MOTION_OBJECTS_GFXDECODE("gfxdecode")
+	ATARI_MOTION_OBJECTS(config, m_mob, 0, m_screen, atarisy2_state::s_mob_config);
+	m_mob->set_gfxdecode(m_gfxdecode);
 
 	MCFG_SCREEN_ADD("screen", RASTER)
 	MCFG_SCREEN_VIDEO_ATTRIBUTES(VIDEO_UPDATE_BEFORE_VBLANK)
