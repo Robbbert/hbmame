@@ -123,5 +123,5 @@ ROM_START( mhavocpe )
 ROM_END
 
 
-GAME( 2018, mhavocpe, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc (The Promised End) beta", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mhavocpe, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc - The Promised End (v0.21)", MACHINE_SUPPORTS_SAVE )
 
