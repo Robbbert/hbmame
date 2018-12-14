@@ -73,12 +73,6 @@ MACHINE_CONFIG_START(mhavoc_state::mhavocpe)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	/* FIXME: Outputs 1,2,3 are tied together
-	* This signal and Output 4 are processed separately.
-	* Later they are mixed together again.
-	* ==> DISCRETE emulation, below is just an approximation.
-	*/
-
 	MCFG_DEVICE_ADD("pokey1", POKEY, MHAVOC_CLOCK_1_25M)
 	MCFG_POKEY_ALLPOT_R_CB(IOPORT("DSW1"))
 	MCFG_POKEY_OUTPUT_OPAMP(RES_K(1), CAP_U(0.001), 5.0)
@@ -105,23 +99,23 @@ ROM_START( mhavocpe )
 	/* Alpha Processor ROMs */
 	ROM_REGION( 0x28000, "alpha", 0 )   /* 152KB for ROMs */
 	/* Vector Generator ROM */
-	ROM_LOAD( "mhpe.6kl",   0x05000, 0x2000, CRC(5605a866) SHA1(4518df3507b896c5ba32f70372e16bbb428f295d) )
+	ROM_LOAD( "mhpe.6kl",   0x05000, 0x2000, CRC(4c05b1a8) SHA1(89b524182fcfd966d6a7e3188235c957c451b8a9) )
 
 	/* Program ROM */
-	ROM_LOAD( "mhpe.1mn",   0x08000, 0x4000, CRC(69a709fe) SHA1(b44cd253a8af6c4c85c5a1e9e2f9c4956eb8c478) )
-	ROM_LOAD( "mhpe.1l",    0x0c000, 0x4000, CRC(6d7b7b70) SHA1(1b1ba87d8f63504791b87b0475df146fc377b1cf) )
+	ROM_LOAD( "mhpe.1mn",   0x08000, 0x4000, CRC(3b691eff) SHA1(e8227d1458e3ed4d0e8444ec23f2c2d45a0d93b8) )
+	ROM_LOAD( "mhpe.1l",    0x0c000, 0x4000, CRC(fb53dae6) SHA1(08e9bd60e801778d3521d64817a10ba1ed74f4ff) )
     
 	/* Paged Program ROM */
-	ROM_LOAD( "mhpe.1q",    0x10000, 0x8000, CRC(88edbfb5) SHA1(240bb1cf36640f8070ba53b3d6419b7305f272d6) ) /* page 0+1+4+5 */
-	ROM_LOAD( "mhpe.1np",   0x18000, 0x8000, CRC(c4c06eec) SHA1(7c5b0c5f69bc7faa0292eebcb12db5904ebb3129) ) /* page 2+3+6+7 */
+	ROM_LOAD( "mhpe.1q",    0x10000, 0x8000, CRC(660e3d57) SHA1(6eddf1335c536406080eab73f5501a202fb0583d) ) /* page 0+1+4+5 */
+	ROM_LOAD( "mhpe.1np",   0x18000, 0x8000, CRC(c1a70bad) SHA1(0b72b6817e2f00d2c001ac61ebd2cd42ff7785c9) ) /* page 2+3+6+7 */
 
 	/* Paged Vector Generator ROM */
-	ROM_LOAD( "mhpe.6h",    0x20000, 0x4000, CRC(9a9b5e8f) SHA1(38991917b1eda6b9d4016fba28781d85b2f5f9fe) ) /* page 0+1 */
-	ROM_LOAD( "mhpe.6jk",   0x24000, 0x4000, CRC(0b32fde1) SHA1(65b6ced0db9900cfea25a3edb7ef4749e7ce3c90) ) /* page 2+3 */
+	ROM_LOAD( "mhpe.6h",    0x20000, 0x4000, CRC(79fc58c0) SHA1(7b40dfb89bc4078e2bd6f89a570f2be9cca15df9) ) /* page 0+1 */
+	ROM_LOAD( "mhpe.6jk",   0x24000, 0x4000, CRC(dc78b802) SHA1(6b951982232de08d32d3a2d01814cc28f89d2120) ) /* page 2+3 */
 
 	/* Gamma Processor ROM */
 	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhpe.9s",    0x08000, 0x8000, CRC(66b8190e) SHA1(d52c51b859c5125447a9b3e2f6e1de92312db358) ) /* 32K Here */
+	ROM_LOAD( "mhpe.9s",    0x08000, 0x8000, CRC(d42ee58e) SHA1(667aec3c3e93df3f8dedddb0db1188291e37630b) ) /* 32K Here */
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "user1", 0 )
@@ -129,5 +123,5 @@ ROM_START( mhavocpe )
 ROM_END
 
 
-GAME( 2018, mhavocpe, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc (The Promised End)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mhavocpe, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc (The Promised End) beta", MACHINE_SUPPORTS_SAVE )
 
