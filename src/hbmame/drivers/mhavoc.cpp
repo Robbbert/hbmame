@@ -97,7 +97,7 @@ MACHINE_CONFIG_END
 
 ROM_START( mhavocpe )
 	/* Alpha Processor ROMs */
-	ROM_REGION( 0x28000, "alpha", 0 )   /* 152KB for ROMs */
+	ROM_REGION( 0x20000, "alpha", 0 )   /* 152KB for ROMs */
 	/* Vector Generator ROM */
 	ROM_LOAD( "mhpe.6kl",   0x05000, 0x2000, CRC(4c05b1a8) SHA1(89b524182fcfd966d6a7e3188235c957c451b8a9) )
 
@@ -110,8 +110,9 @@ ROM_START( mhavocpe )
 	ROM_LOAD( "mhpe.1np",   0x18000, 0x8000, CRC(c1a70bad) SHA1(0b72b6817e2f00d2c001ac61ebd2cd42ff7785c9) ) /* page 2+3+6+7 */
 
 	/* Paged Vector Generator ROM */
-	ROM_LOAD( "mhpe.6h",    0x20000, 0x4000, CRC(79fc58c0) SHA1(7b40dfb89bc4078e2bd6f89a570f2be9cca15df9) ) /* page 0+1 */
-	ROM_LOAD( "mhpe.6jk",   0x24000, 0x4000, CRC(dc78b802) SHA1(6b951982232de08d32d3a2d01814cc28f89d2120) ) /* page 2+3 */
+	ROM_REGION( 0x8000, "avgdvg", 0 )
+	ROM_LOAD( "mhpe.6h",    0x0000, 0x4000, CRC(79fc58c0) SHA1(7b40dfb89bc4078e2bd6f89a570f2be9cca15df9) ) /* page 0+1 */
+	ROM_LOAD( "mhpe.6jk",   0x4000, 0x4000, CRC(dc78b802) SHA1(6b951982232de08d32d3a2d01814cc28f89d2120) ) /* page 2+3 */
 
 	/* Gamma Processor ROM */
 	ROM_REGION( 0x10000, "gamma", 0 )

@@ -1086,6 +1086,10 @@ ROM_START( karnovreh ) /* Karnov's Revenge - Enhance by Ydmis - (Can choose Big 
 	ROM_LOAD16_BYTE( "066.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
 ROM_END
 
+// Default controls changed. To get old ones hold start while selecting your character.
+// Adds Clown's and Karnov's stage to versus stage rotation.
+// Gold font is now Cyan. Character select screen background is deep purple.
+// by mountainmanjed with help from anotak.
 ROM_START( karnovrh )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "066h.p1", 0x000000, 0x100000, CRC(00aaf657) SHA1(dcb2453fea28733f94a480e8a72035e5d5d66aba) )

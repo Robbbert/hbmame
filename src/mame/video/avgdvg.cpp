@@ -892,8 +892,7 @@ void avg_mhavoc_device::update_databus() // mhavoc_data
 
 	if (m_pc & 0x2000)
 	{
-		offs_t bsize = machine().root_device().memregion("alpha")->bytes() - 0x8000; // mhavocpe
-		bank = &machine().root_device().memregion("alpha")->base()[bsize];
+		bank = &machine().root_device().memregion("avgdvg")->base()[0];
 		m_data = bank[(m_map << 13) | ((m_pc ^ 1) & 0x1fff)];
 	}
 	else
