@@ -8,6 +8,7 @@ New Games
 ---------------------------------
 - [dkpace]            Donkey Kong pace [by Sock Master]
 - [dktrainer]         Donkey Kong trainer 1.01 [by Sock Master]
+- [karnovh]           Karnov's Revenge (unknown hack)
 - [mhavocpe]          Major Havoc - The Promised End (v0.21)
 
 
