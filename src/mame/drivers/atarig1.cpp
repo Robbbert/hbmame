@@ -24,6 +24,7 @@
 #include "includes/atarig1.h"
 #include "machine/eeprompar.h"
 #include "machine/watchdog.h"
+#include "emupal.h"
 #include "speaker.h"
 
 
@@ -191,7 +192,7 @@ void atarig1_state::main_map(address_map &map)
 	map(0xfd0000, 0xfd0000).r(m_jsa, FUNC(atari_jsa_ii_device::main_response_r));
 	map(0xfd8000, 0xfdffff).rw("eeprom", FUNC(eeprom_parallel_28xx_device::read), FUNC(eeprom_parallel_28xx_device::write)).umask16(0x00ff);
 /*  AM_RANGE(0xfe0000, 0xfe7fff) AM_READ(from_r)*/
-	map(0xfe8000, 0xfe89ff).ram().w(m_palette, FUNC(palette_device::write16)).share("palette");
+	map(0xfe8000, 0xfe89ff).ram().w("palette", FUNC(palette_device::write16)).share("palette");
 	map(0xff0000, 0xffffff).ram();
 	map(0xff0000, 0xff0fff).ram().share("rle");
 	map(0xff2000, 0xff2001).w(FUNC(atarig1_state::mo_command_w)).share("mo_command");
@@ -437,7 +438,8 @@ MACHINE_CONFIG_START(atarig1_state::atarig1)
 MACHINE_CONFIG_END
 
 
-MACHINE_CONFIG_START(atarig1_state::hydrap)
+void atarig1_state::hydrap(machine_config &config)
+{
 	atarig1(config);
 
 	ADC0809(config, m_adc, ATARI_CLOCK_14MHz/16);
@@ -445,8 +447,8 @@ MACHINE_CONFIG_START(atarig1_state::hydrap)
 	m_adc->in_callback<1>().set_ioport("ADC1");
 	m_adc->in_callback<2>().set_ioport("ADC2");
 
-	MCFG_ATARIRLE_ADD("rle", modesc_hydra)
-MACHINE_CONFIG_END
+	ATARI_RLE_OBJECTS(config, m_rle, 0, modesc_hydra);
+}
 
 
 void atarig1_state::hydra(machine_config &config)
@@ -456,38 +458,43 @@ void atarig1_state::hydra(machine_config &config)
 }
 
 
-MACHINE_CONFIG_START(atarig1_state::pitfight9)
+void atarig1_state::pitfight9(machine_config &config)
+{
 	atarig1(config);
-	MCFG_ATARIRLE_ADD("rle", modesc_pitfight)
+	ATARI_RLE_OBJECTS(config, m_rle, 0, modesc_pitfight);
 	SLAPSTIC(config, "slapstic", 114, true);
-MACHINE_CONFIG_END
+}
 
 
-MACHINE_CONFIG_START(atarig1_state::pitfight7)
+void atarig1_state::pitfight7(machine_config &config)
+{
 	atarig1(config);
-	MCFG_ATARIRLE_ADD("rle", modesc_pitfight)
+	ATARI_RLE_OBJECTS(config, m_rle, 0, modesc_pitfight);
 	SLAPSTIC(config, "slapstic", 112, true);
-MACHINE_CONFIG_END
+}
 
 
-MACHINE_CONFIG_START(atarig1_state::pitfight)
+void atarig1_state::pitfight(machine_config &config)
+{
 	atarig1(config);
-	MCFG_ATARIRLE_ADD("rle", modesc_pitfight)
+	ATARI_RLE_OBJECTS(config, m_rle, 0, modesc_pitfight);
 	SLAPSTIC(config, "slapstic", 111, true);
-MACHINE_CONFIG_END
+}
 
 
-MACHINE_CONFIG_START(atarig1_state::pitfightj)
+void atarig1_state::pitfightj(machine_config &config)
+{
 	atarig1(config);
-	MCFG_ATARIRLE_ADD("rle", modesc_pitfight)
+	ATARI_RLE_OBJECTS(config, m_rle, 0, modesc_pitfight);
 	SLAPSTIC(config, "slapstic", 113, true);
-MACHINE_CONFIG_END
+}
 
 
-MACHINE_CONFIG_START(atarig1_state::pitfightb)
+void atarig1_state::pitfightb(machine_config &config)
+{
 	atarig1(config);
-	MCFG_ATARIRLE_ADD("rle", modesc_pitfight)
-MACHINE_CONFIG_END
+	ATARI_RLE_OBJECTS(config, m_rle, 0, modesc_pitfight);
+}
 
 
 /*************************************

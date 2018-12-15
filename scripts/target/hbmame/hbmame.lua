@@ -356,6 +356,8 @@ files {
 	MAME_DIR .. "src/mame/audio/llander.cpp",
 	MAME_DIR .. "src/mame/video/atarimo.cpp",
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
+	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -619,7 +621,7 @@ files {
 	MAME_DIR .. "src/mame/video/xevious.cpp",
 	MAME_DIR .. "src/hbmame/drivers/galaxian.cpp",
 	MAME_DIR .. "src/mame/audio/galaxian.cpp",
-	MAME_DIR .. "src/hbmame/video/galaxian.cpp",
+	MAME_DIR .. "src/mame/video/galaxian.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",

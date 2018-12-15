@@ -531,6 +531,7 @@ the keypad symbols seem to use a different matrix pattern from the rest?
 
 #include "cpu/i8085/i8085.h"
 #include "cpu/i86/i86.h"
+#include "imagedev/floppy.h"
 #include "machine/i8251.h"
 #include "machine/i8257.h"
 #include "machine/i8087.h"
@@ -994,7 +995,7 @@ MACHINE_CONFIG_START(fanucspmg_state::fanucspmg)
 	m_pic[1]->out_int_callback().set(m_pic[0], FUNC(pic8259_device::ir7_w));
 	m_pic[1]->in_sp_callback().set_constant(0);
 
-	UPD765A(config, m_fdc, true, true);
+	UPD765A(config, m_fdc, 8'000'000, true, true);
 	m_fdc->intrq_wr_callback().set(m_pic[0], FUNC(pic8259_device::ir3_w));
 	m_fdc->drq_wr_callback().set(m_dmac, FUNC(i8257_device::dreq0_w));
 	MCFG_FLOPPY_DRIVE_ADD(FDC_TAG":0", fanuc_floppies, "525dd", fanucspmg_state::floppy_formats)

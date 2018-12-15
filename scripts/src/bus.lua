@@ -3055,6 +3055,8 @@ if (BUSES["ZORRO"]~=null) then
 		MAME_DIR .. "src/devices/bus/amiga/zorro/cards.h",
 		MAME_DIR .. "src/devices/bus/amiga/zorro/a2052.cpp",
 		MAME_DIR .. "src/devices/bus/amiga/zorro/a2052.h",
+		MAME_DIR .. "src/devices/bus/amiga/zorro/a2058.cpp",
+		MAME_DIR .. "src/devices/bus/amiga/zorro/a2058.h",
 		MAME_DIR .. "src/devices/bus/amiga/zorro/a2065.cpp",
 		MAME_DIR .. "src/devices/bus/amiga/zorro/a2065.h",
 		MAME_DIR .. "src/devices/bus/amiga/zorro/a2232.cpp",
@@ -3472,6 +3474,8 @@ if (BUSES["HP9845_IO"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/hp9845_io/hp9845_io.cpp",
 		MAME_DIR .. "src/devices/bus/hp9845_io/hp9845_io.h",
+		MAME_DIR .. "src/devices/bus/hp9845_io/98032.cpp",
+		MAME_DIR .. "src/devices/bus/hp9845_io/98032.h",
 		MAME_DIR .. "src/devices/bus/hp9845_io/98034.cpp",
 		MAME_DIR .. "src/devices/bus/hp9845_io/98034.h",
 		MAME_DIR .. "src/devices/bus/hp9845_io/98035.cpp",

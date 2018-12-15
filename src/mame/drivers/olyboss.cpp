@@ -36,6 +36,7 @@
 #include "emu.h"
 #include "cpu/z80/z80.h"
 #include "cpu/i8085/i8085.h"
+#include "imagedev/floppy.h"
 #include "machine/keyboard.h"
 #include "video/upd3301.h"
 #include "machine/i8257.h"
@@ -448,7 +449,7 @@ MACHINE_CONFIG_START( olyboss_state::olybossd )
 	AM9519(config, m_uic, 0);
 	m_uic->out_int_callback().set_inputline("maincpu", 0);
 
-	UPD765A(config, m_fdc, true, true);
+	UPD765A(config, m_fdc, 8'000'000, true, true);
 	m_fdc->intrq_wr_callback().set(m_uic, FUNC(am9519_device::ireq2_w)).invert();
 	m_fdc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq0_w));
 	FLOPPY_CONNECTOR(config, m_fdd0, bosscd_floppies, "525qd", floppy_image_device::default_floppy_formats);
@@ -475,8 +476,8 @@ MACHINE_CONFIG_START( olyboss_state::olybossd )
 	m_ppi->out_pc_callback().set(FUNC(olyboss_state::ppic_w));
 
 	/* keyboard */
-	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
-	MCFG_GENERIC_KEYBOARD_CB(PUT(olyboss_state, keyboard_put))
+	generic_keyboard_device &keyboard(GENERIC_KEYBOARD(config, "keyboard", 0));
+	keyboard.set_keyboard_callback(FUNC(olyboss_state::keyboard_put));
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( olyboss_state::olybossb )
@@ -514,7 +515,7 @@ MACHINE_CONFIG_START( olyboss_state::bossb85 )
 	PIC8259(config, m_pic, 0);
 	m_pic->out_int_callback().set_inputline(m_maincpu, 0);
 
-	UPD765A(config, m_fdc, true, true);
+	UPD765A(config, m_fdc, 8'000'000, true, true);
 	m_fdc->intrq_wr_callback().set_inputline(m_maincpu, I8085_RST65_LINE);
 	m_fdc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq0_w));
 	MCFG_FLOPPY_DRIVE_ADD("fdc:0", bossb_floppies, "525dd", floppy_image_device::default_floppy_formats)
@@ -539,8 +540,8 @@ MACHINE_CONFIG_START( olyboss_state::bossb85 )
 	MCFG_VIDEO_SET_SCREEN(SCREEN_TAG)
 
 	/* keyboard */
-	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
-	MCFG_GENERIC_KEYBOARD_CB(PUT(olyboss_state, keyboard85_put))
+	generic_keyboard_device &keyboard(GENERIC_KEYBOARD(config, "keyboard", 0));
+	keyboard.set_keyboard_callback(FUNC(olyboss_state::keyboard85_put));
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( olyboss_state::bossa85 )

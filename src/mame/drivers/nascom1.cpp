@@ -1,5 +1,5 @@
 // license:GPL-2.0+
-// copyright-holders:Dirk Best
+// copyright-holders:Dirk Best,Paul Danials
 /***************************************************************************
 
     Nascom 1/2/3
@@ -27,28 +27,14 @@
 
 
 //**************************************************************************
-//  CONSTANTS/MACROS
-//**************************************************************************
-
-#define NASCOM1_KEY_RESET   0x02
-#define NASCOM1_KEY_INCR    0x01
-
-
-//**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
-
-struct nascom1_portstat_t
-{
-	uint8_t   stat_flags;
-	uint8_t   stat_count;
-};
 
 class nascom_state : public driver_device
 {
 public:
-	nascom_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag),
+	nascom_state(const machine_config &mconfig, device_type type, const char *tag) :
+		driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_ram(*this, RAM_TAG),
 		m_hd6402(*this, "hd6402"),
@@ -83,12 +69,13 @@ private:
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 	required_shared_ptr<uint8_t> m_videoram;
-	required_ioport_array<9> m_keyboard;
+	required_ioport_array<8> m_keyboard;
 
 	int m_tape_size;
 	uint8_t *m_tape_image;
 	int m_tape_index;
-	nascom1_portstat_t m_portstat;
+	uint8_t m_kb_select;
+	uint8_t m_kb_control;
 
 	DECLARE_READ_LINE_MEMBER(nascom1_hd6402_si);
 	DECLARE_WRITE_LINE_MEMBER(nascom1_hd6402_so);
@@ -159,10 +146,7 @@ private:
 
 READ8_MEMBER( nascom_state::nascom1_port_00_r )
 {
-	if (m_portstat.stat_count < 9)
-		return ((m_keyboard[m_portstat.stat_count])->read() | ~0x7f);
-
-	return 0xff;
+	return m_keyboard[m_kb_select]->read() | ~0x7f;
 }
 
 WRITE8_MEMBER( nascom_state::nascom1_port_00_w )
@@ -170,21 +154,15 @@ WRITE8_MEMBER( nascom_state::nascom1_port_00_w )
 	m_cassette->change_state(
 		(data & 0x10) ? CASSETTE_MOTOR_ENABLED : CASSETTE_MOTOR_DISABLED, CASSETTE_MASK_MOTOR);
 
-	if (!(data & NASCOM1_KEY_RESET))
-	{
-		if (m_portstat.stat_flags & NASCOM1_KEY_RESET)
-			m_portstat.stat_count = 0;
-	}
-	else
-		m_portstat.stat_flags = NASCOM1_KEY_RESET;
+	// d0 falling edge: increment keyboard matrix column select counter
+	if (m_kb_control & ~data & 1)
+		m_kb_select = (m_kb_select + 1) & 7;
 
-	if (!(data & NASCOM1_KEY_INCR))
-	{
-		if (m_portstat.stat_flags & NASCOM1_KEY_INCR)
-			m_portstat.stat_count++;
-	}
-	else
-		m_portstat.stat_flags = NASCOM1_KEY_INCR;
+	// d1 falling edge: reset it
+	if (m_kb_control & ~data & 2)
+		m_kb_select = 0;
+
+	m_kb_control = data & 3;
 }
 
 
@@ -196,7 +174,6 @@ READ8_MEMBER( nascom_state::nascom1_port_01_r )
 {
 	return m_hd6402->get_received_data();
 }
-
 
 WRITE8_MEMBER( nascom_state::nascom1_port_01_w )
 {
@@ -342,6 +319,9 @@ image_init_result nascom2_state::load_cart(device_image_interface &image, generi
 
 void nascom_state::machine_reset()
 {
+	m_kb_select = 0;
+	m_kb_control = 0;
+
 	// Set up hd6402 pins
 	m_hd6402->write_swe(1);
 
@@ -528,8 +508,12 @@ void nascom2_state::nascom2c_mem(address_map &map)
 
 static INPUT_PORTS_START( nascom1 )
 	PORT_START("KEY.0")
-	PORT_BIT(0x6f, IP_ACTIVE_LOW, IPT_UNUSED)
+	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("Backspace ClearScreen") PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(8)
+	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("New Line")              PORT_CODE(KEYCODE_ENTER)      PORT_CHAR(13)
+	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_MINUS) PORT_CHAR('-') PORT_CHAR('=')
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_LSHIFT) PORT_CODE(KEYCODE_RSHIFT) PORT_CHAR(UCHAR_SHIFT_1)
+	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR('@')
+	PORT_BIT(0x48, IP_ACTIVE_LOW, IPT_UNUSED)
 
 	PORT_START("KEY.1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_H)  PORT_CHAR('H') PORT_CHAR('h')
@@ -594,26 +578,21 @@ static INPUT_PORTS_START( nascom1 )
 	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_R)     PORT_CHAR('R') PORT_CHAR('r')
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_UNUSED)
 
-	PORT_START("KEY.8")
-	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("Backspace ClearScreen") PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(8)
-	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("New Line")              PORT_CODE(KEYCODE_ENTER)      PORT_CHAR(13)
-	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_MINUS) PORT_CHAR('-') PORT_CHAR('=')
-	PORT_BIT(0x58, IP_ACTIVE_LOW, IPT_UNUSED)
-	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR(UCHAR_SHIFT_2) PORT_CHAR('@')
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( nascom2 )
 	PORT_INCLUDE(nascom1)
+	PORT_MODIFY("KEY.0")
+	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("Back CS")       PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(8)
+	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("Enter  Escape") PORT_CODE(KEYCODE_ENTER)      PORT_CHAR(13)  PORT_CHAR(27)
+	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("CTRL") PORT_CODE(KEYCODE_LCONTROL) PORT_CODE(KEYCODE_RCONTROL)  PORT_CHAR(UCHAR_SHIFT_2)
+	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_UNUSED)
 
 	PORT_MODIFY("KEY.6")
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD)                            PORT_CODE(KEYCODE_EQUALS)     PORT_CHAR('[') PORT_CHAR('\\')
 
 	PORT_MODIFY("KEY.7")
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD)                            PORT_CODE(KEYCODE_BACKSPACE)  PORT_CHAR(']') PORT_CHAR('_')
-
-	PORT_MODIFY("KEY.8")
-	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("Back CS")       PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(8)
-	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("Enter  Escape") PORT_CODE(KEYCODE_ENTER)      PORT_CHAR(13)  PORT_CHAR(27)
 
 	// link switch on board
 	PORT_START("lsw1")
@@ -761,39 +740,47 @@ ROM_START( nascom1 )
 	ROM_REGION(0x0800, "maincpu", 0)
 	ROM_DEFAULT_BIOS("t4")
 	ROM_SYSTEM_BIOS(0, "t1", "NasBug T1")
-	ROMX_LOAD("nasbugt1.rom", 0x0000, 0x0400, CRC(8ea07054) SHA1(3f9a8632826003d6ea59d2418674d0fb09b83a4c), ROM_BIOS(0))
+	ROMX_LOAD("nasbugt1.ic38", 0x0000, 0x0400, CRC(8ea07054) SHA1(3f9a8632826003d6ea59d2418674d0fb09b83a4c), ROM_BIOS(0))
 	ROM_SYSTEM_BIOS(1, "t2", "NasBug T2")
-	ROMX_LOAD("nasbugt2.rom", 0x0000, 0x0400, CRC(e371b58a) SHA1(485b20a560b587cf9bb4208ba203b12b3841689b), ROM_BIOS(1))
+	ROMX_LOAD("nasbugt2.ic38", 0x0000, 0x0400, CRC(e371b58a) SHA1(485b20a560b587cf9bb4208ba203b12b3841689b), ROM_BIOS(1))
 	ROM_SYSTEM_BIOS(2, "t4", "NasBug T4")
-	ROMX_LOAD("nasbugt4.rom", 0x0000, 0x0800, CRC(f391df68) SHA1(00218652927afc6360c57e77d6a4fd32d4e34566), ROM_BIOS(2))
+	ROMX_LOAD("nasbugt4.rom", 0x0000, 0x0800, CRC(f391df68) SHA1(00218652927afc6360c57e77d6a4fd32d4e34566), ROM_BIOS(2)) // should really be split in halves for ic38 and ic39
 
 	ROM_REGION(0x0800, "gfx1", 0)
-	ROM_LOAD("nascom1.chr",   0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52))
+	ROM_LOAD("nascom1.ic16",   0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52)) // MCM6576P
 ROM_END
 
 ROM_START( nascom2 )
 	ROM_REGION(0x0800, "maincpu", 0)
 	ROM_DEFAULT_BIOS("ns3")
 	ROM_SYSTEM_BIOS(0, "ns1", "NasSys 1")
-	ROMX_LOAD("nassys1.rom", 0x0000, 0x0800, CRC(b6300716) SHA1(29da7d462ba3f569f70ed3ecd93b981f81c7adfa), ROM_BIOS(0))
+	ROMX_LOAD("nassys1.ic34", 0x0000, 0x0800, CRC(b6300716) SHA1(29da7d462ba3f569f70ed3ecd93b981f81c7adfa), ROM_BIOS(0))
 	ROM_SYSTEM_BIOS(1, "ns3", "NasSys 3")
-	ROMX_LOAD("nassys3.rom", 0x0000, 0x0800, CRC(3da17373) SHA1(5fbda15765f04e4cd08cf95c8d82ce217889f240), ROM_BIOS(1))
+	ROMX_LOAD("nassys3.ic34", 0x0000, 0x0800, CRC(6804e675) SHA1(d55dccec2d1da992a39c38b0b6d24e3809073513), ROM_BIOS(1))
+	ROM_SYSTEM_BIOS(2, "ns3a", "NasSys 3 (AVC)")
+	ROMX_LOAD("nassys3a.ic34", 0x0000, 0x0800, CRC(39d24a05) SHA1(7bfb574c1f8ce0f460a53b9a6c11c711aabccbb8), ROM_BIOS(2))
+	ROM_SYSTEM_BIOS(3, "ns3n", "NasSys 3 (NET)")
+	ROMX_LOAD("nassys3n.ic34", 0x0000, 0x0800, CRC(87ef62bb) SHA1(dab81511925be36044b3e8b0ba26a0c717fe83ae), ROM_BIOS(3))
 
 	ROM_REGION(0x2000, "basic", 0)
-	ROM_LOAD("basic.rom", 0x0000, 0x2000, CRC(5cb5197b) SHA1(c41669c2b6d6dea808741a2738426d97bccc9b07))
+	ROM_LOAD("basic.ic43", 0x0000, 0x2000, CRC(5cb5197b) SHA1(c41669c2b6d6dea808741a2738426d97bccc9b07))
 
 	ROM_REGION(0x1000, "gfx1", 0)
-	ROM_LOAD("nascom1.chr", 0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52))
-	ROM_LOAD("nasgra.chr",  0x0800, 0x0800, CRC(2bc09d32) SHA1(d384297e9b02cbcb283c020da51b3032ff62b1ae))
+	ROM_LOAD("nascom1.ic66", 0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52))
+	ROM_LOAD("nasgra.ic54",  0x0800, 0x0800, CRC(2bc09d32) SHA1(d384297e9b02cbcb283c020da51b3032ff62b1ae))
 ROM_END
 
 ROM_START( nascom2c )
 	ROM_REGION(0x0800, "maincpu", 0)
-	ROM_LOAD("cpmboot.rom", 0x0000, 0x0800, CRC(44b67ffc) SHA1(60c8335f24798f8de7ad48a4cd03e56a60d87b63))
+	ROM_DEFAULT_BIOS("cpm32")
+	ROM_SYSTEM_BIOS(0, "cpm21", "CP/M boot v2.1")
+	ROMX_LOAD("cpmbt21.ic34", 0x0000, 0x0800, CRC(44b67ffc) SHA1(60c8335f24798f8de7ad48a4cd03e56a60d87b63), ROM_BIOS(0))
+	ROM_SYSTEM_BIOS(1, "cpm32", "CP/M boot v3.2")
+	ROMX_LOAD("cpmbt32.ic34", 0x0000, 0x0800, CRC(724f03ba) SHA1(d0958c231e5b121b6c4c97d03c76c207acf90f5a), ROM_BIOS(1))
 
 	ROM_REGION(0x1000, "gfx1", 0)
-	ROM_LOAD("nascom1.chr", 0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52))
-	ROM_LOAD("nasgra.chr",  0x0800, 0x0800, CRC(2bc09d32) SHA1(d384297e9b02cbcb283c020da51b3032ff62b1ae))
+	ROM_LOAD("nascom1.ic66", 0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52))
+	ROM_LOAD("nasgra.ic54",  0x0800, 0x0800, CRC(2bc09d32) SHA1(d384297e9b02cbcb283c020da51b3032ff62b1ae))
 ROM_END
 
 

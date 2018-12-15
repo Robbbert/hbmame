@@ -38,6 +38,7 @@ public:
 	void alphaone(machine_config &config);
 	void mhavoc(machine_config &config);
 	void mhavocrv(machine_config &config);
+	void mhavocpe(machine_config &config); //HBMAME
 
 	void init_mhavocrv();
 
@@ -73,6 +74,8 @@ private:
 	void alpha_map(address_map &map);
 	void alphaone_map(address_map &map);
 	void gamma_map(address_map &map);
+	void alphape_map(address_map &map); //HBMAME
+	void gammape_map(address_map &map); //HBMAME
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;

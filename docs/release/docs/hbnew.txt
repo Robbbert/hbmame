@@ -1,6 +1,19 @@
 ﻿What's new in HBMAME
 ====================
 
+2018-12-26 0.205
+----------------
+
+New Games
+---------------------------------
+- [dkpace]            Donkey Kong pace [by Sock Master]
+- [dktrainer]         Donkey Kong trainer 1.01 [by Sock Master]
+- [karnovh]           Karnov's Revenge (unknown hack)
+- [mhavocpe]          Major Havoc - The Promised End (v0.21)
+
+
+
+
 2018-11-28 0.204
 ----------------
 

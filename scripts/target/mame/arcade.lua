@@ -1678,6 +1678,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/vaportra.cpp",
 	MAME_DIR .. "src/mame/includes/vaportra.h",
 	MAME_DIR .. "src/mame/video/vaportra.cpp",
+	MAME_DIR .. "src/mame/drivers/wacky_gator.cpp",
 	MAME_DIR .. "src/mame/machine/deco_irq.cpp",
 	MAME_DIR .. "src/mame/machine/deco_irq.h",
 	MAME_DIR .. "src/mame/machine/deco102.cpp",
@@ -2708,6 +2709,8 @@ files {
 	MAME_DIR .. "src/mame/audio/midway.h",
 	MAME_DIR .. "src/mame/audio/csd.cpp",
 	MAME_DIR .. "src/mame/audio/csd.h",
+	MAME_DIR .. "src/mame/audio/sente6vb.cpp",
+	MAME_DIR .. "src/mame/audio/sente6vb.h",
 }
 
 createMAMEProjects(_target, _subtarget, "namco")
@@ -3469,6 +3472,7 @@ files {
 	MAME_DIR .. "src/mame/machine/xbox.cpp",
 	MAME_DIR .. "src/mame/machine/xbox_usb.cpp",
 	MAME_DIR .. "src/mame/machine/xbox_pci.cpp",
+	MAME_DIR .. "src/mame/drivers/flashbeats.cpp",
 }
 
 createMAMEProjects(_target, _subtarget, "seibu")
@@ -4793,6 +4797,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/re900.cpp",
 	MAME_DIR .. "src/mame/drivers/rgum.cpp",
 	MAME_DIR .. "src/mame/drivers/roul.cpp",
+	MAME_DIR .. "src/mame/drivers/rulechan.cpp",
 	MAME_DIR .. "src/mame/drivers/savquest.cpp",
 	MAME_DIR .. "src/mame/drivers/sanremo.cpp",
 	MAME_DIR .. "src/mame/drivers/sanremmg.cpp",
@@ -4867,7 +4872,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/vroulet.cpp",
 	MAME_DIR .. "src/mame/drivers/wildpkr.cpp",
 	MAME_DIR .. "src/mame/drivers/wms.cpp",
-	MAME_DIR .. "src/mame/drivers/wacky_gator.cpp",
 	MAME_DIR .. "src/mame/drivers/xtom3d.cpp",
 	MAME_DIR .. "src/mame/drivers/xyonix.cpp",
 	MAME_DIR .. "src/mame/includes/xyonix.h",

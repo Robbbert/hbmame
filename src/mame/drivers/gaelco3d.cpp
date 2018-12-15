@@ -149,7 +149,6 @@ REF. 970429
 #include "includes/gaelco3d.h"
 
 #include "cpu/m68000/m68000.h"
-#include "cpu/tms32031/tms32031.h"
 #include "emupal.h"
 
 #include "speaker.h"
@@ -929,10 +928,10 @@ MACHINE_CONFIG_START(gaelco3d_state::gaelco3d)
 	MCFG_DEVICE_PROGRAM_MAP(main_map)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", gaelco3d_state,  vblank_gen)
 
-	MCFG_DEVICE_ADD(m_tms, TMS32031, 60000000)
-	MCFG_DEVICE_PROGRAM_MAP(tms_map)
-	MCFG_TMS3203X_MCBL(true)
-	MCFG_TMS3203X_IACK_CB(WRITE8(*this, gaelco3d_state, tms_iack_w))
+	TMS32031(config, m_tms, 60000000);
+	m_tms->set_addrmap(AS_PROGRAM, &gaelco3d_state::tms_map);
+	m_tms->set_mcbl_mode(true);
+	m_tms->iack().set(FUNC(gaelco3d_state::tms_iack_w));
 
 	MCFG_DEVICE_ADD(m_adsp, ADSP2115, 16000000)
 	MCFG_ADSP21XX_SPORT_TX_CB(WRITE32(*this, gaelco3d_state, adsp_tx_callback))
@@ -945,8 +944,8 @@ MACHINE_CONFIG_START(gaelco3d_state::gaelco3d)
 
 	MCFG_TIMER_DRIVER_ADD("adsp_timer", gaelco3d_state, adsp_autobuffer_irq)
 
-	MCFG_DEVICE_ADD(m_serial, GAELCO_SERIAL, 0)
-	MCFG_GAELCO_SERIAL_IRQ_HANDLER(WRITELINE(*this, gaelco3d_state, ser_irq))
+	GAELCO_SERIAL(config, m_serial, 0);
+	m_serial->irq_handler().set(FUNC(gaelco3d_state::ser_irq));
 
 	LS259(config, m_mainlatch); // IC5 on bottom board next to EEPROM
 	m_mainlatch->q_out_cb<0>().set(m_serial, FUNC(gaelco_serial_device::tr_w));
