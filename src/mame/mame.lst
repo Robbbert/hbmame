@@ -9383,6 +9383,9 @@ cspin2                          //
 @source:caprcyc.cpp
 caprcyc                         //
 
+@source:cardinal.cpp
+cardinal                        // (c) 1984 Standard Microsystems Corp.
+
 @source:cardline.cpp
 cardline                        // (c) 199? Veltmeijer
 
@@ -20840,8 +20843,8 @@ trisport                        // (c) 1989
 xenophob                        // (c) 1987
 
 @source:mdisk.cpp
-mdisk							// (c) 198? mupid Computer Ges.m.b.H.
-fl100							// (c) 198? Grundig
+mdisk                           // (c) 198? mupid Computer Ges.m.b.H.
+fl100                           // (c) 198? Grundig
 
 @source:meadows.cpp
 bowl3d                          // [1978?]
@@ -21510,6 +21513,10 @@ minitel2                        //
 
 @source:minivadr.cpp
 minivadr                        // D26 cabinet test board
+
+@source:minivideo.cpp
+fiches                          //
+fiches12                        //
 
 @source:mips.cpp
 rc2030                          // MIPS RC2030
@@ -28846,6 +28853,11 @@ supergm3                        // 1996
 joyfulr                         // A2001      (c) 1983
 mnchmobl                        // A2001      (c) 1983 + Centuri license
 
+@source:mupid2.cpp
+mupid2                          // (c) 1985 mupid
+mupid2i                         // (c) 1990 Infonova
+ptc100                          // (c) 198? Grundig
+
 @source:murogem.cpp
 lasvegas                        // hack
 murogem                         // ???
@@ -30273,7 +30285,8 @@ mc_sam60
 vgtablet
 gprnrs1
 gprnrs16
-ddrdismx                        // (c) 2001 Disney
+ddrdismx                        // (c) 2006 Majesco / Konami [(c) 2001 Disney on title screen]
+ddrstraw                        // (c) 2006 Majesco / Konami
 vgpocket
 vgpmini
 sy889
@@ -39805,6 +39818,9 @@ wsports                         //
 
 @source:zac_2.cpp
 bbeltzac                        //
+bbeltzacf                       //
+bbeltzacg                       //
+bbeltzaci                       //
 clown                           //
 dvlrider                        //
 dvlriderf                       //
@@ -39819,6 +39835,7 @@ mcastleg                        //
 mcastlei                        //
 mexico                          //
 nstrphnx                        //
+nstrphnxf                       //
 pinchamp                        //
 pinchamp7                       //
 pinchamp7g                      //
@@ -39826,7 +39843,6 @@ pinchamp7i                      //
 pinchampg                       //
 pinchampi                       //
 poolcham                        //
-poolchama                       //
 poolchami                       //
 robot                           //
 robotf                          //
@@ -39840,6 +39856,7 @@ socrkingi                       //
 spookyi                         //
 spookyp                         //
 strsphnx                        //
+strsphnxf                       //
 thndrman                        //
 tmachzac                        //
 tmachzacf                       //
