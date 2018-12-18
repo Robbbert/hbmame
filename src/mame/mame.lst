@@ -2427,6 +2427,7 @@ hydra                           // 136079           (c) 1990
 hydrap                          // (proto)          (c) 1990
 hydrap2                         // (proto)          (c) 1990
 pitfight                        // 136081           (c) 1990
+pitfight1p2                     // 136081           (c) 1990
 pitfight2                       // 136081           (c) 1990
 pitfight3                       // 136081           (c) 1990
 pitfight4                       // 136081           (c) 1990
@@ -13149,6 +13150,7 @@ pool10g                         // (c) 1996 C.M.C.
 pool10h                         // (c) 1996 C.M.C.
 pool10i                         // (c) 1997 C.M.C.
 pool10j                         // (c) 1996 bootleg
+biliard                         // 1998 bootleg.
 potgame                         // (c) 1996 C.M.C.
 powercrd                        // (c) 1993 Fun World
 rcdino4                         // 1998 unknown
@@ -15002,6 +15004,7 @@ gnw_mmouse                      // Nintendo
 gnw_mickdon                     // Nintendo
 gnw_opanic                      // Nintendo
 gnw_smb                         // Nintendo
+gnw_squish                      // Nintendo
 gnw_tfish                       // Nintendo
 kbilly                          // Konami
 kblades                         // Konami
