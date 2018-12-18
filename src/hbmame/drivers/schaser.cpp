@@ -568,18 +568,18 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	SPEAKER(config, "mono").front_center();
 
 	sn76477_device &snsnd(SN76477(config, "snsnd"));
-	snsnd.set_noise_params(RES_K(47), RES_K(330), CAP_P(470));
+	snsnd.set_noise_params(RES_K(47), RES_K(330), CAP_P(470));   // noise + filter
 	snsnd.set_decay_res(RES_M(2.2));
-	snsnd.set_attack_params(CAP_U(1.0), RES_K(4.7));
-	snsnd.set_amp_res(0);
+	snsnd.set_attack_params(CAP_U(1.0), RES_K(4.7));             // attack_decay_cap; attack resistor
+	snsnd.set_amp_res(0);                                        // amplitude res
 	snsnd.set_feedback_res(RES_K(33));
-	snsnd.set_vco_params(0, CAP_U(0.1), RES_K(39));
+	snsnd.set_vco_params(0, CAP_U(0.1), RES_K(39));              // VCO volt; cap; res
 	snsnd.set_pitch_voltage(5.0);
 	snsnd.set_slf_params(CAP_U(1.0), RES_K(120));
 	snsnd.set_oneshot_params(CAP_U(0.1), RES_K(220));
 	snsnd.set_vco_mode(1);
-	snsnd.set_mixer_params(0, 0, 0);
-	snsnd.set_envelope_params(1, 0);
+	snsnd.set_mixer_params(0, 0, 0);                             // mixer A;B;C
+	snsnd.set_envelope_params(1, 0);                             // envelope 1;2
 	snsnd.set_enable(1);
 	snsnd.add_route(0, "discrete", 1.0, 0);
 
