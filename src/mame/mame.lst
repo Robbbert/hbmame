@@ -2427,6 +2427,7 @@ hydra                           // 136079           (c) 1990
 hydrap                          // (proto)          (c) 1990
 hydrap2                         // (proto)          (c) 1990
 pitfight                        // 136081           (c) 1990
+pitfight1p2                     // 136081           (c) 1990
 pitfight2                       // 136081           (c) 1990
 pitfight3                       // 136081           (c) 1990
 pitfight4                       // 136081           (c) 1990
@@ -9382,6 +9383,9 @@ cspin2                          //
 @source:caprcyc.cpp
 caprcyc                         //
 
+@source:cardinal.cpp
+cardinal                        // (c) 1984 Standard Microsystems Corp.
+
 @source:cardline.cpp
 cardline                        // (c) 199? Veltmeijer
 
@@ -13149,6 +13153,7 @@ pool10g                         // (c) 1996 C.M.C.
 pool10h                         // (c) 1996 C.M.C.
 pool10i                         // (c) 1997 C.M.C.
 pool10j                         // (c) 1996 bootleg
+biliard                         // 1998 bootleg.
 potgame                         // (c) 1996 C.M.C.
 powercrd                        // (c) 1993 Fun World
 rcdino4                         // 1998 unknown
@@ -15002,6 +15007,7 @@ gnw_mmouse                      // Nintendo
 gnw_mickdon                     // Nintendo
 gnw_opanic                      // Nintendo
 gnw_smb                         // Nintendo
+gnw_squish                      // Nintendo
 gnw_tfish                       // Nintendo
 kbilly                          // Konami
 kblades                         // Konami
@@ -20837,8 +20843,8 @@ trisport                        // (c) 1989
 xenophob                        // (c) 1987
 
 @source:mdisk.cpp
-mdisk							// (c) 198? mupid Computer Ges.m.b.H.
-fl100							// (c) 198? Grundig
+mdisk                           // (c) 198? mupid Computer Ges.m.b.H.
+fl100                           // (c) 198? Grundig
 
 @source:meadows.cpp
 bowl3d                          // [1978?]
@@ -21507,6 +21513,10 @@ minitel2                        //
 
 @source:minivadr.cpp
 minivadr                        // D26 cabinet test board
+
+@source:minivideo.cpp
+fiches                          //
+fiches12                        //
 
 @source:mips.cpp
 rc2030                          // MIPS RC2030
@@ -28843,6 +28853,11 @@ supergm3                        // 1996
 joyfulr                         // A2001      (c) 1983
 mnchmobl                        // A2001      (c) 1983 + Centuri license
 
+@source:mupid2.cpp
+mupid2                          // (c) 1985 mupid
+mupid2i                         // (c) 1990 Infonova
+ptc100                          // (c) 198? Grundig
+
 @source:murogem.cpp
 lasvegas                        // hack
 murogem                         // ???
@@ -30270,7 +30285,8 @@ mc_sam60
 vgtablet
 gprnrs1
 gprnrs16
-ddrdismx                        // (c) 2001 Disney
+ddrdismx                        // (c) 2006 Majesco / Konami [(c) 2001 Disney on title screen]
+ddrstraw                        // (c) 2006 Majesco / Konami
 vgpocket
 vgpmini
 sy889
@@ -39802,6 +39818,9 @@ wsports                         //
 
 @source:zac_2.cpp
 bbeltzac                        //
+bbeltzacf                       //
+bbeltzacg                       //
+bbeltzaci                       //
 clown                           //
 dvlrider                        //
 dvlriderf                       //
@@ -39816,6 +39835,7 @@ mcastleg                        //
 mcastlei                        //
 mexico                          //
 nstrphnx                        //
+nstrphnxf                       //
 pinchamp                        //
 pinchamp7                       //
 pinchamp7g                      //
@@ -39823,7 +39843,6 @@ pinchamp7i                      //
 pinchampg                       //
 pinchampi                       //
 poolcham                        //
-poolchama                       //
 poolchami                       //
 robot                           //
 robotf                          //
@@ -39837,6 +39856,7 @@ socrkingi                       //
 spookyi                         //
 spookyp                         //
 strsphnx                        //
+strsphnxf                       //
 thndrman                        //
 tmachzac                        //
 tmachzacf                       //

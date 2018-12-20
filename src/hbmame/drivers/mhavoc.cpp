@@ -45,54 +45,14 @@ void mhavoc_state::alphape_map(address_map &map)
 	map(0x8000, 0xffff).rom();                 /* Program ROM (32K) */
 }
 
-MACHINE_CONFIG_START(mhavoc_state::mhavocpe)
+void mhavoc_state::mhavocpe(machine_config &config)
+{
+	mhavocrv(config);
+
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("alpha", M6502, MHAVOC_CLOCK_2_5M)     /* 2.5 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(alphape_map)
-
-	MCFG_DEVICE_ADD("gamma", M6502, MHAVOC_CLOCK_1_25M)    /* 1.25 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(gammape_map)
-
-	EEPROM_2804(config, "eeprom");
-
-	MCFG_TIMER_DRIVER_ADD_PERIODIC("5k_timer", mhavoc_state, mhavoc_cpu_irq_clock, attotime::from_hz(MHAVOC_CLOCK_5K))
-
-	WATCHDOG_TIMER(config, "watchdog");
-
-	/* video hardware */
-	MCFG_VECTOR_ADD("vector")
-	MCFG_SCREEN_ADD("screen", VECTOR)
-	MCFG_SCREEN_REFRESH_RATE(50)
-	MCFG_SCREEN_SIZE(400, 300)
-	MCFG_SCREEN_VISIBLE_AREA(0, 300, 0, 260)
-	MCFG_SCREEN_UPDATE_DEVICE("vector", vector_device, screen_update)
-
-	avg_device &avg(AVG_MHAVOC(config, "avg", 0));
-	avg.set_vector_tag("vector");
-
-	/* sound hardware */
-	SPEAKER(config, "mono").front_center();
-
-	MCFG_DEVICE_ADD("pokey1", POKEY, MHAVOC_CLOCK_1_25M)
-	MCFG_POKEY_ALLPOT_R_CB(IOPORT("DSW1"))
-	MCFG_POKEY_OUTPUT_OPAMP(RES_K(1), CAP_U(0.001), 5.0)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
-
-	MCFG_DEVICE_ADD("pokey2", POKEY, MHAVOC_CLOCK_1_25M)
-	MCFG_POKEY_OUTPUT_OPAMP(RES_K(1), CAP_U(0.001), 5.0)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
-
-	MCFG_DEVICE_ADD("pokey3", POKEY, MHAVOC_CLOCK_1_25M)
-	MCFG_POKEY_OUTPUT_OPAMP(RES_K(1), CAP_U(0.001), 5.0)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
-
-	MCFG_DEVICE_ADD("pokey4", POKEY, MHAVOC_CLOCK_1_25M)
-	MCFG_POKEY_OUTPUT_OPAMP(RES_K(1), CAP_U(0.001), 5.0)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
-
-	MCFG_DEVICE_ADD("tms", TMS5220, MHAVOC_CLOCK / 2 / 9)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-MACHINE_CONFIG_END
+	m_alpha->set_addrmap(AS_PROGRAM, &mhavoc_state::alphape_map);
+	m_gamma->set_addrmap(AS_PROGRAM, &mhavoc_state::gammape_map);
+}
 
 
 ROM_START( mhavocpe )
