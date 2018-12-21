@@ -525,10 +525,10 @@ MACHINE_CONFIG_START( ir_state::ir )
 	//MCFG_DEVICE_ADD("ay1", AY8910, XTAL_4MHz/2)
 	//MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.5)
 
-	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
-	MCFG_SAMPLES_CHANNELS(9)
-	MCFG_SAMPLES_NAMES(ir_sample_names)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(9);
+	m_samples->set_samples_names(ir_sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
 MACHINE_CONFIG_END
 
 ROM_START( ir )

@@ -1458,10 +1458,10 @@ MACHINE_CONFIG_START( monaco_state::monaco )
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
-	MCFG_SAMPLES_CHANNELS(5)
-	MCFG_SAMPLES_NAMES(monaco_sample_names)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.90)
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(5);
+	m_samples->set_samples_names(monaco_sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.90);
 MACHINE_CONFIG_END
 
 /*****************************************************************/
