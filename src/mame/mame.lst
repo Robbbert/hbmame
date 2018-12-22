@@ -1704,6 +1704,7 @@ aristmk6                        // (c) 2000
 5dragsp                         // (c) 2004
 5dragce                         // (c) 2007
 5koipp                          // (c) 2007
+15lions                         // (c) 2004
 50lions                         // (c) 2002
 50lionsm                        // (c) 2003
 50lionrr                        // (c) 2012
@@ -1842,6 +1843,7 @@ mskitty                         // (c) 2005
 mnytree                         // (c) 2000
 moonwalt                        // (c) 2007
 mchilli                         // (c) 2008
+mchilliq                        // (c) 2010
 mrwoo                           // (c) 200?
 mystarr                         // (c) 2002
 mysteycm                        // (c) 2001
@@ -1858,6 +1860,7 @@ parislgtu                       // (c) 2002
 pcockmag                        // (c) 2002
 pcockmagu                       // (c) 2004
 pelipete                        // (c) 2004
+pelipetejc                      // (c) 2006
 pelipeteu                       // (c) 2005
 pennyar                         // (c) 2005
 pengpyce                        // (c) 2003
@@ -1901,6 +1904,7 @@ silkrda6                        // (c) 2006
 silgola6                        // (c) 2002
 skydnca6                        // (c) 2008
 spgcarn                         // (c) 1999
+spgcarnq                        // (c) 2001
 stardrft                        // (c) 2003
 stardrftu                       // (c) 2004
 starqst                         // (c) 2001
@@ -1928,6 +1932,7 @@ turtreas                        // (c) 2006
 venetian                        // (c) 2002
 venice                          // (c) 2004
 werewild                        // (c) 2009
+werewildq                       // (c) 2010
 whalecsh                        // (c) 2002
 whalecshu                       // (c) 2003
 whalecshua                      // (c) 2005
@@ -17775,7 +17780,6 @@ winspike                        // 1997.?? GX705 (Europe)
 winspikej                       // 1997.07 GX705 (Japan)
 
 @source:konamim2.cpp
-3do_m2                          //
 btltryst                        // GX636 (c) 1998
 evilngt                         // GX810 (c) 1998
 evilngte                        // GX810 (c) 1998
@@ -18493,6 +18497,7 @@ kengoa                          // (c) 1991 (Japan)
 loht                            // (c) 1989
 lohtb                           // (c) 1989 (bootleg)
 lohtb2                          // (c) 1989 (bootleg)
+lohtb3                          // (c) 1989 (bootleg)
 lohtj                           // (c) 1989 (Japan)
 ltswords                        // (c) 1991 (World)
 majtitle                        // (c) 1990 (World)
@@ -35877,6 +35882,7 @@ keithlcy                        // (c) 1993 Visco
 koikois2                        // (c) 1997 Visco
 meosism                         // (c) 1996?Sammy
 mslider                         // (c) 1997 Visco / Datt Japan
+pastelis                        // (c) 1993 Visco
 ryorioh                         // (c) 1998 Visco
 srmp4                           // (c) 1993 Seta
 srmp4o                          // (c) 1993 Seta
@@ -38514,10 +38520,6 @@ vigilanto                       // (c) 1988 (US)
 @source:vii.cpp
 batmantv                        // The Batman, 2004
 vii                             // KenSingTon / Jungle Soft / Siatronics Vii
-vsmile                          //
-vsmileb                         //
-vsmilef                         //
-vsmileg                         //
 walle                           //
 wrlshunt                        // Wireless: Hunting Video Game System
 wirels60                        // Wireless 60
@@ -38528,6 +38530,12 @@ rad_skat                        //
 rad_skatp                       //
 rad_sktv                        //
 rad_crik                        //
+
+@source:vsmile.cpp
+vsmile                          //
+vsmileb                         //
+vsmilef                         //
+vsmileg                         //
 
 @source:vsmilepro.cpp
 vsmilpro
