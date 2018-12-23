@@ -6,8 +6,12 @@
 
 ***************************************************************************/
 
-#include "math.h"
-#include "3dom2.h"
+#include "emu.h"
+#include "video/3dom2_te.h"
+
+#include "machine/3dom2.h"
+
+#include <math.h>
 
 /*
     TODO:
@@ -546,21 +550,21 @@ static int32_t ieee754_to_tefix(float f, int32_t bits)
 	return res;
 }
 
-static void write_te_reg(uint32_t &reg, uint32_t data, reg_wmode mode)
+static void write_te_reg(uint32_t &reg, uint32_t data, m2_te_device::te_reg_wmode mode)
 {
 	switch (mode)
 	{
-		case REG_WRITE:
+		case m2_te_device::REG_WRITE:
 		{
 			reg = data;
 			break;
 		}
-		case REG_SET:
+		case m2_te_device::REG_SET:
 		{
 			reg |= data;
 			break;
 		}
-		case REG_CLEAR:
+		case m2_te_device::REG_CLEAR:
 		{
 			reg &= ~data;
 			break;
@@ -834,7 +838,7 @@ WRITE32_MEMBER( m2_te_device::write )
 {
 	uint32_t unit = (offset >> 11) & 7;
 	uint32_t reg = offset & 0x1ff;
-	reg_wmode wmode = static_cast<reg_wmode>((offset >> 9) & 3);
+	te_reg_wmode wmode = static_cast<te_reg_wmode>((offset >> 9) & 3);
 
 //  logerror("%s: TE W[%.8x] (%s) %.8x\n", machine().describe_context(), 0x00040000 + (offset << 2), get_reg_name(unit, reg), data);
 
@@ -980,7 +984,7 @@ void m2_te_device::update_interrupts()
 //  master_mode_w -
 //-------------------------------------------------
 
-void m2_te_device::master_mode_w(uint32_t data, reg_wmode wmode)
+void m2_te_device::master_mode_w(uint32_t data, te_reg_wmode wmode)
 {
 	write_te_reg(m_gc.te_master_mode, data, wmode);
 
@@ -993,7 +997,7 @@ void m2_te_device::master_mode_w(uint32_t data, reg_wmode wmode)
 //  teicntl_w -
 //-------------------------------------------------
 
-void m2_te_device::teicntl_w(uint32_t data, reg_wmode wmode)
+void m2_te_device::teicntl_w(uint32_t data, te_reg_wmode wmode)
 {
 	uint32_t newreg = 0;
 
@@ -1018,7 +1022,7 @@ void m2_te_device::teicntl_w(uint32_t data, reg_wmode wmode)
 //  tedcntl_w -
 //-------------------------------------------------
 
-void m2_te_device::tedcntl_w(uint32_t data, reg_wmode wmode)
+void m2_te_device::tedcntl_w(uint32_t data, te_reg_wmode wmode)
 {
 	write_te_reg(m_gc.tedcntl, data, wmode);
 
