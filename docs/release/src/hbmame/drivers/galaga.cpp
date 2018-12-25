@@ -44,10 +44,10 @@ MACHINE_CONFIG_START( galaga_hbmame::galagost )
 	MCFG_DEVICE_PROGRAM_MAP(galagost_map)
 
 	/* sound hardware */
-	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
-	MCFG_SAMPLES_CHANNELS(1)
-	MCFG_SAMPLES_NAMES(galagost_sample_names)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.75)
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(1);
+	m_samples->set_samples_names(galagost_sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.75);
 MACHINE_CONFIG_END
 
 // galaga hacks

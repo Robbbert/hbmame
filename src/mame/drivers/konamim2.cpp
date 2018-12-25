@@ -7,17 +7,7 @@
 
     driver by Phil Bennett
 
-    NOTE:
-
-    * All games are marked MACHINE_NOT_WORKING due to the rare case
-      where the PowerPC DRC blows up, causing MAME to crash. In reality,
-      there is a good chance of being able to play through a round or
-      three with no issues on all of the parent sets.
-
     TODO:
-
-    * Fix DRC crashes
-        o  Crashes on DRC translation of 0x40028604
     * Fix texture compression
     * Sort out CD images
     * Fix Polystars blending issues
@@ -1292,7 +1282,7 @@ ROM_START( polystar )
 	ROM_LOAD( "93c46.7k", 0x000000, 0x000080, CRC(fab5a203) SHA1(153e22aa8cfce80b77ba200957685f796fc99b1c) )
 
 	DISK_REGION( "cdrom" ) // Has 1s of silence near the start of the first audio track
-	DISK_IMAGE( "623jaa02", 0, BAD_DUMP SHA1(e7d9e628a3e0e085e084e4e3630fa5e3a7345547) )
+	DISK_IMAGE_READONLY( "623jaa02", 0, BAD_DUMP SHA1(e7d9e628a3e0e085e084e4e3630fa5e3a7345547) )
 ROM_END
 
 ROM_START( btltryst )
@@ -1306,7 +1296,7 @@ ROM_START( btltryst )
 	ROM_LOAD( "m48t58", 0x000000, 0x002000, CRC(71ee073b) SHA1(cc8002d7ee8d1695aebbbb2a3a1e97a7e16948c1) )
 
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "636jac02", 0, SHA1(d36556a3a4b91058100924a9e9f1a58983399c6e) )
+	DISK_IMAGE_READONLY( "636jac02", 0, SHA1(d36556a3a4b91058100924a9e9f1a58983399c6e) )
 ROM_END
 
 #if 0
@@ -1318,7 +1308,7 @@ ROM_START( btltrysta )
 	ROM_LOAD( "m48t58y", 0x000000, 0x002000, CRC(8611ff09) SHA1(6410236947d99c552c4a1f7dd5fd8c7a5ae4cba1) )
 
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "636jaa02", 0, SHA1(d36556a3a4b91058100924a9e9f1a58983399c6e) )
+	DISK_IMAGE_READONLY( "636jaa02", 0, SHA1(d36556a3a4b91058100924a9e9f1a58983399c6e) )
 ROM_END
 #endif
 
@@ -1333,7 +1323,7 @@ ROM_START( heatof11 )
 	ROM_LOAD( "dallas.5e",  0x000000, 0x002000, CRC(5b74eafd) SHA1(afbf5f1f5a27407fd6f17c764bbb7fae4ab779f5) )
 
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "heatof11", 0, BAD_DUMP SHA1(5a0a2782cd8676d3f6dfad4e0f805b309e230d8b) )
+	DISK_IMAGE_READONLY( "heatof11", 0, BAD_DUMP SHA1(5a0a2782cd8676d3f6dfad4e0f805b309e230d8b) )
 ROM_END
 
 ROM_START( evilngt )
@@ -1350,7 +1340,7 @@ ROM_START( evilngt )
 	ROM_LOAD( "810a03.16h", 0x000000, 0x400000, CRC(05112d3a) SHA1(0df2a167b7bc08a32d983b71614d59834efbfb59) )
 
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "810uba02", 0, SHA1(e570470c1cbfe187d5bba8125616412f386264ba) )
+	DISK_IMAGE_READONLY( "810uba02", 0, SHA1(e570470c1cbfe187d5bba8125616412f386264ba) )
 ROM_END
 
 ROM_START( evilngte )
@@ -1387,11 +1377,8 @@ ROM_START( totlvice )
 	ROM_REGION64_BE( 0x200000, "boot", 0 )
 	ROM_LOAD16_WORD( "623b01.8q", 0x000000, 0x200000, CRC(bd879f93) SHA1(e2d63bfbd2b15260a2664082652442eadea3eab6) )
 
-	ROM_REGION16_BE( 0x80, "eeprom", 0 ) /* EEPROM default contents */
-	ROM_LOAD( "93c46.7k", 0x000000, 0x000080, CRC(8cc7f9c0) SHA1(43b40fe420ebbec73eed09f55e52c5fe1445bdc5) )
-
-	ROM_REGION( 0x2000, "m48t58", 0 ) /* timekeeper SRAM */
-	ROM_LOAD( "m48t58", 0x000000, 0x002000, CRC(4013176f) SHA1(8d0536e1c9a00696198f063f29c1640d811aeec0) )
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD( "93c46.7k", 0x000000, 0x000080, CRC(25aa0bd1) SHA1(cc461e0629ff71c3a868882f1f67af0e19135c1a) )
 
 	ROM_REGION( 0x100000, "ymz", 0 ) /* YMZ280B sound rom on sub board */
 	ROM_LOAD( "639jaa02.bin",  0x000000, 0x100000, CRC(c6163818) SHA1(b6f8f2d808b98610becc0a5be5443ece3908df0b) )
@@ -1400,7 +1387,7 @@ ROM_START( totlvice )
 	//ROM_LOAD( "TotalVice-GQ639-EBA01.cue",  0, 0x00000555, CRC(55ef2f62) SHA1(8e31b3e62244e6090a93228dae377552340dcdeb) )
 	//ROM_LOAD( "TotalVice-GQ639-EBA01.bin",  0, 0x1ec4db10, CRC(5882f8ba) SHA1(e589d500d99d2f4cff4506cd5ac9a5bfc8d30675) )
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "639eba01", 0, BAD_DUMP  SHA1(d95c13575e015169b126f7e8492d150bd7e5ebda) )
+	DISK_IMAGE_READONLY( "639eba01", 0, BAD_DUMP SHA1(d95c13575e015169b126f7e8492d150bd7e5ebda) )
 ROM_END
 
 #if 0
@@ -1425,7 +1412,7 @@ ROM_START( totlvicu )
 	ROM_LOAD( "639jaa02.bin",  0x000000, 0x100000, CRC(c6163818) SHA1(b6f8f2d808b98610becc0a5be5443ece3908df0b) )
 
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "639uac01", 0, BAD_DUMP SHA1(88431b8a0ce83c156c8b19efbba1af901b859404) )
+	DISK_IMAGE_READONLY( "639uac01", 0, BAD_DUMP SHA1(88431b8a0ce83c156c8b19efbba1af901b859404) )
 ROM_END
 
 ROM_START( totlvica )
@@ -1436,7 +1423,7 @@ ROM_START( totlvica )
 	ROM_LOAD( "639jaa02.bin",  0x000000, 0x100000, CRC(c6163818) SHA1(b6f8f2d808b98610becc0a5be5443ece3908df0b) )
 
 	DISK_REGION( "cdrom" )
-	DISK_IMAGE( "639aab01", 0, SHA1(bb99db2eeaecabfda8f20b7b06f714605bbd5b7c) )
+	DISK_IMAGE_READONLY( "639aab01", 0, SHA1(bb99db2eeaecabfda8f20b7b06f714605bbd5b7c) )
 ROM_END
 
 ROM_START( totlvicj )
@@ -1447,7 +1434,7 @@ ROM_START( totlvicj )
 	ROM_LOAD( "639jaa02.bin",  0x000000, 0x100000, CRC(c6163818) SHA1(b6f8f2d808b98610becc0a5be5443ece3908df0b) )
 
 	DISK_REGION( "cdrom" ) // Need a re-image
-	DISK_IMAGE( "639jad01", 0, BAD_DUMP SHA1(39d41d5a9d1c40636d174c8bb8172b1121e313f8) )
+	DISK_IMAGE_READONLY( "639jad01", 0, BAD_DUMP SHA1(39d41d5a9d1c40636d174c8bb8172b1121e313f8) )
 ROM_END
 
 #if 0 // FIXME
@@ -1506,20 +1493,20 @@ void konamim2_state::init_hellngt()
  *
  *************************************/
 
-GAME( 1997, polystar,  0,        polystar, polystar, konamim2_state, empty_init,    ROT0, "Konami", "Tobe! Polystars (ver JAA)",    MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
-GAME( 1997, totlvice,  0,        totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver EBA)",         MACHINE_NOT_WORKING )
-//GAME( 1997, totlvicd, totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver EAD)",         MACHINE_NOT_WORKING )
-GAME( 1997, totlvicj,  totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver JAD)",         MACHINE_NOT_WORKING )
-GAME( 1997, totlvica,  totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver AAB)",         MACHINE_NOT_WORKING )
-GAME( 1997, totlvicu,  totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver UAC)",         MACHINE_NOT_WORKING )
-GAME( 1998, btltryst,  0,        btltryst, btltryst, konamim2_state, init_btltryst, ROT0, "Konami", "Battle Tryst (ver JAC)",       MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS )
-//GAME( 1998, btltrysta, btltryst, btltryst, btltryst, konamim2_state, init_btltryst, ROT0, "Konami", "Battle Tryst (ver JAA)",       MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1998, heatof11,  0,        heatof11, heatof11, konamim2_state, init_btltryst, ROT0, "Konami", "Heat of Eleven '98 (ver EAA)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS)
-GAME( 1998, evilngt,   0,        evilngt,  hellngt,  konamim2_state, init_hellngt,  ROT0, "Konami", "Evil Night (ver UBA)",         MACHINE_NOT_WORKING )
-GAME( 1998, evilngte,  evilngt,  evilngt,  hellngt,  konamim2_state, init_hellngt,  ROT0, "Konami", "Evil Night (ver EAA)",         MACHINE_NOT_WORKING )
-GAME( 1998, hellngt,   evilngt,  hellngt,  hellngt,  konamim2_state, init_hellngt,  ROT0, "Konami", "Hell Night (ver EAA)",         MACHINE_NOT_WORKING )
+GAME( 1997, polystar,  0,        polystar, polystar, konamim2_state, empty_init,    ROT0, "Konami", "Tobe! Polystars (ver JAA)",    MACHINE_IMPERFECT_TIMING | MACHINE_IMPERFECT_SOUND )
+GAME( 1997, totlvice,  0,        totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver EBA)",         MACHINE_IMPERFECT_TIMING )
+//GAME( 1997, totlvicd, totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver EAD)",         MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING )
+GAME( 1997, totlvicj,  totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver JAD)",         MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING )
+GAME( 1997, totlvica,  totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver AAB)",         MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING )
+GAME( 1997, totlvicu,  totlvice, totlvice, totlvice, konamim2_state, init_totlvice, ROT0, "Konami", "Total Vice (ver UAC)",         MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING )
+GAME( 1998, btltryst,  0,        btltryst, btltryst, konamim2_state, init_btltryst, ROT0, "Konami", "Battle Tryst (ver JAC)",       MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING | MACHINE_IMPERFECT_GRAPHICS )
+//GAME( 1998, btltrysta, btltryst, btltryst, btltryst, konamim2_state, init_btltryst, ROT0, "Konami", "Battle Tryst (ver JAA)",       MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1998, heatof11,  0,        heatof11, heatof11, konamim2_state, init_btltryst, ROT0, "Konami", "Heat of Eleven '98 (ver EAA)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING | MACHINE_IMPERFECT_GRAPHICS)
+GAME( 1998, evilngt,   0,        evilngt,  hellngt,  konamim2_state, init_hellngt,  ROT0, "Konami", "Evil Night (ver UBA)",         MACHINE_IMPERFECT_TIMING )
+GAME( 1998, evilngte,  evilngt,  evilngt,  hellngt,  konamim2_state, init_hellngt,  ROT0, "Konami", "Evil Night (ver EAA)",         MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING )
+GAME( 1998, hellngt,   evilngt,  hellngt,  hellngt,  konamim2_state, init_hellngt,  ROT0, "Konami", "Hell Night (ver EAA)",         MACHINE_IMPERFECT_TIMING )
 
-//CONS( 199?, 3do_m2,     0,      0,    3do_m2,    m2,    driver_device, 0,      "3DO",  "3DO M2",    MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+//CONS( 199?, 3do_m2,     0,      0,    3do_m2,    m2,    driver_device, 0,      "3DO",  "3DO M2",    MACHINE_NOT_WORKING | MACHINE_IMPERFECT_TIMING | MACHINE_NO_SOUND )
 
 
 /*************************************

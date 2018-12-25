@@ -423,10 +423,10 @@ MACHINE_CONFIG_START( sm_state::spacmissx )
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_DEVICE_ADD("samples", SAMPLES, 0)
-	MCFG_SAMPLES_CHANNELS(6)
-	MCFG_SAMPLES_NAMES(invaders_sample_names)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(6);
+	m_samples->set_samples_names(invaders_sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
 	MCFG_DEVICE_ADD("discrete", DISCRETE, spacmissx_disc)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END

@@ -65,6 +65,9 @@ astrofbl		/* Black Background */
 asuka			//parent
 asukac			// chinese
 
+@source:atarig42.cpp
+//dangerex
+
 @source:atarisy1.cpp
 atarisy1		//bios
 indytemp		//parent
@@ -1684,6 +1687,8 @@ dkrainbow
 dkrdemo
 dkchrmx         // Sock Master - Christmas Remix 2017
 dkspkyrmx       // Sock Master - Spooky Remix Halloween Tournament 2018
+dktrainer
+dkpace
 kong2600		/* Vic Twenty George hack of Donkey Kong */
 nadkong
 
@@ -4608,6 +4613,11 @@ androdund	/* 0049 (c) 1992 Visco */
 ncommandd	/* 0050 (c) 1992 Alpha Denshi Co. */
 wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 
+@source:mhavoc.cpp
+mhavoc				//parent
+mhavocrv			//HB Jess M. Askey
+mhavocpe			//HB Jess M. Askey
+
 @source:midtunit.cpp
 mk			//parent
 mkfr		// french
@@ -7101,6 +7111,7 @@ kabukiklgmc
 kabukiklmc
 kabukiklyc
 karnovreh
+karnovrh
 kizunab
 kizunaeh
 lans2k4d
@@ -9596,10 +9607,10 @@ tempall
 temped		/* Tempest TempEd Hack */
 tempestm
 temptwst	/* Twisty Hack */
-tmptwsta	/* Twisty Hack 2000 */
-tmptwst2	/* Twisty Hack */
-tmptwst3	/* Twisty Hack */
-tmptwst4	/* Twisty Hack */
+temptwsta	/* Twisty Hack 2000 */
+temptwst2	/* Twisty Hack */
+temptwst3	/* Twisty Hack */
+temptwst4	/* Twisty Hack */
 vbrakout	/* Clay Cowgill */
 tempmg		/* Clay Cowgill Multi-Tempest */
 temptlm
