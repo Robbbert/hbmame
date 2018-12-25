@@ -334,6 +334,11 @@ createHBMAMEProjects(_target, _subtarget, "atari")
 files {
 	MAME_DIR .. "src/hbmame/drivers/asteroid.cpp",
 	MAME_DIR .. "src/mame/machine/asteroid.cpp",
+	MAME_DIR .. "src/hbmame/drivers/atarig42.cpp",
+	MAME_DIR .. "src/mame/video/atarig42.cpp",
+	MAME_DIR .. "src/mame/machine/asic65.cpp",
+	MAME_DIR .. "src/mame/video/atarirle.cpp",
+	MAME_DIR .. "src/mame/audio/atarijsa.cpp",
 	MAME_DIR .. "src/hbmame/drivers/atarisy1.cpp",
 	MAME_DIR .. "src/mame/video/atarisy1.cpp",
 	MAME_DIR .. "src/mame/audio/asteroid.cpp",
@@ -351,6 +356,8 @@ files {
 	MAME_DIR .. "src/mame/audio/llander.cpp",
 	MAME_DIR .. "src/mame/video/atarimo.cpp",
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
+	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -614,7 +621,7 @@ files {
 	MAME_DIR .. "src/mame/video/xevious.cpp",
 	MAME_DIR .. "src/hbmame/drivers/galaxian.cpp",
 	MAME_DIR .. "src/mame/audio/galaxian.cpp",
-	MAME_DIR .. "src/hbmame/video/galaxian.cpp",
+	MAME_DIR .. "src/mame/video/galaxian.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",

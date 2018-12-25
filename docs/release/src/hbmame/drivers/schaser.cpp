@@ -102,7 +102,7 @@ private:
 	required_shared_ptr<uint8_t> m_p_ram;
 	required_shared_ptr<uint8_t> m_p_colorram;
 	required_device<sn76477_device> m_sn;
-	required_device<discrete_device> m_discrete;
+	required_device<discrete_sound_device> m_discrete;
 	required_device<timer_device> m_555_timer;
 	required_device<screen_device> m_screen;
 };
@@ -140,7 +140,7 @@ private:
 #define SCHASER_EXP_SND     NODE_11
 #define SCHASER_MUSIC_SND   NODE_12
 
-DISCRETE_SOUND_START(schaser)
+DISCRETE_SOUND_START(schaser_discrete)
 	/************************************************/
 	/* Input register mapping for schaser           */
 	/************************************************/
@@ -567,27 +567,26 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	MCFG_DEVICE_ADD("snsnd", SN76477, 0)
-	MCFG_SN76477_NOISE_PARAMS(RES_K(47), RES_K(330), CAP_P(470)) // noise + filter
-	MCFG_SN76477_DECAY_RES(RES_M(2.2))                   // decay_res
-	MCFG_SN76477_ATTACK_PARAMS(CAP_U(1.0), RES_K(4.7))   // attack_decay_cap + attack_res
-	MCFG_SN76477_AMP_RES(0)                              // amplitude_res
-	MCFG_SN76477_FEEDBACK_RES(RES_K(33))                 // feedback_res
-	MCFG_SN76477_VCO_PARAMS(0, CAP_U(0.1), RES_K(39))    // VCO volt + cap + res
-	MCFG_SN76477_PITCH_VOLTAGE(5.0)                      // pitch_voltage
-	MCFG_SN76477_SLF_PARAMS(CAP_U(1.0), RES_K(120))      // slf caps + res
-	MCFG_SN76477_ONESHOT_PARAMS(CAP_U(0.1), RES_K(220))  // oneshot caps + res
-	MCFG_SN76477_VCO_MODE(1)                             // VCO mode
-	MCFG_SN76477_MIXER_PARAMS(0, 0, 0)                   // mixer A, B, C
-	MCFG_SN76477_ENVELOPE_PARAMS(1, 0)                   // envelope 1, 2
-	MCFG_SN76477_ENABLE(1)                               // enable
-	MCFG_SOUND_ROUTE(0, "discrete", 1.0, 0)
+	sn76477_device &snsnd(SN76477(config, "snsnd"));
+	snsnd.set_noise_params(RES_K(47), RES_K(330), CAP_P(470));   // noise + filter
+	snsnd.set_decay_res(RES_M(2.2));
+	snsnd.set_attack_params(CAP_U(1.0), RES_K(4.7));             // attack_decay_cap; attack resistor
+	snsnd.set_amp_res(0);                                        // amplitude res
+	snsnd.set_feedback_res(RES_K(33));
+	snsnd.set_vco_params(0, CAP_U(0.1), RES_K(39));              // VCO volt; cap; res
+	snsnd.set_pitch_voltage(5.0);
+	snsnd.set_slf_params(CAP_U(1.0), RES_K(120));
+	snsnd.set_oneshot_params(CAP_U(0.1), RES_K(220));
+	snsnd.set_vco_mode(1);
+	snsnd.set_mixer_params(0, 0, 0);                             // mixer A;B;C
+	snsnd.set_envelope_params(1, 0);                             // envelope 1;2
+	snsnd.set_enable(1);
+	snsnd.add_route(0, "discrete", 1.0, 0);
 
-	MCFG_DEVICE_ADD("discrete", DISCRETE, 0)
-	MCFG_DISCRETE_INTF(schaser)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	DISCRETE(config, m_discrete, schaser_discrete);
+	m_discrete->add_route(ALL_OUTPUTS, "mono", 1.0);
 
-	MCFG_TIMER_DRIVER_ADD("schaser_sh_555", sc_state, schaser_effect_555_cb)
+	TIMER(config, "schaser_sh_555").configure_generic(FUNC(sc_state::schaser_effect_555_cb));
 MACHINE_CONFIG_END
 
 ROM_START( schasrcv )

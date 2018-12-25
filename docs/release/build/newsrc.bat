@@ -22,9 +22,19 @@ md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68k_in.cpp %to%\src\devices\cpu\m68000
 
+md %to%\src\devices\video
+copy /Y %from%\src\devices\video\vector.cpp %to%\src\devices\video
+
 md %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
+
+md %to%\src\mame\includes
+copy /Y %from%\src\mame\includes\mhavoc.h %to%\src\mame\includes
+copy /Y %from%\src\mame\includes\timelimt.h %to%\src\mame\includes
+
+md %to%\src\mame\machine
+copy /Y %from%\src\mame\machine\mhavoc.cpp %to%\src\mame\machine
 
 md %to%\src\hbmame
 xcopy /E /Y %from%\src\hbmame %to%\src\hbmame

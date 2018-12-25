@@ -137,6 +137,8 @@ ROM_START( temped )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( tempestm )
@@ -171,6 +173,8 @@ ROM_START( tempestm )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( tempall )
@@ -205,6 +209,8 @@ ROM_START( tempall )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( temptwst )
@@ -239,16 +245,18 @@ ROM_START( temptwst )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-ROM_START( tmptwsta )
+ROM_START( temptwsta )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tempall.113",  0x9000, 0x0800, CRC(a9000137) SHA1(1dfb23f5d47e49923c681d4483d744795d589af0) )
 	ROM_LOAD( "136002-114.e1",   0x9800, 0x0800, CRC(11077375) SHA1(ed8ff0ca969da6672a7683b93d4fcf2935a0d903) )
 	ROM_LOAD( "136002.115",   0xa000, 0x0800, CRC(f3e2827a) SHA1(bd04fcfbbba995e08c3144c1474fcddaaeb1c700) )
 	ROM_LOAD( "136002.316",   0xa800, 0x0800, CRC(aeb0f7e9) SHA1(a5cc25015b98692673cfc1c7c2e9634efd750870) )
 	ROM_LOAD( "136002.217",   0xb000, 0x0800, CRC(ef2eb645) SHA1(b1a2c969e8897e335d5354de6ae04a65d4b2a1e4) )
-	ROM_LOAD( "tmptwsta.118", 0xb800, 0x0800, CRC(a45add57) SHA1(79748a415dbc0a5f600d38ac098bd2d63a4f9ecc) )
+	ROM_LOAD( "temptwsta.118", 0xb800, 0x0800, CRC(a45add57) SHA1(79748a415dbc0a5f600d38ac098bd2d63a4f9ecc) )
 	ROM_LOAD( "temptwst.119", 0xc000, 0x0800, CRC(571b1799) SHA1(d6e5615032bcae0018e388d7e7d8a00c42ff0c5a) )
 	ROM_LOAD( "136002.120",   0xc800, 0x0800, CRC(35619648) SHA1(48f1e8bed7ec6afa0b4c549a30e5ec331c071e40) )
 	ROM_LOAD( "temptwst.121", 0xd000, 0x0800, CRC(67619e6e) SHA1(4cf91abc535cc8c5de7e5f30fabe0876a5182b39) )
@@ -273,19 +281,21 @@ ROM_START( tmptwsta )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-ROM_START( tmptwst2 )
+ROM_START( temptwst2 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tempall.113",  0x9000, 0x0800, CRC(a9000137) SHA1(1dfb23f5d47e49923c681d4483d744795d589af0) )
 	ROM_LOAD( "136002-114.e1",   0x9800, 0x0800, CRC(11077375) SHA1(ed8ff0ca969da6672a7683b93d4fcf2935a0d903) )
 	ROM_LOAD( "136002.115",   0xa000, 0x0800, CRC(f3e2827a) SHA1(bd04fcfbbba995e08c3144c1474fcddaaeb1c700) )
 	ROM_LOAD( "136002.316",   0xa800, 0x0800, CRC(aeb0f7e9) SHA1(a5cc25015b98692673cfc1c7c2e9634efd750870) )
 	ROM_LOAD( "136002.217",   0xb000, 0x0800, CRC(ef2eb645) SHA1(b1a2c969e8897e335d5354de6ae04a65d4b2a1e4) )
-	ROM_LOAD( "tmptwst2.118", 0xb800, 0x0800, CRC(1c6827cb) SHA1(d5a555f6ad59630e6d33c4bacad80ee429349e59) )
+	ROM_LOAD( "temptwst2.118", 0xb800, 0x0800, CRC(1c6827cb) SHA1(d5a555f6ad59630e6d33c4bacad80ee429349e59) )
 	ROM_LOAD( "temptwst.119", 0xc000, 0x0800, CRC(571b1799) SHA1(d6e5615032bcae0018e388d7e7d8a00c42ff0c5a) )
 	ROM_LOAD( "136002.120",   0xc800, 0x0800, CRC(35619648) SHA1(48f1e8bed7ec6afa0b4c549a30e5ec331c071e40) )
-	ROM_LOAD( "tmptwst2.121", 0xd000, 0x0800, CRC(c1bc4a69) SHA1(a60491fd7d6715118ed0d59dac0064c4263e15c6) )
+	ROM_LOAD( "temptwst2.121", 0xd000, 0x0800, CRC(c1bc4a69) SHA1(a60491fd7d6715118ed0d59dac0064c4263e15c6) )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
@@ -307,19 +317,21 @@ ROM_START( tmptwst2 )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-ROM_START( tmptwst3 )
+ROM_START( temptwst3 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tempall.113",  0x9000, 0x0800, CRC(a9000137) SHA1(1dfb23f5d47e49923c681d4483d744795d589af0) )
 	ROM_LOAD( "136002-114.e1",   0x9800, 0x0800, CRC(11077375) SHA1(ed8ff0ca969da6672a7683b93d4fcf2935a0d903) )
 	ROM_LOAD( "136002.115",   0xa000, 0x0800, CRC(f3e2827a) SHA1(bd04fcfbbba995e08c3144c1474fcddaaeb1c700) )
 	ROM_LOAD( "136002.316",   0xa800, 0x0800, CRC(aeb0f7e9) SHA1(a5cc25015b98692673cfc1c7c2e9634efd750870) )
 	ROM_LOAD( "136002.217",   0xb000, 0x0800, CRC(ef2eb645) SHA1(b1a2c969e8897e335d5354de6ae04a65d4b2a1e4) )
-	ROM_LOAD( "tmptwst3.118", 0xb800, 0x0800, CRC(c8e7693f) SHA1(18914841f3dc685d9a72bc2aaae940f6b6711e27) )
+	ROM_LOAD( "temptwst3.118", 0xb800, 0x0800, CRC(c8e7693f) SHA1(18914841f3dc685d9a72bc2aaae940f6b6711e27) )
 	ROM_LOAD( "temptwst.119", 0xc000, 0x0800, CRC(571b1799) SHA1(d6e5615032bcae0018e388d7e7d8a00c42ff0c5a) )
 	ROM_LOAD( "136002.120",   0xc800, 0x0800, CRC(35619648) SHA1(48f1e8bed7ec6afa0b4c549a30e5ec331c071e40) )
-	ROM_LOAD( "tmptwst3.121", 0xd000, 0x0800, CRC(194b34a9) SHA1(86c34dcccc2054cad4f8c175c4db4d3856172f66) )
+	ROM_LOAD( "temptwst3.121", 0xd000, 0x0800, CRC(194b34a9) SHA1(86c34dcccc2054cad4f8c175c4db4d3856172f66) )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
@@ -341,19 +353,21 @@ ROM_START( tmptwst3 )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-ROM_START( tmptwst4 )
+ROM_START( temptwst4 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "tempall.113",  0x9000, 0x0800, CRC(a9000137) SHA1(1dfb23f5d47e49923c681d4483d744795d589af0) )
 	ROM_LOAD( "136002-114.e1",   0x9800, 0x0800, CRC(11077375) SHA1(ed8ff0ca969da6672a7683b93d4fcf2935a0d903) )
 	ROM_LOAD( "136002.115",   0xa000, 0x0800, CRC(f3e2827a) SHA1(bd04fcfbbba995e08c3144c1474fcddaaeb1c700) )
 	ROM_LOAD( "136002.316",   0xa800, 0x0800, CRC(aeb0f7e9) SHA1(a5cc25015b98692673cfc1c7c2e9634efd750870) )
 	ROM_LOAD( "136002.217",   0xb000, 0x0800, CRC(ef2eb645) SHA1(b1a2c969e8897e335d5354de6ae04a65d4b2a1e4) )
-	ROM_LOAD( "tmptwst4.118", 0xb800, 0x0800, CRC(2b6fcca4) SHA1(adfd65c94c46235ba47017e726a7b3c554e8e07a) )
+	ROM_LOAD( "temptwst4.118", 0xb800, 0x0800, CRC(2b6fcca4) SHA1(adfd65c94c46235ba47017e726a7b3c554e8e07a) )
 	ROM_LOAD( "temptwst.119", 0xc000, 0x0800, CRC(571b1799) SHA1(d6e5615032bcae0018e388d7e7d8a00c42ff0c5a) )
 	ROM_LOAD( "136002.120",   0xc800, 0x0800, CRC(35619648) SHA1(48f1e8bed7ec6afa0b4c549a30e5ec331c071e40) )
-	ROM_LOAD( "tmptwst4.121", 0xd000, 0x0800, CRC(7fde0be4) SHA1(3d06b0f0ef71132b3fa67ad8930e2dd334e90932) )
+	ROM_LOAD( "temptwst4.121", 0xd000, 0x0800, CRC(7fde0be4) SHA1(3d06b0f0ef71132b3fa67ad8930e2dd334e90932) )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
@@ -375,6 +389,8 @@ ROM_START( tmptwst4 )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( vbrakout )
@@ -404,6 +420,8 @@ ROM_START( vbrakout )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( temptlm )
@@ -438,6 +456,8 @@ ROM_START( temptlm )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 
@@ -476,6 +496,8 @@ ROM_START( tvortex ) /* rev 1 */
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( tvortexa ) /* rev 2? */
@@ -510,6 +532,8 @@ ROM_START( tvortexa ) /* rev 2? */
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( aliensv ) /* rev 1 */
@@ -544,6 +568,8 @@ ROM_START( aliensv ) /* rev 1 */
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 ROM_START( aliensva ) /* rev 2? */
@@ -578,10 +604,11 @@ ROM_START( aliensva ) /* rev 2? */
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 /* tempest multigame */
-// 2018-10-31 marked as not working, as it will no longer go into the menu at boot
 
 class tempmg_state : public tempest_state
 {
@@ -629,7 +656,7 @@ void tempmg_state::init_tempmg()
 
 void tempmg_state::tempmg_map(address_map &map) {
 	map(0x0000, 0x07ff).ram();
-	map(0x0800, 0x080f).writeonly().share("colorram");
+	map(0x0800, 0x080f).ram().share("colorram");
 	map(0x0c00, 0x0c00).portr("IN0");
 	map(0x0d00, 0x0d00).portr("DSW1");
 	map(0x0e00, 0x0e00).portr("DSW2");
@@ -770,21 +797,23 @@ ROM_START( tempmg )
 	ROMX_LOAD( "136002.129", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
 	ROMX_LOAD( "136002.128", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
 	ROMX_LOAD( "136002.127", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
 
-HACK( 2000, temped,   tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, tempall,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, temptwst, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, tmptwsta, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted (Alt)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, tmptwst2, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisty's Revenge", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, tmptwst3, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, tmptwst4, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, tempestm, tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, tempmg,   tempest, tempmg,  tempest, tempmg_state,   tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1999, vbrakout, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, temptlm,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, tvortex,  tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, tvortexa, tempest, tempest, tempest, tempest_state,  0,      ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, aliensv,  tempest, tempest, aliensv, tempest_state,  0,      ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, aliensva, tempest, tempest, aliensv, tempest_state,  0,      ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temped,    tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tempall,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptwst,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisted", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptwsta, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisted (Alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptwst2, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisty's Revenge", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptwst3, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptwst4, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tempestm,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, tempmg,    tempest, tempmg,  tempest, tempmg_state,  init_tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, vbrakout,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, temptlm,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, tvortex,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Atari", "Vortex", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, tvortexa,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Atari", "Vortex alt version", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, aliensv,   tempest, tempest, aliensv, tempest_state, empty_init,  ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, aliensva,  tempest, tempest, aliensv, tempest_state, empty_init,  ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )
