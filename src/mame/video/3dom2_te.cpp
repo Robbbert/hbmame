@@ -236,8 +236,8 @@ static const uint32_t xy_one        = 1;
 #define TXTTABCNTL_AO_SEL_BLEND             2
 #define TXTTABCNTL_AO_SEL_RESERVED          3
 
-#define TXTTABCNTL_BLENDOP_MASK             0x00010000
-#define TXTTABCNTL_BLENDOP_SHIFT            16
+#define TXTTABCNTL_BLENDOP_MASK             0x00020000
+#define TXTTABCNTL_BLENDOP_SHIFT            17
 #define TXTTABCNTL_BLENDOP_LERP             0
 #define TXTTABCNTL_BLENDOP_MULT             1
 
@@ -2342,8 +2342,8 @@ void m2_te_device::select_lerp( uint32_t sel,
 		{
 			uint32_t cnst = ssbt ? m_tm.tex_srcconst3 : m_tm.tex_srcconst2;
 
-			ar = (cnst >> 24) & 0xff;
-			ag = (cnst >> 16) & 0xff;
+			ar = (cnst >> 16) & 0xff;
+			ag = (cnst >>  8) & 0xff;
 			ab = (cnst >>  0) & 0xff;
 			break;
 		}
