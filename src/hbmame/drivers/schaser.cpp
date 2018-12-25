@@ -102,7 +102,7 @@ private:
 	required_shared_ptr<uint8_t> m_p_ram;
 	required_shared_ptr<uint8_t> m_p_colorram;
 	required_device<sn76477_device> m_sn;
-	required_device<discrete_device> m_discrete;
+	required_device<discrete_sound_device> m_discrete;
 	required_device<timer_device> m_555_timer;
 	required_device<screen_device> m_screen;
 };
@@ -140,7 +140,7 @@ private:
 #define SCHASER_EXP_SND     NODE_11
 #define SCHASER_MUSIC_SND   NODE_12
 
-DISCRETE_SOUND_START(schaser)
+DISCRETE_SOUND_START(schaser_discrete)
 	/************************************************/
 	/* Input register mapping for schaser           */
 	/************************************************/
@@ -583,11 +583,10 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	snsnd.set_enable(1);
 	snsnd.add_route(0, "discrete", 1.0, 0);
 
-	MCFG_DEVICE_ADD("discrete", DISCRETE, 0)
-	MCFG_DISCRETE_INTF(schaser)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	DISCRETE(config, m_discrete, schaser_discrete);
+	m_discrete->add_route(ALL_OUTPUTS, "mono", 1.0);
 
-	MCFG_TIMER_DRIVER_ADD("schaser_sh_555", sc_state, schaser_effect_555_cb)
+	TIMER(config, "schaser_sh_555").configure_generic(FUNC(sc_state::schaser_effect_555_cb));
 MACHINE_CONFIG_END
 
 ROM_START( schasrcv )

@@ -37,9 +37,9 @@ ROM_START( survartss01 )
 	ROM_LOAD16_WORD_SWAP( "si001-13.u6", 0x300000, 0x100000, CRC(d66a7e26) SHA1(57b659daef00421b6742963f792bd5e020f625c9) )
 
 	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD( "gal16v8b.u5",   0x0000, 0x0117, CRC(378ce368) SHA1(cc068c9b63e6f91165f9caec581645ad45b2d3d0) )
+	ROM_LOAD_OPTIONAL( "gal16v8b.u5",   0x0000, 0x0117, CRC(378ce368) SHA1(cc068c9b63e6f91165f9caec581645ad45b2d3d0) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+//    YEAR  NAME            PARENT    MACHINE    INPUT      CLASS       INIT  MONITOR COMPANY   FULLNAME                            FLAGS
 // Survival Arts
-GAME( 200?,  survartss01,  survarts,      survarts, survarts, ssv_state, init_survarts, ROT0,   "DDJ",  "Survival Arts (Easy Move)(World)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 200?,  survartss01,  survarts,  survarts, survarts, ssv_state, init_ssv, ROT0,   "DDJ",  "Survival Arts (Easy Move)(World)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

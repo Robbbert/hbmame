@@ -332,9 +332,9 @@ MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	MCFG_DEVICE_ADD("namco", NAMCO, 3072000/32)
-	MCFG_NAMCO_AUDIO_VOICES(3)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	NAMCO(config, m_namco_sound, 3072000/32);
+	m_namco_sound->set_voices(3);
+	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
 MACHINE_CONFIG_END
 
 
