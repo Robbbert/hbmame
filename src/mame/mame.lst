@@ -9872,6 +9872,9 @@ clayshoo                        // [1979 Allied Leisure]
 @source:clcd.cpp
 clcd                            // Commodore LCD
 
+@source:clickstart.cpp
+clikstrt                        // (c) 2007 LeapFrog Enterprises
+
 @source:cliffhgr.cpp
 cliffhgr                        // (c) 1983
 cliffhgra                       // (c) 1983
@@ -11333,6 +11336,7 @@ skullfnga                       // MCH (c) 1996 Data East Corporation (Asia)
 skullfngj                       // MCH (c) 1996 Data East Corporation (Japan)
 stadhr96                        // MCM (c) 1996 Data East Corporation (World)
 stadhr96j                       // MCM (c) 1996 Data East Corporation (Japan)
+stadhr96j2                      // MCM (c) 1996 Data East Corporation (Japan)
 stadhr96u                       // MCM (c) 1996 Data East Corporation (USA)
 
 @source:deco156.cpp
@@ -13194,6 +13198,7 @@ intrgmes                        // (c) 1991 Inter Games
 fw_a7_11                        // (c) 1985 Fun World
 fw_a7_11a                       // (c) 1985 Fun World
 fw_a0_1                         // (c) 1991 Fun World
+jokcrdep                        // (c) 1991 Fun World
 
 @source:funybubl.cpp
 funybubl                        // (c) 1999 In Chang Electronic Co
@@ -15002,6 +15007,7 @@ uspbball                        // US Games
 
 @source:hh_sm510.cpp
 exospace                        // Elektronika
+gnw_bjack                       // Nintendo
 gnw_boxing                      // Nintendo
 gnw_climber                     // Nintendo
 gnw_dkjr                        // Nintendo
@@ -15009,6 +15015,7 @@ gnw_dkong                       // Nintendo
 gnw_dkong2                      // Nintendo
 gnw_egg                         // Nintendo
 gnw_ghouse                      // Nintendo
+gnw_manhole                     // Nintendo
 gnw_mario                       // Nintendo
 gnw_mariocm                     // Nintendo
 gnw_mmouse                      // Nintendo
@@ -17576,6 +17583,7 @@ berlwall                        // (c) 1991 Kaneko
 berlwallk                       // (c) 1991 Kaneko (Korea, Inter license)
 berlwallt                       // (c) 1991 Kaneko
 blazeon                         // (c) 1992 Atlus
+blazeonj                        // (c) 1992 Atlus
 bloodwar                        // (c) 1994 Kaneko
 bonkadv                         // (c) 1994 Kaneko
 brapboys                        // (c) 1992 Kaneko
@@ -21577,6 +21585,7 @@ pangb2                          // bootleg
 pangba                          // bootleg
 pangbb                          // bootleg
 pangbold                        // bootleg
+pangbp                          // bootleg
 pkladies                        // (c) 1989 Mitchell
 pkladiesbl                      // bootleg
 pkladiesbl2                     // bootleg
@@ -29284,6 +29293,9 @@ tenkomorja                      // 1998.12 Tenkomori Shooting (Japan, TKM1/VER.A
 toukon3                         // 1997.12 Shin Nihon Pro Wrestling Toukon Retsuden 3 Arcade Edition (Japan, TR1/VER.A)
 truckk                          // 2000.06 Truck Kyousoukyoku (Metro) (Japan, TKK2/VER.A)
 
+@source:namcos1b.cpp
+tankfrceb                       // bootleg
+
 @source:namcos2.cpp
 assault                         // (c) 1988
 assaultj                        // (c) 1988 (Japan)
@@ -30433,6 +30445,7 @@ bjtwinpa
 blkheart                        // UPL-91069
 blkheartj                       // UPL-91069
 bubl2000                        // (c) 1998 Tuning
+bubl2000a                       // (c) 1998 Tuning
 cactus                          // bootleg
 dolmen                          // (c) 1995
 firehawk                        // (c) 2001 ESD
@@ -31031,27 +31044,31 @@ ataripc1                        // Atari PC1
 ataripc3                        // Atari PC3
 bw230                           // 1985 Bondwell (CGA)
 compc1                          // 1984 Commodore PC-1
+comport                         // Compaq Portable
 dgone                           // 1984 Data General/One
 eagle1600                       //
+eaglespirit                     // Eagle PC Spirit
 epc                             // 1984 Ericsson PC
 eppc                            // 1985 Ericsson Portable PC
 ibm5550                         //
 iskr3104                        //
-kaypro16                        //
+ittxtra                         // 1984 ITT XTRA
+kaypro16                        // Kaypro 16
+laser_turbo_xt                  // 1988 VTech Laser Turbo XT
+laser_xt3                       // 1989 VTech Laser XT/3
 mbc16                           // Sanyo MBC-16
+mpc1600                         // Columbia Data Products MPC 1600
 mc1702                          //
 mk88                            //
-olivm15                         //
+ncrpc4i                         // NCR PC4i
+olivm15                         // Olivetti M15
+olytext30                       // AEG Olympia Olytext 30
 pc7000                          // 1985 Sharp PC-7000
 poisk2                          //
-sicpc1605                       //
+sicpc1605                       // Siemens Sicomp PC16-05
 ssam88s                         //
 sx16                            // Sanyo SX-16
 zdsupers                        //
-ncrpc4i                         // NCR PC4i
-laser_turbo_xt                  // 1988 VTech Laser Turbo XT
-laser_xt3                       // 1989 VTech Laser XT/3
-olytext30                       // AEG Olympia Olytext 30
 
 @source:pc100.cpp
 pc100                           //
@@ -32790,22 +32807,22 @@ gametree                        // (c) 1978 PSE
 
 @source:psikyo.cpp
 btlkroad                        // (c) 1994
-btlkroadk                       // (c) 1994
+btlkroadk                       // (c) 1994 (Korea)
 gunbird                         // (c) 1994
-gunbirdj                        // (c) 1994
-gunbirdk                        // (c) 1994
-s1945                           // (c) 1995
+gunbirdj                        // (c) 1994 (Japan)
+gunbirdk                        // (c) 1994 (Korea)
+s1945                           // (c) 1995 (Japan)
 s1945a                          // (c) 1995
 s1945bl                         // (c) 1995 (Hong Kong bootleg)
-s1945j                          // (c) 1995
-s1945jn                         // (c) 1995
-s1945k                          // (c) 1995
-s1945n                          // (c) 1995
+s1945j                          // (c) 1995 (Japan)
+s1945k                          // (c) 1995 (Korea)
+s1945n                          // (c) 1995 (World, unprotected)
+s1945nj                         // (c) 1995 (Japan, unprotected)
 samuraia                        // (c) 1993 (World)
 sngkace                         // (c) 1993 (Japan)
 sngkacea                        // (c) 1993 (Japan)
-tengai                          // (c) 1996
-tengaij                         // (c) 1996
+tengai                          // (c) 1996 (World)
+tengaij                         // (c) 1996 (Japan)
 
 @source:psikyo4.cpp
 hgkairak                        // (c) 1998
@@ -33034,6 +33051,10 @@ rabbitjt                        // (c) 1996 Electronic Arts
 @source:rad_eu3a14.cpp
 rad_gtg
 rad_foot
+rad_bb3
+rad_bb3p
+rad_hnt3
+rad_hnt3p
 
 @source:rad_eu3a05.cpp
 rad_sinv
@@ -37161,6 +37182,7 @@ riot                            // (c) 1992 NMK
 
 @source:tecmosys.cpp
 deroon                          // (c) 1996 Tecmo
+deroon2                         // (c) 1996 Tecmo
 tkdensho                        // (c) 1996 Tecmo
 tkdenshoa                       // (c) 1996 Tecmo
 
@@ -37244,9 +37266,10 @@ rockna                          // (c) 1999 Jaleco
 rocknms                         // (c) 1999 Jaleco
 step3                           // (c) 1999 Jaleco
 stepstag                        // (c) 1999 Jaleco
-tetrisp2                        // (c) 1997 Jaleco
-tetrisp2j                       // (c) 1997 Jaleco
-tetrisp2ja                      // (c) 1997 Jaleco
+tetrisp2                        // (c) 1997 Jaleco (World v2.8)
+tetrisp2a                       // (c) 1997 Jaleco (World v2.7)
+tetrisp2j                       // (c) 1997 Jaleco (Japan v2.2)
+tetrisp2ja                      // (c) 1997 Jaleco (Japan v2.1)
 vjdash                          // (c) 1999 Jaleco
 
 @source:textelcomp.cpp
@@ -38009,6 +38032,7 @@ cookbib                         // (c) 1995 SemiCom
 cookbiba                        //
 dquizgo                         // (c) 1998 SemiCom
 fncywld                         // (c) 1996 Unico
+funkyjetb                       // bootleg
 magipur                         // (c) 1996 Unico
 htchctch                        // (c) 1995 SemiCom
 jumpkids                        // (c) 1993 Comad
@@ -38530,6 +38554,7 @@ rad_skat                        //
 rad_skatp                       //
 rad_sktv                        //
 rad_crik                        //
+rad_fb2                         //
 
 @source:vsmile.cpp
 vsmile                          //
@@ -39666,6 +39691,7 @@ rad_box                         //
 rad_boxp                        //
 rad_crdn                        //
 rad_crdnp                       //
+rad_opus                        //
 rad_bass                        //
 rad_bassp                       //
 rad_snow                        //
@@ -39676,6 +39702,11 @@ epo_efdx                        //
 rad_rh                          //
 has_wamg                        //
 ekara                           //
+ekaraa                          //
+ekaraj                          //
+ddrfammt                        //
+popira                          //
+taikodp                         //
 xavtenni                        //
 ttv_sw                          //
 ttv_lotr                        //

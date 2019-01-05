@@ -622,6 +622,7 @@ MACHINES["WD_FDC"] = true
 MACHINES["WD11C00_17"] = true
 MACHINES["WD2010"] = true
 MACHINES["WD33C93"] = true
+MACHINES["WD33C9X"] = true
 MACHINES["WD7600"] = true
 MACHINES["X2201"] = true
 MACHINES["X2212"] = true
@@ -678,6 +679,7 @@ MACHINES["IOPSIO2"] = true
 MACHINES["IOPTIMER"] = true
 MACHINES["Z8038"] = true
 MACHINES["AIC6250"] = true
+MACHINES["DC7085"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -725,6 +727,7 @@ BUSES["CRVISION"] = true
 BUSES["DMV"] = true
 BUSES["ECBBUS"] = true
 BUSES["ECONET"] = true
+BUSES["EKARA"] = true
 BUSES["EINSTEIN_USERPORT"] = true
 BUSES["ELECTRON"] = true
 BUSES["ELECTRON_CART"] = true
@@ -2982,10 +2985,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/mbc200.cpp",
 	MAME_DIR .. "src/mame/drivers/mbc55x.cpp",
 	MAME_DIR .. "src/mame/includes/mbc55x.h",
-	MAME_DIR .. "src/mame/machine/mbc55x.cpp",
 	MAME_DIR .. "src/mame/video/mbc55x.cpp",
 	MAME_DIR .. "src/mame/drivers/phc25.cpp",
 	MAME_DIR .. "src/mame/includes/phc25.h",
+	MAME_DIR .. "src/mame/machine/mbc55x_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/mbc55x_kbd.h",
 }
 
 -- Don't call this project "sega" or it collides with the arcade one
@@ -3300,7 +3304,10 @@ files {
 	MAME_DIR .. "src/mame/drivers/tv965.cpp",
 	MAME_DIR .. "src/mame/drivers/tv990.cpp",
 	MAME_DIR .. "src/mame/drivers/ts3000.cpp",
+	MAME_DIR .. "src/mame/machine/tv950kb.cpp",
+	MAME_DIR .. "src/mame/machine/tv950kb.h",
 	MAME_DIR .. "src/mame/machine/tv955kb.cpp",
+	MAME_DIR .. "src/mame/machine/tv955kb.h",
 }
 
 createMESSProjects(_target, _subtarget, "tem")
@@ -3609,6 +3616,7 @@ files {
 	MAME_DIR .. "src/mame/audio/socrates.h",
 	MAME_DIR .. "src/mame/drivers/inteladv.cpp",
 	MAME_DIR .. "src/mame/drivers/vsmile.cpp",
+	MAME_DIR .. "src/mame/drivers/clickstart.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "wang")

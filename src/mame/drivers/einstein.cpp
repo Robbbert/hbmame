@@ -625,7 +625,7 @@ MACHINE_CONFIG_START(einstein_state::einstein)
 	m_psg->port_a_write_callback().set(FUNC(einstein_state::keyboard_line_write));
 	m_psg->add_route(ALL_OUTPUTS, "mono", 0.20);
 
-	adc0844_device &adc(ADC0844(config, "adc", 0));
+	adc0844_device &adc(ADC0844(config, "adc"));
 	adc.intr_callback().set(m_adc_daisy, FUNC(z80daisy_generic_device::int_w));
 	adc.ch1_callback().set_ioport("analogue_1_x");
 	adc.ch2_callback().set_ioport("analogue_1_y");
@@ -671,8 +671,8 @@ MACHINE_CONFIG_START(einstein_state::einstein)
 	RAM(config, RAM_TAG).set_default_size("64K");
 
 	// tatung pipe connector
-	MCFG_TATUNG_PIPE_ADD("pipe")
-	MCFG_TATUNG_PIPE_NMI_HANDLER(INPUTLINE(IC_I001, INPUT_LINE_NMI))
+	TATUNG_PIPE(config, m_pipe, XTAL_X002 / 2, tatung_pipe_cards, nullptr);
+	m_pipe->nmi_handler().set_inputline(IC_I001, INPUT_LINE_NMI);
 
 	// user port
 	MCFG_EINSTEIN_USERPORT_ADD("user")
