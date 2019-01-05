@@ -65,9 +65,8 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_SCREEN_UPDATE_DRIVER(timelimt_hbmame, screen_update)
 	MCFG_SCREEN_PALETTE("palette")
 
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_timelimt)
-	MCFG_PALETTE_ADD("palette", 64+32)
-	MCFG_PALETTE_INIT_OWNER(timelimt_hbmame, timelimt)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_timelimt);
+	PALETTE(config, m_palette, FUNC(timelimt_hbmame::timelimt_palette), 64+32);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

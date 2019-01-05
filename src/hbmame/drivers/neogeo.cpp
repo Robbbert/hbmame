@@ -1344,7 +1344,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 
 	MCFG_DEVICE_ADD( "gfxdecode", GFXDECODE, "palette", gfx_neogeo)
 	/* 4096 colors * two banks * normal and shadow */
-	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
+	MCFG_DEVICE_ADD(m_palette, PALETTE, palette_device::BLACK, 4096*2*2)
 
 	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE, 0)
 
@@ -1355,12 +1355,12 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	GENERIC_LATCH_8(config, m_soundlatch);
 	GENERIC_LATCH_8(config, m_soundlatch2);
 
-	MCFG_DEVICE_ADD("ymsnd", YM2610, NEOGEO_YM2610_CLOCK)
-	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
-	MCFG_SOUND_ROUTE(0, "lspeaker", 0.28)
-	MCFG_SOUND_ROUTE(0, "rspeaker", 0.28)
-	MCFG_SOUND_ROUTE(1, "lspeaker", 0.98)
-	MCFG_SOUND_ROUTE(2, "rspeaker", 0.98)
+	YM2610(config, m_ym, NEOGEO_YM2610_CLOCK);
+	m_ym->irq_handler().set_inputline(m_audiocpu, 0);
+	m_ym->add_route(0, "lspeaker", 0.28);
+	m_ym->add_route(0, "rspeaker", 0.28);
+	m_ym->add_route(1, "lspeaker", 0.98);
+	m_ym->add_route(2, "rspeaker", 0.98);
 	MCFG_NEOGEO_BANKED_CART_ADD("banked_cart")
 MACHINE_CONFIG_END
 

@@ -75,7 +75,6 @@ public:
 protected:
 	virtual void device_post_load() override;
 
-private:
 	required_device<sh2_device> m_maincpu;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;

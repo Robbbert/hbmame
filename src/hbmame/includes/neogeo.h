@@ -52,6 +52,7 @@ public:
 		, m_banked_cart(*this, "banked_cart")
 		, m_maincpu(*this, "maincpu")
 		, m_audiocpu(*this, "audiocpu")
+		, m_ym(*this, "ymsnd")
 		, m_region_maincpu(*this, "maincpu")
 		, m_region_sprites(*this, "sprites")
 		, m_region_fixed(*this, "fixed")
@@ -338,6 +339,7 @@ private:
 	optional_device<neogeo_banked_cart_device> m_banked_cart;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_audiocpu;
+	required_device<ym2610_device> m_ym;
 	required_memory_region m_region_maincpu;
 	required_memory_region m_region_sprites;
 	required_memory_region m_region_fixed;
