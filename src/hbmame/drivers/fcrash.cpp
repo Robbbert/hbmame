@@ -1519,11 +1519,11 @@ MACHINE_START_MEMBER(cps_state, knightsb)
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 
-	m_layer_enable_reg = 0x30;
-	m_layer_mask_reg[0] = 0x28;
-	m_layer_mask_reg[1] = 0x2a;
-	m_layer_mask_reg[2] = 0x2c;
-	m_layer_mask_reg[3] = 0x2e;
+	m_layer_enable_reg = 0x28;
+	m_layer_mask_reg[0] = 0x26;
+	m_layer_mask_reg[1] = 0x24;
+	m_layer_mask_reg[2] = 0x22;
+	m_layer_mask_reg[3] = 0x30;
 	m_layer_scroll1x_offset = 0x3e; //text
 	m_layer_scroll2x_offset = 0x3c; //bricks around scores
 	m_layer_scroll3x_offset = 0x40; //hill with sword going in
