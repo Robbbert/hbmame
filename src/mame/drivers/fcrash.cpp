@@ -251,13 +251,25 @@ WRITE16_MEMBER(cps_state::knightsb_layer_w)
 			case 0x0000:
 			case 0x001f:
 			case 0x00ff:
+			case 0x07ff:
 				data = 0x12f2;
 				break;
 			case 0x2000:
-				data = 0x06f2;
+				data = 0x06c0;
+				break;
+			case 0x5800:
+			case 0x5f00:
+				data = 0x12c0;
+				break;
+			case 0x80ff:
+			case 0x87ff:
+				data = 0x1380;
 				break;
 			case 0xa000:
-				data = 0x24d0;
+				data = 0x24c0;
+				break;
+			case 0xd800:
+				data = 0x1380;
 				break;
 			default:
 				printf ("Unknown control word = %X\n",data);
@@ -469,9 +481,10 @@ WRITE16_MEMBER(cps_state::sf2mdta_layer_w)
 	case 0x09:
 		m_cps_a_regs[0x12 / 2] = data; /* scroll 2y */
 		m_cps_a_regs[CPS1_ROWSCROLL_OFFS] = data; /* row scroll start */
+		m_cps_a_regs[0x08 / 2] = m_mainram[0x802e / 2];
 		break;
 	case 0x0a:
-		m_cps_a_regs[0x10 / 2] = data + 0xffce; /* scroll 2x */
+		m_cps_a_regs[0x10 / 2] = 0xffce; /* scroll 2x */
 		break;
 	case 0x0b:
 		m_cps_a_regs[0x16 / 2] = data; /* scroll 3y */
@@ -813,7 +826,7 @@ void cps_state::sf2mdt_map(address_map &map)
 	map(0x800100, 0x80013f).ram().share("cps_a_regs");  /* CPS-A custom */
 	map(0x800140, 0x80017f).ram().share("cps_b_regs");  /* CPS-B custom */
 	map(0x900000, 0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xff0000, 0xffffff).ram();
+	map(0xff0000, 0xffffff).ram().share("mainram");
 }
 
 void cps_state::sf2b_map(address_map &map)
@@ -846,7 +859,7 @@ void cps_state::sgyxz_map(address_map &map)
 	map(0x900000, 0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf1c004, 0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));     /* Coin control2 (later games) */
 	map(0xf1c006, 0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
-	map(0xff0000, 0xffffff).ram();
+	map(0xff0000, 0xffffff).ram().share("mainram");
 }
 
 void cps_state::wofabl_map(address_map &map)
@@ -1635,11 +1648,11 @@ MACHINE_START_MEMBER(cps_state, knightsb)
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 
-	m_layer_enable_reg = 0x30;
-	m_layer_mask_reg[0] = 0x28;
-	m_layer_mask_reg[1] = 0x2a;
-	m_layer_mask_reg[2] = 0x2c;
-	m_layer_mask_reg[3] = 0x2e;
+	m_layer_enable_reg = 0x28;
+	m_layer_mask_reg[0] = 0x26;
+	m_layer_mask_reg[1] = 0x24;
+	m_layer_mask_reg[2] = 0x22;
+	m_layer_mask_reg[3] = 0x20;
 	m_layer_scroll1x_offset = 0x3e; //text
 	m_layer_scroll2x_offset = 0x3c; //bricks around scores
 	m_layer_scroll3x_offset = 0x40; //hill with sword going in
