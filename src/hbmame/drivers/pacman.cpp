@@ -461,7 +461,7 @@ MACHINE_CONFIG_START( pacman_state::pacmanx )
 	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacmanx)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pacmanx)
+	m_gfxdecode->set_info(gfx_pacmanx);
 MACHINE_CONFIG_END
 
 
