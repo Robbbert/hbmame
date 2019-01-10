@@ -89,8 +89,8 @@ namespace netlist
 
 	NETLIB_UPDATE(7483)
 	{
-		netlist_sig_t a = (m_A1() << 0) | (m_A2() << 1) | (m_A3() << 2) | (m_A4() << 3);
-		netlist_sig_t b = (m_B1() << 0) | (m_B2() << 1) | (m_B3() << 2) | (m_B4() << 3);
+		unsigned a = (m_A1() << 0) | (m_A2() << 1) | (m_A3() << 2) | (m_A4() << 3);
+		unsigned b = (m_B1() << 0) | (m_B2() << 1) | (m_B3() << 2) | (m_B4() << 3);
 
 		unsigned r = a + b + m_C0();
 
@@ -105,8 +105,8 @@ namespace netlist
 		}
 	}
 
-	NETLIB_DEVICE_IMPL(7483)
-	NETLIB_DEVICE_IMPL(7483_dip)
+	NETLIB_DEVICE_IMPL(7483, "TTL_7483", "+A1,+A2,+A3,+A4,+B1,+B2,+B3,+B4,+C0")
+	NETLIB_DEVICE_IMPL(7483_dip, "TTL_7483_DIP", "")
 
 	} //namespace devices
 } // namespace netlist
