@@ -1456,6 +1456,7 @@ MACHINE_START_MEMBER(cps_state,sgyxz)
 	m_layer_scroll1x_offset = 0x40;
 	m_layer_scroll2x_offset = 0x40;
 	m_layer_scroll3x_offset = 0x40;
+	m_sprite_list_end_marker = 0x8000;
 	membank("bank1")->configure_entries(0, 2, memregion("audiocpu")->base() + 0x10000, 0x4000);
 }
 
