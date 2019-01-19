@@ -40,7 +40,7 @@ namespace netlist
 		NETLIB_HANDLERI(clk);
 		NETLIB_HANDLERI(abcd)
 		{
-			m_abcd = (m_D() << 3) | (m_C() << 2) | (m_B() << 1) | (m_A() << 0);
+			m_abcd = static_cast<uint8_t>((m_D() << 3) | (m_C() << 2) | (m_B() << 1) | (m_A() << 0));
 		}
 
 		logic_input_t m_CLK;
@@ -63,8 +63,7 @@ namespace netlist
 		state_var_u8 m_abcd;
 
 	private:
-		//inline void update_outputs_all(const unsigned &cnt, const netlist_time &out_delay) noexcept
-		inline void update_outputs_all(const unsigned &cnt, const netlist_time &out_delay) noexcept
+		void update_outputs_all(const unsigned &cnt, const netlist_time &out_delay) noexcept
 		{
 			m_Q[0].push((cnt >> 0) & 1, out_delay);
 			m_Q[1].push((cnt >> 1) & 1, out_delay);
@@ -99,7 +98,7 @@ namespace netlist
 
 	NETLIB_RESET(9316)
 	{
-		m_CLK.activate_lh();
+		m_CLK.set_state(logic_t::STATE_INP_LH);
 		m_cnt = 0;
 		m_abcd = 0;
 	}

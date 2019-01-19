@@ -233,7 +233,7 @@ namespace netlist
 		: netlist_base_factory_truthtable_t(name, classname, def_param, sourcefile)
 		{ }
 
-		plib::owned_ptr<device_t> Create(netlist_t &anetlist, const pstring &name) override
+		plib::owned_ptr<device_t> Create(netlist_base_t &anetlist, const pstring &name) override
 		{
 			typedef nld_truthtable_t<m_NI, m_NO> tt_type;
 			truthtable_parser desc_s(m_NO, m_NI, &m_ttbl.m_initialized,
@@ -448,7 +448,7 @@ void truthtable_parser::parse(const std::vector<pstring> &truthtable)
 	{
 		if (m_out_state[i] == m_out_state.mask())
 			throw nl_exception(plib::pfmt("truthtable: found element not set {1}\n").x(i) );
-		m_out_state.set(i, m_out_state[i] | (ign[i] << m_NO));;
+		m_out_state.set(i, m_out_state[i] | (ign[i] << m_NO));
 	}
 	*m_initialized = true;
 

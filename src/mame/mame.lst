@@ -154,6 +154,7 @@ invadpt2br                      // Taito do Brasil
 invadrmr                        // (c) 1978 Model Racing
 invasion                        // Sidam
 invasiona                       // bootleg
+invasiona2                      // bootleg
 invasionb                       // bootleg
 invasionrz                      // bootleg
 invasionrza                     // bootleg
@@ -903,6 +904,9 @@ viruscl                         // (c) 2004 Access GmbH
 @source:adam.cpp
 adam                            // Coleco Adam
 
+@source:adm23.cpp
+adm23                           //
+
 @source:adp.cpp
 fashiong                        // (c) 1997
 fashiong2                       // (c) 1997
@@ -1264,6 +1268,7 @@ kccomp                          // VEB KC compact
 @source:amusco.cpp
 amusco                          // 1987, Amusco.
 draw88pkr                       // 1988, BTE, Inc.
+freeway
 
 @source:amust.cpp
 amust                           //
@@ -14377,6 +14382,7 @@ nfb96c                          // (c) 1996 Amcoe
 nfb96se                         // bootleg
 nfb96sea                        // bootleg
 nfb96seb                        // bootleg
+nfb96sec                        // bootleg
 nfb96txt                        // (c) 2000 Amcoe
 nfm                             // bootleg
 ns8lines                        // unknown
@@ -20912,12 +20918,13 @@ dcat16                          //
 
 @source:megadriv_acbl.cpp
 aladmdb                         // MegaDrive-based hack
+barek3mb                        // MegaDrive-based hack
 mk3mdb                          // MegaDrive-based hack
 sonic2mb                        // MegaDrive-based hack
 srmdb                           // MegaDrive-based hack
 ssf2mdb                         // MegaDrive-based hack
 topshoot                        // (c) 1995 Sun Mixing
-barek3mb                        // MegaDrive-based hack
+twinktmb                        // MegaDrive-based hack
 
 @source:megadriv_rad.cpp
 rad_sf                          // (c)2004 Radica
@@ -33055,6 +33062,8 @@ rabbitjt                        // (c) 1996 Electronic Arts
 
 @source:rad_eu3a14.cpp
 rad_gtg
+rad_rsg
+rad_rsgp
 rad_foot
 rad_bb3
 rad_bb3p
@@ -34825,6 +34834,7 @@ magspeed                        // (c) 1994 Allumer
 metafox                         // UP   (c) 1989 + Jordan, Romstar or Taito license (DSW)
 msgundam                        // (c) 1993 Banpresto
 msgundam1                       // (c) 1993 Banpresto
+msgundamb                       // bootleg
 neobattl                        // (c) 1992 Banpresto / Sotsu Agency. Sunrise
 oisipuzl                        // (c) 1993 SunSoft / Atlus
 orbs                            // (c) 1994 American Sammy
@@ -34872,6 +34882,7 @@ funcube3                        // (c) 2001 Namco
 funcube4                        // (c) 2001 Namco
 funcube5                        // (c) 2002 Namco
 grdians                         // (c) 1995 Banpresto
+grdiansa                        // (c) 1995 Banpresto
 gundamex                        // (c) 1994 Banpresto
 mj4simai                        // (c) 1996 Maboroshi Ware
 myangel                         // (c) 1996 Namco
@@ -35630,6 +35641,9 @@ sorcerer                        // Sorcerer
 sorcerer2                       // monitor 1.1 1979
 sorcererd                       // Sorcerer with floppies
 
+@source:storio.cpp
+storio                          // (c)200? VTech
+
 @source:sothello.cpp
 sothello                        // (c) 1986 Success / Fujiwara.
 
@@ -36231,7 +36245,9 @@ humlan                          // (c) 2001 Subsino & Truemax
 mtrain                          // (c) 1996 Subsino
 new2001                         // (c) 2000 Subsino
 ptrain                          // (c) 1999 Subsino
+queenbee                        // (c) 2001 Subsino
 saklove                         // (c) 1998 Subsino
+squeenb                         // (c) 2002 Subsino
 wtrnymph                        // (c) 1996 Subsino
 xplan                           // (c) 2006 Subsino
 xtrain                          // (c) 1999 Subsino
@@ -37938,6 +37954,9 @@ vs4j                            // 2004.10 Virtua Striker 4 (Japan) (Rev E)
 @source:triplhnt.cpp
 triplhnt                        // 008422-008791    1977/04 [6800]
 
+@source:trkfldch.cpp
+trkfldch                        // (c) 2007 Konami
+
 @source:trs80.cpp
 ht108064                        // Hradstechnika Szvetkezet HT-1080Z/64
 ht1080z                         // Hradstechnika Szvetkezet HT-1080Z
@@ -38546,6 +38565,9 @@ vigilantd                       // (c) 1988 (Japan Rev D)
 vigilantg                       // (c) 1988 (US Rev G)
 vigilanto                       // (c) 1988 (US)
 
+@source:spg110.cpp
+jak_capb                        //
+
 @source:vii.cpp
 jak_batm                        // The Batman, 2004
 jak_wall                        //
@@ -38553,6 +38575,8 @@ jak_wwe                         //
 jak_fan4                        //
 jak_just                        //
 jak_dora                        //
+jak_disf                        //
+jak_sdoo                        //
 vii                             // KenSingTon / Jungle Soft / Siatronics Vii
 wrlshunt                        // Wireless: Hunting Video Game System
 wirels60                        // Wireless 60
@@ -39702,12 +39726,15 @@ rad_boxp                        //
 rad_crdn                        //
 rad_crdnp                       //
 rad_opus                        //
+rad_hnt                         //
+rad_hnt2                        //
 rad_bass                        //
 rad_bassp                       //
 rad_snow                        //
 rad_snowp                       //
 rad_madf                        //
 rad_fb                          //
+epo_epp                         //
 epo_efdx                        //
 epo_sdb                         //
 epo_guru                        //
@@ -39721,6 +39748,7 @@ ddrfammt                        //
 popira                          //
 taikodp                         //
 xavtenni                        //
+xavbaseb                        //
 ttv_sw                          //
 ttv_lotr                        //
 ttv_mx                          //

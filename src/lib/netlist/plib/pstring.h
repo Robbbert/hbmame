@@ -147,6 +147,8 @@ public:
 			*this += static_cast<code_t>(c); // FIXME: codepage conversion for u8
 	}
 
+	operator string_type () const { return m_str; }
+
 	pstring_t &operator=(const pstring_t &string) { m_str = string.m_str; return *this; }
 
 	template <typename T,
@@ -561,7 +563,9 @@ namespace plib
 		decltype(arg.c_str()) cstr = arg.c_str();
 		std::size_t idx(0);
 		auto ret = pstonum_helper<T>()(cstr, &idx);
-		if (ret >= std::numeric_limits<T>::lowest() && ret <= std::numeric_limits<T>::max())
+		typedef decltype(ret) ret_type;
+		if (ret >= static_cast<ret_type>(std::numeric_limits<T>::lowest())
+			&& ret <= static_cast<ret_type>(std::numeric_limits<T>::max()))
 			//&& (ret == T(0) || std::abs(ret) >= std::numeric_limits<T>::min() ))
 		{
 			if (cstr[idx] != 0)

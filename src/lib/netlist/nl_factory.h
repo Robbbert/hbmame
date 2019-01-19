@@ -36,12 +36,13 @@
 	{ \
 		return std::unique_ptr<factory::element_t>(plib::palloc<factory::device_element_t<ns :: NETLIB_NAME(chip)>>(name, classname, def_param, pstring(__FILE__))); \
 	} \
+	\
 	factory::constructor_ptr_t decl_ ## chip = NETLIB_NAME(chip ## _c);
 
 namespace netlist {
-	class netlist_t;
 	class device_t;
 	class setup_t;
+	class netlist_state_t;
 
 namespace factory {
 	// -----------------------------------------------------------------------------
@@ -57,8 +58,8 @@ namespace factory {
 				const pstring &def_param, const pstring &sourcefile);
 		virtual ~element_t();
 
-		virtual plib::owned_ptr<device_t> Create(netlist_t &anetlist, const pstring &name) = 0;
-		virtual void macro_actions(netlist_t &anetlist, const pstring &name) {}
+		virtual plib::owned_ptr<device_t> Create(netlist_state_t &anetlist, const pstring &name) = 0;
+		virtual void macro_actions(netlist_state_t &anetlist, const pstring &name) {}
 
 		const pstring &name() const { return m_name; }
 		const pstring &classname() const { return m_classname; }
@@ -83,7 +84,7 @@ namespace factory {
 				const pstring &def_param, const pstring &sourcefile)
 		: element_t(name, classname, def_param, sourcefile) { }
 
-		plib::owned_ptr<device_t> Create(netlist_t &anetlist, const pstring &name) override
+		plib::owned_ptr<device_t> Create(netlist_state_t &anetlist, const pstring &name) override
 		{
 			return plib::owned_ptr<device_t>::Create<C>(anetlist, name);
 		}
@@ -142,9 +143,9 @@ namespace factory {
 				const pstring &def_param, const pstring &source)
 		: element_t(name, classname, def_param, source) {  }
 
-		plib::owned_ptr<device_t> Create(netlist_t &anetlist, const pstring &name) override;
+		plib::owned_ptr<device_t> Create(netlist_state_t &anetlist, const pstring &name) override;
 
-		void macro_actions(netlist_t &anetlist, const pstring &name) override;
+		void macro_actions(netlist_state_t &anetlist, const pstring &name) override;
 
 	private:
 	};

@@ -41,7 +41,13 @@ namespace netlist
 	private:
 		state_var<netlist_sig_t> m_nextD;
 
-		inline void newstate(const netlist_sig_t stateQ, const netlist_sig_t stateQQ);
+		void newstate(const netlist_sig_t stateQ, const netlist_sig_t stateQQ)
+		{
+			// 0: High-to-low 40 ns, 1: Low-to-high 25 ns
+			static constexpr const netlist_time delay[2] = { NLTIME_FROM_NS(40), NLTIME_FROM_NS(25) };
+			m_Q.push(stateQ, delay[stateQ]);
+			m_QQ.push(stateQQ, delay[stateQQ]);
+		}
 	};
 
 	NETLIB_OBJECT(7474_dip)
@@ -74,14 +80,6 @@ namespace netlist
 		NETLIB_SUB(7474) m_2;
 	};
 
-	inline void NETLIB_NAME(7474)::newstate(const netlist_sig_t stateQ, const netlist_sig_t stateQQ)
-	{
-		// 0: High-to-low 40 ns, 1: Low-to-high 25 ns
-		static constexpr const netlist_time delay[2] = { NLTIME_FROM_NS(40), NLTIME_FROM_NS(25) };
-		m_Q.push(stateQ, delay[stateQ]);
-		m_QQ.push(stateQQ, delay[stateQQ]);
-	}
-
 	NETLIB_HANDLER(7474, clk)
 	{
 		//if (INP_LH(m_CLK))
@@ -111,7 +109,7 @@ namespace netlist
 
 	NETLIB_RESET(7474)
 	{
-		m_CLK.activate_lh();
+		m_CLK.set_state(logic_t::STATE_INP_LH);
 		m_nextD = 0;
 	}
 

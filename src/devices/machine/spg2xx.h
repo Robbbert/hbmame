@@ -27,12 +27,6 @@
         ND - unknown - Wireless Air 60
         ND - Likely many more
 
-    Also on this hardware:
-
-        name                        PCB ID      ROM width   TSOP pads   ROM size        SEEPROM         die markings
-        Radica Play TV Football 2   L7278       x16         48          not dumped      no              Sunplus
-        Dream Life                  ?           x16         48          not dumped      no              Sunplus
-
 **********************************************************************/
 
 #ifndef MAME_MACHINE_SPG2XX_H
@@ -402,6 +396,9 @@ protected:
 	static const device_timer_id TIMER_UART_TX = 4;
 	static const device_timer_id TIMER_UART_RX = 5;
 	static const device_timer_id TIMER_4KHZ = 6;
+	static const device_timer_id TIMER_SRC_A = 7;
+	static const device_timer_id TIMER_SRC_B = 8;
+	static const device_timer_id TIMER_SRC_C = 9;
 
 	virtual void device_start() override;
 	virtual void device_reset() override;
@@ -409,8 +406,14 @@ protected:
 
 	void update_porta_special_modes();
 	void update_portb_special_modes();
-	void do_gpio(uint32_t offset);
+	void do_gpio(uint32_t offset, bool write);
 	uint16_t do_special_gpio(uint32_t index, uint16_t mask);
+
+	void update_timer_b_rate();
+	void update_timer_a_src();
+	void update_timer_b_src();
+	void update_timer_c_src();
+	void increment_timer_a();
 
 	void uart_transmit_tick();
 	void uart_receive_tick();
@@ -434,31 +437,31 @@ protected:
 		RowScrollOn = true
 	};
 
+	enum flipx_t : bool
+	{
+		FlipXOff = false,
+		FlipXOn = true
+	};
+
 	void apply_saturation(const rectangle &cliprect);
 	void apply_fade(const rectangle &cliprect);
 
-	template<blend_enable_t Blend, rowscroll_enable_t RowScroll>
+	template<blend_enable_t Blend, rowscroll_enable_t RowScroll, flipx_t FlipX>
 	void blit(const rectangle &cliprect, uint32_t line, uint32_t xoff, uint32_t yoff, uint32_t attr, uint32_t ctrl, uint32_t bitmap_addr, uint16_t tile);
 	void blit_page(const rectangle &cliprect, uint32_t scanline, int depth, uint32_t bitmap_addr, uint16_t *regs);
 	void blit_sprite(const rectangle &cliprect, uint32_t scanline, int depth, uint32_t base_addr);
 	void blit_sprites(const rectangle &cliprect, uint32_t scanline, int depth);
 
-	uint8_t expand_rgb5_to_rgb8(uint8_t val);
 	uint8_t mix_channel(uint8_t a, uint8_t b);
-	void mix_pixel(uint32_t offset, uint16_t rgb);
-	void set_pixel(uint32_t offset, uint16_t rgb);
 
 	void stop_channel(const uint32_t channel);
 	bool advance_channel(address_space &space, const uint32_t channel);
 	bool fetch_sample(address_space &space, const uint32_t channel);
 	void loop_channel(const uint32_t channel);
 
-	struct rgbtriad_t
-	{
-		uint8_t r, g, b;
-	};
-
-	rgbtriad_t m_screenbuf[320 * 240];
+	uint32_t m_screenbuf[320 * 240];
+	uint8_t m_rgb5_to_rgb8[32];
+	uint32_t m_rgb555_to_rgb888[0x8000];
 
 	bool m_hide_page0;
 	bool m_hide_page1;
@@ -513,8 +516,18 @@ protected:
 
 	devcb_write8 m_chip_sel;
 
+	uint16_t m_timer_a_preload;
+	uint16_t m_timer_b_preload;
+
+	int m_timer_a_state;
+	int m_timer_b_state;
+	int m_timer_c_state;
+
 	emu_timer *m_tmb1;
 	emu_timer *m_tmb2;
+	emu_timer *m_timer_src_a;
+	emu_timer *m_timer_src_b;
+	emu_timer *m_timer_src_c;
 	emu_timer *m_screenpos_timer;
 	emu_timer *m_audio_beat;
 

@@ -19,7 +19,7 @@ namespace plib {
 class ptokenizer : nocopyassignmove
 {
 public:
-	explicit ptokenizer(plib::putf8_reader &strm);
+	ptokenizer(plib::putf8_reader &&strm);
 
 	virtual ~ptokenizer();
 
@@ -123,7 +123,7 @@ private:
 
 	bool eof() { return m_strm.eof(); }
 
-	putf8_reader &m_strm;
+	putf8_reader m_strm;
 
 	int m_lineno;
 	pstring m_cur_line;
@@ -164,7 +164,7 @@ public:
 	void process(putf8_reader &istrm, putf8_writer &ostrm);
 
 protected:
-	double expr(const std::vector<pstring> &sexpr, std::size_t &start, int prio);
+	int expr(const std::vector<pstring> &sexpr, std::size_t &start, int prio);
 	define_t *get_define(const pstring &name);
 	pstring replace_macros(const pstring &line);
 	virtual void error(const pstring &err);
