@@ -2925,6 +2925,9 @@ ldrink                          //
 ldrinka                         //
 merryjn                         //
 
+@source:bert.cpp
+bert                            //
+
 @source:berzerk.cpp
 berzerk                         // (c) 1980
 berzerk1                        // (c) 1980
@@ -15033,6 +15036,7 @@ gnw_mariocm                     // Nintendo
 gnw_mmouse                      // Nintendo
 gnw_mickdon                     // Nintendo
 gnw_opanic                      // Nintendo
+gnw_rshower                     // Nintendo
 gnw_smb                         // Nintendo
 gnw_squish                      // Nintendo
 gnw_tfish                       // Nintendo

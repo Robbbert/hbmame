@@ -374,6 +374,7 @@ VIDEOS["DP8510"] = true
 VIDEOS["MB88303"] = true
 VIDEOS["PS2GS"] = true
 VIDEOS["PS2GIF"] = true
+VIDEOS["DECSFB"] = true
 
 --------------------------------------------------
 -- specify available machine cores
@@ -3721,6 +3722,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/ax20.cpp",
 	MAME_DIR .. "src/mame/drivers/beehive.cpp",
 	MAME_DIR .. "src/mame/drivers/binbug.cpp",
+	MAME_DIR .. "src/mame/drivers/bert.cpp",
 	MAME_DIR .. "src/mame/drivers/besta.cpp",
 	MAME_DIR .. "src/mame/drivers/bitgraph.cpp",
 	MAME_DIR .. "src/mame/drivers/bpmmicro.cpp",
