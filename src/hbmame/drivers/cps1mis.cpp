@@ -15,7 +15,6 @@ Issues:
 - sk2h1, sk2h2, sk2h3, sk2h22, sk2h31, sk2h32, sk2h33, sk2h34
 	setup screen is blank.
 	map doesn't show first time around prior to demo 1, and never before demo 3.
-	priority issue, easily noticed on 3rd demo where actors are in the wagon instead of behind it.
 
 - sk2h22, sk2h31, sk2h32, sk2h33, sk2h34, sk2h35
 	coin 3, start 3, 3rd player not working.
@@ -3935,7 +3934,7 @@ ROM_START( sk2h22 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h31 )
@@ -3962,7 +3961,7 @@ ROM_START( sk2h31 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h31q )
@@ -3991,7 +3990,7 @@ ROM_START( sk2h31q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h32 )
@@ -4017,7 +4016,7 @@ ROM_START( sk2h32 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h32q )
@@ -4045,7 +4044,7 @@ ROM_START( sk2h32q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h33 )
@@ -4072,7 +4071,7 @@ ROM_START( sk2h33 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h33q )
@@ -4101,7 +4100,7 @@ ROM_START( sk2h33q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h34 )
@@ -4127,7 +4126,7 @@ ROM_START( sk2h34 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h34q )
@@ -4155,7 +4154,7 @@ ROM_START( sk2h34q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h35 )
@@ -5967,15 +5966,15 @@ HACK( 200?, sk2h14,      wof,      qsound,     wof,      cps_state, wof,      RO
 HACK( 2009, sk2h15,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Sangokushi II (Group Modified Version)(2008-01-02)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sk2h16,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Sangokushi II (Easy Moves)(2009-01-12)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h21,      wof,      qsound,     sk2h21,   cps_state, sk2h21,   ROT0,   "Unknown", "Sangokushi II (Chinese bootleg set 5, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h22,      wof,      sk2h3,      sk2h21,   cps_state, sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Chinese bootleg set 2, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h31,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 1, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h31q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H31Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h32,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 2, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h32q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H32Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h33,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 9, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h33q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H33Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h34,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 8, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h34q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H34Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h22,      wof,      sk2h3,      sk2h21,   cps_state, sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Chinese bootleg set 2, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h31,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 1, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h31q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H31Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h32,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 2, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h32q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H32Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h33,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 9, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h33q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H33Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h34,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 8, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h34q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H34Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h35,      wof,      sk2h35,     wof,      cps_state, sk2h35,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 3, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p1,       wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010 (Red)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p2,       wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010 (Green set 1)", MACHINE_SUPPORTS_SAVE )
@@ -34438,7 +34437,7 @@ ROM_START( sk2h42 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h43 )
@@ -34464,7 +34463,7 @@ ROM_START( sk2h43 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h45 )
@@ -34519,7 +34518,7 @@ ROM_START( sk2h46 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 /****************
@@ -36457,7 +36456,7 @@ HACK( 200?, sk2h18,        wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 200?, sk2h19,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Sangokushi II (Easy Spinning Pile Driver)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h23,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bootleg", "Sangokushi II (Three Sword Masters)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h41,        wof,      qsound,     sk2h21,   cps_state,   sk2h21,   ROT0,   "LB70", "Sangokushi II (The Number Of Flames Is 200)Asia 921005)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h42,        wof,      sk2h3,      sk2h21,   cps_state,   sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Correct Zhao Yun Weapon Title Background BUG)(Chinese bootleg of Sangokushi II)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h42,        wof,      sk2h3,      sk2h21,   cps_state,   sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Correct Zhao Yun Weapon Title Background BUG)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h43,        wof,      sk2h31,     sk2h31,   cps_state,   sk2h22,   ROT0,   "Unknown", "Sangokushi II (Chinese bootleg set 4, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h45,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bootleg", "Sangokushi II (Xia Houen's Revenge 2017)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h46,        wof,      sk2h31,     sk2h31,   cps_state,   sk2h22,   ROT0,   "Unknown", "Sangokushi II (Holy Swords)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
