@@ -1799,6 +1799,14 @@ void cps_state::cps1_get_video_base()
 		m_cps_a_regs[CPS1_SCROLL3_BASE] = 0x9100;
 		m_cps_a_regs[CPS1_PALETTE_BASE] = 0x9140;
 	}
+	else
+	if (m_bootleg_kludge == 0x8F)
+	{
+		m_cps_b_regs[0x28 / 2] = m_mainram[0x639a / 2];
+		m_cps_b_regs[0x2c / 2] = m_mainram[0x639c / 2];
+		m_cps_b_regs[0x2e / 2] = m_mainram[0x639e / 2];
+		//m_cps_b_regs[m_layer_enable_reg / 2] = m_mainram[0x6398 / 2];
+	}
 	// HBMAME end
 
 	m_obj = cps1_base(CPS1_OBJ_BASE, m_obj_size);

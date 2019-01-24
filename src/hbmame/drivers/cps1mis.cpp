@@ -105,7 +105,7 @@ void cps_state::daimakb_map(address_map &map) {
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0x980000,0x98000d).w(FUNC(cps_state::daimakb_layer_w));
 	map(0x990000,0x993fff).nopw();  // bootleg sprites, not needed
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h35_map(address_map &map) {
@@ -124,7 +124,7 @@ void cps_state::sk2h35_map(address_map &map) {
 	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
 	map(0xf1ce74,0xf1ce75).nopw();
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::cps1frog_map(address_map &map) {
@@ -136,7 +136,7 @@ void cps_state::cps1frog_map(address_map &map) {
 	map(0x800180,0x800187).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
 	map(0x800188,0x80018f).w(FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h1q_map(address_map &map) {
@@ -155,7 +155,7 @@ void cps_state::sk2h1q_map(address_map &map) {
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h3_map(address_map &map) {
@@ -172,7 +172,7 @@ void cps_state::sk2h3_map(address_map &map) {
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h31q_map(address_map &map) {
@@ -191,7 +191,7 @@ void cps_state::sk2h31q_map(address_map &map) {
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h31_map(address_map &map) {
@@ -208,7 +208,7 @@ void cps_state::sk2h31_map(address_map &map) {
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
 	map(0xf1c006,0xf1c007).portr("EEPROMIN");
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::wofsf2_map(address_map &map) {
@@ -3447,7 +3447,7 @@ ROM_START( sf2yyc6 )
 	ROM_LOAD ( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
-ROM_START( sk2h1 )
+ROM_START( sk2h101 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyx.800",  0x000000, 0x100000, CRC(3703a650) SHA1(6cb8d6f99df5e2e5cf04aee8737bb585f9328ffd) )
 
@@ -3469,10 +3469,10 @@ ROM_START( sk2h1 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h1q )
+ROM_START( sk2h101q )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyx.800",  0x000000, 0x100000, CRC(3703a650) SHA1(6cb8d6f99df5e2e5cf04aee8737bb585f9328ffd) )
 
@@ -3497,10 +3497,10 @@ ROM_START( sk2h1q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h2 )
+ROM_START( sk2h102 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fg-c.040",  0x000000, 0x80000, CRC(d046fc86) SHA1(0ae0b9310e3a122cb69df4bb23672149794242f0) )
 	ROM_LOAD16_BYTE( "fg-a.040",  0x000001, 0x80000, CRC(f176ee8f) SHA1(fba357c31774aeecef88f70df4294514585df3a0) )
@@ -3523,10 +3523,10 @@ ROM_START( sk2h2 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h2q )
+ROM_START( sk2h102q )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fg-c.040",  0x000000, 0x80000, CRC(d046fc86) SHA1(0ae0b9310e3a122cb69df4bb23672149794242f0) )
 	ROM_LOAD16_BYTE( "fg-a.040",  0x000001, 0x80000, CRC(f176ee8f) SHA1(fba357c31774aeecef88f70df4294514585df3a0) )
@@ -3552,10 +3552,10 @@ ROM_START( sk2h2q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h3 ) // same as MAME sgyxz - here until it gets fixed
+ROM_START( sk2h103 ) // same as MAME sgyxz - here until it gets fixed
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "sgyxz_prg2.bin", 0x000000, 0x20000, CRC(95429c83) SHA1(e981624d018132e5625a66113b6ac4fc44e55cf7) )
 	ROM_CONTINUE( 0x80000, 0x20000 )
@@ -3584,10 +3584,10 @@ ROM_START( sk2h3 ) // same as MAME sgyxz - here until it gets fixed
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h4q ) // wofjheo in mame++
+ROM_START( sk2h104q ) // wofjheo in mame++
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h4q.23",  0x000000, 0x100000, CRC(03eeb1cf) SHA1(4adffc4eadc5174e2185e923021fa17b113c8a7e) )
 
@@ -3612,10 +3612,10 @@ ROM_START( sk2h4q ) // wofjheo in mame++
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h5q ) // wofhrvwx in mame++
+ROM_START( sk2h105q ) // wofhrvwx in mame++
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h5q.23",  0x000000, 0x100000, CRC(750dfc1d) SHA1(05967381446b54cea501c09ec033b16708f895e1) )
 
@@ -3640,10 +3640,10 @@ ROM_START( sk2h5q ) // wofhrvwx in mame++
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h6q ) // wofhbw in mame++
+ROM_START( sk2h106q ) // wofhbw in mame++
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h6q.23",  0x000000, 0x100000, CRC(8080acc7) SHA1(b9e9d126c4e63748bd77947e9c50888c701ea165) )
 
@@ -3668,7 +3668,7 @@ ROM_START( sk2h6q ) // wofhbw in mame++
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
 ROM_START( sk3h1 )
@@ -3693,7 +3693,7 @@ ROM_START( sk3h1 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
 ROM_START( sk2h11 )
@@ -5951,15 +5951,15 @@ HACK( 200?, sf2turyu,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     RO
 HACK( 200?, sf2yyc3d5,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (Red Wave bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc3g,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (V004 bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc6,     sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (YYC bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 6, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h1q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H1Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h2,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 7, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h2q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H2Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h3,       wof,      sk2h3,      sk2h3,    cps_state, sk2h3,    ROT0,   "All-In Co Ltd", "Sangokushi II (set H3)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h4q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H4Q)(Chinese v2.0)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2009, sk2h5q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Revised Version)(2009-09-09)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2006, sk2h6q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Full Level Boss Final)(2006-01-29)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2018, sk3h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "Unknown", "Sangokushi 3 (San Guo Ying Xiong Zhuan Plus)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h101,     wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 6, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h101q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H1Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h102,     wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 7, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h102q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H2Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h103,     wof,      sk2h3,      sk2h3,    cps_state, sk2h3,    ROT0,   "All-In Co Ltd", "Sangokushi II (set H3)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h104q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H4Q)(Chinese v2.0)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, sk2h105q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Revised Version)(2009-09-09)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, sk2h106q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Full Level Boss Final)(2006-01-29)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, sk3h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "Unknown", "Sangokushi 3 (San Guo Ying Xiong Zhuan Plus)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Chaihe", "Sangokushi II (Holly Sword Three Kingdoms (Invincible))(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Sangokushi II (set H12)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Sangokushi II (set H13)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
@@ -35109,7 +35109,7 @@ ROM_END
   Sangokushi II
 ****************/
 
-ROM_START( sk2h7 )
+ROM_START( sk2h107 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs01.23",  0x000000, 0x100000, CRC(885594f5) SHA1(e9b259c3544a58b6906814eead7d7ea2d817e0a6) )
 
@@ -35134,7 +35134,7 @@ ROM_START( sk2h7 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
 ROM_START( sk3h2 )
@@ -35162,10 +35162,10 @@ ROM_START( sk3h2 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h8 )
+ROM_START( sk2h108 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs03.800",  0x000000, 0x100000, CRC(fa96a53b) SHA1(c0d6194ecbab417c7ce83b1af0307ff12cf78404) )
 
@@ -35190,10 +35190,10 @@ ROM_START( sk2h8 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh04 ) // Alt
+ROM_START( sk2h114 ) // Alt
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs04.800",  0x000000, 0x100000, CRC(3c3b3994) SHA1(ceb406a2b0afced79497614135eee55cfbaefcbe) )
 
@@ -35215,10 +35215,10 @@ ROM_START( wofh04 ) // Alt
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh05 ) //Alt
+ROM_START( sk2h115 ) //Alt
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs05.800",  0x000000, 0x100000, CRC(9e806b3b) SHA1(26d127674be8eb806f0b87592f9ed95f40a6e1f9) )
 
@@ -35240,10 +35240,10 @@ ROM_START( wofh05 ) //Alt
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh06 )
+ROM_START( sk2h116 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs06.800",  0x000000, 0x100000, CRC(bd307028) SHA1(744a11a407ca58e1eaf78c10532d3aa4811ac566) )
 
@@ -35265,10 +35265,10 @@ ROM_START( wofh06 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh07 )
+ROM_START( sk2h117 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs07.800",  0x000000, 0x100000, CRC(6b3ac126) SHA1(bb38cd24add5e7afa21dbb33407e6aa579486d4d) )
 
@@ -35290,10 +35290,10 @@ ROM_START( wofh07 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh08 )
+ROM_START( sk2h118 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs08.800",  0x000000, 0x100000, CRC(f2562a11) SHA1(936aa2269cdf4010ede33c5c9753806d7000b332) )
 
@@ -35315,7 +35315,7 @@ ROM_START( wofh08 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
 ROM_START( sk3p4 )
@@ -36484,14 +36484,14 @@ HACK( 200?, woffs03,       wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 200?, woffs04,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Version Region???
 HACK( 200?, woffs05,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
-HACK( 200?, sk2h7,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h8,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 02)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk3h2,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi 3 (The Three Kingdoms III Part 1: Heroes of the Three Kingdoms)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh04,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh05,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh06,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Full Level Boss Special Edition)(2006/04/13)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh07,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Zhao Yun’s Attack Is Strengthened)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh08,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winuxx", "Sangokushi II (The Revised Version Of The Invincible And Zhao Yun Greatly Enhanced Version Of The Attack)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h107,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h108,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 02)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk3h2,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi 3 (The Three Kingdoms III Part 1: Heroes of the Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h114,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h115,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h116,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Full Level Boss Special Edition)(2006/04/13)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h117,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Zhao Yun’s Attack Is Strengthened)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h118,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winuxx", "Sangokushi II (The Revised Version Of The Invincible And Zhao Yun Greatly Enhanced Version Of The Attack)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi III
 HACK( 2010, sk3p4,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p5,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 02)", MACHINE_SUPPORTS_SAVE )
