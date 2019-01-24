@@ -1732,6 +1732,7 @@ beavbuk                         // (c) 2008
 betzoo                          // (c) 2003
 bigben                          // (c) 2003
 bigbena                         // (c) 2003
+bigbenq                         // (c) 2005
 bigheart                        // (c) 1999
 bigred                          // (c) 2002
 bigreda                         // (c) 2002
@@ -1754,15 +1755,16 @@ calyking                        // (c) 2005
 canaryrc                        // (c) 2006
 cmtonig                         // (c) 2005
 cinhell                         // (c) 2004
-csd                             // (c) 2002
-csdsp                           // (c) 2002
-csdm                            // (c) 2003
-csdce                           // (c) 2003
-csret                           // (c) 2006
 corrida                         // (c) 2005
 cryspri                         // (c) 2003
 crysprim                        // (c) 2003
 cryspriu                        // (c) 2006
+csd                             // (c) 2002
+csdce                           // (c) 2003
+csdm                            // (c) 2003
+csdq                            // (c) 2002
+csret                           // (c) 2006
+csdsp                           // (c) 2002
 deepfrz                         // (c) 2009
 deepfrzu                        // (c) 2009
 deltabel                        // (c) 2005
@@ -1773,6 +1775,7 @@ di4ever                         // (c) 2002
 dinosa6                         // (c) 2003
 dblagent                        // (c) 2005
 dbldolph                        // (c) 2000
+dbldolphq                       // (c) 2000
 drgnlord                        // (c) 2004
 drgnmgic                        // (c) 2006
 drmcatch                        // (c) 2003
@@ -1800,6 +1803,7 @@ gogreen                         // (c) 2001
 goldarch                        // (c) 2005
 gldnflc                         // (c) 2003
 gldgong                         // (c) 2005
+gldgongq                        // (c) 2005
 goldinc                         // (c) 2004
 goldincu                        // (c) 2005
 goldpym                         // (c) 2002
@@ -1889,9 +1893,11 @@ qnilese                         // (c) 2001
 qnilesea                        // (c) 2001
 qnilejc                         // (c) 2002
 qnilejcsp                       // (c) 2002
+qnilemt2                        // (c) 2005
 qsheba                          // (c) 2003
 raprichs                        // (c) 2005
 redbara6                        // (c) 2002
+reelrkfl                        // (c) 201?
 retsama6                        // (c) 2002
 roadtrip                        // (c) 2005
 ruprup                          // (c) 2002
@@ -1905,6 +1911,7 @@ shorthng                        // (c) 2004
 shamnmg                         // (c) 2006
 shamnmgu                        // (c) 200?
 smtma6                          // (c) 2001
+smtma6q                         // (c) 2001
 silkrda6                        // (c) 2006
 silgola6                        // (c) 2002
 skydnca6                        // (c) 2008
@@ -13489,6 +13496,7 @@ scobra                          // GX316 (c) 1981 Konami
 scobrab                         // GX316 (c) 1981 Karateco (bootleg?)
 scobrae                         // GX316 (c) 1981 Stern
 scobrag                         // AVG by Zaccaria (bootleg?)
+scobraggi                       // bootleg (Cocamatic)
 scobras                         // GX316 (c) 1981 Stern
 scobrase                        // GX316 (c) 1981 Sega
 scorpion                        // (c) 1982 Zaccaria
@@ -13497,6 +13505,7 @@ scorpionb                       // (c) 1982 Zaccaria
 scorpionmc                      // bootleg
 scramble                        // GX387 (c) 1981 Konami
 scramblebb                      // bootleg?
+kamikazesp                      // bootleg (Euromatic S.A.)
 scramblebf                      // bootleg
 scrambles                       // GX387 (c) 1981 Stern
 scrambles2                      // GX387 (c) 1981 Stern
@@ -21568,6 +21577,9 @@ miraxa                          // (c) 1985 Current Technologies
 @source:missb2.cpp
 bublpong                        // bootleg on enhanced hardware
 missb2                          // bootleg on enhanced hardware
+
+@source:missbamby.cpp
+msbamby                         // 198?
 
 @source:missile.cpp
 mcombat                         // bootleg
@@ -30306,6 +30318,7 @@ mc_dg101
 mc_aa2
 mc_105te
 mc_sp69
+polmega
 mc_dcat8
 mc_dcat8a
 pjoyn50
@@ -37969,6 +37982,7 @@ triplhnt                        // 008422-008791    1977/04 [6800]
 
 @source:trkfldch.cpp
 trkfldch                        // (c) 2007 Konami
+my1stddr                        // (c) 2006 Konami
 
 @source:trs80.cpp
 ht108064                        // Hradstechnika Szvetkezet HT-1080Z/64
@@ -38605,9 +38619,12 @@ mattelcs                        //
 
 @source:vsmile.cpp
 vsmile                          //
-vsmileb                         //
 vsmilef                         //
 vsmileg                         //
+
+@source:vsmileb.cpp
+vsmileb                         //
+vsmilebsw                       //
 
 @source:vsmilepro.cpp
 vsmilpro
@@ -39756,16 +39773,20 @@ has_wamg                        //
 ekara                           //
 ekaraa                          //
 ekaraj                          //
+ekarag                          //
 ekaraphs                        //
 ddrfammt                        //
 popira                          //
 taikodp                         //
-xavtenni                        //
-xavbaseb                        //
 ttv_sw                          //
 ttv_lotr                        //
 ttv_mx                          //
 drgqst                          //
+xavtenni                        //
+xavbaseb                        //
+xavjmat                         //
+tmy_thom                        //
+
 
 @source:xbox.cpp
 xbox                            //

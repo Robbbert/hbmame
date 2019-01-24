@@ -65,17 +65,6 @@ void vsmile_pad_device::device_start()
 	save_item(NAME(m_ctrl_probe_history));
 }
 
-void vsmile_pad_device::device_reset()
-{
-	vsmile_ctrl_device_base::device_reset();
-
-	// HACK: the controller detects an RTS timeout or something, it doesn't have a reset line
-	m_stale = STALE_ALL;
-	m_active = false;
-	std::fill(std::begin(m_ctrl_probe_history), std::end(m_ctrl_probe_history), 0U);
-	m_idle_timer->adjust(attotime::from_seconds(1));
-}
-
 void vsmile_pad_device::tx_complete()
 {
 	// update joystick
@@ -137,12 +126,13 @@ void vsmile_pad_device::tx_timeout()
 {
 	if (m_active)
 	{
-		m_idle_timer->adjust(attotime::from_seconds(1));
+		m_idle_timer->reset();
 		m_active = false;
 		m_stale = STALE_ALL;
 		std::fill(std::begin(m_ctrl_probe_history), std::end(m_ctrl_probe_history), 0U);
 		LOG("left active state\n");
 	}
+	uart_tx_fifo_push(0x55);
 }
 
 void vsmile_pad_device::rx_complete(uint8_t data, bool select)
@@ -151,11 +141,12 @@ void vsmile_pad_device::rx_complete(uint8_t data, bool select)
 	{
 		if (((data & 0xf0) == 0x70) || ((data & 0xf0) == 0xb0))
 		{
-			m_ctrl_probe_history[0] = m_ctrl_probe_history[1];
+			m_ctrl_probe_history[0] = ((data & 0xf0) == 0x70) ? 0 : m_ctrl_probe_history[1];
 			m_ctrl_probe_history[1] = data;
 			uint8_t const response = ((m_ctrl_probe_history[0] + m_ctrl_probe_history[1] + 0x0f) & 0x0f) ^ 0x05;
 			LOG(
-					"received probe %02X, %02X, sending response %02X\n",
+					"%s: received probe %02X, %02X, sending response %02X\n",
+					machine().describe_context(),
 					m_ctrl_probe_history[0],
 					m_ctrl_probe_history[1],
 					0xb0 | response);
@@ -223,7 +214,7 @@ INPUT_CHANGED_MEMBER(vsmile_pad_device::pad_color_changed)
 		else
 		{
 			m_sent_colors = m_io_colors->read();
-			uart_tx_fifo_push(0x90 | m_io_colors->read());
+			uart_tx_fifo_push(0x90 | m_sent_colors);
 		}
 	}
 }
