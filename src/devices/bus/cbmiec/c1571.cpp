@@ -44,9 +44,9 @@
 //  DEVICE DEFINITIONS
 //**************************************************************************
 
-DEFINE_DEVICE_TYPE(C1570,      c1570_device,      "c1570",    "C1570 Disk Drive")
-DEFINE_DEVICE_TYPE(C1571,      c1571_device,      "c1571",    "C1571 Disk Drive")
-DEFINE_DEVICE_TYPE(C1571CR,    c1571cr_device,    "c1571cr",  "C1571CR Disk Drive")
+DEFINE_DEVICE_TYPE(C1570,      c1570_device,      "c1570",    "Commodore 1570 Disk Drive")
+DEFINE_DEVICE_TYPE(C1571,      c1571_device,      "c1571",    "Commodore 1571 Disk Drive")
+DEFINE_DEVICE_TYPE(C1571CR,    c1571cr_device,    "c1571cr",  "Commodore 1571CR Disk Drive")
 DEFINE_DEVICE_TYPE(MINI_CHIEF, mini_chief_device, "minichif", "ICT Mini Chief Disk Drive")
 
 
@@ -660,7 +660,7 @@ void c1571cr_device::device_add_mconfig(machine_config &config)
 	m_via0->writepa_handler().set(FUNC(c1571cr_device::via0_pa_w));
 	m_via0->writepb_handler().set(FUNC(c1571cr_device::via0_pb_w));
 
-	//MCFG_MOS5710_ADD(M5710_TAG, 16_MHz_XTAL / 16, 0)
+	//MOS5710(config, M5710_TAG, 16_MHz_XTAL / 16);
 }
 
 

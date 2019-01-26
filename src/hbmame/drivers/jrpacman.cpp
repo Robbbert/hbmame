@@ -104,6 +104,7 @@
 #include "cpu/z80/z80.h"
 #include "includes/pacman.h"
 #include "sound/namco.h"
+#include "speaker.h"
 
 
 class jrpacman_state : public pacman_state
@@ -324,10 +325,8 @@ MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 	MCFG_SCREEN_UPDATE_DRIVER(jrpacman_state, screen_update_pacman)
 	MCFG_VIDEO_START_OVERRIDE(jrpacman_state,jrpacman)
 	MCFG_SCREEN_PALETTE("palette")
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_jrpacman)
-	MCFG_PALETTE_ADD("palette", 128*4)
-	MCFG_PALETTE_INDIRECT_ENTRIES(32)
-	MCFG_PALETTE_INIT_OWNER(jrpacman_state,pacman)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_jrpacman);
+	PALETTE(config, m_palette, FUNC(jrpacman_state::pacman_palette), 128 * 4, 32);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

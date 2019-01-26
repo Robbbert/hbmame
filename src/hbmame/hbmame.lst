@@ -305,16 +305,16 @@ sf2turyu
 sf2yyc3d5
 sf2yyc3g
 sf2yyc6
-sk2h1
-sk2h1q			// qsound version of sk2h1
-sk2h2
-sk2h2q
-sk2h3			// mame sgyxz for testing
-sk2h4q
-sk2h5q
-sk2h6q
-sk2h7
-sk2h8
+sk2h101
+sk2h101q			// qsound version of sk2h1
+sk2h102
+sk2h102q
+sk2h103			// mame sgyxz for testing
+sk2h104q
+sk2h105q
+sk2h106q
+sk2h107
+sk2h108
 sk2h10 
 sk2h11
 sk2h12
@@ -1273,11 +1273,11 @@ varths01
 varths02
 varths03
 willows01
-wofh04 // sk2
-wofh05 // sk2
-wofh06 // sk2
-wofh07 // sk2
-wofh08 // sk2
+sk2h114
+sk2h115
+sk2h116
+sk2h117
+sk2h118
 wofus01
 wofus02
 wofus03
@@ -4616,7 +4616,7 @@ wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 @source:mhavoc.cpp
 mhavoc				//parent
 mhavocrv			//HB Jess M. Askey
-mhavocpe			//HB Jess M. Askey
+mhavocpex			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk			//parent

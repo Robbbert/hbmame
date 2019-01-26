@@ -727,7 +727,7 @@ MACHINE_CONFIG_START( pacman_state::_96in1 )
 	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
 	MCFG_DEVICE_IO_MAP(_96in1_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1)
+	m_gfxdecode->set_info(gfx_96in1);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
@@ -738,11 +738,8 @@ MACHINE_CONFIG_START( pacman_state::_96in1b )
 	MCFG_DEVICE_PROGRAM_MAP(madpac_map)
 	MCFG_DEVICE_IO_MAP(_96in1b_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_96in1b)
-	MCFG_PALETTE_MODIFY("palette")
-	MCFG_PALETTE_ENTRIES(128*8)
-	MCFG_PALETTE_INDIRECT_ENTRIES(32*8)
-	MCFG_PALETTE_INIT_OWNER(pacman_state,multipac)
+	m_gfxdecode->set_info(gfx_96in1b);
+	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*8, 32*8);
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	MCFG_SCREEN_MODIFY("screen")
@@ -755,11 +752,8 @@ MACHINE_CONFIG_START( pacman_state::hackypac )
 	MCFG_DEVICE_PROGRAM_MAP(hackypac_map)
 	MCFG_DEVICE_IO_MAP(hackypac_writeport)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, hackypac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_hackypac)
-	MCFG_PALETTE_MODIFY("palette")
-	MCFG_PALETTE_ENTRIES(128*9)
-	MCFG_PALETTE_INDIRECT_ENTRIES(32*9)		// colour banks * 128 colour lookup codes (4a rom)
-	MCFG_PALETTE_INIT_OWNER(pacman_state,multipac)
+	m_gfxdecode->set_info(gfx_hackypac);
+	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*9, 32*9);  // colour banks * 128 colour lookup codes (4a rom)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
@@ -774,11 +768,8 @@ MACHINE_CONFIG_START( pacman_state::madpac )
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
-	MCFG_PALETTE_MODIFY("palette")
-	MCFG_PALETTE_ENTRIES(128*16)
-	MCFG_PALETTE_INDIRECT_ENTRIES(32*16)
-	MCFG_PALETTE_INIT_OWNER(pacman_state, multipac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_madpac)
+	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*16, 32*16);
+	m_gfxdecode->set_info(gfx_madpac);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 MACHINE_CONFIG_END
 
@@ -813,11 +804,8 @@ MACHINE_CONFIG_START( pacman_state::multipac )
 	MCFG_SCREEN_MODIFY("screen")
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_multipac)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
-	MCFG_PALETTE_MODIFY("palette")
-	MCFG_PALETTE_ENTRIES(128*4)
-	MCFG_PALETTE_INDIRECT_ENTRIES(32*4)
-	MCFG_PALETTE_INIT_OWNER(pacman_state,multipac)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_multipac)
+	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*4, 32*4);
+	m_gfxdecode->set_info(gfx_multipac);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1 )
@@ -825,7 +813,7 @@ MACHINE_CONFIG_START( pacman_state::pm4n1 )
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(pm4n1_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
+	m_gfxdecode->set_info(gfx_pm4n1);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1c )
@@ -834,7 +822,7 @@ MACHINE_CONFIG_START( pacman_state::pm4n1c )
 	MCFG_DEVICE_PROGRAM_MAP(pm4n1c_map)
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pm4n1)
+	m_gfxdecode->set_info(gfx_pm4n1);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( pacman_state::pm4n1d )
@@ -848,7 +836,7 @@ MACHINE_CONFIG_START( pacman_state::superabc )
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(superabc_map)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_superabc)
+	m_gfxdecode->set_info(gfx_superabc);
 	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
 MACHINE_CONFIG_END
 
@@ -1895,11 +1883,11 @@ HACK( 1998, multi11,  multi15,  multipac, multipac, pacman_state,  multipac, ROT
 HACK( 1998, multi13,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
-HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
+HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

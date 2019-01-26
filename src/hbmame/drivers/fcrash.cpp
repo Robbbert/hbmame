@@ -1456,6 +1456,7 @@ MACHINE_START_MEMBER(cps_state,sgyxz)
 	m_layer_scroll1x_offset = 0x40;
 	m_layer_scroll2x_offset = 0x40;
 	m_layer_scroll3x_offset = 0x40;
+	m_sprite_list_end_marker = 0x8000;
 	membank("bank1")->configure_entries(0, 2, memregion("audiocpu")->base() + 0x10000, 0x4000);
 }
 
@@ -1519,11 +1520,11 @@ MACHINE_START_MEMBER(cps_state, knightsb)
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 
-	m_layer_enable_reg = 0x30;
-	m_layer_mask_reg[0] = 0x28;
-	m_layer_mask_reg[1] = 0x2a;
-	m_layer_mask_reg[2] = 0x2c;
-	m_layer_mask_reg[3] = 0x2e;
+	m_layer_enable_reg = 0x28;
+	m_layer_mask_reg[0] = 0x26;
+	m_layer_mask_reg[1] = 0x24;
+	m_layer_mask_reg[2] = 0x22;
+	m_layer_mask_reg[3] = 0x30;
 	m_layer_scroll1x_offset = 0x3e; //text
 	m_layer_scroll2x_offset = 0x3c; //bricks around scores
 	m_layer_scroll3x_offset = 0x40; //hill with sword going in
@@ -1605,15 +1606,15 @@ MACHINE_CONFIG_START( cps_state::fcrash )
 	MCFG_SOUND_ROUTE(2, "mono", 0.10)
 	MCFG_SOUND_ROUTE(3, "mono", 1.0)
 
-	MCFG_DEVICE_ADD("msm1", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int1)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_1, 24000000/64);	/* ? */
+	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
+	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	MCFG_DEVICE_ADD("msm2", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int2)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_2, 24000000/64);	/* ? */
+	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
+	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
 MACHINE_CONFIG_END
 
 // HBMAME start
@@ -1742,15 +1743,15 @@ MACHINE_CONFIG_START( cps_state::sf2mdt )
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
 	/* has 2x MSM5205 instead of OKI6295 */
-	MCFG_DEVICE_ADD("msm1", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int1)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_1, 24000000/64);	/* ? */
+	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
+	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	MCFG_DEVICE_ADD("msm2", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int2)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_2, 24000000/64);	/* ? */
+	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
+	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( cps_state::sf2b )
@@ -1795,15 +1796,15 @@ MACHINE_CONFIG_START( cps_state::knightsb )
 	ym2151.add_route(1, "mono", 0.35);
 
 	/* has 2x MSM5205 instead of OKI6295 */
-	MCFG_DEVICE_ADD("msm1", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int1)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_1, 24000000/64);	/* ? */
+	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
+	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	MCFG_DEVICE_ADD("msm2", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int2)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_2, 24000000/64);	/* ? */
+	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
+	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
 MACHINE_CONFIG_END
 
 #define CODE_SIZE 0x400000
@@ -3154,15 +3155,15 @@ MACHINE_CONFIG_START( cps_state::captcommb2 )
 	MCFG_SOUND_ROUTE(1, "mono", 0.35)
 
 	/* has 2x MSM5205 instead of OKI6295 */
-	MCFG_DEVICE_ADD("msm1", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int1)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_1, 24000000/64);	/* ? */
+	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
+	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	MCFG_DEVICE_ADD("msm2", MSM5205, 24000000/64)    /* ? */
-	MCFG_MSM5205_VCLK_CB(WRITELINE(*this, cps_state, m5205_int2)) /* interrupt function */
-	MCFG_MSM5205_PRESCALER_SELECTOR(S96_4B)      /* 4KHz 4-bit */
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.25)
+	MSM5205(config, m_msm_2, 24000000/64);	/* ? */
+	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
+	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
 MACHINE_CONFIG_END
 
 

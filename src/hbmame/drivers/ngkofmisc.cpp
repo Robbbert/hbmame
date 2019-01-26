@@ -67,11 +67,11 @@ MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
 	MCFG_KOG_PROT_ADD("kog_prot")
 
 	//joystick controller
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
 MACHINE_CONFIG_END
 
 void neogeo_state::init_kogd()

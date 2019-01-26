@@ -1344,7 +1344,7 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 
 	MCFG_DEVICE_ADD( "gfxdecode", GFXDECODE, "palette", gfx_neogeo)
 	/* 4096 colors * two banks * normal and shadow */
-	MCFG_PALETTE_ADD_INIT_BLACK("palette", 4096*2*2)
+	MCFG_DEVICE_ADD(m_palette, PALETTE, palette_device::BLACK, 4096*2*2)
 
 	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE, 0)
 
@@ -1355,12 +1355,12 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	GENERIC_LATCH_8(config, m_soundlatch);
 	GENERIC_LATCH_8(config, m_soundlatch2);
 
-	MCFG_DEVICE_ADD("ymsnd", YM2610, NEOGEO_YM2610_CLOCK)
-	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
-	MCFG_SOUND_ROUTE(0, "lspeaker", 0.28)
-	MCFG_SOUND_ROUTE(0, "rspeaker", 0.28)
-	MCFG_SOUND_ROUTE(1, "lspeaker", 0.98)
-	MCFG_SOUND_ROUTE(2, "rspeaker", 0.98)
+	YM2610(config, m_ym, NEOGEO_YM2610_CLOCK);
+	m_ym->irq_handler().set_inputline(m_audiocpu, 0);
+	m_ym->add_route(0, "lspeaker", 0.28);
+	m_ym->add_route(0, "rspeaker", 0.28);
+	m_ym->add_route(1, "lspeaker", 0.98);
+	m_ym->add_route(2, "rspeaker", 0.98);
 	MCFG_NEOGEO_BANKED_CART_ADD("banked_cart")
 MACHINE_CONFIG_END
 
@@ -1378,10 +1378,10 @@ MACHINE_CONFIG_START( neogeo_state::mvs )
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_PROGRAM_MAP(main_map_slot)
 
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge, "joy", false)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", false);
 
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", false)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", false)
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", false);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", false);
 MACHINE_CONFIG_END
 
 void neogeo_state::main_map_noslot(address_map &map) {
@@ -1396,11 +1396,11 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_noslot )
 	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
 
 	MCFG_MSLUGX_PROT_ADD("mslugx_prot")
 	MCFG_SMA_PROT_ADD("sma_prot")
@@ -1420,11 +1420,11 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_kog )
 	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
 
 	//joystick controller
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "joy", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
 
 	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
 	MCFG_KOG_PROT_ADD("kog_prot")
@@ -1436,39 +1436,35 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_mj )
 	neogeo_noslot(config);
 
 	//no joystick panel
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "", true);
 
 	//P1 mahjong controller
-	MCFG_DEVICE_REMOVE("ctrl1")
-	MCFG_DEVICE_REMOVE("ctrl2")
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl1", neogeo_arc_pin15, "mahjong", true)
-	MCFG_NEOGEO_CONTROL_PORT_ADD("ctrl2", neogeo_arc_pin15, "", true)
+	config.device_remove("ctrl1");
+	config.device_remove("ctrl2");
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "mahjong", false);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_dial )
 	neogeo_noslot(config);
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "dial", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "dial", true);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_imaze )
 	neogeo_noslot(config);
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "irrmaze", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "irrmaze", true);
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::neogeo_kiz4p )
 	neogeo_noslot(config);
-	MCFG_DEVICE_REMOVE("edge")
-	MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD("edge", neogeo_arc_edge_fixed, "kiz4p", true)
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "kiz4p", true);
 MACHINE_CONFIG_END
 
 // this is used by V-Liner, which handles differently inputs...
 MACHINE_CONFIG_START( neogeo_state::neogeo_noctrl )
 	neogeo_noslot(config);
-	MCFG_DEVICE_REMOVE("ctrl1")
-	MCFG_DEVICE_REMOVE("ctrl2")
+	config.device_remove("ctrl1");
+	config.device_remove("ctrl2");
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START( neogeo_state::no_watchdog )

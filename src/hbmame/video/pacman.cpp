@@ -166,7 +166,7 @@ VIDEO_START_MEMBER( pacman_state, multipac )
 	m_bg_tilemap->set_scrolldy(0, 264 - 224 );
 }
 
-PALETTE_INIT_MEMBER( pacman_state, multipac )
+void pacman_state::multipac_palette(palette_device &palette) const
 {
 	uint16_t i;
 	static const int resistances[3] = { 1000, 470, 220 };
