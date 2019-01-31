@@ -548,13 +548,13 @@ MACHINE_CONFIG_START(sg1000_state::sg1000)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.00)
 
 	/* expansion slot */
-	MCFG_SG1000_EXPANSION_ADD(EXPSLOT_TAG, sg1000_expansion_devices, nullptr, false)
+	SG1000_EXPANSION_SLOT(config, m_sgexpslot, sg1000_expansion_devices, nullptr, false);
 
 	/* cartridge */
 	MCFG_SG1000_CARTRIDGE_ADD(CARTSLOT_TAG, sg1000_cart, nullptr)
 
 	/* software lists */
-	MCFG_SOFTWARE_LIST_ADD("cart_list","sg1000")
+	SOFTWARE_LIST(config, "cart_list").set_original("sg1000");
 
 	/* internal ram */
 	RAM(config, m_ram).set_default_size("1K");
@@ -570,7 +570,7 @@ MACHINE_CONFIG_START(sg1000_state::omv)
 	MCFG_DEVICE_PROGRAM_MAP(omv_map)
 	MCFG_DEVICE_IO_MAP(omv_io_map)
 
-	MCFG_DEVICE_REMOVE(CARTSLOT_TAG)
+	config.device_remove(CARTSLOT_TAG);
 	MCFG_OMV_CARTRIDGE_ADD(CARTSLOT_TAG, sg1000_cart, nullptr)
 
 	m_ram->set_default_size("2K");
@@ -600,13 +600,13 @@ MACHINE_CONFIG_START(sc3000_state::sc3000)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.00)
 
 	/* sc3000 has all sk1100 features built-in, so add it as a fixed slot */
-	MCFG_SG1000_EXPANSION_ADD(EXPSLOT_TAG, sg1000_expansion_devices, "sk1100", true)
+	SG1000_EXPANSION_SLOT(config, m_sgexpslot, sg1000_expansion_devices, "sk1100", true);
 
 	/* cartridge */
 	MCFG_SC3000_CARTRIDGE_ADD(CARTSLOT_TAG, sg1000_cart, nullptr)
 
 	/* software lists */
-	MCFG_SOFTWARE_LIST_ADD("cart_list","sg1000")
+	SOFTWARE_LIST(config, "cart_list").set_original("sg1000");
 	/* the sk1100 device will add sc3000 cart and cass lists */
 
 	/* internal ram */
@@ -654,15 +654,16 @@ MACHINE_CONFIG_START(sf7000_state::sf7000)
 	UPD765A(config, m_fdc, 8'000'000, false, false);
 	FLOPPY_CONNECTOR(config, UPD765_TAG ":0", sf7000_floppies, "3ssdd", sf7000_state::floppy_formats);
 
-	MCFG_DEVICE_ADD(m_centronics, CENTRONICS, centronics_devices, "printer")
+	CENTRONICS(config, m_centronics, centronics_devices, "printer");
 
-	MCFG_CENTRONICS_OUTPUT_LATCH_ADD("cent_data_out", "centronics")
+	output_latch_device &cent_data_out(OUTPUT_LATCH(config, "cent_data_out"));
+	m_centronics->set_output_latch(cent_data_out);
 
 	/* sf7000 (sc3000) has all sk1100 features built-in, so add it as a fixed slot */
-	MCFG_SG1000_EXPANSION_ADD(EXPSLOT_TAG, sg1000_expansion_devices, "sk1100", true)
+	SG1000_EXPANSION_SLOT(config, m_sgexpslot, sg1000_expansion_devices, "sk1100", true);
 
 	/* software lists */
-	MCFG_SOFTWARE_LIST_ADD("flop_list","sf7000")
+	SOFTWARE_LIST(config, "flop_list").set_original("sf7000");
 
 	/* internal ram */
 	RAM(config, m_ram).set_default_size("64K");

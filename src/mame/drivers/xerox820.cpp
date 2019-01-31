@@ -665,7 +665,7 @@ MACHINE_CONFIG_START(xerox820_state::xerox820)
 	RAM(config, m_ram).set_default_size("64K");
 
 	// software lists
-	MCFG_SOFTWARE_LIST_ADD("flop_list", "xerox820")
+	SOFTWARE_LIST(config, "flop_list").set_original("xerox820");
 	MCFG_QUICKLOAD_ADD("quickload", xerox820_state, xerox820, "com,cpm", 3)
 MACHINE_CONFIG_END
 
@@ -761,15 +761,16 @@ MACHINE_CONFIG_START(xerox820ii_state::xerox820ii)
 
 	MCFG_SCSIDEV_ADD(SASIBUS_TAG ":" SCSI_PORT_DEVICE1, "harddisk", SA1403D, SCSI_ID_0)
 
-	MCFG_SCSI_OUTPUT_LATCH_ADD("sasi_data_out", SASIBUS_TAG)
-	MCFG_DEVICE_ADD("sasi_data_in", INPUT_BUFFER, 0)
-	MCFG_DEVICE_ADD("sasi_ctrl_in", INPUT_BUFFER, 0)
+	output_latch_device &sasi_data_out(OUTPUT_LATCH(config, "sasi_data_out"));
+	m_sasibus->set_output_latch(sasi_data_out);
+	INPUT_BUFFER(config, "sasi_data_in");
+	INPUT_BUFFER(config, "sasi_ctrl_in");
 
 	/* internal ram */
 	RAM(config, m_ram).set_default_size("64K");
 
 	// software lists
-	MCFG_SOFTWARE_LIST_ADD("flop_list", "xerox820ii")
+	SOFTWARE_LIST(config, "flop_list").set_original("xerox820ii");
 	MCFG_QUICKLOAD_ADD("quickload", xerox820_state, xerox820, "com,cpm", 3)
 MACHINE_CONFIG_END
 

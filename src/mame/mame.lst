@@ -11504,6 +11504,7 @@ diablo              //
 @source:didact.cpp
 md6802                          //
 mp68a                           //
+modulab                         //
 
 @source:dietgo.cpp
 dietgo                          // MAY (c) 1993
@@ -12914,6 +12915,7 @@ fscc6                           //
 @source:fidelz80.cpp
 backgamc                        //
 bridgec3                        //
+bridgeca                        //
 cc10                            //
 cc7                             //
 damesc                          //
@@ -14450,6 +14452,7 @@ totmejan                        // (c) 1991 Seibu/Tecmo
 @source:gotcha.cpp
 gotcha                          // (c) 1997 Dongsung + "presented by Para"
 ppchamp                         // (c) 1997 Dongsung + "presented by Para"
+ppchampa                        // (c) 1997 Dongsung + "presented by Para"
 
 @source:gottlieb.cpp
 3stooges                        // GV-113 (c) 1984 Mylstar
@@ -34467,6 +34470,7 @@ passshtj                        // (c) 1988 (FD1094)
 passshtjd                       //
 riotcity                        // (c) 1991 Sega / Westone (Unprotected)
 ryukyu                          // (c) 1990 (FD1094)
+ryukyua                         // (c) 1990 (FD1094)
 ryukyud                         //
 sdib                            // (c) 1987 (FD1089A)
 sdibl                           // (c) 1987 bootleg
@@ -35510,6 +35514,7 @@ snespal                         // Nintendo Super Nintendo PAL
 
 @source:snesb.cpp
 denseib                         // bootleg
+denseib2                        // bootleg
 endless                         // bootleg
 ffight2b                        // bootleg
 iron                            // bootleg

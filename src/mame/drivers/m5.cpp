@@ -1426,10 +1426,11 @@ MACHINE_CONFIG_START(m5_state::m5)
 	// CK0 = EXINT, CK1 = GND, CK2 = TCK, CK3 = VDP INT
 	// ZC2 = EXCLK
 
-	MCFG_DEVICE_ADD(m_centronics, CENTRONICS, centronics_devices, "printer")
-	MCFG_CENTRONICS_BUSY_HANDLER(WRITELINE(*this, m5_state, write_centronics_busy))
+	CENTRONICS(config, m_centronics, centronics_devices, "printer");
+	m_centronics->busy_handler().set(FUNC(m5_state::write_centronics_busy));
 
-	MCFG_CENTRONICS_OUTPUT_LATCH_ADD("cent_data_out", CENTRONICS_TAG)
+	output_latch_device &cent_data_out(OUTPUT_LATCH(config, "cent_data_out"));
+	m_centronics->set_output_latch(cent_data_out);
 
 	CASSETTE(config, m_cassette);
 	m_cassette->set_formats(sordm5_cassette_formats);
@@ -1452,9 +1453,9 @@ MACHINE_CONFIG_START(m5_state::m5)
 	MCFG_M5_CARTRIDGE_ADD("cartslot2", m5_cart, nullptr)
 
 	// software lists
-	MCFG_SOFTWARE_LIST_ADD("cart_list", "m5_cart")
-	MCFG_SOFTWARE_LIST_ADD("cass_list", "m5_cass")
-	//MCFG_SOFTWARE_LIST_ADD("flop_list", "m5_flop")
+	SOFTWARE_LIST(config, "cart_list").set_original("m5_cart");
+	SOFTWARE_LIST(config, "cass_list").set_original("m5_cass");
+	//SOFTWARE_LIST(config, "flop_list").set_original("m5_flop");
 
 	// internal ram
 	//68K is not possible, 'cos internal ram always overlays any expansion memory in that area
@@ -1498,7 +1499,8 @@ void m5_state::pal(machine_config &config)
 //-------------------------------------------------
 
 
-MACHINE_CONFIG_START(brno_state::brno)
+void brno_state::brno(machine_config &config)
+{
 	m5(config);
 
 	// basic machine hardware
@@ -1523,14 +1525,13 @@ MACHINE_CONFIG_START(brno_state::brno)
 	FLOPPY_CONNECTOR(config, WD2797_TAG":0", brno_floppies, "35hd", brno_state::floppy_formats).enable_sound(true);
 	FLOPPY_CONNECTOR(config, WD2797_TAG":1", brno_floppies, "35hd", brno_state::floppy_formats).enable_sound(true);
 	// only one floppy drive
-	//MCFG_DEVICE_REMOVE(WD2797_TAG":1")
+	//config.device_remove(WD2797_TAG":1");
 
 	//MCFG_SNAPSHOT_ADD("snapshot", brno_state, brno, "rmd", 0)
 
 	// software list
-	MCFG_SOFTWARE_LIST_ADD("flop_list","m5_flop")
-
-MACHINE_CONFIG_END
+	SOFTWARE_LIST(config, "flop_list").set_original("m5_flop");
+}
 
 
 //**************************************************************************

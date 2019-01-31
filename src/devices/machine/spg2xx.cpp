@@ -52,8 +52,7 @@ DEFINE_DEVICE_TYPE(SPG28X, spg28x_device, "spg28x", "SPG280-series System-on-a-C
 #define LOG_PPU             (LOG_PPU_READS | LOG_PPU_WRITES | LOG_UNKNOWN_PPU)
 #define LOG_ALL             (LOG_IO | LOG_SPU | LOG_PPU | LOG_VLINES | LOG_SEGMENT | LOG_FIQ)
 
-#define VERBOSE             (LOG_ALL & ~LOG_SPU)
-//#define VERBOSE             (0)
+//#define VERBOSE             (LOG_ALL & ~LOG_SPU)
 #include "logmacro.h"
 
 #define SPG_DEBUG_VIDEO     (0)
@@ -125,8 +124,8 @@ void spg2xx_device::device_start()
 	m_porta_in.resolve_safe(0);
 	m_portb_in.resolve_safe(0);
 	m_portc_in.resolve_safe(0);
-	m_adc_in[0].resolve_safe(0);
-	m_adc_in[1].resolve_safe(0);
+	m_adc_in[0].resolve_safe(0x0fff);
+	m_adc_in[1].resolve_safe(0x0fff);
 	m_eeprom_w.resolve_safe();
 	m_eeprom_r.resolve_safe(0);
 	m_uart_tx.resolve_safe();

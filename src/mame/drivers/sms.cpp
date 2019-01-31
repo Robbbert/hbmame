@@ -499,15 +499,15 @@ MACHINE_CONFIG_START(sms_state::sms_base)
 
 	MCFG_SMS_CARTRIDGE_ADD("slot", sms_cart, nullptr)
 
-	MCFG_SOFTWARE_LIST_ADD("cart_list","sms")
+	SOFTWARE_LIST(config, "cart_list").set_original("sms");
 
-	MCFG_SMS_CONTROL_PORT_ADD(CONTROL1_TAG, sms_control_port_devices, "joypad")
-	MCFG_SMS_CONTROL_PORT_TH_INPUT_HANDLER(WRITELINE(*this, sms_state, sms_ctrl1_th_input))
-	MCFG_SMS_CONTROL_PORT_PIXEL_HANDLER(READ32(*this, sms_state, sms_pixel_color))
+	SMS_CONTROL_PORT(config, m_port_ctrl1, sms_control_port_devices, "joypad");
+	m_port_ctrl1->th_input_handler().set(FUNC(sms_state::sms_ctrl1_th_input));
+	m_port_ctrl1->pixel_handler().set(FUNC(sms_state::sms_pixel_color));
 
-	MCFG_SMS_CONTROL_PORT_ADD(CONTROL2_TAG, sms_control_port_devices, "joypad")
-	MCFG_SMS_CONTROL_PORT_TH_INPUT_HANDLER(WRITELINE(*this, sms_state, sms_ctrl2_th_input))
-	MCFG_SMS_CONTROL_PORT_PIXEL_HANDLER(READ32(*this, sms_state, sms_pixel_color))
+	SMS_CONTROL_PORT(config, m_port_ctrl2, sms_control_port_devices, "joypad");
+	m_port_ctrl2->th_input_handler().set(FUNC(sms_state::sms_ctrl2_th_input));
+	m_port_ctrl2->pixel_handler().set(FUNC(sms_state::sms_pixel_color));
 MACHINE_CONFIG_END
 
 MACHINE_CONFIG_START(sms_state::sms_ntsc_base)
@@ -516,7 +516,7 @@ MACHINE_CONFIG_START(sms_state::sms_ntsc_base)
 	MCFG_DEVICE_PROGRAM_MAP(sms_mem)
 	MCFG_DEVICE_IO_MAP(sms_io)
 
-	MCFG_QUANTUM_TIME(attotime::from_hz(60))
+	config.m_minimum_quantum = attotime::from_hz(60);
 
 	/* actually, PSG is embedded in the VDP chip */
 	MCFG_DEVICE_ADD("segapsg", SEGAPSG, XTAL(10'738'635)/3)
@@ -622,7 +622,7 @@ MACHINE_CONFIG_START(sms_state::sms1_ntsc)
 
 	// card and expansion slots, not present in Master System II
 	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
-	MCFG_SMS_EXPANSION_ADD("smsexp", sms_expansion_devices, nullptr)
+	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
 	m_has_pwr_led = true;
@@ -638,8 +638,8 @@ MACHINE_CONFIG_START(smssdisp_state::sms_sdisp)
 	/* Both CPUs seem to communicate with the VDP etc? */
 	MCFG_DEVICE_IO_MAP(sms_io)
 
-	MCFG_DEVICE_REMOVE("mycard")
-	MCFG_DEVICE_REMOVE("smsexp")
+	config.device_remove("mycard");
+	config.device_remove("smsexp");
 
 	MCFG_SMS_CARTRIDGE_ADD("slot2", sms_cart, nullptr)
 	MCFG_SMS_CARTRIDGE_ADD("slot3", sms_cart, nullptr)
@@ -686,7 +686,7 @@ MACHINE_CONFIG_START(sms_state::sms_pal_base)
 	MCFG_DEVICE_PROGRAM_MAP(sms_mem)
 	MCFG_DEVICE_IO_MAP(sms_io)
 
-	MCFG_QUANTUM_TIME(attotime::from_hz(50))
+	config.m_minimum_quantum = attotime::from_hz(50);
 
 	/* actually, PSG is embedded in the VDP chip */
 	MCFG_DEVICE_ADD("segapsg", SEGAPSG, MASTER_CLOCK_PAL/15)
@@ -744,7 +744,7 @@ MACHINE_CONFIG_START(sms_state::sms1_pal)
 
 	// card and expansion slots, not present in Master System II
 	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
-	MCFG_SMS_EXPANSION_ADD("smsexp", sms_expansion_devices, nullptr)
+	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
 	m_has_pwr_led = true;
@@ -758,7 +758,7 @@ MACHINE_CONFIG_START(sms_state::sms_paln_base)
 	MCFG_DEVICE_PROGRAM_MAP(sms_mem)
 	MCFG_DEVICE_IO_MAP(sms_io)
 
-	MCFG_QUANTUM_TIME(attotime::from_hz(50))
+	config.m_minimum_quantum = attotime::from_hz(50);
 
 	/* actually, PSG is embedded in the VDP chip */
 	MCFG_DEVICE_ADD("segapsg", SEGAPSG, MASTER_CLOCK_PALN/3)
@@ -816,7 +816,7 @@ MACHINE_CONFIG_START(sms_state::sms1_paln)
 
 	// card and expansion slots, not present in Tec Toy Master System III
 	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
-	MCFG_SMS_EXPANSION_ADD("smsexp", sms_expansion_devices, nullptr)
+	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
 	m_has_pwr_led = true;
@@ -831,7 +831,7 @@ MACHINE_CONFIG_START(sms_state::sms_br_base)
 	MCFG_DEVICE_IO_MAP(sms_io)
 
 	// PAL-M has near the same frequency of NTSC
-	MCFG_QUANTUM_TIME(attotime::from_hz(60))
+	config.m_minimum_quantum = attotime::from_hz(60);
 
 	/* actually, PSG is embedded in the VDP chip */
 	MCFG_DEVICE_ADD("segapsg", SEGAPSG, MASTER_CLOCK_PALM/3)
@@ -890,7 +890,7 @@ MACHINE_CONFIG_START(sms_state::sms1_br)
 
 	// card and expansion slots, not present in Tec Toy Master System III
 	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
-	MCFG_SMS_EXPANSION_ADD("smsexp", sms_expansion_devices, nullptr)
+	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
 	m_has_pwr_led = true;
@@ -902,9 +902,9 @@ MACHINE_CONFIG_START(sms_state::sms2_kr)
 	MCFG_DEVICE_MODIFY("maincpu")
 	MCFG_DEVICE_IO_MAP(smskr_io)
 
-	MCFG_DEVICE_REMOVE("slot")
+	config.device_remove("slot");
 	MCFG_SG1000MK3_CARTRIDGE_ADD("slot", sg1000mk3_cart, nullptr)
-	MCFG_SOFTWARE_LIST_ADD("cart_list2","sg1000")
+	SOFTWARE_LIST(config, "cart_list2").set_original("sg1000");
 
 	// Despite having a Japanese cartridge slot, this version is detected as Export region.
 	m_has_jpn_sms_cart_slot = true;
@@ -917,14 +917,14 @@ MACHINE_CONFIG_START(sms_state::sms1_kr)
 
 	// need to replace the cartridge slot with the Japanese version, so to
 	// keep the usual media order, remove and reinsert all of them.
-	MCFG_DEVICE_REMOVE("slot")
-	MCFG_DEVICE_REMOVE("mycard")
-	MCFG_DEVICE_REMOVE("smsexp")
+	config.device_remove("slot");
+	config.device_remove("mycard");
+	config.device_remove("smsexp");
 	MCFG_SG1000MK3_CARTRIDGE_ADD("slot", sg1000mk3_cart, nullptr)
 	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
-	MCFG_SMS_EXPANSION_ADD("smsexp", sms_expansion_devices, nullptr)
+	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
-	MCFG_SOFTWARE_LIST_ADD("cart_list2","sg1000")
+	SOFTWARE_LIST(config, "cart_list2").set_original("sg1000");
 
 	m_vdp->csync().set(FUNC(sms_state::sms_csync_callback));
 
@@ -954,20 +954,18 @@ MACHINE_CONFIG_START(sms_state::sg1000m3)
 
 	// Remove and reinsert all media slots, as done with the sms1_kr config,
 	// and also replace the expansion slot with the SG-1000 version.
-	MCFG_DEVICE_REMOVE("slot")
-	MCFG_DEVICE_REMOVE("mycard")
-	MCFG_DEVICE_REMOVE("smsexp")
+	config.device_remove("slot");
+	config.device_remove("mycard");
+	config.device_remove("smsexp");
 	MCFG_SG1000MK3_CARTRIDGE_ADD("slot", sg1000mk3_cart, nullptr)
 	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
-	MCFG_SG1000_EXPANSION_ADD("sgexp", sg1000_expansion_devices, nullptr, false)
+	SG1000_EXPANSION_SLOT(config, "sgexp", sg1000_expansion_devices, nullptr, false);
 
-	MCFG_SOFTWARE_LIST_ADD("cart_list2","sg1000")
+	SOFTWARE_LIST(config, "cart_list2").set_original("sg1000");
 
 	// Mark III does not have TH connected.
-	MCFG_SMS_CONTROL_PORT_MODIFY(CONTROL1_TAG)
-	MCFG_SMS_CONTROL_PORT_TH_INPUT_HANDLER(NOOP)
-	MCFG_SMS_CONTROL_PORT_MODIFY(CONTROL2_TAG)
-	MCFG_SMS_CONTROL_PORT_TH_INPUT_HANDLER(NOOP)
+	m_port_ctrl1->th_input_handler().set_nop();
+	m_port_ctrl2->th_input_handler().set_nop();
 
 	m_has_bios_full = false;
 	m_is_mark_iii = true;
@@ -980,7 +978,7 @@ MACHINE_CONFIG_START(sms_state::gamegear)
 	MCFG_DEVICE_PROGRAM_MAP(sms_mem)
 	MCFG_DEVICE_IO_MAP(gg_io)
 
-	MCFG_QUANTUM_TIME(attotime::from_hz(60))
+	config.m_minimum_quantum = attotime::from_hz(60);
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", LCD)
@@ -1009,7 +1007,7 @@ MACHINE_CONFIG_START(sms_state::gamegear)
 	/* cartridge */
 	MCFG_GG_CARTRIDGE_ADD("slot", gg_cart, nullptr)
 
-	MCFG_SOFTWARE_LIST_ADD("cart_list", "gamegear")
+	SOFTWARE_LIST(config, "cart_list").set_original("gamegear");
 
 	MCFG_GG_EXT_PORT_ADD("ext", gg_ext_port_devices, nullptr)
 	MCFG_GG_EXT_PORT_TH_INPUT_HANDLER(WRITELINE(*this, sms_state, gg_ext_th_input))

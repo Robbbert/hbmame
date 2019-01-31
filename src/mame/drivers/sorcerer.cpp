@@ -437,13 +437,12 @@ MACHINE_CONFIG_START(sorcerer_state::sorcerer)
 	RS232_PORT(config, "rs232", default_rs232_devices, "null_modem").set_option_device_input_defaults("terminal", DEVICE_INPUT_DEFAULTS_NAME(terminal));
 
 	/* printer */
-	MCFG_DEVICE_ADD("centronics", CENTRONICS, centronics_devices, "covox")
-
 	/* The use of the parallel port as a general purpose port is not emulated.
 	Currently the only use is to read the printer status in the Centronics CENDRV bios routine. */
-	MCFG_CENTRONICS_BUSY_HANDLER(WRITELINE("cent_status_in", input_buffer_device, write_bit7))
+	CENTRONICS(config, m_centronics, centronics_devices, "covox");
+	m_centronics->busy_handler().set("cent_status_in", FUNC(input_buffer_device::write_bit7));
 
-	MCFG_DEVICE_ADD("cent_status_in", INPUT_BUFFER, 0)
+	INPUT_BUFFER(config, "cent_status_in");
 
 	/* quickload */
 	MCFG_SNAPSHOT_ADD("snapshot", sorcerer_state, sorcerer, "snp", 2)
@@ -464,8 +463,8 @@ MACHINE_CONFIG_START(sorcerer_state::sorcerer)
 	MCFG_GENERIC_EXTENSIONS("bin,rom")
 
 	/* software lists */
-	MCFG_SOFTWARE_LIST_ADD("cart_list","sorcerer_cart")
-	MCFG_SOFTWARE_LIST_ADD("cass_list","sorcerer_cass")
+	SOFTWARE_LIST(config, "cart_list").set_original("sorcerer_cart");
+	SOFTWARE_LIST(config, "cass_list").set_original("sorcerer_cass");
 
 	// internal ram
 	RAM(config, RAM_TAG).set_default_size("48K").set_extra_options("8K,16K,32K");
@@ -495,7 +494,7 @@ MACHINE_CONFIG_START(sorcerer_state::sorcererd)
 	FLOPPY_CONNECTOR(config, "fdc2:0", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
 	FLOPPY_CONNECTOR(config, "fdc2:1", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
 
-	MCFG_SOFTWARE_LIST_ADD("flop_list","sorcerer_flop")
+	SOFTWARE_LIST(config, "flop_list").set_original("sorcerer_flop");
 MACHINE_CONFIG_END
 
 

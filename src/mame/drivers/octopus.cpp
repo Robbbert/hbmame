@@ -978,7 +978,7 @@ MACHINE_CONFIG_START(octopus_state::octopus)
 	m_fdc->drq_wr_callback().set(m_dma2, FUNC(am9517a_device::dreq1_w));
 	FLOPPY_CONNECTOR(config, "fdc:0", octopus_floppies, "525dd", floppy_image_device::default_floppy_formats);
 	FLOPPY_CONNECTOR(config, "fdc:1", octopus_floppies, "525dd", floppy_image_device::default_floppy_formats);
-	MCFG_SOFTWARE_LIST_ADD("fd_list","octopus")
+	SOFTWARE_LIST(config, "fd_list").set_original("octopus");
 
 	PIT8253(config, m_pit, 0);
 	m_pit->set_clk<0>(4.9152_MHz_XTAL / 2);  // DART channel A
@@ -1008,9 +1008,9 @@ MACHINE_CONFIG_START(octopus_state::octopus)
 	serial_b.cts_handler().set(m_serial, FUNC(z80sio_device::ctsb_w)).invert();
 	//serial_b.ri_handler().set(m_serial, FUNC(z80sio_device::rib_w)).invert();
 
-	MCFG_DEVICE_ADD(m_parallel, CENTRONICS, octopus_centronics_devices, "printer")
-	MCFG_CENTRONICS_BUSY_HANDLER(WRITELINE(*this, octopus_state, parallel_busy_w))
-	MCFG_CENTRONICS_SELECT_HANDLER(WRITELINE(*this, octopus_state, parallel_slctout_w))
+	CENTRONICS(config, m_parallel, octopus_centronics_devices, "printer");
+	m_parallel->busy_handler().set(FUNC(octopus_state::parallel_busy_w));
+	m_parallel->select_handler().set(FUNC(octopus_state::parallel_slctout_w));
 	// TODO: Winchester HD controller (Xebec/SASI compatible? uses TTL logic)
 
 	/* video hardware */
