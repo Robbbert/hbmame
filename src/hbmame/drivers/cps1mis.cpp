@@ -701,12 +701,12 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 	EEPROM_93C46_16BIT(config, "eeprom");
 
 	/* sound hardware */
-	MCFG_DEVICE_REMOVE("mono")
+	config.device_remove("mono");
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	MCFG_DEVICE_REMOVE("2151")
-	MCFG_DEVICE_REMOVE("oki")
+	config.device_remove("2151");
+	config.device_remove("oki");
 
 	MCFG_DEVICE_ADD("qsound", QSOUND)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
@@ -6653,21 +6653,19 @@ void cps_state::init_sk2h3()
 {
 	uint8_t *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
-	mem8[0x5d8e8] = 0x90;
-	mem8[0x5d8eb] = 0x00;
-	mem8[0x5d8f8] = 0x90;
-
 	mem8[0x5d858] = 0x00;
 	mem8[0x5d859] = 0x61;
 	mem8[0x5d85a] = 0xe6;
 	mem8[0x5d85b] = 0x01;
-
 	mem8[0x5d890] = 0x6d;
 	mem8[0x5d891] = 0x0c;
 	mem8[0x5d892] = 0x00;
 	mem8[0x5d893] = 0x90;
 	mem8[0x5d894] = 0xd2;
 	mem8[0x5d895] = 0xe3;
+	mem8[0x5d8e8] = 0x90;
+	mem8[0x5d8eb] = 0x00;
+	mem8[0x5d8f8] = 0x90;
 
 	//Transitions
 	//mem8[0x02449] = 0x07; // fixed by above code
@@ -6711,21 +6709,19 @@ void cps_state::init_sk2h22()
 	mem8[0xE7AD1] = 0x4E;
 
 	// Disable Sprite Recoding
-	mem8[0x5df26] = 0x90;
-	mem8[0x5df29] = 0x00;
-	mem8[0x5df36] = 0x90;
-
 	mem8[0x5de96] = 0x00;
 	mem8[0x5de97] = 0x61;
 	mem8[0x5de98] = 0xe6;
 	mem8[0x5de99] = 0x01;
-
 	mem8[0x5dece] = 0x6d;
 	mem8[0x5decf] = 0x0c;
 	mem8[0x5ded0] = 0x00;
 	mem8[0x5ded1] = 0x90;
 	mem8[0x5ded2] = 0xd2;
 	mem8[0x5ded3] = 0xe3;
+	mem8[0x5df26] = 0x90;
+	mem8[0x5df29] = 0x00;
+	mem8[0x5df36] = 0x90;
 
 	init_cps1();
 }
@@ -6734,21 +6730,19 @@ void cps_state::init_sk2h31()
 {
 	uint8_t *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
-	mem8[0x5df26] = 0x90;
-	mem8[0x5df29] = 0x00;
-	mem8[0x5df36] = 0x90;
-
 	mem8[0x5de96] = 0x00;
 	mem8[0x5de97] = 0x61;
 	mem8[0x5de98] = 0xe6;
 	mem8[0x5de99] = 0x01;
-
 	mem8[0x5dece] = 0x6d;
 	mem8[0x5decf] = 0x0c;
 	mem8[0x5ded0] = 0x00;
 	mem8[0x5ded1] = 0x90;
 	mem8[0x5ded2] = 0xd2;
 	mem8[0x5ded3] = 0xe3;
+	mem8[0x5df26] = 0x90;
+	mem8[0x5df29] = 0x00;
+	mem8[0x5df36] = 0x90;
 
 	// Patch Q sound protection? check
 	mem8[0x5A0E] = 0x39;
@@ -35021,6 +35015,7 @@ ROM_START( woffs03 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2fs03.8f", 0x000000, 0x80000, CRC(3ed1e566) SHA1(8a1e6fbfe501c428337490fc1dcc2fc71854d0a8) )
 	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom", 0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+	ROM_FILL(0x1bd10,1,0x60)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -35050,6 +35045,8 @@ ROM_START( woffs04 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2fs04.8f", 0x000000, 0x80000, CRC(03b29361) SHA1(eb6df02a36d7c042e0e35c696d11425f41c5efdc) )
 	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom", 0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+	ROM_FILL(0xb4630,1,0x4e)
+	ROM_FILL(0xb4631,1,0x75)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -36477,10 +36474,10 @@ HACK( 200?, wofs05,        wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 2010, wofs06,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampires First Edition)(2010-11-12)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs07,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "GAOSHIHUNG", "Warriors of Fate (Combination keys To Take Grass Child Sword)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs08,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "GAOSHIHUNG", "Warriors of Fate (Powerful Strokes)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, woffs01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Zhang Fei Vampire First Version Of The Power Of Strokes To Strengthen)(World 921002)", MACHINE_SUPPORTS_SAVE )  //Version Continente???
-HACK( 200?, woffs02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Warriors of Fate (Not Automatically Abandoned Sword)(World 921002)", MACHINE_SUPPORTS_SAVE ) //Version Region???
-HACK( 200?, woffs03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Optimized Version Of The Move)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Version Region???
-HACK( 200?, woffs04,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Version Region???
+HACK( 200?, woffs01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Zhang Fei Vampire First Version Of The Power Of Strokes To Strengthen)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Warriors of Fate (Not Automatically Abandoned Sword)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Optimized Version Of The Move)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs04,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, woffs05,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
 HACK( 200?, sk2h107,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
