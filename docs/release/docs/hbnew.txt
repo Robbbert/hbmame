@@ -9,6 +9,7 @@ New Games
 - [mk2p]              Mortal Kombat II Plus beta II
 - [shaman19]          Shaman King demo 0.19 [by Vasily Familiya]
 - [shaman20]          Shaman King demo 0.20 [by Vasily Familiya]
+- [tk2h126]           Tenchi Wo Kurau II (Master Edition Ver.4 2018-09-19)
 
 
 
