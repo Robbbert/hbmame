@@ -387,7 +387,7 @@ ROM_END
 HACK( 200?, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II Plus beta", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II Plus beta II", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)(rev L3.3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)(rev L3.1)", MACHINE_SUPPORTS_SAVE )

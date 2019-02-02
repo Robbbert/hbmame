@@ -7,6 +7,8 @@
 New Games
 ---------------------------------
 - [mk2p]              Mortal Kombat II Plus beta II
+- [shaman19]          Shaman King demo 0.19 [by Vasily Familiya]
+- [shaman20]          Shaman King demo 0.20 [by Vasily Familiya]
 
 
 
