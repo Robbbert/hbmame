@@ -220,6 +220,7 @@ NUM YEAR COMPANY                 TITLE
 486 2018 Blastar                 Codename: Blut Engel 2018
 487 2018 Vasily Familiya         Double Dragon SpritePool Demo
 488 2018 Vasily Familiya         Shaman King demo
+489 2019 Vasily Familiya         Venus Wars demo
 
 
 ********************** 800 to 899 **********************************
@@ -2108,6 +2109,22 @@ ROM_START( shaman20 )
 	ROM_LOAD( "488c.c1", 0x000000, 0x3da380, CRC(e7c36d00) SHA1(38b302e44298dec3cccb97ea466122310557f057) )
 ROM_END
 
+// 489 : Venus Wars Demo by Vasily Familiya
+ROM_START( venuswars )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "489.p1", 0x000000, 0x05beaa, CRC(29950bbd) SHA1(8acb73f03924ba4fd2cbcb9f227641a268ac75f7) )
+
+	NEO_SFIX_128K( "484.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
+
+	NEO_BIOS_AUDIO_64K( "489.m1", CRC(980c52fd) SHA1(5a8a33b28d8223f8582c59dced2a61e1a93431cd) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "489.v1", 0x000000, 0x800000, CRC(5e44a6e6) SHA1(409330797213af87d9d86425ef056ae4d8ca79d1) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "489.c1", 0x000000, 0x37e880, CRC(6983fb91) SHA1(1f626f52544b6ddcdd1756bc529df999f3a47872) )
+ROM_END
+
 
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
@@ -2274,5 +2291,6 @@ HACK( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo)(Alt)(Demo, You must use the Universe BIOS and set region to Japan AES)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Venus Wars demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_SUPPORTS_SAVE )
