@@ -123,36 +123,30 @@ class NETLIB_NAME(name) : public device_t
 #define NETLIB_TIMESTEPI()                                                     \
 	public: virtual void timestep(const nl_double step) override
 
-#define NETLIB_UPDATE_AFTER_PARAM_CHANGE()                                     \
-	public: virtual bool needs_update_after_param_change() const override { return true; }
-
 #define NETLIB_FAMILY(family) , m_famsetter(*this, family)
 
 #define NETLIB_DELEGATE(chip, name) nldelegate(&NETLIB_NAME(chip) :: name, this)
 
 #define NETLIB_UPDATE_TERMINALSI() public: virtual void update_terminals() override
 #define NETLIB_HANDLERI(name) private: virtual void name() NL_NOEXCEPT
-#define NETLIB_UPDATEI() protected: virtual void update() NL_NOEXCEPT override
+#define NETLIB_UPDATEI() public: virtual void update() NL_NOEXCEPT override
 #define NETLIB_UPDATE_PARAMI() public: virtual void update_param() override
-#define NETLIB_RESETI() protected: virtual void reset() override
+#define NETLIB_RESETI() public: virtual void reset() override
 
 #define NETLIB_TIMESTEP(chip) void NETLIB_NAME(chip) :: timestep(const nl_double step)
 
 #define NETLIB_SUB(chip) nld_ ## chip
 #define NETLIB_SUBXX(ns, chip) std::unique_ptr< ns :: nld_ ## chip >
 
-#define NETLIB_HANDLER(chip, name) void NETLIB_NAME(chip) :: name(void) NL_NOEXCEPT
+#define NETLIB_HANDLER(chip, name) void NETLIB_NAME(chip) :: name() NL_NOEXCEPT
 #define NETLIB_UPDATE(chip) NETLIB_HANDLER(chip, update)
-
-// FIXME: NETLIB_PARENT_UPDATE should disappear
-#define NETLIB_PARENT_UPDATE(chip) NETLIB_NAME(chip) :: update()
 
 #define NETLIB_RESET(chip) void NETLIB_NAME(chip) :: reset(void)
 
-#define NETLIB_UPDATE_PARAM(chip) void NETLIB_NAME(chip) :: update_param(void)
+#define NETLIB_UPDATE_PARAM(chip) void NETLIB_NAME(chip) :: update_param()
 #define NETLIB_FUNC_VOID(chip, name, params) void NETLIB_NAME(chip) :: name params
 
-#define NETLIB_UPDATE_TERMINALS(chip) void NETLIB_NAME(chip) :: update_terminals(void)
+#define NETLIB_UPDATE_TERMINALS(chip) void NETLIB_NAME(chip) :: update_terminals()
 
 //============================================================
 //  Asserts
@@ -727,19 +721,19 @@ namespace netlist
 
 		void toggle_new_Q() noexcept { m_new_Q = (m_cur_Q ^ 1);   }
 
-		void toggle_and_push_to_queue(const netlist_time delay) NL_NOEXCEPT
+		void toggle_and_push_to_queue(netlist_time delay) NL_NOEXCEPT
 		{
 			toggle_new_Q();
 			push_to_queue(delay);
 		}
 
-		void push_to_queue(const netlist_time delay) NL_NOEXCEPT;
+		void push_to_queue(netlist_time delay) NL_NOEXCEPT;
 		bool is_queued() const noexcept { return m_in_queue == QS_QUEUED; }
 
 		void update_devs() NL_NOEXCEPT;
 
 		const netlist_time time() const noexcept { return m_time; }
-		void set_time(const netlist_time ntime) noexcept { m_time = ntime; }
+		void set_time(netlist_time ntime) noexcept { m_time = ntime; }
 
 		bool isRailNet() const noexcept { return !(m_railterminal == nullptr); }
 		core_terminal_t & railterminal() const noexcept { return *m_railterminal; }
@@ -979,7 +973,7 @@ namespace netlist
 		virtual ~param_str_t();
 
 		const pstring &operator()() const NL_NOEXCEPT { return Value(); }
-		void setTo(const pstring &param) NL_NOEXCEPT
+		void setTo(netlist_time time, const pstring &param) NL_NOEXCEPT
 		{
 			if (m_param != param)
 			{
@@ -1086,11 +1080,6 @@ namespace netlist
 
 		virtual ~core_device_t();
 
-		void update_dev() NL_NOEXCEPT
-		{
-			do_update();
-		}
-
 		void do_inc_active() NL_NOEXCEPT
 		{
 			if (m_hint_deactivate)
@@ -1106,7 +1095,6 @@ namespace netlist
 				dec_active();
 		}
 
-		void do_reset() { reset(); }
 		void set_hint_deactivate(bool v) { m_hint_deactivate = v; }
 		bool get_hint_deactivate() { return m_hint_deactivate; }
 
@@ -1117,18 +1105,13 @@ namespace netlist
 		nperfcount_t<NL_KEEP_STATISTICS> m_stat_call_count;
 		nperfcount_t<NL_KEEP_STATISTICS> m_stat_inc_active;
 
+		virtual void update() NL_NOEXCEPT { }
+		virtual void reset() { }
 
 	protected:
 
-		virtual void update() NL_NOEXCEPT { }
 		virtual void inc_active() NL_NOEXCEPT {  }
 		virtual void dec_active() NL_NOEXCEPT {  }
-		virtual void reset() { }
-
-		void do_update() NL_NOEXCEPT
-		{
-			update();
-		}
 
 		log_type & log();
 
@@ -1139,7 +1122,6 @@ namespace netlist
 		virtual void update_param() {}
 		virtual bool is_dynamic() const { return false; }
 		virtual bool is_timestep() const { return false; }
-		virtual bool needs_update_after_param_change() const { return false; }
 
 	private:
 		bool m_hint_deactivate;

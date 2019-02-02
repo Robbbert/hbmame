@@ -71,7 +71,7 @@ namespace netlist
 NETLIB_RESET(solver)
 {
 	for (std::size_t i = 0; i < m_mat_solvers.size(); i++)
-		m_mat_solvers[i]->do_reset();
+		m_mat_solvers[i]->reset();
 }
 
 void NETLIB_NAME(solver)::stop()
@@ -93,9 +93,10 @@ NETLIB_UPDATE(solver)
 	if (m_params.m_dynamic_ts)
 		return;
 
+	netlist_time now(exec().time());
 	/* force solving during start up if there are no time-step devices */
 	/* FIXME: Needs a more elegant solution */
-	bool force_solve = (exec().time() < netlist_time::from_double(2 * m_params.m_max_timestep));
+	bool force_solve = (now < netlist_time::from_double(2 * m_params.m_max_timestep));
 
 	std::size_t nthreads = std::min(static_cast<std::size_t>(m_parallel()), plib::omp::get_max_threads());
 
@@ -104,16 +105,16 @@ NETLIB_UPDATE(solver)
 	if (nthreads > 1 && solvers.size() > 1)
 	{
 		plib::omp::set_num_threads(nthreads);
-		plib::omp::for_static(static_cast<std::size_t>(0), solvers.size(), [&solvers](std::size_t i)
+		plib::omp::for_static(static_cast<std::size_t>(0), solvers.size(), [&solvers, now](std::size_t i)
 			{
-				const netlist_time ts = solvers[i]->solve();
+				const netlist_time ts = solvers[i]->solve(now);
 				plib::unused_var(ts);
 			});
 	}
 	else
 		for (auto & solver : solvers)
 		{
-			const netlist_time ts = solver->solve();
+			const netlist_time ts = solver->solve(now);
 			plib::unused_var(ts);
 		}
 
@@ -417,7 +418,7 @@ void NETLIB_NAME(solver)::create_solver_code(std::map<pstring, pstring> &mp)
 	}
 }
 
-	NETLIB_DEVICE_IMPL_DEPRECATED(solver)
+	NETLIB_DEVICE_IMPL(solver, "SOLVER", "FREQ")
 
 	} //namespace devices
 } // namespace netlist

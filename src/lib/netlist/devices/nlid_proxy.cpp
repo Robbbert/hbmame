@@ -126,11 +126,6 @@ namespace netlist
 			log().warning(MW_1_NO_POWER_TERMINALS_ON_DEVICE_1, out_proxied->device().name());
 		else
 			log().verbose("D/A Proxy: Found power terminals on device {1}", out_proxied->device().name());
-#if (0)
-		printf("%s %s\n", out_proxied->name().c_str(), out_proxied->device().name().c_str());
-		auto x = netlist().setup().find_terminal(out_proxied->name(), detail::device_object_t::terminal_type::OUTPUT, false);
-		if (x) printf("==> %s\n", x->name().c_str());
-#endif
 	}
 
 
@@ -142,7 +137,7 @@ namespace netlist
 
 		//m_Q.initial(0.0);
 		m_last_state = -1;
-		m_RV.do_reset();
+		m_RV.reset();
 		m_is_timestep = m_RV.m_P.net().solver()->has_timestep_devices();
 		m_RV.set(NL_FCONST(1.0) / logic_family()->R_low(),
 				logic_family()->low_V(0.0, supply_V), 0.0);
@@ -163,7 +158,7 @@ namespace netlist
 			// We only need to update the net first if this is a time stepping net
 			if (m_is_timestep)
 			{
-				m_RV.update_dev();
+				m_RV.update();
 			}
 			m_RV.set(NL_FCONST(1.0) / R, V, 0.0);
 			m_RV.m_P.schedule_solve_after(NLTIME_FROM_NS(1));

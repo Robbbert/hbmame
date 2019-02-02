@@ -140,8 +140,8 @@ namespace netlist
 
 	NETLIB_RESET(9310)
 	{
-		sub.do_reset();
-		subABCD.do_reset();
+		sub.reset();
+		subABCD.reset();
 	}
 
 	NETLIB_RESET(9310_subABCD)
@@ -263,8 +263,8 @@ namespace netlist
 	#endif
 	}
 
-	NETLIB_DEVICE_IMPL_DEPRECATED(9310)
-	NETLIB_DEVICE_IMPL_DEPRECATED(9310_dip)
+	NETLIB_DEVICE_IMPL(9310,     "TTL_9310",     "")
+	NETLIB_DEVICE_IMPL(9310_dip, "TTL_9310_DIP", "")
 
 	} //namespace devices
 } // namespace netlist
