@@ -3775,6 +3775,7 @@ kof2k2ps2
 kof2k2ps2a
 kof2k2ps2mp
 kf2k2ps2re
+kf2k2ps2re1
 kof2k2pur
 kof2k2ra
 kof2k2rgl // no sound in attract mode
@@ -4509,7 +4510,8 @@ hooks04
 hooks05
 hookus01
 hookus02
-hookjs01 
+hookjs01
+hookxr
 nbbatmans01
 nbbatmans02
 nbbatmanus01

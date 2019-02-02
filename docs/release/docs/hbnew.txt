@@ -6,6 +6,8 @@
 
 New Games
 ---------------------------------
+- [hookxr]            Hook (Zinc Children's Edition Update 2018-09-14)
+- [kf2k2ps2re1]       Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)
 - [mk2p]              Mortal Kombat II Plus beta II
 - [shaman19]          Shaman King demo 0.19 [by Vasily Familiya]
 - [shaman20]          Shaman King demo 0.20 [by Vasily Familiya]
