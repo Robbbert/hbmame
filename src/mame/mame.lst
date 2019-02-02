@@ -33107,6 +33107,8 @@ rad_bb3
 rad_bb3p
 rad_hnt3
 rad_hnt3p
+rad_bask
+rad_baskp
 
 @source:rad_eu3a05.cpp
 rad_sinv
@@ -36295,7 +36297,10 @@ humlan                          // (c) 2001 Subsino & Truemax
 mtrain                          // (c) 1996 Subsino
 new2001                         // (c) 2000 Subsino
 ptrain                          // (c) 1999 Subsino
-queenbee                        // (c) 2001 Subsino
+queenbee                        // (c) 2001 American Alpha
+queenbeeb                       // (c) 2001 Subsino
+queenbeei                       // (c) 2001 Subsino
+queenbeesa                      // (c) 2001 Subsino
 saklove                         // (c) 1998 Subsino
 squeenb                         // (c) 2002 Subsino
 wtrnymph                        // (c) 1996 Subsino
@@ -37444,6 +37449,7 @@ ti83                            // 1996 TI-83 (Z80 6 MHz)
 ti83p                           // 1999 TI-83 Plus (Boot Code 1.00) (Z80 6 MHz)
 ti83pb                          // 20?? TI-83 Plus (Bootleg) (Z80 6 MHz)
 ti83pse                         // 2001 TI-83 Plus Silver Edition (Boot Code 1.00)
+ti83pseb                        // 20?? TI-83 Plus Silver Edition (Bootleg)
 ti84p                           // 2004 TI-84 Plus (Boot Code 1.00)
 ti84pv2                         // 200? TI-84 Plus (Boot Code 1.02)
 ti84pv3                         // 2011 TI-84 Plus (Boot Code 1.03)
@@ -39803,6 +39809,10 @@ epo_sdb                         //
 epo_guru                        //
 epo_dmon                        //
 rad_rh                          //
+rad_ssx                         //
+rad_ssxp                        //
+rad_sbw                         //
+rad_bdp                         //
 has_wamg                        //
 ekara                           //
 ekaraa                          //
