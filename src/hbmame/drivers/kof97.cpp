@@ -1571,6 +1571,30 @@ ROM_START( kof97sw ) /* The King of Fighters '97 - (kof97sw) - Hack by Wesker - 
 	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
 ROM_END
 
+ROM_START( kof97t )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232t.p1", 0x000000, 0x100000, CRC(45834e9b) SHA1(e73ef2ca56d08d43ace32f20c964472cf61c8316) )
+	ROM_LOAD16_WORD_SWAP( "232t.p2", 0x100000, 0x400000, CRC(d9e51750) SHA1(9dd00aa69361d6b9c4ed905d656c62b82c8f4f9a) )
+	ROM_FILL(0x70bd6,1,0x60)
+
+	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
+
+	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232t.c1", 0x0000000, 0x800000, CRC(b7f5a3b9) SHA1(a904503e1686ad6e3f0679370e5a0b100826f8ce) )
+	ROM_LOAD16_BYTE( "232t.c2", 0x0000001, 0x800000, CRC(959d6d78) SHA1(95031b35e5d6c5ed5c36503cfb6e6c907d9666d9) )
+	ROM_LOAD16_BYTE( "232.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232.c5", 0x2000000, 0x400000, CRC(34fc4e51) SHA1(b39c65f27873f71a6f5a5d1d04e5435f874472ee) )
+	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
+ROM_END
+
 ROM_START( kof97tse ) // All confirmed
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232tse.p1", 0x000000, 0x454f50, CRC(30408a6a) SHA1(71fee1b90a6e19baa98b6bb3c9a34034fbfe132c) )
@@ -2223,6 +2247,7 @@ HACK( 200?, kof97svs,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 HACK( 200?, kof97svsb2,kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'97 (SVSB2)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97sw,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 (26a-c and 623a-c red flame special effect)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97tse,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'97 (TSE)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kof97t,    kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'97 (T)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97wh,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 (Style Kyo to 95' Kyo)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97wpls, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Wesker", "Kof'97 Plus (NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97xbt,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'97 (BT X Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
