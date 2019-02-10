@@ -47,17 +47,16 @@ public:
 				std::is_floating_point<T>::value);
 	}
 
-	class callback_t
+	class callback_t : nocopyassignmove
 	{
 	public:
 		using list_t = std::vector<callback_t *>;
-
-		virtual ~callback_t() = default;
 
 		virtual void register_state(state_manager_t &manager, const pstring &module) = 0;
 		virtual void on_pre_save(state_manager_t &manager) = 0;
 		virtual void on_post_load(state_manager_t &manager) = 0;
 	protected:
+		virtual ~callback_t() = default;
 	};
 
 	struct entry_t
@@ -118,7 +117,13 @@ public:
 	void post_load();
 	void remove_save_items(const void *owner);
 
-	const entry_t::list_t &save_list() const { return m_save; }
+	const std::vector<const entry_t *> save_list() const
+	{
+		std::vector<const entry_t *> ret;
+		for (auto &i : m_save)
+			ret.push_back(i.get());
+		return ret;
+	}
 
 	void save_state_ptr(const void *owner, const pstring &stname, const datatype_t &dt, const std::size_t count, void *ptr);
 
