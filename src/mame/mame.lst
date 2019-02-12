@@ -12764,6 +12764,7 @@ fanucspgm                       // 1983
 @source:fastfred.cpp
 boggy84                         // (c) 1984 Kaneko
 boggy84b                        // bootleg
+boggy84b2                       // bootleg
 fastfred                        // 136009   (c) 1982 Atari
 flyboy                          // (c) 1982 Kaneko
 flyboyb                         // bootleg
@@ -12909,6 +12910,7 @@ feagv10                         //
 feagv11                         //
 feagv2                          //
 feagv2a                         //
+feagv5                          //
 feagv7                          //
 feagv7a                         //
 feagv9                          //
@@ -14177,7 +14179,7 @@ goal92                          // bootleg
 
 @source:goindol.cpp
 goindol                         // (c) 1987 Sun a Electronics
-goindolk                        // (c) 1987 Sun a Electronics
+goindolj                        // (c) 1987 Sun a Electronics
 goindolu                        // (c) 1987 Sun a Electronics
 homo                            // bootleg
 
@@ -15059,6 +15061,7 @@ gnw_dkjr                        // Nintendo
 gnw_dkong                       // Nintendo
 gnw_dkong2                      // Nintendo
 gnw_egg                         // Nintendo
+gnw_fire                        // Nintendo
 gnw_ghouse                      // Nintendo
 gnw_lboat                       // Nintendo
 gnw_manhole                     // Nintendo
@@ -29640,6 +29643,7 @@ karous                          // 2006.11 Karous
 keyboard                        // 2001.11 La Keyboard
 kick4csh                        // 2004.?? Kick '4' Cash
 kingrt66                        // 2002.02 The King of Route 66 (Rev A)
+kingrt66p                       // 2002.01 The King of Route 66 (prototype)
 kofnw                           // 2004.07 The King of Fighters Neo Wave
 kofnwj                          // 2004.07 The King of Fighters Neo Wave (Japan)
 kofxi                           // 2005.10 The King of Fighters XI
@@ -38055,6 +38059,7 @@ ht1080z2                        // Hradstechnika Szvetkezet HT-1080Z Series II
 lnw80                           // LNW Research LNW-80
 radionic                        // Radionic
 sys80                           // EACA System 80
+sys80p                          // EACA System 80
 trs80                           // TRS-80 Model I - Level I BASIC
 trs80l2                         // TRS-80 Model I - Level II BASIC
 
@@ -38667,9 +38672,13 @@ jak_fan4                        //
 jak_just                        //
 jak_dora                        //
 jak_disf                        //
+jak_disp                        //
 jak_sith                        //
 jak_sdoo                        //
 jak_dbz                         //
+jak_mpac                        //
+jak_wof                         //
+lexizeus                        // Lexibook
 vii                             // KenSingTon / Jungle Soft / Siatronics Vii
 wrlshunt                        // Wireless: Hunting Video Game System
 wirels60                        // Wireless 60
@@ -39843,6 +39852,7 @@ rad_ssxp                        //
 rad_sbw                         //
 rad_bdp                         //
 has_wamg                        //
+ltv_tam                         //
 ekara                           //
 ekaraa                          //
 ekaraj                          //
