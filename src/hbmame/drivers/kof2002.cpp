@@ -113,6 +113,64 @@ void neogeo_state::init_kf2k2ps2re()
 		printf("Checksum routine not patched out\n");
 }
 
+#if 0
+READ8_MEMBER(neogeo_state::get_audio_result_m2)
+{
+	uint8_t ret = m_soundlatch2->read(m_audiocpu2->space(AS_PROGRAM), 0);
+	return ret;
+}
+
+READ8_MEMBER(neogeo_state::get_audio_result_m3)
+{
+	uint8_t ret = m_soundlatch2->read(m_audiocpu3->space(AS_PROGRAM), 0);
+	return ret;
+}
+
+READ8_MEMBER(neogeo_state::get_audio_result_m4)
+{
+	uint8_t ret = m_soundlatch2->read(m_audiocpu4->space(AS_PROGRAM), 0);
+	return ret;
+}
+
+WRITE8_MEMBER(neogeo_state::audio_command_w_m2)
+{
+	m_soundlatch->write(space, 0, data);
+	m_audio_cpu_nmi_pending = true;
+	audio_cpu_check_nmi();
+	/* boost the interleave to let the audio CPU read the command */
+	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+}
+
+WRITE8_MEMBER(neogeo_state::audio_command_w_m3)
+{
+	m_soundlatch->write(space, 0, data);
+	m_audio_cpu_nmi_pending = true;
+	audio_cpu_check_nmi();
+	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+}
+
+WRITE8_MEMBER(neogeo_state::audio_command_w_m4)
+{
+	m_soundlatch->write(space, 0, data);
+	m_audio_cpu_nmi_pending = true;
+	audio_cpu_check_nmi();
+	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+}
+
+
+void neogeo_state::main_map4(address_map &map)
+{
+	lbsp_map(map);
+	map(0x200000, 0x2fffff) AM_ROMBANK(NEOGEO_BANK_CARTRIDGE)
+	map(0x2ffff0, 0x2fffff).w(FUNC(neogeo_state::main_cpu_bank_select_w));
+	map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
+	map(0x340000, 0x340001).mirror(0x01fffe).portr("IN1");
+	map(0x3a0000, 0x3a001f).mirror(0x01ffe0).w(FUNC(neogeo_state::system_control_w_m4));
+	map(0xba0000, 0xba0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m4),FUNC(neogeo_state::audio_command_w_m4));        // music4 add
+	map(0xbc0000, 0xbc0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m3),FUNC(neogeo_state::audio_command_w_m3));        // music4 add
+	map(0xbe0000, 0xbe0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m2),FUNC(neogeo_state::audio_command_w_m2));        // music4 add
+}
+#endif
 
 
 ROM_START( kof200215 ) // all confirmed

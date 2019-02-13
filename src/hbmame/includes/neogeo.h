@@ -190,7 +190,6 @@ public:
 	void init_ms5pcb();
 	void init_ms5pcbd();
 	void init_ms5plus();
-	void init_mvs();
 	void init_neogeo();
 	void init_nitd();
 	void init_pnyaa();
@@ -330,7 +329,7 @@ private:
 	int          m_palette_bank;
 
 	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_r);
-	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_bectors_r);
+	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_vectors_r);
 
 	void install_banked_bios();
 

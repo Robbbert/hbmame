@@ -1128,7 +1128,7 @@ READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_r)
 	return 0;
 }
 
-READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
+READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_vectors_r)
 {
 	if (!m_use_cart_vectors)
 	{
@@ -1149,7 +1149,8 @@ READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_bectors_r)
  *
  *************************************/
 
-void neogeo_state::neogeo_main_map(address_map &map) {
+void neogeo_state::neogeo_main_map(address_map &map)
+{
 	map(0x100000,0x10ffff).mirror(0x0f0000).ram();
 	/* some games have protection devices in the 0x200000 region, it appears to map to cart space, not surprising, the ROM is read here too */
 	map(0x300080,0x300081).mirror(0x01ff7e).portr("TEST");
@@ -1172,9 +1173,10 @@ void neogeo_state::neogeo_main_map(address_map &map) {
 }
 
 
-void neogeo_state::main_map_slot(address_map &map) {
+void neogeo_state::main_map_slot(address_map &map)
+{
 	neogeo_main_map(map);
-	map(0x000000,0x00007f).r(FUNC(neogeo_state::neogeo_slot_rom_low_bectors_r));
+	map(0x000000,0x00007f).r(FUNC(neogeo_state::neogeo_slot_rom_low_vectors_r));
 	map(0x000080,0x0fffff).r(FUNC(neogeo_state::neogeo_slot_rom_low_r));
 	map(0x200000,0x2fffff).bankr("cartridge");
 //  AM_RANGE(0x2ffff0, 0x2fffff) AM_WRITE(main_cpu_bank_select_w)
@@ -1186,7 +1188,8 @@ void neogeo_state::main_map_slot(address_map &map) {
  *
  *************************************/
 
-void neogeo_state::audio_map(address_map &map) {
+void neogeo_state::audio_map(address_map &map)
+{
 	map(0x0000,0x7fff).bankr("audio_main");
 	map(0x8000,0xbfff).bankr("audio_8000");
 	map(0xc000,0xdfff).bankr("audio_c000");
@@ -1282,11 +1285,6 @@ INPUT_PORTS_END
 
 
 
-
-void neogeo_state::init_mvs()
-{
-	init_neogeo();
-}
 
 // Fixed
 const gfx_layout charlayout =
@@ -1384,7 +1382,8 @@ MACHINE_CONFIG_START( neogeo_state::mvs )
 	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", false);
 MACHINE_CONFIG_END
 
-void neogeo_state::main_map_noslot(address_map &map) {
+void neogeo_state::main_map_noslot(address_map &map)
+{
 	neogeo_main_map(map);
 	map(0x000000,0x00007f).r(FUNC(neogeo_state::banked_vectors_r));
 	map(0x000080,0x0fffff).rom();
@@ -1473,7 +1472,8 @@ MACHINE_CONFIG_START( neogeo_state::no_watchdog )
 MACHINE_CONFIG_END
 
 // used by samsho2sp, doubledrsp
-void neogeo_state::samsho2sp_map(address_map &map) {
+void neogeo_state::samsho2sp_map(address_map &map)
+{
 	main_map_noslot(map);
 	map(0x900000,0x91ffff).rom().region("maincpu",0x200000);  // extra rom
 }
@@ -1485,7 +1485,8 @@ MACHINE_CONFIG_START( neogeo_state::samsho2sp )
 MACHINE_CONFIG_END
 
 // used by lbsp
-void neogeo_state::lbsp_map(address_map &map) {
+void neogeo_state::lbsp_map(address_map &map)
+{
 	main_map_noslot(map);
 	map(0x900000,0x91ffff).rom().region("maincpu",0x700000);  // extra rom
 }
@@ -2210,5 +2211,5 @@ ROM_START( neogeo )
 ROM_END
 
 
-/*    YEAR  NAME        PARENT    MACHINE   INPUT     INIT    */
-HACK( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, mvs,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+/*    YEAR  NAME        PARENT    MACHINE   INPUT            CLASS         INIT    */
+GAME( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
