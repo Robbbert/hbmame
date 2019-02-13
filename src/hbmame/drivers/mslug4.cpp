@@ -477,6 +477,30 @@ HACK( 200?, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, 
     Metal Slug 4
 ***********************/
 
+ROM_START( mslug4h01 )   // mslug4dr
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263h01.p1",   0x000000, 0x100000, CRC(1c5b60d9) SHA1(8ee80711f03792009c0a9c7df3b7b3f7846c4f3b) )
+	ROM_LOAD16_WORD_SWAP( "263.p2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_128K( "263.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
+
+	NEO_BIOS_AUDIO_128K( "263nd.m1", CRC(ef5db532) SHA1(4aeba9e206b8f309610eb7e1891644f39aa61830) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263nd.v1", 0x000000, 0x400000, CRC(c1b2af81) SHA1(532dca0a2b2e03d50c6ac3adc9ebceb413f61690) )
+	ROM_LOAD( "263nd.v2", 0x400000, 0x400000, CRC(cbbdc6fa) SHA1(06abb738cf198804248ecfc92adea38f7f86f612) )
+	ROM_LOAD( "263nd.v3", 0x800000, 0x400000, CRC(c4f1a3cc) SHA1(109e8db93875e1b1f3db293d1756b2bbebe63a28) )
+	ROM_LOAD( "263nd.v4", 0xC00000, 0x400000, CRC(40126a0a) SHA1(4234e0f4d9a9dc486d7af1eec91a17840a57976d) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263nd.c3", 0x1000000, 0x800000, CRC(63fb79ff) SHA1(a7da0a554034792721abda4369a71b0c8045f334) )
+	ROM_LOAD16_BYTE( "263nd.c4", 0x1000001, 0x800000, CRC(e8623126) SHA1(66c2b874cd55c628e7e6768d6f31180c29a734e7) )
+	ROM_LOAD16_BYTE( "263nd.c5", 0x2000000, 0x400000, CRC(3348DC5D) SHA1(a119e80aa2b36a7d8c7e8debd0eb13441a19adff) )
+	ROM_LOAD16_BYTE( "263nd.c6", 0x2000001, 0x400000, CRC(D90FC1A0) SHA1(0eaf5f658212c19a4cdbcdbff3b04389a2be76bb) )
+ROM_END
+
 ROM_START( mslug4n01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263nn01.p1",    0x000000, 0x100000, CRC(5a6c5175) SHA1(468dcdcc55c8f6f4b7bc3fa02f8063f2d73c9c23) )
@@ -5195,6 +5219,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Metal Slug 4
+HACK( 2019, mslug4h01,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-01-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4n01,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (Fire Bomb)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4n02,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (99 Bomb)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug4n03,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (Stone)(NGM-2630)", MACHINE_SUPPORTS_SAVE )
