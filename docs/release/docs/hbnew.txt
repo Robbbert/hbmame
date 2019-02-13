@@ -12,6 +12,8 @@ New Games
 - [mslug3h54]         Metal Slug 3 (Enemies Resetting Version 2019-01-02)
 - [mslug3h55]         Metal Slug 3 (Multifunction Version 2019-01-19)
 - [mslug4h01]         Metal Slug 4 (Enemies Resetting Version 2019-01-24)
+- [mslug5re56]        Metal Slug 5 (Enemies Enhanced Version 2019-01-05)
+- [mslug5re57]        Metal Slug 5 (Enemies Resetting Version 2019-01-01)
 - [shaman19]          Shaman King demo 0.19 [by Vasily Familiya]
 - [shaman20]          Shaman King demo 0.20 [by Vasily Familiya]
 - [tk2h126]           Tenchi Wo Kurau II (Master Edition Ver.4 2018-09-19)
