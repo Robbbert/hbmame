@@ -2187,6 +2187,32 @@ ROM_START( kof2k2mp3 )
 	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
 ROM_END
 
+ROM_START( kof2k2mp3s )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265mp3s.p1", 0x000000, 0x100000, CRC(933680ce) SHA1(61ba3c804926e27f364bd4b0b9b12eed6ee7bf15) )
+	ROM_LOAD16_WORD_SWAP( "265ori.p2", 0x100000, 0x400000, CRC(DE6FFD21) SHA1(0f9108aae7541d0d754ce764b195c921c021c373) )
+
+	NEO_SFIX_128K( "265mp3.s1", CRC(4d0c4e77) SHA1(6e65b3e0ec2a04de4553f8ccf9c3197a0126e332) )
+
+	NEO_BIOS_AUDIO_128K( "265ori.m1", CRC(AB9D360E) SHA1(a0c8a5aae387c4f0b72790211695da7df924c351) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265nu.v1", 0x000000, 0x400000, CRC(13d98607) SHA1(0f1a374247992d301bc26c0bab200631a13a9f4a) )
+	ROM_LOAD( "265nu.v2", 0x400000, 0x400000, CRC(9cf74677) SHA1(073e7cb00127690fdec05c19f00347ec449f15ac) )
+	ROM_LOAD( "265nu.v3", 0x800000, 0x400000, CRC(8e9448b5) SHA1(c22420649c7c68a172290548cab846345c861cb0) )
+	ROM_LOAD( "265nu.v4", 0xc00000, 0x400000, CRC(067271b5) SHA1(36e07da78aaf634824c98023053bef802be4e218) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265rs.c1",  0x0000000, 0x800000, CRC(c1a21b4c) SHA1(235938175d6011c5c8a37fc94f8fb604132d8038) )
+	ROM_LOAD16_BYTE( "265rs.c2",  0x0000001, 0x800000, CRC(9b3d7e8d) SHA1(38c16541862636934a456f23632f64ff0f5ae617) )
+	ROM_LOAD16_BYTE( "265ori.c3", 0x1000000, 0x800000, CRC(E5074EEA) SHA1(387ef21d58b416126b95843bac1a0b6cc346818f) )
+	ROM_LOAD16_BYTE( "265ori.c4", 0x1000001, 0x800000, CRC(F6EB1FF2) SHA1(77cb493b9e75d42c204a9a6c052a813c2730e44f) )
+	ROM_LOAD16_BYTE( "265d.c5",   0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6",   0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265ori.c7", 0x3000000, 0x800000, CRC(0E9F6ADB) SHA1(0e4cdbd3df2ef7b0c78c3275ee22684c67bf2d23) )
+	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
+ROM_END
+
 ROM_START( kof2k2mpu )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265mpu.p1", 0x000000, 0x100000, CRC(96388f42) SHA1(4129ca8d2a3f6543303bafafef479a48460e58ec) )
@@ -3956,7 +3982,8 @@ HACK( 2002, kof2k2mcr,   kof2002, neogeo_noslot, neogeo, neogeo_state,        ne
 HACK( 2002, kof2k2moi2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kof2002ex2", "Kof2002 (Magic Orochi Iori 2.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2moir,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "LB70", "Kof2002 (Retropokter Ver 1.0 - Magic Orochi Iori Remake)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2mp1,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 Magic Plus (decrypted C)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2010, kof2k2mp3,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 Magic Plus III (decrypted C)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kof2k2mp3,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 Magic Plus III (decrypted C, 2010-11-20)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kof2k2mp3s,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 Magic Plus III (decrypted C, Moves Simplified)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2mpu,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof2002 Plus (Set 01)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ngp,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Portuguese negative colour)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof2k2nu,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "BXX/Fliperman", "Kof2002 (Super Black Nude Mix)(Naked version (v0.2))(decrypted C)" , MACHINE_SUPPORTS_SAVE )

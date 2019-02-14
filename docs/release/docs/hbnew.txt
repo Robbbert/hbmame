@@ -8,6 +8,7 @@ New Games
 ---------------------------------
 - [hookxr]            Hook (Zinc Children's Edition Update 2018-09-14)
 - [kf2k2ps2re1]       Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)
+- [kof2k2mp3s]        Kof2002 Magic Plus III (decrypted C, Moves Simplified)
 - [kof97hx305]        Kof'97 (Iori with Cloak 2019-01-31)
 - [kof97hx306]        Kof'97 (Iori with Cloak, Moves Simplified 2019-02-03)
 - [kof97s107]         Kof'97 (Heavenly Divine 2013-02-03)
