@@ -497,7 +497,7 @@ MACHINE_CONFIG_START(sms_state::sms_base)
 	/* basic machine hardware */
 	SPEAKER(config, "mono").front_center();
 
-	MCFG_SMS_CARTRIDGE_ADD("slot", sms_cart, nullptr)
+	SMS_CART_SLOT(config, "slot", sms_cart, nullptr);
 
 	SOFTWARE_LIST(config, "cart_list").set_original("sms");
 
@@ -621,7 +621,7 @@ MACHINE_CONFIG_START(sms_state::sms1_ntsc)
 	m_vdp->pause().set(FUNC(sms_state::sms_pause_callback));
 
 	// card and expansion slots, not present in Master System II
-	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
+	SMS_CARD_SLOT(config, "mycard", sms_cart, nullptr);
 	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
@@ -641,41 +641,12 @@ MACHINE_CONFIG_START(smssdisp_state::sms_sdisp)
 	config.device_remove("mycard");
 	config.device_remove("smsexp");
 
-	MCFG_SMS_CARTRIDGE_ADD("slot2", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot3", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot4", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot5", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot6", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot7", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot8", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot9", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot10", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot11", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot12", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot13", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot14", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot15", sms_cart, nullptr)
-	MCFG_SMS_CARTRIDGE_ADD("slot16", sms_cart, nullptr)
-
-	MCFG_SMS_CARD_ADD("slot17", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot18", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot19", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot20", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot21", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot22", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot23", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot24", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot25", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot26", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot27", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot28", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot29", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot30", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot31", sms_cart, nullptr)
-	MCFG_SMS_CARD_ADD("slot32", sms_cart, nullptr)
+	for (int i = 1; i < 16; i++)
+		SMS_CART_SLOT(config, m_slots[i], sms_cart, nullptr);
+	for (int i = 0; i < 16; i++)
+		SMS_CARD_SLOT(config, m_cards[i], sms_cart, nullptr);
 
 	m_has_bios_full = false;
-	m_is_sdisp = true;
 	m_has_pwr_led = false;
 MACHINE_CONFIG_END
 
@@ -743,7 +714,7 @@ MACHINE_CONFIG_START(sms_state::sms1_pal)
 	m_vdp->pause().set(FUNC(sms_state::sms_pause_callback));
 
 	// card and expansion slots, not present in Master System II
-	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
+	SMS_CARD_SLOT(config, "mycard", sms_cart, nullptr);
 	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
@@ -815,7 +786,7 @@ MACHINE_CONFIG_START(sms_state::sms1_paln)
 	m_vdp->pause().set(FUNC(sms_state::sms_pause_callback));
 
 	// card and expansion slots, not present in Tec Toy Master System III
-	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
+	SMS_CARD_SLOT(config, "mycard", sms_cart, nullptr);
 	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
@@ -889,7 +860,7 @@ MACHINE_CONFIG_START(sms_state::sms1_br)
 	m_vdp->pause().set(FUNC(sms_state::sms_pause_callback));
 
 	// card and expansion slots, not present in Tec Toy Master System III
-	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
+	SMS_CARD_SLOT(config, "mycard", sms_cart, nullptr);
 	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	m_has_bios_full = true;
@@ -903,7 +874,7 @@ MACHINE_CONFIG_START(sms_state::sms2_kr)
 	MCFG_DEVICE_IO_MAP(smskr_io)
 
 	config.device_remove("slot");
-	MCFG_SG1000MK3_CARTRIDGE_ADD("slot", sg1000mk3_cart, nullptr)
+	SG1000MK3_CART_SLOT(config, "slot", sg1000mk3_cart, nullptr);
 	SOFTWARE_LIST(config, "cart_list2").set_original("sg1000");
 
 	// Despite having a Japanese cartridge slot, this version is detected as Export region.
@@ -920,8 +891,8 @@ MACHINE_CONFIG_START(sms_state::sms1_kr)
 	config.device_remove("slot");
 	config.device_remove("mycard");
 	config.device_remove("smsexp");
-	MCFG_SG1000MK3_CARTRIDGE_ADD("slot", sg1000mk3_cart, nullptr)
-	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
+	SG1000MK3_CART_SLOT(config, "slot", sg1000mk3_cart, nullptr);
+	SMS_CARD_SLOT(config, "mycard", sms_cart, nullptr);
 	SMS_EXPANSION_SLOT(config, "smsexp", sms_expansion_devices, nullptr);
 
 	SOFTWARE_LIST(config, "cart_list2").set_original("sg1000");
@@ -957,8 +928,8 @@ MACHINE_CONFIG_START(sms_state::sg1000m3)
 	config.device_remove("slot");
 	config.device_remove("mycard");
 	config.device_remove("smsexp");
-	MCFG_SG1000MK3_CARTRIDGE_ADD("slot", sg1000mk3_cart, nullptr)
-	MCFG_SMS_CARD_ADD("mycard", sms_cart, nullptr)
+	SG1000MK3_CART_SLOT(config, "slot", sg1000mk3_cart, nullptr);
+	SMS_CARD_SLOT(config, "mycard", sms_cart, nullptr);
 	SG1000_EXPANSION_SLOT(config, "sgexp", sg1000_expansion_devices, nullptr, false);
 
 	SOFTWARE_LIST(config, "cart_list2").set_original("sg1000");
@@ -1005,7 +976,7 @@ MACHINE_CONFIG_START(sms_state::gamegear)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 1.00)
 
 	/* cartridge */
-	MCFG_GG_CARTRIDGE_ADD("slot", gg_cart, nullptr)
+	GAMEGEAR_CART_SLOT(config, "slot", gg_cart, nullptr);
 
 	SOFTWARE_LIST(config, "cart_list").set_original("gamegear");
 
