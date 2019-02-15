@@ -6,6 +6,11 @@
 
 New Games
 ---------------------------------
+- [dinoh01]           Cadillacs and Dinosaurs (Fighting God Version 2019-01-14)
+- [dinoh02]           Cadillacs and Dinosaurs (Arena Version 2019-01-23)
+- [dinoh03]           Cadillacs and Dinosaurs (Sky King 2019-01-14)
+- [dinoh04]           Cadillacs and Dinosaurs (Warlord Version 2019-01-19)
+- [dinoh05]           Cadillacs and Dinosaurs (Majin Ranbu 2019-01-17)
 - [hookxr]            Hook (Zinc Children's Edition Update 2018-09-14)
 - [kf2k2ps2re1]       Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)
 - [kof2k2mp3s]        Kof2002 Magic Plus III (decrypted C, Moves Simplified)
