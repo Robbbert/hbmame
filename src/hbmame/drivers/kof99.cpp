@@ -2144,6 +2144,32 @@ ROM_START( kof99srr1 ) // multijet kof99srr
 	ROM_LOAD16_BYTE( "251d.c8",  0x3000001, 0x800000, CRC(4c2fad1e) SHA1(26779e79296eb1988a8c4d60d2e1baf041f2c0cf) )
 ROM_END
 
+ROM_START( kof99t )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251t.p1", 0x000000, 0x100000, CRC(b89ba128) SHA1(112bda6df0c6e6c6922865fe896fea063668483b) )
+	ROM_LOAD16_WORD_SWAP( "251t.p2", 0x100000, 0x400000, CRC(f767394c) SHA1(d1b0b37035b7aecf42c0334de18728b3fe338fae) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_128K( "251.m1", CRC(5e74539c) SHA1(6f49a9343cbd026b2c6720ff3fa2e5b1f85e80da) )
+
+	ROM_REGION( 0x0e00000, "ymsnd", 0 )
+	ROM_LOAD( "251.v1", 0x000000, 0x400000, CRC(ef2eecc8) SHA1(8ed13b9db92dba3124bc5ba66e3e275885ece24a) )
+	ROM_LOAD( "251.v2", 0x400000, 0x400000, CRC(73e211ca) SHA1(0e60fa64cab6255d9721e2b4bc22e3de64c874c5) )
+	ROM_LOAD( "251.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251.c1",   0x0000000, 0x800000, CRC(0f9e93fe) SHA1(c7d77f0833c6f526f632e4f2dce59e302f6b9a15) )
+	ROM_LOAD16_BYTE( "251.c2",   0x0000001, 0x800000, CRC(e71e2ea3) SHA1(39c7a326fddbcca3b29c68cdc96aad4d62295c0f) )
+	ROM_LOAD16_BYTE( "251.c3",   0x1000000, 0x800000, CRC(238755d2) SHA1(01125b5c7a28e350f091280b041954fd1ac7c98f) )
+	ROM_LOAD16_BYTE( "251.c4",   0x1000001, 0x800000, CRC(438c8b22) SHA1(ffbc643f5b27dd00f2f95d4ef4c5f29ee814722b) )
+	ROM_LOAD16_BYTE( "251.c5",   0x2000000, 0x800000, CRC(0b0abd0a) SHA1(d5ad324fe523bdc6f09209d236cc4932524a48f1) )
+	ROM_LOAD16_BYTE( "251.c6",   0x2000001, 0x800000, CRC(65bbf281) SHA1(79ae174667a23dabcfe865b6cd6133c86098452e) )
+	ROM_LOAD16_BYTE( "251.c7",   0x3000000, 0x800000, CRC(ff65f62e) SHA1(7cd335fede05b56e15db90ce407c1183a78da4e9) )
+	ROM_LOAD16_BYTE( "251.c8",   0x3000001, 0x800000, CRC(8d921c68) SHA1(42acf1d27d52a8e3b6262eb7df50693c0b135565) )
+ROM_END
+
 ROM_START( kof99the4 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251the4.p1", 0x000000, 0x100000, CRC(6055c72c) SHA1(45089a3e17e6476113f2c471632b3029b3344743) )
@@ -2985,7 +3011,7 @@ HACK( 200?, kof99pt,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof
 HACK( 200?, kof99r,     kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99k,   ROT0, "Raymonose", "Kof'99 (Backward rolling)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99rd,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99k,   ROT0, "abchen", "Kof'99 (Red Evil Edition)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99rev,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99k,   ROT0, "star07", "Kof'99 (Revolution Merry Christmas)(12-26-2005)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof99revo,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Okuhoshi", "Kof'99 (Christmas Revolution v1.2)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof99revo,  kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Okuhoshi", "Kof'99 (Christmas Revolution v1.2)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99roll,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "KofOnTeam", "Kof'99 (Advanced Roll)(Korean release)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof99rp,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "Raymonose & Jason", "Kof'99 (Remix Pro)(Diff Moves - v1.07a 2004-12-24)(Korean release)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof99rp0,   kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Raymonose & Jason", "Kof'99 (Remix Pro)(Edition v1.07a)(Korean release)", MACHINE_SUPPORTS_SAVE )
@@ -3005,13 +3031,14 @@ HACK( 2004, kof99rpp,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof
 HACK( 200?, kof99rr,    kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99k,   ROT0, "Raymonose", "Kof'99 (Diff Moves set 2)(Korean release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99seh,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99k,   ROT0, "Creamymami and Ydmis", "Kof'99 (4 Add Char - Ultra kill start max - Ultra pow)(Korean release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99sp,    kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "ZKW", "Kof'99 (Super Plus)(prototype)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof99spd,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,    ROT0, "Star07", "Kof'99 (Special Dialogue)(NGH-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof99spd,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "Star07", "Kof'99 (Special Dialogue)(NGH-2510)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99sr,    kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "FCHT", "Kof'99 (Summer Revolution)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99srr,   kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Raymonose", "Kof'99 (Super Remix Red)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99srr1,  kof99,    neogeo_noslot, neogeo, neogeo_state,       cmc42sfix,ROT0, "Unknown", "Kof'99 (Super Remix Red Version)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof99t,     kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "Unknown", "Kof'99 (Optimised Version For GOTVG 2014-08-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99the4,  kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Yashional", "Kof'99 (The 4 Flame Manipulators)(set 1)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99the42, kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Yashional", "Kof'99 (The 4 Flame Manipulators)(set 2)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,    ROT0, "Unknown", "Kof'99 (Hack Ver.0?)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99hb,  ROT0, "Unknown", "Kof'99 (Hack Ver.0?)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99wet,   kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Unknown", "Kof'99 (Colour set ?)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99xxx,   kof99,    neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Unknown", "Kof'99 (Special Boss)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99y,     kof99,    neogeo_noslot, neogeo, neogeo_state,       kof99k,   ROT0, "Ydmis", "Kof'99 (4 Add Char)(Korean release)", MACHINE_SUPPORTS_SAVE )

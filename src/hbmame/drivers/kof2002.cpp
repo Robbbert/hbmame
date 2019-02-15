@@ -13932,6 +13932,30 @@ ROM_START( kof2k2s71 )
 	ROM_LOAD16_BYTE( "265d.c8",   0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
+ROM_START( kof2k2s72 )   // kf2k2tt
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265s72.p1",  0x000000, 0x100000, CRC(26b084c7) SHA1(9f66735814c9d657f8513fcbce7fcbe8ba036dbf) )
+	ROM_LOAD16_WORD_SWAP( "265omg.p2", 0x100000, 0x400000, CRC(6fadc5c3) SHA1(8336d339013d3357b11b8e0c1816b560a755f935) )
+
+	NEO_SFIX_128K( "265hc10.s1", CRC(14b08bd9) SHA1(3cabbf407e1035144a515d83fa94f93b7f63f162) )
+
+	NEO_BIOS_AUDIO_128K( "265ori.m1", CRC(AB9D360E) SHA1(a0c8a5aae387c4f0b72790211695da7df924c351) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265d.c1",   0x0000000, 0x800000, CRC(7efa6ef7) SHA1(71345A4202E7CC9239538FB978638141416C8893) )
+	ROM_LOAD16_BYTE( "265d.c2",   0x0000001, 0x800000, CRC(aa82948b) SHA1(B2A40797F68BDEB80BC54DCCC5495BE68934BF0E) )
+	ROM_LOAD16_BYTE( "265ori.c3", 0x1000000, 0x800000, CRC(E5074EEA) SHA1(387ef21d58b416126b95843bac1a0b6cc346818f) )
+	ROM_LOAD16_BYTE( "265ori.c4", 0x1000001, 0x800000, CRC(F6EB1FF2) SHA1(77cb493b9e75d42c204a9a6c052a813c2730e44f) )
+	ROM_LOAD16_BYTE( "265d.c5",   0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6",   0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265ori.c7", 0x3000000, 0x800000, CRC(0E9F6ADB) SHA1(0e4cdbd3df2ef7b0c78c3275ee22684c67bf2d23) )
+	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2002
 HACK( 2005, kof2002s01,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "KyoX",    "Kof2002 (Translation Portuguese)(09-25-2005)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
@@ -14332,11 +14356,12 @@ HACK( 200?, kof2k2s60,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof2k2s61,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 Super Magic Plus (Green Version)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s62,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "NeogeoBRteam",    "Kof2002 (Brazil Hack Set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s63,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Marcochen",    "Kof2002 (Description Of Hack Unknown)(Set 29)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s64,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Zuojie",    "Kof2002 (Boss Revision)(17-10-2008)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s65,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Kof1996, Kqz, Zuojie",    "Kof2002 (Boss Edition v1.0)(23-01-2009)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s66,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Danpaji1, Marcochen",    "Kof2002 (Kim Revision)(23-01-2009)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, kof2k2s64,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Zuojie",    "Kof2002 (Boss Revision)(2008-10-17)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof2k2s65,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Kof1996, Kqz, Zuojie",    "Kof2002 (Boss Edition v1.0)(2009-01-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof2k2s66,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Danpaji1, Marcochen",    "Kof2002 (Kim Revision)(2009-01-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s67,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "TheMazTr",    "Kof2002 (Changed Letters)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s68,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Foxy",    "Kof2002 (N.E.S.T.S)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s69,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 (Orochi Team Hack)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s70,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 (Magic Fking)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s71,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Perfect Revised Edition)(Ver.?)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s71,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Perfect Revised Edition)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kof2k2s72,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Exceeding Version 2018-11-25)", MACHINE_SUPPORTS_SAVE )

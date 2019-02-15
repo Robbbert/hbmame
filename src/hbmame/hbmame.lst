@@ -2305,6 +2305,7 @@ kof97s104
 kof97s105
 kof97s106
 kof97s107
+kof97s108
 kof97h01
 kof97h02
 kof97h03
@@ -3142,6 +3143,7 @@ kof99spd
 kof99sr
 kof99srr
 kof99srr1
+kof99t
 kof99the4
 kof99the42
 kof99vor
@@ -4244,6 +4246,7 @@ kof2k2s68
 kof2k2s69
 kof2k2s70
 kof2k2s71
+kof2k2s72
 
 @source:kof2003.cpp
 kof2003d
@@ -5418,7 +5421,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
-// mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
+mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
 mslug4h01
@@ -5635,7 +5638,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-// mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
+mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug5hd
 mslug5l9a
 mslug5l9b
