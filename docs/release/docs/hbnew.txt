@@ -36,7 +36,10 @@ New Games
 - [shaman21]          Shaman King demo 0.21 [by Vasily Familiya]
 - [shaman22]          Shaman King demo 0.22 [by Vasily Familiya]
 - [tk2h126]           Tenchi Wo Kurau II (Master Edition Ver.4 2018-09-19)
+- [tk2h127]           Tenchi wo Kurau II (Master Version 2019-01-20)
 - [umk3te42]          Ultimate Mortal Kombat 3 (Tournament Edition)(2.0.042)
+- [wofs09]            Warriors of Fate (unknown s09)(World 921002)
+- [wofs10]            Warriors of Fate (Unique Sword Armour 2019-01-13)
 
 
 
