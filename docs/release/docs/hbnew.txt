@@ -11,6 +11,7 @@ New Games
 - [captcommh03]       Captain Commando (Warlord Version 2019-01-07)
 - [captcommh04]       Captain Commando (Shape Shifting Version 2019-01-01)
 - [captcommh05]       Captain Commando (99 Beater Version 2019-01-02)
+- [captcommh06]       Captain Commando (Unrivalled Version 2018-11-01)
 - [dinoh01]           Cadillacs and Dinosaurs (Fighting God Version 2019-01-14)
 - [dinoh02]           Cadillacs and Dinosaurs (Arena Version 2019-01-23)
 - [dinoh03]           Cadillacs and Dinosaurs (Sky King 2019-01-14)
