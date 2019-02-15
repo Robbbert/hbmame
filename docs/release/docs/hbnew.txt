@@ -16,6 +16,7 @@ New Games
 - [dinoh03]           Cadillacs and Dinosaurs (Sky King 2019-01-14)
 - [dinoh04]           Cadillacs and Dinosaurs (Warlord Version 2019-01-19)
 - [dinoh05]           Cadillacs and Dinosaurs (Majin Ranbu 2019-01-17)
+- [dinoh06]           Cadillacs and Dinosaurs (Unrivalled Version 2019 2019-01-07)
 - [grdianss07]        Guardians / Denjin Makai II (Robust Version 2019-01-11)
 - [hookxr]            Hook (Zinc Children's Edition Update 2018-09-14)
 - [kf2k2ps2re1]       Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)
