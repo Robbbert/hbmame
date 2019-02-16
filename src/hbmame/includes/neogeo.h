@@ -103,7 +103,6 @@ public:
 
 	void init_bangbead();
 	void init_cmc42sfix();
-	void init_cmc50sfix();
 	void init_ct2k3sp();
 	void init_ct2k3sa();
 	void init_cthd2003();
@@ -123,8 +122,6 @@ public:
 	void init_kf2k1pa();
 	void init_kf2k2mp();
 	void init_kf2k2mp2();
-	void init_kf2k2pls();
-	void init_kf2k3bl();
 	void init_kf2k3pcb();
 	void init_kf2k3pl();
 	void init_kf2k3upl();
@@ -139,9 +136,6 @@ public:
 	void init_kof2k3pcd();
 	void init_kof2k4pls();
 	void init_kof2k4se();
-	void init_kof2kbsd();
-	void init_kof2knd();
-	void init_kof2kxxx();
 	void init_kof95sp();
 	void init_kof96ep();
 	void init_kof97pla();
@@ -149,22 +143,13 @@ public:
 	void init_kof98();
 	void init_kof98pfe();
 	void init_kof99();
-	void init_kof99hb();
-	void init_kof99k();
 	void init_kof2000();
-	void init_kof2000d();
-	void init_kof2000h();
-	void init_kof2000m();
-	void init_kof2000n();
 	void init_kof2001();
-	void init_kof2001hb();
 	void init_kof2002();
 	void init_kof2002b();
-	void init_kof2002hb();
 	void init_kof2003();
 	void init_kof2003h();
 	void init_kof2003b();
-	void init_kof2003hb();
 	void init_kog();
 	void init_kogd();
 	void init_lans2004();
