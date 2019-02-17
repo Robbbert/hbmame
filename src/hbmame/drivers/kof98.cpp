@@ -4,25 +4,6 @@
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_kof98pfe()
-{
-	init_neogeo();
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x700000/2; i < 0x720000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-}
-
-
-
 ROM_START( kof98aas ) // Asamiya Athena 99 Style by Ivex
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242-pn1.p1", 0x000000, 0x100000, CRC(61ac868a) SHA1(26577264aa72d6af272952a876fcd3775f53e3fa) )
@@ -3413,15 +3394,17 @@ ROM_START( kof98new )
 ROM_END
 
 ROM_START( kof98pfe ) // px,s1,m1,c1,2,7,8 confirmed
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242pfe.p1", 0x000000, 0x100000, CRC(23876d95) SHA1(1e3bcd98d861618fa8b02503f1c8d342d6d45768) )
 	ROM_LOAD16_WORD_SWAP( "242pfe.p2", 0x100000, 0x400000, CRC(adbaa852) SHA1(afcc76da85c0598e6f5c96ad112c458a4ed59941) )
-	ROM_LOAD16_WORD_SWAP( "242pfe.p3", 0x700000, 0x020000, CRC(930ea34e) SHA1(8eb58c20a6854a8feba454ef280147eb1319c0c5) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "242pfe.p3", 0x000000, 0x020000, CRC(930ea34e) SHA1(8eb58c20a6854a8feba454ef280147eb1319c0c5) )
 	// patch out protection
-	ROM_FILL(0x701af4,1,0x4e)
-	ROM_FILL(0x701af5,1,0x71)
-	ROM_FILL(0x701b18,1,0x60)
-	ROM_FILL(0x701ca2,1,0x60)
+	ROM_FILL(0x001af4,1,0x4e)
+	ROM_FILL(0x001af5,1,0x71)
+	ROM_FILL(0x001b18,1,0x60)
+	ROM_FILL(0x001ca2,1,0x60)
 
 	NEO_SFIX_128K( "242pfe.s1", CRC(7f4dbf23) SHA1(bce6dcea6dc40d4072afe67682c7dacde2edce8d) )
 
@@ -4222,7 +4205,7 @@ HACK( 2011, kof98mix,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 HACK( 200?, kof98nc,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Eddids", "Kof'98 (Neo-Geo CD 1.2)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98ncdh, kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Kof1996", "Kof'98 (CD to MVS Conversion)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98new,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'98 (New Version)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof98pfe,  kof98,    lbsp,          neogeo, neogeo_state, kof98pfe, ROT0, "GSC2007", "Kof'98 (Plus Final Edition)(2017-07-23)(Korean board)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof98pfe,  kof98,    gsc,           neogeo, neogeo_state, gsc,      ROT0, "GSC2007", "Kof'98 (Plus Final Edition)(2017-07-23)(Korean board)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98pjc,  kof98,    neogeo_noslot, neogeo, neogeo_state, kof98,    ROT0, "TcwLee", "Kof'98 (Char color changed)(Korean board)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98rh,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Raymonose", "Kof'98 (Floating judgment enhanced version)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98rh1,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'98 (Real Rugal Hack)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
@@ -4236,7 +4219,7 @@ HACK( 200?, kof98sof,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 HACK( 200?, kof98sp,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "ZWJ", "Kof'98 Super Plus (Hack)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98sp2,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "ZWJ", "Kof'98 Super Plus (Hack Alternate Set)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98sr,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "EGHT", "Kof'98 (Flash Landscaping)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof98sv,   kof98,    neogeo_noslot, neogeo, neogeo_state, kof98,  ROT0, "Unknown", "Kof'98 (Silver Style Edition)(Korean board)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof98sv,   kof98,    neogeo_noslot, neogeo, neogeo_state, kof98,    ROT0, "Unknown", "Kof'98 (Silver Style Edition)(Korean board)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98tim,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "EGHT, Creamymami, Raymonose", "Kof'98 (Triple Impact Remix)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98ul,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'98 (Ultra Leona)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98ur,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'98 (Ultra Rugal)(NGM-2420)", MACHINE_SUPPORTS_SAVE )

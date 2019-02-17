@@ -87,7 +87,6 @@ public:
 	{ }
 
 	void hbmame_kog(machine_config &config);
-	void lbsp(machine_config &config);
 	void mvs(machine_config &config);
 	void neogeo_arcade(machine_config &config);
 	void neogeo_base(machine_config &config);
@@ -99,7 +98,7 @@ public:
 	void neogeo_noctrl(machine_config &config);
 	void neogeo_noslot(machine_config &config);
 	void no_watchdog(machine_config &config);
-	void samsho2sp(machine_config &config);
+	void gsc(machine_config &config);
 
 	void init_bangbead();
 	void init_cmc42sfix();
@@ -107,7 +106,6 @@ public:
 	void init_ct2k3sa();
 	void init_cthd2003();
 	void init_cthd2k3a();
-	void init_dbdrsp();
 	void init_fatfury2();
 	void init_fr2ch();
 	void init_ganryu();
@@ -115,6 +113,7 @@ public:
 	void init_garouh();
 	void init_garoubl();
 	void init_garoud();
+	void init_gsc();
 	void init_irrmaze();
 	void init_jckeygpd();
 	void init_jockeygp();
@@ -130,18 +129,15 @@ public:
 	void init_kof10thu();
 	void init_kof2k2bd();
 	void init_kof2k2pl17();
-	void init_kf2k2ps2re();
 	void init_kof2k3fd();
 	void init_kof2k3hd();
 	void init_kof2k3pcd();
 	void init_kof2k4pls();
 	void init_kof2k4se();
-	void init_kof95sp();
 	void init_kof96ep();
 	void init_kof97pla();
 	void init_kof97oro();
 	void init_kof98();
-	void init_kof98pfe();
 	void init_kof99();
 	void init_kof2000();
 	void init_kof2001();
@@ -153,7 +149,6 @@ public:
 	void init_kog();
 	void init_kogd();
 	void init_lans2004();
-	void init_lbsp();
 	void init_matrim();
 	void init_matrima();
 	void init_matrimbl();
@@ -241,8 +236,7 @@ private:
 	void audio_map(address_map &map);
 	void audio_io_map(address_map &map);
 	void main_map_noslot(address_map &map);
-	void samsho2sp_map(address_map &map);
-	void lbsp_map(address_map &map);
+	void gsc_map(address_map &map);
 	void main_map1(address_map &map);
 
 	void neogeo_postload();

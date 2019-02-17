@@ -1471,32 +1471,37 @@ MACHINE_CONFIG_START( neogeo_state::no_watchdog )
 	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
 MACHINE_CONFIG_END
 
-// used by samsho2sp, doubledrsp
-void neogeo_state::samsho2sp_map(address_map &map)
+
+void neogeo_state::gsc_map(address_map &map)
 {
 	main_map_noslot(map);
-	map(0x900000,0x91ffff).rom().region("maincpu",0x200000);  // extra rom
+	map(0x900000,0x91ffff).rom().region("gsc", 0);  // extra rom
 }
 
-MACHINE_CONFIG_START( neogeo_state::samsho2sp )
+MACHINE_CONFIG_START( neogeo_state::gsc )
 	neogeo_noslot(config);
 	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(samsho2sp_map)
+	MCFG_DEVICE_PROGRAM_MAP(gsc_map)
 MACHINE_CONFIG_END
 
-// used by lbsp
-void neogeo_state::lbsp_map(address_map &map)
+void neogeo_state::init_gsc() // thx FBA
 {
-	main_map_noslot(map);
-	map(0x900000,0x91ffff).rom().region("maincpu",0x700000);  // extra rom
+	init_neogeo();
+	uint32_t i;
+	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	for (i = 0; i < 0x100000/2; i++)
+	{
+		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
+		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
+	}
+
+	rom = (uint16_t *)memregion("gsc")->base();
+	for (i = 0; i < 0x020000/2; i++)
+	{
+		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
+		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
+	}
 }
-
-MACHINE_CONFIG_START( neogeo_state::lbsp )
-	neogeo_noslot(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(lbsp_map)
-MACHINE_CONFIG_END
-
 
 /*************************************
  *

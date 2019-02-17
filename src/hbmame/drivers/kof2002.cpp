@@ -25,52 +25,15 @@ void neogeo_state::init_kof2k2bd()
 
 void neogeo_state::init_kof2k2pl17()
 {
-	init_neogeo();
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	init_gsc();
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x700000/2; i < 0x720000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	rom[0x700178/2] = 0x4e75;
 }
 
+// kf2k2ps2re
 // This game can select a different m1 and vx, depending on the character chosen.
 // Due to lack of info, this is not emulated. It could happen that bad sounds might
 // occur.
-void neogeo_state::init_kf2k2ps2re()
-{
-	init_neogeo();
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x700000/2; i < 0x720000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-
-	if (rom[0x71061A/2] == 0xB07C)   // kf2k2ps2re
-		rom[0x71061A/2] = 0x4e75;
-	else
-	if (rom[0x7108D0/2] == 0xB07C)   // kf2k2ps2re1
-		rom[0x7108D0/2] = 0x4e75;
-	else
-		printf("Checksum routine not patched out\n");
-}
-
 #if 0
 READ8_MEMBER(neogeo_state::get_audio_result_m2)
 {
@@ -118,7 +81,7 @@ WRITE8_MEMBER(neogeo_state::audio_command_w_m4)
 
 void neogeo_state::main_map4(address_map &map)
 {
-	lbsp_map(map);
+	gsc_map(map);
 	map(0x200000, 0x2fffff) AM_ROMBANK(NEOGEO_BANK_CARTRIDGE)
 	map(0x2ffff0, 0x2fffff).w(FUNC(neogeo_state::main_cpu_bank_select_w));
 	map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
@@ -2602,10 +2565,14 @@ ROM_START( kof2k2pjw ) /* The King of Fighters 2002 - Enhance by Jason/K3 and We
 ROM_END
 
 ROM_START( kof2k2pl17 ) // KOF2k2plus2017
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265pl17.p1", 0x000000, 0x100000, CRC(bd94702d) SHA1(85f1c0930ebf160eeb0995c00eab9bfd896b87e3) )
 	ROM_LOAD16_WORD_SWAP( "265pl17.p2", 0x100000, 0x500000, CRC(76e75315) SHA1(f95cc585676a3d2d49b4249fea3872fd7f4af5ef) )
-	ROM_LOAD16_WORD_SWAP( "265pl17.p3", 0x700000, 0x020000, CRC(6bfe80b0) SHA1(2ea3e2ed1bf5e20c256a41dd5c1160e945fa333e) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "265pl17.p3", 0x000000, 0x020000, CRC(6bfe80b0) SHA1(2ea3e2ed1bf5e20c256a41dd5c1160e945fa333e) )
+	ROM_FILL(0x000178,1,0x4e)
+	ROM_FILL(0x000179,1,0x75)
 
 	NEO_SFIX_128K( "265pl17.s1", CRC(96bdd036) SHA1(62baba893e10dbed5c5099040b07432c0737be42) )
 
@@ -2779,13 +2746,17 @@ ROM_START( kof2k2ps2mp )
 ROM_END
 
 ROM_START( kf2k2ps2re )
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	//ROM_LOAD16_WORD_SWAP( "265ps2re.p1",  0x000000, 0x100000, CRC(25744D64) SHA1(505C6F4062B3614AA1CE1990EC726B45851628ED) )
 	//ROM_LOAD16_WORD_SWAP( "265ps2re.p2",  0x100000, 0x500000, CRC(07D730D0) SHA1(FB0CD3496F9BFD74A4973C24668336173CB3E190) )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x700000, 0x020000, CRC(AB1F63D5) SHA1(1DC2437C6B4257172B21EBB3C6937AF5779FB261) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p1",  0x000000, 0x100000, CRC(e8fd148f) SHA1(d35892e2ac8d3c85ff57d4ca644b93e25aafddf0) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p2",  0x100000, 0x500000, CRC(1de9efcb) SHA1(7cf4cfc54f881281373f42c4dc48c9e8149c8164) )
-	ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x700000, 0x020000, CRC(adf44b1d) SHA1(a7a56ce99a728940812fd0678c9d018023f5482c) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	//ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x000000, 0x020000, CRC(AB1F63D5) SHA1(1DC2437C6B4257172B21EBB3C6937AF5779FB261) )
+	ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x000000, 0x020000, CRC(adf44b1d) SHA1(a7a56ce99a728940812fd0678c9d018023f5482c) )
+	ROM_FILL(0x01061A,1,0x4e)
+	ROM_FILL(0x01061B,1,0x75)
 
 	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
 
@@ -2831,10 +2802,14 @@ ROM_START( kf2k2ps2re )
 ROM_END 
 
 ROM_START( kf2k2ps2re1 )
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265ps2re1.p1",  0x000000, 0x100000, CRC(77a0044c) SHA1(57665dcc803d6bf406fb047823aaf71348996b2b) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re1.p2",  0x100000, 0x500000, CRC(f9e4456a) SHA1(95e8ebdb7fd0db8ce3116091d160ad1260c2a5e4) )
-	ROM_LOAD16_WORD_SWAP( "265ps2re1.p3",  0x700000, 0x020000, CRC(6e6beeba) SHA1(9ab1687c9d8aacaa2626d25b8177b6ae48828674) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "265ps2re1.p3",  0x000000, 0x020000, CRC(6e6beeba) SHA1(9ab1687c9d8aacaa2626d25b8177b6ae48828674) )
+	ROM_FILL(0x0108D0,1,0x4e)
+	ROM_FILL(0x0108D1,1,0x75)
 
 	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
 
@@ -3959,15 +3934,15 @@ HACK( 2002, kof2k2ori2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        ne
 HACK( 2002, kof2k2pa,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Unknown", "Kof2002 Plus (Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof2k2pfo,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Ismamj / Neo-Nebuwaks", "Kof2002 (Perfect O Iori Edition)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2pjw,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Jason/K3 and Wesker", "Kof2002 Plus (Set 02)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof2k2pl17,  kof2002, lbsp,          neogeo, neogeo_state,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (2017-12-25)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2k2pl17,  kof2002, gsc,           neogeo, neogeo_state,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (2017-12-25)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2pr,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional)(03-06-2003)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional Older?)(03-06-2003)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2pr,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional)(2003-03-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional Older?)(2003-03-06)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (PS2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2mp, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 Magic Plus (PlayStation 2 Beta)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kf2k2ps2re,  kof2002, lbsp, neogeo, neogeo_state,       kf2k2ps2re, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kf2k2ps2re1, kof2002, lbsp, neogeo, neogeo_state,       kf2k2ps2re, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re,  kof2002, gsc,           neogeo, neogeo_state,       gsc, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re1, kof2002, gsc,           neogeo, neogeo_state,       gsc, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2pur,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kawada7278", "Kof2002 (Boss Purple)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ra,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ruin Angel", "Kof2002 (Diff Moves - Based on CHL set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rgl,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Magic Unique Crazy Rugal Plus)(decrypted C)", MACHINE_SUPPORTS_SAVE )
