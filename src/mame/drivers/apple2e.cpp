@@ -818,6 +818,24 @@ void apple2e_state::machine_start()
 	m_video->m_char_ptr = memregion("gfx1")->base();
 	m_video->m_char_size = memregion("gfx1")->bytes();
 
+	int ram_size = 0x10000;
+	if (m_ram_size < 0x10000)
+	{
+		ram_size = m_ram_size;
+	}
+
+	for (int adr = 0; adr < ram_size; adr += 2)
+	{
+		m_ram_ptr[adr] = 0;
+		m_ram_ptr[adr+1] = 0xff;
+
+		if (m_ram_size >= (128*1024))
+		{
+			m_aux_ptr[adr] = 0;
+			m_aux_ptr[adr+1] = 0xff;
+		}
+	}
+
 	m_inh_slot = -1;
 	m_cnxx_slot = CNXX_UNCLAIMED;
 	m_mockingboard4c = false;

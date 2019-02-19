@@ -19,10 +19,10 @@
 #include "plib/palloc.h" // owned_ptr
 #include "plib/pdynlib.h"
 #include "plib/pfmtlog.h"
+#include "plib/pmempool.h"
 #include "plib/ppmf.h"
 #include "plib/pstate.h"
 #include "plib/pstream.h"
-#include "plib/pmempool.h"
 
 #include "netlist_types.h"
 #include "nl_errstr.h"
@@ -71,7 +71,7 @@ class NETLIB_NAME(name) : public device_t
 	/*! Used to define the destructor of a netlist device.
 	*  The use of a destructor for netlist device should normally not be necessary.
 	*/
-#define NETLIB_DESTRUCTOR(name) public: virtual ~NETLIB_NAME(name)()
+#define NETLIB_DESTRUCTOR(name) public: virtual ~NETLIB_NAME(name)() noexcept
 
 	/*! Define an extended constructor and add further parameters to it.
 	*  The macro allows to add further parameters to a device constructor. This is
@@ -418,11 +418,12 @@ namespace netlist
 		 */
 		pstring name() const;
 
+#if 0
 		void * operator new (size_t size, void *ptr) { plib::unused_var(size); return ptr; }
 		void operator delete (void *ptr, void *) { plib::unused_var(ptr); }
-
 		void * operator new (size_t size) = delete;
-		void operator delete (void * mem);
+		void operator delete (void * mem) = delete;
+#endif
 	protected:
 		~object_t() noexcept = default; // only childs should be destructible
 
@@ -451,7 +452,7 @@ namespace netlist
 		const netlist_t & exec() const noexcept { return m_netlist; }
 
 	protected:
-		~netlist_ref() = default; // prohibit polymorphic destruction
+		~netlist_ref() noexcept = default; // prohibit polymorphic destruction
 
 	private:
 		netlist_t & m_netlist;
@@ -750,7 +751,7 @@ namespace netlist
 
 		void update_devs() NL_NOEXCEPT;
 
-		const netlist_time next_scheduled_time() const noexcept { return m_next_scheduled_time; }
+		netlist_time next_scheduled_time() const noexcept { return m_next_scheduled_time; }
 		void set_next_scheduled_time(netlist_time ntime) noexcept { m_next_scheduled_time = ntime; }
 
 		bool isRailNet() const noexcept { return !(m_railterminal == nullptr); }
@@ -941,7 +942,7 @@ namespace netlist
 		param_type_t param_type() const;
 
 	protected:
-		virtual ~param_t() = default; /* not intended to be destroyed */
+		virtual ~param_t() noexcept = default; /* not intended to be destroyed */
 
 		void update_param();
 
@@ -1182,7 +1183,7 @@ namespace netlist
 
 		COPYASSIGNMOVE(device_t, delete)
 
-		~device_t() override = default;
+		~device_t() noexcept override = default;
 
 		setup_t &setup();
 		const setup_t &setup() const;
@@ -1416,7 +1417,7 @@ namespace netlist
 
 		/* run functions */
 
-		const netlist_time time() const NL_NOEXCEPT { return m_time; }
+		netlist_time time() const NL_NOEXCEPT { return m_time; }
 
 		void process_queue(const netlist_time delta) NL_NOEXCEPT;
 		void abort_current_queue_slice() NL_NOEXCEPT { m_queue.retime(detail::queue_t::entry_t(m_time, nullptr)); }
@@ -1453,16 +1454,15 @@ namespace netlist
 		void print_stats() const;
 
 	private:
+		std::unique_ptr<netlist_state_t>    m_state;
+		devices::NETLIB_NAME(solver) *      m_solver;
+
 		/* mostly rw */
+		PALIGNAS_CACHELINE()
 		netlist_time                        m_time;
 		devices::NETLIB_NAME(mainclock) *   m_mainclock;
 
-		PALIGNAS_CACHELINE()
-		std::unique_ptr<netlist_state_t>    m_state;
-		PALIGNAS_CACHELINE()
 		detail::queue_t                     m_queue;
-
-		devices::NETLIB_NAME(solver) *      m_solver;
 
 		// performance
 		nperftime_t<NL_KEEP_STATISTICS>     m_stat_mainloop;

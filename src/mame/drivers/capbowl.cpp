@@ -324,7 +324,7 @@ MACHINE_CONFIG_START(capbowl_state::capbowl)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", capbowl_state,  interrupt)
 
 	// watchdog: 555 timer 16 cycles, edge triggered, ~0.3s
-	attotime period = PERIOD_OF_555_ASTABLE(100000.0, 100000.0, 0.1e-6);
+	attotime const period = PERIOD_OF_555_ASTABLE(100000.0, 100000.0, 0.1e-6);
 	WATCHDOG_TIMER(config, m_watchdog).set_time(period * 16 - period / 2);
 
 	MCFG_DEVICE_ADD("audiocpu", MC6809E, MASTER_CLOCK / 4) // MC68B09EP
@@ -362,7 +362,6 @@ MACHINE_CONFIG_START(capbowl_state::capbowl)
 
 	DAC0832(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.5);
 	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.set_output(5.0);
 	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 MACHINE_CONFIG_END

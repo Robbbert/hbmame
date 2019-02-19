@@ -3,7 +3,7 @@
 // thanks-to:yoyo_chessboard
 /******************************************************************************
 
-Sensory Chess Challenger 6 (model SC6):
+Fidelity Sensory Chess Challenger 6 (model SC6):
 - PCB label 510-1045B01
 - INS8040N-11 MCU, 11MHz XTAL
 - external 4KB ROM 2332 101-1035A01, in module slot
@@ -29,6 +29,8 @@ SC6 program is contained in BO6 and CG6.
 #include "fidel_sc6.lh" // clickable
 
 
+namespace {
+
 class sc6_state : public fidelbase_state
 {
 public:
@@ -43,19 +45,18 @@ private:
 	// devices/pointers
 	required_device<mcs48_cpu_device> m_maincpu;
 
-	void sc6_map(address_map &map);
+	void main_map(address_map &map);
 
-	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(sc6_cartridge);
+	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cartridge);
 
 	// I/O handlers
-	void sc6_prepare_display();
-	DECLARE_WRITE8_MEMBER(sc6_mux_w);
-	DECLARE_WRITE8_MEMBER(sc6_select_w);
-	DECLARE_READ8_MEMBER(sc6_input_r);
-	DECLARE_READ_LINE_MEMBER(sc6_input6_r);
-	DECLARE_READ_LINE_MEMBER(sc6_input7_r);
+	void prepare_display();
+	DECLARE_WRITE8_MEMBER(mux_w);
+	DECLARE_WRITE8_MEMBER(select_w);
+	DECLARE_READ8_MEMBER(input_r);
+	DECLARE_READ_LINE_MEMBER(input6_r);
+	DECLARE_READ_LINE_MEMBER(input7_r);
 };
-
 
 
 /******************************************************************************
@@ -64,7 +65,7 @@ private:
 
 // cartridge
 
-DEVICE_IMAGE_LOAD_MEMBER(sc6_state, sc6_cartridge)
+DEVICE_IMAGE_LOAD_MEMBER(sc6_state, cartridge)
 {
 	u32 size = m_cart->common_get_size("rom");
 
@@ -84,14 +85,14 @@ DEVICE_IMAGE_LOAD_MEMBER(sc6_state, sc6_cartridge)
 
 // MCU ports/generic
 
-void sc6_state::sc6_prepare_display()
+void sc6_state::prepare_display()
 {
 	// 2 7seg leds
 	set_display_segmask(3, 0x7f);
 	display_matrix(7, 2, m_7seg_data, m_led_select);
 }
 
-WRITE8_MEMBER(sc6_state::sc6_mux_w)
+WRITE8_MEMBER(sc6_state::mux_w)
 {
 	// P24-P27: 7442 A-D
 	u16 sel = 1 << (data >> 4 & 0xf) & 0x3ff;
@@ -99,32 +100,32 @@ WRITE8_MEMBER(sc6_state::sc6_mux_w)
 	// 7442 0-8: input mux, 7seg data
 	m_inp_mux = sel & 0x1ff;
 	m_7seg_data = sel & 0x7f;
-	sc6_prepare_display();
+	prepare_display();
 
 	// 7442 9: speaker out
 	m_dac->write(BIT(sel, 9));
 }
 
-WRITE8_MEMBER(sc6_state::sc6_select_w)
+WRITE8_MEMBER(sc6_state::select_w)
 {
 	// P16,P17: digit select
 	m_led_select = ~data >> 6 & 3;
-	sc6_prepare_display();
+	prepare_display();
 }
 
-READ8_MEMBER(sc6_state::sc6_input_r)
+READ8_MEMBER(sc6_state::input_r)
 {
 	// P10-P15: multiplexed inputs low
 	return (~read_inputs(9) & 0x3f) | 0xc0;
 }
 
-READ_LINE_MEMBER(sc6_state::sc6_input6_r)
+READ_LINE_MEMBER(sc6_state::input6_r)
 {
 	// T0: multiplexed inputs bit 6
 	return ~read_inputs(9) >> 6 & 1;
 }
 
-READ_LINE_MEMBER(sc6_state::sc6_input7_r)
+READ_LINE_MEMBER(sc6_state::input7_r)
 {
 	// T1: multiplexed inputs bit 7
 	return ~read_inputs(9) >> 7 & 1;
@@ -136,7 +137,7 @@ READ_LINE_MEMBER(sc6_state::sc6_input7_r)
     Address Maps
 ******************************************************************************/
 
-void sc6_state::sc6_map(address_map &map)
+void sc6_state::main_map(address_map &map)
 {
 	map(0x0000, 0x0fff).r("cartslot", FUNC(generic_slot_device::read_rom));
 }
@@ -171,12 +172,12 @@ void sc6_state::sc6(machine_config &config)
 {
 	/* basic machine hardware */
 	I8040(config, m_maincpu, 11_MHz_XTAL);
-	m_maincpu->set_addrmap(AS_PROGRAM, &sc6_state::sc6_map);
-	m_maincpu->p2_out_cb().set(FUNC(sc6_state::sc6_mux_w));
-	m_maincpu->p1_in_cb().set(FUNC(sc6_state::sc6_input_r));
-	m_maincpu->p1_out_cb().set(FUNC(sc6_state::sc6_select_w));
-	m_maincpu->t0_in_cb().set(FUNC(sc6_state::sc6_input6_r));
-	m_maincpu->t1_in_cb().set(FUNC(sc6_state::sc6_input7_r));
+	m_maincpu->set_addrmap(AS_PROGRAM, &sc6_state::main_map);
+	m_maincpu->p2_out_cb().set(FUNC(sc6_state::mux_w));
+	m_maincpu->p1_in_cb().set(FUNC(sc6_state::input_r));
+	m_maincpu->p1_out_cb().set(FUNC(sc6_state::select_w));
+	m_maincpu->t0_in_cb().set(FUNC(sc6_state::input6_r));
+	m_maincpu->t1_in_cb().set(FUNC(sc6_state::input7_r));
 
 	TIMER(config, "display_decay").configure_periodic(FUNC(fidelbase_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_fidel_sc6);
@@ -184,13 +185,11 @@ void sc6_state::sc6(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
 	DAC_1BIT(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.set_output(5.0);
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
+	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 
 	/* cartridge */
 	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "fidel_sc6", "bin"));
-	cartslot.set_device_load(device_image_load_delegate(&sc6_state::device_image_load_sc6_cartridge, this));
+	cartslot.set_device_load(device_image_load_delegate(&sc6_state::device_image_load_cartridge, this));
 	cartslot.set_must_be_loaded(true);
 
 	SOFTWARE_LIST(config, "cart_list").set_original("fidel_sc6");
@@ -206,6 +205,8 @@ ROM_START( fscc6 )
 	ROM_REGION( 0x1000, "maincpu", ROMREGION_ERASE00 )
 	// none here, it's in the module slot
 ROM_END
+
+} // anonymous namespace
 
 
 

@@ -25,9 +25,10 @@ namespace netlist
 	// nl_parse_t
 	// ----------------------------------------------------------------------------------------
 
-	nlparse_t::nlparse_t(netlist_t &netlist)
-	: m_factory(netlist.log())
-	, m_log(netlist.log())
+	nlparse_t::nlparse_t(setup_t &setup, log_type &log)
+	: m_factory(log)
+	, m_setup(setup)
+	, m_log(log)
 	, m_frontier_cnt(0)
 	{ }
 
@@ -100,7 +101,7 @@ namespace netlist
 	{
 		for (auto &source : m_sources)
 		{
-			if (source->parse(netlist_name))
+			if (source->parse(*this, netlist_name))
 				return;
 		}
 		log().fatal(MF_1_NOT_FOUND_IN_SOURCE_COLLECTION, netlist_name);
@@ -218,13 +219,27 @@ namespace netlist
 		return false;
 	}
 
+	bool nlparse_t::parse_stream(std::unique_ptr<plib::pistream> &&istrm, const pstring &name)
+	{
+		return parser_t(std::move(plib::ppreprocessor(&m_defines).process(std::move(istrm))), *this).parse(name);
+	}
+
+	void nlparse_t::add_define(const pstring &defstr)
+	{
+		auto p = defstr.find("=");
+		if (p != pstring::npos)
+			add_define(plib::left(defstr, p), defstr.substr(p+1));
+		else
+			add_define(defstr, "1");
+	}
+
 	// ----------------------------------------------------------------------------------------
 	// setup_t
 	// ----------------------------------------------------------------------------------------
 
 
 setup_t::setup_t(netlist_t &netlist)
-	: nlparse_t(netlist)
+	: nlparse_t(*this, netlist.log())
 	, m_netlist(netlist)
 	, m_netlist_params(nullptr)
 	, m_proxy_cnt(0)
@@ -971,11 +986,6 @@ const logic_family_desc_t *setup_t::family_from_model(const pstring &model)
 // Sources
 // ----------------------------------------------------------------------------------------
 
-bool setup_t::parse_stream(std::unique_ptr<plib::pistream> istrm, const pstring &name)
-{
-	return parser_t(std::move(plib::ppreprocessor(&m_defines).process(std::move(istrm))), *this).parse(name);
-}
-
 std::unique_ptr<plib::pistream> setup_t::get_data_stream(const pstring &name)
 {
 	for (auto &source : m_sources)
@@ -991,14 +1001,6 @@ std::unique_ptr<plib::pistream> setup_t::get_data_stream(const pstring &name)
 	return std::unique_ptr<plib::pistream>(nullptr);
 }
 
-void setup_t::add_define(const pstring &defstr)
-{
-	auto p = defstr.find("=");
-	if (p != pstring::npos)
-		add_define(plib::left(defstr, p), defstr.substr(p+1));
-	else
-		add_define(defstr, "1");
-}
 
 // ----------------------------------------------------------------------------------------
 // Device handling
@@ -1134,13 +1136,13 @@ void setup_t::prepare_to_run()
 // base sources
 // ----------------------------------------------------------------------------------------
 
-bool source_t::parse(const pstring &name)
+bool source_t::parse(nlparse_t &setup, const pstring &name)
 {
 	if (m_type != SOURCE)
 		return false;
 	else
 	{
-		return m_setup.parse_stream(stream(name), name);
+		return setup.parse_stream(stream(name), name);
 	}
 }
 
@@ -1162,11 +1164,11 @@ std::unique_ptr<plib::pistream> source_file_t::stream(const pstring &name)
 	return plib::make_unique<plib::pifilestream>(m_filename);
 }
 
-bool source_proc_t::parse(const pstring &name)
+bool source_proc_t::parse(nlparse_t &setup, const pstring &name)
 {
 	if (name == m_setup_func_name)
 	{
-		m_setup_func(setup());
+		m_setup_func(setup);
 		return true;
 	}
 	else
