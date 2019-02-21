@@ -4784,6 +4784,7 @@ mslug2s26
 mslug2s27
 mslug2s28
 mslug2s29
+mslug2s30
 mslug2ts01
 mslug2ts02
 mslug2ts03
@@ -4934,6 +4935,7 @@ ms6s12
 ms6s13
 ms6s14
 ms6s15
+ms6s16
 mslug3nm01
 mslug3nm02
 mslug3nm03
@@ -5016,6 +5018,7 @@ mslug3h52
 mslug3h53
 mslug3h54
 mslug3h55
+mslug3h56
 mslug3erbo01
 mslug3erbo02
 mslug3erbo03
@@ -5418,7 +5421,6 @@ mslug4kh
 mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
-mslug4h01
 mslug4n01
 mslug4n02
 mslug4n03
@@ -5456,6 +5458,9 @@ mslug4n35
 mslug4n36
 mslug4n37
 mslug4n38
+mslug4n39
+mslug4n40
+mslug4n41
 mslug4pls01
 mslug4pls02
 mslug4pls03
@@ -5788,6 +5793,7 @@ mslug5nn23
 mslug5nn24
 mslug5nn25
 mslug5nn26
+mslug5hp00
 mslug5hp01
 mslug5hp02
 mslug5hp03
@@ -6084,6 +6090,7 @@ mslug5re54
 mslug5re55
 mslug5re56
 mslug5re57
+mslug5re58
 
 @source:mslugx.cpp
 mslugxce
