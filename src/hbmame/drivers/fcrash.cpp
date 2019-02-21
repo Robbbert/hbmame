@@ -821,7 +821,7 @@ void cps_state::sound_map(address_map &map) {
 	map(0xd800,0xd801).rw("ym1",FUNC(ym2203_device::read),FUNC(ym2203_device::write));
 	map(0xdc00,0xdc01).rw("ym2",FUNC(ym2203_device::read),FUNC(ym2203_device::write));
 	map(0xe000,0xe000).w(FUNC(cps_state::fcrash_snd_bankswitch_w));
-	map(0xe400,0xe400).r("soundlatch",FUNC(generic_latch_8_device::read));
+	map(0xe400,0xe400).r(m_soundlatch,FUNC(generic_latch_8_device::read));
 	map(0xe800,0xe800).w(FUNC(cps_state::fcrash_msm5205_0_data_w));
 	map(0xec00,0xec00).w(FUNC(cps_state::fcrash_msm5205_1_data_w));
 }
@@ -832,7 +832,7 @@ void cps_state::kodb_sound_map(address_map &map) {
 	map(0xd000,0xd7ff).ram();
 	map(0xe000,0xe001).rw("2151",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
 	map(0xe400,0xe400).rw("oki",FUNC(okim6295_device::read),FUNC(okim6295_device::write));
-	map(0xe800,0xe800).r("soundlatch",FUNC(generic_latch_8_device::read));
+	map(0xe800,0xe800).r(m_soundlatch,FUNC(generic_latch_8_device::read));
 }
 
 void cps_state::sf2mdt_z80map(address_map &map) {
@@ -840,7 +840,7 @@ void cps_state::sf2mdt_z80map(address_map &map) {
 	map(0x8000,0xbfff).bankr("bank1");
 	map(0xd000,0xd7ff).ram();
 	map(0xd800,0xd801).rw("2151",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
-	map(0xdc00,0xdc00).r("soundlatch",FUNC(generic_latch_8_device::read));
+	map(0xdc00,0xdc00).r(m_soundlatch,FUNC(generic_latch_8_device::read));
 	map(0xe000,0xe000).w(FUNC(cps_state::sf2mdt_snd_bankswitch_w));
 	map(0xe400,0xe400).w(FUNC(cps_state::fcrash_msm5205_0_data_w));
 	map(0xe800,0xe800).w(FUNC(cps_state::fcrash_msm5205_1_data_w));
@@ -852,7 +852,7 @@ void cps_state::knightsb_z80map(address_map &map) {
 	map(0xcffe,0xcfff).nopw();  // writes lots of data
 	map(0xd000,0xd7ff).ram();
 	map(0xd800,0xd801).rw("2151",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
-	map(0xdc00,0xdc00).r("soundlatch",FUNC(generic_latch_8_device::read));
+	map(0xdc00,0xdc00).r(m_soundlatch,FUNC(generic_latch_8_device::read));
 	map(0xe000,0xe000).w(FUNC(cps_state::knightsb_snd_bankswitch_w));
 	map(0xe400,0xe400).w(FUNC(cps_state::fcrash_msm5205_0_data_w));
 	map(0xe800,0xe800).w(FUNC(cps_state::fcrash_msm5205_1_data_w));
@@ -866,8 +866,8 @@ void cps_state::sgyxz_sound_map(address_map &map) {
 	map(0xf002,0xf002).rw("oki",FUNC(okim6295_device::read),FUNC(okim6295_device::write));
 	map(0xf004,0xf004).w(FUNC(cps_state::cps1_snd_bankswitch_w));
 	map(0xf006,0xf006).w(FUNC(cps_state::cps1_oki_pin7_w));  /* controls pin 7 of OKI chip */
-	map(0xf008,0xf008).r("soundlatch",FUNC(generic_latch_8_device::read));
-	map(0xf00a,0xf00a).r("soundlatch2",FUNC(generic_latch_8_device::read));
+	map(0xf008,0xf008).r(m_soundlatch,FUNC(generic_latch_8_device::read));
+	map(0xf00a,0xf00a).r(m_soundlatch2,FUNC(generic_latch_8_device::read));
 }
 
 
@@ -1763,32 +1763,35 @@ MACHINE_CONFIG_END
 MACHINE_CONFIG_START( cps_state::knightsb )
 
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68000, 24000000 / 2)
-	MCFG_DEVICE_PROGRAM_MAP(knightsb_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
+	M68000(config, m_maincpu, 24000000 / 2);
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::knightsb_map);
+	m_maincpu->set_vblank_int("screen", FUNC(cps_state::cps1_interrupt));
+	m_maincpu->set_irq_acknowledge_callback(FUNC(cps_state::cps1_int_ack));
 
-	MCFG_DEVICE_ADD("audiocpu", Z80, 29821000 / 8)
-	MCFG_DEVICE_PROGRAM_MAP(knightsb_z80map)
+	Z80(config, m_audiocpu, 29821000 / 8);
+	m_audiocpu->set_addrmap(AS_PROGRAM, &cps_state::knightsb_z80map);
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, knightsb)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0))
-	MCFG_SCREEN_SIZE(64*8, 32*8)
-	MCFG_SCREEN_VISIBLE_AREA(8*8, (64-8)*8-1, 2*8, 30*8-1 )
-	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_fcrash)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, cps_state, screen_vblank_cps1))
-	MCFG_SCREEN_PALETTE("palette")
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_refresh_hz(60);
+	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(0));
+	m_screen->set_size(64*8, 32*8);
+	m_screen->set_visarea(8*8, (64-8)*8-1, 2*8, 30*8-1);
+	m_screen->set_screen_update(FUNC(cps_state::screen_update_fcrash));
+	m_screen->screen_vblank().set(FUNC(cps_state::screen_vblank_cps1));
+	m_screen->set_palette(m_palette);
 
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_cps1)
-	MCFG_PALETTE_ADD("palette", 0xc00)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_cps1);
+	PALETTE(config, m_palette).set_entries(0xc00);
 
 	MCFG_VIDEO_START_OVERRIDE(cps_state,cps1)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
+
+	GENERIC_LATCH_8(config, m_soundlatch);
 
 	ym2151_device &ym2151(YM2151(config, "2151", 29821000 / 8));
 	ym2151.irq_handler().set_inputline(m_audiocpu, 0);
@@ -3068,7 +3071,7 @@ HACK( 1990, ffightbl,  ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,
 HACK( 1990, ffightbla, ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg", "Final Fight (bootleg on Final Crash PCB)", MACHINE_SUPPORTS_SAVE ) // same as Final Crash without the modified gfx
 
 HACK( 1991, kodb,      kod,      kodb,      kodb,     cps_state, kodb,     ROT0,   "bootleg (Playmark)", "The King of Dragons (bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 910731  "ETC"
-HACK( 1991, knightsb,  knights,  knightsb,  knights,  cps_state, dinopic,  ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )    // 911127 - based on World version
+HACK( 1991, knightsb,  knights,  knightsb,  knights,  cps_state, dinopic,  ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )    // 911127 - based on World version
 
 HACK( 1993, punipic,   punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
 HACK( 1993, punipic2,  punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 2)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC

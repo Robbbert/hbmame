@@ -42,6 +42,19 @@ void neogeo_state::init_kof2k3fd()
 	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0x080000, memregion("mainbios")->base());  // 512k bios
 }
 
+// A3 is inverted in s1
+void neogeo_state::init_xs02()
+{
+	for (u32 i = 0; i < fix_region_size; i+=0x10)
+		for (u8 j = 0; j < 8; j++)
+		{
+			u8 k = fix_region[i+j];
+			fix_region[i+j] = fix_region[i+j+8];
+			fix_region[i+j+8] = k;
+		}
+	init_kof2003b();
+}
+
 
 
 ROM_START( kof2003d )
@@ -6293,7 +6306,7 @@ ROM_START( kof2003xs02 )
 	ROM_LOAD16_WORD_SWAP( "271b.p2", 0x800000, 0x200000, CRC(fb01a5b3) SHA1(3c8e92362f8169f5e64d6e1d1fea41edd2e7a6a3) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
-	NEO_SFIX_128K( "271b.s1", CRC(482c48a5) SHA1(27e2f5295a9a838e112be28dafc111893a388a16) )
+	NEO_SFIX_128K( "271xs02.s1", CRC(d168751d) SHA1(d61ba7693b3ffe64022457fd1e5af95a5bada38b) )
 
 	NEO_BIOS_AUDIO_128K( "271b.m1", CRC(3a4969ff) SHA1(2fc107a023a82053a8df63025829bcf12cee9610) )
 
@@ -6537,4 +6550,4 @@ HACK( 200?, kof2004upls27,  kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 200?, kof2004upls28,  kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "oak2003", "Kof2004 EX Ultra Plus (Transparency)(The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2004upls29,  kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "Eddids", "Kof2004 EX Ultra Plus (Unlimited Credits In Console Mode)(The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2003xs01,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Unknown", "Kof2003 (Combo)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003xs02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Unknown", "Kof2003 (Hero)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003xs02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  xs02,      ROT0, "Unknown", "Kof2003 (Hero)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )

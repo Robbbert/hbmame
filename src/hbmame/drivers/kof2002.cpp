@@ -35,27 +35,33 @@ void neogeo_state::init_kof2k2pl17()
 // Due to lack of info, this is not emulated. It could happen that bad sounds might
 // occur.
 #if 0
-READ8_MEMBER(neogeo_state::get_audio_result_m2)
+WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
 {
-	uint8_t ret = m_soundlatch2->read(m_audiocpu2->space(AS_PROGRAM), 0);
-	return ret;
+	// out ($08) enables the nmi, out ($18) disables it
+	m_audio_cpu_nmi_enabled = !(offset & 0x10);
+	audio_cpu_check_nmi();
 }
 
-READ8_MEMBER(neogeo_state::get_audio_result_m3)
+WRITE8_MEMBER(neogeo_state::audio_command_w_x)
 {
-	uint8_t ret = m_soundlatch2->read(m_audiocpu3->space(AS_PROGRAM), 0);
-	return ret;
-}
+	offs_t which = offset >> 17;printf("%X ",which);
+	switch (which)
+	{
+		case 0:
+			m_soundlatch_m2->write(space, 0, data);
+			m_audiocpu_m2->set_input_line(INPUT_LINE_NMI, (m2_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
+			break;
+		case 1:
+			m_soundlatch_m3->write(space, 0, data);
+			m_audiocpu_m3->set_input_line(INPUT_LINE_NMI, (m3_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
+			break;
+		case 2:
+			m_soundlatch_m4->write(space, 0, data);
+			m_audiocpu_m3->set_input_line(INPUT_LINE_NMI, (m4_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
+			break;
+	}
+	m_audiocpu->set_input_line(INPUT_LINE_NMI, (m_audio_cpu_nmi_enabled && m_audio_cpu_nmi_pending) ? ASSERT_LINE : CLEAR_LINE);
 
-READ8_MEMBER(neogeo_state::get_audio_result_m4)
-{
-	uint8_t ret = m_soundlatch2->read(m_audiocpu4->space(AS_PROGRAM), 0);
-	return ret;
-}
-
-WRITE8_MEMBER(neogeo_state::audio_command_w_m2)
-{
-	m_soundlatch->write(space, 0, data);
 	m_audio_cpu_nmi_pending = true;
 	audio_cpu_check_nmi();
 	/* boost the interleave to let the audio CPU read the command */
@@ -64,7 +70,7 @@ WRITE8_MEMBER(neogeo_state::audio_command_w_m2)
 
 WRITE8_MEMBER(neogeo_state::audio_command_w_m3)
 {
-	m_soundlatch->write(space, 0, data);
+	m_soundlatch_m3->write(space, 0, data);
 	m_audio_cpu_nmi_pending = true;
 	audio_cpu_check_nmi();
 	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
@@ -72,25 +78,76 @@ WRITE8_MEMBER(neogeo_state::audio_command_w_m3)
 
 WRITE8_MEMBER(neogeo_state::audio_command_w_m4)
 {
-	m_soundlatch->write(space, 0, data);
+	m_soundlatch_m4->write(space, 0, data);
 	m_audio_cpu_nmi_pending = true;
 	audio_cpu_check_nmi();
 	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
 }
 
 
-void neogeo_state::main_map4(address_map &map)
+void neogeo_state::ps2_map(address_map &map)
 {
 	gsc_map(map);
-	map(0x200000, 0x2fffff) AM_ROMBANK(NEOGEO_BANK_CARTRIDGE)
-	map(0x2ffff0, 0x2fffff).w(FUNC(neogeo_state::main_cpu_bank_select_w));
-	map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
-	map(0x340000, 0x340001).mirror(0x01fffe).portr("IN1");
-	map(0x3a0000, 0x3a001f).mirror(0x01ffe0).w(FUNC(neogeo_state::system_control_w_m4));
-	map(0xba0000, 0xba0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m4),FUNC(neogeo_state::audio_command_w_m4));        // music4 add
-	map(0xbc0000, 0xbc0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m3),FUNC(neogeo_state::audio_command_w_m3));        // music4 add
-	map(0xbe0000, 0xbe0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m2),FUNC(neogeo_state::audio_command_w_m2));        // music4 add
+	//map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
+	//map(0x340000, 0x340001).mirror(0x01fffe).portr("IN1");
+	//map(0x3a0000, 0x3a001f).mirror(0x01ffe0).w(FUNC(neogeo_state::system_control_w_m4));
+	//map(0xba0000, 0xba0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m4),FUNC(neogeo_state::audio_command_w_m4));        // music4 add
+	//map(0xbc0000, 0xbc0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m3),FUNC(neogeo_state::audio_command_w_m3));        // music4 add
+	//map(0xbe0000, 0xbe0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m2),FUNC(neogeo_state::audio_command_w_m2));        // music4 add
+	map(0xba0000,0xba0001).w(FUNC(neogeo_state::audio_command_w_m4)).umask16(0xff00);
+	map(0xbc0000,0xbc0001).w(FUNC(neogeo_state::audio_command_w_m3)).umask16(0xff00);
+	map(0xbe0000,0xbe0001).w(FUNC(neogeo_state::audio_command_w_m2)).umask16(0xff00);
 }
+
+void neogeo_state::m2_map(address_map &map)
+{
+	map(0x00,0x00).mirror(0xff00).r(FUNC(neogeo_state::audio_command_r)).w("soundlatch_m2",FUNC(generic_latch_8_device::clear_w));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m2",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m2",FUNC(generic_latch_8_device::write));
+}
+
+void neogeo_state::m3_map(address_map &map)
+{
+	map(0x00,0x00).mirror(0xff00).r(FUNC(neogeo_state::audio_command_r)).w("soundlatch_m3",FUNC(generic_latch_8_device::clear_w));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m3",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m3",FUNC(generic_latch_8_device::write));
+}
+
+void neogeo_state::m4_map(address_map &map)
+{
+	map(0x00,0x00).mirror(0xff00).r(FUNC(neogeo_state::audio_command_r)).w("soundlatch_m4",FUNC(generic_latch_8_device::clear_w));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m4",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m4",FUNC(generic_latch_8_device::write));
+}
+
+MACHINE_CONFIG_START( neogeo_state::ps2 )
+	gsc(config);
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(ps2_map)
+
+	GENERIC_LATCH_8(config, m_soundlatch_m2);
+	GENERIC_LATCH_8(config, m_soundlatch2_m2);
+	GENERIC_LATCH_8(config, m_soundlatch_m3);
+	GENERIC_LATCH_8(config, m_soundlatch2_m3);
+	GENERIC_LATCH_8(config, m_soundlatch_m4);
+	GENERIC_LATCH_8(config, m_soundlatch2_m4);
+
+	MCFG_DEVICE_ADD("audiocpu_m2", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(m2_map)
+	MCFG_DEVICE_ADD("audiocpu_m3", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(m3_map)
+	MCFG_DEVICE_ADD("audiocpu_m4", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(m4_map)
+MACHINE_CONFIG_END
 #endif
 
 
@@ -2747,13 +2804,10 @@ ROM_END
 
 ROM_START( kf2k2ps2re )
 	ROM_REGION( 0x600000, "maincpu", 0 )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p1",  0x000000, 0x100000, CRC(25744D64) SHA1(505C6F4062B3614AA1CE1990EC726B45851628ED) )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p2",  0x100000, 0x500000, CRC(07D730D0) SHA1(FB0CD3496F9BFD74A4973C24668336173CB3E190) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p1",  0x000000, 0x100000, CRC(e8fd148f) SHA1(d35892e2ac8d3c85ff57d4ca644b93e25aafddf0) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p2",  0x100000, 0x500000, CRC(1de9efcb) SHA1(7cf4cfc54f881281373f42c4dc48c9e8149c8164) )
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x000000, 0x020000, CRC(AB1F63D5) SHA1(1DC2437C6B4257172B21EBB3C6937AF5779FB261) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x000000, 0x020000, CRC(adf44b1d) SHA1(a7a56ce99a728940812fd0678c9d018023f5482c) )
 	ROM_FILL(0x01061A,1,0x4e)
 	ROM_FILL(0x01061B,1,0x75)

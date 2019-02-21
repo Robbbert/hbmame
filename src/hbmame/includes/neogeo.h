@@ -199,6 +199,7 @@ public:
 	void init_svcplusa();
 	void init_svcsplus();
 	void init_vliner();
+	void init_xs02();
 	void init_zupapa();
 	DECLARE_CUSTOM_INPUT_MEMBER(get_memcard_status);
 	DECLARE_CUSTOM_INPUT_MEMBER(get_audio_result);
