@@ -3,7 +3,7 @@
 // thanks-to:Berger,yoyo_chessboard
 /******************************************************************************
 *
-* fidel_eag68k.cpp, subdriver of fidelbase.cpp
+* fidel_eag68k.cpp, subdriver of machine/fidelbase.cpp, machine/chessbase.cpp
 
 Fidelity 68000-based Elite Avant Garde driver
 For 6502-based EAG, see fidel_elite.cpp
@@ -180,7 +180,6 @@ public:
 	{ }
 
 	// machine drivers
-	void eag_base(machine_config &config);
 	void eag(machine_config &config);
 	void eagv5(machine_config &config);
 	void eagv7(machine_config &config);
@@ -191,6 +190,8 @@ public:
 	void init_eag();
 
 protected:
+	void eag_base(machine_config &config);
+
 	// devices/pointers
 	optional_device<ram_device> m_ram;
 
@@ -391,7 +392,7 @@ void eag_state::eagv5_slave_map(address_map &map)
 ******************************************************************************/
 
 static INPUT_PORTS_START( excel68k )
-	PORT_INCLUDE( fidel_cb_buttons )
+	PORT_INCLUDE( generic_cb_buttons )
 
 	PORT_START("IN.8")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_DEL) PORT_NAME("Clear")
@@ -406,7 +407,7 @@ INPUT_PORTS_END
 
 
 static INPUT_PORTS_START( eag )
-	PORT_INCLUDE( fidel_cb_magnets )
+	PORT_INCLUDE( generic_cb_magnets )
 
 	PORT_MODIFY("IN.0")
 	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_DEL) PORT_NAME("CL")
@@ -445,12 +446,12 @@ void excel68k_state::fex68k(machine_config &config)
 	m_irq_on->set_start_delay(irq_period - attotime::from_nsec(1528)); // active for 1.525us
 	TIMER(config, "irq_off").configure_periodic(FUNC(excel68k_state::irq_off<M68K_IRQ_2>), irq_period);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(fidelbase_state::display_decay_tick), attotime::from_msec(1));
+	TIMER(config, "display_decay").configure_periodic(FUNC(excel68k_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_fidel_ex_68k);
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
-	DAC_1BIT(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
+	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
 	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 }
 
@@ -484,17 +485,17 @@ void eag_state::eag_base(machine_config &config)
 
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(fidelbase_state::display_decay_tick), attotime::from_msec(1));
+	TIMER(config, "display_decay").configure_periodic(FUNC(eag_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_fidel_eag_68k);
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
-	DAC_1BIT(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
+	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
 	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 
 	/* cartridge */
 	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "fidel_scc", "bin,dat"));
-	cartslot.set_device_load(device_image_load_delegate(&fidelbase_state::device_image_load_scc_cartridge, this));
+	cartslot.set_device_load(device_image_load_delegate(&eag_state::device_image_load_scc_cartridge, this));
 
 	SOFTWARE_LIST(config, "cart_list").set_original("fidel_scc");
 }

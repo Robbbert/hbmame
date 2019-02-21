@@ -2,7 +2,7 @@
 // copyright-holders:Kevin Horton,Jonathan Gevaryahu,Sandro Ronco,hap
 /******************************************************************************
 *
-* fidel_vsc.cpp, subdriver of fidelbase.cpp
+* fidel_vsc.cpp, subdriver of machine/fidelbase.cpp, machine/chessbase.cpp
 
 *******************************************************************************
 
@@ -325,7 +325,7 @@ void vsc_state::main_io(address_map &map)
 ******************************************************************************/
 
 static INPUT_PORTS_START( vsc )
-	PORT_INCLUDE( fidel_cb_buttons )
+	PORT_INCLUDE( generic_cb_buttons )
 
 	PORT_START("IN.8")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("Pawn")
@@ -375,7 +375,7 @@ void vsc_state::vsc(machine_config &config)
 	m_z80pio->in_pb_callback().set(FUNC(vsc_state::pio_portb_r));
 	m_z80pio->out_pb_callback().set(FUNC(vsc_state::pio_portb_w));
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(fidelbase_state::display_decay_tick), attotime::from_msec(1));
+	TIMER(config, "display_decay").configure_periodic(FUNC(vsc_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_fidel_vsc);
 
 	/* sound hardware */

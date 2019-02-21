@@ -3,7 +3,7 @@
 // thanks-to:Berger,yoyo_chessboard
 /******************************************************************************
 *
-* fidel_desdis.cpp, subdriver of fidelbase.cpp
+* fidel_desdis.cpp, subdriver of machine/fidelbase.cpp, machine/chessbase.cpp
 
 Fidelity Designer Display series, 6502 and 68000
 (6502-based displayless Designer is in fidel_excel.cpp)
@@ -230,7 +230,7 @@ void desmas_state::fdes2325_map(address_map &map)
 ******************************************************************************/
 
 static INPUT_PORTS_START( desdis )
-	PORT_INCLUDE( fidel_cb_buttons )
+	PORT_INCLUDE( generic_cb_buttons )
 
 	PORT_START("IN.8")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_DEL) PORT_NAME("Clear")
@@ -260,12 +260,12 @@ void desdis_state::fdes2100d(machine_config &config)
 	m_irq_on->set_start_delay(irq_period - attotime::from_nsec(15250)); // active for 15.25us
 	TIMER(config, "irq_off").configure_periodic(FUNC(desdis_state::irq_off<M6502_IRQ_LINE>), irq_period);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(fidelbase_state::display_decay_tick), attotime::from_msec(1));
+	TIMER(config, "display_decay").configure_periodic(FUNC(desdis_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_fidel_desdis);
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
-	DAC_1BIT(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
+	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
 	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 }
 
@@ -289,12 +289,12 @@ void desmas_state::fdes2265(machine_config &config)
 	m_irq_on->set_start_delay(irq_period - attotime::from_nsec(6000)); // active for 6us
 	TIMER(config, "irq_off").configure_periodic(FUNC(desmas_state::irq_off<M68K_IRQ_4>), irq_period);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(fidelbase_state::display_decay_tick), attotime::from_msec(1));
+	TIMER(config, "display_decay").configure_periodic(FUNC(desmas_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_fidel_desdis_68kr);
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
-	DAC_1BIT(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
+	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
 	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 }
 
