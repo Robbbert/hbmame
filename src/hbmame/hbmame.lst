@@ -3845,9 +3845,6 @@ kof2002s02
 kof2002s03
 kof2002s04
 kof2002s05
-kof2002s06   // 2k4se
-kof2002s07   // 2k4se
-kof2002s08   // 2k4se
 kof2002s09
 kof2002s10
 kof2002s11
@@ -3975,9 +3972,6 @@ kof2002bs25
 kof2002bs26
 kof2002ds01
 kof2002ds02
-kof2002ds03 // 2k4se
-kof2002ds04 // 2k4se
-kof2002ds05 // 2k4se
 kof2002ds06
 kof2002ds07
 kof2002ds08
@@ -6904,6 +6898,7 @@ kof2001			// 262
 kof2002			// 265
 kof2003			// 271
 kf2k3pcb
+kof2k4se		// 365
 kotm			// 016
 //kotm2			// 039  not needed
 lastblad		// 234
@@ -7548,6 +7543,12 @@ kof2k4ses28
 kof2k4ses29
 kof2k4ses30
 kof2k4ses31
+kof2k4ses32
+kof2k4ses33
+kof2k4ses34
+kof2k4ses35
+kof2k4ses36
+kof2k4ses37
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03

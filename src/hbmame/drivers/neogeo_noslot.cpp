@@ -8037,7 +8037,7 @@ HACK( 2002, kf2k2mp2,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf2k2
 HACK( 2002, kof10th,    kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kof10th,  ROT0, "bootleg", "The King of Fighters 10th Anniversary (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
 HACK( 2005, kf10thep,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf10thep, ROT0, "bootleg", "The King of Fighters 10th Anniversary Extra Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
 HACK( 2004, kf2k5uni,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kf2k5uni, ROT0, "bootleg", "The King of Fighters 10th Anniversary 2005 Unique (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-HACK( 2004, kof2k4se,   kof2002,  neogeo_noslot,   neogeo, neogeo_state,   kof2k4se, ROT0, "bootleg", "The King of Fighters Special Edition 2004 (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2002 */
+HACK( 2004, kof2k4se,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   kof2k4se, ROT0, "bootleg", "The King of Fighters Special Edition 2004 (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2002 */
 HACK( 2003, mslug5,     neogeo,   neogeo_noslot,   neogeo, neogeo_state,   mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (NGM-2680)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug5h,    mslug5,   neogeo_noslot,   neogeo, neogeo_state,   mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (NGH-2680)", MACHINE_SUPPORTS_SAVE ) /* Also found in later MVS carts */
 HACK( 2003, ms5pcb,     0,        neogeo_noslot,   dualbios, neogeo_state, ms5pcb,   ROT0, "SNK Playmore", "Metal Slug 5 (JAMMA PCB)", MACHINE_SUPPORTS_SAVE )
