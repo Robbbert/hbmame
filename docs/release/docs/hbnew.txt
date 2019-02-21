@@ -31,11 +31,18 @@ New Games
 - [kof98hh113]        Kof'98 (Easy Combo King, Power-up 2019-01-15)
 - [kof99t]            Kof'99 (Optimised Version For GOTVG 2014-08-29)
 - [mk2p]              Mortal Kombat II Plus beta II
+- [ms6s16]            Metal Slug 3 (Enemies Resetting Version 2019-02-05)
+- [mslug2s30]         Metal Slug 2 (Violence Version)
 - [mslug3h54]         Metal Slug 3 (Enemies Resetting Version 2019-01-02)
 - [mslug3h55]         Metal Slug 3 (Multifunction Version 2019-01-19)
-- [mslug4h01]         Metal Slug 4 (Enemies Resetting Version 2019-01-24)
+- [mslug3h56]         Metal Slug 3 (Enemies Resetting Version 2019-02-12)
+- [mslug4n39]         Metal Slug 4 (Ammunition Random Edition)
+- [mslug4n40]         Metal Slug 4 (Enemies Resetting Version 2019-01-24)
+- [mslug4n41]         Metal Slug 4 (Enemies Resetting Version 2019-02-11)
 - [mslug5re56]        Metal Slug 5 (Enemies Enhanced Version 2019-01-05)
 - [mslug5re57]        Metal Slug 5 (Enemies Resetting Version 2019-01-01)
+- [mslug5re58]        Metal Slug 5 (Summon Slug)
+- [mslug5hp00]        Metal Slug 5 (Multi-Function Version)
 - [shaman19]          Shaman King demo 0.19 [by Vasily Familiya]
 - [shaman20]          Shaman King demo 0.20 [by Vasily Familiya]
 - [shaman21]          Shaman King demo 0.21 [by Vasily Familiya]
