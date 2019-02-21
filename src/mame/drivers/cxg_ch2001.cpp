@@ -2,6 +2,10 @@
 // copyright-holders:hap
 // thanks-to:Berger
 /******************************************************************************
+*
+* cxg_ch2001.cpp, subdriver of cxgbase.cpp
+
+*******************************************************************************
 
 Chess 2001:
 - Zilog Z8400APS @ 4 MHz (8MHz XTAL)
@@ -31,12 +35,14 @@ public:
 		m_speaker_off(*this, "speaker_off")
 	{ }
 
+	// machine drivers
 	void ch2001(machine_config &config);
 
 private:
 	// devices/pointers
 	required_device<timer_device> m_speaker_off;
 
+	// address maps
 	void main_map(address_map &map);
 
 	TIMER_DEVICE_CALLBACK_MEMBER(speaker_off) { m_dac->write(0); }

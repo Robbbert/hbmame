@@ -2,6 +2,10 @@
 // copyright-holders:hap
 // thanks-to:yoyo_chessboard
 /******************************************************************************
+*
+* fidel_as12.cpp, subdriver of fidelbase.cpp
+
+*******************************************************************************
 
 Fidelity Elegance Chess Challenger (AS12)
 ----------------
@@ -34,9 +38,11 @@ public:
 		fidelbase_state(mconfig, type, tag)
 	{ }
 
+	// machine drivers
 	void as12(machine_config &config);
 
 private:
+	// address maps
 	void main_map(address_map &map);
 
 	// I/O handlers

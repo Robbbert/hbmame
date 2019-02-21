@@ -2,8 +2,11 @@
 // copyright-holders:hap
 // thanks-to:Berger,yoyo_chessboard
 /******************************************************************************
+*
+* fidel_desdis.cpp, subdriver of fidelbase.cpp
 
-Fidelity Designer Display series (6502-based displayless Designer is in fidel_excel.cpp)
+Fidelity Designer Display series, 6502 and 68000
+(6502-based displayless Designer is in fidel_excel.cpp)
 
 *******************************************************************************
 
@@ -68,6 +71,7 @@ public:
 	void init_fdes2100d();
 
 protected:
+	// address maps
 	void fdes2100d_map(address_map &map);
 
 	// I/O handlers

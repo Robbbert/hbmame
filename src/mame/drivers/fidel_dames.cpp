@@ -2,6 +2,10 @@
 // copyright-holders:hap
 // thanks-to:yoyo_chessboard
 /******************************************************************************
+*
+* fidel_dames.cpp, subdriver of fidelbase.cpp
+
+*******************************************************************************
 
 Fidelity Dame Sensory Challenger (DSC)
 It's a checkers game for once instead of chess
@@ -33,9 +37,11 @@ public:
 		fidelbase_state(mconfig, type, tag)
 	{ }
 
+	// machine drivers
 	void dsc(machine_config &config);
 
 private:
+	// address maps
 	void main_map(address_map &map);
 
 	// I/O handlers

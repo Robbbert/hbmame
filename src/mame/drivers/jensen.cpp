@@ -38,55 +38,6 @@ void jensen_state::machine_start()
 
 void jensen_state::machine_reset()
 {
-	unpack_srom();
-}
-
-u8 jensen_state::get_srom_byte(unsigned const start_bit)
-{
-	unsigned const byte_offset = start_bit >> 3;
-
-	// check if byte-aligned
-	if (start_bit & 7)
-	{
-		unsigned const shift = start_bit & 7;
-
-		return
-			(m_srom->as_u8(byte_offset + 0) >> shift) |
-			(m_srom->as_u8(byte_offset + 1) << (8 - shift));
-	}
-	else
-		return m_srom->as_u8(byte_offset);
-}
-
-void jensen_state::unpack_srom()
-{
-	/*
-	 * Read the packed data fields from the srom dump and turn them into
-	 * executable code. This should actually be done by the Alpha itself,
-	 * with the data being written into the primary instruction cache.
-	 */
-
-	// the bit offsets to each instruction
-	unsigned const lw_bit_offset[] = { 0, 157, 32, 189, 64, 221, 96, 253 };
-
-	unsigned ram_offset = 0;
-
-	// there are up to 256 blocks of 293 bits each
-	for (unsigned block = 0; block < 256; block++)
-	{
-		// each block contains 8 instruction longwords
-		for (unsigned lw = 0; lw < 8; lw++)
-		{
-			unsigned const srom_offset = block * 293 + lw_bit_offset[lw];
-			
-			m_ram->write(BYTE4_XOR_LE(ram_offset + 0), get_srom_byte(srom_offset + 0));
-			m_ram->write(BYTE4_XOR_LE(ram_offset + 1), get_srom_byte(srom_offset + 8));
-			m_ram->write(BYTE4_XOR_LE(ram_offset + 2), get_srom_byte(srom_offset + 16));
-			m_ram->write(BYTE4_XOR_LE(ram_offset + 3), get_srom_byte(srom_offset + 24));
-
-			ram_offset += 4;
-		}
-	}
 }
 
 void jensen_state::init_common()
@@ -153,11 +104,15 @@ void jensen_state::jensen(machine_config &config)
 	m_cpu->set_addrmap(2, &jensen_state::local_io);
 	m_cpu->set_addrmap(4, &jensen_state::eisa_memory);
 	m_cpu->set_addrmap(6, &jensen_state::eisa_io);
+	m_cpu->srom_oe_w().set(m_srom, FUNC(xc1765e_device::reset_w));
+	m_cpu->srom_data_r().set(m_srom, FUNC(xc1765e_device::data_r));
 
 	RAM(config, m_ram);
 	m_ram->set_default_size("16M");
 	m_ram->set_extra_options("32M,64M,80M,128M");
 	m_ram->set_default_value(0);
+
+	XC1765E(config, m_srom);
 
 	// TODO: 1x1M + 1x256K flash?
 	INTEL_E28F008SA(config, m_feprom[0]);
@@ -216,7 +171,7 @@ void jensen_state::jensen(machine_config &config)
 	// 30-40385-01 Compaq QVision 1024/E (1MB VGA)
 
 	// Optional
-	// DE422-SA DEC EtherWORKS EISA board (10 Mbps TP and BNC connectors)
+	// DE422-SA Digital EISA Ethernet Controller (10 Mbps TP and BNC connectors)
 }
 
 void jensen_state::d2k300axp(machine_config &config)
@@ -271,11 +226,18 @@ ROM_START(dpcaxp150)
 	 * sizes and content.
 	 */
 	ROM_REGION32_LE(0x100000, "feprom1", 0)
+
+	// source: dumped from physical board
 	ROM_SYSTEM_BIOS(0, "v19", "Version 1.9, 22-JUN-1995")
 	ROMX_LOAD("001z5__bl07.v19", 0x00000, 0x100000, CRC(26da3478) SHA1(baa7c92b01244aad84420268a06d04c6e2a30754), ROM_BIOS(0))
 
+	// source: extracted from ftp://ftp.hp.com/pub/alphaserver/firmware/retired_platforms/alphapc/dec2000_axp150/
 	ROM_SYSTEM_BIOS(1, "v22", "Version 2.2, 12-FEB-1996")
 	ROMX_LOAD("001z5__bl07.v22", 0x00000, 0x100000, CRC(1edb9c98) SHA1(a45f0dde236e189a57afc1ed354201180ab2f234), ROM_BIOS(1))
+
+	// source: extracted from https://archive.org/details/decpcaxp
+	ROM_SYSTEM_BIOS(2, "v13", "Version 1.3, 10-JUN-1994")
+	ROMX_LOAD("001z5__bl07.v13", 0x00000, 0x100000, CRC(8035f370) SHA1(2ebd75267ab7373d344efe44e700645ed31b44cd), ROM_BIOS(2))
 ROM_END
 
 /*    YEAR   NAME       PARENT  COMPAT  MACHINE    INPUT  CLASS         INIT         COMPANY  FULLNAME                  FLAGS */

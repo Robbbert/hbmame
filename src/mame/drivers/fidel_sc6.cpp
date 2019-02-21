@@ -2,6 +2,10 @@
 // copyright-holders:hap
 // thanks-to:yoyo_chessboard
 /******************************************************************************
+*
+* fidel_sc6.cpp, subdriver of fidelbase.cpp
+
+*******************************************************************************
 
 Fidelity Sensory Chess Challenger 6 (model SC6):
 - PCB label 510-1045B01
@@ -39,12 +43,14 @@ public:
 		m_maincpu(*this, "maincpu")
 	{ }
 
+	// machine drivers
 	void sc6(machine_config &config);
 
 private:
 	// devices/pointers
 	required_device<mcs48_cpu_device> m_maincpu;
 
+	// address maps
 	void main_map(address_map &map);
 
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cartridge);

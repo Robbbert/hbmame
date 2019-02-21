@@ -2,17 +2,21 @@
 // copyright-holders:hap
 // thanks-to:Berger
 /******************************************************************************
+*
+* cking_master.cpp, subdriver of ckingbase.cpp
+
+TODO:
+- 1 WAIT CLK per M1, workaround with z80_set_cycle_tables is possible
+  (wait state is similar to MSX) but I can't be bothered, better solution
+  is to add M1 pin to the z80 core. Until then, it'll run ~20% too fast.
+
+*******************************************************************************
 
 Master: (yes, it's plainly named "Master")
 - Z80 CPU(NEC D780C-1) @ 4MHz(8MHz XTAL), IRQ from 555 timer
 - 8KB ROM(NEC D2764C-3), 2KB RAM(NEC D4016C), ROM is scrambled for easy PCB placement
 - simple I/O via 2*74373 and a 74145
 - 8*8 chessboard buttons, 32+1 border leds, piezo
-
-TODO:
-- 1 WAIT CLK per M1, workaround with z80_set_cycle_tables is possible
-  (wait state is similar to MSX) but I can't be bothered, better solution
-  is to add M1 pin to the z80 core. Until then, it'll run ~20% too fast.
 
 ******************************************************************************/
 
@@ -40,6 +44,7 @@ public:
 		m_mainmap(*this, "mainmap")
 	{ }
 
+	// machine drivers
 	void master(machine_config &config);
 
 	void init_master();
@@ -49,6 +54,7 @@ private:
 	required_device<dac_2bit_binary_weighted_ones_complement_device> m_dac;
 	required_device<address_map_bank_device> m_mainmap;
 
+	// address maps
 	void main_map(address_map &map);
 	void main_trampoline(address_map &map);
 	u8 main_trampoline_r(offs_t offset);

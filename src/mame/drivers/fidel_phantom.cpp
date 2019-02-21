@@ -1,11 +1,11 @@
 // license:BSD-3-Clause
 // copyright-holders:hap
 /******************************************************************************
-
-Fidelity Phantom Chess Challenger
+*
+* fidel_phantom.cpp, subdriver of fidelbase.cpp
 
 TODO:
-- everything
+- everything, this is a skeleton driver
 
 *******************************************************************************
 
@@ -48,9 +48,11 @@ public:
 	void fphantom(machine_config &config);
 	void init_fphantom();
 
+protected:
+	virtual void machine_reset() override;
+
 private:
 	void main_map(address_map &map);
-	virtual void machine_reset() override;
 };
 
 void phantom_state::machine_reset()
