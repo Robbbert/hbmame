@@ -163,7 +163,7 @@ NUM YEAR COMPANY                 TITLE
 429 2009 Raregame                Spiderman intro
 430 2009 Raregame                Teenage Mutant Ninja Turtles intro
 431 2009 Raregame                Duck Tales Intro
-432
+432 2016 Blastar                 Christmas/Happy New Year 2017 demo
 433
 434*2010 CeL                     Hello World
 435 2010 CeL                     Neorom Jukebox
@@ -1324,6 +1324,33 @@ ROM_START( dti2 )	/* you must use unibios to select Japan Console */
 	ROM_LOAD16_BYTE( "431.c8", 0x1800001, 0x400000, CRC(400fd4cd) SHA1(20cc401de5d429deb7d076535a0b42fc62c48c52) )
 ROM_END
 
+
+// 432 : Xmas/NewYear2017 demo by Blastar (c) 2016
+// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
+ROM_START( xmas2017 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "432.neo", 0x000000, 0x001000, CRC(3f62f2db) SHA1(81e3694604d8645af33afaac51d53f6798c73ec4) ) // skip header
+	ROM_CONTINUE(0x000000, 0x4000)
+	ROM_IGNORE(0x069000)
+
+	ROM_REGION(0x120000, "asis", 0)
+	ROM_LOAD("432.neo", 0x000000, 0x001000, CRC(3f62f2db) SHA1(81e3694604d8645af33afaac51d53f6798c73ec4) )
+	ROM_CONTINUE(0x000000, 0x06d000)
+
+	NEO_SFIX_MT(0x10000)
+	ROM_COPY("asis", 0x4000, 0x00000, 0x10000) // srctag, srcoffs, dstoffs, length
+
+	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
+	ROM_COPY("asis", 0xc000, 0x00000, 0x10000)
+
+	ROM_REGION( 0x40000, "ymsnd", 0 )
+	ROM_COPY("asis", 0xd000, 0x00000, 0x40000)
+
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_COPY("asis", 0x4d000, 0x00000, 0x20000)
+ROM_END
+
+
 // 435 : Neo Rom Jukebox by CeL
 ROM_START( neoromjb )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1969,12 +1996,12 @@ ROM_END
 // This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
 ROM_START( cnbe2018 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "486.p1", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) ) // skip header
+	ROM_LOAD16_WORD_SWAP( "486.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) ) // skip header
 	ROM_CONTINUE(0x000000, 0x040000)
 	ROM_IGNORE(0x0e0000)
 
 	ROM_REGION(0x120000, "asis", 0)
-	ROM_LOAD("486.p1", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) )
+	ROM_LOAD("486.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) )
 	ROM_CONTINUE(0x000000, 0x120000)
 
 	NEO_SFIX_MT(0x10000)
@@ -2326,3 +2353,4 @@ HACK( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Venus Wars demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, xmas2017,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Xmas/Happy New Year 2017 demo", MACHINE_SUPPORTS_SAVE )

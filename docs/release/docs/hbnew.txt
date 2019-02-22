@@ -52,6 +52,7 @@ New Games
 - [umk3te42]          Ultimate Mortal Kombat 3 (Tournament Edition)(2.0.042)
 - [wofs09]            Warriors of Fate (unknown s09)(World 921002)
 - [wofs10]            Warriors of Fate (Unique Sword Armour 2019-01-13)
+- [xmas2017]          Christmas/Happy New Year 2017 demo [by Blastar]
 
 
 
