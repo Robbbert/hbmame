@@ -47,6 +47,8 @@ New Games
 - [shaman20]          Shaman King demo 0.20 [by Vasily Familiya]
 - [shaman21]          Shaman King demo 0.21 [by Vasily Familiya]
 - [shaman22]          Shaman King demo 0.22 [by Vasily Familiya]
+- [shaman23]          Shaman King demo 0.23 [by Vasily Familiya]
+- [shaman24]          Shaman King demo 0.24 [by Vasily Familiya]
 - [tk2h126]           Tenchi Wo Kurau II (Master Edition Ver.4 2018-09-19)
 - [tk2h127]           Tenchi wo Kurau II (Master Version 2019-01-20)
 - [umk3te42]          Ultimate Mortal Kombat 3 (Tournament Edition)(2.0.042)
