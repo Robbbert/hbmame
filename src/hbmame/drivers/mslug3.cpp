@@ -40,6 +40,12 @@ void neogeo_state::init_mslug3fr()
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
+void neogeo_state::init_ms6s16()
+{
+	init_neogeo();
+	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
+}
+
 
 
 #if 0
@@ -12960,7 +12966,7 @@ HACK( 200?, ms6s12,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  msl
 HACK( 200?, ms6s13,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Robert",    "Metal Slug 6 (Mummy Mode)(Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ms6s14,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "DDJ",       "Metal Slug 6 (Quick Go Next Mission)(Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, ms6s15,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "Robert",     "Metal Slug 6 (Zombie Mode)(Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ms6s16,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Unknown",     "Metal Slug 6 (Enemies Resetting Version 2019-02-05)(Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, ms6s16,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Unknown",     "Metal Slug 6 (Enemies Resetting Version 2019-02-05)(Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3nm01,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Kim[FGCH]",    "Metal Slug 3 (Ex Super Version V1)(NGM-2560)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3nm02,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Ydmis",    "Metal Slug 3 (99 grenades)(NGM-2560)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3nm03,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3,    ROT0, "Ydmis",    "Metal Slug 3 (Big Mode)(NGM-2560)" , MACHINE_SUPPORTS_SAVE )
