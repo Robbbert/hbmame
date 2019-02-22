@@ -1846,7 +1846,7 @@ ROM_START( samsh5spnzk )
 	ROM_LOAD16_BYTE( "272d.c8", 0x3000001, 0x800000, CRC(cfde7aff) SHA1(25185F471DD35E5D388B75B83D8652085CD5E17D) )
 ROM_END
 
-HACK( 200?, fswordsb1,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis & Foxy[PHT]", "Fighters Swords (Enable hidden characters v1)(Alt)(Korean Release)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fswordsb1,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis & Foxy[PHT]", "Fighters Swords (Enable hidden characters v1)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordsb2,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "yumeji[2ch]", "Fighters Swords (Enable hidden characters v2)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordsbf,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Fighters Swords (Enable hidden characters v1.0f)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 
@@ -5175,7 +5175,7 @@ HACK( 200?, samsho3s11,     samsho3,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, samsho3s12,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown III (Super kill Move Changes)(NGM-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho3s13,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "cctv-sb",    "Samurai Shodown III (Move Out To Simplify The Revised Version)(NGH-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho3s14,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown III (Enhanced power)(NGM-087)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, fswordss01,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Ydmis & Foxy[PHT]",    "Fighters Swords (Enable Hidden Characters)(Korean Release)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fswordss01,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Ydmis & Foxy[PHT]",    "Fighters Swords (Enable Hidden Characters V?)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordss02,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Fighters Swords (Infinite Power)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordss03,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "tcwlee[EGCG]",    "Fighters Swords (Color Change)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown IV 
@@ -5237,7 +5237,7 @@ HACK( 200?, samsho5s45,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sams
 HACK( 200?, samsho5s46,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Dodowang[EGCG] & Eddids",    "Samurai Shodown V (Hidden Characters-Color Patch)(Alt)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s47,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "wesker[FGCH]",    "Samurai Shodown V (Hidden Characters-Poppy As Challenger Patch)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s48,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "lichenzhao",    "Samurai Shodown V (Really Mirror Minna Move Simplified Version)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho5s49,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Dodowang[EGCG]",    "Samurai Shodown V (Enable hidden characters V?)(NGH-2700)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho5s49,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Dodowang[EGCG]",    "Samurai Shodown V (Enable Hidden Characters V?)(NGH-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s50,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (Custom Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5bds01,   samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "bootleg", "Samurai Shodown V (Description Of Hack Unknown)(Set 04)(bootleg)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown V Special

@@ -5961,8 +5961,8 @@ HACK( 2009, sf2cehk,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     RO
 HACK( 2009, sf2cehp,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Pipi899", "Street Fighter II': Champion Edition (Moves hack)(2009-01-10)(World 920313)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sf2cejem,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Blackheart", "Street Fighter II': Champion Edition (Easy Moves)(2009-07-30)(World 920513)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, sf2jbh,      sf2,      cps1_10MHz, sf2j,     cps_state, cps1,     ROT0,   "Yumeji", "Street Fighter II: The World Warrior (Edition Plus 2014)(Japan 910522)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, sf2koryuh,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Hack by TT)(World 920313)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
-HACK( 200?, sf2h9,       sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II: Champion Edition (bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, sf2koryuh,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Koryu)(World 920313)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
+HACK( 200?, sf2h9,       sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II': Champion Edition (bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2h10,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II': Champion Edition (Alpha Magic-F bootleg set 4, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2h11,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Bootleg", "Street Fighter II': Champion Edition (920322 Japan bootleg set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2h12,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow bootleg set 5, 920322 Japan)", MACHINE_SUPPORTS_SAVE )
@@ -5974,7 +5974,7 @@ HACK( 200?, sf2tha,      sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  RO
 HACK( 200?, sf2tlona,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 1, 811102 001)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
 HACK( 200?, sf2tlonb,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 2, 811102 001)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2tlonc,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 3, 811102 001)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sf2turyu,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II: Champion Edition (Tu Long prototype)(World 811102)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sf2turyu,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II': Champion Edition (Tu Long prototype)(World 811102)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc3d5,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (Red Wave bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc3g,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (V004 bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc6,     sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (YYC bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
@@ -6052,7 +6052,7 @@ HACK( 200?, tk2h16,      wof,      qsound,     wof,      cps_state, wof,      RO
 HACK( 2009, tk2h17,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Blackheart", "Tenchi wo Kurau II (Zhao Chain Revised v1.0)(2009-12-16)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, tk2h18,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Zero", "Tenchi wo Kurau II (Power edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, tk2p44,      wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Lock Triple Mode)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, tk2p45,      wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Pipi899", "Tenchi Wo Kurau II (Imitation Sword Invincible Version)(2010-01-29)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2p45,      wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Imitation Sword Invincible Version)(2010-01-29)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofb,        wof,      qsound,     wof,      cps_state, wofb,     ROT0,   "Unknown", "Warriors of Fate (bootleg, 921002 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofes,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms (Invincible))(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, woffr,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shyma.X", "Warriors of Fate (French Translation)(2003-07-28)(World 921002)", MACHINE_SUPPORTS_SAVE )
@@ -36935,10 +36935,10 @@ HACK( 2010, sk3p8,         wofch,    qsound,     wofch,    cps_state,   wof,    
 HACK( 2018, sk3p9,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 06)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, sk3p10,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 07)", MACHINE_SUPPORTS_SAVE )
 // Warriors of Fate
-HACK( 200?, wofus01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Description Of Hack Unknown)(Set 01)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofus02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Kassar(Chou-Hi)'s Spinning Pile Driver)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofus03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors Of Fate (Easy Kassar's Spinning Pile Driver. Fire, Foods And Swords Anywhere)(Happy Version)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, wofs01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Jian Jia Wu Shuang 2016)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Description Of Hack Unknown)(Set 01)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Kassar(Chou-Hi)'s Spinning Pile Driver)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors of Fate (Easy Kassar's Spinning Pile Driver. Fire, Foods And Swords Anywhere)(Happy Version)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, wofs01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Jian Jia Wu Shuang 2016)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms)(Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Combination key To Take Grass Blade Sword)(World 921031)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofs04,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors of Fate (Holy Sword Three Kingdoms) (Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )

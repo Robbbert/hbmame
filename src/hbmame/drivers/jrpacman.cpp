@@ -1211,7 +1211,7 @@ HACK( 2000, jr8000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, RO
 HACK( 2000, jr9000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 9000 Plus", MACHINE_SUPPORTS_SAVE )
 HACK( 1983, jrcheat,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Cheat [c]", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, jrdeluxe, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Deluxe", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrfast,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. PacMan [f]", MACHINE_SUPPORTS_SAVE )
+HACK( 1983, jrfast,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man [f]", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, jrhearts, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Hearts", MACHINE_SUPPORTS_SAVE )
 HACK( 1983, jrpacad,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man After Dark", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, jrpacjr,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Junior", MACHINE_SUPPORTS_SAVE )
