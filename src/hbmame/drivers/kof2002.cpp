@@ -23,6 +23,12 @@ void neogeo_state::init_kof2k2bd()
 #endif
 }
 
+void neogeo_state::init_mp2s39()
+{
+	init_kof2002();
+	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size, 1);
+}
+
 void neogeo_state::init_kof2k2pl17()
 {
 	init_gsc();
@@ -9053,7 +9059,7 @@ ROM_START( kf2k2mp2s38 )
 ROM_END
 
 ROM_START( kf2k2mp2s39 )
-	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "k2k2m2hc39p1.bin", 0x000000, 0x4551CC, CRC(ccef3032) SHA1(e363b11e19051647bf2b44da6532dfb36f93a3bd) )
 	ROM_LOAD16_WORD_SWAP( "k2k2m2hc39p2.bin", 0x100000, 0x454F52, CRC(65264886) SHA1(261f539d1844b7fb1b560681ce1681ca1c615b5c) )
 
@@ -14032,9 +14038,9 @@ HACK( 200?, kf2k2mp2s33,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 200?, kf2k2mp2s34,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "kof1996 & zuojie",    "Kof2002 Magic Plus II (Remove Countdown06)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "wesker",    "Kof2002 Magic Plus II (Practice Mode Maximum Power)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Eddids",    "Kof2002 Magic Plus II (Unlimited Credits In Console Mode)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Kim",    "Kof2002 Magic Plus II (Icy Blue Style)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "yozuki",    "Kof2002 Magic Plus II (X'Mas Enhanced)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 Magic Plus II (Hacks Unknown)(bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Kim",    "Kof2002 Magic Plus II (Icy Blue Style)(bootleg)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "yozuki",    "Kof2002 Magic Plus II (X'Mas Enhanced)(bootleg)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  mp2s39,    ROT0, "Unknown",    "Kof2002 Magic Plus II (Hacks Unknown)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2plas01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "KyoX",    "Kof2002 Plus (Translation Portuguese)(2005-09-25)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2plas02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "syberjun",    "Kof2002 Plus (Translation Korean)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2plas03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "wesker",    "Kof2002 Plus (Unluck Max2 v1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )

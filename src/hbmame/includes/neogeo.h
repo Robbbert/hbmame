@@ -171,6 +171,7 @@ public:
 	void init_ms5pcbd();
 	void init_ms5plus();
 	void init_ms6s16();
+	void init_mp2s39();
 	void init_neogeo();
 	void init_nitd();
 	void init_pnyaa();

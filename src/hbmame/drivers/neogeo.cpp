@@ -2127,35 +2127,32 @@ void neogeo_state::init_mslug3b6()
 
 void neogeo_state::init_kof2002b()
 {
-//	init_neogeo();
-//	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
-//	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-//	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	init_kof2002();
+	init_neogeo();
+	m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_bootleg_prot->kof2002b_gfx_decrypt(spr_region, spr_region_size);
 	m_bootleg_prot->kof2002b_gfx_decrypt(fix_region, fix_region_size);
 }
 
 void neogeo_state::init_kf2k2mp()
 {
-//	init_neogeo();
+	init_neogeo();
 	m_bootleg_prot->kf2k2mp_decrypt(cpuregion, cpuregion_size);
-	init_kof2002();
-//	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-//	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
-//	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 void neogeo_state::init_kf2k2mp2()
 {
-//	init_neogeo();
+	init_neogeo();
 	m_bootleg_prot->kf2k2mp2_px_decrypt(cpuregion, cpuregion_size);
-	init_kof2002();
-//	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-//	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,1);
-//	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
+	m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
 }
 
 void neogeo_state::init_matrimbl()
@@ -2164,7 +2161,7 @@ void neogeo_state::init_matrimbl()
 	m_kof2002_prot->matrim_decrypt_68k(cpuregion, cpuregion_size);
 	m_sprgen->m_fixed_layer_bank_type = 2;
 	m_bootleg_prot->matrimbl_decrypt(spr_region, spr_region_size, audiocpu_region,audio_region_size);
-	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size); /* required for text layer */
+	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
 

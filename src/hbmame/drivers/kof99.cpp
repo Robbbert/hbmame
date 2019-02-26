@@ -6584,7 +6584,7 @@ ROM_END
 
 ROM_START( kof99ks01 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251ks01.p1",   0x100000, 0x400000, CRC(e5f5a40e) SHA1(6ebbf780149d9483ede5616cf3f1ffea311954c2) )
+	ROM_LOAD16_WORD_SWAP( "251ks01.p1",   0x100000, 0x400000, BAD_DUMP CRC(e5f5a40e) SHA1(6ebbf780149d9483ede5616cf3f1ffea311954c2) )
 	ROM_LOAD16_WORD_SWAP( "251ks01.p2", 0x500000, 0x400000, CRC(b07b8ae3) SHA1(ee78bbf4e28a40209571591b7051fb1a1bb2b125) )
 
 	NEO_SFIX_MT_128K
@@ -9418,7 +9418,7 @@ HACK( 200?, kof99hs42,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof9
 HACK( 200?, kof99hs43,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "kof1996",    "Kof'99 (Random Boss)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99hs44,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Raymonose",    "Kof'99 (Backward Rolling)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99hs46,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Eddids",    "Kof'99 (Unlimited Credits In Console Mode)(NGH-2510)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof99ks01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Eddids",    "Kof'99 (DreamCast 1.2F)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof99ks01,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Eddids",    "Kof'99 (DreamCast 1.2F)(Korean Release)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99ks02,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Ydmis",    "Kof'99 (Unlock Intensive Mode)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99ks03,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Ydmis",    "Kof'99 (Enable Hidden Characters V1)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99ks04,      kof99,   neogeo_noslot,  neogeo, neogeo_state,  kof99,     ROT0, "Ydmis",    "Kof'99 (Enable Hidden Characters V2)(Korean Release)" , MACHINE_SUPPORTS_SAVE )
