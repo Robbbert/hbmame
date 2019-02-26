@@ -55,7 +55,7 @@ void mhavoc_state::mhavocpe(machine_config &config)
 }
 
 
-ROM_START( mhavocpe )
+ROM_START( mhavocpex )
 	/* Alpha Processor ROMs */
 	ROM_REGION( 0x20000, "alpha", 0 )   /* 152KB for ROMs */
 	/* Vector Generator ROM */
@@ -84,5 +84,5 @@ ROM_START( mhavocpe )
 ROM_END
 
 
-GAME( 2018, mhavocpe, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc - The Promised End (v0.21)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mhavocpex, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc - The Promised End (v0.21)", MACHINE_SUPPORTS_SAVE )
 

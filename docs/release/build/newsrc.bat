@@ -31,7 +31,6 @@ copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
 
 md %to%\src\mame\includes
 copy /Y %from%\src\mame\includes\mhavoc.h %to%\src\mame\includes
-copy /Y %from%\src\mame\includes\timelimt.h %to%\src\mame\includes
 
 md %to%\src\mame\machine
 copy /Y %from%\src\mame\machine\mhavoc.cpp %to%\src\mame\machine

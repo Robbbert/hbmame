@@ -4,48 +4,6 @@
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_kof2002hb() // hacks of kof2002
-{
-	init_neogeo();
-	m_sprgen->m_fixed_layer_bank_type = 1; // only meaningful if s1 > 128k
-
-	// decrypt p roms if needed
-	u8 *ram = memregion("maincpu")->base();
-	if (ram[0x100002] != 0xFF)
-	{
-		//printf("Maincpu=%X\n",ram[0x100002]);fflush(stdout);
-		m_kof2002_prot->kof2002_decrypt_68k(cpuregion, cpuregion_size);
-	}
-
-	// decrypt m1 if needed
-	if (memregion("audiocrypt"))
-		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-
-	// decrypt v roms if needed
-	ram = memregion("ymsnd")->base();
-	if (ram[1] != 0x99)
-	{
-		//printf("ym=%X\n",ram[1]);
-		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	}
-
-	// decrypt c roms if needed
-	ram = memregion("sprites")->base();
-	if (ram[0] != 0)
-	{
-		//printf("Sprites=%X\n",ram[0]);
-		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2002_GFX_KEY);
-	}
-
-	// if no s rom, copy info from end of c roms
-	ram = memregion("fixed")->base();
-	if (ram[0x100] == 0)
-	{
-		//printf("Fixed1=%X\n",ram[0x100]);
-		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	}
-}
-
 
 // S1-rom is scrambled. Not understood as yet.
 void neogeo_state::init_kof2k2bd()
@@ -65,47 +23,138 @@ void neogeo_state::init_kof2k2bd()
 #endif
 }
 
-void neogeo_state::init_kof2k2pl17()
+void neogeo_state::init_mp2s39()
 {
-	init_neogeo();
-	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
-	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x700000/2; i < 0x720000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	rom[0x700178/2] = 0x4e75;
+	init_kof2002();
+	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size, 1);
 }
 
+void neogeo_state::init_kof2k2pl17()
+{
+	init_gsc();
+	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
+	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
+}
+
+// kf2k2ps2re
 // This game can select a different m1 and vx, depending on the character chosen.
 // Due to lack of info, this is not emulated. It could happen that bad sounds might
 // occur.
-void neogeo_state::init_kf2k2ps2re()
+#if 0
+WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
 {
-	init_neogeo();
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x700000/2; i < 0x720000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	rom[0x71061A/2] = 0x4e75;
+	// out ($08) enables the nmi, out ($18) disables it
+	m_audio_cpu_nmi_enabled = !(offset & 0x10);
+	audio_cpu_check_nmi();
 }
 
+WRITE8_MEMBER(neogeo_state::audio_command_w_x)
+{
+	offs_t which = offset >> 17;printf("%X ",which);
+	switch (which)
+	{
+		case 0:
+			m_soundlatch_m2->write(space, 0, data);
+			m_audiocpu_m2->set_input_line(INPUT_LINE_NMI, (m2_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
+			break;
+		case 1:
+			m_soundlatch_m3->write(space, 0, data);
+			m_audiocpu_m3->set_input_line(INPUT_LINE_NMI, (m3_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
+			break;
+		case 2:
+			m_soundlatch_m4->write(space, 0, data);
+			m_audiocpu_m3->set_input_line(INPUT_LINE_NMI, (m4_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
+			break;
+	}
+	m_audiocpu->set_input_line(INPUT_LINE_NMI, (m_audio_cpu_nmi_enabled && m_audio_cpu_nmi_pending) ? ASSERT_LINE : CLEAR_LINE);
+
+	m_audio_cpu_nmi_pending = true;
+	audio_cpu_check_nmi();
+	/* boost the interleave to let the audio CPU read the command */
+	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+}
+
+WRITE8_MEMBER(neogeo_state::audio_command_w_m3)
+{
+	m_soundlatch_m3->write(space, 0, data);
+	m_audio_cpu_nmi_pending = true;
+	audio_cpu_check_nmi();
+	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+}
+
+WRITE8_MEMBER(neogeo_state::audio_command_w_m4)
+{
+	m_soundlatch_m4->write(space, 0, data);
+	m_audio_cpu_nmi_pending = true;
+	audio_cpu_check_nmi();
+	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+}
+
+
+void neogeo_state::ps2_map(address_map &map)
+{
+	gsc_map(map);
+	//map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
+	//map(0x340000, 0x340001).mirror(0x01fffe).portr("IN1");
+	//map(0x3a0000, 0x3a001f).mirror(0x01ffe0).w(FUNC(neogeo_state::system_control_w_m4));
+	//map(0xba0000, 0xba0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m4),FUNC(neogeo_state::audio_command_w_m4));        // music4 add
+	//map(0xbc0000, 0xbc0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m3),FUNC(neogeo_state::audio_command_w_m3));        // music4 add
+	//map(0xbe0000, 0xbe0001).mirror(0x01fffe).rw(FUNC(neogeo_state::get_audio_result_m2),FUNC(neogeo_state::audio_command_w_m2));        // music4 add
+	map(0xba0000,0xba0001).w(FUNC(neogeo_state::audio_command_w_m4)).umask16(0xff00);
+	map(0xbc0000,0xbc0001).w(FUNC(neogeo_state::audio_command_w_m3)).umask16(0xff00);
+	map(0xbe0000,0xbe0001).w(FUNC(neogeo_state::audio_command_w_m2)).umask16(0xff00);
+}
+
+void neogeo_state::m2_map(address_map &map)
+{
+	map(0x00,0x00).mirror(0xff00).r(FUNC(neogeo_state::audio_command_r)).w("soundlatch_m2",FUNC(generic_latch_8_device::clear_w));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m2",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m2",FUNC(generic_latch_8_device::write));
+}
+
+void neogeo_state::m3_map(address_map &map)
+{
+	map(0x00,0x00).mirror(0xff00).r(FUNC(neogeo_state::audio_command_r)).w("soundlatch_m3",FUNC(generic_latch_8_device::clear_w));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m3",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m3",FUNC(generic_latch_8_device::write));
+}
+
+void neogeo_state::m4_map(address_map &map)
+{
+	map(0x00,0x00).mirror(0xff00).r(FUNC(neogeo_state::audio_command_r)).w("soundlatch_m4",FUNC(generic_latch_8_device::clear_w));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m4",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(neogeo_state::audio_cpu_enable_nmi_w));
+	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(neogeo_state::audio_cpu_bank_select_r));
+	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m4",FUNC(generic_latch_8_device::write));
+}
+
+MACHINE_CONFIG_START( neogeo_state::ps2 )
+	gsc(config);
+	MCFG_DEVICE_MODIFY("maincpu")
+	MCFG_DEVICE_PROGRAM_MAP(ps2_map)
+
+	GENERIC_LATCH_8(config, m_soundlatch_m2);
+	GENERIC_LATCH_8(config, m_soundlatch2_m2);
+	GENERIC_LATCH_8(config, m_soundlatch_m3);
+	GENERIC_LATCH_8(config, m_soundlatch2_m3);
+	GENERIC_LATCH_8(config, m_soundlatch_m4);
+	GENERIC_LATCH_8(config, m_soundlatch2_m4);
+
+	MCFG_DEVICE_ADD("audiocpu_m2", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(m2_map)
+	MCFG_DEVICE_ADD("audiocpu_m3", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(m3_map)
+	MCFG_DEVICE_ADD("audiocpu_m4", Z80, NEOGEO_AUDIO_CPU_CLOCK)
+	MCFG_DEVICE_PROGRAM_MAP(audio_map)
+	MCFG_DEVICE_IO_MAP(m4_map)
+MACHINE_CONFIG_END
+#endif
 
 
 ROM_START( kof200215 ) // all confirmed
@@ -2122,6 +2171,32 @@ ROM_START( kof2k2mp3 )
 	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
 ROM_END
 
+ROM_START( kof2k2mp3s )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265mp3s.p1", 0x000000, 0x100000, CRC(933680ce) SHA1(61ba3c804926e27f364bd4b0b9b12eed6ee7bf15) )
+	ROM_LOAD16_WORD_SWAP( "265ori.p2", 0x100000, 0x400000, CRC(DE6FFD21) SHA1(0f9108aae7541d0d754ce764b195c921c021c373) )
+
+	NEO_SFIX_128K( "265mp3.s1", CRC(4d0c4e77) SHA1(6e65b3e0ec2a04de4553f8ccf9c3197a0126e332) )
+
+	NEO_BIOS_AUDIO_128K( "265ori.m1", CRC(AB9D360E) SHA1(a0c8a5aae387c4f0b72790211695da7df924c351) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265nu.v1", 0x000000, 0x400000, CRC(13d98607) SHA1(0f1a374247992d301bc26c0bab200631a13a9f4a) )
+	ROM_LOAD( "265nu.v2", 0x400000, 0x400000, CRC(9cf74677) SHA1(073e7cb00127690fdec05c19f00347ec449f15ac) )
+	ROM_LOAD( "265nu.v3", 0x800000, 0x400000, CRC(8e9448b5) SHA1(c22420649c7c68a172290548cab846345c861cb0) )
+	ROM_LOAD( "265nu.v4", 0xc00000, 0x400000, CRC(067271b5) SHA1(36e07da78aaf634824c98023053bef802be4e218) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265rs.c1",  0x0000000, 0x800000, CRC(c1a21b4c) SHA1(235938175d6011c5c8a37fc94f8fb604132d8038) )
+	ROM_LOAD16_BYTE( "265rs.c2",  0x0000001, 0x800000, CRC(9b3d7e8d) SHA1(38c16541862636934a456f23632f64ff0f5ae617) )
+	ROM_LOAD16_BYTE( "265ori.c3", 0x1000000, 0x800000, CRC(E5074EEA) SHA1(387ef21d58b416126b95843bac1a0b6cc346818f) )
+	ROM_LOAD16_BYTE( "265ori.c4", 0x1000001, 0x800000, CRC(F6EB1FF2) SHA1(77cb493b9e75d42c204a9a6c052a813c2730e44f) )
+	ROM_LOAD16_BYTE( "265d.c5",   0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6",   0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265ori.c7", 0x3000000, 0x800000, CRC(0E9F6ADB) SHA1(0e4cdbd3df2ef7b0c78c3275ee22684c67bf2d23) )
+	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
+ROM_END
+
 ROM_START( kof2k2mpu )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265mpu.p1", 0x000000, 0x100000, CRC(96388f42) SHA1(4129ca8d2a3f6543303bafafef479a48460e58ec) )
@@ -2553,10 +2628,14 @@ ROM_START( kof2k2pjw ) /* The King of Fighters 2002 - Enhance by Jason/K3 and We
 ROM_END
 
 ROM_START( kof2k2pl17 ) // KOF2k2plus2017
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265pl17.p1", 0x000000, 0x100000, CRC(bd94702d) SHA1(85f1c0930ebf160eeb0995c00eab9bfd896b87e3) )
 	ROM_LOAD16_WORD_SWAP( "265pl17.p2", 0x100000, 0x500000, CRC(76e75315) SHA1(f95cc585676a3d2d49b4249fea3872fd7f4af5ef) )
-	ROM_LOAD16_WORD_SWAP( "265pl17.p3", 0x700000, 0x020000, CRC(6bfe80b0) SHA1(2ea3e2ed1bf5e20c256a41dd5c1160e945fa333e) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "265pl17.p3", 0x000000, 0x020000, CRC(6bfe80b0) SHA1(2ea3e2ed1bf5e20c256a41dd5c1160e945fa333e) )
+	ROM_FILL(0x000178,1,0x4e)
+	ROM_FILL(0x000179,1,0x75)
 
 	NEO_SFIX_128K( "265pl17.s1", CRC(96bdd036) SHA1(62baba893e10dbed5c5099040b07432c0737be42) )
 
@@ -2730,13 +2809,67 @@ ROM_START( kof2k2ps2mp )
 ROM_END
 
 ROM_START( kf2k2ps2re )
-	ROM_REGION( 0x720000, "maincpu", 0 )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p1",  0x000000, 0x100000, CRC(25744D64) SHA1(505C6F4062B3614AA1CE1990EC726B45851628ED) )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p2",  0x100000, 0x500000, CRC(07D730D0) SHA1(FB0CD3496F9BFD74A4973C24668336173CB3E190) )
-	//ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x700000, 0x020000, CRC(AB1F63D5) SHA1(1DC2437C6B4257172B21EBB3C6937AF5779FB261) )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p1",  0x000000, 0x100000, CRC(e8fd148f) SHA1(d35892e2ac8d3c85ff57d4ca644b93e25aafddf0) )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p2",  0x100000, 0x500000, CRC(1de9efcb) SHA1(7cf4cfc54f881281373f42c4dc48c9e8149c8164) )
-	ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x700000, 0x020000, CRC(adf44b1d) SHA1(a7a56ce99a728940812fd0678c9d018023f5482c) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x000000, 0x020000, CRC(adf44b1d) SHA1(a7a56ce99a728940812fd0678c9d018023f5482c) )
+	ROM_FILL(0x01061A,1,0x4e)
+	ROM_FILL(0x01061B,1,0x75)
+
+	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
+
+	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1C661A4B)  SHA1(4E5AA862A0A182A806D538996DDC68D9F2DFFAF7) )
+
+	ROM_REGION( 0x30000, "audiocpu_m2", 0 )
+	ROM_LOAD( "214-m1.m1", 0x00000, 0x20000, CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
+	ROM_RELOAD(     0x10000, 0x20000 )
+
+	ROM_REGION( 0x50000, "audiocpu_m3", 0 )
+	ROM_LOAD( "262-m1d.m1", 0x00000, 0x40000, CRC(4BCC537B) SHA1(9FCF1342BCD53D5EEC12C46EE41A51BF543256C2) ) 
+	ROM_RELOAD(     0x10000, 0x40000 )
+
+	ROM_REGION( 0x90000, "audiocpu_m4", 0 )
+	ROM_LOAD( "269-m1d.m1", 0x00000, 0x80000, CRC(7B7BF462) SHA1(7466A6962DE5242F71B9C52D7BD21A9832115E11) ) 
+	ROM_RELOAD(     0x10000, 0x80000 )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0FC9A58D) SHA1(9D79EF00E2C2ABD9F29AF5521C2FBE5798BF336F) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(B8C475A4) SHA1(10CAF9C69927A223445D2C4B147864C02CE520A8) )
+	ROM_REGION( 0x1000000, "ymsnd_m2", 0 )
+	ROM_LOAD( "214-v1.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
+	ROM_LOAD( "214-v2.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
+	ROM_LOAD( "214-v3.v3", 0x800000, 0x200000, CRC(92a2257d) SHA1(5064aec78fa0d104e5dd5869b95382aa170214ee) )
+	ROM_REGION( 0x1000000, "ymsnd_m3", 0 )
+	ROM_LOAD( "262-v1d.v1", 0x000000, 0x800000, CRC(AC2913BF) SHA1(1721EC3D19684AF702F6C93DA25BB787A5D9DBFF) )
+	ROM_LOAD( "262-v2d.v2", 0x800000, 0x800000, CRC(15042F30) SHA1(F92E49110BDE007104590BE1A0FDC8064C216C37) )
+	ROM_REGION( 0x1000000, "ymsnd_m4", 0 )
+	ROM_LOAD( "269-v1d.v1", 0x000000, 0x800000, CRC(FF64CD56) SHA1(E2754C554ED5CA14C2020C5D931021D5AC82660C) )
+	ROM_LOAD( "269-v2d.v2", 0x800000, 0x800000, CRC(A8DD6446) SHA1(8972AAB271C33F8AF344BFFE6359D9DDC4B8AF2E) )
+
+	ROM_REGION( 0x5000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265d.c1", 0x0000000, 0x800000, CRC(7efa6ef7) SHA1(71345A4202E7CC9239538FB978638141416C8893) )
+	ROM_LOAD16_BYTE( "265d.c2", 0x0000001, 0x800000, CRC(aa82948b) SHA1(B2A40797F68BDEB80BC54DCCC5495BE68934BF0E) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265ps2re.c7", 0x3000000, 0x800000, CRC(F0897B93) SHA1(F1C38737B148C459212B61066E8C279852F080B3) )
+	ROM_LOAD16_BYTE( "265ps2re.c8", 0x3000001, 0x800000, CRC(8D27A4A6) SHA1(F05A1FEA1B2E542B70B11E58455812E9186D0D77) )
+	ROM_LOAD16_BYTE( "265ps2re.c9", 0x4000000, 0x800000, CRC(9939C08A) SHA1(75033A18ECD9177EC6DA00E32FE1E391FDE0BC39) )
+	ROM_LOAD16_BYTE( "265ps2re.c10",0x4000001, 0x800000, CRC(C724C069) SHA1(26974478ED31C68A3B987986849C8386F8C5AF8C) )
+ROM_END 
+
+ROM_START( kf2k2ps2re1 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265ps2re1.p1",  0x000000, 0x100000, CRC(77a0044c) SHA1(57665dcc803d6bf406fb047823aaf71348996b2b) )
+	ROM_LOAD16_WORD_SWAP( "265ps2re1.p2",  0x100000, 0x500000, CRC(f9e4456a) SHA1(95e8ebdb7fd0db8ce3116091d160ad1260c2a5e4) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "265ps2re1.p3",  0x000000, 0x020000, CRC(6e6beeba) SHA1(9ab1687c9d8aacaa2626d25b8177b6ae48828674) )
+	ROM_FILL(0x0108D0,1,0x4e)
+	ROM_FILL(0x0108D1,1,0x75)
 
 	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
 
@@ -3761,95 +3894,96 @@ ROM_START( kof2k2xxx )
 	ROM_LOAD16_BYTE( "265d.c8",   0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
-HACK( 2002, kof200215,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 Magic Plus II (Ultimate Enhancement Simplified Recruitment)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2002d,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Eolith / Playmore", "Kof2002 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002x,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 (Babel ice field remix)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof200215,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 Magic Plus II (Ultimate Enhancement Simplified Recruitment)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2002d,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Eolith / Playmore", "Kof2002 (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002x,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 (Babel ice field remix)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ath,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Athena)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2b,     kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Alphax2?", "Kof2002 (Add Char set 3)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2b1,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Alphax2?", "Kof2002 (Add Char set 2)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2b,     kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Alphax2?", "Kof2002 (Add Char set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2b1,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Alphax2?", "Kof2002 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2bd,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2k2bd, ROT0, "Unknown", "Kof2002 (Challenge to Ultimate Battle)(Bootleg, Decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2bh,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Alphax2", "Kof2002 (Enable hidden characters v1)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2bjh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ben Jeremy", "Kof2002 (Diff Moves 031025)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2bjo,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ben Jeremy", "Kof2002 (Diff Moves 031013)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2bh,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Alphax2", "Kof2002 (Enable hidden characters v1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2bjh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ben Jeremy", "Kof2002 (Diff Moves 2003-10-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2bjo,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ben Jeremy", "Kof2002 (Diff Moves 2003-10-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof2k2bl3,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Neo Nebuwaks/Ismamj", "Kof2002 (Blood S.Plus)(BL3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof2k2bl4,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Neo Nebuwaks/Ismamj", "Kof2002 (Blood S.Plus)(BL4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2bld,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Blood S.Plus)(BL)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2blood2,kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Blood S.Plus)(BL2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2br,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Unknown", "Kof2002 (Portuguese set 2)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2br1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Unknown", "Kof2002 (Portuguese set 1)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2br2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Unknown", "Kof2002 (Portuguese set 3)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2br,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 (Portuguese set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2br1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Unknown", "Kof2002 (Portuguese set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2br2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 (Portuguese set 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2bs,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Dodowang", "Kof2002 (Boss)(Red flame)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2c2,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG / EGHT", "Kof2002 (3rd Strike of the Orochi)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2cf1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "C6F8", "Kof2002 (Iori p3 and p4 Color Changed)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2cf2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "C6F8", "Kof2002 (Char color changed - rel.2 030827)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2cf3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "C6F8", "Kof2002 (Char color changed - rel.3 030831)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2cfc,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "C6F8", "Kof2002 (Char color changed - rel.4 031017)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ch,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Coolhot", "Kof2002 (Move rev - Based on CHL and Ricky)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2chl,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "CHL", "Kof2002 (Enhanced gameplay - 030410)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2cl2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "CHL", "Kof2002 (Enhanced gameplay - Rev.2 030413)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2cl3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "CHL", "Kof2002 (Enhanced gameplay - Rev.3 030413)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2cf1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "C6F8", "Kof2002 (Iori p3 and p4 Color Changed)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2cf2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "C6F8", "Kof2002 (Char color changed - rel.2 2003-08-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2cf3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "C6F8", "Kof2002 (Char color changed - rel.3 2003-08-31)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2cfc,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "C6F8", "Kof2002 (Char color changed - rel.4 2003-10-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ch,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Coolhot", "Kof2002 (Move rev - Based on CHL and Ricky)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2chl,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "CHL", "Kof2002 (Enhanced gameplay - 2003-04-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2cl2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "CHL", "Kof2002 (Enhanced gameplay - Rev.2 2003-04-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2cl3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "CHL", "Kof2002 (Enhanced gameplay - Rev.3 2003-04-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2cn,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FoxUU / ZUOJIE", "Kof2002 (Chinese Translation)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, kof2k2cori,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj / EGCG / EGHT", "Kof2002 (3rd Strike)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2dbh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,ROT0, "Dodowang","Kof2002 (Add Char- MVS timer flaw)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2e1,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Kurouri", "Kof2002 (Add Char set 4)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2e2,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 (Enable hidden characters v2)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2e3,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ehr,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 33%)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2er2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 66%)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2er3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 80% 030414)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2er4,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 89% 030420)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2erx,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. xx%)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2evo,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Jimmyi", "Kof2002 (Evolution)(decrypted C)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2evo2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT / EGHT", "Kof2002 (Evolution v1.3)(decrypted C)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2fy,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Unknown", "Kof2002 (Lifebar + K', Vanessa, Iori, Kula and Angel color changed)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2gc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Lewis67", "Kof2002 (Color changed set 1)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2gc2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Lewis67", "Kof2002 (Color changed set 2)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2gf,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Kumagorou", "Kof2002 (Color changed set 3)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2dbh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,ROT0, "Dodowang","Kof2002 (Add Char- MVS timer flaw)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2e1,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Kurouri", "Kof2002 (Add Char set 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2e2,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Enable hidden characters v2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2e3,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ehr,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 33%)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2er2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 66%)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2er3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 80% 2003-04-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2er4,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. 89% 2003-04-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2erx,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Add Char - Ultra kill start max - Style rev. xx%)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2evo,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Jimmyi", "Kof2002 (Evolution)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2evo2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT / EGHT", "Kof2002 (Evolution v1.3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2fy,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Unknown", "Kof2002 (Lifebar + K', Vanessa, Iori, Kula and Angel color changed)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2gc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Lewis67", "Kof2002 (Color changed set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2gc2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Lewis67", "Kof2002 (Color changed set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2gf,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Kumagorou", "Kof2002 (Color changed set 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2green, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Green colour)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, kof2k2ht,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FMG CO", "Kof2002 (HT)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, kof2k2ibp,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 (Ice Blue Perfect)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ic1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Fighters Kim", "Kof2002 (Color changed - Attack cremation ice blue - 80%)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ic2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Fighters Kim", "Kof2002 (Color changed - Attack cremation ice blue - Old)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ice,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Fighters Kim", "Kof2002 (Color changed - Attack cremation ice blue)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2jc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Jui Lee", "Kof2002 (Char color changed for Athena 3P, Kula 3P and Kula 4P)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ic1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Fighters Kim", "Kof2002 (Color changed - Attack cremation ice blue - 80%)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ic2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Fighters Kim", "Kof2002 (Color changed - Attack cremation ice blue - Old)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ice,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Fighters Kim", "Kof2002 (Color changed - Attack cremation ice blue)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2jc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Jui Lee", "Kof2002 (Char color changed for Athena 3P, Kula 3P and Kula 4P)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2js,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Jason / FCHT", "Kof2002 (Remix Ultra v3.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2js2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Jason / FCHT", "Kof2002 (Remix Ultra v3.5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2js4,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Jason", "Kof2002 (Remix Ultra v2.5 SDM)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kof2k2k2,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (10Th Style)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3o,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030629)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k32,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030725)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k33,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030730)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k34,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030805)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k35,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030815)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k36,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030818)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k37,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030823)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k38,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 030824)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k39,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030829)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3a,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 030907)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3b,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 030908)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3c,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 031005)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3d,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 031009)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3e,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3","Kof2002 (Remix Ultra 2.2)(05-14-2003)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2k3f,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Remix Ultra 2.3)(12-02-2003)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2k2k3g,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Remix Ultra - Add Char - Diff Moves 040418)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3o,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-06-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k32,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-07-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k33,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-07-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k34,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-08-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k35,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-08-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k36,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-08-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k37,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-08-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k38,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 2003-08-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k39,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-08-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3a,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 2003-09-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3b,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Moves KOF 98 style - 2003-09-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3c,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 2003-10-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3d,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3","Kof2002 (Moves KOF 98 style - 2003-10-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3e,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3","Kof2002 (Remix Ultra 2.2)(2003-05-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2k3f,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Remix Ultra 2.3)(2003-12-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2k2k3g,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Remix Ultra - Add Char - Diff Moves 2004-04-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2kai,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Boss Hack Kai Version)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2kc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Fighters Kim", "Kof2002 (Color changed set 4)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2kc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Fighters Kim", "Kof2002 (Color changed set 4)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2kc2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT / KOF-ON Team", "Kof2002 (3rd Strike Remixed)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2kk,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Hack Remixed)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2lb,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "LB70", "Kof2002 (RetroPokter Ver 1.0)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2lb,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "LB70", "Kof2002 (RetroPokter Ver 1.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2leon,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (dedicated to Leon9000)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2mcr,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Neht", "Kof2002 (Christmas BT version)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2moi2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kof2002ex2", "Kof2002 (Magic Orochi Iori 2.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2moir,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "LB70", "Kof2002 (Retropokter Ver 1.0 - Magic Orochi Iori Remake)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2mp1,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 Magic Plus (decrypted C)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2010, kof2k2mp3,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 Magic Plus III (decrypted C)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kof2k2mp3,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 Magic Plus III (decrypted C, 2010-11-20)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kof2k2mp3s,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj", "Kof2002 Magic Plus III (decrypted C, Moves Simplified)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2mpu,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker", "Kof2002 Plus (Set 01)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ngp,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Portuguese negative colour)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof2k2nu,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "BXX/Fliperman", "Kof2002 (Super Black Nude Mix)(Naked version (v0.2))(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2olp,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Orochi Leona 97 color style)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2om,    kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002,   ROT0, "Unknown", "Kof2002 (hack om)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2om,    kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002,   ROT0, "Unknown", "Kof2002 (hack om)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2omg,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega V0.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, kof2k2omg5,  kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002hb,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.5)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, kof2k2omg5,  kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.5)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, kof2k2omg8,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.8)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof2k2omg9,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.9)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof2k2omg9b, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.9 beta)(decrypted C)", MACHINE_SUPPORTS_SAVE )
@@ -3857,60 +3991,61 @@ HACK( 2002, kof2k2on,    kof2002, neogeo_noslot, neogeo, neogeo_state,        ne
 HACK( 2007, kof2k2or,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (3rd strike of Orochi)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ori,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Orochi's Iori Remixed)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ori2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof2002 (Orochi's Iori Remixed (Set 2))(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2pa,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Unknown", "Kof2002 Plus (Alt)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2pa,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Unknown", "Kof2002 Plus (Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof2k2pfo,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Ismamj / Neo-Nebuwaks", "Kof2002 (Perfect O Iori Edition)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2pjw,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Jason/K3 and Wesker", "Kof2002 Plus (Set 02)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof2k2pl17,  kof2002, lbsp,          neogeo, neogeo_state,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (2017-12-25)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2pr,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional)(03-06-2003)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional Older?)(03-06-2003)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2pjw,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Jason/K3 and Wesker", "Kof2002 Plus (Set 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof2k2pl17,  kof2002, gsc,           neogeo, neogeo_state,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (2017-12-25)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2pr,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional)(2003-03-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "Raymonose", "Kof2002 (Diff Moves 20% - Professional Older?)(2003-03-06)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (PS2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2mp, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 Magic Plus (PlayStation 2 Beta)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kf2k2ps2re,  kof2002, lbsp, neogeo, neogeo_state,       kf2k2ps2re, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re,  kof2002, gsc,           neogeo, neogeo_state,       gsc, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re1, kof2002, gsc,           neogeo, neogeo_state,       gsc, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2pur,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kawada7278", "Kof2002 (Boss Purple)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ra,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ruin Angel", "Kof2002 (Diff Moves - Based on CHL set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ra,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ruin Angel", "Kof2002 (Diff Moves - Based on CHL set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rgl,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Magic Unique Crazy Rugal Plus)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2rm,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Remix 33%)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rm1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Remix rev.1 - 66%)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rm2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Remix rev.2 - 80% - 030414)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2rm3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Remix rev.3 - 89% - 030420)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2rm,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Remix 33%)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rm1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Remix rev.1 - 66%)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rm2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Remix rev.2 - 80% - 2003-04-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2rm3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Remix rev.3 - 89% - 2003-04-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rm13,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof2002 (Remix Ultra 1.3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rma,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002 (Remix Ultra)(2010-07-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rmb,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof2002  (Remix Ultra)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030430)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030508)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030508 Boss)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030509)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr4,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030509 Boss)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr5,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030517)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr6,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 030610)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr7,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - rev.u)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rr8,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - rev.u1)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-04-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr1,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-05-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-05-08 Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-05-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr4,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-05-09 Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr5,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-05-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr6,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - 2003-06-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr7,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - rev.u)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rr8,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ricky", "Kof2002 (Diff Moves - Based on CHL set 3 - rev.u1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rs,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Slovakia", "Kof2002 (Iori Special Remix)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rs2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Slovakia", "Kof2002 Super Plus (Ultimate Edition v2.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2k2ru,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Jason/K3", "Kof2002 (Remix Ultra v2.5)(08-20-2004)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2rw,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Wesker", "Kof2002 (Add Char - Diff Moves - 0310xx)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2sb,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Streetboy", "Kof2002 (Diff Moves - Based on CHL set 1)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2se2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max - Ultra pow hack set 2)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2seh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max - Ultra pow hack set 1)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2k2ru,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Jason/K3", "Kof2002 (Remix Ultra v2.5)(2004-08-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2rw,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Wesker", "Kof2002 (Add Char - Diff Moves - 2003-10-xx)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2sb,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Streetboy", "Kof2002 (Diff Moves - Based on CHL set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2se2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max - Ultra pow hack set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2seh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max - Ultra pow hack set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, kof2k2sm,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Maitry Maker", "Kof2002 (Super Mix)(decrypted C)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2smf,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team/Abbas", "Kof2002 (SMF)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2smg,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Wesker/Abbas", "Kof2002 (SMG)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2smg2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arn", "Kof2002 (Recompilation of SMG)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2soi,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "ACM1PT", "Kof2002 (Super Orochi Iori)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2sp,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Wesker", "Kof2002 (Add Char - Special move change)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2sp,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Wesker", "Kof2002 (Add Char - Special move change)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2spl,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "NeHt", "Kof2002 Super Plus (Ultimate Edition)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2spls,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "JasonK, Danpaji1, Marcochen", "Kof2002 Super Plus (JasonK, Danpaji1, Marcochen)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k2spo,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Wesker", "Kof2002 (Add Char - Special move change Old)(08-30-2003)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2tc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb,  ROT0, "T.Com", "Kof2002 (Char color changed - Attack spark color changed for Iori and Orochi-Chris)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ul,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Ultra)(2003-05-15)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2ule,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Raymonose", "Kof2002 (Add Char - Diff Move - Ultra kill start max - Ultra pow 030515)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k2wuk,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Wesker", "Kof2002 (Ultra kill style - rev max2 - perfect)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k2spo,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Wesker", "Kof2002 (Add Char - Special move change Old)(2003-08-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2tc,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,  ROT0, "T.Com", "Kof2002 (Char color changed - Attack spark color changed for Iori and Orochi-Chris)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ul,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Ultra)(2003-05-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2ule,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Raymonose", "Kof2002 (Add Char - Diff Move - Ultra kill start max - Ultra pow 030515)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2wuk,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Wesker", "Kof2002 (Ultra kill style - rev max2 - perfect)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2xxx,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Peggy / Kim", "Kof2002 (Perfect revised edition)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-///HACK( 2002, kof2002d,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002hb, ROT0, "hack", "Kof2002  (decrypted C)", MACHINE_SUPPORTS_SAVE )
-///HACK( 2002, kf2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kf2k2pls, ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
-///HACK( 2002, kf2k2plc,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kf2k2plc, ROT0, "bootleg", "Kof2002 Super (set 4, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
+///HACK( 2002, kof2002d,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002, ROT0, "hack", "Kof2002  (decrypted C)", MACHINE_SUPPORTS_SAVE )
+///HACK( 2002, kf2k2plb,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kof2002, ROT0, "bootleg", "Kof2002 Plus (set 3, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
+///HACK( 2002, kf2k2plc,   kof2002, neogeo_noslot, neogeo, neogeo_state,        kog2002, ROT0, "bootleg", "Kof2002 Super (set 4, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -4041,78 +4176,6 @@ ROM_START( kof2002s05 )
 	ROM_LOAD16_BYTE( "265.c6", 0x2000001, 0x800000, CRC(03fdd1eb) SHA1(6155c7e802062f4eafa27e414c4e73ee59b868bf) )
 	ROM_LOAD16_BYTE( "265.c7", 0x3000000, 0x800000, CRC(1a2749d8) SHA1(af7d9ec1d576209826fa568f676bbff92f6d6ddd) )
 	ROM_LOAD16_BYTE( "265.c8", 0x3000001, 0x800000, CRC(ab0bb549) SHA1(d23afb60b7f831f7d4a98ad3c4a00ee19877a1ce) )
-ROM_END
-
-ROM_START( kof2002s06 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "265hc06.p1",  0x000000, 0x100000, CRC(6ee298ea) SHA1(f02aa0640ea971e1aa32bd6bda7c957aa15e1172) )
-	ROM_LOAD16_WORD_SWAP( "265hc06.p2", 0x100000, 0x400000, CRC(42bcbf79) SHA1(91481254e6e53e3c9b0ad5c211809b122b157e17) )
-
-	NEO_SFIX_MT_128K
-
-	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
-	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "265hc06.c1", 0x0000000, 0x800000, CRC(9a72444b) SHA1(fac5c800ef4bed61d80716ee4f2423661088a3bf) )
-	ROM_LOAD16_BYTE( "265hc06.c2", 0x0000001, 0x800000, CRC(7d2e3f10) SHA1(29fb709e689f25fd7d7f74c043c9c7916a4df38a) )
-	ROM_LOAD16_BYTE( "265hc06.c3", 0x1000000, 0x800000, CRC(37308bae) SHA1(869ee1f5c6523e2872e7a91379eecb63ca1e7edd) )
-	ROM_LOAD16_BYTE( "265hc06.c4", 0x1000001, 0x800000, CRC(586bfd0c) SHA1(7c40ba277561b59424a670d089b052b933fdd7c0) )
-	ROM_LOAD16_BYTE( "265hc06.c5", 0x2000000, 0x800000, CRC(58068734) SHA1(48a4356362d674f605d353d30c594c91c8302cd6) )
-	ROM_LOAD16_BYTE( "265hc06.c6", 0x2000001, 0x800000, CRC(ee656ee1) SHA1(b707ca294efe3080a03375503af03b5509c080eb) )
-	ROM_LOAD16_BYTE( "265hc06.c7", 0x3000000, 0x800000, CRC(02ef5200) SHA1(aa2bf87dc8102486336ed5f9b75a566d0244df1e) )
-	ROM_LOAD16_BYTE( "265hc06.c8", 0x3000001, 0x800000, CRC(d1d52e9a) SHA1(2d0001910460852c8e54e3db1c69339aaf2a70b9) )
-ROM_END
-
-ROM_START( kof2002s07 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "365spl.p1",  0x000000, 0x100000, CRC(388c5cba) SHA1(a9dbb3cbe622f8d7c28079883d54665da522dea9))
-	ROM_LOAD16_WORD_SWAP( "265hc06.p2", 0x100000, 0x400000, CRC(42bcbf79) SHA1(91481254e6e53e3c9b0ad5c211809b122b157e17) )
-
-	NEO_SFIX_MT_128K
-
-	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
-	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "265hc07.c1", 0x0000000, 0x800000, CRC(ba91de00) SHA1(f0e944b70626c0d93aae9062d0531148001baf75) )
-	ROM_LOAD16_BYTE( "265hc07.c2", 0x0000001, 0x800000, CRC(995c3c6a) SHA1(8678a05f566e01dc29f99736664f329317ba69f2) )
-	ROM_LOAD16_BYTE( "265hc07.c3", 0x1000000, 0x800000, CRC(0ad8aff7) SHA1(664cac9c26f16c513e8ae3e443baf739f24c1380) )
-	ROM_LOAD16_BYTE( "265hc07.c4", 0x1000001, 0x800000, CRC(5100d89e) SHA1(e1e6625663a2a06ce3b68d7873190c49c6b4d552) )
-	ROM_LOAD16_BYTE( "265hc07.c5", 0x2000000, 0x800000, CRC(045c0ca9) SHA1(3764e8aaae5cf6bd10f8c20c7ebf7e17054a15b9) )
-	ROM_LOAD16_BYTE( "265hc07.c6", 0x2000001, 0x800000, CRC(16c279ec) SHA1(ce59b6649d94b9189b6f64cc7dde609bc5fe29b8) )
-	ROM_LOAD16_BYTE( "265hc07.c7", 0x3000000, 0x800000, CRC(b160e72d) SHA1(1308f2448cb968d54eeb5b3825fa3f8662fbaf5a) )
-	ROM_LOAD16_BYTE( "265hc07.c8", 0x3000001, 0x800000, CRC(b2b2b58f) SHA1(9ce42c790efffb922abfedd3b9235b9a0ef63649) )
-ROM_END
-
-ROM_START( kof2002s08 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "365mp.p1",  0x000000, 0x100000, CRC(499d739d) SHA1(b6344f49acc68405261592115a3c6c6e298309f5))
-	ROM_LOAD16_WORD_SWAP( "265hc06.p2", 0x100000, 0x400000, CRC(42bcbf79) SHA1(91481254e6e53e3c9b0ad5c211809b122b157e17) )
-
-	NEO_SFIX_128K( "365mp.s1", CRC(f5f10e6f) SHA1(ab9d390785e03561f6b32f6c66fad2b2e9a5d996) )
-
-	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
-	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "265hc08.c1", 0x0000000, 0x800000, CRC(0c96bb32) SHA1(843cb2d19c62fd4f6fdb2d18f66029dd571c9153) )
-	ROM_LOAD16_BYTE( "265hc08.c2", 0x0000001, 0x800000, CRC(ea9a127f) SHA1(50345f3a9d4a16ff8d6ee16bdbeda530169b0264) )
-	ROM_LOAD16_BYTE( "265hc08.c3", 0x1000000, 0x800000, CRC(ddbb2090) SHA1(c71d6e6c3685c824ac98eab2361cea8bb69a933b) )
-	ROM_LOAD16_BYTE( "265hc08.c4", 0x1000001, 0x800000, CRC(1597ad12) SHA1(dab350bc289c185b92ed79c55cf1db7ff5bbd7a9) )
-	ROM_LOAD16_BYTE( "265hc08.c5", 0x2000000, 0x800000, CRC(39d7c711) SHA1(39b1d5756f5b2affaa2a15805f1b384947dd324d) )
-	ROM_LOAD16_BYTE( "265hc08.c6", 0x2000001, 0x800000, CRC(61b9b516) SHA1(e4239400a58e94dded415ca32cd5fc85ca622a3d) )
-	ROM_LOAD16_BYTE( "265hc08.c7", 0x3000000, 0x800000, CRC(6bbfa1aa) SHA1(42164778aac778e582e166fbe27f95fc2b6d5070) )
-	ROM_LOAD16_BYTE( "265hc08.c8", 0x3000001, 0x800000, CRC(805f8390) SHA1(3b599c8a73e35b72fd019f270b42410710e26c0c) )
 ROM_END
 
 ROM_START( kof2002s09 )
@@ -6568,78 +6631,6 @@ ROM_START( kof2002ds02 )
 	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
-ROM_START( kof2002ds03 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "265hc06.p1",  0x000000, 0x100000, CRC(6ee298ea) SHA1(f02aa0640ea971e1aa32bd6bda7c957aa15e1172) )
-	ROM_LOAD16_WORD_SWAP( "265hc06.p2", 0x100000, 0x400000, CRC(42bcbf79) SHA1(91481254e6e53e3c9b0ad5c211809b122b157e17) )
-
-	NEO_SFIX_MT_128K
-
-	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1c661a4b) SHA1(4e5aa862a0a182a806d538996ddc68d9f2dffaf7) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
-	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "k2k4s-c4.bin", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
-	ROM_LOAD16_BYTE( "k2k4s-c8.bin", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
-	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
-	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
-	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
-	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
-	ROM_LOAD16_BYTE( "265ddhc03.c7", 0x3000000, 0x800000, CRC(dab453ab) SHA1(ee9e60694abf128e48f4aece8e1348438132c8be) )
-	ROM_LOAD16_BYTE( "265ddhc03.c8", 0x3000001, 0x800000, CRC(1d8781a8) SHA1(22e46ae1ab4a810740bdb2608d850eb21ee096ff) )
-ROM_END
-
-ROM_START( kof2002ds04 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "365spl.p1",  0x000000, 0x100000, CRC(388c5cba) SHA1(a9dbb3cbe622f8d7c28079883d54665da522dea9))
-	ROM_LOAD16_WORD_SWAP( "265hc06.p2", 0x100000, 0x400000, CRC(42bcbf79) SHA1(91481254e6e53e3c9b0ad5c211809b122b157e17) )
-
-	NEO_SFIX_MT_128K
-
-	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1c661a4b) SHA1(4e5aa862a0a182a806d538996ddc68d9f2dffaf7) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
-	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "k2k4s-c4.bin", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
-	ROM_LOAD16_BYTE( "k2k4s-c8.bin", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
-	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
-	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
-	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
-	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
-	ROM_LOAD16_BYTE( "265ddhc04.c7", 0x3000000, 0x800000, CRC(bd72e1e6) SHA1(33bc8b035eaab685d9faa15d533c7e80a1ab366e) )
-	ROM_LOAD16_BYTE( "265ddhc04.c8", 0x3000001, 0x800000, CRC(d1da972a) SHA1(57b1a0a614746d763cbdf8572e04182e910e44a4) )
-ROM_END
-
-ROM_START( kof2002ds05 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "365mp.p1",  0x000000, 0x100000, CRC(499d739d) SHA1(b6344f49acc68405261592115a3c6c6e298309f5))
-	ROM_LOAD16_WORD_SWAP( "265hc06.p2", 0x100000, 0x400000, CRC(42bcbf79) SHA1(91481254e6e53e3c9b0ad5c211809b122b157e17) )
-
-	NEO_SFIX_128K( "365mp.s1", CRC(f5f10e6f) SHA1(ab9d390785e03561f6b32f6c66fad2b2e9a5d996) )
-
-	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1c661a4b) SHA1(4e5aa862a0a182a806d538996ddc68d9f2dffaf7) )
-
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
-	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "k2k4s-c4.bin", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
-	ROM_LOAD16_BYTE( "k2k4s-c8.bin", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
-	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
-	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
-	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
-	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
-	ROM_LOAD16_BYTE( "265ddhc05.c7", 0x3000000, 0x800000, CRC(d2b9570d) SHA1(a366d4a2cfc46cc4936809b681be14107218d283) )
-	ROM_LOAD16_BYTE( "265ddhc05.c8", 0x3000001, 0x800000, CRC(1d213240) SHA1(19a0270847c315387e7b788b196ee844d99e1a98) )
-ROM_END
-
 ROM_START( kof2002ds06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265ddhc06.p1",  0x000000, 0x100000, CRC(516c362b) SHA1(26d91ee67d51d223bc587a36b867ab1a46672ead) )
@@ -9068,7 +9059,7 @@ ROM_START( kf2k2mp2s38 )
 ROM_END
 
 ROM_START( kf2k2mp2s39 )
-	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "k2k2m2hc39p1.bin", 0x000000, 0x4551CC, CRC(ccef3032) SHA1(e363b11e19051647bf2b44da6532dfb36f93a3bd) )
 	ROM_LOAD16_WORD_SWAP( "k2k2m2hc39p2.bin", 0x100000, 0x454F52, CRC(65264886) SHA1(261f539d1844b7fb1b560681ce1681ca1c615b5c) )
 
@@ -13790,120 +13781,141 @@ ROM_START( kof2k2s71 )
 	ROM_LOAD16_BYTE( "265d.c8",   0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
+ROM_START( kof2k2s72 )   // kf2k2tt
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265s72.p1",  0x000000, 0x100000, CRC(26b084c7) SHA1(9f66735814c9d657f8513fcbce7fcbe8ba036dbf) )
+	ROM_LOAD16_WORD_SWAP( "265omg.p2", 0x100000, 0x400000, CRC(6fadc5c3) SHA1(8336d339013d3357b11b8e0c1816b560a755f935) )
+
+	NEO_SFIX_128K( "265hc10.s1", CRC(14b08bd9) SHA1(3cabbf407e1035144a515d83fa94f93b7f63f162) )
+
+	NEO_BIOS_AUDIO_128K( "265ori.m1", CRC(AB9D360E) SHA1(a0c8a5aae387c4f0b72790211695da7df924c351) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265d.c1",   0x0000000, 0x800000, CRC(7efa6ef7) SHA1(71345A4202E7CC9239538FB978638141416C8893) )
+	ROM_LOAD16_BYTE( "265d.c2",   0x0000001, 0x800000, CRC(aa82948b) SHA1(B2A40797F68BDEB80BC54DCCC5495BE68934BF0E) )
+	ROM_LOAD16_BYTE( "265ori.c3", 0x1000000, 0x800000, CRC(E5074EEA) SHA1(387ef21d58b416126b95843bac1a0b6cc346818f) )
+	ROM_LOAD16_BYTE( "265ori.c4", 0x1000001, 0x800000, CRC(F6EB1FF2) SHA1(77cb493b9e75d42c204a9a6c052a813c2730e44f) )
+	ROM_LOAD16_BYTE( "265d.c5",   0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6",   0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265ori.c7", 0x3000000, 0x800000, CRC(0E9F6ADB) SHA1(0e4cdbd3df2ef7b0c78c3275ee22684c67bf2d23) )
+	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2002
-HACK( 2005, kof2002s01,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "KyoX",    "Kof2002 (Translation Portuguese)(09-25-2005)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2008, kof2002s02,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "FoxUU, ZUOJIE, Bluekiller, Alexwong",    "Kof2002 (Translation Chinese)(2008.3.15)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s03,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "syberjun",    "Kof2002 (Translation Korean)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002s04,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Orochivora V1)(2005-8-21)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kof2002s05,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Orochivora V2)(2006-2-14)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s06,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dragon Co.Ltd",    "Kof2002 (Special Edition 2004)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s07,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dragon Co.Ltd",    "Kof2002 (Special Edition 2004 Plus (set1))(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s08,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dragon Co.Ltd",    "Kof2002 (Special Edition 2004 Plus (set2))(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s09,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Benalla & danpaji1",    "Kof2002 (BC System Plus)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s10,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "wesker",    "Kof2002 (Unluck Max2 V1)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s11,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Unluck Max2 V2)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s12,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Magic Plus (Set 01)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s13,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Magic Plus (Set 02)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s14,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Magic Plus II (Alt)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s15,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "meiluoyao",    "Kof2002 Magic Plus II Super Plus (NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s16,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V1)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s17,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V2)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s18,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Old)(Set V3)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s19,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V3)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s20,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V5)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s21,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lb70",    "Kof2002 (RetroPokter V1.0)(Beta)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2002s22,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Jason",    "Kof2002 (Remix Ultra 2.4)(12-02-2003)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kof2002s23,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0 )(05-28-2006)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s24,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "=K3=Jason, Wesker, Raymonose, Andy Chan, Macro Chen, Eddids, Danpaji1, sjx",    "Kof2002 (Remix Ultra 3.5)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2002s25,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters v3)(06-19-2004)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002s26,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dodowang",    "Kof2002 (Enable hidden characters v4)(02-28-2005)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002s27,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Eddids",    "Kof2002 (Enable hidden characters v5)(12-25-2005)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s28,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Enhanced Power)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s29,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Unlimited Power)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s30,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Unlimited Power Store)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s31,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yashional",    "Kof2002 (Yagami Nunnery Add '97 Shavings Wind)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s32,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "wesker",    "Kof2002 (Moves Hack V2)(09-13-2003)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s33,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Iori's New Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s34,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Add Iori's New Move 2)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s35,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kim's New Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s36,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kula's New Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s37,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kyo's New Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s38,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Leona's New Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s39,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "star07",    "Kof2002 (Simplify Athena's Max SP Moves)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s40,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "siromezm",    "Kof2002 (Nude Athena)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s41,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882",    "Kof2002 (Background Color)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s42,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882",    "Kof2002 (Color Remix)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s43,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Violet",    "Kof2002 (Blue Fire)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s44,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882 & tcwlee",    "Kof2002 (Color Change)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s45,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Shinnok",    "Kof2002 (Color Change Vol.2)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s46,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Shinnok",    "Kof2002 (Color Change Vol.3)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s47,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "C6F8",    "Kof2002 (Color Change V1)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s48,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "C6F8",    "Kof2002 (Color Change V2)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s49,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Color Change V3)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s50,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Color Change V4)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s51,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bghf",    "Kof2002 (Color XI)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s52,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "kumagorou",    "Kof2002 (Green Fire)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s53,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "kawada7278",    "Kof2002 (Violet Fire)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s54,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "tcwlee & Katana",    "Kof2002 (Color Gift)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s55,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Icy Blue Style)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s56,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yozuki",    "Kof2002 (X'Mas Costume)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s57,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yozuki",    "Kof2002 (X'Mas Mix Title)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s58,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yozuki",    "Kof2002 (X'mas Enhanced)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s59,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "siromezm",    "Kof2002 (Change Yuri's Costume)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s60,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Fix Sound Effects)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s61,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "0 Day-S",    "Kof2002 (Add Boss Kusanagi)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s62,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Foxy",    "Kof2002 (Add NESTS Team)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s63,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "bghf & Katana & ?",    "Kof2002 (Blood Groove Imitation V1)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s64,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "bghf & ?",    "Kof2002 (Blood Groove Imitation V2)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s65,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "zuojie",    "Kof2002 (Enhanced CPU's AI)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s66,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "bootleg",    "Kof2002 (Enable Random CPU Color)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s67,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Change Color In Battle)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s68,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 (Change Member)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s69,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 (Change Size)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s70,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "danpaji1 & marcochen",    "Kof2002 (Remove The Role Avatar Box)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s71,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fix Life bar)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s72,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fix Timer)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s73,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fix life Bar & Timer)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s74,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Half Transparency)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s75,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Half transparency Color Change)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s76,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Half Transparency v3)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s77,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fixed Power Gauge)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s78,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Kyo + Kusanagi)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s79,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "kof1996",    "Kof2002 (Remove Countdown)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s80,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "wesker",    "Kof2002 (Practice Mode Maximum Power)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s81,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "star07",    "Kof2002 (Athena's show Time)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s82,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "star07",    "Kof2002 (Athena Victory Pose Change)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s83,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Eddids",    "Kof2002 (Unlimited Credits In Console Mode)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s84,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "KalceTin",    "Kof2002 (Black Beta 0.76)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s85,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Moved To Modify And Optimize Version)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s86,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yashional",    "Kof2002 (Move Study Very Simplified)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s87,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Boss Anger Opening Action)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s88,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Lucaer The Strongest Boss In History)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s89,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Free SubsTitution)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s90,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Role Of Freedom Of Choice)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s91,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Household Machines Repeat The Role Of Choice)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s92,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Investment Skills Hit)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s93,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yashional",    "Kof2002 (Transfiguration Changes)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s94,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "ddj",    "Kof2002 (Easy Moves)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s95,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "xuyongsheng90",    "Kof2002 (Sakazaki Hidden Trick Small Change)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s96,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "ddj",    "Kof2002 (Always Have Super Move)(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s97,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Enable Hidden Characters v3 (Alt))(NGM-2650)(NGH-2650)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002s01,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "KyoX",    "Kof2002 (Translation Portuguese)(2005-09-25)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2008, kof2002s02,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "FoxUU, ZUOJIE, Bluekiller, Alexwong",    "Kof2002 (Translation Chinese)(2008-03-15)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s03,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "syberjun",    "Kof2002 (Translation Korean)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002s04,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Orochivora V1)(2005-08-21)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof2002s05,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Orochivora V2)(2006-02-14)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s09,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Benalla & danpaji1",    "Kof2002 (BC System Plus)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s10,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "wesker",    "Kof2002 (Unluck Max2 V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s11,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Unluck Max2 V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s12,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Magic Plus (Set 01)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s13,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Magic Plus (Set 02)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s14,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Magic Plus II (Alt)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s15,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "meiluoyao",    "Kof2002 Magic Plus II Super Plus " , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s16,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s17,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s18,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Old)(Set V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s19,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s20,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set V5)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s21,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lb70",    "Kof2002 (RetroPokter V1.0)(Beta)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2002s22,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Jason",    "Kof2002 (Remix Ultra 2.4)(2003-12-02)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof2002s23,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0 )(2006-05-28)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s24,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "=K3=Jason, Wesker, Raymonose, Andy Chan, Macro Chen, Eddids, Danpaji1, sjx",    "Kof2002 (Remix Ultra 3.5)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2002s25,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters v3)(2004-06-19)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002s26,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Dodowang",    "Kof2002 (Enable hidden characters v4)(2005-02-28)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002s27,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Eddids",    "Kof2002 (Enable hidden characters v5)(2005-12-25)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s28,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Enhanced Power)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s29,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Unlimited Power)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s30,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Unlimited Power Store)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s31,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yashional",    "Kof2002 (Yagami Nunnery Add '97 Shavings Wind)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s32,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "wesker",    "Kof2002 (Moves Hack V2)(2003-09-13)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s33,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Iori's New Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s34,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Add Iori's New Move 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s35,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kim's New Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s36,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kula's New Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s37,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kyo's New Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s38,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Add Leona's New Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s39,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "star07",    "Kof2002 (Simplify Athena's Max SP Moves)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s40,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "siromezm",    "Kof2002 (Nude Athena)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s41,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882",    "Kof2002 (Background Color)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s42,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882",    "Kof2002 (Color Remix)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s43,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Violet",    "Kof2002 (Blue Fire)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s44,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882 & tcwlee",    "Kof2002 (Color Change)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s45,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Shinnok",    "Kof2002 (Color Change Vol.2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s46,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Shinnok",    "Kof2002 (Color Change Vol.3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s47,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "C6F8",    "Kof2002 (Color Change V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s48,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "C6F8",    "Kof2002 (Color Change V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s49,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Color Change V3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s50,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Color Change V4)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s51,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bghf",    "Kof2002 (Color XI)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s52,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "kumagorou",    "Kof2002 (Green Fire)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s53,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "kawada7278",    "Kof2002 (Violet Fire)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s54,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "tcwlee & Katana",    "Kof2002 (Color Gift)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s55,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Icy Blue Style)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s56,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yozuki",    "Kof2002 (X'Mas Costume)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s57,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yozuki",    "Kof2002 (X'Mas Mix Title)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s58,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yozuki",    "Kof2002 (X'mas Enhanced)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s59,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "siromezm",    "Kof2002 (Change Yuri's Costume)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s60,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "snk2003",    "Kof2002 (Fix Sound Effects)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s61,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "0 Day-S",    "Kof2002 (Add Boss Kusanagi)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s62,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Foxy",    "Kof2002 (Add NESTS Team)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s63,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "bghf & Katana & ?",    "Kof2002 (Blood Groove Imitation V1)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s64,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "bghf & ?",    "Kof2002 (Blood Groove Imitation V2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s65,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "zuojie",    "Kof2002 (Enhanced CPU's AI)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s66,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "bootleg",    "Kof2002 (Enable Random CPU Color)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s67,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Kim",    "Kof2002 (Change Color In Battle)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s68,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 (Change Member)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s69,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 (Change Size)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s70,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "danpaji1 & marcochen",    "Kof2002 (Remove The Role Avatar Box)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s71,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fix Life bar)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s72,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fix Timer)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s73,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fix life Bar & Timer)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s74,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Half Transparency)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s75,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Half transparency Color Change)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s76,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Half Transparency v3)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s77,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "oak2003",    "Kof2002 (Fixed Power Gauge)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s78,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Creamymami",    "Kof2002 (Kyo + Kusanagi)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s79,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "kof1996",    "Kof2002 (Remove Countdown)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s80,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "wesker",    "Kof2002 (Practice Mode Maximum Power)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s81,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "star07",    "Kof2002 (Athena's show Time)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s82,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "star07",    "Kof2002 (Athena Victory Pose Change)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s83,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Eddids",    "Kof2002 (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s84,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "KalceTin",    "Kof2002 (Black Beta 0.76)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s85,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Moved To Modify And Optimize Version)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s86,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yashional",    "Kof2002 (Move Study Very Simplified)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s87,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Boss Anger Opening Action)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s88,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Lucaer The Strongest Boss In History)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s89,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Free SubsTitution)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s90,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Role Of Freedom Of Choice)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s91,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Household Machines Repeat The Role Of Choice)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s92,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Investment Skills Hit)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s93,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "yashional",    "Kof2002 (Transfiguration Changes)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s94,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "ddj",    "Kof2002 (Easy Moves)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s95,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "xuyongsheng90",    "Kof2002 (Sakazaki Hidden Trick Small Change)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s96,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "ddj",    "Kof2002 (Always Have Super Move)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s97,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Unknown",    "Kof2002 (Enable Hidden Characters v3 (Alt))" , MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2002s98,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown",    "Kof2002 (Omega Playstation Version)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s99,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb, ROT0, "FMG",    "Kof2002 (HT)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s100,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb, ROT0, "FMG",    "Kof2002 (Description Of Hack Unknown 1)[GOTVG](NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s101,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb, ROT0, "FMG",    "Kof2002 (Description Of Hack Unknown 2)[GOTVG](NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s102,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb, ROT0, "FMG",    "Kof2002 (Ultimate Magic 2 Strengthen Simplified)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s103,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2, ROT0, "Unknown",    "Kof2002 (Challenge To Ultimate Battle)(Magic Plus II, Hack Set 2)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s104,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Heaven God Race Version v2.0)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s105,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Heaven God Race Version v1.0)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s106,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Kof1996",    "Kof2002 (Boss Start Hack)(26-07-2009)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s107,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Integration + Modification)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s108,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Magic Enhancement)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kof2002bs01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b, ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0)(05-28-2006)(bootleg)",  MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2002bs02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V3)(06-19-2004)(bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002bs03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V4)(02-28-2005)(bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002bs04,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Eddids",    "Kof2002 (Enable Hidden Characters V5)(12-25-2005)(bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s99,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (HT)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s100,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Description Of Hack Unknown 1)[GOTVG]", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s101,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Description Of Hack Unknown 2)[GOTVG]", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s102,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Ultimate Magic 2 Strengthen Simplified)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s103,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2, ROT0, "Unknown",    "Kof2002 (Challenge To Ultimate Battle)(Magic Plus II, Hack Set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s104,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Heaven God Race Version v2.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s105,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Heaven God Race Version v1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof2002s106,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Kof1996",    "Kof2002 (Boss Start Hack)(2009-07-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s107,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Integration + Modification)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002s108,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Magic Enhancement)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof2002bs01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b, ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0)(2006-05-28)(bootleg)",  MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2002bs02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V3)(2004-06-19)(bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002bs03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V4)(2005-02-28)(bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002bs04,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "Eddids",    "Kof2002 (Enable Hidden Characters V5)(2005-12-25)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs05,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "siromezm",    "Kof2002 (Nude Athena)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs07,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "lewis882",    "Kof2002 (Color Remix)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs08,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "lewis882 & tcwlee",    "Kof2002 (Color Change V1)(bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -13922,46 +13934,43 @@ HACK( 200?, kof2002bs20,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2002bs21,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "oak2003",    "Kof2002 (Half transparency Color Change)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs22,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "oak2003",    "Kof2002 (Half Transparency v3)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs23,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "oak2003",    "Kof2002 (Fixed Power Gauge)(bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002bs24,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "KyoX",    "Kof2002 (Translation Portuguese)(09-25-2005)(bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002bs24,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "KyoX",    "Kof2002 (Translation Portuguese)(2005-09-25)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs25,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "syberjun",    "Kof2002 (Translation Korean)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002bs26,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002b,  ROT0, "lewis882",    "Kof2002 (Background Color)(bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, kof2002ds01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "FoxUU, Zuojie, Bluekiller, Alexwong",    "Kof2002 (Translation Chinese Language)(2008.3.15)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "syberjun",    "Kof2002 (Translation Korean Language)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Dragon Co.Ltd",    "Kof2002 (Special Edition 2004)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds04,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Dragon Co.Ltd",    "Kof2002 (Special Edition 2004 Plus (set 1))(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds05,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Dragon Co.Ltd",    "Kof2002 (Special Edition 2004 Plus (set 2))(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kof2002ds06,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "GSC2007",  "Kof2002 (Climax Revised Vercion)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds07,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Magic Plus (Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds08,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Magic Plus (Alt)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds09,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Magic Plus II (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds10,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "meiluoyao",    "Kof2002 Magic Plus II Super Plus (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds11,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Plus (Set 1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds12,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Plus (Set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Plus (Old)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds14,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Plus (Set 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds15,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Bootleg",    "Kof2002 Plus (Set 4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kof2002ds16,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0)(05-28-2006)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds17,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "=K3=Jason, Wesker, Raymonose, Andy Chan, Macro Chen, Eddids, Danpaji1, sjx",    "Kof2002 (Remix Ultra 3.5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds18,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds19,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kof2002ds20,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Eddids",    "Kof2002 (Enable Hidden Characters V5)(12-25-2005)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds21,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "snk2003",    "Kof2002 (Add Iori's New Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds22,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "bghf & Katana & ?",    "Kof2002 (Blood Groove Imitation V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds23,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "bghf & ?",    "Kof2002 (Blood Groove Imitation V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds24,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "danpaji1 & marcochen",    "Kof2002 (Remove The Role Avatar Box)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds25,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Fix Life bar)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds26,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Fix Timer)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds27,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Fix life Bar & Timer)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds28,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Half Transparency)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds29,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Half transparency Color Change)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds30,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Half Transparency v3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds31,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "oak2003",    "Kof2002 (Fixed Power Gauge)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds32,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Unknown",    "Kof2002 (Modified Energy Gauge)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds33,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Unknown",    "Kof2002 (The Third Edition Of The Kingdom Of The Gods)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds34,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "IsmaMJ",    "Kof2002 (Super Blood Plus 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Unknown",    "Kof2002 (Description Of Remix Unknown)[GOTVG](decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002ds36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002hb,  ROT0, "Unknown",    "Kof2002 (Enable Hidden Characters V?)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kf2k2mps01,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "KyoX",    "Kof2002 Magic Plus (Translation Portuguese)(09-25-2005)(bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2008, kof2002ds01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "FoxUU, Zuojie, Bluekiller, Alexwong",    "Kof2002 (Translation Chinese Language)(2008-03-15)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "syberjun",    "Kof2002 (Translation Korean Language)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof2002ds06,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "GSC2007",  "Kof2002 (Climax Revised Vercion)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds07,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Magic Plus (Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds08,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Magic Plus (Alt)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds09,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Magic Plus II (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds10,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "meiluoyao",    "Kof2002 Magic Plus II Super Plus (decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds11,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Set 1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds12,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Old)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds14,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Set 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds15,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Set 4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kof2002ds16,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0)(05-28-2006)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds17,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "=K3=Jason, Wesker, Raymonose, Andy Chan, Macro Chen, Eddids, Danpaji1, sjx",    "Kof2002 (Remix Ultra 3.5)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds18,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds19,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Dodowang",    "Kof2002 (Enable Hidden Characters V4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2002ds20,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Eddids",    "Kof2002 (Enable Hidden Characters V5)(2005-12-25)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds21,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "snk2003",    "Kof2002 (Add Iori's New Move)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds22,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "bghf & Katana & ?",    "Kof2002 (Blood Groove Imitation V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds23,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "bghf & ?",    "Kof2002 (Blood Groove Imitation V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds24,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "danpaji1 & marcochen",    "Kof2002 (Remove The Role Avatar Box)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds25,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Fix Life bar)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds26,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Fix Timer)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds27,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Fix life Bar & Timer)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds28,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Half Transparency)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds29,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Half transparency Color Change)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds30,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Half Transparency v3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds31,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 (Fixed Power Gauge)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds32,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 (Modified Energy Gauge)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds33,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 (The Third Edition Of The Kingdom Of The Gods)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds34,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "IsmaMJ",    "Kof2002 (Super Blood Plus 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 (Description Of Remix Unknown)[GOTVG](decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2002ds36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 (Enable Hidden Characters V?)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kf2k2mps01,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "KyoX",    "Kof2002 Magic Plus (Translation Portuguese)(2005-09-25)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mps02,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "syberjun",    "Kof2002 Magic Plus (Translation Korean)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mps03,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "wesker",    "Kof2002 Magic Plus (Unluck Max2 v1)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mps04,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "Creamymami",    "Kof2002 Magic Plus (Unluck Max2 v2)(bootleg)" , MACHINE_SUPPORTS_SAVE )
@@ -13996,7 +14005,7 @@ HACK( 200?, kf2k2mps32,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 200?, kf2k2mps33,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "kof1996",    "Kof2002 Magic Plus (Remove Countdown)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mps34,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "wesker",    "Kof2002 Magic Plus (Practice Mode Maximum Power)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mps35,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp,   ROT0, "Eddids",    "Kof2002 Magic Plus (Unlimited Credits In Console Mode)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2005, kf2k2mp2s01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "KyoX",    "Kof2002 Magic Plus II (Translation Portuguese)(09-25-2005)(bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kf2k2mp2s01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "KyoX",    "Kof2002 Magic Plus II (Translation Portuguese)(2005-09-25)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "syberjun",    "Kof2002 Magic Plus II (Translation Korean)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Creamymami",    "Kof2002 Magic Plus II (Normalize Power)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s04,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "kawada7278",    "Kof2002 Magic Plus II (Unlimited Power)(bootleg)" , MACHINE_SUPPORTS_SAVE )
@@ -14029,105 +14038,105 @@ HACK( 200?, kf2k2mp2s33,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 200?, kf2k2mp2s34,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "kof1996 & zuojie",    "Kof2002 Magic Plus II (Remove Countdown06)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "wesker",    "Kof2002 Magic Plus II (Practice Mode Maximum Power)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Eddids",    "Kof2002 Magic Plus II (Unlimited Credits In Console Mode)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Kim",    "Kof2002 Magic Plus II (Icy Blue Style)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "yozuki",    "Kof2002 Magic Plus II (X'Mas Enhanced)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 Magic Plus II (Hacks Unknown)(bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "KyoX",    "Kof2002 Plus (Translation Portuguese)(09-25-2005)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "syberjun",    "Kof2002 Plus (Translation Korean)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "wesker",    "Kof2002 Plus (Unluck Max2 v1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas04,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Creamymami",    "Kof2002 Plus (Unluck Max2 v2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas05,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Creamymami",    "Kof2002 Plus (Unlimited Power)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas06,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Creamymami",    "Kof2002 Plus (Unlimited Power Store)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas07,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "siromezm",    "Kof2002 Plus (Nude Athena)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas08,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "lewis882",    "Kof2002 Plus (Background Color Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas09,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "lewis882",    "Kof2002 Plus (Color Remix)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas10,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Violet",    "Kof2002 Plus (Blue Fire)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas11,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "lewis882 & tcwlee",    "Kof2002 Plus (Color Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas12,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Shinnok",    "Kof2002 Plus (Color Change Vol.2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Shinnok",    "Kof2002 Plus (Color Change Vol.3)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas14,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "C6F8",    "Kof2002 Plus (Color Change V1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas15,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "C6F8",    "Kof2002 Plus (Color Change V2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas16,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Kim",    "Kof2002 Plus (Color Change V3)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas17,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Kim",    "Kof2002 Plus (Color Change V4)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas18,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Bghf",    "Kof2002 Plus (Color XI)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas19,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "kumagorou",    "Kof2002 Plus (Green Fire)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas20,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "kawada7278",    "Kof2002 Plus (Violet Fire)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas21,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "tcwlee & Katana",    "Kof2002 Plus (Color Gift)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas22,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Kim",    "Kof2002 Plus (Icy Blue Style)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas23,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "yozuki",    "Kof2002 Plus (X'Mas Costume)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas24,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "yozuki",    "Kof2002 Plus (X'Mas Mix Title)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas25,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "yozuki",    "Kof2002 Plus (X'Mas Enhanced)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas26,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "siromezm",    "Kof2002 Plus (Change Yuri's Costume)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas27,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "0 Day-S",    "Kof2002 Plus (Add Boss Kusanagi)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas28,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Foxy",    "Kof2002 Plus (Add NESTS Team)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas29,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "bghf & Katana & ?",    "Kof2002 Plus (Blood Groove Imitation V1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas30,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "bghf & ?",    "Kof2002 Plus (Blood Groove Imitation V2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas31,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "bootleg",    "Kof2002 Plus (Enable Random CPU Color)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas32,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Kim",    "Kof2002 Plus (Change Color In Battle)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas33,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Bootleg",    "Kof2002 Plus (Change Member)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas34,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Bootleg",    "Kof2002 Plus (Remove The Role Avatar Box)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Fix Life Bar)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Fix Timer)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Fix life Bar & Timer)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Half Transparency)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Half transparency Color Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas40,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Half Transparency v3)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas41,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "oak2003",    "Kof2002 Plus (Fixed Power Gauge)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas42,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Creamymami",    "Kof2002 Plus (Kyo + Kusanagi)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas43,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "kof1996",    "Kof2002 Plus (Remove Countdown)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas44,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "wesker",    "Kof2002 Plus (Practice Mode Maximum Power)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas45,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "star07",    "Kof2002 Plus (Athena's Show-Time)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas46,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "star07",    "Kof2002 Plus (Athena victory-Pose Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas47,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Eddids",    "Kof2002 Plus (Unlimited Credits In Console Mode)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2plas48,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2pls,  ROT0, "Unknown",    "Kof2002 Plus (Ultimately Strengthen Chinese)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs01,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "KyoX", "Kof2002 Plus (Translation Portuguese)(09-25-2005)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs02,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "wesker", "Kof2002 Plus (Unluck Max2 v1)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs03,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Unluck Max2 v2)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs04,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs05,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power Store)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs06,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "yozuki", "Kof2002 Plus (X'Mas Mix Title)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs07,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "yozuki", "Kof2002 Plus (X'Mas Enhanced)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs08,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "0 Day-S", "Kof2002 Plus (Add Boss Kusanagi)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs09,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Foxy", "Kof2002 Plus (Add Nests Team)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs10,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "bootleg", "Kof2002 Plus (Enable Random CPU Color)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs11,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Kim", "Kof2002 Plus (Change Color In Battle)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs12,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "bootleg", "Kof2002 Plus (Change Member)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs13,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fix Life Bar)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs14,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fix Timer)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs15,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fix life Bar & Timer)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs16,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Half Transparency)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs17,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Half transparency Color Change)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs18,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Half Transparency v3)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs19,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fixed Power Gauge)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs20,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Kyo + Kusanagi)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs21,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "kof1996", "Kof2002 Plus (Remove Countdown)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs22,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "wesker", "Kof2002 Plus (Practice Mode Maximum Power)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plbs23,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Eddids", "Kof2002 Plus (Unlimited Credits In Console Mode)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs01,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "KyoX", "Kof2002 Plus (Translation Portuguese)(09-25-2005)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs02,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "wesker", "Kof2002 Plus (Unluck Max2 v1)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs03,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Unluck Max2 v2)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs04,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs05,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power Store)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs06,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "yozuki", "Kof2002 Plus (X'Mas Mix Title)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs07,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "yozuki", "Kof2002 Plus (X'Mas Enhanced)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs08,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "0 Day-S", "Kof2002 Plus (Add Boss Kusanagi)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs09,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Foxy", "Kof2002 Plus (Add Nests Team)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs10,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "bootleg", "Kof2002 Plus (Enable Random CPU Color)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs11,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Kim", "Kof2002 Plus (Change Color In Battle)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs12,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "bootleg", "Kof2002 Plus (Change Member)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs13,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fix Life Bar)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs14,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fix Timer)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs15,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fix life Bar & Timer)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs16,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Half Transparency)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs17,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Half transparency Color Change)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs18,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Half Transparency v3)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs19,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "oak2003", "Kof2002 Plus (Fixed Power Gauge)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs20,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 Plus (Kyo + Kusanagi)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs21,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "kof1996", "Kof2002 Plus (Remove Countdown)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs22,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "wesker", "Kof2002 Plus (Practice Mode Maximum Power)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2plcs23,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Eddids", "Kof2002 Plus (Unlimited Credits In Console Mode)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2ps2as01,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Creamymami", "Kof2002 (Unlock Potential Super kill Limit)(PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2ps2as02,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002hb, ROT0, "Ding machine", "Kof2002 (The Ultimate Simplified)(PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Kim",    "Kof2002 Magic Plus II (Icy Blue Style)(bootleg)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "yozuki",    "Kof2002 Magic Plus II (X'Mas Enhanced)(bootleg)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  mp2s39,    ROT0, "Unknown",    "Kof2002 Magic Plus II (Hacks Unknown)(bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "KyoX",    "Kof2002 Plus (Translation Portuguese)(2005-09-25)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "syberjun",    "Kof2002 Plus (Translation Korean)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "wesker",    "Kof2002 Plus (Unluck Max2 v1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas04,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Creamymami",    "Kof2002 Plus (Unluck Max2 v2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas05,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Creamymami",    "Kof2002 Plus (Unlimited Power)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas06,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Creamymami",    "Kof2002 Plus (Unlimited Power Store)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas07,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "siromezm",    "Kof2002 Plus (Nude Athena)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas08,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "lewis882",    "Kof2002 Plus (Background Color Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas09,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "lewis882",    "Kof2002 Plus (Color Remix)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas10,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Violet",    "Kof2002 Plus (Blue Fire)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas11,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "lewis882 & tcwlee",    "Kof2002 Plus (Color Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas12,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Shinnok",    "Kof2002 Plus (Color Change Vol.2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Shinnok",    "Kof2002 Plus (Color Change Vol.3)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas14,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "C6F8",    "Kof2002 Plus (Color Change V1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas15,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "C6F8",    "Kof2002 Plus (Color Change V2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas16,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Kim",    "Kof2002 Plus (Color Change V3)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas17,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Kim",    "Kof2002 Plus (Color Change V4)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas18,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bghf",    "Kof2002 Plus (Color XI)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas19,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "kumagorou",    "Kof2002 Plus (Green Fire)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas20,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "kawada7278",    "Kof2002 Plus (Violet Fire)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas21,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "tcwlee & Katana",    "Kof2002 Plus (Color Gift)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas22,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Kim",    "Kof2002 Plus (Icy Blue Style)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas23,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "yozuki",    "Kof2002 Plus (X'Mas Costume)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas24,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "yozuki",    "Kof2002 Plus (X'Mas Mix Title)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas25,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "yozuki",    "Kof2002 Plus (X'Mas Enhanced)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas26,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "siromezm",    "Kof2002 Plus (Change Yuri's Costume)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas27,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "0 Day-S",    "Kof2002 Plus (Add Boss Kusanagi)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas28,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Foxy",    "Kof2002 Plus (Add NESTS Team)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas29,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "bghf & Katana & ?",    "Kof2002 Plus (Blood Groove Imitation V1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas30,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "bghf & ?",    "Kof2002 Plus (Blood Groove Imitation V2)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas31,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "bootleg",    "Kof2002 Plus (Enable Random CPU Color)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas32,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Kim",    "Kof2002 Plus (Change Color In Battle)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas33,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Change Member)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas34,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Bootleg",    "Kof2002 Plus (Remove The Role Avatar Box)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Fix Life Bar)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Fix Timer)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Fix life Bar & Timer)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Half Transparency)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Half transparency Color Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas40,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Half Transparency v3)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas41,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "oak2003",    "Kof2002 Plus (Fixed Power Gauge)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas42,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Creamymami",    "Kof2002 Plus (Kyo + Kusanagi)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas43,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "kof1996",    "Kof2002 Plus (Remove Countdown)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas44,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "wesker",    "Kof2002 Plus (Practice Mode Maximum Power)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas45,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "star07",    "Kof2002 Plus (Athena's Show-Time)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas46,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "star07",    "Kof2002 Plus (Athena victory-Pose Change)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas47,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Eddids",    "Kof2002 Plus (Unlimited Credits In Console Mode)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2plas48,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "Unknown",    "Kof2002 Plus (Ultimately Strengthen Chinese)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2k2plbs01,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "KyoX", "Kof2002 Plus (Translation Portuguese)(2005-09-25)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs02,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "wesker", "Kof2002 Plus (Unluck Max2 v1)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs03,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Unluck Max2 v2)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs04,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs05,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power Store)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs06,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "yozuki", "Kof2002 Plus (X'Mas Mix Title)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs07,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "yozuki", "Kof2002 Plus (X'Mas Enhanced)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs08,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "0 Day-S", "Kof2002 Plus (Add Boss Kusanagi)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs09,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Foxy", "Kof2002 Plus (Add Nests Team)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs10,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "bootleg", "Kof2002 Plus (Enable Random CPU Color)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs11,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Kim", "Kof2002 Plus (Change Color In Battle)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs12,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "bootleg", "Kof2002 Plus (Change Member)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs13,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fix Life Bar)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs14,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fix Timer)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs15,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fix life Bar & Timer)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs16,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Half Transparency)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs17,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Half transparency Color Change)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs18,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Half Transparency v3)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs19,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fixed Power Gauge)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs20,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Kyo + Kusanagi)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs21,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "kof1996", "Kof2002 Plus (Remove Countdown)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs22,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "wesker", "Kof2002 Plus (Practice Mode Maximum Power)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plbs23,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Eddids", "Kof2002 Plus (Unlimited Credits In Console Mode)(set 3, bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2005, kof2k2plcs01,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "KyoX", "Kof2002 Plus (Translation Portuguese)(2005-09-25)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs02,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "wesker", "Kof2002 Plus (Unluck Max2 v1)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs03,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Unluck Max2 v2)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs04,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs05,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Unlimited Power Store)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs06,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "yozuki", "Kof2002 Plus (X'Mas Mix Title)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs07,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "yozuki", "Kof2002 Plus (X'Mas Enhanced)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs08,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "0 Day-S", "Kof2002 Plus (Add Boss Kusanagi)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs09,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Foxy", "Kof2002 Plus (Add Nests Team)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs10,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "bootleg", "Kof2002 Plus (Enable Random CPU Color)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs11,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Kim", "Kof2002 Plus (Change Color In Battle)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs12,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "bootleg", "Kof2002 Plus (Change Member)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs13,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fix Life Bar)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs14,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fix Timer)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs15,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fix life Bar & Timer)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs16,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Half Transparency)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs17,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Half transparency Color Change)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs18,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Half Transparency v3)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs19,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "oak2003", "Kof2002 Plus (Fixed Power Gauge)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs20,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 Plus (Kyo + Kusanagi)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs21,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "kof1996", "Kof2002 Plus (Remove Countdown)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs22,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "wesker", "Kof2002 Plus (Practice Mode Maximum Power)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2plcs23,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Eddids", "Kof2002 Plus (Unlimited Credits In Console Mode)(set 4, bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2ps2as01,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Unlock Potential Super kill Limit)(PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2ps2as02,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ding machine", "Kof2002 (The Ultimate Simplified)(PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s01,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Black Edition v1.4)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s02,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v0.9 With AI Fix)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s03,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v0.? Version)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
@@ -14178,23 +14187,24 @@ HACK( 200?, kof2k2s48,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof2k2s49,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 Magic Plus (Omega v0.9 Playstation Version)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s50,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (The Purple Dragons)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s51,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (The Purple Dragons Plus)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, kof2k2s52,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb, ROT0, "Unknown", "Kof2002 (20th Anniversary Of The King of Fighters)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, kof2k2s53,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb, ROT0, "Unknown",    "Kof2002 (Tongtian Enhanced Edition)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof2k2s52,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002, ROT0, "Unknown", "Kof2002 (20th Anniversary Of The King of Fighters)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof2k2s53,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002, ROT0, "Unknown",    "Kof2002 (Tongtian Enhanced Edition)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s54,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v0.9 beta)(Original 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s55,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v1.0 Alpha Version)(Simplify The Move 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s56,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v1.0 Alpha Version)(Simplify The Move 4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s57,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 (Ex-Kyo)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s57,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Unknown",    "Kof2002 (Ex-Kyo)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s58,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (All Mix)(decrypted C)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s59,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 (Iori KofXI Edition v1.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s60,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 Magic Plus (Fixed)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s61,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 Super Magic Plus (Green Version)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s62,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "NeogeoBRteam",    "Kof2002 (Brazil Hack Set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s63,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Marcochen",    "Kof2002 (Description Of Hack Unknown)(Set 29)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s64,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Zuojie",    "Kof2002 (Boss Revision)(17-10-2008)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s65,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Kof1996, Kqz, Zuojie",    "Kof2002 (Boss Edition v1.0)(23-01-2009)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s66,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Danpaji1, Marcochen",    "Kof2002 (Kim Revision)(23-01-2009)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s67,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "TheMazTr",    "Kof2002 (Changed Letters)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s68,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Foxy",    "Kof2002 (N.E.S.T.S)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s69,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 (Orochi Team Hack)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s70,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002hb,    ROT0, "Unknown",    "Kof2002 (Magic Fking)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k2s71,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Perfect Revised Edition)(Ver.?)(NGM-2650)(NGH-2650)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s59,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Unknown",    "Kof2002 (Iori KofXI Edition v1.0)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s60,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Unknown",    "Kof2002 Magic Plus (Fixed)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s61,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Unknown",    "Kof2002 Super Magic Plus (Green Version)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s62,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "NeogeoBRteam",    "Kof2002 (Brazil Hack Set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s63,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Marcochen",    "Kof2002 (Description Of Hack Unknown)(Set 29)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, kof2k2s64,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Zuojie",    "Kof2002 (Boss Revision)(2008-10-17)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof2k2s65,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Kof1996, Kqz, Zuojie",    "Kof2002 (Boss Edition v1.0)(2009-01-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, kof2k2s66,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Danpaji1, Marcochen",    "Kof2002 (Kim Revision)(2009-01-23)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s67,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "TheMazTr",    "Kof2002 (Changed Letters)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s68,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Foxy",    "Kof2002 (N.E.S.T.S)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s69,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Unknown",    "Kof2002 (Orochi Team Hack)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s70,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,    ROT0, "Unknown",    "Kof2002 (Magic Fking)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k2s71,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Perfect Revised Edition)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kof2k2s72,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Exceeding Version 2018-11-25)", MACHINE_SUPPORTS_SAVE )

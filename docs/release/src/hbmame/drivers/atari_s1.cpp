@@ -17,4 +17,4 @@ ROM_START(atarianb)
 	ROM_LOAD("82s130.bin", 0x0000, 0x0200, CRC(da1f77b4) SHA1(b21fdc1c6f196c320ec5404013d672c35f95890b))
 ROM_END
 
-GAME( 2002, atarianb, atarians, atari_s1, atari_s1, driver_device, 0, ROT0, "Atari / Gaston", "The Atarians (modified for emulation)", MACHINE_NOT_WORKING | MACHINE_MECHANICAL)
+GAME( 2002, atarianb, atarians, atari_s1, atari_s1, driver_device, empty_init, ROT0, "Atari / Gaston", "The Atarians (modified for emulation)", MACHINE_NOT_WORKING | MACHINE_MECHANICAL)

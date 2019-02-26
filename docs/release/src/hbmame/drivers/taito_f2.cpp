@@ -30,22 +30,21 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	MCFG_SCREEN_VISIBLE_AREA(40*8, 106*8-1, 2*8, 32*8-1)
 	MCFG_SCREEN_UPDATE_DRIVER(taitof2_hbmame, screen_update_taitof2_pri)
 	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, taitof2_hbmame, screen_vblank_partial_buffer_delayed))
-	MCFG_SCREEN_PALETTE("palette")
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_taitof2)
-	MCFG_PALETTE_ADD("palette", 4096)
-	MCFG_PALETTE_FORMAT(RRRRGGGGBBBBxxxx)
+	MCFG_SCREEN_PALETTE(m_palette)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_taitof2);
+	PALETTE(config, m_palette).set_format(palette_device::RGBx_444, 4096);
 	MCFG_VIDEO_START_OVERRIDE(taitof2_hbmame,taitof2_megab)
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	MCFG_DEVICE_ADD("ymsnd", YM2610, 24000000/3) /* Was 16000000/2, but only a 24Mhz OSC */
-	MCFG_YM2610_IRQ_HANDLER(INPUTLINE("audiocpu", 0))
-	MCFG_SOUND_ROUTE(0, "lspeaker",  0.25)
-	MCFG_SOUND_ROUTE(0, "rspeaker", 0.25)
-	MCFG_SOUND_ROUTE(1, "lspeaker",  1.0)
-	MCFG_SOUND_ROUTE(2, "rspeaker", 1.0)
+	ym2610_device &ymsnd(YM2610(config, "ymsnd", 24000000/3)); /* Was 16000000/2, but only a 24Mhz OSC */
+	ymsnd.irq_handler().set_inputline(m_audiocpu, 0);
+	ymsnd.add_route(0, "lspeaker", 0.25);
+	ymsnd.add_route(0, "rspeaker", 0.25);
+	ymsnd.add_route(1, "lspeaker", 1.0);
+	ymsnd.add_route(2, "rspeaker", 1.0);
 
 	tc0140syt_device &tc0140syt(TC0140SYT(config, "tc0140syt", 0));
 	tc0140syt.set_master_tag(m_maincpu);

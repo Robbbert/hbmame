@@ -305,16 +305,16 @@ sf2turyu
 sf2yyc3d5
 sf2yyc3g
 sf2yyc6
-sk2h1
-sk2h1q			// qsound version of sk2h1
-sk2h2
-sk2h2q
-sk2h3			// mame sgyxz for testing
-sk2h4q
-sk2h5q
-sk2h6q
-sk2h7
-sk2h8
+sk2h101
+sk2h101q			// qsound version of sk2h1
+sk2h102
+sk2h102q
+sk2h103			// mame sgyxz for testing
+sk2h104q
+sk2h105q
+sk2h106q
+sk2h107
+sk2h108
 sk2h10 
 sk2h11
 sk2h12
@@ -344,10 +344,10 @@ sk2h45
 sk2h46
 sk3h1
 sk3h2
-wofhfhs01
-wofhfhs02
-wofhfhs03
-wofhfhs04
+sk2h51
+sk2h52
+sk2h53
+sk2h54
 sk3p1		// wofchdx
 sk3p2		// wofchdx1
 sk3p3		// wofchdx2
@@ -507,8 +507,8 @@ tk2h122
 tk2h123
 tk2h124
 tk2h125
-tk2p2		// wofch_v3
-tk2p3		// wofchspp
+tk2h126
+tk2h127
 wofb
 wofch		// tk2p1
 wofes
@@ -518,6 +518,12 @@ wofsf2
 wofud
 3wonders01
 3wonders02
+captcommh01
+captcommh02
+captcommh03
+captcommh04
+captcommh05
+captcommh06
 captcomms01
 captcomms04
 captcomms05
@@ -1080,6 +1086,12 @@ dinoyct49
 dinoyct50
 dinoyct51
 dinoyct52
+dinoh01
+dinoh02
+dinoh03
+dinoh04
+dinoh05
+dinoh06
 dinonv01
 dinonv02
 dinonv03
@@ -1273,11 +1285,11 @@ varths01
 varths02
 varths03
 willows01
-wofh04 // sk2
-wofh05 // sk2
-wofh06 // sk2
-wofh07 // sk2
-wofh08 // sk2
+sk2h114
+sk2h115
+sk2h116
+sk2h117
+sk2h118
 wofus01
 wofus02
 wofus03
@@ -1289,53 +1301,57 @@ wofs05
 wofs06
 wofs07
 wofs08
+wofs09
+wofs10
 woffs01
 woffs02
 woffs03 //ingame crash
 woffs04 //ingame crash
 woffs05
-wofchs01
-wofchs02
-wofchs03
-wofchs04
-wofchs05
-wofchs06
-wofchs07
-wofchs08
-wofchs09
-wofchs10
-wofchs11
-wofchs12
-wofchs13
-wofchs14
-wofchs15
-wofchs16
-wofchs17
-wofchs18
-wofchs19
-wofchs20
-wofchs21
-wofchs22
-wofchs23
-wofchs24
-wofchs25
-wofchs26
-wofchs27
-wofchs28
-wofchs29
-wofchs30
-wofchs31
-wofchs33
-wofchs34
-wofchs35
-wofchs36
-wofchs37
-wofchs38
-wofchs39
-wofchs40
-wofchs41
-wofchs42
-wofchs43
+tk2p01
+tk2p02
+tk2p03
+tk2p04
+tk2p05
+tk2p06
+tk2p07
+tk2p08
+tk2p09
+tk2p10
+tk2p11
+tk2p12
+tk2p13
+tk2p14
+tk2p15
+tk2p16
+tk2p17
+tk2p18
+tk2p19
+tk2p20
+tk2p21
+tk2p22
+tk2p23
+tk2p24
+tk2p25
+tk2p26
+tk2p27
+tk2p28
+tk2p29
+tk2p30
+tk2p31
+tk2p33
+tk2p34
+tk2p35
+tk2p36
+tk2p37
+tk2p38
+tk2p39
+tk2p40
+tk2p41
+tk2p42
+tk2p43
+tk2p44		// wofch_v3
+tk2p45		// wofchspp
 
 @source:cps2.cpp
 // CPS2 PARENTS ***
@@ -1968,7 +1984,7 @@ kof95s26
 kof95s27
 kof95s28
 kof95s29
-//kof95s30 //encrypted
+//kof95s30 // encrypted but probably same as kof95sp
 kof95hs01
 kof95hs02
 kof95hs03
@@ -2157,6 +2173,7 @@ kof97sm
 kof97svs
 kof97svsb2
 kof97sw
+kof97t
 kof97tse
 kof97wh
 kof97wpls
@@ -2287,6 +2304,8 @@ kof97s103
 kof97s104
 kof97s105
 kof97s106
+kof97s107
+kof97s108
 kof97h01
 kof97h02
 kof97h03
@@ -2597,6 +2616,8 @@ kof97hx300
 kof97hx302
 kof97hx303
 kof97hx304
+kof97hx305
+kof97hx306
 kof97hs01
 kof97hs02
 kof97hs03
@@ -3013,6 +3034,8 @@ kof98hh108
 kof98hh109
 kof98hh110
 kof98hh111
+kof98hh112
+kof98hh113
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3120,6 +3143,7 @@ kof99spd
 kof99sr
 kof99srr
 kof99srr1
+kof99t
 kof99the4
 kof99the42
 kof99vor
@@ -3749,6 +3773,7 @@ kof2k2moi2
 kof2k2moir // no sound in attract mode
 kof2k2mp1	/* Magic Plus */
 kof2k2mp3	/* Magic Plus III - Ismamj */
+kof2k2mp3s
 kof2k2mpu
 kof2k2ngp
 kof2k2nu
@@ -3774,6 +3799,7 @@ kof2k2ps2
 kof2k2ps2a
 kof2k2ps2mp
 kf2k2ps2re
+kf2k2ps2re1
 kof2k2pur
 kof2k2ra
 kof2k2rgl // no sound in attract mode
@@ -3819,9 +3845,6 @@ kof2002s02
 kof2002s03
 kof2002s04
 kof2002s05
-kof2002s06   // 2k4se
-kof2002s07   // 2k4se
-kof2002s08   // 2k4se
 kof2002s09
 kof2002s10
 kof2002s11
@@ -3949,9 +3972,6 @@ kof2002bs25
 kof2002bs26
 kof2002ds01
 kof2002ds02
-kof2002ds03 // 2k4se
-kof2002ds04 // 2k4se
-kof2002ds05 // 2k4se
 kof2002ds06
 kof2002ds07
 kof2002ds08
@@ -4220,6 +4240,7 @@ kof2k2s68
 kof2k2s69
 kof2k2s70
 kof2k2s71
+kof2k2s72
 
 @source:kof2003.cpp
 kof2003d
@@ -4508,7 +4529,8 @@ hooks04
 hooks05
 hookus01
 hookus02
-hookjs01 
+hookjs01
+hookxr
 nbbatmans01
 nbbatmans02
 nbbatmanus01
@@ -4616,7 +4638,7 @@ wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 @source:mhavoc.cpp
 mhavoc				//parent
 mhavocrv			//HB Jess M. Askey
-mhavocpe			//HB Jess M. Askey
+mhavocpex			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk			//parent
@@ -4625,6 +4647,7 @@ mkturbod	/* MK protection hack */
 mktturboen	// Zenomorp 2012 Turbo Endurance
 mktturbopi	// Zenomorp 2012 Turbo Projectile Insanity
 mk2			//parent Mortal Kombat II r3.1
+mk2p			// Mortal Kombat II Plus beta
 mk2fr		// french
 mk2r33		// Mortal Kombat II r3.3
 mk2v28b1	// Mortal Kombat II v2.8 beta 1
@@ -4643,6 +4666,7 @@ umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3r13b1	/* UMK3 1.3 public beta 1 */
 umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
 umk3te2		/* UMK3 Tournament Edition 2.0.035 */
+umk3te42	/* UMK3 Tournament Edition 2.0.042 */
 umk3z		/* UMK3 1.2 Zeus hack */
 umk3ze
 umk3r13b101
@@ -4760,6 +4784,7 @@ mslug2s26
 mslug2s27
 mslug2s28
 mslug2s29
+mslug2s30
 mslug2ts01
 mslug2ts02
 mslug2ts03
@@ -4910,6 +4935,7 @@ ms6s12
 ms6s13
 ms6s14
 ms6s15
+ms6s16
 mslug3nm01
 mslug3nm02
 mslug3nm03
@@ -4990,6 +5016,9 @@ mslug3h50
 mslug3h51
 mslug3h52
 mslug3h53
+mslug3h54
+mslug3h55
+mslug3h56
 mslug3erbo01
 mslug3erbo02
 mslug3erbo03
@@ -5389,7 +5418,7 @@ mslug4fr
 mslug4i
 mslug4i1
 mslug4kh
-// mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
+mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
 mslug4n01
@@ -5429,6 +5458,9 @@ mslug4n35
 mslug4n36
 mslug4n37
 mslug4n38
+mslug4n39
+mslug4n40
+mslug4n41
 mslug4pls01
 mslug4pls02
 mslug4pls03
@@ -5605,7 +5637,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-// mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
+//mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -5761,6 +5793,7 @@ mslug5nn23
 mslug5nn24
 mslug5nn25
 mslug5nn26
+mslug5hp00
 mslug5hp01
 mslug5hp02
 mslug5hp03
@@ -6055,6 +6088,9 @@ mslug5re52
 mslug5re53
 mslug5re54
 mslug5re55
+mslug5re56
+mslug5re57
+mslug5re58
 
 @source:mslugx.cpp
 mslugxce
@@ -6869,6 +6905,7 @@ kof2001			// 262
 kof2002			// 265
 kof2003			// 271
 kf2k3pcb
+kof2k4se		// 365
 kotm			// 016
 //kotm2			// 039  not needed
 lastblad		// 234
@@ -7045,6 +7082,12 @@ santabll
 shaman16
 shaman17
 shaman18
+shaman19
+shaman20
+shaman21
+shaman22
+shaman23
+shaman24
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
@@ -7055,8 +7098,10 @@ tmnti		/* TMNT intro */
 tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
+//venuswars    // author doesn't want it enabled yet
 vlad2000
 ww2demo
+xmas2017
 zintrckbh
 zintrkcd	/* 211 (c) 1996 ADK / SNK */
 zintrkcd1
@@ -7508,6 +7553,12 @@ kof2k4ses28
 kof2k4ses29
 kof2k4ses30
 kof2k4ses31
+kof2k4ses32
+kof2k4ses33
+kof2k4ses34
+kof2k4ses35
+kof2k4ses36
+kof2k4ses37
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03
@@ -9432,6 +9483,7 @@ grdianss03
 grdianss04
 grdianss05
 grdianss06
+grdianss07
 
 @source:sf.cpp
 sf						//parent
