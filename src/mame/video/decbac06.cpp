@@ -144,11 +144,12 @@ void deco_bac06_device::set_flip_screen(bool flip)
 
 TILEMAP_MAPPER_MEMBER(deco_bac06_device::tile_shape0_scan)
 {
-	if ((m_pf_control_0[0]&2)==0)
-	{
-		int col_mask = num_cols - 1;		
-		return (row & 0xf) + ((col_mask - (col & col_mask)) << 4);
-	}
+// HBMAME fix for decodemo 2019-02-27
+//	if ((m_pf_control_0[0]&2)==0)
+//	{
+//		int col_mask = num_cols - 1;
+//		return (row & 0xf) + ((col_mask - (col & col_mask)) << 4);
+//	}
 	return (col & 0xf) + ((row & 0xf) << 4) + ((col & 0x1f0) << 4);
 }
 
@@ -192,8 +193,8 @@ TILE_GET_INFO_MEMBER(deco_bac06_device::get_pf8x8_tile_info)
 	if (m_rambank&1) tile_index+=0x1000;
 	int tile=m_pf_data[tile_index];
 	int colourpri=(tile>>12);
-	int flags=(m_pf_control_0[0]&2) ? 0 : TILE_FLIPX;
-	SET_TILE_INFO_MEMBER(m_tile_region_8,tile&0xfff,0,flags);
+	//int flags=(m_pf_control_0[0]&2) ? 0 : TILE_FLIPX; // HBMAME fix for decodemo 2019-02-27 - TILE_GET_INFO_MEMBER always returns 0 for m_pf_control_0[0] regardless of its real value
+	SET_TILE_INFO_MEMBER(m_tile_region_8,tile&0xfff,0,0); // HBMAME fix for decodemo 2019-02-27
 	tileinfo.category = colourpri;
 }
 
@@ -202,8 +203,8 @@ TILE_GET_INFO_MEMBER(deco_bac06_device::get_pf16x16_tile_info)
 	if (m_rambank&1) tile_index+=0x1000;
 	int tile=m_pf_data[tile_index];
 	int colourpri=(tile>>12);
-	int flags=(m_pf_control_0[0]&2) ? 0 : TILE_FLIPX;
-	SET_TILE_INFO_MEMBER(m_tile_region_16,tile&0xfff,0,flags);
+	//int flags=(m_pf_control_0[0]&2) ? 0 : TILE_FLIPX; // HBMAME fix for decodemo 2019-02-27 - TILE_GET_INFO_MEMBER always returns 0 for m_pf_control_0[0] regardless of its real value
+	SET_TILE_INFO_MEMBER(m_tile_region_16,tile&0xfff,0,0); // HBMAME fix for decodemo 2019-02-27
 	tileinfo.category = colourpri;
 }
 
@@ -262,6 +263,7 @@ void deco_bac06_device::custom_tilemap_draw(bitmap_ind16 &bitmap,
 			scrollx = -control1[0] - 0x100;
 		else
 			scrollx = control1[0];
+		scrollx = control1[0]; // HBMAME fix for decodemo 2019-02-27
 		scrolly = control1[1];
 	}
 

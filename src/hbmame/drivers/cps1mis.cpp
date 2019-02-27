@@ -1539,7 +1539,7 @@ ROM_START( dinohb )
 
 	ROM_REGION( 0x28000, "audiocpu", 0 )
 	ROM_LOAD( "cd_q.5k",       0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
-	ROM_CONTINUE(               0x10000, 0x18000 )
+	ROM_CONTINUE(              0x10000, 0x18000 )
 
 	ROM_REGION( 0x200000, "qsound", 0 )
 	ROM_LOAD( "cd-q1.1k",      0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
@@ -1567,9 +1567,13 @@ ROM_START( dinohc )
 	ROMX_LOAD( "cd-6m.8a",   0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "cd-8m.10a",  0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
 
-	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "cc_09.11a",     0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
-	ROM_CONTINUE(              0x10000, 0x08000 )
+//	ROM_REGION( 0x18000, "audiocpu", 0 )
+//	ROM_LOAD( "cc_09.11a",     0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )  // sound from captcomm - this is useless
+//	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",       0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(              0x10000, 0x18000 )
 
 	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "cc_18.11c",     0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
@@ -5919,7 +5923,7 @@ HACK( 200?, dinoex,      dino,     qsound,     dinohz,   cps_state, dinoeh,   RO
 HACK( 200?, dinoh,       dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg set 3, 930223 Asia TW)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dinoha,      dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg set 1, 930223 Asia TW)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dinohb,      dino,     qsound,     dinohz,   cps_state, dinohb,   ROT0,   "Unknown", "Cadillacs and Dinosaurs (bootleg set 2 (with PIC16c57), 930201 etc)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, dinohc,      dino,     qsound,     dinohz,   cps_state, dinohb,   ROT0,   "bootleg", "Cadillacs and Dinosaurs (Chinese bootleg, 930223 Asia TW)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dinohc,      dino,     qsound,     dinohz,   cps_state, dino,   ROT0,   "bootleg", "Cadillacs and Dinosaurs (Chinese bootleg, 930223 Asia TW)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dinohp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Submachine gun and shotgun bullet version)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dinohx,      dino,     qsound,     dinohz,   cps_state, dinoh,    ROT0,   "Winuxx", "Cadillacs and Dinosaurs (Ex Super version v2)(Asia TW 930223)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, dinojp,      dino,     qsound,     dino,     cps_state, dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs Kyouryuu-Shinseiki Plus (Double Edition)(2010-03-10)(Japan 930201)", MACHINE_SUPPORTS_SAVE )
@@ -36078,7 +36082,7 @@ HACK( 200?, dinos54,       dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 200?, dinos55,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Tree monkey", "Cadillacs and Dinosaurs (Election Time Is Not Reduced)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, dinos56,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Integral Repair-Blood Pro Plus Edition (Korean Edition Revision 1))(2011-03-28)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, dinos57,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "Unknown", "Cadillacs and Dinosaurs (Jurassic 99)(Asia TW 930223)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, dinos58,       dino,     qsound,     dinohz,   cps_state,   dinohb,    ROT0,   "Unknown", "Cadillacs and Dinosaurs (Turbo 97)(Asia TW 930223)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, dinos58,       dino,     qsound,     dinohz,   cps_state,   dinohb,   ROT0,   "Unknown", "Cadillacs and Dinosaurs (Turbo 97)(Asia TW 930223)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2017, dinos59,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ngs", "Cadillacs and Dinosaurs (Final Boss)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, dinos60,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs 2011 Plus(New Version)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos61,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs 2011 Plus(Bloody Warriors 2018 New Edition)(World 930201)", MACHINE_SUPPORTS_SAVE )
