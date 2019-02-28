@@ -1115,7 +1115,7 @@ ROM_START( kof2kzs ) /* The King of Fighters 2000 - Hack by UNKNOWN - (MVS prote
 ROM_END
 
 HACK( 200?, kof2000d,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,  ROT0, "SNK", "Kof2000 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2000ev,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,   ROT0, "Unknown", "Kof2000 (Enhanced Version Super)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2000ev,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,   ROT0, "Unknown", "Kof2000 (Enhanced Version Super 2014-11-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000r,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,   ROT0, "Raymonose, Jason & Kim", "Kof2000 (Remix Pro 1.00a)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2kbh,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,  ROT0, "Dodowang","Kof2000 (Add Char - Zero has icon)(not encrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2kbj,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,  ROT0, "Jason/K3", "Kof2000 (Enable hidden characters v2)(not encrypted)", MACHINE_SUPPORTS_SAVE )

@@ -85,7 +85,7 @@ ROM_END
 
 
 
-HACK( 200?, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (Crazy gun transparent version 2015-03-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, bgaregga, ROT270, "Zack", "Battle Garegga (Zakk version)(Europe / USA / Japan / Asia) (Sat Feb 3 1996)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state,  0,       ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state,  0,       ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )

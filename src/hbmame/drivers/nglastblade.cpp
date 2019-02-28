@@ -2283,7 +2283,7 @@ HACK( 200?, lastbladhs10,   lastblad, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, lastbladhs11,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "wesker[FGCH]",    "Last Blade (Super Kaede with No Health Drain V1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs12,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade (Unlimit Special Moves V1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs13,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kurouri",    "Last Blade (Enable Hidden Characters V2)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lastbladhs14,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 1.0)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, lastbladhs14,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 1.0 2014-10-22)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs15,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 1.1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs16,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 2.0)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs17,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 2.1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )

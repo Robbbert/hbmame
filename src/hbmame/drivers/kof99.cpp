@@ -3005,7 +3005,7 @@ HACK( 200?, kof99srr1,  kof99,    neogeo_noslot, neogeo, neogeo_state,        ko
 HACK( 2014, kof99t,     kof99,    neogeo_noslot, neogeo, neogeo_state,        kof99,   ROT0, "Unknown", "Kof'99 (Optimised Version For GOTVG 2014-08-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99the4,  kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Yashional", "Kof'99 (The 4 Flame Manipulators)(set 1)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99the42, kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Yashional", "Kof'99 (The 4 Flame Manipulators)(set 2)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state,        kof99,   ROT0, "Unknown", "Kof'99 (Hack Ver.0?)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof99vor,   kof99,    neogeo_noslot, neogeo, neogeo_state,        kof99,   ROT0, "Unknown", "Kof'99 (Renewed version 2014-11-12)(NGM-2510)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99wet,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Unknown", "Kof'99 (Colour set ?)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99xxx,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Unknown", "Kof'99 (Special Boss)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99y,     kof99,    neogeo_noslot, neogeo, neogeo_state,        kof99,   ROT0, "Ydmis", "Kof'99 (4 Add Char)(Korean release)", MACHINE_SUPPORTS_SAVE )
