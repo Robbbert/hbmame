@@ -10763,6 +10763,9 @@ crimfghtj                       // GX821 (c) 1989 (Japan)
 @source:crimson.cpp
 crimson                         // (c) 1992 SGI
 
+@source:cromptons.cpp
+ffruits                         //
+
 @source:crospang.cpp
 bestri                          // (c) F2 System
 bestria                         //
@@ -12862,6 +12865,7 @@ feleg                           //
 @source:fidel_card.cpp
 bridgec3                        //
 bridgeca                        //
+gincribc                        //
 vbrc                            //
 
 @source:fidel_cc10.cpp
@@ -12878,7 +12882,7 @@ kishon                          //
 
 @source:fidel_csc.cpp
 csc                             //
-cscetr
+csce                            //
 reversic                        //
 super9cc                        //
 
@@ -15190,6 +15194,7 @@ ginv2000                        // Gakken
 gjackpot                        // Gakken
 gpoker                          // Gakken
 h2hbaseb                        // Coleco
+h2hbaskb                        // Coleco
 h2hboxing                       // Coleco
 h2hfootb                        // Coleco
 h2hhockey                       // Coleco
@@ -30348,11 +30353,16 @@ svcpcba                         // 0269 (c) 2003 Playmore / Capcom - JAMMA PCB
 98best44                        //
 neoprint                        //
 npcartv1                        //
+npcramen                        //
+npfpit                          //
 npmillen                        //
+npotogib                        //
 nprsp                           //
+npscv1                          //
 npskv                           //
 npsprg98                        //
 npsprgv4                        //
+npssr2                          //
 npusagif                        //
 
 @source:neptunp2.cpp
