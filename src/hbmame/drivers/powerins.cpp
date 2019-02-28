@@ -367,8 +367,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY         FULLNAME FLAGS */
 //Power Instinct
-HACK( 2006, powerns01,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Description Of Unknown Origin 01)(USA)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, powerns02,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Description Of Unknown Origin 02)(USA)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, powerns01,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Great Blood Temple Simplification)(USA)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, powerns02,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Hacks", "Power Instinct (Description Of Unknown Origin 01)(USA)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, powerinss01,    powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "0 DAY-S", "Gouketsuji Ichizoku (Enable Hidden Character)(Japan)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, powerinss02,    powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "0 DAY-S", "Power Instinct (Enable Hidden Character)(Alt)(USA)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, powerinsas01,   powerins, powerinsa,     powerins,   powerins_state,   0,     ROT0,          "0 DAY-S", "Power Instinct (Enable Hidden Character)(USA, bootleg set 1)", MACHINE_SUPPORTS_SAVE )

@@ -2945,7 +2945,7 @@ HACK( 2009, gowcaizrrv,    gowcaizr, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, gowcaizry,     gowcaizr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Voltage Fighter (Easy Moves)", MACHINE_SUPPORTS_SAVE)
 
 HACK( 200?, gpilotscd,     gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Ghost Pilots (CD conversion)(NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, gpilotse,      gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "kawada7278", "Ghost Pilots (Ex Super version)(NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, gpilotse,      gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "kawada7278", "Ghost Pilots (Ex Super version 2014-10-24)(NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, gpilotspx,     gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Ghost Pilots (Plus Max)(NGM-020)(NGH-020)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 200?, ironcladb,     ironclad, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Saurus", "Ironclad (Conversion from Wii)(prototype)", MACHINE_SUPPORTS_SAVE )
@@ -3033,7 +3033,7 @@ HACK( 2009, ragnagrdsb,    ragnagrd, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 200?, s1945pd,       s1945p,   neogeo_noslot, neogeo, neogeo_state,        cmc42sfix, ROT0, "Psikyo", "Strikers 1945 Plus (decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, s1945peh,      s1945p,   neogeo_noslot, neogeo, neogeo_state,        s1945p,    ROT0, "KrysoFun", "Strikers 1945 Plus (Super Shot)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, s1945ph,       s1945p,   neogeo_noslot, neogeo, neogeo_state,        s1945p,    ROT0, "Yumeji", "Strikers 1945 Plus (Secret fighter Ascender P55)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, s1945pwe,      s1945p,   neogeo_noslot, neogeo, neogeo_state,        s1945p,    ROT0, "wesker[FGCH]", "Strikers 1945 Plus (Ex Super version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, s1945pwe,      s1945p,   neogeo_noslot, neogeo, neogeo_state,        s1945p,    ROT0, "wesker[FGCH]", "Strikers 1945 Plus (Ex Super version 2015-01-27)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 200?, savagereb,     savagere, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji, Dodowang[EGCG]", "Savage Reign (Boss hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, savageredb,    savagere, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang[EGCG]", "Savage Reign (Debug menu unlocked - P1 and P2 Press select to change stage)", MACHINE_SUPPORTS_SAVE )
@@ -4676,7 +4676,33 @@ ROM_START( sdodgebs03 )
 	ROM_LOAD16_BYTE( "208.c3", 0x0800000, 0x200000, CRC(14cb1703) SHA1(a46acec03c1b2351fe36810628f02b7c848d13db) )
 	ROM_LOAD16_BYTE( "208.c4", 0x0800001, 0x200000, CRC(c7165f19) SHA1(221f03de893dca0e5305fa17aa94f96c67713818) )
 ROM_END
-									   
+
+/************
+ Waku Waku 7
+*************/
+
+ROM_START( wakuwak7s01 )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "225hs01.p1",   0x000000, 0x100000, CRC(5de50bb2) SHA1(1b71b25cb47ce14fcf9e6be34bb4984305e41746) )
+	ROM_LOAD16_WORD_SWAP( "225.p2", 0x100000, 0x200000, CRC(fe190665) SHA1(739d9a8fc2da34381654d9e291141eacc210ae5c) )
+
+	NEO_SFIX_128K( "225.s1", CRC(71c4b4b5) SHA1(9410f13807f01082dc86f2d84051be4bed8e9f7c) )
+
+	NEO_BIOS_AUDIO_128K( "225.m1", CRC(0634bba6) SHA1(153aaf016440500df7a4454f3f2f2911219cb7d8) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "225.v1", 0x000000, 0x400000, CRC(6195c6b4) SHA1(66c06b5904aedb256e3997bbec60f8ab50c6ff0c) )
+	ROM_LOAD( "225.v2", 0x400000, 0x400000, CRC(6159c5fe) SHA1(9015e93416497f1ef877c717afed40f7ecfa42e4) )
+
+	ROM_REGION( 0x1800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "225.c1", 0x0000000, 0x400000, CRC(ee4fea54) SHA1(314b513a52b2cc88cbf2409d1934c357269a8bb2) )
+	ROM_LOAD16_BYTE( "225.c2", 0x0000001, 0x400000, CRC(0c549e2d) SHA1(d8c4626231c92e43d9bf183202553ee2b5c532e6) )
+	ROM_LOAD16_BYTE( "225.c3", 0x0800000, 0x400000, CRC(af0897c0) SHA1(2b8ec19b9dd0bd1f1171fb01b915e9d25ec8c421) )
+	ROM_LOAD16_BYTE( "225.c4", 0x0800001, 0x400000, CRC(4c66527a) SHA1(6c8c9342fad70b456e282b0d52e7ad890e4673d3) )
+	ROM_LOAD16_BYTE( "225.c5", 0x1000000, 0x400000, CRC(8ecea2b5) SHA1(cad51e6e76d8258a78becb6f4096dd061f537494) )
+	ROM_LOAD16_BYTE( "225.c6", 0x1000001, 0x400000, CRC(0eb11a6d) SHA1(c6d4f978ff3ca190a3060ac52bd7347189194f76) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Andro Dunos
 HACK( 2009, androduns01,    androdun, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "pipi899",    "Andro Dunos (Ex Super version)(2009-02-10)(NGM-049)(NGH-049)", MACHINE_SUPPORTS_SAVE )
@@ -4694,7 +4720,7 @@ HACK( 200?, aof3ks02,       aof3,     neogeo_noslot, neogeo, neogeo_state,      
 // Breakers
 HACK( 200?, breakers01,     breakers, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "kawada7278",    "Breakers (Mode Easy)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, breakrevs01,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "kawada7278",    "Breakers Revenge (Mode Easy)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, breakrevs02,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Breakers Revenge (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, breakrevs02,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Breakers Revenge (Doomsday Heroes Strengthens Lite 2015-01-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, breakrevs03,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Breakers Revenge (Description Of Hack Unknown)", MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
 HACK( 200?, breakrevs04,    breakrev, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Breakers Revenge (Boss Version)", MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
  // Fight Fever
@@ -4725,7 +4751,7 @@ HACK( 200?, magdrop3s01,    magdrop3, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, magdrop3s02,    magdrop3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "gsc2007/Shyma.X",   "Magical Drop III (Super Remix Edition 1.0)(07-29-2004)", MACHINE_SUPPORTS_SAVE )
  // Matrimelee
 HACK( 200?, matrims01,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "Unknown",    "Matrimelee (Super Plus+)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "Unknown",    "Matrimelee (Description Of Hack Unknown)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "Unknown",    "Matrimelee (Great Blood Temple Simplification 2015-12-05)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, matrims03,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "HappyAsr[EGCG]",    "Matrimelee (Enable Hidden Menu)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, matrims04,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "Dodowang[EGCG][EGCG]",    "Matrimelee (Enable Hidden Characters V1)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, matrims05,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "Creamymami[EGCG]",    "Matrimelee (Maximum Power)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
@@ -4759,10 +4785,12 @@ HACK( 200?, s1945ps01,      s1945p,   neogeo_noslot, neogeo, neogeo_state,      
  // Savage Reign
 HACK( 200?, savageres01,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yumeji",    "Savage Reign (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, savageres02,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG][EGCG]",    "Savage Reign (Unlimited Super Moves)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, savageres03,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Big Feng",    "Savage Reign (Super kill Command System)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, savageres03,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Big Feng",    "Savage Reign (Super kill Command System 2015-03-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, savageres04,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Savage Reign (Description Of Hack Unknown)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, savageres05,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Savage Reign (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
  // Super Dodge Ball
 HACK( 200?, sdodgebs01,     sdodgeb,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "PlayerX",  "Super Dodge Ball (Unlock Maou Team)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sdodgebs02,     sdodgeb,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Super Dodge Ball (Description Of Hack Unknown)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sdodgebs03,     sdodgeb,  neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Super Dodge Ball (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+ // Waku Waku 7
+HACK( 2009, wakuwak7s01,    wakuwak7, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Dodowang[EGCG]", "Waku Waku 7 (Seven Hot Seven Fire Enhanced Version 2009-03-27)", MACHINE_SUPPORTS_SAVE )
