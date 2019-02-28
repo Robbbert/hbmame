@@ -4751,7 +4751,7 @@ HACK( 200?, magdrop3s01,    magdrop3, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, magdrop3s02,    magdrop3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "gsc2007/Shyma.X",   "Magical Drop III (Super Remix Edition 1.0)(07-29-2004)", MACHINE_SUPPORTS_SAVE )
  // Matrimelee
 HACK( 200?, matrims01,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "Unknown",    "Matrimelee (Super Plus+)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "Unknown",    "Matrimelee (Description Of Hack Unknown)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "Unknown",    "Matrimelee (Great Blood Temple Simplification 2015-12-05)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, matrims03,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "HappyAsr[EGCG]",    "Matrimelee (Enable Hidden Menu)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, matrims04,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "Dodowang[EGCG][EGCG]",    "Matrimelee (Enable Hidden Characters V1)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, matrims05,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "Creamymami[EGCG]",    "Matrimelee (Maximum Power)(NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )

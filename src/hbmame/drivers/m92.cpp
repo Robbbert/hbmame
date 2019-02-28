@@ -409,6 +409,6 @@ GAME( 2018, hookxr,      hook,        hook,          hook,      m92_state, empty
 // Ninja Baseball Bat Man
 GAME( 200?, nbbatmans01, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (X2 Edition)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
 GAME( 200?, nbbatmans02, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (1V4)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 200?, nbbatmanus01,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Unknown Hack)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 200?, nbbatmanus01,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Unknown Hack 2013-06-04)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, nbbatmanus02,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (New Starter Edition Update 161024)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 

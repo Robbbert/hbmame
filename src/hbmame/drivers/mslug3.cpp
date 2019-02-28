@@ -937,7 +937,7 @@ HACK( 200?, mslug3e19, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslu
 HACK( 200?, mslug3e20, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3e21, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3e22, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, mslug3eb,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (Blue Out Of Blue (6.14))(NGM-2560)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2013, mslug3eb,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (Blue Out Of Blue V6.14 2013-02-27)(NGM-2560)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3eha, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug3ehs, mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)(NGH-2560)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug3fr,  mslug3,   neogeo_noslot, neogeo, neogeo_state,       mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (Traduction French)(NGH-2560)", MACHINE_SUPPORTS_SAVE )

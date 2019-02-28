@@ -13312,7 +13312,7 @@ ROM_START( kof2k2s53 )
 	ROM_LOAD16_WORD_SWAP( "265k2s53.p1",  0x000000, 0x454FE5, CRC(0ec0d45d) SHA1(1bdfc17b3dd8fd7159a3d970d60b79d4d610dfde) )
 	ROM_LOAD16_WORD_SWAP( "265k2s53.p2", 0x100000, 0x454F54, CRC(03c02794) SHA1(0f5995ba5457e172fe24f55c47513fe2cf406882) )
 
-	NEO_SFIX_MT_128K
+	NEO_SFIX_128K( "265evo.s1", CRC(e0eaaba3) SHA1(831b642da9fe7617498cdb1c86475b3b3d3043bc) )
 
 	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
 
@@ -14092,7 +14092,7 @@ HACK( 200?, kf2k2mp2s35,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 200?, kf2k2mp2s36,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Eddids",    "Kof2002 Magic Plus II (Unlimited Credits In Console Mode)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s37,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "Kim",    "Kof2002 Magic Plus II (Icy Blue Style)(bootleg)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2mp2s38,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2,  ROT0, "yozuki",    "Kof2002 Magic Plus II (X'Mas Enhanced)(bootleg)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k2mp2s39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  mp2s39,    ROT0, "Unknown",    "Kof2002 Magic Plus II (Hacks Unknown)(bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k2mp2s39,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  mp2s39,    ROT0, "Unknown",    "Kof2002 Magic Plus II (Ultimate Enhancement 2016-04-09)(bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2plas01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "KyoX",    "Kof2002 Plus (Translation Portuguese)(2005-09-25)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2plas02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "syberjun",    "Kof2002 Plus (Translation Korean)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k2plas03,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "wesker",    "Kof2002 Plus (Unluck Max2 v1)(bootleg set 2)" , MACHINE_SUPPORTS_SAVE )
@@ -14239,8 +14239,8 @@ HACK( 200?, kof2k2s48,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof2k2s49,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 Magic Plus (Omega v0.9 Playstation Version)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s50,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (The Purple Dragons)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s51,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (The Purple Dragons Plus)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, kof2k2s52,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002, ROT0, "Unknown", "Kof2002 (20th Anniversary Of The King of Fighters)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, kof2k2s53,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002, ROT0, "Unknown",    "Kof2002 (Tongtian Enhanced Edition)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof2k2s52,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002, ROT0, "Unknown", "Kof2002 (20th Anniversary Of The King of Fighters 2016-04-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof2k2s53,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002, ROT0, "Unknown",    "Kof2002 (Tongtian Enhanced Edition 2016-04-10)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s54,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v0.9 beta)(Original 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s55,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v1.0 Alpha Version)(Simplify The Move 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k2s56,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "Unknown",    "Kof2002 (Omega v1.0 Alpha Version)(Simplify The Move 4)(decrypted C)", MACHINE_SUPPORTS_SAVE )

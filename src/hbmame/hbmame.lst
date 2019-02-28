@@ -2747,7 +2747,7 @@ kof98ae2 //black splashes all over fight scene where cars speed past
 kof98ae3 //black splashes all over fight scene where cars speed past
 kof98ae20160308 //black splashes all over fight scene where cars speed past
 kof98ae20160827 //black splashes all over fight scene where cars speed past
-// kof98ae20160902 //crashea
+kof98ae20160902 //crashea
 kof98bge
 kof98bh
 kof98bvi   // reboots in first demo
@@ -8151,6 +8151,7 @@ samshos05
 samshos06
 samshos07
 samshos08
+samshos09
 samsho2s01
 samsho2s02
 samsho2s03
@@ -8163,6 +8164,7 @@ samsho2s09
 samsho2s10
 samsho2s11
 samsho2s12
+samsho2s13
 samsho2ks01
 samsho2ks02
 samsho3s01
@@ -8180,6 +8182,7 @@ samsho3s12
 samsho3s13
 samsho3s14
 samsho3s15
+samsho3s16
 samsho4s01
 samsho4s02
 samsho4s03
@@ -8190,6 +8193,7 @@ samsho4s07
 samsho4s08
 samsho4s09
 samsho4s10
+samsho4s11
 samsho5s01
 samsho5s02
 samsho5s03
@@ -8241,7 +8245,9 @@ samsho5s48
 samsho5s49
 samsho5s50
 samsho5s51
+samsho5s52
 samsho5bds01
+samsh5spho01
 samsh5sp01
 samsh5sp02
 samsh5sp03
@@ -8910,6 +8916,7 @@ kov2p204s63
 kov2p204s64
 kov2p204s65
 kov2p204s66
+kov2p204s67
 kov2h01
 kov2h02
 kov2h03
@@ -9224,6 +9231,8 @@ kovpluss299
 kovpluss300
 kovpluss301
 kovpluss302
+kovpluss303 //graphic problem
+kovpluss304 
 kovplusas01
 kovshs01
 kovshs02
@@ -9422,6 +9431,10 @@ kovsho77
 kovsho78
 //kovsho79  // Serious problem graphic
 //kovsho80  //  Unstable game in the emulator (ingame crash)
+kovsho81
+kovsho82
+kovsho83
+kovsho84
 kovshxass01
 kovshxass02
 kovshxass03
@@ -9552,6 +9565,12 @@ olds100s01
 //olds100ass123 //  Unstable game in the emulator (ingame crash)
 //olds100ass124 //  Unstable game in the emulator (ingame crash)
 //olds100ass125 //  Unstable game in the emulator (ingame crash)
+//olds100ass126 //  Unstable game in the emulator (ingame crash)
+//olds100ass127 //  Unstable game in the emulator (ingame crash)
+//olds100ass128 //  Unstable game in the emulator (ingame crash)
+//olds100ass129 //  Unstable game in the emulator (ingame crash)
+//olds100ass130 //  Unstable game in the emulator (ingame crash)
+//olds100ass131 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
@@ -9568,6 +9587,7 @@ oldsplus13
 oldsplus14
 oldsplus15
 oldsplus16
+//oldsplus17 // Crashing
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -10129,5 +10149,3 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-
-

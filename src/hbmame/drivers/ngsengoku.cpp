@@ -321,7 +321,7 @@ HACK( 2007, sengokucd,   sengoku,  neogeo_noslot, neogeo, neogeo_state,        n
 HACK( 200?, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3d,   sengoku3, neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "SNK", "Sengoku 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unknown", "Sengoku 3 (Green version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unknown", "Sengoku 3 (Green version 2014-01-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3eh,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unknown", "Sengoku 3 (Evolution Special)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "HappyAsr","Sengoku 3 (Add Char - Select USA and Brazil)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )

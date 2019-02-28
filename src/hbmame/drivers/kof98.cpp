@@ -207,13 +207,13 @@ ROM_START( kof98ae20160308 ) // Anniversary Edition, all confirmed.
 
 	NEO_BIOS_AUDIO_256K( "242ae.m1", CRC(9ade0528) SHA1(67d0c3b146d369416b84c081544fe51fc6c2a140) )
 
-	//ROM_REGION( 0x1400000, "ymsnd", 0 )
-	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_REGION( 0x1400000, "ymsnd", 0 )
+	//ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
 	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
 	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
 	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
-	//ROM_LOAD( "242ae.v5", 0x1000000, 0x400000, CRC(afdd9660) SHA1(0d67fb61111256c0d74d4f2b473ab5a42d1909b9) )
+	ROM_LOAD( "242ae.v5", 0x1000000, 0x400000, CRC(afdd9660) SHA1(0d67fb61111256c0d74d4f2b473ab5a42d1909b9) )
 
 	ROM_REGION( 0x6000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "242aea.c1",  0x0000000, 0x800000, CRC(086ec060) SHA1(dace47c251e5c9bea771e221bf550e1b4af5212d) )
@@ -8898,7 +8898,7 @@ HACK( 200?, kof98hh72,      kof98,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof98hh73,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "KOF1996",    "Kof'98 (Practice Mode Fix)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98hh74,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Kof'98 (Enable Hidden Characters)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98hh75,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2013-09-13)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof98hh76,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2016-03-21)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof98hh76,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2016-03-21)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98hh77,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2016-12-20)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98hh78,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2017-01-08)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98hh79,      kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2015-10-07)(NGH-2420)", MACHINE_SUPPORTS_SAVE )

@@ -1113,4 +1113,4 @@ HACK( 2018, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 201?, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "IsmaMj",    "Kof'94 (Xtreme Black v0.8)(Alt)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Color Maximum Font Change)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof94s23,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "oak2003",    "Kof'94 (Transparent Energy Bar)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof94s24,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Boss version)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof94s24,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Boss Edition 2016-03-27)(NGM-055)(NGH-055)", MACHINE_SUPPORTS_SAVE )
