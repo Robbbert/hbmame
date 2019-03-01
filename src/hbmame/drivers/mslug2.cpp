@@ -2797,7 +2797,7 @@ HACK( 2018, mslug2s25,      mslug2,   neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2017, mslug2s26,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Multi-Function Version 2017-05-09)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2s27,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Multi-Function Version 2017-04-23)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mslug2s28,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Mounts Edition)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslug2s29,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Save Gun version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, mslug2s29,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Save Gun version 2015-11-11)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslug2s30,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Violence Version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts01,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Shyma.X",    "Metal Slug 2 Turbo (Neo Arc Traduction Rev.1)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts02,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Shyma.X",    "Metal Slug 2 Turbo (Neo Arc Traduction Rev.2)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )

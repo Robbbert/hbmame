@@ -3305,6 +3305,31 @@ ROM_START( samsho4s11 )
 	ROM_LOAD16_BYTE( "222.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(7d7ee874355b5aa75ad9c9a5c9c3df98d098d85e) )
 ROM_END
 
+ROM_START( samsho4s12 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "222h12.p1", 0x000000, 0x100000, CRC(d23e4616) SHA1(b8ab263eae0212beff1175ca9cdfff6f5a978747) )
+	ROM_LOAD16_WORD_SWAP( "222ps.p2", 0x100000, 0x400000, CRC(2c9c64db) SHA1(2a9825bc7577cb1f3128b6a9f41b72bb1228e037) )
+
+	NEO_SFIX_128K( "222.s1", CRC(8d3d3bf9) SHA1(9975ed9b458bdd14e23451d2534153f68a5e4e6c) )
+
+	NEO_BIOS_AUDIO_128K( "222.m1", CRC(7615bc1b) SHA1(b936f7b341f6fe0921b4c41049734684583e3596) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "222.v1", 0x000000, 0x400000, CRC(7d6ba95f) SHA1(03cb4e0d770e0b332b07b64cacef624460b84c78) )
+	ROM_LOAD( "222.v2", 0x400000, 0x400000, CRC(6c33bb5d) SHA1(fd5d4e08a962dd0d22c52c91bad5ec7f23cfb901) )
+	ROM_LOAD( "222.v3", 0x800000, 0x200000, CRC(831ea8c0) SHA1(f2987b7d09bdc4311e972ce8a9ab7ca9802db4db) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "222.c1", 0x0000000, 0x400000, CRC(68f2ed95) SHA1(c0a02df012cd25bcfe341770ea861a80294148cb) )
+	ROM_LOAD16_BYTE( "222.c2", 0x0000001, 0x400000, CRC(a6e9aff0) SHA1(15addca49951ed53fa3c000c8d7cd327d012a620) )
+	ROM_LOAD16_BYTE( "222.c3", 0x0800000, 0x400000, CRC(c91b40f4) SHA1(dcda45e0336204e3e024de08edfd0a3217bc1fdd) )
+	ROM_LOAD16_BYTE( "222.c4", 0x0800001, 0x400000, CRC(359510a4) SHA1(b6642677ebdff7788263266402080272b8a66b15) )
+	ROM_LOAD16_BYTE( "222.c5", 0x1000000, 0x400000, CRC(9cfbb22d) SHA1(789c32f917d0c6e38601cd390a7bf9d803131a4a) )
+	ROM_LOAD16_BYTE( "222.c6", 0x1000001, 0x400000, CRC(685efc32) SHA1(db21ba1c7e3631ce0f1cb6f503ae7e0e043ff71b) )
+	ROM_LOAD16_BYTE( "222ps.c7", 0x1800000, 0x400000, CRC(ecb13c24) SHA1(5f7a62e04a7c2bed52cc4d6377f41d1dbe55f6ee) )
+	ROM_LOAD16_BYTE( "222ps.c8", 0x1800001, 0x400000, CRC(0f9a0bda) SHA1(6093f607dbcc9e1475bb1bb8e713b23fcd99c486) )
+ROM_END
+
  /*****************
  Samurai Shodown V 
 ********************/
@@ -5498,6 +5523,7 @@ HACK( 200?, samsho4s08,     samsho4,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, samsho4s09,     samsho4,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "lichenzhao",    "Samurai Shodown IV (End Of Life Simplified Version)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, samsho4s10,     samsho4,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "lichenzhao",    "Samurai Shodown IV (Amakusa is coming back 2014-11-27)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, samsho4s11,     samsho4,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "lichenzhao",    "Samurai Shodown IV (Unknown Hack 2016-02-16)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, samsho4s12,     samsho4,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "lichenzhao",    "Samurai Shodown IV (Strengthens 2016-11-17)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown V 
 HACK( 200?, samsho5s01,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "Unknown",    "Samurai Shodown V (Max Power)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s02,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "Unknown",    "Samurai Shodown V (Super Max Power)(NGM-2700)", MACHINE_SUPPORTS_SAVE )

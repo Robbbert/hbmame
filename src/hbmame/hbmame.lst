@@ -1528,13 +1528,17 @@ mshjs02
 mshjs03
 mshhs01
 mshvsfs01
+mshvsfs02
 mshvsfjs01
 mshvsfjs02
+mshvsfjs03
 mshjr1s01
 mvscjs01
 mvscjs02
 mvsh01
+mvsh02
 mshus01
+msheys01
 pfghtjs01
 pfghtjs02
 pfghtjs03
@@ -3054,6 +3058,8 @@ kof98hh110
 kof98hh111
 kof98hh112
 kof98hh113
+kof98hh114
+//kof98hh115
 kof98xz01
 kof98xz02
 kof98xz03
@@ -8194,6 +8200,7 @@ samsho4s08
 samsho4s09
 samsho4s10
 samsho4s11
+samsho4s12
 samsho5s01
 samsho5s02
 samsho5s03
@@ -8852,6 +8859,7 @@ kov115s08
 kov115s09
 kov115s10
 kov115s11
+kov115s12
 kov2p204s01
 kov2p204s02
 kov2p204s03
@@ -8917,6 +8925,11 @@ kov2p204s64
 kov2p204s65
 kov2p204s66
 kov2p204s67
+kov2p204s68
+kov2p204s69
+kov2p204s70
+kov2p204s71
+kov2p204s72
 kov2h01
 kov2h02
 kov2h03
@@ -9232,7 +9245,15 @@ kovpluss300
 kovpluss301
 kovpluss302
 kovpluss303 //graphic problem
-kovpluss304 
+kovpluss304
+kovpluss305
+kovpluss306
+kovpluss307
+kovpluss308
+kovpluss309
+kovpluss310
+kovpluss311
+kovpluss312
 kovplusas01
 kovshs01
 kovshs02
@@ -9348,6 +9369,7 @@ kovshs112
 // kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
 kovshs115
+kovshs116
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03

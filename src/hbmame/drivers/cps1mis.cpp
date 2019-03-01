@@ -36926,7 +36926,7 @@ HACK( 2018, dinope50,       dino,     qsound,     dino,     cps_state,   dino,  
 // Final Fight
 HACK( 200?, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)(World, set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ffights02,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "Unknown", "Final Fight (1V2 Enhanced Version 2016-08-17)(World, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, ffightj2s01,   ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "Unknown", "Final Fight (Ming Yun Wu Shuang Edition 2016 [161024] )(Japan 900305)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, ffightj2s01,   ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "Unknown", "Final Fight (Ming Yun Wu Shuang Edition 2016 2016-10-24 )(Japan 900305)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ffightj2s02,   ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "Unknown", "Final Fight (Paced Whirlwind 2016-08-17)(Japan 900305)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
 HACK( 200?, koduhc01,      kod,      cps1_10MHz, kod,      cps_state,   cps1,     ROT0,   "Unknown", "The King of Dragons (US 910910 Phoenix Edition (16b/40p))(World 910805)", MACHINE_SUPPORTS_SAVE )
