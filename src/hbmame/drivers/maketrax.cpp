@@ -748,7 +748,7 @@ ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG k
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys).
+ROM_START( snakes2 ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys).
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "snakes2.6e",   0x0000, 0x1000, CRC(6737be9c) SHA1(69a04dc9e9f08d78a6ad0a206b2af9126bfbe40c) )
 	ROM_REGION( 0x2000, "gfx1", 0 )
