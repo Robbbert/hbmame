@@ -6709,6 +6709,9 @@ void cps_state::init_sk2h3()
 	mem8[0x708dd] = 0xff;
 	mem8[0xf11eb] = 0x60;
 
+	//Start at stage 1
+	mem8[0x072a6] = 0x00;
+
 	init_cps1();
 }
 
