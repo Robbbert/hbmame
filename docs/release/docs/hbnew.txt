@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2019-03-27 0.208
+----------------
+
+New Games
+---------------------------------
+- [deathstar2]        Death Star v2 (by Stefano Bodrato)
+- [snakes2]           Snakes v2 (by Stefano Bodrato)
+
+
+
+
 2019-02-27 0.207
 ----------------
 
@@ -750,9 +761,9 @@ good ones out there, for example EmuLoader or QMC2.
 
 New Games
 ---------------------------------
-- [mslug*]          Huge number of hacks (added by gaston)
-- [ngym2610]        Neogeo test of YM2610 (by Blastar)
-- [sqij]            SQIJ! (by Sokurah)
+- [mslug*]            Huge number of hacks (added by gaston)
+- [ngym2610]          Neogeo test of YM2610 (by Blastar)
+- [sqij]              SQIJ! (by Sokurah)
 
 
 
@@ -767,19 +778,19 @@ Neogeo: major rename of roms
 
 New Games
 ---------------------------------
-- [1943b2]          Working hack of 1943
-- [dbz2h01]         Dragon Ball Z 2 (infinite lives)
-- [deathbrdh01]     Death Brade (unlock hidden characters)
-- [deathsmlh01]     Death Smiles (unlock hidden characters)
-- [doapph01]        Dead or Alive (unlock hidden characters)
-- [dinohc]          Non-working hack
-- [dinopic3]        Non-working hack
-- [kovassg]         Non-working hack
-- [mslug3*]         4 new hacks
-- [mslug*]          Cleanup
-- [mslug2*]         Cleanup
-- [mslugx*]         Cleanup
-- [olds*]           Many non-working hacks
+- [1943b2]            Working hack of 1943
+- [dbz2h01]           Dragon Ball Z 2 (infinite lives)
+- [deathbrdh01]       Death Brade (unlock hidden characters)
+- [deathsmlh01]       Death Smiles (unlock hidden characters)
+- [doapph01]          Dead or Alive (unlock hidden characters)
+- [dinohc]            Non-working hack
+- [dinopic3]          Non-working hack
+- [kovassg]           Non-working hack
+- [mslug3*]           4 new hacks
+- [mslug*]            Cleanup
+- [mslug2*]           Cleanup
+- [mslugx*]           Cleanup
+- [olds*]             Many non-working hacks
 
 
 
@@ -1937,8 +1948,7 @@ New Games
 
 - Fixed 'neopong' and 'neopong10'
 
-- Fixed sprites in 'beast', but still suffers from
-  some screen tearing.
+- Fixed sprites in 'beast', but still suffers from some screen tearing.
 
 
 New Games
