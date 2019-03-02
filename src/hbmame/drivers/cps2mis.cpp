@@ -6253,7 +6253,7 @@ HACK( 200?, csclubs01, csclub,   cps2,      cps2_2p3b, cps2_state, cps2, ROT0,  
 // Cyberbots Fullmetal Madness
 HACK( 200?, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,   "pipi899", "Cyberbots: Fullmetal Madness (Get Maximum Power On A Valid Attack Or Being Attacked)(Japan 950420)", MACHINE_SUPPORTS_SAVE )
 // Dungeons & Dragons Shadow over Mystara
-HACK( 200?, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese 2017-04-26)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ddsomuds01, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "Unknown", "Dungeons & Dragons: Shadow over Mystara (Diablo Mystery 2016-07-14)(USA 960619 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
 HACK( 200?, gigawings01, gigawing, cps2,    cps2_2p2b, cps2_state, cps2, ROT0,   "LB70", "Giga Wing (Ex Super Version V1)(USA 990222)", MACHINE_SUPPORTS_SAVE )

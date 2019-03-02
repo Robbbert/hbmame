@@ -714,6 +714,17 @@ dinos142
 dinos143
 dinos144
 dinos145
+dinos146
+dinos147
+dinos148
+dinos149
+dinos150
+dinos151
+dinos152
+dinos153
+dinos154
+dinos155
+dinos156
 dinox01
 dinox02
 dinox03
@@ -2718,7 +2729,7 @@ kof97plss17
 kof97plss18
 kof97plss19
 kof97plss20
-kof97plss21
+//kof97plss21
 kof97plas01
 kof97plas02
 kof97plas03
@@ -8960,6 +8971,12 @@ kov2h11
 kov2h12
 kov2h13
 kov2h14
+kov2h15
+kov2h16
+kov2h17
+kov2h18
+kov2h19
+kov2h20
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -9271,6 +9288,8 @@ kovpluss310
 kovpluss311
 kovpluss312
 kovpluss313
+//kovpluss314
+//kovpluss315
 kovplusas01
 kovshs01
 kovshs02
@@ -9618,6 +9637,7 @@ olds100s01
 //olds100ass137 //  Unstable game in the emulator (ingame crash)
 //olds100ass138 //  Unstable game in the emulator (ingame crash)
 //olds100ass139 //  Unstable game in the emulator (ingame crash)
+//olds100ass140 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
@@ -10196,4 +10216,3 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-
