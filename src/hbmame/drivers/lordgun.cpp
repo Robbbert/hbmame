@@ -12,7 +12,8 @@
 
 ROM_START( alienchas01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "igsc0102_po01.u81", 0x00000, 0x200000, CRC(a3722b93) SHA1(a35s7c885371d4a996acaaf29c7dda123798371e) )
+	ROM_LOAD( "igsc0102_po01.u81", 0x00000, 0x200000, CRC(3d1b0a5e) SHA1(bb3bd4d3a7f8903d8f098fba7748ee4a58bd8490) )
+    ROM_IGNORE( 0x254F4C )
 
 	ROM_REGION( 0x010000, "soundcpu", 0 ) 
 	ROM_LOAD( "hfh_s.u86", 0x00000, 0x10000, CRC(5728a9ed) SHA1(e5a9e4a1a2cc6c848b08608bc8727bc739270873) )
@@ -44,5 +45,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Alien Challenge
-GAME( 200?, alienchas01,  aliencha,        aliencha, aliencha, lordgun_state, empty_init,   ROT0, "IGS", "Alien Challenge (Plus)(World)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, alienchas01,  aliencha,        aliencha, aliencha, lordgun_state, empty_init,   ROT0, "Unknown", "Alien Challenge (Huang Feihong Ultimate Simplified Infinite Killing BOSS Edition 2015-07-05)(World)", MACHINE_SUPPORTS_SAVE )
 

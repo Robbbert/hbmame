@@ -2231,7 +2231,7 @@ HACK( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_state,kof97pla, R
 HACK( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "ZKW", "Kof'97 Plus (Black Edition)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof97plus, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "bootleg", "Kof'97 (Plus 2006)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Kof1996", "Kof'97 (Practice Mode)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof97ps,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Eddids", "Kof'97 (Playstation)(New)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof97ps,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Eddids", "Kof'97 (Imitation Playstation final improved version 2016-10-29)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97rev,  kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "BisMill Hassan", "Kof'97 (The resurrection of King of Fighters 2016-01-04)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof97ribe, kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'97 Plus (RIBE)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97rk,   kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Risko", "Kof'97 (Hack unknown)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
@@ -4893,6 +4893,52 @@ ROM_START( kof97s108 )  // kof97st
 	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
 	ROM_LOAD16_BYTE( "232hx271.c5", 0x2000000, 0x400000, CRC(11e3e0e1) SHA1(0e59dc5dfdd05c3b900520f85e4fa9d2c6851f1a) )
 	ROM_LOAD16_BYTE( "232hx271.c6", 0x2000001, 0x400000, CRC(8400ae0c) SHA1(3dd13fb473b246193d17c247114e33c7ac7cf257) )
+ROM_END
+
+ROM_START( kof97s109 )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232h31.p1",  0x000000, 0x100000, CRC(5f157e5d) SHA1(52fa83abf66a7595152fe3e778fd7c40c489af9b) )
+	ROM_LOAD16_WORD_SWAP( "232h106.p2", 0x100000, 0x600000, CRC(1e1896a1) SHA1(7d02b9f79526081fddff0fd426ceec2a9c1e427c) )
+
+	NEO_SFIX_128K( "232yk1.s1", CRC(c7dbe270) SHA1(0b81b31da6c18dd02e8d0442100685d5ff61bece) )
+
+	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232hh13.c1", 0x0000000, 0x800000, CRC(93415994) SHA1(b0473816e3ff82d68e66be3722ac39af19e05d7d) )
+	ROM_LOAD16_BYTE( "232hh13.c2", 0x0000001, 0x800000, CRC(65b3b5b0) SHA1(076d640b71103c6fe1cf3ffd001eaa78e3da178d) )
+	ROM_LOAD16_BYTE( "232yk1.c3", 0x1000000, 0x800000, CRC(ffb025af) SHA1(64913b51b496a13a92317008d2a15543e6c89ba9) )
+	ROM_LOAD16_BYTE( "232yk1.c4", 0x1000001, 0x800000, CRC(7182157c) SHA1(306a968ae325d0b7d647e7fdb36a3a07bacda923) )
+	ROM_LOAD16_BYTE( "232h106.c5", 0x2000000, 0x400000, CRC(cb59e0b6) SHA1(f0a894e9601a05905e1b11383fd411635b3bd524) )
+	ROM_LOAD16_BYTE( "232h106.c6", 0x2000001, 0x400000, CRC(14e3f49d) SHA1(85b6097d8a8a17d1c3297764f0076d4a1650fb76) )
+ROM_END
+
+ROM_START( kof97s110 )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232h31.p1",  0x000000, 0x100000, CRC(5f157e5d) SHA1(52fa83abf66a7595152fe3e778fd7c40c489af9b) )
+	ROM_LOAD16_WORD_SWAP( "232h40.p2", 0x100000, 0x600000, CRC(075801ae) SHA1(f08c475a2cd1a83f97329f778962a4154747fc22) )
+
+	NEO_SFIX_128K( "232yk1.s1", CRC(c7dbe270) SHA1(0b81b31da6c18dd02e8d0442100685d5ff61bece) )
+
+	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232yk1.c1", 0x0000000, 0x800000, CRC(f748da71) SHA1(5012e8537e7d16d365d9c088a70323b3b71cd6f5) )
+	ROM_LOAD16_BYTE( "232yk1.c2", 0x0000001, 0x800000, CRC(6b77e767) SHA1(7f625fa348754a248d9b58bd2f085c47142faf91) )
+	ROM_LOAD16_BYTE( "232yk1.c3", 0x1000000, 0x800000, CRC(ffb025af) SHA1(64913b51b496a13a92317008d2a15543e6c89ba9) )
+	ROM_LOAD16_BYTE( "232yk1.c4", 0x1000001, 0x800000, CRC(7182157c) SHA1(306a968ae325d0b7d647e7fdb36a3a07bacda923) )
+	ROM_LOAD16_BYTE( "232yk1.c5", 0x2000000, 0x800000, CRC(00a77a26) SHA1(a86054fd3870be49ad6055a2fab663cb5ef27de2) )
+	ROM_LOAD16_BYTE( "232yk1.c6", 0x2000001, 0x800000, CRC(0b504e35) SHA1(597cabd5077670827ad3e809d6cd52c9c7f3013a) )
 ROM_END
 
 ROM_START( kof97h01 )
@@ -14546,8 +14592,8 @@ HACK( 200?, kof97s20,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof97s21,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Description Of Hack Unknown)(Set 06)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s22,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Edition Royal)(Set 2)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, kof97s23,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yashional", "Kof'97 (Evolution)(2008-12-19)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof97s24,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Devastating Match)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, kof97s25,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Unlimited Company)(2010-02-07)(NGM-2320)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof97s24,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Devastating Match 2017-02-06)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kof97s25,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Unlimited Company 2017-03-07)(NGM-2320)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s26,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Super Edition)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s27,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kof-on",   "Kof'97 (Color Hack)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof97s28,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Emu_Max",  "Kof'97 (KOF vs SF2)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
@@ -14631,6 +14677,8 @@ HACK( 200?, kof97s105,      kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof97s106,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura",   "Kof'97 (The Dragon 3.1 Dark Snake Bu Wu Gao IQ)(The Big Snake Crescent Slow Push Defense Special Effect Big Snake Flash)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, kof97s107,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Littlemoon", "Kof'97 (Heavenly Divine 2013-02-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof97s108,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "HZ62",       "Kof'97 (Revolution 2018-09-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof97s109,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura",   "Kof'97 (Dragon 2.9 Dark Snake)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof97s110,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Days, Buwu Jianglong 18 palms second 2016-06-21)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h01,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Rush Hits)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h02,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Unfinished Colors Revision)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h03,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Golden Blood Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
@@ -14643,7 +14691,7 @@ HACK( 200?, kof97h09,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof97h10,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (SVS)(Ver.?)(Set 03)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h11,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ismamj",     "Kof'97 (Hack Unknown)(?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h12,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Emu_Max",    "Kof'97 (crosses 2 Update Original)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof97h13,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Zero's Intrusion)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof97h13,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Zero's Intrusion 2016-10-09)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h14,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (windbreaker Another Iory Eight God Original)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h15,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (SvS Crystal Vercion)(Set 3)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h16,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (3 Question Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )

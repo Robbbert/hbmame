@@ -13957,7 +13957,7 @@ HACK( 2007, kof2002s98,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 200?, kof2002s99,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (HT)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002s100,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Description Of Hack Unknown 1)[GOTVG]", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002s101,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Description Of Hack Unknown 2)[GOTVG]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2002s102,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Ultimate Magic 2 Strengthen Simplified)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof2002s102,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "FMG",    "Kof2002 (Ultimate Magic 2 Strengthen Simplified 2016-05-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002s103,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k2mp2, ROT0, "Unknown",    "Kof2002 (Challenge To Ultimate Battle)(Magic Plus II, Hack Set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002s104,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Heaven God Race Version v2.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2002s105,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "Unknown",    "Kof2002 (Heaven God Race Version v1.0)", MACHINE_SUPPORTS_SAVE )

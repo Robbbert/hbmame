@@ -509,6 +509,8 @@ tk2h124
 tk2h125
 tk2h126
 tk2h127
+tk2h128
+tk2h129
 wofb
 wofch		// tk2p1
 wofes
@@ -711,6 +713,7 @@ dinos141
 dinos142
 dinos143
 dinos144
+dinos145
 dinox01
 dinox02
 dinox03
@@ -1909,6 +1912,7 @@ jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
 @source:kaneko.cpp
 shogwarr		//parent
+shogwarrs01
 fjbusterbh
 shogwarrbh
 
@@ -2324,6 +2328,8 @@ kof97s105
 kof97s106
 kof97s107
 kof97s108
+kof97s109
+kof97s110
 kof97h01
 kof97h02
 kof97h03
@@ -3060,6 +3066,7 @@ kof98hh112
 kof98hh113
 kof98hh114
 //kof98hh115
+kof98hh116
 kof98xz01
 kof98xz02
 kof98xz03
@@ -4537,8 +4544,8 @@ lkage					//parent
 lkages01
 
 @source:lordgun.cpp
-//aliencha			//parent //it is not necessary to have it activated
-//alienchas01       //it did not work
+aliencha			//parent
+alienchas01 
 
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
@@ -8932,6 +8939,13 @@ kov2p204s69
 kov2p204s70
 kov2p204s71
 kov2p204s72
+kov2p204s73
+kov2p204s74
+kov2p204s75
+kov2p204s76
+kov2p204s77
+kov2p204s78
+kov2p204s79
 kov2h01
 kov2h02
 kov2h03
@@ -9206,9 +9220,9 @@ kovpluss259
 //kovpluss260  // Unstable game in the emulator(ingame crash)
 //kovpluss261  // Unstable game in the emulator(ingame crash)
 //kovpluss262  // Unstable game in the emulator(ingame crash)
-//kovpluss263 // Serious problem graphic
+kovpluss263 // Serious problem graphic
 kovpluss264
-//kovpluss265 // Serious problem graphic
+kovpluss265 // Serious problem graphic
 //kovpluss266  // Unstable game in the emulator(ingame crash)
 kovpluss267
 kovpluss268
@@ -9256,6 +9270,7 @@ kovpluss309
 kovpluss310
 kovpluss311
 kovpluss312
+kovpluss313
 kovplusas01
 kovshs01
 kovshs02
@@ -9595,6 +9610,14 @@ olds100s01
 //olds100ass129 //  Unstable game in the emulator (ingame crash)
 //olds100ass130 //  Unstable game in the emulator (ingame crash)
 //olds100ass131 //  Unstable game in the emulator (ingame crash)
+//olds100ass132 //  Unstable game in the emulator (ingame crash)
+//olds100ass133 //  Unstable game in the emulator (ingame crash)
+//olds100ass134 //  Unstable game in the emulator (ingame crash)
+//olds100ass135 //  Unstable game in the emulator (ingame crash)
+//olds100ass136 //  Unstable game in the emulator (ingame crash)
+//olds100ass137 //  Unstable game in the emulator (ingame crash)
+//olds100ass138 //  Unstable game in the emulator (ingame crash)
+//olds100ass139 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
@@ -10173,3 +10196,4 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
