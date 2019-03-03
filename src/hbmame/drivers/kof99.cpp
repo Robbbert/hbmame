@@ -9290,7 +9290,7 @@ ROM_END
 // The King of Fighters '99
 HACK( 200?, kof99s01,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Orochi's Blood 1.0)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99s02,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Hidden Characters)(Ver.?)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof99s03,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Evolution Ultra Remix)(Ver.?)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof99s03,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Evolution Ultra Remix 2011-12-18)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99s04,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Remix Pro v1.07 Plus)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99s05,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Yagami Soul)(prototype)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof99s06,       kof99,    neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof'99 (Remix Pro Special)(Decrypted C)", MACHINE_SUPPORTS_SAVE )

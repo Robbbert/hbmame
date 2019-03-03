@@ -187,8 +187,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
-GAME( 200?, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric Shadow 2 Satsuki Version)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 200?, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric God Magic 2 Unparalleled Edition)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric Shadow 2 Satsuki Version 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-06-06)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 200?, grdianss03,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hooooook", "Guardians (Blood Blue Initial Lengthening)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 200?, grdianss04,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "KrysoFun", "Guardians (Super Version v1)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2010, grdianss05,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version v2)(2010-07-12)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )

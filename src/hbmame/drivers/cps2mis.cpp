@@ -6246,8 +6246,8 @@ HACK( 200?, 19xxjrs01, 19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270,
 // 1944 The Loop Master
 HACK( 200?, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,   "DDJ", "1944: The Loop Master (Strongest Fire Power)(USA 000620)", MACHINE_SUPPORTS_SAVE )
 //Alien vs. Predator
-HACK( 200?, avspus01,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (1 Vs 3 Plus)(USA 940520)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, avspus02,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (Plus)(USA 940520)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, avspus01,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (1 Vs 3 Plus 2017-12-30)(USA 940520)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, avspus02,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "Unknown", "Alien vs. Predator (Enhanced Edition 2018-02-26)(USA 940520)", MACHINE_SUPPORTS_SAVE )
 // Capcom Sports Club
 HACK( 200?, csclubs01, csclub,   cps2,      cps2_2p3b, cps2_state, cps2, ROT0,   "Hooooook[Chinese cabbage loves me]", "Capcom Sports Club (Time Increases)(Euro 971017)", MACHINE_SUPPORTS_SAVE )
 // Cyberbots Fullmetal Madness

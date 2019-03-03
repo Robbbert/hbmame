@@ -399,7 +399,7 @@ ROM_END
 GAME( 2016, hooks01,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (1V4 2016-06-25)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 2018, hooks02,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (Zinc Children's Edition Update 2018-05-15)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 2018, hooks03,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (Zinc Children's Edition Update 2018-05-02)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 200?, hooks04,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (X2 Edition)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 2018, hooks04,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (X2 Edition 2018-05-05)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, hooks05,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",       "Hook (Can Be Substituted For Character)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, hookus01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (plus)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 200?, hookus02,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",       "Hook (Can Be Substituted For Character)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
@@ -407,8 +407,8 @@ GAME( 2016, hookus03,    hook,        hook,          hook,      m92_state, empty
 GAME( 200?, hookjs01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",       "Hook (Can Be Substituted For Character)(Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 2018, hookxr,      hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "Unknown",         "Hook (Zinc Children's Edition Update 2018-09-14)(World)",0 )
 // Ninja Baseball Bat Man
-GAME( 200?, nbbatmans01, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (X2 Edition)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
+GAME( 2018, nbbatmans01, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (X2 Edition 2018-05-05)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
 GAME( 2017, nbbatmans02, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (1V4 2017-03-15)(World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 200?, nbbatmanus01,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Unknown Hack 2013-06-04)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 200?, nbbatmanus02,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (New Starter Edition Update 2016-10-16)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 2013, nbbatmanus01,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Unknown Hack 2013-06-04)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 2016, nbbatmanus02,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (New Starter Edition Update 2016-10-16)(US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 

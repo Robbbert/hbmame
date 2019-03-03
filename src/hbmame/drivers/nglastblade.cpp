@@ -797,7 +797,7 @@ HACK( 200?, lb2eh2,    lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, R
 HACK( 200?, lb2eho,    lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Last Blade 2 (4 Add Char)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2ehu,    lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Last Blade 2 (4 Add Char - Ultra kill start max set 2)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2pl,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "FCHT", "Last Blade 2 (Plus)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lb2te,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "GCS2007", "Last Blade 2 (Team Edition Ver 1.1)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, lb2te,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "GCS2007", "Last Blade 2 (Team Edition Ver 1.1 2018-05-09)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2uh,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Yano", "Last Blade 2 (Yano's Ultimate hack)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2wh,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Wesker", "Last Blade 2 (4 Add Char - 031017)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2yd,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Last Blade 2 (Ultra kill start max)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )

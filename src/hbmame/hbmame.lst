@@ -511,6 +511,8 @@ tk2h126
 tk2h127
 tk2h128
 tk2h129
+tk2h130
+tk2h131
 wofb
 wofch		// tk2p1
 wofes
@@ -570,6 +572,9 @@ captcomms43
 captcomms44
 captcomms45
 captcomms46
+captcomms47
+captcomms48
+captcomms49
 dinos01
 dinos02
 dinos03
@@ -725,6 +730,11 @@ dinos153
 dinos154
 dinos155
 dinos156
+dinos157
+dinos158
+dinos159
+dinos160
+dinos161
 dinox01
 dinox02
 dinox03
@@ -2342,6 +2352,7 @@ kof97s107
 kof97s108
 kof97s109
 kof97s110
+kof97s111
 kof97h01
 kof97h02
 kof97h03
@@ -5944,6 +5955,8 @@ mslug5dh37
 mslug5dh38
 mslug5dh39
 mslug5dh40
+mslug5dh41
+mslug5dh42
 mslug5bo01
 mslug5bo02
 mslug5bo03
@@ -8960,6 +8973,7 @@ kov2p204s76
 kov2p204s77
 kov2p204s78
 kov2p204s79
+kov2p204s80
 kov2h01
 kov2h02
 kov2h03
@@ -10219,4 +10233,3 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-

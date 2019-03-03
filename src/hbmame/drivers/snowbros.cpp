@@ -53,4 +53,4 @@ ROM_END
 // Snow Bros. - Nick & Tom
 HACK( 200?, snowbross01,   snowbros,  snowbros,    snowbros, snowbros_state, 0,    ROT0, "nianxu",   "Snow Bros. - Nick & Tom (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, snowbross02,   snowbros,  snowbros,    snowbros, snowbros_state, 0,    ROT0, "EMU_MAX",  "Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6A)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, snowbross03,   snowbros,  snowbros,    snowbros, snowbros_state, 0,    ROT0, "EMU_MAX",  "Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6B)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, snowbross03,   snowbros,  snowbros,    snowbros, snowbros_state, 0,    ROT0, "EMU_MAX",  "Snow Bros. - Nick & Tom (Snowman Brothers Cure Version 2.6B (2018-08-15))", MACHINE_SUPPORTS_SAVE )
