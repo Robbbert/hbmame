@@ -4944,7 +4944,7 @@ ROM_END
 ROM_START( kof97s111 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h61.p1",  0x000000, 0x100000, CRC(9ad40b4e) SHA1(b60f34928285b5e3a532026794999e63fcd26241) )
-	ROM_LOAD16_WORD_SWAP( "232h101.p2", 0x100000, 0x400000, CRC(0b111d2f) SHA1(f2296453b144fdfa882e794e1ffe05f131e3bfaf) )
+	ROM_LOAD16_WORD_SWAP( "232h111.p2", 0x100000, 0x400000, CRC(0b111d2f) SHA1(f2296453b144fdfa882e794e1ffe05f131e3bfaf) )
 
 	NEO_SFIX_128K( "232h61.s1", CRC(812b873b) SHA1(de425c05ee67dfa078cda3c4e006935d8534c7ff) )
 
@@ -4962,6 +4962,31 @@ ROM_START( kof97s111 )
 	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
 	ROM_LOAD16_BYTE( "232hx271.c5", 0x2000000, 0x400000, CRC(11e3e0e1) SHA1(0e59dc5dfdd05c3b900520f85e4fa9d2c6851f1a) )
 	ROM_LOAD16_BYTE( "232hx271.c6", 0x2000001, 0x400000, CRC(8400ae0c) SHA1(3dd13fb473b246193d17c247114e33c7ac7cf257) )
+ROM_END
+
+ROM_START( kof97s112 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232h112.p1", 0x000000, 0x100000, CRC(082dd515) SHA1(544601c64898e7567b851c298eafc702bbbad8c4) )
+	ROM_LOAD16_WORD_SWAP( "232h112.p2", 0x100000, 0x400000, CRC(4c4383cb) SHA1(f4aab08d96c882b30b7fa7b907547e7647415a51) )
+
+	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
+
+	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x5000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232.c1", 0x0000000, 0x800000, CRC(5f8bf0a1) SHA1(e8b63bbc814de171fd18c5864a7fc639970c1ecf) )
+	ROM_LOAD16_BYTE( "232.c2", 0x0000001, 0x800000, CRC(e4d45c81) SHA1(fdb2b9326362e27b1c7a5beb977e0bc537488186) )
+	ROM_LOAD16_BYTE( "232.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232.c5", 0x2000000, 0x400000, CRC(34fc4e51) SHA1(b39c65f27873f71a6f5a5d1d04e5435f874472ee) )
+	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
+	ROM_LOAD16_BYTE( "242.c7", 0x3000000, 0x800000, CRC(f6d7a38a) SHA1(dd295d974dd4a7e5cb26a3ef3febcd03f28d522b) )
+	ROM_LOAD16_BYTE( "242.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
 ROM_START( kof97h01 )
@@ -14699,10 +14724,11 @@ HACK( 200?, kof97s104,      kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof97s105,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Wulin Mythology Dark Snake Test Version 87)(85 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)(NGM-2320)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97s106,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura",   "Kof'97 (The Dragon 3.1 Dark Snake Bu Wu Gao IQ)(The Big Snake Crescent Slow Push Defense Special Effect Big Snake Flash)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, kof97s107,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Littlemoon", "Kof'97 (Heavenly Divine 2013-02-03)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kof97s108,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "HZ62",       "Kof'97 (Revolution 2018-09-04)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof97s109,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura",   "Kof'97 (Dragon 2.9 Dark Snake)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kof97s108,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "HZ62",       "Kof'97 (Innovation 2018-09-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof97s109,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura",   "Kof'97 (Dragon 2.9 Dark Snake 2017-02-12)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97s110,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Days, Buwu Jianglong 18 palms second 2016-06-21)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97s111,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Innovation 2018-07-03)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof97s112,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Rugal Edition 2018-07-03)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h01,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Rush Hits)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h02,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Unfinished Colors Revision)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97h03,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'97 (Golden Blood Version)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
@@ -15070,7 +15096,7 @@ HACK( 200?, kof97hs52,      kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof97hs53,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura", "Kof'97 (Remix ? Hacks)(Ver.?)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof97hs54,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura", "Kof'97 (Combo 2018-05-05)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof97hs55,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown", "Kof'97 (Days Buwu 083 Hanhua Tongtian Edition 2016-08-03)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kof97hs56,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown", "Kof'97 (shin2 2016-07-24)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof97hs56,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown", "Kof'97 (Shin2 2016-07-24)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97plss01,    kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "ace1",    "Kof'97 Plus (Translation Korean)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97plss02,    kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Leather",    "Kof'97 Plus (Enable Orochi Stage)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof97plss03,    kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "oak2003",    "Kof'97 Plus (Hidden Characters - Fix Icons' Positions V1)(2006-04-04)(bootleg)", MACHINE_SUPPORTS_SAVE )

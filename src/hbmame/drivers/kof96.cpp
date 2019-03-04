@@ -2715,6 +2715,29 @@ ROM_START( kof96s44 )
 	ROM_LOAD16_BYTE( "214h44.c6", 0x1000001, 0x800000, CRC(b45cb5ec) SHA1(9515b3a192755829ea1bb5a5955725fa7d253af2) )
 ROM_END
 
+ROM_START( kof96s45 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "214h45.p1",  0x000000, 0x100000, CRC(96cff4aa) SHA1(0e9e74a7093dfade7e823eeb92ab60591557b752) )
+	ROM_LOAD16_WORD_SWAP( "214h45.p2", 0x100000, 0x400000, CRC(7099ce78) SHA1(db7ad0e9ebec0238f66ee8ed1e48da4d963c825d) )
+
+	NEO_SFIX_128K( "214h44.s1", CRC(b9626494) SHA1(34d913b93d8a389cdbf9fc1da3d743f099cc5352) )
+
+	NEO_BIOS_AUDIO_128K( "214h44.m1", CRC(3a4a7c21) SHA1(f730540d97f5c24fefe42133bacf04d8c02a85dd) )
+
+	ROM_REGION( 0xC00000, "ymsnd", 0 )
+	ROM_LOAD( "214.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
+	ROM_LOAD( "214.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
+	ROM_LOAD( "214h44.v3", 0x800000, 0x400000, CRC(f85673b0) SHA1(6378931be248b52b15496c4583602ffa3fbd5d9b) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "214h44.c1", 0x0000000, 0x800000, CRC(a7466eea) SHA1(f0513b048782b27aa49b9cbcc396ecb05348cd24) )
+	ROM_LOAD16_BYTE( "214h44.c2", 0x0000001, 0x800000, CRC(6ff22256) SHA1(cc92838f83d01ff1bef5d354231c223043705170) )
+	ROM_LOAD16_BYTE( "214h44.c3", 0x0800000, 0x800000, CRC(48d81318) SHA1(2c2f4149c613da45d8b2a8545ccef4ed3cfc0d74) )
+	ROM_LOAD16_BYTE( "214h45.c4", 0x0800001, 0x800000, CRC(d69836e6) SHA1(30cdda1a72dfe536bced936c54145217fc6ae17f) )
+	ROM_LOAD16_BYTE( "214h45.c5", 0x1000000, 0x800000, CRC(8bb710f2) SHA1(e0e673b712ce9baeee5980938bd7316ed2642379) )
+	ROM_LOAD16_BYTE( "214h45.c6", 0x1000001, 0x800000, CRC(fc99d445) SHA1(ac7aaad07f5d310ab9c913d915a5d884731f4e3e) )
+ROM_END
+
 ROM_START( kof96cns01 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214cnh01.p1", 0x000000, 0x100000, CRC(1a9266fa) SHA1(65150d9a6a20920c0abacf252b1fa4e8b1f6a52d) )
@@ -2789,4 +2812,5 @@ HACK( 200?, kof96s41,       kof96,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, kof96s42,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'96 (Remix Special v4)(NGH-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96s43,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'96 (Remix Special v5)(NGH-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96s44,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'96 (Remix Special v5)(?)(NGH-214)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kof96s45,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'96 (The Aniversary Edition 2018 2018-09-02)(NGH-214)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof96cns01,     kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Guangzhou Game Team", "Kof'96 (Earlier version)(Chinese Edition ver 1.0)(NGM-214)", MACHINE_SUPPORTS_SAVE )

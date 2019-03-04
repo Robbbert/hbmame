@@ -513,6 +513,7 @@ tk2h128
 tk2h129
 tk2h130
 tk2h131
+tk2h132
 wofb
 wofch		// tk2p1
 wofes
@@ -575,6 +576,8 @@ captcomms46
 captcomms47
 captcomms48
 captcomms49
+captcomms50
+captcomms51
 dinos01
 dinos02
 dinos03
@@ -628,7 +631,6 @@ dinos51 // dinoslice
 dinos52 // dinosup
 dinos53 // dinosupfx
 dinos54
-//dinos55 //Duplicado
 dinos56
 dinos57
 dinos58
@@ -735,6 +737,17 @@ dinos158
 dinos159
 dinos160
 dinos161
+dinos162
+dinos163
+dinos164
+dinos165
+dinos166
+dinos167
+dinos168
+dinos169
+dinos170
+dinos171
+dinos172
 dinox01
 dinox02
 dinox03
@@ -2147,6 +2160,7 @@ kof96s41
 kof96s42
 kof96s43
 //kof96s44 //encrypted
+kof96s45
 kof96cns01
 
 @source:kof97.cpp
@@ -2353,6 +2367,7 @@ kof97s108
 kof97s109
 kof97s110
 kof97s111
+kof97s112
 kof97h01
 kof97h02
 kof97h03
@@ -3090,6 +3105,7 @@ kof98hh113
 kof98hh114
 //kof98hh115
 kof98hh116
+kof98hh117
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3245,6 +3261,8 @@ kof99s29
 kof99s30
 kof99s31
 kof99s32
+kof99s33
+kof99s34
 kof99h01
 kof99h02
 kof99h03
@@ -3999,6 +4017,7 @@ kof2002s105
 kof2002s106
 kof2002s107
 kof2002s108
+kof2002s109
 kof2002bs01
 kof2002bs02
 kof2002bs03
@@ -7020,6 +7039,8 @@ mslugxece27
 @source:mystwarr.cpp
 mtlchamp			//parent
 mmaulers			//parent
+metamrph			//parent
+metamrphs01
 mtlchamps01
 mmaulerss01
 
@@ -8880,6 +8901,7 @@ killblds01
 killblds02
 killblds03
 killblds04
+killblds05
 killbldps01
 killbldps02
 kovss01
@@ -8974,6 +8996,10 @@ kov2p204s77
 kov2p204s78
 kov2p204s79
 kov2p204s80
+kov2p204s81
+kov2p204s82
+kov2p204s83
+kov2p204s84
 kov2h01
 kov2h02
 kov2h03
@@ -9307,6 +9333,12 @@ kovpluss312
 kovpluss313
 //kovpluss314
 //kovpluss315
+kovpluss316
+kovpluss317  //graphic problem
+//kovpluss318
+kovpluss319
+kovpluss320
+kovpluss321
 kovplusas01
 kovshs01
 kovshs02
@@ -9504,12 +9536,19 @@ kovsho75
 kovsho76
 kovsho77
 kovsho78
-//kovsho79  // Serious problem graphic
+kovsho79  // Serious problem graphic
 //kovsho80  //  Unstable game in the emulator (ingame crash)
 kovsho81
 kovsho82
 kovsho83
 kovsho84
+kovsho86
+kovsho85  //graphic problem
+kovsho87
+kovsho88
+kovsho89
+kovsho90
+kovsho91
 kovshxass01
 kovshxass02
 kovshxass03
@@ -9655,6 +9694,10 @@ olds100s01
 //olds100ass138 //  Unstable game in the emulator (ingame crash)
 //olds100ass139 //  Unstable game in the emulator (ingame crash)
 //olds100ass140 //  Unstable game in the emulator (ingame crash)
+//olds100ass141 //  Unstable game in the emulator (ingame crash)
+//olds100ass142 //  Unstable game in the emulator (ingame crash)
+//olds100ass143 //  Unstable game in the emulator (ingame crash)
+//olds100ass144 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
@@ -9671,7 +9714,7 @@ oldsplus13
 oldsplus14
 oldsplus15
 oldsplus16
-//oldsplus17 // Crashing
+oldsplus17
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -9773,6 +9816,7 @@ orlegendcs91
 orlegendcs92
 orlegendcs93
 orlegendcs94
+orlegendcs95
 orlegendes01
 orlegend111cs01
 theglads01
@@ -9964,6 +10008,7 @@ snowbros				//parent
 snowbross01
 snowbross02
 snowbross03
+snowbross04
 
 @source:solomon.cpp
 solomon					//parent
