@@ -641,7 +641,7 @@ ROM_END
 ROM_START( kovph11 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p0600.119",    0x100000, 0x400004, CRC(e4b0875d) SHA1(e8382e131b0e431406dc2a05cc1ef128302d987c) )
+	ROM_LOAD16_WORD_SWAP( "p0600.119",    0x100000, 0x400000, CRC(e4b0875d) SHA1(e8382e131b0e431406dc2a05cc1ef128302d987c) )
 	// not working ROM_LOAD16_WORD_SWAP( "p0600s8.119",  0x100000, 0x2bc000, CRC(dc214ff5) SHA1(0a7448dbb18259e8e36e26b38b791bcd39e1d05e) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
@@ -5438,7 +5438,7 @@ ROM_END
 ROM_START( kov2p204s87 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "v204-32m-p87.rom", 0x100000, 0x400000, CRC(44f7966a) SHA1(881bc4b987b9823f268302642704bbdf9ad22023) )
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p86.rom", 0x100000, 0x400000, CRC(44f7966a) SHA1(881bc4b987b9823f268302642704bbdf9ad22023) )
  
 	ROM_REGION( 0x4000, "prot", 0 )
 	ROM_LOAD( "kov2p_igs027a_china_p49.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
@@ -20307,11 +20307,11 @@ ROM_START( kovsho69 )
 	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
 	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
 	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
-	ROM_LOAD( "a0540_po68.rom",    0x1800000, 0x0800000, CRC(3492b945) SHA1(c4dfffc3f032e2a8dc41d978062c57316ec8f785) )
+	ROM_LOAD( "a0540_po69.rom",    0x1800000, 0x0800000, CRC(3492b945) SHA1(c4dfffc3f032e2a8dc41d978062c57316ec8f785) )
 
 	ROM_REGION( 0x1000000, "sprmask", 0 ) 
 	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
-	ROM_LOAD( "b0540_po68.rom",    0x0800000, 0x0800000, CRC(898386e5) SHA1(17d0e5de24c39e42143237694505bf1867c23b56) )
+	ROM_LOAD( "b0540_po69.rom",    0x0800000, 0x0800000, CRC(898386e5) SHA1(17d0e5de24c39e42143237694505bf1867c23b56) )
 
 	ROM_REGION( 0x800000, "ics", 0 ) 
 	PGM_AUDIO_BIOS
@@ -30386,7 +30386,7 @@ HACK( 200?, kovshs101,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 200?, kovshs102,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Military Commander Beta 1 2014)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovshs103,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Lu Xun Xu Zhuan Enhanced Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovshs104,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Cat knife Test)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs105,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Legend Of Yuehua)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs105,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Legend Of Yuehua)(ver. 104, CN)",  MACHINE_NOT_WORKING |  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovshs106,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 3rd Edition 2016-04-14)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovshs107,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Resurrection 1V4 Random Edition 2017-01-19)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovshs108,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 Update 2017 Edition 2 2017-01-26)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )

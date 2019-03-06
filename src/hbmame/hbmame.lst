@@ -8894,7 +8894,7 @@ kovph6
 kovph8
 //kovph9      // broken (causes emu to freeze)
 //kovph10     // broken (causes emu to freeze)
-kovph11
+//kovph11
 kovph12
 kovph13
 kovph14
@@ -9498,7 +9498,7 @@ kovshs106
 kovshs108
 kovshs109
 kovshs110
-kovshs111    // bad gfx
+kovshs111    // graphic problem
 kovshs112
 // kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
