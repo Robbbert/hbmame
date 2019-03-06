@@ -2298,8 +2298,8 @@ ROM_START( punisherb ) // punipic in mame
 	ROMX_LOAD( "10.bin",  0x200003, 0x40000, CRC(763974c9) SHA1(f9b93c7cf0cb8c212fc21c57c85459b7d2e4e2fd), ROM_GROUPBYTE | ROM_SKIP(7) )
 	ROM_CONTINUE(              0x200007, 0x40000 )
 
-	ROM_REGION( 0x80000, "user1", 0 ) // spare rom
-	ROM_LOAD_OPTIONAL( "1.bin", 0x00000, 0x80000, CRC(aeec9dc6) SHA1(56fd62e8db8aa96cdd242d8c705849a413567780) )
+	//ROM_REGION( 0x200000, "oki", 0 )   // we don't use this
+	//ROM_LOAD_OPTIONAL( "1.bin", 0x00000, 0x80000, CRC(aeec9dc6) SHA1(56fd62e8db8aa96cdd242d8c705849a413567780) )
 
 	ROM_REGION( 0x28000, "audiocpu", 0 )
 	ROM_LOAD( "ps_q.5k",       0x00000, 0x08000, CRC(49ff4446) SHA1(87af12f87a940a6c5428b4574ad44a4b54867bc3) )
