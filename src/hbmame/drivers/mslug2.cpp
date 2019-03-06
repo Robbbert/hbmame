@@ -236,7 +236,7 @@ HACK( 200?, mslug2eh3, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
 HACK( 200?, mslug2eh4, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Traduction French)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Traduction French)(Old)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (Hybrid bullets version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (Hybrid bullets version 2017-01-08)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "System11", "Metal Slug 2 Turbo (NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 
 
@@ -2802,7 +2802,7 @@ HACK( 2016, mslug2s30,      mslug2,   neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2017, mslug2ts01,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Shyma.X",    "Metal Slug 2 Turbo (Neo Arc Traduction Rev.1)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts02,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Shyma.X",    "Metal Slug 2 Turbo (Neo Arc Traduction Rev.2)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts03,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Shyma.X",    "Metal Slug 2 Turbo (Neo Arc Traduction Rev.3)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug2ts04,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Unknown",    "Metal Slug 2 Turbo (Hybrid Bullets Version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug2ts04,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Unknown",    "Metal Slug 2 Turbo (Hybrid bullets version 2017-01-08)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts05,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Siro",    "Metal Slug 2 Turbo (Credits 99 In Console Mode)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts06,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Eddids [FGCH]",    "Metal Slug 2 Turbo (Unlimited Credits In Console Mode)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ts07,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/kof1996",    "Metal Slug 2 Turbo (Enable Hidden Menu)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
@@ -2825,7 +2825,7 @@ HACK( 2017, mslug2ts23,     mslug2,   neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2017, mslug2ts24,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Unknown",    "Metal Slug 2 Turbo (Checkpoint Enemy Remastered Version 2014-09-14)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug2vhep01, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Shyma.X",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Neo Arc French Traduction Set 01)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug2vhep02, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Shyma.X",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Neo Arc French Traduction Set 02)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug2vhep03, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Unknown",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Hybrid Bullets Version)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug2vhep03, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Unknown",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Hybrid bullets version 2017-01-08)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug2vhep05, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Eddids [FGCH]",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Unlimited Credits in Console Mode)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug2vhep06, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/kof1996",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Enable Hidden Menu)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug2vhep07, mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Ydmis",    "Metal Slug 2 (Checkpoint Enemy Remastered Version 2014-09-14)(Weapons Flame Shot With Infinite Ammo)(NGM-2410)(NGH-2410)", MACHINE_SUPPORTS_SAVE )

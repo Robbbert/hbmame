@@ -457,8 +457,8 @@ HACK( 200?, kof95neo,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo
 HACK( 200?, kof95pjc,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "TcwLee", "Kof'95 (Add Char - Char color changed)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof95ru,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Jason/K3", "Kof'95 Remix Ultra 1.0 (Diff Moves ultra rev v1.0)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95seh,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Kof'95 (Add Char - Ultra pow hack ABC)(NGM-084)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof95sp,   kof95,    gsc,             neogeo,  neogeo_state,  gsc,      ROT0, "GSC2007", "Kof'95 (Special v1.0.0627)(NGM-084)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof95sp2,  kof95,    gsc,             neogeo,  neogeo_state,  gsc,      ROT0, "GSC2007", "Kof'95 (Special v1.0.0613)(NGM-084)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof95sp,   kof95,    gsc,             neogeo,  neogeo_state,  gsc,      ROT0, "GSC2007", "Kof'95 (Special v1.0.2017-06-27)(NGM-084)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof95sp2,  kof95,    gsc,             neogeo,  neogeo_state,  gsc,      ROT0, "GSC2007", "Kof'95 (Special v1.0.2017-06-13)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95xg,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "PPX Hack Team", "Kof'95 (Boss)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95y,    kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char set 1)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 

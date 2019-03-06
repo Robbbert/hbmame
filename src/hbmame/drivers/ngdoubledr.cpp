@@ -515,5 +515,5 @@ HACK( 200?, doubledrs04,    doubledr, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, doubledrs05,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Double Dragon (Random Selection)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, doubledrs06,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Super Remix Edition 1.0)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, doubledrs07,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Super Remix Edition 1.1)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs08,    doubledr, gsc,           neogeo, neogeo_state,         gsc,       ROT0, "GSC2007",    "Double Dragon (Special 2017 v1.?)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, doubledrs08,    doubledr, gsc,           neogeo, neogeo_state,         gsc,       ROT0, "GSC2007",    "Double Dragon (Special 2017 v1.X 2017-03-08)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 

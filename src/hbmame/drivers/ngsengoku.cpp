@@ -573,4 +573,4 @@ HACK( 200?, sengoku3s06,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  seng
 HACK( 200?, sengoku3s07,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Creamymami[EGCG]",    "Sengoku 3 (Lock Combo Counter And Power)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3s08,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Flycboy[EGCG]",    "Sengoku 3 (Color Modification V1)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Kim[FGCH]",    "Sengoku 3 (Color Modification)(Enemy)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sengoku3s10,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Kim[FGCH]",    "Sengoku 3 (Warring States Tradition 3 Qing Version)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, sengoku3s10,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "Kim[FGCH]",    "Sengoku 3 (Warring States Tradition 3 Qing Version 2017-04-02)" , MACHINE_SUPPORTS_SAVE )

@@ -509,6 +509,15 @@ tk2h124
 tk2h125
 tk2h126
 tk2h127
+tk2h128
+tk2h129
+tk2h130
+tk2h131
+tk2h132
+tk2h133
+tk2h134
+tk2h135
+tk2h136
 wofb
 wofch		// tk2p1
 wofes
@@ -568,6 +577,14 @@ captcomms43
 captcomms44
 captcomms45
 captcomms46
+captcomms47
+captcomms48
+captcomms49
+captcomms50
+captcomms51
+captcomms52
+captcomms53
+captcomms54
 dinos01
 dinos02
 dinos03
@@ -621,7 +638,6 @@ dinos51 // dinoslice
 dinos52 // dinosup
 dinos53 // dinosupfx
 dinos54
-//dinos55 //Duplicado
 dinos56
 dinos57
 dinos58
@@ -711,6 +727,40 @@ dinos141
 dinos142
 dinos143
 dinos144
+dinos145
+dinos146
+dinos147
+dinos148
+dinos149
+dinos150
+dinos151
+dinos152
+dinos153
+dinos154
+dinos155
+dinos156
+dinos157
+dinos158
+dinos159
+dinos160
+dinos161
+dinos162
+dinos163
+dinos164
+dinos165
+dinos166
+dinos167
+dinos168
+dinos169
+dinos170
+dinos171
+dinos172
+dinos173
+dinos174
+dinos175
+dinos176
+dinos177
+dinos178
 dinox01
 dinox02
 dinox03
@@ -1225,11 +1275,10 @@ punishers02
 punishers03
 punishers04
 punishers05
-punishers06
 punishers07
 punishers08
 punishers09
-punishers10
+punishers11
 punisherjs01
 punisherjs02
 punisherjs03
@@ -1909,6 +1958,7 @@ jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
 @source:kaneko.cpp
 shogwarr		//parent
+shogwarrs01
 fjbusterbh
 shogwarrbh
 
@@ -2121,6 +2171,8 @@ kof96s41
 kof96s42
 kof96s43
 //kof96s44 //encrypted
+kof96s45
+kof96s46
 kof96cns01
 
 @source:kof97.cpp
@@ -2324,6 +2376,11 @@ kof97s105
 kof97s106
 kof97s107
 kof97s108
+kof97s109
+kof97s110
+kof97s111
+kof97s112
+kof97s113
 kof97h01
 kof97h02
 kof97h03
@@ -2636,6 +2693,7 @@ kof97hx303
 kof97hx304
 kof97hx305
 kof97hx306
+kof97hx307
 kof97hs01
 kof97hs02
 kof97hs03
@@ -2692,6 +2750,8 @@ kof97hs53
 kof97hs54
 kof97hs55
 kof97hs56
+kof97hs57
+kof97hs58
 kof97plss01
 kof97plss02
 kof97plss03
@@ -2712,7 +2772,7 @@ kof97plss17
 kof97plss18
 kof97plss19
 kof97plss20
-kof97plss21
+//kof97plss21
 kof97plas01
 kof97plas02
 kof97plas03
@@ -2948,6 +3008,7 @@ kof98s47
 kof98s48
 kof98s49
 kof98s50
+kof98s51
 kof98h01
 kof98h02
 kof98h09
@@ -3060,6 +3121,10 @@ kof98hh112
 kof98hh113
 kof98hh114
 //kof98hh115
+kof98hh116
+kof98hh117
+kof98hh118
+kof98hh119
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3215,6 +3280,10 @@ kof99s29
 kof99s30
 kof99s31
 kof99s32
+kof99s33
+kof99s34
+kof99s35
+kof99s36
 kof99h01
 kof99h02
 kof99h03
@@ -3713,6 +3782,7 @@ kof2k1plss02
 kof2k1plss03
 kof2001ns01
 kof2001ns02
+kof2001ns03
 
 @source:kof2002.cpp
 kof200215
@@ -3969,6 +4039,7 @@ kof2002s105
 kof2002s106
 kof2002s107
 kof2002s108
+kof2002s109
 kof2002bs01
 kof2002bs02
 kof2002bs03
@@ -4267,6 +4338,12 @@ kof2k2s71
 kof2k2s72
 kof2k2s73
 kof2k2s74
+kof2k2s75
+kof2k2s76
+kof2k2s77
+kof2k2s78
+kof2k2s79
+kof2k2s80
 
 @source:kof2003.cpp
 kof2003d
@@ -4537,8 +4614,8 @@ lkage					//parent
 lkages01
 
 @source:lordgun.cpp
-//aliencha			//parent //it is not necessary to have it activated
-//alienchas01       //it did not work
+aliencha			//parent
+alienchas01 
 
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
@@ -4562,6 +4639,7 @@ nbbatmans01
 nbbatmans02
 nbbatmanus01
 nbbatmanus02
+nbbatmanus03
 
 @source:maketrax.cpp
 eyes		//parent
@@ -4960,6 +5038,7 @@ ms6s10
 ms6s11
 ms6s12
 ms6s14
+ms6s15
 ms6s16
 mslug3nm01
 mslug3nm02
@@ -5924,6 +6003,11 @@ mslug5dh37
 mslug5dh38
 mslug5dh39
 mslug5dh40
+mslug5dh41
+mslug5dh42
+mslug5dh43
+mslug5dh44
+mslug5dh45
 mslug5bo01
 mslug5bo02
 mslug5bo03
@@ -6485,6 +6569,7 @@ mslugxz58
 mslugxz59
 mslugxz60
 mslugxz61
+mslugxz62
 mslugxervs01
 mslugxervs02
 mslugxervs03
@@ -6986,6 +7071,8 @@ mslugxece27
 @source:mystwarr.cpp
 mtlchamp			//parent
 mmaulers			//parent
+metamrph			//parent
+metamrphs01
 mtlchamps01
 mmaulerss01
 
@@ -8846,9 +8933,11 @@ killblds01
 killblds02
 killblds03
 killblds04
+killblds05
 killbldps01
 killbldps02
 kovss01
+//kovss02
 kov100s01
 kov115s01
 kov115s02
@@ -8932,6 +9021,21 @@ kov2p204s69
 kov2p204s70
 kov2p204s71
 kov2p204s72
+kov2p204s73
+kov2p204s74
+kov2p204s75
+kov2p204s76
+kov2p204s77
+kov2p204s78
+kov2p204s79
+kov2p204s80
+kov2p204s81
+kov2p204s82
+kov2p204s83
+kov2p204s84
+kov2p204s85
+kov2p204s86   //graphic problem
+kov2p204s87   //graphic problem
 kov2h01
 kov2h02
 kov2h03
@@ -8946,6 +9050,12 @@ kov2h11
 kov2h12
 kov2h13
 kov2h14
+kov2h15
+kov2h16
+kov2h17
+kov2h18
+kov2h19
+kov2h20
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -9206,9 +9316,9 @@ kovpluss259
 //kovpluss260  // Unstable game in the emulator(ingame crash)
 //kovpluss261  // Unstable game in the emulator(ingame crash)
 //kovpluss262  // Unstable game in the emulator(ingame crash)
-//kovpluss263 // Serious problem graphic
+kovpluss263 // Serious problem graphic
 kovpluss264
-//kovpluss265 // Serious problem graphic
+kovpluss265 // Serious problem graphic
 //kovpluss266  // Unstable game in the emulator(ingame crash)
 kovpluss267
 kovpluss268
@@ -9256,6 +9366,20 @@ kovpluss309
 kovpluss310
 kovpluss311
 kovpluss312
+kovpluss313
+//kovpluss314
+//kovpluss315
+kovpluss316
+kovpluss317  //graphic problem
+//kovpluss318
+kovpluss319
+kovpluss320
+kovpluss321
+kovpluss322
+kovpluss323
+kovpluss324
+kovpluss325
+kovpluss326
 kovplusas01
 kovshs01
 kovshs02
@@ -9366,12 +9490,15 @@ kovshs106
 kovshs108
 kovshs109
 kovshs110
-kovshs111
+kovshs111    // bad gfx
 kovshs112
 // kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
 kovshs115
 kovshs116
+kovshs117   //graphic problem
+kovshs118   //graphic problem
+kovshs119   //graphic problem
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
@@ -9453,12 +9580,20 @@ kovsho75
 kovsho76
 kovsho77
 kovsho78
-//kovsho79  // Serious problem graphic
+kovsho79  // Serious problem graphic
 //kovsho80  //  Unstable game in the emulator (ingame crash)
 kovsho81
 kovsho82
 kovsho83
 kovsho84
+kovsho86
+kovsho85  //graphic problem
+kovsho87
+kovsho88
+kovsho89
+kovsho90
+kovsho91
+kovsho92
 kovshxass01
 kovshxass02
 kovshxass03
@@ -9595,6 +9730,23 @@ olds100s01
 //olds100ass129 //  Unstable game in the emulator (ingame crash)
 //olds100ass130 //  Unstable game in the emulator (ingame crash)
 //olds100ass131 //  Unstable game in the emulator (ingame crash)
+//olds100ass132 //  Unstable game in the emulator (ingame crash)
+//olds100ass133 //  Unstable game in the emulator (ingame crash)
+//olds100ass134 //  Unstable game in the emulator (ingame crash)
+//olds100ass135 //  Unstable game in the emulator (ingame crash)
+//olds100ass136 //  Unstable game in the emulator (ingame crash)
+//olds100ass137 //  Unstable game in the emulator (ingame crash)
+//olds100ass138 //  Unstable game in the emulator (ingame crash)
+//olds100ass139 //  Unstable game in the emulator (ingame crash)
+//olds100ass140 //  Unstable game in the emulator (ingame crash)
+//olds100ass141 //  Unstable game in the emulator (ingame crash)
+//olds100ass142 //  Unstable game in the emulator (ingame crash)
+//olds100ass143 //  Unstable game in the emulator (ingame crash)
+//olds100ass144 //  Unstable game in the emulator (ingame crash)
+//olds100ass145 //  Unstable game in the emulator (ingame crash)
+//olds100ass146 //  Unstable game in the emulator (ingame crash)
+//olds100ass147 //  Unstable game in the emulator (ingame crash)
+//olds100ass148 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
@@ -9611,7 +9763,7 @@ oldsplus13
 oldsplus14
 oldsplus15
 oldsplus16
-//oldsplus17 // Crashing
+oldsplus17
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -9713,6 +9865,7 @@ orlegendcs91
 orlegendcs92
 orlegendcs93
 orlegendcs94
+orlegendcs95
 orlegendes01
 orlegend111cs01
 theglads01
@@ -9866,6 +10019,7 @@ grdianss04
 grdianss05
 grdianss06
 grdianss07
+grdianss08
 
 @source:sf.cpp
 sf						//parent
@@ -9904,6 +10058,7 @@ snowbros				//parent
 snowbross01
 snowbross02
 snowbross03
+snowbross04
 
 @source:solomon.cpp
 solomon					//parent

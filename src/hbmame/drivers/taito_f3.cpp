@@ -726,7 +726,7 @@ HACK( 200?, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, 
  // Akkanbeder
 HACK( 200?, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Unknown",         "Akkanbeder (Translation Chinese)(Ver 2.5J 1995/06/14)", 0 )
  // Arabian Magic
-HACK( 200?, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese)(Ver 1.0J 1992/07/06)", 0 )
+HACK( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese 2017-04-27)(Ver 1.0J 1992/07/06)", 0 )
  // Bubble Symphony
 HACK( 200?, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Unknown",         "Bubble Symphony (Translation Chinese)(Ver 2.5J 1994/10/05)", 0 )
  // Dan-Ku-Ga
@@ -743,5 +743,5 @@ HACK( 200?, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, 
  // Land Maker
 HACK( 200?, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",         "Land Maker (Translation Chinese)(Ver 2.01J 1998/06/01)", 0 )
  // Light Bringer
-HACK( 200?, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese)(Ver 2.1J 1994/02/18)", 0 )
+HACK( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese 2017-04-26)(Ver 2.1J 1994/02/18)", 0 )
 

@@ -1893,7 +1893,7 @@ HACK( 2009, samsho4mb,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 HACK( 2009, samsho4pm,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Pipi899", "Samurai Shodown IV (Power Max)(2009-06-16)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho4ps,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "0 DAY-S & Eddids", "Samurai Shodown IV (Boss Fixes Ver 1.00)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsho4s2,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Samurai Shodown IV (Special v0.12)(2008-09-01)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, samsho4sp,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown IV (Special 2017)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, samsho4sp,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown IV (Special 2017 2017-06-30)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho4wh,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "zhangshee & wesker[FGCH]", "Samurai Shodown IV (Enable hidden characters v1)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsho4zk,  samsho4,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Zuojie, Kof1996", "Samurai Shodown IV (Unlimited Credits in Console Mode)(2008-10-23)(NGM-222)(NGH-222)", MACHINE_SUPPORTS_SAVE )
 
