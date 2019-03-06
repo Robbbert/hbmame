@@ -514,6 +514,10 @@ tk2h129
 tk2h130
 tk2h131
 tk2h132
+tk2h133
+tk2h134
+tk2h135
+tk2h136
 wofb
 wofch		// tk2p1
 wofes
@@ -578,6 +582,9 @@ captcomms48
 captcomms49
 captcomms50
 captcomms51
+captcomms52
+captcomms53
+captcomms54
 dinos01
 dinos02
 dinos03
@@ -748,6 +755,12 @@ dinos169
 dinos170
 dinos171
 dinos172
+dinos173
+dinos174
+dinos175
+dinos176
+dinos177
+dinos178
 dinox01
 dinox02
 dinox03
@@ -2159,6 +2172,7 @@ kof96s42
 kof96s43
 //kof96s44 //encrypted
 kof96s45
+kof96s46
 kof96cns01
 
 @source:kof97.cpp
@@ -2366,6 +2380,7 @@ kof97s109
 kof97s110
 kof97s111
 kof97s112
+kof97s113
 kof97h01
 kof97h02
 kof97h03
@@ -2678,6 +2693,7 @@ kof97hx303
 kof97hx304
 kof97hx305
 kof97hx306
+kof97hx307
 kof97hs01
 kof97hs02
 kof97hs03
@@ -2734,6 +2750,8 @@ kof97hs53
 kof97hs54
 kof97hs55
 kof97hs56
+kof97hs57
+kof97hs58
 kof97plss01
 kof97plss02
 kof97plss03
@@ -2990,6 +3008,7 @@ kof98s47
 kof98s48
 kof98s49
 kof98s50
+kof98s51
 kof98h01
 kof98h02
 kof98h09
@@ -3104,6 +3123,8 @@ kof98hh114
 //kof98hh115
 kof98hh116
 kof98hh117
+kof98hh118
+kof98hh119
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3261,6 +3282,8 @@ kof99s31
 kof99s32
 kof99s33
 kof99s34
+kof99s35
+kof99s36
 kof99h01
 kof99h02
 kof99h03
@@ -3759,6 +3782,7 @@ kof2k1plss02
 kof2k1plss03
 kof2001ns01
 kof2001ns02
+kof2001ns03
 
 @source:kof2002.cpp
 kof200215
@@ -4314,6 +4338,12 @@ kof2k2s71
 kof2k2s72
 kof2k2s73
 kof2k2s74
+kof2k2s75
+kof2k2s76
+kof2k2s77
+kof2k2s78
+kof2k2s79
+kof2k2s80
 
 @source:kof2003.cpp
 kof2003d
@@ -4609,6 +4639,7 @@ nbbatmans01
 nbbatmans02
 nbbatmanus01
 nbbatmanus02
+nbbatmanus03
 
 @source:maketrax.cpp
 eyes		//parent
@@ -5974,6 +6005,9 @@ mslug5dh39
 mslug5dh40
 mslug5dh41
 mslug5dh42
+mslug5dh43
+mslug5dh44
+mslug5dh45
 mslug5bo01
 mslug5bo02
 mslug5bo03
@@ -8903,6 +8937,7 @@ killblds05
 killbldps01
 killbldps02
 kovss01
+//kovss02
 kov100s01
 kov115s01
 kov115s02
@@ -8998,6 +9033,9 @@ kov2p204s81
 kov2p204s82
 kov2p204s83
 kov2p204s84
+kov2p204s85
+kov2p204s86   //graphic problem
+kov2p204s87   //graphic problem
 kov2h01
 kov2h02
 kov2h03
@@ -9337,6 +9375,11 @@ kovpluss317  //graphic problem
 kovpluss319
 kovpluss320
 kovpluss321
+kovpluss322
+kovpluss323
+kovpluss324
+kovpluss325
+kovpluss326
 kovplusas01
 kovshs01
 kovshs02
@@ -9447,12 +9490,15 @@ kovshs106
 kovshs108
 kovshs109
 kovshs110
-kovshs111
+kovshs111    // bad gfx
 kovshs112
 // kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
 kovshs115
 kovshs116
+kovshs117   //graphic problem
+kovshs118   //graphic problem
+kovshs119   //graphic problem
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
@@ -9547,6 +9593,7 @@ kovsho88
 kovsho89
 kovsho90
 kovsho91
+kovsho92
 kovshxass01
 kovshxass02
 kovshxass03
@@ -9696,6 +9743,10 @@ olds100s01
 //olds100ass142 //  Unstable game in the emulator (ingame crash)
 //olds100ass143 //  Unstable game in the emulator (ingame crash)
 //olds100ass144 //  Unstable game in the emulator (ingame crash)
+//olds100ass145 //  Unstable game in the emulator (ingame crash)
+//olds100ass146 //  Unstable game in the emulator (ingame crash)
+//olds100ass147 //  Unstable game in the emulator (ingame crash)
+//olds100ass148 //  Unstable game in the emulator (ingame crash)
 oldsplus01
 oldsplus02
 oldsplus03
@@ -9968,6 +10019,7 @@ grdianss04
 grdianss05
 grdianss06
 grdianss07
+grdianss08
 
 @source:sf.cpp
 sf						//parent
