@@ -14877,7 +14877,7 @@ HACK( 2004, kof97hx35,      kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2005, kof97hx36,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "0 Day-S",    "Kof'97 (Add Orochi's portrait (C1 C2 version))(2005-02-23)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kof97hx37,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "0 Day-S",    "Kof'97 (Add Orochi's portrait (C1 C2 version)(Hack ?))(2005-02-23)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97hx38,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "0 Day-S",    "Kof'97 (Add Orochi's portrait (C5 C6 version))(NGM-2320)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof97hx39,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",    "Kof'97 (Replace Orochi's Portrait To Old Style)(NGM-2320)", MACHINE_SUPPORTS_SAVE ) // No Funciona
+HACK( 200?, kof97hx39,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",    "Kof'97 (Replace Orochi's Portrait To Old Style)(NGM-2320)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // No Funciona
 HACK( 200?, kof97hx40,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",    "Kof'97 (Replace Orochi's portrait To PS Style)(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97hx41,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Kof'97 (Enable 5 Hidden Characters (Old))(NGM-2320)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof97hx42,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'97 (Enable Hidden Characters' Portrait)(NGM-2320)", MACHINE_SUPPORTS_SAVE )

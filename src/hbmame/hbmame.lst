@@ -1571,7 +1571,7 @@ avspus02
 csclubs01
 cybotsjs01
 ddsomjs01
-//ddsomuds01
+//ddsomuds01  // why not enabled?
 gigawings01
 hsf2as01
 hsf2as02
@@ -2442,7 +2442,7 @@ kof97hx35
 kof97hx36
 kof97hx37
 kof97hx38
-//kof97hx39 //Crashing in character selection
+kof97hx39 //Stops at character selection
 kof97hx40
 kof97hx41
 kof97hx42
@@ -2778,7 +2778,7 @@ kof97plss17
 kof97plss18
 kof97plss19
 kof97plss20
-//kof97plss21
+//kof97plss21    // why is this commented out?
 kof97plas01
 kof97plas02
 kof97plas03
@@ -6299,7 +6299,7 @@ mslug5rmnm74
 mslug5rmnm75
 mslug5rmnm76
 mslug5rmnm77
-mslug5rmnm78 
+mslug5rmnm78
 mslug5rmnm79
 mslug5rmnm80
 mslug5rmnm81
