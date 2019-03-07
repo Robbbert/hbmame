@@ -15,7 +15,6 @@ Issues:
 - sk2h1, sk2h2, sk2h3, sk2h22, sk2h31, sk2h32, sk2h33, sk2h34
 	setup screen is blank.
 	map doesn't show first time around prior to demo 1, and never before demo 3.
-	priority issue, easily noticed on 3rd demo where actors are in the wagon instead of behind it.
 
 - sk2h22, sk2h31, sk2h32, sk2h33, sk2h34, sk2h35
 	coin 3, start 3, 3rd player not working.
@@ -105,7 +104,7 @@ void cps_state::daimakb_map(address_map &map) {
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0x980000,0x98000d).w(FUNC(cps_state::daimakb_layer_w));
 	map(0x990000,0x993fff).nopw();  // bootleg sprites, not needed
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h35_map(address_map &map) {
@@ -124,7 +123,7 @@ void cps_state::sk2h35_map(address_map &map) {
 	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
 	map(0xf1ce74,0xf1ce75).nopw();
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::cps1frog_map(address_map &map) {
@@ -136,7 +135,7 @@ void cps_state::cps1frog_map(address_map &map) {
 	map(0x800180,0x800187).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
 	map(0x800188,0x80018f).w(FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h1q_map(address_map &map) {
@@ -153,9 +152,9 @@ void cps_state::sk2h1q_map(address_map &map) {
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h3_map(address_map &map) {
@@ -171,8 +170,8 @@ void cps_state::sk2h3_map(address_map &map) {
 	map(0x8bfff6,0x8bfff9).nopr();  /* unknown */
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
-	map(0xff0000,0xffffff).ram();
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h31q_map(address_map &map) {
@@ -189,9 +188,9 @@ void cps_state::sk2h31q_map(address_map &map) {
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf18000,0xf19fff).rw(FUNC(cps_state::qsound_sharedram1_r),FUNC(cps_state::qsound_sharedram1_w));  /* Q RAM */
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xf1e000,0xf1ffff).rw(FUNC(cps_state::qsound_sharedram2_r),FUNC(cps_state::qsound_sharedram2_w));  /* Q RAM */
-	map(0xff0000,0xffffff).ram();
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::sk2h31_map(address_map &map) {
@@ -207,8 +206,8 @@ void cps_state::sk2h31_map(address_map &map) {
 	map(0x8bfff6,0x8bfff9).nopr();  /* unknown */
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
-	map(0xff0000,0xffffff).ram();
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
+	map(0xff0000,0xffffff).ram().share(m_mainram);
 }
 
 void cps_state::wofsf2_map(address_map &map) {
@@ -223,7 +222,7 @@ void cps_state::wofsf2_map(address_map &map) {
 	map(0xf18000,0xf19fff).ram();
 	map(0xf1c000,0xf1c001).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls */
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xff0000,0xffffff).ram().share("mainram");
 }
 
@@ -702,12 +701,12 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 	EEPROM_93C46_16BIT(config, "eeprom");
 
 	/* sound hardware */
-	MCFG_DEVICE_REMOVE("mono")
+	config.device_remove("mono");
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	MCFG_DEVICE_REMOVE("2151")
-	MCFG_DEVICE_REMOVE("oki")
+	config.device_remove("2151");
+	config.device_remove("oki");
 
 	MCFG_DEVICE_ADD("qsound", QSOUND)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
@@ -1220,26 +1219,26 @@ ROM_START( dinob ) // program same as dinopic in mame, but this one has working 
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "4.bin",   0x000000, 0x40000, CRC(f3c2c98d) SHA1(98ae51a67fa4159456a4a205eebdd8d1775888d1), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000004, 0x40000 )
+	ROM_CONTINUE(         0x000004, 0x40000 )
 	ROMX_LOAD( "8.bin",   0x000001, 0x40000, CRC(d574befc) SHA1(56482e7a9aa8439f30e3cf72311495ce677a083d), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000005, 0x40000 )
+	ROM_CONTINUE(         0x000005, 0x40000 )
 	ROMX_LOAD( "9.bin",   0x000002, 0x40000, CRC(55ef0adc) SHA1(3b5551ae76ae80882d37fc70a1031a57885d6840), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000006, 0x40000 )
+	ROM_CONTINUE(         0x000006, 0x40000 )
 	ROMX_LOAD( "6.bin",   0x000003, 0x40000, CRC(cc0805fc) SHA1(c512734c28b878a30a0de249929f69784d5d77a1), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000007, 0x40000 )
+	ROM_CONTINUE(         0x000007, 0x40000 )
 	ROMX_LOAD( "13.bin",  0x200000, 0x40000, CRC(1371f714) SHA1(d2c98096fab08e3d4fd2482e6ebfc970ead656ee), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200004, 0x40000 )
+	ROM_CONTINUE(         0x200004, 0x40000 )
 	ROMX_LOAD( "12.bin",  0x200001, 0x40000, CRC(b284c4a7) SHA1(166f571e0afa115f8e38ba427b40e30abcfd70ee), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200005, 0x40000 )
+	ROM_CONTINUE(         0x200005, 0x40000 )
 	ROMX_LOAD( "11.bin",  0x200002, 0x40000, CRC(b7ad3394) SHA1(58dec34d9d991ff2817c8a7847749716abae6c77), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200006, 0x40000 )
+	ROM_CONTINUE(         0x200006, 0x40000 )
 	ROMX_LOAD( "10.bin",  0x200003, 0x40000, CRC(88847705) SHA1(05dc90067921960e417b7436056a5e1f86abaa1a), ROM_GROUPBYTE | ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200007, 0x40000 )
+	ROM_CONTINUE(         0x200007, 0x40000 )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "1.bin",          0x00000, 0x80000, CRC(7d921309) SHA1(d51e60e904d302c2516b734189e141aa171b2b82) )
+	ROM_LOAD( "1.bin",         0x00000, 0x80000, CRC(7d921309) SHA1(d51e60e904d302c2516b734189e141aa171b2b82) )
 	ROM_LOAD( "cd_q.5k",       0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
-	ROM_CONTINUE(               0x10000, 0x18000 )
+	ROM_CONTINUE(              0x10000, 0x18000 )
 
 	ROM_REGION( 0x200000, "qsound", 0 )
 	ROM_LOAD( "cd-q1.1k",      0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
@@ -3447,7 +3446,7 @@ ROM_START( sf2yyc6 )
 	ROM_LOAD ( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
-ROM_START( sk2h1 )
+ROM_START( sk2h101 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyx.800",  0x000000, 0x100000, CRC(3703a650) SHA1(6cb8d6f99df5e2e5cf04aee8737bb585f9328ffd) )
 
@@ -3469,10 +3468,10 @@ ROM_START( sk2h1 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h1q )
+ROM_START( sk2h101q )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyx.800",  0x000000, 0x100000, CRC(3703a650) SHA1(6cb8d6f99df5e2e5cf04aee8737bb585f9328ffd) )
 
@@ -3497,10 +3496,10 @@ ROM_START( sk2h1q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h2 )
+ROM_START( sk2h102 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fg-c.040",  0x000000, 0x80000, CRC(d046fc86) SHA1(0ae0b9310e3a122cb69df4bb23672149794242f0) )
 	ROM_LOAD16_BYTE( "fg-a.040",  0x000001, 0x80000, CRC(f176ee8f) SHA1(fba357c31774aeecef88f70df4294514585df3a0) )
@@ -3523,10 +3522,10 @@ ROM_START( sk2h2 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h2q )
+ROM_START( sk2h102q )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fg-c.040",  0x000000, 0x80000, CRC(d046fc86) SHA1(0ae0b9310e3a122cb69df4bb23672149794242f0) )
 	ROM_LOAD16_BYTE( "fg-a.040",  0x000001, 0x80000, CRC(f176ee8f) SHA1(fba357c31774aeecef88f70df4294514585df3a0) )
@@ -3552,10 +3551,10 @@ ROM_START( sk2h2q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h3 ) // same as MAME sgyxz - here until it gets fixed
+ROM_START( sk2h103 ) // same as MAME sgyxz - here until it gets fixed
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "sgyxz_prg2.bin", 0x000000, 0x20000, CRC(95429c83) SHA1(e981624d018132e5625a66113b6ac4fc44e55cf7) )
 	ROM_CONTINUE( 0x80000, 0x20000 )
@@ -3584,10 +3583,10 @@ ROM_START( sk2h3 ) // same as MAME sgyxz - here until it gets fixed
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h4q ) // wofjheo in mame++
+ROM_START( sk2h104q ) // wofjheo in mame++
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h4q.23",  0x000000, 0x100000, CRC(03eeb1cf) SHA1(4adffc4eadc5174e2185e923021fa17b113c8a7e) )
 
@@ -3612,10 +3611,10 @@ ROM_START( sk2h4q ) // wofjheo in mame++
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h5q ) // wofhrvwx in mame++
+ROM_START( sk2h105q ) // wofhrvwx in mame++
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h5q.23",  0x000000, 0x100000, CRC(750dfc1d) SHA1(05967381446b54cea501c09ec033b16708f895e1) )
 
@@ -3640,10 +3639,10 @@ ROM_START( sk2h5q ) // wofhrvwx in mame++
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
-ROM_START( sk2h6q ) // wofhbw in mame++
+ROM_START( sk2h106q ) // wofhbw in mame++
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sk2h6q.23",  0x000000, 0x100000, CRC(8080acc7) SHA1(b9e9d126c4e63748bd77947e9c50888c701ea165) )
 
@@ -3668,7 +3667,7 @@ ROM_START( sk2h6q ) // wofhbw in mame++
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) )
 ROM_END
 
 ROM_START( sk3h1 )
@@ -3693,7 +3692,7 @@ ROM_START( sk3h1 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
 ROM_START( sk2h11 )
@@ -3935,7 +3934,7 @@ ROM_START( sk2h22 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h31 )
@@ -3962,7 +3961,7 @@ ROM_START( sk2h31 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h31q )
@@ -3991,7 +3990,7 @@ ROM_START( sk2h31q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h32 )
@@ -4017,7 +4016,7 @@ ROM_START( sk2h32 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h32q )
@@ -4045,7 +4044,7 @@ ROM_START( sk2h32q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h33 )
@@ -4072,7 +4071,7 @@ ROM_START( sk2h33 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h33q )
@@ -4101,7 +4100,7 @@ ROM_START( sk2h33q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h34 )
@@ -4127,7 +4126,7 @@ ROM_START( sk2h34 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h34q )
@@ -4155,7 +4154,7 @@ ROM_START( sk2h34q )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h35 )
@@ -5600,10 +5599,10 @@ ROM_START( tk2h18 )
 	ROM_LOAD ( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
-ROM_START( tk2p2 )
+ROM_START( tk2p44 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "tk2p2.23", 0x000000, 0x80000, CRC(898a4e67) SHA1(3f45cc2e15bd398bdc84303f6cde6322394f6456) )
-	ROM_LOAD16_WORD_SWAP( "tk2p2.22", 0x080000, 0x80000, CRC(e734ee51) SHA1(1dff1a6cccc1551a4489542ee1f5b38b2233349e) )
+	ROM_LOAD16_WORD_SWAP( "tk2p44.23", 0x000000, 0x80000, CRC(898a4e67) SHA1(3f45cc2e15bd398bdc84303f6cde6322394f6456) )
+	ROM_LOAD16_WORD_SWAP( "tk2p44.22", 0x080000, 0x80000, CRC(e734ee51) SHA1(1dff1a6cccc1551a4489542ee1f5b38b2233349e) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",      0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -5629,10 +5628,10 @@ ROM_START( tk2p2 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( tk2p3 )
+ROM_START( tk2p45 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "tk2p3.8f", 0x000000, 0x80000, CRC(61cf24c1) SHA1(e075432449923e69310040a268f81b74c31f5bcc) )
-	ROM_LOAD16_WORD_SWAP( "tk2p3.7f", 0x080000, 0x80000, CRC(a3cd1c51) SHA1(459c90bea4045a8ad79a36529d169951ac802fc3) )
+	ROM_LOAD16_WORD_SWAP( "tk2p45.8f", 0x000000, 0x80000, CRC(61cf24c1) SHA1(e075432449923e69310040a268f81b74c31f5bcc) )
+	ROM_LOAD16_WORD_SWAP( "tk2p45.7f", 0x080000, 0x80000, CRC(a3cd1c51) SHA1(459c90bea4045a8ad79a36529d169951ac802fc3) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",      0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -5698,16 +5697,44 @@ ROM_START( wofb )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofes )
+ROM_START( tk2h126 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "wofes.23",   0x000000, 0x80000, CRC(4935e2ce) SHA1(e6b6e6499738579b3c4f5dff44c8930257fe619b) )
-	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom",  0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+	ROM_LOAD16_WORD_SWAP( "wofj.dl", 0x000000, 0x200000, CRC(f858a64e) SHA1(1f7fc1700506b4141c9461d6e46f8b9443b25c4c) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2-3m.5a",  0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2-2m.4a",  0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2-4m.6a",  0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_05.7a",  0x200000, 0x80000, CRC(e4a44d53) SHA1(b747679f4d63e5e62d9fd81b3120fba0401fadfb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_06.8a",  0x200002, 0x80000, CRC(58066ba8) SHA1(c93af968e21094d020e4b2002e0c6fc0d746af0b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_07.9a",  0x200004, 0x80000, CRC(d706568e) SHA1(7886414dc86c42e35d24b85c4bfa41a9f0c167ac) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_08.10a", 0x200006, 0x80000, CRC(d4a19a02) SHA1(ff396b1d33d9b4842140f2c6d085fe05748e3244) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "tk2_qa.5k",   0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(            0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "tk2-q1.1k",   0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "tk2-q2.2k",   0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "tk2-q3.3k",   0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "tk2-q4.4k",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
+ROM_END
+
+ROM_START( wofes )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "wofes.23",   0x000000, 0x80000, CRC(4935e2ce) SHA1(e6b6e6499738579b3c4f5dff44c8930257fe619b) )
+	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom",  0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "tk2-1m.3a",     0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-3m.5a",     0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-2m.4a",     0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-4m.6a",     0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2-5m.7a",     0x200000, 0x80000, CRC(291f0f0b) SHA1(094baf0f960f25fc2525b3b1cc378a49d9a0955d) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2-7m.9a",     0x200002, 0x80000, CRC(3edeb949) SHA1(c155698dd9ee9eb24bbc97a21118ef2e897ea82f) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "tk2-6m.8a",     0x200004, 0x80000, CRC(1abd14d6) SHA1(dffff3126f102b4ec028a81405fc5b9bd7bb65b3) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -5934,8 +5961,8 @@ HACK( 2009, sf2cehk,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     RO
 HACK( 2009, sf2cehp,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Pipi899", "Street Fighter II': Champion Edition (Moves hack)(2009-01-10)(World 920313)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sf2cejem,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Blackheart", "Street Fighter II': Champion Edition (Easy Moves)(2009-07-30)(World 920513)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, sf2jbh,      sf2,      cps1_10MHz, sf2j,     cps_state, cps1,     ROT0,   "Yumeji", "Street Fighter II: The World Warrior (Edition Plus 2014)(Japan 910522)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, sf2koryuh,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Hack by TT)(World 920313)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
-HACK( 200?, sf2h9,       sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II: Champion Edition (bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, sf2koryuh,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Koryu)(World 920313)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
+HACK( 200?, sf2h9,       sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II': Champion Edition (bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2h10,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II': Champion Edition (Alpha Magic-F bootleg set 4, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2h11,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Bootleg", "Street Fighter II': Champion Edition (920322 Japan bootleg set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2h12,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow bootleg set 5, 920322 Japan)", MACHINE_SUPPORTS_SAVE )
@@ -5947,19 +5974,19 @@ HACK( 200?, sf2tha,      sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  RO
 HACK( 200?, sf2tlona,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 1, 811102 001)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
 HACK( 200?, sf2tlonb,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 2, 811102 001)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2tlonc,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 3, 811102 001)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sf2turyu,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II: Champion Edition (Tu Long prototype)(World 811102)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sf2turyu,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Unknown", "Street Fighter II': Champion Edition (Tu Long prototype)(World 811102)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc3d5,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (Red Wave bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc3g,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (V004 bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sf2yyc6,     sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (YYC bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 6, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h1q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H1Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h2,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 7, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h2q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H2Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h3,       wof,      sk2h3,      sk2h3,    cps_state, sk2h3,    ROT0,   "All-In Co Ltd", "Sangokushi II (set H3)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h4q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H4Q)(Chinese v2.0)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2009, sk2h5q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Revised Version)(2009-09-09)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2006, sk2h6q,      wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Full Level Boss Final)(2006-01-29)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2018, sk3h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "Unknown", "Sangokushi 3 (San Guo Ying Xiong Zhuan Plus)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h101,     wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 6, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h101q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H1Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h102,     wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "All-In Co Ltd", "Sangokushi II (Chinese bootleg set 7, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h102q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H2Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h103,     wof,      sk2h3,      sk2h3,    cps_state, sk2h3,    ROT0,   "All-In Co Ltd", "Sangokushi II (set H3)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h104q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "All-In Co Ltd", "Sangokushi II (set H4Q)(Chinese v2.0)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, sk2h105q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Revised Version)(2009-09-09)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, sk2h106q,    wof,      sk2h1q,     sk2h1,    cps_state, sk2h1q,   ROT0,   "Winuxx", "Sangokushi II (Full Level Boss Final)(2006-01-29)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, sk3h1,       wof,      sk2h3,      sk2h1,    cps_state, sk2h1,    ROT0,   "Unknown", "Sangokushi 3 (San Guo Ying Xiong Zhuan Plus)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Chaihe", "Sangokushi II (Holly Sword Three Kingdoms (Invincible))(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Sangokushi II (set H12)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Sangokushi II (set H13)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
@@ -5967,15 +5994,15 @@ HACK( 200?, sk2h14,      wof,      qsound,     wof,      cps_state, wof,      RO
 HACK( 2009, sk2h15,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Sangokushi II (Group Modified Version)(2008-01-02)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sk2h16,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Sangokushi II (Easy Moves)(2009-01-12)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h21,      wof,      qsound,     sk2h21,   cps_state, sk2h21,   ROT0,   "Unknown", "Sangokushi II (Chinese bootleg set 5, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h22,      wof,      sk2h3,      sk2h21,   cps_state, sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Chinese bootleg set 2, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h31,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 1, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h31q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H31Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h32,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 2, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h32q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H32Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h33,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 9, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h33q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H33Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h34,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 8, 921005 Asia)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h34q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H34Q)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h22,      wof,      sk2h3,      sk2h21,   cps_state, sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Chinese bootleg set 2, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h31,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 1, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h31q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H31Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h32,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 2, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h32q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H32Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h33,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 9, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h33q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H33Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h34,      wof,      sk2h31,     sk2h31,   cps_state, sk2h22,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 8, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h34q,     wof,      sk2h31q,    sk2h31,   cps_state, sk2h31,   ROT0,   "Gen Gan San Go", "Sangokushi II (set H34Q)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h35,      wof,      sk2h35,     wof,      cps_state, sk2h35,   ROT0,   "Gen Gan San Go", "Sangokushi II (Chinese bootleg set 3, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p1,       wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010 (Red)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p2,       wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-on's Revenge DX 2010 (Green set 1)", MACHINE_SUPPORTS_SAVE )
@@ -5983,52 +6010,52 @@ HACK( 2010, sk3p3,       wofch,    qsound,     wofch,    cps_state, wof,      RO
 HACK( 200?, slammastud,  slammast, qsound,     slammast, cps_state, slammast, ROT0,   "Unknown", "Saturday Night Slam Masters (USA 930713 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, stridergf,   strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Willkaotix", "Strider (Gfx fix)(USA, B-Board 89624B-2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, stridergh,   strider,  cps1_10MHz, stridrua, cps_state, cps1,     ROT0,   "Willkaotix", "Strider (gfx fix, uncensored)(USA, B-Board 89624B-2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c1,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Boss Enhanced)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c2,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Kassar(Chou-Hi)'s Kusanagi kick)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c3,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Kadan (Kou-Chuu)'s Kusanagi arrow)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c4,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Di Yu Enhanced Enemies)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c5,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Di Yi Guan Enhanced)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c6,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Fen Hong Enhanced)(Pink Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c7,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Portor(Kan-U)'s Horseback energy attack with flaming arrow effect)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c8,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Portor(Kan-U)'s Horseback energy attack with blue flaming arrow effect)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c9,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Horseback energy attack with blue Sonic Blade effect)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c10,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Kadan (Kou-Chuu))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "zhanghw511", "Tenchi wo Kurau II (Bloody Plus V1.50)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "julee", "Tenchi wo Kurau II (Enhanced energy attack)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Mei ren Guan Enhanced)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c14,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "julee", "Tenchi wo Kurau II (Weapon attack with multiple fire-like effect)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c15,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super sword & energy v3)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c16,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Shao Zhu Enhanced Roast pork)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c17,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Throwing Axes Plus)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c18,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Ying Xiong Guan Enhanced)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c19,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Zhao Huan Shou Enhanced)(Conjured beast)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c20,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Zhao Huan Shou + Yu Jian Shu Enhanced)(Swordplay & Summoning)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c21,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un)'s kick)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c22,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un)'s uppercut)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2c23,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Violent Subutai (Chou-Un))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h1,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "King of Destruction", "Tenchi wo Kurau II (Jianqi version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h2,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Kusanagi horse)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h3,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Hack set 3)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h4,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shinwa", "Tenchi wo Kurau II (Replacement version of the enemy)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h5,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chinese)(Japan 921031)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h6,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Phoenix Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, tk2h7,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Group modified version) (2008-01-02)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tk2h8,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Winuxx, Blackheart", "Tenchi wo Kurau II (Heaven and Earth Double Attack Test Version)(2009-12-14)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tk2h9,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Easy Tornado Sitting Second Edition)(2009-01-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h10,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "AXDX", "Tenchi wo Kurau II (Sanmei Spiral Counterattack Beta 103)(Japan 921031)(2013-12-26)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, tk2h11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Change Character)(2010-01-26)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tk2h12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Rockywall", "Tenchi wo Kurau II (Playstation Version hack)(2009-12-09)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tk2h13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Blacheart", "Tenchi wo Kurau II (Modified Time)(2009-12-17)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tk2h14,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "LB70", "Tenchi wo Kurau II (Zhao Yun dregs version)(2009-03-21)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h15,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shinwa", "Tenchi wo Kurau II (Revised beta)(Japan 921031)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h16,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shinwa", "Tenchi wo Kurau II (Revised v1.0)(Japan 921031)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tk2h17,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Blackheart", "Tenchi wo Kurau II (Zhao Chain Revised v1.0)(2009-12-16)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, tk2h18,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Zero", "Tenchi wo Kurau II (Power edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, tk2p2,       wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Lock Triple Mode)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, tk2p3,       wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Pipi899", "Tenchi Wo Kurau II (Imitation Sword Invincible Version)(2010-01-29)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c1,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Boss Enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c2,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Kassar(Chou-Hi)'s Kusanagi kick)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c3,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Kadan (Kou-Chuu)'s Kusanagi arrow)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c4,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Di Yu Enhanced Enemies)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c5,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Di Yi Guan Enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c6,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Fen Hong Enhanced)(Pink Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c7,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Portor(Kan-U)'s Horseback energy attack with flaming arrow effect)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c8,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "unknown", "Tenchi wo Kurau II (Portor(Kan-U)'s Horseback energy attack with blue flaming arrow effect)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c9,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Horseback energy attack with blue Sonic Blade effect)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c10,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Kadan (Kou-Chuu))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "zhanghw511", "Tenchi wo Kurau II (Bloody Plus V1.50)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "julee", "Tenchi wo Kurau II (Enhanced energy attack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Mei ren Guan Enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c14,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "julee", "Tenchi wo Kurau II (Weapon attack with multiple fire-like effect)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c15,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super sword & energy v3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c16,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Shao Zhu Enhanced Roast pork)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c17,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Throwing Axes Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c18,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Ying Xiong Guan Enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c19,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Zhao Huan Shou Enhanced)(Conjured beast)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c20,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Zhao Huan Shou + Yu Jian Shu Enhanced)(Swordplay & Summoning)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c21,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un)'s kick)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c22,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un)'s uppercut)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2c23,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Violent Subutai (Chou-Un))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h1,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "King of Destruction", "Tenchi wo Kurau II (Jianqi version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h2,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Kusanagi horse)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h3,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Hack set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h4,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shinwa", "Tenchi wo Kurau II (Replacement version of the enemy)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h5,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chinese)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h6,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, tk2h7,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Group modified version) (2008-01-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tk2h8,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Winuxx, Blackheart", "Tenchi wo Kurau II (Heaven and Earth Double Attack Test Version)(2009-12-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tk2h9,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Easy Tornado Sitting Second Edition)(2009-01-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h10,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "AXDX", "Tenchi wo Kurau II (Sanmei Spiral Counterattack Beta 103)(2013-12-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2h11,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Change Character)(2010-01-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tk2h12,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Rockywall", "Tenchi wo Kurau II (Playstation Version hack)(2009-12-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tk2h13,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Blacheart", "Tenchi wo Kurau II (Modified Time)(2009-12-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tk2h14,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "LB70", "Tenchi wo Kurau II (Zhao Yun dregs version)(2009-03-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h15,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shinwa", "Tenchi wo Kurau II (Revised beta)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h16,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shinwa", "Tenchi wo Kurau II (Revised v1.0)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2009, tk2h17,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Blackheart", "Tenchi wo Kurau II (Zhao Chain Revised v1.0)(2009-12-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, tk2h18,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Zero", "Tenchi wo Kurau II (Power edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, tk2p44,      wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Lock Triple Mode)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2p45,      wofch,    qsound,     wofch,    cps_state, wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Imitation Sword Invincible Version)(2010-01-29)(CPS Changer, Japan 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofb,        wof,      qsound,     wof,      cps_state, wofb,     ROT0,   "Unknown", "Warriors of Fate (bootleg, 921002 etc)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofes,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms (Invincible))(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, woffr,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shyma.X", "Warriors of Fate (French Translation)(07/28/2003)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, woffr,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Shyma.X", "Warriors of Fate (French Translation)(2003-07-28)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofr1h,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Katana", "Warriors of Fate (Double Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofsf2,      wof,      wofsf2,     wof,      cps_state, cps1,     ROT0,   "Unknown", "Warriors of Fate (conversion for SF2 HW)(World 921031)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, wofud,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Unknown", "Warriors of Fate (USA 921031 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
@@ -6654,21 +6681,19 @@ void cps_state::init_sk2h3()
 {
 	uint8_t *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
-	mem8[0x5d8e8] = 0x90;
-	mem8[0x5d8eb] = 0x00;
-	mem8[0x5d8f8] = 0x90;
-
 	mem8[0x5d858] = 0x00;
 	mem8[0x5d859] = 0x61;
 	mem8[0x5d85a] = 0xe6;
 	mem8[0x5d85b] = 0x01;
-
 	mem8[0x5d890] = 0x6d;
 	mem8[0x5d891] = 0x0c;
 	mem8[0x5d892] = 0x00;
 	mem8[0x5d893] = 0x90;
 	mem8[0x5d894] = 0xd2;
 	mem8[0x5d895] = 0xe3;
+	mem8[0x5d8e8] = 0x90;
+	mem8[0x5d8eb] = 0x00;
+	mem8[0x5d8f8] = 0x90;
 
 	//Transitions
 	//mem8[0x02449] = 0x07; // fixed by above code
@@ -6712,21 +6737,19 @@ void cps_state::init_sk2h22()
 	mem8[0xE7AD1] = 0x4E;
 
 	// Disable Sprite Recoding
-	mem8[0x5df26] = 0x90;
-	mem8[0x5df29] = 0x00;
-	mem8[0x5df36] = 0x90;
-
 	mem8[0x5de96] = 0x00;
 	mem8[0x5de97] = 0x61;
 	mem8[0x5de98] = 0xe6;
 	mem8[0x5de99] = 0x01;
-
 	mem8[0x5dece] = 0x6d;
 	mem8[0x5decf] = 0x0c;
 	mem8[0x5ded0] = 0x00;
 	mem8[0x5ded1] = 0x90;
 	mem8[0x5ded2] = 0xd2;
 	mem8[0x5ded3] = 0xe3;
+	mem8[0x5df26] = 0x90;
+	mem8[0x5df29] = 0x00;
+	mem8[0x5df36] = 0x90;
 
 	init_cps1();
 }
@@ -6735,21 +6758,19 @@ void cps_state::init_sk2h31()
 {
 	uint8_t *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
-	mem8[0x5df26] = 0x90;
-	mem8[0x5df29] = 0x00;
-	mem8[0x5df36] = 0x90;
-
 	mem8[0x5de96] = 0x00;
 	mem8[0x5de97] = 0x61;
 	mem8[0x5de98] = 0xe6;
 	mem8[0x5de99] = 0x01;
-
 	mem8[0x5dece] = 0x6d;
 	mem8[0x5decf] = 0x0c;
 	mem8[0x5ded0] = 0x00;
 	mem8[0x5ded1] = 0x90;
 	mem8[0x5ded2] = 0xd2;
 	mem8[0x5ded3] = 0xe3;
+	mem8[0x5df26] = 0x90;
+	mem8[0x5df29] = 0x00;
+	mem8[0x5df36] = 0x90;
 
 	// Patch Q sound protection? check
 	mem8[0x5A0E] = 0x39;
@@ -6927,6 +6948,162 @@ ROM_END
  /****************
  Captain Commando
 *******************/
+
+ROM_START( captcommh01 )  // captcommpjy
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("h01.rom", 0x000000, 0x300000, CRC(ea88728a) SHA1(2578eb1427e792b4eb2a2c9319fa5b5000adae29) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcommh02 )  // captcommpwx
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("h02.rom", 0x000000, 0x302532, CRC(9d863e1d) SHA1(e6a1b68ca76b12638b65cd3e2c0143d04ef4d092) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcommh03 )  // captcommpzs
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("h03.rom", 0x000000, 0x302532, CRC(9c6b0773) SHA1(be304ed1acf95249ac6574c4d75e1ae4f124c488) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcommh04 )  // captcommr1bs
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("h04.rom", 0x000000, 0x300000, CRC(de6260b6) SHA1(e23996c986ac62f607248b8900f724e05914fb64) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcommh05 )  // captcommrds
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("h05.rom", 0x000000, 0x302532, CRC(7ad37dcb) SHA1(401e0551cf25aea6f0de6ea54dd7d90c10dc02de) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcommh06 )  // captcommr1dw
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("h06.rom", 0x000000, 0x302532, CRC(65a99c58) SHA1(72fb1c37724716d451ed6dc5aae597f689a1680a) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
 
 ROM_START( captcomms01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
@@ -23728,6 +23905,178 @@ ROM_START( dinoyct52 )
 	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
+ROM_START( dinoh01 )  // dinojds
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "dinoh01.rom", 0x000000, 0x200000, CRC(38da2130) SHA1(728de3dda279e14acf788c0bb126eee19283cdd1) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinoh02 )  // dinojps
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "dinoh02.rom", 0x000000, 0x400000, CRC(4b4d2f30) SHA1(ca9f02b9ee2fb79901208d9ea60225c280e2522f) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinoh03 )  // dinowtw
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "dinoh03.rom", 0x000000, 0x400000, CRC(fcd50c77) SHA1(f7f56cacca69d57a22b3ff90aa2eb8c65d7aef2c) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinoh04 )  // dinoxzb
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "h04.23", 0x000000, 0x080000, CRC(90710d71) SHA1(c687b98ac2a403e40a5fc9023fb40be14574a992) )
+	ROM_LOAD16_WORD_SWAP( "h04.22", 0x080000, 0x080000, CRC(3239cca6) SHA1(b97eae2f0ea9f4ac3a7c91ca7b74039bfe2e0291) )
+	ROM_LOAD16_WORD_SWAP( "h04.21", 0x100000, 0x080000, CRC(1907c3a7) SHA1(35588f3704e262ca6375f52d12f375a4be4df947) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinoh05 )  // dinowj
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "dinoh05.rom", 0x000000, 0x180000, CRC(bb57412b) SHA1(06fab17db295237c90e9a885198b683529e542c0) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinoh06 )  // dinows2019
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "h06.23", 0x000000, 0x080000, CRC(73f203b7) SHA1(4937c76d6b1569beea2a4418486274c97d3c7145) )
+	ROM_LOAD16_WORD_SWAP( "h06.22", 0x080000, 0x080000, CRC(f9e264dc) SHA1(745e81cfb46cd39d596470651035ffc85a75de4b) )
+	ROM_LOAD16_WORD_SWAP( "h06.21", 0x100000, 0x080000, CRC(94d44390) SHA1(d34e35b1c84e83e9523d1f23bea5ac3c708efbea) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
 ROM_START( dinonv01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "cde5nv01.8f", 0x000000, 0x80000, CRC(3048478f) SHA1(fdba240d0613e08f74d0298d2136aed340b5a7f7) )
@@ -33001,11 +33350,39 @@ ROM_START( tk2h125 )
 	ROM_LOAD ( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
+ROM_START( tk2h127 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "tk2h127.rom", 0x000000, 0x200000, CRC(640fae97) SHA1(584938b411aa9162407359114e7943e32460788b) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "tk2-1m.3a",    0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-3m.5a",    0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-2m.4a",    0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-4m.6a",    0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_05.7a",    0x200000, 0x80000, CRC(e4a44d53) SHA1(b747679f4d63e5e62d9fd81b3120fba0401fadfb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_06.8a",    0x200002, 0x80000, CRC(58066ba8) SHA1(c93af968e21094d020e4b2002e0c6fc0d746af0b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_07.9a",    0x200004, 0x80000, CRC(d706568e) SHA1(7886414dc86c42e35d24b85c4bfa41a9f0c167ac) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2_08.10a",   0x200006, 0x80000, CRC(d4a19a02) SHA1(ff396b1d33d9b4842140f2c6d085fe05748e3244) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "tk2_qa.5k",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(              0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "tk2-q1.1k",     0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "tk2-q2.2k",     0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "tk2-q3.3k",     0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
+ROM_END
+
 /********************
   Tenchi wo Kurau II
 *********************/
 
-ROM_START( wofchs01 )
+ROM_START( tk2p01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs01.8f", 0x000000, 0x80000, CRC(fbc0938b) SHA1(8d32386d13062796aefabc0fa0483521b8cf6217) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs01.7f", 0x080000, 0x80000, CRC(2ec0ca14) SHA1(3d8bda386aba976996a938c75f5f0a01fb5e3d6d) )
@@ -33034,7 +33411,7 @@ ROM_START( wofchs01 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs02 )
+ROM_START( tk2p02 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs02.8f", 0x000000, 0x80000, CRC(38e5a27e) SHA1(e547cd8242c0b87026ff78f480517f56e88f19b9) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33063,7 +33440,7 @@ ROM_START( wofchs02 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs03 )
+ROM_START( tk2p03 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs03.8f", 0x000000, 0x80000, CRC(87d515da) SHA1(7cca6c899b6d79a9347edbf06c3a5b8f2879c4fe) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33092,7 +33469,7 @@ ROM_START( wofchs03 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs04 )
+ROM_START( tk2p04 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs04.8f", 0x000000, 0x80000, CRC(81e71a56) SHA1(f1b13f408a04bb60c0698c795bad41914d1b26c6) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs04.7f", 0x080000, 0x80000, CRC(3536d5b4) SHA1(f9ed1da8445d6c88bb063b15f162f742b8197028) )
@@ -33121,7 +33498,7 @@ ROM_START( wofchs04 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs05 )
+ROM_START( tk2p05 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_23.8f", 0x000000, 0x80000, CRC(4e0b8dee) SHA1(d2fb716d62b7a259f46bbc74c1976a18d56696ea) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs05.7f", 0x080000, 0x80000, CRC(b6a3ae37) SHA1(5dd7bdc8968eb7949bbed08185c0aabee56ecf95) )
@@ -33150,7 +33527,7 @@ ROM_START( wofchs05 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs06 )
+ROM_START( tk2p06 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs06.8f", 0x000000, 0x80000, CRC(3a665e0a) SHA1(c9158a1252ae9d51dd272fe1a303294b7ade4327) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33179,7 +33556,7 @@ ROM_START( wofchs06 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs07 )
+ROM_START( tk2p07 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs07.8f", 0x000000, 0x80000, CRC(2ac1693e) SHA1(3480d78d996f7f027b89dc549a606ddf6b05e7a0) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs07.7f", 0x080000, 0x80000, CRC(50f889c5) SHA1(a15ba89cbdc54a8b1774ceea0fc270cf3786ad5a) )
@@ -33208,7 +33585,7 @@ ROM_START( wofchs07 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs08 )
+ROM_START( tk2p08 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs08.8f", 0x000000, 0x80000, CRC(8a1017a4) SHA1(81c4dca7763e66b0fe8cada29dc69638b9b7c506) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs08.7f", 0x080000, 0x80000, CRC(129f2942) SHA1(ded4be66f5115d3dc19217e1514c41be68a92bc1) )
@@ -33237,7 +33614,7 @@ ROM_START( wofchs08 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs09 )
+ROM_START( tk2p09 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs09.8f", 0x000000, 0x80000, CRC(2b823b12) SHA1(368f147d0b6ef6b7755362347d889eb0b0f2f686) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33266,7 +33643,7 @@ ROM_START( wofchs09 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs10 )
+ROM_START( tk2p10 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs10.8f", 0x000000, 0x80000, CRC(bdea1fd1) SHA1(c667ddc5157927e813e357743f6ee6dd24cba100) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs10.7f", 0x080000, 0x80000, CRC(d8512c40) SHA1(e36a7d670ffe592470337e031d06feb46f75684f) )
@@ -33295,7 +33672,7 @@ ROM_START( wofchs10 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs11 )
+ROM_START( tk2p11 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs11.8f", 0x000000, 0x80000, CRC(9f6ba703) SHA1(c431552e5336863ffc1ac12f9170a6a099d83c42) )
 	ROM_LOAD16_WORD_SWAP( "sk3p4.7f", 0x080000, 0x80000, CRC(60a6702d) SHA1(a33b566f95f6241fb316a9ce87520a840e974b3a) )
@@ -33324,7 +33701,7 @@ ROM_START( wofchs11 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs12 )
+ROM_START( tk2p12 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs12.8f", 0x000000, 0x80000, CRC(0e35f060) SHA1(7b20d054976102789279af1e5694224e209facdc) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs12.7f", 0x080000, 0x80000, CRC(31aba2ae) SHA1(ff5a54bb4dbeea188bd4ddea9658d4427b30b6ee) )
@@ -33353,7 +33730,7 @@ ROM_START( wofchs12 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs13 )
+ROM_START( tk2p13 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs10.8f", 0x000000, 0x80000, CRC(bdea1fd1) SHA1(c667ddc5157927e813e357743f6ee6dd24cba100) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs13.7f", 0x080000, 0x80000, CRC(34122119) SHA1(9953845a499eac3dbe6b88d74301f4280d53b463) )
@@ -33382,7 +33759,7 @@ ROM_START( wofchs13 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs14 )
+ROM_START( tk2p14 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs14.8f", 0x000000, 0x80000, CRC(17f3621e) SHA1(3fa18bdc22fa6bc0242c536dab5971cfc2aa93e1) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33411,7 +33788,7 @@ ROM_START( wofchs14 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs15 )
+ROM_START( tk2p15 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs15.8f", 0x000000, 0x80000, CRC(d60fa6d0) SHA1(2e929efc23a562b7ebc03c1eccd1f25b76ae555c) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs15.7f", 0x080000, 0x80000, CRC(9fd99a0d) SHA1(aa3c072fa9f08f02691203d631f86acaccd3d1cb) )
@@ -33440,7 +33817,7 @@ ROM_START( wofchs15 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs16 )
+ROM_START( tk2p16 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs16.8f", 0x000000, 0x80000, CRC(09408a04) SHA1(a178f292703d37d38578c0cf10b90d3554e581ce) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33469,7 +33846,7 @@ ROM_START( wofchs16 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs17 )
+ROM_START( tk2p17 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs17.8f", 0x000000, 0x80000, CRC(81a499a2) SHA1(33fd4019bafa8e321af0eb6d767a96377852c278) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33498,7 +33875,7 @@ ROM_START( wofchs17 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs18 )
+ROM_START( tk2p18 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs18.8f", 0x000000, 0x80000, CRC(28983c80) SHA1(a7672bb0306f1f16b04a53b28de6a0687d90fd67) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs18.7f", 0x080000, 0x80000, CRC(e0d7ae55) SHA1(495640ece3cdf1b392f2df0fb2003045fb389f9f) )
@@ -33527,7 +33904,7 @@ ROM_START( wofchs18 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs19 )
+ROM_START( tk2p19 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_23.8f", 0x000000, 0x80000, CRC(4e0b8dee) SHA1(d2fb716d62b7a259f46bbc74c1976a18d56696ea) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs19.7f", 0x080000, 0x80000, CRC(6c7dd9da) SHA1(fb36f8fee31116273789c229b379cfbfe0f68403) )
@@ -33556,7 +33933,7 @@ ROM_START( wofchs19 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs20 )
+ROM_START( tk2p20 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs20.8f", 0x000000, 0x80000, CRC(04987fb5) SHA1(34ffe90404fa2a07250ddcda98e0285a07116ecf) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33585,7 +33962,7 @@ ROM_START( wofchs20 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs21 )
+ROM_START( tk2p21 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs21.8f", 0x000000, 0x80000, CRC(fd374f88) SHA1(fee8709a56c64d9317b0a11925f1041ddab3a22f) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33614,7 +33991,7 @@ ROM_START( wofchs21 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs22 )
+ROM_START( tk2p22 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs22.8f", 0x000000, 0x80000, CRC(e7f20f4c) SHA1(971521b8b71fadc8506876f0d477e17cd21341d4) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33643,7 +34020,7 @@ ROM_START( wofchs22 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs23 )
+ROM_START( tk2p23 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs23.8f", 0x000000, 0x80000, CRC(577b815e) SHA1(dd6df77f508daf1fbbd290334be4d27a021fb4fb) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33672,7 +34049,7 @@ ROM_START( wofchs23 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs24 )
+ROM_START( tk2p24 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs24.8f", 0x000000, 0x80000, CRC(f8ace59d) SHA1(c820bff9d7bad02613fd37415cb81346f19622ad) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33701,7 +34078,7 @@ ROM_START( wofchs24 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs25 )
+ROM_START( tk2p25 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs25.8f", 0x000000, 0x80000, CRC(c8ac3a6f) SHA1(459a364dd00fe604238772b437d41e33cbbb2938) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33730,7 +34107,7 @@ ROM_START( wofchs25 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs26 )
+ROM_START( tk2p26 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs26.8f", 0x000000, 0x80000, CRC(1a7f0036) SHA1(dcc9030be09aed864c4aa937f1f317ba94364b90) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs26.7f", 0x080000, 0x80000, CRC(b42b3cf2) SHA1(63bfa27549ee2417e912c786f1bc6446a8eba5ed) )
@@ -33759,7 +34136,7 @@ ROM_START( wofchs26 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs27 )
+ROM_START( tk2p27 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs27.8f", 0x000000, 0x80000, CRC(1efdfbe0) SHA1(dfb422de543e35a6334aa73d08d3aa1237801dbb) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33788,7 +34165,7 @@ ROM_START( wofchs27 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs28 )
+ROM_START( tk2p28 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs28.8f", 0x000000, 0x80000, CRC(8586e9ed) SHA1(d0cbfab06b2d9a8d2b61fbd1f7e1f8e091cfa083) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs28.7f", 0x080000, 0x80000, CRC(b408df2f) SHA1(871d403bf4e8d210bd286d2ebfeff4dec200ab04) )
@@ -33817,7 +34194,7 @@ ROM_START( wofchs28 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs29 )
+ROM_START( tk2p29 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs29.8f", 0x000000, 0x80000, CRC(b5c402c6) SHA1(bddefdb781cddbb7ae9d6a76c7faffd621c5a373) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33846,7 +34223,7 @@ ROM_START( wofchs29 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs30 )
+ROM_START( tk2p30 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs30.8f", 0x000000, 0x80000, CRC(c4fcc857) SHA1(a8f9ed09edd16a1d9a197dcc1544ad88e6ede018) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33875,7 +34252,7 @@ ROM_START( wofchs30 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs31 )
+ROM_START( tk2p31 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs31.8f", 0x000000, 0x80000, CRC(bcfeafa8) SHA1(11b7ef6b25d7d15aca3914e75f758ef32bbff8f6) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33904,7 +34281,7 @@ ROM_START( wofchs31 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs33 )
+ROM_START( tk2p33 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs33.8f", 0x000000, 0x80000, CRC(8f1c7f69) SHA1(46338b462cbfaa17e54742d67d28b3c9e9d3ac1e) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -33933,7 +34310,7 @@ ROM_START( wofchs33 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs34 )
+ROM_START( tk2p34 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs34.8f", 0x000000, 0x80000, CRC(884b1d12) SHA1(31c24472bd683edf770c25f064f643de6d10c63d) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs34.7f", 0x080000, 0x80000, CRC(d475f0b8) SHA1(1c1df6632ebdc59a0880877298b5fdfd5295e22f) )
@@ -33962,7 +34339,7 @@ ROM_START( wofchs34 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs35 )
+ROM_START( tk2p35 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs35.8f", 0x000000, 0x80000, CRC(212ae585) SHA1(9310a6784c59e4a23b1ec3cbbd2e442024cba067) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs35.7f", 0x080000, 0x80000, CRC(e1fb80e2) SHA1(cb157103013624472f18d36421019d9212f1c452) )
@@ -33991,7 +34368,7 @@ ROM_START( wofchs35 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs36 )
+ROM_START( tk2p36 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs36.8f", 0x000000, 0x80000, CRC(f13b3a4a) SHA1(bf06602034b6a71db59f241237da056d8d5c7234) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -34020,7 +34397,7 @@ ROM_START( wofchs36 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs37 )
+ROM_START( tk2p37 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs37.8f", 0x000000, 0x80000, CRC(913487a2) SHA1(4f871c3a192a510d270e9d4676b324ad983cfa37) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -34049,7 +34426,7 @@ ROM_START( wofchs37 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs38 )
+ROM_START( tk2p38 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs38.8f", 0x000000, 0x80000, CRC(d8a83e84) SHA1(758925e4d7f741fcc919b2a29ea0ed1efa801c2f) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs38.7f", 0x080000, 0x80000, CRC(b7cf103d) SHA1(9dd6c52ed732de69bfd6aa2303b08cb87b6f4cd6) )
@@ -34078,7 +34455,7 @@ ROM_START( wofchs38 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs39 )
+ROM_START( tk2p39 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs39.8f", 0x000000, 0x80000, CRC(1909bafb) SHA1(a184eeb6a50811b50201a7d290b593ba24ee63d7) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs39.7f", 0x080000, 0x80000, CRC(be8f41ee) SHA1(75196a7c2043de37d98de9f1838f8f3c8b1e4c96) )
@@ -34107,7 +34484,7 @@ ROM_START( wofchs39 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs40 )
+ROM_START( tk2p40 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs40.8f", 0x000000, 0x80000, CRC(a9b2ace6) SHA1(9acf7561348177a96c65edffbabbec47bb1566bb) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs40.7f", 0x080000, 0x80000, CRC(d93b5fbf) SHA1(72f654751d78b7bad5f08c67d7e86bbd3fbc06f7) )
@@ -34136,7 +34513,7 @@ ROM_START( wofchs40 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs41 )
+ROM_START( tk2p41 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs41.8f", 0x000000, 0x80000, CRC(ef99a158) SHA1(17d23b9422371c117f5961bbae033f91b8e9ae48) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs08.7f", 0x080000, 0x80000, CRC(129f2942) SHA1(ded4be66f5115d3dc19217e1514c41be68a92bc1) )
@@ -34165,7 +34542,7 @@ ROM_START( wofchs41 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs42 )
+ROM_START( tk2p42 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs42.8f", 0x000000, 0x80000, CRC(f848f5dd) SHA1(08d507f50597f5d9049ea34c1d5f7293fd3742f7) )
 	ROM_LOAD16_WORD_SWAP( "tk2=ch=_22.7f", 0x080000, 0x80000, CRC(d0937a8d) SHA1(01d7be446e2e3ef8ca767f59c178240dfd52dd93) )
@@ -34194,7 +34571,7 @@ ROM_START( wofchs42 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofchs43 )
+ROM_START( tk2p43 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2chs43.8f", 0x000000, 0x80000, CRC(e0bcba97) SHA1(f1c455bffc8d897a97f12334f90e392d9964b678) )
 	ROM_LOAD16_WORD_SWAP( "tk2chs43.7f", 0x080000, 0x80000, CRC(664eaaf0) SHA1(6ddba5fb7863104791d119ee60c575790c3138fe) )
@@ -34438,7 +34815,7 @@ ROM_START( sk2h42 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h43 )
@@ -34464,7 +34841,7 @@ ROM_START( sk2h43 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 ROM_START( sk2h45 )
@@ -34519,14 +34896,14 @@ ROM_START( sk2h46 )
 	ROM_LOAD( "19",             0x20000, 0x20000, CRC(fbb8d8c1) SHA1(8a7689bb7ed56243333133cbacf01a0ae825201e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(d741a7b6) SHA1(c7b64e8634945cc8e8f7f508b1bb7ad5ccf95c83) )
+	ROM_LOAD ( "sk2h31.key", 0x00, 0x80, CRC(6c1c5a58) SHA1(7b2cb9884bfff824691d258dd919b723c85ef323) )
 ROM_END
 
 /****************
   Huo Feng Huang 
 *****************/
 
-ROM_START( wofhfhs01 )
+ROM_START( sk2h51 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )     
 	ROM_LOAD16_WORD_SWAP( "23",       0x000000, 0x80000, CRC(6ae4b312) SHA1(fa39f69385d180d90bccd8c5dc9262edd04a6457) )
 	ROM_LOAD16_WORD_SWAP( "22a",       0x080000, 0x80000, CRC(525eb574) SHA1(bf5290d64d4e2c805c9e510358d9ed014b3aa877) )
@@ -34553,7 +34930,7 @@ ROM_START( wofhfhs01 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofhfhs02 )
+ROM_START( sk2h52 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )     
 	ROM_LOAD16_WORD_SWAP( "23b",       0x000000, 0x80000, CRC(7a886f9a) SHA1(73aa50fb11ee47dd4b7e5e8e13dd8e1a75d540af) )
 	ROM_LOAD16_WORD_SWAP( "22",       0x080000, 0x80000, CRC(94e8d01a) SHA1(875763f6b22734c1a5a890e6c8063515c134045b) )
@@ -34580,7 +34957,7 @@ ROM_START( wofhfhs02 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofhfhs03 )
+ROM_START( sk2h53 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )     
 	ROM_LOAD16_WORD_SWAP( "23c",       0x000000, 0x80000, CRC(e0e38b3b) SHA1(fb5a326718efa7d5043884198505fca56f81d130) )
 	ROM_LOAD16_WORD_SWAP( "22",       0x080000, 0x80000, CRC(94e8d01a) SHA1(875763f6b22734c1a5a890e6c8063515c134045b) )
@@ -34607,7 +34984,7 @@ ROM_START( wofhfhs03 )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
-ROM_START( wofhfhs04 )
+ROM_START( sk2h54 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )     
 	ROM_LOAD16_WORD_SWAP( "23d",       0x000000, 0x80000, CRC(537c6f51) SHA1(c2ca98dfca003114e2b987fc88ed80d3e5a1c321) )
 	ROM_LOAD16_WORD_SWAP( "22",       0x080000, 0x80000, CRC(94e8d01a) SHA1(875763f6b22734c1a5a890e6c8063515c134045b) )
@@ -34960,6 +35337,64 @@ ROM_START( wofs08 )
 	ROM_LOAD( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
+ROM_START( wofs09 )  // wofr1
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "s09.23",   0x000000, 0x80000, CRC(11fb2ed1) SHA1(19e09ad6f9edc7997b030cddfe1d9c96d88135f2) )
+	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom",  0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "tk2-1m.3a",     0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-3m.5a",     0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-2m.4a",     0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-4m.6a",     0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-5m.7a",     0x200000, 0x80000, CRC(291f0f0b) SHA1(094baf0f960f25fc2525b3b1cc378a49d9a0955d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-7m.9a",     0x200002, 0x80000, CRC(3edeb949) SHA1(c155698dd9ee9eb24bbc97a21118ef2e897ea82f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-6m.8a",     0x200004, 0x80000, CRC(1abd14d6) SHA1(dffff3126f102b4ec028a81405fc5b9bd7bb65b3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-8m.10a",    0x200006, 0x80000, CRC(b27948e3) SHA1(870d5d23f56798831c641e877ea94217058b2ddc) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "tk2_qa.5k",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(               0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "tk2-q1.1k",     0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "tk2-q2.2k",     0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "tk2-q3.3k",     0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
+ROM_END
+
+ROM_START( wofs10 )  // wofr19
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "s10.23",  0x000000, 0x80000, CRC(11051718) SHA1(39b8b3ec239db8d2afc603bf03c7d3816561e9f0) )
+	ROM_LOAD16_WORD_SWAP( "s10.22",  0x080000, 0x80000, CRC(85665664) SHA1(eea9cfd8f14e6e09a86d26be78593aa53048fe14) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "tk2-1m.3a",     0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-3m.5a",     0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-2m.4a",     0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-4m.6a",     0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-5m.7a",     0x200000, 0x80000, CRC(291f0f0b) SHA1(094baf0f960f25fc2525b3b1cc378a49d9a0955d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-7m.9a",     0x200002, 0x80000, CRC(3edeb949) SHA1(c155698dd9ee9eb24bbc97a21118ef2e897ea82f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-6m.8a",     0x200004, 0x80000, CRC(1abd14d6) SHA1(dffff3126f102b4ec028a81405fc5b9bd7bb65b3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-8m.10a",    0x200006, 0x80000, CRC(b27948e3) SHA1(870d5d23f56798831c641e877ea94217058b2ddc) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "tk2_qa.5k",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(               0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "tk2-q1.1k",     0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "tk2-q2.2k",     0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "tk2-q3.3k",     0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
+ROM_END
+
 ROM_START( woffs01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2fs01.8f", 0x000000, 0x80000, CRC(1f72d7b4) SHA1(cca85b689db31d070195e912eaa1722b46f224bb) )
@@ -35022,6 +35457,7 @@ ROM_START( woffs03 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2fs03.8f", 0x000000, 0x80000, CRC(3ed1e566) SHA1(8a1e6fbfe501c428337490fc1dcc2fc71854d0a8) )
 	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom", 0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+	ROM_FILL(0x1bd10,1,0x60)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -35051,6 +35487,8 @@ ROM_START( woffs04 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2fs04.8f", 0x000000, 0x80000, CRC(03b29361) SHA1(eb6df02a36d7c042e0e35c696d11425f41c5efdc) )
 	ROM_LOAD16_WORD_SWAP( "tk2e_22b.rom", 0x080000, 0x80000, CRC(479b3f24) SHA1(9fb8ae06856fe115addfb6794c28978a4f6716ec) )
+	ROM_FILL(0xb4630,1,0x4e)
+	ROM_FILL(0xb4631,1,0x75)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -35109,7 +35547,7 @@ ROM_END
   Sangokushi II
 ****************/
 
-ROM_START( sk2h7 )
+ROM_START( sk2h107 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs01.23",  0x000000, 0x100000, CRC(885594f5) SHA1(e9b259c3544a58b6906814eead7d7ea2d817e0a6) )
 
@@ -35134,7 +35572,7 @@ ROM_START( sk2h7 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
 ROM_START( sk3h2 )
@@ -35162,10 +35600,10 @@ ROM_START( sk3h2 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( sk2h8 )
+ROM_START( sk2h108 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs03.800",  0x000000, 0x100000, CRC(fa96a53b) SHA1(c0d6194ecbab417c7ce83b1af0307ff12cf78404) )
 
@@ -35190,10 +35628,10 @@ ROM_START( sk2h8 )
 	ROM_LOAD( "tk2-q4.4k",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",    0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh04 ) // Alt
+ROM_START( sk2h114 ) // Alt
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs04.800",  0x000000, 0x100000, CRC(3c3b3994) SHA1(ceb406a2b0afced79497614135eee55cfbaefcbe) )
 
@@ -35215,10 +35653,10 @@ ROM_START( wofh04 ) // Alt
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh05 ) //Alt
+ROM_START( sk2h115 ) //Alt
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs05.800",  0x000000, 0x100000, CRC(9e806b3b) SHA1(26d127674be8eb806f0b87592f9ed95f40a6e1f9) )
 
@@ -35240,10 +35678,10 @@ ROM_START( wofh05 ) //Alt
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh06 )
+ROM_START( sk2h116 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs06.800",  0x000000, 0x100000, CRC(bd307028) SHA1(744a11a407ca58e1eaf78c10532d3aa4811ac566) )
 
@@ -35265,10 +35703,10 @@ ROM_START( wofh06 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh07 )
+ROM_START( sk2h117 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs07.800",  0x000000, 0x100000, CRC(6b3ac126) SHA1(bb38cd24add5e7afa21dbb33407e6aa579486d4d) )
 
@@ -35290,10 +35728,10 @@ ROM_START( wofh07 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
-ROM_START( wofh08 )
+ROM_START( sk2h118 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sgyxs08.800",  0x000000, 0x100000, CRC(f2562a11) SHA1(936aa2269cdf4010ede33c5c9753806d7000b332) )
 
@@ -35315,7 +35753,7 @@ ROM_START( wofh08 )
 	ROM_LOAD( "sgyxz_snd1.bin", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "sk2h1.key", 0x00, 0x80, CRC(dccefd4d) SHA1(01050b7d1805503a5c7098dfb98d8afa79cf0fe0) )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
 ROM_END
 
 ROM_START( sk3p4 )
@@ -35533,6 +35971,12 @@ ROM_END
 HACK( 200?, 3wonders01,    3wonders, cps1_10MHz, 3wonders, cps_state,   cps1,     ROT0,   "huangxu", "Three Wonders (Ex Super Version)(World 910520)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, 3wonders02,    3wonders, cps1_10MHz, 3wonders, cps_state,   cps1,     ROT0,   "Blue-Ray", "Three Wonders (Unlimited Life)(World 910520)", MACHINE_SUPPORTS_SAVE )
 // Captain Commando
+HACK( 2018, captcommh01,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJinGaiErDeZei", "Captain Commando (Elite Version 2018-12-31)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, captcommh02,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJinGaiErDeZei", "Captain Commando (Infinite Bullet 2019-01-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, captcommh03,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJinGaiErDeZei", "Captain Commando (Warlord Version 2019-01-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, captcommh04,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "BinDi", "Captain Commando (Shape Shifting Version 2019-01-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, captcommh05,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "BinDi", "Captain Commando (99 Beater Version 2019-01-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcommh06,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJingGaiErDeZei", "Captain Commando (Unrivalled Version 2018-11-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, captcomms01,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Pipi899", "Captain Commando (Characters Change)(2009-01-20)(World 911202)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, captcomms04,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "sssskkkk", "Captain Commando (Unlock 1 Vs 4 Mode)(2009-04-25)(Other Country 911014)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, captcomms05,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "Unknown", "Captain Commando (Description Of Hack Unknown)(World 911014)", MACHINE_SUPPORTS_SAVE )
@@ -36096,6 +36540,12 @@ HACK( 2018, dinoyct49,       dino,     qsound,     dino,     cps_state,   dino, 
 HACK( 2018, dinoyct50,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(Unknown,Gaston90,Ydmis,pipi899)", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2018)(Revised Version Remix [28-5-2018])(Set 16)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinoyct51,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(Unknown,Gaston90,Ydmis,pipi899)", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2018)(Revised Version Remix [28-5-2018])(Set 17)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinoyct52,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Team Remix(Unknown,Gaston90,Ydmis,pipi899)", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2018)(Revised Version Remix [28-5-2018])(Set 18)(World 930201)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinoh01,        dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "NanGongSheng", "Cadillacs and Dinosaurs (Fighting God Version 2019-01-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinoh02,        dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "BinDi", "Cadillacs and Dinosaurs (Arena Version 2019-01-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinoh03,        dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "NanGongSheng", "Cadillacs and Dinosaurs (Sky King 2019-01-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinoh04,        dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "BinDi", "Cadillacs and Dinosaurs (Warlord Version 2019-01-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinoh05,        dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "JieJiSanQi", "Cadillacs and Dinosaurs (Majin Ranbu 2019-01-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinoh06,        dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Li Xili", "Cadillacs and Dinosaurs (Unrivalled Version 2019 2019-01-07)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinonv01,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx/Ydmis", "Cadillacs and Dinosaurs 2011 Plus (New Version)(Kill Enemies To get Food Barbecue)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinonv02,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx/Ydmis", "Cadillacs and Dinosaurs 2011 Plus (New Version)(Kill Enemies To get Food Cake)(World 930201)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinonv03,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx/Ydmis", "Cadillacs and Dinosaurs 2011 Plus (New Version)(Kill Enemies To get Food Lobster)(World 930201)", MACHINE_SUPPORTS_SAVE )
@@ -36302,197 +36752,181 @@ HACK( 200?, varths03,      varth,    cps1_12MHz, varth,    cps_state,   cps1,   
 // Willow
 HACK( 200?, willows01,     willow,   cps1_10MHz, willow,   cps_state,   cps1,     ROT0,   "LB70", "Willow (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 // Tenchi wo Kurau II
-HACK( 200?, tk2h19,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Max Power)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h20,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux [EZ]", "Tenchi wo Kurau II (Residual of Zhao Yun)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h21,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Pluto & xyz555", "Tenchi wo Kurau II (Optional Lidian Second Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h22,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (New Start Boss) (Alt 01)(Japan 921031)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h23,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super sword & energy v2)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h24,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "caonima", "Tenchi wo Kurau II (Easy Spinning Pile Driver v1)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h25,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 03)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h26,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "hzzong", "Tenchi wo Kurau II (Subdue the Dragon)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h27,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "zhanghw511", "Tenchi wo Kurau II (Bloody Plus)(Ver.?)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h28,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "zhanghw511", "Tenchi wo Kurau II (Bloody Plus V1.40)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h29,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Perverted Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h30,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe", "Tenchi wo Kurau II (Holly Sword Three Kingdoms (Invincible))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h31,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 07)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h32,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chibi Battle 2016 Is Really Unparalleled)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h33,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 08)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h35,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 09)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h37,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Xu Huang Edition Warriors)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h38,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Yan Ming Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h39,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Zhang Liao Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h40,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chibi Battle 2016 is the world)(Japan 921031)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h41,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 10)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h42,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Lu Bu Wushuang)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h43,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super Sword-Energy V1)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h44,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "OrochiZ & Duckchan", "Tenchi wo Kurau II (Japanese Version Of The World Turn)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h45,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Pluto", "Tenchi wo Kurau II (Lock Three-Person Model First Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h46,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Pluto", "Tenchi wo Kurau II (Lock Three People Model Perfect Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h47,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "chenyb1982", "Tenchi wo Kurau II (Player's Anger)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h48,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "chenyb1982", "Tenchi wo Kurau II (Angry Upgrade)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h49,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Fengshen World", "Tenchi wo Kurau II (Zhao Yun Strengthened)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h50,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Modified Version)(Japan 921031)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h51,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Revised Version)(Japan 921031)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h52,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "A phone", "Tenchi wo Kurau II (Perfect Version)(Japan 921031)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h53,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "invincibility", "Tenchi wo Kurau II (Hell Difficulty Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h54,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Double Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h55,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Warriors Version 2)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h56,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Final Attack)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h57,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Better Dragon Punch)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h58,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "rom999/axdx", "Tenchi wo Kurau II (Zhang Fei Uppercut Fist)(2013-05-23)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h59,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h60,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Awakening Seal", "Tenchi wo Kurau II (Series Of Legs Modified Version 1.0)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h61,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Spinning Pile Driver (A))(2013-03-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h62,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Spinning Pile Driver (+A))(2013-03-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h63,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Spinning Pile Driver (-A))(2013-03-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h64,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Viper Halberd - Spinning Pile Driver)(2013-03-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h65,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Grabbing - Spinning Pile Driver)(2013-03-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h66,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Unlimited Spinning Pile Driver)(2013-03-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2011, tk2h67,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Zhang Fei Horse Battle To Strengthen The First Edition)(2011-10-26)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, tk2h68,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Zhang Fei Horse Battle To Strengthen The Second Edition)(2012-01-01)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h69,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Kassar (Chou-Hi)'s Kicking Hack)(2011-11-01)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2011, tk2h70,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Guan Yu Began To Move Out of Buttons)(2011-10-28)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h71,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Guan Yu - Screw Pile (Cyclone Sit))(2013-08-08)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h72,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Zhao Wei Direct Use Of Weapons In Hand)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h73,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Horseback Energy Attack With Blue Sonic Blade Effect (A))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h74,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Horseback Energy Attack With Blue Sonic Blade Effect (B))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h75,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Horseback Energy Attack With Blue Sonic Blade Effect (C))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h76,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Boss Words)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, tk2h77,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winhex", "Tenchi wo Kurau II (Double The Attack Power)(2013-09-30)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h78,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "RockyWall", "Tenchi wo Kurau II (Start Key Riding)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h79,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "A", "Tenchi wo Kurau II (Sword And arrow Fly)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h80,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "qiu.yq", "Tenchi wo Kurau II (Kassar (Chou-Hi)'s Kusanagi kick)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h81,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Lightning", "Tenchi wo Kurau II (Enhanced Portor (Kan-U))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h82,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Kusanagi Horse)(Ver.?)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h83,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (The First Pass In The World)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h84,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Portor (Kan-U)'s Horseback Energy Attack With Flaming Arrow Effect)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h85,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Beauty Stage)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h86,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Hero Stage)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h87,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Five Tiger Insurance Out Of Lu Bu Zhang Liao Aura)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h88,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Phoenix", "Tenchi wo Kurau II (Weapons That Are Hit By The Enemy Or Dropped From The AB key Will Not Disappear)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h89,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "xyz555", "Tenchi wo Kurau II (Optional Lidian First Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h90,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "xyz555", "Tenchi wo Kurau II (Optional Lidian Basic Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h91,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Cao Ren Single Extended Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h92,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Cao Ren Expansion Single Version Small Correction (Color))(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h93,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Cao Ren Move The Full Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h94,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super Sword)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h95,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Fengshen World", "Tenchi wo Kurau II (Super Enhanced Integrated Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h96,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Variant Metamorphosis Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h97,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Invincible", "Tenchi wo Kurau II (The Above Modification Adds Invincible Effect)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h98,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Title Screen Modification)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, tk2h99,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kakakawa", "Tenchi wo Kurau II (Zhang Fei Vampire Version)(2010-11-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h100,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Unlimited Time) (Battle Scenes Only)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h101,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (War Wolf Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h102,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (San Jian Sheng Plus)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, tk2h103,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (Lidian)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h104,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Dian Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h105,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h106,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Zhao Wei)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, tk2h107,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Mei Wu Shuang 2017)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, tk2h108,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Warriors of Fate Plus 2 2018)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, tk2h109,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Mei Wu Shuang 2018)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, tk2h110,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bindi", "Tenchi wo Kurau II (Da Ren Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h111,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Basic Attack With Throwing Axes, Special Horseback Energy Attack)(2004-11-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h112,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Beauty Stage)(Ordinary Roms)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h113,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Hero Stage)(Ordinary Roms)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h114,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Ma Zhan Wu Shuang)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h115,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Xia Hou Dun Plus)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h116,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (No Pairs Enhanced 2018)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h117,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Three Swords Saint Super Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h118,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Three Boss Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h119,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Iron Needle Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h120,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Daren Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h121,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Eight Difficult V3)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h122,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Daren Edition)(Ver.?)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h123,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Li Dian Da Ren Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h124,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Xu Zhu Edition 2018)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, tk2h125,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Jian Sheng Super Edition Update)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h19,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Max Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h20,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux [EZ]", "Tenchi wo Kurau II (Residual of Zhao Yun)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h21,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Pluto & xyz555", "Tenchi wo Kurau II (Optional Lidian Second Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h22,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (New Start Boss) (Alt 01)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h23,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super sword & energy v2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h24,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "caonima", "Tenchi wo Kurau II (Easy Spinning Pile Driver v1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h25,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 03)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h26,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "hzzong", "Tenchi wo Kurau II (Subdue the Dragon)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h27,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "zhanghw511", "Tenchi wo Kurau II (Bloody Plus)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h28,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "zhanghw511", "Tenchi wo Kurau II (Bloody Plus V1.40)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h29,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Perverted Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h30,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe", "Tenchi wo Kurau II (Holly Sword Three Kingdoms (Invincible))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h31,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 07)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h32,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chibi Battle 2016 Is Really Unparalleled)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h33,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h35,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 09)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h37,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Xu Huang Edition Warriors)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h38,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Yan Ming Unparalleled Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h39,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Zhang Liao Unparalleled Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h40,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Chibi Battle 2016 is the world)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h41,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Description Of Hack Unknown)(Set 10)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h42,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Lu Bu Wushuang)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h43,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super Sword-Energy V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h44,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "OrochiZ & Duckchan", "Tenchi wo Kurau II (Japanese Version Of The World Turn)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h45,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Pluto", "Tenchi wo Kurau II (Lock Three-Person Model First Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h46,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Pluto", "Tenchi wo Kurau II (Lock Three People Model Perfect Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h47,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "chenyb1982", "Tenchi wo Kurau II (Player's Anger)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h48,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "chenyb1982", "Tenchi wo Kurau II (Angry Upgrade)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h49,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Fengshen World", "Tenchi wo Kurau II (Zhao Yun Strengthened)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h50,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Modified Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h51,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Revised Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h52,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "A phone", "Tenchi wo Kurau II (Perfect Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h53,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "invincibility", "Tenchi wo Kurau II (Hell Difficulty Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h54,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Double Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h55,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Warriors Version 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h56,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Final Attack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h57,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Better Dragon Punch)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h58,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "rom999/axdx", "Tenchi wo Kurau II (Zhang Fei Uppercut Fist)(2013-05-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h59,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h60,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Awakening Seal", "Tenchi wo Kurau II (Series Of Legs Modified Version 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h61,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Spinning Pile Driver (A))(2013-03-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h62,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Spinning Pile Driver (+A))(2013-03-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h63,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Spinning Pile Driver (-A))(2013-03-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h64,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Viper Halberd - Spinning Pile Driver)(2013-03-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h65,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Grabbing - Spinning Pile Driver)(2013-03-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h66,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar - Unlimited Spinning Pile Driver)(2013-03-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2011, tk2h67,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Zhang Fei Horse Battle To Strengthen The First Edition)(2011-10-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, tk2h68,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Zhang Fei Horse Battle To Strengthen The Second Edition)(2012-01-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h69,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Kassar (Chou-Hi)'s Kicking Hack)(2011-11-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2011, tk2h70,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Guan Yu Began To Move Out of Buttons)(2011-10-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h71,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Guan Yu - Screw Pile (Cyclone Sit))(2013-08-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h72,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Zhao Wei Direct Use Of Weapons In Hand)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h73,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Horseback Energy Attack With Blue Sonic Blade Effect (A))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h74,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Horseback Energy Attack With Blue Sonic Blade Effect (B))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h75,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Horseback Energy Attack With Blue Sonic Blade Effect (C))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h76,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Boss Words)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2h77,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winhex", "Tenchi wo Kurau II (Double The Attack Power)(2013-09-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h78,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "RockyWall", "Tenchi wo Kurau II (Start Key Riding)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h79,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "A", "Tenchi wo Kurau II (Sword And arrow Fly)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h80,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "qiu.yq", "Tenchi wo Kurau II (Kassar (Chou-Hi)'s Kusanagi kick)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h81,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Lightning", "Tenchi wo Kurau II (Enhanced Portor (Kan-U))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h82,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Kusanagi Horse)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h83,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (The First Pass In The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h84,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Portor (Kan-U)'s Horseback Energy Attack With Flaming Arrow Effect)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h85,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Beauty Stage)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h86,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Hero Stage)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h87,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Five Tiger Insurance Out Of Lu Bu Zhang Liao Aura)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h88,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Phoenix", "Tenchi wo Kurau II (Weapons That Are Hit By The Enemy Or Dropped From The AB key Will Not Disappear)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h89,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "xyz555", "Tenchi wo Kurau II (Optional Lidian First Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h90,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "xyz555", "Tenchi wo Kurau II (Optional Lidian Basic Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h91,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Cao Ren Single Extended Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h92,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Cao Ren Expansion Single Version Small Correction (Color))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h93,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Cao Ren Move The Full Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h94,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "julee", "Tenchi wo Kurau II (Super Sword)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h95,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Fengshen World", "Tenchi wo Kurau II (Super Enhanced Integrated Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h96,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Variant Metamorphosis Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h97,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Invincible", "Tenchi wo Kurau II (The Above Modification Adds Invincible Effect)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h98,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Title Screen Modification)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2h99,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kakakawa", "Tenchi wo Kurau II (Zhang Fei Vampire Version)(2010-11-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h100,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Tenchi wo Kurau II (Unlimited Time) (Battle Scenes Only)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h101,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (War Wolf Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h102,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (San Jian Sheng Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, tk2h103,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II: Sekiheki no Tatakai (Lidian)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h104,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Dian Unparalleled Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h105,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h106,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Zhao Wei)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, tk2h107,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Mei Wu Shuang 2017)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, tk2h108,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Warriors of Fate Plus 2 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, tk2h109,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Mei Wu Shuang 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, tk2h110,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bindi", "Tenchi wo Kurau II (Da Ren Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h111,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Hzzong", "Tenchi wo Kurau II (Basic Attack With Throwing Axes, Special Horseback Energy Attack)(2004-11-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h112,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "wuzu2001", "Tenchi wo Kurau II (Beauty Stage)(Ordinary Roms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h113,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Hero Stage)(Ordinary Roms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h114,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Ma Zhan Wu Shuang)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h115,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Xia Hou Dun Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h116,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (No Pairs Enhanced 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h117,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Three Swords Saint Super Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h118,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Three Boss Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h119,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Iron Needle Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h120,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Daren Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h121,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Eight Difficult V3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h122,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Daren Edition)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h123,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Li Dian Da Ren Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h124,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Xu Zhu Edition 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2h125,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (San Jian Sheng Super Edition Update)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, tk2h126,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Bindi", "Tenchi Wo Kurau II (Master Edition Ver.4 2018-09-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, tk2h127,     wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Bindi", "Tenchi wo Kurau II (Master Version 2019-01-20)", MACHINE_SUPPORTS_SAVE )
 // Tenchi wo Kurau II (wofch)
-HACK( 200?, wofchs01,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "King Of Destruction", "Tenchi wo Kurau II (Imitation Sword Invincible Version)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs02,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs03,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush Extreme)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs04,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "King of Destruction", "Tenchi wo Kurau II (Mode Plus)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs05,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "King of Destruction", "Tenchi wo Kurau II (A key to enter the mode)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs06,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "invincibility & winux", "Tenchi wo Kurau II (Hell Difficulty)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs07,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (True Purgatory Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs08,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "tcwlee", "Tenchi wo Kurau II (Open Mode)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs09,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "tcwlee", "Tenchi wo Kurau II (Skull And Grass)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs10,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Sangokushi III Gaiden: Kakou-on's Revenge)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs11,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Sangokushi III Gaiden: Kakou-on's Revenge DX)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs12,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Sangokushi III Part 2)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs13,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Sangokushi III Gaiden: Kakou-on's Revenge)(Alt)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs14,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "winuxx", "Tenchi wo Kurau II (Zhao Yunsheng Long Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, wofchs15,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "kakakawa", "Tenchi wo Kurau II (Zhang Feiwu)(2010-08-21)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs16,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "kakakawa", "Tenchi wo Kurau II (Zhang Fei Vampire Edition)(2010-11-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs17,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Zhao Yun Movement Changes)(2010-08-21)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs18,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Zhang Fei Moves To Simplify)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs19,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Extra Mode ON)(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs20,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Easy Control-Kassar-Super Spinning Pile Driver (A))(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs21,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Super Spinning Pile Driver (+A))(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs22,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Super Spinning Pile Driver (-A))(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs23,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Viper Halberd-Super Spinning Pile Driver)(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs24,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Grabbing-Super Spinning Pile Driver)(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs25,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Midair Grabbing Simplified)(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, wofchs26,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Unlimited Super Spinning Pile Driver)(2013-03-19)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs27,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Guan Yu's Big Move Improved)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs28,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Wei Yan Ordinary Drop Cancellation)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs29,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Wei Yan Empty Into A Big Seat)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs30,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Open Space To Strengthen The First Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs31,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Open space Enhanced Second Edition)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs33,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Zhao Yun Sheng Long Lie broke)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs34,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Add Kassar's Super Punch)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs35,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Wei Yanchao killed More)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs36,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush Extreme)(Alt)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs37,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Many Boss)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs38,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Kakou-on's Revenge-Prologue)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, wofchs39,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "kawada7278", "Tenchi wo Kurau II (Zhang Fei Vampire Edition)(Alt)(2010-11-12)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, wofchs40,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Big front", "Tenchi wo Kurau II (BT Enhanced Edition)(2010-09-08)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs41,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "tcwlee", "Tenchi wo Kurau II (Enhanced mode)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs42,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana/winuxx", "Tenchi wo Kurau II (Many Boss)(Alt)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofchs43,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Juggernauts)(Japan 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p01,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "King Of Destruction", "Tenchi wo Kurau II (Imitation Sword Invincible Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p02,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p03,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush Extreme)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p04,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "King of Destruction", "Tenchi wo Kurau II (Mode Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p05,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "King of Destruction", "Tenchi wo Kurau II (A key to enter the mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p06,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "invincibility & winux", "Tenchi wo Kurau II (Hell Difficulty)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p07,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (True Purgatory Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p08,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "tcwlee", "Tenchi wo Kurau II (Open Mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p09,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "tcwlee", "Tenchi wo Kurau II (Skull And Grass)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p10,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Sangokushi III Gaiden: Kakou-on's Revenge)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p11,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Sangokushi III Gaiden: Kakou-on's Revenge DX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p12,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Sangokushi III Part 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p13,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Sangokushi III Gaiden: Kakou-on's Revenge)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p14,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "winuxx", "Tenchi wo Kurau II (Zhao Yunsheng Long Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2p15,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "kakakawa", "Tenchi wo Kurau II (Zhang Feiwu)(2010-08-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p16,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "kakakawa", "Tenchi wo Kurau II (Zhang Fei Vampire Edition)(2010-11-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p17,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Zhao Yun Movement Changes)(2010-08-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p18,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Zhang Fei Moves To Simplify)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p19,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Extra Mode ON)(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p20,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Easy Control-Kassar-Super Spinning Pile Driver (A))(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p21,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Super Spinning Pile Driver (+A))(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p22,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Super Spinning Pile Driver (-A))(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p23,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Viper Halberd-Super Spinning Pile Driver)(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p24,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Grabbing-Super Spinning Pile Driver)(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p25,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Midair Grabbing Simplified)(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, tk2p26,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "axdx", "Tenchi wo Kurau II (Kassar-Unlimited Super Spinning Pile Driver)(2013-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p27,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Guan Yu's Big Move Improved)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p28,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Wei Yan Ordinary Drop Cancellation)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p29,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Wei Yan Empty Into A Big Seat)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p30,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Open Space To Strengthen The First Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p31,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Open space Enhanced Second Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p33,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Zhao Yun Sheng Long Lie broke)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p34,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Add Kassar's Super Punch)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p35,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "gaoshihung", "Tenchi wo Kurau II (Wei Yanchao killed More)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p36,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush Extreme)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p37,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "winux", "Tenchi wo Kurau II (Many Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p38,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Kakou-on's Revenge-Prologue)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2p39,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "kawada7278", "Tenchi wo Kurau II (Zhang Fei Vampire Edition)(Alt)(2010-11-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, tk2p40,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Big front", "Tenchi wo Kurau II (BT Enhanced Edition)(2010-09-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p41,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "tcwlee", "Tenchi wo Kurau II (Enhanced mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p42,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana/winuxx", "Tenchi wo Kurau II (Many Boss)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, tk2p43,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Tenchi wo Kurau II (Juggernauts)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
 HACK( 200?, sk2h10,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "pipi899", "Sangokushi II (Change Character)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h17,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe & EmuFan", "Sangokushi II (Holly Sword Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h18,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe & EmuFan", "Sangokushi II (Enhanced Attack Power)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h19,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Sangokushi II (Easy Spinning Pile Driver)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h23,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bootleg", "Sangokushi II (Three Sword Masters)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h41,        wof,      qsound,     sk2h21,   cps_state,   sk2h21,   ROT0,   "LB70", "Sangokushi II (The Number Of Flames Is 200)Asia 921005)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h42,        wof,      sk2h3,      sk2h21,   cps_state,   sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Correct Zhao Yun Weapon Title Background BUG)(Chinese bootleg of Sangokushi II)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h41,        wof,      qsound,     sk2h21,   cps_state,   sk2h21,   ROT0,   "LB70", "Sangokushi II (The Number Of Flames Is 200)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h42,        wof,      sk2h3,      sk2h21,   cps_state,   sk2h22,   ROT0,   "Unknown", "San Jian Sheng (Correct Zhao Yun Weapon Title Background BUG)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h43,        wof,      sk2h31,     sk2h31,   cps_state,   sk2h22,   ROT0,   "Unknown", "Sangokushi II (Chinese bootleg set 4, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h45,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bootleg", "Sangokushi II (Xia Houen's Revenge 2017)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, sk2h46,        wof,      sk2h31,     sk2h31,   cps_state,   sk2h22,   ROT0,   "Unknown", "Sangokushi II (Holy Swords)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h107,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h108,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 02)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h114,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h115,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h116,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Full Level Boss Special Edition)(2006/04/13)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h117,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Zhao Yun’s Attack Is Strengthened)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h118,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winuxx", "Sangokushi II (The Revised Version Of The Invincible And Zhao Yun Greatly Enhanced Version Of The Attack)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 // Huo Feng Huang 
-HACK( 200?, wofhfhs01,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "20562056", "Huo Feng Huang (Cancel The Move)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofhfhs02,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "caonima", "Huo Feng Huang (Sword Energy Attack)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofhfhs03,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "King of Destruction", "Huo Feng Huang (Add Enemy Damage Repair)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofhfhs04,     wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "King of Destruction", "Huo Feng Huang (Riboud Houja attack strengthened)(Chinese bootleg of Sangokushi II)", MACHINE_SUPPORTS_SAVE )
-// Warriors of Fate
-HACK( 200?, wofus01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Description Of Hack Unknown)(Set 01)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofus02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Kassar(Chou-Hi)'s Spinning Pile Driver)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofus03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors Of Fate (Easy Kassar's Spinning Pile Driver. Fire, Foods And Swords Anywhere)(Happy Version)(USA 921031)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, wofs01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors Of Fate (Jian Jia Wu Shuang 2016)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofs02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms)(Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofs03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Combination key To Take Grass Blade Sword)(World 921031)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofs04,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors of Fate (Holy Sword Three Kingdoms) (Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofs05,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Lock Three-Person Mode)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, wofs06,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampires First Edition)(2010-11-12)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofs07,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "GAOSHIHUNG", "Warriors of Fate (Combination keys To Take Grass Child Sword)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofs08,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "GAOSHIHUNG", "Warriors of Fate (Powerful Strokes)(World 921002)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, woffs01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Zhang Fei Vampire First Version Of The Power Of Strokes To Strengthen)(World 921002)", MACHINE_SUPPORTS_SAVE )  //Version Continente???
-HACK( 200?, woffs02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Warriors of Fate (Not Automatically Abandoned Sword)(World 921002)", MACHINE_SUPPORTS_SAVE ) //Version Region???
-HACK( 200?, woffs03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Optimized Version Of The Move)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Version Region???
-HACK( 200?, woffs04,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Version Region???
-HACK( 200?, woffs05,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )
-// Sangokushi II
-HACK( 200?, sk2h7,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk2h8,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 02)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, sk3h2,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi 3 (The Three Kingdoms III Part 1: Heroes of the Three Kingdoms)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh04,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh05,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh06,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Full Level Boss Special Edition)(2006/04/13)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh07,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winux", "Sangokushi II (Zhao Yun’s Attack Is Strengthened)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, wofh08,        wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "winuxx", "Sangokushi II (The Revised Version Of The Invincible And Zhao Yun Greatly Enhanced Version Of The Attack)(Asia 921005)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h51,        wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "20562056", "Huo Feng Huang (Cancel The Move)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h52,        wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "caonima", "Huo Feng Huang (Sword Energy Attack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h53,        wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "King of Destruction", "Huo Feng Huang (Add Enemy Damage Repair)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, sk2h54,        wof,      wofhfh,     wofhfh,   cps_state,   cps1,     ROT0,   "King of Destruction", "Huo Feng Huang (Riboud Houja attack strengthened)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi III
+HACK( 200?, sk3h2,         wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi 3 (The Three Kingdoms III Part 1: Heroes of the Three Kingdoms)(Asia 921005)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p4,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p5,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, sk3p6,         wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 03)", MACHINE_SUPPORTS_SAVE )
@@ -36500,3 +36934,22 @@ HACK( 2010, sk3p7,         wofch,    qsound,     wofch,    cps_state,   wof,    
 HACK( 2010, sk3p8,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On S Revence Dx 2010 (Set 05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, sk3p9,         wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 06)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, sk3p10,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Sangokushi 3 Gaiden Kakou-On's Revenge Dx 2010 (Set 07)", MACHINE_SUPPORTS_SAVE )
+// Warriors of Fate
+HACK( 200?, wofus01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Description Of Hack Unknown)(Set 01)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Kassar(Chou-Hi)'s Spinning Pile Driver)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofus03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors of Fate (Easy Kassar's Spinning Pile Driver. Fire, Foods And Swords Anywhere)(Happy Version)(USA 921031)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, wofs01,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Jian Jia Wu Shuang 2016)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofs02,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms)(Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofs03,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Combination key To Take Grass Blade Sword)(World 921031)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofs04,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Creamymami[EGCG]", "Warriors of Fate (Holy Sword Three Kingdoms) (Invincible)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofs05,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Lock Three-Person Mode)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, wofs06,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampires First Edition)(2010-11-12)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofs07,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "GAOSHIHUNG", "Warriors of Fate (Combination keys To Take Grass Child Sword)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, wofs08,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "GAOSHIHUNG", "Warriors of Fate (Powerful Strokes)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, wofs09,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (unknown s09)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, wofs10,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Unique Sword Armour 2019-01-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs01,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "gaoshihung", "Warriors of Fate (Zhang Fei Vampire First Version Of The Power Of Strokes To Strengthen)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs02,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Duckchan", "Warriors of Fate (Not Automatically Abandoned Sword)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs03,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Unknown", "Warriors of Fate (Optimized Version Of The Move)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs04,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei Vampire Version)(World 921002)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, woffs05,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)(World 921002)", MACHINE_SUPPORTS_SAVE )

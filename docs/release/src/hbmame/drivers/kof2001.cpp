@@ -4,32 +4,6 @@
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_kof2001hb() // hacks of kof2001
-{
-	init_neogeo();
-	m_sprgen->m_fixed_layer_bank_type = 1; // only meaningful if s1 > 128k
-
-	// decrypt m1 if needed
-	if (memregion("audiocrypt"))
-		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-
-	// decrypt c roms if needed
-	u8 *ram = memregion("sprites")->base();
-	if (ram[0] != 0)
-	{
-		//printf("Sprites=%X\n",ram[0]);
-		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2001_GFX_KEY);
-	}
-
-	// if no s rom, copy info from end of c roms
-	ram = memregion("fixed")->base();
-	if (ram[0x100] == 0)
-	{
-		//printf("Fixed1=%X\n",ram[0x100]);
-		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	}
-}
-
 void neogeo_state::init_kf2k1pa()
 {
 	u32 sx_size = memregion("fixed")->bytes();
@@ -39,7 +13,7 @@ void neogeo_state::init_kf2k1pa()
 	for( u32 i = 0; i < sx_size; i++ )
 		rom[ i ] = bitswap<8>( rom[ i ], 3, 2, 4, 5, 1, 6, 0, 7 );
 
-	init_kof2001hb();
+	init_kof2001();
 }
 
 
@@ -2206,89 +2180,89 @@ ROM_START( kof2k1z2 ) /* The King of Fighters 2001 - Hack by Zhangshee - (Can ch
 	ROM_LOAD16_BYTE( "262.c8", 0x3000001, 0x800000, CRC(59289a6b) SHA1(ddfce7c85b2a144975db5bb14b4b51aaf881880e) )
 ROM_END
 
-HACK( 200?, kof2001d,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Eolith / SNK", "Kof2001 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2001d,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Eolith / SNK", "Kof2001 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001n,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Unknown", "Kof2001 (Fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ay,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Kurouri and Ydmis", "Kof2001 (Revised set 1)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1b,    kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Add Char set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ay,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Kurouri and Ydmis", "Kof2001 (Revised set 1)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1b,    kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Add Char set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1b1,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Kof1996 / KQZ / Zuojie", "Kof2001 (Boss Fixed Version)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1b3,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "NeHt", "Kof2001 (Bloodlust)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1b4,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "ayane", "Kof2001 (Bloodlust Reload)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1bd2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Ayane", "Kof2001 (Char color changed - Attack cremation scarlet)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1bh,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Dodowang", "Kof2001 (Enable hidden characters v2)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1bh1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Dodowang", "Kof2001 (Enable hidden characters v3)(Alt)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1bd2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Ayane", "Kof2001 (Char color changed - Attack cremation scarlet)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1bh,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Dodowang", "Kof2001 (Enable hidden characters v2)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1bh1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Dodowang", "Kof2001 (Enable hidden characters v3)(Alt)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1bs,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Eddids", "Kof2001 (Ps2 Plus)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1bs2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001,   ROT0, "EGCG / Dodowang", "Kof2001 (Boss Enabler v2.0)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ce,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 9)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cfc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "C6F8", "Kof2001 (Char color changed set 9 - rel 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cf1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "C6F8", "Kof2001 (Iori p1 and p2 Color Changed)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ch,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Chase", "Kof2001 (Add Char - Diff Moves)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1clr,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 8)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 1)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 3)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp3,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 4)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp4,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 5)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp5,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 6)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp6,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed set 7)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cp7,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Char color changed - Attack cremation ice blue set 3)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1cr,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "CrUmp", "Kof2001 (Revised set 2)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1eh,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Ydmis", "Kof2001 (Add Char - Ultra kill start max)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ehc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Ydmis", "Kof2001 (Ultra kill start max - Ultra pow)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ehr,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Raymonose", "Kof2001 (Ultra kill start max - Ultra pow - Diff Moves)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1gm,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Flycboy", "Kof2001 (Some Team Color change)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ce,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 9)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cfc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "C6F8", "Kof2001 (Char color changed set 9 - rel 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cf1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "C6F8", "Kof2001 (Iori p1 and p2 Color Changed)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ch,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Chase", "Kof2001 (Add Char - Diff Moves)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1clr,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 8)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 1)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 3)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp3,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 4)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp4,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 5)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp5,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 6)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp6,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed set 7)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cp7,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Char color changed - Attack cremation ice blue set 3)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1cr,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "CrUmp", "Kof2001 (Revised set 2)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1eh,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Ydmis", "Kof2001 (Add Char - Ultra kill start max)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ehc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Ydmis", "Kof2001 (Ultra kill start max - Ultra pow)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ehr,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Raymonose", "Kof2001 (Ultra kill start max - Ultra pow - Diff Moves)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1gm,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Flycboy", "Kof2001 (Some Team Color change)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1guan, kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "NGRT", "Kof2001 (Guan Version)(Remix)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ha,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Alternate home ver)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ha2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Alternate home ver rev.2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1hao,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Unknown", "Kof2001 (Alternate home ver old)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1hb,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Kurouri", "Kof2001 (Enable hidden characters v1)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1hgm,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Flycboy", "Kof2001 (Some Team Color change)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ice,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Zhangshee", "Kof2001 (Char color changed - Attack cremation ice blue set 1)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1ic2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Zhangshee", "Kof2001 (Char color changed - Attack cremation ice blue set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3o,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030629)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k32,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030714)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k33,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030725)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k34,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030730)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k35,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030806)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k36,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030815)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k37,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030817)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k38,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030823)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k39,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030826)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3a,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030907)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3b,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031005)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3c,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031011)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3d,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031013)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3e,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031018)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3f,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031019)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3g,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - Ultra rev - 031120)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1k3h,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Remix Ultra v2.2)(2003-12-02)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ha,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Alternate home ver)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ha2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Alternate home ver rev.2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1hao,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Unknown", "Kof2001 (Alternate home ver old)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1hb,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Kurouri", "Kof2001 (Enable hidden characters v1)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1hgm,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Flycboy", "Kof2001 (Some Team Color change)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ice,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Zhangshee", "Kof2001 (Char color changed - Attack cremation ice blue set 1)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1ic2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Zhangshee", "Kof2001 (Char color changed - Attack cremation ice blue set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3o,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030629)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k32,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030714)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k33,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030725)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k34,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030730)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k35,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030806)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k36,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030815)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k37,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030817)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k38,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030823)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k39,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030826)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3a,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 030907)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3b,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031005)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3c,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031011)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3d,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031013)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3e,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031018)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3f,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - 031019)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3g,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Moves KOF 98 style - Ultra rev - 031120)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1k3h,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Remix Ultra v2.2)(2003-12-02)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1ki,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Kalce", "Kof2001 Plus (Special ST V0.5)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1lse,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "CRC-LSE", "Kof2001 (Char color changed for whip 2P, k'2P, VANESSA 2P, Angel 2P)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1mk,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "MasakiAnton", "Kof2001 (Revised set 3 Old)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1mk2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "MasakiAnton", "Kof2001 (Revised set 3 v2.0)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1mke,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "MasakiAnton", "Kof2001 (Revised set 4)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1lse,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "CRC-LSE", "Kof2001 (Char color changed for whip 2P, k'2P, VANESSA 2P, Angel 2P)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1mk,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "MasakiAnton", "Kof2001 (Revised set 3 Old)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1mk2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "MasakiAnton", "Kof2001 (Revised set 3 v2.0)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1mke,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "MasakiAnton", "Kof2001 (Revised set 4)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof2k1nd,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Hassan32000", "Kof2001 (Krizalid)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2k1pa,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kf2k1pa,   ROT0, "bootleg", "Kof2001 Plus (set 2, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2k1pa2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Unknown", "Kof2001 Plus (Other Hack)(Fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1pjc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "TcwLee", "Kof2001 (Color Fix 030302)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1pjo,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "TcwLee", "Kof2001 (Color Fix)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1pj1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "TcwLee", "Kof2001 (Char color changed ?? rev.2 ??  1508)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1pj2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "TcwLee", "Kof2001 (Char color changed - Machine repair menu col changed)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1pj3,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "TcwLee", "Kof2001 (Color Fix 030720)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k1pls,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "bootleg", "Kof2001 Plus (set 1, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1rm,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Raymonose", "Kof2001 (Diff Moves set 1)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2k1rp,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro)(v1.02 final 040311)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1pjc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Color Fix 030302)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1pjo,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Color Fix)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1pj1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Char color changed ?? rev.2 ??  1508)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1pj2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Char color changed - Machine repair menu col changed)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1pj3,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Color Fix 030720)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k1pls,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "bootleg", "Kof2001 Plus (set 1, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1rm,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Raymonose", "Kof2001 (Diff Moves set 1)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2k1rp,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro)(v1.02 final 040311)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k1rp0,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001,   ROT0, "Jason, Kim & Raymonose", "Kof2001 (Remix Pro v1.02 Final)(2004-03-01)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1rp1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro)(V1.01 final1 031206)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1rpo,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro)(V1.0a 0311xx)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2k1ru,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Jason/K3", "Kof2001 (Remix Ultra)(Diff Moves ultra rev - Add Igniz - 20040507 - v2.3)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1rp1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro)(V1.01 final1 031206)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1rpo,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro)(V1.0a 0311xx)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2k1ru,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Jason/K3", "Kof2001 (Remix Ultra)(Diff Moves ultra rev - Add Igniz - 20040507 - v2.3)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1ru0,  kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Jason", "Kof2001 (Remix Ultra Ver 2.3)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1seh,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Ydmis", "Kof2001 (Add Char - Ultra kill start max - Ultra pow)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1sob,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Ayane", "Kof2001 (Char color changed - 1P char corpse-style remix)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1seh,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Ydmis", "Kof2001 (Add Char - Ultra kill start max - Ultra pow)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1sob,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Ayane", "Kof2001 (Char color changed - 1P char corpse-style remix)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k1st,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Kof1996", "Kof2001 (Special ST Version)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1st2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Kof1996", "Kof2001 (Special ST Version)(Alt)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1wh,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Wesker", "Kof2001 (Diff Moves set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1z1,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Zhangshee", "Kof2001 (Add Char set 4)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1z2,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001hb, ROT0, "Zhangshee", "Kof2001 (Enable hidden characters v1)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1wh,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Wesker", "Kof2001 (Diff Moves set 2)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1z1,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Zhangshee", "Kof2001 (Add Char set 4)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1z2,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Zhangshee", "Kof2001 (Enable hidden characters v1)(NGM-262?)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -4253,7 +4227,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2001
-HACK( 200?, kof2001s01,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "Unknown",    "Kof2001 (Description Of Hack Unknown)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2001s01,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "Unknown",    "Kof2001 (Description Of Hack Unknown)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001s02,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Bootleg",    "Kof2001 Plus (set 2)(NGM-262?)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001s03,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Bootleg",    "Kof2001 Plus (set 1)(NGM-262?)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2001s04,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Jason",    "Kof2001 (Remix Ultra v2.3)(2004-05-07)(NGM-262?)" , MACHINE_SUPPORTS_SAVE )
@@ -4273,9 +4247,9 @@ HACK( 200?, kof2001s17,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2001s18,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "oak2003",    "Kof2001 (Half Transparency Life Bar V2)(NGM-262?)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001s19,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Eddids",    "Kof2001 (Unlimited Credits In Console Mode)(NGM-262?)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001s20,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Unknown",    "Kof2001 (Investment Skills Hit)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2001s21,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "Unknown", "Kof2001 (Enable hidden characters v?)(Ver.?)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2001ds01,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "oak2003",    "Kof2001 (Transparent Energy Bar V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2001ds02,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "oak2003",    "Kof2001 (Transparent Energy Bar V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2001s21,     kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "Unknown", "Kof2001 (Enable hidden characters v?)(Ver.?)(NGH-2621)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2001ds01,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "oak2003",    "Kof2001 (Transparent Energy Bar V1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2001ds02,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "oak2003",    "Kof2001 (Transparent Energy Bar V2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001ds03,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "bootleg",  "Kof2001 Plus (set 2)(Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001ds04,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "bootleg",  "Kof2001 Plus (set 1)(Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2001ds05,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro v1.02 final 040311)(Fully decrypted)", MACHINE_SUPPORTS_SAVE )
@@ -4317,14 +4291,14 @@ HACK( 200?, kof2001hs26,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2001hs27,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "KoF1996, KQZ & Zuojie",    "Kof2001 (Hidden Characters - Boss Fixed Version)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001hs28,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Unknown",    "Kof2001 (The Largest Stock Of Energy)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001hs29,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Unknown",    "Kof2001 (Simplify The Move 1)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2001hs30,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "Hacks",    "Kof2001 (Move Simplified)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2001hs30,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "Hacks",    "Kof2001 (Move Simplified)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001hs31,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Eddids",    "Kof2001 (Unlimited Credits In Console Mode)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001hs32,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001,   ROT0, "Unknown",    "Kof2001 (Move Simplified ver.?)(NGH-2621)" , MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1pas01,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kf2k1pa,   ROT0, "oak2003", "Kof2001 Plus (Half Transparency Life Bar v1)(set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1pas02,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kf2k1pa,   ROT0, "oak2003", "Kof2001 Plus (Half Transparency Life Bar v2)(set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k1pas03,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  kf2k1pa,   ROT0, "Eddids", "Kof2001 Plus (Unlimited Credits in Console Mode)(set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1plss01,   kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "oak2003", "Kof2001 Plus (Half Transparency Life Bar v1)(set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1plss02,   kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "oak2003", "Kof2001 Plus (Half Transparency Life Bar v2)(set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k1plss03,   kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001hb, ROT0, "Eddids", "Kof2001 Plus (Unlimited Credits in Console Mode)(set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1plss01,   kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "oak2003", "Kof2001 Plus (Half Transparency Life Bar v1)(set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1plss02,   kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "oak2003", "Kof2001 Plus (Half Transparency Life Bar v2)(set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k1plss03,   kof2001,  neogeo_noslot, neogeo, neogeo_state,  kof2001, ROT0, "Eddids", "Kof2001 Plus (Unlimited Credits in Console Mode)(set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001ns01,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof2001 (Boss Skin)(Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2001ns02,    kof2001,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Dodowang", "Kof2001 (Boss Enabler v2.0)(Fully decrypted)", MACHINE_SUPPORTS_SAVE )

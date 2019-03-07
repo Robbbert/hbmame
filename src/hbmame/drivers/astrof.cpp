@@ -16,4 +16,4 @@ ROM_START( astrofbl )
 ROM_END
 
 
-HACK( 1979, astrofbl, astrof, astrof, astrof, astrof_state, 0, ROT90, "Hack", "Astro Fighter (Black Background)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, astrofbl, astrof, astrof, astrof, astrof_state, empty_init, ROT90, "Hack", "Astro Fighter (Black Background)", MACHINE_SUPPORTS_SAVE )

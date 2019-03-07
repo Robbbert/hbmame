@@ -146,12 +146,12 @@ WRITE8_MEMBER(cmmb_state::cmmb_charram_w)
 
 READ8_MEMBER(cmmb_state::flash_r)
 {
-	return m_flash->read(space, offset + 0x2000);
+	return m_flash->read(offset + 0x2000);
 }
 
 WRITE8_MEMBER(cmmb_state::flash_w)
 {
-	m_flash->write(space, offset + 0x2000, data);
+	m_flash->write(offset + 0x2000, data);
 }
 
 READ8_MEMBER(cmmb_state::cmmb_input_r)
@@ -433,7 +433,7 @@ MACHINE_CONFIG_START(cmmb_state::cmmb)
 	MCFG_SCREEN_UPDATE_DRIVER(cmmb_state, screen_update_cmmb)
 	MCFG_SCREEN_PALETTE(m_palette)
 
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_cmmb)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_cmmb);
 
 	PALETTE(config, m_palette).set_format(palette_device::RGB_332_inverted, 512);
 

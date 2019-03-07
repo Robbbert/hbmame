@@ -23,7 +23,7 @@ ROM_START( tst_wow3 )
 	ROM_LOAD( "wowmd030.x1",  0x0000, 0x1000, CRC(f493ec4d) SHA1(030cd12e7a7e9ac346e8299df83b62480004c954) )
 ROM_END
 
-HACK( 2005, tst_gorf, 0, gorf, gorf, astrocde_state, gorf, ROT270, "David Turner", "Test Rom - Gorf", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, tst_gor1, 0, gorf, gorf, astrocde_state, gorf, ROT270, "Mark Spaeth", "Test Rom - Gorf Complete Memory Diagnostics", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, tst_wow2, 0, wow,  wow,  astrocde_state, wow,  ROT0,   "David Turner", "Test Rom - Wizard of Wor (ver 0.2b)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, tst_wow3, 0, wow,  wow,  astrocde_state, wow,  ROT0,   "David Turner", "Test Rom - Wizard of Wor (ver 0.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, tst_gorf, 0, gorf, gorf, astrocde_state, init_gorf, ROT270, "David Turner", "Test Rom - Gorf", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, tst_gor1, 0, gorf, gorf, astrocde_state, init_gorf, ROT270, "Mark Spaeth", "Test Rom - Gorf Complete Memory Diagnostics", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, tst_wow2, 0, wow,  wow,  astrocde_state, init_wow,  ROT0,   "David Turner", "Test Rom - Wizard of Wor (ver 0.2b)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, tst_wow3, 0, wow,  wow,  astrocde_state, init_wow,  ROT0,   "David Turner", "Test Rom - Wizard of Wor (ver 0.3)", MACHINE_SUPPORTS_SAVE )

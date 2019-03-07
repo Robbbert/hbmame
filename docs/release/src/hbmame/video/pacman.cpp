@@ -166,7 +166,7 @@ VIDEO_START_MEMBER( pacman_state, multipac )
 	m_bg_tilemap->set_scrolldy(0, 264 - 224 );
 }
 
-PALETTE_INIT_MEMBER( pacman_state, multipac )
+void pacman_state::multipac_palette(palette_device &palette) const
 {
 	uint16_t i;
 	static const int resistances[3] = { 1000, 470, 220 };
@@ -195,18 +195,18 @@ PALETTE_INIT_MEMBER( pacman_state, multipac )
 			bit0 = BIT(color_prom[i], 0);
 			bit1 = BIT(color_prom[i], 1);
 			bit2 = BIT(color_prom[i], 2);
-			r = combine_3_weights(rweights, bit0, bit1, bit2);
+			r = combine_weights(rweights, bit0, bit1, bit2);
 
 			/* green component */
 			bit0 = BIT(color_prom[i], 3);
 			bit1 = BIT(color_prom[i], 4);
 			bit2 = BIT(color_prom[i], 5);
-			g = combine_3_weights(gweights, bit0, bit1, bit2);
+			g = combine_weights(gweights, bit0, bit1, bit2);
 
 			/* blue component */
 			bit0 = BIT(color_prom[i], 6);
 			bit1 = BIT(color_prom[i], 7);
-			b = combine_2_weights(bweights, bit0, bit1);
+			b = combine_weights(bweights, bit0, bit1);
 
 			palette.set_indirect_color(i, rgb_t(r, g, b));
 		}

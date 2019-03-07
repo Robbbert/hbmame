@@ -24,4 +24,4 @@ ROM_START( asukac )
 	ROM_LOAD( "b68-10.ic24", 0x00000, 0x10000, CRC(387aaf40) SHA1(47c583564ef1d49ece15f97221b2e073e8fb0544) )
 ROM_END
 
-HACK( 1988, asukac, asuka, asuka, asuka,  asuka_state, 0, ROT270, "Taito Corporation", "Asuka & Asuka (Translation Chinese)(World)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, asukac, asuka, asuka, asuka,  asuka_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Translation Chinese)(World)", MACHINE_SUPPORTS_SAVE )

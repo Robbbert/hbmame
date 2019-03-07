@@ -4,7 +4,7 @@
 
 #include "includes/neogeo.h"
 
-
+#if 0
 void neogeo_state::init_kof95sp() // thx FBA
 {
 	init_neogeo();
@@ -24,7 +24,7 @@ void neogeo_state::init_kof95sp() // thx FBA
 	rom[0x1f3a9] = 0x0003; // 0090
 	rom[0x1f3aa] = 0xe7fa; // 16be
 }
-
+#endif
 
 
 ROM_START( kof95b ) /* The King of Fighters '95 - Hack by UNKNOWN - (Can choose Kusanagi and Rugal) */
@@ -326,10 +326,18 @@ ROM_START( kof95seh ) /* The King of Fighters '95 - Super Enhance Hack by Creamy
 ROM_END
 
 ROM_START( kof95sp )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "084sp.p1",0x000000, 0x100000, CRC(8bcca012) SHA1(1174d613c24ef4bb284a6c3b5a756db812e6c356) )
 	ROM_LOAD16_WORD_SWAP( "084sp.p2",0x100000, 0x100000, CRC(5cb1af9e) SHA1(e4bea729569e7c1897182787d835188fdc6c2ef0) )
-	ROM_LOAD16_WORD_SWAP( "084sp.p3",0x200000, 0x020000, CRC(030e71cb) SHA1(387ee0e27c48c782b5b3bb43033ab7884b71bf24) )
+	ROM_FILL(0x3e750,1,0x2b) // 4ef9
+	ROM_FILL(0x3e751,1,0x7c)
+	ROM_FILL(0x3e752,1,0x00) // 0090
+	ROM_FILL(0x3e753,1,0x03)
+	ROM_FILL(0x3e754,1,0xe7) // 16be
+	ROM_FILL(0x3e755,1,0xfa)
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "084sp.p3",0x000000, 0x020000, CRC(030e71cb) SHA1(387ee0e27c48c782b5b3bb43033ab7884b71bf24) )
 
 	NEO_SFIX_128K( "084sp.s1", CRC(83cbae60) SHA1(9e529c8811fa69a201e103c62e723427d578098b) )
 
@@ -352,10 +360,18 @@ ROM_START( kof95sp )
 ROM_END
 
 ROM_START( kof95sp2 )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "084sp2.p1",0x000000, 0x100000, CRC(1dea5b42) SHA1(e7539db7a264f43956b27bce2053f66b772552bb) )
 	ROM_LOAD16_WORD_SWAP( "084sp.p2", 0x100000, 0x100000, CRC(5cb1af9e) SHA1(e4bea729569e7c1897182787d835188fdc6c2ef0) )
-	ROM_LOAD16_WORD_SWAP( "084sp2.p3",0x200000, 0x020000, CRC(46db6f4a) SHA1(482fe3d8ddc9f479f331edcb1fff4e3916fbb302) )
+	ROM_FILL(0x3e750,1,0x2b) // 4ef9
+	ROM_FILL(0x3e751,1,0x7c)
+	ROM_FILL(0x3e752,1,0x00) // 0090
+	ROM_FILL(0x3e753,1,0x03)
+	ROM_FILL(0x3e754,1,0xe7) // 16be
+	ROM_FILL(0x3e755,1,0xfa)
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "084sp2.p3",0x000000, 0x020000, CRC(46db6f4a) SHA1(482fe3d8ddc9f479f331edcb1fff4e3916fbb302) )
 
 	NEO_SFIX_128K( "084sp.s1", CRC(83cbae60) SHA1(9e529c8811fa69a201e103c62e723427d578098b) )
 
@@ -441,8 +457,8 @@ HACK( 200?, kof95neo,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo
 HACK( 200?, kof95pjc,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "TcwLee", "Kof'95 (Add Char - Char color changed)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kof95ru,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Jason/K3", "Kof'95 Remix Ultra 1.0 (Diff Moves ultra rev v1.0)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95seh,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Kof'95 (Add Char - Ultra pow hack ABC)(NGM-084)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof95sp,   kof95,    samsho2sp,       neogeo,  neogeo_state,  kof95sp,  ROT0, "GSC2007", "Kof'95 (Special v1.0.0627)(NGM-084)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof95sp2,  kof95,    samsho2sp,       neogeo,  neogeo_state,  kof95sp,  ROT0, "GSC2007", "Kof'95 (Special v1.0.0613)(NGM-084)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof95sp,   kof95,    gsc,             neogeo,  neogeo_state,  gsc,      ROT0, "GSC2007", "Kof'95 (Special v1.0.2017-06-27)(NGM-084)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof95sp2,  kof95,    gsc,             neogeo,  neogeo_state,  gsc,      ROT0, "GSC2007", "Kof'95 (Special v1.0.2017-06-13)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95xg,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "PPX Hack Team", "Kof'95 (Boss)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95y,    kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char set 1)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 
@@ -1182,11 +1198,13 @@ ROM_START( kof95s29 )
 	ROM_LOAD16_BYTE( "084.c8", 0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
 ROM_END
 
-ROM_START( kof95s30 )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+ROM_START( kof95s30 )  // encrypted px
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "084h30.p1",0x000000, 0x100000, CRC(e829d460) SHA1(15e6dc701a41bf357e3423f56ed4796198052fa1) )
 	ROM_LOAD16_WORD_SWAP( "084h30.p2",0x100000, 0x100000, CRC(2e90dd23) SHA1(5da41667264e87e33c0a4f50d7d4e4a4f957b099) )
-	ROM_LOAD16_WORD_SWAP( "084h30.p3",0x200000, 0x020000, CRC(971ecbdd) SHA1(b8f59243a4f3094a44b36da73446f0dee6ca967a) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "084h30.p3",0x000000, 0x020000, CRC(971ecbdd) SHA1(b8f59243a4f3094a44b36da73446f0dee6ca967a) )
 
 	NEO_SFIX_128K( "084h30.s1", CRC(26a96ac5) SHA1(bb0326e62b87a484de743d820de459de4eb0ba32) )
 
@@ -1514,7 +1532,7 @@ HACK( 2018, kof95s26,       kof95,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, kof95s27,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'95 (Uncensored Version Remix v2)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof95s28,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'95 (Uncensored Version Remix v3)(NGM-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95s29,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "oak2003",    "Kof'95 (Transparent energy bar v3)(NGH-084)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof95s30,       kof95,    samsho2sp,     neogeo, neogeo_state,         kof95sp,   ROT0, "GSC2007", "Kof'95 (Special v1.0.062?)(NGM-084)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof95s30,       kof95,    gsc,           neogeo, neogeo_state,         gsc,       ROT0, "GSC2007", "Kof'95 (Special v1.0.062?)(NGM-084)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95hs01,      kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",    "Kof'95 (Boss Hack Like NeogeoCD Version)(NGH-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95hs02,      kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'95 (Unlimit Special Moves)(NGH-084)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof95hs03,      kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'95 (Enhanced power V1)(NGH-084)", MACHINE_SUPPORTS_SAVE )

@@ -177,8 +177,7 @@ MACHINE_CONFIG_START( mineswp_state::mineswp )
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	MCFG_DEVICE_ADD("beeper", BEEP, 950) // guess
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.40)
+	BEEP(config, m_beep, 950).add_route(ALL_OUTPUTS, "mono", 0.40);
 MACHINE_CONFIG_END
 
 

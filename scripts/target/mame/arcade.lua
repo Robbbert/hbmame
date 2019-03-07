@@ -133,6 +133,7 @@ CPUS["HMCS40"] = true
 --CPUS["SM510"] = true
 CPUS["ST62XX"] = true
 CPUS["DSPP"] = true
+CPUS["HPC"] = true
 
 --------------------------------------------------
 -- specify available sound cores
@@ -285,6 +286,7 @@ VIDEOS["BUFSPRITE"] = true
 VIDEOS["CESBLIT"] = true
 --VIDEOS["CRT9007"] = true
 --VIDEOS["CRT9021"] = true
+--VIDEOS["CRT9028"] = true
 --VIDEOS["CRT9212"] = true
 VIDEOS["CRTC_EGA"] = true
 --VIDEOS["DL1416"] = true
@@ -605,6 +607,7 @@ MACHINES["UPD765"] = true
 MACHINES["FDC_PLL"] = true
 MACHINES["V3021"] = true
 MACHINES["WD_FDC"] = true
+--MACHINES["WD1010"] = true
 MACHINES["WD11C00_17"] = true
 MACHINES["WD2010"] = true
 MACHINES["WD33C9X"] = true
@@ -4589,6 +4592,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/coinmstr.cpp",
 	MAME_DIR .. "src/mame/drivers/coinmvga.cpp",
 	MAME_DIR .. "src/mame/drivers/comebaby.cpp",
+	MAME_DIR .. "src/mame/drivers/cromptons.cpp",
 	MAME_DIR .. "src/mame/drivers/cupidon.cpp",
 	MAME_DIR .. "src/mame/drivers/bntyhunt.cpp",
 	MAME_DIR .. "src/mame/drivers/coolpool.cpp",

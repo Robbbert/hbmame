@@ -74,5 +74,5 @@ ROM_END
 
 
 
-HACK( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
-HACK( 2017, ataris1rt, indytemp, indytemp, indytemp, atarisy1_state, indytemp, ROT0, "GadgetFreak", "Atari System 1 Ram Tester", 0 )
+GAME( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, init_indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
+GAME( 2017, ataris1rt, indytemp, indytemp, indytemp, atarisy1_state, init_indytemp, ROT0, "GadgetFreak", "Atari System 1 Ram Tester", 0 )

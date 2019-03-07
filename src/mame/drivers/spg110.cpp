@@ -4,10 +4,12 @@
 
     Short Description:
 
-		die markings show
+        die markings show
 
-		"SunPlus PA7801" ( known as Sunplus SPG110? )
-		Classic Arcade Pinball
+        "SunPlus PA7801" ( known as Sunplus SPG110? )
+        Classic Arcade Pinball
+        EA Sports (NHL95 + Madden 95)
+		Spiderman 5-in-1 (original release)
 
 *******************************************************************************/
 
@@ -67,8 +69,8 @@ void spg110_game_state::spg110_base(machine_config &config)
 
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
-//	m_spg->add_route(ALL_OUTPUTS, "lspeaker", 0.5);
-//	m_spg->add_route(ALL_OUTPUTS, "rspeaker", 0.5);
+//  m_spg->add_route(ALL_OUTPUTS, "lspeaker", 0.5);
+//  m_spg->add_route(ALL_OUTPUTS, "rspeaker", 0.5);
 
 	SPG110(config, m_spg, XTAL(27'000'000), "maincpu");
 }
@@ -78,5 +80,12 @@ ROM_START( jak_capb )
 	ROM_LOAD16_WORD_SWAP( "classicarcadepinball.bin", 0x000000, 0x200000, CRC(b643dab0) SHA1(f57d546758ba442e28b5f0f48b3819b2fc2eb7f7) )
 ROM_END
 
+
+ROM_START( jak_spdmo )
+	ROM_REGION( 0x800000, "maincpu", ROMREGION_ERASE00 )
+	ROM_LOAD16_WORD_SWAP( "spidermaneyes.bin", 0x000000, 0x200000, CRC(d5eaa6ae) SHA1(df226d378b41cf6ef90b9f72e48ff5e66385dcba) )
+ROM_END
+
 // JAKKS Pacific Inc TV games
-CONS( 2004, jak_capb, 0, 0, spg110_base, spg110, spg110_game_state, empty_init, "JAKKS Pacific Inc / HotGen Ltd", "Classic Arcade Pinball (JAKKS Pacific TV Game)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
+CONS( 2004, jak_capb,  0,        0, spg110_base, spg110, spg110_game_state, empty_init, "JAKKS Pacific Inc / HotGen Ltd",      "Classic Arcade Pinball (JAKKS Pacific TV Game)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
+CONS( 2004, jak_spdmo, jak_spdm, 0, spg110_base, spg110, spg110_game_state, empty_init, "JAKKS Pacific Inc / Digital Eclipse", "Spider-Man (JAKKS Pacific TV Game) (older hardare)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS ) // this is the smaller more 'square' style joystick that was originally released before the GameKey slot was added.

@@ -32,24 +32,21 @@ INPUT_PORTS_END
  *
  ***********************************************************/
 
-void galaxian_state::jumpbugx_map(address_map &map) {
+void galaxian_hbmame::jumpbugx_map(address_map &map)
+{
 	jumpbug_map(map);
 /* HBMAME - added next lines */
 	map(0x6800,0x6807).mirror(0x07f8).w("cust",FUNC(galaxian_sound_device::sound_w));
 	map(0x7800,0x7800).mirror(0x07ff).w("cust",FUNC(galaxian_sound_device::pitch_w));
 }
 
-MACHINE_CONFIG_START( galaxian_state::jumpbugx )
+void galaxian_hbmame::jumpbugx(machine_config &config)
+{
 	jumpbug(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(jumpbugx_map)
-
-	MCFG_DEVICE_ADD("cust", GALAXIAN, 0)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.4)
-
-	MCFG_DEVICE_ADD(GAL_AUDIO, DISCRETE, galaxian_discrete)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 1.0)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &galaxian_hbmame::jumpbugx_map);
+	GALAXIAN(config, "cust", 0).add_route(ALL_OUTPUTS, "speaker", 0.4);
+	DISCRETE(config, GAL_AUDIO, galaxian_discrete).add_route(ALL_OUTPUTS, "speaker", 1.0);
+}
 
 
 /*************************************
@@ -91,12 +88,12 @@ INPUT_PORTS_END
  *
  *************************************/
 
-void galaxian_state::init_trukker()
+void galaxian_hbmame::init_trukker()
 {
 	uint16_t i;
 
 	/* video extensions */
-	common_init(NULL, &galaxian_state::frogger_draw_background, &galaxian_state::frogger_extend_tile_info, &galaxian_state::frogger_extend_sprite_info);
+	common_init(NULL, &galaxian_hbmame::frogger_draw_background, &galaxian_hbmame::frogger_extend_tile_info, &galaxian_hbmame::frogger_extend_sprite_info);
 	m_frogger_adjust = true;
 
 	/* the first ROM of the second CPU has data lines D0 and D1 swapped. Decode it. */
@@ -133,28 +130,27 @@ void galaxian_state::init_trukker()
  *
  ***************************************************************/
 
-void galaxian_state::tst_frog_map(address_map &map) {
+void galaxian_hbmame::tst_frog_map(address_map &map) {
 	map.unmap_value_high();
 	map(0x0000,0x3fff).rom();
 	map(0x8000,0x87ff).ram();
-	map(0x8800,0x8800).nopr();  //AM_DEVREAD("watchdog", watchdog_timer_device, reset_r)
-	map(0xa800,0xabff).mirror(0x0400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
-	map(0xb000,0xb0ff).mirror(0x0700).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
-	map(0xb808,0xb808).mirror(0x07e3).w(FUNC(galaxian_state::irq_enable_w));
-	map(0xb80c,0xb80c).mirror(0x07e3).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
-	map(0xb810,0xb810).mirror(0x07e3).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
-	map(0xb818,0xb818).mirror(0x07e3).w(FUNC(galaxian_state::coin_count_0_w));  /* IOPC7 */
-	map(0xb81c,0xb81c).mirror(0x07e3).w(FUNC(galaxian_state::coin_count_1_w));  /* POUT1 */
-	map(0xc000,0xffff).rw(FUNC(galaxian_state::frogger_ppi8255_r),FUNC(galaxian_state::frogger_ppi8255_w));
+	map(0x8800,0x8800).nopr();  //r("watchdog", FUNC(watchdog_timer_device::reset_r));
+	map(0xa800,0xabff).mirror(0x0400).ram().w(FUNC(galaxian_hbmame::galaxian_videoram_w)).share("videoram");
+	map(0xb000,0xb0ff).mirror(0x0700).ram().w(FUNC(galaxian_hbmame::galaxian_objram_w)).share("spriteram");
+	map(0xb808,0xb808).mirror(0x07e3).w(FUNC(galaxian_hbmame::irq_enable_w));
+	map(0xb80c,0xb80c).mirror(0x07e3).w(FUNC(galaxian_hbmame::galaxian_flip_screen_y_w));
+	map(0xb810,0xb810).mirror(0x07e3).w(FUNC(galaxian_hbmame::galaxian_flip_screen_x_w));
+	map(0xb818,0xb818).mirror(0x07e3).w(FUNC(galaxian_hbmame::coin_count_0_w));  /* IOPC7 */
+	map(0xb81c,0xb81c).mirror(0x07e3).w(FUNC(galaxian_hbmame::coin_count_1_w));  /* POUT1 */
+	map(0xc000,0xffff).rw(FUNC(galaxian_hbmame::frogger_ppi8255_r),FUNC(galaxian_hbmame::frogger_ppi8255_w));
 }
 
-MACHINE_CONFIG_START( galaxian_state::tst_frog )
+void galaxian_hbmame::tst_frog(machine_config &config)
+{
 	frogger(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(tst_frog_map)
-	MCFG_DEVICE_REMOVE("watchdog")
-MACHINE_CONFIG_END
-
+	m_maincpu->set_addrmap(AS_PROGRAM, &galaxian_hbmame::tst_frog_map);
+	config.device_remove("watchdog");
+}
 
 
 /***************************************************************************
@@ -708,43 +704,43 @@ ROM_END
 //    Year  romname   parent    machine   inputs    init      rot
 
 /* Frogger */
-HACK( 1981, kazzy,    frogger,  frogger,  frogger,  galaxian_state, frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, trukker,  frogger,  frogger,  frogger,  galaxian_state, trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_state, frogger,  ROT90, "msmcdoug", "Test Rom - Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, kazzy,    frogger,  frogger,  frogger,  galaxian_hbmame, frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, trukker,  frogger,  frogger,  frogger,  galaxian_hbmame, trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_hbmame, frogger,  ROT90, "msmcdoug", "Test Rom - Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
 
 
 /* Amidar */
-HACK( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "S.Arkames", "Amidar (language Translation French)(11.28.2007)(Set 01)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_state, turtles,  ROT90, "Arkatrad", "Amidar (language Translation French)(11.28.2007)(Set 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_hbmame, turtles,  ROT90, "S.Arkames", "Amidar (language Translation French)(11.28.2007)(Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_hbmame, turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_hbmame, turtles,  ROT90, "Arkatrad", "Amidar (language Translation French)(11.28.2007)(Set 02)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Scramble */
-HACK( 1998, offender, scramble, scramble, scramble, galaxian_state, scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, superdog, scramble, scramble, scramble, galaxian_state, scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, offender, scramble, scramble, scramble, galaxian_hbmame, scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, superdog, scramble, scramble, scramble, galaxian_hbmame, scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
 
 
 /* Galaxian */
-HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Unknown",  "Andromeda", MACHINE_SUPPORTS_SAVE)
-HACK( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_state, galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, galaxiab, galnamco, galaxian, galaxiab, galaxian_state, galaxian, ROT90, "bootleg", "Galaxian", MACHINE_SUPPORTS_SAVE )
-HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Unknown", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_state, galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
-HACK( 1979, galnamco, 0,        galaxian, galaxian, galaxian_state, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_state, galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_state, galaxian, ROT90, "Krazy Ivan", "Mr. Do Nightmare", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_state, galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
+HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Unknown",  "Andromeda", MACHINE_SUPPORTS_SAVE)
+HACK( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, galaxiab, galnamco, galaxian, galaxiab, galaxian_hbmame, galaxian, ROT90, "bootleg", "Galaxian", MACHINE_SUPPORTS_SAVE )
+HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Unknown", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
+HACK( 1979, galnamco, 0,        galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_hbmame, galaxian, ROT90, "Krazy Ivan", "Mr. Do Nightmare", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Moon Cresta */
-HACK( 2000, mooncmst, mooncrst, mooncrst, mooncrst, galaxian_state, mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, mooncrs5, mooncrst, mooncrst, mooncrst, galaxian_state, mooncrsu, ROT90, "bootleg", "Moon Cresta", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, mooncmst, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, mooncrs5, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrsu, ROT90, "bootleg", "Moon Cresta", MACHINE_SUPPORTS_SAVE )
 
 
 /* Other */
-HACK( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_state, jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
-HACK( 1982, monstrz,  0,        sfx,      sfx,      galaxian_state, sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
-HACK( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_state, pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, wbeast,   0,        galaxian, warofbug, galaxian_state, nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+HACK( 1982, monstrz,  0,        sfx,      sfx,      galaxian_hbmame, sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
+HACK( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_hbmame, pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 

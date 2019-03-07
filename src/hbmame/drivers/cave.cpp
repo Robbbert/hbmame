@@ -90,7 +90,7 @@ ROM_START( pwrinst2z )
 ROM_END
 
 HACK( 2013, pwrinst2h, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "TT", "Power Instinct 2 (hack)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "hack", "Power Instinct 2 (unknown hack)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, pwrinst2j, ROT0, "Unknown", "Power Instinct 2 (Great Blood Temple Simplification 2015-12-05)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -419,6 +419,6 @@ HACK( 200?, theroes01,     theroes,  gaia,       theroes,  cave_state,     gaia,
  // Power Instinct 2
 HACK( 200?, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Unknown",  "Power Instinct 2 (Description Of Unknown Origin 01)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
  // Gouketsuji Gaiden
-HACK( 200?, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Unknown",  "Gouketsuji Gaiden (Description Of Unknown Origin 01)(Japan, Ver. 95/06/20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Unknown",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)(Japan, Ver. 95/06/20)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     pwrinst2j,ROT0,         "Ddj",  "Gouketsuji Gaiden (always Have Super Moves)(Japan, Ver. 95/06/20)", MACHINE_SUPPORTS_SAVE )
 

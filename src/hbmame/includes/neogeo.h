@@ -87,7 +87,6 @@ public:
 	{ }
 
 	void hbmame_kog(machine_config &config);
-	void lbsp(machine_config &config);
 	void mvs(machine_config &config);
 	void neogeo_arcade(machine_config &config);
 	void neogeo_base(machine_config &config);
@@ -99,16 +98,14 @@ public:
 	void neogeo_noctrl(machine_config &config);
 	void neogeo_noslot(machine_config &config);
 	void no_watchdog(machine_config &config);
-	void samsho2sp(machine_config &config);
+	void gsc(machine_config &config);
 
 	void init_bangbead();
 	void init_cmc42sfix();
-	void init_cmc50sfix();
 	void init_ct2k3sp();
 	void init_ct2k3sa();
 	void init_cthd2003();
 	void init_cthd2k3a();
-	void init_dbdrsp();
 	void init_fatfury2();
 	void init_fr2ch();
 	void init_ganryu();
@@ -116,6 +113,7 @@ public:
 	void init_garouh();
 	void init_garoubl();
 	void init_garoud();
+	void init_gsc();
 	void init_irrmaze();
 	void init_jckeygpd();
 	void init_jockeygp();
@@ -123,8 +121,6 @@ public:
 	void init_kf2k1pa();
 	void init_kf2k2mp();
 	void init_kf2k2mp2();
-	void init_kf2k2pls();
-	void init_kf2k3bl();
 	void init_kf2k3pcb();
 	void init_kf2k3pl();
 	void init_kf2k3upl();
@@ -133,42 +129,26 @@ public:
 	void init_kof10thu();
 	void init_kof2k2bd();
 	void init_kof2k2pl17();
-	void init_kf2k2ps2re();
 	void init_kof2k3fd();
 	void init_kof2k3hd();
 	void init_kof2k3pcd();
 	void init_kof2k4pls();
 	void init_kof2k4se();
-	void init_kof2kbsd();
-	void init_kof2knd();
-	void init_kof2kxxx();
-	void init_kof95sp();
 	void init_kof96ep();
 	void init_kof97pla();
 	void init_kof97oro();
 	void init_kof98();
-	void init_kof98pfe();
 	void init_kof99();
-	void init_kof99hb();
-	void init_kof99k();
 	void init_kof2000();
-	void init_kof2000d();
-	void init_kof2000h();
-	void init_kof2000m();
-	void init_kof2000n();
 	void init_kof2001();
-	void init_kof2001hb();
 	void init_kof2002();
 	void init_kof2002b();
-	void init_kof2002hb();
 	void init_kof2003();
 	void init_kof2003h();
 	void init_kof2003b();
-	void init_kof2003hb();
 	void init_kog();
 	void init_kogd();
 	void init_lans2004();
-	void init_lbsp();
 	void init_matrim();
 	void init_matrima();
 	void init_matrimbl();
@@ -190,7 +170,8 @@ public:
 	void init_ms5pcb();
 	void init_ms5pcbd();
 	void init_ms5plus();
-	void init_mvs();
+	void init_ms6s16();
+	void init_mp2s39();
 	void init_neogeo();
 	void init_nitd();
 	void init_pnyaa();
@@ -220,6 +201,7 @@ public:
 	void init_svcplusa();
 	void init_svcsplus();
 	void init_vliner();
+	void init_xs02();
 	void init_zupapa();
 	DECLARE_CUSTOM_INPUT_MEMBER(get_memcard_status);
 	DECLARE_CUSTOM_INPUT_MEMBER(get_audio_result);
@@ -257,8 +239,7 @@ private:
 	void audio_map(address_map &map);
 	void audio_io_map(address_map &map);
 	void main_map_noslot(address_map &map);
-	void samsho2sp_map(address_map &map);
-	void lbsp_map(address_map &map);
+	void gsc_map(address_map &map);
 	void main_map1(address_map &map);
 
 	void neogeo_postload();
@@ -330,7 +311,7 @@ private:
 	int          m_palette_bank;
 
 	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_r);
-	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_bectors_r);
+	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_vectors_r);
 
 	void install_banked_bios();
 

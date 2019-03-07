@@ -40,6 +40,7 @@
 #include "sound/namco.h"
 #include "machine/nvram.h"
 #include "machine/74259.h"
+#include "speaker.h"
 
 
 
@@ -444,10 +445,8 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacman)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacman)
 	MCFG_SCREEN_PALETTE("palette")
-	MCFG_PALETTE_ADD_INIT_BLACK("palette", 128*4)
-	MCFG_PALETTE_INDIRECT_ENTRIES(32)
-	MCFG_PALETTE_INIT_OWNER(pacman_state,pacman)
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_pacman)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_pacman);
+	PALETTE(config, m_palette, FUNC(pacman_state::pacman_palette), 128*4, 32);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -462,7 +461,7 @@ MACHINE_CONFIG_START( pacman_state::pacmanx )
 	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
 	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
 	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacmanx)
-	MCFG_GFXDECODE_MODIFY("gfxdecode", gfx_pacmanx)
+	m_gfxdecode->set_info(gfx_pacmanx);
 MACHINE_CONFIG_END
 
 

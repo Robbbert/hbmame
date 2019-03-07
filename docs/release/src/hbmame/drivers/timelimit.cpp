@@ -45,7 +45,7 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_DEVICE_IO_MAP(sound_io_map)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", timelimt_hbmame,  irq0_line_hold) /* ? */
 
-	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
+	config.m_minimum_quantum = attotime::from_hz(3000);
 
 	ls259_device &mainlatch(LS259(config, "mainlatch")); // IC15
 	mainlatch.q_out_cb<0>().set(FUNC(timelimt_hbmame::nmi_enable_w));
@@ -65,9 +65,8 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_SCREEN_UPDATE_DRIVER(timelimt_hbmame, screen_update)
 	MCFG_SCREEN_PALETTE("palette")
 
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_timelimt)
-	MCFG_PALETTE_ADD("palette", 64+32)
-	MCFG_PALETTE_INIT_OWNER(timelimt_hbmame, timelimt)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_timelimt);
+	PALETTE(config, m_palette, FUNC(timelimt_hbmame::timelimt_palette), 64+32);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

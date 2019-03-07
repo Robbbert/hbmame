@@ -4,77 +4,6 @@
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_kof2003b() // hacks of kf2k3bl
-{
-	init_neogeo();
-	m_bootleg_prot->kf2k3bl_install_protection(m_maincpu, m_banked_cart, cpuregion, cpuregion_size);
-
-	// decrypt m1 if needed
-	if (memregion("audiocrypt"))
-		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-
-	// decrypt v roms if needed
-	u8 *ram = memregion("ymsnd")->base();
-	if (ram[0x91] != 0x33)
-	{
-		//printf("ym=%X\n",ram[0x91]);
-		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
-	}
-
-	// decrypt c roms if needed
-	ram = memregion("sprites")->base();
-	if (ram[0] != 0)
-	{
-		//printf("Sprites=%X\n",ram[0]);
-		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
-	}
-
-	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size, 1);
-}
-
-void neogeo_state::init_kof2003hb() // hacks of kof2003
-{
-	init_neogeo();
-	m_sprgen->m_fixed_layer_bank_type = 2; // for those sets with 512k of s1
-
-	// decrypt p roms if needed
-	u8 *ram = memregion("maincpu")->base();
-	if (ram[0x100] != 0x45)
-	{
-		//printf("Maincpu=%X\n",ram[0x100]);fflush(stdout);
-		m_pvc_prot->kof2003_decrypt_68k(cpuregion, cpuregion_size);
-		m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
-	}
-
-	// decrypt m1 if needed
-	if (memregion("audiocrypt"))
-		m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
-
-	// decrypt v roms if needed
-	ram = memregion("ymsnd")->base();
-	if (ram[0x91] != 0x33)
-	{
-		//printf("ym=%X\n",ram[0x91]);
-		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 5);
-	}
-
-	// decrypt c roms if needed
-	ram = memregion("sprites")->base();
-	if (ram[0] != 0)
-	{
-		//printf("Sprites=%X\n",ram[0]);
-		m_cmc_prot->cmc50_neogeo_gfx_decrypt(spr_region, spr_region_size, KOF2003_GFX_KEY);
-	}
-
-	// if no s rom, copy info from end of c roms
-	ram = memregion("fixed")->base();
-	if (ram[0x100] == 0)
-	{
-		//printf("Fixed1=%X\n",ram[0x100]);
-		m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
-	}
-}
-
 void neogeo_state::init_kof2k3hd()
 {
 	init_neogeo();
@@ -111,6 +40,19 @@ void neogeo_state::init_kof2k3fd()
 	m_sma_prot->kf2k3pcb_sp1_decrypt((uint16_t*)memregion("mainbios")->base());
 	m_pvc_prot->install_pvc_protection(m_maincpu, m_banked_cart);
 	m_maincpu->space(AS_PROGRAM).install_rom(0xc00000, 0xc7ffff, 0x080000, memregion("mainbios")->base());  // 512k bios
+}
+
+// A3 is inverted in s1
+void neogeo_state::init_xs02()
+{
+	for (u32 i = 0; i < fix_region_size; i+=0x10)
+		for (u8 j = 0; j < 8; j++)
+		{
+			u8 k = fix_region[i+j];
+			fix_region[i+j] = fix_region[i+j+8];
+			fix_region[i+j+8] = k;
+		}
+	init_kof2003b();
 }
 
 
@@ -785,17 +727,17 @@ ROM_END
 
 
 
-HACK( 200?, kof2003d,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003hb, ROT0, "Unknown", "Kof2003 (Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003d,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003, ROT0, "Unknown", "Kof2003 (Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2003f,   kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Unknown", "Kof2003 Original (Fully Decrypted - Fixed)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2003rebh,kof2003,  no_watchdog,   neogeo, neogeo_state, neogeo,    ROT0, "Unknown", "Kof2003 (Description Unknown)(Set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3b,    kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "Gledson01", "Kof2003 (Add Char)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3bl2,  kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "Unknown", "Kof2003 (Boss hack)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k3br,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003hb, ROT0, "Neogeo BR team", "Kof2003 (Portuguese Brazilian)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k3br,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003, ROT0, "Neogeo BR team", "Kof2003 (Portuguese Brazilian)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3bs1,  kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3bs2,  kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3bs3,  kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3bs4,  kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (Boss PS2 EGCG/FCHT Hack Set 4)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2k3d,    kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003hb, ROT0, "Unknown", "Kof2003 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2k3d,    kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003, ROT0, "Unknown", "Kof2003 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3evo,  kof2003,  no_watchdog,   neogeo, neogeo_state, neogeo,    ROT0, "Unknown", "Kof2003 (Evolution 1.4)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3fd,   kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Unknown", "Kof2003 (Description Unknown)(Set 02)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2k3gc,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "Gledson01", "Kof2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
@@ -6364,7 +6306,7 @@ ROM_START( kof2003xs02 )
 	ROM_LOAD16_WORD_SWAP( "271b.p2", 0x800000, 0x200000, CRC(fb01a5b3) SHA1(3c8e92362f8169f5e64d6e1d1fea41edd2e7a6a3) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
-	NEO_SFIX_128K( "271b.s1", CRC(482c48a5) SHA1(27e2f5295a9a838e112be28dafc111893a388a16) )
+	NEO_SFIX_128K( "271xs02.s1", CRC(d168751d) SHA1(d61ba7693b3ffe64022457fd1e5af95a5bada38b) )
 
 	NEO_BIOS_AUDIO_128K( "271b.m1", CRC(3a4969ff) SHA1(2fc107a023a82053a8df63025829bcf12cee9610) )
 
@@ -6428,61 +6370,61 @@ HACK( 200?, kof2003s39,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2003s40,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Eddids",    "Kof2003 (Replace Time Border And Font Into PS2 Style)(NGM-2710)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2003s41,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Eddids",    "Kof2003 (Unlimited Credits in Console Mode)(NGM-2710)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2003s43,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Unknown",    "Kof2003 (Captain Super Kill Unified)(Alt)(NGM-2710)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds01,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "devilfox & BisonSAS",    "Kof2003 (Portuguese Edition)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "marcochen",    "Kof2003 (Simplified Chinese Access Menu)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds03,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Kami Team)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds04,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Portrait)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds05,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Jason",    "Kof2003 (Always Chance Ok)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds06,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "kof1996",    "Kof2003 (Enable Zoom)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds07,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "snk2003",    "Kof2003 (Evolution 1.4)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds08,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "MR.L",    "Kof2003 (Unlock Leader Special Move)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds09,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Eddids",    "Kof2003 (PlayStation 2 Beta)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds10,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (PS2 Style Portraits)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds11,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Creamymami",    "Kof2003 (Enhanced Power Mode)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds12,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Raymonose",    "Kof2003 (Easy Active V1)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds13,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Andy chan",    "Kof2003 (Easy Active V2)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds14,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Eddids",    "Kof2003 (Violet Fire)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds15,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Unknown",    "Kof2003 (Transparency Blood Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds16,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "kof1996",    "Kof2003 (Chest Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds17,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "kof1996",    "Kof2003 (Gun Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds18,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "oak2003",    "Kof2003 (Blood Alt)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds19,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "oak2003",    "Kof2003 (Blood Alt 02)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds20,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Unknown",    "Kof2003 (The Selection Interface Changes Randomly)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003ds21,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003hb, ROT0, "Eddids",    "Kof2003 (PS2 Style)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "devilfox & BisonSAS",    "Kof2003 (Portuguese Edition)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls02,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Jason",    "Kof2003 (Always Change Ok)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls03,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "kof1996",    "Kof2003 (Enable Zoom)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls04,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "iq_132 & oak2003, Katana",    "Kof2003 (Evolution 1.4)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls05,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "MR.L",    "Kof2003 (Unlock Leader Special Move)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls06,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Unknown",    "Kof2003 (Enable Hidden Chars V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls07,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Dodowang",    "Kof2003 (Enable Hidden Chars V2)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls08,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (Add Rose's Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls09,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "kof1996",    "Kof2003 (Fix Kagura Twins Vs CPU Bug)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls10,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Foxy",    "Kof2003 (Enable hidden Characters-Leader)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls11,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (Fix Maki Bug)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls12,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (Enhanced Power Cauge)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls13,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Creamymami",    "Kof2003 (Enhanced Power Mode)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls14,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Raymonose",    "Kof2003 (Easy Active V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls15,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Andy chan",    "Kof2003 (Easy Active V2)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls16,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Raymonose",    "Kof2003 (Better Controlling V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls17,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "SWizard",    "Kof2003 (Better Controlling V2)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls18,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "kof1996",    "Kof2003 (Chest Fix)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls19,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "kof1996",    "Kof2003 (Gun Fix)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls20,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (Single Mode Power Cauge)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls21,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "marcochen",    "Kof2003 (Change Time-Limit To 90 Seconds)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls22,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (Add Kusanagi team)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls23,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (PS2 Style)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls24,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "oak2003",    "Kof2003 (Transparency)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls25,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl ,  ROT0, "Eddids",    "Kof2003 (Unlimited Credits In Console Mode)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls26,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "tcwlee",    "Kof2003 (Fix Adel & Mukai's Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls27,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "Eddids",    "Kof2003 (Add Kagra-twins' Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls28,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "siromezm",    "Kof2003 (Take Off Athena's Bikini)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls29,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "Violet",    "Kof2003 (Color Change V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls30,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "tcwlee",    "Kof2003 (Replace All Chars' Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls31,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "Benalla",    "Kof2003 (Replace Some Chars' Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls32,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "oak2003 & siromezm",    "Kof2003 (Replace Mukai's Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls33,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "yozuki",    "Kof2003 (Replace Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kf2k3bls34,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3bl,   ROT0, "LG",    "Kof2003 (Red Blood)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds01,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "devilfox & BisonSAS",    "Kof2003 (Portuguese Edition)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "marcochen",    "Kof2003 (Simplified Chinese Access Menu)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds03,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Kami Team)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds04,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Portrait)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds05,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Jason",    "Kof2003 (Always Chance Ok)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds06,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "kof1996",    "Kof2003 (Enable Zoom)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds07,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "snk2003",    "Kof2003 (Evolution 1.4)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds08,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "MR.L",    "Kof2003 (Unlock Leader Special Move)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds09,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Eddids",    "Kof2003 (PlayStation 2 Beta)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds10,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (PS2 Style Portraits)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds11,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Creamymami",    "Kof2003 (Enhanced Power Mode)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds12,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Raymonose",    "Kof2003 (Easy Active V1)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds13,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Andy chan",    "Kof2003 (Easy Active V2)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds14,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Eddids",    "Kof2003 (Violet Fire)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds15,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Unknown",    "Kof2003 (Transparency Blood Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds16,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "kof1996",    "Kof2003 (Chest Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds17,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "kof1996",    "Kof2003 (Gun Fix)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds18,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "oak2003",    "Kof2003 (Blood Alt)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds19,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "oak2003",    "Kof2003 (Blood Alt 02)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds20,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Unknown",    "Kof2003 (The Selection Interface Changes Randomly)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003ds21,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Eddids",    "Kof2003 (PS2 Style)(Decrypted P&C)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "devilfox & BisonSAS",    "Kof2003 (Portuguese Edition)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls02,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Jason",    "Kof2003 (Always Change Ok)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls03,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "kof1996",    "Kof2003 (Enable Zoom)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls04,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "iq_132 & oak2003, Katana",    "Kof2003 (Evolution 1.4)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls05,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "MR.L",    "Kof2003 (Unlock Leader Special Move)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls06,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Unknown",    "Kof2003 (Enable Hidden Chars V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls07,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Dodowang",    "Kof2003 (Enable Hidden Chars V2)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls08,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Add Rose's Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls09,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "kof1996",    "Kof2003 (Fix Kagura Twins Vs CPU Bug)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls10,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Foxy",    "Kof2003 (Enable hidden Characters-Leader)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls11,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Fix Maki Bug)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls12,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Enhanced Power Cauge)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls13,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Creamymami",    "Kof2003 (Enhanced Power Mode)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls14,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Raymonose",    "Kof2003 (Easy Active V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls15,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Andy chan",    "Kof2003 (Easy Active V2)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls16,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Raymonose",    "Kof2003 (Better Controlling V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls17,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "SWizard",    "Kof2003 (Better Controlling V2)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls18,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "kof1996",    "Kof2003 (Chest Fix)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls19,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "kof1996",    "Kof2003 (Gun Fix)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls20,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Single Mode Power Cauge)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls21,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "marcochen",    "Kof2003 (Change Time-Limit To 90 Seconds)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls22,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Add Kusanagi team)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls23,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (PS2 Style)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls24,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "oak2003",    "Kof2003 (Transparency)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls25,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Unlimited Credits In Console Mode)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls26,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "tcwlee",    "Kof2003 (Fix Adel & Mukai's Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls27,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Eddids",    "Kof2003 (Add Kagra-twins' Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls28,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "siromezm",    "Kof2003 (Take Off Athena's Bikini)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls29,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Violet",    "Kof2003 (Color Change V1)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls30,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "tcwlee",    "Kof2003 (Replace All Chars' Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls31,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Benalla",    "Kof2003 (Replace Some Chars' Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls32,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "oak2003 & siromezm",    "Kof2003 (Replace Mukai's Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls33,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "yozuki",    "Kof2003 (Replace Color)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kf2k3bls34,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "LG",    "Kof2003 (Red Blood)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k3blas01,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "devilfox & BisonSAS",    "Kof2003 (Portuguese Edition)(bootleg set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k3blas02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "Jason",    "Kof2003 (Always Change Ok)(bootleg set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kf2k3blas03,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "kof1996",    "Kof2003 (Enable Zoom)(bootleg set 2)", MACHINE_SUPPORTS_SAVE )
@@ -6608,4 +6550,4 @@ HACK( 200?, kof2004upls27,  kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 200?, kof2004upls28,  kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "oak2003", "Kof2004 EX Ultra Plus (Transparency)(The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2004upls29,  kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3upl,  ROT0, "Eddids", "Kof2004 EX Ultra Plus (Unlimited Credits In Console Mode)(The King of Fighters 2003 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2003xs01,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Unknown", "Kof2003 (Combo)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003xs02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Unknown", "Kof2003 (Hero)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2003xs02,    kof2003,  neogeo_noslot, neogeo, neogeo_state,  xs02,      ROT0, "Unknown", "Kof2003 (Hero)(bootleg set 1)", MACHINE_SUPPORTS_SAVE )

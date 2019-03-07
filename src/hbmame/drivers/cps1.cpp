@@ -3441,14 +3441,14 @@ MACHINE_CONFIG_START(cps_state::qsound )
 	EEPROM_93C46_8BIT(config, "eeprom");
 
 	/* sound hardware */
-	MCFG_DEVICE_REMOVE("mono")
+	config.device_remove("mono");
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	//MCFG_DEVICE_REMOVE("soundlatch")   // HBMAME
-	//MCFG_DEVICE_REMOVE("soundlatch2")  // HBMAME
-	MCFG_DEVICE_REMOVE("2151")
-	MCFG_DEVICE_REMOVE("oki")
+	//config.device_remove("soundlatch");   // HBMAME
+	//config.device_remove("soundlatch2");  // HBMAME
+	config.device_remove("2151");
+	config.device_remove("oki");
 
 	MCFG_DEVICE_ADD("qsound", QSOUND)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
@@ -12525,7 +12525,7 @@ READ16_MEMBER(cps_state::ganbare_ram_r)
 	uint16_t result = 0xffff;
 
 	if (ACCESSING_BITS_0_7)
-		result = (result & ~0x00ff) | m_m48t35->read(space, offset, 0xff);
+		result = (result & ~0x00ff) | m_m48t35->read(offset);
 	if (ACCESSING_BITS_8_15)
 		result = (result & ~0xff00) | (m_mainram[offset] & 0xff00);
 
@@ -12537,7 +12537,7 @@ WRITE16_MEMBER(cps_state::ganbare_ram_w)
 	COMBINE_DATA(&m_mainram[offset]);
 
 	if (ACCESSING_BITS_0_7)
-		m_m48t35->write(space, offset, data & 0xff, 0xff);
+		m_m48t35->write(offset, data & 0xff);
 }
 
 void cps_state::init_ganbare()

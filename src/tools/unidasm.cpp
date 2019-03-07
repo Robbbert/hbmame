@@ -17,6 +17,7 @@ using util::BIT;
 #include "cpu/8x300/8x300dasm.h"
 #include "cpu/adsp2100/2100dasm.h"
 #include "cpu/alph8201/8201dasm.h"
+#include "cpu/alpha/alphad.h"
 #include "cpu/alto2/alto2dsm.h"
 #include "cpu/am29000/am29dasm.h"
 #include "cpu/amis2000/amis2000d.h"
@@ -54,6 +55,7 @@ using util::BIT;
 #include "cpu/hcd62121/hcd62121d.h"
 #include "cpu/hd61700/hd61700d.h"
 #include "cpu/hmcs40/hmcs40d.h"
+#include "cpu/hpc/hpcdasm.h"
 #include "cpu/hphybrid/hphybrid_dasm.h"
 #include "cpu/i386/i386dasm.h"
 #include "cpu/i8008/8008dasm.h"
@@ -299,8 +301,12 @@ struct options
 
 static const dasm_table_entry dasm_table[] =
 {
-	{ "8x300",           be,  0, []() -> util::disasm_interface * { return new n8x300_disassembler; } },
+	{ "8x300",           be, -1, []() -> util::disasm_interface * { return new n8x300_disassembler; } },
 	{ "adsp21xx",        le, -2, []() -> util::disasm_interface * { return new adsp21xx_disassembler; } },
+	{ "alpha",           le,  0, []() -> util::disasm_interface * { return new alpha_disassembler; } },
+	{ "alpha_nt",        le,  0, []() -> util::disasm_interface * { return new alpha_disassembler(alpha_disassembler::TYPE_NT); } },
+	{ "alpha_unix",      le,  0, []() -> util::disasm_interface * { return new alpha_disassembler(alpha_disassembler::TYPE_UNIX); } },
+	{ "alpha_vms",       le,  0, []() -> util::disasm_interface * { return new alpha_disassembler(alpha_disassembler::TYPE_VMS); } },
 	{ "alpha8201",       le,  0, []() -> util::disasm_interface * { return new alpha8201_disassembler; } },
 	{ "alto2",           be, -2, []() -> util::disasm_interface * { return new alto2_disassembler; } },
 	{ "am29000",         be,  0, []() -> util::disasm_interface * { return new am29000_disassembler; } },
@@ -355,6 +361,8 @@ static const dasm_table_entry dasm_table[] =
 	{ "hp_5061_3001",    be, -1, []() -> util::disasm_interface * { return new hp_5061_3001_disassembler; } },
 	{ "hp_5061_3011",    be, -1, []() -> util::disasm_interface * { return new hp_5061_3011_disassembler; } },
 	{ "hp_09825_67907",  be, -1, []() -> util::disasm_interface * { return new hp_09825_67907_disassembler; } },
+	{ "hpc16083",        le,  0, []() -> util::disasm_interface * { return new hpc16083_disassembler; } },
+	{ "hpc16164",        le,  0, []() -> util::disasm_interface * { return new hpc16164_disassembler; } },
 	{ "hyperstone",      be,  0, []() -> util::disasm_interface * { return new hyperstone_disassembler(&hyperstone_unidasm); } },
 	{ "i4004",           le,  0, []() -> util::disasm_interface * { return new i4004_disassembler; } },
 	{ "i4040",           le,  0, []() -> util::disasm_interface * { return new i4040_disassembler; } },

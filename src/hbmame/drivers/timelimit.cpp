@@ -45,7 +45,7 @@ MACHINE_CONFIG_START( timelimt_hbmame::timelimit )
 	MCFG_DEVICE_IO_MAP(sound_io_map)
 	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", timelimt_hbmame,  irq0_line_hold) /* ? */
 
-	MCFG_QUANTUM_TIME(attotime::from_hz(3000))
+	config.m_minimum_quantum = attotime::from_hz(3000);
 
 	ls259_device &mainlatch(LS259(config, "mainlatch")); // IC15
 	mainlatch.q_out_cb<0>().set(FUNC(timelimt_hbmame::nmi_enable_w));

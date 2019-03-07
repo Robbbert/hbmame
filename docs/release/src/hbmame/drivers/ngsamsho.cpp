@@ -436,10 +436,16 @@ ROM_START( samsho2s2 )
 ROM_END
 
 ROM_START( samsho2sp )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "063sp.p1", 0x000000, 0x100000, CRC(07d5c8f5) SHA1(0ed9bc1b188e5d445cf80ea5af67938fd96d50c2) )
 	ROM_LOAD16_WORD_SWAP( "063sp.p2", 0x100000, 0x100000, CRC(6e1aef70) SHA1(7a035e80b6f6af1d105ecccf3f5a2c44470366f3) )
-	ROM_LOAD16_WORD_SWAP( "063sp.p3", 0x200000, 0x020000, CRC(e56076ae) SHA1(9c2e6858fceb03702245658bbb6ba4e14431dda1) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063sp.p3", 0x000000, 0x020000, CRC(e56076ae) SHA1(9c2e6858fceb03702245658bbb6ba4e14431dda1) )
+	// if it becomes necessary...
+	//ROM_FILL(0x2278,1,0x4e)
+	//ROM_FILL(0x2279,1,0x75)
+	//ROM_FILL(0x22a4,1,0x60)
 
 	NEO_SFIX_128K( "063sp.s1", CRC(1951a907) SHA1(ee0e4743d7c2ba6306f08f16de2e3fea6697a89e) )
 
@@ -463,10 +469,12 @@ ROM_START( samsho2sp )
 ROM_END
 
 ROM_START( samsho2sp2 )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "063sp2.p1", 0x000000, 0x100000, CRC(08de44f4) SHA1(b409b0a301f61b0d0d952383aae71af51527d08e) )
 	ROM_LOAD16_WORD_SWAP( "063sp.p2",  0x100000, 0x100000, CRC(6e1aef70) SHA1(7a035e80b6f6af1d105ecccf3f5a2c44470366f3) )
-	ROM_LOAD16_WORD_SWAP( "063sp2.p3", 0x200000, 0x020000, CRC(cf9f3a5d) SHA1(8643ac9173be35f6aa5ad1e733c74d1355ac6f84) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063sp2.p3", 0x000000, 0x020000, CRC(cf9f3a5d) SHA1(8643ac9173be35f6aa5ad1e733c74d1355ac6f84) )
 
 	NEO_SFIX_128K( "063sp.s1", CRC(1951a907) SHA1(ee0e4743d7c2ba6306f08f16de2e3fea6697a89e) )
 
@@ -490,10 +498,12 @@ ROM_START( samsho2sp2 )
 ROM_END
 
 ROM_START( samsho2sp3 )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "063sp3.p1", 0x000000, 0x100000, CRC(19260a9a) SHA1(cd40ac51079641e778edac4910e96e51479cdcbb) )
 	ROM_LOAD16_WORD_SWAP( "063sp.p2",  0x100000, 0x100000, CRC(6e1aef70) SHA1(7a035e80b6f6af1d105ecccf3f5a2c44470366f3) )
-	ROM_LOAD16_WORD_SWAP( "063sp3.p3", 0x200000, 0x020000, CRC(8fabd043) SHA1(b8a311d0f57981ef045d80858036136c7840c405) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063sp3.p3", 0x000000, 0x020000, CRC(8fabd043) SHA1(b8a311d0f57981ef045d80858036136c7840c405) )
 
 	NEO_SFIX_128K( "063sp.s1", CRC(1951a907) SHA1(ee0e4743d7c2ba6306f08f16de2e3fea6697a89e) )
 
@@ -517,10 +527,12 @@ ROM_START( samsho2sp3 )
 ROM_END
 
 ROM_START( samsho2sp4 )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "063sp4.p1", 0x000000, 0x100000, CRC(2bd5a4ab) SHA1(5d5b1cd7efc5a71b1cb97b81b920a0924b7cd760) )
 	ROM_LOAD16_WORD_SWAP( "063sp.p2",  0x100000, 0x100000, CRC(6e1aef70) SHA1(7a035e80b6f6af1d105ecccf3f5a2c44470366f3) )
-	ROM_LOAD16_WORD_SWAP( "063sp4.p3", 0x200000, 0x020000, CRC(72eec1f4) SHA1(122548fdfd6ca4b80e6a232f5928ce6bac6c862b) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063sp4.p3", 0x000000, 0x020000, CRC(72eec1f4) SHA1(122548fdfd6ca4b80e6a232f5928ce6bac6c862b) )
 
 	NEO_SFIX_128K( "063sp.s1", CRC(1951a907) SHA1(ee0e4743d7c2ba6306f08f16de2e3fea6697a89e) )
 
@@ -544,10 +556,12 @@ ROM_START( samsho2sp4 )
 ROM_END
 
 ROM_START( samsho2sp5 )
-	ROM_REGION( 0x220000, "maincpu", 0 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "063sp5.p1", 0x000000, 0x100000, CRC(ed466b3d) SHA1(a3d5029d2fa29184e40038ca2a92ae09596646ea) )
 	ROM_LOAD16_WORD_SWAP( "063sp.p2",  0x100000, 0x100000, CRC(6e1aef70) SHA1(7a035e80b6f6af1d105ecccf3f5a2c44470366f3) )
-	ROM_LOAD16_WORD_SWAP( "063sp5.p3", 0x200000, 0x020000, CRC(f9079ea3) SHA1(76a4590bda85d1bdf38f6e02ce4d761f951ff79d) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063sp5.p3", 0x000000, 0x020000, CRC(f9079ea3) SHA1(76a4590bda85d1bdf38f6e02ce4d761f951ff79d) )
 
 	NEO_SFIX_128K( "063sp.s1", CRC(1951a907) SHA1(ee0e4743d7c2ba6306f08f16de2e3fea6697a89e) )
 
@@ -1832,7 +1846,7 @@ ROM_START( samsh5spnzk )
 	ROM_LOAD16_BYTE( "272d.c8", 0x3000001, 0x800000, CRC(cfde7aff) SHA1(25185F471DD35E5D388B75B83D8652085CD5E17D) )
 ROM_END
 
-HACK( 200?, fswordsb1,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis & Foxy[PHT]", "Fighters Swords (Enable hidden characters v1)(Alt)(Korean Release)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fswordsb1,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis & Foxy[PHT]", "Fighters Swords (Enable hidden characters v1)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordsb2,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "yumeji[2ch]", "Fighters Swords (Enable hidden characters v2)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordsbf,  samsho3,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Fighters Swords (Enable hidden characters v1.0f)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 
@@ -1848,11 +1862,11 @@ HACK( 200?, samsho2hy,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 HACK( 2009, samsho2mb,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Blackheart", "Samurai Shodown II (Moves hack)(2009-08-03)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2q,   samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "zerov", "Samurai Shodown II (Kuroko Version v1.0)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samsho2s2,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Samurai Shodown II (Special v0.12 2008-08-26)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, samsho2sp,  samsho2,  samsho2sp,    neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0122)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, samsho2sp2, samsho2,  samsho2sp,    neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0221)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, samsho2sp3, samsho2,  samsho2sp,    neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0320)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, samsho2sp4, samsho2,  samsho2sp,    neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0311)(2017-03-11)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, samsho2sp5, samsho2,  samsho2sp,    neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.1)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, samsho2sp,  samsho2,  gsc,           neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0122)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, samsho2sp2, samsho2,  gsc,           neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0221)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, samsho2sp3, samsho2,  gsc,           neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0320)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, samsho2sp4, samsho2,  gsc,           neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0311)(2017-03-11)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, samsho2sp5, samsho2,  gsc,           neogeo, neogeo_state,  neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.1)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2sq,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Samurai Shodown II (Kuroko version v2.0)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2ss,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Yashional", "Samurai Shodown II (Command change)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho2yc,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Creamymami and Ydmis", "Samurai Shodown II (Char - Pow hack)(NGM-063)(NGH-063)", MACHINE_SUPPORTS_SAVE )
@@ -5161,7 +5175,7 @@ HACK( 200?, samsho3s11,     samsho3,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, samsho3s12,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown III (Super kill Move Changes)(NGM-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho3s13,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "cctv-sb",    "Samurai Shodown III (Move Out To Simplify The Revised Version)(NGH-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho3s14,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown III (Enhanced power)(NGM-087)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, fswordss01,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Ydmis & Foxy[PHT]",    "Fighters Swords (Enable Hidden Characters)(Korean Release)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, fswordss01,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Ydmis & Foxy[PHT]",    "Fighters Swords (Enable Hidden Characters V?)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordss02,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Fighters Swords (Infinite Power)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordss03,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "tcwlee[EGCG]",    "Fighters Swords (Color Change)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown IV 
@@ -5223,7 +5237,7 @@ HACK( 200?, samsho5s45,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sams
 HACK( 200?, samsho5s46,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Dodowang[EGCG] & Eddids",    "Samurai Shodown V (Hidden Characters-Color Patch)(Alt)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s47,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "wesker[FGCH]",    "Samurai Shodown V (Hidden Characters-Poppy As Challenger Patch)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s48,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "lichenzhao",    "Samurai Shodown V (Really Mirror Minna Move Simplified Version)(NGM-2700)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho5s49,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Dodowang[EGCG]",    "Samurai Shodown V (Enable hidden characters V?)(NGH-2700)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho5s49,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "Dodowang[EGCG]",    "Samurai Shodown V (Enable Hidden Characters V?)(NGH-2700)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5s50,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sam5hb,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V (Custom Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho5bds01,   samsho5,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "bootleg", "Samurai Shodown V (Description Of Hack Unknown)(Set 04)(bootleg)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown V Special

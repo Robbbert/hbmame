@@ -1,11 +1,14 @@
 // license:BSD-3-Clause
 // copyright-holders:Nicola Salmoria
+#ifndef MAME_INCLUDES_PACMAN_H
+#define MAME_INCLUDES_PACMAN_H
+
+#pragma once
+
+#include "machine/74259.h"
 #include "machine/watchdog.h"
 #include "sound/namco.h"
-#include "machine/74259.h"
 #include "emupal.h"
-#include "speaker.h"
-#include "screen.h"
 
 /*************************************************************************
 
@@ -35,6 +38,8 @@ public:
 		, m_io_fake(*this, "FAKE") // HBMAME
 	{ }
 
+	required_device<cpu_device> m_maincpu;
+
 	void _8bpm_portmap(address_map &map);
 	void alibaba_map(address_map &map);
 	void bigbucks_map(address_map &map);
@@ -63,8 +68,7 @@ public:
 	void vanvan_portmap(address_map &map);
 	void woodpek_map(address_map &map);
 	void writeport(address_map &map);
-protected:
-	required_device<cpu_device> m_maincpu;
+//protected:               //HBMAME
 	optional_device<ls259_device> m_mainlatch;
 	optional_device<namco_device> m_namco_sound;
 	required_device<watchdog_timer_device> m_watchdog;
@@ -79,14 +83,13 @@ protected:
 	required_device<palette_device> m_palette;
 	optional_region_ptr<u8> m_p_maincpu; // HBMAME
 	optional_ioport m_io_fake; // HBMAME
-private:
+
 	uint8_t m_cannonb_bit_to_read;
 	int m_mystery;
 	uint8_t m_counter;
 	int m_bigbucks_bank;
 	uint8_t m_rocktrv2_question_bank;
 	tilemap_t *m_bg_tilemap;
-public:
 	uint8_t m_charbank;
 	uint8_t m_spritebank;
 	uint8_t m_palettebank;
@@ -99,14 +102,12 @@ public:
 	uint8_t m_maketrax_offset;
 	int m_maketrax_disable_protection;
 
-
+public:
 	uint8_t m_irq_mask;
 
 	DECLARE_WRITE8_MEMBER(pacman_interrupt_vector_w);
 	DECLARE_WRITE8_MEMBER(piranha_interrupt_vector_w);
 	DECLARE_WRITE8_MEMBER(nmouse_interrupt_vector_w);
-	DECLARE_WRITE_LINE_MEMBER(led1_w);
-	DECLARE_WRITE_LINE_MEMBER(led2_w);
 	DECLARE_WRITE_LINE_MEMBER(coin_counter_w);
 	DECLARE_WRITE_LINE_MEMBER(coin_lockout_global_w);
 	DECLARE_WRITE8_MEMBER(alibaba_sound_w);
@@ -177,13 +178,14 @@ public:
 	void init_mspacman();
 	void init_mschamp();
 	void init_mbrush();
+	void init_pengomc1();
 	TILEMAP_MAPPER_MEMBER(pacman_scan_rows);
 	TILE_GET_INFO_MEMBER(pacman_get_tile_info);
 	TILE_GET_INFO_MEMBER(s2650_get_tile_info);
 	TILEMAP_MAPPER_MEMBER(jrpacman_scan_rows);
 	TILE_GET_INFO_MEMBER(jrpacman_get_tile_info);
 	DECLARE_VIDEO_START(pacman);
-	DECLARE_PALETTE_INIT(pacman);
+	void pacman_palette(palette_device &palette) const;
 	DECLARE_VIDEO_START(birdiy);
 	DECLARE_VIDEO_START(s2650games);
 	DECLARE_MACHINE_RESET(mschamp);
@@ -193,9 +195,12 @@ public:
 	DECLARE_VIDEO_START(jrpacman);
 	uint32_t screen_update_pacman(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_s2650games(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	INTERRUPT_GEN_MEMBER(vblank_irq);
-	INTERRUPT_GEN_MEMBER(vblank_nmi);
-	INTERRUPT_GEN_MEMBER(s2650_interrupt);
+	DECLARE_WRITE_LINE_MEMBER(vblank_irq);
+	INTERRUPT_GEN_MEMBER(vblank_irq);      //HBMAME
+	INTERRUPT_GEN_MEMBER(periodic_irq);
+	DECLARE_WRITE_LINE_MEMBER(rocktrv2_vblank_irq);
+	DECLARE_WRITE_LINE_MEMBER(vblank_nmi);
+	DECLARE_WRITE_LINE_MEMBER(s2650_interrupt);
 
 private:
 	void init_save_state();
@@ -231,7 +236,7 @@ public:
 	void crush4(machine_config &config);
 	void bigbucks(machine_config &config);
 	void porky(machine_config &config);
-	void pacman(machine_config &config);
+	void pacman(machine_config &config);        //HBMAME
 	void _8bpm(machine_config &config);
 	void maketrax(machine_config &config);
 	void korosuke(machine_config &config);
@@ -294,10 +299,12 @@ public:
 	uint32_t screen_update_pacmanx(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_multipac(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_pengo(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	DECLARE_PALETTE_INIT(multipac);
-	DECLARE_PALETTE_INIT(pengo);
+	void multipac_palette(palette_device &palette) const;
+	void pengo_palette(palette_device &palette) const;
 	void m96in1b_gfxbank_w(uint8_t gfxbank);
 	void madpac_gfxbank_w(uint8_t gfxbank);
+	DECLARE_WRITE_LINE_MEMBER(led1_w);
+	DECLARE_WRITE_LINE_MEMBER(led2_w);
 	DECLARE_WRITE8_MEMBER(multipac_gfxbank_w);	
 	DECLARE_WRITE8_MEMBER(multipac_palbank_w);
 	TILE_GET_INFO_MEMBER(multipac_get_tile_info);
@@ -330,3 +337,5 @@ public:
 	uint8_t hbmame_pacplus_decode(offs_t addr, uint8_t e);
 // END HBMAME
 };
+
+#endif // MAME_INCLUDES_PACMAN_H

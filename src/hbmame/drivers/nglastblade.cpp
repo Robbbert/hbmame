@@ -5,30 +5,6 @@
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_lbsp() // thx FBA
-{
-	init_neogeo();
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x700000/2; i < 0x720000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	rom[0x69c10/2] = 0x303c; // 4ef9
-	rom[0x69c12/2] = 0x0b37; // 0091
-	rom[0x69c14/2] = 0x323c; // 03c4
-	rom[0x69c16/2] = 0x0013; // 4e7d
-	rom[0x711036/2] = 0x4e75; // lbsp2 only, already this value in lbsp
-}
-
-
-
 ROM_START( lba )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "234a.p1", 0x000000, 0x080000, CRC(3893d38b) SHA1(204d3f61dbeb82b1c942cda7089f24f997925adb) )
@@ -297,10 +273,20 @@ ROM_START( lbsk ) // lastbdsk in multijet
 ROM_END
 
 ROM_START( lbsp )
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "234sp.p1", 0x000000, 0x100000, CRC(b902e73e) SHA1(239b98715c23dc7cee870d0f18ab9fc8b8520472) )
 	ROM_LOAD16_WORD_SWAP( "234sp.p2", 0x100000, 0x600000, CRC(8ff3fb6d) SHA1(dc36bddc086cb8877945f907b81a340bfba72e3c) )
-	ROM_LOAD16_WORD_SWAP( "234sp.p3", 0x700000, 0x020000, CRC(fbd011f7) SHA1(de5e61f6dc41af76fb86bc2d957dd55c38913af1) )
+	ROM_FILL(0x69c10,1,0x30) // 4ef9
+	ROM_FILL(0x69c11,1,0x3c)
+	ROM_FILL(0x69c12,1,0x0b) // 0091
+	ROM_FILL(0x69c13,1,0x37)
+	ROM_FILL(0x69c14,1,0x32) // 03c4
+	ROM_FILL(0x69c15,1,0x3c)
+	ROM_FILL(0x69c16,1,0x00) // 4e7d
+	ROM_FILL(0x69c17,1,0x13)
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "234sp.p3", 0x000000, 0x020000, CRC(fbd011f7) SHA1(de5e61f6dc41af76fb86bc2d957dd55c38913af1) )
 
 	NEO_SFIX_128K( "234.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
 
@@ -322,10 +308,14 @@ ROM_START( lbsp )
 ROM_END
 
 ROM_START( lbsp2 )
-	ROM_REGION( 0x720000, "maincpu", 0 )
+	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "234sp2.p1", 0x000000, 0x100000, CRC(f8adc621) SHA1(d41921f6e2957b1d1241a5fff099be9764c0efc0) )
 	ROM_LOAD16_WORD_SWAP( "234sp.p2",  0x100000, 0x600000, CRC(8ff3fb6d) SHA1(dc36bddc086cb8877945f907b81a340bfba72e3c) )
-	ROM_LOAD16_WORD_SWAP( "234sp2.p3", 0x700000, 0x020000, CRC(3c1770df) SHA1(b773dcfcb7656166afe4c6e52219f3083c851460) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "234sp2.p3", 0x000000, 0x020000, CRC(3c1770df) SHA1(b773dcfcb7656166afe4c6e52219f3083c851460) )
+	ROM_FILL(0x11036,1,0x4e)
+	ROM_FILL(0x11037,1,0x75)
 
 	NEO_SFIX_128K( "234.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
 
@@ -348,7 +338,7 @@ ROM_END
 
 ROM_START( lbsp3 ) // super plus
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "234sp3.p1",      0x000000, 0x100000, CRC(abf1ed53) SHA1(70c0117b2bbb8974b4adecfabff242fc4a05f9f3) )
+	ROM_LOAD16_WORD_SWAP( "234sp3.p1",  0x000000, 0x100000, CRC(abf1ed53) SHA1(70c0117b2bbb8974b4adecfabff242fc4a05f9f3) )
 	ROM_LOAD16_WORD_SWAP( "234hc07.p2", 0x100000, 0x400000, CRC(f80aeee8) SHA1(8a10da46be8ac8fff7ec18940c8bb912bd48d8cd) )
 
 	NEO_SFIX_128K( "234.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
@@ -790,8 +780,8 @@ HACK( 200?, lbeho,     lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, R
 HACK( 200?, lbha,      lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Robert", "Last Blade (Boss hack, Alternate Set)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lbseh,     lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Creamymami, Kurouri, Ydmis", "Last Blade (3 Add Char - Ultra kill start max - Ultra pow hack)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lbsk,      lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "kaede", "Last Blade (Special Moves Revision Final)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, lbsp,      lastblad, lbsp,          neogeo, neogeo_state,  lbsp,   ROT0, "GSC2007", "Last Blade (Special v1.0.0701)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, lbsp2,     lastblad, lbsp,          neogeo, neogeo_state,  lbsp,   ROT0, "GSC2007", "Last Blade (Special v1.1)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, lbsp,      lastblad, gsc,           neogeo, neogeo_state,  gsc,    ROT0, "GSC2007", "Last Blade (Special v1.0.0701 2017-06-30)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, lbsp2,     lastblad, gsc,           neogeo, neogeo_state,  gsc,    ROT0, "GSC2007", "Last Blade (Special v1.1)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, lbsp3,     lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Last Blade (Super Plus)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lby,       lastblad, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Last Blade (Add Musashi)(NGM-2340)", MACHINE_SUPPORTS_SAVE )
 
@@ -807,7 +797,7 @@ HACK( 200?, lb2eh2,    lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, R
 HACK( 200?, lb2eho,    lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Last Blade 2 (4 Add Char)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2ehu,    lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Last Blade 2 (4 Add Char - Ultra kill start max set 2)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2pl,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "FCHT", "Last Blade 2 (Plus)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lb2te,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "GCS2007", "Last Blade 2 (Team Edition Ver 1.1)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, lb2te,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "GCS2007", "Last Blade 2 (Team Edition Ver 1.1 2018-05-09)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2uh,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Yano", "Last Blade 2 (Yano's Ultimate hack)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2wh,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Wesker", "Last Blade 2 (4 Add Char - 031017)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lb2yd,     lastbld2, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Ydmis", "Last Blade 2 (Ultra kill start max)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
@@ -2287,13 +2277,13 @@ HACK( 200?, lastbladhs02,   lastblad, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, lastbladhs03,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade (Always Maximum Power)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs04,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Tintin",    "Last Blade (Ultimate Simplified Version)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs05,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "tcwlee[EGCG]",    "Last Blade (Color Mod)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lastbladhs07,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "gsc2007",    "Last Blade (Plus Version)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, lastbladhs07,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Last Blade (Plus Version)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs09,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade (Enable Hidden Characters V1 Plus 2)(Alt)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs10,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "wesker[FGCH]",    "Last Blade (Hidden Characters-Super Kaede Fixed)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs11,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "wesker[FGCH]",    "Last Blade (Super Kaede with No Health Drain V1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs12,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade (Unlimit Special Moves V1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs13,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kurouri",    "Last Blade (Enable Hidden Characters V2)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lastbladhs14,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 1.0)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, lastbladhs14,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 1.0 2014-10-22)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs15,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 1.1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs16,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 2.0)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbladhs17,   lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade (Super Remix Edition 2.1)(NGH-2340)", MACHINE_SUPPORTS_SAVE )
@@ -2317,7 +2307,7 @@ HACK( 200?, lastbld2s05,    lastbld2, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, lastbld2s06,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade 2 (Enhanced Power V2)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s07,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Raymonose",    "Last Blade 2 (Optimization Of The Motion Version)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s08,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "lichenchao",    "Last Blade 2 (Optimization Move Out)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, lastbld2s09,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "gsc2007",    "Last Blade 2 (Bug Fix Version)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, lastbld2s09,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Last Blade 2 (Bug Fix Version)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s10,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Last Blade 2 (Enable Hidden Characters v5)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s11,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Simplify Moves)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, lastbld2s12,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Enhanced)(NGM-2430)(NGH-2430)", MACHINE_SUPPORTS_SAVE )

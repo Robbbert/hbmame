@@ -2083,12 +2083,12 @@ HACK( 2009, ddsomhp,    ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, 
 HACK( 2009, ddsomjfs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (Change the Final Strike condition)(2009-07-17)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 //HACK( 2018, ddsoma4pp,  ddsom,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Shadow over Mystara (unknown hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 //HACK( 2018, ddtodp,     ddtod,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Tower of Doom (unknown hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ddsoma4ppdec,  ddsom,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (USA 960619 Plus)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ddtodpdec,     ddtod,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (EURO 940412 Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddsoma4ppdec,  ddsom,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Shadow over Mystara Plus (USA 960619)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, ddtodpdec,     ddtod,    dead_cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "unknown", "Dungeons & Dragons: Tower of Doom Plus (EURO 940412)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, halfway,    progear,  dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Halfway House", "Halfway to Hell - Progear Red Label (2016-01-17 Red label ver)(bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mpangjd,    mpang,    dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "Mighty! Pang (Japan 001011 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mshjphp,    msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Super Heroes (Get maximum power on a valid attack or being attacked)(Japan 951117)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mshyh,      msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Yumeji", "Marvel Super Heroes (Enable hidden characters)(US 951024 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, mshyh,      msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Yumeji", "Marvel Super Heroes (Enable Hidden Characters)(US 951024 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, mvscjemb,   mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves)(2009-04-24)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, mvscjphp,   mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Get maximum power on a valid attack or being attacked)(Japan 980123)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mvscrcp,    mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "CPS-2 Evolved", "Marvel Vs. Capcom RCP (Euro 980123)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
@@ -5996,7 +5996,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // 19XX The War Against Destiny
-HACK( 200?, 19xxs01,   19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "DDJ", "19XX The War Against Destiny (Ex Super Version)(USA 951207)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, 19xxs01,   19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "DDJ", "19XX: The War Against Destiny (Ex Super Version)(USA 951207)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, 19xxjrs01, 19xx,     cps2,      cps2_2p2b, cps2_state, cps2, ROT270, "Unknown", "19XX: The War Against Destiny (Translation Chinese)(Japan 951207)", MACHINE_SUPPORTS_SAVE )
 // 1944 The Loop Master
 HACK( 200?, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,   "DDJ", "1944: The Loop Master (Strongest Fire Power)(USA 000620)", MACHINE_SUPPORTS_SAVE )
@@ -6006,7 +6006,7 @@ HACK( 200?, avspus02,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,  
 // Capcom Sports Club
 HACK( 200?, csclubs01, csclub,   cps2,      cps2_2p3b, cps2_state, cps2, ROT0,   "Hooooook[Chinese cabbage loves me]", "Capcom Sports Club (Time Increases)(Euro 971017)", MACHINE_SUPPORTS_SAVE )
 // Cyberbots Fullmetal Madness
-HACK( 200?, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,   "pipi899", "Cyberbots Fullmetal Madness (Get Maximum Power On A Valid Attack Or Being Attacked)(Japan 950420)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,   "pipi899", "Cyberbots: Fullmetal Madness (Get Maximum Power On A Valid Attack Or Being Attacked)(Japan 950420)", MACHINE_SUPPORTS_SAVE )
 // Dungeons & Dragons Shadow over Mystara
 HACK( 200?, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
