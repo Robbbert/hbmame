@@ -4675,7 +4675,7 @@ ROM_START( samsh5spho01 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "272hos01.p1",  0x000000, 0x400000, CRC(d035cb53) SHA1(faad2f17c1fd094624f4d7c8c2a1e6872ba67ec4) )
 	 ROM_IGNORE( 0x054F4A )
-	ROM_LOAD16_WORD_SWAP( "272ho.p2", 0x400000, 0x400000, CRC(fa1a7dd8) SHA1(62443dad76d6c1e18f515d7d4ef8e1295a4b7f1d) )
+	ROM_LOAD16_WORD_SWAP( "272hd.p2", 0x400000, 0x400000, CRC(fa1a7dd8) SHA1(62443dad76d6c1e18f515d7d4ef8e1295a4b7f1d) )
 
 	NEO_SFIX_MT_128K
 
@@ -5506,7 +5506,7 @@ HACK( 200?, samsho3s11,     samsho3,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, samsho3s12,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown III (Super kill Move Changes)(NGM-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho3s13,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "cctv-sb",    "Samurai Shodown III (Move Out To Simplify The Revised Version)(NGH-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, samsho3s14,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown III (Enhanced power)(NGM-087)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, samsho3s15,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown III (Unparalleled swords 2014-11-27)(NGM-087)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, samsho3s15,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown III (Unparalleled swords 2014-11-27)(NGM-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, samsho3s16,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown III (Unknown Hack 2016-02-15)(NGM-087)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordss01,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Ydmis & Foxy[PHT]",    "Fighters Swords (Enable Hidden Characters V?)(Korean Release)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, fswordss02,     samsho3,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Fighters Swords (Infinite Power)(Korean Release)", MACHINE_SUPPORTS_SAVE )

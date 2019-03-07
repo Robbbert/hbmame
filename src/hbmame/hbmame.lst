@@ -518,6 +518,7 @@ tk2h133
 tk2h134
 tk2h135
 tk2h136
+tk2h137
 wofb
 wofch		// tk2p1
 wofes
@@ -585,6 +586,7 @@ captcomms51
 captcomms52
 captcomms53
 captcomms54
+captcomms55
 dinos01
 dinos02
 dinos03
@@ -761,6 +763,7 @@ dinos175
 dinos176
 dinos177
 dinos178
+dinos179
 dinox01
 dinox02
 dinox03
@@ -1247,6 +1250,7 @@ ffights01
 ffights02
 ffightj2s01
 ffightj2s02
+ffightj1s01
 koduhc01
 koduhc02
 koduhc03
@@ -1263,6 +1267,8 @@ knightsh09
 knightsh10
 knightsh11
 knightsh12
+knightsh13
+knightsh14
 knightsjs01
 mercs01
 mercjs01
@@ -4630,6 +4636,7 @@ hooks02
 hooks03
 hooks04
 hooks05
+hooks06
 hookus01
 hookus02
 hookus03
@@ -4640,6 +4647,7 @@ nbbatmans02
 nbbatmanus01
 nbbatmanus02
 nbbatmanus03
+nbbatmanus04
 
 @source:maketrax.cpp
 eyes		//parent
@@ -8886,7 +8894,7 @@ kovph6
 kovph8
 //kovph9      // broken (causes emu to freeze)
 //kovph10     // broken (causes emu to freeze)
-kovph11
+//kovph11
 kovph12
 kovph13
 kovph14
@@ -9490,7 +9498,7 @@ kovshs106
 kovshs108
 kovshs109
 kovshs110
-kovshs111    // bad gfx
+kovshs111    // graphic problem
 kovshs112
 // kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
@@ -10020,6 +10028,7 @@ grdianss05
 grdianss06
 grdianss07
 grdianss08
+grdianss09
 
 @source:sf.cpp
 sf						//parent
@@ -10328,3 +10337,4 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
