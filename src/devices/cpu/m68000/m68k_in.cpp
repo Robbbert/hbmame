@@ -9199,8 +9199,8 @@ M68KMAKE_OP(sbcd, 8, rr, .)
 
 	res = MASK_OUT_ABOVE_8(res - corf);
 
-	//m_v_flag &= ~res; /* Undefined V behavior part II */ // HBMAME - FIX FOR NEOGEO 90-SEC FIGHT
-	//m_n_flag = NFLAG_8(res); /* Undefined N behavior */ // HBMAME
+	m_v_flag &= ~res; /* Undefined V behavior part II */ // HBMAME - FIX FOR NEOGEO 90-SEC FIGHT
+	m_n_flag = NFLAG_8(res); /* Undefined N behavior */ // HBMAME
 	m_not_z_flag |= res;
 
 	*r_dst = MASK_OUT_BELOW_8(*r_dst) | res;
