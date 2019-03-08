@@ -9120,7 +9120,7 @@ HACK( 2018, kof98hh111,     kof98,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2019, kof98hh112,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gunloc941",    "Kof'98 (ECK Dragon Edition 2019-01-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kof98hh113,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gunloc941",    "Kof'98 (ECK Dragon Edition Energy enhancement 2019-01-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof98hh114,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2016-09-07)(Original)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kof98hh115,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2016-09-07)(Simplify)(NGH-2420)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof98hh115,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2016-09-07)(Simplify)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof98hh116,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2017-01-08)(Alt)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof98hh117,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'98 (ECK Dragon Edition Energy enhancement 2018-09-09)(NGH-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof98hh118,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'98 (ECK Dragon Edition 2019-02-17)(NGH-2420)", MACHINE_SUPPORTS_SAVE )

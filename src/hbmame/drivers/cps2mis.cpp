@@ -2428,7 +2428,7 @@ ROM_START( ddsomjs01 )
 	ROM_LOAD( "ddsomj.key",   0x00, 0x14, CRC(d8dadb22) SHA1(e07b50ae464c35439333dd983e2acac48a1ce529) )
 ROM_END
 
-ROM_START( ddsomuds01 )
+ROM_START( ddsomuds01 )   // unknown decryption key
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
 	ROM_LOAD16_WORD_SWAP( "dd2uds01.03g", 0x000000, 0x80000, CRC(f486e08a) SHA1(a646dd908f606bcfdcdd589868eaff6b75ad6d54) )
 	ROM_LOAD16_WORD_SWAP( "dd2uds01.04g", 0x080000, 0x80000, CRC(c8f38de1) SHA1(c912e22cb3d06375e5bf53bddfd67c566c9bdfea) )
@@ -6254,7 +6254,7 @@ HACK( 200?, csclubs01, csclub,   cps2,      cps2_2p3b, cps2_state, cps2, ROT0,  
 HACK( 200?, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,   "pipi899", "Cyberbots: Fullmetal Madness (Get Maximum Power On A Valid Attack Or Being Attacked)(Japan 950420)", MACHINE_SUPPORTS_SAVE )
 // Dungeons & Dragons Shadow over Mystara
 HACK( 2017, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese 2017-04-26)(Japan 960619)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, ddsomuds01, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "Unknown", "Dungeons & Dragons: Shadow over Mystara (Diablo Mystery 2016-07-14)(USA 960619 Phoenix Edition) (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, ddsomuds01, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "Unknown", "Dungeons & Dragons: Shadow over Mystara (Diablo Mystery 2016-07-14)(USA 960619 Phoenix Edition) (bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 // Giga Wing
 HACK( 200?, gigawings01, gigawing, cps2,    cps2_2p2b, cps2_state, cps2, ROT0,   "LB70", "Giga Wing (Ex Super Version V1)(USA 990222)", MACHINE_SUPPORTS_SAVE )
 // Hyper Street Fighter II 

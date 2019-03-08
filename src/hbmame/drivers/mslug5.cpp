@@ -1970,7 +1970,7 @@ ROM_START( mslug5dh34 )
 	ROM_LOAD16_BYTE( "268dh34.c8", 0x3000001, 0x800000, CRC(6f8ac6fb) SHA1(49244f0fddde4d11b3f99f52b0e0e74d73414c71) )
 ROM_END
 
-ROM_START( mslug5dh35 )
+ROM_START( mslug5dh35 )   // encrypted
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "268dh35.p1",   0x000000, 0x100000, CRC(2b1b1362) SHA1(a85182b173cb2bd82d63ceac8da57c118aac873e) )
 	ROM_LOAD16_WORD_SWAP( "268lvf.p2", 0x100000, 0x400000, CRC(f06c589a) SHA1(0882ee5221ab873f87a719e34bd5250b79b82730) )
@@ -1979,11 +1979,12 @@ ROM_START( mslug5dh35 )
 
 	NEO_BIOS_AUDIO_512K( "268l9a.m1", CRC(464c72ad) SHA1(9e8a01c2bad897e2bbf32563a30f0474f8fcd2b5) )
 
-	ROM_REGION( 0x1037520, "ymsnd", 0 )
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "268dh33.v1", 0x000000, 0x400000, CRC(f61daa9e) SHA1(c9a64c48a37d9fcbd83f34580f44330aab0a0601) )
 	ROM_LOAD( "268dh33.v2", 0x400000, 0x400010, CRC(7fed45cb) SHA1(13ba8955f4b3703b9d44bab526263d552e7e1916) )
 	ROM_LOAD( "268l9b.v3", 0x800000, 0x400000, CRC(dc737e12) SHA1(f940ea767404f6a15dea526eda56ad66517ba79e) )
-	ROM_LOAD( "268dh33.v4", 0xc00000, 0x437510, CRC(e3a76022) SHA1(58a7cd31728f8a5dcdf12fd1cac5f97f558b9f50) )
+	ROM_LOAD( "268dh33.v4", 0xc00000, 0x400000, CRC(e3a76022) SHA1(58a7cd31728f8a5dcdf12fd1cac5f97f558b9f50) )
+	ROM_IGNORE(0x37510)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "268hd.c1", 0x0000000, 0x800000, CRC(e8239365) SHA1(E0A75902A783110049730B66AD3CBCCDD804BF62) )
@@ -14757,7 +14758,7 @@ HACK( 200?, mslug5dh31,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5
 HACK( 200?, mslug5dh32,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "DDJ", "Metal Slug 5 (War Chariot)(NGM-2680)(Fully Decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslug5dh33,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "C.B", "Metal Slug 5 (Battle 2016-10-19)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, mslug5dh34,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "C.B", "Metal Slug 5 (New Campaign 2016-10-19)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, mslug5dh35,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,   ROT0, "C.B", "Metal Slug 5 (New Battle Campaign)(Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mslug5dh35,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "C.B", "Metal Slug 5 (New Battle Campaign)(Fully Decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug5dh36,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "Unknown", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-07-31)(NGM-2680)(Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug5dh37,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "YouGuDuoLa", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-01-05)(NGM-2680)(Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug5dh38,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(NGM-2680)(Bootleg)", MACHINE_SUPPORTS_SAVE )

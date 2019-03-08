@@ -1571,7 +1571,7 @@ avspus02
 csclubs01
 cybotsjs01
 ddsomjs01
-//ddsomuds01  // why not enabled?
+//ddsomuds01  // not working: unknown decryption key, emulator freezes
 gigawings01
 hsf2as01
 hsf2as02
@@ -2778,7 +2778,7 @@ kof97plss17
 kof97plss18
 kof97plss19
 kof97plss20
-//kof97plss21    // why is this commented out?
+//kof97plss21    // freezes in attract mode, goes crazy when starting a game
 kof97plas01
 kof97plas02
 kof97plas03
@@ -3126,7 +3126,7 @@ kof98hh111
 kof98hh112
 kof98hh113
 kof98hh114
-//kof98hh115
+kof98hh115
 kof98hh116
 kof98hh117
 kof98hh118
@@ -6005,7 +6005,7 @@ mslug5dh31
 mslug5dh32
 mslug5dh33
 mslug5dh34
-//mslug5dh35 // It does not work
+//mslug5dh35 // encrypted
 mslug5dh36
 mslug5dh37
 mslug5dh38
@@ -8945,7 +8945,7 @@ killblds05
 killbldps01
 killbldps02
 kovss01
-//kovss02
+//kovss02    // not working, encrypted
 kov100s01
 kov115s01
 kov115s02
