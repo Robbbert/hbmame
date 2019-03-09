@@ -3,8 +3,6 @@
 #include "../mame/drivers/gauntlet.cpp"
 
 
-// There's some unknown hacks here. Need info on who the author is, and what the difference is.
-
 
 ROM_START( gaunt2s )
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -134,6 +132,6 @@ ROM_END
 
 
 
-HACK( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Todd Bordelon", "Gauntlet II (Speed Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
-HACK( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Carl Lloyd-Parker", "Gauntlet II (New Levels)", MACHINE_SUPPORTS_SAVE )
-HACK( 1986, gaunt2f,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Unknown", "Gauntlet II (Graphics Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, init_gauntlet, ROT0, "Todd Bordelon", "Gauntlet II (Speed Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
+GAME( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, init_gauntlet, ROT0, "Carl Lloyd-Parker", "Gauntlet II (New Levels)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, gaunt2f,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, init_gauntlet, ROT0, "Unknown", "Gauntlet II (Graphics Hack)", MACHINE_SUPPORTS_SAVE )

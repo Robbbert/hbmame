@@ -24,4 +24,4 @@ ROM_START( nacho )
 	ROM_LOAD( "407_c09.8b",   0x00000, 0x2000, CRC(f75a1539) SHA1(f139f6cb41351eb81ee47d777db03012aa5fadb1) )
 ROM_END
 
-HACK( 2009, nacho, yiear, yiear, yiear, yiear_state, 0, ROT0, "Gatinho", "Nacho Libre", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, nacho, yiear, yiear, yiear, yiear_state, empty_init, ROT0, "Gatinho", "Nacho Libre", MACHINE_SUPPORTS_SAVE )

@@ -74,5 +74,5 @@ ROM_START( comdlux1 )
 	ROM_LOAD( "vtb6.6e",     0x0500, 0x0100, CRC(0eaf5158) SHA1(bafd4108708f66cd7b280e47152b108f3e254fc9) )
 ROM_END
 
-HACK( 2002, comdelux, commando, commando, commandou, commando_state, commando, ROT270, "Twisty", "Commando Deluxe", MACHINE_SUPPORTS_SAVE )
-HACK( 1985, comdlux1, commando, commando, commandou, commando_state, commando, ROT270, "Twisty", "Commando Deluxe Again", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, comdelux, commando, commando, commandou, commando_state, init_commando, ROT270, "Twisty", "Commando Deluxe", MACHINE_SUPPORTS_SAVE )
+GAME( 1985, comdlux1, commando, commando, commandou, commando_state, init_commando, ROT270, "Twisty", "Commando Deluxe Again", MACHINE_SUPPORTS_SAVE )

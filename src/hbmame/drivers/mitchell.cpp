@@ -21,4 +21,4 @@ ROM_START( mitcdemo )
 	ROM_LOAD_OPTIONAL( "bb1.bin",      0x00000, 0x20000, CRC(c52e5b8e) SHA1(933b954bfdd2d67e28b032ffabde192531249c1f) )
 ROM_END
 
-HACK( 1989, mitcdemo, 0, pang, pang, mitchell_state, pangb, ROT0, "Charles Doty", "Demo - Mitchell", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, mitcdemo, 0, pang, pang, mitchell_state, init_pangb, ROT0, "Charles Doty", "Demo - Mitchell", MACHINE_SUPPORTS_SAVE )

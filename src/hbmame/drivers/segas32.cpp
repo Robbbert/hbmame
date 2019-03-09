@@ -36,5 +36,5 @@ ROM_END
 
 
 
-HACK( 1992, ga2s01, ga2, sega_system32_ga2, ga2, segas32_new_state, ga2, ROT0, "Sega", "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
+GAME( 1992, ga2s01, ga2, sega_system32_ga2, ga2, segas32_new_state, init_ga2, ROT0, "Sega", "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
 

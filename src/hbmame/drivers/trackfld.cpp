@@ -33,13 +33,6 @@ ROM_START( athens04 ) // same as trackfld except where indicated
 	ROM_LOAD( "c9_d15.bin",   0x0000, 0x2000, CRC(f546a56b) SHA1(caee3d8546eb7a75ce2a578c6a1a630246aec6b8) )
 ROM_END
 
-/* ATHENS 2004
-
-HACK by The Gameland Crew (http://www.gameland.gr)
-Maddog, Whacker, Badge, Geoanas */
-
-HACK( 2004, athens04, trackfld, trackfld, trackfld, trackfld_state, trackfld, ROT0, "Gameland.gr", "Athens 2004", MACHINE_SUPPORTS_SAVE )
-
 ROM_START( tst_trkfld )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "testrom13beta", 0x6000, 0x2000, CRC(81f91de1) SHA1(66d1bfec31167c1acda7b1ff0b534730ff58ff3e) )
@@ -71,5 +64,14 @@ ROM_START( tst_trkfld )
 	ROM_LOAD( "c9_d15.bin",   0x0000, 0x2000, CRC(f546a56b) SHA1(caee3d8546eb7a75ce2a578c6a1a630246aec6b8) )
 ROM_END
 
+
+/* ATHENS 2004
+
+HACK by The Gameland Crew (http://www.gameland.gr)
+Maddog, Whacker, Badge, Geoanas */
+
+GAME( 2004, athens04, trackfld, trackfld, trackfld, trackfld_state, init_trackfld, ROT0, "Gameland.gr", "Athens 2004", MACHINE_SUPPORTS_SAVE )
+
+
 // http://www.jammarcade.net/track-field-test-rom-beta/
-HACK( 2015, tst_trkfld, trackfld, trackfld, trackfld, trackfld_state, trackfld, ROT0, "Shoestring", "Test Rom - Track and Field", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, tst_trkfld, trackfld, trackfld, trackfld, trackfld_state, init_trackfld, ROT0, "Shoestring", "Test Rom - Track and Field", MACHINE_SUPPORTS_SAVE )

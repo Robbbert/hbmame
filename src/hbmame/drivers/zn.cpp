@@ -20,7 +20,7 @@ ROM_START( doapph01 )
 	ROM_LOAD( "mg05", 0x000000, 0x000008, CRC(5748a4ca) SHA1(c88d73f6a646a9ddefdfd84cba70d591759c069f) )
 ROM_END
 
-HACK( 200?, doapph01, doapp, coh1002m, zn, zn_state, 0, ROT0, "yumeji", "Dead Or Alive ++ (Enable hidden characters)(Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 200?, doapph01, doapp, coh1002m, zn, zn_state, empty_init, ROT0, "yumeji", "Dead Or Alive ++ (Enable hidden characters)(Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 
 
 /****************************************************

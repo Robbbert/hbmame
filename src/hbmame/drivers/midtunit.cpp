@@ -384,17 +384,17 @@ ROM_START( mk2fr )
 ROM_END
 
 
-HACK( 200?, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II Plus beta II", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)(rev L3.3)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Arkatrad", "Mortal Kombat (Language Translation French)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Arkatrad", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 01)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Unknown", "Mortal Kombat II (Ver 2.8)(Beta 1)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II Plus beta II", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)(rev L3.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Arkatrad", "Mortal Kombat (Language Translation French)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Arkatrad", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 01)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Unknown", "Mortal Kombat II (Ver 2.8)(Beta 1)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -588,11 +588,11 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
-HACK( 200?, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "S.Arkames", "Mortal Kombat (Language Translation French)(Alt)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (Language Translation French)(Alt)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat II
-HACK( 2007, mk2fr01,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 02)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr02,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 03)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr03,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 04)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr04,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 05)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr01,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 02)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr02,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 03)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr03,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 04)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr04,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 05)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
 
 

@@ -34,4 +34,4 @@ ROM_START( cballfix )
 ROM_END
 
 
-HACK( 2004, cballfix, cball, cball, cball, cball_state, 0, ROT0, "MASH", "Cannonball (Atari, prototype)(With new rom)", MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2004, cballfix, cball, cball, cball, cball_state, empty_init, ROT0, "MASH", "Cannonball (Atari, prototype)(With new rom)", MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

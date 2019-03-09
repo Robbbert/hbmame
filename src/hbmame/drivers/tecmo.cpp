@@ -70,8 +70,8 @@ ROM_START( rygark ) // same as rygarj except for gfx1
 	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
 ROM_END
 
-HACK( 2002, geminit, gemini, gemini, gemini, tecmo_state, gemini, ROT90, "Twisty", "Gemini Wing (Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, rygark,  rygar,  rygar,  rygar,  tecmo_state, rygar,  ROT0,  "Unknown", "Argus no Senshi (Translation Korean)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, geminit, gemini, gemini, gemini, tecmo_state, init_gemini, ROT90, "Twisty", "Gemini Wing (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, rygark,  rygar,  rygar,  rygar,  tecmo_state, init_rygar,  ROT0,  "Unknown", "Argus no Senshi (Translation Korean)(Japan)", MACHINE_SUPPORTS_SAVE )
 
 // PSmame (c) gaston90 used with permission
 
@@ -192,12 +192,12 @@ ROM_START( silkworms01 )
 	ROM_LOAD( "silkworm.1",   0x0000, 0x8000, CRC(5b553644) SHA1(5d39d2251094c17f7b732b4861401b3516fce9b1) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+/*    YEAR  NAME          PARENT    MACHINE   INPUT     CLASS        INIT           MONITOR COMPANY                 FULLNAME FLAGS */
 // Gemini Wing 
-HACK( 1987, geminis01,    gemini,        gemini,   gemini,   tecmo_state, gemini,   ROT90, "Unknown",   "Gemini Wing (Translation Chinese)(Japan)",          MACHINE_SUPPORTS_SAVE )
+GAME( 1987, geminis01,    gemini,   gemini,   gemini,   tecmo_state, init_gemini,   ROT90, "Unknown",   "Gemini Wing (Translation Chinese)(Japan)",          MACHINE_SUPPORTS_SAVE )
 // Argus no Senshi
-HACK( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, rygar,    ROT0,  "Unknown",   "Argus no Senshi (Translation Chinese)(Japan)",      MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Unknown",   "Argus no Senshi (Translation Chinese)(Japan)",      MACHINE_SUPPORTS_SAVE )
 // Silk Worm
-HACK( 1988, silkworms01,  silkworm,        silkworm, silkworm, tecmo_state, silkworm, ROT0,  "Unknown",   "Silk Worm (Translation Chinese)(World)",            MACHINE_SUPPORTS_SAVE )
+GAME( 1988, silkworms01,  silkworm, silkworm, silkworm, tecmo_state, init_silkworm, ROT0,  "Unknown",   "Silk Worm (Translation Chinese)(World)",            MACHINE_SUPPORTS_SAVE )
 
 

@@ -108,7 +108,7 @@ ROM_START( stapper1 )
 	ROM_LOAD( "stapper.fg6",  0x1c000, 0x4000, CRC(1baca746) SHA1(3c7015e63ab1a3f98485415e212a4b80f648dcae) )
 ROM_END
 
-HACK( 1998, handiman, tron,    mcr_90010, tron,   mcr_state, mcr_90010, ROT90, "Bobby Tribble", "Handi-Man in Cyberworld", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, shtron,   shollow, mcr_90010, tron,   mcr_state, mcr_90010, ROT90, "Scott Lawrence", "Satan's Hollow (Tron Hardware)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, stapper,  tapper,  mcr_91490, tapper, mcr_state, mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, stapper1, tapper,  mcr_91490, tapper, mcr_state, mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack ver.81)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, handiman, tron,    mcr_90010, tron,   mcr_state, init_mcr_90010, ROT90, "Bobby Tribble", "Handi-Man in Cyberworld", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, shtron,   shollow, mcr_90010, tron,   mcr_state, init_mcr_90010, ROT90, "Scott Lawrence", "Satan's Hollow (Tron Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, stapper,  tapper,  mcr_91490, tapper, mcr_state, init_mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, stapper1, tapper,  mcr_91490, tapper, mcr_state, init_mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack ver.81)", MACHINE_SUPPORTS_SAVE )

@@ -88,7 +88,7 @@ ROM_START( f2demo )
 	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
 ROM_END
 
-HACK( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, empty_init, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -355,21 +355,21 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Cameltry
-HACK( 200?, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, cameltry, ROT0,   "Unknown",         "Cameltry (Translation Chinese)(Japan, YM2610)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, init_cameltry, ROT0,   "Unknown",         "Cameltry (Translation Chinese)(Japan, YM2610)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-HACK( 200?, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Unknown",         "Dead Connection (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, empty_init, ROT0,   "Unknown",         "Dead Connection (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-HACK( 200?, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Unknown",         "Don Doko Don (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, empty_init, ROT0,   "Unknown",         "Don Doko Don (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Dino Rex
-HACK( 200?, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, 0,        ROT0,   "DDJ",             "Dino Rex (Easy Move)(World)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, empty_init, ROT0,   "DDJ",             "Dino Rex (Easy Move)(World)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
-HACK( 200?, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Unknown",         "Gun Frontier (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, empty_init, ROT270, "Unknown",         "Gun Frontier (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-HACK( 200?, megablstjs01,  megablst, megab,     megabj,     taitof2_state, 0,        ROT0,   "Unknown",         "Mega Blast (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, megablstjs01,  megablst, megab,     megabj,     taitof2_state, empty_init, ROT0,   "Unknown",         "Mega Blast (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
-HACK( 200?, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, 0,        ROT0,   "Unknown",         "Mizubaku Daibouken (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, empty_init, ROT0,   "Unknown",         "Mizubaku Daibouken (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Runark
-HACK( 200?, runarks01,     growl,    growl,     runark,     taitof2_state, 0,        ROT0,   "Unknown",         "Runark (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, runarks01,     growl,    growl,     runark,     taitof2_state, empty_init, ROT0,   "Unknown",         "Runark (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Thunder Fox
-HACK( 200?, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, 0,        ROT0,   "Unknown",         "Thunder Fox (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, empty_init, ROT0,   "Unknown",         "Thunder Fox (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 
