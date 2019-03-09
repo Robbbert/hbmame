@@ -31,7 +31,7 @@ void neogeo_state::init_mp2s39()
 
 void neogeo_state::init_kof2k2pl17()
 {
-	init_gsc();
+	init_neogeo();
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region, audio_region_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 0);
 }
@@ -2634,8 +2634,6 @@ ROM_START( kof2k2pl17 ) // KOF2k2plus2017
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "265pl17.p3", 0x000000, 0x020000, CRC(6bfe80b0) SHA1(2ea3e2ed1bf5e20c256a41dd5c1160e945fa333e) )
-	ROM_FILL(0x000178,1,0x4e)
-	ROM_FILL(0x000179,1,0x75)
 
 	NEO_SFIX_128K( "265pl17.s1", CRC(96bdd036) SHA1(62baba893e10dbed5c5099040b07432c0737be42) )
 
@@ -2815,8 +2813,6 @@ ROM_START( kf2k2ps2re )
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "265ps2re.p3",  0x000000, 0x020000, CRC(adf44b1d) SHA1(a7a56ce99a728940812fd0678c9d018023f5482c) )
-	ROM_FILL(0x01061A,1,0x4e)
-	ROM_FILL(0x01061B,1,0x75)
 
 	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
 
@@ -2868,8 +2864,6 @@ ROM_START( kf2k2ps2re1 )
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "265ps2re1.p3",  0x000000, 0x020000, CRC(6e6beeba) SHA1(9ab1687c9d8aacaa2626d25b8177b6ae48828674) )
-	ROM_FILL(0x0108D0,1,0x4e)
-	ROM_FILL(0x0108D1,1,0x75)
 
 	NEO_SFIX_128K( "265ps2.s1", CRC(714ade47) SHA1(a46115ed89454d8090fae59cfa4aea61a4a81ebf) )
 
@@ -4001,8 +3995,8 @@ HACK( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof
 HACK( 2007, kof2k2ps2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (PS2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2mp, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 Magic Plus (PlayStation 2 Beta)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kf2k2ps2re,  kof2002, gsc,           neogeo, neogeo_state,       gsc, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kf2k2ps2re1, kof2002, gsc,           neogeo, neogeo_state,       gsc, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re,  kof2002, gsc,           neogeo, neogeo_state,       neogeo, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re1, kof2002, gsc,           neogeo, neogeo_state,       neogeo, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2pur,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kawada7278", "Kof2002 (Boss Purple)(decrypted C)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ra,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ruin Angel", "Kof2002 (Diff Moves - Based on CHL set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2rgl,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Magic Unique Crazy Rugal Plus)(decrypted C)", MACHINE_SUPPORTS_SAVE )

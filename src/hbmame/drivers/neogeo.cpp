@@ -1485,24 +1485,6 @@ MACHINE_CONFIG_START( neogeo_state::gsc )
 	MCFG_DEVICE_PROGRAM_MAP(gsc_map)
 MACHINE_CONFIG_END
 
-void neogeo_state::init_gsc() // thx FBA
-{
-	init_neogeo();
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-
-	rom = (uint16_t *)memregion("gsc")->base();
-	for (i = 0; i < 0x020000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-}
 
 /*************************************
  *

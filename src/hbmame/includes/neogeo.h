@@ -113,7 +113,6 @@ public:
 	void init_garouh();
 	void init_garoubl();
 	void init_garoud();
-	void init_gsc();
 	void init_irrmaze();
 	void init_jckeygpd();
 	void init_jockeygp();

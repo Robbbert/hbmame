@@ -3433,11 +3433,6 @@ ROM_START( kof98pfe ) // px,s1,m1,c1,2,7,8 confirmed
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "242pfe.p3", 0x000000, 0x020000, CRC(930ea34e) SHA1(8eb58c20a6854a8feba454ef280147eb1319c0c5) )
-	// patch out protection
-	ROM_FILL(0x001af4,1,0x4e)
-	ROM_FILL(0x001af5,1,0x71)
-	ROM_FILL(0x001b18,1,0x60)
-	ROM_FILL(0x001ca2,1,0x60)
 
 	NEO_SFIX_128K( "242pfe.s1", CRC(7f4dbf23) SHA1(bce6dcea6dc40d4072afe67682c7dacde2edce8d) )
 
@@ -4239,7 +4234,7 @@ HACK( 2011, kof98mix,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 HACK( 200?, kof98nc,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Eddids", "Kof'98 (Neo-Geo CD 1.2)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98ncdh, kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Kof1996", "Kof'98 (CD to MVS Conversion)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98new,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'98 (New Version)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof98pfe,  kof98,    gsc,           neogeo, neogeo_state, gsc,      ROT0, "GSC2007", "Kof'98 (Plus Final Edition)(2017-07-23)(Korean board)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kof98pfe,  kof98,    gsc,           neogeo, neogeo_state, neogeo,   ROT0, "GSC2007", "Kof'98 (Plus Final Edition)(2017-07-23)(Korean board)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98pjc,  kof98,    neogeo_noslot, neogeo, neogeo_state, kof98,    ROT0, "TcwLee", "Kof'98 (Char color changed)(Korean board)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98rh,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Raymonose", "Kof'98 (Floating judgment enhanced version)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof98rh1,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Yashional", "Kof'98 (Real Rugal Hack)(NGM-2420)", MACHINE_SUPPORTS_SAVE )
