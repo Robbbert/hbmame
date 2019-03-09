@@ -4172,8 +4172,8 @@ kf2k2mp2s33
 kf2k2mp2s34
 kf2k2mp2s35
 kf2k2mp2s36
-kf2k2mp2s37
-kf2k2mp2s38
+kf2k2mp2s37 // not working, encrypted
+kf2k2mp2s38 // not working, encrypted
 kf2k2mp2s39
 kf2k2plas01
 kf2k2plas02
@@ -4327,7 +4327,7 @@ kof2k2s54
 kof2k2s55
 kof2k2s56
 kof2k2s57
-kof2k2s58
+kof2k2s58   // bad graphics
 kof2k2s59
 kof2k2s60
 kof2k2s61
