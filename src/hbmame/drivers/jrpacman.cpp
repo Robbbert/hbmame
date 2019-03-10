@@ -292,14 +292,13 @@ INTERRUPT_GEN_MEMBER(jrpacman_state::vblank_irq)
 		device.execute().set_input_line(0, HOLD_LINE);
 }
 
-MACHINE_CONFIG_START( jrpacman_state::jrpacman )
-
+void jrpacman_state::jrpacman(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", Z80, 18432000/6)    /* 3.072 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(mem_map)
-	MCFG_DEVICE_IO_MAP(io_map)
-//	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", jrpacman_state,  vblank_irq)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pacman_state,  vblank_irq) // HBMAME
+	Z80(config, m_maincpu, 18432000/6);    /* 3.072 MHz */
+	m_maincpu->set_addrmap(AS_PROGRAM, &jrpacman_state::mem_map);
+	m_maincpu->set_addrmap(AS_IO, &jrpacman_state::io_map);
+	m_maincpu->set_vblank_int("screen", FUNC(pacman_state::vblank_irq));
 
 	ls259_device &latch1(LS259(config, "latch1")); // 5P
 	latch1.q_out_cb<0>().set(FUNC(jrpacman_state::irq_mask_w));
@@ -317,16 +316,18 @@ MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 	WATCHDOG_TIMER(config, m_watchdog);
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60.606060)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500) /* not accurate */)
-	MCFG_SCREEN_SIZE(36*8, 28*8)
-	MCFG_SCREEN_VISIBLE_AREA(0*8, 36*8-1, 0*8, 28*8-1)
-	MCFG_SCREEN_UPDATE_DRIVER(jrpacman_state, screen_update_pacman)
-	MCFG_VIDEO_START_OVERRIDE(jrpacman_state,jrpacman)
-	MCFG_SCREEN_PALETTE("palette")
+	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	screen.set_refresh_hz(60.606060);
+	screen.set_vblank_time(ATTOSECONDS_IN_USEC(2500)); /* not accurate */
+	screen.set_size(36*8, 28*8);
+	screen.set_visarea(0*8, 36*8-1, 0*8, 28*8-1);
+	screen.set_screen_update(FUNC(jrpacman_state::screen_update_pacman));
+	screen.set_palette(m_palette);
+
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_jrpacman);
 	PALETTE(config, m_palette, FUNC(jrpacman_state::pacman_palette), 128 * 4, 32);
+
+	MCFG_VIDEO_START_OVERRIDE(jrpacman_state,jrpacman)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -334,8 +335,7 @@ MACHINE_CONFIG_START( jrpacman_state::jrpacman )
 	NAMCO(config, m_namco_sound, 3072000/32);
 	m_namco_sound->set_voices(3);
 	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
-MACHINE_CONFIG_END
-
+}
 
 
 /*************************************

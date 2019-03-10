@@ -238,10 +238,11 @@ MACHINE_RESET_MEMBER( cps3_hbmame, redeartn )
 	copy_from_nvram();
 }
 
-MACHINE_CONFIG_START( cps3_hbmame::redeartn )
+void cps3_hbmame::redeartn(machine_config &config)
+{
 	redearth(config);
 	MCFG_MACHINE_RESET_OVERRIDE(cps3_hbmame, redeartn)
-MACHINE_CONFIG_END
+}
 
 static INPUT_PORTS_START ( cps3_ren )
 	PORT_INCLUDE ( cps3 )

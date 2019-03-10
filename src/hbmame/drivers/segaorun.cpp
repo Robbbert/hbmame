@@ -244,24 +244,12 @@ public:
 
 private:
 
-	DECLARE_WRITE8_MEMBER( sound_rombank0_w );
-	DECLARE_WRITE8_MEMBER( sound_rombank1_w );
 	void sound_map_banked(address_map &map);
 	void sound_portmap_banked(address_map &map);
 	void soundbank_map(address_map &map);
 	required_device<address_map_bank_device> m_soundbank;
 };
 
-
-WRITE8_MEMBER( outrunm_state::sound_rombank0_w )
-{
-	m_soundbank->set_bank(0);
-}
-
-WRITE8_MEMBER( outrunm_state::sound_rombank1_w )
-{
-	m_soundbank->set_bank(1);
-}
 
 void outrunm_state::sound_map_banked(address_map &map) {
 	map.unmap_value_high();
@@ -275,8 +263,8 @@ void outrunm_state::sound_portmap_banked(address_map &map) {
 	map.global_mask(0xff);
 	map(0x00,0x01).mirror(0x3e).rw("ymsnd",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
 	map(0x40,0x7f).r("mapper",FUNC(sega_315_5195_mapper_device::pread));
-	map(0x80,0xbf).w(FUNC(outrunm_state::sound_rombank0_w));
-	map(0xc0,0xff).w(FUNC(outrunm_state::sound_rombank1_w));
+	map(0x80,0xbf).lw8("bank0", [this](u8 data) { m_soundbank->set_bank(0); } );
+	map(0xc0,0xff).lw8("bank1", [this](u8 data) { m_soundbank->set_bank(1); } );
 }
 
 void outrunm_state::soundbank_map(address_map &map) {
@@ -284,11 +272,11 @@ void outrunm_state::soundbank_map(address_map &map) {
 	map(0x0000,0x1ffff).rom().region("soundcpu",0);
 }
 
-MACHINE_CONFIG_START( outrunm_state::outrunm )
+void outrunm_state::outrunm(machine_config &config)
+{
 	outrun(config);
-	MCFG_DEVICE_REPLACE("soundcpu", Z80, SOUND_CLOCK/4)
-	MCFG_DEVICE_PROGRAM_MAP(sound_map_banked)
-	MCFG_DEVICE_IO_MAP(sound_portmap_banked)
+	m_soundcpu->set_addrmap(AS_PROGRAM, &outrunm_state::sound_map_banked);
+	m_soundcpu->set_addrmap(AS_IO, &outrunm_state::sound_portmap_banked);
 
 	ADDRESS_MAP_BANK(config, m_soundbank, 0);
 	m_soundbank->set_map(&outrunm_state::soundbank_map);
@@ -296,7 +284,7 @@ MACHINE_CONFIG_START( outrunm_state::outrunm )
 	m_soundbank->set_data_width(8);
 	m_soundbank->set_addr_width(17);
 	m_soundbank->set_stride(0x10000);
-MACHINE_CONFIG_END
+}
 
 void outrunm_state::init_init()
 {

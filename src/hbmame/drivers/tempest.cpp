@@ -686,7 +686,14 @@ MACHINE_CONFIG_START( tempmg_state::tempmg )
 	MCFG_DEVICE_PROGRAM_MAP(tempmg_map)
 	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
 MACHINE_CONFIG_END
-
+#if 0
+void tempmg_state::tempmg(machine_config &config)
+{
+	tempest(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &tempmg_state::tempmg_map);
+	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
+}
+#endif
 ROM_START( tempmg )
 	ROM_REGION( 0x50000, "maincpu", 0 )
 	ROM_LOAD( "tempmg-113.d1",   0x11000, 0x0800, CRC(8a6633fb) SHA1(b143a5d2019f24666b350b40b0dab2924bb9c7c0) )

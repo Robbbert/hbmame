@@ -179,7 +179,20 @@ MACHINE_CONFIG_START( mineswp_state::mineswp )
 	SPEAKER(config, "mono").front_center();
 	BEEP(config, m_beep, 950).add_route(ALL_OUTPUTS, "mono", 0.40);
 MACHINE_CONFIG_END
+#if 0
+void mineswp_state::mineswp(machine_config &config)
+{
+	dotrikun(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &mineswp_state::mineswp_map);
+	m_maincpu->set_addrmap(AS_IO, &mineswp_state::mineswp_io);
 
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+
+	/* sound hardware */
+	SPEAKER(config, "mono").front_center();
+	BEEP(config, m_beep, 950).add_route(ALL_OUTPUTS, "mono", 0.40);
+}
+#endif
 
 /***************************************************************************
 

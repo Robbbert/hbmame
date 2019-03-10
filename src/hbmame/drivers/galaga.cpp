@@ -38,17 +38,17 @@ void galaga_hbmame::galagost_map(address_map &map) {
 	map(0xa000,0xa007).w("videolatch",FUNC(ls259_device::write_d0));
 }
 
-MACHINE_CONFIG_START( galaga_hbmame::galagost )
+void galaga_hbmame::galagost(machine_config &config)
+{
 	galaga(config);
-	MCFG_DEVICE_MODIFY( "maincpu" )
-	MCFG_DEVICE_PROGRAM_MAP(galagost_map)
+	m_maincpu->set_addrmap(AS_PROGRAM, &galaga_hbmame::galagost_map);
 
 	/* sound hardware */
 	SAMPLES(config, m_samples);
 	m_samples->set_channels(1);
 	m_samples->set_samples_names(galagost_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 0.75);
-MACHINE_CONFIG_END
+}
 
 // galaga hacks
 
