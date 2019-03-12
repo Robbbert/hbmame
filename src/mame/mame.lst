@@ -872,6 +872,9 @@ sp_zigzgk                       //
 sp_zigzgl                       //
 sp_zigzgm                       //
 
+@source:aci_boris.cpp
+boris                           //
+
 @source:acommand.cpp
 acommand                        // (c) 1990
 
@@ -9755,7 +9758,6 @@ chessmsta                       //
 chessmstdm                      //
 
 @source:chesstrv.cpp
-boris                           //
 borisdpl                        //
 chesstrv                        //
 
@@ -15092,6 +15094,7 @@ gnw_mmouse                      // Nintendo
 gnw_mickdon                     // Nintendo
 gnw_octopus                     // Nintendo
 gnw_opanic                      // Nintendo
+gnw_pchute                      // Nintendo
 gnw_rshower                     // Nintendo
 gnw_smb                         // Nintendo
 gnw_squish                      // Nintendo
@@ -21001,6 +21004,7 @@ dcat16                          //
 @source:megadriv_acbl.cpp
 aladmdb                         // MegaDrive-based hack
 barek3mb                        // MegaDrive-based hack
+jparkmb                         // MegaDrive-based hack
 mk3mdb                          // MegaDrive-based hack
 sonic2mb                        // MegaDrive-based hack
 srmdb                           // MegaDrive-based hack
@@ -38733,6 +38737,7 @@ jak_fan4                        //
 jak_just                        //
 jak_dora                        //
 jak_dorr                        //
+jak_disn                        //
 jak_disf                        //
 jak_disp                        //
 jak_sith                        //
@@ -38758,6 +38763,7 @@ rad_crik                        //
 rad_fb2                         //
 mattelcs                        //
 dreamlif                        //
+smartfp                         //
 icanguit                        //
 icanpian                        //
 
@@ -39945,6 +39951,8 @@ ddrfammt                        //
 popira                          //
 popira2                         //
 taikodp                         //
+jpopira                         //
+evio                            //
 ttv_sw                          //
 ttv_lotr                        //
 ttv_mx                          //

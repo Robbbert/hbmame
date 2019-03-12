@@ -680,7 +680,8 @@ BUSES["AMIGA_KEYBOARD"] = true
 BUSES["CENTRONICS"] = true
 --BUSES["CHANNELF"] = true
 --BUSES["COCO"] = true
---BUSES["COLECO"] = true
+--BUSES["COLECO_CONTROLLER"] = true
+--BUSES["COLECO_CART"] = true
 --BUSES["COMPUCOLOR"] = true
 --BUSES["COMX35"] = true
 --BUSES["CPC"] = true
@@ -1198,6 +1199,8 @@ files {
 	MAME_DIR .. "src/mame/machine/nl_pongd.h",
 	MAME_DIR .. "src/mame/machine/nl_breakout.cpp",
 	MAME_DIR .. "src/mame/machine/nl_breakout.h",
+	MAME_DIR .. "src/mame/machine/nl_rebound.cpp",
+	MAME_DIR .. "src/mame/machine/nl_rebound.h",
 	MAME_DIR .. "src/mame/drivers/poolshrk.cpp",
 	MAME_DIR .. "src/mame/includes/poolshrk.h",
 	MAME_DIR .. "src/mame/audio/poolshrk.cpp",

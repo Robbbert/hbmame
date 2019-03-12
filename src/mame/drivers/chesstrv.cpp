@@ -4,14 +4,11 @@
 
     Acetronic Chess Traveller
 
-    TODO:
-    - Add emulation of the 3870 MCU to the F8 core, including timer interrupt
-      that is used by the Boris Diplomat.
-
 ******************************************************************************/
 
 #include "emu.h"
 #include "cpu/f8/f8.h"
+#include "machine/f3853.h"
 #include "machine/timer.h"
 #include "chesstrv.lh"
 #include "borisdpl.lh"
@@ -82,8 +79,6 @@ private:
 
 	DECLARE_WRITE8_MEMBER(display_w);
 	DECLARE_READ8_MEMBER(keypad_r);
-
-	//TIMER_DEVICE_CALLBACK_MEMBER(timer_interrupt);
 
 	output_finder<8> m_digits;
 	required_ioport_array<4> m_keypad;
@@ -156,7 +151,7 @@ READ8_MEMBER(borisdpl_state::keypad_r)
 		case 3:     data |= m_keypad[3]->read();    break;
 	}
 
-	return data;
+	return data | m_matrix;
 }
 
 
@@ -179,8 +174,7 @@ void borisdpl_state::borisdpl_io(address_map &map)
 {
 	map(0x00, 0x00).rw(FUNC(borisdpl_state::keypad_r), FUNC(borisdpl_state::matrix_w));
 	map(0x01, 0x01).w(FUNC(borisdpl_state::display_w));
-	map(0x04, 0x04).rw(FUNC(borisdpl_state::ram_r), FUNC(borisdpl_state::ram_w));
-	map(0x05, 0x05).rw(FUNC(borisdpl_state::ram_addr_r), FUNC(borisdpl_state::ram_addr_w));
+	map(0x04, 0x07).rw("psu", FUNC(f38t56_device::read), FUNC(f38t56_device::write));
 }
 
 static INPUT_PORTS_START( chesstrv )
@@ -241,15 +235,8 @@ static INPUT_PORTS_START( borisdpl )
 	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("H8")      PORT_CODE(KEYCODE_H)    PORT_CODE(KEYCODE_8)
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("9/SET")   PORT_CODE(KEYCODE_S)    PORT_CODE(KEYCODE_9)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("CE")      PORT_CODE(KEYCODE_DEL)
-
 INPUT_PORTS_END
 
-/*
-TIMER_DEVICE_CALLBACK_MEMBER(borisdpl_state::timer_interrupt)
-{
-    m_maincpu->set_input_line_and_vector(F8_INPUT_LINE_INT_REQ, HOLD_LINE, 0x20);
-}
-*/
 
 void chesstrv_base_state::machine_start()
 {
@@ -271,40 +258,41 @@ void borisdpl_state::machine_start()
 	m_digits.resolve();
 }
 
-MACHINE_CONFIG_START(chesstrv_state::chesstrv)
+void chesstrv_state::chesstrv(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD( "maincpu", F8, 3000000 )      // Fairchild 3870
-	MCFG_DEVICE_PROGRAM_MAP( chesstrv_mem )
-	MCFG_DEVICE_IO_MAP( chesstrv_io )
+	F8(config, m_maincpu, 3000000/2); // Fairchild 3870, measured ~3MHz
+	m_maincpu->set_addrmap(AS_PROGRAM, &chesstrv_state::chesstrv_mem);
+	m_maincpu->set_addrmap(AS_IO, &chesstrv_state::chesstrv_io);
 
 	/* video hardware */
 	config.set_default_layout(layout_chesstrv);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(borisdpl_state::borisdpl)
+void borisdpl_state::borisdpl(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD( "maincpu", F8, 30000000 )     // Motorola SC80265P
-	MCFG_DEVICE_PROGRAM_MAP( chesstrv_mem )
-	MCFG_DEVICE_IO_MAP( borisdpl_io )
+	F8(config, m_maincpu, 3000000/2); // Motorola SC80265P, frequency approximated from video reference
+	m_maincpu->set_addrmap(AS_PROGRAM, &borisdpl_state::chesstrv_mem);
+	m_maincpu->set_addrmap(AS_IO, &borisdpl_state::borisdpl_io);
+	m_maincpu->set_irq_acknowledge_callback("psu", FUNC(f38t56_device::int_acknowledge));
+
+	f38t56_device &psu(F38T56(config, "psu", 3000000/2));
+	psu.set_int_vector(0x5020);
+	psu.int_req_callback().set_inputline("maincpu", F8_INPUT_LINE_INT_REQ);
+	psu.read_a().set(FUNC(borisdpl_state::ram_r));
+	psu.write_a().set(FUNC(borisdpl_state::ram_w));
+	psu.read_b().set(FUNC(borisdpl_state::ram_addr_r));
+	psu.write_b().set(FUNC(borisdpl_state::ram_addr_w));
 
 	/* video hardware */
 	config.set_default_layout(layout_borisdpl);
-
-	//TIMER(config, "timer_interrupt").configure_periodic(FUNC(borisdpl_state::timer_interrupt), attotime::from_hz(40));
-MACHINE_CONFIG_END
+}
 
 
 ROM_START( chesstrv )
 	ROM_REGION(0x0800, "maincpu", 0)
 	ROM_LOAD("3870-sl90387", 0x0000, 0x0800, CRC(b76214d8) SHA1(7760903a64d9c513eb54c4787f535dabec62eb64))
-
-	ROM_REGION(0x0100, "ram", ROMREGION_ERASE)
-ROM_END
-
-ROM_START( boris )
-	ROM_REGION(0x0c00, "maincpu", 0)
-	ROM_LOAD("007-7020-00_c10502_korea.bin", 0x0000, 0x0800, CRC(18182870) SHA1(cb717a4b5269b04b0d7ae61aaf4a8f6a019626a5))
-	ROM_LOAD("007-7021-00_c10503_korea.bin", 0x0800, 0x0400, CRC(49b77505) SHA1(474b665ee2955497f6d70878d817f1783ba1a835))
 
 	ROM_REGION(0x0100, "ram", ROMREGION_ERASE)
 ROM_END
@@ -319,5 +307,4 @@ ROM_END
 
 //    YEAR   NAME      PARENT  COMPAT  MACHINE   INPUT     STATE           INIT        COMPANY             FULLNAME           FLAGS
 CONS( 1980,  chesstrv, 0,      0,      chesstrv, chesstrv, chesstrv_state, empty_init, "Acetronic",        "Chess Traveller", MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
-CONS( 1979,  boris,    0,      0,      borisdpl, borisdpl, borisdpl_state, empty_init, "Applied Concepts", "Boris - Electronic Chess Computer",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
 CONS( 1979,  borisdpl, 0,      0,      borisdpl, borisdpl, borisdpl_state, empty_init, "Applied Concepts", "Boris Diplomat",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )

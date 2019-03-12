@@ -28,17 +28,21 @@ hardware notes:
 
 TODO:
 - discrete sound, currently it's emulated crudely, just enough to make it beep when supposed to
-- MK3870 is not emulated in MAME, plain F8 is used here instead
+- MCU frequency was measured approx 2.1MHz on its XTL2 pin, but considering that
+  the MK3870 has an internal /2 divider, this is way too slow when compared to
+  video references of the game
 
 ******************************************************************************/
 
 #include "emu.h"
 #include "cpu/f8/f8.h"
+#include "machine/f3853.h"
 #include "machine/timer.h"
 #include "sound/beep.h"
 #include "speaker.h"
 
 #include "tgm.lh"
+
 
 namespace {
 
@@ -49,7 +53,7 @@ public:
 		driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_beeper(*this, "beeper"),
-		m_vfd_delay(*this, "vfd_delay_%u", 0),
+		m_delay_display(*this, "delay_display_%u", 0),
 		m_inp_matrix(*this, "IN.%u", 0),
 		m_out_digit(*this, "digit%u", 0U)
 	{ }
@@ -63,26 +67,25 @@ private:
 	// devices/pointers
 	required_device<cpu_device> m_maincpu;
 	required_device<beep_device> m_beeper;
-	required_device_array<timer_device, 12> m_vfd_delay;
+	required_device_array<timer_device, 12> m_delay_display;
 	required_ioport_array<10> m_inp_matrix;
 	output_finder<12> m_out_digit;
 
 	void main_map(address_map &map);
 	void main_io(address_map &map);
 
-	TIMER_DEVICE_CALLBACK_MEMBER(vfd_delay_off);
+	TIMER_DEVICE_CALLBACK_MEMBER(delay_display);
 
-	void display_update(u16 edge);
+	void update_display(u16 edge);
 	DECLARE_WRITE8_MEMBER(mux1_w);
 	DECLARE_WRITE8_MEMBER(mux2_w);
-	DECLARE_WRITE8_MEMBER(_7seg_w);
+	DECLARE_WRITE8_MEMBER(digit_w);
 	DECLARE_READ8_MEMBER(input_r);
 	DECLARE_WRITE8_MEMBER(sound_w);
-	DECLARE_READ8_MEMBER(timer_r);
 
 	u16 m_inp_mux;
 	u16 m_digit_select;
-	u8 m_7seg_data;
+	u8 m_digit_data;
 };
 
 void tgm_state::machine_start()
@@ -93,40 +96,41 @@ void tgm_state::machine_start()
 	// zerofill
 	m_inp_mux = 0;
 	m_digit_select = 0;
-	m_7seg_data = 0;
+	m_digit_data = 0;
 
 	// register for savestates
 	save_item(NAME(m_inp_mux));
 	save_item(NAME(m_digit_select));
-	save_item(NAME(m_7seg_data));
+	save_item(NAME(m_digit_data));
 }
+
 
 
 /******************************************************************************
     Devices, I/O
 ******************************************************************************/
 
-// VFD handling
+// display handling
 
-TIMER_DEVICE_CALLBACK_MEMBER(tgm_state::vfd_delay_off)
+TIMER_DEVICE_CALLBACK_MEMBER(tgm_state::delay_display)
 {
 	// clear VFD outputs
 	if (!BIT(m_digit_select, param))
 		m_out_digit[param] = 0;
 }
 
-void tgm_state::display_update(u16 edge)
+void tgm_state::update_display(u16 edge)
 {
 	for (int i = 0; i < 12; i++)
 	{
 		// output VFD digit data
 		if (BIT(m_digit_select, i))
-			m_out_digit[i] = m_7seg_data;
+			m_out_digit[i] = m_digit_data;
 
 		// they're strobed, so on falling edge, delay them going off to prevent flicker
 		// BTANB: some digit segments get stuck after crashing in the GP game, it's not due to the simulated delay here
 		else if (BIT(edge, i))
-			m_vfd_delay[i]->adjust(attotime::from_msec(20), i);
+			m_delay_display[i]->adjust(attotime::from_msec(20), i);
 	}
 }
 
@@ -141,7 +145,7 @@ WRITE8_MEMBER(tgm_state::mux1_w)
 	// P00-P07: digit select part
 	u16 prev = m_digit_select;
 	m_digit_select = (m_digit_select & 0xf) | (data << 4);
-	display_update(m_digit_select ^ prev);
+	update_display(m_digit_select ^ prev);
 }
 
 WRITE8_MEMBER(tgm_state::mux2_w)
@@ -152,14 +156,14 @@ WRITE8_MEMBER(tgm_state::mux2_w)
 	// P14-P17: digit select part
 	u16 prev = m_digit_select;
 	m_digit_select = (m_digit_select & 0xff0) | (data >> 4 & 0xf);
-	display_update(m_digit_select ^ prev);
+	update_display(m_digit_select ^ prev);
 }
 
-WRITE8_MEMBER(tgm_state::_7seg_w)
+WRITE8_MEMBER(tgm_state::digit_w)
 {
 	// P50-P57: digit 7seg data
-	m_7seg_data = bitswap<8>(data,0,1,2,3,4,5,6,7);
-	display_update(0);
+	m_digit_data = bitswap<8>(data,0,1,2,3,4,5,6,7);
+	update_display(0);
 }
 
 READ8_MEMBER(tgm_state::input_r)
@@ -188,12 +192,6 @@ WRITE8_MEMBER(tgm_state::sound_w)
 	//..
 }
 
-READ8_MEMBER(tgm_state::timer_r)
-{
-	// MK3870 internal timer register (used as RNG here)
-	return machine().rand();
-}
-
 
 
 /******************************************************************************
@@ -202,7 +200,7 @@ READ8_MEMBER(tgm_state::timer_r)
 
 void tgm_state::main_map(address_map &map)
 {
-	map.global_mask(0x7ff);
+	map.global_mask(0x07ff);
 	map(0x0000, 0x07ff).rom();
 }
 
@@ -210,9 +208,7 @@ void tgm_state::main_io(address_map &map)
 {
 	map(0x00, 0x00).w(FUNC(tgm_state::mux1_w));
 	map(0x01, 0x01).rw(FUNC(tgm_state::input_r), FUNC(tgm_state::mux2_w));
-	map(0x04, 0x04).w(FUNC(tgm_state::sound_w));
-	map(0x05, 0x05).w(FUNC(tgm_state::_7seg_w));
-	map(0x07, 0x07).r(FUNC(tgm_state::timer_r));
+	map(0x04, 0x07).rw("psu", FUNC(f38t56_device::read), FUNC(f38t56_device::write));
 }
 
 
@@ -272,13 +268,17 @@ INPUT_PORTS_END
 void tgm_state::tgm(machine_config &config)
 {
 	/* basic machine hardware */
-	F8(config, m_maincpu, 2000000); // measured around 2.1MHz
+	F8(config, m_maincpu, 4000000/2); // MK3870, frequency is approximate
 	m_maincpu->set_addrmap(AS_PROGRAM, &tgm_state::main_map);
 	m_maincpu->set_addrmap(AS_IO, &tgm_state::main_io);
 
+	f38t56_device &psu(F38T56(config, "psu", 4000000/2));
+	psu.write_a().set(FUNC(tgm_state::sound_w));
+	psu.write_b().set(FUNC(tgm_state::digit_w));
+
 	/* video hardware */
 	for (int i = 0; i < 12; i++)
-		TIMER(config, m_vfd_delay[i]).configure_generic(FUNC(tgm_state::vfd_delay_off));
+		TIMER(config, m_delay_display[i]).configure_generic(FUNC(tgm_state::delay_display));
 
 	config.set_default_layout(layout_tgm);
 
