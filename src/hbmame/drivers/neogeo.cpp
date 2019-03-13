@@ -1324,28 +1324,28 @@ GFXDECODE_END
  *
  *************************************/
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_base )
-
+void neogeo_state::neogeo_base(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68000, NEOGEO_MAIN_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(neogeo_main_map)
+	M68000(config, m_maincpu, NEOGEO_MAIN_CPU_CLOCK);
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::neogeo_main_map);
 
-	MCFG_DEVICE_ADD("audiocpu", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(audio_map)
-	MCFG_DEVICE_IO_MAP(audio_io_map)
+	Z80(config, m_audiocpu, NEOGEO_AUDIO_CPU_CLOCK);
+	m_audiocpu->set_addrmap(AS_PROGRAM, &neogeo_state::audio_map);
+	m_audiocpu->set_addrmap(AS_IO, &neogeo_state::audio_io_map);
 
 	/* video hardware */
 	config.set_default_layout(layout_neogeo);
 
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(neogeo_state, screen_update_neogeo)
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART);
+	m_screen->set_screen_update(FUNC(neogeo_state::screen_update_neogeo));
 
-	MCFG_DEVICE_ADD( "gfxdecode", GFXDECODE, "palette", gfx_neogeo)
+	GFXDECODE(config, "gfxdecode", m_palette, gfx_neogeo);
 	/* 4096 colors * two banks * normal and shadow */
-	MCFG_DEVICE_ADD(m_palette, PALETTE, palette_device::BLACK, 4096*2*2)
+	PALETTE(config, m_palette, palette_device::BLACK, 4096*2*2);
 
-	MCFG_DEVICE_ADD("spritegen", NEOGEO_SPRITE, 0)
+	NEOGEO_SPRITE(config, m_sprgen, 0).set_screen(m_screen);
 
 	/* audio hardware */
 	SPEAKER(config, "lspeaker").front_left();
@@ -1360,28 +1360,28 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_base )
 	m_ym->add_route(0, "rspeaker", 0.28);
 	m_ym->add_route(1, "lspeaker", 0.98);
 	m_ym->add_route(2, "rspeaker", 0.98);
-	MCFG_NEOGEO_BANKED_CART_ADD("banked_cart")
-MACHINE_CONFIG_END
+	NEOGEO_BANKED_CART(config, "banked_cart");
+}
 
-
-MACHINE_CONFIG_START( neogeo_state::neogeo_arcade )
+void neogeo_state::neogeo_arcade(machine_config &config)
+{
 	neogeo_base(config);
 	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK));
 	UPD4990A(config, m_upd4990a);
 	NVRAM(config, "saveram", nvram_device::DEFAULT_ALL_0);
-	MCFG_NEOGEO_MEMCARD_ADD("memcard")
-MACHINE_CONFIG_END
+	NG_MEMCARD(config, "memcard");
+}
 
-MACHINE_CONFIG_START( neogeo_state::mvs )
+void neogeo_state::mvs(machine_config &config)
+{
 	neogeo_arcade(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(main_map_slot)
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_slot);
 
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", false);
 
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", false);
 	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", false);
-MACHINE_CONFIG_END
+}
 
 void neogeo_state::main_map_noslot(address_map &map)
 {
@@ -1390,10 +1390,10 @@ void neogeo_state::main_map_noslot(address_map &map)
 	map(0x000080,0x0fffff).rom();
 }
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_noslot )
+void neogeo_state::neogeo_noslot(machine_config &config)
+{
 	neogeo_arcade(config); // no slot config (legacy mame)
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_noslot);
 
 	//joystick controller
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
@@ -1402,22 +1402,22 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_noslot )
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
 	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
 
-	MCFG_MSLUGX_PROT_ADD("mslugx_prot")
-	MCFG_SMA_PROT_ADD("sma_prot")
-	MCFG_CMC_PROT_ADD("cmc_prot")
-	MCFG_PCM2_PROT_ADD("pcm2_prot")
-	MCFG_PVC_PROT_ADD("pvc_prot")
-	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
-	MCFG_KOF2002_PROT_ADD("kof2002_prot")
-	MCFG_FATFURY2_PROT_ADD("fatfury2_prot")
-	MCFG_KOF98_PROT_ADD("kof98_prot")
-	MCFG_SBP_PROT_ADD("sbp_prot")
-MACHINE_CONFIG_END
+	MSLUGX_PROT(config, "mslugx_prot");
+	SMA_PROT(config, "sma_prot");
+	CMC_PROT(config, "cmc_prot");
+	PCM2_PROT(config, "pcm2_prot");
+	PVC_PROT(config, "pvc_prot");
+	NGBOOTLEG_PROT(config, "bootleg_prot");
+	KOF2002_PROT(config, "kof2002_prot");
+	FATFURY2_PROT(config, "fatfury2_prot");
+	KOF98_PROT(config, "kof98_prot");
+	SBP_PROT(config, "sbp_prot");
+}
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_kog )
+void neogeo_state::neogeo_kog(machine_config &config)
+{
 	neogeo_arcade(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(main_map_noslot)
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_noslot);
 
 	//joystick controller
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
@@ -1426,13 +1426,14 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_kog )
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
 	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
 
-	MCFG_NGBOOTLEG_PROT_ADD("bootleg_prot")
-	MCFG_KOG_PROT_ADD("kog_prot")
-MACHINE_CONFIG_END
+	NGBOOTLEG_PROT(config, "bootleg_prot");
+	KOG_PROT(config, "kog_prot");
+}
 
 // these basically correspond to the cabinets which were available in arcades:
 // with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
-MACHINE_CONFIG_START( neogeo_state::neogeo_mj )
+void neogeo_state::neogeo_mj(machine_config &config)
+{
 	neogeo_noslot(config);
 
 	//no joystick panel
@@ -1443,34 +1444,39 @@ MACHINE_CONFIG_START( neogeo_state::neogeo_mj )
 	config.device_remove("ctrl2");
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "mahjong", false);
 	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_dial )
+void neogeo_state::neogeo_dial(machine_config &config)
+{
 	neogeo_noslot(config);
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "dial", true);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_imaze )
+void neogeo_state::neogeo_imaze(machine_config &config)
+{
 	neogeo_noslot(config);
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "irrmaze", true);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( neogeo_state::neogeo_kiz4p )
+void neogeo_state::neogeo_kiz4p(machine_config &config)
+{
 	neogeo_noslot(config);
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "kiz4p", true);
-MACHINE_CONFIG_END
+}
 
 // this is used by V-Liner, which handles differently inputs...
-MACHINE_CONFIG_START( neogeo_state::neogeo_noctrl )
+void neogeo_state::neogeo_noctrl(machine_config &config)
+{
 	neogeo_noslot(config);
 	config.device_remove("ctrl1");
 	config.device_remove("ctrl2");
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( neogeo_state::no_watchdog )
+void neogeo_state::no_watchdog(machine_config &config)
+{
 	neogeo_noslot(config);
 	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
-MACHINE_CONFIG_END
+}
 
 
 void neogeo_state::gsc_map(address_map &map)
@@ -1479,11 +1485,11 @@ void neogeo_state::gsc_map(address_map &map)
 	map(0x900000,0x91ffff).rom().region("gsc", 0);  // extra rom
 }
 
-MACHINE_CONFIG_START( neogeo_state::gsc )
+void neogeo_state::gsc(machine_config &config)
+{
 	neogeo_noslot(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(gsc_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc_map);
+}
 
 
 /*************************************

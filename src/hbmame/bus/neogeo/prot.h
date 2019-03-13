@@ -19,7 +19,7 @@ class ngbootleg_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void neogeo_bootleg_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_size);
 	void neogeo_bootleg_sx_decrypt(uint8_t* fixed, uint32_t fixed_size, int value);
@@ -101,7 +101,7 @@ class kog_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void kog_install_protection(cpu_device* maincpu);
 	void kog_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size);
@@ -153,7 +153,7 @@ class cmc_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void decrypt(uint8_t *r0, uint8_t *r1,
 		uint8_t c0, uint8_t c1,
@@ -198,7 +198,7 @@ class fatfury2_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	DECLARE_READ16_MEMBER( fatfury2_protection_16_r );
 	DECLARE_WRITE16_MEMBER( fatfury2_protection_16_w );
@@ -224,7 +224,7 @@ class kof2002_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void kof2002_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
 	void matrim_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
@@ -247,7 +247,7 @@ class kof98_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void kof98_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
 	void install_kof98_protection(cpu_device* maincpu);
@@ -272,7 +272,7 @@ class mslugx_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 
 	DECLARE_WRITE16_MEMBER( mslugx_protection_16_w );
@@ -298,7 +298,7 @@ class pcm2_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void neo_pcm2_snk_1999(uint8_t* ymrom, uint32_t ymsize, int value);
 	void neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value);
@@ -319,7 +319,7 @@ class pvc_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void pvc_write_unpack_color();
 	void pvc_write_pack_color();
@@ -353,7 +353,7 @@ class sbp_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 
 	uint8_t* m_mainrom;
@@ -377,7 +377,7 @@ class sma_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 
 	DECLARE_WRITE16_MEMBER( kof99_bankswitch_w );

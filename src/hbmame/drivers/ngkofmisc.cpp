@@ -57,11 +57,11 @@ void neogeo_state::main_map1(address_map &map) {
 	map(0x000080,0x0fffff).rom();
 }
 
-MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
+void neogeo_state::hbmame_kog(machine_config &config)
+{
 	neogeo_arcade(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(main_map1)
-	MCFG_KOG_PROT_ADD("kog_prot")
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map1);
+	KOG_PROT(config, "kog_prot");
 
 	//joystick controller
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
@@ -69,7 +69,7 @@ MACHINE_CONFIG_START( neogeo_state::hbmame_kog )
 	//no mahjong controller
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
 	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
-MACHINE_CONFIG_END
+}
 
 void neogeo_state::init_kogd()
 {

@@ -132,10 +132,10 @@ void neogeo_state::m4_map(address_map &map)
 	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m4",FUNC(generic_latch_8_device::write));
 }
 
-MACHINE_CONFIG_START( neogeo_state::ps2 )
+void neogeo_state::ps2(machine_config &config)
+{
 	gsc(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(ps2_map)
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::ps2_map);
 
 	GENERIC_LATCH_8(config, m_soundlatch_m2);
 	GENERIC_LATCH_8(config, m_soundlatch2_m2);
@@ -144,16 +144,16 @@ MACHINE_CONFIG_START( neogeo_state::ps2 )
 	GENERIC_LATCH_8(config, m_soundlatch_m4);
 	GENERIC_LATCH_8(config, m_soundlatch2_m4);
 
-	MCFG_DEVICE_ADD("audiocpu_m2", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(audio_map)
-	MCFG_DEVICE_IO_MAP(m2_map)
-	MCFG_DEVICE_ADD("audiocpu_m3", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(audio_map)
-	MCFG_DEVICE_IO_MAP(m3_map)
-	MCFG_DEVICE_ADD("audiocpu_m4", Z80, NEOGEO_AUDIO_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(audio_map)
-	MCFG_DEVICE_IO_MAP(m4_map)
-MACHINE_CONFIG_END
+	Z80(config, "audiocpu_m2", NEOGEO_AUDIO_CPU_CLOCK);
+	m_audiocpu->set_addrmap(AS_PROGRAM, &neogeo_state::audio_map);
+	m_audiocpu->set_addrmap(AS_IO, &neogeo_state::m2_map);
+	Z80(config, "audiocpu_m3", NEOGEO_AUDIO_CPU_CLOCK);
+	m_audiocpu->set_addrmap(AS_PROGRAM, &neogeo_state::audio_map);
+	m_audiocpu->set_addrmap(AS_IO, &neogeo_state::m3_map);
+	Z80(config, "audiocpu_m4", NEOGEO_AUDIO_CPU_CLOCK);
+	m_audiocpu->set_addrmap(AS_PROGRAM, &neogeo_state::audio_map);
+	m_audiocpu->set_addrmap(AS_IO, &neogeo_state::m4_map);
+}
 #endif
 
 
