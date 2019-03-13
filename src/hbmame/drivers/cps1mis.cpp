@@ -616,58 +616,59 @@ INPUT_PORTS_END
 ********************************************************************/
 
 
-MACHINE_CONFIG_START( cps_state::wofsf2 )
+void cps_state::wofsf2(machine_config &config)
+{
 	wofhfh(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(wofsf2_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::wofsf2_map);
+}
 
-MACHINE_CONFIG_START( cps_state::daimakb )
+void cps_state::daimakb(machine_config &config)
+{
 	cps1_10MHz(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(daimakb_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::daimakb_map);
+}
 
-MACHINE_CONFIG_START( cps_state::sk2h3 )
+void cps_state::sk2h3(machine_config &config)
+{
 	wofhfh(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(sk2h3_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sk2h3_map);
+}
 
-MACHINE_CONFIG_START( cps_state::sk2h31 )
+void cps_state::sk2h31(machine_config &config)
+{
 	wofhfh(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(sk2h31_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sk2h31_map);
+}
 
-MACHINE_CONFIG_START( cps_state::sk2h35 )
+void cps_state::sk2h35(machine_config &config)
+{
 	qsound(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(sk2h35_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sk2h35_map);
+}
 
-MACHINE_CONFIG_START( cps_state::cps1frog )
-
+void cps_state::cps1frog(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68000, 10'000'000 )
-	MCFG_DEVICE_PROGRAM_MAP(cps1frog_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
-	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
+	M68000(config, m_maincpu, XTAL(10'000'000));    /* verified on pcb */
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::cps1frog_map);
+	m_maincpu->set_vblank_int("screen", FUNC(cps_state::cps1_interrupt));
+	m_maincpu->set_irq_acknowledge_callback(FUNC(cps_state::cps1_int_ack));
 
-	/* audio CPU */
-	MCFG_DEVICE_ADD("audiocpu", Z80, 3'579'545)
-	MCFG_DEVICE_PROGRAM_MAP(sub_map)
+	Z80(config, m_audiocpu, XTAL(3'579'545));  /* verified on pcb */
+	m_audiocpu->set_addrmap(AS_PROGRAM, &cps_state::sub_map);
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, cps1)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(8'000'000, 518, 64, 448, 259, 16, 240)
-	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_cps1)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, cps_state, screen_vblank_cps1))
-	MCFG_SCREEN_PALETTE("palette")
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_cps1)
-	MCFG_PALETTE_ADD("palette", 0xc00)
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(8'000'000, 518, 64, 448, 259, 16, 240);
+	m_screen->set_screen_update(FUNC(cps_state::screen_update_cps1));
+	m_screen->screen_vblank().set(FUNC(cps_state::screen_vblank_cps1));
+	m_screen->set_palette(m_palette);
+
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_cps1);
+	PALETTE(config, m_palette).set_entries(0xc00);
+
 	MCFG_VIDEO_START_OVERRIDE(cps_state, cps1)
 
 	/* sound hardware */
@@ -678,23 +679,21 @@ MACHINE_CONFIG_START( cps_state::cps1frog )
 	ym2151.irq_handler().set_inputline(m_audiocpu, 0);
 	ym2151.add_route(0, "mono", 0.35);
 	ym2151.add_route(1, "mono", 0.35);
-	MCFG_DEVICE_ADD("oki", OKIM6295, 1e6, okim6295_device::PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
-MACHINE_CONFIG_END
+	OKIM6295(config, m_oki, XTAL(16'000'000)/4/4, okim6295_device::PIN7_HIGH).add_route(ALL_OUTPUTS, "mono", 0.30);
+}
 
-MACHINE_CONFIG_START( cps_state::sk2h1q )
+void cps_state::sk2h1q(machine_config &config)
+{
 	cps1frog(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_REPLACE("maincpu", M68000, 12'000'000 )
-	MCFG_DEVICE_PROGRAM_MAP(sk2h1q_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
-	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
+	m_maincpu->set_clock(XTAL(12'000'000));    /* verified on pcb */
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sk2h1q_map);
 
-	MCFG_DEVICE_REPLACE("audiocpu", Z80, 8'000'000 )
-	MCFG_DEVICE_PROGRAM_MAP(qsound_sub_map)
-	MCFG_DEVICE_OPCODES_MAP(qsound_decrypted_opcodes_map)
-	MCFG_DEVICE_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250)    /* ?? */
+	Z80(config.replace(), m_audiocpu, XTAL(8'000'000));  /* verified on pcb */
+	m_audiocpu->set_addrmap(AS_PROGRAM, &cps_state::qsound_sub_map);
+	m_audiocpu->set_addrmap(AS_OPCODES, &cps_state::qsound_decrypted_opcodes_map);
+	m_audiocpu->set_periodic_int(FUNC(cps_state::irq0_line_hold), attotime::from_hz(250)); // measured (cps2.cpp)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
@@ -708,16 +707,16 @@ MACHINE_CONFIG_START( cps_state::sk2h1q )
 	config.device_remove("2151");
 	config.device_remove("oki");
 
-	MCFG_DEVICE_ADD("qsound", QSOUND)
-	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
-	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
-MACHINE_CONFIG_END
+	qsound_device &qsound(QSOUND(config, "qsound"));
+	qsound.add_route(0, "lspeaker", 1.0);
+	qsound.add_route(1, "rspeaker", 1.0);
+}
 
-MACHINE_CONFIG_START( cps_state::sk2h31q )
+void cps_state::sk2h31q(machine_config &config)
+{
 	sk2h1q(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(sk2h31q_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sk2h31q_map);
+}
 
 
 /**********************************************************************

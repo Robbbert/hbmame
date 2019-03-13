@@ -3346,30 +3346,30 @@ MACHINE_START_MEMBER(cps_state,qsound)
 	membank("bank1")->configure_entries(0, 6, memregion("audiocpu")->base() + 0x10000, 0x4000);
 }
 
-MACHINE_CONFIG_START(cps_state::cps1_10MHz)
-
+void cps_state::cps1_10MHz(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68000, XTAL(10'000'000) )    /* verified on pcb */
-	MCFG_DEVICE_PROGRAM_MAP(main_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
-	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
+	M68000(config, m_maincpu, XTAL(10'000'000));    /* verified on pcb */
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::main_map);
+	m_maincpu->set_vblank_int("screen", FUNC(cps_state::cps1_interrupt));
+	m_maincpu->set_irq_acknowledge_callback(FUNC(cps_state::cps1_int_ack));
 
-	MCFG_DEVICE_ADD("audiocpu", Z80, XTAL(3'579'545))  /* verified on pcb */
-	MCFG_DEVICE_PROGRAM_MAP(sub_map)
+	Z80(config, m_audiocpu, XTAL(3'579'545));  /* verified on pcb */
+	m_audiocpu->set_addrmap(AS_PROGRAM, &cps_state::sub_map);
 
-	MCFG_MACHINE_START_OVERRIDE(cps_state,cps1)
+	MCFG_MACHINE_START_OVERRIDE(cps_state, cps1)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(CPS_PIXEL_CLOCK, CPS_HTOTAL, CPS_HBEND, CPS_HBSTART, CPS_VTOTAL, CPS_VBEND, CPS_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(cps_state, screen_update_cps1)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, cps_state, screen_vblank_cps1))
-	MCFG_SCREEN_PALETTE("palette")
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(CPS_PIXEL_CLOCK, CPS_HTOTAL, CPS_HBEND, CPS_HBSTART, CPS_VTOTAL, CPS_VBEND, CPS_VBSTART);
+	m_screen->set_screen_update(FUNC(cps_state::screen_update_cps1));
+	m_screen->screen_vblank().set(FUNC(cps_state::screen_vblank_cps1));
+	m_screen->set_palette(m_palette);
 
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_cps1)
-	MCFG_PALETTE_ADD("palette", 0xc00)
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_cps1);
+	PALETTE(config, m_palette).set_entries(0xc00);
 
-	MCFG_VIDEO_START_OVERRIDE(cps_state, cps1)
+	MCFG_VIDEO_START_OVERRIDE(cps_state, cps1)         // HBMAME
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -3382,59 +3382,56 @@ MACHINE_CONFIG_START(cps_state::cps1_10MHz)
 	ym2151.add_route(0, "mono", 0.35);
 	ym2151.add_route(1, "mono", 0.35);
 
-	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
-	MCFG_DEVICE_ADD("oki", OKIM6295, 1'000'000, okim6295_device::PIN7_HIGH) // pin 7 can be changed by the game code, see f006 on z80
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.30)
-MACHINE_CONFIG_END
+	OKIM6295(config, m_oki, XTAL(16'000'000)/4/4, okim6295_device::PIN7_HIGH).add_route(ALL_OUTPUTS, "mono", 0.30); // pin 7 can be changed by the game code, see f006 on z80
+}
 
-MACHINE_CONFIG_START(cps_state::forgottn )
+void cps_state::forgottn(machine_config &config)
+{
 	cps1_10MHz(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(forgottn_map)
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::forgottn_map);
 
 	upd4701_device &upd4701(UPD4701A(config, "upd4701"));
 	upd4701.set_portx_tag("DIAL0");
 	upd4701.set_porty_tag("DIAL1");
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(cps_state::cps1_12MHz )
+void cps_state::cps1_12MHz(machine_config &config)
+{
 	cps1_10MHz(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_CLOCK( XTAL(12'000'000) )    /* verified on pcb */
-MACHINE_CONFIG_END
+	m_maincpu->set_clock(XTAL(12'000'000));    /* verified on pcb */
+}
 
-MACHINE_CONFIG_START(cps_state::pang3 )
+void cps_state::pang3(machine_config &config)
+{
 	cps1_12MHz(config);
 
 	/* basic machine hardware */
 	EEPROM_93C46_16BIT(config, "eeprom");
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(cps_state::ganbare )
+void cps_state::ganbare(machine_config &config)
+{
 	cps1_10MHz(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_MODIFY("maincpu")
 	TIMER(config, "scantimer").configure_scanline(FUNC(cps_state::ganbare_interrupt), "screen", 0, 1); // need to investigate more
 
-	MCFG_DEVICE_ADD("m48t35", M48T35, 0)
-MACHINE_CONFIG_END
+	M48T35(config, m_m48t35, 0);
+}
 
-MACHINE_CONFIG_START(cps_state::qsound )
+void cps_state::qsound(machine_config &config)
+{
 	cps1_12MHz(config);
 
 	/* basic machine hardware */
-	MCFG_DEVICE_REPLACE("maincpu", M68000, XTAL(12'000'000) )    /* verified on pcb */
-	MCFG_DEVICE_PROGRAM_MAP(qsound_main_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", cps_state, cps1_interrupt)
-	MCFG_DEVICE_IRQ_ACKNOWLEDGE_DRIVER(cps_state, cps1_int_ack)
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::qsound_main_map);
 
-	MCFG_DEVICE_REPLACE("audiocpu", Z80, XTAL(8'000'000))  /* verified on pcb */
-	MCFG_DEVICE_PROGRAM_MAP(qsound_sub_map)
-	MCFG_DEVICE_OPCODES_MAP(qsound_decrypted_opcodes_map)
-	MCFG_DEVICE_PERIODIC_INT_DRIVER(cps_state, irq0_line_hold, 250) // measured (cps2.c)
+	Z80(config.replace(), m_audiocpu, XTAL(8'000'000));  /* verified on pcb */
+	m_audiocpu->set_addrmap(AS_PROGRAM, &cps_state::qsound_sub_map);
+	m_audiocpu->set_addrmap(AS_OPCODES, &cps_state::qsound_decrypted_opcodes_map);
+	m_audiocpu->set_periodic_int(FUNC(cps_state::irq0_line_hold), attotime::from_hz(250)); // measured (cps2.cpp)
 
 	MCFG_MACHINE_START_OVERRIDE(cps_state, qsound)
 
@@ -3445,34 +3442,35 @@ MACHINE_CONFIG_START(cps_state::qsound )
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 
-	//config.device_remove("soundlatch");   // HBMAME
-	//config.device_remove("soundlatch2");  // HBMAME
+	//config.device_remove("soundlatch");     HBMAME
+	//config.device_remove("soundlatch2");    HBMAME
 	config.device_remove("2151");
 	config.device_remove("oki");
 
-	MCFG_DEVICE_ADD("qsound", QSOUND)
-	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
-	MCFG_SOUND_ROUTE(1, "rspeaker", 1.0)
-MACHINE_CONFIG_END
+	qsound_device &qsound(QSOUND(config, "qsound"));
+	qsound.add_route(0, "lspeaker", 1.0);
+	qsound.add_route(1, "rspeaker", 1.0);
+}
 
-MACHINE_CONFIG_START(cps_state::wofhfh )
+void cps_state::wofhfh(machine_config &config)
+{
 	cps1_12MHz(config);
 
 	/* basic machine hardware */
 	EEPROM_93C46_8BIT(config, "eeprom");
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(cps_state::sf2m3 )
+void cps_state::sf2m3(machine_config &config)
+{
 	cps1_12MHz(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(sf2m3_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sf2m3_map);
+}
 
-MACHINE_CONFIG_START(cps_state::sf2m10 )
+void cps_state::sf2m10(machine_config &config)
+{
 	cps1_12MHz(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(sf2m10_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::sf2m10_map);
+}
 
 
 /***************************************************************************
