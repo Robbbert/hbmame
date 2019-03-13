@@ -689,6 +689,7 @@ void cps_state::dinopic_map(address_map &map) {
 	map(0x800030,0x800037).w(FUNC(cps_state::cps1_coinctrl_w));
 	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
 	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
+	map(0x800180,0x800181).nopr(); //w(FUNC(cps_state::fcrash_soundlatch_w)).lr8("sc", [this] { return 0xff; });  /* Sound command */
 	map(0x800222,0x800223).w(FUNC(cps_state::dinopic_layer2_w));
 	map(0x880000,0x880001).nopw();  // always 0
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
@@ -696,7 +697,7 @@ void cps_state::dinopic_map(address_map &map) {
 	map(0xf18000,0xf19fff).ram();
 	map(0xf1c000,0xf1c001).portr("IN2");  /* Player 3 controls (later games) */
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xff0000,0xffffff).ram();
 }
 
@@ -727,7 +728,7 @@ void cps_state::punipic_map(address_map &map) {
 	map(0x990000,0x990001).nopw();  // unknown
 	map(0x991000,0x991017).nopw();  // unknown
 	map(0xf18000,0xf19fff).ram();
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xff0000,0xffffff).ram().share("mainram");
 }
 
@@ -790,7 +791,7 @@ void cps_state::sgyxz_map(address_map &map) {
 	map(0x890000,0x890001).w(FUNC(cps_state::cps1_soundlatch2_w));
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xff0000,0xffffff).ram();
 }
 
@@ -809,7 +810,7 @@ void cps_state::slampic_map(address_map &map) {
 	map(0xf18000,0xf19fff).ram();
 	map(0xf1c000,0xf1c001).portr("IN2");  /* Player 3 controls (later games) */
 	map(0xf1c004,0xf1c005).w(FUNC(cps_state::cpsq_coinctrl2_w));  /* Coin control2 (later games) */
-	map(0xf1c006,0xf1c007).portr("EEPROMIN");
+	map(0xf1c006,0xf1c007).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0xf1f000,0xf1ffff).noprw();  // writes 0 to range, then reads F1F6EC
 	map(0xff0000,0xffffff).ram();
 }
@@ -2316,8 +2317,7 @@ void cps_state::init_dinopic()
 	init_cps1();
 }
 
-// see code around BB3A6. If protection fails then it jumps to 100000 which causes an exception.
-// After fixing that, the picture is offset to the left, no sound, no sprites. Eprom required @ F1C006.
+// The picture is offset to the left, no sound, no sprites. Most settings cannot be changed.
 ROM_START( dinopic4 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "cad_28",   0x000000, 0x040000, CRC(97dc3d86) SHA1(8dbe9dab5682933b3ea2bfcd066f5f4503aad009) )
@@ -2328,6 +2328,8 @@ ROM_START( dinopic4 )
 	ROM_LOAD16_BYTE( "cad_35",   0x100001, 0x020000, CRC(fbcf4314) SHA1(a59a1d867abea5216367220d8c9d005f451c9d88) )
 	ROM_LOAD16_BYTE( "cad_30",   0x140000, 0x020000, CRC(bbcafc3b) SHA1(52ff5928b1da862813ef150ea77ac59cff82df5b) )
 	ROM_LOAD16_BYTE( "cad_34",   0x140001, 0x020000, CRC(481369b8) SHA1(065b5f6b3d2f337def183c3ab5f0ef8c21d0c849) )
+	ROM_FILL(0xbb3b8,1,0x4e) // kill protection
+	ROM_FILL(0xbb3b9,1,0x71)
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "cad_24",   0x000000, 0x040000, CRC(e59e0066) SHA1(de8868ac7c9323c9ce4a22d610f25e8932e09218), ROM_SKIP(7) )

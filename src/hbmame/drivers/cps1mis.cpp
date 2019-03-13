@@ -112,7 +112,7 @@ void cps_state::sk2h35_map(address_map &map) {
 	map(0x000000,0x3fffff).rom();
 	map(0x800000,0x800001).portr("IN1");  /* Player input ports */
 	map(0x800018,0x80001f).r(FUNC(cps_state::cps1_dsw_r));  /* System input ports / Dip Switches */
-	map(0x80001c,0x80001d).portr("EEPROMIN");
+	map(0x80001c,0x80001d).portr("EEPROMIN").portw("EEPROMOUT");
 	map(0x800030,0x800037).w(FUNC(cps_state::cps1_coinctrl_w));
 	map(0x800100,0x80013f).w(FUNC(cps_state::cps1_cps_a_w)).share("cps_a_regs");  /* CPS-A custom */
 	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");  /* CPS-B custom */
