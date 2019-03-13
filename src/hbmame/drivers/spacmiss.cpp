@@ -77,7 +77,7 @@ private:
 	void io_map(address_map &map);
 	required_device<cpu_device> m_maincpu;
 	required_shared_ptr<uint8_t> m_p_ram;
-	required_device<discrete_device> m_discrete;
+	required_device<discrete_sound_device> m_discrete;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
 };
@@ -405,18 +405,20 @@ static const char *const invaders_sample_names[] =
 };
 
 
-MACHINE_CONFIG_START( sm_state::spacmissx )
+void sm_state::spacmissx(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(mem_map)
-	MCFG_DEVICE_IO_MAP(io_map)
-	MCFG_MACHINE_START_OVERRIDE(sm_state,sm)
-	MCFG_MACHINE_RESET_OVERRIDE(sm_state,sm)
+	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
+	m_maincpu->set_addrmap(AS_PROGRAM, &sm_state::mem_map);
+	m_maincpu->set_addrmap(AS_IO, &sm_state::io_map);
+
+	MCFG_MACHINE_START_OVERRIDE(sm_state, sm)
+	MCFG_MACHINE_RESET_OVERRIDE(sm_state, sm)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(sm_state, screen_update_spacmissx)
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
+	m_screen->set_screen_update(FUNC(sm_state::screen_update_spacmissx));
 
 	/* add shifter */
 	MB14241(config, "mb14241");
@@ -427,9 +429,10 @@ MACHINE_CONFIG_START( sm_state::spacmissx )
 	m_samples->set_channels(6);
 	m_samples->set_samples_names(invaders_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
-	MCFG_DEVICE_ADD("discrete", DISCRETE, spacmissx_disc)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-MACHINE_CONFIG_END
+
+	DISCRETE(config, m_discrete, spacmissx_disc);
+	m_discrete->add_route(ALL_OUTPUTS, "mono", 1.0);
+}
 
 
 static INPUT_PORTS_START( spacmissx )

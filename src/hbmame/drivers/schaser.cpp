@@ -548,18 +548,20 @@ static INPUT_PORTS_START( schasercv )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-MACHINE_CONFIG_START( sc_state::schasercv )
+void sc_state::schasercv(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(mem_map)
-	MCFG_DEVICE_IO_MAP(io_map)
-	MCFG_MACHINE_START_OVERRIDE(sc_state,sc)
-	MCFG_MACHINE_RESET_OVERRIDE(sc_state,sc)
+	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
+	m_maincpu->set_addrmap(AS_PROGRAM, &sc_state::mem_map);
+	m_maincpu->set_addrmap(AS_IO, &sc_state::io_map);
+
+	MCFG_MACHINE_START_OVERRIDE(sc_state, sc)
+	MCFG_MACHINE_RESET_OVERRIDE(sc_state, sc)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(sc_state, screen_update_schasercv)
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
+	m_screen->set_screen_update(FUNC(sc_state::screen_update_schasercv));
 
 	/* add shifter */
 	MB14241(config, "mb14241");
@@ -587,7 +589,7 @@ MACHINE_CONFIG_START( sc_state::schasercv )
 	m_discrete->add_route(ALL_OUTPUTS, "mono", 1.0);
 
 	TIMER(config, "schaser_sh_555").configure_generic(FUNC(sc_state::schaser_effect_555_cb));
-MACHINE_CONFIG_END
+}
 
 ROM_START( schasrcv )
 	ROM_REGION( 0x10000, "maincpu", 0 )

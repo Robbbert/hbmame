@@ -113,7 +113,7 @@ private:
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	void main_map(address_map &map);
+	void mem_map(address_map &map);
 	void io_map(address_map &map);
 	bool       m_flip_screen;
 	bool       m_screen_red;
@@ -138,7 +138,7 @@ READ8_MEMBER(ir_state::port02_r)
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
 
-void ir_state::main_map(address_map &map) {
+void ir_state::mem_map(address_map &map) {
 	map.global_mask(0x7fff);
 	map(0x0000,0x1fff).rom().nopw();
 	map(0x2000,0x3fff).mirror(0x4000).ram().share("ram");
@@ -499,19 +499,20 @@ uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap,
 	return 0;
 }
 
-MACHINE_CONFIG_START( ir_state::ir )
-
+void ir_state::ir(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu",I8080,MW8080BW_CPU_CLOCK)
-	MCFG_DEVICE_PROGRAM_MAP(main_map)
-	MCFG_DEVICE_IO_MAP(io_map)
+	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
+	m_maincpu->set_addrmap(AS_PROGRAM, &ir_state::mem_map);
+	m_maincpu->set_addrmap(AS_IO, &ir_state::io_map);
+
 	MCFG_MACHINE_START_OVERRIDE(ir_state, ir)
 	MCFG_MACHINE_RESET_OVERRIDE(ir_state, ir)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(ir_state, screen_update_ir)
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
+	m_screen->set_screen_update(FUNC(ir_state::screen_update_ir));
 
 	//MCFG_DEVICE_ADD("audiocpu", M6808, XTAL_4MHz/2) // MC6808P
 	//MCFG_DEVICE_PROGRAM_MAP(sound_map)
@@ -529,7 +530,7 @@ MACHINE_CONFIG_START( ir_state::ir )
 	m_samples->set_channels(9);
 	m_samples->set_samples_names(ir_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
-MACHINE_CONFIG_END
+}
 
 ROM_START( ir )
 	ROM_REGION( 0x10000, "maincpu", 0 )
