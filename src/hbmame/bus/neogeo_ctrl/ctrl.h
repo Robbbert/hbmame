@@ -111,15 +111,6 @@ DECLARE_DEVICE_TYPE(NEOGEO_CTRL_EDGE_CONNECTOR, neogeo_ctrl_edge_port_device)
 //  INTERFACE CONFIGURATION MACROS
 //**************************************************************************
 
-#define MCFG_NEOGEO_CONTROL_PORT_ADD(_tag, _slot_intf, _def_slot, _fixed) \
-	MCFG_DEVICE_ADD(_tag, NEOGEO_CONTROL_PORT, 0) \
-	MCFG_DEVICE_SLOT_INTERFACE(_slot_intf, _def_slot, _fixed)
-
-#define MCFG_NEOGEO_CONTROL_EDGE_CONNECTOR_ADD(_tag, _slot_intf, _def_slot, _fixed) \
-	MCFG_DEVICE_ADD(_tag, NEOGEO_CTRL_EDGE_CONNECTOR, 0) \
-	MCFG_DEVICE_SLOT_INTERFACE(_slot_intf, _def_slot, _fixed)
-
-
 
 void neogeo_controls(device_slot_interface &device);
 void neogeo_arc_edge(device_slot_interface &device);
