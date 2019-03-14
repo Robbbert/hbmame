@@ -7990,7 +7990,7 @@ HACK( 1997, kof97h,     kof97,    neogeo_noslot,   neogeo, neogeo_state,   neoge
 HACK( 1997, kof97k,     kof97,    neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The King of Fighters '97 (Korean release)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97pls,   kof97,    neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "bootleg", "The King of Fighters '97 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97oro,   kof97,    neogeo_noslot,   neogeo, neogeo_state,   kof97oro, ROT0, "bootleg", "The King of Fighters '97 Oroshi Plus 2003 (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kog,        kof97,    neogeo_kog,      neogeo, neogeo_state,   kog,      ROT0, "bootleg", "King of Gladiator (The King of Fighters '97 bootleg)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // protected bootleg
+HACK( 1997, kog,        kof97,    neogeo_kog,      neogeo, neogeo_state,   kog,      ROT0, "bootleg", "King of Gladiator (The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, lastblad,   neogeo,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGM-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, lastbladh,  lastblad, neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGH-2340)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, lastsold,   lastblad, neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "The Last Soldier (Korean release of The Last Blade)", MACHINE_SUPPORTS_SAVE )

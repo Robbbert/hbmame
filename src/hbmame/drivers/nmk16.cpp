@@ -2,12 +2,26 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/nmk16.cpp"
 
-ROM_START( tdragonp ) // not working at all
-	ROM_REGION( 0x80000, "maincpu", 0 )     /* 68000 code -bitswapped- */
-	ROM_LOAD16_BYTE( "91070_68k.8p",  0x00000, 0x20000, CRC(6930fffc) SHA1(571cc735dca654b77cd759b6cc52a74c24d88865) )
-	ROM_LOAD16_BYTE( "91070_68k.7p",  0x00001, 0x20000, CRC(c2d90c90) SHA1(d6c3dd955e516e9dc5efbb7aebc6dee9c49a8c98) )
+// http://daifukkat.su/hacks/tdpract/  describes all about this hack, however nothing on that page works.
+// The patch-bytes below get it to start up, but inputs don't work, and practice mode is unobtainable.
+ROM_START( tdragonp )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "91070_68k.8p",  0x00000, 0x20000, BAD_DUMP CRC(6930fffc) SHA1(571cc735dca654b77cd759b6cc52a74c24d88865) )
+	ROM_LOAD16_BYTE( "91070_68k.7p",  0x00001, 0x20000, BAD_DUMP CRC(c2d90c90) SHA1(d6c3dd955e516e9dc5efbb7aebc6dee9c49a8c98) )
 	ROM_FILL(0, 1, 0) // fix stack
 	ROM_FILL(2, 2, 0)
+	ROM_FILL(0x9320,1,0x42) // fix corruption
+	ROM_FILL(0x9321,1,0x79)
+	ROM_FILL(0x9322,1,0x00)
+	ROM_FILL(0x9323,1,0x0b)
+	ROM_FILL(0x9324,1,0x90)
+	ROM_FILL(0x9325,1,0x08)
+	ROM_FILL(0x8f8e,1,0x48) // fix another corruption
+	ROM_FILL(0x8f8f,1,0x41)
+	ROM_FILL(0x8f90,1,0x42)
+	ROM_FILL(0x8f91,1,0x41)
+	ROM_FILL(0x8f92,1,0xe2)
+	ROM_FILL(0x8f93,1,0x81)
 
 	ROM_REGION( 0x020000, "fgtile", 0 )
 	ROM_LOAD( "91070.6",        0x000000, 0x20000, CRC(fe365920) SHA1(7581931cb95cd5a8ed40e4f5385b533e3d19af22) )
@@ -33,6 +47,7 @@ ROM_START( tdragonp ) // not working at all
 ROM_END
 
 
+// http://daifukkat.su/hacks/td2pract/  describes all about this hack.
 ROM_START( tdragon2p )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "6p.rom",      0x00000, 0x80000, CRC(f99f4bf8) SHA1(34dfc188d94b89efdaa61cfc40af88868d7f22db) )

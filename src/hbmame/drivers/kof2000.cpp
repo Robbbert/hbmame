@@ -3684,7 +3684,7 @@ HACK( 200?, kof2000ds12,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 200?, kof2000ds13,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Unknown",    "Kof2000 (Unlimited Credits In Console Mode)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000ds14,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Unknown",    "Kof2000 (Chinese Edition Plus)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000ds15,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Unknown",    "Kof2000 (Remix Pro 1.0a)(Ver.?)(decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2000ds16,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Unknown",    "Kof2000 (SP Version)(decrypted C)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kof2000ds16,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Unknown",    "Kof2000 (SP Version)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000ds17,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Master Stiller",    "Kof2000 (Remix Colors Set 1)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000ds18,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Master Stiller",    "Kof2000 (Remix Colors Set 2)(decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kof2000ds19,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "Master Stiller",    "Kof2000 (Remix Colors Set 3)(decrypted C)", MACHINE_SUPPORTS_SAVE )
