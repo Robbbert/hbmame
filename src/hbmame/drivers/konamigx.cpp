@@ -1,6 +1,8 @@
-// license:BSD-3-Clause
+	// license:BSD-3-Clause
 // copyright-holders:Robbbert
 #include "../mame/drivers/konamigx.cpp"
+
+// Every game here must be added to the table at about line 3800 in src/mame/drivers/konamigx.cpp
 
 // PSmame (c) gaston90 used with permission
 
@@ -146,7 +148,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragoon Might
-GAME( 200?, dragoonas01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)(ver AAB)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 200?, dragoonas02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)(ver AAB)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 200?, dragoonas03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)(ver AAB)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 200?, dragoonas04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "Unknown", "Dragoon Might (Description Unknown)(ver AAB)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 200?, dragoonas01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)(ver AAB)", 0 )
+GAME( 200?, dragoonas02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)(ver AAB)", 0 )
+GAME( 200?, dragoonas03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)(ver AAB)", 0 )
+GAME( 200?, dragoonas04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "Unknown", "Dragoon Might (Description Unknown)(ver AAB)", 0 )
+

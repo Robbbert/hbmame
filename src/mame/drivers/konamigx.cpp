@@ -3831,6 +3831,10 @@ static const GXGameInfoT gameDefs[] =
 	{ "rungun2",   7, 0, BPP4 },
 	{ "slamdnk2",  7, 0, BPP4 },
 	{ "rushhero",  7, 0, BPP4 },
+	{ "dragoonas01",  7, 3, BPP4 },
+	{ "dragoonas02",  7, 3, BPP4 },
+	{ "dragoonas03",  7, 3, BPP4 },
+	{ "dragoonas04",  7, 3, BPP4 },
 	{ "",        0xff,0xff,0xff },
 };
 
