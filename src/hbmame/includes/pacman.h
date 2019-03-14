@@ -25,6 +25,7 @@ public:
 		, m_mainlatch(*this, "mainlatch")
 		, m_namco_sound(*this, "namco")
 		, m_watchdog(*this, "watchdog")
+		, m_screen(*this, "screen")
 		, m_spriteram(*this, "spriteram")
 		, m_spriteram2(*this, "spriteram2")
 		, m_s2650_spriteram(*this, "s2650_spriteram")
@@ -72,6 +73,7 @@ public:
 	optional_device<ls259_device> m_mainlatch;
 	optional_device<namco_device> m_namco_sound;
 	required_device<watchdog_timer_device> m_watchdog;
+	required_device<screen_device> m_screen;
 	optional_shared_ptr<uint8_t> m_spriteram;
 	optional_shared_ptr<uint8_t> m_spriteram2;
 	optional_shared_ptr<uint8_t> m_s2650_spriteram;

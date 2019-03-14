@@ -421,13 +421,14 @@ GFXDECODE_END
  *
  *************************************/
 
-MACHINE_CONFIG_START( pacman_state::pacman )
-
+void pacman_state::pacman(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", Z80, MASTER_CLOCK/6)
-	MCFG_DEVICE_PROGRAM_MAP(pacman_map)
-	MCFG_DEVICE_IO_MAP(io_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
+	Z80(config, m_maincpu, MASTER_CLOCK/6);
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::pacman_map);
+	m_maincpu->set_addrmap(AS_IO, &pacman_state::io_map);
+	m_maincpu->set_vblank_int("screen", FUNC(pacman_state::vblank_irq));
+
 	WATCHDOG_TIMER(config, m_watchdog).set_vblank_count("screen", 16);
 
 	LS259(config, m_mainlatch); // 74LS259 at 8K or 4099 at 7K
@@ -440,36 +441,41 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	m_mainlatch->q_out_cb<7>().set(FUNC(pacman_state::coin_counter_w));
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacman)
-	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacman)
-	MCFG_SCREEN_PALETTE("palette")
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART);
+	m_screen->set_screen_update(FUNC(pacman_state::screen_update_pacman));
+	m_screen->set_palette("palette");
+
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_pacman);
 	PALETTE(config, m_palette, FUNC(pacman_state::pacman_palette), 128*4, 32);
+
+	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacman)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	NAMCO(config, m_namco_sound, MASTER_CLOCK/6/32);
 	m_namco_sound->set_voices(3);
 	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( pacman_state::pacmanx )
+void pacman_state::pacmanx(machine_config &config)
+{
 	pacman(config);
-	MCFG_SCREEN_MODIFY("screen")
-	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
-	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
-	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacmanx)
+	//config.device_remove("screen");
+	//screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	//screen.set_palette("palette");
+	m_screen->set_raw(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1);
+	m_screen->set_screen_update(FUNC(pacman_state::screen_update_pacmanx));
 	m_gfxdecode->set_info(gfx_pacmanx);
-MACHINE_CONFIG_END
+	MCFG_VIDEO_START_OVERRIDE(pacman_state, pacmanx)
+}
 
 
-MACHINE_CONFIG_START( pacman_state::woodpek )
+void pacman_state::woodpek(machine_config &config)
+{
 	pacman(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::woodpek_map);
+}
 
 
 /*************************************
