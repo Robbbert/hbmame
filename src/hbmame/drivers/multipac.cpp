@@ -294,8 +294,8 @@ void pacman_state::pm4n1_map(address_map &map) {
 	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
-	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -314,8 +314,8 @@ void pacman_state::pm4n1c_map(address_map &map) {
 	map(0x4800,0x4bff).ram().share("nvram");
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -335,8 +335,8 @@ void pacman_state::pm4n1d_map(address_map &map) {
 	map(0x4800,0x4bff).ram().share("nvram");
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1d_rombank_w));
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1d_rombank_w));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -355,8 +355,8 @@ void pacman_state::superabc_map(address_map &map) {
 	map(0x4800,0x49ff).ram().share("nvram");  /* high scores and work area */
 	map(0x4c00,0x4fef).ram();  /* system ram */
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5006,0x5006).w(FUNC(pacman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
+	map(0x5006,0x5006).w(FUNC(pacman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -1879,11 +1879,11 @@ HACK( 1998, multi11,  multi15,  multipac, multipac, pacman_state,  multipac, ROT
 HACK( 1998, multi13,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
-HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
+HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )
