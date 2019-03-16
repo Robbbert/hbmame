@@ -2270,6 +2270,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/sbc6510.cpp",
 	MAME_DIR .. "src/mame/drivers/sitcom.cpp",
 	MAME_DIR .. "src/mame/drivers/slc1.cpp",
+	MAME_DIR .. "src/mame/drivers/slc1a.cpp",
 	MAME_DIR .. "src/mame/drivers/uzebox.cpp",
 	MAME_DIR .. "src/mame/drivers/z80dev.cpp",
 }
@@ -3596,7 +3597,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/mc8030.cpp",
 	MAME_DIR .. "src/mame/drivers/poly880.cpp",
 	MAME_DIR .. "src/mame/includes/poly880.h",
-	MAME_DIR .. "src/mame/drivers/sc1.cpp",
 	MAME_DIR .. "src/mame/drivers/sc2.cpp",
 }
 
@@ -3893,6 +3893,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/mice.cpp",
 	MAME_DIR .. "src/mame/drivers/micral.cpp",
 	MAME_DIR .. "src/mame/drivers/micro20.cpp",
+	MAME_DIR .. "src/mame/drivers/micromon.cpp",
 	MAME_DIR .. "src/mame/drivers/micronic.cpp",
 	MAME_DIR .. "src/mame/includes/micronic.h",
 	MAME_DIR .. "src/mame/drivers/microterm.cpp",

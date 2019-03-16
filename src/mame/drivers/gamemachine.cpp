@@ -1,6 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:hap
-// thanks-to:Sean Riddle
+// thanks-to:Sean Riddle, Couriersud
 /******************************************************************************
 
 Waddingtons 2001: The Game Machine
@@ -23,11 +23,10 @@ labels already show the alternate functions.
 hardware notes:
 - Mostek MK3870 MCU, 2KB internal ROM
 - 12 digits 7seg VFD panel
-- MC1455P(555 timer) + bunch of discrete components for sound, see schematic:
-  http://seanriddle.com/gamemachineaudio.JPG
+- MC1455P(555 timer) + bunch of discrete components for sound
 
 TODO:
-- discrete sound, currently it's emulated crudely, just enough to make it beep when supposed to
+- sound pitch is wrong, standard beep should be highpitched
 - MCU frequency was measured approx 2.1MHz on its XTL2 pin, but considering that
   the MK3870 has an internal /2 divider, this is way too slow when compared to
   video references of the game
@@ -38,10 +37,91 @@ TODO:
 #include "cpu/f8/f8.h"
 #include "machine/f3853.h"
 #include "machine/timer.h"
-#include "sound/beep.h"
 #include "speaker.h"
-
+#include "machine/netlist.h"
+#include "netlist/devices/net_lib.h"
 #include "tgm.lh"
+
+/*
+ * Netlist below provided under Creative Commons CC0
+ */
+
+static NETLIST_START(nl_gamemachine)
+
+	/* Standard stuff */
+
+	SOLVER(Solver, 480000)
+	PARAM(Solver.ACCURACY, 1e-7)
+	ANALOG_INPUT(V5, 5)
+
+	/* Schematics: http://seanriddle.com/gamemachineaudio.JPG
+	 *
+	 * 3870 datasheet: http://nice.kaze.com/MK3870.pdf
+	 *
+	 * The 3870 has mask-programmable outputs (page VIII-7 in datasheet).
+	 *
+	 * Given the schematics, in this case the OPENDRAIN configuration is the
+	 * most probable.
+	 *
+	 */
+
+	NET_MODEL("OPENDRAIN FAMILY(OVL=0.0 OVH=0.0 ORL=1.0 ORH=1e12)")
+	NET_MODEL("TYPE6K FAMILY(OVL=0.05 OVH=0.05 ORL=1.0 ORH=6000)")
+	NET_MODEL("DIRECTDRIVE FAMILY(OVL=0.05 OVH=0.05 ORL=1.0 ORH=1000)")
+
+	LOGIC_INPUT(P08, 1, "OPENDRAIN")
+	LOGIC_INPUT(P09, 1, "OPENDRAIN")
+	LOGIC_INPUT(P10, 1, "OPENDRAIN")
+	LOGIC_INPUT(P11, 1, "OPENDRAIN")
+	LOGIC_INPUT(P12, 1, "OPENDRAIN")
+	LOGIC_INPUT(P13, 1, "OPENDRAIN")
+	LOGIC_INPUT(P14, 1, "OPENDRAIN")
+	LOGIC_INPUT(P15, 1, "OPENDRAIN")
+
+	RES(R1, RES_K(2.4))
+	RES(R2, RES_K(10))
+	RES(R3, RES_K(4.3))
+	RES(R4, RES_K(150))
+	RES(R5, RES_K(240))
+	RES(R6, RES_K(2.4))
+	RES(SPK1, 8)
+
+	CAP(C1, CAP_P(50))
+	CAP(C2, CAP_U(0.001))
+	CAP(C3, CAP_U(0.002))			// Schematics state this as 2pF, doesn't make sense, this looks like a ladder layout
+	CAP(C4, CAP_U(0.005))
+	CAP(C5, CAP_U(0.010))
+
+	CAP(C6, CAP_P(50))
+	CAP(C7, CAP_U(0.01))
+	CAP(C8, CAP_U(470))
+
+	QBJT_EB(Q1, "9013")
+
+	NE555_DIP(IC1)
+
+	NET_C(P08.Q, R2.2, IC1.4)
+	NET_C(P09.Q, C8.2)
+	NET_C(P15.Q, R1.2)
+
+	NET_C(C1.1, P10.Q)
+	NET_C(C2.1, P11.Q)
+	NET_C(C3.1, P12.Q)
+	NET_C(C4.1, P13.Q)
+	NET_C(C5.1, P14.Q)
+
+	NET_C(C1.2, C2.2, C3.2, C4.2, C5.2, C6.2, IC1.2, IC1.6, R5.2)
+	NET_C(GND, C6.1, IC1.1, Q1.E)
+	NET_C(R5.1, R4.2, IC1.7)
+	NET_C(V5, R4.1, R2.1, IC1.8, SPK1.1, R3.1)
+
+	NET_C(C7.1, R6.1, IC1.3)
+	NET_C(C7.2, R6.2, Q1.B)
+	NET_C(Q1.C, SPK1.2)
+
+	NET_C(C8.1, R1.1, R3.2, IC1.5)
+
+NETLIST_END()
 
 
 namespace {
@@ -52,10 +132,13 @@ public:
 	tgm_state(const machine_config &mconfig, device_type type, const char *tag) :
 		driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
-		m_beeper(*this, "beeper"),
+		m_audio_pin(*this, "snd_nl:p%02u", 8U),
 		m_keypad(*this, "IN.%u", 0),
 		m_delay_display(*this, "delay_display_%u", 0),
-		m_out_digit(*this, "digit%u", 0U)
+		m_out_digit(*this, "digit%u", 0U),
+		m_inp_mux(0),
+		m_digit_select(0),
+		m_digit_data(0)
 	{ }
 
 	void tgm(machine_config &config);
@@ -66,7 +149,7 @@ protected:
 private:
 	// devices/pointers
 	required_device<cpu_device> m_maincpu;
-	required_device<beep_device> m_beeper;
+	required_device_array<netlist_mame_logic_input_device, 8> m_audio_pin;
 	required_ioport_array<10> m_keypad;
 	required_device_array<timer_device, 12> m_delay_display;
 	output_finder<12> m_out_digit;
@@ -92,11 +175,6 @@ void tgm_state::machine_start()
 {
 	// resolve handlers
 	m_out_digit.resolve();
-
-	// zerofill
-	m_inp_mux = 0;
-	m_digit_select = 0;
-	m_digit_data = 0;
 
 	// register for savestates
 	save_item(NAME(m_inp_mux));
@@ -180,16 +258,16 @@ READ8_MEMBER(tgm_state::input_r)
 
 WRITE8_MEMBER(tgm_state::sound_w)
 {
-	// P40: 555 reset
-	m_beeper->set_state(~data & 1);
+	// P40-P47: 555 to speaker (see netlist above)
+	for (int i = 0; i < 8; i++)
+		m_audio_pin[i]->write_line(BIT(~data, i));
 
-	// P42-P46: through caps, then 555 trigger/treshold
-	u8 pitch = 0x20 - bitswap<5>(data,6,5,2,3,4);
-	m_beeper->set_clock(64 * pitch);
-
-	// P41: polarized cap, then 555 ctrl
-	// P47: resistor, then 555 ctrl
-	//..
+#if 0
+	static int last = 0;
+	if (data != last)
+		printf("Data: 0x%03x\n", data);
+	last = data;
+#endif
 }
 
 
@@ -284,7 +362,21 @@ void tgm_state::tgm(machine_config &config)
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
-	BEEP(config, m_beeper, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
+	netlist_mame_sound_device &snd_nl(NETLIST_SOUND(config, "snd_nl", 48000));
+
+	snd_nl.set_constructor(netlist_nl_gamemachine);
+	snd_nl.add_route(ALL_OUTPUTS, "speaker", 1.0);
+
+	NETLIST_STREAM_OUTPUT(config, "snd_nl:cout0", 0, "SPK1.2").set_mult_offset(-10000.0, 10000.0 * 3.75);
+
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p08", "P08.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p09", "P09.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p10", "P10.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p11", "P11.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p12", "P12.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p13", "P13.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p14", "P14.IN", 0);
+	NETLIST_LOGIC_INPUT(config, "snd_nl:p15", "P15.IN", 0);
 }
 
 

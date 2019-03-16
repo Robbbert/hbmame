@@ -21406,6 +21406,9 @@ md3                             //
 @source:microkit.cpp
 microkit                        //
 
+@source:micromon.cpp
+micromon7141                    //
+
 @source:micronic.cpp
 micronic                        //
 
@@ -34117,9 +34120,6 @@ sbrkoutct                       // 034555-034559 proto ???? [6502]
 sbugger                         // (c) 1981 Game-A-Tron
 sbuggera                        // (c) 1981 Game-A-Tron
 
-@source:sc1.cpp
-sc1                             //
-
 @source:sc2.cpp
 sc2                             //
 sc2a                            //
@@ -35554,6 +35554,9 @@ slapshot                        // D71 (c) 1994 Taito Corporation (Japan)
 
 @source:slc1.cpp
 slc1                            //
+
+@source:slc1a.cpp
+slc1a
 
 @source:sleic.cpp
 bikerace                        //
