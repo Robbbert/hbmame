@@ -381,7 +381,7 @@ ROM_START( kof95y ) /* The King of Fighters '95 - Hack by Ydmis - (Can choose Ku
 ROM_END
 
 
-HACK( 2012, kof95bln,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Eddids", "Kof'95 (Boss - Like NeogeoCD Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kof95bln,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Eddids", "Kof'95 (Boss Like NeogeoCD Version Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95brz,  kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "ZKW", "Kof'95 (Boss Remixed)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95ce,   kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'95 (Colour Edit)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95d,    kof95,    neogeo_noslot,   neogeo,  neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'95 (NGM-084, Alt Board) ", MACHINE_SUPPORTS_SAVE )
@@ -1162,7 +1162,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '95
-HACK( 1995, kof95s01,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",    "Kof'95 (Boss Hack Like NeogeoCD Version)(NGH-084)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, kof95s01,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",    "Kof'95 (Boss Like NeogeoCD Version Rev.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95s02,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Moe-Luna",    "Kof'95 (Korean Translation)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95s03,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'95 (Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95s04,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami",    "Kof'95 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )

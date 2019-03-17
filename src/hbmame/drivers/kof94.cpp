@@ -1060,5 +1060,5 @@ HACK( 2018, kof94s17,       kof94,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, kof94s18,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'94 (New Remix 2018 Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s19,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'94 (New Remix 2018 Rev.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'94 (Rebout)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "IsmaMj",    "Kof'94 (Xtreme Black v0.8)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "IsmaMj",    "Kof'94 (Xtreme Black v0.8)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'94 (Boss Edition 2016-03-27)", MACHINE_SUPPORTS_SAVE )
