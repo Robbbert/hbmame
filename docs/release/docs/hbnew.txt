@@ -5,7 +5,8 @@
 ----------------
 
 - The "GXB" user is thanked for his enormous cooperation with the new materials that were included in this version
-- It has been renewed several Roms remix that contained bug/glitches of mslugX/4/5.
+- It has been renewed several Roms remix old that contained bug/glitches of mslug/2/X/3/4/5.
+- It has begun to eliminate all duplicate roms with different regions made with the ips. Only for the moment will a region be preserved from now on.
 
 New Games
 ---------------------------------
