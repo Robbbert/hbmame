@@ -1583,9 +1583,9 @@ ROM_START( mslugxz60 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz62 )
+ROM_START( mslugxz61 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "250z62.p1", 0x000000, 0x100000, CRC(764d1bb1) SHA1(e46824646aa46121e8591865f609f457fbb6521e) )
+	ROM_LOAD16_WORD_SWAP( "250z61.p1", 0x000000, 0x100000, CRC(764d1bb1) SHA1(e46824646aa46121e8591865f609f457fbb6521e) )
 	ROM_LOAD16_WORD_SWAP( "250eb.p2", 0x100000, 0x400000, CRC(a51363d1) SHA1(7b6b3490a975ac1e549df60b9d70ccd6d2f2ba6e) )
 
 	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
@@ -12079,7 +12079,7 @@ HACK( 2016, mslugxz57,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2016, mslugxz58,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Edition 2016-10-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslugxz59,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Alloy Warhead X Multi-Carrier Version 2016-10-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslugxz60,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Edition 2016-03-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslugxz62,      mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Edition 2016-10-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, mslugxz61,      mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Edition 2016-10-16)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugxervs01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Enemy Heavy Plate 2013-06-18)(Qing Youlan First Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugxervs02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Enemy Heavy Plate 2013-06-18)(Qing Chuanlan Old Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugxervs03,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Enemy Heavy Plate 2013-06-18)(Green Blue 7.19)", MACHINE_SUPPORTS_SAVE )
