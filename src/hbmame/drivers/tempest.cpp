@@ -608,15 +608,16 @@ ROM_START( aliensva ) /* rev 2? */
 	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-/* tempest multigame */
+/*********************************************************************************************************************************
+
+Tempest Multigame - only the menu rom is dumped. The other roms were gathered up from existing sets.
+
+*********************************************************************************************************************************/
 
 class tempmg_state : public tempest_state
 {
 public:
-	tempmg_state(const machine_config &mconfig, device_type type, const char *tag)
-		: tempest_state(mconfig, type, tag)
-		, m_maincpu(*this, "maincpu")
-	{ }
+	using tempest_state::tempest_state;
 
 	void tempmg(machine_config &config);
 	void init_tempmg();
@@ -624,12 +625,11 @@ public:
 private:
 
 	void tempmg_map(address_map &map);
-	DECLARE_WRITE8_MEMBER(tempmg_rombank_w);
 	DECLARE_MACHINE_RESET(tempmg);
-	required_device<cpu_device> m_maincpu;
+	void rombank_w(u8 data);
 };
 
-WRITE8_MEMBER( tempmg_state::tempmg_rombank_w )
+void tempmg_state::rombank_w(u8 data)
 {
 	data &= 7;
 	uint8_t *RAM = memregion("maincpu")->base();
@@ -641,17 +641,14 @@ WRITE8_MEMBER( tempmg_state::tempmg_rombank_w )
 
 MACHINE_RESET_MEMBER( tempmg_state, tempmg )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	tempmg_rombank_w (space, 0,0);
+	rombank_w(0);
 }
 
 void tempmg_state::init_tempmg()
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x11000], 0x8000); // main roms
 	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000); // vectors
-	tempmg_rombank_w (space, 0,0);
 }
 
 void tempmg_state::tempmg_map(address_map &map) {
@@ -676,24 +673,18 @@ void tempmg_state::tempmg_map(address_map &map) {
 	map(0x60d0, 0x60df).rw("pokey2",FUNC(pokey_device::read),FUNC(pokey_device::write));
 	map(0x60e0, 0x60e0).w(FUNC(tempmg_state::tempest_led_w));
 	map(0x9000, 0xdfff).bankr("bank1");
-	map(0xe000, 0xe000).w(FUNC(tempmg_state::tempmg_rombank_w));
+	map(0xe000, 0xe000).lw8("rombank", [this] (u8 data) { rombank_w(data); });
 	map(0xf800, 0xffff).bankr("bank2");
 }
 
-MACHINE_CONFIG_START( tempmg_state::tempmg )
-	tempest(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(tempmg_map)
-	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
-MACHINE_CONFIG_END
-#if 0
+
 void tempmg_state::tempmg(machine_config &config)
 {
 	tempest(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &tempmg_state::tempmg_map);
 	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
 }
-#endif
+
 ROM_START( tempmg )
 	ROM_REGION( 0x50000, "maincpu", 0 )
 	ROM_LOAD( "tempmg-113.d1",   0x11000, 0x0800, CRC(8a6633fb) SHA1(b143a5d2019f24666b350b40b0dab2924bb9c7c0) )
