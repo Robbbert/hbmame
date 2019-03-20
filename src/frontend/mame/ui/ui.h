@@ -214,6 +214,10 @@ public:
 	void draw_profiler(render_container &container);
 	void start_save_state();
 	void start_load_state();
+	// config callbacks
+	void config_load(config_type cfg_type, util::xml::data_node const *parentnode);
+	void config_save(config_type cfg_type, util::xml::data_node *parentnode);
+	void config_apply(void);
 
 	// slider controls
 	std::vector<ui::menu_item>&  get_slider_list(void);
@@ -299,6 +303,7 @@ private:
 	#endif
 
 	std::vector<std::unique_ptr<slider_state>> m_sliders;
+	std::vector<std::unique_ptr<slider_state>> m_sliders_saved;
 };
 
 
