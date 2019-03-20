@@ -31,7 +31,8 @@
 #include "ide.h"
 #include "xtide.h"
 #include "side116.h"
-#include "aha1542.h"
+#include "aha1542b.h"
+#include "aha1542c.h"
 #include "wd1002a_wx1.h"
 #include "wd1007a.h"
 #include "mcd.h"
@@ -153,7 +154,11 @@ void pc_isa16_cards(device_slot_interface &device)
 	// 16-bit
 	device.option_add("ide", ISA16_IDE);
 	device.option_add("ne2000", NE2000);
-	device.option_add("aha1542", AHA1542);
+	device.option_add("aha1542a", AHA1542A);
+	device.option_add("aha1542b", AHA1542B);
+	device.option_add("aha1542c", AHA1542C);
+	device.option_add("aha1542cf", AHA1542CF);
+	device.option_add("aha1542cp", AHA1542CP);
 	device.option_add("gus",ISA16_GUS);
 	device.option_add("sblaster_16", ISA16_SOUND_BLASTER_16);
 	device.option_add("svga_s3", ISA16_SVGA_S3);
