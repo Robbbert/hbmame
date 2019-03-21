@@ -172,3 +172,4 @@ GAME( 200?, msgundams01,  msgundam,  msgundam,  msgundam,  seta_state,     empty
 // Rezon
 GAME( 200?, rezons01,     rezon,     rezon,     rezon,     seta_state,     init_rezon,     ROT0,   "Unknown",  "Rezon (3 button version (Fixed Vaws, Rapid Fire))", 0 )
 GAME( 200?, rezonts01,    rezon,     rezon,     rezont,    seta_state,     init_rezon,     ROT0,   "Unknown",  "Rezon (3 button version (Fixed Vaws, Rapid Fire))(Taito)", 0 )
+

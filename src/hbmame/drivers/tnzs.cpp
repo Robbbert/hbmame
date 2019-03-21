@@ -27,3 +27,5 @@ ROM_END
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
 // Insector X
 GAME( 200?, insectxs01,      insectx,        insectx,  insectx,  insectx_state,  empty_init, ROT0,   "Unknown", "Insector X (Translation Chinese)(World)", MACHINE_SUPPORTS_SAVE )
+
+

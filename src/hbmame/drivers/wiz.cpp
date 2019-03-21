@@ -41,11 +41,11 @@ ROM_END
 
 ROM_START( stinger2s01 )
 	ROM_REGION( 0xc000, "maincpu", 0 )
-	ROM_LOAD( "n1.bin",       0x0000, 0x2000, CRC(f2d2790c) SHA1(0e5e92ef45b5bc27b0818f83c89b3bda0e701403) )    /* encrypted */
-	ROM_LOAD( "n2_ps01.bin",       0x2000, 0x2000, CRC(17723c86) SHA1(229dd847a58cf0fbd8a3b52c41178636e6ad9425) )    /* encrypted */
-	ROM_LOAD( "n3.bin",       0x4000, 0x2000, CRC(f1794d36) SHA1(7954500f489c0bc58cda8e7ffc2e4474759fdc33) )    /* encrypted */
-	ROM_LOAD( "n4.bin",       0x6000, 0x2000, CRC(230ba682) SHA1(c419ffebd021d41b3f5021948007fb6bcdb1cdf7) )    /* encrypted */
-	ROM_LOAD( "n5.bin",       0x8000, 0x2000, CRC(a03a01da) SHA1(28fecac7a821ac4718242919840266a907160df0) )    /* encrypted */
+	ROM_LOAD( "n1.bin",       0x0000, 0x2000, CRC(f2d2790c) SHA1(0e5e92ef45b5bc27b0818f83c89b3bda0e701403) )
+	ROM_LOAD( "n2_ps01.bin",  0x2000, 0x2000, CRC(17723c86) SHA1(229dd847a58cf0fbd8a3b52c41178636e6ad9425) )
+	ROM_LOAD( "n3.bin",       0x4000, 0x2000, CRC(f1794d36) SHA1(7954500f489c0bc58cda8e7ffc2e4474759fdc33) )
+	ROM_LOAD( "n4.bin",       0x6000, 0x2000, CRC(230ba682) SHA1(c419ffebd021d41b3f5021948007fb6bcdb1cdf7) )
+	ROM_LOAD( "n5.bin",       0x8000, 0x2000, CRC(a03a01da) SHA1(28fecac7a821ac4718242919840266a907160df0) )
 
 	ROM_REGION( 0x2000, "audiocpu", 0 )
 	ROM_LOAD( "6-9f.bin",     0x0000, 0x2000, CRC(79757f0c) SHA1(71be938c32c6a84618763761786ecc5d7d47581a) )
@@ -61,12 +61,14 @@ ROM_START( stinger2s01 )
 	ROM_LOAD( "12.bin",       0x4000, 0x2000, CRC(b60fa88c) SHA1(2d3bca35076625251933989f5e566d5d3290542b) )
 
 	ROM_REGION( 0x0300,  "proms", 0 )
-	ROM_LOAD( "stinger.a7",   0x0000, 0x0100, CRC(52c06fc2) SHA1(b416077fcfabe0dbb1ca30752de6a219ea896f75) )    /* red component */
-	ROM_LOAD( "stinger.b7",   0x0100, 0x0100, CRC(9985e575) SHA1(b0d609968917121325760f8d4777066abdb7ccfc) )    /* green component */
-	ROM_LOAD( "stinger.a8",   0x0200, 0x0100, CRC(76b57629) SHA1(836763948753b7fed97c9e5d90a16dc4ba68f42a) )    /* blue component */
+	ROM_LOAD( "stinger.a7",   0x0000, 0x0100, CRC(52c06fc2) SHA1(b416077fcfabe0dbb1ca30752de6a219ea896f75) )
+	ROM_LOAD( "stinger.b7",   0x0100, 0x0100, CRC(9985e575) SHA1(b0d609968917121325760f8d4777066abdb7ccfc) )
+	ROM_LOAD( "stinger.a8",   0x0200, 0x0100, CRC(76b57629) SHA1(836763948753b7fed97c9e5d90a16dc4ba68f42a) )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Stinger
 GAME( 200?, stingers01,  stinger, stinger, stinger,  wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
 GAME( 200?, stinger2s01, stinger, stinger, stinger2, wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)(prototype?)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
+
+
