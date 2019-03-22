@@ -129,17 +129,6 @@ uint32_t pacman_state::screen_update_pacmanx(screen_device &screen, bitmap_ind16
   MULTIPAC adapted for HBMAME by Robbbert
  ************************************************************************/
 
-static void init_save_state_multipac(running_machine &machine)
-{
-	pacman_state *state = machine.driver_data<pacman_state>();
-	state->save_item(NAME(state->m_charbank));
-	state->save_item(NAME(state->m_spritebank));
-	state->save_item(NAME(state->m_palettebank));
-	state->save_item(NAME(state->m_colortablebank));
-	state->save_item(NAME(state->m_flipscreen));
-	state->save_item(NAME(state->m_bgpriority));
-}
-
 TILE_GET_INFO_MEMBER(pacman_state::multipac_get_tile_info )
 {
 	int code = m_videoram[tile_index] | (m_charbank << 8);
@@ -150,7 +139,12 @@ TILE_GET_INFO_MEMBER(pacman_state::multipac_get_tile_info )
 
 VIDEO_START_MEMBER( pacman_state, multipac )
 {
-	init_save_state_multipac(machine());
+	save_item(NAME(m_charbank));
+	save_item(NAME(m_spritebank));
+	save_item(NAME(m_palettebank));
+	save_item(NAME(m_colortablebank));
+	save_item(NAME(m_flipscreen));
+	save_item(NAME(m_bgpriority));
 
 	m_charbank = 0;
 	m_spritebank = 0;
