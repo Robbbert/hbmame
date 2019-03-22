@@ -321,6 +321,18 @@ ROM_START( gaylaxn )
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 ROM_END
 
+ROM_START( tst_galx1 )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "test.u",       0x0000, 0x0800, CRC(0614cd7f) SHA1(12440678be8a27a6c3032b6e43c45e27905ffa83) )   /*  The Test ROM */
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
+	ROM_LOAD( "1k.bin",       0x0800, 0x0800, CRC(7e3f56a2) SHA1(a9795d8b7388f404f3b0e2c6ce15d713a4c5bafa) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 #if 0
 ROM_START( gmunch )
 	/* There was gmunch and gmunch2, using same roms, different proms. But colours are completely wrong in either case
@@ -730,6 +742,7 @@ HACK( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, R
 HACK( 1979, galnamco, 0,        galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_hbmame, galaxian, ROT90, "Krazy Ivan", "Mr. Do Nightmare", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, tst_galx1, galnamco, galaxian, galaxian, galaxian_state,  init_galaxian,   ROT90,  "<unknown>", "Galaxian Test ROM", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
 
 
