@@ -32,6 +32,16 @@
  Clones include most hacks
 
  See the MAME source code for hardware information.
+ 
+ 
+ Notes for the speedup cheat.
+ - Only applies to games that run at normal speed
+ - Only applies if the rom has the bytes in the usual place
+ - If always enabled, the patch is applied when start pressed.
+   This fixes the BAD ROM message at boot.
+ - If you change the dipswitch during a game, you need to
+   press Fire to activate the change.
+
 ********************************************************/
 
 #include "emu.h"
@@ -89,41 +99,53 @@ WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
 	m_maincpu->set_input_line(0, CLEAR_LINE);
 }
 
-/* bit0 flags if memory poke already done */
-
-INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
+// Apply the speedup hack depending on dipswitch and fire button
+void pacman_state::speedcheat()
 {
-	uint8_t cheat_exist = m_io_fake.read_safe(120);
+	u8 fake_input = m_io_fake->read() & 7;
 
-	/* always signal a normal VBLANK */
-	if(m_irq_mask)
-		device.execute().set_input_line(0, HOLD_LINE);
+	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 
-	if (cheat_exist != 120)
+	if (fake_input > 2) /* activate the cheat */
 	{
-		uint8_t cheating = ((cheat_exist & 7) > 2); /* are we cheating? */
-
-		if (cheating != (m_speedcheat & 1)) /* if status just changed, alter program bytes */
-		{
-			uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
-			m_speedcheat = (m_speedcheat & 2) | cheating;
-
-			if (cheating) /* activate the cheat */
-			{
-				if (RAM[0x180b] == 0xbe) RAM[0x180b] = 1; /* pacman */
-				else
-				if (RAM[0x182d] == 0xbe) RAM[0x182d] = 1; /* pacplus */
-			}
-			else /* remove the cheat */
-			{
-				if (RAM[0x180b] == 1) RAM[0x180b] = 0xbe; /* pacman */
-				else
-				if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe; /* pacplus */
-			}
-		}
+		if (RAM[0x180b] == 0xbe) RAM[0x180b] = 1; /* pacman */
+		else
+		if (RAM[0x182d] == 0xbe) RAM[0x182d] = 1; /* pacplus */
+	}
+	else /* remove the cheat */
+	{
+		if (RAM[0x180b] == 1) RAM[0x180b] = 0xbe; /* pacman */
+		else
+		if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe; /* pacplus */
 	}
 }
 
+INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
+{
+	if(m_irq_mask)
+		device.execute().set_input_line(0, HOLD_LINE);
+}
+
+// When fire button pressed or released, see if cheat should turn on or off
+INPUT_CHANGED_MEMBER(pacman_state::pacman_fake)
+{
+	speedcheat();
+}
+
+// When start button pressed for the first time, see if cheat should turn on
+READ8_MEMBER( pacman_state::in1_r )
+{
+	u8 data = ioport("IN1")->read();
+	if ((data & 0x60) < 0x60)
+		if (m_speedcheat != 120)
+		{
+			if (m_io_fake.read_safe(120) == 4)
+				speedcheat();
+			m_speedcheat = 120;
+		}
+
+	return data;
+}
 
 /*************************************
  *
@@ -179,7 +201,7 @@ void pacman_state::pacman_map(address_map &map) {
 	map(0x5070,0x5080).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x5000,0x5000).portr("IN0");
-	map(0x5040,0x5040).portr("IN1");
+	map(0x5040,0x5040).r(FUNC(pacman_state::in1_r));
 	map(0x5080,0x5080).portr("DSW1");
 	map(0x50c0,0x50c0).portr("DSW2");
 }
@@ -197,7 +219,7 @@ void pacman_state::woodpek_map(address_map &map) {
 	map(0x5070,0x5080).mirror(0x8000).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x5000,0x5000).mirror(0x8000).portr("IN0");
-	map(0x5040,0x5040).mirror(0x8000).portr("IN1");
+	map(0x5040,0x5040).mirror(0x8000).r(FUNC(pacman_state::in1_r));
 	map(0x5080,0x5080).mirror(0x8000).portr("DSW1");
 	map(0x50c0,0x50c0).mirror(0x8000).portr("DSW2");
 	map(0x8000,0xbfff).rom();
@@ -277,7 +299,7 @@ INPUT_PORTS_START( mspacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, pacman_state, pacman_fake, nullptr)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
@@ -338,7 +360,7 @@ INPUT_PORTS_START( pacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, pacman_state, pacman_fake, nullptr)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )

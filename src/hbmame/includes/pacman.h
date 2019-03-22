@@ -134,6 +134,7 @@ public:
 	DECLARE_WRITE8_MEMBER(rocktrv2_question_bank_w);
 	DECLARE_READ8_MEMBER(rocktrv2_question_r);
 	DECLARE_READ8_MEMBER(pacman_read_nop);
+	DECLARE_READ8_MEMBER(in1_r);
 	DECLARE_READ8_MEMBER(mspacman_disable_decode_r_0x0038);
 	DECLARE_READ8_MEMBER(mspacman_disable_decode_r_0x03b0);
 	DECLARE_READ8_MEMBER(mspacman_disable_decode_r_0x1600);
@@ -310,7 +311,9 @@ public:
 	DECLARE_WRITE8_MEMBER(multipac_gfxbank_w);	
 	DECLARE_WRITE8_MEMBER(multipac_palbank_w);
 	TILE_GET_INFO_MEMBER(multipac_get_tile_info);
+	DECLARE_INPUT_CHANGED_MEMBER(pacman_fake);
 	uint8_t m_speedcheat;
+	void speedcheat();
 	uint8_t m_timerthing;
 	DECLARE_READ8_MEMBER(mspacii_prot_r);
 	DECLARE_READ8_MEMBER(zolatimer_r);

@@ -117,25 +117,10 @@ public:
 
 private:
 
-	DECLARE_WRITE8_MEMBER(jrpacman_interrupt_vector_w);
-	DECLARE_WRITE_LINE_MEMBER(irq_mask_w);
-	INTERRUPT_GEN_MEMBER(vblank_irq);
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
 };
 
-
-
-WRITE8_MEMBER(jrpacman_state::jrpacman_interrupt_vector_w)
-{
-	m_maincpu->set_input_line_vector(0, data);
-	m_maincpu->set_input_line(0, CLEAR_LINE);
-}
-
-WRITE_LINE_MEMBER(jrpacman_state::irq_mask_w)
-{
-	m_irq_mask = state;
-}
 
 /*************************************
  *
@@ -148,9 +133,9 @@ void jrpacman_state::mem_map(address_map &map) {
 	map(0x4000,0x47ff).ram().w(FUNC(jrpacman_state::jrpacman_videoram_w)).share("videoram");
 	map(0x4800,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
-	map(0x5000,0x503f).portr("P1");
+	map(0x5000,0x503f).portr("IN0");
 	map(0x5000,0x5007).w("latch1",FUNC(ls259_device::write_d0));
-	map(0x5040,0x507f).portr("P2");
+	map(0x5040,0x507f).r(FUNC(jrpacman_state::in1_r));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x5077).w("latch2",FUNC(ls259_device::write_d0));
@@ -159,7 +144,7 @@ void jrpacman_state::mem_map(address_map &map) {
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x8000,0xdfff).rom();
 // HBMAME extras
-	//AM_RANGE(0x5004, 0x5005) AM_WRITE(pacman_leds_w)
+	//map(0x5004, 0x5005).w(FUNC(pacman_leds_w));
 	map(0x5078,0x507f).nopw();
 	map(0xfffc,0xffff).ram();  /* for jrfast and fastjr */
 }
@@ -167,7 +152,7 @@ void jrpacman_state::mem_map(address_map &map) {
 
 void jrpacman_state::io_map(address_map &map) {
 	map.global_mask(0xff);
-	map(0,0).w(FUNC(jrpacman_state::jrpacman_interrupt_vector_w));
+	map(0,0).w(FUNC(jrpacman_state::pacman_interrupt_vector_w));
 }
 
 
@@ -179,7 +164,7 @@ void jrpacman_state::io_map(address_map &map) {
  *************************************/
 
 static INPUT_PORTS_START( jrpacman )
-	PORT_START("P1")
+	PORT_START("IN0")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
@@ -190,7 +175,7 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN3 )
 
-	PORT_START("P2")
+	PORT_START("IN1")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_COCKTAIL
@@ -229,7 +214,7 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, jrpacman_state, pacman_fake, nullptr)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
@@ -286,19 +271,13 @@ GFXDECODE_END
  *
  *************************************/
 
-INTERRUPT_GEN_MEMBER(jrpacman_state::vblank_irq)
-{
-	if(m_irq_mask)
-		device.execute().set_input_line(0, HOLD_LINE);
-}
-
 void jrpacman_state::jrpacman(machine_config &config)
 {
 	/* basic machine hardware */
 	Z80(config, m_maincpu, 18432000/6);    /* 3.072 MHz */
 	m_maincpu->set_addrmap(AS_PROGRAM, &jrpacman_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &jrpacman_state::io_map);
-	m_maincpu->set_vblank_int("screen", FUNC(pacman_state::vblank_irq));
+	m_maincpu->set_vblank_int("screen", FUNC(jrpacman_state::vblank_irq));
 
 	ls259_device &latch1(LS259(config, "latch1")); // 5P
 	latch1.q_out_cb<0>().set(FUNC(jrpacman_state::irq_mask_w));
