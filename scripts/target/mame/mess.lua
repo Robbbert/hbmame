@@ -138,7 +138,7 @@ CPUS["CLIPPER"] = true
 CPUS["CAPRICORN"] = true
 CPUS["ALPHA"] = true
 --CPUS["DSPP"] = true
---CPUS["HPC"] = true
+CPUS["HPC"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -943,6 +943,7 @@ FORMATS["NASCOM_DSK"] = true
 FORMATS["NASLITE_DSK"] = true
 FORMATS["NES_DSK"] = true
 FORMATS["NFD_DSK"] = true
+FORMATS["OPD_DSK"] = true
 FORMATS["ORAO_CAS"] = true
 FORMATS["ORIC_DSK"] = true
 FORMATS["ORIC_TAP"] = true
@@ -1558,7 +1559,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/apollo.cpp",
 	MAME_DIR .. "src/mame/includes/apollo.h",
 	MAME_DIR .. "src/mame/machine/apollo.cpp",
-	MAME_DIR .. "src/mame/machine/apollo_dbg.cpp",
 	MAME_DIR .. "src/mame/machine/apollo_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/apollo_kbd.h",
 	MAME_DIR .. "src/mame/video/apollo.cpp",
@@ -3773,6 +3773,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/aci_borisdpl.cpp",
 	MAME_DIR .. "src/mame/drivers/adm23.cpp",
 	MAME_DIR .. "src/mame/drivers/adm31.cpp",
+	MAME_DIR .. "src/mame/drivers/adm36.cpp",
 	MAME_DIR .. "src/mame/drivers/akaiax80.cpp",
 	MAME_DIR .. "src/mame/drivers/alcat7100.cpp",
 	MAME_DIR .. "src/mame/drivers/alesis_qs.cpp",
