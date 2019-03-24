@@ -30865,7 +30865,8 @@ ondrav                          //
 
 @source:oneshot.cpp
 maddonna                        // (c) 1995 Tuning
-maddonnb                        // (c) 1995 Tuning
+komocomo                       //
+maddonnab                       // (c) 1995 Tuning
 oneshot                         // no copyright notice
 
 @source:onetwo.cpp
@@ -37695,6 +37696,10 @@ timepltc                        // GX393 (c) 1982 + Centuri license
 timetrv                         // (c) 1991.10 Virtual Image Productions
 timetrv2                        // (c) 1991.10 Virtual Image Productions
 
+@source:titan_soc.cpp
+megadri4
+megadri4a
+
 @source:timex.cpp
 tc2048                          // 198? TC2048
 ts2068                          // 1983 TS2068
@@ -38439,6 +38444,9 @@ uts20                           //
 
 @source:unkhorse.cpp
 unkhorse                        //
+
+@source:unkpoker.cpp
+unkpoker                         //
 
 @source:upscope.cpp
 upscope                         // (c) 1986 Grand products
@@ -40060,6 +40068,7 @@ yiear                           // GX407 (c) 1985
 yiear2                          // GX407 (c) 1985
 
 @source:ymmu100.cpp
+mu50                            // 1995 MU-50
 mu80                            // 1994 MU-80
 mu100                           // 1997 MU-100
 mu100r                          // 1997 MU-100 Rackable version

@@ -1381,6 +1381,7 @@ tst_galx1
 vectrgal	/* T-Bone hack of Galaxian */
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
+//tenn				// test of tenspot
 
 @source:gauntlet.cpp
 gaunt2		//parent

@@ -137,8 +137,10 @@ CPUS["NANOPROCESSOR"] = true
 CPUS["CLIPPER"] = true
 CPUS["CAPRICORN"] = true
 CPUS["ALPHA"] = true
+CPUS["NS32000"] = true
 --CPUS["DSPP"] = true
 CPUS["HPC"] = true
+CPUS["MEG"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -3553,6 +3555,7 @@ files {
 	MAME_DIR .. "src/mame/machine/xavix2002_io.cpp",
 	MAME_DIR .. "src/mame/machine/xavix2002_io.h",
 	MAME_DIR .. "src/mame/drivers/xavix2.cpp",
+	MAME_DIR .. "src/mame/drivers/titan_soc.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "ultimachine")
